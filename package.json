@@ -1,16 +1,16 @@
 {
-  "name": "apple-music-electron",
-  "applicationId": "AppleMusicElectron",
-  "productName": "Apple Music",
-  "version": "3.0.0",
-  "description": "An open-source, GPU-accelerated Electron application that emulates the Apple Music website in a customizable interface.",
+  "name": "cider",
+  "applicationId": "Cider",
+  "productName": "Cider",
+  "version": "1.0.0",
+  "description": "A new look into listening and enjoying music in style and performance.",
   "license": "MIT",
-  "author": "Apple Music Electron Team <cryptofyre@cryptofyre.org> (https://applemusicelectron.com)",
-  "repository": "https://github.com/Apple-Music-Electron/Apple-Music-Electron.git",
+  "author": "Cider Development Team <cryptofyre@cryptofyre.org> (https://cider.sh)",
+  "repository": "https://github.com/Apple-Music-Electron/Cider.git",
   "bugs": {
-    "url": "https://github.com/Apple-Music-Electron/Apple-Music-Electron/issues?q=is%3Aopen+is%3Aissue+label%3Abug"
+    "url": "https://github.com/Apple-Music-Electron/Cider/issues?q=is%3Aopen+is%3Aissue+label%3Abug"
   },
-  "homepage": "https://applemusicelectron.com/",
+  "homepage": "https://cider.sh/",
   "buildResources": "resources",
   "scripts": {
     "init": "yarn install --force",
@@ -86,10 +86,10 @@
       "version": "15.3.1-wvvmp",
       "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
     },
-    "appId": "apple-music",
+    "appId": "cider",
     "protocols": [
       {
-        "name": "Apple Music Electron",
+        "name": "Cider",
         "schemes": [
           "ame",
           "itms",
@@ -111,10 +111,10 @@
         "snap",
         "rpm"
       ],
-      "synopsis": "Electron wrapper for Apple Music Web App.",
+      "synopsis": "A new look into listening and enjoying music in style and performance. ",
       "category": "AudioVideo",
-      "icon": "apple-music-electron",
-      "executableName": "apple-music-electron"
+      "icon": "cider",
+      "executableName": "cider"
     },
     "win": {
       "target": [
@@ -123,10 +123,10 @@
       "icon": "./resources/icons/icon.ico"
     },
     "appx": {
-      "applicationId": "applemusicelectron",
+      "applicationId": "cider",
       "publisher": "CN=cryptofyre",
-      "displayName": "Apple Music Electron",
-      "identityName": "AppleMusicElectron",
+      "displayName": "Cider",
+      "identityName": "Cider",
       "backgroundColor": "#CD001A",
       "setBuildNumber": true
     },

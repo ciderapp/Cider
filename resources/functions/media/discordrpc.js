@@ -73,7 +73,7 @@ module.exports = {
             smallImageText: (attributes.status ? 'Playing': 'Paused'),
             instance: true,
             buttons: [
-                {label: "Listen on AME", url: listenURL},
+                {label: "Listen on Cider", url: listenURL},
             ]
         };
         console.verbose(`[LinkHandler] Listening URL has been set to: ${listenURL}`);
