@@ -1,0 +1,53 @@
+@media only screen and (max-width: 1000px) {
+    /* Block the Profile Picture */
+    .web-navigation__auth {
+        display: none !important;
+        position: fixed !important;
+        overflow: hidden !important;
+    }
+}
+
+@media only screen and (max-width: 700px) and (min-width: 485px) {
+    :root {
+        --web-navigation-width: 0 !important;
+    }
+
+    /* Hide Entire Sidebar */
+    #web-navigation-container {
+        display: none !important;
+        position: fixed !important;
+        overflow: hidden !important;
+        z-index: 9901 !important;
+    }
+
+    .web-chrome {
+        width: 100vw !important;
+    }
+}
+
+@media only screen and (max-height: 100px) and (max-width: 485px) {
+    #web-navigation-container, .menuicon {
+        display: none !important;
+        position: fixed !important;
+        overflow: hidden !important;
+        z-index: 9901 !important;
+    }
+
+    .web-nav-window-controls, .web-nav-window-controls-outer {
+        display: none !important;
+        position: fixed !important;
+        overflow: hidden !important;
+    }
+}
+
+/* Removes Apple Logo */
+.web-navigation__header--logo {
+    display: none !important;
+    overflow: hidden !important;
+}
+
+/* Remove Upsell */
+.web-navigation__native-upsell {
+    display: none !important;
+    overflow: hidden !important;
+}

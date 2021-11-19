@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Lyrics</title>
+	<script type="text/javascript" src="Vibrant.js"></script>
+	<script type="text/javascript" src="../js/lyrics.js"></script>
+	<link rel="stylesheet" href="../css/lyricer.css">
+	<link rel="stylesheet" href="https://www.apple.com/wss/fonts?families=SF+Pro,v4|SF+Pro+Icons,v1&display=swap">
+	<link href="https://fonts.googleapis.com/css?family=M+PLUS+1p" rel="stylesheet">
+</head>
+<body style="margin: 0;">
+    <img style="" id="backgroundImage"></img>
+	<div style="width: 100%; height: 100%; opacity: 0.8;  z-index: 1; background-color: rgba(0, 0, 0, 0.5); position: absolute;"></div>
+	<div id ='info' style="z-index: 2;">
+		<img id="albumart"></img>
+	<div id="title"></div>
+	<div id="details"></div>
+	</div>
+
+	<div id="lyricer">
+	</div>
+	<script type="text/javascript">
+	const { ipcRenderer } = require('electron');
+
+	function changeStylesheetRule(stylesheet, selector, property, value) {
+	selector = selector.toLowerCase();
+	property = property.toLowerCase();
+	value = value.toLowerCase();
+
+	for(var i = 0; i < stylesheet.cssRules.length; i++) {
+		var rule = stylesheet.cssRules[i];
+		if(rule.selectorText === selector) {
+			rule.style[property] = value;
+			return;
+		}
+	}
+
+	stylesheet.insertRule(selector + " { " + property + ": " + value + "; }", 0);
+    }
+	var w = window.innerWidth;
+    var h = window.innerHeight;
+	document.getElementById("title").style.top = Math.floor(0.1*h + 0.40*w)+'px'
+    document.getElementById("details").style.top = Math.floor(0.1*h + 0.42*w)+'px'
+	var text = "";
+	var lrc = new Lyricer({focus:'start'});
+	lrc.setFocus('start');	
+	ipcRenderer.on('truelyrics', function (event, lrcfile) {
+	if (lrc != null && lrcfile!= null && lrcfile.length > 0)
+	lrc.setLrc(lrcfile);
+
+    });
+	ipcRenderer.on('albumart', function (event, data) {
+		document.getElementById("albumart").setAttribute('src',`${data}`);
+		document.getElementById("backgroundImage").setAttribute('src',`${data}`);
+		document.getElementById("backgroundImage").onload = function() {
+		var vibrant = new Vibrant(this,128,3);
+		for (var swatch in swatches);
+		var swatches = vibrant.swatches();
+        if (swatches.hasOwnProperty(swatch) && swatches[swatch])
+            console.log(swatch, swatches[swatch].getHex());
+		var selectedswatch = (swatches['LightVibrant'] != null ) ? swatches['LightVibrant'] : swatches['Vibrant'];
+		changeStylesheetRule(document.styleSheets[0],'#lyricer ul li','color',selectedswatch.getHex());
+		}
+
+
+    });
+	ipcRenderer.on('updateMiniPlayerMetaData', function (event, track, artist, album) {
+      console.log('ugh');
+	  var w = window.innerWidth;
+      var h = window.innerHeight;
+	  document.getElementById("title").style.top = Math.floor(0.1*h + 0.40*w)+'px'
+	  document.getElementById("details").style.top = Math.floor(0.1*h + 0.42*w)+'px'
+      document.getElementById("title").textContent = track;
+	  document.getElementById("details").textContent = artist + " - " + album ;
+    });
+
+	ipcRenderer.on('ProgressTimeUpdate', function (event, data) {
+    if (data < 0){data = 0};
+	lrc.move(data);
+    });
+
+	lrc.setLrc(text);
+	window.addEventListener("lyricerclick", function(e){
+		ipcRenderer.send('ProgressTimeUpdateFromLyrics',e.detail.time);
+		console.log('clicked on ' + e.detail.time);
+	});
+	</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+/**
+ * @name Acrylic
+ * @author cryptofyre
+ * @description Transparent theme for use with Acrylic themesets.
+*/
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --transparency: #0f0f0f00 !important;
+        --sidebar: #0f0f0f00 !important;
+        --pageBG: #0f0f0f00 !important;
+        --playerBackground: #0f0f0f00 !important;
+        --systemHeaderMaterialSover-default_IC: #0f0f0f00 !important;
+        --systemHeaderMaterialSover: #0f0f0f00 !important;
+        --playerLCDBGFill: transparent!important;
+        --playerLCDBGOuterStroke: transparent!important;
+        
+    }
+
+    .dt-search-box__input {
+        background-color: #0f0f0f00 !important;
+    }
+}

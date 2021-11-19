@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Lyrics</title>
+	<script type="text/javascript" src="../js/lyrics.js"></script>
+	<link rel="stylesheet" href="../css/lyricer.css">
+	<link href="https://fonts.googleapis.com/css?family=M+PLUS+1p" rel="stylesheet">
+</head>
+<body style="margin: 0;">
+    <img style="" id="backgroundImage" alt="Background Image"></img>
+	<div style="width: 100%; height: 100%; opacity: 0.8;  z-index: 1; background-color: rgba(0, 0, 0, 0.5); position: absolute;"></div>
+	<div id="lyricer">
+	</div>
+	<script type="text/javascript">
+	const { ipcRenderer } = require('electron');
+	const yt = require('youtube-search-without-api-key');
+	var text = "";
+	var lrcfile = "";
+	var lrc = new Lyricer();
+	var prevartist = '';
+	var prevtrack = '';
+	var prevlyrics = ['','','','','']; //track, artist, songid, lyrics, translated lyrics
+    var globaltoken = '';
+	function revisedRandId() {
+     return Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10);
+    }
+
+	async function getYTSubs(track, artist, lang) {
+
+		console.log(decodeURIComponent(track) +" "+ decodeURIComponent(artist) + " official video");
+		const videos = await yt.search(decodeURIComponent(track) +" "+ decodeURIComponent(artist) +  " official video");
+		try{
+			if (videos != null & videos.length > 0){
+				var id = videos[0]['id']['videoId'];
+				getYTTrans(id,lang);
+			}
+		}catch(e){}
+    }
+	function getYTTrans(id, lang){
+		if (lang != "disabled" && id != ''){
+			var url2  = `http://video.google.com/timedtext?lang=${lang}&v=${id}`;			
+			var req2 = new XMLHttpRequest(); 
+			
+			req2.open('GET', url2, true);
+			req2.onload  = function() {
+				const ttmlLyrics = this.responseText;
+                let lyrics = "";
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(ttmlLyrics, "text/xml");
+                const lyricsLines = doc.getElementsByTagName('text');
+                const endTime = [0];
+				try {
+                    for (let element of lyricsLines) {
+                            rawTime = element.getAttribute('start').match(/(\d+:)?(\d+:)?(\d+)(\.\d+)?/);
+                            hours = (rawTime[2] != null) ? (rawTime[1].replace(":", "")) : "0";
+                            minutes = (rawTime[2] != null) ? (hours * 60 + rawTime[2].replace(":", "") * 1 + ":") : ((rawTime[1] != null) ? rawTime[1] : "00:");
+                            seconds = (rawTime[3] != null) ? (rawTime[3]) : "00";
+                            milliseconds = (rawTime[4] != null) ? (rawTime[4]) : ".000";
+                            lrcTime = minutes + seconds + milliseconds;
+                            const rawTime2 = element.getAttribute('dur').match(/(\d+:)?(\d+:)?(\d+)(\.\d+)?/);
+                            const hours2 = (rawTime2[2] != null) ? (rawTime2[1].replace(":", "")) : "0";
+                            const minutes2 = (rawTime2[2] != null) ? (hours2 * 60 + rawTime2[2].replace(":", "") * 1 + ":") : ((rawTime2[1] != null) ? rawTime2[1] : "00:");
+                            const seconds2 = (rawTime2[3] != null) ? (rawTime2[3]) : "00";
+                            const milliseconds2 = (rawTime2[4] != null) ? (rawTime2[4]) : ".000";
+                            const lrcTime2 = minutes2 + seconds2 + milliseconds2;
+                            if (minutes.replace(":", "") * 60 + seconds * 1 - endTime[endTime.length - 1] > 10) {
+                                const time = endTime[endTime.length - 1];
+                                const minutes = Math.floor(time / 60);
+                                const secs = time - minutes * 60;
+                                lyrics = lyrics.concat(`[${minutes}:${secs}]lrcInstrumental` + "\r\n");
+                            }
+                            endTime.push(minutes.replace(":", "") * 60 + minutes2.replace(":", "") * 60 + seconds2 * 1 +  seconds * 1);
+                            lyrics = lyrics.concat(`[${lrcTime}]${element.textContent}` + "\r\n");
+					
+                    }
+					if (lyrics != ""){
+								console.log(lyrics);
+						        ipcRenderer.send('LyricsHandlerNE',lyrics);
+					}
+                    } catch(e) {
+                        lyrics = "";
+                        for (let element of lyricsLines) {
+                            rawTime = element.getAttribute('begin').match(/(\d+:)?(\d+:)?(\d+)(\.\d+)?/);
+                            hours = (rawTime[2] != null) ? (rawTime[1].replace(":", "")) : "0";
+                            minutes = (rawTime[2] != null) ? (hours * 60 + rawTime[2].replace(":", "") * 1 + ":") : ((rawTime[1] != null) ? rawTime[1] : "00:");
+                            seconds = (rawTime[3] != null) ? (rawTime[3]) : "00";
+                            milliseconds = (rawTime[4] != null) ? (rawTime[4]) : ".000";
+                            lrcTime = minutes + seconds + milliseconds;
+                            lyrics = lyrics.concat(`[${lrcTime}]${element.textContent}` + "\r\n");
+							
+                        }
+						if (lyrics != ""){
+								console.log(lyrics);
+						        ipcRenderer.send('LyricsHandlerNE',lyrics);
+							}
+                    }
+					if (lyrics == ""){
+						ipcRenderer.send('LyricsYTFailed',"");
+						console.log('yt no found')
+					}
+                   // window.close();
+				
+		    }
+			req2.send();
+		}		
+	}
+
+	ipcRenderer.on('ytcors', function (event, track, artist, lang) {
+		console.log("hello");
+		if (track != "" && track != "No Title Found"){
+			console.log("we good");
+			getYTSubs(track, artist, lang)
+		}	
+    });
+	
+
+	lrc.setLrc(text);
+	</script>
+</body>
+</html>

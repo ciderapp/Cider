@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Apple Music
+Exec="/opt/Apple Music/apple-music-electron" %U
+Terminal=false
+Type=Application
+Icon=apple-music-electron
+StartupWMClass=Apple Music
+Comment=An open-source, GPU-accelerated Electron application that emulates the Apple Music website in a customizable interface.
+MimeType=x-scheme-handler/ame;x-scheme-handler/itms;x-scheme-handler/itmss;x-scheme-handler/musics;x-scheme-handler/music;
+Categories=AudioVideo;

@@ -1,0 +1,86 @@
+<div class="md-container md-container_panel" id="castdevices-vue">
+    <div class="md-header-title">
+        <div class="row">
+            <div class="col">
+                <button @click="close()" class="md-close-btn"></button>
+            </div>
+            <div class="col-auto">
+                Cast To Device
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+    </div>
+    <div class="md-body" style="overflow-y: overlay">
+        <div class="md-labeltext">Chromecast</div>
+        <div class="md-option-container" style="margin-top: 12px;margin-bottom: 12px;">
+            <template v-if="!scanning">
+                <template v-for="(device) in devices.cast">
+                    <div class="md-option-line" style="cursor: pointer" @click="setCast(device)">
+                        <div class="md-option-segment">
+                            {{ device.name }}
+                            <br>
+                            <small>{{ device.host }}</small>
+                        </div>
+                        <div class="md-option-segment_auto" style="display: flex;justify-content: center;align-items: center" v-if="activeCasts.includes(device)">
+                            Connected
+                        </div>
+                        <div class="md-option-segment_auto" v-else style="display: flex;justify-content: center;align-items: center">
+                            <svg width="100%" height="100%" viewBox="0 0 34 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" class="castPlayIndicator"><path d="M28.228,18.327l-16.023,8.983c-0.99,0.555 -2.205,-0.17 -2.205,-1.318l0,-17.984c0,-1.146 1.215,-1.873 2.205,-1.317l16.023,8.982c1.029,0.577 1.029,2.077 0,2.654Z" style="fill-rule:nonzero"></path></svg>
+                        </div>
+                    </div>
+                </template>
+            </template>
+            <template v-else>
+                <div class="md-option-line" style="cursor: pointer">
+                    <div class="md-option-segment">
+                        Scanning...
+                    </div>
+                </div>
+            </template>
+        </div>
+        <div class="md-labeltext" style="opacity:0.5;">AirPlay</div>
+        <div class="md-option-container" style="margin-top: 12px;margin-bottom: 12px;opacity:0.5;">
+            <div class="md-option-line">
+                <div class="md-option-segment">
+                    AirPlay is still under development
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="md-footer">
+        <div class="row">
+            <div class="col" v-if="activeCasts.length != 0">
+                <button style="width:100%" @click="stopCasting()" class="md-btn md-btn-block md-btn-primary">Stop casting to all devices</button>
+            </div>
+            <div class="col">
+                <button style="width:100%" class="md-btn md-btn-block" @click="scan()">Scan</button>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+
+    .castPlayIndicator {
+        fill-rule: evenodd;
+        clip-rule: evenodd;
+        stroke-linejoin: round;
+        stroke-miterlimit: 1.41421;
+        height: 26px;
+        width: 26px;
+        fill: var(--contextMenuTextColor);
+        border-radius: 100%;
+        background: var(--musicNote);
+        padding: 6px;
+    }
+    .cast_logo {
+        background: url("ameres://icons/webui/cast.svg");
+        width:64px;
+        height: 64px;
+        color:white;
+        background-size: cover;
+        filter:invert(1);
+        margin: 0 auto;
+    }
+</style>

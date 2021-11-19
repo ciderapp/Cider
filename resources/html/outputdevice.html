@@ -1,0 +1,23 @@
+<div class="md-container" id="outputdevices-vue">
+    <div class="md-header">
+        <h1 class="md-h1">Output Device</h1>
+    </div>
+    <div class="md-body" style="overflow-y: overlay">
+        <div class="md-option-container">
+            <div class="md-option-line" v-for="(device) in devices">
+                <template v-if="selected == device.deviceId">
+                    <div class="md-option-segment" style="cursor: pointer;background: var(--keyColor);color: white;">
+                        ▶ {{ device.label }}
+                    </div>
+                </template>
+                <template v-else>
+                    <div class="md-option-segment" @click="setOutputDevice(device.deviceId)" style="cursor: pointer">
+                        {{ device.label }}
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+    <div class="md-footer">
+    </div>
+</div>

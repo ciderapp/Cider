@@ -1,0 +1,41 @@
+/* Give the main page a background so its not all transparent */
+
+.page-container {
+    background-color: var(--pageBG) !important;
+}
+
+html body {
+    background-color: transparent !important;
+}
+
+/* Make the search box transparent */
+
+@media only screen and (min-width: 485px) {
+    #web-navigation-container {
+        background-color: transparent !important;
+    }
+}
+
+.dt-search-box__input {
+    opacity: 0.5 !important;
+}
+
+/* Set the sidebar to transparent so the transparency affect can do its stuff */
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --transparency: #0f0f0f1A;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --transparency: #ffffff1A;
+    }
+}
+
+/* Stop Apple from Overriding background colour */
+
+html body {
+    background-color: transparent !important;
+}

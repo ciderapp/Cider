@@ -1,0 +1,34 @@
+/*
+ * @name Blurple
+ * @author Core#1034
+ * @description Cool blurple theme, uses similar colors to discord but a bit darker.
+*/
+
+@media (prefers-color-scheme:dark) {
+    :root {
+        /* accent colors */
+        --keyColor: #5865f2 !important;
+        --keyColor-rgb: 88, 101, 242 !important;
+        --systemAccentBG: #5865f2 !important;
+        --systemAccentBG-pressed: #404eed !important;
+        --selectionColor: #5865f2 !important;
+
+        /* main colors */
+        --transparency: #13151957 !important;
+        --sidebar: #131519 !important;
+        --footerBG: #131519 !important;
+        --pageBG: #171a1f !important;
+
+        /* search bar */
+        --systemHeaderMaterialSover-default_IC: #131519 !important;
+        --systemHeaderMaterialSover: #131519 !important;
+
+        /* web-chrome */
+        --playerBackground: #131519 !important;
+        --playerLCDBGFill: #131519 !important;
+
+        /* up-next */
+        --systemToolbarTitlebarMaterialSover-inactive: #131519 !important;
+        --systemToolbarTitlebarMaterialSover: rgba(19, 21, 25, 0.8) !important;
+    }
+}

@@ -1,0 +1,84 @@
+/* Nord theme: https://www.nordtheme.com
+ * Base CSS from: floookay's Dracular theme
+ */
+
+@media (prefers-color-scheme:dark) {
+  :root {
+
+    /* accent colors */
+    --keyColor: #88c0d0 !important;
+    --keyColor-rgb: 136, 192, 208 !important;
+    --systemAccentBG: #88c0d0 !important;
+    --systemAccentBG-pressed: #81a1c1 !important;
+    --selectionColor: #81a1c1 !important;
+
+    /*everything else*/
+    --primaryColor: #88C0D0 !important;
+    --sidebar: #3B4252 !important;
+    --transparency: #3b425202 !important;
+    --footerBG: #434C5E !important;
+    --pageBG: #2E3440 !important;
+    --playerBackground: #3B4252 !important;
+    --playerLCDBGFill: #434C5E !important;
+    --playerVolumeIconFill: #88C0D0 !important;
+    --systemGreen: #A3BE8C !important;
+    --systemRed: #BF616A !important;
+    --lovedBGColor: #B48EAD !important;
+    --systemVibrantTextPrimary: #ECEFF4 !important;
+    --systemVibrantTextTertiary: #ECEFF4 !important;
+    --modalBGColor: #2E3440 !important;
+    --systemHeaderMaterialSover: #2E3440 !important;
+    --systemPrimary: #ECEFF4 !important;
+    --systemSecondary: #ECEFF4 !important;
+    --systemQuaternary: #434C5E !important;
+    --selectionColor: #88C0D0 !important;
+    --systemHeaderMaterialSoverIncreaseContrast: #2E3440 !important;
+    --segmentedControlSelectedBG: #434C5E !important;
+    --modalBGHeaderColor: #3B4252 !important;
+    --tracklistHoverColor: #434C5E !important;
+    --sidebarSelectedState: #434C5E !important;
+    --playerPlatterButtonBGFill: #88C0D0 !important;
+    --playerPlatterButtonIconFill: #ECEFF4 !important;
+    --primaryColor-rgb: transparent !important;
+    --playerVolumeFill: #88C0D0 !important;
+    --systemStandardThickMaterialSover: #3B4252 !important;
+    --systemSecondary-vibrantText: #D8DEE9 !important;
+    --systemPrimary-vibrantText: #ECEFF4 !important;
+    --contextMenuBorderColor: #2E3440 !important;
+    --systemTertiary-vibrant: #2E3440 !important;
+  }
+
+  body > div {
+    color: #ECEFF4 !important;
+  }
+
+  .dt-search-box__input {
+    border-color: #88C0D0 !important;
+  }
+
+  .web-navigation__header-button:hover,
+  .web-navigation__header-text {
+    color: #ECEFF4 !important;
+    opacity: 1.0 !important;
+  } 
+
+  .songs-list__col--heart-and-star {
+    background-color: transparent !important;
+  }
+
+  .media-artwork-v2--error, 
+  .media-artwork-v2--error, 
+  .media-artwork-v2__image, 
+  .media-artwork-v2--feature-recommended, 
+  .media-artwork-v2--feature-recommended 
+  .media-artwork-v2__image, 
+  .media-artwork-v2:not(.media-artwork-v2--downloaded), 
+  .media-artwork-v2:not(.media-artwork-v2--downloaded) 
+  .media-artwork-v2__image {
+    background-color: transparent !important;
+  }
+
+  ::placeholder {
+    color: #ECEFF4 !important;
+  }
+}

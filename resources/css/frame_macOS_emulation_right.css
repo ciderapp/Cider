@@ -1,0 +1,123 @@
+.web-main-drag {
+    -webkit-app-region: drag;
+    width: calc(100vw - var(--web-navigation-width));
+    height: 28px;
+    top: 0;
+    position: fixed;
+    right: 0;
+    background-color: var(--playerBackground);
+}
+
+@media only screen and (max-width: 485px) {
+    .web-main-drag {
+        background-color: var(--webNavigationMobileBg) !important;
+        width: calc(100% - 50px) !important;
+    }
+
+    .web-nav-window-controls {
+        margin-top: 10px
+    }
+}
+
+.web-nav-window-controls {
+    -webkit-user-select: none;
+    -webkit-app-region: no-drag;
+    display: flex;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 9904 !important;
+}
+
+.web-chrome__auth-no-chrome {
+    margin-top: 32px !important;
+    height: 28px !important;
+}
+
+@media only screen and (min-width: 485px) {
+    .web-chrome-window-controls {
+        height: 55px;
+        background-color: var(--playerBackground);
+        backdrop-filter: saturate(50%) blur(20px);
+        margin-left: auto;
+        -webkit-app-region: drag;
+    }
+}
+
+@media only screen and (prefers-color-scheme: dark) and (min-width: 485px) {
+    .web-chrome-window-controls {
+        box-shadow: 0 1px 0 rgba(0, 0, 0, .05), 0 1px 3px var(--playerDropShadow2), inset 0 -.5px 0 var(--playerInnerShadow);
+        clip-path: inset(-5px -5px -5px 0px);
+    }
+}
+
+.web-nav-window-controls #minimize {
+    background-color: rgb(255, 189, 76);
+    border-radius: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    -webkit-app-region: no-drag;
+    width: 12px !important;
+    height: 12px !important;
+    display: inline-block;
+    z-index: 9999 !important;
+    margin: auto 4px;
+}
+
+.web-nav-window-controls #maximize {
+    background-color: rgb(0, 202, 86);
+    border-radius: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    -webkit-app-region: no-drag;
+    width: 12px !important;
+    height: 12px !important;
+    display: inline-block;
+    z-index: 9999 !important;
+    margin: auto 4px
+}
+
+.web-nav-window-controls #close {
+    background-color: rgb(255, 92, 92);
+    border-radius: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    -webkit-app-region: no-drag;
+    width: 12px !important;
+    height: 12px !important;
+    display: inline-block;
+    z-index: 9999 !important;
+    margin: auto 10px auto 4px;
+}
+
+span#close:hover,
+span#maximize:hover,
+span#minimize:hover {
+    filter: brightness(40%);
+}
+
+/* Make Web-Chrome Draggable */
+@media only screen and (min-width: 485px) {
+    .web-chrome {
+        width: calc(100vw - var(--web-navigation-width) - 66px) !important;
+        left: var(--web-navigation-width) !important;
+        -webkit-app-region: drag;
+    }
+
+    .web-chrome-controls-container {
+        -webkit-app-region: drag;
+    }
+
+    /* add no-drag to child elements */
+    .web-chrome-playback-controls > * {
+        -webkit-app-region: no-drag;
+    }
+
+    .web-chrome-controls-container > * {
+        -webkit-app-region: no-drag;
+    }
+
+    .web-chrome-playback-lcd {
+        -webkit-app-region: no-drag;
+    }
+}
