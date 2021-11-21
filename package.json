@@ -62,7 +62,7 @@
   },
   "fileAssociations": [
     {
-      "name": "Apple Music Electron",
+      "name": "Cider",
       "mimeType": "x-scheme-handler/ame;x-scheme-handler/itms;x-scheme-handler/itmss;x-scheme-handler/musics;x-scheme-handler/music;",
       "schemes": [
         "ame",

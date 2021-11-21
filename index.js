@@ -95,6 +95,10 @@ app.on('widevine-ready', (version, lastVersion) => {
     }
 })
 
+app.on('page-title-updated', function(e) {
+    e.preventDefault()
+});
+
 app.on('widevine-update-pending', (currentVersion, pendingVersion) => {
     console.log('[Apple-Music-Electron][Widevine] Widevine ' + currentVersion + ' is ready to be upgraded to ' + pendingVersion + '!')
 })

@@ -179,7 +179,7 @@ const init = {
 
         app.ame.mpris.connect(); // M.P.R.I.S
         app.ame.lastfm.authenticate(); // LastFM
-        app.ame.discord.connect(app.cfg.get('general.discordRPC') === 'ame-title' ? '749317071145533440' : '886578863147192350'); // Discord
+        app.ame.discord.connect(app.cfg.get('general.discordRPC') === 'ame-title' ? '911790844204437504' : '886578863147192350'); // Discord
 
         app.isAuthorized = false;
         app.isMiniplayerActive = false;
