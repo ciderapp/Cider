@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Cider</title>
+    <link rel="stylesheet" href="style.css?v=2">
+    <script src="vue.js"></script>
+    <script src="sortable.min.js"></script>
+    <script src="vuedraggable.umd.min.js"></script>
+    <link rel="manifest" href="./manifest.json?v=2">
+</head>
+
+<body oncontextmenu="return false;">
+    <div id="app">
+        <div id="app-main">
+            <div class="app-chrome">
+                <div class="app-chrome--left">
+                    <div class="app-chrome-item">
+                        <div class="app-title"></div>
+                    </div>
+                    <div class="app-chrome-item">
+                        <button class="playback-button--small shuffle"></button>
+                    </div>
+                    <div class="app-chrome-item">
+                        <button class="playback-button previous"></button>
+                    </div>
+                    <div class="app-chrome-item">
+                        <button class="playback-button play"></button>
+                    </div>
+                    <div class="app-chrome-item">
+                        <button class="playback-button next"></button>
+                    </div>
+                    <div class="app-chrome-item">
+                        <button class="playback-button--small repeat"></button>
+                    </div>
+                </div>
+                <div class="app-chrome--center">
+                    <div class="app-chrome-item playback-controls">
+                        <div class="app-playback-controls">
+                            <div class="artwork"></div>
+                            <div class="playback-info">
+                                <div class="song-name">Spun</div>
+                                <div class="song-artist">Rezz - Spiral</div>
+                                <div class="song-progress">
+                                    <input type="range" step="0.01" min="0" max="1500">
+                                </div>
+                            </div>
+                            <div class="actions">❤️</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-chrome--right">
+                    <div class="app-chrome-item volume">
+                        <input type="range" class="">
+                    </div>
+                    <div class="app-chrome-item generic">
+                        <button class="playback-button--small">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 22" version="1.1" fill="#fff"
+                                style="width: 100%; height: 100%; fill-rule: evenodd; clip-rule: evenodd; stroke-linejoin: round; stroke-miterlimit: 1.41421">
+                                <path
+                                    d="M16.811,12.75c0.245,-0.355 0.389,-0.786 0.389,-1.25c0,-1.215 -0.985,-2.2 -2.2,-2.2c-1.215,0 -2.2,0.985 -2.2,2.2c0,0.466 0.145,0.898 0.392,1.254l-0.83,1.047c-0.537,-0.616 -0.862,-1.42 -0.862,-2.301c0,-1.933 1.567,-3.5 3.5,-3.5c1.933,0 3.5,1.567 3.5,3.5c0,0.879 -0.324,1.683 -0.859,2.297l-0.83,-1.047Zm1.271,1.604c0.694,-0.749 1.118,-1.752 1.118,-2.854c0,-2.32 -1.88,-4.2 -4.2,-4.2c-2.32,0 -4.2,1.88 -4.2,4.2c0,1.103 0.425,2.107 1.121,2.857l-0.814,1.028c-0.993,-0.995 -1.607,-2.368 -1.607,-3.885c0,-3.038 2.462,-5.5 5.5,-5.5c3.038,0 5.5,2.462 5.5,5.5c0,1.515 -0.613,2.887 -1.604,3.882l-0.814,-1.028Zm1.252,1.58c1.151,-1.126 1.866,-2.697 1.866,-4.434c0,-3.424 -2.776,-6.2 -6.2,-6.2c-3.424,0 -6.2,2.776 -6.2,6.2c0,1.739 0.716,3.311 1.869,4.437l-0.811,1.023c-1.452,-1.368 -2.358,-3.308 -2.358,-5.46c0,-4.142 3.358,-7.5 7.5,-7.5c4.142,0 7.5,3.358 7.5,7.5c0,2.15 -0.905,4.089 -2.355,5.457l-0.811,-1.023Zm-0.227,2.066l-8.219,0c-0.355,0 -0.515,-0.434 -0.27,-0.717l4.058,-5.12c0.178,-0.217 0.474,-0.217 0.652,0l4.058,5.12c0.237,0.283 0.085,0.717 -0.279,0.717Z"
+                                    style="fill-rule:nonzero"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="app-chrome-item generic">
+                        <button class="playback-button--small queue"></button>
+                    </div>
+                    <div class="app-chrome-item generic">
+                        <button class="playback-button--small lyrics"></button>
+                    </div>
+                    <div class="app-chrome-item">
+                        <div class="window-controls">
+                            <div class="minimize"></div>
+                            <div class="minmax"></div>
+                            <div class="close"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="app-navigation">
+                <div id="app-sidebar">
+                    <div class="app-sidebar-header">
+                        <div class="search-input-container">
+                            <div class="search-input--icon"></div>
+                            <input type="search" placeholder="Search..." class="search-input">
+                        </div>
+                    </div>
+                    <div class="app-sidebar-content">
+                        <div class="app-sidebar-header-text">
+                            Apple Music
+                        </div>
+                        <button class="app-sidebar-item">
+                            <div></div>
+                            <div>Listen Now</div>
+                        </button>
+                        <button class="app-sidebar-item active">Browse</button>
+                        <button class="app-sidebar-item">Radio</button>
+                        <div class="app-sidebar-header-text">
+                            Library
+                        </div>
+                        <button class="app-sidebar-item">Songs</button>
+                        <button class="app-sidebar-item">Albums</button>
+                        <button class="app-sidebar-item">Artists</button>
+                        <button class="app-sidebar-item">Made For You</button>
+                        <div class="app-sidebar-header-text">
+                            Playlists
+                        </div>
+                        <button class="app-sidebar-item">Playist</button>
+                        <button class="app-sidebar-item">Playist</button>
+                        <button class="app-sidebar-item">Playist</button>
+                    </div>
+                </div>
+                <div id="app-content">
+                    <h1 class="header-text">Browse</h1>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna eu tincidunt
+                        consectetur, nisl nunc euismod nisi, eu porttitor nisl nisi euismod nisi.
+                    </p>
+                    <div class="media-item--small">
+                        <div class="artwork">
+
+                        </div>
+                        <div class="text">
+                            Text
+                        </div>
+                        <div class="subtext">
+                            Subtext
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <button class="md-btn">Button</button>
+                    <button class="md-btn md-btn-primary">Button</button>
+                </div>
+            </div>
+        </div>
+        <div class="bg-artwork"></div>
+    </div>
+    <script src="index.js?v=1"></script>
+</body>
+
+</html>
