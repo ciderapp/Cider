@@ -42,8 +42,8 @@
                         <div class="app-playback-controls">
                             <div class="artwork"></div>
                             <div class="playback-info">
-                                <div class="song-name">Spun</div>
-                                <div class="song-artist">Rezz - Spiral</div>
+                                <div class="song-name">Song Name</div>
+                                <div class="song-artist">Artist - Album</div>
                                 <div class="song-progress">
                                     <input type="range" step="0.01" min="0" max="1500">
                                 </div>
@@ -109,9 +109,15 @@
                         <div class="app-sidebar-header-text">
                             Playlists
                         </div>
-                        <button class="app-sidebar-item">Playist</button>
-                        <button class="app-sidebar-item">Playist</button>
-                        <button class="app-sidebar-item">Playist</button>
+                        <button class="app-sidebar-item" v-for="i in 32">Playist</button>
+                    </div>
+                    <div class="app-sidebar-footer">
+                        <button class="app-sidebar-button" style="width:100%">
+                            <div class="sidebar-user-icon">
+
+                            </div>
+                            <div class="sidebar-user-text">Cider User</div>
+                        </button>
                     </div>
                 </div>
                 <div id="app-content">

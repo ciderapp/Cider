@@ -175,6 +175,11 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     position: relative;
 }
 
+.search-input:focus {
+    outline: none;
+    border-bottom: 1px solid var(--keyColor);
+}
+
 .search-input--icon {
     content: '';
     width: 100%;
@@ -202,6 +207,39 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     margin: 6px 3px;
     font-weight: 600;
     opacity: 0.50;
+}
+
+.app-sidebar-footer {
+    padding: 11px;
+}
+
+.app-sidebar-button {
+    width:100%;
+    padding: 8px;
+    font-family: inherit;
+    display:flex;
+    border-radius: 6px;
+    border: 1px solid rgb(200 200 200 / 5%);
+    background: rgb(100 100 100 / 25%);
+    color: #eee;
+    font-weight: 500;
+    align-items: center;
+}
+
+.app-sidebar-button>.sidebar-user-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 100%;
+    background: var(--keyColor);
+    margin: 2px;
+    flex: 0 0 auto;
+}
+
+.app-sidebar-button>.sidebar-user-text {
+    width:100%;
+    display:flex;
+    font-size: 16px;
+    margin: 6px 12px;
 }
 
 .app-sidebar-content {
@@ -297,6 +335,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     display: flex;
     justify-content: center;
     align-items: center;
+    -webkit-app-region: no-drag;
 }
 
 .app-chrome .app-chrome-item.generic {
@@ -355,6 +394,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     margin-right: 16px;
     margin-left: 16px;
     image-rendering: -webkit-optimize-contrast;
+    -webkit-app-region: drag;
 }
 
 .app-chrome .app-chrome-item>.window-controls {
