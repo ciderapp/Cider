@@ -552,6 +552,19 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     display:flex;
 }
 
+.display--small {
+    display: none!important;
+}
+/* Window is smaller <= 1023px width */
+@media only screen and (max-width: 1023px) {
+    .display--small {
+        display: inherit!important;
+    }
+    .display--large {
+        display: none!important;
+    }
+}
+
 .header-text {
     margin: 0px;
 }

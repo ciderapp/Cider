@@ -7,6 +7,8 @@ const CiderWin = {
         const options = {
             width: 1024,
             height: 600,
+            minWidth: 844,
+            minHeight: 410,
             frame: false,
             vibrancy: 'dark',
             hasShadow: false,
