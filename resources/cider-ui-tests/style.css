@@ -249,6 +249,14 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     height:100%;
 }
 
+.app-sidebar-content::-webkit-scrollbar {
+    display: none;
+}
+
+.app-sidebar-content:hover::-webkit-scrollbar {
+    display: initial;
+}
+
 .app-sidebar-item {
     display: flex;
     width: 100%;
