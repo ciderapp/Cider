@@ -18,7 +18,7 @@
         <div id="app-main">
             <div class="app-chrome">
                 <div class="app-chrome--left">
-                    <div class="app-chrome-item">
+                    <div class="app-chrome-item full-height">
                         <div class="app-title"></div>
                     </div>
                     <div class="app-chrome-item">
@@ -72,7 +72,7 @@
                     <div class="app-chrome-item generic">
                         <button class="playback-button--small lyrics"></button>
                     </div>
-                    <div class="app-chrome-item">
+                    <div class="app-chrome-item full-height">
                         <div class="window-controls">
                             <div class="minimize"></div>
                             <div class="minmax"></div>
@@ -140,8 +140,12 @@
                     </div>
                     <br>
                     <br>
+                    <button class="md-btn" @click="drawertest = !drawertest">Toggle Drawer</button>
                     <button class="md-btn">Button</button>
                     <button class="md-btn md-btn-primary">Button</button>
+                </div>
+                <div class="app-drawer" v-if="drawertest">
+
                 </div>
             </div>
         </div>

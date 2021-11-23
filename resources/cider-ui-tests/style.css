@@ -140,9 +140,10 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 #app-sidebar {
     /* background-color: var(--color1); */
     height:100%;
-    width:320px;
+    width:260px;
     display:flex;
     flex-direction: column;
+    flex: 0 0 auto;
 }
 #app-content {
     background-color: var(--color2);
@@ -154,6 +155,14 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     overflow-x: hidden;
     border-radius: 10px 0px;
     border-left: 1px solid rgb(0 0 0 / 25%);
+    border-top: 1px solid rgb(0 0 0 / 25%);
+}
+
+
+.app-drawer {
+    width: 300px;
+    border-left: 1px solid rgb(0 0 0 / 25%);
+    flex: 0 0 auto;
     border-top: 1px solid rgb(0 0 0 / 25%);
 }
 
@@ -287,7 +296,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 .app-sidebar-item.active {
     border: 1px solid rgb(200 200 200 / 5%);
     background: rgb(200 200 200 / 15%);
-    transform: scale(0.98);
+    transform: scale(1);
     transition: transform 0s;
 }
 
@@ -344,10 +353,11 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     justify-content: center;
     align-items: center;
     -webkit-app-region: no-drag;
+    height: auto;
 }
 
 .app-chrome .app-chrome-item.generic {
-    width: 60px;
+    width: 50px;
     opacity: 0.70;
 }
 
@@ -389,6 +399,10 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 .app-chrome .back-button {
     height: 100%;
     width: 60px;
+}
+
+.app-chrome .app-chrome-item.full-height {
+    height: 100%;
 }
 
 .app-chrome .app-chrome-item>.app-title {
@@ -496,7 +510,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     height:12px;
     border-radius: 2px;
     background: var(--keyColor);
-    cursor: pointer;
+    cursor: ew-resize;
 }
 
 .app-chrome .app-chrome-item>.app-playback-controls .song-progress>input[type=range]::-moz-range-thumb  {
@@ -660,7 +674,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 .playback-button {
     font-size: 2em;
     width: 40px;
-    height: 64px;
+    height: 36px;
     padding: 0px;
     background: transparent;
     border: 0px;
@@ -670,6 +684,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     background-position: center;
     background-repeat: no-repeat;
     opacity: 0.70;
+    border-radius: 6px;
 }
 
 .playback-button:active {
@@ -677,6 +692,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 }
 
 .playback-button--small {
+    border-radius: 6px;
     font-size: 1em;
     color: inherit;
     background-size: 14px;
@@ -687,6 +703,14 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     height: 32px;
     border: 0px;
     box-shadow: unset;
+}
+
+.playback-button:hover, .playback-button--small:hover {
+    background-color: rgb(200 200 200 / 10%);
+}
+
+.playback-button:active, .playback-button--small:active {
+    transform: scale(0.9);
 }
 
 .playback-button--small.active {

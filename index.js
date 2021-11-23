@@ -19,8 +19,8 @@ function CreateWindow() {
 
     app.win = app.ame.win.CreateBrowserWindow() // Create the BrowserWindow
     /** CIDER **/
-    // const cider = require("./resources/functions/cider-win")
-    // cider.CreateBrowserWindow()
+    const cider = require("./resources/functions/cider-win")
+    cider.CreateBrowserWindow()
     /** CIDER **/
     app.ame.handler.WindowStateHandler(); // Handling the Window
     app.ame.handler.PlaybackStateHandler(); // Playback Change Listener
