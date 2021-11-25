@@ -366,6 +366,20 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     margin-right: 6px;
 }
 
+.app-chrome .app-chrome-item.volume>input[type=range]::-webkit-slider-thumb {
+    transition: all var(--appleTransition);
+}
+
+.app-chrome .app-chrome-item.volume>input[type=range]::-webkit-slider-thumb:hover {
+    background-image: radial-gradient(var(--keyColor) 2px, transparent 3px, transparent 10px);
+    transform: scale(1.2);
+}
+
+.app-chrome .app-chrome-item.volume>input[type=range]::-webkit-slider-thumb:active {
+    background-image: radial-gradient(var(--keyColor) 3px, transparent 4px, transparent 10px);
+    transform: scale(1);
+}
+
 .app-chrome .app-chrome-item.volume>input[type=range] {
     width:100%;
 }
@@ -385,7 +399,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     width: 14px;
     border-radius: 50%;
     background: rgb(50 50 50);
-    cursor: ew-resize;
+    cursor: default;
     box-shadow: inset 0px 0px 0px 1px rgba(255, 255, 255, 0.4);
 }
 

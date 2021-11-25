@@ -1,3 +1,8 @@
+:root {
+    --appleEase: cubic-bezier(.42, 0, .58, 1);
+    --appleTransition: .2s var(--appleEase);
+}
+
 /* Simple CSS framework for Apple Music Electron */
 
 .md-labeltext {
