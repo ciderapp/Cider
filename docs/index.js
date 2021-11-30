@@ -1,9 +1,6 @@
-var app = new Vue({
-    el: "#app",
-    data: {
-        drawertest: false
-    },
-    methods: {
-
-    }
-})
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(function() {
+    document.querySelector(".cider-splash").setAttribute("hidden", "true");
+    document.querySelector("#app-main").removeAttribute("hidden");
+  }, 1000);
+});
