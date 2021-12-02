@@ -13,10 +13,14 @@ const CiderWin = {
             vibrancy: 'dark',
             hasShadow: false,
             webPreferences: {
+                plugins: true,
                 nodeIntegration: true,
-                webSecurity: false,
+                nodeIntegrationInWorker: false,
+                webSecurity: true,
                 allowRunningInsecureContent: true,
                 enableRemoteModule: true,
+                sandbox: true,
+                nativeWindowOpen: true
             }
         }
         if (process.platform === "darwin" || process.platform === "linux") {
