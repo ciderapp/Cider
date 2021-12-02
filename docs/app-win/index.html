@@ -2,6 +2,15 @@
 <html lang="en">
 
 <head>
+    <link rel="preconnect" href="https://amp-api.music.apple.com/" crossorigin />
+    <link rel="preconnect" href="https://api.music.apple.com/" crossorigin />
+    <link rel="preconnect" href="https://is1-ssl.mzstatic.com/" crossorigin />
+    <link rel="preconnect" href="https://is2-ssl.mzstatic.com/" crossorigin />
+    <link rel="preconnect" href="https://is3-ssl.mzstatic.com/" crossorigin />
+    <link rel="preconnect" href="https://is4-ssl.mzstatic.com/" crossorigin />
+    <link rel="preconnect" href="https://is5-ssl.mzstatic.com/" crossorigin />
+    <link rel="preconnect" href="https://play.itunes.apple.com/" crossorigin />
+    <link rel="preconnect" href="https://aod-ssl.itunes.apple.com/" crossorigin />
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
@@ -28,7 +37,8 @@
                         <button class="playback-button previous"></button>
                     </div>
                     <div class="app-chrome-item">
-                        <button class="playback-button play"></button>
+                        <button class="playback-button pause" @click="mk.pause()" v-if="mk.isPlaying"></button>
+                        <button class="playback-button play" @click="mk.play()" v-else></button>
                     </div>
                     <div class="app-chrome-item">
                         <button class="playback-button next"></button>
@@ -39,22 +49,32 @@
                 </div>
                 <div class="app-chrome--center">
                     <div class="app-chrome-item playback-controls">
-                        <div class="app-playback-controls">
-                            <div class="artwork"></div>
-                            <div class="playback-info">
-                                <div class="song-name">Song Name</div>
-                                <div class="song-artist">Artist - Album</div>
-                                <div class="song-progress">
-                                    <input type="range" step="0.01" min="0" max="1500">
+                        <template v-if="mkReady()">
+                            <div class="app-playback-controls">
+                                <div class="artwork" :style="{'--artwork': getNowPlayingArtwork(42)}"></div>
+                                <div class="playback-info">
+                                    <div class="song-name">
+                                        {{ mk.nowPlayingItem["attributes"]["name"] }}
+                                    </div>
+                                    <div class="song-artist">
+                                        {{ mk.nowPlayingItem["attributes"]["artistName"] }} - {{ mk.nowPlayingItem["attributes"]["albumName"] }}
+                                    </div>
+                                    <div class="song-progress">
+                                        <input type="range" step="0.01" min="0"
+                                               @change="mk.seekToTime($event.target.value)"
+                                               :max="mk.currentPlaybackDuration"
+                                               :value="mk.currentPlaybackProgress * 100">
+                                    </div>
                                 </div>
+                                <div class="actions">❤️</div>
                             </div>
-                            <div class="actions">❤️</div>
-                        </div>
+                        </template>
+
                     </div>
                 </div>
                 <div class="app-chrome--right">
                     <div class="app-chrome-item volume display--large">
-                        <input type="range" class="">
+                        <input type="range" class="" step="0.01" min="0" max="1" v-model="mk.volume" v-if="typeof mk.volume != 'undefined'">
                     </div>
                     <div class="app-chrome-item generic">
                         <button class="playback-button--small">
@@ -122,6 +142,15 @@
                     </div>
                 </div>
                 <div id="app-content">
+                    <button class="md-btn md-btn-primary" @click="init()">Start MusicKit</button>
+                    <br>
+                    <template v-if="mk.nowPlayingItem">
+                        currentPlaybackProgress: {{ app.mk.currentPlaybackProgress }}
+                        <br>
+                        currentPlaybackDuration: {{ app.mk.currentPlaybackDuration }}
+                    </template>
+                    <div><input type="text" v-model="quickPlayQuery">
+                        <button @click="quickPlay(quickPlayQuery)">Play</button></div>
                     <h1 class="header-text">Browse</h1>
                     <p>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna eu tincidunt
@@ -151,6 +180,7 @@
         </div>
         <div class="bg-artwork"></div>
     </div>
+    <script src="https://js-cdn.music.apple.com/musickit/v3/amp/musickit.js"></script>
     <script src="index.js?v=1"></script>
 </body>
 
