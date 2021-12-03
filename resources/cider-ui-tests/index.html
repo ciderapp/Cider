@@ -106,7 +106,12 @@
                     <div class="app-sidebar-header">
                         <div class="search-input-container">
                             <div class="search-input--icon"></div>
-                            <input type="search" placeholder="Search..." class="search-input">
+                            <input type="search"
+                                   @click="showSearch()"
+                                   @change="showSearch();searchQuery()"
+                                   placeholder="Search..."
+                                   v-model="search.term"
+                                   class="search-input">
                         </div>
                     </div>
                     <div class="app-sidebar-content">
@@ -142,36 +147,81 @@
                     </div>
                 </div>
                 <div id="app-content">
-                    <button class="md-btn md-btn-primary" @click="init()">Start MusicKit</button>
-                    <br>
-                    <template v-if="mk.nowPlayingItem">
-                        currentPlaybackProgress: {{ app.mk.currentPlaybackProgress }}
+                    <!-- Browse -->
+                    <template v-if="page == 'browse'">
+                        <button class="md-btn md-btn-primary" @click="init()">Start MusicKit</button>
                         <br>
-                        currentPlaybackDuration: {{ app.mk.currentPlaybackDuration }}
-                    </template>
-                    <div><input type="text" v-model="quickPlayQuery">
-                        <button @click="quickPlay(quickPlayQuery)">Play</button></div>
-                    <h1 class="header-text">Browse</h1>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna eu tincidunt
-                        consectetur, nisl nunc euismod nisi, eu porttitor nisl nisi euismod nisi.
-                    </p>
-                    <div class="media-item--small">
-                        <div class="artwork">
+                        <template v-if="mk.nowPlayingItem">
+                            currentPlaybackProgress: {{ app.mk.currentPlaybackProgress }}
+                            <br>
+                            currentPlaybackDuration: {{ app.mk.currentPlaybackDuration }}
+                        </template>
+                        <div><input type="text" v-model="quickPlayQuery">
+                            <button @click="quickPlay(quickPlayQuery)">Play</button></div>
+                        <h1 class="header-text">Browse</h1>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna eu tincidunt
+                            consectetur, nisl nunc euismod nisi, eu porttitor nisl nisi euismod nisi.
+                        </p>
+                        <div class="media-item--small">
+                            <div class="artwork">
 
+                            </div>
+                            <div class="text">
+                                Text
+                            </div>
+                            <div class="subtext">
+                                Subtext
+                            </div>
                         </div>
-                        <div class="text">
-                            Text
-                        </div>
-                        <div class="subtext">
-                            Subtext
-                        </div>
-                    </div>
-                    <br>
-                    <br>
-                    <button class="md-btn" @click="drawertest = !drawertest">Toggle Drawer</button>
-                    <button class="md-btn">Button</button>
-                    <button class="md-btn md-btn-primary">Button</button>
+                        <br>
+                        <br>
+                        <button class="md-btn" @click="drawertest = !drawertest">Toggle Drawer</button>
+                        <button class="md-btn">Button</button>
+                        <button class="md-btn md-btn-primary">Button</button>
+                    </template>
+                    <!-- Search -->
+                    <template v-if="page == 'search'">
+                        <h1 class="header-text">{{ search.term }}</h1>
+                        <template v-if="search.results['meta']">
+                            <template v-if="search.results.songs">
+                                <h3>Songs</h3>
+                                <button
+                                        @click="playMediaItemById(item.id, item.type)"
+                                        v-for="item in search.results.songs.data">
+                                    <b>{{ item.attributes.name }}</b>
+                                    <br>
+                                    {{ item.attributes.artistName }}
+                                </button>
+                            </template>
+                            <template v-if="search.results.songs">
+                                <h3>Albums</h3>
+                                <button
+                                        @click="playMediaItemById(item.id, item.type)"
+                                        v-for="item in search.results.albums.data">
+                                    <b>{{ item.attributes.name }}</b>
+                                    <br>
+                                    {{ item.attributes.artistName }}
+                                </button>
+                            </template>
+                            <template v-if="search.results.songs">
+                                <h3>Artists</h3>
+                                <button
+                                        @click="playMediaItemById(item.id, item.type)"
+                                        v-for="item in search.results.artists.data">
+                                    {{ item.attributes.name }}
+                                </button>
+                            </template>
+                            <template v-if="search.results.songs">
+                                <h3>Playlists</h3>
+                                <button
+                                        @click="playMediaItemById(item.id, item.type)"
+                                        v-for="item in search.results.playlists.data">
+                                    {{ item.attributes.name }}
+                                </button>
+                            </template>
+                        </template>
+                    </template>
                 </div>
                 <div class="app-drawer" v-if="drawertest">
 

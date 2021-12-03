@@ -3,13 +3,36 @@ var app = new Vue({
     data: {
         drawertest: false,
         mk: {},
-        quickPlayQuery: ""
+        quickPlayQuery: "",
+        search: {
+            term: "",
+            results: {}
+        },
+        page: "browse"
     },
     methods: {
         init() {
             this.mk = MusicKit.getInstance()
             this.mk.authorize()
             this.$forceUpdate()
+        },
+        showSearch() {
+            this.page = "search"
+        },
+        playMediaItemById(id, kind) {
+            this.mk.setQueue({ [kind]: [id] }).then(function (queue) {
+                MusicKit.getInstance().play()
+            })
+        },
+        searchQuery() {
+            let self = this
+            this.mk.api.search(this.search.term,
+                {
+                    types: "songs,artists,albums,playlists",
+                    limit: 32
+                }).then(function(results) {
+                self.search.results = results
+            })
         },
         mkReady() {
             if(this.mk["nowPlayingItem"]) {
