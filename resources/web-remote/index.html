@@ -258,7 +258,8 @@
                                             </div>
                                             <div class="list-entry-artist">
                                                 {{ song.artistName }}
-                                                <span class="lossless-badge" v-if="song.audioTraits.includes('lossless')">Lossless</span>
+                                                <span class="lossless-badge"
+                                                      v-if="song.audioTraits.includes('lossless')">Lossless</span>
                                             </div>
                                         </div>
                                     </div>
@@ -301,7 +302,8 @@
                                             </div>
                                             <div class="list-entry-artist">
                                                 {{ album.artistName }}
-                                                <span class="lossless-badge" v-if="album.audioTraits.includes('lossless')">Lossless</span>
+                                                <span class="lossless-badge"
+                                                      v-if="album.audioTraits.includes('lossless')">Lossless</span>
                                             </div>
                                         </div>
                                     </div>

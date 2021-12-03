@@ -1,4 +1,11 @@
-var app = new Vue({
+Vue.component('mediaitem-square', {
+    template: '#mediaitem-square',
+    props: ['item'],
+    methods: {
+    }
+});
+
+const app = new Vue({
     el: "#app",
     data: {
         drawertest: false,
@@ -40,6 +47,9 @@ var app = new Vue({
             }else{
                 return false
             }
+        },
+        getMediaItemArtwork(url, size = 64) {
+            return `url("${url.replace('{w}', size).replace('{h}', size)}")`;
         },
         getNowPlayingArtwork(size = 600) {
             if (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"]) {
