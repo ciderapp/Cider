@@ -19,6 +19,17 @@ Vue.component('mediaitem-list-item', {
     }
 });
 
+const MusicKitTools = {
+    getHeader() {
+        return new Headers({
+            Authorization: 'Bearer ' + MusicKit.getInstance().developerToken,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'Music-User-Token': '' + MusicKit.getInstance().musicUserToken
+        });
+    }
+}
+
 const app = new Vue({
     el: "#app",
     data: {
@@ -29,13 +40,20 @@ const app = new Vue({
             term: "",
             results: {}
         },
+        playerLCD: {
+            playbackDuration: 0
+        },
         page: "browse"
     },
     methods: {
         init() {
+            let self = this
             this.mk = MusicKit.getInstance()
             this.mk.authorize()
             this.$forceUpdate()
+            this.mk.addEventListener(MusicKit.Events.playbackTimeDidChange, (a)=>{
+                self.playerLCD.playbackDuration = (self.mk.currentPlaybackTime)
+            })
         },
         showSearch() {
             this.page = "search"
