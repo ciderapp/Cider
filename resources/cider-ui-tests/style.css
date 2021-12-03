@@ -153,13 +153,20 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     background-color: var(--color2);
     height: 100%;
     width: 100%;
-    padding: 32px;
     overflow-y: scroll;
     overflow-y: overlay;
     overflow-x: hidden;
     border-radius: 10px 0px;
     border-left: 1px solid rgb(0 0 0 / 25%);
     border-top: 1px solid rgb(0 0 0 / 25%);
+    position:relative;
+}
+
+.content-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 32px;
 }
 
 

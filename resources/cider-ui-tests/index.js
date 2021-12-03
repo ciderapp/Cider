@@ -1,6 +1,6 @@
 Vue.component('sidebar-library-item', {
     template: '#sidebar-library-item',
-    props: ['name', 'page'],
+    props: ['name', 'page', 'cd-click'],
     methods: {}
 });
 
@@ -46,6 +46,9 @@ const app = new Vue({
         playerLCD: {
             playbackDuration: 0
         },
+        radio: {
+            personal: []
+        },
         playlists: {
             listing: [],
             details: {}
@@ -73,6 +76,13 @@ const app = new Vue({
             } else {
                 return []
             }
+        },
+        async getRadioStations() {
+            this.radio.personal = await this.mk.api.recentRadioStations("",
+                {
+                    "platform": "web",
+                    "art[url]": "f"
+                });
         },
         unauthorize() {
             this.mk.unauthorize()

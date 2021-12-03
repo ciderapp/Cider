@@ -31,7 +31,8 @@
                     <div class="app-title"></div>
                 </div>
                 <div class="app-chrome-item">
-                    <button class="playback-button--small shuffle" v-if="mk.shuffleMode == 0" @click="mk.shuffleMode = 1"></button>
+                    <button class="playback-button--small shuffle" v-if="mk.shuffleMode == 0"
+                            @click="mk.shuffleMode = 1"></button>
                     <button class="playback-button--small shuffle active" v-else @click="mk.shuffleMode = 0"></button>
                 </div>
                 <div class="app-chrome-item">
@@ -45,9 +46,12 @@
                     <button class="playback-button next" @click="mk.skipToNextItem()"></button>
                 </div>
                 <div class="app-chrome-item">
-                    <button class="playback-button--small repeat" v-if="mk.repeatMode == 0" @click="mk.repeatMode = 1"></button>
-                    <button class="playback-button--small repeat active" @click="mk.repeatMode = 2" v-else-if="mk.repeatMode == 1"></button>
-                    <button class="playback-button--small repeat repeatOne" @click="mk.repeatMode = 0" v-else-if="mk.repeatMode == 2"></button>
+                    <button class="playback-button--small repeat" v-if="mk.repeatMode == 0"
+                            @click="mk.repeatMode = 1"></button>
+                    <button class="playback-button--small repeat active" @click="mk.repeatMode = 2"
+                            v-else-if="mk.repeatMode == 1"></button>
+                    <button class="playback-button--small repeat repeatOne" @click="mk.repeatMode = 0"
+                            v-else-if="mk.repeatMode == 2"></button>
                 </div>
             </div>
             <div class="app-chrome--center">
@@ -126,7 +130,7 @@
                     </div>
                     <sidebar-library-item name="Listen Now" page="listen_now"></sidebar-library-item>
                     <sidebar-library-item name="Browse" page="browse"></sidebar-library-item>
-                    <sidebar-library-item name="Radio" page="Radio"></sidebar-library-item>
+                    <sidebar-library-item name="Radio" page="radio"></sidebar-library-item>
                     <div class="app-sidebar-header-text">
                         Library
                     </div>
@@ -153,62 +157,95 @@
             </div>
             <div id="app-content">
                 <!-- Browse -->
+                <transition name="wpfade">
                     <template v-if="page == 'browse'">
-                        <button id="apple-music-authorize" class="md-btn md-btn-primary" @click="init()">Start MusicKit</button>
-                        <button id="apple-music-unauthorize" class="md-btn md-btn-primary" @click="unauthorize()">Stop MusicKit</button>
-                        <br>
-                        <template v-if="mk.nowPlayingItem">
-                            currentPlaybackProgress: {{ app.mk.currentPlaybackProgress }}
+                        <div class="content-inner">
+                            <button id="apple-music-authorize" class="md-btn md-btn-primary" @click="init()">Start MusicKit
+                            </button>
+                            <button id="apple-music-unauthorize" class="md-btn md-btn-primary" @click="unauthorize()">Stop
+                                MusicKit
+                            </button>
                             <br>
-                            currentPlaybackDuration: {{ app.mk.currentPlaybackDuration }}
-                        </template>
-                        <div><input type="text" v-model="quickPlayQuery">
-                            <button @click="quickPlay(quickPlayQuery)">Play</button>
-                        </div>
-                        <h1 class="header-text">Browse</h1>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna eu tincidunt
-                            consectetur, nisl nunc euismod nisi, eu porttitor nisl nisi euismod nisi.
-                        </p>
-                        <div class="media-item--small">
-                            <div class="artwork">
+                            <template v-if="mk.nowPlayingItem">
+                                currentPlaybackProgress: {{ app.mk.currentPlaybackProgress }}
+                                <br>
+                                currentPlaybackDuration: {{ app.mk.currentPlaybackDuration }}
+                            </template>
+                            <div><input type="text" v-model="quickPlayQuery">
+                                <button @click="quickPlay(quickPlayQuery)">Play</button>
+                            </div>
+                            <h1 class="header-text">Browse</h1>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna eu tincidunt
+                                consectetur, nisl nunc euismod nisi, eu porttitor nisl nisi euismod nisi.
+                            </p>
+                            <div class="media-item--small">
+                                <div class="artwork">
 
+                                </div>
+                                <div class="text">
+                                    Text
+                                </div>
+                                <div class="subtext">
+                                    Subtext
+                                </div>
                             </div>
-                            <div class="text">
-                                Text
-                            </div>
-                            <div class="subtext">
-                                Subtext
-                            </div>
+                            <br>
+                            <br>
+                            <button class="md-btn" @click="drawertest = !drawertest">Toggle Drawer</button>
+                            <button class="md-btn">Button</button>
+                            <button class="md-btn md-btn-primary">Button</button>
                         </div>
-                        <br>
-                        <br>
-                        <button class="md-btn" @click="drawertest = !drawertest">Toggle Drawer</button>
-                        <button class="md-btn">Button</button>
-                        <button class="md-btn md-btn-primary">Button</button>
                     </template>
+                </transition>
+                <!-- Listen Now -->
+                <transition name="wpfade">
+                    <template v-if="page == 'listen_now'">
+                        <div class="content-inner">
+
+                        </div>
+                    </template>
+                </transition>
+                <!-- Radio -->
+                <transition v-on:enter="getRadioStations()" name="wpfade">
+                    <template v-if="page == 'radio'" @created="console.log('radio')">
+                        <div class="content-inner">
+                            <h1 class="header-text">Radio</h1>
+                            <h3>Recent Stations</h3>
+                            <mediaitem-square :item="item" v-for="item in radio.personal"></mediaitem-square>
+                        </div>
+                    </template>
+                </transition>
                 <!-- Search -->
+                <transition name="wpfade">
                     <template v-if="page == 'search'">
-                        <h1 class="header-text">{{ search.term }}</h1>
-                        <template v-if="search.results['meta']">
-                            <template v-if="search.results.songs">
-                                <h3>Artists</h3>
-                                <mediaitem-square :item="item" v-for="item in search.results.artists.data"></mediaitem-square>
+                        <div class="content-inner">
+                            <h1 class="header-text">{{ search.term }}</h1>
+                            <template v-if="search.results['meta']">
+                                <template v-if="search.results.songs">
+                                    <h3>Artists</h3>
+                                    <mediaitem-square :item="item"
+                                                      v-for="item in search.results.artists.data"></mediaitem-square>
+                                </template>
+                                <template v-if="search.results.songs">
+                                    <h3>Songs</h3>
+                                    <mediaitem-list-item :item="item"
+                                                         v-for="item in search.results.songs.data"></mediaitem-list-item>
+                                </template>
+                                <template v-if="search.results.songs">
+                                    <h3>Albums</h3>
+                                    <mediaitem-square :item="item"
+                                                      v-for="item in search.results.albums.data"></mediaitem-square>
+                                </template>
+                                <template v-if="search.results.songs">
+                                    <h3>Playlists</h3>
+                                    <mediaitem-square :item="item"
+                                                      v-for="item in search.results.playlists.data"></mediaitem-square>
+                                </template>
                             </template>
-                            <template v-if="search.results.songs">
-                                <h3>Songs</h3>
-                                <mediaitem-list-item :item="item" v-for="item in search.results.songs.data"></mediaitem-list-item>
-                            </template>
-                            <template v-if="search.results.songs">
-                                <h3>Albums</h3>
-                                <mediaitem-square :item="item" v-for="item in search.results.albums.data"></mediaitem-square>
-                            </template>
-                            <template v-if="search.results.songs">
-                                <h3>Playlists</h3>
-                                <mediaitem-square :item="item" v-for="item in search.results.playlists.data"></mediaitem-square>
-                            </template>
-                        </template>
+                        </div>
                     </template>
+                </transition>
             </div>
             <div class="app-drawer" v-if="drawertest">
 
@@ -221,7 +258,8 @@
 <script type="text/x-template" id="sidebar-library-item">
     <button class="app-sidebar-item"
             :class="$parent.getSidebarItemClass(page)"
-            @click="$parent.page = page">{{ name }}</button>
+            @click="$parent.page = page">{{ name }}
+    </button>
 </script>
 
 <script type="text/x-template" id="mediaitem-list-item">
@@ -275,7 +313,7 @@
 <script type="text/x-template" id="mediaitem-square">
     <template>
         <div @click="$parent.playMediaItemById(item.id, item.type)"
-                class="cd-mediaitem-square">
+             class="cd-mediaitem-square">
             <div class="artwork"
                  :class="{'round': item.type == 'artists'}"
                  :style="{'--artwork': $parent.getMediaItemArtwork(item.attributes.artwork.url, 128)}"></div>
