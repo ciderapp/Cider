@@ -538,7 +538,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 .app-chrome .app-chrome-item>.app-playback-controls .artwork {
     width: 42px;
     height: 42px;
-    background-image: url("artwork.jpeg");
+    background-image: var(--artwork);
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
