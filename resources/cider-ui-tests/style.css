@@ -1262,6 +1262,20 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     font-size: 12px;
 }
 
+.cd-mediaitem-list-item .content-rating {
+    text-transform: uppercase;
+    font-size: 10px;
+    border-radius: 3px;
+    background: rgb(200 200 200 / 15%);
+    width: 60px;
+    text-align: center;
+    padding: 5px;
+    margin-right: 12px;
+    flex: 0 0 auto;
+    font-weight: 500;
+    color: #ccc;
+}
+
 /* mediaitem-hrect */
 .cd-mediaitem-hrect {
     background: rgb(255 255 255 / 18%);
