@@ -124,19 +124,16 @@
                     <div class="app-sidebar-header-text">
                         Apple Music
                     </div>
-                    <button class="app-sidebar-item">
-                        <div></div>
-                        <div>Listen Now</div>
-                    </button>
-                    <button class="app-sidebar-item active">Browse</button>
-                    <button class="app-sidebar-item">Radio</button>
+                    <sidebar-library-item name="Listen Now" page="listen_now"></sidebar-library-item>
+                    <sidebar-library-item name="Browse" page="browse"></sidebar-library-item>
+                    <sidebar-library-item name="Radio" page="Radio"></sidebar-library-item>
                     <div class="app-sidebar-header-text">
                         Library
                     </div>
-                    <button class="app-sidebar-item">Songs</button>
-                    <button class="app-sidebar-item">Albums</button>
-                    <button class="app-sidebar-item">Artists</button>
-                    <button class="app-sidebar-item">Made For You</button>
+                    <sidebar-library-item name="Songs" page="library-songs"></sidebar-library-item>
+                    <sidebar-library-item name="Albums" page="library-albums"></sidebar-library-item>
+                    <sidebar-library-item name="Artists" page="library-artists"></sidebar-library-item>
+                    <sidebar-library-item name="Made For You" page="library-madeforyou"></sidebar-library-item>
                     <div class="app-sidebar-header-text">
                         Playlists
                     </div>
@@ -220,6 +217,12 @@
     </div>
     <div class="bg-artwork"></div>
 </div>
+
+<script type="text/x-template" id="sidebar-library-item">
+    <button class="app-sidebar-item"
+            :class="$parent.getSidebarItemClass(page)"
+            @click="$parent.page = page">{{ name }}</button>
+</script>
 
 <script type="text/x-template" id="mediaitem-list-item">
     <template>
