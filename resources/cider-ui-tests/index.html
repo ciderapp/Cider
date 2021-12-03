@@ -31,20 +31,23 @@
                     <div class="app-title"></div>
                 </div>
                 <div class="app-chrome-item">
-                    <button class="playback-button--small shuffle"></button>
+                    <button class="playback-button--small shuffle" v-if="mk.shuffleMode == 0" @click="mk.shuffleMode = 1"></button>
+                    <button class="playback-button--small shuffle active" v-else @click="mk.shuffleMode = 0"></button>
                 </div>
                 <div class="app-chrome-item">
-                    <button class="playback-button previous"></button>
+                    <button class="playback-button previous" @click="mk.skipToPreviousItem()"></button>
                 </div>
                 <div class="app-chrome-item">
                     <button class="playback-button pause" @click="mk.pause()" v-if="mk.isPlaying"></button>
                     <button class="playback-button play" @click="mk.play()" v-else></button>
                 </div>
                 <div class="app-chrome-item">
-                    <button class="playback-button next"></button>
+                    <button class="playback-button next" @click="mk.skipToNextItem()"></button>
                 </div>
                 <div class="app-chrome-item">
-                    <button class="playback-button--small repeat"></button>
+                    <button class="playback-button--small repeat" v-if="mk.repeatMode == 0" @click="mk.repeatMode = 1"></button>
+                    <button class="playback-button--small repeat active" @click="mk.repeatMode = 2" v-else-if="mk.repeatMode == 1"></button>
+                    <button class="playback-button--small repeat repeatOne" @click="mk.repeatMode = 0" v-else-if="mk.repeatMode == 2"></button>
                 </div>
             </div>
             <div class="app-chrome--center">
@@ -189,16 +192,16 @@
                     <h1 class="header-text">{{ search.term }}</h1>
                     <template v-if="search.results['meta']">
                         <template v-if="search.results.songs">
+                            <h3>Artists</h3>
+                            <mediaitem-square :item="item" v-for="item in search.results.artists.data"></mediaitem-square>
+                        </template>
+                        <template v-if="search.results.songs">
                             <h3>Songs</h3>
-                            <mediaitem-square :item="item" v-for="item in search.results.songs.data"></mediaitem-square>
+                            <mediaitem-list-item :item="item" v-for="item in search.results.songs.data"></mediaitem-list-item>
                         </template>
                         <template v-if="search.results.songs">
                             <h3>Albums</h3>
                             <mediaitem-square :item="item" v-for="item in search.results.albums.data"></mediaitem-square>
-                        </template>
-                        <template v-if="search.results.songs">
-                            <h3>Artists</h3>
-                            <mediaitem-square :item="item" v-for="item in search.results.artists.data"></mediaitem-square>
                         </template>
                         <template v-if="search.results.songs">
                             <h3>Playlists</h3>
@@ -215,11 +218,58 @@
     <div class="bg-artwork"></div>
 </div>
 
+<script type="text/x-template" id="mediaitem-list-item">
+    <template>
+        <div @click="$parent.playMediaItemById(item.id, item.type)"
+             class="cd-mediaitem-list-item">
+            <div class="artwork"
+                 :class="{'round': item.type == 'artists'}"
+                 :style="{'--artwork': $parent.getMediaItemArtwork(item.attributes.artwork.url, 55)}
+                "></div>
+            <div class="info-rect">
+                <div class="title text-overflow-elipsis">
+                    {{ item.attributes.name }}
+                </div>
+                <div class="subtitle text-overflow-elipsis">
+                    <template v-if="item.attributes.artistName">
+                        {{ item.attributes.artistName }}
+                    </template>
+                </div>
+            </div>
+        </div>
+    </template>
+</script>
+
+<script type="text/x-template" id="mediaitem-hrect">
+    <template>
+        <div @click="$parent.playMediaItemById(item.id, item.type)"
+             class="cd-mediaitem-hrect">
+            <div class="artwork"
+                 :class="{'round': item.type == 'artists'}"
+                 :style="{'--artwork': $parent.getMediaItemArtwork(item.attributes.artwork.url, 70)}
+                "></div>
+            <div class="info-rect">
+                <div class="title text-overflow-elipsis">
+                    {{ item.attributes.name }}
+                </div>
+                <div class="subtitle text-overflow-elipsis">
+                    {{ item.type }}
+                    <template v-if="item.attributes.artistName">
+                        ∙ {{ item.attributes.artistName }}
+                    </template>
+                </div>
+            </div>
+        </div>
+    </template>
+</script>
+
 <script type="text/x-template" id="mediaitem-square">
     <template>
         <div @click="$parent.playMediaItemById(item.id, item.type)"
                 class="cd-mediaitem-square">
-            <div class="artwork" :style="{'--artwork': $parent.getMediaItemArtwork(item.attributes.artwork.url, 80)}"></div>
+            <div class="artwork"
+                 :class="{'round': item.type == 'artists'}"
+                 :style="{'--artwork': $parent.getMediaItemArtwork(item.attributes.artwork.url, 128)}"></div>
             <div class="title text-overflow-elipsis">
                 {{ item.attributes.name }}
             </div>

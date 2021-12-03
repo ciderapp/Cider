@@ -5,6 +5,20 @@ Vue.component('mediaitem-square', {
     }
 });
 
+Vue.component('mediaitem-hrect', {
+    template: '#mediaitem-hrect',
+    props: ['item'],
+    methods: {
+    }
+});
+
+Vue.component('mediaitem-list-item', {
+    template: '#mediaitem-list-item',
+    props: ['item'],
+    methods: {
+    }
+});
+
 const app = new Vue({
     el: "#app",
     data: {
