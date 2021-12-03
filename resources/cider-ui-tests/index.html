@@ -140,7 +140,7 @@
                     <div class="app-sidebar-header-text">
                         Playlists
                     </div>
-                    <button class="app-sidebar-item" v-for="item in playlists.items" :key="item.id" href="">
+                    <button class="app-sidebar-item" v-for="item in playlists.listing" :key="item.id" href="item.href">
                         {{ item.attributes.name }}
                     </button>
                 </div>

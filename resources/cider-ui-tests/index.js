@@ -44,7 +44,8 @@ const app = new Vue({
             playbackDuration: 0
         },
         playlists: {
-          items: []
+            listing: [],
+            details: {}
         },
         page: "browse"
     },
@@ -54,14 +55,13 @@ const app = new Vue({
             this.mk = MusicKit.getInstance()
             this.mk.authorize()
             this.$forceUpdate()
+
             this.mk.addEventListener(MusicKit.Events.playbackTimeDidChange, (a)=>{
                 self.playerLCD.playbackDuration = (self.mk.currentPlaybackTime)
             })
 
             this.apiCall('https://api.music.apple.com/v1/me/library/playlists', res => {
-                console.log(res.data)
-                console.log(res.data.length)
-                self.playlists.items = res.data
+                self.playlists.listing = res.data
             })
         },
         unauthorize() {
@@ -136,6 +136,14 @@ const app = new Vue({
             xmlHttp.setRequestHeader("Content-Type", "application/json");
             xmlHttp.responseType = "text";
             xmlHttp.send();
+        },
+        fetchPlaylist(id, callback) {
+            // id can be found in playlist.attributes.playParams.globalId
+            this.mk.api.playlist(id).then(res => {
+                callback(res)
+            })
+
+            // tracks are found in relationship.data
         }
     }
 })
