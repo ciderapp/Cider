@@ -1104,7 +1104,7 @@ const handler = {
             }
         }
         
-        function broadcastRemote() {
+        async function broadcastRemote() {
         const myString = getIp();
         const encoded = new Buffer(myString).toString('base64');
         var x =  mdns.tcp('ame-lg-client');   
@@ -1112,7 +1112,8 @@ const handler = {
         server2.start();
 
         let ssdpRemoteServer = express();
-        ssdpRemoteServer.listen(3840, () => {
+        ssdpRemotePort = await getPort({port: 3840});
+        ssdpRemoteServer.listen(ssdpRemotePort, () => {
         });
         ssdpRemoteServer.get('/', (req, res) => {
             res.header("Content-Type", "application/xml");
@@ -1155,7 +1156,7 @@ const handler = {
 
         let SSDP = require('node-ssdp').Server
         , server = new SSDP({
-            location : 'http://' + getIp() + ':3840',
+            location : 'http://' + getIp() + `:${ssdpRemotePort}`,
             allowWildcards : true,
             adInterval : 5000,
 
