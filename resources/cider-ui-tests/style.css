@@ -2,6 +2,7 @@
 
 :root {
     --appleEase: cubic-bezier(0.42, 0, 0.58, 1);
+    --mediaItemShadow: inset 0px 0px 0px 1px rgb(200 200 200 / 16%), 0 8px 40px rgb(0 0 0 / 0.55);
     --keyColor: #fa586a;
     --keyColor-rgb: 250, 88, 106;
     --keyColor-rollover: #ff8a9c;
@@ -1230,6 +1231,9 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     width: 80px;
     background: blue;
     border-radius: 100%;
+    background: var(--artwork);
+    background-size: contain;
+    box-shadow: var(--mediaItemShadow);
 }
 
 .cd-mediaitem-square .title {

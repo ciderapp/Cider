@@ -219,7 +219,7 @@
     <template>
         <div @click="$parent.playMediaItemById(item.id, item.type)"
                 class="cd-mediaitem-square">
-            <div class="artwork" :style="$parent.getMediaItemArtwork(item.attributes.artwork.url)"></div>
+            <div class="artwork" :style="{'--artwork': $parent.getMediaItemArtwork(item.attributes.artwork.url, 80)}"></div>
             <div class="title text-overflow-elipsis">
                 {{ item.attributes.name }}
             </div>
