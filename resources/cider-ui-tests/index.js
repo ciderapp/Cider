@@ -8,6 +8,7 @@ var app = new Vue({
     methods: {
         init() {
             this.mk = MusicKit.getInstance()
+            this.mk.authorize()
             this.$forceUpdate()
         },
         mkReady() {
@@ -41,10 +42,13 @@ var app = new Vue({
 document.addEventListener('musickitloaded', function() {
     // MusicKit global is now defined
     MusicKit.configure({
-        developerToken: 'put key here pls',
+        developerToken: '',
         app: {
             name: 'My Cool Web App',
             build: '1978.4.1'
         }
     });
+    setTimeout(()=>{
+        app.init()
+    }, 1000)
 });
