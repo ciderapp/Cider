@@ -2,6 +2,7 @@
 
 :root {
     --appleEase: cubic-bezier(0.42, 0, 0.58, 1);
+    --mediaItemShadow: inset 0px 0px 0px 1px rgb(200 200 200 / 16%), 0 8px 40px rgb(0 0 0 / 0.55);
     --keyColor: #fa586a;
     --keyColor-rgb: 250, 88, 106;
     --keyColor-rollover: #ff8a9c;
@@ -85,6 +86,18 @@ body {
     filter: blur(32px) saturate(180%);
 }
 
+body.streamer-overlay {
+    background: transparent;
+}
+
+body.streamer-overlay #app {
+    background: transparent;
+}
+
+body.streamer-overlay #app:before {
+    display: none;
+}
+
 body {
     background: #111;
     font-family: "Segoe UI Variable Display", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -124,6 +137,24 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     font-family: inherit;
 }
 
+.wr-btn {
+    font-family: inherit;
+    appearance: none;
+    border:0px;
+    border-radius: 6px;
+    padding: 8px;
+    font-weight: 600;
+    background: rgb(80 80 80 / 70%);
+    color: white;
+}
+
+.footer-player {
+    padding: 6px;
+    display:flex;
+    border-top: 1px solid rgb(200 200 200 / 15%);
+    background: rgb(200 200 200 / 10%);
+}
+
 .player-duration-time {
     opacity: 0.5;
 }
@@ -151,13 +182,21 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 8px;
-    box-shadow: inset 0px 0px 0px 1px rgb(200 200 200 / 16%), 0 8px 40px rgb(0 0 0 / 0.55);
+    box-shadow: var(--mediaItemShadow);
     transition: transform .10s var(--appleEase);
 }
 
 .media-artwork.paused {
     transition: transform .35s var(--appleEase);
     transform: scale(0.85);
+}
+
+.lossless-badge {
+    background: rgb(150 150 150);
+    border-radius: 6px;
+    padding: 0px 6px;
+    color: rgb(30 30 30);
+    font-weight: 600;
 }
 
 .playback-slider {
@@ -218,6 +257,10 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     background-color: rgb(200 200 200 / 10%);
 }
 
+.playback-button--small.activeColor {
+    background-color: var(--keyColor);
+}
+
 .playback-button--small.search {
     background-image: url("./assets/search.svg");
 }
@@ -228,6 +271,10 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 
 .playback-button--small.lyrics {
     background-image: url("./assets/quote-right.svg");
+}
+
+.playback-button--small.autoplay {
+    background-image: url("./assets/infinity.svg");
 }
 
 .playback-button--small.shuffle {
@@ -392,8 +439,8 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    border-radius: 8px;
-    box-shadow: inset 0px 0px 0px 1px rgb(200 200 200 / 16%), 0 8px 40px rgb(0 0 0 / 0.55);
+    border-radius: 4px;
+    box-shadow: var(--mediaItemShadow);
 }
 
 .list-entry-image.artist {
@@ -424,10 +471,48 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 .list-entry .handle {
     height: 100%;
     width: 28px;
-    background:var(--keyColor);
     display: flex;
     justify-content: center;
     align-items: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url('./assets/Grabber.svg');
+    cursor: grab;
+}
+
+.list-entry .handle:active {
+    cursor: grabbing;
+}
+
+.song-scroller-horizontal {
+    display:flex;
+    overflow-y: scroll;
+    overflow-x:hidden;
+    overflow-y: overlay;
+    width: 100%;
+    height: 200px;
+    /*! flex-flow: row; */
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.song-placeholder {
+    height: 60px;
+    width: 50%;
+    flex: 0 0 auto;
+}
+
+.mediaitem-scroller-horizontal {
+    display:flex;
+    overflow-y: hidden;
+    overflow-x:scroll;
+    overflow-x: overlay;
+    width: 100%;
+}
+.album-placeholder {
+    height: 180px;
+    width: 180px;
+    flex: 0 0 auto;
 }
 
 .md-container {
@@ -485,6 +570,8 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     position: relative;
     width: 100%;
     height: 100%;
+    overflow-y: scroll;
+    overflow-y: overlay;
 }
 
 .queue-body {
@@ -492,11 +579,141 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     height: 100%;
 }
 
+.text-overflow-elipsis {
+    min-width: 0px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.album-body-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-y: overlay;
+    overflow-x: hidden;
+}
+
+
+.albumpage-artwork {
+    --artwork: url("");
+    width: 30vh;
+    height: 30vh;
+    margin: 0 auto;
+    border-radius: 6px;
+    background:black;
+    margin-bottom: 18px;
+    box-shadow: var(--mediaItemShadow);
+    background-image: var(--artwork);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.albumpage-misc-info {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    opacity: 0.50;
+}
+
+.albumpage-album-notes {
+    margin: 0 auto;
+    margin-top: 16px;
+    height: 60px;
+    overflow: hidden;
+    position: relative;
+    max-width: 300px;
+}
+
+.albumpage-album-notes>.notes-preview {
+    height: 60px;
+    overflow: hidden;
+    -webkit-mask-image: -webkit-gradient(linear, left 95%, left bottom, from(rgba(0, 0, 0, 1)), to(rgba(0, 0, 0, 0)));
+}
+
+.albumpage-album-notes>.notes-more {
+    position: absolute;
+    bottom:0px;
+    right:0px;
+    appearance: none;
+    background: transparent;
+    color: var(--keyColor);
+    font-weight: bold;
+    font-family: inherit;
+    text-transform: uppercase;
+    height: 100%;
+    width: 100%;
+    padding: 0px;
+    border:0px;
+    display:flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.album-page-fullnotes-body {
+    padding: 22px;
+    font-size: 17px;
+    overflow-y: scroll;
+    overflow-y: overlay;
+}
+
+.albumpage-album-name {
+    margin: 0 auto;
+    font-size: 17px;
+    width: 100%;
+    text-align: center;
+    font-weight: 600;
+}
+
+.albumpage-artist-name {
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    color: var(--keyColor);
+}
+
+.albumpage-artist-name:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.artist-header {
+    height: 400px;
+    width: 100%;
+    margin: 12px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    flex-direction: column;
+    background: rgb(0 0 0 / 40%);
+}
+
+.artist-header .artist-header-portrait {
+    height: 200px;
+    width: 200px;
+    background: var(--artwork);
+    background-size: contain;
+    background-repeat: no-repeat;
+    border-radius: 100%;
+    box-shadow: var(--mediaItemShadow);
+}
+
 .search-body {
     position: absolute;
     width: 100%;
     height: 100%;
     padding-top: 220px;
+}
+
+.artist-body {
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }
 
 .search-tab {
@@ -691,6 +908,48 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     height: 100%;
 }
 
+.miniplayer-main {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.miniplayer-main .miniplayer-controls {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    background:rgb(0 0 0 / 50%);
+    height: 80px;
+    z-index: 2;
+    width:100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(16px) saturate(180%);
+}
+
+.miniplayer-main .miniplayer-draggable {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: calc(100% - 80px);
+    width: 100%;
+}
+
+.miniplayer-main .miniplayer-controls .md-btn {
+    width: 40px;
+    background-size: 16px;
+}
+
+.media-artwork--miniplayer {
+    width: 100%;
+    height: 100%;
+    background: var(--artwork);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 /* Small Screen */
 @media only screen and (max-height: 668px) {
     #app {
@@ -704,6 +963,23 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 @media only screen and (orientation: landscape) {
     #app {
         max-width: 100%;
+    }
+    
+    .album-body-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .album-body-container>.md-header {
+        min-width: 300px;
+        flex: 0 0 auto;
+        /*! max-width: 300px; */
+        margin: 0 auto;
+    }
+    
+    .artist-body {
+        position: relative;
+        /*! flex: 0 0 auto; */
     }
 
     .player-panel {

@@ -1,5 +1,9 @@
 var socket;
 
+Vue.component('footer-player', {
+    template: '#footer-player'
+});
+
 // vue instance
 var app = new Vue({
     el: '#app',
@@ -22,6 +26,14 @@ var app = new Vue({
         queue: {
             temp: []
         },
+        artistPage: {
+            data: {},
+            editorsNotes: false
+        },
+        albumPage: {
+            data: {},
+            editorsNotes: false
+        },
         search: {
             query: "",
             results: [],
@@ -31,12 +43,29 @@ var app = new Vue({
             trackSelect: false,
             selected: {},
             queue: {},
+            lastPage: "search",
+            lastY: 0
         },
+        lastPage: "player",
         connectedState: 0,
         url: window.location.hostname,
+        mode: "default",
         // url: "localhost",
     },
     methods: {
+        searchScroll(e) {
+            this.search.lastY = e.target.scrollTop;
+        },
+        musicKitAPI(method, id, params) {
+            socket.send(
+                JSON.stringify({
+                    action: "musickit-api",
+                    method: method,
+                    id: id,
+                    params: params
+                })
+            )
+        },
         resetPlayerUI() {
             this.player.lowerPanelState = "controls";
         },
@@ -111,7 +140,7 @@ var app = new Vue({
                 setTimeout(() => {
                     this.getQueue()
                 }, 1000)
-            }else{
+            } else {
                 this.getQueue()
             }
         },
@@ -171,10 +200,11 @@ var app = new Vue({
         getArtworkColor(hex) {
             return `#${hex}`
         },
-        playMediaItemById(id) {
+        playMediaItemById(id, kind = "song") {
             socket.send(JSON.stringify({
                 action: "play-mediaitem",
-                id: id
+                id: id,
+                kind: kind
             }))
             this.screen = "player";
         },
@@ -309,6 +339,38 @@ var app = new Vue({
                 return ["passed"]
             }
         },
+        showSearch(reset = false) {
+            if(reset) {
+                this.search.lastPage = "search"
+            }
+            switch(this.search.lastPage) {
+                case "search":
+                    this.screen = "search"
+                    break;
+                case "album":
+                    this.screen = "album-page"
+                    break;
+                case "artist":
+                    this.screen = "artist-page"
+                    break;
+                case "playlist":
+                    this.screen = "playlist-page"
+                    break;
+            }
+        },
+        showArtistByName(name) {
+            this.musicKitAPI("search", name, {types: "artists"})
+        },
+        showAlbum(id) {
+            this.search.lastPage = "album"
+            this.screen = "album-page"
+            this.musicKitAPI("album", id, {})
+        },
+        showArtist(id) {
+            this.search.lastPage = "artist"
+            this.screen = "artist-page"
+            this.musicKitAPI("artist", id, {include: "songs,playlists,albums"})
+        },
         showQueue() {
             this.queue.temp = this.player["queue"]["_queueItems"]
             this.screen = "queue"
@@ -337,6 +399,31 @@ var app = new Vue({
                 action: "shuffle"
             }))
             this.getCurrentMediaItem()
+        },
+        setShuffle(val) {
+            socket.send(JSON.stringify({
+                action: "set-shuffle",
+                shuffle: val
+            }))
+            this.getCurrentMediaItem()
+        },
+        getMediaPalette(data) {
+            var palette = {
+                '--bgColor': `#${data['artwork']['bgColor']}`,
+                '--textColor1': `#${data['artwork']['textColor1']}`,
+                '--textColor2': `#${data['artwork']['textColor2']}`,
+                '--textColor3': `#${data['artwork']['textColor3']}`,
+                '--textColor4': `#${data['artwork']['textColor4']}`
+            }
+            return palette
+        },
+        playAlbum(id, shuffle = false) {
+            if(shuffle) {
+                this.setShuffle(true)
+            }else{
+                this.setShuffle(false)
+            }
+            this.playMediaItemById(id, 'album');
         },
         getLyrics() {
             socket.send(JSON.stringify({
@@ -373,6 +460,19 @@ var app = new Vue({
                 action: "get-currentmediaitem"
             }))
         },
+        setStreamerOverlay() {
+            document.body.classList.add("streamer-overlay")
+        },
+        setMode(mode) {
+            switch(mode) {
+                default:
+                    this.screen = "player"
+                    break;
+                case "miniplayer":
+                    this.screen = "miniplayer"
+                    break;
+            }
+        },
         connect() {
             let self = this;
             this.connectedState = 0;
@@ -384,7 +484,11 @@ var app = new Vue({
                 console.log(e);
                 console.log('connected');
                 app.connectedState = 1;
-                self.screen = "player"
+                if(getParameterByName("mode")) {
+                    self.setMode(getParameterByName("mode"))
+                }else{
+                    self.setMode("default")
+                }
                 self.clearSelectedTrack()
             }
 
@@ -404,20 +508,25 @@ var app = new Vue({
                 const response = JSON.parse(e.data);
                 switch (response.type) {
                     default:
-
+                        console.log(response);
+                        break;
+                    case "musickitapi.search":
+                        self.showArtist(response.data["artists"][0]["id"]);
+                        break;
+                    case "musickitapi.album":
+                        if(self.screen == "album-page") {
+                            self.albumPage.data = response.data
+                        }
+                        break;
+                    case "musickitapi.artist":
+                        if(self.screen == "artist-page") {
+                            self.artistPage.data = response.data
+                        }
                         break;
                     case "queue":
                         self.player.queue = response.data;
                         self.queue.temp = response.data["_queueItems"];
                         self.$forceUpdate()
-                        if (self.screen == "queue") {
-                            setTimeout(() => {
-                                document.querySelector(".playing").scrollIntoView({
-                                    behavior: "smooth",
-                                    block: "start"
-                                })
-                            }, 200)
-                        }
                         break;
                     case "lyrics":
                         self.player.lyrics = response.data;
@@ -454,6 +563,16 @@ var app = new Vue({
         }
     },
 });
+
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
 
 function xmlToJson(xml) {
 

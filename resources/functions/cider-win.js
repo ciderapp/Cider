@@ -1,4 +1,4 @@
-const {app, BrowserWindow} = require("electron")
+const {app, BrowserWindow, ipcMain} = require("electron")
 const {join, resolve} = require("path")
 
 const CiderWin = {
@@ -34,6 +34,8 @@ const CiderWin = {
         win.on("closed", () => {
             win = null
         })
+    },
+    SetupHandlers() {
     }
 }
 

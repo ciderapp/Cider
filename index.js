@@ -48,7 +48,6 @@ function CreateWindow() {
 app.on('ready', () => {
     if (app.isQuiting) { app.quit(); return; }
 
-    require('vue-devtools').install()
     // Apple Header tomfoolery.
     session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
         if(details.url.match(/^https:\/\/store-\d{3}\.blobstore\.apple\.com/) || details.url.startsWith("https://store-037.blobstore.apple.com")){

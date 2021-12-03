@@ -8,6 +8,7 @@ const path = require('path');
 const port = process.argv[2] || 9000;
 const express = require('express');
 const router = express.Router();
+const getPort = require('get-port');
 const {
     ipcMain,
     app,
@@ -32,7 +33,7 @@ const wsapi = {
             return v.toString(16);
         });
     },
-    InitWebSockets() {
+    async InitWebSockets () {
         ipcMain.on('wsapi-updatePlaybackState', (event, arg) => {
             wsapi.updatePlaybackState(arg);
         })
@@ -49,12 +50,20 @@ const wsapi = {
             wsapi.returnSearchLibrary(JSON.parse(arg));
         });
 
+        ipcMain.on('wsapi-returnDynamic', (event, arg, type) => {
+            wsapi.returnDynamic(JSON.parse(arg), type);
+        });
+
+        ipcMain.on('wsapi-returnMusicKitApi', (event, arg, method) => {
+            wsapi.returnMusicKitApi(JSON.parse(arg), method);
+        });
+
         ipcMain.on('wsapi-returnLyrics', (event, arg) => {
             wsapi.returnLyrics(JSON.parse(arg));
         });
-
+        var safeport = await getPort({port : 26369});
         wss = new WebSocketServer({
-            port: 26369,
+            port: safeport,
             perMessageDeflate: {
                 zlibDeflateOptions: {
                     // See zlib defaults.
@@ -75,10 +84,11 @@ const wsapi = {
                 // should not be compressed if context takeover is disabled.
             }
         })
-
+        console.log(`WebSocketServer started on port: ${safeport}`);
+ 
         const defaultResponse = new wsapi.standardResponse(0, {}, "OK");
 
-        console.log(`WebSocketServer started on port: ${this.port}`);
+        
         wss.on('connection', function connection(ws) {
             ws.id = wsapi.createId();
             console.log(`Client ${ws.id} connected`)
@@ -127,6 +137,13 @@ const wsapi = {
                     case "shuffle":
                         app.win.webContents.executeJavaScript(`wsapi.toggleShuffle()`);
                         break;
+                    case "set-shuffle":
+                        if(data.shuffle == true) {
+                            app.win.webContents.executeJavaScript(`MusicKit.getInstance().shuffleMode = 1`);
+                        }else{
+                            app.win.webContents.executeJavaScript(`MusicKit.getInstance().shuffleMode = 0`);
+                        }
+                        break;
                     case "repeat":
                         app.win.webContents.executeJavaScript(`wsapi.toggleRepeat()`);
                         break;
@@ -167,10 +184,9 @@ const wsapi = {
                         response.message = "Previous";
                         break;
                     case "musickit-api":
-
+                        app.win.webContents.executeJavaScript(`wsapi.musickitApi(\`${data.method}\`, \`${data.id}\`, ${JSON.stringify(data.params)})`);
                         break;
                     case "musickit-library-api":
-
                         break;
                     case "set-autoplay":
                         app.win.webContents.executeJavaScript(`wsapi.setAutoplay(${data.autoplay})`);
@@ -200,7 +216,7 @@ const wsapi = {
                         app.win.hide()
                         break;
                     case "play-mediaitem":
-                        app.win.webContents.executeJavaScript(`wsapi.playTrackById(${data.id})`);
+                        app.win.webContents.executeJavaScript(`wsapi.playTrackById(${data.id}, \`${data.kind}\`)`);
                         response.message = "Playing track";
                         break;
                     case "get-status":
@@ -249,6 +265,18 @@ const wsapi = {
             client.send(JSON.stringify(response));
         });
     },
+    returnMusicKitApi(results, method) {
+        const response = new wsapi.standardResponse(0, results, "OK", `musickitapi.${method}`);
+        wsapi.clients.forEach(function each(client) {
+            client.send(JSON.stringify(response));
+        });
+    },
+    returnDynamic(results, type) {
+        const response = new wsapi.standardResponse(0, results, "OK", type);
+        wsapi.clients.forEach(function each(client) {
+            client.send(JSON.stringify(response));
+        });
+    },
     returnLyrics(results) {
         const response = new wsapi.standardResponse(0, results, "OK", "lyrics");
         wsapi.clients.forEach(function each(client) {
@@ -272,9 +300,10 @@ const wsapi = {
         wsapi.clients.forEach(function each(client) {
             client.send(JSON.stringify(response));
         });
-    },
+    },   
     webRemotePort: 8090,
-    InitWebServer() {
+    async InitWebServer() {
+        const webRemotePort = await getPort({port : wsapi.webRemotePort});
         // Web Remote
         // express server that will serve static files in the "../web-remote" folder
         const webapp = express();
@@ -283,8 +312,8 @@ const wsapi = {
         webapp.get('/', function (req, res) {
             res.sendFile(path.join(webRemotePath, 'index.html'));
         });
-        webapp.listen(wsapi.webRemotePort, function () {
-            console.log(`Web Remote listening on port ${wsapi.webRemotePort}`);
+        webapp.listen(webRemotePort, function () {
+            console.log(`Web Remote listening on port ${webRemotePort}`);
         });
     }
 }
