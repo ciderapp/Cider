@@ -1,3 +1,9 @@
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.has('auth')) {
+    let auth = urlParams.get('auth')
+    //delete search param
+}
+
 var app = new Vue({
     el: "#app",
     data: {
@@ -41,7 +47,7 @@ var app = new Vue({
 document.addEventListener('musickitloaded', function() {
     // MusicKit global is now defined
     MusicKit.configure({
-        developerToken: '',
+        developerToken: `${auth || ''}`,
         app: {
             name: 'My Cool Web App',
             build: '1978.4.1'
