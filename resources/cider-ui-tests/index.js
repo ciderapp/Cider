@@ -43,6 +43,9 @@ const app = new Vue({
         playerLCD: {
             playbackDuration: 0
         },
+        playlists: {
+          items: []
+        },
         page: "browse"
     },
     methods: {
@@ -54,6 +57,15 @@ const app = new Vue({
             this.mk.addEventListener(MusicKit.Events.playbackTimeDidChange, (a)=>{
                 self.playerLCD.playbackDuration = (self.mk.currentPlaybackTime)
             })
+
+            this.apiCall('https://api.music.apple.com/v1/me/library/playlists', res => {
+                console.log(res.data)
+                console.log(res.data.length)
+                self.playlists.items = res.data
+            })
+        },
+        unauthorize() {
+            this.mk.unauthorize()
         },
         showSearch() {
             this.page = "search"
@@ -74,9 +86,9 @@ const app = new Vue({
             })
         },
         mkReady() {
-            if(this.mk["nowPlayingItem"]) {
+            if (this.mk["nowPlayingItem"]) {
                 return true
-            }else{
+            } else{
                 return false
             }
         },
@@ -100,6 +112,30 @@ const app = new Vue({
                     }, 1000)
                 })
             })
+        },
+        apiCall(url, callback) {
+            const xmlHttp = new XMLHttpRequest();
+
+            xmlHttp.onreadystatechange = (e) => {
+                if (xmlHttp.readyState !== 4) {
+                    return;
+                }
+
+                if (xmlHttp.status === 200) {
+                    console.log('SUCCESS', xmlHttp.responseText);
+                    callback(JSON.parse(xmlHttp.responseText));
+                } else {
+                    console.warn('request_error');
+                }
+            };
+
+            xmlHttp.open("GET", url);
+            xmlHttp.setRequestHeader("Authorization", "Bearer " + MusicKit.getInstance().developerToken);
+            xmlHttp.setRequestHeader("Music-User-Token", "" + MusicKit.getInstance().musicUserToken);
+            xmlHttp.setRequestHeader("Accept", "application/json");
+            xmlHttp.setRequestHeader("Content-Type", "application/json");
+            xmlHttp.responseType = "text";
+            xmlHttp.send();
         }
     }
 })

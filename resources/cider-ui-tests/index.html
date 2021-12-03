@@ -140,7 +140,9 @@
                     <div class="app-sidebar-header-text">
                         Playlists
                     </div>
-                    <button class="app-sidebar-item" v-for="i in 32">Playist</button>
+                    <button class="app-sidebar-item" v-for="item in playlists.items" :key="item.id" href="">
+                        {{ item.attributes.name }}
+                    </button>
                 </div>
                 <div class="app-sidebar-footer">
                     <input type="range" class="display--small">
@@ -155,7 +157,8 @@
             <div id="app-content">
                 <!-- Browse -->
                     <template v-if="page == 'browse'">
-                        <button class="md-btn md-btn-primary" @click="init()">Start MusicKit</button>
+                        <button id="apple-music-authorize" class="md-btn md-btn-primary" @click="init()">Start MusicKit</button>
+                        <button id="apple-music-unauthorize" class="md-btn md-btn-primary" @click="unauthorize()">Stop MusicKit</button>
                         <br>
                         <template v-if="mk.nowPlayingItem">
                             currentPlaybackProgress: {{ app.mk.currentPlaybackProgress }}
