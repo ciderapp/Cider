@@ -227,7 +227,7 @@ const app = new Vue({
             }
         },
         getMediaItemArtwork(url, size = 64) {
-            return `url("${url.replace('{w}', size).replace('{h}', size)}")`;
+            return `url("${url.replace('{w}', size).replace('{h}', size).replace('{f}', "webp").replace('{c}', "bb")}")`;
         },
         getNowPlayingArtworkBG(size = 600) {
             if(!this.mkReady()) {
