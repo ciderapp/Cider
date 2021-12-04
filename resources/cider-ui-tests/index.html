@@ -22,7 +22,7 @@
     <link rel="manifest" href="./manifest.json?v=2">
 </head>
 
-<body oncontextmenu="return false;">
+<body oncontextmenu="return false;" loading="1">
 <div id="app">
     <div id="app-main">
         <div class="app-chrome">
@@ -219,30 +219,24 @@
                 <!-- Search -->
                 <transition name="wpfade">
                     <template v-if="page == 'search'">
+                        <cider-search :search="search"></cider-search>
+                    </template>
+                </transition>
+                <!-- Library - Songs -->
+                <transition name="wpfade" v-on:enter="getLibrarySongs()">
+                    <template v-if="page == 'library-songs'">
                         <div class="content-inner">
-                            <h1 class="header-text">{{ search.term }}</h1>
-                            <template v-if="search.results['meta']">
-                                <template v-if="search.results.songs">
-                                    <h3>Artists</h3>
-                                    <mediaitem-square :item="item"
-                                                      v-for="item in search.results.artists.data"></mediaitem-square>
-                                </template>
-                                <template v-if="search.results.songs">
-                                    <h3>Songs</h3>
-                                    <mediaitem-list-item :item="item"
-                                                         v-for="item in search.results.songs.data"></mediaitem-list-item>
-                                </template>
-                                <template v-if="search.results.songs">
-                                    <h3>Albums</h3>
-                                    <mediaitem-square :item="item"
-                                                      v-for="item in search.results.albums.data"></mediaitem-square>
-                                </template>
-                                <template v-if="search.results.songs">
-                                    <h3>Playlists</h3>
-                                    <mediaitem-square :item="item"
-                                                      v-for="item in search.results.playlists.data"></mediaitem-square>
-                                </template>
-                            </template>
+                            <h1 class="header-text">Songs</h1>
+                            <div class="search-input-container" style="width:100%;margin: 16px 0px;">
+                                <div class="search-input--icon"></div>
+                                <input type="search"
+                                       style="width:100%;"
+                                       spellcheck="false"
+                                       placeholder="Search..."
+                                       class="search-input">
+                            </div>
+                            <mediaitem-list-item :item="item"
+                                                 v-for="item in library.songs.listing"></mediaitem-list-item>
                         </div>
                     </template>
                 </transition>
@@ -255,6 +249,76 @@
     <div class="bg-artwork"></div>
 </div>
 
+<script type="text/x-template" id="cider-search">
+    <div class="content-inner">
+        <div class="row">
+            <div class="col-sm" style="width: auto;" v-if="getTopResult()">
+                <template >
+                    <h3>Top Result</h3>
+                    <mediaitem-square :item="getTopResult()"></mediaitem-square>
+                </template>
+            </div>
+            <div class="col" v-if="search.results.songs">
+                <div class="row">
+                    <div class="col">
+                        <h3>Songs</h3>
+                    </div>
+                    <div class="col-auto flex-center" v-if="search.results.songs.data.length == search.limit">
+                        <button class="cd-btn-seeall">See All</button>
+                    </div>
+                </div>
+                <div>
+                    <mediaitem-list-item :item="item"
+                                         v-for="item in search.results.songs.data"></mediaitem-list-item>
+                </div>
+            </div>
+        </div>
+
+        <template v-if="search.results['meta']">
+            <template v-if="search.results.albums">
+                <div class="row">
+                    <div class="col">
+                        <h3>Albums</h3>
+                    </div>
+                    <div class="col-auto flex-center" v-if="search.results.albums.data.length == search.limit">
+                        <button class="cd-btn-seeall">See All</button>
+                    </div>
+                </div>
+                <mediaitem-square :item="item"
+                                  v-for="item in search.results.albums.data"></mediaitem-square>
+            </template>
+            <template v-if="search.results.artists">
+                <div class="row">
+                    <div class="col">
+                        <h3>Artists</h3>
+                    </div>
+                    <div class="col-auto flex-center" v-if="search.results.artists.data.length == search.limit">
+                        <button class="cd-btn-seeall">See All</button>
+                    </div>
+                </div>
+                <mediaitem-square :item="item"
+                                  v-for="item in search.results.artists.data"></mediaitem-square>
+            </template>
+            <template v-if="search.results.playlists">
+                <div class="row">
+                    <div class="col">
+                        <h3>Playlists</h3>
+                    </div>
+                    <div class="col-auto flex-center" v-if="search.results.playlists.data.length == search.limit">
+                        <button class="cd-btn-seeall">See All</button>
+                    </div>
+                </div>
+                <mediaitem-square :item="item"
+                                  v-for="item in search.results.playlists.data"></mediaitem-square>
+            </template>
+        </template>
+    </div>
+</script>
+
+<script type="text/x-template" id="am-musiccovershelf">
+    <h1>{{ component.attributes.title.stringForDisplay }}</h1>
+</script>
+
 <script type="text/x-template" id="sidebar-library-item">
     <button class="app-sidebar-item"
             :class="$parent.getSidebarItemClass(page)"
@@ -264,11 +328,11 @@
 
 <script type="text/x-template" id="mediaitem-list-item">
     <template>
-        <div @click="$parent.playMediaItemById(item.id, item.type)"
+        <div @click="app.playMediaItemById(item.id, item.type)"
              class="cd-mediaitem-list-item">
             <div class="artwork"
                  :class="{'round': item.type == 'artists'}"
-                 :style="{'--artwork': $parent.getMediaItemArtwork(item.attributes.artwork.url, 55)}
+                 :style="{'--artwork': app.getMediaItemArtwork(item.attributes.artwork.url, 34)}
                 "></div>
             <div class="info-rect">
                 <div class="title text-overflow-elipsis">
@@ -277,6 +341,9 @@
                 <div class="subtitle text-overflow-elipsis">
                     <template v-if="item.attributes.artistName">
                         {{ item.attributes.artistName }}
+                        <template v-if="item.attributes.albumName">
+                             - {{ item.attributes.albumName }}
+                        </template>
                     </template>
                 </div>
             </div>
@@ -289,11 +356,11 @@
 
 <script type="text/x-template" id="mediaitem-hrect">
     <template>
-        <div @click="$parent.playMediaItemById(item.id, item.type)"
+        <div @click="app.playMediaItemById(item.id, item.type)"
              class="cd-mediaitem-hrect">
             <div class="artwork"
                  :class="{'round': item.type == 'artists'}"
-                 :style="{'--artwork': $parent.getMediaItemArtwork(item.attributes.artwork.url, 70)}
+                 :style="{'--artwork': app.getMediaItemArtwork(item.attributes.artwork.url, 70)}
                 "></div>
             <div class="info-rect">
                 <div class="title text-overflow-elipsis">
@@ -312,11 +379,11 @@
 
 <script type="text/x-template" id="mediaitem-square">
     <template>
-        <div @click="$parent.playMediaItemById(item.id, item.type)"
+        <div @click="app.playMediaItemById(item.id, item.type)"
              class="cd-mediaitem-square">
             <div class="artwork"
                  :class="{'round': item.type == 'artists'}"
-                 :style="{'--artwork': $parent.getMediaItemArtwork(item.attributes.artwork.url, 128)}"></div>
+                 :style="{'--artwork': app.getMediaItemArtwork(item.attributes.artwork.url, 128)}"></div>
             <div class="title text-overflow-elipsis">
                 {{ item.attributes.name }}
             </div>

@@ -22,6 +22,20 @@ Vue.component('mediaitem-list-item', {
     methods: {}
 });
 
+Vue.component('cider-search', {
+    template: "#cider-search",
+    props: ['search'],
+    methods: {
+        getTopResult() {
+            if (this.search.results["meta"]) {
+                return this.search.results[this.search.results.meta.results.order[0]]["data"][0]
+            } else {
+                return false;
+            }
+        }
+    }
+})
+
 const MusicKitTools = {
     getHeader() {
         return new Headers({
@@ -41,13 +55,20 @@ const app = new Vue({
         quickPlayQuery: "",
         search: {
             term: "",
-            results: {}
+            results: {},
+            limit: 10
         },
         playerLCD: {
             playbackDuration: 0
         },
         radio: {
             personal: []
+        },
+        library: {
+            songs: {
+                listing: [],
+                meta: {total: 0}
+            }
         },
         playlists: {
             listing: [],
@@ -69,6 +90,7 @@ const app = new Vue({
             this.apiCall('https://api.music.apple.com/v1/me/library/playlists', res => {
                 self.playlists.listing = res.data
             })
+            document.body.removeAttribute("loading")
         },
         getSidebarItemClass(page) {
             if (this.page == page) {
@@ -77,12 +99,78 @@ const app = new Vue({
                 return []
             }
         },
-        async getRadioStations() {
-            this.radio.personal = await this.mk.api.recentRadioStations("",
-                {
-                    "platform": "web",
-                    "art[url]": "f"
-                });
+        async mkapi(method, library = false, term, params = {}, params2 = {}, attempts = 0) {
+            if (attempts > 3) {
+                return
+            }
+            try {
+                if (library) {
+                    return await this.mk.api.library[method](term, params, params2)
+                } else {
+                    return await this.mk.api[method](term, params, params2)
+                }
+            } catch (e) {
+                console.log(e)
+                return await this.mkapi(method, library, term, params, params2, attempts + 1)
+            }
+        },
+        async getLibrarySongs() {
+            var response = await this.mkapi("songs", true, "", {limit: 100}, {includeResponseMeta: !0})
+            this.library.songs.listing = response.data
+            this.library.songs.meta = response.meta
+        },
+        async getListenNow(attempt = 0) {
+            if (attempt > 3) {
+                return
+            }
+            try {
+                await this.mk.api.personalRecommendations("",
+                    {
+                        name: "listen-now",
+                        with: "friendsMix,library,social",
+                        "art[social-profiles:url]": "c",
+                        "art[url]": "c,f",
+                        "omit[resource]": "autos",
+                        "relate[editorial-items]": "contents",
+                        extend: ["editorialCard", "editorialVideo"],
+                        "extend[albums]": ["artistUrl"],
+                        "extend[library-albums]": ["artistUrl"],
+                        "extend[playlists]": ["artistNames", "editorialArtwork"],
+                        "extend[library-playlists]": ["artistNames", "editorialArtwork"],
+                        "extend[social-profiles]": "topGenreNames",
+                        "include[albums]": "artists",
+                        "include[songs]": "artists",
+                        "include[music-videos]": "artists",
+                        "fields[albums]": ["artistName", "artistUrl", "artwork", "contentRating", "editorialArtwork", "editorialVideo", "name", "playParams", "releaseDate", "url"],
+                        "fields[artists]": ["name", "url"],
+                        "extend[stations]": ["airDate", "supportsAirTimeUpdates"],
+                        "meta[stations]": "inflectionPoints",
+                        types: "artists,albums,editorial-items,library-albums,library-playlists,music-movies,music-videos,playlists,stations,uploaded-audios,uploaded-videos,activities,apple-curators,curators,tv-shows,social-profiles,social-upsells",
+                        platform: "web"
+                    },
+                    {
+                        includeResponseMeta: !0,
+                        reload: !0
+                    });
+            } catch (e) {
+                console.log(e)
+                await this.getListenNow(attempt + 1)
+            }
+        },
+        async getRadioStations(attempt = 0) {
+            if (attempt > 3) {
+                return
+            }
+            try {
+                this.radio.personal = await this.mkapi("recentRadioStations", false, "",
+                    {
+                        "platform": "web",
+                        "art[url]": "f"
+                    });
+            } catch (e) {
+                console.log(e)
+                this.getRadioStations(attempt + 1)
+            }
         },
         unauthorize() {
             this.mk.unauthorize()
@@ -100,7 +188,7 @@ const app = new Vue({
             this.mk.api.search(this.search.term,
                 {
                     types: "songs,artists,albums,playlists",
-                    limit: 32
+                    limit: self.search.limit
                 }).then(function (results) {
                 self.search.results = results
             })

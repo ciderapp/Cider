@@ -30,6 +30,12 @@ body {
 
 body {
     background: transparent;
+    transition: opacity .10s var(--appleEase);
+}
+
+body[loading] {
+    opacity: 0.5;
+    pointer-events: none;
 }
 
 *,
@@ -167,6 +173,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     top: 0;
     left: 0;
     padding: 32px;
+    width: 100%;
 }
 
 
@@ -1224,7 +1231,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 /* mediaitem-list-item */
 .cd-mediaitem-list-item {
     width: 100%;
-    height: 80px;
+    height: 60px;
     display: inline-flex;
     flex: 0 0 auto;
     flex-direction: row;
@@ -1240,8 +1247,8 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 }
 
 .cd-mediaitem-list-item .artwork {
-    height: 55px;
-    width: 55px;
+    height: 34px;
+    width: 34px;
     background: blue;
     border-radius: var(--mediaItemRadius);
     background: var(--artwork);
@@ -1265,8 +1272,9 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 }
 
 .cd-mediaitem-list-item .subtitle {
-    width: 100%;
+    width: 90%;
     font-size: 12px;
+    opacity: 0.7;
 }
 
 .cd-mediaitem-list-item .content-rating {
@@ -1376,6 +1384,21 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     font-size: 12px;
 }
 
+
+.cd-btn-seeall {
+    background: transparent;
+    border: 0px;
+    color: var(--keyColor);
+    font-family: inherit;
+    font-size:  16px;
+    border-radius: 4px;
+    padding: 6px;
+}
+
+.cd-btn-seeall:hover {
+    cursor: pointer;
+    background: rgb(200 200 200 / 10%)
+}
 
 /* Cider */
 

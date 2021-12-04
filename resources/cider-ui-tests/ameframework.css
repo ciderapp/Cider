@@ -218,9 +218,9 @@ input[type=range].md-slider::-webkit-slider-runnable-track {
     --bs-gutter-y: 0;
     display: flex;
     flex-wrap: wrap;
-    margin-top: calc(-1 * var(--bs-gutter-y));
-    margin-right: calc(-0.5 * var(--bs-gutter-x));
-    margin-left: calc(-0.5 * var(--bs-gutter-x));
+    /*margin-top: calc(-1 * var(--bs-gutter-y));*/
+    /*margin-right: calc(-0.5 * var(--bs-gutter-x));*/
+    /*margin-left: calc(-0.5 * var(--bs-gutter-x));*/
 }
 
 .row > * {
