@@ -542,14 +542,19 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     font-weight: 600;
     text-align: center;
     font-size: 13px;
-    max-lines: 1;
+    height: 1em; 
+    line-height: 1em; 
+    overflow: hidden;
 }
 
 .app-chrome .app-chrome-item > .app-playback-controls .song-artist {
     font-weight: 400;
     font-size: 13px;
     text-align: center;
-    max-lines: 1;
+    height: 1em; 
+    line-height: 1em; 
+    overflow: hidden;
+    /* animation: marquee 10s linear infinite; */
 }
 
 .app-chrome .app-chrome-item > .app-playback-controls .song-progress {
@@ -558,6 +563,16 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     bottom: 0px;
     left: 0px;
     overflow: hidden;
+    
+}
+
+@keyframes marquee {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(-100%);
+    }
 }
 
 .app-chrome .app-chrome-item > .app-playback-controls .song-progress > input[type=range] {
@@ -1267,6 +1282,13 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     overflow-x: scroll;
 }
 
+.cd-hmedia-scroller::-webkit-scrollbar-thumb{
+    box-shadow: none;
+}
+
+.cd-hmedia-scroller:hover::-webkit-scrollbar-thumb{
+    box-shadow: inset 0px 0px 10px 10px rgb(200 200 200 / 50%);
+}
 
 /* mediaitem-list-item */
 .cd-mediaitem-list-item {
