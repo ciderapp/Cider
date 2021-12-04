@@ -202,7 +202,13 @@
                 <transition name="wpfade">
                     <template v-if="page == 'listen_now'">
                         <div class="content-inner">
-
+                            <h1 class="header-text">Listen Now</h1>
+                            <div class="winbox">
+                                <div class="fancy">990kbps</div>
+                                <div class="">
+                                    <button class="md-btn md-btn-primary">Audio Quality Settings</button>
+                                </div>
+                            </div>
                         </div>
                     </template>
                 </transition>
@@ -246,7 +252,16 @@
             </div>
         </div>
     </div>
-    <div class="bg-artwork"></div>
+    <transition name="wpfade">
+        <img v-show="chrome.artworkReady"
+             @load="chrome.artworkReady = true"
+             class="bg-artwork"
+             :src="getNowPlayingArtworkBG(32)">
+    </transition>
+    <transition name="wpfade">
+        <div class="bg-artwork--placeholder" v-else></div>
+    </transition>
+
 </div>
 
 <script type="text/x-template" id="cider-search">
@@ -263,13 +278,13 @@
                     <div class="col">
                         <h3>Songs</h3>
                     </div>
-                    <div class="col-auto flex-center" v-if="search.results.songs.data.length == search.limit">
+                    <div class="col-auto flex-center" v-if="search.results.songs.data.length >= 6">
                         <button class="cd-btn-seeall">See All</button>
                     </div>
                 </div>
                 <div>
                     <mediaitem-list-item :item="item"
-                                         v-for="item in search.results.songs.data"></mediaitem-list-item>
+                                         v-for="item in search.results.songs.data.limit(6)"></mediaitem-list-item>
                 </div>
             </div>
         </div>
@@ -280,36 +295,36 @@
                     <div class="col">
                         <h3>Albums</h3>
                     </div>
-                    <div class="col-auto flex-center" v-if="search.results.albums.data.length == search.limit">
+                    <div class="col-auto flex-center" v-if="search.results.albums.data.length >= 10">
                         <button class="cd-btn-seeall">See All</button>
                     </div>
                 </div>
                 <mediaitem-square :item="item"
-                                  v-for="item in search.results.albums.data"></mediaitem-square>
+                                  v-for="item in search.results.albums.data.limit(10)"></mediaitem-square>
             </template>
             <template v-if="search.results.artists">
                 <div class="row">
                     <div class="col">
                         <h3>Artists</h3>
                     </div>
-                    <div class="col-auto flex-center" v-if="search.results.artists.data.length == search.limit">
+                    <div class="col-auto flex-center" v-if="search.results.artists.data.length >= 5">
                         <button class="cd-btn-seeall">See All</button>
                     </div>
                 </div>
                 <mediaitem-square :item="item"
-                                  v-for="item in search.results.artists.data"></mediaitem-square>
+                                  v-for="item in search.results.artists.data.limit(5)"></mediaitem-square>
             </template>
             <template v-if="search.results.playlists">
                 <div class="row">
                     <div class="col">
                         <h3>Playlists</h3>
                     </div>
-                    <div class="col-auto flex-center" v-if="search.results.playlists.data.length == search.limit">
+                    <div class="col-auto flex-center" v-if="search.results.playlists.data.length >= 10">
                         <button class="cd-btn-seeall">See All</button>
                     </div>
                 </div>
                 <mediaitem-square :item="item"
-                                  v-for="item in search.results.playlists.data"></mediaitem-square>
+                                  v-for="item in search.results.playlists.data.limit(10)"></mediaitem-square>
             </template>
         </template>
     </div>

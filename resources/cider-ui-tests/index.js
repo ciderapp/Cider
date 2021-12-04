@@ -47,6 +47,11 @@ const MusicKitTools = {
     }
 }
 
+// limit an array to a certain number of items
+Array.prototype.limit = function (n) {
+    return this.slice(0, n);
+};
+
 const app = new Vue({
     el: "#app",
     data: {
@@ -74,6 +79,9 @@ const app = new Vue({
             listing: [],
             details: {}
         },
+        chrome: {
+            artworkReady: false
+        },
         page: "browse"
     },
     methods: {
@@ -87,11 +95,16 @@ const app = new Vue({
                 self.playerLCD.playbackDuration = (self.mk.currentPlaybackTime)
             })
 
+            this.mk.addEventListener(MusicKit.Events.nowPlayingItemDidChange, (a) => {
+                self.chrome.artworkReady = false
+            })
+
             this.apiCall('https://api.music.apple.com/v1/me/library/playlists', res => {
                 self.playlists.listing = res.data
             })
             document.body.removeAttribute("loading")
         },
+
         getSidebarItemClass(page) {
             if (this.page == page) {
                 return ["active"]
@@ -202,6 +215,16 @@ const app = new Vue({
         },
         getMediaItemArtwork(url, size = 64) {
             return `url("${url.replace('{w}', size).replace('{h}', size)}")`;
+        },
+        getNowPlayingArtworkBG(size = 600) {
+            if(!this.mkReady()) {
+                return ""
+            }
+            if (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"]) {
+                return `${this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"].replace('{w}', size).replace('{h}', size)}`;
+            } else {
+                return "";
+            }
         },
         getNowPlayingArtwork(size = 600) {
             if (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"]) {

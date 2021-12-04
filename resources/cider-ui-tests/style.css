@@ -85,6 +85,24 @@ body[loading] {
     position: relative;
     overflow: hidden;
 }
+[hidden] {
+    display: none !important;
+}
+
+
+.bg-artwork--placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #222;
+    z-index: -1;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.70;
+}
+
 
 .bg-artwork {
     position: absolute;
@@ -92,10 +110,19 @@ body[loading] {
     left: 0;
     width: 100%;
     height: 100%;
-    background: url("artwork.jpeg");
+    background: var(--artwork);
     z-index: -1;
+    background-size: cover;
+    background-position: center;
     filter: blur(60px) saturate(180%);
-    display: none;
+    opacity: 0.70;
+    transition: opacity .25s var(--appleEase);
+}
+
+
+[artwork-hidden] {
+    transition: opacity .25s var(--appleEase);
+    opacity:0;
 }
 
 body {
