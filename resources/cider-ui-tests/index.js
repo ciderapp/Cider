@@ -108,7 +108,11 @@ const app = new Vue({
             songs: {
                 listing: [],
                 meta: {total: 0}
-            }
+            },
+            albums: {
+                listing: [],
+                meta: {total: 0}
+            },
         },
         playlists: {
             listing: [],
@@ -166,6 +170,11 @@ const app = new Vue({
             var response = await this.mkapi("songs", true, "", {limit: 100}, {includeResponseMeta: !0})
             this.library.songs.listing = response.data
             this.library.songs.meta = response.meta
+        },
+        async getLibraryAlbums() {
+            var response = await this.mkapi("albums", true, "", {limit: 100}, {includeResponseMeta: !0})
+            this.library.albums.listing = response.data
+            this.library.albums.meta = response.meta
         },
         async getListenNow(attempt = 0) {
             if (attempt > 3) {

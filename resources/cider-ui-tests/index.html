@@ -245,6 +245,23 @@
                         </div>
                     </template>
                 </transition>
+                <!-- Library - Albums -->
+                <transition name="wpfade" v-on:enter="getLibraryAlbums()">
+                    <template v-if="page == 'library-albums'">
+                        <div class="content-inner">
+                            <h1 class="header-text">Albums</h1>
+                            <div class="search-input-container" style="width:100%;margin: 16px 0px;">
+                                <div class="search-input--icon"></div>
+                                <input type="search"
+                                       style="width:100%;"
+                                       spellcheck="false"
+                                       placeholder="Search..."
+                                       class="search-input">
+                            </div>
+                            <mediaitem-square-large :item="item" v-for="item in library.albums.listing"></mediaitem-square-large>
+                        </div>
+                    </template>
+                </transition>
             </div>
             <div class="app-drawer" v-if="drawertest">
 
@@ -278,6 +295,8 @@
             <template v-if="recom.attributes.display.kind == 'MusicCoverShelf'">
                 <mediaitem-scroller-horizontal-large :items="recom.relationships.contents.data.limit(10)"></mediaitem-scroller-horizontal-large>
             </template>
+            <template v-else-if="recom.attributes.display.kind == 'MusicSuperHeroShelf'">
+            </template>    
             <template v-else>
                 <mediaitem-scroller-horizontal-sp :items="recom.relationships.contents.data.limit(10)"></mediaitem-scroller-horizontal-sp>    
             </template>
