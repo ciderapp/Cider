@@ -122,7 +122,8 @@ const app = new Vue({
             artworkReady: false,
             userinfo: {
 
-            }
+            },
+            menuOpened: false
         },
         page: "browse"
     },

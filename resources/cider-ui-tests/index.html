@@ -145,9 +145,25 @@
                         {{ item.attributes.name }}
                     </button>
                 </div>
+                <transition name="wpfade">
+                    <div class="app-sidebar-content" v-if="chrome.menuOpened">
+                        <button class="app-sidebar-item">
+                            About
+                        </button>
+                        <button class="app-sidebar-item">
+                            Discord
+                        </button>
+                        <button class="app-sidebar-item">
+                            Settings
+                        </button>
+                        <button class="app-sidebar-item">
+                            Sign Out
+                        </button>
+                    </div>
+                </transition>
                 <div class="app-sidebar-footer">
                     <input type="range" class="display--small">
-                    <button class="app-sidebar-button" style="width:100%">
+                    <button class="app-sidebar-button" style="width:100%" @click="chrome.menuOpened = !chrome.menuOpened">
                         <div class="sidebar-user-icon">
 
                         </div>
