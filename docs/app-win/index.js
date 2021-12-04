@@ -1,8 +1,5 @@
 const urlParams = new URLSearchParams(window.location.search);
-if (urlParams.has('auth')) {
-    let auth = urlParams.get('auth')
-    //delete search param
-}
+let auth = urlParams.get('auth')
 
 var app = new Vue({
     el: "#app",
