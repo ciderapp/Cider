@@ -1482,6 +1482,11 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     box-shadow: var(--mediaItemShadow);
     flex: 0 0 auto;
     margin: 6px;
+    margin-top: 0px;
+}
+
+.cd-mediaitem-square-large .artwork:hover {
+    box-shadow: rgb(0 0 0 / 50%) 0 0 0 1000000px inset;
 }
 
 .cd-mediaitem-square-large .artwork.round {
