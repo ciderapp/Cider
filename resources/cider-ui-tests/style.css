@@ -2,7 +2,8 @@
 
 :root {
     --appleEase: cubic-bezier(0.42, 0, 0.58, 1);
-    --mediaItemShadow: inset 0px 0px 0px 1px rgb(200 200 200 / 16%), 0 8px 40px rgb(0 0 0 / 0.55);
+    --mediaItemShadow-Shadow: inset 0px 0px 0px 1px rgb(200 200 200 / 16%), 0 8px 40px rgb(0 0 0 / 0.55);
+    --mediaItemShadow: inset 0px 0px 0px 1px rgb(200 200 200 / 16%);
     --mediaItemRadius: 4px;
     --mediaItemRadiusRound: 100%;
     --keyColor: #fa586a;
@@ -1254,6 +1255,15 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+/* horizontal media scroller */
+.cd-hmedia-scroller {
+    margin: 0 auto;
+    display: flex;
+    flex-flow: row;
+    overflow-x: scroll;
+}
+
 
 /* mediaitem-list-item */
 .cd-mediaitem-list-item {

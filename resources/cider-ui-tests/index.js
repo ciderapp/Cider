@@ -4,6 +4,12 @@ Vue.component('sidebar-library-item', {
     methods: {}
 });
 
+Vue.component('mediaitem-scroller-horizontal', {
+    template: '#mediaitem-scroller-horizontal',
+    props: ['items'],
+    methods: {}
+});
+
 Vue.component('mediaitem-square', {
     template: '#mediaitem-square',
     props: ['item'],

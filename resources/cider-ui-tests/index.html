@@ -299,8 +299,7 @@
                         <button class="cd-btn-seeall">See All</button>
                     </div>
                 </div>
-                <mediaitem-square :item="item"
-                                  v-for="item in search.results.albums.data.limit(10)"></mediaitem-square>
+                <mediaitem-scroller-horizontal :items="search.results.albums.data.limit(10)"></mediaitem-scroller-horizontal>
             </template>
             <template v-if="search.results.artists">
                 <div class="row">
@@ -339,6 +338,15 @@
             :class="$parent.getSidebarItemClass(page)"
             @click="$parent.page = page">{{ name }}
     </button>
+</script>
+
+<script type="text/x-template" id="mediaitem-scroller-horizontal">
+    <template>
+        <div class="cd-hmedia-scroller">
+            <mediaitem-square :item="item"
+                              v-for="item in items"></mediaitem-square>
+        </div>
+    </template>
 </script>
 
 <script type="text/x-template" id="mediaitem-list-item">
