@@ -1,5 +1,4 @@
-const urlParams = new URLSearchParams(window.location.search);
-let auth = urlParams.get('auth')
+
 
 var app = new Vue({
     el: "#app",
@@ -42,6 +41,8 @@ var app = new Vue({
 })
 
 document.addEventListener('musickitloaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    let auth = urlParams.get('auth')
     // MusicKit global is now defined
     MusicKit.configure({
         developerToken: `${auth || ''}`,
