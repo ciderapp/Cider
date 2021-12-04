@@ -1,7 +1,7 @@
 {
-  "name": "cider-test",
-  "applicationId": "Cider-Test",
-  "productName": "Cider-Test",
+  "name": "cider",
+  "applicationId": "Cider",
+  "productName": "Cider",
   "version": "1.0.0",
   "description": "A new look into listening and enjoying music in style and performance.",
   "license": "MIT",
