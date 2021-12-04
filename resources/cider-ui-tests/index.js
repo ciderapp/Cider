@@ -130,6 +130,9 @@ const app = new Vue({
             this.mk.authorize()
             this.$forceUpdate()
 
+            // Set profile name
+            this.mk.api.personalSocialProfile().then(function(result) {document.getElementById("userName").innerHTML = result.attributes.name});
+
             this.mk.addEventListener(MusicKit.Events.playbackTimeDidChange, (a) => {
                 self.playerLCD.playbackDuration = (self.mk.currentPlaybackTime)
             })
