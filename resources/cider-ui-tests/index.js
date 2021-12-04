@@ -214,10 +214,6 @@ const app = new Vue({
                 self.library.songs.meta.progress = library.length
                 if(typeof downloaded.next == "undefined") {
                     console.log("downloaded.next is undefined")
-                    self.library.songs.listing = library
-                    self.library.songs.downloadState = 2
-                    self.searchLibrarySongs()
-                    console.log(library)
                 }
                 if (downloaded.meta.total > library.length || typeof downloaded.meta.next != "undefined") {
                     console.log(`downloading next chunk - ${library.length} songs so far`)
