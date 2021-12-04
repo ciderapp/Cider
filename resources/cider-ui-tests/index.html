@@ -103,9 +103,9 @@
                 </div>
                 <div class="app-chrome-item full-height">
                     <div class="window-controls">
-                        <div class="minimize"></div>
-                        <div class="minmax"></div>
-                        <div class="close"></div>
+                        <div class="minimize" onclick="ipcRenderer.send('minimize')"></div>
+                        <div class="minmax" onclick="ipcRenderer.send('maximize')"></div>
+                        <div class="close" onclick="ipcRenderer.send('close')"></div>
                     </div>
                 </div>
             </div>

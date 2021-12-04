@@ -262,27 +262,27 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 }
 
 .playback-button--small.search {
-    background-image: url("./assets/search.svg");
+    background-image: url("oldshit/resources/web-remote/assets/search.svg");
 }
 
 .playback-button--small.queue {
-    background-image: url("./assets/list.svg");
+    background-image: url("oldshit/resources/web-remote/assets/list.svg");
 }
 
 .playback-button--small.lyrics {
-    background-image: url("./assets/quote-right.svg");
+    background-image: url("oldshit/resources/web-remote/assets/quote-right.svg");
 }
 
 .playback-button--small.autoplay {
-    background-image: url("./assets/infinity.svg");
+    background-image: url("oldshit/resources/web-remote/assets/infinity.svg");
 }
 
 .playback-button--small.shuffle {
-    background-image: url("./assets/shuffle.svg");
+    background-image: url("oldshit/resources/web-remote/assets/shuffle.svg");
 }
 
 .playback-button--small.repeat {
-    background-image: url("./assets/repeat.svg");
+    background-image: url("oldshit/resources/web-remote/assets/repeat.svg");
 }
 
 .playback-button--small.repeat.repeatOne {
@@ -290,19 +290,19 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 }
 
 .playback-button.pause {
-    background-image: url('./assets/pause.svg');
+    background-image: url('oldshit/resources/web-remote/assets/pause.svg');
 }
 
 .playback-button.play {
-    background-image: url('./assets/play.svg');
+    background-image: url('oldshit/resources/web-remote/assets/play.svg');
 }
 
 .playback-button.next {
-    background-image: url('./assets/forward.svg');
+    background-image: url('oldshit/resources/web-remote/assets/forward.svg');
 }
 
 .playback-button.previous {
-    background-image: url('./assets/backward.svg');
+    background-image: url('oldshit/resources/web-remote/assets/backward.svg');
 }
 
 .playback-buttons {
@@ -320,12 +320,12 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 }
 
 .player-volume-glyph.decrease {
-    background-image: url("./assets/volume-down.svg");
+    background-image: url("oldshit/resources/web-remote/assets/volume-down.svg");
     opacity: 0.5;
 }
 
 .player-volume-glyph.increase {
-    background-image: url("./assets/volume-up.svg");
+    background-image: url("oldshit/resources/web-remote/assets/volume-up.svg");
     opacity: 0.5;
 }
 
@@ -382,7 +382,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     background-size: 16px;
     background-position: center;
     background-repeat: no-repeat;
-    background-image: url("./assets/arrow-left.svg");
+    background-image: url("oldshit/resources/web-remote/assets/arrow-left.svg");
     border: 0px;
     border-radius: 0px;
 }
@@ -476,7 +476,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     align-items: center;
     background-size: contain;
     background-repeat: no-repeat;
-    background-image: url('./assets/Grabber.svg');
+    background-image: url('oldshit/resources/web-remote/assets/Grabber.svg');
     cursor: grab;
 }
 

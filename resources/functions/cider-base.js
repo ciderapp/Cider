@@ -3,16 +3,28 @@ const {join, resolve} = require("path")
 const getPort = require("get-port");
 const express = require("express");
 const path = require("path");
+const windowStateKeeper = require("electron-window-state");
 
-const CiderWin = {
+const CiderBase = {
+
     CreateBrowserWindow() {
+        // Set default window sizes
+        const mainWindowState = windowStateKeeper({
+            defaultWidth: 1024,
+            defaultHeight: 600
+        });
+
         let win = null
         const options = {
-            width: 1024,
-            height: 600,
+            icon: join(__dirname, `../icons/icon.ico`),
+            width: mainWindowState.width,
+            height: mainWindowState.height,
+            x: mainWindowState.x,
+            y: mainWindowState.y,
             minWidth: 844,
             minHeight: 410,
             frame: false,
+            title: "Cider",
             vibrancy: 'dark',
             hasShadow: false,
             webPreferences: {
@@ -23,10 +35,13 @@ const CiderWin = {
                 allowRunningInsecureContent: true,
                 enableRemoteModule: true,
                 sandbox: true,
-                nativeWindowOpen: true
+                nativeWindowOpen: true,
+                contextIsolation: false,
+                preload: join(__dirname, '../preload/cider-preload.js')
             }
+
         }
-        CiderWin.InitWebServer()
+        CiderBase.InitWebServer()
         if (process.platform === "darwin" || process.platform === "linux") {
             win = new BrowserWindow(options)
         } else {
@@ -39,6 +54,31 @@ const CiderWin = {
         win.on("closed", () => {
             win = null
         })
+
+        // Register listeners on Window to track size and position of the Window.
+        mainWindowState.manage(win);
+
+        // IPC stuff
+
+        ipcMain.on('close', () => { // listen for close event
+            win.close();
+        })
+
+        ipcMain.on('maximize', () => { // listen for maximize event
+            if (win.maximizable) {
+                win.maximize();
+                win.maximizable = false;
+            } else {
+                win.unmaximize();
+                win.maximizable = true;
+            }
+        })
+
+        ipcMain.on('minimize', () => { // listen for minimize event
+            win.minimize();
+        })
+
+        return win
     },
     async InitWebServer() {
         const webRemotePort = await getPort({port : 9000});
@@ -51,7 +91,7 @@ const CiderWin = {
         webapp.listen(webRemotePort, function () {
             console.log(`Web Remote listening on port ${webRemotePort}`);
         });
-    }
+    },
 }
 
-module.exports = CiderWin;
+module.exports = CiderBase;
