@@ -122,6 +122,7 @@ const app = new Vue({
             details: {}
         },
         chrome: {
+            hideUserInfo: false,
             artworkReady: false,
             userinfo: {},
             menuOpened: false,

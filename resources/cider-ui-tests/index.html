@@ -148,6 +148,9 @@
                 </div>
                 <transition name="wpfade">
                     <div class="app-sidebar-content" v-if="chrome.menuOpened">
+                        <button class="app-sidebar-item" @click="chrome.hideUserInfo = !chrome.hideUserInfo">
+                            Toggle Personal Info
+                        </button>
                         <button class="app-sidebar-item">
                             About
                         </button>
@@ -172,7 +175,7 @@
                             </div>
                         </template>
 
-                        <div class="sidebar-user-text">
+                        <div class="sidebar-user-text" v-if="!chrome.hideUserInfo">
                             <template v-if="chrome.userinfo.attributes">
                                 <div class="fullname text-overflow-elipsis">{{ chrome.userinfo.attributes.name }}</div>
                                 <div class="handle-text text-overflow-elipsis">@{{ chrome.userinfo.attributes.handle }}</div>
@@ -180,6 +183,9 @@
                             <template v-else>
                                 Sign in
                             </template>
+                        </div>
+                        <div class="sidebar-user-text" v-else>
+                            Cider
                         </div>
                     </button>
                 </div>
