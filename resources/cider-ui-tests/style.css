@@ -271,7 +271,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 
 .app-sidebar-button {
     width: 100%;
-    padding: 8px;
+    padding: 0px;
     font-family: inherit;
     display: flex;
     border-radius: 6px;
@@ -283,13 +283,14 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 }
 
 .app-sidebar-button > .sidebar-user-icon {
-    width: 26px;
-    height: 26px;
+    width: 32px;
+    height: 32px;
     border-radius: 100%;
     background-image: var(--artwork);
-    margin: 2px;
+    margin: 10px;
     flex: 0 0 auto;
     box-shadow: var(--mediaItemShadow);
+    background-size: contain;
 }
 
 .app-sidebar-button > .sidebar-user-text {
