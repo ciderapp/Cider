@@ -13,12 +13,12 @@
         //  &fields[albums]=artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialVideo,name,playParams,releaseDate,url
         //  &fields[artists]=name,url&extend[stations]=airDate,supportsAirTimeUpdates&meta[stations]=inflectionPoints
         //  &types=artists,albums,editorial-items,library-albums,library-playlists,music-movies,music-videos,playlists,stations,uploaded-audios,uploaded-videos,activities,apple-curators,curators,tv-shows,social-profiles,social-upsells
-        //  &l=en-gb&platform=web 
+        //  &l=en-gb&platform=web
 
 await app.mk.api.personalRecommendations("",
-        { 
-            name: "listen-now", 
-            with: "friendsMix,library,social", 
+        {
+            name: "listen-now",
+            with: "friendsMix,library,social",
             "art[social-profiles:url]":"c",
             "art[url]": "c,f",
             "omit[resource]": "autos",
@@ -38,15 +38,15 @@ await app.mk.api.personalRecommendations("",
             "meta[stations]": "inflectionPoints",
             types: "artists,albums,editorial-items,library-albums,library-playlists,music-movies,music-videos,playlists,stations,uploaded-audios,uploaded-videos,activities,apple-curators,curators,tv-shows,social-profiles,social-upsells",
             l:"en-gb",
-            platform:"web" 
+            platform:"web"
         },
         {
             includeResponseMeta: !0,
             reload: !0
-        });        
+        });
 
 // Browse page
-await app.mk.api.groupings("", 
+await app.mk.api.groupings("",
        {
             platform: "web",
             name: "music",
@@ -58,7 +58,7 @@ await app.mk.api.groupings("",
             extend: "editorialArtwork,artistUrl",
             "fields[artists]": "name,url,artwork,editorialArtwork,genreNames,editorialNotes",
             "art[url]": "f"
-       });         
+       });
 
 // Radio page
 await app.mk.api.recentRadioStations("",
@@ -94,3 +94,28 @@ app.mk.api.recommendations("",{extend: "editorialArtwork,artistUrl"})
 await app.mk.api.library.songs("", {limit: 100}, {includeResponseMeta: !0}).then((data)=>{
     console.log(data)
 })
+
+// download entire library
+var library = []
+var downloaded = null;
+function downloadChunk () {
+    if(downloaded == null) {
+        app.mk.api.library.songs("", {limit: 100}, {includeResponseMeta: !0}).then((response)=>{
+            processChunk(response)
+        })
+    }else{
+        downloaded.next("", {limit: 100}, {includeResponseMeta: !0}).then((response)=>{
+            processChunk(response)
+        })
+    }
+}
+function processChunk (response) {
+    downloaded = response
+    library = library.concat(downloaded.data)
+    if (downloaded.meta.total > library.length) {
+        console.log(`downloading next chunk - ${library.length} songs so far`)
+        downloadChunk()
+    } else {
+        console.log(library)
+    }
+}
