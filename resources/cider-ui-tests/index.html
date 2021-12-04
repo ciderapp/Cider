@@ -268,10 +268,12 @@
                                            style="width:100%;"
                                            spellcheck="false"
                                            placeholder="Search..."
+                                           @input="searchLibrarySongs"
+                                           v-model="library.songs.search"
                                            class="search-input">
                                 </div>
                                 <mediaitem-list-item :item="item"
-                                                     v-for="item in library.songs.listing"></mediaitem-list-item>
+                                                     v-for="item in library.songs.displayListing"></mediaitem-list-item>
                             </template>
                         </div>
                     </template>
@@ -460,9 +462,9 @@
     <template>
         <div @click="app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)"
              class="cd-mediaitem-list-item">
-            <div class="artwork"
+            <div class="artwork" v-if="item.attributes.artwork"
                  :class="{'round': item.type == 'artists'}"
-                 :style="{'--artwork': app.getMediaItemArtwork(item.attributes.artwork.url, 34)}
+                 :style="{'--artwork': app.getMediaItemArtwork(item.attributes.artwork.url ? item.attributes.artwork.url : '', 34)}
                 "></div>
             <div class="info-rect">
                 <div class="title text-overflow-elipsis">

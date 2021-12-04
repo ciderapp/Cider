@@ -108,6 +108,8 @@ const app = new Vue({
             songs: {
                 listing: [],
                 meta: {total: 0, progress: 0},
+                search: "",
+                displayListing: [],
                 downloadState: 0 // 0 = not started, 1 = in progress, 2 = complete
             },
             albums: {
@@ -121,9 +123,7 @@ const app = new Vue({
         },
         chrome: {
             artworkReady: false,
-            userinfo: {
-
-            },
+            userinfo: {},
             menuOpened: false,
             maximized: false
         },
@@ -152,7 +152,18 @@ const app = new Vue({
             })
             document.body.removeAttribute("loading")
         },
-
+        searchLibrarySongs() {
+            let self = this
+            if (this.library.songs.search == "") {
+                this.library.songs.displayListing = this.library.songs.listing
+            } else {
+                this.library.songs.displayListing = this.library.songs.listing.filter(item => {
+                    if(item.attributes.name.toLowerCase().includes(this.library.songs.search.toLowerCase())) {
+                        return item
+                    }
+                })
+            }
+        },
         getSidebarItemClass(page) {
             if (this.page == page) {
                 return ["active"]
@@ -175,39 +186,46 @@ const app = new Vue({
                 return await this.mkapi(method, library, term, params, params2, attempts + 1)
             }
         },
-        async getLibrarySongsFull () {
+        async getLibrarySongsFull() {
             let self = this
             let library = []
             let downloaded = null;
-            if(this.library.songs.downloadState == 2 || this.library.songs.downloadState == 1) {
+            if (this.library.songs.downloadState == 2 || this.library.songs.downloadState == 1) {
                 return
             }
             this.library.songs.downloadState = 1
-            function downloadChunk () {
-                if(downloaded == null) {
-                    app.mk.api.library.songs("", {limit: 100}, {includeResponseMeta: !0}).then((response)=>{
+
+            function downloadChunk() {
+                if (downloaded == null) {
+                    app.mk.api.library.songs("", {limit: 100}, {includeResponseMeta: !0}).then((response) => {
                         processChunk(response)
                     })
-                }else{
-                    downloaded.next("", {limit: 100}, {includeResponseMeta: !0}).then((response)=>{
+                } else {
+                    downloaded.next("", {limit: 100}, {includeResponseMeta: !0}).then((response) => {
                         processChunk(response)
                     })
                 }
             }
-            function processChunk (response) {
+
+            function processChunk(response) {
                 downloaded = response
                 library = library.concat(downloaded.data)
                 self.library.songs.meta.total = downloaded.meta.total
                 self.library.songs.meta.progress = library.length
-                if (downloaded.meta.total > library.length) {
+                if(typeof downloaded.next == "undefined") {
+                    console.log("downloaded.next is undefined")
+                }
+                if (downloaded.meta.total > library.length || typeof downloaded.meta.next != "undefined") {
                     console.log(`downloading next chunk - ${library.length} songs so far`)
                     downloadChunk()
                 } else {
                     self.library.songs.listing = library
                     self.library.songs.downloadState = 2
+                    self.searchLibrarySongs()
                     console.log(library)
                 }
             }
+
             downloadChunk()
         },
         async getLibrarySongs() {
@@ -225,7 +243,7 @@ const app = new Vue({
                 return
             }
             try {
-                    this.listennow =  await this.mk.api.personalRecommendations("",
+                this.listennow = await this.mk.api.personalRecommendations("",
                     {
                         name: "listen-now",
                         with: "friendsMix,library,social",
@@ -253,7 +271,7 @@ const app = new Vue({
                         includeResponseMeta: !0,
                         reload: !0
                     });
-                console.log(this.listennow)    
+                console.log(this.listennow)
             } catch (e) {
                 console.log(e)
                 this.getListenNow(attempt + 1)
@@ -314,57 +332,55 @@ const app = new Vue({
             return `url("${url.replace('{w}', size).replace('{h}', size).replace('{f}', "webp").replace('{c}', "cc")}")`;
         },
         getNowPlayingArtworkBG(size = 600) {
-            if(!this.mkReady()) {
+            if (!this.mkReady()) {
                 return ""
             }
-            try{
+            try {
                 if (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"]) {
                     return `${this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"].replace('{w}', size).replace('{h}', size)}`;
                 } else {
                     return "";
                 }
-            }
-            catch (e){
-            return ""    
-            // Does not work    
-            // this.mk.api.library.song(this.mk.nowPlayingItem.id).then((data) => {
-            //     try {
-            //         if (data != null && data !== "") {
-            //             //document.getElementsByClassName("bg-artwork")[0].setAttribute('src', `${data["attributes"]["artwork"]["url"]}`)
-            //             return  `${data["attributes"]["artwork"]["url"]}`;
-            //         } else {
-            //             return "https://beta.music.apple.com/assets/product/MissingArtworkMusic.svg";
-            //         }
-            //     } catch (e) {
-            //         return "https://beta.music.apple.com/assets/product/MissingArtworkMusic.svg";
-            //     }
+            } catch (e) {
+                return ""
+                // Does not work
+                // this.mk.api.library.song(this.mk.nowPlayingItem.id).then((data) => {
+                //     try {
+                //         if (data != null && data !== "") {
+                //             //document.getElementsByClassName("bg-artwork")[0].setAttribute('src', `${data["attributes"]["artwork"]["url"]}`)
+                //             return  `${data["attributes"]["artwork"]["url"]}`;
+                //         } else {
+                //             return "https://beta.music.apple.com/assets/product/MissingArtworkMusic.svg";
+                //         }
+                //     } catch (e) {
+                //         return "https://beta.music.apple.com/assets/product/MissingArtworkMusic.svg";
+                //     }
 
-            // });
+                // });
             }
         },
         getNowPlayingArtwork(size = 600) {
-            try{
+            try {
                 if (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"]) {
                     return `url(${this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"].replace('{w}', size).replace('{h}', size)})`;
                 } else {
                     return "";
                 }
-            }
-            catch (e){
+            } catch (e) {
                 return ""
-            // Does not work    
-            // this.mk.api.library.song(this.mk.nowPlayingItem.id).then((data) => {
-            //     try {
-            //         if (data != null && data !== "") {
-            //             return  `url(${data["attributes"]["artwork"]["url"]})`;
-            //         } else {
-            //             return "url(https://beta.music.apple.com/assets/product/MissingArtworkMusic.svg)";
-            //         }
-            //     } catch (e) {
-            //         return "url(https://beta.music.apple.com/assets/product/MissingArtworkMusic.svg)";
-            //     }
+                // Does not work
+                // this.mk.api.library.song(this.mk.nowPlayingItem.id).then((data) => {
+                //     try {
+                //         if (data != null && data !== "") {
+                //             return  `url(${data["attributes"]["artwork"]["url"]})`;
+                //         } else {
+                //             return "url(https://beta.music.apple.com/assets/product/MissingArtworkMusic.svg)";
+                //         }
+                //     } catch (e) {
+                //         return "url(https://beta.music.apple.com/assets/product/MissingArtworkMusic.svg)";
+                //     }
 
-            // });
+                // });
             }
         },
         quickPlay(query) {
