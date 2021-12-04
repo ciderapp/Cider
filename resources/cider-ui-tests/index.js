@@ -236,10 +236,18 @@ const app = new Vue({
         showSearch() {
             this.page = "search"
         },
-        playMediaItemById(id, kind) {
-            this.mk.setQueue({[kind]: [id]}).then(function (queue) {
-                MusicKit.getInstance().play()
-            })
+        playMediaItemById(id, kind, isLibrary, raurl = "") {
+            var truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
+            console.log(id, truekind, isLibrary)
+            if (truekind == "radioStations") {
+                this.mk.setStationQueue({url: raurl}).then(function (queue) {
+                    MusicKit.getInstance().play()
+                });
+            } else {
+                this.mk.setQueue({[truekind]: [id]}).then(function (queue) {
+                    MusicKit.getInstance().play()
+                })
+            }
         },
         searchQuery() {
             let self = this
@@ -265,17 +273,54 @@ const app = new Vue({
             if(!this.mkReady()) {
                 return ""
             }
-            if (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"]) {
-                return `${this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"].replace('{w}', size).replace('{h}', size)}`;
-            } else {
-                return "";
+            try{
+                if (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"]) {
+                    return `${this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"].replace('{w}', size).replace('{h}', size)}`;
+                } else {
+                    return "";
+                }
+            }
+            catch (e){
+            return ""    
+            // Does not work    
+            // this.mk.api.library.song(this.mk.nowPlayingItem.id).then((data) => {
+            //     try {
+            //         if (data != null && data !== "") {
+            //             //document.getElementsByClassName("bg-artwork")[0].setAttribute('src', `${data["attributes"]["artwork"]["url"]}`)
+            //             return  `${data["attributes"]["artwork"]["url"]}`;
+            //         } else {
+            //             return "https://beta.music.apple.com/assets/product/MissingArtworkMusic.svg";
+            //         }
+            //     } catch (e) {
+            //         return "https://beta.music.apple.com/assets/product/MissingArtworkMusic.svg";
+            //     }
+
+            // });
             }
         },
         getNowPlayingArtwork(size = 600) {
-            if (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"]) {
-                return `url("${this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"].replace('{w}', size).replace('{h}', size)}")`;
-            } else {
-                return "";
+            try{
+                if (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"]) {
+                    return `url(${this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"].replace('{w}', size).replace('{h}', size)})`;
+                } else {
+                    return "";
+                }
+            }
+            catch (e){
+                return ""
+            // Does not work    
+            // this.mk.api.library.song(this.mk.nowPlayingItem.id).then((data) => {
+            //     try {
+            //         if (data != null && data !== "") {
+            //             return  `url(${data["attributes"]["artwork"]["url"]})`;
+            //         } else {
+            //             return "url(https://beta.music.apple.com/assets/product/MissingArtworkMusic.svg)";
+            //         }
+            //     } catch (e) {
+            //         return "url(https://beta.music.apple.com/assets/product/MissingArtworkMusic.svg)";
+            //     }
+
+            // });
             }
         },
         quickPlay(query) {
