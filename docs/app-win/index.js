@@ -306,7 +306,7 @@ document.addEventListener('musickitloaded', function () {
             MusicKit.configure({
                 developerToken: "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IldlYlBsYXlLaWQifQ.eyJpc3MiOiJBTVBXZWJQbGF5IiwiaWF0IjoxNjM2NTYwMjc1LCJleHAiOjE2NTIxMTIyNzV9.is4KeAN_M9FWTfuw9zMV2lgHSSdPqEV2SX-XfCuEYY4qtmjbo-NjebHCageS28z0P0erksqql9rtsoizE4hsJg",
                 app: {
-                    name: 'Cider',
+                    name: 'My Cool Web App',
                     build: '1978.4.1'
                 }
             });
