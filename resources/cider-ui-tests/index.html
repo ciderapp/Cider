@@ -151,7 +151,14 @@
                         <div class="sidebar-user-icon">
 
                         </div>
-                        <div class="sidebar-user-text" id="userName">Not logged in</div>
+                        <div class="sidebar-user-text" id="userName">
+                            <template v-if="chrome.userinfo.attributes">
+                                {{ chrome.userinfo.attributes.name }}
+                            </template>
+                            <template v-else>
+                                Sign in
+                            </template>
+                        </div>
                     </button>
                 </div>
             </div>

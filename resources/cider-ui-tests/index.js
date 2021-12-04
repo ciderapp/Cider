@@ -119,19 +119,22 @@ const app = new Vue({
             details: {}
         },
         chrome: {
-            artworkReady: false
+            artworkReady: false,
+            userinfo: {
+
+            }
         },
         page: "browse"
     },
     methods: {
-        init() {
+        async init() {
             let self = this
             this.mk = MusicKit.getInstance()
             this.mk.authorize()
             this.$forceUpdate()
 
             // Set profile name
-            this.mk.api.personalSocialProfile().then(function(result) {document.getElementById("userName").innerHTML = result.attributes.name});
+            this.chrome.userinfo = await this.mkapi("personalSocialProfile", false, "")
 
             this.mk.addEventListener(MusicKit.Events.playbackTimeDidChange, (a) => {
                 self.playerLCD.playbackDuration = (self.mk.currentPlaybackTime)
