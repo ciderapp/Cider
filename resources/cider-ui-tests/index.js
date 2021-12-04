@@ -215,7 +215,7 @@ const app = new Vue({
                 if(typeof downloaded.next == "undefined") {
                     console.log("downloaded.next is undefined")
                 }
-                if (downloaded.meta.total > library.length || typeof downloaded.meta.next != "undefined") {
+                if (downloaded.meta.total > library.length && typeof downloaded.meta.next != "undefined") {
                     console.log(`downloading next chunk - ${library.length} songs so far`)
                     downloadChunk()
                 } else {
