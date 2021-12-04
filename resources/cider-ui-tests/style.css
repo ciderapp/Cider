@@ -513,6 +513,10 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     height: 100%;
 }
 
+.app-chrome .app-chrome-item > .window-controls > div.minmax.restore {
+    background-image: var(--gfx-restoreBtn);
+}
+
 .app-chrome .app-chrome-item > .window-controls > div.minimize {
     background-image: var(--gfx-minBtn);
     background-position: center;

@@ -78,6 +78,34 @@ const CiderBase = {
             win.minimize();
         })
 
+        if (process.platform === "win32") {
+            var WND_STATE = {
+                MINIMIZED: 0,
+                NORMAL: 1,
+                MAXIMIZED: 2,
+                FULL_SCREEN: 3
+            }
+            var wndState = WND_STATE.NORMAL
+
+            win.on("resize", (_event) => {
+                const isMaximized = win.isMaximized()
+                const isMinimized = win.isMinimized()
+                const isFullScreen = win.isFullScreen()
+                const state = wndState;
+                if (isMinimized && state !== WND_STATE.MINIMIZED) {
+                    wndState = WND_STATE.MINIMIZED
+                } else if (isFullScreen && state !== WND_STATE.FULL_SCREEN) {
+                    wndState = WND_STATE.FULL_SCREEN
+                } else if (isMaximized && state !== WND_STATE.MAXIMIZED) {
+                    wndState = WND_STATE.MAXIMIZED
+                    win.webContents.executeJavaScript(`app.chrome.maximized = true`)
+                } else if (state !== WND_STATE.NORMAL) {
+                    wndState = WND_STATE.NORMAL
+                    win.webContents.executeJavaScript(`app.chrome.maximized = false`)
+                }
+            })
+        }
+
         return win
     },
     async InitWebServer() {

@@ -103,9 +103,10 @@
                 </div>
                 <div class="app-chrome-item full-height">
                     <div class="window-controls">
-                        <div class="minimize" onclick="ipcRenderer.send('minimize')"></div>
-                        <div class="minmax" onclick="ipcRenderer.send('maximize')"></div>
-                        <div class="close" onclick="ipcRenderer.send('close')"></div>
+                        <div class="minimize" @click="ipcRenderer.send('minimize')"></div>
+                        <div class="minmax restore" v-if="chrome.maximized" @click="ipcRenderer.send('maximize')"></div>
+                        <div class="minmax" v-else @click="ipcRenderer.send('maximize')"></div>
+                        <div class="close" @click="ipcRenderer.send('close')"></div>
                     </div>
                 </div>
             </div>

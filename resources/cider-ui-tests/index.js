@@ -123,7 +123,8 @@ const app = new Vue({
             userinfo: {
 
             },
-            menuOpened: false
+            menuOpened: false,
+            maximized: false
         },
         page: "browse"
     },
