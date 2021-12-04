@@ -302,10 +302,11 @@ document.addEventListener('musickitloaded', function () {
             var u = el.querySelector(`[name="desktop-music-app/config/environment"]`)
             var amwebCFG = JSON.parse(decodeURIComponent(u.getAttribute("content")));
             console.log(amwebCFG.MEDIA_API.token)
+            // eh fuck it lets just expose the token
             MusicKit.configure({
-                developerToken: amwebCFG.MEDIA_API.token,
+                developerToken: "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IldlYlBsYXlLaWQifQ.eyJpc3MiOiJBTVBXZWJQbGF5IiwiaWF0IjoxNjM2NTYwMjc1LCJleHAiOjE2NTIxMTIyNzV9.is4KeAN_M9FWTfuw9zMV2lgHSSdPqEV2SX-XfCuEYY4qtmjbo-NjebHCageS28z0P0erksqql9rtsoizE4hsJg",
                 app: {
-                    name: 'My Cool Web App',
+                    name: 'Cider',
                     build: '1978.4.1'
                 }
             });
