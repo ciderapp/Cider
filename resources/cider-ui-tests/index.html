@@ -280,6 +280,16 @@
 
 </div>
 
+<!-- Generic Collection of MediaItems -->
+<script type="text/x-template" id="collection-view-generic">
+    <template>
+        <div class="content-inner">
+
+        </div>
+    </template>
+</script>
+
+<!-- Listen Now -->
 <script type="text/x-template" id="cider-listen-now">
     <div class="content-inner">
         <h1 class="header-text">Listen Now</h1>
@@ -304,7 +314,7 @@
     </div>    
 </script>
 
-
+<!-- Search -->
 <script type="text/x-template" id="cider-search">
     <div class="content-inner">
         <div class="row">
@@ -374,6 +384,7 @@
     <h1>{{ component.attributes.title.stringForDisplay }}</h1>
 </script>
 
+<!-- Sidebar Item -->
 <script type="text/x-template" id="sidebar-library-item">
     <button class="app-sidebar-item"
             :class="$parent.getSidebarItemClass(page)"
@@ -381,6 +392,7 @@
     </button>
 </script>
 
+<!-- Horizontal MediaItem Scroller -->
 <script type="text/x-template" id="mediaitem-scroller-horizontal">
     <template>
         <div class="cd-hmedia-scroller">
@@ -390,6 +402,7 @@
     </template>
 </script>
 
+<!-- Horizontal MediaItem Scroller (Large) -->
 <script type="text/x-template" id="mediaitem-scroller-horizontal-large">
     <template>
         <div class="cd-hmedia-scroller">
@@ -399,6 +412,8 @@
     </template>
 </script>
 
+<!-- Horizontal MediaItem Scroller (SP?) -->
+
 <script type="text/x-template" id="mediaitem-scroller-horizontal-sp">
     <template>
         <div class="cd-hmedia-scroller">
@@ -407,6 +422,8 @@
         </div>
     </template>
 </script>
+
+<!-- MediaItem List Item -->
 
 <script type="text/x-template" id="mediaitem-list-item">
     <template>
@@ -436,6 +453,7 @@
     </template>
 </script>
 
+<!-- MediaItem Horizontal Rectangle -->
 <script type="text/x-template" id="mediaitem-hrect">
     <template>
         <div @click="app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)"
@@ -459,6 +477,8 @@
     </template>
 </script>
 
+<!-- MediaItem Square -->
+
 <script type="text/x-template" id="mediaitem-square">
     <template>
         <div @click="app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)"
@@ -475,6 +495,8 @@
         </div>
     </template>
 </script>
+
+<!-- MediaItem Square (Large) -->
 
 <script type="text/x-template" id="mediaitem-square-large">
     <template>
@@ -493,6 +515,7 @@
     </template>
 </script>
 
+<!-- MediaItem Square SP -->
 <script type="text/x-template" id="mediaitem-square-sp">
     <template>
         <div @click="app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)"
@@ -503,10 +526,14 @@
             <div class="artwork"
                  :class="{'round': item.type == 'artists'}"
                  :style="{'--artwork': app.getMediaItemArtwork(item.attributes.artwork.url, 300) }"></div>
-            <div class="title text-overflow-elipsis" style = "font-weight: 600">
+            <div class="title text-overflow-elipsis"
+                 :style="{'color' : (item.attributes.artwork.textColor1 != null) ? ('#'+item.attributes.artwork.textColor1) : `#eee`}"
+                 style="font-weight: 600">
                 {{ item.attributes.name }}
             </div>
-            <div class="subtitle text-overflow-elipsis" style="padding-left: 4px;padding-right: 4px; display: -webkit-box;-webkit-box-orient: vertical; -webkit-line-clamp: 2;white-space: normal;" >
+            <div class="subtitle text-overflow-elipsis"
+                 :style="{'color' : (item.attributes.artwork.textColor1 != null) ? ('#'+item.attributes.artwork.textColor1) : `#eee`}"
+                 style="padding-left: 4px;padding-right: 4px; display: -webkit-box;-webkit-box-orient: vertical; -webkit-line-clamp: 2;white-space: normal;" >
                 {{ (item.attributes.editorialNotes != null) ? item.attributes.editorialNotes.short :(item.attributes.artistName ?? '')  }}
             </div>
         </div>
