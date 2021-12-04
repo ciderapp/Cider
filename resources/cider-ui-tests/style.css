@@ -113,11 +113,12 @@ body[loading] {
     height: 100%;
     background: var(--artwork);
     z-index: -1;
-    background-size: cover;
-    background-position: center;
+    object-fit: cover;
+    object-position: center;
     filter: blur(60px) saturate(180%);
     opacity: 0.70;
     transition: opacity .25s var(--appleEase);
+    pointer-events: none;
 }
 
 
