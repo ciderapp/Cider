@@ -252,20 +252,27 @@
                     </template>
                 </transition>
                 <!-- Library - Songs -->
-                <transition name="wpfade" v-on:enter="getLibrarySongs()">
+                <transition name="wpfade" v-on:enter="getLibrarySongsFull()">
                     <template v-if="page == 'library-songs'">
                         <div class="content-inner">
                             <h1 class="header-text">Songs</h1>
-                            <div class="search-input-container" style="width:100%;margin: 16px 0px;">
-                                <div class="search-input--icon"></div>
-                                <input type="search"
-                                       style="width:100%;"
-                                       spellcheck="false"
-                                       placeholder="Search..."
-                                       class="search-input">
-                            </div>
-                            <mediaitem-list-item :item="item"
-                                                 v-for="item in library.songs.listing"></mediaitem-list-item>
+                            <template v-if="library.songs.downloadState == 1">
+                                <h1 style="text-align: center">Downloading...</h1>
+                                <h3 style="text-align: center">{{ library.songs.meta.progress }} / {{ library.songs.meta.total }}</h3>
+
+                            </template>
+                            <template v-if="library.songs.downloadState == 2">
+                                <div class="search-input-container" style="width:100%;margin: 16px 0px;">
+                                    <div class="search-input--icon"></div>
+                                    <input type="search"
+                                           style="width:100%;"
+                                           spellcheck="false"
+                                           placeholder="Search..."
+                                           class="search-input">
+                                </div>
+                                <mediaitem-list-item :item="item"
+                                                     v-for="item in library.songs.listing"></mediaitem-list-item>
+                            </template>
                         </div>
                     </template>
                 </transition>

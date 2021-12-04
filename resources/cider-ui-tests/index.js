@@ -107,7 +107,8 @@ const app = new Vue({
         library: {
             songs: {
                 listing: [],
-                meta: {total: 0}
+                meta: {total: 0, progress: 0},
+                downloadState: 0 // 0 = not started, 1 = in progress, 2 = complete
             },
             albums: {
                 listing: [],
@@ -173,6 +174,41 @@ const app = new Vue({
                 console.log(e)
                 return await this.mkapi(method, library, term, params, params2, attempts + 1)
             }
+        },
+        async getLibrarySongsFull () {
+            let self = this
+            let library = []
+            let downloaded = null;
+            if(this.library.songs.downloadState == 2 || this.library.songs.downloadState == 1) {
+                return
+            }
+            this.library.songs.downloadState = 1
+            function downloadChunk () {
+                if(downloaded == null) {
+                    app.mk.api.library.songs("", {limit: 100}, {includeResponseMeta: !0}).then((response)=>{
+                        processChunk(response)
+                    })
+                }else{
+                    downloaded.next("", {limit: 100}, {includeResponseMeta: !0}).then((response)=>{
+                        processChunk(response)
+                    })
+                }
+            }
+            function processChunk (response) {
+                downloaded = response
+                library = library.concat(downloaded.data)
+                self.library.songs.meta.total = downloaded.meta.total
+                self.library.songs.meta.progress = library.length
+                if (downloaded.meta.total > library.length) {
+                    console.log(`downloading next chunk - ${library.length} songs so far`)
+                    downloadChunk()
+                } else {
+                    self.library.songs.listing = library
+                    self.library.songs.downloadState = 2
+                    console.log(library)
+                }
+            }
+            downloadChunk()
         },
         async getLibrarySongs() {
             var response = await this.mkapi("songs", true, "", {limit: 100}, {includeResponseMeta: !0})
