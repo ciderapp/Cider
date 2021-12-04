@@ -42,10 +42,9 @@ var app = new Vue({
 
 document.addEventListener('musickitloaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
-    let auth = urlParams.get('auth')
     // MusicKit global is now defined
     MusicKit.configure({
-        developerToken: `${auth || ''}`,
+        developerToken: `${urlParams.get('auth') || ''}`,
         app: {
             name: 'My Cool Web App',
             build: '1978.4.1'
