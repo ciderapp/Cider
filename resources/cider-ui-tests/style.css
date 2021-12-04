@@ -1400,6 +1400,59 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     font-size: 12px;
 }
 
+/* mediaitem-square-sp */
+.cd-mediaitem-square-sp {
+    --spcolor: var("");
+    width: 190px;
+    height: 250px;
+    display: inline-flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    font-size: 14px;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 6px;
+    margin-left: 10px;
+    cursor: pointer;
+    background-color: var(--spcolor);
+}
+
+.cd-mediaitem-square-sp:hover {
+    box-shadow: rgb(0 0 0 / 50%) 0 0 0 1000000px inset;
+}
+
+.cd-mediaitem-square-sp .artwork {
+    height: 190px;
+    width: 190px;
+    background: blue;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    background: var(--artwork);
+    background-size: cover;
+    box-shadow: var(--mediaItemShadow);
+    flex: 0 0 auto; 
+    margin: 6px;
+    margin-top: 0px;
+}
+.cd-mediaitem-square-sp .artwork:hover {
+    box-shadow: rgb(0 0 0 / 50%) 0 0 0 1000000px inset;
+}
+
+.cd-mediaitem-square-sp .artwork.round {
+    border-radius: var(--mediaItemRadiusRound);
+}
+
+.cd-mediaitem-square-sp .title {
+    width: 90%;
+    text-align: center;
+}
+
+.cd-mediaitem-square-sp .subtitle {
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+}
+
 
 /* mediaitem-square */
 .cd-mediaitem-square {

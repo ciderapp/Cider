@@ -10,8 +10,20 @@ Vue.component('mediaitem-scroller-horizontal', {
     methods: {}
 });
 
+Vue.component('mediaitem-scroller-horizontal-sp', {
+    template: '#mediaitem-scroller-horizontal-sp',
+    props: ['items'],
+    methods: {}
+});
+
 Vue.component('mediaitem-square', {
     template: '#mediaitem-square',
+    props: ['item'],
+    methods: {}
+});
+
+Vue.component('mediaitem-square-sp', {
+    template: '#mediaitem-square-sp',
     props: ['item'],
     methods: {}
 });
@@ -294,7 +306,7 @@ const app = new Vue({
 
 document.addEventListener('musickitloaded', function () {
     // MusicKit global is now defined
-    fetch("https://beta.music.apple.com/")
+    fetch("https://beta.music.apple.com/", {mode: "no-cors"})
         .then(response => response.text())
         .then(data => {
             var el = document.createElement("html");
@@ -302,7 +314,6 @@ document.addEventListener('musickitloaded', function () {
             var u = el.querySelector(`[name="desktop-music-app/config/environment"]`)
             var amwebCFG = JSON.parse(decodeURIComponent(u.getAttribute("content")));
             console.log(amwebCFG.MEDIA_API.token)
-            // eh fuck it lets just expose the token
             MusicKit.configure({
                 developerToken: "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IldlYlBsYXlLaWQifQ.eyJpc3MiOiJBTVBXZWJQbGF5IiwiaWF0IjoxNjM2NTYwMjc1LCJleHAiOjE2NTIxMTIyNzV9.is4KeAN_M9FWTfuw9zMV2lgHSSdPqEV2SX-XfCuEYY4qtmjbo-NjebHCageS28z0P0erksqql9rtsoizE4hsJg",
                 app: {
