@@ -16,14 +16,25 @@ Vue.component('mediaitem-scroller-horizontal-sp', {
     methods: {}
 });
 
+Vue.component('mediaitem-scroller-horizontal-large', {
+    template: '#mediaitem-scroller-horizontal-large',
+    props: ['items'],
+    methods: {}
+});
+
 Vue.component('mediaitem-square', {
     template: '#mediaitem-square',
     props: ['item'],
     methods: {}
 });
-
 Vue.component('mediaitem-square-sp', {
     template: '#mediaitem-square-sp',
+    props: ['item'],
+    methods: {}
+});
+
+Vue.component('mediaitem-square-large', {
+    template: '#mediaitem-square-large',
     props: ['item'],
     methods: {}
 });

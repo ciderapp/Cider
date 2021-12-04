@@ -276,7 +276,7 @@
                 </div>
             </div>
             <template v-if="recom.attributes.display.kind == 'MusicCoverShelf'">
-            <mediaitem-scroller-horizontal :items="recom.relationships.contents.data.limit(10)"></mediaitem-scroller-horizontal>
+                <mediaitem-scroller-horizontal-large :items="recom.relationships.contents.data.limit(10)"></mediaitem-scroller-horizontal-large>
             </template>
             <template v-else>
                 <mediaitem-scroller-horizontal-sp :items="recom.relationships.contents.data.limit(10)"></mediaitem-scroller-horizontal-sp>    
@@ -371,6 +371,15 @@
     </template>
 </script>
 
+<script type="text/x-template" id="mediaitem-scroller-horizontal-large">
+    <template>
+        <div class="cd-hmedia-scroller">
+            <mediaitem-square-large :item="item" 
+                              v-for="item in items"></mediaitem-square-large>
+        </div>
+    </template>
+</script>
+
 <script type="text/x-template" id="mediaitem-scroller-horizontal-sp">
     <template>
         <div class="cd-hmedia-scroller">
@@ -448,11 +457,28 @@
     </template>
 </script>
 
+<script type="text/x-template" id="mediaitem-square-large">
+    <template>
+        <div @click="app.playMediaItemById(item.id, item.type)"
+             class="cd-mediaitem-square-large">
+            <div class="artwork"
+                 :class="{'round': item.type == 'artists'}"
+                 :style="{'--artwork': app.getMediaItemArtwork(item.attributes.artwork.url, 300)}"></div>
+            <div class="title text-overflow-elipsis">
+                {{ item.attributes.name }}
+            </div>
+            <div class="subtitle text-overflow-elipsis" v-if="item.attributes.artistName">
+                {{ item.attributes.artistName }}
+            </div>
+        </div>
+    </template>
+</script>
+
 <script type="text/x-template" id="mediaitem-square-sp">
     <template>
         <div @click="app.playMediaItemById(item.id, item.type)"
              class="cd-mediaitem-square-sp"
-             :style="{'--spcolor' : (item.attributes.artwork.bgColor != null) ? ('#'+item.attributes.artwork.bgColor) : transparent}"
+             :style="{'--spcolor' : (item.attributes.artwork.bgColor != null) ? ('#'+item.attributes.artwork.bgColor) : `black`}"
              
              >
             <div class="artwork"
