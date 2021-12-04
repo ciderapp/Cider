@@ -542,12 +542,14 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     font-weight: 600;
     text-align: center;
     font-size: 13px;
+    max-lines: 1;
 }
 
 .app-chrome .app-chrome-item > .app-playback-controls .song-artist {
     font-weight: 400;
     font-size: 13px;
     text-align: center;
+    max-lines: 1;
 }
 
 .app-chrome .app-chrome-item > .app-playback-controls .song-progress {
