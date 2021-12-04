@@ -192,16 +192,6 @@
                             </div>
                             <br>
                             <br>
-                            <button class="md-btn" @click="drawertest = !drawertest">Toggle Drawer</button>
-                            <button class="md-btn">Button</button>
-                            <button class="md-btn md-btn-primary">Button</button>
-                        </div>
-                    </template>
-                </transition>
-                <!-- Listen Now -->
-                <transition name="wpfade">
-                    <template v-if="page == 'listen_now'">
-                        <div class="content-inner">
                             <h1 class="header-text">Listen Now</h1>
                             <div class="winbox">
                                 <div class="fancy">990kbps</div>
@@ -209,7 +199,16 @@
                                     <button class="md-btn md-btn-primary">Audio Quality Settings</button>
                                 </div>
                             </div>
+                            <button class="md-btn" @click="drawertest = !drawertest">Toggle Drawer</button>
+                            <button class="md-btn">Button</button>
+                            <button class="md-btn md-btn-primary">Button</button>
                         </div>
+                    </template>
+                </transition>
+                <!-- Listen Now -->
+                <transition v-on:enter="getListenNow()" name="wpfade">
+                    <template v-if="page == 'listen_now'" @created="console.log('listennow')">
+                         <cider-listen-now :data="listennow"></cider-listen-now>
                     </template>
                 </transition>
                 <!-- Radio -->
@@ -263,6 +262,23 @@
     </transition>
 
 </div>
+
+<script type="text/x-template" id="cider-listen-now">
+    <div class="content-inner">
+        <template v-for="recom in data.data">
+            <div class="row">
+                <div class="col">
+                    <h3>{{ recom.attributes.title ? recom.attributes.title.stringForDisplay : ""}}</h3>
+                </div>
+                <div class="col-auto flex-center" v-if="recom.relationships.contents.data.length >= 10">
+                    <button class="cd-btn-seeall">See All</button>
+                </div>
+            </div>
+            <mediaitem-scroller-horizontal :items="recom.relationships.contents.data.limit(10)"></mediaitem-scroller-horizontal>
+        </template>
+    </div>    
+</script>
+
 
 <script type="text/x-template" id="cider-search">
     <div class="content-inner">
@@ -416,6 +432,7 @@
         </div>
     </template>
 </script>
+
 
 <script src="https://js-cdn.music.apple.com/musickit/v2/amp/musickit.js"></script>
 <script src="index.js?v=1"></script>

@@ -42,6 +42,11 @@ Vue.component('cider-search', {
     }
 })
 
+Vue.component('cider-listen-now', {
+    template: "#cider-listen-now",
+    props: ["data"]
+})
+
 const MusicKitTools = {
     getHeader() {
         return new Headers({
@@ -72,6 +77,7 @@ const app = new Vue({
         playerLCD: {
             playbackDuration: 0
         },
+        listennow: [],
         radio: {
             personal: []
         },
@@ -143,7 +149,7 @@ const app = new Vue({
                 return
             }
             try {
-                await this.mk.api.personalRecommendations("",
+                    this.listennow =  await this.mk.api.personalRecommendations("",
                     {
                         name: "listen-now",
                         with: "friendsMix,library,social",
@@ -171,9 +177,10 @@ const app = new Vue({
                         includeResponseMeta: !0,
                         reload: !0
                     });
+                console.log(this.listennow)    
             } catch (e) {
                 console.log(e)
-                await this.getListenNow(attempt + 1)
+                this.getListenNow(attempt + 1)
             }
         },
         async getRadioStations(attempt = 0) {
