@@ -165,12 +165,17 @@
                 <div class="app-sidebar-footer">
                     <input type="range" class="display--small">
                     <button class="app-sidebar-button" style="width:100%" @click="chrome.menuOpened = !chrome.menuOpened">
-                        <div class="sidebar-user-icon">
+                        <template v-if="chrome.userinfo.attributes">
+                            <div class="sidebar-user-icon"
+                                 :style="{'--artwork': getMediaItemArtwork(chrome.userinfo.attributes['artwork']['url'], 26)}">
 
-                        </div>
-                        <div class="sidebar-user-text" id="userName">
+                            </div>
+                        </template>
+
+                        <div class="sidebar-user-text">
                             <template v-if="chrome.userinfo.attributes">
-                                {{ chrome.userinfo.attributes.name }}
+                                <div class="fullname">{{ chrome.userinfo.attributes.name }}</div>
+                                <div class="handle-text">@{{ chrome.userinfo.attributes.handle }}</div>
                             </template>
                             <template v-else>
                                 Sign in

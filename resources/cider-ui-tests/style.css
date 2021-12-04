@@ -283,12 +283,13 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 }
 
 .app-sidebar-button > .sidebar-user-icon {
-    width: 22px;
-    height: 22px;
+    width: 26px;
+    height: 26px;
     border-radius: 100%;
-    background: var(--keyColor);
+    background-image: var(--artwork);
     margin: 2px;
     flex: 0 0 auto;
+    box-shadow: var(--mediaItemShadow);
 }
 
 .app-sidebar-button > .sidebar-user-text {
@@ -296,6 +297,17 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     display: flex;
     font-size: 16px;
     margin: 6px 12px;
+    flex-direction: column;
+}
+
+.app-sidebar-button > .sidebar-user-text .fullname {
+    text-align: left;
+}
+
+.app-sidebar-button > .sidebar-user-text .handle-text {
+    font-size: 12px;
+    opacity: 0.7;
+    text-align: left;
 }
 
 .app-sidebar-content {
