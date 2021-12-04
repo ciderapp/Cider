@@ -296,8 +296,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 .app-sidebar-button > .sidebar-user-text {
     width: 100%;
     display: flex;
-    font-size: 16px;
-    margin: 6px 12px;
+    font-size: 14px;
     flex-direction: column;
 }
 
