@@ -205,6 +205,13 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     width: 100%;
 }
 
+.content-inner.centered {
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
 
 .app-drawer {
     width: 300px;
@@ -308,6 +315,17 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     font-size: 12px;
     opacity: 0.7;
     text-align: left;
+}
+
+.app-sidebar-notification {
+    text-align: center;
+    font-size: 12px;
+    min-height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid rgb(200 200 200 / 15%);
+    background: rgb(0 0 0 / 15%);
 }
 
 .app-sidebar-content {
