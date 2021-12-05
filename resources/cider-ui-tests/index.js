@@ -779,9 +779,7 @@ const app = new Vue({
 
 document.addEventListener('musickitloaded', function () {
     // MusicKit global is now defined
-    console.log("Loading musickit")
     ipcRenderer.on('devkey', (event, key) => {
-        console.log(key);
         MusicKit.configure({
             developerToken: key,
             app: {
