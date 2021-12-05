@@ -1266,7 +1266,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 
 @keyframes lyricWaitingLine {
     0% {
-        opacity: 0;
+        opacity: 0.25;
         transform: scale(0.85);
     }
     50% {
@@ -1274,8 +1274,17 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
         transform: scale(1);
     }
     100% {
-        opacity: 0;
+        opacity: 0.25;
         transform: scale(0.85);
+    }
+}
+
+@keyframes dotOpacity {
+    0% {
+        opacity: 0.25;
+    }
+    100% {
+        opacity: 1;
     }
 }
 

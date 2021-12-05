@@ -608,12 +608,12 @@
                 </h3>
             </template>
             <template v-else>
-                <h3 class="lyric-line" @click="app.seekTo(lyric.startTime, false)"
+                <h3 class="lyric-line" @click="app.seekTo(lyric.startTime, false)" :start="lyric.startTime" :end="lyric.endTime"
                     v-bind:class="{ active: app.getLyricClass(lyric.startTime, lyric.endTime)}">
-                    <div class="lyricWaiting">
-                        <div></div>
-                        <div></div>
-                        <div></div>
+                    <div class="lyricWaiting" >
+                        <div class='WaitingDot1'></div>
+                        <div class='WaitingDot2'></div>
+                        <div class='WaitingDot3'></div>
                     </div>
                 </h3>
             </template>

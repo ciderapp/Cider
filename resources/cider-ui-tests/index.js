@@ -158,6 +158,65 @@ const app = new Vue({
             this.mk.addEventListener(MusicKit.Events.playbackTimeDidChange, (a) => {
                 self.playerLCD.playbackDuration = (self.mk.currentPlaybackTime)
                 self.lyriccurrenttime = app.mk.currentPlaybackTime;
+                
+                if (self.lyricon){
+                    let currentLine = document.querySelector(`.lyric-line.active`)
+                    if (currentLine && currentLine.getElementsByClassName('lyricWaiting').length > 0){
+                        var duration = currentLine.getAttribute("end") - currentLine.getAttribute("start");
+                        var u = ( self.lyriccurrenttime - currentLine.getAttribute("start") ) / duration;                  
+                        if (u < 0.25 && !currentLine.classList.contains('mode1')){
+                         console.log('mode1');
+                             try{
+                             currentLine.classList.add('mode1');    
+                             currentLine.classList.remove('mode3');
+                             currentLine.classList.remove('mode2');
+                             } catch(e){}
+                             currentLine.getElementsByClassName('WaitingDot1')[0].style.animation = `dotOpacity ${0.25 * duration}s cubic-bezier(0.42, 0, 0.58, 1) forwards`;
+                             currentLine.getElementsByClassName('WaitingDot2')[0].style.animation = ``;
+                             currentLine.getElementsByClassName('WaitingDot3')[0].style.animation = ``;
+                             currentLine.getElementsByClassName('WaitingDot2')[0].style.opacity = 0.25;
+                             currentLine.getElementsByClassName('WaitingDot3')[0].style.opacity = 0.25; 
+     
+                         } else if (u >= 0.25 && u < 0.5 && !currentLine.classList.contains('mode2')){
+                             console.log('mode2');
+                             try{
+                                 currentLine.classList.add('mode2');    
+                             currentLine.classList.remove('mode1');
+                             currentLine.classList.remove('mode3');
+                             }
+                             catch(e){}
+                             currentLine.getElementsByClassName('WaitingDot2')[0].style.animation = `dotOpacity ${0.25 * duration}s cubic-bezier(0.42, 0, 0.58, 1) forwards`;
+                             currentLine.getElementsByClassName('WaitingDot1')[0].style.animation = ``;
+                             currentLine.getElementsByClassName('WaitingDot3')[0].style.animation = ``;
+                             currentLine.getElementsByClassName('WaitingDot1')[0].style.opacity = 1;
+                             currentLine.getElementsByClassName('WaitingDot3')[0].style.opacity = 0.25;
+                        } else if (u >= 0.5 && u < 0.75 && !currentLine.classList.contains('mode3')){
+                        console.log('mode3');
+                             try{
+                             currentLine.classList.add('mode3');
+                             currentLine.classList.remove('mode1');
+                             currentLine.classList.remove('mode2');
+                             } catch(e){}
+                             currentLine.getElementsByClassName('WaitingDot3')[0].style.animation = `dotOpacity ${0.25 * duration}s cubic-bezier(0.42, 0, 0.58, 1) forwards`;
+                             currentLine.getElementsByClassName('WaitingDot1')[0].style.animation = ``;
+                             currentLine.getElementsByClassName('WaitingDot2')[0].style.animation = ``;
+                             currentLine.getElementsByClassName('WaitingDot1')[0].style.opacity = 1;
+                             currentLine.getElementsByClassName('WaitingDot2')[0].style.opacity = 1;
+                        } else if (u >= 0.75 && currentLine.classList.contains('mode3')){
+                            console.log('mode4');
+                            try{
+                             currentLine.classList.remove('mode1');
+                             currentLine.classList.remove('mode2');
+                             currentLine.classList.remove('mode3');}
+                             catch(e){}
+                             currentLine.getElementsByClassName('WaitingDot1')[0].style.animation = ``;
+                             currentLine.getElementsByClassName('WaitingDot2')[0].style.animation = ``;
+                             currentLine.getElementsByClassName('WaitingDot1')[0].style.opacity = 1;
+                             currentLine.getElementsByClassName('WaitingDot2')[0].style.opacity = 1;
+                              
+                        }
+     
+                }}
             })
 
             this.mk.addEventListener(MusicKit.Events.nowPlayingItemDidChange, (a) => {
@@ -344,9 +403,21 @@ const app = new Vue({
             let preLrc = [];
             let xml = this.stringToXml(this.lyricsMediaItem);
             let lyricsLines = xml.getElementsByTagName('p');
+            let endTimes = [];
+            endTimes.push(0);
             for (element of lyricsLines){
-                preLrc.push({startTime: this.toMS(element.getAttribute('begin')),endTime: this.toMS(element.getAttribute('end')), line: element.textContent}); 
+                start = this.toMS(element.getAttribute('begin'))
+                end = this.toMS(element.getAttribute('end'))
+                if (start - endTimes[endTimes.length - 1] > 5 && endTimes[endTimes.length - 1] != 0 ){
+                    preLrc.push({startTime: endTimes[endTimes.length - 1],endTime: start, line: "lrcInstrumental"});
+                }
+                preLrc.push({startTime: start ,endTime: end, line: element.textContent}); 
+                endTimes.push(end);
             }
+            // first line dot
+            if (preLrc.length > 0)               
+                preLrc.unshift({startTime: 0,endTime: preLrc[0].startTime, line: "lrcInstrumental"});
+                
             this.lyrics = preLrc;
         },
         parseLyrics() {
