@@ -193,8 +193,9 @@
                     </button>
                 </div>
                 <div class="app-sidebar-notification" v-if="library.songs.downloadState == 1">
-                    Updating your library...<br>
-                    {{ library.songs.meta.progress }} / {{ library.songs.meta.total }}
+                    <div>Updating your library...</div>
+                    <div>{{ library.songs.meta.progress }} / {{ library.songs.meta.total }}</div>
+                    <div style="width: 100%"><progress style="width: 80%;" :value="library.songs.meta.progress" :max="library.songs.meta.total"></progress></div>
                 </div>
             </div>
             <div id="app-content">
