@@ -1264,6 +1264,11 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     margin: 3px;
 }
 
+.lyrics-translation {
+    font-size: 1.6rem;
+    font-weight: 400;
+}
+
 @keyframes lyricWaitingLine {
     0% {
         opacity: 0.25;

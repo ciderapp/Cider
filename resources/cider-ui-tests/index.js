@@ -53,7 +53,7 @@ Vue.component('mediaitem-list-item', {
 
 Vue.component('lyrics-view', {
     template: '#lyrics-view',
-    props: ["time", "lyrics"],
+    props: ["time", "lyrics", "translation"],
     methods: {}
 });
 
@@ -472,8 +472,10 @@ const app = new Vue({
                                  for (var i =  u.length -1; i >= 0; i--) {
                                     let xline = (/(\[[0-9.:\[\]]*\])+(.*)/).exec(u[i])
                                     let end = (preLrc.length > 0) ? ((preLrc[preLrc.length-1].startTime) ?? 99999) : 99999
-                                    preLrc.push({ startTime: app.toMS(xline[1].substring(1,xline[1].length - 2)) ?? 0, endTime: end, line: xline[2] })
+                                    preLrc.push({ startTime: app.toMS(xline[1].substring(1,xline[1].length - 2)) ?? 0, endTime: end, line: xline[2], translation: '' })
                                  }
+                                 if (preLrc.length > 0)               
+                                     preLrc.push({startTime: 0,endTime: preLrc[preLrc.length-1].startTime, line: "lrcInstrumental", translation: ''});
                                  app.lyrics = preLrc.reverse();
                                 if (lrcfile != null && lrcfile != '') {
                                     // load translation
@@ -507,9 +509,20 @@ const app = new Vue({
                         let status2 = jsonResponse2["message"]["header"]["status_code"];
                         if (status2 == 200) {
                             try {
-                                let lyrics = jsonResponse2["message"]["body"]["translations_list"];
-                                if (lyrics.length > 0) {
-                                    // convert translations to suitable json
+                                let preTrans = []
+                                let u = app.lyrics;
+                                let translation_list = jsonResponse2["message"]["body"]["translations_list"];
+                                if (translation_list.length > 0) {
+                                    for (var i =  0; i < u.length - 1; i++) {
+                                        preTrans[i] = ""
+                                        for (var trans_line of translation_list){   
+                                            if (u[i].line == " "+trans_line["translation"]["matched_line"]){
+                                                u[i].translation = trans_line["translation"]["description"];
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    app.lyrics = u;    
                                 }
                             } catch (e) {
                                 /// not found trans -> ignore		

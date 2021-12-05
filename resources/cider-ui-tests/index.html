@@ -319,7 +319,7 @@
                 </transition>
             </div>
             <div class="app-drawer" v-if="drawertest">
-                <lyrics-view v-if="drawertest && lyricon" :time="lyriccurrenttime" :lyrics="lyrics"></lyrics-view>
+                <lyrics-view v-if="drawertest && lyricon" :time="lyriccurrenttime" :lyrics="lyrics" ></lyrics-view>
             </div>
         </div>
     </div>
@@ -605,6 +605,9 @@
                 <h3 class="lyric-line" @click="app.seekTo(lyric.startTime, false)"
                     v-bind:class="{ active: app.getLyricClass(lyric.startTime, lyric.endTime)}">
                     {{ lyric.line }}
+                    <div class="lyrics-translation" v-if="lyric.translation && lyric.translation != ''">
+                        {{ lyric.translation }}
+                    <div>    
                 </h3>
             </template>
             <template v-else>
