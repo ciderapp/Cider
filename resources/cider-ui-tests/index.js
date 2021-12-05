@@ -158,14 +158,13 @@ const app = new Vue({
             this.mk.addEventListener(MusicKit.Events.playbackTimeDidChange, (a) => {
                 self.playerLCD.playbackDuration = (self.mk.currentPlaybackTime)
                 self.lyriccurrenttime = app.mk.currentPlaybackTime;
-                
-                if (self.lyricon){
+
+                if (self.lyricon && drawertest){
                     let currentLine = document.querySelector(`.lyric-line.active`)
                     if (currentLine && currentLine.getElementsByClassName('lyricWaiting').length > 0){
-                        var duration = currentLine.getAttribute("end") - currentLine.getAttribute("start");
-                        var u = ( self.lyriccurrenttime - currentLine.getAttribute("start") ) / duration;                  
+                        let duration = currentLine.getAttribute("end") - currentLine.getAttribute("start");
+                        let u = ( self.lyriccurrenttime - currentLine.getAttribute("start") ) / duration;                  
                         if (u < 0.25 && !currentLine.classList.contains('mode1')){
-                         console.log('mode1');
                              try{
                              currentLine.classList.add('mode1');    
                              currentLine.classList.remove('mode3');
@@ -178,9 +177,8 @@ const app = new Vue({
                              currentLine.getElementsByClassName('WaitingDot3')[0].style.opacity = 0.25; 
      
                          } else if (u >= 0.25 && u < 0.5 && !currentLine.classList.contains('mode2')){
-                             console.log('mode2');
                              try{
-                                 currentLine.classList.add('mode2');    
+                             currentLine.classList.add('mode2');    
                              currentLine.classList.remove('mode1');
                              currentLine.classList.remove('mode3');
                              }
@@ -191,7 +189,6 @@ const app = new Vue({
                              currentLine.getElementsByClassName('WaitingDot1')[0].style.opacity = 1;
                              currentLine.getElementsByClassName('WaitingDot3')[0].style.opacity = 0.25;
                         } else if (u >= 0.5 && u < 0.75 && !currentLine.classList.contains('mode3')){
-                        console.log('mode3');
                              try{
                              currentLine.classList.add('mode3');
                              currentLine.classList.remove('mode1');
@@ -203,7 +200,6 @@ const app = new Vue({
                              currentLine.getElementsByClassName('WaitingDot1')[0].style.opacity = 1;
                              currentLine.getElementsByClassName('WaitingDot2')[0].style.opacity = 1;
                         } else if (u >= 0.75 && currentLine.classList.contains('mode3')){
-                            console.log('mode4');
                             try{
                              currentLine.classList.remove('mode1');
                              currentLine.classList.remove('mode2');
