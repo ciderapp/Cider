@@ -4,6 +4,8 @@ const getPort = require("get-port");
 const express = require("express");
 const path = require("path");
 const windowStateKeeper = require("electron-window-state");
+const request = require('request');
+const authFile = require("../auth.json");
 
 const CiderBase = {
 
@@ -106,6 +108,18 @@ const CiderBase = {
             })
         }
 
+        win.webContents.on('did-finish-load', () => {
+            let authFile = require("../auth.json")
+            request({url: "https://devkey.cider.sh/",
+                headers: {
+                    "Authorization": "Bearer "+authFile.authHeader
+                }
+            }, function (error, response, body) {
+                if (error) return console.log(error);
+                let parsedJson = JSON.parse(body)
+                win.webContents.send("devkey", parsedJson.Key)
+            })
+        })
         return win
     },
     async InitWebServer() {

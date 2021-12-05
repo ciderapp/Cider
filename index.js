@@ -1,5 +1,6 @@
 require('v8-compile-cache');
 const {app} = require('electron');
+const {BrowserWindow} = require("electron-acrylic-window");
 
 // Creating the Application Window and Calling all the Functions
 function CreateWindow() {
@@ -19,7 +20,7 @@ function CreateWindow() {
 
 app.on('ready', () => {
     if (app.isQuiting) { app.quit(); return; }
-    
+
     console.log('[Cider] Application is Ready. Creating Window.')
     CreateWindow()
 });
