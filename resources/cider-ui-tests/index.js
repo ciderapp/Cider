@@ -159,7 +159,7 @@ const app = new Vue({
                 self.playerLCD.playbackDuration = (self.mk.currentPlaybackTime)
                 self.lyriccurrenttime = app.mk.currentPlaybackTime;
 
-                if (self.lyricon && drawertest){
+                if (self.lyricon && self.drawertest){
                     let currentLine = document.querySelector(`.lyric-line.active`)
                     if (currentLine && currentLine.getElementsByClassName('lyricWaiting').length > 0){
                         let duration = currentLine.getAttribute("end") - currentLine.getAttribute("start");
