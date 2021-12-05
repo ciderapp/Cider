@@ -159,6 +159,7 @@ const app = new Vue({
                 self.playerLCD.playbackDuration = (self.mk.currentPlaybackTime)
                 self.lyriccurrenttime = app.mk.currentPlaybackTime;
 
+                // animated dot like AM - bad perf
                 if (self.lyricon && self.drawertest){
                     let currentLine = document.querySelector(`.lyric-line.active`)
                     if (currentLine && currentLine.getElementsByClassName('lyricWaiting').length > 0){
@@ -399,8 +400,13 @@ const app = new Vue({
             let preLrc = [];
             let xml = this.stringToXml(this.lyricsMediaItem);
             let lyricsLines = xml.getElementsByTagName('p');
+            let synced = true;
             let endTimes = [];
+            if (xml.getElementsByTagName('tt')[0].getAttribute("itunes:timing") === "None"){
+                synced = false;
+              }
             endTimes.push(0);
+            if (synced) {
             for (element of lyricsLines){
                 start = this.toMS(element.getAttribute('begin'))
                 end = this.toMS(element.getAttribute('end'))
@@ -413,8 +419,13 @@ const app = new Vue({
             // first line dot
             if (preLrc.length > 0)               
                 preLrc.unshift({startTime: 0,endTime: preLrc[0].startTime, line: "lrcInstrumental"});
-                
+            } else {
+                for (element of lyricsLines){
+                    preLrc.push({startTime: 9999999 ,endTime: 9999999 , line: element.textContent}); 
+                } 
+            }    
             this.lyrics = preLrc;
+
         },
         parseLyrics() {
             var xml = this.stringToXml(this.lyricsMediaItem)
