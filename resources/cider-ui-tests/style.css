@@ -358,6 +358,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     background: transparent;
     color: white;
     transition: transform .1s;
+    text-align: left;
 }
 
 .app-sidebar-item:hover {

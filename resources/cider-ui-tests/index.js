@@ -51,6 +51,11 @@ Vue.component('mediaitem-list-item', {
     methods: {}
 });
 
+Vue.component('lyrics-view', {
+    template: '#lyrics-view',
+    methods: {}
+});
+
 Vue.component('cider-search', {
     template: "#cider-search",
     props: ['search'],
@@ -121,6 +126,14 @@ const app = new Vue({
             listing: [],
             details: {}
         },
+        lyricon: false,
+        lyrics: [],
+        lyricsMediaItem: {},
+        lyricsDebug: {
+                current: 0,
+                start: 0,
+                end: 0
+        },
         chrome: {
             hideUserInfo: false,
             artworkReady: false,
@@ -146,6 +159,7 @@ const app = new Vue({
 
             this.mk.addEventListener(MusicKit.Events.nowPlayingItemDidChange, (a) => {
                 self.chrome.artworkReady = false
+                app.loadLyrics()
             })
 
             this.apiCall('https://api.music.apple.com/v1/me/library/playlists', res => {
@@ -298,6 +312,112 @@ const app = new Vue({
         },
         showSearch() {
             this.page = "search"
+        },
+        loadLyrics() {
+            const songID = (MusicKit.getInstance().nowPlayingItem != null) ? MusicKit.getInstance().nowPlayingItem["_songId"] ?? -1 : -1;
+            if (songID != -1){
+            MusicKit.getInstance().api.lyric(songID)
+            .then((response) => {
+                this.lyricsMediaItem = response.attributes["ttml"]
+                this.parseTTML()
+            })
+           
+
+
+        }
+
+        }, 
+        toMS(str) {
+            var rawTime = str.match(/(\d+:)?(\d+:)?(\d+)(\.\d+)?/);
+            hours = (rawTime[2] != null) ? (rawTime[1].replace(":", "")) : 0;
+            minutes = (rawTime[2] != null) ? (hours * 60 + rawTime[2].replace(":", "") * 1 ) : ((rawTime[1] != null) ? rawTime[1].replace(":", "")  : 0);
+            seconds = (rawTime[3] != null) ? (rawTime[3]) : 0;
+            milliseconds = (rawTime[4] != null) ? (rawTime[4].replace(".", "") ) : 0
+            return parseFloat(`${minutes * 60 + seconds * 1 }.${milliseconds * 1}`) ;
+        },
+        parseTTML(){
+            this.lyrics = [];
+            let preLrc = [];
+            let xml = this.stringToXml(this.lyricsMediaItem);
+            let lyricsLines = xml.getElementsByTagName('p');
+            for (element of lyricsLines){
+                preLrc.push({startTime: this.toMS(element.getAttribute('begin')),endTime: this.toMS(element.getAttribute('end')), line: element.textContent}); 
+            }
+            this.lyrics = preLrc;
+        },
+        parseLyrics() {
+            var xml = this.stringToXml(this.lyricsMediaItem)
+            var json = xmlToJson(xml);
+            this.lyrics = json
+        },
+        stringToXml(st) {
+            // string to xml
+            var xml = (new DOMParser()).parseFromString(st, "text/xml");
+            return xml;
+
+        },
+        getCurrentTime() {
+            return parseFloat(this.hmsToSecondsOnly(this.parseTime(this.mk.nowPlayingItem.attributes.durationInMillis - app.mk.currentPlaybackTimeRemaining *1000)));
+        },
+        getLyricClass(start, end) {
+            let currentTime = app.getCurrentTime();
+            // check if currenttime is between start and end
+            if (currentTime >= start && currentTime <= end) {
+                setTimeout(() => {
+                    if (document.querySelector(".lyric-line.active")) {
+                        document.querySelector(".lyric-line.active").scrollIntoView({
+                            behavior: "smooth",
+                            block: "center"
+                        })
+                    }
+                }, 200)
+                return "active"
+            } else {
+                return ""
+            }
+        },
+        seekTo(time){
+          this.mk.seekToTime(time);
+        },
+        parseTime(value) {
+            var minutes = Math.floor(value / 60000);
+            var seconds = ((value % 60000) / 1000).toFixed(0);
+            return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+        },
+        parseTimeDecimal(value) {
+            var minutes = Math.floor(value / 60000);
+            var seconds = ((value % 60000) / 1000).toFixed(0);
+            return minutes + "." + (seconds < 10 ? '0' : '') + seconds;
+        },
+        hmsToSecondsOnly(str) {
+            var p = str.split(':'),
+                s = 0,
+                m = 1;
+
+            while (p.length > 0) {
+                s += m * parseInt(p.pop(), 10);
+                m *= 60;
+            }
+
+            return s;
+        },
+        getLyricBGStyle(start, end) {
+            var currentTime = this.getCurrentTime();
+            var duration = this.mk.nowPlayingItem.attributes.durationInMillis
+            var start2 = this.hmsToSecondsOnly(start)
+            var end2 = this.hmsToSecondsOnly(end)
+            var currentProgress = ((100 * (currentTime)) / (end2))
+            // check if currenttime is between start and end
+            this.player.lyricsDebug.start = start2
+            this.player.lyricsDebug.end = end2
+            this.player.lyricsDebug.current = currentTime
+            if (currentTime >= start2 && currentTime <= end2) {
+                return {
+                    "--bgSpeed": `${(end2 - start2)}s`
+                }
+            } else {
+                return {}
+            }
         },
         playMediaItemById(id, kind, isLibrary, raurl = "") {
             var truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
@@ -453,3 +573,42 @@ document.addEventListener('musickitloaded', function () {
         });
 
 });
+
+function xmlToJson(xml) {
+    
+    // Create the return object
+    var obj = {};
+
+    if (xml.nodeType == 1) { // element
+        // do attributes
+        if (xml.attributes.length > 0) {
+            obj["@attributes"] = {};
+            for (var j = 0; j < xml.attributes.length; j++) {
+                var attribute = xml.attributes.item(j);
+                obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
+            }
+        }
+    } else if (xml.nodeType == 3) { // text
+        obj = xml.nodeValue;
+    }
+
+    // do children
+    if (xml.hasChildNodes()) {
+        for (var i = 0; i < xml.childNodes.length; i++) {
+            var item = xml.childNodes.item(i);
+            var nodeName = item.nodeName;
+            if (typeof (obj[nodeName]) == "undefined") {
+                obj[nodeName] = xmlToJson(item);
+            } else {
+                if (typeof (obj[nodeName].push) == "undefined") {
+                    var old = obj[nodeName];
+                    obj[nodeName] = [];
+                    obj[nodeName].push(old);
+                }
+                obj[nodeName].push(xmlToJson(item));
+            }
+        }
+    }
+    console.log(obj);
+    return obj;
+};

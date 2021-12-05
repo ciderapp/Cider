@@ -99,7 +99,7 @@
                     <button class="playback-button--small queue"></button>
                 </div>
                 <div class="app-chrome-item generic">
-                    <button class="playback-button--small lyrics"></button>
+                    <button class="playback-button--small lyrics" @click="drawertest = !drawertest; lyricon =!lyricon; if(drawertest == true){loadLyrics();}"></button>
                 </div>
                 <div class="app-chrome-item full-height">
                     <div class="window-controls">
@@ -171,7 +171,7 @@
                             @click="chrome.menuOpened = !chrome.menuOpened">
                         <template v-if="chrome.userinfo.attributes">
                             <div class="sidebar-user-icon"
-                                 style="{'--artwork': getMediaItemArtwork(chrome.userinfo.attributes['artwork']['url'], 26)}">
+                                 :style="{'--artwork': getMediaItemArtwork(chrome.userinfo.attributes['artwork']['url'], 26)}">
 
                             </div>
                         </template>
@@ -319,7 +319,7 @@
                 </transition>
             </div>
             <div class="app-drawer" v-if="drawertest">
-
+                <lyrics-view v-if="drawertest && lyricon"></lyrics-view>
             </div>
         </div>
     </div>
@@ -470,7 +470,7 @@
     </template>
 </script>
 
-<!-- Horizontal MediaItem Scroller (SP?) -->
+<!-- Horizontal MediaItem Scroller (SP : Special) -->
 
 <script type="text/x-template" id="mediaitem-scroller-horizontal-sp">
     <template>
@@ -598,7 +598,31 @@
         </div>
     </template>
 </script>
-
+<script type="text/x-template" id="lyrics-view">
+    <div class="md-body lyric-body">
+        <template v-if="app.lyrics">
+            <template v-for="lyric in app.lyrics" v-if="lyric.line != 'lrcInstrumental'">
+                <h3 class="lyric-line" @click="app.seekTo(lyric.startTime, false)"
+                    :class="app.getLyricClass(lyric.startTime, lyric.endTime)">
+                    {{ lyric.line }}
+                </h3>
+            </template>
+            <template v-else>
+                <h3 class="lyric-line" @click="app.seekTo(lyric.startTime, false)"
+                    :class="app.getLyricClass(lyric.startTime, lyric.endTime)">
+                    <div class="lyricWaiting">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </h3>
+            </template>
+        </template>
+        <template v-else>
+            No Lyrics Available
+        </template>
+    </div>
+</script>
 <script src="https://js-cdn.music.apple.com/musickit/v2/amp/musickit.js"></script>
 <script src="index.js?v=1"></script>
 </body>
