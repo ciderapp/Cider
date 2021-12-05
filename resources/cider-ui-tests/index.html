@@ -319,7 +319,7 @@
                 </transition>
             </div>
             <div class="app-drawer" v-if="drawertest">
-                <lyrics-view v-if="drawertest && lyricon"></lyrics-view>
+                <lyrics-view v-if="drawertest && lyricon" :time="lyriccurrenttime" :lyrics="lyrics"></lyrics-view>
             </div>
         </div>
     </div>
@@ -600,16 +600,16 @@
 </script>
 <script type="text/x-template" id="lyrics-view">
     <div class="md-body lyric-body">
-        <template v-if="app.lyrics">
-            <template v-for="lyric in app.lyrics" v-if="lyric.line != 'lrcInstrumental'">
+        <template v-if="lyrics">
+            <template v-for="lyric in lyrics" v-if="lyric.line != 'lrcInstrumental'">
                 <h3 class="lyric-line" @click="app.seekTo(lyric.startTime, false)"
-                    :class="app.getLyricClass(lyric.startTime, lyric.endTime)">
+                    v-bind:class="{ active: app.getLyricClass(lyric.startTime, lyric.endTime)}">
                     {{ lyric.line }}
                 </h3>
             </template>
             <template v-else>
                 <h3 class="lyric-line" @click="app.seekTo(lyric.startTime, false)"
-                    :class="app.getLyricClass(lyric.startTime, lyric.endTime)">
+                    v-bind:class="{ active: app.getLyricClass(lyric.startTime, lyric.endTime)}">
                     <div class="lyricWaiting">
                         <div></div>
                         <div></div>

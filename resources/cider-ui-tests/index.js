@@ -53,6 +53,7 @@ Vue.component('mediaitem-list-item', {
 
 Vue.component('lyrics-view', {
     template: '#lyrics-view',
+    props: ["time", "lyrics"],
     methods: {}
 });
 
@@ -128,6 +129,7 @@ const app = new Vue({
         },
         lyricon: false,
         lyrics: [],
+        lyriccurrenttime: 0,
         lyricsMediaItem: {},
         lyricsDebug: {
                 current: 0,
@@ -155,10 +157,12 @@ const app = new Vue({
 
             this.mk.addEventListener(MusicKit.Events.playbackTimeDidChange, (a) => {
                 self.playerLCD.playbackDuration = (self.mk.currentPlaybackTime)
+                self.lyriccurrenttime = app.mk.currentPlaybackTime;
             })
 
             this.mk.addEventListener(MusicKit.Events.nowPlayingItemDidChange, (a) => {
                 self.chrome.artworkReady = false
+                self.lyrics = []
                 app.loadLyrics()
             })
 
@@ -360,9 +364,8 @@ const app = new Vue({
             return parseFloat(this.hmsToSecondsOnly(this.parseTime(this.mk.nowPlayingItem.attributes.durationInMillis - app.mk.currentPlaybackTimeRemaining *1000)));
         },
         getLyricClass(start, end) {
-            let currentTime = app.getCurrentTime();
-            // check if currenttime is between start and end
-            if (currentTime >= start && currentTime <= end) {
+            //this.lyriccurrenttime = app.getCurrentTime();
+            if (this.lyriccurrenttime >= start && this.lyriccurrenttime <= end) {
                 setTimeout(() => {
                     if (document.querySelector(".lyric-line.active")) {
                         document.querySelector(".lyric-line.active").scrollIntoView({
@@ -371,9 +374,9 @@ const app = new Vue({
                         })
                     }
                 }, 200)
-                return "active"
+                return true;
             } else {
-                return ""
+                return false;
             }
         },
         seekTo(time){
