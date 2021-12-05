@@ -127,6 +127,7 @@ const app = new Vue({
             listing: [],
             details: {}
         },
+        mxmtoken: "",
         lyricon: false,
         lyrics: [],
         lyriccurrenttime: 0,
@@ -374,25 +375,170 @@ const app = new Vue({
             this.page = "search"
         },
         loadLyrics() {
-            const songID = (MusicKit.getInstance().nowPlayingItem != null) ? MusicKit.getInstance().nowPlayingItem["_songId"] ?? -1 : -1;
-            if (songID != -1){
-            MusicKit.getInstance().api.lyric(songID)
-            .then((response) => {
-                this.lyricsMediaItem = response.attributes["ttml"]
-                this.parseTTML()
-            })
-           
-
-
-        }
-
+            this.loadMXM();
         }, 
+        loadAMLyrics(){
+            const songID = (this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem["_songId"] ?? -1 : -1;
+            // this.getMXM( trackName, artistName, 'en', duration);
+            if (songID != -1) {
+                MusicKit.getInstance().api.lyric(songID)
+                    .then((response) => {
+                        this.lyricsMediaItem = response.attributes["ttml"]
+                        this.parseTTML()
+                    })
+            }
+        },
+        loadMXM(){
+            let attempt = 0;
+            const track = encodeURIComponent((this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.title ?? '' : '');
+            const artist = encodeURIComponent((this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.artistName ?? '' : '');
+            const time = encodeURIComponent((this.mk.nowPlayingItem != null) ? (Math.round((this.mk.nowPlayingItem.attributes["durationInMillis"] ?? -1000) / 1000) ?? -1) : -1);
+            var lrcfile = "";
+            const lang = "en" //  translation language
+            function revisedRandId() {
+                return Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10);
+            }
+            /* get token */
+            function getToken(mode, track, artist, songid, lang, time) {
+                if (attempt > 2){
+                    app.loadAMLyrics();
+                } else {
+                attempt = attempt + 1;
+                let url = "https://apic-desktop.musixmatch.com/ws/1.1/token.get?app_id=web-desktop-app-v1.0&t=" + revisedRandId();
+                let req = new XMLHttpRequest();
+                req.overrideMimeType("application/json");
+                req.open('GET', url, true);
+                req.setRequestHeader("authority", "apic-desktop.musixmatch.com");
+                req.onload = function () {
+                    let jsonResponse = JSON.parse(this.responseText);
+                    let status2 = jsonResponse["message"]["header"]["status_code"];
+                    if (status2 == 200) {
+                        let token = jsonResponse["message"]["body"]["user_token"] ?? '';
+                        if (token != "" && token != "UpgradeOnlyUpgradeOnlyUpgradeOnlyUpgradeOnly") {
+                            console.log('200 token',mode);
+                            // token good
+                            app.mxmtoken = token;
+
+                            if (mode == 1) {
+                                getMXMSubs(track, artist, app.mxmtoken, lang, time);
+                            } else {
+                                getMXMTrans(songid, lang, app.mxmtoken);
+                            }
+                        } else {
+                            console.log('fake 200 token');
+                            getToken(mode, track, artist, songid, lang, time)
+                        }
+                    } else {
+                        console.log('token 4xx');
+                        getToken(mode, track, artist, songid, lang, time)
+                    }
+
+                };
+                req.onerror = function () {
+                    console.log('error');
+                    app.loadAMLyrics();
+                };
+                req.send();}
+            }
+            function getMXMSubs(track, artist, token, lang, time) {
+                var usertoken = encodeURIComponent(token);
+                var timecustom = ( !time || (time && time < 0)) ? '': `&f_subtitle_length=${time}&q_duration=${time}&f_subtitle_length_max_deviation=40`;
+                var url = "https://apic-desktop.musixmatch.com/ws/1.1/macro.subtitles.get?format=json&namespace=lyrics_richsynched&subtitle_format=lrc&q_artist=" + artist + "&q_track=" + track + "&usertoken=" + usertoken + timecustom + "&app_id=web-desktop-app-v1.0&t=" + revisedRandId();
+                var req = new XMLHttpRequest();
+                req.overrideMimeType("application/json");
+                req.open('GET', url, true);
+                req.setRequestHeader("authority", "apic-desktop.musixmatch.com");
+                req.onload = function () {
+                    var jsonResponse = JSON.parse(this.responseText);
+                    console.log(jsonResponse);
+                    var status1 = jsonResponse["message"]["header"]["status_code"];
+
+                    if (status1 == 200) {
+                        let id = '';
+                        try {
+                            if (jsonResponse["message"]["body"]["macro_calls"]["matcher.track.get"]["message"]["header"]["status_code"] == 200 && jsonResponse["message"]["body"]["macro_calls"]["track.subtitles.get"]["message"]["header"]["status_code"] == 200) {
+                                id = jsonResponse["message"]["body"]["macro_calls"]["matcher.track.get"]["message"]["body"]["track"]["track_id"] ?? '';
+                                lrcfile = jsonResponse["message"]["body"]["macro_calls"]["track.subtitles.get"]["message"]["body"]["subtitle_list"][0]["subtitle"]["subtitle_body"];
+                            }
+
+                            if (lrcfile == "") {
+                                console.log('track not found');
+                                app.loadAMLyrics()
+                            } else {
+                                 // process lrcfile to json here
+                                 app.lyricsMediaItem = lrcfile
+                                 let u = app.lyricsMediaItem.split(/[\r\n]/);
+                                 let preLrc = []
+                                 for (var i =  u.length -1; i >= 0; i--) {
+                                    let xline = (/(\[[0-9.:\[\]]*\])+(.*)/).exec(u[i])
+                                    let end = (preLrc.length > 0) ? ((preLrc[preLrc.length-1].startTime) ?? 99999) : 99999
+                                    preLrc.push({ startTime: app.toMS(xline[1].substring(1,xline[1].length - 2)) ?? 0, endTime: end, line: xline[2] })
+                                 }
+                                 app.lyrics = preLrc.reverse();
+                                if (lrcfile != null && lrcfile != '') {
+                                    // load translation
+                                   getMXMTrans(id, lang, token);
+                                } else {
+                                    app.loadAMLyrics()
+                                }
+                            }
+                        } catch (e) {
+                            console.log(e);
+                            console.log('track not found ??');
+                            app.loadAMLyrics()
+                        }
+                    } else { //4xx rejected
+                        getToken(1, track, artist, '', lang, time);
+                    }
+                }
+                req.send();
+            }
+            function getMXMTrans(id, lang, token) {
+                if (lang != "disabled" && id != '') {
+                    let usertoken = encodeURIComponent(token);
+                    let url2 = "https://apic-desktop.musixmatch.com/ws/1.1/crowd.track.translations.get?translation_fields_set=minimal&selected_language=" + lang + "&track_id=" + id + "&comment_format=text&part=user&format=json&usertoken=" + usertoken + "&app_id=web-desktop-app-v1.0&t=" + revisedRandId();
+                    let req2 = new XMLHttpRequest();
+                    req2.overrideMimeType("application/json");
+                    req2.open('GET', url2, true);
+                    req2.setRequestHeader("authority", "apic-desktop.musixmatch.com");
+                    req2.onload = function () {
+                        let jsonResponse2 = JSON.parse(this.responseText);
+                        console.log(jsonResponse2);
+                        let status2 = jsonResponse2["message"]["header"]["status_code"];
+                        if (status2 == 200) {
+                            try {
+                                let lyrics = jsonResponse2["message"]["body"]["translations_list"];
+                                if (lyrics.length > 0) {
+                                    // convert translations to suitable json
+                                }
+                            } catch (e) {
+                                /// not found trans -> ignore		
+                            }
+                        } else { //4xx rejected
+                            getToken(2, '', '', id, lang, '');
+                        }
+                    }
+                    req2.send();
+                }
+               
+            }
+
+            if (track != "" & track != "No Title Found"){
+                if ( app.mxmtoken != null && app.mxmtoken != '' ) {
+                console.log("we good");
+                getMXMSubs(track, artist, app.mxmtoken, lang, time)
+                } else {
+                console.log("get token");
+                getToken(1,track, artist, '', lang, time);
+                }
+            }	
+        },
         toMS(str) {
-            var rawTime = str.match(/(\d+:)?(\d+:)?(\d+)(\.\d+)?/);
-            hours = (rawTime[2] != null) ? (rawTime[1].replace(":", "")) : 0;
-            minutes = (rawTime[2] != null) ? (hours * 60 + rawTime[2].replace(":", "") * 1 ) : ((rawTime[1] != null) ? rawTime[1].replace(":", "")  : 0);
-            seconds = (rawTime[3] != null) ? (rawTime[3]) : 0;
-            milliseconds = (rawTime[4] != null) ? (rawTime[4].replace(".", "") ) : 0
+            let rawTime = str.match(/(\d+:)?(\d+:)?(\d+)(\.\d+)?/);
+            let hours = (rawTime[2] != null) ? (rawTime[1].replace(":", "")) : 0;
+            let minutes = (rawTime[2] != null) ? (hours * 60 + rawTime[2].replace(":", "") * 1 ) : ((rawTime[1] != null) ? rawTime[1].replace(":", "")  : 0);
+            let seconds = (rawTime[3] != null) ? (rawTime[3]) : 0;
+            let milliseconds = (rawTime[4] != null) ? (rawTime[4].replace(".", "") ) : 0
             return parseFloat(`${minutes * 60 + seconds * 1 }.${milliseconds * 1}`) ;
         },
         parseTTML(){
@@ -642,7 +788,7 @@ document.addEventListener('musickitloaded', function () {
             var amwebCFG = JSON.parse(decodeURIComponent(u.getAttribute("content")));
             console.log(amwebCFG.MEDIA_API.token)
             MusicKit.configure({
-                developerToken: "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IldlYlBsYXlLaWQifQ.eyJpc3MiOiJBTVBXZWJQbGF5IiwiaWF0IjoxNjM2NTYwMjc1LCJleHAiOjE2NTIxMTIyNzV9.is4KeAN_M9FWTfuw9zMV2lgHSSdPqEV2SX-XfCuEYY4qtmjbo-NjebHCageS28z0P0erksqql9rtsoizE4hsJg",
+                developerToken: amwebCFG.MEDIA_API.token,
                 app: {
                     name: 'My Cool Web App',
                     build: '1978.4.1'
