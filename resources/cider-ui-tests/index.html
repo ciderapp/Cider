@@ -394,12 +394,14 @@
             <div class="playlist-info">
                 <div class="playlist-name">{{data.attributes.name ?? (data.attributes.title ?? '') ?? ''}}</div>
                 <div class="playlist-artist" v-if="data.attributes.artistName">{{data.attributes.artistName ??  ''}}</div>
-                <div class="playlist-desc">{{(data.attributes.editorialNotes) ? (data.attributes.editorialNotes.standard ?? '' ) : (data.attributes.description ? data.attributes.description.standard ?? '' : '')}}</div>
+                <div class="playlist-desc" v-html="((data.attributes.editorialNotes) ? (data.attributes.editorialNotes.short ?? (data.attributes.editorialNotes.standard ?? '') ) : (data.attributes.description ? (data.attributes.description.short ?? (data.attributes.description.standard ?? '')) : ''))"></div>
             </div>    
         </div>
         <mediaitem-list-item :item="item"
                             v-for="item in data.relationships.tracks.data"></mediaitem-list-item>
+        <div class="playlist-time" >{{app.getTotalTime()}}</div>
         </template>
+
     </div>    
 </script>
 

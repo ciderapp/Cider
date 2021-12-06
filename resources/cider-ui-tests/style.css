@@ -1758,3 +1758,8 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     flex-shrink: unset;
     margin-right: 5px;
 }
+
+.playlist-time {
+    margin: 6px;
+    opacity: 0.7;
+}

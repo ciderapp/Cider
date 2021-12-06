@@ -357,6 +357,11 @@ const app = new Vue({
 
             downloadChunk()
         },
+        getTotalTime(){
+            if (app.showingPlaylist.relationships.tracks.data.length > 0){
+            time = Math.round([].concat(...app.showingPlaylist.relationships.tracks.data).reduce((a, { attributes: { durationInMillis }}) => a + durationInMillis, 0)/60000);
+            return app.showingPlaylist.relationships.tracks.data.length + " tracks, "+ time +" mins.";} else return ""
+        },
         async getLibrarySongs() {
             var response = await this.mkapi("songs", true, "", {limit: 100}, {includeResponseMeta: !0})
             this.library.songs.listing = response.data
