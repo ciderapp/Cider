@@ -1766,11 +1766,14 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     margin-bottom: 32px;
 }
 
-.playlist-info{ 
+.playlist-display .playlist-info{
     flex-shrink: unset;
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-end;
 }
 
-.playlist-info .playlist-name {
+.playlist-display .playlist-info .playlist-name {
     font-weight: 700;
     font-size: 1.6rem;
     margin-bottom: 6px;
@@ -1778,21 +1781,21 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     flex-shrink: unset;
 
 }
-.playlist-info .playlist-artist {
+.playlist-display .playlist-info .playlist-artist {
     font-weight: 500;
     font-size: 1.6rem;
     margin-bottom: 6px;
     margin-right: 6px;
     flex-shrink: unset;
 }
-.playlist-info .playlist-desc {
+.playlist-display .playlist-info .playlist-desc {
     box-sizing: border-box;
     font-size: 1.1rem;
     flex-shrink: unset;
     margin-right: 5px;
 }
 
-.playlist-info .playlist-time {
+.playlist-display .playlist-info .playlist-time {
     margin: 6px;
     opacity: 0.7;
 }
