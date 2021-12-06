@@ -249,16 +249,23 @@ const app = new Vue({
         },
         routeView (item){
             app.showingPlaylist = []; 
-            let kind = item.attributes.playParams.kind ?? item.type;
-            let id = item.attributes.playParams.id ?? item.id;
-            let isLibrary = item.attributes.playParams.isLibrary ?? false;
+            let kind = (item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? ''));
+            let id = (item.attributes.playParams ? (item.attributes.playParams.id ?? (item.id?? '')): (item.id ?? ''));;
+            let isLibrary = item.attributes.playParams ? (item.attributes.playParams.isLibrary ?? false) : false;
             console.log(kind, id, isLibrary)
             if(!kind.toString().includes("radioStation") && !kind.toString().includes("song"))
             {app.page = (kind) + "_"+ (id); 
             console.log("oks");
             app.getTypeFromID((kind),(id), (isLibrary));} else {
-                app.playMediaItemById((kind),(id), (isLibrary), item.attributes.url ?? '')
+                app.playMediaItemById((id),(kind), (isLibrary), item.attributes.url ?? '')
             }
+        },
+        playMediaItem(item){
+            let kind = (item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? ''));
+            let id = (item.attributes.playParams ? (item.attributes.playParams.id ?? (item.id?? '')): (item.id ?? ''));;
+            let isLibrary = item.attributes.playParams ? (item.attributes.playParams.isLibrary ?? false) : false;
+            console.log(kind, id, isLibrary)
+            app.playMediaItemById((id),(kind), (isLibrary), item.attributes.url ?? '')
         },
         async getTypeFromID(kind,id, isLibrary = false){
             
