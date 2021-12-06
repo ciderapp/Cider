@@ -721,6 +721,19 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     box-shadow: inset 0px 0px 0px 1px rgb(200 200 200 / 30%);
 }
 
+.playlist-artwork {
+    height: 190px;
+    width: 190px;
+    background: blue;
+    border-radius: 6px;
+    background: var(--artwork);
+    background-size: cover;
+    box-shadow: var(--mediaItemShadow);
+    flex: 0 0 auto; 
+    margin: 6px;
+    margin-top: 0px;
+}
+
 .media-item--small .text {
     font-weight: 600;
     font-size: 0.90em;

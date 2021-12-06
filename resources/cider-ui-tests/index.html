@@ -199,7 +199,7 @@
                 </div>
             </div>
             <div id="app-content">
-                <!-- Playlist page-->
+                <!-- Playlist / Album page-->
                 <transition name="wpfade" >
                     <template v-if="page.includes('playlist_')" >
                       <cider-playlist :data="showingPlaylist"></cider-playlist>
@@ -209,6 +209,7 @@
                     <template v-if="page.includes('album_')" >
                       <cider-playlist :data="showingPlaylist"></cider-playlist>
                     </template>
+                </transition>
                 </transition>
                 <!-- Browse -->
                 <transition name="wpfade">
@@ -382,11 +383,12 @@
     </div>
 </script>
 
+<!-- Album / Playlist View -->
 <script type="text/x-template" id="cider-playlist">
     <div class="content-inner">
         <template v-if="data != [] && data.attributes != []">
         <div class="playlist-display row">
-            <div class="col artwork" 
+            <div class="col playlist-artwork" 
             :style="{'--artwork': app.getMediaItemArtwork((data.attributes != null && data.attributes.artwork != null) ? data.attributes.artwork.url : (data.relationships.tracks.data.length > 0 ? data.relationships.tracks.data[0].attributes.artwork.url ?? '':''), 300)}
            "></div>
             <div class="playlist-info">
@@ -408,7 +410,7 @@
             <div class="col-sm" style="width: auto;" v-if="getTopResult()">
                 <template>
                     <h3>Top Result</h3>
-                    <mediaitem-square :item="getTopResult()"></mediaitem-square>
+                    <mediaitem-square-large :item="getTopResult()"></mediaitem-square>
                 </template>
             </div>
             <div class="col" v-if="search.results.songs">
@@ -437,8 +439,8 @@
                         <button class="cd-btn-seeall">See All</button>
                     </div>
                 </div>
-                <mediaitem-scroller-horizontal
-                        :items="search.results.albums.data.limit(10)"></mediaitem-scroller-horizontal>
+                <mediaitem-scroller-horizontal-large
+                        :items="search.results.albums.data.limit(10)"></mediaitem-scroller-horizontal-large>
             </template>
             <template v-if="search.results.artists">
                 <div class="row">
@@ -461,8 +463,8 @@
                         <button class="cd-btn-seeall">See All</button>
                     </div>
                 </div>
-                <mediaitem-square :item="item"
-                                  v-for="item in search.results.playlists.data.limit(10)"></mediaitem-square>
+                <mediaitem-square-large :item="item"
+                                  v-for="item in search.results.playlists.data.limit(10)"></mediaitem-square-large>
             </template>
         </template>
     </div>
@@ -600,7 +602,7 @@
                     <div class="button" style = "
                     border-radius: 50%;
                     background: rgba(50,50,50,0.7);"
-                    :style = "[((item.attributes.playParams.kind ?? item.type) != 'radioStation') ? {'margin': '140px',
+                    :style = "[(!(item.attributes.playParams.kind ?? item.type).includes('radioStation') && !(item.attributes.playParams.kind ?? item.type).includes('song')) ? {'margin': '140px',
                         width: '40px',
                         height: '40px',} :
                         {margin: '35px',
@@ -621,7 +623,7 @@
                 <div class="button" style = "
                 border-radius: 50%;
                 background: rgba(50,50,50,0.7);"
-                :style = "[((item.attributes.playParams.kind ?? item.type) != 'radioStation') ? {'margin': '140px',
+                :style = "[(!(item.attributes.playParams.kind ?? item.type).includes('radioStation') && !(item.attributes.playParams.kind ?? item.type).includes('song')) ? {'margin': '140px',
                     width: '40px',
                     height: '40px',} :
                     {margin: '35px',
@@ -648,7 +650,7 @@
                  <div class="button" style = "
                     border-radius: 50%;
                     background: rgba(50,50,50,0.7);"
-                    :style = "[((item.attributes.playParams.kind ?? item.type) != 'radioStation') ? {'margin': '140px',
+                    :style = "[(!(item.attributes.playParams.kind ?? item.type).includes('radioStation') && !(item.attributes.playParams.kind ?? item.type).includes('song')) ? {'margin': '140px',
                         width: '40px',
                         height: '40px',} :
                         {margin: '35px',
@@ -674,7 +676,7 @@
             <div class="button" style = "
                border-radius: 50%;
                background: rgba(50,50,50,0.7);"
-               :style = "[((item.attributes.playParams.kind ?? item.type) != 'radioStation') ? {'margin': '140px',
+               :style = "[(!(item.attributes.playParams.kind ?? item.type).includes('radioStation') && !(item.attributes.playParams.kind ?? item.type).includes('song')) ? {'margin': '140px',
                    width: '40px',
                    height: '40px',} :
                    {margin: '35px',

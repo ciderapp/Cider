@@ -253,10 +253,12 @@ const app = new Vue({
             let id = item.attributes.playParams.id ?? item.id;
             let isLibrary = item.attributes.playParams.isLibrary ?? false;
             console.log(kind, id, isLibrary)
-            if(kind.toString() !== "radioStation")
+            if(!kind.toString().includes("radioStation") && !kind.toString().includes("song"))
             {app.page = (kind) + "_"+ (id); 
             console.log("oks");
-            app.getTypeFromID((kind),(id), (isLibrary));}
+            app.getTypeFromID((kind),(id), (isLibrary));} else {
+                app.playMediaItemById((kind),(id), (isLibrary), item.attributes.url ?? '')
+            }
         },
         async getTypeFromID(kind,id, isLibrary = false){
             
