@@ -76,6 +76,11 @@ Vue.component('cider-listen-now', {
     props: ["data"]
 })
 
+Vue.component('cider-playlist', {
+    template: "#cider-playlist",
+    props: ["data"]
+})
+
 const MusicKitTools = {
     getHeader() {
         return new Headers({
@@ -110,6 +115,7 @@ const app = new Vue({
         radio: {
             personal: []
         },
+        showingPlaylist: [],
         library: {
             songs: {
                 listing: [],
@@ -233,6 +239,13 @@ const app = new Vue({
                 self.playlists.listing = res.data
             })
             document.body.removeAttribute("loading")
+        },
+        async getPlaylistFromID(id){
+            try{
+            this.showingPlaylist = await app.mk.api.library.playlist(id)} catch (e){console.log(e);
+            try{this.showingPlaylist = await app.mk.api.playlist(id)} catch (err) {console.log(err)}    
+            }
+           
         },
         searchLibrarySongs() {
             let self = this

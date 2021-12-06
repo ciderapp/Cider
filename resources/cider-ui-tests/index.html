@@ -142,7 +142,7 @@
                     <div class="app-sidebar-header-text">
                         Playlists
                     </div>
-                    <button class="app-sidebar-item" v-for="item in playlists.listing" :key="item.id" href="item.href">
+                    <button class="app-sidebar-item"  v-for="item in playlists.listing" :key="item.id" :href="item.href" @click='app.page=`playlist_` + item.id ; showingPlaylist = [];getPlaylistFromID(app.page.substring(9))'>
                         {{ item.attributes.name }}
                     </button>
                 </div>
@@ -199,6 +199,12 @@
                 </div>
             </div>
             <div id="app-content">
+                <!-- Playlist page-->
+                <transition name="wpfade" >
+                    <template v-if="page.includes('playlist_')" >
+                      <cider-playlist :data="showingPlaylist"></cider-playlist>
+                    </template>
+                </transition>
                 <!-- Browse -->
                 <transition name="wpfade">
                     <template v-if="page == 'browse'">
@@ -371,6 +377,24 @@
     </div>
 </script>
 
+<script type="text/x-template" id="cider-playlist">
+    <div class="content-inner">
+        <template v-if="data != [] && data.attributes != []">
+        <div class="playlist-display row">
+            <div class="col artwork" 
+            :style="{'--artwork': app.getMediaItemArtwork((data.attributes != null && data.attributes.artwork != null) ? data.attributes.artwork.url : (data.relationships.tracks.data.length > 0 ? data.relationships.tracks.data[0].attributes.artwork.url ?? '':''), 300)}
+           "></div>
+            <div class="playlist-info">
+                <div class="playlist-name">{{data.attributes.name ?? ''}}</div>
+                <div class="playlist-desc">{{data.attributes.description ? data.attributes.description.standard ?? '' : ''}}</div>
+            </div>    
+        </div>
+        <mediaitem-list-item :item="item"
+                            v-for="item in data.relationships.tracks.data"></mediaitem-list-item>
+        </template>
+    </div>    
+</script>
+
 <!-- Search -->
 <script type="text/x-template" id="cider-search">
     <div class="content-inner">
@@ -489,7 +513,7 @@
              class="cd-mediaitem-list-item">
             <div class="artwork" v-if="item.attributes.artwork"
                  :class="{'round': item.type == 'artists'}"
-                 :style="{'--artwork': app.getMediaItemArtwork(item.attributes.artwork.url ? item.attributes.artwork.url : '', 34)}
+                 :style="{'--artwork': app.getMediaItemArtwork(item.attributes.artwork ? item.attributes.artwork.url : '', 34)}
                 "></div>
             <div class="info-rect">
                 <div class="title text-overflow-elipsis">
