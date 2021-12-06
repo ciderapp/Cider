@@ -779,9 +779,10 @@ const app = new Vue({
 
 document.addEventListener('musickitloaded', function () {
     // MusicKit global is now defined
-    ipcRenderer.on('devkey', (event, key) => {
+    function initMusicKit () {
+        let parsedJson = JSON.parse(this.responseText)
         MusicKit.configure({
-            developerToken: key,
+            developerToken: parsedJson.Key,
             app: {
                 name: 'My Cool Web App',
                 build: '1978.4.1'
@@ -790,7 +791,11 @@ document.addEventListener('musickitloaded', function () {
         setTimeout(() => {
             app.init()
         }, 1000)
-    })
+    }
+    const request = new XMLHttpRequest();
+    request.addEventListener("load", initMusicKit);
+    request.open("GET", "https://devkey.cider.sh/");
+    request.send();
 });
 
 function xmlToJson(xml) {

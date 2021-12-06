@@ -107,19 +107,6 @@ const CiderBase = {
                 }
             })
         }
-
-        win.webContents.on('did-finish-load', () => {
-            let authFile = require("../auth.json")
-            request({url: "https://devkey.cider.sh/",
-                headers: {
-                    "Authorization": "Bearer "+authFile.authHeader
-                }
-            }, function (error, response, body) {
-                if (error) return console.log(error);
-                let parsedJson = JSON.parse(body)
-                win.webContents.send("devkey", parsedJson.Key)
-            })
-        })
         return win
     },
     async InitWebServer() {
