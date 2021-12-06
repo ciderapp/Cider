@@ -1519,6 +1519,24 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     font-size: 12px;
 }
 
+
+.cd-mediaitem-square-sp > .cd-mediaitem-square-large-overlay {
+    z-index: 3;
+}
+.cd-mediaitem-square-sp > .cd-mediaitem-square-large-overlay:hover {
+    opacity: 1;
+}
+
+.cd-mediaitem-square-sp + .cd-mediaitem-square-large-overlay {
+    pointer-events: none;
+
+}
+
+.cd-mediaitem-square-sp:hover + .cd-mediaitem-square-large-overlay {
+    opacity: 1;
+
+}
+
 /* mediaitem-square-large */
 .cd-mediaitem-square-large {
     width: 190px;
