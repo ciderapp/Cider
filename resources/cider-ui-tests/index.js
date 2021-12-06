@@ -160,6 +160,12 @@ const app = new Vue({
                 self.playerLCD.playbackDuration = (self.mk.currentPlaybackTime)
                 self.lyriccurrenttime = app.mk.currentPlaybackTime;
 
+                if (document.querySelector(".lyric-line.active")) {
+                    document.querySelector(".lyric-line.active").scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
+                    })
+                }
                 // animated dot like AM - bad perf
                 if (self.lyricon && self.drawertest){
                     let currentLine = document.querySelector(`.lyric-line.active`)
@@ -602,15 +608,8 @@ const app = new Vue({
         },
         getLyricClass(start, end) {
             //this.lyriccurrenttime = app.getCurrentTime();
-            if (this.lyriccurrenttime >= start && this.lyriccurrenttime <= end) {
-                setTimeout(() => {
-                    if (document.querySelector(".lyric-line.active")) {
-                        document.querySelector(".lyric-line.active").scrollIntoView({
-                            behavior: "smooth",
-                            block: "center"
-                        })
-                    }
-                }, 200)
+            const delayfix = 0.5
+            if (this.lyriccurrenttime + delayfix >= start  && this.lyriccurrenttime + delayfix <= end) {
                 return true;
             } else {
                 return false;
