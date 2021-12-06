@@ -247,6 +247,31 @@ const app = new Vue({
             }
            
         },
+        routeView (item){
+            app.showingPlaylist = []; 
+            let kind = item.attributes.playParams.kind ?? item.type;
+            let id = item.attributes.playParams.id ?? item.id;
+            let isLibrary = item.attributes.playParams.isLibrary ?? false;
+            console.log(kind, id, isLibrary)
+            if(kind.toString() !== "radioStation")
+            {app.page = (kind) + "_"+ (id); 
+            console.log("oks");
+            app.getTypeFromID((kind),(id), (isLibrary));}
+        },
+        async getTypeFromID(kind,id, isLibrary = false){
+            
+            var a;
+            try {
+                a = await this.mkapi(kind.toString(), isLibrary, id.toString());
+            }
+            catch (e) {
+                console.log(e);
+                try {
+                    console.log("opp", !isLibrary);
+                    a = await this.mkapi(kind.toString(), !isLibrary, id.toString());
+                } catch (err) { console.log(err); a = [] } finally { this.showingPlaylist = a }
+            } finally { this.showingPlaylist = a };
+        },
         searchLibrarySongs() {
             let self = this
             if (this.library.songs.search == "") {

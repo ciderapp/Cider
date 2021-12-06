@@ -205,6 +205,11 @@
                       <cider-playlist :data="showingPlaylist"></cider-playlist>
                     </template>
                 </transition>
+                <transition name="wpfade" >
+                    <template v-if="page.includes('album_')" >
+                      <cider-playlist :data="showingPlaylist"></cider-playlist>
+                    </template>
+                </transition>
                 <!-- Browse -->
                 <transition name="wpfade">
                     <template v-if="page == 'browse'">
@@ -385,8 +390,9 @@
             :style="{'--artwork': app.getMediaItemArtwork((data.attributes != null && data.attributes.artwork != null) ? data.attributes.artwork.url : (data.relationships.tracks.data.length > 0 ? data.relationships.tracks.data[0].attributes.artwork.url ?? '':''), 300)}
            "></div>
             <div class="playlist-info">
-                <div class="playlist-name">{{data.attributes.name ?? ''}}</div>
-                <div class="playlist-desc">{{data.attributes.description ? data.attributes.description.standard ?? '' : ''}}</div>
+                <div class="playlist-name">{{data.attributes.name ?? (data.attributes.title ?? '') ?? ''}}</div>
+                <div class="playlist-artist" v-if="data.attributes.artistName">{{data.attributes.artistName ??  ''}}</div>
+                <div class="playlist-desc">{{(data.attributes.editorialNotes) ? (data.attributes.editorialNotes.standard ?? '' ) : (data.attributes.description ? data.attributes.description.standard ?? '' : '')}}</div>
             </div>    
         </div>
         <mediaitem-list-item :item="item"
@@ -582,17 +588,47 @@
 
 <script type="text/x-template" id="mediaitem-square-large">
     <template>
-        <div @click="app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)"
-             class="cd-mediaitem-square-large">
-            <div class="artwork"
-                 :class="{'round': item.type == 'artists'}"
-                 :style="{'--artwork': app.getMediaItemArtwork(item.attributes.artwork.url, 300)}"></div>
-            <div class="title text-overflow-elipsis">
-                {{ item.attributes.name }}
+        <div style="position: relative; display: inline-flex;">
+            <div @click.self='app.routeView(item)'
+                class="cd-mediaitem-square-large">
+                <div class="artwork"
+                    :class="{'round': item.type == 'artists'}"
+                    :style="{'--artwork': app.getMediaItemArtwork(item.attributes.artwork.url, 300)}"              
+                    >
+                </div>
+                <div class="cd-mediaitem-square-large-overlay"  @click.self='app.routeView(item)'>
+                    <div class="button" style = "
+                    border-radius: 50%;
+                    background: rgba(50,50,50,0.7);"
+                    :style = "[((item.attributes.playParams.kind ?? item.type) != 'radioStation') ? {'margin': '140px',
+                        width: '40px',
+                        height: '40px',} :
+                        {margin: '35px',
+                        width: '120px',
+                        height: '120px',}]"
+                    @click="app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)">
+                    <svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 27" class="glyph"><path d="M11.3545232,18.4180929 L18.4676039,14.242665 C19.0452323,13.9290954 19.0122249,13.1204156 18.4676039,12.806846 L11.3545232,8.63141809 C10.7603912,8.26833741 9.98471883,8.54889976 9.98471883,9.19254279 L9.98471883,17.8404645 C9.98471883,18.5006112 10.7108802,18.7976773 11.3545232,18.4180929 Z"></path></svg></div>
+                </div>
+                <div class="title text-overflow-elipsis"  @click='app.routeView(item)'>
+                    {{ item.attributes.name ?? '' }}
+                </div>
+                <div class="subtitle text-overflow-elipsis" v-if="item.attributes.artistName">
+                    {{ item.attributes.artistName ?? '' }}
+                </div>
+               
             </div>
-            <div class="subtitle text-overflow-elipsis" v-if="item.attributes.artistName">
-                {{ item.attributes.artistName }}
-            </div>
+            <div class="cd-mediaitem-square-large-overlay">
+                <div class="button" style = "
+                border-radius: 50%;
+                background: rgba(50,50,50,0.7);"
+                :style = "[((item.attributes.playParams.kind ?? item.type) != 'radioStation') ? {'margin': '140px',
+                    width: '40px',
+                    height: '40px',} :
+                    {margin: '35px',
+                    width: '120px',
+                    height: '120px',}]" @click="app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)">
+                    <svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 27" class="glyph"><path d="M11.3545232,18.4180929 L18.4676039,14.242665 C19.0452323,13.9290954 19.0122249,13.1204156 18.4676039,12.806846 L11.3545232,8.63141809 C10.7603912,8.26833741 9.98471883,8.54889976 9.98471883,9.19254279 L9.98471883,17.8404645 C9.98471883,18.5006112 10.7108802,18.7976773 11.3545232,18.4180929 Z"></path></svg></div>
+            </div> 
         </div>
     </template>
 </script>
