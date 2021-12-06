@@ -99,7 +99,9 @@
                     <button class="playback-button--small queue"></button>
                 </div>
                 <div class="app-chrome-item generic">
-                    <button class="playback-button--small lyrics" @click="drawertest = !drawertest; lyricon =!lyricon; if(drawertest == true){loadLyrics();}"></button>
+                    <button class="playback-button--small lyrics"
+                            @click="drawertest = !drawertest; lyricon =!lyricon; if(drawertest == true){loadLyrics();}"
+                    ></button>
                 </div>
                 <div class="app-chrome-item full-height">
                     <div class="window-controls">
@@ -142,7 +144,8 @@
                     <div class="app-sidebar-header-text">
                         Playlists
                     </div>
-                    <button class="app-sidebar-item"  v-for="item in playlists.listing" :key="item.id" :href="item.href" @click='app.page=`playlist_` + item.id ; showingPlaylist = [];getPlaylistFromID(app.page.substring(9))'>
+                    <button class="app-sidebar-item" v-for="item in playlists.listing" :key="item.id" :href="item.href"
+                            @click='app.page=`playlist_` + item.id ; showingPlaylist = [];getPlaylistFromID(app.page.substring(9))'>
                         {{ item.attributes.name }}
                     </button>
                 </div>
@@ -170,10 +173,10 @@
                     <button class="app-sidebar-button" style="width:100%"
                             @click="chrome.menuOpened = !chrome.menuOpened">
                         <template v-if="chrome.userinfo.attributes">
-                            <div class="sidebar-user-icon"
-                                 :style="{'--artwork': getMediaItemArtwork(chrome.userinfo.attributes['artwork']['url'], 26)}">
+                            <img class="sidebar-user-icon" loading="lazy"
 
-                            </div>
+                                 :src="getMediaItemArtwork(chrome.userinfo.attributes['artwork'] ? chrome.userinfo.attributes['artwork']['url'] : '', 26)"
+                            />
                         </template>
 
                         <div class="sidebar-user-text" v-if="!chrome.hideUserInfo">
@@ -195,19 +198,22 @@
                 <div class="app-sidebar-notification" v-if="library.songs.downloadState == 1">
                     <div>Updating your library...</div>
                     <div>{{ library.songs.meta.progress }} / {{ library.songs.meta.total }}</div>
-                    <div style="width: 100%"><progress style="width: 80%;" :value="library.songs.meta.progress" :max="library.songs.meta.total"></progress></div>
+                    <div style="width: 100%">
+                        <progress style="width: 80%;" :value="library.songs.meta.progress"
+                                  :max="library.songs.meta.total"></progress>
+                    </div>
                 </div>
             </div>
             <div id="app-content">
                 <!-- Playlist / Album page-->
-                <transition name="wpfade" >
-                    <template v-if="page.includes('playlist_')" >
-                      <cider-playlist :data="showingPlaylist"></cider-playlist>
+                <transition name="wpfade">
+                    <template v-if="page.includes('playlist_')">
+                        <cider-playlist :data="showingPlaylist"></cider-playlist>
                     </template>
                 </transition>
-                <transition name="wpfade" >
-                    <template v-if="page.includes('album_')" >
-                      <cider-playlist :data="showingPlaylist"></cider-playlist>
+                <transition name="wpfade">
+                    <template v-if="page.includes('album_')">
+                        <cider-playlist :data="showingPlaylist"></cider-playlist>
                     </template>
                 </transition>
                 </transition>
@@ -287,7 +293,7 @@
                 <!-- Library - Songs -->
                 <transition name="wpfade" v-on:enter="getLibrarySongsFull()">
                     <template v-if="page == 'library-songs'">
-                        <div class="content-inner" v-if="library.songs.downloadState == 2">
+                        <div class="content-inner">
                             <h1 class="header-text">Songs</h1>
                             <div class="search-input-container" style="width:100%;margin: 16px 0px;">
                                 <div class="search-input--icon"></div>
@@ -301,13 +307,6 @@
                             </div>
                             <mediaitem-list-item :item="item"
                                                  v-for="item in library.songs.displayListing"></mediaitem-list-item>
-                        </div>
-                        <div class="content-inner" v-if="library.songs.downloadState == 0">
-                        </div>
-                        <div class="content-inner centered" v-if="library.songs.downloadState == 1">
-                            <h1 style="text-align: center">Updating your library</h1>
-                            <h3 style="text-align: center">{{ library.songs.meta.progress }} / {{
-                                library.songs.meta.total }}</h3>
                         </div>
                     </template>
                 </transition>
@@ -330,9 +329,11 @@
                     </template>
                 </transition>
             </div>
-            <div class="app-drawer" v-if="drawertest">
-                <lyrics-view v-if="drawertest && lyricon" :time="lyriccurrenttime" :lyrics="lyrics" ></lyrics-view>
-            </div>
+            <transition name="drawertransition">
+                <div class="app-drawer" v-if="drawertest">
+                    <lyrics-view v-if="drawertest && lyricon" :time="lyriccurrenttime" :lyrics="lyrics"></lyrics-view>
+                </div>
+            </transition>
         </div>
     </div>
     <transition name="wpfade">
@@ -346,6 +347,23 @@
     </transition>
 
 </div>
+
+<script type="text/x-template" id="mediaitem-artwork">
+    <template v-if="type == 'artists'">
+        <div class="mediaitem-artwork rounded"
+             >
+            <img :src="app.getMediaItemArtwork(url, size)"
+                 class="mediaitem-artwork--img">
+        </div>
+    </template>
+    <template v-else>
+        <div class="mediaitem-artwork"
+             >
+            <img :src="app.getMediaItemArtwork(url, size)"
+                 class="mediaitem-artwork--img">
+        </div>
+    </template>
+</script>
 
 <!-- Generic Collection of MediaItems -->
 <script type="text/x-template" id="collection-view-generic">
@@ -387,22 +405,28 @@
 <script type="text/x-template" id="cider-playlist">
     <div class="content-inner">
         <template v-if="data != [] && data.attributes != []">
-        <div class="playlist-display row">
-            <div class="col playlist-artwork" 
-            :style="{'--artwork': app.getMediaItemArtwork((data.attributes != null && data.attributes.artwork != null) ? data.attributes.artwork.url : (data.relationships.tracks.data.length > 0 ? data.relationships.tracks.data[0].attributes.artwork.url ?? '':''), 300)}
-           "></div>
-            <div class="playlist-info">
-                <div class="playlist-name">{{data.attributes.name ?? (data.attributes.title ?? '') ?? ''}}</div>
-                <div class="playlist-artist" v-if="data.attributes.artistName">{{data.attributes.artistName ??  ''}}</div>
-                <div class="playlist-desc" v-html="((data.attributes.editorialNotes) ? (data.attributes.editorialNotes.short ?? (data.attributes.editorialNotes.standard ?? '') ) : (data.attributes.description ? (data.attributes.description.short ?? (data.attributes.description.standard ?? '')) : ''))"></div>
-            </div>    
-        </div>
-        <mediaitem-list-item :item="item"
-                            v-for="item in data.relationships.tracks.data"></mediaitem-list-item>
-        <div class="playlist-time" >{{app.getTotalTime()}}</div>
+            <div class="playlist-display row">
+                <div class="col-auto">
+                    <mediaitem-artwork
+                        :url="(data.attributes != null && data.attributes.artwork != null) ? data.attributes.artwork.url : (data.relationships.tracks.data.length > 0 ? data.relationships.tracks.data[0].attributes.artwork.url ?? '':'')"
+                        size="200"
+                    ></mediaitem-artwork>
+                </div>
+                <div class="col playlist-info">
+                    <div class="playlist-name">{{data.attributes.name ?? (data.attributes.title ?? '') ?? ''}}</div>
+                    <div class="playlist-artist" v-if="data.attributes.artistName">{{data.attributes.artistName ??
+                        ''}}
+                    </div>
+                    <div class="playlist-desc"
+                         v-html="((data.attributes.editorialNotes) ? (data.attributes.editorialNotes.short ?? (data.attributes.editorialNotes.standard ?? '') ) : (data.attributes.description ? (data.attributes.description.short ?? (data.attributes.description.standard ?? '')) : ''))"></div>
+                </div>
+            </div>
+            <mediaitem-list-item :item="item"
+                                 v-for="item in data.relationships.tracks.data"></mediaitem-list-item>
+            <div class="playlist-time">{{app.getTotalTime()}}</div>
         </template>
 
-    </div>    
+    </div>
 </script>
 
 <!-- Search -->
@@ -454,7 +478,7 @@
                     </div>
                 </div>
                 <mediaitem-square-large :item="item"
-                                  v-for="item in search.results.artists.data.limit(5)"></mediaitem-square-large>
+                                        v-for="item in search.results.artists.data.limit(5)"></mediaitem-square-large>
             </template>
             <template v-if="search.results.playlists">
                 <div class="row">
@@ -466,7 +490,7 @@
                     </div>
                 </div>
                 <mediaitem-square-large :item="item"
-                                  v-for="item in search.results.playlists.data.limit(10)"></mediaitem-square-large>
+                                        v-for="item in search.results.playlists.data.limit(10)"></mediaitem-square-large>
             </template>
         </template>
     </div>
@@ -521,10 +545,13 @@
     <template>
         <div @click="app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)"
              class="cd-mediaitem-list-item">
-            <div class="artwork" v-if="item.attributes.artwork"
-                 :class="{'round': item.type == 'artists'}"
-                 :style="{'--artwork': app.getMediaItemArtwork(item.attributes.artwork ? item.attributes.artwork.url : '', 34)}
-                "></div>
+            <div class="artwork">
+                <mediaitem-artwork
+                        :url="item.attributes.artwork ? item.attributes.artwork.url : ''"
+                        size="34"
+                        :type="item.type"
+                ></mediaitem-artwork>
+            </div>
             <div class="info-rect">
                 <div class="title text-overflow-elipsis">
                     {{ item.attributes.name }}
@@ -550,10 +577,13 @@
     <template>
         <div @click="app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)"
              class="cd-mediaitem-hrect">
-            <div class="artwork"
-                 :class="{'round': item.type == 'artists'}"
-                 :style="{'--artwork': app.getMediaItemArtwork(item.attributes.artwork.url, 70)}
-                "></div>
+            <div class="artwork">
+                <mediaitem-artwork
+                        :url="item.attributes.artwork ? item.attributes.artwork.url : ''"
+                        size="70"
+                        :type="item.type"
+                ></mediaitem-artwork>
+            </div>
             <div class="info-rect">
                 <div class="title text-overflow-elipsis">
                     {{ item.attributes.name }}
@@ -575,9 +605,13 @@
     <template>
         <div @click="app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)"
              class="cd-mediaitem-square">
-            <div class="artwork"
-                 :class="{'round': item.type == 'artists'}"
-                 :style="{'--artwork': app.getMediaItemArtwork(item.attributes.artwork.url, 300)}"></div>
+            <div class="artwork">
+                <mediaitem-artwork
+                        :url="item.attributes.artwork ? item.attributes.artwork.url : ''"
+                        size="300"
+                        :type="item.type"
+                ></mediaitem-artwork>
+            </div>
             <div class="title text-overflow-elipsis">
                 {{ item.attributes.name }}
             </div>
@@ -594,45 +628,53 @@
     <template>
         <div style="position: relative; display: inline-flex;">
             <div @click.self='app.routeView(item)'
-                class="cd-mediaitem-square-large">
-                <div class="artwork"
-                    :class="{'round': item.type == 'artists'}"
-                    :style="{'--artwork': app.getMediaItemArtwork(item.attributes.artwork.url, 300)}"              
-                    >
+                 class="cd-mediaitem-square-large">
+                <div class="artwork">
+                    <mediaitem-artwork
+                            :url="item.attributes.artwork ? item.attributes.artwork.url : ''"
+                            size="300"
+                            :type="item.type"
+                    ></mediaitem-artwork>
                 </div>
-                <div class="cd-mediaitem-square-large-overlay"  @click.self='app.routeView(item)'>
-                    <div class="button" style = "
+                <div class="cd-mediaitem-square-large-overlay" @click.self='app.routeView(item)'>
+                    <div class="button" style="
                     border-radius: 50%;
                     background: rgba(50,50,50,0.7);"
-                    :style = "[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'margin': '140px',
+                         :style="[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'margin': '140px',
                         width: '40px',
                         height: '40px',} :
                         {margin: '35px',
                         width: '120px',
                         height: '120px',}]"
-                    @click="app.playMediaItem(item)">
-                    <svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 27" class="glyph"><path d="M11.3545232,18.4180929 L18.4676039,14.242665 C19.0452323,13.9290954 19.0122249,13.1204156 18.4676039,12.806846 L11.3545232,8.63141809 C10.7603912,8.26833741 9.98471883,8.54889976 9.98471883,9.19254279 L9.98471883,17.8404645 C9.98471883,18.5006112 10.7108802,18.7976773 11.3545232,18.4180929 Z"></path></svg></div>
+                         @click="app.playMediaItem(item)">
+                        <svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 27" class="glyph">
+                            <path d="M11.3545232,18.4180929 L18.4676039,14.242665 C19.0452323,13.9290954 19.0122249,13.1204156 18.4676039,12.806846 L11.3545232,8.63141809 C10.7603912,8.26833741 9.98471883,8.54889976 9.98471883,9.19254279 L9.98471883,17.8404645 C9.98471883,18.5006112 10.7108802,18.7976773 11.3545232,18.4180929 Z"></path>
+                        </svg>
+                    </div>
                 </div>
-                <div class="title text-overflow-elipsis"  @click='app.routeView(item)'>
+                <div class="title text-overflow-elipsis" @click='app.routeView(item)'>
                     {{ item.attributes.name ?? '' }}
                 </div>
                 <div class="subtitle text-overflow-elipsis" v-if="item.attributes.artistName">
                     {{ item.attributes.artistName ?? '' }}
                 </div>
-               
+
             </div>
-            <div class="cd-mediaitem-square-large-overlay"  @click.self='app.routeView(item)'>
-                <div class="button" style = "
+            <div class="cd-mediaitem-square-large-overlay" @click.self='app.routeView(item)'>
+                <div class="button" style="
                 border-radius: 50%;
                 background: rgba(50,50,50,0.7);"
-                :style = "[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'margin': '140px',
+                     :style="[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'margin': '140px',
                     width: '40px',
                     height: '40px',} :
                     {margin: '35px',
                     width: '120px',
                     height: '120px',}]"
-                @click="app.playMediaItem(item)">
-                <svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 27" class="glyph"><path d="M11.3545232,18.4180929 L18.4676039,14.242665 C19.0452323,13.9290954 19.0122249,13.1204156 18.4676039,12.806846 L11.3545232,8.63141809 C10.7603912,8.26833741 9.98471883,8.54889976 9.98471883,9.19254279 L9.98471883,17.8404645 C9.98471883,18.5006112 10.7108802,18.7976773 11.3545232,18.4180929 Z"></path></svg></div>
+                     @click="app.playMediaItem(item)">
+                    <svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 27" class="glyph">
+                        <path d="M11.3545232,18.4180929 L18.4676039,14.242665 C19.0452323,13.9290954 19.0122249,13.1204156 18.4676039,12.806846 L11.3545232,8.63141809 C10.7603912,8.26833741 9.98471883,8.54889976 9.98471883,9.19254279 L9.98471883,17.8404645 C9.98471883,18.5006112 10.7108802,18.7976773 11.3545232,18.4180929 Z"></path>
+                    </svg>
+                </div>
             </div>
         </div>
     </template>
@@ -641,53 +683,63 @@
 <!-- MediaItem Square SP -->
 <script type="text/x-template" id="mediaitem-square-sp">
     <template>
-    <div style="position: relative; display: inline-flex;">
-        <div @click.self='app.routeView(item)'
-             class="cd-mediaitem-square-sp"
-             :style="{'--spcolor' : (item.attributes.artwork.bgColor != null) ? ('#'+item.attributes.artwork.bgColor) : `black`}">
-            <div class="artwork"
-                 :class="{'round': item.type == 'artists'}"
-                 :style="{'--artwork': app.getMediaItemArtwork(item.attributes.artwork.url, 300) }"></div>
-            <div class="cd-mediaitem-square-large-overlay"  @click.self='app.routeView(item)'>
-                 <div class="button" style = "
+        <div style="position: relative; display: inline-flex;">
+            <div @click.self='app.routeView(item)'
+                 class="cd-mediaitem-square-sp"
+                 :style="{'--spcolor' : (item.attributes.artwork.bgColor != null) ? ('#'+item.attributes.artwork.bgColor) : `black`}">
+                <div class="artwork">
+                    <mediaitem-artwork
+                            :url="item.attributes.artwork ? item.attributes.artwork.url : ''"
+                            size="300"
+                            :type="item.type"
+                    ></mediaitem-artwork>
+                </div>
+                <div class="cd-mediaitem-square-large-overlay" @click.self='app.routeView(item)'>
+                    <div class="button" style="
                     border-radius: 50%;
                     background: rgba(50,50,50,0.7);"
-                    :style = "[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'margin': '140px',
+                         :style="[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'margin': '140px',
                         width: '40px',
                         height: '40px',} :
                         {margin: '35px',
                         width: '120px',
                         height: '120px',}]"
-                    @click="app.playMediaItem(item)">
-                    <svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 27" class="glyph"><path d="M11.3545232,18.4180929 L18.4676039,14.242665 C19.0452323,13.9290954 19.0122249,13.1204156 18.4676039,12.806846 L11.3545232,8.63141809 C10.7603912,8.26833741 9.98471883,8.54889976 9.98471883,9.19254279 L9.98471883,17.8404645 C9.98471883,18.5006112 10.7108802,18.7976773 11.3545232,18.4180929 Z"></path></svg></div>
-            </div>     
-            <div class="title text-overflow-elipsis"
-                 :style="{'color' : (item.attributes.artwork.textColor1 != null) ? ('#'+item.attributes.artwork.textColor1) : `#eee`}"
-                 style="font-weight: 600">
-                {{ item.attributes.name }}
-            </div>
-            <div class="subtitle text-overflow-elipsis"
-                 :style="{'color' : (item.attributes.artwork.textColor1 != null) ? ('#'+item.attributes.artwork.textColor1) : `#eee`}"
-                 style="padding-left: 4px;padding-right: 4px; display: -webkit-box;-webkit-box-orient: vertical; -webkit-line-clamp: 2;white-space: normal;">
-                {{ (item.attributes.editorialNotes != null) ? item.attributes.editorialNotes.short
-                :(item.attributes.artistName ?? '') }}
-            </div>
+                         @click="app.playMediaItem(item)">
+                        <svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 27" class="glyph">
+                            <path d="M11.3545232,18.4180929 L18.4676039,14.242665 C19.0452323,13.9290954 19.0122249,13.1204156 18.4676039,12.806846 L11.3545232,8.63141809 C10.7603912,8.26833741 9.98471883,8.54889976 9.98471883,9.19254279 L9.98471883,17.8404645 C9.98471883,18.5006112 10.7108802,18.7976773 11.3545232,18.4180929 Z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="title text-overflow-elipsis"
+                     :style="{'color' : (item.attributes.artwork.textColor1 != null) ? ('#'+item.attributes.artwork.textColor1) : `#eee`}"
+                     style="font-weight: 600">
+                    {{ item.attributes.name }}
+                </div>
+                <div class="subtitle text-overflow-elipsis"
+                     :style="{'color' : (item.attributes.artwork.textColor1 != null) ? ('#'+item.attributes.artwork.textColor1) : `#eee`}"
+                     style="padding-left: 4px;padding-right: 4px; display: -webkit-box;-webkit-box-orient: vertical; -webkit-line-clamp: 2;white-space: normal;">
+                    {{ (item.attributes.editorialNotes != null) ? item.attributes.editorialNotes.short
+                    :(item.attributes.artistName ?? '') }}
+                </div>
 
-        </div>
-        <div class="cd-mediaitem-square-large-overlay"  @click.self='app.routeView(item)'>
-            <div class="button" style = "
+            </div>
+            <div class="cd-mediaitem-square-large-overlay" @click.self='app.routeView(item)'>
+                <div class="button" style="
                border-radius: 50%;
                background: rgba(50,50,50,0.7);"
-               :style = "[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'margin': '140px',
+                     :style="[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'margin': '140px',
                    width: '40px',
                    height: '40px',} :
                    {margin: '35px',
                    width: '120px',
                    height: '120px',}]"
-               @click="app.playMediaItem(item)">
-               <svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 27" class="glyph"><path d="M11.3545232,18.4180929 L18.4676039,14.242665 C19.0452323,13.9290954 19.0122249,13.1204156 18.4676039,12.806846 L11.3545232,8.63141809 C10.7603912,8.26833741 9.98471883,8.54889976 9.98471883,9.19254279 L9.98471883,17.8404645 C9.98471883,18.5006112 10.7108802,18.7976773 11.3545232,18.4180929 Z"></path></svg></div>
-       </div>     
-    </div>
+                     @click="app.playMediaItem(item)">
+                    <svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 27" class="glyph">
+                        <path d="M11.3545232,18.4180929 L18.4676039,14.242665 C19.0452323,13.9290954 19.0122249,13.1204156 18.4676039,12.806846 L11.3545232,8.63141809 C10.7603912,8.26833741 9.98471883,8.54889976 9.98471883,9.19254279 L9.98471883,17.8404645 C9.98471883,18.5006112 10.7108802,18.7976773 11.3545232,18.4180929 Z"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
     </template>
 </script>
 <script type="text/x-template" id="lyrics-view">
@@ -699,13 +751,14 @@
                     {{ lyric.line }}
                     <div class="lyrics-translation" v-if="lyric.translation && lyric.translation != ''">
                         {{ lyric.translation }}
-                    <div>    
+                        <div>
                 </h3>
             </template>
             <template v-else>
-                <h3 class="lyric-line" @click="app.seekTo(lyric.startTime, false)" :start="lyric.startTime" :end="lyric.endTime"
+                <h3 class="lyric-line" @click="app.seekTo(lyric.startTime, false)" :start="lyric.startTime"
+                    :end="lyric.endTime"
                     v-bind:class="{ active: app.getLyricClass(lyric.startTime, lyric.endTime)}">
-                    <div class="lyricWaiting" >
+                    <div class="lyricWaiting">
                         <div class='WaitingDot1'></div>
                         <div class='WaitingDot2'></div>
                         <div class='WaitingDot3'></div>

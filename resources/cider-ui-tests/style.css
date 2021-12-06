@@ -1338,6 +1338,41 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     text-overflow: ellipsis;
 }
 
+.mediaitem-artwork {
+    border-radius: var(--mediaItemRadius);
+    overflow: hidden;
+    flex: 0 0 auto;
+    position:relative;
+    width: 100%;
+    height: 100%;
+}
+
+.mediaitem-artwork.rounded {
+    border-radius: 100%;
+}
+
+.mediaitem-artwork::after {
+    content: "";
+    box-shadow: var(--mediaItemShadow);
+    z-index: 1;
+    width:100%;
+    height:100%;
+    position: absolute;
+    top:0;
+    left:0;
+    border-radius: inherit;
+}
+
+.mediaitem-artwork.rounded::after {
+    border-radius: 100%;
+}
+
+.mediaitem-artwork>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 /* horizontal media scroller */
 .cd-hmedia-scroller {
     margin: 0 auto;
@@ -1375,14 +1410,14 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 .cd-mediaitem-list-item .artwork {
     height: 34px;
     width: 34px;
-    background: blue;
     border-radius: var(--mediaItemRadius);
-    background: var(--artwork);
-    background-size: contain;
-    box-shadow: var(--mediaItemShadow);
+    object-fit: cover;
+    object-position: center;
     flex: 0 0 auto;
     background-repeat: no-repeat;
     margin: 12px;
+    border: 0px;
+    outline: none;
 }
 
 .cd-mediaitem-list-item .artwork.round {
@@ -1439,7 +1474,6 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     border-radius: var(--mediaItemRadius);
     background: var(--artwork);
     background-size: contain;
-    box-shadow: var(--mediaItemShadow);
     flex: 0 0 auto;
     background-repeat: no-repeat;
     margin: 18px;
@@ -1493,8 +1527,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     border-top-right-radius: 6px;
     background: var(--artwork);
     background-size: cover;
-    box-shadow: var(--mediaItemShadow);
-    flex: 0 0 auto; 
+    flex: 0 0 auto;
     margin: 6px;
     margin-top: 0px;
 }
@@ -1507,8 +1540,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     border-top-right-radius: 6px;
     background: var(--artwork);
     background-size: cover;
-    box-shadow: var(--mediaItemShadow);
-    flex: 0 0 auto; 
+    flex: 0 0 auto;
     margin: 6px;
     margin-top: 0px;
 }
@@ -1581,8 +1613,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     border-top-right-radius: 6px;
     background: var(--artwork);
     background-size: cover;
-    box-shadow: var(--mediaItemShadow);
-    flex: 0 0 auto; 
+    flex: 0 0 auto;
     margin: 6px;
     margin-top: 0px;
 }
@@ -1709,6 +1740,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 .wpfade-leave-to {
     opacity: 0;
 }
+/* Transitions End */
 
 @media (prefers-color-scheme: light) {
     :root {
@@ -1731,13 +1763,14 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 
 .playlist-display {
     flex-wrap: nowrap;
+    margin-bottom: 32px;
 }
 
 .playlist-info{ 
     flex-shrink: unset;
 }
 
-.playlist-name {
+.playlist-info .playlist-name {
     font-weight: 700;
     font-size: 1.6rem;
     margin-bottom: 6px;
@@ -1745,21 +1778,21 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     flex-shrink: unset;
 
 }
-.playlist-artist {
+.playlist-info .playlist-artist {
     font-weight: 500;
     font-size: 1.6rem;
     margin-bottom: 6px;
     margin-right: 6px;
     flex-shrink: unset;
 }
-.playlist-desc {
+.playlist-info .playlist-desc {
     box-sizing: border-box;
     font-size: 1.1rem;
     flex-shrink: unset;
     margin-right: 5px;
 }
 
-.playlist-time {
+.playlist-info .playlist-time {
     margin: 6px;
     opacity: 0.7;
 }

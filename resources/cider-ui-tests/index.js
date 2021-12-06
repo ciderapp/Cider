@@ -1,3 +1,16 @@
+Vue.component('mediaitem-artwork', {
+    template: '#mediaitem-artwork',
+    props: ['size', 'url', 'type'],
+    methods: {
+        getArtworkStyle() {
+            return {
+                width: this.size + 'px',
+                height: this.size + 'px'
+            };
+        }
+    }
+});
+
 Vue.component('sidebar-library-item', {
     template: '#sidebar-library-item',
     props: ['name', 'page', 'cd-click'],
@@ -148,7 +161,9 @@ const app = new Vue({
             artworkReady: false,
             userinfo: {},
             menuOpened: false,
-            maximized: false
+            maximized: false,
+            drawerOpened: false,
+            drawerState: "queue"
         },
         page: "browse"
     },
@@ -322,6 +337,10 @@ const app = new Vue({
             if (this.library.songs.downloadState == 2 || this.library.songs.downloadState == 1) {
                 return
             }
+            if(localStorage.getItem("librarySongs") != null) {
+                this.library.songs.listing = JSON.parse(localStorage.getItem("librarySongs"))
+                this.library.songs.displayListing = this.library.songs.listing
+            }
             this.library.songs.downloadState = 1
 
             function downloadChunk() {
@@ -343,6 +362,10 @@ const app = new Vue({
                 self.library.songs.meta.progress = library.length
                 if(typeof downloaded.next == "undefined") {
                     console.log("downloaded.next is undefined")
+                    self.library.songs.listing = library
+                    self.library.songs.downloadState = 2
+                    self.searchLibrarySongs()
+                    localStorage.setItem("librarySongs", JSON.stringify(library))
                 }
                 if (downloaded.meta.total > library.length || typeof downloaded.meta.next != "undefined") {
                     console.log(`downloading next chunk - ${library.length} songs so far`)
@@ -351,6 +374,7 @@ const app = new Vue({
                     self.library.songs.listing = library
                     self.library.songs.downloadState = 2
                     self.searchLibrarySongs()
+                    localStorage.setItem("librarySongs", JSON.stringify(library))
                     console.log(library)
                 }
             }
@@ -741,7 +765,7 @@ const app = new Vue({
             }
         },
         getMediaItemArtwork(url, size = 64) {
-            return `url("${url.replace('{w}', size).replace('{h}', size).replace('{f}', "webp").replace('{c}', "cc")}")`;
+            return `${url.replace('{w}', size).replace('{h}', size).replace('{f}', "webp").replace('{c}', "cc")}`;
         },
         getNowPlayingArtworkBG(size = 600) {
             if (!this.mkReady()) {
