@@ -1,9 +1,6 @@
 <template v-if="page == 'artist-page' && artistPage.data.attributes">
     <div class="content-inner artist-page">
-        <div class="artist-header" :style="{
-            'background': '#' + artistPage.data.attributes.artwork.bgColor,
-            'color': '#' + artistPage.data.attributes.artwork.textColor1
-        }">
+        <div class="artist-header" :style="getArtistPalette(artistPage.data)">
             <div class="row">
                 <div class="col-sm" style="width: auto;">
                     <div class="artist-image">

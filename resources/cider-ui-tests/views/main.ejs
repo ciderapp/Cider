@@ -333,10 +333,12 @@
                             fill-rule="nonzero" />
                     </svg>
                 </div>
-                <div id="player-pip" @click="document.querySelector('video').requestPictureInPicture()" title="Picture-in-Picture">
+                <div id="player-pip" @click="document.querySelector('video').requestPictureInPicture()"
+                    title="Picture-in-Picture">
                     <%- include("svg/fullscreen.svg") %>
                 </div>
-                <div id="player-fullscreen" @click="document.querySelector('video').requestFullscreen()" title="Fullscreen">
+                <div id="player-fullscreen" @click="document.querySelector('video').requestFullscreen()"
+                    title="Fullscreen">
                     <%- include("svg/fullscreen.svg") %>
                 </div>
             </div>
@@ -347,8 +349,8 @@
     <%- include("components/mediaitem-artwork"); %>
 
     <!-- Generic Collection of MediaItems -->
-    <script type="text/x-template" id="collection-view-generic">
-        <template>
+<script type="text/x-template" id="collection-view-generic">
+    <template>
         <div class="content-inner">
 
         </div>
@@ -356,8 +358,8 @@
 </script>
 
     <!-- Listen Now -->
-    <script type="text/x-template" id="cider-listen-now">
-        <div class="content-inner">
+<script type="text/x-template" id="cider-listen-now">
+    <div class="content-inner">
         <h1 class="header-text">Listen Now</h1>
         <template v-for="recom in data.data">
             <div class="row">
@@ -386,75 +388,11 @@
     <%- include('pages/cider-playlist') %>
 
     <!-- Search -->
-    <script type="text/x-template" id="cider-search">
-        <div class="content-inner">
-        <div class="row">
-            <div class="col-sm" style="width: auto;" v-if="getTopResult()">
-                <template>
-                    <h3>Top Result</h3>
-                    <mediaitem-square-large :item="getTopResult()"></mediaitem-square>
-                </template>
-            </div>
-            <div class="col" v-if="search.results.songs">
-                <div class="row">
-                    <div class="col">
-                        <h3>Songs</h3>
-                    </div>
-                    <div class="col-auto flex-center" v-if="search.results.songs.data.length >= 6">
-                        <button class="cd-btn-seeall">See All</button>
-                    </div>
-                </div>
-                <div>
-                    <mediaitem-list-item :item="item"
-                                         v-for="item in search.results.songs.data.limit(6)"></mediaitem-list-item>
-                </div>
-            </div>
-        </div>
-
-        <template v-if="search.results['meta']">
-            <template v-if="search.results.albums">
-                <div class="row">
-                    <div class="col">
-                        <h3>Albums</h3>
-                    </div>
-                    <div class="col-auto flex-center" v-if="search.results.albums.data.length >= 10">
-                        <button class="cd-btn-seeall">See All</button>
-                    </div>
-                </div>
-                <mediaitem-scroller-horizontal-large
-                        :items="search.results.albums.data.limit(10)"></mediaitem-scroller-horizontal-large>
-            </template>
-            <template v-if="search.results.artists">
-                <div class="row">
-                    <div class="col">
-                        <h3>Artists</h3>
-                    </div>
-                    <div class="col-auto flex-center" v-if="search.results.artists.data.length >= 5">
-                        <button class="cd-btn-seeall">See All</button>
-                    </div>
-                </div>
-                <mediaitem-square-large :item="item"
-                                        v-for="item in search.results.artists.data.limit(5)"></mediaitem-square-large>
-            </template>
-            <template v-if="search.results.playlists">
-                <div class="row">
-                    <div class="col">
-                        <h3>Playlists</h3>
-                    </div>
-                    <div class="col-auto flex-center" v-if="search.results.playlists.data.length >= 10">
-                        <button class="cd-btn-seeall">See All</button>
-                    </div>
-                </div>
-                <mediaitem-square-large :item="item"
-                                        v-for="item in search.results.playlists.data.limit(10)"></mediaitem-square-large>
-            </template>
-        </template>
-    </div>
-</script>
+    <%- include('pages/search') %>
 
     <script type="text/x-template" id="am-musiccovershelf">
         <h1>{{ component.attributes.title.stringForDisplay }}</h1>
-</script>
+    </script>
 
     <!-- Sidebar Item -->
     <script type="text/x-template" id="sidebar-library-item">

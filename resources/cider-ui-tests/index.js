@@ -11,20 +11,6 @@ Vue.component('lyrics-view', {
     methods: {}
 });
 
-Vue.component('cider-search', {
-    template: "#cider-search",
-    props: ['search'],
-    methods: {
-        getTopResult() {
-            if (this.search.results["meta"]) {
-                return this.search.results[this.search.results.meta.results.order[0]]["data"][0]
-            } else {
-                return false;
-            }
-        }
-    }
-})
-
 Vue.component('cider-listen-now', {
     template: "#cider-listen-now",
     props: ["data"]
@@ -245,6 +231,19 @@ const app = new Vue({
             }, {includeResponseMeta: !0})
             this.artistPage.data = artistData.data[0]
             this.page = "artist-page"
+        },
+        getArtistPalette(artist){
+            if(artist["attributes"]["artwork"]) {
+                return {
+                    "background": "#" + artist["attributes"]["artwork"]["bgColor"],
+                    "color": "#" + artist["attributes"]["artwork"]["textColor1"],
+                }
+            }else{
+                return {
+                    "background": "#000000",
+                    "color": "#ffffff",
+                }
+            }
         },
         routeView (item){
             let self = this
@@ -762,12 +761,44 @@ const app = new Vue({
                 })
             }
         },
+        friendlyTypes(type) {
+            // use switch statement to return friendly name for media types "songs,artists,albums,playlists,music-videos,stations,apple-curators,curators"
+            switch (type) {
+                case "songs":
+                    return "Songs"
+                    break;
+                case "artists":
+                    return "Artists"
+                    break;
+                case "albums":
+                    return "Albums"
+                    break;
+                case "playlists":
+                    return "Playlists"
+                    break;
+                case "music-videos":
+                    return "Music Videos"
+                    break;
+                case "stations":
+                    return "Stations"
+                    break;
+                case "apple-curators":
+                    return "Apple Curators"
+                    break;
+                case "curators":
+                    return "Curators"
+                    break;
+                default:
+                    return type
+                    break;
+            }
+        },
         searchQuery() {
             let self = this
             this.mk.api.search(this.search.term,
                 {
-                    types: "songs,artists,albums,playlists",
-                    limit: self.search.limit
+                    types: "songs,artists,albums,playlists,music-videos,stations,apple-curators,curators",
+                    limit: 25
                 }).then(function (results) {
                 self.search.results = results
             })
