@@ -6,6 +6,7 @@
     --mediaItemShadow: inset 0px 0px 0px 1px rgb(200 200 200 / 16%);
     --mediaItemRadius: 4px;
     --mediaItemRadiusRound: 100%;
+    --navbarHeight: 48px;
     --keyColor: #fa586a;
     --keyColor-rgb: 250, 88, 106;
     --keyColor-rollover: #ff8a9c;
@@ -182,6 +183,17 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     display: flex;
     flex-direction: column;
     flex: 0 0 auto;
+}
+
+#app-navbar {
+    height: 40px;
+    width: 100%;
+    background: rgb(30 30 30 / 85%);
+    position: sticky;
+    top: 0px;
+    left: 0;
+    z-index: 2;
+    backdrop-filter: blur(16px) saturate(180%);
 }
 
 #app-content {
