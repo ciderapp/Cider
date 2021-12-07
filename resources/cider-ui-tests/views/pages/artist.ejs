@@ -1,0 +1,61 @@
+<template v-if="page == 'artist-page' && artistPage.data.attributes">
+    <div class="content-inner artist-page">
+        <div class="artist-header">
+            <div class="row">
+                <div class="col-sm" style="width: auto;">
+                    <div class="artist-image">
+
+                    </div>
+                </div>
+                <div class="col flex-center">
+                    <h1>{{ artistPage.data.attributes.name }}</h1>
+                </div>
+            </div>
+        </div>
+        <div class="artist-body">
+            <div class="row">
+                <div class="col-auto" v-if="artistPage.data.views['latest-release']">
+                    <h3>Latest Release</h3>
+                    <mediaitem-square
+                    v-for="song in artistPage.data.views['latest-release'].data"
+                    :item="song"></mediaitem-square>
+                </div>
+                <div class="col" v-if="artistPage.data.views['top-songs']">
+                    <h3>Top Songs</h3>
+                    <mediaitem-list-item
+                    v-for="song in artistPage.data.views['top-songs'].data.limit(artistPage.topSongsExpanded ? 10 : 5)"
+                    :item="song"></mediaitem-list-item>
+                    <button class="showmoreless" @click="artistPage.topSongsExpanded = !artistPage.topSongsExpanded">
+                        <template v-if="!artistPage.topSongsExpanded">
+                            Show more
+                        </template>
+                        <template v-else>
+                            Show less
+                        </template>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h3>Albums</h3>
+                    <h3>Music Videos</h3>
+                    <h3>Artist Playlists</h3>
+                    <h3>Singles & EPs</h3>
+                    <h3>Live Albums</h3>
+                    <h3>Appears On</h3>
+                    <h3>More To Hear</h3>
+                    <h3>More To See</h3>
+                    <div class="row">
+                        <div class="col">
+                            <h3>About Artist Name</h3>
+                        </div>
+                        <div class="col">
+
+                        </div>
+                    </div>
+                    <h3>Similar Artists</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

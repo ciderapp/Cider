@@ -1331,6 +1331,54 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 
 /* Cider */
 
+/* Artist Page */
+
+.artist-page {
+    padding: 0px;
+}
+
+.artist-page .artist-header {
+    background: var(--keyColor);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 300px;
+}
+
+.artist-page .artist-image {
+    width: 200px;
+    height: 200px;
+    background: red;
+    margin: 32px;
+}
+
+.artist-page .artist-body {
+    
+}
+
+.artist-page .showmoreless {
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 500;
+    background: transparent;
+    border: 0px;
+    border-radius: 6px;
+    appearance: none;
+    color: var(--keyColor);
+    padding: 8px 12px;
+    cursor: pointer;
+    margin-top: 12px;
+    float: right;
+}
+
+.artist-page .showmoreless:hover {
+    background: rgb(200 200 200 / 10%);
+}
+
+
+/* Artist Page End */
+
 .text-overflow-elipsis {
     display: -webkit-box;
     min-width: 0px;
@@ -1439,6 +1487,11 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     width: 90%;
     font-size: 12px;
     opacity: 0.7;
+}
+
+.cd-mediaitem-list-item .duration {
+    min-width: 60px;
+    text-align: center;
 }
 
 .cd-mediaitem-list-item .content-rating {

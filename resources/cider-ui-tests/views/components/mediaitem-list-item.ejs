@@ -24,7 +24,7 @@
             <div class="content-rating" v-if="item.attributes.contentRating">
                 {{ item.attributes.contentRating }}
             </div>
-            <div>
+            <div class="duration">
                 {{ msToMinSec(item.attributes.durationInMillis ?? 0) }}
             </div>
         </div>

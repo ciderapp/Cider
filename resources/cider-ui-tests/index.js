@@ -76,6 +76,10 @@ const app = new Vue({
             personal: []
         },
         showingPlaylist: [],
+        artistPage: {
+            data: {},
+            topSongsExpanded: false
+        },
         library: {
             songs: {
                 listing: [],
@@ -112,7 +116,7 @@ const app = new Vue({
             drawerOpened: false,
             drawerState: "queue"
         },
-        page: "browse"
+        page: "artist-page"
     },
     methods: {
         async init() {
@@ -209,7 +213,21 @@ const app = new Vue({
             }
            
         },
+        async getArtistFromID(id){
+            var artistData = await this.mkapi("artists", false, id, {
+                "views": "featured-release,full-albums,appears-on-albums,featured-albums,featured-on-albums,singles,compilation-albums,live-albums,latest-release,top-music-videos,similar-artists,top-songs,playlists,more-to-hear,more-to-see",
+                "extend": "artistBio,bornOrFormed,editorialArtwork,editorialVideo,isGroup,origin,hero",
+                "extend[playlists]": "trackCount",
+                "omit[resource:songs]": "relationships",
+                "fields[albums]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,name,playParams,releaseDate,url,trackCount",
+                "limit[artists:top-songs]": 20,
+                "art[url]": "f"
+            }, {includeResponseMeta: !0})
+            this.artistPage.data = artistData.data[0]
+            this.page = "artist-page"
+        },
         routeView (item){
+            let self = this
             app.showingPlaylist = []; 
             let kind = (item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? ''));
             let id = (item.attributes.playParams ? (item.attributes.playParams.id ?? (item.id?? '')): (item.id ?? ''));;
@@ -236,7 +254,8 @@ const app = new Vue({
                 "artists:top-songs": 20
             },
             "art[url]": "f"};
-            this.getTypeFromID("artist",id,isLibrary,query)
+            this.getArtistFromID(id)
+            //this.getTypeFromID("artist",id,isLibrary,query)
         },
         playMediaItem(item){
             let kind = (item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? ''));

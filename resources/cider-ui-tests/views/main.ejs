@@ -197,6 +197,10 @@
                 </div>
             </div>
             <div id="app-content">
+                <!-- Artist Page -->
+                <transition name="wpfade">
+                    <%- include('pages/artist') %>
+                </transition>
                 <!-- Playlist / Album page-->
                 <transition name="wpfade">
                     <template v-if="page.includes('playlist_')">

@@ -95,6 +95,19 @@ await app.mk.api.library.songs("", {limit: 100}, {includeResponseMeta: !0}).then
     console.log(data)
 })
 
+// Artist Page Data
+app.mkapi("artists", false, "412778295", {
+	"views": "featured-release,full-albums,appears-on-albums,featured-albums,featured-on-albums,singles,compilation-albums,live-albums,latest-release,top-music-videos,similar-artists,top-songs,playlists,more-to-hear,more-to-see",
+	"extend": "artistBio,bornOrFormed,editorialArtwork,editorialVideo,isGroup,origin,hero",
+	"extend[playlists]": "trackCount",
+	"omit[resource:songs]": "relationships",
+	"fields[albums]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,name,playParams,releaseDate,url,trackCount",
+	"limit[artists:top-songs]": 20,
+	"art[url]": "f"
+}, {includeResponseMeta: !0}).then((data)=>{
+    console.log(data)
+})
+
 // download entire library
 var library = []
 var downloaded = null;
