@@ -1,6 +1,8 @@
 <template v-if="page == 'artist-page' && artistPage.data.attributes">
     <div class="content-inner artist-page">
         <div class="artist-header" :style="getArtistPalette(artistPage.data)">
+            <animatedartwork-view v-if="app.artistPage.data.attributes.editorialVideo && (app.artistPage.data.attributes.editorialVideo.motionArtistWide16x9 || app.artistPage.data.attributes.editorialVideo.motionArtistFullscreen16x9)" :video="app.artistPage.data.attributes.editorialVideo.motionArtistWide16x9.video ?? (app.artistPage.data.attributes.editorialVideo.motionArtistFullscreen16x9.video ?? '')" >
+            </animatedartwork-view>
             <div class="row">
                 <div class="col-sm" style="width: auto;">
                     <div class="artist-image">

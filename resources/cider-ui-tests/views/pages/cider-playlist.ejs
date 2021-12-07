@@ -1,19 +1,19 @@
 <script type="text/x-template" id="cider-playlist">
     <div class="content-inner">
-        <template v-if="data != [] && data.attributes != []">
+        <template v-if="data != [] && data.attributes != null">
             <div class="playlist-display row">
                 <div class="col-auto flex-center">
                     <div style="width: 200px;height:200px;">
                         <mediaitem-artwork
-                        :url="(data.attributes != null && data.attributes.artwork != null) ? data.attributes.artwork.url : (data.relationships.tracks.data.length > 0 ? data.relationships.tracks.data[0].attributes.artwork.url ?? '':'')"
+                        :url="(data.attributes != null && data.attributes.artwork && data.attributes.artwork != null) ? data.attributes.artwork.url : ((data.relationships != null && data.relationships.tracks.data.length > 0) ? data.relationships.tracks.data[0].attributes.artwork.url ?? '':'')"
+                        :video="(data.attributes != null && data.attributes.editorialVideo != null) ? (data.attributes.editorialVideo.motionDetailSquare ? data.attributes.editorialVideo.motionDetailSquare.video : (data.attributes.editorialVideo.motionSquareVideo1x1 ? data.attributes.editorialVideo.motionSquareVideo1x1.video : '')) : '' "
                         size="200"
                     ></mediaitem-artwork>
                     </div>
                 </div>
                 <div class="col playlist-info">
-                    <div class="playlist-name">{{data.attributes.name ?? (data.attributes.title ?? '') ?? ''}}</div>
-                    <div class="playlist-artist" v-if="data.attributes.artistName">{{data.attributes.artistName ??
-                        ''}}
+                    <div class="playlist-name">{{data.attributes ? (data.attributes.name ?? (data.attributes.title ?? '') ?? '') : ''}}</div>
+                    <div class="playlist-artist" v-if="data.attributes && data.attributes.artistName">{{data.attributes ? (data.attributes.artistName ?? '') :''}}
                     </div>
                     <div class="playlist-desc"
                          v-html="((data.attributes.editorialNotes) ? (data.attributes.editorialNotes.short ?? (data.attributes.editorialNotes.standard ?? '') ) : (data.attributes.description ? (data.attributes.description.short ?? (data.attributes.description.standard ?? '')) : ''))"></div>

@@ -1,0 +1,20 @@
+<script type="text/x-template" id="animatedartwork-view">
+    <template v-if="video">
+        <div class="animated" v-bind:vid="app.hashCode(video).toString()">
+            <video loop id = "animated-artwork"></video>
+        </div>
+    </template>
+</script>
+
+<script>
+    Vue.component('animatedartwork-view', {
+        template: '#animatedartwork-view',
+        props: ['video'],
+        mounted() {
+            if (this.video) {
+            this.$nextTick(function () {
+            app.playAnimatedArtwork(this.video);
+            })}
+        }
+    });
+</script>
