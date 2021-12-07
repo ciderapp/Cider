@@ -1349,12 +1349,11 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 .artist-page .artist-image {
     width: 200px;
     height: 200px;
-    background: red;
     margin: 32px;
 }
 
 .artist-page .artist-body {
-    
+    padding: 16px;
 }
 
 .artist-page .showmoreless {
