@@ -75,7 +75,11 @@
                                             :max="mk.currentPlaybackDuration" :value="playerLCD.playbackDuration">
                                     </div>
                                 </div>
-                                <div class="actions">❤️</div>
+                                <template v-if="mk.nowPlayingItem['attributes']['playParams']['id']">
+                                    <div class="actions" v-if="isInLibrary(mk.nowPlayingItem['attributes']['playParams']['id'])">❤️</div>
+                                    <div class="actions" v-else>🖤</div>
+                                </template>
+                                
                             </div>
                         </template>
 
