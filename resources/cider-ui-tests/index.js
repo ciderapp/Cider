@@ -268,12 +268,28 @@ const app = new Vue({
             let id = (item.attributes.playParams ? (item.attributes.playParams.id ?? (item.id?? '')): (item.id ?? ''));;
             let isLibrary = item.attributes.playParams ? (item.attributes.playParams.isLibrary ?? false) : false;
             console.log(kind, id, isLibrary)
-            if(!kind.toString().includes("radioStation") && !kind.toString().includes("song"))
+            if(kind.toString().includes("artist")){
+                app.getArtistInfo(id, isLibrary)
+            }
+            else if(!kind.toString().includes("radioStation") && !kind.toString().includes("song"))
             {app.page = (kind) + "_"+ (id); 
             console.log("oks");
             app.getTypeFromID((kind),(id), (isLibrary));} else {
                 app.playMediaItemById((id),(kind), (isLibrary), item.attributes.url ?? '')
             }
+        },
+        getArtistInfo(id, isLibrary){
+            var query = {"omit[resource]": "autos",
+            views: ["featured-release", "full-albums", "appears-on-albums", "featured-albums", "featured-on-albums", "singles", "compilation-albums", "live-albums", "latest-release", "top-music-videos", "similar-artists", "top-songs", "playlists", "more-to-hear", "more-to-see"],
+            extend: ["artistBio", "bornOrFormed", "editorialArtwork", "editorialVideo", "isGroup", "origin", "hero"],
+            "extend[playlists]": ["trackCount"],
+            "omit[resource:songs]": "relationships",
+            "fields[albums]": [...["fields[albums]"], "trackCount"],
+            limit: {
+                "artists:top-songs": 20
+            },
+            "art[url]": "f"};
+            this.getTypeFromID("artist",id,isLibrary,query)
         },
         playMediaItem(item){
             let kind = (item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? ''));
@@ -282,17 +298,17 @@ const app = new Vue({
             console.log(kind, id, isLibrary)
             app.playMediaItemById((id),(kind), (isLibrary), item.attributes.url ?? '')
         },
-        async getTypeFromID(kind,id, isLibrary = false){
+        async getTypeFromID(kind,id, isLibrary = false, params = {}){
             
             var a;
             try {
-                a = await this.mkapi(kind.toString(), isLibrary, id.toString());
+                a = await this.mkapi(kind.toString(), isLibrary, id.toString(), params);
             }
             catch (e) {
                 console.log(e);
                 try {
                     console.log("opp", !isLibrary);
-                    a = await this.mkapi(kind.toString(), !isLibrary, id.toString());
+                    a = await this.mkapi(kind.toString(), !isLibrary, id.toString(), params);
                 } catch (err) { console.log(err); a = [] } finally { this.showingPlaylist = a }
             } finally { this.showingPlaylist = a };
         },
