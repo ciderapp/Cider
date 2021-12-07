@@ -2012,3 +2012,16 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 img[src=""] {  
     text-indent: -10000px;
 }
+
+div#captions {
+    font-size: 1.2rem;
+    position: absolute;
+    top: 85%;
+    text-align: center;
+    width: auto;
+    align-self: center;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.6);
+    color: yellow;
+}

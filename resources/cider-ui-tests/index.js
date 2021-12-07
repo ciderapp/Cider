@@ -140,7 +140,8 @@ const app = new Vue({
             this.mk.addEventListener(MusicKit.Events.playbackTimeDidChange, (a) => {
                 self.playerLCD.playbackDuration = (self.mk.currentPlaybackTime)
                 self.lyriccurrenttime = app.mk.currentPlaybackTime;
-                app.getActiveLyric()
+                
+                if (self.lyricon) app.getActiveLyric();
                 // animated dot like AM - bad perf
                 if (self.lyricon && self.drawertest){
                     let currentLine = document.querySelector(`.lyric-line.active`)

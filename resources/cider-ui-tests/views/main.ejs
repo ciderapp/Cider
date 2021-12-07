@@ -100,7 +100,7 @@
                     </div>
                     <div class="app-chrome-item generic">
                         <button class="playback-button--small lyrics"
-                            @click="drawertest = !drawertest; lyricon =!lyricon; if(drawertest == true){loadLyrics();}"></button>
+                            @click=" lyricon =!lyricon; if( document.getElementById(`apple-music-video-container`).style.display != `block`){drawertest = !drawertest}; "></button>
                     </div>
                     <div class="app-chrome-item full-height">
                         <div class="window-controls">
@@ -341,6 +341,7 @@
                             fill-rule="nonzero" />
                     </svg>
                 </div>
+                <div id="captions">{{(app.lyricon) ? ((app.lyrics.length > 0 ) ? app.lyrics[app.currentLyricsLine].line.replace('lrcInstrumental','') : "") : ''}}</div>
                 <div id="player-pip" @click="document.querySelector('video').requestPictureInPicture()"
                     title="Picture-in-Picture">
                     <%- include("svg/fullscreen.svg") %>
