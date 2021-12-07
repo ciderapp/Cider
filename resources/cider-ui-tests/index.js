@@ -211,10 +211,10 @@ const app = new Vue({
 
                 if (type.includes("musicVideo")){
                     document.getElementById("apple-music-video-container").style.display = "block";
-                    app.chrome.topChromeVisible = false
+                    // app.chrome.topChromeVisible = false
                 } else {
                     document.getElementById("apple-music-video-container").style.display = "none";
-                    app.chrome.topChromeVisible = true
+                    // app.chrome.topChromeVisible = true
                 }
                 self.chrome.artworkReady = false
                 self.lyrics = []
