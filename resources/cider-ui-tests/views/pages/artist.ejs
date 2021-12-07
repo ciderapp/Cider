@@ -16,9 +16,9 @@
             <div class="row">
                 <div class="col-auto" v-if="artistPage.data.views['latest-release']">
                     <h3>Latest Release</h3>
-                    <mediaitem-square
+                    <mediaitem-square-sp
                     v-for="song in artistPage.data.views['latest-release'].data"
-                    :item="song"></mediaitem-square>
+                    :item="song"></mediaitem-square-sp>
                 </div>
                 <div class="col" v-if="artistPage.data.views['top-songs']">
                     <h3>Top Songs</h3>
@@ -37,14 +37,18 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <h3>Albums</h3>
-                    <h3>Music Videos</h3>
-                    <h3>Artist Playlists</h3>
-                    <h3>Singles & EPs</h3>
-                    <h3>Live Albums</h3>
-                    <h3>Appears On</h3>
-                    <h3>More To Hear</h3>
-                    <h3>More To See</h3>
+                    <template v-for="(view) in artistPage.data.meta.views.order" v-if="artistPage.data.views[view].data.length != 0">
+                        <div class="row">
+                            <div class="col">
+                                <h3>{{ artistPage.data.views[view].attributes.title ? artistPage.data.views[view].attributes.title : "???"}}</h3>
+                            </div>
+                            <div class="col-auto flex-center" v-if="view.data >= 10">
+                                <button class="cd-btn-seeall">See All</button>
+                            </div>
+                        </div>
+                        <mediaitem-scroller-horizontal-large
+                        :items="artistPage.data.views[view].data.limit(10)"></mediaitem-scroller-horizontal-large>
+                    </template>
                     <div class="row">
                         <div class="col">
                             <h3>About Artist Name</h3>
