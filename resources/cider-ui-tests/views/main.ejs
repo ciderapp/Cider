@@ -25,7 +25,7 @@
 <body oncontextmenu="return false;" loading="1">
 <div id="app">
     <div id="app-main">
-        <div class="app-chrome">
+        <div class="app-chrome" :style="{'display': chrome.topChromeVisible ? '' : 'none'}">
             <div class="app-chrome--left">
                 <div class="app-chrome-item full-height">
                     <div class="app-title"></div>

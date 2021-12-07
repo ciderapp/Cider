@@ -121,7 +121,8 @@ const app = new Vue({
             menuOpened: false,
             maximized: false,
             drawerOpened: false,
-            drawerState: "queue"
+            drawerState: "queue",
+            topChromeVisible: true
         },
         page: "artist-page",
         pageHistory: [],
