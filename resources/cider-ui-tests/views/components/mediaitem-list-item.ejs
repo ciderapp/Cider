@@ -21,11 +21,11 @@
                     </template>
                 </div>
             </div>
-            <div>
-                {{ msToMinSec(item.attributes.durationInMillis ?? 0) }}
-            </div>
             <div class="content-rating" v-if="item.attributes.contentRating">
                 {{ item.attributes.contentRating }}
+            </div>
+            <div>
+                {{ msToMinSec(item.attributes.durationInMillis ?? 0) }}
             </div>
         </div>
     </template>
