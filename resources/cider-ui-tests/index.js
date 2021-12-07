@@ -1,68 +1,9 @@
-Vue.component('mediaitem-artwork', {
-    template: '#mediaitem-artwork',
-    props: ['size', 'url', 'type'],
-    methods: {
-        getArtworkStyle() {
-            return {
-                width: this.size + 'px',
-                height: this.size + 'px'
-            };
-        }
-    }
-});
-
 Vue.component('sidebar-library-item', {
     template: '#sidebar-library-item',
     props: ['name', 'page', 'cd-click'],
     methods: {}
 });
 
-Vue.component('mediaitem-scroller-horizontal', {
-    template: '#mediaitem-scroller-horizontal',
-    props: ['items'],
-    methods: {}
-});
-
-Vue.component('mediaitem-scroller-horizontal-sp', {
-    template: '#mediaitem-scroller-horizontal-sp',
-    props: ['items'],
-    methods: {}
-});
-
-Vue.component('mediaitem-scroller-horizontal-large', {
-    template: '#mediaitem-scroller-horizontal-large',
-    props: ['items'],
-    methods: {}
-});
-
-Vue.component('mediaitem-square', {
-    template: '#mediaitem-square',
-    props: ['item'],
-    methods: {}
-});
-Vue.component('mediaitem-square-sp', {
-    template: '#mediaitem-square-sp',
-    props: ['item'],
-    methods: {}
-});
-
-Vue.component('mediaitem-square-large', {
-    template: '#mediaitem-square-large',
-    props: ['item'],
-    methods: {}
-});
-
-Vue.component('mediaitem-hrect', {
-    template: '#mediaitem-hrect',
-    props: ['item'],
-    methods: {}
-});
-
-Vue.component('mediaitem-list-item', {
-    template: '#mediaitem-list-item',
-    props: ['item'],
-    methods: {}
-});
 
 Vue.component('lyrics-view', {
     template: '#lyrics-view',
@@ -109,6 +50,12 @@ const MusicKitTools = {
 Array.prototype.limit = function (n) {
     return this.slice(0, n);
 };
+
+function msToMinSec(ms) {
+    var minutes = Math.floor(ms / 60000);
+    var seconds = ((ms % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+}
 
 const app = new Vue({
     el: "#app",

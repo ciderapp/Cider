@@ -1,0 +1,29 @@
+<script type="text/x-template" id="mediaitem-artwork">
+    <template v-if="type == 'artists'">
+        <div class="mediaitem-artwork rounded">
+            <img :src="app.getMediaItemArtwork(url, size)"
+                 class="mediaitem-artwork--img">
+        </div>
+    </template>
+    <template v-else>
+        <div class="mediaitem-artwork">
+            <img :src="app.getMediaItemArtwork(url, size)"
+                 class="mediaitem-artwork--img">
+        </div>
+    </template>
+</script>
+
+<script>
+    Vue.component('mediaitem-artwork', {
+        template: '#mediaitem-artwork',
+        props: ['size', 'url', 'type'],
+        methods: {
+            getArtworkStyle() {
+                return {
+                    width: this.size + 'px',
+                    height: this.size + 'px'
+                };
+            }
+        }
+    });
+</script>

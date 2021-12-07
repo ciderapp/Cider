@@ -1,0 +1,40 @@
+<script type="text/x-template" id="mediaitem-list-item">
+    <template>
+        <div @click="app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)"
+             class="cd-mediaitem-list-item">
+            <div class="artwork">
+                <mediaitem-artwork
+                        :url="item.attributes.artwork ? item.attributes.artwork.url : ''"
+                        size="34"
+                        :type="item.type"></mediaitem-artwork>
+            </div>
+            <div class="info-rect">
+                <div class="title text-overflow-elipsis">
+                    {{ item.attributes.name }}
+                </div>
+                <div class="subtitle text-overflow-elipsis">
+                    <template v-if="item.attributes.artistName">
+                        {{ item.attributes.artistName }}
+                        <template v-if="item.attributes.albumName">
+                            - {{ item.attributes.albumName }}
+                        </template>
+                    </template>
+                </div>
+            </div>
+            <div>
+                {{ msToMinSec(item.attributes.durationInMillis ?? 0) }}
+            </div>
+            <div class="content-rating" v-if="item.attributes.contentRating">
+                {{ item.attributes.contentRating }}
+            </div>
+        </div>
+    </template>
+</script>
+
+<script>
+    Vue.component('mediaitem-list-item', {
+        template: '#mediaitem-list-item',
+        props: ['item'],
+        methods: {}
+    });
+</script>

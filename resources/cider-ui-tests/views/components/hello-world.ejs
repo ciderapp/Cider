@@ -1,0 +1,14 @@
+<script type="text/x-template" id="hello-world">
+    <button @click="sayHello()">Hello world!</button>
+</script>
+
+<script>
+    Vue.component('hello-world', {
+        template: '#hello-world',
+        methods: {
+            sayHello: function () {
+                alert('Hello world!');
+            }
+        }
+    });
+</script>

@@ -294,8 +294,7 @@
                                        spellcheck="false"
                                        placeholder="Search..."
                                        @input="searchLibrarySongs"
-                                       v-model="library.songs.search"
-                                       class="search-input">
+                                       v-model="library.songs.search" class="search-input">
                             </div>
                             <mediaitem-list-item :item="item"
                                                  v-for="item in library.songs.displayListing"></mediaitem-list-item>
@@ -339,22 +338,7 @@
 
 </div>
 
-<script type="text/x-template" id="mediaitem-artwork">
-    <template v-if="type == 'artists'">
-        <div class="mediaitem-artwork rounded"
-             >
-            <img :src="app.getMediaItemArtwork(url, size)"
-                 class="mediaitem-artwork--img">
-        </div>
-    </template>
-    <template v-else>
-        <div class="mediaitem-artwork"
-             >
-            <img :src="app.getMediaItemArtwork(url, size)"
-                 class="mediaitem-artwork--img">
-        </div>
-    </template>
-</script>
+<%- include("components/mediaitem-artwork"); %>
 
 <!-- Generic Collection of MediaItems -->
 <script type="text/x-template" id="collection-view-generic">
@@ -500,221 +484,29 @@
 </script>
 
 <!-- Horizontal MediaItem Scroller -->
-<script type="text/x-template" id="mediaitem-scroller-horizontal">
-    <template>
-        <div class="cd-hmedia-scroller">
-            <mediaitem-square :item="item"
-                              v-for="item in items"></mediaitem-square>
-        </div>
-    </template>
-</script>
-
+<%- include('components/mediaitem-scroller-horizontal') %>
 <!-- Horizontal MediaItem Scroller (Large) -->
-<script type="text/x-template" id="mediaitem-scroller-horizontal-large">
-    <template>
-        <div class="cd-hmedia-scroller">
-            <mediaitem-square-large :item="item"
-                                    v-for="item in items"></mediaitem-square-large>
-        </div>
-    </template>
-</script>
-
+<%- include('components/mediaitem-scroller-horizontal-large') %>
 <!-- Horizontal MediaItem Scroller (SP : Special) -->
-
-<script type="text/x-template" id="mediaitem-scroller-horizontal-sp">
-    <template>
-        <div class="cd-hmedia-scroller">
-            <mediaitem-square-sp :item="item"
-                                 v-for="item in items"></mediaitem-square-sp>
-        </div>
-    </template>
-</script>
-
+<%- include('components/mediaitem-scroller-horizontal-sp') %>
 <!-- MediaItem List Item -->
-
-<script type="text/x-template" id="mediaitem-list-item">
-    <template>
-        <div @click="app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)"
-             class="cd-mediaitem-list-item">
-            <div class="artwork">
-                <mediaitem-artwork
-                        :url="item.attributes.artwork ? item.attributes.artwork.url : ''"
-                        size="34"
-                        :type="item.type"></mediaitem-artwork>
-            </div>
-            <div class="info-rect">
-                <div class="title text-overflow-elipsis">
-                    {{ item.attributes.name }}
-                </div>
-                <div class="subtitle text-overflow-elipsis">
-                    <template v-if="item.attributes.artistName">
-                        {{ item.attributes.artistName }}
-                        <template v-if="item.attributes.albumName">
-                            - {{ item.attributes.albumName }}
-                        </template>
-                    </template>
-                </div>
-            </div>
-            <div class="content-rating" v-if="item.attributes.contentRating">
-                {{ item.attributes.contentRating }}
-            </div>
-        </div>
-    </template>
-</script>
+<%- include('components/mediaitem-list-item') %>
 
 <!-- MediaItem Horizontal Rectangle -->
-<script type="text/x-template" id="mediaitem-hrect">
-    <template>
-        <div @click="app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)"
-             class="cd-mediaitem-hrect">
-            <div class="artwork">
-                <mediaitem-artwork
-                        :url="item.attributes.artwork ? item.attributes.artwork.url : ''"
-                        size="70"
-                        :type="item.type"></mediaitem-artwork>
-            </div>
-            <div class="info-rect">
-                <div class="title text-overflow-elipsis">
-                    {{ item.attributes.name }}
-                </div>
-                <div class="subtitle text-overflow-elipsis">
-                    {{ item.type }}
-                    <template v-if="item.attributes.artistName">
-                        ∙ {{ item.attributes.artistName }}
-                    </template>
-                </div>
-            </div>
-        </div>
-    </template>
-</script>
+<%- include('components/mediaitem-hrect') %>
 
 <!-- MediaItem Square -->
+<%- include('components/mediaitem-square') %>
 
-<script type="text/x-template" id="mediaitem-square">
-    <template>
-        <div @click="app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)"
-             class="cd-mediaitem-square">
-            <div class="artwork">
-                <mediaitem-artwork
-                        :url="item.attributes.artwork ? item.attributes.artwork.url : ''"
-                        size="300"
-                        :type="item.type"></mediaitem-artwork>
-            </div>
-            <div class="title text-overflow-elipsis">
-                {{ item.attributes.name }}
-            </div>
-            <div class="subtitle text-overflow-elipsis" v-if="item.attributes.artistName">
-                {{ item.attributes.artistName }}
-            </div>
-        </div>
-    </template>
-</script>
 
 <!-- MediaItem Square (Large) -->
+<%- include('components/mediaitem-square-large') %>
 
-<script type="text/x-template" id="mediaitem-square-large">
-    <template>
-        <div style="position: relative; display: inline-flex;">
-            <div @click.self='app.routeView(item)'
-                 class="cd-mediaitem-square-large">
-                <div class="artwork">
-                    <mediaitem-artwork
-                            :url="item.attributes.artwork ? item.attributes.artwork.url : ''"
-                            size="300"
-                            :type="item.type"></mediaitem-artwork>
-                </div>
-                <div class="cd-mediaitem-square-large-overlay" @click.self='app.routeView(item)'>
-                    <div class="button" style="
-                    border-radius: 50%;
-                    background: rgba(50,50,50,0.7);"
-                         :style="[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'margin': '140px',
-                        width: '40px',
-                        height: '40px',} :
-                        {margin: '35px',
-                        width: '120px',
-                        height: '120px',}]" @click="app.playMediaItem(item)">
-                        <%- include("svg/play.svg") %>
-                    </div>
-                </div>
-                <div class="title text-overflow-elipsis" @click='app.routeView(item)'>
-                    {{ item.attributes.name ?? '' }}
-                </div>
-                <div class="subtitle text-overflow-elipsis" v-if="item.attributes.artistName">
-                    {{ item.attributes.artistName ?? '' }}
-                </div>
-
-            </div>
-            <div class="cd-mediaitem-square-large-overlay" @click.self='app.routeView(item)'>
-                <div class="button" style="
-                border-radius: 50%;
-                background: rgba(50,50,50,0.7);"
-                     :style="[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'margin': '140px',
-                    width: '40px',
-                    height: '40px',} :
-                    {margin: '35px',
-                    width: '120px',
-                    height: '120px',}]" @click="app.playMediaItem(item)">
-                    <%- include("svg/play.svg") %>
-                </div>
-            </div>
-        </div>
-    </template>
-</script>
 
 <!-- MediaItem Square SP -->
-<script type="text/x-template" id="mediaitem-square-sp">
-    <template>
-        <div style="position: relative; display: inline-flex;">
-            <div @click.self='app.routeView(item)'
-                 class="cd-mediaitem-square-sp"
-                 :style="{'--spcolor' : (item.attributes.artwork.bgColor != null) ? ('#'+item.attributes.artwork.bgColor) : `black`}">
-                <div class="artwork">
-                    <mediaitem-artwork
-                            :url="item.attributes.artwork ? item.attributes.artwork.url : ''"
-                            size="300"
-                            :type="item.type"
-                    ></mediaitem-artwork>
-                </div>
-                <div class="cd-mediaitem-square-large-overlay" @click.self='app.routeView(item)'>
-                    <div class="button" style="
-                    border-radius: 50%;
-                    background: rgba(50,50,50,0.7);"
-                         :style="[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'margin': '140px',
-                        width: '40px',
-                        height: '40px',} :
-                        {margin: '35px',
-                        width: '120px',
-                        height: '120px',}]" @click="app.playMediaItem(item)">
-                        <%- include("svg/play.svg") %>
-                    </div>
-                </div>
-                <div class="title text-overflow-elipsis"
-                     :style="{'color' : (item.attributes.artwork.textColor1 != null) ? ('#'+item.attributes.artwork.textColor1) : `#eee`}" style="font-weight: 600">
-                    {{ item.attributes.name }}
-                </div>
-                <div class="subtitle text-overflow-elipsis"
-                     :style="{'color' : (item.attributes.artwork.textColor1 != null) ? ('#'+item.attributes.artwork.textColor1) : `#eee`}" style="padding-left: 4px;padding-right: 4px; display: -webkit-box;-webkit-box-orient: vertical; -webkit-line-clamp: 2;white-space: normal;">
-                    {{ (item.attributes.editorialNotes != null) ? item.attributes.editorialNotes.short
-                    :(item.attributes.artistName ?? '') }}
-                </div>
+<%- include('components/mediaitem-square-sp') %>
 
-            </div>
-            <div class="cd-mediaitem-square-large-overlay" @click.self='app.routeView(item)'>
-                <div class="button" style="
-               border-radius: 50%;
-               background: rgba(50,50,50,0.7);"
-                     :style="[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'margin': '140px',
-                   width: '40px',
-                   height: '40px',} :
-                   {margin: '35px',
-                   width: '120px',
-                   height: '120px',}]" @click="app.playMediaItem(item)">
-                    <%- include("svg/play.svg") %>
-                </div>
-            </div>
-        </div>
-    </template>
-</script>
+<!-- Lyrics View -->
 <script type="text/x-template" id="lyrics-view">
     <div class="md-body lyric-body">
         <template v-if="lyrics">
@@ -743,6 +535,7 @@
         </template>
     </div>
 </script>
+
 <script src="https://js-cdn.music.apple.com/musickit/v2/amp/musickit.js"></script>
 <script src="index.js?v=1"></script>
 </body>

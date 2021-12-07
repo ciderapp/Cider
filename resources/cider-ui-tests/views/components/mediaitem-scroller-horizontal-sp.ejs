@@ -1,0 +1,16 @@
+<script type="text/x-template" id="mediaitem-scroller-horizontal-sp">
+    <template>
+        <div class="cd-hmedia-scroller">
+            <mediaitem-square-sp :item="item"
+                                 v-for="item in items"></mediaitem-square-sp>
+        </div>
+    </template>
+</script>
+
+<script>
+    Vue.component('mediaitem-scroller-horizontal-sp', {
+        template: '#mediaitem-scroller-horizontal-sp',
+        props: ['items'],
+        methods: {}
+    });
+</script>

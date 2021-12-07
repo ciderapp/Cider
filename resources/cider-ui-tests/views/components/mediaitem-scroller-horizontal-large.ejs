@@ -1,0 +1,17 @@
+<script type="text/x-template" id="mediaitem-scroller-horizontal-large">
+    <template>
+        <div class="cd-hmedia-scroller">
+            <mediaitem-square-large :item="item"
+                                    v-for="item in items"></mediaitem-square-large>
+        </div>
+    </template>
+</script>
+
+
+<script>
+    Vue.component('mediaitem-scroller-horizontal-large', {
+        template: '#mediaitem-scroller-horizontal-large',
+        props: ['items'],
+        methods: {}
+    });
+</script>
