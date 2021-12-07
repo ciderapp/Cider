@@ -120,7 +120,7 @@ const app = new Vue({
             this.mk = MusicKit.getInstance()
             this.mk.authorize()
             this.$forceUpdate()
-
+            this.mk.privateEnabled = true
             // Set profile name
             this.chrome.userinfo = await this.mkapi("personalSocialProfile", false, "")
 
