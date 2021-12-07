@@ -18,30 +18,34 @@
             </div>
         </div>
         <div class="artist-body">
-            <div class="row">
-                <div class="col-auto" v-if="artistPage.data.views['latest-release']">
-                    <h3>Latest Release</h3>
-                    <div style="width: auto;margin: 0 auto;">
-                        <mediaitem-square-sp v-for="song in artistPage.data.views['latest-release'].data" :item="song">
-                        </mediaitem-square-sp>
+            <div class="row well">
+                <div class="col">
+                    <div class="row">
+                        <div class="col-auto" v-if="artistPage.data.views['latest-release']">
+                            <h3>Latest Release</h3>
+                            <div style="width: auto;margin: 0 auto;">
+                                <mediaitem-square-sp v-for="song in artistPage.data.views['latest-release'].data" :item="song">
+                                </mediaitem-square-sp>
+                            </div>
+                        </div>
+                        <div class="col" v-if="artistPage.data.views['top-songs']">
+                            <h3>Top Songs</h3>
+                            <mediaitem-list-item
+                                v-for="song in artistPage.data.views['top-songs'].data.limit(artistPage.topSongsExpanded ? 10 : 5)"
+                                :item="song"></mediaitem-list-item>
+                            <button class="showmoreless" @click="artistPage.topSongsExpanded = !artistPage.topSongsExpanded">
+                                <template v-if="!artistPage.topSongsExpanded">
+                                    Show more
+                                </template>
+                                <template v-else>
+                                    Show less
+                                </template>
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <div class="col" v-if="artistPage.data.views['top-songs']">
-                    <h3>Top Songs</h3>
-                    <mediaitem-list-item
-                        v-for="song in artistPage.data.views['top-songs'].data.limit(artistPage.topSongsExpanded ? 10 : 5)"
-                        :item="song"></mediaitem-list-item>
-                    <button class="showmoreless" @click="artistPage.topSongsExpanded = !artistPage.topSongsExpanded">
-                        <template v-if="!artistPage.topSongsExpanded">
-                            Show more
-                        </template>
-                        <template v-else>
-                            Show less
-                        </template>
-                    </button>
-                </div>
             </div>
-            <div class="row">
+            <div class="row well">
                 <div class="col">
                     <template v-for="(view) in artistPage.data.meta.views.order"
                         v-if="(artistPage.data.views[view].data.length != 0) && (view != 'latest-release') && (view != 'top-songs')">

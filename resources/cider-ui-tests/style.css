@@ -1356,6 +1356,14 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     padding: 16px;
 }
 
+.artist-page .well {
+    background: rgba(200, 200, 200, 0.05);
+    border-radius: 10px;
+    padding: 16px;
+    box-shadow: rgb(0 0 0 / 8%) 0px 0px 0px 1px;
+    margin-top: 16px;
+}
+
 .artist-page .showmoreless {
     font-family: inherit;
     font-size: 16px;
