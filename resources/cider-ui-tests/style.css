@@ -401,6 +401,15 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     -webkit-app-region: drag;
 }
 
+.mv-chrome {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 90%;
+    height: 55px;
+    -webkit-app-region: drag;
+}
+
 .app-chrome .app-chrome--left,
 .app-chrome .app-chrome--center,
 .app-chrome .app-chrome--right {
