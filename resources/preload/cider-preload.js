@@ -1,7 +1,8 @@
 const electron = require('electron')
 
-console.log('preload is in baby')
+console.log('Loaded Preload')
 
 process.once('loaded', () => {
+    console.log("Setting ipcRenderer")
     global.ipcRenderer = electron.ipcRenderer;
 });

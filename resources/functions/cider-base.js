@@ -4,6 +4,8 @@ const getPort = require("get-port");
 const express = require("express");
 const path = require("path");
 const windowStateKeeper = require("electron-window-state");
+const request = require('request');
+const authFile = require("../auth.json");
 
 const CiderBase = {
 
@@ -105,7 +107,6 @@ const CiderBase = {
                 }
             })
         }
-
         return win
     },
     async InitWebServer() {
