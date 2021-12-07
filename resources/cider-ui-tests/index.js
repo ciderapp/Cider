@@ -888,12 +888,15 @@ const app = new Vue({
             let self = this
             let id = ""
             // ugly code to check if current playback item is in library
-            if(playParams.catalogId) {
-                id = playParams.catalogId
-            }else if(playParams.id) {
-                id = playParams.id
-            }else if(playParams.isLibrary) {
+            if(typeof playParams == "undefined"){
                 return true
+            }
+            if(playParams["isLibrary"]) {
+                return true
+            }else if(playParams["catalogId"]) {
+                id = playParams["catalogId"]
+            }else if(playParams["id"]) {
+                id = playParams["id"]
             }
             var found = this.library.songs.listing.filter((item)=>{
                 if(item["attributes"]){

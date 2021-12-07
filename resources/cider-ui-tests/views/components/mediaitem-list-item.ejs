@@ -2,6 +2,10 @@
     <template>
         <div @click="app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)"
              class="cd-mediaitem-list-item">
+            <div class="isLibrary">
+                <button v-if="!app.isInLibrary(item.attributes.playParams)">🖤</button>
+                <button v-else>❤️</button>
+            </div>
             <div class="artwork">
                 <mediaitem-artwork
                         :url="item.attributes.artwork ? item.attributes.artwork.url : ''"

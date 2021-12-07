@@ -1582,6 +1582,13 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     color: #ccc;
 }
 
+.cd-mediaitem-list-item .isLibrary>button {
+    appearance: none;
+    border:0px;
+    background:transparent;
+    cursor:pointer;
+}
+
 /* mediaitem-hrect */
 .cd-mediaitem-hrect {
     background: rgb(255 255 255 / 18%);
