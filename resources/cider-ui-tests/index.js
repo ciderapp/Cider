@@ -225,12 +225,40 @@ const app = new Vue({
                 "extend": "artistBio,bornOrFormed,editorialArtwork,editorialVideo,isGroup,origin,hero",
                 "extend[playlists]": "trackCount",
                 "omit[resource:songs]": "relationships",
-                "fields[albums]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,name,playParams,releaseDate,url,trackCount",
+                "fields[albums]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialVideo,name,playParams,releaseDate,url,trackCount",
                 "limit[artists:top-songs]": 20,
                 "art[url]": "f"
             }, {includeResponseMeta: !0})
             this.artistPage.data = artistData.data[0]
             this.page = "artist-page"
+        },
+        hashCode(str) {
+            var hash = 0, i, chr;
+            if (str.length === 0) return hash;
+            for (i = 0; i < str.length; i++) {
+              chr   = str.charCodeAt(i);
+              hash  = ((hash << 5) - hash) + chr;
+              hash |= 0; // Convert to 32bit integer
+            }
+            return hash;
+        },
+        playAnimatedArtwork(url){
+            if (Hls.isSupported()) {
+                var video = document.querySelector(`[vid="${app.hashCode(url)}"] > video`)
+                console.log('supported');
+                var hls = new Hls();
+                // bind them together
+                if (video){
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MEDIA_ATTACHED, function () {
+                  console.log('video and hls.js are now bound together !');
+                  hls.loadSource(url);
+                  hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
+                    video.play();
+                    return "";
+                  });
+            });} else {  console.log("hso"); return "";}
+        } else { return "";}
         },
         getArtistPalette(artist){
             if(artist["attributes"]["artwork"]) {
@@ -258,7 +286,7 @@ const app = new Vue({
             else if(!kind.toString().includes("radioStation") && !kind.toString().includes("song") && !kind.toString().includes("musicVideo") && !kind.toString().includes("uploadedVideo"))
             {app.page = (kind) + "_"+ (id); 
             console.log("oks");
-            app.getTypeFromID((kind),(id), (isLibrary));} else {
+            app.getTypeFromID((kind),(id), (isLibrary),{extend:  "editorialVideo"});} else {
                 app.playMediaItemById((id),(kind), (isLibrary), item.attributes.url ?? '')
             }
             document.querySelector("#app-content").scrollTop = 0
@@ -1041,4 +1069,5 @@ var checkIfScrollIsStatic = setInterval(() => {
     }
     position = document.getElementsByClassName('lyric-body')[0].scrollTop } catch (e){}
 
-  }, 50)
+  }, 50);
+

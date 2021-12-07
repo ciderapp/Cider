@@ -9,6 +9,9 @@
         <div class="mediaitem-artwork">
             <img :src="app.getMediaItemArtwork(url, size)"
                  class="mediaitem-artwork--img">
+            <div v-if="video" class="animatedartwork-view-box">            
+                <animatedartwork-view  :video="video"></animatedartwork-view>   
+            </div>  
         </div>
     </template>
 </script>
@@ -16,7 +19,7 @@
 <script>
     Vue.component('mediaitem-artwork', {
         template: '#mediaitem-artwork',
-        props: ['size', 'url', 'type'],
+        props: ['size', 'url', 'type', 'video'],
         methods: {
             getArtworkStyle() {
                 return {
