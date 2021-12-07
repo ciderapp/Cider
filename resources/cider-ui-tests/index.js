@@ -919,7 +919,11 @@ const app = new Vue({
             }
         },
         getMediaItemArtwork(url, size = 64) {
-            return `${url.replace('{w}', size).replace('{h}', size).replace('{f}', "webp").replace('{c}', "cc")}`;
+            var newurl = `${url.replace('{w}', size).replace('{h}', size).replace('{f}', "webp").replace('{c}', "cc")}`;
+            // replace the only the last instance of .jpg with .webp but not the first instance
+            newurl = newurl.replace(/\.jpg(?=\?|$)/, '.webp');
+                        
+            return newurl
         },
         getNowPlayingArtworkBG(size = 600) {
             if (!this.mkReady()) {

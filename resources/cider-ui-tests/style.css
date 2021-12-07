@@ -1353,6 +1353,17 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 
 /* Cider */
 
+.wr-btn {
+    font-family: inherit;
+    appearance: none;
+    border:0px;
+    border-radius: 6px;
+    padding: 8px;
+    font-weight: 600;
+    background: rgb(80 80 80 / 70%);
+    color: white;
+}
+
 /* Artist Page */
 
 .artist-page {
@@ -1430,20 +1441,20 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 .mediaitem-artwork .animatedartwork-view-box .animated{
     position: absolute;
     top: 0px;
-    width: 200px;
-    height: 200px;
+    width: 100%;
+    height: 100%;
 }
 
 .mediaitem-artwork .animatedartwork-view-box .animated > video {
-    width: 200px;
-    height: 200px;
+    width: 100%;
+    height: 100%;
 }
 
 .mediaitem-artwork .animatedartwork-view-box{
     position: absolute;
     top: 0px;
-    width: 200px;
-    height: 200px;
+    width: 100%;
+    height: 100%;
 }
 
 .artist-header .animated{
@@ -1927,9 +1938,37 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 }
 .playlist-display .playlist-info .playlist-desc {
     box-sizing: border-box;
-    font-size: 1em;
+    font-size: 14px;
     flex-shrink: unset;
     margin-right: 5px;
+    max-height: 100px;
+    position: relative;
+}
+.playlist-display .playlist-info .playlist-desc .content {
+    height: 100px;
+    -webkit-mask-image: -webkit-gradient(linear, left 50%, left 90%, from(rgba(0, 0, 0, 1)), to(rgba(0, 0, 0, 0)));
+}
+
+.playlist-display .playlist-info .playlist-desc .more-btn {
+    appearance: none;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 0 5px;
+    font-size: 14px;
+    color: var(--keyColor);
+    background-color: transparent;
+    border: 0px;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    font-weight: 600;
+    font-family: inherit;
+    text-transform: uppercase;
 }
 
 .playlist-time {

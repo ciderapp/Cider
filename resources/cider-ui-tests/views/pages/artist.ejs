@@ -1,14 +1,16 @@
 <template v-if="page == 'artist-page' && artistPage.data.attributes">
     <div class="content-inner artist-page">
         <div class="artist-header" :style="getArtistPalette(artistPage.data)">
-            <animatedartwork-view v-if="app.artistPage.data.attributes.editorialVideo && (app.artistPage.data.attributes.editorialVideo.motionArtistWide16x9 || app.artistPage.data.attributes.editorialVideo.motionArtistFullscreen16x9)" :video="app.artistPage.data.attributes.editorialVideo.motionArtistWide16x9.video ?? (app.artistPage.data.attributes.editorialVideo.motionArtistFullscreen16x9.video ?? '')" >
+            <animatedartwork-view
+                    v-if="app.artistPage.data.attributes.editorialVideo && (app.artistPage.data.attributes.editorialVideo.motionArtistWide16x9 || app.artistPage.data.attributes.editorialVideo.motionArtistFullscreen16x9)"
+                    :video="app.artistPage.data.attributes.editorialVideo.motionArtistWide16x9.video ?? (app.artistPage.data.attributes.editorialVideo.motionArtistFullscreen16x9.video ?? '')">
             </animatedartwork-view>
             <div class="row">
                 <div class="col-sm" style="width: auto;">
                     <div class="artist-image">
                         <mediaitem-artwork
-                            :url="artistPage.data.attributes.artwork ? artistPage.data.attributes.artwork.url : ''"
-                            size="220" type="artists"></mediaitem-artwork>
+                                :url="artistPage.data.attributes.artwork ? artistPage.data.attributes.artwork.url : ''"
+                                size="220" type="artists"></mediaitem-artwork>
                     </div>
                 </div>
                 <div class="col flex-center">
@@ -23,16 +25,18 @@
                         <div class="col-auto" v-if="artistPage.data.views['latest-release']">
                             <h3>Latest Release</h3>
                             <div style="width: auto;margin: 0 auto;">
-                                <mediaitem-square-sp v-for="song in artistPage.data.views['latest-release'].data" :item="song">
+                                <mediaitem-square-sp v-for="song in artistPage.data.views['latest-release'].data"
+                                                     :item="song">
                                 </mediaitem-square-sp>
                             </div>
                         </div>
                         <div class="col" v-if="artistPage.data.views['top-songs']">
                             <h3>Top Songs</h3>
                             <mediaitem-list-item
-                                v-for="song in artistPage.data.views['top-songs'].data.limit(artistPage.topSongsExpanded ? 10 : 5)"
-                                :item="song"></mediaitem-list-item>
-                            <button class="showmoreless" @click="artistPage.topSongsExpanded = !artistPage.topSongsExpanded">
+                                    v-for="song in artistPage.data.views['top-songs'].data.limit(artistPage.topSongsExpanded ? 10 : 5)"
+                                    :item="song"></mediaitem-list-item>
+                            <button class="showmoreless"
+                                    @click="artistPage.topSongsExpanded = !artistPage.topSongsExpanded">
                                 <template v-if="!artistPage.topSongsExpanded">
                                     Show more
                                 </template>
@@ -47,10 +51,11 @@
             <div class="row well">
                 <div class="col">
                     <template v-for="(view) in artistPage.data.meta.views.order"
-                        v-if="(artistPage.data.views[view].data.length != 0) && (view != 'latest-release') && (view != 'top-songs')">
+                              v-if="(artistPage.data.views[view].data.length != 0) && (view != 'latest-release') && (view != 'top-songs')">
                         <div class="row">
                             <div class="col">
-                                <h3>{{ artistPage.data.views[view].attributes.title ? artistPage.data.views[view].attributes.title : "???"}}
+                                <h3>{{ artistPage.data.views[view].attributes.title ?
+                                    artistPage.data.views[view].attributes.title : "???"}}
                                 </h3>
                             </div>
                             <div class="col-auto flex-center" v-if="artistPage.data.views[view].data.length >= 10">
