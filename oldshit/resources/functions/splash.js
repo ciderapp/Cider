@@ -20,7 +20,7 @@ const SplashScreen = {
             }
         })
         this.win.show()
-        this.win.loadFile('./resources/splash/index.html')
+        this.win.loadFile('./resources/splash/index_old.html')
         this.win.on("closed", () => {
             this.win = null
         })

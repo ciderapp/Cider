@@ -24,6 +24,7 @@
     "castv2-client": "github:vapormusic/node-castv2-client",
     "chmodr": "^1.2.0",
     "discord-rpc": "^4.0.1",
+    "ejs": "^3.1.6",
     "electron-acrylic-window": "^0.5.9",
     "electron-log": "^4.4.1",
     "electron-store": "^8.0.1",

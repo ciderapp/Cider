@@ -310,7 +310,7 @@ const wsapi = {
         const webRemotePath = path.join(__dirname, '../web-remote');
         webapp.use(express.static(webRemotePath));
         webapp.get('/', function (req, res) {
-            res.sendFile(path.join(webRemotePath, 'index.html'));
+            res.sendFile(path.join(webRemotePath, 'index_old.html'));
         });
         webapp.listen(webRemotePort, function () {
             console.log(`Web Remote listening on port ${webRemotePort}`);
