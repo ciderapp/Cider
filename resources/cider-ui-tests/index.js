@@ -209,7 +209,7 @@ const app = new Vue({
             this.mk.addEventListener(MusicKit.Events.nowPlayingItemDidChange, (a) => {
                 let type = (self.mk.nowPlayingItem != null) ?  self.mk.nowPlayingItem["type"] ?? '' : ''; 
 
-                if (type.includes("musicVideo")){
+                if (type.includes("musicVideo") || type.includes("uploadedVideo")){
                     document.getElementById("apple-music-video-container").style.display = "block";
                     // app.chrome.topChromeVisible = false
                 } else {
