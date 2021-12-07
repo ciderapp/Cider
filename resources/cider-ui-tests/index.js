@@ -255,7 +255,7 @@ const app = new Vue({
             if(kind.toString().includes("artist")){
                 app.getArtistInfo(id, isLibrary)
             }
-            else if(!kind.toString().includes("radioStation") && !kind.toString().includes("song") && !kind.toString().includes("musicVideo"))
+            else if(!kind.toString().includes("radioStation") && !kind.toString().includes("song") && !kind.toString().includes("musicVideo") && !kind.toString().includes("uploadedVideo"))
             {app.page = (kind) + "_"+ (id); 
             console.log("oks");
             app.getTypeFromID((kind),(id), (isLibrary));} else {
