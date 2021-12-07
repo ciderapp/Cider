@@ -423,9 +423,9 @@
     <script type="text/x-template" id="lyrics-view">
         <div class="md-body lyric-body">
         <template v-if="lyrics">
-            <template v-for="lyric in lyrics" v-if="lyric.line != 'lrcInstrumental'">
+            <template v-for="(lyric, index) in lyrics" v-if="lyric.line != 'lrcInstrumental'">
                 <h3 class="lyric-line" @click="app.seekTo(lyric.startTime, false)"
-                    v-bind:class="{ active: app.getLyricClass(lyric.startTime, lyric.endTime)}">
+                v-bind:line-index="index.toString()">
                     {{ lyric.line }}
                     <div class="lyrics-translation" v-if="lyric.translation && lyric.translation != ''">
                         {{ lyric.translation }}
@@ -434,7 +434,7 @@
             </template>
             <template v-else>
                 <h3 class="lyric-line" @click="app.seekTo(lyric.startTime, false)" :start="lyric.startTime"
-                    :end="lyric.endTime" v-bind:class="{ active: app.getLyricClass(lyric.startTime, lyric.endTime)}">
+                    :end="lyric.endTime" v-bind:line-index="index.toString()">
                     <div class="lyricWaiting">
                         <div class='WaitingDot1'></div>
                         <div class='WaitingDot2'></div>

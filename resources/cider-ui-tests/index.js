@@ -92,7 +92,8 @@ const app = new Vue({
         },
         mxmtoken: "",
         lyricon: false,
-        lyrics: [],
+        lyrics: [],     
+        currentLyricsLine: 0,
         lyriccurrenttime: 0,
         lyricsMediaItem: {},
         lyricsDebug: {
@@ -128,13 +129,7 @@ const app = new Vue({
             this.mk.addEventListener(MusicKit.Events.playbackTimeDidChange, (a) => {
                 self.playerLCD.playbackDuration = (self.mk.currentPlaybackTime)
                 self.lyriccurrenttime = app.mk.currentPlaybackTime;
-
-                if (document.querySelector(".lyric-line.active")) {
-                    document.querySelector(".lyric-line.active").scrollIntoView({
-                        behavior: "smooth",
-                        block: "center"
-                    })
-                }
+                app.getActiveLyric()
                 // animated dot like AM - bad perf
                 if (self.lyricon && self.drawertest){
                     let currentLine = document.querySelector(`.lyric-line.active`)
@@ -696,13 +691,26 @@ const app = new Vue({
         getCurrentTime() {
             return parseFloat(this.hmsToSecondsOnly(this.parseTime(this.mk.nowPlayingItem.attributes.durationInMillis - app.mk.currentPlaybackTimeRemaining *1000)));
         },
-        getLyricClass(start, end) {
-            //this.lyriccurrenttime = app.getCurrentTime();
+        getActiveLyric() {
             const delayfix = 0.5
-            if (this.lyriccurrenttime + delayfix >= start  && this.lyriccurrenttime + delayfix <= end) {
-                return true;
-            } else {
-                return false;
+            const prevLine = app.currentLyricsLine;
+            for (var i = 0; i < app.lyrics.length; i++) {
+                if (this.lyriccurrenttime + delayfix >= app.lyrics[i].startTime && this.lyriccurrenttime + delayfix <= app.lyrics[i].endTime) {
+                    if (app.currentLyricsLine != i) {
+                        app.currentLyricsLine = i;
+                        if (app.lyricon && document.querySelector(`.lyric-line[line-index="${i}"]`)) {
+                            document.querySelector(`.lyric-line[line-index="${prevLine}"]`).classList.remove("active");
+                            document.querySelector(`.lyric-line[line-index="${i}"]`).classList.add("active");
+                            if (checkIfScrollIsStatic) {
+                                document.querySelector(`.lyric-line[line-index="${i}"]`).scrollIntoView({
+                                    behavior: "smooth",
+                                    block: "center"
+                                })
+                            }
+                        }
+                    }
+                    break;
+                }
             }
         },
         seekTo(time){
@@ -998,3 +1006,13 @@ function xmlToJson(xml) {
     console.log(obj);
     return obj;
 };
+
+var checkIfScrollIsStatic = setInterval(() => {
+    try{
+    if (position === document.getElementsByClassName('lyric-body')[0].scrollTop) {
+      clearInterval(checkIfScrollIsStatic)
+      // do something
+    }
+    position = document.getElementsByClassName('lyric-body')[0].scrollTop } catch (e){}
+
+  }, 50)
