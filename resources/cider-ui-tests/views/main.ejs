@@ -166,7 +166,8 @@
                         </div>
                     </transition>
                     <div class="app-sidebar-footer">
-                        <input type="range" class="display--small">
+                        <input type="range" class="display--small" step="0.01" min="0" max="1" v-model="mk.volume"
+                        v-if="typeof mk.volume != 'undefined'">
                         <button class="app-sidebar-button" style="width:100%"
                             @click="chrome.menuOpened = !chrome.menuOpened">
                             <template v-if="chrome.userinfo.attributes">
