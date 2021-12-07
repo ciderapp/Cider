@@ -87,12 +87,7 @@
                 </div>
                 <div class="app-chrome-item generic">
                     <button class="playback-button--small">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 22" version="1.1" fill="#fff"
-                             style="width: 100%; height: 100%; fill-rule: evenodd; clip-rule: evenodd; stroke-linejoin: round; stroke-miterlimit: 1.41421">
-                            <path
-                                    d="M16.811,12.75c0.245,-0.355 0.389,-0.786 0.389,-1.25c0,-1.215 -0.985,-2.2 -2.2,-2.2c-1.215,0 -2.2,0.985 -2.2,2.2c0,0.466 0.145,0.898 0.392,1.254l-0.83,1.047c-0.537,-0.616 -0.862,-1.42 -0.862,-2.301c0,-1.933 1.567,-3.5 3.5,-3.5c1.933,0 3.5,1.567 3.5,3.5c0,0.879 -0.324,1.683 -0.859,2.297l-0.83,-1.047Zm1.271,1.604c0.694,-0.749 1.118,-1.752 1.118,-2.854c0,-2.32 -1.88,-4.2 -4.2,-4.2c-2.32,0 -4.2,1.88 -4.2,4.2c0,1.103 0.425,2.107 1.121,2.857l-0.814,1.028c-0.993,-0.995 -1.607,-2.368 -1.607,-3.885c0,-3.038 2.462,-5.5 5.5,-5.5c3.038,0 5.5,2.462 5.5,5.5c0,1.515 -0.613,2.887 -1.604,3.882l-0.814,-1.028Zm1.252,1.58c1.151,-1.126 1.866,-2.697 1.866,-4.434c0,-3.424 -2.776,-6.2 -6.2,-6.2c-3.424,0 -6.2,2.776 -6.2,6.2c0,1.739 0.716,3.311 1.869,4.437l-0.811,1.023c-1.452,-1.368 -2.358,-3.308 -2.358,-5.46c0,-4.142 3.358,-7.5 7.5,-7.5c4.142,0 7.5,3.358 7.5,7.5c0,2.15 -0.905,4.089 -2.355,5.457l-0.811,-1.023Zm-0.227,2.066l-8.219,0c-0.355,0 -0.515,-0.434 -0.27,-0.717l4.058,-5.12c0.178,-0.217 0.474,-0.217 0.652,0l4.058,5.12c0.237,0.283 0.085,0.717 -0.279,0.717Z"
-                                    style="fill-rule:nonzero"></path>
-                        </svg>
+                        <%- include("svg/cast.svg") %>
                     </button>
                 </div>
                 <div class="app-chrome-item generic">
@@ -100,8 +95,7 @@
                 </div>
                 <div class="app-chrome-item generic">
                     <button class="playback-button--small lyrics"
-                            @click="drawertest = !drawertest; lyricon =!lyricon; if(drawertest == true){loadLyrics();}"
-                    ></button>
+                            @click="drawertest = !drawertest; lyricon =!lyricon; if(drawertest == true){loadLyrics();}"></button>
                 </div>
                 <div class="app-chrome-item full-height">
                     <div class="window-controls">
@@ -123,8 +117,7 @@
                                @click="showSearch()"
                                @change="showSearch();searchQuery()"
                                placeholder="Search..."
-                               v-model="search.term"
-                               class="search-input">
+                               v-model="search.term" class="search-input">
                     </div>
                 </div>
                 <div class="app-sidebar-content">
@@ -175,8 +168,7 @@
                         <template v-if="chrome.userinfo.attributes">
                             <img class="sidebar-user-icon" loading="lazy"
 
-                                 :src="getMediaItemArtwork(chrome.userinfo.attributes['artwork'] ? chrome.userinfo.attributes['artwork']['url'] : '', 26)"
-                            />
+                                 :src="getMediaItemArtwork(chrome.userinfo.attributes['artwork'] ? chrome.userinfo.attributes['artwork']['url'] : '', 26)"/>
                         </template>
 
                         <div class="sidebar-user-text" v-if="!chrome.hideUserInfo">
@@ -320,8 +312,7 @@
                                 <input type="search"
                                        style="width:100%;"
                                        spellcheck="false"
-                                       placeholder="Search..."
-                                       class="search-input">
+                                       placeholder="Search..." class="search-input">
                             </div>
                             <mediaitem-square-large :item="item"
                                                     v-for="item in library.albums.listing"></mediaitem-square-large>
@@ -503,8 +494,8 @@
 <!-- Sidebar Item -->
 <script type="text/x-template" id="sidebar-library-item">
     <button class="app-sidebar-item"
-            :class="$parent.getSidebarItemClass(page)"
-            @click="$parent.page = page">{{ name }}
+            :class="$parent.getSidebarItemClass(page)" @click="$parent.page = page">
+            {{ name }}
     </button>
 </script>
 
@@ -549,8 +540,7 @@
                 <mediaitem-artwork
                         :url="item.attributes.artwork ? item.attributes.artwork.url : ''"
                         size="34"
-                        :type="item.type"
-                ></mediaitem-artwork>
+                        :type="item.type"></mediaitem-artwork>
             </div>
             <div class="info-rect">
                 <div class="title text-overflow-elipsis">
@@ -581,8 +571,7 @@
                 <mediaitem-artwork
                         :url="item.attributes.artwork ? item.attributes.artwork.url : ''"
                         size="70"
-                        :type="item.type"
-                ></mediaitem-artwork>
+                        :type="item.type"></mediaitem-artwork>
             </div>
             <div class="info-rect">
                 <div class="title text-overflow-elipsis">
@@ -609,8 +598,7 @@
                 <mediaitem-artwork
                         :url="item.attributes.artwork ? item.attributes.artwork.url : ''"
                         size="300"
-                        :type="item.type"
-                ></mediaitem-artwork>
+                        :type="item.type"></mediaitem-artwork>
             </div>
             <div class="title text-overflow-elipsis">
                 {{ item.attributes.name }}
@@ -633,8 +621,7 @@
                     <mediaitem-artwork
                             :url="item.attributes.artwork ? item.attributes.artwork.url : ''"
                             size="300"
-                            :type="item.type"
-                    ></mediaitem-artwork>
+                            :type="item.type"></mediaitem-artwork>
                 </div>
                 <div class="cd-mediaitem-square-large-overlay" @click.self='app.routeView(item)'>
                     <div class="button" style="
@@ -645,11 +632,8 @@
                         height: '40px',} :
                         {margin: '35px',
                         width: '120px',
-                        height: '120px',}]"
-                         @click="app.playMediaItem(item)">
-                        <svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 27" class="glyph">
-                            <path d="M11.3545232,18.4180929 L18.4676039,14.242665 C19.0452323,13.9290954 19.0122249,13.1204156 18.4676039,12.806846 L11.3545232,8.63141809 C10.7603912,8.26833741 9.98471883,8.54889976 9.98471883,9.19254279 L9.98471883,17.8404645 C9.98471883,18.5006112 10.7108802,18.7976773 11.3545232,18.4180929 Z"></path>
-                        </svg>
+                        height: '120px',}]" @click="app.playMediaItem(item)">
+                        <%- include("svg/play.svg") %>
                     </div>
                 </div>
                 <div class="title text-overflow-elipsis" @click='app.routeView(item)'>
@@ -669,11 +653,8 @@
                     height: '40px',} :
                     {margin: '35px',
                     width: '120px',
-                    height: '120px',}]"
-                     @click="app.playMediaItem(item)">
-                    <svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 27" class="glyph">
-                        <path d="M11.3545232,18.4180929 L18.4676039,14.242665 C19.0452323,13.9290954 19.0122249,13.1204156 18.4676039,12.806846 L11.3545232,8.63141809 C10.7603912,8.26833741 9.98471883,8.54889976 9.98471883,9.19254279 L9.98471883,17.8404645 C9.98471883,18.5006112 10.7108802,18.7976773 11.3545232,18.4180929 Z"></path>
-                    </svg>
+                    height: '120px',}]" @click="app.playMediaItem(item)">
+                    <%- include("svg/play.svg") %>
                 </div>
             </div>
         </div>
@@ -703,21 +684,16 @@
                         height: '40px',} :
                         {margin: '35px',
                         width: '120px',
-                        height: '120px',}]"
-                         @click="app.playMediaItem(item)">
-                        <svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 27" class="glyph">
-                            <path d="M11.3545232,18.4180929 L18.4676039,14.242665 C19.0452323,13.9290954 19.0122249,13.1204156 18.4676039,12.806846 L11.3545232,8.63141809 C10.7603912,8.26833741 9.98471883,8.54889976 9.98471883,9.19254279 L9.98471883,17.8404645 C9.98471883,18.5006112 10.7108802,18.7976773 11.3545232,18.4180929 Z"></path>
-                        </svg>
+                        height: '120px',}]" @click="app.playMediaItem(item)">
+                        <%- include("svg/play.svg") %>
                     </div>
                 </div>
                 <div class="title text-overflow-elipsis"
-                     :style="{'color' : (item.attributes.artwork.textColor1 != null) ? ('#'+item.attributes.artwork.textColor1) : `#eee`}"
-                     style="font-weight: 600">
+                     :style="{'color' : (item.attributes.artwork.textColor1 != null) ? ('#'+item.attributes.artwork.textColor1) : `#eee`}" style="font-weight: 600">
                     {{ item.attributes.name }}
                 </div>
                 <div class="subtitle text-overflow-elipsis"
-                     :style="{'color' : (item.attributes.artwork.textColor1 != null) ? ('#'+item.attributes.artwork.textColor1) : `#eee`}"
-                     style="padding-left: 4px;padding-right: 4px; display: -webkit-box;-webkit-box-orient: vertical; -webkit-line-clamp: 2;white-space: normal;">
+                     :style="{'color' : (item.attributes.artwork.textColor1 != null) ? ('#'+item.attributes.artwork.textColor1) : `#eee`}" style="padding-left: 4px;padding-right: 4px; display: -webkit-box;-webkit-box-orient: vertical; -webkit-line-clamp: 2;white-space: normal;">
                     {{ (item.attributes.editorialNotes != null) ? item.attributes.editorialNotes.short
                     :(item.attributes.artistName ?? '') }}
                 </div>
@@ -732,11 +708,8 @@
                    height: '40px',} :
                    {margin: '35px',
                    width: '120px',
-                   height: '120px',}]"
-                     @click="app.playMediaItem(item)">
-                    <svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 27" class="glyph">
-                        <path d="M11.3545232,18.4180929 L18.4676039,14.242665 C19.0452323,13.9290954 19.0122249,13.1204156 18.4676039,12.806846 L11.3545232,8.63141809 C10.7603912,8.26833741 9.98471883,8.54889976 9.98471883,9.19254279 L9.98471883,17.8404645 C9.98471883,18.5006112 10.7108802,18.7976773 11.3545232,18.4180929 Z"></path>
-                    </svg>
+                   height: '120px',}]" @click="app.playMediaItem(item)">
+                    <%- include("svg/play.svg") %>
                 </div>
             </div>
         </div>
@@ -756,8 +729,7 @@
             </template>
             <template v-else>
                 <h3 class="lyric-line" @click="app.seekTo(lyric.startTime, false)" :start="lyric.startTime"
-                    :end="lyric.endTime"
-                    v-bind:class="{ active: app.getLyricClass(lyric.startTime, lyric.endTime)}">
+                    :end="lyric.endTime" v-bind:class="{ active: app.getLyricClass(lyric.startTime, lyric.endTime)}">
                     <div class="lyricWaiting">
                         <div class='WaitingDot1'></div>
                         <div class='WaitingDot2'></div>
