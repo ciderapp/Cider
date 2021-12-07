@@ -284,22 +284,7 @@
                 </transition>
                 <!-- Library - Songs -->
                 <transition name="wpfade" v-on:enter="getLibrarySongsFull()">
-                    <template v-if="page == 'library-songs'">
-                        <div class="content-inner">
-                            <h1 class="header-text">Songs</h1>
-                            <div class="search-input-container" style="width:100%;margin: 16px 0px;">
-                                <div class="search-input--icon"></div>
-                                <input type="search"
-                                       style="width:100%;"
-                                       spellcheck="false"
-                                       placeholder="Search..."
-                                       @input="searchLibrarySongs"
-                                       v-model="library.songs.search" class="search-input">
-                            </div>
-                            <mediaitem-list-item :item="item"
-                                                 v-for="item in library.songs.displayListing"></mediaitem-list-item>
-                        </div>
-                    </template>
+                    <%- include('pages/library-songs') %>
                 </transition>
                 <!-- Library - Albums -->
                 <transition name="wpfade" v-on:enter="getLibraryAlbums()">
