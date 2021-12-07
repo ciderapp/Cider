@@ -136,6 +136,8 @@ const app = new Vue({
             // Set profile name
             this.chrome.userinfo = await this.mkapi("personalSocialProfile", false, "")
 
+            MusicKit.getInstance().videoContainerElement = document.getElementById("apple-music-video-player")
+            
             this.mk.addEventListener(MusicKit.Events.playbackTimeDidChange, (a) => {
                 self.playerLCD.playbackDuration = (self.mk.currentPlaybackTime)
                 self.lyriccurrenttime = app.mk.currentPlaybackTime;
@@ -204,6 +206,13 @@ const app = new Vue({
             })
 
             this.mk.addEventListener(MusicKit.Events.nowPlayingItemDidChange, (a) => {
+                let type = (self.mk.nowPlayingItem != null) ?  self.mk.nowPlayingItem["type"] ?? '' : ''; 
+
+                if (type.includes("musicVideo")){
+                    document.getElementById("apple-music-video-container").style.display = "block";
+                } else {
+                    document.getElementById("apple-music-video-container").style.display = "none";
+                }
                 self.chrome.artworkReady = false
                 self.lyrics = []
                 app.loadLyrics()
@@ -244,7 +253,7 @@ const app = new Vue({
             if(kind.toString().includes("artist")){
                 app.getArtistInfo(id, isLibrary)
             }
-            else if(!kind.toString().includes("radioStation") && !kind.toString().includes("song"))
+            else if(!kind.toString().includes("radioStation") && !kind.toString().includes("song") && !kind.toString().includes("musicVideo"))
             {app.page = (kind) + "_"+ (id); 
             console.log("oks");
             app.getTypeFromID((kind),(id), (isLibrary));} else {
@@ -255,6 +264,10 @@ const app = new Vue({
         pushNavigationEvent(item){
             let self = this
             
+        },
+        exitMV(){
+            MusicKit.getInstance().stop()
+            document.getElementById("apple-music-video-container").style.display = "none";
         },
         getArtistInfo(id, isLibrary){
             var query = {"omit[resource]": "autos",
