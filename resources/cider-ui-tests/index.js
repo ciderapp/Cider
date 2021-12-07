@@ -346,11 +346,11 @@ const app = new Vue({
                 return await this.mkapi(method, library, term, params, params2, attempts + 1)
             }
         },
-        async getLibrarySongsFull() {
+        async getLibrarySongsFull(force = false) {
             let self = this
             let library = []
             let downloaded = null;
-            if (this.library.songs.downloadState == 2 || this.library.songs.downloadState == 1) {
+            if ((this.library.songs.downloadState == 2 || this.library.songs.downloadState == 1) && !force) {
                 return
             }
             if(localStorage.getItem("librarySongs") != null) {
@@ -855,9 +855,17 @@ const app = new Vue({
                 self.search.results = results
             })
         },
-        isInLibrary(id) {
+        isInLibrary(playParams) {
             let self = this
+            let id = ""
             // ugly code to check if current playback item is in library
+            if(playParams.catalogId) {
+                id = playParams.catalogId
+            }else if(playParams.id) {
+                id = playParams.id
+            }else if(playParams.isLibrary) {
+                return true
+            }
             var found = this.library.songs.listing.filter((item)=>{
                 if(item["attributes"]){
                     if(item["attributes"]["playParams"] && (item["attributes"]["playParams"]["catalogId"] == id)){
