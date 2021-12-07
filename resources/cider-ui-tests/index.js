@@ -770,14 +770,19 @@ const app = new Vue({
         playMediaItemById(id, kind, isLibrary, raurl = "") {
             var truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
             console.log(id, truekind, isLibrary)
-            if (truekind == "radioStations") {
-                this.mk.setStationQueue({url: raurl}).then(function (queue) {
-                    MusicKit.getInstance().play()
-                });
-            } else {
-                this.mk.setQueue({[truekind]: [id]}).then(function (queue) {
-                    MusicKit.getInstance().play()
-                })
+            try {
+                if (truekind == "radioStations") {
+                    this.mk.setStationQueue({url: raurl}).then(function (queue) {
+                        MusicKit.getInstance().play()
+                    });
+                } else {
+                    this.mk.setQueue({[truekind]: [id]}).then(function (queue) {
+                        MusicKit.getInstance().play()
+                    })
+                }
+            }catch(err){
+                console.log(err)
+                this.playMediaItemById(id, kind, isLibrary, raurl)
             }
         },
         friendlyTypes(type) {
