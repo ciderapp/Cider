@@ -112,9 +112,13 @@ const CiderBase = {
         const webRemotePort = await getPort({port : 9000});
         const webapp = express();
         const webRemotePath = path.join(__dirname, '../cider-ui-tests/');
+        webapp.set("views", path.join(webRemotePath, "views"));
+        webapp.set("view engine", "ejs");
+
         webapp.use(express.static(webRemotePath));
         webapp.get('/', function (req, res) {
-            res.sendFile(path.join(webRemotePath, 'index.html'));
+            //res.sendFile(path.join(webRemotePath, 'index_old.html'));
+            res.render("main")
         });
         webapp.listen(webRemotePort, function () {
             console.log(`Web Remote listening on port ${webRemotePort}`);
