@@ -1216,7 +1216,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     --bgSpeed: 1s;
     appearance: none;
     color: white;
-    font-size: 2rem;
+    font-size: 26px;
     transform: scale(0.8);
     transform-origin: left center;
     transition: transform 0.2s var(--appleEase);
