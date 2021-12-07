@@ -764,30 +764,45 @@ const app = new Vue({
         friendlyTypes(type) {
             // use switch statement to return friendly name for media types "songs,artists,albums,playlists,music-videos,stations,apple-curators,curators"
             switch (type) {
-                case "songs":
+                case "song":
                     return "Songs"
                     break;
-                case "artists":
+                case "artist":
                     return "Artists"
                     break;
-                case "albums":
+                case "album":
                     return "Albums"
                     break;
-                case "playlists":
+                case "playlist":
                     return "Playlists"
                     break;
-                case "music-videos":
+                case "music_video":
                     return "Music Videos"
                     break;
-                case "stations":
+                case "station":
                     return "Stations"
                     break;
-                case "apple-curators":
+                case "apple-curator":
                     return "Apple Curators"
                     break;
-                case "curators":
+                case "radio_show":
+                    return "Radio Shows"
+                    break;
+                case "record_label":
+                    return "Record Labels"
+                break;
+                case "radio_episode":
+                    return "Episodes"
+                    break;
+                case "video_extra":
+                    return "Video Extras"
+                    break;
+                case "curator":
                     return "Curators"
                     break;
+                case "top":
+                    return "Top"
+                break;
                 default:
                     return type
                     break;
@@ -797,7 +812,20 @@ const app = new Vue({
             let self = this
             this.mk.api.search(this.search.term,
                 {
-                    types: "songs,artists,albums,playlists,music-videos,stations,apple-curators,curators",
+                    types: "activities,albums,apple-curators,artists,curators,editorial-items,music-movies,music-videos,playlists,songs,stations,tv-episodes,uploaded-videos,record-labels",
+                    "relate[editorial-items]": "contents",
+                    "include[editorial-items]": "contents",
+                    "include[albums]": "artists",
+                    "include[artists]": "artists",
+                    "include[songs]": "artists",
+                    "include[music-videos]": "artists",
+                    "extend": "artistUrl",
+                    "fields[artists]": "url,name,artwork,hero",
+                    "fields[albums]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,name,playParams,releaseDate,url",
+                    "with": "serverBubbles,lyricHighlights",
+                    "art[url]": "c,f",
+                    "omit[resource]": "autos",
+                    "platform": "web",
                     limit: 25
                 }).then(function (results) {
                 self.search.results = results
