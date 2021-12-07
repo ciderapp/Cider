@@ -1332,11 +1332,14 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 /* Cider */
 
 .text-overflow-elipsis {
+    display: -webkit-box;
     min-width: 0px;
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
 }
+
 
 .mediaitem-artwork {
     border-radius: var(--mediaItemRadius);

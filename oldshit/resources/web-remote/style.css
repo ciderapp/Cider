@@ -580,10 +580,12 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 }
 
 .text-overflow-elipsis {
+    display: -webkit-box;
     min-width: 0px;
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
 }
 
 
