@@ -29,6 +29,7 @@ const CiderBase = {
             vibrancy: 'dark',
             hasShadow: false,
             webPreferences: {
+                webviewTag: true,
                 plugins: true,
                 nodeIntegration: true,
                 nodeIntegrationInWorker: false,

@@ -68,6 +68,11 @@ const app = new Vue({
         radio: {
             personal: []
         },
+        webview: {
+            url: "",
+            title: "",
+            loading: false
+        },
         showingPlaylist: [],
         artistPage: {
             data: {},
