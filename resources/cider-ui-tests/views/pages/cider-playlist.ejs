@@ -1,0 +1,34 @@
+<script type="text/x-template" id="cider-playlist">
+    <div class="content-inner">
+        <template v-if="data != [] && data.attributes != []">
+            <div class="playlist-display row">
+                <div class="col-auto flex-center">
+                    <div style="width: 200px;height:200px;">
+                        <mediaitem-artwork
+                        :url="(data.attributes != null && data.attributes.artwork != null) ? data.attributes.artwork.url : (data.relationships.tracks.data.length > 0 ? data.relationships.tracks.data[0].attributes.artwork.url ?? '':'')"
+                        size="200"
+                    ></mediaitem-artwork>
+                    </div>
+                </div>
+                <div class="col playlist-info">
+                    <div class="playlist-name">{{data.attributes.name ?? (data.attributes.title ?? '') ?? ''}}</div>
+                    <div class="playlist-artist" v-if="data.attributes.artistName">{{data.attributes.artistName ??
+                        ''}}
+                    </div>
+                    <div class="playlist-desc"
+                         v-html="((data.attributes.editorialNotes) ? (data.attributes.editorialNotes.short ?? (data.attributes.editorialNotes.standard ?? '') ) : (data.attributes.description ? (data.attributes.description.short ?? (data.attributes.description.standard ?? '')) : ''))"></div>
+                </div>
+            </div>
+            <mediaitem-list-item :item="item"
+                                 v-for="item in data.relationships.tracks.data"></mediaitem-list-item>
+            <div class="playlist-time">{{app.getTotalTime()}}</div>
+        </template>
+
+    </div>
+</script>
+<script>
+    Vue.component('cider-playlist', {
+        template: "#cider-playlist",
+        props: ["data"]
+    })
+</script>

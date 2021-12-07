@@ -30,11 +30,6 @@ Vue.component('cider-listen-now', {
     props: ["data"]
 })
 
-Vue.component('cider-playlist', {
-    template: "#cider-playlist",
-    props: ["data"]
-})
-
 const MusicKitTools = {
     getHeader() {
         return new Headers({
@@ -55,6 +50,18 @@ function msToMinSec(ms) {
     var minutes = Math.floor(ms / 60000);
     var seconds = ((ms % 60000) / 1000).toFixed(0);
     return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+}
+
+class NavigationEvent {
+    constructor(page, onnavigate, scrollPosition) {
+        this.page = page;
+        this.onnavigate = onnavigate;
+        this.scrollPosition = scrollPosition;
+    }
+    navigate() {
+        this.onnavigate();
+        document.querySelector("#app-content").scrollTop = this.scrollPosition;
+    }
 }
 
 const app = new Vue({
@@ -116,7 +123,8 @@ const app = new Vue({
             drawerOpened: false,
             drawerState: "queue"
         },
-        page: "artist-page"
+        page: "artist-page",
+        pageHistory: [],
     },
     methods: {
         async init() {
@@ -242,6 +250,11 @@ const app = new Vue({
             app.getTypeFromID((kind),(id), (isLibrary));} else {
                 app.playMediaItemById((id),(kind), (isLibrary), item.attributes.url ?? '')
             }
+            document.querySelector("#app-content").scrollTop = 0
+        },
+        pushNavigationEvent(item){
+            let self = this
+            
         },
         getArtistInfo(id, isLibrary){
             var query = {"omit[resource]": "autos",

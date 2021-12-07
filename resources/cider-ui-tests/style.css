@@ -1845,7 +1845,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 }
 .playlist-display .playlist-info .playlist-desc {
     box-sizing: border-box;
-    font-size: 1.1rem;
+    font-size: 1em;
     flex-shrink: unset;
     margin-right: 5px;
 }
