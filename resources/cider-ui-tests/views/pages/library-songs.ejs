@@ -1,0 +1,17 @@
+<template v-if="page == 'library-songs'">
+    <div class="content-inner">
+        <h1 class="header-text">Songs</h1>
+        <div class="search-input-container" style="width:100%;margin: 16px 0px;">
+            <div class="search-input--icon"></div>
+            <input type="search"
+                   style="width:100%;"
+                   spellcheck="false"
+                   placeholder="Search..."
+                   @input="searchLibrarySongs"
+                   v-model="library.songs.search" class="search-input">
+        </div>
+        <div v-if="library.songs.downloadState == 3">Library contains no songs.</div>
+        <mediaitem-list-item :item="item"
+                             v-for="item in library.songs.displayListing"></mediaitem-list-item>
+    </div>
+</template>

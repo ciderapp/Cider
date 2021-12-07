@@ -82,7 +82,7 @@ const app = new Vue({
                 meta: {total: 0, progress: 0},
                 search: "",
                 displayListing: [],
-                downloadState: 0 // 0 = not started, 1 = in progress, 2 = complete
+                downloadState: 0 // 0 = not started, 1 = in progress, 2 = complete, 3 = empty library
             },
             albums: {
                 listing: [],
@@ -323,6 +323,10 @@ const app = new Vue({
                 library = library.concat(downloaded.data)
                 self.library.songs.meta.total = downloaded.meta.total
                 self.library.songs.meta.progress = library.length
+                if(downloaded.meta.total == 0) {
+                    self.library.songs.downloadState = 3
+                    return
+                }
                 if(typeof downloaded.next == "undefined") {
                     console.log("downloaded.next is undefined")
                     self.library.songs.listing = library
