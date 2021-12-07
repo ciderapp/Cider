@@ -830,26 +830,23 @@ const app = new Vue({
 
 document.addEventListener('musickitloaded', function () {
     // MusicKit global is now defined
-    fetch("https://beta.music.apple.com/", {mode: "no-cors"})
-        .then(response => response.text())
-        .then(data => {
-            var el = document.createElement("html");
-            el.innerHTML = data;
-            var u = el.querySelector(`[name="desktop-music-app/config/environment"]`)
-            var amwebCFG = JSON.parse(decodeURIComponent(u.getAttribute("content")));
-            console.log(amwebCFG.MEDIA_API.token)
-            MusicKit.configure({
-                developerToken: amwebCFG.MEDIA_API.token,
-                app: {
-                    name: 'My Cool Web App',
-                    build: '1978.4.1'
-                }
-            });
-            setTimeout(() => {
-                app.init()
-            }, 1000)
+    function initMusicKit () {
+        let parsedJson = JSON.parse(this.responseText)
+        MusicKit.configure({
+            developerToken: parsedJson.Key,
+            app: {
+                name: 'My Cool Web App',
+                build: '1978.4.1'
+            }
         });
-
+        setTimeout(() => {
+            app.init()
+        }, 1000)
+    }
+    const request = new XMLHttpRequest();
+    request.addEventListener("load", initMusicKit);
+    request.open("GET", "https://devkey.cider.sh/");
+    request.send();
 });
 
 function xmlToJson(xml) {

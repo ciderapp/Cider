@@ -6,3 +6,4 @@ package-lock.json
 .DS_Store
 yarn-error.log
 .yarnclean
+auth.json

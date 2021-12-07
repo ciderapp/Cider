@@ -4,7 +4,6 @@ const {app} = require('electron');
 // Creating the Application Window and Calling all the Functions
 function CreateWindow() {
     if (app.isQuiting) { app.quit(); return; }
-
     /** CIDER **/
     const ciderwin = require("./resources/functions/cider-base")
     app.win = ciderwin
@@ -19,7 +18,6 @@ function CreateWindow() {
 
 app.on('ready', () => {
     if (app.isQuiting) { app.quit(); return; }
-    
     console.log('[Cider] Application is Ready. Creating Window.')
     CreateWindow()
 });
