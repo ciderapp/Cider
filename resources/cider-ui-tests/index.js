@@ -1036,7 +1036,7 @@ document.addEventListener('musickitloaded', function () {
     }
     const request = new XMLHttpRequest();
     request.addEventListener("load", initMusicKit);
-    request.open("GET", "https://devkey.cider.sh/");
+    request.open("GET", "https://api.cider.sh/");
     request.send();
 });
 
