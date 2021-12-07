@@ -821,7 +821,7 @@ const app = new Vue({
                     break;
             }
         },
-        searchQuery() {
+        async searchQuery() {
             let self = this
             this.mk.api.search(this.search.term,
                 {
@@ -844,6 +844,27 @@ const app = new Vue({
                 self.search.results = results
             })
         },
+        isInLibrary() {
+            // ugly code to check if current playback item is in library
+            var found = this.library.songs.listing.filter((item)=>{
+                var playingNow = "";
+                if(this.mk.nowPlayingItem["attributes"]){
+                    if(this.mk.nowPlayingItem["attributes"]["playParams"] && this.mk.nowPlayingItem["attributes"]["playParams"]["catalogId"]){
+                        playingNow = this.mk.nowPlayingItem["attributes"]["playParams"]["catalogId"];
+                    }
+                }
+                if(item["attributes"]){
+                    if(item["attributes"]["playParams"] && item["attributes"]["playParams"]["catalogId"] == playingNow){
+                        return item;
+                    }
+                }
+            })
+            if(found.length != 0) {
+                return true
+            }else{
+                return false
+            }
+        },
         mkReady() {
             if (this.mk["nowPlayingItem"]) {
                 return true
@@ -852,7 +873,7 @@ const app = new Vue({
             }
         },
         getMediaItemArtwork(url, size = 64) {
-            return `${url.replace('{w}', size).replace('{h}', size).replace('{f}', "webp").replace('.jpg', ".webp").replace('{c}', "cc")}`;
+            return `${url.replace('{w}', size).replace('{h}', size).replace('{f}', "webp").replace('{c}', "cc")}`;
         },
         getNowPlayingArtworkBG(size = 600) {
             if (!this.mkReady()) {
