@@ -129,6 +129,12 @@ const app = new Vue({
             // Set profile name
             this.chrome.userinfo = await this.mkapi("personalSocialProfile", false, "")
 
+            // load cached library
+            if(localStorage.getItem("librarySongs") != null) {
+                this.library.songs.listing = JSON.parse(localStorage.getItem("librarySongs"))
+                this.library.songs.displayListing = this.library.songs.listing
+            }
+
             MusicKit.getInstance().videoContainerElement = document.getElementById("apple-music-video-player")
             
             this.mk.addEventListener(MusicKit.Events.playbackTimeDidChange, (a) => {
@@ -792,14 +798,19 @@ const app = new Vue({
         playMediaItemById(id, kind, isLibrary, raurl = "") {
             var truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
             console.log(id, truekind, isLibrary)
-            if (truekind == "radioStations") {
-                this.mk.setStationQueue({url: raurl}).then(function (queue) {
-                    MusicKit.getInstance().play()
-                });
-            } else {
-                this.mk.setQueue({[truekind]: [id]}).then(function (queue) {
-                    MusicKit.getInstance().play()
-                })
+            try {
+                if (truekind == "radioStations") {
+                    this.mk.setStationQueue({url: raurl}).then(function (queue) {
+                        MusicKit.getInstance().play()
+                    });
+                } else {
+                    this.mk.setQueue({[truekind]: [id]}).then(function (queue) {
+                        MusicKit.getInstance().play()
+                    })
+                }
+            }catch(err){
+                console.log(err)
+                this.playMediaItemById(id, kind, isLibrary, raurl)
             }
         },
         friendlyTypes(type) {
@@ -872,17 +883,12 @@ const app = new Vue({
                 self.search.results = results
             })
         },
-        isInLibrary() {
+        isInLibrary(id) {
+            let self = this
             // ugly code to check if current playback item is in library
             var found = this.library.songs.listing.filter((item)=>{
-                var playingNow = "";
-                if(this.mk.nowPlayingItem["attributes"]){
-                    if(this.mk.nowPlayingItem["attributes"]["playParams"] && this.mk.nowPlayingItem["attributes"]["playParams"]["catalogId"]){
-                        playingNow = this.mk.nowPlayingItem["attributes"]["playParams"]["catalogId"];
-                    }
-                }
                 if(item["attributes"]){
-                    if(item["attributes"]["playParams"] && item["attributes"]["playParams"]["catalogId"] == playingNow){
+                    if(item["attributes"]["playParams"] && (item["attributes"]["playParams"]["catalogId"] == id)){
                         return item;
                     }
                 }

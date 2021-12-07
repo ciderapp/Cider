@@ -120,6 +120,7 @@ body[loading] {
     opacity: 0.70;
     transition: opacity .25s var(--appleEase);
     pointer-events: none;
+    transform: translateZ(0px);
 }
 
 
