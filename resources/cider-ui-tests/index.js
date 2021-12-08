@@ -294,30 +294,6 @@ const app = new Vue({
             }
             return hash;
         },
-        playAnimatedArtwork(url) {
-            if (Hls.isSupported()) {
-                var video = document.querySelector(`[vid="${app.hashCode(url)}"] > video`)
-                console.log('supported');
-                var hls = new Hls();
-                // bind them together
-                if (video) {
-                    hls.attachMedia(video);
-                    hls.on(Hls.Events.MEDIA_ATTACHED, function () {
-                        console.log('video and hls.js are now bound together !');
-                        hls.loadSource(url);
-                        hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
-                            video.play();
-                            return "";
-                        });
-                    });
-                } else {
-                    console.log("hso");
-                    return "";
-                }
-            } else {
-                return "";
-            }
-        },
         routeView(item) {
             let self = this
             app.showingPlaylist = [];
