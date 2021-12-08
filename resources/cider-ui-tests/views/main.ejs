@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="style.css?v=2">
     <script src="vue.js"></script>
     <script src="sortable.min.js"></script>
+    <script src="vue-observe-visibility.min.js"></script>
     <script src="vuedraggable.umd.min.js"></script>
     <link rel="manifest" href="./manifest.json?v=2">
 </head>
@@ -142,7 +143,7 @@
                         </div>
                         <button class="app-sidebar-item" v-for="item in playlists.listing" :key="item.id"
                             :href="item.href"
-                            @click='app.page=`playlist_` + item.id ; showingPlaylist = [];getPlaylistFromID(app.page.substring(9))'>
+                            @click='page=`playlist_` + item.id ; showingPlaylist = [];getPlaylistFromID(app.page.substring(9))'>
                             {{ item.attributes.name }}
                         </button>
                     </div>
@@ -341,7 +342,7 @@
                             fill-rule="nonzero" />
                     </svg>
                 </div>
-                <div id="captions">{{(app.lyricon) ? ((app.lyrics.length > 0 ) ? app.lyrics[app.currentLyricsLine].line.replace('lrcInstrumental','') : "") : ''}}</div>
+                <div id="captions">{{(lyricon) ? ((lyrics.length > 0 ) ? lyrics[currentLyricsLine].line.replace('lrcInstrumental','') : "") : ''}}</div>
                 <div id="player-pip" @click="document.querySelector('video').requestPictureInPicture()"
                     title="Picture-in-Picture">
                     <%- include("svg/fullscreen.svg") %>

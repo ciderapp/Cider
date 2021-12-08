@@ -6,10 +6,11 @@
         </div>
     </template>
     <template v-else>
-        <div class="mediaitem-artwork">
-            <img :src="app.getMediaItemArtwork(url, size)"
+        <div class="mediaitem-artwork"
+             v-observe-visibility="{callback: visibilityChanged}">
+            <img :src="app.getMediaItemArtwork(url, size)" v-if="isVisible"
                  class="mediaitem-artwork--img">
-            <div v-if="video" class="animatedartwork-view-box">            
+            <div v-if="video && isVisible" class="animatedartwork-view-box">
                 <animatedartwork-view  :video="video"></animatedartwork-view>   
             </div>  
         </div>
@@ -20,12 +21,20 @@
     Vue.component('mediaitem-artwork', {
         template: '#mediaitem-artwork',
         props: ['size', 'url', 'type', 'video'],
+        data: function () {
+            return {
+                isVisible: false
+            }
+        },
         methods: {
             getArtworkStyle() {
                 return {
                     width: this.size + 'px',
                     height: this.size + 'px'
                 };
+            },
+            visibilityChanged: function (isVisible, entry) {
+                this.isVisible = isVisible
             }
         }
     });
