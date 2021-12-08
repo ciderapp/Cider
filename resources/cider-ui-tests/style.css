@@ -1665,6 +1665,11 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     text-align: center;
 }
 
+.cd-mediaitem-list-item .metainfo {
+    min-width: 145px;
+    text-align: center;
+}
+
 .cd-mediaitem-list-item .content-rating {
     text-transform: uppercase;
     font-size: 10px;
