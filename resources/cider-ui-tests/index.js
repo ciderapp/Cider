@@ -127,6 +127,8 @@ const app = new Vue({
         },
         mxmtoken: "",
         lyricon: false,
+        currentTrackID: '',
+        currentTrackIDBG: '',
         lyrics: [],
         currentLyricsLine: 0,
         lyriccurrenttime: 0,
@@ -250,6 +252,8 @@ const app = new Vue({
                 }
                 self.chrome.artworkReady = false
                 self.lyrics = []
+                app.getNowPlayingArtwork(42);
+                app.getNowPlayingArtworkBG(32);
                 app.loadLyrics()
             })
 
@@ -700,10 +704,11 @@ const app = new Vue({
             downloadChunk()
         },
         getTotalTime() {
+            try{
             if (app.showingPlaylist.relationships.tracks.data.length > 0) {
                 time = Math.round([].concat(...app.showingPlaylist.relationships.tracks.data).reduce((a, {attributes: {durationInMillis}}) => a + durationInMillis, 0) / 60000);
                 return app.showingPlaylist.relationships.tracks.data.length + " tracks, " + time + " mins.";
-            } else return ""
+            } else return ""} catch(err){return ""}
         },
         async getLibrarySongs() {
             var response = await this.mkapi("songs", true, "", {limit: 100}, {includeResponseMeta: !0})
@@ -1221,52 +1226,58 @@ const app = new Vue({
                 return ""
             }
             try {
+                if (this.mk.nowPlayingItem && this.mk.nowPlayingItem.id != this.currentTrackID) {
+                    this.currentTrackID = this.mk.nowPlayingItem.id;
+                    document.querySelector('.bg-artwork').style.setProperty('--artwork', '');
                 if (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"]) {
-                    return `${this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"].replace('{w}', size).replace('{h}', size)}`;
+                    document.querySelector('.bg-artwork').style.setProperty('--artwork',`url("${this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"].replace('{w}', size).replace('{h}', size)}")`);
+                } else {  
+                this.setLibraryArtBG()}}
+
+                
+            } catch (e) { 
+                this.setLibraryArtBG()}
+        },
+        getNowPlayingArtwork(size = 600) {    
+            try {
+                if (this.mk.nowPlayingItem && this.mk.nowPlayingItem.id != this.currentTrackIDBG) {
+                    this.currentTrackIDBG = this.mk.nowPlayingItem.id;
+                    document.querySelector('.app-playback-controls .artwork').src = "";
+                if (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"]) {
+                    document.querySelector('.app-playback-controls .artwork').src = this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"].replace('{w}', size).replace('{h}', size);
+                } else {  
+                this.setLibraryArt()}}
+
+                
+            } catch (e) { 
+                this.setLibraryArt()
+              
+            }
+
+
+            
+        },
+        
+        async setLibraryArt() {
+            const data = await this.mk.api.library.song(this.mk.nowPlayingItem.id)
+            try {
+                if (data != null && data !== "") {
+                    document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', 'url("' + (data["attributes"]["artwork"]["url"]).toString() + '")');
                 } else {
-                    return "";
+                    document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url(https://beta.music.apple.com/assets/product/MissingArtworkMusic.svg`);
                 }
             } catch (e) {
-                return ""
-                // Does not work
-                // this.mk.api.library.song(this.mk.nowPlayingItem.id).then((data) => {
-                //     try {
-                //         if (data != null && data !== "") {
-                //             //document.getElementsByClassName("bg-artwork")[0].setAttribute('src', `${data["attributes"]["artwork"]["url"]}`)
-                //             return  `${data["attributes"]["artwork"]["url"]}`;
-                //         } else {
-                //             return "https://beta.music.apple.com/assets/product/MissingArtworkMusic.svg";
-                //         }
-                //     } catch (e) {
-                //         return "https://beta.music.apple.com/assets/product/MissingArtworkMusic.svg";
-                //     }
-
-                // });
+                document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url(https://beta.music.apple.com/assets/product/MissingArtworkMusic.svg`);
             }
         },
-        getNowPlayingArtwork(size = 600) {
+        async setLibraryArtBG() {
+            const data = await this.mk.api.library.song(this.mk.nowPlayingItem.id)
             try {
-                if (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"]) {
-                    return `url(${this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"].replace('{w}', size).replace('{h}', size)})`;
-                } else {
-                    return "";
-                }
-            } catch (e) {
-                return ""
-                // Does not work
-                // this.mk.api.library.song(this.mk.nowPlayingItem.id).then((data) => {
-                //     try {
-                //         if (data != null && data !== "") {
-                //             return  `url(${data["attributes"]["artwork"]["url"]})`;
-                //         } else {
-                //             return "url(https://beta.music.apple.com/assets/product/MissingArtworkMusic.svg)";
-                //         }
-                //     } catch (e) {
-                //         return "url(https://beta.music.apple.com/assets/product/MissingArtworkMusic.svg)";
-                //     }
-
-                // });
-            }
+                if (data != null && data !== "") {
+                    document.querySelector('.bg-artwork').src = (data["attributes"]["artwork"]["url"]).toString() ;
+                } 
+            } catch (e) {}
+            
         },
         quickPlay(query) {
             let self = this

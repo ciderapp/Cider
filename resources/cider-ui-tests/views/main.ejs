@@ -61,7 +61,7 @@
                     <div class="app-chrome-item playback-controls">
                         <template v-if="mkReady()">
                             <div class="app-playback-controls">
-                                <div class="artwork" :style="{'--artwork': getNowPlayingArtwork(42)}"></div>
+                                <div class="artwork" ></div>
                                 <div class="playback-info">
                                     <div class="song-name">
                                         {{ mk.nowPlayingItem["attributes"]["name"] }}
@@ -320,7 +320,7 @@
         </div>
         <transition name="wpfade">
             <img v-show="chrome.artworkReady" @load="chrome.artworkReady = true" class="bg-artwork"
-                :src="getNowPlayingArtworkBG(32)">
+                >
         </transition>
         <transition name="wpfade">
             <div class="bg-artwork--placeholder" v-else></div>
