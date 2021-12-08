@@ -61,7 +61,7 @@
                     <div class="app-chrome-item playback-controls">
                         <template v-if="mkReady()">
                             <div class="app-playback-controls">
-                                <div class="artwork" :style="{'--artwork': getNowPlayingArtwork(42)}"></div>
+                                <div class="artwork" ></div>
                                 <div class="playback-info">
                                     <div class="song-name">
                                         {{ mk.nowPlayingItem["attributes"]["name"] }}
@@ -168,7 +168,7 @@
                         </div>
                     </transition>
                     <div class="app-sidebar-footer">
-                        <input type="range" class="display--small" step="0.01" min="0" max="1" v-model="mk.volume"
+                        <input type="range" class="web-slider display--small" step="0.01" min="0" max="1" v-model="mk.volume"
                         v-if="typeof mk.volume != 'undefined'">
                         <button class="app-sidebar-button" style="width:100%"
                             @click="chrome.menuOpened = !chrome.menuOpened">
@@ -320,7 +320,7 @@
         </div>
         <transition name="wpfade">
             <img v-show="chrome.artworkReady" @load="chrome.artworkReady = true" class="bg-artwork"
-                :src="getNowPlayingArtworkBG(32)">
+                >
         </transition>
         <transition name="wpfade">
             <div class="bg-artwork--placeholder" v-else></div>
@@ -430,9 +430,9 @@
     <!-- Lyrics View -->
     <script type="text/x-template" id="lyrics-view">
         <div class="md-body lyric-body">
-        <template v-if="lyrics">
+        <template v-if="lyrics && lyrics != []">
             <template v-for="(lyric, index) in lyrics" v-if="lyric.line != 'lrcInstrumental'">
-                <h3 class="lyric-line" @click="app.seekTo(lyric.startTime, false)"
+                <h3 class="lyric-line" @click="if(lyric.startTime != 9999999) app.seekTo(lyric.startTime, false)"
                 v-bind:line-index="index.toString()">
                     {{ lyric.line }}
                     <div class="lyrics-translation" v-if="lyric.translation && lyric.translation != ''">
@@ -441,7 +441,7 @@
                 </h3>
             </template>
             <template v-else>
-                <h3 class="lyric-line" @click="app.seekTo(lyric.startTime, false)" :start="lyric.startTime"
+                <h3 class="lyric-line" @click="if(lyric.startTime != 9999999) app.seekTo(lyric.startTime, false)" :start="lyric.startTime"
                     :end="lyric.endTime" v-bind:line-index="index.toString()">
                     <div class="lyricWaiting">
                         <div class='WaitingDot1'></div>
