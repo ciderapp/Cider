@@ -1358,6 +1358,28 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 
 /* Cider */
 
+.reload-btn {
+    background: rgb(86 86 86 / 52%);
+    border-radius: 100%;
+    width: 32px;
+    height: 32px;
+    border: 0px;
+    appearance: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reload-btn:hover {
+    background: rgb(86 86 86 / 80%);
+    cursor: pointer;
+}
+
+.reload-btn>svg {
+    height: 50%;
+    color: #eee;
+}
+
 .wr-btn {
     font-family: inherit;
     appearance: none;

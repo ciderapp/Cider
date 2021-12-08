@@ -1,6 +1,13 @@
 <template v-if="page == 'library-songs'">
     <div class="content-inner">
-        <h1 class="header-text">Songs</h1>
+        <div class="row">
+            <div class="col" style="padding:0px;">
+                <h1 class="header-text">Songs</h1>
+            </div>
+            <div class="col-auto">
+                <button v-if="library.songs.downloadState == 2" @click="getLibrarySongsFull(true)" class="reload-btn"><%- include('../svg/redo.svg') %></button>
+            </div>
+        </div>
         <div class="row">
             <div class="col" style="padding:0px;">
                 <div class="search-input-container" style="width:100%;margin: 16px 0px;">
