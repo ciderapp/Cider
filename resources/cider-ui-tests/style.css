@@ -76,8 +76,10 @@ body[loading] {
 }
 
 #app {
-    --color1: rgb(30, 30, 31, 20%);
-    --color2: rgba(17, 17, 17, 24%);
+    --color1: rgb(30, 30, 30, 30%);
+    --color2: rgba(15, 15, 15, 70%);
+    /* --color1: rgb(30, 30, 31, 20%);
+    --color2: rgba(17, 17, 17, 24%); */
     --chromeHeight: 55px;
     width: 100%;
     height: 100%;
@@ -117,8 +119,10 @@ body[loading] {
     z-index: -1;
     object-fit: cover;
     object-position: center;
-    filter: blur(60px) saturate(180%);
-    opacity: 0.70;
+    /* filter: blur(60px) saturate(180%);
+    opacity: 0.70; */
+    filter: blur(180px) saturate(280%);
+    opacity: 0.60;
     transition: opacity .25s var(--appleEase);
     pointer-events: none;
     transform: translateZ(0px);
@@ -1615,7 +1619,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 .cd-mediaitem-list-item {
     width: 100%;
     height: 60px;
-    display: inline-flex;
+    display: flex;
     flex: 0 0 auto;
     flex-direction: row;
     font-size: 14px;
