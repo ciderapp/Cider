@@ -95,6 +95,9 @@ await app.mk.api.library.songs("", {limit: 100}, {includeResponseMeta: !0}).then
     console.log(data)
 })
 
+// Artist View Top Songs
+app.mk.api.artistView("325096253", "top-songs", {}, {view: "top-songs", includeResponseMeta: !0})
+
 // Artist Page Data
 app.mkapi("artists", false, "412778295", {
 	"views": "featured-release,full-albums,appears-on-albums,featured-albums,featured-on-albums,singles,compilation-albums,live-albums,latest-release,top-music-videos,similar-artists,top-songs,playlists,more-to-hear,more-to-see",
