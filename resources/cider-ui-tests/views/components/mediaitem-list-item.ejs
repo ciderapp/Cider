@@ -1,12 +1,10 @@
 <script type="text/x-template" id="mediaitem-list-item">
     <template>
-        <div
-            @click="app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)"
-            v-observe-visibility="{callback: visibilityChanged}"
-            class="cd-mediaitem-list-item">
+        <div v-observe-visibility="{callback: visibilityChanged}"
+             class="cd-mediaitem-list-item">
             <template v-if="isVisible">
                 <div class="isLibrary" v-if="showLibraryStatus == true">
-                    <button v-if="!app.isInLibrary(item.attributes.playParams)">🖤</button>
+                    <button @click="addToLibrary()" v-if="!app.isInLibrary(item.attributes.playParams) && !addedToLibrary">🖤</button>
                     <button v-else>❤️</button>
                 </div>
                 <div class="artwork" v-if="showArtwork == true">
@@ -15,7 +13,7 @@
                             size="34"
                             :type="item.type"></mediaitem-artwork>
                 </div>
-                <div class="info-rect" :style="{'padding-left': (showArtwork ? '' : '16px')}">
+                <div class="info-rect" :style="{'padding-left': (showArtwork ? '' : '16px')}" @click="playTrack()">
                     <div class="title text-overflow-elipsis">
                         {{ item.attributes.name }}
                     </div>
@@ -28,18 +26,19 @@
                         </template>
                     </div>
                 </div>
-                <div class="content-rating" v-if="item.attributes.contentRating">
+                <div class="content-rating" v-if="item.attributes.contentRating" @click="playTrack()">
                     {{ item.attributes.contentRating }}
                 </div>
-                <template v-if="showMetaData == true">
+                <template v-if="showMetaData == true" @click="playTrack()">
                     <div class="metainfo">
-                        {{ item.attributes.releaseDate ? new Date(item.attributes.releaseDate).toLocaleDateString() : "" }}
+                        {{ item.attributes.releaseDate ? new Date(item.attributes.releaseDate).toLocaleDateString()
+                        : "" }}
                     </div>
                     <div class="metainfo">
                         {{ item.attributes.genreNames[0] ?? "" }}
                     </div>
                 </template>
-                <div class="duration" v-if="showDuration">
+                <div class="duration" v-if="showDuration" @click="playTrack()">
                     {{ msToMinSec(item.attributes.durationInMillis ?? 0) }}
                 </div>
             </template>
@@ -52,7 +51,8 @@
         template: '#mediaitem-list-item',
         data: function () {
             return {
-                isVisible: false
+                isVisible: false,
+                addedToLibrary: false
             }
         },
         props: {
@@ -65,6 +65,22 @@
         methods: {
             visibilityChanged: function (isVisible, entry) {
                 this.isVisible = isVisible
+            },
+            addToLibrary() {
+                let item = this.item
+                if(item.attributes.playParams.id) {
+                    console.log('adding to library', item.attributes.playParams.id)
+                    app.addToLibrary(item.attributes.playParams.id.toString())
+                    this.addedToLibrary = true
+                }else if(item.id) {
+                    console.log('adding to library', item.id)
+                    app.addToLibrary(item.id.toString())
+                    this.addedToLibrary = true
+                }
+            },
+            playTrack() {
+                let item = this.item
+                app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)
             }
         }
     });

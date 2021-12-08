@@ -606,7 +606,10 @@ const app = new Vue({
             let self = this
             let library = []
             let downloaded = null;
-            if ((this.library.songs.downloadState == 2 || this.library.songs.downloadState == 1) && !force) {
+            if ((this.library.songs.downloadState == 2) && !force) {
+                return
+            }
+            if(this.library.songs.downloadState == 1) {
                 return
             }
             if (localStorage.getItem("librarySongs") != null) {
@@ -823,6 +826,12 @@ const app = new Vue({
                         this.parseTTML()
                     })
             }
+        },
+        addToLibrary(id) {
+            let self = this
+            this.mk.addToLibrary(id).then((data)=>{
+                self.getLibrarySongsFull(true)
+            })
         },
         loadMXM() {
             let attempt = 0;
