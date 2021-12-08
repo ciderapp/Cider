@@ -14,17 +14,23 @@
                 </div>
             </div>
             <div class="col-auto flex-center">
-                <select class="md-select" v-model="library.songs.sorting" @change="searchLibrarySongs()">
-                    <optgroup label="Sort By">
-                        <option v-for="(sort, index) in library.sortingOptions" :value="index">{{ sort }}</option>
-                    </optgroup>
-                </select>
-                <select class="md-select" v-model="library.songs.sortOrder" @change="searchLibrarySongs()">
-                    <optgroup label="Sort Order">
-                        <option value="asc">Ascending</option>
-                        <option value="desc">Descending</option>
-                    </optgroup>
-                </select>
+                <div class="row">
+                    <div class="col">
+                        <select class="md-select" v-model="library.songs.sorting" @change="searchLibrarySongs()">
+                            <optgroup label="Sort By">
+                                <option v-for="(sort, index) in library.songs.sortingOptions" :value="index">{{ sort }}</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <select class="md-select" v-model="library.songs.sortOrder" @change="searchLibrarySongs()">
+                            <optgroup label="Sort Order">
+                                <option value="asc">Ascending</option>
+                                <option value="desc">Descending</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
             </div>
         </div>
         <div v-if="library.songs.downloadState == 3">Library contains no songs.</div>

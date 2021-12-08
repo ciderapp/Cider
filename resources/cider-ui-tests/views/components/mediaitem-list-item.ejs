@@ -1,6 +1,6 @@
 <script type="text/x-template" id="mediaitem-list-item">
     <template>
-        <div 
+        <div
             @click="app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)"
             v-observe-visibility="{callback: visibilityChanged}"
             class="cd-mediaitem-list-item">
@@ -39,7 +39,7 @@
                         {{ item.attributes.genreNames[0] ?? "" }}
                     </div>
                 </template>
-                <div class="duration">
+                <div class="duration" v-if="showDuration">
                     {{ msToMinSec(item.attributes.durationInMillis ?? 0) }}
                 </div>
             </template>
@@ -59,7 +59,8 @@
             'item': {type: Object, required: true},
             'show-artwork': {type: Boolean, default: true},
             'show-library-status': {type: Boolean, default: true},
-            'show-meta-data': {type: Boolean, default: false}
+            'show-meta-data': {type: Boolean, default: false},
+            'show-duration': {type: Boolean, default: true}
         },
         methods: {
             visibilityChanged: function (isVisible, entry) {

@@ -125,6 +125,8 @@ input[type=range].md-slider::-webkit-slider-runnable-track {
     border-radius: 4px;
     border: 1px solid rgb(100 100 100 / 35%);
     box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.3), 0px 1px 1px rgba(0, 0, 0, 0.4);
+    background: #363636;
+    color: #eee;
 }
 
 .md-select:focus {

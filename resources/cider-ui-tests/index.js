@@ -82,15 +82,15 @@ const app = new Vue({
             topSongsExpanded: false
         },
         library: {
-            sortingOptions: {
-                "albumName": "Album",
-                "artistName": "Artist",
-                "name": "Name",
-                "genre": "Genre",
-                "releaseDate": "Release Date",
-                "durationInMillis": "Duration"
-            },
             songs: {
+                sortingOptions: {
+                    "albumName": "Album",
+                    "artistName": "Artist",
+                    "name": "Name",
+                    "genre": "Genre",
+                    "releaseDate": "Release Date",
+                    "durationInMillis": "Duration"
+                },
                 sorting: "name",
                 sortOrder: "asc",
                 listing: [],
@@ -100,8 +100,20 @@ const app = new Vue({
                 downloadState: 0 // 0 = not started, 1 = in progress, 2 = complete, 3 = empty library
             },
             albums: {
+                sortingOptions: {
+                    "artistName": "Artist",
+                    "name": "Name",
+                    "genre": "Genre",
+                    "releaseDate": "Release Date"
+                },
+                viewAs: 'covers',
+                sorting: "name",
+                sortOrder: "asc",
                 listing: [],
-                meta: {total: 0}
+                meta: {total: 0, progress: 0},
+                search: "",
+                displayListing: [],
+                downloadState: 0 // 0 = not started, 1 = in progress, 2 = complete, 3 = empty library
             },
         },
         playlists: {
@@ -147,6 +159,10 @@ const app = new Vue({
             if (localStorage.getItem("librarySongs") != null) {
                 this.library.songs.listing = JSON.parse(localStorage.getItem("librarySongs"))
                 this.library.songs.displayListing = this.library.songs.listing
+            }
+            if (localStorage.getItem("libraryAlbums") != null) {
+                this.library.albums.listing = JSON.parse(localStorage.getItem("libraryAlbums"))
+                this.library.albums.displayListing = this.library.albums.listing
             }
 
             MusicKit.getInstance().videoContainerElement = document.getElementById("apple-music-video-player")
@@ -362,7 +378,6 @@ const app = new Vue({
             app.playMediaItemById((id), (kind), (isLibrary), item.attributes.url ?? '')
         },
         async getTypeFromID(kind, id, isLibrary = false, params = {}) {
-
             var a;
             try {
                 a = await this.mkapi(kind.toString(), isLibrary, id.toString(), params);
@@ -448,6 +463,71 @@ const app = new Vue({
                 sortSongs()
             }
         },
+        // make a copy of searchLibrarySongs except use Albums instead of Songs
+        searchLibraryAlbums() {
+            let self = this
+            function sortAlbums() {
+                if (self.library.albums.sortOrder == "asc") {
+                    // sort this.library.albums.displayListing by album.attributes[self.library.albums.sorting] in ascending order based on alphabetical order and numeric order
+                    // check if album.attributes[self.library.albums.sorting] is a number and if so, sort by number if not, sort by alphabetical order ignoring case
+                    self.library.albums.displayListing.sort((a, b) => {
+                        let aa = null;
+                        let bb = null;
+                        if (self.library.albums.sorting == "genre") {
+                            aa = a.attributes.genreNames[0]
+                            bb = b.attributes.genreNames[0]
+                        }
+                        aa = a.attributes[self.library.albums.sorting]
+                        bb = b.attributes[self.library.albums.sorting]
+                        if (aa == null) {
+                            aa = ""
+                        }
+                        if (bb == null) {
+                            bb = ""
+                        }
+                        if (aa.toString().match(/^\d+$/) && bb.toString().match(/^\d+$/)) {
+                            return aa - bb
+                        } else {
+                            return aa.toString().toLowerCase().localeCompare(bb.toString().toLowerCase())
+                        }
+                    })
+                }
+                if (self.library.albums.sortOrder == "desc") {
+                    // sort this.library.albums.displayListing by album.attributes[self.library.albums.sorting] in descending order based on alphabetical order and numeric order
+                    // check if album.attributes[self.library.albums.sorting] is a number and if so, sort by number if not, sort by alphabetical order ignoring case
+                    self.library.albums.displayListing.sort((a, b) => {
+                        if (self.library.albums.sorting == "genre") {
+                            aa = a.attributes.genreNames[0]
+                            bb = b.attributes.genreNames[0]
+                        }
+                        let aa = a.attributes[self.library.albums.sorting]
+                        let bb = b.attributes[self.library.albums.sorting]
+                        if (aa == null) {
+                            aa = ""
+                        }
+                        if (bb == null) {
+                            bb = ""
+                        }
+                        if (aa.toString().match(/^\d+$/) && bb.toString().match(/^\d+$/)) {
+                            return bb - aa
+                        } else {
+                            return bb.toString().toLowerCase().localeCompare(aa.toString().toLowerCase())
+                        }
+                    })
+                }
+            }
+            if (this.library.albums.search == "") {
+                this.library.albums.displayListing = this.library.albums.listing
+                sortAlbums()
+            } else {
+                this.library.albums.displayListing = this.library.albums.listing.filter(item => {
+                    if (item.attributes.name.toLowerCase().includes(this.library.albums.search.toLowerCase())) {
+                        return item
+                    }
+                })
+                sortAlbums()
+            }
+        },
         getSidebarItemClass(page) {
             if (this.page == page) {
                 return ["active"]
@@ -499,6 +579,7 @@ const app = new Vue({
             this.library.songs.downloadState = 1
 
             function downloadChunk() {
+                self.library.songs.downloadState = 1
                 if (downloaded == null) {
                     app.mk.api.library.songs("", {limit: 100}, {includeResponseMeta: !0}).then((response) => {
                         processChunk(response)
@@ -538,6 +619,70 @@ const app = new Vue({
                 }
             }
 
+            downloadChunk()
+        },
+        // copy the getLibrarySongsFull function except change Songs to Albums
+        async getLibraryAlbumsFull(force = false) {
+            let self = this
+            let library = []
+            let downloaded = null;
+            if ((this.library.albums.downloadState == 2 || this.library.albums.downloadState == 1) && !force) {
+                return
+            }
+            if (localStorage.getItem("libraryAlbums") != null) {
+                this.library.albums.listing = JSON.parse(localStorage.getItem("libraryAlbums"))
+                this.searchLibraryAlbums()
+            }
+            if (this.songstest) {
+                return
+            }
+            this.library.albums.downloadState = 1
+            this.library.songs.downloadState = 1
+
+            function downloadChunk() {
+                self.library.songs.downloadState = 1
+                if (downloaded == null) {
+                    app.mk.api.library.albums("", {limit: 100}, {includeResponseMeta: !0}).then((response) => {
+                        processChunk(response)
+                    })
+                } else {
+                    downloaded.next("", {limit: 100}, {includeResponseMeta: !0}).then((response) => {
+                        processChunk(response)
+                    })
+                }
+            }
+
+            function processChunk(response) {
+                downloaded = response
+                library = library.concat(downloaded.data)
+                self.library.songs.meta.total = downloaded.meta.total
+                self.library.songs.meta.progress = library.length
+                if (downloaded.meta.total == 0) {
+                    self.library.songs.downloadState = 3
+                    self.library.albums.downloadState = 3
+                    return
+                }
+                if (typeof downloaded.next == "undefined") {
+                    console.log("downloaded.next is undefined")
+                    self.library.albums.listing = library
+                    self.library.albums.downloadState = 2
+                    self.library.songs.downloadState = 2
+                    localStorage.setItem("libraryAlbums", JSON.stringify(library))
+                    self.searchLibraryAlbums()
+                }
+                if (downloaded.meta.total > library.length || typeof downloaded.meta.next != "undefined") {
+                    console.log(`downloading next chunk - ${library.length
+                    } albums so far`)
+                    downloadChunk()
+                } else {
+                    self.library.albums.listing = library
+                    self.library.albums.downloadState = 2
+                    self.library.songs.downloadState = 2
+                    localStorage.setItem("libraryAlbums", JSON.stringify(library))
+                    self.searchLibraryAlbums()
+                    console.log(library)
+                }
+            }
             downloadChunk()
         },
         getTotalTime() {

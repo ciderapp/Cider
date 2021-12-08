@@ -16,6 +16,8 @@ function CreateWindow() {
 * App Event Handlers
 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
+app.commandLine.appendSwitch('js-flags', '--max-old-space-size=1024')
+
 app.on('ready', () => {
     if (app.isQuiting) { app.quit(); return; }
     console.log('[Cider] Application is Ready. Creating Window.')
