@@ -83,7 +83,7 @@ const app = new Vue({
                 "albumName": "Album",
                 "artistName": "Artist",
                 "name": "Name",
-                "genre": "Genre",
+                "genreNames": "Genre",
                 "releaseDate": "Release Date",
                 "durationInMillis": "Duration"
             },
@@ -359,12 +359,14 @@ const app = new Vue({
                     // sort this.library.songs.displayListing by song.attributes[self.library.songs.sorting] in ascending order based on alphabetical order and numeric order
                     // check if song.attributes[self.library.songs.sorting] is a number and if so, sort by number if not, sort by alphabetical order ignoring case
                     self.library.songs.displayListing.sort((a, b) => {
+                        let aa = null;
+                        let bb = null;
                         if(self.library.songs.sorting == "genre") {
                             aa = a.attributes.genreNames[0]
                             bb = b.attributes.genreNames[0]
                         }
-                        let aa = a.attributes[self.library.songs.sorting]
-                        let bb = b.attributes[self.library.songs.sorting]
+                        aa = a.attributes[self.library.songs.sorting]
+                        bb = b.attributes[self.library.songs.sorting]
                         if (aa == null) {
                             aa = ""
                         }
@@ -382,12 +384,14 @@ const app = new Vue({
                     // sort this.library.songs.displayListing by song.attributes[self.library.songs.sorting] in descending order based on alphabetical order and numeric order
                     // check if song.attributes[self.library.songs.sorting] is a number and if so, sort by number if not, sort by alphabetical order ignoring case
                     self.library.songs.displayListing.sort((a, b) => {
-                        if(self.library.songs.sorting == "genre") {
+                        let aa = null;
+                        let bb = null;
+                        if(self.library.songs.sorting == "genreNames") {
                             aa = a.attributes.genreNames[0]
                             bb = b.attributes.genreNames[0]
                         }
-                        let aa = a.attributes[self.library.songs.sorting]
-                        let bb = b.attributes[self.library.songs.sorting]
+                        aa = a.attributes[self.library.songs.sorting]
+                        bb = b.attributes[self.library.songs.sorting]
                         if (aa == null) {
                             aa = ""
                         }
