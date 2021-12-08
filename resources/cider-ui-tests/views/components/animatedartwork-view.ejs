@@ -1,7 +1,7 @@
 <script type="text/x-template" id="animatedartwork-view">
     <template v-if="video">
         <div class="animated" v-bind:vid="app.hashCode(video).toString()">
-            <video class="animated-artwork-video" loop id="animated-artwork"></video>
+            <video ref="video" class="animated-artwork-video" loop id="animated-artwork"></video>
         </div>
     </template>
 </script>
@@ -9,13 +9,39 @@
 <script>
     Vue.component('animatedartwork-view', {
         template: '#animatedartwork-view',
-        props: ['video'],
+        props: ['video', 'hls'],
         mounted() {
             if (this.video) {
+
                 this.$nextTick(function () {
-                    app.playAnimatedArtwork(this.video);
+                    var config = {
+                        backBufferLength: 0,
+                        enableWebVTT: false,
+                        enableCEA708Captions: false,
+                        emeEnabled: false,
+                        abrEwmaDefaultEstimate: 10000,
+                        testBandwidth: false
+                    };
+                    if (this.hls) {
+                        console.log('detached');
+                        this.hls.detachMedia();
+                    } else {
+
+                        this.hls = new Hls(config);
+                    }
+                    // bind them together
+                    if (this.$refs.video) {
+                        this.hls.attachMedia(this.$refs.video);
+                        this.hls.loadSource(this.video);
+                        this.hls.loadLevel = 4;
+                    } 
                 })
             }
+        },
+        beforeDestroy() {
+            this.hls.detachMedia();
+            this.hls.destroy();
+            console.log('killed')
         }
     });
 </script>
