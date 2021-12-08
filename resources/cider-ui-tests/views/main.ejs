@@ -100,7 +100,7 @@
                     </div>
                     <div class="app-chrome-item generic">
                         <button class="playback-button--small lyrics"
-                            @click=" lyricon =!lyricon; if( document.getElementById(`apple-music-video-container`).style.display != `block`){drawertest = !drawertest}; "></button>
+                            @click=" lyricon =!lyricon; if( document.getElementById(`apple-music-video-container`).style.display != `block`){drawertest = !drawertest; if (drawertest) lyricon = true;}; "></button>
                     </div>
                     <div class="app-chrome-item full-height">
                         <div class="window-controls">
