@@ -5,6 +5,7 @@ const express = require("express");
 const path = require("path");
 const windowStateKeeper = require("electron-window-state");
 const request = require('request');
+const os = require('os');
 
 const CiderBase = {
 
@@ -109,6 +110,11 @@ const CiderBase = {
         }
         return win
     },
+    EnvironmentVariables: {
+        "env": {
+            platform: os.platform()
+        }
+    },
     async InitWebServer() {
         const webRemotePort = await getPort({port : 9000});
         const webapp = express();
@@ -119,7 +125,7 @@ const CiderBase = {
         webapp.use(express.static(webRemotePath));
         webapp.get('/', function (req, res) {
             //res.sendFile(path.join(webRemotePath, 'index_old.html'));
-            res.render("main")
+            res.render("main", CiderBase.EnvironmentVariables)
         });
         webapp.listen(webRemotePort, function () {
             console.log(`Web Remote listening on port ${webRemotePort}`);
