@@ -20,7 +20,7 @@
                     <div class="playlist-artist" v-if="data.attributes && data.attributes.artistName">{{data.attributes ? (data.attributes.artistName ?? '') :''}}
                     </div>
                     <div class="playlist-desc" v-if="data.attributes.editorialNotes">
-                        <div class="content" v-html="((data.attributes.editorialNotes) ? (data.attributes.editorialNotes.short ?? (data.attributes.editorialNotes.standard ?? '') ) : (data.attributes.description ? (data.attributes.description.short ?? (data.attributes.description.standard ?? '')) : ''))"></div>
+                        <div class="content" v-html="((data.attributes.editorialNotes) ? (data.attributes.editorialNotes.standard ?? (data.attributes.editorialNotes.short ?? '') ) : (data.attributes.description ? (data.attributes.description.standard ?? (data.attributes.description.short ?? '')) : ''))"></div>
                         <button class="more-btn">More</button>
                     </div>
                     <div class="playlist-controls">
