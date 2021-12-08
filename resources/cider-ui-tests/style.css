@@ -6,6 +6,7 @@
     --mediaItemShadow: inset 0px 0px 0px 1px rgb(200 200 200 / 16%);
     --mediaItemRadius: 4px;
     --mediaItemRadiusRound: 100%;
+    --contentInnerPadding: 16px;
     --navbarHeight: 48px;
     --keyColor: #fa586a;
     --keyColor-rgb: 250, 88, 106;
@@ -1364,6 +1365,93 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     color: white;
 }
 
+/* Album / Playlist Page */
+.playlist-page {
+    padding: 0px;
+}
+
+.playlist-page .well {
+    background: rgba(200, 200, 200, 0.05);
+    border-radius: 10px;
+    padding: var(--contentInnerPadding);
+    box-shadow: rgb(0 0 0 / 8%) 0px 0px 0px 1px;
+    margin-top: 16px;
+}
+
+.playlist-page .playlist-body {
+    padding: var(--contentInnerPadding);
+}
+
+.playlist-display {
+    flex-wrap: nowrap;
+    /* margin-bottom: 32px; */
+    padding: var(--contentInnerPadding);
+    min-height: 300px;
+}
+
+.playlist-display .playlist-info{
+    flex-shrink: unset;
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-end;
+}
+
+.playlist-display .playlist-info .playlist-name {
+    font-weight: 700;
+    font-size: 1.6rem;
+    margin-bottom: 6px;
+    margin-right: 6px;
+    flex-shrink: unset;
+
+}
+.playlist-display .playlist-info .playlist-artist {
+    font-weight: 500;
+    font-size: 1.6rem;
+    margin-bottom: 6px;
+    margin-right: 6px;
+    flex-shrink: unset;
+}
+.playlist-display .playlist-info .playlist-desc {
+    box-sizing: border-box;
+    font-size: 14px;
+    flex-shrink: unset;
+    margin-right: 5px;
+    max-height: 100px;
+    position: relative;
+}
+.playlist-display .playlist-info .playlist-desc .content {
+    height: 100px;
+    -webkit-mask-image: -webkit-gradient(linear, left 50%, left 90%, from(rgba(0, 0, 0, 1)), to(rgba(0, 0, 0, 0)));
+}
+
+.playlist-display .playlist-info .playlist-desc .more-btn {
+    appearance: none;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 0 5px;
+    font-size: 14px;
+    color: var(--keyColor);
+    background-color: transparent;
+    border: 0px;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    font-weight: 600;
+    font-family: inherit;
+    text-transform: uppercase;
+}
+
+.playlist-time {
+    font-size: 0.9em;
+    margin: 6px;
+    opacity: 0.7;
+}
+
 /* Artist Page */
 
 .artist-page {
@@ -1387,13 +1475,13 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 }
 
 .artist-page .artist-body {
-    padding: 16px;
+    padding: var(--contentInnerPadding);
 }
 
 .artist-page .well {
     background: rgba(200, 200, 200, 0.05);
     border-radius: 10px;
-    padding: 16px;
+    padding: var(--contentInnerPadding);
     box-shadow: rgb(0 0 0 / 8%) 0px 0px 0px 1px;
     margin-top: 16px;
 }
@@ -1909,73 +1997,6 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     }
 }
 
-.playlist-display {
-    flex-wrap: nowrap;
-    margin-bottom: 32px;
-}
-
-.playlist-display .playlist-info{
-    flex-shrink: unset;
-    display: flex;
-    flex-flow: column;
-    justify-content: flex-end;
-}
-
-.playlist-display .playlist-info .playlist-name {
-    font-weight: 700;
-    font-size: 1.6rem;
-    margin-bottom: 6px;
-    margin-right: 6px;
-    flex-shrink: unset;
-
-}
-.playlist-display .playlist-info .playlist-artist {
-    font-weight: 500;
-    font-size: 1.6rem;
-    margin-bottom: 6px;
-    margin-right: 6px;
-    flex-shrink: unset;
-}
-.playlist-display .playlist-info .playlist-desc {
-    box-sizing: border-box;
-    font-size: 14px;
-    flex-shrink: unset;
-    margin-right: 5px;
-    max-height: 100px;
-    position: relative;
-}
-.playlist-display .playlist-info .playlist-desc .content {
-    height: 100px;
-    -webkit-mask-image: -webkit-gradient(linear, left 50%, left 90%, from(rgba(0, 0, 0, 1)), to(rgba(0, 0, 0, 0)));
-}
-
-.playlist-display .playlist-info .playlist-desc .more-btn {
-    appearance: none;
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    padding: 0 5px;
-    font-size: 14px;
-    color: var(--keyColor);
-    background-color: transparent;
-    border: 0px;
-    cursor: pointer;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-    font-weight: 600;
-    font-family: inherit;
-    text-transform: uppercase;
-}
-
-.playlist-time {
-    font-size: 0.9em;
-    margin: 6px;
-    opacity: 0.7;
-}
 
 #apple-music-video-container {
     background: black;

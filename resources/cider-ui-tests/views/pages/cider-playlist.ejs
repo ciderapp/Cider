@@ -1,13 +1,17 @@
 <script type="text/x-template" id="cider-playlist">
-    <div class="content-inner">
+    <div class="content-inner playlist-page">
         <template v-if="data != [] && data.attributes != null">
-            <div class="playlist-display row">
+            <div class="playlist-display row"
+            :style="{
+                background: (data.attributes.artwork != null && data.attributes.artwork['bgColor'] != null) ? ('#' + data.attributes.artwork.bgColor) : '',
+                color: (data.attributes.artwork != null && data.attributes.artwork['textColor1'] != null) ? ('#' + data.attributes.artwork.textColor1) : ''
+            }">
                 <div class="col-auto flex-center">
-                    <div style="width: 300px;height:300px;">
+                    <div style="width: 260px;height:260px;">
                         <mediaitem-artwork
                         :url="(data.attributes != null && data.attributes.artwork && data.attributes.artwork != null) ? data.attributes.artwork.url : ((data.relationships != null && data.relationships.tracks.data.length > 0) ? data.relationships.tracks.data[0].attributes.artwork.url ?? '':'')"
                         :video="(data.attributes != null && data.attributes.editorialVideo != null) ? (data.attributes.editorialVideo.motionDetailSquare ? data.attributes.editorialVideo.motionDetailSquare.video : (data.attributes.editorialVideo.motionSquareVideo1x1 ? data.attributes.editorialVideo.motionSquareVideo1x1.video : '')) : '' "
-                        size="300"
+                        size="260"
                     ></mediaitem-artwork>
                     </div>
                 </div>
@@ -27,9 +31,13 @@
                     </div>
                 </div>
             </div>
-            <mediaitem-list-item :item="item"
-                                 v-for="item in data.relationships.tracks.data"></mediaitem-list-item>
-            <div class="playlist-time">{{app.getTotalTime()}}</div>
+            <div class="playlist-body">
+                <div class="well">
+                    <mediaitem-list-item :item="item"
+                    v-for="item in data.relationships.tracks.data"></mediaitem-list-item>
+                </div>
+                <div class="playlist-time">{{app.getTotalTime()}}</div>
+            </div>
         </template>
 
     </div>
