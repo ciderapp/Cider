@@ -1,7 +1,7 @@
 <script type="text/x-template" id="animatedartwork-view">
     <template v-if="video">
         <div class="animated" v-bind:vid="app.hashCode(video).toString()">
-            <video loop id = "animated-artwork"></video>
+            <video class="animated-artwork-video" loop id="animated-artwork"></video>
         </div>
     </template>
 </script>
@@ -12,9 +12,10 @@
         props: ['video'],
         mounted() {
             if (this.video) {
-            this.$nextTick(function () {
-            app.playAnimatedArtwork(this.video);
-            })}
+                this.$nextTick(function () {
+                    app.playAnimatedArtwork(this.video);
+                })
+            }
         }
     });
 </script>
