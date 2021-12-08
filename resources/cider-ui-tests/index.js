@@ -1222,40 +1222,51 @@ const app = new Vue({
             return newurl
         },
         getNowPlayingArtworkBG(size = 600) {
+            let interval =  setInterval(()=>{  
             if (!this.mkReady()) {
                 return ""
             }
+
             try {
-                if (this.mk.nowPlayingItem && this.mk.nowPlayingItem.id != this.currentTrackID) {
+                if (this.mk.nowPlayingItem && this.mk.nowPlayingItem.id != this.currentTrackID && document.querySelector('.bg-artwork')) {
+                    if (document.querySelector('.bg-artwork')){
+                        clearInterval(interval);
+                    }
                     this.currentTrackID = this.mk.nowPlayingItem.id;
-                    document.querySelector('.bg-artwork').style.setProperty('--artwork', '');
+                    document.querySelector('.bg-artwork').style.src = "";
                 if (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"]) {
-                    document.querySelector('.bg-artwork').style.setProperty('--artwork',`url("${this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"].replace('{w}', size).replace('{h}', size)}")`);
+                    document.querySelector('.bg-artwork').style.src = this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"].replace('{w}', size).replace('{h}', size);
                 } else {  
-                this.setLibraryArtBG()}}
-
-                
-            } catch (e) { 
                 this.setLibraryArtBG()}
-        },
-        getNowPlayingArtwork(size = 600) {    
-            try {
-                if (this.mk.nowPlayingItem && this.mk.nowPlayingItem.id != this.currentTrackIDBG) {
-                    this.currentTrackIDBG = this.mk.nowPlayingItem.id;
-                    document.querySelector('.app-playback-controls .artwork').src = "";
-                if (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"]) {
-                    document.querySelector('.app-playback-controls .artwork').src = this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"].replace('{w}', size).replace('{h}', size);
-                } else {  
-                this.setLibraryArt()}}
-
-                
+            }       
             } catch (e) { 
-                this.setLibraryArt()
-              
-            }
+                this.setLibraryArtBG()}},200)
+        },
+        getNowPlayingArtwork(size = 600) {
+            let interval = setInterval(() => {
+
+                try {
+                    if (this.mk.nowPlayingItem && this.mk.nowPlayingItem.id != this.currentTrackIDBG && document.querySelector('.app-playback-controls .artwork')) {
+                        this.currentTrackIDBG = this.mk.nowPlayingItem.id;
+                        if (document.querySelector('.app-playback-controls .artwork') != null) {
+                            clearInterval(interval);
+                        }
+                        document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', '');
+                        if (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"]) {
+                            document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${decodeURI((this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"])).replace('{w}', size).replace('{h}', size)}")`);
+                        } else {
+                            this.setLibraryArt()
+                        }
+                    }
+                } catch (e) {
+                    console.log(e);
+                    this.setLibraryArt()
+
+                }
+            }, 200)
 
 
-            
+
         },
         
         async setLibraryArt() {
@@ -1264,10 +1275,10 @@ const app = new Vue({
                 if (data != null && data !== "") {
                     document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', 'url("' + (data["attributes"]["artwork"]["url"]).toString() + '")');
                 } else {
-                    document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url(https://beta.music.apple.com/assets/product/MissingArtworkMusic.svg`);
+                    document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("https://beta.music.apple.com/assets/product/MissingArtworkMusic.svg")`);
                 }
             } catch (e) {
-                document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url(https://beta.music.apple.com/assets/product/MissingArtworkMusic.svg`);
+                document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("https://beta.music.apple.com/assets/product/MissingArtworkMusic.svg")`);
             }
         },
         async setLibraryArtBG() {
