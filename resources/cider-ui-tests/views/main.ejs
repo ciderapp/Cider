@@ -206,7 +206,9 @@
                 <div id="app-content">
                     <!-- Artist Page -->
                     <transition name="wpfade">
-                        <%- include('pages/artist') %>
+                        <template v-if="page == 'artist-page' && artistPage.data.attributes">
+                            <cider-artist :data="artistPage.data"></cider-artist>
+                        </template>
                     </transition>
                     <transition name="wpfade">
                         <%- include('pages/webview') %>
@@ -387,6 +389,9 @@
 
     <!-- Playlists / Albums -->
     <%- include('pages/cider-playlist') %>
+
+    <!-- Artist Page -->
+    <%- include('pages/artist') %>
 
     <!-- Search -->
     <%- include('pages/search') %>

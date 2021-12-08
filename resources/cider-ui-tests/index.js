@@ -79,7 +79,6 @@ const app = new Vue({
         showingPlaylist: [],
         artistPage: {
             data: {},
-            topSongsExpanded: false
         },
         library: {
             downloadNotification: {
@@ -317,19 +316,6 @@ const app = new Vue({
                 }
             } else {
                 return "";
-            }
-        },
-        getArtistPalette(artist) {
-            if (artist["attributes"]["artwork"]) {
-                return {
-                    "background": "#" + artist["attributes"]["artwork"]["bgColor"],
-                    "color": "#" + artist["attributes"]["artwork"]["textColor1"],
-                }
-            } else {
-                return {
-                    "background": "#000000",
-                    "color": "#ffffff",
-                }
             }
         },
         routeView(item) {
