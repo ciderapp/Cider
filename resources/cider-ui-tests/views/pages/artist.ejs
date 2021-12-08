@@ -22,7 +22,7 @@
             <div class="row well">
                 <div class="col">
                     <div class="row">
-                        <div class="col-auto" v-if="artistPage.data.views['latest-release']">
+                        <div class="col-auto" v-if="artistPage.data.views['latest-release'].data.length != 0">
                             <h3>Latest Release</h3>
                             <div style="width: auto;margin: 0 auto;">
                                 <mediaitem-square-sp v-for="song in artistPage.data.views['latest-release'].data"
