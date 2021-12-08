@@ -713,6 +713,20 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     display: none !important;
 }
 
+.web-slider.display--small{
+    margin: 10px;
+}
+
+input[type="range"].web-slider.display--small::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    background: rgb(50 50 50);
+    cursor: default;
+    box-shadow: inset 0px 0px 0px 1px rgba(255, 255, 255, 0.4);
+}
+
 /* Window is smaller <= 1023px width */
 @media only screen and (max-width: 1023px) {
     .display--small {
