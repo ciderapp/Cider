@@ -134,6 +134,7 @@
                         <div class="app-sidebar-header-text">
                             Library
                         </div>
+                        <sidebar-library-item name="Recently Added" page="library-recentlyadded"></sidebar-library-item>
                         <sidebar-library-item name="Songs" page="library-songs"></sidebar-library-item>
                         <sidebar-library-item name="Albums" page="library-albums"></sidebar-library-item>
                         <sidebar-library-item name="Artists" page="library-artists"></sidebar-library-item>
@@ -193,12 +194,12 @@
                             </div>
                         </button>
                     </div>
-                    <div class="app-sidebar-notification" v-if="library.songs.downloadState == 1">
-                        <div>Updating your library...</div>
-                        <div>{{ library.songs.meta.progress }} / {{ library.songs.meta.total }}</div>
+                    <div class="app-sidebar-notification" v-if="library.downloadNotification.show">
+                        <div>{{ library.downloadNotification.message }}</div>
+                        <div>{{ library.downloadNotification.progress }} / {{ library.downloadNotification.total }}</div>
                         <div style="width: 100%">
-                            <progress style="width: 80%;" :value="library.songs.meta.progress"
-                                :max="library.songs.meta.total"></progress>
+                            <progress style="width: 80%;" :value="library.downloadNotification.progress"
+                                :max="library.downloadNotification.total"></progress>
                         </div>
                     </div>
                 </div>
