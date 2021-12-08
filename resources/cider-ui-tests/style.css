@@ -1470,6 +1470,34 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     text-transform: uppercase;
 }
 
+.playlist-display .playlist-info .playlist-desc-expanded {
+    box-sizing: border-box;
+    font-size: 14px;
+    position: relative;
+}
+
+.playlist-display .playlist-info .playlist-desc-expanded .more-btn {
+    appearance: none;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 0 5px;
+    font-size: 14px;
+    color: var(--keyColor);
+    background-color: transparent;
+    border: 0px;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    font-weight: 600;
+    font-family: inherit;
+    text-transform: uppercase;
+}
+
 .playlist-time {
     font-size: 0.9em;
     margin: 6px;

@@ -2,39 +2,61 @@
     <div class="content-inner playlist-page">
         <template v-if="data != [] && data.attributes != null">
             <div class="playlist-display row"
-            :style="{
+                 :style="{
                 background: (data.attributes.artwork != null && data.attributes.artwork['bgColor'] != null) ? ('#' + data.attributes.artwork.bgColor) : '',
                 color: (data.attributes.artwork != null && data.attributes.artwork['textColor1'] != null) ? ('#' + data.attributes.artwork.textColor1) : ''
             }">
                 <div class="col-auto flex-center">
                     <div style="width: 260px;height:260px;">
                         <mediaitem-artwork
-                        :url="(data.attributes != null && data.attributes.artwork && data.attributes.artwork != null) ? data.attributes.artwork.url : ((data.relationships != null && data.relationships.tracks.data.length > 0) ? data.relationships.tracks.data[0].attributes.artwork.url ?? '':'')"
-                        :video="(data.attributes != null && data.attributes.editorialVideo != null) ? (data.attributes.editorialVideo.motionDetailSquare ? data.attributes.editorialVideo.motionDetailSquare.video : (data.attributes.editorialVideo.motionSquareVideo1x1 ? data.attributes.editorialVideo.motionSquareVideo1x1.video : '')) : '' "
-                        size="260"
-                    ></mediaitem-artwork>
+                                :url="(data.attributes != null && data.attributes.artwork && data.attributes.artwork != null) ? data.attributes.artwork.url : ((data.relationships != null && data.relationships.tracks.data.length > 0) ? data.relationships.tracks.data[0].attributes.artwork.url ?? '':'')"
+                                :video="(data.attributes != null && data.attributes.editorialVideo != null) ? (data.attributes.editorialVideo.motionDetailSquare ? data.attributes.editorialVideo.motionDetailSquare.video : (data.attributes.editorialVideo.motionSquareVideo1x1 ? data.attributes.editorialVideo.motionSquareVideo1x1.video : '')) : '' "
+                                size="260"
+                        ></mediaitem-artwork>
                     </div>
                 </div>
                 <div class="col playlist-info">
-                    <div class="playlist-name">{{data.attributes ? (data.attributes.name ?? (data.attributes.title ?? '') ?? '') : ''}}</div>
-                    <div class="playlist-artist" v-if="data.attributes && data.attributes.artistName">{{data.attributes ? (data.attributes.artistName ?? '') :''}}
-                    </div>
-                    <div class="playlist-desc" v-if="data.attributes.editorialNotes">
-                        <div class="content" v-html="((data.attributes.editorialNotes) ? (data.attributes.editorialNotes.standard ?? (data.attributes.editorialNotes.short ?? '') ) : (data.attributes.description ? (data.attributes.description.standard ?? (data.attributes.description.short ?? '')) : ''))"></div>
-                        <button class="more-btn">More</button>
-                    </div>
+                    <template v-if="!editorialNotesExpanded">
+                        <div>
+                            <div class="playlist-name">{{data.attributes ? (data.attributes.name ??
+                                (data.attributes.title ?? '') ?? '') : ''}}
+                            </div>
+                            <div class="playlist-artist" v-if="data.attributes && data.attributes.artistName">
+                                {{data.attributes ? (data.attributes.artistName ?? '') :''}}
+                            </div>
+                            <div class="playlist-desc" v-if="data.attributes.editorialNotes">
+                                <div class="content"
+                                     v-html="((data.attributes.editorialNotes) ? (data.attributes.editorialNotes.standard ?? (data.attributes.editorialNotes.short ?? '') ) : (data.attributes.description ? (data.attributes.description.standard ?? (data.attributes.description.short ?? '')) : ''))"></div>
+                                <button class="more-btn" @click="editorialNotesExpanded = !editorialNotesExpanded">
+                                    More
+                                </button>
+                            </div>
+                        </div>
+                    </template>
+                    <template v-if="editorialNotesExpanded">
+                        <div class="playlist-desc-expanded">
+                            <div class="content"
+                                 v-html="((data.attributes.editorialNotes) ? (data.attributes.editorialNotes.standard ?? (data.attributes.editorialNotes.short ?? '') ) : (data.attributes.description ? (data.attributes.description.standard ?? (data.attributes.description.short ?? '')) : ''))"></div>
+                            <button class="more-btn" @click="editorialNotesExpanded = !editorialNotesExpanded">Less
+                            </button>
+                        </div>
+                    </template>
                     <div class="playlist-controls">
                         <button class="wr-btn" style="min-width: 120px;"
-                        @click="app.mk.shuffleMode = 0;app.playMediaItemById(data.attributes.playParams.id ?? data.id, data.attributes.playParams.kind ?? data.type, data.attributes.playParams.isLibrary ?? false, data.attributes.url)">Play</button>
+                                @click="app.mk.shuffleMode = 0;app.playMediaItemById(data.attributes.playParams.id ?? data.id, data.attributes.playParams.kind ?? data.type, data.attributes.playParams.isLibrary ?? false, data.attributes.url)">
+                            Play
+                        </button>
                         <button class="wr-btn" style="min-width: 120px;"
-                        @click="app.mk.shuffleMode = 1;app.playMediaItemById(data.attributes.playParams.id ?? data.id, data.attributes.playParams.kind ?? data.type, data.attributes.playParams.isLibrary ?? false, data.attributes.url)">Shuffle</button>
+                                @click="app.mk.shuffleMode = 1;app.playMediaItemById(data.attributes.playParams.id ?? data.id, data.attributes.playParams.kind ?? data.type, data.attributes.playParams.isLibrary ?? false, data.attributes.url)">
+                            Shuffle
+                        </button>
                     </div>
                 </div>
             </div>
             <div class="playlist-body">
                 <div class="well">
                     <mediaitem-list-item :item="item"
-                    v-for="item in data.relationships.tracks.data"></mediaitem-list-item>
+                                         v-for="item in data.relationships.tracks.data"></mediaitem-list-item>
                 </div>
                 <div class="playlist-time">{{app.getTotalTime()}}</div>
             </div>
@@ -45,6 +67,11 @@
 <script>
     Vue.component('cider-playlist', {
         template: "#cider-playlist",
-        props: ["data"]
+        props: ["data"],
+        data: function () {
+            return {
+                editorialNotesExpanded: false,
+            }
+        }
     })
 </script>
