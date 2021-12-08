@@ -79,7 +79,17 @@ const app = new Vue({
             topSongsExpanded: false
         },
         library: {
+            sortingOptions: {
+                "albumName": "Album",
+                "artistName": "Artist",
+                "name": "Name",
+                "genre": "Genre",
+                "releaseDate": "Release Date",
+                "durationInMillis": "Duration"
+            },
             songs: {
+                sorting: "name",
+                sortOrder: "asc",
                 listing: [],
                 meta: {total: 0, progress: 0},
                 search: "",
@@ -118,6 +128,7 @@ const app = new Vue({
         },
         page: "artist-page",
         pageHistory: [],
+        songstest: true
     },
     methods: {
         async init() {
@@ -343,14 +354,56 @@ const app = new Vue({
         },
         searchLibrarySongs() {
             let self = this
+            function sortSongs () {
+                if(self.library.songs.sortOrder == "asc") {
+                    // sort this.library.songs.displayListing by song.attributes[self.library.songs.sorting] in ascending order based on alphabetical order and numeric order
+                    // check if song.attributes[self.library.songs.sorting] is a number and if so, sort by number if not, sort by alphabetical order ignoring case
+                    self.library.songs.displayListing.sort((a, b) => {
+                        let aa = a.attributes[self.library.songs.sorting]
+                        let bb = b.attributes[self.library.songs.sorting]
+                        if (aa == null) {
+                            aa = ""
+                        }
+                        if (bb == null) {
+                            bb = ""
+                        }
+                        if (aa.toString().match(/^\d+$/) && bb.toString().match(/^\d+$/)) {
+                            return aa - bb
+                        } else {
+                            return aa.toString().toLowerCase().localeCompare(bb.toString().toLowerCase())
+                        }
+                    })
+                }
+                if(self.library.songs.sortOrder == "desc") {
+                    // sort this.library.songs.displayListing by song.attributes[self.library.songs.sorting] in descending order based on alphabetical order and numeric order
+                    // check if song.attributes[self.library.songs.sorting] is a number and if so, sort by number if not, sort by alphabetical order ignoring case
+                    self.library.songs.displayListing.sort((a, b) => {
+                        let aa = a.attributes[self.library.songs.sorting]
+                        let bb = b.attributes[self.library.songs.sorting]
+                        if (aa == null) {
+                            aa = ""
+                        }
+                        if (bb == null) {
+                            bb = ""
+                        }
+                        if (aa.toString().match(/^\d+$/) && bb.toString().match(/^\d+$/)) {
+                            return bb - aa
+                        } else {
+                            return bb.toString().toLowerCase().localeCompare(aa.toString().toLowerCase())
+                        }
+                    })
+                }
+            }
             if (this.library.songs.search == "") {
                 this.library.songs.displayListing = this.library.songs.listing
+                sortSongs()
             } else {
                 this.library.songs.displayListing = this.library.songs.listing.filter(item => {
                     if(item.attributes.name.toLowerCase().includes(this.library.songs.search.toLowerCase())) {
                         return item
                     }
                 })
+                sortSongs()
             }
         },
         getSidebarItemClass(page) {
@@ -375,6 +428,18 @@ const app = new Vue({
                 return await this.mkapi(method, library, term, params, params2, attempts + 1)
             }
         },
+        getLibraryGenres() {
+            let genres = []
+            genres = []
+            this.library.songs.listing.forEach((item)=>{
+                item.attributes.genreNames.forEach((genre)=>{
+                    if(!genres.includes(genre)){
+                        genres.push(genre)
+                    }
+                })
+            })
+            return genres
+        },
         async getLibrarySongsFull(force = false) {
             let self = this
             let library = []
@@ -384,7 +449,10 @@ const app = new Vue({
             }
             if(localStorage.getItem("librarySongs") != null) {
                 this.library.songs.listing = JSON.parse(localStorage.getItem("librarySongs"))
-                this.library.songs.displayListing = this.library.songs.listing
+                this.searchLibrarySongs()
+            }
+            if(this.songstest) {
+                return
             }
             this.library.songs.downloadState = 1
 
@@ -919,7 +987,7 @@ const app = new Vue({
             }
         },
         getMediaItemArtwork(url, size = 64) {
-            var newurl = `${url.replace('{w}', size).replace('{h}', size).replace('{f}', "webp").replace('{c}', "cc")}`;             
+            var newurl = `${url.replace('{w}', size).replace('{h}', size).replace('{f}', "webp").replace('{c}', "cc")}`;
             return newurl
         },
         getNowPlayingArtworkBG(size = 600) {
