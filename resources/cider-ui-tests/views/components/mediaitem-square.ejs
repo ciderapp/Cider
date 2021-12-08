@@ -1,6 +1,6 @@
 <script type="text/x-template" id="mediaitem-square">
     <template>
-        <div @click="app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)"
+        <div tabindex="0" @click="app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)"
              class="cd-mediaitem-square">
             <div class="artwork">
                 <mediaitem-artwork

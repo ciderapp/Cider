@@ -79,9 +79,14 @@ const app = new Vue({
         showingPlaylist: [],
         artistPage: {
             data: {},
-            topSongsExpanded: false
         },
         library: {
+            downloadNotification: {
+                show: false,
+                message: "",
+                total: 0,
+                progress: 0
+            },
             songs: {
                 sortingOptions: {
                     "albumName": "Album",
@@ -289,17 +294,28 @@ const app = new Vue({
             }
             return hash;
         },
-        getArtistPalette(artist) {
-            if (artist["attributes"]["artwork"]) {
-                return {
-                    "background": "#" + artist["attributes"]["artwork"]["bgColor"],
-                    "color": "#" + artist["attributes"]["artwork"]["textColor1"],
+        playAnimatedArtwork(url) {
+            if (Hls.isSupported()) {
+                var video = document.querySelector(`[vid="${app.hashCode(url)}"] > video`)
+                console.log('supported');
+                var hls = new Hls();
+                // bind them together
+                if (video) {
+                    hls.attachMedia(video);
+                    hls.on(Hls.Events.MEDIA_ATTACHED, function () {
+                        console.log('video and hls.js are now bound together !');
+                        hls.loadSource(url);
+                        hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
+                            video.play();
+                            return "";
+                        });
+                    });
+                } else {
+                    console.log("hso");
+                    return "";
                 }
             } else {
-                return {
-                    "background": "#000000",
-                    "color": "#ffffff",
-                }
+                return "";
             }
         },
         routeView(item) {
@@ -432,7 +448,24 @@ const app = new Vue({
                 sortSongs()
             } else {
                 this.library.songs.displayListing = this.library.songs.listing.filter(item => {
-                    if (item.attributes.name.toLowerCase().includes(this.library.songs.search.toLowerCase())) {
+                    let itemName = item.attributes.name.toLowerCase()
+                    let searchTerm = this.library.songs.search.toLowerCase()
+                    let artistName = ""
+                    let albumName = ""
+                    if (item.attributes.artistName != null) {
+                        artistName = item.attributes.artistName.toLowerCase()
+                    }
+                    if (item.attributes.albumName != null) {
+                        albumName = item.attributes.albumName.toLowerCase()
+                    }
+
+                    // remove any non-alphanumeric characters and spaces from search term and item name
+                    searchTerm = searchTerm.replace(/[^a-z0-9 ]/gi, "")
+                    itemName = itemName.replace(/[^a-z0-9 ]/gi, "")
+                    artistName = artistName.replace(/[^a-z0-9 ]/gi, "")
+                    albumName = albumName.replace(/[^a-z0-9 ]/gi, "")
+
+                    if (itemName.includes(searchTerm) || artistName.includes(searchTerm) || albumName.includes(searchTerm)) {
                         return item
                     }
                 })
@@ -497,7 +530,24 @@ const app = new Vue({
                 sortAlbums()
             } else {
                 this.library.albums.displayListing = this.library.albums.listing.filter(item => {
-                    if (item.attributes.name.toLowerCase().includes(this.library.albums.search.toLowerCase())) {
+                    let itemName = item.attributes.name.toLowerCase()
+                    let searchTerm = this.library.albums.search.toLowerCase()
+                    let artistName = ""
+                    let albumName = ""
+                    if (item.attributes.artistName != null) {
+                        artistName = item.attributes.artistName.toLowerCase()
+                    }
+                    if (item.attributes.albumName != null) {
+                        albumName = item.attributes.albumName.toLowerCase()
+                    }
+
+                    // remove any non-alphanumeric characters and spaces from search term and item name
+                    searchTerm = searchTerm.replace(/[^a-z0-9 ]/gi, "")
+                    itemName = itemName.replace(/[^a-z0-9 ]/gi, "")
+                    artistName = artistName.replace(/[^a-z0-9 ]/gi, "")
+                    albumName = albumName.replace(/[^a-z0-9 ]/gi, "")
+
+                    if (itemName.includes(searchTerm) || artistName.includes(searchTerm) || albumName.includes(searchTerm)) {
                         return item
                     }
                 })
@@ -542,7 +592,10 @@ const app = new Vue({
             let self = this
             let library = []
             let downloaded = null;
-            if ((this.library.songs.downloadState == 2 || this.library.songs.downloadState == 1) && !force) {
+            if ((this.library.songs.downloadState == 2) && !force) {
+                return
+            }
+            if(this.library.songs.downloadState == 1) {
                 return
             }
             if (localStorage.getItem("librarySongs") != null) {
@@ -553,6 +606,8 @@ const app = new Vue({
                 return
             }
             this.library.songs.downloadState = 1
+            this.library.downloadNotification.show = true
+            this.library.downloadNotification.message = "Updating library songs..."
 
             function downloadChunk() {
                 self.library.songs.downloadState = 1
@@ -570,8 +625,11 @@ const app = new Vue({
             function processChunk(response) {
                 downloaded = response
                 library = library.concat(downloaded.data)
-                self.library.songs.meta.total = downloaded.meta.total
-                self.library.songs.meta.progress = library.length
+                self.library.downloadNotification.show = true
+                self.library.downloadNotification.message = "Updating library songs..."
+                self.library.downloadNotification.total = downloaded.meta.total
+                self.library.downloadNotification.progress = library.length
+
                 if (downloaded.meta.total == 0) {
                     self.library.songs.downloadState = 3
                     return
@@ -580,6 +638,7 @@ const app = new Vue({
                     console.log("downloaded.next is undefined")
                     self.library.songs.listing = library
                     self.library.songs.downloadState = 2
+                    self.library.downloadNotification.show = false
                     self.searchLibrarySongs()
                     localStorage.setItem("librarySongs", JSON.stringify(library))
                 }
@@ -589,6 +648,7 @@ const app = new Vue({
                 } else {
                     self.library.songs.listing = library
                     self.library.songs.downloadState = 2
+                    self.library.downloadNotification.show = false
                     self.searchLibrarySongs()
                     localStorage.setItem("librarySongs", JSON.stringify(library))
                     console.log(library)
@@ -613,10 +673,11 @@ const app = new Vue({
                 return
             }
             this.library.albums.downloadState = 1
-            this.library.songs.downloadState = 1
+            this.library.downloadNotification.show = true
+            this.library.downloadNotification.message = "Updating library albums..."
 
             function downloadChunk() {
-                self.library.songs.downloadState = 1
+                self.library.albums.downloadState = 1
                 if (downloaded == null) {
                     app.mk.api.library.albums("", {limit: 100}, {includeResponseMeta: !0}).then((response) => {
                         processChunk(response)
@@ -631,10 +692,11 @@ const app = new Vue({
             function processChunk(response) {
                 downloaded = response
                 library = library.concat(downloaded.data)
-                self.library.songs.meta.total = downloaded.meta.total
-                self.library.songs.meta.progress = library.length
+                self.library.downloadNotification.show = true
+                self.library.downloadNotification.message = "Updating library albums..."
+                self.library.downloadNotification.total = downloaded.meta.total
+                self.library.downloadNotification.progress = library.length
                 if (downloaded.meta.total == 0) {
-                    self.library.songs.downloadState = 3
                     self.library.albums.downloadState = 3
                     return
                 }
@@ -642,7 +704,7 @@ const app = new Vue({
                     console.log("downloaded.next is undefined")
                     self.library.albums.listing = library
                     self.library.albums.downloadState = 2
-                    self.library.songs.downloadState = 2
+                    self.library.downloadNotification.show = false
                     localStorage.setItem("libraryAlbums", JSON.stringify(library))
                     self.searchLibraryAlbums()
                 }
@@ -653,7 +715,7 @@ const app = new Vue({
                 } else {
                     self.library.albums.listing = library
                     self.library.albums.downloadState = 2
-                    self.library.songs.downloadState = 2
+                    self.library.downloadNotification.show = false
                     localStorage.setItem("libraryAlbums", JSON.stringify(library))
                     self.searchLibraryAlbums()
                     console.log(library)
@@ -750,6 +812,12 @@ const app = new Vue({
                         this.parseTTML()
                     })
             }
+        },
+        addToLibrary(id) {
+            let self = this
+            this.mk.addToLibrary(id).then((data)=>{
+                self.getLibrarySongsFull(true)
+            })
         },
         loadMXM() {
             let attempt = 0;
@@ -1364,4 +1432,3 @@ var checkIfScrollIsStatic = setInterval(() => {
     }
 
 }, 50);
-

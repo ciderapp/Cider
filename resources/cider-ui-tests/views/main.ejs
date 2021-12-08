@@ -134,6 +134,7 @@
                         <div class="app-sidebar-header-text">
                             Library
                         </div>
+                        <sidebar-library-item name="Recently Added" page="library-recentlyadded"></sidebar-library-item>
                         <sidebar-library-item name="Songs" page="library-songs"></sidebar-library-item>
                         <sidebar-library-item name="Albums" page="library-albums"></sidebar-library-item>
                         <sidebar-library-item name="Artists" page="library-artists"></sidebar-library-item>
@@ -193,19 +194,21 @@
                             </div>
                         </button>
                     </div>
-                    <div class="app-sidebar-notification" v-if="library.songs.downloadState == 1">
-                        <div>Updating your library...</div>
-                        <div>{{ library.songs.meta.progress }} / {{ library.songs.meta.total }}</div>
+                    <div class="app-sidebar-notification" v-if="library.downloadNotification.show">
+                        <div>{{ library.downloadNotification.message }}</div>
+                        <div>{{ library.downloadNotification.progress }} / {{ library.downloadNotification.total }}</div>
                         <div style="width: 100%">
-                            <progress style="width: 80%;" :value="library.songs.meta.progress"
-                                :max="library.songs.meta.total"></progress>
+                            <progress style="width: 80%;" :value="library.downloadNotification.progress"
+                                :max="library.downloadNotification.total"></progress>
                         </div>
                     </div>
                 </div>
                 <div id="app-content">
                     <!-- Artist Page -->
                     <transition name="wpfade">
-                        <%- include('pages/artist') %>
+                        <template v-if="page == 'artist-page' && artistPage.data.attributes">
+                            <cider-artist :data="artistPage.data"></cider-artist>
+                        </template>
                     </transition>
                     <transition name="wpfade">
                         <%- include('pages/webview') %>
@@ -226,6 +229,7 @@
                     <transition name="wpfade">
                         <template v-if="page == 'browse'">
                             <div class="content-inner">
+
                                 <button id="apple-music-authorize" class="md-btn md-btn-primary" @click="init()">Start
                                     MusicKit
                                 </button>
@@ -385,6 +389,9 @@
 
     <!-- Playlists / Albums -->
     <%- include('pages/cider-playlist') %>
+
+    <!-- Artist Page -->
+    <%- include('pages/artist') %>
 
     <!-- Search -->
     <%- include('pages/search') %>
