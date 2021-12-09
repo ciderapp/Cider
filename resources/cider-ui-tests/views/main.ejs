@@ -127,16 +127,18 @@
                                @focus="search.showHints = true"
                                @blur="setTimeout(()=>{search.showHints = false}, 100)"
                                v-on:keyup.enter="searchQuery()"
-                               @change="showSearch();" @input="getSearchHints()" placeholder="Search..." v-model="search.term"
+                               @change="showSearch();" @input="getSearchHints()" placeholder="Search..."
+                               v-model="search.term"
                                class="search-input">
                     </div>
                 </div>
                 <div class="search-hints-container" v-if="search.showHints && search.hints.length != 0">
-                <div class="search-hints">
-                    <button class="search-hint" v-for="hint in search.hints" @click="search.term = hint;search.showHints = false;searchQuery(hint)">
-                        {{ hint }}
-                    </button>
-                </div>
+                    <div class="search-hints">
+                        <button class="search-hint" v-for="hint in search.hints"
+                                @click="search.term = hint;search.showHints = false;searchQuery(hint)">
+                            {{ hint }}
+                        </button>
+                    </div>
                 </div>
                 <div class="app-sidebar-content">
                     <div class="app-sidebar-header-text">
@@ -163,22 +165,24 @@
                     </button>
                 </div>
                 <transition name="wpfade">
-                    <div class="app-sidebar-content" v-if="chrome.menuOpened">
-                        <button class="app-sidebar-item" @click="chrome.hideUserInfo = !chrome.hideUserInfo">
-                            Toggle Personal Info
-                        </button>
-                        <button class="app-sidebar-item">
-                            About
-                        </button>
-                        <button class="app-sidebar-item">
-                            Discord
-                        </button>
-                        <button class="app-sidebar-item">
-                            Settings
-                        </button>
-                        <button class="app-sidebar-item">
-                            Sign Out
-                        </button>
+                    <div class="usermenu-container" v-if="chrome.menuOpened">
+                        <div class="usermenu-body">
+                            <button class="usermenu-item" @click="chrome.hideUserInfo = !chrome.hideUserInfo">
+                                Toggle Personal Info
+                            </button>
+                            <button class="usermenu-item">
+                                About
+                            </button>
+                            <button class="usermenu-item">
+                                Discord
+                            </button>
+                            <button class="usermenu-item">
+                                Settings
+                            </button>
+                            <button class="usermenu-item">
+                                Sign Out
+                            </button>
+                        </div>
                     </div>
                 </transition>
                 <div class="app-sidebar-footer">
@@ -186,6 +190,8 @@
                            v-model="mk.volume"
                            v-if="typeof mk.volume != 'undefined'">
                     <button class="app-sidebar-button" style="width:100%"
+                            :class="{active: chrome.menuOpened}"
+                            @blur="chrome.menuOpened = false"
                             @click="chrome.menuOpened = !chrome.menuOpened">
                         <template v-if="chrome.userinfo.attributes">
                             <img class="sidebar-user-icon" loading="lazy"
