@@ -171,6 +171,10 @@ const app = new Vue({
             this.mk.privateEnabled = true
             // Set profile name
             this.chrome.userinfo = await this.mkapi("personalSocialProfile", false, "")
+            // API Fallback
+            if (!this.chrome.userinfo) {
+                this.chrome.userinfo = {"attributes": {"name": "Cider User", "handle": "CiderUser", "artwork": {"url": "../icons/icon.png"}}}
+            }
 
             // load cached library
             if (localStorage.getItem("librarySongs") != null) {
