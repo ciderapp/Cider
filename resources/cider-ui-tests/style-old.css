@@ -49,6 +49,7 @@ body[platform='linux'] {
     box-sizing: inherit;
 }
 
+
 /* Modern style overlay scrollbars */
 ::-webkit-scrollbar {
     width: 16px;
@@ -2160,3 +2161,5 @@ div#captions {
     background: rgba(0,0,0,0.6);
     color: yellow;
 }
+
+[v-cloak] {display: none!important}

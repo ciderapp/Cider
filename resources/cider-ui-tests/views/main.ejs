@@ -15,7 +15,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Cider</title>
-    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet/less" type="text/css" href="style.less" />
+    <script src="less.js"></script>
     <script src="vue.js"></script>
     <script src="sortable.min.js"></script>
     <script src="vue-observe-visibility.min.js"></script>
@@ -114,7 +115,7 @@
                     </div>
                 </div>
             </div>
-            <div class="app-navigation">
+            <div class="app-navigation" v-cloak>
                 <div id="app-sidebar">
                     <div class="app-sidebar-header">
                         <div class="search-input-container">
