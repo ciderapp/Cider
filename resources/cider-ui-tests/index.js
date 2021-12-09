@@ -288,6 +288,15 @@ const app = new Vue({
             this.artistPage.data = artistData.data[0]
             this.page = "artist-page"
         },
+        progressBarStyle () {
+            let val = this.playerLCD.playbackDuration
+            let min = 0
+            let max = this.mk.currentPlaybackDuration
+            let value = (val-min)/(max-min)*100
+            return {
+                'background': ('linear-gradient(to right, var(--keyColor) 0%, var(--keyColor) ' + value + '%, #333 ' + value + '%, #333 100%)')
+            }
+        },
         hashCode(str) {
             var hash = 0, i, chr;
             if (str.length === 0) return hash;

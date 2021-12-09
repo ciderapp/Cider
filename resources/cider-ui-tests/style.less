@@ -621,12 +621,47 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 }
 
 .app-chrome .app-chrome-item>.app-playback-controls .song-progress {
-  height: 16px;
+  @bgColor: transparent;
+  //height: 16px;
   position: absolute;
   bottom: 0px;
   left: 0px;
-  overflow: hidden;
+  background: @bgColor;
+  &:hover {
+    >input[type=range] {
+      &::-webkit-slider-thumb {
+        opacity: 1;
+        z-index: 1;
+      }
+    }
+  }
+  >input[type=range] {
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    background-color: rgb(200 200 200 / 10%);
+    border-radius: 2px;
 
+    &::-webkit-slider-thumb {
+      opacity: 0;
+      -webkit-appearance: none;
+      appearance: none;
+      width: 12px;
+      height: 12px;
+      border-radius: 100%;
+      background: var(--keyColor);
+      cursor: ew-resize;
+      transition: opacity .10s var(--appleEase);
+    }
+
+    &::-moz-range-thumb {
+      width: 8px;
+      height: 8px;
+      border-radius: 100%;
+      background: var(--keyColor);
+      cursor: pointer;
+    }
+  }
 }
 
 @keyframes marquee {
@@ -637,31 +672,6 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   to {
     transform: translateX(-100%);
   }
-}
-
-.app-chrome .app-chrome-item>.app-playback-controls .song-progress>input[type=range] {
-  appearance: none;
-  width: 100%;
-  height: 4px;
-  background-color: rgb(200 200 200 / 10%);
-}
-
-.app-chrome .app-chrome-item>.app-playback-controls .song-progress>input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 4px;
-  height: 12px;
-  border-radius: 2px;
-  background: var(--keyColor);
-  cursor: ew-resize;
-}
-
-.app-chrome .app-chrome-item>.app-playback-controls .song-progress>input[type=range]::-moz-range-thumb {
-  width: 8px;
-  height: 8px;
-  border-radius: 100%;
-  background: var(--keyColor);
-  cursor: pointer;
 }
 
 .app-chrome .app-chrome-item>.app-playback-controls .artwork {

@@ -72,7 +72,7 @@
                                     mk.nowPlayingItem["attributes"]["albumName"] }}
                                     </div>
                                     <div class="song-progress">
-                                        <input type="range" step="0.01" min="0"
+                                        <input type="range" step="0.01" min="0" :style="progressBarStyle()"
                                             @change="mk.seekToTime($event.target.value)"
                                             :max="mk.currentPlaybackDuration" :value="playerLCD.playbackDuration">
                                     </div>
