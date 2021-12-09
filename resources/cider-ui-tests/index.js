@@ -61,6 +61,8 @@ const app = new Vue({
         quickPlayQuery: "",
         search: {
             term: "",
+            hints: [],
+            showHints: false,
             results: {},
             limit: 10
         },
@@ -301,6 +303,13 @@ const app = new Vue({
             return {
                 'background': ('linear-gradient(to right, var(--keyColor) 0%, var(--keyColor) ' + value + '%, #333 ' + value + '%, #333 100%)')
             }
+        },
+        async getSearchHints() {
+            if(this.search.term == "") {
+                this.search.hints = ""
+            }
+            let hints = await app.mkapi("searchHints", false, this.search.term)
+            this.search.hints = hints.terms
         },
         getSongProgress() {
             if(this.playerLCD.userInteraction) {
