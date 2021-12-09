@@ -159,6 +159,8 @@ const app = new Vue({
     },
     watch: {
         page: () => {document.getElementById("app-content").scrollTo(0,0);},
+        showingPlaylist: () => {document.getElementById("app-content").scrollTo(0,0);},
+        artistPage: () => {document.getElementById("app-content").scrollTo(0,0);},
     },
     methods: {
         async init() {
