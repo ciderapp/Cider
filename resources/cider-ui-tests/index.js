@@ -319,10 +319,11 @@ const app = new Vue({
         },
         async getSearchHints() {
             if(this.search.term == "") {
-                this.search.hints = ""
+                this.search.hints = []
+                return
             }
             let hints = await app.mkapi("searchHints", false, this.search.term)
-            this.search.hints = hints.terms
+            this.search.hints = hints ? hints.terms : []
         },
         getSongProgress() {
             if(this.playerLCD.userInteraction) {
