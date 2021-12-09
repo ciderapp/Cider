@@ -65,7 +65,9 @@ const app = new Vue({
             limit: 10
         },
         playerLCD: {
-            playbackDuration: 0
+            playbackDuration: 0,
+            desiredDuration: 0,
+            userInteraction: false
         },
         listennow: [],
         radio: {
@@ -290,11 +292,21 @@ const app = new Vue({
         },
         progressBarStyle () {
             let val = this.playerLCD.playbackDuration
+            if(this.playerLCD.desiredDuration > 0) {
+                val = this.playerLCD.desiredDuration
+            }
             let min = 0
             let max = this.mk.currentPlaybackDuration
             let value = (val-min)/(max-min)*100
             return {
                 'background': ('linear-gradient(to right, var(--keyColor) 0%, var(--keyColor) ' + value + '%, #333 ' + value + '%, #333 100%)')
+            }
+        },
+        getSongProgress() {
+            if(this.playerLCD.userInteraction) {
+                return this.playerLCD.desiredDuration
+            }  else{
+                return this.playerLCD.playbackDuration
             }
         },
         hashCode(str) {

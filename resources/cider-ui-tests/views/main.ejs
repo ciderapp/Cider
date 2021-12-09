@@ -2,20 +2,20 @@
 <html lang="en">
 
 <head>
-    <link rel="preconnect" href="https://amp-api.music.apple.com/" crossorigin />
-    <link rel="preconnect" href="https://api.music.apple.com/" crossorigin />
-    <link rel="preconnect" href="https://is1-ssl.mzstatic.com/" crossorigin />
-    <link rel="preconnect" href="https://is2-ssl.mzstatic.com/" crossorigin />
-    <link rel="preconnect" href="https://is3-ssl.mzstatic.com/" crossorigin />
-    <link rel="preconnect" href="https://is4-ssl.mzstatic.com/" crossorigin />
-    <link rel="preconnect" href="https://is5-ssl.mzstatic.com/" crossorigin />
-    <link rel="preconnect" href="https://play.itunes.apple.com/" crossorigin />
-    <link rel="preconnect" href="https://aod-ssl.itunes.apple.com/" crossorigin />
+    <link rel="preconnect" href="https://amp-api.music.apple.com/" crossorigin/>
+    <link rel="preconnect" href="https://api.music.apple.com/" crossorigin/>
+    <link rel="preconnect" href="https://is1-ssl.mzstatic.com/" crossorigin/>
+    <link rel="preconnect" href="https://is2-ssl.mzstatic.com/" crossorigin/>
+    <link rel="preconnect" href="https://is3-ssl.mzstatic.com/" crossorigin/>
+    <link rel="preconnect" href="https://is4-ssl.mzstatic.com/" crossorigin/>
+    <link rel="preconnect" href="https://is5-ssl.mzstatic.com/" crossorigin/>
+    <link rel="preconnect" href="https://play.itunes.apple.com/" crossorigin/>
+    <link rel="preconnect" href="https://aod-ssl.itunes.apple.com/" crossorigin/>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Cider</title>
-    <link rel="stylesheet/less" type="text/css" href="style.less" />
+    <link rel="stylesheet/less" type="text/css" href="style.less"/>
     <script src="less.js"></script>
     <script src="vue.js"></script>
     <script src="sortable.min.js"></script>
@@ -25,334 +25,341 @@
 </head>
 
 <body oncontextmenu="return false;" loading="1" platform="<%= env.platform %>">
-    <div id="app">
-        <div id="app-main">
-            <div class="mv-chrome" v-if="chrome.topChromeVisible == false"></div>
-            <div class="app-chrome" :style="{'display': chrome.topChromeVisible ? '' : 'none'}">
-                <div class="app-chrome--left">
-                    <div class="app-chrome-item full-height">
-                        <div class="app-title"></div>
-                    </div>
-                    <div class="app-chrome-item">
-                        <button class="playback-button--small shuffle" v-if="mk.shuffleMode == 0"
+<div id="app">
+    <div id="app-main">
+        <div class="mv-chrome" v-if="chrome.topChromeVisible == false"></div>
+        <div class="app-chrome" :style="{'display': chrome.topChromeVisible ? '' : 'none'}">
+            <div class="app-chrome--left">
+                <div class="app-chrome-item full-height">
+                    <div class="app-title"></div>
+                </div>
+                <div class="app-chrome-item">
+                    <button class="playback-button--small shuffle" v-if="mk.shuffleMode == 0"
                             @click="mk.shuffleMode = 1"></button>
-                        <button class="playback-button--small shuffle active" v-else
+                    <button class="playback-button--small shuffle active" v-else
                             @click="mk.shuffleMode = 0"></button>
-                    </div>
-                    <div class="app-chrome-item">
-                        <button class="playback-button previous" @click="mk.skipToPreviousItem()"></button>
-                    </div>
-                    <div class="app-chrome-item">
-                        <button class="playback-button pause" @click="mk.pause()" v-if="mk.isPlaying"></button>
-                        <button class="playback-button play" @click="mk.play()" v-else></button>
-                    </div>
-                    <div class="app-chrome-item">
-                        <button class="playback-button next" @click="mk.skipToNextItem()"></button>
-                    </div>
-                    <div class="app-chrome-item">
-                        <button class="playback-button--small repeat" v-if="mk.repeatMode == 0"
+                </div>
+                <div class="app-chrome-item">
+                    <button class="playback-button previous" @click="mk.skipToPreviousItem()"></button>
+                </div>
+                <div class="app-chrome-item">
+                    <button class="playback-button pause" @click="mk.pause()" v-if="mk.isPlaying"></button>
+                    <button class="playback-button play" @click="mk.play()" v-else></button>
+                </div>
+                <div class="app-chrome-item">
+                    <button class="playback-button next" @click="mk.skipToNextItem()"></button>
+                </div>
+                <div class="app-chrome-item">
+                    <button class="playback-button--small repeat" v-if="mk.repeatMode == 0"
                             @click="mk.repeatMode = 1"></button>
-                        <button class="playback-button--small repeat active" @click="mk.repeatMode = 2"
+                    <button class="playback-button--small repeat active" @click="mk.repeatMode = 2"
                             v-else-if="mk.repeatMode == 1"></button>
-                        <button class="playback-button--small repeat repeatOne" @click="mk.repeatMode = 0"
+                    <button class="playback-button--small repeat repeatOne" @click="mk.repeatMode = 0"
                             v-else-if="mk.repeatMode == 2"></button>
-                    </div>
-                </div>
-                <div class="app-chrome--center">
-                    <div class="app-chrome-item playback-controls">
-                        <template v-if="mkReady()">
-                            <div class="app-playback-controls">
-                                <div class="artwork" ></div>
-                                <div class="playback-info">
-                                    <div class="song-name">
-                                        {{ mk.nowPlayingItem["attributes"]["name"] }}
-                                    </div>
-                                    <div class="song-artist">
-                                        {{ mk.nowPlayingItem["attributes"]["artistName"] }} - {{
-                                    mk.nowPlayingItem["attributes"]["albumName"] }}
-                                    </div>
-                                    <div class="song-progress">
-                                        <input type="range" step="0.01" min="0" :style="progressBarStyle()"
-                                            @change="mk.seekToTime($event.target.value)"
-                                            :max="mk.currentPlaybackDuration" :value="playerLCD.playbackDuration">
-                                    </div>
-                                </div>
-                                <template v-if="mk.nowPlayingItem['attributes']['playParams']">
-                                    <div class="actions" v-if="isInLibrary(mk.nowPlayingItem['attributes']['playParams'])">❤️</div>
-                                    <div class="actions" v-else>🖤</div>
-                                </template>
-                                
-                            </div>
-                        </template>
-
-                    </div>
-                </div>
-                <div class="app-chrome--right">
-                    <div class="app-chrome-item volume display--large">
-                        <input type="range" class="" step="0.01" min="0" max="1" v-model="mk.volume"
-                            v-if="typeof mk.volume != 'undefined'">
-                    </div>
-                    <div class="app-chrome-item generic">
-                        <button class="playback-button--small">
-                            <%- include("svg/cast.svg") %>
-                        </button>
-                    </div>
-                    <div class="app-chrome-item generic">
-                        <button class="playback-button--small queue"></button>
-                    </div>
-                    <div class="app-chrome-item generic">
-                        <button class="playback-button--small lyrics"
-                            @click=" lyricon =!lyricon; if( document.getElementById(`apple-music-video-container`).style.display != `block`){drawertest = !drawertest; if (drawertest) lyricon = true;}; "></button>
-                    </div>
-                    <div class="app-chrome-item full-height">
-                        <div class="window-controls">
-                            <div class="minimize" @click="ipcRenderer.send('minimize')"></div>
-                            <div class="minmax restore" v-if="chrome.maximized" @click="ipcRenderer.send('maximize')">
-                            </div>
-                            <div class="minmax" v-else @click="ipcRenderer.send('maximize')"></div>
-                            <div class="close" @click="ipcRenderer.send('close')"></div>
-                        </div>
-                    </div>
                 </div>
             </div>
-            <div class="app-navigation" v-cloak>
-                <div id="app-sidebar">
-                    <div class="app-sidebar-header">
-                        <div class="search-input-container">
-                            <div class="search-input--icon"></div>
-                            <input type="search" spellcheck="false" @click="showSearch()"
-                                @change="showSearch();searchQuery()" placeholder="Search..." v-model="search.term"
-                                class="search-input">
-                        </div>
-                    </div>
-                    <div class="app-sidebar-content">
-                        <div class="app-sidebar-header-text">
-                            Apple Music
-                        </div>
-                        <sidebar-library-item name="Listen Now" page="listen_now"></sidebar-library-item>
-                        <sidebar-library-item name="Browse" page="browse"></sidebar-library-item>
-                        <sidebar-library-item name="Radio" page="radio"></sidebar-library-item>
-                        <div class="app-sidebar-header-text">
-                            Library
-                        </div>
-                        <sidebar-library-item name="Recently Added" page="library-recentlyadded"></sidebar-library-item>
-                        <sidebar-library-item name="Songs" page="library-songs"></sidebar-library-item>
-                        <sidebar-library-item name="Albums" page="library-albums"></sidebar-library-item>
-                        <sidebar-library-item name="Artists" page="library-artists"></sidebar-library-item>
-                        <sidebar-library-item name="Made For You" page="library-madeforyou"></sidebar-library-item>
-                        <div class="app-sidebar-header-text">
-                            Playlists
-                        </div>
-                        <button class="app-sidebar-item" v-for="item in playlists.listing" :key="item.id"
-                            :href="item.href"
-                            @click='page=`playlist_` + item.id ; showingPlaylist = [];getPlaylistFromID(app.page.substring(9))'>
-                            {{ item.attributes.name }}
-                        </button>
-                    </div>
-                    <transition name="wpfade">
-                        <div class="app-sidebar-content" v-if="chrome.menuOpened">
-                            <button class="app-sidebar-item" @click="chrome.hideUserInfo = !chrome.hideUserInfo">
-                                Toggle Personal Info
-                            </button>
-                            <button class="app-sidebar-item">
-                                About
-                            </button>
-                            <button class="app-sidebar-item">
-                                Discord
-                            </button>
-                            <button class="app-sidebar-item">
-                                Settings
-                            </button>
-                            <button class="app-sidebar-item">
-                                Sign Out
-                            </button>
-                        </div>
-                    </transition>
-                    <div class="app-sidebar-footer">
-                        <input type="range" class="web-slider display--small" step="0.01" min="0" max="1" v-model="mk.volume"
-                        v-if="typeof mk.volume != 'undefined'">
-                        <button class="app-sidebar-button" style="width:100%"
-                            @click="chrome.menuOpened = !chrome.menuOpened">
-                            <template v-if="chrome.userinfo.attributes">
-                                <img class="sidebar-user-icon" loading="lazy"
-                                    :src="getMediaItemArtwork(chrome.userinfo.attributes['artwork'] ? chrome.userinfo.attributes['artwork']['url'] : '', 26)" />
+            <div class="app-chrome--center">
+                <div class="app-chrome-item playback-controls">
+                    <template v-if="mkReady()">
+                        <div class="app-playback-controls">
+                            <div class="artwork"></div>
+                            <div class="playback-info">
+                                <div class="song-name">
+                                    {{ mk.nowPlayingItem["attributes"]["name"] }}
+                                </div>
+                                <div class="song-artist">
+                                    {{ mk.nowPlayingItem["attributes"]["artistName"] }} - {{
+                                    mk.nowPlayingItem["attributes"]["albumName"] }}
+                                </div>
+                                <div class="song-progress">
+                                    <input type="range" step="0.01" min="0" :style="progressBarStyle()"
+                                           @input="playerLCD.desiredDuration = $event.target.value;playerLCD.userInteraction = true"
+                                           @mouseup="mk.seekToTime($event.target.value);playerLCD.desiredDuration = 0;playerLCD.userInteraction = false"
+                                           :max="mk.currentPlaybackDuration" :value="getSongProgress()">
+                                </div>
+                            </div>
+                            <template v-if="mk.nowPlayingItem['attributes']['playParams']">
+                                <div class="actions" v-if="isInLibrary(mk.nowPlayingItem['attributes']['playParams'])">
+                                    ❤️
+                                </div>
+                                <div class="actions" v-else>🖤</div>
                             </template>
 
-                            <div class="sidebar-user-text" v-if="!chrome.hideUserInfo">
-                                <template v-if="chrome.userinfo.attributes">
-                                    <div class="fullname text-overflow-elipsis">{{ chrome.userinfo.attributes.name }}
-                                    </div>
-                                    <div class="handle-text text-overflow-elipsis">@{{ chrome.userinfo.attributes.handle
-                                    }}
-                                    </div>
-                                </template>
-                                <template v-else>
-                                    Sign in
-                                </template>
-                            </div>
-                            <div class="sidebar-user-text" v-else>
-                                Cider
-                            </div>
+                        </div>
+                    </template>
+
+                </div>
+            </div>
+            <div class="app-chrome--right">
+                <div class="app-chrome-item volume display--large">
+                    <input type="range" class="" step="0.01" min="0" max="1" v-model="mk.volume"
+                           v-if="typeof mk.volume != 'undefined'">
+                </div>
+                <div class="app-chrome-item generic">
+                    <button class="playback-button--small">
+                        <%- include("svg/cast.svg") %>
+                    </button>
+                </div>
+                <div class="app-chrome-item generic">
+                    <button class="playback-button--small queue"></button>
+                </div>
+                <div class="app-chrome-item generic">
+                    <button class="playback-button--small lyrics"
+                            @click=" lyricon =!lyricon; if( document.getElementById(`apple-music-video-container`).style.display != `block`){drawertest = !drawertest; if (drawertest) lyricon = true;}; "></button>
+                </div>
+                <div class="app-chrome-item full-height">
+                    <div class="window-controls">
+                        <div class="minimize" @click="ipcRenderer.send('minimize')"></div>
+                        <div class="minmax restore" v-if="chrome.maximized" @click="ipcRenderer.send('maximize')">
+                        </div>
+                        <div class="minmax" v-else @click="ipcRenderer.send('maximize')"></div>
+                        <div class="close" @click="ipcRenderer.send('close')"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="app-navigation" v-cloak>
+            <div id="app-sidebar">
+                <div class="app-sidebar-header">
+                    <div class="search-input-container">
+                        <div class="search-input--icon"></div>
+                        <input type="search" spellcheck="false" @click="showSearch()"
+                               @change="showSearch();searchQuery()" placeholder="Search..." v-model="search.term"
+                               class="search-input">
+                    </div>
+                </div>
+                <div class="app-sidebar-content">
+                    <div class="app-sidebar-header-text">
+                        Apple Music
+                    </div>
+                    <sidebar-library-item name="Listen Now" page="listen_now"></sidebar-library-item>
+                    <sidebar-library-item name="Browse" page="browse"></sidebar-library-item>
+                    <sidebar-library-item name="Radio" page="radio"></sidebar-library-item>
+                    <div class="app-sidebar-header-text">
+                        Library
+                    </div>
+                    <sidebar-library-item name="Recently Added" page="library-recentlyadded"></sidebar-library-item>
+                    <sidebar-library-item name="Songs" page="library-songs"></sidebar-library-item>
+                    <sidebar-library-item name="Albums" page="library-albums"></sidebar-library-item>
+                    <sidebar-library-item name="Artists" page="library-artists"></sidebar-library-item>
+                    <sidebar-library-item name="Made For You" page="library-madeforyou"></sidebar-library-item>
+                    <div class="app-sidebar-header-text">
+                        Playlists
+                    </div>
+                    <button class="app-sidebar-item" v-for="item in playlists.listing" :key="item.id"
+                            :href="item.href"
+                            @click='page=`playlist_` + item.id ; showingPlaylist = [];getPlaylistFromID(app.page.substring(9))'>
+                        {{ item.attributes.name }}
+                    </button>
+                </div>
+                <transition name="wpfade">
+                    <div class="app-sidebar-content" v-if="chrome.menuOpened">
+                        <button class="app-sidebar-item" @click="chrome.hideUserInfo = !chrome.hideUserInfo">
+                            Toggle Personal Info
+                        </button>
+                        <button class="app-sidebar-item">
+                            About
+                        </button>
+                        <button class="app-sidebar-item">
+                            Discord
+                        </button>
+                        <button class="app-sidebar-item">
+                            Settings
+                        </button>
+                        <button class="app-sidebar-item">
+                            Sign Out
                         </button>
                     </div>
-                    <div class="app-sidebar-notification" v-if="library.downloadNotification.show">
-                        <div>{{ library.downloadNotification.message }}</div>
-                        <div>{{ library.downloadNotification.progress }} / {{ library.downloadNotification.total }}</div>
-                        <div style="width: 100%">
-                            <progress style="width: 80%;" :value="library.downloadNotification.progress"
-                                :max="library.downloadNotification.total"></progress>
+                </transition>
+                <div class="app-sidebar-footer">
+                    <input type="range" class="web-slider display--small" step="0.01" min="0" max="1"
+                           v-model="mk.volume"
+                           v-if="typeof mk.volume != 'undefined'">
+                    <button class="app-sidebar-button" style="width:100%"
+                            @click="chrome.menuOpened = !chrome.menuOpened">
+                        <template v-if="chrome.userinfo.attributes">
+                            <img class="sidebar-user-icon" loading="lazy"
+                                 :src="getMediaItemArtwork(chrome.userinfo.attributes['artwork'] ? chrome.userinfo.attributes['artwork']['url'] : '', 26)"/>
+                        </template>
+
+                        <div class="sidebar-user-text" v-if="!chrome.hideUserInfo">
+                            <template v-if="chrome.userinfo.attributes">
+                                <div class="fullname text-overflow-elipsis">{{ chrome.userinfo.attributes.name }}
+                                </div>
+                                <div class="handle-text text-overflow-elipsis">@{{ chrome.userinfo.attributes.handle
+                                    }}
+                                </div>
+                            </template>
+                            <template v-else>
+                                Sign in
+                            </template>
                         </div>
+                        <div class="sidebar-user-text" v-else>
+                            Cider
+                        </div>
+                    </button>
+                </div>
+                <div class="app-sidebar-notification" v-if="library.downloadNotification.show">
+                    <div>{{ library.downloadNotification.message }}</div>
+                    <div>{{ library.downloadNotification.progress }} / {{ library.downloadNotification.total }}</div>
+                    <div style="width: 100%">
+                        <progress style="width: 80%;" :value="library.downloadNotification.progress"
+                                  :max="library.downloadNotification.total"></progress>
                     </div>
                 </div>
-                <div id="app-content">
-                    <!-- Artist Page -->
-                    <transition name="wpfade">
-                        <template v-if="page == 'artist-page' && artistPage.data.attributes">
-                            <cider-artist :data="artistPage.data"></cider-artist>
-                        </template>
-                    </transition>
-                    <transition name="wpfade">
-                        <%- include('pages/webview') %>
-                    </transition>
-                    <!-- Playlist / Album page-->
-                    <transition name="wpfade">
-                        <template v-if="page.includes('playlist_')">
-                            <cider-playlist :data="showingPlaylist"></cider-playlist>
-                        </template>
-                    </transition>
-                    <transition name="wpfade">
-                        <template v-if="page.includes('album_')">
-                            <cider-playlist :data="showingPlaylist"></cider-playlist>
-                        </template>
-                    </transition>
-                    </transition>
-                    <!-- Browse -->
-                    <transition name="wpfade">
-                        <template v-if="page == 'browse'">
-                            <div class="content-inner">
+            </div>
+            <div id="app-content">
+                <!-- Artist Page -->
+                <transition name="wpfade">
+                    <template v-if="page == 'artist-page' && artistPage.data.attributes">
+                        <cider-artist :data="artistPage.data"></cider-artist>
+                    </template>
+                </transition>
+                <transition name="wpfade">
+                    <%- include('pages/webview') %>
+                </transition>
+                <!-- Playlist / Album page-->
+                <transition name="wpfade">
+                    <template v-if="page.includes('playlist_')">
+                        <cider-playlist :data="showingPlaylist"></cider-playlist>
+                    </template>
+                </transition>
+                <transition name="wpfade">
+                    <template v-if="page.includes('album_')">
+                        <cider-playlist :data="showingPlaylist"></cider-playlist>
+                    </template>
+                </transition>
+                </transition>
+                <!-- Browse -->
+                <transition name="wpfade">
+                    <template v-if="page == 'browse'">
+                        <div class="content-inner">
 
-                                <button id="apple-music-authorize" class="md-btn md-btn-primary" @click="init()">Start
-                                    MusicKit
-                                </button>
-                                <button id="apple-music-unauthorize" class="md-btn md-btn-primary"
+                            <button id="apple-music-authorize" class="md-btn md-btn-primary" @click="init()">Start
+                                MusicKit
+                            </button>
+                            <button id="apple-music-unauthorize" class="md-btn md-btn-primary"
                                     @click="unauthorize()">
-                                    Stop
-                                    MusicKit
-                                </button>
+                                Stop
+                                MusicKit
+                            </button>
+                            <br>
+                            <template v-if="mk.nowPlayingItem">
+                                currentPlaybackProgress: {{ app.mk.currentPlaybackProgress }}
                                 <br>
-                                <template v-if="mk.nowPlayingItem">
-                                    currentPlaybackProgress: {{ app.mk.currentPlaybackProgress }}
-                                    <br>
-                                    currentPlaybackDuration: {{ app.mk.currentPlaybackDuration }}
-                                </template>
-                                <div><input type="text" v-model="quickPlayQuery">
-                                    <button @click="quickPlay(quickPlayQuery)">Play</button>
-                                </div>
-                                <h1 class="header-text">Browse</h1>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna eu
-                                    tincidunt
-                                    consectetur, nisl nunc euismod nisi, eu porttitor nisl nisi euismod nisi.
-                                </p>
-                                <div class="media-item--small">
-                                    <div class="artwork">
+                                currentPlaybackDuration: {{ app.mk.currentPlaybackDuration }}
+                            </template>
+                            <div><input type="text" v-model="quickPlayQuery">
+                                <button @click="quickPlay(quickPlayQuery)">Play</button>
+                            </div>
+                            <h1 class="header-text">Browse</h1>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna eu
+                                tincidunt
+                                consectetur, nisl nunc euismod nisi, eu porttitor nisl nisi euismod nisi.
+                            </p>
+                            <div class="media-item--small">
+                                <div class="artwork">
 
-                                    </div>
-                                    <div class="text">
-                                        Text
-                                    </div>
-                                    <div class="subtext">
-                                        Subtext
-                                    </div>
                                 </div>
-                                <br>
-                                <br>
-                                <h1 class="header-text">Listen Now</h1>
-                                <div class="winbox">
-                                    <div class="fancy">990kbps</div>
-                                    <div class="">
-                                        <button class="md-btn md-btn-primary">Audio Quality Settings</button>
-                                    </div>
+                                <div class="text">
+                                    Text
                                 </div>
-                                <button class="md-btn" @click="drawertest = !drawertest">Toggle Drawer</button>
-                                <button class="md-btn">Button</button>
-                                <button class="md-btn md-btn-primary">Button</button>
+                                <div class="subtext">
+                                    Subtext
+                                </div>
                             </div>
-                        </template>
-                    </transition>
-                    <!-- Listen Now -->
-                    <transition v-on:enter="getListenNow()" name="wpfade">
-                        <template v-if="page == 'listen_now'" @created="console.log('listennow')">
-                            <cider-listen-now :data="listennow"></cider-listen-now>
-                        </template>
-                    </transition>
-                    <!-- Radio -->
-                    <transition v-on:enter="getRadioStations()" name="wpfade">
-                        <template v-if="page == 'radio'" @created="console.log('radio')">
-                            <div class="content-inner">
-                                <h1 class="header-text">Radio</h1>
-                                <h3>Recent Stations</h3>
-                                <mediaitem-square :item="item" v-for="item in radio.personal"></mediaitem-square>
+                            <br>
+                            <br>
+                            <h1 class="header-text">Listen Now</h1>
+                            <div class="winbox">
+                                <div class="fancy">990kbps</div>
+                                <div class="">
+                                    <button class="md-btn md-btn-primary">Audio Quality Settings</button>
+                                </div>
                             </div>
-                        </template>
-                    </transition>
-                    <!-- Search -->
-                    <transition name="wpfade">
-                        <template v-if="page == 'search'">
-                            <cider-search :search="search"></cider-search>
-                        </template>
-                    </transition>
-                    <!-- Library - Songs -->
-                    <transition name="wpfade" v-on:enter="getLibrarySongsFull()">
-                        <%- include('pages/library-songs') %>
-                    </transition>
-                    <!-- Library - Albums -->
-                    <transition name="wpfade" v-on:enter="getLibraryAlbumsFull()">
-                        <%- include('pages/library-albums') %>'); %>
-                    </transition>
-                </div>
-                <transition name="drawertransition">
-                    <div class="app-drawer" v-if="drawertest">
-                        <lyrics-view v-if="drawertest && lyricon" :time="lyriccurrenttime" :lyrics="lyrics">
-                        </lyrics-view>
-                    </div>
+                            <button class="md-btn" @click="drawertest = !drawertest">Toggle Drawer</button>
+                            <button class="md-btn">Button</button>
+                            <button class="md-btn md-btn-primary">Button</button>
+                        </div>
+                    </template>
+                </transition>
+                <!-- Listen Now -->
+                <transition v-on:enter="getListenNow()" name="wpfade">
+                    <template v-if="page == 'listen_now'" @created="console.log('listennow')">
+                        <cider-listen-now :data="listennow"></cider-listen-now>
+                    </template>
+                </transition>
+                <!-- Radio -->
+                <transition v-on:enter="getRadioStations()" name="wpfade">
+                    <template v-if="page == 'radio'" @created="console.log('radio')">
+                        <div class="content-inner">
+                            <h1 class="header-text">Radio</h1>
+                            <h3>Recent Stations</h3>
+                            <mediaitem-square :item="item" v-for="item in radio.personal"></mediaitem-square>
+                        </div>
+                    </template>
+                </transition>
+                <!-- Search -->
+                <transition name="wpfade">
+                    <template v-if="page == 'search'">
+                        <cider-search :search="search"></cider-search>
+                    </template>
+                </transition>
+                <!-- Library - Songs -->
+                <transition name="wpfade" v-on:enter="getLibrarySongsFull()">
+                    <%- include('pages/library-songs') %>
+                </transition>
+                <!-- Library - Albums -->
+                <transition name="wpfade" v-on:enter="getLibraryAlbumsFull()">
+                    <%- include('pages/library-albums') %>');
+                    %>
                 </transition>
             </div>
-        </div>
-        <transition name="wpfade">
-            <img v-show="chrome.artworkReady" @load="chrome.artworkReady = true" class="bg-artwork"
-                >
-        </transition>
-        <transition name="wpfade">
-            <div class="bg-artwork--placeholder" v-else></div>
-        </transition>
-        <div id="apple-music-video-container">
-            <div id="apple-music-video-player-controls">
-                <div id="player-exit" title="Close" onclick="app.exitMV()">
-                    <svg fill="white" xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21"
-                        aria-role="presentation" focusable="false">
-                        <path
-                            d="M10.5 21C4.724 21 0 16.275 0 10.5S4.724 0 10.5 0 21 4.725 21 10.5 16.276 21 10.5 21zm-3.543-5.967a.96.96 0 00.693-.295l2.837-2.842 2.85 2.842c.167.167.41.295.693.295.552 0 1.001-.461 1.001-1.012 0-.281-.115-.512-.295-.704L11.899 10.5l2.85-2.855a.875.875 0 00.295-.68c0-.55-.45-.998-1.001-.998a.871.871 0 00-.668.295l-2.888 2.855-2.862-2.843a.891.891 0 00-.668-.281.99.99 0 00-1.001.986c0 .269.116.512.295.678L9.088 10.5l-2.837 2.843a.926.926 0 00-.295.678c0 .551.45 1.012 1.001 1.012z"
-                            fill-rule="nonzero" />
-                    </svg>
+            <transition name="drawertransition">
+                <div class="app-drawer" v-if="drawertest">
+                    <lyrics-view v-if="drawertest && lyricon" :time="lyriccurrenttime" :lyrics="lyrics">
+                    </lyrics-view>
                 </div>
-                <div id="captions">{{(lyricon) ? ((lyrics.length > 0 ) ? lyrics[currentLyricsLine].line.replace('lrcInstrumental','') : "") : ''}}</div>
-                <div id="player-pip" @click="document.querySelector('video').requestPictureInPicture()"
-                    title="Picture-in-Picture">
-                    <%- include("svg/fullscreen.svg") %>
-                </div>
-                <div id="player-fullscreen" @click="document.querySelector('video').requestFullscreen()"
-                    title="Fullscreen">
-                    <%- include("svg/fullscreen.svg") %>
-                </div>
-            </div>
-            <div id="apple-music-video-player"></div>
+            </transition>
         </div>
     </div>
+    <transition name="wpfade">
+        <img v-show="chrome.artworkReady" @load="chrome.artworkReady = true" class="bg-artwork"
+        >
+    </transition>
+    <transition name="wpfade">
+        <div class="bg-artwork--placeholder" v-else></div>
+    </transition>
+    <div id="apple-music-video-container">
+        <div id="apple-music-video-player-controls">
+            <div id="player-exit" title="Close" onclick="app.exitMV()">
+                <svg fill="white" xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21"
+                     aria-role="presentation" focusable="false">
+                    <path
+                            d="M10.5 21C4.724 21 0 16.275 0 10.5S4.724 0 10.5 0 21 4.725 21 10.5 16.276 21 10.5 21zm-3.543-5.967a.96.96 0 00.693-.295l2.837-2.842 2.85 2.842c.167.167.41.295.693.295.552 0 1.001-.461 1.001-1.012 0-.281-.115-.512-.295-.704L11.899 10.5l2.85-2.855a.875.875 0 00.295-.68c0-.55-.45-.998-1.001-.998a.871.871 0 00-.668.295l-2.888 2.855-2.862-2.843a.891.891 0 00-.668-.281.99.99 0 00-1.001.986c0 .269.116.512.295.678L9.088 10.5l-2.837 2.843a.926.926 0 00-.295.678c0 .551.45 1.012 1.001 1.012z"
+                            fill-rule="nonzero"/>
+                </svg>
+            </div>
+            <div id="captions">{{(lyricon) ? ((lyrics.length > 0 ) ?
+                lyrics[currentLyricsLine].line.replace('lrcInstrumental','') : "") : ''}}
+            </div>
+            <div id="player-pip" @click="document.querySelector('video').requestPictureInPicture()"
+                 title="Picture-in-Picture">
+                <%- include("svg/fullscreen.svg") %>
+            </div>
+            <div id="player-fullscreen" @click="document.querySelector('video').requestFullscreen()"
+                 title="Fullscreen">
+                <%- include("svg/fullscreen.svg") %>
+            </div>
+        </div>
+        <div id="apple-music-video-player"></div>
+    </div>
+</div>
 
-    <%- include("components/mediaitem-artwork"); %>
+<%- include("components/mediaitem-artwork"); %>
 
-    <!-- Generic Collection of MediaItems -->
+<!-- Generic Collection of MediaItems -->
 <script type="text/x-template" id="collection-view-generic">
     <template>
         <div class="content-inner">
@@ -361,7 +368,7 @@
     </template>
 </script>
 
-    <!-- Listen Now -->
+<!-- Listen Now -->
 <script type="text/x-template" id="cider-listen-now">
     <div class="content-inner">
         <h1 class="header-text">Listen Now</h1>
@@ -388,53 +395,53 @@
     </div>
 </script>
 
-    <!-- Playlists / Albums -->
-    <%- include('pages/cider-playlist') %>
+<!-- Playlists / Albums -->
+<%- include('pages/cider-playlist') %>
 
-    <!-- Artist Page -->
-    <%- include('pages/artist') %>
+<!-- Artist Page -->
+<%- include('pages/artist') %>
 
-    <!-- Search -->
-    <%- include('pages/search') %>
+<!-- Search -->
+<%- include('pages/search') %>
 
-    <script type="text/x-template" id="am-musiccovershelf">
-        <h1>{{ component.attributes.title.stringForDisplay }}</h1>
-    </script>
+<script type="text/x-template" id="am-musiccovershelf">
+    <h1>{{ component.attributes.title.stringForDisplay }}</h1>
+</script>
 
-    <!-- Sidebar Item -->
-    <script type="text/x-template" id="sidebar-library-item">
-        <button class="app-sidebar-item"
+<!-- Sidebar Item -->
+<script type="text/x-template" id="sidebar-library-item">
+    <button class="app-sidebar-item"
             :class="$parent.getSidebarItemClass(page)" @click="$parent.page = page">
-            {{ name }}
+        {{ name }}
     </button>
 </script>
 
-    <!-- Horizontal MediaItem Scroller -->
-    <%- include('components/mediaitem-scroller-horizontal') %>
-    <!-- Horizontal MediaItem Scroller (Large) -->
-    <%- include('components/mediaitem-scroller-horizontal-large') %>
-    <!-- Horizontal MediaItem Scroller (SP : Special) -->
-    <%- include('components/mediaitem-scroller-horizontal-sp') %>
-    <!-- MediaItem List Item -->
-    <%- include('components/mediaitem-list-item') %>
-    <!-- MediaItem Horizontal Rectangle -->
-    <%- include('components/mediaitem-hrect') %>
-    <!-- MediaItem Square -->
-    <%- include('components/mediaitem-square') %>
-    <!-- MediaItem Square (Large) -->
-    <%- include('components/mediaitem-square-large') %>
-    <!-- MediaItem Square SP -->
-    <%- include('components/mediaitem-square-sp') %>
-    <!-- Animated Artwork View -->
-    <%- include('components/animatedartwork-view') %>
+<!-- Horizontal MediaItem Scroller -->
+<%- include('components/mediaitem-scroller-horizontal') %>
+<!-- Horizontal MediaItem Scroller (Large) -->
+<%- include('components/mediaitem-scroller-horizontal-large') %>
+<!-- Horizontal MediaItem Scroller (SP : Special) -->
+<%- include('components/mediaitem-scroller-horizontal-sp') %>
+<!-- MediaItem List Item -->
+<%- include('components/mediaitem-list-item') %>
+<!-- MediaItem Horizontal Rectangle -->
+<%- include('components/mediaitem-hrect') %>
+<!-- MediaItem Square -->
+<%- include('components/mediaitem-square') %>
+<!-- MediaItem Square (Large) -->
+<%- include('components/mediaitem-square-large') %>
+<!-- MediaItem Square SP -->
+<%- include('components/mediaitem-square-sp') %>
+<!-- Animated Artwork View -->
+<%- include('components/animatedartwork-view') %>
 
-    <!-- Lyrics View -->
-    <script type="text/x-template" id="lyrics-view">
-        <div class="md-body lyric-body">
+<!-- Lyrics View -->
+<script type="text/x-template" id="lyrics-view">
+    <div class="md-body lyric-body">
         <template v-if="lyrics && lyrics != []">
             <template v-for="(lyric, index) in lyrics" v-if="lyric.line != 'lrcInstrumental'">
                 <h3 class="lyric-line" @click="if(lyric.startTime != 9999999) app.seekTo(lyric.startTime, false)"
-                v-bind:line-index="index.toString()">
+                    v-bind:line-index="index.toString()">
                     {{ lyric.line }}
                     <div class="lyrics-translation" v-if="lyric.translation && lyric.translation != ''">
                         {{ lyric.translation }}
@@ -442,7 +449,8 @@
                 </h3>
             </template>
             <template v-else>
-                <h3 class="lyric-line" @click="if(lyric.startTime != 9999999) app.seekTo(lyric.startTime, false)" :start="lyric.startTime"
+                <h3 class="lyric-line" @click="if(lyric.startTime != 9999999) app.seekTo(lyric.startTime, false)"
+                    :start="lyric.startTime"
                     :end="lyric.endTime" v-bind:line-index="index.toString()">
                     <div class="lyricWaiting">
                         <div class='WaitingDot1'></div>
@@ -457,8 +465,8 @@
         </template>
     </div>
 </script>
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    <script src="https://js-cdn.music.apple.com/musickit/v2/amp/musickit.js"></script>
-    <script src="index.js?v=1"></script>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script src="https://js-cdn.music.apple.com/musickit/v2/amp/musickit.js"></script>
+<script src="index.js?v=1"></script>
 </body>
 </html>

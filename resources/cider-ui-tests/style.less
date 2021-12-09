@@ -631,6 +631,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     >input[type=range] {
       &::-webkit-slider-thumb {
         opacity: 1;
+        transform: scale(1);
         z-index: 1;
       }
     }
@@ -644,6 +645,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 
     &::-webkit-slider-thumb {
       opacity: 0;
+      transform: scale(0.5);
       -webkit-appearance: none;
       appearance: none;
       width: 12px;
@@ -651,7 +653,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
       border-radius: 100%;
       background: var(--keyColor);
       cursor: ew-resize;
-      transition: opacity .10s var(--appleEase);
+      transition: opacity .10s var(--appleEase), transform .10s var(--appleEase);
     }
 
     &::-moz-range-thumb {
@@ -2051,10 +2053,10 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   border: 0px;
   color: var(--keyColor);
   font-family: inherit;
+  font-weight: 500;
   font-size: 16px;
   border-radius: 4px;
   padding: 6px;
-
   &:hover {
     cursor: pointer;
     background: rgb(200 200 200 / 10%)
