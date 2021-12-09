@@ -361,6 +361,10 @@ const app = new Vue({
             }
             document.querySelector("#app-content").scrollTop = 0
         },
+        async getNowPlayingItemDetailed(target){
+            let u  = await app.mkapi(app.mk.nowPlayingItem.playParams.kind, (app.mk.nowPlayingItem.songId == -1)  , (app.mk.nowPlayingItem.songId != -1) ? app.mk.nowPlayingItem.songId : app.mk.nowPlayingItem.id, {"include[songs]":"albums,artists"} );
+            app.searchAndNavigate(u,target)
+        },
         async searchAndNavigate(item,target){
             app.tmpVar = item;
             switch(target){
@@ -1483,8 +1487,6 @@ document.addEventListener('musickitloaded', function () {
     const request = new XMLHttpRequest();
     request.addEventListener("load", initMusicKit);
     request.open("GET", "https://api.cider.sh/");
-    request.timeout = 1000;
-    
     request.send();    
 });
 

@@ -64,13 +64,18 @@
                         <div class="app-playback-controls">
                             <div class="artwork"></div>
                             <div class="playback-info">
-                                <div class="song-name">
+                                <div class="song-name"  >
                                     {{ mk.nowPlayingItem["attributes"]["name"] }}
                                 </div>
-                                <div class="song-artist">
-                                    {{ mk.nowPlayingItem["attributes"]["artistName"] }} - {{
-                                    mk.nowPlayingItem["attributes"]["albumName"] }}
+                                <div class="song-artist text-overflow-elipsis" style="display: inline-block;-webkit-box-orient: horizontal;">
+                                    <div class="item-navigate text-overflow-elipsis"  style="display: inline-block;" @click="app.getNowPlayingItemDetailed(`artist`)">
+                                    {{ mk.nowPlayingItem["attributes"]["artistName"] }} - 
+                                    </div>
+                                    <div class="song-artist item-navigate text-overflow-elipsis" style="display: inline-block;" @click="app.getNowPlayingItemDetailed('album')">
+                                       {{ mk.nowPlayingItem["attributes"]["albumName"] }}
+                                    </div>
                                 </div>
+                                
                                 <div class="song-progress">
                                     <input type="range" step="0.01" min="0" :style="progressBarStyle()"
                                            @input="playerLCD.desiredDuration = $event.target.value;playerLCD.userInteraction = true"
