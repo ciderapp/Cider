@@ -272,7 +272,6 @@ const app = new Vue({
         },
         async getPlaylistFromID(id) {
             const params = {include: "tracks",
-                l: "en-gb",
                 platform: "web",
                 "include[library-playlists]": "catalog,tracks",
                 "fields[playlists]": "curatorName,playlistType,name,artwork,url",
@@ -695,7 +694,6 @@ const app = new Vue({
                 const params = {"include[library-songs]": "artists,albums",
                 "fields[artists]":"name,url,id",
                 "fields[albums]":"name,url,id",
-                l: "en-gb",
                 platform: "web",
                 "fields[songs]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,name,playParams,releaseDate,url",
                 limit: 100,
