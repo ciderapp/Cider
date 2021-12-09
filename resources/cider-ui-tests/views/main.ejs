@@ -124,9 +124,19 @@
                     <div class="search-input-container">
                         <div class="search-input--icon"></div>
                         <input type="search" spellcheck="false" @click="showSearch()"
-                               @change="showSearch();searchQuery()" placeholder="Search..." v-model="search.term"
+                               @focus="search.showHints = true"
+                               @blur="setTimeout(()=>{search.showHints = false}, 100)"
+                               v-on:keyup.enter="searchQuery()"
+                               @change="showSearch();" @input="getSearchHints()" placeholder="Search..." v-model="search.term"
                                class="search-input">
                     </div>
+                </div>
+                <div class="search-hints-container" v-if="search.showHints && search.hints.length != 0">
+                <div class="search-hints">
+                    <button class="search-hint" v-for="hint in search.hints" @click="search.term = hint;search.showHints = false;searchQuery(hint)">
+                        {{ hint }}
+                    </button>
+                </div>
                 </div>
                 <div class="app-sidebar-content">
                     <div class="app-sidebar-header-text">

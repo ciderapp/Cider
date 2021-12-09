@@ -61,6 +61,8 @@ const app = new Vue({
         quickPlayQuery: "",
         search: {
             term: "",
+            hints: [],
+            showHints: false,
             results: {},
             limit: 10
         },
@@ -309,6 +311,13 @@ const app = new Vue({
             return {
                 'background': ('linear-gradient(to right, var(--keyColor) 0%, var(--keyColor) ' + value + '%, #333 ' + value + '%, #333 100%)')
             }
+        },
+        async getSearchHints() {
+            if(this.search.term == "") {
+                this.search.hints = ""
+            }
+            let hints = await app.mkapi("searchHints", false, this.search.term)
+            this.search.hints = hints.terms
         },
         getSongProgress() {
             if(this.playerLCD.userInteraction) {
@@ -1257,8 +1266,11 @@ const app = new Vue({
                     break;
             }
         },
-        async searchQuery() {
+        async searchQuery(term = this.search.term) {
             let self = this
+            if(term == "") {
+                return
+            }
             this.mk.api.search(this.search.term,
                 {
                     types: "activities,albums,apple-curators,artists,curators,editorial-items,music-movies,music-videos,playlists,songs,stations,tv-episodes,uploaded-videos,record-labels",

@@ -188,6 +188,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   display: flex;
   flex-direction: column;
   flex: 0 0 auto;
+  position: relative;
 }
 
 #app-navbar {
@@ -353,6 +354,39 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   overflow-y: overlay;
   height: 100%;
 }
+
+.search-hints-container {
+  position: absolute;
+  top: 44px;
+  width: 100%;
+  padding: 10px;
+  z-index: 1;
+  .search-hints {
+    background: #242424;
+    padding: 6px;
+    border-radius: 6px;
+    width: 100%;
+    box-shadow: var(--mediaItemShadow-Shadow);
+    .search-hint {
+      background: transparent;
+      display: block;
+      width: 100%;
+      text-align: left;
+      color: #eee;
+      font-family: inherit;
+      font-size: 15px;
+      padding: 8px 12px;
+      border: 0px;
+      appearance: none;
+      border-radius: 6px;
+      margin: 2px 0px;
+      &:hover {
+        background: var(--keyColor);
+      }
+    }
+  }
+}
+
 
 .app-sidebar-content::-webkit-scrollbar {
   display: none;
