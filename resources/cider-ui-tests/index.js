@@ -157,6 +157,9 @@ const app = new Vue({
         pageHistory: [],
         songstest: false
     },
+    watch: {
+        page: () => {document.getElementById("app-content").scrollTo(0,0);},
+    },
     methods: {
         async init() {
             let self = this
