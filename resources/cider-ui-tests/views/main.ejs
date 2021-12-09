@@ -126,13 +126,14 @@
                         <input type="search" spellcheck="false" @click="showSearch()"
                                @focus="search.showHints = true"
                                @blur="setTimeout(()=>{search.showHints = false}, 100)"
-                               @change="showSearch();searchQuery()" @input="getSearchHints()" placeholder="Search..." v-model="search.term"
+                               v-on:keyup.enter="searchQuery()"
+                               @change="showSearch();" @input="getSearchHints()" placeholder="Search..." v-model="search.term"
                                class="search-input">
                     </div>
                 </div>
                 <div class="search-hints-container" v-if="search.showHints && search.hints.length != 0">
                 <div class="search-hints">
-                    <button class="search-hint" v-for="hint in search.hints" @click="search.term = hint;search.showHints = false;searchQuery()">
+                    <button class="search-hint" v-for="hint in search.hints" @click="search.term = hint;search.showHints = false;searchQuery(hint)">
                         {{ hint }}
                     </button>
                 </div>

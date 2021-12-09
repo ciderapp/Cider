@@ -1193,8 +1193,9 @@ const app = new Vue({
                     break;
             }
         },
-        async searchQuery() {
+        async searchQuery(term = this.search.term) {
             let self = this
+            console.log(`searching: ${term}`)
             this.mk.api.search(this.search.term,
                 {
                     types: "activities,albums,apple-curators,artists,curators,editorial-items,music-movies,music-videos,playlists,songs,stations,tv-episodes,uploaded-videos,record-labels",
