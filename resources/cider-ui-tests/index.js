@@ -372,7 +372,7 @@ const app = new Vue({
                     let artistId = '';
                     try {
                         if (item.relationships.artists && item.relationships.artists.data.length > 0) {
-                            if (item.relationships.artists.data[0].type === "artists") { artistId = item.relationships.artists.data[0].id }
+                            if (item.relationships.artists.data[0].type === "artist" || item.relationships.artists.data[0].type === "artists") { artistId = item.relationships.artists.data[0].id }
                         } else {
                             const url = (item.relationships.catalog.data[0].attributes.artistUrl);
                             artistId = (url).substring(url.lastIndexOf('/') + 1)
@@ -398,8 +398,8 @@ const app = new Vue({
                 case "album":
                     let albumId = '';
                     try {
-                        if (item.relationships.albums && item.relationships.artists.albums.length > 0) {
-                            if (item.relationships.albums.data[0].type === "album") { albumId = item.relationships.albums.data[0].id }
+                        if (item.relationships.albums && item.relationships.albums.data.length > 0) {
+                            if (item.relationships.albums.data[0].type === "album" || item.relationships.albums.data[0].type === "albums") { albumId = item.relationships.albums.data[0].id }
                         }
                     }
                     catch (_) { }
@@ -1475,9 +1475,11 @@ document.addEventListener('musickitloaded', function () {
         MusicKit.configure({
             developerToken: parsedJson.Key,
             app: {
-                name: 'My Cool Web App',
-                build: '1978.4.1'
-            }
+                name: 'Apple Music',
+                build: '1978.4.1',
+                version: "1.0"
+            },
+            sourceType: 24
         });
         setTimeout(() => {
             app.init()
