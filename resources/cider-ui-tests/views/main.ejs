@@ -351,8 +351,9 @@
                             fill-rule="nonzero"/>
                 </svg>
             </div>
-            <div id="captions">{{(lyricon) ? ((lyrics.length > 0 ) ?
-                lyrics[currentLyricsLine].line.replace('lrcInstrumental','') : "") : ''}}
+            <div id="captions">{{((lyricon) ? ((lyrics.length > 0 ) ?
+                lyrics[currentLyricsLine].line.replace('lrcInstrumental','') : "") : '') + ((lyricon) ? ((lyrics.length > 0 ) ?
+                    (lyrics[currentLyricsLine].translation ? ('\n\r' + lyrics[currentLyricsLine].translation) : ""): "") : '')}} 
             </div>
             <div id="player-pip" @click="document.querySelector('video').requestPictureInPicture()"
                  title="Picture-in-Picture">

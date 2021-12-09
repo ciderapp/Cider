@@ -1158,8 +1158,8 @@ const app = new Vue({
                                 })
                             }
                         }
-                    } else if (app.currentLyricsLine == 0) {
-                        if (!document.querySelector(`.lyric-line[line-index="0"]`).classList.contains("active"))
+                    } else if (app.currentLyricsLine == 0) {                
+                        if (document.querySelector(`.lyric-line[line-index="0"]`) && !document.querySelector(`.lyric-line[line-index="0"]`).classList.contains("active"))
                         document.querySelector(`.lyric-line[line-index="0"]`).classList.add("active");
                     } 
                     break;
