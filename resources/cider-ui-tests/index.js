@@ -140,6 +140,7 @@ const app = new Vue({
             start: 0,
             end: 0
         },
+        tmpVar: [],
         chrome: {
             hideUserInfo: false,
             artworkReady: false,
@@ -265,12 +266,19 @@ const app = new Vue({
             document.body.removeAttribute("loading")
         },
         async getPlaylistFromID(id) {
+            const params = {include: "tracks",
+                l: "en-gb",
+                platform: "web",
+                "include[library-playlists]": "catalog,tracks",
+                "fields[playlists]": "curatorName,playlistType,name,artwork,url",
+                "include[library-songs]": "catalog,artists,albums",
+                "fields[songs]": "artistUrl,albumUrl"} 
             try {
-                this.showingPlaylist = await app.mk.api.library.playlist(id)
+                this.showingPlaylist = await app.mk.api.library.playlist(id,params)
             } catch (e) {
                 console.log(e);
                 try {
-                    this.showingPlaylist = await app.mk.api.playlist(id)
+                    this.showingPlaylist = await app.mk.api.playlist(id,params)
                 } catch (err) {
                     console.log(err)
                 }
@@ -282,7 +290,7 @@ const app = new Vue({
                 "views": "featured-release,full-albums,appears-on-albums,featured-albums,featured-on-albums,singles,compilation-albums,live-albums,latest-release,top-music-videos,similar-artists,top-songs,playlists,more-to-hear,more-to-see",
                 "extend": "artistBio,bornOrFormed,editorialArtwork,editorialVideo,isGroup,origin,hero",
                 "extend[playlists]": "trackCount",
-                "omit[resource:songs]": "relationships",
+                "include[songs]": "albums",
                 "fields[albums]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialVideo,name,playParams,releaseDate,url,trackCount",
                 "limit[artists:top-songs]": 20,
                 "art[url]": "f"
@@ -337,6 +345,63 @@ const app = new Vue({
                 app.playMediaItemById((id), (kind), (isLibrary), item.attributes.url ?? '')
             }
             document.querySelector("#app-content").scrollTop = 0
+        },
+        async searchAndNavigate(item,target){
+            app.tmpVar = item;
+            switch(target){
+                case "artist":
+                    let artistId = '';
+                    try {
+                        if (item.relationships.artists && item.relationships.artists.data.length > 0) {
+                            if (item.relationships.artists.data[0].type === "artists") { artistId = item.relationships.artists.data[0].id }
+                        } else {
+                            const url = (item.relationships.catalog.data[0].attributes.artistUrl);
+                            artistId = (url).substring(url.lastIndexOf('/') + 1)
+                            if (artistId.includes('viewCollaboration')) { artistId = artistId.substring(artistId.lastIndexOf('ids=') + 4, artistId.lastIndexOf('-')) }
+                        }
+                    }
+                    catch (_) { }
+
+                    if (artistId == "") {
+                        let artistQuery = await app.mk.api.search(item.attributes.artistName, { limit: 1, types: 'artists' })
+                        try {
+                            if (artistQuery.artists.data.length > 0) {
+                                artistId = artistQuery.artists.data[0].id;
+                                console.log(artistId)
+                            }
+                        }
+                        catch (e) {console.log(e)}
+                    }
+                    console.log(artistId);
+                    if (artistId != "")
+                        app.getArtistFromID(artistId);
+                    break;
+                case "album":
+                    let albumId = '';
+                    try {
+                        if (item.relationships.albums && item.relationships.artists.albums.length > 0) {
+                            if (item.relationships.albums.data[0].type === "album") { albumId = item.relationships.albums.data[0].id }
+                        }
+                    }
+                    catch (_) { }
+
+                    if (albumId == "") {
+                        let albumQuery = await app.mk.api.search(item.attributes.albumName, { limit: 1, types: 'albums' })
+                        try {
+                            if (albumQuery.albums.data.length > 0) {
+                                albumId = albumQuery.albums.data[0].id;
+                                console.log(albumId)
+                            }
+                        }
+                        catch (e) {console.log(e)}
+                    }
+                    console.log(albumId);
+                    if (albumId != "")
+                       {  
+                         app.getTypeFromID("album",albumId, false);
+                         app.page = "album_" + albumId;}
+                    break;    
+            }
         },
         pushNavigationEvent(item) {
             let self = this
@@ -611,13 +676,21 @@ const app = new Vue({
             this.library.downloadNotification.message = "Updating library songs..."
 
             function downloadChunk() {
+                const params = {"include[library-songs]": "artists,albums",
+                "fields[artists]":"name,url,id",
+                "fields[albums]":"name,url,id",
+                l: "en-gb",
+                platform: "web",
+                "fields[songs]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,name,playParams,releaseDate,url",
+                limit: 100,
+            } 
                 self.library.songs.downloadState = 1
                 if (downloaded == null) {
-                    app.mk.api.library.songs("", {limit: 100}, {includeResponseMeta: !0}).then((response) => {
+                    app.mk.api.library.songs("", params, {includeResponseMeta: !0}).then((response) => {
                         processChunk(response)
                     })
                 } else {
-                    downloaded.next("", {limit: 100}, {includeResponseMeta: !0}).then((response) => {
+                    downloaded.next("", params, {includeResponseMeta: !0}).then((response) => {
                         processChunk(response)
                     })
                 }
@@ -1193,7 +1266,7 @@ const app = new Vue({
                     "include[editorial-items]": "contents",
                     "include[albums]": "artists",
                     "include[artists]": "artists",
-                    "include[songs]": "artists",
+                    "include[songs]": "artists,albums",
                     "include[music-videos]": "artists",
                     "extend": "artistUrl",
                     "fields[artists]": "url,name,artwork,hero",
@@ -1390,7 +1463,9 @@ document.addEventListener('musickitloaded', function () {
     const request = new XMLHttpRequest();
     request.addEventListener("load", initMusicKit);
     request.open("GET", "https://api.cider.sh/");
-    request.send();
+    request.timeout = 1000;
+    
+    request.send();    
 });
 
 function refreshFocus() {
