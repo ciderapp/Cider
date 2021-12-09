@@ -21,7 +21,7 @@
                             <div class="playlist-name">{{data.attributes ? (data.attributes.name ??
                                 (data.attributes.title ?? '') ?? '') : ''}}
                             </div>
-                            <div class="playlist-artist" v-if="data.attributes && data.attributes.artistName">
+                            <div class="playlist-artist item-navigate" v-if="data.attributes && data.attributes.artistName" @click="if(data.attributes && data.attributes.artistName){ app.searchAndNavigate(data,'artist')}">
                                 {{data.attributes ? (data.attributes.artistName ?? '') :''}}
                             </div>
                             <div class="playlist-desc" v-if="data.attributes.editorialNotes">

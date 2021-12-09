@@ -274,6 +274,7 @@ const app = new Vue({
                 "include[library-playlists]": "catalog,tracks",
                 "fields[playlists]": "curatorName,playlistType,name,artwork,url",
                 "include[library-songs]": "catalog,artists,albums",
+                "fields[catalog]": "artistUrl,albumUrl",
                 "fields[songs]": "artistUrl,albumUrl"} 
             try {
                 this.showingPlaylist = await app.mk.api.library.playlist(id,params)
@@ -394,9 +395,9 @@ const app = new Vue({
                     }
                     catch (_) { }
 
-                    if (albumId == "") {
-                        let albumQuery = await app.mk.api.search(item.attributes.albumName, { limit: 1, types: 'albums' })
+                    if (albumId == "") {            
                         try {
+                            let albumQuery = await app.mk.api.search(item.attributes.albumName +" "+ (item.attributes.artistName ?? ""), { limit: 1, types: 'albums' })
                             if (albumQuery.albums.data.length > 0) {
                                 albumId = albumQuery.albums.data[0].id;
                                 console.log(albumId)
@@ -446,6 +447,9 @@ const app = new Vue({
         },
         async getTypeFromID(kind, id, isLibrary = false, params = {}) {
             var a;
+            if ("kind" == "album" | "kind" == "albums") {
+              params["include"] = "tracks,artists,record-labels"
+            } 
             try {
                 a = await this.mkapi(kind.toString(), isLibrary, id.toString(), params);
             } catch (e) {

@@ -27,8 +27,11 @@
                      :style="{'color' : (item.attributes.artwork.textColor1 != null) ? ('#'+item.attributes.artwork.textColor1) : `#eee`}" style="font-weight: 600">
                     {{ item.attributes.name }}
                 </div>
-                <div class="subtitle text-overflow-elipsis"
-                     :style="{'color' : (item.attributes.artwork.textColor1 != null) ? ('#'+item.attributes.artwork.textColor1) : `#eee`}" style="padding-left: 4px;padding-right: 4px; display: -webkit-box;-webkit-box-orient: vertical; -webkit-line-clamp: 2;white-space: normal;">
+                <div class="subtitle text-overflow-elipsis "
+                     :class="{'item-navigate': ((item.attributes.editorialNotes == null) && item.attributes.artistName)}"
+                     :style="{ 'z-index': ((item.attributes.editorialNotes == null) && item.attributes.artistName) ? '4' : '' ,'color' : (item.attributes.artwork.textColor1 != null) ? ('#'+item.attributes.artwork.textColor1) : `#eee`}" style="padding-left: 4px;padding-right: 4px; display: -webkit-box;-webkit-box-orient: vertical; -webkit-line-clamp: 2;white-space: normal;"
+                     @click="if((item.attributes.editorialNotes == null) && item.attributes.artistName)app.searchAndNavigate(item,'artist')"
+                     >
                     {{ (item.attributes.editorialNotes != null) ? item.attributes.editorialNotes.short
                     :(item.attributes.artistName ?? '') }}
                 </div>
