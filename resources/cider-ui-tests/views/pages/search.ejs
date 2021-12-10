@@ -4,7 +4,7 @@
             <div class="col-sm" style="width: auto;" v-if="getTopResult()">
                 <template>
                     <h3>Top Result</h3>
-                    <mediaitem-square-large :item="getTopResult()"></mediaitem-square>
+                    <mediaitem-square-large :item="getTopResult()"></mediaitem-square-large>
                 </template>
             </div>
             <div class="col" v-if="search.results.song">
@@ -12,7 +12,7 @@
                     <div class="col">
                         <h3>Songs</h3>
                     </div>
-                    <div class="col-auto flex-center" v-if="search.results.song.data.length >= 6">
+                    <div class="col-auto flex-center" @click="app.showSearchView(app.search.term, 'song', app.friendlyTypes('song'))" v-if="search.results.song.data.length >= 6">
                         <button class="cd-btn-seeall">See All</button>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                         <h3>{{ app.friendlyTypes(section) }}</h3>
                     </div>
                     <div class="col-auto flex-center" v-if="search.results[section].data.length >= 10">
-                        <button class="cd-btn-seeall">See All</button>
+                        <button class="cd-btn-seeall" @click="app.showSearchView(app.search.term, section, app.friendlyTypes(section))">See All</button>
                     </div>
                 </div>
                 <template v-if="!app.friendlyTypes(section).includes('Video')">

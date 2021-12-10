@@ -242,7 +242,7 @@
                 <!-- Collection List -->
                 <transition name="wpfade">
                     <template v-if="page == 'collection-list'">
-                        <cider-collection-list :data="collectionList.response" :title="collectionList.title"></cider-collection-list>
+                        <cider-collection-list :data="collectionList.response" :type="collectionList.type" :title="collectionList.title"></cider-collection-list>
                     </template>
                 </transition>
                 <!-- Playlist / Album page-->

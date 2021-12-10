@@ -155,7 +155,8 @@ const app = new Vue({
         },
         collectionList: {
             response: {},
-            title: ""
+            title: "",
+            type: ""
         },
         page: "artist-page",
         pageHistory: [],
@@ -280,15 +281,51 @@ const app = new Vue({
             })
             document.body.removeAttribute("loading")
         },
-        async showCollection (response, title) {
+        async showCollection (response, title, type) {
             let self = this
             this.collectionList.response = response
             this.collectionList.title = title
+            this.collectionList.type = type
             this.page = "collection-list"
         },
         async showArtistView (artist, title, view) {
             let response = await this.mk.api.artistView(artist, view, {}, {view: view, includeResponseMeta: !0})
-            await this.showCollection(response, title)
+            await this.showCollection(response, title, "artists")
+        },
+        async showSearchView(term, group, title) {
+            let response = await this.mk.api.search(term, {
+                platform: "web",
+                groups: group,
+                types: "activities,albums,apple-curators,artists,curators,editorial-items,music-movies,music-videos,playlists,songs,stations,tv-episodes,uploaded-videos,record-labels",
+                limit: 25,
+                relate: {
+                    editorialItems: ["contents"]
+                },
+                include: {
+                    albums: ["artists"],
+                    songs: ["artists"],
+                    "music-videos": ["artists"]
+                },
+                extend: "artistUrl",
+                fields: {
+                    artists: "url,name,artwork,hero",
+                    albums: "artistName,artistUrl,artwork,contentRating,editorialArtwork,name,playParams,releaseDate,url"
+                },
+                with: "serverBubbles,lyricHighlights",
+                art: {
+                    "url": "cf"
+                },
+                omit: {
+                    resource: ["autos"]
+                }
+            }, {groups: group, includeResponseMeta: !0})
+            console.log(response)
+            let responseFormat = {
+                data: response[group].data.data,
+                next: response[group].next,
+                groups: group
+            }
+            await this.showCollection(responseFormat, title, "search")
         },
         async getPlaylistFromID(id) {
             const params = {include: "tracks",

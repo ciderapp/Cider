@@ -14,7 +14,7 @@
                     <mediaitem-square-large v-else :item="item"></mediaitem-square-large>
                 </template>
             </template>
-            <button v-if="triggerEnabled" style="opacity:0;" v-observe-visibility="{callback: visibilityChanged}">Show More</button>
+            <button v-if="triggerEnabled" style="opacity:0;height: 32px;" v-observe-visibility="{callback: visibilityChanged}">Show More</button>
         </div>
 
     </div>
@@ -22,7 +22,21 @@
 <script>
     Vue.component('cider-collection-list', {
         template: "#cider-collection-list",
-        props: ["data", "title"],
+        props: {
+            data: {
+                type: Object,
+                required: true
+            },
+            title: {
+                type: String,
+                required: false
+            },
+            type: {
+                type: String,
+                required: false,
+                default: "artists"
+            }
+        },
         data: function () {
             return {
                 triggerEnabled: true,
@@ -32,18 +46,38 @@
         methods: {
             getNext() {
                 // if this.data.next is not null, then we can run this.data.next() and concat to this.data.data to get the next page
-                if (this.data.next && this.triggerEnabled) {
-                    this.triggerEnabled = false;
-                    this.data.next().then(data => {
-                        console.log(data);
-                        this.data.next = data.next;
-                        this.data.data = this.data.data.concat(data.data);
-                        this.triggerEnabled = true;
-                    });
-                }else{
-                    console.log("No next page");
-                    this.triggerEnabled = false;
+                switch(this.type) {
+                    default:
+                    case "artists":
+                        if (this.data.next && this.triggerEnabled) {
+                            this.triggerEnabled = false;
+                            this.data.next().then(data => {
+                                console.log(data);
+                                this.data.next = data.next;
+                                this.data.data = this.data.data.concat(data.data);
+                                this.triggerEnabled = true;
+                            });
+                        }else{
+                            console.log("No next page");
+                            this.triggerEnabled = false;
+                        }
+                        break;
+                    case "search":
+                        if (this.data.next && this.triggerEnabled) {
+                            this.triggerEnabled = false;
+                            this.data.next().then(data => {
+                                console.log(data);
+                                this.data.next = data[this.data.groups].next;
+                                this.data.data = this.data.data.concat(data[this.data.groups].data.data);
+                                this.triggerEnabled = true;
+                            });
+                        }else{
+                            console.log("No next page");
+                            this.triggerEnabled = false;
+                        }
+                        break;
                 }
+
             },
             visibilityChanged: function (isVisible, entry) {
                 if(isVisible) {
