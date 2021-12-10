@@ -39,7 +39,6 @@
             }
         },
         beforeDestroy() {
-            this.hls.detachMedia();
             this.hls.destroy();
             console.log('killed')
         }
