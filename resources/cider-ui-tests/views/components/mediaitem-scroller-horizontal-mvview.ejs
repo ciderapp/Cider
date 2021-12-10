@@ -1,0 +1,17 @@
+<script type="text/x-template" id="mediaitem-scroller-horizontal-mvview">
+    <template>
+        <div class="cd-hmedia-scroller">
+            <mediaitem-mvview :item="item"
+                                    v-for="item in items"></mediaitem-mvview>
+        </div>
+    </template>
+</script>
+
+
+<script>
+    Vue.component('mediaitem-scroller-horizontal-mvview', {
+        template: '#mediaitem-scroller-horizontal-mvview',
+        props: ['items'],
+        methods: {}
+    });
+</script>
