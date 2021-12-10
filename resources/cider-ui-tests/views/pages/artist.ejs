@@ -34,7 +34,14 @@
                             </div>
                         </div>
                         <div class="col" v-if="data.views['top-songs']">
-                            <h3>Top Songs</h3>
+                            <div class="row">
+                                <div class="col" style="padding:0px;">
+                                    <h3>Top Songs</h3>
+                                </div>
+                                <div class="col-auto flex-center" v-if="data.views['top-songs'].data.length >= 10" style="padding:0px;">
+                                    <button class="cd-btn-seeall" @click="app.showArtistView(data.id, data.attributes.name + ' - Top Songs', 'top-songs')">See All</button>
+                                </div>
+                            </div>
                             <mediaitem-list-item
                                     v-for="song in data.views['top-songs'].data.limit(topSongsExpanded ? 10 : 5)"
                                     :item="song"></mediaitem-list-item>

@@ -1,7 +1,7 @@
 <script type="text/x-template" id="cider-collection-list">
     <div class="content-inner collection-page">
         <h3 class="header-text">{{ title }}</h3>
-        <div v-if="data['data'] != 'null'">
+        <div v-if="data['data'] != 'null'" class="well">
             <template v-for="item in data.data">
                 <template v-if="item.type == 'artists'">
                     <mediaitem-square-large :item="item"></mediaitem-square-large>
@@ -9,7 +9,7 @@
                 <template v-else>
                     <mediaitem-list-item
                             v-if="item.attributes.playParams.kind == 'song'"
-                            :item="song"></mediaitem-list-item>
+                            :item="item"></mediaitem-list-item>
                     <mediaitem-mvview v-else-if="item.attributes.playParams.kind == 'musicVideo'" :item="item"></mediaitem-mvview>
                     <mediaitem-square-large v-else :item="item"></mediaitem-square-large>
                 </template>
