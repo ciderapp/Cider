@@ -321,6 +321,22 @@ const app = new Vue({
                 'background': ('linear-gradient(to right, var(--keyColor) 0%, var(--keyColor) ' + value + '%, #333 ' + value + '%, #333 100%)')
             }
         },
+        async getRecursive(response, sendTo) {
+            let returnData = {
+                "data": [],
+                "meta": {}
+            }
+            if(response.next) {
+                console.log("has next")
+                returnData.data.concat(response.data)
+                returnData.meta = response.meta
+                return await this.getRecursive(await response.next())
+            } else {
+                console.log("no next")
+                returnData.data.concat(response.data)
+                return returnData
+            }
+        },
         async getSearchHints() {
             if(this.search.term == "") {
                 this.search.hints = []

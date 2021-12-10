@@ -66,6 +66,24 @@ await app.mk.api.recentRadioStations("",
                 "platform": "web",
                 "art[url]": "f"});
 
+// Recently Added
+await app.mk.api.library.recentlyAdded({
+    "platform": "web",
+    include: {
+        "library-albums": ["artists"],
+        "library-artists": ["catalog"]
+    },
+    fields: {
+        artists: ["url"],
+        albums: "artistName,artistUrl,artwork,contentRating,editorialArtwork,name,playParams,releaseDate,url"
+    },
+    includeOnly: ["catalog", "artists"],
+    limit: 25
+}, {
+    reload: !0,
+    includePagination: !0
+})
+
 // Songs 
 await app.mk.api.library.songs({limit: 100}).then((data)=>{
     console.log(data)

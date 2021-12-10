@@ -1,19 +1,35 @@
 <script type="text/x-template" id="collection-list">
     <div class="content-inner">
-
+        <h1 class="header-text">{{ title }}</h1>
+        <button v-observe-visibility="{callback: visibilityChanged}">Dummy Button</button>
     </div>
 </script>
 <script>
     Vue.component('cider-collection-list', {
         template: "#cider-collection-list",
-        props: ["data"],
+        props: ["data", "title", "kind"],
         data: function () {
             return {
-
+                canSeeTrigger: false
             }
         },
         methods: {
-
+            getNext() {
+                // if this.data.next is not null, then we can run this.data.next() and concat to this.data.data to get the next page
+                if (this.data.next) {
+                    this.data.next().then(data => {
+                        this.data.data = this.data.data.concat(data.data);
+                    });
+                }
+            },
+            visibilityChanged: function (isVisible, entry) {
+                if(isVisible) {
+                    this.canSeeTrigger = true;
+                    this.getNext();
+                }else{
+                    this.canSeeTrigger = false;
+                }
+            }
         }
     })
 </script>
