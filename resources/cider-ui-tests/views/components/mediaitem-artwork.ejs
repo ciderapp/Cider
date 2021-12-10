@@ -1,12 +1,12 @@
 <script type="text/x-template" id="mediaitem-artwork">
     <template v-if="type == 'artists'">
-        <div class="mediaitem-artwork rounded">
+        <div class="mediaitem-artwork rounded" :style="{'box-shadow': shadow ? 'var(--mediaItemShadow-Shadow)' : ''}">
             <img :src="app.getMediaItemArtwork(url, size)"
                  class="mediaitem-artwork--img">
         </div>
     </template>
     <template v-else>
-        <div class="mediaitem-artwork"
+        <div class="mediaitem-artwork" :style="{'box-shadow': shadow ? 'var(--mediaItemShadow-Shadow)' : ''}"
              v-observe-visibility="{callback: visibilityChanged}">
             <img :src="app.getMediaItemArtwork(url, size)" v-if="isVisible"
                  class="mediaitem-artwork--img">
@@ -20,7 +20,28 @@
 <script>
     Vue.component('mediaitem-artwork', {
         template: '#mediaitem-artwork',
-        props: ['size', 'url', 'type', 'video'],
+        props: {
+            size: {
+                type: String,
+                default: '120'
+            },
+            url: {
+                type: String,
+                default: ''
+            },
+            type: {
+                type: String,
+                default: ''
+            },
+            video: {
+                type: String,
+                required: false
+            },
+            shadow: {
+                type: Boolean,
+                default: false
+            }
+        },
         data: function () {
             return {
                 isVisible: false
