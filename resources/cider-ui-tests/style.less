@@ -1621,10 +1621,10 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     bottom: 32px;
     right: 32px;
     border-radius: 100%;
-    background: rgb(86 86 86 / 50%);
+    background: rgb(60 60 60);
     border: 0px;
     appearance: none;
-    backdrop-filter: blur(16px) saturate(180%);
+    box-shadow: var(--mediaItemShadow-Shadow);
 
     >svg {
       height: 50%;
@@ -1632,7 +1632,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     }
 
     &:hover {
-      background: rgb(186 186 186 / 50%);
+      background: rgb(100 100 100);
     }
 
     &:active {
