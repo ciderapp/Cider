@@ -9,11 +9,14 @@
                 <div class="col-sm" style="width: auto;">
                     <div class="artist-image">
                         <mediaitem-artwork
+                                v-if="!(data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9))"
                                 :url="data.attributes.artwork ? data.attributes.artwork.url : ''"
                                 size="220" type="artists"></mediaitem-artwork>
                     </div>
                 </div>
-                <div class="col flex-center">
+                <div class="col flex-center"
+                     :class="{'artist-animation-on': (data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9)) }"
+                >
                     <h1>{{ data.attributes.name }}</h1>
                 </div>
             </div>
