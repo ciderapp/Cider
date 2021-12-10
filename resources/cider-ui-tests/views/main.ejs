@@ -131,7 +131,7 @@
                         <input type="search" spellcheck="false" @click="showSearch()"
                                @focus="search.showHints = true"
                                @blur="setTimeout(()=>{search.showHints = false}, 100)"
-                               v-on:keyup.enter="searchQuery()"
+                               v-on:keyup.enter="searchQuery();search.showHints = false"
                                @change="showSearch();" @input="getSearchHints()" placeholder="Search..."
                                v-model="search.term"
                                class="search-input">

@@ -1613,6 +1613,32 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
 // Collection Page
 .collection-page {
+  padding-bottom: 128px;
+  .top-fab {
+    height: 52px;
+    width: 52px;
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    border-radius: 100%;
+    background: rgb(86 86 86 / 50%);
+    border: 0px;
+    appearance: none;
+    backdrop-filter: blur(16px) saturate(180%);
+
+    >svg {
+      height: 50%;
+      color: #eee;
+    }
+
+    &:hover {
+      background: rgb(186 186 186 / 50%);
+    }
+
+    &:active {
+      background: var(--keyColor);
+    }
+  }
   .header-text {
     margin-bottom: 32px;
   }
@@ -2237,6 +2263,17 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 .wpfade-enter,
 .wpfade-leave-to {
   opacity: 0;
+}
+
+.fabfade-enter-active,
+.fabfade-leave-active {
+  transition: transform .1s var(--appleEase), opacity .1s var(--appleEase);
+}
+
+.fabfade-enter,
+.fabfade-leave-to {
+  opacity: 0;
+  transform: scale(0.5);
 }
 
 /* Transitions End */

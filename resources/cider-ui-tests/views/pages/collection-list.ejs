@@ -1,6 +1,6 @@
 <script type="text/x-template" id="cider-collection-list">
     <div class="content-inner collection-page">
-        <h3 class="header-text">{{ title }}</h3>
+        <h3 class="header-text" v-observe-visibility="{callback: headerVisibility}">{{ title }}</h3>
         <div v-if="data['data'] != 'null'" class="well">
             <template v-for="item in data.data">
                 <template v-if="item.type == 'artists'">
@@ -16,7 +16,11 @@
             </template>
             <button v-if="triggerEnabled" style="opacity:0;height: 32px;" v-observe-visibility="{callback: visibilityChanged}">Show More</button>
         </div>
-
+        <transition name="fabfade">
+            <button class="top-fab" v-show="showFab" @click="scrollToTop()">
+                <%- include("../svg/arrow-up.svg") %>
+            </button>
+        </transition>
     </div>
 </script>
 <script>
@@ -40,10 +44,15 @@
         data: function () {
             return {
                 triggerEnabled: true,
-                canSeeTrigger: false
+                canSeeTrigger: false,
+                showFab: false
             }
         },
         methods: {
+            scrollToTop() {
+                let target = document.querySelector(".header-text")
+                target.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})
+            },
             getNext() {
                 // if this.data.next is not null, then we can run this.data.next() and concat to this.data.data to get the next page
                 switch(this.type) {
@@ -78,6 +87,13 @@
                         break;
                 }
 
+            },
+            headerVisibility: function (isVisible, entry) {
+                if(isVisible) {
+                    this.showFab = false;
+                }else{
+                    this.showFab = true;
+                }
             },
             visibilityChanged: function (isVisible, entry) {
                 if(isVisible) {
