@@ -3,15 +3,20 @@
         <h3 class="header-text">{{ title }}</h3>
         <div v-if="data['data'] != 'null'">
             <template v-for="item in data.data">
-                <mediaitem-list-item
-                        v-if="item.attributes.playParams.kind == 'song'"
-                        :item="song"></mediaitem-list-item>
-                <mediaitem-mvview v-else-if="item.attributes.playParams.kind == 'musicVideo'" :item="item"></mediaitem-mvview>
-                <mediaitem-square-large v-else :item="item"></mediaitem-square-large>
+                <template v-if="item.type == 'artists'">
+                    <mediaitem-square-large :item="item"></mediaitem-square-large>
+                </template>
+                <template v-else>
+                    <mediaitem-list-item
+                            v-if="item.attributes.playParams.kind == 'song'"
+                            :item="song"></mediaitem-list-item>
+                    <mediaitem-mvview v-else-if="item.attributes.playParams.kind == 'musicVideo'" :item="item"></mediaitem-mvview>
+                    <mediaitem-square-large v-else :item="item"></mediaitem-square-large>
+                </template>
             </template>
-
+            <button v-if="triggerEnabled" style="opacity:0;" v-observe-visibility="{callback: visibilityChanged}">Show More</button>
         </div>
-        <button v-if="triggerEnabled" v-observe-visibility="{callback: visibilityChanged}">Dummy Button</button>
+
     </div>
 </script>
 <script>
