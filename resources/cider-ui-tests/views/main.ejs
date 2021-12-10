@@ -372,11 +372,11 @@
                 lyrics[currentLyricsLine].line.replace('lrcInstrumental','') : "") : '') + ((lyricon) ? ((lyrics.length > 0 ) ?
                     (lyrics[currentLyricsLine].translation ? ('\n\r' + lyrics[currentLyricsLine].translation) : ""): "") : '')}} 
             </div>
-            <div id="player-pip" @click="document.querySelector('video').requestPictureInPicture()"
+            <div id="player-pip" @click="document.querySelector('video#apple-music-video-player').requestPictureInPicture()"
                  title="Picture-in-Picture">
                 <%- include("svg/fullscreen.svg") %>
             </div>
-            <div id="player-fullscreen" @click="document.querySelector('video').requestFullscreen()"
+            <div id="player-fullscreen" @click="document.querySelector('video#apple-music-video-player').requestFullscreen()"
                  title="Fullscreen">
                 <%- include("svg/fullscreen.svg") %>
             </div>
