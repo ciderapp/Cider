@@ -239,6 +239,12 @@
                 <transition name="wpfade">
                     <%- include('pages/webview') %>
                 </transition>
+                <!-- Collection List -->
+                <transition name="wpfade">
+                    <template v-if="page == 'collection-list'">
+                        <cider-collection-list :data="collectionList.response" :title="collectionList.title"></cider-collection-list>
+                    </template>
+                </transition>
                 <!-- Playlist / Album page-->
                 <transition name="wpfade">
                     <template v-if="page.includes('playlist_')">
@@ -419,6 +425,9 @@
 
 <!-- Playlists / Albums -->
 <%- include('pages/cider-playlist') %>
+
+<!-- Collection List -->
+<%- include('pages/collection-list') %>
 
 <!-- Artist Page -->
 <%- include('pages/artist') %>

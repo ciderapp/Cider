@@ -1,25 +1,43 @@
-<script type="text/x-template" id="collection-list">
-    <div class="content-inner">
-        <h1 class="header-text">{{ title }}</h1>
-        <button v-observe-visibility="{callback: visibilityChanged}">Dummy Button</button>
+<script type="text/x-template" id="cider-collection-list">
+    <div class="content-inner collection-page">
+        <h3 class="header-text">{{ title }}</h3>
+        <div v-if="data['data'] != 'null'">
+            <template v-for="item in data.data">
+                <mediaitem-list-item
+                        v-if="item.attributes.playParams.kind == 'song'"
+                        :item="song"></mediaitem-list-item>
+                <mediaitem-mvview v-else-if="item.attributes.playParams.kind == 'musicVideo'" :item="item"></mediaitem-mvview>
+                <mediaitem-square-large v-else :item="item"></mediaitem-square-large>
+            </template>
+
+        </div>
+        <button v-if="triggerEnabled" v-observe-visibility="{callback: visibilityChanged}">Dummy Button</button>
     </div>
 </script>
 <script>
     Vue.component('cider-collection-list', {
         template: "#cider-collection-list",
-        props: ["data", "title", "kind"],
+        props: ["data", "title"],
         data: function () {
             return {
+                triggerEnabled: true,
                 canSeeTrigger: false
             }
         },
         methods: {
             getNext() {
                 // if this.data.next is not null, then we can run this.data.next() and concat to this.data.data to get the next page
-                if (this.data.next) {
+                if (this.data.next && this.triggerEnabled) {
+                    this.triggerEnabled = false;
                     this.data.next().then(data => {
+                        console.log(data);
+                        this.data.next = data.next;
                         this.data.data = this.data.data.concat(data.data);
+                        this.triggerEnabled = true;
                     });
+                }else{
+                    console.log("No next page");
+                    this.triggerEnabled = false;
                 }
             },
             visibilityChanged: function (isVisible, entry) {

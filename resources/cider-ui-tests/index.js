@@ -153,6 +153,10 @@ const app = new Vue({
             drawerState: "queue",
             topChromeVisible: true
         },
+        collectionList: {
+            response: {},
+            title: ""
+        },
         page: "artist-page",
         pageHistory: [],
         songstest: false
@@ -276,6 +280,16 @@ const app = new Vue({
             })
             document.body.removeAttribute("loading")
         },
+        async showCollection (response, title) {
+            let self = this
+            this.collectionList.response = response
+            this.collectionList.title = title
+            this.page = "collection-list"
+        },
+        async showArtistView (artist, title, view) {
+            let response = await this.mk.api.artistView(artist, view, {}, {view: view, includeResponseMeta: !0})
+            await this.showCollection(response, title)
+        },
         async getPlaylistFromID(id) {
             const params = {include: "tracks",
                 platform: "web",
@@ -306,6 +320,7 @@ const app = new Vue({
                 "limit[artists:top-songs]": 20,
                 "art[url]": "f"
             }, {includeResponseMeta: !0})
+            console.log(artistData)
             this.artistPage.data = artistData.data[0]
             this.page = "artist-page"
         },
