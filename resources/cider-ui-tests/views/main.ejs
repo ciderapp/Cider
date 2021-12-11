@@ -502,8 +502,12 @@
         </template>
     </div>
 </script>
-<script src="https://js-cdn.music.apple.com/musickit/v2/amp/musickit.js"></script>
-
+<script src="musickit.js?v=1"></script>
+<script>
+    if (typeof MusicKit != 'undefined') {
+        document.write(unescape("%3Cscript src='https://js-cdn.music.apple.com/musickit/v2/amp/musickit.js' type='text/javascript'%3E%3C/script%3E"));
+    }
+</script>
 <script src="index.js?v=1"></script>
 </body>
 </html>

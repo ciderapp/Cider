@@ -7,3 +7,4 @@ package-lock.json
 yarn-error.log
 .yarnclean
 auth.json
+musickit.js
