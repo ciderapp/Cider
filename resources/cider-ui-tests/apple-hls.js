@@ -23260,7 +23260,8 @@
                         }
                         if (null != (l = "string" != typeof (h = g.pathwayID) ? im("invalid steering manifest PATHWAY-PRIORITY list item data type") : /^[\w\-\.]+$/.test(h) ? void 0 : im("steering manifest contains invalid pathway ID: " + h)))
                             break;
-                        n.push(g)
+                        if (g.hdcpLevel === "NONE"){  
+                        n.push(g)} 
                     }
                 return {
                     variantMediaOptions: n,
