@@ -39,8 +39,10 @@
             }
         },
         beforeDestroy() {
-            this.hls.destroy();
-            console.log('killed')
+            if(this.hls) {
+                this.hls.destroy();
+                console.log('killed')
+            }
         }
     });
 </script>
