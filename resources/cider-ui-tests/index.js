@@ -263,17 +263,16 @@ const app = new Vue({
                 let type = (self.mk.nowPlayingItem != null) ? self.mk.nowPlayingItem["type"] ?? '' : '';
 
                 if (type.includes("musicVideo") || type.includes("uploadedVideo")) {
-                     document.getElementById("apple-music-video-container").style.display = "block";
-                  //   app.chrome.topChromeVisible = false
+                    document.getElementById("apple-music-video-container").style.display = "block";
+                    // app.chrome.topChromeVisible = false
                 } else {
                     document.getElementById("apple-music-video-container").style.display = "none";
-                  //  app.chrome.topChromeVisible = true
-                    self.chrome.artworkReady = false
-                    
-                    app.getNowPlayingArtwork(42);
-                    app.getNowPlayingArtworkBG(32);
+                    // app.chrome.topChromeVisible = true
                 }
+                self.chrome.artworkReady = false
                 self.lyrics = []
+                app.getNowPlayingArtwork(42);
+                app.getNowPlayingArtworkBG(32);
                 app.loadLyrics()
             })
 
@@ -500,7 +499,7 @@ const app = new Vue({
 
         },
         exitMV() {
-            MusicKit.getInstance().stop();
+            MusicKit.getInstance().stop()
             document.getElementById("apple-music-video-container").style.display = "none";
         },
         getArtistInfo(id, isLibrary) {
