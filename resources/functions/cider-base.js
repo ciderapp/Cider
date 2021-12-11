@@ -52,15 +52,22 @@ const CiderBase = {
             win = new BrowserWindow(options)
         }
 
+
         // intercept "https://js-cdn.music.apple.com/hls.js/2.141.0/hls.js/hls.js" and redirect to local file "./apple-hls.js" instead
         win.webContents.session.webRequest.onBeforeRequest(
             {
-                urls: ["https://js-cdn.music.apple.com/hls.js/2.141.0/hls.js/hls.js"]
+                urls: ["https://*/*.js"]
             },
             (details, callback) => {
-                callback({
-                    redirectURL: "http://localhost:9000/apple-hls.js"
-                })
+                if (details.url.includes("hls.js")) {
+                    callback({
+                        redirectURL: "http://localhost:9000/apple-hls.js"
+                    })
+                } else {
+                    callback({
+                        cancel: false
+                    })
+                }
             }
         )
 
