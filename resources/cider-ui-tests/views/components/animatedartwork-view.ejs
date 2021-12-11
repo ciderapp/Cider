@@ -31,8 +31,18 @@
                     }
                     // bind them together
                     if (this.$refs.video) {
+                        let d = "WIDEVINE_SOFTWARE"
+                        let h = {
+                            initDataTypes: ["cenc", "keyids"],
+                            distinctiveIdentifier: "optional",
+                            persistentState: "required"
+                        }
+                        let p = {
+                            platformInfo: {requiresCDMAttachOnStart: !0, maxSecurityLevel: d, keySystemConfig: h},
+                            appData: {serviceName: "Apple Music"}
+                        }
                         this.hls.attachMedia(this.$refs.video);
-                        this.hls.loadSource(this.video);
+                        this.hls.loadSource(this.video, p);
                         this.hls.loadLevel = 4;
                     } 
                 })
