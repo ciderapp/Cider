@@ -10,7 +10,7 @@
              v-observe-visibility="{callback: visibilityChanged}">
             <img :src="app.getMediaItemArtwork(url, size)" v-if="isVisible"
                  class="mediaitem-artwork--img">
-            <div v-show="video && isVisible" class="animatedartwork-view-box">
+            <div v-if="video && isVisible" class="animatedartwork-view-box">
                 <animatedartwork-view  :video="video"></animatedartwork-view>   
             </div>  
         </div>

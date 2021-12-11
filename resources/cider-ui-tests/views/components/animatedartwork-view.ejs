@@ -48,9 +48,10 @@
                 })
             }
         },
-        beforeDestroy() {
+        async beforeDestroy() {
             if(this.hls) {
-                this.hls.destroy();
+               await this.hls.destroy();
+                this.hls = null
                 console.log('killed')
             }
         }
