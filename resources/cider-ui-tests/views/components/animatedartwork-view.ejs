@@ -27,7 +27,7 @@
                         this.hls.detachMedia();
                     } else {
 
-                        this.hls = new Hls(config);
+                        this.hls = new CiderHls(config);
                     }
                     // bind them together
                     if (this.$refs.video) {
@@ -42,7 +42,7 @@
                             appData: {serviceName: "Apple Music"}
                         }
                         this.hls.attachMedia(this.$refs.video);
-                        this.hls.loadSource(this.video, p);
+                        this.hls.loadSource(this.video);
                         this.hls.loadLevel = 4;
                     } 
                 })
