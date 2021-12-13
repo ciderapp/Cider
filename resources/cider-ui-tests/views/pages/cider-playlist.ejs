@@ -58,6 +58,12 @@
                     <mediaitem-list-item :item="item"
                                          v-for="item in data.relationships.tracks.data"></mediaitem-list-item>
                 </div>
+                <div class="playlist-time"> 
+                    {{data.attributes.releaseDate}}
+                </div>
+                <div class="playlist-time" @click="app.searchAndNavigate(data,'recordLabel') " style="width: 50%;"> 
+                    {{data.attributes.copyright}}
+                </div>
                 <div class="playlist-time">{{app.getTotalTime()}}</div>
             </div>
         </template>

@@ -292,6 +292,10 @@ const app = new Vue({
             let response = await this.mk.api.artistView(artist, view, {}, {view: view, includeResponseMeta: !0})
             await this.showCollection(response, title, "artists")
         },
+        async showRecordLabelView (label, title, view) {
+            let response = await this.mk.api.recordLabelView(label, view, {}, {view: view, includeResponseMeta: !0})
+            await this.showCollection(response, title, "record-labels")
+        },
         async showSearchView(term, group, title) {
             let response = await this.mk.api.search(term, {
                 platform: "web",
@@ -422,9 +426,16 @@ const app = new Vue({
             ;
             let isLibrary = item.attributes.playParams ? (item.attributes.playParams.isLibrary ?? false) : false;
             console.log(kind, id, isLibrary)
+
             if (kind.toString().includes("artist")) {
                 app.getArtistInfo(id, isLibrary)
-            } else if (!kind.toString().includes("radioStation") && !kind.toString().includes("song") && !kind.toString().includes("musicVideo") && !kind.toString().includes("uploadedVideo")) {
+            } else if (kind.toString().includes("record-label")) {
+                kind = "recordLabel"
+                app.page = (kind) + "_" + (id);
+                console.log("oks");
+                app.getTypeFromID((kind), (id), (isLibrary), {extend: "editorialVideo", views: 'top-releases,latest-releases,top-artists'});
+            } 
+            else if (!kind.toString().includes("radioStation") && !kind.toString().includes("song") && !kind.toString().includes("musicVideo") && !kind.toString().includes("uploadedVideo")) {
                 app.page = (kind) + "_" + (id);
                 console.log("oks");
                 app.getTypeFromID((kind), (id), (isLibrary), {extend: "editorialVideo"});
@@ -486,12 +497,37 @@ const app = new Vue({
                         }
                         catch (e) {console.log(e)}
                     }
-                    console.log(albumId);
                     if (albumId != "")
                        {  
                          app.getTypeFromID("album",albumId, false);
                          app.page = "album_" + albumId;}
-                    break;    
+                    break; 
+                case "recordLabel":
+                    let labelId = '';
+                    try {
+                        labelId = item.relationships['record-labels'].data[0].id    
+                    }
+                    catch (_) { }
+
+                    if (labelId == "") {            
+                        try {
+                            let labelQuery = await app.mk.api.search(item.attributes.recordLabel, { limit: 1, types: 'record-labels' })
+                            if (labelQuery["record-labels"].data.length > 0) {
+                                labelId = labelQuery["record-labels"].data[0].id;
+                                console.log(labelId)
+                            }
+                        }
+                        catch (e) {console.log(e)}
+                    }
+                    if (labelId != "")
+                       {  
+                         app.showingPlaylist = []
+                        
+                         await app.getTypeFromID("recordLabel",labelId, false,{views: 'top-releases,latest-releases,top-artists'});
+                         app.page = "recordLabel_" + labelId;   
+                         }
+                   
+                    break;       
             }
         },
         pushNavigationEvent(item) {
@@ -528,15 +564,14 @@ const app = new Vue({
         },
         async getTypeFromID(kind, id, isLibrary = false, params = {}) {
             var a;
-            if ("kind" == "album" | "kind" == "albums") {
-              params["include"] = "tracks,artists,record-labels"
+            if (kind == "album" | kind == "albums") {
+              params["include"] = "tracks,artists,record-labels";
             } 
             try {
                 a = await this.mkapi(kind.toString(), isLibrary, id.toString(), params);
             } catch (e) {
                 console.log(e);
                 try {
-                    console.log("opp", !isLibrary);
                     a = await this.mkapi(kind.toString(), !isLibrary, id.toString(), params);
                 } catch (err) {
                     console.log(err);

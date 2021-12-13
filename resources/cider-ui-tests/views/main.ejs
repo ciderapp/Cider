@@ -258,6 +258,10 @@
                         <cider-playlist :data="showingPlaylist"></cider-playlist>
                     </template>
                 </transition>
+                <transition name="wpfade">
+                    <template v-if="page.includes('recordLabel_')">
+                        <cider-recordlabel :data="showingPlaylist"></cider-recordlabel>
+                    </template>
                 </transition>
                 <!-- Browse -->
                 <transition name="wpfade">
@@ -427,6 +431,9 @@
 
 <!-- Playlists / Albums -->
 <%- include('pages/cider-playlist') %>
+
+<!-- Record Label -->
+<%- include('pages/recordLabel') %>
 
 <!-- Collection List -->
 <%- include('pages/collection-list') %>
