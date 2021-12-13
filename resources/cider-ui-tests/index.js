@@ -53,6 +53,7 @@ const app = new Vue({
     el: "#app",
     data: {
         drawertest: false,
+        platform: "",
         mk: {},
         quickPlayQuery: "",
         search: {
@@ -139,6 +140,7 @@ const app = new Vue({
             end: 0
         },
         tmpVar: [],
+        notification: {},
         chrome: {
             hideUserInfo: false,
             artworkReady: false,
@@ -170,6 +172,7 @@ const app = new Vue({
             this.mk.authorize()
             this.$forceUpdate()
             this.mk.privateEnabled = true
+            this.platform = ipcRenderer.sendSync('cider-platform');
             // Set profile name
             this.chrome.userinfo = await this.mkapi("personalSocialProfile", false, "")
             // API Fallback
@@ -270,15 +273,21 @@ const app = new Vue({
                 app.getNowPlayingArtwork(42);
                 app.getNowPlayingArtworkBG(32);
                 app.loadLyrics()
-
+                
                 // Playback Notifications
-                // if (platform == "darwin" || platform == "linux") {
-                //     new Notification(a.title, {
-                //         body: a.artistName,
-                //         icon: a.artwork.url,
-                //         silent: true
-                //     })
-                // }
+                if (app.platform == "darwin" || app.platform == "linux") {
+                    self.notification = new Notification(a.title, {
+                        body: a.artistName,
+                        icon: a.artwork.url,
+                        actions: [{"skip": "Skip"}],
+                        silent: true
+                    })
+                    // self.notification.addEventListener('notificationclick', function(event) {
+                    //     event.notification.close();
+                    //     if (event.action !== 'skip') return;
+                    //     this.mk.skipToNext
+                    //   }, false);
+                }
             })
 
             this.apiCall('https://api.music.apple.com/v1/me/library/playlists', res => {

@@ -80,7 +80,12 @@ const CiderBase = {
         // Register listeners on Window to track size and position of the Window.
         mainWindowState.manage(win);
 
-        // IPC stuff
+        // IPC stuff (senders)
+        ipcMain.once("cider-platform", (event) => {
+            event.returnValue = process.platform
+        })
+
+        // IPC stuff (listeners)
 
         ipcMain.on('close', () => { // listen for close event
             win.close();
