@@ -61,7 +61,7 @@
                 <div class="playlist-time"> 
                     {{data.attributes.releaseDate}}
                 </div>
-                <div class="playlist-time" @click="app.searchAndNavigate(data,'recordLabel') " style="width: 50%;"> 
+                <div class="playlist-time item-navigate" @click="app.searchAndNavigate(data,'recordLabel') " style="width: 50%;"> 
                     {{data.attributes.copyright}}
                 </div>
                 <div class="playlist-time">{{app.getTotalTime()}}</div>

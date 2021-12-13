@@ -13,10 +13,6 @@ Vue.component('lyrics-view', {
     methods: {}
 });
 
-Vue.component('cider-listen-now', {
-    template: "#cider-listen-now",
-    props: ["data"]
-})
 
 const MusicKitTools = {
     getHeader() {
@@ -481,7 +477,7 @@ const app = new Vue({
                                 console.log(artistId)
                             }
                         }
-                        catch (e) {console.log(e)}
+                        catch (e) {}
                     }
                     console.log(artistId);
                     if (artistId != "")
@@ -504,7 +500,7 @@ const app = new Vue({
                                 console.log(albumId)
                             }
                         }
-                        catch (e) {console.log(e)}
+                        catch (e) {}
                     }
                     if (albumId != "")
                        {  
@@ -526,7 +522,7 @@ const app = new Vue({
                                 console.log(labelId)
                             }
                         }
-                        catch (e) {console.log(e)}
+                        catch (e) {}
                     }
                     if (labelId != "")
                        {  
@@ -1108,7 +1104,6 @@ const app = new Vue({
                             }
 
                             if (lrcfile == "") {
-                                console.log('track not found');
                                 app.loadAMLyrics()
                             } else {
                                 // process lrcfile to json here
@@ -1142,7 +1137,6 @@ const app = new Vue({
                             }
                         } catch (e) {
                             console.log(e);
-                            console.log('track not found ??');
                             app.loadAMLyrics()
                         }
                     } else { //4xx rejected
@@ -1195,10 +1189,8 @@ const app = new Vue({
 
             if (track != "" & track != "No Title Found") {
                 if (app.mxmtoken != null && app.mxmtoken != '') {
-                    console.log("we good");
                     getMXMSubs(track, artist, app.mxmtoken, lang, time)
                 } else {
-                    console.log("get token");
                     getToken(1, track, artist, '', lang, time);
                 }
             }
