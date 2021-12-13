@@ -274,6 +274,15 @@ const app = new Vue({
                 app.getNowPlayingArtwork(42);
                 app.getNowPlayingArtworkBG(32);
                 app.loadLyrics()
+
+                // Playback Notifications
+                // if (platform == "darwin" || platform == "linux") {
+                //     new Notification(a.title, {
+                //         body: a.artistName,
+                //         icon: a.artwork.url,
+                //         silent: true
+                //     })
+                // }
             })
 
             this.apiCall('https://api.music.apple.com/v1/me/library/playlists', res => {
