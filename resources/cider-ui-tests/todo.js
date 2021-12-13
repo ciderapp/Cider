@@ -153,3 +153,10 @@ function processChunk (response) {
         console.log(library)
     }
 }
+
+//Some Available Functions from MusicKit
+// recentPlayed() -> recently played songs ?
+
+// create Artist / Song/ Album stations:
+app.mk.setStationQueue({artist:"1258279972"})
+app.mk.setStationQueue({song:"1437308307"}) // yes the song id here can be the albumId, but just keep using the song:
