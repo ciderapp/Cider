@@ -85,6 +85,21 @@
                             this.triggerEnabled = false;
                         }
                         break;
+                    case "listen_now":    
+                    case "curator":
+                    if (this.data.next && this.triggerEnabled) {
+                            this.triggerEnabled = false;
+                            app.mk.api.v3.music(this.data.next).then(data => {
+                                console.log(data);
+                                this.data.next = data.data.next;
+                                this.data.data = this.data.data.concat(data.data.data);
+                                this.triggerEnabled = true;
+                            });
+                        }else{
+                            console.log("No next page");
+                            this.triggerEnabled = false;
+                        }
+                        break;   
                 }
 
             },

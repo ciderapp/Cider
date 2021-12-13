@@ -26,7 +26,8 @@
                     <div>{{ app.showingPlaylist.attributes.description.standard }}</div>
                 </div>
                     
-            </div>    
+            </div>   
+            <template v-if="data.views && data.views['latest-releases']"> 
             <div class="row">
                 <div class="col">
                     <h3>{{ data.views["latest-releases"].attributes.title ?? ""}}</h3>
@@ -37,6 +38,8 @@
             </div>
             <mediaitem-square-large :item="item" v-for="item in data.views['latest-releases'].data">
             </mediaitem-square-large>
+            </template>
+            <template v-if="data.views && data.views['top-releases']">
             <div class="row">
                 <div class="col">
                     <h3>{{ data.views["top-releases"].attributes.title ?? ""}}</h3>
@@ -47,6 +50,19 @@
             </div>
             <mediaitem-square-large :item="item" v-for="item in data.views['top-releases'].data">
             </mediaitem-square-large>
+            </template>
+            <template v-if="data.relationships && data.relationships.playlists && data.relationships.playlists.data.length > 0">
+            <div class="row">
+                <div class="col">
+                    <h3>Playlists</h3>
+                </div>
+                <div class="col-auto flex-center" v-if="data.relationships.playlists.data.length >= 5">
+                    <button class="cd-btn-seeall" @click="app.showCollection(data.relationships.playlists, data.attributes.name + ' -  Playlists', 'curator')">See All</button>
+                </div>
+            </div>
+            <mediaitem-square-large :item="item" v-for="item in data.relationships.playlists.data.limit(5)">
+            </mediaitem-square-large>
+            </template>
         </div>
     </div>
 </script>

@@ -263,6 +263,11 @@
                         <cider-recordlabel :data="showingPlaylist"></cider-recordlabel>
                     </template>
                 </transition>
+                <transition name="wpfade">
+                    <template v-if="page.includes('curator_')">
+                        <cider-recordlabel :data="showingPlaylist"></cider-recordlabel>
+                    </template>
+                </transition>
                 <!-- Browse -->
                 <transition name="wpfade">
                     <template v-if="page == 'browse'">

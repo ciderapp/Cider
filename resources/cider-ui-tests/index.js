@@ -434,29 +434,35 @@ const app = new Vue({
         },
         routeView(item) {
             let self = this
-            app.showingPlaylist = [];
+
+            
             let kind = (item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')) : (item.type ?? ''));
             let id = (item.attributes.playParams ? (item.attributes.playParams.id ?? (item.id ?? '')) : (item.id ?? ''));
             ;
             let isLibrary = item.attributes.playParams ? (item.attributes.playParams.isLibrary ?? false) : false;
             console.log(kind, id, isLibrary)
-
-            if (kind.toString().includes("artist")) {
-                app.getArtistInfo(id, isLibrary)
-            } else if (kind.toString().includes("record-label")) {
-                kind = "recordLabel"
-                app.page = (kind) + "_" + (id);
-                console.log("oks");
-                app.getTypeFromID((kind), (id), (isLibrary), {extend: "editorialVideo", views: 'top-releases,latest-releases,top-artists'});
-            } 
-            else if (!kind.toString().includes("radioStation") && !kind.toString().includes("song") && !kind.toString().includes("musicVideo") && !kind.toString().includes("uploadedVideo")) {
-                app.page = (kind) + "_" + (id);
-                console.log("oks");
-                app.getTypeFromID((kind), (id), (isLibrary), {extend: "editorialVideo"});
-            } else {
-                app.playMediaItemById((id), (kind), (isLibrary), item.attributes.url ?? '')
+            // disable apple-curators because they can't be played in MKjs
+            if (!kind.toString().includes("apple-curator")){
+                app.showingPlaylist = [];
+                if (kind.toString().includes("artist")) {
+                    app.getArtistInfo(id, isLibrary)
+                } else if (kind.toString().includes("record-label") || kind.toString().includes("curator")) {
+                    if (kind.toString().includes("record-label")) 
+                       {kind = "recordLabel"}
+                    else {kind = "curator"}  
+                    app.page = (kind) + "_" + (id);
+                    console.log("oks");
+                    app.getTypeFromID((kind), (id), (isLibrary), {extend: "editorialVideo",include: 'grouping,playlists', views: 'top-releases,latest-releases,top-artists'});
+                } 
+                else if (!kind.toString().includes("radioStation") && !kind.toString().includes("song") && !kind.toString().includes("musicVideo") && !kind.toString().includes("uploadedVideo")) {
+                    app.page = (kind) + "_" + (id);
+                    console.log("oks");
+                    app.getTypeFromID((kind), (id), (isLibrary), {extend: "editorialVideo"});
+                } else {
+                    app.playMediaItemById((id), (kind), (isLibrary), item.attributes.url ?? '')
+                }
+                document.querySelector("#app-content").scrollTop = 0
             }
-            document.querySelector("#app-content").scrollTop = 0
         },
         async getNowPlayingItemDetailed(target){
             let u  = await app.mkapi(app.mk.nowPlayingItem.playParams.kind, (app.mk.nowPlayingItem.songId == -1)  , (app.mk.nowPlayingItem.songId != -1) ? app.mk.nowPlayingItem.songId : app.mk.nowPlayingItem.id, {"include[songs]":"albums,artists"} );
