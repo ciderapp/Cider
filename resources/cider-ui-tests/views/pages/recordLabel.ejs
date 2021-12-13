@@ -22,16 +22,27 @@
                 <div class="row">
                     <h3>About </h3>
                 </div>
-                <div class="row"><div>{{ app.showingPlaylist.attributes.description.standard }}</div>
+                <div class="row">
+                    <div>{{ app.showingPlaylist.attributes.description.standard }}</div>
                 </div>
                     
-            <div>    
+            </div>    
             <div class="row">
                 <div class="col">
                     <h3>{{ data.views["latest-releases"].attributes.title ?? ""}}</h3>
                 </div>
                 <div class="col-auto flex-center" v-if="data.views['latest-releases'].data.length >= 10">
                     <button class="cd-btn-seeall" @click="app.showRecordLabelView(data.id, data.attributes.name + ' -  Latest Releases', 'latest-releases')">See All</button>
+                </div>
+            </div>
+            <mediaitem-square-large :item="item" v-for="item in data.views['latest-releases'].data">
+            </mediaitem-square-large>
+            <div class="row">
+                <div class="col">
+                    <h3>{{ data.views["top-releases"].attributes.title ?? ""}}</h3>
+                </div>
+                <div class="col-auto flex-center" v-if="data.views['latest-releases'].data.length >= 10">
+                    <button class="cd-btn-seeall" @click="app.showRecordLabelView(data.id, data.attributes.name + ' -  Top Releases', 'top-releases')">See All</button>
                 </div>
             </div>
             <mediaitem-square-large :item="item" v-for="item in data.views['latest-releases'].data">
