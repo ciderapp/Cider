@@ -140,7 +140,7 @@ const app = new Vue({
             end: 0
         },
         tmpVar: [],
-        notification: {},
+        notification: false,
         chrome: {
             hideUserInfo: false,
             artworkReady: false,
@@ -156,6 +156,7 @@ const app = new Vue({
             title: "",
             type: ""
         },
+        currentSongInfo: {},
         page: "artist-page",
         pageHistory: [],
         songstest: false
@@ -193,6 +194,7 @@ const app = new Vue({
             MusicKit.getInstance().videoContainerElement = document.getElementById("apple-music-video-player")
 
             this.mk.addEventListener(MusicKit.Events.playbackTimeDidChange, (a) => {
+                this.currentSongInfo = a
                 self.playerLCD.playbackDuration = (self.mk.currentPlaybackTime)
                 self.lyriccurrenttime = app.mk.currentPlaybackTime;
 
@@ -259,6 +261,9 @@ const app = new Vue({
             })
 
             this.mk.addEventListener(MusicKit.Events.nowPlayingItemDidChange, (a) => {
+                this.currentSongInfo = a
+                a = a.item.attributes;
+
                 let type = (self.mk.nowPlayingItem != null) ? self.mk.nowPlayingItem["type"] ?? '' : '';
 
                 if (type.includes("musicVideo") || type.includes("uploadedVideo")) {
@@ -275,18 +280,15 @@ const app = new Vue({
                 app.loadLyrics()
                 
                 // Playback Notifications
-                if (app.platform == "darwin" || app.platform == "linux") {
-                    self.notification = new Notification(a.title, {
+                if ((app.platform === "darwin" || app.platform === "linux") && !document.hasFocus()) {
+                    if (this.notification) {
+                        this.notification.close()
+                    }
+                    this.notification = new Notification(a.name, {
                         body: a.artistName,
-                        icon: a.artwork.url,
-                        actions: [{"skip": "Skip"}],
+                        icon: (a.artwork.url.replace('/{w}x{h}bb', '/512x512bb')).replace('/2000x2000bb', '/35x35bb'),
                         silent: true
                     })
-                    // self.notification.addEventListener('notificationclick', function(event) {
-                    //     event.notification.close();
-                    //     if (event.action !== 'skip') return;
-                    //     this.mk.skipToNext
-                    //   }, false);
                 }
             })
 
