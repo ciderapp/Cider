@@ -1,4 +1,4 @@
-const {app, BrowserWindow, ipcMain, protocol} = require("electron")
+const {app, BrowserWindow, ipcMain, protocol, shell} = require("electron")
 const {join, resolve} = require("path")
 const getPort = require("get-port");
 const express = require("express");
@@ -51,6 +51,16 @@ const CiderBase = {
             const {BrowserWindow} = require("electron-acrylic-window");
             win = new BrowserWindow(options)
         }
+
+        win.webContents.setWindowOpenHandler(({url}) => {
+            if (url.includes("apple") || url.includes("localhost")) {
+                return { action: "allow"}
+            }
+            shell.openExternal(url).catch(() => {})
+            return {
+                action: 'deny'
+            }
+        })
 
 
         // intercept "https://js-cdn.music.apple.com/hls.js/2.141.0/hls.js/hls.js" and redirect to local file "./apple-hls.js" instead
