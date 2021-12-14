@@ -77,11 +77,13 @@
                                         {{  (mk.nowPlayingItem["attributes"]["albumName"]) ? (" - " + mk.nowPlayingItem["attributes"]["albumName"]) : "" }}
                                     </div>
                                 </div>
-                                <div class="song-duration" style="display: flex; justify-content: space-between;;">
-                                    <p style="width: auto">{{ convertToMins(getSongProgress()) }}</p>
-                                    <p style="width: auto">{{ convertToMins(mk.currentPlaybackDuration) }}</p>
-                                </div>
+
                                 <div class="song-progress">
+                                    <div class="song-duration" style="display: flex; justify-content: space-between; height: 1px;">
+                                        <p style="width: auto">{{ convertToMins(getSongProgress()) }}</p>
+                                        <p style="width: auto">{{ convertToMins(mk.currentPlaybackDuration) }}</p>
+                                    </div>
+
                                     <input type="range" step="0.01" min="0" :style="progressBarStyle()"
                                            @input="playerLCD.desiredDuration = $event.target.value;playerLCD.userInteraction = true"
                                            @mouseup="mk.seekToTime($event.target.value);playerLCD.desiredDuration = 0;playerLCD.userInteraction = false"
