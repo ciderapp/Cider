@@ -1,8 +1,14 @@
 <script type="text/x-template" id="mediaitem-scroller-horizontal-mvview">
     <template>
         <div class="cd-hmedia-scroller">
-            <mediaitem-mvview :item="item ? (item.attributes.kind ? item: item.relationships.contents.data[0]) : []" :imagesize="imagesize"
-                                    v-for="item in items"></mediaitem-mvview>
+            <template v-if="browsesp">
+                <mediaitem-mvview-sp :item="item ? (item.attributes.kind ? item: item.relationships.contents.data[0]) : []" :imagesize="imagesize"
+                   :badge="item.attributes"                     v-for="item in items"></mediaitem-mvview-sp>
+            </template>
+            <template v-else>
+                <mediaitem-mvview :item="item ? (item.attributes.kind ? item: item.relationships.contents.data[0]) : []" :imagesize="imagesize"
+                v-for="item in items"></mediaitem-mvview>
+            </template>                            
         </div>
     </template>
 </script>
@@ -11,7 +17,7 @@
 <script>
     Vue.component('mediaitem-scroller-horizontal-mvview', {
         template: '#mediaitem-scroller-horizontal-mvview',
-        props: ['items',"imagesize"],
+        props: ['items',"imagesize","browsesp"],
         methods: {}
     });
 </script>
