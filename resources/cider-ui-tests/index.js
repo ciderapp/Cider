@@ -68,6 +68,7 @@ const app = new Vue({
             desiredDuration: 0,
             userInteraction: false
         },
+        browsepage: [],
         listennow: [],
         radio: {
             personal: []
@@ -262,7 +263,9 @@ const app = new Vue({
 
             this.mk.addEventListener(MusicKit.Events.nowPlayingItemDidChange, (a) => {
                 this.currentSongInfo = a
-                a = a.item.attributes;
+                try{
+                    a = a.item.attributes;
+                } catch(_){}
 
                 let type = (self.mk.nowPlayingItem != null) ? self.mk.nowPlayingItem["type"] ?? '' : '';
 
@@ -279,6 +282,7 @@ const app = new Vue({
                 app.getNowPlayingArtworkBG(32);
                 app.loadLyrics()
                 
+                try{
                 // Playback Notifications
                 if ((app.platform === "darwin" || app.platform === "linux") && !document.hasFocus()) {
                     if (this.notification) {
@@ -290,6 +294,7 @@ const app = new Vue({
                         silent: true
                     })
                 }
+                } catch (_){}
             })
 
             this.apiCall('https://api.music.apple.com/v1/me/library/playlists', res => {
@@ -453,12 +458,10 @@ const app = new Vue({
                        {kind = "recordLabel"}
                     else {kind = "curator"}  
                     app.page = (kind) + "_" + (id);
-                    console.log("oks");
                     app.getTypeFromID((kind), (id), (isLibrary), {extend: "editorialVideo",include: 'grouping,playlists', views: 'top-releases,latest-releases,top-artists'});
                 } 
                 else if (!kind.toString().includes("radioStation") && !kind.toString().includes("song") && !kind.toString().includes("musicVideo") && !kind.toString().includes("uploadedVideo")) {
                     app.page = (kind) + "_" + (id);
-                    console.log("oks");
                     app.getTypeFromID((kind), (id), (isLibrary), {extend: "editorialVideo"});
                 } else {
                     app.playMediaItemById((id), (kind), (isLibrary), item.attributes.url ?? '')
@@ -1001,6 +1004,30 @@ const app = new Vue({
             } catch (e) {
                 console.log(e)
                 this.getListenNow(attempt + 1)
+            }
+        },
+        async getBrowsePage(attempt = 0) {
+            if (attempt > 3) {
+                return
+            }
+            try {
+                var browse = await this.mk.api.groupings("",
+                {
+                     platform: "web",
+                     name: "music",
+                     "omit[resource:artists]": "relationships",
+                     "include[albums]": "artists",
+                     "include[songs]": "artists",
+                     "include[music-videos]": "artists",
+                     extend: "editorialArtwork,artistUrl",
+                     "fields[artists]": "name,url,artwork,editorialArtwork,genreNames,editorialNotes",
+                     "art[url]": "f"
+                });
+                this.browsepage = browse[0];
+                console.log(this.browsepage)
+            } catch (e) {
+                console.log(e)
+                this.getBrowsePage(attempt + 1)
             }
         },
         async getRadioStations(attempt = 0) {

@@ -269,9 +269,9 @@
                     </template>
                 </transition>
                 <!-- Browse -->
-                <transition name="wpfade">
+                <transition v-on:enter="app.getBrowsePage(); console.log('browse')" name="wpfade">
                     <template v-if="page == 'browse'">
-                        <div class="content-inner">
+                        <!-- <div class="content-inner">
 
                             <button id="apple-music-authorize" class="md-btn md-btn-primary" @click="init()">Start
                                 MusicKit
@@ -319,7 +319,8 @@
                             <button class="md-btn" @click="drawertest = !drawertest">Toggle Drawer</button>
                             <button class="md-btn">Button</button>
                             <button class="md-btn md-btn-primary">Button</button>
-                        </div>
+                        </div> -->
+                        <cider-browse :data="browsepage"></cider-browse>
                     </template>
                 </transition>
                 <!-- Listen Now -->
@@ -406,6 +407,9 @@
         </div>
     </template>
 </script>
+
+<!-- Browse -->
+<%- include('pages/browse') %>
 
 <!-- Listen Now -->
 <%- include('pages/listen_now') %>
