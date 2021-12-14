@@ -429,6 +429,11 @@ const app = new Vue({
                 return this.playerLCD.playbackDuration
             }
         },
+        convertToMins(time) {
+            let mins = Math.floor(time/60)
+            let seconds = (Math.floor(time%60) / 100).toFixed(2)
+            return `${mins}:${seconds.replace("0.","")}`
+        },
         hashCode(str) {
             var hash = 0, i, chr;
             if (str.length === 0) return hash;
