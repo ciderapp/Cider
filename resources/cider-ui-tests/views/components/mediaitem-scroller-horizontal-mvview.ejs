@@ -2,11 +2,11 @@
     <template>
         <div class="cd-hmedia-scroller">
             <template v-if="browsesp">
-                <mediaitem-mvview-sp :item="item ? (item.attributes.kind ? item: item.relationships.contents.data[0]) : []" :imagesize="imagesize"
+                <mediaitem-mvview-sp :item="item ? (item.attributes.kind ? item : ((item.relationships && item.relationships.contents ) ? item.relationships.contents.data[0] : item)) : []" :imagesize="imagesize"
                    :badge="item.attributes"                     v-for="item in items"></mediaitem-mvview-sp>
             </template>
             <template v-else>
-                <mediaitem-mvview :item="item ? (item.attributes.kind ? item: item.relationships.contents.data[0]) : []" :imagesize="imagesize"
+                <mediaitem-mvview :item="item ? (item.attributes.kind ? item : ((item.relationships && item.relationships.contents ) ? item.relationships.contents.data[0] : item)) : []" :imagesize="imagesize"
                 v-for="item in items"></mediaitem-mvview>
             </template>                            
         </div>
