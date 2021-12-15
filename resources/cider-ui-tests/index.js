@@ -167,7 +167,8 @@ const app = new Vue({
         currentSongInfo: {},
         page: "browse",
         pageHistory: [],
-        songstest: false
+        songstest: false,
+        hangtimer: null
     },
     watch: {
         page: () => {
@@ -183,6 +184,7 @@ const app = new Vue({
     methods: {
         async init() {
             let self = this
+            clearTimeout(this.hangtimer)
             this.mk = MusicKit.getInstance()
             this.mk.authorize()
             this.$forceUpdate()
@@ -1678,6 +1680,13 @@ const app = new Vue({
         }
     }
 })
+
+// Hang Timer
+app.hangtimer = setTimeout(()=>{
+    if(confirm("Cider is not responding. Reload the app?")) {
+        window.location.reload()
+    }
+}, 10000)
 
 document.addEventListener('musickitloaded', function () {
     // MusicKit global is now defined
