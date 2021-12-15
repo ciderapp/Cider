@@ -427,6 +427,43 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   }
 }
 
+.context-menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.0);
+  z-index: 100;
+
+  .context-menu-item {
+    background: transparent;
+    display: block;
+    width: 100%;
+    text-align: left;
+    color: #eee;
+    font-family: inherit;
+    font-size: 15px;
+    padding: 8px 12px;
+    border: 0px;
+    appearance: none;
+    border-radius: 6px;
+    margin: 2px 0px;
+
+    &:hover {
+      background: var(--keyColor);
+      cursor: pointer;
+    }
+  }
+
+  .context-menu-body {
+    background: #242424;
+    padding: 6px;
+    border-radius: 6px;
+    box-shadow: var(--mediaItemShadow-Shadow);
+  }
+}
+
 
 .app-sidebar-content::-webkit-scrollbar {
   display: none;
@@ -1275,71 +1312,6 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
 .search-tab.active {
   background: var(--keyColor);
-}
-
-.context-menu {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 100;
-}
-
-.context-menu .context-menu-item {
-  --borderRadius: 10px;
-  appearance: none;
-  width: 100%;
-  display: block;
-  font-size: 1.10em;
-  padding: 18px 20px;
-  font-family: inherit;
-  border: 0px;
-  font-weight: 600;
-  border-radius: 0px;
-  border-bottom: 1px solid rgb(200 200 200 / 15%);
-  margin: 0px;
-  background: rgb(60 60 60 / 80%);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  color: #ccc;
-}
-
-.context-menu .context-menu-item:hover {
-  cursor: pointer;
-}
-
-.context-menu .context-menu-item:active {
-  filter: brightness(75%);
-}
-
-.context-menu .context-menu-item:first-child {
-  border-radius: 0px;
-  border-top-left-radius: var(--borderRadius);
-  border-top-right-radius: var(--borderRadius);
-}
-
-.context-menu .context-menu-item:last-child {
-  border-radius: 0px;
-  border-bottom-left-radius: var(--borderRadius);
-  border-bottom-right-radius: var(--borderRadius);
-  border-bottom: 0px;
-}
-
-.context-menu .context-menu-item:only-child {
-  border-radius: var(--borderRadius);
-}
-
-.context-menu .context-menu-item.context-menu-item--left {
-  text-align: left;
-}
-
-.context-menu .context-menu-body {
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  flex-direction: column;
 }
 
 .lyric-body {

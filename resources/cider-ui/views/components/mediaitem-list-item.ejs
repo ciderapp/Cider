@@ -1,6 +1,7 @@
 <script type="text/x-template" id="mediaitem-list-item">
     <template>
         <div v-observe-visibility="{callback: visibilityChanged}"
+             @contextmenu="CiderContextMenu.Create($event, new CiderContextMenus.mediaitem(item))"
              class="cd-mediaitem-list-item">
             <template v-if="isVisible">
                 <div class="isLibrary" v-if="showLibraryStatus == true">

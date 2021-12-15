@@ -13,6 +13,77 @@ Vue.component('lyrics-view', {
     methods: {}
 });
 
+// This is going to suck to code
+var CiderContextMenus = {
+    mediaitem: function (mediaitem) {
+        this.items = [
+            {
+                "name": "Add to Library",
+                "action": function(song) {
+                    console.log("Adding song to library");
+                    console.log(mediaitem.attributes.name)
+                }
+            },
+            {
+                "name": "Add to Playlist",
+                "action": function(song) {
+                    console.log("Adding song to playlist");
+                }
+            },
+            {
+                "name": "Add to Queue",
+                "action": function(song) {
+                    console.log("Adding song to queue");
+                }
+            }
+        ]
+    }
+}
+var CiderContextMenu = {
+    Menu: function (event) {
+        this.items = []
+    },
+    Create(event, menudata) {
+        var menuBackground = document.createElement("div");
+        var menu = document.createElement("div");
+        menu.classList.add("context-menu-body");
+        menuBackground.classList.add("context-menu");
+        menu.style.left = event.clientX + "px";
+        menu.style.top = event.clientY + "px";
+        menu.style.position = "absolute";
+        menu.style.zIndex = "99909";
+        menu.style.minWidth = "120px"
+
+        // when menubackground is clicked, remove it
+        menuBackground.addEventListener("click", function () {
+            menuBackground.remove();
+            menu.remove();
+        });
+
+        // add menu to menuBackground
+        menuBackground.appendChild(menu);
+
+        document.body.appendChild(menuBackground);
+        // for each item in menudata create a menu item
+        for (var i = 0; i < menudata.items.length; i++) {
+            var item = document.createElement("button")
+            item.tabIndex = 0
+            item.classList.add("context-menu-item")
+            item.innerHTML = menudata.items[i].name
+            item.onclick = menudata.items[i].action
+            menu.appendChild(item)
+        }
+        // if menu would be off the screen, move it into view
+        if (event.clientX + menu.offsetWidth > window.innerWidth) {
+            menu.style.left = (window.innerWidth - menu.offsetWidth) + "px";
+        }
+        if (event.clientY + menu.offsetHeight > window.innerHeight) {
+            menu.style.top = (window.innerHeight - menu.offsetHeight) + "px";
+        }
+        return menuBackground;
+    }
+}
+
 
 const MusicKitTools = {
     getHeader() {
@@ -189,11 +260,7 @@ const app = new Vue({
             this.mk.authorize()
             this.$forceUpdate()
             this.mk.privateEnabled = true
-            try {
-                this.platform = ipcRenderer.sendSync('cider-platform');
-            }catch(e){
-                this.platform = "dev"
-            }
+            // this.platform = ipcRenderer.sendSync('cider-platform');
             // Set profile name
             this.chrome.userinfo = await this.mkapi("personalSocialProfile", false, "")
             // API Fallback
@@ -1684,7 +1751,6 @@ const app = new Vue({
         }
     }
 })
-
 // Hang Timer
 app.hangtimer = setTimeout(()=>{
     if(confirm("Cider is not responding. Reload the app?")) {
