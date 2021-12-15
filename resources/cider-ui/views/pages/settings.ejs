@@ -1,0 +1,178 @@
+<script type="text/x-template" id="cider-settings">
+    <div class="content-inner settings-page">
+        <h1 class="header-text">Settings <small>(non functional, stay tuned)</small></h1>
+        <div class="md-option-container">
+            <div class="md-option-line">
+                <div class="md-option-segment">
+                    Audio Quality
+                </div>
+                <div class="md-option-segment md-option-segment_auto">
+                    <select class="md-select" style="width:180px;">
+                        <option value="990">Extreme</option>
+                        <option value="256">High</option>
+                        <option value="64">Low</option>
+                    </select>
+                </div>
+            </div>
+            <div class="md-option-line">
+                <div class="md-option-segment">
+                    Seamless Audio Transitions
+                </div>
+                <div class="md-option-segment md-option-segment_auto">
+                    <input type="checkbox" switch/>
+                </div>
+            </div>
+            <div class="md-option-line">
+                <div class="md-option-segment">
+                    Animated Artwork
+                </div>
+                <div class="md-option-segment md-option-segment_auto">
+                    <select class="md-select">
+                        <option value="0">Always</option>
+                        <option value="1">Limit to pages and special entries</option>
+                        <option value="2">Disable Everywhere</option>
+                    </select>
+                </div>
+            </div>
+            <div class="md-option-line">
+                <div class="md-option-segment">
+                    Discord Rich Presence
+                </div>
+                <div class="md-option-segment md-option-segment_auto">
+                    <select class="md-select">
+                        <option value="0">Disabled</option>
+                        <option value="1">Display as 'Cider'</option>
+                        <option value="2">Display as 'Apple Music'</option>
+                    </select>
+                </div>
+            </div>
+            <div class="md-option-line">
+                <div class="md-option-segment">
+                    Enable AudioContext Functionality
+                    <br>
+                    <small>Enabling AudioContext functionality will allow for extended audio features like Equalizers and Visualizers, however on some systems this may cause stuttering in audio tracks.</small>
+                </div>
+                <div class="md-option-segment md-option-segment_auto">
+                    <input type="checkbox" switch/>
+                </div>
+            </div>
+            <div class="md-option-line">
+                <div class="md-option-segment">
+                    LastFM Scrobbling
+                </div>
+                <div class="md-option-segment md-option-segment_auto">
+                    <input type="checkbox" switch/>
+                </div>
+            </div>
+            <div class="md-option-line">
+                <div class="md-option-segment">
+                    LastFM Scrobble Delay
+                </div>
+                <div class="md-option-segment md-option-segment_auto">
+                    <input type="checkbox" switch/>
+                </div>
+            </div>
+            <div class="md-option-line">
+                <div class="md-option-segment">
+                    Theme
+                </div>
+                <div class="md-option-segment md-option-segment_auto">
+                    <select class="md-select">
+                        <option value="0">Cider</option>
+                    </select>
+                </div>
+            </div>
+            <div class="md-option-line">
+                <div class="md-option-segment">
+                    Theme Options
+                </div>
+                <div class="md-option-segment md-option-segment_auto">
+                    <button class="btn">Theme Options</button>
+                </div>
+            </div>
+            <div class="md-option-line">
+                <div class="md-option-segment">
+                    Scrollbars
+                </div>
+                <div class="md-option-segment md-option-segment_auto">
+                    <select class="md-select">
+                        <option value="0">Show on hover</option>
+                        <option value="1">Always show</option>
+                        <option value="2">Hidden</option>
+                    </select>
+                </div>
+            </div>
+            <div class="md-option-line">
+                <div class="md-option-segment">
+                    Refresh Rate
+                </div>
+                <div class="md-option-segment md-option-segment_auto">
+                    <select class="md-select">
+                        <option value='0'>Automatic</option>
+                        <option value='30'>30</option>
+                        <option value='60'>60</option>
+                        <option value='144'>144</option>
+                        <option value='175'>175</option>
+                        <option value='240'>240</option>
+                        <option value='360'>30</option>
+                    </select>
+                </div>
+            </div>
+            <div class="md-option-line">
+                <div class="md-option-segment">
+                    Enable Musixmatch Lyrics
+                </div>
+                <div class="md-option-segment md-option-segment_auto">
+                    <input type="checkbox" switch/>
+                </div>
+            </div>
+            <div class="md-option-line">
+                <div class="md-option-segment">
+                    Musixmatch Preferred Language
+                </div>
+                <div class="md-option-segment md-option-segment_auto">
+                    <input type="checkbox" switch/>
+                </div>
+            </div>
+            <div class="md-option-line">
+                <div class="md-option-segment">
+                    Close Button Behavior
+                </div>
+                <div class="md-option-segment md-option-segment_auto">
+                    <select class="md-select">
+                        <option value='0'>Minimize to system tray</option>
+                        <option value='1'>Minimize to taskbar ? dock</option>
+                        <option value='2'>Quit Cider</option>
+                    </select>
+                </div>
+            </div>
+            <div class="md-option-line">
+                <div class="md-option-segment">
+                    Open Cider on Startup
+                </div>
+                <div class="md-option-segment md-option-segment_auto">
+                    <select class="md-select">
+                        <option value='0'>Never</option>
+                        <option value='1'>Always</option>
+                        <option value='2'>Always, minimized</option>
+                        <option value='2'>Always, hidden in tray</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script>
+    Vue.component('cider-settings', {
+        template: "#cider-settings",
+        props: [],
+        data: function () {
+            return {
+            }
+        },
+        methods: {
+
+        }
+    })
+</script>

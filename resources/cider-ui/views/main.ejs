@@ -188,7 +188,7 @@
                             <button class="usermenu-item" @click="window.open('https://discord.gg/CezHYdXHEM')">
                                 Discord
                             </button>
-                            <button class="usermenu-item">
+                            <button class="usermenu-item" @click="page = 'settings'">
                                 Settings
                             </button>
                             <button class="usermenu-item" @click="mk.unauthorize()">
@@ -345,6 +345,12 @@
                         </div>
                     </template>
                 </transition>
+                <!-- Settings -->
+                <transition name="wpfade">
+                    <template v-if="page == 'settings'">
+                        <cider-settings></cider-settings>
+                    </template>
+                </transition>
                 <!-- Search -->
                 <transition name="wpfade">
                     <template v-if="page == 'search'">
@@ -416,6 +422,9 @@
 
 <!-- Browse -->
 <%- include('pages/browse') %>
+
+<!-- Settings -->
+<%- include('pages/settings') %>
 
 <!-- Listen Now -->
 <%- include('pages/listen_now') %>

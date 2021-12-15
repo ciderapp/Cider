@@ -152,7 +152,7 @@ const CiderBase = {
     async InitWebServer() {
         const webRemotePort = await getPort({port : 9000});
         const webapp = express();
-        const webRemotePath = path.join(__dirname, '../cider-ui-tests/');
+        const webRemotePath = path.join(__dirname, '../cider-ui/');
         webapp.set("views", path.join(webRemotePath, "views"));
         webapp.set("view engine", "ejs");
 

@@ -2425,3 +2425,67 @@ div#captions {
 .semibold{
   font-weight: 500;
 }
+
+/* Switch Checkbox */
+input[type=checkbox][switch] {
+  width: 38px;
+  appearance: none;
+  border-radius: 32px;
+  height: 24px;
+  zoom: 1;
+  top: 0;
+  cursor: pointer;
+  left: 0;
+  position: relative;
+  transform: scale(1);
+  background: rgb(142 142 147 / 100%);
+  padding: 0;
+  margin: 0;
+}
+
+input[type=checkbox][switch]:focus,
+input[type=checkbox][switch]:active {
+  outline: none;
+}
+
+input[type=checkbox][switch]:checked {
+  background: var(--keyColor);
+  border: 0 solid var(--keyColor);
+  mix-blend-mode: unset;
+}
+
+input[type=checkbox][switch]::before {
+  background: white;
+  width: 26px;
+  height: 26px;
+  top: -1px;
+  left: -1px;
+  position: absolute;
+  content: ' ';
+  border-radius: 32px;
+  transition: .10s left var(--appleEase);
+  transform: scale(.75);
+}
+
+
+input[type=checkbox][switch]:checked::before {
+  background: white;
+  top: -1px;
+  left: 13px;
+  transition: .10s left var(--appleEase);
+  transform: scale(.75);
+}
+
+input[type=checkbox][switch]:disabled::before {
+  opacity: .5;
+}
+
+input[type=checkbox][switch]:active::before {
+  left: 13px;
+}
+
+input[type=checkbox][switch]:checked:active::before {
+  left: -1px;
+}
+
+/* End Switch Checkbox */
