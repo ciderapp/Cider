@@ -1,12 +1,12 @@
 <script type="text/x-template" id="mediaitem-artwork">
     <template v-if="type == 'artists'">
-        <div class="mediaitem-artwork rounded" :style="{'box-shadow': shadow ? 'var(--mediaItemShadow-Shadow)' : ''}">
+        <div class="mediaitem-artwork rounded" :key="url" :style="{'box-shadow': shadow ? 'var(--mediaItemShadow-Shadow)' : ''}">
             <img :src="app.getMediaItemArtwork(url, size)"
                  class="mediaitem-artwork--img">
         </div>
     </template>
     <template v-else>
-        <div class="mediaitem-artwork" :style="{'box-shadow': shadow ? 'var(--mediaItemShadow-Shadow)' : ''}"
+        <div class="mediaitem-artwork" :key="url" :style="{'box-shadow': shadow ? 'var(--mediaItemShadow-Shadow)' : ''}"
              v-observe-visibility="{callback: visibilityChanged}">
             <img :src="app.getMediaItemArtwork(url, size)" v-if="isVisible"
                  class="mediaitem-artwork--img">
