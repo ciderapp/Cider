@@ -63,23 +63,23 @@
             <div class="app-chrome--center">
                 <div class="app-chrome-item playback-controls">
                     <template v-if="mkReady()">
-                        <div class="app-playback-controls">
+                        <div class="app-playback-controls" @mouseover="chrome.progresshover = true" @mouseleave="chrome.progresshover = false">
                             <div class="artwork"></div>
                             <div class="playback-info">
-                                <div class="song-name"  >
+                                <div class="song-name" >
                                     {{ mk.nowPlayingItem["attributes"]["name"] }}
                                 </div>
-                                <div class="song-artist text-overflow-elipsis" style="display: inline-block;-webkit-box-orient: horizontal;">
-                                    <div class="item-navigate song-artist text-overflow-elipsis"  style="display: inline-block;" @click="app.getNowPlayingItemDetailed(`artist`)">
+                                <div class="song-artist " style="display: inline-block; -webkit-box-orient: horizontal; white-space: nowrap;">
+                                    <div class="item-navigate song-artist"  style="display: inline-block;" @click="app.getNowPlayingItemDetailed(`artist`)">
                                     {{ mk.nowPlayingItem["attributes"]["artistName"] }} 
                                     </div>
-                                    <div class="song-artist item-navigate text-overflow-elipsis" style="display: inline-block;" @click="app.getNowPlayingItemDetailed('album')">
+                                    <div class="song-artist item-navigate" style="display: inline-block;" @click="app.getNowPlayingItemDetailed('album')">
                                         {{  (mk.nowPlayingItem["attributes"]["albumName"]) ? (" - " + mk.nowPlayingItem["attributes"]["albumName"]) : "" }}
                                     </div>
                                 </div>
 
                                 <div class="song-progress">
-                                    <div class="song-duration" style="display: flex; justify-content: space-between; height: 1px;">
+                                    <div class="song-duration" style="justify-content: space-between; height: 1px;"  :style="[chrome.progresshover ? {'display': 'flex'} : {'display' : 'none'} ]">
                                         <p style="width: auto">{{ convertToMins(getSongProgress()) }}</p>
                                         <p style="width: auto">{{ convertToMins(mk.currentPlaybackDuration) }}</p>
                                     </div>
