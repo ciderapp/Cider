@@ -203,7 +203,7 @@
                            v-if="typeof mk.volume != 'undefined'">
                     <button class="app-sidebar-button" style="width:100%"
                             :class="{active: chrome.menuOpened}"
-                            @blur="chrome.menuOpened = false"
+                            @blur="setTimeout(()=>{chrome.menuOpened = false}, 100)"
                             @click="(chrome.userinfo.id) ? chrome.menuOpened = !chrome.menuOpened : false">
 
                         <img class="sidebar-user-icon" loading="lazy"
