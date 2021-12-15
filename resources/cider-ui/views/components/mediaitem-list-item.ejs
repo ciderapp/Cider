@@ -63,6 +63,8 @@
         },
         props: {
             'item': {type: Object, required: true},
+            'parent': {type: Object, required: false},
+            'index': {type: Object, required: false},
             'show-artwork': {type: Boolean, default: true},
             'show-library-status': {type: Boolean, default: true},
             'show-meta-data': {type: Boolean, default: false},
@@ -86,7 +88,13 @@
             },
             playTrack() {
                 let item = this.item
+                let parent = this.parent
+                let childIndex = this.index
+                if (parent != null && childIndex != null){
+                    app.queueParentandplayChild(parent,childIndex);
+                } else {
                 app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)
+                }
             }
         }
     });

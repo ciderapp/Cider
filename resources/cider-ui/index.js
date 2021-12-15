@@ -228,7 +228,8 @@ const app = new Vue({
             maximized: false,
             drawerOpened: false,
             drawerState: "queue",
-            topChromeVisible: true
+            topChromeVisible: true,
+            progresshover: false,
         },
         collectionList: {
             response: {},
@@ -1511,6 +1512,22 @@ const app = new Vue({
                 console.log(err)
                 this.playMediaItemById(id, kind, isLibrary, raurl)
             }
+        },
+        queueParentandplayChild(parent,childIndex,item){
+            var kind = parent.substring(0,parent.indexOf(":"))
+            var id = parent.substring(parent.indexOf(":")+1 , parent.length)
+            var truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
+            console.log(truekind,id)
+            try {
+                    this.mk.setQueue({[truekind]: [id]}).then(function (queue) {
+                        MusicKit.getInstance().changeToMediaAtIndex(childIndex)
+                    })
+                
+            } catch (err) {
+                console.log(err)
+                this.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)
+            }
+         
         },
         friendlyTypes(type) {
             // use switch statement to return friendly name for media types "songs,artists,albums,playlists,music-videos,stations,apple-curators,curators"

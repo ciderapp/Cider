@@ -55,8 +55,8 @@
             </div>
             <div class="playlist-body">
                 <div class="well">
-                    <mediaitem-list-item :item="item"
-                                         v-for="item in data.relationships.tracks.data"></mediaitem-list-item>
+                    <mediaitem-list-item :item="item" :parent="getItemParent(data)" :index="index"
+                                         v-for="(item,index) in data.relationships.tracks.data"></mediaitem-list-item>
                 </div>
                 <div class="playlist-time"> 
                     {{data.attributes.releaseDate}}
@@ -77,6 +77,13 @@
         data: function () {
             return {
                 editorialNotesExpanded: false,
+            }
+        },
+        methods: {
+            getItemParent: function (data) {
+                kind = data.attributes.playParams.kind;
+                id = data.attributes.playParams.id;
+                return `${kind}:${id}`
             }
         }
     })
