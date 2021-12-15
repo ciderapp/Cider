@@ -14,8 +14,8 @@
                     <div class="button" style="
                     border-radius: 50%;
                     background: rgba(50,50,50,0.7);"
-                         :style="[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'margin': '140px',
-                        'margin-left': '250px',
+                         :style="[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'margin': '74px',
+                        'margin-left': '174px',
                         width: '40px',
                         height: '40px',} :
                         {margin: '35px',  'margin-left': '95px',
@@ -32,20 +32,20 @@
                 </div>
 
             </div>
-            <div class="cd-mediaitem-mvview-overlay" @click.self='app.routeView(item)' tabindex="0">
-                <div class="button" style="
-                border-radius: 50%;
-                background: rgba(50,50,50,0.7);"
-                     :style="[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'margin': '140px',
-                    'margin-left': '250px', 
-                    width: '40px',
-                    height: '40px',} :
-                    {margin: '35px',  'margin-left': '95px',
-                    width: '120px',
-                    height: '120px',}]" @click="app.playMediaItem(item)">
-                    <%- include("../svg/play.svg") %>
-                </div>
-            </div>
+<!--            <div class="cd-mediaitem-mvview-overlay" @click.self='app.routeView(item)' tabindex="0">-->
+<!--                <div class="button" style="-->
+<!--                border-radius: 50%;-->
+<!--                background: rgba(50,50,50,0.7);"-->
+<!--                     :style="[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'margin': '140px',-->
+<!--                    'margin-left': '250px', -->
+<!--                    width: '40px',-->
+<!--                    height: '40px',} :-->
+<!--                    {margin: '35px',  'margin-left': '95px',-->
+<!--                    width: '120px',-->
+<!--                    height: '120px',}]" @click="app.playMediaItem(item)">-->
+<!--                    <%- include("../svg/play.svg") %>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
     </template>
 </script>
