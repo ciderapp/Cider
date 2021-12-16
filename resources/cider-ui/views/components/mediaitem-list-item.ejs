@@ -85,20 +85,41 @@
         methods: {
             select(e) {
                 if (e.shiftKey) {
-                    if(this.index != -1) {
+                    if (this.index != -1) {
                         let allMediaItems = document.querySelectorAll(".cd-mediaitem-list-item[data-index]")
-                        // select everything between the last selected item from app.selectedMediaItems and this one
-
-                        for (let i = start; i <= end; i++) {
-                            let mediaItem = allMediaItems[i];
-                            app.select_selectMediaItem(mediaItem.getAttribute("data-id"), mediaItem.getAttribute("data-type"));
+                        let startIndex = Math.min(...app.selectedMediaItems.map(item => item.index))
+                        let endIndex = Math.max(...app.selectedMediaItems.map(item => item.index))
+                        if (this.index < startIndex) {
+                            for (let i = this.index; i <= endIndex; i++) {
+                                let item = allMediaItems[i]
+                                if (item) {
+                                    app.select_selectMediaItem(item.getAttribute("data-id"),
+                                        item.getAttribute("data-type"),
+                                        item.getAttribute("data-index"),
+                                        item.getAttribute("data-guid"))
+                                }
+                            }
+                        } else if (this.index > endIndex) {
+                            for (let i = startIndex; i <= this.index; i++) {
+                                let item = allMediaItems[i]
+                                if (item) {
+                                    app.select_selectMediaItem(item.getAttribute("data-id"),
+                                        item.getAttribute("data-type"),
+                                        item.getAttribute("data-index"),
+                                        item.getAttribute("data-guid"))
+                                }
+                            }
+                        } else {
+                            for (let i = startIndex; i <= endIndex; i++) {
+                                let item = allMediaItems[i]
+                                if (item) {
+                                    app.select_selectMediaItem(item.getAttribute("data-id"),
+                                        item.getAttribute("data-type"),
+                                        item.getAttribute("data-index"),
+                                        item.getAttribute("data-guid"))
+                                }
+                            }
                         }
-
-                    }
-                    if (app.select_hasMediaItem(this.guid)) {
-                        app.select_removeMediaItem(this.guid)
-                    } else {
-                        app.select_selectMediaItem(this.item.attributes.playParams.id ?? this.item.id, this.item.attributes.playParams.kind ?? this.item.type, this.index, this.guid)
                     }
                 } else if (e.ctrlKey) {
                     if (app.select_hasMediaItem(this.guid)) {

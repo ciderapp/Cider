@@ -419,7 +419,7 @@ const app = new Vue({
             }
         },
         select_removeMediaItem(id) {
-            this.selectedMediaItems.filter(item => item.id == id).forEach(item => {
+            this.selectedMediaItems.filter(item => item.guid == id).forEach(item => {
                 this.selectedMediaItems.splice(this.selectedMediaItems.indexOf(item), 1)
             })
         },
