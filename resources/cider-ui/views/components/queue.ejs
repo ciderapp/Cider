@@ -20,7 +20,7 @@
                         <div class="row">
                             <div class="col-auto flex-center">
                                 <div class="artwork">
-                                    <mediaitem-artwork :url="queueItem.item.attributes.artwork.url" :size="32"></mediaitem-artwork>
+                                    <mediaitem-artwork :url="queueItem.item.attributes.artwork ? queueItem.item.attributes.artwork.url : ''" :size="32"></mediaitem-artwork>
                                 </div>
                             </div>
                             <div class="col queue-info">
