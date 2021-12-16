@@ -16,7 +16,7 @@
                          :class="{selected: position == selected}"
                          @click="selected = position"
                          @dblclick="playQueueItem(position)" v-else :key="position"
-                         @contextmenu="queueContext($event, queueItem.item, position)">
+                         @contextmenu="selected = position;queueContext($event, queueItem.item, position)">
                         <div class="row">
                             <div class="col-auto flex-center">
                                 <div class="artwork">
