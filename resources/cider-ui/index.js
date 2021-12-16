@@ -22,16 +22,24 @@ var CiderContextMenu = {
         var menuBackground = document.createElement("div");
         var menu = document.createElement("div");
         menu.classList.add("context-menu-body");
+        menu.classList.add("context-menu-open");
         menuBackground.classList.add("context-menu");
         menu.style.left = 0 + "px";
         menu.style.top = 0 + "px";
         menu.style.position = "absolute";
         menu.style.zIndex = "99909";
+        menu.addEventListener("animationend", function () {
+            menu.classList.remove("context-menu-open");
+        }, {once: true});
 
         // when menubackground is clicked, remove it
         menuBackground.addEventListener("click", function () {
-            menuBackground.remove();
-            menu.remove();
+            menuBackground.style.pointerEvents = "none";
+            menu.classList.add("context-menu-close");
+            menu.addEventListener("animationend", function () {
+                menuBackground.remove();
+                menu.remove();
+            }, {once: true});
         });
 
         // add menu to menuBackground
