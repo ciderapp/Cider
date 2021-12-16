@@ -4,6 +4,13 @@ const {app} = require('electron');
 // Creating the Application Window and Calling all the Functions
 function CreateWindow() {
     if (app.isQuiting) { app.quit(); return; }
+
+    // store
+    const Store = require("electron-store");
+    app.cfg = new Store({
+        defaults: {volume: 1},
+    });
+
     /** CIDER **/
     const ciderwin = require("./resources/functions/cider-base")
     app.win = ciderwin

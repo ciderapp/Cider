@@ -1,4 +1,4 @@
-const {BrowserWindow, ipcMain, shell} = require("electron")
+const {BrowserWindow, ipcMain, shell, app} = require("electron")
 const {join} = require("path")
 const getPort = require("get-port");
 const express = require("express");
@@ -43,24 +43,16 @@ const CiderBase = {
             }
 
         }
+
         CiderBase.InitWebServer()
+
+        // Create the BrowserWindow
         if (process.platform === "darwin" || process.platform === "linux") {
             win = new BrowserWindow(options)
         } else {
             const {BrowserWindow} = require("electron-acrylic-window");
             win = new BrowserWindow(options)
         }
-
-        win.webContents.setWindowOpenHandler(({url}) => {
-            if (url.includes("apple") || url.includes("localhost")) {
-                return { action: "allow"}
-            }
-            shell.openExternal(url).catch(() => {})
-            return {
-                action: 'deny'
-            }
-        })
-
 
         // intercept "https://js-cdn.music.apple.com/hls.js/2.141.0/hls.js/hls.js" and redirect to local file "./apple-hls.js" instead
         win.webContents.session.webRequest.onBeforeRequest(
@@ -95,18 +87,31 @@ const CiderBase = {
         })
 
         // IPC stuff (listeners)
-
         ipcMain.on('close', () => { // listen for close event
             win.close();
         })
 
+        ipcMain.handle('getStoreValue', (event, key, defaultValue) => {
+            return (defaultValue ? app.cfg.get(key, true) : app.cfg.get(key));
+        });
+
+        ipcMain.handle('setStoreValue', (event, key, value) => {
+            app.cfg.set(key, value);
+        });
+
+        ipcMain.on('getStore', (event) => {
+            event.returnValue = app.cfg.store
+        })
+
+        ipcMain.on('setStore', (event, store) => {
+            app.cfg.store = store
+        })
+
         ipcMain.on('maximize', () => { // listen for maximize event
-            if (win.maximizable) {
-                win.maximize();
-                win.maximizable = false;
+            if (win.isMaximized()) {
+                win.unmaximize()
             } else {
-                win.unmaximize();
-                win.maximizable = true;
+                win.maximize()
             }
         })
 
@@ -115,13 +120,13 @@ const CiderBase = {
         })
 
         if (process.platform === "win32") {
-            var WND_STATE = {
+            let WND_STATE = {
                 MINIMIZED: 0,
                 NORMAL: 1,
                 MAXIMIZED: 2,
                 FULL_SCREEN: 3
             }
-            var wndState = WND_STATE.NORMAL
+            let wndState = WND_STATE.NORMAL
 
             win.on("resize", (_event) => {
                 const isMaximized = win.isMaximized()
@@ -141,13 +146,27 @@ const CiderBase = {
                 }
             })
         }
+
+        // Set window Handler
+        win.webContents.setWindowOpenHandler(({url}) => {
+            if (url.includes("apple") || url.includes("localhost")) {
+                return { action: "allow"}
+            }
+            shell.openExternal(url).catch(() => {})
+            return {
+                action: 'deny'
+            }
+        })
+
         return win
     },
+
     EnvironmentVariables: {
         "env": {
             platform: os.platform()
         }
     },
+
     async InitWebServer() {
         const webRemotePort = await getPort({port : 9000});
         const webapp = express();
@@ -164,6 +183,7 @@ const CiderBase = {
             console.log(`Web Remote listening on port ${webRemotePort}`);
         });
     },
+
 }
 
 module.exports = CiderBase;

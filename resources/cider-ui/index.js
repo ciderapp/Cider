@@ -275,6 +275,10 @@ const app = new Vue({
                 }
             }
 
+            // Set the volume
+            ipcRenderer.invoke('getStoreValue', 'volume').then((value) => {
+                self.mk.volume = value
+            })
 
             // load cached library
             if (localStorage.getItem("librarySongs") != null) {
@@ -394,6 +398,10 @@ const app = new Vue({
                     }
                 } catch (_) {
                 }
+            })
+
+            this.mk.addEventListener(MusicKit.Events.playbackVolumeDidChange, (_a) => {
+                ipcRenderer.invoke('setStoreValue', 'volume', this.mk.volume)
             })
 
             this.apiCall('https://api.music.apple.com/v1/me/library/playlists', res => {
