@@ -85,9 +85,14 @@
                                 }
                             },
                             {   
-                                "name": "Add to Queue",
+                                "name": "Play Next",
                                 "action": function() {
-                                    console.log(self.item)
+                                    app.mk.queue.splice(0,0,[new MusicKit.MediaItem(self.item)])
+                                }
+                            },
+                            {   
+                                "name": "Play Later",
+                                "action": function() {
                                     app.mk.queue.append([new MusicKit.MediaItem(self.item)])
                                 }
                             },
