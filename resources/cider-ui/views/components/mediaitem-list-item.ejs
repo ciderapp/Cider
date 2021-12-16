@@ -139,7 +139,7 @@
             contextMenu(event) {
                 let self = this
                 let useMenu = "normal"
-                if (!app.select_hasMediaItem(this.guid)) {
+                if (app.selectedMediaItems.length <= 1) {
                     app.selectedMediaItems = []
                     app.select_selectMediaItem(this.item.attributes.playParams.id ?? this.item.id, this.item.attributes.playParams.kind ?? this.item.type, this.index, this.guid)
                 } else {
