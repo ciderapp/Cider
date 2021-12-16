@@ -1640,9 +1640,9 @@ const app = new Vue({
                             clearInterval(interval);
                         }
                         this.currentTrackID = this.mk.nowPlayingItem.id;
-                        document.querySelector('.bg-artwork').style.src = "";
+                        document.querySelector('.bg-artwork').src = "";
                         if (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"]) {
-                            document.querySelector('.bg-artwork').style.src = this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"].replace('{w}', size).replace('{h}', size);
+                            document.querySelector('.bg-artwork').src = this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"].replace('{w}', size).replace('{h}', size);
                         } else {
                             this.setLibraryArtBG()
                         }
