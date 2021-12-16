@@ -1573,7 +1573,7 @@ const app = new Vue({
             console.log(truekind,id)
 
             try {
-                if (parent == "library_songs"){
+                if (parent == "librarysongs"){
                     console.log("asc")
                     let query = app.library.songs.listing.map(item => new MusicKit.MediaItem(item));
                     this.mk.clearQueue().then(function (_) {
@@ -1582,7 +1582,7 @@ const app = new Vue({
                     })
                 } else {
                     this.mk.setQueue({[truekind]: [id]}).then(function (queue) {
-                        MusicKit.getInstance().changeToMediaAtIndex(childIndex)
+                        app.mk.changeToMediaAtIndex(childIndex)
                     })
                 }
             } catch (err) {
@@ -1703,7 +1703,7 @@ const app = new Vue({
             return newurl
         },
         getNowPlayingArtworkBG(size = 600) {
-            let interval = setInterval(() => {
+            let bginterval = setInterval(() => {
                 if (!this.mkReady()) {
                     return ""
                 }
@@ -1711,15 +1711,18 @@ const app = new Vue({
                 try {
                     if (this.mk.nowPlayingItem && this.mk.nowPlayingItem.id != this.currentTrackID && document.querySelector('.bg-artwork')) {
                         if (document.querySelector('.bg-artwork')) {
-                            clearInterval(interval);
+                            clearInterval(bginterval);
                         }
                         this.currentTrackID = this.mk.nowPlayingItem.id;
                         document.querySelector('.bg-artwork').src = "";
                         if (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"]) {
                             document.querySelector('.bg-artwork').src = this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"].replace('{w}', size).replace('{h}', size);
+                            try { clearInterval(bginterval); } catch (err) { console.log(err) }
                         } else {
                             this.setLibraryArtBG()
                         }
+                    } else if (this.mk.nowPlayingItem.id == this.currentTrackID){
+                        try { clearInterval(bginterval); } catch (err) { console.log(err) }
                     }
                 } catch (e) {
                     this.setLibraryArtBG()
@@ -1738,9 +1741,12 @@ const app = new Vue({
                         document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', '');
                         if (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"]) {
                             document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${decodeURI((this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"])).replace('{w}', size).replace('{h}', size)}")`);
+                            try { clearInterval(interval); } catch (err) { console.log(err) }
                         } else {
                             this.setLibraryArt()
                         }
+                    } else if (this.mk.nowPlayingItem.id == this.currentTrackID){
+                        try { clearInterval(interval); } catch (err) { console.log(err) }
                     }
                 } catch (e) {
                     console.log(e);
@@ -1857,7 +1863,8 @@ document.addEventListener('musickitloaded', function () {
                 build: '1978.4.1',
                 version: "1.0"
             },
-            sourceType: 24
+            sourceType: 24,
+            suppressErrorDialog: true
         });
         setTimeout(() => {
             app.init()
