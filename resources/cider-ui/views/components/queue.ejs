@@ -12,7 +12,7 @@
             <draggable v-model="queueItems" @start="drag=true" @end="drag=false;move()">
                 <template v-for="(queueItem, position) in queueItems">
                     <div v-if="position <= queuePosition" style="display: none;">{{ position }}</div>
-                    <div class="cd-queue-item" v-else :key="position" @contextmenu="queueContext($event, queueItem.item, position)">
+                    <div class="cd-queue-item" @dblclick="playQueueItem(position)" v-else :key="position" @contextmenu="queueContext($event, queueItem.item, position)">
                         <div class="row">
                             <div class="col-auto flex-center">
                                 <div class="artwork">
@@ -69,6 +69,9 @@
                         },
                     ]
                 });
+            },
+            playQueueItem(index) {
+                app.mk.changeToMediaAtIndex(index)
             },
             updateQueue() {
                 if (app.mk.queue) {
