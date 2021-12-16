@@ -7,20 +7,25 @@
             </animatedartwork-view>
             <div class="row">
                 <div class="col-sm" style="width: auto;">
-                    <div class="artist-image">
+                    <div class="artist-image" v-if="!(data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9))">
                         <mediaitem-artwork
                                 :shadow="true"
-                                v-if="!(data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9))"
+
                                 :url="data.attributes.artwork ? data.attributes.artwork.url : ''"
                                 size="220" type="artists"></mediaitem-artwork>
+                        <button class="overlay-play">
+                            <%- include("../svg/play.svg") %>
+                        </button>
                     </div>
                 </div>
-                <div class="col flex-center"
+                <div class="col flex-center artist-title"
                      :class="{'artist-animation-on': (data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9)) }"
                 >
+                    <button class="artist-play"><%- include("../svg/play.svg") %></button>
                     <h1>{{ data.attributes.name }}</h1>
                 </div>
             </div>
+            <button class="artist-more" @click="artistMenu"></button>
         </div>
         <div class="artist-body">
             <div class="row well">
@@ -115,6 +120,29 @@
             }
         },
         methods: {
+            artistMenu (event) {
+                let self = this
+                CiderContextMenu.Create(event, {
+                    items: [
+                        {
+                            name: "Play Artist Radio",
+                            action: ()=>{
+                                app.mk.setStationQueue({artist:self.data.id}).then(()=>{
+                                    app.mk.play()
+                                })
+                            }
+                        },
+                        {
+                            name: "Follow Artist",
+                            action: ()=>{}
+                        },
+                        {
+                            name: "Share",
+                            action: ()=>{}
+                        }
+                    ]
+                })
+            },
             getArtistPalette(artist) {
                 if (artist["attributes"]["artwork"]) {
                     return {

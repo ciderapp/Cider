@@ -1631,20 +1631,26 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   padding: 0px;
 
   .artist-header {
-    background: var(--keyColor);
+    background: linear-gradient(45deg, var(--keyColor), #0e0e0e);
     color: white;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    min-height: 300px;
+    min-height: 400px;
     position: relative;
 
-    .col.flex-center.artist-animation-on {
-      width: 100%;
-      display: block;
-      flex: unset;
-      margin-left: 2.3em;
-      color: whitesmoke;
+    .artist-more {
+      border-radius: 100%;
+      background: var(--keyColor);
+      box-shadow: var(--mediaItemShadow-Shadow);
+      width: 36px;
+      height: 36px;
+      position: absolute;
+      bottom: 26px;
+      right: 32px;
+      border: 0px;
+      cursor: pointer;
+      z-index: 5;
     }
 
     .animated {
@@ -1676,6 +1682,60 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     width: 200px;
     height: 200px;
     margin: 32px;
+    position: relative;
+    .overlay-play {
+      position: absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      opacity:0;
+      background: rgb(0 0 0 / 50%);
+      transition: opacity 0.1s var(--appleEase);
+      border-radius: 100%;
+      z-index:1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      appearance: none;
+      border:0px;
+      padding:0px;
+      &:hover {
+        opacity:1;
+      }
+      >svg {
+        width: 70%;
+      }
+    }
+  }
+
+  .artist-title {
+    .artist-play {
+      width: 36px;
+      height: 36px;
+      background: var(--keyColor);
+      border-radius: 100%;
+      margin: 14px;
+      box-shadow: var(--mediaItemShadow);
+      display: none;
+      cursor: pointer;
+      appearance: none;
+      border:0px;
+      padding:0px;
+      transform: translateY(3px);
+    }
+    &.artist-animation-on {
+      width: 100%;
+      flex: unset;
+      margin-left: 0.5em;
+      color: whitesmoke;
+      position: absolute;
+      bottom: 0;
+      .artist-play {
+        display: block;
+      }
+    }
   }
 
   .artist-body {
