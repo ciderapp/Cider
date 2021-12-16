@@ -104,7 +104,7 @@
                 } else {
                     if (app.select_hasMediaItem(this.item.attributes.playParams.id ?? this.item.id)) {
                         app.selectedMediaItems = []
-                    }else{
+                    } else {
                         app.selectedMediaItems = []
                         app.select_selectMediaItem(this.item.attributes.playParams.id ?? this.item.id, this.item.attributes.playParams.kind ?? this.item.type)
                     }
@@ -116,7 +116,7 @@
                 if (!app.select_hasMediaItem(this.item.attributes.playParams.id ?? this.item.id)) {
                     app.selectedMediaItems = []
                     app.select_selectMediaItem(this.item.attributes.playParams.id ?? this.item.id, this.item.attributes.playParams.kind ?? this.item.type)
-                }else{
+                } else {
                     useMenu = "multiple"
                 }
                 let menus = {
@@ -124,19 +124,42 @@
                         items: [
                             {
                                 name: `Play ${app.selectedMediaItems.length} tracks next`,
-                                action: ()=>{
-                                    app.selectedMediaItems.forEach(item=>{
-                                        app.mk.playNext({[item.kind]: item.id})
+                                action: () => {
+                                    let itemsToPlay = {}
+                                    app.selectedMediaItems.forEach(item => {
+                                        if (!itemsToPlay[item.kind]) {
+                                            itemsToPlay[item.kind] = []
+                                        }
+                                        itemsToPlay[item.kind].push(item.id)
                                     })
+                                    // loop through itemsToPlay
+                                    for (let kind in itemsToPlay) {
+                                        let ids = itemsToPlay[kind]
+                                        if (ids.length > 0) {
+                                            app.mk.playNext({[kind + "s"]: itemsToPlay[kind]})
+                                        }
+                                    }
+                                    console.log(itemsToPlay)
                                     app.selectedMediaItems = []
                                 }
                             },
                             {
                                 name: `Play ${app.selectedMediaItems.length} tracks later`,
-                                action: ()=>{
-                                    app.selectedMediaItems.forEach(item=>{
-                                        app.mk.playLater({[item.kind]: item.id})
+                                action: () => {
+                                    let itemsToPlay = {}
+                                    app.selectedMediaItems.forEach(item => {
+                                        if (!itemsToPlay[item.kind]) {
+                                            itemsToPlay[item.kind] = []
+                                        }
+                                        itemsToPlay[item.kind].push(item.id)
                                     })
+                                    // loop through itemsToPlay
+                                    for (let kind in itemsToPlay) {
+                                        let ids = itemsToPlay[kind]
+                                        if (ids.length > 0) {
+                                            app.mk.playLater({[kind + "s"]: itemsToPlay[kind]})
+                                        }
+                                    }
                                     app.selectedMediaItems = []
                                 }
                             },
