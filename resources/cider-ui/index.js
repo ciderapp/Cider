@@ -32,15 +32,18 @@ var CiderContextMenu = {
             menu.classList.remove("context-menu-open");
         }, {once: true});
 
-        // when menubackground is clicked, remove it
-        menuBackground.addEventListener("click", function () {
+        function close () {
             menuBackground.style.pointerEvents = "none";
             menu.classList.add("context-menu-close");
             menu.addEventListener("animationend", function () {
                 menuBackground.remove();
                 menu.remove();
             }, {once: true});
-        });
+        }
+
+        // when menubackground is clicked, remove it
+        menuBackground.addEventListener("click", close);
+        menuBackground.addEventListener("contextmenu", close);
 
         // add menu to menuBackground
         menuBackground.appendChild(menu);
