@@ -720,7 +720,13 @@ const app = new Vue({
             ;
             let isLibrary = item.attributes.playParams ? (item.attributes.playParams.isLibrary ?? false) : false;
             console.log(kind, id, isLibrary)
-            app.playMediaItemById((id), (kind), (isLibrary), item.attributes.url ?? '')
+            if (kind.includes("artist")) {
+                app.mk.setStationQueue({ artist: 'a-' + id }).then(() => {
+                    app.mk.play()
+                })
+            } else {
+                app.playMediaItemById((id), (kind), (isLibrary), item.attributes.url ?? '')
+            }
         },
         async getTypeFromID(kind, id, isLibrary = false, params = {}) {
             var a;
