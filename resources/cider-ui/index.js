@@ -1517,7 +1517,12 @@ const app = new Vue({
             var truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
             console.log(id, truekind, isLibrary)
             try {
-                if (truekind == "radioStations") {
+                if (truekind.includes("artist")){
+                    app.mk.setStationQueue({ artist: 'a-' + id }).then(() => {
+                        app.mk.play()
+                    })
+                }
+                else if (truekind == "radioStations") {
                     this.mk.setStationQueue({url: raurl}).then(function (queue) {
                         MusicKit.getInstance().play()
                     });
