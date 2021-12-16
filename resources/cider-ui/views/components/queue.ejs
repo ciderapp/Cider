@@ -13,8 +13,8 @@
                 <template v-for="(queueItem, position) in queueItems">
                     <div v-if="position <= queuePosition" style="display: none;">{{ position }}</div>
                     <div class="cd-queue-item"
-                         :class="{selected: position == selected}"
-                         @click="selected = position"
+                         :class="{selected: selectedItems.includes(position)}"
+                         @click="select($event, position)"
                          @dblclick="playQueueItem(position)" v-else :key="position"
                          @contextmenu="selected = position;queueContext($event, queueItem.item, position)">
                         <div class="row">
@@ -47,17 +47,34 @@
                 drag: false,
                 queuePosition: 0,
                 queueItems: [],
-                selected: -1
+                selected: -1,
+                selectedItems: []
             }
         },
         mounted() {
             this.updateQueue()
         },
         methods: {
+            select(e, position) {
+                if(e.ctrlKey || e.shiftKey) {
+                    if(this.selectedItems.indexOf(position) == -1) {
+                        this.selectedItems.push(position)
+                    } else {
+                        this.selectedItems.splice(this.selectedItems.indexOf(position), 1)
+                    }
+                } else {
+                    this.selectedItems = [position]
+                }
+            },
             queueContext(event, item, position) {
                 let self = this
-                CiderContextMenu.Create(event, {
-                    items: [{
+                let useMenu = "single"
+                if(this.selectedItems.length > 1) {
+                    useMenu = "multiple"
+                }
+                let menus = {
+                    single: {
+                        items: [{
                             "name": "Remove from queue",
                             "action": function () {
                                 self.queueItems.splice(position, 1)
@@ -65,18 +82,37 @@
                                 app.mk.queue._reindex()
                             }
                         },
-                        {
-                            "name": "Start Radio",
+                            {
+                                "name": "Start Radio",
+                                "action": function () {
+                                    app.mk.setStationQueue({
+                                        song: item.attributes.playParams.id ?? item.id
+                                    }).then(() => {
+                                        app.mk.play()
+                                    })
+                                }
+                            },
+                        ]
+                    },
+                    multiple: {
+                        items: [{
+                            "name": `Remove ${self.selectedItems.length} tracks from queue`,
                             "action": function () {
-                                app.mk.setStationQueue({
-                                    song: item.attributes.playParams.id ?? item.id
-                                }).then(() => {
-                                    app.mk.play()
+                                // add property to items to be removed
+                                self.selectedItems.forEach(function (item) {
+                                    self.queueItems[item].remove = true
                                 })
+                                // remove items
+                                self.queueItems = self.queueItems.filter(function (item) {
+                                    return !item.remove
+                                })
+                                app.mk.queue._reindex()
+                                self.selectedItems = []
                             }
-                        },
-                    ]
-                });
+                        }]
+                    }
+                }
+                CiderContextMenu.Create(event, menus[useMenu]);
             },
             playQueueItem(index) {
                 app.mk.changeToMediaAtIndex(index)
