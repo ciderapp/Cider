@@ -2391,6 +2391,16 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   transform: scale(0.5);
 }
 
+.drawertransition-enter-active,
+.drawertransition-leave-active {
+  transition: margin-right .25s var(--appleEase);
+}
+
+.drawertransition-enter,
+.drawertransition-leave-to {
+  margin-right: -300px;
+}
+
 /* Transitions End */
 
 @media (prefers-color-scheme: light) {

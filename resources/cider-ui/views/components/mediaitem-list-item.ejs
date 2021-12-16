@@ -87,13 +87,15 @@
                             {   
                                 "name": "Play Next",
                                 "action": function() {
-                                    app.mk.queue.splice(0,0,[new MusicKit.MediaItem(self.item)])
+                                    app.mk.playNext({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
+                                    app.mk.queue._reindex()
                                 }
                             },
                             {   
                                 "name": "Play Later",
                                 "action": function() {
-                                    app.mk.queue.append([new MusicKit.MediaItem(self.item)])
+                                    app.mk.playLater({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
+                                    app.mk.queue._reindex()
                                 }
                             },
                             {   
