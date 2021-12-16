@@ -235,17 +235,21 @@ const app = new Vue({
         page: "browse",
         pageHistory: [],
         songstest: false,
-        hangtimer: null
+        hangtimer: null,
+        selectedMediaItems: []
     },
     watch: {
         page: () => {
             document.getElementById("app-content").scrollTo(0, 0);
+            app.selectedMediaItems = [];
         },
         showingPlaylist: () => {
             document.getElementById("app-content").scrollTo(0, 0);
+            app.selectedMediaItems = [];
         },
         artistPage: () => {
             document.getElementById("app-content").scrollTo(0, 0);
+            app.selectedMediaItems = [];
         },
     },
     methods: {
@@ -413,6 +417,25 @@ const app = new Vue({
                 this.drawer.open = true
                 this.drawer.panel = panel
             }
+        },
+        select_removeMediaItem(id) {
+            this.selectedMediaItems.filter(item => item.id == id).forEach(item => {
+                this.selectedMediaItems.splice(this.selectedMediaItems.indexOf(item), 1)
+            })
+        },
+        select_hasMediaItem(id) {
+            let found = this.selectedMediaItems.find(item => item.id == id)
+            if(found) {
+                return true
+            }else{
+                return false
+            }
+        },
+        select_selectMediaItem(id, kind) {
+            this.selectedMediaItems.push({
+                id: id,
+                kind: kind
+            })
         },
         async showCollection(response, title, type) {
             let self = this

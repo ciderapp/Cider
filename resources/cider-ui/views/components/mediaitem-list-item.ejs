@@ -2,13 +2,18 @@
     <template>
         <div v-observe-visibility="{callback: visibilityChanged}"
              @contextmenu="contextMenu"
-             @click.shift="selected = !selected"
+             @click="select"
              :data-id="item.attributes.playParams.id ?? item.id"
              :data-type="item.attributes.playParams.kind ?? item.type"
-             class="cd-mediaitem-list-item" :class="{'mediaitem-selected': selected}">
+             :data-index="index"
+             :data-selectorder="selectedOrder"
+             class="cd-mediaitem-list-item"
+             :class="{'mediaitem-selected': app.select_hasMediaItem(item.attributes.playParams.id ?? item.id)}">
             <template v-if="isVisible">
                 <div class="isLibrary" v-if="showLibraryStatus == true">
-                    <button @click="addToLibrary()" v-if="!app.isInLibrary(item.attributes.playParams) && !addedToLibrary">🖤</button>
+                    <button @click="addToLibrary()"
+                            v-if="!app.isInLibrary(item.attributes.playParams) && !addedToLibrary">🖤
+                    </button>
                     <button v-else>❤️</button>
                 </div>
                 <div class="artwork" v-if="showArtwork == true">
@@ -23,14 +28,16 @@
                         {{ item.attributes.name }}
                     </div>
                     <div class="subtitle text-overflow-elipsis" style="-webkit-box-orient: horizontal;">
-                        <template v-if="item.attributes.artistName" >
-                            <div class="artist item-navigate text-overflow-elipsis" @click="app.searchAndNavigate(item,'artist')">
-                            {{ item.attributes.artistName }}
+                        <template v-if="item.attributes.artistName">
+                            <div class="artist item-navigate text-overflow-elipsis"
+                                 @click="app.searchAndNavigate(item,'artist')">
+                                {{ item.attributes.artistName }}
                             </div>
                             <template v-if="item.attributes.albumName">&nbsp;-&nbsp;</template>
                             <template v-if="item.attributes.albumName">
-                                <div class="artist item-navigate text-overflow-elipsis" @click="app.searchAndNavigate(item,'album')">
-                                {{ item.attributes.albumName }}
+                                <div class="artist item-navigate text-overflow-elipsis"
+                                     @click="app.searchAndNavigate(item,'album')">
+                                    {{ item.attributes.albumName }}
                                 </div>
                             </template>
                         </template>
@@ -63,71 +70,129 @@
             return {
                 isVisible: false,
                 addedToLibrary: false,
-                selected: false
+                selected: false,
+                selectedOrder: -1
             }
         },
         props: {
             'item': {type: Object, required: true},
             'parent': {type: Object, required: false},
-            'index': {type: Object, required: false},
+            'index': {type: Object, required: false, default: -1},
             'show-artwork': {type: Boolean, default: true},
             'show-library-status': {type: Boolean, default: true},
             'show-meta-data': {type: Boolean, default: false},
-            'show-duration': {type: Boolean, default: true}
+            'show-duration': {type: Boolean, default: true},
         },
         methods: {
+            deselect() {
+                this.selected = false;
+                this.selectedOrder = -1;
+            },
+            select(e) {
+                if (e.shiftKey) {
+                    if (app.select_hasMediaItem(this.item.attributes.playParams.id ?? this.item.id)) {
+                        app.select_removeMediaItem(this.item.attributes.playParams.id ?? this.item.id, this.item.attributes.playParams.kind ?? this.item.type)
+                    } else {
+                        app.select_selectMediaItem(this.item.attributes.playParams.id ?? this.item.id, this.item.attributes.playParams.kind ?? this.item.type)
+                    }
+                } else if (e.ctrlKey) {
+                    if (app.select_hasMediaItem(this.item.attributes.playParams.id ?? this.item.id)) {
+                        app.select_removeMediaItem(this.item.attributes.playParams.id ?? this.item.id, this.item.attributes.playParams.kind ?? this.item.type)
+                    } else {
+                        app.select_selectMediaItem(this.item.attributes.playParams.id ?? this.item.id, this.item.attributes.playParams.kind ?? this.item.type)
+                    }
+                } else {
+                    if (app.select_hasMediaItem(this.item.attributes.playParams.id ?? this.item.id)) {
+                        app.selectedMediaItems = []
+                    }else{
+                        app.selectedMediaItems = []
+                        app.select_selectMediaItem(this.item.attributes.playParams.id ?? this.item.id, this.item.attributes.playParams.kind ?? this.item.type)
+                    }
+                }
+            },
             contextMenu(event) {
                 let self = this
-                CiderContextMenu.Create(event,
-                    {
+                let useMenu = "normal"
+                if (!app.select_hasMediaItem(this.item.attributes.playParams.id ?? this.item.id)) {
+                    app.selectedMediaItems = []
+                    app.select_selectMediaItem(this.item.attributes.playParams.id ?? this.item.id, this.item.attributes.playParams.kind ?? this.item.type)
+                }else{
+                    useMenu = "multiple"
+                }
+                let menus = {
+                    multiple: {
+                        items: [
+                            {
+                                name: `Play ${app.selectedMediaItems.length} tracks next`,
+                                action: ()=>{
+                                    app.selectedMediaItems.forEach(item=>{
+                                        app.mk.playNext({[item.kind]: item.id})
+                                    })
+                                    app.selectedMediaItems = []
+                                }
+                            },
+                            {
+                                name: `Play ${app.selectedMediaItems.length} tracks later`,
+                                action: ()=>{
+                                    app.selectedMediaItems.forEach(item=>{
+                                        app.mk.playLater({[item.kind]: item.id})
+                                    })
+                                    app.selectedMediaItems = []
+                                }
+                            },
+                        ]
+                    },
+                    normal: {
                         items: [
                             {
                                 "name": "Start Radio",
-                                "action": function() {
-                                    app.mk.setStationQueue({song: self.item.attributes.playParams.id ?? self.item.id}).then(()=>{
+                                "action": function () {
+                                    app.mk.setStationQueue({song: self.item.attributes.playParams.id ?? self.item.id}).then(() => {
                                         app.mk.play()
                                     })
                                 }
                             },
-                            {   
+                            {
                                 "name": "Play Next",
-                                "action": function() {
+                                "action": function () {
                                     app.mk.playNext({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
                                     app.mk.queue._reindex()
                                 }
                             },
-                            {   
+                            {
                                 "name": "Play Later",
-                                "action": function() {
+                                "action": function () {
                                     app.mk.playLater({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
                                     app.mk.queue._reindex()
                                 }
                             },
-                            {   
+                            {
                                 "name": "Go to Artist",
-                                "action": function() {
-                                    app.searchAndNavigate(self.item,'artist')
+                                "action": function () {
+                                    app.searchAndNavigate(self.item, 'artist')
                                 }
                             },
-                            {   
+                            {
                                 "name": "Go to Album",
-                                "action": function() {
-                                    app.searchAndNavigate(self.item,'album')
+                                "action": function () {
+                                    app.searchAndNavigate(self.item, 'album')
                                 }
                             },
                         ]
-                    });
+                    }
+                }
+                CiderContextMenu.Create(event, menus[useMenu])
             },
             visibilityChanged: function (isVisible, entry) {
                 this.isVisible = isVisible
             },
             addToLibrary() {
                 let item = this.item
-                if(item.attributes.playParams.id) {
+                if (item.attributes.playParams.id) {
                     console.log('adding to library', item.attributes.playParams.id)
                     app.addToLibrary(item.attributes.playParams.id.toString())
                     this.addedToLibrary = true
-                }else if(item.id) {
+                } else if (item.id) {
                     console.log('adding to library', item.id)
                     app.addToLibrary(item.id.toString())
                     this.addedToLibrary = true
@@ -137,10 +202,10 @@
                 let item = this.item
                 let parent = this.parent
                 let childIndex = this.index
-                if (parent != null && childIndex != null){
-                    app.queueParentandplayChild(parent,childIndex);
+                if (parent != null && childIndex != null) {
+                    app.queueParentandplayChild(parent, childIndex);
                 } else {
-                app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)
+                    app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)
                 }
             }
         }

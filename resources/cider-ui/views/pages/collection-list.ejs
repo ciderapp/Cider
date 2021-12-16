@@ -2,13 +2,14 @@
     <div class="content-inner collection-page">
         <h3 class="header-text" v-observe-visibility="{callback: headerVisibility}">{{ title }}</h3>
         <div v-if="data['data'] != 'null'" class="well">
-            <template v-for="item in data.data">
+            <template v-for="(item, key) in data.data">
                 <template v-if="item.type == 'artists'">
                     <mediaitem-square-large :item="item"></mediaitem-square-large>
                 </template>
                 <template v-else>
                     <mediaitem-list-item
                             v-if="item.attributes.playParams.kind == 'song'"
+                            :index="key"
                             :item="item"></mediaitem-list-item>
                     <mediaitem-mvview v-else-if="item.attributes.playParams.kind == 'musicVideo'" :item="item"></mediaitem-mvview>
                     <mediaitem-square-large v-else :item="item"></mediaitem-square-large>
