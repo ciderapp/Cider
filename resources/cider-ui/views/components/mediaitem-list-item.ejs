@@ -1,7 +1,7 @@
 <script type="text/x-template" id="mediaitem-list-item">
     <template>
         <div v-observe-visibility="{callback: visibilityChanged}"
-             @contextmenu="CiderContextMenu.Create($event, new CiderContextMenus.mediaitem(item))"
+             @contextmenu="contextMenu"
              class="cd-mediaitem-list-item">
             <template v-if="isVisible">
                 <div class="isLibrary" v-if="showLibraryStatus == true">
@@ -71,6 +71,22 @@
             'show-duration': {type: Boolean, default: true}
         },
         methods: {
+            contextMenu(event) {
+                let self = this
+                CiderContextMenu.Create(event,
+                    {
+                        items: [
+                            {
+                                "name": "Start Radio",
+                                "action": function() {
+                                    app.mk.setStationQueue({song: self.item.attributes.playParams.id ?? self.item.id}).then(()=>{
+                                        app.mk.play()
+                                    })
+                                }
+                            }
+                        ]
+                    });
+            },
             visibilityChanged: function (isVisible, entry) {
                 this.isVisible = isVisible
             },
