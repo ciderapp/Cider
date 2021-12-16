@@ -8,6 +8,7 @@
   --mediaItemRadiusRound: 100%;
   --contentInnerPadding: 16px;
   --navbarHeight: 48px;
+  --selected: rgb(130 130 130 / 30%);
   --keyColor: #fa586a;
   --keyColor-rgb: 250, 88, 106;
   --keyColor-rollover: #ff8a9c;
@@ -1893,6 +1894,10 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     width: 32px;
     height: 32px;
     flex: 0 0 auto;
+  }
+
+  &.selected {
+    background: var(--selected);
   }
 
   .queue-info {

@@ -12,7 +12,11 @@
             <draggable v-model="queueItems" @start="drag=true" @end="drag=false;move()">
                 <template v-for="(queueItem, position) in queueItems">
                     <div v-if="position <= queuePosition" style="display: none;">{{ position }}</div>
-                    <div class="cd-queue-item" @dblclick="playQueueItem(position)" v-else :key="position" @contextmenu="queueContext($event, queueItem.item, position)">
+                    <div class="cd-queue-item"
+                         :class="{selected: position == selected}"
+                         @click="selected = position"
+                         @dblclick="playQueueItem(position)" v-else :key="position"
+                         @contextmenu="queueContext($event, queueItem.item, position)">
                         <div class="row">
                             <div class="col-auto flex-center">
                                 <div class="artwork">
@@ -39,7 +43,8 @@
             return {
                 drag: false,
                 queuePosition: 0,
-                queueItems: []
+                queueItems: [],
+                selected: -1
             }
         },
         mounted() {
@@ -83,6 +88,7 @@
                 }
             },
             move() {
+                this.selected = -1
                 app.mk.queue._queueItems = this.queueItems;
                 app.mk.queue._reindex()
             }
