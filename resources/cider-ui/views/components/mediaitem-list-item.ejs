@@ -83,7 +83,26 @@
                                         app.mk.play()
                                     })
                                 }
-                            }
+                            },
+                            {   
+                                "name": "Add to Queue",
+                                "action": function() {
+                                    console.log(self.item)
+                                    app.mk.queue.append([new MusicKit.MediaItem(self.item)])
+                                }
+                            },
+                            {   
+                                "name": "Go to Artist",
+                                "action": function() {
+                                    app.searchAndNavigate(self.item,'artist')
+                                }
+                            },
+                            {   
+                                "name": "Go to Album",
+                                "action": function() {
+                                    app.searchAndNavigate(self.item,'album')
+                                }
+                            },
                         ]
                     });
             },
