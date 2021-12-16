@@ -1,10 +1,9 @@
-const {app, BrowserWindow, ipcMain, protocol, shell} = require("electron")
-const {join, resolve} = require("path")
+const {BrowserWindow, ipcMain, shell} = require("electron")
+const {join} = require("path")
 const getPort = require("get-port");
 const express = require("express");
 const path = require("path");
 const windowStateKeeper = require("electron-window-state");
-const request = require('request');
 const os = require('os');
 
 const CiderBase = {
