@@ -1,6 +1,7 @@
 <template v-if="page == 'zoo'">
     <div class="content-inner">
         <h3>Welcome to element park. *BERR NERR NERR NERR NERRRRR BERR NER NER NER NERRR BERRR NR NR NRRRR*</h3>
+        <button @click="app.playMediaItemById('1592151778', 'album')">Play Test Album</button>
         <cider-queue ref="queue"></cider-queue>
     </div>
 </template>

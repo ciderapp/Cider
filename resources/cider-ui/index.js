@@ -127,6 +127,10 @@ const app = new Vue({
             desiredDuration: 0,
             userInteraction: false
         },
+        drawer: {
+            open: false,
+            panel: ""
+        },
         browsepage: [],
         listennow: [],
         radio: {
@@ -389,6 +393,23 @@ const app = new Vue({
                 self.playlists.listing = res.data
             })
             document.body.removeAttribute("loading")
+        },
+        invokeDrawer(panel) {
+            if(this.drawer.panel == panel && this.drawer.open) {
+                if(panel == "lyrics") {
+                    this.lyricon = false
+                }
+                this.drawer.panel = ""
+                this.drawer.open = false
+            }else{
+                if(panel == "lyrics") {
+                    this.lyricon = true
+                }else{
+                    this.lyricon = false
+                }
+                this.drawer.open = true
+                this.drawer.panel = panel
+            }
         },
         async showCollection(response, title, type) {
             let self = this

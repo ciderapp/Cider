@@ -114,11 +114,11 @@
                     </button>
                 </div>
                 <div class="app-chrome-item generic">
-                    <button class="playback-button--small queue"></button>
+                    <button class="playback-button--small queue" :class="{'active': drawer.panel == 'queue'}" @click="invokeDrawer('queue')"></button>
                 </div>
                 <div class="app-chrome-item generic">
-                    <button class="playback-button--small lyrics"
-                            @click=" lyricon =!lyricon; if( document.getElementById(`apple-music-video-container`).style.display != `block`){drawertest = !drawertest; if (drawertest) lyricon = true;}; "></button>
+                    <button class="playback-button--small lyrics" :class="{'active': drawer.panel == 'lyrics'}"
+                            @click="invokeDrawer('lyrics')"></button>
                 </div>
                 <div class="app-chrome-item full-height">
                     <div class="window-controls">
@@ -372,9 +372,10 @@
                 </transition>
             </div>
             <transition name="drawertransition">
-                <div class="app-drawer" v-if="drawertest">
-                    <lyrics-view v-if="drawertest && lyricon" :time="lyriccurrenttime" :lyrics="lyrics">
+                <div class="app-drawer" v-if="drawer.open">
+                    <lyrics-view v-if="drawer.panel == 'lyrics'" :time="lyriccurrenttime" :lyrics="lyrics">
                     </lyrics-view>
+                    <cider-queue ref="queue" v-if="drawer.panel == 'queue'"></cider-queue>
                 </div>
             </transition>
         </div>
