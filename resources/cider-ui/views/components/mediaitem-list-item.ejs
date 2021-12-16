@@ -19,7 +19,7 @@
                 <div class="artwork" v-if="showArtwork == true">
                     <mediaitem-artwork
                             :url="item.attributes.artwork ? item.attributes.artwork.url : ''"
-                            size="34"
+                            size="50"
                             :type="item.type"></mediaitem-artwork>
                     <button class="overlay-play" @click="playTrack()"><%- include("../svg/play.svg") %></button>
                 </div>
