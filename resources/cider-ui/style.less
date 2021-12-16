@@ -461,9 +461,42 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     padding: 6px;
     border-radius: 6px;
     box-shadow: var(--mediaItemShadow-Shadow);
+    &.context-menu-open {
+      animation-duration: .10s;
+      animation-name: contextMenuIn;
+      animation-iteration-count: 1;
+      animation-easings: var(--appleEase);
+    }
+    &.context-menu-close {
+      animation-duration: .10s;
+      animation-name: contextMenuOut;
+      animation-iteration-count: 1;
+      animation-easings: var(--appleEase);
+    }
   }
 }
 
+@keyframes contextMenuIn {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes contextMenuOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+}
 
 .app-sidebar-content::-webkit-scrollbar {
   display: none;
