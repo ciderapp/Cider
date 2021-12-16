@@ -81,7 +81,7 @@ body[platform='linux'] {
 
 #app {
   --color1: rgba(30, 30, 30, 30%);
-  --color2: rgba(15, 15, 15, 70%);
+  --color2: rgba(0, 0, 0, 0);
   /* --color1: rgb(30, 30, 31, 20%);
   --color2: rgba(17, 17, 17, 24%); */
   --chromeHeight: 55px;
@@ -853,6 +853,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   display: flex;
   justify-content: center;
   align-items: center;
+  filter: contrast(0.8);
 }
 
 .app-chrome .app-chrome-item>.app-playback-controls .playback-info {
@@ -2041,6 +2042,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
       border: 0px;
       background: transparent;
       cursor: pointer;
+      filter: contrast(0.8);
     }
   }
 
