@@ -21,7 +21,9 @@
                 <div class="col flex-center artist-title"
                      :class="{'artist-animation-on': (data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9)) }"
                 >
-                    <button class="artist-play"><%- include("../svg/play.svg") %></button>
+                    <button class="artist-play" @click="app.mk.setStationQueue({artist:'a-'+data.id}).then(()=>{
+                        app.mk.play()
+                    })"><%- include("../svg/play.svg") %></button>
                     <h1>{{ data.attributes.name }}</h1>
                 </div>
             </div>
