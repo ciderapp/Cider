@@ -2,20 +2,24 @@
     <template>
         <div v-observe-visibility="{callback: visibilityChanged}"
              @contextmenu="contextMenu"
-             class="cd-mediaitem-list-item">
+             @click.shift="selected = !selected"
+             :data-id="item.attributes.playParams.id ?? item.id"
+             :data-type="item.attributes.playParams.kind ?? item.type"
+             class="cd-mediaitem-list-item" :class="{'mediaitem-selected': selected}">
             <template v-if="isVisible">
                 <div class="isLibrary" v-if="showLibraryStatus == true">
                     <button @click="addToLibrary()" v-if="!app.isInLibrary(item.attributes.playParams) && !addedToLibrary">🖤</button>
                     <button v-else>❤️</button>
                 </div>
-                <div class="artwork" v-if="showArtwork == true"  @click="playTrack()">
+                <div class="artwork" v-if="showArtwork == true">
                     <mediaitem-artwork
                             :url="item.attributes.artwork ? item.attributes.artwork.url : ''"
                             size="34"
                             :type="item.type"></mediaitem-artwork>
+                    <button class="overlay-play" @click="playTrack()"><%- include("../svg/play.svg") %></button>
                 </div>
-                <div class="info-rect" :style="{'padding-left': (showArtwork ? '' : '16px')}" @click.self="playTrack()">
-                    <div class="title text-overflow-elipsis" @click.self="playTrack()">
+                <div class="info-rect" :style="{'padding-left': (showArtwork ? '' : '16px')}" @dblclick="playTrack()">
+                    <div class="title text-overflow-elipsis" @dblclick="playTrack()">
                         {{ item.attributes.name }}
                     </div>
                     <div class="subtitle text-overflow-elipsis" style="-webkit-box-orient: horizontal;">
@@ -58,7 +62,8 @@
         data: function () {
             return {
                 isVisible: false,
-                addedToLibrary: false
+                addedToLibrary: false,
+                selected: false
             }
         },
         props: {
