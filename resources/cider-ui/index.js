@@ -424,18 +424,22 @@ const app = new Vue({
             })
         },
         select_hasMediaItem(id) {
-            let found = this.selectedMediaItems.find(item => item.id == id)
+            let found = this.selectedMediaItems.find(item => item.guid == id)
             if(found) {
                 return true
             }else{
                 return false
             }
         },
-        select_selectMediaItem(id, kind) {
-            this.selectedMediaItems.push({
-                id: id,
-                kind: kind
-            })
+        select_selectMediaItem(id, kind, index, guid) {
+            if(!this.select_hasMediaItem(guid)) {
+                this.selectedMediaItems.push({
+                    id: id,
+                    kind: kind,
+                    index: index,
+                    guid: guid
+                })
+            }
         },
         async showCollection(response, title, type) {
             let self = this
@@ -1856,6 +1860,12 @@ document.addEventListener('musickitloaded', function () {
     request.open("GET", "https://api.cider.sh/");
     request.send();
 });
+
+function uuidv4() {
+    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    );
+}
 
 function refreshFocus() {
     if (document.hasFocus() == false) {

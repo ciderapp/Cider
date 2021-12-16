@@ -6,9 +6,9 @@
              :data-id="item.attributes.playParams.id ?? item.id"
              :data-type="item.attributes.playParams.kind ?? item.type"
              :data-index="index"
-             :data-selectorder="selectedOrder"
+             :data-guid="guid"
              class="cd-mediaitem-list-item"
-             :class="{'mediaitem-selected': app.select_hasMediaItem(item.attributes.playParams.id ?? item.id)}">
+             :class="{'mediaitem-selected': app.select_hasMediaItem(guid)}">
             <template v-if="isVisible">
                 <div class="isLibrary" v-if="showLibraryStatus == true">
                     <button @click="addToLibrary()"
@@ -70,8 +70,7 @@
             return {
                 isVisible: false,
                 addedToLibrary: false,
-                selected: false,
-                selectedOrder: -1
+                guid: uuidv4()
             }
         },
         props: {
@@ -84,38 +83,44 @@
             'show-duration': {type: Boolean, default: true},
         },
         methods: {
-            deselect() {
-                this.selected = false;
-                this.selectedOrder = -1;
-            },
             select(e) {
                 if (e.shiftKey) {
-                    if (app.select_hasMediaItem(this.item.attributes.playParams.id ?? this.item.id)) {
-                        app.select_removeMediaItem(this.item.attributes.playParams.id ?? this.item.id, this.item.attributes.playParams.kind ?? this.item.type)
+                    if(this.index != -1) {
+                        let allMediaItems = document.querySelectorAll(".cd-mediaitem-list-item[data-index]")
+                        // select everything between the last selected item from app.selectedMediaItems and this one
+
+                        for (let i = start; i <= end; i++) {
+                            let mediaItem = allMediaItems[i];
+                            app.select_selectMediaItem(mediaItem.getAttribute("data-id"), mediaItem.getAttribute("data-type"));
+                        }
+
+                    }
+                    if (app.select_hasMediaItem(this.guid)) {
+                        app.select_removeMediaItem(this.guid)
                     } else {
-                        app.select_selectMediaItem(this.item.attributes.playParams.id ?? this.item.id, this.item.attributes.playParams.kind ?? this.item.type)
+                        app.select_selectMediaItem(this.item.attributes.playParams.id ?? this.item.id, this.item.attributes.playParams.kind ?? this.item.type, this.index, this.guid)
                     }
                 } else if (e.ctrlKey) {
-                    if (app.select_hasMediaItem(this.item.attributes.playParams.id ?? this.item.id)) {
-                        app.select_removeMediaItem(this.item.attributes.playParams.id ?? this.item.id, this.item.attributes.playParams.kind ?? this.item.type)
+                    if (app.select_hasMediaItem(this.guid)) {
+                        app.select_removeMediaItem(this.guid)
                     } else {
-                        app.select_selectMediaItem(this.item.attributes.playParams.id ?? this.item.id, this.item.attributes.playParams.kind ?? this.item.type)
+                        app.select_selectMediaItem(this.item.attributes.playParams.id ?? this.item.id, this.item.attributes.playParams.kind ?? this.item.type, this.index, this.guid)
                     }
                 } else {
-                    if (app.select_hasMediaItem(this.item.attributes.playParams.id ?? this.item.id)) {
+                    if (app.select_hasMediaItem(this.guid)) {
                         app.selectedMediaItems = []
                     } else {
                         app.selectedMediaItems = []
-                        app.select_selectMediaItem(this.item.attributes.playParams.id ?? this.item.id, this.item.attributes.playParams.kind ?? this.item.type)
+                        app.select_selectMediaItem(this.item.attributes.playParams.id ?? this.item.id, this.item.attributes.playParams.kind ?? this.item.type, this.index, this.guid)
                     }
                 }
             },
             contextMenu(event) {
                 let self = this
                 let useMenu = "normal"
-                if (!app.select_hasMediaItem(this.item.attributes.playParams.id ?? this.item.id)) {
+                if (!app.select_hasMediaItem(this.guid)) {
                     app.selectedMediaItems = []
-                    app.select_selectMediaItem(this.item.attributes.playParams.id ?? this.item.id, this.item.attributes.playParams.kind ?? this.item.type)
+                    app.select_selectMediaItem(this.item.attributes.playParams.id ?? this.item.id, this.item.attributes.playParams.kind ?? this.item.type, this.index, this.guid)
                 } else {
                     useMenu = "multiple"
                 }
@@ -172,6 +177,7 @@
                                 "action": function () {
                                     app.mk.setStationQueue({song: self.item.attributes.playParams.id ?? self.item.id}).then(() => {
                                         app.mk.play()
+                                        app.selectedMediaItems = []
                                     })
                                 }
                             },
@@ -180,6 +186,7 @@
                                 "action": function () {
                                     app.mk.playNext({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
                                     app.mk.queue._reindex()
+                                    app.selectedMediaItems = []
                                 }
                             },
                             {
@@ -187,6 +194,7 @@
                                 "action": function () {
                                     app.mk.playLater({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
                                     app.mk.queue._reindex()
+                                    app.selectedMediaItems = []
                                 }
                             },
                             {
