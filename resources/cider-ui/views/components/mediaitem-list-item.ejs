@@ -87,7 +87,10 @@
                             {   
                                 "name": "Play Next",
                                 "action": function() {
-                                    app.mk.queue.splice(0,0,[new MusicKit.MediaItem(self.item)])
+                                    const {_mediaItemPlayback: e} = app.mk
+                                    , {position: s} = app.mk.queue;
+                                    prependIndex = void 0 === e.nowPlayingItem && 0 === s || s < 0 ? 0 : s + 1
+                                    app.mk.queue.splice(prependIndex,0,[new MusicKit.MediaItem(self.item)])
                                 }
                             },
                             {   
