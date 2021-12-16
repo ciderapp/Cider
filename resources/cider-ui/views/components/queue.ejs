@@ -79,6 +79,7 @@
                 app.mk.changeToMediaAtIndex(index)
             },
             updateQueue() {
+                this.selected = -1
                 if (app.mk.queue) {
                     this.queuePosition = app.mk.queue.position;
                     this.queueItems = app.mk.queue._queueItems;
