@@ -1571,11 +1571,20 @@ const app = new Vue({
             var id = parent.substring(parent.indexOf(":")+1 , parent.length)
             var truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
             console.log(truekind,id)
+
             try {
+                if (parent == "library_songs"){
+                    console.log("asc")
+                    let query = app.library.songs.listing.map(item => new MusicKit.MediaItem(item));
+                    this.mk.clearQueue().then(function (_) {
+                        app.mk.queue.append(query)
+                        app.mk.changeToMediaAtIndex(childIndex)
+                    })
+                } else {
                     this.mk.setQueue({[truekind]: [id]}).then(function (queue) {
                         MusicKit.getInstance().changeToMediaAtIndex(childIndex)
                     })
-                
+                }
             } catch (err) {
                 console.log(err)
                 this.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)
