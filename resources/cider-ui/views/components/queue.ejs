@@ -2,10 +2,22 @@
     <div>
         <h3>Queue</h3>
         <draggable v-model="queueItems" @start="drag=true" @end="drag=false;move()">
-            <div v-for="(queueItem, position) in queueItems" :key="position">
-                <span v-if="position == queuePosition">▶️</span>
-                {{ queueItem.item.attributes.name }}
-            </div>
+            <template v-for="(queueItem, position) in queueItems">
+                <div v-if="position <= queuePosition" style="display: none;">{{ position }}</div>
+                <div class="cd-queue-item" v-else :key="position" @contextmenu="queueContext($event, queueItem.item, position)">
+                    <div class="row">
+                        <div class="col-auto flex-center">
+                            <div class="artwork">
+                                <mediaitem-artwork :url="queueItem.item.attributes.artwork.url" :size="32"></mediaitem-artwork>
+                            </div>
+                        </div>
+                        <div class="col queue-info">
+                            <div class="queue-title text-overflow-elipsis">{{ queueItem.item.attributes.name }}</div>
+                            <div class="queue-subtitle text-overflow-elipsis">{{ queueItem.item.attributes.albumName }} - {{ queueItem.item.attributes.artistName }}</div>
+                        </div>
+                    </div>
+                </div>
+            </template>
         </draggable>
     </div>
 </script>
@@ -22,9 +34,38 @@
             }
         },
         methods: {
+            queueContext(event, item, position) {
+                let self = this
+                CiderContextMenu.Create(event, {
+                    items: [{
+                            "name": "Remove from queue",
+                            "action": function () {
+                                self.queueItems.splice(position, 1)
+                                app.mk.queue._queueItems = self.queueItems;
+                                app.mk.queue._reindex()
+                            }
+                        },
+                        {
+                            "name": "Start Radio",
+                            "action": function () {
+                                app.mk.setStationQueue({
+                                    song: item.attributes.playParams.id ?? item.id
+                                }).then(() => {
+                                    app.mk.play()
+                                })
+                            }
+                        },
+                    ]
+                });
+            },
             updateQueue() {
-                this.queuePosition = app.mk.queue.position;
-                this.queueItems = app.mk.queue._queueItems;
+                if (app.mk.queue) {
+                    this.queuePosition = app.mk.queue.position;
+                    this.queueItems = app.mk.queue._queueItems;
+                } else {
+                    this.queuePosition = 0;
+                    this.queueItems = [];
+                }
             },
             move() {
                 app.mk.queue._queueItems = this.queueItems;
