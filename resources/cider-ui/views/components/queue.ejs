@@ -1,0 +1,35 @@
+<script type="text/x-template" id="cider-queue">
+    <div>
+        <h3>Queue</h3>
+        <draggable v-model="queueItems" @start="drag=true" @end="drag=false;move()">
+            <div v-for="(queueItem, position) in queueItems" :key="position">
+                <span v-if="position == queuePosition">▶️</span>
+                {{ queueItem.item.attributes.name }}
+            </div>
+        </draggable>
+    </div>
+</script>
+
+
+<script>
+    Vue.component('cider-queue', {
+        template: '#cider-queue',
+        data: function () {
+            return {
+                drag: false,
+                queuePosition: app.mk.queue.position,
+                queueItems: app.mk.queue._queueItems
+            }
+        },
+        methods: {
+            updateQueue() {
+                this.queuePosition = app.mk.queue.position;
+                this.queueItems = app.mk.queue._queueItems;
+            },
+            move() {
+                app.mk.queue._queueItems = this.queueItems;
+                app.mk.queue._reindex()
+            }
+        }
+    });
+</script>

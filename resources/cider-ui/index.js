@@ -345,6 +345,9 @@ const app = new Vue({
             })
 
             this.mk.addEventListener(MusicKit.Events.nowPlayingItemDidChange, (a) => {
+                if(self.$refs.queue) {
+                    self.$refs.queue.updateQueue();
+                }
                 this.currentSongInfo = a
                 try {
                     a = a.item.attributes;
