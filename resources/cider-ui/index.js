@@ -1817,6 +1817,15 @@ const app = new Vue({
         }
     }
 })
+
+// Key binds
+document.addEventListener('keydown', function (e) {
+    if (e.keyCode === 70 && e.ctrlKey) {
+        app.$refs.searchInput.focus()
+        app.$refs.searchInput.select()
+    }
+});
+
 // Hang Timer
 app.hangtimer = setTimeout(()=>{
     if(confirm("Cider is not responding. Reload the app?")) {

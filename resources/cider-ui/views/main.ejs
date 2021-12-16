@@ -142,6 +142,7 @@
                                v-on:keyup.enter="searchQuery();search.showHints = false"
                                @change="showSearch();" @input="getSearchHints()" placeholder="Search..."
                                v-model="search.term"
+                               ref="searchInput"
                                class="search-input">
                     </div>
                 </div>
