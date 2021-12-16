@@ -41,6 +41,6 @@
             </div>
         </div>
         <div v-if="library.songs.downloadState == 3">Library contains no songs.</div>
-        <mediaitem-list-item :item="item" :show-meta-data="true" :show-library-status="false" v-for="item in library.songs.displayListing"></mediaitem-list-item>
+        <mediaitem-list-item :item="item" :index="index" :show-meta-data="true" :show-library-status="false" v-for="(item, index) in library.songs.displayListing"></mediaitem-list-item>
     </div>
 </template>

@@ -17,8 +17,8 @@
                     </div>
                 </div>
                 <div>
-                    <mediaitem-list-item :item="item"
-                                        v-for="item in search.results.song.data.limit(6)"></mediaitem-list-item>
+                    <mediaitem-list-item :item="item" :index="index"
+                                        v-for="(item, index) in search.results.song.data.limit(6)"></mediaitem-list-item>
                 </div>
             </div>
         </div>

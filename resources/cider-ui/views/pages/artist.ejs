@@ -51,7 +51,8 @@
                                 </div>
                             </div>
                             <mediaitem-list-item
-                                    v-for="song in data.views['top-songs'].data.limit(topSongsExpanded ? 10 : 5)"
+                                    v-for="(song, index) in data.views['top-songs'].data.limit(topSongsExpanded ? 10 : 5)"
+                                    :index="index"
                                     :item="song"></mediaitem-list-item>
                             <button class="showmoreless"
                                     @click="topSongsExpanded = !topSongsExpanded">
