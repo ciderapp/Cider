@@ -257,7 +257,7 @@ const app = new Vue({
             this.mk.authorize()
             this.$forceUpdate()
             this.mk.privateEnabled = true
-            // this.platform = ipcRenderer.sendSync('cider-platform');
+            this.platform = ipcRenderer.sendSync('cider-platform');
             // Set profile name
             this.chrome.userinfo = await this.mkapi("personalSocialProfile", false, "")
             // API Fallback
@@ -334,20 +334,18 @@ const app = new Vue({
                 app.getNowPlayingArtworkBG(32);
                 app.loadLyrics()
 
-                try {
-                    // Playback Notifications
-                    if ((app.platform === "darwin" || app.platform === "linux") && !document.hasFocus()) {
-                        if (this.notification) {
-                            this.notification.close()
-                        }
-                        this.notification = new Notification(a.name, {
-                            body: a.artistName,
-                            icon: (a.artwork.url.replace('/{w}x{h}bb', '/512x512bb')).replace('/2000x2000bb', '/35x35bb'),
-                            silent: true
-                        })
+                // Playback Notifications
+                if ((app.platform === "darwin" || app.platform === "linux") && !document.hasFocus()) {
+                    if (this.notification) {
+                        this.notification.close()
                     }
-                } catch (_) {
+                    this.notification = new Notification(a.name, {
+                        body: a.artistName,
+                        icon: (a.artwork.url.replace('/{w}x{h}bb', '/512x512bb')).replace('/2000x2000bb', '/35x35bb'),
+                        silent: true
+                    })
                 }
+
             })
 
             this.mk.addEventListener(MusicKit.Events.playbackVolumeDidChange, (_a) => {
