@@ -87,6 +87,9 @@ jobs:
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
+        prerelease: true
         tag_name: ${{ steps.tag.outputs.release_tag }}
         files: dist/Cider Setup 1.0.0.exe
+        env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
           
