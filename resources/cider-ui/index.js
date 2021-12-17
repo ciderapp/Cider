@@ -7,11 +7,6 @@ Vue.component('sidebar-library-item', {
     methods: {}
 });
 
-Vue.component('lyrics-view', {
-    template: '#lyrics-view',
-    props: ["time", "lyrics", "translation"],
-    methods: {}
-});
 
 // This is going to suck to code
 var CiderContextMenu = {
@@ -194,12 +189,14 @@ const app = new Vue({
             details: {}
         },
         mxmtoken: "",
+        playerReady: false,
         lyricon: false,
         currentTrackID: '',
         currentTrackIDBG: '',
         lyrics: [],
         currentLyricsLine: 0,
         lyriccurrenttime: 0,
+        richlyrics: [],
         lyricsMediaItem: {},
         lyricsDebug: {
             current: 0,
@@ -291,72 +288,21 @@ const app = new Vue({
             }
 
             MusicKit.getInstance().videoContainerElement = document.getElementById("apple-music-video-player")
+            
+
+            
 
             this.mk.addEventListener(MusicKit.Events.playbackTimeDidChange, (a) => {
                 this.currentSongInfo = a
                 self.playerLCD.playbackDuration = (self.mk.currentPlaybackTime)
-                self.lyriccurrenttime = app.mk.currentPlaybackTime;
-
-                if (self.lyricon) app.getActiveLyric();
-                // animated dot like AM - bad perf
-                if (self.lyricon && self.drawertest) {
-                    let currentLine = document.querySelector(`.lyric-line.active`)
-                    if (currentLine && currentLine.getElementsByClassName('lyricWaiting').length > 0) {
-                        let duration = currentLine.getAttribute("end") - currentLine.getAttribute("start");
-                        let u = (self.lyriccurrenttime - currentLine.getAttribute("start")) / duration;
-                        if (u < 0.25 && !currentLine.classList.contains('mode1')) {
-                            try {
-                                currentLine.classList.add('mode1');
-                                currentLine.classList.remove('mode3');
-                                currentLine.classList.remove('mode2');
-                            } catch (e) {
-                            }
-                            currentLine.getElementsByClassName('WaitingDot1')[0].style.animation = `dotOpacity ${0.25 * duration}s cubic-bezier(0.42, 0, 0.58, 1) forwards`;
-                            currentLine.getElementsByClassName('WaitingDot2')[0].style.animation = ``;
-                            currentLine.getElementsByClassName('WaitingDot3')[0].style.animation = ``;
-                            currentLine.getElementsByClassName('WaitingDot2')[0].style.opacity = 0.25;
-                            currentLine.getElementsByClassName('WaitingDot3')[0].style.opacity = 0.25;
-
-                        } else if (u >= 0.25 && u < 0.5 && !currentLine.classList.contains('mode2')) {
-                            try {
-                                currentLine.classList.add('mode2');
-                                currentLine.classList.remove('mode1');
-                                currentLine.classList.remove('mode3');
-                            } catch (e) {
-                            }
-                            currentLine.getElementsByClassName('WaitingDot2')[0].style.animation = `dotOpacity ${0.25 * duration}s cubic-bezier(0.42, 0, 0.58, 1) forwards`;
-                            currentLine.getElementsByClassName('WaitingDot1')[0].style.animation = ``;
-                            currentLine.getElementsByClassName('WaitingDot3')[0].style.animation = ``;
-                            currentLine.getElementsByClassName('WaitingDot1')[0].style.opacity = 1;
-                            currentLine.getElementsByClassName('WaitingDot3')[0].style.opacity = 0.25;
-                        } else if (u >= 0.5 && u < 0.75 && !currentLine.classList.contains('mode3')) {
-                            try {
-                                currentLine.classList.add('mode3');
-                                currentLine.classList.remove('mode1');
-                                currentLine.classList.remove('mode2');
-                            } catch (e) {
-                            }
-                            currentLine.getElementsByClassName('WaitingDot3')[0].style.animation = `dotOpacity ${0.25 * duration}s cubic-bezier(0.42, 0, 0.58, 1) forwards`;
-                            currentLine.getElementsByClassName('WaitingDot1')[0].style.animation = ``;
-                            currentLine.getElementsByClassName('WaitingDot2')[0].style.animation = ``;
-                            currentLine.getElementsByClassName('WaitingDot1')[0].style.opacity = 1;
-                            currentLine.getElementsByClassName('WaitingDot2')[0].style.opacity = 1;
-                        } else if (u >= 0.75 && currentLine.classList.contains('mode3')) {
-                            try {
-                                currentLine.classList.remove('mode1');
-                                currentLine.classList.remove('mode2');
-                                currentLine.classList.remove('mode3');
-                            } catch (e) {
-                            }
-                            currentLine.getElementsByClassName('WaitingDot1')[0].style.animation = ``;
-                            currentLine.getElementsByClassName('WaitingDot2')[0].style.animation = ``;
-                            currentLine.getElementsByClassName('WaitingDot1')[0].style.opacity = 1;
-                            currentLine.getElementsByClassName('WaitingDot2')[0].style.opacity = 1;
-
-                        }
-
+                if (!self.playerReady){
+                    self.playerReady = true
+                    document.getElementById("apple-music-player").addEventListener('timeupdate', function () {
+                        self.lyriccurrenttime = this.currentTime;
                     }
+                    )
                 }
+                // animated dot like AM - bad perf
             })
 
             this.mk.addEventListener(MusicKit.Events.nowPlayingItemDidChange, (a) => {
@@ -380,6 +326,7 @@ const app = new Vue({
                 }
                 self.chrome.artworkReady = false
                 self.lyrics = []
+                self.richlyrics = []
                 app.getNowPlayingArtwork(42);
                 app.getNowPlayingArtworkBG(32);
                 app.loadLyrics()
@@ -1263,6 +1210,7 @@ const app = new Vue({
             const artist = encodeURIComponent((this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.artistName ?? '' : '');
             const time = encodeURIComponent((this.mk.nowPlayingItem != null) ? (Math.round((this.mk.nowPlayingItem.attributes["durationInMillis"] ?? -1000) / 1000) ?? -1) : -1);
             var lrcfile = "";
+            var richsync = [];
             const lang = "en" //  translation language
             function revisedRandId() {
                 return Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10);
@@ -1315,7 +1263,7 @@ const app = new Vue({
             function getMXMSubs(track, artist, token, lang, time) {
                 var usertoken = encodeURIComponent(token);
                 var timecustom = (!time || (time && time < 0)) ? '' : `&f_subtitle_length=${time}&q_duration=${time}&f_subtitle_length_max_deviation=40`;
-                var url = "https://apic-desktop.musixmatch.com/ws/1.1/macro.subtitles.get?format=json&namespace=lyrics_richsynched&subtitle_format=lrc&q_artist=" + artist + "&q_track=" + track + "&usertoken=" + usertoken + timecustom + "&app_id=web-desktop-app-v1.0&t=" + revisedRandId();
+                var url = "https://apic-desktop.musixmatch.com/ws/1.1/macro.subtitles.get?format=json&namespace=lyrics_richsynched&optional_calls=track.richsync&subtitle_format=lrc&q_artist=" + artist + "&q_track=" + track + "&usertoken=" + usertoken + timecustom + "&app_id=web-desktop-app-v1.0&t=" + revisedRandId();
                 var req = new XMLHttpRequest();
                 req.overrideMimeType("application/json");
                 req.open('GET', url, true);
@@ -1331,33 +1279,55 @@ const app = new Vue({
                             if (jsonResponse["message"]["body"]["macro_calls"]["matcher.track.get"]["message"]["header"]["status_code"] == 200 && jsonResponse["message"]["body"]["macro_calls"]["track.subtitles.get"]["message"]["header"]["status_code"] == 200) {
                                 id = jsonResponse["message"]["body"]["macro_calls"]["matcher.track.get"]["message"]["body"]["track"]["track_id"] ?? '';
                                 lrcfile = jsonResponse["message"]["body"]["macro_calls"]["track.subtitles.get"]["message"]["body"]["subtitle_list"][0]["subtitle"]["subtitle_body"];
+                                
+                                try{
+                                lrcrich = jsonResponse["message"]["body"]["macro_calls"]["track.richsync.get"]["message"]["body"]["richsync"]["richsync_body"];
+                                richsync = JSON.parse(lrcrich);
+                                app.richlyrics = richsync;
+                                } catch(_){}
                             }
 
                             if (lrcfile == "") {
                                 app.loadAMLyrics()
                             } else {
-                                // process lrcfile to json here
-                                app.lyricsMediaItem = lrcfile
-                                let u = app.lyricsMediaItem.split(/[\r\n]/);
-                                let preLrc = []
-                                for (var i = u.length - 1; i >= 0; i--) {
-                                    let xline = (/(\[[0-9.:\[\]]*\])+(.*)/).exec(u[i])
-                                    let end = (preLrc.length > 0) ? ((preLrc[preLrc.length - 1].startTime) ?? 99999) : 99999
-                                    preLrc.push({
-                                        startTime: app.toMS(xline[1].substring(1, xline[1].length - 2)) ?? 0,
-                                        endTime: end,
-                                        line: xline[2],
-                                        translation: ''
-                                    })
-                                }
-                                if (preLrc.length > 0)
-                                    preLrc.push({
+                                if (richsync == [] || richsync.length == 0 ){
+                                    console.log("ok");
+                                    // process lrcfile to json here
+                                    app.lyricsMediaItem = lrcfile
+                                    let u = app.lyricsMediaItem.split(/[\r\n]/);
+                                    let preLrc = []
+                                    for (var i = u.length - 1; i >= 0; i--) {
+                                        let xline = (/(\[[0-9.:\[\]]*\])+(.*)/).exec(u[i])
+                                        let end = (preLrc.length > 0) ? ((preLrc[preLrc.length - 1].startTime) ?? 99999) : 99999
+                                        preLrc.push({
+                                            startTime: app.toMS(xline[1].substring(1, xline[1].length - 2)) ?? 0,
+                                            endTime: end,
+                                            line: xline[2],
+                                            translation: ''
+                                        })
+                                    }
+                                    if (preLrc.length > 0)
+                                        preLrc.push({
+                                            startTime: 0,
+                                            endTime: preLrc[preLrc.length - 1].startTime,
+                                            line: "lrcInstrumental",
+                                            translation: ''
+                                        });
+                                    app.lyrics = preLrc.reverse();
+                                } else {
+                                   preLrc = richsync.map(function (item){ return { startTime: item.ts,
+                                    endTime: item.te,
+                                    line: item.x,
+                                    translation: ''}})
+                                    if (preLrc.length > 0)
+                                    preLrc.unshift({
                                         startTime: 0,
-                                        endTime: preLrc[preLrc.length - 1].startTime,
+                                        endTime: preLrc[0].startTime,
                                         line: "lrcInstrumental",
                                         translation: ''
                                     });
-                                app.lyrics = preLrc.reverse();
+                                    app.lyrics = preLrc;
+                                }
                                 if (lrcfile != null && lrcfile != '') {
                                     // load translation
                                     getMXMTrans(id, lang, token);
@@ -1397,7 +1367,7 @@ const app = new Vue({
                                     for (var i = 0; i < u.length - 1; i++) {
                                         preTrans[i] = ""
                                         for (var trans_line of translation_list) {
-                                            if (u[i].line == " " + trans_line["translation"]["matched_line"]) {
+                                            if (u[i].line == " " + trans_line["translation"]["matched_line"] || u[i].line == trans_line["translation"]["matched_line"]) {
                                                 u[i].translation = trans_line["translation"]["description"];
                                                 break;
                                             }
@@ -1482,31 +1452,6 @@ const app = new Vue({
         },
         getCurrentTime() {
             return parseFloat(this.hmsToSecondsOnly(this.parseTime(this.mk.nowPlayingItem.attributes.durationInMillis - app.mk.currentPlaybackTimeRemaining * 1000)));
-        },
-        getActiveLyric() {
-            const delayfix = 0.5
-            const prevLine = app.currentLyricsLine;
-            for (var i = 0; i < app.lyrics.length; i++) {
-                if (this.lyriccurrenttime + delayfix >= app.lyrics[i].startTime && this.lyriccurrenttime + delayfix <= app.lyrics[i].endTime) {
-                    if (app.currentLyricsLine != i) {
-                        app.currentLyricsLine = i;
-                        if (app.lyricon && document.querySelector(`.lyric-line[line-index="${i}"]`)) {
-                            document.querySelector(`.lyric-line[line-index="${prevLine}"]`).classList.remove("active");
-                            document.querySelector(`.lyric-line[line-index="${i}"]`).classList.add("active");
-                            if (checkIfScrollIsStatic) {
-                                document.querySelector(`.lyric-line[line-index="${i}"]`).scrollIntoView({
-                                    behavior: "smooth",
-                                    block: "center"
-                                })
-                            }
-                        }
-                    } else if (app.currentLyricsLine == 0) {
-                        if (document.querySelector(`.lyric-line[line-index="0"]`) && !document.querySelector(`.lyric-line[line-index="0"]`).classList.contains("active"))
-                            document.querySelector(`.lyric-line[line-index="0"]`).classList.add("active");
-                    }
-                    break;
-                }
-            }
         },
         seekTo(time) {
             this.mk.seekToTime(time);
@@ -1717,7 +1662,7 @@ const app = new Vue({
                 }
 
                 try {
-                    if (this.mk.nowPlayingItem && this.mk.nowPlayingItem.id != this.currentTrackID && document.querySelector('.bg-artwork')) {
+                    if (this.mk.nowPlayingItem && this.mk.nowPlayingItem.id && this.mk.nowPlayingItem.id != this.currentTrackID && document.querySelector('.bg-artwork')) {
                         if (document.querySelector('.bg-artwork')) {
                             clearInterval(bginterval);
                         }
@@ -1733,7 +1678,8 @@ const app = new Vue({
                         try { clearInterval(bginterval); } catch (err) { console.log(err) }
                     }
                 } catch (e) {
-                    this.setLibraryArtBG()
+                    if (this.mk.nowPlayingItem && this.mk.nowPlayingItem.id && document.querySelector('.bg-artwork')){
+                    this.setLibraryArtBG()}
                 }
             }, 200)
         },
@@ -1741,7 +1687,7 @@ const app = new Vue({
             let interval = setInterval(() => {
 
                 try {
-                    if (this.mk.nowPlayingItem && this.mk.nowPlayingItem.id != this.currentTrackIDBG && document.querySelector('.app-playback-controls .artwork')) {
+                    if (this.mk.nowPlayingItem && this.mk.nowPlayingItem.id && this.mk.nowPlayingItem.id != this.currentTrackIDBG && document.querySelector('.app-playback-controls .artwork')) {
                         this.currentTrackIDBG = this.mk.nowPlayingItem.id;
                         if (document.querySelector('.app-playback-controls .artwork') != null) {
                             clearInterval(interval);
@@ -1757,30 +1703,30 @@ const app = new Vue({
                         try { clearInterval(interval); } catch (err) { console.log(err) }
                     }
                 } catch (e) {
-                    console.log(e);
-                    this.setLibraryArt()
+                    if (this.mk.nowPlayingItem && this.mk.nowPlayingItem.id && document.querySelector('.app-playback-controls .artwork')){
+                    this.setLibraryArt()}
 
                 }
             }, 200)
 
 
         },
-
         async setLibraryArt() {
-            const data = await this.mk.api.library.song(this.mk.nowPlayingItem.id)
             try {
+            const data = await this.mk.api.library.song(this.mk.nowPlayingItem.id)
+            
                 if (data != null && data !== "") {
                     document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', 'url("' + (data["attributes"]["artwork"]["url"]).toString() + '")');
                 } else {
-                    document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("https://beta.music.apple.com/assets/product/MissingArtworkMusic.svg")`);
+                    document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("")`);
                 }
             } catch (e) {
-                document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("https://beta.music.apple.com/assets/product/MissingArtworkMusic.svg")`);
             }
         },
         async setLibraryArtBG() {
-            const data = await this.mk.api.library.song(this.mk.nowPlayingItem.id)
             try {
+            const data = await this.mk.api.library.song(this.mk.nowPlayingItem.id)
+            
                 if (data != null && data !== "") {
                     document.querySelector('.bg-artwork').src = (data["attributes"]["artwork"]["url"]).toString();
                 }

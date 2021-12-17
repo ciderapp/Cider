@@ -374,8 +374,7 @@
             </div>
             <transition name="drawertransition">
                 <div class="app-drawer" v-if="drawer.open">
-                    <lyrics-view v-if="drawer.panel == 'lyrics'" :time="lyriccurrenttime" :lyrics="lyrics">
-                    </lyrics-view>
+                    <lyrics-view v-if="drawer.panel == 'lyrics'" :time="lyriccurrenttime" :lyrics="lyrics" :richlyrics="richlyrics"></lyrics-view>
                     <cider-queue ref="queue" v-if="drawer.panel == 'queue'"></cider-queue>
                 </div>
             </transition>
@@ -490,37 +489,9 @@
 <%- include('components/mediaitem-mvview-sp') %>
 <!-- Animated Artwork View -->
 <%- include('components/animatedartwork-view') %>
-
 <!-- Lyrics View -->
-<script type="text/x-template" id="lyrics-view">
-    <div class="md-body lyric-body">
-        <template v-if="lyrics && lyrics != []">
-            <template v-for="(lyric, index) in lyrics" v-if="lyric.line != 'lrcInstrumental'">
-                <h3 class="lyric-line" @click="if(lyric.startTime != 9999999) app.seekTo(lyric.startTime, false)"
-                    v-bind:line-index="index.toString()">
-                    {{ lyric.line }}
-                    <div class="lyrics-translation" v-if="lyric.translation && lyric.translation != ''">
-                        {{ lyric.translation }}
-                        <div>
-                </h3>
-            </template>
-            <template v-else>
-                <h3 class="lyric-line" @click="if(lyric.startTime != 9999999) app.seekTo(lyric.startTime, false)"
-                    :start="lyric.startTime"
-                    :end="lyric.endTime" v-bind:line-index="index.toString()">
-                    <div class="lyricWaiting">
-                        <div class='WaitingDot1'></div>
-                        <div class='WaitingDot2'></div>
-                        <div class='WaitingDot3'></div>
-                    </div>
-                </h3>
-            </template>
-        </template>
-        <template v-else>
-            No Lyrics Available
-        </template>
-    </div>
-</script>
+<%- include('components/lyrics-view') %>
+
 <script src="musickit.js?v=1"></script>
 <script>
     if (typeof MusicKit == 'undefined') {

@@ -1,0 +1,20 @@
+<script type="text/x-template" id="karaoke-in">
+    <div class="karaoke-viewer">
+        <div class="lyric">
+            <template v-for="segment in lyrics" v-if="segmentInRange(segment.ts, segment.te, segment.x)">
+                <div class="verse-group active">
+                    <template v-for="(verse, verseIndex) in segment.l"
+                        v-if="verseInRange(segment.ts, segment.te, verse.o)">
+                        <span class="verse verse-active">{{ verse.c }}</span>
+                    </template>
+                    <template v-else>
+                        <span class="verse">{{ verse.c }}</span>
+                    </template>
+                </div>
+            </template>
+            <template v-else>
+                <div class="verse-group">{{ segment.x }}</div>
+            </template>
+        </div>
+    </div>
+</script>
