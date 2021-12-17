@@ -1,6 +1,6 @@
 <script type="text/x-template" id="lyrics-view">
     <div ref="lyricsview" class="md-body lyric-body">
-        <template v-if="lyrics && lyrics != []">
+        <template v-if="lyrics && lyrics != [] && lyrics.length > 0">
             <template v-for="(lyric, index) in lyrics" v-if="lyric.line != 'lrcInstrumental'">
                 <h3 class="lyric-line" @click="if(lyric.startTime != 9999999) app.seekTo(lyric.startTime, false)"
                     v-bind:line-index="index.toString()">
@@ -34,7 +34,8 @@
             </template>
         </template>
         <template v-else>
-            No Lyrics Available
+            <div class="no-lyrics">
+                Loading... / Lyrics not found./ Instrumental.
         </template>
     </div>
 </script>
