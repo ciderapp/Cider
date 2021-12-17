@@ -290,17 +290,20 @@ const app = new Vue({
             MusicKit.getInstance().videoContainerElement = document.getElementById("apple-music-video-player")
             
 
-            
+            document.getElementById("apple-music-video-player").addEventListener('timeupdate', function () {
+                self.lyriccurrenttime = this.currentTime;
+            })
 
             this.mk.addEventListener(MusicKit.Events.playbackTimeDidChange, (a) => {
                 this.currentSongInfo = a
                 self.playerLCD.playbackDuration = (self.mk.currentPlaybackTime)
-                if (!self.playerReady){
-                    self.playerReady = true
-                    document.getElementById("apple-music-player").addEventListener('timeupdate', function () {
-                        self.lyriccurrenttime = this.currentTime;
+                if (!self.playerReady) {
+                    if (document.getElementById("apple-music-player")) {
+                        self.playerReady = true;
+                        document.getElementById("apple-music-player").addEventListener('timeupdate', function () {
+                            self.lyriccurrenttime = this.currentTime;
+                        })
                     }
-                    )
                 }
                 // animated dot like AM - bad perf
             })
