@@ -80,8 +80,3 @@ jobs:
         # A file, directory or wildcard pattern that describes what to upload
         path: dist/
         # The desired behavior if no files are found using the provided path.
-
-    - name: GitHub Upload Release Artifacts
-      # You may pin to the exact commit or the version.
-      # uses: Roang-zero1/github-upload-release-artifacts-action@f0677c0645db8d52dddaee4e83ce2c150f95e8e1
-      uses: Roang-zero1/github-upload-release-artifacts-action@v2.1.0

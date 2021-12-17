@@ -74,12 +74,3 @@ jobs:
        yarn dist -p never
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
-      
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v2.2.3
-      with:
-        # Artifact name
-        name: Artifacts
-        # A file, directory or wildcard pattern that describes what to upload
-        path: dist/
-        # The desired behavior if no files are found using the provided path.
