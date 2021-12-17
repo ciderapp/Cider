@@ -9,6 +9,7 @@
   --contentInnerPadding: 16px;
   --navbarHeight: 48px;
   --selected: rgb(130 130 130 / 30%);
+  --selected-click: rgb(80 80 80 / 30%);
   --keyColor: #fa586a;
   --keyColor-rgb: 250, 88, 106;
   --keyColor-rollover: #ff8a9c;
@@ -1740,6 +1741,9 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
       &:hover {
         opacity:1;
       }
+      &:active {
+        background: var(--selected-click);
+      }
       >svg {
         width: 70%;
       }
@@ -1912,6 +1916,11 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     background: var(--selected);
   }
 
+  &:active {
+    background: var(--selected-click);
+    color: #eee;
+  }
+
   .queue-info {
     display:flex;
     flex-direction: column;
@@ -1985,6 +1994,9 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
       &:hover {
         opacity: 1;
       }
+      &:active {
+        background: var(--selected-click);
+      }
     }
   }
 
@@ -2054,10 +2066,19 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
   &:hover {
     background: rgb(200 200 200 / 10%);
+    .overlay-play {
+      opacity: 1;
+    }
   }
 
   &.mediaitem-selected {
-    background: var(--selected);
+    background: var(--selected);    
+  }
+
+  
+  &:active {
+    background: var(--selected-click);
+    color: #eee;
   }
 }
 
@@ -2566,6 +2587,7 @@ div#captions {
 
 .item-navigate:hover {
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .title-browse-sp{

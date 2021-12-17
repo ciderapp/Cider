@@ -86,6 +86,9 @@
             select(e) {
                 if (e.shiftKey) {
                     if (this.index != -1) {
+                        if(app.selectedMediaItems.length == 0) {
+                            app.select_selectMediaItem(this.item.attributes.playParams.id ?? this.item.id, this.item.attributes.playParams.kind ?? this.item.type, this.index, this.guid)
+                        }
                         let allMediaItems = document.querySelectorAll(".cd-mediaitem-list-item[data-index]")
                         let startIndex = Math.min(...app.selectedMediaItems.map(item => item.index))
                         let endIndex = Math.max(...app.selectedMediaItems.map(item => item.index))
