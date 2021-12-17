@@ -6,6 +6,10 @@ const path = require("path");
 const windowStateKeeper = require("electron-window-state");
 const os = require('os');
 
+// Analytics for debugging.
+const ElectronSentry = require("@sentry/electron");
+ElectronSentry.init({dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.ingest.sentry.io/6112214"});
+
 const CiderBase = {
 
     CreateBrowserWindow() {

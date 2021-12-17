@@ -1,6 +1,10 @@
 require('v8-compile-cache');
 const {app} = require('electron');
 
+// Analytics for debugging.
+const ElectronSentry = require("@sentry/electron");
+ElectronSentry.init({dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.ingest.sentry.io/6112214"});
+
 // Creating the Application Window and Calling all the Functions
 function CreateWindow() {
     if (app.isQuiting) { app.quit(); return; }
