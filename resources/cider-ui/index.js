@@ -1671,16 +1671,18 @@ const app = new Vue({
                         document.querySelector('.bg-artwork').src = "";
                         if (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"]) {
                             document.querySelector('.bg-artwork').src = this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"].replace('{w}', size).replace('{h}', size);
-                            try { clearInterval(bginterval); } catch (err) { console.log(err) }
+                            try { clearInterval(bginterval); } catch (err) { }
                         } else {
                             this.setLibraryArtBG()
                         }
                     } else if (this.mk.nowPlayingItem["id"] == this.currentTrackID){
-                        try { clearInterval(bginterval); } catch (err) { console.log(err) }
+                        try { clearInterval(bginterval); } catch (err) {  }
                     }
                 } catch (e) {
                     if (this.mk.nowPlayingItem && this.mk.nowPlayingItem["id"] && document.querySelector('.bg-artwork')){
-                    this.setLibraryArtBG()}
+                    this.setLibraryArtBG()
+                    try { clearInterval(bginterval); } catch (err) { }
+                }
                 }
             }, 200)
         },
@@ -1697,16 +1699,19 @@ const app = new Vue({
                         document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', '');
                         if (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"]) {
                             document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${decodeURI((this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"])).replace('{w}', size).replace('{h}', size)}")`);
-                            try { clearInterval(interval); } catch (err) { console.log(err) }
+                            try { clearInterval(interval); } catch (err) {}
                         } else {
                             this.setLibraryArt()
                         }
                     } else if (this.mk.nowPlayingItem["id"] == this.currentTrackID){
-                        try { clearInterval(interval); } catch (err) { console.log(err) }
+                        try { clearInterval(interval); } catch (err) {  }
                     }
                 } catch (e) {
                     if (this.mk.nowPlayingItem && this.mk.nowPlayingItem["id"] && document.querySelector('.app-playback-controls .artwork')){
-                    this.setLibraryArt()}
+                    this.setLibraryArt()
+                    try { clearInterval(interval); } catch (err) { }
+                    
+                }
 
                 }
             }, 200)
