@@ -290,11 +290,11 @@ const app = new Vue({
             MusicKit.getInstance().videoContainerElement = document.getElementById("apple-music-video-player")
             
 
-            document.getElementById("apple-music-video-player").addEventListener('timeupdate', function () {
-                self.lyriccurrenttime = this.currentTime;
-            })
 
             this.mk.addEventListener(MusicKit.Events.playbackTimeDidChange, (a) => {
+                if (self.mk.nowPlayingItem && self.mk.nowPlayingItem.playParams.kind.includes('ideo')){
+                    self.lyriccurrenttime = (self.mk.currentPlaybackTime)
+                }
                 this.currentSongInfo = a
                 self.playerLCD.playbackDuration = (self.mk.currentPlaybackTime)
                 if (!self.playerReady) {
