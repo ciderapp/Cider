@@ -629,7 +629,7 @@ const app = new Vue({
             }
         },
         async getNowPlayingItemDetailed(target) {
-            let u = await app.mkapi(app.mk.nowPlayingItem.playParams.kind, (app.mk.nowPlayingItem.songId == -1), (app.mk.nowPlayingItem.songId != -1) ? app.mk.nowPlayingItem.songId : app.mk.nowPlayingItem.id, {"include[songs]": "albums,artists"});
+            let u = await app.mkapi(app.mk.nowPlayingItem.playParams.kind, (app.mk.nowPlayingItem.songId == -1), (app.mk.nowPlayingItem.songId != -1) ? app.mk.nowPlayingItem.songId : app.mk.nowPlayingItem["id"], {"include[songs]": "albums,artists"});
             app.searchAndNavigate(u, target)
         },
         async searchAndNavigate(item, target) {
@@ -1711,17 +1711,18 @@ const app = new Vue({
             return newurl
         },
         getNowPlayingArtworkBG(size = 600) {
+            if(typeof this.mk.nowPlayingItem === "undefined") return;
             let bginterval = setInterval(() => {
                 if (!this.mkReady()) {
                     return ""
                 }
 
                 try {
-                    if (this.mk.nowPlayingItem && this.mk.nowPlayingItem.id != this.currentTrackID && document.querySelector('.bg-artwork')) {
+                    if (this.mk.nowPlayingItem && this.mk.nowPlayingItem["id"] != this.currentTrackID && document.querySelector('.bg-artwork')) {
                         if (document.querySelector('.bg-artwork')) {
                             clearInterval(bginterval);
                         }
-                        this.currentTrackID = this.mk.nowPlayingItem.id;
+                        this.currentTrackID = this.mk.nowPlayingItem["id"];
                         document.querySelector('.bg-artwork').src = "";
                         if (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"]) {
                             document.querySelector('.bg-artwork').src = this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"].replace('{w}', size).replace('{h}', size);
@@ -1729,7 +1730,7 @@ const app = new Vue({
                         } else {
                             this.setLibraryArtBG()
                         }
-                    } else if (this.mk.nowPlayingItem.id == this.currentTrackID){
+                    } else if (this.mk.nowPlayingItem["id"] == this.currentTrackID){
                         try { clearInterval(bginterval); } catch (err) { console.log(err) }
                     }
                 } catch (e) {
@@ -1738,11 +1739,12 @@ const app = new Vue({
             }, 200)
         },
         getNowPlayingArtwork(size = 600) {
+            if(typeof this.mk.nowPlayingItem === "undefined") return;
             let interval = setInterval(() => {
 
                 try {
-                    if (this.mk.nowPlayingItem && this.mk.nowPlayingItem.id != this.currentTrackIDBG && document.querySelector('.app-playback-controls .artwork')) {
-                        this.currentTrackIDBG = this.mk.nowPlayingItem.id;
+                    if (this.mk.nowPlayingItem && this.mk.nowPlayingItem["id"] != this.currentTrackIDBG && document.querySelector('.app-playback-controls .artwork')) {
+                        this.currentTrackIDBG = this.mk.nowPlayingItem["id"];
                         if (document.querySelector('.app-playback-controls .artwork') != null) {
                             clearInterval(interval);
                         }
@@ -1753,7 +1755,7 @@ const app = new Vue({
                         } else {
                             this.setLibraryArt()
                         }
-                    } else if (this.mk.nowPlayingItem.id == this.currentTrackID){
+                    } else if (this.mk.nowPlayingItem["id"] == this.currentTrackID){
                         try { clearInterval(interval); } catch (err) { console.log(err) }
                     }
                 } catch (e) {
@@ -1767,7 +1769,8 @@ const app = new Vue({
         },
 
         async setLibraryArt() {
-            const data = await this.mk.api.library.song(this.mk.nowPlayingItem.id)
+            if(typeof this.mk.nowPlayingItem === "undefined") return;
+            const data = await this.mk.api.library.song(this.mk.nowPlayingItem["id"])
             try {
                 if (data != null && data !== "") {
                     document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', 'url("' + (data["attributes"]["artwork"]["url"]).toString() + '")');
@@ -1779,7 +1782,8 @@ const app = new Vue({
             }
         },
         async setLibraryArtBG() {
-            const data = await this.mk.api.library.song(this.mk.nowPlayingItem.id)
+            if(typeof this.mk.nowPlayingItem === "undefined") return;
+            const data = await this.mk.api.library.song(this.mk.nowPlayingItem["id"])
             try {
                 if (data != null && data !== "") {
                     document.querySelector('.bg-artwork').src = (data["attributes"]["artwork"]["url"]).toString();
