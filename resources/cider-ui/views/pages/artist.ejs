@@ -13,7 +13,9 @@
 
                                 :url="data.attributes.artwork ? data.attributes.artwork.url : ''"
                                 size="220" type="artists"></mediaitem-artwork>
-                        <button class="overlay-play">
+                        <button class="overlay-play"  @click="app.mk.setStationQueue({artist:'a-'+data.id}).then(()=>{
+                            app.mk.play()
+                        })">
                             <%- include("../svg/play.svg") %>
                         </button>
                     </div>
