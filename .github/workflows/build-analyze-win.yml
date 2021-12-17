@@ -76,7 +76,7 @@ jobs:
       uses: actions/upload-artifact@v2.2.3
       with:
         # Artifact name
-        name: Artifacts
+        name: Windows
         # A file, directory or wildcard pattern that describes what to upload
         path: dist/
         # The desired behavior if no files are found using the provided path.
