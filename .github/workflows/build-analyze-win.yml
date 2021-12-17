@@ -80,8 +80,13 @@ jobs:
         # A file, directory or wildcard pattern that describes what to upload
         path: dist/
         # The desired behavior if no files are found using the provided path.
+    - name: Generate release tag
+      id: tag
+      run: |
+        echo "::set-output name=release_tag::CiderNightly_$(date +"%Y.%m.%d_%H-%M")"    
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
+        tag_name: ${{ steps.tag.outputs.release_tag }}
         files: dist/Cider Setup 1.0.0.exe
           
