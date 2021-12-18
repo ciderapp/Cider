@@ -5,13 +5,18 @@
   "version": "1.0.0",
   "description": "A new look into listening and enjoying music in style and performance.",
   "license": "MIT",
-  "author": "Cider Development Team <cryptofyre@cryptofyre.org> (https://cider.sh)",
-  "repository": "https://github.com/Apple-Music-Electron/Cider.git",
+  "author": "Cider Collective <cryptofyre@cryptofyre.org> (https://cider.sh)",
+  "repository": "https://github.com/ciderapp/Cider.git",
   "bugs": {
-    "url": "https://github.com/Apple-Music-Electron/Cider/issues?q=is%3Aopen+is%3Aissue+label%3Abug"
+    "url": "https://github.com/ciderapp/Cider/issues?q=is%3Aopen+is%3Aissue+label%3Abug"
   },
   "homepage": "https://cider.sh/",
   "buildResources": "resources",
+  "files": [
+    "**/*",
+    "./resources/icons/icon.*",
+    "./resources/appx/*.*"
+  ],
   "scripts": {
     "init": "yarn install --force",
     "start": "electron --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers .",
@@ -39,11 +44,11 @@
   },
   "devDependencies": {
     "electron": "https://github.com/castlabs/electron-releases.git",
-    "electron-builder": "^22.13.1",
+    "electron-builder": "^22.14.5",
     "electron-webpack": "^2.8.2",
     "musickit-typescript": "^1.2.4",
     "vue-devtools": "^5.1.4",
-    "webpack": "~5.64.0"
+    "webpack": "~5.65.0"
   },
   "fileAssociations": [
     {
@@ -71,6 +76,9 @@
       "version": "15.3.3-wvvmp",
       "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
     },
+    "directories": {
+      "buildResources": "resources"
+    },
     "appId": "cider",
     "protocols": [
       {
@@ -87,7 +95,8 @@
     "extends": null,
     "files": [
       "**/*",
-      "./resources/icons/icon.*"
+      "./resources/icons/icon.*",
+      "./resources/appx/*.*"
     ],
     "linux": {
       "target": [
@@ -101,34 +110,25 @@
       "icon": "cider",
       "executableName": "cider"
     },
+    "appx": {
+      "applicationId": "Cider",
+      "displayName": "Cider",
+      "identityName": "Cider",
+      "publisherDisplayName": "Cider Collective",
+      "backgroundColor": "transparent",
+      "setBuildNumber": true
+    },
     "win": {
       "target": [
         "nsis"
       ],
-      "icon": "./resources/icons/icon.ico"
-    },
-    "appx": {
-      "applicationId": "cider",
-      "publisher": "CN=cryptofyre",
-      "displayName": "Cider",
-      "identityName": "Cider",
-      "backgroundColor": "#CD001A",
-      "setBuildNumber": true
+      "icon": "resources/appx/StoreLogo.png"
     },
     "mac": {
       "icon": "./resources/icons/icon.icns",
       "category": "public.app-category.music",
       "entitlements": "resources/entitlements.mac.plist",
       "darkModeSupport": true
-    },
-    "extraResources": [
-      {
-        "from": "node_modules/regedit/vbs",
-        "to": "regedit/vbs",
-        "filter": [
-          "**/*"
-        ]
-      }
-    ]
+    }
   }
 }
