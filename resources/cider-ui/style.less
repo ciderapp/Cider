@@ -771,6 +771,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   /*height: 1.2em;
   line-height: 1.2em;*/
   overflow: hidden;
+  z-index: 1;
   /* animation: marquee 10s linear infinite; */
 }
 
@@ -1742,6 +1743,12 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
       border: 0px;
       cursor: pointer;
       z-index: 5;
+      &:hover {
+        background: var(--keyColor-rollover);
+      }
+      &:active {
+        background: var(--keyColor-pressed);
+      }
     }
 
     .animated {
@@ -1818,6 +1825,12 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
       border:0px;
       padding:0px;
       transform: translateY(3px);
+      &:hover {
+        background: var(--keyColor-rollover);
+      }
+      &:active {
+        background: var(--keyColor-pressed);
+      }
     }
     &.artist-animation-on {
       width: 100%;
@@ -2684,6 +2697,13 @@ input[type=checkbox][switch]:checked {
   background: var(--keyColor);
   border: 0 solid var(--keyColor);
   mix-blend-mode: unset;
+
+  &:hover {
+    background: var(--keyColor-rollover);
+  }
+  &:active {
+    background: var(--keyColor-pressed);
+  }
 }
 
 input[type=checkbox][switch]::before {
