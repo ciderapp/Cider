@@ -174,7 +174,7 @@
                     </div>
                     <button class="app-sidebar-item" v-for="item in playlists.listing" :key="item.id"
                             :href="item.href"
-                            @click='page=`playlist_` + item.id ; showingPlaylist = [];getPlaylistFromID(app.page.substring(9))'>
+                            @click='appRoute(`playlist_` + item.id); showingPlaylist = [];getPlaylistFromID(app.page.substring(9))'>
                         {{ item.attributes.name }}
                     </button>
                 </div>
@@ -240,6 +240,10 @@
                 </div>
             </div>
             <div id="app-content">
+                <div id="navigation-bar">
+                    <button class="nav-item" @click="history.back()"><%- include('svg/chevron-left.svg') %></button>
+                    <button class="nav-item" @click="history.forward()"><%- include('svg/chevron-right.svg') %></button>
+                </div>
                 <!-- Artist Page -->
                 <transition name="wpfade">
                     <template v-if="page == 'artist-page' && artistPage.data.attributes">
@@ -456,7 +460,7 @@
 <!-- Sidebar Item -->
 <script type="text/x-template" id="sidebar-library-item">
     <button class="app-sidebar-item"
-            :class="$parent.getSidebarItemClass(page)" @click="$parent.page = page">
+            :class="$parent.getSidebarItemClass(page)" @click="app.appRoute(page)">
         {{ name }}
     </button>
 </script>

@@ -1,6 +1,6 @@
 <script type="text/x-template" id="cider-playlist">
-    <div class="content-inner playlist-page">
-        <template v-if="data != [] && data.attributes != null">
+    <template v-if="data != [] && data.attributes != null">
+    <div class="content-inner playlist-page" :style="{'--bgColor': (data.attributes.artwork != null && data.attributes.artwork['bgColor'] != null) ? ('#' + data.attributes.artwork.bgColor) : ''}">
             <div class="playlist-display row"
                  :style="{
                 background: (data.attributes.artwork != null && data.attributes.artwork['bgColor'] != null) ? ('#' + data.attributes.artwork.bgColor) : '',
@@ -66,9 +66,9 @@
                 </div>
                 <div class="playlist-time">{{app.getTotalTime()}}</div>
             </div>
-        </template>
-
     </div>
+</template>
+
 </script>
 <script>
     Vue.component('cider-playlist', {

@@ -19,6 +19,7 @@
   --keyColor-deepPressed: #ff8a9c;
   --keyColor-deepPressed-rgb: 255, 138, 156;
   --keyColor-disabled: rgba(250, 88, 106, 0.35);
+  --navigationBarHeight: 38px;
 }
 
 html,
@@ -217,7 +218,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 
 .content-inner {
   position: absolute;
-  top: 0;
+  top: var(--navigationBarHeight);
   left: 0;
   padding: 32px;
   width: 100%;
@@ -1489,6 +1490,46 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
 /* Cider */
 
+#navigation-bar {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.25);
+  height: var(--navigationBarHeight);
+  display: flex;
+  align-items: center;
+  padding: 0px 6px;
+  z-index: 7;
+  position: sticky;
+  top: 0;
+  left: 0;
+  backdrop-filter: blur(16px) saturate(180%);
+  box-shadow: 0px 1px 0px rgba(185, 185, 185, 0.08);
+  mix-blend-mode: hard-light;
+  .nav-item {
+    appearance: none;
+    border: 0px;
+    height: 32px;
+    width: 42px;
+    background: transparent;
+    padding: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgba(200, 200, 200, 0.8);
+    margin: 2px;
+    border-radius: 3px;
+    &:hover {
+      background: var(--selected);
+    }
+    &:active {
+      background: var(--selected-click);
+    }
+    > svg {
+      width: 8px;
+      pointer-events: none;
+    }
+  }
+}
+
 .reload-btn {
   background: rgb(86 86 86 / 52%);
   border-radius: 100%;
@@ -1532,7 +1573,11 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
 /* Album / Playlist Page */
 .playlist-page {
+  --bgColor: transparent;
   padding: 0px;
+  background: linear-gradient(180deg, var(--bgColor) 32px, var(--bgColor) 59px, transparent 60px, transparent 100%);
+  top: 0;
+  padding-top: var(--navigationBarHeight);
 
   .playlist-body {
     padding: var(--contentInnerPadding);
@@ -1674,6 +1719,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
 .artist-page {
   padding: 0px;
+  top:0;
 
   .artist-header {
     background: linear-gradient(45deg, var(--keyColor), #0e0e0e);
