@@ -240,6 +240,10 @@
                 </div>
             </div>
             <div id="app-content">
+                <div id="navigation-bar">
+                    <button class="nav-item" @click="history.back()"><%- include('svg/chevron-left.svg') %></button>
+                    <button class="nav-item" @click="history.forward()"><%- include('svg/chevron-right.svg') %></button>
+                </div>
                 <!-- Artist Page -->
                 <transition name="wpfade">
                     <template v-if="page == 'artist-page' && artistPage.data.attributes">

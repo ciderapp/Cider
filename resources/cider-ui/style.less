@@ -19,6 +19,7 @@
   --keyColor-deepPressed: #ff8a9c;
   --keyColor-deepPressed-rgb: 255, 138, 156;
   --keyColor-disabled: rgba(250, 88, 106, 0.35);
+  --navigationBarHeight: 38px;
 }
 
 html,
@@ -220,6 +221,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   top: 0;
   left: 0;
   padding: 32px;
+  padding-top: calc(var(--navigationBarHeight) * 2);
   width: 100%;
 }
 
@@ -1488,6 +1490,45 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 }
 
 /* Cider */
+
+#navigation-bar {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.25);
+  height: var(--navigationBarHeight);
+  display: flex;
+  align-items: center;
+  padding: 0px 6px;
+  z-index: 1;
+  position: sticky;
+  top: 0;
+  left: 0;
+  backdrop-filter: blur(16px) saturate(180%);
+  border-bottom: 1px solid rgb(200 200 200 / 10%);
+  .nav-item {
+    appearance: none;
+    border: 0px;
+    height: 32px;
+    width: 42px;
+    background: transparent;
+    padding: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgba(200, 200, 200, 0.8);
+    margin: 2px;
+    border-radius: 3px;
+    &:hover {
+      background: var(--selected);
+    }
+    &:active {
+      background: var(--selected-click);
+    }
+    > svg {
+      width: 8px;
+      pointer-events: none;
+    }
+  }
+}
 
 .reload-btn {
   background: rgb(86 86 86 / 52%);
