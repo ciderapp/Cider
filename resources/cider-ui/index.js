@@ -258,7 +258,7 @@ const app = new Vue({
             this.mk.authorize()
             this.$forceUpdate()
             this.mk.privateEnabled = true
-            this.platform = ipcRenderer.sendSync('cider-platform');
+            // this.platform = ipcRenderer.sendSync('cider-platform');
             // Set profile name
             this.chrome.userinfo = await this.mkapi("personalSocialProfile", false, "")
             // API Fallback
@@ -406,7 +406,7 @@ const app = new Vue({
             this.collectionList.response = response
             this.collectionList.title = title
             this.collectionList.type = type
-            this.page = "collection-list"
+            app.appRoute("collection-list")
         },
         async showArtistView(artist, title, view) {
             let response = await this.mk.api.artistView(artist, view, {}, {view: view, includeResponseMeta: !0})
