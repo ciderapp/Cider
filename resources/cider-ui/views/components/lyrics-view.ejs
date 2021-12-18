@@ -7,7 +7,7 @@
                     <template v-if="richlyrics && richlyrics != [] && richlyrics.length > 0">
                         <div class="richl" >
                             <template v-for="verse in getVerseLine(index-1)" >
-                                <span class="verse" :llinestart="lyric.startTime" :versestart="verse.o" >{{ verse.c }}</span>
+                                <span class="verse" :lyricstart="lyric.startTime" :versestart="verse.o" >{{ verse.c }}</span>
                             </template>
                         </div>
                     </template>
@@ -138,10 +138,8 @@
                         try{this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${prevLine}"]`).childNodes.classList.remove("verse-active");} catch(e){
                                    
                                 }
-                               // console.log(this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${prevLine}"]`).childNodes); 
                                 for (child of this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${app.currentLyricsLine}"]`).querySelectorAll(".verse")){
-                                  //  console.log(this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${app.currentLyricsLine}"]`).querySelectorAll(".verse"))
-                                    if (this.time + delayfix >= child.getAttribute("llinestart") * 1 + child.getAttribute("versestart") * 1){
+                                    if (this.time + 0.1 >= child.getAttribute("lyricstart") * 1 + child.getAttribute("versestart") * 1){
                                         child.classList.add("verse-active");
                                     } else {child.classList.remove("verse-active");}
                         }
