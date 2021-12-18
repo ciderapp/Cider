@@ -174,7 +174,7 @@
                     </div>
                     <button class="app-sidebar-item" v-for="item in playlists.listing" :key="item.id"
                             :href="item.href"
-                            @click='page=`playlist_` + item.id ; showingPlaylist = [];getPlaylistFromID(app.page.substring(9))'>
+                            @click='appRoute(`playlist_` + item.id); showingPlaylist = [];getPlaylistFromID(app.page.substring(9))'>
                         {{ item.attributes.name }}
                     </button>
                 </div>
@@ -456,7 +456,7 @@
 <!-- Sidebar Item -->
 <script type="text/x-template" id="sidebar-library-item">
     <button class="app-sidebar-item"
-            :class="$parent.getSidebarItemClass(page)" @click="$parent.page = page">
+            :class="$parent.getSidebarItemClass(page)" @click="app.appRoute(page)">
         {{ name }}
     </button>
 </script>

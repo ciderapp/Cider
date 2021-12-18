@@ -553,7 +553,7 @@ const app = new Vue({
             // if the route contains does not include a / then route to the page directly
             if (route.indexOf("/") == -1) {
                 this.page = route
-                window.location.hash = `${page}/${id}`
+                window.location.hash = this.page
                 return
             }
             let hash = route.split("/")
