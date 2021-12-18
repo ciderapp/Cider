@@ -1,8 +1,8 @@
 <script type="text/x-template" id="mediaitem-square-sp">
     <template>
-        <div style="position: relative; display: inline-flex;">
+        <div ref="main" style="position: relative; display: inline-flex;" @contextmenu="contextMenu">
             <div @click.self='app.routeView(item)'
-                 class="cd-mediaitem-square-sp" :style="{'--spcolor' : (item.attributes.artwork.bgColor != null) ? ('#'+item.attributes.artwork.bgColor) : `black`}">
+                 class="cd-mediaitem-square-sp"  ref="main2" :style="{'--spcolor' : (item.attributes.artwork.bgColor != null) ? ('#'+item.attributes.artwork.bgColor) : `black`}">
                 <div class="artwork">
                     <mediaitem-artwork
                             :url="item.attributes.artwork ? item.attributes.artwork.url : ''"
@@ -14,13 +14,24 @@
                     <div class="button" style="
                     border-radius: 50%;
                     background: rgba(50,50,50,0.7);"
-                         :style="[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'margin': '140px',
+                         :style="[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'margin': '140px','position': 'absolute',
                         width: '40px',
                         height: '40px',} :
-                        {margin: '35px',
+                        {margin: '35px','position': 'absolute',
                         width: '120px',
                         height: '120px',}]" @click="app.playMediaItem(item)">
                         <%- include("../svg/play.svg") %>
+                    </div>
+                    <div class="button" style="
+                    border-radius: 50%;
+                    background: rgba(50,50,50,0.7);"
+                         :style="[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'position': 'absolute','margin': '140px',
+                        width: '40px', 'margin-left': '10px',
+                        height: '40px',} :
+                        {display: 'none',margin: '35px',
+                        width: '120px',
+                        height: '120px',}]" @click="clickContext()">
+                        <%- include("../svg/more.svg") %>
                     </div>
                 </div>
                 <div class="title text-overflow-elipsis"
@@ -49,7 +60,19 @@
                    height: '120px',}]" @click="app.playMediaItem(item)">
                     <%- include("../svg/play.svg") %>
                 </div>
+                <div class="button" style="
+                border-radius: 50%;
+                background: rgba(50,50,50,0.7);"
+                     :style="[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'position': 'absolute','margin': '140px',
+                    width: '40px', 'margin-left': '10px',
+                    height: '40px',} :
+                    {display: 'none',margin: '35px',
+                    width: '120px',
+                    height: '120px',}]" @click="clickContext()">
+                    <%- include("../svg/more.svg") %>
+                </div>
             </div>
+
         </div>
     </template>
 </script>
@@ -58,6 +81,99 @@
     Vue.component('mediaitem-square-sp', {
         template: '#mediaitem-square-sp',
         props: ['item'],
-        methods: {}
+        methods: { clickContext() {
+                var evt =  document.createEvent('MouseEvent');
+                var rect = this.$refs.main2.getBoundingClientRect();
+                evt.initMouseEvent(
+                    "contextmenu",
+                    true /* bubble */, true /* cancelable */,
+                    window, null,
+                    0, 0, rect.x + 100, rect.y +100,  /* coordinates */
+                    false, false, false, false, /* modifier keys */
+                    0 /*left*/, null
+                );
+                this.$refs.main.dispatchEvent(evt);
+             }
+            ,contextMenu(event) {
+                if (!event){event = this.$refs.main} else {console.log(event)}
+                let self = this
+                let useMenu = "normal"
+                if (app.selectedMediaItems.length <= 1) {
+                    app.selectedMediaItems = []
+                    app.select_selectMediaItem(this.item.attributes.playParams.id ?? this.item.id, this.item.attributes.playParams.kind ?? this.item.type, this.index, this.guid)
+                } else {
+                    useMenu = "multiple"
+                }
+                let menus = {
+                    multiple: {
+                        items: [
+                            {
+                                name: `Play ${app.selectedMediaItems.length} tracks next`,
+                                action: () => {
+                                    let itemsToPlay = {}
+                                    app.selectedMediaItems.forEach(item => {
+                                        if (!itemsToPlay[item.kind]) {
+                                            itemsToPlay[item.kind] = []
+                                        }
+                                        itemsToPlay[item.kind].push(item.id)
+                                    })
+                                    // loop through itemsToPlay
+                                    for (let kind in itemsToPlay) {
+                                        let ids = itemsToPlay[kind]
+                                        if (ids.length > 0) {
+                                            app.mk.playNext({[kind + "s"]: itemsToPlay[kind]})
+                                        }
+                                    }
+                                    console.log(itemsToPlay)
+                                    app.selectedMediaItems = []
+                                }
+                            },
+                            {
+                                name: `Play ${app.selectedMediaItems.length} tracks later`,
+                                action: () => {
+                                    let itemsToPlay = {}
+                                    app.selectedMediaItems.forEach(item => {
+                                        if (!itemsToPlay[item.kind]) {
+                                            itemsToPlay[item.kind] = []
+                                        }
+                                        itemsToPlay[item.kind].push(item.id)
+                                    })
+                                    // loop through itemsToPlay
+                                    for (let kind in itemsToPlay) {
+                                        let ids = itemsToPlay[kind]
+                                        if (ids.length > 0) {
+                                            app.mk.playLater({[kind + "s"]: itemsToPlay[kind]})
+                                        }
+                                    }
+                                    app.selectedMediaItems = []
+                                }
+                            },
+                        ]
+                    },
+                    normal: {
+                        items: [
+                            
+                            {
+                                "name": "Play Next",
+                                "action": function () {
+                                    app.mk.playNext({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
+                                    app.mk.queue._reindex()
+                                    app.selectedMediaItems = []
+                                }
+                            },
+                            {
+                                "name": "Play Later",
+                                "action": function () {
+                                    app.mk.playLater({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
+                                    app.mk.queue._reindex()
+                                    app.selectedMediaItems = []
+                                }
+                            },
+                            
+                        ]
+                    }
+                }
+                CiderContextMenu.Create(event, menus[useMenu])
+            },}
     });
 </script>
