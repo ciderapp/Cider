@@ -1518,15 +1518,19 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     color: rgba(200, 200, 200, 0.8);
     margin: 2px;
     border-radius: 3px;
-    &:hover {
-      background: var(--selected);
-    }
     &:active {
       background: var(--selected-click);
     }
     > svg {
       width: 8px;
       pointer-events: none;
+    }
+
+    &:hover {
+      background: var(--selected);
+      >svg {
+        color: rgba(200, 200, 200, 1.0);
+      }
     }
   }
 }
