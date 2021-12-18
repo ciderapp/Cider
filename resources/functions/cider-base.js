@@ -86,7 +86,7 @@ const CiderBase = {
         mainWindowState.manage(win);
 
         // IPC stuff (senders)
-        ipcMain.once("cider-platform", (event) => {
+        ipcMain.on("cider-platform", (event) => {
             event.returnValue = process.platform
         })
 

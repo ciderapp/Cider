@@ -258,7 +258,7 @@ const app = new Vue({
             this.mk.authorize()
             this.$forceUpdate()
             this.mk.privateEnabled = true
-            // this.platform = ipcRenderer.sendSync('cider-platform');
+            this.platform = ipcRenderer.sendSync('cider-platform');
             // Set profile name
             this.chrome.userinfo = await this.mkapi("personalSocialProfile", false, "")
             // API Fallback
