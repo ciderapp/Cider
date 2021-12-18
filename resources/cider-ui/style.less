@@ -1573,7 +1573,11 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
 /* Album / Playlist Page */
 .playlist-page {
+  --bgColor: transparent;
   padding: 0px;
+  background: linear-gradient(180deg, var(--bgColor) 32px, var(--bgColor) 59px, transparent 60px, transparent 100%);
+  top: 0;
+  padding-top: var(--navigationBarHeight);
 
   .playlist-body {
     padding: var(--contentInnerPadding);
