@@ -233,7 +233,8 @@ const app = new Vue({
         pageHistory: [],
         songstest: false,
         hangtimer: null,
-        selectedMediaItems: []
+        selectedMediaItems: [],
+        routes: ["browse", "listen_now", "radio"]
     },
     watch: {
         page: () => {
@@ -257,7 +258,7 @@ const app = new Vue({
             this.mk.authorize()
             this.$forceUpdate()
             this.mk.privateEnabled = true
-            this.platform = ipcRenderer.sendSync('cider-platform');
+            // this.platform = ipcRenderer.sendSync('cider-platform');
             // Set profile name
             this.chrome.userinfo = await this.mkapi("personalSocialProfile", false, "")
             // API Fallback
@@ -356,6 +357,9 @@ const app = new Vue({
                 self.playlists.listing = res.data
             })
             document.body.removeAttribute("loading")
+            if(window.location.hash != "") {
+                this.appRoute(window.location.hash)
+            }
         },
         invokeDrawer(panel) {
             if(this.drawer.panel == panel && this.drawer.open) {
@@ -541,6 +545,29 @@ const app = new Vue({
             }
             return hash;
         },
+        appRoute(route) {
+            if(route == "" || route == "#" || route == "/") {
+                return;
+            }
+            route = route.replace(/#/g, "")
+            // if the route contains does not include a / then route to the page directly
+            if (route.indexOf("/") == -1) {
+                this.page = route
+                window.location.hash = `${page}/${id}`
+                return
+            }
+            let hash = route.split("/")
+            let page = hash[0]
+            let id = hash[1]
+            console.log(`page: ${page} id: ${id}`)
+            this.routeView({
+                kind: page,
+                id: id,
+                attributes: {
+                    playParams: {kind: page, id: id}
+                }
+            })
+        },
         routeView(item) {
             let self = this
 
@@ -575,12 +602,14 @@ const app = new Vue({
                 }
                 document.querySelector("#app-content").scrollTop = 0
             }
+            window.location.hash = `${kind}/${id}`
         },
         async getNowPlayingItemDetailed(target) {
             let u = await app.mkapi(app.mk.nowPlayingItem.playParams.kind, (app.mk.nowPlayingItem.songId == -1), (app.mk.nowPlayingItem.songId != -1) ? app.mk.nowPlayingItem.songId : app.mk.nowPlayingItem["id"], {"include[songs]": "albums,artists"});
             app.searchAndNavigate(u, target)
         },
         async searchAndNavigate(item, target) {
+            let self = this
             app.tmpVar = item;
             switch (target) {
                 case "artist":
@@ -615,7 +644,7 @@ const app = new Vue({
                     }
                     console.log(artistId);
                     if (artistId != "")
-                        app.getArtistFromID(artistId);
+                        self.appRoute(`artist/${artistId}`)
                     break;
                 case "album":
                     let albumId = '';
@@ -642,8 +671,7 @@ const app = new Vue({
                         }
                     }
                     if (albumId != "") {
-                        app.getTypeFromID("album", albumId, false);
-                        app.page = "album_" + albumId;
+                        self.appRoute(`album/${albumId}`)
                     }
                     break;
                 case "recordLabel":
@@ -668,7 +696,6 @@ const app = new Vue({
                     }
                     if (labelId != "") {
                         app.showingPlaylist = []
-
                         await app.getTypeFromID("recordLabel", labelId, false, {views: 'top-releases,latest-releases,top-artists'});
                         app.page = "recordLabel_" + labelId;
                     }
@@ -1817,6 +1844,11 @@ app.hangtimer = setTimeout(()=>{
         window.location.reload()
     }
 }, 10000)
+
+// add event listener for when window.location.hash changes
+window.addEventListener("hashchange", function () {
+    app.appRoute(window.location.hash)
+});
 
 document.addEventListener('musickitloaded', function () {
     // MusicKit global is now defined
