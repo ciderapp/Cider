@@ -66,9 +66,9 @@
     }
   ],
   "build": {
-    "electronVersion": "15.3.3",
+    "electronVersion": "15.3.4",
     "electronDownload": {
-      "version": "15.3.3-wvvmp",
+      "version": "15.3.4-wvvmp",
       "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
     },
     "appId": "cider",
