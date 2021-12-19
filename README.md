@@ -9,6 +9,10 @@
   <br>
   <a target="_blank" href="https://discord.gg/applemusic"><img src="https://img.shields.io/discord/843954443845238864?label=Discord&color=5865F2&logo=discord&logoColor=white&style=flat" alt="Discord"/></a>
   <a target="_blank" href="https://twitter.com/CollectiveCider"><img src="https://img.shields.io/twitter/follow/CollectiveCider?label=Twitter&color=%231DA1F2&logo=twitter&style=flat" alt="Twitter"/></a>
+
+  <a target="_blank" href="https://opencollective.com/ciderapp"><img src="https://img.shields.io/opencollective/all/ciderapp?label=Open Collective Sponseres and Supporters&color=7FADF2&logo=opencollective&style=for-the-badge" alt="Open Collective"/></a>
+
+
   <a target="_blank" href="https://reddit.com/r/applemusicelectron"><img src="https://custom-icon-badges.herokuapp.com/reddit/subreddit-subscribers/applemusicelectron?label=Reddit&color=FF5700&logo=redditnew" alt="Reddit"/></a>
   <br><br>
   <img src="https://github.com/ciderapp/Cider/actions/workflows/build-analyze-win.yml/badge.svg" alt="Windows Build Status"/>
