@@ -172,11 +172,12 @@ const app = new Vue({
                     "artistName": "Artist",
                     "name": "Name",
                     "genre": "Genre",
-                    "releaseDate": "Release Date"
+                    "releaseDate": "Release Date",
+                    "dateAdded": "Date Added"
                 },
                 viewAs: 'covers',
-                sorting: "name",
-                sortOrder: "asc",
+                sorting: ["dateAdded", "name"], // [0] = recentlyadded page, [1] = albums page
+                sortOrder: ["desc", "asc"], // [0] = recentlyadded page, [1] = albums page
                 listing: [],
                 meta: {total: 0, progress: 0},
                 search: "",
@@ -847,58 +848,45 @@ const app = new Vue({
             }
         },
         // make a copy of searchLibrarySongs except use Albums instead of Songs
-        searchLibraryAlbums() {
+        searchLibraryAlbums(index) {
             let self = this
 
             function sortAlbums() {
-                if (self.library.albums.sortOrder == "asc") {
-                    // sort this.library.albums.displayListing by album.attributes[self.library.albums.sorting] in ascending order based on alphabetical order and numeric order
-                    // check if album.attributes[self.library.albums.sorting] is a number and if so, sort by number if not, sort by alphabetical order ignoring case
-                    self.library.albums.displayListing.sort((a, b) => {
-                        let aa = null;
-                        let bb = null;
-                        if (self.library.albums.sorting == "genre") {
-                            aa = a.attributes.genreNames[0]
-                            bb = b.attributes.genreNames[0]
-                        }
-                        aa = a.attributes[self.library.albums.sorting]
-                        bb = b.attributes[self.library.albums.sorting]
-                        if (aa == null) {
-                            aa = ""
-                        }
-                        if (bb == null) {
-                            bb = ""
-                        }
+                // sort this.library.albums.displayListing by album.attributes[self.library.albums.sorting[index]] in descending or ascending order based on alphabetical order and numeric order
+                // check if album.attributes[self.library.albums.sorting[index]] is a number and if so, sort by number if not, sort by alphabetical order ignoring case
+                let aa = null;
+                let bb = null;
+                self.library.albums.displayListing.sort((a, b) => {
+                    if (self.library.albums.sorting[index] == "genre") {
+                        aa = a.attributes.genreNames[0]
+                        bb = b.attributes.genreNames[0]
+                    }
+                    if (self.library.albums.sorting[index] == "dateAdded") {
+                        aa = new Date(a.attributes.dateAdded).getTime()
+                        bb = new Date(b.attributes.dateAdded).getTime()
+                    }
+                    aa = a.attributes[self.library.albums.sorting[index]]
+                    bb = b.attributes[self.library.albums.sorting[index]]
+                    if (aa == null) {
+                        aa = ""
+                    }
+                    if (bb == null) {
+                        bb = ""
+                    }
+                    if (self.library.albums.sortOrder[index] == "asc") {
                         if (aa.toString().match(/^\d+$/) && bb.toString().match(/^\d+$/)) {
                             return aa - bb
                         } else {
                             return aa.toString().toLowerCase().localeCompare(bb.toString().toLowerCase())
                         }
-                    })
-                }
-                if (self.library.albums.sortOrder == "desc") {
-                    // sort this.library.albums.displayListing by album.attributes[self.library.albums.sorting] in descending order based on alphabetical order and numeric order
-                    // check if album.attributes[self.library.albums.sorting] is a number and if so, sort by number if not, sort by alphabetical order ignoring case
-                    self.library.albums.displayListing.sort((a, b) => {
-                        if (self.library.albums.sorting == "genre") {
-                            aa = a.attributes.genreNames[0]
-                            bb = b.attributes.genreNames[0]
-                        }
-                        let aa = a.attributes[self.library.albums.sorting]
-                        let bb = b.attributes[self.library.albums.sorting]
-                        if (aa == null) {
-                            aa = ""
-                        }
-                        if (bb == null) {
-                            bb = ""
-                        }
+                    } else if (self.library.albums.sortOrder[index] == "desc") {
                         if (aa.toString().match(/^\d+$/) && bb.toString().match(/^\d+$/)) {
                             return bb - aa
                         } else {
                             return bb.toString().toLowerCase().localeCompare(aa.toString().toLowerCase())
                         }
-                    })
-                }
+                    }
+                })
             }
 
             if (this.library.albums.search == "") {
