@@ -1,6 +1,6 @@
 module.exports = {
-	globDirectory: 'resources/cider-ui/',
-	swDest: 'resources/cider-ui/sw.js',
+	globDirectory: 'src/renderer/',
+	swDest: 'src/renderer/sw.js',
 	// Define runtime caching rules.
 	runtimeCaching: [{
 		// Match any request that ends with .png, .jpg, .jpeg or .svg.
