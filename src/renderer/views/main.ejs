@@ -367,7 +367,7 @@
                     </template>
                 </transition>
                 <!-- Library - Recently Added -->
-                <transition name="wpfade" v-on:enter="getLibraryAlbumsFull(); searchLibraryAlbums(0);">
+                <transition name="wpfade" v-on:enter="getLibraryAlbumsFull(null, 0); searchLibraryAlbums(0);">
                     <%- include('pages/library-recentlyadded') %>');
                 </transition>
                 <!-- Library - Songs -->
@@ -375,7 +375,7 @@
                     <%- include('pages/library-songs') %>
                 </transition>
                 <!-- Library - Albums -->
-                <transition name="wpfade" v-on:enter="getLibraryAlbumsFull(); searchLibraryAlbums(1);">
+                <transition name="wpfade" v-on:enter="getLibraryAlbumsFull(null, 1); searchLibraryAlbums(1);">
                     <%- include('pages/library-albums') %>');
                     %>
                 </transition>
