@@ -5,7 +5,7 @@
                 <h1 class="header-text">Albums</h1>
             </div>
             <div class="col-auto">
-                <button v-if="library.albums.downloadState == 2" @click="getLibraryAlbumsFull(true)" class="reload-btn"><%- include('../svg/redo.svg') %></button>
+                <button v-if="library.albums.downloadState == 2" @click="getLibraryAlbumsFull(true, 1)" class="reload-btn"><%- include('../svg/redo.svg') %></button>
             </div>
         </div>
         <div class="row">

@@ -1030,7 +1030,7 @@ const app = new Vue({
             downloadChunk()
         },
         // copy the getLibrarySongsFull function except change Songs to Albums
-        async getLibraryAlbumsFull(force = false) {
+        async getLibraryAlbumsFull(force = false, index) {
             let self = this
             let library = []
             let downloaded = null;
@@ -1039,7 +1039,7 @@ const app = new Vue({
             }
             if (localStorage.getItem("libraryAlbums") != null) {
                 this.library.albums.listing = JSON.parse(localStorage.getItem("libraryAlbums"))
-                this.searchLibraryAlbums()
+                this.searchLibraryAlbums(index)
             }
             if (this.songstest) {
                 return
@@ -1078,7 +1078,7 @@ const app = new Vue({
                     self.library.albums.downloadState = 2
                     self.library.downloadNotification.show = false
                     localStorage.setItem("libraryAlbums", JSON.stringify(library))
-                    self.searchLibraryAlbums()
+                    self.searchLibraryAlbums(index)
                 }
                 if (downloaded.meta.total > library.length || typeof downloaded.meta.next != "undefined") {
                     console.log(`downloading next chunk - ${library.length
@@ -1089,7 +1089,7 @@ const app = new Vue({
                     self.library.albums.downloadState = 2
                     self.library.downloadNotification.show = false
                     localStorage.setItem("libraryAlbums", JSON.stringify(library))
-                    self.searchLibraryAlbums()
+                    self.searchLibraryAlbums(index)
                     console.log(library)
                 }
             }
