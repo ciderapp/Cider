@@ -21,7 +21,7 @@ const CiderBase = {
 
         let win = null
         const options = {
-            icon: join(__dirname, `../icons/icon.ico`),
+            icon: join(__dirname, `../../resources/icons/icon.ico`),
             width: mainWindowState.width,
             height: mainWindowState.height,
             x: mainWindowState.x,
@@ -174,7 +174,7 @@ const CiderBase = {
     async InitWebServer() {
         const webRemotePort = await getPort({port : 9000});
         const webapp = express();
-        const webRemotePath = path.join(__dirname, '../cider-ui/');
+        const webRemotePath = path.join(__dirname, '../renderer/');
         webapp.set("views", path.join(webRemotePath, "views"));
         webapp.set("view engine", "ejs");
 

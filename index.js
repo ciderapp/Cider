@@ -16,7 +16,7 @@ function CreateWindow() {
     });
 
     /** CIDER **/
-    const ciderwin = require("./resources/functions/cider-base")
+    const ciderwin = require("./src/main/cider-base")
     app.win = ciderwin
     app.win.CreateBrowserWindow()
     /** CIDER **/
@@ -37,9 +37,7 @@ app.on('ready', () => {
 
 app.on('before-quit', () => {
     app.isQuiting = true;
-    console.warn('---------------------------------------------------------------------');
-    console.warn(`${app.getName()} has closed.`);
-    console.warn('---------------------------------------------------------------------');
+    console.warn(`${app.getName()} exited.`);
 });
 
 // Widevine Stuff
