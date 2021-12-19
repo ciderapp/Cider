@@ -23,7 +23,7 @@
     "@sentry/electron": "^2.5.4",
     "discord-rpc": "^4.0.1",
     "ejs": "^3.1.6",
-    "electron-acrylic-window": "^0.5.9",
+    "electron-acrylic-window": "^0.5.11",
     "electron-log": "^4.4.1",
     "electron-store": "^8.0.1",
     "electron-updater": "^4.3.9",
