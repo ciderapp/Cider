@@ -93,7 +93,10 @@
     ],
     "linux": {
       "target": [
-        "pacman"
+        "AppImage",
+        "deb",
+        "snap",
+        "rpm"
       ],
       "synopsis": "A new look into listening and enjoying music in style and performance. ",
       "category": "AudioVideo",
