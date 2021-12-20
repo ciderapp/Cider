@@ -375,6 +375,13 @@
                     <%- include('pages/library-albums') %>');
                     %>
                 </transition>
+                <!-- Library - Albums -->
+                <transition name="wpfade" v-on:enter="getMadeForYou()">
+                    <template v-if="page == 'library-madeforyou'" >
+                    <%- include('pages/madeforyou') %>');
+                    %>
+                   </template>
+                </transition>
             </div>
             <transition name="drawertransition">
                 <div class="app-drawer" v-if="drawer.open">

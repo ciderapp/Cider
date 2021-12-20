@@ -131,6 +131,7 @@ const app = new Vue({
         },
         browsepage: [],
         listennow: [],
+        madeforyou: [],
         radio: {
             personal: []
         },
@@ -1204,6 +1205,18 @@ const app = new Vue({
             } catch (e) {
                 console.log(e)
                 this.getRadioStations(attempt + 1)
+            }
+        },
+        async getMadeForYou(attempt = 0) {
+            if (attempt > 3) {
+                return
+            }
+            try {
+                mfu = await app.mk.api.v3.music("/v1/me/library/playlists?platform=web&extend=editorialVideo&fields%5Bplaylists%5D=lastModifiedDate&filter%5Bfeatured%5D=made-for-you&include%5Blibrary-playlists%5D=catalog&fields%5Blibrary-playlists%5D=artwork%2Cname%2CplayParams%2CdateAdded")
+                this.madeforyou = mfu.data
+            } catch (e) {
+                console.log(e)
+                this.getMadeForYou(attempt + 1)
             }
         },
         unauthorize() {
