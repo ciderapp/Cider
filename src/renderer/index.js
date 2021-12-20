@@ -172,8 +172,7 @@ const app = new Vue({
                     "artistName": "Artist",
                     "name": "Name",
                     "genre": "Genre",
-                    "releaseDate": "Release Date",
-                    "dateAdded": "Date Added"
+                    "releaseDate": "Release Date"
                 },
                 viewAs: 'covers',
                 sorting: ["dateAdded", "name"], // [0] = recentlyadded page, [1] = albums page
