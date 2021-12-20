@@ -382,6 +382,12 @@
                     %>
                    </template>
                 </transition>
+                <transition name="wpfade">
+                    <template v-if="page.includes('appleCurator')" >
+                        <cider-applecurator :data="showingPlaylist"></cider-applecurator>
+                   </template>
+                </transition>
+               
             </div>
             <transition name="drawertransition">
                 <div class="app-drawer" v-if="drawer.open">
@@ -453,6 +459,9 @@
 
 <!-- Collection List -->
 <%- include('pages/collection-list') %>
+
+<!-- Apple Curator -->
+<%- include('pages/apple-curator') %>
 
 <!-- Artist Page -->
 <%- include('pages/artist') %>

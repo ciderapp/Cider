@@ -141,6 +141,7 @@ const app = new Vue({
             loading: false
         },
         showingPlaylist: [],
+        appleCurator: [],
         artistPage: {
             data: {},
         },
@@ -578,10 +579,19 @@ const app = new Vue({
             ;
             let isLibrary = item.attributes.playParams ? (item.attributes.playParams.isLibrary ?? false) : false;
             console.log(kind, id, isLibrary)
-            // disable apple-curators because they can't be played in MKjs
-            if (!kind.toString().includes("apple-curator")) {
+           
+            if (true) {
                 app.showingPlaylist = [];
-                if (kind.toString().includes("artist")) {
+                if (kind.toString().includes("apple-curator")){
+                    kind = "appleCurator"
+                    app.getTypeFromID("appleCurator", (id), false, {
+                        platform: "web",
+                        include: "grouping,playlists",
+                        extend: "editorialArtwork",
+                        "art[url]": "f"
+                    });
+                }
+                else if (kind.toString().includes("artist")) {
                     app.getArtistInfo(id, isLibrary)
                 } else if (kind.toString().includes("record-label") || kind.toString().includes("curator")) {
                     if (kind.toString().includes("record-label")) {
