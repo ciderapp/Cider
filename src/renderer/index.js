@@ -767,54 +767,37 @@ const app = new Vue({
             let self = this
 
             function sortSongs() {
-                if (self.library.songs.sortOrder == "asc") {
-                    // sort this.library.songs.displayListing by song.attributes[self.library.songs.sorting] in ascending order based on alphabetical order and numeric order
-                    // check if song.attributes[self.library.songs.sorting] is a number and if so, sort by number if not, sort by alphabetical order ignoring case
-                    self.library.songs.displayListing.sort((a, b) => {
-                        let aa = null;
-                        let bb = null;
-                        if (self.library.songs.sorting == "genre") {
-                            aa = a.attributes.genreNames[0]
-                            bb = b.attributes.genreNames[0]
-                        }
-                        aa = a.attributes[self.library.songs.sorting]
-                        bb = b.attributes[self.library.songs.sorting]
-                        if (aa == null) {
-                            aa = ""
-                        }
-                        if (bb == null) {
-                            bb = ""
-                        }
+                // sort this.library.songs.displayListing by song.attributes[self.library.songs.sorting] in descending or ascending order based on alphabetical order and numeric order
+                // check if song.attributes[self.library.songs.sorting] is a number and if so, sort by number if not, sort by alphabetical order ignoring case
+                self.library.songs.displayListing.sort((a, b) => {
+                    let aa = null;
+                    let bb = null;
+                    if (self.library.songs.sorting == "genre") {
+                        aa = a.attributes.genreNames[0]
+                        bb = b.attributes.genreNames[0]
+                    }
+                    aa = a.attributes[self.library.songs.sorting]
+                    bb = b.attributes[self.library.songs.sorting]
+                    if (aa == null) {
+                        aa = ""
+                    }
+                    if (bb == null) {
+                        bb = ""
+                    }
+                    if (self.library.songs.sortOrder == "asc") {
                         if (aa.toString().match(/^\d+$/) && bb.toString().match(/^\d+$/)) {
                             return aa - bb
                         } else {
                             return aa.toString().toLowerCase().localeCompare(bb.toString().toLowerCase())
                         }
-                    })
-                }
-                if (self.library.songs.sortOrder == "desc") {
-                    // sort this.library.songs.displayListing by song.attributes[self.library.songs.sorting] in descending order based on alphabetical order and numeric order
-                    // check if song.attributes[self.library.songs.sorting] is a number and if so, sort by number if not, sort by alphabetical order ignoring case
-                    self.library.songs.displayListing.sort((a, b) => {
-                        if (self.library.songs.sorting == "genre") {
-                            aa = a.attributes.genreNames[0]
-                            bb = b.attributes.genreNames[0]
-                        }
-                        let aa = a.attributes[self.library.songs.sorting]
-                        let bb = b.attributes[self.library.songs.sorting]
-                        if (aa == null) {
-                            aa = ""
-                        }
-                        if (bb == null) {
-                            bb = ""
-                        }
+                    } else if (self.library.songs.sortOrder == "desc") {
                         if (aa.toString().match(/^\d+$/) && bb.toString().match(/^\d+$/)) {
                             return bb - aa
                         } else {
                             return bb.toString().toLowerCase().localeCompare(aa.toString().toLowerCase())
                         }
-                    })
-                }
+                    }
+                })
             }
 
             if (this.library.songs.search == "") {
