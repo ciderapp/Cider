@@ -29,7 +29,14 @@
                     <h1>{{ data.attributes.name }}</h1>
                 </div>
             </div>
-            <button class="artist-more" @click="artistMenu"></button>
+            <button class="artist-more" @click="artistMenu">
+                <div style="    margin-top: -1px;
+                                margin-left: -5px;
+                                width: 36px;
+                                height: 36px;">
+                <%- include("../svg/more.svg") %>
+                </div>
+           </button>
         </div>
         <div class="artist-body">
             <div class="row well">
