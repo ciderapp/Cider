@@ -366,12 +366,16 @@
                         <cider-search :search="search"></cider-search>
                     </template>
                 </transition>
+                <!-- Library - Recently Added -->
+                <transition name="wpfade" v-on:enter="getLibraryAlbumsFull(null, 0); searchLibraryAlbums(0);">
+                    <%- include('pages/library-recentlyadded') %>');
+                </transition>
                 <!-- Library - Songs -->
                 <transition name="wpfade" v-on:enter="getLibrarySongsFull()">
                     <%- include('pages/library-songs') %>
                 </transition>
                 <!-- Library - Albums -->
-                <transition name="wpfade" v-on:enter="getLibraryAlbumsFull()">
+                <transition name="wpfade" v-on:enter="getLibraryAlbumsFull(null, 1); searchLibraryAlbums(1);">
                     <%- include('pages/library-albums') %>');
                     %>
                 </transition>

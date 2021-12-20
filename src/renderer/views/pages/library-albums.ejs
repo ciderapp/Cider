@@ -5,7 +5,7 @@
                 <h1 class="header-text">Albums</h1>
             </div>
             <div class="col-auto">
-                <button v-if="library.albums.downloadState == 2" @click="getLibraryAlbumsFull(true)" class="reload-btn"><%- include('../svg/redo.svg') %></button>
+                <button v-if="library.albums.downloadState == 2" @click="getLibraryAlbumsFull(true, 1)" class="reload-btn"><%- include('../svg/redo.svg') %></button>
             </div>
         </div>
         <div class="row">
@@ -23,14 +23,14 @@
             <div class="col-auto flex-center">
                 <div class="row">
                     <div class="col">
-                        <select class="md-select" v-model="library.albums.sorting" @change="searchLibraryAlbums()">
+                        <select class="md-select" v-model="library.albums.sorting[1]" @change="searchLibraryAlbums(1)">
                             <optgroup label="Sort By">
                                 <option v-for="(sort, index) in library.albums.sortingOptions" :value="index">{{ sort }}</option>
                             </optgroup>
                         </select>
                     </div>
                     <div class="col">
-                        <select class="md-select" v-model="library.albums.sortOrder" @change="searchLibraryAlbums()">
+                        <select class="md-select" v-model="library.albums.sortOrder[1]" @change="searchLibraryAlbums(1)">
                             <optgroup label="Sort Order">
                                 <option value="asc">Ascending</option>
                                 <option value="desc">Descending</option>

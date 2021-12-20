@@ -177,8 +177,8 @@ const app = new Vue({
                     "releaseDate": "Release Date"
                 },
                 viewAs: 'covers',
-                sorting: "name",
-                sortOrder: "asc",
+                sorting: ["dateAdded", "name"], // [0] = recentlyadded page, [1] = albums page
+                sortOrder: ["desc", "asc"], // [0] = recentlyadded page, [1] = albums page
                 listing: [],
                 meta: {total: 0, progress: 0},
                 search: "",
@@ -778,54 +778,37 @@ const app = new Vue({
             let self = this
 
             function sortSongs() {
-                if (self.library.songs.sortOrder == "asc") {
-                    // sort this.library.songs.displayListing by song.attributes[self.library.songs.sorting] in ascending order based on alphabetical order and numeric order
-                    // check if song.attributes[self.library.songs.sorting] is a number and if so, sort by number if not, sort by alphabetical order ignoring case
-                    self.library.songs.displayListing.sort((a, b) => {
-                        let aa = null;
-                        let bb = null;
-                        if (self.library.songs.sorting == "genre") {
-                            aa = a.attributes.genreNames[0]
-                            bb = b.attributes.genreNames[0]
-                        }
-                        aa = a.attributes[self.library.songs.sorting]
-                        bb = b.attributes[self.library.songs.sorting]
-                        if (aa == null) {
-                            aa = ""
-                        }
-                        if (bb == null) {
-                            bb = ""
-                        }
+                // sort this.library.songs.displayListing by song.attributes[self.library.songs.sorting] in descending or ascending order based on alphabetical order and numeric order
+                // check if song.attributes[self.library.songs.sorting] is a number and if so, sort by number if not, sort by alphabetical order ignoring case
+                self.library.songs.displayListing.sort((a, b) => {
+                    let aa = null;
+                    let bb = null;
+                    if (self.library.songs.sorting == "genre") {
+                        aa = a.attributes.genreNames[0]
+                        bb = b.attributes.genreNames[0]
+                    }
+                    aa = a.attributes[self.library.songs.sorting]
+                    bb = b.attributes[self.library.songs.sorting]
+                    if (aa == null) {
+                        aa = ""
+                    }
+                    if (bb == null) {
+                        bb = ""
+                    }
+                    if (self.library.songs.sortOrder == "asc") {
                         if (aa.toString().match(/^\d+$/) && bb.toString().match(/^\d+$/)) {
                             return aa - bb
                         } else {
                             return aa.toString().toLowerCase().localeCompare(bb.toString().toLowerCase())
                         }
-                    })
-                }
-                if (self.library.songs.sortOrder == "desc") {
-                    // sort this.library.songs.displayListing by song.attributes[self.library.songs.sorting] in descending order based on alphabetical order and numeric order
-                    // check if song.attributes[self.library.songs.sorting] is a number and if so, sort by number if not, sort by alphabetical order ignoring case
-                    self.library.songs.displayListing.sort((a, b) => {
-                        if (self.library.songs.sorting == "genre") {
-                            aa = a.attributes.genreNames[0]
-                            bb = b.attributes.genreNames[0]
-                        }
-                        let aa = a.attributes[self.library.songs.sorting]
-                        let bb = b.attributes[self.library.songs.sorting]
-                        if (aa == null) {
-                            aa = ""
-                        }
-                        if (bb == null) {
-                            bb = ""
-                        }
+                    } else if (self.library.songs.sortOrder == "desc") {
                         if (aa.toString().match(/^\d+$/) && bb.toString().match(/^\d+$/)) {
                             return bb - aa
                         } else {
                             return bb.toString().toLowerCase().localeCompare(aa.toString().toLowerCase())
                         }
-                    })
-                }
+                    }
+                })
             }
 
             if (this.library.songs.search == "") {
@@ -858,58 +841,45 @@ const app = new Vue({
             }
         },
         // make a copy of searchLibrarySongs except use Albums instead of Songs
-        searchLibraryAlbums() {
+        searchLibraryAlbums(index) {
             let self = this
 
             function sortAlbums() {
-                if (self.library.albums.sortOrder == "asc") {
-                    // sort this.library.albums.displayListing by album.attributes[self.library.albums.sorting] in ascending order based on alphabetical order and numeric order
-                    // check if album.attributes[self.library.albums.sorting] is a number and if so, sort by number if not, sort by alphabetical order ignoring case
-                    self.library.albums.displayListing.sort((a, b) => {
-                        let aa = null;
-                        let bb = null;
-                        if (self.library.albums.sorting == "genre") {
-                            aa = a.attributes.genreNames[0]
-                            bb = b.attributes.genreNames[0]
-                        }
-                        aa = a.attributes[self.library.albums.sorting]
-                        bb = b.attributes[self.library.albums.sorting]
-                        if (aa == null) {
-                            aa = ""
-                        }
-                        if (bb == null) {
-                            bb = ""
-                        }
+                // sort this.library.albums.displayListing by album.attributes[self.library.albums.sorting[index]] in descending or ascending order based on alphabetical order and numeric order
+                // check if album.attributes[self.library.albums.sorting[index]] is a number and if so, sort by number if not, sort by alphabetical order ignoring case
+                let aa = null;
+                let bb = null;
+                self.library.albums.displayListing.sort((a, b) => {
+                    if (self.library.albums.sorting[index] == "genre") {
+                        aa = a.attributes.genreNames[0]
+                        bb = b.attributes.genreNames[0]
+                    }
+                    if (self.library.albums.sorting[index] == "dateAdded") {
+                        aa = new Date(a.attributes.dateAdded).getTime()
+                        bb = new Date(b.attributes.dateAdded).getTime()
+                    }
+                    aa = a.attributes[self.library.albums.sorting[index]]
+                    bb = b.attributes[self.library.albums.sorting[index]]
+                    if (aa == null) {
+                        aa = ""
+                    }
+                    if (bb == null) {
+                        bb = ""
+                    }
+                    if (self.library.albums.sortOrder[index] == "asc") {
                         if (aa.toString().match(/^\d+$/) && bb.toString().match(/^\d+$/)) {
                             return aa - bb
                         } else {
                             return aa.toString().toLowerCase().localeCompare(bb.toString().toLowerCase())
                         }
-                    })
-                }
-                if (self.library.albums.sortOrder == "desc") {
-                    // sort this.library.albums.displayListing by album.attributes[self.library.albums.sorting] in descending order based on alphabetical order and numeric order
-                    // check if album.attributes[self.library.albums.sorting] is a number and if so, sort by number if not, sort by alphabetical order ignoring case
-                    self.library.albums.displayListing.sort((a, b) => {
-                        if (self.library.albums.sorting == "genre") {
-                            aa = a.attributes.genreNames[0]
-                            bb = b.attributes.genreNames[0]
-                        }
-                        let aa = a.attributes[self.library.albums.sorting]
-                        let bb = b.attributes[self.library.albums.sorting]
-                        if (aa == null) {
-                            aa = ""
-                        }
-                        if (bb == null) {
-                            bb = ""
-                        }
+                    } else if (self.library.albums.sortOrder[index] == "desc") {
                         if (aa.toString().match(/^\d+$/) && bb.toString().match(/^\d+$/)) {
                             return bb - aa
                         } else {
                             return bb.toString().toLowerCase().localeCompare(aa.toString().toLowerCase())
                         }
-                    })
-                }
+                    }
+                })
             }
 
             if (this.library.albums.search == "") {
@@ -1053,7 +1023,7 @@ const app = new Vue({
             downloadChunk()
         },
         // copy the getLibrarySongsFull function except change Songs to Albums
-        async getLibraryAlbumsFull(force = false) {
+        async getLibraryAlbumsFull(force = false, index) {
             let self = this
             let library = []
             let downloaded = null;
@@ -1062,7 +1032,7 @@ const app = new Vue({
             }
             if (localStorage.getItem("libraryAlbums") != null) {
                 this.library.albums.listing = JSON.parse(localStorage.getItem("libraryAlbums"))
-                this.searchLibraryAlbums()
+                this.searchLibraryAlbums(index)
             }
             if (this.songstest) {
                 return
@@ -1101,7 +1071,7 @@ const app = new Vue({
                     self.library.albums.downloadState = 2
                     self.library.downloadNotification.show = false
                     localStorage.setItem("libraryAlbums", JSON.stringify(library))
-                    self.searchLibraryAlbums()
+                    self.searchLibraryAlbums(index)
                 }
                 if (downloaded.meta.total > library.length || typeof downloaded.meta.next != "undefined") {
                     console.log(`downloading next chunk - ${library.length
@@ -1112,7 +1082,7 @@ const app = new Vue({
                     self.library.albums.downloadState = 2
                     self.library.downloadNotification.show = false
                     localStorage.setItem("libraryAlbums", JSON.stringify(library))
-                    self.searchLibraryAlbums()
+                    self.searchLibraryAlbums(index)
                     console.log(library)
                 }
             }
