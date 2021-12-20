@@ -17,7 +17,7 @@
                          :style="[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'margin': '140px','position': 'absolute',
                         width: '40px',
                         height: '40px',} :
-                        {margin: '35px', 'position': 'absolute','position': 'absolute',
+                        {margin: '35px', 'position': 'absolute',
                         width: '120px',
                         height: '120px',}]" @click="app.playMediaItem(item)">
                         <%- include("../svg/play.svg") %>

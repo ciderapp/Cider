@@ -1554,8 +1554,11 @@ const app = new Vue({
             console.log(truekind,id)
 
             try {
-                if (parent == "librarysongs"){
-                    console.log("asc")
+                if (app.library.songs.listing.length > childIndex && parent == "librarysongs"){
+                    console.log(item)
+                    if (item && ((app.library.songs.listing[childIndex].id != item.id))){
+                       childIndex = app.library.songs.listing.indexOf(item)
+                    } 
                     let query = app.library.songs.listing.map(item => new MusicKit.MediaItem(item));
                     this.mk.clearQueue().then(function (_) {
                         app.mk.queue.append(query)

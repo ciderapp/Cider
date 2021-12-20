@@ -259,7 +259,7 @@
                 let childIndex = this.index
                 console.log(item,parent,childIndex)
                 if (parent != null && childIndex != null) {
-                    app.queueParentandplayChild(parent, childIndex);
+                    app.queueParentandplayChild(parent, childIndex, item);
                 } else {
                     app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)
                 }
