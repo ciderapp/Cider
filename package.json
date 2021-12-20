@@ -17,6 +17,7 @@
     "start": "electron . --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
+    "publish": "electron-builder -c msft-package.json",
     "postinstall": "electron-builder install-app-deps"
   },
   "dependencies": {
@@ -116,6 +117,9 @@
         "nsis"
       ],
       "icon": "resources/icons/icon.ico"
+    },
+    "directories": {
+      "buildResources": "."
     },
     "mac": {
       "icon": "./resources/icons/icon.icns",

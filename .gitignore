@@ -11,6 +11,8 @@ package-lock.json
 auth.json
 musickit.js
 
+# Microsoft Store Package Configs
+msft-package.json
 
 ## Node GitIgnore ##
 
