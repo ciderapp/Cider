@@ -45,7 +45,7 @@
         props: ["time", "lyrics", "richlyrics", "translation", "onindex"],
         watch: {
             time: function () {
-                if (app.lyricon && app.drawer.open) {
+                if (app.lyricon && app.drawer.open && this.$refs.lyricsview) {
                     let currentLine = this.$refs.lyricsview.querySelector(`.lyric-line.active`)
                     if (currentLine && currentLine.getElementsByClassName('lyricWaiting').length > 0) {
                         let duration = currentLine.getAttribute("end") - currentLine.getAttribute("start");
@@ -117,7 +117,7 @@
                     if (this.time + delayfix >= this.lyrics[i].startTime && this.time + delayfix <= app.lyrics[i].endTime) {
                         if (app.currentLyricsLine != i) {
                             app.currentLyricsLine = i;
-                            if (app.lyricon && this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${i}"]`)) {
+                            if (app.lyricon && app.drawer.open && this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${i}"]`)) {
                                 this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${prevLine}"]`).classList.remove("active");
                                 this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${i}"]`).classList.add("active")
                                 if (checkIfScrollIsStatic) {
@@ -127,7 +127,7 @@
                                     })
                                 }
                             }
-                        } else if (app.currentLyricsLine == 0) {
+                        } else if (app.currentLyricsLine == 0 && app.drawer.open) {
                             if (this.$refs.lyricsview.querySelector(`.lyric-line[line-index="0"]`) && !this.$refs.lyricsview.querySelector(`.lyric-line[line-index="0"]`).classList.contains("active"))
                                 this.$refs.lyricsview.querySelector(`.lyric-line[line-index="0"]`).classList.add("active");
                         }
@@ -135,13 +135,12 @@
                     }
                 }
                 try{
-                        try{this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${prevLine}"]`).childNodes.classList.remove("verse-active");} catch(e){
-                                   
-                                }
+                        if (app.drawer.open){
+                        try{this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${prevLine}"]`).childNodes.classList.remove("verse-active");} catch(e){}
                                 for (child of this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${app.currentLyricsLine}"]`).querySelectorAll(".verse")){
                                     if (this.time + 0.1 >= child.getAttribute("lyricstart") * 1 + child.getAttribute("versestart") * 1){
                                         child.classList.add("verse-active");
-                                    } else {child.classList.remove("verse-active");}
+                                    } else {child.classList.remove("verse-active");}}
                         }
                     } catch(e){}
 
