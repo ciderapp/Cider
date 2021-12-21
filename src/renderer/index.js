@@ -316,6 +316,7 @@ const app = new Vue({
                     self.$refs.queue.updateQueue();
                 }
                 this.currentSongInfo = a
+                self.lyriccurrenttime = 0
                 try {
                     a = a.item.attributes;
                 } catch (_) {
