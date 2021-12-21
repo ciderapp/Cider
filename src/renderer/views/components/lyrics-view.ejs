@@ -1,0 +1,161 @@
+<script type="text/x-template" id="lyrics-view">
+    <div ref="lyricsview" class="md-body lyric-body">
+        <template v-if="lyrics && lyrics != [] && lyrics.length > 0">
+            <template v-for="(lyric, index) in lyrics" v-if="lyric && lyric.line && lyric.line != 'lrcInstrumental'">
+                <h3 class="lyric-line" @click="if(lyric.startTime != 9999999) app.seekTo(lyric.startTime, false)"
+                    v-bind:line-index="index.toString()">
+                    <template v-if="richlyrics && richlyrics != [] && richlyrics.length > 0">
+                        <div class="richl" >
+                            <template v-for="verse in getVerseLine(index-1)" >
+                                <span class="verse" :lyricstart="lyric.startTime" :versestart="verse.o" >{{ verse.c }}</span>
+                            </template>
+                        </div>
+                    </template>
+                    <template v-else>
+                    <div class="norm" >   
+                      {{ lyric.line }}
+                    </div>
+                    </template>
+                    <div class="lyrics-translation" v-if="lyric.translation && lyric.translation != ''">
+                        {{ lyric.translation }}
+                    </div>
+                </h3>
+            </template>
+            <template v-else>
+                <h3 class="lyric-line" @click="if(lyric.startTime != 9999999) app.seekTo(lyric.startTime, false)"
+                    :start="lyric.startTime"
+                    :end="lyric.endTime" v-bind:line-index="index.toString()">
+                    <div class="lyricWaiting">
+                        <div class='WaitingDot1'></div>
+                        <div class='WaitingDot2'></div>
+                        <div class='WaitingDot3'></div>
+                    </div>
+                </h3>
+            </template>
+        </template>
+        <template v-else>
+            <div class="no-lyrics">
+                Loading... / Lyrics not found./ Instrumental.
+        </template>
+    </div>
+</script>
+<script>
+    Vue.component('lyrics-view', {
+        template: '#lyrics-view',
+        props: ["time", "lyrics", "richlyrics", "translation", "onindex"],
+        watch: {
+            time: function () {
+                if (app.lyricon && app.drawer.open && this.$refs.lyricsview) {
+                    let currentLine = this.$refs.lyricsview.querySelector(`.lyric-line.active`)
+                    if (currentLine && currentLine.getElementsByClassName('lyricWaiting').length > 0) {
+                        let duration = currentLine.getAttribute("end") - currentLine.getAttribute("start");
+                        let u = (this.time - currentLine.getAttribute("start")) / duration;
+                        if (u < 0.25 && !currentLine.classList.contains('mode1')) {
+                            try {
+                                currentLine.classList.add('mode1');
+                                currentLine.classList.remove('mode3');
+                                currentLine.classList.remove('mode2');
+                            } catch (e) {
+                            }
+                            currentLine.getElementsByClassName('WaitingDot1')[0].style.animation = `dotOpacity ${0.25 * duration}s cubic-bezier(0.42, 0, 0.58, 1) forwards`;
+                            currentLine.getElementsByClassName('WaitingDot2')[0].style.animation = ``;
+                            currentLine.getElementsByClassName('WaitingDot3')[0].style.animation = ``;
+                            currentLine.getElementsByClassName('WaitingDot2')[0].style.opacity = 0.25;
+                            currentLine.getElementsByClassName('WaitingDot3')[0].style.opacity = 0.25;
+
+                        } else if (u >= 0.25 && u < 0.5 && !currentLine.classList.contains('mode2')) {
+                            try {
+                                currentLine.classList.add('mode2');
+                                currentLine.classList.remove('mode1');
+                                currentLine.classList.remove('mode3');
+                            } catch (e) {
+                            }
+                            currentLine.getElementsByClassName('WaitingDot2')[0].style.animation = `dotOpacity ${0.25 * duration}s cubic-bezier(0.42, 0, 0.58, 1) forwards`;
+                            currentLine.getElementsByClassName('WaitingDot1')[0].style.animation = ``;
+                            currentLine.getElementsByClassName('WaitingDot3')[0].style.animation = ``;
+                            currentLine.getElementsByClassName('WaitingDot1')[0].style.opacity = 1;
+                            currentLine.getElementsByClassName('WaitingDot3')[0].style.opacity = 0.25;
+                        } else if (u >= 0.5 && u < 0.75 && !currentLine.classList.contains('mode3')) {
+                            try {
+                                currentLine.classList.add('mode3');
+                                currentLine.classList.remove('mode1');
+                                currentLine.classList.remove('mode2');
+                            } catch (e) {
+                            }
+                            currentLine.getElementsByClassName('WaitingDot3')[0].style.animation = `dotOpacity ${0.25 * duration}s cubic-bezier(0.42, 0, 0.58, 1) forwards`;
+                            currentLine.getElementsByClassName('WaitingDot1')[0].style.animation = ``;
+                            currentLine.getElementsByClassName('WaitingDot2')[0].style.animation = ``;
+                            currentLine.getElementsByClassName('WaitingDot1')[0].style.opacity = 1;
+                            currentLine.getElementsByClassName('WaitingDot2')[0].style.opacity = 1;
+                        } else if (u >= 0.75 && currentLine.classList.contains('mode3')) {
+                            try {
+                                currentLine.classList.remove('mode1');
+                                currentLine.classList.remove('mode2');
+                                currentLine.classList.remove('mode3');
+                            } catch (e) {
+                            }
+                            currentLine.getElementsByClassName('WaitingDot1')[0].style.animation = ``;
+                            currentLine.getElementsByClassName('WaitingDot2')[0].style.animation = ``;
+                            currentLine.getElementsByClassName('WaitingDot1')[0].style.opacity = 1;
+                            currentLine.getElementsByClassName('WaitingDot2')[0].style.opacity = 1;
+
+                        }
+
+                    }
+                      
+                }
+                  this.getActiveLyric();  
+            }
+           
+        },
+        methods: {
+            getActiveLyric() {
+             //   console.log(this.time);
+                const delayfix = 0.35
+                const prevLine = app.currentLyricsLine;
+                for (var i = 0; i < this.lyrics.length; i++) {
+                    if (this.time + delayfix >= this.lyrics[i].startTime && this.time + delayfix <= app.lyrics[i].endTime) {
+                        if (app.currentLyricsLine != i) {
+                            app.currentLyricsLine = i;
+                            if (app.lyricon && app.drawer.open && this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${i}"]`)) {
+                                this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${prevLine}"]`).classList.remove("active");
+                                this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${i}"]`).classList.add("active")
+                                if (checkIfScrollIsStatic) {
+                                    this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${i}"]`).scrollIntoView({
+                                        behavior: "smooth",
+                                        block: "center"
+                                    })
+                                }
+                            }
+                        } else if (app.currentLyricsLine == 0 && app.drawer.open) {
+                            if (this.$refs.lyricsview.querySelector(`.lyric-line[line-index="0"]`) && !this.$refs.lyricsview.querySelector(`.lyric-line[line-index="0"]`).classList.contains("active"))
+                                this.$refs.lyricsview.querySelector(`.lyric-line[line-index="0"]`).classList.add("active");
+                        }
+                        break;
+                    }
+                }
+                try{
+                        if (app.drawer.open){
+                        try{this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${prevLine}"]`).childNodes.classList.remove("verse-active");} catch(e){}
+                                for (child of this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${app.currentLyricsLine}"]`).querySelectorAll(".verse")){
+                                    if (this.time + 0.1 >= child.getAttribute("lyricstart") * 1 + child.getAttribute("versestart") * 1){
+                                        child.classList.add("verse-active");
+                                    } else {child.classList.remove("verse-active");}}
+                        }
+                    } catch(e){}
+
+            },
+            getActiveVerse(timeStart, timeEnd, verseTime) {
+                let relativeTime = this.time - timeStart
+                console.log(this.time,timeEnd,timeStart,relativeTime >= verseTime && relativeTime <= timeEnd - timeStart)
+                return relativeTime >= verseTime && relativeTime <= timeEnd - timeStart
+            },
+            getVerseLine(index) {
+                if (this.richlyrics[index] != null && this.richlyrics[index].l != null) {
+                    return this.richlyrics[index].l
+                }
+                else return []
+            }
+        }
+    });    
+</script>

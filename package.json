@@ -5,45 +5,47 @@
   "version": "1.0.0",
   "description": "A new look into listening and enjoying music in style and performance.",
   "license": "MIT",
-  "author": "Cider Development Team <cryptofyre@cryptofyre.org> (https://cider.sh)",
-  "repository": "https://github.com/Apple-Music-Electron/Cider.git",
+  "author": "Cider Collective <cryptofyre@cryptofyre.org> (https://cider.sh)",
+  "repository": "https://github.com/ciderapp/Cider.git",
   "bugs": {
-    "url": "https://github.com/Apple-Music-Electron/Cider/issues?q=is%3Aopen+is%3Aissue+label%3Abug"
+    "url": "https://github.com/ciderapp/Cider/issues?q=is%3Aopen+is%3Aissue+label%3Abug"
   },
   "homepage": "https://cider.sh/",
   "buildResources": "resources",
   "scripts": {
     "init": "yarn install --force",
-    "start": "electron --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers .",
+    "start": "electron . --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
+    "msft": "electron-builder -c msft-package.json",
     "postinstall": "electron-builder install-app-deps"
   },
   "dependencies": {
     "@sentry/electron": "^2.5.4",
     "discord-rpc": "^4.0.1",
     "ejs": "^3.1.6",
-    "electron-acrylic-window": "^0.5.9",
-    "electron-log": "^4.4.1",
+    "electron-acrylic-window": "^0.5.11",
+    "electron-log": "^4.4.3",
     "electron-store": "^8.0.1",
-    "electron-updater": "^4.3.9",
+    "electron-updater": "^4.6.1",
     "electron-window-state": "^5.0.3",
-    "express": "^4.17.1",
+    "express": "^4.17.2",
     "get-port": "^5.1.1",
+    "mpris-service": "^2.1.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "source-map-support": "^0.5.20",
+    "source-map-support": "^0.5.21",
     "v8-compile-cache": "^2.3.0",
-    "ws": "^8.2.3",
+    "ws": "^8.3.0",
     "xml2js": "^0.4.23"
   },
   "devDependencies": {
     "electron": "https://github.com/castlabs/electron-releases.git",
-    "electron-builder": "^22.13.1",
+    "electron-builder": "^22.14.5",
     "electron-webpack": "^2.8.2",
     "musickit-typescript": "^1.2.4",
     "vue-devtools": "^5.1.4",
-    "webpack": "~5.64.0"
+    "webpack": "~5.65.0"
   },
   "fileAssociations": [
     {
@@ -51,6 +53,7 @@
       "mimeType": "x-scheme-handler/ame;x-scheme-handler/itms;x-scheme-handler/itmss;x-scheme-handler/musics;x-scheme-handler/music;",
       "schemes": [
         "ame",
+        "cider",
         "itms",
         "itmss",
         "musics",
@@ -58,6 +61,7 @@
       ],
       "protocols": [
         "ame",
+        "cider",
         "itms",
         "itmss",
         "musics",
@@ -66,9 +70,9 @@
     }
   ],
   "build": {
-    "electronVersion": "15.3.3",
+    "electronVersion": "15.3.4",
     "electronDownload": {
-      "version": "15.3.3-wvvmp",
+      "version": "15.3.4-wvvmp",
       "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
     },
     "appId": "cider",
@@ -77,6 +81,7 @@
         "name": "Cider",
         "schemes": [
           "ame",
+          "cider",
           "itms",
           "itmss",
           "musics",
@@ -87,6 +92,7 @@
     "extends": null,
     "files": [
       "**/*",
+      "./src/**/*",
       "./resources/icons/icon.*"
     ],
     "linux": {
@@ -101,34 +107,28 @@
       "icon": "cider",
       "executableName": "cider"
     },
+    "appx": {
+      "applicationId": "Cider",
+      "displayName": "Cider",
+      "identityName": "Cider",
+      "publisherDisplayName": "Cider Collective",
+      "backgroundColor": "transparent",
+      "setBuildNumber": true
+    },
     "win": {
       "target": [
         "nsis"
       ],
-      "icon": "./resources/icons/icon.ico"
+      "icon": "resources/icons/icon.ico"
     },
-    "appx": {
-      "applicationId": "cider",
-      "publisher": "CN=cryptofyre",
-      "displayName": "Cider",
-      "identityName": "Cider",
-      "backgroundColor": "#CD001A",
-      "setBuildNumber": true
+    "directories": {
+      "buildResources": "."
     },
     "mac": {
       "icon": "./resources/icons/icon.icns",
       "category": "public.app-category.music",
       "entitlements": "resources/entitlements.mac.plist",
       "darkModeSupport": true
-    },
-    "extraResources": [
-      {
-        "from": "node_modules/regedit/vbs",
-        "to": "regedit/vbs",
-        "filter": [
-          "**/*"
-        ]
-      }
-    ]
+    }
   }
 }

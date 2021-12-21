@@ -1,0 +1,180 @@
+<script type="text/x-template" id="cider-artist">
+    <div class="content-inner artist-page">
+        <div class="artist-header" :style="getArtistPalette(data)">
+            <animatedartwork-view
+                    v-if="data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9)"
+                    :video="data.attributes.editorialVideo.motionArtistWide16x9.video ?? (data.attributes.editorialVideo.motionArtistFullscreen16x9.video ?? '')">
+            </animatedartwork-view>
+            <div class="row">
+                <div class="col-sm" style="width: auto;">
+                    <div class="artist-image" v-if="!(data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9))">
+                        <mediaitem-artwork
+                                :shadow="true"
+
+                                :url="data.attributes.artwork ? data.attributes.artwork.url : ''"
+                                size="220" type="artists"></mediaitem-artwork>
+                        <button class="overlay-play"  @click="app.mk.setStationQueue({artist:'a-'+data.id}).then(()=>{
+                            app.mk.play()
+                        })">
+                            <%- include("../svg/play.svg") %>
+                        </button>
+                    </div>
+                </div>
+                <div class="col flex-center artist-title"
+                     :class="{'artist-animation-on': (data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9)) }"
+                >
+                    <button class="artist-play" @click="app.mk.setStationQueue({artist:'a-'+data.id}).then(()=>{
+                        app.mk.play()
+                    })"><%- include("../svg/play.svg") %></button>
+                    <h1>{{ data.attributes.name }}</h1>
+                </div>
+            </div>
+            <button class="artist-more" @click="artistMenu">
+                <div style="    margin-top: -1px;
+                                margin-left: -5px;
+                                width: 36px;
+                                height: 36px;">
+                <%- include("../svg/more.svg") %>
+                </div>
+           </button>
+        </div>
+        <div class="artist-body">
+            <div class="row well">
+                <div class="col">
+                    <div class="row">
+                        <div class="col-auto" v-if="data.views['latest-release'].data.length != 0">
+                            <h3>Latest Release</h3>
+                            <div style="width: auto;margin: 0 auto;">
+                                <mediaitem-square-sp v-for="song in data.views['latest-release'].data"
+                                                     :item="song">
+                                </mediaitem-square-sp>
+                            </div>
+                        </div>
+                        <div class="col" v-if="data.views['top-songs']">
+                            <div class="row">
+                                <div class="col" style="padding:0px;">
+                                    <h3>Top Songs</h3>
+                                </div>
+                                <div class="col-auto flex-center" v-if="data.views['top-songs'].data.length >= 10" style="padding:0px;">
+                                    <button class="cd-btn-seeall" @click="app.showArtistView(data.id, data.attributes.name + ' - Top Songs', 'top-songs')">See All</button>
+                                </div>
+                            </div>
+                            <mediaitem-list-item
+                                    v-for="(song, index) in data.views['top-songs'].data.limit(topSongsExpanded ? 10 : 5)"
+                                    :index="index"
+                                    :item="song"></mediaitem-list-item>
+                            <button class="showmoreless"
+                                    @click="topSongsExpanded = !topSongsExpanded">
+                                <template v-if="!topSongsExpanded">
+                                    Show more
+                                </template>
+                                <template v-else>
+                                    Show less
+                                </template>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row well">
+                <div class="col">
+                    <template v-for="(view) in data.meta.views.order"
+                              v-if="(data.views[view].data.length != 0) && (view != 'latest-release') && (view != 'top-songs')">
+                        <div class="row">
+                            <div class="col">
+                                <h3>{{ data.views[view].attributes.title ?
+                                    data.views[view].attributes.title : "???"}}
+                                </h3>
+                            </div>
+                            <div class="col-auto flex-center" v-if="data.views[view].data.length >= 10">
+                                <button class="cd-btn-seeall" @click="app.showArtistView(data.id, data.attributes.name + ' - ' + data.views[view].attributes.title, view)">See All</button>
+                            </div>
+                        </div>
+                        <template v-if="!((data.views[view].attributes.title ?
+                        data.views[view].attributes.title : '???').includes('Video') || (data.views[view].attributes.title ?
+                        data.views[view].attributes.title : '???').includes('More To See'))">
+                        <mediaitem-scroller-horizontal-large :items="data.views[view].data.limit(10)">
+                        </mediaitem-scroller-horizontal-large>
+                        </template>
+                        <template v-else>
+                            <mediaitem-scroller-horizontal-mvview
+                                        :items="data.views[view].data.limit(10)"></mediaitem-scroller-horizontal-mvview>
+                        </template>
+                    </template>
+                    <div class="row">
+                        <div class="col" v-if="data.attributes.artistBio">
+                            <h3>About {{ data.attributes.name }}</h3>
+                            <p v-html="data.attributes.artistBio"></p>
+                        </div>
+                        <div class="col">
+                            <div v-if="data.attributes.origin">
+                                <h3>{{ data.attributes.isGroup ? "Origin" : "Hometown" }}</h3>
+                                {{ data.attributes.origin }}
+                            </div>
+                            <div v-if="data.attributes.bornOrFormed">
+                                <h3>{{ data.attributes.isGroup ? "Formed" : "Born" }}</h3>
+                                {{ data.attributes.bornOrFormed }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<script>
+    Vue.component('cider-artist', {
+        template: "#cider-artist",
+        props: ['data'],
+        data: function () {
+            return {
+                topSongsExpanded: false
+            }
+        },
+        methods: {
+            artistMenu (event) {
+                let self = this
+                CiderContextMenu.Create(event, {
+                    items: [
+                        {
+                            name: "Play Artist Radio",
+                            action: ()=>{
+                                app.mk.setStationQueue({artist:self.data.id}).then(()=>{
+                                    app.mk.play()
+                                })
+                            }
+                        },
+                        {
+                            name: "Follow Artist",
+                            action: ()=>{}
+                        },
+                        {
+                            name: "Share",
+                            action: ()=>{}
+                        }
+                    ]
+                })
+            },
+            getArtistPalette(artist) {
+                if (artist["attributes"]["artwork"]) {
+                    return {
+                        "background": "#" + artist["attributes"]["artwork"]["bgColor"],
+                        "color": "#" + artist["attributes"]["artwork"]["textColor1"],
+                    }
+                } else {
+                    return {
+                        "background": "#000000",
+                        "color": "#ffffff",
+                    }
+                }
+            },
+            getTopResult() {
+                if (this.search.results["meta"]) {
+                    return this.search.results[this.search.results.meta.results.order[0]]["data"][0]
+                } else {
+                    return false;
+                }
+            }
+        }
+    })
+</script>
