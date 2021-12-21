@@ -1517,7 +1517,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     appearance: none;
     border: 0px;
     height: 32px;
-    width: 42px;
+    width: 40px;
     background: transparent;
     padding: 6px;
     display: flex;
@@ -1525,9 +1525,12 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     align-items: center;
     color: rgba(200, 200, 200, 0.8);
     margin: 2px;
-    border-radius: 3px;
+    border-radius: 6px;
+    transition: transform .10s var(--appleEase);
     &:active {
       background: var(--selected-click);
+      transform: scale(0.96);
+      transition: transform 0s var(--appleEase);
     }
     > svg {
       width: 8px;
