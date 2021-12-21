@@ -1552,18 +1552,22 @@ const app = new Vue({
                     if (item && ((app.library.songs.listing[childIndex].id != item.id))){
                        childIndex = app.library.songs.listing.indexOf(item)
                     } 
+
                     let query = app.library.songs.listing.map(item => new MusicKit.MediaItem(item));
+                    try{app.mk.stop()}catch(e){}
                     this.mk.clearQueue().then(function (_) {
                         app.mk.queue.append(query)
                         app.mk.changeToMediaAtIndex(childIndex)
                     })
                 } else {
+                    try{app.mk.stop()}catch(e){}
                     this.mk.setQueue({[truekind]: [id]}).then(function (queue) {
                         app.mk.changeToMediaAtIndex(childIndex)
                     })
                 }
             } catch (err) {
                 console.log(err)
+                try{app.mk.stop()}catch(e){}
                 this.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)
             }
          
