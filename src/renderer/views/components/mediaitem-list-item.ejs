@@ -23,7 +23,7 @@
                             :type="item.type"></mediaitem-artwork>
                     <button class="overlay-play" @click="playTrack()"><%- include("../svg/play.svg") %></button>
                 </div>
-                <div class="info-rect" :style="{'padding-left': (showArtwork ? '' : '16px')}" @dblclick="playTrack()">
+                <div class="info-rect" :style="{'padding-left': (showArtwork ? '' : '16px')}" @dblclick="app.routeView(item)">
                     <div class="title text-overflow-elipsis">
                         {{ item.attributes.name }}
                     </div>
@@ -43,10 +43,10 @@
                         </template>
                     </div>
                 </div>
-                <div class="content-rating" v-if="item.attributes.contentRating" @dblclick="playTrack()">
+                <div class="content-rating" v-if="item.attributes.contentRating" @dblclick="app.routeView(item)">
                     {{ item.attributes.contentRating }}
                 </div>
-                <template v-if="showMetaData == true" @dblclick="playTrack()">
+                <template v-if="showMetaData == true" @dblclick="app.routeView(item)">
                     <div class="metainfo">
                         {{ item.attributes.releaseDate ? new Date(item.attributes.releaseDate).toLocaleDateString()
                         : "" }}
@@ -55,7 +55,7 @@
                         {{ item.attributes.genreNames[0] ?? "" }}
                     </div>
                 </template>
-                <div class="duration" v-if="showDuration" @dblclick="playTrack()">
+                <div class="duration" v-if="showDuration" @dblclick="app.routeView(item)">
                     {{ msToMinSec(item.attributes.durationInMillis ?? 0) }}
                 </div>
             </template>
