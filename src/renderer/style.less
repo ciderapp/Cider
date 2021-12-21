@@ -234,9 +234,16 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 
 .app-drawer {
   width: 300px;
-  border-left: 1px solid rgb(0 0 0 / 25%);
   flex: 0 0 auto;
-  border-top: 1px solid rgb(0 0 0 / 25%);
+  position: absolute;
+  right: 16px;
+  top: 3%;
+  background: #1c1c1c8f;
+  border-radius: 12px;
+  z-index: 9;
+  height: 94%;
+  backdrop-filter: blur(40px) saturate(180%);
+  box-shadow: var(--mediaItemShadow-Shadow);
 }
 
 .search-input-container {
@@ -875,6 +882,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   height: calc(100% - var(--chromeHeight));
   width: 100%;
   display: flex;
+  position: relative;
 }
 
 .display--small {
@@ -1509,7 +1517,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     appearance: none;
     border: 0px;
     height: 32px;
-    width: 42px;
+    width: 40px;
     background: transparent;
     padding: 6px;
     display: flex;
@@ -1517,9 +1525,12 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     align-items: center;
     color: rgba(200, 200, 200, 0.8);
     margin: 2px;
-    border-radius: 3px;
+    border-radius: 6px;
+    transition: transform .10s var(--appleEase);
     &:active {
       background: var(--selected-click);
+      transform: scale(0.96);
+      transition: transform 0s var(--appleEase);
     }
     > svg {
       width: 8px;
@@ -2526,12 +2537,12 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
 .drawertransition-enter-active,
 .drawertransition-leave-active {
-  transition: margin-right .25s var(--appleEase);
+  transition: right .25s var(--appleEase);
 }
 
 .drawertransition-enter,
 .drawertransition-leave-to {
-  margin-right: -300px;
+  right: -300px;
 }
 
 /* Transitions End */
