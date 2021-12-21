@@ -53,6 +53,7 @@
       "mimeType": "x-scheme-handler/ame;x-scheme-handler/itms;x-scheme-handler/itmss;x-scheme-handler/musics;x-scheme-handler/music;",
       "schemes": [
         "ame",
+        "cider",
         "itms",
         "itmss",
         "musics",
@@ -60,6 +61,7 @@
       ],
       "protocols": [
         "ame",
+        "cider",
         "itms",
         "itmss",
         "musics",
@@ -79,6 +81,7 @@
         "name": "Cider",
         "schemes": [
           "ame",
+          "cider",
           "itms",
           "itmss",
           "musics",
