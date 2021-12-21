@@ -36,8 +36,8 @@
                     <button class="cd-btn-seeall" @click="app.showRecordLabelView(data.id, data.attributes.name + ' -  Latest Releases', 'latest-releases')">See All</button>
                 </div>
             </div>
-            <mediaitem-square-large :item="item" v-for="item in data.views['latest-releases'].data">
-            </mediaitem-square-large>
+            <mediaitem-square :item="item" v-for="item in data.views['latest-releases'].data">
+            </mediaitem-square>
             </template>
             <template v-if="data.views && data.views['top-releases']">
             <div class="row">
@@ -48,8 +48,8 @@
                     <button class="cd-btn-seeall" @click="app.showRecordLabelView(data.id, data.attributes.name + ' -  Top Releases', 'top-releases')">See All</button>
                 </div>
             </div>
-            <mediaitem-square-large :item="item" v-for="item in data.views['top-releases'].data">
-            </mediaitem-square-large>
+            <mediaitem-square :item="item" v-for="item in data.views['top-releases'].data">
+            </mediaitem-square>
             </template>
             <template v-if="data.relationships && data.relationships.playlists && data.relationships.playlists.data.length > 0">
             <div class="row">
@@ -60,8 +60,8 @@
                     <button class="cd-btn-seeall" @click="app.showCollection(data.relationships.playlists, data.attributes.name + ' -  Playlists', 'curator')">See All</button>
                 </div>
             </div>
-            <mediaitem-square-large :item="item" v-for="item in data.relationships.playlists.data.limit(5)">
-            </mediaitem-square-large>
+            <mediaitem-square :item="item" v-for="item in data.relationships.playlists.data.limit(5)">
+            </mediaitem-square>
             </template>
         </div>
     </div>

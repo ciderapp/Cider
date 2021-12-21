@@ -4,7 +4,7 @@
         <div v-if="data['data'] != 'null'" class="well">
             <template v-for="(item, key) in data.data">
                 <template v-if="item.type == 'artists'">
-                    <mediaitem-square-large :item="item"></mediaitem-square-large>
+                    <mediaitem-square :item="item"></mediaitem-square>
                 </template>
                 <template v-else>
                     <mediaitem-list-item
@@ -12,7 +12,7 @@
                             :index="key"
                             :item="item"></mediaitem-list-item>
                     <mediaitem-mvview v-else-if="item.attributes.playParams.kind == 'musicVideo'" :item="item"></mediaitem-mvview>
-                    <mediaitem-square-large v-else :item="item"></mediaitem-square-large>
+                    <mediaitem-square v-else :item="item"></mediaitem-square>
                 </template>
             </template>
             <button v-if="triggerEnabled" style="opacity:0;height: 32px;" v-observe-visibility="{callback: visibilityChanged}">Show More</button>

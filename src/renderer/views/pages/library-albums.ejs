@@ -48,8 +48,8 @@
                 </div>
             </div>
         </div>
-        <mediaitem-square-large v-if="library.albums.viewAs == 'covers'" :item="item" v-for="item in library.albums.displayListing">
-        </mediaitem-square-large>
+        <mediaitem-square v-if="library.albums.viewAs == 'covers'" :item="item" v-for="item in library.albums.displayListing">
+        </mediaitem-square>
         <mediaitem-list-item v-if="library.albums.viewAs == 'list'" :show-duration="false" :show-meta-data="true" :show-library-status="false" :item="item" v-for="item in library.albums.displayListing">
         </mediaitem-list-item>
     </div>

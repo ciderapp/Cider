@@ -4,7 +4,7 @@
             <div class="col-sm" style="width: auto;" v-if="getTopResult()">
                 <template>
                     <h3>Top Result</h3>
-                    <mediaitem-square-large :item="getTopResult()"></mediaitem-square-large>
+                    <mediaitem-square :item="getTopResult()"></mediaitem-square>
                 </template>
             </div>
             <div class="col" v-if="search.results.song">

@@ -74,22 +74,22 @@
     Vue.component('mediaitem-square-large', {
         template: '#mediaitem-square-large',
         props: ['item'],
-        methods: { 
-             clickContext() {
-                var evt =  document.createEvent('MouseEvent');
+        methods: {
+            clickContext() {
+                var evt = document.createEvent('MouseEvent');
                 var rect = this.$refs.main2.getBoundingClientRect();
                 evt.initMouseEvent(
                     "contextmenu",
                     true /* bubble */, true /* cancelable */,
                     window, null,
-                    0, 0, rect.x + 100, rect.y +100,  /* coordinates */
+                    0, 0, rect.x + 100, rect.y + 100,  /* coordinates */
                     false, false, false, false, /* modifier keys */
                     0 /*left*/, null
                 );
                 this.$refs.main.dispatchEvent(evt);
-             }
-            ,contextMenu(event) {
-                if (!event){event = this.$refs.main} else {console.log(event)}
+            }
+            , contextMenu(event) {
+                if (!event) { event = this.$refs.main } else { console.log(event) }
                 let self = this
                 let useMenu = "normal"
                 if (app.selectedMediaItems.length <= 1) {
@@ -115,7 +115,7 @@
                                     for (let kind in itemsToPlay) {
                                         let ids = itemsToPlay[kind]
                                         if (ids.length > 0) {
-                                            app.mk.playNext({[kind + "s"]: itemsToPlay[kind]})
+                                            app.mk.playNext({ [kind + "s"]: itemsToPlay[kind] })
                                         }
                                     }
                                     console.log(itemsToPlay)
@@ -136,7 +136,7 @@
                                     for (let kind in itemsToPlay) {
                                         let ids = itemsToPlay[kind]
                                         if (ids.length > 0) {
-                                            app.mk.playLater({[kind + "s"]: itemsToPlay[kind]})
+                                            app.mk.playLater({ [kind + "s"]: itemsToPlay[kind] })
                                         }
                                     }
                                     app.selectedMediaItems = []
@@ -149,7 +149,7 @@
                             {
                                 "name": "Play Next",
                                 "action": function () {
-                                    app.mk.playNext({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
+                                    app.mk.playNext({ [self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id })
                                     app.mk.queue._reindex()
                                     app.selectedMediaItems = []
                                 }
@@ -157,7 +157,7 @@
                             {
                                 "name": "Play Later",
                                 "action": function () {
-                                    app.mk.playLater({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
+                                    app.mk.playLater({ [self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id })
                                     app.mk.queue._reindex()
                                     app.selectedMediaItems = []
                                 }
@@ -166,6 +166,7 @@
                     }
                 }
                 CiderContextMenu.Create(event, menus[useMenu])
-            },}
+            },
+        }
     });
 </script>
