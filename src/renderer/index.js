@@ -260,6 +260,7 @@ const app = new Vue({
             this.mk.authorize()
             this.$forceUpdate()
             this.mk.privateEnabled = true
+            this.mk._services.timing.mode = 0
             this.platform = ipcRenderer.sendSync('cider-platform');
             // Set profile name
             this.chrome.userinfo = await this.mkapi("personalSocialProfile", false, "")
@@ -304,7 +305,7 @@ const app = new Vue({
                     if (document.getElementById("apple-music-player")) {
                         self.playerReady = true;
                         document.getElementById("apple-music-player").addEventListener('timeupdate', function () {
-                            self.lyriccurrenttime = this.currentTime;
+                            self.lyriccurrenttime = self.mk.currentPlaybackTime
                         })
                     }
                 }
@@ -316,7 +317,6 @@ const app = new Vue({
                     self.$refs.queue.updateQueue();
                 }
                 this.currentSongInfo = a
-                self.lyriccurrenttime = 0
                 try {
                     a = a.item.attributes;
                 } catch (_) {
