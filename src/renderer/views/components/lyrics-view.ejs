@@ -118,7 +118,7 @@
                         if (app.currentLyricsLine != i) {
                             app.currentLyricsLine = i;
                             if (app.lyricon && app.drawer.open && this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${i}"]`)) {
-                                this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${prevLine}"]`).classList.remove("active");
+                               if(this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${prevLine}"]`)) {this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${prevLine}"]`).classList.remove("active");}
                                 this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${i}"]`).classList.add("active")
                                 if (checkIfScrollIsStatic) {
                                     this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${i}"]`).scrollIntoView({
