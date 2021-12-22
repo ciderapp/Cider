@@ -59,8 +59,13 @@
             </div>
             <div class="playlist-body">
                 <div class="well">
-                    <mediaitem-list-item :item="item" :parent="getItemParent(data)" :index="index"
-                                         v-for="(item,index) in data.relationships.tracks.data"></mediaitem-list-item>
+                    <div style="width:100%">
+                        <draggable :sort="data.attributes.canEdit" v-model="data.relationships.tracks.data" @start="drag=true" @end="drag=false;put()">
+                            <mediaitem-list-item :item="item" :parent="getItemParent(data)" :index="index" :context-ext="buildContextMenu()"
+                                                 v-for="(item,index) in data.relationships.tracks.data"></mediaitem-list-item>
+                        </draggable>
+                    </div>
+
                 </div>
                 <div class="playlist-time"> 
                     {{data.attributes.releaseDate}}
@@ -82,12 +87,67 @@
         data: function () {
             return {
                 editorialNotesExpanded: false,
+                drag: false
             }
         },
         mounted() {
 
         },
         methods: {
+            buildContextMenu (index) {
+                let self = this
+                if(!this.data.attributes.canEdit) {
+                    return
+                }
+                return {
+                    normal: [
+                        {
+                            name: 'Remove from Playlist',
+                            action: () => {
+                                self.remove()
+                            }
+                        },
+                    ],
+                    multiple: [
+                        {
+                            name: 'Remove selected tracks from Playlist',
+                            action: () => {
+                                self.remove()
+                            }
+                        },
+                    ]
+                }
+            },
+            async put() {
+                if(!this.data.attributes.canEdit) {
+                    return
+                }
+                await app.mk.api.library.putPlaylistTracklisting(this.data.attributes.playParams.id, this.convert())
+            },
+            async remove () {
+                if(!this.data.attributes.canEdit) {
+                    return
+                }
+                // for each app.selectedMediaItems splice the items from the playlist
+                for(let i = 0; i < app.selectedMediaItems.length; i++) {
+                    let item = app.selectedMediaItems[i]
+                    let index = this.data.relationships.tracks.data.findIndex(x => x.id == item.id)
+                    if(index > -1) {
+                        this.data.relationships.tracks.data.splice(index, 1)
+                    }
+                }
+                await this.put()
+            },
+            convert() {
+                let pl_tracks = []
+                for (let i = 0; i < this.data.relationships.tracks.data.length; i++) {
+                    pl_tracks.push({
+                        id: this.data.relationships.tracks.data[i].id,
+                        type: this.data.relationships.tracks.data[i].type
+                    })
+                }
+                return pl_tracks
+            },
             getRecursive(url) {
                 app.apiCall(app.musicBaseUrl + "/v1/me/library/playlists/p.V7VYlrDso6kkYY/tracks?offset=100", res => {
                     this.data.relationships.tracks.data = this.data.relationships.tracks.data.concat(res.data.data)

@@ -2,6 +2,7 @@
     <template v-if="type == 'artists'">
         <div class="mediaitem-artwork rounded" :key="url" :style="getStyle()">
             <img :src="app.getMediaItemArtwork(url, size)"
+                 loading="lazy" decoding="async"
                  class="mediaitem-artwork--img">
         </div>
     </template>
@@ -9,6 +10,7 @@
         <div class="mediaitem-artwork" :key="url" :style="getStyle()"
              v-observe-visibility="{callback: visibilityChanged}">
             <img :src="app.getMediaItemArtwork(url, size)" v-if="isVisible"
+                 loading="lazy" decoding="async"
                  class="mediaitem-artwork--img">
             <div v-if="video && isVisible" class="animatedartwork-view-box">
                 <animatedartwork-view  :video="video"></animatedartwork-view>   

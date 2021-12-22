@@ -4,7 +4,7 @@
              @contextmenu="contextMenu"
              @click="select"
              :data-id="item.attributes.playParams.id ?? item.id"
-             :data-type="item.attributes.playParams.kind ?? item.type"
+             :data-type="item.type ?? item.attributes.playParams.kind"
              :data-index="index"
              :data-guid="guid"
              class="cd-mediaitem-list-item"
@@ -81,6 +81,7 @@
             'show-library-status': {type: Boolean, default: true},
             'show-meta-data': {type: Boolean, default: false},
             'show-duration': {type: Boolean, default: true},
+            'contextExt': {type: Object, required: false},
         },
         methods: {
             select(e) {
@@ -234,6 +235,15 @@
                                 }
                             },
                         ]
+                    }
+                }
+                if(this.contextExt) {
+                    // if this.context-ext.normal is true append all options to the 'normal' menu which is a kvp of arrays
+                    if(this.contextExt.normal) {
+                        menus.normal.items = menus.normal.items.concat(this.contextExt.normal)
+                    }
+                    if(this.contextExt.multiple) {
+                        menus.multiple.items = menus.multiple.items.concat(this.contextExt.multiple)
                     }
                 }
                 CiderContextMenu.Create(event, menus[useMenu])
