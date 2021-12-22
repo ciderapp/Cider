@@ -326,7 +326,7 @@ const app = new Vue({
 
                 let type = (self.mk.nowPlayingItem != null) ? self.mk.nowPlayingItem["type"] ?? '' : '';
 
-                if (type.includes("musicVideo") || type.includes("uploadedVideo")) {
+                if (type.includes("musicVideo") || type.includes("uploadedVideo") ||  type.includes("music-movie")) {
                     document.getElementById("apple-music-video-container").style.display = "block";
                     // app.chrome.topChromeVisible = false
                 } else {
@@ -365,6 +365,11 @@ const app = new Vue({
             if (window.location.hash != "") {
                 this.appRoute(window.location.hash)
             }
+
+            
+            setTimeout(() =>{
+                this.getBrowsePage();
+                this.$forceUpdate()}, 500)
         },
         invokeDrawer(panel) {
             if (this.drawer.panel == panel && this.drawer.open) {
@@ -663,7 +668,8 @@ const app = new Vue({
                     });
                     window.location.hash = `${kind}/${id}`
                     document.querySelector("#app-content").scrollTop = 0
-                } else if (!kind.toString().includes("radioStation") && !kind.toString().includes("song") && !kind.toString().includes("musicVideo") && !kind.toString().includes("uploadedVideo")) {
+                } else if (!kind.toString().includes("radioStation") && !kind.toString().includes("song") && !kind.toString().includes("musicVideo") && !kind.toString().includes("uploadedVideo") && !kind.toString().includes("music-movie")) {
+                    if (kind.toString().includes("music-movie")){kind = "musicMovie"}
                     app.page = (kind) + "_" + (id);
                     app.getTypeFromID((kind), (id), (isLibrary), {extend: "editorialVideo"});
                     window.location.hash = `${kind}/${id}`
