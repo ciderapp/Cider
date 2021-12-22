@@ -8,10 +8,10 @@
                 </template>
                 <template v-else>
                     <mediaitem-list-item
-                            v-if="item.attributes.playParams.kind == 'song'"
+                            v-if="getKind(item) == 'song'"
                             :index="key"
                             :item="item"></mediaitem-list-item>
-                    <mediaitem-square v-else :item="item" :type="item.attributes.playParams.kind"></mediaitem-square>
+                    <mediaitem-square v-else :item="item" :type="getKind(item)"></mediaitem-square>
                 </template>
             </template>
             <button v-if="triggerEnabled" style="opacity:0;height: 32px;" v-observe-visibility="{callback: visibilityChanged}">Show More</button>
@@ -45,10 +45,22 @@
             return {
                 triggerEnabled: true,
                 canSeeTrigger: false,
-                showFab: false
+                showFab: false,
+                commonKind: "song"
             }
         },
         methods: {
+            getKind(item) {
+                if(typeof item.kind != "undefined") {
+                    this.commonKind = item.kind;
+                    return item.kind
+                }
+                if(typeof item.attributes.playParams != "undefined") {
+                    this.commonKind = item.attributes.playParams.kind
+                    return item.attributes.playParams.kind
+                }
+                return this.commonKind
+            },
             scrollToTop() {
                 let target = document.querySelector(".header-text")
                 target.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})
