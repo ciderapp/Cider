@@ -1,7 +1,6 @@
 <script type="text/x-template" id="cider-collection-list">
     <div class="content-inner collection-page">
         <h3 class="header-text" v-observe-visibility="{callback: headerVisibility}">{{ title }}</h3>
-        {{ commonKind }}
         <div v-if="data['data'] != 'null'" class="well">
             <template v-for="(item, key) in data.data">
                 <template v-if="item.type == 'artists'">
