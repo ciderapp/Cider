@@ -2547,7 +2547,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
     >.play-btn,
     >.menu-btn {
-      display: none;
+      opacity: 0;
       appearance: none;
       padding:0px;
       border:0px;
@@ -2557,6 +2557,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
       background: rgba(50, 50, 50, 0.7);
       cursor: pointer;
       backdrop-filter: blur(32px) saturate(180%);
+      transition: opacity 0.1s var(--appleEase);
     }
 
     >.play-btn {
@@ -2576,7 +2577,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     &:hover {
       >.play-btn,
       >.menu-btn {
-        display: block;
+        opacity: 1;
       }
     }
   }
