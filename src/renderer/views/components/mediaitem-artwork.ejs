@@ -1,12 +1,12 @@
 <script type="text/x-template" id="mediaitem-artwork">
     <template v-if="type == 'artists'">
-        <div class="mediaitem-artwork rounded" :key="url" :style="{'box-shadow': shadow ? 'var(--mediaItemShadow-Shadow)' : ''}">
+        <div class="mediaitem-artwork rounded" :key="url" :style="getStyle()">
             <img :src="app.getMediaItemArtwork(url, size)"
                  class="mediaitem-artwork--img">
         </div>
     </template>
     <template v-else>
-        <div class="mediaitem-artwork" :key="url" :style="{'box-shadow': shadow ? 'var(--mediaItemShadow-Shadow)' : ''}"
+        <div class="mediaitem-artwork" :key="url" :style="getStyle()"
              v-observe-visibility="{callback: visibilityChanged}">
             <img :src="app.getMediaItemArtwork(url, size)" v-if="isVisible"
                  class="mediaitem-artwork--img">
@@ -38,16 +38,32 @@
                 required: false
             },
             shadow: {
-                type: Boolean,
-                default: false
+                type: String,
+                default: 'none'
             }
         },
         data: function () {
             return {
-                isVisible: false
+                isVisible: false,
+                style: {
+                    "box-shadow": ""
+                }
             }
         },
         methods: {
+            getStyle() {
+                switch(this.shadow) {
+                    case "large":
+                        this.style["box-shadow"] = "var(--mediaItemShadow-Shadow)"
+                    break;
+                    case "subtle":
+                        this.style["box-shadow"] = "var(--mediaItemShadow-ShadowSubtle)"
+                    break;
+                    default:
+                    break;
+                }
+                return this.style;
+            },
             getArtworkStyle() {
                 return {
                     width: this.size + 'px',

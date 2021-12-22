@@ -11,8 +11,7 @@
                             v-if="item.attributes.playParams.kind == 'song'"
                             :index="key"
                             :item="item"></mediaitem-list-item>
-                    <mediaitem-mvview v-else-if="item.attributes.playParams.kind == 'musicVideo'" :item="item"></mediaitem-mvview>
-                    <mediaitem-square v-else :item="item"></mediaitem-square>
+                    <mediaitem-square v-else :item="item" :type="item.attributes.playParams.kind"></mediaitem-square>
                 </template>
             </template>
             <button v-if="triggerEnabled" style="opacity:0;height: 32px;" v-observe-visibility="{callback: visibilityChanged}">Show More</button>

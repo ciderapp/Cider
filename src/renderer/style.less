@@ -2,8 +2,10 @@
 
 :root {
   --appleEase: cubic-bezier(0.42, 0, 0.58, 1);
-  --mediaItemShadow-Shadow: inset 0px 0px 0px 1px rgb(200 200 200 / 16%), 0 8px 40px rgb(0 0 0 / 0.55);
   --mediaItemShadow: inset 0px 0px 0px 1px rgb(200 200 200 / 16%);
+  --mediaItemShadow-Shadow: 0 8px 40px rgb(0 0 0 / 0.55);
+  --mediaItemShadow-ShadowSubtle: 0 4px 14px rgb(0 0 0 / 10%);
+  --ciderShadow-Generic: var(--mediaItemShadow), 0 8px 40px rgb(0 0 0 / 0.55);
   --mediaItemRadius: 6px;
   --mediaItemRadiusRound: 100%;
   --contentInnerPadding: 16px;
@@ -243,7 +245,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   z-index: 9;
   height: 94%;
   backdrop-filter: blur(40px) saturate(180%);
-  box-shadow: var(--mediaItemShadow-Shadow);
+  box-shadow: var(--ciderShadow-Generic);
 }
 
 .search-input-container {
@@ -395,7 +397,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     padding: 6px;
     border-radius: 6px;
     width: 100%;
-    box-shadow: var(--mediaItemShadow-Shadow);
+    box-shadow: var(--ciderShadow-Generic);
   }
 
   .item {
@@ -477,7 +479,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     background: #242424;
     padding: 6px;
     border-radius: 6px;
-    box-shadow: var(--mediaItemShadow-Shadow);
+    box-shadow: var(--ciderShadow-Generic);
 
     &.context-menu-open {
       animation-duration: .10s;
@@ -1752,7 +1754,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     background: rgb(60 60 60);
     border: 0px;
     appearance: none;
-    box-shadow: var(--mediaItemShadow-Shadow);
+    box-shadow: var(--ciderShadow-Generic);
 
     >svg {
       height: 50%;
@@ -1791,7 +1793,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     .artist-more {
       border-radius: 100%;
       background: var(--keyColor);
-      box-shadow: var(--mediaItemShadow-Shadow);
+      box-shadow: var(--ciderShadow-Generic);
       width: 36px;
       height: 36px;
       position: absolute;
@@ -2593,8 +2595,10 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
   &.mediaitem-video {
     height: 200px;
+    width: 240px;
     .artwork {
-      height: 106px;
+      height: 120px;
+      width: 212px;
     }
   }
 }

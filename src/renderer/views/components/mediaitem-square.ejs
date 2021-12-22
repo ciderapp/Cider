@@ -9,6 +9,7 @@
                                     :url="item.attributes.artwork ? item.attributes.artwork.url : ''"
                                     :video="(item.attributes != null && item.attributes.editorialVideo != null) ? (item.attributes.editorialVideo.motionDetailSquare ? item.attributes.editorialVideo.motionDetailSquare.video : (item.attributes.editorialVideo.motionSquareVideo1x1 ? item.attributes.editorialVideo.motionSquareVideo1x1.video : '')) : '' "
                                     size="300"
+                                    shadow="subtle"
                                     :type="item.type"></mediaitem-artwork>
                         </div>
                         <button class="menu-btn" v-if="item.type != 'artists' && item.type != 'stations'" @click="contextMenu"><%- include("../svg/more.svg") %></button>
@@ -29,7 +30,16 @@
 <script>
     Vue.component('mediaitem-square', {
         template: '#mediaitem-square',
-        props: ['item'],
+        props: {
+            item: {
+                type: Object,
+                required: true
+            },
+            kind: {
+                type: String,
+                default: ''
+            }
+        },
         data: function () {
             return {
                 isVisible: false,
@@ -39,10 +49,15 @@
         },
         methods: {
             getClasses() {
-                switch(this.item.type) {
+                let type = this.item.type
+                if(this.kind != "") {
+                    type = this.kind
+                }
+                switch(type) {
                     default:
                         return []
                     break;
+                    case "music-videos":
                     case "uploaded-videos":
                         return "mediaitem-video";
                     break;
