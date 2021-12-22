@@ -1,6 +1,10 @@
 <script type="text/x-template" id="cider-playlist">
-    <template v-if="data != [] && data.attributes != null">
-    <div class="content-inner playlist-page" :style="{'--bgColor': (data.attributes.artwork != null && data.attributes.artwork['bgColor'] != null) ? ('#' + data.attributes.artwork.bgColor) : ''}">
+    <template>
+        <div class="content-inner playlist-page" v-if="data != [] && data.attributes != null" :style="{'--bgColor': (data.attributes.artwork != null && data.attributes.artwork['bgColor'] != null) ? ('#' + data.attributes.artwork.bgColor) : ''}">
+            <template v-if="app.playlists.loadingState == 0">
+                <div class="content-inner centered">Loading...</div>
+            </template>
+            <template v-if="app.playlists.loadingState == 1">
             <div class="playlist-display row"
                  :style="{
                 background: (data.attributes.artwork != null && data.attributes.artwork['bgColor'] != null) ? ('#' + data.attributes.artwork.bgColor) : '',
@@ -66,6 +70,7 @@
                 </div>
                 <div class="playlist-time">{{app.getTotalTime()}}</div>
             </div>
+        </template>
     </div>
 </template>
 
@@ -79,7 +84,18 @@
                 editorialNotesExpanded: false,
             }
         },
+        mounted() {
+
+        },
         methods: {
+            getRecursive(url) {
+                app.apiCall(app.musicBaseUrl + "/v1/me/library/playlists/p.V7VYlrDso6kkYY/tracks?offset=100", res => {
+                    this.data.relationships.tracks.data = this.data.relationships.tracks.data.concat(res.data.data)
+                    if (res.data.next) {
+                        this.getRecursive(res.data.next)
+                    }
+                })
+            },
             getItemParent: function (data) {
                 kind = data.attributes.playParams.kind;
                 id = data.attributes.playParams.id;

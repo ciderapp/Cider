@@ -188,7 +188,9 @@ const app = new Vue({
         },
         playlists: {
             listing: [],
-            details: {}
+            details: {},
+            loadingState: 0, // 0 loading, 1 loaded, 2 error
+            id: ""
         },
         mxmtoken: "",
         playerReady: false,
@@ -236,7 +238,8 @@ const app = new Vue({
         songstest: false,
         hangtimer: null,
         selectedMediaItems: [],
-        routes: ["browse", "listen_now", "radio"]
+        routes: ["browse", "listen_now", "radio"],
+        musicBaseUrl: "https://api.music.apple.com/"
     },
     watch: {
         page: () => {
@@ -356,7 +359,7 @@ const app = new Vue({
                 ipcRenderer.invoke('setStoreValue', 'volume', this.mk.volume)
             })
 
-            this.apiCall('https://api.music.apple.com/v1/me/library/playlists', res => {
+            this.apiCall('https://api.music.apple.com/v1/me/library/playlist-folders/p.playlistsroot/children/', res => {
                 self.playlists.listing = res.data
             })
             document.body.removeAttribute("loading")
@@ -455,6 +458,7 @@ const app = new Vue({
             await this.showCollection(responseFormat, title, "search")
         },
         async getPlaylistFromID(id) {
+            let self = this
             const params = {
                 include: "tracks",
                 platform: "web",
@@ -464,12 +468,42 @@ const app = new Vue({
                 "fields[catalog]": "artistUrl,albumUrl",
                 "fields[songs]": "artistUrl,albumUrl"
             }
+
+            this.playlists.loadingState = 0
+            let playlistId = ''
+            //  TO DO: Replace with a universal function for recursive calls
+            function getPlaylistTracks(next) {
+                if (!next) {
+                    app.mk.api.library.playlist(id, params).then(res => {
+                        self.showingPlaylist = res
+                        playlistId = res.id
+                        if (res.relationships.tracks.next) {
+                            getPlaylistTracks(res.relationships.tracks.next)
+                        } else {
+                            self.playlists.loadingState = 1
+                        }
+                    })
+                } else {
+                    app.apiCall(app.musicBaseUrl + next, res => {
+                        if(self.showingPlaylist.id != playlistId) {
+                            return
+                        }
+                        self.showingPlaylist.relationships.tracks.data = self.showingPlaylist.relationships.tracks.data.concat(res.data)
+                        if (res.next) {
+                            getPlaylistTracks(res.next)
+                        } else {
+                            self.playlists.loadingState = 1
+                        }
+                    })
+                }
+
+            }
             try {
-                this.showingPlaylist = await app.mk.api.library.playlist(id, params)
+                getPlaylistTracks()
             } catch (e) {
                 console.log(e);
                 try {
-                    this.showingPlaylist = await app.mk.api.playlist(id, params)
+                    getPlaylistTracks()
                 } catch (err) {
                     console.log(err)
                 }
@@ -502,7 +536,20 @@ const app = new Vue({
                 'background': ('linear-gradient(to right, var(--keyColor) 0%, var(--keyColor) ' + value + '%, #333 ' + value + '%, #333 100%)')
             }
         },
-        async getRecursive(response, sendTo) {
+        async getRecursive(response) {
+            // if response has a .next() property run it and keep running until .next is null or undefined
+            // and then return the response concatenated with the results of the next() call
+            function executeRequest() {
+                if (response.next) {
+                    return response.next().then(executeRequest)
+                } else {
+                    return response
+                }
+            }
+
+            return executeRequest()
+        },
+        async getRecursive2(response, sendTo) {
             let returnData = {
                 "data": [],
                 "meta": {}
@@ -622,9 +669,9 @@ const app = new Vue({
                 } else {
                     app.playMediaItemById((id), (kind), (isLibrary), item.attributes.url ?? '')
                 }
-                
+
             }
-            
+
         },
         async getNowPlayingItemDetailed(target) {
             let u = await app.mkapi(app.mk.nowPlayingItem.playParams.kind, (app.mk.nowPlayingItem.songId == -1), (app.mk.nowPlayingItem.songId != -1) ? app.mk.nowPlayingItem.songId : app.mk.nowPlayingItem["id"], { "include[songs]": "albums,artists" });
