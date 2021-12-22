@@ -343,11 +343,15 @@ const app = new Vue({
                     if (this.notification) {
                         this.notification.close()
                     }
-                    this.notification = new Notification(a.name, {
-                        body: a.artistName,
-                        icon: (a.artwork.url.replace('/{w}x{h}bb', '/512x512bb')).replace('/2000x2000bb', '/35x35bb'),
-                        silent: true
-                    })
+                    if (a.artistName && a.artwork && a.name) {
+                        this.notification = new Notification(a.name, {
+                          body: a.artistName,
+                          icon: a.artwork.url
+                            .replace('/{w}x{h}bb', '/512x512bb')
+                            .replace('/2000x2000bb', '/35x35bb'),
+                          silent: true,
+                        });
+                    }
                 }
 
             })
