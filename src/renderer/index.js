@@ -396,9 +396,7 @@ const app = new Vue({
                 ipcRenderer.invoke('setStoreValue', 'volume', this.mk.volume)
             })
 
-            this.apiCall('https://api.music.apple.com/v1/me/library/playlist-folders/p.playlistsroot/children/', res => {
-                self.playlists.listing = res.data
-            })
+            this.refreshPlaylists()
             document.body.removeAttribute("loading")
             if (window.location.hash != "") {
                 this.appRoute(window.location.hash)
@@ -446,6 +444,32 @@ const app = new Vue({
                     index: index,
                     guid: guid,
                     isLibrary: library
+                })
+            }
+        },
+        async refreshPlaylists() {
+            let self = this
+            this.apiCall('https://api.music.apple.com/v1/me/library/playlist-folders/p.playlistsroot/children/', res => {
+                self.playlists.listing = res.data
+            })
+        },
+        async editPlaylist(id, name = "New Playlist") {
+            await app.mk.api.library.editPlaylist(id, {name: name}).then(res => {
+                self.refreshPlaylists()
+            })
+        },
+        async newPlaylist(name = "New Playlist", tracks = []) {
+            let self = this
+            await app.mk.api.library.createPlaylist({name: name, tracks: tracks}).then(res => {
+                self.refreshPlaylists()
+                appRoute(`playlist_` + res.id);
+            })
+        },
+        async deletePlaylist(id) {
+            let self = this
+            if(confirm(`Are you sure you want to delete "${this.playlists.listing[id].attributes.name}"?`)) {
+                await app.mk.api.library.deletePlaylist(id).then(res=>{
+                    self.refreshPlaylists()
                 })
             }
         },
@@ -1928,7 +1952,7 @@ const app = new Vue({
                 })
             })
         },
-        apiCall(url, callback) {
+        async apiCall(url, callback) {
             const xmlHttp = new XMLHttpRequest();
 
             xmlHttp.onreadystatechange = (e) => {
