@@ -232,6 +232,7 @@ const app = new Vue({
             title: "",
             type: ""
         },
+        prevButtonBackIndicator : false,
         currentSongInfo: {},
         page: "browse",
         pageHistory: [],
@@ -680,6 +681,15 @@ const app = new Vue({
 
             }
 
+        },
+        prevButton(){
+            if (!app.prevButtonBackIndicator && app.mk.nowPlayingItem && app.mk.currentPlaybackTime > 2){
+                app.prevButtonBackIndicator = true;
+                app.mk.seekToTime(0);
+            } else {
+                app.prevButtonBackIndicator = false;
+                app.mk.skipToPreviousItem()
+            }
         },
         async getNowPlayingItemDetailed(target) {
             let u = await app.mkapi(app.mk.nowPlayingItem.playParams.kind, (app.mk.nowPlayingItem.songId == -1), (app.mk.nowPlayingItem.songId != -1) ? app.mk.nowPlayingItem.songId : app.mk.nowPlayingItem["id"], {"include[songs]": "albums,artists"});
