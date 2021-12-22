@@ -6,9 +6,9 @@
                     <div class="artwork-container">
                         <div class="artwork" @click='app.routeView(item)'>
                             <mediaitem-artwork
-                                    :url="item.attributes.artwork ? item.attributes.artwork.url : ''"
+                                    :url="getArtworkUrl()"
                                     :video="(item.attributes != null && item.attributes.editorialVideo != null) ? (item.attributes.editorialVideo.motionDetailSquare ? item.attributes.editorialVideo.motionDetailSquare.video : (item.attributes.editorialVideo.motionSquareVideo1x1 ? item.attributes.editorialVideo.motionSquareVideo1x1.video : '')) : '' "
-                                    size="300"
+                                    :size="size"
                                     shadow="subtle"
                                     :type="item.type"></mediaitem-artwork>
                         </div>
@@ -38,6 +38,10 @@
             kind: {
                 type: String,
                 default: ''
+            },
+            size: {
+                type: String,
+                default: '300'
             }
         },
         data: function () {
@@ -48,19 +52,31 @@
             }
         },
         methods: {
+            getArtworkUrl() {
+                let artwork = this.item.attributes.artwork ? this.item.attributes.artwork.url : ''
+                switch (this.kind) {
+                    case "385":
+                        artwork = this.item.attributes.editorialArtwork.subscriptionHero.url
+                        break;
+                }
+                return artwork
+            },
             getClasses() {
                 let type = this.item.type
-                if(this.kind != "") {
+                if (this.kind != "") {
                     type = this.kind
                 }
-                switch(type) {
+                switch (type) {
                     default:
                         return []
-                    break;
+                        break;
+                    case "385": // editorial
+                        return ["mediaitem-brick"]
+                        break;
                     case "music-videos":
                     case "uploaded-videos":
                         return "mediaitem-video";
-                    break;
+                        break;
                 }
             },
             visibilityChanged: function (isVisible, entry) {

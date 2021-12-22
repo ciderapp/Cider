@@ -13,11 +13,11 @@
             </div>
             <template v-if="recom.relationships && ((recom.relationships.children && recom.relationships.children.data) || (recom.relationships.contents && recom.relationships.contents.data))">
                 <template v-if="index === 0">
-                    <mediaitem-scroller-horizontal-mvview :imagesize="800" :browsesp="index == 0"
+                    <mediaitem-scroller-horizontal-mvview :imagesize="800" :browsesp="index == 0" :kind="recom.attributes.editorialElementKind"
                             :items="recom.relationships.children ? recom.relationships.children.data.limit(10) : recom.relationships.contents.data.limit(10)"></mediaitem-scroller-horizontal-mvview>
                 </template>
                 <template v-else-if="(['385']).includes(recom.attributes.editorialElementKind)">
-                    <mediaitem-scroller-horizontal-mvview :imagesize="800" kind="music-videos"
+                    <mediaitem-scroller-horizontal-mvview :imagesize="800" :kind="recom.attributes.editorialElementKind"
                             :items="recom.relationships.children ? recom.relationships.children.data.limit(10) : recom.relationships.contents.data.limit(10)"></mediaitem-scroller-horizontal-mvview>
                 </template>
                 <template v-else-if="recom.attributes.name == 'Chart Set'">
