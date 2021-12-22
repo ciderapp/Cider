@@ -160,3 +160,21 @@ function processChunk (response) {
 // create Artist / Song/ Album stations:
 app.mk.setStationQueue({artist:"1258279972"})
 app.mk.setStationQueue({song:"1437308307"}) // yes the song id here can be the albumId, but just keep using the song:
+
+// Sorting Playlists, send an array of tracks in the format below
+// playlist must be fully recursively downloaded first before sorting
+
+app.mk.api.library.putPlaylistTracklisting(app.showingPlaylist.attributes.playParams.id, [
+    {
+        "id": relationships.tracks.data[X].id,
+        "type": relationships.tracks.data[X].type
+    },
+    {
+        "id": relationships.tracks.data[X].id,
+        "type": relationships.tracks.data[X].type
+    },
+    {
+        "id": relationships.tracks.data[X].id,
+        "type": relationships.tracks.data[X].type
+    },
+])

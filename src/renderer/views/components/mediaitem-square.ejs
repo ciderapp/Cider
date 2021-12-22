@@ -1,7 +1,7 @@
 <script type="text/x-template" id="mediaitem-square">
     <template>
         <div tabindex="0"
-             class="cd-mediaitem-square" @contextmenu="contextMenu" v-observe-visibility="{callback: visibilityChanged}">
+             class="cd-mediaitem-square" :class="getClasses()" @contextmenu="contextMenu" v-observe-visibility="{callback: visibilityChanged}">
             <template v-if="isVisible">
                     <div class="artwork-container">
                         <div class="artwork" @click='app.routeView(item)'>
@@ -37,6 +37,16 @@
             }
         },
         methods: {
+            getClasses() {
+                switch(this.item.type) {
+                    default:
+                        return []
+                    break;
+                    case "uploaded-videos":
+                        return "mediaitem-video";
+                    break;
+                }
+            },
             visibilityChanged: function (isVisible, entry) {
                 this.isVisible = isVisible
             },

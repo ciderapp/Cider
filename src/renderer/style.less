@@ -4,7 +4,7 @@
   --appleEase: cubic-bezier(0.42, 0, 0.58, 1);
   --mediaItemShadow-Shadow: inset 0px 0px 0px 1px rgb(200 200 200 / 16%), 0 8px 40px rgb(0 0 0 / 0.55);
   --mediaItemShadow: inset 0px 0px 0px 1px rgb(200 200 200 / 16%);
-  --mediaItemRadius: 4px;
+  --mediaItemRadius: 6px;
   --mediaItemRadiusRound: 100%;
   --contentInnerPadding: 16px;
   --navbarHeight: 48px;
@@ -1606,8 +1606,25 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   background: rgba(200, 200, 200, 0.05);
   border-radius: 10px;
   padding: var(--contentInnerPadding);
-  box-shadow: rgb(0 0 0 / 8%) 0px 0px 0px 1px;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
   margin-top: 16px;
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+
+  >.cd-mediaitem-square {
+    width: 220px;
+    height: 260px;
+    display: inline-flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    font-size: 14px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    max-width: 240px;
+    flex-grow: 1;
+  }
 }
 
 /* Album / Playlist Page */
@@ -2572,6 +2589,13 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     width: 100%;
     text-align: center;
     font-size: 12px;
+  }
+
+  &.mediaitem-video {
+    height: 200px;
+    .artwork {
+      height: 106px;
+    }
   }
 }
 
