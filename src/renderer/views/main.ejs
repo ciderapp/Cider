@@ -43,7 +43,7 @@
                             @click="mk.shuffleMode = 0"></button>
                 </div>
                 <div class="app-chrome-item">
-                    <button class="playback-button previous" @click="mk.skipToPreviousItem()"></button>
+                    <button class="playback-button previous" @click="prevButton()"></button>
                 </div>
                 <div class="app-chrome-item">
                     <button class="playback-button pause" @click="mk.pause()" v-if="mk.isPlaying"></button>
