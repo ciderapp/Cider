@@ -826,9 +826,11 @@ const app = new Vue({
                     a = []
                 } finally {
                     this.showingPlaylist = a
+                    this.playlists.loadingState = 1
                 }
             } finally {
                 this.showingPlaylist = a
+                this.playlists.loadingState = 1
             }
             ;
         },

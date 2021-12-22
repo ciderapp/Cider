@@ -111,7 +111,7 @@
         methods: {
             getActiveLyric() {
              //   console.log(this.time);
-                const delayfix = 0.35
+                const delayfix = 0.1
                 const prevLine = app.currentLyricsLine;
                 for (var i = 0; i < this.lyrics.length; i++) {
                     if (this.time + delayfix >= this.lyrics[i].startTime && this.time + delayfix <= app.lyrics[i].endTime) {
