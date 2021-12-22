@@ -239,23 +239,60 @@ const app = new Vue({
         hangtimer: null,
         selectedMediaItems: [],
         routes: ["browse", "listen_now", "radio"],
-        musicBaseUrl: "https://api.music.apple.com/"
+        musicBaseUrl: "https://api.music.apple.com/",
+        modals: {
+            addToPlaylist: false
+        },
     },
     watch: {
         page: () => {
             document.getElementById("app-content").scrollTo(0, 0);
-            app.selectedMediaItems = [];
+            app.resetState()
         },
         showingPlaylist: () => {
             document.getElementById("app-content").scrollTo(0, 0);
-            app.selectedMediaItems = [];
+            app.resetState()
         },
         artistPage: () => {
             document.getElementById("app-content").scrollTo(0, 0);
-            app.selectedMediaItems = [];
+            app.resetState()
         },
     },
     methods: {
+        resetState() {
+            app.selectedMediaItems = [];
+            for (let key in app.modals) {
+                app.modals[key] = false;
+            }
+        },
+        promptAddToPlaylist() {
+            app.modals.addToPlaylist = true;
+        },
+        addSelectedToPlaylist(playlist_id) {
+            let self = this
+            let pl_items = []
+            for (let i = 0; i < self.selectedMediaItems.length; i++) {
+                if(self.selectedMediaItems[i].kind == "song") {
+                    self.selectedMediaItems[i].kind = "songs"
+                }else if(self.selectedMediaItems[i].kind == "album") {
+                    self.selectedMediaItems[i].kind = "albums"
+                } else if(self.selectedMediaItems[i].kind == "library-song") {
+                    self.selectedMediaItems[i].kind = "library-songs"
+                } else if(self.selectedMediaItems[i].kind == "library-album") {
+                    self.selectedMediaItems[i].kind = "library-albums"
+                }
+                pl_items.push({
+                    id: self.selectedMediaItems[i].id,
+                    type: self.selectedMediaItems[i].kind
+                })
+            }
+            this.modals.addToPlaylist = false
+            this.mk.api.library.appendTracksToPlaylist(playlist_id, pl_items).then(()=>{
+                if(this.page == 'playlist_' + this.showingPlaylist.id) {
+                    this.getPlaylistFromID(this.showingPlaylist.id)
+                }
+            })
+        },
         async init() {
             let self = this
             clearTimeout(this.hangtimer)
@@ -326,7 +363,7 @@ const app = new Vue({
 
                 let type = (self.mk.nowPlayingItem != null) ? self.mk.nowPlayingItem["type"] ?? '' : '';
 
-                if (type.includes("musicVideo") || type.includes("uploadedVideo") ||  type.includes("music-movie")) {
+                if (type.includes("musicVideo") || type.includes("uploadedVideo") || type.includes("music-movie")) {
                     document.getElementById("apple-music-video-container").style.display = "block";
                     // app.chrome.topChromeVisible = false
                 } else {
@@ -366,7 +403,6 @@ const app = new Vue({
                 this.appRoute(window.location.hash)
             }
 
-            
             setTimeout(() =>{
                 this.getBrowsePage();
                 this.$forceUpdate()}, 500)
@@ -401,13 +437,14 @@ const app = new Vue({
                 return false
             }
         },
-        select_selectMediaItem(id, kind, index, guid) {
+        select_selectMediaItem(id, kind, index, guid, library) {
             if (!this.select_hasMediaItem(guid)) {
                 this.selectedMediaItems.push({
                     id: id,
                     kind: kind,
                     index: index,
-                    guid: guid
+                    guid: guid,
+                    isLibrary: library
                 })
             }
         },
@@ -466,10 +503,11 @@ const app = new Vue({
             let playlistId = response.id
             this.playlists.loadingState = 0
             this.showingPlaylist = response
-            if(!response.relationships.tracks.next) {
+            if (!response.relationships.tracks.next) {
                 this.playlists.loadingState = 1
                 return
             }
+
             function getPlaylistTracks(next) {
                 app.apiCall(app.musicBaseUrl + next, res => {
                     if (self.showingPlaylist.id != playlistId) {
@@ -669,7 +707,6 @@ const app = new Vue({
                     window.location.hash = `${kind}/${id}`
                     document.querySelector("#app-content").scrollTop = 0
                 } else if (!kind.toString().includes("radioStation") && !kind.toString().includes("song") && !kind.toString().includes("musicVideo") && !kind.toString().includes("uploadedVideo") && !kind.toString().includes("music-movie")) {
-                    if (kind.toString().includes("music-movie")){kind = "musicMovie"}
                     app.page = (kind) + "_" + (id);
                     app.getTypeFromID((kind), (id), (isLibrary), {extend: "editorialVideo"});
                     window.location.hash = `${kind}/${id}`

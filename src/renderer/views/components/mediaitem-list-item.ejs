@@ -4,9 +4,10 @@
              @contextmenu="contextMenu"
              @click="select"
              :data-id="item.attributes.playParams.id ?? item.id"
-             :data-type="item.type ?? item.attributes.playParams.kind"
+             :data-type="getDataType()"
              :data-index="index"
              :data-guid="guid"
+             :data-islibrary="this.item.attributes.playParams.isLibrary ?? false"
              class="cd-mediaitem-list-item"
              :class="{'mediaitem-selected': app.select_hasMediaItem(guid)}">
             <template v-if="isVisible">
@@ -84,11 +85,23 @@
             'contextExt': {type: Object, required: false},
         },
         methods: {
+            getDataType() {
+                if(this.item.attributes.playParams.isLibrary) {
+                    return this.item.type
+                }else{
+                    return this.item.attributes.playParams.kind
+                }
+            },
             select(e) {
+                let data_type = this.getDataType()
+                let item_id = this.item.attributes.playParams.id ?? this.item.id
+                let isLibrary = this.item.attributes.playParams.isLibrary ?? false
+
                 if (e.shiftKey) {
                     if (this.index != -1) {
+
                         if(app.selectedMediaItems.length == 0) {
-                            app.select_selectMediaItem(this.item.attributes.playParams.id ?? this.item.id, this.item.attributes.playParams.kind ?? this.item.type, this.index, this.guid)
+                            app.select_selectMediaItem(item_id, this.getDataType(), this.index, this.guid, isLibrary)
                         }
                         let allMediaItems = document.querySelectorAll(".cd-mediaitem-list-item[data-index]")
                         let startIndex = Math.min(...app.selectedMediaItems.map(item => item.index))
@@ -100,7 +113,8 @@
                                     app.select_selectMediaItem(item.getAttribute("data-id"),
                                         item.getAttribute("data-type"),
                                         item.getAttribute("data-index"),
-                                        item.getAttribute("data-guid"))
+                                        item.getAttribute("data-guid")),
+                                        item.getAttribute("data-islibrary")
                                 }
                             }
                         } else if (this.index > endIndex) {
@@ -110,7 +124,8 @@
                                     app.select_selectMediaItem(item.getAttribute("data-id"),
                                         item.getAttribute("data-type"),
                                         item.getAttribute("data-index"),
-                                        item.getAttribute("data-guid"))
+                                        item.getAttribute("data-guid")),
+                                        item.getAttribute("data-islibrary")
                                 }
                             }
                         } else {
@@ -120,7 +135,8 @@
                                     app.select_selectMediaItem(item.getAttribute("data-id"),
                                         item.getAttribute("data-type"),
                                         item.getAttribute("data-index"),
-                                        item.getAttribute("data-guid"))
+                                        item.getAttribute("data-guid")),
+                                        item.getAttribute("data-islibrary")
                                 }
                             }
                         }
@@ -129,29 +145,39 @@
                     if (app.select_hasMediaItem(this.guid)) {
                         app.select_removeMediaItem(this.guid)
                     } else {
-                        app.select_selectMediaItem(this.item.attributes.playParams.id ?? this.item.id, this.item.attributes.playParams.kind ?? this.item.type, this.index, this.guid)
+                        app.select_selectMediaItem(item_id, this.getDataType(), this.index, this.guid, isLibrary)
                     }
                 } else {
                     if (app.select_hasMediaItem(this.guid)) {
                         app.selectedMediaItems = []
                     } else {
                         app.selectedMediaItems = []
-                        app.select_selectMediaItem(this.item.attributes.playParams.id ?? this.item.id, this.item.attributes.playParams.kind ?? this.item.type, this.index, this.guid)
+                        app.select_selectMediaItem(item_id, this.getDataType(), this.index, this.guid, isLibrary)
                     }
                 }
             },
             contextMenu(event) {
                 let self = this
+                let data_type = this.getDataType()
+                let item_id = this.item.attributes.playParams.id ?? this.item.id
+                let isLibrary = this.item.attributes.playParams.isLibrary ?? false
+
                 let useMenu = "normal"
                 if (app.selectedMediaItems.length <= 1) {
                     app.selectedMediaItems = []
-                    app.select_selectMediaItem(this.item.attributes.playParams.id ?? this.item.id, this.item.attributes.playParams.kind ?? this.item.type, this.index, this.guid)
+                    app.select_selectMediaItem(item_id, data_type, this.index, this.guid, isLibrary)
                 } else {
                     useMenu = "multiple"
                 }
                 let menus = {
                     multiple: {
                         items: [
+                            {
+                                "name": "Add to Playlist...",
+                                "action": function () {
+                                    app.promptAddToPlaylist()
+                                }
+                            },
                             {
                                 name: `Play ${app.selectedMediaItems.length} tracks next`,
                                 action: () => {
@@ -197,6 +223,12 @@
                     },
                     normal: {
                         items: [
+                            {
+                                "name": "Add to Playlist...",
+                                "action": function () {
+                                    app.promptAddToPlaylist()
+                                }
+                            },
                             {
                                 "name": "Start Radio",
                                 "action": function () {

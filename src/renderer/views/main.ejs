@@ -173,6 +173,7 @@
                         Playlists
                     </div>
                     <button class="app-sidebar-item" v-for="item in playlists.listing" :key="item.id"
+                            @dragover="()=>{}"
                             :href="item.href"
                             @click='appRoute(`playlist_` + item.id); showingPlaylist = [];getPlaylistFromID(app.page.substring(9))'>
                         {{ item.attributes.name }}
@@ -408,6 +409,9 @@
     <transition name="wpfade">
         <div class="bg-artwork--placeholder" v-else></div>
     </transition>
+    <transition name="wpfade">
+        <add-to-playlist :playlists="playlists.listing" v-if="modals.addToPlaylist"></add-to-playlist>
+    </transition>
     <div id="apple-music-video-container">
         <div id="apple-music-video-player-controls">
             <div id="player-exit" title="Close" onclick="app.exitMV()">
@@ -485,6 +489,8 @@
     </button>
 </script>
 
+<!-- Add to playlist -->
+<%- include('components/add-to-playlist') %>
 <!-- Queue -->
 <%- include('components/queue') %>
 <!-- Queue Item -->

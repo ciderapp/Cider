@@ -1520,6 +1520,49 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
 /* Cider */
 
+.modal-fullscreen {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  .modal-window {
+    background: #333;
+    border-radius: var(--mediaItemRadius);
+    box-shadow: var(--mediaItemShadow-Shadow);
+    display:flex;
+    flex-flow: column;
+    .modal-header {
+      width:100%;
+      padding: 6px;
+    }
+    .modal-content {
+      width:100%;
+      height:100%;
+      overflow: hidden;
+      overflow-y: scroll;
+    }
+    .modal-footer {
+
+    }
+  }
+}
+
+.addtoplaylist-panel {
+  .modal-header {
+    padding: 16px;
+  }
+  .modal-window {
+    max-height: 500px;
+    max-width: 300px;
+  }
+}
+
 #navigation-bar {
   width: 100%;
   background: rgba(0, 0, 0, 0.25);

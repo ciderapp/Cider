@@ -60,7 +60,7 @@
             <div class="playlist-body">
                 <div class="well">
                     <div style="width:100%">
-                        <draggable :sort="data.attributes.canEdit" v-model="data.relationships.tracks.data" @start="drag=true" @end="drag=false;put()">
+                        <draggable :sort="data.attributes.canEdit && data.type == 'library-playlists'" v-model="data.relationships.tracks.data" @start="drag=true" @end="drag=false;put()">
                             <mediaitem-list-item :item="item" :parent="getItemParent(data)" :index="index" :context-ext="buildContextMenu()"
                                                  v-for="(item,index) in data.relationships.tracks.data"></mediaitem-list-item>
                         </draggable>

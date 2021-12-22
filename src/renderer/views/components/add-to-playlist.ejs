@@ -1,0 +1,36 @@
+<script type="text/x-template" id="add-to-playlist">
+    <template>
+        <div class="modal-fullscreen addtoplaylist-panel" @click.self="app.resetState()">
+            <div class="modal-window">
+                <div class="modal-header">
+                    <div class="row">
+                        <div class="col flex-center">
+                            Add To Playlist
+                        </div>
+                        <div class="col-auto">
+                            <button class="md-btn" @click="app.resetState()">Close</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-content">
+                    <button class="md-btn" @click="app.addSelectedToPlaylist(playlist.id)" style="width:100%;" v-for="playlist in playlists" v-if="playlist.attributes.canEdit && playlist.type != 'library-playlist-folders'">{{ playlist.attributes.name }}</button>
+                </div>
+            </div>
+        </div>
+    </template>
+</script>
+
+<script>
+    Vue.component('add-to-playlist', {
+        template: '#add-to-playlist',
+        props: {
+            playlists: {
+                type: Array,
+                required: true
+            }
+        },
+        methods: {
+
+        }
+    });
+</script>
