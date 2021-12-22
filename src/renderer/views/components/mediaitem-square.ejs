@@ -20,6 +20,7 @@
                     <div class="subtitle item-navigate text-overflow-elipsis" @click="app.searchAndNavigate(item,'artist')" v-if="item.attributes.artistName">
                         {{ item.attributes.artistName }}
                     </div>
+                    <div class="subtitle" v-else>&nbsp;</div>
             </template>
         </div>
     </template>
