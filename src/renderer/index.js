@@ -339,19 +339,15 @@ const app = new Vue({
                 app.loadLyrics()
 
                 // Playback Notifications
-                if ((app.platform === "darwin" || app.platform === "linux") && !document.hasFocus()) {
+                if ((app.platform === "darwin" || app.platform === "linux") && !document.hasFocus() && a.artistName && a.artwork && a.name) {
                     if (this.notification) {
                         this.notification.close()
                     }
-                    if (a.artistName && a.artwork && a.name) {
-                        this.notification = new Notification(a.name, {
-                          body: a.artistName,
-                          icon: a.artwork.url
-                            .replace('/{w}x{h}bb', '/512x512bb')
-                            .replace('/2000x2000bb', '/35x35bb'),
-                          silent: true,
-                        });
-                    }
+                    this.notification = new Notification(a.name, {
+                        body: a.artistName,
+                        icon: a.artwork.url.replace('/{w}x{h}bb', '/512x512bb').replace('/2000x2000bb', '/35x35bb'),
+                        silent: true,
+                    });
                 }
 
             })
