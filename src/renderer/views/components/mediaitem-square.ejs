@@ -12,8 +12,8 @@
                                     shadow="subtle"
                                     :type="item.type"></mediaitem-artwork>
                         </div>
-                        <button class="menu-btn" v-if="item.type != 'artists' && item.type != 'stations'" @click="contextMenu"><%- include("../svg/more.svg") %></button>
-                        <button class="play-btn" @click="app.playMediaItem(item)"><%- include("../svg/play.svg") %></button>
+                        <button class="menu-btn" v-if="!nomenu.includes(item.type)" @click="contextMenu"><%- include("../svg/more.svg") %></button>
+                        <button class="play-btn" v-if="!noplay.includes(item.type)" @click="app.playMediaItem(item)"><%- include("../svg/play.svg") %></button>
                     </div>
                     <div class="title item-navigate text-overflow-elipsis" @click.self='app.routeView(item)'>
                         {{ item.attributes.name }}
@@ -48,7 +48,9 @@
             return {
                 isVisible: false,
                 addedToLibrary: false,
-                guid: uuidv4()
+                guid: uuidv4(),
+                noplay: ["apple-curators"],
+                nomenu: ["artists", "stations", "apple-curators"]
             }
         },
         methods: {
@@ -84,6 +86,9 @@
                 this.isVisible = isVisible
             },
             contextMenu(event) {
+                if(this.nomenu.includes(this.item.type)) {
+                    return
+                }
                 if (!event) { event = this.$refs.main } else { console.log(event) }
                 let self = this
                 let useMenu = "normal"
