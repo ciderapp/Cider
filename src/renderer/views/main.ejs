@@ -183,7 +183,24 @@
                     <div class="usermenu-container" v-if="chrome.menuOpened">
                         <div class="usermenu-body">
                             <button class="usermenu-item" @click="chrome.hideUserInfo = !chrome.hideUserInfo">
-                                Toggle Personal Info
+                                <div class="row nopadding">
+                                    <div class="col nopadding">
+                                        Show Personal Info
+                                    </div>
+                                    <div class="col-auto nopadding" v-if="!chrome.hideUserInfo">
+                                        ✔️
+                                    </div>
+                                </div>
+                            </button>
+                            <button class="usermenu-item" @click="mk.privateEnabled = !mk.privateEnabled">
+                                <div class="row nopadding">
+                                    <div class="col nopadding">
+                                        Private Session
+                                    </div>
+                                    <div class="col-auto nopadding" v-if="mk.privateEnabled">
+                                        ✔️
+                                    </div>
+                                </div>
                             </button>
                             <button class="usermenu-item">
                                 About

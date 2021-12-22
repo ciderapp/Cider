@@ -108,6 +108,7 @@ input[type=range].md-slider::-webkit-slider-runnable-track {
     font-size: 15px;
     border: 1px solid rgb(100 100 100 / 35%);
     box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.3), 0px 1px 1px rgba(0, 0, 0, 0.4);
+    color: #eee;
 }
 
 .md-btn.md-btn-block {
@@ -165,18 +166,6 @@ input[type=range].md-slider::-webkit-slider-runnable-track {
     height: 100%;
     padding: 16px;
     font-size: 1.25em;
-}
-
-@media (prefers-color-scheme: light) {
-    .md-btn {
-        background: rgb(255 255 255);
-        box-shadow: rgb(0 0 0 / 10%) 0px 0px 1px, rgb(0 0 0 / 20%) 0px 1px 1px;
-        border: 1px solid rgb(0 0 0 / 15%);
-    }
-
-    .md-close-btn {
-        background-color: #000;
-    }
 }
 
 /* Vue transitions */

@@ -3,17 +3,25 @@
         <div class="modal-fullscreen addtoplaylist-panel" @click.self="app.resetState()">
             <div class="modal-window">
                 <div class="modal-header">
-                    <div class="row">
-                        <div class="col flex-center">
-                            Add To Playlist
-                        </div>
-                        <div class="col-auto">
-                            <button class="md-btn" @click="app.resetState()">Close</button>
-                        </div>
-                    </div>
+                    <div class="modal-title">Add to Playlist</div>
+                    <button class="close-btn" @click="app.resetState()"></button>
                 </div>
+                <div class="modal-search">
+                    <div class="search-input-container" style="width:100%;margin: 16px 0px;">
+                        <div class="search-input--icon"></div>
+                        <input type="search"
+                               ref="searchInput"
+                               style="width:100%;"
+                               spellcheck="false"
+                               placeholder="Search..."
+                               v-model="searchQuery"
+                               @input="search()"
+                               class="search-input">
+                    </div>                </div>
                 <div class="modal-content">
-                    <button class="md-btn" @click="app.addSelectedToPlaylist(playlist.id)" style="width:100%;" v-for="playlist in playlists" v-if="playlist.attributes.canEdit && playlist.type != 'library-playlist-folders'">{{ playlist.attributes.name }}</button>
+                    <button class="playlist-item" 
+                    :class="{ focused: playlist.id == focused }"
+                    @click="addToPlaylist(playlist.id)" style="width:100%;" v-for="playlist in playlistSorted" v-if="playlist.attributes.canEdit && playlist.type != 'library-playlist-folders'">{{ playlist.attributes.name }}</button>
                 </div>
             </div>
         </div>
@@ -23,14 +31,47 @@
 <script>
     Vue.component('add-to-playlist', {
         template: '#add-to-playlist',
+        data: function () {
+            return {
+                playlistSorted: [],
+                searchQuery: "",
+                focused: ""
+            }
+        },
         props: {
             playlists: {
                 type: Array,
                 required: true
             }
         },
+        mounted() {
+            this.search()
+            this.$refs.searchInput.focus()
+            this.$refs.searchInput.addEventListener('keydown', (e)=>{
+                if(e.keyCode == 13){
+                    if(this.focused != "") {
+                        this.addToPlaylist(this.focused)
+                    }
+                }
+            })
+        },
         methods: {
-
+            addToPlaylist(id) {
+                app.addSelectedToPlaylist(id)
+            },
+            search() {
+                this.focused = ""
+                if (this.searchQuery == "") {
+                    this.playlistSorted = this.playlists
+                } else {
+                    this.playlistSorted = this.playlists.filter(playlist => {
+                        return playlist.attributes.name.toLowerCase().indexOf(this.searchQuery.toLowerCase()) > -1
+                    })
+                    if(this.playlistSorted.length == 1) {
+                        this.focused = this.playlistSorted[0].id
+                    }
+                }
+            },
         }
     });
 </script>
