@@ -453,6 +453,32 @@ const app = new Vue({
                 self.playlists.listing = res.data
             })
         },
+        playlistHeaderContextMenu(event) {
+            let menu = {
+                items: [
+                    {
+                        name: "New Playlist",
+                        action: () => {
+                            this.newPlaylist()
+                        }
+                    }
+                ]
+            }
+            CiderContextMenu.Create(event, menu)
+        },
+        playlistContextMenu(event, playlist_id) {
+            let menu = {
+                items: [
+                    {
+                        name: "Delete from library",
+                        action: () => {
+                            this.deletePlaylist(playlist_id)
+                        }
+                    }
+                ]
+            }
+            CiderContextMenu.Create(event, menu)
+        },
         async editPlaylist(id, name = "New Playlist") {
             let self = this
             await app.mk.api.library.editPlaylist(id, {name: name}).then(res => {
@@ -461,14 +487,21 @@ const app = new Vue({
         },
         async newPlaylist(name = "New Playlist", tracks = []) {
             let self = this
-            await app.mk.api.library.createPlaylist({name: name, tracks: tracks}).then(res => {
+            let request = {
+                name: name
+            }
+            if(tracks.length > 0) {
+                request.tracks = tracks
+            }
+            await app.mk.api.library.createPlaylist(request).then(res => {
+                console.log(res)
                 self.refreshPlaylists()
-                appRoute(`playlist_` + res.id);
+                self.appRoute(`playlist_` + res.id);
             })
         },
         async deletePlaylist(id) {
             let self = this
-            if(confirm(`Are you sure you want to delete "${this.playlists.listing[id].attributes.name}"?`)) {
+            if(confirm(`Are you sure you want to delete this playlist?`)) {
                 await app.mk.api.library.deletePlaylist(id).then(res=>{
                     self.refreshPlaylists()
                 })

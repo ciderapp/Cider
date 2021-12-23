@@ -169,10 +169,11 @@
                     <sidebar-library-item name="Albums" page="library-albums"></sidebar-library-item>
                     <sidebar-library-item name="Artists" page="library-artists"></sidebar-library-item>
                     <sidebar-library-item name="Made For You" page="library-madeforyou"></sidebar-library-item>
-                    <div class="app-sidebar-header-text">
+                    <div class="app-sidebar-header-text" @contextmenu="playlistHeaderContextMenu">
                         Playlists
                     </div>
                     <button class="app-sidebar-item" v-for="item in playlists.listing" :key="item.id"
+                            @contextmenu="playlistContextMenu($event, item.id)"
                             @dragover="()=>{}"
                             :href="item.href"
                             @click='appRoute(`playlist_` + item.id); showingPlaylist = [];getPlaylistFromID(app.page.substring(9))'>
