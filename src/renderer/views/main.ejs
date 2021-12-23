@@ -173,6 +173,7 @@
                         Playlists
                     </div>
                     <button class="app-sidebar-item" v-for="item in playlists.listing" :key="item.id"
+                            v-if="item.attributes.name"
                             @contextmenu="playlistContextMenu($event, item.id)"
                             @dragover="()=>{}"
                             :href="item.href"
