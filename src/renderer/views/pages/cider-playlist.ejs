@@ -55,7 +55,7 @@
                                 @click="app.mk.shuffleMode = 1;app.playMediaItemById(data.attributes.playParams.id ?? data.id, data.attributes.playParams.kind ?? data.type, data.attributes.playParams.isLibrary ?? false, data.attributes.url)">
                             Shuffle
                         </button>
-                        <button class="wr-btn" style="min-width: 120px;" 
+                        <button class="wr-btn" style="min-width: 120px;" v-if="inLibrary!=null"
                         @click="(!inLibrary) ? addToLibrary(data.attributes.playParams.id.toString()) : removeFromLibrary(data.attributes.playParams.id.toString())">
                           {{ (!inLibrary) ? "Add to Library" : "Remove from Library" }}
                        </button>
