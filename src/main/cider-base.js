@@ -153,11 +153,13 @@ const CiderBase = {
             }
         )
 
-        win.webContents.session.webRequest.onBeforeSendHeaders((details, callback) => {
+        win.webContents.session.webRequest.onBeforeSendHeaders(async (details, callback)  =>  {
              if(details.url == "https://buy.itunes.apple.com/account/web/info"){
             details.requestHeaders['sec-fetch-site'] = 'same-site';
             details.requestHeaders['DNT'] = '1';
-            details.requestHeaders['Cookie'] = "dssf=1; accs=o; itspod=33"
+            let itspod = await win.webContents.executeJavaScript(`window.localStorage.getItem("music.ampwebplay.itspod")`) 
+            if (itspod != null)
+            details.requestHeaders['Cookie'] = `itspod=${itspod}`
            }
            callback({ requestHeaders: details.requestHeaders })
         })
