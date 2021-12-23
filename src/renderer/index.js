@@ -336,20 +336,9 @@ const app = new Vue({
 
 
             this.mk.addEventListener(MusicKit.Events.playbackTimeDidChange, (a) => {
-                if (self.mk.nowPlayingItem && self.mk.nowPlayingItem.playParams.kind.includes('ideo')) {
-                    self.lyriccurrenttime = (self.mk.currentPlaybackTime)
-                }
+                self.lyriccurrenttime = self.mk.currentPlaybackTime
                 this.currentSongInfo = a
                 self.playerLCD.playbackDuration = (self.mk.currentPlaybackTime)
-                if (!self.playerReady) {
-                    if (document.getElementById("apple-music-player")) {
-                        self.playerReady = true;
-                        document.getElementById("apple-music-player").addEventListener('timeupdate', function () {
-                            self.lyriccurrenttime = self.mk.currentPlaybackTime
-                        })
-                    }
-                }
-                // animated dot like AM - bad perf
             })
 
             this.mk.addEventListener(MusicKit.Events.nowPlayingItemDidChange, (a) => {
