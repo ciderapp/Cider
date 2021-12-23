@@ -454,6 +454,7 @@ const app = new Vue({
             })
         },
         async editPlaylist(id, name = "New Playlist") {
+            let self = this
             await app.mk.api.library.editPlaylist(id, {name: name}).then(res => {
                 self.refreshPlaylists()
             })

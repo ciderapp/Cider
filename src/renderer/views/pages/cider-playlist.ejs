@@ -22,9 +22,10 @@
                 <div class="col playlist-info">
                     <template v-if="!editorialNotesExpanded">
                         <div>
-                            <div class="playlist-name">{{data.attributes ? (data.attributes.name ??
+                            <div class="playlist-name" @click="editPlaylistName()" v-show="!nameEditing">{{data.attributes ? (data.attributes.name ??
                                 (data.attributes.title ?? '') ?? '') : ''}}
                             </div>
+                            <div class="playlist-name" v-show="nameEditing"><input type="text" spellcheck="false" class="nameEdit" v-model="data.attributes.name" @blur="editPlaylist" @change="editPlaylist" @keydown.enter="editPlaylist"/></div>
                             <div class="playlist-artist item-navigate" v-if="data.attributes && data.attributes.artistName" @click="if(data.attributes && data.attributes.artistName){ app.searchAndNavigate(data,'artist')}">
                                 {{data.attributes ? (data.attributes.artistName ?? '') :''}}
                             </div>
@@ -87,13 +88,26 @@
         data: function () {
             return {
                 editorialNotesExpanded: false,
-                drag: false
+                drag: false,
+                nameEditing: false
             }
         },
         mounted() {
 
         },
         methods: {
+            editPlaylist() {
+                app.editPlaylist(this.data.id, this.data.attributes.name);
+                this.nameEditing = false
+            },
+            editPlaylistName() {
+                if(this.data.attributes.canEdit && this.data.type == "library-playlists") {
+                    this.nameEditing = true
+                    setTimeout(() => {
+                        document.querySelector(".nameEdit").focus()
+                    }, 100)
+                }
+            },
             buildContextMenu (index) {
                 let self = this
                 if(!this.data.attributes.canEdit) {
