@@ -76,6 +76,15 @@ const CiderBase = {
             }
         )
 
+        win.webContents.session.webRequest.onBeforeSendHeaders((details, callback) => {
+             if(details.url == "https://buy.itunes.apple.com/account/web/info"){
+            details.requestHeaders['sec-fetch-site'] = 'same-site';
+            details.requestHeaders['DNT'] = '1';
+            details.requestHeaders['Cookie'] = "dssf=1; accs=o; itspod=33"
+           }
+           callback({ requestHeaders: details.requestHeaders })
+        })
+
         let location = "http://localhost:9000/"
         win.loadURL(location)
         win.on("closed", () => {
