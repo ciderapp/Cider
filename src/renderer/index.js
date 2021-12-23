@@ -485,7 +485,7 @@ const app = new Vue({
                 self.refreshPlaylists()
             })
         },
-        async newPlaylist(name = "New Playlist", tracks = []) {
+        newPlaylist(name = "New Playlist", tracks = []) {
             let self = this
             let request = {
                 name: name
@@ -493,17 +493,25 @@ const app = new Vue({
             if(tracks.length > 0) {
                 request.tracks = tracks
             }
-            await app.mk.api.library.createPlaylist(request).then(res => {
+            app.mk.api.library.createPlaylist(request).then(res => {
                 console.log(res)
-                self.refreshPlaylists()
                 self.appRoute(`playlist_` + res.id);
+                self.showingPlaylist = [];
+                self.getPlaylistFromID(app.page.substring(9))
+                setTimeout(() => {
+                    app.refreshPlaylists()
+                }, 3000)
             })
         },
-        async deletePlaylist(id) {
+        deletePlaylist(id) {
             let self = this
             if(confirm(`Are you sure you want to delete this playlist?`)) {
-                await app.mk.api.library.deletePlaylist(id).then(res=>{
-                    self.refreshPlaylists()
+                app.mk.api.library.deletePlaylist(id).then(res=>{
+                    // remove this playlist from playlists.listing if it exists
+                    let found = self.playlists.listing.find(item => item.id == id)
+                    if(found) {
+                        self.playlists.listing.splice(self.playlists.listing.indexOf(found), 1)
+                    }
                 })
             }
         },
