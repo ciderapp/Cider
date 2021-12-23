@@ -1,10 +1,18 @@
 <script type="text/x-template" id="add-to-playlist">
     <template>
-        <div class="modal-fullscreen addtoplaylist-panel" @click.self="app.resetState()">
+        <div class="modal-fullscreen addtoplaylist-panel" @click.self="app.resetState()" @contextmenu.self="app.resetState()">
             <div class="modal-window">
                 <div class="modal-header">
                     <div class="modal-title">Add to Playlist</div>
                     <button class="close-btn" @click="app.resetState()"></button>
+                </div>
+                <div class="modal-content">
+                    <button class="playlist-item" 
+                    :class="{ focused: playlist.id == focused }"
+                    @click="addToPlaylist(playlist.id)" style="width:100%;" v-for="playlist in playlistSorted" v-if="playlist.attributes.canEdit && playlist.type != 'library-playlist-folders'">
+                    <div class="icon"><%- include("../svg/playlist.svg") %></div>
+                    <div class="name">{{ playlist.attributes.name }}</div>
+                </button>
                 </div>
                 <div class="modal-search">
                     <div class="search-input-container" style="width:100%;margin: 16px 0px;">
@@ -17,11 +25,7 @@
                                v-model="searchQuery"
                                @input="search()"
                                class="search-input">
-                    </div>                </div>
-                <div class="modal-content">
-                    <button class="playlist-item" 
-                    :class="{ focused: playlist.id == focused }"
-                    @click="addToPlaylist(playlist.id)" style="width:100%;" v-for="playlist in playlistSorted" v-if="playlist.attributes.canEdit && playlist.type != 'library-playlist-folders'">{{ playlist.attributes.name }}</button>
+                    </div>                
                 </div>
             </div>
         </div>
@@ -47,9 +51,9 @@
         mounted() {
             this.search()
             this.$refs.searchInput.focus()
-            this.$refs.searchInput.addEventListener('keydown', (e)=>{
-                if(e.keyCode == 13){
-                    if(this.focused != "") {
+            this.$refs.searchInput.addEventListener('keydown', (e) => {
+                if (e.keyCode == 13) {
+                    if (this.focused != "") {
                         this.addToPlaylist(this.focused)
                     }
                 }
@@ -67,7 +71,7 @@
                     this.playlistSorted = this.playlists.filter(playlist => {
                         return playlist.attributes.name.toLowerCase().indexOf(this.searchQuery.toLowerCase()) > -1
                     })
-                    if(this.playlistSorted.length == 1) {
+                    if (this.playlistSorted.length == 1) {
                         this.focused = this.playlistSorted[0].id
                     }
                 }

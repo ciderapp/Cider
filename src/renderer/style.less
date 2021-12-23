@@ -1528,7 +1528,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.3);
   z-index: 9999;
   .modal-window {
     background: #333;
@@ -1536,11 +1536,24 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     box-shadow: var(--mediaItemShadow-Shadow);
     display:flex;
     flex-flow: column;
-
     max-height: 500px;
     max-width: 360px;
     background: #121212;
     width: 100%;
+    position: relative;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      box-shadow: var(--mediaItemShadow);
+      z-index: 1;
+      border-radius: inherit;
+    }
 
     .modal-header {
       width:100%;
@@ -1562,9 +1575,10 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   .modal-window {
     max-height: 600px;
     max-width: 400px;
-    background: #121212;
+    background: rgb(18 18 18 / 90%);
     overflow: hidden;
-
+    backdrop-filter: blur(16px) saturate(180%);
+    
     .modal-header {
       padding: 16px;
       position:relative;
@@ -1601,19 +1615,34 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     .playlist-item {
       appearance: none;
       border: 0px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
       text-align: left;
       width: 100%;
       margin: 0;
-      display: block;
-      background: rgba(200, 200, 200, 0.02);
+      display: flex;
+      background: rgba(32, 32, 32, 0.46);
       color: #eee;
       font-family: inherit;
       font-size: 0.98em;
-      padding: 12px 12px;
+      padding: 6px 12px;
+      align-items: center;
+      flex-flow: row;
+
+      .icon {
+        pointer-events: none;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 6px;
+      }
+
+      .name {
+
+      }
 
       &:hover {
-        background: rgb(200 200 200 / 4%);
+        background: var(--selected);
       }
 
       &:active {
@@ -2759,6 +2788,18 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 /* Cider */
 
 /* Transitions */
+
+.modal-enter-active,
+.modal-leave-active {
+  transition: opacity .1s var(--appleEase), transform .1s var(--appleEase);
+}
+
+.modal-enter,
+.modal-leave-to {
+  opacity: 0;
+  transform: scale(1.10);
+}
+
 .wpfade-enter-active,
 .wpfade-leave-active {
   transition: opacity .1s var(--appleEase);
