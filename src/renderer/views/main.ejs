@@ -428,7 +428,7 @@
     <transition name="wpfade">
         <div class="bg-artwork--placeholder" v-else></div>
     </transition>
-    <transition name="wpfade">
+    <transition name="modal">
         <add-to-playlist :playlists="playlists.listing" v-if="modals.addToPlaylist"></add-to-playlist>
     </transition>
     <div id="apple-music-video-container">
@@ -458,17 +458,9 @@
     </div>
 </div>
 
+
+<!-- Media Item Artwork-->
 <%- include("components/mediaitem-artwork"); %>
-
-<!-- Generic Collection of MediaItems -->
-<script type="text/x-template" id="collection-view-generic">
-    <template>
-        <div class="content-inner">
-
-        </div>
-    </template>
-</script>
-
 <!-- Browse -->
 <%- include('pages/browse') %>
 
