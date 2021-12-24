@@ -98,11 +98,13 @@
             }
         },
         mounted: function () {
-            this.isInLibrary()
+            this.$nextTick(function () {
+                this.isInLibrary()
+            })
         },
         watch:{
-           data : function() {
-            this.isInLibrary()
+           data: function () {
+                this.isInLibrary()
             }
         },
         methods: {

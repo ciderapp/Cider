@@ -731,7 +731,7 @@ const app = new Vue({
             console.log(kind, id, isLibrary)
 
             if (true) {
-                if (kind == "playlist") {
+                if (kind.includes("playlist") || kind.includes("album") || kind.toString().includes("apple-curator")) {
                     app.showingPlaylist = [];
                 }
                 if (kind.toString().includes("apple-curator")) {
@@ -1732,7 +1732,14 @@ const app = new Vue({
                     }
                     this.mk.clearQueue().then(function (_) {
                         app.mk.queue.append(query)
-                        app.mk.changeToMediaAtIndex(childIndex)
+                        if (childIndex != -1) {
+                            app.mk.changeToMediaAtIndex(childIndex)
+                        } else if (item) {
+                            app.mk.playNext({[item.attributes.playParams.kind ?? item.type]: item.attributes.playParams.id ?? item.id}).then(function(){
+                                app.mk.changeToMediaAtIndex(app.mk.queue._itemIDs.indexOf(item.id) ?? 1)
+                                app.mk.play()
+                            })  
+                        } else {app.mk.play()}
                     })
                 } else {
                     try {
@@ -1740,7 +1747,17 @@ const app = new Vue({
                     } catch (e) {
                     }
                     this.mk.setQueue({[truekind]: [id]}).then(function (queue) {
-                        app.mk.changeToMediaAtIndex(childIndex)
+                        if (item && ((queue._itemIDs[childIndex] != item.id))) {
+                            childIndex = queue._itemIDs.indexOf(item.id)
+                        }
+                        if (childIndex != -1) {
+                            app.mk.changeToMediaAtIndex(childIndex)
+                        } else if (item) {
+                            app.mk.playNext({[item.attributes.playParams.kind ?? item.type]: item.attributes.playParams.id ?? item.id}).then(function(){
+                                app.mk.changeToMediaAtIndex(app.mk.queue._itemIDs.indexOf(item.id) ?? 1)
+                                app.mk.play()
+                            })  
+                        } else {app.mk.play()}
                     })
                 }
             } catch (err) {
