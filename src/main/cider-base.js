@@ -7,6 +7,7 @@ const windowStateKeeper = require("electron-window-state");
 const os = require('os');
 const Store = require("electron-store");
 const store = new Store();
+const yt = require('youtube-search-without-api-key');
 
 const schema = {
     "general": {
@@ -181,6 +182,12 @@ const CiderBase = {
         // IPC stuff (listeners)
         ipcMain.on('close', () => { // listen for close event
             win.close();
+        })
+
+        ipcMain.handle('getYTLyrics', async (event, track, artist) => {
+            var u = track + " " + artist + " official video";
+			const videos = await yt.search(u);
+            return videos
         })
 
         ipcMain.handle('getStoreValue', (event, key, defaultValue) => {
