@@ -183,6 +183,10 @@ const CiderBase = {
             event.returnValue = process.platform
         })
 
+        ipcMain.on("is-dev", (event) => {
+            event.returnValue = !app.isPackaged
+        })
+
         // IPC stuff (listeners)
         ipcMain.on('close', () => { // listen for close event
             win.close();
