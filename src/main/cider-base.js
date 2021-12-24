@@ -89,7 +89,11 @@ const ElectronSentry = require("@sentry/electron");
 ElectronSentry.init({dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.ingest.sentry.io/6112214"});
 
 const CiderBase = {
-
+    async Start() {
+        this.clientPort = await getPort({port : 9000});
+        this.CreateBrowserWindow()
+    },
+    clientPort: 0,
     CreateBrowserWindow() {
         // Set default window sizes
         const mainWindowState = windowStateKeeper({
@@ -144,7 +148,7 @@ const CiderBase = {
             (details, callback) => {
                 if (details.url.includes("hls.js")) {
                     callback({
-                        redirectURL: "http://localhost:9000/apple-hls.js"
+                        redirectURL: `http://localhost:${CiderBase.clientPort}/apple-hls.js`
                     })
                 } else {
                     callback({
@@ -165,7 +169,7 @@ const CiderBase = {
             callback({ requestHeaders: details.requestHeaders })
         })
 
-        let location = "http://localhost:9000/"
+        let location = `http://localhost:${CiderBase.clientPort}/`
         win.loadURL(location)
         win.on("closed", () => {
             win = null
@@ -267,19 +271,25 @@ const CiderBase = {
     },
 
     async InitWebServer() {
-        const webRemotePort = await getPort({port : 9000});
         const webapp = express();
         const webRemotePath = path.join(__dirname, '../renderer/');
         webapp.set("views", path.join(webRemotePath, "views"));
         webapp.set("view engine", "ejs");
+
+        webapp.use(function (req, res, next) {
+            // if not localhost
+            if (req.headers.host.includes("localhost") && req.headers["user-agent"].includes("Cider")) {
+                next();
+            }
+        });
 
         webapp.use(express.static(webRemotePath));
         webapp.get('/', function (req, res) {
             //res.sendFile(path.join(webRemotePath, 'index_old.html'));
             res.render("main", CiderBase.EnvironmentVariables)
         });
-        webapp.listen(webRemotePort, function () {
-            console.log(`Web Remote listening on port ${webRemotePort}`);
+        webapp.listen(CiderBase.clientPort, function () {
+            console.log(`Cider client port: ${CiderBase.clientPort}`);
         });
     },
 
