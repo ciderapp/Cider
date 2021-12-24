@@ -109,6 +109,7 @@ class NavigationEvent {
 const app = new Vue({
     el: "#app",
     data: {
+        isDev: ipcRenderer.sendSync("is-dev"),
         drawertest: false,
         platform: "",
         mk: {},
@@ -210,7 +211,7 @@ const app = new Vue({
         tmpVar: [],
         notification: false,
         chrome: {
-            hideUserInfo: false,
+            hideUserInfo: ipcRenderer.sendSync("is-dev"),
             artworkReady: false,
             userinfo: {
                 "id": "",
@@ -300,7 +301,9 @@ const app = new Vue({
             this.mk = MusicKit.getInstance()
             this.mk.authorize()
             this.$forceUpdate()
-            this.mk.privateEnabled = true
+            if(this.isDev) {
+                this.mk.privateEnabled = true
+            }
             this.mk._services.timing.mode = 0
             this.platform = ipcRenderer.sendSync('cider-platform');
             // Set profile name
