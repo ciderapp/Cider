@@ -731,7 +731,7 @@ const app = new Vue({
             console.log(kind, id, isLibrary)
 
             if (true) {
-                if (kind.includes("playlist") || kind.includes("album") || kind.toString().includes("apple-curator")) {
+                if (kind.includes("playlist") || kind.includes("album")) {
                     app.showingPlaylist = [];
                 }
                 if (kind.toString().includes("apple-curator")) {
@@ -935,10 +935,17 @@ const app = new Vue({
                     console.log(err);
                     a = []
                 } finally {
-                    this.getPlaylistContinuous(a)
+                    if (kind == "appleCurator") {
+                        app.appleCurator = a
+                    }
+                    else {    
+                    this.getPlaylistContinuous(a)}
                 }
             } finally {
-                this.getPlaylistContinuous(a)
+                if (kind == "appleCurator") {
+                    app.appleCurator = a
+                } else { 
+                this.getPlaylistContinuous(a)}
             }
             ;
         },
