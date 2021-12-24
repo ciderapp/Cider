@@ -332,6 +332,52 @@ const app = new Vue({
                 this.library.albums.displayListing = this.library.albums.listing
             }
 
+            window.onbeforeunload = function(e) {  
+                window.localStorage.setItem("currentTrack",JSON.stringify(app.mk.nowPlayingItem))
+                window.localStorage.setItem("currentTime",JSON.stringify(app.mk.currentPlaybackTime))
+                window.localStorage.setItem("currentQueue",JSON.stringify(app.mk.queue.items))
+            };
+
+            // load last played track
+            try {
+               lastItem = window.localStorage.getItem("currentTrack")
+               time = window.localStorage.getItem("currentTime")
+               queue = window.localStorage.getItem("currentQueue")
+                if (lastItem != null) {
+                    lastItem = JSON.parse(lastItem)
+                    var kind = lastItem.attributes.playParams.kind;
+                    var truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
+                    app.mk.setQueue({ [truekind]: [lastItem.attributes.playParams.id] })
+                    app.mk.mute()
+                    setTimeout(() =>{
+                    app.mk.play().then(() => {                  
+                        app.mk.pause().then(() => {
+                            if (time != null) {
+                                app.mk.seekToTime(time)
+                            }
+                            app.mk.unmute()
+                            if (queue != null ){
+                                queue = JSON.parse(queue)
+                                if (queue && queue.length > 0){
+                                        let ids = queue.map ( e => (e.playParams ? e.playParams.id : (e.attributes.playParams ? e.attributes.playParams.id : '') ))
+                                        if (ids.length > 0) {
+                                            for (id of ids){
+                                            try{
+                                            app.mk.playLater({songs: [id] })
+                                            } catch (err){}
+                                            }
+                                        }
+                                }
+                            }
+                            
+                        })
+
+                    })},1000)
+
+                }
+
+            } catch (e) {console.log(e)}
+
             MusicKit.getInstance().videoContainerElement = document.getElementById("apple-music-video-player")
 
 
