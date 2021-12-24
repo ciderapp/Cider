@@ -217,7 +217,7 @@ const app = new Vue({
                 "attributes": {
                     "name": "Cider User",
                     "handle": "CiderUser",
-                    "artwork": { "url": "http://localhost:9000/assets/logocut.png" }
+                    "artwork": { "url": "./assets/logocut.png" }
                 }
             },
             menuOpened: false,
@@ -312,7 +312,7 @@ const app = new Vue({
                     "attributes": {
                         "name": "Cider User",
                         "handle": "CiderUser",
-                        "artwork": { "url": "http://localhost:9000/assets/logocut.png" }
+                        "artwork": { "url": "./assets/logocut.png" }
                     }
                 }
             }

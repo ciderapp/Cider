@@ -22,7 +22,7 @@ function CreateWindow() {
     /** CIDER **/
     const ciderwin = require("./src/main/cider-base")
     app.win = ciderwin
-    app.win.CreateBrowserWindow()
+    app.win.Start()
     /** CIDER **/
 }
 
