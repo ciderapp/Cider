@@ -949,14 +949,12 @@ const app = new Vue({
                 // sort this.library.songs.displayListing by song.attributes[self.library.songs.sorting] in descending or ascending order based on alphabetical order and numeric order
                 // check if song.attributes[self.library.songs.sorting] is a number and if so, sort by number if not, sort by alphabetical order ignoring case
                 self.library.songs.displayListing.sort((a, b) => {
-                    let aa = null;
-                    let bb = null;
+                    let aa = a.attributes[self.library.songs.sorting]
+                    let bb = b.attributes[self.library.songs.sorting]
                     if (self.library.songs.sorting == "genre") {
                         aa = a.attributes.genreNames[0]
                         bb = b.attributes.genreNames[0]
                     }
-                    aa = a.attributes[self.library.songs.sorting]
-                    bb = b.attributes[self.library.songs.sorting]
                     if (aa == null) {
                         aa = ""
                     }
@@ -1015,19 +1013,13 @@ const app = new Vue({
             function sortAlbums() {
                 // sort this.library.albums.displayListing by album.attributes[self.library.albums.sorting[index]] in descending or ascending order based on alphabetical order and numeric order
                 // check if album.attributes[self.library.albums.sorting[index]] is a number and if so, sort by number if not, sort by alphabetical order ignoring case
-                let aa = null;
-                let bb = null;
                 self.library.albums.displayListing.sort((a, b) => {
+                    let aa = a.attributes[self.library.albums.sorting[index]]
+                    let bb = b.attributes[self.library.albums.sorting[index]]
                     if (self.library.albums.sorting[index] == "genre") {
                         aa = a.attributes.genreNames[0]
                         bb = b.attributes.genreNames[0]
                     }
-                    if (self.library.albums.sorting[index] == "dateAdded") {
-                        aa = new Date(a.attributes.dateAdded).getTime()
-                        bb = new Date(b.attributes.dateAdded).getTime()
-                    }
-                    aa = a.attributes[self.library.albums.sorting[index]]
-                    bb = b.attributes[self.library.albums.sorting[index]]
                     if (aa == null) {
                         aa = ""
                     }
