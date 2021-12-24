@@ -340,9 +340,9 @@ const app = new Vue({
 
             // load last played track
             try {
-               lastItem = window.localStorage.getItem("currentTrack")
-               time = window.localStorage.getItem("currentTime")
-               queue = window.localStorage.getItem("currentQueue")
+               let lastItem = window.localStorage.getItem("currentTrack")
+               let time = window.localStorage.getItem("currentTime")
+               let queue = window.localStorage.getItem("currentQueue")
                 if (lastItem != null) {
                     lastItem = JSON.parse(lastItem)
                     var kind = lastItem.attributes.playParams.kind;
@@ -362,9 +362,9 @@ const app = new Vue({
                                         let ids = queue.map ( e => (e.playParams ? e.playParams.id : (e.attributes.playParams ? e.attributes.playParams.id : '') ))
                                         if (ids.length > 0) {
                                             for (id of ids){
-                                            try{
-                                            app.mk.playLater({songs: [id] })
-                                            } catch (err){}
+                                                try{
+                                                app.mk.playLater({songs: [id] })
+                                                } catch (err){}
                                             }
                                         }
                                 }
@@ -372,7 +372,7 @@ const app = new Vue({
                             
                         })
 
-                    })},1000)
+                    })},1500)
 
                 }
 
