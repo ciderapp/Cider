@@ -1465,7 +1465,10 @@ const app = new Vue({
             console.log("mt",musicType)
             if (musicType === "musicVideo") {
             this.loadYTLyrics();} else {
-            this.loadMXM();}
+              if(app.cfg.lyrics.enable_mxm){
+                this.loadMXM();
+              } else {this.loadAMLyrics();}  
+        }
         },
         loadAMLyrics() {
             const songID = (this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem["_songId"] ?? -1 : -1;
@@ -1500,8 +1503,8 @@ const app = new Vue({
                 if (result.length > 0) {
                     var rawtime = this.toMS(result[0].duration_raw)
                     var ytid = result[0]['id']['videoId'];
-                    if (Math.abs(parseInt(rawtime) - time) > 5) {
-                        loadYT(ytid, "en")
+                    if (app.cfg.lyrics.enable_yt) {
+                        loadYT(ytid, app.cfg.lyrics.mxm_language ?? "en")
                     } else { app.loadMXM() }
                 } else { app.loadMXM() }
                 
@@ -1558,7 +1561,7 @@ const app = new Vue({
             const time = encodeURIComponent((this.mk.nowPlayingItem != null) ? (Math.round((this.mk.nowPlayingItem.attributes["durationInMillis"] ?? -1000) / 1000) ?? -1) : -1);
             var lrcfile = "";
             var richsync = [];
-            const lang = "en" //  translation language
+            const lang = app.cfg.lyrics.mxm_language //  translation language
             function revisedRandId() {
                 return Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10);
             }
@@ -1609,8 +1612,9 @@ const app = new Vue({
 
             function getMXMSubs(track, artist, token, lang, time) {
                 var usertoken = encodeURIComponent(token);
+                var richsyncQuery =  (app.cfg.lyrics.mxm_karaoke) ? "&optional_calls=track.richsync" : ""
                 var timecustom = (!time || (time && time < 0)) ? '' : `&f_subtitle_length=${time}&q_duration=${time}&f_subtitle_length_max_deviation=40`;
-                var url = "https://apic-desktop.musixmatch.com/ws/1.1/macro.subtitles.get?format=json&namespace=lyrics_richsynched&optional_calls=track.richsync&subtitle_format=lrc&q_artist=" + artist + "&q_track=" + track + "&usertoken=" + usertoken + timecustom + "&app_id=web-desktop-app-v1.0&t=" + revisedRandId();
+                var url = "https://apic-desktop.musixmatch.com/ws/1.1/macro.subtitles.get?format=json&namespace=lyrics_richsynched"+ richsyncQuery +"&subtitle_format=lrc&q_artist=" + artist + "&q_track=" + track + "&usertoken=" + usertoken + timecustom + "&app_id=web-desktop-app-v1.0&t=" + revisedRandId();
                 var req = new XMLHttpRequest();
                 req.overrideMimeType("application/json");
                 req.open('GET', url, true);
@@ -1680,7 +1684,7 @@ const app = new Vue({
                                         });
                                     app.lyrics = preLrc;
                                 }
-                                if (lrcfile != null && lrcfile != '') {
+                                if (lrcfile != null && lrcfile != '' && lang != "disabled") {
                                     // load translation
                                     getMXMTrans(id, lang, token);
                                 } else {

@@ -29,7 +29,9 @@ const configSchema = {
     },
     "lyrics": {
         "enable_mxm": false,
-        "mxm_language": "en"
+        "mxm_karaoke" : false,
+        "mxm_language": "en",
+        "enable_yt": false,
     },
     "lastfm": {
         "enabled": false,
