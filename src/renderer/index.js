@@ -109,6 +109,7 @@ class NavigationEvent {
 const app = new Vue({
     el: "#app",
     data: {
+        cfg: ipcRenderer.sendSync("getStore"),
         isDev: ipcRenderer.sendSync("is-dev"),
         drawertest: false,
         platform: "",
@@ -247,6 +248,13 @@ const app = new Vue({
         },
     },
     watch: {
+        cfg: {
+            handler: function (val, oldVal) {
+                console.log(`cfg changed from ${oldVal} to ${val}`);
+                ipcRenderer.send("setStore", val);
+            },
+            deep: true
+        },
         page: () => {
             document.getElementById("app-content").scrollTo(0, 0);
             app.resetState()
@@ -321,9 +329,10 @@ const app = new Vue({
             }
 
             // Set the volume
-            ipcRenderer.invoke('getStoreValue', 'general.volume').then((value) => {
-                self.mk.volume = value
-            })
+            this.mk.volume = this.cfg.general.volume
+            // ipcRenderer.invoke('getStoreValue', 'general.volume').then((value) => {
+            //     self.mk.volume = value
+            // })
 
             // load cached library
             if (localStorage.getItem("librarySongs") != null) {
@@ -430,8 +439,9 @@ const app = new Vue({
 
             })
 
+            
             this.mk.addEventListener(MusicKit.Events.playbackVolumeDidChange, (_a) => {
-                ipcRenderer.invoke('setStoreValue', 'general.volume', this.mk.volume)
+                this.cfg.general.volume = this.mk.volume
             })
 
             this.refreshPlaylists()
