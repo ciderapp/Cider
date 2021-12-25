@@ -9,10 +9,27 @@
 <script>
     Vue.component('animatedartwork-view', {
         template: '#animatedartwork-view',
-        props: ['video', 'hls'],
+        props: {
+            video: {
+                type: String,
+                required: true
+            },
+            hls: {
+                type: Object,
+                default: ''
+            },
+            priority: {
+                type: Boolean,
+                default: false
+            }
+        },
         async mounted()  {
+            if(!this.priority && app.cfg.visual.animated_artwork == "limited") {
+                return
+            }else if(app.cfg.visual.animated_artwork == "disabled") {
+                return
+            }
             if (this.video) {
-
                 this.$nextTick(function () {
                     var config = {
                         backBufferLength: 0,
@@ -21,7 +38,6 @@
                         emeEnabled: false,
                         abrEwmaDefaultEstimate: 10000,
                         testBandwidth: false,
-                        capLevelToPlayerSize: true
                     };
                     if (this.hls) {
                         this.hls.detachMedia();

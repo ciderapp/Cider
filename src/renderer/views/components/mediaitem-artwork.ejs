@@ -12,8 +12,8 @@
             <img :src="app.getMediaItemArtwork(url, size, width)"
                  decoding="async"
                  class="mediaitem-artwork--img">
-            <div v-if="video && isVisible" class="animatedartwork-view-box">
-                <animatedartwork-view  :video="video"></animatedartwork-view>   
+            <div v-if="video && isVisible && getVideoPriority()" class="animatedartwork-view-box">
+                <animatedartwork-view :priority="getVideoPriority()" :video="video"></animatedartwork-view>   
             </div>  
         </div>
     </template>
@@ -43,6 +43,10 @@
                 type: String,
                 required: false
             },
+            videoPriority: {
+                type: Boolean,
+                required: false
+            },
             shadow: {
                 type: String,
                 default: 'none'
@@ -57,16 +61,26 @@
             }
         },
         methods: {
+            getVideoPriority() {
+                if(app.cfg.visual.animated_artwork == "always") {
+                    return true;
+                }else if (this.videoPriority && app.cfg.visual.animated_artwork == "limited") {
+                    return true
+                } else if (app.cfg.visual.animated_artwork == "disabled") {
+                    return false
+                }
+                return this.videoPriority
+            },
             getStyle() {
-                switch(this.shadow) {
+                switch (this.shadow) {
                     case "large":
                         this.style["box-shadow"] = "var(--mediaItemShadow-Shadow)"
-                    break;
+                        break;
                     case "subtle":
                         this.style["box-shadow"] = "var(--mediaItemShadow-ShadowSubtle)"
-                    break;
+                        break;
                     default:
-                    break;
+                        break;
                 }
                 return this.style;
             },

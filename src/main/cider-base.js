@@ -9,81 +9,6 @@ const Store = require("electron-store");
 const store = new Store();
 const yt = require('youtube-search-without-api-key');
 
-const schema = {
-    "general": {
-        "close_behavior": {
-            type: "number",
-            default: 0
-        },
-        "startup_behavior": {
-            type: "number",
-            default: 0
-        },
-        "discord_rpc": {
-            type: "number",
-            default: 1
-        },
-    },
-    "behavior": {
-        "hw_acceleration": {
-            type: "number",
-            default: 0 // 0 = default, 1 = webgpu, 2 = gpu disabled
-        }
-    },
-    "audio": {
-        "quality": {
-            type: "string",
-            default: "extreme",
-        },
-        "seamless_audio": {
-            type: "boolean",
-            default: true,
-        }
-    },
-    "visual": {
-        "theme": {
-            type: "string",
-            default: ""
-        },
-        "scrollbars": {
-            type: "number",
-            default: 0
-        },
-        "refresh_rate": {
-            type: "number",
-            default: 0
-        },
-        "animated_artwork": {
-            type: "number",
-            default: 0 // 0 = always, 1 = limited, 2 = never
-        }
-    },
-    "lyrics": {
-        "enable_mxm": {
-            type: "boolean",
-            default: false
-        },
-        "mxm_language": {
-            type: "string",
-            default: "en"
-        }
-    },
-    "lastfm": {
-        "enabled": {
-            type: "boolean",
-            default: false
-        },
-        "scrobble_after": {
-            type: "number",
-            default: 30
-        },
-        "auth_token": {
-            type: "string",
-            default: ""
-        }
-    }
-}
-
 // Analytics for debugging.
 const ElectronSentry = require("@sentry/electron");
 ElectronSentry.init({dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.ingest.sentry.io/6112214"});
@@ -127,7 +52,6 @@ const CiderBase = {
                 contextIsolation: false,
                 preload: join(__dirname, '../preload/cider-preload.js')
             }
-
         }
 
         CiderBase.InitWebServer()

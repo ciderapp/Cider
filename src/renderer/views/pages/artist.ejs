@@ -2,6 +2,7 @@
     <div class="content-inner artist-page">
         <div class="artist-header" :style="getArtistPalette(data)" :key="data.id">
             <animatedartwork-view
+                    :priority="true"
                     v-if="data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9)"
                     :video="data.attributes.editorialVideo.motionArtistWide16x9.video ?? (data.attributes.editorialVideo.motionArtistFullscreen16x9.video ?? '')">
             </animatedartwork-view>

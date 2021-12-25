@@ -269,6 +269,19 @@ const app = new Vue({
         },
     },
     methods: {
+        getHTMLStyle() {
+            switch(this.cfg.visual.window_transparency) {
+                case "acrylic":
+                default:
+                    document.querySelector("html").style.background = ""; 
+                    document.querySelector("body").style.background = ""; 
+                break;
+                case "disabled":
+                    document.querySelector("html").style.background = "#222"; 
+                    document.querySelector("body").style.background = "#222"; 
+                break;
+            }
+        },
         resetState() {
             app.selectedMediaItems = [];
             for (let key in app.modals) {
@@ -2314,6 +2327,8 @@ function refreshFocus() {
     }
     setTimeout(refreshFocus, 200);
 }
+
+app.getHTMLStyle()
 
 refreshFocus();
 
