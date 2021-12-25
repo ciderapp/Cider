@@ -23,6 +23,7 @@ const configSchema = {
         "scrollbars": 0, // 0 = show on hover, 2 = always hide, 3 = always show
         "refresh_rate": 0,
         "animated_artwork": "always", // 0 = always, 1 = limited, 2 = never
+        "animated_artwork_qualityLevel": 1,
         "hw_acceleration": "default", // default, webgpu, disabled
         "window_transparency": "default"
     },

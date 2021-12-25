@@ -35,6 +35,20 @@
                     </select>
                 </div>
             </div>
+            <div class="md-option-line" v-if="app.cfg.visual.animated_artwork == 'always' || app.cfg.visual.animated_artwork == 'limited'">
+                <div class="md-option-segment">
+                    Animated Artwork Quality
+                </div>
+                <div class="md-option-segment md-option-segment_auto">
+                    <select class="md-select" v-model="app.cfg.visual.animated_artwork_qualityLevel">
+                        <option value="0">Low</option>
+                        <option value="1">Medium</option>
+                        <option value="2">High</option>
+                        <option value="3">Very High</option>
+                        <option value="4">Extreme</option>
+                    </select>
+                </div>
+            </div>
             <div class="md-option-line">
                 <div class="md-option-segment">
                     Discord Rich Presence
