@@ -13,7 +13,7 @@
 }
 
 .md-option-container {
-    border-radius: 10px;
+    /* border-radius: 10px; */
     overflow: hidden;
 }
 
@@ -57,6 +57,14 @@ input[type=range].md-slider::-webkit-slider-runnable-track {
     box-shadow: none;
     border: none;
     background: transparent;
+}
+
+.md-option-header {
+    padding: 10px;
+    border-bottom: 1px solid rgb(200 200 200 / 25%);
+    font-weight: 500;
+    font-size: 0.9em;
+    background: rgb(255 255 255 / 10%);
 }
 
 .md-option-segment {
