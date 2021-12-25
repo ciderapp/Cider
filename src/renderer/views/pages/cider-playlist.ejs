@@ -109,11 +109,13 @@
         },
         methods: {
              async isInLibrary () {
-                 if (this.data.type && !this.data.type.includes('library')){
+                 if (this.data.type && !this.data.type.includes("library")){
                     // please keep using vars here
-                 var params = {"fields[albums]": "inLibrary","relate" : "library"}
-                 var res = await app.mkapi(this.data.attributes.playParams.kind ?? this.data.type, false , this.data.attributes.playParams.id ?? this.data.id, params);    
-                 this.inLibrary = (res && res.attributes && res.attributes.inLibrary) ? res.attributes.inLibrary : false} else {this.inLibrary = true}
+                 var params = {"fields[playlists]": "inLibrary","fields[albums]": "inLibrary","relate" : "library"}
+                 var res = await app.mkapi(this.data.attributes.playParams.kind ?? this.data.type, this.data.attributes.playParams.isLibrary ?? false , this.data.attributes.playParams.id ?? this.data.id, params);    
+                 this.inLibrary = (res && res.attributes && res.attributes.inLibrary) ? res.attributes.inLibrary : false
+                 console.log(res)
+                } else {this.inLibrary = true}
             },
             editPlaylist() {
                 app.editPlaylist(this.data.id, this.data.attributes.name);
@@ -123,10 +125,16 @@
                 app.mk.addToLibrary(id)
                 this.inLibrary = true
             },
-            removeFromLibrary(id) {                
+            async removeFromLibrary(id) {    
+                var params = {"fields[somgs]": "inLibrary","fields[albums]": "inLibrary","relate" : "library"}
+                var id = this.data.id ?? this.data.attributes.playParams.id
+                var res = await app.mkapi(this.data.attributes.playParams.kind ?? this.data.type, this.data.attributes.playParams.isLibrary ?? false , this.data.attributes.playParams.id ?? this.data.id, params); 
+                if (res && res.relationships && res.relationships.library && res.relationships.library.data && res.relationships.library.data.length > 0) {
+                    id = res.relationships.library.data[0].id
+                }     
                 let kind = this.data.attributes.playParams.kind ?? this.data.type ?? '';
                 var truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
-                app.mk.api.library.remove({[truekind]: this.data.id ?? this.data.attributes.playParams.id })
+                app.mk.api.library.remove({[truekind]: id })
                 this.inLibrary = false
             },
             editPlaylistName() {

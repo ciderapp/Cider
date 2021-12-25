@@ -15,7 +15,7 @@
                     <button @click="addToLibrary()"
                             v-if="!app.isInLibrary(item.attributes.playParams) && !addedToLibrary">🖤
                     </button>
-                    <button v-else>❤️</button>
+                    <button v-else @click="removeFromLibrary()" >❤️</button>
                 </div>
                 <div class="artwork" v-if="showArtwork == true">
                     <mediaitem-artwork
@@ -293,6 +293,26 @@
                     console.log('adding to library', item.id)
                     app.addToLibrary(item.id.toString())
                     this.addedToLibrary = true
+                }
+            },
+            async removeFromLibrary() {
+                let item = this.item
+                let params = {"fields[songs]": "inLibrary","fields[albums]": "inLibrary","relate" : "library"}
+                let id = item.id ?? item.attributes.playParams.id
+                let res = await app.mkapi(item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false , item.attributes.playParams.id ?? item.id, params); 
+                if (res && res.relationships && res.relationships.library && res.relationships.library.data && res.relationships.library.data.length > 0) {
+                    id = res.relationships.library.data[0].id
+                }     
+                let kind = this.item.attributes.playParams.kind ?? this.data.item ?? '';
+                let truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
+                if (item.attributes.playParams.id) {
+                    console.log('remove from library', id)
+                    app.removeFromLibrary(truekind, id)
+                    this.addedToLibrary = false
+                } else if (item.id) {
+                    console.log('remove from library', id)
+                    app.removeFromLibrary(truekind, id)
+                    this.addedToLibrary = false
                 }
             },
             playTrack() {

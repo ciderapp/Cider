@@ -1448,6 +1448,12 @@ const app = new Vue({
                 self.getLibrarySongsFull(true)
             })
         },
+        removeFromLibrary(kind,id) {
+            let self = this
+            this.mk.api.library.remove({[kind]: id }).then((data) => {
+                self.getLibrarySongsFull(true)
+            })
+        },
         async loadYTLyrics() {
             const track = (this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.title ?? '' : '';
             const artist = (this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.artistName ?? '' : '';
