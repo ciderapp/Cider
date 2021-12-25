@@ -1993,7 +1993,9 @@ const app = new Vue({
             }
         },
         getMediaItemArtwork(url, height = 64, width) {
-            var newurl = `${url.replace('{w}', width ?? height).replace('{h}', height).replace('{f}', "webp").replace('{c}',(height == '516')? "sr" :"cc")}`;
+            var newurl = `${url.replace('{w}', width ?? height).replace('{h}', height).replace('{f}', "webp").replace('{c}', ((width === 900)? "sr" :"cc"))}`;
+            
+            if (newurl.includes("900x516")){newurl = newurl.replace("900x516cc","900x516sr").replace("900x516bb","900x516sr");}
             return newurl
         },
         getNowPlayingArtworkBG(size = 600) {
