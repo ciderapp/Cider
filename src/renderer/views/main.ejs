@@ -17,7 +17,7 @@
     <title>Cider</title>
     <link rel="stylesheet/less" type="text/css" href="style.less"/>
     <script src="less.js"></script>
-    <script src="vue.js"></script>
+    <script src="<%- (env.dev ? "vue.js" : "vue.dev.js") %>"></script>
     <script src="sortable.min.js"></script>
     <script src="vue-observe-visibility.min.js"></script>
     <script src="sortable.min.js"></script>
@@ -71,10 +71,10 @@
                                     {{ mk.nowPlayingItem["attributes"]["name"] }}
                                 </div>
                                 <div class="song-artist " style="display: inline-block; -webkit-box-orient: horizontal; white-space: nowrap;">
-                                    <div class="item-navigate song-artist"  style="display: inline-block;" @click="app.getNowPlayingItemDetailed(`artist`)">
+                                    <div class="item-navigate song-artist"  style="display: inline-block;" @click="getNowPlayingItemDetailed(`artist`)">
                                     {{ mk.nowPlayingItem["attributes"]["artistName"] }} 
                                     </div>
-                                    <div class="song-artist item-navigate" style="display: inline-block;" @click="app.getNowPlayingItemDetailed('album')">
+                                    <div class="song-artist item-navigate" style="display: inline-block;" @click="getNowPlayingItemDetailed('album')">
                                         {{  (mk.nowPlayingItem["attributes"]["albumName"]) ? (" - " + mk.nowPlayingItem["attributes"]["albumName"]) : "" }}
                                     </div>
                                 </div>
@@ -177,7 +177,7 @@
                             @contextmenu="playlistContextMenu($event, item.id)"
                             @dragover="()=>{}"
                             :href="item.href"
-                            @click='appRoute(`playlist_` + item.id); showingPlaylist = [];getPlaylistFromID(app.page.substring(9))'>
+                            @click='appRoute(`playlist_` + item.id); showingPlaylist = [];getPlaylistFromID(page.substring(9))'>
                         {{ item.attributes.name }}
                     </button>
                 </div>
@@ -261,8 +261,8 @@
             </div>
             <div id="app-content">
                 <div id="navigation-bar">
-                    <button class="nav-item" @click="history.back()"><%- include('svg/chevron-left.svg') %></button>
-                    <button class="nav-item" @click="history.forward()"><%- include('svg/chevron-right.svg') %></button>
+                    <button class="nav-item" @click="navigateBack()"><%- include('svg/chevron-left.svg') %></button>
+                    <button class="nav-item" @click="navigateForward()"><%- include('svg/chevron-right.svg') %></button>
                 </div>
                 <!-- Artist Page -->
                 <transition name="wpfade">
@@ -304,7 +304,7 @@
                     </template>
                 </transition>
                 <!-- Browse -->
-                <transition v-on:enter="app.getBrowsePage(); console.log('browse')" name="wpfade">
+                <transition v-on:enter="getBrowsePage(); console.log('browse')" name="wpfade">
                     <template v-if="page == 'browse'">
                         <!-- <div class="content-inner">
 
@@ -426,14 +426,14 @@
         >
     </transition>
     <transition name="wpfade">
-        <div class="bg-artwork--placeholder" v-else></div>
+        <div class="bg-artwork--placeholder"></div>
     </transition>
     <transition name="modal">
         <add-to-playlist :playlists="playlists.listing" v-if="modals.addToPlaylist"></add-to-playlist>
     </transition>
     <div id="apple-music-video-container">
         <div id="apple-music-video-player-controls">
-            <div id="player-exit" title="Close" onclick="app.exitMV()">
+            <div id="player-exit" title="Close" onclick="exitMV()">
                 <svg fill="white" xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21"
                      aria-role="presentation" focusable="false">
                     <path
@@ -457,7 +457,6 @@
         <div id="apple-music-video-player"></div>
     </div>
 </div>
-
 
 <!-- Media Item Artwork-->
 <%- include("components/mediaitem-artwork"); %>
@@ -495,7 +494,7 @@
 <!-- Sidebar Item -->
 <script type="text/x-template" id="sidebar-library-item">
     <button class="app-sidebar-item"
-            :class="$parent.getSidebarItemClass(page)" @click="app.appRoute(page)">
+            :class="$parent.getSidebarItemClass(page)" @click="$root.appRoute(page)">
         {{ name }}
     </button>
 </script>
@@ -531,7 +530,6 @@
 <!-- Lyrics View -->
 <%- include('components/lyrics-view') %>
 
-<script src="musickit.js?v=1"></script>
 <script>
     if (typeof MusicKit == 'undefined') {
         document.write(unescape("%3Cscript src='https://js-cdn.music.apple.com/musickit/v2/amp/musickit.js' type='text/javascript'%3E%3C/script%3E"));

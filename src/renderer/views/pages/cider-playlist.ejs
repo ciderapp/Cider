@@ -1,10 +1,10 @@
 <script type="text/x-template" id="cider-playlist">
-    <template>
-        <div class="content-inner playlist-page" v-if="data != [] && data.attributes != null" :style="{'--bgColor': (data.attributes.artwork != null && data.attributes.artwork['bgColor'] != null) ? ('#' + data.attributes.artwork.bgColor) : ''}">
-            <template v-if="app.playlists.loadingState == 0">
-                <div class="content-inner centered">Loading...</div>
-            </template>
-            <template v-if="app.playlists.loadingState == 1">
+    <div class="content-inner playlist-page" v-if="data != [] && data.attributes != null"
+         :style="{'--bgColor': (data.attributes.artwork != null && data.attributes.artwork['bgColor'] != null) ? ('#' + data.attributes.artwork.bgColor) : ''}">
+        <template v-if="app.playlists.loadingState == 0">
+            <div class="content-inner centered">Loading...</div>
+        </template>
+        <template v-if="app.playlists.loadingState == 1">
             <div class="playlist-display row"
                  :style="{
                 background: (data.attributes.artwork != null && data.attributes.artwork['bgColor'] != null) ? ('#' + data.attributes.artwork.bgColor) : '',
@@ -23,11 +23,19 @@
                 <div class="col playlist-info">
                     <template v-if="!editorialNotesExpanded">
                         <div>
-                            <div class="playlist-name" @click="editPlaylistName()" v-show="!nameEditing">{{data.attributes ? (data.attributes.name ??
+                            <div class="playlist-name" @click="editPlaylistName()" v-show="!nameEditing">
+                                {{data.attributes ? (data.attributes.name ??
                                 (data.attributes.title ?? '') ?? '') : ''}}
                             </div>
-                            <div class="playlist-name" v-show="nameEditing"><input type="text" spellcheck="false" class="nameEdit" v-model="data.attributes.name" @blur="editPlaylist" @change="editPlaylist" @keydown.enter="editPlaylist"/></div>
-                            <div class="playlist-artist item-navigate" v-if="data.attributes && data.attributes.artistName" @click="if(data.attributes && data.attributes.artistName){ app.searchAndNavigate(data,'artist')}">
+                            <div class="playlist-name" v-show="nameEditing"><input type="text" spellcheck="false"
+                                                                                   class="nameEdit"
+                                                                                   v-model="data.attributes.name"
+                                                                                   @blur="editPlaylist"
+                                                                                   @change="editPlaylist"
+                                                                                   @keydown.enter="editPlaylist"/></div>
+                            <div class="playlist-artist item-navigate"
+                                 v-if="data.attributes && data.attributes.artistName"
+                                 @click="if(data.attributes && data.attributes.artistName){ app.searchAndNavigate(data,'artist')}">
                                 {{data.attributes ? (data.attributes.artistName ?? '') :''}}
                             </div>
                             <div class="playlist-desc" v-if="data.attributes.editorialNotes">
@@ -57,33 +65,35 @@
                             Shuffle
                         </button>
                         <button class="wr-btn" style="min-width: 120px;" v-if="inLibrary!=null"
-                        @click="(!inLibrary) ? addToLibrary(data.attributes.playParams.id.toString()) : removeFromLibrary(data.attributes.playParams.id.toString())">
-                          {{ (!inLibrary) ? "Add to Library" : "Remove from Library" }}
-                       </button>
+                                @click="(!inLibrary) ? addToLibrary(data.attributes.playParams.id.toString()) : removeFromLibrary(data.attributes.playParams.id.toString())">
+                            {{ (!inLibrary) ? "Add to Library" : "Remove from Library" }}
+                        </button>
                     </div>
                 </div>
             </div>
             <div class="playlist-body">
                 <div class="well">
                     <div style="width:100%">
-                        <draggable :sort="data.attributes.canEdit && data.type == 'library-playlists'" v-model="data.relationships.tracks.data" @start="drag=true" @end="drag=false;put()">
-                            <mediaitem-list-item :item="item" :parent="getItemParent(data)" :index="index" :context-ext="buildContextMenu()"
+                        <draggable :sort="data.attributes.canEdit && data.type == 'library-playlists'"
+                                   v-model="data.relationships.tracks.data" @start="drag=true" @end="drag=false;put()">
+                            <mediaitem-list-item :item="item" :parent="getItemParent(data)" :index="index"
+                                                 :context-ext="buildContextMenu()"
                                                  v-for="(item,index) in data.relationships.tracks.data"></mediaitem-list-item>
                         </draggable>
                     </div>
 
                 </div>
-                <div class="playlist-time"> 
+                <div class="playlist-time">
                     {{data.attributes.releaseDate}}
                 </div>
-                <div class="playlist-time item-navigate" @click="app.searchAndNavigate(data,'recordLabel') " style="width: 50%;"> 
+                <div class="playlist-time item-navigate" @click="app.searchAndNavigate(data,'recordLabel') "
+                     style="width: 50%;">
                     {{data.attributes.copyright}}
                 </div>
                 <div class="playlist-time">{{app.getTotalTime()}}</div>
             </div>
         </template>
     </div>
-</template>
 
 </script>
 <script>
@@ -95,7 +105,8 @@
                 editorialNotesExpanded: false,
                 drag: false,
                 nameEditing: false,
-                inLibrary: null
+                inLibrary: null,
+                app: this.$root
             }
         },
         mounted: function () {
@@ -103,20 +114,22 @@
                 this.isInLibrary()
             })
         },
-        watch:{
-           data: function () {
+        watch: {
+            data: function () {
                 this.isInLibrary()
             }
         },
         methods: {
-             async isInLibrary () {
-                 if (this.data.type && !this.data.type.includes("library")){
+            async isInLibrary() {
+                if (this.data.type && !this.data.type.includes("library")) {
                     // please keep using vars here
-                 var params = {"fields[playlists]": "inLibrary","fields[albums]": "inLibrary","relate" : "library"}
-                 var res = await app.mkapi(this.data.attributes.playParams.kind ?? this.data.type, this.data.attributes.playParams.isLibrary ?? false , this.data.attributes.playParams.id ?? this.data.id, params);    
-                 this.inLibrary = (res && res.attributes && res.attributes.inLibrary) ? res.attributes.inLibrary : false
-                 console.log(res)
-                } else {this.inLibrary = true}
+                    var params = {"fields[playlists]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library"}
+                    var res = await app.mkapi(this.data.attributes.playParams.kind ?? this.data.type, this.data.attributes.playParams.isLibrary ?? false, this.data.attributes.playParams.id ?? this.data.id, params);
+                    this.inLibrary = (res && res.attributes && res.attributes.inLibrary) ? res.attributes.inLibrary : false
+                    console.log(res)
+                } else {
+                    this.inLibrary = true
+                }
             },
             editPlaylist() {
                 app.editPlaylist(this.data.id, this.data.attributes.name);
@@ -126,29 +139,29 @@
                 app.mk.addToLibrary(id)
                 this.inLibrary = true
             },
-            async removeFromLibrary(id) {    
-                var params = {"fields[somgs]": "inLibrary","fields[albums]": "inLibrary","relate" : "library"}
+            async removeFromLibrary(id) {
+                var params = {"fields[somgs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library"}
                 var id = this.data.id ?? this.data.attributes.playParams.id
-                var res = await app.mkapi(this.data.attributes.playParams.kind ?? this.data.type, this.data.attributes.playParams.isLibrary ?? false , this.data.attributes.playParams.id ?? this.data.id, params); 
+                var res = await app.mkapi(this.data.attributes.playParams.kind ?? this.data.type, this.data.attributes.playParams.isLibrary ?? false, this.data.attributes.playParams.id ?? this.data.id, params);
                 if (res && res.relationships && res.relationships.library && res.relationships.library.data && res.relationships.library.data.length > 0) {
                     id = res.relationships.library.data[0].id
-                }     
+                }
                 let kind = this.data.attributes.playParams.kind ?? this.data.type ?? '';
                 var truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
-                app.mk.api.library.remove({[truekind]: id })
+                app.mk.api.library.remove({[truekind]: id})
                 this.inLibrary = false
             },
             editPlaylistName() {
-                if(this.data.attributes.canEdit && this.data.type == "library-playlists") {
+                if (this.data.attributes.canEdit && this.data.type == "library-playlists") {
                     this.nameEditing = true
                     setTimeout(() => {
                         document.querySelector(".nameEdit").focus()
                     }, 100)
                 }
             },
-            buildContextMenu (index) {
+            buildContextMenu(index) {
                 let self = this
-                if(!this.data.attributes.canEdit) {
+                if (!this.data.attributes.canEdit) {
                     return
                 }
                 return {
@@ -171,20 +184,20 @@
                 }
             },
             async put() {
-                if(!this.data.attributes.canEdit) {
+                if (!this.data.attributes.canEdit) {
                     return
                 }
                 await app.mk.api.library.putPlaylistTracklisting(this.data.attributes.playParams.id, this.convert())
             },
-            async remove () {
-                if(!this.data.attributes.canEdit) {
+            async remove() {
+                if (!this.data.attributes.canEdit) {
                     return
                 }
                 // for each app.selectedMediaItems splice the items from the playlist
-                for(let i = 0; i < app.selectedMediaItems.length; i++) {
+                for (let i = 0; i < app.selectedMediaItems.length; i++) {
                     let item = app.selectedMediaItems[i]
                     let index = this.data.relationships.tracks.data.findIndex(x => x.id == item.id)
-                    if(index > -1) {
+                    if (index > -1) {
                         this.data.relationships.tracks.data.splice(index, 1)
                     }
                 }

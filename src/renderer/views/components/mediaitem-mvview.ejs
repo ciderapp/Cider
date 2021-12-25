@@ -54,6 +54,11 @@
     Vue.component('mediaitem-mvview', {
         template: '#mediaitem-mvview',
         props: ['item', "imagesize"],
+        data: function () {
+            return {
+                app: this.$root,
+            }
+        },
         methods: {}
     });
 </script>

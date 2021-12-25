@@ -36,6 +36,11 @@
 <script>
     Vue.component('cider-browse', {
         template: "#cider-browse",
-        props: ["data"]
+        props: ["data"],
+        data: function () {
+            return {
+                app: this.$root
+            }
+        },
     })    
 </script>

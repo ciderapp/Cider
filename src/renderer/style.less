@@ -2810,6 +2810,17 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   opacity: 0;
 }
 
+.wpfade_transform-enter-active,
+.wpfade_transform-leave-active {
+  transition: opacity .1s var(--appleEase), transform .1s var(--appleEase);
+}
+
+.wpfade_transform-enter,
+.wpfade_transform-leave-to {
+  transform: scale(0.90);
+  opacity: 0;
+}
+
 .fabfade-enter-active,
 .fabfade-leave-active {
   transition: transform .1s var(--appleEase), opacity .1s var(--appleEase);

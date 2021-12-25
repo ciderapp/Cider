@@ -1,32 +1,32 @@
 <script type="text/x-template" id="animatedartwork-view">
-    <template v-if="video">
-        <div class="animated" v-bind:vid="app.hashCode(video).toString()">
-            <video ref="video" class="animated-artwork-video" loop id="animated-artwork"></video>
-        </div>
-    </template>
+    <div class="animated" v-bind:vid="app.hashCode(video).toString()" v-if="video">
+        <video ref="video" class="animated-artwork-video" loop id="animated-artwork"></video>
+    </div>
 </script>
 
 <script>
     Vue.component('animatedartwork-view', {
         template: '#animatedartwork-view',
+        data: function () {
+            return {
+                app: this.$root,
+                hls: null,
+            }
+        },
         props: {
             video: {
                 type: String,
                 required: true
-            },
-            hls: {
-                type: Object,
-                default: ''
             },
             priority: {
                 type: Boolean,
                 default: false
             }
         },
-        async mounted()  {
-            if(!this.priority && app.cfg.visual.animated_artwork == "limited") {
+        async mounted() {
+            if (!this.priority && app.cfg.visual.animated_artwork == "limited") {
                 return
-            }else if(app.cfg.visual.animated_artwork == "disabled") {
+            } else if (app.cfg.visual.animated_artwork == "disabled") {
                 return
             }
             if (this.video) {
@@ -60,13 +60,13 @@
                         this.hls.attachMedia(this.$refs.video);
                         this.hls.loadSource(this.video);
                         this.hls.loadLevel = parseInt(app.cfg.visual.animated_artwork_qualityLevel || 1);
-                    } 
+                    }
                 })
             }
         },
         async beforeDestroy() {
-            if(this.hls) {
-               await this.hls.destroy();
+            if (this.hls) {
+                await this.hls.destroy();
                 this.hls = null
             }
         }

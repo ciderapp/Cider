@@ -1,22 +1,13 @@
 <script type="text/x-template" id="mediaitem-artwork">
-    <template v-if="type == 'artists'">
-        <div class="mediaitem-artwork rounded" :key="url" :style="getStyle()">
-            <img :src="app.getMediaItemArtwork(url, size, width)"
-                 decoding="async"
-                 class="mediaitem-artwork--img">
+    <div class="mediaitem-artwork" :class="{'rounded': (type == 'artists')}" :key="url" :style="getStyle()"
+         v-observe-visibility="{callback: visibilityChanged}">
+        <img :src="app.getMediaItemArtwork(url, size, width)"
+             decoding="async"
+             class="mediaitem-artwork--img">
+        <div v-if="video && isVisible && getVideoPriority()" class="animatedartwork-view-box">
+            <animatedartwork-view :priority="getVideoPriority()" :video="video"></animatedartwork-view>
         </div>
-    </template>
-    <template v-else>
-        <div class="mediaitem-artwork" :key="url" :style="getStyle()"
-             v-observe-visibility="{callback: visibilityChanged}">
-            <img :src="app.getMediaItemArtwork(url, size, width)"
-                 decoding="async"
-                 class="mediaitem-artwork--img">
-            <div v-if="video && isVisible && getVideoPriority()" class="animatedartwork-view-box">
-                <animatedartwork-view :priority="getVideoPriority()" :video="video"></animatedartwork-view>   
-            </div>  
-        </div>
-    </template>
+    </div>
 </script>
 
 <script>
@@ -28,7 +19,7 @@
                 default: '120'
             },
             width: {
-                type: String,
+                type: Number,
                 required: false
             },
             url: {
@@ -54,6 +45,7 @@
         },
         data: function () {
             return {
+                app:this.$root,
                 isVisible: false,
                 style: {
                     "box-shadow": ""

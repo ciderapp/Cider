@@ -74,6 +74,11 @@
     Vue.component('mediaitem-square-large', {
         template: '#mediaitem-square-large',
         props: ['item'],
+        data: function () {
+            return {
+                app: this.$root,
+            }
+        },
         methods: {
             clickContext() {
                 var evt = document.createEvent('MouseEvent');

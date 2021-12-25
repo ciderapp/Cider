@@ -194,7 +194,8 @@ const CiderBase = {
 
     EnvironmentVariables: {
         "env": {
-            platform: os.platform()
+            platform: os.platform(),
+            dev: app.isPackaged
         }
     },
 

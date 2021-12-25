@@ -2,7 +2,7 @@
     <div ref="lyricsview" class="md-body lyric-body">
         <template v-if="lyrics && lyrics != [] && lyrics.length > 0">
             <template v-for="(lyric, index) in lyrics" v-if="lyric && lyric.line && lyric.line != 'lrcInstrumental'">
-                <h3 class="lyric-line" @click="if(lyric.startTime != 9999999) app.seekTo(lyric.startTime, false)"
+                <h3 class="lyric-line" @click="seekTo(lyric.startTime)"
                     v-bind:line-index="index.toString()">
                     <template v-if="richlyrics && richlyrics != [] && richlyrics.length > 0">
                         <div class="richl" >
@@ -22,7 +22,7 @@
                 </h3>
             </template>
             <template v-else>
-                <h3 class="lyric-line" @click="if(lyric.startTime != 9999999) app.seekTo(lyric.startTime, false)"
+                <h3 class="lyric-line" @click="seekTo(lyric.startTime)"
                     :start="lyric.startTime"
                     :end="lyric.endTime" v-bind:line-index="index.toString()">
                     <div class="lyricWaiting">
@@ -35,7 +35,7 @@
         </template>
         <template v-else>
             <div class="no-lyrics">
-                Loading... / Lyrics not found./ Instrumental.
+                Loading... / Lyrics not found./ Instrumental.</div>
         </template>
     </div>
 </script>
@@ -43,7 +43,13 @@
     Vue.component('lyrics-view', {
         template: '#lyrics-view',
         props: ["time", "lyrics", "richlyrics", "translation", "onindex"],
+        data: function () {
+            return {
+                app: this.$root,
+            }
+        },
         watch: {
+
             time: function () {
                 if (app.lyricon && app.drawer.open && this.$refs.lyricsview) {
                     let currentLine = this.$refs.lyricsview.querySelector(`.lyric-line.active`)
@@ -109,6 +115,9 @@
            
         },
         methods: {
+            seekTo(startTime) {
+                if(startTime != 9999999) this.app.seekTo(startTime, false);
+            },
             getActiveLyric() {
              //   console.log(this.time);
                 const delayfix = 0.1

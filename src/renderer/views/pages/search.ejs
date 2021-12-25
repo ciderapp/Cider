@@ -51,6 +51,11 @@
     Vue.component('cider-search', {
         template: "#cider-search",
         props: ['search'],
+        data: function() {
+            return {
+                app: this.$root
+            }
+        },
         methods: {
             getTopResult() {
                 if (this.search.results["meta"]) {

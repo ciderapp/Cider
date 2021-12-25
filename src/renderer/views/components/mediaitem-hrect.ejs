@@ -27,6 +27,11 @@
     Vue.component('mediaitem-hrect', {
         template: '#mediaitem-hrect',
         props: ['item'],
+        data: function () {
+            return {
+                app: this.$root,
+            }
+        },
         methods: {}
     });
 </script>

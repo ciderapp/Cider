@@ -11,6 +11,11 @@
     Vue.component('mediaitem-scroller-horizontal', {
         template: '#mediaitem-scroller-horizontal',
         props: ['items'],
+        data: function () {
+            return {
+                app: this.$root,
+            }
+        },
         methods: {}
     });
 </script>

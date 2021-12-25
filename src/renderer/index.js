@@ -1,13 +1,5 @@
 Vue.use(VueObserveVisibility);
 
-
-Vue.component('sidebar-library-item', {
-    template: '#sidebar-library-item',
-    props: ['name', 'page', 'cd-click'],
-    methods: {}
-});
-
-
 // This is going to suck to code
 var CiderContextMenu = {
     Menu: function (event) {
@@ -109,6 +101,7 @@ class NavigationEvent {
 const app = new Vue({
     el: "#app",
     data: {
+        ipcRenderer: ipcRenderer,
         cfg: ipcRenderer.sendSync("getStore"),
         isDev: ipcRenderer.sendSync("is-dev"),
         drawertest: false,
@@ -269,6 +262,12 @@ const app = new Vue({
         },
     },
     methods: {
+        navigateBack() {
+            history.back()
+        },
+        navigateForward() {
+            history.forward()
+        },
         getHTMLStyle() {
             switch(this.cfg.visual.window_transparency) {
                 case "acrylic":
@@ -2265,6 +2264,17 @@ const app = new Vue({
     }
 })
 
+Vue.component('sidebar-library-item', {
+    template: '#sidebar-library-item',
+    props: ['name', 'page', 'cd-click'],
+    data: function () {
+        return {
+            app: app
+        }
+    },
+    methods: {}
+});
+
 // Key binds
 document.addEventListener('keydown', function (e) {
     if (e.keyCode === 70 && e.ctrlKey) {
@@ -2316,6 +2326,19 @@ document.addEventListener('musickitloaded', function () {
 //       navigator.serviceWorker.register('sw.js?v=1');
 //     });
 //   }
+
+const getBase64FromUrl = async (url) => {
+    const data = await fetch(url);
+    const blob = await data.blob();
+    return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onloadend = () => {
+            const base64data = reader.result;
+            resolve(base64data);
+        }
+    });
+}
 
 function uuidv4() {
     return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>

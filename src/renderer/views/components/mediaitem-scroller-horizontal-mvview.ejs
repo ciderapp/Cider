@@ -1,16 +1,18 @@
 <script type="text/x-template" id="mediaitem-scroller-horizontal-mvview">
-    <template>
-        <div class="cd-hmedia-scroller">
-            <template v-if="browsesp">
-                <mediaitem-mvview-sp :item="item ? (item.attributes.kind ? item : ((item.relationships && item.relationships.contents ) ? item.relationships.contents.data[0] : item)) : []" :imagesize="imagesize"
-                   :badge="item.attributes"                     v-for="item in items"></mediaitem-mvview-sp>
-            </template>
-            <template v-else>
-                <mediaitem-square :kind="kind" size="600" :item="item ? (item.attributes.kind ? item : ((item.relationships && item.relationships.contents ) ? item.relationships.contents.data[0] : item)) : []" :imagesize="imagesize"
-                v-for="item in items"></mediaitem-square>
-            </template>                            
-        </div>
-    </template>
+    <div class="cd-hmedia-scroller">
+        <template v-if="browsesp">
+            <mediaitem-mvview-sp
+                    :item="item ? (item.attributes.kind ? item : ((item.relationships && item.relationships.contents ) ? item.relationships.contents.data[0] : item)) : []"
+                    :imagesize="imagesize"
+                    :badge="item.attributes" v-for="item in items"></mediaitem-mvview-sp>
+        </template>
+        <template v-else>
+            <mediaitem-square :kind="kind" size="600"
+                              :item="item ? (item.attributes.kind ? item : ((item.relationships && item.relationships.contents ) ? item.relationships.contents.data[0] : item)) : []"
+                              :imagesize="imagesize"
+                              v-for="item in items"></mediaitem-square>
+        </template>
+    </div>
 </script>
 
 
@@ -23,17 +25,22 @@
                 required: true
             },
             imagesize: {
-                type: String,
-                required: true
+                type: Number,
+                required: false
             },
             browsesp: {
                 type: Boolean,
-                required: true
+                required: false
             },
             kind: {
                 type: String,
                 required: false,
                 default: ""
+            }
+        },
+        data: function () {
+            return {
+                app: this.$root,
             }
         },
         methods: {}

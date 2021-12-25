@@ -86,6 +86,7 @@ app.on('ready', () => {
     console.log('[Cider] Application is Ready. Creating Window.')
     if (!app.isPackaged) {
         console.info('[Cider] Running in development mode.')
+        require('vue-devtools').install()
     }
     CreateWindow()
 });

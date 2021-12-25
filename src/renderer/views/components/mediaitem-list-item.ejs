@@ -1,67 +1,66 @@
 <script type="text/x-template" id="mediaitem-list-item">
-    <template>
-        <div v-observe-visibility="{callback: visibilityChanged}"
-             @contextmenu="contextMenu"
-             @click="select"
-             :data-id="item.attributes.playParams.id ?? item.id"
-             :data-type="getDataType()"
-             :data-index="index"
-             :data-guid="guid"
-             :data-islibrary="this.item.attributes.playParams.isLibrary ?? false"
-             class="cd-mediaitem-list-item"
-             :class="{'mediaitem-selected': app.select_hasMediaItem(guid)}">
-            <template v-if="isVisible">
-                <div class="isLibrary" v-if="showLibraryStatus == true">
-                    <button @click="addToLibrary()"
-                            v-if="!app.isInLibrary(item.attributes.playParams) && !addedToLibrary">🖤
-                    </button>
-                    <button v-else @click="removeFromLibrary()" >❤️</button>
+    <div v-observe-visibility="{callback: visibilityChanged}"
+         @contextmenu="contextMenu"
+         @click="select"
+         :data-id="item.attributes.playParams.id ?? item.id"
+         :data-type="getDataType()"
+         :data-index="index"
+         :data-guid="guid"
+         :data-islibrary="this.item.attributes.playParams.isLibrary ?? false"
+         class="cd-mediaitem-list-item"
+         :class="{'mediaitem-selected': app.select_hasMediaItem(guid)}">
+        <template v-if="isVisible">
+            <div class="isLibrary" v-if="showLibraryStatus == true">
+                <button @click="addToLibrary()"
+                        v-if="!app.isInLibrary(item.attributes.playParams) && !addedToLibrary">🖤
+                </button>
+                <button v-else @click="removeFromLibrary()">❤️</button>
+            </div>
+            <div class="artwork" v-if="showArtwork == true">
+                <mediaitem-artwork
+                        :url="item.attributes.artwork ? item.attributes.artwork.url : ''"
+                        size="50"
+                        :type="item.type"></mediaitem-artwork>
+                <button class="overlay-play" @click="playTrack()"><%- include("../svg/play.svg") %></button>
+            </div>
+            <div class="info-rect" :style="{'padding-left': (showArtwork ? '' : '16px')}"
+                 @dblclick="app.routeView(item)">
+                <div class="title text-overflow-elipsis">
+                    {{ item.attributes.name }}
                 </div>
-                <div class="artwork" v-if="showArtwork == true">
-                    <mediaitem-artwork
-                            :url="item.attributes.artwork ? item.attributes.artwork.url : ''"
-                            size="50"
-                            :type="item.type"></mediaitem-artwork>
-                    <button class="overlay-play" @click="playTrack()"><%- include("../svg/play.svg") %></button>
-                </div>
-                <div class="info-rect" :style="{'padding-left': (showArtwork ? '' : '16px')}" @dblclick="app.routeView(item)">
-                    <div class="title text-overflow-elipsis">
-                        {{ item.attributes.name }}
-                    </div>
-                    <div class="subtitle text-overflow-elipsis" style="-webkit-box-orient: horizontal;">
-                        <template v-if="item.attributes.artistName">
+                <div class="subtitle text-overflow-elipsis" style="-webkit-box-orient: horizontal;">
+                    <template v-if="item.attributes.artistName">
+                        <div class="artist item-navigate text-overflow-elipsis"
+                             @click="app.searchAndNavigate(item,'artist')">
+                            {{ item.attributes.artistName }}
+                        </div>
+                        <template v-if="item.attributes.albumName">&nbsp;-&nbsp;</template>
+                        <template v-if="item.attributes.albumName">
                             <div class="artist item-navigate text-overflow-elipsis"
-                                 @click="app.searchAndNavigate(item,'artist')">
-                                {{ item.attributes.artistName }}
+                                 @click="app.searchAndNavigate(item,'album')">
+                                {{ item.attributes.albumName }}
                             </div>
-                            <template v-if="item.attributes.albumName">&nbsp;-&nbsp;</template>
-                            <template v-if="item.attributes.albumName">
-                                <div class="artist item-navigate text-overflow-elipsis"
-                                     @click="app.searchAndNavigate(item,'album')">
-                                    {{ item.attributes.albumName }}
-                                </div>
-                            </template>
                         </template>
-                    </div>
+                    </template>
                 </div>
-                <div class="content-rating" v-if="item.attributes.contentRating" @dblclick="app.routeView(item)">
-                    {{ item.attributes.contentRating }}
+            </div>
+            <div class="content-rating" v-if="item.attributes.contentRating" @dblclick="app.routeView(item)">
+                {{ item.attributes.contentRating }}
+            </div>
+            <template v-if="showMetaData == true" @dblclick="app.routeView(item)">
+                <div class="metainfo">
+                    {{ item.attributes.releaseDate ? new Date(item.attributes.releaseDate).toLocaleDateString()
+                    : "" }}
                 </div>
-                <template v-if="showMetaData == true" @dblclick="app.routeView(item)">
-                    <div class="metainfo">
-                        {{ item.attributes.releaseDate ? new Date(item.attributes.releaseDate).toLocaleDateString()
-                        : "" }}
-                    </div>
-                    <div class="metainfo">
-                        {{ item.attributes.genreNames[0] ?? "" }}
-                    </div>
-                </template>
-                <div class="duration" v-if="showDuration" @dblclick="app.routeView(item)">
-                    {{ msToMinSec(item.attributes.durationInMillis ?? 0) }}
+                <div class="metainfo">
+                    {{ item.attributes.genreNames[0] ?? "" }}
                 </div>
             </template>
-        </div>
-    </template>
+            <div class="duration" v-if="showDuration" @dblclick="app.routeView(item)">
+                {{ msToMinSec(item.attributes.durationInMillis ?? 0) }}
+            </div>
+        </template>
+    </div>
 </script>
 
 <script>
@@ -71,13 +70,14 @@
             return {
                 isVisible: false,
                 addedToLibrary: false,
-                guid: uuidv4()
+                guid: uuidv4(),
+                app: this.$root
             }
         },
         props: {
             'item': {type: Object, required: true},
-            'parent': {type: Object, required: false},
-            'index': {type: Object, required: false, default: -1},
+            'parent': {type: String, required: false},
+            'index': {type: Number, required: false, default: -1},
             'show-artwork': {type: Boolean, default: true},
             'show-library-status': {type: Boolean, default: true},
             'show-meta-data': {type: Boolean, default: false},
@@ -85,10 +85,15 @@
             'contextExt': {type: Object, required: false},
         },
         methods: {
+            msToMinSec(ms) {
+                var minutes = Math.floor(ms / 60000);
+                var seconds = ((ms % 60000) / 1000).toFixed(0);
+                return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+            },
             getDataType() {
-                if(this.item.attributes.playParams.isLibrary) {
+                if (this.item.attributes.playParams.isLibrary) {
                     return this.item.type
-                }else{
+                } else {
                     return this.item.attributes.playParams.kind
                 }
             },
@@ -100,7 +105,7 @@
                 if (e.shiftKey) {
                     if (this.index != -1) {
 
-                        if(app.selectedMediaItems.length == 0) {
+                        if (app.selectedMediaItems.length == 0) {
                             app.select_selectMediaItem(item_id, this.getDataType(), this.index, this.guid, isLibrary)
                         }
                         let allMediaItems = document.querySelectorAll(".cd-mediaitem-list-item[data-index]")
@@ -269,12 +274,12 @@
                         ]
                     }
                 }
-                if(this.contextExt) {
+                if (this.contextExt) {
                     // if this.context-ext.normal is true append all options to the 'normal' menu which is a kvp of arrays
-                    if(this.contextExt.normal) {
+                    if (this.contextExt.normal) {
                         menus.normal.items = menus.normal.items.concat(this.contextExt.normal)
                     }
-                    if(this.contextExt.multiple) {
+                    if (this.contextExt.multiple) {
                         menus.multiple.items = menus.multiple.items.concat(this.contextExt.multiple)
                     }
                 }
@@ -297,12 +302,12 @@
             },
             async removeFromLibrary() {
                 let item = this.item
-                let params = {"fields[songs]": "inLibrary","fields[albums]": "inLibrary","relate" : "library"}
+                let params = {"fields[songs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library"}
                 let id = item.id ?? item.attributes.playParams.id
-                let res = await app.mkapi(item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false , item.attributes.playParams.id ?? item.id, params); 
+                let res = await app.mkapi(item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.playParams.id ?? item.id, params);
                 if (res && res.relationships && res.relationships.library && res.relationships.library.data && res.relationships.library.data.length > 0) {
                     id = res.relationships.library.data[0].id
-                }     
+                }
                 let kind = this.item.attributes.playParams.kind ?? this.data.item ?? '';
                 let truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
                 if (item.attributes.playParams.id) {
@@ -319,7 +324,7 @@
                 let item = this.item
                 let parent = this.parent
                 let childIndex = this.index
-                console.log(item,parent,childIndex)
+                console.log(item, parent, childIndex)
                 if (parent != null && childIndex != null) {
                     app.queueParentandplayChild(parent, childIndex, item);
                 } else {
