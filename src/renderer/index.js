@@ -2389,8 +2389,12 @@ var checkIfScrollIsStatic = setInterval(() => {
 
 // WebGPU Console Notification
 async function webGPU() {
-    const currentGPU = await navigator.gpu.requestAdapter()
-    console.log("WebGPU enabled on", currentGPU.name, "with feature ID", currentGPU.features.size)
+    try{
+        const currentGPU = await navigator.gpu.requestAdapter()
+        console.log("WebGPU enabled on", currentGPU.name, "with feature ID", currentGPU.features.size)
+    } catch (e) {
+        console.log("WebGPU disabled / WebGPU initialization failed")
+    }
 }
 
 webGPU().then()
