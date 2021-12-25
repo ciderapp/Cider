@@ -1992,8 +1992,8 @@ const app = new Vue({
                 return false
             }
         },
-        getMediaItemArtwork(url, size = 64) {
-            var newurl = `${url.replace('{w}', size).replace('{h}', size).replace('{f}', "webp").replace('{c}', "cc")}`;
+        getMediaItemArtwork(url, height = 64, width) {
+            var newurl = `${url.replace('{w}', width ?? height).replace('{h}', height).replace('{f}', "webp").replace('{c}',(height == '516')? "sr" :"cc")}`;
             return newurl
         },
         getNowPlayingArtworkBG(size = 600) {

@@ -10,7 +10,7 @@
     Vue.component('animatedartwork-view', {
         template: '#animatedartwork-view',
         props: ['video', 'hls'],
-        mounted() {
+        async mounted()  {
             if (this.video) {
 
                 this.$nextTick(function () {
@@ -24,7 +24,6 @@
                         capLevelToPlayerSize: true
                     };
                     if (this.hls) {
-                        console.log('detached');
                         this.hls.detachMedia();
                     } else {
 
@@ -53,7 +52,6 @@
             if(this.hls) {
                await this.hls.destroy();
                 this.hls = null
-                console.log('killed')
             }
         }
     });

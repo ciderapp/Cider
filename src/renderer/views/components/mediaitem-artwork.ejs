@@ -1,7 +1,7 @@
 <script type="text/x-template" id="mediaitem-artwork">
     <template v-if="type == 'artists'">
         <div class="mediaitem-artwork rounded" :key="url" :style="getStyle()">
-            <img :src="app.getMediaItemArtwork(url, size)"
+            <img :src="app.getMediaItemArtwork(url, size, width)"
                  decoding="async"
                  class="mediaitem-artwork--img">
         </div>
@@ -9,7 +9,7 @@
     <template v-else>
         <div class="mediaitem-artwork" :key="url" :style="getStyle()"
              v-observe-visibility="{callback: visibilityChanged}">
-            <img :src="app.getMediaItemArtwork(url, size)"
+            <img :src="app.getMediaItemArtwork(url, size, width)"
                  decoding="async"
                  class="mediaitem-artwork--img">
             <div v-if="video && isVisible" class="animatedartwork-view-box">
@@ -26,6 +26,10 @@
             size: {
                 type: String,
                 default: '120'
+            },
+            width: {
+                type: String,
+                required: false
             },
             url: {
                 type: String,
