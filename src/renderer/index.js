@@ -1297,12 +1297,21 @@ const app = new Vue({
 
             function downloadChunk() {
                 self.library.albums.downloadState = 1
+                const params = {
+                    "include[library-albums]": "catalog,artists,albums",
+                    "fields[artists]": "name,url,id",
+                    "fields[albums]": "name,url,id",
+                    platform: "web",
+                    "fields[catalog]": "artistUrl,albumUrl",
+                    "fields[albums]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,name,playParams,releaseDate,url",
+                    limit: 100,
+                }
                 if (downloaded == null) {
-                    app.mk.api.library.albums("", { limit: 100 }, { includeResponseMeta: !0 }).then((response) => {
+                    app.mk.api.library.albums("", params, { includeResponseMeta: !0 }).then((response) => {
                         processChunk(response)
                     })
                 } else {
-                    downloaded.next("", { limit: 100 }, { includeResponseMeta: !0 }).then((response) => {
+                    downloaded.next("", params, { includeResponseMeta: !0 }).then((response) => {
                         processChunk(response)
                     })
                 }
