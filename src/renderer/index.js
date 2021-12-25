@@ -871,11 +871,12 @@ const app = new Vue({
                 case "artist":
                     let artistId = '';
                     try {
-                        if (item.relationships.artists && item.relationships.artists.data.length > 0) {
-                            if (item.relationships.artists.data[0].type === "artist" || item.relationships.artists.data[0].type === "artists") {
+                        if (item.relationships.artists && item.relationships.artists.data.length > 0 && !item.relationships.artists.data[0].type.includes("library")) {
+                            if (item.relationships.artists.data[0].type === "artist" || item.relationships.artists.data[0].type === "artists" ) {
                                 artistId = item.relationships.artists.data[0].id
                             }
-                        } else {
+                        } 
+                        if (artistId == '') {
                             const url = (item.relationships.catalog.data[0].attributes.artistUrl);
                             artistId = (url).substring(url.lastIndexOf('/') + 1)
                             if (artistId.includes('viewCollaboration')) {
@@ -905,9 +906,16 @@ const app = new Vue({
                 case "album":
                     let albumId = '';
                     try {
-                        if (item.relationships.albums && item.relationships.albums.data.length > 0) {
+                        if (item.relationships.albums && item.relationships.albums.data.length > 0 && !item.relationships.albums.data[0].type.includes("library")) {
                             if (item.relationships.albums.data[0].type === "album" || item.relationships.albums.data[0].type === "albums") {
                                 albumId = item.relationships.albums.data[0].id
+                            }
+                        }
+                        if (albumId == '') {
+                            const url = (item.relationships.catalog.data[0].attributes.url);
+                            albumId = (url).substring(url.lastIndexOf('/') + 1)
+                            if (albumId.includes("?i=")) {
+                                albumId = albumId.substring(0, albumId.indexOf("?i="))
                             }
                         }
                     } catch (_) {
@@ -1214,10 +1222,11 @@ const app = new Vue({
 
             function downloadChunk() {
                 const params = {
-                    "include[library-songs]": "artists,albums",
+                    "include[library-songs]": "catalog,artists,albums",
                     "fields[artists]": "name,url,id",
                     "fields[albums]": "name,url,id",
                     platform: "web",
+                    "fields[catalog]": "artistUrl,albumUrl",
                     "fields[songs]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,name,playParams,releaseDate,url",
                     limit: 100,
                 }
