@@ -10,76 +10,32 @@ app.commandLine.appendSwitch('enable-unsafe-webgpu');
 
 const configSchema = {
     "general": {
-        "close_behavior": {
-            type: "number",
-            default: 0
-        },
-        "startup_behavior": {
-            type: "number",
-            default: 0
-        },
-        "discord_rpc": {
-            type: "number",
-            default: 1
-        },
+        "close_behavior": 0, // 0 = close, 1 = minimize, 2 = minimize to tray
+        "startup_behavior": 0, // 0 = nothing, 1 = open on startup
+        "discord_rpc": 1, // 0 = disabled, 1 = enabled as Cider, 2 = enabled as Apple Music
+        "volume": 1
     },
     "behavior": {
-        "hw_acceleration": {
-            type: "number",
-            default: 0 // 0 = default, 1 = webgpu, 2 = gpu disabled
-        }
+        "hw_acceleration": 0 // 0 = default, 1 = webgpu, 2 = gpu disabled
     },
     "audio": {
-        "quality": {
-            type: "string",
-            default: "extreme",
-        },
-        "seamless_audio": {
-            type: "boolean",
-            default: true,
-        }
+        "quality": "extreme",
+        "seamless_audio": true
     },
     "visual": {
-        "theme": {
-            type: "string",
-            default: ""
-        },
-        "scrollbars": {
-            type: "number",
-            default: 0
-        },
-        "refresh_rate": {
-            type: "number",
-            default: 0
-        },
-        "animated_artwork": {
-            type: "number",
-            default: 0 // 0 = always, 1 = limited, 2 = never
-        }
+        "theme": "",
+        "scrollbars": 0, // 0 = show on hover, 2 = always hide, 3 = always show
+        "refresh_rate": 0,
+        "animated_artwork": 0 // 0 = always, 1 = limited, 2 = never
     },
     "lyrics": {
-        "enable_mxm": {
-            type: "boolean",
-            default: false
-        },
-        "mxm_language": {
-            type: "string",
-            default: "en"
-        }
+        "enable_mxm": false,
+        "mxm_language": "en"
     },
     "lastfm": {
-        "enabled": {
-            type: "boolean",
-            default: false
-        },
-        "scrobble_after": {
-            type: "number",
-            default: 30
-        },
-        "auth_token": {
-            type: "string",
-            default: ""
-        }
+        "enabled": false,
+        "scrobble_after": 30,
+        "auth_token": ""
     }
 }
 
@@ -91,7 +47,7 @@ function CreateWindow() {
     // store
     const Store = require("electron-store");
     app.cfg = new Store({
-        defaults: {volume: 1},
+        defaults: configSchema,
     });
 
     /** CIDER **/

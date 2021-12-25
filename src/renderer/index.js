@@ -321,7 +321,7 @@ const app = new Vue({
             }
 
             // Set the volume
-            ipcRenderer.invoke('getStoreValue', 'volume').then((value) => {
+            ipcRenderer.invoke('getStoreValue', 'general.volume').then((value) => {
                 self.mk.volume = value
             })
 
@@ -431,7 +431,7 @@ const app = new Vue({
             })
 
             this.mk.addEventListener(MusicKit.Events.playbackVolumeDidChange, (_a) => {
-                ipcRenderer.invoke('setStoreValue', 'volume', this.mk.volume)
+                ipcRenderer.invoke('setStoreValue', 'general.volume', this.mk.volume)
             })
 
             this.refreshPlaylists()
