@@ -1450,7 +1450,8 @@ const app = new Vue({
         },
         removeFromLibrary(kind,id) {
             let self = this
-            this.mk.api.library.remove({[kind]: id }).then((data) => {
+            let truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
+            this.mk.api.library.remove({[truekind]: id }).then((data) => {
                 self.getLibrarySongsFull(true)
             })
         },
@@ -2165,7 +2166,62 @@ const app = new Vue({
                     el.pause()
                 })
             }
-        }
+        },
+        async nowPlayingContextMenu(event) {
+            // function revisedRandId() {
+            //     return Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10);
+            // }
+            let self = this
+            let data_type = this.mk.nowPlayingItem.playParams.kind
+            let item_id = this.mk.nowPlayingItem.attributes.playParams.id ?? this.mk.nowPlayingItem.id
+            let isLibrary = this.mk.nowPlayingItem.attributes.playParams.isLibrary ?? false
+            let params = {"fields[songs]": "inLibrary","fields[albums]": "inLibrary","relate" : "library","t" : "1"}
+            // let res = await app.mkapi(data_type, isLibrary , item_id, params); 
+            // if (res && res.relationships && res.relationships.library && res.relationships.library.data && res.relationships.library.data.length > 0) {
+            //     item_id = res.relationships.library.data[0].id
+            // }  
+            app.selectedMediaItems = []
+            app.select_selectMediaItem(item_id, data_type, 0, '12344', isLibrary)
+            let useMenu = "normal"
+            let menus = {
+                multiple: {
+                    items: [ ]
+                },
+                normal: {
+                    items: [
+                        {
+                            "name": "Add to Playlist...",
+                            "action": function () {
+                                app.promptAddToPlaylist()
+                            }
+                        },
+                        {
+                            "name":  "Add to Library...",
+                            "action": function () {
+                                app.addToLibrary(item_id);
+                            //   if (!isLibrary)  {app.addToLibrary(item_id); this.mk.nowPlayingItem.attributes.playParams["isLibrary"] = true} else { app.removeFromLibrary(data_type,item_id); this.mk.nowPlayingItem.attributes.playParams["isLibrary"] = false};
+                            }
+                        },
+                        {
+                            "name": "Start Radio",
+                            "action": function () {
+                                app.mk.setStationQueue({song: item_id}).then(() => {
+                                    app.mk.play()
+                                    app.selectedMediaItems = []
+                                })
+                            }
+                        },
+                    ]
+                }
+            }
+            if(this.contextExt) {
+                // if this.context-ext.normal is true append all options to the 'normal' menu which is a kvp of arrays
+                if(this.contextExt.normal) {
+                    menus.normal.items = menus.normal.items.concat(this.contextExt.normal)
+                }
+            }
+            CiderContextMenu.Create(event, menus[useMenu])
+        },
     }
 })
 

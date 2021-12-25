@@ -64,7 +64,7 @@
             <div class="app-chrome--center">
                 <div class="app-chrome-item playback-controls">
                     <template v-if="mkReady()">
-                        <div class="app-playback-controls" @mouseover="chrome.progresshover = true" @mouseleave="chrome.progresshover = false">
+                        <div class="app-playback-controls" @mouseover="chrome.progresshover = true" @mouseleave="chrome.progresshover = false" @contextmenu="nowPlayingContextMenu">
                             <div class="artwork"></div>
                             <div class="playback-info">
                                 <div class="song-name" >
