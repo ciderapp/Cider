@@ -1,12 +1,11 @@
 require('v8-compile-cache');
-const {app} = require('electron');
+const { app } = require('electron');
 
 // Analytics for debugging.
 const ElectronSentry = require("@sentry/electron");
-ElectronSentry.init({dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.ingest.sentry.io/6112214"});
+ElectronSentry.init({ dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.ingest.sentry.io/6112214" });
 
 // Enable WebGPU and list adapters (EXPERIMENTAL.)
-app.commandLine.appendSwitch('enable-unsafe-webgpu');
 
 const configSchema = {
     "general": {
@@ -14,9 +13,6 @@ const configSchema = {
         "startup_behavior": 0, // 0 = nothing, 1 = open on startup
         "discord_rpc": 1, // 0 = disabled, 1 = enabled as Cider, 2 = enabled as Apple Music
         "volume": 1
-    },
-    "behavior": {
-        "hw_acceleration": 0 // 0 = default, 1 = webgpu, 2 = gpu disabled
     },
     "audio": {
         "quality": "extreme",
@@ -26,7 +22,9 @@ const configSchema = {
         "theme": "",
         "scrollbars": 0, // 0 = show on hover, 2 = always hide, 3 = always show
         "refresh_rate": 0,
-        "animated_artwork": 0 // 0 = always, 1 = limited, 2 = never
+        "animated_artwork": "always", // 0 = always, 1 = limited, 2 = never
+        "hw_acceleration": "default", // default, webgpu, disabled
+        "window_transparency": "default"
     },
     "lyrics": {
         "enable_mxm": false,
@@ -50,6 +48,22 @@ function CreateWindow() {
         defaults: configSchema,
     });
 
+    switch (app.cfg.get("visual.hw_acceleration")) {
+        default:
+        case "default":
+
+            break;
+        case "webgpu":
+            console.info("WebGPU is enabled.");
+            app.commandLine.appendSwitch('enable-unsafe-webgpu');
+            break;
+        case "disabled":
+            console.info("Hardware acceleration is disabled.");
+            app.commandLine.appendSwitch('disable-gpu')
+            break;
+    }
+
+
     /** CIDER **/
     const ciderwin = require("./src/main/cider-base")
     app.win = ciderwin
@@ -67,7 +81,7 @@ app.commandLine.appendSwitch('js-flags', '--max-old-space-size=1024')
 app.on('ready', () => {
     if (app.isQuiting) { app.quit(); return; }
     console.log('[Cider] Application is Ready. Creating Window.')
-    if(!app.isPackaged) {
+    if (!app.isPackaged) {
         console.info('[Cider] Running in development mode.')
     }
     CreateWindow()

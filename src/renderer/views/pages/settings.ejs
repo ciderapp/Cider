@@ -1,6 +1,6 @@
 <script type="text/x-template" id="cider-settings">
     <div class="content-inner settings-page">
-        <h1 class="header-text">Settings <small>(non functional, stay tuned)</small></h1>
+        <h1 class="header-text">Settings <small>(WIP)</small></h1>
         <div class="md-option-container">
             <div class="md-option-line">
                 <div class="md-option-segment">
@@ -8,9 +8,10 @@
                 </div>
                 <div class="md-option-segment md-option-segment_auto">
                     <select class="md-select" style="width:180px;">
-                        <option value="990">Extreme</option>
-                        <option value="256">High</option>
-                        <option value="64">Low</option>
+                        <option value="extreme">Extreme</option>
+                        <option value="high">High</option>
+                        <option value="low">Low</option>
+                        <option value="auto">Auto</option>
                     </select>
                 </div>
             </div>
@@ -19,7 +20,7 @@
                     Seamless Audio Transitions
                 </div>
                 <div class="md-option-segment md-option-segment_auto">
-                    <input type="checkbox" switch/>
+                    <input type="checkbox" v-model="app.cfg.audio.seamless_audio" switch/>
                 </div>
             </div>
             <div class="md-option-line">
@@ -27,10 +28,10 @@
                     Animated Artwork
                 </div>
                 <div class="md-option-segment md-option-segment_auto">
-                    <select class="md-select">
-                        <option value="0">Always</option>
-                        <option value="1">Limit to pages and special entries</option>
-                        <option value="2">Disable Everywhere</option>
+                    <select class="md-select" v-model="app.cfg.visual.animated_artwork">
+                        <option value="always">Always</option>
+                        <option value="limited">Limit to pages and special entries</option>
+                        <option value="disabled">Disable Everywhere</option>
                     </select>
                 </div>
             </div>
@@ -39,7 +40,7 @@
                     Discord Rich Presence
                 </div>
                 <div class="md-option-segment md-option-segment_auto">
-                    <select class="md-select">
+                    <select class="md-select" v-model="app.cfg.general.discord_rpc">
                         <option value="0">Disabled</option>
                         <option value="1">Display as 'Cider'</option>
                         <option value="2">Display as 'Apple Music'</option>
@@ -70,6 +71,31 @@
                 </div>
                 <div class="md-option-segment md-option-segment_auto">
                     <input type="checkbox" switch/>
+                </div>
+            </div>
+            <div class="md-option-line">
+                <div class="md-option-segment">
+                    Hardware Acceleration<br>
+                    <small>(Requires relaunch)</small>
+                </div>
+                <div class="md-option-segment md-option-segment_auto">
+                    <select class="md-select" style="width:180px;" v-model="app.cfg.behavior.hw_acceleration">
+                        <option value="default">Default</option>
+                        <option value="webgpu">WebGPU</option>
+                        <option value="disabled">Disabled</option>
+                    </select>
+                </div>
+            </div>
+            <div class="md-option-line">
+                <div class="md-option-segment">
+                    Window Transparency
+                </div>
+                <div class="md-option-segment md-option-segment_auto">
+                    <select class="md-select" style="width:180px;" v-model="app.cfg.visual.window_transparency" @change="app.getHTMLStyle()">
+                        <option value="default">Default</option>
+                        <option value="acrylic" v-if="app.platform == 'win32'">Acrylic</option>
+                        <option value="disabled">Disabled</option>
+                    </select>
                 </div>
             </div>
             <div class="md-option-line">
