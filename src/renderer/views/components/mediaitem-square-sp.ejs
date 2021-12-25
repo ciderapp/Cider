@@ -14,24 +14,24 @@
                     <div class="button" style="
                     border-radius: 50%;
                     background: rgba(50,50,50,0.7);"
-                         :style="[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'margin': '140px','position': 'absolute',
-                        width: '40px',
-                        height: '40px',} :
-                        {margin: '35px','position': 'absolute',
+                         :style="[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'margin': '153px','position': 'absolute','margin-left': '153px',
+                        width: '30px',
+                        height: '30px',} :
+                        {margin: '35px',display:'none',
                         width: '120px',
-                        height: '120px',}]" @click="app.playMediaItem(item)">
-                        <%- include("../svg/play.svg") %>
+                        height: '120px',}]" @click="clickContext()" >
+                        <%- include("../svg/more.svg") %>
                     </div>
                     <div class="button" style="
                     border-radius: 50%;
                     background: rgba(50,50,50,0.7);"
-                         :style="[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'position': 'absolute','margin': '140px',
-                        width: '40px', 'margin-left': '10px',
-                        height: '40px',} :
-                        {display: 'none',margin: '35px',
+                         :style="[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'position': 'absolute','margin': '153px',
+                        width: '30px', 'margin-left': '8px',
+                        height: '30px',} :
+                        {margin: '35px','position': 'absolute',
                         width: '120px',
-                        height: '120px',}]" @click="clickContext()">
-                        <%- include("../svg/more.svg") %>
+                        height: '120px',}]" @click="app.playMediaItem(item)">
+                        <%- include("../svg/play.svg") %>
                     </div>
                 </div>
                 <div class="title text-overflow-elipsis"
@@ -52,24 +52,24 @@
                 <div class="button" style="
                border-radius: 50%;
                background: rgba(50,50,50,0.7);"
-                     :style="[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'margin': '140px','position': 'absolute',
-                   width: '40px',
-                   height: '40px',} :
-                   {margin: '35px','position': 'absolute',
+                     :style="[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'margin': '153px','position': 'absolute','margin-left': '153px',
+                   width: '30px',
+                   height: '30px',} :
+                   {margin: '35px','position': 'absolute', display: 'none',
                    width: '120px',
-                   height: '120px',}]" @click="app.playMediaItem(item)">
-                    <%- include("../svg/play.svg") %>
+                   height: '120px',}]" @click="clickContext()">
+                    <%- include("../svg/more.svg") %>
                 </div>
                 <div class="button" style="
                 border-radius: 50%;
                 background: rgba(50,50,50,0.7);"
-                     :style="[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'position': 'absolute','margin': '140px',
-                    width: '40px', 'margin-left': '10px',
-                    height: '40px',} :
-                    {display: 'none',margin: '35px','position': 'absolute',
+                     :style="[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'position': 'absolute','margin': '153px',
+                    width: '30px', 'margin-left': '8px',
+                    height: '30px',} :
+                    {margin: '35px','position': 'absolute',
                     width: '120px',
-                    height: '120px',}]" @click="clickContext()">
-                    <%- include("../svg/more.svg") %>
+                    height: '120px',}]" @click="app.playMediaItem(item)" >
+                    <%- include("../svg/play.svg") %>
                 </div>
             </div>
 

@@ -25,10 +25,10 @@
                     <div class="button" style="
                     border-radius: 50%;
                     background: rgba(50,50,50,0.7);"
-                         :style="[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'margin': '200px',
-                        'margin-left': '250px',
-                        width: '40px',
-                        height: '40px',} :
+                         :style="[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'margin': '205px',
+                        'margin-left': '260px', 'margin-bottom': '140px',
+                        width: '30px',
+                        height: '30px',} :
                         {margin: '35px', 'margin-left': '95px',
                         width: '120px',
                         height: '120px',}]" @click="app.playMediaItem(item)">
@@ -40,10 +40,10 @@
                 <div class="button" style="
                 border-radius: 50%;
                 background: rgba(50,50,50,0.7);"
-                     :style="[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'margin': '200px',
-                    'margin-left': '250px', 
-                    width: '40px',
-                    height: '40px',} :
+                     :style="[(!(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('radioStation') && !(item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')): (item.type ?? '')).includes('song')) ? {'margin': '205px',
+                    'margin-left': '260px', 'margin-bottom': '140px',
+                    width: '30px',
+                    height: '30px',} :
                     {margin: '35px', 'margin-left': '95px',
                     width: '120px',
                     height: '120px',}]" @click="app.playMediaItem(item)">
