@@ -372,11 +372,15 @@ const app = new Vue({
                                 queue = JSON.parse(queue)
                                 if (queue && queue.length > 0){
                                         let ids = queue.map ( e => (e.playParams ? e.playParams.id : (e.attributes.playParams ? e.attributes.playParams.id : '') ))
+                                        var i = 0;
                                         if (ids.length > 0) {
                                             for (id of ids){
-                                                try{
-                                                app.mk.playLater({songs: [id] })
-                                                } catch (err){}
+                                                if (!(i == 0 && ids[0] == lastItem.attributes.playParams.id)){
+                                                    try{
+                                                    app.mk.playLater({songs: [id] })
+                                                    } catch (err){}
+                                                }
+                                                i++;
                                             }
                                         }
                                 }
