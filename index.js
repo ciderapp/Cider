@@ -8,7 +8,6 @@ ElectronSentry.init({dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.inge
 // Enable WebGPU and list adapters (EXPERIMENTAL.)
 app.commandLine.appendSwitch('enable-unsafe-webgpu');
 
-
 const configSchema = {
     "general": {
         "close_behavior": {
@@ -83,6 +82,7 @@ const configSchema = {
         }
     }
 }
+
 
 // Creating the Application Window and Calling all the Functions
 function CreateWindow() {
