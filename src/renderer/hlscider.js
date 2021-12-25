@@ -19209,7 +19209,11 @@ typeof window !== "undefined" &&
                                 }
                             }
                         }
-
+                        if (levels && levels.length > 0) {
+                         levels = levels.sort(function (a, b) {
+                            return a.bitrate - b.bitrate;
+                          });
+                        }
                         return {
                             levels: levels,
                             sessionData: hasSessionData ? sessionData : null
