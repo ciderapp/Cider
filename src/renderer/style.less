@@ -633,8 +633,16 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 }
 
 .app-chrome .app-chrome-item.volume {
-  width: 80px;
+  width: 100px;
   margin-right: 6px;
+}
+
+.app-chrome-item.volume-icon {
+  filter: contrast(0);
+  background-image: url(http://localhost:9000/assets/volume-up.svg);
+  height: 15px;
+  width: 30px;
+  background-repeat: no-repeat;
 }
 
 .app-chrome .app-chrome-item.volume>input[type=range]::-webkit-slider-thumb {
