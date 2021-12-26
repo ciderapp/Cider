@@ -5,8 +5,6 @@ const { app } = require('electron');
 const ElectronSentry = require("@sentry/electron");
 ElectronSentry.init({ dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.ingest.sentry.io/6112214" });
 
-// Enable WebGPU and list adapters (EXPERIMENTAL.)
-
 const configSchema = {
     "general": {
         "close_behavior": 0, // 0 = close, 1 = minimize, 2 = minimize to tray
@@ -40,32 +38,33 @@ const configSchema = {
     }
 }
 
+// Enable WebGPU and list adapters (EXPERIMENTAL.)
+// Note: THIS HAS TO BE BEFORE ANYTHING GETS INITIALIZED.
+
+const Store = require("electron-store");
+app.cfg = new Store({
+    defaults: configSchema,
+});
+
+switch (app.cfg.get("visual.hw_acceleration")) {
+    default:
+    case "default":
+
+        break;
+    case "webgpu":
+        console.info("WebGPU is enabled.");
+        app.commandLine.appendSwitch('enable-unsafe-webgpu')
+        break;
+    case "disabled":
+        console.info("Hardware acceleration is disabled.");
+        app.commandLine.appendSwitch('disable-gpu')
+        break;
+}
+
 
 // Creating the Application Window and Calling all the Functions
 function CreateWindow() {
     if (app.isQuiting) { app.quit(); return; }
-
-    // store
-    const Store = require("electron-store");
-    app.cfg = new Store({
-        defaults: configSchema,
-    });
-
-    switch (app.cfg.get("visual.hw_acceleration")) {
-        default:
-        case "default":
-
-            break;
-        case "webgpu":
-            console.info("WebGPU is enabled.");
-            app.commandLine.appendSwitch('enable-unsafe-webgpu');
-            break;
-        case "disabled":
-            console.info("Hardware acceleration is disabled.");
-            app.commandLine.appendSwitch('disable-gpu')
-            break;
-    }
-
 
     /** CIDER **/
     const ciderwin = require("./src/main/cider-base")
