@@ -3316,7 +3316,7 @@ typeof window !== "undefined" &&
 
                             _this3.tick();
                         }).catch(function (reason) {
-                            _this3.warn(reason);
+                          //  _this3.warn(reason);
 
                             _this3.resetFragmentLoading(frag);
                         });

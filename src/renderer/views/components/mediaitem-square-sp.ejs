@@ -1,6 +1,6 @@
 <script type="text/x-template" id="mediaitem-square-sp">
-    <div ref="main" style="position: relative; display: inline-flex;" @contextmenu="contextMenu">
-        <div @click.self='app.routeView(item)'
+    <div ref="main" style="position: relative; display: inline-flex;" @contextmenu="contextMenu"  v-observe-visibility="{callback: visibilityChanged}" width="250px">
+        <div @click.self='app.routeView(item)' v-if="isVisible"
              class="cd-mediaitem-square-sp" ref="main2"
              :style="{'--spcolor' : (item.attributes.artwork.bgColor != null) ? ('#'+item.attributes.artwork.bgColor) : `black`}">
             <div class="artwork">
@@ -50,7 +50,7 @@
             </div>
 
         </div>
-        <div class="cd-mediaitem-square-large-overlay" @click.self='app.routeView(item)' tabindex="0">
+        <div class="cd-mediaitem-square-large-overlay" @click.self='app.routeView(item)' tabindex="0" v-if="isVisible">
             <div class="button" style="
                border-radius: 50%;
                background: rgba(50,50,50,0.7);"
@@ -84,6 +84,7 @@
         data: function () {
             return {
                 app: this.$root,
+                isVisible: true,
             }
         },
         methods: {
@@ -103,7 +104,11 @@
                 );
                 this.$refs.main.dispatchEvent(evt);
             }
-            , contextMenu(event) {
+            ,
+            visibilityChanged: function (isVisible, entry) {
+                this.isVisible = isVisible
+            },
+            contextMenu(event) {
                 if (!event) {
                     event = this.$refs.main
                 } else {

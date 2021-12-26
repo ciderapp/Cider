@@ -1,4 +1,4 @@
-const {BrowserWindow, ipcMain, shell, app} = require("electron")
+const {BrowserWindow, ipcMain, shell, app, screen} = require("electron")
 const {join} = require("path")
 const getPort = require("get-port");
 const express = require("express");
@@ -189,6 +189,14 @@ const CiderBase = {
             }
         })
 
+        // Set scale
+        ipcMain.on('setScreenScale', (event, scale) => {
+            win.webContents.setZoomFactor(parseFloat(scale))
+        }) 
+        var mainScreen = screen.getPrimaryDisplay();
+        var dimensions = mainScreen.size;
+        var screenWidth = dimensions.width;
+        win.webContents.setZoomFactor(screenWidth / 1536)
         return win
     },
 

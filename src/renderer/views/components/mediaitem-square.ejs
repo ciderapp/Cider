@@ -50,13 +50,18 @@
             return {
                 isVisible: false,
                 addedToLibrary: false,
-                guid: uuidv4(),
+                guid: this.uuidv4(),
                 noplay: ["apple-curators"],
                 nomenu: ["artists", "stations", "apple-curators"],
                 app: this.$root
             }
         },
         methods: {
+            uuidv4() {
+                return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+                    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+                );
+            },
             getArtworkUrl() {
                 let artwork = this.item.attributes.artwork ? this.item.attributes.artwork.url : ''
                 switch (this.kind) {
@@ -174,6 +179,11 @@
                 }
                 CiderContextMenu.Create(event, menus[useMenu])
             },
+        },
+        beforeDestroy: function () {
+            this.item = null;
+            this.kind = null;
+            this.size = null;
         }
     });
 </script>

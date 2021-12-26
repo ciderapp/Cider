@@ -1,21 +1,21 @@
-<script type="text/x-template" id="mediaitem-list-item">
+<script type="text/x-template" id="libraryartist-item">
     <div v-observe-visibility="{callback: visibilityChanged}"
-         @contextmenu="contextMenu"
+       
          @click="select"
-         :data-id="item.attributes.playParams.id ?? item.id"
-         :data-type="getDataType()"
+         :data-id="item.id"
+         :data-type="artists"
          :data-index="index"
          :data-guid="guid"
-         :data-islibrary="this.item.attributes.playParams.isLibrary ?? false"
+         :data-islibrary="true"
          class="cd-mediaitem-list-item"
          :class="{'mediaitem-selected': app.select_hasMediaItem(guid)}">
         <template v-if="isVisible">
-            <div class="isLibrary" v-if="showLibraryStatus == true">
+            <!-- <div class="isLibrary" v-if="showLibraryStatus == true">
                 <button @click="addToLibrary()"
                         v-if="!app.isInLibrary(item.attributes.playParams) && !addedToLibrary">🖤
                 </button>
                 <button v-else @click="removeFromLibrary()">❤️</button>
-            </div>
+            </div> -->
             <div class="artwork" v-if="showArtwork == true">
                 <mediaitem-artwork
                         :url="item.attributes.artwork ? item.attributes.artwork.url : ''"
@@ -29,22 +29,23 @@
                     {{ item.attributes.name }}
                 </div>
                 <div class="subtitle text-overflow-elipsis" style="-webkit-box-orient: horizontal;">
-                    <template v-if="item.attributes.artistName">
+                    <template v-if="item.attributes.name">
                         <div class="artist item-navigate text-overflow-elipsis"
                              @click="app.searchAndNavigate(item,'artist')">
                             {{ item.attributes.artistName }}
                         </div>
-                        <template v-if="item.attributes.albumName">&nbsp;-&nbsp;</template>
+                        <!-- <template v-if="item.attributes.albumName">&nbsp;-&nbsp;</template>
                         <template v-if="item.attributes.albumName">
                             <div class="artist item-navigate text-overflow-elipsis"
-                                 @click="app.searchAndNavigate(item,'album')">
+                             //    @click="app.searchAndNavigate(item,'album')"
+                                 >
                                 {{ item.attributes.albumName }}
                             </div>
-                        </template>
+                        </template> -->
                     </template>
                 </div>
             </div>
-            <div class="content-rating" v-if="item.attributes.contentRating" @dblclick="app.routeView(item)">
+            <!-- <div class="content-rating" v-if="item.attributes.contentRating" @dblclick="app.routeView(item)">
                 {{ item.attributes.contentRating }}
             </div>
             <template v-if="showMetaData == true" @dblclick="app.routeView(item)">
@@ -58,14 +59,14 @@
             </template>
             <div class="duration" v-if="showDuration" @dblclick="app.routeView(item)">
                 {{ msToMinSec(item.attributes.durationInMillis ?? 0) }}
-            </div>
+            </div> -->
         </template>
     </div>
 </script>
 
 <script>
-    Vue.component('mediaitem-list-item', {
-        template: '#mediaitem-list-item',
+    Vue.component('libraryartist-item', {
+        template: '#libraryartist-item',
         data: function () {
             return {
                 isVisible: false,
@@ -103,68 +104,9 @@
                 }
             },
             select(e) {
-                let data_type = this.getDataType()
-                let item_id = this.item.attributes.playParams.id ?? this.item.id
-                let isLibrary = this.item.attributes.playParams.isLibrary ?? false
-
-                if (e.shiftKey) {
-                    if (this.index != -1) {
-
-                        if (app.selectedMediaItems.length == 0) {
-                            app.select_selectMediaItem(item_id, this.getDataType(), this.index, this.guid, isLibrary)
-                        }
-                        let allMediaItems = document.querySelectorAll(".cd-mediaitem-list-item[data-index]")
-                        let startIndex = Math.min(...app.selectedMediaItems.map(item => item.index))
-                        let endIndex = Math.max(...app.selectedMediaItems.map(item => item.index))
-                        if (this.index < startIndex) {
-                            for (let i = this.index; i <= endIndex; i++) {
-                                let item = allMediaItems[i]
-                                if (item) {
-                                    app.select_selectMediaItem(item.getAttribute("data-id"),
-                                        item.getAttribute("data-type"),
-                                        item.getAttribute("data-index"),
-                                        item.getAttribute("data-guid")),
-                                        item.getAttribute("data-islibrary")
-                                }
-                            }
-                        } else if (this.index > endIndex) {
-                            for (let i = startIndex; i <= this.index; i++) {
-                                let item = allMediaItems[i]
-                                if (item) {
-                                    app.select_selectMediaItem(item.getAttribute("data-id"),
-                                        item.getAttribute("data-type"),
-                                        item.getAttribute("data-index"),
-                                        item.getAttribute("data-guid")),
-                                        item.getAttribute("data-islibrary")
-                                }
-                            }
-                        } else {
-                            for (let i = startIndex; i <= endIndex; i++) {
-                                let item = allMediaItems[i]
-                                if (item) {
-                                    app.select_selectMediaItem(item.getAttribute("data-id"),
-                                        item.getAttribute("data-type"),
-                                        item.getAttribute("data-index"),
-                                        item.getAttribute("data-guid")),
-                                        item.getAttribute("data-islibrary")
-                                }
-                            }
-                        }
-                    }
-                } else if (e.ctrlKey) {
-                    if (app.select_hasMediaItem(this.guid)) {
-                        app.select_removeMediaItem(this.guid)
-                    } else {
-                        app.select_selectMediaItem(item_id, this.getDataType(), this.index, this.guid, isLibrary)
-                    }
-                } else {
-                    if (app.select_hasMediaItem(this.guid)) {
-                        app.selectedMediaItems = []
-                    } else {
-                        app.selectedMediaItems = []
-                        app.select_selectMediaItem(item_id, this.getDataType(), this.index, this.guid, isLibrary)
-                    }
-                }
+               let u = this.item
+               u.attributes.playParams = {id : this.id, kind: "artists", isLibrary: true}
+               app.routeView(u)
             },
             contextMenu(event) {
                 let self = this

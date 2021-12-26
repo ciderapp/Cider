@@ -2,7 +2,7 @@
     <div class="mediaitem-artwork" :class="{'rounded': (type == 'artists')}" :key="url" :style="getStyle()"
          v-observe-visibility="{callback: visibilityChanged}">
         <img :src="app.getMediaItemArtwork(url, size, width)"
-             decoding="async"
+             decoding="async" loading="lazy"
              class="mediaitem-artwork--img">
         <div v-if="video && isVisible && getVideoPriority()" class="animatedartwork-view-box">
             <animatedartwork-view :priority="getVideoPriority()" :video="video"></animatedartwork-view>

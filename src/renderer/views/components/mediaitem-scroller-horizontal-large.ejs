@@ -1,7 +1,9 @@
 <script type="text/x-template" id="mediaitem-scroller-horizontal-large">
     <div class="cd-hmedia-scroller">
-        <mediaitem-square :item="item"
-                          v-for="item in items"></mediaitem-square>
+        <template >
+            <mediaitem-square :item="item" 
+                            v-for="item in items"></mediaitem-square>
+        </template>                  
     </div>
 </script>
 
@@ -9,12 +11,6 @@
 <script>
     Vue.component('mediaitem-scroller-horizontal-large', {
         template: '#mediaitem-scroller-horizontal-large',
-        props: ['items'],
-        data: function () {
-            return {
-                app: this.$root,
-            }
-        },
-        methods: {}
+        props: ['items']
     });
 </script>
