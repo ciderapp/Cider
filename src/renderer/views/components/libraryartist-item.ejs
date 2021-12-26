@@ -1,12 +1,6 @@
 <script type="text/x-template" id="libraryartist-item">
-    <div v-observe-visibility="{callback: visibilityChanged}"
-       
+    <div v-observe-visibility="{callback: visibilityChanged}"      
          @click="select"
-         :data-id="item.id"
-         :data-type="artists"
-         :data-index="index"
-         :data-guid="guid"
-         :data-islibrary="true"
          class="cd-mediaitem-list-item"
          :class="{'mediaitem-selected': app.select_hasMediaItem(guid)}">
         <template v-if="isVisible">

@@ -1435,7 +1435,7 @@ const app = new Vue({
             }
             this.library.artists.downloadState = 1
             this.library.downloadNotification.show = true
-            this.library.downloadNotification.message = "Updating library albums..."
+            this.library.downloadNotification.message = "Updating library artists..."
 
             function downloadChunk() {
                 self.library.artists.downloadState = 1
@@ -1464,7 +1464,7 @@ const app = new Vue({
                 downloaded = response
                 library = library.concat(downloaded.data)
                 self.library.downloadNotification.show = true
-                self.library.downloadNotification.message = "Updating library albums..."
+                self.library.downloadNotification.message = "Updating library artists..."
                 self.library.downloadNotification.total = downloaded.meta.total
                 self.library.downloadNotification.progress = library.length
                 if (downloaded.meta.total == 0) {
