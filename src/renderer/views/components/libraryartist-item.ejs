@@ -10,18 +10,12 @@
          class="cd-mediaitem-list-item"
          :class="{'mediaitem-selected': app.select_hasMediaItem(guid)}">
         <template v-if="isVisible">
-            <!-- <div class="isLibrary" v-if="showLibraryStatus == true">
-                <button @click="addToLibrary()"
-                        v-if="!app.isInLibrary(item.attributes.playParams) && !addedToLibrary">🖤
-                </button>
-                <button v-else @click="removeFromLibrary()">❤️</button>
-            </div> -->
             <div class="artwork" v-if="showArtwork == true">
                 <mediaitem-artwork
-                        :url="item.attributes.artwork ? item.attributes.artwork.url : ''"
+                        :url="getArtwork()"
                         size="50"
                         :type="item.type"></mediaitem-artwork>
-                <button class="overlay-play" @click="playTrack()"><%- include("../svg/play.svg") %></button>
+                <button class="overlay-play"  @click="select"></button>
             </div>
             <div class="info-rect" :style="{'padding-left': (showArtwork ? '' : '16px')}"
                  @dblclick="app.routeView(item)">
@@ -31,35 +25,12 @@
                 <div class="subtitle text-overflow-elipsis" style="-webkit-box-orient: horizontal;">
                     <template v-if="item.attributes.name">
                         <div class="artist item-navigate text-overflow-elipsis"
-                             @click="app.searchAndNavigate(item,'artist')">
+                             @click="select">
                             {{ item.attributes.artistName }}
                         </div>
-                        <!-- <template v-if="item.attributes.albumName">&nbsp;-&nbsp;</template>
-                        <template v-if="item.attributes.albumName">
-                            <div class="artist item-navigate text-overflow-elipsis"
-                             //    @click="app.searchAndNavigate(item,'album')"
-                                 >
-                                {{ item.attributes.albumName }}
-                            </div>
-                        </template> -->
                     </template>
                 </div>
             </div>
-            <!-- <div class="content-rating" v-if="item.attributes.contentRating" @dblclick="app.routeView(item)">
-                {{ item.attributes.contentRating }}
-            </div>
-            <template v-if="showMetaData == true" @dblclick="app.routeView(item)">
-                <div class="metainfo">
-                    {{ item.attributes.releaseDate ? new Date(item.attributes.releaseDate).toLocaleDateString()
-                    : "" }}
-                </div>
-                <div class="metainfo">
-                    {{ item.attributes.genreNames[0] ?? "" }}
-                </div>
-            </template>
-            <div class="duration" v-if="showDuration" @dblclick="app.routeView(item)">
-                {{ msToMinSec(item.attributes.durationInMillis ?? 0) }}
-            </div> -->
         </template>
     </div>
 </script>
@@ -103,10 +74,23 @@
                     return this.item.attributes.playParams.kind
                 }
             },
-            select(e) {
+            async select(e)  {
                let u = this.item
-               u.attributes.playParams = {id : this.id, kind: "artists", isLibrary: true}
-               app.routeView(u)
+               let u1 = await app.mk.api.library.artistRelationship(u.id,"albums",
+               {platform: "web",
+                "include[library-albums]": "artists,tracks",
+                "include[library-artists]": "catalog",
+                "fields[artists]": "url",
+                "includeOnly": "catalog,artists"}
+               )
+               app.showCollection({data : Object.assign({},u1)}, u.attributes.name?? '', '');
+            },
+            getArtwork(){
+                let u = ""
+                try{
+                u = this.item.relationships.catalog.data[0].attributes.artwork.url}
+                catch (e){};
+                return u;
             },
             contextMenu(event) {
                 let self = this

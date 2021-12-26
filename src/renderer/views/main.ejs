@@ -409,12 +409,12 @@
                    </template>
                 </transition>
                  <!-- Library - Artists-->
-                <!-- <transition name="wpfade" v-on:enter="getLibraryArtistsFull(null, 0);">
+                <transition name="wpfade" v-on:enter="getLibraryArtistsFull(null, 0);">
                     <template v-if="page == 'library-artists'">
                         <%- include('pages/library-artists') %>');
                     %>
                     </template>
-                </transition> -->
+                </transition>
                 <transition name="wpfade">
                     <template v-if="page.includes('appleCurator')" >
                         <cider-applecurator :data="appleCurator"></cider-applecurator>
@@ -542,6 +542,7 @@
 <!-- Lyrics View -->
 <%- include('components/lyrics-view') %>
 
+<script src="musickit.js?v=1"></script>
 <script>
     if (typeof MusicKit == 'undefined') {
         document.write(unescape("%3Cscript src='https://js-cdn.music.apple.com/musickit/v2/amp/musickit.js' type='text/javascript'%3E%3C/script%3E"));

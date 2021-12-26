@@ -813,9 +813,6 @@ const app = new Vue({
             })
         },
         routeView(item) {
-            let self = this
-
-
             let kind = (item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')) : (item.type ?? ''));
             let id = (item.attributes.playParams ? (item.attributes.playParams.id ?? (item.id ?? '')) : (item.id ?? ''));
             ;
@@ -840,7 +837,8 @@ const app = new Vue({
                     app.getArtistInfo(id, isLibrary)
                     window.location.hash = `${kind}/${id}`
                     document.querySelector("#app-content").scrollTop = 0
-                } else if (kind.toString().includes("record-label") || kind.toString().includes("curator")) {
+
+                }else if (kind.toString().includes("record-label") || kind.toString().includes("curator")) {
                     if (kind.toString().includes("record-label")) {
                         kind = "recordLabel"
                     } else {
@@ -1008,17 +1006,17 @@ const app = new Vue({
                 app.playMediaItemById((id), (kind), (isLibrary), item.attributes.url ?? '')
             }
         },
-        async getTypeFromID(kind, id, isLibrary = false, params = {}) {
+        async getTypeFromID(kind, id, isLibrary = false, params = {}, params2 = {}) {
             let a;
             if (kind == "album" | kind == "albums") {
                 params["include"] = "tracks,artists,record-labels";
             }
             try {
-                a = await this.mkapi(kind.toString(), isLibrary, id.toString(), params);
+                a = await this.mkapi(kind.toString(), isLibrary, id.toString(), params, params2);
             } catch (e) {
                 console.log(e);
                 try {
-                    a = await this.mkapi(kind.toString(), !isLibrary, id.toString(), params);
+                    a = await this.mkapi(kind.toString(), !isLibrary, id.toString(), params, params2);
                 } catch (err) {
                     console.log(err);
                     a = []
@@ -1210,21 +1208,20 @@ const app = new Vue({
                     } else {
                         this.library.artists.displayListing = this.library.artists.listing.filter(item => {
                             let itemName = item.attributes.name.toLowerCase()
-                            let searchTerm = this.library.albums.search.toLowerCase()
+                            let searchTerm = this.library.artists.search.toLowerCase()
                             let artistName = ""
                             let albumName = ""
-                            if (item.attributes.artistName != null) {
-                                artistName = item.attributes.artistName.toLowerCase()
-                            }
-                            if (item.attributes.albumName != null) {
-                                albumName = item.attributes.albumName.toLowerCase()
-                            }
+                            // if (item.attributes.artistName != null) {
+                            //     artistName = item.attributes.artistName.toLowerCase()
+                            // }
+                            // if (item.attributes.albumName != null) {
+                            //     albumName = item.attributes.albumName.toLowerCase()
+                            // }
         
                             // remove any non-alphanumeric characters and spaces from search term and item name
                             searchTerm = searchTerm.replace(/[^a-z0-9 ]/gi, "")
                             itemName = itemName.replace(/[^a-z0-9 ]/gi, "")
-                            artistName = artistName.replace(/[^a-z0-9 ]/gi, "")
-                            albumName = albumName.replace(/[^a-z0-9 ]/gi, "")
+                            
         
                             if (itemName.includes(searchTerm) || artistName.includes(searchTerm) || albumName.includes(searchTerm)) {
                                 return item
@@ -1246,7 +1243,7 @@ const app = new Vue({
             }
             try {
                 if (library) {
-                    return await this.mk.api.library[method](term, params, params2)
+                        return await this.mk.api.library[method](term, params, params2)
                 } else {
                     return await this.mk.api[method](term, params, params2)
                 }

@@ -13,35 +13,35 @@
                            style="width:100%;"
                            spellcheck="false"
                            placeholder="Search..."
-                           @input="searchLibraryAlbums"
+                           @input="searchLibraryArtists"
                            v-model="library.artists.search" class="search-input">
                 </div>
             </div>
             <div class="col-auto flex-center">
                 <div class="row">
-                    <div class="col">
-                        <select class="md-select" v-model="library.artists.sorting[1]" @change="searchLibraryAlbums(1)">
+                    <!-- <div class="col">
+                        <select class="md-select" v-model="library.artists.sorting[1]" @change="searchLibraryArtists(1)">
                             <optgroup label="Sort By">
                                 <option v-for="(sort, index) in library.artists.sortingOptions" :value="index">{{ sort }}</option>
                             </optgroup>
                         </select>
-                    </div>
+                    </div> -->
                     <div class="col">
-                        <select class="md-select" v-model="library.artists.sortOrder[1]" @change="searchLibraryAlbums(1)">
+                        <select class="md-select" v-model="library.artists.sortOrder[1]" @change="searchLibraryArtists(1)">
                             <optgroup label="Sort Order">
                                 <option value="asc">Ascending</option>
                                 <option value="desc">Descending</option>
                             </optgroup>
                         </select>
                     </div>
-                    <div class="col">
+                    <!-- <div class="col">
                         <select class="md-select" v-model="library.artists.viewAs">
                             <optgroup label="View As">
                                 <option value="covers">Cover Art</option>
                                 <option value="list">List</option>
                             </optgroup>
                         </select>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
