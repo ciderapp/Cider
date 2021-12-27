@@ -2572,5 +2572,6 @@ async function webGPU() {
 
 webGPU().then()
 
-// let screenWidth = screen.width;
-// ipcRenderer.send("setScreenScale" ,screenWidth / 1536)
+let screenWidth = screen.width;
+let screenHeight = screen.height;
+ipcRenderer.send("setScreenScale" , (screenHeight * screenWidth) / (1536 * 864))
