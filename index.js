@@ -32,7 +32,7 @@ const configSchema = {
         "enable_yt": false,
     },
     "lastfm": {
-        "enabled": false,
+        "enabled": true,
         "scrobble_after": 30,
         "auth_token": ""
     }
