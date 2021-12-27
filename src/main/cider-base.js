@@ -38,6 +38,7 @@ const CiderBase = {
             frame: false,
             title: "Cider",
             vibrancy: 'dark',
+	    transparent: true,
             hasShadow: false,
             webPreferences: {
                 webviewTag: true,
