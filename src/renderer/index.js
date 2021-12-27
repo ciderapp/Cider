@@ -101,6 +101,7 @@ class NavigationEvent {
 const app = new Vue({
     el: "#app",
     data: {
+        appMode: "player",
         ipcRenderer: ipcRenderer,
         cfg: ipcRenderer.sendSync("getStore"),
         isDev: ipcRenderer.sendSync("is-dev"),

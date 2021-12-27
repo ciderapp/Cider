@@ -1,0 +1,34 @@
+<script type="text/x-template" id="fullscreen-view">
+    <div class="fullscreen-view">
+        <div class="row fs-row">
+            <div class="col artwork-col">
+                <div class="artwork">
+                    <mediaitem-artwork
+                            :size="600"
+                            url=""
+                    ></mediaitem-artwork>
+                </div>
+            </div>
+            <div class="col">
+                <div class="fs-info">
+                    <div>Name</div>
+                    <div>Name</div>
+                    <div>Name</div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</script>
+
+<script>
+    Vue.component('fullscreen-view', {
+        template: '#fullscreen-view',
+        methods: {
+            sayHello: function () {
+                alert('Hello world!');
+            }
+        }
+    });
+</script>
