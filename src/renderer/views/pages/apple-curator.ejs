@@ -32,6 +32,11 @@
 <script>
     Vue.component('cider-applecurator', {
         template: "#cider-applecurator",
-        props: ["data"]
+        props: ["data"],
+        data: function() {
+            return {
+                app: this.$root
+            }
+        },
     })    
 </script>
