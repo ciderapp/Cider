@@ -1,15 +1,15 @@
-const {app} = require('electron'),
-    Player = require('mpris-service');
-
-// Remember to use playerctl when debugging this.
-// I'm just putting this here as I keep forgetting the command.
-// Copied from AME
-
-let mediaPlayer;
+let mediaPlayer = null;
 
 module.exports = {
+
+    /**
+     * Connects to the MPRIS interface.
+     * @param {Object} win - The BrowserWindow.
+     */
     connect: (win) => {
         if (process.platform !== "linux") return;
+
+        const Player = require('mpris-service');
 
         mediaPlayer = Player({
             name: 'Cider',
@@ -24,7 +24,7 @@ module.exports = {
         let pos_atr = {durationInMillis: 0};
         mediaPlayer.getPosition = function () {
             const durationInMicro = pos_atr.durationInMillis * 1000;
-            const percentage = parseFloat(0) || 0;
+            const percentage = parseFloat("0") || 0;
             return durationInMicro * percentage;
         }
 
@@ -51,6 +51,10 @@ module.exports = {
         });
     },
 
+    /**
+     * Updates the MPRIS interface.
+     * @param {Object} attributes - The attributes of the track.
+     */
     updateAttributes: (attributes) => {
         if (process.platform !== "linux") return;
 
@@ -71,6 +75,10 @@ module.exports = {
         mediaPlayer.metadata = MetaData
     },
 
+    /**
+     * Updates the playback state of the MPRIS interface.
+     * @param {Object} attributes - The attributes of the track.
+     */
     updateState: (attributes) => {
         if (process.platform !== "linux") return;
 
@@ -94,6 +102,9 @@ module.exports = {
         }
     },
 
+    /**
+     * Closes the MPRIS interface.
+     */
     clearActivity: () => {
         if (process.platform !== "linux") return;
         mediaPlayer.metadata = {'mpris:trackid': '/org/mpris/MediaPlayer2/TrackList/NoTrack'}

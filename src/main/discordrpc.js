@@ -2,16 +2,21 @@ const {app} = require('electron'),
     DiscordRPC = require('discord-rpc')
 
 module.exports = {
+
+    /**
+     * Connects to Discord RPC
+     * @param {string} clientId
+     */
     connect: function (clientId) {
         app.discord = {isConnected: false};
         if (!app.cfg.get('general.discord_rpc')) return;
 
         DiscordRPC.register(clientId) // Apparently needed for ask to join, join, spectate etc.
-        const client = new DiscordRPC.Client({ transport: "ipc" });
-        app.discord = Object.assign(client,{error: false, activityCache: null, isConnected: false});
+        const client = new DiscordRPC.Client({transport: "ipc"});
+        app.discord = Object.assign(client, {error: false, activityCache: null, isConnected: false});
 
         // Login to Discord
-        app.discord.login({ clientId })
+        app.discord.login({clientId})
             .then(() => {
                 app.discord.isConnected = true;
             })
@@ -34,6 +39,9 @@ module.exports = {
         });
     },
 
+    /**
+     * Disconnects from Discord RPC
+     */
     disconnect: function () {
         if (!app.cfg.get('general.discord_rpc') || !app.discord.isConnected) return;
 
@@ -47,6 +55,10 @@ module.exports = {
         }
     },
 
+    /**
+     * Sets the activity of the client
+     * @param {object} attributes
+     */
     updateActivity: function (attributes) {
         if (!app.cfg.get('general.discord_rpc')) return;
 
@@ -65,16 +77,18 @@ module.exports = {
             state: `by ${attributes.artistName}`,
             startTimestamp: attributes.startTime,
             endTimestamp: attributes.endTime,
-            largeImageKey: (attributes.artwork.url.replace('{w}', '512').replace('{h}', '512') ) ?? 'cider',
+            largeImageKey: (attributes.artwork.url.replace('{w}', '512').replace('{h}', '512')) ?? 'cider',
             largeImageText: attributes.albumName,
             smallImageKey: (attributes.status ? 'play' : 'pause'),
-            smallImageText: (attributes.status ? 'Playing': 'Paused'),
+            smallImageText: (attributes.status ? 'Playing' : 'Paused'),
             instance: true,
             buttons: [
                 {label: "Listen on Cider", url: listenURL},
             ]
         };
-        if (ActivityObject.largeImageKey == "" || ActivityObject.largeImageKey == null) {ActivityObject.largeImageKey = "cider"}
+        if (ActivityObject.largeImageKey == "" || ActivityObject.largeImageKey == null) {
+            ActivityObject.largeImageKey = "cider"
+        }
         //console.log(`[LinkHandler] Listening URL has been set to: ${listenURL}`);
 
         // if (app.cfg.get('general.discordClearActivityOnPause')) {
@@ -104,16 +118,16 @@ module.exports = {
             //     ActivityObject = null
             // } else
             //  {
-                delete ActivityObject.startTimestamp
-                delete ActivityObject.endTimestamp
-                ActivityObject.smallImageKey = 'pause'
-                ActivityObject.smallImageText = 'Paused'
+            delete ActivityObject.startTimestamp
+            delete ActivityObject.endTimestamp
+            ActivityObject.smallImageKey = 'pause'
+            ActivityObject.smallImageText = 'Paused'
             //}
         }
 
         if (ActivityObject) {
             try {
-            //   console.log(`[DiscordRPC][setActivity] Setting activity to ${JSON.stringify(ActivityObject)}`);
+                //   console.log(`[DiscordRPC][setActivity] Setting activity to ${JSON.stringify(ActivityObject)}`);
                 app.discord.setActivity(ActivityObject)
             } catch (err) {
                 console.error(`[DiscordRPC][setActivity] ${err}`)
