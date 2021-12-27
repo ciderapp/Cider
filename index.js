@@ -1,5 +1,5 @@
 require('v8-compile-cache');
-const { app } = require('electron');
+const { app, screen } = require('electron');
 
 // Analytics for debugging.
 const ElectronSentry = require("@sentry/electron");
@@ -61,7 +61,6 @@ switch (app.cfg.get("visual.hw_acceleration")) {
         break;
 }
 
-
 // Creating the Application Window and Calling all the Functions
 function CreateWindow() {
     if (app.isQuiting) { app.quit(); return; }
@@ -82,6 +81,9 @@ app.commandLine.appendSwitch('js-flags', '--max-old-space-size=1024')
 
 app.on('ready', () => {
     if (app.isQuiting) { app.quit(); return; }
+    app.commandLine.appendSwitch('high-dpi-support', 1)
+    app.commandLine.appendSwitch('force-device-scale-factor', 1)
+    
     console.log('[Cider] Application is Ready. Creating Window.')
     if (!app.isPackaged) {
         console.info('[Cider] Running in development mode.')

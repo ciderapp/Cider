@@ -194,6 +194,8 @@ const CiderBase = {
         ipcMain.on('setScreenScale', (event, scale) => {
             win.webContents.setZoomFactor(parseFloat(scale))
         }) 
+
+        win.webContents.setZoomFactor(screen.getPrimaryDisplay().scaleFactor)
         return win
     },
 
