@@ -38,7 +38,7 @@ const CiderBase = {
             frame: false,
             title: "Cider",
             vibrancy: 'dark',
-	    transparent: true,
+	     //  transparent: true,
             hasShadow: false,
             webPreferences: {
                 webviewTag: true,
@@ -194,10 +194,6 @@ const CiderBase = {
         ipcMain.on('setScreenScale', (event, scale) => {
             win.webContents.setZoomFactor(parseFloat(scale))
         }) 
-        var mainScreen = screen.getPrimaryDisplay();
-        var dimensions = mainScreen.size;
-        var screenWidth = dimensions.width;
-        win.webContents.setZoomFactor(screenWidth / 1536)
         return win
     },
 
