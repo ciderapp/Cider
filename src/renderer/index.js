@@ -2468,8 +2468,38 @@ document.addEventListener('musickitloaded', function () {
         }, 1000)
     }
 
+    function fallbackinitMusicKit() {
+        const request = new XMLHttpRequest();
+       
+        function loadAlternateKey() {
+        let parsedJson = JSON.parse(this.responseText)
+        MusicKit.configure({
+            developerToken: parsedJson.developerToken,
+            app: {
+                name: 'Apple Music',
+                build: '1978.4.1',
+                version: "1.0"
+            },
+            sourceType: 24,
+            suppressErrorDialog: true
+        });
+        setTimeout(() => {
+            app.init()
+        }, 1000)}
+        request.addEventListener("load", loadAlternateKey);
+        request.open("GET", "https://raw.githubusercontent.com/lujjjh/LitoMusic/main/token.json");
+        request.send();
+    }
+
     const request = new XMLHttpRequest();
+    request.timeout = 5000;
     request.addEventListener("load", initMusicKit);
+    request.onreadystatechange = function (aEvt) {
+        if (request.readyState == 4) {
+           if(request.status != 200)
+            fallbackinitMusicKit()
+        }
+      };
     request.open("GET", "https://api.cider.sh/");
     request.send();
 });
