@@ -8,6 +8,7 @@ const os = require('os');
 const Store = require("electron-store");
 const store = new Store();
 const yt = require('youtube-search-without-api-key');
+const discord = require('./discordrpc');
 
 // Analytics for debugging.
 const ElectronSentry = require("@sentry/electron");
@@ -200,6 +201,16 @@ const CiderBase = {
         }) 
 
         win.webContents.setZoomFactor(screen.getPrimaryDisplay().scaleFactor)
+
+        //  Discord
+        discord.connect('911790844204437504'); 
+        ipcMain.on('playbackStateDidChange', (_event, a) => {
+            discord.updateActivity(a)
+        });
+        ipcMain.on('nowPlayingItemDidChange', (_event, a) => {
+              discord.updateActivity(a)
+        });
+
         return win
     },
 

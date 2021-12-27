@@ -359,7 +359,7 @@ const app = new Vue({
                     }
                 }
             }
-
+            MusicKitInterop.init()
             // Set the volume
             this.mk.volume = this.cfg.general.volume
             // ipcRenderer.invoke('getStoreValue', 'general.volume').then((value) => {
@@ -2578,3 +2578,5 @@ webGPU().then()
 
 let screenWidth = screen.width;
 let screenHeight = screen.height;
+
+
