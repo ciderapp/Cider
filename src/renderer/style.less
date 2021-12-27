@@ -3175,3 +3175,27 @@ input[type=checkbox][switch]:checked:active::before {
 .albums-square-container {
   text-align: center;
 }
+
+body.no-gpu {
+  #navigation-bar {
+    backdrop-filter: unset;
+    mix-blend-mode: unset;
+    background: rgb(0 0 0);
+  }
+
+  .app-drawer {
+    backdrop-filter: unset;
+    mix-blend-mode: unset;
+    background: #1c1c1c;
+  }
+
+  .wpfade-enter-active,
+  .wpfade-leave-active {
+    transition: opacity 0s var(--appleEase);
+  }
+
+  .wpfade-enter,
+  .wpfade-leave-to {
+    opacity: 0;
+  }
+}

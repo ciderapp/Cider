@@ -83,6 +83,7 @@ app.on('ready', () => {
     if (app.isQuiting) { app.quit(); return; }
     app.commandLine.appendSwitch('high-dpi-support', 1)
     app.commandLine.appendSwitch('force-device-scale-factor', 1)
+    app.commandLine.appendSwitch('disable-pinch');
     
     console.log('[Cider] Application is Ready. Creating Window.')
     if (!app.isPackaged) {
