@@ -340,6 +340,9 @@ const app = new Vue({
             if(this.isDev) {
                 this.mk.privateEnabled = true
             }
+            if(this.cfg.visual.hw_acceleration == "disabled") {
+                document.body.classList.add("no-gpu")
+            }
             this.mk._services.timing.mode = 0
             this.platform = ipcRenderer.sendSync('cider-platform');
             // Set profile name

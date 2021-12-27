@@ -108,6 +108,10 @@ const CiderBase = {
             event.returnValue = process.platform
         })
 
+        ipcMain.on("get-gpu-mode", (event) => {
+            event.returnValue = process.platform
+        })
+
         ipcMain.on("is-dev", (event) => {
             event.returnValue = !app.isPackaged
         })
