@@ -5,10 +5,9 @@ const express = require("express");
 const path = require("path");
 const windowStateKeeper = require("electron-window-state");
 const os = require('os');
-const Store = require("electron-store");
-const store = new Store();
 const yt = require('youtube-search-without-api-key');
 const discord = require('./discordrpc');
+const mpris = require('./mpris');
 
 // Analytics for debugging.
 const ElectronSentry = require("@sentry/electron");
@@ -16,7 +15,7 @@ ElectronSentry.init({dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.inge
 
 const CiderBase = {
     async Start() {
-        this.clientPort = await getPort({port : 9000});
+        this.clientPort = await getPort({port: 9000});
         this.CreateBrowserWindow()
     },
     clientPort: 0,
@@ -39,7 +38,7 @@ const CiderBase = {
             frame: false,
             title: "Cider",
             vibrancy: 'dark',
-	     //  transparent: true,
+            //  transparent: true,
             hasShadow: false,
             webPreferences: {
                 webviewTag: true,
@@ -84,15 +83,15 @@ const CiderBase = {
             }
         )
 
-        win.webContents.session.webRequest.onBeforeSendHeaders(async (details, callback)  =>  {
-             if(details.url == "https://buy.itunes.apple.com/account/web/info"){
+        win.webContents.session.webRequest.onBeforeSendHeaders(async (details, callback) => {
+            if (details.url === "https://buy.itunes.apple.com/account/web/info") {
                 details.requestHeaders['sec-fetch-site'] = 'same-site';
                 details.requestHeaders['DNT'] = '1';
-                let itspod = await win.webContents.executeJavaScript(`window.localStorage.getItem("music.ampwebplay.itspod")`) 
+                let itspod = await win.webContents.executeJavaScript(`window.localStorage.getItem("music.ampwebplay.itspod")`)
                 if (itspod != null)
-                details.requestHeaders['Cookie'] = `itspod=${itspod}`
+                    details.requestHeaders['Cookie'] = `itspod=${itspod}`
             }
-            callback({ requestHeaders: details.requestHeaders })
+            callback({requestHeaders: details.requestHeaders})
         })
 
         let location = `http://localhost:${CiderBase.clientPort}/`
@@ -124,7 +123,7 @@ const CiderBase = {
 
         ipcMain.handle('getYTLyrics', async (event, track, artist) => {
             var u = track + " " + artist + " official video";
-			const videos = await yt.search(u);
+            const videos = await yt.search(u);
             return videos
         })
 
@@ -187,9 +186,10 @@ const CiderBase = {
         // Set window Handler
         win.webContents.setWindowOpenHandler(({url}) => {
             if (url.includes("apple") || url.includes("localhost")) {
-                return { action: "allow"}
+                return {action: "allow"}
             }
-            shell.openExternal(url).catch(() => {})
+            shell.openExternal(url).catch(() => {
+            })
             return {
                 action: 'deny'
             }
@@ -198,17 +198,21 @@ const CiderBase = {
         // Set scale
         ipcMain.on('setScreenScale', (event, scale) => {
             win.webContents.setZoomFactor(parseFloat(scale))
-        }) 
+        })
 
         win.webContents.setZoomFactor(screen.getPrimaryDisplay().scaleFactor)
 
+        mpris.connect(win)
+
         //  Discord
-        discord.connect('911790844204437504'); 
+        discord.connect('911790844204437504');
         ipcMain.on('playbackStateDidChange', (_event, a) => {
             discord.updateActivity(a)
+            mpris.updateState(a)
         });
         ipcMain.on('nowPlayingItemDidChange', (_event, a) => {
-              discord.updateActivity(a)
+            discord.updateActivity(a)
+            mpris.updateAttributes(a)
         });
 
         return win

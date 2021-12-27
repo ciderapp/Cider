@@ -1,5 +1,5 @@
 require('v8-compile-cache');
-const { app, screen } = require('electron');
+const { app } = require('electron');
 
 // Analytics for debugging.
 const ElectronSentry = require("@sentry/electron");
@@ -70,6 +70,10 @@ function CreateWindow() {
     app.win = ciderwin
     app.win.Start()
     /** CIDER **/
+}
+
+if (process.platform === "linux") {
+    app.commandLine.appendSwitch('disable-features', 'MediaSessionService');
 }
 
 
