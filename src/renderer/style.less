@@ -1,5 +1,5 @@
 @import url("ameframework.css");
-@import url("assets/fonts/Inter/inter.css");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap');
 
 :root {
   --appleEase: cubic-bezier(0.42, 0, 0.58, 1);
@@ -36,8 +36,7 @@ body {
   background-size: cover;
   background-position: center;
   background: #0000;
-  font-family: "Segoe UI Variable Display", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  // font-family: "Inter var experimental", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Inter', 'Noto Sans JP', "Segoe UI Variable Display", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   transition: opacity .10s var(--appleEase);
 }
 
@@ -1390,6 +1389,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   overflow-x: hidden;
   display: flex;
   flex-flow: column;
+  font-family: 'Inter', 'Noto Sans JP', sans-serif;
 }
 
 .lyric-body .no-lyrics {
@@ -1589,11 +1589,11 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     background: rgb(18 18 18 / 90%);
     overflow: hidden;
     backdrop-filter: blur(16px) saturate(180%);
-    
+
     .modal-header {
       padding: 16px;
       position:relative;
-  
+
       .modal-title {
         text-align: center;
       }
@@ -1610,7 +1610,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
         position: absolute;
         top: 0;
         right: 0;
-      
+
         &:hover {
           background-color: rgb(196, 43, 28)
         }
@@ -2782,7 +2782,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
 /* mediaitem-square */
 .albums-square-containeru > * > .cd-mediaitem-square {
-  --frame: max(220px, 15vw  ); 
+  --frame: max(220px, 15vw  );
   width: var(--frame);
   height: calc(var(--frame) * 13 / 11);
   display: inline-flex;
