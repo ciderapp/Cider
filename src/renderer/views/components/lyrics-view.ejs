@@ -2,7 +2,7 @@
     <div ref="lyricsview" class="md-body lyric-body">
         <template v-if="lyrics && lyrics != [] && lyrics.length > 0">
             <template v-for="(lyric, index) in lyrics" v-if="lyric && lyric.line && lyric.line != 'lrcInstrumental'">
-                <h3 class="lyric-line" @click="seekTo(lyric.startTime)"
+                <h3 class="lyric-line" @click="seekTo(lyric.startTime)" :class="{unsynced : lyric.startTime == 9999999}"
                     v-bind:line-index="index.toString()">
                     <template v-if="richlyrics && richlyrics != [] && richlyrics.length > 0">
                         <div class="richl" >
