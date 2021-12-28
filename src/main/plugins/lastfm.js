@@ -2,7 +2,7 @@ const {app, Notification} = require('electron'),
     fs = require('fs'),
     {resolve} = require('path'),
     sessionPath = resolve(app.getPath('userData'), 'session.json'),
-    apiCredentials = require('../../resources/lfmApiCredentials.json'),
+    apiCredentials = require('../../../resources/lfmApiCredentials.json'),
     LastfmAPI = require('lastfmapi');
 
 const lfm = {

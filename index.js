@@ -7,49 +7,12 @@ const { app } = require('electron'),
 const ElectronSentry = require("@sentry/electron");
 ElectronSentry.init({ dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.ingest.sentry.io/6112214" });
 
-const configSchema = {
-    "general": {
-        "close_behavior": 0, // 0 = close, 1 = minimize, 2 = minimize to tray
-        "startup_behavior": 0, // 0 = nothing, 1 = open on startup
-        "discord_rpc": 1, // 0 = disabled, 1 = enabled as Cider, 2 = enabled as Apple Music
-        "discordClearActivityOnPause" : 0, // 0 = disabled, 1 = enabled
-        "volume": 1
-    },
-    "audio": {
-        "quality": "extreme",
-        "seamless_audio": true
-    },
-    "visual": {
-        "theme": "",
-        "scrollbars": 0, // 0 = show on hover, 2 = always hide, 3 = always show
-        "refresh_rate": 0,
-        "animated_artwork": "always", // 0 = always, 1 = limited, 2 = never
-        "animated_artwork_qualityLevel": 1,
-        "hw_acceleration": "default", // default, webgpu, disabled
-        "window_transparency": "default"
-    },
-    "lyrics": {
-        "enable_mxm": false,
-        "mxm_karaoke" : false,
-        "mxm_language": "en",
-        "enable_yt": false,
-    },
-    "lastfm": {
-        "enabled": false,
-        "scrobble_after": 30,
-        "auth_token": "",
-        "enabledRemoveFeaturingArtists" : true,
-        "NowPlaying": "true"
-    }
-}
-
 // Enable WebGPU and list adapters (EXPERIMENTAL.)
 // Note: THIS HAS TO BE BEFORE ANYTHING GETS INITIALIZED.
 
-const Store = require("electron-store");
-app.cfg = new Store({
-    defaults: configSchema,
-});
+// const {Init} = require("./src/main/cider-base");
+// Init()
+CiderBase.Init()
 
 switch (app.cfg.get("visual.hw_acceleration")) {
     default:
@@ -64,17 +27,6 @@ switch (app.cfg.get("visual.hw_acceleration")) {
         console.info("Hardware acceleration is disabled.");
         app.commandLine.appendSwitch('disable-gpu')
         break;
-}
-
-// Creating the Application Window and Calling all the Functions
-function CreateWindow() {
-    if (app.isQuiting) { app.quit(); return; }
-
-    /** CIDER **/
-    const ciderwin = require("./src/main/cider-base")
-    app.win = ciderwin
-    app.win.Start()
-    /** CIDER **/
 }
 
 if (process.platform === "linux") {
@@ -99,7 +51,8 @@ app.on('ready', () => {
         console.info('[Cider] Running in development mode.')
         require('vue-devtools').install()
     }
-    CreateWindow()
+    const {Start} = require('./src/main/cider-base')
+    Start()
 });
 
 app.on('before-quit', () => {
@@ -163,20 +116,21 @@ app.on('second-instance', (_e, argv) => {
 
     if (argv.includes("--force-quit")) {
         console.warn('[InstanceHandler][SecondInstanceHandler] Force Quit found. Quitting App.');
-        // app.isQuiting = true
+        app.isQuiting = true
         app.quit()
-    } else if (CiderBase.win && true) { // If a Second Instance has Been Started
+    } else if (app.win && !app.cfg.get('advanced.allowMultipleInstances')) { // If a Second Instance has Been Started
         console.warn('[InstanceHandler][SecondInstanceHandler] Showing window.');
         app.win.show()
         app.win.focus()
     }
 })
 
-if (!app.requestSingleInstanceLock() && true) {
+if (!app.requestSingleInstanceLock() && !app.cfg.get('advanced.allowMultipleInstances')) {
     console.warn("[InstanceHandler] Existing Instance is Blocking Second Instance.");
     app.quit();
-   // app.isQuiting = true
+    app.isQuiting = true
 }
+
 
 
   
