@@ -1,52 +1,55 @@
 <script type="text/x-template" id="cider-home">
     <div class="content-inner home-page">
-        <div class="row">
-            <div class="col">
-                <h3>Home</h3>
-                <div class="well profile-well">
-                    <div class="user-icon">
-                        <mediaitem-artwork shadow="none" :url="profile.attributes.artwork.url" size="300"></mediaitem-artwork>
+        <div class="bg-image"></div>
+        <div>
+            <div class="row">
+                <div class="col">
+                    <h3>Home</h3>
+                    <div class="well profile-well">
+                        <div class="user-icon">
+                            <mediaitem-artwork shadow="none" :url="profile.attributes.artwork.url" size="300"></mediaitem-artwork>
+                        </div>
+                        <h3>{{ profile.attributes.name }}</h3>
+                        <h4>@{{ profile.attributes.handle }}</h4>
+                        <button class="md-btn">Share</button>
                     </div>
-                    <h3>{{ profile.attributes.name }}</h3>
-                    <h4>@{{ profile.attributes.handle }}</h4>
-                    <button class="md-btn">Share</button>
+                </div>
+                <div class="col">
+                    <h3>Recently Played</h3>
+                    <div class="well">
+                        <mediaitem-list-item v-for="item in recentlyPlayed.limit(6)" :item="item"></mediaitem-list-item>
+                    </div>
                 </div>
             </div>
-            <div class="col">
-                <h3>Recently Played</h3>
-                <div class="well">
-                    <mediaitem-list-item v-for="item in recentlyPlayed.limit(6)" :item="item"></mediaitem-list-item>
+            <div class="row">
+                <div class="col">
+                    <h3>Your Favorites</h3>
+                    <div class="well">
+                        <div>Items you have added to your favorites will appear here.</div>
+                        <!-- <mediaitem-scroller-horizontal kind="small" :items="friendsListeningTo" :item="item"></mediaitem-scroller-horizontal> -->
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <h3>Your Favorites</h3>
-                <div class="well">
-                    <div>Items you have added to your favorites will appear here.</div>
-                    <!-- <mediaitem-scroller-horizontal kind="small" :items="friendsListeningTo" :item="item"></mediaitem-scroller-horizontal> -->
+            <div class="row">
+                <div class="col madeforyou-col">
+                    <h3>Made For You</h3>
+                    <div class="well">
+                        <mediaitem-square kind="small" v-for="item in madeForYou" :item="item"></mediaitem-square>
+                    </div>
+                </div>
+                <div class="col">
+                    <h3>Your Artist Feed</h3>
+                    <div class="well">
+                        <mediaitem-list-item v-for="item in recentlyPlayed.limit(6)" :item="item"></mediaitem-list-item>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col madeforyou-col">
-                <h3>Made For You</h3>
-                <div class="well">
-                    <mediaitem-square kind="small" v-for="item in madeForYou" :item="item"></mediaitem-square>
-                </div>
-            </div>
-            <div class="col">
-                <h3>Your Artist Feed</h3>
-                <div class="well">
-                    <mediaitem-list-item v-for="item in recentlyPlayed.limit(6)" :item="item"></mediaitem-list-item>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <h3>Friends Listening To</h3>
-                <div class="well">
-                    <mediaitem-square kind="small" v-for="item in friendsListeningTo" :item="item"></mediaitem-square>
+            <div class="row">
+                <div class="col">
+                    <h3>Friends Listening To</h3>
+                    <div class="well">
+                        <mediaitem-square kind="small" v-for="item in friendsListeningTo" :item="item"></mediaitem-square>
+                    </div>
                 </div>
             </div>
         </div>
