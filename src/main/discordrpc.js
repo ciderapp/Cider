@@ -9,7 +9,7 @@ module.exports = {
      */
     connect: function (clientId) {
         app.discord = {isConnected: false};
-        if (!app.cfg.get('general.discord_rpc')) return;
+        if (app.cfg.get('general.discord_rpc') == 0) return;
 
         DiscordRPC.register(clientId) // Apparently needed for ask to join, join, spectate etc.
         const client = new DiscordRPC.Client({transport: "ipc"});
@@ -43,7 +43,7 @@ module.exports = {
      * Disconnects from Discord RPC
      */
     disconnect: function () {
-        if (!app.cfg.get('general.discord_rpc') || !app.discord.isConnected) return;
+        if (app.cfg.get('general.discord_rpc') == 0 || !app.discord.isConnected) return;
 
         try {
             app.discord.destroy().then(() => {
@@ -60,7 +60,7 @@ module.exports = {
      * @param {object} attributes
      */
     updateActivity: function (attributes) {
-        if (!app.cfg.get('general.discord_rpc')) return;
+        if (app.cfg.get('general.discord_rpc') == 0) return;
 
         if (!app.discord.isConnected) {
             this.connect()
@@ -87,14 +87,14 @@ module.exports = {
             ]
         };
         if (ActivityObject.largeImageKey == "" || ActivityObject.largeImageKey == null) {
-            ActivityObject.largeImageKey = "cider"
+            ActivityObject.largeImageKey = (app.cfg.get("general.discord_rpc") == 1)  ? "cider" : "logo"
         }
-        //console.log(`[LinkHandler] Listening URL has been set to: ${listenURL}`);
+        // console.log(`[LinkHandler] Listening URL has been set to: ${listenURL}`);
 
-        // if (app.cfg.get('general.discordClearActivityOnPause')) {
-        //     delete ActivityObject.smallImageKey
-        //     delete ActivityObject.smallImageText
-        // }
+        if (app.cfg.get('general.discordClearActivityOnPause')  == 1) {
+            delete ActivityObject.smallImageKey
+            delete ActivityObject.smallImageText
+        }
 
         // Check all the values work
         if (!((new Date(attributes.endTime)).getTime() > 0)) {
@@ -113,21 +113,21 @@ module.exports = {
 
         // Clear if if needed
         if (!attributes.status) {
-            //if (app.cfg.get('general.discordClearActivityOnPause')) {
-            //     app.discord.clearActivity().catch((e) => console.error(`[DiscordRPC][clearActivity] ${e}`));
-            //     ActivityObject = null
-            // } else
-            //  {
+            if (app.cfg.get('general.discordClearActivityOnPause') == 1) {
+                app.discord.clearActivity().catch((e) => console.error(`[DiscordRPC][clearActivity] ${e}`));
+                ActivityObject = null
+            } else
+             {
             delete ActivityObject.startTimestamp
             delete ActivityObject.endTimestamp
             ActivityObject.smallImageKey = 'pause'
             ActivityObject.smallImageText = 'Paused'
-            //}
+            }
         }
 
         if (ActivityObject) {
             try {
-                //   console.log(`[DiscordRPC][setActivity] Setting activity to ${JSON.stringify(ActivityObject)}`);
+              //  console.log(`[DiscordRPC][setActivity] Setting activity to ${JSON.stringify(ActivityObject)}`);
                 app.discord.setActivity(ActivityObject)
             } catch (err) {
                 console.error(`[DiscordRPC][setActivity] ${err}`)

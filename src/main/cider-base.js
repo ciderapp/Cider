@@ -205,7 +205,7 @@ const CiderBase = {
         mpris.connect(win)
 
         //  Discord
-        discord.connect('911790844204437504');
+        discord.connect((app.cfg.get("general.discord_rpc") == 1) ? '911790844204437504' : '886578863147192350');
         ipcMain.on('playbackStateDidChange', (_event, a) => {
             discord.updateActivity(a)
             mpris.updateState(a)
