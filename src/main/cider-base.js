@@ -7,6 +7,7 @@ const windowStateKeeper = require("electron-window-state");
 const os = require('os');
 const yt = require('youtube-search-without-api-key');
 const discord = require('./discordrpc');
+const lastfm = require('./lastfm');
 const mpris = require('./mpris');
 
 // Analytics for debugging.
@@ -14,9 +15,10 @@ const ElectronSentry = require("@sentry/electron");
 ElectronSentry.init({dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.ingest.sentry.io/6112214"});
 
 const CiderBase = {
+    win: null,
     async Start() {
         this.clientPort = await getPort({port: 9000});
-        this.CreateBrowserWindow()
+        this.win = this.CreateBrowserWindow()
     },
     clientPort: 0,
     CreateBrowserWindow() {
@@ -204,15 +206,22 @@ const CiderBase = {
 
         mpris.connect(win)
 
+        lastfm.authenticate()
         //  Discord
         discord.connect((app.cfg.get("general.discord_rpc") == 1) ? '911790844204437504' : '886578863147192350');
         ipcMain.on('playbackStateDidChange', (_event, a) => {
+            app.media = a;
             discord.updateActivity(a)
             mpris.updateState(a)
+            lastfm.scrobbleSong(a)
+            lastfm.updateNowPlayingSong(a)
         });
         ipcMain.on('nowPlayingItemDidChange', (_event, a) => {
+            app.media = a;
             discord.updateActivity(a)
             mpris.updateAttributes(a)
+            lastfm.scrobbleSong(a)
+            lastfm.updateNowPlayingSong(a)
         });
 
         return win
@@ -223,6 +232,31 @@ const CiderBase = {
             platform: os.platform(),
             dev: app.isPackaged
         }
+    },
+    LinkHandler: (startArgs) => {
+        if (!startArgs) return;
+        console.log("lfmtoken",String(startArgs))
+        if (String(startArgs).includes('auth')) {
+            let authURI = String(startArgs).split('/auth/')[1]
+            if (authURI.startsWith('lastfm')) { // If we wanted more auth options
+                const authKey = authURI.split('lastfm?token=')[1];
+                app.cfg.set('lastfm.enabled', true);
+                app.cfg.set('lastfm.auth_token', authKey);
+                CiderBase.win.webContents.send('LastfmAuthenticated', authKey);
+                lastfm.authenticate()
+            }
+        } else {
+            const formattedSongID = startArgs.replace('ame://', '').replace('/', '');
+            console.warn(`[LinkHandler] Attempting to load song id: ${formattedSongID}`);
+
+            // setQueue can be done with album, song, url, playlist id
+            this.win.webContents.executeJavaScript(`
+                MusicKit.getInstance().setQueue({ song: '${formattedSongID}'}).then(function(queue) {
+                    MusicKit.getInstance().play();
+                });
+            `).catch((err) => console.error(err));
+        }
+
     },
 
     async InitWebServer() {

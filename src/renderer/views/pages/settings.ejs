@@ -396,7 +396,7 @@
                     </select>
                 </div>
             </div>
-            <div class="md-option-line">
+            <div class="md-option-line" v-show="app.cfg.general.discord_rpc != 0">
                 <div class="md-option-segment">
                     Clear Discord RPC on Pause
                 </div>
@@ -407,6 +407,39 @@
                     </select>
                 </div>
             </div>
+            <div class="md-option-line">
+                <div class="md-option-segment">
+                    LastFM Scrobbling
+                </div>
+                <div class="md-option-segment md-option-segment_auto">
+                    <label class="list-button list-element" id="lfmConnect" ref="lfmConnect"
+                    onclick="app.LastFMAuthenticate()">Connect</label>
+                </div>
+            </div>
+            <div class="md-option-line" v-show ="app.cfg.lastfm.enabled">
+                <div class="md-option-segment">
+                    LastFM Scrobble Delay
+                </div>
+                <div class="md-option-segment md-option-segment_auto" >
+                    <input type="number" v-model="app.cfg.lastfm.scrobble_after"/>
+                </div>
+            </div>
+            <div class="md-option-line" v-show ="app.cfg.lastfm.enabled">
+                <div class="md-option-segment">
+                    Enable LastFM Now Playing 
+                </div>
+                <div class="md-option-segment md-option-segment_auto" >
+                    <input type="checkbox"  v-model="app.cfg.lastfm.NowPlaying" switch/>
+                </div>
+            </div>
+            <div class="md-option-line" v-show ="app.cfg.lastfm.enabled">
+                <div class="md-option-segment">
+                    Remove featuring artists from song title (LastFM)
+                </div>
+                <div class="md-option-segment md-option-segment_auto" >
+                    <input type="checkbox"  v-model="app.cfg.lastfm.enabledRemoveFeaturingArtists" switch/>
+                </div>
+            </div>
             <div class="md-option-header">
                 <span>Unfinished / Non Functional</span>
             </div>
@@ -415,22 +448,6 @@
                     Enable AudioContext Functionality
                     <br>
                     <small>Enabling AudioContext functionality will allow for extended audio features like Equalizers and Visualizers, however on some systems this may cause stuttering in audio tracks.</small>
-                </div>
-                <div class="md-option-segment md-option-segment_auto">
-                    <input type="checkbox" switch/>
-                </div>
-            </div>
-            <div class="md-option-line">
-                <div class="md-option-segment">
-                    LastFM Scrobbling
-                </div>
-                <div class="md-option-segment md-option-segment_auto">
-                    <input type="checkbox" switch/>
-                </div>
-            </div>
-            <div class="md-option-line">
-                <div class="md-option-segment">
-                    LastFM Scrobble Delay
                 </div>
                 <div class="md-option-segment md-option-segment_auto">
                     <input type="checkbox" switch/>
@@ -518,6 +535,15 @@
         data: function () {
             return {
                 app: this.$root
+            }
+        },
+        mounted: function () {
+            if (app.cfg.lastfm.enabled){
+                const element = document.getElementById('lfmConnect');
+                if (element){
+                element.innerHTML = `Disconnect\n<p style="font-size: 8px"><i>(Authed: ${app.cfg.lastfm.auth_token})</i></p>`;
+                element.onclick = app.LastFMDeauthorize;
+                }
             }
         },
         methods: {

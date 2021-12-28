@@ -2425,6 +2425,37 @@ const app = new Vue({
             }
             CiderContextMenu.Create(event, menus[useMenu])
         },
+            LastFMDeauthorize() {
+                ipcRenderer.invoke('setStoreValue', 'lastfm.enabled', false).catch((e) => console.error(e));
+                ipcRenderer.invoke('setStoreValue', 'lastfm.auth_token', '').catch((e) => console.error(e));
+                app.cfg.lastfm.auth_token = "";
+                app.cfg.lastfm.enabled = false;
+                 const element = document.getElementById('lfmConnect');
+                 element.innerHTML = 'Connect';
+                 element.onclick = app.LastFMAuthenticate;
+            },
+            LastFMAuthenticate() {
+                console.log("wag")
+                const element = document.getElementById('lfmConnect');
+                window.open('https://www.last.fm/api/auth?api_key=174905d201451602407b428a86e8344d&cb=ame://auth/lastfm');
+                element.innerText = 'Connecting...';
+
+                /* Just a timeout for the button */
+                setTimeout(() => {
+                    if (element.innerText === 'Connecting...') {
+                        element.innerText = 'Connect';
+                        console.warn('[LastFM] Attempted connection timed out.');
+                    }
+                }, 20000);
+
+                ipcRenderer.on('LastfmAuthenticated', function (_event, lfmAuthKey) {
+                    app.cfg.lastfm.auth_token = lfmAuthKey;
+                    app.cfg.lastfm.enabled = true;
+                    element.innerHTML = `Disconnect\n<p style="font-size: 8px"><i>(Authed: ${lfmAuthKey})</i></p>`;
+                    element.onclick = app.LastFMDeauthorize;
+                });
+            }
+        
     }
 })
 
