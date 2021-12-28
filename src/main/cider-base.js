@@ -1,14 +1,5 @@
-const {BrowserWindow, ipcMain, shell, app, screen} = require("electron")
-const {join} = require("path")
-const getPort = require("get-port");
-const express = require("express");
-const path = require("path");
-const windowStateKeeper = require("electron-window-state");
-const os = require('os');
-const yt = require('youtube-search-without-api-key');
-const discord = require('./plugins/discordrpc');
 const lastfm = require('./plugins/lastfm');
-const mpris = require('./plugins/mpris');
+const win = require('./base/win')
 
 // Analytics for debugging.
 const ElectronSentry = require("@sentry/electron");
@@ -24,8 +15,7 @@ module.exports = {
     * Starts the application (called on on-ready). - Starts BrowserWindow and WebServer
     */
     Start() {
-        const {createBrowserWindow} = require("./base/win");
-        app.win = createBrowserWindow()
+        app.win = win.createBrowserWindow()
     },
 
     /**

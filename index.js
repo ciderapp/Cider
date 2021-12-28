@@ -51,8 +51,8 @@ app.on('ready', () => {
         console.info('[Cider] Running in development mode.')
         require('vue-devtools').install()
     }
-    const {Start} = require('./src/main/cider-base')
-    Start()
+
+    CiderBase.Start()
 });
 
 app.on('before-quit', () => {

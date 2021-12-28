@@ -10,7 +10,7 @@ module.exports = {
 
     browserWindow: {},
 
-    clientPort: await getPort({port: 9000}),
+    clientPort: 0,
 
     EnvironmentVariables: {
         "env": {
@@ -25,9 +25,11 @@ module.exports = {
 
     /**
      * Creates the BrowserWindow for the application.
-     * @return {object} Window
+     * @return {object} BrowserWindow
      */
-    createBrowserWindow() {
+    async createBrowserWindow() {
+        this.clientPort = await getPort({port: 9000});
+
         const windowStateKeeper = require("electron-window-state"),
             BrowserWindow = require((process.platform === "win32") ? "electron-acrylic-window" : "electron").BrowserWindow;
 
