@@ -23,12 +23,13 @@
             <div class="col">
                 <h3>Your Favorites</h3>
                 <div class="well">
-                    <mediaitem-scroller-horizontal kind="small" :items="friendsListeningTo" :item="item"></mediaitem-scroller-horizontal>
+                    <div>Items you have added to your favorites will appear here.</div>
+                    <!-- <mediaitem-scroller-horizontal kind="small" :items="friendsListeningTo" :item="item"></mediaitem-scroller-horizontal> -->
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col madeforyou-col">
                 <h3>Made For You</h3>
                 <div class="well">
                     <mediaitem-square kind="small" v-for="item in madeForYou" :item="item"></mediaitem-square>
