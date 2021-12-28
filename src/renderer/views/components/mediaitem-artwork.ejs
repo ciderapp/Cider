@@ -1,5 +1,5 @@
 <script type="text/x-template" id="mediaitem-artwork">
-    <div class="mediaitem-artwork" :class="{'rounded': (type == 'artists')}" :key="url" :style="getStyle()"
+    <div class="mediaitem-artwork" :class="[{'rounded': (type == 'artists')}, classes]"
          v-observe-visibility="{callback: visibilityChanged}">
         <img :src="app.getMediaItemArtwork(url, size, width)"
              decoding="async" loading="lazy"
@@ -40,7 +40,7 @@
             },
             shadow: {
                 type: String,
-                default: 'none'
+                default: ''
             }
         },
         data: function () {
@@ -49,8 +49,12 @@
                 isVisible: false,
                 style: {
                     "box-shadow": ""
-                }
+                },
+                classes: []
             }
+        },
+        mounted() {
+            this.getClasses()
         },
         methods: {
             getVideoPriority() {
@@ -63,18 +67,21 @@
                 }
                 return this.videoPriority
             },
-            getStyle() {
+            getClasses() {
                 switch (this.shadow) {
+                    case "none":
+                        this.classes.push("no-shadow")
+                        break;
                     case "large":
-                        this.style["box-shadow"] = "var(--mediaItemShadow-Shadow)"
+                        this.classes.push("shadow")
                         break;
                     case "subtle":
-                        this.style["box-shadow"] = "var(--mediaItemShadow-ShadowSubtle)"
+                        this.classes.push("subtle-shadow")
                         break;
                     default:
                         break;
                 }
-                return this.style;
+                return this.classes;
             },
             getArtworkStyle() {
                 return {
