@@ -57,6 +57,30 @@
             }
         },
         methods: {
+            revisedRandId() {
+                return Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10);
+            },
+            async isInLibrary() {
+                if (this.item.type && !this.item.type.includes("library")) {
+                    var params = {"fields[playlists]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library", "extend": this.revisedRandId()}
+                    var res = await app.mkapi(this.item.attributes.playParams.kind ?? this.item.type, this.item.attributes.playParams.isLibrary ?? false, this.item.attributes.playParams.id ?? this.item.id, params);
+                    this.addedToLibrary = (res && res.attributes && res.attributes.inLibrary) ? res.attributes.inLibrary : false
+                } else {
+                    this.addedToLibrary = true
+                }
+            },
+            async removeFromLibrary(id) {
+                var params = {"fields[playlists]": "inLibrary","fields[songs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library", "extend": this.revisedRandId()}
+                var id = this.item.id ?? this.item.attributes.playParams.id
+                var res = await app.mkapi(this.item.attributes.playParams.kind ?? this.item.type, this.item.attributes.playParams.isLibrary ?? false, this.item.attributes.playParams.id ?? this.item.id, params);
+                if (res && res.relationships && res.relationships.library && res.relationships.library.data && res.relationships.library.data.length > 0) {
+                    id = res.relationships.library.data[0].id
+                }
+                let kind = this.item.attributes.playParams.kind ?? this.item.type ?? '';
+                var truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
+                app.mk.api.library.remove({[truekind]: id})
+                this.addedToLibrary = true
+            },
             uuidv4() {
                 return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
                     (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
@@ -93,7 +117,7 @@
             visibilityChanged: function (isVisible, entry) {
                 this.isVisible = isVisible
             },
-            contextMenu(event) {
+            async contextMenu(event)  {
                 if (this.nomenu.includes(this.item.type)) {
                     return
                 }
@@ -102,6 +126,7 @@
                 } else {
                     console.log(event)
                 }
+                await this.isInLibrary();
                 let self = this
                 let useMenu = "normal"
                 if (app.selectedMediaItems.length <= 1) {
@@ -174,9 +199,25 @@
                                     app.selectedMediaItems = []
                                 }
                             },
+                            {
+                                "name": "Add to Playlist...",
+                                "action": function () {
+                                    app.promptAddToPlaylist()
+                                }
+                            },
+                            {
+                                "name":  (this.addedToLibrary) ? "Remove from Library..." : "Add to Library...",
+                                "action": async function () {
+                                    let item_id = self.item.attributes.playParams.id ?? self.item.id;
+                                    let data_type = self.item.attributes.playParams.kind ?? self.item.type;
+                                    if (self.addedToLibrary != true)  { console.log("add"); app.addToLibrary(item_id); self.addedToLibrary = true} 
+                                    else { console.log("remove"); await self.removeFromLibrary(item_id); self.addedToLibrary = false};
+                                }
+                            },
                         ]
                     }
                 }
+                if ((self.item.attributes.playParams.kind ?? self.item.type).includes("playlist")) { menus.normal.items.splice(2, 1);}
                 CiderContextMenu.Create(event, menus[useMenu])
             },
         },
