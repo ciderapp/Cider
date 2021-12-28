@@ -2949,6 +2949,41 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
 /* Cider */
 
+// Modular
+.modular-fs {
+  .app-drawer {
+    width:100%;
+    right:0px;
+    top:0px;
+    height:100%;
+    border-radius: 0px;
+    box-shadow: unset;
+    background: black;
+    .lyric-body {
+      justify-content: center;
+      align-items:center;
+
+      .lyric-line {
+        pointer-events: none;
+        font-weight: 500;
+        font-size: 1.6em;
+
+        &:not(.active) {
+          display: none;
+          margin: 0;
+          transform: scale(1);
+        }
+
+        &.active {
+          margin: 0;
+          transform: scale(1);
+        }
+      }
+    }
+  }
+}
+// Modular
+
 /* Transitions */
 
 .modal-enter-active,
