@@ -21,6 +21,14 @@
         </div>
         <div class="row">
             <div class="col">
+                <h3>Your Favorites</h3>
+                <div class="well">
+                    <mediaitem-scroller-horizontal kind="small" :items="friendsListeningTo" :item="item"></mediaitem-scroller-horizontal>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
                 <h3>Made For You</h3>
                 <div class="well">
                     <mediaitem-square kind="small" v-for="item in madeForYou" :item="item"></mediaitem-square>
