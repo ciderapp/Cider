@@ -46,7 +46,8 @@
                 triggerEnabled: true,
                 canSeeTrigger: false,
                 showFab: false,
-                commonKind: "song"
+                commonKind: "song",
+                api: this.$root.mk.api
             }
         },
         methods: {
@@ -72,12 +73,18 @@
                     case "artists":
                         if (this.data.next && this.triggerEnabled) {
                             this.triggerEnabled = false;
-                            this.data.next().then(data => {
+
+                            let nextFn = (data => {
                                 console.log(data);
                                 this.data.next = data.next;
                                 this.data.data = this.data.data.concat(data.data);
                                 this.triggerEnabled = true;
                             });
+                            if(typeof this.data.next == "function") {
+                                this.data.next().then(data => next);
+                            }else{
+                                this.api.v3.music(this.data.next).then(data => nextFn);
+                            }
                         }else{
                             console.log("No next page");
                             this.triggerEnabled = false;

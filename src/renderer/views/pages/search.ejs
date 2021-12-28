@@ -12,37 +12,70 @@
                     <div class="col">
                         <h3>Songs</h3>
                     </div>
-                    <div class="col-auto flex-center" @click="app.showSearchView(app.search.term, 'song', app.friendlyTypes('song'))" v-if="search.results.song.data.length >= 6">
+                    <div class="col-auto flex-center"
+                         @click="app.showSearchView(app.search.term, 'song', app.friendlyTypes('song'))"
+                         v-if="search.results.song.data.length >= 6">
                         <button class="cd-btn-seeall">See All</button>
                     </div>
                 </div>
                 <div>
                     <mediaitem-list-item :item="item" :index="index"
-                                        v-for="(item, index) in search.results.song.data.limit(6)"></mediaitem-list-item>
+                                         v-for="(item, index) in search.results.song.data.limit(6)"></mediaitem-list-item>
                 </div>
             </div>
         </div>
 
         <template v-if="search.results['meta']">
-            <template 
-            v-for="section in search.results.meta.results.order" v-if="section != 'song' && section != 'top'">
+            <template
+                    v-for="section in search.results.meta.results.order" v-if="section != 'song' && section != 'top'">
                 <div class="row">
                     <div class="col">
                         <h3>{{ app.friendlyTypes(section) }}</h3>
                     </div>
                     <div class="col-auto flex-center" v-if="search.results[section].data.length >= 10">
-                        <button class="cd-btn-seeall" @click="app.showSearchView(app.search.term, section, app.friendlyTypes(section))">See All</button>
+                        <button class="cd-btn-seeall"
+                                @click="app.showSearchView(app.search.term, section, app.friendlyTypes(section))">See
+                            All
+                        </button>
                     </div>
                 </div>
                 <template v-if="!app.friendlyTypes(section).includes('Video')">
-                <mediaitem-scroller-horizontal-large
-                        :items="search.results[section].data.limit(10)"></mediaitem-scroller-horizontal-large>
+                    <mediaitem-scroller-horizontal-large
+                            :items="search.results[section].data.limit(10)"></mediaitem-scroller-horizontal-large>
                 </template>
                 <template v-else>
-                <mediaitem-scroller-horizontal-mvview
+                    <mediaitem-scroller-horizontal-mvview
                             :items="search.results[section].data.limit(10)"></mediaitem-scroller-horizontal-mvview>
                 </template>
-                    </template>
+            </template>
+        </template>
+        <template v-if="search.resultsSocial.playlist">
+            <div class="row">
+                <div class="col">
+                    <h3>Shared Playlists</h3>
+                </div>
+                <div class="col-auto flex-center" v-if="search.resultsSocial.playlist.data.data.length >= 10">
+                    <button class="cd-btn-seeall"
+                            @click="app.showCollection(search.resultsSocial.playlist.data, 'Shared Playlists', 'default')">See All
+                    </button>
+                </div>
+            </div>
+            <mediaitem-scroller-horizontal-large
+                    :items="search.resultsSocial.playlist.data.data.limit(10)"></mediaitem-scroller-horizontal-large>
+        </template>
+        <template v-if="search.resultsSocial.profile">
+            <div class="row">
+                <div class="col">
+                    <h3>People</h3>
+                </div>
+                <div class="col-auto flex-center" v-if="search.resultsSocial.profile.data.data.length >= 10">
+                    <button class="cd-btn-seeall"
+                            @click="app.showCollection(search.resultsSocial.profile.data, 'People', 'default')">See All
+                    </button>
+                </div>
+            </div>
+            <mediaitem-scroller-horizontal-large
+                    :items="search.resultsSocial.profile.data.data.limit(10)"></mediaitem-scroller-horizontal-large>
         </template>
     </div>
 </script>
@@ -51,7 +84,7 @@
     Vue.component('cider-search', {
         template: "#cider-search",
         props: ['search'],
-        data: function() {
+        data: function () {
             return {
                 app: this.$root
             }

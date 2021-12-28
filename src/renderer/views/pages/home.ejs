@@ -1,0 +1,124 @@
+<script type="text/x-template" id="cider-home">
+    <div class="content-inner home-page">
+        <div class="row">
+            <div class="col">
+                <h3>Home</h3>
+                <div class="well profile-well">
+                    <div class="user-icon">
+                        <mediaitem-artwork shadow="none" :url="profile.attributes.artwork.url" size="300"></mediaitem-artwork>
+                    </div>
+                    <h3>{{ profile.attributes.name }}</h3>
+                    <h4>@{{ profile.attributes.handle }}</h4>
+                    <button class="md-btn">Share</button>
+                </div>
+            </div>
+            <div class="col">
+                <h3>Recently Played</h3>
+                <div class="well">
+                    <mediaitem-list-item v-for="item in recentlyPlayed.limit(6)" :item="item"></mediaitem-list-item>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h3>Made For You</h3>
+                <div class="well">
+                    <mediaitem-square kind="small" v-for="item in madeForYou" :item="item"></mediaitem-square>
+                </div>
+            </div>
+            <div class="col">
+                <h3>Your Artist Feed</h3>
+                <div class="well">
+                    <mediaitem-list-item v-for="item in recentlyPlayed.limit(6)" :item="item"></mediaitem-list-item>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h3>Friends Listening To</h3>
+                <div class="well">
+                    <mediaitem-square kind="small" v-for="item in friendsListeningTo" :item="item"></mediaitem-square>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script>
+    Vue.component('cider-home', {
+        template: '#cider-home',
+        data: function () {
+            return {
+                app: this.$root,
+                madeForYou: [],
+                recentlyPlayed: [],
+                friendsListeningTo: [],
+                profile: {},
+                modify: 0
+            }
+        },
+        async mounted() {
+            let self = this
+            this.getListenNowData()
+        },
+        methods: {
+            getRecentlyPlayed() {
+
+            },
+            async getListenNowData() {
+                let self = this
+                this.app.mk.api.personalRecommendations("",
+                    {
+                        name: "listen-now",
+                        with: "friendsMix,library,social",
+                        "art[social-profiles:url]": "c",
+                        "art[url]": "c,f",
+                        "omit[resource]": "autos",
+                        "relate[editorial-items]": "contents",
+                        extend: ["editorialCard", "editorialVideo"],
+                        "extend[albums]": ["artistUrl"],
+                        "extend[library-albums]": ["artistUrl", "editorialVideo"],
+                        "extend[playlists]": ["artistNames", "editorialArtwork", "editorialVideo"],
+                        "extend[library-playlists]": ["artistNames", "editorialArtwork", "editorialVideo"],
+                        "extend[social-profiles]": "topGenreNames",
+                        "include[albums]": "artists",
+                        "include[songs]": "artists",
+                        "include[music-videos]": "artists",
+                        "fields[albums]": ["artistName", "artistUrl", "artwork", "contentRating", "editorialArtwork", "editorialVideo", "name", "playParams", "releaseDate", "url"],
+                        "fields[artists]": ["name", "url"],
+                        "extend[stations]": ["airDate", "supportsAirTimeUpdates"],
+                        "meta[stations]": "inflectionPoints",
+                        types: "artists,albums,editorial-items,library-albums,library-playlists,music-movies,music-videos,playlists,stations,uploaded-audios,uploaded-videos,activities,apple-curators,curators,tv-shows,social-profiles,social-upsells",
+                        platform: "web"
+                    },
+                    {
+                        includeResponseMeta: !0,
+                        reload: !0
+                    }
+                ).then((data) => {
+                    console.log(data.data[1])
+                    self.recentlyPlayed = data.data[1].relationships.contents.data
+                    self.friendsListeningTo = data.data.filter(section => {
+                        if (section.meta.metrics.moduleType == "11") {
+                            return section
+                        }
+                        ;
+                    })[0].relationships.contents.data
+                    self.madeForYou = data.data.filter(section => {
+                        if (section.meta.metrics.moduleType == "6") {
+                            return section
+                        }
+                        ;
+                    })[0].relationships.contents.data
+                });
+
+                app.mk.api.v3.music("/v1/me/social/profile/").then((response) => {
+                    self.profile = response.data.data[0]
+                    console.log("!!!")
+                    console.log(response.data.data[0])
+                })
+
+            }
+        }
+    });
+</script>

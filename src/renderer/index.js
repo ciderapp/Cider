@@ -114,6 +114,7 @@ const app = new Vue({
             hints: [],
             showHints: false,
             results: {},
+            resultsSocial: {},
             limit: 10
         },
         playerLCD: {
@@ -2167,6 +2168,15 @@ const app = new Vue({
                 }).then(function (results) {
                     self.search.results = results
                 })
+            await this.mk.api.socialSearch(this.search.term, {
+                types: ["playlists", "social-profiles"],
+                limit: 25,
+                with: ["serverBubbles", "lyricSnippet"],
+                "art[url]": "f",
+                "art[social-profiles:url]": "c"
+            }, { includeResponseMeta: !0 }).then(function (results) {
+                self.search.resultsSocial = results
+            })
         },
         isInLibrary(playParams) {
             let self = this
