@@ -44,7 +44,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" v-if="friendsListeningTo && friendsListeningTo != []">
                 <div class="col">
                     <h3>Friends Listening To</h3>
                     <div class="well">
@@ -109,19 +109,25 @@
                     }
                 ).then((data) => {
                     console.log(data.data[1])
-                    self.recentlyPlayed = data.data[1].relationships.contents.data
-                    self.friendsListeningTo = data.data.filter(section => {
-                        if (section.meta.metrics.moduleType == "11") {
-                            return section
-                        }
-                        ;
-                    })[0].relationships.contents.data
-                    self.madeForYou = data.data.filter(section => {
-                        if (section.meta.metrics.moduleType == "6") {
-                            return section
-                        }
-                        ;
-                    })[0].relationships.contents.data
+                    try{
+                        self.madeForYou = data.data.filter(section => {
+                            if (section.meta.metrics.moduleType == "6") {
+                                return section
+                            }
+                            ;
+                        })[0].relationships.contents.data
+                    }
+                    catch(err){}
+                    try{
+                        self.recentlyPlayed = data.data[1].relationships.contents.data
+                        self.friendsListeningTo = data.data.filter(section => {
+                            if (section.meta.metrics.moduleType == "11") {
+                                return section
+                            }
+                            ;
+                        })[0].relationships.contents.data
+                    }catch(err){}
+                   
                 });
 
                 app.mk.api.v3.music("/v1/me/social/profile/").then((response) => {
