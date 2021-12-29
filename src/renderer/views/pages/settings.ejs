@@ -9,10 +9,10 @@
                     Audio Quality
                 </div>
                 <div class="md-option-segment md-option-segment_auto">
-                    <select class="md-select" style="width:180px;">
-                        <option value="extreme">Extreme</option>
-                        <option value="high">High</option>
-                        <option value="low">Low</option>
+                    <select class="md-select" style="width:180px;" v-model="app.cfg.audio.quality"  v-on:change="changeAudioQuality">
+                        <option value="990">Extreme</option>
+                        <option value="256">High</option>
+                        <option value="64">Low</option>
                         <option value="auto">Auto</option>
                     </select>
                 </div>
@@ -23,6 +23,14 @@
                 </div>
                 <div class="md-option-segment md-option-segment_auto">
                     <input type="checkbox" v-model="app.cfg.audio.seamless_audio" switch/>
+                </div>
+            </div>
+            <div class="md-option-line">
+                <div class="md-option-segment">
+                Audio Normalization
+                </div>
+                <div class="md-option-segment md-option-segment_auto">
+                    <input type="checkbox" v-model="app.cfg.audio.normalization"  v-on:change="toggleNormalization" switch/>
                 </div>
             </div>
             <div class="md-option-header">
@@ -72,7 +80,7 @@
                     <small>(Requires relaunch)</small>
                 </div>
                 <div class="md-option-segment md-option-segment_auto">
-                    <select class="md-select" style="width:180px;" v-model="app.cfg.visual.hw_acceleration">
+                    <select class="md-select" style="width:180px;" v-model="app.cfg.visual.hw_acceleration" >
                         <option value="default">Default</option>
                         <option value="webgpu">WebGPU</option>
                         <option value="disabled">Disabled</option>
@@ -547,7 +555,14 @@
             }
         },
         methods: {
-
+            toggleNormalization : function(){
+                if (app.cfg.audio.normalization){
+                    CiderAudio.normalizerOn()
+                } else {CiderAudio.normalizerOff()}
+            },
+            changeAudioQuality : function(){
+                app.mk.bitrate = app.cfg.audio.quality
+            }
         }
     })
 </script>

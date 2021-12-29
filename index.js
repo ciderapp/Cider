@@ -20,8 +20,9 @@ const configSchema = {
         "favoriteItems": []
     },
     "audio": {
-        "quality": "extreme",
-        "seamless_audio": true
+        "quality": "990",
+        "seamless_audio": true,
+        "normalization": false,
     },
     "visual": {
         "theme": "",
@@ -44,6 +45,9 @@ const configSchema = {
         "auth_token": "",
         "enabledRemoveFeaturingArtists" : true,
         "NowPlaying": "true"
+    },
+    "advanced": {
+        "AudioContext" : true,
     }
 }
 

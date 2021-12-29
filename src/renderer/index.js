@@ -390,6 +390,9 @@ const app = new Vue({
                 window.localStorage.setItem("currentQueue", JSON.stringify(app.mk.queue.items))
             };
 
+            // Load saved quality
+            app.mk.bitrate = app.cfg.audio.quality
+
             // load last played track
             try {
                 let lastItem = window.localStorage.getItem("currentTrack")
