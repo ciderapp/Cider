@@ -1550,18 +1550,34 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     max-width: 420px;
   }
 
+  .hint-text {
+    font-size: 0.9rem;
+    color: rgb(200 200 200 / 70%);
+  }
+
   .user-icon {
     border-radius: 100%;
     width: 128px;
     height: 128px;
     overflow: hidden;
     box-shadow: var(--mediaItemShadow-Shadow);
+    margin: 16px;
   }
 
   .well.profile-well {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    .name {
+      margin: 4px;
+      font-weight: 500;
+    }
+    .handle {
+      margin: 4px;
+      opacity: 0.7;
+      font-weight: 500;
+    }
   }
 }
 

@@ -9,9 +9,8 @@
                         <div class="user-icon">
                             <mediaitem-artwork shadow="none" :url="profile.attributes.artwork.url" size="300"></mediaitem-artwork>
                         </div>
-                        <h3>{{ profile.attributes.name }}</h3>
-                        <h4>@{{ profile.attributes.handle }}</h4>
-                        <button class="md-btn">Share</button>
+                        <h3 class="name">{{ profile.attributes.name }}</h3>
+                        <h4 class="handle">@{{ profile.attributes.handle }}</h4>
                     </div>
                 </div>
                 <div class="col">
@@ -25,7 +24,7 @@
                 <div class="col">
                     <h3>Your Favorites</h3>
                     <div class="well">
-                        <div>Items you have added to your favorites will appear here.</div>
+                        <div class="hint-text">Items you have added to your favorites will appear here.</div>
                         <!-- <mediaitem-scroller-horizontal kind="small" :items="friendsListeningTo" :item="item"></mediaitem-scroller-horizontal> -->
                     </div>
                 </div>
@@ -40,7 +39,12 @@
                 <div class="col">
                     <h3>Your Artist Feed</h3>
                     <div class="well">
-                        <mediaitem-list-item v-for="item in recentlyPlayed.limit(6)" :item="item"></mediaitem-list-item>
+                        <template v-if="artistFeed.length > 0">
+                            <mediaitem-list-item v-for="item in artistFeed.limit(6)" :item="item"></mediaitem-list-item>
+                        </template>
+                        <template v-else>
+                            <div class="hint-text">No new activity from followed artists</div>
+                        </template>
                     </div>
                 </div>
             </div>
@@ -62,18 +66,44 @@
         data: function () {
             return {
                 app: this.$root,
+                followedArtists: this.$root.cfg.home.followedArtists,
                 madeForYou: [],
                 recentlyPlayed: [],
                 friendsListeningTo: [],
                 profile: {},
-                modify: 0
+                modify: 0,
+                artistFeed: []
             }
         },
         async mounted() {
             let self = this
             this.getListenNowData()
+            await this.getArtistFeed()
         },
         methods: {
+            async getArtistFeed() {
+                let artists = this.followedArtists
+                let self = this
+                console.warn("get artist feed")
+                this.app.mk.api.artists(artists, {
+                    "views": "featured-release,full-albums,appears-on-albums,featured-albums,featured-on-albums,singles,compilation-albums,live-albums,latest-release,top-music-videos,similar-artists,top-songs,playlists,more-to-hear,more-to-see",
+                    "extend": "artistBio,bornOrFormed,editorialArtwork,editorialVideo,isGroup,origin,hero",
+                    "extend[playlists]": "trackCount",
+                    "include[songs]": "albums",
+                    "fields[albums]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialVideo,name,playParams,releaseDate,url,trackCount",
+                    "limit[artists:top-songs]": 20,
+                    "art[url]": "f"
+                }, { includeResponseMeta: !0 }).then(artistData => {
+                    artistData.data.forEach(item => {
+                        if(item.views["latest-release"].data.length != 0) {
+                            self.artistFeed.push(item.views["latest-release"].data[0])
+                        }
+                    })
+                    console.warn("got artist feed")
+                    console.log(self.artistFeed)
+                })
+
+            },
             getRecentlyPlayed() {
 
             },
@@ -127,7 +157,6 @@
                             ;
                         })[0].relationships.contents.data
                     }catch(err){}
-                   
                 });
 
                 app.mk.api.v3.music("/v1/me/social/profile/").then((response) => {

@@ -135,6 +135,27 @@
         methods: {
             artistMenu (event) {
                 let self = this
+                let followAction = "follow"
+                let followActions = {
+                    follow: {
+                        name: "Follow Artist",
+                        action: ()=>{
+                            self.app.cfg.home.followedArtists.push(self.data.id)
+                        }
+                    },
+                    unfollow: {
+                        name: "Unfollow Artist",
+                        action: ()=>{
+                            let index = self.app.cfg.home.followedArtists.indexOf(self.data.id)
+                            if (index > -1) {
+                                self.app.cfg.home.followedArtists.splice(index, 1)
+                            }
+                        }
+                    }
+                }
+                if(this.app.cfg.home.followedArtists.includes(self.data.id)) {
+                    followAction = "unfollow"
+                }
                 CiderContextMenu.Create(event, {
                     items: [
                         {
@@ -145,10 +166,7 @@
                                 })
                             }
                         },
-                        {
-                            name: "Follow Artist",
-                            action: ()=>{}
-                        },
+                        followActions[followAction],
                         {
                             name: "Share",
                             action: ()=>{}

@@ -15,6 +15,10 @@ const configSchema = {
         "discordClearActivityOnPause" : 0, // 0 = disabled, 1 = enabled
         "volume": 1
     },
+    "home": {
+        "followedArtists": [],
+        "favoriteItems": []
+    },
     "audio": {
         "quality": "extreme",
         "seamless_audio": true
