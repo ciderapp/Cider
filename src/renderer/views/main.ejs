@@ -168,7 +168,7 @@
                         <div class="app-sidebar-header-text">
                             Apple Music
                         </div>
-                        <sidebar-library-item v-if="isDev" name="Home" page="home"></sidebar-library-item>
+                        <sidebar-library-item name="Home" page="home"></sidebar-library-item>
                         <sidebar-library-item name="Listen Now" page="listen_now"></sidebar-library-item>
                         <sidebar-library-item name="Browse" page="browse"></sidebar-library-item>
                         <sidebar-library-item name="Radio" page="radio"></sidebar-library-item>
@@ -300,6 +300,12 @@
                     <transition name="wpfade">
                         <template v-if="page == 'home'">
                             <cider-home></cider-home>
+                        </template>
+                    </transition>
+                    <!-- Home -->
+                    <transition name="wpfade">
+                        <template v-if="page == 'artist-feed'">
+                            <cider-artist-feed></cider-artist-feed>
                         </template>
                     </transition>
                     <!-- Playlist / Album page-->
@@ -511,6 +517,9 @@
 
 <!-- Home -->
 <%- include('pages/home') %>
+
+<!-- Artist Feed -->
+<%- include('pages/artist-feed') %>
 
 <!-- Playlists / Albums -->
 <%- include('pages/cider-playlist') %>

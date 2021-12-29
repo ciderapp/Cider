@@ -206,6 +206,7 @@ const app = new Vue({
             id: ""
         },
         mxmtoken: "",
+        mkIsReady: false,
         playerReady: false,
         lyricon: false,
         currentTrackID: '',
@@ -247,7 +248,7 @@ const app = new Vue({
         },
         prevButtonBackIndicator: false,
         currentSongInfo: {},
-        page: "browse",
+        page: "",
         pageHistory: [],
         songstest: false,
         hangtimer: null,
@@ -280,6 +281,12 @@ const app = new Vue({
         },
     },
     methods: {
+        addFavorite(id, type) {
+            this.cfg.home.favoriteItems.push({
+                id: id,
+                type: type
+            });
+        },
         modularUITest(val = false) {
             if (val) {
                 document.querySelector("#app-main").classList.add("modular-fs")
@@ -344,7 +351,9 @@ const app = new Vue({
             let self = this
             clearTimeout(this.hangtimer)
             this.mk = MusicKit.getInstance()
-            this.mk.authorize()
+            this.mk.authorize().then(()=>{
+                self.mkIsReady = true
+            })
             this.$forceUpdate()
             if (this.isDev) {
                 this.mk.privateEnabled = true
@@ -496,6 +505,8 @@ const app = new Vue({
             document.body.removeAttribute("loading")
             if (window.location.hash != "") {
                 this.appRoute(window.location.hash)
+            }else{
+                this.page = "home"
             }
 
             setTimeout(() => {
@@ -570,6 +581,12 @@ const app = new Vue({
                         name: "Delete from library",
                         action: () => {
                             this.deletePlaylist(playlist_id)
+                        }
+                    },
+                    {
+                        name: "Add to favorites",
+                        action: () => {
+                            this.addFavorite(playlist_id, "library-playlists")
                         }
                     }
                 ]
