@@ -44,7 +44,8 @@
             size: {
                 type: String,
                 default: '300'
-            }
+            },
+            'contextExt': {type: Object, required: false},
         },
         data: function () {
             return {
@@ -62,7 +63,12 @@
             },
             async isInLibrary() {
                 if (this.item.type && !this.item.type.includes("library")) {
-                    var params = {"fields[playlists]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library", "extend": this.revisedRandId()}
+                    var params = {
+                        "fields[playlists]": "inLibrary",
+                        "fields[albums]": "inLibrary",
+                        "relate": "library",
+                        "extend": this.revisedRandId()
+                    }
                     var res = await app.mkapi(this.item.attributes.playParams.kind ?? this.item.type, this.item.attributes.playParams.isLibrary ?? false, this.item.attributes.playParams.id ?? this.item.id, params);
                     this.addedToLibrary = (res && res.attributes && res.attributes.inLibrary) ? res.attributes.inLibrary : false
                 } else {
@@ -70,7 +76,13 @@
                 }
             },
             async removeFromLibrary(id) {
-                var params = {"fields[playlists]": "inLibrary","fields[songs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library", "extend": this.revisedRandId()}
+                var params = {
+                    "fields[playlists]": "inLibrary",
+                    "fields[songs]": "inLibrary",
+                    "fields[albums]": "inLibrary",
+                    "relate": "library",
+                    "extend": this.revisedRandId()
+                }
                 var id = this.item.id ?? this.item.attributes.playParams.id
                 var res = await app.mkapi(this.item.attributes.playParams.kind ?? this.item.type, this.item.attributes.playParams.isLibrary ?? false, this.item.attributes.playParams.id ?? this.item.id, params);
                 if (res && res.relationships && res.relationships.library && res.relationships.library.data && res.relationships.library.data.length > 0) {
@@ -109,7 +121,7 @@
                         break;
                     case "small":
                         return ["mediaitem-small"]
-                    break;
+                        break;
                     case "music-videos":
                     case "uploadedVideo":
                     case "uploaded-videos":
@@ -120,7 +132,7 @@
             visibilityChanged: function (isVisible, entry) {
                 this.isVisible = isVisible
             },
-            async contextMenu(event)  {
+            async contextMenu(event) {
                 if (this.nomenu.includes(this.item.type)) {
                     return
                 }
@@ -209,18 +221,36 @@
                                 }
                             },
                             {
-                                "name":  (this.addedToLibrary) ? "Remove from Library..." : "Add to Library...",
+                                "name": (this.addedToLibrary) ? "Remove from Library..." : "Add to Library...",
                                 "action": async function () {
                                     let item_id = self.item.attributes.playParams.id ?? self.item.id;
                                     let data_type = self.item.attributes.playParams.kind ?? self.item.type;
-                                    if (self.addedToLibrary != true)  { console.log("add"); app.addToLibrary(item_id); self.addedToLibrary = true} 
-                                    else { console.log("remove"); await self.removeFromLibrary(item_id); self.addedToLibrary = false};
+                                    if (self.addedToLibrary != true) {
+                                        console.log("add");
+                                        app.addToLibrary(item_id);
+                                        self.addedToLibrary = true
+                                    } else {
+                                        console.log("remove");
+                                        await self.removeFromLibrary(item_id);
+                                        self.addedToLibrary = false
+                                    }
+                                    ;
                                 }
                             },
                         ]
                     }
                 }
-                if ((self.item.attributes.playParams.kind ?? self.item.type).includes("playlist")) { menus.normal.items.splice(2, 1);}
+                if ((self.item.attributes.playParams.kind ?? self.item.type).includes("playlist")) {
+                    menus.normal.items.splice(2, 1);
+                }
+                if (this.contextExt) {
+                    if (this.contextExt.normal) {
+                        menus.normal.items = menus.normal.items.concat(this.contextExt.normal)
+                    }
+                    if (this.contextExt.multiple) {
+                        menus.multiple.items = menus.multiple.items.concat(this.contextExt.multiple)
+                    }
+                }
                 CiderContextMenu.Create(event, menus[useMenu])
             },
         },

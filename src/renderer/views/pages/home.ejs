@@ -1,13 +1,13 @@
 <script type="text/x-template" id="cider-home">
     <div class="content-inner home-page">
-        <div class="bg-image"></div>
-        <div>
+        <div v-if="page == 'main'">
             <div class="row">
                 <div class="col">
                     <h3>Home</h3>
                     <div class="well profile-well">
                         <div class="user-icon">
-                            <mediaitem-artwork shadow="none" :url="profile.attributes.artwork.url" size="300"></mediaitem-artwork>
+                            <mediaitem-artwork shadow="none" :url="profile.attributes.artwork.url"
+                                               size="300"></mediaitem-artwork>
                         </div>
                         <h3 class="name">{{ profile.attributes.name }}</h3>
                         <h4 class="handle">@{{ profile.attributes.handle }}</h4>
@@ -20,12 +20,15 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" v-if="app.isDev">
                 <div class="col">
                     <h3>Your Favorites</h3>
                     <div class="well">
-                        <div class="hint-text">Items you have added to your favorites will appear here.</div>
-                        <!-- <mediaitem-scroller-horizontal kind="small" :items="friendsListeningTo" :item="item"></mediaitem-scroller-horizontal> -->
+                        <div class="hint-text" v-if="favorites.length == 0">Items you have added to your favorites will
+                            appear here.
+                        </div>
+                        <mediaitem-scroller-horizontal kind="small" :items="favorites"
+                                                       :item="item"></mediaitem-scroller-horizontal>
                     </div>
                 </div>
             </div>
@@ -37,8 +40,15 @@
                     </div>
                 </div>
                 <div class="col">
-                    <h3>Your Artist Feed</h3>
-                    <div class="well">
+                    <div class="row nopadding">
+                        <div class="col nopadding">
+                            <h3>Your Artists Feed</h3>
+                        </div>
+                        <div class="col-auto nopadding flex-center">
+                            <button class="cd-btn-seeall" @click="app.appRoute('artist-feed')">See All</button>
+                        </div>
+                    </div>
+                    <div class="well" style="margin-top:0px;">
                         <template v-if="artistFeed.length > 0">
                             <mediaitem-list-item v-for="item in artistFeed.limit(6)" :item="item"></mediaitem-list-item>
                         </template>
@@ -52,7 +62,8 @@
                 <div class="col">
                     <h3>Friends Listening To</h3>
                     <div class="well">
-                        <mediaitem-square kind="small" v-for="item in friendsListeningTo" :item="item"></mediaitem-square>
+                        <mediaitem-square kind="small" v-for="item in friendsListeningTo"
+                                          :item="item"></mediaitem-square>
                     </div>
                 </div>
             </div>
@@ -67,24 +78,71 @@
             return {
                 app: this.$root,
                 followedArtists: this.$root.cfg.home.followedArtists,
+                favoriteItems: this.$root.cfg.home.favoriteItems,
                 madeForYou: [],
                 recentlyPlayed: [],
                 friendsListeningTo: [],
+                replayPlaylists: [],
+                favorites: [],
                 profile: {},
                 modify: 0,
-                artistFeed: []
+                artistFeed: [],
+                showingArtistFeed: false,
+                page: "main",
             }
         },
         async mounted() {
             let self = this
             this.getListenNowData()
             await this.getArtistFeed()
+            await this.getFavorites()
         },
         methods: {
+            removeFavoriteContext() {
+                let self = this
+                return {
+                    name: "Remove from Favorites",
+                    action: function (item) {
+                        let index = self.favoriteItems.findIndex(x => x.id == item.id)
+                        if (index > -1) {
+                            self.favoriteItems.splice(index, 1)
+                            self.app.cfg.home.favoriteItems = self.favoriteItems
+                        }
+                    }
+                }
+            },
+            async getFavorites() {
+                let self = this
+                let libraryPlaylists = []
+                let playlists = []
+                for (let item of this.favoriteItems) {
+                    if (item.type == "library-playlists") {
+                        libraryPlaylists.push(item.id)
+                    } else if (item.type == "playlists") {
+                        playlists.push(item.id)
+                    }
+                }
+                console.warn(playlists)
+                console.warn(libraryPlaylists)
+                if (playlists.length != 0) {
+                    this.app.mk.api.playlists(playlists).then(playlistsData => {
+                        self.favorites.push(...playlistsData)
+                        console.info(playlistsData)
+                    })
+                }
+                if (libraryPlaylists.length != 0) {
+                    this.app.mk.api.library.playlists(libraryPlaylists).then(playlistsData => {
+                        self.favorites.push(...playlistsData)
+                        console.info(playlistsData)
+                    })
+                }
+                console.warn(this.favoriteItems)
+
+                console.warn(self.favorites)
+            },
             async getArtistFeed() {
                 let artists = this.followedArtists
                 let self = this
-                console.warn("get artist feed")
                 this.app.mk.api.artists(artists, {
                     "views": "featured-release,full-albums,appears-on-albums,featured-albums,featured-on-albums,singles,compilation-albums,live-albums,latest-release,top-music-videos,similar-artists,top-songs,playlists,more-to-hear,more-to-see",
                     "extend": "artistBio,bornOrFormed,editorialArtwork,editorialVideo,isGroup,origin,hero",
@@ -93,14 +151,12 @@
                     "fields[albums]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialVideo,name,playParams,releaseDate,url,trackCount",
                     "limit[artists:top-songs]": 20,
                     "art[url]": "f"
-                }, { includeResponseMeta: !0 }).then(artistData => {
+                }, {includeResponseMeta: !0}).then(artistData => {
                     artistData.data.forEach(item => {
-                        if(item.views["latest-release"].data.length != 0) {
+                        if (item.views["latest-release"].data.length != 0) {
                             self.artistFeed.push(item.views["latest-release"].data[0])
                         }
                     })
-                    console.warn("got artist feed")
-                    console.log(self.artistFeed)
                 })
 
             },
@@ -139,16 +195,17 @@
                     }
                 ).then((data) => {
                     console.log(data.data[1])
-                    try{
+                    try {
                         self.madeForYou = data.data.filter(section => {
                             if (section.meta.metrics.moduleType == "6") {
                                 return section
                             }
                             ;
                         })[0].relationships.contents.data
+                    } catch (err) {
                     }
-                    catch(err){}
-                    try{
+
+                    try {
                         self.recentlyPlayed = data.data[1].relationships.contents.data
                         self.friendsListeningTo = data.data.filter(section => {
                             if (section.meta.metrics.moduleType == "11") {
@@ -156,13 +213,12 @@
                             }
                             ;
                         })[0].relationships.contents.data
-                    }catch(err){}
+                    } catch (err) {
+                    }
                 });
 
                 app.mk.api.v3.music("/v1/me/social/profile/").then((response) => {
                     self.profile = response.data.data[0]
-                    console.log("!!!")
-                    console.log(response.data.data[0])
                 })
 
             }
