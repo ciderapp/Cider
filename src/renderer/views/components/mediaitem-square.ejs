@@ -215,6 +215,7 @@
                                 }
                             },
                             {
+                                "id": "addToPlaylist",
                                 "name": "Add to Playlist...",
                                 "action": function () {
                                     app.promptAddToPlaylist()
@@ -237,11 +238,20 @@
                                     ;
                                 }
                             },
+                            {
+                                "name": "Share",
+                                "action": function () {
+                                    self.app.copyToClipboard(self.item.attributes.url)
+                                }
+                            }
                         ]
                     }
                 }
                 if ((self.item.attributes.playParams.kind ?? self.item.type).includes("playlist")) {
-                    menus.normal.items.splice(2, 1);
+                    // remove the add to playlist option by id "addToPlaylist" using the .filter() method
+                    menus.normal.items = menus.normal.items.filter(function (item) {
+                        return item.id != "addToPlaylist"
+                    })
                 }
                 if (this.contextExt) {
                     if (this.contextExt.normal) {

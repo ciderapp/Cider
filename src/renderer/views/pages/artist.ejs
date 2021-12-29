@@ -169,7 +169,9 @@
                         followActions[followAction],
                         {
                             name: "Share",
-                            action: ()=>{}
+                            action: ()=>{
+                                self.app.copyToClipboard(self.data.attributes.url)
+                            }
                         }
                     ]
                 })

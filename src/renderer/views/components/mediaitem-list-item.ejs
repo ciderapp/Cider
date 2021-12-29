@@ -276,6 +276,12 @@
                                     app.searchAndNavigate(self.item, 'album')
                                 }
                             },
+                            {
+                                "name": "Share",
+                                "action": function () {
+                                    self.app.copyToClipboard(self.item.attributes.url)
+                                }
+                            }
                         ]
                     }
                 }

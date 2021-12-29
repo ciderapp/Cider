@@ -613,6 +613,9 @@ const app = new Vue({
                 self.refreshPlaylists()
             })
         },
+        copyToClipboard(str) {
+            navigator.clipboard.writeText(str)
+        },
         newPlaylist(name = "New Playlist", tracks = []) {
             let self = this
             let request = {
