@@ -467,7 +467,7 @@ const app = new Vue({
                console.log(tag)
                let replaygain = self.parseSCTagToRG(tag)
                try {
-                CiderAudio.audioNodes.gainNode.gain.value = (1 - Math.min(Math.pow(10, (replaygain.gain / 20)), (1 / replaygain.peak)))
+                CiderAudio.audioNodes.gainNode.gain.value = ( Math.min(Math.pow(10, (replaygain.gain / 20)), (1 / replaygain.peak)))
                } catch (e){
                 
                }
