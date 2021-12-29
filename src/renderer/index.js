@@ -463,6 +463,15 @@ const app = new Vue({
 
             MusicKit.getInstance().videoContainerElement = document.getElementById("apple-music-video-player")
 
+            ipcRenderer.on('SoundCheckTag', (event, tag) => {
+               console.log(tag)
+               let replaygain = self.parseSCTagToRG(tag)
+               try {
+                CiderAudio.audioNodes.gainNode.gain.value = (1 - Math.min(Math.pow(10, (replaygain.gain / 20)), (1 / replaygain.peak)))
+               } catch (e){
+                
+               }
+            })
 
             this.mk.addEventListener(MusicKit.Events.playbackTimeDidChange, (a) => {
                 self.lyriccurrenttime = self.mk.currentPlaybackTime
@@ -478,6 +487,10 @@ const app = new Vue({
                 try {
                     a = a.item.attributes;
                 } catch (_) {
+                }
+
+                if (app.cfg.audio.normalization){
+                  try{ ipcRenderer.send('getPreviewURL', self.mk.nowPlayingItem.previewURL)} catch(e){}
                 }
 
                 let type = (self.mk.nowPlayingItem != null) ? self.mk.nowPlayingItem["type"] ?? '' : '';
@@ -2501,6 +2514,22 @@ const app = new Vue({
                     element.innerHTML = `Disconnect\n<p style="font-size: 8px"><i>(Authed: ${lfmAuthKey})</i></p>`;
                     element.onclick = app.LastFMDeauthorize;
                 });
+            },
+            parseSCTagToRG: function(tag){
+                let soundcheck = tag.split(" ")
+                let numbers = []
+                for (item of soundcheck){
+                    numbers.push(parseInt(item, 16))
+                   
+                }
+                numbers.shift()
+                let gain = Math.log10((Math.max(numbers[0],numbers[1]) ?? 1000) / 1000.0) * -10
+                let peak = Math.max(numbers[6],numbers[7]) / 32768.0
+                console.log(gain,peak)
+                return {
+                    gain: gain,
+                    peak: peak
+                }
             }
         
     }

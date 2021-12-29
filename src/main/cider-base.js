@@ -9,6 +9,8 @@ const yt = require('youtube-search-without-api-key');
 const discord = require('./discordrpc');
 const lastfm = require('./lastfm');
 const mpris = require('./mpris');
+const mm = require('music-metadata');
+const fetch = require('electron-fetch').default;
 
 // Analytics for debugging.
 const ElectronSentry = require("@sentry/electron");
@@ -216,12 +218,28 @@ const CiderBase = {
             lastfm.scrobbleSong(a)
             lastfm.updateNowPlayingSong(a)
         });
+
         ipcMain.on('nowPlayingItemDidChange', (_event, a) => {
             app.media = a;
             discord.updateActivity(a)
             mpris.updateAttributes(a)
             lastfm.scrobbleSong(a)
             lastfm.updateNowPlayingSong(a)
+        });
+
+        ipcMain.on("getPreviewURL", (_event, url) => {
+            fetch(url)
+            .then(res => res.buffer())
+            .then(async (buffer) => {
+                try {
+                    const metadata = await mm.parseBuffer(buffer, 'audio/x-m4a');
+                    SoundCheckTag = metadata.native.iTunes[1].value
+                    console.log(SoundCheckTag)
+                    win.webContents.send('SoundCheckTag',SoundCheckTag)
+                  } catch (error) {
+                    console.error(error.message);
+                  }
+            })
         });
 
         return win
