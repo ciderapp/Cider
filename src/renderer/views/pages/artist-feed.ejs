@@ -10,7 +10,7 @@
                     </div>
                     <div class="well" style="margin-top:0px;">
                         <template v-if="artistFeed.length > 0">
-                            <mediaitem-list-item v-for="item in artistFeed.limit(6)" :item="item"></mediaitem-list-item>
+                            <mediaitem-list-item v-for="item in artistFeed" :item="item"></mediaitem-list-item>
                         </template>
                         <template v-else>
                             <div class="hint-text">No new activity from followed artists</div>
