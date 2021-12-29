@@ -400,7 +400,21 @@ const app = new Vue({
             };
 
             // Load saved quality
-            app.mk.bitrate = app.cfg.audio.quality
+            switch (app.cfg.audio.quality){
+            case "extreme":
+                app.mk.bitrate = app.cfg.audio.quality = 990
+                break;
+            case "high":
+                app.mk.bitrate = app.cfg.audio.quality = 256
+                break; 
+            case "low":
+                app.mk.bitrate = app.cfg.audio.quality = 64
+                break;     
+            default:
+                app.mk.bitrate = app.cfg.audio.quality
+            }
+
+            
 
             // load last played track
             try {
