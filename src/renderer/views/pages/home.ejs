@@ -122,23 +122,16 @@
                         playlists.push(item.id)
                     }
                 }
-                console.warn(playlists)
-                console.warn(libraryPlaylists)
                 if (playlists.length != 0) {
                     this.app.mk.api.playlists(playlists).then(playlistsData => {
                         self.favorites.push(...playlistsData)
-                        console.info(playlistsData)
                     })
                 }
                 if (libraryPlaylists.length != 0) {
                     this.app.mk.api.library.playlists(libraryPlaylists).then(playlistsData => {
                         self.favorites.push(...playlistsData)
-                        console.info(playlistsData)
                     })
                 }
-                console.warn(this.favoriteItems)
-
-                console.warn(self.favorites)
             },
             async getArtistFeed() {
                 let artists = this.followedArtists
@@ -157,7 +150,14 @@
                             self.artistFeed.push(item.views["latest-release"].data[0])
                         }
                     })
+                    // sort artistFeed by attributes.releaseDate descending, date is formatted as "YYYY-MM-DD"
+                    this.artistFeed.sort((a, b) => {
+                        let dateA = new Date(a.attributes.releaseDate)
+                        let dateB = new Date(b.attributes.releaseDate)
+                        return dateB - dateA
+                    })
                 })
+
 
             },
             getRecentlyPlayed() {

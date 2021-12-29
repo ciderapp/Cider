@@ -54,6 +54,12 @@
                             self.artistFeed.push(item.views["latest-release"].data[0])
                         }
                     })
+                    // sort artistFeed by attributes.releaseDate descending, date is formatted as "YYYY-MM-DD"
+                    this.artistFeed.sort((a, b) => {
+                        let dateA = new Date(a.attributes.releaseDate)
+                        let dateB = new Date(b.attributes.releaseDate)
+                        return dateB - dateA
+                    })
                 })
 
             }
