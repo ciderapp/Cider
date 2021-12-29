@@ -7,45 +7,17 @@ const { app } = require('electron'),
 const ElectronSentry = require("@sentry/electron");
 ElectronSentry.init({ dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.ingest.sentry.io/6112214" });
 
-// Enable WebGPU and list adapters (EXPERIMENTAL.)
-// Note: THIS HAS TO BE BEFORE ANYTHING GETS INITIALIZED.
-
 // const {Init} = require("./src/main/cider-base");
 // Init()
-CiderBase.Init()
-
-switch (app.cfg.get("visual.hw_acceleration")) {
-    default:
-    case "default":
-
-        break;
-    case "webgpu":
-        console.info("WebGPU is enabled.");
-        app.commandLine.appendSwitch('enable-unsafe-webgpu')
-        break;
-    case "disabled":
-        console.info("Hardware acceleration is disabled.");
-        app.commandLine.appendSwitch('disable-gpu')
-        break;
-}
-
-if (process.platform === "linux") {
-    app.commandLine.appendSwitch('disable-features', 'MediaSessionService');
-}
-
+CiderBase.Init().catch(() => {})
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * App Event Handlers
 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-app.commandLine.appendSwitch('js-flags', '--max-old-space-size=1024')
-
 app.on('ready', () => {
     if (app.isQuiting) { app.quit(); return; }
-    app.commandLine.appendSwitch('high-dpi-support', 1)
-    app.commandLine.appendSwitch('force-device-scale-factor', 1)
-    app.commandLine.appendSwitch('disable-pinch');
-    
+
     console.log('[Cider] Application is Ready. Creating Window.')
     if (!app.isPackaged) {
         console.info('[Cider] Running in development mode.')
