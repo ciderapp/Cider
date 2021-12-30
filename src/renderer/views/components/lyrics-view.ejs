@@ -130,11 +130,9 @@
                                if(this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${prevLine}"]`)) {this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${prevLine}"]`).classList.remove("active");}
                                 this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${i}"]`).classList.add("active")
                                 if (checkIfScrollIsStatic) {
-                                    const yOffset = -120; 
-                                    const y =  this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${i}"]`).getBoundingClientRect().top + yOffset;
-                                    this.$refs.lyricsview.scrollBy({
+                                    this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${i}"]`).scrollIntoView({
                                         behavior: "smooth",
-                                        top: y 
+                                        block: "center"
                                     })
                                 }
                             }
