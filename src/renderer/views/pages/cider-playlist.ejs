@@ -84,13 +84,13 @@
 
                 </div>
                 <div class="playlist-time">
-                    {{data.attributes.releaseDate}}
+                    {{getFormattedDate(data.attributes.releaseDate)}}
                 </div>
+                <div class="playlist-time total">{{app.getTotalTime()}}</div>
                 <div class="playlist-time item-navigate" @click="app.searchAndNavigate(data,'recordLabel') "
                      style="width: 50%;">
                     {{data.attributes.copyright}}
                 </div>
-                <div class="playlist-time">{{app.getTotalTime()}}</div>
             </div>
         </template>
     </div>
@@ -225,6 +225,17 @@
                 kind = data.attributes.playParams.kind;
                 id = data.attributes.playParams.id;
                 return `${kind}:${id}`
+            },
+            getFormattedDate: function (date) {
+                if (date == null || date === "") return "";
+                try{
+                var releaseDate = new Date(date);
+                month = new Intl.DateTimeFormat('en-US', { month: 'long'}).format(releaseDate);
+                date = releaseDate.getDate();
+                year = releaseDate.getFullYear();
+
+                return date + " " + month + " " + year;
+                } catch (e){ return ""}
             }
         }
     })

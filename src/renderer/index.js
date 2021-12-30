@@ -1579,8 +1579,11 @@ const app = new Vue({
         getTotalTime() {
             try {
                 if (app.showingPlaylist.relationships.tracks.data.length > 0) {
-                    time = Math.round([].concat(...app.showingPlaylist.relationships.tracks.data).reduce((a, { attributes: { durationInMillis } }) => a + durationInMillis, 0) / 60000);
-                    return app.showingPlaylist.relationships.tracks.data.length + " tracks, " + time + " mins.";
+                    let time = Math.round([].concat(...app.showingPlaylist.relationships.tracks.data).reduce((a, { attributes: { durationInMillis } }) => a + durationInMillis, 0) / 1000);
+                    let hours   = Math.floor(time / 3600)
+                    let mins = Math.floor(time / 60) % 60
+                    let secs = time % 60
+                    return app.showingPlaylist.relationships.tracks.data.length + " tracks, " + ((hours > 0) ? (hours + (" hour" + ((hours > 1) ? "s, " : ", "))) : "" ) + ((mins > 0) ? (mins + (" minute" + ((mins > 1) ? "s, " : ", "))) : "" )+ secs + (" second" + ((secs > 1) ? "s." : "."));
                 } else return ""
             } catch (err) {
                 return ""
