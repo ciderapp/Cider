@@ -28,17 +28,17 @@ const configDefaults = {
         "spatial_properties": {
             "gain": 0.8,
             "room_dimensions": {
-                "width": 5,
-                "height": 6,
-                "depth": 4
+                "width": 32,
+                "height": 12,
+                "depth": 32
             },
             "room_materials": {
-                "left": 'acoustic-ceiling-tiles',
-                "right": 'acoustic-ceiling-tiles',
-                "front": 'glass-thin',
-                "back": 'glass-thin',
-                "down": 'grass',
-                "up": 'acoustic-ceiling-tiles'
+                "left": 'metal',
+                "right": 'metal',
+                "front": 'brick-bare',
+                "back": 'brick-bare',
+                "down": 'acoustic-ceiling-tiles',
+                "up": 'acoustic-ceiling-tiles',
             }
         }
     },

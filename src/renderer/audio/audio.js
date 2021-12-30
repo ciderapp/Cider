@@ -53,19 +53,17 @@ var CiderAudio = {
         CiderAudio.audioNodes.spatialNode = new ResonanceAudio(CiderAudio.context);
         CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.context.destination);
         let roomDimensions = {
-            width: 5,
-            height: 6,
-            depth: 4,
+            width: 32,
+            height: 12,
+            depth: 32,
         };
         let roomMaterials = {
             // Room wall materials
-            left: 'acoustic-ceiling-tiles',
-            right: 'acoustic-ceiling-tiles',
-            front: 'glass-thin',
-            back: 'plywood-panel',
-            // Room floor
-            down: 'grass',
-            // Room ceiling
+            left: 'metal',
+            right: 'metal',
+            front: 'brick-bare',
+            back: 'brick-bare',
+            down: 'acoustic-ceiling-tiles',
             up: 'acoustic-ceiling-tiles',
         };
         CiderAudio.audioNodes.spatialNode.setRoomProperties(roomDimensions, roomMaterials);
