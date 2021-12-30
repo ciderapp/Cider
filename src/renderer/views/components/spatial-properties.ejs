@@ -7,25 +7,55 @@
             </div>
             <div class="modal-content">
                 <div class="row">
+                    <div class="col"><h3>Room Dimensions</h3></div>
+                </div>
+                <div class="row">
                     <div class="col">
-                        <label>
-                            Width
-                            <input type="number" min="0" @input="setRoom()" style="width: 100%;font-size: 1em;font-family: inherit;"
-                                   v-model="room_dimensions.width" step="1"/>
-                        </label>
-                        <label>
-                            Height
-                            <input type="number" min="0" @input="setRoom()" style="width: 100%;font-size: 1em;font-family: inherit;"
-                                   v-model="room_dimensions.height" step="1"/>
-                        </label>
-                        <label>
-                            Depth
-                            <input type="number" min="0" @input="setRoom()" style="width: 100%;font-size: 1em;font-family: inherit;"
-                                   v-model="room_dimensions.depth" step="1"/>
-                        </label>
+
+                        <div class="row">
+                            <div class="col-3 flex-center">
+                                Width
+                            </div>
+                            <div class="col flex-center">
+                                <input type="range" class="md-slider" min="0" max="100" @input="setRoom()" style="width: 100%;"
+                                       v-model="room_dimensions.width" step="1"/>
+                            </div>
+                            <div class="col-3 flex-center">
+                                <input type="number" min="0" @input="setRoom()" style="width: 100%;text-align: center"
+                                       v-model="room_dimensions.width" step="1"/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-3 flex-center">
+                                Height
+                            </div>
+                            <div class="col flex-center">
+                                <input type="range" class="md-slider" min="0" max="100" @input="setRoom()" style="width: 100%;"
+                                       v-model="room_dimensions.height" step="1"/>
+                            </div>
+                            <div class="col-3 flex-center">
+                                <input type="number" min="0" @input="setRoom()" style="width: 100%;text-align: center"
+                                       v-model="room_dimensions.height" step="1"/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-3 flex-center">
+                                Depth
+                            </div>
+                            <div class="col flex-center">
+                                <input type="range" class="md-slider" min="0" max="100" @input="setRoom()" style="width: 100%;"
+                                       v-model="room_dimensions.depth" step="1"/>
+                            </div>
+                            <div class="col-3 flex-center">
+                                <input type="number" min="0" @input="setRoom()" style="width: 100%;text-align: center"
+                                       v-model="room_dimensions.depth" step="1"/>
+                            </div>
+                        </div>
                         <label v-if="!app.cfg.audio.normalization">
                             Gain
-                            <input type="number" min="0" @input="setRoom()" style="width: 100%;font-size: 1em;font-family: inherit;"
+                            <input type="number" min="0" @input="setRoom()" style="width: 100%;"
                                    v-model="app.cfg.audio.spatial_properties.gain" step="0.1"/>
                         </label>
                     </div>
@@ -37,8 +67,11 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col"><h3>Room Materials</h3></div>
+                </div>
+                <div class="row">
                     <div class="col"></div>
-                    <div class="col">
+                    <div class="col flex-center">
                         <label>
                             Up
                             <select class="md-select" @input="setRoom()"
@@ -50,7 +83,7 @@
                     <div class="col"></div>
                 </div>
                 <div class="row">
-                    <div class="col">
+                    <div class="col flex-center">
                         <label>
                             Left
                             <select class="md-select" @input="setRoom()"
@@ -59,7 +92,7 @@
                             </select>
                         </label>
                     </div>
-                    <div class="col">
+                    <div class="col flex-center">
                         <label>
                             Front
                             <select class="md-select" @input="setRoom()"
@@ -75,7 +108,7 @@
                             </select>
                         </label>
                     </div>
-                    <div class="col">
+                    <div class="col flex-center">
                         <label>
                             Right
                             <select class="md-select" @input="setRoom()"
@@ -87,7 +120,7 @@
                 </div>
                 <div class="row">
                     <div class="col"></div>
-                    <div class="col">
+                    <div class="col flex-center">
                         <label>
                             Down
                             <select class="md-select" @input="setRoom()"

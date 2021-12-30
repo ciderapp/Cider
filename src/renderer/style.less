@@ -103,6 +103,16 @@ body[platform='linux'] {
   display: none !important;
 }
 
+input[type="text"], input[type="number"] {
+  background: #1c1c1c;
+  border-radius: 3px;
+  border: 1px solid rgb(200 200 200 / 25%);
+  color: #eee;
+  padding: 6px;
+  font-size: 1em;
+  font-family: inherit;
+}
+
 
 .bg-artwork--placeholder {
   position: absolute;
@@ -1652,11 +1662,15 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
 .spatialproperties-panel {
   .modal-window {
-    height: 600px;
-    max-height: 600px;
+    height: 700px;
+    max-height: 700px;
     width: 800px;
     max-width: 800px;
     overflow: hidden;
+
+    .info-header {
+      padding-left: 12px;
+    }
 
     .visual-container {
       display: flex;
@@ -1680,7 +1694,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
         height: calc(12px * 6);
         border-radius: 6px;
         transform: rotateX(60deg) rotateZ(-45deg);
-        transition: transform 0.2s var(--appleEase);
+        transition: transform 0.2s linear;
       }
 
       .face:nth-of-type(1) {
