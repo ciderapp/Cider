@@ -23,6 +23,7 @@ const configSchema = {
         "quality": "990",
         "seamless_audio": true,
         "normalization": false,
+        "spatial" : false,
     },
     "visual": {
         "theme": "",

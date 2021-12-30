@@ -27,7 +27,7 @@
             </div>
             <div class="md-option-line">
                 <div class="md-option-segment">
-                    Enable AudioContext Functionality
+                    Enable Advanced Functionality
                     <br>
                     <small>Enabling AudioContext functionality will allow for extended audio features like Audio Normalization , Equalizers and Visualizers, however on some systems this may cause stuttering in audio tracks.</small>
                 </div>
@@ -41,6 +41,16 @@
                 </div>
                 <div class="md-option-segment md-option-segment_auto">
                     <input type="checkbox" v-model="app.cfg.audio.normalization"  v-on:change="toggleNormalization" switch/>
+                </div>
+            </div>
+            <div class="md-option-line" v-show="app.cfg.advanced.AudioContext">
+                <div class="md-option-segment" >
+                Audio Spatialization
+                <br>
+                <small>Spatialize audio and make audio more 3-dimensional (note: This is not Dolby Atmos)</small>
+                </div>
+                <div class="md-option-segment md-option-segment_auto">
+                    <input type="checkbox" v-model="app.cfg.audio.spatial" v-on:change="toggleSpatial" switch/>
                 </div>
             </div>
             <div class="md-option-header">
@@ -560,6 +570,8 @@
                     CiderAudio.init();
                     if (app.cfg.audio.normalization){
                     CiderAudio.normalizerOn()}
+                    if (app.cfg.audio.spatial){
+                    CiderAudio.spatialOn()} 
                 } else {
                     CiderAudio.off();
                 }
@@ -568,6 +580,11 @@
                 if (app.cfg.audio.normalization){
                     CiderAudio.normalizerOn()
                 } else {CiderAudio.normalizerOff()}
+            },
+            toggleSpatial : function(){
+                if (app.cfg.audio.spatial){
+                    CiderAudio.spatialOn()
+                } else {CiderAudio.spatialOff()}
             },
             changeAudioQuality : function(){
                 app.mk.bitrate = app.cfg.audio.quality
