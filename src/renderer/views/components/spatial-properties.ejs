@@ -1,31 +1,31 @@
 <script type="text/x-template" id="spatial-properties">
     <div class="modal-fullscreen spatialproperties-panel">
-        <div class="modal-window">
+        <div class="modal-window" v-if="ready">
             <div class="modal-header">
                 <div class="modal-title">Spatial Properties</div>
-                <button class="close-btn" @click="app.resetState()"></button>
+                <button class="close-btn" @click="close()"></button>
             </div>
             <div class="modal-content">
                 <div class="row">
                     <div class="col">
                         <label>
                             Width
-                            <input type="number" min="0" @change="setRoom()" style="width: 100%;font-size: 1em;font-family: inherit;"
-                                   v-model="app.cfg.audio.spatial_properties.room_dimensions.width" step="1"/>
+                            <input type="number" min="0" @input="setRoom()" style="width: 100%;font-size: 1em;font-family: inherit;"
+                                   v-model="room_dimensions.width" step="1"/>
                         </label>
                         <label>
                             Height
-                            <input type="number" min="0" @change="setRoom()" style="width: 100%;font-size: 1em;font-family: inherit;"
-                                   v-model="app.cfg.audio.spatial_properties.room_dimensions.height" step="1"/>
+                            <input type="number" min="0" @input="setRoom()" style="width: 100%;font-size: 1em;font-family: inherit;"
+                                   v-model="room_dimensions.height" step="1"/>
                         </label>
                         <label>
                             Depth
-                            <input type="number" min="0" @change="setRoom()" style="width: 100%;font-size: 1em;font-family: inherit;"
-                                   v-model="app.cfg.audio.spatial_properties.room_dimensions.depth" step="1"/>
+                            <input type="number" min="0" @input="setRoom()" style="width: 100%;font-size: 1em;font-family: inherit;"
+                                   v-model="room_dimensions.depth" step="1"/>
                         </label>
                         <label v-if="!app.cfg.audio.normalization">
                             Gain
-                            <input type="number" min="0" @change="setRoom()" style="width: 100%;font-size: 1em;font-family: inherit;"
+                            <input type="number" min="0" @input="setRoom()" style="width: 100%;font-size: 1em;font-family: inherit;"
                                    v-model="app.cfg.audio.spatial_properties.gain" step="0.1"/>
                         </label>
                     </div>
@@ -41,7 +41,7 @@
                     <div class="col">
                         <label>
                             Up
-                            <select class="md-select" @change="setRoom()"
+                            <select class="md-select" @input="setRoom()"
                                     v-model="app.cfg.audio.spatial_properties.room_materials.up">
                                 <option v-for="prop in roomProps" :value="prop">{{ prop }}</option>
                             </select>
@@ -53,8 +53,8 @@
                     <div class="col">
                         <label>
                             Left
-                            <select class="md-select" @change="setRoom()"
-                                    v-model="app.cfg.audio.spatial_properties.room_materials.left">
+                            <select class="md-select" @input="setRoom()"
+                                    v-model="room_materials.left">
                                 <option v-for="prop in roomProps" :value="prop">{{ prop }}</option>
                             </select>
                         </label>
@@ -62,15 +62,15 @@
                     <div class="col">
                         <label>
                             Front
-                            <select class="md-select" @change="setRoom()"
-                                    v-model="app.cfg.audio.spatial_properties.room_materials.front">
+                            <select class="md-select" @input="setRoom()"
+                                    v-model="room_materials.front">
                                 <option v-for="prop in roomProps" :value="prop">{{ prop }}</option>
                             </select>
                         </label>
                         <label>
                             Back
-                            <select class="md-select" @change="setRoom()"
-                                    v-model="app.cfg.audio.spatial_properties.room_materials.back">
+                            <select class="md-select" @input="setRoom()"
+                                    v-model="room_materials.back">
                                 <option v-for="prop in roomProps" :value="prop">{{ prop }}</option>
                             </select>
                         </label>
@@ -78,8 +78,8 @@
                     <div class="col">
                         <label>
                             Right
-                            <select class="md-select" @change="setRoom()"
-                                    v-model="app.cfg.audio.spatial_properties.room_materials.right">
+                            <select class="md-select" @input="setRoom()"
+                                    v-model="room_materials.right">
                                 <option v-for="prop in roomProps" :value="prop">{{ prop }}</option>
                             </select>
                         </label>
@@ -90,8 +90,8 @@
                     <div class="col">
                         <label>
                             Down
-                            <select class="md-select" @change="setRoom()"
-                                    v-model="app.cfg.audio.spatial_properties.room_materials.down">
+                            <select class="md-select" @input="setRoom()"
+                                    v-model="room_materials.down">
                                 <option v-for="prop in roomProps" :value="prop">{{ prop }}</option>
                             </select>
                         </label>
@@ -109,6 +109,8 @@
         data: function () {
             return {
                 app: this.$root,
+                room_dimensions: null,
+                room_materials: null,
                 roomProps: [
                     'transparent',
                     'acoustic-ceiling-tiles',
@@ -134,29 +136,40 @@
                     'wood-panel',
                     'uniform'
                 ],
-                visualMultiplier: 4
+                visualMultiplier: 4,
+                ready: false
             }
         },
         props: {},
         mounted() {
-
+            if(typeof this.app.mk.nowPlayingItem != "undefined") {
+                this.setRoom()
+            }
+            this.room_dimensions = JSON.parse(JSON.stringify(this.$root.cfg.audio.spatial_properties.room_dimensions))
+            this.room_materials = JSON.parse(JSON.stringify(this.$root.cfg.audio.spatial_properties.room_materials))
+            this.ready = true
         },
         methods: {
             topFaceStyle() {
                 let style = {
-                    transform: `rotateX(60deg) rotateZ(-45deg) translateZ(${this.app.cfg.audio.spatial_properties.room_dimensions.height * this.visualMultiplier}px)`
+                    transform: `rotateX(60deg) rotateZ(-45deg) translateZ(${this.room_dimensions.height * this.visualMultiplier}px)`
                 }
                 return style
             },
             faceStyle() {
                 let style = {
-                    width: `${this.app.cfg.audio.spatial_properties.room_dimensions.width * this.visualMultiplier}px`,
-                    height: `${this.app.cfg.audio.spatial_properties.room_dimensions.depth * this.visualMultiplier}px`,
+                    width: `${this.room_dimensions.width * this.visualMultiplier}px`,
+                    height: `${this.room_dimensions.depth * this.visualMultiplier}px`,
                 }
                 return style
             },
+            close() {
+                this.$root.cfg.audio.spatial_properties.room_dimensions = this.room_dimensions
+                this.$root.cfg.audio.spatial_properties.room_materials = this.room_materials
+                app.resetState()
+            },
             setRoom() {
-                window.CiderAudio.audioNodes.spatialNode.setRoomProperties(app.cfg.audio.spatial_properties.room_dimensions, app.cfg.audio.spatial_properties.room_materials);
+                window.CiderAudio.audioNodes.spatialNode.setRoomProperties(this.room_dimensions, this.room_materials);
                 if(!this.app.cfg.audio.normalization) {
                     window.CiderAudio.audioNodes.gainNode.gain.value = app.cfg.audio.spatial_properties.gain
                 }
