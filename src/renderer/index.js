@@ -351,7 +351,7 @@ const app = new Vue({
             let self = this
             clearTimeout(this.hangtimer)
             this.mk = MusicKit.getInstance()
-            this.mk.authorize().then(()=>{
+            this.mk.authorize().then(() => {
                 self.mkIsReady = true
             })
             this.$forceUpdate()
@@ -400,21 +400,21 @@ const app = new Vue({
             };
 
             // Load saved quality
-            switch (app.cfg.audio.quality){
-            case "extreme":
-                app.mk.bitrate = app.cfg.audio.quality = 990
-                break;
-            case "high":
-                app.mk.bitrate = app.cfg.audio.quality = 256
-                break; 
-            case "low":
-                app.mk.bitrate = app.cfg.audio.quality = 64
-                break;     
-            default:
-                app.mk.bitrate = app.cfg.audio.quality
+            switch (app.cfg.audio.quality) {
+                case "extreme":
+                    app.mk.bitrate = app.cfg.audio.quality = 990
+                    break;
+                case "high":
+                    app.mk.bitrate = app.cfg.audio.quality = 256
+                    break;
+                case "low":
+                    app.mk.bitrate = app.cfg.audio.quality = 64
+                    break;
+                default:
+                    app.mk.bitrate = app.cfg.audio.quality
             }
 
-            
+
 
             // load last played track
             try {
@@ -464,13 +464,12 @@ const app = new Vue({
             MusicKit.getInstance().videoContainerElement = document.getElementById("apple-music-video-player")
 
             ipcRenderer.on('SoundCheckTag', (event, tag) => {
-               console.log(tag)
-               let replaygain = self.parseSCTagToRG(tag)
-               try {
-                CiderAudio.audioNodes.gainNode.gain.value = ( Math.min(Math.pow(10, (replaygain.gain / 20)), (1 / replaygain.peak)))
-               } catch (e){
-                
-               }
+                let replaygain = self.parseSCTagToRG(tag)
+                try {
+                    CiderAudio.audioNodes.gainNode.gain.value = (Math.min(Math.pow(10, (replaygain.gain / 20)), (1 / replaygain.peak)))
+                } catch (e) {
+
+                }
             })
 
             this.mk.addEventListener(MusicKit.Events.playbackTimeDidChange, (a) => {
@@ -484,15 +483,33 @@ const app = new Vue({
                     self.$refs.queue.updateQueue();
                 }
                 this.currentSongInfo = a
+
+
+                if (app.cfg.audio.normalization) {
+                    // get unencrypted audio previews to get SoundCheck's normalization tag
+                    try {
+                        let previewURL = null
+                        try {
+                            previewURL = app.mk.nowPlayingItem.previewURL
+                        } catch (e) { }
+                        if (!previewURL) {
+                            app.mk.api.song(app.mk.nowPlayingItem._songId ?? app.mk.nowPlayingItem.relationships.catalog.data[0].id).then((response) => {
+                                previewURL = response.attributes.previews[0].url
+                                if (previewURL)
+                                    ipcRenderer.send('getPreviewURL', previewURL)
+                            })
+                        } else {
+                            if (previewURL)
+                                ipcRenderer.send('getPreviewURL', previewURL)
+                        }
+
+                    } catch (e) { }
+                }
+
                 try {
                     a = a.item.attributes;
                 } catch (_) {
                 }
-
-                if (app.cfg.audio.normalization){
-                  try{ ipcRenderer.send('getPreviewURL', self.mk.nowPlayingItem.previewURL)} catch(e){}
-                }
-
                 let type = (self.mk.nowPlayingItem != null) ? self.mk.nowPlayingItem["type"] ?? '' : '';
 
                 if (type.includes("musicVideo") || type.includes("uploadedVideo") || type.includes("music-movie")) {
@@ -532,7 +549,7 @@ const app = new Vue({
             document.body.removeAttribute("loading")
             if (window.location.hash != "") {
                 this.appRoute(window.location.hash)
-            }else{
+            } else {
                 this.page = "home"
             }
 
@@ -916,8 +933,9 @@ const app = new Vue({
                     window.location.hash = `${kind}/${id}`
                     document.querySelector("#app-content").scrollTop = 0
                 } else if (!kind.toString().includes("radioStation") && !kind.toString().includes("song") && !kind.toString().includes("musicVideo") && !kind.toString().includes("uploadedVideo") && !kind.toString().includes("music-movie")) {
+                    let params =  { extend: "editorialVideo" }
                     app.page = (kind) + "_" + (id);
-                    app.getTypeFromID((kind), (id), (isLibrary), { extend: "editorialVideo" });
+                    app.getTypeFromID((kind), (id), (isLibrary), params);
                     window.location.hash = `${kind}/${id}`
                     document.querySelector("#app-content").scrollTop = 0
                 } else {
@@ -2485,53 +2503,52 @@ const app = new Vue({
             }
             CiderContextMenu.Create(event, menus[useMenu])
         },
-            LastFMDeauthorize() {
-                ipcRenderer.invoke('setStoreValue', 'lastfm.enabled', false).catch((e) => console.error(e));
-                ipcRenderer.invoke('setStoreValue', 'lastfm.auth_token', '').catch((e) => console.error(e));
-                app.cfg.lastfm.auth_token = "";
-                app.cfg.lastfm.enabled = false;
-                 const element = document.getElementById('lfmConnect');
-                 element.innerHTML = 'Connect';
-                 element.onclick = app.LastFMAuthenticate;
-            },
-            LastFMAuthenticate() {
-                console.log("wag")
-                const element = document.getElementById('lfmConnect');
-                window.open('https://www.last.fm/api/auth?api_key=174905d201451602407b428a86e8344d&cb=ame://auth/lastfm');
-                element.innerText = 'Connecting...';
+        LastFMDeauthorize() {
+            ipcRenderer.invoke('setStoreValue', 'lastfm.enabled', false).catch((e) => console.error(e));
+            ipcRenderer.invoke('setStoreValue', 'lastfm.auth_token', '').catch((e) => console.error(e));
+            app.cfg.lastfm.auth_token = "";
+            app.cfg.lastfm.enabled = false;
+            const element = document.getElementById('lfmConnect');
+            element.innerHTML = 'Connect';
+            element.onclick = app.LastFMAuthenticate;
+        },
+        LastFMAuthenticate() {
+            console.log("wag")
+            const element = document.getElementById('lfmConnect');
+            window.open('https://www.last.fm/api/auth?api_key=174905d201451602407b428a86e8344d&cb=ame://auth/lastfm');
+            element.innerText = 'Connecting...';
 
-                /* Just a timeout for the button */
-                setTimeout(() => {
-                    if (element.innerText === 'Connecting...') {
-                        element.innerText = 'Connect';
-                        console.warn('[LastFM] Attempted connection timed out.');
-                    }
-                }, 20000);
+            /* Just a timeout for the button */
+            setTimeout(() => {
+                if (element.innerText === 'Connecting...') {
+                    element.innerText = 'Connect';
+                    console.warn('[LastFM] Attempted connection timed out.');
+                }
+            }, 20000);
 
-                ipcRenderer.on('LastfmAuthenticated', function (_event, lfmAuthKey) {
-                    app.cfg.lastfm.auth_token = lfmAuthKey;
-                    app.cfg.lastfm.enabled = true;
-                    element.innerHTML = `Disconnect\n<p style="font-size: 8px"><i>(Authed: ${lfmAuthKey})</i></p>`;
-                    element.onclick = app.LastFMDeauthorize;
-                });
-            },
-            parseSCTagToRG: function(tag){
-                let soundcheck = tag.split(" ")
-                let numbers = []
-                for (item of soundcheck){
-                    numbers.push(parseInt(item, 16))
-                   
-                }
-                numbers.shift()
-                let gain = Math.log10((Math.max(numbers[0],numbers[1]) ?? 1000) / 1000.0) * -10
-                let peak = Math.max(numbers[6],numbers[7]) / 32768.0
-                console.log(gain,peak)
-                return {
-                    gain: gain,
-                    peak: peak
-                }
+            ipcRenderer.on('LastfmAuthenticated', function (_event, lfmAuthKey) {
+                app.cfg.lastfm.auth_token = lfmAuthKey;
+                app.cfg.lastfm.enabled = true;
+                element.innerHTML = `Disconnect\n<p style="font-size: 8px"><i>(Authed: ${lfmAuthKey})</i></p>`;
+                element.onclick = app.LastFMDeauthorize;
+            });
+        },
+        parseSCTagToRG: function (tag) {
+            let soundcheck = tag.split(" ")
+            let numbers = []
+            for (item of soundcheck) {
+                numbers.push(parseInt(item, 16))
+
             }
-        
+            numbers.shift()
+            let gain = Math.log10((Math.max(numbers[0], numbers[1]) ?? 1000) / 1000.0) * -10
+            let peak = Math.max(numbers[6], numbers[7]) / 32768.0
+            return {
+                gain: gain,
+                peak: peak
+            }
+        }
+
     }
 })
 

@@ -234,7 +234,6 @@ const CiderBase = {
                 try {
                     const metadata = await mm.parseBuffer(buffer, 'audio/x-m4a');
                     SoundCheckTag = metadata.native.iTunes[1].value
-                    console.log(SoundCheckTag)
                     win.webContents.send('SoundCheckTag',SoundCheckTag)
                   } catch (error) {
                     console.error(error.message);

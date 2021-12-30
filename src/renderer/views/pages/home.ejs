@@ -6,11 +6,11 @@
                     <h3>Home</h3>
                     <div class="well profile-well">
                         <div class="user-icon">
-                            <mediaitem-artwork shadow="none" :url="profile.attributes.artwork.url"
+                            <mediaitem-artwork shadow="none" :url="(profile && profile.attributes && profile.attributes.artwork) ? profile.attributes.artwork.url : ''"
                                                size="300"></mediaitem-artwork>
                         </div>
-                        <h3 class="name">{{ profile.attributes.name }}</h3>
-                        <h4 class="handle">@{{ profile.attributes.handle }}</h4>
+                        <h3 class="name" >{{ (profile && profile.attributes && profile.attributes.name) ? profile.attributes.name : "" }}</h3>
+                        <h4 class="handle">@{{ (profile && profile.attributes && profile.attributes.handler) ? profile.attributes.handle : "" }}</h4>
                     </div>
                 </div>
                 <div class="col">

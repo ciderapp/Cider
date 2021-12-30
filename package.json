@@ -33,7 +33,6 @@
     "express": "^4.17.2",
     "get-port": "^5.1.1",
     "lastfmapi": "^0.1.1",
-    "media-metadata": "^2.1.0",
     "mpris-service": "^2.1.2",
     "music-metadata": "^7.11.4",
     "react": "^17.0.2",
