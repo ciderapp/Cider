@@ -26,6 +26,7 @@ const configDefaults = {
         "spatial": false,
         "test": false,
         "spatial_properties": {
+            "presets": [],
             "gain": 0.8,
             "room_dimensions": {
                 "width": 32,

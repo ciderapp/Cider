@@ -75,7 +75,7 @@
                         <label>
                             Up
                             <select class="md-select" @input="setRoom()"
-                                    v-model="app.cfg.audio.spatial_properties.room_materials.up">
+                                    v-model="room_materials.up">
                                 <option v-for="prop in roomProps" :value="prop">{{ prop }}</option>
                             </select>
                         </label>
