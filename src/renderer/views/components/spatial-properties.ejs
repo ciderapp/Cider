@@ -10,29 +10,30 @@
                     <div class="col">
                         <label>
                             Width
-                            <input type="number" min="0" @change="setRoom()"
+                            <input type="number" min="0" @change="setRoom()" style="width: 100%;font-size: 1em;font-family: inherit;"
                                    v-model="app.cfg.audio.spatial_properties.room_dimensions.width" step="1"/>
                         </label>
-                    </div>
-                    <div class="col">
                         <label>
                             Height
-                            <input type="number" min="0" @change="setRoom()"
+                            <input type="number" min="0" @change="setRoom()" style="width: 100%;font-size: 1em;font-family: inherit;"
                                    v-model="app.cfg.audio.spatial_properties.room_dimensions.height" step="1"/>
                         </label>
-                    </div>
-                    <div class="col">
                         <label>
                             Depth
-                            <input type="number" min="0" @change="setRoom()"
+                            <input type="number" min="0" @change="setRoom()" style="width: 100%;font-size: 1em;font-family: inherit;"
                                    v-model="app.cfg.audio.spatial_properties.room_dimensions.depth" step="1"/>
                         </label>
-                    </div>
-                    <div class="col">
-                        <label>
+                        <label v-if="!app.cfg.audio.normalization">
                             Gain
-                            <input type="number" min="0" @change="setRoom()" v-model="app.cfg.audio.spatial_properties.gain" step="0.1"/>
+                            <input type="number" min="0" @change="setRoom()" style="width: 100%;font-size: 1em;font-family: inherit;"
+                                   v-model="app.cfg.audio.spatial_properties.gain" step="0.1"/>
                         </label>
+                    </div>
+                    <div class="col visual-container">
+                        <div class="visual">
+                            <div class="face" :style="[faceStyle()]"></div>
+                            <div class="face" :style="[faceStyle(), topFaceStyle()]"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -132,7 +133,8 @@
                     'wood-ceiling',
                     'wood-panel',
                     'uniform'
-                ]
+                ],
+                visualMultiplier: 4
             }
         },
         props: {},
@@ -140,9 +142,24 @@
 
         },
         methods: {
+            topFaceStyle() {
+                let style = {
+                    transform: `rotateX(60deg) rotateZ(-45deg) translateZ(${this.app.cfg.audio.spatial_properties.room_dimensions.height * this.visualMultiplier}px)`
+                }
+                return style
+            },
+            faceStyle() {
+                let style = {
+                    width: `${this.app.cfg.audio.spatial_properties.room_dimensions.width * this.visualMultiplier}px`,
+                    height: `${this.app.cfg.audio.spatial_properties.room_dimensions.depth * this.visualMultiplier}px`,
+                }
+                return style
+            },
             setRoom() {
                 window.CiderAudio.audioNodes.spatialNode.setRoomProperties(app.cfg.audio.spatial_properties.room_dimensions, app.cfg.audio.spatial_properties.room_materials);
-                window.CiderAudio.audioNodes.gainNode.gain.value = app.cfg.audio.spatial_properties.gain
+                if(!this.app.cfg.audio.normalization) {
+                    window.CiderAudio.audioNodes.gainNode.gain.value = app.cfg.audio.spatial_properties.gain
+                }
             }
         }
     });
