@@ -83,6 +83,17 @@
                     </div>
 
                 </div>
+                <div class="friends-info" v-if="itemBadges.length != 0">
+                    <div class="well">
+                        <div class="badge-container">
+                            <div class="socialBadge" :title="`${badge.attributes.name} - @${badge.attributes.handle}`" v-for="badge in itemBadges">
+                                <mediaitem-artwork
+                                        :url="badge.attributes.artwork.url"
+                                        :size="60"></mediaitem-artwork>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="playlist-time">
                     {{getFormattedDate(data.attributes.releaseDate)}}
                 </div>
@@ -106,7 +117,9 @@
                 drag: false,
                 nameEditing: false,
                 inLibrary: null,
-                app: this.$root
+                app: this.$root,
+                itemBadges: [],
+                badgesRequested: false
             }
         },
         mounted: function () {
@@ -117,9 +130,35 @@
         watch: {
             data: function () {
                 this.isInLibrary()
+                this.getBadges()
             }
         },
         methods: {
+            getBadges() {
+                return
+                if(this.badgesRequested) {
+                    return
+                }
+                this.badgesRequested = true
+                this.itemBadges = []
+                let self = this
+                var id = 0
+                try {
+                    id = this.data.attributes.playParams.id
+                } catch (e) {
+                    id = this.data.id
+                }
+                this.$root.getSocialBadges((badges) => {
+                    let friends = badges[id]
+                    if(friends) {
+                        friends.forEach(function (friend) {
+                            self.app.mk.api.socialProfile(friend).then(data => {
+                                self.itemBadges.push(data)
+                            })
+                        })
+                    }
+                })
+            },
             async isInLibrary() {
                 if (this.data.type && !this.data.type.includes("library")) {
                     // please keep using vars here
@@ -228,14 +267,16 @@
             },
             getFormattedDate: function (date) {
                 if (date == null || date === "") return "";
-                try{
-                var releaseDate = new Date(date);
-                month = new Intl.DateTimeFormat('en-US', { month: 'long'}).format(releaseDate);
-                date = releaseDate.getDate();
-                year = releaseDate.getFullYear();
+                try {
+                    var releaseDate = new Date(date);
+                    month = new Intl.DateTimeFormat('en-US', {month: 'long'}).format(releaseDate);
+                    date = releaseDate.getDate();
+                    year = releaseDate.getFullYear();
 
-                return date + " " + month + " " + year;
-                } catch (e){ return ""}
+                    return date + " " + month + " " + year;
+                } catch (e) {
+                    return ""
+                }
             }
         }
     })

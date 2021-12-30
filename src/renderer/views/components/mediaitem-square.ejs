@@ -16,6 +16,13 @@
                         @click="contextMenu"><%- include("../svg/more.svg") %></button>
                 <button class="play-btn" v-if="!noplay.includes(item.type)"
                         @click="app.playMediaItem(item)"><%- include("../svg/play.svg") %></button>
+                <div class="badge-container" v-if="itemBadges.length != 0">
+                    <div class="socialBadge" v-for="badge in itemBadges.limit(1)">
+                        <mediaitem-artwork
+                                :url="badge.attributes.artwork.url"
+                                :size="32"></mediaitem-artwork>
+                    </div>
+                </div>
             </div>
             <div class="title item-navigate text-overflow-elipsis" @click.self='app.routeView(item)'>
                 {{ item.attributes.name }}
@@ -54,10 +61,28 @@
                 guid: this.uuidv4(),
                 noplay: ["apple-curators"],
                 nomenu: ["artists", "stations", "apple-curators"],
-                app: this.$root
+                app: this.$root,
+                badges: this.$root.socialBadges.badgeMap,
+                itemBadges: []
             }
         },
+        async mounted() {
+            await this.getBadges()
+        },
         methods: {
+            async getBadges() {
+                let self = this
+                if(this.badges[this.item.attributes.playParams.id ?? this.item.id]) {
+                    let friends = this.badges[this.item.attributes.playParams.id ?? this.item.id]
+                    if(friends) {
+                        friends.forEach(function (friend) {
+                            self.app.mk.api.socialProfile(friend).then(data => {
+                                self.itemBadges.push(data)
+                            })
+                        })
+                    }
+                }
+            },
             revisedRandId() {
                 return Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10);
             },

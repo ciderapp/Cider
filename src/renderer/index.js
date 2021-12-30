@@ -259,6 +259,10 @@ const app = new Vue({
             addToPlaylist: false,
             spatialProperties: false
         },
+        socialBadges: {
+            badgeMap: {},
+            version: ""
+        }
     },
     watch: {
         cfg: {
@@ -282,6 +286,17 @@ const app = new Vue({
         },
     },
     methods: {
+        getSocialBadges(cb = ()=>{}) {
+            let self = this
+            try {
+                app.mk.api.socialBadgingMap().then(data=>{
+                    self.socialBadges.badgeMap = data.badgingMap
+                    cb(data.badgingMap)
+                })
+            }catch(ex) {
+                this.socialBadges.badgeMap = {}
+            }
+        },
         addFavorite(id, type) {
             this.cfg.home.favoriteItems.push({
                 id: id,
@@ -555,6 +570,7 @@ const app = new Vue({
             }
 
             setTimeout(() => {
+                this.getSocialBadges()
                 this.getBrowsePage();
                 this.$forceUpdate()
             }, 500)
