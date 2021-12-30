@@ -17,11 +17,11 @@
                                 Width
                             </div>
                             <div class="col flex-center">
-                                <input type="range" class="md-slider" min="0" max="100" @input="setRoom()" style="width: 100%;"
+                                <input type="range" class="md-slider" min="0" max="100" @change="setRoom()" style="width: 100%;"
                                        v-model="room_dimensions.width" step="1"/>
                             </div>
                             <div class="col-3 flex-center">
-                                <input type="number" min="0" @input="setRoom()" style="width: 100%;text-align: center"
+                                <input type="number" min="0" @change="setRoom()" style="width: 100%;text-align: center"
                                        v-model="room_dimensions.width" step="1"/>
                             </div>
                         </div>
@@ -31,11 +31,11 @@
                                 Height
                             </div>
                             <div class="col flex-center">
-                                <input type="range" class="md-slider" min="0" max="100" @input="setRoom()" style="width: 100%;"
+                                <input type="range" class="md-slider" min="0" max="100" @change="setRoom()" style="width: 100%;"
                                        v-model="room_dimensions.height" step="1"/>
                             </div>
                             <div class="col-3 flex-center">
-                                <input type="number" min="0" @input="setRoom()" style="width: 100%;text-align: center"
+                                <input type="number" min="0" @change="setRoom()" style="width: 100%;text-align: center"
                                        v-model="room_dimensions.height" step="1"/>
                             </div>
                         </div>
@@ -45,17 +45,17 @@
                                 Depth
                             </div>
                             <div class="col flex-center">
-                                <input type="range" class="md-slider" min="0" max="100" @input="setRoom()" style="width: 100%;"
+                                <input type="range" class="md-slider" min="0" max="100" @change="setRoom()" style="width: 100%;"
                                        v-model="room_dimensions.depth" step="1"/>
                             </div>
                             <div class="col-3 flex-center">
-                                <input type="number" min="0" @input="setRoom()" style="width: 100%;text-align: center"
+                                <input type="number" min="0" @change="setRoom()" style="width: 100%;text-align: center"
                                        v-model="room_dimensions.depth" step="1"/>
                             </div>
                         </div>
                         <label v-if="!app.cfg.audio.normalization">
                             Gain
-                            <input type="number" min="0" @input="setRoom()" style="width: 100%;"
+                            <input type="number" min="0" @change="setRoom()" style="width: 100%;"
                                    v-model="app.cfg.audio.spatial_properties.gain" step="0.1"/>
                         </label>
                     </div>
@@ -74,7 +74,7 @@
                     <div class="col flex-center">
                         <label>
                             Up
-                            <select class="md-select" @input="setRoom()"
+                            <select class="md-select" @change="setRoom()"
                                     v-model="room_materials.up">
                                 <option v-for="prop in roomProps" :value="prop">{{ prop }}</option>
                             </select>
@@ -86,7 +86,7 @@
                     <div class="col flex-center">
                         <label>
                             Left
-                            <select class="md-select" @input="setRoom()"
+                            <select class="md-select" @change="setRoom()"
                                     v-model="room_materials.left">
                                 <option v-for="prop in roomProps" :value="prop">{{ prop }}</option>
                             </select>
@@ -95,14 +95,14 @@
                     <div class="col flex-center">
                         <label>
                             Front
-                            <select class="md-select" @input="setRoom()"
+                            <select class="md-select" @change="setRoom()"
                                     v-model="room_materials.front">
                                 <option v-for="prop in roomProps" :value="prop">{{ prop }}</option>
                             </select>
                         </label>
                         <label>
                             Back
-                            <select class="md-select" @input="setRoom()"
+                            <select class="md-select" @change="setRoom()"
                                     v-model="room_materials.back">
                                 <option v-for="prop in roomProps" :value="prop">{{ prop }}</option>
                             </select>
@@ -111,7 +111,7 @@
                     <div class="col flex-center">
                         <label>
                             Right
-                            <select class="md-select" @input="setRoom()"
+                            <select class="md-select" @change="setRoom()"
                                     v-model="room_materials.right">
                                 <option v-for="prop in roomProps" :value="prop">{{ prop }}</option>
                             </select>
@@ -123,7 +123,7 @@
                     <div class="col flex-center">
                         <label>
                             Down
-                            <select class="md-select" @input="setRoom()"
+                            <select class="md-select" @change="setRoom()"
                                     v-model="room_materials.down">
                                 <option v-for="prop in roomProps" :value="prop">{{ prop }}</option>
                             </select>
