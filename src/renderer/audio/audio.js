@@ -30,6 +30,7 @@ var CiderAudio = {
     },
     normalizerOn: function (){},
     normalizerOff: function (){
+        CiderAudio.audioNodes.gainNode.gain.value = 1;
     }
 
 }
