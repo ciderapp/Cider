@@ -175,11 +175,11 @@
         },
         props: {},
         mounted() {
+            this.room_dimensions = JSON.parse(JSON.stringify(this.$root.cfg.audio.spatial_properties.room_dimensions))
+            this.room_materials = JSON.parse(JSON.stringify(this.$root.cfg.audio.spatial_properties.room_materials))
             if(typeof this.app.mk.nowPlayingItem != "undefined") {
                 this.setRoom()
             }
-            this.room_dimensions = JSON.parse(JSON.stringify(this.$root.cfg.audio.spatial_properties.room_dimensions))
-            this.room_materials = JSON.parse(JSON.stringify(this.$root.cfg.audio.spatial_properties.room_materials))
             this.ready = true
         },
         methods: {
