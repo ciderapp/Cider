@@ -256,7 +256,8 @@ const app = new Vue({
         routes: ["browse", "listen_now", "radio"],
         musicBaseUrl: "https://api.music.apple.com/",
         modals: {
-            addToPlaylist: false
+            addToPlaylist: false,
+            spatialProperties: false
         },
     },
     watch: {

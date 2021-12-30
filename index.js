@@ -1,18 +1,18 @@
 require('v8-compile-cache');
-const { app, components } = require('electron'),
-      {resolve} = require("path"),
-      CiderBase = require ('./src/main/cider-base');
+const {app, components} = require('electron'),
+    {resolve} = require("path"),
+    CiderBase = require('./src/main/cider-base');
 
 // Analytics for debugging.
 const ElectronSentry = require("@sentry/electron");
-ElectronSentry.init({ dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.ingest.sentry.io/6112214" });
+ElectronSentry.init({dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.ingest.sentry.io/6112214"});
 
-const configSchema = {
+const configDefaults = {
     "general": {
         "close_behavior": 0, // 0 = close, 1 = minimize, 2 = minimize to tray
         "startup_behavior": 0, // 0 = nothing, 1 = open on startup
         "discord_rpc": 1, // 0 = disabled, 1 = enabled as Cider, 2 = enabled as Apple Music
-        "discordClearActivityOnPause" : 0, // 0 = disabled, 1 = enabled
+        "discordClearActivityOnPause": 0, // 0 = disabled, 1 = enabled
         "volume": 1
     },
     "home": {
@@ -23,20 +23,37 @@ const configSchema = {
         "quality": "990",
         "seamless_audio": true,
         "normalization": false,
-        "spatial" : false,
+        "spatial": false,
+        "test": false,
+        "spatial_properties": {
+            "gain": 0.8,
+            "room_dimensions": {
+                "width": 5,
+                "height": 6,
+                "depth": 4
+            },
+            "room_materials": {
+                "left": 'acoustic-ceiling-tiles',
+                "right": 'acoustic-ceiling-tiles',
+                "front": 'glass-thin',
+                "back": 'glass-thin',
+                "down": 'grass',
+                "up": 'acoustic-ceiling-tiles'
+            }
+        }
     },
     "visual": {
         "theme": "",
         "scrollbars": 0, // 0 = show on hover, 2 = always hide, 3 = always show
         "refresh_rate": 0,
-        "animated_artwork": "always", // 0 = always, 1 = limited, 2 = never
+        "animated_artwork": "limited", // 0 = always, 1 = limited, 2 = never
         "animated_artwork_qualityLevel": 1,
         "hw_acceleration": "default", // default, webgpu, disabled
         "window_transparency": "default"
     },
     "lyrics": {
         "enable_mxm": false,
-        "mxm_karaoke" : false,
+        "mxm_karaoke": false,
         "mxm_language": "en",
         "enable_yt": false,
     },
@@ -44,21 +61,25 @@ const configSchema = {
         "enabled": false,
         "scrobble_after": 30,
         "auth_token": "",
-        "enabledRemoveFeaturingArtists" : true,
+        "enabledRemoveFeaturingArtists": true,
         "NowPlaying": "true"
     },
     "advanced": {
-        "AudioContext" : false,
+        "AudioContext": false,
     }
 }
+
 
 // Enable WebGPU and list adapters (EXPERIMENTAL.)
 // Note: THIS HAS TO BE BEFORE ANYTHING GETS INITIALIZED.
 
 const Store = require("electron-store");
 app.cfg = new Store({
-    defaults: configSchema,
+    defaults: configDefaults
 });
+let currentCfg = app.cfg.get()
+app.cfg.set(Object.assign(configDefaults, currentCfg))
+
 
 switch (app.cfg.get("visual.hw_acceleration")) {
     default:
@@ -77,7 +98,10 @@ switch (app.cfg.get("visual.hw_acceleration")) {
 
 // Creating the Application Window and Calling all the Functions
 function CreateWindow() {
-    if (app.isQuiting) { app.quit(); return; }
+    if (app.isQuiting) {
+        app.quit();
+        return;
+    }
 
     /** CIDER **/
     const ciderwin = require("./src/main/cider-base")
@@ -101,7 +125,10 @@ app.on('ready', () => {
     app.whenReady().then(async () => {
         await components.whenReady().catch(e => console.log(`component ready fail:`, e));
         console.log('components ready:', components.status());
-        if (app.isQuiting) { app.quit(); return; }
+        if (app.isQuiting) {
+            app.quit();
+            return;
+        }
         app.commandLine.appendSwitch('high-dpi-support', 1)
         app.commandLine.appendSwitch('force-device-scale-factor', 1)
         app.commandLine.appendSwitch('disable-pinch');
@@ -188,7 +215,7 @@ app.on('second-instance', (_e, argv) => {
 if (!app.requestSingleInstanceLock() && true) {
     console.warn("[InstanceHandler] Existing Instance is Blocking Second Instance.");
     app.quit();
-   // app.isQuiting = true
+    // app.isQuiting = true
 }
 
 

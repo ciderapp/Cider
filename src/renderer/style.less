@@ -1648,6 +1648,45 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   }
 }
 
+.spatialproperties-panel {
+  .modal-window {
+    height: 600px;
+    max-height: 600px;
+    width: 800px;
+    max-width: 800px;
+    overflow: hidden;
+
+    .modal-header {
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+
+      .modal-title {
+        text-align: center;
+      }
+
+      .close-btn {
+        width: 50px;
+        height: 100%;
+        background-image: var(--gfx-closeBtn);
+        background-position: center;
+        background-repeat: no-repeat;
+        -webkit-app-region: no-drag;
+        appearance: none;
+        border: 0;
+        background-color: transparent;
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        &:hover {
+          background-color: rgb(196, 43, 28)
+        }
+      }
+    }
+  }
+}
+
 .addtoplaylist-panel {
   .modal-window {
     max-height: 600px;

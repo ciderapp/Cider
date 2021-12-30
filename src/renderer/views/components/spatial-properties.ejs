@@ -1,0 +1,149 @@
+<script type="text/x-template" id="spatial-properties">
+    <div class="modal-fullscreen spatialproperties-panel">
+        <div class="modal-window">
+            <div class="modal-header">
+                <div class="modal-title">Spatial Properties</div>
+                <button class="close-btn" @click="app.resetState()"></button>
+            </div>
+            <div class="modal-content">
+                <div class="row">
+                    <div class="col">
+                        <label>
+                            Width
+                            <input type="number" min="0" @change="setRoom()"
+                                   v-model="app.cfg.audio.spatial_properties.room_dimensions.width" step="1"/>
+                        </label>
+                    </div>
+                    <div class="col">
+                        <label>
+                            Height
+                            <input type="number" min="0" @change="setRoom()"
+                                   v-model="app.cfg.audio.spatial_properties.room_dimensions.height" step="1"/>
+                        </label>
+                    </div>
+                    <div class="col">
+                        <label>
+                            Depth
+                            <input type="number" min="0" @change="setRoom()"
+                                   v-model="app.cfg.audio.spatial_properties.room_dimensions.depth" step="1"/>
+                        </label>
+                    </div>
+                    <div class="col">
+                        <label>
+                            Gain
+                            <input type="number" min="0" v-model="app.cfg.audio.spatial_properties.gain" step="0.1"/>
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col">
+                        <label>
+                            Up
+                            <select class="md-select" @change="setRoom()"
+                                    v-model="app.cfg.audio.spatial_properties.room_materials.up">
+                                <option v-for="prop in roomProps" :value="prop">{{ prop }}</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="col"></div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label>
+                            Left
+                            <select class="md-select" @change="setRoom()"
+                                    v-model="app.cfg.audio.spatial_properties.room_materials.left">
+                                <option v-for="prop in roomProps" :value="prop">{{ prop }}</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="col">
+                        <label>
+                            Front
+                            <select class="md-select" @change="setRoom()"
+                                    v-model="app.cfg.audio.spatial_properties.room_materials.front">
+                                <option v-for="prop in roomProps" :value="prop">{{ prop }}</option>
+                            </select>
+                        </label>
+                        <label>
+                            Back
+                            <select class="md-select" @change="setRoom()"
+                                    v-model="app.cfg.audio.spatial_properties.room_materials.back">
+                                <option v-for="prop in roomProps" :value="prop">{{ prop }}</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="col">
+                        <label>
+                            Right
+                            <select class="md-select" @change="setRoom()"
+                                    v-model="app.cfg.audio.spatial_properties.room_materials.right">
+                                <option v-for="prop in roomProps" :value="prop">{{ prop }}</option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col">
+                        <label>
+                            Down
+                            <select class="md-select" @change="setRoom()"
+                                    v-model="app.cfg.audio.spatial_properties.room_materials.down">
+                                <option v-for="prop in roomProps" :value="prop">{{ prop }}</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="col"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script>
+    Vue.component('spatial-properties', {
+        template: '#spatial-properties',
+        data: function () {
+            return {
+                app: this.$root,
+                roomProps: [
+                    'transparent',
+                    'acoustic-ceiling-tiles',
+                    'brick-bare',
+                    'brick-painted',
+                    'concrete-block-coarse',
+                    'concrete-block-painted',
+                    'curtain-heavy',
+                    'fiber-glass-insulation',
+                    'glass-thin',
+                    'glass-thick',
+                    'grass',
+                    'linoleum-on-concrete',
+                    'marble',
+                    'metal',
+                    'parquet-on-concrete',
+                    'plaster-smooth',
+                    'plywood-panel',
+                    'polished-concrete-or-tile',
+                    'sheetrock',
+                    'water-or-ice-surface',
+                    'wood-ceiling',
+                    'wood-panel',
+                    'uniform'
+                ]
+            }
+        },
+        props: {},
+        mounted() {
+
+        },
+        methods: {
+            setRoom() {
+                window.CiderAudio.audioNodes.spatialNode.setRoomProperties(app.cfg.audio.spatial_properties.room_dimensions, app.cfg.audio.spatial_properties.room_materials);
+                window.CiderAudio.audioNodes.gainNode.gain.value = app.cfg.audio.spatial_properties.gain
+            }
+        }
+    });
+</script>

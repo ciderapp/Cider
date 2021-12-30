@@ -215,6 +215,9 @@
                                         </div>
                                     </div>
                                 </button>
+                                <button class="usermenu-item" v-if="cfg.advanced.AudioContext && cfg.audio.spatial" @click="modals.spatialProperties = true">
+                                    Spatialized Audio Settings
+                                </button>
                                 <button class="usermenu-item">
                                     About
                                 </button>
@@ -472,6 +475,9 @@
     <transition name="modal">
         <add-to-playlist :playlists="playlists.listing" v-if="modals.addToPlaylist"></add-to-playlist>
     </transition>
+    <transition name="modal">
+        <spatial-properties v-if="modals.spatialProperties"></spatial-properties>
+    </transition>
     <div id="apple-music-video-container">
         <div id="apple-music-video-player-controls">
             <div id="player-exit" title="Close" @click="app.exitMV()">
@@ -551,6 +557,8 @@
     </button>
 </script>
 
+<!-- Spatial Properties -->
+<%- include('components/spatial-properties') %>
 <!-- Add to playlist -->
 <%- include('components/add-to-playlist') %>
 <!-- Queue -->
