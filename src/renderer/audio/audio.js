@@ -18,9 +18,19 @@ var CiderAudio = {
           }
         }, 1000);
     },
+    off: function(){
+        try{
+        CiderAudio.audioNodes.gainNode.disconnect();
+        CiderAudio.source.connect(CiderAudio.context.destination);} catch(e){}
+    },
     connectContext: function (mediaElem){
+
+        if (!CiderAudio.context){
         CiderAudio.context = new (window.AudioContext || window.webkitAudioContext);
+        }
+        if (!CiderAudio.source){
         CiderAudio.source = CiderAudio.context.createMediaElementSource(mediaElem);
+        } else {try{CiderAudio.source.disconnect(CiderAudio.context.destination)}catch(e){}}
         CiderAudio.audioNodes.gainNode = CiderAudio.context.createGain()
         CiderAudio.source.connect(CiderAudio.audioNodes.gainNode);
         CiderAudio.audioNodes.gainNode.connect(CiderAudio.context.destination);
@@ -30,7 +40,7 @@ var CiderAudio = {
     },
     normalizerOn: function (){},
     normalizerOff: function (){
-        CiderAudio.audioNodes.gainNode.gain.value = 1;
+        CiderAudio.audioNodes.gainNode.gain.setTargetAtTime(1, CiderAudio.context.currentTime+ 1, 0.5);
     }
 
 }

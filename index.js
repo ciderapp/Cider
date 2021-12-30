@@ -47,7 +47,7 @@ const configSchema = {
         "NowPlaying": "true"
     },
     "advanced": {
-        "AudioContext" : true,
+        "AudioContext" : false,
     }
 }
 
