@@ -1,5 +1,5 @@
 require('v8-compile-cache');
-const { app } = require('electron'),
+const { app, components } = require('electron'),
       {resolve} = require("path"),
       CiderBase = require ('./src/main/cider-base');
 
@@ -97,17 +97,21 @@ if (process.platform === "linux") {
 app.commandLine.appendSwitch('js-flags', '--max-old-space-size=1024')
 
 app.on('ready', () => {
-    if (app.isQuiting) { app.quit(); return; }
-    app.commandLine.appendSwitch('high-dpi-support', 1)
-    app.commandLine.appendSwitch('force-device-scale-factor', 1)
-    app.commandLine.appendSwitch('disable-pinch');
-    
-    console.log('[Cider] Application is Ready. Creating Window.')
-    if (!app.isPackaged) {
-        console.info('[Cider] Running in development mode.')
-        require('vue-devtools').install()
-    }
-    CreateWindow()
+    app.whenReady().then(async () => {
+        await components.whenReady().catch(e => console.log(`component ready fail:`, e));
+        console.log('components ready:', components.status());
+        if (app.isQuiting) { app.quit(); return; }
+        app.commandLine.appendSwitch('high-dpi-support', 1)
+        app.commandLine.appendSwitch('force-device-scale-factor', 1)
+        app.commandLine.appendSwitch('disable-pinch');
+
+        console.log('[Cider] Application is Ready. Creating Window.')
+        if (!app.isPackaged) {
+            console.info('[Cider] Running in development mode.')
+            require('vue-devtools').install()
+        }
+        CreateWindow()
+    })
 });
 
 app.on('before-quit', () => {
