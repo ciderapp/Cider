@@ -24,10 +24,11 @@ const configDefaults = {
         "seamless_audio": true,
         "normalization": false,
         "spatial": false,
-        "test": false,
         "spatial_properties": {
             "presets": [],
             "gain": 0.8,
+            "listener_position": [0,0,0],
+            "audio_position": [0,0,0],
             "room_dimensions": {
                 "width": 32,
                 "height": 12,
@@ -70,6 +71,15 @@ const configDefaults = {
     }
 }
 
+const merge = (target, source) => {
+    // Iterate through `source` properties and if an `Object` set property to merge of `target` and `source` properties
+    for (const key of Object.keys(source)) {
+      if (source[key] instanceof Object) Object.assign(source[key], merge(target[key], source[key]))
+    }
+    // Join `target` and modified `source`
+    Object.assign(target || {}, source)
+    return target
+  }
 
 // Enable WebGPU and list adapters (EXPERIMENTAL.)
 // Note: THIS HAS TO BE BEFORE ANYTHING GETS INITIALIZED.
@@ -79,7 +89,7 @@ app.cfg = new Store({
     defaults: configDefaults
 });
 let currentCfg = app.cfg.get()
-app.cfg.set(Object.assign(configDefaults, currentCfg))
+app.cfg.set(merge(configDefaults, currentCfg))
 
 
 switch (app.cfg.get("visual.hw_acceleration")) {

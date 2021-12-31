@@ -6,66 +6,178 @@
                 <button class="close-btn" @click="close()"></button>
             </div>
             <div class="modal-content">
-                <div class="row">
-                    <div class="col"><h3>Room Dimensions</h3></div>
-                </div>
-                <div class="row">
-                    <div class="col">
-
-                        <div class="row">
-                            <div class="col-3 flex-center">
-                                Width
-                            </div>
-                            <div class="col flex-center">
-                                <input type="range" class="md-slider" min="0" max="100" @change="setRoom()" style="width: 100%;"
-                                       v-model="room_dimensions.width" step="1"/>
-                            </div>
-                            <div class="col-3 flex-center">
-                                <input type="number" min="0" @change="setRoom()" style="width: 100%;text-align: center"
-                                       v-model="room_dimensions.width" step="1"/>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-3 flex-center">
-                                Height
-                            </div>
-                            <div class="col flex-center">
-                                <input type="range" class="md-slider" min="0" max="100" @change="setRoom()" style="width: 100%;"
-                                       v-model="room_dimensions.height" step="1"/>
-                            </div>
-                            <div class="col-3 flex-center">
-                                <input type="number" min="0" @change="setRoom()" style="width: 100%;text-align: center"
-                                       v-model="room_dimensions.height" step="1"/>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-3 flex-center">
-                                Depth
-                            </div>
-                            <div class="col flex-center">
-                                <input type="range" class="md-slider" min="0" max="100" @change="setRoom()" style="width: 100%;"
-                                       v-model="room_dimensions.depth" step="1"/>
-                            </div>
-                            <div class="col-3 flex-center">
-                                <input type="number" min="0" @change="setRoom()" style="width: 100%;text-align: center"
-                                       v-model="room_dimensions.depth" step="1"/>
-                            </div>
-                        </div>
-                        <label v-if="!app.cfg.audio.normalization">
-                            Gain
-                            <input type="number" min="0" @change="setRoom()" style="width: 100%;"
-                                   v-model="app.cfg.audio.spatial_properties.gain" step="0.1"/>
-                        </label>
-                    </div>
-                    <div class="col visual-container">
-                        <div class="visual">
-                            <div class="face" :style="[faceStyle()]"></div>
-                            <div class="face" :style="[faceStyle(), topFaceStyle()]"></div>
+                <template v-if="roomEditType == 'dimensions'">
+                    <div class="row">
+                        <div class="col"><h3>Room Dimensions</h3></div>
+                        <div class="col-auto flex-center">
+                            <button class="md-btn" @click="roomEditType = 'positions'">Set Positions</button>
                         </div>
                     </div>
-                </div>
+                    <div class="row">
+                        <div class="col">
+    
+                            <div class="row">
+                                <div class="col-3 flex-center">
+                                    Width
+                                </div>
+                                <div class="col flex-center">
+                                    <input type="range" class="md-slider" min="0" max="100" @change="setRoom()" style="width: 100%;"
+                                           v-model="room_dimensions.width" step="1"/>
+                                </div>
+                                <div class="col-3 flex-center">
+                                    <input type="number" min="0" @change="setRoom()" style="width: 100%;text-align: center"
+                                           v-model="room_dimensions.width" step="1"/>
+                                </div>
+                            </div>
+    
+                            <div class="row">
+                                <div class="col-3 flex-center">
+                                    Height
+                                </div>
+                                <div class="col flex-center">
+                                    <input type="range" class="md-slider" min="0" max="100" @change="setRoom()" style="width: 100%;"
+                                           v-model="room_dimensions.height" step="1"/>
+                                </div>
+                                <div class="col-3 flex-center">
+                                    <input type="number" min="0" @change="setRoom()" style="width: 100%;text-align: center"
+                                           v-model="room_dimensions.height" step="1"/>
+                                </div>
+                            </div>
+    
+                            <div class="row">
+                                <div class="col-3 flex-center">
+                                    Depth
+                                </div>
+                                <div class="col flex-center">
+                                    <input type="range" class="md-slider" min="0" max="100" @change="setRoom()" style="width: 100%;"
+                                           v-model="room_dimensions.depth" step="1"/>
+                                </div>
+                                <div class="col-3 flex-center">
+                                    <input type="number" min="0" @change="setRoom()" style="width: 100%;text-align: center"
+                                           v-model="room_dimensions.depth" step="1"/>
+                                </div>
+                            </div>
+                            <label v-if="!app.cfg.audio.normalization">
+                                Gain
+                                <input type="number" min="0" @change="setRoom()" style="width: 100%;"
+                                       v-model="app.cfg.audio.spatial_properties.gain" step="0.1"/>
+                            </label>
+                        </div>
+                        <div class="col visual-container">
+                            <div class="visual" :style="objectContainerStyle()">
+                                <div class="face" :style="[faceStyle()]"></div>
+                                <div class="face" :style="[faceStyle(), topFaceStyle()]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                <template v-if="roomEditType == 'positions'">
+                    <div class="row">
+                        <div class="col"><h3>Room Positions</h3></div>
+                        <div class="col-auto flex-center">
+                            <button class="md-btn" @click="roomEditType = 'dimensions'">Set Dimensions</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+    
+                            <div class="row">
+                                <div class="col-3 flex-center">
+                                    X (Listener)
+                                </div>
+                                <div class="col flex-center">
+                                    <input type="range" class="md-slider" min="-100" max="100" @change="setRoom()" style="width: 100%;"
+                                           v-model="listener_position[0]" step="1"/>
+                                </div>
+                                <div class="col-3 flex-center">
+                                    <input type="number" min="-100" @change="setRoom()" style="width: 100%;text-align: center"
+                                           v-model="listener_position[0]" step="1"/>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-3 flex-center">
+                                    Y (Listener)
+                                </div>
+                                <div class="col flex-center">
+                                    <input type="range" class="md-slider" min="-100" max="100" @change="setRoom()" style="width: 100%;"
+                                           v-model="listener_position[1]" step="1"/>
+                                </div>
+                                <div class="col-3 flex-center">
+                                    <input type="number" min="-100" @change="setRoom()" style="width: 100%;text-align: center"
+                                           v-model="listener_position[1]" step="1"/>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-3 flex-center">
+                                    Z (Listener)
+                                </div>
+                                <div class="col flex-center">
+                                    <input type="range" class="md-slider" min="-100" max="100" @change="setRoom()" style="width: 100%;"
+                                           v-model="listener_position[2]" step="1"/>
+                                </div>
+                                <div class="col-3 flex-center">
+                                    <input type="number" min="-100" @change="setRoom()" style="width: 100%;text-align: center"
+                                           v-model="listener_position[2]" step="1"/>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-3 flex-center">
+                                    X (Audio Source)
+                                </div>
+                                <div class="col flex-center">
+                                    <input type="range" class="md-slider" min="-100" max="100" @change="setRoom()" style="width: 100%;"
+                                           v-model="audio_position[0]" step="1"/>
+                                </div>
+                                <div class="col-3 flex-center">
+                                    <input type="number" min="-100" @change="setRoom()" style="width: 100%;text-align: center"
+                                           v-model="audio_position[0]" step="1"/>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-3 flex-center">
+                                    Y (Audio Source)
+                                </div>
+                                <div class="col flex-center">
+                                    <input type="range" class="md-slider" min="-100" max="100" @change="setRoom()" style="width: 100%;"
+                                           v-model="audio_position[1]" step="1"/>
+                                </div>
+                                <div class="col-3 flex-center">
+                                    <input type="number" min="-100" @change="setRoom()" style="width: 100%;text-align: center"
+                                           v-model="audio_position[1]" step="1"/>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-3 flex-center">
+                                    Z (Audio Source)
+                                </div>
+                                <div class="col flex-center">
+                                    <input type="range" class="md-slider" min="-100" max="100" @change="setRoom()" style="width: 100%;"
+                                           v-model="audio_position[2]" step="1"/>
+                                </div>
+                                <div class="col-3 flex-center">
+                                    <input type="number" min="-100" @change="setRoom()" style="width: 100%;text-align: center"
+                                           v-model="audio_position[2]" step="1"/>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col visual-container">
+                            <div class="visual">
+                                <div class="face" :style="[faceStyle()]"></div>
+                                <div class="face" :style="[faceStyle(), topFaceStyle()]"></div>
+
+                                <!-- <div class="listener" :style="[listenerStyle()]">L</div> -->
+                                <!-- <div class="audiosource" :style="[audioSourceStyle()]">A</div> -->
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
                 <div class="row">
                     <div class="col"><h3>Room Materials</h3></div>
                 </div>
@@ -144,6 +256,9 @@
                 app: this.$root,
                 room_dimensions: null,
                 room_materials: null,
+                listener_position: null,
+                audio_position: null,
+                roomEditType: "dimensions",
                 roomProps: [
                     'transparent',
                     'acoustic-ceiling-tiles',
@@ -177,15 +292,39 @@
         mounted() {
             this.room_dimensions = JSON.parse(JSON.stringify(this.$root.cfg.audio.spatial_properties.room_dimensions))
             this.room_materials = JSON.parse(JSON.stringify(this.$root.cfg.audio.spatial_properties.room_materials))
+            this.audio_position = JSON.parse(JSON.stringify(this.$root.cfg.audio.spatial_properties.audio_position))
+            this.listener_position = JSON.parse(JSON.stringify(this.$root.cfg.audio.spatial_properties.listener_position))
             if(typeof this.app.mk.nowPlayingItem != "undefined") {
                 this.setRoom()
             }
             this.ready = true
         },
         methods: {
+            listenerStyle() {
+                let style = {
+                    transform: `rotateX(60deg) rotateZ(-45deg) translateX(${this.listener_position[0]}px) translateY(${this.listener_position[2]}px) translateZ(${100 + +this.listener_position[1]}px)`
+                }
+                return style
+            },
+            audioSourceStyle() {
+                let style = {
+                    transform: `rotateX(60deg) rotateZ(-45deg) translateX(${this.audio_position[0]}px) translateY(${this.audio_position[2]}px) translateZ(${100 + +this.audio_position[1]}px)`
+                }
+                return style
+            },
             topFaceStyle() {
                 let style = {
                     transform: `rotateX(60deg) rotateZ(-45deg) translateZ(${this.room_dimensions.height * this.visualMultiplier}px)`
+                }
+                return style
+            },
+            objectContainerStyle() {
+                let scale = 1
+                if(this.room_dimensions.width * this.visualMultiplier > 300) {
+                    scale = 300 / (this.room_dimensions.width * this.visualMultiplier)
+                }
+                let style = {
+                    transform: `scale(${scale})`
                 }
                 return style
             },
@@ -199,10 +338,14 @@
             close() {
                 this.$root.cfg.audio.spatial_properties.room_dimensions = this.room_dimensions
                 this.$root.cfg.audio.spatial_properties.room_materials = this.room_materials
+                this.$root.cfg.audio.spatial_properties.audio_position = this.audio_position
+                this.$root.cfg.audio.spatial_properties.listener_position = this.listener_position
                 app.resetState()
             },
             setRoom() {
                 window.CiderAudio.audioNodes.spatialNode.setRoomProperties(this.room_dimensions, this.room_materials);
+                CiderAudio.audioNodes.spatialInput.setPosition(...this.audio_position)
+                CiderAudio.audioNodes.spatialNode.setListenerPosition(...this.listener_position)
                 if(!this.app.cfg.audio.normalization) {
                     window.CiderAudio.audioNodes.gainNode.gain.value = app.cfg.audio.spatial_properties.gain
                 }
