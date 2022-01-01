@@ -77,7 +77,7 @@ module.exports = {
             state: `by ${attributes.artistName}`,
             startTimestamp: attributes.startTime,
             endTimestamp: attributes.endTime,
-            largeImageKey: (attributes.artwork.url.replace('{w}', '512').replace('{h}', '512')) ?? 'cider',
+            largeImageKey: (attributes.artwork.url.replace('{w}', '1024').replace('{h}', '1024')) ?? 'cider',
             largeImageText: attributes.albumName,
             smallImageKey: (attributes.status ? 'play' : 'pause'),
             smallImageText: (attributes.status ? 'Playing' : 'Paused'),
