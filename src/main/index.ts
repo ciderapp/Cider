@@ -1,16 +1,19 @@
 require('v8-compile-cache');
-const { app } = require('electron'),
-      {resolve} = require("path"),
-      CiderBase = require ('./src/main/cider-base');
+
+// import { app } from 'electron';
+// import { resolve } from 'path';
+
+import { app, BrowserWindow } from "electron";
+import * as path from "path";
+
 
 // Analytics for debugging fun yeah.
-const ElectronSentry = require("@sentry/electron");
-ElectronSentry.init({ dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.ingest.sentry.io/6112214" });
-
-// const {Init} = require("./src/main/cider-base");
-// Init()
-CiderBase.Init().catch(() => {})
-
+// const ElectronSentry = require("@sentry/electron");
+// ElectronSentry.init({ dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.ingest.sentry.io/6112214" });
+//
+// // const {Init} = require("./src/main/cider-base");
+// // Init()
+//
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * App Event Handlers
 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -24,7 +27,7 @@ app.on('ready', () => {
         require('vue-devtools').install()
     }
 
-    CiderBase.Start()
+    // CiderBase.Start()
 });
 
 app.on('before-quit', () => {
@@ -102,7 +105,3 @@ if (!app.requestSingleInstanceLock() && !app.cfg.get('advanced.allowMultipleInst
     app.quit();
     app.isQuiting = true
 }
-
-
-
-  

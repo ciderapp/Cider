@@ -5,6 +5,7 @@
   "version": "1.0.0",
   "description": "A new look into listening and enjoying music in style and performance.",
   "license": "MIT",
+  "main": "./build/index.js",
   "author": "Cider Collective <cryptofyre@cryptofyre.org> (https://cider.sh)",
   "repository": "https://github.com/ciderapp/Cider.git",
   "bugs": {
@@ -13,10 +14,12 @@
   "homepage": "https://cider.sh/",
   "buildResources": "resources",
   "scripts": {
-    "init": "yarn install --force",
-    "start": "electron . --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
+    "build": "tsc",
+    "init": "install --force",
+    "watch": "tsc --watch",
+    "start": "npm run build && electron ./build/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder",
+    "dist": "npm run build && electron-builder",
     "msft": "electron-builder -c msft-package.json",
     "postinstall": "electron-builder install-app-deps"
   },
@@ -25,19 +28,18 @@
     "discord-rpc": "^4.0.1",
     "ejs": "^3.1.6",
     "electron-acrylic-window": "^0.5.11",
-    "electron-log": "^4.4.3",
+    "electron-log": "^4.4.4",
     "electron-store": "^8.0.1",
     "electron-updater": "^4.6.1",
     "electron-window-state": "^5.0.3",
+    "es6-promise": "^4.2.8",
     "express": "^4.17.2",
     "get-port": "^5.1.1",
     "lastfmapi": "^0.1.1",
     "mpris-service": "^2.1.2",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
     "source-map-support": "^0.5.21",
     "v8-compile-cache": "^2.3.0",
-    "ws": "^8.3.0",
+    "ws": "^8.4.0",
     "xml2js": "^0.4.23",
     "youtube-search-without-api-key": "^1.0.7"
   },
@@ -46,6 +48,7 @@
     "electron-builder": "^22.14.5",
     "electron-webpack": "^2.8.2",
     "musickit-typescript": "^1.2.4",
+    "typescript": "^4.5.4",
     "vue-devtools": "^5.1.4",
     "webpack": "~5.65.0"
   },
@@ -93,16 +96,12 @@
     ],
     "extends": null,
     "files": [
-      "**/*",
-      "./src/**/*",
+      "./build/**/*",
       "./resources/icons/icon.*"
     ],
     "linux": {
       "target": [
-        "AppImage",
-        "deb",
-        "snap",
-        "rpm"
+        "AppImage"
       ],
       "synopsis": "A new look into listening and enjoying music in style and performance. ",
       "category": "AudioVideo",
@@ -124,7 +123,8 @@
       "icon": "resources/icons/icon.ico"
     },
     "directories": {
-      "buildResources": "."
+      "buildResources": ".",
+      "output": "dist"
     },
     "mac": {
       "icon": "./resources/icons/icon.icns",
