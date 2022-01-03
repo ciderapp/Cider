@@ -173,7 +173,12 @@
                 }
             },
             editPlaylist() {
-                app.editPlaylist(this.data.id, this.data.attributes.name);
+                this.app.editPlaylist(this.data.id, this.data.attributes.name);
+                this.app.playlists.listing.forEach(playlist => {
+                    if (playlist.id == this.data.id) {
+                        playlist.attributes.name = this.data.attributes.name
+                    }
+                })
                 this.nameEditing = false
             },
             addToLibrary(id) {

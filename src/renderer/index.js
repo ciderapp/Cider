@@ -658,16 +658,50 @@ const app = new Vue({
                         action: () => {
                             this.newPlaylist()
                         }
+                    },
+                    {
+                        name: "New Playlist Folder",
+                        action: () => {
+                            this.newPlaylistFolder()
+                        }
                     }
                 ]
             }
             CiderContextMenu.Create(event, menu)
         },
-        async editPlaylist(id, name = "New Playlist") {
+        async editPlaylistFolder(id, name = "New Playlist") {
             let self = this
-            await app.mk.api.library.editPlaylist(id, {name: name}).then(res => {
+            this.mk.api.v3.music(
+                `/v1/me/library/playlist-folders/${id}`,
+                {},
+                {
+                    fetchOptions: {
+                        method: "PATCH",
+                        body: JSON.stringify({
+                            attributes: {name: name}
+                        })
+                    }
+                }
+            ).then(res => {
                 self.refreshPlaylists()
             })
+        },
+        async editPlaylist(id, name = "New Playlist") {
+            let self = this
+            this.mk.api.v3.music(
+                `/v1/me/library/playlists/${id}`,
+                {},
+                {
+                    fetchOptions: {
+                        method: "PATCH",
+                        body: JSON.stringify({
+                            attributes: {name: name}
+                        })
+                    }
+                }
+            ).then(res => {
+                    self.refreshPlaylists()
+                })
         },
         copyToClipboard(str) {
             navigator.clipboard.writeText(str)
@@ -1718,7 +1752,8 @@ const app = new Vue({
                 this.getMadeForYou(attempt + 1)
             }
         },
-        createPlaylistFolder(name = "New Folder") {
+        newPlaylistFolder(name = "New Folder") {
+            let self = this
             this.mk.api.v3.music(
                 "/v1/me/library/playlist-folders/",
                 {},
@@ -1730,10 +1765,20 @@ const app = new Vue({
                         })
                     }
                 }
-            ).then(() => {
+            ).then((res) => {
+                let playlist = (res.data.data[0])
+                self.playlists.listing.push({
+                    id: playlist.id,
+                    attributes: {
+                        name: playlist.attributes.name
+                    },
+                    type: "library-playlist-folders",
+                    parent: "p.playlistsroot"
+                })
+                self.sortPlaylists()
                 setTimeout(() => {
                     app.refreshPlaylists()
-                }, 3000)
+                }, 13000)
             })
         },
         unauthorize() {

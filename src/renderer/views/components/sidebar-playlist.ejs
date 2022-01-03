@@ -8,7 +8,10 @@
                 @drop="onDrop"
                 :href="item.href"
                 @click='$root.appRoute(`playlist_` + item.id); $root.showingPlaylist = [];$root.getPlaylistFromID($root.page.substring(9))'>
-            {{ item.attributes.name }}
+            <template v-if="!renaming">
+                {{ item.attributes.name }}
+            </template>
+            <input type="text" v-model="item.attributes.name" class="pl-rename-field" @blur="rename()" @keydown.enter="rename()" v-else>
         </button>
         <button class="app-sidebar-item app-sidebar-item-playlist" :key="item.id" v-else
                 :class="[{'folder-button-active': folderOpened}, isPlaylistSelected]"
@@ -20,7 +23,10 @@
                 @click='getPlaylistChildren(item)'>
             <span v-if="!folderOpened">📁</span>
             <span v-else>📂</span>
-            {{ item.attributes.name }}
+            <template v-if="!renaming">
+                {{ item.attributes.name }}
+            </template>
+            <input type="text" v-model="item.attributes.name" class="pl-rename-field" @blur="rename()" @keydown.enter="rename()" v-else>
         </button>
         <div class="folder-body" v-if="item.type === 'library-playlist-folders' && folderOpened">
             <template v-if="children.length != 0">
@@ -46,10 +52,20 @@
             return {
                 folderOpened: false,
                 children: [],
-                playlistRoot: "p.playlistsroot"
+                playlistRoot: "p.playlistsroot",
+                renaming: false
             }
         },
         methods: {
+            rename() {
+                this.renaming = false
+
+                if(this.item.type === "library-playlist-folders") {
+                    this.$root.editPlaylistFolder(this.item.id, this.item.attributes.name)
+                }else{
+                    this.$root.editPlaylist(this.item.id, this.item.attributes.name)
+                }
+            },
             async getChildren() {
                 let self = this
                 this.children = []
@@ -104,6 +120,16 @@
                                     type: "library-playlist-folders"
                                 })
                                 setTimeout(()=>{self.getChildren()}, 2000)
+                            }
+                        },
+                        "rename": {
+                            name: "Rename",
+                            action: () => {
+                                this.renaming = true
+                                setTimeout(()=>{
+                                    document.querySelector(".pl-rename-field").focus()
+                                    document.querySelector(".pl-rename-field").select()
+                                }, 100)
                             }
                         },
                         "deleteFromPlaylist": {
