@@ -37,10 +37,17 @@ var CiderContextMenu = {
 
         document.body.appendChild(menuBackground);
 
+        if(typeof menudata.items == "object") {
+            menudata.items = Object.values(menudata.items);
+        }
 
         // for each item in menudata create a menu item
         for (var i = 0; i < menudata.items.length; i++) {
             let item = document.createElement("button")
+
+            if(menudata.items[i]["disabled"]) {
+                break
+            }
             item.tabIndex = 0
             item.classList.add("context-menu-item")
             item.innerHTML = menudata.items[i].name
@@ -638,25 +645,6 @@ const app = new Vue({
                         name: "New Playlist",
                         action: () => {
                             this.newPlaylist()
-                        }
-                    }
-                ]
-            }
-            CiderContextMenu.Create(event, menu)
-        },
-        playlistContextMenu(event, playlist_id) {
-            let menu = {
-                items: [
-                    {
-                        name: "Delete from library",
-                        action: () => {
-                            this.deletePlaylist(playlist_id)
-                        }
-                    },
-                    {
-                        name: "Add to favorites",
-                        action: () => {
-                            this.addFavorite(playlist_id, "library-playlists")
                         }
                     }
                 ]

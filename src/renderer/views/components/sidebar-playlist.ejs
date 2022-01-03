@@ -1,17 +1,21 @@
 <script type="text/x-template" id="sidebar-playlist">
     <div class="sidebar-playlist">
-        <button class="app-sidebar-item" :key="item.id" v-if="item.type != 'library-playlist-folders'"
+        <button class="app-sidebar-item app-sidebar-item-playlist" :key="item.id" v-if="item.type != 'library-playlist-folders'"
                 :class="{'active': $root.page.includes(item.id)}"
-                @contextmenu="$root.playlistContextMenu($event, item.id)"
-                @dragover="()=>{}"
+                @contextmenu="playlistContextMenu($event, item.id)"
+                @dragstart="startDrag($event, item)"
+                @dragover="dragOver"
+                @drop="onDrop"
                 :href="item.href"
                 @click='$root.appRoute(`playlist_` + item.id); $root.showingPlaylist = [];$root.getPlaylistFromID($root.page.substring(9))'>
             {{ item.attributes.name }}
         </button>
-        <button class="app-sidebar-item" :key="item.id" v-else
+        <button class="app-sidebar-item app-sidebar-item-playlist" :key="item.id" v-else
                 :class="[{'folder-button-active': folderOpened}, isPlaylistSelected]"
-                @contextmenu="$root.playlistContextMenu($event, item.id)"
-                @dragover="()=>{}"
+                @contextmenu="playlistContextMenu($event, item.id)"
+                @dragstart="startDrag($event, item)"
+                @dragover="dragOver"
+                @drop="onDrop"
                 :href="item.href"
                 @click='getPlaylistChildren(item)'>
             <span v-if="!folderOpened">📁</span>
@@ -41,10 +45,89 @@
         data: function () {
             return {
                 folderOpened: false,
-                children: []
+                children: [],
+                playlistRoot: "p.playlistsroot"
             }
         },
         methods: {
+            move(item, sendTo) {
+                let self = this
+                console.log(item, sendTo)
+                let type = item.type.replace("library-", "")
+                let typeTo = sendTo.type
+                this.$root.mk.api.v3.music(`/v1/me/library/${type}/${item.id}/parent`, {}, {
+                    fetchOptions: {
+                        method: "PUT",
+                        body: JSON.stringify({
+                            data: [{
+                                id: sendTo.id,
+                                type: typeTo
+                            }]
+                        })
+                    }
+                })
+
+
+                setTimeout(()=>{
+                    this.$root.refreshPlaylists()
+                }, 3000)
+            },
+            playlistContextMenu(event, playlist_id) {
+                let menu = {
+                    items: {
+                        "moveToParent": {
+                            name: "Move to top",
+                            action: () => {
+                                this.move(this.item, {
+                                    id: this.playlistRoot,
+                                    type: "library-playlist-folders"
+                                })
+                            }
+                        },
+                        "deleteFromPlaylist": {
+                            name: "Delete from library",
+                            action: () => {
+                                this.$root.deletePlaylist(playlist_id)
+                            }
+                        },
+                        "addToFavorites": {
+                            name: "Add to favorites",
+                            disabled: true,
+                            action: () => {
+                                this.addFavorite(playlist_id, "library-playlists")
+                            }
+                        }
+                    }
+                }
+                if(this.item.type === "library-playlist-folders") {
+                    menu.items.addToFavorites.disabled = true
+                }
+                CiderContextMenu.Create(event, menu)
+            },
+            dragOver(evt) {
+                evt.preventDefault();
+                evt.dataTransfer.dropEffect = "move";
+            },
+            onDrop (evt) {
+                let data = JSON.parse(evt.dataTransfer.getData("text/plain"))
+                evt.preventDefault();
+                if(data.id == this.item.id) {
+                    return;
+                }
+                if(data) {
+                    if(this.item.type == "library-playlists" || this.item.type == "library-playlist-folders") {
+                        if(data.type == "library-playlists" && this.item.type == "library-playlists") {
+                            return
+                        }
+                        this.move(data, this.item)
+                    }
+                }
+            },
+            startDrag (evt) {
+                evt.dataTransfer.dropEffect = 'move'
+                evt.dataTransfer.effectAllowed = 'move'
+                evt.dataTransfer.setData('text/plain', JSON.stringify(this.item))
+            },
             getPlaylistChildren(item) {
                 let self = this
                 this.toggleFolder()
