@@ -1,5 +1,5 @@
 <script type="text/x-template" id="sidebar-playlist">
-    <div class="sidebar-playlist">
+    <div class="sidebar-playlist" :key="item.id">
         <button class="app-sidebar-item app-sidebar-item-playlist" :key="item.id" v-if="item.type != 'library-playlist-folders'"
                 :class="{'active': $root.page.includes(item.id)}"
                 @contextmenu="playlistContextMenu($event, item.id)"
@@ -50,9 +50,18 @@
             }
         },
         methods: {
-            move(item, sendTo) {
+            async getChildren() {
                 let self = this
-                console.log(item, sendTo)
+                this.children = []
+                this.children = this.$root.playlists.listing.filter(child => {
+                    if(child.parent == self.item.id) {
+                        return child
+                    }
+                })
+            },
+            async move(item, sendTo) {
+                let self = this
+                console.log(sendTo)
                 let type = item.type.replace("library-", "")
                 let typeTo = sendTo.type
                 this.$root.mk.api.v3.music(`/v1/me/library/${type}/${item.id}/parent`, {}, {
@@ -67,10 +76,21 @@
                     }
                 })
 
+                // find the item in this.$root.playlists.listing and store it in a variable
+                this.$root.playlists.listing.filter(playlist => {
+                    if(playlist.id == item.id) {
+                        console.log(playlist)
+                        playlist.parent = sendTo.id
 
-                setTimeout(()=>{
-                    this.$root.refreshPlaylists()
-                }, 3000)
+                    }
+                })
+                if(typeof this.$parent.getChildren == "function") {
+                    this.$parent.getChildren()
+                    console.log(this.$parent.children)
+                }
+                await this.getChildren()
+                this.$root.sortPlaylists()
+                // await this.$root.refreshPlaylists()
             },
             playlistContextMenu(event, playlist_id) {
                 let menu = {
@@ -78,10 +98,12 @@
                         "moveToParent": {
                             name: "Move to top",
                             action: () => {
+                                let self = this
                                 this.move(this.item, {
                                     id: this.playlistRoot,
                                     type: "library-playlist-folders"
                                 })
+                                setTimeout(()=>{self.getChildren()}, 2000)
                             }
                         },
                         "deleteFromPlaylist": {
@@ -130,10 +152,18 @@
             },
             getPlaylistChildren(item) {
                 let self = this
+                this.children = []
+                this.getChildren()
                 this.toggleFolder()
                 this.$root.mk.api.library.playlistFolderChildren(item.id).then(children => {
-                    self.children = children
-                    self.children.sort((a, b) => {
+                    children.forEach(child => {
+                        if(!self.$root.playlists.listing.find(listing => listing.id == child.id)) {
+                            child.parent = self.item.id
+                            self.$root.playlists.listing.push(child)
+                        }
+                    })
+
+                    self.$root.playlists.listing.sort((a, b) => {
                         if (a.type === 'library-playlist-folders' && b.type !== 'library-playlist-folders') {
                             return -1
                         } else if (a.type !== 'library-playlist-folders' && b.type === 'library-playlist-folders') {
@@ -142,6 +172,7 @@
                             return 0
                         }
                     })
+                    self.getChildren()
                 })
             },
             isPlaylistSelected(item) {
