@@ -183,14 +183,7 @@
                         <div class="app-sidebar-header-text" @contextmenu="playlistHeaderContextMenu">
                             Playlists
                         </div>
-                        <button class="app-sidebar-item" v-for="item in playlists.listing" :key="item.id"
-                                v-if="item.attributes.name"
-                                @contextmenu="playlistContextMenu($event, item.id)"
-                                @dragover="()=>{}"
-                                :href="item.href"
-                                @click='appRoute(`playlist_` + item.id); showingPlaylist = [];getPlaylistFromID(page.substring(9))'>
-                            {{ item.attributes.name }}
-                        </button>
+                        <sidebar-playlist v-for="item in playlists.listing" :item="item"></sidebar-playlist>
                     </div>
                     <transition name="wpfade">
                         <div class="usermenu-container" v-if="chrome.menuOpened">
@@ -557,6 +550,8 @@
     </button>
 </script>
 
+<!-- Playlist Listing -->
+<%- include('components/sidebar-playlist') %>
 <!-- Spatial Properties -->
 <%- include('components/spatial-properties') %>
 <!-- Add to playlist -->

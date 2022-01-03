@@ -1,0 +1,52 @@
+<script type="text/x-template" id="sidebar-playlist">
+    <div class="sidebar-playlist">
+        <button class="app-sidebar-item" :key="item.id" v-if="item.type != 'library-playlist-folders'"
+                @contextmenu="$root.playlistContextMenu($event, item.id)"
+                @dragover="()=>{}"
+                :href="item.href"
+                @click='$root.appRoute(`playlist_` + item.id); $root.showingPlaylist = [];$root.getPlaylistFromID($root.page.substring(9))'>
+            {{ item.attributes.name }}
+        </button>
+        <button class="app-sidebar-item" :key="item.id" v-else
+                :class="{'folder-button-active': folderOpened}"
+                @contextmenu="$root.playlistContextMenu($event, item.id)"
+                @dragover="()=>{}"
+                :href="item.href"
+                @click='toggleFolder'>
+            <span v-if="!folderOpened">📁</span>
+            <span v-else>📂</span>
+            {{ item.attributes.name }}
+        </button>
+        <div class="folder-body" v-if="item.type === 'library-playlist-folders' && folderOpened">
+            <button class="app-sidebar-item" v-for="child in item.children" :key="child.id" v-if="child.type != 'library-playlist-folders'"
+                    @contextmenu="$root.playlistContextMenu($event, child.id)"
+                    @dragover="()=>{}"
+                    :href="child.href"
+                    @click='$root.appRoute(`playlist_` + child.id); $root.showingPlaylist = [];$root.getPlaylistFromID($root.page.substring(9))'>
+                {{ child.attributes.name }}
+            </button>
+        </div>
+    </div>
+</script>
+
+<script>
+    Vue.component('sidebar-playlist', {
+        template: '#sidebar-playlist',
+        props: {
+            item: {
+                type: Object,
+                required: true
+            }
+        },
+        data: function () {
+            return {
+                folderOpened: false
+            }
+        },
+        methods: {
+            toggleFolder() {
+                this.folderOpened = !this.folderOpened;
+            }
+        }
+    });
+</script>

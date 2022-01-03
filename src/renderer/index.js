@@ -619,7 +619,24 @@ const app = new Vue({
         async refreshPlaylists() {
             let self = this
             this.apiCall('https://api.music.apple.com/v1/me/library/playlist-folders/p.playlistsroot/children/', res => {
+                console.log(res)
                 self.playlists.listing = res.data
+                self.playlists.listing.forEach(playlist => {
+                    if(playlist.type === "library-playlist-folders") {
+                        self.mk.api.library.playlistFolderChildren(playlist.id).then(children => {
+                            playlist.children = children
+                        })
+                    }
+                })
+                self.playlists.listing.sort((a, b) => {
+                    if (a.type === "library-playlist-folders" && b.type !== "library-playlist-folders") {
+                        return -1
+                    } else if (a.type !== "library-playlist-folders" && b.type === "library-playlist-folders") {
+                        return 1
+                    } else {
+                        return 0
+                    }
+                })
             })
         },
         playlistHeaderContextMenu(event) {
@@ -1705,6 +1722,24 @@ const app = new Vue({
                 console.log(e)
                 this.getMadeForYou(attempt + 1)
             }
+        },
+        createPlaylistFolder(name = "New Folder") {
+            this.mk.api.v3.music(
+                "/v1/me/library/playlist-folders/",
+                {},
+                {
+                    fetchOptions: {
+                        method: "POST",
+                        body: JSON.stringify({
+                            attributes: {name: name}
+                        })
+                    }
+                }
+            ).then(()=>{
+                setTimeout(() => {
+                    app.refreshPlaylists()
+                }, 3000)
+            })
         },
         unauthorize() {
             this.mk.unauthorize()
