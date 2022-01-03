@@ -19,7 +19,7 @@
             <div class="artwork" v-if="showArtwork == true">
                 <mediaitem-artwork
                         :url="item.attributes.artwork ? item.attributes.artwork.url : ''"
-                        size="50"
+                        :size="50"
                         :type="item.type"></mediaitem-artwork>
                 <button class="overlay-play" @click="playTrack()"><%- include("../svg/play.svg") %></button>
             </div>
@@ -56,7 +56,7 @@
                     {{ item.attributes.genreNames[0] ?? "" }}
                 </div>
             </template>
-            <div class="duration" v-if="showDuration" @dblclick="app.routeView(item)">
+            <div class="duration" v-if="displayDuration" @dblclick="app.routeView(item)">
                 {{ msToMinSec(item.attributes.durationInMillis ?? 0) }}
             </div>
         </template>
@@ -71,7 +71,8 @@
                 isVisible: false,
                 addedToLibrary: false,
                 guid: this.uuidv4(),
-                app: this.$root
+                app: this.$root,
+                displayDuration: true
             }
         },
         props: {
@@ -83,6 +84,13 @@
             'show-meta-data': {type: Boolean, default: false},
             'show-duration': {type: Boolean, default: true},
             'contextExt': {type: Object, required: false},
+        },
+        mounted() {
+            let duration = this.item.attributes.durationInMillis ?? 0
+            console.log(duration)
+            if(duration == 0 || !this.showDuration) {
+                this.displayDuration = false
+            }
         },
         methods: {
             uuidv4() {

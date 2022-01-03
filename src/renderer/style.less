@@ -535,6 +535,13 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   }
 }
 
+.hidden-opacity {
+  opacity: 0;
+  height: 0px;
+  width: 0px;
+  margin: 0px;
+}
+
 .app-sidebar-content::-webkit-scrollbar {
   display: none;
 }
@@ -716,7 +723,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 .app-chrome .app-chrome-item > .app-title {
   width: 100px;
   font-size: 13px;
-  background: url("./logotmp.png");
+  background: url("./logotmp.svg");
   background-size: 90px;
   background-repeat: no-repeat;
   background-position: center;
@@ -801,6 +808,17 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   height: 1.3em;
   line-height: 1.3em;
   overflow: hidden;
+  max-width: 360px;
+
+  .song-name-normal {
+    height: inherit;
+  }
+
+  &.song-artist-marquee {
+    >marquee {
+      //margin-bottom: -3px;
+    }
+  }
 }
 
 .app-chrome .app-chrome-item > .app-playback-controls .song-duration p {
@@ -820,7 +838,17 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   line-height: 1.2em;*/
   overflow: hidden;
   z-index: 1;
+  max-width: 360px;
   /* animation: marquee 10s linear infinite; */
+
+  .song-artist-normal {
+    height: inherit;
+  }
+  &.song-artist-marquee {
+    >marquee {
+      margin-bottom: -3px;
+    }
+  }
 }
 
 .app-chrome .app-chrome-item > .app-playback-controls .song-progress {
