@@ -1,6 +1,7 @@
 <script type="text/x-template" id="sidebar-playlist">
     <div class="sidebar-playlist">
         <button class="app-sidebar-item" :key="item.id" v-if="item.type != 'library-playlist-folders'"
+                :class="{'active': $root.page.includes(item.id)}"
                 @contextmenu="$root.playlistContextMenu($event, item.id)"
                 @dragover="()=>{}"
                 :href="item.href"
