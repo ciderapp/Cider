@@ -8,23 +8,22 @@
             {{ item.attributes.name }}
         </button>
         <button class="app-sidebar-item" :key="item.id" v-else
-                :class="{'folder-button-active': folderOpened}"
+                :class="[{'folder-button-active': folderOpened}, isPlaylistSelected]"
                 @contextmenu="$root.playlistContextMenu($event, item.id)"
                 @dragover="()=>{}"
                 :href="item.href"
-                @click='toggleFolder'>
+                @click='getPlaylistChildren(item)'>
             <span v-if="!folderOpened">📁</span>
             <span v-else>📂</span>
             {{ item.attributes.name }}
         </button>
         <div class="folder-body" v-if="item.type === 'library-playlist-folders' && folderOpened">
-            <button class="app-sidebar-item" v-for="child in item.children" :key="child.id" v-if="child.type != 'library-playlist-folders'"
-                    @contextmenu="$root.playlistContextMenu($event, child.id)"
-                    @dragover="()=>{}"
-                    :href="child.href"
-                    @click='$root.appRoute(`playlist_` + child.id); $root.showingPlaylist = [];$root.getPlaylistFromID($root.page.substring(9))'>
-                {{ child.attributes.name }}
-            </button>
+            <template v-if="children.length != 0">
+                <sidebar-playlist v-for="item in children" :item="item" :key="item.id"></sidebar-playlist>
+            </template>
+            <template v-else>
+                <div class="spinner"></div>
+            </template>
         </div>
     </div>
 </script>
@@ -40,10 +39,34 @@
         },
         data: function () {
             return {
-                folderOpened: false
+                folderOpened: false,
+                children: []
             }
         },
         methods: {
+            getPlaylistChildren(item) {
+                let self = this
+                this.toggleFolder()
+                this.$root.mk.api.library.playlistFolderChildren(item.id).then(children => {
+                    self.children = children
+                    self.children.sort((a, b) => {
+                        if (a.type === 'library-playlist-folders' && b.type !== 'library-playlist-folders') {
+                            return -1
+                        } else if (a.type !== 'library-playlist-folders' && b.type === 'library-playlist-folders') {
+                            return 1
+                        } else {
+                            return 0
+                        }
+                    })
+                })
+            },
+            isPlaylistSelected(item) {
+                if(this.$root.showingPlaylist.id == item.id) {
+                    return ["active"]
+                }  else {
+                    return []
+                }
+            },
             toggleFolder() {
                 this.folderOpened = !this.folderOpened;
             }

@@ -619,15 +619,7 @@ const app = new Vue({
         async refreshPlaylists() {
             let self = this
             this.apiCall('https://api.music.apple.com/v1/me/library/playlist-folders/p.playlistsroot/children/', res => {
-                console.log(res)
                 self.playlists.listing = res.data
-                self.playlists.listing.forEach(playlist => {
-                    if(playlist.type === "library-playlist-folders") {
-                        self.mk.api.library.playlistFolderChildren(playlist.id).then(children => {
-                            playlist.children = children
-                        })
-                    }
-                })
                 self.playlists.listing.sort((a, b) => {
                     if (a.type === "library-playlist-folders" && b.type !== "library-playlist-folders") {
                         return -1
