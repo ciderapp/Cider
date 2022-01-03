@@ -6,17 +6,24 @@
                     <h3>Home</h3>
                     <div class="well profile-well">
                         <div class="user-icon">
-                            <mediaitem-artwork shadow="none" :url="(profile && profile.attributes && profile.attributes.artwork) ? profile.attributes.artwork.url : ''"
+                            <mediaitem-artwork shadow="none"
+                                               :url="(profile && profile.attributes && profile.attributes.artwork) ? profile.attributes.artwork.url : ''"
                                                size="300"></mediaitem-artwork>
                         </div>
-                        <h3 class="name" >{{ (profile && profile.attributes && profile.attributes.name) ? profile.attributes.name : "" }}</h3>
-                        <h4 class="handle">@{{ (profile && profile.attributes && profile.attributes.handle) ? profile.attributes.handle : "" }}</h4>
+                        <h3 class="name">{{ (profile && profile.attributes && profile.attributes.name) ?
+                            profile.attributes.name : "" }}</h3>
+                        <h4 class="handle">@{{ (profile && profile.attributes && profile.attributes.handle) ?
+                            profile.attributes.handle : "" }}</h4>
                     </div>
                 </div>
                 <div class="col">
                     <h3>Recently Played</h3>
                     <div class="well">
-                        <mediaitem-list-item v-for="item in recentlyPlayed.limit(6)" :item="item"></mediaitem-list-item>
+                        <template v-if="isSectionReady('recentlyPlayed')">
+                            <mediaitem-list-item v-for="item in recentlyPlayed.limit(6)"
+                                                 :item="item"></mediaitem-list-item>
+                        </template>
+                        <div class="spinner" v-else></div>
                     </div>
                 </div>
             </div>
@@ -36,7 +43,10 @@
                 <div class="col madeforyou-col">
                     <h3>Made For You</h3>
                     <div class="well">
-                        <mediaitem-square kind="small" v-for="item in madeForYou" :item="item"></mediaitem-square>
+                        <template v-if="isSectionReady('madeForYou')">
+                            <mediaitem-square kind="small" v-for="item in madeForYou" :item="item"></mediaitem-square>
+                        </template>
+                        <div class="spinner" v-else></div>
                     </div>
                 </div>
                 <div class="col">
@@ -53,7 +63,7 @@
                             <mediaitem-list-item v-for="item in artistFeed.limit(6)" :item="item"></mediaitem-list-item>
                         </template>
                         <template v-else>
-                            <div class="hint-text">No new activity from followed artists</div>
+                            <div class="spinner"></div>
                         </template>
                     </div>
                 </div>
@@ -62,8 +72,11 @@
                 <div class="col">
                     <h3>Friends Listening To</h3>
                     <div class="well">
-                        <mediaitem-square kind="small" v-for="item in friendsListeningTo"
-                                          :item="item"></mediaitem-square>
+                        <template v-if="isSectionReady('friendsListeningTo')">
+                            <mediaitem-square kind="small" v-for="item in friendsListeningTo"
+                                              :item="item"></mediaitem-square>
+                        </template>
+                        <div class="spinner" v-else></div>
                     </div>
                 </div>
             </div>
@@ -89,6 +102,7 @@
                 artistFeed: [],
                 showingArtistFeed: false,
                 page: "main",
+                sectionsReady: []
             }
         },
         async mounted() {
@@ -98,6 +112,9 @@
             await this.getFavorites()
         },
         methods: {
+            isSectionReady(section) {
+                return this.sectionsReady.includes(section)
+            },
             removeFavoriteContext() {
                 let self = this
                 return {
@@ -204,6 +221,7 @@
                         })[0].relationships.contents.data
                     } catch (err) {
                     }
+                    self.sectionsReady.push("madeForYou")
 
                     try {
                         self.recentlyPlayed = data.data[1].relationships.contents.data
@@ -215,6 +233,8 @@
                         })[0].relationships.contents.data
                     } catch (err) {
                     }
+                    self.sectionsReady.push("recentlyPlayed")
+                    self.sectionsReady.push("friendsListeningTo")
                 });
 
                 app.mk.api.v3.music("/v1/me/social/profile/").then((response) => {

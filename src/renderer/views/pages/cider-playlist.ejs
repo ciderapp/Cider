@@ -2,7 +2,9 @@
     <div class="content-inner playlist-page" v-if="data != [] && data.attributes != null"
          :style="{'--bgColor': (data.attributes.artwork != null && data.attributes.artwork['bgColor'] != null) ? ('#' + data.attributes.artwork.bgColor) : ''}">
         <template v-if="app.playlists.loadingState == 0">
-            <div class="content-inner centered">Loading...</div>
+            <div class="content-inner centered">
+                <div class="spinner"></div>
+            </div>
         </template>
         <template v-if="app.playlists.loadingState == 1">
             <div class="playlist-display row"

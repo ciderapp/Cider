@@ -542,6 +542,16 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   margin: 0px;
 }
 
+.spinner {
+  background-image: url("assets/spinner.gif");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+}
+
 .app-sidebar-content::-webkit-scrollbar {
   display: none;
 }
@@ -815,7 +825,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   }
 
   &.song-artist-marquee {
-    >marquee {
+    > marquee {
       //margin-bottom: -3px;
     }
   }
@@ -844,8 +854,9 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   .song-artist-normal {
     height: inherit;
   }
+
   &.song-artist-marquee {
-    >marquee {
+    > marquee {
       margin-bottom: -3px;
     }
   }
@@ -2111,9 +2122,11 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   .friends-info {
     display: flex;
     flex-flow: column;
+
     .badge-container {
       display: flex;
       flex-flow: wrap;
+
       .socialBadge {
         width: 40px;
         height: 40px;
@@ -2128,6 +2141,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
         }
       }
     }
+
     .friends-name {
       text-align: center;
       font-size: 0.9em;
@@ -2978,6 +2992,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     .badge-container {
       transition: opacity 0.1s var(--appleEase);
       opacity: 1;
+
       .socialBadge {
         width: 32px;
         height: 32px;
@@ -3024,6 +3039,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
       > .badge-container {
         opacity: 0;
       }
+
       > .play-btn,
       > .menu-btn {
         opacity: 1;

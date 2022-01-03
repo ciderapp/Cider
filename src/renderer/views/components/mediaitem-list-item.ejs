@@ -87,7 +87,6 @@
         },
         mounted() {
             let duration = this.item.attributes.durationInMillis ?? 0
-            console.log(duration)
             if(duration == 0 || !this.showDuration) {
                 this.displayDuration = false
             }
