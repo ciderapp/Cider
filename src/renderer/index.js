@@ -2431,10 +2431,12 @@ const app = new Vue({
                                 console.log(palette)
                                 if(palette.DarkMuted != null && palette.DarkVibrant != null){
                                     document.querySelector("#app").style.backgroundImage = `linear-gradient(to bottom, ${self._rgbToRgb(palette.DarkMuted._rgb)} 0%, ${self._rgbToRgb(palette.DarkVibrant._rgb)} 100%)`
-                                }else{
+                                }else if(palette.Muted != null && palette.LightMuted != null){
                                     document.querySelector("#app").style.backgroundImage = `linear-gradient(to bottom, ${self._rgbToRgb(palette.Muted._rgb)} 0%, ${self._rgbToRgb(palette.LightMuted._rgb)} 100%)`
+                                }else{
+                                    document.querySelector("#app").style.backgroundImage = `linear-gradient(to bottom, ${self._rgbToRgb(palette.Vibrant._rgb)} 0%, ${self._rgbToRgb(palette.DarkVibrant._rgb)} 100%)`
                                 }
-                            })
+                            }).setQuantizer(Vibrant.Quantizer.WebWorker)
 
                             try {
                                 clearInterval(bginterval);
