@@ -3354,10 +3354,12 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
     .bgArtworkMaterial {
       display: block;
-      top: -50%;
-      left: -20%;
-      width: 200VH;
-      height: 200VH;
+      &::before {
+        top: -50%;
+        left: -20%;
+        width: 200VH;
+        height: 200VH;
+      }
     }
 
     .lyric-body {
