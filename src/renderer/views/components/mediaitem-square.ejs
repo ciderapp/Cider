@@ -19,7 +19,7 @@
                 <div class="badge-container" v-if="itemBadges.length != 0">
                     <div class="socialBadge" v-for="badge in itemBadges.limit(1)">
                         <mediaitem-artwork
-                                :url="badge.attributes.artwork.url"
+                                :url="(badge.attributes.artwork ? badge.attributes.artwork.url : '')"
                                 :size="32"></mediaitem-artwork>
                     </div>
                 </div>

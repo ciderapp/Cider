@@ -15,11 +15,11 @@
         template: '#mediaitem-artwork',
         props: {
             size: {
-                type: String,
+                type: [String, Number],
                 default: '120'
             },
             width: {
-                type: Number,
+                type: [String, Number],
                 required: false
             },
             url: {
