@@ -105,10 +105,15 @@ const store = new Vuex.Store({
             albums: [],
             recentlyAdded: [],
             playlists: []
+        },
+        artwork: {
+            playerLCD: ""
         }
     },
     mutations: {
-
+        setLCDArtwork(state, artwork) {
+            state.artwork.playerLCD = artwork
+        }
     }
 })
 
@@ -2430,9 +2435,13 @@ const app = new Vue({
                         this.currentTrackID = this.mk.nowPlayingItem["id"];
                         document.querySelector('.bg-artwork').src = "";
                         if (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"]) {
-                            document.querySelectorAll('.bg-artwork').forEach(artwork => {
-                                artwork.src = this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"].replace('{w}', size).replace('{h}', size);
+                            getBase64FromUrl(this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"].replace('{w}', size).replace('{h}', size)).then(img =>{
+                                document.querySelectorAll('.bg-artwork').forEach(artwork => {
+                                    artwork.src = img;
+                                })
+                                self.$store.commit("setLCDArtwork", img)
                             })
+
                             // Vibrant.from(this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"].replace('{w}', size).replace('{h}', size)).getPalette().then(palette=>{
                             //     let angle = "140deg"
                             //     let gradient = ""
@@ -2534,7 +2543,12 @@ const app = new Vue({
                 const data = await this.mk.api.library.song(this.mk.nowPlayingItem.id)
 
                 if (data != null && data !== "") {
-                    document.querySelector('.bg-artwork').src = (data["attributes"]["artwork"]["url"]).toString();
+                    getBase64FromUrl((data["attributes"]["artwork"]["url"]).toString()).then(img =>{
+                        document.querySelector('.bg-artwork').forEach(artwork => {
+                            artwork.src = img;
+                        })
+                        self.$store.commit("setLCDArtwork", img)
+                    })
                 }
             } catch (e) {
             }

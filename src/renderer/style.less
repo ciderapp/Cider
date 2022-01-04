@@ -346,18 +346,9 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     position: absolute;
     width: 100%;
     height: 100%;
-    &::before {
-      position: absolute;
-      top: -10%;
-      left: -100%;
-      width: 100vh;
-      height: 100vh;
-      background-image: var(--bgColor);
-      content: "";
-      z-index: -1;
-      transform: rotateZ(0deg);
-      transform-origin: center;
-      animation: bgRotate 10s linear infinite;
+
+    .bg-artwork-container .bg-artwork {
+      filter: brightness(100%) blur(180px) saturate(280%) contrast(1);
     }
   }
 }
