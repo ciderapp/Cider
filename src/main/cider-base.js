@@ -8,9 +8,11 @@ const os = require('os');
 const yt = require('youtube-search-without-api-key');
 const discord = require('./discordrpc');
 const lastfm = require('./lastfm');
+const {writeFile} = require('fs');
 const mpris = require('./mpris');
 const mm = require('music-metadata');
 const fetch = require('electron-fetch').default;
+const {Stream} = require('stream');
 
 // Analytics for debugging.
 const ElectronSentry = require("@sentry/electron");
@@ -18,6 +20,8 @@ ElectronSentry.init({dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.inge
 
 const CiderBase = {
     win: null,
+    requests : [],
+    audiostream : new Stream.PassThrough(),
     async Start() {
         this.clientPort = await getPort({port: 9000});
         this.win = this.CreateBrowserWindow()
@@ -241,6 +245,10 @@ const CiderBase = {
             })
         });
 
+        ipcMain.on('writeAudio', function(event,buffer){       
+            CiderBase.audiostream.write(Buffer.from(buffer));        
+        })
+
         return win
     },
 
@@ -284,7 +292,7 @@ const CiderBase = {
 
         webapp.use(function (req, res, next) {
             // if not localhost
-            if (req.headers.host.includes("localhost") && req.headers["user-agent"].includes("Cider")) {
+            if (req.url.includes("audio.webm") ||(req.headers.host.includes("localhost") &&  req.headers["user-agent"].includes("Cider"))) {
                 next();
             }
         });
@@ -293,6 +301,25 @@ const CiderBase = {
         webapp.get('/', function (req, res) {
             //res.sendFile(path.join(webRemotePath, 'index_old.html'));
             res.render("main", CiderBase.EnvironmentVariables)
+        });
+        webapp.get('/audio.webm', function (req, res) { 
+            try {
+            req.connection.setTimeout(Number.MAX_SAFE_INTEGER);
+            // CiderBase.requests.push({req: req, res: res});
+            // var pos = CiderBase.requests.length - 1;
+            // req.on("close", () => {
+            //     console.info("CLOSED", CiderBase.requests.length);
+            //     requests.splice(pos, 1);
+            //     console.info("CLOSED", CiderBase.requests.length);
+            // });
+            CiderBase.audiostream.on('data', (data) => {
+                try {
+                    res.write(data);
+                } catch (ex) {
+                    console.log(ex)
+                }
+            })
+            } catch (ex) {console.log(ex)}
         });
         webapp.listen(CiderBase.clientPort, function () {
             console.log(`Cider client port: ${CiderBase.clientPort}`);

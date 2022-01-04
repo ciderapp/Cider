@@ -75,6 +75,21 @@ var CiderAudio = {
         CiderAudio.audioNodes.spatialNode.output.disconnect(CiderAudio.context.destination);
         CiderAudio.audioNodes.gainNode.disconnect(CiderAudio.audioNodes.spatialInput.input);} catch(e){}
         CiderAudio.audioNodes.gainNode.connect(CiderAudio.context.destination);
+    },
+    sendAudio: function (){
+        var options = {
+            mimeType : 'audio/webm; codecs=opus'
+          };
+          var destnode =  CiderAudio.context.createMediaStreamDestination();
+          CiderAudio.audioNodes.gainNode.connect(destnode)
+          var mediaRecorder = new MediaRecorder(destnode.stream,options); 
+          mediaRecorder.start(1);
+          mediaRecorder.ondataavailable = function(e) {
+            e.data.arrayBuffer().then(buffer => {  
+                ipcRenderer.send('writeAudio',buffer)
+            }
+          );                   
+        }
     }
 
 }
