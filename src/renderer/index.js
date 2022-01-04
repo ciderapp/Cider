@@ -223,6 +223,7 @@ const app = new Vue({
         mxmtoken: "",
         mkIsReady: false,
         playerReady: false,
+        animateBackground: false,
         lyricon: false,
         currentTrackID: '',
         currentTrackIDBG: '',
@@ -2583,10 +2584,12 @@ const app = new Vue({
                 document.querySelectorAll(".animated-artwork-video").forEach(el => {
                     el.play()
                 })
+                this.animateBackground = true
             } else {
                 document.querySelectorAll(".animated-artwork-video").forEach(el => {
                     el.pause()
                 })
+                this.animateBackground = false
             }
         },
         async nowPlayingContextMenu(event) {

@@ -50,6 +50,7 @@ const configDefaults = {
         "refresh_rate": 0,
         "animated_artwork": "limited", // 0 = always, 1 = limited, 2 = never
         "animated_artwork_qualityLevel": 1,
+        "bg_artwork_rotation": false,
         "hw_acceleration": "default", // default, webgpu, disabled
         "window_transparency": "default"
     },

@@ -99,28 +99,32 @@ body[platform='linux'] {
   position: relative;
   overflow: hidden;
   background-size: 400% 400%;
+
+  &::before {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 250%;
+    background-image: var(--bgColor);
+    content: "";
+    z-index: -1;
+    transform: rotateZ(0deg);
+    transform-origin: center;
+    animation: bgRotate 10s linear infinite;
+    filter: brightness(100%) saturate(200%) contrast(1.5);
+  }
+
+  &.noanimation::before {
+    animation: none;
+  }
 }
 
-.bgGradientMaterial {
+.bgGradientMaterial-base {
   position:relative;
 }
 
-.bgGradientMaterial::before {
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 250%;
-  background-image: var(--bgColor);
-  content: "";
-  z-index: -1;
-  transform: rotateZ(0deg);
-  transform-origin: center;
-  animation: bgRotate 10s linear infinite;
-  filter: brightness(100%) saturate(200%) contrast(1.5);
-}
-
-#app::before {
+.bgGradientMaterial-base::before {
   position: absolute;
   top: -50%;
   left: -50%;
@@ -305,6 +309,27 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   height: 94%;
   backdrop-filter: blur(40px) saturate(180%);
   box-shadow: var(--ciderShadow-Generic);
+  overflow: hidden;
+
+  .bgArtworkMaterial {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    &::before {
+      position: absolute;
+      top: -10%;
+      left: -100%;
+      width: 100vh;
+      height: 100vh;
+      background-image: var(--bgColor);
+      content: "";
+      z-index: -1;
+      transform: rotateZ(0deg);
+      transform-origin: center;
+      animation: bgRotate 10s linear infinite;
+    }
+  }
 }
 
 .search-input-container {
@@ -3327,9 +3352,20 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     box-shadow: unset;
     background: black;
 
+    .bgArtworkMaterial {
+      display: block;
+      top: -50%;
+      left: -20%;
+      width: 200VH;
+      height: 200VH;
+    }
+
     .lyric-body {
       justify-content: center;
       align-items: center;
+      padding: 0px;
+      margin: 0px;
+      overflow: hidden;
 
       .lyric-line {
         pointer-events: none;
