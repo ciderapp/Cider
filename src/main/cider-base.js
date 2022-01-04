@@ -1,5 +1,5 @@
-const {BrowserWindow, ipcMain, shell, app, screen} = require("electron")
-const {join} = require("path")
+const { BrowserWindow, ipcMain, shell, app, screen } = require("electron")
+const { join } = require("path")
 const getPort = require("get-port");
 const express = require("express");
 const path = require("path");
@@ -8,22 +8,22 @@ const os = require('os');
 const yt = require('youtube-search-without-api-key');
 const discord = require('./discordrpc');
 const lastfm = require('./lastfm');
-const {writeFile} = require('fs');
+const { writeFile } = require('fs');
 const mpris = require('./mpris');
 const mm = require('music-metadata');
 const fetch = require('electron-fetch').default;
-const {Stream} = require('stream');
+const { Stream } = require('stream');
 
 // Analytics for debugging.
 const ElectronSentry = require("@sentry/electron");
-ElectronSentry.init({dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.ingest.sentry.io/6112214"});
+ElectronSentry.init({ dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.ingest.sentry.io/6112214" });
 
 const CiderBase = {
     win: null,
-    requests : [],
-    audiostream : new Stream.PassThrough(),
+    requests: [],
+    audiostream: new Stream.PassThrough(),
     async Start() {
-        this.clientPort = await getPort({port: 9000});
+        this.clientPort = await getPort({ port: 9000 });
         this.win = this.CreateBrowserWindow()
     },
     clientPort: 0,
@@ -69,8 +69,11 @@ const CiderBase = {
         if (process.platform === "darwin" || process.platform === "linux") {
             win = new BrowserWindow(options)
         } else {
-            const {BrowserWindow} = require("electron-acrylic-window");
+            if (app.cfg.get("visual.window_transparency") !== "disabled") {
+                const { BrowserWindow } = require("electron-acrylic-window");
+            }
             win = new BrowserWindow(options)
+            win.setVibrancy("dark")
         }
 
         // intercept "https://js-cdn.music.apple.com/hls.js/2.141.0/hls.js/hls.js" and redirect to local file "./apple-hls.js" instead
@@ -99,7 +102,7 @@ const CiderBase = {
                 if (itspod != null)
                     details.requestHeaders['Cookie'] = `itspod=${itspod}`
             }
-            callback({requestHeaders: details.requestHeaders})
+            callback({ requestHeaders: details.requestHeaders })
         })
 
         let location = `http://localhost:${CiderBase.clientPort}/`
@@ -151,6 +154,10 @@ const CiderBase = {
             app.cfg.store = store
         })
 
+        ipcMain.handle('setVibrancy', (event, key, value) => {
+            win.setVibrancy(value)
+        });
+
         ipcMain.on('maximize', () => { // listen for maximize event
             if (win.isMaximized()) {
                 win.unmaximize()
@@ -192,9 +199,9 @@ const CiderBase = {
         }
 
         // Set window Handler
-        win.webContents.setWindowOpenHandler(({url}) => {
+        win.webContents.setWindowOpenHandler(({ url }) => {
             if (url.includes("apple") || url.includes("localhost")) {
-                return {action: "allow"}
+                return { action: "allow" }
             }
             shell.openExternal(url).catch(() => {
             })
@@ -233,20 +240,20 @@ const CiderBase = {
 
         ipcMain.on("getPreviewURL", (_event, url) => {
             fetch(url)
-            .then(res => res.buffer())
-            .then(async (buffer) => {
-                try {
-                    const metadata = await mm.parseBuffer(buffer, 'audio/x-m4a');
-                    SoundCheckTag = metadata.native.iTunes[1].value
-                    win.webContents.send('SoundCheckTag',SoundCheckTag)
-                  } catch (error) {
-                    console.error(error.message);
-                  }
-            })
+                .then(res => res.buffer())
+                .then(async (buffer) => {
+                    try {
+                        const metadata = await mm.parseBuffer(buffer, 'audio/x-m4a');
+                        SoundCheckTag = metadata.native.iTunes[1].value
+                        win.webContents.send('SoundCheckTag', SoundCheckTag)
+                    } catch (error) {
+                        console.error(error.message);
+                    }
+                })
         });
 
-        ipcMain.on('writeAudio', function(event,buffer){       
-            CiderBase.audiostream.write(Buffer.from(buffer));        
+        ipcMain.on('writeAudio', function (event, buffer) {
+            CiderBase.audiostream.write(Buffer.from(buffer));
         })
 
         return win
@@ -260,7 +267,7 @@ const CiderBase = {
     },
     LinkHandler: (startArgs) => {
         if (!startArgs) return;
-        console.log("lfmtoken",String(startArgs))
+        console.log("lfmtoken", String(startArgs))
         if (String(startArgs).includes('auth')) {
             let authURI = String(startArgs).split('/auth/')[1]
             if (authURI.startsWith('lastfm')) { // If we wanted more auth options
@@ -292,7 +299,7 @@ const CiderBase = {
 
         webapp.use(function (req, res, next) {
             // if not localhost
-            if (req.url.includes("audio.webm") ||(req.headers.host.includes("localhost") &&  req.headers["user-agent"].includes("Cider"))) {
+            if (req.url.includes("audio.webm") || (req.headers.host.includes("localhost") && req.headers["user-agent"].includes("Cider"))) {
                 next();
             }
         });
@@ -302,24 +309,24 @@ const CiderBase = {
             //res.sendFile(path.join(webRemotePath, 'index_old.html'));
             res.render("main", CiderBase.EnvironmentVariables)
         });
-        webapp.get('/audio.webm', function (req, res) { 
+        webapp.get('/audio.webm', function (req, res) {
             try {
-            req.connection.setTimeout(Number.MAX_SAFE_INTEGER);
-            // CiderBase.requests.push({req: req, res: res});
-            // var pos = CiderBase.requests.length - 1;
-            // req.on("close", () => {
-            //     console.info("CLOSED", CiderBase.requests.length);
-            //     requests.splice(pos, 1);
-            //     console.info("CLOSED", CiderBase.requests.length);
-            // });
-            CiderBase.audiostream.on('data', (data) => {
-                try {
-                    res.write(data);
-                } catch (ex) {
-                    console.log(ex)
-                }
-            })
-            } catch (ex) {console.log(ex)}
+                req.connection.setTimeout(Number.MAX_SAFE_INTEGER);
+                // CiderBase.requests.push({req: req, res: res});
+                // var pos = CiderBase.requests.length - 1;
+                // req.on("close", () => {
+                //     console.info("CLOSED", CiderBase.requests.length);
+                //     requests.splice(pos, 1);
+                //     console.info("CLOSED", CiderBase.requests.length);
+                // });
+                CiderBase.audiostream.on('data', (data) => {
+                    try {
+                        res.write(data);
+                    } catch (ex) {
+                        console.log(ex)
+                    }
+                })
+            } catch (ex) { console.log(ex) }
         });
         webapp.listen(CiderBase.clientPort, function () {
             console.log(`Cider client port: ${CiderBase.clientPort}`);
