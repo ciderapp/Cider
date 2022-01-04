@@ -447,9 +447,12 @@
                 </div>
                 <transition name="drawertransition">
                     <div class="app-drawer" v-if="drawer.open">
-                        <div class="bgArtworkMaterial"></div>
-                        <lyrics-view v-if="drawer.panel == 'lyrics'" :time="lyriccurrenttime" :lyrics="lyrics"
-                                     :richlyrics="richlyrics"></lyrics-view>
+                            <div class="bgArtworkMaterial"></div>
+                            <lyrics-view v-if="drawer.panel == 'lyrics'" :time="lyriccurrenttime" :lyrics="lyrics"
+                                        :richlyrics="richlyrics"></lyrics-view>
+                            <div v-if="drawer.panel == 'lyrics'" class="lyric-footer">
+                                <button class="md-btn" @click="modularUITest(!fullscreenLyrics)">{{fullscreenLyrics ? "Default View":'Fullscreen View'}}</button> 
+                            </div>     
                         <cider-queue ref="queue" v-if="drawer.panel == 'queue'"></cider-queue>
                     </div>
                 </transition>

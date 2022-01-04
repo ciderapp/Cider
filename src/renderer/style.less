@@ -1557,6 +1557,34 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   font-size: 26px;
 }
 
+.lyric-footer {
+  bottom: 0;
+  height: 50px;
+  width: 100%;
+  position: absolute;
+  z-index: 1000;
+  opacity: 1;
+  background: rgba(30, 30, 30, 0.8);
+  justify-content: center;
+  align-items: center;
+  display: none;
+  transition: opacity 0.1s var(--appleEase);
+}
+
+.lyric-body:hover + .lyric-footer, .lyric-footer:hover {
+  display: flex; 
+}
+
+.modular-fs .app-drawer .lyric-footer {
+  background: rgba(30, 30, 30, 0.3);
+  display: flex;
+  opacity: 0.3;
+}
+
+.modular-fs .app-drawer .lyric-footer:hover {
+  opacity: 1;
+}
+ 
 .lyric-line {
   --bgSpeed: 1s;
   appearance: none;
@@ -1643,6 +1671,34 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   font-weight: 450;
   font-family: 'Inter', 'Noto Sans JP', sans-serif;
   filter: contrast(0.5);
+}
+
+.lyric-footer {
+  bottom: 0;
+  height: 50px;
+  width: 100%;
+  position: absolute;
+  z-index: 1000;
+  opacity: 1;
+  background: rgba(30, 30, 30, 0.8);
+  justify-content: center;
+  align-items: center;
+  display: none;
+  transition: opacity 0.1s var(--appleEase);
+}
+
+.lyric-body:hover + .lyric-footer, .lyric-footer:hover {
+  display: flex; 
+}
+
+.modular-fs .app-drawer .lyric-footer {
+  background: rgba(30, 30, 30, 0.3);
+  display: flex;
+  opacity: 0.3;
+}
+
+.modular-fs .app-drawer .lyric-footer:hover {
+  opacity: 1;
 }
 
 @keyframes lyricWaitingLine {

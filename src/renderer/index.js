@@ -132,6 +132,7 @@ const app = new Vue({
             resultsSocial: {},
             limit: 10
         },
+        fullscreenLyrics: false,
         playerLCD: {
             playbackDuration: 0,
             desiredDuration: 0,
@@ -321,6 +322,7 @@ const app = new Vue({
             });
         },
         modularUITest(val = false) {
+            this.fullscreenLyrics = val;
             if (val) {
                 document.querySelector("#app-main").classList.add("modular-fs")
             } else {
