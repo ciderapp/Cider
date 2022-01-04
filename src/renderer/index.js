@@ -2478,7 +2478,6 @@ const app = new Vue({
                         if (document.querySelector('.app-playback-controls .artwork') != null) {
                             clearInterval(interval);
                         }
-                        document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', '');
                         if (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"]) {
                             document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${decodeURI((this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"])).replace('{w}', size).replace('{h}', size)}")`);
                             try {
