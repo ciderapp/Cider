@@ -462,8 +462,12 @@
         </div>
     </transition>
     <transition name="wpfade">
-        <img v-show="chrome.artworkReady" @load="chrome.artworkReady = true" class="bg-artwork"
-        >
+        <div class="bg-artwork-container">
+            <img v-show="chrome.artworkReady" @load="chrome.artworkReady = true" class="bg-artwork a "
+            >
+            <img v-show="chrome.artworkReady" class="bg-artwork b"
+            >
+        </div>
     </transition>
     <transition name="wpfade">
         <div class="bg-artwork--placeholder"></div>

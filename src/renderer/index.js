@@ -2428,22 +2428,24 @@ const app = new Vue({
                         this.currentTrackID = this.mk.nowPlayingItem["id"];
                         document.querySelector('.bg-artwork').src = "";
                         if (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"]) {
-                            document.querySelector('.bg-artwork').src = this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"].replace('{w}', size).replace('{h}', size);
-                            Vibrant.from(this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"].replace('{w}', size).replace('{h}', size)).getPalette().then(palette=>{
-                                let angle = "140deg"
-                                let gradient = ""
-                                let colors = Object.values(palette).filter(color=>color!=null)
-                                if(colors.length > 0){
-                                    let stops = []
-                                    colors.forEach(color=>{
-                                        stops.push(`${self._rgbToRgb(color._rgb)} 0%`)
-                                    })
-                                    stops.push(`${self._rgbToRgb(colors[0]._rgb)} 100%`)
-                                    gradient = `linear-gradient(${angle}, ${stops.join(", ")}`
-                                }
-
-                                document.querySelector("#app").style.setProperty("--bgColor", gradient)
-                            }).setQuantizer(Vibrant.Quantizer.WebWorker)
+                            document.querySelectorAll('.bg-artwork').forEach(artwork => {
+                                artwork.src = this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"].replace('{w}', size).replace('{h}', size);
+                            })
+                            // Vibrant.from(this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"].replace('{w}', size).replace('{h}', size)).getPalette().then(palette=>{
+                            //     let angle = "140deg"
+                            //     let gradient = ""
+                            //     let colors = Object.values(palette).filter(color=>color!=null)
+                            //     if(colors.length > 0){
+                            //         let stops = []
+                            //         colors.forEach(color=>{
+                            //             stops.push(`${self._rgbToRgb(color._rgb)} 0%`)
+                            //         })
+                            //         stops.push(`${self._rgbToRgb(colors[0]._rgb)} 100%`)
+                            //         gradient = `linear-gradient(${angle}, ${stops.join(", ")}`
+                            //     }
+                            //
+                            //     document.querySelector("#app").style.setProperty("--bgColor", gradient)
+                            // }).setQuantizer(Vibrant.Quantizer.WebWorker)
 
                             try {
                                 clearInterval(bginterval);

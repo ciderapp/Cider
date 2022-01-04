@@ -89,6 +89,8 @@ body[platform='linux'] {
   --color1: rgba(30, 30, 30, 30%);
   --color2: rgba(15, 15, 15, 30%);
   --bgColor: transparent;
+  --bgWidth: 0px;
+  --bgHeight: 0px;
   --chromeHeight: 55px;
   width: 100%;
   height: 100%;
@@ -104,8 +106,8 @@ body[platform='linux'] {
     position: absolute;
     top: -50%;
     left: -50%;
-    width: 200%;
-    height: 250%;
+    width: var(--bgWidth);
+    height: var(--bgHeight);
     background-image: var(--bgColor);
     content: "";
     z-index: -1;
@@ -179,22 +181,51 @@ input[type="text"], input[type="number"] {
 
 .bg-artwork {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  width: 200%;
   background: var(--artwork);
   z-index: -1;
-  object-fit: cover;
-  object-position: center;
+  //object-fit: cover;
+  //object-position: center;
   /* filter: blur(60px) saturate(180%);
   opacity: 0.70; */
   filter: blur(180px) saturate(280%);
-  opacity: 0.60;
+  opacity: 1;
   transition: opacity .25s var(--appleEase);
   pointer-events: none;
   transform: translateZ(0px);
-  display: none;
+  animation: rotateBg 35s linear infinite;
+  //display: none;
+}
+
+@keyframes rotateBg {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+.bg-artwork-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+
+  .bg-artwork.a {
+    top:0;
+    left:0;
+    mix-blend-mode: luminosity;
+  }
+  .bg-artwork.b {
+    bottom:0;
+    right:0;
+    animation-direction: reverse;
+    animation-delay: 10s;
+  }
 }
 
 
