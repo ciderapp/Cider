@@ -101,6 +101,25 @@ body[platform='linux'] {
   background-size: 400% 400%;
 }
 
+.bgGradientMaterial {
+  position:relative;
+}
+
+.bgGradientMaterial::before {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 250%;
+  background-image: var(--bgColor);
+  content: "";
+  z-index: -1;
+  transform: rotateZ(0deg);
+  transform-origin: center;
+  animation: bgRotate 10s linear infinite;
+  filter: brightness(100%) saturate(200%) contrast(1.5);
+}
+
 #app::before {
   position: absolute;
   top: -50%;

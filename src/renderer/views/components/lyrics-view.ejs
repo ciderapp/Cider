@@ -130,10 +130,30 @@
                                if(this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${prevLine}"]`)) {this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${prevLine}"]`).classList.remove("active");}
                                 this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${i}"]`).classList.add("active")
                                 if (checkIfScrollIsStatic) {
-                                    this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${i}"]`).scrollIntoView({
-                                        behavior: "smooth",
-                                        block: "center"
+                                    let lyricElement = this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${i}"]`)
+                                    // this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${i}"]`).scrollIntoView({
+                                    //     behavior: "smooth",
+                                    //     block: "nearest", inline: 'start'
+                                    // })
+                                    let parent = lyricElement.parentElement
+                                    let parentRect = parent.getBoundingClientRect()
+                                    let lyricElementRect = lyricElement.getBoundingClientRect()
+                                    let parentScrollTop = parent.scrollTop
+                                    let parentScrollLeft = parent.scrollLeft
+                                    let parentScrollTopDiff = parentScrollTop - parentRect.top
+                                    let parentScrollLeftDiff = parentScrollLeft - parentRect.left
+                                    let lyricElementScrollTop = lyricElementRect.top + parentScrollTopDiff
+                                    let lyricElementScrollLeft = lyricElementRect.left + parentScrollLeftDiff
+                                    let scrollTopDiff = lyricElementScrollTop - parentScrollTop
+                                    let scrollLeftDiff = lyricElementScrollLeft - parentScrollLeft
+                                    let scrollTop = parent.scrollTop + scrollTopDiff
+                                    let scrollLeft = parent.scrollLeft + scrollLeftDiff
+                                    parent.scrollTo({
+                                        top: scrollTop - 128,
+                                        left: scrollLeft,
+                                        behavior: 'smooth'
                                     })
+
                                 }
                             }
                         } else if (app.currentLyricsLine == 0 && app.drawer.open) {
