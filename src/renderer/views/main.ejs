@@ -30,7 +30,7 @@
 </head>
 
 <body oncontextmenu="return false;" loading="1" platform="<%= env.platform %>">
-<div id="app" :class="{noanimation: (!cfg.visual.bg_artwork_rotation || !animateBackground)}">
+<div id="app">
     <transition name="fsModeSwitch">
         <div id="app-main" v-show="appMode == 'player'">
             <div class="mv-chrome" v-if="chrome.topChromeVisible == false"></div>
@@ -462,7 +462,7 @@
         </div>
     </transition>
     <transition name="wpfade">
-        <div class="bg-artwork-container">
+        <div class="bg-artwork-container" :class="{noanimation: (!cfg.visual.bg_artwork_rotation || !animateBackground)}">
             <img v-show="chrome.artworkReady" @load="chrome.artworkReady = true" class="bg-artwork a "
             >
             <img v-show="chrome.artworkReady" class="bg-artwork b"

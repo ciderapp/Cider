@@ -116,10 +116,6 @@ body[platform='linux'] {
     animation: bgRotate 10s linear infinite;
     filter: brightness(100%) saturate(200%) contrast(1.5);
   }
-
-  &.noanimation::before {
-    animation: none;
-  }
 }
 
 .bgGradientMaterial-base {
@@ -225,6 +221,12 @@ input[type="text"], input[type="number"] {
     right:0;
     animation-direction: reverse;
     animation-delay: 10s;
+  }
+
+  &.noanimation {
+    .bg-artwork {
+      animation: none;
+    }
   }
 }
 
