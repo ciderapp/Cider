@@ -179,19 +179,13 @@ input[type="text"], input[type="number"] {
   position: absolute;
   width: 200%;
   background: var(--artwork);
-  z-index: -1;
-  //object-fit: cover;
-  //object-position: center;
-  /* filter: blur(60px) saturate(180%);
-  opacity: 0.70; */
-  filter: blur(180px) saturate(280%);
+  filter: brightness(200%) blur(180px) saturate(280%) contrast(2);
   opacity: 1;
-  transition: opacity .25s var(--appleEase);
+  transition: opacity 0.25s var(--appleEase);
   pointer-events: none;
   transform: translateZ(0px);
   animation: rotateBg 35s linear infinite;
-  backface-visibility: hidden
-  //display: none;
+  backface-visibility: hidden;
 }
 
 @keyframes rotateBg {
@@ -211,6 +205,8 @@ input[type="text"], input[type="number"] {
   bottom: 0;
   right: 0;
   pointer-events: none;
+  transform: translateZ(0px);
+  z-index: -1;
 
   .bg-artwork.a {
     top:0;
