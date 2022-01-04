@@ -64,7 +64,11 @@
             },
             scrollToTop() {
                 let target = document.querySelector(".header-text")
-                target.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})
+                document.querySelector("#app-content").scrollTo({
+                    top: 0,
+                    left: 0,
+                    behavior: 'smooth'
+                })
             },
             getNext() {
                 // if this.data.next is not null, then we can run this.data.next() and concat to this.data.data to get the next page
