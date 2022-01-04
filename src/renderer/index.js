@@ -2408,6 +2408,7 @@ const app = new Vue({
             return newurl
         },
         _rgbToRgb(rgb = [0,0,0]) {
+            // if rgb
             return `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`
         },
         getNowPlayingArtworkBG(size = 600) {
@@ -2428,13 +2429,18 @@ const app = new Vue({
                         if (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"]) {
                             document.querySelector('.bg-artwork').src = this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"].replace('{w}', size).replace('{h}', size);
                             Vibrant.from(this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"].replace('{w}', size).replace('{h}', size)).getPalette().then(palette=>{
-                                console.log(palette)
+                                let angle = "140deg"
                                 if(palette.DarkMuted != null && palette.DarkVibrant != null){
-                                    document.querySelector("#app").style.backgroundImage = `linear-gradient(to bottom, ${self._rgbToRgb(palette.DarkMuted._rgb)} 0%, ${self._rgbToRgb(palette.DarkVibrant._rgb)} 100%)`
+                                    document.querySelector("#app").style.backgroundImage = `linear-gradient(${angle}, ${self._rgbToRgb(palette.DarkMuted._rgb)} 0%, ${self._rgbToRgb(palette.DarkVibrant._rgb)} 100%)`
                                 }else if(palette.Muted != null && palette.LightMuted != null){
-                                    document.querySelector("#app").style.backgroundImage = `linear-gradient(to bottom, ${self._rgbToRgb(palette.Muted._rgb)} 0%, ${self._rgbToRgb(palette.LightMuted._rgb)} 100%)`
+                                    document.querySelector("#app").style.backgroundImage = `linear-gradient(${angle}, ${self._rgbToRgb(palette.Muted._rgb)} 0%, ${self._rgbToRgb(palette.LightMuted._rgb)} 100%)`
+                                }else if(palette.Vibrant != null && palette.DarkVibrant != null){
+                                    document.querySelector("#app").style.backgroundImage = `linear-gradient(${angle}, ${self._rgbToRgb(palette.Vibrant._rgb)} 0%, ${self._rgbToRgb(palette.DarkVibrant._rgb)} 100%)`
                                 }else{
-                                    document.querySelector("#app").style.backgroundImage = `linear-gradient(to bottom, ${self._rgbToRgb(palette.Vibrant._rgb)} 0%, ${self._rgbToRgb(palette.DarkVibrant._rgb)} 100%)`
+                                    let colors = Object.values(palette).filter(color=>color!=null)
+                                    if(colors.length > 0){
+                                        document.querySelector("#app").style.backgroundImage = `linear-gradient(${angle}, ${self._rgbToRgb(colors[0]._rgb)} 0%, ${self._rgbToRgb(colors[1]._rgb)} 100%)`
+                                    }
                                 }
                             }).setQuantizer(Vibrant.Quantizer.WebWorker)
 

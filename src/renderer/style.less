@@ -97,6 +97,14 @@ body[platform='linux'] {
   margin: 0 auto;
   position: relative;
   overflow: hidden;
+  background-size: 400% 400%;
+  animation: bgGradient 10s ease infinite;
+}
+
+@keyframes bgGradient {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
 }
 
 [hidden] {
