@@ -131,7 +131,7 @@ if (process.platform === "linux") {
 * App Event Handlers
 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-app.commandLine.appendSwitch('js-flags', '--max-old-space-size=1024')
+// app.commandLine.appendSwitch('js-flags', '--max-old-space-size=1024')
 
 app.on('ready', () => {
     app.whenReady().then(async () => {
