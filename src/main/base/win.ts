@@ -1,15 +1,15 @@
 import * as path from "path";
-import {app, ipcMain} from "electron";
-import {join} from "path";
+import {app, ipcMain, shell} from "electron";
 import * as windowStateKeeper from "electron-window-state";
 import * as express from "express";
 import * as getPort from "get-port";
+import * as yt from "youtube-search-without-api-key";
 
 export default class Win {
-    public win: Electron.BrowserWindow | undefined;
+    public win: null | undefined;
     public app: Electron.App | undefined;
 
-    private static port: number = 0;
+    private clientPort: number = 0;
     private static envVars: object = {
         "env": {
             // @ts-ignore
@@ -19,7 +19,7 @@ export default class Win {
         }
     };
     private static options: any = {
-        icon: join(__dirname, `../../../resources/icons/icon.ico`),
+        icon: path.join(__dirname, `../../../resources/icons/icon.ico`),
         width: 1024,
         height: 600,
         x: undefined,
@@ -42,7 +42,7 @@ export default class Win {
             sandbox: true,
             nativeWindowOpen: true,
             contextIsolation: false,
-            preload: join(__dirname, '../../preload/cider-preload.js')
+            preload: path.join(__dirname, '../../preload/cider-preload.js')
         }
     };
 
@@ -53,7 +53,9 @@ export default class Win {
     /**
      * Creates the browser window
      */
-    public createWindow(): Electron.BrowserWindow {
+    public async createWindow(): Promise<Electron.BrowserWindow> {
+        this.clientPort = await getPort({port: 9000});
+
         let BrowserWindow;
         if (process.platform === "win32") {
             BrowserWindow = require("electron-acrylic-window").BrowserWindow;
@@ -71,29 +73,23 @@ export default class Win {
 
         // Create the browser window.
         const win = new BrowserWindow(this.options);
+        console.debug('Browser window created');
+        this.win = win;
 
         // and load the renderer.
         this.startWebServer(win)
-            .then((url) => {
-                console.log(url)
-                this.startSession(win, url);
-            })
-            .catch(console.error);
+        this.startSession(win);
+        this.startHandlers(win);
 
 
-
-
-        this.win = win;
         return win;
     }
 
     /**
      * Starts the webserver for the renderer process.
-     * @param win The window to use
+     * @param win The BrowserWindow
      */
-    private async startWebServer(win: Electron.BrowserWindow): Promise<string> {
-        Win.port = await getPort({port: 9000});
-
+    private startWebServer(win: Electron.BrowserWindow): void {
         const webapp = express(),
             webRemotePath = path.join(__dirname, '../../renderer/');
 
@@ -113,19 +109,16 @@ export default class Win {
             //res.sendFile(path.join(webRemotePath, 'index_old.html'));
             res.render("main", Win.envVars)
         });
-        webapp.listen(Win.port, function () {
-            console.debug(`Cider client port: ${Win.port}`);
+        webapp.listen(this.clientPort, () => {
+            console.debug(`Cider client port: ${this.clientPort}`);
         });
-
-        return "http://localhost:" + Win.port;
     }
 
     /**
      * Starts the session for the renderer process.
-     * @param win The window to use
-     * @param location The location of the renderer
+     * @param win The BrowserWindow
      */
-    private startSession(win: Electron.BrowserWindow, location: string) {
+    private startSession(win: Electron.BrowserWindow): void {
         // intercept "https://js-cdn.music.apple.com/hls.js/2.141.0/hls.js/hls.js" and redirect to local file "./apple-hls.js" instead
         win.webContents.session.webRequest.onBeforeRequest(
             {
@@ -134,7 +127,7 @@ export default class Win {
             (details, callback) => {
                 if (details.url.includes("hls.js")) {
                     callback({
-                        redirectURL: `http://localhost:${Win.port}/apple-hls.js`
+                        redirectURL: `http://localhost:${this.clientPort}/apple-hls.js`
                     })
                 } else {
                     callback({
@@ -155,6 +148,122 @@ export default class Win {
             callback({requestHeaders: details.requestHeaders})
         })
 
-        win.loadURL(location).catch(console.error);
+        const location = `http://localhost:${this.clientPort}/`
+        console.log('yeah')
+        win.loadURL(location)
+            .then(() => {
+                console.debug(`Cider client location: ${location}`);
+            })
+            .catch(console.error);
+    }
+
+    /**
+     * Initializes the window handlers
+     * @param win The BrowserWindow
+     */
+    private startHandlers(win: Electron.BrowserWindow): void {
+        win.on('closed', () => {
+            this.win = null;
+        });
+
+        if (process.platform === "win32") {
+            let WND_STATE = {
+                MINIMIZED: 0,
+                NORMAL: 1,
+                MAXIMIZED: 2,
+                FULL_SCREEN: 3
+            }
+            let wndState = WND_STATE.NORMAL
+
+            win.on("resize", (_: any) => {
+                const isMaximized = win.isMaximized()
+                const isMinimized = win.isMinimized()
+                const isFullScreen = win.isFullScreen()
+                const state = wndState;
+                if (isMinimized && state !== WND_STATE.MINIMIZED) {
+                    wndState = WND_STATE.MINIMIZED
+                } else if (isFullScreen && state !== WND_STATE.FULL_SCREEN) {
+                    wndState = WND_STATE.FULL_SCREEN
+                } else if (isMaximized && state !== WND_STATE.MAXIMIZED) {
+                    wndState = WND_STATE.MAXIMIZED
+                    win.webContents.executeJavaScript(`app.chrome.maximized = true`)
+                } else if (state !== WND_STATE.NORMAL) {
+                    wndState = WND_STATE.NORMAL
+                    win.webContents.executeJavaScript(`app.chrome.maximized = false`)
+                }
+            })
+        }
+
+        // Set window Handler
+        win.webContents.setWindowOpenHandler(({url}) => {
+            if (url.includes("apple") || url.includes("localhost")) {
+                return {action: "allow"}
+            }
+            shell.openExternal(url).catch(() => {
+            })
+            return {
+                action: 'deny'
+            }
+        })
+
+        //-------------------------------------------------------------------------------
+        // Renderer IPC Listeners
+        //-------------------------------------------------------------------------------
+
+        ipcMain.on("cider-platform", (event) => {
+            event.returnValue = process.platform
+        })
+
+        ipcMain.on("get-gpu-mode", (event) => {
+            event.returnValue = process.platform
+        })
+
+        ipcMain.on("is-dev", (event) => {
+            event.returnValue = !app.isPackaged
+        })
+
+        // IPC stuff (listeners)
+        ipcMain.on('close', () => { // listen for close event
+            win.close();
+        })
+
+        ipcMain.handle('getYTLyrics', async (event, track, artist) => {
+            const u = track + " " + artist + " official video";
+            const videos = await yt.search(u);
+            return videos
+        })
+
+        // ipcMain.handle('getStoreValue', (event, key, defaultValue) => {
+        //     return (defaultValue ? app.cfg.get(key, true) : app.cfg.get(key));
+        // });
+        //
+        // ipcMain.handle('setStoreValue', (event, key, value) => {
+        //     app.cfg.set(key, value);
+        // });
+        //
+        // ipcMain.on('getStore', (event) => {
+        //     event.returnValue = app.cfg.store
+        // })
+        //
+        // ipcMain.on('setStore', (event, store) => {
+        //     app.cfg.store = store
+        // })
+
+        ipcMain.on('maximize', () => { // listen for maximize event
+            if (win.isMaximized()) {
+                win.unmaximize()
+            } else {
+                win.maximize()
+            }
+        })
+
+        ipcMain.on('minimize', () => { // listen for minimize event
+            win.minimize();
+        })
+
+        // Set scale
+        ipcMain.on('setScreenScale', (event, scale) => {
+            win.webContents.setZoomFactor(parseFloat(scale))
+        })
     }
 }
