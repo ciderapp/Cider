@@ -2592,10 +2592,11 @@ const app = new Vue({
         async getRating(item) {
             let type = item.type.slice(-1) === "s" ? item.type : item.type + "s"
             let id = item.attributes.playParams.catalogId ? item.attributes.playParams.catalogId : item.id
-            if (id.startsWith("i.")) {
+            if (item.id.startsWith("i.")) {
                 if(!type.startsWith("library-")) {
                     type = "library-" + type
                 }
+                id = item.id
             }
             let response = await this.mk.api.v3.music(`/v1/me/ratings/${type}?platform=web&ids=${id}`)
             if(response.data.data.length != 0) {
@@ -2608,10 +2609,11 @@ const app = new Vue({
         love(item) {
             let type = item.type.slice(-1) === "s" ? item.type : item.type + "s"
             let id = item.attributes.playParams.catalogId ? item.attributes.playParams.catalogId : item.id
-            if (id.startsWith("i.")) {
+            if (item.id.startsWith("i.")) {
                 if(!type.startsWith("library-")) {
                     type = "library-" + type
                 }
+                id = item.id
             }
             this.mk.api.v3.music(`/v1/me/ratings/${type}/${id}`, {}, {
                 fetchOptions:
@@ -2631,10 +2633,11 @@ const app = new Vue({
         dislike(item) {
             let type = item.type.slice(-1) === "s" ? item.type : item.type + "s"
             let id = item.attributes.playParams.catalogId ? item.attributes.playParams.catalogId : item.id
-            if (id.startsWith("i.")) {
+            if (item.id.startsWith("i.")) {
                 if(!type.startsWith("library-")) {
                     type = "library-" + type
                 }
+                id = item.id
             }
             this.mk.api.v3.music(`/v1/me/ratings/${type}/${id}`, {}, {
                 fetchOptions:
@@ -2654,10 +2657,11 @@ const app = new Vue({
         unlove(item) {
             let type = item.type.slice(-1) === "s" ? item.type : item.type + "s"
             let id = item.attributes.playParams.catalogId ? item.attributes.playParams.catalogId : item.id
-            if (id.startsWith("i.")) {
+            if (item.id.startsWith("i.")) {
                 if(!type.startsWith("library-")) {
                     type = "library-" + type
                 }
+                id = item.id
             }
             this.mk.api.v3.music(`/v1/me/ratings/${type}/${id}`, {}, {
                 fetchOptions:
