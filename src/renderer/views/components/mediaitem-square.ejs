@@ -1,7 +1,9 @@
 <script type="text/x-template" id="mediaitem-square">
     <div tabindex="0"
          class="cd-mediaitem-square" :class="getClasses()" @contextmenu="contextMenu"
-         v-observe-visibility="{callback: visibilityChanged}">
+         v-observe-visibility="{callback: visibilityChanged}"
+         :style="{'--spcolor': getBgColor()}"
+         @click.self='app.routeView(item)'>
         <template v-if="isVisible">
             <div class="artwork-container">
                 <div class="artwork" @click='app.routeView(item)'>
@@ -24,14 +26,14 @@
                     </div>
                 </div>
             </div>
-            <div class="title item-navigate text-overflow-elipsis" @click.self='app.routeView(item)'>
+            <div class="title item-navigate text-overflow-elipsis" v-if="item.attributes.artistNames == null" @click.self='app.routeView(item)'>
                 {{ item.attributes.name }}
             </div>
             <div class="subtitle item-navigate text-overflow-elipsis" @click="app.searchAndNavigate(item,'artist')"
-                 v-if="item.attributes.artistName">
-                {{ item.attributes.artistName }}
+                 v-if="getSubtitle() != ''">
+                {{ getSubtitle() }}
             </div>
-            <div class="subtitle" v-else>&nbsp;</div>
+            <div class="subtitle" v-if="getSubtitle() == '' && kind != 'card'">&nbsp;</div>
         </template>
     </div>
 </script>
@@ -70,11 +72,54 @@
             await this.getBadges()
         },
         methods: {
+            getBgColor() {
+                let color = `#${(this.item.attributes.artwork.bgColor != null) ? (this.item.attributes.artwork.bgColor) : `333333`}`
+                let c = color.substring(1);      // strip #
+                var rgb = parseInt(c, 16);   // convert rrggbb to decimal
+                var r = (rgb >> 16) & 0xff;  // extract red
+                var g = (rgb >>  8) & 0xff;  // extract green
+                var b = (rgb >>  0) & 0xff;  // extract blue
+
+                var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b; // per ITU-R BT.709
+
+                console.log(color)
+                console.log(luma)
+                if (luma > 140) {
+                    return "#aaaaaa"
+                }else{
+                    return color
+                }
+
+
+            },
+            getSubtitle() {
+                if(this.kind == 'card') {
+                    try {
+                        if (typeof this.item.attributes.artistNames != "undefined") {
+                            return this.item.attributes.artistNames
+                        } else if (typeof this.item.attributes.editorialNotes != "undefined") {
+                            return this.item.attributes.editorialNotes.short
+                        } else if (typeof this.item.attributes.artistName != "undefined") {
+                            return this.item.attributes.artistName
+                        } else {
+                            return ''
+                        }
+                    }catch(e) {
+                        return ''
+                    }
+                }else {
+                    if (typeof this.item.attributes.artistName != "undefined") {
+                        return this.item.attributes.artistName
+                    } else {
+                        return ''
+                    }
+                }
+            },
             async getBadges() {
                 let self = this
-                if(this.badges[this.item.attributes.playParams.id ?? this.item.id]) {
+                if (this.badges[this.item.attributes.playParams.id ?? this.item.id]) {
                     let friends = this.badges[this.item.attributes.playParams.id ?? this.item.id]
-                    if(friends) {
+                    if (friends) {
                         friends.forEach(function (friend) {
                             self.app.mk.api.socialProfile(friend).then(data => {
                                 self.itemBadges.push(data)
@@ -140,6 +185,9 @@
                 switch (type) {
                     default:
                         return []
+                        break;
+                    case "card":
+                        return ["mediaitem-card"]
                         break;
                     case "385": // editorial
                         return ["mediaitem-brick"]
@@ -311,12 +359,12 @@
                     })
                 }
                 let rating = await app.getRating(self.item)
-                if(rating == 0) {
+                if (rating == 0) {
                     menus.normal.items.find(x => x.id == 'love').disabled = false
                     menus.normal.items.find(x => x.id == 'dislike').disabled = false
-                }else if(rating == 1) {
+                } else if (rating == 1) {
                     menus.normal.items.find(x => x.id == 'unlove').disabled = false
-                }else if(rating == -1) {
+                } else if (rating == -1) {
                     menus.normal.items.find(x => x.id == 'undo_dislike').disabled = false
                 }
 
@@ -332,9 +380,9 @@
             },
         },
         beforeDestroy: function () {
-            this.item = null;
-            this.kind = null;
-            this.size = null;
+            // this.item = null;
+            // this.kind = null;
+            // this.size = null;
         }
     });
 </script>
