@@ -12,7 +12,7 @@
                         <mediaitem-artwork
                                 shadow="large"
                                 :url="data.attributes.artwork ? data.attributes.artwork.url : ''"
-                                size="220" type="artists"></mediaitem-artwork>
+                                size="190" type="artists"></mediaitem-artwork>
                         <button class="overlay-play"  @click="app.mk.setStationQueue({artist:'a-'+data.id}).then(()=>{
                             app.mk.play()
                         })">

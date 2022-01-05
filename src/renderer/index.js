@@ -2941,12 +2941,12 @@ document.addEventListener('musickitloaded', function () {
     request.send();
 });
 
-// if ('serviceWorker' in navigator) {
-//     // Use the window load event to keep the page load performant
-//     window.addEventListener('load', () => {
-//       navigator.serviceWorker.register('sw.js?v=1');
-//     });
-//   }
+if ('serviceWorker' in navigator) {
+    // Use the window load event to keep the page load performant
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js?v=1');
+    });
+  }
 
 const getBase64FromUrl = async (url) => {
     const data = await fetch(url);
