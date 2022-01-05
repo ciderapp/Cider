@@ -264,6 +264,38 @@
                                 }
                             },
                             {
+                                "id": "love",
+                                "name": "Love",
+                                "disabled": true,
+                                "action": function () {
+                                    app.love(self.item)
+                                }
+                            },
+                            {
+                                "id": "unlove",
+                                "name": "Unlove",
+                                "disabled": true,
+                                "action": function () {
+                                    app.unlove(self.item)
+                                }
+                            },
+                            {
+                                "id": "dislike",
+                                "name": "Dislike",
+                                "disabled": true,
+                                "action": function () {
+                                    app.dislike(self.item)
+                                }
+                            },
+                            {
+                                "id": "undo_dislike",
+                                "name": "Undo dislike",
+                                "disabled": true,
+                                "action": function () {
+                                    app.unlove(self.item)
+                                }
+                            },
+                            {
                                 "name": "Share",
                                 "action": function () {
                                     self.app.copyToClipboard(self.item.attributes.url)
@@ -278,6 +310,16 @@
                         return item.id != "addToPlaylist"
                     })
                 }
+                let rating = await app.getRating(self.item)
+                if(rating == 0) {
+                    menus.normal.items.find(x => x.id == 'love').disabled = false
+                    menus.normal.items.find(x => x.id == 'dislike').disabled = false
+                }else if(rating == 1) {
+                    menus.normal.items.find(x => x.id == 'unlove').disabled = false
+                }else if(rating == -1) {
+                    menus.normal.items.find(x => x.id == 'undo_dislike').disabled = false
+                }
+
                 if (this.contextExt) {
                     if (this.contextExt.normal) {
                         menus.normal.items = menus.normal.items.concat(this.contextExt.normal)

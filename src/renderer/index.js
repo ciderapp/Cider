@@ -41,12 +41,14 @@ var CiderContextMenu = {
             menudata.items = Object.values(menudata.items);
         }
 
+        console.log(menudata);
+
         // for each item in menudata create a menu item
         for (var i = 0; i < menudata.items.length; i++) {
             let item = document.createElement("button")
 
-            if (menudata.items[i]["disabled"]) {
-                break
+            if (menudata.items[i]["disabled"] === true) {
+                continue
             }
             item.tabIndex = 0
             item.classList.add("context-menu-item")
@@ -2587,6 +2589,59 @@ const app = new Vue({
                 })
             })
         },
+        async getRating(item) {
+            let type = item.type.slice(-1) === "s" ? item.type : item.type + "s"
+            let response = await this.mk.api.v3.music(`/v1/me/ratings/${type}?platform=web&ids=${item.id}`)
+            if(response.data.data.length != 0) {
+                let value = response.data.data[0].attributes.value
+                return value
+            }else{
+                return 0
+            }
+        },
+        love(item) {
+            let type = item.type.slice(-1) === "s" ? item.type : item.type + "s"
+            this.mk.api.v3.music(`/v1/me/ratings/${type}/${item.id}`, {}, {
+                fetchOptions:
+                    {
+                        method: "PUT",
+                        body: JSON.stringify(
+                            {
+                                "type": "rating",
+                                "attributes": {
+                                    "value": 1
+                                }
+                            }
+                        )
+                    }
+            })
+        },
+        dislike(item) {
+            let type = item.type.slice(-1) === "s" ? item.type : item.type + "s"
+            this.mk.api.v3.music(`/v1/me/ratings/${type}/${item.id}`, {}, {
+                fetchOptions:
+                    {
+                        method: "PUT",
+                        body: JSON.stringify(
+                            {
+                                "type": "rating",
+                                "attributes": {
+                                    "value": -1
+                                }
+                            }
+                        )
+                    }
+            })
+        },
+        unlove(item) {
+            let type = item.type.slice(-1) === "s" ? item.type : item.type + "s"
+            this.mk.api.v3.music(`/v1/me/ratings/${type}/${item.id}`, {}, {
+                fetchOptions:
+                    {
+                        method: "DELETE",
+                    }
+            })
+        },
         volumeWheel(event) {
             if (event.deltaY < 0) {
                 if(this.mk.volume < 1){
@@ -2683,6 +2738,38 @@ const app = new Vue({
                             }
                         },
                         {
+                            "id": "love",
+                            "name": "Love",
+                            "disabled": true,
+                            "action": function () {
+                                app.love(app.mk.nowPlayingItem)
+                            }
+                        },
+                        {
+                            "id": "unlove",
+                            "name": "Unlove",
+                            "disabled": true,
+                            "action": function () {
+                                app.unlove(app.mk.nowPlayingItem)
+                            }
+                        },
+                        {
+                            "id": "dislike",
+                            "name": "Dislike",
+                            "disabled": true,
+                            "action": function () {
+                                app.dislike(app.mk.nowPlayingItem)
+                            }
+                        },
+                        {
+                            "id": "undo_dislike",
+                            "name": "Undo dislike",
+                            "disabled": true,
+                            "action": function () {
+                                app.unlove(app.mk.nowPlayingItem)
+                            }
+                        },
+                        {
                             "name": "Start Radio",
                             "action": function () {
                                 app.mk.setStationQueue({song: item_id}).then(() => {
@@ -2699,6 +2786,15 @@ const app = new Vue({
                 if (this.contextExt.normal) {
                     menus.normal.items = menus.normal.items.concat(this.contextExt.normal)
                 }
+            }
+            let rating = await app.getRating(app.mk.nowPlayingItem)
+            if(rating == 0) {
+                menus.normal.items.find(x => x.id == 'love').disabled = false
+                menus.normal.items.find(x => x.id == 'dislike').disabled = false
+            }else if(rating == 1) {
+                menus.normal.items.find(x => x.id == 'unlove').disabled = false
+            }else if(rating == -1) {
+                menus.normal.items.find(x => x.id == 'undo_dislike').disabled = false
             }
             CiderContextMenu.Create(event, menus[useMenu])
         },

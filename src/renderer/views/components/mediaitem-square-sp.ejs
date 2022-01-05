@@ -214,9 +214,42 @@
                                 }
                             },
                             {
+                                "id": "addToPlaylist",
                                 "name": "Add to Playlist...",
                                 "action": function () {
                                     app.promptAddToPlaylist()
+                                }
+                            },
+                            {
+                                "id": "love",
+                                "name": "Love",
+                                "disabled": true,
+                                "action": function () {
+                                    app.love(self.item)
+                                }
+                            },
+                            {
+                                "id": "unlove",
+                                "name": "Unlove",
+                                "disabled": true,
+                                "action": function () {
+                                    app.unlove(self.item)
+                                }
+                            },
+                            {
+                                "id": "dislike",
+                                "name": "Dislike",
+                                "disabled": true,
+                                "action": function () {
+                                    app.dislike(self.item)
+                                }
+                            },
+                            {
+                                "id": "undo_dislike",
+                                "name": "Undo dislike",
+                                "disabled": true,
+                                "action": function () {
+                                    app.unlove(self.item)
                                 }
                             },
                             {
@@ -232,7 +265,21 @@
                         ]
                     }
                 }
-                if ((self.item.attributes.playParams.kind ?? self.item.type).includes("playlist")) { menus.normal.items.splice(2, 1);}
+                let rating = await app.getRating(self.item)
+                if(rating == 0) {
+                    menus.normal.items.find(x => x.id == 'love').disabled = false
+                    menus.normal.items.find(x => x.id == 'dislike').disabled = false
+                }else if(rating == 1) {
+                    menus.normal.items.find(x => x.id == 'unlove').disabled = false
+                }else if(rating == -1) {
+                    menus.normal.items.find(x => x.id == 'undo_dislike').disabled = false
+                }
+                if ((self.item.attributes.playParams.kind ?? self.item.type).includes("playlist")) {
+                    // remove the add to playlist option by id "addToPlaylist" using the .filter() method
+                    menus.normal.items = menus.normal.items.filter(function (item) {
+                        return item.id != "addToPlaylist"
+                    })
+                }
                 CiderContextMenu.Create(event, menus[useMenu])
             },
         }

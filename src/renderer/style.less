@@ -583,16 +583,20 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     text-align: left;
     color: #eee;
     font-family: inherit;
-    font-size: 15px;
-    padding: 8px 12px;
+    font-size: 14px;
+    padding: 6px 12px;
     border: 0px;
     appearance: none;
     border-radius: 6px;
     margin: 2px 0px;
 
     &:hover {
-      background: var(--keyColor);
+      background: var(--selected);
       cursor: pointer;
+    }
+
+    &:active {
+      background: var(--selected-click);
     }
   }
 
