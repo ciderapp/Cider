@@ -2591,6 +2591,9 @@ const app = new Vue({
         },
         async getRating(item) {
             let type = item.type.slice(-1) === "s" ? item.type : item.type + "s"
+            if (item.id.startsWith("i.")) {
+                type = "library-" + type
+            }
             let response = await this.mk.api.v3.music(`/v1/me/ratings/${type}?platform=web&ids=${item.id}`)
             if(response.data.data.length != 0) {
                 let value = response.data.data[0].attributes.value
