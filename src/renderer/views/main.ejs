@@ -230,7 +230,7 @@
                     </transition>
                     <div class="app-sidebar-footer">
                         <input type="range" class="web-slider display--small" step="0.01" min="0" max="1"
-                               v-model="mk.volume"
+                               v-model="mk.volume" @wheel="volumeWheel"
                                v-if="typeof mk.volume != 'undefined'">
                         <button class="app-sidebar-button" style="width:100%"
                                 :class="{active: chrome.menuOpened}"
