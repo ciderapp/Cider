@@ -2591,13 +2591,13 @@ const app = new Vue({
         },
         async getRating(item) {
             let type = item.type.slice(-1) === "s" ? item.type : item.type + "s"
-            // if item.id starts with "i." put "library-" in front of the type if type does not already have that
-            if (item.id.startsWith("i.")) {
+            let id = item.attributes.playParams.catalogId ? item.attributes.playParams.catalogId : item.id
+            if (id.startsWith("i.")) {
                 if(!type.startsWith("library-")) {
                     type = "library-" + type
                 }
             }
-            let response = await this.mk.api.v3.music(`/v1/me/ratings/${type}?platform=web&ids=${item.id}`)
+            let response = await this.mk.api.v3.music(`/v1/me/ratings/${type}?platform=web&ids=${id}`)
             if(response.data.data.length != 0) {
                 let value = response.data.data[0].attributes.value
                 return value
@@ -2607,7 +2607,13 @@ const app = new Vue({
         },
         love(item) {
             let type = item.type.slice(-1) === "s" ? item.type : item.type + "s"
-            this.mk.api.v3.music(`/v1/me/ratings/${type}/${item.id}`, {}, {
+            let id = item.attributes.playParams.catalogId ? item.attributes.playParams.catalogId : item.id
+            if (id.startsWith("i.")) {
+                if(!type.startsWith("library-")) {
+                    type = "library-" + type
+                }
+            }
+            this.mk.api.v3.music(`/v1/me/ratings/${type}/${id}`, {}, {
                 fetchOptions:
                     {
                         method: "PUT",
@@ -2624,7 +2630,13 @@ const app = new Vue({
         },
         dislike(item) {
             let type = item.type.slice(-1) === "s" ? item.type : item.type + "s"
-            this.mk.api.v3.music(`/v1/me/ratings/${type}/${item.id}`, {}, {
+            let id = item.attributes.playParams.catalogId ? item.attributes.playParams.catalogId : item.id
+            if (id.startsWith("i.")) {
+                if(!type.startsWith("library-")) {
+                    type = "library-" + type
+                }
+            }
+            this.mk.api.v3.music(`/v1/me/ratings/${type}/${id}`, {}, {
                 fetchOptions:
                     {
                         method: "PUT",
@@ -2641,7 +2653,13 @@ const app = new Vue({
         },
         unlove(item) {
             let type = item.type.slice(-1) === "s" ? item.type : item.type + "s"
-            this.mk.api.v3.music(`/v1/me/ratings/${type}/${item.id}`, {}, {
+            let id = item.attributes.playParams.catalogId ? item.attributes.playParams.catalogId : item.id
+            if (id.startsWith("i.")) {
+                if(!type.startsWith("library-")) {
+                    type = "library-" + type
+                }
+            }
+            this.mk.api.v3.music(`/v1/me/ratings/${type}/${id}`, {}, {
                 fetchOptions:
                     {
                         method: "DELETE",
