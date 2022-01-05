@@ -3443,7 +3443,10 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
       .lyric-line {
         pointer-events: none;
         font-weight: 500;
-        font-size: 1.6em;
+        font-size: 2em;
+        transform-origin: center;
+        animation: fsLyricIn var(--appleEase) .2s;
+        opacity: 0.9;
         text-shadow:
                   -1px -1px 0 #000,
                   0   -1px 0 #000,
@@ -3466,6 +3469,17 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
         }
       }
     }
+  }
+}
+
+@keyframes fsLyricIn {
+  0% {
+      opacity: 0;
+      transform: scale(0.98)
+  }
+  100% {
+      opacity: 1;
+      transform: scale(1);
   }
 }
 
