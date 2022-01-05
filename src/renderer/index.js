@@ -2591,8 +2591,11 @@ const app = new Vue({
         },
         async getRating(item) {
             let type = item.type.slice(-1) === "s" ? item.type : item.type + "s"
+            // if item.id starts with "i." put "library-" in front of the type if type does not already have that
             if (item.id.startsWith("i.")) {
-                type = "library-" + type
+                if(!type.startsWith("library-")) {
+                    type = "library-" + type
+                }
             }
             let response = await this.mk.api.v3.music(`/v1/me/ratings/${type}?platform=web&ids=${item.id}`)
             if(response.data.data.length != 0) {
