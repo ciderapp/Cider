@@ -2589,9 +2589,13 @@ const app = new Vue({
         },
         volumeWheel(event) {
             if (event.deltaY < 0) {
-                this.mk.volume += 0.1;
+                if(this.mk.volume < 1){
+                    this.mk.volume += 0.1
+                }
             } else if (event.deltaY > 0) {
-                this.mk.volume -= 0.1;
+                if(this.mk.volume > 0){
+                    this.mk.volume -= 0.1
+                }
             }
         },
         async apiCall(url, callback) {
