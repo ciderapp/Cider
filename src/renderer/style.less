@@ -3846,6 +3846,13 @@ input[type=checkbox][switch]:checked:active::before {
 }
 
 body.no-gpu {
+  --ciderShadow-Generic: var(--mediaItemShadow);
+  --mediaItemShadow-Shadow: var(--mediaItemShadow);
+  --mediaItemShadow-ShadowSubtle: var(--mediaItemShadow);
+
+  .bg-artwork-container {
+    display: none;
+  }
   #navigation-bar {
     backdrop-filter: unset;
     mix-blend-mode: unset;
@@ -3873,5 +3880,15 @@ body.no-gpu {
   .wpfade-enter,
   .wpfade-leave-to {
     opacity: 0;
+  }
+
+  .drawertransition-enter-active,
+  .drawertransition-leave-active {
+    transition: right 0s var(--appleEase);
+  }
+
+  .drawertransition-enter,
+  .drawertransition-leave-to {
+    right: -300px;
   }
 }
