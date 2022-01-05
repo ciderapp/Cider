@@ -132,7 +132,7 @@
                 await this.isInLibrary()
                 if (app.selectedMediaItems.length <= 1) {
                     app.selectedMediaItems = []
-                    app.select_selectMediaItem(this.item.attributes.playParams.id ?? this.item.id, this.item.attributes.playParams.kind ?? this.item.type, this.index, this.guid)
+                    app.select_selectMediaItem(this.item.attributes.playParams.id ?? this.item.id, this.item.attributes.playParams.kind ?? this.item.type, this.index, this.guid, this.item.attributes.playParams.isLibrary ?? false)
                 } else {
                     useMenu = "multiple"
                 }
