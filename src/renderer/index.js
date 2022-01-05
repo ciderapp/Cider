@@ -2394,6 +2394,27 @@ const app = new Vue({
                 self.search.resultsSocial = results
             })
         },
+        async inLibrary(items = []) {
+            let types = []
+
+            for (let item of items) {
+                let type = item.type
+                if (type.slice(-1) != "s") {
+                    type += "s"
+                }
+                let id = item.playParams.catalogId ? item.playParams.catalogId : item.id
+
+                let index = types.findIndex(function (type) {
+                    return type.type == this
+                }, type)
+                if (index == -1) {
+                    types.push({type: type, id: [id]})
+                } else {
+                    types[index].id.push(id)
+                }
+            }
+            return await this.mk.api.catalogResources(types, {"omit[resource]": "autos", relate: "library", fields: "inLibrary"})
+        },
         isInLibrary(playParams) {
             let self = this
             let id = ""
@@ -2680,7 +2701,7 @@ const app = new Vue({
             } else if (event.deltaY > 0) {
                 if(this.mk.volume > 0){
                     if (this.mk.volume >= 0.1){
-                    this.mk.volume -= 0.1 
+                    this.mk.volume -= 0.1
                     } else {this.mk.volume = 0}
                 }
             }
@@ -2739,10 +2760,10 @@ const app = new Vue({
             let item_id = this.mk.nowPlayingItem.attributes.playParams.id ?? this.mk.nowPlayingItem.id
             let isLibrary = this.mk.nowPlayingItem.attributes.playParams.isLibrary ?? false
             let params = {"fields[songs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library", "t": "1"}
-            // let res = await app.mkapi(data_type, isLibrary , item_id, params); 
+            // let res = await app.mkapi(data_type, isLibrary , item_id, params);
             // if (res && res.relationships && res.relationships.library && res.relationships.library.data && res.relationships.library.data.length > 0) {
             //     item_id = res.relationships.library.data[0].id
-            // }  
+            // }
             app.selectedMediaItems = []
             app.select_selectMediaItem(item_id, data_type, 0, '12344', isLibrary)
             let useMenu = "normal"
@@ -2759,7 +2780,9 @@ const app = new Vue({
                             }
                         },
                         {
+                            "id": "addToLibrary",
                             "name": "Add to Library...",
+                            "disabled": false,
                             "action": function () {
                                 app.addToLibrary(item_id);
                                 //   if (!isLibrary)  {app.addToLibrary(item_id); this.mk.nowPlayingItem.attributes.playParams["isLibrary"] = true} else { app.removeFromLibrary(data_type,item_id); this.mk.nowPlayingItem.attributes.playParams["isLibrary"] = false};
@@ -2815,6 +2838,16 @@ const app = new Vue({
                     menus.normal.items = menus.normal.items.concat(this.contextExt.normal)
                 }
             }
+            // isLibrary = await app.inLibrary([this.mk.nowPlayingItem])
+            // console.warn(isLibrary)
+            // if(isLibrary.length != 0) {
+            //     if (isLibrary[0].attributes.inLibrary) {
+            //         menus.normal.items.find(x => x.id == "addToLibrary").disabled = true
+            //     }
+            // }else{
+            //     menus.normal.items.find(x => x.id == "addToLibrary").disabled = true
+            // }
+
             let rating = await app.getRating(app.mk.nowPlayingItem)
             if(rating == 0) {
                 menus.normal.items.find(x => x.id == 'love').disabled = false
