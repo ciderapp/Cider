@@ -12,7 +12,7 @@ const configDefaults = {
         "close_behavior": 0, // 0 = close, 1 = minimize, 2 = minimize to tray
         "startup_behavior": 0, // 0 = nothing, 1 = open on startup
         "discord_rpc": 1, // 0 = disabled, 1 = enabled as Cider, 2 = enabled as Apple Music
-        "discordClearActivityOnPause": 0, // 0 = disabled, 1 = enabled
+        "discordClearActivityOnPause": 1, // 0 = disabled, 1 = enabled
         "volume": 1
     },
     "home": {
@@ -52,7 +52,7 @@ const configDefaults = {
         "animated_artwork_qualityLevel": 1,
         "bg_artwork_rotation": false,
         "hw_acceleration": "default", // default, webgpu, disabled
-        "window_transparency": "default"
+        "window_transparency": "disabled"
     },
     "lyrics": {
         "enable_mxm": false,
