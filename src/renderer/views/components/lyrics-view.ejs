@@ -42,16 +42,15 @@
 <script>
     Vue.component('lyrics-view', {
         template: '#lyrics-view',
-        props: ["time", "lyrics", "richlyrics", "translation", "onindex"],
+        props: ["time", "lyrics", "richlyrics", "translation", "onindex", "yoffset"],
         data: function () {
             return {
                 app: this.$root,
             }
         },
-        watch: {
-
+        watch: {         
             time: function () {
-                if (app.lyricon && app.drawer.open && this.$refs.lyricsview) {
+                if (((app.lyricon && app.drawer.open) || app.appMode == 'fullscreen') && this.$refs.lyricsview) {
                     let currentLine = this.$refs.lyricsview.querySelector(`.lyric-line.active`)
                     if (currentLine && currentLine.getElementsByClassName('lyricWaiting').length > 0) {
                         let duration = currentLine.getAttribute("end") - currentLine.getAttribute("start");
@@ -119,17 +118,16 @@
                 if(startTime != 9999999) this.app.seekTo(startTime, false);
             },
             getActiveLyric() {
-             //   console.log(this.time);
                 const delayfix = 0.1
                 const prevLine = app.currentLyricsLine;
                 for (var i = 0; i < this.lyrics.length; i++) {
                     if (this.time + delayfix >= this.lyrics[i].startTime && this.time + delayfix <= app.lyrics[i].endTime) {
                         if (app.currentLyricsLine != i) {
                             app.currentLyricsLine = i;
-                            if (app.lyricon && app.drawer.open && this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${i}"]`)) {
+                            if (((app.lyricon && app.drawer.open) || app.appMode == 'fullscreen') && this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${i}"]`)) {
                                if(this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${prevLine}"]`)) {this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${prevLine}"]`).classList.remove("active");}
                                 this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${i}"]`).classList.add("active")
-                                if (checkIfScrollIsStatic) {
+                                if (this.checkIfScrollIsStatic) {
                                     let lyricElement = this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${i}"]`)
                                     // this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${i}"]`).scrollIntoView({
                                     //     behavior: "smooth",
@@ -149,12 +147,12 @@
                                     let scrollTop = parent.scrollTop + scrollTopDiff
                                     let scrollLeft = parent.scrollLeft + scrollLeftDiff
                                     parent.scrollTo({
-                                        top: scrollTop - 128,
+                                        top: scrollTop - (this.yoffset ?? 128),
                                         left: scrollLeft,
                                         behavior: 'smooth'
                                     })
 
-                                }
+                                } 
                             }
                         } else if (app.currentLyricsLine == 0 && app.drawer.open) {
                             if (this.$refs.lyricsview.querySelector(`.lyric-line[line-index="0"]`) && !this.$refs.lyricsview.querySelector(`.lyric-line[line-index="0"]`).classList.contains("active"))
@@ -164,7 +162,7 @@
                     }
                 }
                 try{
-                        if (app.drawer.open){
+                    if ((app.drawer.open) || app.appMode == 'fullscreen'){ 
                         try{this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${prevLine}"]`).childNodes.classList.remove("verse-active");} catch(e){}
                                 for (child of this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${app.currentLyricsLine}"]`).querySelectorAll(".verse")){
                                     if (this.time + 0.1 >= child.getAttribute("lyricstart") * 1 + child.getAttribute("versestart") * 1){
@@ -184,7 +182,18 @@
                     return this.richlyrics[index].l
                 }
                 else return []
+            },
+            checkIfScrollIsStatic : setInterval(() => {
+            try {
+                if (position === this.$refs.lyricsview.scrollTop) {
+                    clearInterval(checkIfScrollIsStatic)
+                    // do something
+                }
+                position = this.$refs.lyricsview.scrollTop
+            } catch (e) {
             }
+            }, 50)
+            ,
         }
     });    
 </script>

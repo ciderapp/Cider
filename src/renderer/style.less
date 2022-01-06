@@ -3567,16 +3567,149 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     flex-grow: 1;
   }
 
+  .right-col{
+    height: 50vh;
+  }
+
+  .lyrics-col{
+    width: 60vh;
+    height: 50vh;
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    &:hover ::-webkit-scrollbar {
+      display: unset;
+    }
+  }    
+
   .artwork-col {
     justify-content: center;
     align-items: center;
     display: flex;
+    flex-direction: column;
 
     .artwork {
       width: 50vh;
       height: 50vh;
     }
-  }
+
+    .controls-parents{
+      width: 50vh;
+    }
+
+    .app-playback-controls  {
+      .song-artist , .song-name {
+        font-weight: 600;
+        text-align: center;
+        font-size: 0.9em;
+        margin-top: 0.25vh;
+        height: 0.9em;
+        line-height: 0.9em;
+        overflow: hidden;
+        max-width: 360px;
+      
+        .song-name-normal {
+          height: inherit;
+        }
+      
+        &.song-artist-marquee {
+          > marquee {
+            //margin-bottom: -3px;
+          }
+        }
+      }
+      .song-artist {
+        font-size: 0.875em;
+      }
+    }
+
+    .app-playback-controls .playback-info {
+      margin-top: 0.5vh;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      position: relative;
+
+      input[type="range"] {
+        width: 100%;
+      }
+      >div {
+        width: 100%;
+        text-align: center;
+      }
+
+
+    }
+
+    .app-playback-controls .song-progress {
+      @bgColor: transparent;
+      //height: 16px;
+      position: absolute;
+      bottom: -2.5vh;
+      left: 0px;
+      background: @bgColor;
+
+      .song-duration p {
+        font-weight: 400;
+        font-size: 10px;
+        height: 1.2em;
+        line-height: 1.3em;
+        overflow: hidden;
+        margin: 0 0 0.5em;
+      }
+    
+      &:hover {
+        > input[type=range] {
+          &::-webkit-slider-thumb {
+            opacity: 1;
+            transform: scale(1);
+            z-index: 1;
+          }
+        }
+      }
+    
+      > input[type=range] {
+        appearance: none;
+        width: 100%;
+        height: 4px;
+        background-color: rgb(200 200 200 / 10%);
+        border-radius: 2px;
+    
+        &::-webkit-slider-thumb {
+          opacity: 0;
+          transform: scale(0.5);
+          -webkit-appearance: none;
+          appearance: none;
+          width: 12px;
+          height: 12px;
+          border-radius: 100%;
+          background: var(--keyColor);
+          cursor: default;
+          transition: opacity .10s var(--appleEase), transform .10s var(--appleEase);
+        }
+    
+        &::-moz-range-thumb {
+          width: 8px;
+          height: 8px;
+          border-radius: 100%;
+          background: var(--keyColor);
+          cursor: default;
+        }
+      }
+    }
+
+    .control-buttons {
+      margin-top: 2vh;
+      display: inline-flex;
+      width: 100%;
+      justify-content: center;
+    }
+    
+  } 
 }
 
 /* Cider */

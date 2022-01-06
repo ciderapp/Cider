@@ -232,6 +232,7 @@ const app = new Vue({
         mkIsReady: false,
         playerReady: false,
         animateBackground: false,
+        currentArtUrl: '',
         lyricon: false,
         currentTrackID: '',
         currentTrackIDBG: '',
@@ -587,6 +588,7 @@ const app = new Vue({
                 self.chrome.artworkReady = false
                 self.lyrics = []
                 self.richlyrics = []
+                app.getCurrentArtURL();
                 app.getNowPlayingArtwork(42);
                 app.getNowPlayingArtworkBG(32);
                 app.loadLyrics()
@@ -2527,6 +2529,7 @@ const app = new Vue({
                 }
             }, 200)
         },
+
         getNowPlayingArtwork(size = 600) {
             if (typeof this.mk.nowPlayingItem === "undefined") return;
             let interval = setInterval(() => {
@@ -2537,7 +2540,7 @@ const app = new Vue({
                         if (document.querySelector('.app-playback-controls .artwork') != null) {
                             clearInterval(interval);
                         }
-                        if (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"]) {
+                        if (app.mk.nowPlayingItem.attributes.artwork != null && app.mk.nowPlayingItem.attributes.artwork.url != null && app.mk.nowPlayingItem.attributes.artwork.url!= '' ) {
                             document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${decodeURI((this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"])).replace('{w}', size).replace('{h}', size)}")`);
                             try {
                                 clearInterval(interval);
@@ -2566,6 +2569,21 @@ const app = new Vue({
             }, 200)
 
 
+        },
+        async getCurrentArtURL(){
+            try{
+                this.currentArtUrl = '';
+                if (app.mk.nowPlayingItem != null && app.mk.nowPlayingItem.attributes != null && app.mk.nowPlayingItem.attributes.artwork != null && app.mk.nowPlayingItem.attributes.artwork.url != null && app.mk.nowPlayingItem.attributes.artwork.url!= '' ) 
+                {this.currentArtUrl = (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"] ?? '').replace('{w}', 50).replace('{h}', 50);
+                } else {
+                    let data = await this.mk.api.library.song(this.mk.nowPlayingItem.id);
+                    if (data != null && data !== "" && data.attributes != null && data.attributes.artwork != null) {
+                        this.currentArtUrl = (data["attributes"]["artwork"]["url"] ?? '').replace('{w}', 50).replace('{h}', 50);;
+                    } else {this.currentArtUrl = ''}
+                }
+            }catch(e){
+
+            }
         },
         async setLibraryArt() {
             if (typeof this.mk.nowPlayingItem === "undefined") return;

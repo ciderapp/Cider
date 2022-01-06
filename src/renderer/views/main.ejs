@@ -69,7 +69,9 @@
                         <template v-if="mkReady()">
                             <div class="app-playback-controls" @mouseover="chrome.progresshover = true"
                                  @mouseleave="chrome.progresshover = false" @contextmenu="nowPlayingContextMenu">
-                                <div class="artwork"></div>
+                                <div class="artwork" @click="drawer.open = false; appMode = 'fullscreen'">
+                                    <img class="small" :url="currentArtUrl"></img>
+                                </div>
                                 <div class="playback-info">
                                     <div class="song-name">
                                         {{ mk.nowPlayingItem["attributes"]["name"] }}
@@ -466,7 +468,7 @@
     </transition>
     <transition name="fsModeSwitch">
         <div class="fullscreen-view-container" v-if="appMode == 'fullscreen'">
-            <fullscreen-view></fullscreen-view>
+            <fullscreen-view :image="currentArtUrl.replace('50x50', '600x600')" :time="lyriccurrenttime" :lyrics="lyrics" :richlyrics="richlyrics"></fullscreen-view>
         </div>
     </transition>
     <transition name="wpfade">

@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="info-rect" :class="{'info-rect-card': kind == 'card'}" :style="{'--bgartwork': getArtworkUrl(size, true)}">
-                <div class="title" v-if="item.attributes.artistNames == null || kind!= 'card'" @click.self='app.routeView(item)'>
+                <div class="title" v-if="item.attributes.artistNames == null || kind!= 'card'" @click='app.routeView(item)'>
                     <div class="item-navigate text-overflow-elipsis">{{ item.attributes.name }}</div>
                     <div v-if="item.attributes && item.attributes.contentRating == 'explicit'" style= "margin-top: -2.6px;margin-left: 3px;">🅴</div> 
                 </div>       
