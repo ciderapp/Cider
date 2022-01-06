@@ -26,15 +26,17 @@
                     </div>
                 </div>
             </div>
-            <div class="title" v-if="item.attributes.artistNames == null || kind!= 'card'" @click.self='app.routeView(item)'>
-                <div class="item-navigate text-overflow-elipsis">{{ item.attributes.name }}</div>
-                <div v-if="item.attributes && item.attributes.contentRating == 'explicit'" style= "margin-top: -2.6px;margin-left: 3px;">🅴</div> 
-            </div>       
-            <div class="subtitle item-navigate text-overflow-elipsis" @click="getSubtitleNavigation()"
-                 v-if="getSubtitle() != ''">
-                {{ getSubtitle() }}
+            <div class="info-rect" :class="{'info-rect-card': kind == 'card'}" :style="{'--bgartwork': getArtworkUrl(size, true)}">
+                <div class="title" v-if="item.attributes.artistNames == null || kind!= 'card'" @click.self='app.routeView(item)'>
+                    <div class="item-navigate text-overflow-elipsis">{{ item.attributes.name }}</div>
+                    <div v-if="item.attributes && item.attributes.contentRating == 'explicit'" style= "margin-top: -2.6px;margin-left: 3px;">🅴</div> 
+                </div>       
+                <div class="subtitle item-navigate text-overflow-elipsis" @click="getSubtitleNavigation()"
+                     v-if="getSubtitle() != ''">
+                    {{ getSubtitle() }}
+                </div>
+                <div class="subtitle" v-if="getSubtitle() == '' && kind != 'card'">&nbsp;</div>
             </div>
-            <div class="subtitle" v-if="getSubtitle() == '' && kind != 'card'">&nbsp;</div>
         </template>
     </div>
 </script>
@@ -192,14 +194,21 @@
                     (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
                 );
             },
-            getArtworkUrl() {
+            getArtworkUrl(size = -1, includeUrl = false) {
                 let artwork = this.item.attributes.artwork ? this.item.attributes.artwork.url : ''
+                if(size != -1) {
+                    artwork = artwork.replace('{w}', size).replace('{h}', size).replace('{f}', "webp").replace('{c}', ((size === 900) ? "sr" : "cc"))
+                }
                 switch (this.kind) {
                     case "385":
                         artwork = this.item.attributes.editorialArtwork.subscriptionHero.url
                         break;
                 }
-                return artwork
+                if(!includeUrl) {
+                    return artwork
+                }else{
+                    return `url("${artwork}")`
+                }
             },
             getClasses() {
                 let type = this.item.type

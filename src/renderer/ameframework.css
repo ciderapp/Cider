@@ -98,60 +98,7 @@ input[type=range].md-slider::-webkit-slider-runnable-track {
 }
 
 
-.md-close-btn {
-    -webkit-mask-image: url("ameres://icons/webui/close.svg");
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    background-color: white;
-    opacity: 0.75;
-    -webkit-mask-size: contain;
-    height: 18px;
-    width: 18px;
-}
 
-.md-btn {
-    background: rgba(100, 100, 100, 0.5);
-    padding: 8px 16px;
-    border-radius: 4px;
-    font-size: 15px;
-    border: 1px solid rgb(100 100 100 / 35%);
-    color: #eee;
-    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.3), 0px 1px 1px rgba(0, 0, 0, 0.4);
-}
-
-.md-btn.md-btn-block {
-    display: block;
-}
-
-.md-btn:active {
-    filter: brightness(75%);
-}
-
-.md-select {
-    padding: 5px 10px;
-    font-size: 1em;
-    font-family: inherit;
-    border-radius: 4px;
-    border: 1px solid rgb(100 100 100 / 35%);
-    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.3), 0px 1px 1px rgba(0, 0, 0, 0.4);
-    background: #363636;
-    color: #eee;
-}
-
-.md-select:focus {
-    outline: none;
-}
-
-.md-select > option {
-    font-size: 1em;
-    font-family: inherit;
-    padding: 8px 16px;
-}
-
-.md-btn.md-btn-primary {
-    background: var(--keyColor);
-    color: white;
-}
 
 .md-transparent {
     background: transparent;
