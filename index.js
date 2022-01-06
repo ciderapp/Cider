@@ -2,7 +2,9 @@ require('v8-compile-cache');
 const {app, components} = require('electron'),
     {resolve, join} = require("path"),
     CiderBase = require('./src/main/cider-base');
-var componentsFail = false;
+
+const comps = components;
+
 // Analytics for debugging.
 const ElectronSentry = require("@sentry/electron");
 ElectronSentry.init({dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.ingest.sentry.io/6112214"});
@@ -128,41 +130,40 @@ function CreateWindow() {
 if (process.platform === "linux") {
     app.commandLine.appendSwitch('disable-features', 'MediaSessionService');
 }
-
+app.commandLine.appendSwitch('high-dpi-support', "1")
+app.commandLine.appendSwitch('force-device-scale-factor', "1")
+app.commandLine.appendSwitch('disable-pinch');
+// app.commandLine.appendSwitch('js-flags', '--max-old-space-size=1024')
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * App Event Handlers
 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-// app.commandLine.appendSwitch('js-flags', '--max-old-space-size=1024')
+app.whenReady().then(async () => {
+    if (comps == null) {
+        app.on("widevine-ready", () => {
+            console.log('[Cider] Application is Ready. Creating Window.')
+            if (!app.isPackaged) {
+                console.info('[Cider] Running in development mode.')
+                require('vue-devtools').install()
+            }
+            CreateWindow()
+        })
+        return
+    }
+    await comps.whenReady();
+    console.log('components ready:', comps.status());
 
-app.on('ready', () => {
-    app.whenReady().then(async () => {
-        if (components != null) {
-            try{    
-                await components.whenReady().catch(e => {console.log(`component ready fail:`, e); componentsFail = true});
-                console.log('components ready:', components.status());
-                if (app.isQuiting) {
-                    app.quit();
-                    return;
-                }
-                app.commandLine.appendSwitch('high-dpi-support', 1)
-                app.commandLine.appendSwitch('force-device-scale-factor', 1)
-                app.commandLine.appendSwitch('disable-pinch');
+    console.log('[Cider] Application is Ready. Creating Window.')
+    if (!app.isPackaged) {
+        console.info('[Cider] Running in development mode.')
+        require('vue-devtools').install()
+    }
+    CreateWindow()
+})
 
-                console.log('[Cider] Application is Ready. Creating Window.')
-                if (!app.isPackaged) {
-                    console.info('[Cider] Running in development mode.')
-                    require('vue-devtools').install()
-                }
-                CreateWindow()      
-            } catch (e) {componentsFail = true}
-        } else {componentsFail = true}
-    })
-});
 
-app.on('before-quit', () => {s
-    app.isQuiting = true;
+app.on('before-quit', () => {
     console.warn(`${app.getName()} exited.`);
 });
 
@@ -172,23 +173,6 @@ app.on('widevine-ready', (version, lastVersion) => {
         console.log('[Cider][Widevine] Widevine ' + version + ', upgraded from ' + lastVersion + ', is ready to be used!')
     } else {
         console.log('[Cider][Widevine] Widevine ' + version + ' is ready to be used!')
-    }
-
-    if(componentsFail){
-        if (app.isQuiting) {
-            app.quit();
-            return;
-        }
-        app.commandLine.appendSwitch('high-dpi-support', 1)
-        app.commandLine.appendSwitch('force-device-scale-factor', 1)
-        app.commandLine.appendSwitch('disable-pinch');
-    
-        console.log('[Cider] Application is Ready. Creating Window.')
-        if (!app.isPackaged) {
-            console.info('[Cider] Running in development mode.')
-            require('vue-devtools').install()
-        }
-        CreateWindow()
     }
 })
 
