@@ -1,6 +1,6 @@
 require('v8-compile-cache');
 const {app, components} = require('electron'),
-    {resolve} = require("path"),
+    {resolve, join} = require("path"),
     CiderBase = require('./src/main/cider-base');
 
 // Analytics for debugging.
@@ -27,8 +27,8 @@ const configDefaults = {
         "spatial_properties": {
             "presets": [],
             "gain": 0.8,
-            "listener_position": [0,0,0],
-            "audio_position": [0,0,0],
+            "listener_position": [0, 0, 0],
+            "audio_position": [0, 0, 0],
             "room_dimensions": {
                 "width": 32,
                 "height": 12,
@@ -75,15 +75,13 @@ const configDefaults = {
 const merge = (target, source) => {
     // Iterate through `source` properties and if an `Object` set property to merge of `target` and `source` properties
     for (const key of Object.keys(source)) {
-      if (source[key] instanceof Object) Object.assign(source[key], merge(target[key], source[key]))
+        if (source[key] instanceof Object) Object.assign(source[key], merge(target[key], source[key]))
     }
     // Join `target` and modified `source`
     Object.assign(target || {}, source)
     return target
-  }
+}
 
-// Enable WebGPU and list adapters (EXPERIMENTAL.)
-// Note: THIS HAS TO BE BEFORE ANYTHING GETS INITIALIZED.
 
 const Store = require("electron-store");
 app.cfg = new Store({
@@ -92,6 +90,11 @@ app.cfg = new Store({
 let currentCfg = app.cfg.get()
 app.cfg.set(merge(configDefaults, currentCfg))
 
+app.paths = {
+    ciderCache: resolve(app.getPath("userData"), "CiderCache"),
+    themes: resolve(app.getPath("userData"), "Themes"),
+    plugins: resolve(app.getPath("userData"), "Plugins"),
+}
 
 switch (app.cfg.get("visual.hw_acceleration")) {
     default:

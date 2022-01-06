@@ -8,7 +8,8 @@ const os = require('os');
 const yt = require('youtube-search-without-api-key');
 const discord = require('./discordrpc');
 const lastfm = require('./lastfm');
-const { writeFile } = require('fs');
+const { writeFile, writeFileSync, existsSync, mkdirSync } = require('fs');
+const fs = require('fs');
 const mpris = require('./mpris');
 const mm = require('music-metadata');
 const fetch = require('electron-fetch').default;
@@ -28,6 +29,7 @@ const CiderBase = {
     },
     clientPort: 0,
     CreateBrowserWindow() {
+        this.VerifyFiles()
         // Set default window sizes
         const mainWindowState = windowStateKeeper({
             defaultWidth: 1024,
@@ -130,6 +132,51 @@ const CiderBase = {
         // IPC stuff (listeners)
         ipcMain.on('close', () => { // listen for close event
             win.close();
+        })
+
+        ipcMain.on('put-library-songs', (event, arg) => {
+            fs.writeFileSync(join(app.paths.ciderCache, "library-songs.json"), JSON.stringify(arg))
+        })
+
+        ipcMain.on('put-library-artists', (event, arg) => {
+            fs.writeFileSync(join(app.paths.ciderCache, "library-artists.json"), JSON.stringify(arg))
+        })
+
+        ipcMain.on('put-library-albums', (event, arg) => {
+            fs.writeFileSync(join(app.paths.ciderCache, "library-albums.json"), JSON.stringify(arg))
+        })
+
+        ipcMain.on('put-library-playlists', (event, arg) => {
+            fs.writeFileSync(join(app.paths.ciderCache, "library-playlists.json"), JSON.stringify(arg))
+        })
+
+        ipcMain.on('put-library-recentlyAdded', (event, arg) => {
+            fs.writeFileSync(join(app.paths.ciderCache, "library-recentlyAdded.json"), JSON.stringify(arg))
+        })
+
+        ipcMain.on('get-library-songs', (event) => {
+            let librarySongs = fs.readFileSync(join(app.paths.ciderCache, "library-songs.json"), "utf8")
+            event.returnValue = JSON.parse(librarySongs)
+        })
+
+        ipcMain.on('get-library-artists', (event) => {
+            let libraryArtists = fs.readFileSync(join(app.paths.ciderCache, "library-artists.json"), "utf8")
+            event.returnValue = JSON.parse(libraryArtists)
+        })
+
+        ipcMain.on('get-library-albums', (event) => {
+            let libraryAlbums = fs.readFileSync(join(app.paths.ciderCache, "library-albums.json"), "utf8")
+            event.returnValue = JSON.parse(libraryAlbums)
+        })
+
+        ipcMain.on('get-library-playlists', (event) => {
+            let libraryPlaylists = fs.readFileSync(join(app.paths.ciderCache, "library-playlists.json"), "utf8")
+            event.returnValue = JSON.parse(libraryPlaylists)
+        })
+
+        ipcMain.on('get-library-recentlyAdded', (event) => {
+            let libraryRecentlyAdded = fs.readFileSync(join(app.paths.ciderCache, "library-recentlyAdded.json"), "utf8")
+            event.returnValue = JSON.parse(libraryRecentlyAdded)
         })
 
         ipcMain.handle('getYTLyrics', async (event, track, artist) => {
@@ -258,7 +305,29 @@ const CiderBase = {
 
         return win
     },
-
+    VerifyFiles() {
+        const expectedDirectories = [
+            "CiderCache"
+        ]
+        const expectedFiles = [
+            "library-songs.json",
+            "library-artists.json",
+            "library-albums.json",
+            "library-playlists.json",
+            "library-recentlyAdded.json",
+        ]
+        for (let i = 0; i < expectedDirectories.length; i++) {
+            if (!existsSync(path.join(app.getPath("userData"), expectedDirectories[i]))) {
+                mkdirSync(path.join(app.getPath("userData"), expectedDirectories[i]))
+            }
+        }
+        for (let i = 0; i < expectedFiles.length; i++) {
+            const file = path.join(app.paths.ciderCache, expectedFiles[i])
+            if (!existsSync(file)) {
+                writeFileSync(file, JSON.stringify([]))
+            }
+        }
+    },
     EnvironmentVariables: {
         "env": {
             platform: os.platform(),

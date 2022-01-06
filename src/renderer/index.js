@@ -103,10 +103,10 @@ Array.prototype.limit = function (n) {
 const store = new Vuex.Store({
     state: {
         library: {
-            songs: [],
-            albums: [],
-            recentlyAdded: [],
-            playlists: []
+            songs: ipcRenderer.sendSync("get-library-songs"),
+            albums: ipcRenderer.sendSync("get-library-albums"),
+            recentlyAdded: ipcRenderer.sendSync("get-library-recentlyAdded"),
+            playlists: ipcRenderer.sendSync("get-library-playlists")
         },
         artwork: {
             playerLCD: ""
@@ -2856,6 +2856,7 @@ const app = new Vue({
                     menus.normal.items = menus.normal.items.concat(this.contextExt.normal)
                 }
             }
+
             // isLibrary = await app.inLibrary([this.mk.nowPlayingItem])
             // console.warn(isLibrary)
             // if(isLibrary.length != 0) {
