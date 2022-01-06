@@ -26,10 +26,11 @@
                     </div>
                 </div>
             </div>
-            <div class="title item-navigate text-overflow-elipsis" v-if="item.attributes.artistNames == null" @click.self='app.routeView(item)'>
-                {{ item.attributes.name }}
-            </div>
-            <div class="subtitle item-navigate text-overflow-elipsis" @click="app.searchAndNavigate(item,'artist')"
+            <div class="title" v-if="item.attributes.artistNames == null || kind!= 'card'" @click.self='app.routeView(item)'>
+                <div class="item-navigate text-overflow-elipsis">{{ item.attributes.name }}</div>
+                <div v-if="item.attributes && item.attributes.contentRating == 'explicit'" style= "margin-top: -2.6px;margin-left: 3px;">🅴</div> 
+            </div>       
+            <div class="subtitle item-navigate text-overflow-elipsis" @click="getSubtitleNavigation()"
                  v-if="getSubtitle() != ''">
                 {{ getSubtitle() }}
             </div>
@@ -112,6 +113,29 @@
                         return this.item.attributes.artistName
                     } else {
                         return ''
+                    }
+                }
+            },
+            getSubtitleNavigation() {
+                if(this.kind == 'card') {
+                    try {
+                        if (typeof this.item.attributes.artistNames != "undefined") {
+                            return app.routeView(this.item)
+                        } else if (typeof this.item.attributes.editorialNotes != "undefined") {
+                            return app.routeView(this.item)
+                        } else if (typeof this.item.attributes.artistName != "undefined") {
+                            return app.searchAndNavigate(this.item,'artist')
+                        } else {
+                            return app.routeView(this.item)
+                        }
+                    }catch(e) {
+                        return app.routeView(this.item)
+                    }
+                }else {
+                    if (typeof this.item.attributes.artistName != "undefined") {
+                        return app.searchAndNavigate(this.item,'artist')
+                    } else {
+                        return app.routeView(this.item)
                     }
                 }
             },
