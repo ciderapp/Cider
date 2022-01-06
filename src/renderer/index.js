@@ -1731,7 +1731,7 @@ const app = new Vue({
                         "fields[artists]": ["name", "url"],
                         "extend[stations]": ["airDate", "supportsAirTimeUpdates"],
                         "meta[stations]": "inflectionPoints",
-                        types: "artists,albums,editorial-items,library-albums,library-playlists,music-movies,music-videos,playlists,stations,uploaded-audios,uploaded-videos,activities,apple-curators,curators,tv-shows,social-profiles,social-upsells",
+                        types: "artists,albums,editorial-items,library-albums,library-playlists,music-movies,music-videos,playlists,stations,uploaded-audios,uploaded-videos,activities,apple-curators,curators,tv-shows,social-upsells",
                         platform: "web"
                     },
                     {
