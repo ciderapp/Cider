@@ -45,9 +45,9 @@
                         <div class="col-auto" v-if="data.views['latest-release'].data.length != 0">
                             <h3>Latest Release</h3>
                             <div style="width: auto;margin: 0 auto;">
-                                <mediaitem-square-sp v-for="song in data.views['latest-release'].data"
+                                <mediaitem-square kind="card" v-for="song in data.views['latest-release'].data"
                                                      :item="song">
-                                </mediaitem-square-sp>
+                                </mediaitem-square>
                             </div>
                         </div>
                         <div class="col" v-if="data.views['top-songs']">
