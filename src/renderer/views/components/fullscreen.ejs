@@ -73,7 +73,7 @@
                 </template>
                 </div>
             </div>
-            <div class="col right-col">
+            <div class="col right-col" v-if="tabMode != ''">
                 <!-- <div class="fs-info">
                     <div>Name</div>
                     <div>Name</div>
@@ -89,8 +89,8 @@
             </div>
         </div>
         <div class="tab-toggles">
-            <div class="lyrics" :class="{active: tabMode == 'lyrics'}" @click="tabMode = 'lyrics'"></div>
-            <div class="queue"  :class="{active: tabMode == 'queue'}" @click="tabMode = 'queue'"></div>
+            <div class="lyrics" :class="{active: tabMode == 'lyrics'}" @click="tabMode = (tabMode == 'lyrics') ? '' : 'lyrics'"></div>
+            <div class="queue"  :class="{active: tabMode == 'queue'}" @click="tabMode =  (tabMode == 'queue') ? '' :'queue'"></div>
         </div> 
     </div>
  
