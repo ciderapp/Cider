@@ -3583,6 +3583,33 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     height: 50vh;
   }
 
+  .background{
+    position: absolute;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+
+    .bgArtworkMaterial {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+  
+      .bg-artwork-container{
+        z-index: unset;
+      }
+      
+      .bg-artwork-container .bg-artwork {
+        filter: brightness(80%) saturate(69%) blur(180px) contrast(0.8) opacity(0.8);
+      }
+
+      .no-animation{
+        animation : unset;
+      }
+    }
+  }
+
+
+
   .lyrics-col{
 
     width: 60vh;
@@ -3602,6 +3629,11 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
       display: flex;
       justify-content: center;
     }
+
+    .lyric-line{
+      font-size: 35px;
+    }
+
   } 
 
   .queue-col{
@@ -3795,6 +3827,16 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     width: 100%;
     height: 100%;
     color: #aaa;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
   }
 }
 
