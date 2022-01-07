@@ -2856,7 +2856,7 @@ const app = new Vue({
                             }
                         },
                         {
-                            "icon": "./assets/feather/x-circle.svg",
+                            "icon": "./assets/feather/unheart.svg",
                             "id": "unlove",
                             "name": "Unlove",
                             "disabled": true,
