@@ -847,10 +847,10 @@ const app = new Vue({
             }
             await this.showCollection(responseFormat, title, "search")
         },
-        async getPlaylistContinuous(response) {
+        async getPlaylistContinuous(response, transient = false) {
             let self = this
             let playlistId = response.id
-            this.playlists.loadingState = 0
+            if (!transient) this.playlists.loadingState = 0
             this.showingPlaylist = response
             if (!response.relationships.tracks.next) {
                 this.playlists.loadingState = 1
@@ -874,7 +874,7 @@ const app = new Vue({
             getPlaylistTracks(response.relationships.tracks.next)
 
         },
-        async getPlaylistFromID(id) {
+        async getPlaylistFromID(id, transient = false) {
             let self = this
             const params = {
                 include: "tracks",
@@ -885,19 +885,18 @@ const app = new Vue({
                 "fields[catalog]": "artistUrl,albumUrl",
                 "fields[songs]": "artistUrl,albumUrl"
             }
-
-            this.playlists.loadingState = 0
+            if (!transient) {this.playlists.loadingState = 0;}
             let playlistId = ''
 
             try {
                 app.mk.api.library.playlist(id, params).then(res => {
-                    self.getPlaylistContinuous(res)
+                    self.getPlaylistContinuous(res, transient)
                 })
             } catch (e) {
                 console.log(e);
                 try {
                     app.mk.api.library.playlist(id, params).then(res => {
-                        self.getPlaylistContinuous(res)
+                        self.getPlaylistContinuous(res, transient)
                     })
                 } catch (err) {
                     console.log(err)
@@ -2296,6 +2295,26 @@ const app = new Vue({
                         app.mk.stop()
                     } catch (e) {
                     }
+                    if (truekind == "playlists" && (id.startsWith("p.") || id.startsWith("pl.u"))){
+                        app.mk.playNext({[item.attributes.playParams.kind ?? item.type]: item.attributes.playParams.id ?? item.id}).then(function () {
+                            app.mk.changeToMediaAtIndex(app.mk.queue._itemIDs.indexOf(item.id) ?? 1)
+                            app.mk.play().then(function(){
+                                app.mk.clearQueue().then(function () {
+                                    if ((app.showingPlaylist && app.showingPlaylist.id == id)) {
+                                        let query = app.showingPlaylist.relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
+                                        app.mk.queue.append(query)
+                                    } else {
+                                        app.getPlaylistFromID(id, true).then(function () {
+                                            let query = app.showingPlaylist.relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
+                                            app.mk.queue.append(query)
+                                        })
+                                    }
+                                })
+                            })
+                            
+                        })                       
+                    }
+                    else{
                     this.mk.setQueue({[truekind]: [id]}).then(function (queue) {
                         if (item && ((queue._itemIDs[childIndex] != item.id))) {
                             childIndex = queue._itemIDs.indexOf(item.id)
@@ -2310,7 +2329,7 @@ const app = new Vue({
                         } else {
                             app.mk.play()
                         }
-                    })
+                    })}
                 }
             } catch (err) {
                 console.log(err)
