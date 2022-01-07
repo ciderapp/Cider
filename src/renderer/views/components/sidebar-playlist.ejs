@@ -9,7 +9,7 @@
                 :href="item.href"
                 @click='$root.appRoute(`playlist_` + item.id); $root.showingPlaylist = [];$root.getPlaylistFromID($root.page.substring(9))'>
             <template v-if="!renaming">
-                {{ item.attributes.name }}
+                <div class="sidebar-icon" v-html="icon"></div> {{ item.attributes.name }}
             </template>
             <input type="text" v-model="item.attributes.name" class="pl-rename-field" @blur="rename()" @keydown.enter="rename()" v-else>
         </button>
@@ -53,8 +53,12 @@
                 folderOpened: false,
                 children: [],
                 playlistRoot: "p.playlistsroot",
-                renaming: false
+                renaming: false,
+                icon: ""
             }
+        },
+        async mounted() {
+            this.icon = await this.$root.getSvgIcon("./assets/feather/list.svg")
         },
         methods: {
             rename() {

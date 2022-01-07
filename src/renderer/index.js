@@ -311,6 +311,11 @@ const app = new Vue({
         },
     },
     methods: {
+        async getSvgIcon(url) {
+            let response = await fetch(url);
+            let data = await response.text();
+            return data;
+        },
         getSocialBadges(cb = () => {
         }) {
             let self = this
@@ -2929,10 +2934,34 @@ const app = new Vue({
 
 Vue.component('sidebar-library-item', {
     template: '#sidebar-library-item',
-    props: ['name', 'page', 'cd-click'],
+    props: {
+        name: {
+            type: String,
+            required: true
+        },
+        page: {
+            type: String,
+            required: true
+        },
+        svgIcon: {
+            type: String,
+            required: false,
+            default: ''
+        },
+        cdClick: {
+            type: Function,
+            required: false
+        }
+    },
     data: function () {
         return {
-            app: app
+            app: app,
+            svgIconData: ""
+        }
+    },
+    async mounted() {
+        if (this.svgIcon) {
+            this.svgIconData = await this.app.getSvgIcon(this.svgIcon)
         }
     },
     methods: {}
