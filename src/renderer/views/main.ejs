@@ -70,7 +70,7 @@
                             <div class="app-playback-controls" @mouseover="chrome.progresshover = true"
                                  @mouseleave="chrome.progresshover = false" @contextmenu="nowPlayingContextMenu">
                                 <div class="artwork" @click="drawer.open = false; appMode = 'fullscreen'">
-                                    <img class="small" :url="currentArtUrl"></img>
+                                    <mediaitem-artwork :url="currentArtUrl"></mediaitem-artwork>
                                 </div>
                                 <div class="playback-info">
                                     <div class="song-name">

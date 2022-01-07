@@ -597,7 +597,7 @@ const app = new Vue({
                 self.lyrics = []
                 self.richlyrics = []
                 app.getCurrentArtURL();
-                app.getNowPlayingArtwork(42);
+                // app.getNowPlayingArtwork(42); 
                 app.getNowPlayingArtworkBG(32);
                 app.loadLyrics();
 
@@ -2538,56 +2538,67 @@ const app = new Vue({
             }, 200)
         },
 
-        getNowPlayingArtwork(size = 600) {
-            if (typeof this.mk.nowPlayingItem === "undefined") return;
-            let interval = setInterval(() => {
+        // getNowPlayingArtwork(size = 600) {
+        //     if (typeof this.mk.nowPlayingItem === "undefined") return;
+        //     let interval = setInterval(() => {
 
-                try {
-                    if (this.mk.nowPlayingItem && this.mk.nowPlayingItem["id"] != this.currentTrackIDBG && document.querySelector('.app-playback-controls .artwork')) {
-                        this.currentTrackIDBG = this.mk.nowPlayingItem["id"];
-                        if (document.querySelector('.app-playback-controls .artwork') != null) {
-                            clearInterval(interval);
-                        }
-                        if (app.mk.nowPlayingItem.attributes.artwork != null && app.mk.nowPlayingItem.attributes.artwork.url != null && app.mk.nowPlayingItem.attributes.artwork.url!= '' ) {
-                            document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${decodeURI((this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"])).replace('{w}', size).replace('{h}', size)}")`);
-                            try {
-                                clearInterval(interval);
-                            } catch (err) {
-                            }
-                        } else {
-                            this.setLibraryArt()
-                        }
-                    } else if (this.mk.nowPlayingItem["id"] == this.currentTrackID) {
-                        try {
-                            clearInterval(interval);
-                        } catch (err) {
-                        }
-                    }
-                } catch (e) {
-                    if (this.mk.nowPlayingItem && this.mk.nowPlayingItem["id"] && document.querySelector('.app-playback-controls .artwork')) {
-                        this.setLibraryArt()
-                        try {
-                            clearInterval(interval);
-                        } catch (err) {
-                        }
+        //         try {
+        //             if (this.mk.nowPlayingItem && this.mk.nowPlayingItem["id"] != this.currentTrackIDBG && document.querySelector('.app-playback-controls .artwork')) {
+        //                 this.currentTrackIDBG = this.mk.nowPlayingItem["id"];
+        //                 if (document.querySelector('.app-playback-controls .artwork') != null) {
+        //                     clearInterval(interval);
+        //                 }
+        //                 if (app.mk.nowPlayingItem.attributes.artwork != null && app.mk.nowPlayingItem.attributes.artwork.url != null && app.mk.nowPlayingItem.attributes.artwork.url!= '' ) {
+        //                     document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${decodeURI((this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"])).replace('{w}', size).replace('{h}', size)}")`);
+        //                     try {
+        //                         clearInterval(interval);
+        //                     } catch (err) {
+        //                     }
+        //                 } else {
+        //                     this.setLibraryArt()
+        //                 }
+        //             } else if (this.mk.nowPlayingItem["id"] == this.currentTrackID) {
+        //                 try {
+        //                     clearInterval(interval);
+        //                 } catch (err) {
+        //                 }
+        //             }
+        //         } catch (e) {
+        //             if (this.mk.nowPlayingItem && this.mk.nowPlayingItem["id"] && document.querySelector('.app-playback-controls .artwork')) {
+        //                 this.setLibraryArt()
+        //                 try {
+        //                     clearInterval(interval);
+        //                 } catch (err) {
+        //                 }
 
-                    }
+        //             }
 
-                }
-            }, 200)
+        //         }
+        //     }, 200)
 
 
-        },
+        // },
         async getCurrentArtURL(){
             try{
                 this.currentArtUrl = '';
                 if (app.mk.nowPlayingItem != null && app.mk.nowPlayingItem.attributes != null && app.mk.nowPlayingItem.attributes.artwork != null && app.mk.nowPlayingItem.attributes.artwork.url != null && app.mk.nowPlayingItem.attributes.artwork.url!= '' ) 
-                {this.currentArtUrl = (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"] ?? '').replace('{w}', 50).replace('{h}', 50);
+                {
+                    this.currentArtUrl = (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"] ?? '').replace('{w}', 50).replace('{h}', 50);
+                    try{
+                    document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);}
+                    catch (e) {}
                 } else {
                     let data = await this.mk.api.library.song(this.mk.nowPlayingItem.id);
                     if (data != null && data !== "" && data.attributes != null && data.attributes.artwork != null) {
-                        this.currentArtUrl = (data["attributes"]["artwork"]["url"] ?? '').replace('{w}', 50).replace('{h}', 50);;
-                    } else {this.currentArtUrl = ''}
+                        this.currentArtUrl = (data["attributes"]["artwork"]["url"] ?? '').replace('{w}', 50).replace('{h}', 50);
+                        try{
+                            document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);}
+                        catch (e) {}
+                    } else {this.currentArtUrl = '';
+                    try{
+                        document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);}
+                    catch (e) {}
+                }
                 }
             }catch(e){
 
