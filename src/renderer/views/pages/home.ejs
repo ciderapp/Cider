@@ -3,48 +3,11 @@
         <div v-if="page == 'main'">
             <div class="row">
                 <div class="col">
-                    <h3>Home</h3>
-                    <div class="well profile-well">
-                        <div class="user-icon">
-                            <mediaitem-artwork shadow="none"
-                                               :url="(profile && profile.attributes && profile.attributes.artwork) ? profile.attributes.artwork.url : ''"
-                                               size="300"></mediaitem-artwork>
-                        </div>
-                        <h3 class="name">{{ (profile && profile.attributes && profile.attributes.name) ?
-                            profile.attributes.name : "" }}</h3>
-                        <h4 class="handle">@{{ (profile && profile.attributes && profile.attributes.handle) ?
-                            profile.attributes.handle : "" }}</h4>
-                    </div>
-                </div>
-                <div class="col">
                     <h3>Recently Played</h3>
-                    <div class="well">
+                    <div class="well artistfeed-well">
                         <template v-if="isSectionReady('recentlyPlayed')">
                             <mediaitem-list-item v-for="item in recentlyPlayed.limit(6)"
                                                  :item="item"></mediaitem-list-item>
-                        </template>
-                        <div class="spinner" v-else></div>
-                    </div>
-                </div>
-            </div>
-<!--            <div class="row" v-if="app.isDev">-->
-<!--                <div class="col">-->
-<!--                    <h3>Your Favorites</h3>-->
-<!--                    <div class="well">-->
-<!--                        <div class="hint-text" v-if="favorites.length == 0">Items you have added to your favorites will-->
-<!--                            appear here.-->
-<!--                        </div>-->
-<!--                        <mediaitem-scroller-horizontal kind="small" :items="favorites"-->
-<!--                                                       :item="item"></mediaitem-scroller-horizontal>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-            <div class="row">
-                <div class="col madeforyou-col">
-                    <h3>Made For You</h3>
-                    <div class="well">
-                        <template v-if="isSectionReady('madeForYou')">
-                            <mediaitem-square kind="small" v-for="item in madeForYou" :item="item"></mediaitem-square>
                         </template>
                         <div class="spinner" v-else></div>
                     </div>
@@ -58,13 +21,36 @@
                             <button class="cd-btn-seeall" @click="app.appRoute('artist-feed')">See All</button>
                         </div>
                     </div>
-                    <div class="well" style="margin-top:0px;">
+                    <div class="well artistfeed-well" style="margin-top:0px;">
                         <template v-if="artistFeed.length > 0">
                             <mediaitem-list-item v-for="item in artistFeed.limit(6)" :item="item"></mediaitem-list-item>
                         </template>
                         <template v-else>
                             <div class="spinner"></div>
                         </template>
+                    </div>
+                </div>
+            </div>
+            <!--            <div class="row" v-if="app.isDev">-->
+            <!--                <div class="col">-->
+            <!--                    <h3>Your Favorites</h3>-->
+            <!--                    <div class="well">-->
+            <!--                        <div class="hint-text" v-if="favorites.length == 0">Items you have added to your favorites will-->
+            <!--                            appear here.-->
+            <!--                        </div>-->
+            <!--                        <mediaitem-scroller-horizontal kind="small" :items="favorites"-->
+            <!--                                                       :item="item"></mediaitem-scroller-horizontal>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
+            <div class="row">
+                <div class="col">
+                    <h3>Made For You</h3>
+                    <div class="well">
+                        <template v-if="isSectionReady('madeForYou')">
+                            <mediaitem-square kind="small" v-for="item in madeForYou" :item="item"></mediaitem-square>
+                        </template>
+                        <div class="spinner" v-else></div>
                     </div>
                 </div>
             </div>
@@ -87,7 +73,7 @@
 <script>
     Vue.component('cider-home', {
         template: '#cider-home',
-        data: function () {
+        data: function() {
             return {
                 app: this.$root,
                 followedArtists: this.$root.cfg.home.followedArtists,
@@ -119,7 +105,7 @@
                 let self = this
                 return {
                     name: "Remove from Favorites",
-                    action: function (item) {
+                    action: function(item) {
                         let index = self.favoriteItems.findIndex(x => x.id == item.id)
                         if (index > -1) {
                             self.favoriteItems.splice(index, 1)
@@ -161,13 +147,15 @@
                     "fields[albums]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialVideo,name,playParams,releaseDate,url,trackCount",
                     "limit[artists:top-songs]": 20,
                     "art[url]": "f"
-                }, {includeResponseMeta: !0}).then(artistData => {
+                }, {
+                    includeResponseMeta: !0
+                }).then(artistData => {
                     artistData.data.forEach(item => {
-                        if (item.views["latest-release"].data.length != 0) {
-                            self.artistFeed.push(item.views["latest-release"].data[0])
-                        }
-                    })
-                    // sort artistFeed by attributes.releaseDate descending, date is formatted as "YYYY-MM-DD"
+                            if (item.views["latest-release"].data.length != 0) {
+                                self.artistFeed.push(item.views["latest-release"].data[0])
+                            }
+                        })
+                        // sort artistFeed by attributes.releaseDate descending, date is formatted as "YYYY-MM-DD"
                     this.artistFeed.sort((a, b) => {
                         let dateA = new Date(a.attributes.releaseDate)
                         let dateB = new Date(b.attributes.releaseDate)
@@ -182,45 +170,40 @@
             },
             async getListenNowData() {
                 let self = this
-                this.app.mk.api.personalRecommendations("",
-                    {
-                        name: "listen-now",
-                        with: "friendsMix,library,social",
-                        "art[social-profiles:url]": "c",
-                        "art[url]": "c,f",
-                        "omit[resource]": "autos",
-                        "relate[editorial-items]": "contents",
-                        extend: ["editorialCard", "editorialVideo"],
-                        "extend[albums]": ["artistUrl"],
-                        "extend[library-albums]": ["artistUrl", "editorialVideo"],
-                        "extend[playlists]": ["artistNames", "editorialArtwork", "editorialVideo"],
-                        "extend[library-playlists]": ["artistNames", "editorialArtwork", "editorialVideo"],
-                        "extend[social-profiles]": "topGenreNames",
-                        "include[albums]": "artists",
-                        "include[songs]": "artists",
-                        "include[music-videos]": "artists",
-                        "fields[albums]": ["artistName", "artistUrl", "artwork", "contentRating", "editorialArtwork", "editorialVideo", "name", "playParams", "releaseDate", "url"],
-                        "fields[artists]": ["name", "url"],
-                        "extend[stations]": ["airDate", "supportsAirTimeUpdates"],
-                        "meta[stations]": "inflectionPoints",
-                        types: "artists,albums,editorial-items,library-albums,library-playlists,music-movies,music-videos,playlists,stations,uploaded-audios,uploaded-videos,activities,apple-curators,curators,tv-shows,social-profiles,social-upsells",
-                        platform: "web"
-                    },
-                    {
-                        includeResponseMeta: !0,
-                        reload: !0
-                    }
-                ).then((data) => {
+                this.app.mk.api.personalRecommendations("", {
+                    name: "listen-now",
+                    with: "friendsMix,library,social",
+                    "art[social-profiles:url]": "c",
+                    "art[url]": "c,f",
+                    "omit[resource]": "autos",
+                    "relate[editorial-items]": "contents",
+                    extend: ["editorialCard", "editorialVideo"],
+                    "extend[albums]": ["artistUrl"],
+                    "extend[library-albums]": ["artistUrl", "editorialVideo"],
+                    "extend[playlists]": ["artistNames", "editorialArtwork", "editorialVideo"],
+                    "extend[library-playlists]": ["artistNames", "editorialArtwork", "editorialVideo"],
+                    "extend[social-profiles]": "topGenreNames",
+                    "include[albums]": "artists",
+                    "include[songs]": "artists",
+                    "include[music-videos]": "artists",
+                    "fields[albums]": ["artistName", "artistUrl", "artwork", "contentRating", "editorialArtwork", "editorialVideo", "name", "playParams", "releaseDate", "url"],
+                    "fields[artists]": ["name", "url"],
+                    "extend[stations]": ["airDate", "supportsAirTimeUpdates"],
+                    "meta[stations]": "inflectionPoints",
+                    types: "artists,albums,editorial-items,library-albums,library-playlists,music-movies,music-videos,playlists,stations,uploaded-audios,uploaded-videos,activities,apple-curators,curators,tv-shows,social-profiles,social-upsells",
+                    platform: "web"
+                }, {
+                    includeResponseMeta: !0,
+                    reload: !0
+                }).then((data) => {
                     console.log(data.data[1])
                     try {
                         self.madeForYou = data.data.filter(section => {
                             if (section.meta.metrics.moduleType == "6") {
                                 return section
-                            }
-                            ;
+                            };
                         })[0].relationships.contents.data
-                    } catch (err) {
-                    }
+                    } catch (err) {}
                     self.sectionsReady.push("madeForYou")
 
                     try {
@@ -228,11 +211,9 @@
                         self.friendsListeningTo = data.data.filter(section => {
                             if (section.meta.metrics.moduleType == "11") {
                                 return section
-                            }
-                            ;
+                            };
                         })[0].relationships.contents.data
-                    } catch (err) {
-                    }
+                    } catch (err) {}
                     self.sectionsReady.push("recentlyPlayed")
                     self.sectionsReady.push("friendsListeningTo")
                 });
