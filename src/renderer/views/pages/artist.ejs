@@ -133,19 +133,19 @@
             }
         },
         methods: {
-            artistMenu (event) {
+            artistMenu(event) {
                 let self = this
                 let followAction = "follow"
                 let followActions = {
                     follow: {
                         name: "Follow Artist",
-                        action: ()=>{
+                        action: () => {
                             self.app.cfg.home.followedArtists.push(self.data.id)
                         }
                     },
                     unfollow: {
                         name: "Unfollow Artist",
-                        action: ()=>{
+                        action: () => {
                             let index = self.app.cfg.home.followedArtists.indexOf(self.data.id)
                             if (index > -1) {
                                 self.app.cfg.home.followedArtists.splice(index, 1)
@@ -153,15 +153,15 @@
                         }
                     }
                 }
-                if(this.app.cfg.home.followedArtists.includes(self.data.id)) {
+                if (this.app.cfg.home.followedArtists.includes(self.data.id)) {
                     followAction = "unfollow"
                 }
                 CiderContextMenu.Create(event, {
                     items: [
                         {
                             name: "Play Artist Radio",
-                            action: ()=>{
-                                app.mk.setStationQueue({artist:self.data.id}).then(()=>{
+                            action: () => {
+                                app.mk.setStationQueue({ artist: self.data.id }).then(() => {
                                     app.mk.play()
                                 })
                             }
@@ -169,7 +169,7 @@
                         followActions[followAction],
                         {
                             name: "Share",
-                            action: ()=>{
+                            action: () => {
                                 self.app.copyToClipboard(self.data.attributes.url)
                             }
                         }

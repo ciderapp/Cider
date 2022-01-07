@@ -52,11 +52,11 @@
         },
         methods: {
             getKind(item) {
-                if(typeof item.kind != "undefined") {
+                if (typeof item.kind != "undefined") {
                     this.commonKind = item.kind;
                     return item.kind
                 }
-                if(typeof item.attributes.playParams != "undefined") {
+                if (typeof item.attributes.playParams != "undefined") {
                     this.commonKind = item.attributes.playParams.kind
                     return item.attributes.playParams.kind
                 }
@@ -72,7 +72,7 @@
             },
             getNext() {
                 // if this.data.next is not null, then we can run this.data.next() and concat to this.data.data to get the next page
-                switch(this.type) {
+                switch (this.type) {
                     default:
                     case "artists":
                         if (this.data.next && this.triggerEnabled) {
@@ -84,12 +84,12 @@
                                 this.data.data = this.data.data.concat(data.data);
                                 this.triggerEnabled = true;
                             });
-                            if(typeof this.data.next == "function") {
+                            if (typeof this.data.next == "function") {
                                 this.data.next().then(data => nextFn(data));
-                            }else{
+                            } else {
                                 this.api.v3.music(this.data.next).then(data => nextFn(data));
                             }
-                        }else{
+                        } else {
                             console.log("No next page");
                             this.triggerEnabled = false;
                         }
@@ -103,14 +103,14 @@
                                 this.data.data = this.data.data.concat(data[this.data.groups].data.data);
                                 this.triggerEnabled = true;
                             });
-                        }else{
+                        } else {
                             console.log("No next page");
                             this.triggerEnabled = false;
                         }
                         break;
-                    case "listen_now":    
+                    case "listen_now":
                     case "curator":
-                    if (this.data.next && this.triggerEnabled) {
+                        if (this.data.next && this.triggerEnabled) {
                             this.triggerEnabled = false;
                             app.mk.api.v3.music(this.data.next).then(data => {
                                 console.log(data);
@@ -118,26 +118,26 @@
                                 this.data.data = this.data.data.concat(data.data.data);
                                 this.triggerEnabled = true;
                             });
-                        }else{
+                        } else {
                             console.log("No next page");
                             this.triggerEnabled = false;
                         }
-                        break;   
+                        break;
                 }
 
             },
             headerVisibility: function (isVisible, entry) {
-                if(isVisible) {
+                if (isVisible) {
                     this.showFab = false;
-                }else{
+                } else {
                     this.showFab = true;
                 }
             },
             visibilityChanged: function (isVisible, entry) {
-                if(isVisible) {
+                if (isVisible) {
                     this.canSeeTrigger = true;
                     this.getNext();
-                }else{
+                } else {
                     this.canSeeTrigger = false;
                 }
             }

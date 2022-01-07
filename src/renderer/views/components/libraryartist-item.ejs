@@ -41,14 +41,14 @@
             }
         },
         props: {
-            'item': {type: Object, required: true},
-            'parent': {type: String, required: false},
-            'index': {type: Number, required: false, default: -1},
-            'show-artwork': {type: Boolean, default: true},
-            'show-library-status': {type: Boolean, default: true},
-            'show-meta-data': {type: Boolean, default: false},
-            'show-duration': {type: Boolean, default: true},
-            'contextExt': {type: Object, required: false},
+            'item': { type: Object, required: true },
+            'parent': { type: String, required: false },
+            'index': { type: Number, required: false, default: -1 },
+            'show-artwork': { type: Boolean, default: true },
+            'show-library-status': { type: Boolean, default: true },
+            'show-meta-data': { type: Boolean, default: false },
+            'show-duration': { type: Boolean, default: true },
+            'contextExt': { type: Object, required: false },
         },
         methods: {
             uuidv4() {
@@ -68,22 +68,25 @@
                     return this.item.attributes.playParams.kind
                 }
             },
-            async select(e)  {
-               let u = this.item
-               let u1 = await app.mk.api.library.artistRelationship(u.id,"albums",
-               {platform: "web",
-                "include[library-albums]": "artists,tracks",
-                "include[library-artists]": "catalog",
-                "fields[artists]": "url",
-                "includeOnly": "catalog,artists"}
-               )
-               app.showCollection({data : Object.assign({},u1)}, u.attributes.name?? '', '');
+            async select(e) {
+                let u = this.item
+                let u1 = await app.mk.api.library.artistRelationship(u.id, "albums",
+                    {
+                        platform: "web",
+                        "include[library-albums]": "artists,tracks",
+                        "include[library-artists]": "catalog",
+                        "fields[artists]": "url",
+                        "includeOnly": "catalog,artists"
+                    }
+                )
+                app.showCollection({ data: Object.assign({}, u1) }, u.attributes.name ?? '', '');
             },
-            getArtwork(){
+            getArtwork() {
                 let u = ""
-                try{
-                u = this.item.relationships.catalog.data[0].attributes.artwork.url}
-                catch (e){};
+                try {
+                    u = this.item.relationships.catalog.data[0].attributes.artwork.url
+                }
+                catch (e) { };
                 return u;
             },
             contextMenu(event) {
@@ -122,7 +125,7 @@
                                     for (let kind in itemsToPlay) {
                                         let ids = itemsToPlay[kind]
                                         if (ids.length > 0) {
-                                            app.mk.playNext({[kind + "s"]: itemsToPlay[kind]})
+                                            app.mk.playNext({ [kind + "s"]: itemsToPlay[kind] })
                                         }
                                     }
                                     console.log(itemsToPlay)
@@ -143,7 +146,7 @@
                                     for (let kind in itemsToPlay) {
                                         let ids = itemsToPlay[kind]
                                         if (ids.length > 0) {
-                                            app.mk.playLater({[kind + "s"]: itemsToPlay[kind]})
+                                            app.mk.playLater({ [kind + "s"]: itemsToPlay[kind] })
                                         }
                                     }
                                     app.selectedMediaItems = []
@@ -162,7 +165,7 @@
                             {
                                 "name": "Start Radio",
                                 "action": function () {
-                                    app.mk.setStationQueue({song: self.item.attributes.playParams.id ?? self.item.id}).then(() => {
+                                    app.mk.setStationQueue({ song: self.item.attributes.playParams.id ?? self.item.id }).then(() => {
                                         app.mk.play()
                                         app.selectedMediaItems = []
                                     })
@@ -171,7 +174,7 @@
                             {
                                 "name": "Play Next",
                                 "action": function () {
-                                    app.mk.playNext({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
+                                    app.mk.playNext({ [self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id })
                                     app.mk.queue._reindex()
                                     app.selectedMediaItems = []
                                 }
@@ -179,7 +182,7 @@
                             {
                                 "name": "Play Later",
                                 "action": function () {
-                                    app.mk.playLater({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
+                                    app.mk.playLater({ [self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id })
                                     app.mk.queue._reindex()
                                     app.selectedMediaItems = []
                                 }
@@ -227,7 +230,7 @@
             },
             async removeFromLibrary() {
                 let item = this.item
-                let params = {"fields[songs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library"}
+                let params = { "fields[songs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library" }
                 let id = item.id ?? item.attributes.playParams.id
                 let res = await app.mkapi(item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.playParams.id ?? item.id, params);
                 if (res && res.relationships && res.relationships.library && res.relationships.library.data && res.relationships.library.data.length > 0) {

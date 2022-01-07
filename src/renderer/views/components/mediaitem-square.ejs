@@ -57,7 +57,7 @@
                 type: String,
                 default: '190'
             },
-            'contextExt': {type: Object, required: false},
+            'contextExt': { type: Object, required: false },
         },
         data: function () {
             return {
@@ -80,8 +80,8 @@
                 let c = color.substring(1);      // strip #
                 var rgb = parseInt(c, 16);   // convert rrggbb to decimal
                 var r = (rgb >> 16) & 0xff;  // extract red
-                var g = (rgb >>  8) & 0xff;  // extract green
-                var b = (rgb >>  0) & 0xff;  // extract blue
+                var g = (rgb >> 8) & 0xff;  // extract green
+                var b = (rgb >> 0) & 0xff;  // extract blue
 
                 var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b; // per ITU-R BT.709
 
@@ -89,14 +89,14 @@
                 console.log(luma)
                 if (luma > 140) {
                     return "#aaaaaa"
-                }else{
+                } else {
                     return color
                 }
 
 
             },
             getSubtitle() {
-                if(this.kind == 'card') {
+                if (this.kind == 'card') {
                     try {
                         if (typeof this.item.attributes.artistNames != "undefined") {
                             return this.item.attributes.artistNames
@@ -107,10 +107,10 @@
                         } else {
                             return ''
                         }
-                    }catch(e) {
+                    } catch (e) {
                         return ''
                     }
-                }else {
+                } else {
                     if (typeof this.item.attributes.artistName != "undefined") {
                         return this.item.attributes.artistName
                     } else {
@@ -119,23 +119,23 @@
                 }
             },
             getSubtitleNavigation() {
-                if(this.kind == 'card') {
+                if (this.kind == 'card') {
                     try {
                         if (typeof this.item.attributes.artistNames != "undefined") {
                             return app.routeView(this.item)
                         } else if (typeof this.item.attributes.editorialNotes != "undefined") {
                             return app.routeView(this.item)
                         } else if (typeof this.item.attributes.artistName != "undefined") {
-                            return app.searchAndNavigate(this.item,'artist')
+                            return app.searchAndNavigate(this.item, 'artist')
                         } else {
                             return app.routeView(this.item)
                         }
-                    }catch(e) {
+                    } catch (e) {
                         return app.routeView(this.item)
                     }
-                }else {
+                } else {
                     if (typeof this.item.attributes.artistName != "undefined") {
-                        return app.searchAndNavigate(this.item,'artist')
+                        return app.searchAndNavigate(this.item, 'artist')
                     } else {
                         return app.routeView(this.item)
                     }
@@ -186,7 +186,7 @@
                 }
                 let kind = this.item.attributes.playParams.kind ?? this.item.type ?? '';
                 var truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
-                app.mk.api.library.remove({[truekind]: id})
+                app.mk.api.library.remove({ [truekind]: id })
                 this.addedToLibrary = true
             },
             uuidv4() {
@@ -196,7 +196,7 @@
             },
             getArtworkUrl(size = -1, includeUrl = false) {
                 let artwork = this.item.attributes.artwork ? this.item.attributes.artwork.url : ''
-                if(size != -1) {
+                if (size != -1) {
                     artwork = artwork.replace('{w}', size).replace('{h}', size).replace('{f}', "webp").replace('{c}', ((size === 900) ? "sr" : "cc"))
                 }
                 switch (this.kind) {
@@ -204,9 +204,9 @@
                         artwork = this.item.attributes.editorialArtwork.subscriptionHero.url
                         break;
                 }
-                if(!includeUrl) {
+                if (!includeUrl) {
                     return artwork
-                }else{
+                } else {
                     return `url("${artwork}")`
                 }
             },
@@ -273,7 +273,7 @@
                                     for (let kind in itemsToPlay) {
                                         let ids = itemsToPlay[kind]
                                         if (ids.length > 0) {
-                                            app.mk.playNext({[kind + "s"]: itemsToPlay[kind]})
+                                            app.mk.playNext({ [kind + "s"]: itemsToPlay[kind] })
                                         }
                                     }
                                     console.log(itemsToPlay)
@@ -294,7 +294,7 @@
                                     for (let kind in itemsToPlay) {
                                         let ids = itemsToPlay[kind]
                                         if (ids.length > 0) {
-                                            app.mk.playLater({[kind + "s"]: itemsToPlay[kind]})
+                                            app.mk.playLater({ [kind + "s"]: itemsToPlay[kind] })
                                         }
                                     }
                                     app.selectedMediaItems = []
@@ -315,7 +315,7 @@
                             {
                                 "name": "Play Next",
                                 "action": function () {
-                                    app.mk.playNext({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
+                                    app.mk.playNext({ [self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id })
                                     app.mk.queue._reindex()
                                     app.selectedMediaItems = []
                                 }
@@ -323,7 +323,7 @@
                             {
                                 "name": "Play Later",
                                 "action": function () {
-                                    app.mk.playLater({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
+                                    app.mk.playLater({ [self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id })
                                     app.mk.queue._reindex()
                                     app.selectedMediaItems = []
                                 }

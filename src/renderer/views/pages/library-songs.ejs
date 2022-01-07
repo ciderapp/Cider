@@ -5,19 +5,17 @@
                 <h1 class="header-text">Songs</h1>
             </div>
             <div class="col-auto">
-                <button v-if="library.songs.downloadState == 2" @click="getLibrarySongsFull(true)" class="reload-btn"><%- include('../svg/redo.svg') %></button>
+                <button v-if="library.songs.downloadState == 2" @click="getLibrarySongsFull(true)" class="reload-btn">
+                    <%- include('../svg/redo.svg') %>
+                </button>
             </div>
         </div>
         <div class="row">
             <div class="col" style="padding:0px;">
                 <div class="search-input-container" style="width:100%;margin: 16px 0px;">
                     <div class="search-input--icon"></div>
-                    <input type="search"
-                           style="width:100%;"
-                           spellcheck="false"
-                           placeholder="Search..."
-                           @input="searchLibrarySongs"
-                           v-model="library.songs.search" class="search-input">
+                    <input type="search" style="width:100%;" spellcheck="false" placeholder="Search..."
+                        @input="searchLibrarySongs" v-model="library.songs.search" class="search-input">
                 </div>
             </div>
             <div class="col-auto flex-center">
@@ -25,7 +23,8 @@
                     <div class="col">
                         <select class="md-select" v-model="library.songs.sorting" @change="searchLibrarySongs()">
                             <optgroup label="Sort By">
-                                <option v-for="(sort, index) in library.songs.sortingOptions" :value="index">{{ sort }}</option>
+                                <option v-for="(sort, index) in library.songs.sortingOptions" :value="index">{{ sort }}
+                                </option>
                             </optgroup>
                         </select>
                     </div>
@@ -41,6 +40,7 @@
             </div>
         </div>
         <div v-if="library.songs.downloadState == 3">Library contains no songs.</div>
-        <mediaitem-list-item :item="item" :parent="'librarysongs'" :index="index" :show-meta-data="true" :show-library-status="false" v-for="(item, index) in library.songs.displayListing"></mediaitem-list-item>
+        <mediaitem-list-item :item="item" :parent="'librarysongs'" :index="index" :show-meta-data="true"
+            :show-library-status="false" v-for="(item, index) in library.songs.displayListing"></mediaitem-list-item>
     </div>
 </template>

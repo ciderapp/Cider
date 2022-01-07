@@ -57,8 +57,8 @@
         },
         methods: {
             select(e, position) {
-                if(e.ctrlKey || e.shiftKey) {
-                    if(this.selectedItems.indexOf(position) == -1) {
+                if (e.ctrlKey || e.shiftKey) {
+                    if (this.selectedItems.indexOf(position) == -1) {
                         this.selectedItems.push(position)
                     } else {
                         this.selectedItems.splice(this.selectedItems.indexOf(position), 1)
@@ -70,7 +70,7 @@
             queueContext(event, item, position) {
                 let self = this
                 let useMenu = "single"
-                if(this.selectedItems.length > 1) {
+                if (this.selectedItems.length > 1) {
                     useMenu = "multiple"
                 }
                 let menus = {
@@ -83,16 +83,16 @@
                                 app.mk.queue._reindex()
                             }
                         },
-                            {
-                                "name": "Start Radio",
-                                "action": function () {
-                                    app.mk.setStationQueue({
-                                        song: item.attributes.playParams.id ?? item.id
-                                    }).then(() => {
-                                        app.mk.play()
-                                    })
-                                }
-                            },
+                        {
+                            "name": "Start Radio",
+                            "action": function () {
+                                app.mk.setStationQueue({
+                                    song: item.attributes.playParams.id ?? item.id
+                                }).then(() => {
+                                    app.mk.play()
+                                })
+                            }
+                        },
                         ]
                     },
                     multiple: {

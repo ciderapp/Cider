@@ -73,7 +73,7 @@
 <script>
     Vue.component('cider-home', {
         template: '#cider-home',
-        data: function() {
+        data: function () {
             return {
                 app: this.$root,
                 followedArtists: this.$root.cfg.home.followedArtists,
@@ -105,7 +105,7 @@
                 let self = this
                 return {
                     name: "Remove from Favorites",
-                    action: function(item) {
+                    action: function (item) {
                         let index = self.favoriteItems.findIndex(x => x.id == item.id)
                         if (index > -1) {
                             self.favoriteItems.splice(index, 1)
@@ -151,11 +151,11 @@
                     includeResponseMeta: !0
                 }).then(artistData => {
                     artistData.data.forEach(item => {
-                            if (item.views["latest-release"].data.length != 0) {
-                                self.artistFeed.push(item.views["latest-release"].data[0])
-                            }
-                        })
-                        // sort artistFeed by attributes.releaseDate descending, date is formatted as "YYYY-MM-DD"
+                        if (item.views["latest-release"].data.length != 0) {
+                            self.artistFeed.push(item.views["latest-release"].data[0])
+                        }
+                    })
+                    // sort artistFeed by attributes.releaseDate descending, date is formatted as "YYYY-MM-DD"
                     this.artistFeed.sort((a, b) => {
                         let dateA = new Date(a.attributes.releaseDate)
                         let dateB = new Date(b.attributes.releaseDate)
@@ -203,7 +203,7 @@
                                 return section
                             };
                         })[0].relationships.contents.data
-                    } catch (err) {}
+                    } catch (err) { }
                     self.sectionsReady.push("madeForYou")
 
                     try {
@@ -213,7 +213,7 @@
                                 return section
                             };
                         })[0].relationships.contents.data
-                    } catch (err) {}
+                    } catch (err) { }
                     self.sectionsReady.push("recentlyPlayed")
                     self.sectionsReady.push("friendsListeningTo")
                 });

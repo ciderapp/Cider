@@ -18,12 +18,14 @@
 </p>
 
 #### Links
-* [Wiki](https://github.com/ciderapp/Cider/wiki)
-* [Request Feature](https://github.com/ciderapp/Cider/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=%5BEnhancement%5D)
-* [Report Bug](https://github.com/ciderapp/Cider/issues/new?assignees=&labels=bug&template=bug_report.md&title=%5BBUG%5D+)
-* [**View The Releases**](https://github.com/ciderapp/Cider/releases/latest)
+
+-   [Wiki](https://github.com/ciderapp/Cider/wiki)
+-   [Request Feature](https://github.com/ciderapp/Cider/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=%5BEnhancement%5D)
+-   [Report Bug](https://github.com/ciderapp/Cider/issues/new?assignees=&labels=bug&template=bug_report.md&title=%5BBUG%5D+)
+-   [**View The Releases**](https://github.com/ciderapp/Cider/releases/latest)
 
 ### Install Sources
+
 [![Get it from Github](https://img.shields.io/badge/Get_It_From_GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ciderapp/cider/releases/latest)
 
 [![Get it from the Microsoft Store](https://img.shields.io/badge/Get_It_From_The_Microsoft_Store-100000?style=for-the-badge&logo=microsoft)](https://www.microsoft.com/store/apps/9P21XJ9D9G66)
@@ -34,17 +36,21 @@
 
 [![Get it from the Snap Store](https://img.shields.io/badge/Get_It_From_The_Snap_Store-100000?style=for-the-badge&logo=snapcraft)](https://snapcraft.io/apple-music-electron)
 -->
+
 [![Get it from the AUR](https://img.shields.io/badge/Get_It_From_The_AUR-100000?style=for-the-badge&logo=archlinux)](https://aur.archlinux.org/packages/cider)
 
 ### Compiling and Configuration
+
 For more information surrounding configuration, compiling and other developer documentation, see the [compilation docs](https://cider.sh/docs/compile).
 
 ### Credits
+
 ![Contributors](https://contrib.rocks/image?repo=ciderapp/Cider)
 
 ### Disclaimer
-*This project is NOT affiliated with Apple in any way shape or form. The project is open source and free to use (with an Apple Music subscription)
-for any legal concerns contact me at <a href="mailto:cryptofyre@cryptofyre.org">cryptofyre@cryptofyre.org</a>.*
+
+_This project is NOT affiliated with Apple in any way shape or form. The project is open source and free to use (with an Apple Music subscription)
+for any legal concerns contact me at <a href="mailto:cryptofyre@cryptofyre.org">cryptofyre@cryptofyre.org</a>._
 
 <p align="center">
   <br>

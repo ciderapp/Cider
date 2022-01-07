@@ -564,37 +564,39 @@
             }
         },
         mounted: function () {
-            if (app.cfg.lastfm.enabled){
+            if (app.cfg.lastfm.enabled) {
                 const element = document.getElementById('lfmConnect');
-                if (element){
-                element.innerHTML = `Disconnect\n<p style="font-size: 8px"><i>(Authed: ${app.cfg.lastfm.auth_token})</i></p>`;
-                element.onclick = app.LastFMDeauthorize;
+                if (element) {
+                    element.innerHTML = `Disconnect\n<p style="font-size: 8px"><i>(Authed: ${app.cfg.lastfm.auth_token})</i></p>`;
+                    element.onclick = app.LastFMDeauthorize;
                 }
             }
         },
         methods: {
-            toggleAudioContext: function(){
-                if (app.cfg.advanced.AudioContext){
+            toggleAudioContext: function () {
+                if (app.cfg.advanced.AudioContext) {
                     CiderAudio.init();
-                    if (app.cfg.audio.normalization){
-                    CiderAudio.normalizerOn()}
-                    if (app.cfg.audio.spatial){
-                    CiderAudio.spatialOn()} 
+                    if (app.cfg.audio.normalization) {
+                        CiderAudio.normalizerOn()
+                    }
+                    if (app.cfg.audio.spatial) {
+                        CiderAudio.spatialOn()
+                    }
                 } else {
                     CiderAudio.off();
                 }
             },
-            toggleNormalization : function(){
-                if (app.cfg.audio.normalization){
+            toggleNormalization: function () {
+                if (app.cfg.audio.normalization) {
                     CiderAudio.normalizerOn()
-                } else {CiderAudio.normalizerOff()}
+                } else { CiderAudio.normalizerOff() }
             },
-            toggleSpatial : function(){
-                if (app.cfg.audio.spatial){
+            toggleSpatial: function () {
+                if (app.cfg.audio.spatial) {
                     CiderAudio.spatialOn()
-                } else {CiderAudio.spatialOff()}
+                } else { CiderAudio.spatialOff() }
             },
-            changeAudioQuality : function(){
+            changeAudioQuality: function () {
                 app.mk.bitrate = app.cfg.audio.quality
             }
         }

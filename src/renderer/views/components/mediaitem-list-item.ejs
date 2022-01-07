@@ -76,14 +76,14 @@
             }
         },
         props: {
-            'item': {type: Object, required: true},
-            'parent': {type: String, required: false},
-            'index': {type: Number, required: false, default: -1},
-            'show-artwork': {type: Boolean, default: true},
-            'show-library-status': {type: Boolean, default: true},
-            'show-meta-data': {type: Boolean, default: false},
-            'show-duration': {type: Boolean, default: true},
-            'contextExt': {type: Object, required: false},
+            'item': { type: Object, required: true },
+            'parent': { type: String, required: false },
+            'index': { type: Number, required: false, default: -1 },
+            'show-artwork': { type: Boolean, default: true },
+            'show-library-status': { type: Boolean, default: true },
+            'show-meta-data': { type: Boolean, default: false },
+            'show-duration': { type: Boolean, default: true },
+            'contextExt': { type: Object, required: false },
         },
         mounted() {
             let duration = this.item.attributes.durationInMillis ?? 0
@@ -215,7 +215,7 @@
                                     for (let kind in itemsToPlay) {
                                         let ids = itemsToPlay[kind]
                                         if (ids.length > 0) {
-                                            app.mk.playNext({[kind + "s"]: itemsToPlay[kind]})
+                                            app.mk.playNext({ [kind + "s"]: itemsToPlay[kind] })
                                         }
                                     }
                                     console.log(itemsToPlay)
@@ -236,7 +236,7 @@
                                     for (let kind in itemsToPlay) {
                                         let ids = itemsToPlay[kind]
                                         if (ids.length > 0) {
-                                            app.mk.playLater({[kind + "s"]: itemsToPlay[kind]})
+                                            app.mk.playLater({ [kind + "s"]: itemsToPlay[kind] })
                                         }
                                     }
                                     app.selectedMediaItems = []
@@ -256,7 +256,7 @@
                             {
                                 "name": "Play Next",
                                 "action": function () {
-                                    app.mk.playNext({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
+                                    app.mk.playNext({ [self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id })
                                     app.mk.queue._reindex()
                                     app.selectedMediaItems = []
                                 }
@@ -264,7 +264,7 @@
                             {
                                 "name": "Play Later",
                                 "action": function () {
-                                    app.mk.playLater({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
+                                    app.mk.playLater({ [self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id })
                                     app.mk.queue._reindex()
                                     app.selectedMediaItems = []
                                 }
@@ -273,7 +273,7 @@
                                 "icon": "./assets/feather/radio.svg",
                                 "name": "Start Radio",
                                 "action": function () {
-                                    app.mk.setStationQueue({song: self.item.attributes.playParams.id ?? self.item.id}).then(() => {
+                                    app.mk.setStationQueue({ song: self.item.attributes.playParams.id ?? self.item.id }).then(() => {
                                         app.mk.play()
                                         app.selectedMediaItems = []
                                     })
@@ -348,19 +348,19 @@
                         menus.multiple.items = menus.multiple.items.concat(this.contextExt.multiple)
                     }
                 }
-                try{
-                let rating = await app.getRating(self.item).catch();
-                if (rating) {
-                    if(rating == 0) {
-                        menus.normal.items.find(x => x.id == 'love').disabled = false
-                        menus.normal.items.find(x => x.id == 'dislike').disabled = false
-                    }else if(rating == 1) {
-                        menus.normal.items.find(x => x.id == 'unlove').disabled = false
-                    }else if(rating == -1) {
-                        menus.normal.items.find(x => x.id == 'undo_dislike').disabled = false
+                try {
+                    let rating = await app.getRating(self.item).catch();
+                    if (rating) {
+                        if (rating == 0) {
+                            menus.normal.items.find(x => x.id == 'love').disabled = false
+                            menus.normal.items.find(x => x.id == 'dislike').disabled = false
+                        } else if (rating == 1) {
+                            menus.normal.items.find(x => x.id == 'unlove').disabled = false
+                        } else if (rating == -1) {
+                            menus.normal.items.find(x => x.id == 'undo_dislike').disabled = false
+                        }
                     }
-                }
-                } catch(_){}
+                } catch (_) { }
                 CiderContextMenu.Create(event, menus[useMenu])
             },
             visibilityChanged: function (isVisible, entry) {
@@ -380,7 +380,7 @@
             },
             async removeFromLibrary() {
                 let item = this.item
-                let params = {"fields[songs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library"}
+                let params = { "fields[songs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library" }
                 let id = item.id ?? item.attributes.playParams.id
                 let res = await app.mkapi(item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.playParams.id ?? item.id, params);
                 if (res && res.relationships && res.relationships.library && res.relationships.library.data && res.relationships.library.data.length > 0) {

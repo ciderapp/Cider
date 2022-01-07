@@ -48,7 +48,7 @@
                     "fields[albums]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialVideo,name,playParams,releaseDate,url,trackCount",
                     "limit[artists:top-songs]": 20,
                     "art[url]": "f"
-                }, {includeResponseMeta: !0}).then(artistData => {
+                }, { includeResponseMeta: !0 }).then(artistData => {
                     artistData.data.forEach(item => {
                         if (item.views["latest-release"].data.length != 0) {
                             self.artistFeed.push(item.views["latest-release"].data[0])

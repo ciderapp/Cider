@@ -138,7 +138,7 @@
         methods: {
             getBadges() {
                 return
-                if(this.badgesRequested) {
+                if (this.badgesRequested) {
                     return
                 }
                 this.badgesRequested = true
@@ -152,7 +152,7 @@
                 }
                 this.$root.getSocialBadges((badges) => {
                     let friends = badges[id]
-                    if(friends) {
+                    if (friends) {
                         friends.forEach(function (friend) {
                             self.app.mk.api.socialProfile(friend).then(data => {
                                 self.itemBadges.push(data)
@@ -164,7 +164,7 @@
             async isInLibrary() {
                 if (this.data.type && !this.data.type.includes("library")) {
                     // please keep using vars here
-                    var params = {"fields[playlists]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library"}
+                    var params = { "fields[playlists]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library" }
                     var res = await app.mkapi(this.data.attributes.playParams.kind ?? this.data.type, this.data.attributes.playParams.isLibrary ?? false, this.data.attributes.playParams.id ?? this.data.id, params);
                     this.inLibrary = (res && res.attributes && res.attributes.inLibrary) ? res.attributes.inLibrary : false
                     console.log(res)
@@ -186,7 +186,7 @@
                 this.inLibrary = true
             },
             async removeFromLibrary(id) {
-                var params = {"fields[somgs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library"}
+                var params = { "fields[somgs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library" }
                 var id = this.data.id ?? this.data.attributes.playParams.id
                 var res = await app.mkapi(this.data.attributes.playParams.kind ?? this.data.type, this.data.attributes.playParams.isLibrary ?? false, this.data.attributes.playParams.id ?? this.data.id, params);
                 if (res && res.relationships && res.relationships.library && res.relationships.library.data && res.relationships.library.data.length > 0) {
@@ -194,7 +194,7 @@
                 }
                 let kind = this.data.attributes.playParams.kind ?? this.data.type ?? '';
                 var truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
-                app.mk.api.library.remove({[truekind]: id})
+                app.mk.api.library.remove({ [truekind]: id })
                 this.inLibrary = false
             },
             editPlaylistName() {
@@ -276,7 +276,7 @@
                 if (date == null || date === "") return "";
                 try {
                     var releaseDate = new Date(date);
-                    month = new Intl.DateTimeFormat('en-US', {month: 'long'}).format(releaseDate);
+                    month = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(releaseDate);
                     date = releaseDate.getDate();
                     year = releaseDate.getFullYear();
 

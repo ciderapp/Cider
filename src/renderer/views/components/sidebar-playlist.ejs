@@ -64,9 +64,9 @@
             rename() {
                 this.renaming = false
 
-                if(this.item.type === "library-playlist-folders") {
+                if (this.item.type === "library-playlist-folders") {
                     this.$root.editPlaylistFolder(this.item.id, this.item.attributes.name)
-                }else{
+                } else {
                     this.$root.editPlaylist(this.item.id, this.item.attributes.name)
                 }
             },
@@ -74,7 +74,7 @@
                 let self = this
                 this.children = []
                 this.children = this.$root.playlists.listing.filter(child => {
-                    if(child.parent == self.item.id) {
+                    if (child.parent == self.item.id) {
                         return child
                     }
                 })
@@ -98,13 +98,13 @@
 
                 // find the item in this.$root.playlists.listing and store it in a variable
                 this.$root.playlists.listing.filter(playlist => {
-                    if(playlist.id == item.id) {
+                    if (playlist.id == item.id) {
                         console.log(playlist)
                         playlist.parent = sendTo.id
 
                     }
                 })
-                if(typeof this.$parent.getChildren == "function") {
+                if (typeof this.$parent.getChildren == "function") {
                     this.$parent.getChildren()
                     console.log(this.$parent.children)
                 }
@@ -123,14 +123,14 @@
                                     id: this.playlistRoot,
                                     type: "library-playlist-folders"
                                 })
-                                setTimeout(()=>{self.getChildren()}, 2000)
+                                setTimeout(() => { self.getChildren() }, 2000)
                             }
                         },
                         "rename": {
                             name: "Rename",
                             action: () => {
                                 this.renaming = true
-                                setTimeout(()=>{
+                                setTimeout(() => {
                                     document.querySelector(".pl-rename-field").focus()
                                     document.querySelector(".pl-rename-field").select()
                                 }, 100)
@@ -151,7 +151,7 @@
                         }
                     }
                 }
-                if(this.item.type === "library-playlist-folders") {
+                if (this.item.type === "library-playlist-folders") {
                     menu.items.addToFavorites.disabled = true
                 }
                 CiderContextMenu.Create(event, menu)
@@ -160,23 +160,23 @@
                 evt.preventDefault();
                 evt.dataTransfer.dropEffect = "move";
             },
-            onDrop (evt) {
+            onDrop(evt) {
                 let data = JSON.parse(evt.dataTransfer.getData("text/plain"))
                 evt.preventDefault();
-                if(data.id == this.item.id) {
+                if (data.id == this.item.id) {
                     return;
                 }
                 console.log(data)
-                if(data) {
-                    if(this.item.type == "library-playlists" || this.item.type == "library-playlist-folders") {
-                        if(data.type == "library-playlists" && this.item.type == "library-playlists") {
+                if (data) {
+                    if (this.item.type == "library-playlists" || this.item.type == "library-playlist-folders") {
+                        if (data.type == "library-playlists" && this.item.type == "library-playlists") {
                             return
                         }
                         this.move(data, this.item)
                     }
                 }
             },
-            startDrag (evt) {
+            startDrag(evt) {
                 evt.dataTransfer.dropEffect = 'move'
                 evt.dataTransfer.effectAllowed = 'move'
                 evt.dataTransfer.setData('text/plain', JSON.stringify(this.item))
@@ -188,7 +188,7 @@
                 this.toggleFolder()
                 this.$root.mk.api.library.playlistFolderChildren(item.id).then(children => {
                     children.forEach(child => {
-                        if(!self.$root.playlists.listing.find(listing => listing.id == child.id)) {
+                        if (!self.$root.playlists.listing.find(listing => listing.id == child.id)) {
                             child.parent = self.item.id
                             self.$root.playlists.listing.push(child)
                         }
@@ -207,9 +207,9 @@
                 })
             },
             isPlaylistSelected(item) {
-                if(this.$root.showingPlaylist.id == item.id) {
+                if (this.$root.showingPlaylist.id == item.id) {
                     return ["active"]
-                }  else {
+                } else {
                     return []
                 }
             },
