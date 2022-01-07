@@ -133,6 +133,7 @@ if (process.platform === "linux") {
 app.commandLine.appendSwitch('high-dpi-support', "1")
 app.commandLine.appendSwitch('force-device-scale-factor', "1")
 app.commandLine.appendSwitch('disable-pinch');
+app.commandLine.appendSwitch('no-sandbox');
 // app.commandLine.appendSwitch('js-flags', '--max-old-space-size=1024')
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

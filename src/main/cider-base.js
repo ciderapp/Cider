@@ -71,11 +71,16 @@ const CiderBase = {
         if (process.platform === "darwin" || process.platform === "linux") {
             win = new BrowserWindow(options)
         } else {
+            // i don't know why but we have to do this for acrylic to work properly
             if (app.cfg.get("visual.window_transparency") !== "disabled") {
                 const { BrowserWindow } = require("electron-acrylic-window");
+                win = new BrowserWindow(options)
+                win.setVibrancy("dark")
+            } else {
+                win = new BrowserWindow(options)
+                win.setVibrancy("dark")
             }
-            win = new BrowserWindow(options)
-            win.setVibrancy("dark")
+
         }
 
         // intercept "https://js-cdn.music.apple.com/hls.js/2.141.0/hls.js/hls.js" and redirect to local file "./apple-hls.js" instead
