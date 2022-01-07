@@ -11,6 +11,7 @@ import {Stream} from "stream";
 export class Win {
     win: any | undefined = null;
     app: electron.App | undefined;
+    devMode: boolean = !electron.app.isPackaged;
 
     private paths: any = {
         srcPath: path.join(__dirname, "../../src"),
@@ -58,7 +59,10 @@ export class Win {
     /**
      * Creates the browser window
      */
-    createWindow(): void {
+    async createWindow(): Promise<void> {
+        this.clientPort = await getPort({port: 9000});
+        this.verifyFiles();
+
         // Load the previous state with fallback to defaults
         const windowState = windowStateKeeper({
             defaultWidth: 1024,
@@ -68,72 +72,94 @@ export class Win {
         this.options.height = windowState.height;
 
         // Start the webserver for the browser window to load
-        this.startWebServer().then(() => {
-            if (process.platform === "win32") {
-                // this.win = new electronAcrylic.BrowserWindow(this.options);
-            } else {
-                this.win = new electron.BrowserWindow(this.options);
-            }
-        })
+        this.startWebServer()
+
+        if (process.platform === "win32") {
+            // this.win = new electronAcrylic.BrowserWindow(this.options);
+        } else {
+            this.win = new electron.BrowserWindow(this.options);
+        }
 
         // and load the renderer.
-        this.startSession(this.win);
-        this.startHandlers(this.win);
+        this.startSession();
+        this.startHandlers();
 
         // Register listeners on Window to track size and position of the Window.
         windowState.manage(this.win);
+
 
         return this.win;
     }
 
     /**
+     * Verifies the files for the renderer to use (Cache, library info, etc.)
+     */
+    private verifyFiles(): void {
+        const expectedDirectories = [
+            "CiderCache"
+        ]
+        const expectedFiles = [
+            "library-songs.json",
+            "library-artists.json",
+            "library-albums.json",
+            "library-playlists.json",
+            "library-recentlyAdded.json",
+        ]
+        for (let i = 0; i < expectedDirectories.length; i++) {
+            if (!fs.existsSync(path.join(electron.app.getPath("userData"), expectedDirectories[i]))) {
+                fs.mkdirSync(path.join(electron.app.getPath("userData"), expectedDirectories[i]))
+            }
+        }
+        for (let i = 0; i < expectedFiles.length; i++) {
+            const file = path.join(this.paths.ciderCache, expectedFiles[i])
+            if (!fs.existsSync(file)) {
+                fs.writeFileSync(file, JSON.stringify([]))
+            }
+        }
+    }
+
+    /**
      * Starts the webserver for the renderer process.
      */
-    public async startWebServer(): Promise<void> {
-        this.clientPort = await getPort({port: 9000});
+    private startWebServer(): void {
         const app = express();
 
-        // app.use(express.static(path.join(this.paths.srcPath, './renderer/'))); // this breaks everything
+        // TODO: app.use(express.static(path.join(this.paths.srcPath, './renderer/')));
         app.set("views", path.join(this.paths.srcPath, './renderer/views'));
         app.set("view engine", "ejs");
-
-        // this is also causing issues
-        // app.use((req, res, next) => {
-        //     // if not localhost
-        //
-        //     // @ts-ignore
-        //     if (req.url.includes("audio.webm") || (req.headers.host.includes("localhost") && req.headers["user-agent"].includes("Cider"))) {
-        //         next();
-        //     }
-        // });
+        
+        app.use((req, res, next) => {
+            // @ts-ignore
+            if (req.url.includes("audio.webm") || (req.headers.host.includes("localhost") && (this.devMode || req.headers["user-agent"].includes("Electron")))) {
+                next();
+            }
+        });
 
         app.get('/', (req, res) => {
-            // res.send("Hello world!");
-            // res.sendFile(path.join(webRemotePath, 'index_old.html'));
             res.render("main", this.EnvironmentVariables)
         });
 
-        // app.get('/audio.webm', (req, res) => {
-        //     try {
-        //         req.connection.setTimeout(Number.MAX_SAFE_INTEGER);
-        //         // CiderBase.requests.push({req: req, res: res});
-        //         // var pos = CiderBase.requests.length - 1;
-        //         // req.on("close", () => {
-        //         //     console.info("CLOSED", CiderBase.requests.length);
-        //         //     requests.splice(pos, 1);
-        //         //     console.info("CLOSED", CiderBase.requests.length);
-        //         // });
-        //         this.audioStream.on('data', (data: any) => {
-        //             try {
-        //                 res.write(data);
-        //             } catch (ex) {
-        //                 console.log(ex)
-        //             }
-        //         })
-        //     } catch (ex) {
-        //         console.log(ex)
-        //     }
-        // });
+        app.get('/audio.webm', (req, res) => {
+            try {
+                req.socket.setTimeout(Number.MAX_SAFE_INTEGER);
+                // CiderBase.requests.push({req: req, res: res});
+                // var pos = CiderBase.requests.length - 1;
+                // req.on("close", () => {
+                //     console.info("CLOSED", CiderBase.requests.length);
+                //     requests.splice(pos, 1);
+                //     console.info("CLOSED", CiderBase.requests.length);
+                // });
+                this.audioStream.on('data', (data: any) => {
+                    try {
+                        res.write(data);
+                    } catch (ex) {
+                        console.log(ex)
+                    }
+                })
+            } catch (ex) {
+                console.log(ex)
+            }
+        });
 
         app.listen(this.clientPort, () => {
             console.log(`Cider client port: ${this.clientPort}`);
@@ -143,9 +169,9 @@ export class Win {
     /**
      * Starts the session for the renderer process.
      */
-    private startSession(win: any): void {
+    private startSession(): void {
         // intercept "https://js-cdn.music.apple.com/hls.js/2.141.0/hls.js/hls.js" and redirect to local file "./apple-hls.js" instead
-        win.webContents.session.webRequest.onBeforeRequest(
+        this.win.webContents.session.webRequest.onBeforeRequest(
             {
                 urls: ["https://*/*.js"]
             },
@@ -162,11 +188,11 @@ export class Win {
             }
         )
 
-        win.webContents.session.webRequest.onBeforeSendHeaders(async (details: { url: string; requestHeaders: { [x: string]: string; }; }, callback: (arg0: { requestHeaders: any; }) => void) => {
+        this.win.webContents.session.webRequest.onBeforeSendHeaders(async (details: { url: string; requestHeaders: { [x: string]: string; }; }, callback: (arg0: { requestHeaders: any; }) => void) => {
             if (details.url === "https://buy.itunes.apple.com/account/web/info") {
                 details.requestHeaders['sec-fetch-site'] = 'same-site';
                 details.requestHeaders['DNT'] = '1';
-                let itspod = await win.webContents.executeJavaScript(`window.localStorage.getItem("music.ampwebplay.itspod")`)
+                let itspod = await this.win.webContents.executeJavaScript(`window.localStorage.getItem("music.ampwebplay.itspod")`)
                 if (itspod != null)
                     details.requestHeaders['Cookie'] = `itspod=${itspod}`
             }
@@ -174,14 +200,13 @@ export class Win {
         })
 
         let location = `http://localhost:${this.clientPort}/`
-        win.loadURL(location)
+        this.win.loadURL(location)
     }
 
     /**
      * Initializes the window handlers
-     * @param win The BrowserWindow
      */
-    private startHandlers(win: any): void {
+    private startHandlers(): void {
 
         /**********************************************************************************************************************
          * ipcMain Events
@@ -195,10 +220,11 @@ export class Win {
         })
 
         electron.ipcMain.on("is-dev", (event) => {
-            event.returnValue = !electron.app.isPackaged
+            event.returnValue = this.devMode
         })
+
         electron.ipcMain.on('close', () => { // listen for close event
-            win.close();
+            this.win.close();
         })
 
         electron.ipcMain.on('put-library-songs', (event, arg) => {
@@ -251,41 +277,43 @@ export class Win {
             return await yt.search(u)
         })
 
-        // electron.ipcMain.handle('getStoreValue', (event, key, defaultValue) => {
-        //     return (defaultValue ? app.cfg.get(key, true) : app.cfg.get(key));
-        // });
-        //
-        // electron.ipcMain.handle('setStoreValue', (event, key, value) => {
-        //     app.cfg.set(key, value);
-        // });
-        //
-        // electron.ipcMain.on('getStore', (event) => {
-        //     event.returnValue = app.cfg.store
-        // })
-        //
-        // electron.ipcMain.on('setStore', (event, store) => {
-        //     app.cfg.store = store
-        // })
+        electron.ipcMain.handle('getStoreValue', (event, key, defaultValue) => {
+            // return (defaultValue ? app.cfg.get(key, true) : app.cfg.get(key));
+            return null
+        });
+
+        electron.ipcMain.handle('setStoreValue', (event, key, value) => {
+            // app.cfg.set(key, value);
+        });
+
+        electron.ipcMain.on('getStore', (event) => {
+            // event.returnValue = app.cfg.store
+            event.returnValue = null
+        })
+
+        electron.ipcMain.on('setStore', (event, store) => {
+            // app.cfg.store = store
+        })
 
         electron.ipcMain.handle('setVibrancy', (event, key, value) => {
-            win.setVibrancy(value)
+            this.win.setVibrancy(value)
         });
 
         electron.ipcMain.on('maximize', () => { // listen for maximize event
-            if (win.isMaximized()) {
-                win.unmaximize()
+            if (this.win.isMaximized()) {
+                this.win.unmaximize()
             } else {
-                win.maximize()
+                this.win.maximize()
             }
         })
 
         electron.ipcMain.on('minimize', () => { // listen for minimize event
-            win.minimize();
+            this.win.minimize();
         })
 
         // Set scale
         electron.ipcMain.on('setScreenScale', (event, scale) => {
-            win.webContents.setZoomFactor(parseFloat(scale))
+            this.win.webContents.setZoomFactor(parseFloat(scale))
         })
 
         /* *********************************************************************************************
@@ -301,10 +329,10 @@ export class Win {
             }
             let wndState = WND_STATE.NORMAL
 
-            win.on("resize", (_: any) => {
-                const isMaximized = win.isMaximized()
-                const isMinimized = win.isMinimized()
-                const isFullScreen = win.isFullScreen()
+            this.win.on("resize", (_: any) => {
+                const isMaximized = this.win.isMaximized()
+                const isMinimized = this.win.isMinimized()
+                const isFullScreen = this.win.isFullScreen()
                 const state = wndState;
                 if (isMinimized && state !== WND_STATE.MINIMIZED) {
                     wndState = WND_STATE.MINIMIZED
@@ -312,20 +340,20 @@ export class Win {
                     wndState = WND_STATE.FULL_SCREEN
                 } else if (isMaximized && state !== WND_STATE.MAXIMIZED) {
                     wndState = WND_STATE.MAXIMIZED
-                    win.webContents.executeJavaScript(`app.chrome.maximized = true`)
+                    this.win.webContents.executeJavaScript(`app.chrome.maximized = true`)
                 } else if (state !== WND_STATE.NORMAL) {
                     wndState = WND_STATE.NORMAL
-                    win.webContents.executeJavaScript(`app.chrome.maximized = false`)
+                    this.win.webContents.executeJavaScript(`app.chrome.maximized = false`)
                 }
             })
         }
 
-        win.on("closed", () => {
+        this.win.on("closed", () => {
             this.win = null
         })
 
         // Set window Handler
-        win.webContents.setWindowOpenHandler((x: any) => {
+        this.win.webContents.setWindowOpenHandler((x: any) => {
             if (x.url.includes("apple") || x.url.includes("localhost")) {
                 return {action: "allow"}
             }
