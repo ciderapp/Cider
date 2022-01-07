@@ -305,6 +305,14 @@
                     normal: {
                         items: [
                             {
+                                "icon": "./assets/feather/list.svg",
+                                "id": "addToPlaylist",
+                                "name": "Add to Playlist...",
+                                "action": function () {
+                                    app.promptAddToPlaylist()
+                                }
+                            },
+                            {
                                 "name": "Play Next",
                                 "action": function () {
                                     app.mk.playNext({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
@@ -321,13 +329,7 @@
                                 }
                             },
                             {
-                                "id": "addToPlaylist",
-                                "name": "Add to Playlist...",
-                                "action": function () {
-                                    app.promptAddToPlaylist()
-                                }
-                            },
-                            {
+                                "icon": "./assets/feather/plus.svg",
                                 "name": (this.addedToLibrary) ? "Remove from Library..." : "Add to Library...",
                                 "action": async function () {
                                     let item_id = self.item.attributes.playParams.id ?? self.item.id;
@@ -345,6 +347,7 @@
                                 }
                             },
                             {
+                                "icon": "./assets/feather/heart.svg",
                                 "id": "love",
                                 "name": "Love",
                                 "disabled": true,
@@ -353,6 +356,7 @@
                                 }
                             },
                             {
+                                "icon": "./assets/feather/x-circle.svg",
                                 "id": "unlove",
                                 "name": "Unlove",
                                 "disabled": true,
@@ -361,6 +365,7 @@
                                 }
                             },
                             {
+                                "icon": "./assets/feather/thumbs-down.svg",
                                 "id": "dislike",
                                 "name": "Dislike",
                                 "disabled": true,
@@ -369,6 +374,7 @@
                                 }
                             },
                             {
+                                "icon": "./assets/feather/x-circle.svg",
                                 "id": "undo_dislike",
                                 "name": "Undo dislike",
                                 "disabled": true,
@@ -377,6 +383,7 @@
                                 }
                             },
                             {
+                                "icon": "./assets/feather/share.svg",
                                 "name": "Share",
                                 "action": function () {
                                     self.app.copyToClipboard(self.item.attributes.url)

@@ -247,18 +247,10 @@
                     normal: {
                         items: [
                             {
+                                "icon": "./assets/feather/list.svg",
                                 "name": "Add to Playlist...",
                                 "action": function () {
                                     app.promptAddToPlaylist()
-                                }
-                            },
-                            {
-                                "name": "Start Radio",
-                                "action": function () {
-                                    app.mk.setStationQueue({song: self.item.attributes.playParams.id ?? self.item.id}).then(() => {
-                                        app.mk.play()
-                                        app.selectedMediaItems = []
-                                    })
                                 }
                             },
                             {
@@ -278,6 +270,17 @@
                                 }
                             },
                             {
+                                "icon": "./assets/feather/radio.svg",
+                                "name": "Start Radio",
+                                "action": function () {
+                                    app.mk.setStationQueue({song: self.item.attributes.playParams.id ?? self.item.id}).then(() => {
+                                        app.mk.play()
+                                        app.selectedMediaItems = []
+                                    })
+                                }
+                            },
+                            {
+                                "icon": "./assets/feather/heart.svg",
                                 "id": "love",
                                 "name": "Love",
                                 "disabled": true,
@@ -286,6 +289,7 @@
                                 }
                             },
                             {
+                                "icon": "./assets/feather/x-circle.svg",
                                 "id": "unlove",
                                 "name": "Unlove",
                                 "disabled": true,
@@ -294,6 +298,7 @@
                                 }
                             },
                             {
+                                "icon": "./assets/feather/thumbs-down.svg",
                                 "id": "dislike",
                                 "name": "Dislike",
                                 "disabled": true,
@@ -302,6 +307,7 @@
                                 }
                             },
                             {
+                                "icon": "./assets/feather/x-circle.svg",
                                 "id": "undo_dislike",
                                 "name": "Undo dislike",
                                 "disabled": true,
@@ -310,18 +316,21 @@
                                 }
                             },
                             {
+                                "icon": "./assets/feather/user.svg",
                                 "name": "Go to Artist",
                                 "action": function () {
                                     app.searchAndNavigate(self.item, 'artist')
                                 }
                             },
                             {
+                                "icon": "./assets/feather/disc.svg",
                                 "name": "Go to Album",
                                 "action": function () {
                                     app.searchAndNavigate(self.item, 'album')
                                 }
                             },
                             {
+                                "icon": "./assets/feather/share.svg",
                                 "name": "Share",
                                 "action": function () {
                                     self.app.copyToClipboard(self.item.attributes.url)
