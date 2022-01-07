@@ -79,15 +79,23 @@
                     <div>Name</div>
                     <div>Name</div>
                 </div> -->
-                <div class="lyrics-col">
-                    <lyrics-view :yoffset="10" :time="time" :lyrics="lyrics"
+                <div class="lyrics-col" v-if="tabMode == 'lyrics'">
+                    <lyrics-view :yoffset="120" :time="time" :lyrics="lyrics"
                     :richlyrics="richlyrics"></lyrics-view>
-                <div>
+                </div>
+                <div class="queue-col" v-if="tabMode == 'queue'">    
+                    <cider-queue v-if="tabMode == 'queue'" ref="queue" ></cider-queue>    
+                </div>
             </div>
         </div>
-
-
+        <div class="tab-toggles">
+            <div class="lyrics" :class="{active: tabMode == 'lyrics'}" @click="tabMode = 'lyrics'"></div>
+            <div class="queue"  :class="{active: tabMode == 'queue'}" @click="tabMode = 'queue'"></div>
+        </div> 
     </div>
+ 
+
+
 </script>
 
 <script>
@@ -99,21 +107,22 @@
                 required: false
             },
             lyrics: {
-                type:  Array,
+                type: Array,
                 required: false
             },
             richlyrics: {
-                type:  Array,
+                type: Array,
                 required: false
             },
             image: {
                 type: String,
                 required: false
-            }
+            },
         },
-        data: function(){
+        data: function () {
             return {
-                app : this.$root,
+                app: this.$root,
+                tabMode: "lyrics",
             }
         },
         methods: {

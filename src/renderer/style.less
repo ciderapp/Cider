@@ -3567,23 +3567,74 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     flex-grow: 1;
   }
 
+  .playback-button--small.active {
+    background-color: rgba(200, 200, 200, 0.1);
+  }
+
   .right-col{
     height: 50vh;
   }
 
   .lyrics-col{
-    margin-top: 25vh;
+
     width: 60vh;
     height: 50vh;
 
-    ::-webkit-scrollbar {
-      display: none;
+    ::-webkit-scrollbar-thumb {
+      box-shadow: unset;
     }
 
-    &:hover ::-webkit-scrollbar {
-      display: unset;
+    &:hover ::-webkit-scrollbar-thumb {
+      box-shadow: inset 0px 0px 10px 10px rgb(200 200 200 / 50%);
     }
-  }    
+  } 
+
+  .queue-col{
+
+    width: 60vh;
+    height: 50vh;
+
+    ::-webkit-scrollbar-thumb {
+      box-shadow: unset;
+    }
+
+    &:hover ::-webkit-scrollbar-thumb {
+      box-shadow: inset 0px 0px 10px 10px rgb(200 200 200 / 50%);
+    }
+  } 
+  
+  .tab-toggles{
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 15vh;
+    height: 5vh;
+    justify-content: space-evenly;
+    
+    .queue {
+      background-image: url("./assets/list.svg") ;
+      padding: 0.5vh;
+      width: 2.5vh;
+      height: 2.5vh;
+      background-origin: content-box;
+      background-repeat: no-repeat;
+    }
+    
+    .lyrics {
+      background-image: url("./assets/quote-right.svg") ;
+      padding: 0.5vh;
+      width: 2.5vh;
+      height: 2.5vh;
+      background-origin: content-box;
+      background-repeat: no-repeat;
+    }
+
+    .active {
+      background-color: rgba(200, 200, 200, 0.7);
+      border-radius: 3px;
+    }
+  }
 
   .artwork-col {
     justify-content: center;
