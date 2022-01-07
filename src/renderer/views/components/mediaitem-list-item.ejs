@@ -348,19 +348,15 @@
                         menus.multiple.items = menus.multiple.items.concat(this.contextExt.multiple)
                     }
                 }
-                try{
-                let rating = await app.getRating(self.item).catch();
-                if (rating) {
-                    if(rating == 0) {
-                        menus.normal.items.find(x => x.id == 'love').disabled = false
-                        menus.normal.items.find(x => x.id == 'dislike').disabled = false
-                    }else if(rating == 1) {
-                        menus.normal.items.find(x => x.id == 'unlove').disabled = false
-                    }else if(rating == -1) {
-                        menus.normal.items.find(x => x.id == 'undo_dislike').disabled = false
-                    }
+                let rating = await app.getRating(self.item)
+                if (rating == 0) {
+                    menus.normal.items.find(x => x.id == 'love').disabled = false
+                    menus.normal.items.find(x => x.id == 'dislike').disabled = false
+                } else if (rating == 1) {
+                    menus.normal.items.find(x => x.id == 'unlove').disabled = false
+                } else if (rating == -1) {
+                    menus.normal.items.find(x => x.id == 'undo_dislike').disabled = false
                 }
-                } catch(_){}
                 CiderContextMenu.Create(event, menus[useMenu])
             },
             visibilityChanged: function (isVisible, entry) {
