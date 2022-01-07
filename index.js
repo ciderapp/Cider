@@ -101,7 +101,15 @@ app.paths = {
 switch (app.cfg.get("visual.hw_acceleration")) {
     default:
     case "default":
-
+        app.commandLine.appendSwitch('enable-accelerated-mjpeg-decode')
+        app.commandLine.appendSwitch('enable-accelerated-video')
+        app.commandLine.appendSwitch('disable-gpu-driver-bug-workarounds')
+        app.commandLine.appendSwitch('ignore-gpu-blacklist')
+        app.commandLine.appendSwitch('enable-native-gpu-memory-buffers')
+        app.commandLine.appendSwitch('enable-accelerated-video-decode');
+        app.commandLine.appendSwitch('enable-gpu-rasterization');
+        app.commandLine.appendSwitch('enable-native-gpu-memory-buffers');
+        app.commandLine.appendSwitch('enable-oop-rasterization');
         break;
     case "webgpu":
         console.info("WebGPU is enabled.");
@@ -130,9 +138,7 @@ function CreateWindow() {
 if (process.platform === "linux") {
     app.commandLine.appendSwitch('disable-features', 'MediaSessionService');
 }
-app.commandLine.appendSwitch('high-dpi-support', "1")
-app.commandLine.appendSwitch('force-device-scale-factor', "1")
-app.commandLine.appendSwitch('disable-pinch');
+
 app.commandLine.appendSwitch('no-sandbox');
 // app.commandLine.appendSwitch('js-flags', '--max-old-space-size=1024')
 
@@ -141,6 +147,11 @@ app.commandLine.appendSwitch('no-sandbox');
 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 app.whenReady().then(async () => {
+    if (process.platform === "win32") {
+        app.commandLine.appendSwitch('high-dpi-support', 'true')
+        app.commandLine.appendSwitch('force-device-scale-factor', '1')
+        app.commandLine.appendSwitch('disable-pinch');
+    }
     if (comps == null) {
         app.on("widevine-ready", () => {
             console.log('[Cider] Application is Ready. Creating Window.')
