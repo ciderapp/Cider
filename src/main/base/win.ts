@@ -1,17 +1,25 @@
 import * as path from "path";
 import * as electron from "electron";
-import * as electronAcrylic from "electron-acrylic-window"
+// import * as electronAcrylic from "electron-acrylic-window"
 import * as windowStateKeeper from "electron-window-state";
 import * as express from "express";
 import * as getPort from "get-port";
 import * as yt from "youtube-search-without-api-key";
+import * as fs from "fs";
+import {Stream} from "stream";
 
 export class Win {
-    win: any | undefined;
+    win: any | undefined = null;
     app: electron.App | undefined;
 
-    private srcPath: string = path.join(__dirname, "../../src");
-    private resourcePath: string = path.join(__dirname, "../../resources");
+    private paths: any = {
+        srcPath: path.join(__dirname, "../../src"),
+        resourcePath: path.join(__dirname, "../../resources"),
+        ciderCache: path.resolve(electron.app.getPath("userData"), "CiderCache"),
+        themes: path.resolve(electron.app.getPath("userData"), "Themes"),
+        plugins: path.resolve(electron.app.getPath("userData"), "Plugins"),
+    }
+    private audioStream: any = new Stream.PassThrough();
     private clientPort: number = 0;
     private EnvironmentVariables: object = {
         "env": {
@@ -20,16 +28,17 @@ export class Win {
         }
     };
     private options: any = {
-        icon: path.join(this.resourcePath, `icons/icon.ico`),
+        icon: path.join(this.paths.resourcePath, `icons/icon.` + (process.platform === "win32" ? "ico" : "png")),
         width: 1024,
         height: 600,
         x: undefined,
         y: undefined,
-        minWidth: 850,
-        minHeight: 400,
+        minWidth: 844,
+        minHeight: 410,
         frame: false,
         title: "Cider",
-        transparent: process.platform === "darwin",
+        vibrancy: 'dark',
+        //  transparent: true,
         hasShadow: false,
         webPreferences: {
             webviewTag: true,
@@ -42,16 +51,14 @@ export class Win {
             sandbox: true,
             nativeWindowOpen: true,
             contextIsolation: false,
-            preload: path.join(this.srcPath, 'preload/cider-preload.js')
+            preload: path.join(this.paths.srcPath, './preload/cider-preload.js')
         }
     };
 
     /**
      * Creates the browser window
      */
-    async createWindow(): Promise<any | undefined> {
-        this.clientPort = await getPort({port: 9000});
-
+    createWindow(): void {
         // Load the previous state with fallback to defaults
         const windowState = windowStateKeeper({
             defaultWidth: 1024,
@@ -60,21 +67,21 @@ export class Win {
         this.options.width = windowState.width;
         this.options.height = windowState.height;
 
-        this.startWebServer()
-
-        if (process.platform === "win32") {
-            this.win = new electronAcrylic.BrowserWindow(this.options);
-        } else {
-            this.win = new electron.BrowserWindow(this.options);
-        }
-
-        // Create the browser window.
-
-        console.debug('Browser window created');
+        // Start the webserver for the browser window to load
+        this.startWebServer().then(() => {
+            if (process.platform === "win32") {
+                // this.win = new electronAcrylic.BrowserWindow(this.options);
+            } else {
+                this.win = new electron.BrowserWindow(this.options);
+            }
+        })
 
         // and load the renderer.
         this.startSession(this.win);
         this.startHandlers(this.win);
+
+        // Register listeners on Window to track size and position of the Window.
+        windowState.manage(this.win);
 
         return this.win;
     }
@@ -82,39 +89,53 @@ export class Win {
     /**
      * Starts the webserver for the renderer process.
      */
-    private startWebServer(): void {
-        const webapp = express();
-        const webRemotePath = path.join(this.srcPath, 'renderer');
-        webapp.set("views", path.join(webRemotePath, "views"));
-        webapp.set("view engine", "ejs");
+    public async startWebServer(): Promise<void> {
+        this.clientPort = await getPort({port: 9000});
+        const app = express();
 
-        webapp.use(function (req, res, next) {
-            // if not localhost
-            // @ts-ignore
-            if (req.url.includes("audio.webm") || (req.headers.host.includes("localhost") && req.headers["user-agent"].includes("Cider"))) {
-                next();
-            }
-        });
+        // app.use(express.static(path.join(this.paths.srcPath, './renderer/'))); // this breaks everything
+        app.set("views", path.join(this.paths.srcPath, './renderer/views'));
+        app.set("view engine", "ejs");
 
-        webapp.use(express.static(webRemotePath));
-        webapp.get('/', (req, res) => {
-            //res.sendFile(path.join(webRemotePath, 'index_old.html'));
-            console.log(req)
+        // this is also causing issues
+        // app.use((req, res, next) => {
+        //     // if not localhost
+        //
+        //     // @ts-ignore
+        //     if (req.url.includes("audio.webm") || (req.headers.host.includes("localhost") && req.headers["user-agent"].includes("Cider"))) {
+        //         next();
+        //     }
+        // });
+
+        app.get('/', (req, res) => {
+            // res.send("Hello world!");
+            // res.sendFile(path.join(webRemotePath, 'index_old.html'));
             res.render("main", this.EnvironmentVariables)
         });
-        // webelectron.app.get('/audio.webm', (req, res) => {
+
+        // app.get('/audio.webm', (req, res) => {
         //     try {
         //         req.connection.setTimeout(Number.MAX_SAFE_INTEGER);
-        //         this.audiostream.on('data', (data) => {
+        //         // CiderBase.requests.push({req: req, res: res});
+        //         // var pos = CiderBase.requests.length - 1;
+        //         // req.on("close", () => {
+        //         //     console.info("CLOSED", CiderBase.requests.length);
+        //         //     requests.splice(pos, 1);
+        //         //     console.info("CLOSED", CiderBase.requests.length);
+        //         // });
+        //         this.audioStream.on('data', (data: any) => {
         //             try {
         //                 res.write(data);
         //             } catch (ex) {
         //                 console.log(ex)
         //             }
         //         })
-        //     } catch (ex) { console.log(ex) }
+        //     } catch (ex) {
+        //         console.log(ex)
+        //     }
         // });
-        webapp.listen(this.clientPort, () => {
+
+        app.listen(this.clientPort, () => {
             console.log(`Cider client port: ${this.clientPort}`);
         });
     }
@@ -122,8 +143,7 @@ export class Win {
     /**
      * Starts the session for the renderer process.
      */
-    private startSession(win: any): void {const self = this;
-
+    private startSession(win: any): void {
         // intercept "https://js-cdn.music.apple.com/hls.js/2.141.0/hls.js/hls.js" and redirect to local file "./apple-hls.js" instead
         win.webContents.session.webRequest.onBeforeRequest(
             {
@@ -132,7 +152,7 @@ export class Win {
             (details: { url: string | string[]; }, callback: (arg0: { redirectURL?: string; cancel?: boolean; }) => void) => {
                 if (details.url.includes("hls.js")) {
                     callback({
-                        redirectURL: `http://localhost:${self.clientPort}/apple-hls.js`
+                        redirectURL: `http://localhost:${this.clientPort}/apple-hls.js`
                     })
                 } else {
                     callback({
@@ -146,20 +166,15 @@ export class Win {
             if (details.url === "https://buy.itunes.apple.com/account/web/info") {
                 details.requestHeaders['sec-fetch-site'] = 'same-site';
                 details.requestHeaders['DNT'] = '1';
-                let ItsPod = await win.webContents.executeJavaScript(`window.localStorage.getItem("music.ampwebplay.itspod")`)
-                if (ItsPod != null)
-                    details.requestHeaders['Cookie'] = `itspod=${ItsPod}`
+                let itspod = await win.webContents.executeJavaScript(`window.localStorage.getItem("music.ampwebplay.itspod")`)
+                if (itspod != null)
+                    details.requestHeaders['Cookie'] = `itspod=${itspod}`
             }
             callback({requestHeaders: details.requestHeaders})
         })
 
-        const location = `http://localhost:${this.clientPort}/`
-        console.log('yeah')
+        let location = `http://localhost:${this.clientPort}/`
         win.loadURL(location)
-            .then(() => {
-                console.debug(`Cider client location: ${location}`);
-            })
-            .catch(console.error);
     }
 
     /**
@@ -167,6 +182,116 @@ export class Win {
      * @param win The BrowserWindow
      */
     private startHandlers(win: any): void {
+
+        /**********************************************************************************************************************
+         * ipcMain Events
+         ****************************************************************************************************************** */
+        electron.ipcMain.on("cider-platform", (event) => {
+            event.returnValue = process.platform
+        })
+
+        electron.ipcMain.on("get-gpu-mode", (event) => {
+            event.returnValue = process.platform
+        })
+
+        electron.ipcMain.on("is-dev", (event) => {
+            event.returnValue = !electron.app.isPackaged
+        })
+        electron.ipcMain.on('close', () => { // listen for close event
+            win.close();
+        })
+
+        electron.ipcMain.on('put-library-songs', (event, arg) => {
+            fs.writeFileSync(path.join(this.paths.ciderCache, "library-songs.json"), JSON.stringify(arg))
+        })
+
+        electron.ipcMain.on('put-library-artists', (event, arg) => {
+            fs.writeFileSync(path.join(this.paths.ciderCache, "library-artists.json"), JSON.stringify(arg))
+        })
+
+        electron.ipcMain.on('put-library-albums', (event, arg) => {
+            fs.writeFileSync(path.join(this.paths.ciderCache, "library-albums.json"), JSON.stringify(arg))
+        })
+
+        electron.ipcMain.on('put-library-playlists', (event, arg) => {
+            fs.writeFileSync(path.join(this.paths.ciderCache, "library-playlists.json"), JSON.stringify(arg))
+        })
+
+        electron.ipcMain.on('put-library-recentlyAdded', (event, arg) => {
+            fs.writeFileSync(path.join(this.paths.ciderCache, "library-recentlyAdded.json"), JSON.stringify(arg))
+        })
+
+        electron.ipcMain.on('get-library-songs', (event) => {
+            let librarySongs = fs.readFileSync(path.join(this.paths.ciderCache, "library-songs.json"), "utf8")
+            event.returnValue = JSON.parse(librarySongs)
+        })
+
+        electron.ipcMain.on('get-library-artists', (event) => {
+            let libraryArtists = fs.readFileSync(path.join(this.paths.ciderCache, "library-artists.json"), "utf8")
+            event.returnValue = JSON.parse(libraryArtists)
+        })
+
+        electron.ipcMain.on('get-library-albums', (event) => {
+            let libraryAlbums = fs.readFileSync(path.join(this.paths.ciderCache, "library-albums.json"), "utf8")
+            event.returnValue = JSON.parse(libraryAlbums)
+        })
+
+        electron.ipcMain.on('get-library-playlists', (event) => {
+            let libraryPlaylists = fs.readFileSync(path.join(this.paths.ciderCache, "library-playlists.json"), "utf8")
+            event.returnValue = JSON.parse(libraryPlaylists)
+        })
+
+        electron.ipcMain.on('get-library-recentlyAdded', (event) => {
+            let libraryRecentlyAdded = fs.readFileSync(path.join(this.paths.ciderCache, "library-recentlyAdded.json"), "utf8")
+            event.returnValue = JSON.parse(libraryRecentlyAdded)
+        })
+
+        electron.ipcMain.handle('getYTLyrics', async (event, track, artist) => {
+            const u = track + " " + artist + " official video";
+            return await yt.search(u)
+        })
+
+        // electron.ipcMain.handle('getStoreValue', (event, key, defaultValue) => {
+        //     return (defaultValue ? app.cfg.get(key, true) : app.cfg.get(key));
+        // });
+        //
+        // electron.ipcMain.handle('setStoreValue', (event, key, value) => {
+        //     app.cfg.set(key, value);
+        // });
+        //
+        // electron.ipcMain.on('getStore', (event) => {
+        //     event.returnValue = app.cfg.store
+        // })
+        //
+        // electron.ipcMain.on('setStore', (event, store) => {
+        //     app.cfg.store = store
+        // })
+
+        electron.ipcMain.handle('setVibrancy', (event, key, value) => {
+            win.setVibrancy(value)
+        });
+
+        electron.ipcMain.on('maximize', () => { // listen for maximize event
+            if (win.isMaximized()) {
+                win.unmaximize()
+            } else {
+                win.maximize()
+            }
+        })
+
+        electron.ipcMain.on('minimize', () => { // listen for minimize event
+            win.minimize();
+        })
+
+        // Set scale
+        electron.ipcMain.on('setScreenScale', (event, scale) => {
+            win.webContents.setZoomFactor(parseFloat(scale))
+        })
+
+        /* *********************************************************************************************
+        * Window Events
+        * **********************************************************************************************/
+
         if (process.platform === "win32") {
             let WND_STATE = {
                 MINIMIZED: 0,
@@ -187,83 +312,26 @@ export class Win {
                     wndState = WND_STATE.FULL_SCREEN
                 } else if (isMaximized && state !== WND_STATE.MAXIMIZED) {
                     wndState = WND_STATE.MAXIMIZED
-                    win.webContents.executeJavaScript(`electron.app.chrome.maximized = true`)
+                    win.webContents.executeJavaScript(`app.chrome.maximized = true`)
                 } else if (state !== WND_STATE.NORMAL) {
                     wndState = WND_STATE.NORMAL
-                    win.webContents.executeJavaScript(`electron.app.chrome.maximized = false`)
+                    win.webContents.executeJavaScript(`app.chrome.maximized = false`)
                 }
             })
         }
+
+        win.on("closed", () => {
+            this.win = null
+        })
 
         // Set window Handler
         win.webContents.setWindowOpenHandler((x: any) => {
             if (x.url.includes("apple") || x.url.includes("localhost")) {
                 return {action: "allow"}
             }
-            electron.shell.openExternal(x.url).catch(() => {
-            })
-            return {
-                action: 'deny'
-            }
+            electron.shell.openExternal(x.url).catch(console.error)
+            return {action: 'deny'}
         })
 
-        //-------------------------------------------------------------------------------
-        // Renderer IPC Listeners
-        //-------------------------------------------------------------------------------
-
-        electron.ipcMain.on("cider-platform", (event) => {
-            event.returnValue = process.platform
-        })
-
-        electron.ipcMain.on("get-gpu-mode", (event) => {
-            event.returnValue = process.platform
-        })
-
-        electron.ipcMain.on("is-dev", (event) => {
-            event.returnValue = !electron.app.isPackaged
-        })
-
-        // IPC stuff (listeners)
-        electron.ipcMain.on('close', () => { // listen for close event
-            win.close();
-        })
-
-        electron.ipcMain.handle('getYTLyrics', async (event, track, artist) => {
-            const u = track + " " + artist + " official video";
-            return await yt.search(u)
-        })
-
-        // electron.ipcMain.handle('getStoreValue', (event, key, defaultValue) => {
-        //     return (defaultValue ? electron.app.cfg.get(key, true) : electron.app.cfg.get(key));
-        // });
-        //
-        // electron.ipcMain.handle('setStoreValue', (event, key, value) => {
-        //     electron.app.cfg.set(key, value);
-        // });
-        //
-        // electron.ipcMain.on('getStore', (event) => {
-        //     event.returnValue = electron.app.cfg.store
-        // })
-        //
-        // electron.ipcMain.on('setStore', (event, store) => {
-        //     electron.app.cfg.store = store
-        // })
-
-        electron.ipcMain.on('maximize', () => { // listen for maximize event
-            if (win.isMaximized()) {
-                win.unmaximize()
-            } else {
-                win.maximize()
-            }
-        })
-
-        electron.ipcMain.on('minimize', () => { // listen for minimize event
-            win.minimize();
-        })
-
-        // Set scale
-        electron.ipcMain.on('setScreenScale', (event, scale) => {
-            win.webContents.setZoomFactor(parseFloat(scale))
-        })
     }
 }

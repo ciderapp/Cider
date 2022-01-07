@@ -16,7 +16,7 @@ import {Win} from "./base/win";
 const Cider = new Win()
 
 app.on("ready", () => {
-  Cider.createWindow();
+  Cider.startWebServer();
 });
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

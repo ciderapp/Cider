@@ -18,9 +18,11 @@
     <link rel="stylesheet/less" type="text/css" href="style.less"/>
     <script src="less.js"></script>
     <script src="<%- (env.dev ? "vue.js" : "vue.dev.js") %>"></script>
+    <script src="vuex.min.js"></script>
     <script src="sortable.min.js"></script>
     <script src="vue-observe-visibility.min.js"></script>
     <script src="sortable.min.js"></script>
+    <script src="vibrant.min.js"></script>
     <script src="vuedraggable.umd.min.js"></script>
     <link rel="manifest" href="./manifest.json?v=2">
     <script src="https://js-cdn.music.apple.com/hls.js/2.141.0/hls.js/hls.js"></script>
@@ -67,7 +69,9 @@
                         <template v-if="mkReady()">
                             <div class="app-playback-controls" @mouseover="chrome.progresshover = true"
                                  @mouseleave="chrome.progresshover = false" @contextmenu="nowPlayingContextMenu">
-                                <div class="artwork"></div>
+                                <div class="artwork" @click="drawer.open = false; appMode = 'fullscreen'">
+                                    <mediaitem-artwork :url="currentArtUrl"></mediaitem-artwork>
+                                </div>
                                 <div class="playback-info">
                                     <div class="song-name">
                                         {{ mk.nowPlayingItem["attributes"]["name"] }}
@@ -114,7 +118,7 @@
                 <div class="app-chrome--right">
                     <div class="app-chrome-item volume display--large">
                         <div class="app-chrome-item volume-icon"></div>
-                        <input type="range" class="" step="0.01" min="0" max="1" v-model="mk.volume"
+                        <input type="range" class="" @wheel="volumeWheel" step="0.01" min="0" max="1" v-model="mk.volume"
                                v-if="typeof mk.volume != 'undefined'">
                     </div>
                     <div class="app-chrome-item generic" v-if="false">
@@ -168,29 +172,21 @@
                         <div class="app-sidebar-header-text">
                             Apple Music
                         </div>
-                        <sidebar-library-item v-if="isDev" name="Home" page="home"></sidebar-library-item>
-                        <sidebar-library-item name="Listen Now" page="listen_now"></sidebar-library-item>
-                        <sidebar-library-item name="Browse" page="browse"></sidebar-library-item>
-                        <sidebar-library-item name="Radio" page="radio"></sidebar-library-item>
+                        <sidebar-library-item name="Home" svg-icon="./assets/feather/home.svg" page="home"></sidebar-library-item>
+                        <sidebar-library-item name="Listen Now" svg-icon="./assets/feather/play-circle.svg" page="listen_now"></sidebar-library-item>
+                        <sidebar-library-item name="Browse" svg-icon="./assets/feather/globe.svg" page="browse"></sidebar-library-item>
+                        <sidebar-library-item name="Radio" svg-icon="./assets/feather/radio.svg" page="radio"></sidebar-library-item>
                         <div class="app-sidebar-header-text">
                             Library
                         </div>
-                        <sidebar-library-item name="Recently Added" page="library-recentlyadded"></sidebar-library-item>
-                        <sidebar-library-item name="Songs" page="library-songs"></sidebar-library-item>
-                        <sidebar-library-item name="Albums" page="library-albums"></sidebar-library-item>
-                        <sidebar-library-item name="Artists" page="library-artists"></sidebar-library-item>
-                        <sidebar-library-item name="Made For You" page="library-madeforyou"></sidebar-library-item>
+                        <sidebar-library-item name="Recently Added" svg-icon="./assets/feather/plus-circle.svg" page="library-recentlyadded"></sidebar-library-item>
+                        <sidebar-library-item name="Songs" svg-icon="./assets/feather/music.svg" page="library-songs"></sidebar-library-item>
+                        <sidebar-library-item name="Albums" svg-icon="./assets/feather/disc.svg" page="library-albums"></sidebar-library-item>
+                        <sidebar-library-item name="Artists" svg-icon="./assets/feather/user.svg" page="library-artists"></sidebar-library-item>
                         <div class="app-sidebar-header-text" @contextmenu="playlistHeaderContextMenu">
                             Playlists
                         </div>
-                        <button class="app-sidebar-item" v-for="item in playlists.listing" :key="item.id"
-                                v-if="item.attributes.name"
-                                @contextmenu="playlistContextMenu($event, item.id)"
-                                @dragover="()=>{}"
-                                :href="item.href"
-                                @click='appRoute(`playlist_` + item.id); showingPlaylist = [];getPlaylistFromID(page.substring(9))'>
-                            {{ item.attributes.name }}
-                        </button>
+                        <sidebar-playlist v-for="item in getPlaylistFolderChildren('p.playlistsroot')" :item="item"></sidebar-playlist>
                     </div>
                     <transition name="wpfade">
                         <div class="usermenu-container" v-if="chrome.menuOpened">
@@ -215,6 +211,9 @@
                                         </div>
                                     </div>
                                 </button>
+                                <button class="usermenu-item" v-if="cfg.advanced.AudioContext && cfg.audio.spatial" @click="modals.spatialProperties = true">
+                                    Spatialized Audio Settings
+                                </button>
                                 <button class="usermenu-item">
                                     About
                                 </button>
@@ -232,7 +231,7 @@
                     </transition>
                     <div class="app-sidebar-footer">
                         <input type="range" class="web-slider display--small" step="0.01" min="0" max="1"
-                               v-model="mk.volume"
+                               v-model="mk.volume" @wheel="volumeWheel"
                                v-if="typeof mk.volume != 'undefined'">
                         <button class="app-sidebar-button" style="width:100%"
                                 :class="{active: chrome.menuOpened}"
@@ -300,6 +299,12 @@
                     <transition name="wpfade">
                         <template v-if="page == 'home'">
                             <cider-home></cider-home>
+                        </template>
+                    </transition>
+                    <!-- Home -->
+                    <transition name="wpfade">
+                        <template v-if="page == 'artist-feed'">
+                            <cider-artist-feed></cider-artist-feed>
                         </template>
                     </transition>
                     <!-- Playlist / Album page-->
@@ -443,8 +448,17 @@
                 </div>
                 <transition name="drawertransition">
                     <div class="app-drawer" v-if="drawer.open">
-                        <lyrics-view v-if="drawer.panel == 'lyrics'" :time="lyriccurrenttime" :lyrics="lyrics"
-                                     :richlyrics="richlyrics"></lyrics-view>
+                        <div class="bgArtworkMaterial">
+                            <div class="bg-artwork-container">
+                                <img class="bg-artwork a" :src="$store.state.artwork.playerLCD">
+                                <img class="bg-artwork b" :src="$store.state.artwork.playerLCD">
+                            </div>
+                        </div>
+                            <lyrics-view v-if="drawer.panel == 'lyrics'" :time="lyriccurrenttime" :lyrics="lyrics"
+                                        :richlyrics="richlyrics"></lyrics-view>
+                            <div v-if="drawer.panel == 'lyrics'" class="lyric-footer">
+                                <button class="md-btn" @click="modularUITest(!fullscreenLyrics)">{{fullscreenLyrics ? "Default View":'Fullscreen View'}}</button> 
+                            </div>     
                         <cider-queue ref="queue" v-if="drawer.panel == 'queue'"></cider-queue>
                     </div>
                 </transition>
@@ -453,18 +467,25 @@
     </transition>
     <transition name="fsModeSwitch">
         <div class="fullscreen-view-container" v-if="appMode == 'fullscreen'">
-            <fullscreen-view></fullscreen-view>
+            <fullscreen-view :image="currentArtUrl.replace('50x50', '600x600')" :time="lyriccurrenttime" :lyrics="lyrics" :richlyrics="richlyrics"></fullscreen-view>
         </div>
     </transition>
     <transition name="wpfade">
-        <img v-show="chrome.artworkReady" @load="chrome.artworkReady = true" class="bg-artwork"
-        >
+        <div class="bg-artwork-container" :class="{noanimation: (!cfg.visual.bg_artwork_rotation || !animateBackground)}">
+            <img @load="chrome.artworkReady = true" class="bg-artwork a "
+            >
+            <img class="bg-artwork b"
+            >
+        </div>
     </transition>
     <transition name="wpfade">
         <div class="bg-artwork--placeholder"></div>
     </transition>
     <transition name="modal">
         <add-to-playlist :playlists="playlists.listing" v-if="modals.addToPlaylist"></add-to-playlist>
+    </transition>
+    <transition name="modal">
+        <spatial-properties v-if="modals.spatialProperties"></spatial-properties>
     </transition>
     <div id="apple-music-video-container">
         <div id="apple-music-video-player-controls">
@@ -512,6 +533,9 @@
 <!-- Home -->
 <%- include('pages/home') %>
 
+<!-- Artist Feed -->
+<%- include('pages/artist-feed') %>
+
 <!-- Playlists / Albums -->
 <%- include('pages/cider-playlist') %>
 
@@ -538,10 +562,15 @@
 <script type="text/x-template" id="sidebar-library-item">
     <button class="app-sidebar-item"
             :class="$parent.getSidebarItemClass(page)" @click="$root.appRoute(page)">
+        <div class="sidebar-icon" v-html="svgIconData" v-if="svgIconData != ''"></div>
         {{ name }}
     </button>
 </script>
 
+<!-- Playlist Listing -->
+<%- include('components/sidebar-playlist') %>
+<!-- Spatial Properties -->
+<%- include('components/spatial-properties') %>
 <!-- Add to playlist -->
 <%- include('components/add-to-playlist') %>
 <!-- Queue -->
@@ -585,5 +614,7 @@
     }
 </script>
 <script src="index.js?v=1"></script>
+<script src="https://cdn.jsdelivr.net/npm/resonance-audio/build/resonance-audio.min.js"></script>
+<script src="/audio/audio.js?v=1"></script>
 </body>
 </html>

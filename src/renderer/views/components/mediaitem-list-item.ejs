@@ -19,7 +19,7 @@
             <div class="artwork" v-if="showArtwork == true">
                 <mediaitem-artwork
                         :url="item.attributes.artwork ? item.attributes.artwork.url : ''"
-                        size="50"
+                        :size="48"
                         :type="item.type"></mediaitem-artwork>
                 <button class="overlay-play" @click="playTrack()"><%- include("../svg/play.svg") %></button>
             </div>
@@ -56,7 +56,7 @@
                     {{ item.attributes.genreNames[0] ?? "" }}
                 </div>
             </template>
-            <div class="duration" v-if="showDuration" @dblclick="app.routeView(item)">
+            <div class="duration" v-if="displayDuration" @dblclick="app.routeView(item)">
                 {{ msToMinSec(item.attributes.durationInMillis ?? 0) }}
             </div>
         </template>
@@ -71,7 +71,8 @@
                 isVisible: false,
                 addedToLibrary: false,
                 guid: this.uuidv4(),
-                app: this.$root
+                app: this.$root,
+                displayDuration: true
             }
         },
         props: {
@@ -84,7 +85,19 @@
             'show-duration': {type: Boolean, default: true},
             'contextExt': {type: Object, required: false},
         },
+        mounted() {
+            let duration = this.item.attributes.durationInMillis ?? 0
+            if (duration == 0 || !this.showDuration) {
+                this.displayDuration = false
+            }
+        },
         methods: {
+            dragStart(evt) {
+                evt.dataTransfer.setData('text/plain', JSON.stringify({
+                    type: this.item.attributes.playParams.kind ?? this.item.type,
+                    id: this.item.id
+                }))
+            },
             uuidv4() {
                 return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
                     (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
@@ -166,7 +179,7 @@
                     }
                 }
             },
-            contextMenu(event) {
+            async contextMenu(event) {
                 let self = this
                 let data_type = this.getDataType()
                 let item_id = this.item.attributes.playParams.id ?? this.item.id
@@ -234,18 +247,10 @@
                     normal: {
                         items: [
                             {
+                                "icon": "./assets/feather/list.svg",
                                 "name": "Add to Playlist...",
                                 "action": function () {
                                     app.promptAddToPlaylist()
-                                }
-                            },
-                            {
-                                "name": "Start Radio",
-                                "action": function () {
-                                    app.mk.setStationQueue({song: self.item.attributes.playParams.id ?? self.item.id}).then(() => {
-                                        app.mk.play()
-                                        app.selectedMediaItems = []
-                                    })
                                 }
                             },
                             {
@@ -265,17 +270,72 @@
                                 }
                             },
                             {
+                                "icon": "./assets/feather/radio.svg",
+                                "name": "Start Radio",
+                                "action": function () {
+                                    app.mk.setStationQueue({song: self.item.attributes.playParams.id ?? self.item.id}).then(() => {
+                                        app.mk.play()
+                                        app.selectedMediaItems = []
+                                    })
+                                }
+                            },
+                            {
+                                "icon": "./assets/feather/heart.svg",
+                                "id": "love",
+                                "name": "Love",
+                                "disabled": true,
+                                "action": function () {
+                                    app.love(self.item)
+                                }
+                            },
+                            {
+                                "icon": "./assets/feather/x-circle.svg",
+                                "id": "unlove",
+                                "name": "Unlove",
+                                "disabled": true,
+                                "action": function () {
+                                    app.unlove(self.item)
+                                }
+                            },
+                            {
+                                "icon": "./assets/feather/thumbs-down.svg",
+                                "id": "dislike",
+                                "name": "Dislike",
+                                "disabled": true,
+                                "action": function () {
+                                    app.dislike(self.item)
+                                }
+                            },
+                            {
+                                "icon": "./assets/feather/x-circle.svg",
+                                "id": "undo_dislike",
+                                "name": "Undo dislike",
+                                "disabled": true,
+                                "action": function () {
+                                    app.unlove(self.item)
+                                }
+                            },
+                            {
+                                "icon": "./assets/feather/user.svg",
                                 "name": "Go to Artist",
                                 "action": function () {
                                     app.searchAndNavigate(self.item, 'artist')
                                 }
                             },
                             {
+                                "icon": "./assets/feather/disc.svg",
                                 "name": "Go to Album",
                                 "action": function () {
                                     app.searchAndNavigate(self.item, 'album')
                                 }
                             },
+                            {
+                                "icon": "./assets/feather/share.svg",
+                                "name": "Share",
+                                "action": function () {
+                                    self.app.copyToClipboard(self.item.attributes.url)
+                                }
+                            }
                         ]
                     }
                 }
@@ -288,6 +348,19 @@
                         menus.multiple.items = menus.multiple.items.concat(this.contextExt.multiple)
                     }
                 }
+                try{
+                let rating = await app.getRating(self.item).catch();
+                if (rating) {
+                    if(rating == 0) {
+                        menus.normal.items.find(x => x.id == 'love').disabled = false
+                        menus.normal.items.find(x => x.id == 'dislike').disabled = false
+                    }else if(rating == 1) {
+                        menus.normal.items.find(x => x.id == 'unlove').disabled = false
+                    }else if(rating == -1) {
+                        menus.normal.items.find(x => x.id == 'undo_dislike').disabled = false
+                    }
+                }
+                } catch(_){}
                 CiderContextMenu.Create(event, menus[useMenu])
             },
             visibilityChanged: function (isVisible, entry) {

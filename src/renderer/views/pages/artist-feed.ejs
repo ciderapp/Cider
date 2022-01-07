@@ -1,0 +1,68 @@
+<script type="text/x-template" id="cider-artist-feed">
+    <div class="content-inner">
+        <div>
+            <div class="row">
+                <div class="col">
+                    <div class="row nopadding">
+                        <div class="col nopadding">
+                            <h3>Your Artists Feed</h3>
+                        </div>
+                    </div>
+                    <div class="well" style="margin-top:0px;">
+                        <template v-if="artistFeed.length > 0">
+                            <mediaitem-list-item v-for="item in artistFeed" :item="item"></mediaitem-list-item>
+                        </template>
+                        <template v-else>
+                            <div class="spinner"></div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script>
+    Vue.component('cider-artist-feed', {
+        template: '#cider-artist-feed',
+        data: function () {
+            return {
+                app: this.$root,
+                followedArtists: this.$root.cfg.home.followedArtists,
+                artistFeed: [],
+            }
+        },
+        async mounted() {
+            let self = this
+            await this.getArtistFeed()
+        },
+        methods: {
+            async getArtistFeed() {
+                let artists = this.followedArtists
+                let self = this
+                this.app.mk.api.artists(artists, {
+                    "views": "featured-release,full-albums,appears-on-albums,featured-albums,featured-on-albums,singles,compilation-albums,live-albums,latest-release,top-music-videos,similar-artists,top-songs,playlists,more-to-hear,more-to-see",
+                    "extend": "artistBio,bornOrFormed,editorialArtwork,editorialVideo,isGroup,origin,hero",
+                    "extend[playlists]": "trackCount",
+                    "include[songs]": "albums",
+                    "fields[albums]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialVideo,name,playParams,releaseDate,url,trackCount",
+                    "limit[artists:top-songs]": 20,
+                    "art[url]": "f"
+                }, {includeResponseMeta: !0}).then(artistData => {
+                    artistData.data.forEach(item => {
+                        if (item.views["latest-release"].data.length != 0) {
+                            self.artistFeed.push(item.views["latest-release"].data[0])
+                        }
+                    })
+                    // sort artistFeed by attributes.releaseDate descending, date is formatted as "YYYY-MM-DD"
+                    this.artistFeed.sort((a, b) => {
+                        let dateA = new Date(a.attributes.releaseDate)
+                        let dateB = new Date(b.attributes.releaseDate)
+                        return dateB - dateA
+                    })
+                })
+
+            }
+        }
+    });
+</script>

@@ -9,10 +9,10 @@
                     Audio Quality
                 </div>
                 <div class="md-option-segment md-option-segment_auto">
-                    <select class="md-select" style="width:180px;">
-                        <option value="extreme">Extreme</option>
-                        <option value="high">High</option>
-                        <option value="low">Low</option>
+                    <select class="md-select" style="width:180px;" v-model="app.cfg.audio.quality"  v-on:change="changeAudioQuality">
+                        <option value="990">Extreme</option>
+                        <option value="256">High</option>
+                        <option value="64">Low</option>
                         <option value="auto">Auto</option>
                     </select>
                 </div>
@@ -23,6 +23,34 @@
                 </div>
                 <div class="md-option-segment md-option-segment_auto">
                     <input type="checkbox" v-model="app.cfg.audio.seamless_audio" switch/>
+                </div>
+            </div>
+            <div class="md-option-line">
+                <div class="md-option-segment">
+                    Enable Advanced Functionality
+                    <br>
+                    <small>Enabling AudioContext functionality will allow for extended audio features like Audio Normalization , Equalizers and Visualizers, however on some systems this may cause stuttering in audio tracks.</small>
+                </div>
+                <div class="md-option-segment md-option-segment_auto">
+                    <input type="checkbox" v-model="app.cfg.advanced.AudioContext" v-on:change="toggleAudioContext" switch/>
+                </div>
+            </div>
+            <div class="md-option-line" v-show="app.cfg.advanced.AudioContext">
+                <div class="md-option-segment" >
+                Audio Normalization
+                </div>
+                <div class="md-option-segment md-option-segment_auto">
+                    <input type="checkbox" v-model="app.cfg.audio.normalization"  v-on:change="toggleNormalization" switch/>
+                </div>
+            </div>
+            <div class="md-option-line" v-show="app.cfg.advanced.AudioContext">
+                <div class="md-option-segment" >
+                Audio Spatialization
+                <br>
+                <small>Spatialize audio and make audio more 3-dimensional (note: This is not Dolby Atmos)</small>
+                </div>
+                <div class="md-option-segment md-option-segment_auto">
+                    <input type="checkbox" v-model="app.cfg.audio.spatial" v-on:change="toggleSpatial" switch/>
                 </div>
             </div>
             <div class="md-option-header">
@@ -56,6 +84,14 @@
             </div>
             <div class="md-option-line">
                 <div class="md-option-segment">
+                    Animated Window Background
+                </div>
+                <div class="md-option-segment md-option-segment_auto">
+                    <input type="checkbox" switch v-model="app.cfg.visual.bg_artwork_rotation"/>
+                </div>
+            </div>
+            <div class="md-option-line">
+                <div class="md-option-segment">
                     Window Transparency
                 </div>
                 <div class="md-option-segment md-option-segment_auto">
@@ -72,7 +108,7 @@
                     <small>(Requires relaunch)</small>
                 </div>
                 <div class="md-option-segment md-option-segment_auto">
-                    <select class="md-select" style="width:180px;" v-model="app.cfg.visual.hw_acceleration">
+                    <select class="md-select" style="width:180px;" v-model="app.cfg.visual.hw_acceleration" >
                         <option value="default">Default</option>
                         <option value="webgpu">WebGPU</option>
                         <option value="disabled">Disabled</option>
@@ -445,16 +481,6 @@
             </div>
             <div class="md-option-line">
                 <div class="md-option-segment">
-                    Enable AudioContext Functionality
-                    <br>
-                    <small>Enabling AudioContext functionality will allow for extended audio features like Equalizers and Visualizers, however on some systems this may cause stuttering in audio tracks.</small>
-                </div>
-                <div class="md-option-segment md-option-segment_auto">
-                    <input type="checkbox" switch/>
-                </div>
-            </div>
-            <div class="md-option-line">
-                <div class="md-option-segment">
                     Theme
                 </div>
                 <div class="md-option-segment md-option-segment_auto">
@@ -547,7 +573,30 @@
             }
         },
         methods: {
-
+            toggleAudioContext: function(){
+                if (app.cfg.advanced.AudioContext){
+                    CiderAudio.init();
+                    if (app.cfg.audio.normalization){
+                    CiderAudio.normalizerOn()}
+                    if (app.cfg.audio.spatial){
+                    CiderAudio.spatialOn()} 
+                } else {
+                    CiderAudio.off();
+                }
+            },
+            toggleNormalization : function(){
+                if (app.cfg.audio.normalization){
+                    CiderAudio.normalizerOn()
+                } else {CiderAudio.normalizerOff()}
+            },
+            toggleSpatial : function(){
+                if (app.cfg.audio.spatial){
+                    CiderAudio.spatialOn()
+                } else {CiderAudio.spatialOff()}
+            },
+            changeAudioQuality : function(){
+                app.mk.bitrate = app.cfg.audio.quality
+            }
         }
     })
 </script>

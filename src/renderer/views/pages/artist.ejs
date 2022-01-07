@@ -12,7 +12,7 @@
                         <mediaitem-artwork
                                 shadow="large"
                                 :url="data.attributes.artwork ? data.attributes.artwork.url : ''"
-                                size="220" type="artists"></mediaitem-artwork>
+                                size="190" type="artists"></mediaitem-artwork>
                         <button class="overlay-play"  @click="app.mk.setStationQueue({artist:'a-'+data.id}).then(()=>{
                             app.mk.play()
                         })">
@@ -45,9 +45,9 @@
                         <div class="col-auto" v-if="data.views['latest-release'].data.length != 0">
                             <h3>Latest Release</h3>
                             <div style="width: auto;margin: 0 auto;">
-                                <mediaitem-square-sp v-for="song in data.views['latest-release'].data"
+                                <mediaitem-square kind="card" v-for="song in data.views['latest-release'].data"
                                                      :item="song">
-                                </mediaitem-square-sp>
+                                </mediaitem-square>
                             </div>
                         </div>
                         <div class="col" v-if="data.views['top-songs']">
@@ -135,6 +135,27 @@
         methods: {
             artistMenu (event) {
                 let self = this
+                let followAction = "follow"
+                let followActions = {
+                    follow: {
+                        name: "Follow Artist",
+                        action: ()=>{
+                            self.app.cfg.home.followedArtists.push(self.data.id)
+                        }
+                    },
+                    unfollow: {
+                        name: "Unfollow Artist",
+                        action: ()=>{
+                            let index = self.app.cfg.home.followedArtists.indexOf(self.data.id)
+                            if (index > -1) {
+                                self.app.cfg.home.followedArtists.splice(index, 1)
+                            }
+                        }
+                    }
+                }
+                if(this.app.cfg.home.followedArtists.includes(self.data.id)) {
+                    followAction = "unfollow"
+                }
                 CiderContextMenu.Create(event, {
                     items: [
                         {
@@ -145,13 +166,12 @@
                                 })
                             }
                         },
-                        {
-                            name: "Follow Artist",
-                            action: ()=>{}
-                        },
+                        followActions[followAction],
                         {
                             name: "Share",
-                            action: ()=>{}
+                            action: ()=>{
+                                self.app.copyToClipboard(self.data.attributes.url)
+                            }
                         }
                     ]
                 })

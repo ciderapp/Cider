@@ -64,7 +64,11 @@
             },
             scrollToTop() {
                 let target = document.querySelector(".header-text")
-                target.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})
+                document.querySelector("#app-content").scrollTo({
+                    top: 0,
+                    left: 0,
+                    behavior: 'smooth'
+                })
             },
             getNext() {
                 // if this.data.next is not null, then we can run this.data.next() and concat to this.data.data to get the next page
@@ -81,9 +85,9 @@
                                 this.triggerEnabled = true;
                             });
                             if(typeof this.data.next == "function") {
-                                this.data.next().then(data => next);
+                                this.data.next().then(data => nextFn(data));
                             }else{
-                                this.api.v3.music(this.data.next).then(data => nextFn);
+                                this.api.v3.music(this.data.next).then(data => nextFn(data));
                             }
                         }else{
                             console.log("No next page");

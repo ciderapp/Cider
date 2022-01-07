@@ -1,0 +1,221 @@
+<script type="text/x-template" id="sidebar-playlist">
+    <div class="sidebar-playlist" :key="item.id">
+        <button class="app-sidebar-item app-sidebar-item-playlist" :key="item.id" v-if="item.type != 'library-playlist-folders'"
+                :class="{'active': $root.page.includes(item.id)}"
+                @contextmenu="playlistContextMenu($event, item.id)"
+                @dragstart="startDrag($event, item)"
+                @dragover="dragOver"
+                @drop="onDrop"
+                :href="item.href"
+                @click='$root.appRoute(`playlist_` + item.id); $root.showingPlaylist = [];$root.getPlaylistFromID($root.page.substring(9))'>
+            <template v-if="!renaming">
+                <div class="sidebar-icon" v-html="icon"></div> {{ item.attributes.name }}
+            </template>
+            <input type="text" v-model="item.attributes.name" class="pl-rename-field" @blur="rename()" @keydown.enter="rename()" v-else>
+        </button>
+        <button class="app-sidebar-item app-sidebar-item-playlist" :key="item.id" v-else
+                :class="[{'folder-button-active': folderOpened}, isPlaylistSelected]"
+                @contextmenu="playlistContextMenu($event, item.id)"
+                @dragstart="startDrag($event, item)"
+                @dragover="dragOver"
+                @drop="onDrop"
+                :href="item.href"
+                @click='getPlaylistChildren(item)'>
+            <span v-if="!folderOpened">📁</span>
+            <span v-else>📂</span>
+            <template v-if="!renaming">
+                {{ item.attributes.name }}
+            </template>
+            <input type="text" v-model="item.attributes.name" class="pl-rename-field" @blur="rename()" @keydown.enter="rename()" v-else>
+        </button>
+        <div class="folder-body" v-if="item.type === 'library-playlist-folders' && folderOpened">
+            <template v-if="children.length != 0">
+                <sidebar-playlist v-for="item in children" :item="item" :key="item.id"></sidebar-playlist>
+            </template>
+            <template v-else>
+                <div class="spinner"></div>
+            </template>
+        </div>
+    </div>
+</script>
+
+<script>
+    Vue.component('sidebar-playlist', {
+        template: '#sidebar-playlist',
+        props: {
+            item: {
+                type: Object,
+                required: true
+            }
+        },
+        data: function () {
+            return {
+                folderOpened: false,
+                children: [],
+                playlistRoot: "p.playlistsroot",
+                renaming: false,
+                icon: ""
+            }
+        },
+        async mounted() {
+            this.icon = await this.$root.getSvgIcon("./assets/feather/list.svg")
+        },
+        methods: {
+            rename() {
+                this.renaming = false
+
+                if(this.item.type === "library-playlist-folders") {
+                    this.$root.editPlaylistFolder(this.item.id, this.item.attributes.name)
+                }else{
+                    this.$root.editPlaylist(this.item.id, this.item.attributes.name)
+                }
+            },
+            async getChildren() {
+                let self = this
+                this.children = []
+                this.children = this.$root.playlists.listing.filter(child => {
+                    if(child.parent == self.item.id) {
+                        return child
+                    }
+                })
+            },
+            async move(item, sendTo) {
+                let self = this
+                console.log(sendTo)
+                let type = item.type.replace("library-", "")
+                let typeTo = sendTo.type
+                this.$root.mk.api.v3.music(`/v1/me/library/${type}/${item.id}/parent`, {}, {
+                    fetchOptions: {
+                        method: "PUT",
+                        body: JSON.stringify({
+                            data: [{
+                                id: sendTo.id,
+                                type: typeTo
+                            }]
+                        })
+                    }
+                })
+
+                // find the item in this.$root.playlists.listing and store it in a variable
+                this.$root.playlists.listing.filter(playlist => {
+                    if(playlist.id == item.id) {
+                        console.log(playlist)
+                        playlist.parent = sendTo.id
+
+                    }
+                })
+                if(typeof this.$parent.getChildren == "function") {
+                    this.$parent.getChildren()
+                    console.log(this.$parent.children)
+                }
+                await this.getChildren()
+                this.$root.sortPlaylists()
+                // await this.$root.refreshPlaylists()
+            },
+            playlistContextMenu(event, playlist_id) {
+                let menu = {
+                    items: {
+                        "moveToParent": {
+                            name: "Move to top",
+                            action: () => {
+                                let self = this
+                                this.move(this.item, {
+                                    id: this.playlistRoot,
+                                    type: "library-playlist-folders"
+                                })
+                                setTimeout(()=>{self.getChildren()}, 2000)
+                            }
+                        },
+                        "rename": {
+                            name: "Rename",
+                            action: () => {
+                                this.renaming = true
+                                setTimeout(()=>{
+                                    document.querySelector(".pl-rename-field").focus()
+                                    document.querySelector(".pl-rename-field").select()
+                                }, 100)
+                            }
+                        },
+                        "deleteFromPlaylist": {
+                            name: "Delete from library",
+                            action: () => {
+                                this.$root.deletePlaylist(playlist_id)
+                            }
+                        },
+                        "addToFavorites": {
+                            name: "Add to favorites",
+                            disabled: true,
+                            action: () => {
+                                this.addFavorite(playlist_id, "library-playlists")
+                            }
+                        }
+                    }
+                }
+                if(this.item.type === "library-playlist-folders") {
+                    menu.items.addToFavorites.disabled = true
+                }
+                CiderContextMenu.Create(event, menu)
+            },
+            dragOver(evt) {
+                evt.preventDefault();
+                evt.dataTransfer.dropEffect = "move";
+            },
+            onDrop (evt) {
+                let data = JSON.parse(evt.dataTransfer.getData("text/plain"))
+                evt.preventDefault();
+                if(data.id == this.item.id) {
+                    return;
+                }
+                console.log(data)
+                if(data) {
+                    if(this.item.type == "library-playlists" || this.item.type == "library-playlist-folders") {
+                        if(data.type == "library-playlists" && this.item.type == "library-playlists") {
+                            return
+                        }
+                        this.move(data, this.item)
+                    }
+                }
+            },
+            startDrag (evt) {
+                evt.dataTransfer.dropEffect = 'move'
+                evt.dataTransfer.effectAllowed = 'move'
+                evt.dataTransfer.setData('text/plain', JSON.stringify(this.item))
+            },
+            getPlaylistChildren(item) {
+                let self = this
+                this.children = []
+                this.getChildren()
+                this.toggleFolder()
+                this.$root.mk.api.library.playlistFolderChildren(item.id).then(children => {
+                    children.forEach(child => {
+                        if(!self.$root.playlists.listing.find(listing => listing.id == child.id)) {
+                            child.parent = self.item.id
+                            self.$root.playlists.listing.push(child)
+                        }
+                    })
+
+                    self.$root.playlists.listing.sort((a, b) => {
+                        if (a.type === 'library-playlist-folders' && b.type !== 'library-playlist-folders') {
+                            return -1
+                        } else if (a.type !== 'library-playlist-folders' && b.type === 'library-playlist-folders') {
+                            return 1
+                        } else {
+                            return 0
+                        }
+                    })
+                    self.getChildren()
+                })
+            },
+            isPlaylistSelected(item) {
+                if(this.$root.showingPlaylist.id == item.id) {
+                    return ["active"]
+                }  else {
+                    return []
+                }
+            },
+            toggleFolder() {
+                this.folderOpened = !this.folderOpened;
+            }
+        }
+    });
+</script>

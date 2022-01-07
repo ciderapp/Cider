@@ -2,7 +2,9 @@
     <div class="content-inner playlist-page" v-if="data != [] && data.attributes != null"
          :style="{'--bgColor': (data.attributes.artwork != null && data.attributes.artwork['bgColor'] != null) ? ('#' + data.attributes.artwork.bgColor) : ''}">
         <template v-if="app.playlists.loadingState == 0">
-            <div class="content-inner centered">Loading...</div>
+            <div class="content-inner centered">
+                <div class="spinner"></div>
+            </div>
         </template>
         <template v-if="app.playlists.loadingState == 1">
             <div class="playlist-display row"
@@ -83,14 +85,25 @@
                     </div>
 
                 </div>
-                <div class="playlist-time">
-                    {{data.attributes.releaseDate}}
+                <div class="friends-info" v-if="itemBadges.length != 0">
+                    <div class="well">
+                        <div class="badge-container">
+                            <div class="socialBadge" :title="`${badge.attributes.name} - @${badge.attributes.handle}`" v-for="badge in itemBadges">
+                                <mediaitem-artwork
+                                        :url="badge.attributes.artwork.url"
+                                        :size="60"></mediaitem-artwork>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <div class="playlist-time">
+                    {{getFormattedDate(data.attributes.releaseDate)}}
+                </div>
+                <div class="playlist-time total">{{app.getTotalTime()}}</div>
                 <div class="playlist-time item-navigate" @click="app.searchAndNavigate(data,'recordLabel') "
                      style="width: 50%;">
                     {{data.attributes.copyright}}
                 </div>
-                <div class="playlist-time">{{app.getTotalTime()}}</div>
             </div>
         </template>
     </div>
@@ -106,7 +119,9 @@
                 drag: false,
                 nameEditing: false,
                 inLibrary: null,
-                app: this.$root
+                app: this.$root,
+                itemBadges: [],
+                badgesRequested: false
             }
         },
         mounted: function () {
@@ -117,9 +132,35 @@
         watch: {
             data: function () {
                 this.isInLibrary()
+                this.getBadges()
             }
         },
         methods: {
+            getBadges() {
+                return
+                if(this.badgesRequested) {
+                    return
+                }
+                this.badgesRequested = true
+                this.itemBadges = []
+                let self = this
+                var id = 0
+                try {
+                    id = this.data.attributes.playParams.id
+                } catch (e) {
+                    id = this.data.id
+                }
+                this.$root.getSocialBadges((badges) => {
+                    let friends = badges[id]
+                    if(friends) {
+                        friends.forEach(function (friend) {
+                            self.app.mk.api.socialProfile(friend).then(data => {
+                                self.itemBadges.push(data)
+                            })
+                        })
+                    }
+                })
+            },
             async isInLibrary() {
                 if (this.data.type && !this.data.type.includes("library")) {
                     // please keep using vars here
@@ -132,7 +173,12 @@
                 }
             },
             editPlaylist() {
-                app.editPlaylist(this.data.id, this.data.attributes.name);
+                this.app.editPlaylist(this.data.id, this.data.attributes.name);
+                this.app.playlists.listing.forEach(playlist => {
+                    if (playlist.id == this.data.id) {
+                        playlist.attributes.name = this.data.attributes.name
+                    }
+                })
                 this.nameEditing = false
             },
             addToLibrary(id) {
@@ -225,6 +271,19 @@
                 kind = data.attributes.playParams.kind;
                 id = data.attributes.playParams.id;
                 return `${kind}:${id}`
+            },
+            getFormattedDate: function (date) {
+                if (date == null || date === "") return "";
+                try {
+                    var releaseDate = new Date(date);
+                    month = new Intl.DateTimeFormat('en-US', {month: 'long'}).format(releaseDate);
+                    date = releaseDate.getDate();
+                    year = releaseDate.getFullYear();
+
+                    return date + " " + month + " " + year;
+                } catch (e) {
+                    return ""
+                }
             }
         }
     })

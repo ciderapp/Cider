@@ -32,11 +32,13 @@
     "electron-store": "^8.0.1",
     "electron-updater": "^4.6.1",
     "electron-window-state": "^5.0.3",
-    "es6-promise": "^4.2.8",
     "express": "^4.17.2",
     "get-port": "^5.1.1",
     "lastfmapi": "^0.1.1",
     "mpris-service": "^2.1.2",
+    "music-metadata": "^7.11.4",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "source-map-support": "^0.5.21",
     "v8-compile-cache": "^2.3.0",
     "ws": "^8.4.0",
@@ -76,9 +78,9 @@
     }
   ],
   "build": {
-    "electronVersion": "15.3.4",
+    "electronVersion": "16.0.6",
     "electronDownload": {
-      "version": "15.3.4-wvvmp",
+      "version": "16.0.6+wvcus",
       "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
     },
     "appId": "cider",
@@ -102,7 +104,10 @@
     ],
     "linux": {
       "target": [
-        "AppImage"
+        "AppImage",
+        "deb",
+        "snap",
+        "rpm"
       ],
       "synopsis": "A new look into listening and enjoying music in style and performance. ",
       "category": "AudioVideo",
