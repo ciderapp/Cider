@@ -12,28 +12,30 @@ import { app } from 'electron';
 //
 
 import {Win} from "./base/win";
+import {ConfigStore} from "./base/store";
 
-const Cider = new Win()
+const config = new ConfigStore();
+console.log(config)
 
-app.on("ready", () => {
-  Cider.createWindow();
-});
+const Cider = new Win(app, config.store)
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * App Event Handlers
 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-// app.on('ready', () => {
-//     if (app.isQuiting) { app.quit(); return; }
-//
-//     console.log('[Cider] Application is Ready. Creating Window.')
-//     if (!app.isPackaged) {
-//         console.info('[Cider] Running in development mode.')
-//         require('vue-devtools').install()
-//     }
-//
-//     // CiderBase.Start()
-// });
+app.on('ready', () => {
+
+
+    console.log('[Cider] Application is Ready. Creating Window.')
+    if (!app.isPackaged) {
+        console.info('[Cider] Running in development mode.')
+        require('vue-devtools').install()
+    }
+
+  Cider.createWindow();
+
+    // CiderBase.Start()
+});
 //
 // app.on('before-quit', () => {
 //     app.isQuiting = true;

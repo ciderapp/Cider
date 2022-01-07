@@ -10,8 +10,14 @@ import {Stream} from "stream";
 
 export class Win {
     win: any | undefined = null;
-    app: electron.App | undefined;
+    app: any | undefined = null;
+    store: any | undefined = null;
     devMode: boolean = !electron.app.isPackaged;
+
+    constructor(app: electron.App, store: any) {
+        this.app = app;
+        this.store = store;
+    }
 
     private paths: any = {
         srcPath: path.join(__dirname, "../../src"),
@@ -124,7 +130,7 @@ export class Win {
     private startWebServer(): void {
         const app = express();
 
-        // TODO: app.use(express.static(path.join(this.paths.srcPath, './renderer/')));
+        app.use(express.static(path.join(this.paths.srcPath, './renderer/')));
         app.set("views", path.join(this.paths.srcPath, './renderer/views'));
         app.set("view engine", "ejs");
         
@@ -275,24 +281,6 @@ export class Win {
         electron.ipcMain.handle('getYTLyrics', async (event, track, artist) => {
             const u = track + " " + artist + " official video";
             return await yt.search(u)
-        })
-
-        electron.ipcMain.handle('getStoreValue', (event, key, defaultValue) => {
-            // return (defaultValue ? app.cfg.get(key, true) : app.cfg.get(key));
-            return null
-        });
-
-        electron.ipcMain.handle('setStoreValue', (event, key, value) => {
-            // app.cfg.set(key, value);
-        });
-
-        electron.ipcMain.on('getStore', (event) => {
-            // event.returnValue = app.cfg.store
-            event.returnValue = null
-        })
-
-        electron.ipcMain.on('setStore', (event, store) => {
-            // app.cfg.store = store
         })
 
         electron.ipcMain.handle('setVibrancy', (event, key, value) => {
