@@ -1,11 +1,7 @@
 require('v8-compile-cache');
 
-// import { app } from 'electron';
+import { app } from 'electron';
 // import { resolve } from 'path';
-
-import { app, BrowserWindow } from "electron";
-import * as path from "path";
-
 
 // Analytics for debugging fun yeah.
 // const ElectronSentry = require("@sentry/electron");
@@ -15,7 +11,7 @@ import * as path from "path";
 // // Init()
 //
 
-import Win from "./base/win";
+import {Win} from "./base/win";
 
 const Cider = new Win()
 

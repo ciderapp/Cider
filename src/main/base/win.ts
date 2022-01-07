@@ -1,25 +1,26 @@
 import * as path from "path";
-import {app, ipcMain, shell} from "electron";
+import * as electron from "electron";
+import * as electronAcrylic from "electron-acrylic-window"
 import * as windowStateKeeper from "electron-window-state";
 import * as express from "express";
 import * as getPort from "get-port";
 import * as yt from "youtube-search-without-api-key";
 
-export default class Win {
-    public win: null | undefined;
-    public app: Electron.App | undefined;
+export class Win {
+    win: any | undefined;
+    app: electron.App | undefined;
 
+    private srcPath: string = path.join(__dirname, "../../src");
+    private resourcePath: string = path.join(__dirname, "../../resources");
     private clientPort: number = 0;
-    private static envVars: object = {
+    private EnvironmentVariables: object = {
         "env": {
-            // @ts-ignore
             platform: process.platform,
-            // @ts-ignore
-            dev: app.isPackaged
+            dev: electron.app.isPackaged
         }
     };
-    private static options: any = {
-        icon: path.join(__dirname, `../../../resources/icons/icon.ico`),
+    private options: any = {
+        icon: path.join(this.resourcePath, `icons/icon.ico`),
         width: 1024,
         height: 600,
         x: undefined,
@@ -28,7 +29,6 @@ export default class Win {
         minHeight: 400,
         frame: false,
         title: "Cider",
-        vibrancy: 'dark',
         transparent: process.platform === "darwin",
         hasShadow: false,
         webPreferences: {
@@ -42,26 +42,15 @@ export default class Win {
             sandbox: true,
             nativeWindowOpen: true,
             contextIsolation: false,
-            preload: path.join(__dirname, '../../preload/cider-preload.js')
+            preload: path.join(this.srcPath, 'preload/cider-preload.js')
         }
     };
-
-    get options() {
-        return Win.options;
-    }
 
     /**
      * Creates the browser window
      */
-    public async createWindow(): Promise<Electron.BrowserWindow> {
+    async createWindow(): Promise<any | undefined> {
         this.clientPort = await getPort({port: 9000});
-
-        let BrowserWindow;
-        if (process.platform === "win32") {
-            BrowserWindow = require("electron-acrylic-window").BrowserWindow;
-        } else {
-            BrowserWindow = require("electron").BrowserWindow;
-        }
 
         // Load the previous state with fallback to defaults
         const windowState = windowStateKeeper({
@@ -71,63 +60,79 @@ export default class Win {
         this.options.width = windowState.width;
         this.options.height = windowState.height;
 
+        this.startWebServer()
+
+        if (process.platform === "win32") {
+            this.win = new electronAcrylic.BrowserWindow(this.options);
+        } else {
+            this.win = new electron.BrowserWindow(this.options);
+        }
+
         // Create the browser window.
-        const win = new BrowserWindow(this.options);
+
         console.debug('Browser window created');
-        this.win = win;
 
         // and load the renderer.
-        this.startWebServer(win)
-        this.startSession(win);
-        this.startHandlers(win);
+        this.startSession(this.win);
+        this.startHandlers(this.win);
 
-
-        return win;
+        return this.win;
     }
 
     /**
      * Starts the webserver for the renderer process.
-     * @param win The BrowserWindow
      */
-    private startWebServer(win: Electron.BrowserWindow): void {
-        const webapp = express(),
-            webRemotePath = path.join(__dirname, '../../renderer/');
-
+    private startWebServer(): void {
+        const webapp = express();
+        const webRemotePath = path.join(this.srcPath, 'renderer');
         webapp.set("views", path.join(webRemotePath, "views"));
         webapp.set("view engine", "ejs");
 
-        webapp.use((req, res, next) => {
+        webapp.use(function (req, res, next) {
             // if not localhost
             // @ts-ignore
-            if (req.headers.host.includes("localhost") && req.headers["user-agent"].includes("Cider")) {
+            if (req.url.includes("audio.webm") || (req.headers.host.includes("localhost") && req.headers["user-agent"].includes("Cider"))) {
                 next();
             }
         });
 
         webapp.use(express.static(webRemotePath));
-        webapp.get('/', function (req, res) {
+        webapp.get('/', (req, res) => {
             //res.sendFile(path.join(webRemotePath, 'index_old.html'));
-            res.render("main", Win.envVars)
+            console.log(req)
+            res.render("main", this.EnvironmentVariables)
         });
+        // webelectron.app.get('/audio.webm', (req, res) => {
+        //     try {
+        //         req.connection.setTimeout(Number.MAX_SAFE_INTEGER);
+        //         this.audiostream.on('data', (data) => {
+        //             try {
+        //                 res.write(data);
+        //             } catch (ex) {
+        //                 console.log(ex)
+        //             }
+        //         })
+        //     } catch (ex) { console.log(ex) }
+        // });
         webapp.listen(this.clientPort, () => {
-            console.debug(`Cider client port: ${this.clientPort}`);
+            console.log(`Cider client port: ${this.clientPort}`);
         });
     }
 
     /**
      * Starts the session for the renderer process.
-     * @param win The BrowserWindow
      */
-    private startSession(win: Electron.BrowserWindow): void {
+    private startSession(win: any): void {const self = this;
+
         // intercept "https://js-cdn.music.apple.com/hls.js/2.141.0/hls.js/hls.js" and redirect to local file "./apple-hls.js" instead
         win.webContents.session.webRequest.onBeforeRequest(
             {
                 urls: ["https://*/*.js"]
             },
-            (details, callback) => {
+            (details: { url: string | string[]; }, callback: (arg0: { redirectURL?: string; cancel?: boolean; }) => void) => {
                 if (details.url.includes("hls.js")) {
                     callback({
-                        redirectURL: `http://localhost:${this.clientPort}/apple-hls.js`
+                        redirectURL: `http://localhost:${self.clientPort}/apple-hls.js`
                     })
                 } else {
                     callback({
@@ -137,7 +142,7 @@ export default class Win {
             }
         )
 
-        win.webContents.session.webRequest.onBeforeSendHeaders(async (details, callback) => {
+        win.webContents.session.webRequest.onBeforeSendHeaders(async (details: { url: string; requestHeaders: { [x: string]: string; }; }, callback: (arg0: { requestHeaders: any; }) => void) => {
             if (details.url === "https://buy.itunes.apple.com/account/web/info") {
                 details.requestHeaders['sec-fetch-site'] = 'same-site';
                 details.requestHeaders['DNT'] = '1';
@@ -161,11 +166,7 @@ export default class Win {
      * Initializes the window handlers
      * @param win The BrowserWindow
      */
-    private startHandlers(win: Electron.BrowserWindow): void {
-        win.on('closed', () => {
-            this.win = null;
-        });
-
+    private startHandlers(win: any): void {
         if (process.platform === "win32") {
             let WND_STATE = {
                 MINIMIZED: 0,
@@ -186,20 +187,20 @@ export default class Win {
                     wndState = WND_STATE.FULL_SCREEN
                 } else if (isMaximized && state !== WND_STATE.MAXIMIZED) {
                     wndState = WND_STATE.MAXIMIZED
-                    win.webContents.executeJavaScript(`app.chrome.maximized = true`)
+                    win.webContents.executeJavaScript(`electron.app.chrome.maximized = true`)
                 } else if (state !== WND_STATE.NORMAL) {
                     wndState = WND_STATE.NORMAL
-                    win.webContents.executeJavaScript(`app.chrome.maximized = false`)
+                    win.webContents.executeJavaScript(`electron.app.chrome.maximized = false`)
                 }
             })
         }
 
         // Set window Handler
-        win.webContents.setWindowOpenHandler(({url}) => {
-            if (url.includes("apple") || url.includes("localhost")) {
+        win.webContents.setWindowOpenHandler((x: any) => {
+            if (x.url.includes("apple") || x.url.includes("localhost")) {
                 return {action: "allow"}
             }
-            shell.openExternal(url).catch(() => {
+            electron.shell.openExternal(x.url).catch(() => {
             })
             return {
                 action: 'deny'
@@ -210,46 +211,45 @@ export default class Win {
         // Renderer IPC Listeners
         //-------------------------------------------------------------------------------
 
-        ipcMain.on("cider-platform", (event) => {
+        electron.ipcMain.on("cider-platform", (event) => {
             event.returnValue = process.platform
         })
 
-        ipcMain.on("get-gpu-mode", (event) => {
+        electron.ipcMain.on("get-gpu-mode", (event) => {
             event.returnValue = process.platform
         })
 
-        ipcMain.on("is-dev", (event) => {
-            event.returnValue = !app.isPackaged
+        electron.ipcMain.on("is-dev", (event) => {
+            event.returnValue = !electron.app.isPackaged
         })
 
         // IPC stuff (listeners)
-        ipcMain.on('close', () => { // listen for close event
+        electron.ipcMain.on('close', () => { // listen for close event
             win.close();
         })
 
-        ipcMain.handle('getYTLyrics', async (event, track, artist) => {
+        electron.ipcMain.handle('getYTLyrics', async (event, track, artist) => {
             const u = track + " " + artist + " official video";
-            const videos = await yt.search(u);
-            return videos
+            return await yt.search(u)
         })
 
-        // ipcMain.handle('getStoreValue', (event, key, defaultValue) => {
-        //     return (defaultValue ? app.cfg.get(key, true) : app.cfg.get(key));
+        // electron.ipcMain.handle('getStoreValue', (event, key, defaultValue) => {
+        //     return (defaultValue ? electron.app.cfg.get(key, true) : electron.app.cfg.get(key));
         // });
         //
-        // ipcMain.handle('setStoreValue', (event, key, value) => {
-        //     app.cfg.set(key, value);
+        // electron.ipcMain.handle('setStoreValue', (event, key, value) => {
+        //     electron.app.cfg.set(key, value);
         // });
         //
-        // ipcMain.on('getStore', (event) => {
-        //     event.returnValue = app.cfg.store
+        // electron.ipcMain.on('getStore', (event) => {
+        //     event.returnValue = electron.app.cfg.store
         // })
         //
-        // ipcMain.on('setStore', (event, store) => {
-        //     app.cfg.store = store
+        // electron.ipcMain.on('setStore', (event, store) => {
+        //     electron.app.cfg.store = store
         // })
 
-        ipcMain.on('maximize', () => { // listen for maximize event
+        electron.ipcMain.on('maximize', () => { // listen for maximize event
             if (win.isMaximized()) {
                 win.unmaximize()
             } else {
@@ -257,12 +257,12 @@ export default class Win {
             }
         })
 
-        ipcMain.on('minimize', () => { // listen for minimize event
+        electron.ipcMain.on('minimize', () => { // listen for minimize event
             win.minimize();
         })
 
         // Set scale
-        ipcMain.on('setScreenScale', (event, scale) => {
+        electron.ipcMain.on('setScreenScale', (event, scale) => {
             win.webContents.setZoomFactor(parseFloat(scale))
         })
     }
