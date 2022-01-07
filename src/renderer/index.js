@@ -5,7 +5,7 @@ var CiderContextMenu = {
     Menu: function (event) {
         this.items = []
     },
-    Create(event, menudata) {
+    async Create(event, menudata) {
         var menuBackground = document.createElement("div");
         var menu = document.createElement("div");
         menu.classList.add("context-menu-body");
@@ -52,7 +52,10 @@ var CiderContextMenu = {
             }
             item.tabIndex = 0
             item.classList.add("context-menu-item")
-            item.innerHTML = menudata.items[i].name
+            if(menudata.items[i]["icon"]) {
+                item.innerHTML += `<div class="sidebar-icon">${await app.getSvgIcon(menudata.items[i]["icon"])}</div>`
+            }
+            item.innerHTML += menudata.items[i].name
             item.onclick = menudata.items[i].action
             menu.appendChild(item)
         }
@@ -2797,12 +2800,14 @@ const app = new Vue({
                 normal: {
                     items: [
                         {
+                            "icon": "./assets/feather/list.svg",
                             "name": "Add to Playlist...",
                             "action": function () {
                                 app.promptAddToPlaylist()
                             }
                         },
                         {
+                            "icon": "./assets/feather/plus.svg",
                             "id": "addToLibrary",
                             "name": "Add to Library...",
                             "disabled": false,
@@ -2812,6 +2817,7 @@ const app = new Vue({
                             }
                         },
                         {
+                            "icon": "./assets/feather/heart.svg",
                             "id": "love",
                             "name": "Love",
                             "disabled": true,
@@ -2820,6 +2826,7 @@ const app = new Vue({
                             }
                         },
                         {
+                            "icon": "./assets/feather/x-circle.svg",
                             "id": "unlove",
                             "name": "Unlove",
                             "disabled": true,
@@ -2828,6 +2835,7 @@ const app = new Vue({
                             }
                         },
                         {
+                            "icon": "./assets/feather/thumbs-down.svg",
                             "id": "dislike",
                             "name": "Dislike",
                             "disabled": true,
@@ -2836,6 +2844,7 @@ const app = new Vue({
                             }
                         },
                         {
+                            "icon": "./assets/feather/x-circle.svg",
                             "id": "undo_dislike",
                             "name": "Undo dislike",
                             "disabled": true,
@@ -2844,6 +2853,7 @@ const app = new Vue({
                             }
                         },
                         {
+                            "icon": "./assets/feather/radio.svg",
                             "name": "Start Radio",
                             "action": function () {
                                 app.mk.setStationQueue({song: item_id}).then(() => {
