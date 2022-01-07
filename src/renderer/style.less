@@ -688,6 +688,8 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 
   &.app-sidebar-item-playlist {
     -webkit-user-drag: element;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
@@ -3574,7 +3576,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   }
 
   .playback-button--small.active {
-    background-color: rgba(200, 200, 200, 0.1);
+    background-color: rgba(200, 200, 200, 0.7);
   }
 
   .right-col{
@@ -3592,6 +3594,10 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
     &:hover ::-webkit-scrollbar-thumb {
       box-shadow: inset 0px 0px 10px 10px rgb(200 200 200 / 50%);
+    }
+
+    .lyric-body{
+      justify-content: center;
     }
   } 
 
