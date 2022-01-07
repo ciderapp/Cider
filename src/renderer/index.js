@@ -599,7 +599,7 @@ const app = new Vue({
                 app.getCurrentArtURL();
                 app.getNowPlayingArtwork(42);
                 app.getNowPlayingArtworkBG(32);
-                app.loadLyrics()
+                app.loadLyrics();
 
                 // Playback Notifications
                 if ((app.platform === "darwin" || app.platform === "linux") && !document.hasFocus() && a.artistName && a.artwork && a.name) {
