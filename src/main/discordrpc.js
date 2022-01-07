@@ -9,7 +9,7 @@ module.exports = {
      */
     connect: function (clientId) {
         app.discord = {isConnected: false};
-        if (app.cfg.get('general.discord_rpc') == 0) return;
+        if (app.cfg.get('general.discord_rpc') == 0 || app.discord.isConnected) return;
 
         DiscordRPC.register(clientId) // Apparently needed for ask to join, join, spectate etc.
         const client = new DiscordRPC.Client({transport: "ipc"});
@@ -24,11 +24,6 @@ module.exports = {
 
         app.discord.on('ready', () => {
             console.log(`[DiscordRPC][connect] Successfully Connected to Discord. Authed for user: ${client.user.username} (${client.user.id})`);
-
-            if (app.discord.activityCache) {
-                client.setActivity(app.discord.activityCache).catch((e) => console.error(e));
-                app.discord.activityCache = null;
-            }
         })
 
         // Handles Errors
@@ -63,10 +58,9 @@ module.exports = {
         if (app.cfg.get('general.discord_rpc') == 0) return;
 
         if (!app.discord.isConnected) {
-            this.connect()
+            app.discord.clearActivity().catch((e) => console.error(`[DiscordRPC][updateActivity] ${e}`));
+            return;
         }
-
-        if (!app.discord.isConnected) return;
 
         // console.log('[DiscordRPC][updateActivity] Updating Discord Activity.')
 
@@ -87,48 +81,58 @@ module.exports = {
             ]
         };
         if (ActivityObject.largeImageKey == "" || ActivityObject.largeImageKey == null) {
-            ActivityObject.largeImageKey = (app.cfg.get("general.discord_rpc") == 1)  ? "cider" : "logo"
+            ActivityObject.largeImageKey = (app.cfg.get("general.discord_rpc") == 1) ? "cider" : "logo"
         }
-        // console.log(`[LinkHandler] Listening URL has been set to: ${listenURL}`);
 
-        if (app.cfg.get('general.discordClearActivityOnPause')  == 1) {
+        // Remove the pause/play icon and test for clear activity on pause
+        if (app.cfg.get('general.discordClearActivityOnPause') == 1) {
             delete ActivityObject.smallImageKey
             delete ActivityObject.smallImageText
         }
 
-        // Check all the values work
+        // Deletes the timestamp if its not greater than 0
         if (!((new Date(attributes.endTime)).getTime() > 0)) {
             delete ActivityObject.startTimestamp
             delete ActivityObject.endTimestamp
         }
+
+        // Artist check
         if (!attributes.artistName) {
             delete ActivityObject.state
         }
+
+        // Album text check
         if (!ActivityObject.largeImageText || ActivityObject.largeImageText.length < 2) {
             delete ActivityObject.largeImageText
         }
+
+        // Checks if the name is greater than 128 because some songs can be that long
         if (ActivityObject.details.length > 128) {
-            AcitivityObject.details = ActivityObject.details.substring(0, 125) + '...'
+            ActivityObject.details = ActivityObject.details.substring(0, 125) + '...'
         }
 
-        // Clear if if needed
+
+
+
+        // Check if its pausing (false) or playing (true)
         if (!attributes.status) {
             if (app.cfg.get('general.discordClearActivityOnPause') == 1) {
                 app.discord.clearActivity().catch((e) => console.error(`[DiscordRPC][clearActivity] ${e}`));
                 ActivityObject = null
-            } else
-             {
-            delete ActivityObject.startTimestamp
-            delete ActivityObject.endTimestamp
-            ActivityObject.smallImageKey = 'pause'
-            ActivityObject.smallImageText = 'Paused'
+            } else {
+                delete ActivityObject.startTimestamp
+                delete ActivityObject.endTimestamp
+                ActivityObject.smallImageKey = 'pause'
+                ActivityObject.smallImageText = 'Paused'
             }
         }
 
-        if (ActivityObject) {
+
+        if (ActivityObject && ActivityObject !== app.discord.activityCache && ActivityObject.details && ActivityObject.state) {
             try {
-              //  console.log(`[DiscordRPC][setActivity] Setting activity to ${JSON.stringify(ActivityObject)}`);
+                //  console.log(`[DiscordRPC][setActivity] Setting activity to ${JSON.stringify(ActivityObject)}`);
                 app.discord.setActivity(ActivityObject)
+                app.discord.activityCache = ActivityObject
             } catch (err) {
                 console.error(`[DiscordRPC][setActivity] ${err}`)
             }

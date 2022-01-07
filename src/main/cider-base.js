@@ -38,7 +38,7 @@ const CiderBase = {
 
         let win = null
         const options = {
-            icon: join(__dirname, `../../resources/icons/icon.ico`),
+            icon: join(__dirname, `../../resources/icons/icon.` + (process.platform === "win32" ? "ico" : "png")),
             width: mainWindowState.width,
             height: mainWindowState.height,
             x: mainWindowState.x,
