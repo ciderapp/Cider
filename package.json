@@ -28,6 +28,7 @@
     "discord-rpc": "^4.0.1",
     "ejs": "^3.1.6",
     "electron-acrylic-window": "^0.5.11",
+    "electron-fetch": "^1.7.4",
     "electron-log": "^4.4.4",
     "electron-store": "^8.0.1",
     "electron-updater": "^4.6.1",

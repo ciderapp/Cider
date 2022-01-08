@@ -289,7 +289,7 @@
                                 }
                             },
                             {
-                                "icon": "./assets/feather/x-circle.svg",
+                                "icon": "./assets/feather/unheart.svg",
                                 "id": "unlove",
                                 "name": "Unlove",
                                 "disabled": true,
@@ -348,19 +348,15 @@
                         menus.multiple.items = menus.multiple.items.concat(this.contextExt.multiple)
                     }
                 }
-                try{
-                let rating = await app.getRating(self.item).catch();
-                if (rating) {
-                    if(rating == 0) {
-                        menus.normal.items.find(x => x.id == 'love').disabled = false
-                        menus.normal.items.find(x => x.id == 'dislike').disabled = false
-                    }else if(rating == 1) {
-                        menus.normal.items.find(x => x.id == 'unlove').disabled = false
-                    }else if(rating == -1) {
-                        menus.normal.items.find(x => x.id == 'undo_dislike').disabled = false
-                    }
+                let rating = await app.getRating(self.item)
+                if (rating == 0) {
+                    menus.normal.items.find(x => x.id == 'love').disabled = false
+                    menus.normal.items.find(x => x.id == 'dislike').disabled = false
+                } else if (rating == 1) {
+                    menus.normal.items.find(x => x.id == 'unlove').disabled = false
+                } else if (rating == -1) {
+                    menus.normal.items.find(x => x.id == 'undo_dislike').disabled = false
                 }
-                } catch(_){}
                 CiderContextMenu.Create(event, menus[useMenu])
             },
             visibilityChanged: function (isVisible, entry) {
@@ -402,12 +398,81 @@
                 let item = this.item
                 let parent = this.parent
                 let childIndex = this.index
-                console.log(item, parent, childIndex)
+                let kind = (item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')) : (item.type ?? ''));
+                let id = (item.attributes.playParams ? (item.attributes.playParams.id ?? (item.id ?? '')) : (item.id ?? ''));;
+                let isLibrary = item.attributes.playParams ? (item.attributes.playParams.isLibrary ?? false) : false;
+                console.log(item, parent, childIndex, kind, id, isLibrary, kind == "playlists", id.startsWith("p.") || id.startsWith("pl.u"))
+                app.mk.stop().then(() => {       
                 if (parent != null && childIndex != null) {
                     app.queueParentandplayChild(parent, childIndex, item);
+                } else if (kind.includes("playlist") && (id.startsWith("p.") || id.startsWith("pl."))){
+                        /* Randomize array in-place using Durstenfeld shuffle algorithm */
+                        function shuffleArray(array) {
+                            for (var i = array.length - 1; i > 0; i--) {
+                                var j = Math.floor(Math.random() * (i + 1));
+                                var temp = array[i];
+                                array[i] = array[j];
+                                array[j] = temp;
+                            }
+                        }
+                        app.mk.clearQueue().then(function () {
+                                app.mk.setQueue({[item.attributes.playParams.kind ?? item.type]: item.attributes.playParams.id ?? item.id}).then(function () {
+                                   app.mk.play().then(function (){
+                                       app.mk.clearQueue().then(function (){
+                                        var playlistId = id
+                                        const params = {
+                                            include: "tracks",
+                                            platform: "web",
+                                            "include[library-playlists]": "catalog,tracks",
+                                            "fields[playlists]": "curatorName,playlistType,name,artwork,url",
+                                            "include[library-songs]": "catalog,artists,albums",
+                                            "fields[catalog]": "artistUrl,albumUrl",
+                                            "fields[songs]": "artistUrl,albumUrl"
+                                        }
+                                        var playlistId = ''
+                                        function getPlaylist(id, params, isLibrary){
+                                            if (isLibrary){
+                                                return  app.mk.api.library.playlist(id, params)
+                                            } else {  return app.mk.api.playlist(id, params)}
+                                        }
+                                        try {
+
+                                            getPlaylist(id, params, isLibrary).then(res => {
+                                                let query = res.relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
+                                                if (app.mk.shuffleMode == 1){shuffleArray(query); console.log('shf')}
+                                                app.mk.queue.append(query)
+                                                if (!res.relationships.tracks.next) {
+                                                    return
+                                                } else {
+                                                    getPlaylistTracks(res.relationships.tracks.next)
+                                                }
+
+                                                function getPlaylistTracks(next) {
+                                                    app.apiCall(app.musicBaseUrl + next, res => {
+                                                        if (res.id != playlistId) {
+                                                            return
+                                                        }
+                                                        let query = res.data.map(item => new MusicKit.MediaItem(item))
+                                                        if (app.mk.shuffleMode == 1){shuffleArray(query); console.log('shf')}
+                                                        app.mk.queue.append(query)
+                                                        
+                                                        if (res.next) {
+                                                            getPlaylistTracks(res.next)
+                                                        } 
+                                                    })
+                                                }
+                                            })
+                                        } catch (e) {}
+                                       
+
+                                       })
+                                   })
+                                })
+                            
+                        })                   
                 } else {
                     app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)
-                }
+                }})
             }
         }
     });
