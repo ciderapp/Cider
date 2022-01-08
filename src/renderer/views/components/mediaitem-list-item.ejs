@@ -395,7 +395,6 @@
                 }
             },
             playTrack() {
-
                 let item = this.item
                 let parent = this.parent
                 let childIndex = this.index
@@ -403,9 +402,10 @@
                 let id = (item.attributes.playParams ? (item.attributes.playParams.id ?? (item.id ?? '')) : (item.id ?? ''));;
                 let isLibrary = item.attributes.playParams ? (item.attributes.playParams.isLibrary ?? false) : false;
                 console.log(item, parent, childIndex, kind, id, isLibrary, kind == "playlists", id.startsWith("p.") || id.startsWith("pl.u"))
+                app.mk.stop().then(() => {       
                 if (parent != null && childIndex != null) {
                     app.queueParentandplayChild(parent, childIndex, item);
-                } else if (kind.includes("playlist") && (id.startsWith("p.") || id.startsWith("pl.u"))){
+                } else if (kind.includes("playlist") && (id.startsWith("p.") || id.startsWith("pl."))){
                         /* Randomize array in-place using Durstenfeld shuffle algorithm */
                         function shuffleArray(array) {
                             for (var i = array.length - 1; i > 0; i--) {
@@ -416,12 +416,6 @@
                             }
                         }
                         app.mk.clearQueue().then(function () {
-                            if ((app.showingPlaylist && app.showingPlaylist.id == id)) {
-                                let query = app.showingPlaylist.relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
-                                if (app.mk.shuffleMode == 1){ shuffleArray(query)}
-                                app.mk.queue.append(query)
-                                app.mk.play()
-                            } else {
                                 app.mk.setQueue({[item.attributes.playParams.kind ?? item.type]: item.attributes.playParams.id ?? item.id}).then(function () {
                                    app.mk.play().then(function (){
                                        app.mk.clearQueue().then(function (){
@@ -436,9 +430,14 @@
                                             "fields[songs]": "artistUrl,albumUrl"
                                         }
                                         var playlistId = ''
-
+                                        function getPlaylist(id, params, isLibrary){
+                                            if (isLibrary){
+                                                return  app.mk.api.library.playlist(id, params)
+                                            } else {  return app.mk.api.playlist(id, params)}
+                                        }
                                         try {
-                                            app.mk.api.library.playlist(id, params).then(res => {
+
+                                            getPlaylist(id, params, isLibrary).then(res => {
                                                 let query = res.relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
                                                 if (app.mk.shuffleMode == 1){shuffleArray(query); console.log('shf')}
                                                 app.mk.queue.append(query)
@@ -462,18 +461,18 @@
                                                         } 
                                                     })
                                                 }
-                                                    })
+                                            })
                                         } catch (e) {}
                                        
 
                                        })
                                    })
                                 })
-                            }
+                            
                         })                   
                 } else {
                     app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)
-                }
+                }})
             }
         }
     });

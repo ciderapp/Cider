@@ -1194,12 +1194,14 @@ const app = new Vue({
             let id = (item.attributes.playParams ? (item.attributes.playParams.id ?? (item.id ?? '')) : (item.id ?? ''));
             ;
             let isLibrary = item.attributes.playParams ? (item.attributes.playParams.isLibrary ?? false) : false;
+
             console.log(kind, id, isLibrary)
+            app.mk.stop().then(() => {       
             if (kind.includes("artist")) {
                 app.mk.setStationQueue({artist: 'a-' + id}).then(() => {
                     app.mk.play()
                 })
-            } else if (kind.includes("playlist") && (id.startsWith("p.") || id.startsWith("pl.u"))){
+            } else if (kind.includes("playlist") && (id.startsWith("p.") || id.startsWith("pl."))){
                 /* Randomize array in-place using Durstenfeld shuffle algorithm */
                 function shuffleArray(array) {
                     for (var i = array.length - 1; i > 0; i--) {
@@ -1209,14 +1211,8 @@ const app = new Vue({
                         array[j] = temp;
                     }
                 }
-                app.mk.clearQueue().then(function () {
-                    if ((app.showingPlaylist && app.showingPlaylist.id == id)) {
-                        let query = app.showingPlaylist.relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
-                        if (app.mk.shuffleMode == 1){ shuffleArray(query)}
-                        app.mk.queue.append(query)
-                        app.mk.play()
-                    } else {
-                        app.mk.setQueue({[item.attributes.playParams.kind ?? item.type]: item.attributes.playParams.id ?? item.id}).then(function () {
+                app.mk.clearQueue().then(function () { {
+                    app.mk.setQueue({[item.attributes.playParams.kind ?? item.type]: item.attributes.playParams.id ?? item.id}).then(function () {
                            app.mk.play().then(function (){
                                app.mk.clearQueue().then(function (){
                                 var playlistId = id
@@ -1232,7 +1228,12 @@ const app = new Vue({
                                 var playlistId = ''
 
                                 try {
-                                    app.mk.api.library.playlist(id, params).then(res => {
+                                    function getPlaylist(id, params, isLibrary){
+                                        if (isLibrary){
+                                            return  app.mk.api.library.playlist(id, params)
+                                        } else {  return app.mk.api.playlist(id, params)}
+                                    }
+                                    getPlaylist(id, params, isLibrary).then(res => {
                                         let query = res.relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
                                         if (app.mk.shuffleMode == 1){shuffleArray(query); console.log('shf')}
                                         app.mk.queue.append(query)
@@ -1268,6 +1269,7 @@ const app = new Vue({
         } else {
                 app.playMediaItemById((id), (kind), (isLibrary), item.attributes.url ?? '')
             }
+        })
         },
         async getTypeFromID(kind, id, isLibrary = false, params = {}, params2 = {}) {
             let a;
