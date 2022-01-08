@@ -222,6 +222,10 @@ const CiderBase = {
             win.minimize();
         })
 
+        ipcMain.on('setFullScreen',(event, flag) => {
+            win.setFullScreen(flag)
+        })
+
         if (process.platform === "win32") {
             let WND_STATE = {
                 MINIMIZED: 0,

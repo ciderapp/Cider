@@ -69,7 +69,7 @@
                         <template v-if="mkReady()">
                             <div class="app-playback-controls" @mouseover="chrome.progresshover = true"
                                  @mouseleave="chrome.progresshover = false" @contextmenu="nowPlayingContextMenu">
-                                <div class="artwork" @click="drawer.open = false; appMode = 'fullscreen'">
+                                <div class="artwork" @click="drawer.open = false; fullscreen(true)">
                                     <mediaitem-artwork :url="currentArtUrl"></mediaitem-artwork>
                                 </div>
                                 <div class="playback-info">

@@ -11,7 +11,7 @@
         </div>
         <div class="row fs-row">
             <div class="col artwork-col">
-                <div class="artwork"  @click="app.appMode = 'player'">
+                <div class="artwork"  @click="app.fullscreen(false)">
                     <mediaitem-artwork
                             :size="600"
                             :url="image ?? ''"
@@ -77,7 +77,13 @@
                                     v-else-if="app.mk.repeatMode == 2"></button>
                         </div>
                     </div>
-
+                    <div class="app-chrome-item volume display--large">
+                        <div class="app-chrome-item volume-icon"></div>
+                        <div class="input-container">
+                        <input type="range" class="slider" @wheel="app.volumeWheel" step="0.01" min="0" max="1" v-model="app.mk.volume"
+                               v-if="typeof app.mk.volume != 'undefined'">
+                        </div>       
+                    </div>
                     </div>
                 </template>
                 </div>

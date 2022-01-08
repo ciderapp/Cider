@@ -3048,6 +3048,11 @@ const app = new Vue({
                 gain: gain,
                 peak: peak
             }
+        },
+        fullscreen(flag){
+            if (flag){
+            ipcRenderer.send('setFullScreen', true); app.appMode = 'fullscreen';}
+            else { ipcRenderer.send('setFullScreen', false); app.appMode = 'player';}
         }
 
     }

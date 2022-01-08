@@ -3583,6 +3583,52 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     height: 50vh;
   }
 
+  @media only screen and (max-width: 1023px) {
+    .display--large {
+        display: flex !important;
+    }
+  }
+  .display--large {
+    display: flex;
+
+    .slider {
+      width: 100%;
+      z-index: 1;
+    }
+
+    .input-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%
+    }
+
+    input[type=range] {
+      appearance: none;
+      width: 100%;
+      height: 4px;
+      background-color: rgb(200 200 200 / 50%);
+      border-radius: 2px;
+  
+      &::-webkit-slider-thumb {
+        opacity: 1;
+        transform: scale(0.5);
+        -webkit-appearance: none;
+        appearance: none;
+        width: 12px;
+        height: 12px;
+        border-radius: 100%;
+        background: rgba(77, 75, 75, 0.9);
+        cursor: default;
+        transition: opacity .10s var(--appleEase), transform .10s var(--appleEase);
+      }
+       
+    } 
+
+
+  }
+  
+
   .background{
     position: absolute;
     background-size: cover;
@@ -3723,8 +3769,12 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
         font-size: 0.875em;
       }
       .song-name {
+        width: unset !important;
         margin-top: 0.15vh;
-        display: contents;
+        display: -webkit-box;
+        line-height: 1.2;
+        text-overflow: ellipsis;
+        text-align: center;
       }
     }
 
@@ -3775,7 +3825,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
         }
       }
     
-      > input[type=range] {
+       input[type=range] {
         appearance: none;
         width: 100%;
         height: 4px;
