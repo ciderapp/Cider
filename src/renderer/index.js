@@ -2260,6 +2260,16 @@ const app = new Vue({
             }
         },
         queueParentandplayChild(parent, childIndex, item) {
+
+            /* Randomize array in-place using Durstenfeld shuffle algorithm */
+            function shuffleArray(array) {
+                for (var i = array.length - 1; i > 0; i--) {
+                    var j = Math.floor(Math.random() * (i + 1));
+                    var temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                }
+            }
             let kind = parent.substring(0, parent.indexOf(":"))
             let id = parent.substring(parent.indexOf(":") + 1, parent.length)
             let truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
@@ -2278,6 +2288,7 @@ const app = new Vue({
                     } catch (e) {
                     }
                     this.mk.clearQueue().then(function (_) {
+                        if (app.mk.shuffleMode == 1){ shuffleArray(query)}
                         app.mk.queue.append(query)
                         if (childIndex != -1) {
                             app.mk.changeToMediaAtIndex(childIndex)
@@ -2302,10 +2313,12 @@ const app = new Vue({
                                 app.mk.clearQueue().then(function () {
                                     if ((app.showingPlaylist && app.showingPlaylist.id == id)) {
                                         let query = app.showingPlaylist.relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
+                                        if (app.mk.shuffleMode == 1){ shuffleArray(query)}
                                         app.mk.queue.append(query)
                                     } else {
                                         app.getPlaylistFromID(id, true).then(function () {
                                             let query = app.showingPlaylist.relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
+                                            if (app.mk.shuffleMode == 1){ shuffleArray(query)}
                                             app.mk.queue.append(query)
                                         })
                                     }
