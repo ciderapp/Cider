@@ -206,7 +206,13 @@ export class Win {
         })
 
         let location = `http://localhost:${this.clientPort}/`
-        this.win.loadURL(location)
+
+        if (electron.app.isPackaged) {
+            this.win.loadURL(location)
+        } else {
+            this.win.loadURL(location, {userAgent: 'Cider Development Environment'})
+        }
+
     }
 
     /**
