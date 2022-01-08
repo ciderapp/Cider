@@ -1,30 +1,15 @@
 <script type="text/x-template" id="sidebar-playlist">
     <div class="sidebar-playlist" :key="item.id">
-        <button class="app-sidebar-item app-sidebar-item-playlist" :key="item.id" v-if="item.type != 'library-playlist-folders'"
-                :class="{'active': $root.page.includes(item.id)}"
+        <button class="app-sidebar-item app-sidebar-item-playlist" :key="item.id"
+                :class="item.type != 'library-playlist-folders' ? {'active': $root.page.includes(item.id)} : [{'folder-button-active': folderOpened}, isPlaylistSelected]"
                 @contextmenu="playlistContextMenu($event, item.id)"
                 @dragstart="startDrag($event, item)"
                 @dragover="dragOver"
                 @drop="onDrop"
                 :href="item.href"
-                @click='$root.appRoute(`playlist_` + item.id); $root.showingPlaylist = [];$root.getPlaylistFromID($root.page.substring(9))'>
+                @click='item.type != "library-playlist-folders" ? openPlaylist(item) : getPlaylistChildren(item)'>
             <template v-if="!renaming">
                 <div class="sidebar-icon" v-html="icon"></div> {{ item.attributes.name }}
-            </template>
-            <input type="text" v-model="item.attributes.name" class="pl-rename-field" @blur="rename()" @keydown.enter="rename()" v-else>
-        </button>
-        <button class="app-sidebar-item app-sidebar-item-playlist" :key="item.id" v-else
-                :class="[{'folder-button-active': folderOpened}, isPlaylistSelected]"
-                @contextmenu="playlistContextMenu($event, item.id)"
-                @dragstart="startDrag($event, item)"
-                @dragover="dragOver"
-                @drop="onDrop"
-                :href="item.href"
-                @click='getPlaylistChildren(item)'>
-            <span v-if="!folderOpened">📁</span>
-            <span v-else>📂</span>
-            <template v-if="!renaming">
-                {{ item.attributes.name }}
             </template>
             <input type="text" v-model="item.attributes.name" class="pl-rename-field" @blur="rename()" @keydown.enter="rename()" v-else>
         </button>
@@ -58,7 +43,11 @@
             }
         },
         async mounted() {
-            this.icon = await this.$root.getSvgIcon("./assets/feather/list.svg")
+            if (this.item.type !== "library-playlist-folders") {
+                this.icon = await this.$root.getSvgIcon("./assets/feather/list.svg")
+            } else {
+                this.icon = await this.$root.getSvgIcon("./assets/feather/folder.svg")
+            }
         },
         methods: {
             rename() {
@@ -180,6 +169,11 @@
                 evt.dataTransfer.dropEffect = 'move'
                 evt.dataTransfer.effectAllowed = 'move'
                 evt.dataTransfer.setData('text/plain', JSON.stringify(this.item))
+            },
+            openPlaylist(item) {
+                this.$root.appRoute(`playlist_` + item.id);
+                this.$root.showingPlaylist = [];
+                this.$root.getPlaylistFromID(this.$root.page.substring(9))
             },
             getPlaylistChildren(item) {
                 let self = this

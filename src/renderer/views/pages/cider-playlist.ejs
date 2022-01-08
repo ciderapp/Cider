@@ -36,13 +36,13 @@
                                                                                    @change="editPlaylist"
                                                                                    @keydown.enter="editPlaylist"/></div>
                             <div class="playlist-artist item-navigate"
-                                 v-if="data.attributes && data.attributes.artistName"
-                                 @click="if(data.attributes && data.attributes.artistName){ app.searchAndNavigate(data,'artist')}">
-                                {{data.attributes ? (data.attributes.artistName ?? '') :''}}
+                                 v-if="getArtistName(data) != ''"
+                                 @click="data.attributes && data.attributes.artistName ? app.searchAndNavigate(data,'artist') : ''">
+                                {{getArtistName(data)}}
                             </div>
-                            <div class="playlist-desc" v-if="data.attributes.editorialNotes">
+                            <div class="playlist-desc" v-if="getDescription(data) != ''">
                                 <div class="content"
-                                     v-html="((data.attributes.editorialNotes) ? (data.attributes.editorialNotes.standard ?? (data.attributes.editorialNotes.short ?? '') ) : (data.attributes.description ? (data.attributes.description.standard ?? (data.attributes.description.short ?? '')) : ''))"></div>
+                                     v-html="getDescription(data)"></div>
                                 <button class="more-btn" @click="editorialNotesExpanded = !editorialNotesExpanded">
                                     More
                                 </button>
@@ -138,7 +138,7 @@
         methods: {
             getBadges() {
                 return
-                if(this.badgesRequested) {
+                if (this.badgesRequested) {
                     return
                 }
                 this.badgesRequested = true
@@ -160,6 +160,34 @@
                         })
                     }
                 })
+            },
+            getDescription(data) {
+                console.log(data.attributes)
+                if (data.attributes.editorialNotes) {
+                    if (data.attributes.editorialNotes.hasOwnProperty('short')) {
+                        return data.attributes.editorialNotes.short
+                    } else if (data.attributes.editorialNotes.hasOwnProperty('standard')) {
+                        return data.attributes.editorialNotes.standard
+                    }
+                } else if (data.attributes.description) {
+                    if (data.attributes.description.hasOwnProperty('short')) {
+                        return data.attributes.description.short
+                    } else if (data.attributes.description.hasOwnProperty('standard')) {
+                        return data.attributes.description.standard
+                    }
+                }
+                return ''
+            },
+            getArtistName(data) {
+                if (data.attributes.artistName) {
+                    return data.attributes.artistName
+                } else if (data.attributes.artist) {
+                    return data.attributes.artist.attributes.name
+                } else if (data.attributes.curatorName) {
+                    return data.attributes.curatorName
+                } else {
+                    return ""
+                }
             },
             async isInLibrary() {
                 if (this.data.type && !this.data.type.includes("library")) {
