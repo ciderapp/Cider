@@ -268,6 +268,7 @@ const app = new Vue({
             drawerState: "queue",
             topChromeVisible: true,
             progresshover: false,
+            windowControlPosition: "right"
         },
         collectionList: {
             response: {},
