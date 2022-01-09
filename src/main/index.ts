@@ -1,22 +1,16 @@
 require('v8-compile-cache');
 
-import { app } from 'electron';
-// import { resolve } from 'path';
-
 // Analytics for debugging fun yeah.
-// const ElectronSentry = require("@sentry/electron");
-// ElectronSentry.init({ dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.ingest.sentry.io/6112214" });
-//
-// // const {Init} = require("./src/main/cider-base");
-// // Init()
-//
+const ElectronSentry = require("@sentry/electron");
+ElectronSentry.init({dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.ingest.sentry.io/6112214"});
 
+import {app} from 'electron';
 import {Win} from "./base/win";
 import {ConfigStore} from "./base/store";
+import {AppEvents} from "./base/app";
 
 const config = new ConfigStore();
-console.log(config)
-
+const App = new AppEvents(config.store);
 const Cider = new Win(app, config.store)
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -24,7 +18,7 @@ const Cider = new Win(app, config.store)
 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 app.on('ready', () => {
-
+    App.ready();
 
     console.log('[Cider] Application is Ready. Creating Window.')
     if (!app.isPackaged) {
@@ -32,10 +26,9 @@ app.on('ready', () => {
         require('vue-devtools').install()
     }
 
-  Cider.createWindow();
-
-    // CiderBase.Start()
+    Cider.createWindow();
 });
+
 //
 // app.on('before-quit', () => {
 //     app.isQuiting = true;

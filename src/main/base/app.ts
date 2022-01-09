@@ -1,15 +1,17 @@
 import * as electron from 'electron';
 
-export class App {
-    constructor() {
+export class AppEvents {
+    constructor(store: any) {
         console.log('App started');
+
+        AppEvents.start(store);
     }
 
     /**
      * Handles all actions that occur for the app on start (Mainly commandline arguments)
      * @returns {void}
      */
-    public start(store: any): void {
+    private static start(store: any): void {
         console.log('App started');
 
         switch (store.get("visual.hw_acceleration")) {
@@ -38,7 +40,7 @@ export class App {
         }
     }
 
-    public stop() {
+    public quit() {
         console.log('App stopped');
     }
 

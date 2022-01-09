@@ -15,9 +15,8 @@
   "buildResources": "resources",
   "scripts": {
     "build": "tsc",
-    "init": "install --force",
     "watch": "tsc --watch",
-    "start": "npm run build && electron ./build/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
+    "start": "npm run build && ELECTRON_ENABLE_LOGGING=true electron ./build/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
     "pack": "electron-builder --dir",
     "dist": "npm run build && electron-builder",
     "msft": "electron-builder -c msft-package.json",
