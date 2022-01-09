@@ -1,5 +1,5 @@
 <script type="text/x-template" id="fullscreen-view">
-    <div class="fullscreen-view">
+    <div class="fullscreen-view" tabindex="0">
         <div class="background">
             <div class="bgArtworkMaterial">
                 <div class="bg-artwork-container">
@@ -140,10 +140,19 @@
                 tabMode: "lyrics",
             }
         },
+        beforeMount() {
+            window.addEventListener('keyup', this.onEscapeKeyUp);
+        },
+        beforeDestroy() {
+            window.removeEventListener('keyup', this.onEscapeKeyUp)
+        },
         methods: {
-            sayHello: function () {
-                alert('Hello world!');
-            }
+            onEscapeKeyUp(event) {
+                if (event.which === 27) {
+                    app.fullscreen(false);
+                    console.log('js')
+                }
+            },
         }
     });
 </script>
