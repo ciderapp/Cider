@@ -92,9 +92,9 @@
                                             {{ mk.nowPlayingItem["attributes"]["artistName"] }}
                                         </div>
                                         <div class="song-artist item-navigate" style="display: inline-block;"
-                                             @click="getNowPlayingItemDetailed('album')">
-                                            {{ (mk.nowPlayingItem["attributes"]["albumName"]) ? (" - " +
-                                            mk.nowPlayingItem["attributes"]["albumName"]) : "" }}
+                                            @click="getNowPlayingItemDetailed('album')">
+                                            <div class="song-artist separator" style="display: inline-block;">{{"-"}}</div>
+                                            {{(mk.nowPlayingItem["attributes"]["albumName"]) ? (mk.nowPlayingItem["attributes"]["albumName"]) : "" }}
                                         </div>
                                     </div>
 
