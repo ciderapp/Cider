@@ -59,11 +59,11 @@
                     </template>
                     <div class="playlist-controls">
                         <button class="wr-btn" style="min-width: 120px;"
-                                @click="app.mk.shuffleMode = 0;app.playMediaItemById(data.attributes.playParams.id ?? data.id, data.attributes.playParams.kind ?? data.type, data.attributes.playParams.isLibrary ?? false, data.attributes.url)">
+                                @click="app.mk.shuffleMode = 0; app.mk.stop().then(function() {app.playMediaItemById(data.attributes.playParams.id ?? data.id, data.attributes.playParams.kind ?? data.type, data.attributes.playParams.isLibrary ?? false, data.attributes.url)})">
                             Play
                         </button>
                         <button class="wr-btn" style="min-width: 120px;"
-                                @click="app.mk.shuffleMode = 1;app.playMediaItemById(data.attributes.playParams.id ?? data.id, data.attributes.playParams.kind ?? data.type, data.attributes.playParams.isLibrary ?? false, data.attributes.url)">
+                                @click="shufflePlay()">
                             Shuffle
                         </button>
                         <button class="wr-btn" style="min-width: 120px;" v-if="inLibrary!=null"
@@ -152,7 +152,7 @@
                 }
                 this.$root.getSocialBadges((badges) => {
                     let friends = badges[id]
-                    if(friends) {
+                    if (friends) {
                         friends.forEach(function (friend) {
                             self.app.mk.api.socialProfile(friend).then(data => {
                                 self.itemBadges.push(data)
@@ -192,7 +192,7 @@
             async isInLibrary() {
                 if (this.data.type && !this.data.type.includes("library")) {
                     // please keep using vars here
-                    var params = {"fields[playlists]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library"}
+                    var params = { "fields[playlists]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library" }
                     var res = await app.mkapi(this.data.attributes.playParams.kind ?? this.data.type, this.data.attributes.playParams.isLibrary ?? false, this.data.attributes.playParams.id ?? this.data.id, params);
                     this.inLibrary = (res && res.attributes && res.attributes.inLibrary) ? res.attributes.inLibrary : false
                     console.log(res)
@@ -214,7 +214,7 @@
                 this.inLibrary = true
             },
             async removeFromLibrary(id) {
-                var params = {"fields[somgs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library"}
+                var params = { "fields[somgs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library" }
                 var id = this.data.id ?? this.data.attributes.playParams.id
                 var res = await app.mkapi(this.data.attributes.playParams.kind ?? this.data.type, this.data.attributes.playParams.isLibrary ?? false, this.data.attributes.playParams.id ?? this.data.id, params);
                 if (res && res.relationships && res.relationships.library && res.relationships.library.data && res.relationships.library.data.length > 0) {
@@ -222,7 +222,7 @@
                 }
                 let kind = this.data.attributes.playParams.kind ?? this.data.type ?? '';
                 var truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
-                app.mk.api.library.remove({[truekind]: id})
+                app.mk.api.library.remove({ [truekind]: id })
                 this.inLibrary = false
             },
             editPlaylistName() {
@@ -304,7 +304,7 @@
                 if (date == null || date === "") return "";
                 try {
                     var releaseDate = new Date(date);
-                    month = new Intl.DateTimeFormat('en-US', {month: 'long'}).format(releaseDate);
+                    month = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(releaseDate);
                     date = releaseDate.getDate();
                     year = releaseDate.getFullYear();
 
@@ -312,7 +312,84 @@
                 } catch (e) {
                     return ""
                 }
-            }
+            },
+            shufflePlay() {
+                app.mk.shuffleMode = 1;
+                function shuffleArray(array) {
+                    for (var i = array.length - 1; i > 0; i--) {
+                        var j = Math.floor(Math.random() * (i + 1));
+                        var temp = array[i];
+                        array[i] = array[j];
+                        array[j] = temp;
+                    }
+                }
+                var id =  this.data.attributes.playParams.id ?? this.data.id 
+                let kind = this.data.attributes.playParams.kind ?? this.data.type ?? '';
+                let truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
+                let isLibrary = this.data.attributes.playParams ? (this.data.attributes.playParams.isLibrary ?? false) : false;
+                app.mk.stop().then(function() {
+                app.mk.clearQueue().then(function () {
+                    app.mk.setQueue({ [truekind] : [id] }).then(function () {
+                        app.mk.play().then(function () {
+                            app.mk.clearQueue().then(function () {
+                                const params = {
+                                    // include: "tracks",
+                                    // platform: "web",
+                                    // "include[library-playlists]": "catalog,tracks",
+                                    // "fields[playlists]": "curatorName,playlistType,name,artwork,url",
+                                    // "include[library-songs]": "catalog,artists,albums",
+                                    // "fields[catalog]": "artistUrl,albumUrl",
+                                    // "fields[songs]": "artistUrl,albumUrl, playParams"
+                                }
+                                function getList(kind, id, params, isLibrary) {
+                                    if (kind.includes("album")){
+                                        if (isLibrary) {
+                                        return app.mk.api.library.album(id, params)
+                                    } else { return app.mk.api.album(id, params) }
+                                    } else {
+                                    if (isLibrary) {
+                                        return app.mk.api.library.playlist(id, params)
+                                    } else { return app.mk.api.playlist(id, params) }}
+                                }
+                                try {
+
+                                    getPlaylist(kind, id, params, isLibrary).then(res => {
+                                        console.log(res)
+                                        let query = res.relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
+                                        if (app.mk.shuffleMode == 1) { shuffleArray(query); console.log('shf') }
+                                        app.mk.queue.append(query)
+                                        if (!res.relationships.tracks.next) {
+                                            return
+                                        } else {
+                                            getPlaylistTracks(res.relationships.tracks.next)
+                                        }
+
+                                        function getPlaylistTracks(next) {
+                                            app.apiCall(app.musicBaseUrl + next, res => {
+                                                // if (res.id != playlistId) {
+                                                //     return
+                                                // }
+                                                let query = res.data.map(item => new MusicKit.MediaItem(item))
+                                                if (app.mk.shuffleMode == 1) { shuffleArray(query); console.log('shf') }
+                                                app.mk.queue.append(query)
+
+                                                if (res.next) {
+                                                    getPlaylistTracks(res.next)
+                                                }
+                                            })
+                                        }
+                                    })
+                                } catch (e) {console.log(e) }
+
+
+                            })
+                        })
+                    })
+
+                })
+
+            })}
+
         }
     })
 </script>
