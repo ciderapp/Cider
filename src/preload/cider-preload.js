@@ -36,7 +36,7 @@ const MusicKitInterop = {
         const nowPlayingItem = MusicKit.getInstance().nowPlayingItem;
         const isPlayingExport = MusicKit.getInstance().isPlaying;
         const remainingTimeExport = MusicKit.getInstance().currentPlaybackTimeRemaining;
-        const attributes = nowPlayingItem.attributes ?? {};
+        const attributes = (nowPlayingItem != null ? nowPlayingItem.attributes : {});
 
         attributes.status = isPlayingExport ?? false;
         attributes.name = attributes?.name ?? 'No Title Found';
