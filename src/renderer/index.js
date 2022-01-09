@@ -363,7 +363,7 @@ const app = new Vue({
                 case "disabled":
                     document.querySelector("html").style.background = "#222";
                     document.querySelector("body").classList.add("notransparency")
-                    
+
                     // document.querySelector("body").style.background = "#222";
                     break;
             }
@@ -393,7 +393,7 @@ const app = new Vue({
                     let ids = res.map(function(i) {return {id:i.id, type: i.type}})
                     pl_items = pl_items.concat(ids)
                 } else if (self.selectedMediaItems[i].kind == "library-song" || self.selectedMediaItems[i].kind == "library-songs") {
-                    self.selectedMediaItems[i].kind = "library-songs"                    
+                    self.selectedMediaItems[i].kind = "library-songs"
                     pl_items.push({
                         id: self.selectedMediaItems[i].id,
                         type: self.selectedMediaItems[i].kind
@@ -409,7 +409,7 @@ const app = new Vue({
                         type: self.selectedMediaItems[i].kind
                     })
                 }
-                
+
             }
             this.modals.addToPlaylist = false
             this.mk.api.library.appendTracksToPlaylist(playlist_id, pl_items).then(() => {
@@ -1190,14 +1190,14 @@ const app = new Vue({
             this.getArtistFromID(id)
             //this.getTypeFromID("artist",id,isLibrary,query)
         },
-        playMediaItem(item) {   
+        playMediaItem(item) {
             let kind = (item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')) : (item.type ?? ''));
             let id = (item.attributes.playParams ? (item.attributes.playParams.id ?? (item.id ?? '')) : (item.id ?? ''));
             ;
             let isLibrary = item.attributes.playParams ? (item.attributes.playParams.isLibrary ?? false) : false;
             let truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
             console.log(kind, id, isLibrary)
-            app.mk.stop().then(() => {       
+            app.mk.stop().then(() => {
             if (kind.includes("artist")) {
                 app.mk.setStationQueue({artist: 'a-' + id}).then(() => {
                     app.mk.play()
@@ -1252,21 +1252,21 @@ const app = new Vue({
                                                 let query = res.data.map(item => new MusicKit.MediaItem(item))
                                                 if (app.mk.shuffleMode == 1){shuffleArray(query); console.log('shf')}
                                                 app.mk.queue.append(query)
-                                                
+
                                                 if (res.next) {
                                                     getPlaylistTracks(res.next)
-                                                } 
+                                                }
                                             })
                                         }
                                             })
                                 } catch (e) {}
-                               
+
 
                                })
                            })
                         })
                     }
-                })                   
+                })
         } else {
                 app.playMediaItemById((id), (kind), (isLibrary), item.attributes.url ?? '')
             }
@@ -2393,8 +2393,8 @@ const app = new Vue({
                                     }
                                 })
                             })
-                            
-                        })                       
+
+                        })
                     }
                     else{
                     this.mk.setQueue({[truekind]: [id]}).then(function (queue) {
@@ -2682,7 +2682,7 @@ const app = new Vue({
         async getCurrentArtURL(){
             try{
                 this.currentArtUrl = '';
-                if (app.mk.nowPlayingItem != null && app.mk.nowPlayingItem.attributes != null && app.mk.nowPlayingItem.attributes.artwork != null && app.mk.nowPlayingItem.attributes.artwork.url != null && app.mk.nowPlayingItem.attributes.artwork.url!= '' ) 
+                if (app.mk.nowPlayingItem != null && app.mk.nowPlayingItem.attributes != null && app.mk.nowPlayingItem.attributes.artwork != null && app.mk.nowPlayingItem.attributes.artwork.url != null && app.mk.nowPlayingItem.attributes.artwork.url!= '' )
                 {
                     this.currentArtUrl = (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"] ?? '').replace('{w}', 50).replace('{h}', 50);
                     try{
@@ -3051,9 +3051,18 @@ const app = new Vue({
             }
         },
         fullscreen(flag){
-            if (flag){
-            ipcRenderer.send('setFullScreen', true); app.appMode = 'fullscreen';}
-            else { ipcRenderer.send('setFullScreen', false); app.appMode = 'player';}
+            if (flag) {
+                ipcRenderer.send('setFullScreen', true);
+                app.appMode = 'fullscreen';
+                document.addEventListener('keydown', event => {
+                    if (event.key === 'Escape' && app.appMode === 'fullscreen') {
+                        this.fullscreen(false);
+                    }
+                });
+            } else {
+                ipcRenderer.send('setFullScreen', false);
+                app.appMode = 'player';
+            }
         }
 
     }
