@@ -1,4 +1,5 @@
 import * as electron from 'electron';
+import * as path from 'path';
 
 export class AppEvents {
     constructor(store: any) {
@@ -14,6 +15,28 @@ export class AppEvents {
     private static start(store: any): void {
         console.log('App started');
 
+        /**********************************************************************************************************************
+         * Startup arguments handling
+         **********************************************************************************************************************/
+        if (electron.app.commandLine.hasSwitch('version') || electron.app.commandLine.hasSwitch('v')) {
+            console.log(electron.app.getVersion())
+            electron.app.exit()
+        }
+
+        // Verbose Check
+        if (electron.app.commandLine.hasSwitch('verbose')) {
+            console.log("[Apple-Music-Electron] User has launched the application with --verbose");
+        }
+
+        // Log File Location
+        if (electron.app.commandLine.hasSwitch('log') || electron.app.commandLine.hasSwitch('l')) {
+            console.log(path.join(electron.app.getPath('userData'), 'logs'))
+            electron.app.exit()
+        }
+
+        /***********************************************************************************************************************
+         * Commandline arguments
+         **********************************************************************************************************************/
         switch (store.get("visual.hw_acceleration")) {
             default:
             case "default":

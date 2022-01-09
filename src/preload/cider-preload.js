@@ -1,5 +1,4 @@
-const electron = require('electron')
-
+global.ipcRenderer = require('electron').ipcRenderer;
 console.log('Loaded Preload')
 
 let cache = {playParams: {id: 0}, status: null, remainingTime: 0},
@@ -91,6 +90,5 @@ const MusicKitInterop = {
 
 process.once('loaded', () => {
     console.log("Setting ipcRenderer")
-    global.ipcRenderer = electron.ipcRenderer;
     global.MusicKitInterop = MusicKitInterop;
 });

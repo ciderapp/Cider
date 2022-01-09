@@ -45,18 +45,11 @@ export class Win {
         frame: false,
         title: "Cider",
         vibrancy: 'dark',
-        //  transparent: true,
+        transparent: (process.platform === "darwin"),
         hasShadow: false,
         webPreferences: {
-            webviewTag: true,
-            plugins: true,
             nodeIntegration: true,
-            nodeIntegrationInWorker: false,
-            webSecurity: false,
-            allowRunningInsecureContent: true,
-            enableRemoteModule: true,
             sandbox: true,
-            nativeWindowOpen: true,
             contextIsolation: false,
             preload: path.join(this.paths.srcPath, './preload/cider-preload.js')
         }
@@ -133,7 +126,7 @@ export class Win {
         app.use(express.static(path.join(this.paths.srcPath, './renderer/')));
         app.set("views", path.join(this.paths.srcPath, './renderer/views'));
         app.set("view engine", "ejs");
-        
+
         app.use((req, res, next) => {
             // @ts-ignore
             if (req.url.includes("audio.webm") || (req.headers.host.includes("localhost") && (this.devMode || req.headers["user-agent"].includes("Electron")))) {
