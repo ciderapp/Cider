@@ -1194,7 +1194,7 @@ const app = new Vue({
             let id = (item.attributes.playParams ? (item.attributes.playParams.id ?? (item.id ?? '')) : (item.id ?? ''));
             ;
             let isLibrary = item.attributes.playParams ? (item.attributes.playParams.isLibrary ?? false) : false;
-
+            let truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
             console.log(kind, id, isLibrary)
             app.mk.stop().then(() => {       
             if (kind.includes("artist")) {
@@ -1212,7 +1212,7 @@ const app = new Vue({
                     }
                 }
                 app.mk.clearQueue().then(function () { {
-                    app.mk.setQueue({[item.attributes.playParams.kind ?? item.type]: item.attributes.playParams.id ?? item.id}).then(function () {
+                    app.mk.setQueue({[truekind]: [item.attributes.playParams.id ?? item.id]}).then(function () {
                            app.mk.play().then(function (){
                                app.mk.clearQueue().then(function (){
                                 var playlistId = id

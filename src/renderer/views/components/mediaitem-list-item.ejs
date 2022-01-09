@@ -410,12 +410,12 @@
                 let kind = (item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')) : (item.type ?? ''));
                 let id = (item.attributes.playParams ? (item.attributes.playParams.id ?? (item.id ?? '')) : (item.id ?? ''));;
                 let isLibrary = item.attributes.playParams ? (item.attributes.playParams.isLibrary ?? false) : false;
+                let truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
                 console.log(item, parent, childIndex, kind, id, isLibrary, kind == "playlists", id.startsWith("p.") || id.startsWith("pl.u"))
                 app.mk.stop().then(() => {       
                 if (parent != null && childIndex != null) {
                     app.queueParentandplayChild(parent, childIndex, item);
                 } else if (kind.includes("playlist") && (id.startsWith("p.") || id.startsWith("pl."))){
-                        /* Randomize array in-place using Durstenfeld shuffle algorithm */
                         function shuffleArray(array) {
                             for (var i = array.length - 1; i > 0; i--) {
                                 var j = Math.floor(Math.random() * (i + 1));
@@ -425,20 +425,20 @@
                             }
                         }
                         app.mk.clearQueue().then(function () {
-                                app.mk.setQueue({[item.attributes.playParams.kind ?? item.type]: item.attributes.playParams.id ?? item.id}).then(function () {
+                                app.mk.setQueue({[truekind]: [item.attributes.playParams.id ?? item.id]}).then(function () {
                                    app.mk.play().then(function (){
                                        app.mk.clearQueue().then(function (){
                                         var playlistId = id
                                         const params = {
-                                            include: "tracks",
-                                            platform: "web",
-                                            "include[library-playlists]": "catalog,tracks",
-                                            "fields[playlists]": "curatorName,playlistType,name,artwork,url",
-                                            "include[library-songs]": "catalog,artists,albums",
-                                            "fields[catalog]": "artistUrl,albumUrl",
-                                            "fields[songs]": "artistUrl,albumUrl"
+                                            // include: "tracks",
+                                            // platform: "web",
+                                            // "include[library-playlists]": "catalog,tracks",
+                                            // "fields[playlists]": "curatorName,playlistType,name,artwork,url",
+                                            // "include[library-songs]": "catalog,artists,albums",
+                                            // "fields[catalog]": "artistUrl,albumUrl",
+                                            // "fields[songs]": "artistUrl,albumUrl, playParams"
                                         }
-                                        var playlistId = ''
+                                        // var playlistId = ''
                                         function getPlaylist(id, params, isLibrary){
                                             if (isLibrary){
                                                 return  app.mk.api.library.playlist(id, params)
@@ -448,7 +448,8 @@
 
                                             getPlaylist(id, params, isLibrary).then(res => {
                                                 let query = res.relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
-                                                if (app.mk.shuffleMode == 1){shuffleArray(query); console.log('shf')}
+                                                if (app.mk.shuffleMode == 1){shuffleArray(query); }
+                                                console.log(query)
                                                 app.mk.queue.append(query)
                                                 if (!res.relationships.tracks.next) {
                                                     return
@@ -458,9 +459,10 @@
 
                                                 function getPlaylistTracks(next) {
                                                     app.apiCall(app.musicBaseUrl + next, res => {
-                                                        if (res.id != playlistId) {
-                                                            return
-                                                        }
+                                                        // if (res.id != playlistId || next.includes(playlistId)) {
+                                                        //     return
+                                                        // }
+                                                        console.log('nextres', res)
                                                         let query = res.data.map(item => new MusicKit.MediaItem(item))
                                                         if (app.mk.shuffleMode == 1){shuffleArray(query); console.log('shf')}
                                                         app.mk.queue.append(query)
