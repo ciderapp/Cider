@@ -353,7 +353,7 @@
                                 }
                                 try {
 
-                                    getPlaylist(kind, id, params, isLibrary).then(res => {
+                                    getList(kind, id, params, isLibrary).then(res => {
                                         console.log(res)
                                         let query = res.relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
                                         if (app.mk.shuffleMode == 1) { shuffleArray(query); console.log('shf') }
