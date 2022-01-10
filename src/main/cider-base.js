@@ -75,6 +75,8 @@ const CiderBase = {
                 const { BrowserWindow } = require("electron-acrylic-window");
                 win = new BrowserWindow(options)
                 win.setVibrancy("#59202700") // when out of focus, fills with #592027, 00 is aplha values
+            } else {
+                win = new BrowserWindow(options)
             }
 
         }
