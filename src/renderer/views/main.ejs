@@ -93,7 +93,7 @@
                                         </div>
                                         <div class="song-artist item-navigate" style="display: inline-block;"
                                             @click="getNowPlayingItemDetailed('album')">
-                                            <div class="song-artist separator" style="display: inline-block;">{{"-"}}</div>
+                                            <div class="separator" style="display: inline-block;">{{"-"}}</div>
                                             {{(mk.nowPlayingItem["attributes"]["albumName"]) ? (mk.nowPlayingItem["attributes"]["albumName"]) : "" }}
                                         </div>
                                     </div>
@@ -498,7 +498,7 @@
     </transition>
     <div id="apple-music-video-container">
         <div id="apple-music-video-player-controls">
-            <div id="player-exit" title="Close" @click="app.exitMV()">
+            <div id="player-exit" title="Close" @click="exitMV()">
                 <svg fill="white" xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21"
                      aria-role="presentation" focusable="false">
                     <path
@@ -516,7 +516,7 @@
             <div id="player-pip"
                  @click="document.querySelector('video#apple-music-video-player').requestPictureInPicture()"
                  title="Picture-in-Picture">
-                <%- include("svg/fullscreen.svg") %>
+                <%- include("svg/pip.svg") %>
             </div>
             <div id="player-fullscreen"
                  @click="document.querySelector('video#apple-music-video-player').requestFullscreen()"
