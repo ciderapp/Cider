@@ -25,9 +25,8 @@
                         <template v-if="artistFeed.length > 0">
                             <mediaitem-list-item v-for="item in artistFeed.limit(6)" :item="item"></mediaitem-list-item>
                         </template>
-                        <template v-else>
-                            <div class="spinner"></div>
-                        </template>
+                        <div class="spinner" v-else-if="followedArtists.length > 0"></div>
+                        <div class="no-artist" v-else> Follow some artists first and their latest releases will be here</div>
                     </div>
                 </div>
             </div>
