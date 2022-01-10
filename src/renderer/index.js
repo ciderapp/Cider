@@ -2015,6 +2015,7 @@ const app = new Vue({
             const track = encodeURIComponent((this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.title ?? '' : '');
             const artist = encodeURIComponent((this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.artistName ?? '' : '');
             const time = encodeURIComponent((this.mk.nowPlayingItem != null) ? (Math.round((this.mk.nowPlayingItem.attributes["durationInMillis"] ?? -1000) / 1000) ?? -1) : -1);
+            const id = encodeURIComponent((this.mk.nowPlayingItem != null) ? app.mk.nowPlayingItem._songId ?? '' : '');
             let lrcfile = "";
             let richsync = [];
             const lang = app.cfg.lyrics.mxm_language //  translation language
@@ -2023,7 +2024,7 @@ const app = new Vue({
             }
 
             /* get token */
-            function getToken(mode, track, artist, songid, lang, time) {
+            function getToken(mode, track, artist, songid, lang, time, id) {
                 if (attempt > 2) {
                     app.loadAMLyrics();
                 } else {
@@ -2044,7 +2045,7 @@ const app = new Vue({
                                 app.mxmtoken = token;
 
                                 if (mode == 1) {
-                                    getMXMSubs(track, artist, app.mxmtoken, lang, time);
+                                    getMXMSubs(track, artist, app.mxmtoken, lang, time, id);
                                 } else {
                                     getMXMTrans(songid, lang, app.mxmtoken);
                                 }
@@ -2066,11 +2067,12 @@ const app = new Vue({
                 }
             }
 
-            function getMXMSubs(track, artist, token, lang, time) {
+            function getMXMSubs(track, artist, token, lang, time, id) {
                 let usertoken = encodeURIComponent(token);
                 let richsyncQuery = (app.cfg.lyrics.mxm_karaoke) ? "&optional_calls=track.richsync" : ""
                 let timecustom = (!time || (time && time < 0)) ? '' : `&f_subtitle_length=${time}&q_duration=${time}&f_subtitle_length_max_deviation=40`;
-                let url = "https://apic-desktop.musixmatch.com/ws/1.1/macro.subtitles.get?format=json&namespace=lyrics_richsynched" + richsyncQuery + "&subtitle_format=lrc&q_artist=" + artist + "&q_track=" + track + "&usertoken=" + usertoken + timecustom + "&app_id=web-desktop-app-v1.0&t=" + revisedRandId();
+                let itunesid = (id && id != "") ? `&track_itunes_id=${id}` : '';
+                let url = "https://apic-desktop.musixmatch.com/ws/1.1/macro.subtitles.get?format=json&namespace=lyrics_richsynched" + richsyncQuery + "&subtitle_format=lrc&q_artist=" + artist + "&q_track=" + track + itunesid + "&usertoken=" + usertoken + timecustom + "&app_id=web-desktop-app-v1.0&t=" + revisedRandId();
                 let req = new XMLHttpRequest();
                 req.overrideMimeType("application/json");
                 req.open('GET', url, true);
@@ -2201,7 +2203,7 @@ const app = new Vue({
 
             if (track != "" & track != "No Title Found") {
                 if (app.mxmtoken != null && app.mxmtoken != '') {
-                    getMXMSubs(track, artist, app.mxmtoken, lang, time)
+                    getMXMSubs(track, artist, app.mxmtoken, lang, time, id)
                 } else {
                     getToken(1, track, artist, '', lang, time);
                 }
