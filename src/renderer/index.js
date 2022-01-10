@@ -1568,9 +1568,13 @@ const app = new Vue({
                         processChunk(response)
                     })
                 } else {
+
+                    if (downloaded.next != null && typeof downloaded.next === "function") {
                     downloaded.next("", params, {includeResponseMeta: !0}).then((response) => {
                         processChunk(response)
-                    })
+                    }) } else {
+                        console.log("Download next", downloaded.next)
+                    }
                 }
             }
 
@@ -1644,9 +1648,12 @@ const app = new Vue({
                         processChunk(response)
                     })
                 } else {
+                  if (downloaded.next != null && typeof downloaded.next === "function") {
                     downloaded.next("", params, {includeResponseMeta: !0}).then((response) => {
                         processChunk(response)
-                    })
+                    }) } else {
+                        console.log("Download next", downloaded.next)
+                    }
                 }
             }
 
@@ -1721,9 +1728,13 @@ const app = new Vue({
                         processChunk(response)
                     })
                 } else {
-                    downloaded.next("", "artists", {includeResponseMeta: !0}).then((response) => {
-                        processChunk(response)
-                    })
+                    if (downloaded.next != null && typeof downloaded.next === "function") {
+                            downloaded.next("", "artists", {includeResponseMeta: !0}).then((response) => {
+                            processChunk(response)
+                        }) } else {
+                            console.log("Download next", downloaded.next)
+                        }
+                  
                 }
             }
 
