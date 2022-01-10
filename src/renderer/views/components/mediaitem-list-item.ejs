@@ -416,73 +416,61 @@
                 if (parent != null && childIndex != null) {
                     app.queueParentandplayChild(parent, childIndex, item);
                 } 
-                // else if (kind.includes("playlist") && (id.startsWith("p.") || id.startsWith("pl."))){
-                //         function shuffleArray(array) {
-                //             for (var i = array.length - 1; i > 0; i--) {
-                //                 var j = Math.floor(Math.random() * (i + 1));
-                //                 var temp = array[i];
-                //                 array[i] = array[j];
-                //                 array[j] = temp;
-                //             }
-                //         }
-                //         app.mk.clearQueue().then(function () {
-                //                 app.mk.setQueue({[truekind]: [item.attributes.playParams.id ?? item.id]}).then(function () {
-                //                    app.mk.play().then(function (){
-                //                        app.mk.clearQueue().then(function (){
-                //                         var playlistId = id
-                //                         const params = {
-                //                             // include: "tracks",
-                //                             // platform: "web",
-                //                             // "include[library-playlists]": "catalog,tracks",
-                //                             // "fields[playlists]": "curatorName,playlistType,name,artwork,url",
-                //                             // "include[library-songs]": "catalog,artists,albums",
-                //                             // "fields[catalog]": "artistUrl,albumUrl",
-                //                             // "fields[songs]": "artistUrl,albumUrl, playParams"
-                //                         }
-                //                         // var playlistId = ''
-                //                         function getPlaylist(id, params, isLibrary){
-                //                             if (isLibrary){
-                //                                 return  app.mk.api.library.playlist(id, params)
-                //                             } else {  return app.mk.api.playlist(id, params)}
-                //                         }
-                //                         try {
+                else if (kind.includes("playlist") && (id.startsWith("p.") || id.startsWith("pl."))){
+                        function shuffleArray(array) {
+                            for (var i = array.length - 1; i > 0; i--) {
+                                var j = Math.floor(Math.random() * (i + 1));
+                                var temp = array[i];
+                                array[i] = array[j];
+                                array[j] = temp;
+                            }
+                        }
+                                app.mk.setQueue({[truekind]: [item.attributes.playParams.id ?? item.id]}).then(function () {
+                                   app.mk.play().then(function (){
+                                        var playlistId = id
+                                        function getPlaylist(id, params, isLibrary){
+                                            if (isLibrary){
+                                                return  app.mk.api.library.playlist(id, params)
+                                            } else {  return app.mk.api.playlist(id, params)}
+                                        }
+                                        try {
 
-                //                             getPlaylist(id, params, isLibrary).then(res => {
-                //                                 let query = res.relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
-                //                                 if (app.mk.shuffleMode == 1){shuffleArray(query); }
-                //                                 console.log(query)
-                //                                 app.mk.queue.append(query)
-                //                                 if (!res.relationships.tracks.next) {
-                //                                     return
-                //                                 } else {
-                //                                     getPlaylistTracks(res.relationships.tracks.next)
-                //                                 }
+                                            getPlaylist(id, params, isLibrary).then(res => {
+                                                //let query = res.relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
+                                                //if (app.mk.shuffleMode == 1){shuffleArray(query); }
+                                                // console.log(query)
+                                                // app.mk.queue.append(query)
+                                                if (!res.relationships.tracks.next) {
+                                                    return
+                                                } else {
+                                                    getPlaylistTracks(res.relationships.tracks.next)
+                                                }
 
-                //                                 function getPlaylistTracks(next) {
-                //                                     app.apiCall(app.musicBaseUrl + next, res => {
-                //                                         // if (res.id != playlistId || next.includes(playlistId)) {
-                //                                         //     return
-                //                                         // }
-                //                                         console.log('nextres', res)
-                //                                         let query = res.data.map(item => new MusicKit.MediaItem(item))
-                //                                         if (app.mk.shuffleMode == 1){shuffleArray(query); console.log('shf')}
-                //                                         app.mk.queue.append(query)
+                                                function getPlaylistTracks(next) {
+                                                    app.apiCall(app.musicBaseUrl + next, res => {
+                                                        // if (res.id != playlistId || next.includes(playlistId)) {
+                                                        //     return
+                                                        // }
+                                                        console.log('nextres', res)
+                                                        let query = res.data.map(item => new MusicKit.MediaItem(item))
+                                                        if (app.mk.shuffleMode == 1){shuffleArray(query); console.log('shf')}
+                                                        app.mk.queue.append(query)
                                                         
-                //                                         if (res.next) {
-                //                                             getPlaylistTracks(res.next)
-                //                                         } 
-                //                                     })
-                //                                 }
-                //                             })
-                //                         } catch (e) {}
+                                                        if (res.next) {
+                                                            getPlaylistTracks(res.next)
+                                                        } 
+                                                    })
+                                                }
+                                            })
+                                        } catch (e) {}
                                        
 
-                //                        })
-                //                    })
-                //                 })
+                                       
+                                   })
+                                })
                             
-                //         })                   
-                // } 
+                                         
+                } 
                 else {
                     app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)
                 }})

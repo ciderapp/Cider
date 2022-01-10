@@ -59,11 +59,11 @@
                     </template>
                     <div class="playlist-controls">
                         <button class="wr-btn" style="min-width: 120px;"
-                                @click="app.mk.shuffleMode = 0; app.mk.stop().then(function() {app.playMediaItemById(data.attributes.playParams.id ?? data.id, data.attributes.playParams.kind ?? data.type, data.attributes.playParams.isLibrary ?? false, data.attributes.url)})">
+                                @click="app.mk.shuffleMode = 0; play()">
                             Play
                         </button>
                         <button class="wr-btn" style="min-width: 120px;"
-                                @click="app.mk.shuffleMode = 1; app.mk.stop().then(function() {app.playMediaItemById(data.attributes.playParams.id ?? data.id, data.attributes.playParams.kind ?? data.type, data.attributes.playParams.isLibrary ?? false, data.attributes.url)})">
+                                @click="app.mk.shuffleMode = 1;play()">
                             Shuffle
                         </button>
                         <button class="wr-btn" style="min-width: 120px;" v-if="inLibrary!=null"
@@ -313,8 +313,7 @@
                     return ""
                 }
             },
-            shufflePlay() {
-                app.mk.shuffleMode = 1;
+            play() {
                 function shuffleArray(array) {
                     for (var i = array.length - 1; i > 0; i--) {
                         var j = Math.floor(Math.random() * (i + 1));
@@ -323,34 +322,27 @@
                         array[j] = temp;
                     }
                 }
-                //var id = this.data.attributes.playParams.id ?? this.data.id;
+                var id = this.data.attributes.playParams.id ?? this.data.id;
                 //console.log("1")
                 var kind = this.data.attributes.playParams.kind ?? this.data.type ?? '';
                 //console.log("1")
                 var truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
-               // console.log("1")
-               // var isLibrary = this.data.attributes.playParams ? (this.data.attributes.playParams.isLibrary ?? false) : false;
-                console.log("1")
+               
+                let query = (this.data ?? app.showingPlaylist).relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
                 app.mk.stop().then(function () {
-                    console.log("2")
-                    app.mk.setQueue({ [truekind]: [id] }).then(function () {
+                    app.mk.setQueue({[truekind]: [id]}).then(function () {     
                         app.mk.play().then(function () {
-                            if (!kind.includes("album"))
-                                app.mk.clearQueue().then(function () {
-                                    try {
-                                        let query = (this.data ?? app.showingPlaylist).relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
-                                        if (app.mk.shuffleMode == 1) { shuffleArray(query) }
-                                        app.mk.queue.append(query)
-                                    } catch (e) { console.log(e) }
-
-
-                                })
-                        })
-                    })
-
-
-
+                            if (query.length > 100) {
+                            let u = query.slice(100); if (app.mk.shuffleMode == 1) { shuffleArray(u) }
+                            app.mk.queue.append(u)}
+                        })                                        
                 })
+                })
+
+
+
+
+
             }
 
         }

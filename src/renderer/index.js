@@ -2375,22 +2375,21 @@ const app = new Vue({
                 } else {
                     app.mk.stop().then(() => {
                     if (truekind == "playlists" && (id.startsWith("p.") || id.startsWith("pl.u"))){
-                        app.mk.playNext({[item.attributes.playParams.kind ?? item.type]: item.attributes.playParams.id ?? item.id}).then(function () {
-                            app.mk.changeToMediaAtIndex(app.mk.queue._itemIDs.indexOf(item.id) ?? 1)
-                            app.mk.play().then(function(){
-                                app.mk.clearQueue().then(function () {
-                                    if ((app.showingPlaylist && app.showingPlaylist.id == id)) {
+                        app.mk.setQueue({[item.attributes.playParams.kind ?? item.type]: item.attributes.playParams.id ?? item.id}).then(function () {
+                            app.mk.changeToMediaAtIndex(app.mk.queue._itemIDs.indexOf(item.id) ?? 1).then(function(){
+                                if ((app.showingPlaylist && app.showingPlaylist.id == id)) {
+                                    let query = app.showingPlaylist.relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
+                                    if (query.length > 100) {
+                                        let u = query.slice(100); if (app.mk.shuffleMode == 1) { shuffleArray(u) }
+                                        app.mk.queue.append(u)}
+                                } else {
+                                    app.getPlaylistFromID(id, true).then(function () {
                                         let query = app.showingPlaylist.relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
-                                        if (app.mk.shuffleMode == 1){ shuffleArray(query)}
-                                        app.mk.queue.append(query)
-                                    } else {
-                                        app.getPlaylistFromID(id, true).then(function () {
-                                            let query = app.showingPlaylist.relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
-                                            if (app.mk.shuffleMode == 1){ shuffleArray(query)}
-                                            app.mk.queue.append(query)
-                                        })
-                                    }
-                                })
+                                        if (query.length > 100) {
+                                            let u = query.slice(100); if (app.mk.shuffleMode == 1) { shuffleArray(u) }
+                                            app.mk.queue.append(u)}
+                                    })                                   
+                                }
                             })
 
                         })
