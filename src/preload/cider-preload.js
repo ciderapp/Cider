@@ -37,21 +37,27 @@ const MusicKitInterop = {
         const remainingTimeExport = MusicKit.getInstance().currentPlaybackTimeRemaining;
         const attributes = (nowPlayingItem != null ? nowPlayingItem.attributes : {});
 
-        attributes.status = isPlayingExport ? isPlayingExport : false;
-        attributes.name = attributes.name ? attributes.name : 'No Title Found';
-        attributes.artwork = attributes.artwork ? attributes.artwork : {url: ''};
-        attributes.artwork.url = attributes.artwork.url ? attributes.artwork.url : '';
-        attributes.playParams = attributes.playParams ? attributes.playParams : {id: 'no-id-found'};
-        attributes.playParams.id = attributes.playParams.id ? attributes.playParams.id : 'no-id-found';
-        attributes.albumName = attributes.albumName ? attributes.albumName : '';
-        attributes.artistName = attributes.artistName ? attributes.artistName : '';
-        attributes.genreNames = attributes.genreNames ? attributes.genreNames : [];
-        attributes.remainingTime = remainingTimeExport ? (remainingTimeExport * 1000) : 0;
-        attributes.durationInMillis = attributes.durationInMillis ? attributes.durationInMillis : 0;
+        attributes.status = isPlayingExport ?? false;
+        attributes.name = attributes?.name ?? 'No Title Found';
+        attributes.artwork = attributes?.artwork ?? { url: '' };
+        attributes.artwork.url = attributes?.artwork?.url ?? '';
+        attributes.playParams = attributes?.playParams ?? { id: 'no-id-found' };
+        attributes.playParams.id = attributes?.playParams?.id ?? 'no-id-found';
+        attributes.albumName = attributes?.albumName ?? '';
+        attributes.artistName = attributes?.artistName ?? '';
+        attributes.genreNames = attributes?.genreNames ?? [];
+        attributes.remainingTime = remainingTimeExport
+            ? remainingTimeExport * 1000
+            : 0;
+        attributes.durationInMillis = attributes?.durationInMillis ?? 0;
         attributes.startTime = Date.now();
-        attributes.endTime = Math.round((attributes.playParams.id === cache.playParams.id ? (Date.now() + attributes.remainingTime) : (attributes.startTime + attributes.durationInMillis)));
-        attributes.endTime = attributes.endTime ? attributes.endTime : Date.now();
-        return attributes
+        attributes.endTime = Math.round(
+            attributes?.playParams?.id === cache.playParams.id
+                ? Date.now() + attributes?.remainingTime
+                : attributes?.startTime + attributes?.durationInMillis
+        );
+
+        return attributes;
     },
 
     filterTrack: function (a, playbackCheck, mediaCheck) {

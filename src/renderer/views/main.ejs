@@ -36,7 +36,16 @@
             <div class="mv-chrome" v-if="chrome.topChromeVisible == false"></div>
             <div class="app-chrome" :style="{'display': chrome.topChromeVisible ? '' : 'none'}">
                 <div class="app-chrome--left">
-                    <div class="app-chrome-item full-height">
+                    <div class="app-chrome-item full-height" v-if="chrome.windowControlPosition == 'left'">
+                        <div class="window-controls">
+                            <div class="close" @click="ipcRenderer.send('close')"></div>
+                            <div class="minimize" @click="ipcRenderer.send('minimize')"></div>
+                            <div class="minmax restore" v-if="chrome.maximized" @click="ipcRenderer.send('maximize')">
+                            </div>
+                            <div class="minmax" v-else @click="ipcRenderer.send('maximize')"></div>
+                        </div>
+                    </div>
+                    <div class="app-chrome-item full-height" v-else>
                         <div class="app-title"></div>
                     </div>
                     <div class="app-chrome-item">
@@ -83,9 +92,9 @@
                                             {{ mk.nowPlayingItem["attributes"]["artistName"] }}
                                         </div>
                                         <div class="song-artist item-navigate" style="display: inline-block;"
-                                             @click="getNowPlayingItemDetailed('album')">
-                                            {{ (mk.nowPlayingItem["attributes"]["albumName"]) ? (" - " +
-                                            mk.nowPlayingItem["attributes"]["albumName"]) : "" }}
+                                            @click="getNowPlayingItemDetailed('album')">
+                                            <div class="separator" style="display: inline-block;">{{"-"}}</div>
+                                            {{(mk.nowPlayingItem["attributes"]["albumName"]) ? (mk.nowPlayingItem["attributes"]["albumName"]) : "" }}
                                         </div>
                                     </div>
 
@@ -134,7 +143,7 @@
                         <button class="playback-button--small lyrics" :class="{'active': drawer.panel == 'lyrics'}"
                                 @click="invokeDrawer('lyrics')"></button>
                     </div>
-                    <div class="app-chrome-item full-height">
+                    <div class="app-chrome-item full-height" v-if="chrome.windowControlPosition == 'right'">
                         <div class="window-controls">
                             <div class="minimize" @click="ipcRenderer.send('minimize')"></div>
                             <div class="minmax restore" v-if="chrome.maximized" @click="ipcRenderer.send('maximize')">
@@ -489,7 +498,7 @@
     </transition>
     <div id="apple-music-video-container">
         <div id="apple-music-video-player-controls">
-            <div id="player-exit" title="Close" @click="app.exitMV()">
+            <div id="player-exit" title="Close" @click="exitMV()">
                 <svg fill="white" xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21"
                      aria-role="presentation" focusable="false">
                     <path
@@ -507,7 +516,7 @@
             <div id="player-pip"
                  @click="document.querySelector('video#apple-music-video-player').requestPictureInPicture()"
                  title="Picture-in-Picture">
-                <%- include("svg/fullscreen.svg") %>
+                <%- include("svg/pip.svg") %>
             </div>
             <div id="player-fullscreen"
                  @click="document.querySelector('video#apple-music-video-player').requestFullscreen()"
