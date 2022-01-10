@@ -8,6 +8,9 @@ import {app} from 'electron';
 import {Win} from "./base/win";
 import {ConfigStore} from "./base/store";
 import {AppEvents} from "./base/app";
+// import PluginHandler from "./base/plugins";
+
+// const test = new PluginHandler();
 
 const config = new ConfigStore();
 const App = new AppEvents(config.store);
