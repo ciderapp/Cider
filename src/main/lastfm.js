@@ -61,7 +61,7 @@ const lfm = {
     },
 
     scrobbleSong: async function (attributes) {
-        await new Promise(resolve => setTimeout(resolve, app.cfg.get('lastfm.scrobble_after') * 1000));
+        await new Promise(resolve => setTimeout(resolve, (attributes.durationInMillis / (app.cfg.get('lastfm.scrobble_after') / 100))));
         const currentAttributes = app.media;
         
         if (!app.lastfm || app.lastfm.cachedAttributes === attributes ) {
