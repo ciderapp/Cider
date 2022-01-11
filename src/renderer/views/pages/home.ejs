@@ -21,7 +21,7 @@
                             <button class="cd-btn-seeall" @click="app.appRoute('artist-feed')">See All</button>
                         </div>
                     </div>
-                    <div class="well artistfeed-well" style="margin-top:0px;">
+                    <div class="well artistfeed-well" style="margin-top:0;">
                         <template v-if="artistFeed.length > 0">
                             <mediaitem-list-item v-for="item in artistFeed.limit(6)" :item="item"></mediaitem-list-item>
                         </template>
