@@ -66,7 +66,7 @@ const configDefaults = {
     },
     "lastfm": {
         "enabled": false,
-        "scrobble_after": 30,
+        "scrobble_after": 50,
         "auth_token": "",
         "enabledRemoveFeaturingArtists": true,
         "NowPlaying": "true"
