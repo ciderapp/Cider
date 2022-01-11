@@ -73,14 +73,13 @@ const CiderBase = {
         if (process.platform === "darwin" || process.platform === "linux") {
             win = new BrowserWindow(options)
         } else {
-            // i don't know why but we have to do this for acrylic to work properly
-            if (app.cfg.get("visual.window_transparency") !== "disabled") {
+           if (app.cfg.get("visual.window_transparency") !== "disabled") {
                 const { BrowserWindow } = require("electron-acrylic-window");
                 win = new BrowserWindow(options)
-                win.setVibrancy("dark")
-            } else {
+                win.setVibrancy("#59202700") // when out of focus, fills with #592027, 00 is aplha values
+            }
+            else{
                 win = new BrowserWindow(options)
-                win.setVibrancy("dark")
             }
 
         }
