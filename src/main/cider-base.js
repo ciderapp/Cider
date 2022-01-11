@@ -12,6 +12,8 @@ const { writeFile, writeFileSync, existsSync, mkdirSync } = require('fs');
 const fs = require('fs');
 const mpris = require('./mpris');
 const mm = require('music-metadata');
+const mdns = require('mdns')
+const qrcode = require('qrcode-terminal')
 const fetch = require('electron-fetch').default;
 const { Stream } = require('stream');
 
@@ -30,7 +32,7 @@ const CiderBase = {
     clientPort: 0,
     CreateBrowserWindow() {
         this.VerifyFiles()
-        // Set default window sizes
+            // Set default window sizes
         const mainWindowState = windowStateKeeper({
             defaultWidth: 1024,
             defaultHeight: 600
@@ -84,8 +86,7 @@ const CiderBase = {
         }
 
         // intercept "https://js-cdn.music.apple.com/hls.js/2.141.0/hls.js/hls.js" and redirect to local file "./apple-hls.js" instead
-        win.webContents.session.webRequest.onBeforeRequest(
-            {
+        win.webContents.session.webRequest.onBeforeRequest({
                 urls: ["https://*/*.js"]
             },
             (details, callback) => {
@@ -101,7 +102,7 @@ const CiderBase = {
             }
         )
 
-        win.webContents.session.webRequest.onBeforeSendHeaders(async (details, callback) => {
+        win.webContents.session.webRequest.onBeforeSendHeaders(async(details, callback) => {
             if (details.url === "https://buy.itunes.apple.com/account/web/info") {
                 details.requestHeaders['sec-fetch-site'] = 'same-site';
                 details.requestHeaders['DNT'] = '1';
@@ -184,7 +185,7 @@ const CiderBase = {
             event.returnValue = JSON.parse(libraryRecentlyAdded)
         })
 
-        ipcMain.handle('getYTLyrics', async (event, track, artist) => {
+        ipcMain.handle('getYTLyrics', async(event, track, artist) => {
             var u = track + " " + artist + " official video";
             const videos = await yt.search(u);
             return videos
@@ -222,7 +223,7 @@ const CiderBase = {
             win.minimize();
         })
 
-        ipcMain.on('setFullScreen',(event, flag) => {
+        ipcMain.on('setFullScreen', (event, flag) => {
             win.setFullScreen(flag)
         })
 
@@ -259,8 +260,7 @@ const CiderBase = {
             if (url.includes("apple") || url.includes("localhost")) {
                 return { action: "allow" }
             }
-            shell.openExternal(url).catch(() => {
-            })
+            shell.openExternal(url).catch(() => {})
             return {
                 action: 'deny'
             }
@@ -276,7 +276,7 @@ const CiderBase = {
         mpris.connect(win)
 
         lastfm.authenticate()
-        //  Discord
+            //  Discord
         discord.connect((app.cfg.get("general.discord_rpc") == 1) ? '911790844204437504' : '886578863147192350');
         ipcMain.on('playbackStateDidChange', (_event, a) => {
             app.media = a;
@@ -297,7 +297,7 @@ const CiderBase = {
         ipcMain.on("getPreviewURL", (_event, url) => {
             fetch(url)
                 .then(res => res.buffer())
-                .then(async (buffer) => {
+                .then(async(buffer) => {
                     try {
                         const metadata = await mm.parseBuffer(buffer, 'audio/x-m4a');
                         SoundCheckTag = metadata.native.iTunes[1].value
@@ -308,7 +308,7 @@ const CiderBase = {
                 })
         });
 
-        ipcMain.on('writeAudio', function (event, buffer) {
+        ipcMain.on('writeAudio', function(event, buffer) {
             CiderBase.audiostream.write(Buffer.from(buffer));
         })
 
@@ -374,20 +374,41 @@ const CiderBase = {
         const webRemotePath = path.join(__dirname, '../renderer/');
         webapp.set("views", path.join(webRemotePath, "views"));
         webapp.set("view engine", "ejs");
-
-        webapp.use(function (req, res, next) {
+        let firstRequest = true
+            //const webRemoteMDNS = mdns.createAdvertisement(mdns.tcp('https'), 9000, { name: "cider", domain: 'local' })
+            //webRemoteMDNS.start()
+            //* Prep for remote -quack
+        webapp.use(function(req, res, next) {
             // if not localhost
             if (req.url.includes("audio.webm") || (req.headers.host.includes("localhost") && req.headers["user-agent"].includes("Cider"))) {
                 next();
+
+            } else {
+                console.log(req.get('host'))
+                res.redirect("https://discord.gg/applemusic")
             }
         });
-
         webapp.use(express.static(webRemotePath));
-        webapp.get('/', function (req, res) {
+        webapp.get('/', function(req, res) {
+            //if (!req.headers["user-agent"].includes("Cider"))
             //res.sendFile(path.join(webRemotePath, 'index_old.html'));
+            if (firstRequest) {
+                console.log("---- Ignore Me ;) ---")
+                qrcode.generate(`http://${os.hostname}:9000`) //Prep for remote
+                console.log("---- Ignore Me ;) ---")
+                    /*
+                     *
+                     *   USING https://www.npmjs.com/package/qrcode-terminal for terminal
+                     *   WE SHOULD USE https://www.npmjs.com/package/qrcode for the remote (or others)
+                     *   -quack
+                     */
+            }
+            firstRequest = false
+
             res.render("main", CiderBase.EnvironmentVariables)
         });
-        webapp.get('/audio.webm', function (req, res) {
+        webapp.get('/audio.webm', function(req, res) {
+            console.log('hi')
             try {
                 req.connection.setTimeout(Number.MAX_SAFE_INTEGER);
                 // CiderBase.requests.push({req: req, res: res});
@@ -406,8 +427,8 @@ const CiderBase = {
                 })
             } catch (ex) { console.log(ex) }
         });
-        webapp.listen(CiderBase.clientPort, function () {
-            console.log(`Cider client port: ${CiderBase.clientPort}`);
+        webapp.listen(CiderBase.clientPort, function() {
+            console.log(`Cider hosted on: ${CiderBase.clientPort}`);
         });
     },
 
