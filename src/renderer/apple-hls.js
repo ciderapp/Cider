@@ -23261,7 +23261,7 @@
                         if (null != (l = "string" != typeof (h = g.pathwayID) ? im("invalid steering manifest PATHWAY-PRIORITY list item data type") : /^[\w\-\.]+$/.test(h) ? void 0 : im("steering manifest contains invalid pathway ID: " + h)))
                             break;
                         let cpc = g.allowedCPCMap ? JSON.stringify(g.allowedCPCMap) : "null";
-                        if (!cpc.includes("WIDEVINE_HARDWARE") && !g.url.includes('trickPlay'))
+                        if (!cpc.includes("WIDEVINE_HARDWARE") && !g.url.includes('trickPlay') && !g.videoCodec.includes("hvc1"))
                         n.push(g)
                     }
                         
