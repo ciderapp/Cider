@@ -2367,10 +2367,9 @@ const app = new Vue({
                     }
 
                     let query = app.library.songs.listing.map(item => new MusicKit.MediaItem(item));
-                    try {
-                        app.mk.stop()
-                    } catch (e) {
-                    }
+
+                    
+                    app.mk.stop().then(() => {
                     this.mk.clearQueue().then(function (_) {
                         if (app.mk.shuffleMode == 1){ shuffleArray(query)}
                         app.mk.queue.append(query)
@@ -2385,6 +2384,7 @@ const app = new Vue({
                             app.mk.play()
                         }
                     })
+                    })
                 } else {
                     app.mk.stop().then(() => {
                     if (truekind == "playlists" && (id.startsWith("p.") || id.startsWith("pl.u"))){
@@ -2392,15 +2392,13 @@ const app = new Vue({
                             app.mk.changeToMediaAtIndex(app.mk.queue._itemIDs.indexOf(item.id) ?? 1).then(function(){
                                 if ((app.showingPlaylist && app.showingPlaylist.id == id)) {
                                     let query = app.showingPlaylist.relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
-                                    if (query.length > 100) {
-                                        let u = query.slice(100); if (app.mk.shuffleMode == 1) { shuffleArray(u) }
-                                        app.mk.queue.append(u)}
+                                        let u = query; if (app.mk.shuffleMode == 1) { shuffleArray(u) }
+                                        app.mk.queue.append(u)
                                 } else {
                                     app.getPlaylistFromID(id, true).then(function () {
                                         let query = app.showingPlaylist.relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
-                                        if (query.length > 100) {
-                                            let u = query.slice(100); if (app.mk.shuffleMode == 1) { shuffleArray(u) }
-                                            app.mk.queue.append(u)}
+                                            let u = query; if (app.mk.shuffleMode == 1) { shuffleArray(u) }
+                                            app.mk.queue.append(u)
                                     })                                   
                                 }
                             })

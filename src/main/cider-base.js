@@ -113,6 +113,12 @@ const CiderBase = {
             callback({ requestHeaders: details.requestHeaders })
         })
 
+        win.webContents.session.webRequest.onHeadersReceived((details, callback) => {
+            if(details.url.match(/^https:\/\/store-\d{3}\.blobstore\.apple\.com/) || details.url.startsWith("https://store-037.blobstore.apple.com")){
+            details.responseHeaders['Access-Control-Allow-Origin'] = '*';}
+            callback({ responseHeaders: details.responseHeaders })
+        })
+
         let location = `http://localhost:${CiderBase.clientPort}/`
         win.loadURL(location)
         win.on("closed", () => {
