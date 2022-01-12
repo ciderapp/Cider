@@ -80,6 +80,7 @@ const configDefaults = {
     },
     "advanced": {
         "AudioContext": false,
+        "experiments": []
     }
 }
 

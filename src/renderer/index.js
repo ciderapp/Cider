@@ -635,6 +635,11 @@ const app = new Vue({
                 this.$forceUpdate()
             }, 500)
         },
+        getAppClasses() {
+            if(this.cfg.advanced.experiments.includes('compactui')) {
+                return {compact: true}
+            }
+        },
         invokeDrawer(panel) {
             if (this.drawer.panel == panel && this.drawer.open) {
                 if (panel == "lyrics") {

@@ -30,7 +30,7 @@
 </head>
 
 <body oncontextmenu="return false;" loading="1" platform="<%= env.platform %>">
-<div id="app">
+<div id="app" :class="getAppClasses()">
     <transition name="fsModeSwitch">
         <div id="app-main" v-show="appMode == 'player'">
             <div class="mv-chrome" v-if="chrome.topChromeVisible == false"></div>

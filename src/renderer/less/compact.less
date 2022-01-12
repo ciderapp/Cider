@@ -1,45 +1,49 @@
-.app-sidebar-content.compact {
-  padding:0px;
-
-
-
-  .app-sidebar-header-text {
-    padding: 6px 10px;
-    margin: 0px;
+#app.compact {
+  .content-inner {
+    zoom: 0.95;
   }
-  .app-sidebar-item {
-    display: flex;
-    width: 100%;
-    padding: 8px 12px;
-    font-size: 13px;
-    margin: 0px;
-    border: 1px solid transparent;
-    border-radius: 0px;
-    transition: unset;
-    transform: unset;
+  .app-sidebar-content {
+    padding:0px;
 
-    &:active {
-      background: var(--selected-click);
+    .app-sidebar-header-text {
+      padding: 6px 10px;
+      margin: 0px;
+    }
+    .app-sidebar-item {
+      display: flex;
+      width: 100%;
+      padding: 8px 12px;
+      font-size: 13px;
+      margin: 0px;
+      border: 1px solid transparent;
+      border-radius: 0px;
+      transition: unset;
+      transform: unset;
+
+      &:active {
+        background: var(--selected-click);
+      }
+
+      &::after {
+        display: none;
+      }
+
+      &.active {
+        background: var(--keyColor-disabled);
+      }
+    }
+    .sidebar-icon {
+      width: 14px;
+      height: 16px;
+      margin-right: 8px;
     }
 
-    &::after {
-      display: none;
-    }
-
-    &.active {
-      background: var(--keyColor-disabled);
+    .folder-body {
+      border-radius: 0px;
+      padding: 0px;
     }
   }
-  .sidebar-icon {
-    width: 14px;
-    height: 16px;
-    margin-right: 8px;
-  }
 
-  .folder-body {
-    border-radius: 0px;
-    padding: 0px;
-  }
 }
 
 // if page width is less than 951px
