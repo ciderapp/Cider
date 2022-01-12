@@ -66,9 +66,13 @@
                                 @click="app.mk.shuffleMode = 1;play()">
                             Shuffle
                         </button>
-                        <button class="wr-btn" style="min-width: 120px;" v-if="inLibrary!=null"
-                                @click="(!inLibrary) ? addToLibrary(data.attributes.playParams.id.toString()) : removeFromLibrary(data.attributes.playParams.id.toString())">
+                        <button class="wr-btn" style="min-width: 120px;" v-if="inLibrary!=null && confirm!=true"
+                                @click="confirm = true">
                             {{ (!inLibrary) ? "Add to Library" : "Remove from Library" }}
+                        </button>
+                        <button class="wr-btn" style="min-width: 120px;" v-if="confirm==true"
+                                @click="(!inLibrary) ? addToLibrary(data.attributes.playParams.id.toString()) : removeFromLibrary(data.attributes.playParams.id.toString()) ">
+                            Confirm?
                         </button>
                     </div>
                 </div>
@@ -119,6 +123,7 @@
                 drag: false,
                 nameEditing: false,
                 inLibrary: null,
+                confirm: false,
                 app: this.$root,
                 itemBadges: [],
                 badgesRequested: false
@@ -212,6 +217,7 @@
             addToLibrary(id) {
                 app.mk.addToLibrary(id)
                 this.inLibrary = true
+                this.confirm = false
             },
             async removeFromLibrary(id) {
                 var params = { "fields[somgs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library" }
@@ -224,6 +230,7 @@
                 var truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
                 app.mk.api.library.remove({ [truekind]: id })
                 this.inLibrary = false
+                this.confirm = false
             },
             editPlaylistName() {
                 if (this.data.attributes.canEdit && this.data.type == "library-playlists") {
