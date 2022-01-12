@@ -70,19 +70,7 @@ const CiderBase = {
         CiderBase.InitWebServer()
 
         // Create the BrowserWindow
-        if (process.platform === "darwin" || process.platform === "linux") {
-            win = new BrowserWindow(options)
-        } else {
-           if (app.cfg.get("visual.window_transparency") !== "disabled") {
-                const { BrowserWindow } = require("electron-acrylic-window");
-                win = new BrowserWindow(options)
-                win.setVibrancy("#59202700") // when out of focus, fills with #592027, 00 is aplha values
-            }
-            else{
-                win = new BrowserWindow(options)
-            }
-
-        }
+        win = new BrowserWindow(options)
 
         // intercept "https://js-cdn.music.apple.com/hls.js/2.141.0/hls.js/hls.js" and redirect to local file "./apple-hls.js" instead
         win.webContents.session.webRequest.onBeforeRequest({
