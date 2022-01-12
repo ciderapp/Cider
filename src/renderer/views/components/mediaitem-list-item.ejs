@@ -8,7 +8,7 @@
          :data-guid="guid"
          :data-islibrary="this.item.attributes.playParams.isLibrary ?? false"
          class="cd-mediaitem-list-item"
-         :class="{'mediaitem-selected': app.select_hasMediaItem(guid)}">
+         :class="[{'mediaitem-selected': app.select_hasMediaItem(item.id)}, addClasses]">
         <template v-if="isVisible">
             <div class="isLibrary" v-if="showLibraryStatus == true">
                 <button @click="addToLibrary()"
@@ -44,9 +44,7 @@
                     </template>
                 </div>
             </div>
-            <div class="content-rating" v-if="item.attributes.contentRating" @dblclick="app.routeView(item)">
-                {{ item.attributes.contentRating }}
-            </div>
+            <div class="explicit-icon" v-if="item.attributes && item.attributes.contentRating == 'explicit'"></div>
             <template v-if="showMetaData == true" @dblclick="app.routeView(item)">
                 <div class="metainfo">
                     {{ item.attributes.releaseDate ? new Date(item.attributes.releaseDate).toLocaleDateString()
@@ -72,7 +70,8 @@
                 addedToLibrary: false,
                 guid: this.uuidv4(),
                 app: this.$root,
-                displayDuration: true
+                displayDuration: true,
+                addClasses: {}
             }
         },
         props: {
@@ -84,14 +83,25 @@
             'show-meta-data': {type: Boolean, default: false},
             'show-duration': {type: Boolean, default: true},
             'contextExt': {type: Object, required: false},
+            'class-list': {type: String, required: false, default: ""},
         },
         mounted() {
             let duration = this.item.attributes.durationInMillis ?? 0
             if (duration == 0 || !this.showDuration) {
                 this.displayDuration = false
             }
+            this.getClasses()
         },
         methods: {
+            getClasses() {
+                if(this.classList) {
+                    this.addClasses = {}
+                    let classList = this.classList.split(' ')
+                    for(let i = 0; i < classList.length; i++) {
+                        this.addClasses[classList[i]] = true
+                    }
+                }
+            },
             dragStart(evt) {
                 evt.dataTransfer.setData('text/plain', JSON.stringify({
                     type: this.item.attributes.playParams.kind ?? this.item.type,

@@ -22,6 +22,13 @@ const configDefaults = {
         "followedArtists": [],
         "favoriteItems": []
     },
+    "libraryPrefs": {
+        "songs": {
+            "sort": "name",
+            "sortOrder": "asc",
+            "size": "normal"
+        }
+    },
     "audio": {
         "quality": "990",
         "seamless_audio": true,

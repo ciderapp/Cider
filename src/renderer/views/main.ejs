@@ -269,14 +269,8 @@
                             </div>
                         </button>
                     </div>
-                    <div class="app-sidebar-notification" v-if="library.downloadNotification.show">
-                        <div>{{ library.downloadNotification.message }}</div>
-                        <div>{{ library.downloadNotification.progress }} / {{ library.downloadNotification.total }}
-                        </div>
-                        <div style="width: 100%">
-                            <progress style="width: 80%;" :value="library.downloadNotification.progress"
-                                      :max="library.downloadNotification.total"></progress>
-                        </div>
+                    <div class="app-sidebar-notification libraryNotification" v-if="library.downloadNotification.show">
+                        <div class="message">{{ library.downloadNotification.message }} ({{ library.downloadNotification.progress }} / {{ library.downloadNotification.total }})</div>
                     </div>
                 </div>
                 <div id="app-content">
@@ -427,7 +421,9 @@
                     </transition>
                     <!-- Library - Songs -->
                     <transition name="wpfade" v-on:enter="getLibrarySongsFull()">
-                        <%- include('pages/library-songs') %>
+                        <template v-if="page == 'library-songs'">
+                            <cider-library-songs :data="library.songs"></cider-library-songs>
+                        </template>
                     </transition>
                     <!-- Library - Albums -->
                     <transition name="wpfade" v-on:enter="getLibraryAlbumsFull(null, 1); searchLibraryAlbums(1);">
@@ -527,6 +523,9 @@
         <div id="apple-music-video-player"></div>
     </div>
 </div>
+
+<!-- Library - Songs -->
+<%- include('pages/library-songs') %>
 
 <!-- Media Item Artwork-->
 <%- include("components/mediaitem-artwork"); %>

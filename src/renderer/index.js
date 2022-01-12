@@ -658,7 +658,7 @@ const app = new Vue({
             })
         },
         select_hasMediaItem(id) {
-            let found = this.selectedMediaItems.find(item => item.guid == id)
+            let found = this.selectedMediaItems.find(item => item.id == id)
             if (found) {
                 return true
             } else {
@@ -1306,13 +1306,14 @@ const app = new Vue({
         },
         searchLibrarySongs() {
             let self = this
+            let prefs = this.cfg.libraryPrefs.songs
 
             function sortSongs() {
                 // sort this.library.songs.displayListing by song.attributes[self.library.songs.sorting] in descending or ascending order based on alphabetical order and numeric order
                 // check if song.attributes[self.library.songs.sorting] is a number and if so, sort by number if not, sort by alphabetical order ignoring case
                 self.library.songs.displayListing.sort((a, b) => {
-                    let aa = a.attributes[self.library.songs.sorting]
-                    let bb = b.attributes[self.library.songs.sorting]
+                    let aa = a.attributes[prefs.sort]
+                    let bb = b.attributes[prefs.sort]
                     if (self.library.songs.sorting == "genre") {
                         aa = a.attributes.genreNames[0]
                         bb = b.attributes.genreNames[0]
@@ -1323,13 +1324,13 @@ const app = new Vue({
                     if (bb == null) {
                         bb = ""
                     }
-                    if (self.library.songs.sortOrder == "asc") {
+                    if (prefs.sortOrder == "asc") {
                         if (aa.toString().match(/^\d+$/) && bb.toString().match(/^\d+$/)) {
                             return aa - bb
                         } else {
                             return aa.toString().toLowerCase().localeCompare(bb.toString().toLowerCase())
                         }
-                    } else if (self.library.songs.sortOrder == "desc") {
+                    } else if (prefs.sortOrder == "desc") {
                         if (aa.toString().match(/^\d+$/) && bb.toString().match(/^\d+$/)) {
                             return bb - aa
                         } else {
@@ -1551,7 +1552,6 @@ const app = new Vue({
             this.library.songs.downloadState = 1
             this.library.downloadNotification.show = true
             this.library.downloadNotification.message = "Updating library songs..."
-
             function downloadChunk() {
                 const params = {
                     "include[library-songs]": "catalog,artists,albums",
@@ -3074,6 +3074,41 @@ const app = new Vue({
             }
         }
 
+    }
+})
+
+Vue.component('animated-number', {
+
+    template:"<div style='display: inline-block;'>{{ displayNumber }}</div>",
+    props: {'number': { default:0 }},
+
+    data () {
+        return {
+            displayNumber:0,
+            interval:false
+        }
+    },
+
+    ready () {
+        this.displayNumber = this.number ? this.number : 0;
+    },
+
+    watch: {
+        number () {
+            clearInterval(this.interval);
+
+            if(this.number == this.displayNumber) {
+                return;
+            }
+
+            this.interval = window.setInterval(() => {
+                if(this.displayNumber != this.number) {
+                    var change = (this.number - this.displayNumber) / 10;
+                    change = change >= 0 ? Math.ceil(change) : Math.floor(change);
+                    this.displayNumber = this.displayNumber + change;
+                }
+            }, 20);
+        }
     }
 })
 
