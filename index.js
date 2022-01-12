@@ -55,7 +55,6 @@ const configDefaults = {
         "animated_artwork_qualityLevel": 1,
         "bg_artwork_rotation": false,
         "hw_acceleration": "default", // default, webgpu, disabled
-        "window_transparency": "disabled",
         "videoRes": 720
     },
     "lyrics": {
