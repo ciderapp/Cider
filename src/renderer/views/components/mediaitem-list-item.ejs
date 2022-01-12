@@ -7,8 +7,9 @@
          :data-index="index"
          :data-guid="guid"
          :data-islibrary="this.item.attributes.playParams.isLibrary ?? false"
+         :key="item.attributes.playParams.id ?? item.id"
          class="cd-mediaitem-list-item"
-         :class="[{'mediaitem-selected': app.select_hasMediaItem(item.id)}, addClasses]">
+         :class="[{'mediaitem-selected': app.select_hasMediaItem(item.attributes.playParams.id ?? item.id)}, addClasses]">
         <template v-if="isVisible">
             <div class="isLibrary" v-if="showLibraryStatus == true">
                 <button @click="addToLibrary()"

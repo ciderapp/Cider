@@ -658,7 +658,7 @@ const app = new Vue({
             })
         },
         select_hasMediaItem(id) {
-            let found = this.selectedMediaItems.find(item => item.id == id)
+            let found = this.selectedMediaItems.find(item => item.guid == id)
             if (found) {
                 return true
             } else {
