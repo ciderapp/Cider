@@ -81,6 +81,7 @@
       "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
     },
     "appId": "cider",
+    "afterPack": "./build/afterPack.js",
     "protocols": [
       {
         "name": "Cider",
@@ -132,8 +133,12 @@
     "mac": {
       "icon": "./resources/icons/icon.icns",
       "category": "public.app-category.music",
-      "entitlements": "resources/entitlements.mac.plist",
-      "darkModeSupport": true
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist",
+      "darkModeSupport": true,
+      "target": [
+        "dmg"
+      ]
     }
   }
 }
