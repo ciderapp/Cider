@@ -3187,6 +3187,11 @@ document.addEventListener('musickitloaded', function () {
     };
     request.open("GET", "https://api.cider.sh/");
     request.send();
+
+    // check for widevine failure and reconfigure the instance.
+    window.addEventListener("drmUnsupported", function () {
+        initMusicKit()
+    });
 });
 
 if ('serviceWorker' in navigator) {
