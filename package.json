@@ -27,6 +27,8 @@
     "electron-acrylic-window": "^0.5.11",
     "electron-fetch": "^1.7.4",
     "electron-log": "^4.4.3",
+    "electron-notarize": "^1.1.1",
+    "electron-packager": "^15.4.0",
     "electron-store": "^8.0.1",
     "electron-updater": "^4.6.1",
     "electron-window-state": "^5.0.3",
@@ -82,6 +84,7 @@
     },
     "appId": "cider",
     "afterPack": "./build/afterPack.js",
+    "afterSign": "./build/notarize.js",
     "protocols": [
       {
         "name": "Cider",
@@ -131,6 +134,8 @@
       "buildResources": "."
     },
     "mac": {
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
       "icon": "./resources/icons/icon.icns",
       "category": "public.app-category.music",
       "entitlements": "build/entitlements.mac.plist",

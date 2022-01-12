@@ -1,9 +1,20 @@
-exports.default = function(context) {
-  const { execSync } = require('child_process')
+
   
-  if (process.platform === "win32") {
-      console.log('VMP signing start')
-      execSync('python3 -m castlabs_evs.vmp sign-pkg ' + context.appOutDir,{stdio: 'inherit'})
-      console.log('VMP signing complete')
-  }
-}
+require('dotenv').config();
+  const { notarize } = require('electron-notarize');
+  
+exports.default = async function notarizing(context) {
+    const { electronPlatformName, appOutDir } = context;  
+    if (electronPlatformName !== 'darwin') {
+      return;
+    }
+  
+    const appName = context.packager.appInfo.productFilename;
+  
+    return await notarize({
+      appBundleId: 'com.ciderapp.cider',
+      appPath: `${appOutDir}/${appName}.app`,
+      appleId: process.env.APPLEID,
+      appleIdPassword: process.env.APPLEIDPASS,
+    });
+};
