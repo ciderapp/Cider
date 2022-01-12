@@ -67,7 +67,7 @@
                             Shuffle
                         </button>
                         <button class="wr-btn" style="min-width: 120px;" v-if="inLibrary!=null && confirm!=true"
-                                @click="confirm = true">
+                                @click="confirmButton()">
                             {{ (!inLibrary) ? "Add to Library" : "Remove from Library" }}
                         </button>
                         <button class="wr-btn" style="min-width: 120px;" v-if="confirm==true"
@@ -113,10 +113,12 @@
     </div>
 
 </script>
+
 <script>
     Vue.component('cider-playlist', {
         template: "#cider-playlist",
         props: ["data"],
+
         data: function () {
             return {
                 editorialNotesExpanded: false,
@@ -166,6 +168,13 @@
                     }
                 })
             },
+            confirmButton() {
+                // Return button to normal state after 3 seconds
+
+                this.confirm = true
+                setTimeout(() => this.confirm = false, 3000);
+            },
+
             getDescription(data) {
                 console.log(data.attributes)
                 if (data.attributes.editorialNotes) {
@@ -334,7 +343,7 @@
                 var kind = this.data.attributes.playParams.kind ?? this.data.type ?? '';
                 //console.log("1")
                 var truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
-               
+
                 let query = (this.data ?? app.showingPlaylist).relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
                 app.mk.stop().then(function () {
                     app.mk.setQueue({[truekind]: [id]}).then(function () {     
