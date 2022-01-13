@@ -58,19 +58,19 @@
                         </div>
                     </template>
                     <div class="playlist-controls">
-                        <button class="wr-btn" style="min-width: 120px;"
+                        <button class="md-btn" style="min-width: 120px;"
                                 @click="app.mk.shuffleMode = 0; play()">
                             Play
                         </button>
-                        <button class="wr-btn" style="min-width: 120px;"
+                        <button class="md-btn" style="min-width: 120px;"
                                 @click="app.mk.shuffleMode = 1;play()">
                             Shuffle
                         </button>
-                        <button class="wr-btn" style="min-width: 120px;" v-if="inLibrary!=null && confirm!=true"
+                        <button class="md-btn" style="min-width: 120px;" v-if="inLibrary!=null && confirm!=true"
                                 @click="confirmButton()">
                             {{ (!inLibrary) ? "Add to Library" : "Remove from Library" }}
                         </button>
-                        <button class="wr-btn" style="min-width: 120px;" v-if="confirm==true"
+                        <button class="md-btn" style="min-width: 120px;" v-if="confirm==true"
                                 @click="(!inLibrary) ? addToLibrary(data.attributes.playParams.id.toString()) : removeFromLibrary(data.attributes.playParams.id.toString()) ">
                             Confirm?
                         </button>
