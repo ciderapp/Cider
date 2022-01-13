@@ -2571,7 +2571,7 @@ const app = new Vue({
                 if (type.slice(-1) != "s") {
                     type += "s"
                 }
-                let id = item.playParams.catalogId ? item.playParams.catalogId : item.id
+                let id = item.attributes.playParams.catalogId ?? item.id
 
                 let index = types.findIndex(function (type) {
                     return type.type == this
