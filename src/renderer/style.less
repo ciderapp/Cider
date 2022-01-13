@@ -45,6 +45,17 @@ body {
   transition: opacity .10s var(--appleEase);
 }
 
+a:-webkit-any-link {
+  color: var(--keyColor);
+}
+
+hr {
+  appearance: none;
+  border: none;
+  height: 1px;
+  background-color: rgb(255 255 255 / 20%);
+}
+
 body[loading] {
   opacity: 0.5;
   pointer-events: none;
@@ -1828,6 +1839,20 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
 /* Cider */
 
+.about-page {
+  .sponsorBtn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    >img {
+      width: 26px;
+      margin: 0px 16px 0px 0px;
+      pointer-events: none;
+    }
+  }
+}
+
 .md-close-btn {
   -webkit-mask-image: url("ameres://icons/webui/close.svg");
   -webkit-mask-repeat: no-repeat;
@@ -1864,7 +1889,8 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
   &:active {
     filter: brightness(75%);
-    transform: translateY(2px);
+    transform: scale(0.98);
+    transition: transform 0s var(--appleEase), box-shadow 0.2s var(--appleEase);
   }
 }
 

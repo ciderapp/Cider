@@ -1,19 +1,63 @@
-Major thanks to the Cider Development Team and all of our contributors.
+<script type="text/x-template" id="about-page">
+    <div class="content-inner about-page">
+        <div class="row">
+            <div class="col">
+                <img src="assets/banner.png" alt="Cider Logo" style="display:block;margin:0 auto;width: 500px;">
+                <p style="text-align: center">Major thanks to the Cider Collective Team and all of our contributors.</p>
 
-<p>"Apple Music" - Copyright © 2021 <a href="https://www.apple.com/" class="dt-footer__link"
-                                       target="_blank"
-                                       rel="noopener" data-dt-link-to-exclude="">Apple Inc.</a>
-    All Rights
-    Reserved.</p>
+                <p style="text-align: center">"Apple Music" - Copyright © 2021 <a href="https://www.apple.com/" class="dt-footer__link"
+                                                                                  target="_blank"
+                                                                                  rel="noopener" data-dt-link-to-exclude="">Apple Inc.</a>
+                    All Rights
+                    Reserved.</p>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <h3></h3>
+                        <h3>Contributors</h3>
+                        <img class="md-contributors"
+                             style="cursor:pointer;width:100%;"
+                             onclick="window.open('https://github.com/ciderapp/Cider/graphs/contributors')"
+                             src="https://contrib.rocks/image?repo=ciderapp/Cider"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h3>Cider Team</h3>
+                        <ul>
+                            <li><a href="https://github.com/cryptofyre" target="_blank">cryptofyre - Developer</a></li>
+                            <li><a href="https://github.com/coredev-uk" target="_blank">Core - Developer</a></li>
+                            <li><a href="https://github.com/child-duckling" target="_blank">Quacksire - Developer</a></li>
+                            <li><a href="https://github.com/booploops" target="_blank">booploops - Developer</a></li>
+                            <li><a href="https://github.com/vapormusic" target="_blank">vapormusic - Developer</a></li>
+                            <li><a href="https://twitter.com/MoonyVoid" target="_blank">Void - Social Communications Team</a></li>
+                            <li><a href="https://twitter.com/noah_grose" target="_blank">NoseySG - Social Communications Team</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <h3>Sponsor this project</h3>
+                <button onclick="window.open('https://ko-fi.com/cryptofyre')" class="md-btn sponsorBtn"><img src="./assets/ko_fi.svg"/>Ko-fi</button>
+                <button onclick="window.open('https://opencollective.com/ciderapp')" class="md-btn sponsorBtn"><img src="./assets/open_collective.svg"/>Open Collective</button>
+                </div>
+            </div>
+        </div>
 
-cryptofyre - Developer - https://github.com/cryptofyre
-Core - Developer - https://github.com/coredev-uk
-Quacksire - Developer - https://github.com/child-duckling
-booploops - Developer - https://github.com/booploops
-vapormusic - Developer - https://github.com/vapormusic
-Void - Social Communications Team - https://twitter.com/MoonyVoid
-NoseySG - Social Communications Team - https://twitter.com/noah_grose
 
-<img class="md-contributors"
-     onclick="window.open('https://github.com/ciderapp/Cider/graphs/contributors')"
-     src="https://contrib.rocks/image?repo=ciderapp/Cider"/>
+
+
+    </div>
+</script>
+<script>
+    Vue.component('about-page', {
+        template: '#about-page',
+        methods: {
+
+        }
+    });
+</script>
