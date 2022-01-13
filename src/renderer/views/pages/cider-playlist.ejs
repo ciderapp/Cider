@@ -331,10 +331,10 @@
                                 let route = ""
                                 switch(this.data.type) {
                                     case 'albums':
-                                        route = `/v1/catalog/us/albums/${this.data.id}`
+                                        route = `/v1/catalog/${app.mk.storefrontId}/albums/${this.data.id}`
                                         break;
                                     case 'playlists':
-                                        route = `/v1/catalog/us/playlists/${this.data.id}`
+                                        route = `/v1/catalog/${app.mk.storefrontId}/playlists/${this.data.id}`
                                         break;
                                     case "library-playlists":
                                         route = `/v1/me/library/playlists/${this.data.id}/catalog`
