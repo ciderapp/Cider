@@ -1,5 +1,5 @@
 <script type="text/x-template" id="cider-menu-panel">
-    <div class="menu-panel" @click.self="menuPanel.visible = false">
+    <div class="menu-panel" @click.self="menuPanel.visible = false" @contextmenu.self="menuPanel.visible = false">
 
         <div class="menu-panel-body" :style="getStyle()">
             <div class="menu-header-text" v-if="content.name != ''">
