@@ -134,6 +134,7 @@
                         "addToFavorites": {
                             name: "Add to favorites",
                             disabled: true,
+                            hidden: true,
                             action: () => {
                                 this.addFavorite(playlist_id, "library-playlists")
                             }
@@ -143,7 +144,7 @@
                 if(this.item.type === "library-playlist-folders") {
                     menu.items.addToFavorites.disabled = true
                 }
-                CiderContextMenu.Create(event, menu)
+                app.showMenuPanel(menu, event)
             },
             dragOver(evt) {
                 evt.preventDefault();
