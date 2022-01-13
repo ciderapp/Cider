@@ -1,0 +1,52 @@
+<script type="text/x-template" id="cider-menu-panel">
+    <div class="menu-panel">
+        <div class="menu-header-text">
+            <div class="row">
+                <div class="col">
+                    <h3 class="queue-header-text">{{ content.name }}</h3>
+                </div>
+            </div>
+            <button @click="menuPanel.visible = false" class="close-btn"></button>
+        </div>
+        <div class="menu-body">
+            <template v-for="item in content.items">
+                <button class="menu-option" @click="action(item)">
+                    <div class="sidebar-icon" v-if="item.icon">
+                        <div class="svg-icon" :style="{'--url': 'url(' + item.icon + ')'}"></div>
+
+                    </div>
+                    {{ item.name }}
+                </button>
+            </template>
+        </div>
+    </div>
+</script>
+
+
+<script>
+    Vue.component('cider-menu-panel', {
+        template: '#cider-menu-panel',
+        data: function () {
+            return {
+                app: this.$root,
+                menuPanel: this.$root.menuPanel,
+                content: this.$root.menuPanel.content,
+                getSvgIcon: this.$root.getSvgIcon,
+            }
+        },
+        mounted() {
+
+        },
+        methods: {
+            async getActions() {
+                return this.content.items;
+            },
+            action(item) {
+                item.action()
+                if(!item["keepOpen"]) {
+                    this.menuPanel.visible = false
+                }
+            }
+        }
+    });
+</script>

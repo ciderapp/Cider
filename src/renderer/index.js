@@ -291,6 +291,13 @@ const app = new Vue({
         socialBadges: {
             badgeMap: {},
             version: ""
+        },
+        menuPanel: {
+            visible: false,
+            content: {
+                name: "",
+                items: {}
+            }
         }
     },
     watch: {
@@ -315,6 +322,11 @@ const app = new Vue({
         },
     },
     methods: {
+        async showMenuPanel(data) {
+            app.menuPanel.visible = true;
+            app.menuPanel.content.name = data.name ?? "";
+            app.menuPanel.content.items = data.items ?? [];
+        },
         async getSvgIcon(url) {
             let response = await fetch(url);
             let data = await response.text();
@@ -357,6 +369,7 @@ const app = new Vue({
             document.querySelector("body").classList.add("notransparency")
         },
         resetState() {
+            this.menuPanel.visible = false;
             app.selectedMediaItems = [];
             for (let key in app.modals) {
                 app.modals[key] = false;

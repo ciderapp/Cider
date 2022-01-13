@@ -538,6 +538,13 @@
                         <cider-queue ref="queue" v-if="drawer.panel == 'queue'"></cider-queue>
                     </div>
                 </transition>
+                <transition name="drawertransition">
+                    <div class="app-drawer" v-if="menuPanel.visible">
+                        <cider-menu-panel>
+                        </cider-menu-panel>
+                    </div>
+                </transition>
+
             </div>
         </div>
     </transition>
@@ -653,6 +660,8 @@
     </button>
 </script>
 
+<!-- Menu Panel -->
+<%- include('components/menu-panel') %>
 <!-- Playlist Listing -->
 <%- include('components/sidebar-playlist') %>
 <!-- Spatial Properties -->

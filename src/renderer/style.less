@@ -2479,6 +2479,25 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     }
   }
 
+  .playlist-more {
+    border-radius: 100%;
+    background: var(--keyColor);
+    box-shadow: var(--ciderShadow-Generic);
+    width: 36px;
+    height: 36px;
+    float:right;
+    border: 0px;
+    cursor: pointer;
+    z-index: 5;
+
+    &:hover {
+      background: var(--keyColor-rollover);
+    }
+
+    &:active {
+      background: var(--keyColor-pressed);
+    }
+  }
 
   .playlist-time {
     font-size: 0.9em;
@@ -2770,6 +2789,65 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
   &.shadow {
     box-shadow: var(--mediaItemShadow-Shadow);
+  }
+}
+
+.menu-panel {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+
+  .menu-option {
+    text-align: left;
+    display: flex;
+    width: 100%;
+    padding: 16px;
+    appearance: none;
+    border: 0px;
+    font: inherit;
+    background: transparent;
+    color: inherit;
+
+    &:hover {
+      background: var(--selected);
+    }
+
+    &:active {
+      background: var(--selected-click);
+    }
+  }
+
+  .menu-header-text {
+    margin: 18px 6px;
+    .close-btn {
+      width: 50px;
+      height: 42px;
+      background-image: var(--gfx-closeBtn);
+      background-position: center;
+      background-repeat: no-repeat;
+      -webkit-app-region: no-drag;
+      appearance: none;
+      border: 0;
+      background-color: transparent;
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      &:hover {
+        background-color: rgb(196, 43, 28)
+      }
+    }
+  }
+
+  .menu-body {
+    overflow: overlay;
+    height: 100%;
+  }
+
+  .menu-footer {
+    width: 100%;
+    padding: 12px;
   }
 }
 
@@ -3988,11 +4066,25 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 /* Cider */
 
 // sidebar icon
+.svg-icon {
+  --color: #aaa;
+  --url: url("./assets/feather/share.svg");
+  -webkit-mask-image: var(--url);
+  -webkit-mask-size: cover;
+  height: 18px;
+  width: 18px;
+  background: var(--color);
+}
 .sidebar-icon {
   width: 18px;
   height: 18px;
   margin-right: 8px;
 
+  >.svg-icon {
+    width: 100%;
+    height: 100%;
+    --color: #aaa;
+  }
   >svg {
     width: 100%;
     height: 100%;
