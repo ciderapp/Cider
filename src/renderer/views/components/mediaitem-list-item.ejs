@@ -224,12 +224,14 @@
                         items: [
                             {
                                 "name": "Add to Playlist...",
+                                "icon": "./assets/feather/plus.svg",
                                 "action": function () {
                                     app.promptAddToPlaylist()
                                 }
                             },
                             {
                                 name: `Play ${app.selectedMediaItems.length} tracks next`,
+                                "icon": "./assets/arrow-bend-up.svg",
                                 action: () => {
                                     let itemsToPlay = {}
                                     app.selectedMediaItems.forEach(item => {
@@ -251,6 +253,7 @@
                             },
                             {
                                 name: `Play ${app.selectedMediaItems.length} tracks later`,
+                                "icon": "./assets/arrow-bend-down.svg",
                                 action: () => {
                                     let itemsToPlay = {}
                                     app.selectedMediaItems.forEach(item => {
@@ -343,6 +346,7 @@
                             },
                             {
                                 "name": "Play Next",
+                                "icon": "./assets/arrow-bend-up.svg",
                                 "action": function () {
                                     app.mk.playNext({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
                                     app.mk.queue._reindex()
@@ -351,6 +355,7 @@
                             },
                             {
                                 "name": "Play Later",
+                                "icon": "./assets/arrow-bend-down.svg",
                                 "action": function () {
                                     app.mk.playLater({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
                                     app.mk.queue._reindex()
