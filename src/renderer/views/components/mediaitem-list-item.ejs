@@ -256,40 +256,7 @@
                         ]
                     },
                     normal: {
-                        items: [
-                            {
-                                "icon": "./assets/feather/list.svg",
-                                "name": "Add to Playlist...",
-                                "action": function () {
-                                    app.promptAddToPlaylist()
-                                }
-                            },
-                            {
-                                "name": "Play Next",
-                                "action": function () {
-                                    app.mk.playNext({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
-                                    app.mk.queue._reindex()
-                                    app.selectedMediaItems = []
-                                }
-                            },
-                            {
-                                "name": "Play Later",
-                                "action": function () {
-                                    app.mk.playLater({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
-                                    app.mk.queue._reindex()
-                                    app.selectedMediaItems = []
-                                }
-                            },
-                            {
-                                "icon": "./assets/feather/radio.svg",
-                                "name": "Start Radio",
-                                "action": function () {
-                                    app.mk.setStationQueue({song: self.item.attributes.playParams.id ?? self.item.id}).then(() => {
-                                        app.mk.play()
-                                        app.selectedMediaItems = []
-                                    })
-                                }
-                            },
+                        headerItems: [
                             {
                                 "icon": "./assets/feather/heart.svg",
                                 "id": "love",
@@ -326,6 +293,41 @@
                                 "hidden": true,
                                 "action": function () {
                                     app.unlove(self.item)
+                                }
+                            },
+                        ],
+                        items: [
+                            {
+                                "icon": "./assets/feather/list.svg",
+                                "name": "Add to Playlist...",
+                                "action": function () {
+                                    app.promptAddToPlaylist()
+                                }
+                            },
+                            {
+                                "name": "Play Next",
+                                "action": function () {
+                                    app.mk.playNext({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
+                                    app.mk.queue._reindex()
+                                    app.selectedMediaItems = []
+                                }
+                            },
+                            {
+                                "name": "Play Later",
+                                "action": function () {
+                                    app.mk.playLater({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
+                                    app.mk.queue._reindex()
+                                    app.selectedMediaItems = []
+                                }
+                            },
+                            {
+                                "icon": "./assets/feather/radio.svg",
+                                "name": "Start Radio",
+                                "action": function () {
+                                    app.mk.setStationQueue({song: self.item.attributes.playParams.id ?? self.item.id}).then(() => {
+                                        app.mk.play()
+                                        app.selectedMediaItems = []
+                                    })
                                 }
                             },
                             {
@@ -371,14 +373,14 @@
                 try{
                 let rating = await app.getRating(self.item)
                 if (rating == 0) {
-                    menus.normal.items.find(x => x.id == 'love').disabled = false
-                    menus.normal.items.find(x => x.id == 'dislike').disabled = false
+                    menus.normal.headerItems.find(x => x.id == 'love').disabled = false
+                    menus.normal.headerItems.find(x => x.id == 'dislike').disabled = false
                 } else if (rating == 1) {
-                    menus.normal.items.find(x => x.id == 'unlove').hidden = false
-                    menus.normal.items.find(x => x.id == 'love').hidden = true
+                    menus.normal.headerItems.find(x => x.id == 'unlove').hidden = false
+                    menus.normal.headerItems.find(x => x.id == 'love').hidden = true
                 } else if (rating == -1) {
-                    menus.normal.items.find(x => x.id == 'undo_dislike').hidden = false
-                    menus.normal.items.find(x => x.id == 'dislike').hidden = true
+                    menus.normal.headerItems.find(x => x.id == 'undo_dislike').hidden = false
+                    menus.normal.headerItems.find(x => x.id == 'dislike').hidden = true
                 }
                 } catch(err) {
 

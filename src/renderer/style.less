@@ -2811,6 +2811,30 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   justify-content: center;
   align-items: center;
 
+  .menu-header-body {
+    padding: 6px;
+    display: flex;
+    background: rgb(200 200 200 / 10%);
+    .menu-option-header {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: var(--mediaItemRadius);
+      appearance: none;
+      border: 0;
+      background: transparent;
+
+      &:hover {
+        background: var(--selected);
+      }
+
+      &:active {
+        background: var(--selected-click);
+      }
+    }
+  }
   .menu-panel-body {
     display: flex;
     flex-flow: column;

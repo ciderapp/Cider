@@ -296,7 +296,8 @@ const app = new Vue({
             visible: false,
             content: {
                 name: "",
-                items: {}
+                items: {},
+                headerItems: {}
             }
         }
     },
@@ -340,7 +341,8 @@ const app = new Vue({
         async showMenuPanel(data) {
             app.menuPanel.visible = true;
             app.menuPanel.content.name = data.name ?? "";
-            app.menuPanel.content.items = data.items ?? [];
+            app.menuPanel.content.items = data.items ?? {};
+            app.menuPanel.content.headerItems = data.headerItems ?? {};
         },
         async getSvgIcon(url) {
             let response = await fetch(url);

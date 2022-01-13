@@ -9,6 +9,15 @@
                 </div>
             </div>
         </div>
+        <div class="menu-header-body" v-if="Object.keys(content.headerItems).length != 0">
+            <template v-for="item in content.headerItems">
+                <button class="menu-option-header" :title="item.name" v-if="canDisplay(item)" :style="getStyle(item)" @click="action(item)">
+                    <div class="sidebar-icon" style="margin: 0;" v-if="item.icon">
+                        <div class="svg-icon" :style="{'--url': 'url(' + item.icon + ')'}"></div>
+                    </div>
+                </button>
+            </template>
+        </div>
         <div class="menu-body">
             <template v-for="item in content.items">
                 <button class="menu-option" v-if="canDisplay(item)" :style="getStyle(item)" @click="action(item)">
