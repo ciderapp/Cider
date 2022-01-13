@@ -294,6 +294,7 @@ const app = new Vue({
         },
         menuPanel: {
             visible: false,
+            event: null,
             content: {
                 name: "",
                 items: {},
@@ -338,11 +339,14 @@ const app = new Vue({
             }
             app.routeView(item)
         },
-        async showMenuPanel(data) {
+        async showMenuPanel(data, event) {
             app.menuPanel.visible = true;
             app.menuPanel.content.name = data.name ?? "";
             app.menuPanel.content.items = data.items ?? {};
             app.menuPanel.content.headerItems = data.headerItems ?? {};
+            if(event) {
+                app.menuPanel.event = event;
+            }
         },
         async getSvgIcon(url) {
             let response = await fetch(url);

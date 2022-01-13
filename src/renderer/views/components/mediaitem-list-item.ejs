@@ -370,7 +370,7 @@
                         menus.multiple.items = menus.multiple.items.concat(this.contextExt.multiple)
                     }
                 }
-                app.showMenuPanel(menus[useMenu])
+                app.showMenuPanel(menus[useMenu], event)
 
                 try{
                 let rating = await app.getRating(self.item)
