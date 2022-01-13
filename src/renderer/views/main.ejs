@@ -326,7 +326,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="app-content" @click="menuPanel.visible = false">
+                <div id="app-content">
                     <div id="navigation-bar">
                         <button class="nav-item" @click="navigateBack()"><%- include('svg/chevron-left.svg') %></button>
                         <button class="nav-item"
@@ -538,11 +538,9 @@
                         <cider-queue ref="queue" v-if="drawer.panel == 'queue'"></cider-queue>
                     </div>
                 </transition>
-                <transition name="drawertransition">
-                    <div class="app-drawer" v-if="menuPanel.visible">
-                        <cider-menu-panel>
+                <transition name="modal">
+                        <cider-menu-panel v-if="menuPanel.visible">
                         </cider-menu-panel>
-                    </div>
                 </transition>
 
             </div>

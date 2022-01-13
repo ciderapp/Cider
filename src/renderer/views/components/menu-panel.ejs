@@ -1,12 +1,13 @@
 <script type="text/x-template" id="cider-menu-panel">
-    <div class="menu-panel">
-        <div class="menu-header-text">
+    <div class="menu-panel" @click.self="menuPanel.visible = false" >
+
+    <div class="menu-panel-body">
+        <div class="menu-header-text" v-if="content.name != ''">
             <div class="row">
                 <div class="col">
                     <h3 class="queue-header-text">{{ content.name }}</h3>
                 </div>
             </div>
-            <button @click="menuPanel.visible = false" class="close-btn"></button>
         </div>
         <div class="menu-body">
             <template v-for="item in content.items">
@@ -18,6 +19,7 @@
                 </button>
             </template>
         </div>
+    </div>
     </div>
 </script>
 
@@ -34,7 +36,6 @@
             }
         },
         mounted() {
-
         },
         methods: {
             canDisplay(item) {
