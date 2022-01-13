@@ -7,7 +7,9 @@
     Vue.component('apple-account-settings', {
         template: '#apple-account-settings',
         mounted() {
-
+            document.querySelector("#foo").addEventListener("dom-ready", ()=>{
+                // document.querySelector("#foo").executeJavaScript(`document.body.innerHTML += ("<style>.header {display: none!important;} </style>")`)
+            })
         },
         methods: {
 
