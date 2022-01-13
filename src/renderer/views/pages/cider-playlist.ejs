@@ -101,7 +101,7 @@
                     </div>
                 </div>
                 <div class="playlist-time">
-                    {{getFormattedDate(data.attributes.releaseDate)}}
+                    {{getFormattedDate()}}
                 </div>
                 <div class="playlist-time total">{{app.getTotalTime()}}</div>
                 <div class="playlist-time item-navigate" @click="app.searchAndNavigate(data,'recordLabel') "
@@ -316,15 +316,29 @@
                 id = data.attributes.playParams.id;
                 return `${kind}:${id}`
             },
-            getFormattedDate: function (date) {
+            getFormattedDate: function () {
+                let date = (this.data.attributes.releaseDate ?? (this.data.attributes.lastModifiedDate ?? (this.data.attributes.dateAdded ?? '') ))
+                let prefix = '';
                 if (date == null || date === "") return "";
+                switch(date){
+                    case this.data.attributes.releaseDate:
+                        prefix = 'Released '
+                        break;
+                    case this.data.attributes.lastModifiedDate:
+                        prefix = 'Updated '
+                        break; 
+                    case this.data.attributes.dateAdded:
+                        prefix = 'Added '
+                        break;       
+                }
                 try {
                     var releaseDate = new Date(date);
+                    console.log(date, releaseDate)
                     month = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(releaseDate);
                     date = releaseDate.getDate();
                     year = releaseDate.getFullYear();
 
-                    return date + " " + month + " " + year;
+                    return prefix+date + " " + month + " " + year;
                 } catch (e) {
                     return ""
                 }
