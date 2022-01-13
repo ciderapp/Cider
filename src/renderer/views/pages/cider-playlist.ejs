@@ -328,7 +328,25 @@
                             name: "Share",
                             icon: "./assets/feather/share.svg",
                             action: () => {
-                                app.mk.api.v3.music(`/v1/me/library/playlists/${this.data.id}/catalog`).then(res=>{
+                                let route = ""
+                                switch(this.data.type) {
+                                    case 'albums':
+                                        route = `/v1/catalog/us/albums/${this.data.id}`
+                                        break;
+                                    case 'playlists':
+                                        route = `/v1/catalog/us/playlists/${this.data.id}`
+                                        break;
+                                    case "library-playlists":
+                                        route = `/v1/me/library/playlists/${this.data.id}/catalog`
+                                        break
+                                    case "library-albums":
+                                        route = `/v1/me/library/albums/${this.data.id}/catalog`
+                                        break
+                                }
+                                if(route == '') {
+                                    return
+                                }
+                                app.mk.api.v3.music(route).then(res=>{
                                     console.log(res.data.data[0].attributes.url)
                                     app.copyToClipboard(res.data.data[0].attributes.url)
                                 })
