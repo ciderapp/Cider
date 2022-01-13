@@ -3057,7 +3057,7 @@ const app = new Vue({
         fullscreen(flag){
             if (flag) {
                 ipcRenderer.send('setFullScreen', true);
-                if (app.mk.nowPlayingItem.type && !app.mk.nowPlayingItem.type.toLowerCase().includes("video")){
+                if (app.mk.nowPlayingItem.type && app.mk.nowPlayingItem.type.toLowerCase().includes("video")){
                     document.querySelector('video#apple-music-video-player').requestFullscreen() 
                 } else {
                     app.appMode = 'fullscreen';
