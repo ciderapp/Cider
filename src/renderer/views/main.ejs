@@ -235,6 +235,9 @@
                                         @click="modals.spatialProperties = true">
                                     Spatialized Audio Settings
                                 </button>
+                                <button class="usermenu-item" @click="appRoute('apple-account-settings')">
+                                    Account Settings
+                                </button>
                                 <button class="usermenu-item" @click="appRoute('about')">
                                     About
                                 </button>
@@ -329,6 +332,12 @@
                         <button class="nav-item"
                                 @click="navigateForward()"><%- include('svg/chevron-right.svg') %></button>
                     </div>
+                    <!-- Apple Setings Page -->
+                    <transition name="wpfade">
+                        <template v-if="page == 'apple-account-settings'">
+                            <apple-account-settings></apple-account-settings>
+                        </template>
+                    </transition>
                     <!-- About -->
                     <transition name="wpfade">
                         <template v-if="page == 'about'">
@@ -584,6 +593,8 @@
     </div>
 </div>
 
+<!-- Apple Settings Page -->
+<%- include('pages/apple-account-settings') %>
 <!-- Library - Songs -->
 <%- include('pages/library-songs') %>
 
