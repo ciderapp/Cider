@@ -113,7 +113,7 @@
                         }]
                     }
                 }
-                CiderContextMenu.Create(event, menus[useMenu]);
+                app.showMenuPanel(menus[useMenu], event);
             },
             playQueueItem(index) {
                 app.mk.changeToMediaAtIndex(index)

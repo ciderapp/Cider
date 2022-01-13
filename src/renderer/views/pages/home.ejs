@@ -55,7 +55,14 @@
             </div>
             <div class="row" v-if="friendsListeningTo && friendsListeningTo.length > 0">
                 <div class="col">
-                    <h3>Friends Listening To</h3>
+                    <div class="row">
+                        <div class="col nopadding">
+                            <h3>Friends Listening To</h3>
+                        </div>
+                        <div class="col-auto nopadding flex-center">
+                            <button class="cd-btn-seeall" @click="app.showSocialListeningTo()">See All</button>
+                        </div>
+                    </div>
                     <div class="well">
                         <template v-if="isSectionReady('friendsListeningTo')">
                             <mediaitem-square kind="small" v-for="item in friendsListeningTo"

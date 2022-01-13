@@ -517,7 +517,7 @@
 
                 </div>
                 <transition name="drawertransition">
-                    <div class="app-drawer" v-if="drawer.open">
+                    <div class="app-drawer" v-if="drawer.open && drawer.panel == 'lyrics'">
                         <div class="bgArtworkMaterial">
                             <div class="bg-artwork-container">
                                 <img class="bg-artwork a" :src="$store.state.artwork.playerLCD">
@@ -531,9 +531,16 @@
                                 "Default View":'Fullscreen View'}}
                             </button>
                         </div>
+                    </div>
+                </transition>
+                <transition name="drawertransition">
+                    <div class="app-drawer" v-if="drawer.open && drawer.panel == 'queue'">
                         <cider-queue ref="queue" v-if="drawer.panel == 'queue'"></cider-queue>
                     </div>
                 </transition>
+                <cider-menu-panel v-if="menuPanel.visible">
+                </cider-menu-panel>
+
             </div>
         </div>
     </transition>
@@ -649,6 +656,8 @@
     </button>
 </script>
 
+<!-- Menu Panel -->
+<%- include('components/menu-panel') %>
 <!-- Playlist Listing -->
 <%- include('components/sidebar-playlist') %>
 <!-- Spatial Properties -->
