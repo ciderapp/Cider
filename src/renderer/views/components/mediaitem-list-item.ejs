@@ -294,6 +294,7 @@
                                 "icon": "./assets/feather/heart.svg",
                                 "id": "love",
                                 "name": "Love",
+                                "hidden": false,
                                 "disabled": true,
                                 "action": function () {
                                     app.love(self.item)
@@ -303,7 +304,7 @@
                                 "icon": "./assets/feather/unheart.svg",
                                 "id": "unlove",
                                 "name": "Unlove",
-                                "disabled": true,
+                                "hidden": true,
                                 "action": function () {
                                     app.unlove(self.item)
                                 }
@@ -312,6 +313,7 @@
                                 "icon": "./assets/feather/thumbs-down.svg",
                                 "id": "dislike",
                                 "name": "Dislike",
+                                "hidden": false,
                                 "disabled": true,
                                 "action": function () {
                                     app.dislike(self.item)
@@ -321,7 +323,7 @@
                                 "icon": "./assets/feather/x-circle.svg",
                                 "id": "undo_dislike",
                                 "name": "Undo dislike",
-                                "disabled": true,
+                                "hidden": true,
                                 "action": function () {
                                     app.unlove(self.item)
                                 }
@@ -372,9 +374,11 @@
                     menus.normal.items.find(x => x.id == 'love').disabled = false
                     menus.normal.items.find(x => x.id == 'dislike').disabled = false
                 } else if (rating == 1) {
-                    menus.normal.items.find(x => x.id == 'unlove').disabled = false
+                    menus.normal.items.find(x => x.id == 'unlove').hidden = false
+                    menus.normal.items.find(x => x.id == 'love').hidden = true
                 } else if (rating == -1) {
-                    menus.normal.items.find(x => x.id == 'undo_dislike').disabled = false
+                    menus.normal.items.find(x => x.id == 'undo_dislike').hidden = false
+                    menus.normal.items.find(x => x.id == 'dislike').hidden = true
                 }
                 } catch(err) {
 

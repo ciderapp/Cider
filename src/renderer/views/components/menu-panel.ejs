@@ -11,7 +11,7 @@
         </div>
         <div class="menu-body">
             <template v-for="item in content.items">
-                <button class="menu-option" v-if="canDisplay(item)" @click="action(item)">
+                <button class="menu-option" v-if="canDisplay(item)" :style="getStyle(item)" @click="action(item)">
                     <div class="sidebar-icon" v-if="item.icon">
                         <div class="svg-icon" :style="{'--url': 'url(' + item.icon + ')'}"></div>
                     </div>
@@ -38,8 +38,16 @@
         mounted() {
         },
         methods: {
+            getStyle(item) {
+                if(item["disabled"]) {
+                    return {
+                        "pointer-events": "none",
+                        "opacity": "0.5",
+                    }
+                }
+            },
             canDisplay(item) {
-                if(!item["disabled"]) {
+                if(!item["hidden"]) {
                     return true
                 }else{
                     return false
