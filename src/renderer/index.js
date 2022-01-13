@@ -3057,7 +3057,11 @@ const app = new Vue({
         fullscreen(flag){
             if (flag) {
                 ipcRenderer.send('setFullScreen', true);
-                app.appMode = 'fullscreen';
+                if (app.mk.nowPlayingItem.type && !app.mk.nowPlayingItem.type.toLowerCase().includes("video")){
+                    document.querySelector('video#apple-music-video-player').requestFullscreen() 
+                } else {
+                    app.appMode = 'fullscreen';
+                }
                 document.addEventListener('keydown', event => {
                     if (event.key === 'Escape' && app.appMode === 'fullscreen') {
                         this.fullscreen(false);
