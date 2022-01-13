@@ -10,10 +10,9 @@
         </div>
         <div class="menu-body">
             <template v-for="item in content.items">
-                <button class="menu-option" @click="action(item)">
+                <button class="menu-option" v-if="canDisplay(item)" @click="action(item)">
                     <div class="sidebar-icon" v-if="item.icon">
                         <div class="svg-icon" :style="{'--url': 'url(' + item.icon + ')'}"></div>
-
                     </div>
                     {{ item.name }}
                 </button>
@@ -38,6 +37,13 @@
 
         },
         methods: {
+            canDisplay(item) {
+                if(!item["disabled"]) {
+                    return true
+                }else{
+                    return false
+                }
+            },
             async getActions() {
                 return this.content.items;
             },

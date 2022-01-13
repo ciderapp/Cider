@@ -364,6 +364,8 @@
                         menus.multiple.items = menus.multiple.items.concat(this.contextExt.multiple)
                     }
                 }
+                app.showMenuPanel(menus[useMenu])
+
                 try{
                 let rating = await app.getRating(self.item)
                 if (rating == 0) {
@@ -377,7 +379,6 @@
                 } catch(err) {
 
                 }
-                CiderContextMenu.Create(event, menus[useMenu])
             },
             visibilityChanged: function (isVisible, entry) {
                 this.isVisible = isVisible
