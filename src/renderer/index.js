@@ -290,7 +290,9 @@ const app = new Vue({
         },
         socialBadges: {
             badgeMap: {},
-            version: ""
+            version: "",
+            mediaItems: [],
+            mediaItemDLState: 0 // 0 = not started, 1 = in progress, 2 = complete
         },
         menuPanel: {
             visible: false,
@@ -324,6 +326,29 @@ const app = new Vue({
         },
     },
     methods: {
+        async showSocialListeningTo() {
+            let contentIds = Object.keys(app.socialBadges.badgeMap)
+            app.showCollection({data: this.socialBadges.mediaItems}, "Friends Listening To", "albums")
+            if(this.socialBadges.mediaItemDLState == 1 || this.socialBadges.mediaItemDLState == 2) {
+                return
+            }
+            this.socialBadges.mediaItemDLState = 2
+            await asyncForEach(contentIds, async (item)=>{
+                try {
+                    let type = "albums"
+                    if(item.includes("pl.")) {
+                        type = "playlists"
+                    }
+                    if(item.includes("ra.")) {
+                        type = "stations"
+                    }
+                    let found = await app.mk.api.v3.music(`/v1/catalog/us/${type}/${item}`)
+                    this.socialBadges.mediaItems.push(found.data.data[0])
+                }catch(e){
+
+                }
+            })
+        },
         async openAppleMusicURL(url) {
             let properties = MusicKit.formattedMediaURL(url)
             let item = {
@@ -3384,6 +3409,12 @@ function xmlToJson(xml) {
     console.log(obj);
     return obj;
 };
+
+async function asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+        await callback(array[index], index, array);
+    }
+}
 
 var checkIfScrollIsStatic = setInterval(() => {
     try {
