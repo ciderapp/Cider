@@ -752,7 +752,7 @@ const app = new Vue({
                     }
                 ]
             }
-            CiderContextMenu.Create(event, menu)
+            this.showMenuPanel(menu, event)
         },
         async editPlaylistFolder(id, name = "New Playlist") {
             let self = this
