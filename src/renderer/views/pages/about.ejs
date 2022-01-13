@@ -19,16 +19,6 @@
             <div class="col">
                 <div class="row">
                     <div class="col">
-                        <h3></h3>
-                        <h3>Contributors</h3>
-                        <img class="md-contributors"
-                             style="cursor:pointer;width:100%;"
-                             onclick="window.open('https://github.com/ciderapp/Cider/graphs/contributors')"
-                             src="https://contrib.rocks/image?repo=ciderapp/Cider"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
                         <h3>Cider Team</h3>
                         <button class="md-btn teamBtn" @click="window.open(member.link)" v-for="member in team">
                             <img :src="member.avatar"/>
@@ -43,6 +33,17 @@
                         </button>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col">
+                        <h3></h3>
+                        <h3>Contributors</h3>
+                        <img class="md-contributors"
+                             style="cursor:pointer;width:100%;"
+                             onclick="window.open('https://github.com/ciderapp/Cider/graphs/contributors')"
+                             src="https://contrib.rocks/image?repo=ciderapp/Cider"/>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
