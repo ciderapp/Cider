@@ -25,7 +25,7 @@
                 <button class="overlay-play" @click="playTrack()"><%- include("../svg/play.svg") %></button>
             </div>
             <div class="info-rect" :style="{'padding-left': (showArtwork ? '' : '16px')}"
-                 @dblclick="app.routeView(item)">
+                 @dblclick="playTrack()">
                 <div class="title text-overflow-elipsis">
                     {{ item.attributes.name }}
                 </div>
@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div class="explicit-icon" v-if="item.attributes && item.attributes.contentRating == 'explicit'"></div>
-            <template v-if="showMetaData == true" @dblclick="app.routeView(item)">
+            <template v-if="showMetaData == true" @dblclick="playTrack()">
                 <div class="metainfo">
                     {{ item.attributes.releaseDate ? new Date(item.attributes.releaseDate).toLocaleDateString()
                     : "" }}
@@ -55,7 +55,7 @@
                     {{ item.attributes.genreNames[0] ?? "" }}
                 </div>
             </template>
-            <div class="duration" v-if="displayDuration" @dblclick="app.routeView(item)">
+            <div class="duration" v-if="displayDuration" @dblclick="playTrack()">
                 {{ msToMinSec(item.attributes.durationInMillis ?? 0) }}
             </div>
         </template>
