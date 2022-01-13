@@ -10,6 +10,11 @@
                                                                                   rel="noopener" data-dt-link-to-exclude="">Apple Inc.</a>
                     All Rights
                     Reserved.</p>
+                <hr>
+                <h3>Sponsor this project</h3>
+                <button onclick="window.open('https://ko-fi.com/cryptofyre')" class="md-btn sponsorBtn"><img src="./assets/ko_fi.svg"/>Ko-fi</button>
+                <button onclick="window.open('https://opencollective.com/ciderapp')" class="md-btn sponsorBtn"><img src="./assets/open_collective.svg"/>Open Collective</button>
+
             </div>
             <div class="col">
                 <div class="row">
@@ -25,37 +30,75 @@
                 <div class="row">
                     <div class="col">
                         <h3>Cider Team</h3>
-                        <ul>
-                            <li><a href="https://github.com/cryptofyre" target="_blank">cryptofyre - Developer</a></li>
-                            <li><a href="https://github.com/coredev-uk" target="_blank">Core - Developer</a></li>
-                            <li><a href="https://github.com/child-duckling" target="_blank">Quacksire - Developer</a></li>
-                            <li><a href="https://github.com/booploops" target="_blank">booploops - Developer</a></li>
-                            <li><a href="https://github.com/vapormusic" target="_blank">vapormusic - Developer</a></li>
-                            <li><a href="https://twitter.com/MoonyVoid" target="_blank">Void - Social Communications Team</a></li>
-                            <li><a href="https://twitter.com/noah_grose" target="_blank">NoseySG - Social Communications Team</a></li>
-                        </ul>
+                        <button class="md-btn teamBtn" @click="window.open(member.link)" v-for="member in team">
+                            <img :src="member.avatar"/>
+                            <div class="row" style="width:100%;">
+                                <div class="col" style="text-align: left">
+                                    {{ member.name }}
+                                </div>
+                                <div class="col-auto">
+                                    <b>{{ member.role }}</b>
+                                </div>
+                            </div>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-        <hr>
-        <div class="row">
-            <div class="col">
-                <h3>Sponsor this project</h3>
-                <button onclick="window.open('https://ko-fi.com/cryptofyre')" class="md-btn sponsorBtn"><img src="./assets/ko_fi.svg"/>Ko-fi</button>
-                <button onclick="window.open('https://opencollective.com/ciderapp')" class="md-btn sponsorBtn"><img src="./assets/open_collective.svg"/>Open Collective</button>
-                </div>
-            </div>
-        </div>
-
-
-
-
     </div>
 </script>
 <script>
     Vue.component('about-page', {
         template: '#about-page',
+        data: function () {
+            return {
+                window: window,
+                team: [
+                    {
+                        name: 'cryptofyre',
+                        link: 'https://github.com/cryptofyre',
+                        role: 'Developer',
+                        avatar: 'https://avatars.githubusercontent.com/u/33162551?v=4'
+                    },
+                    {
+                        name: 'Core',
+                        link: 'https://github.com/coredev-uk',
+                        role: 'Developer',
+                        avatar: 'https://avatars.githubusercontent.com/u/64542347?v=4'
+                    },
+                    {
+                        name: 'Quacksire',
+                        link: 'https://github.com/quacksire',
+                        role: 'Developer',
+                        avatar: 'https://avatars.githubusercontent.com/u/19170969?v=4'
+                    },
+                    {
+                        name: 'booploops',
+                        link: 'https://github.com/booploops',
+                        role: 'Developer',
+                        avatar: 'https://avatars.githubusercontent.com/u/49113086?v=4'
+                    },
+                    {
+                        name: 'vapormusic',
+                        link: 'https://github.com/vapormusic',
+                        role: 'Developer',
+                        avatar: 'https://avatars.githubusercontent.com/u/27716185?v=4'
+                    },
+                    {
+                        name: 'Void',
+                        link: 'https://twitter.com/MoonyVoid',
+                        role: 'Social Team',
+                        avatar: 'https://pbs.twimg.com/profile_images/1226463559472816129/8LScNYED_400x400.jpg'
+                    },
+                    {
+                        name: 'NoseySG',
+                        link: 'https://twitter.com/noah_grose',
+                        role: 'Social Team',
+                        avatar: 'https://pbs.twimg.com/profile_images/1422541289837535239/qg-aaoP9_400x400.jpg'
+                    }
+                ]
+            }
+        },
         methods: {
 
         }
