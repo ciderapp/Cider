@@ -2979,6 +2979,48 @@ const app = new Vue({
                     items: []
                 },
                 normal: {
+                    headerItems: [
+                        {
+                            "icon": "./assets/feather/heart.svg",
+                            "id": "love",
+                            "name": "Love",
+                            "hidden": false,
+                            "disabled": true,
+                            "action": function () {
+                                app.love(self.item)
+                            }
+                        },
+                        {
+                            "icon": "./assets/feather/heart.svg",
+                            "id": "unlove",
+                            "active": true,
+                            "name": "Unlove",
+                            "hidden": true,
+                            "action": function () {
+                                app.unlove(self.item)
+                            }
+                        },
+                        {
+                            "icon": "./assets/feather/thumbs-down.svg",
+                            "id": "dislike",
+                            "name": "Dislike",
+                            "hidden": false,
+                            "disabled": true,
+                            "action": function () {
+                                app.dislike(self.item)
+                            }
+                        },
+                        {
+                            "icon": "./assets/feather/thumbs-down.svg",
+                            "id": "undo_dislike",
+                            "name": "Undo dislike",
+                            "active": true,
+                            "hidden": true,
+                            "action": function () {
+                                app.unlove(self.item)
+                            }
+                        },
+                    ],
                     items: [
                         {
                             "icon": "./assets/feather/list.svg",
@@ -2995,42 +3037,6 @@ const app = new Vue({
                             "action": function () {
                                 app.addToLibrary(item_id);
                                 //   if (!isLibrary)  {app.addToLibrary(item_id); this.mk.nowPlayingItem.attributes.playParams["isLibrary"] = true} else { app.removeFromLibrary(data_type,item_id); this.mk.nowPlayingItem.attributes.playParams["isLibrary"] = false};
-                            }
-                        },
-                        {
-                            "icon": "./assets/feather/heart.svg",
-                            "id": "love",
-                            "name": "Love",
-                            "disabled": true,
-                            "action": function () {
-                                app.love(app.mk.nowPlayingItem)
-                            }
-                        },
-                        {
-                            "icon": "./assets/feather/unheart.svg",
-                            "id": "unlove",
-                            "name": "Unlove",
-                            "disabled": true,
-                            "action": function () {
-                                app.unlove(app.mk.nowPlayingItem)
-                            }
-                        },
-                        {
-                            "icon": "./assets/feather/thumbs-down.svg",
-                            "id": "dislike",
-                            "name": "Dislike",
-                            "disabled": true,
-                            "action": function () {
-                                app.dislike(app.mk.nowPlayingItem)
-                            }
-                        },
-                        {
-                            "icon": "./assets/feather/x-circle.svg",
-                            "id": "undo_dislike",
-                            "name": "Undo dislike",
-                            "disabled": true,
-                            "action": function () {
-                                app.unlove(app.mk.nowPlayingItem)
                             }
                         },
                         {
@@ -3062,17 +3068,23 @@ const app = new Vue({
             // }else{
             //     menus.normal.items.find(x => x.id == "addToLibrary").disabled = true
             // }
+            this.showMenuPanel(menus[useMenu], event)
 
-            let rating = await app.getRating(app.mk.nowPlayingItem)
-            if (rating == 0) {
-                menus.normal.items.find(x => x.id == 'love').disabled = false
-                menus.normal.items.find(x => x.id == 'dislike').disabled = false
-            } else if (rating == 1) {
-                menus.normal.items.find(x => x.id == 'unlove').disabled = false
-            } else if (rating == -1) {
-                menus.normal.items.find(x => x.id == 'undo_dislike').disabled = false
+            try{
+                let rating = await app.getRating(app.mk.nowPlayingItem)
+                if (rating == 0) {
+                    menus.normal.headerItems.find(x => x.id == 'love').disabled = false
+                    menus.normal.headerItems.find(x => x.id == 'dislike').disabled = false
+                } else if (rating == 1) {
+                    menus.normal.headerItems.find(x => x.id == 'unlove').hidden = false
+                    menus.normal.headerItems.find(x => x.id == 'love').hidden = true
+                } else if (rating == -1) {
+                    menus.normal.headerItems.find(x => x.id == 'undo_dislike').hidden = false
+                    menus.normal.headerItems.find(x => x.id == 'dislike').hidden = true
+                }
+            } catch(err) {
+
             }
-            CiderContextMenu.Create(event, menus[useMenu])
         },
         LastFMDeauthorize() {
             ipcRenderer.invoke('setStoreValue', 'lastfm.enabled', false).catch((e) => console.error(e));
