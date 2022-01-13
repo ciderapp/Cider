@@ -159,7 +159,6 @@
                     followAction = "unfollow"
                 }
                 app.showMenuPanel({
-                    name: self.data.attributes.name,
                     items: [
                         {
                             icon: "./assets/feather/play.svg",
@@ -179,7 +178,7 @@
                             }
                         }
                     ]
-                })
+                }, event)
             },
             getArtistPalette(artist) {
                 if (artist["attributes"]["artwork"]) {

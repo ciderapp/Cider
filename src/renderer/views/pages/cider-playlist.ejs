@@ -319,10 +319,8 @@
                     }
                 })
             },
-            menu() {
+            menu(event) {
                 app.showMenuPanel({
-                    name: this.data.attributes ? (this.data.attributes.name ??
-                        (this.data.attributes.title ?? '') ?? '') : '',
                     items: {
                         "share": {
                             name: "Share",
@@ -353,7 +351,7 @@
                             }
                         }
                     }
-                })
+                }, event)
             },
             getItemParent: function (data) {
                 kind = data.attributes.playParams.kind;
