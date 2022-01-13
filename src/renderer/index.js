@@ -353,20 +353,8 @@ const app = new Vue({
             history.forward()
         },
         getHTMLStyle() {
-            switch (this.cfg.visual.window_transparency) {
-                case "acrylic":
-                default:
-                    document.querySelector("html").style.background = "";
-                    document.querySelector("body").style.background = "";
-                    document.querySelector("body").classList.remove("notransparency")
-                    break;
-                case "disabled":
-                    document.querySelector("html").style.background = "#222";
-                    document.querySelector("body").classList.add("notransparency")
-
-                    // document.querySelector("body").style.background = "#222";
-                    break;
-            }
+            document.querySelector("html").style.background = "#222";
+            document.querySelector("body").classList.add("notransparency")
         },
         resetState() {
             app.selectedMediaItems = [];
