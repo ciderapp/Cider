@@ -25,7 +25,7 @@
                 <button class="overlay-play" @click="playTrack()"><%- include("../svg/play.svg") %></button>
             </div>
             <div class="info-rect" :style="{'padding-left': (showArtwork ? '' : '16px')}"
-                 @dblclick="playTrack()">
+                 @dblclick="route()">
                 <div class="title text-overflow-elipsis">
                     {{ item.attributes.name }}
                 </div>
@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div class="explicit-icon" v-if="item.attributes && item.attributes.contentRating == 'explicit'"></div>
-            <template v-if="showMetaData == true" @dblclick="playTrack()">
+            <template v-if="showMetaData == true" @dblclick="route()">
                 <div class="metainfo">
                     {{ item.attributes.releaseDate ? new Date(item.attributes.releaseDate).toLocaleDateString()
                     : "" }}
@@ -55,7 +55,7 @@
                     {{ item.attributes.genreNames[0] ?? "" }}
                 </div>
             </template>
-            <div class="duration" v-if="displayDuration" @dblclick="playTrack()">
+            <div class="duration" v-if="displayDuration" @dblclick="route()">
                 {{ msToMinSec(item.attributes.durationInMillis ?? 0) }}
             </div>
         </template>
@@ -485,6 +485,14 @@
                 else {
                     app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)
                 }})
+            },
+            route(){
+                let kind = (this.item.attributes.playParams ? (this.item.attributes.playParams.kind ?? (this.item.type ?? '')) : (this.item.type ?? ''));
+                if (kind.toLowerCase().includes('album') || kind.toLowerCase().includes('playlist')){
+                    app.routeView(this.item)
+                } else {
+                    this.playTrack()
+                }
             }
         }
     });
