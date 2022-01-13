@@ -11,7 +11,7 @@
         </div>
         <div class="menu-header-body" v-if="Object.keys(content.headerItems).length != 0">
             <template v-for="item in content.headerItems">
-                <button class="menu-option-header" :title="item.name" v-if="canDisplay(item)" :style="getStyle(item)" @click="action(item)">
+                <button class="menu-option-header" :class="getClasses(item)" :title="item.name" v-if="canDisplay(item)" :style="getStyle(item)" @click="action(item)">
                     <div class="sidebar-icon" style="margin: 0;" v-if="item.icon">
                         <div class="svg-icon" :style="{'--url': 'url(' + item.icon + ')'}"></div>
                     </div>
@@ -47,6 +47,11 @@
         mounted() {
         },
         methods: {
+            getClasses(item) {
+                if(item["active"]) {
+                    return "active";
+                }
+            },
             getStyle(item) {
                 if(item["disabled"]) {
                     return {

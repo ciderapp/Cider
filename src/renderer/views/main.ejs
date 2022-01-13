@@ -538,10 +538,8 @@
                         <cider-queue ref="queue" v-if="drawer.panel == 'queue'"></cider-queue>
                     </div>
                 </transition>
-                <transition name="modal">
-                        <cider-menu-panel v-if="menuPanel.visible">
-                        </cider-menu-panel>
-                </transition>
+                <cider-menu-panel v-if="menuPanel.visible">
+                </cider-menu-panel>
 
             </div>
         </div>

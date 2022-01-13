@@ -2806,7 +2806,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   top: 0;
   left: 0;
   z-index: 100;
-  background: #000000a3;
+  background: rgb(0 0 0 / 32%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -2826,6 +2826,12 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
       border: 0;
       background: transparent;
 
+      &.active {
+        .sidebar-icon>.svg-icon {
+          --color: var(--keyColor);
+        }
+      }
+
       &:hover {
         background: var(--selected);
       }
@@ -2838,13 +2844,12 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   .menu-panel-body {
     display: flex;
     flex-flow: column;
-    background: #585858ba;
+    background: rgb(38 38 38);
     position: relative;
     min-height: 300px;
     min-width: 300px;
     box-shadow: var(--ciderShadow-Generic);
     border-radius: var(--mediaItemRadius);
-    backdrop-filter: blur(16px) saturate(180%);
     overflow: hidden;
     font-size: 14px;
 
