@@ -352,6 +352,10 @@ const app = new Vue({
         navigateForward() {
             history.forward()
         },
+        getHTMLStyle() {
+            document.querySelector("html").style.background = "#222";
+            document.querySelector("body").classList.add("notransparency")
+        },
         resetState() {
             app.selectedMediaItems = [];
             for (let key in app.modals) {
