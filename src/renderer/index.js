@@ -2987,7 +2987,7 @@ const app = new Vue({
                             "hidden": false,
                             "disabled": true,
                             "action": function () {
-                                app.love(self.item)
+                                app.love(app.mk.nowPlayingItem)
                             }
                         },
                         {
@@ -2997,7 +2997,7 @@ const app = new Vue({
                             "name": "Unlove",
                             "hidden": true,
                             "action": function () {
-                                app.unlove(self.item)
+                                app.unlove(app.mk.nowPlayingItem)
                             }
                         },
                         {
@@ -3007,7 +3007,7 @@ const app = new Vue({
                             "hidden": false,
                             "disabled": true,
                             "action": function () {
-                                app.dislike(self.item)
+                                app.dislike(app.mk.nowPlayingItem)
                             }
                         },
                         {
@@ -3017,7 +3017,7 @@ const app = new Vue({
                             "active": true,
                             "hidden": true,
                             "action": function () {
-                                app.unlove(self.item)
+                                app.unlove(app.mk.nowPlayingItem)
                             }
                         },
                     ],
@@ -3025,6 +3025,7 @@ const app = new Vue({
                         {
                             "icon": "./assets/feather/list.svg",
                             "name": "Add to Playlist...",
+                            "hidden": true,
                             "action": function () {
                                 app.promptAddToPlaylist()
                             }
@@ -3035,7 +3036,7 @@ const app = new Vue({
                             "name": "Add to Library...",
                             "disabled": false,
                             "action": function () {
-                                app.addToLibrary(item_id);
+                                app.addToLibrary(app.mk.nowPlayingItem.id);
                                 //   if (!isLibrary)  {app.addToLibrary(item_id); this.mk.nowPlayingItem.attributes.playParams["isLibrary"] = true} else { app.removeFromLibrary(data_type,item_id); this.mk.nowPlayingItem.attributes.playParams["isLibrary"] = false};
                             }
                         },
@@ -3043,7 +3044,7 @@ const app = new Vue({
                             "icon": "./assets/feather/radio.svg",
                             "name": "Start Radio",
                             "action": function () {
-                                app.mk.setStationQueue({song: item_id}).then(() => {
+                                app.mk.setStationQueue({song: app.mk.nowPlayingItem.id}).then(() => {
                                     app.mk.play()
                                     app.selectedMediaItems = []
                                 })
