@@ -371,6 +371,8 @@
                                 "hidden": true,
                                 "action": async function () {
                                     console.log("remove");
+                                    let item_id = self.item.attributes.playParams.id ?? self.item.id;
+                                    let data_type = self.item.attributes.playParams.kind ?? self.item.type;
                                     await self.removeFromLibrary(item_id);
                                     self.addedToLibrary = false
                                 }
