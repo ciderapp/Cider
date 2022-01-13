@@ -984,6 +984,7 @@ const app = new Vue({
             return hash;
         },
         appRoute(route) {
+            console.log(route)
             if (route == "" || route == "#" || route == "/") {
                 return;
             }
@@ -997,12 +998,13 @@ const app = new Vue({
             let hash = route.split("/")
             let page = hash[0]
             let id = hash[1]
-            console.log(`page: ${page} id: ${id}`)
+            let isLibrary = hash[2] ?? false
+            console.log(`page: ${page} id: ${id} isLibrary: ${isLibrary}`)
             this.routeView({
                 kind: page,
                 id: id,
                 attributes: {
-                    playParams: {kind: page, id: id}
+                    playParams: {kind: page, id: id, isLibrary: isLibrary}
                 }
             })
         },
@@ -1028,8 +1030,8 @@ const app = new Vue({
                     window.location.hash = `${kind}/${id}`
                     document.querySelector("#app-content").scrollTop = 0
                 } else if (kind.toString().includes("artist")) {
-                    app.getArtistInfo(id, isLibrary)
-                    window.location.hash = `${kind}/${id}`
+                    app.getArtistInfo(id, isLibrary)                   
+                    window.location.hash = `${kind}/${id}${isLibrary ? "/"+isLibrary : ''}`
                     document.querySelector("#app-content").scrollTop = 0
 
                 } else if (kind.toString().includes("record-label") || kind.toString().includes("curator")) {
@@ -1050,7 +1052,7 @@ const app = new Vue({
                     let params = {extend: "editorialVideo"}
                     app.page = (kind) + "_" + (id);
                     app.getTypeFromID((kind), (id), (isLibrary), params);
-                    window.location.hash = `${kind}/${id}`
+                    window.location.hash = `${kind}/${id}${isLibrary ? "/"+isLibrary : ''}`
                     document.querySelector("#app-content").scrollTop = 0
                 } else {
                     app.playMediaItemById((id), (kind), (isLibrary), item.attributes.url ?? '')
