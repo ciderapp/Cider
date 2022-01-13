@@ -101,7 +101,7 @@
         methods: {
             async checkLibrary() {
                 if(this.addedToLibrary) {return this.addedToLibrary}
-                if(this.item.type.includes("library-") || this.item.type.includes("station")) {
+                if(this.item.type.includes("library-playlists") || this.item.type.includes("station")) {
                     this.addedToLibrary = true
                     return
                 }
