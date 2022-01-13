@@ -245,7 +245,6 @@
                 } else {
                     console.log(event)
                 }
-                await this.isInLibrary();
                 let self = this
                 let useMenu = "normal"
                 if (app.selectedMediaItems.length <= 1) {
@@ -353,6 +352,30 @@
                                 }
                             },
                             {
+                                "id": "addToLibrary",
+                                "icon": "./assets/feather/plus.svg",
+                                "name": "Add to library",
+                                "hidden": false,
+                                "disabled": true,
+                                "action": function () {
+                                    let item_id = self.item.attributes.playParams.id ?? self.item.id;
+                                    let data_type = self.item.attributes.playParams.kind ?? self.item.type;
+                                    app.addToLibrary(item_id);
+                                    self.addedToLibrary = true;
+                                }
+                            },
+                            {
+                                "id": "removeFromLibrary",
+                                "icon": "./assets/feather/x-circle.svg",
+                                "name": "Remove from library",
+                                "hidden": true,
+                                "action": async function () {
+                                    console.log("remove");
+                                    await self.removeFromLibrary(item_id);
+                                    self.addedToLibrary = false
+                                }
+                            },
+                            {
                                 "name": "Play Next",
                                 "action": function () {
                                     app.mk.playNext({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
@@ -366,24 +389,6 @@
                                     app.mk.playLater({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
                                     app.mk.queue._reindex()
                                     app.selectedMediaItems = []
-                                }
-                            },
-                            {
-                                "icon": "./assets/feather/plus.svg",
-                                "name": (this.addedToLibrary) ? "Remove from Library..." : "Add to Library...",
-                                "action": async function () {
-                                    let item_id = self.item.attributes.playParams.id ?? self.item.id;
-                                    let data_type = self.item.attributes.playParams.kind ?? self.item.type;
-                                    if (self.addedToLibrary != true) {
-                                        console.log("add");
-                                        app.addToLibrary(item_id);
-                                        self.addedToLibrary = true
-                                    } else {
-                                        console.log("remove");
-                                        await self.removeFromLibrary(item_id);
-                                        self.addedToLibrary = false
-                                    }
-                                    ;
                                 }
                             },
                             {
@@ -404,6 +409,19 @@
                 }
                 app.showMenuPanel(menus[useMenu], event)
 
+                try {
+                    await this.isInLibrary().then((_) => {
+                        if(self.addedToLibrary) {
+                            menus.normal.items.find(x => x.id == 'addToLibrary').hidden = true
+                            menus.normal.items.find(x => x.id == 'removeFromLibrary').hidden = false
+                        }else{
+                            menus.normal.items.find(x => x.id == 'addToLibrary').disabled = false
+                        }
+                    })
+
+                }catch(e) {
+
+                }
                 try{
                     let rating = await app.getRating(self.item)
                     if (rating == 0) {
