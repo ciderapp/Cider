@@ -353,20 +353,8 @@ const app = new Vue({
             history.forward()
         },
         getHTMLStyle() {
-            switch (this.cfg.visual.window_transparency) {
-                case "acrylic":
-                default:
-                    document.querySelector("html").style.background = "";
-                    document.querySelector("body").style.background = "";
-                    document.querySelector("body").classList.remove("notransparency")
-                    break;
-                case "disabled":
-                    document.querySelector("html").style.background = "#222";
-                    document.querySelector("body").classList.add("notransparency")
-
-                    // document.querySelector("body").style.background = "#222";
-                    break;
-            }
+            document.querySelector("html").style.background = "#222";
+            document.querySelector("body").classList.add("notransparency")
         },
         resetState() {
             app.selectedMediaItems = [];
@@ -634,6 +622,11 @@ const app = new Vue({
                 this.getBrowsePage();
                 this.$forceUpdate()
             }, 500)
+        },
+        getAppClasses() {
+            if(this.cfg.advanced.experiments.includes('compactui')) {
+                return {compact: true}
+            }
         },
         invokeDrawer(panel) {
             if (this.drawer.panel == panel && this.drawer.open) {
@@ -991,6 +984,7 @@ const app = new Vue({
             return hash;
         },
         appRoute(route) {
+            console.log(route)
             if (route == "" || route == "#" || route == "/") {
                 return;
             }
@@ -1004,12 +998,13 @@ const app = new Vue({
             let hash = route.split("/")
             let page = hash[0]
             let id = hash[1]
-            console.log(`page: ${page} id: ${id}`)
+            let isLibrary = hash[2] ?? false
+            console.log(`page: ${page} id: ${id} isLibrary: ${isLibrary}`)
             this.routeView({
                 kind: page,
                 id: id,
                 attributes: {
-                    playParams: {kind: page, id: id}
+                    playParams: {kind: page, id: id, isLibrary: isLibrary}
                 }
             })
         },
@@ -1035,8 +1030,8 @@ const app = new Vue({
                     window.location.hash = `${kind}/${id}`
                     document.querySelector("#app-content").scrollTop = 0
                 } else if (kind.toString().includes("artist")) {
-                    app.getArtistInfo(id, isLibrary)
-                    window.location.hash = `${kind}/${id}`
+                    app.getArtistInfo(id, isLibrary)                   
+                    window.location.hash = `${kind}/${id}${isLibrary ? "/"+isLibrary : ''}`
                     document.querySelector("#app-content").scrollTop = 0
 
                 } else if (kind.toString().includes("record-label") || kind.toString().includes("curator")) {
@@ -1057,7 +1052,7 @@ const app = new Vue({
                     let params = {extend: "editorialVideo"}
                     app.page = (kind) + "_" + (id);
                     app.getTypeFromID((kind), (id), (isLibrary), params);
-                    window.location.hash = `${kind}/${id}`
+                    window.location.hash = `${kind}/${id}${isLibrary ? "/"+isLibrary : ''}`
                     document.querySelector("#app-content").scrollTop = 0
                 } else {
                     app.playMediaItemById((id), (kind), (isLibrary), item.attributes.url ?? '')
@@ -1306,13 +1301,14 @@ const app = new Vue({
         },
         searchLibrarySongs() {
             let self = this
+            let prefs = this.cfg.libraryPrefs.songs
 
             function sortSongs() {
                 // sort this.library.songs.displayListing by song.attributes[self.library.songs.sorting] in descending or ascending order based on alphabetical order and numeric order
                 // check if song.attributes[self.library.songs.sorting] is a number and if so, sort by number if not, sort by alphabetical order ignoring case
                 self.library.songs.displayListing.sort((a, b) => {
-                    let aa = a.attributes[self.library.songs.sorting]
-                    let bb = b.attributes[self.library.songs.sorting]
+                    let aa = a.attributes[prefs.sort]
+                    let bb = b.attributes[prefs.sort]
                     if (self.library.songs.sorting == "genre") {
                         aa = a.attributes.genreNames[0]
                         bb = b.attributes.genreNames[0]
@@ -1323,13 +1319,13 @@ const app = new Vue({
                     if (bb == null) {
                         bb = ""
                     }
-                    if (self.library.songs.sortOrder == "asc") {
+                    if (prefs.sortOrder == "asc") {
                         if (aa.toString().match(/^\d+$/) && bb.toString().match(/^\d+$/)) {
                             return aa - bb
                         } else {
                             return aa.toString().toLowerCase().localeCompare(bb.toString().toLowerCase())
                         }
-                    } else if (self.library.songs.sortOrder == "desc") {
+                    } else if (prefs.sortOrder == "desc") {
                         if (aa.toString().match(/^\d+$/) && bb.toString().match(/^\d+$/)) {
                             return bb - aa
                         } else {
@@ -1551,7 +1547,6 @@ const app = new Vue({
             this.library.songs.downloadState = 1
             this.library.downloadNotification.show = true
             this.library.downloadNotification.message = "Updating library songs..."
-
             function downloadChunk() {
                 const params = {
                     "include[library-songs]": "catalog,artists,albums",
@@ -3074,6 +3069,41 @@ const app = new Vue({
             }
         }
 
+    }
+})
+
+Vue.component('animated-number', {
+
+    template:"<div style='display: inline-block;'>{{ displayNumber }}</div>",
+    props: {'number': { default:0 }},
+
+    data () {
+        return {
+            displayNumber:0,
+            interval:false
+        }
+    },
+
+    ready () {
+        this.displayNumber = this.number ? this.number : 0;
+    },
+
+    watch: {
+        number () {
+            clearInterval(this.interval);
+
+            if(this.number == this.displayNumber) {
+                return;
+            }
+
+            this.interval = window.setInterval(() => {
+                if(this.displayNumber != this.number) {
+                    var change = (this.number - this.displayNumber) / 10;
+                    change = change >= 0 ? Math.ceil(change) : Math.floor(change);
+                    this.displayNumber = this.displayNumber + change;
+                }
+            }, 20);
+        }
     }
 })
 

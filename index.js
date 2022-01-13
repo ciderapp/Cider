@@ -22,6 +22,13 @@ const configDefaults = {
         "followedArtists": [],
         "favoriteItems": []
     },
+    "libraryPrefs": {
+        "songs": {
+            "sort": "name",
+            "sortOrder": "asc",
+            "size": "normal"
+        }
+    },
     "audio": {
         "quality": "990",
         "seamless_audio": true,
@@ -55,7 +62,6 @@ const configDefaults = {
         "animated_artwork_qualityLevel": 1,
         "bg_artwork_rotation": false,
         "hw_acceleration": "default", // default, webgpu, disabled
-        "window_transparency": "disabled",
         "videoRes": 720
     },
     "lyrics": {
@@ -73,6 +79,7 @@ const configDefaults = {
     },
     "advanced": {
         "AudioContext": false,
+        "experiments": []
     }
 }
 

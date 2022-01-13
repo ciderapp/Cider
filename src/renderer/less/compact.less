@@ -1,0 +1,59 @@
+#app.compact {
+  .content-inner {
+    zoom: 0.95;
+  }
+  .app-sidebar-content {
+    padding:0px;
+
+    .app-sidebar-header-text {
+      padding: 6px 10px;
+      margin: 0px;
+    }
+    .app-sidebar-item {
+      display: flex;
+      width: 100%;
+      padding: 8px 12px;
+      font-size: 13px;
+      margin: 0px;
+      border: 1px solid transparent;
+      border-radius: 0px;
+      transition: unset;
+      transform: unset;
+
+      &:active {
+        background: var(--selected-click);
+      }
+
+      &::after {
+        display: none;
+      }
+
+      &.active {
+        background: var(--keyColor-disabled);
+      }
+    }
+    .sidebar-icon {
+      width: 14px;
+      height: 16px;
+      margin-right: 8px;
+    }
+
+    .folder-body {
+      border-radius: 0px;
+      padding: 0px;
+    }
+  }
+
+  @media (max-width: 951px) {
+    .content-inner {
+      zoom: 0.8;
+    }
+  }
+}
+
+// if page width is less than 951px
+@media (max-width: 951px) {
+  .content-inner {
+    zoom: 0.8;
+  }
+}

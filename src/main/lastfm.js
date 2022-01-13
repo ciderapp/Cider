@@ -61,7 +61,6 @@ const lfm = {
     },
 
     scrobbleSong: async function (attributes) {
-        console.log((app.cfg.get('lastfm.scrobble_after') / 100))
         await new Promise(resolve => setTimeout(resolve, Math.round(attributes.durationInMillis * (app.cfg.get('lastfm.scrobble_after') / 100))));
         const currentAttributes = app.media;
         
