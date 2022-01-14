@@ -169,8 +169,8 @@
                     let friends = badges[id]
                     if (friends) {
                         friends.forEach(function (friend) {
-                            self.app.mk.api.socialProfile(friend).then(data => {
-                                self.itemBadges.push(data)
+                            self.app.mk.api.v3.music(`/v1/social/${app.mk.storefrontId}/social-profiles/${friend}`).then(data => {
+                                self.itemBadges.push(data.data.data[0])
                             })
                         })
                     }

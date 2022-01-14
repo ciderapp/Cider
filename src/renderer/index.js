@@ -3175,7 +3175,22 @@ const app = new Vue({
                 ipcRenderer.send('setFullScreen', false);
                 app.appMode = 'player';
             }
-        }
+        },
+        formatTimezoneOffset : (e=new Date)=>{
+            let leadingZeros = (e,s=2)=>{
+                let n = "" + e;
+                for (; n.length < s; )
+                    n = "0" + n;
+                return n
+            }
+
+            const s = e.getTimezoneOffset()
+              , n = Math.floor(Math.abs(s) / 60)
+              , d = Math.round(Math.abs(s) % 60);
+            let h = "+";
+            return 0 !== s && (h = s > 0 ? "-" : "+"),
+            `${h}${leadingZeros(n, 2)}:${leadingZeros(d, 2)}`
+        },
 
     }
 })
