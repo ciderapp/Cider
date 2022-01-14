@@ -2425,13 +2425,13 @@ const app = new Vue({
             console.log(truekind, id)
 
             try {
-                if (app.library.songs.listing.length > childIndex && parent == "librarysongs") {
+                if (app.library.songs.displayListing.length > childIndex && parent == "librarysongs") {
                     console.log(item)
-                    if (item && ((app.library.songs.listing[childIndex].id != item.id))) {
-                        childIndex = app.library.songs.listing.indexOf(item)
+                    if (item && ((app.library.songs.displayListing[childIndex].id != item.id))) {
+                        childIndex = app.library.songs.displayListing.indexOf(item)
                     }
 
-                    let query = app.library.songs.listing.map(item => new MusicKit.MediaItem(item));
+                    let query = app.library.songs.displayListing.map(item => new MusicKit.MediaItem(item));
 
 
                     app.mk.stop().then(() => {
