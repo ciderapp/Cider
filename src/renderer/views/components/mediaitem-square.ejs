@@ -140,9 +140,10 @@
                 }
             },
             async getBadges() {
-                let self = this
-                if (this.badges[this.item.attributes.playParams.id ?? this.item.id]) {
-                    let friends = this.badges[this.item.attributes.playParams.id ?? this.item.id]
+                const self = this
+                const id = (this.item.attributes.playParams ? this.item.attributes.playParams.id : null) || this.item.id
+                if (id && this.badges[id]) {
+                    let friends = this.badges[id]
                     if (friends) {
                         friends.forEach(function (friend) {
                             self.app.mk.api.socialProfile(friend).then(data => {
