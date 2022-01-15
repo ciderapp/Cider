@@ -142,8 +142,11 @@
                                 @click="invokeDrawer('queue')"></button>
                     </div>
                     <div class="app-chrome-item generic">
-                        <button class="playback-button--small lyrics" :class="{'active': drawer.panel == 'lyrics'}"
+                        <template v-if="lyrics && lyrics != [] && lyrics.length > 0">
+                            <button class="playback-button--small lyrics" :class="{'active': drawer.panel == 'lyrics'}"
                                 @click="invokeDrawer('lyrics')"></button>
+                            </template>
+                        
                     </div>
                     <div class="app-chrome-item full-height" v-if="chrome.windowControlPosition == 'right'">
                         <div class="window-controls">
@@ -517,7 +520,7 @@
 
                 </div>
                 <transition name="drawertransition">
-                    <div class="app-drawer" v-if="drawer.open && drawer.panel == 'lyrics'">
+                    <div class="app-drawer" v-if="drawer.open && drawer.panel == 'lyrics' && lyrics && lyrics != [] && lyrics.length > 0">
                         <div class="bgArtworkMaterial">
                             <div class="bg-artwork-container">
                                 <img class="bg-artwork a" :src="$store.state.artwork.playerLCD">
