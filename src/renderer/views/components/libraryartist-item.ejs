@@ -70,14 +70,14 @@
             },
             async select(e)  {
                let u = this.item
-               let u1 = await app.mk.api.library.artistRelationship(u.id,"albums",
+               let u1 = await app.mk.api.v3.music(`/v1/me/library/artists/${u.id}/albums`,
                {platform: "web",
                 "include[library-albums]": "artists,tracks",
                 "include[library-artists]": "catalog",
                 "fields[artists]": "url",
                 "includeOnly": "catalog,artists"}
                )
-               app.showCollection({data : Object.assign({},u1)}, u.attributes.name?? '', '');
+               app.showCollection({data : Object.assign({},u1.data.data)}, u.attributes.name?? '', '');
             },
             getArtwork(){
                 let u = ""

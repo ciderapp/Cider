@@ -181,7 +181,9 @@
                 this.children = []
                 this.getChildren()
                 this.toggleFolder()
-                this.$root.mk.api.library.playlistFolderChildren(item.id).then(children => {
+               
+                this.$root.mk.api.v3.music(`v1/me/library/playlist-folders/${item.id}/children`).then(data => {
+                    let children = data.data.data;
                     children.forEach(child => {
                         if(!self.$root.playlists.listing.find(listing => listing.id == child.id)) {
                             child.parent = self.item.id

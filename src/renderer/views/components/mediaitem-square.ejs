@@ -185,7 +185,11 @@
                 }
                 let kind = this.item.attributes.playParams.kind ?? this.item.type ?? '';
                 var truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
-                app.mk.api.library.remove({[truekind]: id})
+                app.mk.api.v3.music(`v1/me/library/${truekind}/${id.toString()}`,{},
+                    {
+                    fetchOptions: {
+                    method: "DELETE"
+                }})
                 this.addedToLibrary = true
             },
             uuidv4() {

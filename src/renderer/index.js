@@ -435,9 +435,9 @@ const app = new Vue({
                         type: self.selectedMediaItems[i].kind
                     })
                 } else if ((self.selectedMediaItems[i].kind == "album" || self.selectedMediaItems[i].kind == "albums") && self.selectedMediaItems[i].isLibrary != true) {
-                    self.selectedMediaItems[i].kind = "albums"
-                    let res = await self.mk.api.albumRelationship(self.selectedMediaItems[i].id, "tracks");
-                    let ids = res.map(function (i) {
+                    self.selectedMediaItems[i].kind = "albums"              
+                    let res = await self.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/albums/${self.selectedMediaItems[i].id}/tracks`);
+                    let ids = res.data.data.map(function (i) {
                         return {id: i.id, type: i.type}
                     })
                     pl_items = pl_items.concat(ids)
@@ -449,8 +449,8 @@ const app = new Vue({
                     })
                 } else if ((self.selectedMediaItems[i].kind == "library-album" || self.selectedMediaItems[i].kind == "library-albums") || (self.selectedMediaItems[i].kind == "album" && self.selectedMediaItems[i].isLibrary == true)) {
                     self.selectedMediaItems[i].kind = "library-albums"
-                    let res = await self.mk.api.library.albumRelationship(self.selectedMediaItems[i].id, "tracks");
-                    let ids = res.map(function (i) {
+                    let res = await self.mk.api.v3.music(`/v1/me/library/albums/${self.selectedMediaItems[i].id}/tracks`);
+                    let ids = res.data.data.map(function (i) {
                         return {id: i.id, type: i.type}
                     })
                     pl_items = pl_items.concat(ids)
@@ -618,8 +618,8 @@ const app = new Vue({
                         } catch (e) {
                         }
                         if (!previewURL) {
-                            app.mk.api.song(app.mk.nowPlayingItem._songId ?? app.mk.nowPlayingItem.relationships.catalog.data[0].id).then((response) => {
-                                previewURL = response.attributes.previews[0].url
+                            app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/songs/${app.mk.nowPlayingItem._songId ?? app.mk.nowPlayingItem.relationships.catalog.data[0].id}`).then((response) => {
+                                previewURL = response.data.data[0].attributes.previews[0].url
                                 if (previewURL)
                                     ipcRenderer.send('getPreviewURL', previewURL)
                             })
@@ -947,15 +947,15 @@ const app = new Vue({
             }
             let playlistId = ''
 
-            try {
-                app.mk.api.library.playlist(id, params).then(res => {
-                    self.getPlaylistContinuous(res, transient)
+            try {       
+                app.mk.api.v3.music(`/v1/me/library/playlists/${id}`, params).then(res => {
+                    self.getPlaylistContinuous(res.data.data[0], transient)
                 })
             } catch (e) {
                 console.log(e);
                 try {
-                    app.mk.api.library.playlist(id, params).then(res => {
-                        self.getPlaylistContinuous(res, transient)
+                    app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/playlists/${id}`,params).then(res => {
+                        self.getPlaylistContinuous(res.data.data[0], transient)
                     })
                 } catch (err) {
                     console.log(err)
@@ -1625,14 +1625,14 @@ const app = new Vue({
                 }
                 self.library.songs.downloadState = 1
                 if (downloaded == null) {
-                    app.mk.api.library.songs("", params, {includeResponseMeta: !0}).then((response) => {
-                        processChunk(response)
+                    app.mk.api.v3.music(`/v1/me/library/songs/`, params).then((response) => {
+                        processChunk(response.data)
                     })
                 } else {
 
-                    if (downloaded.next != null && typeof downloaded.next === "function") {
-                        downloaded.next("", params, {includeResponseMeta: !0}).then((response) => {
-                            processChunk(response)
+                    if (downloaded.next != null) {
+                        app.mk.api.v3.music(downloaded.next, params).then((response) => {
+                            processChunk(response.data)
                         })
                     } else {
                         console.log("Download next", downloaded.next)
@@ -1706,13 +1706,13 @@ const app = new Vue({
                     limit: 100,
                 }
                 if (downloaded == null) {
-                    app.mk.api.library.albums("", params, {includeResponseMeta: !0}).then((response) => {
-                        processChunk(response)
+                    app.mk.api.v3.music(`/v1/me/library/albums/`, params).then((response) => {
+                        processChunk(response.data)
                     })
                 } else {
-                    if (downloaded.next != null && typeof downloaded.next === "function") {
-                        downloaded.next("", params, {includeResponseMeta: !0}).then((response) => {
-                            processChunk(response)
+                    if (downloaded.next != null) {
+                        app.mk.api.v3.music(downloaded.next, params).then((response) => {
+                            processChunk(response.data)
                         })
                     } else {
                         console.log("Download next", downloaded.next)
@@ -1787,13 +1787,14 @@ const app = new Vue({
                     limit: 100,
                 }
                 if (downloaded == null) {
-                    app.mk.api.library.artists("", params, {includeResponseMeta: !0}).then((response) => {
-                        processChunk(response)
+                    app.mk.api.v3.music(`/v1/me/library/artists/`, params).then((response) => {
+                        processChunk(response.data)
                     })
+
                 } else {
-                    if (downloaded.next != null && typeof downloaded.next === "function") {
-                        downloaded.next("", "artists", {includeResponseMeta: !0}).then((response) => {
-                            processChunk(response)
+                    if (downloaded.next != null) {
+                        app.mk.api.v3.music(downloaded.next, params).then((response) => {
+                            processChunk(response.data)
                         })
                     } else {
                         console.log("Download next", downloaded.next)
@@ -1865,7 +1866,7 @@ const app = new Vue({
                 return
             }
             try {
-                this.listennow = await this.mk.api.personalRecommendations("",
+                this.listennow = (await this.mk.api.v3.music(`v1/me/recommendations?timezone=${encodeURIComponent(this.formatTimezoneOffset())}`,
                     {
                         name: "listen-now",
                         with: "friendsMix,library,social",
@@ -1892,7 +1893,7 @@ const app = new Vue({
                     {
                         includeResponseMeta: !0,
                         reload: !0
-                    });
+                    })).data;
                 console.log(this.listennow)
             } catch (e) {
                 console.log(e)
@@ -1904,19 +1905,18 @@ const app = new Vue({
                 return
             }
             try {
-                let browse = await this.mk.api.groupings("",
-                    {
-                        platform: "web",
-                        name: "music",
-                        "omit[resource:artists]": "relationships",
-                        "include[albums]": "artists",
-                        "include[songs]": "artists",
-                        "include[music-videos]": "artists",
-                        extend: "editorialArtwork,artistUrl",
-                        "fields[artists]": "name,url,artwork,editorialArtwork,genreNames,editorialNotes",
-                        "art[url]": "f"
-                    });
-                this.browsepage = browse[0];
+                let browse = await app.mk.api.v3.music(`/v1/editorial/${app.mk.storefrontId}/groupings`, {
+                    platform: "web",
+                    name: "music",
+                    "omit[resource:artists]": "relationships",
+                    "include[albums]": "artists",
+                    "include[songs]": "artists",
+                    "include[music-videos]": "artists",
+                    extend: "editorialArtwork,artistUrl",
+                    "fields[artists]": "name,url,artwork,editorialArtwork,genreNames,editorialNotes",
+                    "art[url]": "f"
+                });
+                this.browsepage = browse.data.data[0];
                 console.log(this.browsepage)
             } catch (e) {
                 console.log(e)
@@ -2018,7 +2018,11 @@ const app = new Vue({
         removeFromLibrary(kind, id) {
             let self = this
             let truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
-            this.mk.api.library.remove({[truekind]: id}).then((data) => {
+            app.mk.api.v3.music(`v1/me/library/${truekind}/${id.toString()}`,{},
+                    {
+                    fetchOptions: {
+                    method: "DELETE"
+            }}).then((data) => {
                 self.getLibrarySongsFull(true)
             })
         },
@@ -2558,6 +2562,7 @@ const app = new Vue({
             if (term == "") {
                 return
             }
+            //this.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/search?term=${this.search.term}`
             this.mk.api.search(this.search.term,
                 {
                     types: "activities,albums,apple-curators,artists,curators,editorial-items,music-movies,music-videos,playlists,songs,stations,tv-episodes,uploaded-videos,record-labels",
@@ -2777,7 +2782,8 @@ const app = new Vue({
                     } catch (e) {
                     }
                 } else {
-                    let data = await this.mk.api.library.song(this.mk.nowPlayingItem.id);
+                    let data = await this.mk.api.v3.music(`/v1/me/library/songs/${this.mk.nowPlayingItem.id}`);
+                    data = data.data.data[0];
                     if (data != null && data !== "" && data.attributes != null && data.attributes.artwork != null) {
                         this.currentArtUrl = (data["attributes"]["artwork"]["url"] ?? '').replace('{w}', 50).replace('{h}', 50);
                         try {
@@ -2800,7 +2806,8 @@ const app = new Vue({
             if (typeof this.mk.nowPlayingItem === "undefined") return;
             const data = await this.mk.api.library.song(this.mk.nowPlayingItem["id"])
             try {
-                const data = await this.mk.api.library.song(this.mk.nowPlayingItem.id)
+                const data = await this.mk.api.v3.music(`/v1/me/library/songs/${this.mk.nowPlayingItem.id}`);
+                data = data.data.data[0];
 
                 if (data != null && data !== "") {
                     document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', 'url("' + (data["attributes"]["artwork"]["url"]).toString() + '")');
@@ -2814,7 +2821,8 @@ const app = new Vue({
             if (typeof this.mk.nowPlayingItem === "undefined") return;
             const data = await this.mk.api.library.song(this.mk.nowPlayingItem["id"])
             try {
-                const data = await this.mk.api.library.song(this.mk.nowPlayingItem.id)
+                const data = await this.mk.api.v3.music(`/v1/me/library/songs/${this.mk.nowPlayingItem.id}`);
+                data = data.data.data[0];
 
                 if (data != null && data !== "") {
                     getBase64FromUrl((data["attributes"]["artwork"]["url"]).toString()).then(img => {
@@ -2965,8 +2973,9 @@ const app = new Vue({
         },
         fetchPlaylist(id, callback) {
             // id can be found in playlist.attributes.playParams.globalId
-            this.mk.api.playlist(id).then(res => {
-                callback(res)
+           // this.mk.api.
+            this.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/playlists/${id}`).then(res => {
+                callback(res.data.data[0])
             })
 
             // tracks are found in relationship.data
