@@ -15,6 +15,13 @@ export class ConfigStore {
             "followedArtists": [],
             "favoriteItems": []
         },
+        "libraryPrefs": {
+            "songs": {
+                "sort": "name",
+                "sortOrder": "asc",
+                "size": "normal"
+            }
+        },
         "audio": {
             "volume": 1,
             "quality": "990",
@@ -48,8 +55,7 @@ export class ConfigStore {
             "animated_artwork": "limited", // 0 = always, 1 = limited, 2 = never
             "animated_artwork_qualityLevel": 1,
             "bg_artwork_rotation": false,
-            "hw_acceleration": "default", // default, webgpu, disabled
-            "window_transparency": "disabled"
+            "hw_acceleration": "default" // default, webgpu, disabled
         },
         "lyrics": {
             "enable_mxm": false,
@@ -66,6 +72,7 @@ export class ConfigStore {
         },
         "advanced": {
             "AudioContext": false,
+            "experiments": []
         }
     }
     private migrations: any = {}

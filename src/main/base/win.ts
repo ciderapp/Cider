@@ -1,6 +1,5 @@
 import * as path from "path";
 import * as electron from "electron";
-// import * as electronAcrylic from "electron-acrylic-window"
 import * as windowStateKeeper from "electron-window-state";
 import * as express from "express";
 import * as getPort from "get-port";
@@ -50,7 +49,14 @@ export class Win {
         webPreferences: {
             nodeIntegration: true,
             sandbox: true,
+            allowRunningInsecureContent: true,
             contextIsolation: false,
+
+            webviewTag: true,
+            plugins: true,
+            nodeIntegrationInWorker: false,
+            webSecurity: false,
+
             preload: path.join(this.paths.srcPath, './preload/cider-preload.js')
         }
     };
@@ -73,11 +79,7 @@ export class Win {
         // Start the webserver for the browser window to load
         this.startWebServer()
 
-        if (process.platform === "win32") {
-            // this.win = new electronAcrylic.BrowserWindow(this.options);
-        } else {
-            this.win = new electron.BrowserWindow(this.options);
-        }
+        this.win = new electron.BrowserWindow(this.options);
 
         // and load the renderer.
         this.startSession();
