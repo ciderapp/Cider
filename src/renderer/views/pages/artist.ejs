@@ -52,10 +52,10 @@
                         </div>
                         <div class="col" v-if="data.views['top-songs']">
                             <div class="row">
-                                <div class="col" style="padding:0px;">
+                                <div class="col" style="padding:0;">
                                     <h3>Top Songs</h3>
                                 </div>
-                                <div class="col-auto flex-center" v-if="data.views['top-songs'].data.length >= 10" style="padding:0px;">
+                                <div class="col-auto flex-center" v-if="data.views['top-songs'].data.length >= 10" style="padding:0;">
                                     <button class="cd-btn-seeall" @click="app.showArtistView(data.id, data.attributes.name + ' - Top Songs', 'top-songs')">See All</button>
                                 </div>
                             </div>
@@ -138,12 +138,14 @@
                 let followAction = "follow"
                 let followActions = {
                     follow: {
+                        icon: "./assets/feather/plus-circle.svg",
                         name: "Follow Artist",
                         action: ()=>{
                             self.app.cfg.home.followedArtists.push(self.data.id)
                         }
                     },
                     unfollow: {
+                        icon: "./assets/feather/x-circle.svg",
                         name: "Unfollow Artist",
                         action: ()=>{
                             let index = self.app.cfg.home.followedArtists.indexOf(self.data.id)
@@ -156,9 +158,10 @@
                 if(this.app.cfg.home.followedArtists.includes(self.data.id)) {
                     followAction = "unfollow"
                 }
-                CiderContextMenu.Create(event, {
+                app.showMenuPanel({
                     items: [
                         {
+                            icon: "./assets/feather/play.svg",
                             name: "Play Artist Radio",
                             action: ()=>{
                                 app.mk.setStationQueue({artist:self.data.id}).then(()=>{
@@ -168,13 +171,14 @@
                         },
                         followActions[followAction],
                         {
+                            icon: "./assets/feather/share.svg",
                             name: "Share",
                             action: ()=>{
                                 self.app.copyToClipboard(self.data.attributes.url)
                             }
                         }
                     ]
-                })
+                }, event)
             },
             getArtistPalette(artist) {
                 if (artist["attributes"]["artwork"]) {

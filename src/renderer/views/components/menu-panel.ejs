@@ -1,0 +1,111 @@
+<script type="text/x-template" id="cider-menu-panel">
+    <div class="menu-panel" @click.self="menuPanel.visible = false" @contextmenu.self="menuPanel.visible = false">
+
+        <div class="menu-panel-body" :style="getStyle()">
+            <div class="menu-header-text" v-if="content.name != ''">
+                <div class="row">
+                    <div class="col">
+                        <h3 class="queue-header-text">{{ content.name }}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-header-body" v-if="Object.keys(content.headerItems).length != 0">
+                <template v-for="item in content.headerItems">
+                    <button class="menu-option-header" :class="getClasses(item)" :title="item.name"
+                            v-if="canDisplay(item)" :style="getItemStyle(item)" @click="action(item)">
+                        <div class="sidebar-icon" style="margin: 0;" v-if="item.icon">
+                            <div class="svg-icon" :style="{'--url': 'url(' + item.icon + ')'}"></div>
+                        </div>
+                    </button>
+                </template>
+            </div>
+            <div class="menu-body">
+                <template v-for="item in content.items">
+                    <button class="menu-option" v-if="canDisplay(item)" :style="getItemStyle(item)"
+                            @click="action(item)">
+                        <div class="sidebar-icon" v-if="item.icon">
+                            <div class="svg-icon" :style="{'--url': 'url(' + item.icon + ')'}"></div>
+                        </div>
+                        {{ item.name }}
+                    </button>
+                </template>
+            </div>
+        </div>
+    </div>
+</script>
+
+
+<script>
+    Vue.component('cider-menu-panel', {
+        template: '#cider-menu-panel',
+        data: function () {
+            return {
+                app: this.$root,
+                menuPanel: this.$root.menuPanel,
+                content: this.$root.menuPanel.content,
+                getSvgIcon: this.$root.getSvgIcon,
+                position: [0, 0],
+                size: [0, 0],
+                event: this.$root.menuPanel.event
+            }
+        },
+        mounted() {
+            if (this.event) {
+                this.position = [this.event.clientX, this.event.clientY];
+            }
+            this.$nextTick(() => {
+                this.size = [document.querySelector(".menu-panel-body").offsetWidth, document.querySelector(".menu-panel-body").offsetHeight];
+            });
+        },
+        methods: {
+            getClasses(item) {
+                if (item["active"]) {
+                    return "active";
+                }
+            },
+            getStyle() {
+                let style = {}
+
+                if (this.event) {
+                    style["position"] = "absolute";
+                    style["left"] = this.event.clientX + "px";
+                    style["top"] = this.event.clientY + "px";
+                    // make sure the menu panel isnt off the screen
+                    if (this.event.clientX + this.size[0] > window.innerWidth) {
+                        style["left"] = (window.innerWidth - this.size[0]) + "px";
+                    }
+                    if (this.event.clientY + this.size[1] > window.innerHeight) {
+                        style["top"] = (window.innerHeight - this.size[1]) + "px";
+                    }
+                }
+                return style
+            },
+            getItemStyle(item) {
+                let style = {}
+                if (item["disabled"]) {
+                    style = Object.assign(style, {
+                        "pointer-events": "none",
+                        "opacity": "0.5",
+                    });
+                }
+                return style
+            },
+            canDisplay(item) {
+                if (!item["hidden"]) {
+                    return true
+                } else {
+                    return false
+                }
+            },
+            async getActions() {
+                return this.content.items;
+            },
+            action(item) {
+                item.action()
+                if (!item["keepOpen"]) {
+                    this.menuPanel.visible = false
+                }
+            }
+        }
+    });
+</script>

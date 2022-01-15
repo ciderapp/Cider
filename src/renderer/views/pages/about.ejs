@@ -1,19 +1,107 @@
-Major thanks to the Cider Development Team and all of our contributors.
+<script type="text/x-template" id="about-page">
+    <div class="content-inner about-page">
+        <div class="row">
+            <div class="col">
+                <img src="assets/banner.png" alt="Cider Logo" style="display:block;margin:0 auto;width: 500px;">
+                <p style="text-align: center">Major thanks to the Cider Collective Team and all of our contributors.</p>
 
-<p>"Apple Music" - Copyright © 2021 <a href="https://www.apple.com/" class="dt-footer__link"
-                                       target="_blank"
-                                       rel="noopener" data-dt-link-to-exclude="">Apple Inc.</a>
-    All Rights
-    Reserved.</p>
+                <p style="text-align: center">"Apple Music" - Copyright © 2021 <a href="https://www.apple.com/" class="dt-footer__link"
+                                                                                  target="_blank"
+                                                                                  rel="noopener" data-dt-link-to-exclude="">Apple Inc.</a>
+                    All Rights
+                    Reserved.</p>
+                <hr>
+                <h3>Sponsor this project</h3>
+                <button onclick="window.open('https://ko-fi.com/cryptofyre')" class="md-btn sponsorBtn"><img src="./assets/ko_fi.svg"/>Ko-fi</button>
+                <button onclick="window.open('https://opencollective.com/ciderapp')" class="md-btn sponsorBtn"><img src="./assets/open_collective.svg"/>Open Collective</button>
 
-cryptofyre - Developer - https://github.com/cryptofyre
-Core - Developer - https://github.com/coredev-uk
-Quacksire - Developer - https://github.com/child-duckling
-booploops - Developer - https://github.com/booploops
-vapormusic - Developer - https://github.com/vapormusic
-Void - Social Communications Team - https://twitter.com/MoonyVoid
-NoseySG - Social Communications Team - https://twitter.com/noah_grose
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <h3>Cider Team</h3>
+                        <button class="md-btn teamBtn" @click="window.open(member.link)" v-for="member in team">
+                            <img :src="member.avatar"/>
+                            <div class="row" style="width:100%;">
+                                <div class="col" style="text-align: left">
+                                    {{ member.name }}
+                                </div>
+                                <div class="col-auto">
+                                    <b>{{ member.role }}</b>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h3></h3>
+                        <h3>Contributors</h3>
+                        <img class="md-contributors"
+                             style="cursor:pointer;width:100%;"
+                             onclick="window.open('https://github.com/ciderapp/Cider/graphs/contributors')"
+                             src="https://contrib.rocks/image?repo=ciderapp/Cider"/>
+                    </div>
+                </div>
 
-<img class="md-contributors"
-     onclick="window.open('https://github.com/ciderapp/Cider/graphs/contributors')"
-     src="https://contrib.rocks/image?repo=ciderapp/Cider"/>
+            </div>
+        </div>
+    </div>
+</script>
+<script>
+    Vue.component('about-page', {
+        template: '#about-page',
+        data: function () {
+            return {
+                window: window,
+                team: [
+                    {
+                        name: 'cryptofyre',
+                        link: 'https://github.com/cryptofyre',
+                        role: 'Developer',
+                        avatar: 'https://avatars.githubusercontent.com/u/33162551?v=4'
+                    },
+                    {
+                        name: 'Core',
+                        link: 'https://github.com/coredev-uk',
+                        role: 'Developer',
+                        avatar: 'https://avatars.githubusercontent.com/u/64542347?v=4'
+                    },
+                    {
+                        name: 'Quacksire',
+                        link: 'https://github.com/quacksire',
+                        role: 'Developer',
+                        avatar: 'https://avatars.githubusercontent.com/u/19170969?v=4'
+                    },
+                    {
+                        name: 'booploops',
+                        link: 'https://github.com/booploops',
+                        role: 'Developer',
+                        avatar: 'https://avatars.githubusercontent.com/u/49113086?v=4'
+                    },
+                    {
+                        name: 'vapormusic',
+                        link: 'https://github.com/vapormusic',
+                        role: 'Developer',
+                        avatar: 'https://avatars.githubusercontent.com/u/27716185?v=4'
+                    },
+                    {
+                        name: 'Void',
+                        link: 'https://twitter.com/MoonyVoid',
+                        role: 'Social Team',
+                        avatar: 'https://pbs.twimg.com/profile_images/1226463559472816129/8LScNYED_400x400.jpg'
+                    },
+                    {
+                        name: 'NoseySG',
+                        link: 'https://twitter.com/noah_grose',
+                        role: 'Social Team',
+                        avatar: 'https://pbs.twimg.com/profile_images/1422541289837535239/qg-aaoP9_400x400.jpg'
+                    }
+                ]
+            }
+        },
+        methods: {
+
+        }
+    });
+</script>

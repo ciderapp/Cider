@@ -7,14 +7,19 @@
          :data-index="index"
          :data-guid="guid"
          :data-islibrary="this.item.attributes.playParams.isLibrary ?? false"
+         :key="item.attributes.playParams.id ?? item.id"
          class="cd-mediaitem-list-item"
-         :class="{'mediaitem-selected': app.select_hasMediaItem(guid)}">
+         @mouseenter="checkLibrary"
+         @mouseover="showInLibrary = true"
+         @mouseleave="showInLibrary = false"
+         :class="[{'mediaitem-selected': app.select_hasMediaItem(guid)}, addClasses]">
         <template v-if="isVisible">
-            <div class="isLibrary" v-if="showLibraryStatus == true">
+            <div class="isLibrary" :style="{opacity: (showInLibrary ? 1 : 0)}" v-if="showLibraryStatus == true">
                 <button @click="addToLibrary()"
-                        v-if="!app.isInLibrary(item.attributes.playParams) && !addedToLibrary">🖤
+                        v-if="!addedToLibrary">
+                    <div class="svg-icon" :style="{'--color': 'var(--keyColor)', '--url': 'url(./assets/feather/plus.svg)'}"></div>
                 </button>
-                <button v-else @click="removeFromLibrary()">❤️</button>
+                <button v-else style="opacity:0;">❤️</button>
             </div>
             <div class="artwork" v-if="showArtwork == true">
                 <mediaitem-artwork
@@ -24,7 +29,7 @@
                 <button class="overlay-play" @click="playTrack()"><%- include("../svg/play.svg") %></button>
             </div>
             <div class="info-rect" :style="{'padding-left': (showArtwork ? '' : '16px')}"
-                 @dblclick="app.routeView(item)">
+                 @dblclick="route()">
                 <div class="title text-overflow-elipsis">
                     {{ item.attributes.name }}
                 </div>
@@ -44,10 +49,8 @@
                     </template>
                 </div>
             </div>
-            <div class="content-rating" v-if="item.attributes.contentRating" @dblclick="app.routeView(item)">
-                {{ item.attributes.contentRating }}
-            </div>
-            <template v-if="showMetaData == true" @dblclick="app.routeView(item)">
+            <div class="explicit-icon" v-if="item.attributes && item.attributes.contentRating == 'explicit'"></div>
+            <template v-if="showMetaData == true" @dblclick="route()">
                 <div class="metainfo">
                     {{ item.attributes.releaseDate ? new Date(item.attributes.releaseDate).toLocaleDateString()
                     : "" }}
@@ -56,7 +59,7 @@
                     {{ item.attributes.genreNames[0] ?? "" }}
                 </div>
             </template>
-            <div class="duration" v-if="displayDuration" @dblclick="app.routeView(item)">
+            <div class="duration" v-if="displayDuration" @dblclick="route()">
                 {{ msToMinSec(item.attributes.durationInMillis ?? 0) }}
             </div>
         </template>
@@ -68,11 +71,13 @@
         template: '#mediaitem-list-item',
         data: function () {
             return {
+                showInLibrary: false,
                 isVisible: false,
                 addedToLibrary: false,
                 guid: this.uuidv4(),
                 app: this.$root,
-                displayDuration: true
+                displayDuration: true,
+                addClasses: {}
             }
         },
         props: {
@@ -84,14 +89,36 @@
             'show-meta-data': {type: Boolean, default: false},
             'show-duration': {type: Boolean, default: true},
             'contextExt': {type: Object, required: false},
+            'class-list': {type: String, required: false, default: ""},
         },
         mounted() {
             let duration = this.item.attributes.durationInMillis ?? 0
             if (duration == 0 || !this.showDuration) {
                 this.displayDuration = false
             }
+            this.getClasses()
         },
         methods: {
+            async checkLibrary() {
+                if(this.addedToLibrary) {return this.addedToLibrary}
+                if(this.item.type.includes("library-playlists") || this.item.type.includes("station")) {
+                    this.addedToLibrary = true
+                    return
+                }
+                this.$root.inLibrary([this.item]).then(res => {
+                    this.addedToLibrary = res[0].attributes.inLibrary
+                })
+                return this.addedToLibrary
+            },
+            getClasses() {
+                if(this.classList) {
+                    this.addClasses = {}
+                    let classList = this.classList.split(' ')
+                    for(let i = 0; i < classList.length; i++) {
+                        this.addClasses[classList[i]] = true
+                    }
+                }
+            },
             dragStart(evt) {
                 evt.dataTransfer.setData('text/plain', JSON.stringify({
                     type: this.item.attributes.playParams.kind ?? this.item.type,
@@ -197,12 +224,14 @@
                         items: [
                             {
                                 "name": "Add to Playlist...",
+                                "icon": "./assets/feather/plus.svg",
                                 "action": function () {
                                     app.promptAddToPlaylist()
                                 }
                             },
                             {
                                 name: `Play ${app.selectedMediaItems.length} tracks next`,
+                                "icon": "./assets/arrow-bend-up.svg",
                                 action: () => {
                                     let itemsToPlay = {}
                                     app.selectedMediaItems.forEach(item => {
@@ -224,6 +253,7 @@
                             },
                             {
                                 name: `Play ${app.selectedMediaItems.length} tracks later`,
+                                "icon": "./assets/arrow-bend-down.svg",
                                 action: () => {
                                     let itemsToPlay = {}
                                     app.selectedMediaItems.forEach(item => {
@@ -245,7 +275,68 @@
                         ]
                     },
                     normal: {
+                        headerItems: [
+                            {
+                                "icon": "./assets/feather/heart.svg",
+                                "id": "love",
+                                "name": "Love",
+                                "hidden": false,
+                                "disabled": true,
+                                "action": function () {
+                                    app.love(self.item)
+                                }
+                            },
+                            {
+                                "icon": "./assets/feather/heart.svg",
+                                "id": "unlove",
+                                "active": true,
+                                "name": "Unlove",
+                                "hidden": true,
+                                "action": function () {
+                                    app.unlove(self.item)
+                                }
+                            },
+                            {
+                                "icon": "./assets/feather/thumbs-down.svg",
+                                "id": "dislike",
+                                "name": "Dislike",
+                                "hidden": false,
+                                "disabled": true,
+                                "action": function () {
+                                    app.dislike(self.item)
+                                }
+                            },
+                            {
+                                "icon": "./assets/feather/thumbs-down.svg",
+                                "id": "undo_dislike",
+                                "name": "Undo dislike",
+                                "active": true,
+                                "hidden": true,
+                                "action": function () {
+                                    app.unlove(self.item)
+                                }
+                            },
+                        ],
                         items: [
+                            {
+                                "id": "addToLibrary",
+                                "icon": "./assets/feather/plus.svg",
+                                "name": "Add to library",
+                                "hidden": false,
+                                "disabled": true,
+                                "action": function () {
+                                    self.addToLibrary()
+                                }
+                            },
+                            {
+                                "id": "removeFromLibrary",
+                                "icon": "./assets/feather/x-circle.svg",
+                                "name": "Remove from library",
+                                "hidden": true,
+                                "action": function () {
+                                    self.removeFromLibrary()
+                                }
+                            },
                             {
                                 "icon": "./assets/feather/list.svg",
                                 "name": "Add to Playlist...",
@@ -255,6 +346,7 @@
                             },
                             {
                                 "name": "Play Next",
+                                "icon": "./assets/arrow-bend-up.svg",
                                 "action": function () {
                                     app.mk.playNext({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
                                     app.mk.queue._reindex()
@@ -263,6 +355,7 @@
                             },
                             {
                                 "name": "Play Later",
+                                "icon": "./assets/arrow-bend-down.svg",
                                 "action": function () {
                                     app.mk.playLater({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
                                     app.mk.queue._reindex()
@@ -277,42 +370,6 @@
                                         app.mk.play()
                                         app.selectedMediaItems = []
                                     })
-                                }
-                            },
-                            {
-                                "icon": "./assets/feather/heart.svg",
-                                "id": "love",
-                                "name": "Love",
-                                "disabled": true,
-                                "action": function () {
-                                    app.love(self.item)
-                                }
-                            },
-                            {
-                                "icon": "./assets/feather/unheart.svg",
-                                "id": "unlove",
-                                "name": "Unlove",
-                                "disabled": true,
-                                "action": function () {
-                                    app.unlove(self.item)
-                                }
-                            },
-                            {
-                                "icon": "./assets/feather/thumbs-down.svg",
-                                "id": "dislike",
-                                "name": "Dislike",
-                                "disabled": true,
-                                "action": function () {
-                                    app.dislike(self.item)
-                                }
-                            },
-                            {
-                                "icon": "./assets/feather/x-circle.svg",
-                                "id": "undo_dislike",
-                                "name": "Undo dislike",
-                                "disabled": true,
-                                "action": function () {
-                                    app.unlove(self.item)
                                 }
                             },
                             {
@@ -353,20 +410,37 @@
                         menus.multiple.items = menus.multiple.items.concat(this.contextExt.multiple)
                     }
                 }
+                app.showMenuPanel(menus[useMenu], event)
+
+                try {
+                    await this.checkLibrary().then(res => {
+                        console.log(res)
+                        if(res) {
+                            menus.normal.items.find(x => x.id == 'addToLibrary').hidden = true
+                            menus.normal.items.find(x => x.id == 'removeFromLibrary').hidden = false
+                        }else{
+                            menus.normal.items.find(x => x.id == 'addToLibrary').disabled = false
+                        }
+                    })
+
+                }catch(e) {
+
+                }
                 try{
                 let rating = await app.getRating(self.item)
                 if (rating == 0) {
-                    menus.normal.items.find(x => x.id == 'love').disabled = false
-                    menus.normal.items.find(x => x.id == 'dislike').disabled = false
+                    menus.normal.headerItems.find(x => x.id == 'love').disabled = false
+                    menus.normal.headerItems.find(x => x.id == 'dislike').disabled = false
                 } else if (rating == 1) {
-                    menus.normal.items.find(x => x.id == 'unlove').disabled = false
+                    menus.normal.headerItems.find(x => x.id == 'unlove').hidden = false
+                    menus.normal.headerItems.find(x => x.id == 'love').hidden = true
                 } else if (rating == -1) {
-                    menus.normal.items.find(x => x.id == 'undo_dislike').disabled = false
+                    menus.normal.headerItems.find(x => x.id == 'undo_dislike').hidden = false
+                    menus.normal.headerItems.find(x => x.id == 'dislike').hidden = true
                 }
                 } catch(err) {
 
                 }
-                CiderContextMenu.Create(event, menus[useMenu])
             },
             visibilityChanged: function (isVisible, entry) {
                 this.isVisible = isVisible
@@ -474,6 +548,14 @@
                 else {
                     app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)
                 }})
+            },
+            route(){
+                let kind = (this.item.attributes.playParams ? (this.item.attributes.playParams.kind ?? (this.item.type ?? '')) : (this.item.type ?? ''));
+                if (kind.toLowerCase().includes('album') || kind.toLowerCase().includes('playlist')){
+                    app.routeView(this.item)
+                } else {
+                    this.playTrack()
+                }
             }
         }
     });

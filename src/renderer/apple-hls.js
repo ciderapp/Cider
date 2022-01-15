@@ -23260,9 +23260,36 @@
                         }
                         if (null != (l = "string" != typeof (h = g.pathwayID) ? im("invalid steering manifest PATHWAY-PRIORITY list item data type") : /^[\w\-\.]+$/.test(h) ? void 0 : im("steering manifest contains invalid pathway ID: " + h)))
                             break;
-                        if (g.hdcpLevel === "NONE"){  
-                        n.push(g)} 
+                        let cpc = g.allowedCPCMap ? JSON.stringify(g.allowedCPCMap) : "null";
+                        if (!cpc.includes("WIDEVINE_HARDWARE") && !g.url.includes('trickPlay') && !g.videoCodec.includes("hvc1"))
+                        n.push(g)
                     }
+                        
+                        
+                    
+                    try{
+                    // console.log(n,  window.screen.width)
+                    let ok = (n.map(  function(item){return{height : item.height, content: item}}));
+                    let screenHeight = (app.cfg.visual.videoRes ?? window.screen.height) ;
+                    ok.sort(function (a, b) {
+                        return a.height - b.height;
+                      });
+                    for (var i = 0; i < ok.length; i++){
+                        if (ok[i].height > screenHeight){
+                            if (i == 0){n.splice(0,n.length);n.push(ok[i].content)} 
+                            else{n.splice(0,n.length);n.push(ok[i-1].content)}
+                            console.log('selected' , n[0].height)
+                            break; 
+                            
+                        }
+                            
+                    }
+                    if (n.length > 1){
+                        n.splice(0,n.length - 1);                      
+                    }
+                    // console.log(n)
+                    // console.log(ok)
+                    } catch (e){ console.log(e)}
                 return {
                     variantMediaOptions: n,
                     contentSteeringOption: u,

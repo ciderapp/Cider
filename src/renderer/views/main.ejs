@@ -30,7 +30,7 @@
 </head>
 
 <body oncontextmenu="return false;" loading="1" platform="<%= env.platform %>">
-<div id="app">
+<div id="app" :class="getAppClasses()">
     <transition name="fsModeSwitch">
         <div id="app-main" v-show="appMode == 'player'">
             <div class="mv-chrome" v-if="chrome.topChromeVisible == false"></div>
@@ -48,23 +48,23 @@
                     <div class="app-chrome-item full-height" v-else>
                         <div class="app-title"></div>
                     </div>
-                    <div class="app-chrome-item">
+                    <div class="app-chrome-item display--large">
                         <button class="playback-button--small shuffle" v-if="mk.shuffleMode == 0"
                                 @click="mk.shuffleMode = 1"></button>
                         <button class="playback-button--small shuffle active" v-else
                                 @click="mk.shuffleMode = 0"></button>
                     </div>
-                    <div class="app-chrome-item">
+                    <div class="app-chrome-item display--large">
                         <button class="playback-button previous" @click="prevButton()"></button>
                     </div>
-                    <div class="app-chrome-item">
+                    <div class="app-chrome-item display--large">
                         <button class="playback-button pause" @click="mk.pause()" v-if="mk.isPlaying"></button>
                         <button class="playback-button play" @click="mk.play()" v-else></button>
                     </div>
-                    <div class="app-chrome-item">
+                    <div class="app-chrome-item display--large">
                         <button class="playback-button next" @click="mk.skipToNextItem()"></button>
                     </div>
-                    <div class="app-chrome-item">
+                    <div class="app-chrome-item display--large">
                         <button class="playback-button--small repeat" v-if="mk.repeatMode == 0"
                                 @click="mk.repeatMode = 1"></button>
                         <button class="playback-button--small repeat active" @click="mk.repeatMode = 2"
@@ -92,9 +92,10 @@
                                             {{ mk.nowPlayingItem["attributes"]["artistName"] }}
                                         </div>
                                         <div class="song-artist item-navigate" style="display: inline-block;"
-                                            @click="getNowPlayingItemDetailed('album')">
+                                             @click="getNowPlayingItemDetailed('album')">
                                             <div class="separator" style="display: inline-block;">{{"-"}}</div>
-                                            {{(mk.nowPlayingItem["attributes"]["albumName"]) ? (mk.nowPlayingItem["attributes"]["albumName"]) : "" }}
+                                            {{(mk.nowPlayingItem["attributes"]["albumName"]) ?
+                                            (mk.nowPlayingItem["attributes"]["albumName"]) : "" }}
                                         </div>
                                     </div>
 
@@ -127,7 +128,8 @@
                 <div class="app-chrome--right">
                     <div class="app-chrome-item volume display--large">
                         <div class="app-chrome-item volume-icon"></div>
-                        <input type="range" class="" @wheel="volumeWheel" step="0.01" min="0" max="1" v-model="mk.volume"
+                        <input type="range" class="" @wheel="volumeWheel" step="0.01" min="0" max="1"
+                               v-model="mk.volume"
                                v-if="typeof mk.volume != 'undefined'">
                     </div>
                     <div class="app-chrome-item generic" v-if="false">
@@ -181,21 +183,30 @@
                         <div class="app-sidebar-header-text">
                             Apple Music
                         </div>
-                        <sidebar-library-item name="Home" svg-icon="./assets/feather/home.svg" page="home"></sidebar-library-item>
-                        <sidebar-library-item name="Listen Now" svg-icon="./assets/feather/play-circle.svg" page="listen_now"></sidebar-library-item>
-                        <sidebar-library-item name="Browse" svg-icon="./assets/feather/globe.svg" page="browse"></sidebar-library-item>
-                        <sidebar-library-item name="Radio" svg-icon="./assets/feather/radio.svg" page="radio"></sidebar-library-item>
+                        <sidebar-library-item name="Home" svg-icon="./assets/feather/home.svg"
+                                              page="home"></sidebar-library-item>
+                        <sidebar-library-item name="Listen Now" svg-icon="./assets/feather/play-circle.svg"
+                                              page="listen_now"></sidebar-library-item>
+                        <sidebar-library-item name="Browse" svg-icon="./assets/feather/globe.svg"
+                                              page="browse"></sidebar-library-item>
+                        <sidebar-library-item name="Radio" svg-icon="./assets/feather/radio.svg"
+                                              page="radio"></sidebar-library-item>
                         <div class="app-sidebar-header-text">
                             Library
                         </div>
-                        <sidebar-library-item name="Recently Added" svg-icon="./assets/feather/plus-circle.svg" page="library-recentlyadded"></sidebar-library-item>
-                        <sidebar-library-item name="Songs" svg-icon="./assets/feather/music.svg" page="library-songs"></sidebar-library-item>
-                        <sidebar-library-item name="Albums" svg-icon="./assets/feather/disc.svg" page="library-albums"></sidebar-library-item>
-                        <sidebar-library-item name="Artists" svg-icon="./assets/feather/user.svg" page="library-artists"></sidebar-library-item>
+                        <sidebar-library-item name="Recently Added" svg-icon="./assets/feather/plus-circle.svg"
+                                              page="library-recentlyadded"></sidebar-library-item>
+                        <sidebar-library-item name="Songs" svg-icon="./assets/feather/music.svg"
+                                              page="library-songs"></sidebar-library-item>
+                        <sidebar-library-item name="Albums" svg-icon="./assets/feather/disc.svg"
+                                              page="library-albums"></sidebar-library-item>
+                        <sidebar-library-item name="Artists" svg-icon="./assets/feather/user.svg"
+                                              page="library-artists"></sidebar-library-item>
                         <div class="app-sidebar-header-text" @contextmenu="playlistHeaderContextMenu">
                             Playlists
                         </div>
-                        <sidebar-playlist v-for="item in getPlaylistFolderChildren('p.playlistsroot')" :item="item"></sidebar-playlist>
+                        <sidebar-playlist v-for="item in getPlaylistFolderChildren('p.playlistsroot')"
+                                          :item="item"></sidebar-playlist>
                     </div>
                     <transition name="wpfade">
                         <div class="usermenu-container" v-if="chrome.menuOpened">
@@ -220,10 +231,14 @@
                                         </div>
                                     </div>
                                 </button>
-                                <button class="usermenu-item" v-if="cfg.advanced.AudioContext && cfg.audio.spatial" @click="modals.spatialProperties = true">
+                                <button class="usermenu-item" v-if="cfg.advanced.AudioContext && cfg.audio.spatial"
+                                        @click="modals.spatialProperties = true">
                                     Spatialized Audio Settings
                                 </button>
-                                <button class="usermenu-item">
+                                <button class="usermenu-item" @click="appRoute('apple-account-settings')">
+                                    Account Settings
+                                </button>
+                                <button class="usermenu-item" @click="appRoute('about')">
                                     About
                                 </button>
                                 <button class="usermenu-item" @click="window.open('https://discord.gg/applemusic')">
@@ -239,9 +254,45 @@
                         </div>
                     </transition>
                     <div class="app-sidebar-footer">
-                        <input type="range" class="web-slider display--small" step="0.01" min="0" max="1"
-                               v-model="mk.volume" @wheel="volumeWheel"
-                               v-if="typeof mk.volume != 'undefined'">
+
+                        <div class="app-playback-controls display--small" v-if="mkReady()"
+                             @contextmenu="nowPlayingContextMenu">
+                            <div class="control-buttons">
+                                <div class="app-chrome-item">
+                                    <button class="playback-button--small shuffle" v-if="mk.shuffleMode == 0"
+                                            @click="mk.shuffleMode = 1"></button>
+                                    <button class="playback-button--small shuffle active" v-else
+                                            @click="mk.shuffleMode = 0"></button>
+                                </div>
+                                <div class="app-chrome-item">
+                                    <button class="playback-button previous" @click="prevButton()"></button>
+                                </div>
+                                <div class="app-chrome-item">
+                                    <button class="playback-button pause" @click="mk.pause()"
+                                            v-if="mk.isPlaying"></button>
+                                    <button class="playback-button play" @click="mk.play()" v-else></button>
+                                </div>
+                                <div class="app-chrome-item">
+                                    <button class="playback-button next" @click="mk.skipToNextItem()"></button>
+                                </div>
+                                <div class="app-chrome-item">
+                                    <button class="playback-button--small repeat" v-if="mk.repeatMode == 0"
+                                            @click="mk.repeatMode = 1"></button>
+                                    <button class="playback-button--small repeat active" @click="mk.repeatMode = 2"
+                                            v-else-if="mk.repeatMode == 1"></button>
+                                    <button class="playback-button--small repeat repeatOne" @click="mk.repeatMode = 0"
+                                            v-else-if="mk.repeatMode == 2"></button>
+                                </div>
+                            </div>
+                            <div class="app-chrome-item volume">
+                                <div class="app-chrome-item volume-icon"></div>
+                                <div class="input-container">
+                                    <input type="range" class="" @wheel="volumeWheel" step="0.01" min="0" max="1"
+                                           v-model="mk.volume"
+                                           v-if="typeof mk.volume != 'undefined'">
+                                </div>
+                            </div>
+                        </div>
                         <button class="app-sidebar-button" style="width:100%"
                                 :class="{active: chrome.menuOpened}"
                                 @blur="setTimeout(()=>{chrome.menuOpened = false}, 100)"
@@ -269,13 +320,9 @@
                             </div>
                         </button>
                     </div>
-                    <div class="app-sidebar-notification" v-if="library.downloadNotification.show">
-                        <div>{{ library.downloadNotification.message }}</div>
-                        <div>{{ library.downloadNotification.progress }} / {{ library.downloadNotification.total }}
-                        </div>
-                        <div style="width: 100%">
-                            <progress style="width: 80%;" :value="library.downloadNotification.progress"
-                                      :max="library.downloadNotification.total"></progress>
+                    <div class="app-sidebar-notification libraryNotification" v-if="library.downloadNotification.show">
+                        <div class="message">{{ library.downloadNotification.message }} ({{
+                            library.downloadNotification.progress }} / {{ library.downloadNotification.total }})
                         </div>
                     </div>
                 </div>
@@ -285,6 +332,18 @@
                         <button class="nav-item"
                                 @click="navigateForward()"><%- include('svg/chevron-right.svg') %></button>
                     </div>
+                    <!-- Apple Setings Page -->
+                    <transition name="wpfade">
+                        <template v-if="page == 'apple-account-settings'">
+                            <apple-account-settings></apple-account-settings>
+                        </template>
+                    </transition>
+                    <!-- About -->
+                    <transition name="wpfade">
+                        <template v-if="page == 'about'">
+                            <about-page></about-page>
+                        </template>
+                    </transition>
                     <!-- Artist Page -->
                     <transition name="wpfade">
                         <template v-if="page == 'artist-page' && artistPage.data.attributes">
@@ -427,7 +486,9 @@
                     </transition>
                     <!-- Library - Songs -->
                     <transition name="wpfade" v-on:enter="getLibrarySongsFull()">
-                        <%- include('pages/library-songs') %>
+                        <template v-if="page == 'library-songs'">
+                            <cider-library-songs :data="library.songs"></cider-library-songs>
+                        </template>
                     </transition>
                     <!-- Library - Albums -->
                     <transition name="wpfade" v-on:enter="getLibraryAlbumsFull(null, 1); searchLibraryAlbums(1);">
@@ -456,31 +517,42 @@
 
                 </div>
                 <transition name="drawertransition">
-                    <div class="app-drawer" v-if="drawer.open">
+                    <div class="app-drawer" v-if="drawer.open && drawer.panel == 'lyrics'">
                         <div class="bgArtworkMaterial">
                             <div class="bg-artwork-container">
                                 <img class="bg-artwork a" :src="$store.state.artwork.playerLCD">
                                 <img class="bg-artwork b" :src="$store.state.artwork.playerLCD">
                             </div>
                         </div>
-                            <lyrics-view v-if="drawer.panel == 'lyrics'" :time="lyriccurrenttime" :lyrics="lyrics"
-                                        :richlyrics="richlyrics"></lyrics-view>
-                            <div v-if="drawer.panel == 'lyrics'" class="lyric-footer">
-                                <button class="md-btn" @click="modularUITest(!fullscreenLyrics)">{{fullscreenLyrics ? "Default View":'Fullscreen View'}}</button> 
-                            </div>     
+                        <lyrics-view v-if="drawer.panel == 'lyrics'" :time="lyriccurrenttime" :lyrics="lyrics"
+                                     :richlyrics="richlyrics"></lyrics-view>
+                        <div v-if="drawer.panel == 'lyrics'" class="lyric-footer">
+                            <button class="md-btn" @click="modularUITest(!fullscreenLyrics)">{{fullscreenLyrics ?
+                                "Default View":'Fullscreen View'}}
+                            </button>
+                        </div>
+                    </div>
+                </transition>
+                <transition name="drawertransition">
+                    <div class="app-drawer" v-if="drawer.open && drawer.panel == 'queue'">
                         <cider-queue ref="queue" v-if="drawer.panel == 'queue'"></cider-queue>
                     </div>
                 </transition>
+                <cider-menu-panel v-if="menuPanel.visible">
+                </cider-menu-panel>
+
             </div>
         </div>
     </transition>
     <transition name="fsModeSwitch">
         <div class="fullscreen-view-container" v-if="appMode == 'fullscreen'">
-            <fullscreen-view :image="currentArtUrl.replace('50x50', '600x600')" :time="lyriccurrenttime" :lyrics="lyrics" :richlyrics="richlyrics"></fullscreen-view>
+            <fullscreen-view :image="currentArtUrl.replace('50x50', '600x600')" :time="lyriccurrenttime"
+                             :lyrics="lyrics" :richlyrics="richlyrics"></fullscreen-view>
         </div>
     </transition>
     <transition name="wpfade">
-        <div class="bg-artwork-container" :class="{noanimation: (!cfg.visual.bg_artwork_rotation || !animateBackground)}">
+        <div class="bg-artwork-container"
+             :class="{noanimation: (!cfg.visual.bg_artwork_rotation || !animateBackground)}">
             <img @load="chrome.artworkReady = true" class="bg-artwork a "
             >
             <img class="bg-artwork b"
@@ -528,6 +600,11 @@
     </div>
 </div>
 
+<!-- Apple Settings Page -->
+<%- include('pages/apple-account-settings') %>
+<!-- Library - Songs -->
+<%- include('pages/library-songs') %>
+
 <!-- Media Item Artwork-->
 <%- include("components/mediaitem-artwork"); %>
 <!-- Browse -->
@@ -563,6 +640,9 @@
 <!-- Search -->
 <%- include('pages/search') %>
 
+<!-- About -->
+<%- include('pages/about') %>
+
 <script type="text/x-template" id="am-musiccovershelf">
     <h1>{{ component.attributes.title.stringForDisplay }}</h1>
 </script>
@@ -576,6 +656,8 @@
     </button>
 </script>
 
+<!-- Menu Panel -->
+<%- include('components/menu-panel') %>
 <!-- Playlist Listing -->
 <%- include('components/sidebar-playlist') %>
 <!-- Spatial Properties -->

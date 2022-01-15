@@ -76,7 +76,7 @@
         },
         methods: {
             getBgColor() {
-                let color = `#${(this.item.attributes.artwork.bgColor != null) ? (this.item.attributes.artwork.bgColor) : `333333`}`
+                let color = `#${(this.item.attributes.artwork != null && this.item.attributes.artwork.bgColor != null) ? (this.item.attributes.artwork.bgColor) : `333333`}`
                 let c = color.substring(1);      // strip #
                 var rgb = parseInt(c, 16);   // convert rrggbb to decimal
                 var r = (rgb >> 16) & 0xff;  // extract red
@@ -85,8 +85,6 @@
 
                 var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b; // per ITU-R BT.709
 
-                console.log(color)
-                console.log(luma)
                 if (luma > 140) {
                     return "#aaaaaa"
                 }else{
@@ -142,9 +140,10 @@
                 }
             },
             async getBadges() {
-                let self = this
-                if (this.badges[this.item.attributes.playParams.id ?? this.item.id]) {
-                    let friends = this.badges[this.item.attributes.playParams.id ?? this.item.id]
+                const self = this
+                const id = (this.item.attributes.playParams ? this.item.attributes.playParams.id : null) || this.item.id
+                if (id && this.badges[id]) {
+                    let friends = this.badges[id]
                     if (friends) {
                         friends.forEach(function (friend) {
                             self.app.mk.api.socialProfile(friend).then(data => {
@@ -247,7 +246,6 @@
                 } else {
                     console.log(event)
                 }
-                await this.isInLibrary();
                 let self = this
                 let useMenu = "normal"
                 if (app.selectedMediaItems.length <= 1) {
@@ -261,6 +259,7 @@
                         items: [
                             {
                                 name: `Play ${app.selectedMediaItems.length} tracks next`,
+                                "icon": "./assets/arrow-bend-up.svg",
                                 action: () => {
                                     let itemsToPlay = {}
                                     app.selectedMediaItems.forEach(item => {
@@ -282,6 +281,7 @@
                             },
                             {
                                 name: `Play ${app.selectedMediaItems.length} tracks later`,
+                                "icon": "./assets/arrow-bend-down.svg",
                                 action: () => {
                                     let itemsToPlay = {}
                                     app.selectedMediaItems.forEach(item => {
@@ -303,6 +303,48 @@
                         ]
                     },
                     normal: {
+                        headerItems: [
+                            {
+                                "icon": "./assets/feather/heart.svg",
+                                "id": "love",
+                                "name": "Love",
+                                "hidden": false,
+                                "disabled": true,
+                                "action": function () {
+                                    app.love(self.item)
+                                }
+                            },
+                            {
+                                "icon": "./assets/feather/heart.svg",
+                                "id": "unlove",
+                                "active": true,
+                                "name": "Unlove",
+                                "hidden": true,
+                                "action": function () {
+                                    app.unlove(self.item)
+                                }
+                            },
+                            {
+                                "icon": "./assets/feather/thumbs-down.svg",
+                                "id": "dislike",
+                                "name": "Dislike",
+                                "hidden": false,
+                                "disabled": true,
+                                "action": function () {
+                                    app.dislike(self.item)
+                                }
+                            },
+                            {
+                                "icon": "./assets/feather/thumbs-down.svg",
+                                "id": "undo_dislike",
+                                "name": "Undo dislike",
+                                "active": true,
+                                "hidden": true,
+                                "action": function () {
+                                    app.unlove(self.item)
+                                }
+                            },
+                        ],
                         items: [
                             {
                                 "icon": "./assets/feather/list.svg",
@@ -313,7 +355,34 @@
                                 }
                             },
                             {
+                                "id": "addToLibrary",
+                                "icon": "./assets/feather/plus.svg",
+                                "name": "Add to library",
+                                "hidden": false,
+                                "disabled": true,
+                                "action": function () {
+                                    let item_id = self.item.attributes.playParams.id ?? self.item.id;
+                                    let data_type = self.item.attributes.playParams.kind ?? self.item.type;
+                                    app.addToLibrary(item_id);
+                                    self.addedToLibrary = true;
+                                }
+                            },
+                            {
+                                "id": "removeFromLibrary",
+                                "icon": "./assets/feather/x-circle.svg",
+                                "name": "Remove from library",
+                                "hidden": true,
+                                "action": async function () {
+                                    console.log("remove");
+                                    let item_id = self.item.attributes.playParams.id ?? self.item.id;
+                                    let data_type = self.item.attributes.playParams.kind ?? self.item.type;
+                                    await self.removeFromLibrary(item_id);
+                                    self.addedToLibrary = false
+                                }
+                            },
+                            {
                                 "name": "Play Next",
+                                "icon": "./assets/arrow-bend-up.svg",
                                 "action": function () {
                                     app.mk.playNext({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
                                     app.mk.queue._reindex()
@@ -322,64 +391,11 @@
                             },
                             {
                                 "name": "Play Later",
+                                "icon": "./assets/arrow-bend-down.svg",
                                 "action": function () {
                                     app.mk.playLater({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
                                     app.mk.queue._reindex()
                                     app.selectedMediaItems = []
-                                }
-                            },
-                            {
-                                "icon": "./assets/feather/plus.svg",
-                                "name": (this.addedToLibrary) ? "Remove from Library..." : "Add to Library...",
-                                "action": async function () {
-                                    let item_id = self.item.attributes.playParams.id ?? self.item.id;
-                                    let data_type = self.item.attributes.playParams.kind ?? self.item.type;
-                                    if (self.addedToLibrary != true) {
-                                        console.log("add");
-                                        app.addToLibrary(item_id);
-                                        self.addedToLibrary = true
-                                    } else {
-                                        console.log("remove");
-                                        await self.removeFromLibrary(item_id);
-                                        self.addedToLibrary = false
-                                    }
-                                    ;
-                                }
-                            },
-                            {
-                                "icon": "./assets/feather/heart.svg",
-                                "id": "love",
-                                "name": "Love",
-                                "disabled": true,
-                                "action": function () {
-                                    app.love(self.item)
-                                }
-                            },
-                            {
-                                "icon": "./assets/feather/unheart.svg",
-                                "id": "unlove",
-                                "name": "Unlove",
-                                "disabled": true,
-                                "action": function () {
-                                    app.unlove(self.item)
-                                }
-                            },
-                            {
-                                "icon": "./assets/feather/thumbs-down.svg",
-                                "id": "dislike",
-                                "name": "Dislike",
-                                "disabled": true,
-                                "action": function () {
-                                    app.dislike(self.item)
-                                }
-                            },
-                            {
-                                "icon": "./assets/feather/x-circle.svg",
-                                "id": "undo_dislike",
-                                "name": "Undo dislike",
-                                "disabled": true,
-                                "action": function () {
-                                    app.unlove(self.item)
                                 }
                             },
                             {
@@ -398,14 +414,35 @@
                         return item.id != "addToPlaylist"
                     })
                 }
-                let rating = await app.getRating(self.item)
-                if (rating == 0) {
-                    menus.normal.items.find(x => x.id == 'love').disabled = false
-                    menus.normal.items.find(x => x.id == 'dislike').disabled = false
-                } else if (rating == 1) {
-                    menus.normal.items.find(x => x.id == 'unlove').disabled = false
-                } else if (rating == -1) {
-                    menus.normal.items.find(x => x.id == 'undo_dislike').disabled = false
+                app.showMenuPanel(menus[useMenu], event)
+
+                try {
+                    await this.isInLibrary().then((_) => {
+                        if(self.addedToLibrary) {
+                            menus.normal.items.find(x => x.id == 'addToLibrary').hidden = true
+                            menus.normal.items.find(x => x.id == 'removeFromLibrary').hidden = false
+                        }else{
+                            menus.normal.items.find(x => x.id == 'addToLibrary').disabled = false
+                        }
+                    })
+
+                }catch(e) {
+
+                }
+                try{
+                    let rating = await app.getRating(self.item)
+                    if (rating == 0) {
+                        menus.normal.headerItems.find(x => x.id == 'love').disabled = false
+                        menus.normal.headerItems.find(x => x.id == 'dislike').disabled = false
+                    } else if (rating == 1) {
+                        menus.normal.headerItems.find(x => x.id == 'unlove').hidden = false
+                        menus.normal.headerItems.find(x => x.id == 'love').hidden = true
+                    } else if (rating == -1) {
+                        menus.normal.headerItems.find(x => x.id == 'undo_dislike').hidden = false
+                        menus.normal.headerItems.find(x => x.id == 'dislike').hidden = true
+                    }
+                } catch(err) {
+
                 }
 
                 if (this.contextExt) {
@@ -416,7 +453,6 @@
                         menus.multiple.items = menus.multiple.items.concat(this.contextExt.multiple)
                     }
                 }
-                CiderContextMenu.Create(event, menus[useMenu])
             },
         },
         beforeDestroy: function () {

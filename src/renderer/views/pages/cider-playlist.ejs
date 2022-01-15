@@ -16,7 +16,7 @@
                     <div style="width: 260px;height:260px;">
                         <mediaitem-artwork
                                 :video-priority="true"
-                                :url="(data.attributes != null && data.attributes.artwork && data.attributes.artwork != null) ? data.attributes.artwork.url : ((data.relationships != null && data.relationships.tracks.data.length > 0) ? data.relationships.tracks.data[0].attributes.artwork.url ?? '':'')"
+                                :url="(data.attributes != null && data.attributes.artwork != null) ? data.attributes.artwork.url : ((data.relationships != null && data.relationships.tracks.data.length > 0 && data.relationships.tracks.data[0].attributes != null) ? ((data.relationships.tracks.data[0].attributes.artwork != null)? data.relationships.tracks.data[0].attributes.artwork.url : ''):'')"
                                 :video="(data.attributes != null && data.attributes.editorialVideo != null) ? (data.attributes.editorialVideo.motionDetailSquare ? data.attributes.editorialVideo.motionDetailSquare.video : (data.attributes.editorialVideo.motionSquareVideo1x1 ? data.attributes.editorialVideo.motionSquareVideo1x1.video : '')) : '' "
                                 size="260"
                         ></mediaitem-artwork>
@@ -40,10 +40,11 @@
                                  @click="data.attributes && data.attributes.artistName ? app.searchAndNavigate(data,'artist') : ''">
                                 {{getArtistName(data)}}
                             </div>
-                            <div class="playlist-desc" v-if="getDescription(data) != ''">
-                                <div class="content"
-                                     v-html="getDescription(data)"></div>
-                                <button class="more-btn" @click="editorialNotesExpanded = !editorialNotesExpanded">
+                            <div class="playlist-desc" v-if="data.attributes.description && (data.attributes.description.standard || data.attributes.description.short)">
+                                <div v-if="data.attributes.description.short" class="content" v-html="data.attributes.description.short"></div>
+                                <div v-else-if="data.attributes.description.standard" class="content" v-html="data.attributes.description.standard"></div>
+                                <button v-if="data.attributes.description.short" class="more-btn"
+                                        @click="editorialNotesExpanded = !editorialNotesExpanded">
                                     More
                                 </button>
                             </div>
@@ -58,17 +59,29 @@
                         </div>
                     </template>
                     <div class="playlist-controls">
-                        <button class="wr-btn" style="min-width: 120px;"
+                        <button class="md-btn" style="min-width: 120px;"
                                 @click="app.mk.shuffleMode = 0; play()">
                             Play
                         </button>
-                        <button class="wr-btn" style="min-width: 120px;"
+                        <button class="md-btn" style="min-width: 120px;"
                                 @click="app.mk.shuffleMode = 1;play()">
                             Shuffle
                         </button>
-                        <button class="wr-btn" style="min-width: 120px;" v-if="inLibrary!=null"
-                                @click="(!inLibrary) ? addToLibrary(data.attributes.playParams.id.toString()) : removeFromLibrary(data.attributes.playParams.id.toString())">
+                        <button class="md-btn" style="min-width: 120px;" v-if="inLibrary!=null && confirm!=true"
+                                @click="confirmButton()">
                             {{ (!inLibrary) ? "Add to Library" : "Remove from Library" }}
+                        </button>
+                        <button class="md-btn" style="min-width: 120px;" v-if="confirm==true"
+                                @click="(!inLibrary) ? addToLibrary(data.attributes.playParams.id.toString()) : removeFromLibrary(data.attributes.playParams.id.toString()) ">
+                            Confirm?
+                        </button>
+                        <button class="playlist-more" @click="menu">
+                            <div style="    margin-top: -1px;
+                                margin-left: -5px;
+                                width: 36px;
+                                height: 36px;">
+                                <%- include("../svg/more.svg") %>
+                            </div>
                         </button>
                     </div>
                 </div>
@@ -88,7 +101,8 @@
                 <div class="friends-info" v-if="itemBadges.length != 0">
                     <div class="well">
                         <div class="badge-container">
-                            <div class="socialBadge" :title="`${badge.attributes.name} - @${badge.attributes.handle}`" v-for="badge in itemBadges">
+                            <div class="socialBadge" :title="`${badge.attributes.name} - @${badge.attributes.handle}`"
+                                 v-for="badge in itemBadges">
                                 <mediaitem-artwork
                                         :url="badge.attributes.artwork.url"
                                         :size="60"></mediaitem-artwork>
@@ -97,7 +111,7 @@
                     </div>
                 </div>
                 <div class="playlist-time">
-                    {{getFormattedDate(data.attributes.releaseDate)}}
+                    {{getFormattedDate()}}
                 </div>
                 <div class="playlist-time total">{{app.getTotalTime()}}</div>
                 <div class="playlist-time item-navigate" @click="app.searchAndNavigate(data,'recordLabel') "
@@ -109,16 +123,19 @@
     </div>
 
 </script>
+
 <script>
     Vue.component('cider-playlist', {
         template: "#cider-playlist",
         props: ["data"],
+
         data: function () {
             return {
                 editorialNotesExpanded: false,
                 drag: false,
                 nameEditing: false,
                 inLibrary: null,
+                confirm: false,
                 app: this.$root,
                 itemBadges: [],
                 badgesRequested: false
@@ -161,24 +178,14 @@
                     }
                 })
             },
-            getDescription(data) {
-                console.log(data.attributes)
-                if (data.attributes.editorialNotes) {
-                    if (data.attributes.editorialNotes.hasOwnProperty('short')) {
-                        return data.attributes.editorialNotes.short
-                    } else if (data.attributes.editorialNotes.hasOwnProperty('standard')) {
-                        return data.attributes.editorialNotes.standard
-                    }
-                } else if (data.attributes.description) {
-                    if (data.attributes.description.hasOwnProperty('short')) {
-                        return data.attributes.description.short
-                    } else if (data.attributes.description.hasOwnProperty('standard')) {
-                        return data.attributes.description.standard
-                    }
-                }
-                return ''
+            confirmButton() {
+                // Return button to normal state after 3 seconds
+
+                this.confirm = true
+                setTimeout(() => this.confirm = false, 3000);
             },
             getArtistName(data) {
+                console.log(data.attributes)
                 if (data.attributes.artistName) {
                     return data.attributes.artistName
                 } else if (data.attributes.artist) {
@@ -192,8 +199,12 @@
             async isInLibrary() {
                 if (this.data.type && !this.data.type.includes("library")) {
                     // please keep using vars here
-                    var params = { "fields[playlists]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library" }
-                    var res = await app.mkapi(this.data.attributes.playParams.kind ?? this.data.type, this.data.attributes.playParams.isLibrary ?? false, this.data.attributes.playParams.id ?? this.data.id, params);
+                    const params = {
+                        "fields[playlists]": "inLibrary",
+                        "fields[albums]": "inLibrary",
+                        "relate": "library"
+                    };
+                    const res = await app.mkapi(this.data.attributes.playParams.kind ?? this.data.type, this.data.attributes.playParams.isLibrary ?? false, this.data.attributes.playParams.id ?? this.data.id, params);
                     this.inLibrary = (res && res.attributes && res.attributes.inLibrary) ? res.attributes.inLibrary : false
                     console.log(res)
                 } else {
@@ -203,7 +214,7 @@
             editPlaylist() {
                 this.app.editPlaylist(this.data.id, this.data.attributes.name);
                 this.app.playlists.listing.forEach(playlist => {
-                    if (playlist.id == this.data.id) {
+                    if (playlist.id === this.data.id) {
                         playlist.attributes.name = this.data.attributes.name
                     }
                 })
@@ -212,21 +223,23 @@
             addToLibrary(id) {
                 app.mk.addToLibrary(id)
                 this.inLibrary = true
+                this.confirm = false
             },
             async removeFromLibrary(id) {
-                var params = { "fields[somgs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library" }
+                const params = {"fields[somgs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library"};
                 var id = this.data.id ?? this.data.attributes.playParams.id
-                var res = await app.mkapi(this.data.attributes.playParams.kind ?? this.data.type, this.data.attributes.playParams.isLibrary ?? false, this.data.attributes.playParams.id ?? this.data.id, params);
+                const res = await app.mkapi(this.data.attributes.playParams.kind ?? this.data.type, this.data.attributes.playParams.isLibrary ?? false, this.data.attributes.playParams.id ?? this.data.id, params);
                 if (res && res.relationships && res.relationships.library && res.relationships.library.data && res.relationships.library.data.length > 0) {
                     id = res.relationships.library.data[0].id
                 }
                 let kind = this.data.attributes.playParams.kind ?? this.data.type ?? '';
-                var truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
-                app.mk.api.library.remove({ [truekind]: id })
+                const truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
+                app.mk.api.library.remove({[truekind]: id})
                 this.inLibrary = false
+                this.confirm = false
             },
             editPlaylistName() {
-                if (this.data.attributes.canEdit && this.data.type == "library-playlists") {
+                if (this.data.attributes.canEdit && this.data.type === "library-playlists") {
                     this.nameEditing = true
                     setTimeout(() => {
                         document.querySelector(".nameEdit").focus()
@@ -295,20 +308,69 @@
                     }
                 })
             },
+            menu(event) {
+                app.showMenuPanel({
+                    items: {
+                        "share": {
+                            name: "Share",
+                            icon: "./assets/feather/share.svg",
+                            action: () => {
+                                let route = ""
+                                switch (this.data.type) {
+                                    case 'albums':
+                                        route = `/v1/catalog/${app.mk.storefrontId}/albums/${this.data.id}`
+                                        break;
+                                    case 'playlists':
+                                        route = `/v1/catalog/${app.mk.storefrontId}/playlists/${this.data.id}`
+                                        break;
+                                    case "library-playlists":
+                                        route = `/v1/me/library/playlists/${this.data.id}/catalog`
+                                        break
+                                    case "library-albums":
+                                        route = `/v1/me/library/albums/${this.data.id}/catalog`
+                                        break
+                                }
+                                if (route === '') {
+                                    return
+                                }
+                                app.mk.api.v3.music(route).then(res => {
+                                    console.log(res.data.data[0].attributes.url)
+                                    app.copyToClipboard(res.data.data[0].attributes.url)
+                                })
+                            }
+                        }
+                    }
+                }, event)
+            },
             getItemParent: function (data) {
                 kind = data.attributes.playParams.kind;
                 id = data.attributes.playParams.id;
                 return `${kind}:${id}`
             },
-            getFormattedDate: function (date) {
+            getFormattedDate: function () {
+                let date = (this.data.attributes.releaseDate ?? (this.data.attributes.lastModifiedDate ?? (this.data.attributes.dateAdded ?? '')))
+                let prefix = '';
                 if (date == null || date === "") return "";
+                switch (date) {
+                    case this.data.attributes.releaseDate:
+                        prefix = 'Released '
+                        break;
+                    case this.data.attributes.lastModifiedDate:
+                        prefix = 'Updated '
+                        break;
+                    case this.data.attributes.dateAdded:
+                        prefix = 'Added '
+                        break;
+                }
+                let month, year;
                 try {
-                    var releaseDate = new Date(date);
-                    month = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(releaseDate);
+                    const releaseDate = new Date(date);
+                    console.log(date, releaseDate)
+                    month = new Intl.DateTimeFormat('en-US', {month: 'long'}).format(releaseDate);
                     date = releaseDate.getDate();
                     year = releaseDate.getFullYear();
 
-                    return date + " " + month + " " + year;
+                    return prefix + date + " " + month + " " + year;
                 } catch (e) {
                     return ""
                 }
@@ -322,25 +384,27 @@
                         array[j] = temp;
                     }
                 }
-                var id = this.data.attributes.playParams.id ?? this.data.id;
+
+                const id = this.data.attributes.playParams.id ?? this.data.id;
                 //console.log("1")
-                var kind = this.data.attributes.playParams.kind ?? this.data.type ?? '';
+                const kind = this.data.attributes.playParams.kind ?? this.data.type ?? '';
                 //console.log("1")
-                var truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
-               
+                const truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
+
                 let query = (this.data ?? app.showingPlaylist).relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
                 app.mk.stop().then(function () {
-                    app.mk.setQueue({[truekind]: [id]}).then(function () {     
+                    app.mk.setQueue({[truekind]: [id]}).then(function () {
                         app.mk.play().then(function () {
                             if (query.length > 100) {
-                            let u = query.slice(100); if (app.mk.shuffleMode == 1) { shuffleArray(u) }
-                            app.mk.queue.append(u)}
-                        })                                        
+                                let u = query.slice(100);
+                                if (app.mk.shuffleMode == 1) {
+                                    shuffleArray(u)
+                                }
+                                app.mk.queue.append(u)
+                            }
+                        })
+                    })
                 })
-                })
-
-
-
 
 
             }
