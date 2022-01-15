@@ -382,9 +382,9 @@ const app = new Vue({
         }) {
             let self = this
             try {
-                app.mk.api.socialBadgingMap().then(data => {
-                    self.socialBadges.badgeMap = data.badgingMap
-                    cb(data.badgingMap)
+                app.mk.api.v3.music("/v1/social/badging-map").then(data => {
+                    self.socialBadges.badgeMap = data.data.results.badgingMap
+                    cb(data.data.results.badgingMap)
                 })
             } catch (ex) {
                 this.socialBadges.badgeMap = {}
