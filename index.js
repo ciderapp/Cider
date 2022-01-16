@@ -1,14 +1,14 @@
 require('v8-compile-cache');
-const {app, components} = require('electron'),
-    {resolve, join} = require("path"),
+const { app, components } = require('electron'), { resolve, join } = require("path"),
     CiderBase = require('./src/main/cider-base');
-
+const customProtocols = require('./package.json').fileAssociations[0].protocols
+console.log(customProtocols)
 const comps = components;
 
 
 // Analytics for debugging.
 const ElectronSentry = require("@sentry/electron");
-ElectronSentry.init({dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.ingest.sentry.io/6112214"});
+ElectronSentry.init({ dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.ingest.sentry.io/6112214" });
 
 const configDefaults = {
     "general": {
@@ -109,23 +109,23 @@ app.paths = {
 
 switch (app.cfg.get("visual.hw_acceleration")) {
     default:
-    case "default":
+        case "default":
         app.commandLine.appendSwitch('enable-accelerated-mjpeg-decode')
-        app.commandLine.appendSwitch('enable-accelerated-video')
-        app.commandLine.appendSwitch('disable-gpu-driver-bug-workarounds')
-        app.commandLine.appendSwitch('ignore-gpu-blacklist')
-        app.commandLine.appendSwitch('enable-native-gpu-memory-buffers')
-        app.commandLine.appendSwitch('enable-accelerated-video-decode');
-        app.commandLine.appendSwitch('enable-gpu-rasterization');
-        app.commandLine.appendSwitch('enable-native-gpu-memory-buffers');
-        app.commandLine.appendSwitch('enable-oop-rasterization');
-        break;
+    app.commandLine.appendSwitch('enable-accelerated-video')
+    app.commandLine.appendSwitch('disable-gpu-driver-bug-workarounds')
+    app.commandLine.appendSwitch('ignore-gpu-blacklist')
+    app.commandLine.appendSwitch('enable-native-gpu-memory-buffers')
+    app.commandLine.appendSwitch('enable-accelerated-video-decode');
+    app.commandLine.appendSwitch('enable-gpu-rasterization');
+    app.commandLine.appendSwitch('enable-native-gpu-memory-buffers');
+    app.commandLine.appendSwitch('enable-oop-rasterization');
+    break;
     case "webgpu":
-        console.info("WebGPU is enabled.");
+            console.info("WebGPU is enabled.");
         app.commandLine.appendSwitch('enable-unsafe-webgpu')
         break;
     case "disabled":
-        console.info("Hardware acceleration is disabled.");
+            console.info("Hardware acceleration is disabled.");
         app.commandLine.appendSwitch('disable-gpu')
         break;
 }
@@ -141,7 +141,7 @@ function CreateWindow() {
     const ciderwin = require("./src/main/cider-base")
     app.win = ciderwin
     app.win.Start()
-    /** CIDER **/
+        /** CIDER **/
 }
 
 if (process.platform === "linux") {
@@ -152,10 +152,10 @@ app.commandLine.appendSwitch('no-sandbox');
 // app.commandLine.appendSwitch('js-flags', '--max-old-space-size=1024')
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* App Event Handlers
-* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+ * App Event Handlers
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-app.whenReady().then(async () => {
+app.whenReady().then(async() => {
     if (process.platform === "win32") {
         app.commandLine.appendSwitch('high-dpi-support', 'true')
         app.commandLine.appendSwitch('force-device-scale-factor', '1')
@@ -208,25 +208,28 @@ app.on('widevine-error', (error) => {
 
 if (process.defaultApp) {
     if (process.argv.length >= 2) {
-        app.setAsDefaultProtocolClient('cider', process.execPath, [resolve(process.argv[1])])
-        app.setAsDefaultProtocolClient('ame', process.execPath, [resolve(process.argv[1])])
-        app.setAsDefaultProtocolClient('itms', process.execPath, [resolve(process.argv[1])])
-        app.setAsDefaultProtocolClient('itmss', process.execPath, [resolve(process.argv[1])])
-        app.setAsDefaultProtocolClient('musics', process.execPath, [resolve(process.argv[1])])
-        app.setAsDefaultProtocolClient('music', process.execPath, [resolve(process.argv[1])])
+        customProtocols.forEach((customProtocol) => {
+            app.setAsDefaultProtocolClient(customProtocol, process.execPath, [resolve(process.argv[1])])
+        })
     }
 } else {
-    app.setAsDefaultProtocolClient('cider') // Custom AME Protocol
-    app.setAsDefaultProtocolClient('ame') // Custom AME Protocol
-    app.setAsDefaultProtocolClient('itms') // iTunes HTTP Protocol
-    app.setAsDefaultProtocolClient('itmss') // iTunes HTTPS Protocol
-    app.setAsDefaultProtocolClient('musics') // macOS Client Protocol
-    app.setAsDefaultProtocolClient('music') // macOS Client Protocol
+    /*
+     *  cider - Custom Cider Protocol
+     *  ame - Custom AME Protocol (Backwards Compat.)
+     *  itms - iTunes HTTP Protocol
+     *  itmss - iTunes HTTPS Protocol
+     *  musics - macOS Client Protocol
+     *  music - macOS Client Protocol
+     */
+    customProtocols.forEach((customProtocol) => {
+        app.setAsDefaultProtocolClient(customProtocol)
+    })
+
 }
 
 app.on('open-url', (event, url) => {
     event.preventDefault()
-    if (url.includes('ame://') || url.includes('itms://') || url.includes('itmss://') || url.includes('musics://') || url.includes('music://')) {
+    if (customProtocols.some(protocol => url.includes(protocol))) {
         CiderBase.LinkHandler(url)
     }
 })
@@ -236,8 +239,7 @@ app.on('second-instance', (_e, argv) => {
 
     // Checks if first instance is authorized and if second instance has protocol args
     argv.forEach((value) => {
-        if (value.includes('ame://') || value.includes('itms://') || value.includes('itmss://') || value.includes('musics://') || value.includes('music://')) {
-            console.warn(`[InstanceHandler][SecondInstanceHandler] Found Protocol!`)
+        if (customProtocols.some(protocol => value.includes(protocol))) {
             CiderBase.LinkHandler(value);
         }
     })
@@ -258,6 +260,3 @@ if (!app.requestSingleInstanceLock() && true) {
     app.quit();
     // app.isQuiting = true
 }
-
-
-  

@@ -101,8 +101,9 @@ const CiderBase = {
         })
 
         win.webContents.session.webRequest.onHeadersReceived((details, callback) => {
-            if(details.url.match(/^https:\/\/store-\d{3}\.blobstore\.apple\.com/) || details.url.startsWith("https://store-037.blobstore.apple.com")){
-            details.responseHeaders['Access-Control-Allow-Origin'] = '*';}
+            if (details.url.match(/^https:\/\/store-\d{3}\.blobstore\.apple\.com/) || details.url.startsWith("https://store-037.blobstore.apple.com")) {
+                details.responseHeaders['Access-Control-Allow-Origin'] = '*';
+            }
             callback({ responseHeaders: details.responseHeaders })
         })
 
@@ -338,10 +339,11 @@ const CiderBase = {
     },
     LinkHandler: (startArgs) => {
         if (!startArgs) return;
-        console.log("lfmtoken", String(startArgs))
+
         if (String(startArgs).includes('auth')) {
             let authURI = String(startArgs).split('/auth/')[1]
             if (authURI.startsWith('lastfm')) { // If we wanted more auth options
+                console.log("lfmtoken", String(startArgs))
                 const authKey = authURI.split('lastfm?token=')[1];
                 app.cfg.set('lastfm.enabled', true);
                 app.cfg.set('lastfm.auth_token', authKey);
@@ -349,15 +351,26 @@ const CiderBase = {
                 lastfm.authenticate()
             }
         } else {
-            const formattedSongID = startArgs.replace('ame://', '').replace('/', '');
-            console.warn(`[LinkHandler] Attempting to load song id: ${formattedSongID}`);
+            if (String(startArgs).includes('/play/')) { //Steer away from protocal:// specific conditionals
+                const playParam = String(startArgs).split('/play/')[1]
+                if (playParam.includes('s/')) { // setQueue can be done with album, song, url, playlist id
+                    console.log(playParam)
+                    let song = playParam.split('s/')[1]
+                    console.warn(`[LinkHandler] Attempting to load song by id: ${song}`);
+                    this.win.webContents.executeJavaScript(`
+                        MusicKit.getInstance().setQueue({ song: '${song}'}).then(function(queue) {
+                            MusicKit.getInstance().play();
+                        });
+                    `).catch((err) => console.error(err));
+                }
 
-            // setQueue can be done with album, song, url, playlist id
-            this.win.webContents.executeJavaScript(`
-                MusicKit.getInstance().setQueue({ song: '${formattedSongID}'}).then(function(queue) {
-                    MusicKit.getInstance().play();
-                });
-            `).catch((err) => console.error(err));
+
+
+            }
+
+
+
+
         }
 
     },

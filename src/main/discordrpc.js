@@ -1,4 +1,4 @@
-const {app} = require('electron'),
+const { app } = require('electron'),
     DiscordRPC = require('discord-rpc')
 
 module.exports = {
@@ -7,16 +7,16 @@ module.exports = {
      * Connects to Discord RPC
      * @param {string} clientId
      */
-    connect: function (clientId) {
-        app.discord = {isConnected: false};
+    connect: function(clientId) {
+        app.discord = { isConnected: false };
         if (app.cfg.get('general.discord_rpc') == 0 || app.discord.isConnected) return;
 
         DiscordRPC.register(clientId) // Apparently needed for ask to join, join, spectate etc.
-        const client = new DiscordRPC.Client({transport: "ipc"});
-        app.discord = Object.assign(client, {error: false, activityCache: null, isConnected: false});
+        const client = new DiscordRPC.Client({ transport: "ipc" });
+        app.discord = Object.assign(client, { error: false, activityCache: null, isConnected: false });
 
         // Login to Discord
-        app.discord.login({clientId})
+        app.discord.login({ clientId })
             .then(() => {
                 app.discord.isConnected = true;
             })
@@ -37,7 +37,7 @@ module.exports = {
     /**
      * Disconnects from Discord RPC
      */
-    disconnect: function () {
+    disconnect: function() {
         if (app.cfg.get('general.discord_rpc') == 0 || !app.discord.isConnected) return;
 
         try {
@@ -54,7 +54,7 @@ module.exports = {
      * Sets the activity of the client
      * @param {object} attributes
      */
-    updateActivity: function (attributes) {
+    updateActivity: function(attributes) {
         if (app.cfg.get('general.discord_rpc') == 0) return;
 
         if (!app.discord.isConnected) {
@@ -64,20 +64,20 @@ module.exports = {
 
         // console.log('[DiscordRPC][updateActivity] Updating Discord Activity.')
 
-        const listenURL = `https://applemusicelectron.com/p?id=${attributes.playParams.id}`
-        //console.log(attributes)
+        const listenURL = `https://cider.sh/p?s&id=${attributes.playParams.id}` // cider://play/s/[id] (for song) 
+            //console.log(attributes)
         let ActivityObject = {
             details: attributes.name,
             state: `by ${attributes.artistName}`,
             startTimestamp: attributes.startTime,
             endTimestamp: attributes.endTime,
-            largeImageKey: (attributes.artwork.url.replace('{w}', '1024').replace('{h}', '1024')) ?? 'cider',
+            largeImageKey: (attributes.artwork.url.replace('{w}', '1024').replace('{h}', '1024')) ? ? 'cider',
             largeImageText: attributes.albumName,
             smallImageKey: (attributes.status ? 'play' : 'pause'),
             smallImageText: (attributes.status ? 'Playing' : 'Paused'),
             instance: true,
             buttons: [
-                {label: "Listen on Cider", url: listenURL},
+                { label: "Listen on Cider", url: listenURL },
             ]
         };
         if (ActivityObject.largeImageKey == "" || ActivityObject.largeImageKey == null) {
