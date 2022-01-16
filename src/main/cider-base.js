@@ -268,6 +268,7 @@ const CiderBase = {
         win.webContents.setZoomFactor(screen.getPrimaryDisplay().scaleFactor)
 
         mpris.connect(win)
+        mpris.SetButtons(win, false)
 
         lastfm.authenticate()
             //  Discord
@@ -275,6 +276,7 @@ const CiderBase = {
         ipcMain.on('playbackStateDidChange', (_event, a) => {
             app.media = a;
             discord.updateActivity(a)
+            mpris.SetButtons(win, a)
             mpris.updateState(a)
             lastfm.scrobbleSong(a)
             lastfm.updateNowPlayingSong(a)
@@ -283,6 +285,7 @@ const CiderBase = {
         ipcMain.on('nowPlayingItemDidChange', (_event, a) => {
             app.media = a;
             discord.updateActivity(a)
+            mpris.SetButtons(win, a)
             mpris.updateAttributes(a)
             lastfm.scrobbleSong(a)
             lastfm.updateNowPlayingSong(a)
