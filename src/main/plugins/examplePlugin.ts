@@ -26,7 +26,7 @@ export default class ExamplePlugin {
     /**
      * Runs on app stop
      */
-    onStop(): void {
+    onBeforeQuit(): void {
         console.log('Example plugin stopped');
     }
 

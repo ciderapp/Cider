@@ -47,10 +47,10 @@ electron.ipcMain.on('nowPlayingItemDidChange', (event, attributes) => {
 });
 
 //
-// app.on('before-quit', () => {
-//     app.isQuiting = true;
-//     console.warn(`${app.getName()} exited.`);
-// });
+electron.app.on('before-quit', () => {
+    plug.callPlugins('onBeforeQuit');
+    console.warn(`${electron.app.getName()} exited.`);
+});
 //
 // // Widevine Stuff
 // app.on('widevine-ready', (version, lastVersion) => {
@@ -70,23 +70,6 @@ electron.ipcMain.on('nowPlayingItemDidChange', (event, attributes) => {
 //     app.exit()
 // })
 //
-// if (process.defaultApp) {
-//     if (process.argv.length >= 2) {
-//         app.setAsDefaultProtocolClient('cider', process.execPath, [resolve(process.argv[1])])
-//         app.setAsDefaultProtocolClient('ame', process.execPath, [resolve(process.argv[1])])
-//         app.setAsDefaultProtocolClient('itms', process.execPath, [resolve(process.argv[1])])
-//         app.setAsDefaultProtocolClient('itmss', process.execPath, [resolve(process.argv[1])])
-//         app.setAsDefaultProtocolClient('musics', process.execPath, [resolve(process.argv[1])])
-//         app.setAsDefaultProtocolClient('music', process.execPath, [resolve(process.argv[1])])
-//     }
-// } else {
-//     app.setAsDefaultProtocolClient('cider') // Custom AME Protocol
-//     app.setAsDefaultProtocolClient('ame') // Custom AME Protocol
-//     app.setAsDefaultProtocolClient('itms') // iTunes HTTP Protocol
-//     app.setAsDefaultProtocolClient('itmss') // iTunes HTTPS Protocol
-//     app.setAsDefaultProtocolClient('musics') // macOS Client Protocol
-//     app.setAsDefaultProtocolClient('music') // macOS Client Protocol
-// }
 //
 // app.on('open-url', (event, url) => {
 //     event.preventDefault()
