@@ -55,28 +55,28 @@
                     <div class="col">
                         <h3>Shared Playlists</h3>
                     </div>
-                    <div class="col-auto flex-center" v-if="search.resultsSocial.playlist.data.data.length >= 10">
+                    <div class="col-auto flex-center" v-if="search.resultsSocial.playlist.data.length >= 10">
                         <button class="cd-btn-seeall"
-                                @click="app.showCollection(search.resultsSocial.playlist.data, 'Shared Playlists', 'default')">See All
+                                @click="app.showCollection(search.resultsSocial.playlist, 'Shared Playlists', 'default')">See All
                         </button>
                     </div>
                 </div>
                 <mediaitem-scroller-horizontal-large
-                        :items="search.resultsSocial.playlist.data.data.limit(10)"></mediaitem-scroller-horizontal-large>
+                        :items="search.resultsSocial.playlist.data.limit(10)"></mediaitem-scroller-horizontal-large>
             </template>
             <template v-if="search.resultsSocial.profile">
                 <div class="row">
                     <div class="col">
                         <h3>People</h3>
                     </div>
-                    <div class="col-auto flex-center" v-if="search.resultsSocial.profile.data.data.length >= 10">
+                    <div class="col-auto flex-center" v-if="search.resultsSocial.profile.data.length >= 10">
                         <button class="cd-btn-seeall"
-                                @click="app.showCollection(search.resultsSocial.profile.data, 'People', 'default')">See All
+                                @click="app.showCollection(search.resultsSocial.profile, 'People', 'default')">See All
                         </button>
                     </div>
                 </div>
                 <mediaitem-scroller-horizontal-large
-                        :items="search.resultsSocial.profile.data.data.limit(10)"></mediaitem-scroller-horizontal-large>
+                        :items="search.resultsSocial.profile.data.limit(10)"></mediaitem-scroller-horizontal-large>
             </template>
         </div>
         <div v-else>

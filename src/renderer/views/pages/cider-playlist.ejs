@@ -205,7 +205,7 @@
                         "relate": "library"
                     };
                     const res = await app.mkapi(this.data.attributes.playParams.kind ?? this.data.type, this.data.attributes.playParams.isLibrary ?? false, this.data.attributes.playParams.id ?? this.data.id, params);
-                    this.inLibrary = (res && res.attributes && res.attributes.inLibrary) ? res.attributes.inLibrary : false
+                    this.inLibrary = (res.data.data[0] && res.data.data[0].attributes && res.data.data[0].attributes.inLibrary) ? res.data.data[0].attributes.inLibrary : false
                     console.log(res)
                 } else {
                     this.inLibrary = true
@@ -229,8 +229,8 @@
                 const params = {"fields[somgs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library"};
                 var id = this.data.id ?? this.data.attributes.playParams.id
                 const res = await app.mkapi(this.data.attributes.playParams.kind ?? this.data.type, this.data.attributes.playParams.isLibrary ?? false, this.data.attributes.playParams.id ?? this.data.id, params);
-                if (res && res.relationships && res.relationships.library && res.relationships.library.data && res.relationships.library.data.length > 0) {
-                    id = res.relationships.library.data[0].id
+                if (res.data.data[0] && res.data.data[0].relationships && res.data.data[0].relationships.library && res.data.data[0].relationships.library.data && res.data.data[0].relationships.library.data.length > 0) {
+                    id = res.data.data[0].relationships.library.data[0].id
                 }
                 let kind = this.data.attributes.playParams.kind ?? this.data.type ?? '';
                 const truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
@@ -278,7 +278,19 @@
                 if (!this.data.attributes.canEdit) {
                     return
                 }
-                await app.mk.api.library.putPlaylistTracklisting(this.data.attributes.playParams.id, this.convert())
+                console.log('sds',this.convert())
+                await app.mk.api.v3.music(
+                `/v1/me/library/playlists/${this.data.attributes.playParams.id}/tracks`,
+                {},
+                {
+                    fetchOptions: {
+                        method: "PUT",
+                        body: JSON.stringify({
+                           data: this.convert()
+                        })
+                    }
+                }
+                )
             },
             async remove() {
                 if (!this.data.attributes.canEdit) {
