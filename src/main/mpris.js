@@ -1,3 +1,6 @@
+const { nativeImage } = require("electron");
+const path = require('path')
+
 let mediaPlayer = null;
 
 module.exports = {
@@ -99,6 +102,39 @@ module.exports = {
             default: // Stopped
                 setPlaybackIfNeeded('Stopped');
                 break;
+        }
+    },
+
+    SetButtons: (win, attributes) => {
+        if (process.platform === 'win32') { // Set the Windows Thumbnail Toolbar Buttons
+            win.setThumbarButtons([
+                {
+                    tooltip: 'Previous',
+                    icon: nativeImage.createFromPath(path.join(__dirname, 'thumbaricons/backwardPng.png')),
+                    click() {
+                        console.log("Clicked the bc taskbar button!")
+                        win.webContents.executeJavaScript('MusicKitInterop.previousTrack()').catch(err => console.error(err))
+                    }
+                },
+                {
+                    tooltip: attributes.status ? 'Pause' : 'Play',
+                    //tooltip: 'Play',
+                    icon: attributes.status ? nativeImage.createFromPath(path.join(__dirname, 'thumbaricons/pausePng.png')) : nativeImage.createFromPath(path.join(__dirname, 'thumbaricons/playPng.png')),
+                    click() {
+                        console.log("Clicked the pl taskbar button!")
+                        win.webContents.executeJavaScript('MusicKitInterop.pausePlay()').catch(err => console.error(err))
+                    }
+                },
+                {
+                    tooltip: 'Next',
+                    icon: nativeImage.createFromPath(path.join(__dirname, 'thumbaricons/forwardPng.png')),
+                    click() {
+                        console.log("Clicked the fw taskbar button!")
+                        win.webContents.executeJavaScript('MusicKitInterop.nextTrack()').catch(err => console.error(err))
+                    }
+                }
+            ]);
+
         }
     },
 
