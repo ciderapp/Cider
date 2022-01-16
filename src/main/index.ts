@@ -4,32 +4,46 @@ require('v8-compile-cache');
 const ElectronSentry = require("@sentry/electron");
 ElectronSentry.init({dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.ingest.sentry.io/6112214"});
 
-import {app} from 'electron';
+import * as electron from 'electron';
 import {Win} from "./base/win";
 import {ConfigStore} from "./base/store";
 import {AppEvents} from "./base/app";
-// import PluginHandler from "./base/plugins";
+import PluginHandler from "./base/plugins";
 
 // const test = new PluginHandler();
 
 const config = new ConfigStore();
 const App = new AppEvents(config.store);
-const Cider = new Win(app, config.store)
+const Cider = new Win(electron.app, config.store)
+const plug = new PluginHandler();
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * App Event Handlers
 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-app.on('ready', () => {
+electron.app.on('ready', () => {
     App.ready();
+    plug.callPlugins('onReady');
 
     console.log('[Cider] Application is Ready. Creating Window.')
-    if (!app.isPackaged) {
+    if (!electron.app.isPackaged) {
         console.info('[Cider] Running in development mode.')
         require('vue-devtools').install()
     }
 
     Cider.createWindow();
+});
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Renderer Event Handlers
+* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+electron.ipcMain.on('playbackStateDidChange', (event, attributes) => {
+    plug.callPlugins('onPlaybackStateDidChange', attributes);
+});
+
+electron.ipcMain.on('nowPlayingItemDidChange', (event, attributes) => {
+    plug.callPlugins('onNowPlayingItemDidChange', attributes);
 });
 
 //

@@ -1,33 +1,51 @@
+let i = 1, k = 1;
 export default class ExamplePlugin {
 
+    /**
+     * Base Plugin Details (Eventually implemented into a GUI in settings)
+     */
     public name: string = 'examplePlugin';
     public description: string = 'Example plugin';
     public version: string = '1.0.0';
     public author: string = 'Example author';
-    
+
+    /**
+     * Runs on plugin load (Currently run on application start)
+     */
     constructor() {
-        this.name = 'coolPlugin';
-        this.description = 'A pretty cool plugin';
-        this.version = '1.0.0';
-        this.author = 'Core';
+
     }
 
-    onStart(): void {
-        console.log('Example plugin started');
-    }
-    
+    /**
+     * Runs on app ready
+     */
     onReady(): void {
         console.log('Example plugin ready');
     }
 
+    /**
+     * Runs on app stop
+     */
     onStop(): void {
         console.log('Example plugin stopped');
     }
 
-    OnPlaybackStateChanged(attributes: object): void {
+    /**
+     * Runs on playback State Change
+     * @param attributes Music Attributes (attributes.state = current state)
+     */
+    onPlaybackStateDidChange(attributes: object): void {
+        console.log('onPlaybackStateDidChange has been called ' + i +' times');
+        i++
     }
 
-    OnMediaStateChanged(attributes: object): void {
+    /**
+     * Runs on song change
+     * @param attributes Music Attributes
+     */
+    onNowPlayingItemDidChange(attributes: object): void {
+        console.log('onNowPlayingDidChange has been called ' + k +' times');
+        k++
     }
 
 }
