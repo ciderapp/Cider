@@ -3123,7 +3123,7 @@ const app = new Vue({
             element.onclick = app.LastFMAuthenticate;
         },
         LastFMAuthenticate() {
-            console.log("wag")
+            console.log("[LastFM] Received LastFM authentication callback")
             const element = document.getElementById('lfmConnect');
             window.open('https://www.last.fm/api/auth?api_key=f9986d12aab5a0fe66193c559435ede3&cb=cider://auth/lastfm');
             element.innerText = 'Connecting...';
