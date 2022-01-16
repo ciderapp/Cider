@@ -95,7 +95,7 @@ const lfm = {
                 this.authenticate();
             }
         } else {
-            return console.log('[LastFM] Did not add ', attributes.name , '-' , lfm.filterArtistName(attributes.artistName), 'because now playing a other song.');
+            return console.log('[LastFM] Did not add ', attributes.name , '—' , lfm.filterArtistName(attributes.artistName), 'because now playing a other song.');
         }
     },
 
