@@ -40,16 +40,8 @@
             async getArtistFeed() {
                 let artists = this.followedArtists
                 let self = this
-                this.app.mk.api.artists(artists, {
-                    "views": "featured-release,full-albums,appears-on-albums,featured-albums,featured-on-albums,singles,compilation-albums,live-albums,latest-release,top-music-videos,similar-artists,top-songs,playlists,more-to-hear,more-to-see",
-                    "extend": "artistBio,bornOrFormed,editorialArtwork,editorialVideo,isGroup,origin,hero",
-                    "extend[playlists]": "trackCount",
-                    "include[songs]": "albums",
-                    "fields[albums]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialVideo,name,playParams,releaseDate,url,trackCount",
-                    "limit[artists:top-songs]": 20,
-                    "art[url]": "f"
-                }, {includeResponseMeta: !0}).then(artistData => {
-                    artistData.data.forEach(item => {
+                this.app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/artists?ids=${artists.toString()}&views=featured-release,full-albums,appears-on-albums,featured-albums,featured-on-albums,singles,compilation-albums,live-albums,latest-release,top-music-videos,similar-artists,top-songs,playlists,more-to-hear,more-to-see&extend=artistBio,bornOrFormed,editorialArtwork,editorialVideo,isGroup,origin,hero&extend[playlists]=trackCount&include[songs]=albums&fields[albums]=artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialVideo,name,playParams,releaseDate,url,trackCount&limit[artists:top-songs]=20&art[url]=f`).then(artistData => {
+                    artistData.data.data.forEach(item => {
                         if (item.views["latest-release"].data.length != 0) {
                             self.artistFeed.push(item.views["latest-release"].data[0])
                         }

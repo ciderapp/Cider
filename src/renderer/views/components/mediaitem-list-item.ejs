@@ -502,22 +502,21 @@
                                 app.mk.setQueue({[truekind]: [item.attributes.playParams.id ?? item.id]}).then(function () {
                                    app.mk.play().then(function (){
                                         var playlistId = id
-                                        function getPlaylist(id, params, isLibrary){
+                                        function getPlaylist(id, isLibrary){
                                             if (isLibrary){
-                                                return  app.mk.api.library.playlist(id, params)
-                                            } else {  return app.mk.api.playlist(id, params)}
+                                                return  this.app.mk.api.v3.music(`/v1/me/library/playlists/${id}`)
+                                            } else { return this.app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/playlists/${id}`)}
                                         }
                                         try {
-
-                                            getPlaylist(id, params, isLibrary).then(res => {
+                                            getPlaylist(id, isLibrary).then(res => {
                                                 //let query = res.relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
                                                 //if (app.mk.shuffleMode == 1){shuffleArray(query); }
                                                 // console.log(query)
                                                 // app.mk.queue.append(query)
-                                                if (!res.relationships.tracks.next) {
+                                                if (!res.data.relationships.tracks.next) {
                                                     return
                                                 } else {
-                                                    getPlaylistTracks(res.relationships.tracks.next)
+                                                    getPlaylistTracks(res.data.relationships.tracks.next)
                                                 }
 
                                                 function getPlaylistTracks(next) {
