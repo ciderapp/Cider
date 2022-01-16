@@ -5,7 +5,7 @@
                 <h3 class="queue-header-text">Queue</h3>
             </div>
             <div class="col-auto flex-center">
-                <button class="autoplay" :style="{'background': app.mk.autoplayEnabled ? 'var(--keyColor)' : ''}" @click="app.mk.autoplayEnabled = !app.mk.autoplayEnabled">AUTO</button>
+                <button class="autoplay" :style="{'background': app.mk.autoplayEnabled ? 'var(--keyColor)' : ''}" @click="app.mk.autoplayEnabled = !app.mk.autoplayEnabled">∞</button>
             </div>
         </div>
         <div class="queue-body">
@@ -25,7 +25,7 @@
                             </div>
                             <div class="col queue-info">
                                 <div class="queue-title text-overflow-elipsis">{{ queueItem.item.attributes.name }}</div>
-                                <div class="queue-subtitle text-overflow-elipsis">{{ queueItem.item.attributes.albumName }} - {{ queueItem.item.attributes.artistName }}</div>
+                                <div class="queue-subtitle text-overflow-elipsis">{{ queueItem.item.attributes.albumName }} — {{ queueItem.item.attributes.artistName }}</div>
                             </div>
                         </div>
                     </div>

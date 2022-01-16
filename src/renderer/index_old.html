@@ -64,7 +64,7 @@
                                     {{ mk.nowPlayingItem["attributes"]["name"] }}
                                 </div>
                                 <div class="song-artist">
-                                    {{ mk.nowPlayingItem["attributes"]["artistName"] }} - {{
+                                    {{ mk.nowPlayingItem["attributes"]["artistName"] }} — {{
                                     mk.nowPlayingItem["attributes"]["albumName"] }}
                                 </div>
                                 <div class="song-progress">
@@ -560,7 +560,7 @@
                     <template v-if="item.attributes.artistName">
                         {{ item.attributes.artistName }}
                         <template v-if="item.attributes.albumName">
-                            - {{ item.attributes.albumName }}
+                            — {{ item.attributes.albumName }}
                         </template>
                     </template>
                 </div>
