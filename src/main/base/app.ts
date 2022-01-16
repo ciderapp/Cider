@@ -2,9 +2,21 @@ import * as electron from 'electron';
 import * as path from 'path';
 
 export class AppEvents {
+    private static protocols: any = [
+        "ame",
+        "cider",
+        "itms",
+        "itmss",
+        "musics",
+        "music"
+    ]
+
+    private static store: any = null;
+
     constructor(store: any) {
         console.log('App started');
 
+        AppEvents.store = store
         AppEvents.start(store);
     }
 
@@ -61,6 +73,28 @@ export class AppEvents {
                 electron.app.commandLine.appendSwitch('disable-gpu')
                 break;
         }
+
+        /***********************************************************************************************************************
+         * Protocols
+         **********************************************************************************************************************/
+        if (process.defaultApp) {
+            if (process.argv.length >= 2) {
+                this.protocols.forEach((protocol: string) => {
+                    electron.app.setAsDefaultProtocolClient(protocol, process.execPath, [path.resolve(process.argv[1])])
+                })
+            }
+        } else {
+            this.protocols.forEach((protocol: string) => {
+                electron.app.setAsDefaultProtocolClient(protocol)
+            })
+        }
+
+        electron.app.on('open-url', (event, url) => {
+            event.preventDefault()
+            if (this.protocols.some((protocol: string) => url.includes(protocol))) {
+                AppEvents.LinkHandler(url)
+            }
+        })
     }
 
     public quit() {
@@ -69,5 +103,40 @@ export class AppEvents {
 
     public ready() {
         console.log('App ready');
+    }
+
+    /***********************************************************************************************************************
+     * Private methods
+     **********************************************************************************************************************/
+
+    private static LinkHandler(arg: string) {
+        if (!arg) return;
+
+        // LastFM Auth URL
+        if (arg.includes('auth')) {
+            let authURI = String(arg).split('/auth/')[1]
+            if (authURI.startsWith('lastfm')) { // If we wanted more auth options
+                const authKey = authURI.split('lastfm?token=')[1];
+                AppEvents.store.set('lastfm.enabled', true);
+                AppEvents.store.set('lastfm.auth_token', authKey);
+                // AppEvents.window.webContents.send('LastfmAuthenticated', authKey);
+                // lastfm.authenticate()
+            }
+        }
+        // Play
+        else if (arg.includes('/play/')) { //Steer away from protocol:// specific conditionals
+
+            const playParam = arg.split('/play/')[1]
+            if (playParam.includes('s/')) { // setQueue can be done with album, song, url, playlist id
+                console.log(playParam)
+                let song = playParam.split('s/')[1]
+                console.warn(`[LinkHandler] Attempting to load song by id: ${song}`);
+                // AppEvents.window.webContents.executeJavaScript(`
+                //     MusicKit.getInstance().setQueue({ song: '${song}'}).then(function(queue) {
+                //         MusicKit.getInstance().play();
+                //     });
+                // `)
+            }
+        }
     }
 }
