@@ -64,14 +64,14 @@ module.exports = {
 
         // console.log('[DiscordRPC][updateActivity] Updating Discord Activity.')
 
-        const listenURL = `https://applemusicelectron.com/p?id=${attributes.playParams.id}` // cider://play/s/[id] (for song)
+        const listenURL = `https://cider.sh/p?s&id=${attributes.playParams.id}` // cider://play/s/[id] (for song) 
             //console.log(attributes)
         let ActivityObject = {
             details: attributes.name,
             state: `by ${attributes.artistName}`,
             startTimestamp: attributes.startTime,
             endTimestamp: attributes.endTime,
-            largeImageKey: (attributes.artwork.url.replace('{w}', '1024').replace('{h}', '1024')) ?? 'cider',
+            largeImageKey: (attributes.artwork.url.replace('{w}', '1024').replace('{h}', '1024')) ? ? 'cider',
             largeImageText: attributes.albumName,
             smallImageKey: (attributes.status ? 'play' : 'pause'),
             smallImageText: (attributes.status ? 'Playing' : 'Paused'),
