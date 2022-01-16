@@ -64,7 +64,7 @@ module.exports = {
 
         // console.log('[DiscordRPC][updateActivity] Updating Discord Activity.')
 
-        const listenURL = `https://applemusicelectron.com/p?id=${attributes.playParams.id}` // cider://play/s/[id] (for song)
+        const listenURL = `https://cider.sh/p?s&id=${attributes.playParams.id}` // cider://play/s/[id] (for song) 
             //console.log(attributes)
         let ActivityObject = {
             details: attributes.name,
