@@ -39,7 +39,7 @@
                              @click="app.searchAndNavigate(item,'artist')">
                             {{ item.attributes.artistName }}
                         </div>
-                        <template v-if="item.attributes.albumName">&nbsp;-&nbsp;</template>
+                        <template v-if="item.attributes.albumName">&nbsp;—&nbsp;</template>
                         <template v-if="item.attributes.albumName">
                             <div class="artist item-navigate text-overflow-elipsis"
                                  @click="app.searchAndNavigate(item,'album')">
