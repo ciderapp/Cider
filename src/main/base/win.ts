@@ -186,14 +186,16 @@ export class Win {
 
         /*
          * Remote Client (I had no idea how to add it to our existing express server, so I just made another one) -@quacksire 
+         * TODO: Broadcast the remote so that /web-remote/ can connect
+         * https://github.com/ciderapp/Apple-Music-Electron/blob/818ed18940ff600d76eb59d22016723a75885cd5/resources/functions/handler.js#L1173
          */
         const remote = express();
         remote.use(express.static(path.join(this.paths.srcPath, "./web-remote/")))
         remote.listen(this.remotePort, () => {
-            console.log(`Cider remote port: ${this.clientPort}`);
+            console.log(`Cider remote port: ${this.remotePort}`);
             if (firstRequest) {
                 console.log("---- Ignore Me ;) ---");
-                qrcode.generate(`http://${os.hostname}:${this.clientPort}/remote`);
+                qrcode.generate(`http://${os.hostname}:${this.remotePort}/remote`);
                 console.log("---- Ignore Me ;) ---");
                 /*
                  *

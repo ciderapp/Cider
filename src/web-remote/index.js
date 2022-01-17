@@ -71,16 +71,16 @@ var app = new Vue({
         },
         musicAppVariant() {
             if (navigator.userAgent.match(/Android/i)) {
-                return "Apple Music";
+                return "Cider";
             } else if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
-                return "Music";
+                return "Cider";
             } else {
                 if (navigator.userAgent.indexOf('Mac') > 0) {
                     return 'Music';
                 } else if (navigator.userAgent.indexOf('Win') > 0) {
-                    return 'Apple Music Electron';
+                    return 'Cider';
                 } else {
-                    return 'Apple Music Electron';
+                    return 'Cider';
                 }
             }
         },
@@ -283,7 +283,7 @@ var app = new Vue({
             var start2 = this.hmsToSecondsOnly(start)
             var end2 = this.hmsToSecondsOnly(end)
             var currentProgress = ((100 * (currentTime)) / (end2))
-            // check if currenttime is between start and end
+                // check if currenttime is between start and end
             this.player.lyricsDebug.start = start2
             this.player.lyricsDebug.end = end2
             this.player.lyricsDebug.current = currentTime
@@ -340,10 +340,10 @@ var app = new Vue({
             }
         },
         showSearch(reset = false) {
-            if(reset) {
+            if (reset) {
                 this.search.lastPage = "search"
             }
-            switch(this.search.lastPage) {
+            switch (this.search.lastPage) {
                 case "search":
                     this.screen = "search"
                     break;
@@ -359,7 +359,7 @@ var app = new Vue({
             }
         },
         showArtistByName(name) {
-            this.musicKitAPI("search", name, {types: "artists"})
+            this.musicKitAPI("search", name, { types: "artists" })
         },
         showAlbum(id) {
             this.search.lastPage = "album"
@@ -369,7 +369,7 @@ var app = new Vue({
         showArtist(id) {
             this.search.lastPage = "artist"
             this.screen = "artist-page"
-            this.musicKitAPI("artist", id, {include: "songs,playlists,albums"})
+            this.musicKitAPI("artist", id, { include: "songs,playlists,albums" })
         },
         showQueue() {
             this.queue.temp = this.player["queue"]["_queueItems"]
@@ -418,9 +418,9 @@ var app = new Vue({
             return palette
         },
         playAlbum(id, shuffle = false) {
-            if(shuffle) {
+            if (shuffle) {
                 this.setShuffle(true)
-            }else{
+            } else {
                 this.setShuffle(false)
             }
             this.playMediaItemById(id, 'album');
@@ -464,12 +464,11 @@ var app = new Vue({
             document.body.classList.add("streamer-overlay")
         },
         setMode(mode) {
-            switch(mode) {
-                default:
-                    this.screen = "player"
-                    break;
+            switch (mode) {
+                default: this.screen = "player"
+                break;
                 case "miniplayer":
-                    this.screen = "miniplayer"
+                        this.screen = "miniplayer"
                     break;
             }
         },
@@ -484,9 +483,9 @@ var app = new Vue({
                 console.log(e);
                 console.log('connected');
                 app.connectedState = 1;
-                if(getParameterByName("mode")) {
+                if (getParameterByName("mode")) {
                     self.setMode(getParameterByName("mode"))
-                }else{
+                } else {
                     self.setMode("default")
                 }
                 self.clearSelectedTrack()
@@ -507,43 +506,42 @@ var app = new Vue({
             socket.onmessage = (e) => {
                 const response = JSON.parse(e.data);
                 switch (response.type) {
-                    default:
-                        console.log(response);
-                        break;
+                    default: console.log(response);
+                    break;
                     case "musickitapi.search":
-                        self.showArtist(response.data["artists"][0]["id"]);
+                            self.showArtist(response.data["artists"][0]["id"]);
                         break;
                     case "musickitapi.album":
-                        if(self.screen == "album-page") {
-                            self.albumPage.data = response.data
-                        }
+                            if (self.screen == "album-page") {
+                                self.albumPage.data = response.data
+                            }
                         break;
                     case "musickitapi.artist":
-                        if(self.screen == "artist-page") {
-                            self.artistPage.data = response.data
-                        }
+                            if (self.screen == "artist-page") {
+                                self.artistPage.data = response.data
+                            }
                         break;
                     case "queue":
-                        self.player.queue = response.data;
+                            self.player.queue = response.data;
                         self.queue.temp = response.data["_queueItems"];
                         self.$forceUpdate()
                         break;
                     case "lyrics":
-                        self.player.lyrics = response.data;
+                            self.player.lyrics = response.data;
                         self.$forceUpdate()
                         break;
                     case "searchResultsLibrary":
-                        self.search.results = response.data;
+                            self.search.results = response.data;
                         self.search.state = 2;
                         break;
                     case "searchResults":
-                        self.search.results = response.data;
+                            self.search.results = response.data;
                         self.search.state = 2;
                         break;
                     case "playbackStateUpdate":
-                        if (!self.player.userInteraction) {
-                            self.updatePlaybackState(response.data)
-                        }
+                            if (!self.player.userInteraction) {
+                                self.updatePlaybackState(response.data)
+                            }
                         break;
                 }
                 // console.log(e.data);
@@ -597,10 +595,10 @@ function xmlToJson(xml) {
         for (var i = 0; i < xml.childNodes.length; i++) {
             var item = xml.childNodes.item(i);
             var nodeName = item.nodeName;
-            if (typeof (obj[nodeName]) == "undefined") {
+            if (typeof(obj[nodeName]) == "undefined") {
                 obj[nodeName] = xmlToJson(item);
             } else {
-                if (typeof (obj[nodeName].push) == "undefined") {
+                if (typeof(obj[nodeName].push) == "undefined") {
                     var old = obj[nodeName];
                     obj[nodeName] = [];
                     obj[nodeName].push(old);
@@ -612,7 +610,7 @@ function xmlToJson(xml) {
     return obj;
 };
 
-window.onresize = function () {
+window.onresize = function() {
     app.resetPlayerUI()
 }
 

@@ -4,11 +4,15 @@
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "name": "AME Remote",
-    "short_name": "AME Remote",
-    "description": "Apple Music Electron Remote",
-    "icons": [
-        {
+    "name": "Cider Remote",
+    "short_name": "Cider Remote",
+    "description": "Cider Remote",
+    "developer": {
+        "name": "Cider Collective",
+        "url": "https://cider.sh?utm-source=manifest"
+    },
+    "homepage_url": "https://cider.sh?utm-source=manifest",
+    "icons": [{
             "src": "/icon-192x192.png",
             "sizes": "192x192",
             "type": "image/png"
@@ -28,5 +32,11 @@
             "sizes": "512x512",
             "type": "image/png"
         }
-    ]
+    ],
+    "protocol_handlers": [{
+        "protocol": "ext+cider",
+        "name": "Cider",
+        "uriTemplate": "/?url=%s"
+    }]
+
 }
