@@ -195,7 +195,7 @@ export class Win {
             console.log(`Cider remote port: ${this.remotePort}`);
             if (firstRequest) {
                 console.log("---- Ignore Me ;) ---");
-                qrcode.generate(`http://${os.hostname}:${this.remotePort}/remote`);
+                qrcode.generate(`http://${os.hostname}:${this.remotePort}`);
                 console.log("---- Ignore Me ;) ---");
                 /*
                  *
