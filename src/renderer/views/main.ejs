@@ -82,10 +82,11 @@
                                     <mediaitem-artwork :url="currentArtUrl"></mediaitem-artwork>
                                 </div>
                                 <div class="playback-info">
-                                    <div class="song-name">
+                                    <div class="song-name" style="-webkit-box-orient: horizontal;">
                                         {{ mk.nowPlayingItem["attributes"]["name"] }}
+                                        <div class="explicit-icon" v-if="mk.nowPlayingItem['attributes']['contentRating'] == 'explicit'" style="display: inline-block"></div>
                                     </div>
-                                    <div class="song-artist "
+                                    <div class="song-artist"
                                          style="display: inline-block; -webkit-box-orient: horizontal; white-space: nowrap;">
                                         <div class="item-navigate song-artist" style="display: inline-block;"
                                              @click="getNowPlayingItemDetailed(`artist`)">
