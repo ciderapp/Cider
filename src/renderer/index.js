@@ -483,7 +483,7 @@ const app = new Vue({
             this.mk = MusicKit.getInstance()
             this.mk.authorize().then(() => {
                 self.mkIsReady = true
-                document.location.reload()
+                    //document.location.reload()
             })
             this.$forceUpdate()
             if (this.isDev) {
@@ -560,7 +560,8 @@ const app = new Vue({
                     let kind = lastItem.attributes.playParams.kind;
                     let truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
                     app.mk.setQueue({
-                        [truekind]: [lastItem.attributes.playParams.id] })
+                        [truekind]: [lastItem.attributes.playParams.id]
+                    })
                     app.mk.mute()
                     setTimeout(() => {
                         app.mk.play().then(() => {
@@ -2411,7 +2412,8 @@ const app = new Vue({
                     });
                 } else {
                     this.mk.setQueue({
-                        [truekind]: [id] }).then(function(queue) {
+                        [truekind]: [id]
+                    }).then(function(queue) {
                         MusicKit.getInstance().play()
                     })
                 }
@@ -2457,7 +2459,8 @@ const app = new Vue({
                                 app.mk.changeToMediaAtIndex(childIndex)
                             } else if (item) {
                                 app.mk.playNext({
-                                    [item.attributes.playParams.kind ? ? item.type]: item.attributes.playParams.id ? ? item.id }).then(function() {
+                                    [item.attributes.playParams.kind ? ? item.type]: item.attributes.playParams.id ? ? item.id
+                                }).then(function() {
                                     app.mk.changeToMediaAtIndex(app.mk.queue._itemIDs.indexOf(item.id) ? ? 1)
                                     app.mk.play()
                                 })
@@ -2470,7 +2473,8 @@ const app = new Vue({
                     app.mk.stop().then(() => {
                         if (truekind == "playlists" && (id.startsWith("p.") || id.startsWith("pl.u"))) {
                             app.mk.setQueue({
-                                [item.attributes.playParams.kind ? ? item.type]: item.attributes.playParams.id ? ? item.id }).then(function() {
+                                [item.attributes.playParams.kind ? ? item.type]: item.attributes.playParams.id ? ? item.id
+                            }).then(function() {
                                 app.mk.changeToMediaAtIndex(app.mk.queue._itemIDs.indexOf(item.id) ? ? 1).then(function() {
                                     if ((app.showingPlaylist && app.showingPlaylist.id == id)) {
                                         let query = app.showingPlaylist.relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
@@ -2494,7 +2498,8 @@ const app = new Vue({
                             })
                         } else {
                             this.mk.setQueue({
-                                [truekind]: [id] }).then(function(queue) {
+                                [truekind]: [id]
+                            }).then(function(queue) {
                                 if (item && ((queue._itemIDs[childIndex] != item.id))) {
                                     childIndex = queue._itemIDs.indexOf(item.id)
                                 }
@@ -2502,7 +2507,8 @@ const app = new Vue({
                                     app.mk.changeToMediaAtIndex(childIndex)
                                 } else if (item) {
                                     app.mk.playNext({
-                                        [item.attributes.playParams.kind ? ? item.type]: item.attributes.playParams.id ? ? item.id }).then(function() {
+                                        [item.attributes.playParams.kind ? ? item.type]: item.attributes.playParams.id ? ? item.id
+                                    }).then(function() {
                                         app.mk.changeToMediaAtIndex(app.mk.queue._itemIDs.indexOf(item.id) ? ? 1)
                                         app.mk.play()
                                     })
@@ -2627,8 +2633,11 @@ const app = new Vue({
                     types[index].id.push(id)
                 }
             }
-            types2 = types.map(function(item) { return {
-                    [`ids[${item.type}]`]: [item.id] } })
+            types2 = types.map(function(item) {
+                return {
+                    [`ids[${item.type}]`]: [item.id]
+                }
+            })
             types2 = types2.reduce(function(result, item) {
                 var key = Object.keys(item)[0]; //first property: a, b, c
                 result[key] = item[key];
