@@ -115,6 +115,10 @@
                                 <h3>{{ data.attributes.isGroup ? "Formed" : "Born" }}</h3>
                                 {{ data.attributes.bornOrFormed }}
                             </div>
+                            <div v-if="data.attributes.genreNames">
+                                <h3>Genre</h3>
+                                {{ data.attributes.genreNames.join(', ') }}
+                            </div>
                         </div>
                     </div>
                 </div>
