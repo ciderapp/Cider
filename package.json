@@ -6,7 +6,7 @@
   "description": "A new look into listening and enjoying music in style and performance.",
   "license": "MIT",
   "main": "./build/index.js",
-  "author": "Cider Collective <cryptofyre@cryptofyre.org> (https://cider.sh)",
+  "author": "Cider Collective <cryptofyre@cider.sh> (https://cider.sh)",
   "repository": "https://github.com/ciderapp/Cider.git",
   "bugs": {
     "url": "https://github.com/ciderapp/Cider/issues?q=is%3Aopen+is%3Aissue+label%3Abug"
