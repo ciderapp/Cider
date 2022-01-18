@@ -2484,9 +2484,6 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
         height: 100%;
         transform: unset;
       }
-      .artworkMaterial>img:last-child {
-        display: none;
-      }
     }
 
     .playlistInfo {
@@ -2709,13 +2706,39 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   }
 
   .artist-header {
-    background: linear-gradient(45deg, var(--keyColor), #0e0e0e);
+    //background: linear-gradient(45deg, var(--keyColor), #0e0e0e);
     color: white;
     display: flex;
     align-items: center;
     justify-content: space-between;
     min-height: 400px;
     position: relative;
+
+    .header-content {
+      z-index: 1;
+    }
+
+    .artworkContainer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      margin: 0;
+      padding: 0;
+      -webkit-mask-image: radial-gradient(at top left, black, transparent 70%), radial-gradient(at top right, black, transparent 70%), linear-gradient(180deg, rgb(200 200 200), transparent 98%);
+      opacity: .7;
+      animation: playlistArtworkFadeIn 1s var(--appleEase);
+
+      .artworkMaterial>img {
+        filter: brightness(100%) blur(80px) saturate(100%) contrast(1);
+        object-position: center;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        transform: unset;
+      }
+    }
 
     .more-btn-round {
       position: absolute;

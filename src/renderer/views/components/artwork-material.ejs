@@ -1,7 +1,6 @@
 <script type="text/x-template" id="artwork-material">
     <div class="artworkMaterial">
-        <img :src="src"/>
-        <img :src="src"/>
+        <img :src="src" v-for="image in images"/>
     </div>
 </script>
 
@@ -25,6 +24,11 @@
                 type: [String, Number],
                 required: false,
                 default: '32'
+            },
+            images: {
+                type: [String, Number],
+                required: false,
+                default: '2'
             }
         },
         methods: {
