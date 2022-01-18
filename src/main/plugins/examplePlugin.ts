@@ -1,5 +1,10 @@
 let i = 1, k = 1;
 export default class ExamplePlugin {
+		/**
+		 * Private variables for interaction in plugins
+		 */
+		private _win: any;
+		private _app: any;
 
     /**
      * Base Plugin Details (Eventually implemented into a GUI in settings)
@@ -12,14 +17,16 @@ export default class ExamplePlugin {
     /**
      * Runs on plugin load (Currently run on application start)
      */
-    constructor() {
-
-    }
+    constructor(app: any) {
+				this._app = app;
+				console.log('Example plugin loaded');
+		}
 
     /**
      * Runs on app ready
      */
-    onReady(): void {
+    onReady(win: any): void {
+				this._win = win;
         console.log('Example plugin ready');
     }
 
