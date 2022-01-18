@@ -78,13 +78,8 @@
                                         @click="(!inLibrary) ? addToLibrary(data.attributes.playParams.id.toString()) : removeFromLibrary(data.attributes.playParams.id.toString()) ">
                                     Confirm?
                                 </button>
-                                <button class="playlist-more" style="float:right;" @click="menu">
-                                    <div style="    margin-top: -1px;
-                                margin-left: -5px;
-                                width: 36px;
-                                height: 36px;">
-                                        <%- include("../svg/more.svg") %>
-                                    </div>
+                                <button class="more-btn-round" style="float:right;" @click="menu">
+                                    <div class="svg-icon"></div>
                                 </button>
                             </div>
                         </div>
@@ -95,7 +90,7 @@
                 </div>
 
             </div>
-            <div class="playlist-floating-header" :style="{opacity: (headerVisible ? 0 : 1),'pointer-events': (headerVisible ? 'none' : '')}">
+            <div class="floating-header" :style="{opacity: (headerVisible ? 0 : 1),'pointer-events': (headerVisible ? 'none' : '')}">
                 <div class="row">
                     <div class="col">
                         <h3>{{data.attributes ? (data.attributes.name ??
@@ -122,13 +117,8 @@
                         </div>
                     </div>
                     <div class="col-auto flex-center">
-                        <button class="playlist-more" @click="menu">
-                            <div style="    margin-top: -1px;
-                                margin-left: -5px;
-                                width: 36px;
-                                height: 36px;">
-                                <%- include("../svg/more.svg") %>
-                            </div>
+                        <button class="more-btn-round" style="float:right;" @click="menu">
+                            <div class="svg-icon"></div>
                         </button>
                     </div>
                 </div>
