@@ -610,10 +610,16 @@ const app = new Vue({
                 }
             })
 
+            this.mk.addEventListener(MusicKit.Events.playbackStateDidChange, ()=>{
+                ipcRenderer.send('wsapi-updatePlaybackState', wsapi.getAttributes());
+            })
+
             this.mk.addEventListener(MusicKit.Events.playbackTimeDidChange, (a) => {
                 self.lyriccurrenttime = self.mk.currentPlaybackTime
                 this.currentSongInfo = a
                 self.playerLCD.playbackDuration = (self.mk.currentPlaybackTime)
+                // wsapi
+                ipcRenderer.send('wsapi-updatePlaybackState', wsapi.getAttributes());
             })
 
             this.mk.addEventListener(MusicKit.Events.nowPlayingItemDidChange, (a) => {

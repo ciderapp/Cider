@@ -9,6 +9,8 @@ import * as fs from "fs";
 import { Stream } from "stream";
 import * as qrcode from "qrcode-terminal";
 import * as os from "os";
+import {wsapi} from "./wsapi";
+
 export class Win {
     win: any | undefined = null;
     app: any | undefined = null;
@@ -189,6 +191,8 @@ export class Win {
          * TODO: Broadcast the remote so that /web-remote/ can connect
          * https://github.com/ciderapp/Apple-Music-Electron/blob/818ed18940ff600d76eb59d22016723a75885cd5/resources/functions/handler.js#L1173
          */
+        const ws = new wsapi()
+        ws.InitWebSockets()
         const remote = express();
         remote.use(express.static(path.join(this.paths.srcPath, "./web-remote/")))
         remote.listen(this.remotePort, () => {
