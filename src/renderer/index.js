@@ -249,6 +249,11 @@ const app = new Vue({
             start: 0,
             end: 0
         },
+        v3: {
+            requestBody: {
+                platform: "web"
+            }
+        },
         tmpVar: [],
         notification: false,
         chrome: {
@@ -881,15 +886,18 @@ const app = new Vue({
                 })
             }
         },
-        async showCollection(response, title, type) {
+        async showCollection(response, title, type, requestBody = {}) {
             let self = this
+            console.log(response)
+            this.collectionList.requestBody = {}
             this.collectionList.response = response
             this.collectionList.title = title
             this.collectionList.type = type
+            this.collectionList.requestBody = requestBody
             app.appRoute("collection-list")
         },
         async showArtistView(artist, title, view) {
-            let response = (await app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/artists/${artist}/view/${view}`)).data
+            let response = (await app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/artists/${artist}/view/${view}`,{}, {includeResponseMeta: !0})).data
             console.log(response)
             await this.showCollection(response, title, "artists")
         },
@@ -898,7 +906,8 @@ const app = new Vue({
             await this.showCollection(response, title, "record-labels")
         },
         async showSearchView(term, group, title) {
-            let response = await app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/search?term=${term}`, {
+
+            let requestBody = {
                 platform: "web",
                 groups: group,
                 types: "activities,albums,apple-curators,artists,curators,editorial-items,music-movies,music-videos,playlists,songs,stations,tv-episodes,uploaded-videos,record-labels",
@@ -924,14 +933,18 @@ const app = new Vue({
                     resource: ["autos"]
                 },
                 groups: group
+            }
+            let response = await app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/search?term=${term}`, requestBody , {
+                includeResponseMeta: !0
             })
+
             console.log('searchres', response)
             let responseFormat = {
                 data: response.data.results[group].data,
-                next: response.data.results[group].data,
+                next: response.data.results[group].next,
                 groups: group
             }
-            await this.showCollection(responseFormat, title, "search")
+            await this.showCollection(responseFormat, title, "search", requestBody)
         },
         async getPlaylistContinuous(response, transient = false) {
             response = response.data.data[0]
