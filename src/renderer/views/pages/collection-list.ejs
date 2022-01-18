@@ -77,8 +77,7 @@
             getNext() {
                 let self = this
                 this.triggerEnabled = false;
-
-                if (this.data.next == "undefined") {
+                if (typeof this.data.next == "undefined") {
                     return
                 }
                 this.loading = true
