@@ -2384,7 +2384,20 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   padding-top: var(--navigationBarHeight);
 
   .playlist-body {
-    padding: var(--contentInnerPadding);
+    padding: 0px var(--contentInnerPadding) 0px var(--contentInnerPadding);
+  }
+
+  .playlist-floating-header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    border-bottom: 1px solid rgba(200, 200, 200, 0.05);
+    z-index: 6;
+    padding: 0px 1em;
+    backdrop-filter: blur(32px);
+    background: rgba(24, 24, 24, 0.15);
+    top: var(--navigationBarHeight);
+    transition: opacity 0.1s var(--appleEase);
   }
 
   .playlist-display {
@@ -2572,7 +2585,6 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     box-shadow: var(--ciderShadow-Generic);
     width: 36px;
     height: 36px;
-    float: right;
     border: 0px;
     cursor: pointer;
     z-index: 5;
