@@ -366,9 +366,9 @@ const app = new Vue({
         },
         async showMenuPanel(data, event) {
             app.menuPanel.visible = true;
-            app.menuPanel.content.name = data.name ? ? "";
-            app.menuPanel.content.items = data.items ? ? {};
-            app.menuPanel.content.headerItems = data.headerItems ? ? {};
+            app.menuPanel.content.name = data.name || "";
+            app.menuPanel.content.items = data.items || {};
+            app.menuPanel.content.headerItems = data.headerItems || {};
             if (event) {
                 app.menuPanel.event = event;
             }
@@ -647,7 +647,7 @@ const app = new Vue({
                 try {
                     a = a.item.attributes;
                 } catch (_) {}
-                let type = (self.mk.nowPlayingItem != null) ? self.mk.nowPlayingItem["type"] ? ? '' : '';
+                let type = (self.mk.nowPlayingItem != null) ? self.mk.nowPlayingItem["type"] || '' : '';
 
                 if (type.includes("musicVideo") || type.includes("uploadedVideo") || type.includes("music-movie")) {
                     document.getElementById("apple-music-video-container").style.display = "block";
@@ -1084,7 +1084,7 @@ const app = new Vue({
             let hash = route.split("/")
             let page = hash[0]
             let id = hash[1]
-            let isLibrary = hash[2] ? ? false
+            let isLibrary = hash[2] || false
             console.log(`page: ${page} id: ${id} isLibrary: ${isLibrary}`)
             this.routeView({
                 kind: page,
@@ -1095,9 +1095,9 @@ const app = new Vue({
             })
         },
         routeView(item) {
-            let kind = (item.attributes.playParams ? (item.attributes.playParams.kind ? ? (item.type ? ? '')) : (item.type ? ? ''));
-            let id = (item.attributes.playParams ? (item.attributes.playParams.id ? ? (item.id ? ? '')) : (item.id ? ? ''));;
-            let isLibrary = item.attributes.playParams ? (item.attributes.playParams.isLibrary ? ? false) : false;
+            let kind = (item.attributes.playParams ? (item.attributes.playParams.kind || (item.type || '')) : (item.type || ''));
+            let id = (item.attributes.playParams ? (item.attributes.playParams.id || (item.id || '')) : (item.id || ''));;
+            let isLibrary = item.attributes.playParams ? (item.attributes.playParams.isLibrary || false) : false;
             console.log(kind, id, isLibrary)
 
             if (true) {
@@ -1140,7 +1140,7 @@ const app = new Vue({
                     window.location.hash = `${kind}/${id}${isLibrary ? "/" + isLibrary : ''}`
                     document.querySelector("#app-content").scrollTop = 0
                 } else {
-                    app.playMediaItemById((id), (kind), (isLibrary), item.attributes.url ? ? '')
+                    app.playMediaItemById((id), (kind), (isLibrary), item.attributes.url || '')
                 }
 
             }
@@ -1265,9 +1265,9 @@ const app = new Vue({
                 //this.getTypeFromID("artist",id,isLibrary,query)
         },
         playMediaItem(item) {
-            let kind = (item.attributes.playParams ? (item.attributes.playParams.kind ? ? (item.type ? ? '')) : (item.type ? ? ''));
-            let id = (item.attributes.playParams ? (item.attributes.playParams.id ? ? (item.id ? ? '')) : (item.id ? ? ''));;
-            let isLibrary = item.attributes.playParams ? (item.attributes.playParams.isLibrary ? ? false) : false;
+            let kind = (item.attributes.playParams ? (item.attributes.playParams.kind || (item.type || '')) : (item.type || ''));
+            let id = (item.attributes.playParams ? (item.attributes.playParams.id || (item.id || '')) : (item.id || ''));;
+            let isLibrary = item.attributes.playParams ? (item.attributes.playParams.isLibrary || false) : false;
             let truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
             console.log(kind, id, isLibrary)
             app.mk.stop().then(() => {
@@ -1343,7 +1343,7 @@ const app = new Vue({
                 //         })
                 // }
                 else {
-                    app.playMediaItemById((id), (kind), (isLibrary), item.attributes.url ? ? '')
+                    app.playMediaItemById((id), (kind), (isLibrary), item.attributes.url || '')
                 }
             })
         },
@@ -1996,7 +1996,7 @@ const app = new Vue({
             this.page = "search"
         },
         loadLyrics() {
-            const musicType = (MusicKit.getInstance().nowPlayingItem != null) ? MusicKit.getInstance().nowPlayingItem["type"] ? ? '' : '';
+            const musicType = (MusicKit.getInstance().nowPlayingItem != null) ? MusicKit.getInstance().nowPlayingItem["type"] || '' : '';
             console.log("mt", musicType)
             if (musicType === "musicVideo") {
                 this.loadYTLyrics();
@@ -2009,7 +2009,7 @@ const app = new Vue({
             }
         },
         loadAMLyrics() {
-            const songID = (this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem["_songId"] ? ? -1 : -1;
+            const songID = (this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem["_songId"] || -1 : -1;
             // this.getMXM( trackName, artistName, 'en', duration);
             if (songID != -1) {
                 MusicKit.getInstance().api.lyric(songID)
@@ -2037,14 +2037,14 @@ const app = new Vue({
             })
         },
         async loadYTLyrics() {
-            const track = (this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.title ? ? '' : '';
-            const artist = (this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.artistName ? ? '' : '';
-            const time = (this.mk.nowPlayingItem != null) ? (Math.round((this.mk.nowPlayingItem.attributes["durationInMillis"] ? ? -1000) / 1000) ? ? -1) : -1;
+            const track = (this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.title || '' : '';
+            const artist = (this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.artistName || '' : '';
+            const time = (this.mk.nowPlayingItem != null) ? (Math.round((this.mk.nowPlayingItem.attributes["durationInMillis"] || -1000) / 1000) || -1) : -1;
             ipcRenderer.invoke('getYTLyrics', track, artist).then((result) => {
                 if (result.length > 0) {
                     let ytid = result[0]['id']['videoId'];
                     if (app.cfg.lyrics.enable_yt) {
-                        loadYT(ytid, app.cfg.lyrics.mxm_language ? ? "en")
+                        loadYT(ytid, app.cfg.lyrics.mxm_language || "en")
                     } else {
                         app.loadMXM()
                     }
@@ -2101,10 +2101,10 @@ const app = new Vue({
         },
         loadMXM() {
             let attempt = 0;
-            const track = encodeURIComponent((this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.title ? ? '' : '');
-            const artist = encodeURIComponent((this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.artistName ? ? '' : '');
-            const time = encodeURIComponent((this.mk.nowPlayingItem != null) ? (Math.round((this.mk.nowPlayingItem.attributes["durationInMillis"] ? ? -1000) / 1000) ? ? -1) : -1);
-            const id = encodeURIComponent((this.mk.nowPlayingItem != null) ? app.mk.nowPlayingItem._songId ? ? '' : '');
+            const track = encodeURIComponent((this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.title || '' : '');
+            const artist = encodeURIComponent((this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.artistName || '' : '');
+            const time = encodeURIComponent((this.mk.nowPlayingItem != null) ? (Math.round((this.mk.nowPlayingItem.attributes["durationInMillis"] || -1000) / 1000) || -1) : -1);
+            const id = encodeURIComponent((this.mk.nowPlayingItem != null) ? app.mk.nowPlayingItem._songId || '' : '');
             let lrcfile = "";
             let richsync = [];
             const lang = app.cfg.lyrics.mxm_language //  translation language
@@ -2127,7 +2127,7 @@ const app = new Vue({
                         let jsonResponse = JSON.parse(this.responseText);
                         let status2 = jsonResponse["message"]["header"]["status_code"];
                         if (status2 == 200) {
-                            let token = jsonResponse["message"]["body"]["user_token"] ? ? '';
+                            let token = jsonResponse["message"]["body"]["user_token"] || '';
                             if (token != "" && token != "UpgradeOnlyUpgradeOnlyUpgradeOnlyUpgradeOnly") {
                                 console.log('200 token', mode);
                                 // token good
@@ -2175,7 +2175,7 @@ const app = new Vue({
                         let id = '';
                         try {
                             if (jsonResponse["message"]["body"]["macro_calls"]["matcher.track.get"]["message"]["header"]["status_code"] == 200 && jsonResponse["message"]["body"]["macro_calls"]["track.subtitles.get"]["message"]["header"]["status_code"] == 200) {
-                                id = jsonResponse["message"]["body"]["macro_calls"]["matcher.track.get"]["message"]["body"]["track"]["track_id"] ? ? '';
+                                id = jsonResponse["message"]["body"]["macro_calls"]["matcher.track.get"]["message"]["body"]["track"]["track_id"] || '';
                                 lrcfile = jsonResponse["message"]["body"]["macro_calls"]["track.subtitles.get"]["message"]["body"]["subtitle_list"][0]["subtitle"]["subtitle_body"];
 
                                 try {
@@ -2196,9 +2196,9 @@ const app = new Vue({
                                     let preLrc = []
                                     for (var i = u.length - 1; i >= 0; i--) {
                                         let xline = (/(\[[0-9.:\[\]]*\])+(.*)/).exec(u[i])
-                                        let end = (preLrc.length > 0) ? ((preLrc[preLrc.length - 1].startTime) ? ? 99999) : 99999
+                                        let end = (preLrc.length > 0) ? ((preLrc[preLrc.length - 1].startTime) || 99999) : 99999
                                         preLrc.push({
-                                            startTime: app.toMS(xline[1].substring(1, xline[1].length - 2)) ? ? 0,
+                                            startTime: app.toMS(xline[1].substring(1, xline[1].length - 2)) || 0,
                                             endTime: end,
                                             line: xline[2],
                                             translation: ''
@@ -2459,9 +2459,9 @@ const app = new Vue({
                                 app.mk.changeToMediaAtIndex(childIndex)
                             } else if (item) {
                                 app.mk.playNext({
-                                    [item.attributes.playParams.kind ? ? item.type]: item.attributes.playParams.id ? ? item.id
+                                    [item.attributes.playParams.kind || item.type]: item.attributes.playParams.id || item.id
                                 }).then(function() {
-                                    app.mk.changeToMediaAtIndex(app.mk.queue._itemIDs.indexOf(item.id) ? ? 1)
+                                    app.mk.changeToMediaAtIndex(app.mk.queue._itemIDs.indexOf(item.id) || 1)
                                     app.mk.play()
                                 })
                             } else {
@@ -2473,9 +2473,9 @@ const app = new Vue({
                     app.mk.stop().then(() => {
                         if (truekind == "playlists" && (id.startsWith("p.") || id.startsWith("pl.u"))) {
                             app.mk.setQueue({
-                                [item.attributes.playParams.kind ? ? item.type]: item.attributes.playParams.id ? ? item.id
+                                [item.attributes.playParams.kind || item.type]: item.attributes.playParams.id || item.id
                             }).then(function() {
-                                app.mk.changeToMediaAtIndex(app.mk.queue._itemIDs.indexOf(item.id) ? ? 1).then(function() {
+                                app.mk.changeToMediaAtIndex(app.mk.queue._itemIDs.indexOf(item.id) || 1).then(function() {
                                     if ((app.showingPlaylist && app.showingPlaylist.id == id)) {
                                         let query = app.showingPlaylist.relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
                                         let u = query;
@@ -2507,9 +2507,9 @@ const app = new Vue({
                                     app.mk.changeToMediaAtIndex(childIndex)
                                 } else if (item) {
                                     app.mk.playNext({
-                                        [item.attributes.playParams.kind ? ? item.type]: item.attributes.playParams.id ? ? item.id
+                                        [item.attributes.playParams.kind || item.type]: item.attributes.playParams.id || item.id
                                     }).then(function() {
-                                        app.mk.changeToMediaAtIndex(app.mk.queue._itemIDs.indexOf(item.id) ? ? 1)
+                                        app.mk.changeToMediaAtIndex(app.mk.queue._itemIDs.indexOf(item.id) || 1)
                                         app.mk.play()
                                     })
                                 } else {
@@ -2524,7 +2524,7 @@ const app = new Vue({
                 try {
                     app.mk.stop()
                 } catch (e) {}
-                this.playMediaItemById(item.attributes.playParams.id ? ? item.id, item.attributes.playParams.kind ? ? item.type, item.attributes.playParams.isLibrary ? ? false, item.attributes.url)
+                this.playMediaItemById(item.attributes.playParams.id || item.id, item.attributes.playParams.kind || item.type, item.attributes.playParams.isLibrary || false, item.attributes.url)
             }
 
         },
@@ -2622,7 +2622,7 @@ const app = new Vue({
                     type += "s"
                 }
                 type = type.replace("library-", "")
-                let id = item.attributes.playParams.catalogId ? ? item.id
+                let id = item.attributes.playParams.catalogId || item.id
 
                 let index = types.findIndex(function(type) {
                     return type.type == this
@@ -2805,7 +2805,7 @@ const app = new Vue({
             try {
                 this.currentArtUrl = '';
                 if (app.mk.nowPlayingItem != null && app.mk.nowPlayingItem.attributes != null && app.mk.nowPlayingItem.attributes.artwork != null && app.mk.nowPlayingItem.attributes.artwork.url != null && app.mk.nowPlayingItem.attributes.artwork.url != '') {
-                    this.currentArtUrl = (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"] ? ? '').replace('{w}', 50).replace('{h}', 50);
+                    this.currentArtUrl = (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"] || '').replace('{w}', 50).replace('{h}', 50);
                     try {
                         document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
                     } catch (e) {}
@@ -2813,7 +2813,7 @@ const app = new Vue({
                     let data = await this.mk.api.v3.music(`/v1/me/library/songs/${this.mk.nowPlayingItem.id}`);
                     data = data.data.data[0];
                     if (data != null && data !== "" && data.attributes != null && data.attributes.artwork != null) {
-                        this.currentArtUrl = (data["attributes"]["artwork"]["url"] ? ? '').replace('{w}', 50).replace('{h}', 50);
+                        this.currentArtUrl = (data["attributes"]["artwork"]["url"] || '').replace('{w}', 50).replace('{h}', 50);
                         try {
                             document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
                         } catch (e) {}
@@ -3014,8 +3014,8 @@ const app = new Vue({
             // }
             let self = this
             let data_type = this.mk.nowPlayingItem.playParams.kind
-            let item_id = this.mk.nowPlayingItem.attributes.playParams.id ? ? this.mk.nowPlayingItem.id
-            let isLibrary = this.mk.nowPlayingItem.attributes.playParams.isLibrary ? ? false
+            let item_id = this.mk.nowPlayingItem.attributes.playParams.id || this.mk.nowPlayingItem.id
+            let isLibrary = this.mk.nowPlayingItem.attributes.playParams.isLibrary || false
             let params = { "fields[songs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library", "t": "1" }
                 // let res = await app.mkapi(data_type, isLibrary , item_id, params);
                 // if (res && res.relationships && res.relationships.library && res.relationships.library.data && res.relationships.library.data.length > 0) {
@@ -3173,7 +3173,7 @@ const app = new Vue({
 
             }
             numbers.shift()
-            let gain = Math.log10((Math.max(numbers[0], numbers[1]) ? ? 1000) / 1000.0) * -10
+            let gain = Math.log10((Math.max(numbers[0], numbers[1]) || 1000) / 1000.0) * -10
             let peak = Math.max(numbers[6], numbers[7]) / 32768.0
             return {
                 gain: gain,
