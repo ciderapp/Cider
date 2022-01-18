@@ -77,11 +77,11 @@
             getNext() {
                 let self = this
                 this.triggerEnabled = false;
-                this.loading = true
 
                 if (this.data.next == "undefined") {
                     return
                 }
+                this.loading = true
 
                 this.api.v3.music(this.data.next, app.collectionList.requestBody).then((response) => {
                     if (!app.collectionList.response.groups) {
@@ -91,7 +91,6 @@
                             this.triggerEnabled = true;
                             this.loading = false
                         }
-
                     }else{
                         if (response.data.results[app.collectionList.response.groups].next) {
                             this.data.data = this.data.data.concat(response.data.results[app.collectionList.response.groups].data);
@@ -99,7 +98,6 @@
                             this.triggerEnabled = true;
                             this.loading = false
                         }
-
                     }
                 })
             },
