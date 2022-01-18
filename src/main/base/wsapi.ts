@@ -18,13 +18,6 @@ private class standardResponse {
 }
 
 export class wsapi {
-    private standa2rdResponse (status, data, message, type: string = "generic") {
-        this.status = status;
-        this.message = message;
-        this.data = data;
-        this.type = type;
-    }
-
     port: any = 26369
     wss: any = null
     clients: []

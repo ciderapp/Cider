@@ -254,6 +254,32 @@ input[type="text"], input[type="number"] {
   }
 }
 
+.artworkMaterial {
+  position: relative;
+  height:100%;
+  width:100%;
+  overflow: hidden;
+  pointer-events: none;
+
+  >img {
+    position: absolute;
+    width: 200%;
+    opacity: 0.5;
+    filter: brightness(200%) blur(180px) saturate(280%) contrast(2);
+  }
+
+  >img:first-child {
+    top:0;
+    left:0;
+  }
+
+  >img:last-child {
+    bottom:0;
+    right: 0;
+    transform: rotate(180deg);
+  }
+}
+
 
 [artwork-hidden] {
   transition: opacity .25s var(--appleEase);
@@ -2345,7 +2371,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 .playlist-page {
   --bgColor: transparent;
   padding: 0px;
-  background: linear-gradient(180deg, var(--bgColor) 32px, var(--bgColor) 59px, transparent 60px, transparent 100%);
+  //background: linear-gradient(180deg, var(--bgColor) 32px, var(--bgColor) 18px, transparent 60px, transparent 100%);
   top: 0;
   padding-top: var(--navigationBarHeight);
 
@@ -2356,104 +2382,149 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   .playlist-display {
     padding: var(--contentInnerPadding);
     min-height: 300px;
+    position: relative;
 
-    .playlist-info {
-      flex-shrink: unset;
+    .artworkContainer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      margin: 0;
+      padding: 0;
+      -webkit-mask-image: radial-gradient(at top left, black, transparent 70%), radial-gradient(at top right, black, transparent 70%), linear-gradient(180deg, rgb(200 200 200), transparent 98%);
+      opacity: .7;
+
+      .artworkMaterial>img {
+        filter: brightness(100%) blur(80px) saturate(100%) contrast(1);
+        object-position: center;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        transform: unset;
+      }
+      .artworkMaterial>img:last-child {
+        display: none;
+      }
+    }
+
+    .playlistInfo {
+      z-index: 1;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 0;
       display: flex;
-      flex-flow: column;
-      justify-content: flex-end;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
 
-      .playlist-name {
-        font-weight: 700;
-        font-size: 1.6rem;
-        margin-bottom: 6px;
-        margin-right: 6px;
-        flex-shrink: unset;
+      >.row {
+        width: calc(100% - 32px);
       }
 
-      .nameEdit {
-        font-weight: 700;
-        font-size: 1.6rem;
-        margin-bottom: 6px;
-        margin-right: 6px;
+      .playlist-info {
         flex-shrink: unset;
-        background: transparent;
-        border: 0px;
-        color: inherit;
-        font-family: inherit;
-      }
+        display: flex;
+        flex-flow: column;
+        justify-content: flex-end;
 
-      .playlist-artist {
-        font-size: 20px;
-        margin-bottom: 6px;
-        margin-right: 6px;
-        flex-shrink: unset;
-      }
-
-      .playlist-desc {
-        box-sizing: border-box;
-        font-size: 14px;
-        flex-shrink: unset;
-        margin-right: 5px;
-        max-height: 100px;
-        position: relative;
-
-        .content {
-          height: 100px;
-          -webkit-mask-image: -webkit-gradient(linear, left 50%, left 90%, from(rgba(0, 0, 0, 1)), to(rgba(0, 0, 0, 0)));
+        .playlist-name {
+          font-weight: 700;
+          font-size: 1.6rem;
+          margin-bottom: 6px;
+          margin-right: 6px;
+          flex-shrink: unset;
         }
 
-        .more-btn {
-          appearance: none;
-          position: absolute;
-          right: 0;
-          bottom: 0;
-          padding: 0 5px;
-          font-size: 14px;
-          color: var(--keyColor);
-          background-color: transparent;
+        .nameEdit {
+          font-weight: 700;
+          font-size: 1.6rem;
+          margin-bottom: 6px;
+          margin-right: 6px;
+          flex-shrink: unset;
+          background: transparent;
           border: 0px;
-          cursor: pointer;
-          width: 100%;
-          height: 100%;
-          overflow: hidden;
-          display: flex;
-          justify-content: flex-end;
-          align-items: flex-end;
-          font-weight: 600;
+          color: inherit;
           font-family: inherit;
-          text-transform: uppercase;
         }
-      }
 
-      .playlist-desc-expanded {
-        box-sizing: border-box;
-        font-size: 14px;
-        position: relative;
+        .playlist-artist {
+          font-size: 20px;
+          margin-bottom: 6px;
+          margin-right: 6px;
+          flex-shrink: unset;
+        }
 
-        .more-btn {
-          appearance: none;
-          position: absolute;
-          right: 0;
-          bottom: 0;
-          padding: 0 5px;
+        .playlist-desc {
+          box-sizing: border-box;
           font-size: 14px;
-          color: var(--keyColor);
-          background-color: transparent;
-          border: 0px;
-          cursor: pointer;
-          width: 100%;
-          height: 100%;
-          overflow: hidden;
-          display: flex;
-          justify-content: flex-end;
-          align-items: flex-end;
-          font-weight: 600;
-          font-family: inherit;
-          text-transform: uppercase;
+          flex-shrink: unset;
+          margin-right: 5px;
+          max-height: 100px;
+          position: relative;
+
+          .content {
+            height: 100px;
+            -webkit-mask-image: -webkit-gradient(linear, left 50%, left 90%, from(rgba(0, 0, 0, 1)), to(rgba(0, 0, 0, 0)));
+          }
+
+          .more-btn {
+            appearance: none;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            padding: 0 5px;
+            font-size: 14px;
+            color: var(--keyColor);
+            background-color: transparent;
+            border: 0px;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+            font-weight: 600;
+            font-family: inherit;
+            text-transform: uppercase;
+          }
+        }
+
+        .playlist-desc-expanded {
+          box-sizing: border-box;
+          font-size: 14px;
+          position: relative;
+
+          .more-btn {
+            appearance: none;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            padding: 0 5px;
+            font-size: 14px;
+            color: var(--keyColor);
+            background-color: transparent;
+            border: 0px;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+            font-weight: 600;
+            font-family: inherit;
+            text-transform: uppercase;
+          }
         }
       }
     }
+
+
   }
 
   .friends-info {

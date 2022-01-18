@@ -85,6 +85,8 @@ export class Win {
         this.options.height = windowState.height;
 
         // Start the webserver for the browser window to load
+        const ws = new wsapi()
+        ws.InitWebSockets()
         this.startWebServer();
 
         this.win = new electron.BrowserWindow(this.options);
@@ -191,8 +193,6 @@ export class Win {
          * TODO: Broadcast the remote so that /web-remote/ can connect
          * https://github.com/ciderapp/Apple-Music-Electron/blob/818ed18940ff600d76eb59d22016723a75885cd5/resources/functions/handler.js#L1173
          */
-        const ws = new wsapi()
-        ws.InitWebSockets()
         const remote = express();
         remote.use(express.static(path.join(this.paths.srcPath, "./web-remote/")))
         remote.listen(this.remotePort, () => {
