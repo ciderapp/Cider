@@ -113,11 +113,11 @@
                                     </div>
                                 </div>
                                 <template v-if="mk.nowPlayingItem['attributes']['playParams']">
-                                    <div class="actions"
-                                         v-if="isInLibrary(mk.nowPlayingItem['attributes']['playParams'])">
-                                        ❤️
+                                    <div class="actions">
+                                        <button class="lcdMenu" @click="nowPlayingContextMenu">
+                                            <div class="svg-icon"></div>
+                                        </button>
                                     </div>
-                                    <div class="actions" v-else>🖤</div>
                                 </template>
 
                             </div>

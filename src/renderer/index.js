@@ -3092,7 +3092,6 @@ const app = new Vue({
                     items: [{
                             "icon": "./assets/feather/list.svg",
                             "name": "Add to Playlist...",
-                            "hidden": true,
                             "action": function() {
                                 app.promptAddToPlaylist()
                             }

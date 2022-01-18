@@ -18,6 +18,7 @@
   --navbarHeight: 48px;
   --selected: rgb(130 130 130 / 30%);
   --selected-click: rgb(80 80 80 / 30%);
+  --hover: rgb(200 200 200 / 10%);
   --keyColor: #fa586a;
   --keyColor-rgb: 250, 88, 106;
   --keyColor-rollover: #ff8a9c;
@@ -1128,6 +1129,34 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   justify-content: center;
   align-items: center;
   filter: contrast(0.8);
+
+  .lcdMenu {
+    height: 100%;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+    background: transparent;
+    border: 0px;
+    appearance: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+
+    &:focus {
+      outline: none;
+    }
+    &:hover {
+      background: var(--hover);
+    }
+    &:active {
+      background: var(--selected-click);
+      transform: scale(0.95);
+    }
+    .svg-icon {
+      --url: url('views/svg/more.svg')!important;
+    }
+  }
 }
 
 .app-chrome .app-chrome-item > .app-playback-controls .playback-info {
