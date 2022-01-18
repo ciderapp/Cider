@@ -94,7 +94,7 @@
                                             {{ mk.nowPlayingItem["attributes"]["artistName"] }}
                                         </div>
                                         <div class="song-artist item-navigate" style="display: inline-block;"
-                                             @click="getNowPlayingItemDetailed('album')">
+                                             @click="getNowPlayingItemDetailed('album')" v-if="mk.nowPlayingItem['attributes']['albumName'] != ''">
                                             <div class="separator" style="display: inline-block;">{{"—"}}</div>
                                             {{(mk.nowPlayingItem["attributes"]["albumName"]) ?
                                             (mk.nowPlayingItem["attributes"]["albumName"]) : "" }}
