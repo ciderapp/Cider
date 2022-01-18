@@ -1153,7 +1153,10 @@ const app = new Vue({
                     window.location.hash = `${kind}/${id}`
                     document.querySelector("#app-content").scrollTop = 0
                 } else if (!kind.toString().includes("radioStation") && !kind.toString().includes("song") && !kind.toString().includes("musicVideo") && !kind.toString().includes("uploadedVideo") && !kind.toString().includes("music-movie")) {
-                    let params = { extend: "editorialVideo" }
+                    let params = {
+                        extend: "offers,editorialVideo",
+                        "views": "appears-on,more-by-artist,related-videos,other-versions,you-might-also-like,video-extras,audio-extras",
+                    }
                     app.page = (kind) + "_" + (id);
                     app.getTypeFromID((kind), (id), (isLibrary), params);
                     window.location.hash = `${kind}/${id}${isLibrary ? "/" + isLibrary : ''}`

@@ -165,6 +165,20 @@
                      style="width: 50%;">
                     {{data.attributes.copyright}}
                 </div>
+                <hr>
+                <template v-if="typeof data.meta != 'undefined'">
+                    <div v-for="view in data.meta.views.order" v-if="data.views[view].data.length != 0">
+                        <div class="row" >
+                            <div class="col">
+                                <h3>{{ data.views[view].attributes.title }}</h3>
+                            </div>
+                        </div>
+                        <div>
+                            <mediaitem-scroller-horizontal :items="data.views[view].data"></mediaitem-scroller-horizontal>
+                        </div>
+                    </div>
+                </template>
+
             </div>
         </template>
     </div>
