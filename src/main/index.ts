@@ -30,8 +30,10 @@ electron.app.on('ready', () => {
         console.info('[Cider] Running in development mode.')
         require('vue-devtools').install()
     }
-
-    Cider.createWindow();
+    electron.components.whenReady().then(() => {
+        Cider.createWindow();
+    })
+    
 });
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -52,23 +54,27 @@ electron.app.on('before-quit', () => {
     console.warn(`${electron.app.getName()} exited.`);
 });
 //
+// // @ts-ignore
 // // Widevine Stuff
-// app.on('widevine-ready', (version, lastVersion) => {
+// electron.app.on('widevine-ready', (version, lastVersion) => {
 //     if (null !== lastVersion) {
 //         console.log('[Cider][Widevine] Widevine ' + version + ', upgraded from ' + lastVersion + ', is ready to be used!')
 //     } else {
 //         console.log('[Cider][Widevine] Widevine ' + version + ' is ready to be used!')
 //     }
 // })
-//
-// app.on('widevine-update-pending', (currentVersion, pendingVersion) => {
+
+// // @ts-ignore
+// electron.app.on('widevine-update-pending', (currentVersion, pendingVersion) => {
 //     console.log('[Cider][Widevine] Widevine ' + currentVersion + ' is ready to be upgraded to ' + pendingVersion + '!')
 // })
-//
-// app.on('widevine-error', (error) => {
+
+// // @ts-ignore
+// electron.app.on('widevine-error', (error) => {
 //     console.log('[Cider][Widevine] Widevine installation encountered an error: ' + error)
-//     app.exit()
+//     electron.app.exit()
 // })
+
 //
 //
 // app.on('open-url', (event, url) => {
