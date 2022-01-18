@@ -92,6 +92,10 @@
                             this.loading = false
                         }
                     }else{
+                        if(!response.data.results[app.collectionList.response.groups]) {
+                            this.loading = false
+                            return
+                        }
                         if (response.data.results[app.collectionList.response.groups].next) {
                             this.data.data = this.data.data.concat(response.data.results[app.collectionList.response.groups].data);
                             this.data.next = response.data.results[app.collectionList.response.groups].next;
