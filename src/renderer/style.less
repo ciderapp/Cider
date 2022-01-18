@@ -2402,6 +2402,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
       padding: 0;
       -webkit-mask-image: radial-gradient(at top left, black, transparent 70%), radial-gradient(at top right, black, transparent 70%), linear-gradient(180deg, rgb(200 200 200), transparent 98%);
       opacity: .7;
+      animation: playlistArtworkFadeIn 1s var(--appleEase);
 
       .artworkMaterial>img {
         filter: brightness(100%) blur(80px) saturate(100%) contrast(1);
@@ -2592,6 +2593,14 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   }
 }
 
+@keyframes playlistArtworkFadeIn {
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 0.7;
+  }
+}
 // Collection Page
 .collection-page {
   padding-bottom: 128px;
