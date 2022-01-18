@@ -6,7 +6,7 @@
   "description": "A new look into listening and enjoying music in style and performance.",
   "license": "MIT",
   "main": "./build/index.js",
-  "author": "Cider Collective <cryptofyre@cryptofyre.org> (https://cider.sh)",
+  "author": "Cider Collective <cryptofyre@cider.sh> (https://cider.sh)",
   "repository": "https://github.com/ciderapp/Cider.git",
   "bugs": {
     "url": "https://github.com/ciderapp/Cider/issues?q=is%3Aopen+is%3Aissue+label%3Abug"
@@ -16,7 +16,10 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
-    "start": "npm run build && ELECTRON_ENABLE_LOGGING=true electron ./build/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
+    "start": "run-script-os",
+    "start:win32": "npm run build && set ELECTRON_ENABLE_LOGGING=true && electron ./build/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
+    "start:linux": "npm run build && export ELECTRON_ENABLE_LOGGING=true && electron ./build/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
+    "start:darwin": "npm run build && export ELECTRON_ENABLE_LOGGING=true && electron ./build/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
     "pack": "electron-builder --dir",
     "dist": "npm run build && electron-builder",
     "msft": "electron-builder -c msft-package.json",
@@ -39,9 +42,10 @@
     "qrcode-terminal": "^0.12.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "run-script-os": "^1.1.6",
     "source-map-support": "^0.5.21",
     "v8-compile-cache": "^2.3.0",
-    "ws": "^8.4.0",
+    "ws": "^8.4.2",
     "xml2js": "^0.4.23",
     "youtube-search-without-api-key": "^1.0.7"
   },
@@ -78,9 +82,9 @@
     }
   ],
   "build": {
-    "electronVersion": "16.0.6",
+    "electronVersion": "16.0.7",
     "electronDownload": {
-      "version": "16.0.6+wvcus",
+      "version": "16.0.7+wvcus",
       "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
     },
     "appId": "cider",
