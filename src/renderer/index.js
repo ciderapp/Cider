@@ -2900,7 +2900,7 @@ const app = new Vue({
                 }
                 id = item.id
             }
-            let response = await this.mk.api.v3.music(`/v1/me/ratings/${type}?platform=web&ids=${type.includes('library') ? item.id : id}}`)
+            let response = await this.mk.api.v3.music(`/v1/me/ratings/${type}?platform=web&ids=${type.includes('library') ? item.id : id}`)
             if (response.data.data.length != 0) {
                 let value = response.data.data[0].attributes.value
                 return value
