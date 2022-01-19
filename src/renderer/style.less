@@ -4073,28 +4073,41 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     }
 
     input[type=range] {
-      appearance: none;
-      width: 100%;
+      -webkit-appearance: none;
       height: 4px;
-      background-color: rgb(200 200 200 / 10%);
-      border-radius: 2px;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 5px;
+      background-size: 70% 100%;
+      background-repeat: no-repeat;
 
       &::-webkit-slider-thumb {
-        opacity: 1;
-        transform: scale(0.5);
         -webkit-appearance: none;
-        appearance: none;
-        width: 23px;
-        height: 23px;
-        border-radius: 100%;
-        background: rgba(236, 234, 234, 0.733);
+        height: 14px;
+        width: 14px;
+        border-radius: 50%;
+        background: rgb(50 50 50);
         cursor: default;
-        transition: opacity .10s var(--appleEase), transform .10s var(--appleEase);
+        box-shadow: inset 0px 0px 0px 1px rgba(255, 255, 255, 0.4);
+        transition: all var(--appleTransition);
+      }
+      
+      &::-webkit-slider-thumb:hover {
+        background-image: radial-gradient(var(--keyColor) 2px, transparent 3px, transparent 10px);
+        transform: scale(1.2);
+      }
+      
+      &::-webkit-slider-thumb:active {
+        background-image: radial-gradient(var(--keyColor) 3px, transparent 4px, transparent 10px);
+        transform: scale(1);
       }
 
+      &::-webkit-slider-runnable-track {
+        -webkit-appearance: none;
+        box-shadow: none;
+        border: none;
+        background: transparent;
+      }
     }
-
-
   }
 
 
