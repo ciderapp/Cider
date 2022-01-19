@@ -2,8 +2,7 @@
     <div tabindex="0"
          class="cd-mediaitem-square" :class="getClasses()" @contextmenu="contextMenu"
          v-observe-visibility="{callback: visibilityChanged}"
-         :style="{'--spcolor': getBgColor()}"
-         @click.self='app.routeView(item)'>
+         :style="{'--spcolor': getBgColor()}">
         <template v-if="isVisible">
             <div class="artwork-container">
                 <div class="artwork" @click='app.routeView(item)'>
