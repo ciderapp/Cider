@@ -1,18 +1,24 @@
 <script type="text/x-template" id="apple-podcasts">
     <div class="content-inner podcasts-page">
         <div class="podcasts-list">
-            <podcast-item @click.native="getEpisodes(podcast)" v-for="podcast in podcasts" :item="podcast"></podcast-item>
+            <podcast-tab :isselected="podcastSelected.id == podcast.id" @click.native="selectPodcast(podcast)" v-for="podcast in podcasts" :item="podcast"></podcast-tab>
         </div>
         <div class="episodes-list">
-            <div class="well">
-                <mediaitem-square kind="small" :item="episode" v-for="episode in episodes"></mediaitem-square>
+            <podcast-episode :isselected="selected.id == episode.id" @dblclick.native="playEpisode(episode)" @click.native="selectEpisode(episode)" :item="episode"
+                             v-for="episode in episodes"></podcast-episode>
+        </div>
+        <div class="podcasts-details" v-if="selected.id != -1">
+            <div class="podcast-artwork">
+                <mediaitem-artwork shadow="large" :url="selected.attributes.artwork.url" size="300"></mediaitem-artwork>
             </div>
+            <h3 class="podcast-header">{{ selected.attributes.name }}</h3>
+            <button @click="playEpisode(selected)" class="md-btn podcast-play-btn">Play Episode</button>
+            <p class="well podcast-description" v-if="selected.attributes.description.standard" v-html="selected.attributes.description.standard"></p>
         </div>
     </div>
 </script>
-
-<script type="text/x-template" id="podcast-item">
-    <div class="cd-mediaitem-list-item">
+<script type="text/x-template" id="podcast-tab">
+    <div class="cd-mediaitem-list-item" :class="{'mediaitem-selected': isselected}">
         <div class="artwork">
             <mediaitem-artwork
                     :url="item.attributes.artwork.url"
@@ -26,10 +32,27 @@
         </div>
     </div>
 </script>
+<script type="text/x-template" id="podcast-episode">
+    <div class="cd-mediaitem-list-item" :class="{'mediaitem-selected': isselected}">
+        <div class="info-rect" :style="{'padding-left':'16px'}">
+            <div class="title text-overflow-elipsis">
+                {{ item.attributes.name }}
+            </div>
+            <div class="subtitle text-overflow-elipsis">
+                {{ item.attributes.description.standard }}
+            </div>
+        </div>
+    </div>
+</script>
 <script>
-    Vue.component('podcast-item', {
-        template: '#podcast-item',
-        props: ['item'],
+    Vue.component('podcast-episode', {
+        template: '#podcast-episode',
+        props: ['item', 'isselected'],
+        methods: {}
+    });
+    Vue.component('podcast-tab', {
+        template: '#podcast-tab',
+        props: ['item', 'isselected'],
         methods: {}
     });
     Vue.component('apple-podcasts', {
@@ -37,18 +60,34 @@
         data: function () {
             return {
                 podcasts: [],
-                episodes: []
+                episodes: [],
+                podcastSelected: {
+                    id: -1
+                },
+                selected: {
+                    id: -1
+                }
             }
         },
         async mounted() {
             let podcastShow = await app.mk.api.v3.podcasts(`/v1/me/library/podcasts?include=episodes`)
             this.podcasts = podcastShow.data.data
-            if(podcastShow.data.next) {
+            if (podcastShow.data.next) {
                 await this.getNext(podcastShow.data.next)
             }
             // this.episodes = podcastShow.data.data[0].relationships.episodes.data
         },
         methods: {
+            playEpisode(episode) {
+                app.mk.setQueue({'episode': episode.id}).then(() => {app.mk.play()})
+            },
+            selectPodcast(podcast) {
+                this.podcastSelected = podcast
+                this.getEpisodes(podcast)
+            },
+            selectEpisode(episode) {
+                this.selected = episode
+            },
             async getEpisodes(podcast) {
                 this.episodes = []
                 let eps = await app.mk.api.v3.podcasts(`/v1/catalog/${app.mk.storefrontId}/podcasts/${podcast.id}?include=episodes`)
@@ -56,23 +95,27 @@
                 eps.data.data[0].relationships.episodes.data.forEach(ep => {
                     this.episodes.push(ep)
                 })
-                if(eps.data.data[0].relationships.episodes.next) {
-                    await this.getNextEpisodes(eps.data.data[0].relationships.episodes.next)
+                if (eps.data.data[0].relationships.episodes.next) {
+                    await this.getNextEpisodes(eps.data.data[0].relationships.episodes.next, podcast.id)
                 }
             },
-            async getNextEpisodes(next) {
+            async getNextEpisodes(next, podcastId) {
+
                 let podcastShow = await app.mk.api.v3.podcasts(next)
+                if(podcastId != this.podcastSelected.id) {
+                    return
+                }
                 podcastShow.data.data.forEach(ep => {
                     this.episodes.push(ep)
                 })
-                if(podcastShow.data.next) {
-                    await this.getNextEpisodes(podcastShow.data.next)
+                if (podcastShow.data.next) {
+                    await this.getNextEpisodes(podcastShow.data.next, podcastId)
                 }
             },
             async getNext(next) {
                 let podcastShow = await app.mk.api.v3.podcasts(next)
                 this.podcasts = this.podcasts.concat(podcastShow.data.data)
-                if(podcastShow.data.next) {
+                if (podcastShow.data.next) {
                     await this.getNext(podcastShow.data.next)
                 }
             }

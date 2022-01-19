@@ -2495,16 +2495,48 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
   .podcasts-list {
     height: 100%;
-    width: 400px;
-    background: gray;
+    width: 280px;
+    background: rgb(200 200 200 / 10%);
     overflow-y: overlay;
+    border-right: 1px solid var(--color2);
+    flex: none;
   }
 
   .episodes-list {
     height: 100%;
     width: 100%;
-    background: black;
+    background: rgb(200 200 200 / 6%);
     overflow-y: overlay;
+  }
+
+  .podcasts-details {
+    height: 100%;
+    width: 400px;
+    flex: none;
+    background: rgba(200, 200, 200, 0.1);
+    overflow-y: overlay;
+    border-left: 1px solid var(--color2);
+
+    .podcast-header {
+      text-align:center;
+    }
+
+    .podcast-play-btn {
+      width: 50%;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .podcast-description {
+      margin: 12px;
+      font-size: 0.75em;
+    }
+
+    .podcast-artwork {
+      width: 200px;
+      margin: 16px auto;
+      height: 200px;
+    }
   }
 
 }
