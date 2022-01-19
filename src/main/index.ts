@@ -11,7 +11,6 @@ import {AppEvents} from "./base/app";
 import PluginHandler from "./base/plugins";
 
 // const test = new PluginHandler();
-let win: Promise<void> | null = null;
 const config = new ConfigStore();
 const App = new AppEvents(config.store);
 const Cider = new Win(electron.app, config.store)
@@ -31,8 +30,10 @@ electron.app.on('ready', () => {
     }
 
     electron.components.whenReady().then(() => {
-        win = Cider.createWindow();
-        plug.callPlugins('onReady', win);
+        Cider.createWindow().then((win) => {
+            plug.callPlugins('onReady', win);
+        })
+        
     })
     
 

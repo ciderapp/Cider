@@ -42,7 +42,7 @@ export default class PluginHandler {
                 }
             });
         }
-
+        console.log('loaded plugins:', JSON.stringify(plugins))
         return plugins;
     }
 

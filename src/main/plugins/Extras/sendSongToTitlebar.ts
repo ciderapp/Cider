@@ -11,11 +11,15 @@ export default class sendSongToTitlebar {
     /**
      * Runs on plugin load (Currently run on application start)
      */
+    private _win: any;
+    private _app: any;
     constructor() {}
     /**
      * Runs on app ready
      */
-    onReady(): void {}
+    onReady(win: any): void {
+        this._win = win;
+    }
     /**
      * Runs on app stop
      */
@@ -25,7 +29,7 @@ export default class sendSongToTitlebar {
      * @param attributes Music Attributes (attributes.state = current state)
      */
     onPlaybackStateDidChange(attributes: any): void {
-        electron.ipcRenderer.send('set-titlebar', attributes.name)
+        this._win.setTitle(`${(attributes != null && attributes.name != null && attributes.name.length > 0) ? (attributes.name + " - ") : ''}Cider`)
     }
     /**
      * Runs on song change

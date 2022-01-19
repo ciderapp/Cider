@@ -393,15 +393,6 @@ export class Win {
             this.win.webContents.setZoomFactor(parseFloat(scale));
         });
 
-
-        // Titlebar #147 - Implemented as plugin
-        electron.ipcMain.on('set-titlebar', (e, titlebar) => {
-            this.win.title = `${titlebar} - Cider`
-        })
-        electron.ipcMain.on('reset-titlebar', () => {
-            this.win.title = `Cider`
-        })
-
         /* *********************************************************************************************
          * Window Events
          * **********************************************************************************************/
