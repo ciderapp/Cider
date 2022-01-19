@@ -31,9 +31,7 @@ electron.app.on('ready', () => {
 
     electron.components.whenReady().then(async () => {
         await Cider.createWindow()
-        plug.callPlugins('onReady', Cider);
-        
-        
+        plug.callPlugins('onReady', Cider);        
     })
     
 
