@@ -115,11 +115,11 @@
                                     </div>
                                 </div>
                                 <template v-if="mk.nowPlayingItem['attributes']['playParams']">
-                                    <div class="actions"
-                                         v-if="isInLibrary(mk.nowPlayingItem['attributes']['playParams'])">
-                                        ❤️
+                                    <div class="actions">
+                                        <button class="lcdMenu" @click="nowPlayingContextMenu">
+                                            <div class="svg-icon"></div>
+                                        </button>
                                     </div>
-                                    <div class="actions" v-else>🖤</div>
                                 </template>
 
                             </div>
@@ -661,6 +661,8 @@
     </button>
 </script>
 
+<!-- Artwork Material -->
+<%- include('components/artwork-material') %>
 <!-- Menu Panel -->
 <%- include('components/menu-panel') %>
 <!-- Playlist Listing -->
@@ -712,5 +714,6 @@
 <script src="index.js?v=1"></script>
 <script src="https://cdn.jsdelivr.net/npm/resonance-audio/build/resonance-audio.min.js"></script>
 <script src="/audio/audio.js?v=1"></script>
+<script src="/WSAPI_Interop.js"></script>
 </body>
 </html>

@@ -4,6 +4,7 @@ dist
 yarn*
 package-lock.json
 .yarnclean
+build
 
 # Misc
 .idea

@@ -1,42 +1,59 @@
 <script type="text/x-template" id="cider-artist">
     <div class="content-inner artist-page">
-        <div class="artist-header" :style="getArtistPalette(data)" :key="data.id">
+        <div class="artist-header" :key="data.id" v-observe-visibility="{callback: isHeaderVisible}">
             <animatedartwork-view
                     :priority="true"
                     v-if="data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9)"
                     :video="data.attributes.editorialVideo.motionArtistWide16x9.video ?? (data.attributes.editorialVideo.motionArtistFullscreen16x9.video ?? '')">
             </animatedartwork-view>
-            <div class="row">
-                <div class="col-sm" style="width: auto;">
-                    <div class="artist-image" v-if="!(data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9))">
-                        <mediaitem-artwork
-                                shadow="large"
-                                :url="data.attributes.artwork ? data.attributes.artwork.url : ''"
-                                size="190" type="artists"></mediaitem-artwork>
-                        <button class="overlay-play"  @click="app.mk.setStationQueue({artist:'a-'+data.id}).then(()=>{
+            <div class="header-content">
+                <div class="row">
+                    <div class="col-sm" style="width: auto;">
+                        <div class="artist-image" v-if="!(data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9))">
+                            <mediaitem-artwork
+                                    shadow="large"
+                                    :url="data.attributes.artwork ? data.attributes.artwork.url : ''"
+                                    size="190" type="artists"></mediaitem-artwork>
+                            <button class="overlay-play"  @click="app.mk.setStationQueue({artist:'a-'+data.id}).then(()=>{
                             app.mk.play()
                         })">
-                            <%- include("../svg/play.svg") %>
-                        </button>
+                                <%- include("../svg/play.svg") %>
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div class="col flex-center artist-title"
-                     :class="{'artist-animation-on': (data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9)) }"
-                >
-                    <button class="artist-play" @click="app.mk.setStationQueue({artist:'a-'+data.id}).then(()=>{
+                    <div class="col flex-center artist-title"
+                         :class="{'artist-animation-on': (data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9)) }"
+                    >
+                        <button class="artist-play" @click="app.mk.setStationQueue({artist:'a-'+data.id}).then(()=>{
                         app.mk.play()
                     })"><%- include("../svg/play.svg") %></button>
-                    <h1>{{ data.attributes.name }}</h1>
+                        <h1>{{ data.attributes.name }}</h1>
+                    </div>
+                </div>
+                <button class="more-btn-round" @click="artistMenu">
+                    <div class="svg-icon"></div>
+                </button>
+            </div>
+            <div class="artworkContainer" v-if="!(data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9))">
+                <artwork-material :url="data.attributes.artwork.url" size="190" images="1"></artwork-material>
+            </div>
+        </div>
+        <div class="floating-header" :style="{opacity: (headerVisible ? 0 : 1),'pointer-events': (headerVisible ? 'none' : '')}">
+            <div class="row">
+                <div class="col-auto flex-center">
+                    <button class="artist-play" style="display:block;" @click="app.mk.setStationQueue({artist:'a-'+data.id}).then(()=>{
+                        app.mk.play()
+                    })"><%- include("../svg/play.svg") %></button>
+                </div>
+                <div class="col">
+                    <h3>{{ data.attributes.name }}</h3>
+                </div>
+                <div class="col-auto flex-center">
+                    <button class="more-btn-round" @click="artistMenu">
+                        <div class="svg-icon"></div>
+                    </button>
                 </div>
             </div>
-            <button class="artist-more" @click="artistMenu">
-                <div style="    margin-top: -1px;
-                                margin-left: -6px;
-                                width: 36px;
-                                height: 36px;">
-                <%- include("../svg/more.svg") %>
-                </div>
-           </button>
         </div>
         <div class="artist-body">
             <div class="row well">
@@ -133,10 +150,14 @@
         data: function () {
             return {
                 topSongsExpanded: false,
-                app: this.$root
+                app: this.$root,
+                headerVisible: true
             }
         },
         methods: {
+            isHeaderVisible(visible) {
+                this.headerVisible = visible
+            },
             artistMenu (event) {
                 let self = this
                 let followAction = "follow"
