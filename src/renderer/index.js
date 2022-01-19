@@ -252,7 +252,7 @@ const app = new Vue({
         tmpVar: [],
         notification: false,
         chrome: {
-            hideUserInfo: ipcRenderer.sendSync("is-dev"),
+            hideUserInfo: false,
             artworkReady: false,
             userinfo: {
                 "id": "",
@@ -479,6 +479,8 @@ const app = new Vue({
             this.$forceUpdate()
             if (this.isDev) {
                 this.mk.privateEnabled = true
+                // Hide UserInfo if Dev mode
+                this.chrome.hideUserInfo = true
             } else {
                 // Get Hide User from Settings
                 this.chrome.hideUserInfo = !this.cfg.visual.showuserinfo
