@@ -486,9 +486,12 @@ const app = new Vue({
             let self = this
             clearTimeout(this.hangtimer)
             this.mk = MusicKit.getInstance()
+            let needsReload = (typeof localStorage["music.ampwebplay.media-user-token"] == "undefined")
             this.mk.authorize().then(() => {
                 self.mkIsReady = true
-                    //document.location.reload()
+                if(needsReload) {
+                    document.location.reload()
+                }
             })
             this.$forceUpdate()
             if (this.isDev) {
@@ -707,6 +710,10 @@ const app = new Vue({
                 this.getBrowsePage();
                 this.$forceUpdate()
             }, 500)
+        },
+        unauthorize() {
+            this.mk.unauthorize()
+            document.location.reload()
         },
         getAppClasses() {
             if (this.cfg.advanced.experiments.includes('compactui')) {
