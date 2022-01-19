@@ -836,6 +836,13 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 }
 
 .app-chrome .app-chrome-item.volume > input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 14px;
+  width: 14px;
+  border-radius: 50%;
+  background: rgb(50 50 50);
+  cursor: default;
+  box-shadow: inset 0px 0px 0px 1px rgba(255, 255, 255, 0.4);
   transition: all var(--appleTransition);
 }
 
@@ -850,26 +857,13 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 }
 
 .app-chrome .app-chrome-item.volume > input[type=range] {
-  width: 100%;
-}
-
-.app-chrome .app-chrome-item.volume > input[type=range] {
   -webkit-appearance: none;
   height: 4px;
   background: rgba(255, 255, 255, 0.4);
   border-radius: 5px;
   background-size: 70% 100%;
   background-repeat: no-repeat;
-}
-
-.app-chrome .app-chrome-item.volume > input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  height: 14px;
-  width: 14px;
-  border-radius: 50%;
-  background: rgb(50 50 50);
-  cursor: default;
-  box-shadow: inset 0px 0px 0px 1px rgba(255, 255, 255, 0.4);
+  width: 100%,
 }
 
 .app-chrome .app-chrome-item.volume > input[type=range]::-webkit-slider-runnable-track {
@@ -1155,7 +1149,57 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 /* Window is smaller <= 1023px width */
 @media only screen and (max-width: 1023px) {
   .display--small {
-    display: inherit !important;
+    display: inherit !important;;
+
+    .slider {
+      width: 100%;
+      z-index: 1;
+    }
+
+    .input-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding-bottom: 10px;
+    }
+
+    input[type=range] {
+      -webkit-appearance: none;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 5px;
+      background-size: 70% 100%;
+      background-repeat: no-repeat;
+
+      &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 14px;
+        width: 14px;
+        border-radius: 50%;
+        background: rgb(50 50 50);
+        cursor: default;
+        box-shadow: inset 0px 0px 0px 1px rgba(255, 255, 255, 0.4);
+        transition: all var(--appleTransition);
+      }
+      
+      &::-webkit-slider-thumb:hover {
+        background-image: radial-gradient(var(--keyColor) 2px, transparent 3px, transparent 10px);
+        transform: scale(1.2);
+      }
+      
+      &::-webkit-slider-thumb:active {
+        background-image: radial-gradient(var(--keyColor) 3px, transparent 4px, transparent 10px);
+        transform: scale(1);
+      }
+
+      &::-webkit-slider-runnable-track {
+        -webkit-appearance: none;
+        box-shadow: none;
+        border: none;
+        background: transparent;
+      }
+    }
   }
 
   .display--large {
