@@ -4,6 +4,24 @@
             <podcast-tab :isselected="podcastSelected.id == podcast.id" @click.native="selectPodcast(podcast)" v-for="podcast in podcasts" :item="podcast"></podcast-tab>
         </div>
         <div class="episodes-list">
+            <div v-if="podcastSelected.id != -1" class="episodes-inline-info">
+                <div class="row">
+                    <div class="col-auto flex-center">
+                        <div class="podcast-artwork">
+                            <mediaitem-artwork shadow="large" :url="podcastSelected.attributes.artwork.url" size="300"></mediaitem-artwork>
+                        </div>
+                    </div>
+                    <div class="col podcast-show-info">
+                        <h1>{{ podcastSelected.attributes.name }}</h1>
+                        <small>{{ podcastSelected.attributes.releaseFrequency }}</small>
+                        <small>Created: {{ new Date(podcastSelected.attributes.createdDate).toLocaleDateString() }}</small>
+                    </div>
+                </div>
+
+                <div class="well podcast-show-description">{{ podcastSelected.attributes.description.standard }}</div>
+
+                <h3>Episodes</h3>
+            </div>
             <podcast-episode :isselected="selected.id == episode.id" @dblclick.native="playEpisode(episode)" @click.native="selectEpisode(episode)" :item="episode"
                              v-for="episode in episodes"></podcast-episode>
         </div>
@@ -19,7 +37,7 @@
             <div class="podcast-metainfo">
                 {{ msToMinSec(selected.attributes.durationInMilliseconds) }} • {{ new Date(selected.attributes.releaseDateTime).toLocaleString() }}
             </div>
-            <p class="well podcast-description" v-if="selected.attributes.description.standard" v-html="selected.attributes.description.standard"></p>
+            <div class="well podcast-description" v-if="selected.attributes.description.standard">{{ selected.attributes.description.standard }}</div>
             <div class="row">
                 <div class="col">
                     <button class="md-btn md-btn-block" @click="openUrl(selected.attributes.websiteUrl)">Podcast Website</button>
