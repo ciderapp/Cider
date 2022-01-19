@@ -62,7 +62,8 @@ const configDefaults = {
         "animated_artwork_qualityLevel": 1,
         "bg_artwork_rotation": false,
         "hw_acceleration": "default", // default, webgpu, disabled
-        "videoRes": 720
+        "videoRes": 720,
+        "showuserinfo": true
     },
     "lyrics": {
         "enable_mxm": false,
