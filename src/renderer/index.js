@@ -554,7 +554,8 @@ const app = new Vue({
                     app.mk.bitrate = app.cfg.audio.quality = 64
                     break;
                 default:
-                    app.mk.bitrate = app.cfg.audio.quality
+                    // app.mk.bitrate = app.cfg.audio.quality
+                    break;
             }
 
 
