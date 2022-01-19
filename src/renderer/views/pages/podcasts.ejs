@@ -13,7 +13,21 @@
             </div>
             <h3 class="podcast-header">{{ selected.attributes.name }}</h3>
             <button @click="playEpisode(selected)" class="md-btn podcast-play-btn">Play Episode</button>
+            <div class="podcast-genre">
+                {{ selected.attributes.genreNames[0] }}
+            </div>
+            <div class="podcast-metainfo">
+                {{ msToMinSec(selected.attributes.durationInMilliseconds) }} • {{ new Date(selected.attributes.releaseDateTime).toLocaleString() }}
+            </div>
             <p class="well podcast-description" v-if="selected.attributes.description.standard" v-html="selected.attributes.description.standard"></p>
+            <div class="row">
+                <div class="col">
+                    <button class="md-btn md-btn-block" @click="openUrl(selected.attributes.websiteUrl)">Podcast Website</button>
+                </div>
+                <div class="col">
+                    <button class="md-btn md-btn-block">Share</button>
+                </div>
+            </div>
         </div>
     </div>
 </script>
@@ -41,6 +55,9 @@
             <div class="subtitle text-overflow-elipsis">
                 {{ item.attributes.description.standard }}
             </div>
+            <div class="subtitle text-overflow-elipsis">
+                {{ msToMinSec(item.attributes.durationInMilliseconds) }} • {{ new Date(item.attributes.releaseDateTime).toLocaleString() }}
+            </div>
         </div>
     </div>
 </script>
@@ -48,7 +65,13 @@
     Vue.component('podcast-episode', {
         template: '#podcast-episode',
         props: ['item', 'isselected'],
-        methods: {}
+        methods: {
+            msToMinSec(ms) {
+                var minutes = Math.floor(ms / 60000);
+                var seconds = ((ms % 60000) / 1000).toFixed(0);
+                return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+            }
+        }
     });
     Vue.component('podcast-tab', {
         template: '#podcast-tab',
@@ -78,6 +101,14 @@
             // this.episodes = podcastShow.data.data[0].relationships.episodes.data
         },
         methods: {
+            openUrl(url) {
+                window.open(url)
+            },
+            msToMinSec(ms) {
+                var minutes = Math.floor(ms / 60000);
+                var seconds = ((ms % 60000) / 1000).toFixed(0);
+                return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+            },
             playEpisode(episode) {
                 app.mk.setQueue({'episode': episode.id}).then(() => {app.mk.play()})
             },
