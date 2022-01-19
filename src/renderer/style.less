@@ -2487,6 +2487,31 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   }
 }
 
+// Podcast Page
+.content-inner.podcasts-page {
+  display: flex;
+  height: calc(100% - var(--navigationBarHeight));
+  padding: 0px;
+
+  .podcasts-list {
+    height: 100%;
+    width: 400px;
+    background: gray;
+    overflow-y: overlay;
+  }
+
+  .episodes-list {
+    height: 100%;
+    width: 100%;
+    background: black;
+    overflow-y: overlay;
+  }
+
+}
+
+
+
+
 /* Album / Playlist Page */
 .playlist-page {
   --bgColor: transparent;
