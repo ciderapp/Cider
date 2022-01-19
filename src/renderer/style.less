@@ -827,12 +827,43 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   margin-right: 6px;
 }
 
-.app-chrome-item.volume-icon {
-  opacity: 0.7;
+.volume-button {
   background-image: url("./assets/feather/volume-2.svg");
   height: 15px;
   width: 30px;
+  padding: 0px;
+  background: transparent;
+  border: 0px;
+  border-radius: 0px;
+  box-shadow: unset;
+  background-size: 12px;
+  background-position: center;
   background-repeat: no-repeat;
+  opacity: 0.70;
+  border-radius: 6px;
+}
+
+.volume-button:active, .volume-button--small:active {
+  transform: scale(0.9);
+}
+
+.volume-button.active, .volume-button--small.active {
+  background-image: url("./assets/feather/volume.svg");
+}
+
+.volume-button--small {
+  border-radius: 6px;
+  color: inherit;
+  background-size: 16px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  height: 15px;
+  width: 30px;
+  border: 0px;
+  box-shadow: unset;
+  opacity: 0.70;
+  background-image: url("./assets/feather/volume-2.svg");
 }
 
 .app-chrome .app-chrome-item.volume > input[type=range]::-webkit-slider-thumb {
@@ -3980,6 +4011,15 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     height: 5vh;
     justify-content: space-evenly;
 
+    .volume {
+      background-image: url("./assets/feathers/volume.svg");
+      padding: 0.5vh;
+      width: 2vh;
+      height: 2vh;
+      background-origin: content-box;
+      background-repeat: no-repeat;
+    }
+
     .queue {
       background-image: url("./assets/list.svg");
       padding: 0.5vh;
@@ -4043,6 +4083,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
       .song-artist {
         font-size: 0.875em;
+        font-weight: 400;
       }
 
       .song-name {
