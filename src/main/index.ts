@@ -11,7 +11,6 @@ import {AppEvents} from "./base/app";
 import PluginHandler from "./base/plugins";
 
 // const test = new PluginHandler();
-
 const config = new ConfigStore();
 const App = new AppEvents(config.store);
 const Cider = new Win(electron.app, config.store)
@@ -23,17 +22,19 @@ const plug = new PluginHandler();
 
 electron.app.on('ready', () => {
     App.ready();
-    plug.callPlugins('onReady');
 
     console.log('[Cider] Application is Ready. Creating Window.')
     if (!electron.app.isPackaged) {
         console.info('[Cider] Running in development mode.')
         require('vue-devtools').install()
     }
-    electron.components.whenReady().then(() => {
-        Cider.createWindow();
+
+    electron.components.whenReady().then(async () => {
+        await Cider.createWindow()
+        plug.callPlugins('onReady', Cider);        
     })
     
+
 });
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

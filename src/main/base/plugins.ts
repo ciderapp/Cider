@@ -23,7 +23,7 @@ export default class PluginHandler {
                     if (plugins[file] || plugin.name in plugins) {
                         console.log(`[${plugin.name}] Plugin already loaded / Duplicate Class Name`);
                     } else {
-                        plugins[file] = new plugin();
+                        plugins[file] = new plugin(electron.app);
                     }
                 }
             });
@@ -33,16 +33,16 @@ export default class PluginHandler {
         if (fs.existsSync(this.userPluginsPath)) {
             fs.readdirSync(this.userPluginsPath).forEach(file => {
                 if (file.endsWith('.ts') || file.endsWith('.js')) {
-                    const plugin = require(path.join(this.userPluginsPath, file));
+                    const plugin = require(path.join(this.userPluginsPath, file)).default;
                     if (plugins[file] || plugin in plugins) {
-                        console.log(`[${plugin.default}] Plugin already loaded / Duplicate Class Name`);
+                        console.log(`[${plugin.name}] Plugin already loaded / Duplicate Class Name`);
                     } else {
-                        plugins[file] = new plugin.default();
+                        plugins[file] = new plugin(electron.app);
                     }
                 }
             });
         }
-
+        console.log('loaded plugins:', JSON.stringify(plugins))
         return plugins;
     }
 

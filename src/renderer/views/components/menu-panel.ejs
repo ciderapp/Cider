@@ -72,10 +72,10 @@
                     style["top"] = this.event.clientY + "px";
                     // make sure the menu panel isnt off the screen
                     if (this.event.clientX + this.size[0] > window.innerWidth) {
-                        style["left"] = (window.innerWidth - this.size[0]) + "px";
+                        style["left"] = (this.event.clientX - this.size[0]) + "px";
                     }
                     if (this.event.clientY + this.size[1] > window.innerHeight) {
-                        style["top"] = (window.innerHeight - this.size[1]) + "px";
+                        style["top"] = (this.event.clientY - this.size[1]) + "px";
                     }
                 }
                 return style
