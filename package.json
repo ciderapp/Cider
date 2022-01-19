@@ -50,6 +50,7 @@
     "youtube-search-without-api-key": "^1.0.7"
   },
   "devDependencies": {
+    "@types/discord-rpc": "^4.0.0",
     "@types/express": "^4.17.13",
     "electron": "https://github.com/castlabs/electron-releases.git",
     "electron-builder": "^22.14.5",

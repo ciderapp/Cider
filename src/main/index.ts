@@ -29,10 +29,10 @@ electron.app.on('ready', () => {
         require('vue-devtools').install()
     }
 
-    electron.components.whenReady().then(() => {
-        Cider.createWindow().then((win) => {
-            plug.callPlugins('onReady', win);
-        })
+    electron.components.whenReady().then(async () => {
+        await Cider.createWindow()
+        plug.callPlugins('onReady', Cider);
+        
         
     })
     
