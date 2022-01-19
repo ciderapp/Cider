@@ -3180,6 +3180,15 @@ const app = new Vue({
                 ipcRenderer.send('setFullScreen', false);
                 app.appMode = 'player';
             }
+        },
+        toggleHideUserInfo() {
+            if(this.chrome.hideUserInfo) {
+                this.cfg.visual.showuserinfo = true
+                this.chrome.hideUserInfo = false
+            } else {
+                this.cfg.visual.showuserinfo = false
+                this.chrome.hideUserInfo = true
+            }
         }
 
     }
