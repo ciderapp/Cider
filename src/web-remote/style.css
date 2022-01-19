@@ -1002,6 +1002,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     }
     .player-song-artist {
         font-size: 1.25em;
+        font-weight: 400;
     }
     .search-panel {}
     .md-footer {
