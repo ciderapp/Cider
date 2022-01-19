@@ -249,6 +249,11 @@ const app = new Vue({
             start: 0,
             end: 0
         },
+        v3: {
+            requestBody: {
+                platform: "web"
+            }
+        },
         tmpVar: [],
         notification: false,
         chrome: {
@@ -610,10 +615,16 @@ const app = new Vue({
                 }
             })
 
+            this.mk.addEventListener(MusicKit.Events.playbackStateDidChange, ()=>{
+                ipcRenderer.send('wsapi-updatePlaybackState', wsapi.getAttributes());
+            })
+
             this.mk.addEventListener(MusicKit.Events.playbackTimeDidChange, (a) => {
                 self.lyriccurrenttime = self.mk.currentPlaybackTime
                 this.currentSongInfo = a
                 self.playerLCD.playbackDuration = (self.mk.currentPlaybackTime)
+                // wsapi
+                ipcRenderer.send('wsapi-updatePlaybackState', wsapi.getAttributes());
             })
 
             this.mk.addEventListener(MusicKit.Events.nowPlayingItemDidChange, (a) => {
@@ -875,15 +886,18 @@ const app = new Vue({
                 })
             }
         },
-        async showCollection(response, title, type) {
+        async showCollection(response, title, type, requestBody = {}) {
             let self = this
+            console.log(response)
+            this.collectionList.requestBody = {}
             this.collectionList.response = response
             this.collectionList.title = title
             this.collectionList.type = type
+            this.collectionList.requestBody = requestBody
             app.appRoute("collection-list")
         },
         async showArtistView(artist, title, view) {
-            let response = (await app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/artists/${artist}/view/${view}`)).data
+            let response = (await app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/artists/${artist}/view/${view}`,{}, {includeResponseMeta: !0})).data
             console.log(response)
             await this.showCollection(response, title, "artists")
         },
@@ -892,7 +906,8 @@ const app = new Vue({
             await this.showCollection(response, title, "record-labels")
         },
         async showSearchView(term, group, title) {
-            let response = await app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/search?term=${term}`, {
+
+            let requestBody = {
                 platform: "web",
                 groups: group,
                 types: "activities,albums,apple-curators,artists,curators,editorial-items,music-movies,music-videos,playlists,songs,stations,tv-episodes,uploaded-videos,record-labels",
@@ -918,14 +933,18 @@ const app = new Vue({
                     resource: ["autos"]
                 },
                 groups: group
+            }
+            let response = await app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/search?term=${term}`, requestBody , {
+                includeResponseMeta: !0
             })
+
             console.log('searchres', response)
             let responseFormat = {
                 data: response.data.results[group].data,
-                next: response.data.results[group].data,
+                next: response.data.results[group].next,
                 groups: group
             }
-            await this.showCollection(responseFormat, title, "search")
+            await this.showCollection(responseFormat, title, "search", requestBody)
         },
         async getPlaylistContinuous(response, transient = false) {
             response = response.data.data[0]
@@ -1134,7 +1153,10 @@ const app = new Vue({
                     window.location.hash = `${kind}/${id}`
                     document.querySelector("#app-content").scrollTop = 0
                 } else if (!kind.toString().includes("radioStation") && !kind.toString().includes("song") && !kind.toString().includes("musicVideo") && !kind.toString().includes("uploadedVideo") && !kind.toString().includes("music-movie")) {
-                    let params = { extend: "editorialVideo" }
+                    let params = {
+                        extend: "offers,editorialVideo",
+                        "views": "appears-on,more-by-artist,related-videos,other-versions,you-might-also-like,video-extras,audio-extras",
+                    }
                     app.page = (kind) + "_" + (id);
                     app.getTypeFromID((kind), (id), (isLibrary), params);
                     window.location.hash = `${kind}/${id}${isLibrary ? "/" + isLibrary : ''}`
@@ -2878,7 +2900,7 @@ const app = new Vue({
                 }
                 id = item.id
             }
-            let response = await this.mk.api.v3.music(`/v1/me/ratings/${type}?platform=web&ids=${type.includes('library') ? item.id : id}}`)
+            let response = await this.mk.api.v3.music(`/v1/me/ratings/${type}?platform=web&ids=${type.includes('library') ? item.id : id}`)
             if (response.data.data.length != 0) {
                 let value = response.data.data[0].attributes.value
                 return value
@@ -3073,7 +3095,6 @@ const app = new Vue({
                     items: [{
                             "icon": "./assets/feather/list.svg",
                             "name": "Add to Playlist...",
-                            "hidden": true,
                             "action": function() {
                                 app.promptAddToPlaylist()
                             }

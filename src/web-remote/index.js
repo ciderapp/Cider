@@ -504,6 +504,7 @@ var app = new Vue({
             }
 
             socket.onmessage = (e) => {
+                console.log(e.data)
                 const response = JSON.parse(e.data);
                 switch (response.type) {
                     default: console.log(response);

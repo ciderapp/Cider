@@ -82,10 +82,12 @@
                                     <mediaitem-artwork :url="currentArtUrl"></mediaitem-artwork>
                                 </div>
                                 <div class="playback-info">
-                                    <div class="song-name">
+                                    <div class="song-name" style="-webkit-box-orient: horizontal;"
+                                        :style="[mk.nowPlayingItem['attributes']['contentRating'] == 'explicit' ? {'margin-left' : '23px'} : {'margin-left' : '0px'} ]">
                                         {{ mk.nowPlayingItem["attributes"]["name"] }}
+                                        <div class="explicit-icon" v-if="mk.nowPlayingItem['attributes']['contentRating'] == 'explicit'" style="display: inline-block"></div>
                                     </div>
-                                    <div class="song-artist "
+                                    <div class="song-artist"
                                          style="display: inline-block; -webkit-box-orient: horizontal; white-space: nowrap;">
                                         <div class="item-navigate song-artist" style="display: inline-block"
                                             :style="[chrome.progresshover ? {'opacity': '0'} : {'opacity' : '1'} ]"
@@ -94,7 +96,7 @@
                                         </div>
                                         <div class="song-artist item-navigate" style="display: inline-block"
                                         :style="[chrome.progresshover ? {'opacity': '0'} : {'opacity' : '1'}]"
-                                        @click="getNowPlayingItemDetailed('album')">
+                                        @click="getNowPlayingItemDetailed('album')" v-if="mk.nowPlayingItem['attributes']['albumName'] != ''">
                                             <div class="separator" style="display: inline-block;">{{"—"}}</div>
                                             {{(mk.nowPlayingItem["attributes"]["albumName"]) ?
                                             (mk.nowPlayingItem["attributes"]["albumName"]) : "" }}
@@ -115,11 +117,11 @@
                                     </div>
                                 </div>
                                 <template v-if="mk.nowPlayingItem['attributes']['playParams']">
-                                    <div class="actions"
-                                         v-if="isInLibrary(mk.nowPlayingItem['attributes']['playParams'])">
-                                        ❤️
+                                    <div class="actions">
+                                        <button class="lcdMenu" @click="nowPlayingContextMenu">
+                                            <div class="svg-icon"></div>
+                                        </button>
                                     </div>
-                                    <div class="actions" v-else>🖤</div>
                                 </template>
 
                             </div>
@@ -290,8 +292,8 @@
                                 </div>
                             </div>
                             <div class="app-chrome-item volume">
-                                <div class="app-chrome-item volume-icon"></div>
                                 <div class="input-container">
+                                    <div class="app-chrome-item volume-icon"></div>
                                     <input type="range" class="" @wheel="volumeWheel" step="0.01" min="0" max="1"
                                            v-model="mk.volume"
                                            v-if="typeof mk.volume != 'undefined'">
@@ -661,6 +663,8 @@
     </button>
 </script>
 
+<!-- Artwork Material -->
+<%- include('components/artwork-material') %>
 <!-- Menu Panel -->
 <%- include('components/menu-panel') %>
 <!-- Playlist Listing -->
@@ -712,5 +716,6 @@
 <script src="index.js?v=1"></script>
 <script src="https://cdn.jsdelivr.net/npm/resonance-audio/build/resonance-audio.min.js"></script>
 <script src="/audio/audio.js?v=1"></script>
+<script src="/WSAPI_Interop.js"></script>
 </body>
 </html>

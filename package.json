@@ -6,7 +6,7 @@
   "description": "A new look into listening and enjoying music in style and performance.",
   "license": "MIT",
   "main": "./build/index.js",
-  "author": "Cider Collective <cryptofyre@cryptofyre.org> (https://cider.sh)",
+  "author": "Cider Collective <cryptofyre@cider.sh> (https://cider.sh)",
   "repository": "https://github.com/ciderapp/Cider.git",
   "bugs": {
     "url": "https://github.com/ciderapp/Cider/issues?q=is%3Aopen+is%3Aissue+label%3Abug"
@@ -45,11 +45,12 @@
     "run-script-os": "^1.1.6",
     "source-map-support": "^0.5.21",
     "v8-compile-cache": "^2.3.0",
-    "ws": "^8.4.0",
+    "ws": "^8.4.2",
     "xml2js": "^0.4.23",
     "youtube-search-without-api-key": "^1.0.7"
   },
   "devDependencies": {
+    "@types/discord-rpc": "^4.0.0",
     "@types/express": "^4.17.13",
     "electron": "https://github.com/castlabs/electron-releases.git",
     "electron-builder": "^22.14.5",

@@ -9,6 +9,8 @@ import * as fs from "fs";
 import { Stream } from "stream";
 import * as qrcode from "qrcode-terminal";
 import * as os from "os";
+import {wsapi} from "./wsapi";
+
 export class Win {
     win: any | undefined = null;
     app: any | undefined = null;
@@ -83,6 +85,8 @@ export class Win {
         this.options.height = windowState.height;
 
         // Start the webserver for the browser window to load
+        const ws = new wsapi()
+        ws.InitWebSockets()
         this.startWebServer();
 
         this.win = new electron.BrowserWindow(this.options);

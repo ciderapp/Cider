@@ -8,6 +8,10 @@
                         <mediaitem-square :item="getTopResult()"></mediaitem-square>
                     </template>
                 </div>
+                <div v-else style="text-align: center">
+                    <h3>No Results</h3>
+                    <p>Try a new search.</p>
+                </div>
                 <div class="col" v-if="search.results.song">
                     <div class="row">
                         <div class="col">
@@ -108,10 +112,10 @@
         },
         methods: {
             getTopResult() {
-                if (this.search.results["meta"]) {
+                try {
                     return this.search.results[this.search.results.meta.results.order[0]]["data"][0]
-                } else {
-                    return false;
+                } catch( error ) {
+                    return false
                 }
             },
             async getCategories() {
