@@ -1,0 +1,27 @@
+<script type="text/x-template" id="apple-podcasts">
+    <div class="content-inner">
+        <h1>Podcasts</h1>
+        <mediaitem-square v-for="podcast in podcasts" :item="podcast"></mediaitem-square>
+        <h3>Episodes</h3>
+        <mediaitem-square v-for="episode in episodes" :item="episode"></mediaitem-square>
+    </div>
+</script>
+<script>
+    Vue.component('apple-podcasts', {
+        template: '#apple-podcasts',
+        data: function () {
+            return {
+                podcasts: [],
+                episodes: []
+            }
+        },
+        async mounted() {
+            let podcastShow = await app.mk.api.v3.podcasts(`/v1/catalog/us/podcasts/1233359606?include=episodes`)
+            this.podcasts = podcastShow.data.data
+            this.episodes = podcastShow.data.data[0].relationships.episodes.data
+        },
+        methods: {
+
+        }
+    });
+</script>
