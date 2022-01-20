@@ -221,7 +221,7 @@
                     <transition name="wpfade">
                         <div class="usermenu-container" v-if="chrome.menuOpened">
                             <div class="usermenu-body">
-                                <button class="usermenu-item" @click="chrome.hideUserInfo = !chrome.hideUserInfo">
+                                <button class="usermenu-item" @click="toggleHideUserInfo()">
                                     <div class="row nopadding">
                                         <div class="col nopadding">
                                             Show Personal Info
