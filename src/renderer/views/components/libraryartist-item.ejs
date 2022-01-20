@@ -2,27 +2,19 @@
     <div v-observe-visibility="{callback: visibilityChanged}"      
          @click="select"
          class="cd-mediaitem-list-item"
-         :class="{'mediaitem-selected': app.select_hasMediaItem(guid)}">
+         :class="{'mediaitem-selected': app.select_hasMediaItem(guid)}"
+         @contextmenu="contextMenu">
         <template v-if="isVisible">
             <div class="artwork" v-if="showArtwork == true">
                 <mediaitem-artwork
                         :url="getArtwork()"
                         size="50"
                         :type="item.type"></mediaitem-artwork>
-                <button class="overlay-play"  @click="select"></button>
             </div>
             <div class="info-rect" :style="{'padding-left': (showArtwork ? '' : '16px')}"
                  @dblclick="app.routeView(item)">
                 <div class="title text-overflow-elipsis">
                     {{ item.attributes.name }}
-                </div>
-                <div class="subtitle text-overflow-elipsis" style="-webkit-box-orient: horizontal;">
-                    <template v-if="item.attributes.name">
-                        <div class="artist item-navigate text-overflow-elipsis"
-                             @click="select">
-                            {{ item.attributes.artistName }}
-                        </div>
-                    </template>
                 </div>
             </div>
         </template>
@@ -62,22 +54,19 @@
                 return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
             },
             getDataType() {
-                if (this.item.attributes.playParams.isLibrary) {
-                    return this.item.type
-                } else {
-                    return this.item.attributes.playParams.kind
-                }
+                return this.item.type
             },
             async select(e)  {
                let u = this.item
-               let u1 = await app.mk.api.v3.music(`/v1/me/library/artists/${u.id}/albums`,
-               {platform: "web",
-                "include[library-albums]": "artists,tracks",
-                "include[library-artists]": "catalog",
-                "fields[artists]": "url",
-                "includeOnly": "catalog,artists"}
-               )
+               let u1 = await app.mk.api.v3.music(`/v1/me/library/artists/${u.id}/albums`, {
+                    "platform": "web",
+                    "include[library-albums]": "artists,tracks",
+                    "include[library-artists]": "catalog",
+                    "fields[artists]": "url",
+                    "includeOnly": "catalog,artists"
+                })
                app.showCollection({data : Object.assign({},u1.data.data)}, u.attributes.name?? '', '');
+               app.select_selectMediaItem(u.id, this.getDataType(), this.index, this.guid, true)
             },
             getArtwork(){
                 let u = ""
@@ -87,79 +76,37 @@
                 return u;
             },
             contextMenu(event) {
+
                 let self = this
                 let data_type = this.getDataType()
-                let item_id = this.item.attributes.playParams.id ?? this.item.id
-                let isLibrary = this.item.attributes.playParams.isLibrary ?? false
+               
+                let item = self.item
+                item.attributes.artistName = item.attributes.name;
 
                 let useMenu = "normal"
                 if (app.selectedMediaItems.length <= 1) {
                     app.selectedMediaItems = []
-                    app.select_selectMediaItem(item_id, data_type, this.index, this.guid, isLibrary)
+                    app.select_selectMediaItem(this.item.id, data_type, this.index, this.guid, true)
                 } else {
                     useMenu = "multiple"
                 }
+
                 let menus = {
                     multiple: {
-                        items: [
-                            {
-                                "name": "Add to Playlist...",
-                                "action": function () {
-                                    app.promptAddToPlaylist()
-                                }
-                            },
-                            {
-                                name: `Play ${app.selectedMediaItems.length} tracks next`,
-                                action: () => {
-                                    let itemsToPlay = {}
-                                    app.selectedMediaItems.forEach(item => {
-                                        if (!itemsToPlay[item.kind]) {
-                                            itemsToPlay[item.kind] = []
-                                        }
-                                        itemsToPlay[item.kind].push(item.id)
-                                    })
-                                    // loop through itemsToPlay
-                                    for (let kind in itemsToPlay) {
-                                        let ids = itemsToPlay[kind]
-                                        if (ids.length > 0) {
-                                            app.mk.playNext({[kind + "s"]: itemsToPlay[kind]})
-                                        }
-                                    }
-                                    console.log(itemsToPlay)
-                                    app.selectedMediaItems = []
-                                }
-                            },
-                            {
-                                name: `Play ${app.selectedMediaItems.length} tracks later`,
-                                action: () => {
-                                    let itemsToPlay = {}
-                                    app.selectedMediaItems.forEach(item => {
-                                        if (!itemsToPlay[item.kind]) {
-                                            itemsToPlay[item.kind] = []
-                                        }
-                                        itemsToPlay[item.kind].push(item.id)
-                                    })
-                                    // loop through itemsToPlay
-                                    for (let kind in itemsToPlay) {
-                                        let ids = itemsToPlay[kind]
-                                        if (ids.length > 0) {
-                                            app.mk.playLater({[kind + "s"]: itemsToPlay[kind]})
-                                        }
-                                    }
-                                    app.selectedMediaItems = []
-                                }
-                            },
-                        ]
+                        items: [] //
                     },
                     normal: {
                         items: [
                             {
-                                "name": "Add to Playlist...",
+                                "name": "Go to Artist",
+                                "icon": "./assets/feather/user.svg",
                                 "action": function () {
-                                    app.promptAddToPlaylist()
+                                    app.searchAndNavigate(self.item, 'artist')
+                                    console.log(self.item)
                                 }
                             },
                             {
+                                "icon": "./assets/feather/radio.svg",
                                 "name": "Start Radio",
                                 "action": function () {
                                     app.mk.setStationQueue({song: self.item.attributes.playParams.id ?? self.item.id}).then(() => {
@@ -169,31 +116,15 @@
                                 }
                             },
                             {
-                                "name": "Play Next",
+                                "icon": "./assets/feather/share.svg",
+                                "name": "Share",
                                 "action": function () {
-                                    app.mk.playNext({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
-                                    app.mk.queue._reindex()
-                                    app.selectedMediaItems = []
-                                }
-                            },
-                            {
-                                "name": "Play Later",
-                                "action": function () {
-                                    app.mk.playLater({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
-                                    app.mk.queue._reindex()
-                                    app.selectedMediaItems = []
-                                }
-                            },
-                            {
-                                "name": "Go to Artist",
-                                "action": function () {
-                                    app.searchAndNavigate(self.item, 'artist')
-                                }
-                            },
-                            {
-                                "name": "Go to Album",
-                                "action": function () {
-                                    app.searchAndNavigate(self.item, 'album')
+                                    if (!self.item.attributes.url && self.item.relationships){
+                                        if (self.item.relationships.catalog){
+                                            app.mkapi(self.item.attributes.playParams.kind, false, self.item.relationships.catalog.data[0].id).then(u => {self.app.copyToClipboard((u.length && u.length > 0)? u[0].attributes.url : u.attributes.url)})
+                                        }
+                                    } else {
+                                    self.app.copyToClipboard(self.item.attributes.url)}
                                 }
                             },
                         ]
@@ -208,7 +139,9 @@
                         menus.multiple.items = menus.multiple.items.concat(this.contextExt.multiple)
                     }
                 }
-                CiderContextMenu.Create(event, menus[useMenu])
+                //CiderContextMenu.Create(event, menus[useMenu]); // Depreciated Context Menu
+                app.showMenuPanel(menus[useMenu], event);
+
             },
             visibilityChanged: function (isVisible, entry) {
                 this.isVisible = isVisible
