@@ -4103,6 +4103,29 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
       width: 100%
     }
 
+    .volume-button--small {
+      border-radius: 6px;
+      color: inherit;
+      background-size: 16px;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-color: transparent;
+      height: 15px;
+      width: 30px;
+      border: 0px;
+      box-shadow: unset;
+      opacity: 0.70;
+      background-image: url("./assets/feather/volume-2.svg");
+    }
+    
+    .volume-button--small:active {
+      transform: scale(0.9);
+    }
+    
+    .volume-button--small.active {
+      background-image: url("./assets/feather/volume.svg");
+    }
+
     input[type=range] {
       -webkit-appearance: none;
       height: 4px;
