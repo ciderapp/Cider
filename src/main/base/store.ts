@@ -24,6 +24,8 @@ export class ConfigStore {
         },
         "audio": {
             "volume": 1,
+            "lastVolume": 1,
+            "muted": false,
             "quality": "990",
             "seamless_audio": true,
             "normalization": false,

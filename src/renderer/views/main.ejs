@@ -91,13 +91,14 @@
                                     </div>
                                     <div class="song-artist"
                                          style="display: inline-block; -webkit-box-orient: horizontal; white-space: nowrap;">
-                                        <div class="item-navigate song-artist" style="display: inline-block;"
+                                        <div class="item-navigate song-artist" style="display: inline-block"
+                                            :style="[chrome.progresshover ? {'opacity': '0'} : {'opacity' : '1'} ]"
                                              @click="getNowPlayingItemDetailed(`artist`)">
                                             {{ mk.nowPlayingItem["attributes"]["artistName"] }}
                                         </div>
-                                        <div class="song-artist item-navigate" style="display: inline-block;"
-                                             @click="getNowPlayingItemDetailed('album')"
-                                             v-if="mk.nowPlayingItem['attributes']['albumName'] != ''">
+                                        <div class="song-artist item-navigate" style="display: inline-block"
+                                        :style="[chrome.progresshover ? {'opacity': '0'} : {'opacity' : '1'}]"
+                                        @click="getNowPlayingItemDetailed('album')" v-if="mk.nowPlayingItem['attributes']['albumName'] != ''">
                                             <div class="separator" style="display: inline-block;">{{"—"}}</div>
                                             {{(mk.nowPlayingItem["attributes"]["albumName"]) ?
                                             (mk.nowPlayingItem["attributes"]["albumName"]) : "" }}
@@ -132,7 +133,7 @@
                 </div>
                 <div class="app-chrome--right">
                     <div class="app-chrome-item volume display--large">
-                        <div class="app-chrome-item volume-icon"></div>
+                        <button class="volume-button--small volume" @click="muteButtonPressed()" :class="{'active': this.cfg.audio.volume == 0}"></button>
                         <input type="range" class="" @wheel="volumeWheel" step="0.01" min="0" max="1"
                                v-model="mk.volume"
                                v-if="typeof mk.volume != 'undefined'">
@@ -296,7 +297,7 @@
                             </div>
                             <div class="app-chrome-item volume">
                                 <div class="input-container">
-                                    <div class="app-chrome-item volume-icon"></div>
+                                    <button class="volume-button--small volume" @click="muteButtonPressed()" :class="{'active': this.cfg.audio.volume == 0}"></button>
                                     <input type="range" class="" @wheel="volumeWheel" step="0.01" min="0" max="1"
                                            v-model="mk.volume"
                                            v-if="typeof mk.volume != 'undefined'">

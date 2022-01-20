@@ -525,8 +525,17 @@ const app = new Vue({
                 }
             }
             MusicKitInterop.init()
-                // Set the volume
-            this.mk.volume = this.cfg.audio.volume
+            // Set the volume
+
+            // Check the value of this.cfg.audio.muted
+            if( !this.cfg.audio.muted )
+            {
+                // Set the mk.volume to the last stored volume data
+                this.mk.volume = this.cfg.audio.volume
+            } else if( this.cfg.audio.muted ) {
+                // Set mk.volume to -1 (setting to 0 wont work, so temp solution setting to -1)
+                this.mk.volume = -1;
+            }
                 // ipcRenderer.invoke('getStoreValue', 'audio.volume').then((value) => {
                 //     self.mk.volume = value
                 // })
@@ -2997,6 +3006,17 @@ const app = new Vue({
                 }
             }
         },
+        muteButtonPressed() {
+            if( this.cfg.audio.muted ) {
+                this.mk.volume = this.cfg.audio.lastVolume;
+                this.cfg.audio.muted = false;
+            } else {
+                this.cfg.audio.lastVolume = this.cfg.audio.volume;
+                this.mk.volume = 0;
+                this.cfg.audio.muted = true;
+            }
+        },
+
         async apiCall(url, callback) {
             const xmlHttp = new XMLHttpRequest();
 
