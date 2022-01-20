@@ -92,12 +92,10 @@
                                     <div class="song-artist"
                                          style="display: inline-block; -webkit-box-orient: horizontal; white-space: nowrap;">
                                         <div class="item-navigate song-artist" style="display: inline-block"
-                                            :style="[chrome.progresshover ? {'opacity': '0'} : {'opacity' : '1'} ]"
                                              @click="getNowPlayingItemDetailed(`artist`)">
                                             {{ mk.nowPlayingItem["attributes"]["artistName"] }}
                                         </div>
                                         <div class="song-artist item-navigate" style="display: inline-block"
-                                        :style="[chrome.progresshover ? {'opacity': '0'} : {'opacity' : '1'}]"
                                         @click="getNowPlayingItemDetailed('album')" v-if="mk.nowPlayingItem['attributes']['albumName'] != ''">
                                             <div class="separator" style="display: inline-block;">{{"—"}}</div>
                                             {{(mk.nowPlayingItem["attributes"]["albumName"]) ?
