@@ -75,7 +75,7 @@
                                     {{ (!inLibrary) ? "Add to Library" : "Remove from Library" }}
                                 </button>
                                 <button class="md-btn" style="min-width: 180px;" v-if="confirm==true"
-                                        @click="(!inLibrary) ? addToLibrary(data.attributes.playParams.id.toString()) : removeFromLibrary(data.attributes.playParams.id.toString()) "> <img class="md-ico-remove">
+                                        @click="(!inLibrary) ? addToLibrary(data.attributes.playParams.id.toString()) : removeFromLibrary(data.attributes.playParams.id.toString()) "> <img :class="(!inLibrary) ? 'md-ico-add' : 'md-ico-remove'">
                                     Confirm?
                                 </button>
                                 <button class="more-btn-round" style="float:right;" @click="menu">
@@ -111,7 +111,7 @@
                                 {{ (!inLibrary) ? "Add to Library" : "Remove from Library" }}
                             </button>
                             <button class="md-btn" style="min-width: 180px;" v-if="confirm==true"
-                                    @click="(!inLibrary) ? addToLibrary(data.attributes.playParams.id.toString()) : removeFromLibrary(data.attributes.playParams.id.toString()) "> <img class="md-ico-remove">
+                                    @click="(!inLibrary) ? addToLibrary(data.attributes.playParams.id.toString()) : removeFromLibrary(data.attributes.playParams.id.toString()) "> <img :class="(!inLibrary) ? 'md-ico-add' : 'md-ico-remove'">
                                 Confirm?
                             </button>
                         </div>
