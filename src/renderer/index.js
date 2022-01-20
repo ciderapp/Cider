@@ -3016,7 +3016,11 @@ const app = new Vue({
                 this.cfg.audio.muted = true;
             }
         },
-
+        checkMuteChange() {
+            if( this.cfg.audio.muted ) {
+                this.cfg.audio.muted = false;
+            }
+        },
         async apiCall(url, callback) {
             const xmlHttp = new XMLHttpRequest();
 
