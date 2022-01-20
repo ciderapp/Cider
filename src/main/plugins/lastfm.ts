@@ -209,7 +209,6 @@ export default class LastFMPlugin {
                     this.authenticate();
                 }
             }
-        this.authenticate()
         })
 	}
 

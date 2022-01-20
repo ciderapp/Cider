@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import * as ws from "ws";
 import * as http from "http";
 import * as https from "https";
@@ -10,17 +8,25 @@ import * as electron from "electron";
 const WebSocket = ws;
 const WebSocketServer = ws.Server;
 
-private class standardResponse {
-    status: number;
-    message: string;
-    data: any;
-    type: string;
+interface standardResponse {
+    status?: Number,
+    message?: String,
+    data?: any,
+    type?: string,
 }
 
+
 export class wsapi {
+    static clients: any;
     port: any = 26369
     wss: any = null
-    clients: []
+    clients: any = []
+    private _win : any;
+    constructor(win : any) {
+        this._win = win;
+    }
+    
+    
     createId() {
         // create random guid
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -30,33 +36,33 @@ export class wsapi {
         });
     }
     public async InitWebSockets () {
-        electron.ipcMain.on('wsapi-updatePlaybackState', (event, arg) => {
-            wsapi.updatePlaybackState(arg);
+        electron.ipcMain.on('wsapi-updatePlaybackState', (event :any, arg :any) => {
+            this.updatePlaybackState(arg);
         })
 
-        electron.ipcMain.on('wsapi-returnQueue', (event, arg) => {
-            wsapi.returnQueue(JSON.parse(arg));
+        electron.ipcMain.on('wsapi-returnQueue', (event :any, arg :any) => {
+            this.returnQueue(JSON.parse(arg));
         });
 
-        electron.ipcMain.on('wsapi-returnSearch', (event, arg) => {
+        electron.ipcMain.on('wsapi-returnSearch', (event :any, arg :any) => {
             console.log("SEARCH")
-            wsapi.returnSearch(JSON.parse(arg));
+            this.returnSearch(JSON.parse(arg));
         });
 
-        electron.ipcMain.on('wsapi-returnSearchLibrary', (event, arg) => {
-            wsapi.returnSearchLibrary(JSON.parse(arg));
+        electron.ipcMain.on('wsapi-returnSearchLibrary', (event :any, arg :any) => {
+            this.returnSearchLibrary(JSON.parse(arg));
         });
 
-        electron.ipcMain.on('wsapi-returnDynamic', (event, arg, type) => {
-            wsapi.returnDynamic(JSON.parse(arg), type);
+        electron.ipcMain.on('wsapi-returnDynamic', (event :any, arg :any, type :any) => {
+            this.returnDynamic(JSON.parse(arg), type);
         });
 
-        electron.ipcMain.on('wsapi-returnMusicKitApi', (event, arg, method) => {
-            wsapi.returnMusicKitApi(JSON.parse(arg), method);
+        electron.ipcMain.on('wsapi-returnMusicKitApi', (event :any, arg :any, method :any) => {
+            this.returnMusicKitApi(JSON.parse(arg), method);
         });
 
-        electron.ipcMain.on('wsapi-returnLyrics', (event, arg) => {
-            wsapi.returnLyrics(JSON.parse(arg));
+        electron.ipcMain.on('wsapi-returnLyrics', (event :any, arg :any) => {
+            this.returnLyrics(JSON.parse(arg));
         });
         this.wss = new WebSocketServer({
             port: this.port,
@@ -82,20 +88,20 @@ export class wsapi {
         })
         console.log(`WebSocketServer started on port: ${this.port}`);
 
-        const defaultResponse = new standardResponse(0, {}, "OK");
+        const defaultResponse :standardResponse = {status :0, data:{}, message:"OK", type:"generic"};
 
 
-        this.wss.on('connection', function connection(ws) {
-            ws.id = wsapi.createId();
+        this.wss.on('connection', (ws : any) => {
+            ws.id = this.createId();
             console.log(`Client ${ws.id} connected`)
-            wsapi.clients.push(ws);
-            ws.on('message', function incoming(message) {
+            this.clients.push(ws);
+            ws.on('message', function incoming(message : any) {
 
             });
             // ws on message
-            ws.on('message', function incoming(message) {
+            ws.on('message', (message : any) => {
                 let data = JSON.parse(message);
-                let response = new standardResponse(0, {}, "OK");;
+                let response :standardResponse = {status :0, data:{}, message:"OK", type:"generic"};
                 if (data.action) {
                     data.action.toLowerCase();
                 }
@@ -116,103 +122,103 @@ export class wsapi {
                         }
                         break;
                     case "play-next":
-                        electron.app.win.webContents.executeJavaScript(`wsapi.playNext(\`${data.type}\`,\`${data.id}\`)`);
+                        this._win.webContents.executeJavaScript(`wsapi.playNext(\`${data.type}\`,\`${data.id}\`)`);
                         response.message = "Play Next";
                         break;
                     case "play-later":
-                        electron.app.win.webContents.executeJavaScript(`wsapi.playLater(\`${data.type}\`,\`${data.id}\`)`);
+                        this._win.webContents.executeJavaScript(`wsapi.playLater(\`${data.type}\`,\`${data.id}\`)`);
                         response.message = "Play Later";
                         break;
                     case "quick-play":
-                        electron.app.win.webContents.executeJavaScript(`wsapi.quickPlay(\`${data.term}\`)`);
+                        this._win.webContents.executeJavaScript(`wsapi.quickPlay(\`${data.term}\`)`);
                         response.message = "Quick Play";
                         break;
                     case "get-lyrics":
-                        electron.app.win.webContents.executeJavaScript(`wsapi.getLyrics()`);
+                        this._win.webContents.executeJavaScript(`wsapi.getLyrics()`);
                         break;
                     case "shuffle":
-                        electron.app.win.webContents.executeJavaScript(`wsapi.toggleShuffle()`);
+                        this._win.webContents.executeJavaScript(`wsapi.toggleShuffle()`);
                         break;
                     case "set-shuffle":
                         if(data.shuffle == true) {
-                            electron.app.win.webContents.executeJavaScript(`MusicKit.getInstance().shuffleMode = 1`);
+                            this._win.webContents.executeJavaScript(`MusicKit.getInstance().shuffleMode = 1`);
                         }else{
-                            electron.app.win.webContents.executeJavaScript(`MusicKit.getInstance().shuffleMode = 0`);
+                            this._win.webContents.executeJavaScript(`MusicKit.getInstance().shuffleMode = 0`);
                         }
                         break;
                     case "repeat":
-                        electron.app.win.webContents.executeJavaScript(`wsapi.toggleRepeat()`);
+                        this._win.webContents.executeJavaScript(`wsapi.toggleRepeat()`);
                         break;
                     case "seek":
-                        electron.app.win.webContents.executeJavaScript(`MusicKit.getInstance().seekToTime(${parseFloat(data.time)})`);
+                        this._win.webContents.executeJavaScript(`MusicKit.getInstance().seekToTime(${parseFloat(data.time)})`);
                         response.message = "Seek";
                         break;
                     case "pause":
-                        electron.app.win.webContents.executeJavaScript(`MusicKit.getInstance().pause()`);
+                        this._win.webContents.executeJavaScript(`MusicKit.getInstance().pause()`);
                         response.message = "Paused";
                         break;
                     case "play":
-                        electron.app.win.webContents.executeJavaScript(`MusicKit.getInstance().play()`);
+                        this._win.webContents.executeJavaScript(`MusicKit.getInstance().play()`);
                         response.message = "Playing";
                         break;
                     case "stop":
-                        electron.app.win.webContents.executeJavaScript(`MusicKit.getInstance().stop()`);
+                        this._win.webContents.executeJavaScript(`MusicKit.getInstance().stop()`);
                         response.message = "Stopped";
                         break;
                     case "volume":
-                        electron.app.win.webContents.executeJavaScript(`MusicKit.getInstance().volume = ${parseFloat(data.volume)}`);
+                        this._win.webContents.executeJavaScript(`MusicKit.getInstance().volume = ${parseFloat(data.volume)}`);
                         response.message = "Volume";
                         break;
                     case "mute":
-                        electron.app.win.webContents.executeJavaScript(`MusicKit.getInstance().mute()`);
+                        this._win.webContents.executeJavaScript(`MusicKit.getInstance().mute()`);
                         response.message = "Muted";
                         break;
                     case "unmute":
-                        electron.app.win.webContents.executeJavaScript(`MusicKit.getInstance().unmute()`);
+                        this._win.webContents.executeJavaScript(`MusicKit.getInstance().unmute()`);
                         response.message = "Unmuted";
                         break;
                     case "next":
-                        electron.app.win.webContents.executeJavaScript(`MusicKit.getInstance().skipToNextItem()`);
+                        this._win.webContents.executeJavaScript(`MusicKit.getInstance().skipToNextItem()`);
                         response.message = "Next";
                         break;
                     case "previous":
-                        electron.app.win.webContents.executeJavaScript(`MusicKit.getInstance().skipToPreviousItem()`);
+                        this._win.webContents.executeJavaScript(`MusicKit.getInstance().skipToPreviousItem()`);
                         response.message = "Previous";
                         break;
                     case "musickit-api":
-                        electron.app.win.webContents.executeJavaScript(`wsapi.musickitApi(\`${data.method}\`, \`${data.id}\`, ${JSON.stringify(data.params)})`);
+                        this._win.webContents.executeJavaScript(`wsapi.musickitApi(\`${data.method}\`, \`${data.id}\`, ${JSON.stringify(data.params)})`);
                         break;
                     case "musickit-library-api":
                         break;
                     case "set-autoplay":
-                        electron.app.win.webContents.executeJavaScript(`wsapi.setAutoplay(${data.autoplay})`);
+                        this._win.webContents.executeJavaScript(`wsapi.setAutoplay(${data.autoplay})`);
                         break;
                     case "queue-move":
-                        electron.app.win.webContents.executeJavaScript(`wsapi.moveQueueItem(${data.from},${data.to})`);
+                        this._win.webContents.executeJavaScript(`wsapi.moveQueueItem(${data.from},${data.to})`);
                         break;
                     case "get-queue":
-                        electron.app.win.webContents.executeJavaScript(`wsapi.getQueue()`);
+                        this._win.webContents.executeJavaScript(`wsapi.getQueue()`);
                         break;
                     case "search":
                         if (!data.limit) {
                             data.limit = 10;
                         }
-                        electron.app.win.webContents.executeJavaScript(`wsapi.search(\`${data.term}\`, \`${data.limit}\`)`);
+                        this._win.webContents.executeJavaScript(`wsapi.search(\`${data.term}\`, \`${data.limit}\`)`);
                         break;
                     case "library-search":
                         if (!data.limit) {
                             data.limit = 10;
                         }
-                        electron.app.win.webContents.executeJavaScript(`wsapi.searchLibrary(\`${data.term}\`, \`${data.limit}\`)`);
+                        this._win.webContents.executeJavaScript(`wsapi.searchLibrary(\`${data.term}\`, \`${data.limit}\`)`);
                         break;
                     case "show-window":
-                        electron.app.win.show()
+                        this._win.show()
                         break;
                     case "hide-window":
-                        electron.app.win.hide()
+                        this._win.hide()
                         break;
                     case "play-mediaitem":
-                        electron.app.win.webContents.executeJavaScript(`wsapi.playTrackById(${data.id}, \`${data.kind}\`)`);
+                        this._win.webContents.executeJavaScript(`wsapi.playTrackById(${data.id}, \`${data.kind}\`)`);
                         response.message = "Playing track";
                         break;
                     case "get-status":
@@ -222,62 +228,62 @@ export class wsapi {
                         response.message = "Status";
                         break;
                     case "get-currentmediaitem":
-                        electron.app.win.webContents.executeJavaScript(`wsapi.getPlaybackState()`);
+                        this._win.webContents.executeJavaScript(`wsapi.getPlaybackState()`);
                         break;
                 }
                 ws.send(JSON.stringify(response));
             });
 
-            ws.on('close', function close() {
+            ws.on('close', () => {
                 // remove client from list
-                wsapi.clients.splice(wsapi.clients.indexOf(ws), 1);
+                this.clients.splice(wsapi.clients.indexOf(ws), 1);
                 console.log(`Client ${ws.id} disconnected`);
             });
             ws.send(JSON.stringify(defaultResponse));
         });
     }
-    sendToClient(id) {
+    sendToClient(id : any) {
         // replace the clients.forEach with a filter to find the client that requested
     }
-    updatePlaybackState(attr) {
-        const response = new standardResponse(0, attr, "OK", "playbackStateUpdate");
-        wsapi.clients.forEach(function each(client) {
+    updatePlaybackState(attr : any) {
+        const response : standardResponse = {status: 0, data: attr, message: "OK",  type:"playbackStateUpdate"};
+        this.clients.forEach(function each(client: any) {
             client.send(JSON.stringify(response));
         });
     }
-    returnMusicKitApi(results, method) {
-        const response = new standardResponse(0, results, "OK", `musickitapi.${method}`);
-        wsapi.clients.forEach(function each(client) {
+    returnMusicKitApi(results :any, method :any) {
+        const response : standardResponse = {status :0, data: results, message:"OK", type:`musickitapi.${method}`};
+        this.clients.forEach(function each(client :any) {
             client.send(JSON.stringify(response));
         });
     }
-    returnDynamic(results, type) {
-        const response = new standardResponse(0, results, "OK", type);
-        wsapi.clients.forEach(function each(client) {
+    returnDynamic(results :any, type :any) {
+        const response : standardResponse = {status :0, data: results, message: "OK", type: type};
+        this.clients.forEach(function each(client :any) {
             client.send(JSON.stringify(response));
         });
     }
-    returnLyrics(results) {
-        const response = new standardResponse(0, results, "OK", "lyrics");
-        wsapi.clients.forEach(function each(client) {
+    returnLyrics(results :any) {
+        const response : standardResponse = {status :0, data: results, message:  "OK", type: "lyrics"};
+        this.clients.forEach(function each(client :any) {
             client.send(JSON.stringify(response));
         });
     }
-    returnSearch(results) {
-        const response = new standardResponse(0, results, "OK", "searchResults");
-        wsapi.clients.forEach(function each(client) {
+    returnSearch(results :any) {
+        const response : standardResponse = {status :0, data: results, message: "OK", type: "searchResults"};
+        this.clients.forEach(function each(client :any) {
             client.send(JSON.stringify(response));
         });
     }
-    returnSearchLibrary(results) {
-        const response = new standardResponse(0, results, "OK", "searchResultsLibrary");
-        wsapi.clients.forEach(function each(client) {
+    returnSearchLibrary(results :any) {
+        const response: standardResponse = {status :0, data :results, message:"OK", type:"searchResultsLibrary"};
+        this.clients.forEach(function each(client :any) {
             client.send(JSON.stringify(response));
         });
     }
-    returnQueue(queue) {
-        const response = new standardResponse(0, queue, "OK", "queue");
-        wsapi.clients.forEach(function each(client) {
+    returnQueue(queue :any) {
+        const response : standardResponse = {status :0,data :queue, message:"OK", type:"queue"};
+        this.clients.forEach(function each(client :any) {
             client.send(JSON.stringify(response));
         });
     }

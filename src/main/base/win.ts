@@ -85,12 +85,12 @@ export class Win {
         this.options.height = windowState.height;
 
         // Start the webserver for the browser window to load
-        const ws = new wsapi()
-        ws.InitWebSockets()
+
         this.startWebServer();
 
         this.win = new electron.BrowserWindow(this.options);
-
+        const ws = new wsapi(this.win)
+        ws.InitWebSockets()
         // and load the renderer.
         this.startSession();
         this.startHandlers();
