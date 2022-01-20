@@ -709,6 +709,10 @@ const app = new Vue({
 
 
             this.mk.addEventListener(MusicKit.Events.playbackVolumeDidChange, (_a) => {
+                if( this.cfg.audio.muted && this.cfg.audio.lastVolume != 0 ) {
+                    this.cfg.audio.muted = false;
+                    this.cfg.audio.lastVolume = 0;
+                }
                 this.cfg.audio.volume = this.mk.volume
             })
 
@@ -3009,6 +3013,7 @@ const app = new Vue({
         muteButtonPressed() {
             if( this.cfg.audio.muted ) {
                 this.mk.volume = this.cfg.audio.lastVolume;
+                this.cfg.lastVolume = 0;
                 this.cfg.audio.muted = false;
             } else {
                 this.cfg.audio.lastVolume = this.cfg.audio.volume;
