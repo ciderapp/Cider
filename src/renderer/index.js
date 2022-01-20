@@ -257,7 +257,7 @@ const app = new Vue({
         tmpVar: [],
         notification: false,
         chrome: {
-            hideUserInfo: ipcRenderer.sendSync("is-dev"),
+            hideUserInfo: ipcRenderer.sendSync("is-dev") || false,
             artworkReady: false,
             userinfo: {
                 "id": "",
@@ -496,6 +496,11 @@ const app = new Vue({
             this.$forceUpdate()
             if (this.isDev) {
                 this.mk.privateEnabled = true
+                // Hide UserInfo if Dev mode
+                this.chrome.hideUserInfo = true
+            } else {
+                // Get Hide User from Settings
+                this.chrome.hideUserInfo = !this.cfg.visual.showuserinfo
             }
             if (this.cfg.visual.hw_acceleration == "disabled") {
                 document.body.classList.add("no-gpu")
@@ -3242,6 +3247,15 @@ const app = new Vue({
             return 0 !== s && (h = s > 0 ? "-" : "+"),
                 `${h}${leadingZeros(n, 2)}:${leadingZeros(d, 2)}`
         },
+        toggleHideUserInfo() {
+            if(this.chrome.hideUserInfo) {
+                this.cfg.visual.showuserinfo = true
+                this.chrome.hideUserInfo = false
+            } else {
+                this.cfg.visual.showuserinfo = false
+                this.chrome.hideUserInfo = true
+            }
+        }
 
     }
 })

@@ -62,20 +62,20 @@
                                 </div>
                             </template>
                             <div class="playlist-controls" v-observe-visibility="{callback: isHeaderVisible}">
-                                <button class="md-btn" style="min-width: 120px;"
-                                        @click="app.mk.shuffleMode = 0; play()">
+                                <button class="md-btn" style="min-width: 100px;"
+                                        @click="app.mk.shuffleMode = 0; play()"> <img class="md-ico-play">
                                     Play
                                 </button>
-                                <button class="md-btn" style="min-width: 120px;"
-                                        @click="app.mk.shuffleMode = 1;play()">
+                                <button class="md-btn" style="min-width: 100px;"
+                                        @click="app.mk.shuffleMode = 1;play()"> <img class="md-ico-shuffle">
                                     Shuffle
                                 </button>
-                                <button class="md-btn" style="min-width: 120px;" v-if="inLibrary!=null && confirm!=true"
-                                        @click="confirmButton()">
+                                <button class="md-btn" style="min-width: 180px;" v-if="inLibrary!=null && confirm!=true"
+                                        @click="confirmButton()"> <img :class="(!inLibrary) ? 'md-ico-add' : 'md-ico-remove'">
                                     {{ (!inLibrary) ? "Add to Library" : "Remove from Library" }}
                                 </button>
-                                <button class="md-btn" style="min-width: 120px;" v-if="confirm==true"
-                                        @click="(!inLibrary) ? addToLibrary(data.attributes.playParams.id.toString()) : removeFromLibrary(data.attributes.playParams.id.toString()) ">
+                                <button class="md-btn" style="min-width: 180px;" v-if="confirm==true"
+                                        @click="(!inLibrary) ? addToLibrary(data.attributes.playParams.id.toString()) : removeFromLibrary(data.attributes.playParams.id.toString()) "> <img class="md-ico-remove">
                                     Confirm?
                                 </button>
                                 <button class="more-btn-round" style="float:right;" @click="menu">
@@ -98,20 +98,20 @@
                     </div>
                     <div class="col-auto flex-center">
                         <div>
-                            <button class="md-btn" style="min-width: 120px;"
-                                    @click="app.mk.shuffleMode = 0; play()">
+                            <button class="md-btn" style="min-width: 100px;"
+                                    @click="app.mk.shuffleMode = 0; play()"> <img class="md-ico-play">
                                 Play
                             </button>
-                            <button class="md-btn" style="min-width: 120px;"
-                                    @click="app.mk.shuffleMode = 1;play()">
+                            <button class="md-btn" style="min-width: 100px;"
+                                    @click="app.mk.shuffleMode = 1;play()"> <img class="md-ico-shuffle">
                                 Shuffle
                             </button>
-                            <button class="md-btn" style="min-width: 120px;" v-if="inLibrary!=null && confirm!=true"
-                                    @click="confirmButton()">
+                            <button class="md-btn" style="min-width: 180px;" v-if="inLibrary!=null && confirm!=true"
+                                    @click="confirmButton()"> <img :class="(!inLibrary) ? 'md-ico-add' : 'md-ico-remove'">
                                 {{ (!inLibrary) ? "Add to Library" : "Remove from Library" }}
                             </button>
-                            <button class="md-btn" style="min-width: 120px;" v-if="confirm==true"
-                                    @click="(!inLibrary) ? addToLibrary(data.attributes.playParams.id.toString()) : removeFromLibrary(data.attributes.playParams.id.toString()) ">
+                            <button class="md-btn" style="min-width: 180px;" v-if="confirm==true"
+                                    @click="(!inLibrary) ? addToLibrary(data.attributes.playParams.id.toString()) : removeFromLibrary(data.attributes.playParams.id.toString()) "> <img class="md-ico-remove">
                                 Confirm?
                             </button>
                         </div>
