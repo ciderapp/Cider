@@ -309,3 +309,4 @@ GitHub.sublime-settings
 #Service Worker mappings
 src/renderer/sw.js.map
 src/renderer/workbox-962786f2.js.map
+/src/renderer/musickit-dev.js

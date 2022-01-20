@@ -10,7 +10,7 @@
                 </div>
                 <div class="md-option-segment md-option-segment_auto">
                     <select class="md-select" style="width:180px;" v-model="app.cfg.audio.quality"  v-on:change="changeAudioQuality">
-                        <option value="990">Extreme</option>
+                     <!-- //   <option value="990">Extreme</option> -->
                         <option value="256">High</option>
                         <option value="64">Low</option>
                         <option value="auto">Auto</option>
@@ -101,6 +101,14 @@
                         <option value="webgpu">WebGPU</option>
                         <option value="disabled">Disabled</option>
                     </select>
+                </div>
+            </div>
+            <div class="md-option-line">
+                <div class="md-option-segment">
+                    Show Personal Info
+                </div>
+                <div class="md-option-segment md-option-segment_auto">
+                    <input type="checkbox" v-model="app.cfg.visual.showuserinfo" v-on:change="toggleUserInfo" switch/>
                 </div>
             </div>
             <div class="md-option-header">
@@ -605,6 +613,9 @@
             },
             changeAudioQuality : function(){
                 app.mk.bitrate = app.cfg.audio.quality
+            },
+            toggleUserInfo : function(){
+                app.chrome.hideUserInfo = !app.cfg.visual.showuserinfo
             }
         }
     })
