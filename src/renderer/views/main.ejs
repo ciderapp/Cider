@@ -134,7 +134,8 @@
                         <button class="volume-button--small volume" @click="muteButtonPressed()" :class="{'active': this.cfg.audio.volume == 0}"></button>
                         <input type="range" class="" @wheel="volumeWheel" step="0.01" min="0" max="1"
                                v-model="mk.volume"
-                               v-if="typeof mk.volume != 'undefined'">
+                               v-if="typeof mk.volume != 'undefined'"
+                               @change="checkMuteChange()">
                     </div>
                     <div class="app-chrome-item generic" v-if="false">
                         <button class="playback-button--small">
@@ -298,7 +299,8 @@
                                     <button class="volume-button--small volume" @click="muteButtonPressed()" :class="{'active': this.cfg.audio.volume == 0}"></button>
                                     <input type="range" class="" @wheel="volumeWheel" step="0.01" min="0" max="1"
                                            v-model="mk.volume"
-                                           v-if="typeof mk.volume != 'undefined'">
+                                           v-if="typeof mk.volume != 'undefined'"
+                                           @change="checkMuteChange()">
                                 </div>
                             </div>
                         </div>
