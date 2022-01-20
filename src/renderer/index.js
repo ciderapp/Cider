@@ -3247,6 +3247,15 @@ const app = new Vue({
             return 0 !== s && (h = s > 0 ? "-" : "+"),
                 `${h}${leadingZeros(n, 2)}:${leadingZeros(d, 2)}`
         },
+        toggleHideUserInfo() {
+            if(this.chrome.hideUserInfo) {
+                this.cfg.visual.showuserinfo = true
+                this.chrome.hideUserInfo = false
+            } else {
+                this.cfg.visual.showuserinfo = false
+                this.chrome.hideUserInfo = true
+            }
+        }
 
     }
 })
