@@ -257,7 +257,7 @@ const app = new Vue({
         tmpVar: [],
         notification: false,
         chrome: {
-            hideUserInfo: false,
+            hideUserInfo: ipcRenderer.sendSync("is-dev") || false,
             artworkReady: false,
             userinfo: {
                 "id": "",
