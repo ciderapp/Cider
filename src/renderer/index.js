@@ -496,6 +496,9 @@ const app = new Vue({
             this.$forceUpdate()
             if (this.isDev) {
                 this.mk.privateEnabled = true
+            } else {
+                // Get Hide User from Settings
+                this.chrome.hideUserInfo = !this.cfg.visual.showuserinfo
             }
             if (this.cfg.visual.hw_acceleration == "disabled") {
                 document.body.classList.add("no-gpu")
