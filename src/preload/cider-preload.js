@@ -40,9 +40,10 @@ const MusicKitInterop = {
         attributes.status = isPlayingExport ?? false;
         attributes.name = attributes?.name ?? 'No Title Found';
         attributes.artwork = attributes?.artwork ?? { url: '' };
-        attributes.artwork.url = attributes?.artwork?.url ?? '';
+        attributes.artwork.url = (attributes?.artwork?.url ?? '').replace(`{f}`,"png");
         attributes.playParams = attributes?.playParams ?? { id: 'no-id-found' };
         attributes.playParams.id = attributes?.playParams?.id ?? 'no-id-found';
+        if (attributes.playParams.id === 'no-id-found') { attributes.playParams.id = nowPlayingItem?.id ?? 'no-id-found'; } 
         attributes.albumName = attributes?.albumName ?? '';
         attributes.artistName = attributes?.artistName ?? '';
         attributes.genreNames = attributes?.genreNames ?? [];
@@ -56,12 +57,11 @@ const MusicKitInterop = {
                 ? Date.now() + attributes?.remainingTime
                 : attributes?.startTime + attributes?.durationInMillis
         );
-
         return attributes;
     },
 
     filterTrack: function (a, playbackCheck, mediaCheck) {
-        if (a.title === "No Title Found" || a.playParams.id === "no-id-found") {
+        if (a.title === "No Title Found" || a.playParams.id === "no-id-found"  ) {
             return;
         } else if (mediaCheck && a.playParams.id === cache.playParams.id) {
             return;

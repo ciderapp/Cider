@@ -83,18 +83,20 @@
                                 </div>
                                 <div class="playback-info">
                                     <div class="song-name" style="-webkit-box-orient: horizontal;"
-                                        :style="[mk.nowPlayingItem['attributes']['contentRating'] == 'explicit' ? {'margin-left' : '23px'} : {'margin-left' : '0px'} ]">
+                                         :style="[mk.nowPlayingItem['attributes']['contentRating'] == 'explicit' ? {'margin-left' : '23px'} : {'margin-left' : '0px'} ]">
                                         {{ mk.nowPlayingItem["attributes"]["name"] }}
-                                        <div class="explicit-icon" v-if="mk.nowPlayingItem['attributes']['contentRating'] == 'explicit'" style="display: inline-block"></div>
+                                        <div class="explicit-icon"
+                                             v-if="mk.nowPlayingItem['attributes']['contentRating'] == 'explicit'"
+                                             style="display: inline-block"></div>
                                     </div>
                                     <div class="song-artist"
                                          style="display: inline-block; -webkit-box-orient: horizontal; white-space: nowrap;">
-                                        <div class="item-navigate song-artist" style="display: inline-block;"
+                                        <div class="item-navigate song-artist" style="display: inline-block"
                                              @click="getNowPlayingItemDetailed(`artist`)">
                                             {{ mk.nowPlayingItem["attributes"]["artistName"] }}
                                         </div>
-                                        <div class="song-artist item-navigate" style="display: inline-block;"
-                                             @click="getNowPlayingItemDetailed('album')" v-if="mk.nowPlayingItem['attributes']['albumName'] != ''">
+                                        <div class="song-artist item-navigate" style="display: inline-block"
+                                        @click="getNowPlayingItemDetailed('album')" v-if="mk.nowPlayingItem['attributes']['albumName'] != ''">
                                             <div class="separator" style="display: inline-block;">{{"—"}}</div>
                                             {{(mk.nowPlayingItem["attributes"]["albumName"]) ?
                                             (mk.nowPlayingItem["attributes"]["albumName"]) : "" }}
@@ -129,10 +131,11 @@
                 </div>
                 <div class="app-chrome--right">
                     <div class="app-chrome-item volume display--large">
-                        <div class="app-chrome-item volume-icon"></div>
+                        <button class="volume-button--small volume" @click="muteButtonPressed()" :class="{'active': this.cfg.audio.volume == 0}"></button>
                         <input type="range" class="" @wheel="volumeWheel" step="0.01" min="0" max="1"
                                v-model="mk.volume"
-                               v-if="typeof mk.volume != 'undefined'">
+                               v-if="typeof mk.volume != 'undefined'"
+                               @change="checkMuteChange()">
                     </div>
                     <div class="app-chrome-item generic" v-if="false">
                         <button class="playback-button--small">
@@ -146,9 +149,9 @@
                     <div class="app-chrome-item generic">
                         <template v-if="lyrics && lyrics != [] && lyrics.length > 0">
                             <button class="playback-button--small lyrics" :class="{'active': drawer.panel == 'lyrics'}"
-                                @click="invokeDrawer('lyrics')"></button>
-                            </template>
-                        
+                                    @click="invokeDrawer('lyrics')"></button>
+                        </template>
+
                     </div>
                     <div class="app-chrome-item full-height" v-if="chrome.windowControlPosition == 'right'">
                         <div class="window-controls">
@@ -196,6 +199,8 @@
                                               page="browse"></sidebar-library-item>
                         <sidebar-library-item name="Radio" svg-icon="./assets/feather/radio.svg"
                                               page="radio"></sidebar-library-item>
+                        <sidebar-library-item name="Podcasts" svg-icon="./assets/feather/mic.svg"
+                                              page="podcasts"></sidebar-library-item>
                         <div class="app-sidebar-header-text">
                             Library
                         </div>
@@ -216,7 +221,7 @@
                     <transition name="wpfade">
                         <div class="usermenu-container" v-if="chrome.menuOpened">
                             <div class="usermenu-body">
-                                <button class="usermenu-item" @click="chrome.hideUserInfo = !chrome.hideUserInfo">
+                                <button class="usermenu-item" @click="toggleHideUserInfo()">
                                     <div class="row nopadding">
                                         <div class="col nopadding">
                                             Show Personal Info
@@ -252,7 +257,7 @@
                                 <button class="usermenu-item" @click="appRoute('settings')">
                                     Settings
                                 </button>
-                                <button class="usermenu-item" @click="mk.unauthorize()">
+                                <button class="usermenu-item" @click="unauthorize()">
                                     Sign Out
                                 </button>
                             </div>
@@ -291,10 +296,11 @@
                             </div>
                             <div class="app-chrome-item volume">
                                 <div class="input-container">
-                                    <div class="app-chrome-item volume-icon"></div>
+                                    <button class="volume-button--small volume" @click="muteButtonPressed()" :class="{'active': this.cfg.audio.volume == 0}"></button>
                                     <input type="range" class="" @wheel="volumeWheel" step="0.01" min="0" max="1"
                                            v-model="mk.volume"
-                                           v-if="typeof mk.volume != 'undefined'">
+                                           v-if="typeof mk.volume != 'undefined'"
+                                           @change="checkMuteChange()">
                                 </div>
                             </div>
                         </div>
@@ -310,7 +316,7 @@
                                 <template v-if="chrome.userinfo.id">
                                     <div class="fullname text-overflow-elipsis">{{ chrome.userinfo.attributes.name }}
                                     </div>
-                                    <div class="handle-text text-overflow-elipsis">@{{ chrome.userinfo.attributes.handle
+                                    <div class="handle-text text-overflow-elipsis">{{ chrome.userinfo.attributes.handle
                                         }}
                                     </div>
                                 </template>
@@ -337,6 +343,14 @@
                         <button class="nav-item"
                                 @click="navigateForward()"><%- include('svg/chevron-right.svg') %></button>
                     </div>
+
+                    <!--                    Podcasts -->
+                    <transition name="wpfade">
+                        <template v-if="page == 'podcasts'">
+                            <apple-podcasts></apple-podcasts>
+                        </template>
+                    </transition>
+
                     <!-- Apple Setings Page -->
                     <transition name="wpfade">
                         <template v-if="page == 'apple-account-settings'">
@@ -522,7 +536,8 @@
 
                 </div>
                 <transition name="drawertransition">
-                    <div class="app-drawer" v-if="drawer.open && drawer.panel == 'lyrics' && lyrics && lyrics != [] && lyrics.length > 0">
+                    <div class="app-drawer"
+                         v-if="drawer.open && drawer.panel == 'lyrics' && lyrics && lyrics != [] && lyrics.length > 0">
                         <div class="bgArtworkMaterial">
                             <div class="bg-artwork-container">
                                 <img class="bg-artwork a" :src="$store.state.artwork.playerLCD">
@@ -605,6 +620,9 @@
     </div>
 </div>
 
+
+<!-- Apple Settings Page -->
+<%- include('pages/podcasts') %>
 <!-- Apple Settings Page -->
 <%- include('pages/apple-account-settings') %>
 <!-- Library - Songs -->

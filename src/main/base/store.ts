@@ -24,6 +24,8 @@ export class ConfigStore {
         },
         "audio": {
             "volume": 1,
+            "lastVolume": 1,
+            "muted": false,
             "quality": "990",
             "seamless_audio": true,
             "normalization": false,
@@ -55,7 +57,8 @@ export class ConfigStore {
             "animated_artwork": "limited", // 0 = always, 1 = limited, 2 = never
             "animated_artwork_qualityLevel": 1,
             "bg_artwork_rotation": false,
-            "hw_acceleration": "default" // default, webgpu, disabled
+            "hw_acceleration": "default", // default, webgpu, disabled
+            "showuserinfo": true
         },
         "lyrics": {
             "enable_mxm": false,

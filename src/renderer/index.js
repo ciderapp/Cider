@@ -257,7 +257,7 @@ const app = new Vue({
         tmpVar: [],
         notification: false,
         chrome: {
-            hideUserInfo: ipcRenderer.sendSync("is-dev"),
+            hideUserInfo: ipcRenderer.sendSync("is-dev") || false,
             artworkReady: false,
             userinfo: {
                 "id": "",
@@ -486,13 +486,21 @@ const app = new Vue({
             let self = this
             clearTimeout(this.hangtimer)
             this.mk = MusicKit.getInstance()
+            let needsReload = (typeof localStorage["music.ampwebplay.media-user-token"] == "undefined")
             this.mk.authorize().then(() => {
                 self.mkIsReady = true
-                    //document.location.reload()
+                if(needsReload) {
+                    document.location.reload()
+                }
             })
             this.$forceUpdate()
             if (this.isDev) {
                 this.mk.privateEnabled = true
+                // Hide UserInfo if Dev mode
+                this.chrome.hideUserInfo = true
+            } else {
+                // Get Hide User from Settings
+                this.chrome.hideUserInfo = !this.cfg.visual.showuserinfo
             }
             if (this.cfg.visual.hw_acceleration == "disabled") {
                 document.body.classList.add("no-gpu")
@@ -517,8 +525,17 @@ const app = new Vue({
                 }
             }
             MusicKitInterop.init()
-                // Set the volume
-            this.mk.volume = this.cfg.audio.volume
+            // Set the volume
+
+            // Check the value of this.cfg.audio.muted
+            if( !this.cfg.audio.muted )
+            {
+                // Set the mk.volume to the last stored volume data
+                this.mk.volume = this.cfg.audio.volume
+            } else if( this.cfg.audio.muted ) {
+                // Set mk.volume to -1 (setting to 0 wont work, so temp solution setting to -1)
+                this.mk.volume = -1;
+            }
                 // ipcRenderer.invoke('getStoreValue', 'audio.volume').then((value) => {
                 //     self.mk.volume = value
                 // })
@@ -551,7 +568,8 @@ const app = new Vue({
                     app.mk.bitrate = app.cfg.audio.quality = 64
                     break;
                 default:
-                    app.mk.bitrate = app.cfg.audio.quality
+                    // app.mk.bitrate = app.cfg.audio.quality
+                    break;
             }
 
 
@@ -707,6 +725,10 @@ const app = new Vue({
                 this.getBrowsePage();
                 this.$forceUpdate()
             }, 500)
+        },
+        unauthorize() {
+            this.mk.unauthorize()
+            document.location.reload()
         },
         getAppClasses() {
             if (this.cfg.advanced.experiments.includes('compactui')) {
@@ -2984,6 +3006,21 @@ const app = new Vue({
                 }
             }
         },
+        muteButtonPressed() {
+            if( this.cfg.audio.muted ) {
+                this.mk.volume = this.cfg.audio.lastVolume;
+                this.cfg.audio.muted = false;
+            } else {
+                this.cfg.audio.lastVolume = this.cfg.audio.volume;
+                this.mk.volume = 0;
+                this.cfg.audio.muted = true;
+            }
+        },
+        checkMuteChange() {
+            if( this.cfg.audio.muted ) {
+                this.cfg.audio.muted = false;
+            }
+        },
         async apiCall(url, callback) {
             const xmlHttp = new XMLHttpRequest();
 
@@ -3234,6 +3271,15 @@ const app = new Vue({
             return 0 !== s && (h = s > 0 ? "-" : "+"),
                 `${h}${leadingZeros(n, 2)}:${leadingZeros(d, 2)}`
         },
+        toggleHideUserInfo() {
+            if(this.chrome.hideUserInfo) {
+                this.cfg.visual.showuserinfo = true
+                this.chrome.hideUserInfo = false
+            } else {
+                this.cfg.visual.showuserinfo = false
+                this.chrome.hideUserInfo = true
+            }
+        }
 
     }
 })
