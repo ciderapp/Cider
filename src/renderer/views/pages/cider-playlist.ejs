@@ -71,7 +71,7 @@
                                     Shuffle
                                 </button>
                                 <button class="md-btn" style="min-width: 180px;" v-if="inLibrary!=null && confirm!=true"
-                                        @click="confirmButton()"> <img class="md-ico-remove">
+                                        @click="confirmButton()"> <img :class="(!inLibrary) ? 'md-ico-add' : 'md-ico-remove'">
                                     {{ (!inLibrary) ? "Add to Library" : "Remove from Library" }}
                                 </button>
                                 <button class="md-btn" style="min-width: 180px;" v-if="confirm==true"
@@ -107,7 +107,7 @@
                                 Shuffle
                             </button>
                             <button class="md-btn" style="min-width: 180px;" v-if="inLibrary!=null && confirm!=true"
-                                    @click="confirmButton()"> <img class="md-ico-remove">
+                                    @click="confirmButton()"> <img class="(!inLibrary) ? 'md-ico-add' : 'md-ico-remove'">
                                 {{ (!inLibrary) ? "Add to Library" : "Remove from Library" }}
                             </button>
                             <button class="md-btn" style="min-width: 180px;" v-if="confirm==true"
