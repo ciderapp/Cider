@@ -87,30 +87,21 @@ electron.app.on('before-quit', () => {
 //     }
 // })
 //
-// app.on('second-instance', (_e, argv) => {
-//     console.warn(`[InstanceHandler][SecondInstanceHandler] Second Instance Started with args: [${argv.join(', ')}]`)
-//
-//     // Checks if first instance is authorized and if second instance has protocol args
-//     argv.forEach((value) => {
-//         if (value.includes('ame://') || value.includes('itms://') || value.includes('itmss://') || value.includes('musics://') || value.includes('music://')) {
-//             console.warn(`[InstanceHandler][SecondInstanceHandler] Found Protocol!`)
-//             CiderBase.LinkHandler(value);
-//         }
-//     })
-//
-//     if (argv.includes("--force-quit")) {
-//         console.warn('[InstanceHandler][SecondInstanceHandler] Force Quit found. Quitting App.');
-//         app.isQuiting = true
-//         app.quit()
-//     } else if (app.win && !app.cfg.get('advanced.allowMultipleInstances')) { // If a Second Instance has Been Started
-//         console.warn('[InstanceHandler][SecondInstanceHandler] Showing window.');
-//         app.win.show()
-//         app.win.focus()
-//     }
-// })
-//
-// if (!app.requestSingleInstanceLock() && !app.cfg.get('advanced.allowMultipleInstances')) {
-//     console.warn("[InstanceHandler] Existing Instance is Blocking Second Instance.");
-//     app.quit();
-//     app.isQuiting = true
-// }
+electron.app.on('second-instance', (_e, argv) => {
+    console.warn(`[InstanceHandler][SecondInstanceHandler] Second Instance Started with args: [${argv.join(', ')}]`)
+
+    // Checks if first instance is authorized and if second instance has protocol args
+    if (argv.includes("--force-quit")) {
+        console.warn('[InstanceHandler][SecondInstanceHandler] Force Quit found. Quitting App.');
+        electron.app.quit()
+    } else if (Cider.win) { // If a Second Instance has Been Started
+        console.warn('[InstanceHandler][SecondInstanceHandler] Showing window.');
+        Cider.win.show()
+        Cider.win.focus()
+    }
+})
+
+if (!electron.app.requestSingleInstanceLock()) {
+    console.warn("[InstanceHandler] Existing Instance is Blocking Second Instance.");
+    electron.app.quit();
+}

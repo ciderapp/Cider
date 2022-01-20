@@ -393,6 +393,11 @@ export class Win {
             this.win.webContents.setZoomFactor(parseFloat(scale));
         });
 
+        //Fullscreen
+        electron.ipcMain.on('setFullScreen', (event, flag) => {
+            this.win.setFullScreen(flag)
+        })
+
         /* *********************************************************************************************
          * Window Events
          * **********************************************************************************************/
