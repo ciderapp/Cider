@@ -63,7 +63,9 @@
         </div>
         <transition name="wpfade">
             <div class="podcasts-details" v-if="selected.id != -1">
-                <button class="close-btn" @click="selected.id = -1"></button>
+                <div class="podcasts-details-header">
+                    <button class="close-btn" @click="selected.id = -1"></button>
+                </div>
                 <div class="podcast-artwork">
                     <mediaitem-artwork shadow="large" :url="selected.attributes.artwork.url" size="300"></mediaitem-artwork>
                 </div>
@@ -78,10 +80,10 @@
                 <div class="well podcast-description" v-if="selected.attributes.description.standard">{{ selected.attributes.description.standard }}</div>
                 <div class="row">
                     <div class="col">
-                        <button class="md-btn md-btn-block" @click="openUrl(selected.attributes.websiteUrl)">Podcast Website</button>
+                        <button class="md-btn md-btn-block meta-btn" @click="openUrl(selected.attributes.websiteUrl)">Podcast Website</button>
                     </div>
                     <div class="col">
-                        <button class="md-btn md-btn-block">Share</button>
+                        <button class="md-btn md-btn-block meta-btn">Share</button>
                     </div>
                 </div>
             </div>
@@ -90,7 +92,7 @@
     </div>
 </script>
 <script type="text/x-template" id="podcast-tab">
-    <div class="cd-mediaitem-list-item" :class="{'mediaitem-selected': isselected}">
+    <div class="cd-mediaitem-list-item list-flat" :class="{'mediaitem-selected': isselected}">
         <div class="artwork">
             <mediaitem-artwork
                     :url="item.attributes.artwork.url"
@@ -105,7 +107,7 @@
     </div>
 </script>
 <script type="text/x-template" id="podcast-episode">
-    <div class="cd-mediaitem-list-item" :class="{'mediaitem-selected': isselected}">
+    <div class="cd-mediaitem-list-item list-flat" :class="{'mediaitem-selected': isselected}">
         <div class="info-rect" :style="{'padding-left':'16px'}">
             <div class="title text-overflow-elipsis">
                 {{ item.attributes.name }}
