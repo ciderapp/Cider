@@ -12,21 +12,9 @@ module.exports = {
         options: {
             // Use a custom cache name.
             cacheName: 'imageinternet',
-
             // Only cache 10 images.
-
         },
     },
-        {
-            urlPattern: /https:\/\/amp-api.music.apple.com\/v1\//,
-            handler: 'StaleWhileRevalidate',
-            options: {
-                cacheName: 'amp-api',
-                cacheableResponse: {
-                    statuses: [0, 200],
-                },
-            },
-        },
         {
             urlPattern: /https:\/\/is[0-9]-ssl\.mzstatic\.com\/image+/,
             handler: "CacheFirst",
