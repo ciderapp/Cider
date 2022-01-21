@@ -1394,7 +1394,7 @@ const app = new Vue({
         async getTypeFromID(kind, id, isLibrary = false, params = {}, params2 = {}) {
             let a;
             if (kind == "album" | kind == "albums") {
-                params["include"] = "tracks,artists,record-labels";
+                params["include"] = "tracks,artists,record-labels,catalog";
             }
             try {
                 a = await this.mkapi(kind.toString(), isLibrary, id.toString(), params, params2);
