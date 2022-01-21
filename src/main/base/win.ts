@@ -54,6 +54,8 @@ export class Win {
         vibrancy: "dark",
         transparent: process.platform === "darwin",
         hasShadow: false,
+        show: false,
+        backgroundColor: "#1E1E1E",
         webPreferences: {
             nodeIntegration: true,
             sandbox: true,
@@ -64,7 +66,6 @@ export class Win {
             plugins: true,
             nodeIntegrationInWorker: false,
             webSecurity: false,
-
             preload: path.join(this.paths.srcPath, "./preload/cider-preload.js"),
         },
     };
@@ -89,6 +90,9 @@ export class Win {
         this.startWebServer();
 
         this.win = new electron.BrowserWindow(this.options);
+        this.win.on("ready-to-show", () => {
+            this.win.show();
+        });
         const ws = new wsapi(this.win)
         ws.InitWebSockets()
         // and load the renderer.
@@ -156,8 +160,6 @@ export class Win {
         });
         
         app.get("/", (req, res) => {
-
-
             res.render("main", this.EnvironmentVariables);
         });
 

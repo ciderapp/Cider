@@ -58,8 +58,9 @@ hr {
 }
 
 body[loading] {
-  opacity: 0.5;
-  pointer-events: none;
+  .app-navigation {
+    pointer-events: none;
+  }
 }
 
 body[platform='linux'] {
