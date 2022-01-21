@@ -441,7 +441,6 @@
                 let month, year;
                 try {
                     const releaseDate = new Date(date);
-                    console.log(date, releaseDate)
                     month = new Intl.DateTimeFormat('en-US', {month: 'long'}).format(releaseDate);
                     date = releaseDate.getDate();
                     year = releaseDate.getFullYear();
