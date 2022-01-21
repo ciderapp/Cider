@@ -7,8 +7,8 @@ import {resolve} from 'path';
 export default class LastFMPlugin {
     private sessionPath = resolve(electron.app.getPath('userData'), 'session.json');
     private apiCredentials = {
-        key: "174905d201451602407b428a86e8344d",
-        secret: "be61d4081f6adec150f0130939f854bb"
+        key: "f9986d12aab5a0fe66193c559435ede3",
+        secret: "acba3c29bd5973efa38cc2f0b63cc625"
     }
 	/**
 	 * Private variables for interaction in plugins
@@ -22,6 +22,7 @@ export default class LastFMPlugin {
         this._lastfm.setSessionCredentials(sessionData.username, sessionData.key)
         console.log("[LastFM][authenticateFromFile] Logged in.", sessionData.username, sessionData.key)
     }
+
 
     private authenticate() {
         try{
