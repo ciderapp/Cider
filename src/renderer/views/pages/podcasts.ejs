@@ -1,7 +1,26 @@
 <script type="text/x-template" id="apple-podcasts">
     <div class="content-inner podcasts-page">
         <div class="podcasts-list">
-            <podcast-tab :isselected="podcastSelected.id == podcast.id" @click.native="selectPodcast(podcast)" v-for="podcast in podcasts" :item="podcast"></podcast-tab>
+            <div class="podcasts-search">
+                <div class="search-input-container" style="width:100%;">
+                    <div class="search-input--icon"></div>
+                    <input type="search"
+                           style="width:100%;"
+                           spellcheck="false"
+                           placeholder="Search..."
+                           v-model="search.term" class="search-input">
+                </div>
+            </div>
+            <div>
+                <div class="podcast-list-header" v-if="ciderPodcasts.length != 0">
+                    Followed on Cider
+                </div>
+                <div class="podcast-list-header" v-if="podcasts.length != 0">
+                    Subscribed on iTunes
+                </div>
+                <podcast-tab :isselected="podcastSelected.id == podcast.id" @click.native="selectPodcast(podcast)" v-for="podcast in podcasts" :item="podcast"></podcast-tab>
+    
+            </div>
         </div>
         <div class="episodes-list">
             <div v-if="podcastSelected.id != -1" class="episodes-inline-info">
@@ -25,28 +44,32 @@
             <podcast-episode :isselected="selected.id == episode.id" @dblclick.native="playEpisode(episode)" @click.native="selectEpisode(episode)" :item="episode"
                              v-for="episode in episodes"></podcast-episode>
         </div>
-        <div class="podcasts-details" v-if="selected.id != -1">
-            <div class="podcast-artwork">
-                <mediaitem-artwork shadow="large" :url="selected.attributes.artwork.url" size="300"></mediaitem-artwork>
-            </div>
-            <h3 class="podcast-header">{{ selected.attributes.name }}</h3>
-            <button @click="playEpisode(selected)" class="md-btn podcast-play-btn">Play Episode</button>
-            <div class="podcast-genre">
-                {{ selected.attributes.genreNames[0] }}
-            </div>
-            <div class="podcast-metainfo">
-                {{ msToMinSec(selected.attributes.durationInMilliseconds) }} • {{ new Date(selected.attributes.releaseDateTime).toLocaleString() }}
-            </div>
-            <div class="well podcast-description" v-if="selected.attributes.description.standard">{{ selected.attributes.description.standard }}</div>
-            <div class="row">
-                <div class="col">
-                    <button class="md-btn md-btn-block" @click="openUrl(selected.attributes.websiteUrl)">Podcast Website</button>
+        <transition name="wpfade">
+            <div class="podcasts-details" v-if="selected.id != -1">
+                <button class="close-btn" @click="selected.id = -1"></button>
+                <div class="podcast-artwork">
+                    <mediaitem-artwork shadow="large" :url="selected.attributes.artwork.url" size="300"></mediaitem-artwork>
                 </div>
-                <div class="col">
-                    <button class="md-btn md-btn-block">Share</button>
+                <h3 class="podcast-header">{{ selected.attributes.name }}</h3>
+                <button @click="playEpisode(selected)" class="md-btn podcast-play-btn">Play Episode</button>
+                <div class="podcast-genre">
+                    {{ selected.attributes.genreNames[0] }}
+                </div>
+                <div class="podcast-metainfo">
+                    {{ msToMinSec(selected.attributes.durationInMilliseconds) }} • {{ new Date(selected.attributes.releaseDateTime).toLocaleString() }}
+                </div>
+                <div class="well podcast-description" v-if="selected.attributes.description.standard">{{ selected.attributes.description.standard }}</div>
+                <div class="row">
+                    <div class="col">
+                        <button class="md-btn md-btn-block" @click="openUrl(selected.attributes.websiteUrl)">Podcast Website</button>
+                    </div>
+                    <div class="col">
+                        <button class="md-btn md-btn-block">Share</button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </transition>
+
     </div>
 </script>
 <script type="text/x-template" id="podcast-tab">
@@ -100,8 +123,13 @@
         template: '#apple-podcasts',
         data: function () {
             return {
+                ciderPodcasts: [],
                 podcasts: [],
                 episodes: [],
+                search: {
+                    term: "",
+                    results: []
+                },
                 podcastSelected: {
                     id: -1
                 },
@@ -135,7 +163,7 @@
                 this.getEpisodes(podcast)
             },
             selectEpisode(episode) {
-                this.selected = episode
+                this.selected = Clone(episode)
             },
             async getEpisodes(podcast) {
                 this.episodes = []

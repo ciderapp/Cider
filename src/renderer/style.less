@@ -2574,6 +2574,25 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     border-right: 1px solid var(--color2);
     flex: none;
     overflow-x: hidden;
+
+    .podcast-list-header {
+      border-bottom: 1px solid var(--color2);
+      font-size: 0.7em;
+      padding: 6px;
+      background: #ffffff17;
+      text-transform: uppercase;
+      font-weight: 600;
+      opacity: 0.5;
+    }
+
+    .podcasts-search {
+      padding: 10px;
+      position: sticky;
+      top:0;
+      left:0;
+      width:100%;
+      border-bottom: 1px solid var(--color2);
+    }
   }
 
   .episodes-list {
@@ -2608,13 +2627,37 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   }
 
   .podcasts-details {
-    height: 100%;
+    height: 96%;
     width: 400px;
     flex: none;
-    background: rgba(200, 200, 200, 0.1);
+    background: rgb(20 20 20 / 97%);
     overflow-y: overlay;
-    border-left: 1px solid var(--color2);
     overflow-x: hidden;
+    position: absolute;
+    right: 2%;
+    top: 2%;
+    border-radius: 10px;
+    box-shadow: var(--ciderShadow-Generic);
+    z-index: 2;
+
+    .close-btn {
+      width: 50px;
+      height: 42px;
+      background-image: var(--gfx-closeBtn);
+      background-position: center;
+      background-repeat: no-repeat;
+      -webkit-app-region: no-drag;
+      appearance: none;
+      border: 0;
+      background-color: transparent;
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      &:hover {
+        background-color: rgb(196, 43, 28)
+      }
+    }
 
     .podcast-genre {
       text-align: center;
