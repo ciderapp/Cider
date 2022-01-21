@@ -8,10 +8,11 @@
                            style="width:100%;"
                            spellcheck="false"
                            placeholder="Search..."
+                           @change="searchPodcasts();librarySearch()"
                            v-model="search.term" class="search-input">
                 </div>
             </div>
-            <div>
+            <div v-if="search.term == ''">
                 <div class="podcast-list-header" v-if="ciderPodcasts.length != 0">
                     Followed on Cider
                 </div>
@@ -19,7 +20,16 @@
                     Subscribed on iTunes
                 </div>
                 <podcast-tab :isselected="podcastSelected.id == podcast.id" @click.native="selectPodcast(podcast)" v-for="podcast in podcasts" :item="podcast"></podcast-tab>
-    
+            </div>
+            <div v-else>
+                <div class="podcast-list-header" v-if="podcasts.length != 0">
+                    Library
+                </div>
+                <podcast-tab :isselected="podcastSelected.id == podcast.id" @click.native="selectPodcast(podcast)" v-for="podcast in search.resultsLibrary" :item="podcast"></podcast-tab>
+                <div class="podcast-list-header" v-if="podcasts.length != 0">
+                    iTunes Store
+                </div>
+                <podcast-tab :isselected="podcastSelected.id == podcast.id" @click.native="selectPodcast(podcast)" v-for="podcast in search.results" :item="podcast"></podcast-tab>
             </div>
         </div>
         <div class="episodes-list">
@@ -38,7 +48,14 @@
                 </div>
 
                 <div class="well podcast-show-description">{{ podcastSelected.attributes.description.standard }}</div>
-
+                <div class="row" v-if="!isSubscribed(podcastSelected.id)">
+                    <div class="col">
+                        <button class="md-btn md-btn-block">Follow on Cider</button>
+                    </div>
+                    <div class="col">
+                        <button class="md-btn md-btn-block">Subscribe on iTunes</button>
+                    </div>
+                </div>
                 <h3>Episodes</h3>
             </div>
             <podcast-episode :isselected="selected.id == episode.id" @dblclick.native="playEpisode(episode)" @click.native="selectEpisode(episode)" :item="episode"
@@ -128,7 +145,10 @@
                 episodes: [],
                 search: {
                     term: "",
-                    results: []
+                    loading: false,
+                    results: [],
+                    resultsLibrary: [],
+                    next: ""
                 },
                 podcastSelected: {
                     id: -1
@@ -147,6 +167,28 @@
             // this.episodes = podcastShow.data.data[0].relationships.episodes.data
         },
         methods: {
+            searchTriggerVis(visible) {
+
+            },
+            librarySearch() {
+                this.search.resultsLibrary = []
+                if (this.search.term.length > 2) {
+                    this.search.resultsLibrary = this.podcasts.filter(podcast => podcast.attributes.name.toLowerCase().includes(this.search.term.toLowerCase()))
+                }
+            },
+            isSubscribed(id) {
+                return this.podcasts.filter(podcast => podcast.id == id).length > 0
+            },
+            searchPodcasts() {
+                let self = this
+                if(this.search.term == "") {
+                    return
+                }
+                app.mk.api.v3.podcasts("/v1/catalog/us/search", {term: this.search.term, types: ["podcasts"], limit: 25}).then(response => {
+                    console.log(response)
+                    self.search.results = response.data.results.podcasts.data
+                })
+            },
             openUrl(url) {
                 window.open(url)
             },
