@@ -217,21 +217,21 @@
                             <template v-if="canShowSearchTab('songs')">
                                 <div class="list-entry-header">Songs</div>
 
-                                <div class="list-entry" v-for="song in search.results.songs"
+                                <div class="list-entry" v-for="song in search.results.songs.data"
                                      @click="trackSelect(song)">
                                     <div class="row">
                                         <div class="col-auto flex-center">
-                                            <div class="list-entry-image" v-if="song.artwork"
-                                                 :style="{'--artwork': getAlbumArtUrlList(song.artwork.url)}">
+                                            <div class="list-entry-image" v-if="song.attributes.artwork"
+                                                 :style="{'--artwork': getAlbumArtUrlList(song.attributes.artwork.url)}">
                                             </div>
                                         </div>
                                         <div class="col flex-center">
                                             <div class="list-entry-name">
-                                                {{ song.name }}
+                                                {{ song.attributes.name }}
                                             </div>
                                             <div class="list-entry-artist">
-                                                {{ song.artistName }}
-                                                <span class="lossless-badge" v-if="song.audioTraits.includes('lossless')">Lossless</span>
+                                                {{ song.attributes.artistName }}
+                                                <!-- <span class="lossless-badge" v-if="song.audioTraits.includes('lossless')">Lossless</span> -->
                                             </div>
                                         </div>
                                     </div>
@@ -260,21 +260,21 @@
                             <template v-if="canShowSearchTab('albums')">
                                 <div class="list-entry-header">Albums</div>
 
-                                <div class="list-entry" v-for="album in search.results.albums"
+                                <div class="list-entry" v-for="album in search.results.albums.data"
                                      @click="showAlbum(album.id)">
                                     <div class="row">
                                         <div class="col-auto flex-center">
-                                            <div class="list-entry-image" v-if="album.artwork"
-                                                 :style="{'--artwork': getAlbumArtUrlList(album.artwork.url)}">
+                                            <div class="list-entry-image" v-if="album.attributes.artwork"
+                                                 :style="{'--artwork': getAlbumArtUrlList(album.attributes.artwork.url)}">
                                             </div>
                                         </div>
                                         <div class="col flex-center">
                                             <div class="list-entry-name">
-                                                {{ album.name }}
+                                                {{ album.attributes.name }}
                                             </div>
                                             <div class="list-entry-artist">
-                                                {{ album.artistName }}
-                                                <span class="lossless-badge" v-if="album.audioTraits.includes('lossless')">Lossless</span>
+                                                {{ album.attributes.artistName }}
+                                                <!-- <span class="lossless-badge" v-if="album.audioTraits.includes('lossless')">Lossless</span> -->
                                             </div>
                                         </div>
                                     </div>
@@ -304,17 +304,17 @@
 
                                 <div class="list-entry"
                                      @click="showArtist(artist.id)"
-                                     v-for="artist in search.results.artists"
+                                     v-for="artist in search.results.artists.data"
                                 >
                                     <div class="row">
                                         <div class="col-auto flex-center">
-                                            <div class="list-entry-image artist" v-if="artist.artwork"
-                                                 :style="{'--artwork': getAlbumArtUrlList(artist.artwork.url)}">
+                                            <div class="list-entry-image artist" v-if="artist.attributes.artwork"
+                                                 :style="{'--artwork': getAlbumArtUrlList(artist.attributes.artwork.url)}">
                                             </div>
                                         </div>
                                         <div class="col flex-center">
                                             <div class="list-entry-name">
-                                                {{ artist.name }}
+                                                {{ artist.attributes.name }}
                                             </div>
                                             <div class="list-entry-artist">
 
@@ -352,23 +352,23 @@
         <transition name="wpfade">
             <div class="md-container md-container_panel context-menu" style="overflow-y:auto;" v-if="search.trackSelect">
                 <div class="md-body context-menu-body">
-                    <button class="context-menu-item context-menu-item--left" @click="playMediaItemById(search.selected.id);clearSelectedTrack()">
+                    <button class="context-menu-item context-menu-item--left" @click="playMediaItemById(search.selected.attributes.playParams.id);clearSelectedTrack()">
                         <div class="row">
-                            <div class="col-auto flex-center" v-if="search.selected.artwork"
+                            <div class="col-auto flex-center" v-if="search.selected.attributes.artwork"
                                  style="display:flex;align-items: center;">
                                 <div class="list-entry-image"
-                                     :style="{'--artwork': getAlbumArtUrlList(search.selected.artwork.url)}">
+                                     :style="{'--artwork': getAlbumArtUrlList(search.selected.attributes.artwork.url)}">
                                 </div>
                             </div>
                             <div class="col flex-center" style="display:flex;align-items: center;">
                                 <div style="width:100%;font-size: 18px;">
-                                    {{ search.selected.name }}
+                                    {{ search.selected.attributes.name }}
                                 </div>
                                 <div style="width:100%;font-size: 16px;">
-                                    {{ search.selected.artistName }}
+                                    {{ search.selected.attributes.artistName }}
                                 </div>
                                 <div style="width:100%;font-size: 14px;">
-                                    {{ parseTime(search.selected.durationInMillis) }}
+                                    {{ parseTime(search.selected.attributes.durationInMillis) }}
                                 </div>
                             </div>
                         </div>
@@ -476,39 +476,39 @@
         </transition>
         <!-- Artist Page -->
         <transition name="wpfade">
-            <div class="md-container md-container_panel" v-if="screen == 'artist-page'" v-if="artistPage.data['name']">
+            <div class="md-container md-container_panel" v-if="screen == 'artist-page'" v-if="artistPage.data.attributes['name']">
                 <div class="md-header">
                     <div class="row">
                         <div class="col-auto">
                             <button class="back-button" @click="showSearch(true)"></button>
                         </div>
                         <div class="col flex-center">
-                            {{ artistPage.data["name"] }}
+                            {{ artistPage.data.attributes["name"] }}
                         </div>
                     </div>
                 </div>
-                <div class="album-body-container" :style="getMediaPalette(artistPage.data)">
-                    <div class="artist-header" v-if="artistPage.data['artwork']" :style="getMediaPalette(artistPage.data)">
-                        <div class="artist-header-portrait" :style="{'--artwork': getAlbumArtUrlList(artistPage.data['artwork']['url'], 600)}"></div>
-                        <h2>{{ artistPage.data["name"] }}</h2>
+                <div class="album-body-container" :style="getMediaPalette(artistPage.data.attributes)">
+                    <div class="artist-header" v-if="artistPage.data.attributes['artwork']" :style="getMediaPalette(artistPage.data.attributes)">
+                        <div class="artist-header-portrait" :style="{'--artwork': getAlbumArtUrlList(artistPage.data.attributes['artwork']['url'], 600)}"></div>
+                        <h2>{{ artistPage.data.attributes["name"] }}</h2>
                     </div>
                     <div class="md-body artist-body">
                         <h2>Songs</h2>
                         <div class="song-scroller-horizontal">
-                            <button v-for="song in artistPage.data['songs']" class="song-placeholder" @click="trackSelect(song)">
-                                {{ song.name }}
+                            <button v-for="song in artistPage.data.relationships['songs'].data" class="song-placeholder" @click="trackSelect(song)">
+                                {{ song.attributes.name }}
                             </button>
                         </div>
                         <h2>Albums</h2>
                         <div class="mediaitem-scroller-horizontal">
-                            <button v-for="album in artistPage.data['albums']" class="album-placeholder" @click="showAlbum(album.id)">
-                                {{ album.name }}
+                            <button v-for="album in artistPage.data.relationships['albums'].data" class="album-placeholder" @click="showAlbum(album.attributes.playParams.id)">
+                                {{ album.attributes.name }}
                             </button>
                         </div>
                         <h2>Playlists</h2>
                         <div class="mediaitem-scroller-horizontal">
-                            <button v-for="playlist in artistPage.data['playlists']" class="album-placeholder">
-                                {{ playlist.name }}
+                            <button v-for="playlist in artistPage.data.relationships['playlists'].data" class="album-placeholder">
+                                {{ playlist.attributes.name }}
                             </button>
                         </div>
                     </div>
@@ -635,7 +635,7 @@
         </transition>
         <!-- Album Page -->
         <transition name="wpfade">
-            <div class="md-container md-container_panel md-container_album" v-if="screen == 'album-page' && albumPage.data['name']">
+            <div class="md-container md-container_panel md-container_album" v-if="screen == 'album-page' && albumPage.data.attributes['name']">
                 <div class="md-header">
                     <div class="row">
                         <div class="col-auto">
@@ -645,29 +645,29 @@
                 </div>
                 <div class="album-body-container">
                     <div class="md-header">
-                        <div class="albumpage-artwork" :style="{'--artwork': getAlbumArtUrlList(albumPage.data['artwork']['url'], 300)}">
+                        <div class="albumpage-artwork" :style="{'--artwork': getAlbumArtUrlList(albumPage.data.attributes['artwork']['url'], 300)}">
                         </div>
                         <div class="albumpage-album-name">
-                            {{ albumPage.data["name"] }}
+                            {{ albumPage.data.attributes["name"] }}
                         </div>
                         <div class="albumpage-artist-name" @click="showArtist(albumPage.data['artists'][0]['id'])">
-                            {{ albumPage.data["artistName"] }}
+                            {{ albumPage.data.attributes["artistName"] }}
                         </div>
                         <div class="albumpage-misc-info">
-                            {{ albumPage.data.genreNames[0] }} ∙ {{ new Date(albumPage.data.releaseDate).getFullYear() }}
+                            {{ albumPage.data.attributes.genreNames[0] }} ∙ {{ new Date(albumPage.data.attributes.releaseDate).getFullYear() }}
                         </div>
                         <div class="row" style="margin-top: 20px;">
                             <div class="col">
-                                <button class="wr-btn" @click="playAlbum(albumPage.data.id, false)" style="width:100%;">Play
+                                <button class="wr-btn" @click="playAlbum(albumPage.data.attributes.id, false)" style="width:100%;">Play
                                 </button>
                             </div>
                             <div class="col">
-                                <button class="wr-btn" style="width:100%;" @click="playAlbum(albumPage.data.id, true)">Shuffle
+                                <button class="wr-btn" style="width:100%;" @click="playAlbum(albumPage.data.attributes.id, true)">Shuffle
                                 </button>
                             </div>
                         </div>
-                        <div class="albumpage-album-notes" v-if="albumPage.data['editorialNotes']">
-                            <div class="notes-preview" v-html="albumPage.data['editorialNotes']['standard']">
+                        <div class="albumpage-album-notes" v-if="albumPage.data.attributes['editorialNotes']">
+                            <div class="notes-preview" v-html="albumPage.data.attributes['editorialNotes']['standard']">
                             </div>
                             <button @click="albumPage.editorsNotes = true" class="notes-more">More</button>
                         </div>
@@ -675,26 +675,26 @@
                     </div>
                     <div class="md-body artist-body">
                         <div class="list-entry-header">Tracks</div>
-                        <div class="list-entry" v-for="song in albumPage.data['tracks']" @click="trackSelect(song)">
+                        <div class="list-entry" v-for="song in albumPage.data.relationships['tracks'].data" @click="trackSelect(song)">
                             <div class="row">
                                 <div class="col-auto flex-center">
-                                    <div class="list-entry-image" v-if="song.artwork" :style="{'--artwork': getAlbumArtUrlList(song.artwork.url)}">
+                                    <div class="list-entry-image" v-if="song.attributes.artwork" :style="{'--artwork': getAlbumArtUrlList(song.attributes.artwork.url)}">
                                     </div>
                                 </div>
                                 <div class="col flex-center">
                                     <div class="list-entry-name">
-                                        {{ song.name }}
+                                        {{ song.attributes.name }}
                                     </div>
                                     <div class="list-entry-artist">
-                                        {{ song.artistName }}
+                                        {{ song.attributes.artistName }}
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="md-footer">
-                            <div>{{ albumPage.data['tracks'].length }} Tracks</div>
+                            <div>{{ albumPage.data.relationships['tracks'].data.length }} Tracks</div>
                             <div>
-                                {{ albumPage.data['copyright'] }}
+                                {{ albumPage.data.attributes['copyright'] }}
                             </div>
                         </div>
                     </div>
@@ -706,11 +706,11 @@
         <transition name="wpfade">
             <div class="md-container md-container_panel context-menu" v-if="albumPage.editorsNotes" style="padding-top: 42px;">
                 <div class="md-header" :style="getMediaPalette(albumPage.data)" style="font-size: 18px;background:var(--bgColor);color:var(--textColor1);text-align: center;border-radius: 10px 10px 0 0;border-top: 1px solid #ffffff1f;">
-                    {{ albumPage.data["name"] }}
+                    {{ albumPage.data.attributes["name"] }}
                 </div>
-                <div class="md-body album-page-fullnotes-body" :style="getMediaPalette(albumPage.data)" style="background:var(--bgColor);color:var(--textColor1);" v-html="albumPage.data['editorialNotes']['standard']">
+                <div class="md-body album-page-fullnotes-body" :style="getMediaPalette(albumPage.data.attributes)" style="background:var(--bgColor);color:var(--textColor1);" v-html="albumPage.data.attributes['editorialNotes']['standard']">
                 </div>
-                <div class="md-footer" :style="getMediaPalette(albumPage.data)" style="background:var(--bgColor);color:var(--textColor1);">
+                <div class="md-footer" :style="getMediaPalette(albumPage.data.attributes)" style="background:var(--bgColor);color:var(--textColor1);">
                     <button class="context-menu-item" @click="albumPage.editorsNotes = false">Close</button>
                 </div>
             </div>

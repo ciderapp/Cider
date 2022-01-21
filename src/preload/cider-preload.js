@@ -10,7 +10,7 @@ const MusicKitInterop = {
             if (MusicKitInterop.filterTrack(MusicKitInterop.getAttributes(), true, false)) {
                 console.log("ayy");
                 global.ipcRenderer.send('playbackStateDidChange', MusicKitInterop.getAttributes())
-                ipcRenderer.send('wsapi-updatePlaybackState', self.getAttributes());
+                ipcRenderer.send('wsapi-updatePlaybackState', MusicKitInterop.getAttributes());
                 // if (typeof _plugins != "undefined") {
                 //     _plugins.execute("OnPlaybackStateChanged", {Attributes: MusicKitInterop.getAttributes()})
                 // }
@@ -19,7 +19,7 @@ const MusicKitInterop = {
 
         /** wsapi */
          MusicKit.getInstance().addEventListener(MusicKit.Events.playbackProgressDidChange, () => {
-            ipcRenderer.send('wsapi-updatePlaybackState', self.getAttributes());
+            ipcRenderer.send('wsapi-updatePlaybackState', MusicKitInterop.getAttributes());
         });
         /** wsapi */
 
