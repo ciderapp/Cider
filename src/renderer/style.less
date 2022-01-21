@@ -1048,7 +1048,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   font-size: 13px;
   height: 1.3em;
   line-height: 1.3em;
-  overflow: hidden;
+  white-space: nowrap;
   max-width: 360px;
 
   .song-name-normal {
@@ -1080,16 +1080,44 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   margin: 0 0 0 0.25em;
 }
 
+.app-playback-controls:hover .marquee{
+  animation: unset; 
+  &.song-artist{
+    overflow: hidden;
+  }
+  .song-artist{
+    overflow: hidden;
+  }
+  &.song-name{
+    overflow: hidden;
+  }
+}
+
+
+.marquee{
+  animation: marquee 15s linear infinite; 
+  &.song-artist{
+    overflow: unset ;
+  }
+  .song-artist{
+    overflow: unset ;
+  }
+  &.song-name{
+    overflow: unset ;
+  }
+}
+
+
 .app-chrome .app-chrome-item > .app-playback-controls .song-artist {
   font-weight: 400;
   font-size: 12px;
   text-align: center;
   /*height: 1.2em;
   line-height: 1.2em;*/
-  overflow: hidden;
+
   z-index: 1;
   max-width: 360px;
-  /* animation: marquee 10s linear infinite; */
+  
 
   .song-artist-normal {
     height: inherit;
@@ -1221,6 +1249,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   align-items: center;
   flex-direction: column;
   position: relative;
+  overflow: hidden;
 }
 
 .app-chrome .app-chrome-item > .app-playback-controls .playback-info > div {

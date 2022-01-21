@@ -3285,6 +3285,14 @@ const app = new Vue({
                 this.cfg.visual.showuserinfo = false
                 this.chrome.hideUserInfo = true
             }
+        },
+        isElementOverflowing(selector) {
+            try{
+            let element = document.querySelector(selector);
+            var overflowX = element.offsetWidth < element.scrollWidth,
+              overflowY = element.offsetHeight < element.scrollHeight;
+          
+            return (overflowX || overflowY); } catch (e) { return false}
         }
 
     }
