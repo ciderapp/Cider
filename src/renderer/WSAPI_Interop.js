@@ -56,8 +56,7 @@ const wsapi = {
         ipcRenderer.send('wsapi-updatePlaybackState', MusicKitInterop.getAttributes());
     },
     getLyrics() {
-        return []
-        _lyrics.GetLyrics(1, false)
+        ipcRenderer.send('wsapi-returnLyrics',JSON.stringify(app.lyrics));
     },
     getQueue() {
         ipcRenderer.send('wsapi-returnQueue', JSON.stringify(MusicKit.getInstance().queue))
