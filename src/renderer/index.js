@@ -3555,3 +3555,15 @@ webGPU().then()
 
 let screenWidth = screen.width;
 let screenHeight = screen.height;
+
+// Key bind to unjam MusicKit in case it fails: CTRL+F10
+document.addEventListener('keydown', function(event) {
+    if (event.ctrlKey && event.keyCode == 121) {
+        try {
+            app.mk._services.mediaItemPlayback._currentPlayer.stop()
+        } catch (e) { }
+        try {
+            app.mk._services.mediaItemPlayback._currentPlayer.destroy()
+        } catch (e) { }
+    }
+});
