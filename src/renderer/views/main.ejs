@@ -574,7 +574,7 @@
         </div>
     </transition>
     <transition name="wpfade">
-        <div class="bg-artwork-container"
+        <div class="bg-artwork-container" v-if="cfg.visual.window_background_style == 'artwork'"
              :class="{noanimation: (!cfg.visual.bg_artwork_rotation || !animateBackground)}">
             <img @load="chrome.artworkReady = true" class="bg-artwork a "
             >

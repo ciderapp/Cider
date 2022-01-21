@@ -731,9 +731,14 @@ const app = new Vue({
             document.location.reload()
         },
         getAppClasses() {
+            let classes = {}
             if (this.cfg.advanced.experiments.includes('compactui')) {
-                return { compact: true }
+                classes.compact = true
             }
+            if(this.cfg.visual.window_background_style == "none") {
+                classes.simplebg = true
+            }            
+            return classes
         },
         invokeDrawer(panel) {
             if (this.drawer.panel == panel && this.drawer.open) {
@@ -2744,7 +2749,7 @@ const app = new Vue({
             // if rgb
             return `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`
         },
-        getNowPlayingArtworkBG(size = 600) {
+        getNowPlayingArtworkBG(size = 32, force = false) {
             let self = this
             if (typeof this.mk.nowPlayingItem === "undefined") return;
             let bginterval = setInterval(() => {
@@ -2753,7 +2758,7 @@ const app = new Vue({
                 }
 
                 try {
-                    if (this.mk.nowPlayingItem && this.mk.nowPlayingItem["id"] != this.currentTrackID && document.querySelector('.bg-artwork')) {
+                    if ((this.mk.nowPlayingItem && this.mk.nowPlayingItem["id"] != this.currentTrackID && document.querySelector('.bg-artwork')) || force) {
                         if (document.querySelector('.bg-artwork')) {
                             clearInterval(bginterval);
                         }
