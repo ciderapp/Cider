@@ -13,7 +13,7 @@ name: "Build Windows"
 
 on:
   push:
-    branches: [ main, upcoming ]
+    branches: [ main ]
     paths-ignore:
     - 'README.md'
     - 'SECURITY.md'
