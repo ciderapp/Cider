@@ -134,6 +134,9 @@ const app = new Vue({
         platform: "",
         mk: {},
         quickPlayQuery: "",
+        lz: {
+
+        },
         search: {
             term: "",
             hints: [],
@@ -334,6 +337,13 @@ const app = new Vue({
         },
     },
     methods: {
+        getLz(message) {
+            if(this.lz[message]) {
+                return this.lz[message]
+            }else{
+                return message
+            }
+        },
         async showSocialListeningTo() {
             let contentIds = Object.keys(app.socialBadges.badgeMap)
             app.showCollection({ data: this.socialBadges.mediaItems }, "Friends Listening To", "albums")
@@ -3298,9 +3308,10 @@ const app = new Vue({
             return (overflowX || overflowY); } catch (e) { return false}
         },
         async showWebRemoteQR(){
-           this.webremoteqr = await ipcRenderer.invoke('setRemoteQR','')
-           this.webremoteurl =  await ipcRenderer.invoke('setRemoteURL','')
-           this.modals.qrcode = true;
+           //this.webremoteqr = await ipcRenderer.invoke('setRemoteQR','')
+           this.webremoteurl =  await ipcRenderer.invoke('showQR','')
+           //this.modals.qrcode = true;
+           
         }
 
     }
