@@ -589,17 +589,28 @@
                             </div>
                             <h2>Albums</h2>
                             <div class="mediaitem-scroller-horizontal">
-                                <button v-for="album in artistPage.data.relationships['albums'].data"
-                                    class="album-placeholder" @click="showAlbum(album.attributes.playParams.id)">
-                                    {{ album.attributes.name }}
-                                </button>
+                                <div v-for="album in artistPage.data.relationships['albums'].data" @click="showAlbum(album.attributes.playParams.id)">
+                                    <template v-if="album.attributes.artwork">
+                                        <mediaitem-artwork :url="album.attributes.artwork.url" :size="200"></mediaitem-artwork>
+                                    </template>
+                                    <div class="text-overflow-elipsis" style="width: 213px">
+                                        {{ album.attributes["name"] }}
+                                    </div>
+                                    <div class="text-overflow-elipsis" style="width: 213px">
+                                        {{ album.attributes["artistName"] }}
+                                    </div>
+                                </div>
                             </div>
                             <h2>Playlists</h2>
                             <div class="mediaitem-scroller-horizontal">
-                                <button v-for="playlist in artistPage.data.relationships['playlists'].data"
-                                    @click="showPlaylist(playlist.attributes.playParams.id)" class="album-placeholder">
-                                    {{ playlist.attributes.name }}
-                                </button>
+                                <div v-for="playlist in artistPage.data.relationships['playlists'].data" @click="showPlaylist(playlist.attributes.playParams.id)">
+                                    <template v-if="playlist.attributes.artwork">
+                                        <mediaitem-artwork :url="playlist.attributes.artwork.url" :size="200"></mediaitem-artwork>
+                                    </template>
+                                    <div class="text-overflow-elipsis" style="width: 213px">
+                                        {{ playlist.attributes["name"] }}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -896,5 +907,9 @@
     <script src="./index.js?v=1"></script>
 
 </body>
+<!-- Horizontal MediaItem Scroller (MV) -->
+
+<%- include('components/mediaitem-artwork')
+%>
 
 </html>
