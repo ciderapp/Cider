@@ -103,6 +103,9 @@ export class Win {
         // Register listeners on Window to track size and position of the Window.
         windowState.manage(this.win);
 
+        // Start Remote Discovery
+        this.broadcastRemote()
+
         return this.win;
     }
 
@@ -198,20 +201,23 @@ export class Win {
          */
         const remote = express();
         remote.use(express.static(path.join(this.paths.srcPath, "./web-remote/")))
-        remote.listen(this.remotePort, () => {
-            console.log(`Cider remote port: ${this.remotePort}`);
-            if (firstRequest) {
-                console.log("---- Ignore Me ;) ---");
-                qrcode.generate(`http://${os.hostname}:${this.remotePort}`);
-                console.log("---- Ignore Me ;) ---");
-                /*
-                 *
-                 *   USING https://www.npmjs.com/package/qrcode-terminal for terminal
-                 *   WE SHOULD USE https://www.npmjs.com/package/qrcode for the remote (or others) for showing to user via an in-app dialog
-                 *   -@quacksire
-                 */
-            }
-            firstRequest = false;
+        getPort({port: 6942}).then((port) => {
+            this.remotePort = port; 
+            remote.listen(this.remotePort, () => {
+                console.log(`Cider remote port: ${this.remotePort}`);
+                if (firstRequest) {
+                    console.log("---- Ignore Me ;) ---");
+                    qrcode.generate(`http://${os.hostname}:${this.remotePort}`);
+                    console.log("---- Ignore Me ;) ---");
+                    /*
+                    *
+                    *   USING https://www.npmjs.com/package/qrcode-terminal for terminal
+                    *   WE SHOULD USE https://www.npmjs.com/package/qrcode for the remote (or others) for showing to user via an in-app dialog
+                    *   -@quacksire
+                    */
+                }
+                firstRequest = false;
+            })
         })
     }
 
@@ -481,5 +487,36 @@ export class Win {
             electron.shell.openExternal(x.url).catch(console.error);
             return { action: "deny" };
         });
+    }
+
+    private async broadcastRemote() {
+        function getIp() {
+            let ip :any = false;
+            let alias = 0;
+            const ifaces: any = os.networkInterfaces() ;
+            for (var dev in ifaces) {
+                ifaces[dev].forEach( (details: any) => {
+                    if (details.family === 'IPv4') {
+                        if (!/(loopback|vmware|internal|hamachi|vboxnet|virtualbox)/gi.test(dev + (alias ? ':' + alias : ''))) {
+                            if (details.address.substring(0, 8) === '192.168.' ||
+                                details.address.substring(0, 7) === '172.16.' ||
+                                details.address.substring(0, 3) === '10.'
+                            ) {
+                                ip = details.address;
+                                ++alias;
+                            }
+                        }
+                    }
+                }) ;
+            }
+            return ip;
+        }
+        const myString = `http://${getIp()}:${this.remotePort}`;
+        var mdns = require('mdns-js');
+        const encoded = new Buffer(myString).toString('base64');
+        var x =  mdns.tcp('cider-remote');   
+        let server2 = mdns.createAdvertisement(x, `${await getPort({port: 3839})}`, { name: encoded });
+        server2.start();
+        console.log('remote broadcasted')
     }
 }

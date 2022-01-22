@@ -37,6 +37,7 @@
     "express": "^4.17.2",
     "get-port": "^5.1.1",
     "lastfmapi": "^0.1.1",
+    "mdns-js": "github:bitfocus/node-mdns-js",
     "mpris-service": "^2.1.2",
     "music-metadata": "^7.11.4",
     "qrcode": "^1.5.0",
