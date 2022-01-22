@@ -3308,9 +3308,10 @@ const app = new Vue({
             return (overflowX || overflowY); } catch (e) { return false}
         },
         async showWebRemoteQR(){
-           this.webremoteqr = await ipcRenderer.invoke('setRemoteQR','')
-           this.webremoteurl =  await ipcRenderer.invoke('setRemoteURL','')
-           this.modals.qrcode = true;
+           //this.webremoteqr = await ipcRenderer.invoke('setRemoteQR','')
+           this.webremoteurl =  await ipcRenderer.invoke('showQR','')
+           //this.modals.qrcode = true;
+           
         }
 
     }
