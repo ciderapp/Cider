@@ -2,7 +2,7 @@
     <div class="modal-fullscreen spatialproperties-panel">
         <div class="modal-window" >
             <div class="modal-header">
-                <div class="modal-title">Web Remote QR</div>
+                <div class="modal-title">{{`Web Remote QR : ` + url }}</div>
                 <button class="close-btn" @click="close()"></button>
             </div>
             <div class="modal-content">
@@ -21,7 +21,7 @@
               
             }
         },
-        props: ["src"],
+        props: ["src","url"],
         mounted() {
          
         },
