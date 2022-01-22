@@ -201,6 +201,8 @@ export class Win {
          */
         const remote = express();
         remote.use(express.static(path.join(this.paths.srcPath, "./web-remote/")))
+        remote.set("views", path.join(this.paths.srcPath, "./web-remote/views"));
+        remote.set("view engine", "ejs");
         getPort({port: 6942}).then((port) => {
             this.remotePort = port; 
             remote.listen(this.remotePort, () => {
@@ -218,6 +220,9 @@ export class Win {
                 }
                 firstRequest = false;
             })
+            remote.get("/", (req, res) => {
+                res.render("index", this.EnvironmentVariables);
+            });
         })
     }
 

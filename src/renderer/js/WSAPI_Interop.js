@@ -2,12 +2,12 @@ const wsapi = {
     cache: {playParams: {id: 0}, status: null, remainingTime: 0},
     playbackCache: {status: null, time: Date.now()},
     search(term, limit) {
-        MusicKit.getInstance().api.search(term, {limit: limit, types: 'songs,artists,albums'}).then((results)=>{
+        MusicKit.getInstance().api.search(term, {limit: limit, types: 'songs,artists,albums,playlists'}).then((results)=>{
             ipcRenderer.send('wsapi-returnSearch', JSON.stringify(results))
         })
     },
     searchLibrary(term, limit) {
-        MusicKit.getInstance().api.library.search(term, {limit: limit, types: 'library-songs,library-artists,library-albums'}).then((results)=>{
+        MusicKit.getInstance().api.library.search(term, {limit: limit, types: 'library-songs,library-artists,library-albums,library-playlists'}).then((results)=>{
             ipcRenderer.send('wsapi-returnSearchLibrary', JSON.stringify(results))
         })
     },
@@ -47,10 +47,16 @@ const wsapi = {
     returnDynamic(data, type) {
         ipcRenderer.send('wsapi-returnDynamic', JSON.stringify(data), type)
     },
-    musickitApi(method, id, params) {
-        MusicKit.getInstance().api[method](id, params).then((results)=>{
+    musickitApi(method, id, params, library = false) {
+        if (library) {
+        MusicKit.getInstance().api.library[method](id, params).then((results)=>{
             ipcRenderer.send('wsapi-returnMusicKitApi', JSON.stringify(results), method)
         })
+        } else {
+        MusicKit.getInstance().api[method](id, params).then((results)=>{
+            ipcRenderer.send('wsapi-returnMusicKitApi', JSON.stringify(results), method)
+        }) 
+        }
     },
     getPlaybackState () {
         ipcRenderer.send('wsapi-updatePlaybackState', MusicKitInterop.getAttributes());
