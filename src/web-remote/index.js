@@ -1,3 +1,4 @@
+
 var socket;
 
 Vue.component('footer-player', {
@@ -56,13 +57,14 @@ var app = new Vue({
         searchScroll(e) {
             this.search.lastY = e.target.scrollTop;
         },
-        musicKitAPI(method, id, params) {
+        musicKitAPI(method, id, params, library = false) {
             socket.send(
                 JSON.stringify({
                     action: "musickit-api",
                     method: method,
                     id: id,
-                    params: params
+                    params: params,
+                    library : library 
                 })
             )
         },
@@ -361,15 +363,20 @@ var app = new Vue({
         showArtistByName(name) {
             this.musicKitAPI("search", name, { types: "artists" })
         },
-        showAlbum(id) {
+        showAlbum(id,library = false) {
             this.search.lastPage = "album"
             this.screen = "album-page"
-            this.musicKitAPI("album", id, {})
+            this.musicKitAPI("album", id, {}, library)
         },
-        showArtist(id) {
+        showPlaylist(id, library = false) {
+            this.search.lastPage = "album"
+            this.screen = "album-page"
+            this.musicKitAPI("playlist", id, {}, library)
+        },
+        showArtist(id, library = false) {
             this.search.lastPage = "artist"
             this.screen = "artist-page"
-            this.musicKitAPI("artist", id, { include: "songs,playlists,albums" })
+            this.musicKitAPI("artist", id, { include: "songs,playlists,albums" }, library)
         },
         showQueue() {
             this.queue.temp = this.player["queue"]["_queueItems"]
@@ -424,6 +431,14 @@ var app = new Vue({
                 this.setShuffle(false)
             }
             this.playMediaItemById(id, 'album');
+        },
+        playCustom(id, kind, shuffle = false) {
+            if (shuffle) {
+                this.setShuffle(true)
+            } else {
+                this.setShuffle(false)
+            }
+            this.playMediaItemById(id, kind);
         },
         getLyrics() {
             socket.send(JSON.stringify({
@@ -512,6 +527,7 @@ var app = new Vue({
                     case "musickitapi.search":
                             self.showArtist(response.data["artists"][0]["id"]);
                         break;
+                    case "musickitapi.playlist":    
                     case "musickitapi.album":
                             if (self.screen == "album-page") {
                                 self.albumPage.data = response.data

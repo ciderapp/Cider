@@ -186,7 +186,7 @@ export class wsapi {
                         response.message = "Previous";
                         break;
                     case "musickit-api":
-                        this._win.webContents.executeJavaScript(`wsapi.musickitApi(\`${data.method}\`, \`${data.id}\`, ${JSON.stringify(data.params)})`);
+                        this._win.webContents.executeJavaScript(`wsapi.musickitApi(\`${data.method}\`, \`${data.id}\`, ${JSON.stringify(data.params)} , ${data.library})`);
                         break;
                     case "musickit-library-api":
                         break;
@@ -218,7 +218,7 @@ export class wsapi {
                         this._win.hide()
                         break;
                     case "play-mediaitem":
-                        this._win.webContents.executeJavaScript(`wsapi.playTrackById(${data.id}, \`${data.kind}\`)`);
+                        this._win.webContents.executeJavaScript(`wsapi.playTrackById("${data.id}", \`${data.kind}\`)`);
                         response.message = "Playing track";
                         break;
                     case "get-status":
