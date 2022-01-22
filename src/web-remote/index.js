@@ -415,14 +415,24 @@ var app = new Vue({
             this.getCurrentMediaItem()
         },
         getMediaPalette(data) {
+            if (data != null && data['artwork'] != null){
             var palette = {
-                '--bgColor': `#${data['artwork']['bgColor']}`,
-                '--textColor1': `#${data['artwork']['textColor1']}`,
-                '--textColor2': `#${data['artwork']['textColor2']}`,
-                '--textColor3': `#${data['artwork']['textColor3']}`,
-                '--textColor4': `#${data['artwork']['textColor4']}`
+                '--bgColor': `#${data['artwork']['bgColor'] ?? '000000'}`,
+                '--textColor1': `#${data['artwork']['textColor1'] ?? 'ffffff'}`,
+                '--textColor2': `#${data['artwork']['textColor2'] ?? 'ffffff'}`,
+                '--textColor3': `#${data['artwork']['textColor3'] ?? 'ffffff'}`,
+                '--textColor4': `#${data['artwork']['textColor4'] ?? 'ffffff'}`
             }
-            return palette
+            return palette } else { 
+              let u =  {
+                    '--bgColor': `#${'000000'}`,
+                    '--textColor1': `#${ 'ffffff'}`,
+                    '--textColor2': `#${ 'ffffff'}`,
+                    '--textColor3': `#${ 'ffffff'}`,
+                    '--textColor4': `#${ 'ffffff'}`
+                }
+              return u  
+            }
         },
         playAlbum(id, shuffle = false) {
             if (shuffle) {
