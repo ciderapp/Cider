@@ -1,5 +1,5 @@
 Vue.use(VueObserveVisibility);
-
+var notyf = new Notyf();
 // This is going to suck to code
 var CiderContextMenu = {
     Menu: function(event) {
@@ -134,6 +134,9 @@ const app = new Vue({
         platform: "",
         mk: {},
         quickPlayQuery: "",
+        lz: {
+
+        },
         search: {
             term: "",
             hints: [],
@@ -231,6 +234,8 @@ const app = new Vue({
             loadingState: 0, // 0 loading, 1 loaded, 2 error
             id: ""
         },
+        webremoteurl : "",
+        webremoteqr: "",
         mxmtoken: "",
         mkIsReady: false,
         playerReady: false,
@@ -291,7 +296,8 @@ const app = new Vue({
         musicBaseUrl: "https://api.music.apple.com/",
         modals: {
             addToPlaylist: false,
-            spatialProperties: false
+            spatialProperties: false,
+            qrcode: false
         },
         socialBadges: {
             badgeMap: {},
@@ -331,6 +337,13 @@ const app = new Vue({
         },
     },
     methods: {
+        getLz(message) {
+            if(this.lz[message]) {
+                return this.lz[message]
+            }else{
+                return message
+            }
+        },
         async showSocialListeningTo() {
             let contentIds = Object.keys(app.socialBadges.badgeMap)
             app.showCollection({ data: this.socialBadges.mediaItems }, "Friends Listening To", "albums")
@@ -731,9 +744,14 @@ const app = new Vue({
             document.location.reload()
         },
         getAppClasses() {
+            let classes = {}
             if (this.cfg.advanced.experiments.includes('compactui')) {
-                return { compact: true }
+                classes.compact = true
             }
+            if(this.cfg.visual.window_background_style == "none") {
+                classes.simplebg = true
+            }            
+            return classes
         },
         invokeDrawer(panel) {
             if (this.drawer.panel == panel && this.drawer.open) {
@@ -1394,7 +1412,7 @@ const app = new Vue({
         async getTypeFromID(kind, id, isLibrary = false, params = {}, params2 = {}) {
             let a;
             if (kind == "album" | kind == "albums") {
-                params["include"] = "tracks,artists,record-labels";
+                params["include"] = "tracks,artists,record-labels,catalog";
             }
             try {
                 a = await this.mkapi(kind.toString(), isLibrary, id.toString(), params, params2);
@@ -2744,7 +2762,7 @@ const app = new Vue({
             // if rgb
             return `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`
         },
-        getNowPlayingArtworkBG(size = 600) {
+        getNowPlayingArtworkBG(size = 32, force = false) {
             let self = this
             if (typeof this.mk.nowPlayingItem === "undefined") return;
             let bginterval = setInterval(() => {
@@ -2753,7 +2771,7 @@ const app = new Vue({
                 }
 
                 try {
-                    if (this.mk.nowPlayingItem && this.mk.nowPlayingItem["id"] != this.currentTrackID && document.querySelector('.bg-artwork')) {
+                    if ((this.mk.nowPlayingItem && this.mk.nowPlayingItem["id"] != this.currentTrackID && document.querySelector('.bg-artwork')) || force) {
                         if (document.querySelector('.bg-artwork')) {
                             clearInterval(bginterval);
                         }
@@ -3205,6 +3223,7 @@ const app = new Vue({
         LastFMAuthenticate() {
             console.log("[LastFM] Received LastFM authentication callback")
             const element = document.getElementById('lfmConnect');
+            // new key : f9986d12aab5a0fe66193c559435ede3
             window.open('https://www.last.fm/api/auth?api_key=f9986d12aab5a0fe66193c559435ede3&cb=cider://auth/lastfm');
             element.innerText = 'Connecting...';
 
@@ -3279,6 +3298,20 @@ const app = new Vue({
                 this.cfg.visual.showuserinfo = false
                 this.chrome.hideUserInfo = true
             }
+        },
+        isElementOverflowing(selector) {
+            try{
+                let element = document.querySelector(selector);
+                var overflowX = element.offsetWidth < element.scrollWidth,
+                overflowY = element.offsetHeight < element.scrollHeight;
+          
+            return (overflowX || overflowY); } catch (e) { return false}
+        },
+        async showWebRemoteQR(){
+           //this.webremoteqr = await ipcRenderer.invoke('setRemoteQR','')
+           this.webremoteurl =  await ipcRenderer.invoke('showQR','')
+           //this.modals.qrcode = true;
+           
         }
 
     }
@@ -3456,6 +3489,10 @@ const getBase64FromUrl = async(url) => {
     });
 }
 
+function Clone (obj) {
+    return JSON.parse(JSON.stringify(obj));
+}
+
 function uuidv4() {
     return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
         (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
@@ -3545,3 +3582,15 @@ webGPU().then()
 
 let screenWidth = screen.width;
 let screenHeight = screen.height;
+
+// Key bind to unjam MusicKit in case it fails: CTRL+F10
+document.addEventListener('keydown', function(event) {
+    if (event.ctrlKey && event.keyCode == 121) {
+        try {
+            app.mk._services.mediaItemPlayback._currentPlayer.stop()
+        } catch (e) { }
+        try {
+            app.mk._services.mediaItemPlayback._currentPlayer.destroy()
+        } catch (e) { }
+    }
+});

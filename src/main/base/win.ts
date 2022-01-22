@@ -8,6 +8,7 @@ import * as yt from "youtube-search-without-api-key";
 import * as fs from "fs";
 import { Stream } from "stream";
 import * as qrcode from "qrcode-terminal";
+import * as qrcode2 from "qrcode";
 import * as os from "os";
 import {wsapi} from "./wsapi";
 
@@ -54,6 +55,8 @@ export class Win {
         vibrancy: "dark",
         transparent: process.platform === "darwin",
         hasShadow: false,
+        show: false,
+        backgroundColor: "#1E1E1E",
         webPreferences: {
             nodeIntegration: true,
             sandbox: true,
@@ -64,7 +67,6 @@ export class Win {
             plugins: true,
             nodeIntegrationInWorker: false,
             webSecurity: false,
-
             preload: path.join(this.paths.srcPath, "./preload/cider-preload.js"),
         },
     };
@@ -85,18 +87,24 @@ export class Win {
         this.options.height = windowState.height;
 
         // Start the webserver for the browser window to load
-        const ws = new wsapi()
-        ws.InitWebSockets()
+
         this.startWebServer();
 
         this.win = new electron.BrowserWindow(this.options);
-
+        this.win.on("ready-to-show", () => {
+            this.win.show();
+        });
+        const ws = new wsapi(this.win)
+        ws.InitWebSockets()
         // and load the renderer.
         this.startSession();
         this.startHandlers();
 
         // Register listeners on Window to track size and position of the Window.
         windowState.manage(this.win);
+
+        // Start Remote Discovery
+        this.broadcastRemote()
 
         return this.win;
     }
@@ -156,8 +164,6 @@ export class Win {
         });
         
         app.get("/", (req, res) => {
-
-
             res.render("main", this.EnvironmentVariables);
         });
 
@@ -195,20 +201,23 @@ export class Win {
          */
         const remote = express();
         remote.use(express.static(path.join(this.paths.srcPath, "./web-remote/")))
-        remote.listen(this.remotePort, () => {
-            console.log(`Cider remote port: ${this.remotePort}`);
-            if (firstRequest) {
-                console.log("---- Ignore Me ;) ---");
-                qrcode.generate(`http://${os.hostname}:${this.remotePort}`);
-                console.log("---- Ignore Me ;) ---");
-                /*
-                 *
-                 *   USING https://www.npmjs.com/package/qrcode-terminal for terminal
-                 *   WE SHOULD USE https://www.npmjs.com/package/qrcode for the remote (or others) for showing to user via an in-app dialog
-                 *   -@quacksire
-                 */
-            }
-            firstRequest = false;
+        getPort({port: 6942}).then((port) => {
+            this.remotePort = port; 
+            remote.listen(this.remotePort, () => {
+                console.log(`Cider remote port: ${this.remotePort}`);
+                if (firstRequest) {
+                    console.log("---- Ignore Me ;) ---");
+                    qrcode.generate(`http://${os.hostname}:${this.remotePort}`);
+                    console.log("---- Ignore Me ;) ---");
+                    /*
+                    *
+                    *   USING https://www.npmjs.com/package/qrcode-terminal for terminal
+                    *   WE SHOULD USE https://www.npmjs.com/package/qrcode for the remote (or others) for showing to user via an in-app dialog
+                    *   -@quacksire
+                    */
+                }
+                firstRequest = false;
+            })
         })
     }
 
@@ -393,10 +402,44 @@ export class Win {
             this.win.webContents.setZoomFactor(parseFloat(scale));
         });
 
+        //Fullscreen
+        electron.ipcMain.on('setFullScreen', (event, flag) => {
+            this.win.setFullScreen(flag)
+        })
+
+        function getIp() {
+            let ip = false;
+            let alias = 0;
+            let ifaces = os.networkInterfaces();
+            for (var dev in ifaces) {
+                ifaces[dev].forEach(details => {
+                    if (details.family === 'IPv4') {
+                        if (!/(loopback|vmware|internal|hamachi|vboxnet|virtualbox)/gi.test(dev + (alias ? ':' + alias : ''))) {
+                            if (details.address.substring(0, 8) === '192.168.' ||
+                                details.address.substring(0, 7) === '172.16.' ||
+                                details.address.substring(0, 3) === '10.'
+                            ) {
+                                ip = details.address;
+                                ++alias;
+                            }
+                        }
+                    }
+                });
+            }
+            return ip;
+        }
+
+        //QR Code
+        electron.ipcMain.handle('showQR', async (event , _) => {
+            let url = `http://${getIp()}:${this.remotePort}`;
+            electron.shell.openExternal(`https://cider.sh/pair-remote?url=${btoa(encodeURI(url))}`);
+            /*
+            *  Doing this because we can give them the link and let them send it via Pocket or another in-browser tool -q
+            /
+        })
         /* *********************************************************************************************
          * Window Events
          * **********************************************************************************************/
-
         if (process.platform === "win32") {
             let WND_STATE = {
                 MINIMIZED: 0,
@@ -439,5 +482,36 @@ export class Win {
             electron.shell.openExternal(x.url).catch(console.error);
             return { action: "deny" };
         });
+    }
+
+    private async broadcastRemote() {
+        function getIp() {
+            let ip :any = false;
+            let alias = 0;
+            const ifaces: any = os.networkInterfaces() ;
+            for (var dev in ifaces) {
+                ifaces[dev].forEach( (details: any) => {
+                    if (details.family === 'IPv4') {
+                        if (!/(loopback|vmware|internal|hamachi|vboxnet|virtualbox)/gi.test(dev + (alias ? ':' + alias : ''))) {
+                            if (details.address.substring(0, 8) === '192.168.' ||
+                                details.address.substring(0, 7) === '172.16.' ||
+                                details.address.substring(0, 3) === '10.'
+                            ) {
+                                ip = details.address;
+                                ++alias;
+                            }
+                        }
+                    }
+                }) ;
+            }
+            return ip;
+        }
+        const myString = `http://${getIp()}:${this.remotePort}`;
+        var mdns = require('mdns-js');
+        const encoded = new Buffer(myString).toString('base64');
+        var x =  mdns.tcp('cider-remote');   
+        let server2 = mdns.createAdvertisement(x, `${await getPort({port: 3839})}`, { name: encoded });
+        server2.start();
+        console.log('remote broadcasted')
     }
 }

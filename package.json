@@ -37,8 +37,10 @@
     "express": "^4.17.2",
     "get-port": "^5.1.1",
     "lastfmapi": "^0.1.1",
+    "mdns-js": "github:bitfocus/node-mdns-js",
     "mpris-service": "^2.1.2",
     "music-metadata": "^7.11.4",
+    "qrcode": "^1.5.0",
     "qrcode-terminal": "^0.12.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -52,6 +54,7 @@
   "devDependencies": {
     "@types/discord-rpc": "^4.0.0",
     "@types/express": "^4.17.13",
+    "@types/ws": "^8.2.2",
     "electron": "https://github.com/castlabs/electron-releases.git",
     "electron-builder": "^22.14.5",
     "electron-webpack": "^2.8.2",

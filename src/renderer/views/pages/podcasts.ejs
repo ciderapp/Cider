@@ -1,7 +1,36 @@
 <script type="text/x-template" id="apple-podcasts">
     <div class="content-inner podcasts-page">
         <div class="podcasts-list">
-            <podcast-tab :isselected="podcastSelected.id == podcast.id" @click.native="selectPodcast(podcast)" v-for="podcast in podcasts" :item="podcast"></podcast-tab>
+            <div class="podcasts-search">
+                <div class="search-input-container" style="width:100%;">
+                    <div class="search-input--icon"></div>
+                    <input type="search"
+                           style="width:100%;"
+                           spellcheck="false"
+                           placeholder="Search..."
+                           @change="searchPodcasts();librarySearch()"
+                           v-model="search.term" class="search-input">
+                </div>
+            </div>
+            <div v-if="search.term == ''">
+                <div class="podcast-list-header" v-if="ciderPodcasts.length != 0">
+                    Followed on Cider
+                </div>
+                <div class="podcast-list-header" v-if="podcasts.length != 0">
+                    Subscribed on iTunes
+                </div>
+                <podcast-tab :isselected="podcastSelected.id == podcast.id" @click.native="selectPodcast(podcast)" v-for="podcast in podcasts" :item="podcast"></podcast-tab>
+            </div>
+            <div v-else>
+                <div class="podcast-list-header" v-if="podcasts.length != 0">
+                    Library
+                </div>
+                <podcast-tab :isselected="podcastSelected.id == podcast.id" @click.native="selectPodcast(podcast)" v-for="podcast in search.resultsLibrary" :item="podcast"></podcast-tab>
+                <div class="podcast-list-header" v-if="podcasts.length != 0">
+                    iTunes Store
+                </div>
+                <podcast-tab :isselected="podcastSelected.id == podcast.id" @click.native="selectPodcast(podcast)" v-for="podcast in search.results" :item="podcast"></podcast-tab>
+            </div>
         </div>
         <div class="episodes-list">
             <div v-if="podcastSelected.id != -1" class="episodes-inline-info">
@@ -19,38 +48,51 @@
                 </div>
 
                 <div class="well podcast-show-description">{{ podcastSelected.attributes.description.standard }}</div>
-
+                <div class="row" v-if="!isSubscribed(podcastSelected.id)">
+                    <div class="col">
+                        <button class="md-btn md-btn-block">Follow on Cider</button>
+                    </div>
+                    <div class="col">
+                        <button class="md-btn md-btn-block">Subscribe on iTunes</button>
+                    </div>
+                </div>
                 <h3>Episodes</h3>
             </div>
             <podcast-episode :isselected="selected.id == episode.id" @dblclick.native="playEpisode(episode)" @click.native="selectEpisode(episode)" :item="episode"
                              v-for="episode in episodes"></podcast-episode>
         </div>
-        <div class="podcasts-details" v-if="selected.id != -1">
-            <div class="podcast-artwork">
-                <mediaitem-artwork shadow="large" :url="selected.attributes.artwork.url" size="300"></mediaitem-artwork>
-            </div>
-            <h3 class="podcast-header">{{ selected.attributes.name }}</h3>
-            <button @click="playEpisode(selected)" class="md-btn podcast-play-btn">Play Episode</button>
-            <div class="podcast-genre">
-                {{ selected.attributes.genreNames[0] }}
-            </div>
-            <div class="podcast-metainfo">
-                {{ msToMinSec(selected.attributes.durationInMilliseconds) }} • {{ new Date(selected.attributes.releaseDateTime).toLocaleString() }}
-            </div>
-            <div class="well podcast-description" v-if="selected.attributes.description.standard">{{ selected.attributes.description.standard }}</div>
-            <div class="row">
-                <div class="col">
-                    <button class="md-btn md-btn-block" @click="openUrl(selected.attributes.websiteUrl)">Podcast Website</button>
+        <transition name="wpfade">
+            <div class="podcasts-details" v-if="selected.id != -1">
+                <div class="podcasts-details-header">
+                    <button class="close-btn" @click="selected.id = -1"></button>
                 </div>
-                <div class="col">
-                    <button class="md-btn md-btn-block">Share</button>
+                <div class="podcast-artwork">
+                    <mediaitem-artwork shadow="large" :url="selected.attributes.artwork.url" size="300"></mediaitem-artwork>
+                </div>
+                <h3 class="podcast-header">{{ selected.attributes.name }}</h3>
+                <button @click="playEpisode(selected)" class="md-btn podcast-play-btn">Play Episode</button>
+                <div class="podcast-genre">
+                    {{ selected.attributes.genreNames[0] }}
+                </div>
+                <div class="podcast-metainfo">
+                    {{ msToMinSec(selected.attributes.durationInMilliseconds) }} • {{ new Date(selected.attributes.releaseDateTime).toLocaleString() }}
+                </div>
+                <div class="well podcast-description" v-if="selected.attributes.description.standard">{{ selected.attributes.description.standard }}</div>
+                <div class="row">
+                    <div class="col">
+                        <button class="md-btn md-btn-block meta-btn" @click="openUrl(selected.attributes.websiteUrl)">Podcast Website</button>
+                    </div>
+                    <div class="col">
+                        <button class="md-btn md-btn-block meta-btn">Share</button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </transition>
+
     </div>
 </script>
 <script type="text/x-template" id="podcast-tab">
-    <div class="cd-mediaitem-list-item" :class="{'mediaitem-selected': isselected}">
+    <div class="cd-mediaitem-list-item list-flat" :class="{'mediaitem-selected': isselected}">
         <div class="artwork">
             <mediaitem-artwork
                     :url="item.attributes.artwork.url"
@@ -65,7 +107,7 @@
     </div>
 </script>
 <script type="text/x-template" id="podcast-episode">
-    <div class="cd-mediaitem-list-item" :class="{'mediaitem-selected': isselected}">
+    <div class="cd-mediaitem-list-item list-flat" :class="{'mediaitem-selected': isselected}">
         <div class="info-rect" :style="{'padding-left':'16px'}">
             <div class="title text-overflow-elipsis">
                 {{ item.attributes.name }}
@@ -100,8 +142,16 @@
         template: '#apple-podcasts',
         data: function () {
             return {
+                ciderPodcasts: [],
                 podcasts: [],
                 episodes: [],
+                search: {
+                    term: "",
+                    loading: false,
+                    results: [],
+                    resultsLibrary: [],
+                    next: ""
+                },
                 podcastSelected: {
                     id: -1
                 },
@@ -119,6 +169,28 @@
             // this.episodes = podcastShow.data.data[0].relationships.episodes.data
         },
         methods: {
+            searchTriggerVis(visible) {
+
+            },
+            librarySearch() {
+                this.search.resultsLibrary = []
+                if (this.search.term.length > 2) {
+                    this.search.resultsLibrary = this.podcasts.filter(podcast => podcast.attributes.name.toLowerCase().includes(this.search.term.toLowerCase()))
+                }
+            },
+            isSubscribed(id) {
+                return this.podcasts.filter(podcast => podcast.id == id).length > 0
+            },
+            searchPodcasts() {
+                let self = this
+                if(this.search.term == "") {
+                    return
+                }
+                app.mk.api.v3.podcasts("/v1/catalog/us/search", {term: this.search.term, types: ["podcasts"], limit: 25}).then(response => {
+                    console.log(response)
+                    self.search.results = response.data.results.podcasts.data
+                })
+            },
             openUrl(url) {
                 window.open(url)
             },
@@ -135,7 +207,7 @@
                 this.getEpisodes(podcast)
             },
             selectEpisode(episode) {
-                this.selected = episode
+                this.selected = Clone(episode)
             },
             async getEpisodes(podcast) {
                 this.episodes = []

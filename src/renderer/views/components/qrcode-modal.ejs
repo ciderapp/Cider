@@ -1,0 +1,34 @@
+<script type="text/x-template" id="qrcode-modal">
+    <div class="modal-fullscreen spatialproperties-panel">
+        <div class="modal-window" >
+            <div class="modal-header">
+                <div class="modal-title">{{`Web Remote QR : ` + url }}</div>
+                <button class="close-btn" @click="close()"></button>
+            </div>
+            <div class="modal-content">
+                <img class="qrimg" :src="src"/> 
+            </div>    
+        </div>
+    </div>
+</script>
+
+<script>
+    Vue.component('qrcode-modal', {
+        template: '#qrcode-modal',
+        data: function () {
+            return {
+                app: this.$root,
+              
+            }
+        },
+        props: ["src","url"],
+        mounted() {
+         
+        },
+        methods: {
+            close() {
+                app.resetState()
+            },
+        }
+    });
+</script>

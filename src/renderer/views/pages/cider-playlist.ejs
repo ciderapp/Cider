@@ -155,6 +155,11 @@
                      style="width: 50%;">
                     {{data.attributes.copyright}}
                 </div>
+                <template v-if="(data.attributes?.playParams?.kind ?? data.type ?? '').includes('album') &&  data.relationships.catalog != null && data.relationships.catalog != null && data.relationships.catalog.data.length > 0">
+                    <div class="playlist-time showExtended item-navigate" @click="app.routeView(data.relationships.catalog.data[0])">
+                        Show complete album
+                    </div>    
+                </template>    
                 <hr>
                 <template v-if="typeof data.meta != 'undefined'">
                     <div v-for="view in data.meta.views.order" v-if="data.views[view].data.length != 0">
@@ -436,7 +441,6 @@
                 let month, year;
                 try {
                     const releaseDate = new Date(date);
-                    console.log(date, releaseDate)
                     month = new Intl.DateTimeFormat('en-US', {month: 'long'}).format(releaseDate);
                     date = releaseDate.getDate();
                     year = releaseDate.getFullYear();
