@@ -231,6 +231,13 @@
                     <transition name="wpfade">
                         <div class="usermenu-container" v-if="chrome.menuOpened">
                             <div class="usermenu-body">
+                                <button class="usermenu-item" @click="showWebRemoteQR()">
+                                    <div class="row nopadding">
+                                        <div class="col nopadding">
+                                            Show Web Remote QR
+                                        </div>
+                                    </div>
+                                </button>
                                 <button class="usermenu-item" @click="toggleHideUserInfo()">
                                     <div class="row nopadding">
                                         <div class="col nopadding">
@@ -601,6 +608,9 @@
     <transition name="modal">
         <spatial-properties v-if="modals.spatialProperties"></spatial-properties>
     </transition>
+    <transition name="modal">
+        <qrcode-modal v-if="modals.qrcode" :src="webremoteqr"></qrcode-modal>
+    </transition>
     <div id="apple-music-video-container">
         <div id="apple-music-video-player-controls">
             <div id="player-exit" title="Close" @click="exitMV()">
@@ -704,7 +714,10 @@
 <%- include('components/sidebar-playlist')
 %>
 <!-- Spatial Properties -->
-<%- include('components/spatial-properties')
+<%- include('components/spatial-properties') 
+%>
+<!-- QRCode Modal -->
+<%- include('components/qrcode-modal') 
 %>
 <!-- Add to playlist -->
 <%- include('components/add-to-playlist')
