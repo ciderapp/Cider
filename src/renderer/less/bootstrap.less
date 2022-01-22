@@ -9,20 +9,26 @@
     overflow-x: hidden;
     overflow-y: auto;
     outline: 0;
+    user-select: none;
 
     
     .close {
+        width: 50px;
+        height: 42px;
+        background-image: var(--gfx-closeBtn);
+        background-position: center;
+        background-repeat: no-repeat;
+        -webkit-app-region: no-drag;
+        appearance: none;
+        border: 0;
+        background-color: transparent;
         position: absolute;
         top: 0;
         right: 0;
-        padding: 0.5rem 0.75rem;
-        z-index: 1;
-        background-color: transparent;
-        border: 0;
-        -webkit-appearance: none;
-        font-weight: 100;
-        font-size: 1.2em;
-        color: var(--textColor);
+        
+        &:hover {
+            background-color: rgb(196, 43, 28)
+          }
     }
 }
 
@@ -84,6 +90,7 @@
     border-radius: 0.3rem;
     outline: 0;
     box-shadow: var(--ciderShadow-Generic);
+    overflow: hidden;
 }
 
 .modal-backdrop {
