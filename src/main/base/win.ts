@@ -424,21 +424,16 @@ export class Win {
         }
 
         //QR Code
-        electron.ipcMain.handle('setRemoteQR', async (event , _) => {
-           let url = await qrcode2.toDataURL(`http://${getIp()}:${this.remotePort}`)
-           return url;              
+        electron.ipcMain.handle('showQR', async (event , _) => {
+            let url = `http://${getIp()}:${this.remotePort}`;
+            electron.shell.openExternal(`https://cider.sh/pair-remote?url=${btoa(encodeURI(url))}`);
+            /*
+            *  Doing this because we can give them the link and let them send it via Pocket or another in-browser tool -q
+            /
         })
-
-        //Remote URL
-        electron.ipcMain.handle('setRemoteURL', async (event , _) => {
-            let url = `http://${getIp()}:${this.remotePort}`
-            return await url;              
-        })
-
         /* *********************************************************************************************
          * Window Events
          * **********************************************************************************************/
-
         if (process.platform === "win32") {
             let WND_STATE = {
                 MINIMIZED: 0,
