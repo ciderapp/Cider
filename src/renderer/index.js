@@ -234,6 +234,7 @@ const app = new Vue({
             loadingState: 0, // 0 loading, 1 loaded, 2 error
             id: ""
         },
+        webremoteurl : "",
         webremoteqr: "",
         mxmtoken: "",
         mkIsReady: false,
@@ -3308,6 +3309,7 @@ const app = new Vue({
         },
         async showWebRemoteQR(){
            this.webremoteqr = await ipcRenderer.invoke('setRemoteQR','')
+           this.webremoteurl =  await ipcRenderer.invoke('setRemoteURL','')
            this.modals.qrcode = true;
         }
 

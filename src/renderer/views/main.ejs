@@ -610,7 +610,7 @@
         <spatial-properties v-if="modals.spatialProperties"></spatial-properties>
     </transition>
     <transition name="modal">
-        <qrcode-modal v-if="modals.qrcode" :src="webremoteqr"></qrcode-modal>
+        <qrcode-modal v-if="modals.qrcode" :src="webremoteqr" :url="webremoteurl"></qrcode-modal>
     </transition>
     <div id="apple-music-video-container">
         <div id="apple-music-video-player-controls">

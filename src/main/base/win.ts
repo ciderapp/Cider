@@ -426,8 +426,13 @@ export class Win {
         //QR Code
         electron.ipcMain.handle('setRemoteQR', async (event , _) => {
            let url = await qrcode2.toDataURL(`http://${getIp()}:${this.remotePort}`)
-           console.log(url)
            return url;              
+        })
+
+        //Remote URL
+        electron.ipcMain.handle('setRemoteURL', async (event , _) => {
+            let url = `http://${getIp()}:${this.remotePort}`
+            return await url;              
         })
 
         /* *********************************************************************************************
