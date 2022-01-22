@@ -435,7 +435,7 @@ export class Win {
             electron.shell.openExternal(`https://cider.sh/pair-remote?url=${btoa(encodeURI(url))}`);
             /*
             *  Doing this because we can give them the link and let them send it via Pocket or another in-browser tool -q
-            /
+            */
         })
         /* *********************************************************************************************
          * Window Events
