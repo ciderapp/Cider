@@ -435,8 +435,9 @@ export class Win {
             electron.shell.openExternal(`https://cider.sh/pair-remote?url=${btoa(encodeURI(url))}`);
             /*
             *  Doing this because we can give them the link and let them send it via Pocket or another in-browser tool -q
-            /
+            */
         })
+
         /* *********************************************************************************************
          * Window Events
          * **********************************************************************************************/
@@ -507,7 +508,7 @@ export class Win {
             return ip;
         }
         const myString = `http://${getIp()}:${this.remotePort}`;
-        var mdns = require('mdns-js');
+        let mdns = require('mdns-js');
         const encoded = new Buffer(myString).toString('base64');
         var x =  mdns.tcp('cider-remote');   
         let server2 = mdns.createAdvertisement(x, `${await getPort({port: 3839})}`, { name: encoded });
@@ -515,3 +516,4 @@ export class Win {
         console.log('remote broadcasted')
     }
 }
+
