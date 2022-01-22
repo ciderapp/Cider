@@ -8,6 +8,7 @@ import * as yt from "youtube-search-without-api-key";
 import * as fs from "fs";
 import { Stream } from "stream";
 import * as qrcode from "qrcode-terminal";
+import * as qrcode2 from "qrcode";
 import * as os from "os";
 import {wsapi} from "./wsapi";
 
@@ -398,6 +399,35 @@ export class Win {
         //Fullscreen
         electron.ipcMain.on('setFullScreen', (event, flag) => {
             this.win.setFullScreen(flag)
+        })
+
+        function getIp() {
+            let ip = false;
+            let alias = 0;
+            let ifaces = os.networkInterfaces();
+            for (var dev in ifaces) {
+                ifaces[dev].forEach(details => {
+                    if (details.family === 'IPv4') {
+                        if (!/(loopback|vmware|internal|hamachi|vboxnet|virtualbox)/gi.test(dev + (alias ? ':' + alias : ''))) {
+                            if (details.address.substring(0, 8) === '192.168.' ||
+                                details.address.substring(0, 7) === '172.16.' ||
+                                details.address.substring(0, 3) === '10.'
+                            ) {
+                                ip = details.address;
+                                ++alias;
+                            }
+                        }
+                    }
+                });
+            }
+            return ip;
+        }
+
+        //QR Code
+        electron.ipcMain.handle('setRemoteQR', async (event , _) => {
+           let url = await qrcode2.toDataURL(`http://${getIp()}:${this.remotePort}`)
+           console.log(url)
+           return url;              
         })
 
         /* *********************************************************************************************

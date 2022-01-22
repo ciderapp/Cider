@@ -231,6 +231,7 @@ const app = new Vue({
             loadingState: 0, // 0 loading, 1 loaded, 2 error
             id: ""
         },
+        webremoteqr: "",
         mxmtoken: "",
         mkIsReady: false,
         playerReady: false,
@@ -291,7 +292,8 @@ const app = new Vue({
         musicBaseUrl: "https://api.music.apple.com/",
         modals: {
             addToPlaylist: false,
-            spatialProperties: false
+            spatialProperties: false,
+            qrcode: false
         },
         socialBadges: {
             badgeMap: {},
@@ -3288,11 +3290,15 @@ const app = new Vue({
         },
         isElementOverflowing(selector) {
             try{
-            let element = document.querySelector(selector);
-            var overflowX = element.offsetWidth < element.scrollWidth,
-              overflowY = element.offsetHeight < element.scrollHeight;
+                let element = document.querySelector(selector);
+                var overflowX = element.offsetWidth < element.scrollWidth,
+                overflowY = element.offsetHeight < element.scrollHeight;
           
             return (overflowX || overflowY); } catch (e) { return false}
+        },
+        async showWebRemoteQR(){
+           this.webremoteqr = await ipcRenderer.invoke('setRemoteQR','')
+           this.modals.qrcode = true;
         }
 
     }
