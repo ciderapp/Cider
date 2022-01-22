@@ -1,5 +1,5 @@
 Vue.use(VueObserveVisibility);
-
+var notyf = new Notyf();
 // This is going to suck to code
 var CiderContextMenu = {
     Menu: function(event) {
