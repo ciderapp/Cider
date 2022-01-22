@@ -559,6 +559,11 @@ var app = new Vue({
                 }
             }
             this.player.currentMediaItem = mediaitem
+        },
+        quit() {
+            socket.send(JSON.stringify({
+                action: "quit"
+                }))
         }
     },
 });

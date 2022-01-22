@@ -48,8 +48,23 @@
             </template>
             <!-- Player -->
             <transition name="wpfade">
+                <div id="popup-confirm" v-if="screen == 'popup-confirm'">
+                    <div class="overlay" @click="screen = 'player'"></div>
+                    <div class="popup">
+                      <h3>Quit Cider</h3>
+                      <p>Are you sure you want to quit Cider?</p>
+                      <div class="button-holder two-button">
+                        <a href="#" @click="quit()"> Yes</a> 
+                        <a href="#" @click="screen = 'player'">Naah</a>
+                        <div style="clear: both"></div>
+                      </div>
+                    </div>
+                  </div>
                 <div class="md-container md-container_panel player-panel" v-if="screen == 'player'">
                     <div class="player_top">
+                        <div class="quit-button-container">
+                            <button class="md-btn playback-button quit" @click="screen = 'popup-confirm'"></button>
+                        </div>
                         <div class="md-body player-artwork-container">
                             <div class="media-artwork" :class="artworkPlaying()"
                                 :style="{'--artwork': getAlbumArtUrl()}">

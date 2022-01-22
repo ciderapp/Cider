@@ -230,6 +230,9 @@ export class wsapi {
                     case "get-currentmediaitem":
                         this._win.webContents.executeJavaScript(`wsapi.getPlaybackState()`);
                         break;
+                    case "quit":
+                        electron.app.quit();
+                    break;
                 }
                 ws.send(JSON.stringify(response));
             });
