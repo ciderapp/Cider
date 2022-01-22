@@ -741,8 +741,8 @@
                     </div>
                     <div class="album-body-container">
                         <div class="md-header">
-                            <div class="albumpage-artwork"
-                                :style="{'--artwork': getAlbumArtUrlList(albumPage.data.attributes['artwork']['url'], 300)}">
+                            <div class="albumpage-artwork" 
+                                :style="{'--artwork': getAlbumArtUrlList(albumPage.data.attributes['artwork'] ? albumPage.data.attributes['artwork']['url'] : '', 300)}">
                             </div>
                             <div class="albumpage-album-name">
                                 {{ albumPage.data.attributes["name"] }}
