@@ -511,7 +511,17 @@ export class Win {
         let mdns = require('mdns-js');
         const encoded = new Buffer(myString).toString('base64');
         var x =  mdns.tcp('cider-remote');   
-        let server2 = mdns.createAdvertisement(x, `${await getPort({port: 3839})}`, { name: encoded });
+        var txt_record = {
+            "Ver": "131077",
+            'DvSv': '3689',
+            'DbId': 'D41D8CD98F00B205',
+            'DvTy': 'Cider',
+            'OSsi': '0x212F0',
+            'txtvers': '1',
+            "CtlN": "Cider",
+            "iV": "196623"
+        }
+        let server2 = mdns.createAdvertisement(x, `${await getPort({port: 3839})}`, { name: encoded, txt: txt_record });
         server2.start();
         console.log('remote broadcasted')
     }
