@@ -134,6 +134,9 @@ const app = new Vue({
         platform: "",
         mk: {},
         quickPlayQuery: "",
+        lz: {
+
+        },
         search: {
             term: "",
             hints: [],
@@ -333,6 +336,13 @@ const app = new Vue({
         },
     },
     methods: {
+        getLz(message) {
+            if(this.lz[message]) {
+                return this.lz[message]
+            }else{
+                return message
+            }
+        },
         async showSocialListeningTo() {
             let contentIds = Object.keys(app.socialBadges.badgeMap)
             app.showCollection({ data: this.socialBadges.mediaItems }, "Friends Listening To", "albums")
