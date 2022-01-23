@@ -1,3 +1,4 @@
+import * as electron from 'electron';
 import * as DiscordRPC from 'discord-rpc'
 export default class DiscordRPCPlugin {
 	/**
@@ -177,6 +178,9 @@ export default class DiscordRPCPlugin {
     onReady(win: any): void {
 		this._win = win;
         this.connect((this._win.store.store.general.discord_rpc == 1) ? '911790844204437504' : '886578863147192350'); 
+        // electron.ipcMain.on("forceUpdateRPC", (event, attributes : object) => {          
+        //     this.updateActivity(attributes)
+        // });
     }
 
     /**

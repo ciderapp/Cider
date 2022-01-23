@@ -2877,7 +2877,12 @@ const app = new Vue({
                     let data = await this.mk.api.v3.music(`/v1/me/library/songs/${this.mk.nowPlayingItem.id}`);
                     data = data.data.data[0];
                     if (data != null && data !== "" && data.attributes != null && data.attributes.artwork != null) {
-                        this.currentArtUrl = (data["attributes"]["artwork"]["url"] ?? '').replace('{w}', 50).replace('{h}', 50);
+                        this.currentArtUrl = (data["attributes"]["artwork"]["url"] ?? '').replace('{w}', 50).replace('{h}', 50); 
+                        // if (this.currentArtUrl != ""){
+                        //     let attr = MusicKitInterop.getAttributes();
+                        //     attr.artwork.url = this.currentArtUrl;
+                        //     ipcRenderer.send('forceUpdateRPC',attr)
+                        // }              
                         try {
                             document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
                         } catch (e) {}
