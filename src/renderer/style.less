@@ -3173,9 +3173,10 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   }
 
   .artist-play {
-    width: 36px;
-    height: 36px;
-    background: var(--keyColor);
+    width: 32px;
+    height: 32px;
+    background: rgba(100, 100, 100, 0.5);
+    box-shadow: var(--ciderShadow-Generic);
     border-radius: 100%;
     box-shadow: var(--mediaItemShadow);
     display: none;
@@ -3185,14 +3186,18 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     padding: 0px;
 
     &:hover {
-      background: var(--keyColor-rollover);
+      filter: brightness(125%);
     }
 
     &:active {
-      background: var(--keyColor-pressed);
+      filter: brightness(75%);
+      transform: scale(0.98);
+      transition: transform 0s var(--appleEase), box-shadow 0.2s var(--appleEase);
     }
   }
   .artist-title {
+    position: relative;
+    top: -19px;
 
     .artist-play {
       transform: translateY(3px);
