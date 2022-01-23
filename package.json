@@ -117,10 +117,7 @@
     ],
     "linux": {
       "target": [
-        "AppImage",
-        "deb",
-        "snap",
-        "rpm"
+        "pacman"
       ],
       "synopsis": "A new look into listening and enjoying music in style and performance. ",
       "category": "AudioVideo",
@@ -134,6 +131,13 @@
       "publisherDisplayName": "Cider Collective",
       "backgroundColor": "transparent",
       "setBuildNumber": true
+    },
+		"nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+			"license": "LICENSE",
+			"deleteAppDataOnUninstall": true
     },
     "win": {
       "target": [
