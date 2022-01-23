@@ -90,6 +90,6 @@
   "settings.header.lyrics.description": "Adjust the lyrics settings for Cider.",
   "settings.header.connectivity": "Connectivity",
   "settings.header.connectivity.description": "Adjust the connectivity settings for Cider.",
-  "settings.header.connectivity": "Experimental",
-  "settings.header.connectivity.description": "Adjust the experimental settings for Cider.",
+  "settings.header.experimental": "Experimental",
+  "settings.header.experimental.description": "Adjust the experimental settings for Cider.",
 }
