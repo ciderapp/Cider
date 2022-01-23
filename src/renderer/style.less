@@ -2493,8 +2493,8 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   position: sticky;
   top: 0;
   left: 0;
-  backdrop-filter: blur(16px) saturate(180%);
-  box-shadow: 0px 1px 0px rgba(185, 185, 185, 0.08);
+  backdrop-filter: blur(32px);
+  //box-shadow: 0px 1px 0px rgba(185, 185, 185, 0.08);
   mix-blend-mode: hard-light;
 
   .nav-item {
@@ -2604,7 +2604,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     background: black;
     padding: 0px 2em;
     backdrop-filter: blur(32px);
-    background: rgba(24, 24, 24, 0.15);
+    background: rgba(0, 0, 0, 0.25);
     top: var(--navigationBarHeight);
   }
 
@@ -2806,6 +2806,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
   .playlist-body {
     padding: 0px var(--contentInnerPadding) 0px var(--contentInnerPadding);
+    margin-top: -75px;
   }
 
   .floating-header {
@@ -2816,7 +2817,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     z-index: 6;
     padding: 0px 1em;
     backdrop-filter: blur(32px);
-    background: rgba(24, 24, 24, 0.15);
+    background: rgba(0, 0, 0, 0.25);
     top: var(--navigationBarHeight);
     transition: opacity 0.1s var(--appleEase);
   }
@@ -2833,6 +2834,8 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
       bottom: 0;
       right: 0;
       margin: 0;
+      margin-top: calc(var(--navigationBarHeight) * -1);
+      margin-bottom: -10px;
       padding: 0;
       -webkit-mask-image: radial-gradient(at top left, black, transparent 70%), radial-gradient(at top right, black, transparent 70%), linear-gradient(180deg, rgb(200 200 200), transparent 98%);
       opacity: .7;
@@ -3062,7 +3065,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     z-index: 6;
     padding: 0px 1em;
     backdrop-filter: blur(32px);
-    background: rgba(24, 24, 24, 0.15);
+    background: rgba(0, 0, 0, 0.25);
     top: var(--navigationBarHeight);
     transition: opacity 0.1s var(--appleEase);
   }
@@ -3104,8 +3107,8 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
     .more-btn-round {
       position: absolute;
-      bottom: 26px;
-      right: 32px;
+      bottom: 84px;
+      right: 28px;
     }
 
     .animated {
@@ -3137,6 +3140,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     width: 200px;
     height: 200px;
     margin: 32px;
+    margin-top: -5px;
     position: relative;
 
     .overlay-play {
@@ -3173,9 +3177,10 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   }
 
   .artist-play {
-    width: 36px;
-    height: 36px;
-    background: var(--keyColor);
+    width: 32px;
+    height: 32px;
+    background: rgba(100, 100, 100, 0.5);
+    box-shadow: var(--ciderShadow-Generic);
     border-radius: 100%;
     box-shadow: var(--mediaItemShadow);
     display: none;
@@ -3185,14 +3190,18 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     padding: 0px;
 
     &:hover {
-      background: var(--keyColor-rollover);
+      filter: brightness(125%);
     }
 
     &:active {
-      background: var(--keyColor-pressed);
+      filter: brightness(75%);
+      transform: scale(0.98);
+      transition: transform 0s var(--appleEase), box-shadow 0.2s var(--appleEase);
     }
   }
   .artist-title {
+    position: relative;
+    top: -19px;
 
     .artist-play {
       transform: translateY(3px);
@@ -3215,7 +3224,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
   .artist-body {
     padding: 0px var(--contentInnerPadding) 0px var(--contentInnerPadding);
-    margin-top: -48px;
+    margin-top: -137px;
   }
 
   .showmoreless {
