@@ -14,12 +14,15 @@
          @mouseleave="showInLibrary = false"
          :class="[{'mediaitem-selected': app.select_hasMediaItem(guid)}, addClasses]">
         <template v-if="isVisible">
-            <div class="isLibrary" :style="{opacity: (showInLibrary ? 1 : 0)}" v-if="showLibraryStatus == true">
-                <button @click="addToLibrary()"
-                        v-if="!addedToLibrary">
-                    <div class="svg-icon" :style="{'--color': 'var(--keyColor)', '--url': 'url(./assets/feather/plus.svg)'}"></div>
-                </button>
-                <button v-else style="opacity:0;">❤️</button>
+            <div class="isLibrary"" v-if="showLibraryStatus == true">
+                <div v-if="showInLibrary" :style="{display: (showInLibrary ? 'block' : 'none'), 'margin-left':'11px'}">
+                    <button @click="addToLibrary()" v-if="!addedToLibrary">
+                        <div class="svg-icon" :style="{'--color': 'var(--keyColor)', '--url': 'url(./assets/feather/plus.svg)'}"></div>
+                    </button>
+                </div>
+                <div v-if="app.mk.isPlaying && app.mk.nowPlayingItem._songId == item.attributes.playParams.id" :style="{display: (showInLibrary ? 'none' : 'block')}">
+                    <div class="loadbar-sound"></div>
+                </div>
             </div>
             <div class="artwork" v-if="showArtwork == true">
                 <mediaitem-artwork
