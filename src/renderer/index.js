@@ -2514,24 +2514,30 @@ const app = new Vue({
 
 
                     app.mk.stop().then(() => {
-                        this.mk.clearQueue().then(function(_) {
-                            if (app.mk.shuffleMode == 1) {
-                                shuffleArray(query)
-                            }
-                            app.mk.queue.append(query)
-                            if (childIndex != -1) {
-                                app.mk.changeToMediaAtIndex(childIndex)
-                            } else if (item) {
-                                app.mk.playNext({
-                                    [item.attributes.playParams.kind ?? item.type]: item.attributes.playParams.id ?? item.id
-                                }).then(function() {
-                                    app.mk.changeToMediaAtIndex(app.mk.queue._itemIDs.indexOf(item.id) ?? 1)
-                                    app.mk.play()
+                        if (item) {
+                            app.mk.setQueue({
+                                [item.attributes.playParams.kind ?? item.type]: item.attributes.playParams.id ?? item.id
+                            }).then(function () {
+                                app.mk.play().then(() => {
+                                    if (app.mk.shuffleMode == 1) {
+                                        shuffleArray(query)
+                                    }
+                                    app.mk.queue.append(query)                                
                                 })
-                            } else {
-                                app.mk.play()
-                            }
-                        })
+                            })
+                        } else {
+                            this.mk.clearQueue().then(function (_) {
+                                if (app.mk.shuffleMode == 1) {
+                                    shuffleArray(query)
+                                }
+                                app.mk.queue.append(query)
+                                if (childIndex != -1) {
+                                    app.mk.changeToMediaAtIndex(childIndex)
+                                } else {
+                                    app.mk.play()
+                                }
+                            })
+                        }
                     })
                 } else {
                     app.mk.stop().then(() => {
