@@ -423,6 +423,14 @@ export class Win {
         })
         
 
+        electron.ipcMain.on('play', (event, type, id) => {
+            this.win.webContents.executeJavaScript(`
+                     MusicKit.getInstance().setQueue({ ${type}: '${id}'}).then(function(queue) {
+                         MusicKit.getInstance().play();
+                     });
+                `)
+        })
+
         function getIp() {
             let ip = false;
             let alias = 0;
@@ -500,7 +508,6 @@ export class Win {
             return { action: "deny" };
         });
     }
-
     private async broadcastRemote() {
         function getIp() {
             let ip :any = false;

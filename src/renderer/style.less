@@ -2689,6 +2689,11 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
         height: 120px;
       }
     }
+
+    .podcast-no-search-results {
+      text-align: center;
+      margin-top: 40px;
+    }
   }
 
   .podcasts-details {
@@ -3630,6 +3635,52 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     width: 36px;
     filter: contrast(0);
     background-repeat: no-repeat;
+  }
+
+  /* CSS.gg
+  */
+  @keyframes load-bar {
+    10% {box-shadow: inset 0 -4px 0}
+    20% {box-shadow: inset 0 -10px 0}
+    30% {box-shadow: inset 0 -12px 0}
+    40% {box-shadow: inset 0 -8px 0}
+    50% {box-shadow: inset 0 -4px 0}
+    60% {box-shadow: inset 0 -6px 0}
+    80% {box-shadow: inset 0 -12px 0}
+    90% {box-shadow: inset 0 -6px 0}
+    to {box-shadow: inset 0 -2px 0}
+  }
+
+  .loadbar-sound,
+  .loadbar-sound::after,
+  .loadbar-sound::before {
+    animation: load-bar 1.3s ease infinite alternate;
+    box-sizing: border-box;
+    width: 3px;
+    height: 28px;
+    box-shadow: inset 0 -12px 0;
+  }
+  .loadbar-sound {
+    margin-left: 22px;
+    margin-top: -16px;
+    position: relative;
+    transform: scale(var(--load-bar,1));
+    color: var(--keyColor);
+    display: block;
+  }
+  .loadbar-sound::after,
+  .loadbar-sound::before {
+    content: "";
+    position: absolute;
+    bottom: 0
+  }
+  .loadbar-sound::before {
+    left: -4.5px;
+    animation-delay: -2.4s
+  }
+  .loadbar-sound::after {
+    right: -4.2px;
+    animation-delay: -3.7s
   }
 
   .isLibrary {
