@@ -259,6 +259,8 @@ const app = new Vue({
                 platform: "web"
             }
         },
+        tmpHeight : '',
+        tmpWidth : '',
         tmpVar: [],
         notification: false,
         chrome: {
@@ -3272,6 +3274,17 @@ const app = new Vue({
                 });
             } else {
                 ipcRenderer.send('setFullScreen', false);
+                app.appMode = 'player';
+            }
+        },
+        miniPlayer(flag) {
+            if (flag) {
+                this.tmpWidth = screen.width;
+                this.tmpHeight = screen.height;
+                ipcRenderer.send('windowresize', 350, 350, false)
+                app.appMode = 'mini';
+            } else {
+                ipcRenderer.send('windowresize', this.tmpWidth, this.tmpHeight, false)
                 app.appMode = 'player';
             }
         },
