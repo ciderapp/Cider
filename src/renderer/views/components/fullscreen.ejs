@@ -26,7 +26,7 @@
                                 {{ app.mk.nowPlayingItem["attributes"]["name"] }}
                             </div>
                             <div
-                                 style="display: inline-block; -webkit-box-orient: horizontal; white-space: nowrap; margin-top: 0.25vh;">
+                                 style="display: inline-block; -webkit-box-orient: horizontal; white-space: nowrap; margin-top: 0.25vh; overflow: hidden;">
                                 <div class="item-navigate song-artist" style="display: inline-block;"
                                      @click="app.getNowPlayingItemDetailed(`artist`)">
                                     {{ app.mk.nowPlayingItem["attributes"]["artistName"] }}

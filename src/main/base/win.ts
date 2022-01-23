@@ -406,6 +406,13 @@ export class Win {
             this.win.webContents.setZoomFactor(parseFloat(scale));
         });
 
+        // Set scale
+        electron.ipcMain.on("windowresize", (event, width, height, lock = false) => {          
+            this.win.setMinimumSize(300,300);
+            this.win.setContentSize(width, height);
+            this.win.setResizable(!lock);
+        });
+
         //Fullscreen
         electron.ipcMain.on('setFullScreen', (event, flag) => {
             this.win.setFullScreen(flag)
