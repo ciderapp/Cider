@@ -103,9 +103,6 @@ export class Win {
         // Register listeners on Window to track size and position of the Window.
         windowState.manage(this.win);
 
-        // Start Remote Discovery
-        this.broadcastRemote()
-
         return this.win;
     }
 
@@ -205,6 +202,8 @@ export class Win {
         remote.set("view engine", "ejs");
         getPort({port: 6942}).then((port) => {
             this.remotePort = port; 
+            // Start Remote Discovery
+            this.broadcastRemote()
             remote.listen(this.remotePort, () => {
                 console.log(`Cider remote port: ${this.remotePort}`);
                 if (firstRequest) {
