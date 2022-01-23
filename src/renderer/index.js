@@ -2467,7 +2467,7 @@ const app = new Vue({
                                             shuffleArray(u)
                                         } else {
                                             for (let i = 0; i < app.showingPlaylist.relationships.tracks.data.length; i++) {
-                                                if (app.showingPlaylist.relationships.tracks.data[i].id == item.id) u.splice(0, i);
+                                                if (app.showingPlaylist.relationships.tracks.data[i].id == item.id) u.splice(0, i+1);
                                             }
                                         }
 
