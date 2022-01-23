@@ -406,9 +406,24 @@ export class Win {
             this.win.webContents.setZoomFactor(parseFloat(scale));
         });
 
+        // Set scale
+        electron.ipcMain.on("windowresize", (event, width, height, lock = false) => {          
+            this.win.setMinimumSize(300,300);
+            this.win.setContentSize(width, height);
+            this.win.setResizable(!lock);
+        });
+
         //Fullscreen
         electron.ipcMain.on('setFullScreen', (event, flag) => {
             this.win.setFullScreen(flag)
+        })
+
+        electron.ipcMain.on('play', (event, type, id) => {
+            this.win.webContents.executeJavaScript(`
+                     MusicKit.getInstance().setQueue({ ${type}: '${id}'}).then(function(queue) {
+                         MusicKit.getInstance().play();
+                     });
+                `)
         })
 
         function getIp() {
@@ -488,7 +503,6 @@ export class Win {
             return { action: "deny" };
         });
     }
-
     private async broadcastRemote() {
         function getIp() {
             let ip :any = false;

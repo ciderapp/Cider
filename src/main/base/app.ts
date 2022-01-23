@@ -1,6 +1,5 @@
 import * as electron from 'electron';
 import * as path from 'path';
-
 export class AppEvents {
     private static protocols: any = [
         "ame",
@@ -125,45 +124,28 @@ export class AppEvents {
         }
         // Play
         else if (arg.includes('/play/')) { //Steer away from protocol:// specific conditionals
-
             const playParam = arg.split('/play/')[1]
             if (playParam.includes('s/')) { // song
                 console.log(playParam)
                 let song = playParam.split('s/')[1]
                 console.warn(`[LinkHandler] Attempting to load song by id: ${song}`);
-                // AppEvents.window.webContents.executeJavaScript(`
-                //     MusicKit.getInstance().setQueue({ song: '${song}'}).then(function(queue) {
-                //         MusicKit.getInstance().play();
-                //     });
-                // `)
+                electron.ipcRenderer.send('play', 'song', song)
             } else if (playParam.includes('a/')) { // album
                 console.log(playParam)
                 let album = playParam.split('a/')[1]
                 console.warn(`[LinkHandler] Attempting to load album by id: ${album}`);
-                // AppEvents.window.webContents.executeJavaScript(`
-                //     MusicKit.getInstance().setQueue({ album: '${album}'}).then(function(queue) {
-                //         MusicKit.getInstance().play();
-                //     });
-                // `)
+                electron.ipcRenderer.send('play', 'album', album)
             } else if (playParam.includes('p/')) { // playlist
                 console.log(playParam)
                 let playlist = playParam.split('p/')[1]
                 console.warn(`[LinkHandler] Attempting to load playlist by id: ${playlist}`);
-                // AppEvents.window.webContents.executeJavaScript(`
-                //     MusicKit.getInstance().setQueue({ playlist: '${playlist}'}).then(function(queue) {
-                //         MusicKit.getInstance().play();
-                //     });
-                // `)
+                electron.ipcRenderer.send('play', 'playlist', playlist)
             }
         } else if (arg.includes('music.apple.com')) { // URL (used with itms/itmss/music/musics uris)
                 console.log(arg)
                 let url = arg.split('//')[1]
                 console.warn(`[LinkHandler] Attempting to load url: ${url}`);
-                // AppEvents.window.webContents.executeJavaScript(`
-                //     MusicKit.getInstance().setQueue({ url: 'https://${url}'}).then(function(queue) {
-                //         MusicKit.getInstance().play();
-                //     });
-                // `)
+                electron.ipcRenderer.send('play', 'url', url)
             }
     }
 }
