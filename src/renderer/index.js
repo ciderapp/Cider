@@ -3007,17 +3007,17 @@ const app = new Vue({
         },
         volumeWheel(event) {
             if (event.deltaY < 0) {
-                if (this.mk.volume < 0.2) {
-                    if (this.mk.volume <= 0.19) {
-                        this.mk.volume += 0.01
+                if (this.mk.volume < 1) {
+                    if (this.mk.volume <= 0.9) {
+                        this.mk.volume += 0.1
                     } else {
-                        this.mk.volume = 0.2
+                        this.mk.volume = 1
                     }
                 }
             } else if (event.deltaY > 0) {
                 if (this.mk.volume > 0) {
-                    if (this.mk.volume >= 0.01) {
-                        this.mk.volume -= 0.01
+                    if (this.mk.volume >= 0.1) {
+                        this.mk.volume -= 0.1
                     } else {
                         this.mk.volume = 0
                     }
