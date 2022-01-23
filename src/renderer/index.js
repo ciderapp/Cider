@@ -2463,13 +2463,14 @@ const app = new Vue({
 
                                         u = query;
 
-                                        for (let i = 0; i < app.showingPlaylist.relationships.tracks.data.length; i++) {
-                                            if (app.showingPlaylist.relationships.tracks.data[i].id == item.id) u.splice(0, i);
-                                        }
-
                                         if (app.mk.shuffleMode == 1) {
                                             shuffleArray(u)
+                                        } else {
+                                            for (let i = 0; i < app.showingPlaylist.relationships.tracks.data.length; i++) {
+                                                if (app.showingPlaylist.relationships.tracks.data[i].id == item.id) u.splice(0, i);
+                                            }
                                         }
+
                                         app.mk.queue.append(u)
                                     } else {
                                         app.getPlaylistFromID(id, true).then(function () {
