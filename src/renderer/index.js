@@ -2458,8 +2458,15 @@ const app = new Vue({
                             app.mk.setQueue({[item.attributes.playParams.kind ?? item.type]: item.attributes.playParams.id ?? item.id}).then(function () {
                                 app.mk.changeToMediaAtIndex(app.mk.queue._itemIDs.indexOf(item.id) ?? 1).then(function () {
                                     if ((app.showingPlaylist && app.showingPlaylist.id == id)) {
-                                        let query = app.showingPlaylist.relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
-                                        let u = query;
+                                        let query = app.showingPlaylist.relationships.tracks.data.map(item => new MusicKit.MediaItem(item)),
+                                            u;
+
+                                        u = query;
+
+                                        for (let i = 0; i < app.showingPlaylist.relationships.tracks.data.length; i++) {
+                                            if (app.showingPlaylist.relationships.tracks.data[i].id == item.id) u.splice(0, i);
+                                        }
+
                                         if (app.mk.shuffleMode == 1) {
                                             shuffleArray(u)
                                         }
