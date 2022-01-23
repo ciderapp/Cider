@@ -131,6 +131,12 @@
       "backgroundColor": "transparent",
       "setBuildNumber": true
     },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "license": "EULA.txt"
+    },
     "win": {
       "target": [
         "nsis"
