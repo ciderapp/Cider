@@ -408,7 +408,7 @@ export class Win {
 
         // Set scale
         electron.ipcMain.on("windowresize", (event, width, height, lock = false) => {          
-            this.win.setMinimumSize(300,300);
+            this.win.setMinimumSize(250,250);
             this.win.setContentSize(width, height);
             this.win.setResizable(!lock);
         });
@@ -417,6 +417,11 @@ export class Win {
         electron.ipcMain.on('setFullScreen', (event, flag) => {
             this.win.setFullScreen(flag)
         })
+        //Fullscreen
+        electron.ipcMain.on('detachDT', (event, _) => {
+            this.win.webContents.openDevTools({ mode: 'detach' });
+        })
+        
 
         function getIp() {
             let ip = false;

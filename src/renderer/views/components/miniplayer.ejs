@@ -1,7 +1,15 @@
 <script type="text/x-template" id="mini-view">
     <div class="mini-view" tabindex="0">
         <div class="background">
-        </div>    
+        </div>  
+        <div class="player-exit" title="Close" @click="app.miniPlayer(false)">
+            <svg fill="white" xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21"
+                 aria-role="presentation" focusable="false">
+                <path
+                        d="M10.5 21C4.724 21 0 16.275 0 10.5S4.724 0 10.5 0 21 4.725 21 10.5 16.276 21 10.5 21zm-3.543-5.967a.96.96 0 00.693-.295l2.837-2.842 2.85 2.842c.167.167.41.295.693.295.552 0 1.001-.461 1.001-1.012 0-.281-.115-.512-.295-.704L11.899 10.5l2.85-2.855a.875.875 0 00.295-.68c0-.55-.45-.998-1.001-.998a.871.871 0 00-.668.295l-2.888 2.855-2.862-2.843a.891.891 0 00-.668-.281.99.99 0 00-1.001.986c0 .269.116.512.295.678L9.088 10.5l-2.837 2.843a.926.926 0 00-.295.678c0 .551.45 1.012 1.001 1.012z"
+                        fill-rule="nonzero"/>
+            </svg>
+        </div>  
         <div class="col artwork-col">
             <div class="artwork"  @click="app.miniPlayer(false)">
                 <mediaitem-artwork

@@ -3279,9 +3279,10 @@ const app = new Vue({
         },
         miniPlayer(flag) {
             if (flag) {
-                this.tmpWidth = screen.width;
-                this.tmpHeight = screen.height;
-                ipcRenderer.send('windowresize', 350, 350, false)
+                this.tmpWidth = window.innerWidth;
+                this.tmpHeight = window.innerHeight;
+                ipcRenderer.send('setFullScreen', false);
+                ipcRenderer.send('windowresize', 250, 250, false)
                 app.appMode = 'mini';
             } else {
                 ipcRenderer.send('windowresize', this.tmpWidth, this.tmpHeight, false)
@@ -3604,6 +3605,14 @@ document.addEventListener('keydown', function(event) {
         } catch (e) { }
         try {
             app.mk._services.mediaItemPlayback._currentPlayer.destroy()
+        } catch (e) { }
+    }
+});
+
+document.addEventListener('keydown', function(event) {
+    if (event.ctrlKey && event.keyCode == 122) {
+        try {
+            ipcRenderer.send('detachDT','')
         } catch (e) { }
     }
 });
