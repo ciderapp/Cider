@@ -316,6 +316,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     right: 60px;
     width: 10px;
     height: 10px;
+    z-index: 10;
 }
 
 .popup-confirm {
