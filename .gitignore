@@ -310,3 +310,8 @@ GitHub.sublime-settings
 src/renderer/sw.js.map
 src/renderer/workbox-962786f2.js.map
 /src/renderer/musickit-dev.js
+
+#Mac certs
+*.p12
+keys.sh
+

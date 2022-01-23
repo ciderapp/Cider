@@ -31,6 +31,8 @@
     "ejs": "^3.1.6",
     "electron-fetch": "^1.7.4",
     "electron-log": "^4.4.4",
+    "electron-notarize": "^1.1.1",
+    "electron-packager": "^15.4.0",
     "electron-store": "^8.0.1",
     "electron-updater": "^4.6.1",
     "electron-window-state": "^5.0.3",
@@ -92,6 +94,8 @@
       "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
     },
     "appId": "cider",
+    "afterPack": "./build/afterPack.js",
+    "afterSign": "./build/notarize.js",
     "protocols": [
       {
         "name": "Cider",
@@ -142,10 +146,16 @@
       "output": "dist"
     },
     "mac": {
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
       "icon": "./resources/icons/icon.icns",
       "category": "public.app-category.music",
-      "entitlements": "resources/entitlements.mac.plist",
-      "darkModeSupport": true
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist",
+      "darkModeSupport": true,
+      "target": [
+        "dmg"
+      ]
     }
   }
 }
