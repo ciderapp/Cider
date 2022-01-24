@@ -172,5 +172,5 @@
   
   // Web Remote
   "remote.web.title": "Cider 远程控制",
-  "remote.web.description": "扫描以下的二维码以控制 Cider",
+  "remote.web.description": "扫描以下的二维码以控制 Cider"
 }

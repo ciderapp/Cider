@@ -25,6 +25,9 @@
   "term.queue": "Queue",
   "term.search": "Search",
   "term.library": "Library",
+  "term.listenNow": "Listen Now",
+  "term.browse": "Browse",
+  "term.radio": "Radio",
   "term.recentlyAdded": "Recently Added",
   "term.songs": "Songs",
   "term.albums": "Albums",
@@ -171,5 +174,5 @@
   
   // Web Remote
   "remote.web.title": "Cider Remote",
-  "remote.web.description": "Scan the QR code to pair your phone up with this Cider instance",
+  "remote.web.description": "Scan the QR code to pair your phone up with this Cider instance"
 }

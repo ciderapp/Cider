@@ -170,5 +170,5 @@
   
   // Web Remote
   "remote.web.title": "Cider リモート",
-  "remote.web.description": "QR コードを使用して、Ciderとスマートフォンをペアリングする",
+  "remote.web.description": "QR コードを使用して、Ciderとスマートフォンをペアリングする"
 }

@@ -172,5 +172,5 @@
   
   // Web Remote
   "remote.web.title": "Cider 遠控",
-  "remote.web.description": "掃描以下的行動條碼以控制 Cider",
+  "remote.web.description": "掃描以下的行動條碼以控制 Cider"
 }
