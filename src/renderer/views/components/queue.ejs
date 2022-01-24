@@ -2,7 +2,7 @@
     <div class="queue-panel">
         <div class="row">
             <div class="col">
-                <h3 class="queue-header-text">Queue</h3>
+                <h3 class="queue-header-text">{{app.getLz('term.queue')}}</h3>
             </div>
             <div class="col-auto flex-center">
                 <button class="autoplay" :style="{'background': app.mk.autoplayEnabled ? 'var(--keyColor)' : ''}" @click="app.mk.autoplayEnabled = !app.mk.autoplayEnabled"> <img class="infinity"></button>
@@ -76,7 +76,7 @@
                 let menus = {
                     single: {
                         items: [{
-                            "name": "Remove from queue",
+                            "name": app.getLz('action.removeFromQueue'),
                             "action": function () {
                                 self.queueItems.splice(position, 1)
                                 app.mk.queue._queueItems = self.queueItems;
@@ -84,7 +84,7 @@
                             }
                         },
                             {
-                                "name": "Start Radio",
+                                "name": app.getLz('action.startRadio'),
                                 "action": function () {
                                     app.mk.setStationQueue({
                                         song: item.attributes.playParams.id ?? item.id

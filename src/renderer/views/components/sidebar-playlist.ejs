@@ -105,7 +105,7 @@
                 let menu = {
                     items: {
                         "moveToParent": {
-                            name: "Move to top",
+                            name: app.getLz('action.moveToTop'),
                             action: () => {
                                 let self = this
                                 this.move(this.item, {
@@ -116,7 +116,7 @@
                             }
                         },
                         "rename": {
-                            name: "Rename",
+                            name: app.getLz('action.rename'),
                             action: () => {
                                 this.renaming = true
                                 setTimeout(()=>{
@@ -126,13 +126,13 @@
                             }
                         },
                         "deleteFromPlaylist": {
-                            name: "Delete from library",
+                            name: app.getLz('action.removeFromLibrary'),
                             action: () => {
                                 this.$root.deletePlaylist(playlist_id)
                             }
                         },
                         "addToFavorites": {
-                            name: "Add to favorites",
+                            name: app.getLz('action.addToFavorites'),
                             disabled: true,
                             hidden: true,
                             action: () => {
