@@ -9,6 +9,8 @@ import * as fs from "fs";
 import { Stream } from "stream";
 import * as qrcode from "qrcode-terminal";
 import * as os from "os";
+import * as mm from 'music-metadata';
+import fetch from 'electron-fetch'
 import {wsapi} from "./wsapi";
 
 export class Win {
@@ -456,6 +458,23 @@ export class Win {
             *  Doing this because we can give them the link and let them send it via Pocket or another in-browser tool -q
             */
         })
+
+        // Get previews for normalization
+        electron.ipcMain.on("getPreviewURL", (_event, url) => {
+            'get url'
+            fetch(url)
+                .then(res => res.buffer())
+                .then(async(buffer) => {
+                    try {
+                        const metadata = await mm.parseBuffer(buffer, 'audio/x-m4a');
+                        let SoundCheckTag = metadata.native.iTunes[1].value
+                        console.log('sc',SoundCheckTag)
+                        this.win.webContents.send('SoundCheckTag', SoundCheckTag)
+                    } catch (error) {
+                        console.error(error.message);
+                    }
+                })
+        });
 
         /* *********************************************************************************************
          * Window Events
