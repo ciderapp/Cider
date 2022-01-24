@@ -33,11 +33,12 @@ electron.app.on('ready', () => {
     electron.components.whenReady().then(async () => {
         win = await Cider.createWindow()
         App.bwCreated(win);
+        plug.callPlugins('onReady', Cider);
         win.on("ready-to-show", () => {
             win.show();
         });
     });
-    plug.callPlugins('onReady', win);
+    
 });
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
