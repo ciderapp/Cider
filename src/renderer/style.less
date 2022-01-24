@@ -1112,27 +1112,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 }
 
 
-.app-chrome .app-chrome-item > .app-playback-controls .song-artist {
-  font-weight: 400;
-  font-size: 12px;
-  text-align: center;
-  /*height: 1.2em;
-  line-height: 1.2em;*/
 
-  z-index: 1;
-  max-width: 360px;
-  
-
-  .song-artist-normal {
-    height: inherit;
-  }
-
-  &.song-artist-marquee {
-    > marquee {
-      margin-bottom: -3px;
-    }
-  }
-}
 
 .app-chrome .app-chrome-item > .app-playback-controls .song-progress {
   @bgColor: transparent;
@@ -1256,7 +1236,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   overflow: hidden;
 }
 
-.app-chrome .app-chrome-item > .app-playback-controls .playback-info > div {
+.app-chrome .app-chrome-item > .app-playback-controls .playback-info > .song-progress{
   width: 100%;
 }
 
@@ -1266,6 +1246,31 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   width: 100%;
   display: flex;
   position: relative;
+}
+.app-chrome .app-chrome-item > .app-playback-controls .song-artist-album {
+  font-weight: 400;
+  font-size: 12px;
+  text-align: center;
+  /*height: 1.2em;
+  line-height: 1.2em;*/
+
+  z-index: 1;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  max-width: 340px;
+  overflow: hidden;
+  
+
+  .song-artist-normal {
+    height: inherit;
+  }
+
+  &.song-artist-marquee {
+    > marquee {
+      margin-bottom: -3px;
+    }
+  }
 }
 
 .display--small {

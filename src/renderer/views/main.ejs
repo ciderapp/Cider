@@ -96,7 +96,7 @@
                                              style="display: inline-block"></div>
                                     </div>
                                     <!-- :class="[isElementOverflowing('#app-main > div.app-chrome > div.app-chrome--center > div > div > div.playback-info > div.song-artist') ? 'marquee' : '']" -->
-                                    <div class="song-artist"
+                                    <div class="song-artist-album"
                                          style="display: inline-block; -webkit-box-orient: horizontal; white-space: nowrap;">
                                         <div class="item-navigate song-artist" style="display: inline-block"
                                              @click="getNowPlayingItemDetailed(`artist`)">
@@ -788,6 +788,19 @@
 <!-- Miniplayer View -->
 <%- include('components/miniplayer')
 %>
+<script>
+    function checkMarquee(){
+        if(isElementOverflowing('#app-main > div.app-chrome > div.app-chrome--center > div > div > div.playback-info > div.song-artist') == true) {
+            document.getElementsByClassName('song-artist')[0].classList.add('marquee');
+            document.getElementsByClassName('song-artist')[1].classList.add('marquee-after');
+        }
+        if(isElementOverflowing('#app-main > div.app-chrome > div.app-chrome--center > div > div > div.playback-info > div.song-name') == true) {
+            document.getElementsByClassName('song-name')[0].classList.add('marquee');
+            document.getElementsByClassName('song-name')[1].classList.add('marquee-after');
+        } 
+
+    }    
+</script>
 
 <script
         src="musickit.js?v=1"></script>
