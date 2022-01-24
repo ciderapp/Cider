@@ -134,9 +134,7 @@ const app = new Vue({
         platform: "",
         mk: {},
         quickPlayQuery: "",
-        lz: {
-
-        },
+        lz: ipcRenderer.sendSync("get-i18n", "en_US"),
         search: {
             term: "",
             hints: [],
@@ -339,6 +337,12 @@ const app = new Vue({
         },
     },
     methods: {
+        setLz(lang) {
+            if(lang == "") {
+                lang = this.cfg.general.language
+            }
+            this.lz = ipcRenderer.sendSync("get-i18n", lang)
+        },
         getLz(message) {
             if(this.lz[message]) {
                 return this.lz[message]
@@ -499,6 +503,7 @@ const app = new Vue({
         },
         async init() {
             let self = this
+            this.setLz(this.cfg.general.language)
             clearTimeout(this.hangtimer)
             this.mk = MusicKit.getInstance()
             let needsReload = (typeof localStorage["music.ampwebplay.media-user-token"] == "undefined")
@@ -3320,10 +3325,12 @@ const app = new Vue({
             if (flag) {
                 this.tmpWidth = window.innerWidth;
                 this.tmpHeight = window.innerHeight;
-                ipcRenderer.send('setFullScreen', false);
-                ipcRenderer.send('windowresize', 364, 364, false)
+                ipcRenderer.send('unmaximize');
+                ipcRenderer.send('windowmin', 250, 250)
+                ipcRenderer.send('windowresize', 300, 300, false)
                 app.appMode = 'mini';
             } else {
+                ipcRenderer.send('windowmin', 844, 410)
                 ipcRenderer.send('windowresize', this.tmpWidth, this.tmpHeight, false)
                 app.appMode = 'player';
             }

@@ -3075,6 +3075,12 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     transition: opacity 0.1s var(--appleEase);
   }
 
+  &.animated .artist-header .more-btn-round {
+    position: absolute;
+    bottom: 22px !important;
+    right: 28px;
+  }
+
   .artist-header {
     //background: linear-gradient(45deg, var(--keyColor), #0e0e0e);
     color: white;
@@ -3087,6 +3093,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     .header-content {
       z-index: 1;
     }
+
 
     .artworkContainer {
       position: absolute;
@@ -3112,7 +3119,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
     .more-btn-round {
       position: absolute;
-      bottom: 84px;
+      bottom: 82px;
       right: 28px;
     }
 
@@ -3205,8 +3212,6 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     }
   }
   .artist-title {
-    position: relative;
-    top: -19px;
 
     .artist-play {
       transform: translateY(3px);
@@ -3229,7 +3234,12 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
   .artist-body {
     padding: 0px var(--contentInnerPadding) 0px var(--contentInnerPadding);
-    margin-top: -137px;
+    margin-top: -140px;
+  }
+
+  &.animated > .artist-body {
+    padding: 0px var(--contentInnerPadding) 0px var(--contentInnerPadding);
+    margin-top: -57px;
   }
 
   .showmoreless {

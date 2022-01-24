@@ -11,6 +11,7 @@
                             :video="(item.attributes != null && item.attributes.editorialVideo != null) ? (item.attributes.editorialVideo.motionDetailSquare ? item.attributes.editorialVideo.motionDetailSquare.video : (item.attributes.editorialVideo.motionSquareVideo1x1 ? item.attributes.editorialVideo.motionSquareVideo1x1.video : '')) : '' "
                             :size="size"
                             shadow="subtle"
+                            :bgcolor="getBgColor()"
                             :type="item.type"></mediaitem-artwork>
                 </div>
                 <button class="menu-btn" v-if="!nomenu.includes(item.type)"
@@ -75,22 +76,8 @@
         },
         methods: {
             getBgColor() {
-                let color = `#${(this.item.attributes.artwork != null && this.item.attributes.artwork.bgColor != null) ? (this.item.attributes.artwork.bgColor) : `333333`}`
-                let c = color.substring(1);      // strip #
-                var rgb = parseInt(c, 16);   // convert rrggbb to decimal
-                var r = (rgb >> 16) & 0xff;  // extract red
-                var g = (rgb >>  8) & 0xff;  // extract green
-                var b = (rgb >>  0) & 0xff;  // extract blue
-
-                var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b; // per ITU-R BT.709
-
-                if (luma > 140) {
-                    return "#aaaaaa"
-                }else{
-                    return color
-                }
-
-
+                let color = `#${(this.item.attributes.artwork != null && this.item.attributes.artwork.bgColor != null) ? (this.item.attributes.artwork.bgColor) : ``}`
+                return color
             },
             getSubtitle() {
                 if(this.kind == 'card') {

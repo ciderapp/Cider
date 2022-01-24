@@ -393,12 +393,12 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 }
 
 .player-volume-glyph.decrease {
-    background-image: url("./assets/volume.svg");
+    background-image: url("./assets/volume-down.svg");
     opacity: 0.5;
 }
 
 .player-volume-glyph.increase {
-    background-image: url("./assets/volume-2.svg");
+    background-image: url("./assets/volume-up.svg");
     opacity: 0.5;
 }
 

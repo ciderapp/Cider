@@ -12,6 +12,7 @@ import * as os from "os";
 import * as mm from 'music-metadata';
 import fetch from 'electron-fetch'
 import {wsapi} from "./wsapi";
+import * as jsonc from "jsonc";
 
 export class Win {
     win: any | undefined = null;
@@ -287,6 +288,24 @@ export class Win {
             event.returnValue = process.platform;
         });
 
+        console.warn(path.join(__dirname, "../../src/i18n/en_US.jsonc"))
+
+        electron.ipcMain.on("get-i18n", (event, key) => {
+            let i18nBase = fs.readFileSync(path.join(__dirname, "../../src/i18n/en_US.jsonc"), "utf8");
+            i18nBase = jsonc.parse(i18nBase)
+            try {
+                let i18n = fs.readFileSync(path.join(__dirname, `../../src/i18n/${key}.jsonc`), "utf8");
+                i18n = jsonc.parse(i18n)
+                Object.assign(i18nBase, i18n)
+            }catch(e) {
+                console.error(e);
+                event.returnValue = e;
+            }
+
+            event.returnValue = i18nBase;
+
+        });
+
         electron.ipcMain.on("get-gpu-mode", (event) => {
             event.returnValue = process.platform;
         });
@@ -392,6 +411,10 @@ export class Win {
                 this.win.maximize();
             }
         });
+        electron.ipcMain.on("unmaximize", () => {
+            // listen for maximize event
+                this.win.unmaximize();
+        });
 
         electron.ipcMain.on("minimize", () => {
             // listen for minimize event
@@ -403,9 +426,12 @@ export class Win {
             this.win.webContents.setZoomFactor(parseFloat(scale));
         });
 
+        electron.ipcMain.on("windowmin", (event, width, height) => {
+            this.win.setMinimumSize(width,height);
+        })
+
         // Set scale
         electron.ipcMain.on("windowresize", (event, width, height, lock = false) => {          
-            this.win.setMinimumSize(250,250);
             this.win.setContentSize(width, height);
             this.win.setResizable(!lock);
         });
