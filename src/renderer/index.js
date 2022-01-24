@@ -2524,8 +2524,6 @@ const app = new Vue({
                                     } else {
                                         for (let i = 0; i < query.length; i++) {
                                             if (query[i].id == item.id) {query.splice(0, i+1);
-                                            console.log("foundindex",i) 
-                                            console.log('spliced', query)
                                             break;}
                                         }
                                     }
