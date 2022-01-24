@@ -1,9 +1,15 @@
 {
   // App info
   "app.name": "Cider",
+
   // Dialogs
   "dialog.cancel": "取消",
   "dialog.ok": "OK",
+
+  // Notification
+  "notification.updatingLibrarySongs": "正在更新資料庫歌曲...",
+  "notification.updatingLibraryAlbums": "正在更新資料庫專輯...",
+  "notification.updatingLibraryArtists": "正在更新資料庫藝人...",
   // Terms
   "term.appleMusic": "Apple Music", // Follows brand term
   "term.applePodcasts": "Apple Podcasts", // Follows brand term
@@ -38,6 +44,26 @@
   "term.share": "分享",
   "term.settings": "設定",
   "term.seeAll": "顯示全部",
+  "term.sortBy": "排序",
+  "term.sortBy.album": "專輯",
+  "term.sortBy.artist": "藝人",
+  "term.sortBy.name": "名字",
+  "term.sortBy.genre": "音樂類型",
+  "term.sortBy.releaseDate": "發行日期",
+  "term.sortBy.duration": "時長",
+  "term.sortOrder": "字母排序",
+  "term.sortOrder.ascending": "升序",
+  "term.sortOrder.descending": "降序",
+  "term.viewAs.coverArt": "Cover Art",
+  "term.viewAs.list": "List",
+  "term.size.normal": "Normal",
+  "term.size.compact": "Normal",
+  "term.enable": "Enable",
+  "term.disable": "Disable",
+  "term.enabled": "Enabled",
+  "term.disabled": "Disabled",
+  "term.connect": "Connect",
+
   // Home
   "home.title": "主頁",
   "home.recentlyPlayed": "最近播放",
@@ -76,20 +102,69 @@
   "action.unlove": "取消喜愛",
   "action.dislike": "減少此類建議",
   "action.undoDislike": "還原減小此類建議",
-  // Settings
+  "action.showWebRemoteQR": "Show Web Remote QR",
+
+  // Settings - Audio
   "settings.header.audio": "音訊",
   "settings.header.audio.description": "調整Cider的音訊設定",
+  "settings.option.audio.quality": "Audio Quality", // Dropdown
   "settings.header.audio.quality.high": "高品質",
   "settings.header.audio.quality.low": "高效率",
   "settings.header.audio.quality.auto": "自動",
+  "settings.option.audio.seamlessTransition": "Seamless Audio Transition", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality": "Enable Advanced Functionality", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.description": "Enabling AudioContext functionality will allow for extended audio features like Audio Normalization , Equalizers and Visualizers, however on some systems this may cause stuttering in audio tracks.",
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Audio Normalization", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Audio Spatialization", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Spatialize audio and make audio more 3-dimensional (note: This is not Dolby Atmos)",
+  // Settings - Visual
   "settings.header.visual": "外觀",
   "settings.header.visual.description": "調整Cider的外觀",
+  "settings.option.visual.windowBackgroundStyle": "Window Background Style", // Toggle
+  "settings.header.visual.windowBackgroundStyle.none": "None",
+  "settings.header.visual.windowBackgroundStyle.artwork": "Artwork",
+  "settings.option.visual.animatedArtwork": "Animated Artwork", // Dropdown
+  "settings.header.visual.animatedArtwork.always": "Always",
+  "settings.header.visual.animatedArtwork.limited": "Limited to pages and special entries",
+  "settings.header.visual.animatedArtwork.disable": "Disable everywhere",
+  "settings.option.visual.animatedArtworkQuality": "Animated Artwork Quality", // Dropdown
+  "settings.header.visual.animatedArtworkQuality.low": "Low",
+  "settings.header.visual.animatedArtworkQuality.medium": "Medium",
+  "settings.header.visual.animatedArtworkQuality.high": "High",
+  "settings.header.visual.animatedArtworkQuality.extreme": "Extreme",
+  "settings.option.visual.animatedWindowBackground": "Animated Window Background", // Toggle
+  "settings.option.visual.hardwareAcceleration": "Hardware Acceleration", // Dropdown
+  "settings.header.visual.hardwareAcceleration.default": "Default", 
+  "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
+  // Refer to term.disabled for the disabled option
+  "settings.option.visual.showPersonalInfo": "Show Personal Info", // Toggle
+  // Settings - General (Reserved)
   "settings.header.general": "一般",
   "settings.header.general.description": "調整Cider的一般設定",
+  
+  // Settings - Lyrics
   "settings.header.lyrics": "歌詞",
   "settings.header.lyrics.description": "調整Cider的歌詞設定",
+  "settings.option.lyrics.enableMusixmatch": "Enable Musixmatch Lyrics", // Toggle
+  "settings.option.lyrics.enableMusixmatchKaraoke": "Enable Karaoke Mode (Musixmatch only)", // Toggle
+  "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch Translation Preferred Language", // Dropdown
+  "settings.option.lyrics.enableYoutubeLyrics": "Enable Youtube Lyrics for Music Videos", // Toggle
+
+  // Settings - Connectivity
   "settings.header.connectivity": "外部連接",
   "settings.header.connectivity.description": "調整Cider與外部的連接",
+  "settings.option.connectivity.discordRPC": "Discord Rich Presence", // Dropdown
+  // Refer to term.disabled for the disabled option
+  "settings.header.connectivity.discordRPC.cider": "Display as 'Cider'",
+  "settings.header.connectivity.discordRPC.appleMusic": "Display as 'Apple Music'",
+  "settings.header.connectivity.discordRPC.clearOnPause": "Clear Discord Rich Presence on Pause", // Toggle
+  "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling", // Option to Connect
+  // Refer to term.connect for the connect button
+
+  // Settings - Experimental
   "settings.header.experimental": "實驗性功能",
   "settings.header.experimental.description": "調整Cider的實驗性功能",
+  "settings.option.experimental.compactUI": "Compact UI", // Toggle
+  // Refer to term.disabled & term.enabled
+  
 }
