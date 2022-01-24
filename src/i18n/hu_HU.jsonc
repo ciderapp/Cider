@@ -193,5 +193,5 @@
   
   // Web Remote
   "remote.web.title": "Cider Remote",
-  "remote.web.description": "Olvasd be ezt a QR-kódot a telefonoddal, hogy tudd vezérelni."
+  "remote.web.description": "Olvasd be ezt a QR-kódot a telefonoddal, hogy tudd vezérelni a lejátszót."
 }
