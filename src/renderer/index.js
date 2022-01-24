@@ -2521,6 +2521,11 @@ const app = new Vue({
                                 app.mk.play().then(() => {
                                     if (app.mk.shuffleMode == 1) {
                                         shuffleArray(query)
+                                    } else {
+                                        for (let i = 0; i < query.length; i++) {
+                                            if (query[i].id == item.id) {query.splice(0, i+1);
+                                            break;}
+                                        }
                                     }
                                     app.mk.queue.append(query)                                
                                 })
@@ -2551,6 +2556,10 @@ const app = new Vue({
                                         let u = query;
                                         if (app.mk.shuffleMode == 1) {
                                             shuffleArray(u)
+                                        } else {
+                                            for (let i = 0; i < app.showingPlaylist.relationships.tracks.data.length; i++) {
+                                                if (app.showingPlaylist.relationships.tracks.data[i].id == item.id) {u.splice(0, i+1); break;}
+                                            }
                                         }
                                         app.mk.queue.append(u)
                                     } else {
@@ -2559,6 +2568,10 @@ const app = new Vue({
                                             let u = query;
                                             if (app.mk.shuffleMode == 1) {
                                                 shuffleArray(u)
+                                            } else {
+                                                for (let i = 0; i < app.showingPlaylist.relationships.tracks.data.length; i++) {
+                                                    if (app.showingPlaylist.relationships.tracks.data[i].id == item.id) {u.splice(0, i+1); break;}
+                                                }
                                             }
                                             app.mk.queue.append(u)
                                         })
