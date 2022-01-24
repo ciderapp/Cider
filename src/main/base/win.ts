@@ -411,6 +411,10 @@ export class Win {
                 this.win.maximize();
             }
         });
+        electron.ipcMain.on("unmaximize", () => {
+            // listen for maximize event
+                this.win.unmaximize();
+        });
 
         electron.ipcMain.on("minimize", () => {
             // listen for minimize event
