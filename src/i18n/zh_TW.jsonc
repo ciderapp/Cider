@@ -54,6 +54,7 @@
   "term.sortOrder": "字母排序",
   "term.sortOrder.ascending": "升序",
   "term.sortOrder.descending": "降序",
+  "term.viewAs": "View As",
   "term.viewAs.coverArt": "Cover Art",
   "term.viewAs.list": "List",
   "term.size.normal": "Normal",
