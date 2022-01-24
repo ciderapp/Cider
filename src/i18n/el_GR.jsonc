@@ -111,7 +111,7 @@
   "action.unlove": "Αναίρεση \"Μου Αρέσει\"",
   "action.dislike": "Δεν μου αρέσει",
   "action.undoDislike": "Αναίρεση \"Δεν μου αρέσει\"",
-  "action.showWebRemoteQR": "Εμφάνιση του Web Remote QR",
+  "action.showWebRemoteQR": "Εμφάνιση Web Remote QR",
   // Settings - Audio
   "settings.header.audio": "Ήχος",
   "settings.header.audio.description": "Προσαρμογή ρυθμίσεων ήχου για το Cider.",
