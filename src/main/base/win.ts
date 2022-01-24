@@ -12,6 +12,7 @@ import * as os from "os";
 import * as mm from 'music-metadata';
 import fetch from 'electron-fetch'
 import {wsapi} from "./wsapi";
+import * as jsonc from "jsonc";
 
 export class Win {
     win: any | undefined = null;
@@ -285,6 +286,24 @@ export class Win {
          ****************************************************************************************************************** */
         electron.ipcMain.on("cider-platform", (event) => {
             event.returnValue = process.platform;
+        });
+
+        console.warn(path.join(__dirname, "../../src/i18n/en_US.jsonc"))
+
+        electron.ipcMain.on("get-i18n", (event, key) => {
+            let i18nBase = fs.readFileSync(path.join(__dirname, "../../src/i18n/en_US.jsonc"), "utf8");
+            i18nBase = jsonc.parse(i18nBase)
+            try {
+                let i18n = fs.readFileSync(path.join(__dirname, `../../src/i18n/${key}.jsonc`), "utf8");
+                i18n = jsonc.parse(i18n)
+                Object.assign(i18nBase, i18n)
+            }catch(e) {
+                console.error(e);
+                event.returnValue = e;
+            }
+
+            event.returnValue = i18nBase;
+
         });
 
         electron.ipcMain.on("get-gpu-mode", (event) => {

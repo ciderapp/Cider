@@ -38,6 +38,7 @@
     "electron-window-state": "^5.0.3",
     "express": "^4.17.2",
     "get-port": "^5.1.1",
+    "jsonc": "^2.0.0",
     "lastfmapi": "^0.1.1",
     "mdns-js": "github:bitfocus/node-mdns-js",
     "mpris-service": "^2.1.2",
@@ -135,12 +136,12 @@
       "backgroundColor": "transparent",
       "setBuildNumber": true
     },
-		"nsis": {
+    "nsis": {
       "oneClick": false,
       "perMachine": false,
       "allowToChangeInstallationDirectory": true,
-			"license": "LICENSE",
-			"deleteAppDataOnUninstall": true
+      "license": "LICENSE",
+      "deleteAppDataOnUninstall": true
     },
     "win": {
       "target": [

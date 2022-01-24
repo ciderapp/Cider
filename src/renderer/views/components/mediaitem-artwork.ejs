@@ -3,6 +3,7 @@
          v-observe-visibility="{callback: visibilityChanged}">
         <img :src="app.getMediaItemArtwork(url, size, width)"
              decoding="async" loading="lazy"
+             :style="{background: bgcolor}"
              class="mediaitem-artwork--img">
         <div v-if="video && isVisible && getVideoPriority()" class="animatedartwork-view-box">
             <animatedartwork-view :priority="getVideoPriority()" :video="video"></animatedartwork-view>
@@ -21,6 +22,10 @@
             width: {
                 type: [String, Number],
                 required: false
+            },
+            bgcolor: {
+                type: String,
+                default: ''
             },
             url: {
                 type: String,
