@@ -6,7 +6,7 @@
                     v-if="data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9)"
                     :video="data.attributes.editorialVideo.motionArtistWide16x9.video ?? (data.attributes.editorialVideo.motionArtistFullscreen16x9.video ?? '')">
             </animatedartwork-view>
-            <div class="header-content">
+            <div class="header-content" style="pointer-events: all;">
                 <div class="row">
                     <div class="col-sm" style="width: auto;">
                         <div class="artist-image" v-if="!(data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9))">
@@ -30,7 +30,7 @@
                         <h1>{{ data.attributes.name }}</h1>
                     </div>
                 </div>
-                <button class="more-btn-round" @click="artistMenu">
+                <button class="more-btn-round" @click="artistMenu" style="pointer-events: all;">
                     <div class="svg-icon"></div>
                 </button>
             </div>
