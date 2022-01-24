@@ -1,5 +1,6 @@
 import * as electron from 'electron';
 import * as path from 'path';
+
 export class AppEvents {
     private static protocols: any = [
         "ame",
@@ -11,6 +12,7 @@ export class AppEvents {
     ]
     private static plugin: any = null;
     private static store: any = null;
+    private static win: any = null;
 
     constructor(store: any) {
         console.log('App started');
@@ -101,62 +103,66 @@ export class AppEvents {
     }
 
     public bwCreated(win: Electron.BrowserWindow) {
+        AppEvents.win = win
+
         electron.app.on('open-url', (event, url) => {
             event.preventDefault()
             if (AppEvents.protocols.some((protocol: string) => url.includes(protocol))) {
-                AppEvents.LinkHandler(url, win)
+                AppEvents.LinkHandler(url)
+                console.log(url)
             }
         })
 
-        AppEvents.InstanceHandler(win)
+        AppEvents.InstanceHandler()
     }
 
     /***********************************************************************************************************************
      * Private methods
      **********************************************************************************************************************/
 
-    private static LinkHandler(arg: any, win: Electron.BrowserWindow) {
+    private static LinkHandler(arg: string) {
+        console.log(arg)
+
         if (!arg) return;
 
         // LastFM Auth URL
         if (arg.includes('auth')) {
-            let authURI = String(arg).split('/auth/')[1]
+            let authURI = arg.split('/auth/')[1]
             if (authURI.startsWith('lastfm')) { // If we wanted more auth options
                 const authKey = authURI.split('lastfm?token=')[1];
                 AppEvents.store.set('lastfm.enabled', true);
                 AppEvents.store.set('lastfm.auth_token', authKey);
-                win.webContents.send('LastfmAuthenticated', authKey);
+                AppEvents.win.webContents.send('LastfmAuthenticated', authKey);
                 AppEvents.plugin.callPlugin('lastfm', 'authenticate', authKey);
             }
         }
         // Play
         else if (arg.includes('/play/')) { //Steer away from protocol:// specific conditionals
             const playParam = arg.split('/play/')[1]
-            if (playParam.includes('s/')) { // song
-                console.log(playParam)
-                let song = playParam.split('s/')[1]
-                console.warn(`[LinkHandler] Attempting to load song by id: ${song}`);
-                electron.ipcRenderer.send('play', 'song', song)
-            } else if (playParam.includes('a/')) { // album
-                console.log(playParam)
-                let album = playParam.split('a/')[1]
-                console.warn(`[LinkHandler] Attempting to load album by id: ${album}`);
-                electron.ipcRenderer.send('play', 'album', album)
-            } else if (playParam.includes('p/')) { // playlist
-                console.log(playParam)
-                let playlist = playParam.split('p/')[1]
-                console.warn(`[LinkHandler] Attempting to load playlist by id: ${playlist}`);
-                electron.ipcRenderer.send('play', 'playlist', playlist)
+
+            const mediaType = {
+                "s/": "song",
+                "a/": "album",
+                "p/": "playlist"
             }
+
+            for (const [key, value] of Object.entries(mediaType)) {
+                if (playParam.includes(key)) {
+                    const id = playParam.split(key)[1]
+                    AppEvents.win.webContents.send('play', value, id)
+                    console.debug(`[LinkHandler] Attempting to load ${value} by id: ${id}`)
+                }
+            }
+
         } else if (arg.includes('music.apple.com')) { // URL (used with itms/itmss/music/musics uris)
-                console.log(arg)
-                let url = arg.split('//')[1]
-                console.warn(`[LinkHandler] Attempting to load url: ${url}`);
-                electron.ipcRenderer.send('play', 'url', url)
-            }
+            console.log(arg)
+            let url = arg.split('//')[1]
+            console.warn(`[LinkHandler] Attempting to load url: ${url}`);
+            AppEvents.win.webContents.send('play', 'url', url)
+        }
     }
 
-    private static InstanceHandler(win: Electron.BrowserWindow) {
+    private static InstanceHandler() {
 
         // Detects of an existing instance is running (So if the lock has been achieved, no existing instance has been found)
         const gotTheLock = electron.app.requestSingleInstanceLock()
@@ -166,14 +172,15 @@ export class AppEvents {
             electron.app.quit()
         } else { // Runs on the first instance if no other instance has been found
             electron.app.on('second-instance', (_event, startArgs) => {
+                console.log(startArgs)
                 if (startArgs.includes("--force-quit")) {
                     console.warn('[InstanceHandler][SecondInstanceHandler] Force Quit found. Quitting App.');
                     electron.app.quit()
                 } else if (startArgs.includes("cider://")) {
-                    AppEvents.LinkHandler(startArgs, win)
-                } else if (win) {
-                    if (win.isMinimized()) win.restore()
-                    win.focus()
+                    AppEvents.LinkHandler(startArgs.toString())
+                } else if (AppEvents.win) {
+                    if (AppEvents.win.isMinimized()) AppEvents.win.restore()
+                    AppEvents.win.focus()
                 }
             })
         }
