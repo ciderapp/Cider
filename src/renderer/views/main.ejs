@@ -576,7 +576,7 @@
                                      :richlyrics="richlyrics"></lyrics-view>
                         <div v-if="drawer.panel == 'lyrics'" class="lyric-footer">
                             <button class="md-btn" @click="modularUITest(!fullscreenLyrics)">{{fullscreenLyrics ?
-                                "Default View":'Fullscreen View'}}
+                                $root.getLz('term.defaultView'): $root.getLz('term.fullscreenView')}}
                             </button>
                         </div>
                     </div>

@@ -6,7 +6,7 @@
                     v-if="data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9)"
                     :video="data.attributes.editorialVideo.motionArtistWide16x9.video ?? (data.attributes.editorialVideo.motionArtistFullscreen16x9.video ?? '')">
             </animatedartwork-view>
-            <div class="header-content">
+            <div class="header-content" style="pointer-events: all;">
                 <div class="row">
                     <div class="col-sm" style="width: auto;">
                         <div class="artist-image" v-if="!(data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9))">
@@ -30,7 +30,7 @@
                         <h1>{{ data.attributes.name }}</h1>
                     </div>
                 </div>
-                <button class="more-btn-round" @click="artistMenu">
+                <button class="more-btn-round" @click="artistMenu" style="pointer-events: all;">
                     <div class="svg-icon"></div>
                 </button>
             </div>
@@ -60,7 +60,7 @@
                 <div class="col">
                     <div class="row">
                         <div class="col-auto" v-if="data.views['latest-release'].data.length != 0">
-                            <h3>Latest Release</h3>
+                            <h3>{{app.getLz('term.latestReleases')}}</h3>
                             <div style="width: auto;margin: 0 auto;">
                                 <mediaitem-square kind="card" v-for="song in data.views['latest-release'].data"
                                                      :item="song">
@@ -70,7 +70,7 @@
                         <div class="col" v-if="data.views['top-songs']">
                             <div class="row">
                                 <div class="col" style="padding:0;">
-                                    <h3>Top Songs</h3>
+                                    <h3>{{app.getLz('term.topSongs')}}</h3>
                                 </div>
                                 <div class="col-auto flex-center" v-if="data.views['top-songs'].data.length >= 10" style="padding:0;">
                                     <button class="cd-btn-seeall" @click="app.showArtistView(data.id, data.attributes.name + ' - Top Songs', 'top-songs')">{{app.getLz('term.seeAll')}}</button>
@@ -83,10 +83,10 @@
                             <button class="showmoreless"
                                     @click="topSongsExpanded = !topSongsExpanded">
                                 <template v-if="!topSongsExpanded">
-                                    Show more
+                                    {{app.getLz('term.showMore')}}
                                 </template>
                                 <template v-else>
-                                    Show less
+                                    {{app.getLz('term.showLess')}}
                                 </template>
                             </button>
                         </div>
@@ -120,7 +120,7 @@
                     </template>
                     <div class="row">
                         <div class="col" v-if="data.attributes.artistBio">
-                            <h3>About {{ data.attributes.name }}</h3>
+                            <h3>{{ app.getLz('term.about') }} {{ data.attributes.name }}</h3>
                             <p v-html="data.attributes.artistBio"></p>
                         </div>
                         <div class="col">
@@ -164,14 +164,14 @@
                 let followActions = {
                     follow: {
                         icon: "./assets/feather/plus-circle.svg",
-                        name: "Follow Artist",
+                        name: app.getLz('action.follow'),
                         action: ()=>{
                             self.app.cfg.home.followedArtists.push(self.data.id)
                         }
                     },
                     unfollow: {
                         icon: "./assets/feather/x-circle.svg",
-                        name: "Unfollow Artist",
+                        name: app.getLz('action.unfollow'),
                         action: ()=>{
                             let index = self.app.cfg.home.followedArtists.indexOf(self.data.id)
                             if (index > -1) {
@@ -187,7 +187,7 @@
                     items: [
                         {
                             icon: "./assets/feather/play.svg",
-                            name: "Play Artist Radio",
+                            name: app.getLz('action.startRadio'),
                             action: ()=>{
                                 app.mk.setStationQueue({artist:self.data.id}).then(()=>{
                                     app.mk.play()
@@ -197,7 +197,7 @@
                         followActions[followAction],
                         {
                             icon: "./assets/feather/share.svg",
-                            name: "Share",
+                            name: app.getLz('action.share'),
                             action: ()=>{
                                 self.app.copyToClipboard(self.data.attributes.url)
                             }

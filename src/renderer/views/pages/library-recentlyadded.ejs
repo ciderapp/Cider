@@ -2,7 +2,7 @@
     <div class="content-inner">
         <div class="row">
             <div class="col" style="padding:0;">
-                <h1 class="header-text">Recently Added</h1>
+                <h1 class="header-text">{{$root.getLz('term.recentlyAdded')}}</h1>
             </div>
             <div class="col-auto">
                 <button v-if="library.albums.downloadState == 2" @click="getLibraryAlbumsFull(true, 0)"
@@ -16,7 +16,7 @@
                     <input type="search"
                            style="width:100%;"
                            spellcheck="false"
-                           placeholder="Search..."
+                           :placeholder="$root.getLz('term.search') + '...'"
                            @input="searchLibraryAlbums"
                            v-model="library.albums.search" class="search-input">
                 </div>
@@ -26,17 +26,17 @@
                     <div class="col">
                         <select class="md-select" v-model="library.albums.sortOrder[0]"
                                 @change="searchLibraryAlbums(0)">
-                            <optgroup label="Sort Order">
-                                <option value="asc">Ascending</option>
-                                <option value="desc">Descending</option>
+                            <optgroup :label="$root.getLz('term.sortOrder')">
+                                <option value="asc">{{$root.getLz('term.sortOrder.ascending')}}</option>
+                                <option value="desc">{{$root.getLz('term.sortOrder.descending')}}</option>
                             </optgroup>
                         </select>
                     </div>
                     <div class="col">
                         <select class="md-select" v-model="library.albums.viewAs">
-                            <optgroup label="View As">
-                                <option value="covers">Cover Art</option>
-                                <option value="list">List</option>
+                            <optgroup :label="$root.getLz('term.viewAs')">
+                                <option value="covers">{{$root.getLz('term.viewAs.coverArt')}}</option>
+                                <option value="list">{{$root.getLz('term.viewAs.list')}}</option>
                             </optgroup>
                         </select>
                     </div>

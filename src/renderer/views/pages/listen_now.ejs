@@ -1,6 +1,6 @@
 <script type="text/x-template" id="cider-listen-now">
     <div class="content-inner">
-        <h1 class="header-text">Listen Now</h1>
+        <h1 class="header-text">{{app.getLz('term.listenNow')}}</h1>
         <template v-for="recom in data.data">
            <listennow-child :recom="recom"></listennow-child>
         </template>
@@ -10,6 +10,11 @@
 <script>
 Vue.component('cider-listen-now', {
     template: "#cider-listen-now",
-    props: ["data"]
+    props: ["data"],
+    data: function(){
+        return {
+            app : this.$root
+        }
+    }
 })    
 </script>
