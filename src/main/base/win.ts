@@ -411,6 +411,10 @@ export class Win {
                 this.win.maximize();
             }
         });
+        electron.ipcMain.on("unmaximize", () => {
+            // listen for maximize event
+                this.win.unmaximize();
+        });
 
         electron.ipcMain.on("minimize", () => {
             // listen for minimize event
@@ -422,9 +426,12 @@ export class Win {
             this.win.webContents.setZoomFactor(parseFloat(scale));
         });
 
+        electron.ipcMain.on("windowmin", (event, width, height) => {
+            this.win.setMinimumSize(width,height);
+        })
+
         // Set scale
         electron.ipcMain.on("windowresize", (event, width, height, lock = false) => {          
-            this.win.setMinimumSize(250,250);
             this.win.setContentSize(width, height);
             this.win.setResizable(!lock);
         });

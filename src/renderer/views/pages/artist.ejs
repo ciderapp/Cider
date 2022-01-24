@@ -1,5 +1,5 @@
 <script type="text/x-template" id="cider-artist">
-    <div class="content-inner artist-page">
+    <div class="content-inner artist-page" :class="[data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9) ? 'animated' : '']">
         <div class="artist-header" :key="data.id" v-observe-visibility="{callback: isHeaderVisible}">
             <animatedartwork-view
                     :priority="true"
@@ -73,7 +73,7 @@
                                     <h3>Top Songs</h3>
                                 </div>
                                 <div class="col-auto flex-center" v-if="data.views['top-songs'].data.length >= 10" style="padding:0;">
-                                    <button class="cd-btn-seeall" @click="app.showArtistView(data.id, data.attributes.name + ' - Top Songs', 'top-songs')">See All</button>
+                                    <button class="cd-btn-seeall" @click="app.showArtistView(data.id, data.attributes.name + ' - Top Songs', 'top-songs')">{{app.getLz('term.seeAll')}}</button>
                                 </div>
                             </div>
                             <mediaitem-list-item
@@ -104,7 +104,7 @@
                                 </h3>
                             </div>
                             <div class="col-auto flex-center" v-if="data.views[view].data.length >= 10">
-                                <button class="cd-btn-seeall" @click="app.showArtistView(data.id, data.attributes.name + ' - ' + data.views[view].attributes.title, view)">See All</button>
+                                <button class="cd-btn-seeall" @click="app.showArtistView(data.id, data.attributes.name + ' - ' + data.views[view].attributes.title, view)">{{app.getLz('term.seeAll')}}</button>
                             </div>
                         </div>
                         <template v-if="!((data.views[view].attributes.title ?
