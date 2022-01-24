@@ -4,6 +4,12 @@
   // Dialogs
   "dialog.cancel": "キャンセル",
   "dialog.ok": "OK",
+
+  // Notification
+  "notification.updatingLibrarySongs": "ライブラリの更新中...",
+  "notification.updatingLibraryAlbums": "ライブラリの更新中...",
+  "notification.updatingLibraryArtists": "ライブラリの更新中...",
+
   // Terms
   "term.appleMusic": "Apple Music", // Follows brand term
   "term.applePodcasts": "Apple Podcasts", // Follows brand term
@@ -37,7 +43,28 @@
   "term.unmute": "ミュート解除",
   "term.share": "共有",
   "term.settings": "設定",
-  "term.seeAll": "全部表示",
+  "term.seeAll": "すべてを表示",
+  "term.sortBy": "並べ替え",
+  "term.sortBy.album": "アルバム",
+  "term.sortBy.artist": "アーティスト",
+  "term.sortBy.name": "曲名",
+  "term.sortBy.genre": "ジャンル",
+  "term.sortBy.releaseDate": "配信開始日",
+  "term.sortBy.duration": "時間",
+  "term.sortOrder": "アルファベット順",
+  "term.sortOrder.ascending": "A-Z順",
+  "term.sortOrder.descending": "Z-A順",
+  "term.viewAs": "表示",
+  "term.viewAs.coverArt": "カバーアート",
+  "term.viewAs.list": "リスト",
+  "term.size.normal": "普通",
+  "term.size.compact": "コンパクト",
+  "term.enable": "オン",
+  "term.disable": "オフ",
+  "term.enabled": "",
+  "term.disabled": "オフ",
+  "term.connect": "接続",
+
   // Home
   "home.title": "ホーム",
   "home.recentlyPlayed": "最近の再生",
@@ -76,20 +103,72 @@
   "action.unlove": "ラブを解除",
   "action.dislike": "これに似たものをすすめない",
   "action.undoDislike": "「これと似た曲のおすすめを減らす」を取り消す",
-  // Settings
+  "action.showWebRemoteQR": "WEBリモコンQRコードを表示",
+  // Settings - Audio
   "settings.header.audio": "オーディオ",
   "settings.header.audio.description": "Ciderのオーディオ設定",
+  "settings.option.audio.quality": "音質", // Dropdown
   "settings.header.audio.quality.high": "高品質",
   "settings.header.audio.quality.low": "高効率",
   "settings.header.audio.quality.auto": "自動",
+  "settings.option.audio.seamlessTransition": "曲間なしで再生", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality": "先進的な機能", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.description": "AudioContext 機能を有効にすると、オーディオノーマライズ、空間オーディオ、イコライザーなどの機能を使用できますが、音が途切れるかもしれないです。", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "オーディオノーマライズ", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "さまざまな曲の音量を均一にし、より整った音を楽しめるようにする機能です。",
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "オーディオ空間化", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "オーディオを空間に分散して機能です「ドルビーアトモスではありません」。",
+  // Settings - Visual
   "settings.header.visual": "ビジュアル",
   "settings.header.visual.description": "Ciderのビジュアル設定",
+  "settings.option.visual.windowBackgroundStyle": "アプリウインドウの背景スタイル", // Toggle
+  "settings.header.visual.windowBackgroundStyle.none": "なし",
+  "settings.header.visual.windowBackgroundStyle.artwork": "カバーアート",
+  "settings.option.visual.animatedArtwork": "アニメーションのカバーアート", // Dropdown
+  "settings.header.visual.animatedArtwork.always": "常に表示",
+  "settings.header.visual.animatedArtwork.limited": "アーティストページのみ表示",
+  "settings.header.visual.animatedArtwork.disable": "オフ",
+  "settings.option.visual.animatedArtworkQuality": "アニメーションのカバーアート品質", // Dropdown
+  "settings.header.visual.animatedArtworkQuality.low": "低",
+  "settings.header.visual.animatedArtworkQuality.medium": "標準",
+  "settings.header.visual.animatedArtworkQuality.high": "高",
+  "settings.header.visual.animatedArtworkQuality.extreme": "最高",
+  "settings.option.visual.animatedWindowBackground": "アプリウィンドウの背景をアニメーション化", // Toggle
+  "settings.option.visual.hardwareAcceleration": "ハードウェア　アクセラレーション", // Dropdown
+  "settings.header.visual.hardwareAcceleration.default": "既定", 
+  "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
+  // Refer to term.disabled for the disabled option
+  "settings.option.visual.showPersonalInfo": "プロフィールを表示", // Toggle
+  // Settings - General (Reserved)
   "settings.header.general": "一般",
   "settings.header.general.description": "Ciderの一般設定",
+  
+  // Settings - Lyrics
   "settings.header.lyrics": "歌詞",
   "settings.header.lyrics.description": "歌詞の表示設定",
+  "settings.option.lyrics.enableMusixmatch": "Musixmatch 歌詞を表示する", // Toggle
+  "settings.option.lyrics.enableMusixmatchKaraoke": "カラオケモードを有効にする「Musixmatchだけ」", // Toggle
+  "settings.option.lyrics.musixmatchPreferredLanguage": "歌詞の優先言語", // Dropdown
+  "settings.option.lyrics.enableYoutubeLyrics": "YouTubeの歌詞をミュージックビデオに使用する", // Toggle
+
+  // Settings - Connectivity
   "settings.header.connectivity": "アプリと連携",
   "settings.header.connectivity.description": "Ciderの連携設定",
+  "settings.option.connectivity.discordRPC": "Discord Rich Presence", // Dropdown
+  // Refer to term.disabled for the disabled option
+  "settings.header.connectivity.discordRPC.cider": "'Cider' を表示する",
+  "settings.header.connectivity.discordRPC.appleMusic": "'Apple Music' を表示する",
+  "settings.header.connectivity.discordRPC.clearOnPause": "一時停止時にDiscord Rich Presenceをクリアする", // Toggle
+  "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling", // Option to Connect
+  // Refer to term.connect for the connect button
+
+  // Settings - Experimental
   "settings.header.experimental": "試験的な機能",
-  "settings.header.experimental.description": "Ciderの試験的な機能",
+  "settings.header.experimental.description": "開発中の実験的な機能は不完全で不安定である可能性があります",
+  "settings.option.experimental.compactUI": "コンパクトインターフェース", // Toggle
+  // Refer to term.disabled & term.enabled
+  
+  // Web Remote
+  "remote.web.title": "Cider リモート",
+  "remote.web.description": "QR コードを使用して、Ciderとスマートフォンをペアリングする",
 }

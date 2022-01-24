@@ -1,9 +1,15 @@
 {
   // App info
   "app.name": "Cider",
+
   // Dialogs
   "dialog.cancel": "取消",
   "dialog.ok": "OK",
+
+  // Notification
+  "notification.updatingLibrarySongs": "正在更新資料庫的歌曲...",
+  "notification.updatingLibraryAlbums": "正在更新資料庫的專輯...",
+  "notification.updatingLibraryArtists": "正在更新資料庫的藝人...",
   // Terms
   "term.appleMusic": "Apple Music", // Follows brand term
   "term.applePodcasts": "Apple Podcasts", // Follows brand term
@@ -38,6 +44,27 @@
   "term.share": "分享",
   "term.settings": "設定",
   "term.seeAll": "顯示全部",
+  "term.sortBy": "排序",
+  "term.sortBy.album": "專輯",
+  "term.sortBy.artist": "藝人",
+  "term.sortBy.name": "歌名",
+  "term.sortBy.genre": "音樂風格",
+  "term.sortBy.releaseDate": "發行日期",
+  "term.sortBy.duration": "時長",
+  "term.sortOrder": "字母排序",
+  "term.sortOrder.ascending": "升序",
+  "term.sortOrder.descending": "降序",
+  "term.viewAs": "顯示模式",
+  "term.viewAs.coverArt": "專輯封面",
+  "term.viewAs.list": "列表",
+  "term.size.normal": "正常",
+  "term.size.compact": "緊凑",
+  "term.enable": "啟用",
+  "term.disable": "停用",
+  "term.enabled": "已啟用",
+  "term.disabled": "已停用",
+  "term.connect": "連接",
+
   // Home
   "home.title": "主頁",
   "home.recentlyPlayed": "最近播放",
@@ -76,20 +103,74 @@
   "action.unlove": "取消喜愛",
   "action.dislike": "減少此類建議",
   "action.undoDislike": "還原減小此類建議",
-  // Settings
+  "action.showWebRemoteQR": "顯示遠程遙控行動條碼",
+
+  // Settings - Audio
   "settings.header.audio": "音訊",
   "settings.header.audio.description": "調整Cider的音訊設定",
+  "settings.option.audio.quality": "音訊音質", // Dropdown
   "settings.header.audio.quality.high": "高品質",
   "settings.header.audio.quality.low": "高效率",
   "settings.header.audio.quality.auto": "自動",
+  "settings.option.audio.seamlessTransition": "無間斷播放", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality": "進階機能", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.description": "啟用 AudioContext 將解鎖類似音訊標準化和等化器的進階機能。但是會在一些電腦造成音樂卡頓。",
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "音訊標準化", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "將平衡輕柔和響亮的歌曲，建立更統一的聆聽體驗。",
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "音訊空間化", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "將音訊進行空間化處理來製造一個更立體的聆聽體驗（注：此功能不是官方的杜比全景聲）",
+  // Settings - Visual
   "settings.header.visual": "外觀",
   "settings.header.visual.description": "調整Cider的外觀",
+  "settings.option.visual.windowBackgroundStyle": "窗口背景樣式", // Toggle
+  "settings.header.visual.windowBackgroundStyle.none": "空白",
+  "settings.header.visual.windowBackgroundStyle.artwork": "專輯封面",
+  "settings.option.visual.animatedArtwork": "動態專輯封面", // Dropdown
+  "settings.header.visual.animatedArtwork.always": "總是顯示",
+  "settings.header.visual.animatedArtwork.limited": "只在藝人頁面和專輯封面顯示",
+  "settings.header.visual.animatedArtwork.disable": "關閉",
+  "settings.option.visual.animatedArtworkQuality": "動態專輯封面品質", // Dropdown
+  "settings.header.visual.animatedArtworkQuality.low": "低",
+  "settings.header.visual.animatedArtworkQuality.medium": "中",
+  "settings.header.visual.animatedArtworkQuality.high": "高",
+  "settings.header.visual.animatedArtworkQuality.extreme": "極高",
+  "settings.option.visual.animatedWindowBackground": "動態窗口背景", // Toggle
+  "settings.option.visual.hardwareAcceleration": "硬體加速", // Dropdown
+  "settings.header.visual.hardwareAcceleration.default": "默認", 
+  "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
+  // Refer to term.disabled for the disabled option
+  "settings.option.visual.showPersonalInfo": "顯示個人檔案", // Toggle
+  // Settings - General (Reserved)
   "settings.header.general": "一般",
   "settings.header.general.description": "調整Cider的一般設定",
+  
+  // Settings - Lyrics
   "settings.header.lyrics": "歌詞",
   "settings.header.lyrics.description": "調整Cider的歌詞設定",
+  "settings.option.lyrics.enableMusixmatch": "啟用 Musixmatch 歌詞", // Toggle
+  "settings.option.lyrics.enableMusixmatchKaraoke": "啟用K歌模式（僅限Musixmatch）", // Toggle
+  "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch 歌詞語言偏好", // Dropdown
+  "settings.option.lyrics.enableYoutubeLyrics": "播放MV時使用YouTube歌詞", // Toggle
+
+  // Settings - Connectivity
   "settings.header.connectivity": "外部連接",
   "settings.header.connectivity.description": "調整Cider與外部的連接",
+  "settings.option.connectivity.discordRPC": "Discord 動態", // Dropdown
+  // Refer to term.disabled for the disabled option
+  "settings.header.connectivity.discordRPC.cider": "顯示正在玩 'Cider'",
+  "settings.header.connectivity.discordRPC.appleMusic": "顯示正在玩 'Apple Music'",
+  "settings.header.connectivity.discordRPC.clearOnPause": "暫停時清除 Discord 動態", // Toggle
+  "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling 記錄", // Option to Connect
+  // Refer to term.connect for the connect button
+
+  // Settings - Experimental
   "settings.header.experimental": "實驗性功能",
   "settings.header.experimental.description": "調整Cider的實驗性功能",
+  "settings.option.experimental.compactUI": "緊凑型UI", // Toggle
+  // Refer to term.disabled & term.enabled
+  
+  
+  // Web Remote
+  "remote.web.title": "Cider 遠控",
+  "remote.web.description": "掃描以下的行動條碼以控制 Cider",
 }
