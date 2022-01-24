@@ -6,9 +6,9 @@
   "dialog.ok": "确定",
 
   // Notification
-  "notification.updatingLibrarySongs": "正在更新资料库的歌曲...",
-  "notification.updatingLibraryAlbums": "正在更新资料库的专辑...",
-  "notification.updatingLibraryArtists": "正在更新资料库的歌手...",
+  "notification.updatingLibrarySongs": "正在更新资料库的歌曲信息...",
+  "notification.updatingLibraryAlbums": "正在更新资料库的专辑信息...",
+  "notification.updatingLibraryArtists": "正在更新资料库的艺人信息...",
 
   // Terms
   "term.appleMusic": "Apple Music", // Follows brand term
@@ -28,7 +28,7 @@
   "term.recentlyAdded": "最近添加",
   "term.songs": "歌曲",
   "term.albums": "专辑",
-  "term.artists": "歌手",
+  "term.artists": "艺人",
   "term.podcasts": "播客",
   "term.playlists": "播放列表",
   "term.playlist": "播放列表",
@@ -46,9 +46,9 @@
   "term.seeAll": "查看全部",
   "term.sortBy": "排序",
   "term.sortBy.album": "专辑",
-  "term.sortBy.artist": "歌手",
+  "term.sortBy.artist": "艺人",
   "term.sortBy.name": "歌名",
-  "term.sortBy.genre": "曲风",
+  "term.sortBy.genre": "类型",
   "term.sortBy.releaseDate": "发行日期",
   "term.sortBy.duration": "时长",
   "term.sortOrder": "字母排序",
@@ -60,22 +60,22 @@
   "term.size.normal": "正常",
   "term.size.compact": "紧凑",
   "term.enable": "启用",
-  "term.disable": "停用",
+  "term.disable": "禁用",
   "term.enabled": "已启用",
-  "term.disabled": "已停用",
+  "term.disabled": "已禁用",
   "term.connect": "连接",
 
   // Home
   "home.title": "主页",
   "home.recentlyPlayed": "最近播放",
   "home.recentlyAdded": "最近添加",
-  "home.artistsFeed": "您的歌手推荐",
-  "home.madeForYou": "为您量身定制",
+  "home.artistsFeed": "艺人推荐",
+  "home.madeForYou": "专属推荐",
   "home.friendsListeningTo": "朋友正在听",
-  "home.followedArtists": "关注的歌手",
+  "home.followedArtists": "关注的艺人",
 
   // Errors
-  "error.appleMusicSubRequired": "需要订阅Apple Music以使用Cider",
+  "error.appleMusicSubRequired": "需要订阅 Apple Music 以使用 Cider",
   
   // Actions
   "action.addToLibrary": "加入资料库",
@@ -98,31 +98,31 @@
   "action.playNext": "下一首播放",
   "action.playLater": "最后播放",
   "action.startRadio": "开始电台",
-  "action.goToArtist": "前往歌手",
+  "action.goToArtist": "前往艺人",
   "action.goToAlbum": "前往专辑",
   "action.share": "分享歌曲",
   "action.love": "喜欢",
-  "action.unlove": "取消喜欢",
+  "action.unlove": "踩",
   "action.dislike": "减少此类建议",
-  "action.undoDislike": "撤销减少此类建议",
-  "action.showWebRemoteQR": "Show Web Remote QR",
+  "action.undoDislike": "增加此类建议",
+  "action.showWebRemoteQR": "显示远程控制的二维码",
   // Settings - Audio
   "settings.header.audio": "音频",
-  "settings.header.audio.description": "调整Cider的音频设置",
+  "settings.header.audio.description": "调整 Cider 的音频设置",
   "settings.option.audio.quality": "音质", // Dropdown
   "settings.header.audio.quality.high": "高音质",
   "settings.header.audio.quality.low": "高效率",
   "settings.header.audio.quality.auto": "自动",
   "settings.option.audio.seamlessTransition": "无缝播放", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "进阶功能", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.description": "启用 AudioContext 将解锁类似音量标准化和音频空间化的功能，但可能会在小部分设备上出现音频上的卡顿。",
+  "settings.option.audio.enableAdvancedFunctionality.description": "启用 AudioContext 将解锁例如音量标准化和音频空间化的功能，但可能会在小部分设备上出现音频上的卡顿。",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "音量标准化", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "将根据每首歌的响度做音量标准化，以统一人脑感受到的响度。",
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "使所感知到的音频响度统一",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "音频空间化", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "将空间化音频来使得它们听起来更加的立体 (注: 跟官方的杜比全景声没有任何关系)",
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "使所感知到的音频更有立体感 (注: 这不是杜比全景声)",
   // Settings - Visual
   "settings.header.visual": "外观",
-  "settings.header.visual.description": "调整Cider的外观",
+  "settings.header.visual.description": "调整 Cider 的外观",
   "settings.option.visual.windowBackgroundStyle": "窗口背景样式", // Toggle
   "settings.header.visual.windowBackgroundStyle.none": "无",
   "settings.header.visual.windowBackgroundStyle.artwork": "专辑封面",
@@ -143,15 +143,15 @@
   "settings.option.visual.showPersonalInfo": "显示个人资料", // Toggle
   // Settings - General (Reserved)
   "settings.header.general": "通用",
-  "settings.header.general.description": "调整Cider的通用设置",
+  "settings.header.general.description": "调整 Cider 的通用设置",
   
   // Settings - Lyrics
   "settings.header.lyrics": "歌词",
-  "settings.header.lyrics.description": "调整Cider的歌词设置",
+  "settings.header.lyrics.description": "调整 Cider 的歌词设置",
   "settings.option.lyrics.enableMusixmatch": "启用 Musixmatch 歌词", // Toggle
-  "settings.option.lyrics.enableMusixmatchKaraoke": "启用卡拉OK模式（仅Musixmatch）", // Toggle
+  "settings.option.lyrics.enableMusixmatchKaraoke": "启用卡拉 OK 模式（仅 Musixmatch）", // Toggle
   "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch 歌词语言偏好", // Dropdown
-  "settings.option.lyrics.enableYoutubeLyrics": "播放MV时使用YouTube歌词", // Toggle
+  "settings.option.lyrics.enableYoutubeLyrics": "播放 MV 时使用 YouTube 歌词", // Toggle
 
   // Settings - Connectivity
   "settings.header.connectivity": "外部连接",
