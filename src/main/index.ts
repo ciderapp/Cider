@@ -1,8 +1,8 @@
 require('v8-compile-cache');
 
 // Analytics for debugging fun yeah.
-const ElectronSentry = require("@sentry/electron");
-ElectronSentry.init({dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.ingest.sentry.io/6112214"});
+import * as sentry from '@sentry/electron';
+sentry.init({dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.ingest.sentry.io/6112214"});
 
 import * as electron from 'electron';
 import {Win} from "./base/win";
@@ -10,18 +10,19 @@ import {ConfigStore} from "./base/store";
 import {AppEvents} from "./base/app";
 import PluginHandler from "./base/plugins";
 
-// const test = new PluginHandler();
 const config = new ConfigStore();
 const App = new AppEvents(config.store);
 const Cider = new Win(electron.app, config.store)
 const plug = new PluginHandler();
+
+let win: Electron.BrowserWindow;
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * App Event Handlers
 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 electron.app.on('ready', () => {
-    App.ready();
+    App.ready(plug);
 
     console.log('[Cider] Application is Ready. Creating Window.')
     if (!electron.app.isPackaged) {
@@ -30,13 +31,13 @@ electron.app.on('ready', () => {
     }
 
     electron.components.whenReady().then(async () => {
-        await Cider.createWindow()
-        plug.callPlugins('onReady', Cider);
-        
-        
-    })
-    
-
+        win = await Cider.createWindow()
+        App.bwCreated(win);
+        win.on("ready-to-show", () => {
+            win.show();
+        });
+    });
+    plug.callPlugins('onReady', win);
 });
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -51,57 +52,31 @@ electron.ipcMain.on('nowPlayingItemDidChange', (event, attributes) => {
     plug.callPlugins('onNowPlayingItemDidChange', attributes);
 });
 
-//
 electron.app.on('before-quit', () => {
     plug.callPlugins('onBeforeQuit');
     console.warn(`${electron.app.getName()} exited.`);
 });
-//
-// // @ts-ignore
-// // Widevine Stuff
-// electron.app.on('widevine-ready', (version, lastVersion) => {
-//     if (null !== lastVersion) {
-//         console.log('[Cider][Widevine] Widevine ' + version + ', upgraded from ' + lastVersion + ', is ready to be used!')
-//     } else {
-//         console.log('[Cider][Widevine] Widevine ' + version + ' is ready to be used!')
-//     }
-// })
 
-// // @ts-ignore
-// electron.app.on('widevine-update-pending', (currentVersion, pendingVersion) => {
-//     console.log('[Cider][Widevine] Widevine ' + currentVersion + ' is ready to be upgraded to ' + pendingVersion + '!')
-// })
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Widevine Event Handlers
+* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-// // @ts-ignore
-// electron.app.on('widevine-error', (error) => {
-//     console.log('[Cider][Widevine] Widevine installation encountered an error: ' + error)
-//     electron.app.exit()
-// })
-
-//
-//
-// app.on('open-url', (event, url) => {
-//     event.preventDefault()
-//     if (url.includes('ame://') || url.includes('itms://') || url.includes('itmss://') || url.includes('musics://') || url.includes('music://')) {
-//         CiderBase.LinkHandler(url)
-//     }
-// })
-//
-electron.app.on('second-instance', (_e, argv) => {
-    console.warn(`[InstanceHandler][SecondInstanceHandler] Second Instance Started with args: [${argv.join(', ')}]`)
-
-    // Checks if first instance is authorized and if second instance has protocol args
-    if (argv.includes("--force-quit")) {
-        console.warn('[InstanceHandler][SecondInstanceHandler] Force Quit found. Quitting App.');
-        electron.app.quit()
-    } else if (Cider.win) { // If a Second Instance has Been Started
-        console.warn('[InstanceHandler][SecondInstanceHandler] Showing window.');
-        Cider.win.show()
-        Cider.win.focus()
+// @ts-ignore
+electron.app.on('widevine-ready', (version, lastVersion) => {
+    if (null !== lastVersion) {
+        console.log('[Cider][Widevine] Widevine ' + version + ', upgraded from ' + lastVersion + ', is ready to be used!')
+    } else {
+        console.log('[Cider][Widevine] Widevine ' + version + ' is ready to be used!')
     }
 })
 
-if (!electron.app.requestSingleInstanceLock()) {
-    console.warn("[InstanceHandler] Existing Instance is Blocking Second Instance.");
-    electron.app.quit();
-}
+// @ts-ignore
+electron.app.on('widevine-update-pending', (currentVersion, pendingVersion) => {
+    console.log('[Cider][Widevine] Widevine ' + currentVersion + ' is ready to be upgraded to ' + pendingVersion + '!')
+})
+
+// @ts-ignore
+electron.app.on('widevine-error', (error) => {
+    console.log('[Cider][Widevine] Widevine installation encountered an error: ' + error)
+    electron.app.exit()
+})

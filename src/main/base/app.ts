@@ -9,7 +9,7 @@ export class AppEvents {
         "musics",
         "music"
     ]
-
+    private static plugin: any = null;
     private static store: any = null;
 
     constructor(store: any) {
@@ -88,27 +88,34 @@ export class AppEvents {
             })
         }
 
-        electron.app.on('open-url', (event, url) => {
-            event.preventDefault()
-            if (this.protocols.some((protocol: string) => url.includes(protocol))) {
-                AppEvents.LinkHandler(url)
-            }
-        })
+
     }
 
     public quit() {
         console.log('App stopped');
     }
 
-    public ready() {
+    public ready(plug: any) {
+        AppEvents.plugin = plug
         console.log('App ready');
+    }
+
+    public bwCreated(win: Electron.BrowserWindow) {
+        electron.app.on('open-url', (event, url) => {
+            event.preventDefault()
+            if (AppEvents.protocols.some((protocol: string) => url.includes(protocol))) {
+                AppEvents.LinkHandler(url, win)
+            }
+        })
+
+        AppEvents.InstanceHandler(win)
     }
 
     /***********************************************************************************************************************
      * Private methods
      **********************************************************************************************************************/
 
-    private static LinkHandler(arg: string) {
+    private static LinkHandler(arg: any, win: Electron.BrowserWindow) {
         if (!arg) return;
 
         // LastFM Auth URL
@@ -118,8 +125,8 @@ export class AppEvents {
                 const authKey = authURI.split('lastfm?token=')[1];
                 AppEvents.store.set('lastfm.enabled', true);
                 AppEvents.store.set('lastfm.auth_token', authKey);
-                // AppEvents.window.webContents.send('LastfmAuthenticated', authKey);
-                // lastfm.authenticate()
+                win.webContents.send('LastfmAuthenticated', authKey);
+                AppEvents.plugin.callPlugin('lastfm', 'authenticate', authKey);
             }
         }
         // Play
@@ -147,5 +154,29 @@ export class AppEvents {
                 console.warn(`[LinkHandler] Attempting to load url: ${url}`);
                 electron.ipcRenderer.send('play', 'url', url)
             }
+    }
+
+    private static InstanceHandler(win: Electron.BrowserWindow) {
+
+        // Detects of an existing instance is running (So if the lock has been achieved, no existing instance has been found)
+        const gotTheLock = electron.app.requestSingleInstanceLock()
+
+        if (!gotTheLock) { // Runs on the new instance if another instance has been found
+            console.log('[Cider] Another instance has been found, quitting.')
+            electron.app.quit()
+        } else { // Runs on the first instance if no other instance has been found
+            electron.app.on('second-instance', (_event, startArgs) => {
+                if (startArgs.includes("--force-quit")) {
+                    console.warn('[InstanceHandler][SecondInstanceHandler] Force Quit found. Quitting App.');
+                    electron.app.quit()
+                } else if (startArgs.includes("cider://")) {
+                    AppEvents.LinkHandler(startArgs, win)
+                } else if (win) {
+                    if (win.isMinimized()) win.restore()
+                    win.focus()
+                }
+            })
+        }
+
     }
 }
