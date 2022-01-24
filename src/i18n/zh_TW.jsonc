@@ -54,16 +54,16 @@
   "term.sortOrder": "字母排序",
   "term.sortOrder.ascending": "升序",
   "term.sortOrder.descending": "降序",
-  "term.viewAs": "View As",
-  "term.viewAs.coverArt": "Cover Art",
-  "term.viewAs.list": "List",
-  "term.size.normal": "Normal",
-  "term.size.compact": "Normal",
-  "term.enable": "Enable",
-  "term.disable": "Disable",
-  "term.enabled": "Enabled",
-  "term.disabled": "Disabled",
-  "term.connect": "Connect",
+  "term.viewAs": "顯示模式",
+  "term.viewAs.coverArt": "專輯封面",
+  "term.viewAs.list": "列表",
+  "term.size.normal": "正常",
+  "term.size.compact": "簡潔",
+  "term.enable": "啟用",
+  "term.disable": "停用",
+  "term.enabled": "已啟用",
+  "term.disabled": "已停用",
+  "term.connect": "連接",
 
   // Home
   "home.title": "主頁",
@@ -103,21 +103,22 @@
   "action.unlove": "取消喜愛",
   "action.dislike": "減少此類建議",
   "action.undoDislike": "還原減小此類建議",
-  "action.showWebRemoteQR": "Show Web Remote QR",
+  "action.showWebRemoteQR": "顯示遠程遙控行動條碼",
 
   // Settings - Audio
   "settings.header.audio": "音訊",
   "settings.header.audio.description": "調整Cider的音訊設定",
-  "settings.option.audio.quality": "Audio Quality", // Dropdown
+  "settings.option.audio.quality": "音訊音質", // Dropdown
   "settings.header.audio.quality.high": "高品質",
   "settings.header.audio.quality.low": "高效率",
   "settings.header.audio.quality.auto": "自動",
-  "settings.option.audio.seamlessTransition": "Seamless Audio Transition", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality": "Enable Advanced Functionality", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.description": "Enabling AudioContext functionality will allow for extended audio features like Audio Normalization , Equalizers and Visualizers, however on some systems this may cause stuttering in audio tracks.",
-  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Audio Normalization", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Audio Spatialization", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Spatialize audio and make audio more 3-dimensional (note: This is not Dolby Atmos)",
+  "settings.option.audio.seamlessTransition": "無間斷播放", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality": "進階機能", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.description": "啟用 AudioContext 將解鎖類似音訊標準化和等化器的進階機能。但是會在一些電腦造成音樂卡頓。",
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "音訊標準化", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "將平衡輕柔和響亮的歌曲，建立更統一的聆聽體驗。", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "音訊空間化", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "將音訊進行空間化處理來製造一個更立體的聆聽體驗 (注：此功能不是官方的杜比全景聲)",
   // Settings - Visual
   "settings.header.visual": "外觀",
   "settings.header.visual.description": "調整Cider的外觀",
@@ -168,4 +169,8 @@
   "settings.option.experimental.compactUI": "Compact UI", // Toggle
   // Refer to term.disabled & term.enabled
   
+  
+  // Web Remote
+  "remote.web.title": "Cider Remote",
+  "remote.web.description": "Scan the QR code to pair your phone up with this Cider instance",
 }
