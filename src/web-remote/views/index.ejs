@@ -29,20 +29,20 @@
 
                     </div>
                     <div class="miniplayer-controls">
+                        <button class="md-btn playback-button--small shuffle" @click="shuffle()"
+                            v-if="player.currentMediaItem.shuffleMode == 0"></button>
+                        <button class="md-btn playback-button--small shuffle active" @click="shuffle()" v-else></button>
+                        <button class="md-btn playback-button previous" @click="previous()"></button>
+                        <button class="md-btn playback-button pause" @click="pause()"
+                            v-if="player.currentMediaItem.status"></button>
+                        <button class="md-btn playback-button play" @click="play()" v-else></button>
+                        <button class="md-btn playback-button next" @click="next()"></button>
                         <button class="md-btn playback-button--small repeat" @click="repeat()"
                             v-if="player.currentMediaItem.repeatMode == 0"></button>
                         <button class="md-btn playback-button--small repeat active" @click="repeat()"
                             v-else-if="player.currentMediaItem.repeatMode == 2"></button>
                         <button class="md-btn playback-button--small repeat repeatOne" @click="repeat()"
                             v-else-if="player.currentMediaItem.repeatMode == 1"></button>
-                        <button class="md-btn playback-button previous" @click="previous()"></button>
-                        <button class="md-btn playback-button pause" @click="pause()"
-                            v-if="player.currentMediaItem.status"></button>
-                        <button class="md-btn playback-button play" @click="play()" v-else></button>
-                        <button class="md-btn playback-button next" @click="next()"></button>
-                        <button class="md-btn playback-button--small shuffle" @click="shuffle()"
-                            v-if="player.currentMediaItem.shuffleMode == 0"></button>
-                        <button class="md-btn playback-button--small shuffle active" @click="shuffle()" v-else></button>
                     </div>
                 </div>
             </template>
@@ -151,21 +151,20 @@
                             </div>
                         </div>
                         <div class="md-footer playback-buttons">
+                            <button class="md-btn playback-button--small shuffle" @click="shuffle()"
+                                v-if="player.currentMediaItem.shuffleMode == 0"></button>
+                            <button class="md-btn playback-button--small shuffle active" @click="shuffle()" v-else></button>
+                            <button class="md-btn playback-button previous" @click="previous()"></button>
+                            <button class="md-btn playback-button pause" @click="pause()"
+                                v-if="player.currentMediaItem.status"></button>
+                            <button class="md-btn playback-button play" @click="play()" v-else></button>
+                            <button class="md-btn playback-button next" @click="next()"></button>
                             <button class="md-btn playback-button--small repeat" @click="repeat()"
                                 v-if="player.currentMediaItem.repeatMode == 0"></button>
                             <button class="md-btn playback-button--small repeat active" @click="repeat()"
                                 v-else-if="player.currentMediaItem.repeatMode == 2"></button>
                             <button class="md-btn playback-button--small repeat repeatOne" @click="repeat()"
                                 v-else-if="player.currentMediaItem.repeatMode == 1"></button>
-                            <button class="md-btn playback-button previous" @click="previous()"></button>
-                            <button class="md-btn playback-button pause" @click="pause()"
-                                v-if="player.currentMediaItem.status"></button>
-                            <button class="md-btn playback-button play" @click="play()" v-else></button>
-                            <button class="md-btn playback-button next" @click="next()"></button>
-                            <button class="md-btn playback-button--small shuffle" @click="shuffle()"
-                                v-if="player.currentMediaItem.shuffleMode == 0"></button>
-                            <button class="md-btn playback-button--small shuffle active" @click="shuffle()"
-                                v-else></button>
                         </div>
                         <div class="md-footer">
                             <div class="row volume-slider-container">
