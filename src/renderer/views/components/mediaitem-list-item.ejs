@@ -28,6 +28,7 @@
                 <mediaitem-artwork
                         :url="item.attributes.artwork ? item.attributes.artwork.url : ''"
                         :size="48"
+                        :bgcolor="getBgColor()"
                         :type="item.type"></mediaitem-artwork>
                 <button class="overlay-play" @click="playTrack()"><%- include("../svg/play.svg") %></button>
             </div>
@@ -102,6 +103,10 @@
             this.getClasses()
         },
         methods: {
+            getBgColor() {
+                let color = `#${(this.item.attributes.artwork != null && this.item.attributes.artwork.bgColor != null) ? (this.item.attributes.artwork.bgColor) : ``}`
+                return color
+            },
             async checkLibrary() {
                 if(this.addedToLibrary) {return this.addedToLibrary}
                 if(this.item.type.includes("library-playlists") || this.item.type.includes("station")) {
