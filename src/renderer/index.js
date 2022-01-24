@@ -648,6 +648,21 @@ const app = new Vue({
                 }
             })
 
+            ipcRenderer.on('play', function(_event, mode, id) {
+              if (mode !== 'url'){
+                self.mk.setQueue({[mode]: id}).then(() => {
+                    app.mk.play()
+                })
+              } else {
+                let data = MusicKit.formattedMediaURL(id);
+                if (data != null && data.contentId != null && data.kind != null){
+                    self.mk.setQueue({[data.kind]: data.contentId}).then(() => {
+                        app.mk.play()
+                    })  
+                }
+              }
+            });
+
             this.mk.addEventListener(MusicKit.Events.playbackStateDidChange, ()=>{
                 ipcRenderer.send('wsapi-updatePlaybackState', wsapi.getAttributes());
             })
@@ -3445,6 +3460,32 @@ window.addEventListener("hashchange", function() {
     app.appRoute(window.location.hash)
 });
 
+
+function fallbackinitMusicKit() {
+    const request = new XMLHttpRequest();
+
+    function loadAlternateKey() {
+        let parsedJson = JSON.parse(this.responseText)
+        MusicKit.configure({
+            developerToken: parsedJson.developerToken,
+            app: {
+                name: 'Apple Music',
+                build: '1978.4.1',
+                version: "1.0"
+            },
+            sourceType: 24,
+            suppressErrorDialog: true
+        });
+        setTimeout(() => {
+            app.init()
+        }, 1000)
+    }
+
+    request.addEventListener("load", loadAlternateKey);
+    request.open("GET", "https://raw.githubusercontent.com/lujjjh/LitoMusic/main/token.json");
+    request.send();
+}
+
 document.addEventListener('musickitloaded', function() {
     // MusicKit global is now defined
     function initMusicKit() {
@@ -3464,30 +3505,6 @@ document.addEventListener('musickitloaded', function() {
         }, 1000)
     }
 
-    function fallbackinitMusicKit() {
-        const request = new XMLHttpRequest();
-
-        function loadAlternateKey() {
-            let parsedJson = JSON.parse(this.responseText)
-            MusicKit.configure({
-                developerToken: parsedJson.developerToken,
-                app: {
-                    name: 'Apple Music',
-                    build: '1978.4.1',
-                    version: "1.0"
-                },
-                sourceType: 24,
-                suppressErrorDialog: true
-            });
-            setTimeout(() => {
-                app.init()
-            }, 1000)
-        }
-
-        request.addEventListener("load", loadAlternateKey);
-        request.open("GET", "https://raw.githubusercontent.com/lujjjh/LitoMusic/main/token.json");
-        request.send();
-    }
 
     const request = new XMLHttpRequest();
     request.timeout = 5000;
