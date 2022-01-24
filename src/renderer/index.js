@@ -3326,9 +3326,11 @@ const app = new Vue({
                 this.tmpWidth = window.innerWidth;
                 this.tmpHeight = window.innerHeight;
                 ipcRenderer.send('unmaximize');
+                ipcRenderer.send('windowmin', 250, 250)
                 ipcRenderer.send('windowresize', 300, 300, false)
                 app.appMode = 'mini';
             } else {
+                ipcRenderer.send('windowmin', 844, 410)
                 ipcRenderer.send('windowresize', this.tmpWidth, this.tmpHeight, false)
                 app.appMode = 'player';
             }
