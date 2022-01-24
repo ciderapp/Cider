@@ -121,8 +121,6 @@ export class AppEvents {
      **********************************************************************************************************************/
 
     private static LinkHandler(arg: string) {
-        console.log(arg)
-
         if (!arg) return;
 
         // LastFM Auth URL
@@ -172,16 +170,21 @@ export class AppEvents {
             electron.app.quit()
         } else { // Runs on the first instance if no other instance has been found
             electron.app.on('second-instance', (_event, startArgs) => {
-                console.log(startArgs)
-                if (startArgs.includes("--force-quit")) {
-                    console.warn('[InstanceHandler][SecondInstanceHandler] Force Quit found. Quitting App.');
-                    electron.app.quit()
-                } else if (startArgs.includes("cider://")) {
-                    AppEvents.LinkHandler(startArgs.toString())
-                } else if (AppEvents.win) {
-                    if (AppEvents.win.isMinimized()) AppEvents.win.restore()
-                    AppEvents.win.focus()
-                }
+                console.log("[InstanceHandler] (second-instance) Instance started with " + startArgs.toString())
+
+                startArgs.forEach(arg => {
+                    console.log(arg)
+                    if (arg.includes("cider://")) {
+                        console.debug('[InstanceHandler] (second-instance) Link detected with ' + arg)
+                        AppEvents.LinkHandler(arg)
+                    } else if (arg.includes("--force-quit")) {
+                        console.warn('[InstanceHandler] (second-instance) Force Quit found. Quitting App.');
+                        electron.app.quit()
+                    } else if (AppEvents.win) {
+                        if (AppEvents.win.isMinimized()) AppEvents.win.restore()
+                        AppEvents.win.focus()
+                    }
+                })
             })
         }
 
