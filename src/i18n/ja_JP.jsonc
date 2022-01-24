@@ -59,10 +59,10 @@
   "term.viewAs.list": "リスト",
   "term.size.normal": "普通",
   "term.size.compact": "コンパクト",
-  "term.enable": "オン",
-  "term.disable": "オフ",
-  "term.enabled": "",
-  "term.disabled": "オフ",
+  "term.enable": "ON",
+  "term.disable": "OFF",
+  "term.enabled": "ON",
+  "term.disabled": "OFF",
   "term.connect": "接続",
 
   // Home
@@ -117,7 +117,7 @@
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "オーディオノーマライズ", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "さまざまな曲の音量を均一にし、より整った音を楽しめるようにする機能です。",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "オーディオ空間化", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "オーディオを空間に分散して機能です「ドルビーアトモスではありません」。",
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "オーディオを空間に分散して機能です。（ドルビーアトモスではありません）",
   // Settings - Visual
   "settings.header.visual": "ビジュアル",
   "settings.header.visual.description": "Ciderのビジュアル設定",
