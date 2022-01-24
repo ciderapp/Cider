@@ -87,6 +87,8 @@
   "action.removeFromQueue": "從播放清單刪除",
   "action.removeFromQueue.success": "已從播放清單刪除",
   "action.removeFromQueue.error": "從播放清單刪除的過程中發生錯誤",
+  "action.addToPlaylist": "加至播放列表",
+  "action.addToFavorites": "加至收藏",
   "action.follow": "追蹤",
   "action.follow.success": "追蹤中",
   "action.follow.error": "追蹤的過程發生錯誤",
@@ -98,9 +100,11 @@
   "action.startRadio": "建立電台",
   "action.goToArtist": "前往藝人",
   "action.goToAlbum": "前往專輯",
+  "action.moveToTop": "移動到頂部",
   "action.share": "分享歌曲",
-  "action.love": "喜歡",
-  "action.unlove": "取消喜歡",
+  "action.rename": "重新命名",
+  "action.love": "喜愛",
+  "action.unlove": "取消喜愛",
   "action.dislike": "減少此類建議",
   "action.undoDislike": "還原減小此類建議",
   "action.showWebRemoteQR": "顯示遙距控制二維碼",
@@ -112,7 +116,7 @@
   "settings.header.audio.quality.high": "高素質",
   "settings.header.audio.quality.low": "高效率",
   "settings.header.audio.quality.auto": "自動",
-  "settings.option.audio.seamlessTransition": "無間斷播放", // Toggle
+  "settings.option.audio.seamlessTransition": "無縫播放", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "進階功能", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.description": "啟用 AudioContext 將解鎖類似音量平衡和等化器的進階功能。但是會在一些電腦造成音樂卡頓。",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "音量平衡", // Toggle
@@ -157,8 +161,8 @@
   "settings.header.connectivity.description": "調整Cider與外部的連結",
   "settings.option.connectivity.discordRPC": "Discord 狀態", // Dropdown
   // Refer to term.disabled for the disabled option
-  "settings.header.connectivity.discordRPC.cider": "顯示正在玩 'Cider'",
-  "settings.header.connectivity.discordRPC.appleMusic": "顯示正在玩 'Apple Music'",
+  "settings.header.connectivity.discordRPC.cider": "顯示為'Cider'",
+  "settings.header.connectivity.discordRPC.appleMusic": "顯示為'Apple Music'",
   "settings.header.connectivity.discordRPC.clearOnPause": "暫停時清除 Discord 狀態", // Toggle
   "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling 記錄", // Option to Connect
   // Refer to term.connect for the connect button

@@ -4,6 +4,12 @@
   // Dialogs
   "dialog.cancel": "Ακύρωση",
   "dialog.ok": "ΟΚ",
+
+  // Notification
+  "notification.updatingLibrarySongs": "Ενημέρωση βιβλιοθήκης τραγουδιών...",
+  "notification.updatingLibraryAlbums": "Ενημέρωση βιβλιοθήκης άλμπουμ...",
+  "notification.updatingLibraryArtists": "Ενημέρωση βιβλιοθήκης καλλιτεχνών...",
+
   // Terms
   "term.appleMusic": "Apple Music",
   "term.applePodcasts": "Apple Podcasts",
@@ -19,6 +25,9 @@
   "term.queue": "Ουρά",
   "term.search": "Εύρεση",
   "term.library": "Βιβλιοθήκη",
+  "term.listenNow": "Ακρόαση",
+  "term.browse": "Περιήγηση",
+  "term.radio": "Ράδιο",
   "term.recentlyAdded": "Πρόσφατες Προσθήκες",
   "term.songs": "Τραγούδια",
   "term.albums": "Άλμπουμ",
@@ -38,6 +47,27 @@
   "term.share": "Κοινή Χρήση",
   "term.settings": "Ρυθμίσεις",
   "term.seeAll": "Προβολή Όλων",
+  "term.sortBy": "Ταξινόμηση Κατά",
+  "term.sortBy.album": "Άλμπουμ",
+  "term.sortBy.artist": "Καλλιτέχνη",
+  "term.sortBy.name": "Όνομα",
+  "term.sortBy.genre": "Είδος",
+  "term.sortBy.releaseDate": "Ημερομηνία Κυκλοφορίας",
+  "term.sortBy.duration": "Διάρκεια",
+  "term.sortOrder": "Α-Ω",
+  "term.sortOrder.ascending": "Αύξουσα",
+  "term.sortOrder.descending": "Φθίνουσα",
+  "term.viewAs": "Προβολή Ως",
+  "term.viewAs.coverArt": "Εξώφυλλο",
+  "term.viewAs.list": "Λίστα",
+  "term.size.normal": "Κανονικό",
+  "term.size.compact": "Συμπαγή",
+  "term.enable": "Ενεργοποίηση",
+  "term.disable": "Απενεργοποίηση",
+  "term.enabled": "Ενεργοποιημένο",
+  "term.disabled": "Απενεργοποιημένο",
+  "term.connect": "Σύνδεση",
+
   // Home
   "home.title": "Αρχική",
   "home.recentlyPlayed": "Έπαιξαν Πρόσφατα",
@@ -48,6 +78,7 @@
   "home.followedArtists": "Καλλιτέχνες που Ακολουθείτε",
   // Errors
   "error.appleMusicSubRequired": "Το Apple Music απαιτεί μια συνδρομή.",
+
   // Actions
   "action.addToLibrary": "Προσθήκη στη Βιβλιοθήκη",
   "action.addToLibrary.success": "Προστέθηκε στη Βιβλιοθήκη",
@@ -60,6 +91,8 @@
   "action.removeFromQueue": "Αφαίρεση από την Ουρά",
   "action.removeFromQueue.success": "Αφαιρέθηκε από την Ουρά",
   "action.removeFromQueue.error": "Σφάλμα Αφαίρεσης από την Ουρά",
+  "action.addToPlaylist": "Προσθήκη σε Λίστα",
+  "action.addToFavorites": "Προσθήκη στα Αγαπημένα",
   "action.follow": "Ακολούθηση",
   "action.follow.success": "Ακολουθήθηκε",
   "action.follow.error": "Σφάλμα Ακολούθησης",
@@ -68,28 +101,82 @@
   "action.unfollow.error": "Σφάλμα Διακοπής Ακολούθησης ",
   "action.playNext": "Αναπαραγωγή ως Επόμενου",
   "action.playLater": "Αναπαραγωγή Αργότερα",
-  "action.startRadio": "Έναρξη Σταθμού",
+  "action.startRadio": "Έναρξη Ραδιοφώνου",
   "action.goToArtist": "Μετάβαση σε Καλλιτέχνη",
   "action.goToAlbum": "Μετάβαση σε Άλμπουμ",
+  "action.moveToTop": "Μετακίνηση στη κορυφή",
   "action.share": "Κοινή Χρήση",
+  "action.rename": "Μετονομασία",
   "action.love": "Μου αρέσει πολύ",
   "action.unlove": "Αναίρεση \"Μου Αρέσει\"",
   "action.dislike": "Δεν μου αρέσει",
   "action.undoDislike": "Αναίρεση \"Δεν μου αρέσει\"",
-  // Settings
+  "action.showWebRemoteQR": "Εμφάνιση Web Remote QR",
+  // Settings - Audio
   "settings.header.audio": "Ήχος",
   "settings.header.audio.description": "Προσαρμογή ρυθμίσεων ήχου για το Cider.",
+  "settings.option.audio.quality": "Ποιότητα Ήχου", // Dropdown
   "settings.header.audio.quality.high": "Υψηλή",
   "settings.header.audio.quality.low": "Χαμηλή",
   "settings.header.audio.quality.auto": "Αυτόματη",
+  "settings.option.audio.seamlessTransition": "Αδιάκοπη Μετάβαση Ήχου", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality": "Ενεργοποίηση Προηγμένης Λειτουργικότητας", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.description": "Ενεργοποιώντας τη λειτουργικότητα AudioContext θα επιτρέψει σε επεκταμένες δυνατότητες ήχου όπως Κανονικοποίηση Έντασης Ήχου, Ισοσταθμιστές και Οπτικοποιητές, ωστόσο σε κάποια συστήματα μπορεί να προκαλέσει τραύλισμα ήχου.",
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Κανονικοποίηση Έντασης Ήχου", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Κανονικοποιεί την ένταση για μεμονωμένα κομμάτια για μια πιο ομοιόμορφη εμπειρία ακρόασης.",
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Χωρικοποίηση Ήχου", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Πιο τρισδιάστατος και χωρικοποιημένος ήχος (σημείωση: Αυτό δεν είναι Dolby Atmos)",
+  // Settings - Visual
   "settings.header.visual": "Οπτικά",
   "settings.header.visual.description": "Προσαρμογή οπτικών ρυθμίσεων για το Cider.",
+  "settings.option.visual.windowBackgroundStyle": "Στυλ Φόντου Παραθύρου", // Toggle
+  "settings.header.visual.windowBackgroundStyle.none": "Κανένα",
+  "settings.header.visual.windowBackgroundStyle.artwork": "Εξώφυλλο",
+  "settings.option.visual.animatedArtwork": "Κινούμενο Εξώφυλλο", // Dropdown
+  "settings.header.visual.animatedArtwork.always": "Πάντα",
+  "settings.header.visual.animatedArtwork.limited": "Περιορισμός σε σελίδες και ειδικές καταχωρήσεις",
+  "settings.header.visual.animatedArtwork.disable": "Απενεργοποιημένο παντού",
+  "settings.option.visual.animatedArtworkQuality": "Ποιότητα Κινούμενου Εξωφύλλου", // Dropdown
+  "settings.header.visual.animatedArtworkQuality.low": "Χαμηλή",
+  "settings.header.visual.animatedArtworkQuality.medium": "Μέτρια",
+  "settings.header.visual.animatedArtworkQuality.high": "Υψηλή",
+  "settings.header.visual.animatedArtworkQuality.extreme": "Πολύ Υψηλή",
+  "settings.option.visual.animatedWindowBackground": "Κινούμενο Φόντο Παραθύρου", // Toggle
+  "settings.option.visual.hardwareAcceleration": "Επιτάχυνση Υλικού", // Dropdown
+  "settings.header.visual.hardwareAcceleration.default": "Προεπιλογή",
+  "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
+  // Refer to term.disabled for the disabled option
+  "settings.option.visual.showPersonalInfo": "Εμφάνιση Προσωπικών Στοιχείων", // Toggle
+  // Settings - General (Reserved)
   "settings.header.general": "Γενικά",
   "settings.header.general.description": "Προσαρμογή γενικών ρυθμίσεων για το Cider.",
+
+  // Settings - Lyrics
   "settings.header.lyrics": "Στίχοι",
   "settings.header.lyrics.description": "Προσαρμογή ρυθμίσεων στίχων για το Cider.",
+  "settings.option.lyrics.enableMusixmatch": "Ενεργοποίηση Στίχων Musixmatch", // Toggle
+  "settings.option.lyrics.enableMusixmatchKaraoke": "Ενεργοποίηση Λειτουργίας Καραόκε (Musixmatch μόνο)", // Toggle
+  "settings.option.lyrics.musixmatchPreferredLanguage": "Προτιμώμενη Γλώσσα Μετάφρασης Musixmatch", // Dropdown
+  "settings.option.lyrics.enableYoutubeLyrics": "Ενεργοποίηση Στίχων Youtube για Μουσικά Βίντεο", // Toggle
+
+  // Settings - Connectivity
   "settings.header.connectivity": "Σύνδεση",
   "settings.header.connectivity.description": "Προσαρμογή ρυθμίσεων σύνδεσης για το Cider.",
+  "settings.option.connectivity.discordRPC": "Discord Rich Presence", // Dropdown
+  // Refer to term.disabled for the disabled option
+  "settings.header.connectivity.discordRPC.cider": "Εμφάνιση ως 'Cider'",
+  "settings.header.connectivity.discordRPC.appleMusic": "Εμφάνιση ως 'Apple Music'",
+  "settings.header.connectivity.discordRPC.clearOnPause": "Εκκαθάριση του Discord Rich Presence στην Παύση", // Toggle
+  "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling", // Option to Connect
+  // Refer to term.connect for the connect button
+
+  // Settings - Experimental
   "settings.header.experimental": "Πειραματικές",
-  "settings.header.experimental.description": "Προσαρμογή πειραματικών ρυθμίσεων για το Cider."
+  "settings.header.experimental.description": "Προσαρμογή πειραματικών ρυθμίσεων για το Cider.",
+  "settings.option.experimental.compactUI": "Συμπαγής Διεπαφή", // Toggle
+  // Refer to term.disabled & term.enabled
+
+  // Web Remote
+  "remote.web.title": "Cider Remote",
+  "remote.web.description": "Σαρώστε τον κωδικό QR για σύζευξη του Cider με το κινητό σας"
 }
