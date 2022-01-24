@@ -7,9 +7,9 @@
   "dialog.ok": "OK",
 
   // Notification
-  "notification.updatingLibrarySongs": "正在更新資料庫歌曲...",
-  "notification.updatingLibraryAlbums": "正在更新資料庫專輯...",
-  "notification.updatingLibraryArtists": "正在更新資料庫藝人...",
+  "notification.updatingLibrarySongs": "正在更新資料庫的歌曲...",
+  "notification.updatingLibraryAlbums": "正在更新資料庫的專輯...",
+  "notification.updatingLibraryArtists": "正在更新資料庫的藝人...",
   // Terms
   "term.appleMusic": "Apple Music", // Follows brand term
   "term.applePodcasts": "Apple Podcasts", // Follows brand term
@@ -47,8 +47,8 @@
   "term.sortBy": "排序",
   "term.sortBy.album": "專輯",
   "term.sortBy.artist": "藝人",
-  "term.sortBy.name": "名字",
-  "term.sortBy.genre": "音樂類型",
+  "term.sortBy.name": "歌名",
+  "term.sortBy.genre": "音樂風格",
   "term.sortBy.releaseDate": "發行日期",
   "term.sortBy.duration": "時長",
   "term.sortOrder": "字母排序",
@@ -58,7 +58,7 @@
   "term.viewAs.coverArt": "專輯封面",
   "term.viewAs.list": "列表",
   "term.size.normal": "正常",
-  "term.size.compact": "簡潔",
+  "term.size.compact": "緊凑",
   "term.enable": "啟用",
   "term.disable": "停用",
   "term.enabled": "已啟用",
@@ -118,7 +118,7 @@
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "音訊標準化", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "將平衡輕柔和響亮的歌曲，建立更統一的聆聽體驗。",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "音訊空間化", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "將音訊進行空間化處理來製造一個更立體的聆聽體驗 (注：此功能不是官方的杜比全景聲)",
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "將音訊進行空間化處理來製造一個更立體的聆聽體驗（注：此功能不是官方的杜比全景聲）",
   // Settings - Visual
   "settings.header.visual": "外觀",
   "settings.header.visual.description": "調整Cider的外觀",
@@ -148,7 +148,7 @@
   "settings.header.lyrics": "歌詞",
   "settings.header.lyrics.description": "調整Cider的歌詞設定",
   "settings.option.lyrics.enableMusixmatch": "啟用 Musixmatch 歌詞", // Toggle
-  "settings.option.lyrics.enableMusixmatchKaraoke": "啟用K歌模式 (僅限Musixmatch)", // Toggle
+  "settings.option.lyrics.enableMusixmatchKaraoke": "啟用K歌模式（僅限Musixmatch）", // Toggle
   "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch 歌詞語言偏好", // Dropdown
   "settings.option.lyrics.enableYoutubeLyrics": "播放MV時使用YouTube歌詞", // Toggle
 
@@ -166,11 +166,11 @@
   // Settings - Experimental
   "settings.header.experimental": "實驗性功能",
   "settings.header.experimental.description": "調整Cider的實驗性功能",
-  "settings.option.experimental.compactUI": "緊凑UI", // Toggle
+  "settings.option.experimental.compactUI": "緊凑型UI", // Toggle
   // Refer to term.disabled & term.enabled
   
   
   // Web Remote
   "remote.web.title": "Cider 遠控",
-  "remote.web.description": "掃描以下的行動條碼以控制Cider",
+  "remote.web.description": "掃描以下的行動條碼以控制 Cider",
 }
