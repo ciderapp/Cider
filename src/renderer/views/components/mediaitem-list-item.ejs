@@ -231,7 +231,7 @@
                     multiple: {
                         items: [
                             {
-                                "name": "Add to Playlist...",
+                                "name": app.getLz('action.addToPlaylist'),
                                 "icon": "./assets/feather/plus.svg",
                                 "action": function () {
                                     app.promptAddToPlaylist()
@@ -287,7 +287,7 @@
                             {
                                 "icon": "./assets/feather/heart.svg",
                                 "id": "love",
-                                "name": "Love",
+                                "name": this.app.getLz('action.love'),
                                 "hidden": false,
                                 "disabled": true,
                                 "action": function () {
@@ -298,7 +298,7 @@
                                 "icon": "./assets/feather/heart.svg",
                                 "id": "unlove",
                                 "active": true,
-                                "name": "Unlove",
+                                "name": this.app.getLz('action.unload'),
                                 "hidden": true,
                                 "action": function () {
                                     app.unlove(self.item)
@@ -307,7 +307,7 @@
                             {
                                 "icon": "./assets/feather/thumbs-down.svg",
                                 "id": "dislike",
-                                "name": "Dislike",
+                                "name": this.app.getLz('action.dislike'),
                                 "hidden": false,
                                 "disabled": true,
                                 "action": function () {
@@ -317,7 +317,7 @@
                             {
                                 "icon": "./assets/feather/thumbs-down.svg",
                                 "id": "undo_dislike",
-                                "name": "Undo dislike",
+                                "name": this.app.getLz('action.undoDislike'),
                                 "active": true,
                                 "hidden": true,
                                 "action": function () {
@@ -329,7 +329,7 @@
                             {
                                 "id": "addToLibrary",
                                 "icon": "./assets/feather/plus.svg",
-                                "name": "Add to library",
+                                "name": this.app.getLz('action.addToLibrary'),
                                 "hidden": false,
                                 "disabled": true,
                                 "action": function () {
@@ -339,7 +339,7 @@
                             {
                                 "id": "removeFromLibrary",
                                 "icon": "./assets/feather/x-circle.svg",
-                                "name": "Remove from library",
+                                "name": app.getLz('action.removeFromLibrary'),
                                 "hidden": true,
                                 "action": function () {
                                     self.removeFromLibrary()
@@ -347,13 +347,13 @@
                             },
                             {
                                 "icon": "./assets/feather/list.svg",
-                                "name": "Add to Playlist...",
+                                "name": app.getLz('action.addToPlaylist'),
                                 "action": function () {
                                     app.promptAddToPlaylist()
                                 }
                             },
                             {
-                                "name": "Play Next",
+                                "name": app.getLz('action.playNext'),
                                 "icon": "./assets/arrow-bend-up.svg",
                                 "action": function () {
                                     app.mk.playNext({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
@@ -362,7 +362,7 @@
                                 }
                             },
                             {
-                                "name": "Play Later",
+                                "name": app.getLz('action.playLater'),
                                 "icon": "./assets/arrow-bend-down.svg",
                                 "action": function () {
                                     app.mk.playLater({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
@@ -372,7 +372,7 @@
                             },
                             {
                                 "icon": "./assets/feather/radio.svg",
-                                "name": "Start Radio",
+                                "name": app.getLz('action.startRadio'),
                                 "action": function () {
                                     app.mk.setStationQueue({song: self.item.attributes.playParams.id ?? self.item.id}).then(() => {
                                         app.mk.play()
@@ -382,21 +382,21 @@
                             },
                             {
                                 "icon": "./assets/feather/user.svg",
-                                "name": "Go to Artist",
+                                "name": app.getLz('action.goToArtist'),
                                 "action": function () {
                                     app.searchAndNavigate(self.item, 'artist')
                                 }
                             },
                             {
                                 "icon": "./assets/feather/disc.svg",
-                                "name": "Go to Album",
+                                "name": app.getLz('action.goToAlbum'),
                                 "action": function () {
                                     app.searchAndNavigate(self.item, 'album')
                                 }
                             },
                             {
                                 "icon": "./assets/feather/share.svg",
-                                "name": "Share",
+                                "name": app.getLz('action.share'),
                                 "action": function () {
                                     if (!self.item.attributes.url && self.item.relationships){
                                         if (self.item.relationships.catalog){

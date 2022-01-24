@@ -15,7 +15,7 @@
                 </template>
             </template>
             <button v-if="triggerEnabled" style="opacity:0;height: 32px;"
-                    v-observe-visibility="{callback: visibilityChanged}">Show More
+                    v-observe-visibility="{callback: visibilityChanged}">{{app.getLz('term.showMore')}}
             </button>
         </div>
         <transition name="fabfade">
@@ -51,7 +51,8 @@
                 showFab: false,
                 commonKind: "song",
                 api: this.$root.mk.api,
-                loading: false
+                loading: false,
+                app: this.$root,
             }
         },
         methods: {

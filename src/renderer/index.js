@@ -3155,7 +3155,7 @@ const app = new Vue({
                     headerItems: [{
                             "icon": "./assets/feather/heart.svg",
                             "id": "love",
-                            "name": "Love",
+                            "name": app.getLz('action.love'),
                             "hidden": false,
                             "disabled": true,
                             "action": function() {
@@ -3166,7 +3166,7 @@ const app = new Vue({
                             "icon": "./assets/feather/heart.svg",
                             "id": "unlove",
                             "active": true,
-                            "name": "Unlove",
+                            "name": app.getLz('action.unlove'),
                             "hidden": true,
                             "action": function() {
                                 app.unlove(app.mk.nowPlayingItem)
@@ -3175,7 +3175,7 @@ const app = new Vue({
                         {
                             "icon": "./assets/feather/thumbs-down.svg",
                             "id": "dislike",
-                            "name": "Dislike",
+                            "name": app.getLz('action.dislike'),
                             "hidden": false,
                             "disabled": true,
                             "action": function() {
@@ -3185,7 +3185,7 @@ const app = new Vue({
                         {
                             "icon": "./assets/feather/thumbs-down.svg",
                             "id": "undo_dislike",
-                            "name": "Undo dislike",
+                            "name": app.getLz('action.undoDislike'),
                             "active": true,
                             "hidden": true,
                             "action": function() {
@@ -3195,7 +3195,7 @@ const app = new Vue({
                     ],
                     items: [{
                             "icon": "./assets/feather/list.svg",
-                            "name": "Add to Playlist...",
+                            "name": app.getLz('action.addToPlaylist')+" ...",
                             "action": function() {
                                 app.promptAddToPlaylist()
                             }
@@ -3203,7 +3203,7 @@ const app = new Vue({
                         {
                             "icon": "./assets/feather/plus.svg",
                             "id": "addToLibrary",
-                            "name": "Add to Library...",
+                            "name": app.getLz('action.addToLibrary')+" ...",
                             "disabled": false,
                             "action": function() {
                                 app.addToLibrary(app.mk.nowPlayingItem.id);

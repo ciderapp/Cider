@@ -18,7 +18,7 @@
                             <h3>Your Artists Feed</h3>
                         </div>
                         <div class="col-auto nopadding flex-center">
-                            <button class="cd-btn-seeall" @click="app.appRoute('artist-feed')">See All</button>
+                            <button class="cd-btn-seeall" @click="app.appRoute('artist-feed')">{{app.getLz('term.seeAll')}}</button>
                         </div>
                     </div>
                     <div class="well artistfeed-well" style="margin-top:0;">
@@ -60,7 +60,7 @@
                             <h3>Friends Listening To</h3>
                         </div>
                         <div class="col-auto nopadding flex-center">
-                            <button class="cd-btn-seeall" @click="app.showSocialListeningTo()">See All</button>
+                            <button class="cd-btn-seeall" @click="app.showSocialListeningTo()">{{app.getLz('term.seeAll')}}</button>
                         </div>
                     </div>
                     <div class="well">
