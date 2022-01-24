@@ -135,6 +135,13 @@
       "backgroundColor": "transparent",
       "setBuildNumber": true
     },
+		"nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+			"license": "LICENSE",
+			"deleteAppDataOnUninstall": true
+    },
     "win": {
       "target": [
         "nsis"

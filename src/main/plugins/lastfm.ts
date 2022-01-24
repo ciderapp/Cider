@@ -1,4 +1,3 @@
-
 import * as electron from 'electron';
 import * as fs from 'fs';
 import {resolve} from 'path';
@@ -10,12 +9,13 @@ export default class LastFMPlugin {
         key: "f9986d12aab5a0fe66193c559435ede3",
         secret: "acba3c29bd5973efa38cc2f0b63cc625"
     }
-	/**
-	 * Private variables for interaction in plugins
-	 */
-	private _win: any;
-	private _app: any;
+    /**
+     * Private variables for interaction in plugins
+     */
+    private _win: any;
+    private _app: any;
     private _lastfm: any;
+
     private authenticateFromFile() {
         let sessionData = require(this.sessionPath)
         console.log("[LastFM][authenticateFromFile] Logging in with Session Info.")
@@ -24,64 +24,64 @@ export default class LastFMPlugin {
     }
 
 
-    private authenticate() {
-        try{
-        if (this._win.store.store.lastfm.auth_token) {
-            this._win.store.store.lastfm.enabled = true;
-        }
-
-        if (!this._win.store.store.lastfm.enabled || !this._win.store.store.lastfm.auth_token) {
-            this._win.store.store.lastfm.enabled = false;
-            return
-        }
-        /// dont move this require to top , app wont load
-        const LastfmAPI = require('lastfmapi');
-        const lfmAPI = new LastfmAPI({
-            'api_key': this.apiCredentials.key,
-            'secret': this.apiCredentials.secret
-        });
-
-        this._lastfm = Object.assign(lfmAPI, {cachedAttributes: false, cachedNowPlayingAttributes: false});
-
-        fs.stat(this.sessionPath,  (err : any) => {
-            if (err) {
-                console.error("[LastFM][Session] Session file couldn't be opened or doesn't exist,", err)
-                console.log("[LastFM][Auth] Beginning authentication from configuration")
-                console.log("[LastFM][tk]", this._win.store.store.lastfm.auth_token)
-                this._lastfm.authenticate(this._win.store.store.lastfm.auth_token,  (err: any, session: any) => {
-                    if (err) {
-                        throw err;
-                    }
-                    console.log("[LastFM] Successfully obtained LastFM session info,", session); // {"name": "LASTFM_USERNAME", "key": "THE_USER_SESSION_KEY"}
-                    console.log("[LastFM] Saving session info to disk.")
-                    let tempData = JSON.stringify(session)
-                    fs.writeFile(this.sessionPath, tempData, (err: any) => {
-                        if (err)
-                            console.log("[LastFM][fs]", err)
-                        else {
-                            console.log("[LastFM][fs] File was written successfully.")
-                            this.authenticateFromFile()
-                            new electron.Notification({
-                                title: electron.app.getName(),
-                                body: "Successfully logged into LastFM using Authentication Key."
-                            }).show()
-                        }
-                    })
-                });
-            } else {
-                this.authenticateFromFile()
+    authenticate() {
+        try {
+            if (this._win.store.store.lastfm.auth_token) {
+                this._win.store.store.lastfm.enabled = true;
             }
-        })
+
+            if (!this._win.store.store.lastfm.enabled || !this._win.store.store.lastfm.auth_token) {
+                this._win.store.store.lastfm.enabled = false;
+                return
+            }
+            /// dont move this require to top , app wont load
+            const LastfmAPI = require('lastfmapi');
+            const lfmAPI = new LastfmAPI({
+                'api_key': this.apiCredentials.key,
+                'secret': this.apiCredentials.secret
+            });
+
+            this._lastfm = Object.assign(lfmAPI, {cachedAttributes: false, cachedNowPlayingAttributes: false});
+
+            fs.stat(this.sessionPath, (err: any) => {
+                if (err) {
+                    console.error("[LastFM][Session] Session file couldn't be opened or doesn't exist,", err)
+                    console.log("[LastFM][Auth] Beginning authentication from configuration")
+                    console.log("[LastFM][tk]", this._win.store.store.lastfm.auth_token)
+                    this._lastfm.authenticate(this._win.store.store.lastfm.auth_token, (err: any, session: any) => {
+                        if (err) {
+                            throw err;
+                        }
+                        console.log("[LastFM] Successfully obtained LastFM session info,", session); // {"name": "LASTFM_USERNAME", "key": "THE_USER_SESSION_KEY"}
+                        console.log("[LastFM] Saving session info to disk.")
+                        let tempData = JSON.stringify(session)
+                        fs.writeFile(this.sessionPath, tempData, (err: any) => {
+                            if (err)
+                                console.log("[LastFM][fs]", err)
+                            else {
+                                console.log("[LastFM][fs] File was written successfully.")
+                                this.authenticateFromFile()
+                                new electron.Notification({
+                                    title: electron.app.getName(),
+                                    body: "Successfully logged into LastFM using Authentication Key."
+                                }).show()
+                            }
+                        })
+                    });
+                } else {
+                    this.authenticateFromFile()
+                }
+            })
         } catch (err) {
             console.log(err)
         }
     }
 
-    private async scrobbleSong(attributes : any) {
+    private async scrobbleSong(attributes: any) {
         await new Promise(resolve => setTimeout(resolve, Math.round(attributes.durationInMillis * (this._win.store.store.lastfm.scrobble_after / 100))));
         const currentAttributes = attributes;
-        
-        if (!this._lastfm || this._lastfm.cachedAttributes === attributes ) {
+
+        if (!this._lastfm || this._lastfm.cachedAttributes === attributes) {
             return
         }
 
@@ -112,11 +112,11 @@ export default class LastFMPlugin {
                 this.authenticate();
             }
         } else {
-            return console.log('[LastFM] Did not add ', attributes.name , '—' , this.filterArtistName(attributes.artistName), 'because now playing a other song.');
+            return console.log('[LastFM] Did not add ', attributes.name, '—', this.filterArtistName(attributes.artistName), 'because now playing a other song.');
         }
     }
 
-    private filterArtistName(artist :any) {
+    private filterArtistName(artist: any) {
         if (!this._win.store.store.lastfm.enabledRemoveFeaturingArtists) return artist;
 
         artist = artist.split(' ');
@@ -134,8 +134,8 @@ export default class LastFMPlugin {
         return artist.charAt(0).toUpperCase() + artist.slice(1);
     }
 
-    private updateNowPlayingSong(attributes : any) {
-        if (!this._lastfm ||this._lastfm.cachedNowPlayingAttributes === attributes  || !this._win.store.store.lastfm.NowPlaying) {
+    private updateNowPlayingSong(attributes: any) {
+        if (!this._lastfm || this._lastfm.cachedNowPlayingAttributes === attributes || !this._win.store.store.lastfm.NowPlaying) {
             return
         }
 
@@ -147,20 +147,20 @@ export default class LastFMPlugin {
             // update Now Playing
             if (attributes.status === true) {
                 this._lastfm.track.updateNowPlaying({
-                   'artist': this.filterArtistName(attributes.artistName),
-                   'track': attributes.name,
-                   'album': attributes.albumName,
-                   'albumArtist': this.filterArtistName(attributes.artistName)
-                }, function (err : any, nowPlaying :any) {
+                    'artist': this.filterArtistName(attributes.artistName),
+                    'track': attributes.name,
+                    'album': attributes.albumName,
+                    'albumArtist': this.filterArtistName(attributes.artistName)
+                }, function (err: any, nowPlaying: any) {
                     if (err) {
                         return console.error('[LastFM] An error occurred while updating nowPlayingSong', err);
                     }
 
-                    console.log('[LastFM] Successfully updated nowPlayingSong', nowPlaying);                 
+                    console.log('[LastFM] Successfully updated nowPlayingSong', nowPlaying);
                 });
                 this._lastfm.cachedNowPlayingAttributes = attributes
             }
-            
+
         } else {
             this.authenticate()
         }
@@ -178,10 +178,10 @@ export default class LastFMPlugin {
      * Runs on plugin load (Currently run on application start)
      */
     constructor(app: any) {
-		this._app = app;
-        electron.app.on('second-instance', (_e:any, argv:any) => {          
+        this._app = app;
+        electron.app.on('second-instance', (_e: any, argv: any) => {
             // Checks if first instance is authorized and if second instance has protocol args
-            argv.forEach((value:    any) => {
+            argv.forEach((value: any) => {
                 if (value.includes('auth')) {
                     console.log('[LastFMPlugin ok]')
                     let authURI = String(argv).split('/auth/')[1];
@@ -193,10 +193,10 @@ export default class LastFMPlugin {
                         this._win.win.webContents.send('LastfmAuthenticated', authKey);
                         this.authenticate();
                     }
-                } 
+                }
             })
         })
-        electron.app.on('open-url', (event :any, arg:any) => {
+        electron.app.on('open-url', (event: any, arg: any) => {
             console.log('[LastFMPlugin] yes')
             event.preventDefault();
             if (arg.includes('auth')) {
@@ -211,13 +211,13 @@ export default class LastFMPlugin {
                 }
             }
         })
-	}
+    }
 
     /**
      * Runs on app ready
      */
     onReady(win: any): void {
-		this._win = win;
+        this._win = win;
         this.authenticate();
     }
 

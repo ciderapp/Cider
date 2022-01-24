@@ -8,7 +8,6 @@ import * as yt from "youtube-search-without-api-key";
 import * as fs from "fs";
 import { Stream } from "stream";
 import * as qrcode from "qrcode-terminal";
-import * as qrcode2 from "qrcode";
 import * as os from "os";
 import {wsapi} from "./wsapi";
 
@@ -62,7 +61,6 @@ export class Win {
             sandbox: true,
             allowRunningInsecureContent: true,
             contextIsolation: false,
-
             webviewTag: true,
             plugins: true,
             nodeIntegrationInWorker: false,
@@ -74,7 +72,7 @@ export class Win {
     /**
      * Creates the browser window
      */
-    async createWindow(): Promise<void> {
+    async createWindow(): Promise<Electron.BrowserWindow> {
         this.clientPort = await getPort({ port: 9000 });
         this.verifyFiles();
 
@@ -91,9 +89,6 @@ export class Win {
         this.startWebServer();
 
         this.win = new electron.BrowserWindow(this.options);
-        this.win.on("ready-to-show", () => {
-            this.win.show();
-        });
         const ws = new wsapi(this.win)
         ws.InitWebSockets()
         // and load the renderer.

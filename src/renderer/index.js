@@ -3306,7 +3306,7 @@ const app = new Vue({
                 this.tmpWidth = window.innerWidth;
                 this.tmpHeight = window.innerHeight;
                 ipcRenderer.send('setFullScreen', false);
-                ipcRenderer.send('windowresize', 250, 250, false)
+                ipcRenderer.send('windowresize', 364, 364, false)
                 app.appMode = 'mini';
             } else {
                 ipcRenderer.send('windowresize', this.tmpWidth, this.tmpHeight, false)
