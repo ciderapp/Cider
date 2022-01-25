@@ -194,6 +194,9 @@
   "settings.header.connectivity.discordRPC.appleMusic": "顯示為'Apple Music'",
   "settings.option.connectivity.discordRPC.clearOnPause": "暫停時清除 Discord 狀態", // Toggle
   "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling 記錄", // Option to Connect
+  "settings.option.connectivity.lastfmScrobble.delay": "LastFM Scrobble 延遲 (%)",
+  "settings.option.connectivity.lastfmScrobble.nowPlaying": "啟用 LastFM 正在播放",
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "Remove featuring artists from song title (LastFM)",
   // Refer to term.connect for the connect button
 
   // Settings - Experimental
@@ -202,6 +205,25 @@
   "settings.option.experimental.compactUI": "緊凑型 UI", // Toggle
   // Refer to term.disabled & term.enabled
   
+  // Spatialization Menu
+  "spatial.spatialProperties" : "空間音訊屬性",
+  "spatial.width" : "闊度",
+  "spatial.height" : "高度",
+  "spatial.depth" : "深度",
+  "spatial.roomMaterials" : "空間材質",
+  "spatial.roomDimensions" : "空間大小",
+  "spatial.roomPositions" : "空間位置",
+  "spatial.setDimensions" : "大小設定",
+  "spatial.setPositions" : "位置設定",
+  "spatial.up" : "上方",
+  "spatial.front" : "前方",
+  "spatial.left" : "左方",
+  "spatial.right" : "右方",
+  "spatial.back" : "後方",
+  "spatial.down" : "下方",
+  "spatial.listener" : "觀眾",
+  "spatial.audioSource" : "音源",
+
   // Settings - Unfinished
   "settings.header.unfinished": "未完成",
 
