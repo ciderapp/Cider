@@ -586,12 +586,11 @@
                         <cider-queue ref="queue" v-if="drawer.panel == 'queue'"></cider-queue>
                     </div>
                 </transition>
-                <cider-menu-panel v-if="menuPanel.visible">
-                </cider-menu-panel>
-
             </div>
         </div>
     </transition>
+    <cider-menu-panel v-if="menuPanel.visible">
+    </cider-menu-panel>
     <transition name="fsModeSwitch">
         <div class="fullscreen-view-container" v-if="appMode == 'fullscreen'">
             <fullscreen-view :image="currentArtUrl.replace('50x50', '600x600')" :time="lyriccurrenttime"
