@@ -30,7 +30,7 @@
   "term.search": "Procurar",
   "term.library": "Biblioteca",
   "term.listenNow": "Ouça Agora",
-  "term.browse": "Pesquisar",
+  "term.browse": "Explorar",
   "term.radio": "Radio",
   "term.recentlyAdded": "Adicionado Recentemente",
   "term.songs": "Músicas",
@@ -72,6 +72,8 @@
   "term.enabled": "Ativado",
   "term.disabled": "Desativado",
   "term.connect": "Conectar",
+  "term.disconnect": "Desconectar",
+  "term.connecting": "Conectando",
   "term.confirm": "Confirmar ?",
   "term.more": "Mais",
   "term.less": "Menos",
@@ -86,6 +88,8 @@
   "term.defaultView": "Visualização Normal",
   "term.spacializedAudioSetting": "Definições de Audio Espacial",
   "term.clearAll": "Limpar Tudo",
+  "term.language": "Idioma",
+  "term.recentStations": "Estações Recentes",
 
   // Home
   "home.title": "Inicio",
@@ -160,11 +164,15 @@
   "settings.header.visual.animatedArtworkQuality.low": "Baixa",
   "settings.header.visual.animatedArtworkQuality.medium": "Media",
   "settings.header.visual.animatedArtworkQuality.high": "Alta",
+  "settings.header.visual.animatedArtworkQuality.veryHigh": "Muito Alta",
   "settings.header.visual.animatedArtworkQuality.extreme": "Extrema",
   "settings.option.visual.animatedWindowBackground": "Fundo de Janela Animado", // Toggle
   "settings.option.visual.hardwareAcceleration": "Acelaração no Hardware", // Dropdown
+  "settings.option.visual.hardwareAcceleration.description": "Necessário reiniciar a aplicação",
   "settings.header.visual.hardwareAcceleration.default": "Normal", 
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
+  
+
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "Mostrar Informaçoes Pessoais", // Toggle
   // Settings - General (Reserved)
