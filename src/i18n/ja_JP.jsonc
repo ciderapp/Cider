@@ -100,6 +100,8 @@
   // Errors
   "error.appleMusicSubRequired": "Apple Musicのサブスクリプションが必要です。",
   "error.connectionError": "Apple Musicに接続できません。",
+  "error.noResults": "見つかりませんでした",
+  "error.noResults.description": "もう一度お試しください。",
   
   // Actions
   "action.addToLibrary": "ライブラリに追加",

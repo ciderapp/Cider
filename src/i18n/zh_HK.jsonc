@@ -98,6 +98,9 @@
   "home.followedArtists": "追蹤的藝人",
   // Errors
   "error.appleMusicSubRequired": "需要訂閱Apple Music以使用Cider",
+  "error.connectionError": "There was a problem connecting to Apple Music.",
+  "error.noResults": "No Results.",
+  "error.noResults.description": "Try a new search.",
   // Actions
   "action.addToLibrary": "加入資料庫",
   "action.addToLibrary.success": "成功加入資料庫",

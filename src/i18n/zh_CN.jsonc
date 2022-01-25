@@ -101,6 +101,8 @@
   // Errors
   "error.appleMusicSubRequired": "需要订阅 Apple Music 以使用 Cider",
   "error.connectionError": "无法连接到 Apple Music。",
+  "error.noResults": "没有结果",
+  "error.noResults.description": "尝试更改搜索条件。",
   
   // Actions
   "action.addToLibrary": "加入资料库",

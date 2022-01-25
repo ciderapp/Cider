@@ -98,6 +98,9 @@
   // Errors
   "error.appleMusicSubRequired": "需要訂閱Apple Music以使用Cider",
   "error.connectionError": "無法連接到 Apple Music。",
+  "error.noResults": "沒有結果",
+  "error.noResults.description": "嘗試新的搜尋項目。",
+
   // Actions
   "action.addToLibrary": "加入資料庫",
   "action.addToLibrary.success": "成功加入資料庫",

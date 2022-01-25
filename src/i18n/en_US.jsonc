@@ -98,6 +98,9 @@
   // Errors
   "error.appleMusicSubRequired": "Apple Music requires a subscription.",
   "error.connectionError": "There was a problem connecting to Apple Music.",
+  "error.noResults": "No Results.",
+  "error.noResults.description": "Try a new search.",
+
   // Actions
   "action.addToLibrary": "Add to Library",
   "action.addToLibrary.success": "Added to Library",
