@@ -3357,7 +3357,18 @@ const app = new Vue({
             } else {
                 ipcRenderer.send('windowmin', 844, 410)
                 ipcRenderer.send('windowresize', this.tmpWidth, this.tmpHeight, false)
+                ipcRenderer.send('windowontop', false)
+                this.cfg.visual.miniplayer_top_toggle = true;
                 app.appMode = 'player';
+            }
+        },
+        pinMiniPlayer() {
+            if (this.cfg.visual.miniplayer_top_toggle) {
+                ipcRenderer.send('windowontop', true)
+                this.cfg.visual.miniplayer_top_toggle = false
+            } else {
+                ipcRenderer.send('windowontop', false)
+                this.cfg.visual.miniplayer_top_toggle = true;
             }
         },
         formatTimezoneOffset: (e = new Date) => {
