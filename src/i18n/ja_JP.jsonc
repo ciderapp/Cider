@@ -1,6 +1,9 @@
 {
   // App info
   "app.name": "Cider",
+
+  "date.format": "${y}年${m}月${d}日",
+
   // Dialogs
   "dialog.cancel": "キャンセル",
   "dialog.ok": "OK",
@@ -9,6 +12,7 @@
   "notification.updatingLibrarySongs": "ライブラリの更新中...",
   "notification.updatingLibraryAlbums": "ライブラリの更新中...",
   "notification.updatingLibraryArtists": "ライブラリの更新中...",
+  "notification.connectionError": "Apple Musicに接続できません。",
 
   // Terms
   "term.appleMusic": "Apple Music", // Follows brand term
@@ -43,7 +47,7 @@
   "term.unmute": "ミュート解除",
   "term.share": "共有",
   "term.settings": "設定",
-  "term.seeAll": "すべてを表示",
+  "term.seeAll": "すべて見る",
   "term.sortBy": "並べ替え",
   "term.sortBy.album": "アルバム",
   "term.sortBy.artist": "アーティスト",
@@ -64,6 +68,20 @@
   "term.enabled": "ON",
   "term.disabled": "OFF",
   "term.connect": "接続",
+  "term.confirm": "よろしいでしょうか？",
+  "term.more": "もっと",
+  "term.less": "減らす",
+  "term.showMore": "もっと見る",
+  "term.showLess": "表示数を少なくする",
+  "term.topSongs" : "人気曲",
+  "term.latestReleases": "ニューリリース",
+  "term.time.added": "追加日",
+  "term.time.released": "配信開始日", 
+  "term.time.updated": "最終更新日",
+  "term.fullscreenView": "全画面表示",
+  "term.defaultView": "ウィンドウ表示",
+  "term.spacializedAudioSetting": "オーディオ空間化設定",
+  "term.clearAll": "クリア",
 
   // Home
   "home.title": "ホーム",
@@ -170,6 +188,6 @@
   
   // Web Remote
   "remote.web.title": "Cider リモート",
-  "remote.web.description": "QRコードを使用して、Ciderとスマートフォンをペアリングする",
+  "remote.web.description": "QRコードを使用して、Ciderとスマートフォンをペアリングする"
 
 }
