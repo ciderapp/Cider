@@ -33,7 +33,7 @@
             </draggable>
         </div>
         <div class="queue-footer">
-            <button class="md-btn" style="width:100%;" v-if="queueItems.length > 1" @click="app.mk.clearQueue();updateQueue()">Clear All</button>
+            <button class="md-btn" style="width:100%;" v-if="queueItems.length > 1" @click="app.mk.clearQueue();updateQueue()">{{app.getLz('term.clearAll')}}</button>
         </div>
     </div>
 </script>
