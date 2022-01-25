@@ -188,7 +188,7 @@
                                    @focus="search.showHints = true"
                                    @blur="setTimeout(()=>{search.showHints = false}, 300)"
                                    v-on:keyup.enter="searchQuery();search.showHints = false" @change="showSearch();"
-                                   @input="getSearchHints()" placeholder="{app.getLz('term.search')}" v-model="search.term"
+                                   @input="getSearchHints()" :placeholder="app.getLz('term.search') + ' ...'" v-model="search.term"
                                    ref="searchInput" class="search-input">
                         </div>
                     </div>
