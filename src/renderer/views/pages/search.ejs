@@ -19,13 +19,15 @@
                         </div>
                         <div class="col-auto flex-center"
                             @click="app.showSearchView(app.search.term, 'song', app.friendlyTypes('song'))"
-                            v-if="search.results.song.data.length >= 6">
+                            v-if="search.results.song.data.length >= 12">
                             <button class="cd-btn-seeall">{{app.getLz('term.seeAll')}}</button>
                         </div>
                     </div>
-                    <div>
+                    <div class="mediaitem-list-item__grid">
+                        <div class="grid-body">
                         <mediaitem-list-item :item="item" :index="index"
-                                            v-for="(item, index) in search.results.song.data.limit(6)"></mediaitem-list-item>
+                            v-for="(item, index) in search.results.song.data.limit(12)"></mediaitem-list-item>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -106,24 +108,25 @@
         data: function () {
             return {
                 app: this.$root,
-                categoriesView : [],
-                categoriesReady : false,
-            }    
+                categoriesView: [],
+                categoriesReady: false,
+            }
         },
         methods: {
             getTopResult() {
                 try {
                     return this.search.results[this.search.results.meta.results.order[0]]["data"][0]
-                } catch( error ) {
+                } catch (error) {
                     return false
                 }
             },
             async getCategories() {
-                if(this.categoriesView != [] && this.categoriesView.length > 0) {this.categoriesReady = true; return await true;} else {
-                let response = await this.app.mk.api.v3.music(`/v1/recommendations/${this.app.mk.storefrontId}?timezone=${encodeURIComponent(this.app.formatTimezoneOffset())}&name=search-landing&platform=web&extend=editorialArtwork&art%5Burl%5D=f%2Cc&types=editorial-items%2Capple-curators%2Cactivities`);
-                this.categoriesView = response.data.data;
-                this.categoriesReady = true;
-                return await true;}
+                if (this.categoriesView != [] && this.categoriesView.length > 0) { this.categoriesReady = true; return await true; } else {
+                    let response = await this.app.mk.api.v3.music(`/v1/recommendations/${this.app.mk.storefrontId}?timezone=${encodeURIComponent(this.app.formatTimezoneOffset())}&name=search-landing&platform=web&extend=editorialArtwork&art%5Burl%5D=f%2Cc&types=editorial-items%2Capple-curators%2Cactivities`);
+                    this.categoriesView = response.data.data;
+                    this.categoriesReady = true;
+                    return await true;
+                }
             }
         }
     })
