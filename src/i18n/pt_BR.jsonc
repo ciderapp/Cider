@@ -186,7 +186,7 @@
   // Refer to term.disabled for the disabled option
   "settings.header.connectivity.discordRPC.cider": "Mostrar como 'Cider'",
   "settings.header.connectivity.discordRPC.appleMusic": "Mostrar como 'Apple Music'",
-  "settings.header.connectivity.discordRPC.clearOnPause": "Apagar Discord Rich Presence quando estiver pausado", // Toggle
+  "settings.option.connectivity.discordRPC.clearOnPause": "Apagar Discord Rich Presence quando estiver pausado", // Toggle
   "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling", // Option to Connect
   "settings.option.connectivity.lastfmScrobble.delay": "Atraso dos Scrobbles do LastFM (%)", 
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "Ativar LastFM Now Playing", 
