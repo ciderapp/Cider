@@ -80,6 +80,8 @@
   "term.time.updated": "更新于",
   "term.fullscreenView": "全屏",
   "term.defaultView": "默认",
+  "term.spacializedAudioSetting": "音频空间化设置",
+  "term.clearAll": "清空",
 
   // Home
   "home.title": "主页",

@@ -84,7 +84,8 @@
   "term.time.updated": "Updated",
   "term.fullscreenView": "Fullscreen View",
   "term.defaultView": "Default View",
-
+  "term.spacializedAudioSetting": "Spacialized Audio Setting",
+  "term.clearAll": "Clear All",
 
   // Home
   "home.title": "Home",

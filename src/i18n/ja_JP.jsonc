@@ -80,6 +80,8 @@
   "term.time.updated": "最終更新日",
   "term.fullscreenView": "全画面表示",
   "term.defaultView": "ウィンドウ表示",
+  "term.spacializedAudioSetting": "オーディオ空間化設定",
+  "term.clearAll": "クリア",
 
   // Home
   "home.title": "ホーム",
@@ -186,6 +188,6 @@
   
   // Web Remote
   "remote.web.title": "Cider リモート",
-  "remote.web.description": "QRコードを使用して、Ciderとスマートフォンをペアリングする",
+  "remote.web.description": "QRコードを使用して、Ciderとスマートフォンをペアリングする"
 
 }

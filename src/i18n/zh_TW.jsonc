@@ -79,6 +79,8 @@
   "term.time.updated": "更改于",
   "term.fullscreenView": "全螢幕顯示",
   "term.defaultView": "預設顯示",
+  "term.spacializedAudioSetting": "音訊空間化設定",
+  "term.clearAll": "清空",
 
   // Home
   "home.title": "主頁",
@@ -180,7 +182,7 @@
 
   // Settings - Experimental
   "settings.header.experimental": "實驗性功能",
-  "settings.header.experimental.description": "調整Cider的實驗性功能",
+  "settings.header.experimental.description": "調整 Cider 的實驗性功能",
   "settings.option.experimental.compactUI": "緊凑型UI", // Toggle
   // Refer to term.disabled & term.enabled
   
