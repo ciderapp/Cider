@@ -7,7 +7,7 @@
                     <input type="search"
                            style="width:100%;"
                            spellcheck="false"
-                           placeholder="Search..."
+                           :placeholder="$root.getLz('term.search') + '...'"
                            @change="searchPodcasts();librarySearch()"
                            v-model="search.term" class="search-input">
                 </div>
@@ -59,8 +59,8 @@
                 <h3>Episodes</h3>
             </div>
             <div v-if="this.search.results.length == 0 && podcastSelected.id == -1" class="podcast-no-search-results">
-                <h3>No Results</h3>
-                <p>Try a new search.</p>
+                <h3>{{app.getLz('error.noResults')}}</h3>
+                <p>{{app.getLz('error.noResults.description')}}</p>
             </div>
             <podcast-episode :isselected="selected.id == episode.id" @dblclick.native="playEpisode(episode)" @click.native="selectEpisode(episode)" :item="episode"
                              v-for="episode in episodes"></podcast-episode>

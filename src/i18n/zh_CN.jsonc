@@ -12,7 +12,6 @@
   "notification.updatingLibrarySongs": "正在更新资料库的歌曲信息...",
   "notification.updatingLibraryAlbums": "正在更新资料库的专辑信息...",
   "notification.updatingLibraryArtists": "正在更新资料库的艺人信息...",
-  "notification.connectionError": "无法连接到 Apple Music。",
 
   // Terms
   "term.appleMusic": "Apple Music", // Follows brand term
@@ -29,6 +28,9 @@
   "term.queue": "队列",
   "term.search": "搜索",
   "term.library": "资料库",
+  "term.listenNow": "现在就听",
+  "term.browse": "浏览",
+  "term.radio": "广播",
   "term.recentlyAdded": "最近添加",
   "term.songs": "歌曲",
   "term.albums": "专辑",
@@ -61,6 +63,7 @@
   "term.viewAs": "显示模式",
   "term.viewAs.coverArt": "专辑封面",
   "term.viewAs.list": "列表",
+  "term.size": "大小",
   "term.size.normal": "正常",
   "term.size.compact": "紧凑",
   "term.enable": "启用",
@@ -82,18 +85,24 @@
   "term.defaultView": "默认",
   "term.spacializedAudioSetting": "音频空间化设置",
   "term.clearAll": "清空",
+  "term.recentStations": "最近播放的频道",
+  "term.language": "语言",
 
   // Home
   "home.title": "主页",
   "home.recentlyPlayed": "最近播放",
   "home.recentlyAdded": "最近添加",
   "home.artistsFeed": "艺人推荐",
+  "home.artistsFeed.noArtist": "追踪您喜爱的艺人后便可查看他们的最新发行。",
   "home.madeForYou": "专属推荐",
   "home.friendsListeningTo": "朋友正在听",
   "home.followedArtists": "关注的艺人",
 
   // Errors
   "error.appleMusicSubRequired": "需要订阅 Apple Music 以使用 Cider",
+  "error.connectionError": "无法连接到 Apple Music。",
+  "error.noResults": "没有结果",
+  "error.noResults.description": "尝试更改搜索条件。",
   
   // Actions
   "action.addToLibrary": "加入资料库",
@@ -107,6 +116,9 @@
   "action.removeFromQueue": "从队列中移除",
   "action.removeFromQueue.success": "已从队列中移除",
   "action.removeFromQueue.error": "从队列中移除的过程发生了错误",
+  "action.addToPlaylist": "加入播放列表",
+  "action.removeFromPlaylist": "从播放列表中移除",
+  "action.addToFavorites": "加至收藏",
   "action.follow": "关注",
   "action.follow.success": "已关注",
   "action.follow.error": "尝试关注的过程发生了错误",
@@ -118,7 +130,9 @@
   "action.startRadio": "开始电台",
   "action.goToArtist": "前往艺人",
   "action.goToAlbum": "前往专辑",
+  "action.moveToTop": "移到顶部",
   "action.share": "分享歌曲",
+  "action.rename": "重命名",
   "action.love": "喜欢",
   "action.unlove": "踩",
   "action.dislike": "减少此类建议",
@@ -152,9 +166,11 @@
   "settings.header.visual.animatedArtworkQuality.low": "低",
   "settings.header.visual.animatedArtworkQuality.medium": "中",
   "settings.header.visual.animatedArtworkQuality.high": "高",
+  "settings.header.visual.animatedArtworkQuality.veryHigh": "非常高",
   "settings.header.visual.animatedArtworkQuality.extreme": "极高",
   "settings.option.visual.animatedWindowBackground": "动态窗口背景", // Toggle
   "settings.option.visual.hardwareAcceleration": "硬件加速", // Dropdown
+  "settings.option.visual.hardwareAcceleration.description": "需要重启 Cider 才会生效",
   "settings.header.visual.hardwareAcceleration.default": "默认", 
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
   // Refer to term.disabled for the disabled option
@@ -178,16 +194,19 @@
   // Refer to term.disabled for the disabled option
   "settings.header.connectivity.discordRPC.cider": "显示正在玩 'Cider'",
   "settings.header.connectivity.discordRPC.appleMusic": "显示正在玩 'Apple Music'",
-  "settings.header.connectivity.discordRPC.clearOnPause": "暂停时清除Discord 动态", // Toggle
+  "settings.option.connectivity.discordRPC.clearOnPause": "暂停时清除Discord 动态", // Toggle
   "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling 记录", // Option to Connect
   // Refer to term.connect for the connect button
 
   // Settings - Experimental
   "settings.header.experimental": "实验性功能",
   "settings.header.experimental.description": "调整Cider的实验性功能",
-  "settings.option.experimental.compactUI": "紧凑型UI", // Toggle
+  "settings.option.experimental.compactUI": "紧凑型 UI", // Toggle
   // Refer to term.disabled & term.enabled
   
+  // Settings - Unfinished
+  "settings.header.unfinished": "未完成",
+
   // Web Remote
   "remote.web.title": "Cider 远程控制",
   "remote.web.description": "扫描以下的二维码以控制 Cider"

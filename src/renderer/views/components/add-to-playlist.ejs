@@ -21,7 +21,7 @@
                                ref="searchInput"
                                style="width:100%;"
                                spellcheck="false"
-                               placeholder="Search..."
+                               :placeholder="app.getLz('term.search') + '...'"
                                v-model="searchQuery"
                                @input="search()"
                                class="search-input">

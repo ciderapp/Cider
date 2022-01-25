@@ -12,7 +12,6 @@
   "notification.updatingLibrarySongs": "ライブラリの更新中...",
   "notification.updatingLibraryAlbums": "ライブラリの更新中...",
   "notification.updatingLibraryArtists": "ライブラリの更新中...",
-  "notification.connectionError": "Apple Musicに接続できません。",
 
   // Terms
   "term.appleMusic": "Apple Music", // Follows brand term
@@ -29,6 +28,9 @@
   "term.queue": "次はこちら",
   "term.search": "検索",
   "term.library": "ライブラリ",
+  "term.listenNow": "今すぐ聴く",
+  "term.browse": "見つける",
+  "term.radio": "ラジオ",
   "term.recentlyAdded": "最近追加した項目",
   "term.songs": "曲",
   "term.albums": "アルバム",
@@ -55,12 +57,13 @@
   "term.sortBy.genre": "ジャンル",
   "term.sortBy.releaseDate": "配信開始日",
   "term.sortBy.duration": "時間",
-  "term.sortOrder": "アルファベット順",
-  "term.sortOrder.ascending": "A-Z順",
-  "term.sortOrder.descending": "Z-A順",
+  "term.sortOrder": "並べ替え",
+  "term.sortOrder.ascending": "昇順",
+  "term.sortOrder.descending": "降順",
   "term.viewAs": "表示",
   "term.viewAs.coverArt": "カバーアート",
   "term.viewAs.list": "リスト",
+  "term.size": "サイズ",
   "term.size.normal": "普通",
   "term.size.compact": "コンパクト",
   "term.enable": "ON",
@@ -73,7 +76,7 @@
   "term.less": "減らす",
   "term.showMore": "もっと見る",
   "term.showLess": "表示数を少なくする",
-  "term.topSongs" : "人気曲",
+  "term.topSongs" : "トップソング",
   "term.latestReleases": "ニューリリース",
   "term.time.added": "追加日",
   "term.time.released": "配信開始日", 
@@ -82,17 +85,24 @@
   "term.defaultView": "ウィンドウ表示",
   "term.spacializedAudioSetting": "オーディオ空間化設定",
   "term.clearAll": "クリア",
+  "term.recentStations": "最近の再生",
+  "term.language": "言語",
 
   // Home
   "home.title": "ホーム",
   "home.recentlyPlayed": "最近の再生",
   "home.recentlyAdded": "最近追加した項目",
   "home.artistsFeed": "アーティストのフィード",
+  "home.artistsFeed.noArtist": "自分の好きなアーティストをフォローしましょう・",
   "home.madeForYou": "あなたにおすすめ",
   "home.friendsListeningTo": "友達が聴いている",
   "home.followedArtists": "フォローしているアーティスト",
   // Errors
   "error.appleMusicSubRequired": "Apple Musicのサブスクリプションが必要です。",
+  "error.connectionError": "Apple Musicに接続できません。",
+  "error.noResults": "見つかりませんでした",
+  "error.noResults.description": "もう一度お試しください。",
+  
   // Actions
   "action.addToLibrary": "ライブラリに追加",
   "action.addToLibrary.success": "ライブラリに追加されました",
@@ -102,6 +112,9 @@
   "action.addToQueue": "キューに追加",
   "action.addToQueue.success": "キューに追加されました",
   "action.addToQueue.error": "操作を完了できませんでした",
+  "action.addToPlaylist": "プレイリストに追加",
+  "action.removeFromPlaylist": "プレイリストから削除",
+  "action.addToFavorites": " ",
   "action.removeFromQueue": "キューから削除",
   "action.removeFromQueue.success": "キューから削除されました",
   "action.removeFromQueue.error": "操作を完了できませんでした",
@@ -116,7 +129,9 @@
   "action.startRadio": "ステーションを作成",
   "action.goToArtist": "アーティストへ移動",
   "action.goToAlbum": "アルバムへ移動",
+  "action.moveToTop": "上に戻る",
   "action.share": "曲を共有",
+  "action.rename": "リネーム",
   "action.love": "ラブ",
   "action.unlove": "ラブを解除",
   "action.dislike": "これに似たものをすすめない",
@@ -148,11 +163,13 @@
   "settings.header.visual.animatedArtwork.disable": "オフ",
   "settings.option.visual.animatedArtworkQuality": "アニメーションアートワークの品質", // Dropdown
   "settings.header.visual.animatedArtworkQuality.low": "低",
-  "settings.header.visual.animatedArtworkQuality.medium": "標準",
+  "settings.header.visual.animatedArtworkQuality.medium": "中",
   "settings.header.visual.animatedArtworkQuality.high": "高",
+  "settings.header.visual.animatedArtworkQuality.veryHigh": "超高",
   "settings.header.visual.animatedArtworkQuality.extreme": "最高",
   "settings.option.visual.animatedWindowBackground": "アプリウィンドウの背景をアニメーション化", // Toggle
   "settings.option.visual.hardwareAcceleration": "ハードウェア アクセラレーション", // Dropdown
+  "settings.option.visual.hardwareAcceleration.description": "アプリを再起動する必要があります",
   "settings.header.visual.hardwareAcceleration.default": "既定", 
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
   // Refer to term.disabled for the disabled option
@@ -176,7 +193,7 @@
   // Refer to term.disabled for the disabled option
   "settings.header.connectivity.discordRPC.cider": "'Cider' を表示する",
   "settings.header.connectivity.discordRPC.appleMusic": "'Apple Music' を表示する",
-  "settings.header.connectivity.discordRPC.clearOnPause": "一時停止時にDiscord Rich Presenceをクリアする", // Toggle
+  "settings.option.connectivity.discordRPC.clearOnPause": "一時停止時にDiscord Rich Presenceをクリアする", // Toggle
   "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling", // Option to Connect
   // Refer to term.connect for the connect button
 
@@ -186,6 +203,9 @@
   "settings.option.experimental.compactUI": "コンパクトインターフェース", // Toggle
   // Refer to term.disabled & term.enabled
   
+  // Settings - Unfinished
+  "settings.header.unfinished": "未完成",
+
   // Web Remote
   "remote.web.title": "Cider リモート",
   "remote.web.description": "QRコードを使用して、Ciderとスマートフォンをペアリングする"

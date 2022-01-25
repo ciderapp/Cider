@@ -188,7 +188,7 @@
                                    @focus="search.showHints = true"
                                    @blur="setTimeout(()=>{search.showHints = false}, 300)"
                                    v-on:keyup.enter="searchQuery();search.showHints = false" @change="showSearch();"
-                                   @input="getSearchHints()" :placeholder="$root.getLz('term.search') + ' ...'" v-model="search.term"
+                                   @input="getSearchHints()" :placeholder="$root.getLz('term.search') + '...'" v-model="search.term"
                                    ref="searchInput" class="search-input">
                         </div>
                     </div>
@@ -466,7 +466,7 @@
                             <div><input type="text" v-model="quickPlayQuery">
                                 <button @click="quickPlay(quickPlayQuery)">Play</button>
                             </div>
-                            <h1 class="header-text">Browse</h1>
+                            <h1 class="header-text">{{$root.getLz('term.browse')}}</h1>
                             <p>
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna eu
                                 tincidunt
@@ -485,7 +485,7 @@
                             </div>
                             <br>
                             <br>
-                            <h1 class="header-text">Listen Now</h1>
+                            <h1 class="header-text">{{$root.getLz('term.listenNow')}}</h1>
                             <div class="winbox">
                                 <div class="fancy">990kbps</div>
                                 <div class="">
@@ -509,8 +509,8 @@
                     <transition v-on:enter="getRadioStations()" name="wpfade">
                         <template v-if="page == 'radio'" @created="console.log('radio')">
                             <div class="content-inner">
-                                <h1 class="header-text">Radio</h1>
-                                <h3>Recent Stations</h3>
+                                <h1 class="header-text">{{$root.getLz('term.radio')}}</h1>
+                                <h3>{{$root.getLz('term.recentStations')}}</h3>
                                 <mediaitem-square :item="item" v-for="item in radio.personal"></mediaitem-square>
                             </div>
                         </template>

@@ -9,8 +9,8 @@
                     </template>
                 </div>
                 <div v-else style="text-align: center">
-                    <h3>No Results</h3>
-                    <p>Try a new search.</p>
+                    <h3>{{app.getLz('error.noResults')}}</h3>
+                    <p>{{app.getLz('error.noResults.description')}}</p>
                 </div>
                 <div class="col" v-if="search.results.song">
                     <div class="row">
