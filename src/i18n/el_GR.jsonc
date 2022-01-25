@@ -1,6 +1,9 @@
 {
   // App info
   "app.name": "Cider",
+
+  "date.format": "${d} ${m}, ${y}",
+
   // Dialogs
   "dialog.cancel": "Ακύρωση",
   "dialog.ok": "ΟΚ",
@@ -9,8 +12,8 @@
   "notification.updatingLibrarySongs": "Ενημέρωση βιβλιοθήκης τραγουδιών...",
   "notification.updatingLibraryAlbums": "Ενημέρωση βιβλιοθήκης άλμπουμ...",
   "notification.updatingLibraryArtists": "Ενημέρωση βιβλιοθήκης καλλιτεχνών...",
-
   // Terms
+  "term.appleInc": "Apple Inc.",
   "term.appleMusic": "Apple Music",
   "term.applePodcasts": "Apple Podcasts",
   "term.itunes": "iTunes",
@@ -60,6 +63,7 @@
   "term.viewAs": "Προβολή Ως",
   "term.viewAs.coverArt": "Εξώφυλλο",
   "term.viewAs.list": "Λίστα",
+  "term.size": "Μέγεθος",
   "term.size.normal": "Κανονικό",
   "term.size.compact": "Συμπαγή",
   "term.enable": "Ενεργοποίηση",
@@ -67,17 +71,58 @@
   "term.enabled": "Ενεργοποιημένο",
   "term.disabled": "Απενεργοποιημένο",
   "term.connect": "Σύνδεση",
+  "term.connecting": "Γίνεται Σύνδεση",
+  "term.disconnect": "Αποσύνδεση",
+  "term.authed": "Επικυρωμένο",
+  "term.confirm": "Σίγουρα;",
+  "term.more": "Περισσότερα",
+  "term.less": "Λιγότερα",
+  "term.showMore": "Εμφάνιση περισσότερων",
+  "term.showLess": "Εμφάνιση λιγότερων",
+  "term.topSongs" : "Κορυφαία Τραγούδια",
+  "term.latestReleases": "Τελευταίες Κυκλοφορίες",
+  "term.time.added": "Προστέθηκε",
+  "term.time.released": "Κυκλοφόρησε", 
+  "term.time.updated": "Ενημερώθηκε",
+  "term.fullscreenView": "Πλήρης οθόνη",
+  "term.defaultView": "Κανονική οθόνη",
+  "term.spacializedAudioSetting": "Χωρική Ρύθμιση Ήχου",
+  "term.clearAll": "Εκκαθάριση Όλων",
+  "term.recentStations": "Πρόσφατοι Σταθμοί",
+  "term.language": "Γλώσσα",
+  "term.noLyrics": "Φόρτωση... / Δεν βρέθηκαν στίχοι./ Ορχηστικό.",
+  "term.copyright": "Copyright",
+  "term.rightsReserved": "Όλα τα δικαιώματα διατηρούνται.",
+  "term.sponsor": "Χορήγησε αυτό το έργο",
+  "term.ciderTeam": "Ομάδα Cider",
+  "term.developer": "Προγραμματιστής",
+  "term.socialTeam": "Κοινωνική Ομάδα",
+  "term.contributors": "Συνεισφέροντες",
 
   // Home
   "home.title": "Αρχική",
   "home.recentlyPlayed": "Έπαιξαν Πρόσφατα",
   "home.recentlyAdded": "Πρόσφατες Προσθήκες",
   "home.artistsFeed": "Ροή των Καλλιτεχνών σου",
+  "home.artistsFeed.noArtist": "Ακολούθησε μερικούς καλλιτέχνες πρώτα και οι τελευταίες κυκλοφορίες τους θα εμφανίζονται εδώ",
   "home.madeForYou": "Δημιουργήθηκε Για Εσάς",
   "home.friendsListeningTo": "Οι Φίλοι σου Ακούν",
   "home.followedArtists": "Καλλιτέχνες που Ακολουθείτε",
   // Errors
   "error.appleMusicSubRequired": "Το Apple Music απαιτεί μια συνδρομή.",
+  "error.connectionError": "Δεν είναι δυνατή η σύνδεση με το Apple Music.",
+  "error.noResults": "Κανένα αποτέλεσμα.",
+  "error.noResults.description": "Δοκιμάστε μια νέα αναζήτηση.",
+
+  //Podcasts
+  "podcast.followOnCider": "Ακολούθηση στο Cider",
+  "podcast.followedOnCider": "Ακολουθείτε στο Cider",
+  "podcast.subscribeOnItunes": "Συνδρομή στο iTunes",
+  "podcast.subscribedOnItunes": "Συνδρομητής στο iTunes",
+  "podcast.itunesStore": "iTunes Store",
+  "podcast.episodes": "Επεισόδια",
+  "podcast.playEpisode": "Αναπαραγωγή Επεισοδίου",
+  "podcast.website": "Ιστότοπος Podcast",
 
   // Actions
   "action.addToLibrary": "Προσθήκη στη Βιβλιοθήκη",
@@ -92,6 +137,7 @@
   "action.removeFromQueue.success": "Αφαιρέθηκε από την Ουρά",
   "action.removeFromQueue.error": "Σφάλμα Αφαίρεσης από την Ουρά",
   "action.addToPlaylist": "Προσθήκη σε Λίστα",
+  "action.removeFromPlaylist": "Αφαίρεση από Λίστα",
   "action.addToFavorites": "Προσθήκη στα Αγαπημένα",
   "action.follow": "Ακολούθηση",
   "action.follow.success": "Ακολουθήθηκε",
@@ -112,6 +158,7 @@
   "action.dislike": "Δεν μου αρέσει",
   "action.undoDislike": "Αναίρεση \"Δεν μου αρέσει\"",
   "action.showWebRemoteQR": "Εμφάνιση Web Remote QR",
+  
   // Settings - Audio
   "settings.header.audio": "Ήχος",
   "settings.header.audio.description": "Προσαρμογή ρυθμίσεων ήχου για το Cider.",
@@ -140,9 +187,11 @@
   "settings.header.visual.animatedArtworkQuality.low": "Χαμηλή",
   "settings.header.visual.animatedArtworkQuality.medium": "Μέτρια",
   "settings.header.visual.animatedArtworkQuality.high": "Υψηλή",
-  "settings.header.visual.animatedArtworkQuality.extreme": "Πολύ Υψηλή",
+  "settings.header.visual.animatedArtworkQuality.veryHigh": "Πολύ Υψηλή",
+  "settings.header.visual.animatedArtworkQuality.extreme": "Ακραία",
   "settings.option.visual.animatedWindowBackground": "Κινούμενο Φόντο Παραθύρου", // Toggle
   "settings.option.visual.hardwareAcceleration": "Επιτάχυνση Υλικού", // Dropdown
+  "settings.option.visual.hardwareAcceleration.description": "Απαιτεί επανεκκίνηση",
   "settings.header.visual.hardwareAcceleration.default": "Προεπιλογή",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
   // Refer to term.disabled for the disabled option
@@ -168,6 +217,9 @@
   "settings.header.connectivity.discordRPC.appleMusic": "Εμφάνιση ως 'Apple Music'",
   "settings.option.connectivity.discordRPC.clearOnPause": "Εκκαθάριση του Discord Rich Presence στην Παύση", // Toggle
   "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling", // Option to Connect
+  "settings.option.connectivity.lastfmScrobble.delay": "Καθυστέρηση LastFM Scrobble (%)", 
+  "settings.option.connectivity.lastfmScrobble.nowPlaying": "Ενεργοποίηση LastFM \"Now Playing\"", 
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "Αφαίρεση καλλιτεχνών feature από τον τίτλο του τραγουδιού (LastFM)", 
   // Refer to term.connect for the connect button
 
   // Settings - Experimental
@@ -176,7 +228,32 @@
   "settings.option.experimental.compactUI": "Συμπαγής Διεπαφή", // Toggle
   // Refer to term.disabled & term.enabled
 
+  // Spatialization Menu
+  "spatial.spatialProperties" : "Χωρικές Ιδιότητες",
+  "spatial.width" : "Πλάτος",
+  "spatial.height" : "Ύψος",
+  "spatial.depth" : "Βάθος",
+  "spatial.roomMaterials" : "Υλικά Δωματίου",
+  "spatial.roomDimensions" : "Διαστάσεις Δωματίου",
+  "spatial.roomPositions" : "Θέσεις Δωματίου",
+  "spatial.setDimensions" : "Ορισμός Διαστάσεων",
+  "spatial.setPositions" : "Ορισμός Θέσεων",
+  "spatial.up" : "Πάνω",
+  "spatial.front" : "Πρόσοψη",
+  "spatial.left" : "Αριστερά",
+  "spatial.right" : "Δεξιά",
+  "spatial.back" : "Πίσω Όψη",
+  "spatial.down" : "Κάτω",
+  "spatial.listener" : "Ακροατής",
+  "spatial.audioSource" : "Πηγή Ήχου",
+  
+  // Settings - Unfinished
+  "settings.header.unfinished": "Ημιτελής",
+
   // Web Remote
   "remote.web.title": "Cider Remote",
-  "remote.web.description": "Σαρώστε τον κωδικό QR για σύζευξη του Cider με το κινητό σας"
+  "remote.web.description": "Σαρώστε τον κωδικό QR για σύζευξη του Cider με το κινητό σας",
+
+  //About
+  "about.thanks": "Μεγάλα ευχαριστώ στην Ομάδα Cider Collective και σε όλους τους συνεισφέροντές μας."
 }
