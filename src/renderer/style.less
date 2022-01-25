@@ -5168,7 +5168,42 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   }
 }
 
-/* Cider */
+// Cider App
+
+.mediaitem-list-item__grid {
+  overflow-x: overlay;
+  overflow-y: hidden;
+  background: rgba(200, 200, 200, 0.05);
+  border-radius: 10px;
+  padding: var(--contentInnerPadding);
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  .grid-body {
+    display: grid;
+    grid-auto-flow: column dense;
+    grid-template-rows: auto auto auto auto;
+    grid-gap: 0 6px;
+    padding: 2px 0;
+    justify-content: left;
+    width: 0;
+  }
+
+  .cd-mediaitem-list-item {
+    width: 350px;
+    height: 60px;
+  }
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  
+  &:hover::-webkit-scrollbar {
+    display: initial;
+    
+  }
+}
 
 .settings-page {
   padding:0px;
