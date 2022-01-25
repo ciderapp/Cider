@@ -77,13 +77,13 @@
   "term.less": "Daha Az",
   "term.showMore": "Daha Fazla Göster",
   "term.showLess": "Daha Az Göster",
-  "term.topSongs" : "En İyi Şarkılar",
-  "term.latestReleases": "Son Çıkanlar",
+  "term.topSongs" : "Popüler Parçalar",
+  "term.latestReleases": "Yeni Çıkan",
   "term.time.added": "Şu tarihte eklendi: ",
   "term.time.released": "Şu tarihte yayınalndı: ", 
   "term.time.updated": "Şu tarihte güncellendi: ",
-  "term.fullscreenView": "Tam Ekran Görünümü",
-  "term.defaultView": "Normal Görünüm",
+  "term.fullscreenView": "Tam Ekrana Geç",
+  "term.defaultView": "Normal Görünüme Dön",
 
   // Home
   "home.title": "Ana Sayfa",
