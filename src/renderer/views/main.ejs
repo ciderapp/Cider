@@ -188,7 +188,7 @@
                                    @focus="search.showHints = true"
                                    @blur="setTimeout(()=>{search.showHints = false}, 300)"
                                    v-on:keyup.enter="searchQuery();search.showHints = false" @change="showSearch();"
-                                   @input="getSearchHints()" :placeholder="app.getLz('term.search') + ' ...'" v-model="search.term"
+                                   @input="getSearchHints()" :placeholder="$root.getLz('term.search') + ' ...'" v-model="search.term"
                                    ref="searchInput" class="search-input">
                         </div>
                     </div>
@@ -247,7 +247,7 @@
                                 <button class="usermenu-item" @click="toggleHideUserInfo()">
                                     <div class="row nopadding">
                                         <div class="col nopadding">
-                                            {{app.getLz('settings.option.visual.showPersonalInfo)}}
+                                            {{$root.getLz('settings.option.visual.showPersonalInfo')}}
                                         </div>
                                         <div class="col-auto nopadding" v-if="!chrome.hideUserInfo">
                                             ✔️
@@ -257,7 +257,7 @@
                                 <button class="usermenu-item" @click="mk.privateEnabled = !mk.privateEnabled">
                                     <div class="row nopadding">
                                         <div class="col nopadding">
-                                            {{app.getLz('term.privateSession')}}
+                                            {{$root.getLz('term.privateSession')}}
                                         </div>
                                         <div class="col-auto nopadding" v-if="mk.privateEnabled">
                                             ✔️
@@ -266,22 +266,22 @@
                                 </button>
                                 <button class="usermenu-item" v-if="cfg.advanced.AudioContext && cfg.audio.spatial"
                                         @click="modals.spatialProperties = true">
-                                    {{app.getLz('term.spacializedAudioSetting')}}
+                                    {{$root.getLz('term.spacializedAudioSetting')}}
                                 </button>
                                 <button class="usermenu-item" @click="appRoute('apple-account-settings')">
-                                    {{app.getLz('term.accountSettings')}}
+                                    {{$root.getLz('term.accountSettings')}}
                                 </button>
                                 <button class="usermenu-item" @click="appRoute('about')">
-                                    {{app.getLz('term.about')}}
+                                    {{$root.getLz('term.about')}}
                                 </button>
                                 <button class="usermenu-item" @click="window.open('https://discord.gg/applemusic')">
-                                    {{app.getLz('term.discord')}}
+                                    {{$root.getLz('term.discord')}}
                                 </button>
                                 <button class="usermenu-item" @click="appRoute('settings')">
-                                    {{app.getLz('term.settings')}}
+                                    {{$root.getLz('term.settings')}}
                                 </button>
                                 <button class="usermenu-item" @click="unauthorize()">
-                                    {{app.getLz('term.logout')}}
+                                    {{$root.getLz('term.logout')}}
                                 </button>
                             </div>
                         </div>
