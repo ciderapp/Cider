@@ -28,6 +28,9 @@
   "term.queue": "队列",
   "term.search": "搜索",
   "term.library": "资料库",
+  "term.listenNow": "现在就听",
+  "term.browse": "浏览",
+  "term.radio": "广播",
   "term.recentlyAdded": "最近添加",
   "term.songs": "歌曲",
   "term.albums": "专辑",
@@ -111,6 +114,9 @@
   "action.removeFromQueue": "从队列中移除",
   "action.removeFromQueue.success": "已从队列中移除",
   "action.removeFromQueue.error": "从队列中移除的过程发生了错误",
+  "action.addToPlaylist": "加入播放列表",
+  "action.removeFromPlaylist": "从播放列表中移除",
+  "action.addToFavorites": "加至收藏",
   "action.follow": "关注",
   "action.follow.success": "已关注",
   "action.follow.error": "尝试关注的过程发生了错误",
@@ -122,7 +128,9 @@
   "action.startRadio": "开始电台",
   "action.goToArtist": "前往艺人",
   "action.goToAlbum": "前往专辑",
+  "action.moveToTop": "移到顶部",
   "action.share": "分享歌曲",
+  "action.rename": "重命名",
   "action.love": "喜欢",
   "action.unlove": "踩",
   "action.dislike": "减少此类建议",
@@ -160,6 +168,7 @@
   "settings.header.visual.animatedArtworkQuality.extreme": "极高",
   "settings.option.visual.animatedWindowBackground": "动态窗口背景", // Toggle
   "settings.option.visual.hardwareAcceleration": "硬件加速", // Dropdown
+  "settings.option.visual.hardwareAcceleration.description": "需要重启 Cider 才会生效",
   "settings.header.visual.hardwareAcceleration.default": "默认", 
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
   // Refer to term.disabled for the disabled option
@@ -190,7 +199,7 @@
   // Settings - Experimental
   "settings.header.experimental": "实验性功能",
   "settings.header.experimental.description": "调整Cider的实验性功能",
-  "settings.option.experimental.compactUI": "紧凑型UI", // Toggle
+  "settings.option.experimental.compactUI": "紧凑型 UI", // Toggle
   // Refer to term.disabled & term.enabled
   
   // Settings - Unfinished

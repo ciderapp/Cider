@@ -28,6 +28,9 @@
   "term.queue": "次はこちら",
   "term.search": "検索",
   "term.library": "ライブラリ",
+  "term.listenNow": "今すぐ聴く",
+  "term.browse": "見つける",
+  "term.radio": "ラジオ",
   "term.recentlyAdded": "最近追加した項目",
   "term.songs": "曲",
   "term.albums": "アルバム",
@@ -107,6 +110,9 @@
   "action.addToQueue": "キューに追加",
   "action.addToQueue.success": "キューに追加されました",
   "action.addToQueue.error": "操作を完了できませんでした",
+  "action.addToPlaylist": "プレイリストに追加",
+  "action.removeFromPlaylist": "プレイリストから削除",
+  "action.addToFavorites": " ",
   "action.removeFromQueue": "キューから削除",
   "action.removeFromQueue.success": "キューから削除されました",
   "action.removeFromQueue.error": "操作を完了できませんでした",
@@ -121,7 +127,9 @@
   "action.startRadio": "ステーションを作成",
   "action.goToArtist": "アーティストへ移動",
   "action.goToAlbum": "アルバムへ移動",
+  "action.moveToTop": "上に戻る",
   "action.share": "曲を共有",
+  "action.rename": "リネーム",
   "action.love": "ラブ",
   "action.unlove": "ラブを解除",
   "action.dislike": "これに似たものをすすめない",
@@ -159,6 +167,7 @@
   "settings.header.visual.animatedArtworkQuality.extreme": "最高",
   "settings.option.visual.animatedWindowBackground": "アプリウィンドウの背景をアニメーション化", // Toggle
   "settings.option.visual.hardwareAcceleration": "ハードウェア アクセラレーション", // Dropdown
+  "settings.option.visual.hardwareAcceleration.description": "アプリを再起動する必要があります",
   "settings.header.visual.hardwareAcceleration.default": "既定", 
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
   // Refer to term.disabled for the disabled option

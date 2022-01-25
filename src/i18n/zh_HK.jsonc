@@ -27,6 +27,9 @@
   "term.queue": "播放清單",
   "term.search": "搜尋",
   "term.library": "資料庫",
+  "term.listenNow": "立即聆聽",
+  "term.browse": "瀏覽",
+  "term.radio": "廣播",
   "term.recentlyAdded": "最近加入",
   "term.songs": "歌曲",
   "term.albums": "專輯",
@@ -162,6 +165,7 @@
   "settings.header.visual.animatedArtworkQuality.extreme": "極高",
   "settings.option.visual.animatedWindowBackground": "動態窗口背景", // Toggle
   "settings.option.visual.hardwareAcceleration": "硬體加速", // Dropdown
+  "settings.option.visual.hardwareAcceleration.description": "需要重啓 Cider 才能生效",
   "settings.header.visual.hardwareAcceleration.default": "默認", 
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
   // Refer to term.disabled for the disabled option
@@ -176,7 +180,7 @@
   "settings.option.lyrics.enableMusixmatch": "啟用 Musixmatch 歌詞", // Toggle
   "settings.option.lyrics.enableMusixmatchKaraoke": "啟用卡拉OK模式（僅限Musixmatch）", // Toggle
   "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch 歌詞語言偏好", // Dropdown
-  "settings.option.lyrics.enableYoutubeLyrics": "播放MV時使用YouTube歌詞", // Toggle
+  "settings.option.lyrics.enableYoutubeLyrics": "播放 MV 時使用 YouTube 歌詞", // Toggle
 
   // Settings - Connectivity
   "settings.header.connectivity": "外部連結",
@@ -192,7 +196,7 @@
   // Settings - Experimental
   "settings.header.experimental": "實驗性功能",
   "settings.header.experimental.description": "調整Cider的實驗性功能",
-  "settings.option.experimental.compactUI": "緊凑型UI", // Toggle
+  "settings.option.experimental.compactUI": "緊凑型 UI", // Toggle
   // Refer to term.disabled & term.enabled
   
   // Settings - Unfinished
