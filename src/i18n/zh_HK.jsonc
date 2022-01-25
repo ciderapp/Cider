@@ -82,7 +82,7 @@
   "term.time.updated": "更新於",
   "term.fullscreenView": "全螢幕檢視",
   "term.defaultView": "一般檢視",
-  "term.spacializedAudioSetting": "音频空间化设置",
+  "term.spacializedAudioSetting": "空間音訊設定",
   "term.clearAll": "清空",
   "term.recentStations": "最近播放的頻道",
   "term.language": "語言",
@@ -98,9 +98,9 @@
   "home.followedArtists": "追蹤的藝人",
   // Errors
   "error.appleMusicSubRequired": "需要訂閱Apple Music以使用Cider",
-  "error.connectionError": "There was a problem connecting to Apple Music.",
-  "error.noResults": "No Results.",
-  "error.noResults.description": "Try a new search.",
+  "error.connectionError": "連接至Apple Music伺服器期間發生錯誤。",
+  "error.noResults": "沒有結果",
+  "error.noResults.description": "請嘗試新的搜尋內容。",
   // Actions
   "action.addToLibrary": "加入資料庫",
   "action.addToLibrary.success": "成功加入資料庫",
