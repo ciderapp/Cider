@@ -441,11 +441,11 @@
                 let month, year;
                 try {
                     const releaseDate = new Date(date);
-                    month = new Intl.DateTimeFormat('en-US', {month: 'long'}).format(releaseDate);
-                    date = releaseDate.getDate();
-                    year = releaseDate.getFullYear();
+                    // month = new Intl.DateTimeFormat(this.app.cfg.general.language.replace('_','-'), {month: 'long'}).format(releaseDate);
+                    // date = releaseDate.getDate();
+                    // year = releaseDate.getFullYear();
 
-                    return prefix + date + " " + month + " " + year;
+                    return prefix + new Intl.DateTimeFormat(this.app.cfg.general.language?.replace('_','-') ?? 'en-US', {day:'numeric',month: 'long', year: 'numeric'}).format(releaseDate);
                 } catch (e) {
                     return ""
                 }
