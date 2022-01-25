@@ -472,7 +472,7 @@
             </div>
             <div class="md-option-line" v-show ="app.cfg.lastfm.enabled">
                 <div class="md-option-segment">
-                    LastFM Scrobble Delay (%)
+                    {{$root.getLz('settings.option.connectivity.lastfmScrobble.delay')}}
                 </div>
                 <div class="md-option-segment md-option-segment_auto" >
                     <input type="number" min="50" max="100" v-model="app.cfg.lastfm.scrobble_after"/>
@@ -480,7 +480,7 @@
             </div>
             <div class="md-option-line" v-show ="app.cfg.lastfm.enabled">
                 <div class="md-option-segment">
-                    Enable LastFM Now Playing 
+                    {{$root.getLz('settings.option.connectivity.lastfmScrobble.nowPlaying')}} 
                 </div>
                 <div class="md-option-segment md-option-segment_auto" >
                     <input type="checkbox"  v-model="app.cfg.lastfm.NowPlaying" switch/>
@@ -488,7 +488,7 @@
             </div>
             <div class="md-option-line" v-show ="app.cfg.lastfm.enabled">
                 <div class="md-option-segment">
-                    Remove featuring artists from song title (LastFM)
+                    {{$root.getLz('settings.option.connectivity.lastfmScrobble.removeFeatured')}}
                 </div>
                 <div class="md-option-segment md-option-segment_auto" >
                     <input type="checkbox"  v-model="app.cfg.lastfm.enabledRemoveFeaturingArtists" switch/>

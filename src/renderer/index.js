@@ -3296,11 +3296,11 @@ const app = new Vue({
             const element = document.getElementById('lfmConnect');
             // new key : f9986d12aab5a0fe66193c559435ede3
             window.open('https://www.last.fm/api/auth?api_key=f9986d12aab5a0fe66193c559435ede3&cb=cider://auth/lastfm');
-            element.innerText = app.getLz('term.connecting');
+            element.innerText = app.getLz('term.connecting') + '...';
 
             /* Just a timeout for the button */
             setTimeout(() => {
-                if (element.innerText === app.getLz('term.connecting')) {
+                if (element.innerText === app.getLz('term.connecting') +'...') {
                     element.innerText = app.getLz('term.connect');
                     console.warn('[LastFM] Attempted connection timed out.');
                 }
@@ -3309,7 +3309,7 @@ const app = new Vue({
             ipcRenderer.on('LastfmAuthenticated', function(_event, lfmAuthKey) {
                 app.cfg.lastfm.auth_token = lfmAuthKey;
                 app.cfg.lastfm.enabled = true;
-                element.innerHTML = `Disconnect\n<p style="font-size: 8px"><i>(Authed: ${lfmAuthKey})</i></p>`;
+                element.innerHTML = `${app.getLz('term.disconnect')}\n<p style="font-size: 8px"><i>(${app.getLz('term.authed')}: ${lfmAuthKey})</i></p>`;
                 element.onclick = app.LastFMDeauthorize;
             });
         },
@@ -3357,7 +3357,18 @@ const app = new Vue({
             } else {
                 ipcRenderer.send('windowmin', 844, 410)
                 ipcRenderer.send('windowresize', this.tmpWidth, this.tmpHeight, false)
+                ipcRenderer.send('windowontop', false)
+                this.cfg.visual.miniplayer_top_toggle = true;
                 app.appMode = 'player';
+            }
+        },
+        pinMiniPlayer() {
+            if (this.cfg.visual.miniplayer_top_toggle) {
+                ipcRenderer.send('windowontop', true)
+                this.cfg.visual.miniplayer_top_toggle = false
+            } else {
+                ipcRenderer.send('windowontop', false)
+                this.cfg.visual.miniplayer_top_toggle = true;
             }
         },
         formatTimezoneOffset: (e = new Date) => {

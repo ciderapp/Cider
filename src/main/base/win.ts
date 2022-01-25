@@ -430,6 +430,10 @@ export class Win {
             this.win.setMinimumSize(width,height);
         })
 
+        electron.ipcMain.on("windowontop", (event, ontop) => {
+            this.win.setAlwaysOnTop(ontop);
+        });
+
         // Set scale
         electron.ipcMain.on("windowresize", (event, width, height, lock = false) => {          
             this.win.setContentSize(width, height);

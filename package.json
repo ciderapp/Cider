@@ -95,8 +95,8 @@
       "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
     },
     "appId": "cider",
-    "afterPack": "./build/afterPack.js",
-    "afterSign": "./build/notarize.js",
+    "afterPack": "./resources/afterPack.js",
+    "afterSign": "./resources/notarize.js",
     "protocols": [
       {
         "name": "Cider",
@@ -158,8 +158,8 @@
       "gatekeeperAssess": false,
       "icon": "./resources/icons/icon.icns",
       "category": "public.app-category.music",
-      "entitlements": "build/entitlements.mac.plist",
-      "entitlementsInherit": "build/entitlements.mac.plist",
+      "entitlements": "./resources/entitlements.mac.plist",
+      "entitlementsInherit": "./resources/entitlements.mac.plist",
       "darkModeSupport": true,
       "target": [
         "dmg"
