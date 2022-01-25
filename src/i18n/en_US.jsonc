@@ -13,6 +13,7 @@
   "notification.updatingLibraryAlbums": "Updating library albums...",
   "notification.updatingLibraryArtists": "Updating library artists...",
   // Terms
+  "term.appleInc": "Apple Inc.",
   "term.appleMusic": "Apple Music",
   "term.applePodcasts": "Apple Podcasts",
   "term.itunes": "iTunes",
@@ -70,6 +71,7 @@
   "term.enabled": "Enabled",
   "term.disabled": "Disabled",
   "term.connect": "Connect",
+  "term.connecting": "Connecting...",
   "term.confirm": "Confirm ?",
   "term.more": "More",
   "term.less": "Less",
@@ -86,6 +88,15 @@
   "term.clearAll": "Clear All",
   "term.recentStations": "Recent Stations",
   "term.language": "Language",
+  "term.noLyrics": "Loading... / Lyrics not found./ Instrumental.",
+  "term.copyright": "Copyright",
+  "term.rightsReserved": "All Rights Reserved.",
+  "term.sponsor": "Sponsor this project",
+  "term.ciderTeam": "Cider Team",
+  "term.developer": "Developer",
+  "term.socialTeam": "Social Team",
+  "term.contributors": "Contributors",
+
   // Home
   "home.title": "Home",
   "home.recentlyPlayed": "Recently Played",
@@ -100,6 +111,16 @@
   "error.connectionError": "There was a problem connecting to Apple Music.",
   "error.noResults": "No Results.",
   "error.noResults.description": "Try a new search.",
+
+  //Podcasts
+  "podcast.followOnCider": "Follow On Cider",
+  "podcast.followedOnCider": "Following On Cider",
+  "podcast.subscribeOnItunes": "Subscribe On iTunes",
+  "podcast.subscribedOnItunes": "Subscribed On iTunes",
+  "podcast.itunesStore": "iTunes Store",
+  "podcast.episodes": "Episodes",
+  "podcast.playEpisode": "Play Episode",
+  "podcast.website": "Podcast Website",
 
   // Actions
   "action.addToLibrary": "Add to Library",
@@ -207,5 +228,8 @@
 
   // Web Remote
   "remote.web.title": "Cider Remote",
-  "remote.web.description": "Scan the QR code to pair your phone up with this Cider instance"
+  "remote.web.description": "Scan the QR code to pair your phone up with this Cider instance",
+
+  //About
+  "about.thanks": "Major thanks to the Cider Collective Team and all of our contributors."
 }

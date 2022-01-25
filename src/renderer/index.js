@@ -1768,7 +1768,7 @@ const app = new Vue({
                 downloaded = response
                 library = library.concat(downloaded.data)
                 self.library.downloadNotification.show = true
-                self.library.downloadNotification.message = "Updating library songs..."
+                self.library.downloadNotification.message = app.getLz('notification.updatingLibrarySongs')
                 self.library.downloadNotification.total = downloaded.meta.total
                 self.library.downloadNotification.progress = library.length
 
@@ -1848,7 +1848,7 @@ const app = new Vue({
                 downloaded = response
                 library = library.concat(downloaded.data)
                 self.library.downloadNotification.show = true
-                self.library.downloadNotification.message = "Updating library albums..."
+                self.library.downloadNotification.message = app.getLz('notification.updatingLibraryAlbums')
                 self.library.downloadNotification.total = downloaded.meta.total
                 self.library.downloadNotification.progress = library.length
                 if (downloaded.meta.total == 0) {
@@ -1931,7 +1931,7 @@ const app = new Vue({
                 downloaded = response
                 library = library.concat(downloaded.data)
                 self.library.downloadNotification.show = true
-                self.library.downloadNotification.message = "Updating library artists..."
+                self.library.downloadNotification.message = app.getLz('notification.updatingLibraryArtists')
                 self.library.downloadNotification.total = downloaded.meta.total
                 self.library.downloadNotification.progress = library.length
                 if (downloaded.meta.total == 0) {
@@ -3237,7 +3237,7 @@ const app = new Vue({
                         },
                         {
                             "icon": "./assets/feather/radio.svg",
-                            "name": "Start Radio",
+                            "name": app.getLz('action.startRadio'),
                             "action": function() {
                                 app.mk.setStationQueue({ song: app.mk.nowPlayingItem.id }).then(() => {
                                     app.mk.play()
@@ -3288,7 +3288,7 @@ const app = new Vue({
             app.cfg.lastfm.auth_token = "";
             app.cfg.lastfm.enabled = false;
             const element = document.getElementById('lfmConnect');
-            element.innerHTML = 'Connect';
+            element.innerHTML = getLz('term.connect');
             element.onclick = app.LastFMAuthenticate;
         },
         LastFMAuthenticate() {
@@ -3296,12 +3296,12 @@ const app = new Vue({
             const element = document.getElementById('lfmConnect');
             // new key : f9986d12aab5a0fe66193c559435ede3
             window.open('https://www.last.fm/api/auth?api_key=f9986d12aab5a0fe66193c559435ede3&cb=cider://auth/lastfm');
-            element.innerText = 'Connecting...';
+            element.innerText = app.getLz('term.connecting');
 
             /* Just a timeout for the button */
             setTimeout(() => {
-                if (element.innerText === 'Connecting...') {
-                    element.innerText = 'Connect';
+                if (element.innerText === app.getLz('term.connecting')) {
+                    element.innerText = app.getLz('term.connect');
                     console.warn('[LastFM] Attempted connection timed out.');
                 }
             }, 20000);
