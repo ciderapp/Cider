@@ -2,15 +2,15 @@
     <div class="modal-fullscreen spatialproperties-panel">
         <div class="modal-window" v-if="ready">
             <div class="modal-header">
-                <div class="modal-title">Spatial Properties</div>
+                <div class="modal-title">{{$root.getLz('spatial.spatialProperties')}}</div>
                 <button class="close-btn" @click="close()"></button>
             </div>
             <div class="modal-content">
                 <template v-if="roomEditType == 'dimensions'">
                     <div class="row">
-                        <div class="col"><h3>Room Dimensions</h3></div>
+                        <div class="col"><h3>{{$root.getLz('spatial.roomDimensions')}}</h3></div>
                         <div class="col-auto flex-center">
-                            <button class="md-btn" @click="roomEditType = 'positions'">Set Positions</button>
+                            <button class="md-btn" @click="roomEditType = 'positions'">{{$root.getLz('spatial.setPositions')}}</button>
                         </div>
                     </div>
                     <div class="row">
@@ -18,7 +18,7 @@
     
                             <div class="row">
                                 <div class="col-3 flex-center">
-                                    Width
+                                    {{$root.getLz('spatial.width')}}
                                 </div>
                                 <div class="col flex-center">
                                     <input type="range" class="md-slider" min="0" max="100" @change="setRoom()" style="width: 100%;"
@@ -32,7 +32,7 @@
     
                             <div class="row">
                                 <div class="col-3 flex-center">
-                                    Height
+                                    {{$root.getLz('spatial.height')}}
                                 </div>
                                 <div class="col flex-center">
                                     <input type="range" class="md-slider" min="0" max="100" @change="setRoom()" style="width: 100%;"
@@ -46,7 +46,7 @@
     
                             <div class="row">
                                 <div class="col-3 flex-center">
-                                    Depth
+                                    {{$root.getLz('spatial.depth')}}
                                 </div>
                                 <div class="col flex-center">
                                     <input type="range" class="md-slider" min="0" max="100" @change="setRoom()" style="width: 100%;"
@@ -73,9 +73,9 @@
                 </template>
                 <template v-if="roomEditType == 'positions'">
                     <div class="row">
-                        <div class="col"><h3>Room Positions</h3></div>
+                        <div class="col"><h3>{{$root.getLz('spatial.roomPositons')}}</h3></div>
                         <div class="col-auto flex-center">
-                            <button class="md-btn" @click="roomEditType = 'dimensions'">Set Dimensions</button>
+                            <button class="md-btn" @click="roomEditType = 'dimensions'">{{$root.getLz('spatial.setDimensions')}}</button>
                         </div>
                     </div>
                     <div class="row">
@@ -83,7 +83,7 @@
     
                             <div class="row">
                                 <div class="col-3 flex-center">
-                                    X (Listener)
+                                    X ({{$root.getLz('spatial.listener')}})
                                 </div>
                                 <div class="col flex-center">
                                     <input type="range" class="md-slider" min="0" max="100" @change="setRoom()" style="width: 100%;"
@@ -97,7 +97,7 @@
 
                             <div class="row">
                                 <div class="col-3 flex-center">
-                                    Y (Listener)
+                                    Y ({{$root.getLz('spatial.listener')}})
                                 </div>
                                 <div class="col flex-center">
                                     <input type="range" class="md-slider" min="0" max="100" @change="setRoom()" style="width: 100%;"
@@ -111,7 +111,7 @@
 
                             <div class="row">
                                 <div class="col-3 flex-center">
-                                    Z (Listener)
+                                    Z ({{$root.getLz('spatial.listener')}})
                                 </div>
                                 <div class="col flex-center">
                                     <input type="range" class="md-slider" min="0" max="100" @change="setRoom()" style="width: 100%;"
@@ -125,7 +125,7 @@
 
                             <div class="row">
                                 <div class="col-3 flex-center">
-                                    X (Audio Source)
+                                    X ({{$root.getLz('spatial.audioSource')}})
                                 </div>
                                 <div class="col flex-center">
                                     <input type="range" class="md-slider" min="0" max="100" @change="setRoom()" style="width: 100%;"
@@ -139,7 +139,7 @@
 
                             <div class="row">
                                 <div class="col-3 flex-center">
-                                    Y (Audio Source)
+                                    Y ({{$root.getLz('spatial.audioSource')}})
                                 </div>
                                 <div class="col flex-center">
                                     <input type="range" class="md-slider" min="0" max="100" @change="setRoom()" style="width: 100%;"
@@ -153,7 +153,7 @@
 
                             <div class="row">
                                 <div class="col-3 flex-center">
-                                    Z (Audio Source)
+                                    Z ({{$root.getLz('spatial.audioSource')}})
                                 </div>
                                 <div class="col flex-center">
                                     <input type="range" class="md-slider" min="0" max="100" @change="setRoom()" style="width: 100%;"
@@ -179,13 +179,13 @@
                 </template>
 
                 <div class="row">
-                    <div class="col"><h3>Room Materials</h3></div>
+                    <div class="col"><h3>{{$root.getLz('spatial.roomMaterials')}}</h3></div>
                 </div>
                 <div class="row">
                     <div class="col"></div>
                     <div class="col flex-center">
                         <label>
-                            Up
+                            {{$root.getLz('spatial.up')}}
                             <select class="md-select" @change="setRoom()"
                                     v-model="room_materials.up">
                                 <option v-for="prop in roomProps" :value="prop">{{ prop }}</option>
@@ -197,7 +197,7 @@
                 <div class="row">
                     <div class="col flex-center">
                         <label>
-                            Left
+                            {{$root.getLz('spatial.left')}}
                             <select class="md-select" @change="setRoom()"
                                     v-model="room_materials.left">
                                 <option v-for="prop in roomProps" :value="prop">{{ prop }}</option>
@@ -206,14 +206,14 @@
                     </div>
                     <div class="col flex-center">
                         <label>
-                            Front
+                            {{$root.getLz('spatial.front')}}
                             <select class="md-select" @change="setRoom()"
                                     v-model="room_materials.front">
                                 <option v-for="prop in roomProps" :value="prop">{{ prop }}</option>
                             </select>
                         </label>
                         <label>
-                            Back
+                            {{$root.getLz('spatial.back')}}
                             <select class="md-select" @change="setRoom()"
                                     v-model="room_materials.back">
                                 <option v-for="prop in roomProps" :value="prop">{{ prop }}</option>
@@ -222,7 +222,7 @@
                     </div>
                     <div class="col flex-center">
                         <label>
-                            Right
+                            {{$root.getLz('spatial.right')}}
                             <select class="md-select" @change="setRoom()"
                                     v-model="room_materials.right">
                                 <option v-for="prop in roomProps" :value="prop">{{ prop }}</option>
@@ -234,7 +234,7 @@
                     <div class="col"></div>
                     <div class="col flex-center">
                         <label>
-                            Down
+                            {{$root.getLz('spatial.down')}}
                             <select class="md-select" @change="setRoom()"
                                     v-model="room_materials.down">
                                 <option v-for="prop in roomProps" :value="prop">{{ prop }}</option>

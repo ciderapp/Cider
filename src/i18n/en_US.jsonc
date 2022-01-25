@@ -194,6 +194,9 @@
   "settings.header.connectivity.discordRPC.appleMusic": "Display as 'Apple Music'",
   "settings.option.connectivity.discordRPC.clearOnPause": "Clear Discord Rich Presence on Pause", // Toggle
   "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling", // Option to Connect
+  "settings.option.connectivity.lastfmScrobble.delay": "LastFM Scrobble Delay (%)", 
+  "settings.option.connectivity.lastfmScrobble.nowPlaying": "Enable LastFM Now Playing", 
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "Remove featuring artists from song title (LastFM)", 
   // Refer to term.connect for the connect button
 
   // Settings - Experimental
@@ -201,6 +204,28 @@
   "settings.header.experimental.description": "Adjust the experimental settings for Cider.",
   "settings.option.experimental.compactUI": "Compact UI", // Toggle
   // Refer to term.disabled & term.enabled
+
+  // Spatialization Menu
+  "spatial.spatialProperties" : "Spatial Properties",
+  "spatial.width" : "Width",
+  "spatial.height" : "Height",
+  "spatial.depth" : "Depth",
+  "spatial.roomMaterials" : "Room Materials",
+  "spatial.roomDimensions" : "Room Dimensions",
+  "spatial.roomPositions" : "Room Positions",
+  "spatial.setDimensions" : "Set Dimensions",
+  "spatial.setPositions" : "Set Positions",
+  "spatial.up" : "Up",
+  "spatial.front" : "Front",
+  "spatial.left" : "Left",
+  "spatial.right" : "Right",
+  "spatial.back" : "Back",
+  "spatial.down" : "Down",
+  "spatial.listener" : "Listener",
+  "spatial.audioSource" : "Audio Source",
+
+
+
   
   // Settings - Unfinished
   "settings.header.unfinished": "Unfinished",
