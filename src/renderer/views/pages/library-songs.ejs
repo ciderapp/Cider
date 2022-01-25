@@ -10,7 +10,7 @@
                         <input type="search"
                                style="width:100%;"
                                spellcheck="false"
-                               :placeholder="app.getLz('term.search') + '...'"
+                               :placeholder="$root.getLz('term.search') + '...'"
                                @input="$root.searchLibrarySongs"
                                v-model="library.songs.search" class="search-input">
                     </div>
@@ -19,24 +19,24 @@
                     <div class="row">
                         <div class="col">
                             <select class="md-select" v-model="prefs.sort" @change="$root.searchLibrarySongs()">
-                                <optgroup :label="app.getLz('term.sortBy')">
+                                <optgroup :label="$root.getLz('term.sortBy')">
                                     <option v-for="(sort, index) in library.songs.sortingOptions" :value="index">{{ sort }}</option>
                                 </optgroup>
                             </select>
                         </div>
                         <div class="col">
                             <select class="md-select" v-model="prefs.sortOrder" @change="$root.searchLibrarySongs()">
-                                <optgroup :label="app.getLz('term.sortOrder')">
-                                    <option value="asc">{{app.getLz('term.sortOrder.ascending')}}</option>
-                                    <option value="desc">{{app.getLz('term.sortOrder.descending')}}</option>
+                                <optgroup :label="$root.getLz('term.sortOrder')">
+                                    <option value="asc">{{$root.getLz('term.sortOrder.ascending')}}</option>
+                                    <option value="desc">{{$root.getLz('term.sortOrder.descending')}}</option>
                                 </optgroup>
                             </select>
                         </div>
                         <div class="col">
                             <select class="md-select" v-model="prefs.size" @change="$root.searchLibrarySongs()">
-                                <optgroup :label="app.getLz('term.size')">
-                                    <option value="normal">{{app.getLz('term.size.normal')}}</option>
-                                    <option value="compact">{{app.getLz('term.size.compact')}}</option>
+                                <optgroup :label="$root.getLz('term.size')">
+                                    <option value="normal">{{$root.getLz('term.size.normal')}}</option>
+                                    <option value="compact">{{$root.getLz('term.size.compact')}}</option>
                                 </optgroup>
                             </select>
                         </div>

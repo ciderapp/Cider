@@ -20,7 +20,7 @@
                         <div class="col-auto flex-center"
                             @click="app.showSearchView(app.search.term, 'song', app.friendlyTypes('song'))"
                             v-if="search.results.song.data.length >= 6">
-                            <button class="cd-btn-seeall">{{app.getLz('term.seeAll')}}</button>
+                            <button class="cd-btn-seeall">{{$root.getLz('term.seeAll')}}</button>
                         </div>
                     </div>
                     <div>
@@ -61,7 +61,7 @@
                     </div>
                     <div class="col-auto flex-center" v-if="search.resultsSocial.playlist.data.length >= 10">
                         <button class="cd-btn-seeall"
-                                @click="app.showCollection(search.resultsSocial.playlist, 'Shared Playlists', 'default')">{{app.getLz('term.seeAll')}}
+                                @click="app.showCollection(search.resultsSocial.playlist, 'Shared Playlists', 'default')">{{$root.getLz('term.seeAll')}}
                         </button>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
                     </div>
                     <div class="col-auto flex-center" v-if="search.resultsSocial.profile.data.length >= 10">
                         <button class="cd-btn-seeall"
-                                @click="app.showCollection(search.resultsSocial.profile, 'People', 'default')">{{app.getLz('term.seeAll')}}
+                                @click="app.showCollection(search.resultsSocial.profile, 'People', 'default')">{{$root.getLz('term.seeAll')}}
                         </button>
                     </div>
                 </div>

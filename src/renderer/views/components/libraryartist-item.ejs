@@ -98,7 +98,7 @@
                     normal: {
                         items: [
                             {
-                                "name": app.getLz('action.goToArtist'),
+                                "name": $root.getLz('action.goToArtist'),
                                 "icon": "./assets/feather/user.svg",
                                 "action": function () {
                                     app.searchAndNavigate(self.item, 'artist')
@@ -107,7 +107,7 @@
                             },
                             {
                                 "icon": "./assets/feather/radio.svg",
-                                "name": app.getLz('action.startRadio'),
+                                "name": $root.getLz('action.startRadio'),
                                 "action": function () {
                                     app.mk.setStationQueue({song: self.item.attributes.playParams.id ?? self.item.id}).then(() => {
                                         app.mk.play()
@@ -117,7 +117,7 @@
                             },
                             {
                                 "icon": "./assets/feather/share.svg",
-                                "name": app.getLz('action.share'),
+                                "name": $root.getLz('action.share'),
                                 "action": function () {
                                     if (!self.item.attributes.url && self.item.relationships){
                                         if (self.item.relationships.catalog){

@@ -3,7 +3,7 @@
         <div class="modal-fullscreen modal-generic" @click.self="app.resetState()" @contextmenu.self="app.resetState()">
             <div class="modal-window">
                 <div class="modal-header">
-                    <div class="modal-title">{{app.getLz('action.addToLibrary')}}</div>
+                    <div class="modal-title">{{$root.getLz('action.addToLibrary')}}</div>
                     <button class="close-btn" @click="app.resetState()"></button>
                 </div>
                 <div class="modal-content">
@@ -21,7 +21,7 @@
                                ref="searchInput"
                                style="width:100%;"
                                spellcheck="false"
-                               :placeholder="app.getLz('term.search') + '...'"
+                               :placeholder="$root.getLz('term.search') + '...'"
                                v-model="searchQuery"
                                @input="search()"
                                class="search-input">

@@ -5,7 +5,7 @@
                 <div class="col">
                     <div class="row nopadding">
                         <div class="col nopadding">
-                            <h3>{{app.getLz('home.followedArtists')}}</h3>
+                            <h3>{{$root.getLz('home.followedArtists')}}</h3>
                         </div>
                     </div>
                     <div class="well">
@@ -15,7 +15,7 @@
                                 <button @click="unfollow(artist.id)" class="md-btn md-btn-glyph" style="display:flex;">
                                     <div class="sidebar-icon">
                                         <div class="svg-icon" :style="{'--url': 'url(./assets/feather/x-circle.svg)'}"></div>
-                                    </div> {{app.getLz('action.unfollow')}}
+                                    </div> {{$root.getLz('action.unfollow')}}
                                 </button>
                             </div>
                         </mediaitem-scroller-horizontal>
@@ -30,7 +30,7 @@
                 <div class="col">
                     <div class="row nopadding">
                         <div class="col nopadding">
-                            <h3>{{app.getLz('home.artistsFeed')}}</h3>
+                            <h3>{{$root.getLz('home.artistsFeed')}}</h3>
                         </div>
                     </div>
                     <div class="well" style="margin-top:0;">

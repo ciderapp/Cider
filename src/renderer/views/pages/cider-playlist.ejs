@@ -48,7 +48,7 @@
                                         <div v-else-if="data.attributes.description.standard" class="content" v-html="data.attributes.description.standard"></div>
                                         <button v-if="data.attributes.description.short" class="more-btn"
                                                 @click="editorialNotesExpanded = !editorialNotesExpanded">
-                                           {{app.getLz('term.showMore')}}
+                                           {{$root.getLz('term.showMore')}}
                                         </button>
                                     </div>
                                 </div>
@@ -57,26 +57,26 @@
                                 <div class="playlist-desc-expanded">
                                     <div class="content"
                                          v-html="((data.attributes.editorialNotes) ? (data.attributes.editorialNotes.standard ?? (data.attributes.editorialNotes.short ?? '') ) : (data.attributes.description ? (data.attributes.description.standard ?? (data.attributes.description.short ?? '')) : ''))"></div>
-                                    <button class="more-btn" @click="editorialNotesExpanded = !editorialNotesExpanded">{{app.getLz('term.showLess')}}
+                                    <button class="more-btn" @click="editorialNotesExpanded = !editorialNotesExpanded">{{$root.getLz('term.showLess')}}
                                     </button>
                                 </div>
                             </template>
                             <div class="playlist-controls" v-observe-visibility="{callback: isHeaderVisible}">
                                 <button class="md-btn" style="min-width: 100px;"
                                         @click="app.mk.shuffleMode = 0; play()"> <img class="md-ico-play">
-                                        {{app.getLz('term.play')}}
+                                        {{$root.getLz('term.play')}}
                                 </button>
                                 <button class="md-btn" style="min-width: 100px;"
                                         @click="app.mk.shuffleMode = 1;play()"> <img class="md-ico-shuffle">
-                                        {{app.getLz('term.shuffle')}}
+                                        {{$root.getLz('term.shuffle')}}
                                 </button>
                                 <button class="md-btn" style="min-width: 180px;" v-if="inLibrary!=null && confirm!=true"
                                         @click="confirmButton()"> <img :class="(!inLibrary) ? 'md-ico-add' : 'md-ico-remove'">
-                                    {{ (!inLibrary) ? app.getLz('action.addToLibrary') : app.getLz("action.removeFromLibrary") }}
+                                    {{ (!inLibrary) ? $root.getLz('action.addToLibrary') : $root.getLz("action.removeFromLibrary") }}
                                 </button>
                                 <button class="md-btn" style="min-width: 180px;" v-if="confirm==true"
                                         @click="(!inLibrary) ? addToLibrary(data.attributes.playParams.id.toString()) : removeFromLibrary(data.attributes.playParams.id.toString()) "> <img :class="(!inLibrary) ? 'md-ico-add' : 'md-ico-remove'">
-                                        {{app.getLz('term.confirm')}}
+                                        {{$root.getLz('term.confirm')}}
                                 </button>
                                 <button class="more-btn-round" style="float:right;" @click="menu">
                                     <div class="svg-icon"></div>
@@ -100,19 +100,19 @@
                         <div>
                             <button class="md-btn" style="min-width: 100px;"
                                     @click="app.mk.shuffleMode = 0; play()"> <img class="md-ico-play">
-                                    {{app.getLz('term.play')}}
+                                    {{$root.getLz('term.play')}}
                             </button>
                             <button class="md-btn" style="min-width: 100px;"
                                     @click="app.mk.shuffleMode = 1;play()"> <img class="md-ico-shuffle">
-                                    {{app.getLz('term.shuffle')}}
+                                    {{$root.getLz('term.shuffle')}}
                             </button>
                             <button class="md-btn" style="min-width: 180px;" v-if="inLibrary!=null && confirm!=true"
                                     @click="confirmButton()"> <img :class="(!inLibrary) ? 'md-ico-add' : 'md-ico-remove'">
-                                {{ (!inLibrary) ? app.getLz('action.addToLibrary') : app.getLz("action.removeFromLibrary") }}
+                                {{ (!inLibrary) ? $root.getLz('action.addToLibrary') : $root.getLz("action.removeFromLibrary") }}
                             </button>
                             <button class="md-btn" style="min-width: 180px;" v-if="confirm==true"
                                     @click="(!inLibrary) ? addToLibrary(data.attributes.playParams.id.toString()) : removeFromLibrary(data.attributes.playParams.id.toString()) "> <img :class="(!inLibrary) ? 'md-ico-add' : 'md-ico-remove'">
-                                    {{app.getLz('term.confirm')}}
+                                    {{$root.getLz('term.confirm')}}
                             </button>
                         </div>
                     </div>
@@ -318,7 +318,7 @@
                 return {
                     normal: [
                         {
-                            name: app.getLz('action.removeFromPlaylist'),
+                            name: $root.getLz('action.removeFromPlaylist'),
                             action: () => {
                                 self.remove()
                             }
@@ -326,7 +326,7 @@
                     ],
                     multiple: [
                         {
-                            name: app.getLz('action.removeFromPlaylist'),
+                            name: $root.getLz('action.removeFromPlaylist'),
                             action: () => {
                                 self.remove()
                             }
@@ -429,13 +429,13 @@
                 if (date == null || date === "") return "";
                 switch (date) {
                     case this.data.attributes.releaseDate:
-                        prefix = this.app.getLz('term.time.released')+ ' '
+                        prefix = this.$root.getLz('term.time.released')+ ' '
                         break;
                     case this.data.attributes.lastModifiedDate:
-                        prefix = this.app.getLz('term.time.updated')+ ' '
+                        prefix = this.$root.getLz('term.time.updated')+ ' '
                         break;
                     case this.data.attributes.dateAdded:
-                        prefix = this.app.getLz('term.time.added')+ ' '
+                        prefix = this.$root.getLz('term.time.added')+ ' '
                         break;
                 }
                 let month, year;
