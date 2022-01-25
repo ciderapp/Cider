@@ -1768,7 +1768,7 @@ const app = new Vue({
                 downloaded = response
                 library = library.concat(downloaded.data)
                 self.library.downloadNotification.show = true
-                self.library.downloadNotification.message = "Updating library songs..."
+                self.library.downloadNotification.message = app.getLz('notification.updatingLibrarySongs')
                 self.library.downloadNotification.total = downloaded.meta.total
                 self.library.downloadNotification.progress = library.length
 
@@ -1848,7 +1848,7 @@ const app = new Vue({
                 downloaded = response
                 library = library.concat(downloaded.data)
                 self.library.downloadNotification.show = true
-                self.library.downloadNotification.message = "Updating library albums..."
+                self.library.downloadNotification.message = app.getLz('notification.updatingLibraryAlbums')
                 self.library.downloadNotification.total = downloaded.meta.total
                 self.library.downloadNotification.progress = library.length
                 if (downloaded.meta.total == 0) {
@@ -1931,7 +1931,7 @@ const app = new Vue({
                 downloaded = response
                 library = library.concat(downloaded.data)
                 self.library.downloadNotification.show = true
-                self.library.downloadNotification.message = "Updating library artists..."
+                self.library.downloadNotification.message = app.getLz('notification.updatingLibraryArtists')
                 self.library.downloadNotification.total = downloaded.meta.total
                 self.library.downloadNotification.progress = library.length
                 if (downloaded.meta.total == 0) {
@@ -3237,7 +3237,7 @@ const app = new Vue({
                         },
                         {
                             "icon": "./assets/feather/radio.svg",
-                            "name": "Start Radio",
+                            "name": app.getLz('action.startRadio'),
                             "action": function() {
                                 app.mk.setStationQueue({ song: app.mk.nowPlayingItem.id }).then(() => {
                                     app.mk.play()
@@ -3288,7 +3288,7 @@ const app = new Vue({
             app.cfg.lastfm.auth_token = "";
             app.cfg.lastfm.enabled = false;
             const element = document.getElementById('lfmConnect');
-            element.innerHTML = 'Connect';
+            element.innerHTML = getLz('term.connect');
             element.onclick = app.LastFMAuthenticate;
         },
         LastFMAuthenticate() {
