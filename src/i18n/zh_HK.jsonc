@@ -13,6 +13,7 @@
   "notification.updatingLibraryAlbums": "正在更新資料庫的專輯...",
   "notification.updatingLibraryArtists": "正在更新資料庫的藝人...",
   // Terms
+  "term.appleInc": "Apple Inc.",
   "term.appleMusic": "Apple Music", // Follows brand term
   "term.applePodcasts": "Apple Podcasts", // Follows brand term
   "term.itunes": "iTunes", // Follows brand term
@@ -70,6 +71,9 @@
   "term.enabled": "已啟用",
   "term.disabled": "已停用",
   "term.connect": "連結",
+  "term.connecting": "連結中",
+  "term.disconnect": "取消連結",
+  "term.authed": "已授權",
   "term.confirm": "確認?",
   "term.more": "更多",
   "term.less": "較少",
@@ -86,6 +90,14 @@
   "term.clearAll": "清空",
   "term.recentStations": "最近播放的頻道",
   "term.language": "語言",
+  "term.noLyrics": "加載中... / 找不到歌詞。/ 純音樂。",
+  "term.copyright": "Copyright",
+  "term.rightsReserved": "保留一切權利。",
+  "term.sponsor": "贊助這個項目",
+  "term.ciderTeam": "Cider 團隊",
+  "term.developer": "開發者",
+  "term.socialTeam": "社交團隊",
+  "term.contributors": "貢獻者",
 
   // Home
   "home.title": "主頁",
@@ -101,6 +113,17 @@
   "error.connectionError": "無法連接到 Apple Music。",
   "error.noResults": "沒有結果",
   "error.noResults.description": "請嘗試新的搜尋內容。",
+
+  //Podcasts
+  "podcast.followOnCider": "在Cider上追蹤",
+  "podcast.followedOnCider": "已在Cider上追蹤",
+  "podcast.subscribeOnItunes": "在iTunes上訂閱",
+  "podcast.subscribedOnItunes": "已在iTunes上訂閱",
+  "podcast.itunesStore": "iTunes Store",
+  "podcast.episodes": "單集",
+  "podcast.playEpisode": "播放單集",
+  "podcast.website": "Podcast 網頁",
+
   // Actions
   "action.addToLibrary": "加入資料庫",
   "action.addToLibrary.success": "成功加入資料庫",
@@ -229,5 +252,8 @@
 
   // Web Remote
   "remote.web.title": "遙距控制 Cider",
-  "remote.web.description": "掃描以下的二維碼以控制 Cider"
+  "remote.web.description": "掃描以下的二維碼以控制 Cider",
+
+  //About
+  "about.thanks": "Major thanks to the Cider Collective Team and all of our contributors."
 }
