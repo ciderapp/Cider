@@ -177,13 +177,13 @@ const app = new Vue({
                 progress: 0
             },
             songs: {
-                sortingOptions: {
-                    "albumName": app.getLz('term.sortBy.album'),
-                    "artistName": app.getLz('term.sortBy.artist'),
-                    "name": app.getLz('term.sortBy.name'),
-                    "genre": app.getLz('term.sortBy.genre'),
-                    "releaseDate": app.getLz('term.sortBy.releaseDate'),
-                    "durationInMillis": app.getLz('term.sortBy.duration')
+                sortingOptions: { 
+                    "albumName": "0",
+                    "artistName": "0",
+                    "name": "0",
+                    "genre": "0",
+                    "releaseDate": "0",
+                    "durationInMillis": "0"
                 },
                 sorting: "name",
                 sortOrder: "asc",
@@ -195,10 +195,10 @@ const app = new Vue({
             },
             albums: {
                 sortingOptions: {
-                    "albumName": app.getLz('term.sortBy.album'),
-                    "artistName": app.getLz('term.sortBy.artist'),
-                    "name": app.getLz('term.sortBy.name'),
-                    "genre": app.getLz('term.sortBy.genre')
+                    "albumName": "0",
+                    "artistName": "0",
+                    "name": "0",
+                    "genre": "0"
                 },
                 viewAs: 'covers',
                 sorting: ["dateAdded", "name"], // [0] = recentlyadded page, [1] = albums page
@@ -211,10 +211,10 @@ const app = new Vue({
             },
             artists: {
                 sortingOptions: {
-                    "artistName": app.getLz('term.sortBy.artist'),
-                    "name": app.getLz('term.sortBy.name'),
-                    "genre": app.getLz('term.sortBy.genre'),
-                    "releaseDate": app.getLz('term.sortBy.releaseDate')
+                    "artistName": "0",
+                    "name": "0",
+                    "genre": "0",
+                    "releaseDate": "0"
                 },
                 viewAs: 'covers',
                 sorting: ["dateAdded", "name"], // [0] = recentlyadded page, [1] = albums page
@@ -348,6 +348,30 @@ const app = new Vue({
                 return this.lz[message]
             }else{
                 return message
+            }
+        },
+        setLzManual() {
+            app.$data.library.songs.sortingOptions = {
+                "albumName": app.getLz('term.sortBy.album'),
+                "artistName": app.getLz('term.sortBy.artist'),
+                "name": app.getLz('term.sortBy.name'),
+                "genre": app.getLz('term.sortBy.genre'),
+                "releaseDate": app.getLz('term.sortBy.releaseDate'),
+                "durationInMillis": app.getLz('term.sortBy.duration')
+            }
+            
+            app.$data.library.albums.sortingOptions = {
+                    "albumName": app.getLz('term.sortBy.album'),
+                    "artistName": app.getLz('term.sortBy.artist'),
+                    "name": app.getLz('term.sortBy.name'),
+                    "genre": app.getLz('term.sortBy.genre')
+                }
+
+            app.$data.library.artists.sortingOptions = {
+                "artistName": app.getLz('term.sortBy.artist'),
+                "name": app.getLz('term.sortBy.name'),
+                "genre": app.getLz('term.sortBy.genre'),
+                "releaseDate": app.getLz('term.sortBy.releaseDate')
             }
         },
         async showSocialListeningTo() {
@@ -504,6 +528,7 @@ const app = new Vue({
         async init() {
             let self = this
             this.setLz(this.cfg.general.language)
+            this.setLzManual()
             clearTimeout(this.hangtimer)
             this.mk = MusicKit.getInstance()
             let needsReload = (typeof localStorage["music.ampwebplay.media-user-token"] == "undefined")
