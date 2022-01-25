@@ -1,9 +1,8 @@
 {
-  // Turkish Language support by gms10ur
-  //updated to the base file at 24.01.2022 21:00 GTM+3
-
   // App info
   "app.name": "Cider",
+
+  "date.format": "${d} ${m}, ${y}",
 
   // Dialogs
   "dialog.cancel": "İptal",
@@ -15,6 +14,7 @@
   "notification.updatingLibraryArtists": "Arşiv'deki sanatçılar alınıyor...",
   
   // Terms
+  "term.appleInc": "Apple",
   "term.appleMusic": "Apple Müzik",
   "term.applePodcasts": "Apple Podcastler",
   "term.itunes": "iTunes",
@@ -67,35 +67,63 @@
   "term.size": "Boyut",
   "term.size.normal": "Normal",
   "term.size.compact": "Daha Sıkı",
-  "term.enable": "Etkinleştir",
-  "term.disable": "Devre Dışı Bırak",
-  "term.enabled": "Etkin",
-  "term.disabled": "Devre Dışı",
+  "term.enable": "Aç",
+  "term.disable": "Kapa",
+  "term.enabled": "Açık",
+  "term.disabled": "Kapalı",
   "term.connect": "Bağlan",
+  "term.connecting": "Bağlanıyor",
+  "term.authed": "Bağlantı sağlandı",
   "term.confirm": "Onayla?",
   "term.more": "Daha Fazla",
   "term.less": "Daha Az",
   "term.showMore": "Daha Fazla Göster",
   "term.showLess": "Daha Az Göster",
-  "term.topSongs" : "En İyi Şarkılar",
-  "term.latestReleases": "Son Çıkanlar",
+  "term.topSongs" : "Popüler Parçalar",
+  "term.latestReleases": "Yeni Çıkan",
   "term.time.added": "Şu tarihte eklendi: ",
   "term.time.released": "Şu tarihte yayınalndı: ", 
   "term.time.updated": "Şu tarihte güncellendi: ",
-  "term.fullscreenView": "Tam Ekran Görünümü",
-  "term.defaultView": "Normal Görünüm",
+  "term.fullscreenView": "Tam Ekrana Geç",
+  "term.defaultView": "Normal Görünüme Dön",
+  "term.spacializedAudioSetting": "Uzamsal Ses Ayarları",
+  "term.clearAll": "Tümünü Temizle",
+  "term.recentStations": "Son İstasyonlar",
+  "term.language": "Dil Seçimi",
+  "term.noLyrics": "Yükleniyor... / Şarkı Sözü Bulunamadı./ Enstrumantal.",
+  "term.copyright": "Copyright",
+  "term.rightsReserved": "Tüm Haklası Saklıdır.",
+  "term.sponsor": "Bu Projeye Destek Olun",
+  "term.ciderTeam": "Cider Ekibi",
+  "term.developer": "Geliştirici",
+  "term.socialTeam": "Sosyal Ekip",
+  "term.contributors": "Katkıda Bulunanlar",
 
   // Home
   "home.title": "Ana Sayfa",
   "home.recentlyPlayed": "Son Oynatılanlar",
   "home.recentlyAdded": "Son Eklenenler",
-  "home.artistsFeed": "Sanatçılarınızın Son Yayınları",
+  "home.artistsFeed": "Son Çıkanlar",
+  "home.artistsFeed.noArtist": "Birkaç sanatçı takip ettiğinizde, sanatçılarınızın son çıkan yayınları burada gözükür.",
   "home.madeForYou": "Sadece Size Özel",
   "home.friendsListeningTo": "Arkadaşlarınızın Dinledikleri",
   "home.followedArtists": "Takip Edilen Sanatçılar",
 
   // Errors
   "error.appleMusicSubRequired": "Apple Müzik, aktif bir abonelik gerektirir.",
+  "error.connectionError": "Apple Müzik ile bağlantı kurulamadı.",
+  "error.noResults": "Hiç sonuç yok",
+  "error.noResults.description": "Tekrar deneyin.",
+
+  //Podcasts
+  "podcast.followOnCider": "Cider'de Takip Et",
+  "podcast.followedOnCider": "Cider'de Takip Ediliyor",
+  "podcast.subscribeOnItunes": "itunes'de Abone Ol",
+  "podcast.subscribedOnItunes": "iTunes'de Abone Olundu",
+  "podcast.itunesStore": "iTunes Mağazası",
+  "podcast.episodes": "Bölümler",
+  "podcast.playEpisode": "Bölümü Oynat",
+  "podcast.website": "Web Sayfası",
 
   // Actions
   "action.addToLibrary": "Arşiv'e Ekle",
@@ -137,7 +165,7 @@
   "settings.header.audio.description": "Cider'in sizin için en iyi dinleme deneyimini sağlayabilmesi için ses ayarlarınızı yapın.",
   "settings.option.audio.quality": "Ses Kalitesi", // Dropdown
   "settings.header.audio.quality.high": "Yüksek Kalite",
-  "settings.header.audio.quality.low": "yüksek Verimlilik",
+  "settings.header.audio.quality.low": "Yüksek Verimlilik",
   "settings.header.audio.quality.auto": "Otomatik",
   "settings.option.audio.seamlessTransition": "Kesintisiz Ses Geçişi", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "Gelişmiş Ses Deneyimi", // Toggle
@@ -161,9 +189,11 @@
   "settings.header.visual.animatedArtworkQuality.low": "Düşük",
   "settings.header.visual.animatedArtworkQuality.medium": "Orta",
   "settings.header.visual.animatedArtworkQuality.high": "Yüksek",
-  "settings.header.visual.animatedArtworkQuality.extreme": "En Yüksek",
+  "settings.header.visual.animatedArtworkQuality.veryHigh": "Daha Yüksek",
+  "settings.header.visual.animatedArtworkQuality.extreme": "Ekstrem",
   "settings.option.visual.animatedWindowBackground": "Hareketli Uygulama Arka Planı", // Toggle
   "settings.option.visual.hardwareAcceleration": "Donanım Hızlandırması", // Dropdown
+  "settings.option.visual.hardwareAcceleration.description": "Etki etmesi için uygulamayı yeniden başlatmak gerekir.",
   "settings.header.visual.hardwareAcceleration.default": "Varsayılan", 
   "settings.header.visual.hardwareAcceleration.webGPU": "Gelişmiş", 
   // Refer to term.disabled for the disabled option
@@ -198,8 +228,34 @@
   "settings.option.experimental.compactUI": "Kompakt Arayüz", // Toggle
   // Refer to term.disabled & term.enabled
 
+  // Spatialization Menu
+  "spatial.spatialProperties" : "Uzamsal Özellikler",
+  "spatial.width" : "Genişlik",
+  "spatial.height" : "Yükseklik",
+  "spatial.depth" : "Derinlik",
+  "spatial.roomMaterials" : "Oda Materyalleri",
+  "spatial.roomDimensions" : "Oda Ölçüleri",
+  "spatial.roomPositions" : "Oda Pozisyonu",
+  "spatial.setDimensions" : "Ölçüleri Ayarla",
+  "spatial.setPositions" : "Pozisyonu Ayarla",
+  "spatial.up" : "Üst",
+  "spatial.front" : "Ön",
+  "spatial.left" : "Sol",
+  "spatial.right" : "Sağ",
+  "spatial.back" : "Arka",
+  "spatial.down" : "Aşağı",
+  "spatial.listener" : "Dinleyici",
+  "spatial.audioSource" : "Ses Kaynağı",
+
+    // Settings - Unfinished
+    "settings.header.unfinished": "Geliştirme Aşamasında",
+
   // Web Remote
   "remote.web.title": "Cider'e Bağlan",
-  "remote.web.description": "Telefonunuzu Bu Cider Oturumuyla Eşleştirmek için QR Kodunu Tarayın"
+  "remote.web.description": "Telefonunuzu Bu Cider Oturumuyla Eşleştirmek için QR Kodunu Tarayın",
+
+  //About
+  "about.thanks": "Cider Collective Ekibine ve tüm katkıda bulunanlara çok teşekkür ederiz."
+  
 
 }

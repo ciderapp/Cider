@@ -50,8 +50,8 @@ export class Win {
         height: 600,
         x: undefined,
         y: undefined,
-        minWidth: 844,
-        minHeight: 410,
+        minWidth: 900,
+        minHeight: 390,
         frame: false,
         title: "Cider",
         vibrancy: "dark",
@@ -429,6 +429,10 @@ export class Win {
         electron.ipcMain.on("windowmin", (event, width, height) => {
             this.win.setMinimumSize(width,height);
         })
+
+        electron.ipcMain.on("windowontop", (event, ontop) => {
+            this.win.setAlwaysOnTop(ontop);
+        });
 
         // Set scale
         electron.ipcMain.on("windowresize", (event, width, height, lock = false) => {          

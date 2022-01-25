@@ -1,7 +1,10 @@
 <script type="text/x-template" id="mini-view">
     <div class="mini-view" tabindex="0">
         <div class="background">
-        </div>  
+        </div>
+        <div class="player-pin" title="Pin to Top" @click="app.pinMiniPlayer()">
+            <span id="mini-pin">📌</span>
+        </div>
         <div class="player-exit" title="Close" @click="app.miniPlayer(false)">
             <svg fill="#323232e3" xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21"
                  aria-role="presentation" focusable="false">

@@ -14,20 +14,20 @@
             </div>
             <div v-if="search.term == ''">
                 <div class="podcast-list-header" v-if="ciderPodcasts.length != 0">
-                    Followed on Cider
+                    {{$root.getLz('podcast.followedOnCider')}}
                 </div>
                 <div class="podcast-list-header" v-if="podcasts.length != 0">
-                    Subscribed on iTunes
+                    {{$root.getLz('podcast.subscribedOnItunes')}}
                 </div>
                 <podcast-tab :isselected="podcastSelected.id == podcast.id" @click.native="selectPodcast(podcast)" v-for="podcast in podcasts" :item="podcast"></podcast-tab>
             </div>
             <div v-else>
                 <div class="podcast-list-header" v-if="podcasts.length != 0">
-                    Library
+                    {{$root.getLz('term.library')}}
                 </div>
                 <podcast-tab :isselected="podcastSelected.id == podcast.id" @click.native="selectPodcast(podcast)" v-for="podcast in search.resultsLibrary" :item="podcast"></podcast-tab>
                 <div class="podcast-list-header" v-if="podcasts.length != 0">
-                    iTunes Store
+                    {{$root.getLz('podcast.itunesStore')}}
                 </div>
                 <podcast-tab :isselected="podcastSelected.id == podcast.id" @click.native="selectPodcast(podcast)" v-for="podcast in search.results" :item="podcast"></podcast-tab>
             </div>
@@ -50,13 +50,13 @@
                 <div class="well podcast-show-description">{{ podcastSelected.attributes.description.standard }}</div>
                 <div class="row" v-if="!isSubscribed(podcastSelected.id)">
                     <div class="col">
-                        <button class="md-btn md-btn-block">Follow on Cider</button>
+                        <button class="md-btn md-btn-block">{{$root.getLz('podcast.followOnCider')}}</button>
                     </div>
                     <div class="col">
-                        <button class="md-btn md-btn-block">Subscribe on iTunes</button>
+                        <button class="md-btn md-btn-block">{{$root.getLz('podcast.subscribeOnItunes')}}</button>
                     </div>
                 </div>
-                <h3>Episodes</h3>
+                <h3>{{$root.getLz('podcast.episodes')}}</h3>
             </div>
             <div v-if="this.search.results.length == 0 && podcastSelected.id == -1" class="podcast-no-search-results">
                 <h3>{{$root.getLz('error.noResults')}}</h3>
@@ -74,7 +74,7 @@
                     <mediaitem-artwork shadow="large" :url="selected.attributes.artwork.url" size="300"></mediaitem-artwork>
                 </div>
                 <h3 class="podcast-header">{{ selected.attributes.name }}</h3>
-                <button @click="playEpisode(selected)" class="md-btn podcast-play-btn">Play Episode</button>
+                <button @click="playEpisode(selected)" class="md-btn podcast-play-btn">{{$root.getLz('podcast.playEpisode')}}</button>
                 <div class="podcast-genre">
                     {{ selected.attributes.genreNames[0] }}
                 </div>
@@ -84,10 +84,10 @@
                 <div class="well podcast-description" v-if="selected.attributes.description.standard">{{ selected.attributes.description.standard }}</div>
                 <div class="row">
                     <div class="col">
-                        <button class="md-btn md-btn-block meta-btn" @click="openUrl(selected.attributes.websiteUrl)">Podcast Website</button>
+                        <button class="md-btn md-btn-block meta-btn" @click="openUrl(selected.attributes.websiteUrl)">{{$root.getLz('podcast.website')}}</button>
                     </div>
                     <div class="col">
-                        <button class="md-btn md-btn-block meta-btn">Share</button>
+                        <button class="md-btn md-btn-block meta-btn">{{$root.getLz('action.share')}}</button>
                     </div>
                 </div>
             </div>
