@@ -192,5 +192,5 @@
   
   // Web Remote
   "remote.web.title": "遙距控制 Cider",
-  "remote.web.description": "掃描以下的二維碼以控制 Cider",
+  "remote.web.description": "掃描以下的二維碼以控制 Cider"
 }
