@@ -178,12 +178,12 @@ const app = new Vue({
             },
             songs: {
                 sortingOptions: {
-                    "albumName": "Album",
-                    "artistName": "Artist",
-                    "name": "Name",
-                    "genre": "Genre",
-                    "releaseDate": "Release Date",
-                    "durationInMillis": "Duration"
+                    "albumName": app.getLz('term.sortBy.album'),
+                    "artistName": app.getLz('term.sortBy.artist'),
+                    "name": app.getLz('term.sortBy.name'),
+                    "genre": app.getLz('term.sortBy.genre'),
+                    "releaseDate": app.getLz('term.sortBy.releaseDate'),
+                    "durationInMillis": app.getLz('term.sortBy.duration')
                 },
                 sorting: "name",
                 sortOrder: "asc",
@@ -195,10 +195,10 @@ const app = new Vue({
             },
             albums: {
                 sortingOptions: {
-                    "artistName": "Artist",
-                    "name": "Name",
-                    "genre": "Genre",
-                    "releaseDate": "Release Date"
+                    "albumName": app.getLz('term.sortBy.album'),
+                    "artistName": app.getLz('term.sortBy.artist'),
+                    "name": app.getLz('term.sortBy.name'),
+                    "genre": app.getLz('term.sortBy.genre')
                 },
                 viewAs: 'covers',
                 sorting: ["dateAdded", "name"], // [0] = recentlyadded page, [1] = albums page
@@ -211,10 +211,10 @@ const app = new Vue({
             },
             artists: {
                 sortingOptions: {
-                    "artistName": "Artist",
-                    "name": "Name",
-                    "genre": "Genre",
-                    "releaseDate": "Release Date"
+                    "artistName": app.getLz('term.sortBy.artist'),
+                    "name": app.getLz('term.sortBy.name'),
+                    "genre": app.getLz('term.sortBy.genre'),
+                    "releaseDate": app.getLz('term.sortBy.releaseDate')
                 },
                 viewAs: 'covers',
                 sorting: ["dateAdded", "name"], // [0] = recentlyadded page, [1] = albums page

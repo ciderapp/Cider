@@ -12,7 +12,6 @@
   "notification.updatingLibrarySongs": "正在更新資料庫的歌曲...",
   "notification.updatingLibraryAlbums": "正在更新資料庫的專輯...",
   "notification.updatingLibraryArtists": "正在更新資料庫的藝人...",
-  "notification.connectionError": "無法連接到 Apple Music。",
   // Terms
   "term.appleMusic": "Apple Music", // Follows brand term
   "term.applePodcasts": "Apple Podcasts", // Follows brand term
@@ -60,6 +59,7 @@
   "term.viewAs": "顯示模式",
   "term.viewAs.coverArt": "專輯封面",
   "term.viewAs.list": "列表",
+  "term.size": "大小",
   "term.size.normal": "正常",
   "term.size.compact": "緊凑",
   "term.enable": "啟用",
@@ -92,6 +92,7 @@
   "home.followedArtists": "追蹤的藝人",
   // Errors
   "error.appleMusicSubRequired": "需要訂閱Apple Music以使用Cider",
+  "error.connectionError": "無法連接到 Apple Music。",
   // Actions
   "action.addToLibrary": "加入資料庫",
   "action.addToLibrary.success": "成功加入資料庫",

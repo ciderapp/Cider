@@ -12,7 +12,6 @@
   "notification.updatingLibrarySongs": "正在更新资料库的歌曲信息...",
   "notification.updatingLibraryAlbums": "正在更新资料库的专辑信息...",
   "notification.updatingLibraryArtists": "正在更新资料库的艺人信息...",
-  "notification.connectionError": "无法连接到 Apple Music。",
 
   // Terms
   "term.appleMusic": "Apple Music", // Follows brand term
@@ -61,6 +60,7 @@
   "term.viewAs": "显示模式",
   "term.viewAs.coverArt": "专辑封面",
   "term.viewAs.list": "列表",
+  "term.size": "大小",
   "term.size.normal": "正常",
   "term.size.compact": "紧凑",
   "term.enable": "启用",
@@ -94,6 +94,7 @@
 
   // Errors
   "error.appleMusicSubRequired": "需要订阅 Apple Music 以使用 Cider",
+  "error.connectionError": "无法连接到 Apple Music。",
   
   // Actions
   "action.addToLibrary": "加入资料库",

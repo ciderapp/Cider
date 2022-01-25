@@ -7,7 +7,7 @@
                     <input type="search"
                            style="width:100%;"
                            spellcheck="false"
-                           placeholder="Search..."
+                           :placeholder="app.getLz('term.search') + '...'"
                            @change="searchPodcasts();librarySearch()"
                            v-model="search.term" class="search-input">
                 </div>
