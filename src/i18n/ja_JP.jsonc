@@ -82,12 +82,15 @@
   "term.defaultView": "ウィンドウ表示",
   "term.spacializedAudioSetting": "オーディオ空間化設定",
   "term.clearAll": "クリア",
+  "term.recentStations": "最近の再生",
+  "term.language": "言語",
 
   // Home
   "home.title": "ホーム",
   "home.recentlyPlayed": "最近の再生",
   "home.recentlyAdded": "最近追加した項目",
   "home.artistsFeed": "アーティストのフィード",
+  "home.artistsFeed.noArtist": "自分の好きなアーティストをフォローしましょう・",
   "home.madeForYou": "あなたにおすすめ",
   "home.friendsListeningTo": "友達が聴いている",
   "home.followedArtists": "フォローしているアーティスト",
@@ -150,8 +153,9 @@
   "settings.header.visual.animatedArtwork.disable": "オフ",
   "settings.option.visual.animatedArtworkQuality": "アニメーションアートワークの品質", // Dropdown
   "settings.header.visual.animatedArtworkQuality.low": "低",
-  "settings.header.visual.animatedArtworkQuality.medium": "標準",
+  "settings.header.visual.animatedArtworkQuality.medium": "中",
   "settings.header.visual.animatedArtworkQuality.high": "高",
+  "settings.header.visual.animatedArtworkQuality.veryHigh": "超高",
   "settings.header.visual.animatedArtworkQuality.extreme": "最高",
   "settings.option.visual.animatedWindowBackground": "アプリウィンドウの背景をアニメーション化", // Toggle
   "settings.option.visual.hardwareAcceleration": "ハードウェア アクセラレーション", // Dropdown
@@ -178,7 +182,7 @@
   // Refer to term.disabled for the disabled option
   "settings.header.connectivity.discordRPC.cider": "'Cider' を表示する",
   "settings.header.connectivity.discordRPC.appleMusic": "'Apple Music' を表示する",
-  "settings.header.connectivity.discordRPC.clearOnPause": "一時停止時にDiscord Rich Presenceをクリアする", // Toggle
+  "settings.option.connectivity.discordRPC.clearOnPause": "一時停止時にDiscord Rich Presenceをクリアする", // Toggle
   "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling", // Option to Connect
   // Refer to term.connect for the connect button
 
@@ -188,6 +192,9 @@
   "settings.option.experimental.compactUI": "コンパクトインターフェース", // Toggle
   // Refer to term.disabled & term.enabled
   
+  // Settings - Unfinished
+  "settings.header.unfinished": "未完成",
+
   // Web Remote
   "remote.web.title": "Cider リモート",
   "remote.web.description": "QRコードを使用して、Ciderとスマートフォンをペアリングする"

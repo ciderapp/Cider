@@ -79,14 +79,17 @@
   "term.time.updated": "更改于",
   "term.fullscreenView": "全螢幕顯示",
   "term.defaultView": "預設顯示",
-  "term.spacializedAudioSetting": "音訊空間化設定",
+  "term.spacializedAudioSetting": "音频空间化设置",
   "term.clearAll": "清空",
+  "term.recentStations": "最近收聽的廣播",
+  "term.language": "語言",
 
   // Home
   "home.title": "主頁",
   "home.recentlyPlayed": "最近播放",
   "home.recentlyAdded": "最近加入",
   "home.artistsFeed": "藝人追蹤",
+  "home.artistsFeed.noArtist": "追蹤一些藝人來獲得他們的最新歌曲。",
   "home.madeForYou": "為您推薦",
   "home.friendsListeningTo": "朋友正在聆聽",
   "home.followedArtists": "追蹤的藝人",
@@ -151,6 +154,7 @@
   "settings.header.visual.animatedArtworkQuality.low": "低",
   "settings.header.visual.animatedArtworkQuality.medium": "中",
   "settings.header.visual.animatedArtworkQuality.high": "高",
+  "settings.header.visual.animatedArtworkQuality.veryHigh": "非常高",
   "settings.header.visual.animatedArtworkQuality.extreme": "極高",
   "settings.option.visual.animatedWindowBackground": "動態窗口背景", // Toggle
   "settings.option.visual.hardwareAcceleration": "硬體加速", // Dropdown
@@ -177,7 +181,7 @@
   // Refer to term.disabled for the disabled option
   "settings.header.connectivity.discordRPC.cider": "顯示正在玩 'Cider'",
   "settings.header.connectivity.discordRPC.appleMusic": "顯示正在玩 'Apple Music'",
-  "settings.header.connectivity.discordRPC.clearOnPause": "暫停時清除 Discord 動態", // Toggle
+  "settings.option.connectivity.discordRPC.clearOnPause": "暫停時清除 Discord 動態", // Toggle
   "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling 記錄", // Option to Connect
   // Refer to term.connect for the connect button
 
@@ -187,6 +191,8 @@
   "settings.option.experimental.compactUI": "緊凑型UI", // Toggle
   // Refer to term.disabled & term.enabled
   
+  // Settings - Unfinished
+  "settings.header.unfinished": "未完成",
   
   // Web Remote
   "remote.web.title": "Cider 遠控",

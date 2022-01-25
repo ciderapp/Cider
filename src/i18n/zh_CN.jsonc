@@ -82,12 +82,15 @@
   "term.defaultView": "默认",
   "term.spacializedAudioSetting": "音频空间化设置",
   "term.clearAll": "清空",
+  "term.recentStations": "最近播放的频道",
+  "term.language": "语言",
 
   // Home
   "home.title": "主页",
   "home.recentlyPlayed": "最近播放",
   "home.recentlyAdded": "最近添加",
   "home.artistsFeed": "艺人推荐",
+  "home.artistsFeed.noArtist": "追踪您喜爱的艺人后便可查看他们的最新发行。",
   "home.madeForYou": "专属推荐",
   "home.friendsListeningTo": "朋友正在听",
   "home.followedArtists": "关注的艺人",
@@ -153,6 +156,7 @@
   "settings.header.visual.animatedArtworkQuality.low": "低",
   "settings.header.visual.animatedArtworkQuality.medium": "中",
   "settings.header.visual.animatedArtworkQuality.high": "高",
+  "settings.header.visual.animatedArtworkQuality.veryHigh": "非常高",
   "settings.header.visual.animatedArtworkQuality.extreme": "极高",
   "settings.option.visual.animatedWindowBackground": "动态窗口背景", // Toggle
   "settings.option.visual.hardwareAcceleration": "硬件加速", // Dropdown
@@ -179,7 +183,7 @@
   // Refer to term.disabled for the disabled option
   "settings.header.connectivity.discordRPC.cider": "显示正在玩 'Cider'",
   "settings.header.connectivity.discordRPC.appleMusic": "显示正在玩 'Apple Music'",
-  "settings.header.connectivity.discordRPC.clearOnPause": "暂停时清除Discord 动态", // Toggle
+  "settings.option.connectivity.discordRPC.clearOnPause": "暂停时清除Discord 动态", // Toggle
   "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling 记录", // Option to Connect
   // Refer to term.connect for the connect button
 
@@ -189,6 +193,9 @@
   "settings.option.experimental.compactUI": "紧凑型UI", // Toggle
   // Refer to term.disabled & term.enabled
   
+  // Settings - Unfinished
+  "settings.header.unfinished": "未完成",
+
   // Web Remote
   "remote.web.title": "Cider 远程控制",
   "remote.web.description": "扫描以下的二维码以控制 Cider"

@@ -166,7 +166,7 @@
   // Refer to term.disabled for the disabled option
   "settings.header.connectivity.discordRPC.cider": "Εμφάνιση ως 'Cider'",
   "settings.header.connectivity.discordRPC.appleMusic": "Εμφάνιση ως 'Apple Music'",
-  "settings.header.connectivity.discordRPC.clearOnPause": "Εκκαθάριση του Discord Rich Presence στην Παύση", // Toggle
+  "settings.option.connectivity.discordRPC.clearOnPause": "Εκκαθάριση του Discord Rich Presence στην Παύση", // Toggle
   "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling", // Option to Connect
   // Refer to term.connect for the connect button
 
