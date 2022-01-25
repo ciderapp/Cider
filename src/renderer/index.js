@@ -1710,7 +1710,7 @@ const app = new Vue({
             }
             this.library.songs.downloadState = 1
             this.library.downloadNotification.show = true
-            this.library.downloadNotification.message = "Updating library songs..."
+            this.library.downloadNotification.message = app.getLz('notification.updatingLibrarySongs')
 
             function downloadChunk() {
                 const params = {
@@ -1791,7 +1791,7 @@ const app = new Vue({
             }
             this.library.albums.downloadState = 1
             this.library.downloadNotification.show = true
-            this.library.downloadNotification.message = "Updating library albums..."
+            this.library.downloadNotification.message = app.getLz('notification.updatingLibraryAlbums')
 
             function downloadChunk() {
                 self.library.albums.downloadState = 1
@@ -1871,7 +1871,7 @@ const app = new Vue({
             }
             this.library.artists.downloadState = 1
             this.library.downloadNotification.show = true
-            this.library.downloadNotification.message = "Updating library artists..."
+            this.library.downloadNotification.message = app.getLz('notification.updatingLibraryArtists')
 
             function downloadChunk() {
                 self.library.artists.downloadState = 1
