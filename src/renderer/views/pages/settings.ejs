@@ -20,7 +20,7 @@
                 </div>
                 <div class="md-option-line">
                     <div class="md-option-segment">
-                        {{$root.getLz('settings.header.audio.seamlessTransition')}}
+                        {{$root.getLz('settings.option.audio.seamlessTransition')}}
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
                         <input type="checkbox" v-model="app.cfg.audio.seamless_audio" switch/>
@@ -28,7 +28,7 @@
                 </div>
                 <div class="md-option-line">
                     <div class="md-option-segment">
-                        {{$root.getLz('settings.header.audio.enableAdvancedFunctionality')}}
+                        {{$root.getLz('settings.option.audio.enableAdvancedFunctionality')}}
                         <br>
                         <small>{{$root.getLz('settings.header.audio.enableAdvancedFunctionality.description')}}</small>
                     </div>
@@ -467,7 +467,7 @@
                 </div>
                 <div class="md-option-segment md-btn md-option-segment_auto">
                     <label class="list-button list-element" id="lfmConnect" ref="lfmConnect"
-                    onclick="app.LastFMAuthenticate()">Connect</label>
+                    onclick="app.LastFMAuthenticate()">{{$root.getLz('term.connect')}}</label>
                 </div>
             </div>
             <div class="md-option-line" v-show ="app.cfg.lastfm.enabled">
@@ -506,7 +506,7 @@
                 </div>
                 <div class="md-option-segment md-option-segment_auto" >
                     <button class="md-btn" :class="{'md-btn-primary': app.cfg.advanced.experiments.includes('compactui')}" @click="app.cfg.advanced.experiments.includes('compactui') ? removeExperiment('compactui') : addExperiment('compactui')">
-                        {{app.cfg.advanced.experiments.includes('compactui') ? 'Enabled' : 'Disabled'}}
+                        {{app.cfg.advanced.experiments.includes('compactui') ? $root.getLz('term.enabled') : $root.getLz('term.disabled')}}
                     </button>
                 </div>
             </div>
