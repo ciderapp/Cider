@@ -72,7 +72,8 @@
   "term.enabled": "Açık",
   "term.disabled": "Kapalı",
   "term.connect": "Bağlan",
-  "term.connecting": "Bağlanıyor...",
+  "term.connecting": "Bağlanıyor",
+  "term.authed": "Bağlantı sağlandı",
   "term.confirm": "Onayla?",
   "term.more": "Daha Fazla",
   "term.less": "Daha Az",
@@ -226,6 +227,25 @@
   "settings.header.experimental.description": "Cider'deki deneysel özelliklere erişim sağlayın. (Not: Bazı özellikler düzgün çalışmayabilir.)",
   "settings.option.experimental.compactUI": "Kompakt Arayüz", // Toggle
   // Refer to term.disabled & term.enabled
+
+  // Spatialization Menu
+  "spatial.spatialProperties" : "Uzamsal Özellikler",
+  "spatial.width" : "Genişlik",
+  "spatial.height" : "Yükseklik",
+  "spatial.depth" : "Derinlik",
+  "spatial.roomMaterials" : "Oda Materyalleri",
+  "spatial.roomDimensions" : "Oda Ölçüleri",
+  "spatial.roomPositions" : "Oda Pozisyonu",
+  "spatial.setDimensions" : "Ölçüleri Ayarla",
+  "spatial.setPositions" : "Pozisyonu Ayarla",
+  "spatial.up" : "Üst",
+  "spatial.front" : "Ön",
+  "spatial.left" : "Sol",
+  "spatial.right" : "Sağ",
+  "spatial.back" : "Arka",
+  "spatial.down" : "Aşağı",
+  "spatial.listener" : "Dinleyici",
+  "spatial.audioSource" : "Ses Kaynağı",
 
     // Settings - Unfinished
     "settings.header.unfinished": "Geliştirme Aşamasında",
