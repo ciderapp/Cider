@@ -72,23 +72,18 @@
                                 <div class="col" style="padding:0;">
                                     <h3>{{app.getLz('term.topSongs')}}</h3>
                                 </div>
-                                <div class="col-auto flex-center" v-if="data.views['top-songs'].data.length >= 10" style="padding:0;">
+                                <div class="col-auto flex-center" v-if="data.views['top-songs'].data.length >= 16" style="padding:0;">
                                     <button class="cd-btn-seeall" @click="app.showArtistView(data.id, data.attributes.name + ' - Top Songs', 'top-songs')">{{app.getLz('term.seeAll')}}</button>
                                 </div>
                             </div>
-                            <mediaitem-list-item
-                                    v-for="(song, index) in data.views['top-songs'].data.limit(topSongsExpanded ? 10 : 5)"
+                            <div class="mediaitem-list-item__grid">
+                                <div class="grid-body">
+                                    <mediaitem-list-item
+                                    v-for="(song, index) in data.views['top-songs'].data.limit(16)"
                                     :index="index"
                                     :item="song"></mediaitem-list-item>
-                            <button class="showmoreless"
-                                    @click="topSongsExpanded = !topSongsExpanded">
-                                <template v-if="!topSongsExpanded">
-                                    {{app.getLz('term.showMore')}}
-                                </template>
-                                <template v-else>
-                                    {{app.getLz('term.showLess')}}
-                                </template>
-                            </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

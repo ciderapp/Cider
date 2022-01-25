@@ -2,6 +2,8 @@
   // App info
   "app.name": "Cider",
 
+  "date.format": "${y}年${m}月${d}日",
+
   // Dialogs
   "dialog.cancel": "取消",
   "dialog.ok": "OK",
@@ -25,6 +27,9 @@
   "term.queue": "待播清單",
   "term.search": "搜尋",
   "term.library": "資料庫",
+  "term.listenNow": "立即聆聽",
+  "term.browse": "瀏覽",
+  "term.radio": "廣播",
   "term.recentlyAdded": "最近加入",
   "term.songs": "歌曲",
   "term.albums": "專輯",
@@ -57,6 +62,7 @@
   "term.viewAs": "顯示模式",
   "term.viewAs.coverArt": "專輯封面",
   "term.viewAs.list": "列表",
+  "term.size": "大小",
   "term.size.normal": "正常",
   "term.size.compact": "緊凑",
   "term.enable": "啟用",
@@ -64,17 +70,37 @@
   "term.enabled": "已啟用",
   "term.disabled": "已停用",
   "term.connect": "連接",
-
+  "term.confirm": "確定？",
+  "term.more": "更多",
+  "term.less": "更少",
+  "term.showMore": "顯示更多",
+  "term.showLess": "顯示更少",
+  "term.topSongs" : "熱門歌曲",
+  "term.latestReleases": "最新發行",
+  "term.time.added": "加入于",
+  "term.time.released": "發行于", 
+  "term.time.updated": "更改于",
+  "term.fullscreenView": "全螢幕顯示",
+  "term.defaultView": "預設顯示",
+  "term.spacializedAudioSetting": "音频空间化设置",
+  "term.clearAll": "清空",
+  "term.recentStations": "最近收聽的廣播",
+  "term.language": "語言",
   // Home
   "home.title": "主頁",
   "home.recentlyPlayed": "最近播放",
   "home.recentlyAdded": "最近加入",
   "home.artistsFeed": "藝人追蹤",
+  "home.artistsFeed.noArtist": "追蹤一些藝人來獲得他們的最新歌曲。",
   "home.madeForYou": "為您推薦",
   "home.friendsListeningTo": "朋友正在聆聽",
   "home.followedArtists": "追蹤的藝人",
   // Errors
   "error.appleMusicSubRequired": "需要訂閱Apple Music以使用Cider",
+  "error.connectionError": "無法連接到 Apple Music。",
+  "error.noResults": "沒有結果",
+  "error.noResults.description": "嘗試新的搜尋項目。",
+
   // Actions
   "action.addToLibrary": "加入資料庫",
   "action.addToLibrary.success": "成功加入資料庫",
@@ -87,6 +113,9 @@
   "action.removeFromQueue": "從代播清單刪除",
   "action.removeFromQueue.success": "已從代播清單刪除",
   "action.removeFromQueue.error": "從代播清單刪除的過程發生錯誤",
+  "action.addToPlaylist": "加入播放列表",
+  "action.removeFromPlaylist": "從播放列表刪除",
+  "action.addToFavorites": "加入我的最愛",
   "action.follow": "追蹤",
   "action.follow.success": "追蹤中",
   "action.follow.error": "追蹤的過程發生錯誤",
@@ -98,13 +127,15 @@
   "action.startRadio": "建立電台",
   "action.goToArtist": "前往藝人",
   "action.goToAlbum": "前往專輯",
+  "action.moveToTop": "移至頂端",
   "action.share": "分享歌曲",
+  "action.rename": "Rename",
   "action.love": "喜愛",
   "action.unlove": "取消喜愛",
   "action.dislike": "減少此類建議",
   "action.undoDislike": "還原減小此類建議",
   "action.showWebRemoteQR": "顯示遠程遙控行動條碼",
-
+  
   // Settings - Audio
   "settings.header.audio": "音訊",
   "settings.header.audio.description": "調整Cider的音訊設定",
@@ -133,9 +164,11 @@
   "settings.header.visual.animatedArtworkQuality.low": "低",
   "settings.header.visual.animatedArtworkQuality.medium": "中",
   "settings.header.visual.animatedArtworkQuality.high": "高",
+  "settings.header.visual.animatedArtworkQuality.veryHigh": "非常高",
   "settings.header.visual.animatedArtworkQuality.extreme": "極高",
   "settings.option.visual.animatedWindowBackground": "動態窗口背景", // Toggle
   "settings.option.visual.hardwareAcceleration": "硬體加速", // Dropdown
+  "settings.option.visual.hardwareAcceleration.description": "需要重新啟動 Cider 才會生效",
   "settings.header.visual.hardwareAcceleration.default": "默認", 
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
   // Refer to term.disabled for the disabled option
@@ -146,11 +179,11 @@
   
   // Settings - Lyrics
   "settings.header.lyrics": "歌詞",
-  "settings.header.lyrics.description": "調整Cider的歌詞設定",
+  "settings.header.lyrics.description": "調整 Cider 的歌詞設定",
   "settings.option.lyrics.enableMusixmatch": "啟用 Musixmatch 歌詞", // Toggle
   "settings.option.lyrics.enableMusixmatchKaraoke": "啟用K歌模式（僅限Musixmatch）", // Toggle
   "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch 歌詞語言偏好", // Dropdown
-  "settings.option.lyrics.enableYoutubeLyrics": "播放MV時使用YouTube歌詞", // Toggle
+  "settings.option.lyrics.enableYoutubeLyrics": "播放 MV 時使用 YouTube 歌詞", // Toggle
 
   // Settings - Connectivity
   "settings.header.connectivity": "外部連接",
@@ -159,16 +192,18 @@
   // Refer to term.disabled for the disabled option
   "settings.header.connectivity.discordRPC.cider": "顯示正在玩 'Cider'",
   "settings.header.connectivity.discordRPC.appleMusic": "顯示正在玩 'Apple Music'",
-  "settings.header.connectivity.discordRPC.clearOnPause": "暫停時清除 Discord 動態", // Toggle
+  "settings.option.connectivity.discordRPC.clearOnPause": "暫停時清除 Discord 動態", // Toggle
   "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling 記錄", // Option to Connect
   // Refer to term.connect for the connect button
 
   // Settings - Experimental
   "settings.header.experimental": "實驗性功能",
-  "settings.header.experimental.description": "調整Cider的實驗性功能",
-  "settings.option.experimental.compactUI": "緊凑型UI", // Toggle
+  "settings.header.experimental.description": "調整 Cider 的實驗性功能",
+  "settings.option.experimental.compactUI": "緊凑型 UI", // Toggle
   // Refer to term.disabled & term.enabled
   
+  // Settings - Unfinished
+  "settings.header.unfinished": "未完成",
   
   // Web Remote
   "remote.web.title": "Cider 遠控",

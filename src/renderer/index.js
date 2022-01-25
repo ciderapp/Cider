@@ -177,13 +177,13 @@ const app = new Vue({
                 progress: 0
             },
             songs: {
-                sortingOptions: {
-                    "albumName": "Album",
-                    "artistName": "Artist",
-                    "name": "Name",
-                    "genre": "Genre",
-                    "releaseDate": "Release Date",
-                    "durationInMillis": "Duration"
+                sortingOptions: { 
+                    "albumName": "0",
+                    "artistName": "0",
+                    "name": "0",
+                    "genre": "0",
+                    "releaseDate": "0",
+                    "durationInMillis": "0"
                 },
                 sorting: "name",
                 sortOrder: "asc",
@@ -195,10 +195,10 @@ const app = new Vue({
             },
             albums: {
                 sortingOptions: {
-                    "artistName": "Artist",
-                    "name": "Name",
-                    "genre": "Genre",
-                    "releaseDate": "Release Date"
+                    "albumName": "0",
+                    "artistName": "0",
+                    "name": "0",
+                    "genre": "0"
                 },
                 viewAs: 'covers',
                 sorting: ["dateAdded", "name"], // [0] = recentlyadded page, [1] = albums page
@@ -211,10 +211,10 @@ const app = new Vue({
             },
             artists: {
                 sortingOptions: {
-                    "artistName": "Artist",
-                    "name": "Name",
-                    "genre": "Genre",
-                    "releaseDate": "Release Date"
+                    "artistName": "0",
+                    "name": "0",
+                    "genre": "0",
+                    "releaseDate": "0"
                 },
                 viewAs: 'covers',
                 sorting: ["dateAdded", "name"], // [0] = recentlyadded page, [1] = albums page
@@ -348,6 +348,30 @@ const app = new Vue({
                 return this.lz[message]
             }else{
                 return message
+            }
+        },
+        setLzManual() {
+            app.$data.library.songs.sortingOptions = {
+                "albumName": app.getLz('term.sortBy.album'),
+                "artistName": app.getLz('term.sortBy.artist'),
+                "name": app.getLz('term.sortBy.name'),
+                "genre": app.getLz('term.sortBy.genre'),
+                "releaseDate": app.getLz('term.sortBy.releaseDate'),
+                "durationInMillis": app.getLz('term.sortBy.duration')
+            }
+            
+            app.$data.library.albums.sortingOptions = {
+                    "albumName": app.getLz('term.sortBy.album'),
+                    "artistName": app.getLz('term.sortBy.artist'),
+                    "name": app.getLz('term.sortBy.name'),
+                    "genre": app.getLz('term.sortBy.genre')
+                }
+
+            app.$data.library.artists.sortingOptions = {
+                "artistName": app.getLz('term.sortBy.artist'),
+                "name": app.getLz('term.sortBy.name'),
+                "genre": app.getLz('term.sortBy.genre'),
+                "releaseDate": app.getLz('term.sortBy.releaseDate')
             }
         },
         async showSocialListeningTo() {
@@ -504,6 +528,7 @@ const app = new Vue({
         async init() {
             let self = this
             this.setLz(this.cfg.general.language)
+            this.setLzManual()
             clearTimeout(this.hangtimer)
             this.mk = MusicKit.getInstance()
             let needsReload = (typeof localStorage["music.ampwebplay.media-user-token"] == "undefined")
@@ -1710,7 +1735,7 @@ const app = new Vue({
             }
             this.library.songs.downloadState = 1
             this.library.downloadNotification.show = true
-            this.library.downloadNotification.message = "Updating library songs..."
+            this.library.downloadNotification.message = app.getLz('notification.updatingLibrarySongs')
 
             function downloadChunk() {
                 const params = {
@@ -1791,7 +1816,7 @@ const app = new Vue({
             }
             this.library.albums.downloadState = 1
             this.library.downloadNotification.show = true
-            this.library.downloadNotification.message = "Updating library albums..."
+            this.library.downloadNotification.message = app.getLz('notification.updatingLibraryAlbums')
 
             function downloadChunk() {
                 self.library.albums.downloadState = 1
@@ -1871,7 +1896,7 @@ const app = new Vue({
             }
             this.library.artists.downloadState = 1
             this.library.downloadNotification.show = true
-            this.library.downloadNotification.message = "Updating library artists..."
+            this.library.downloadNotification.message = app.getLz('notification.updatingLibraryArtists')
 
             function downloadChunk() {
                 self.library.artists.downloadState = 1
@@ -3372,9 +3397,19 @@ const app = new Vue({
            this.webremoteurl =  await ipcRenderer.invoke('showQR','')
            //this.modals.qrcode = true;
            
+        },
+        checkMarquee() {
+            if(isElementOverflowing('#app-main > div.app-chrome > div.app-chrome--center > div > div > div.playback-info > div.song-artist') == true) {
+                document.getElementsByClassName('song-artist')[0].classList.add('marquee');
+                document.getElementsByClassName('song-artist')[1].classList.add('marquee-after');
+            }
+            if(isElementOverflowing('#app-main > div.app-chrome > div.app-chrome--center > div > div > div.playback-info > div.song-name') == true) {
+                document.getElementsByClassName('song-name')[0].classList.add('marquee');
+                document.getElementsByClassName('song-name')[1].classList.add('marquee-after');
+            } 
         }
-
-    }
+    }  
+    
 })
 
 Vue.component('animated-number', {

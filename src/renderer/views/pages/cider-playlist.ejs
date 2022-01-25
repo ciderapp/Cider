@@ -48,7 +48,7 @@
                                         <div v-else-if="data.attributes.description.standard" class="content" v-html="data.attributes.description.standard"></div>
                                         <button v-if="data.attributes.description.short" class="more-btn"
                                                 @click="editorialNotesExpanded = !editorialNotesExpanded">
-                                           {{app.getLz('term.more')}}
+                                           {{app.getLz('term.showMore')}}
                                         </button>
                                     </div>
                                 </div>
@@ -57,7 +57,7 @@
                                 <div class="playlist-desc-expanded">
                                     <div class="content"
                                          v-html="((data.attributes.editorialNotes) ? (data.attributes.editorialNotes.standard ?? (data.attributes.editorialNotes.short ?? '') ) : (data.attributes.description ? (data.attributes.description.standard ?? (data.attributes.description.short ?? '')) : ''))"></div>
-                                    <button class="more-btn" @click="editorialNotesExpanded = !editorialNotesExpanded">{{app.getLz('term.less')}}
+                                    <button class="more-btn" @click="editorialNotesExpanded = !editorialNotesExpanded">{{app.getLz('term.showLess')}}
                                     </button>
                                 </div>
                             </template>
@@ -388,7 +388,7 @@
                 app.showMenuPanel({
                     items: {
                         "share": {
-                            name: "Share",
+                            name: app.getLz('term.share'),
                             icon: "./assets/feather/share.svg",
                             action: () => {
                                 let route = ""

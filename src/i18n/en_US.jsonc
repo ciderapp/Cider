@@ -1,6 +1,9 @@
 { // Base File 
   // App info
   "app.name": "Cider",
+
+  "date.format": "${m} ${d}, ${y}",
+  
   // Dialogs
   "dialog.cancel": "Cancel",
   "dialog.ok": "OK",
@@ -9,7 +12,6 @@
   "notification.updatingLibrarySongs": "Updating library songs...",
   "notification.updatingLibraryAlbums": "Updating library albums...",
   "notification.updatingLibraryArtists": "Updating library artists...",
-
   // Terms
   "term.appleMusic": "Apple Music",
   "term.applePodcasts": "Apple Podcasts",
@@ -80,18 +82,24 @@
   "term.time.updated": "Updated",
   "term.fullscreenView": "Fullscreen View",
   "term.defaultView": "Default View",
-
-
+  "term.spacializedAudioSetting": "Spacialized Audio Setting",
+  "term.clearAll": "Clear All",
+  "term.recentStations": "Recent Stations",
+  "term.language": "Language",
   // Home
   "home.title": "Home",
   "home.recentlyPlayed": "Recently Played",
   "home.recentlyAdded": "Recently Added",
   "home.artistsFeed": "Your Artists Feed",
+  "home.artistsFeed.noArtist": "Follow some artists first and their latest releases will be here",
   "home.madeForYou": "Made For You",
   "home.friendsListeningTo": "Friends Listening To",
   "home.followedArtists": "Followed Artists",
   // Errors
   "error.appleMusicSubRequired": "Apple Music requires a subscription.",
+  "error.connectionError": "There was a problem connecting to Apple Music.",
+  "error.noResults": "No Results.",
+  "error.noResults.description": "Try a new search.",
 
   // Actions
   "action.addToLibrary": "Add to Library",
@@ -127,6 +135,7 @@
   "action.dislike": "Dislike",
   "action.undoDislike": "Undo dislike",
   "action.showWebRemoteQR": "Show Web Remote QR",
+
   // Settings - Audio
   "settings.header.audio": "Audio",
   "settings.header.audio.description": "Adjust the audio settings for Cider.",
@@ -155,9 +164,11 @@
   "settings.header.visual.animatedArtworkQuality.low": "Low",
   "settings.header.visual.animatedArtworkQuality.medium": "Medium",
   "settings.header.visual.animatedArtworkQuality.high": "High",
+  "settings.header.visual.animatedArtworkQuality.veryHigh": "Very High",
   "settings.header.visual.animatedArtworkQuality.extreme": "Extreme",
   "settings.option.visual.animatedWindowBackground": "Animated Window Background", // Toggle
   "settings.option.visual.hardwareAcceleration": "Hardware Acceleration", // Dropdown
+  "settings.option.visual.hardwareAcceleration.description": "Requires relaunch",
   "settings.header.visual.hardwareAcceleration.default": "Default", 
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
   // Refer to term.disabled for the disabled option
@@ -181,7 +192,7 @@
   // Refer to term.disabled for the disabled option
   "settings.header.connectivity.discordRPC.cider": "Display as 'Cider'",
   "settings.header.connectivity.discordRPC.appleMusic": "Display as 'Apple Music'",
-  "settings.header.connectivity.discordRPC.clearOnPause": "Clear Discord Rich Presence on Pause", // Toggle
+  "settings.option.connectivity.discordRPC.clearOnPause": "Clear Discord Rich Presence on Pause", // Toggle
   "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling", // Option to Connect
   // Refer to term.connect for the connect button
 
@@ -191,6 +202,9 @@
   "settings.option.experimental.compactUI": "Compact UI", // Toggle
   // Refer to term.disabled & term.enabled
   
+  // Settings - Unfinished
+  "settings.header.unfinished": "Unfinished",
+
   // Web Remote
   "remote.web.title": "Cider Remote",
   "remote.web.description": "Scan the QR code to pair your phone up with this Cider instance"

@@ -3,7 +3,7 @@
         <div v-if="page == 'main'">
             <div class="row">
                 <div class="col">
-                    <h3>Recently Played</h3>
+                    <h3>{{app.getLz('home.recentlyPlayed')}}</h3>
                     <div class="well artistfeed-well">
                         <template v-if="isSectionReady('recentlyPlayed')">
                             <mediaitem-list-item v-for="item in recentlyPlayed.limit(6)"
@@ -15,7 +15,7 @@
                 <div class="col">
                     <div class="row nopadding">
                         <div class="col nopadding">
-                            <h3>Your Artists Feed</h3>
+                            <h3>{{app.getLz('home.artistsFeed')}}</h3>
                         </div>
                         <div class="col-auto nopadding flex-center">
                             <button class="cd-btn-seeall" @click="app.appRoute('artist-feed')">{{app.getLz('term.seeAll')}}</button>
@@ -26,7 +26,7 @@
                             <mediaitem-list-item v-for="item in artistFeed.limit(6)" :item="item"></mediaitem-list-item>
                         </template>
                         <div class="spinner" v-else-if="followedArtists.length > 0"></div>
-                        <div class="no-artist" v-else> Follow some artists first and their latest releases will be here</div>
+                        <div class="no-artist" v-else> {{app.getLz('home.artistsFeed.noArtist')}}</div>
                     </div>
                 </div>
             </div>
@@ -44,7 +44,7 @@
             <!--            </div>-->
             <div class="row">
                 <div class="col">
-                    <h3>Made For You</h3>
+                    <h3>{{app.getLz('home.madeForYou')}}</h3>
                     <div class="well">
                         <template v-if="isSectionReady('madeForYou')">
                             <mediaitem-square kind="small" v-for="item in madeForYou" :item="item"></mediaitem-square>
@@ -57,7 +57,7 @@
                 <div class="col">
                     <div class="row">
                         <div class="col nopadding">
-                            <h3>Friends Listening To</h3>
+                            <h3>{{app.getLz('home.friendsListeningTo')}}</h3>
                         </div>
                         <div class="col-auto nopadding flex-center">
                             <button class="cd-btn-seeall" @click="app.showSocialListeningTo()">{{app.getLz('term.seeAll')}}</button>
