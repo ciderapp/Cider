@@ -64,6 +64,18 @@
   "term.enabled": "已启用",
   "term.disabled": "已禁用",
   "term.connect": "连接",
+  "term.confirm": "确认？",
+  "term.more": "更多",
+  "term.less": "较少",
+  "term.showMore": "显示更多",
+  "term.showLess": "显示更少",
+  "term.topSongs" : "热门歌曲",
+  "term.latestReleases": "最新发行",
+  "term.time.added": "添加日期",
+  "term.time.released": "发行日期", 
+  "term.time.updated": "更新日期",
+  "term.fullscreenView": "全屏",
+  "term.defaultView": "默认",
 
   // Home
   "home.title": "主页",

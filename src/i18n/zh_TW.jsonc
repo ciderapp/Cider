@@ -64,6 +64,18 @@
   "term.enabled": "已啟用",
   "term.disabled": "已停用",
   "term.connect": "連接",
+  "term.confirm": "確定？",
+  "term.more": "更多",
+  "term.less": "更少",
+  "term.showMore": "顯示更多",
+  "term.showLess": "顯示更少",
+  "term.topSongs" : "熱門歌曲",
+  "term.latestReleases": "最新發行",
+  "term.time.added": "加入時間",
+  "term.time.released": "發行時間", 
+  "term.time.updated": "更改時間",
+  "term.fullscreenView": "全螢幕顯示",
+  "term.defaultView": "預設顯示",
 
   // Home
   "home.title": "主頁",
