@@ -4794,6 +4794,24 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     -webkit-app-region: no-drag;
   }
 
+  .player-pin {
+    z-index: 3;
+    position: absolute;
+    min-width: 20px; 
+    min-height: 20px;
+    top: 5px;
+    right: 30px;
+    -webkit-app-region: no-drag;
+  }
+  
+  #mini-pin{
+    display: none;
+  }
+
+  .player-pin:hover #mini-pin {
+    display: block;
+  }
+
   .playback-button--small {
     opacity: 0.7;
   }

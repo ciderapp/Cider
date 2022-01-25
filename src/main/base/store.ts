@@ -61,7 +61,7 @@ export class ConfigStore {
             "bg_artwork_rotation": false,
             "hw_acceleration": "default", // default, webgpu, disabled
             "showuserinfo": true,
-            "miniplayer_ontop": true
+            "miniplayer_top_toggle": true
         },
         "lyrics": {
             "enable_mxm": false,
