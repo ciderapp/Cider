@@ -1,6 +1,9 @@
 { // Base File 
   // App info
   "app.name": "Cider",
+
+  "date.format": "${m} ${d}, ${y}",
+  
   // Dialogs
   "dialog.cancel": "Cancel",
   "dialog.ok": "OK",
@@ -9,6 +12,7 @@
   "notification.updatingLibrarySongs": "Updating library songs...",
   "notification.updatingLibraryAlbums": "Updating library albums...",
   "notification.updatingLibraryArtists": "Updating library artists...",
+  "notification.connectionError": "There was a problem connecting to Apple Music.",
 
   // Terms
   "term.appleMusic": "Apple Music",

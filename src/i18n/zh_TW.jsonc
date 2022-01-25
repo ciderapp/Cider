@@ -2,6 +2,8 @@
   // App info
   "app.name": "Cider",
 
+  "date.format": "${y}年${m}月${d}日",
+
   // Dialogs
   "dialog.cancel": "取消",
   "dialog.ok": "OK",
@@ -10,6 +12,7 @@
   "notification.updatingLibrarySongs": "正在更新資料庫的歌曲...",
   "notification.updatingLibraryAlbums": "正在更新資料庫的專輯...",
   "notification.updatingLibraryArtists": "正在更新資料庫的藝人...",
+  "notification.connectionError": "無法連接到 Apple Music。",
   // Terms
   "term.appleMusic": "Apple Music", // Follows brand term
   "term.applePodcasts": "Apple Podcasts", // Follows brand term
@@ -71,9 +74,9 @@
   "term.showLess": "顯示更少",
   "term.topSongs" : "熱門歌曲",
   "term.latestReleases": "最新發行",
-  "term.time.added": "加入時間",
-  "term.time.released": "發行時間", 
-  "term.time.updated": "更改時間",
+  "term.time.added": "加入于",
+  "term.time.released": "發行于", 
+  "term.time.updated": "更改于",
   "term.fullscreenView": "全螢幕顯示",
   "term.defaultView": "預設顯示",
 

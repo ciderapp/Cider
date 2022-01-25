@@ -2,6 +2,8 @@
   // App info
   "app.name": "Cider",
 
+  "date.format": "${y}年${m}月${d}日", 
+
   // Dialogs
   "dialog.cancel": "取消",
   "dialog.ok": "確認",

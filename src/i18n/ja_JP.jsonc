@@ -1,6 +1,9 @@
 {
   // App info
   "app.name": "Cider",
+
+  "date.format": "${y}年${m}月${d}日",
+
   // Dialogs
   "dialog.cancel": "キャンセル",
   "dialog.ok": "OK",
@@ -9,6 +12,7 @@
   "notification.updatingLibrarySongs": "ライブラリの更新中...",
   "notification.updatingLibraryAlbums": "ライブラリの更新中...",
   "notification.updatingLibraryArtists": "ライブラリの更新中...",
+  "notification.connectionError": "Apple Musicに接続できません。",
 
   // Terms
   "term.appleMusic": "Apple Music", // Follows brand term
