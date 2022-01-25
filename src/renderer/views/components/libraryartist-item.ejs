@@ -121,7 +121,7 @@
                                 "action": function () {
                                     if (!self.item.attributes.url && self.item.relationships){
                                         if (self.item.relationships.catalog){
-                                            app.mkapi(self.item.attributes.playParams.kind, false, self.item.relationships.catalog.data[0].id).then(u => {self.app.copyToClipboard((u.length && u.length > 0)? u[0].attributes.url : u.attributes.url)})
+                                            app.mkapi(self.item.attributes.playParams.kind, false, self.item.relationships.catalog.data[0].id).then(u => {self.app.copyToClipboard((u.data.data.length && u.data.data.length > 0)? u.data.data[0].attributes.url : u.data.data.attributes.url)})
                                         }
                                     } else {
                                     self.app.copyToClipboard(self.item.attributes.url)}
