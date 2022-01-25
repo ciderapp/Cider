@@ -1,3 +1,5 @@
 {
+    "date.format": "${d} ${m}, ${y}",
+
     "home.friendsListeningTo": "Bruv's Listening To"
 }
