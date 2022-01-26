@@ -1,4 +1,11 @@
-{ // Base File 
+{ // HODOR
+
+  // i18n Info
+  "i18n.languageName": "HODOR",        // name of language in native language
+  "i18n.languageNameEnglish": "HODOR", // name of language in English
+  "i18n.category": "fun", // main = real language, fun = fun community languages
+  "i18n.authors": "HODOR", // Authors, if you contribute to this file feel free to add your name seperated with a space
+  
   // App info
   "app.name": "HODOR",
 
@@ -100,6 +107,7 @@
   "term.contributors": "HODOR",
   "term.equalizer": "HODOR",
   "term.reset": "HODOR",
+  "term.tracks": "HODOR", // Assume x amount of tracks. e.g. 50 tracks 
 
   // Home
   "home.title": "HODOR",
@@ -160,6 +168,9 @@
   "action.dislike": "HODOR",
   "action.undoDislike": "HODOR HODOR",
   "action.showWebRemoteQR": "HODOR HODOR HODOR HODOR",
+  "action.playTracksNext": "HODOR ${app.selectedMediaItems.length} HODOR HODOR",
+  "action.playTracksLater": "HODOR ${app.selectedMediaItems.length} HODOR HODOR",
+  "action.removeTracks": "HODOR ${self.selectedItems.length} HODOR HODOR HODOR",
 
   // Settings - Audio
   "settings.header.audio": "HODOR",
@@ -222,12 +233,17 @@
   "settings.option.connectivity.lastfmScrobble.delay": "HODOR HODOR HODOR (%)", 
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "HODOR HODOR HODOR HODOR", 
   "settings.option.connectivity.lastfmScrobble.removeFeatured": "HODOR HODOR HODOR HODOR HODOR HODOR (HODOR)", 
+  "settings.option.connectivity.lastfmScrobble.filterLoop": "HODOR HODOR HODOR (HODOR)", 
   // Refer to term.connect for the connect button
 
   // Settings - Experimental
   "settings.header.experimental": "HODOR",
   "settings.header.experimental.description": "HODOR HODOR HODOR HODOR HODOR HODOR.",
   "settings.option.experimental.compactUI": "HODOR UI", // Toggle
+  "settings.option.experimental.closeButtonBehaviour": "HODOR HODOR HODOR",
+  "settings.option.experimental.closeButtonBehaviour.quit": "HODOR HODOR",
+  "settings.option.experimental.closeButtonBehaviour.minimizeTaskbar": "HODOR HODOR HODOR",
+  "settings.option.experimental.closeButtonBehaviour.minimizeTray": "HODOR HODOR HODOR HODOR",
   // Refer to term.disabled & term.enabled
 
   // Spatialization Menu

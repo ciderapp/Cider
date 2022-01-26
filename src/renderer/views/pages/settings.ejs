@@ -37,6 +37,15 @@
                     </div>
                 </div>
                 <div class="md-option-line" v-show="app.cfg.advanced.AudioContext">
+                    <div class="md-option-segment">
+                        {{$root.getLz('term.equalizer')}}
+                    </div>
+                    <div class="md-option-segment md-btn md-option-segment_auto">
+                        <label class="list-button list-element"
+                        onclick="app.modals.equalizer = true">{{$root.getLz('term.equalizer')}}</label>
+                    </div>
+                </div>
+                <div class="md-option-line" v-show="app.cfg.advanced.AudioContext">
                     <div class="md-option-segment" >
                     {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.audioNormalization')}}
                     <br>
