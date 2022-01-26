@@ -8,55 +8,71 @@
             <div class="modal-content">
                 <!-- BANDS = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000]; -->
                 <div class="inputs-container">
-                    <div class="input-container">
-                        {{app.cfg.audio.equalizer['60']}}
-                        <input type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" v-model="app.cfg.audio.equalizer['60']" @change="changeGain('60')">
-                        60
+                    <div class="input-container header">
+                        Gain
+                        <input type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" >
+                        <div class="freq-header">Freq</div>
+                        <div>Q</div>
                     </div>
                     <div class="input-container">
-                        {{app.cfg.audio.equalizer['170']}}
-                    <input type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" v-model="app.cfg.audio.equalizer['170']" @change="changeGain('170')">
-                        170
+                        {{app.cfg.audio.equalizer.gain[0]}}
+                        <input tabindex="0" type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" v-model="app.cfg.audio.equalizer.gain[0]" @change="changeGain(0)">
+                        <input type="number" class="eq-freq" orient="vertical" min="22" max="44" step="2" v-model="app.cfg.audio.equalizer.frequencies[0]" @change="changeFreq(0)">
+                        <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1" v-model="app.cfg.audio.equalizer.Q[0]" @change="changeQ(0)">
                     </div>
                     <div class="input-container">
-                        {{app.cfg.audio.equalizer['310']}}
-                    <input type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" v-model="app.cfg.audio.equalizer['310']" @change="changeGain('310')">
-                        310
+                        {{app.cfg.audio.equalizer.gain[1]}}
+                    <input tabindex="0" type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" v-model="app.cfg.audio.equalizer.gain[1]" @change="changeGain(1)">
+                    <input type="number" class="eq-freq" orient="vertical" min="44" max="88" step="4" v-model="app.cfg.audio.equalizer.frequencies[1]" @change="changeFreq(1)">
+                    <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1" v-model="app.cfg.audio.equalizer.Q[1]" @change="changeQ(1)">
                     </div>
                     <div class="input-container">
-                        {{app.cfg.audio.equalizer['600']}}
-                    <input type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" v-model="app.cfg.audio.equalizer['600']" @change="changeGain('600')">
-                        600
+                        {{app.cfg.audio.equalizer.gain[2]}}
+                    <input tabindex="0" type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" v-model="app.cfg.audio.equalizer.gain[2]" @change="changeGain(2)">
+                    <input type="number" class="eq-freq" orient="vertical" min="88" max="177" step="8" v-model="app.cfg.audio.equalizer.frequencies[2]" @change="changeFreq(2)">
+                    <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1" v-model="app.cfg.audio.equalizer.Q[2]" @change="changeQ(2)">    
                     </div>
                     <div class="input-container">
-                        {{app.cfg.audio.equalizer['1000']}}
-                    <input type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" v-model="app.cfg.audio.equalizer['1000']" @change="changeGain('1000')">
-                        1000
+                        {{app.cfg.audio.equalizer.gain[3]}}
+                    <input tabindex="0" type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" v-model="app.cfg.audio.equalizer.gain[3]" @change="changeGain(3)">
+                    <input type="number" class="eq-freq" orient="vertical" min="177" max="355" step="16" v-model="app.cfg.audio.equalizer.frequencies[3]" @change="changeFreq(3)">
+                    <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1" v-model="app.cfg.audio.equalizer.Q[3]" @change="changeQ(3)">
                     </div>
                     <div class="input-container">
-                        {{app.cfg.audio.equalizer['3000']}}
-                    <input type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" v-model="app.cfg.audio.equalizer['3000']" @change="changeGain('3000')">
-                        3000
+                        {{app.cfg.audio.equalizer.gain[4]}}
+                    <input tabindex="0" type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" v-model="app.cfg.audio.equalizer.gain[4]" @change="changeGain(4)">
+                    <input type="number" class="eq-freq" orient="vertical" min="355" max="710" step="32" v-model="app.cfg.audio.equalizer.frequencies[4]" @change="changeFreq(4)">
+                    <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1" v-model="app.cfg.audio.equalizer.Q[4]" @change="changeQ(4)">
                     </div>
                     <div class="input-container">
-                        {{app.cfg.audio.equalizer['6000']}}
-                    <input type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" v-model="app.cfg.audio.equalizer['6000']" @change="changeGain('6000')">
-                        6000
+                        {{app.cfg.audio.equalizer.gain[5]}}
+                    <input tabindex="0" type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" v-model="app.cfg.audio.equalizer.gain[5]" @change="changeGain(5)">
+                    <input type="number" class="eq-freq" orient="vertical" min="710" max="1420" step="64" v-model="app.cfg.audio.equalizer.frequencies[5]" @change="changeFreq(5)">
+                    <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1" v-model="app.cfg.audio.equalizer.Q[5]" @change="changeQ(5)">
                     </div>
                     <div class="input-container">
-                        {{app.cfg.audio.equalizer['12000']}}
-                    <input type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" v-model="app.cfg.audio.equalizer['12000']" @change="changeGain('12000')">
-                        12000
+                        {{app.cfg.audio.equalizer.gain[6]}}
+                    <input tabindex="0" type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" v-model="app.cfg.audio.equalizer.gain[6]" @change="changeGain(6)">
+                    <input type="number" class="eq-freq" orient="vertical" min="1420" max="2840" step="128" v-model="app.cfg.audio.equalizer.frequencies[6]" @change="changeFreq(6)">
+                    <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1" v-model="app.cfg.audio.equalizer.Q[6]" @change="changeQ(6)">
                     </div>
                     <div class="input-container">
-                        {{app.cfg.audio.equalizer['14000']}}
-                    <input type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" v-model="app.cfg.audio.equalizer['14000']" @change="changeGain('14000')">
-                        14000
+                        {{app.cfg.audio.equalizer.gain[7]}}
+                    <input tabindex="0" type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" v-model="app.cfg.audio.equalizer.gain[7]" @change="changeGain(7)">
+                    <input type="number" class="eq-freq" orient="vertical" min="2840" max="5680" step="256" v-model="app.cfg.audio.equalizer.frequencies[7]" @change="changeFreq(7)">
+                    <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1" v-model="app.cfg.audio.equalizer.Q[7]" @change="changeQ(7)">
                     </div>
                     <div class="input-container">
-                        {{app.cfg.audio.equalizer['16000']}}
-                    <input type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" v-model="app.cfg.audio.equalizer['16000']" @change="changeGain('16000')">
-                        16000
+                        {{app.cfg.audio.equalizer.gain[8]}}
+                    <input tabindex="0" type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" v-model="app.cfg.audio.equalizer.gain[8]" @change="changeGain(8)">
+                    <input type="number" class="eq-freq" orient="vertical" min="5680" max="11360" step="512" v-model="app.cfg.audio.equalizer.frequencies[8]" @change="changeFreq(8)">
+                    <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1" v-model="app.cfg.audio.equalizer.Q[8]" @change="changeQ(8)">
+                    </div>
+                    <div class="input-container">
+                        {{app.cfg.audio.equalizer.gain[9]}}
+                    <input tabindex="0" type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" v-model="app.cfg.audio.equalizer.gain[9]" @change="changeGain(9)">
+                    <input type="number" class="eq-freq" orient="vertical" min="11360" max="22720" step="1024" v-model="app.cfg.audio.equalizer.frequencies[9]" @change="changeFreq(9)">
+                    <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1" v-model="app.cfg.audio.equalizer.Q[9]" @change="changeQ(9)">
                     </div>
                 </div>
                 </br>
@@ -84,23 +100,22 @@
                 app.resetState()
             },
             changeGain(i) {
-                CiderAudio.audioNodes.audioBands[i].gain.value = app.cfg.audio.equalizer[i]
+                CiderAudio.audioNodes.audioBands[i].gain.value = app.cfg.audio.equalizer.gain[i]
+            },
+            changeFreq(i) {
+                CiderAudio.audioNodes.audioBands[i].frequency.value = app.cfg.audio.equalizer.frequencies[i]
+            },
+            changeQ(i) {
+                CiderAudio.audioNodes.audioBands[i].Q.value = app.cfg.audio.equalizer.Q[i]
             },
             resetGain(){
-                this.app.cfg.audio.equalizer =  {
-                    '60' : 0, 
-                    '170': 0 ,
-                    '310': 0 ,
-                    '600': 0 , 
-                    '1000': 0 , 
-                    '3000': 0 , 
-                    '6000': 0 , 
-                    '12000': 0 , 
-                    '14000': 0 ,
-                    '16000': 0 ,
-                }
-                for (var i in this.app.cfg.audio.equalizer){
+                this.app.cfg.audio.equalizer  = {'frequencies': [32, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000],
+                'gain': [0,0,0,0,0,0,0,0,0,0],
+                'Q' :   [1,1,1,1,1,1,1,1,1,1]       }
+                for (var  i = 0; i < 10; i++){
                     this.changeGain(i)
+                    this.changeFreq(i)
+                    this.changeQ(i)
                 }
             }
         }

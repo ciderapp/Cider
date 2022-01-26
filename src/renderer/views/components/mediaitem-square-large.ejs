@@ -144,7 +144,7 @@
                     multiple: {
                         items: [
                             {
-                                name: `Play ${app.selectedMediaItems.length} tracks next`,
+                                name: this.$root.getLz('action.playTracksNext'),
                                 action: () => {
                                     let itemsToPlay = {}
                                     app.selectedMediaItems.forEach(item => {
@@ -165,7 +165,7 @@
                                 }
                             },
                             {
-                                name: `Play ${app.selectedMediaItems.length} tracks later`,
+                                name: app.getLz('action.playTracksLater'),
                                 action: () => {
                                     let itemsToPlay = {}
                                     app.selectedMediaItems.forEach(item => {

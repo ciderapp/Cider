@@ -1,4 +1,11 @@
 {
+
+  // i18n Info
+  "i18n.languageName": "Türkçe",        // name of language in native language
+  "i18n.languageNameEnglish": "Turkish", // name of language in English
+  "i18n.category": "main", // main = real language, fun = fun community languages
+  "i18n.authors": "gms10ur", // Authors, if you contribute to this file feel free to add your name seperated with a space
+
   // App info
   "app.name": "Cider",
 
@@ -74,6 +81,7 @@
   "term.connect": "Bağlan",
   "term.connecting": "Bağlanıyor",
   "term.authed": "Bağlantı sağlandı",
+  "term.disconnect": "Bağlantıyı Kes",
   "term.confirm": "Onayla?",
   "term.more": "Daha Fazla",
   "term.less": "Daha Az",
@@ -98,6 +106,9 @@
   "term.developer": "Geliştirici",
   "term.socialTeam": "Sosyal Ekip",
   "term.contributors": "Katkıda Bulunanlar",
+  "term.equalizer": "Ekolayzer",
+  "term.reset": "Sıfırla",
+  "term.tracks": "adet şarkı", // Assume x amount of tracks. e.g. 50 tracks 
 
   // Home
   "home.title": "Ana Sayfa",
@@ -159,6 +170,10 @@
   "action.dislike": "Bunun Gibileri Daha Az Öner",
   "action.undoDislike": "Bunun Gibileri Daha Az Önermeyi Geri Al",
   "action.showWebRemoteQR": "Uzaktan Kumanda Bağla",
+  "action.playTracksNext": "Sonrasında ${app.selectedMediaItems.length} şarkıları çal",
+  "action.playTracksLater": "En Son ${app.selectedMediaItems.length} şarkıları çal",
+  "action.removeTracks": "Sıradan ${self.selectedItems.length} şarkıları kaldır",
+
 
   // Settings - Audio
   "settings.header.audio": "Çalma / Oynatma",
@@ -220,12 +235,18 @@
   "settings.header.connectivity.discordRPC.appleMusic": "'Apple Music' Olarak",
   "settings.option.connectivity.discordRPC.clearOnPause": "Duraklatıldığında Discord'da Gösterme", // Toggle
   "settings.option.connectivity.lastfmScrobble": "LastFM Bağlantısı", // Option to Connect
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "Albüm sanatçısını Scrobbledan kaldır(LastFM)", 
+  "settings.option.connectivity.lastfmScrobble.filterLoop": "Tekrar edilen şarkıyı filtrele (LastFM)", 
   // Refer to term.connect for the connect button
 
   // Settings - Experimental
   "settings.header.experimental": "Deneysel",
   "settings.header.experimental.description": "Cider'deki deneysel özelliklere erişim sağlayın. (Not: Bazı özellikler düzgün çalışmayabilir.)",
   "settings.option.experimental.compactUI": "Kompakt Arayüz", // Toggle
+  "settings.option.experimental.closeButtonBehaviour": "Kapat düğmesi davranışı",
+  "settings.option.experimental.closeButtonBehaviour.quit": "Cider'den çık",
+  "settings.option.experimental.closeButtonBehaviour.minimizeTaskbar": "Simge durumuna küçült",
+  "settings.option.experimental.closeButtonBehaviour.minimizeTray": "Görev çubuğuna küçült",
   // Refer to term.disabled & term.enabled
 
   // Spatialization Menu
@@ -257,5 +278,4 @@
   //About
   "about.thanks": "Cider Collective Ekibine ve tüm katkıda bulunanlara çok teşekkür ederiz."
   
-
 }
