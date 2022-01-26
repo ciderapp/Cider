@@ -1,7 +1,6 @@
 import * as electron from 'electron';
 import * as fs from 'fs';
 import {resolve} from 'path';
-//@ts-ignore
 
 export default class LastFMPlugin {
     private sessionPath = resolve(electron.app.getPath('userData'), 'session.json');
@@ -15,6 +14,7 @@ export default class LastFMPlugin {
     private _win: any;
     private _app: any;
     private _lastfm: any;
+    private _store: any;
 
     private authenticateFromFile() {
         let sessionData = require(this.sessionPath)
@@ -26,12 +26,12 @@ export default class LastFMPlugin {
 
     authenticate() {
         try {
-            if (this._win.store.store.lastfm.auth_token) {
-                this._win.store.store.lastfm.enabled = true;
+            if (this._store.lastfm.auth_token) {
+                this._store.lastfm.enabled = true;
             }
 
-            if (!this._win.store.store.lastfm.enabled || !this._win.store.store.lastfm.auth_token) {
-                this._win.store.store.lastfm.enabled = false;
+            if (!this._store.lastfm.enabled || !this._store.lastfm.auth_token) {
+                this._store.lastfm.enabled = false;
                 return
             }
             /// dont move this require to top , app wont load
@@ -47,8 +47,8 @@ export default class LastFMPlugin {
                 if (err) {
                     console.error("[LastFM][Session] Session file couldn't be opened or doesn't exist,", err)
                     console.log("[LastFM][Auth] Beginning authentication from configuration")
-                    console.log("[LastFM][tk]", this._win.store.store.lastfm.auth_token)
-                    this._lastfm.authenticate(this._win.store.store.lastfm.auth_token, (err: any, session: any) => {
+                    console.log("[LastFM][tk]", this._store.lastfm.auth_token)
+                    this._lastfm.authenticate(this._store.lastfm.auth_token, (err: any, session: any) => {
                         if (err) {
                             throw err;
                         }
@@ -78,7 +78,7 @@ export default class LastFMPlugin {
     }
 
     private async scrobbleSong(attributes: any) {
-        await new Promise(resolve => setTimeout(resolve, Math.round(attributes.durationInMillis * (this._win.store.store.lastfm.scrobble_after / 100))));
+        await new Promise(resolve => setTimeout(resolve, Math.round(attributes.durationInMillis * (this._store.lastfm.scrobble_after / 100))));
         const currentAttributes = attributes;
 
         if (!this._lastfm || this._lastfm.cachedAttributes === attributes) {
@@ -117,7 +117,7 @@ export default class LastFMPlugin {
     }
 
     private filterArtistName(artist: any) {
-        if (!this._win.store.store.lastfm.enabledRemoveFeaturingArtists) return artist;
+        if (!this._store.lastfm.enabledRemoveFeaturingArtists) return artist;
 
         artist = artist.split(' ');
         if (artist.includes('&')) {
@@ -135,7 +135,7 @@ export default class LastFMPlugin {
     }
 
     private updateNowPlayingSong(attributes: any) {
-        if (!this._lastfm || this._lastfm.cachedNowPlayingAttributes === attributes || !this._win.store.store.lastfm.NowPlaying) {
+        if (!this._lastfm || this._lastfm.cachedNowPlayingAttributes === attributes || !this._store.lastfm.NowPlaying) {
             return
         }
 
@@ -177,8 +177,9 @@ export default class LastFMPlugin {
     /**
      * Runs on plugin load (Currently run on application start)
      */
-    constructor(app: any) {
+    constructor(app: any, store: any) {
         this._app = app;
+        this._store = store
         electron.app.on('second-instance', (_e: any, argv: any) => {
             // Checks if first instance is authorized and if second instance has protocol args
             argv.forEach((value: any) => {
@@ -187,10 +188,10 @@ export default class LastFMPlugin {
                     let authURI = String(argv).split('/auth/')[1];
                     if (authURI.startsWith('lastfm')) { // If we wanted more auth options
                         const authKey = authURI.split('lastfm?token=')[1];
-                        this._win.store.store.lastfm.enabled = true;
-                        this._win.store.store.lastfm.auth_token = authKey;
+                        this._store.lastfm.enabled = true;
+                        this._store.lastfm.auth_token = authKey;
                         console.log(authKey);
-                        this._win.win.webContents.send('LastfmAuthenticated', authKey);
+                        this._win.webContents.send('LastfmAuthenticated', authKey);
                         this.authenticate();
                     }
                 }
@@ -203,9 +204,9 @@ export default class LastFMPlugin {
                 let authURI = String(arg).split('/auth/')[1];
                 if (authURI.startsWith('lastfm')) { // If we wanted more auth options
                     const authKey = authURI.split('lastfm?token=')[1];
-                    this._win.store.store.lastfm.enabled = true;
-                    this._win.store.store.lastfm.auth_token = authKey;
-                    this._win.win.webContents.send('LastfmAuthenticated', authKey);
+                    this._store.lastfm.enabled = true;
+                    this._store.lastfm.auth_token = authKey;
+                    this._win.webContents.send('LastfmAuthenticated', authKey);
                     console.log(authKey);
                     this.authenticate();
                 }
@@ -242,6 +243,9 @@ export default class LastFMPlugin {
      * @param attributes Music Attributes
      */
     onNowPlayingItemDidChange(attributes: object): void {
+        if (!this._store.lastfm.filterLoop){
+            this._lastfm.cachedNowPlayingAttributes = false;
+            this._lastfm.cachedAttributes = false}
         this.scrobbleSong(attributes)
         this.updateNowPlayingSong(attributes)
     }

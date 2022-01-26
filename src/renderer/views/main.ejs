@@ -41,7 +41,7 @@
                 <div class="app-chrome--left">
                     <div class="app-chrome-item full-height" v-if="chrome.windowControlPosition == 'left'">
                         <div class="window-controls">
-                            <div class="close" @click="ipcRenderer.send('close')"></div>
+                            <div class="close" @click="closeWindow()"></div>
                             <div class="minimize" @click="ipcRenderer.send('minimize')"></div>
                             <div class="minmax restore" v-if="chrome.maximized"
                                  @click="ipcRenderer.send('maximize')">
@@ -174,7 +174,7 @@
                                  @click="ipcRenderer.send('maximize')">
                             </div>
                             <div class="minmax" v-else @click="ipcRenderer.send('maximize')"></div>
-                            <div class="close" @click="ipcRenderer.send('close')"></div>
+                            <div class="close" @click="closeWindow()"></div>
                         </div>
                     </div>
                 </div>
@@ -263,6 +263,10 @@
                                             ✔️
                                         </div>
                                     </div>
+                                </button>
+                                <button class="usermenu-item" v-if="cfg.advanced.AudioContext"
+                                @click="modals.equalizer = true">
+                                    {{$root.getLz('term.equalizer')}}
                                 </button>
                                 <button class="usermenu-item" v-if="cfg.advanced.AudioContext && cfg.audio.spatial"
                                         @click="modals.spatialProperties = true">
@@ -620,6 +624,9 @@
         <spatial-properties v-if="modals.spatialProperties"></spatial-properties>
     </transition>
     <transition name="modal">
+        <eq-view v-if="modals.equalizer"></eq-view>
+    </transition>
+    <transition name="modal">
         <qrcode-modal v-if="modals.qrcode" :src="webremoteqr" :url="webremoteurl"></qrcode-modal>
     </transition>
     <div id="apple-music-video-container">
@@ -729,6 +736,9 @@
 %>
 <!-- QRCode Modal -->
 <%- include('components/qrcode-modal') 
+%>
+<!-- Equalizer -->
+<%- include('components/equalizer') 
 %>
 <!-- Add to playlist -->
 <%- include('components/add-to-playlist')

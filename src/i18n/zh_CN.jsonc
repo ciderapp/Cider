@@ -4,6 +4,12 @@
 
   "date.format": "${y}年${m}月${d}日",
 
+    // i18n Info
+  "i18n.languageName": "中文（中国）",        // name of language in native language
+  "i18n.languageNameEnglish": "Chinese (China)", // name of language in English
+  "i18n.category": "main", // main = real language, fun = fun community languages
+  "i18n.authors": "@maikirakiwi", // Authors, if you contribute to this file feel free to add your name seperated with a space
+
   // Dialogs
   "dialog.cancel": "取消",
   "dialog.ok": "确定",
@@ -71,6 +77,9 @@
   "term.enabled": "已启用",
   "term.disabled": "已禁用",
   "term.connect": "连接",
+  "term.connecting": "连接中",
+  "term.disconnect": "断开",
+  "term.authed": "已认证",
   "term.confirm": "确认？",
   "term.more": "更多",
   "term.less": "较少",
@@ -87,6 +96,17 @@
   "term.clearAll": "清空",
   "term.recentStations": "最近播放的频道",
   "term.language": "语言",
+  "term.noLyrics": "加载中。。/ 搜索无结果 / 纯音乐",
+  "term.copyright": "版权所有",
+  "term.rightsReserved": "保留所有权利。",
+  "term.sponsor": "赞助",
+  "term.ciderTeam": "Cider 团队",
+  "term.developer": "开发者",
+  "term.socialTeam": "媒体团队",
+  "term.contributors": "贡献者",
+  "term.equalizer": "均衡器",
+  "term.reset": "重置",
+  "term.tracks": "首歌曲", // Assume x amount of tracks. e.g. 50 tracks 
 
   // Home
   "home.title": "主页",
@@ -104,6 +124,17 @@
   "error.noResults": "没有结果",
   "error.noResults.description": "尝试更改搜索条件。",
   
+  //Podcasts
+  "podcast.followOnCider": "在 Cider 中追踪",
+  "podcast.followedOnCider": "已追踪",
+  "podcast.subscribeOnItunes": "在 iTunes 上订阅",
+  "podcast.subscribedOnItunes": "已订阅",
+  "podcast.itunesStore": "iTunes Store", // Follow brand term
+  "podcast.episodes": "单集",
+  "podcast.playEpisode": "播放单集",
+  "podcast.website": "Podcast 网站",
+ 
+
   // Actions
   "action.addToLibrary": "加入资料库",
   "action.addToLibrary.success": "成功加入资料库",
@@ -138,6 +169,10 @@
   "action.dislike": "减少此类建议",
   "action.undoDislike": "增加此类建议",
   "action.showWebRemoteQR": "显示远程控制的二维码",
+  "action.playTracksNext": "插播 ${app.selectedMediaItems.length} 首歌曲",
+  "action.playTracksLater": "最后播放 ${app.selectedMediaItems.length} 首歌曲",
+  "action.removeTracks": "从队列中移除 ${self.selectedItems.length} 首歌曲",
+
   // Settings - Audio
   "settings.header.audio": "音频",
   "settings.header.audio.description": "调整 Cider 的音频设置",
@@ -196,6 +231,9 @@
   "settings.header.connectivity.discordRPC.appleMusic": "显示正在玩 'Apple Music'",
   "settings.option.connectivity.discordRPC.clearOnPause": "暂停时清除Discord 动态", // Toggle
   "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling 记录", // Option to Connect
+  "settings.option.connectivity.lastfmScrobble.delay": "LastFM Scrobble 延迟 (%)", 
+  "settings.option.connectivity.lastfmScrobble.nowPlaying": "启用 LastFM 正在播放", 
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "从歌名里去除艺人推荐 (LastFM)", 
   // Refer to term.connect for the connect button
 
   // Settings - Experimental
@@ -204,10 +242,33 @@
   "settings.option.experimental.compactUI": "紧凑型 UI", // Toggle
   // Refer to term.disabled & term.enabled
   
+  // Spatialization Menu
+  "spatial.spatialProperties" : "空间属性",
+  "spatial.width" : "宽度",
+  "spatial.height" : "高度",
+  "spatial.depth" : "深度",
+  "spatial.gain": "增益",
+  "spatial.roomMaterials" : "空间材质",
+  "spatial.roomDimensions" : "空间尺寸",
+  "spatial.roomPositions" : "空间位置",
+  "spatial.setDimensions" : "设置尺寸",
+  "spatial.setPositions" : "设置位置",
+  "spatial.up" : "上",
+  "spatial.front" : "前",
+  "spatial.left" : "左",
+  "spatial.right" : "右",
+  "spatial.back" : "后",
+  "spatial.down" : "下",
+  "spatial.listener" : "您",
+  "spatial.audioSource" : "音源",
+
   // Settings - Unfinished
   "settings.header.unfinished": "未完成",
 
   // Web Remote
   "remote.web.title": "Cider 远程控制",
-  "remote.web.description": "扫描以下的二维码以控制 Cider"
+  "remote.web.description": "扫描以下的二维码以控制 Cider",
+
+  //About
+  "about.thanks": "郑重感谢 Cider Collective 以及为这个项目提供支持的贡献者。"
 }

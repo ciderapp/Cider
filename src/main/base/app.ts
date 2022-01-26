@@ -50,7 +50,7 @@ export class AppEvents {
         /***********************************************************************************************************************
          * Commandline arguments
          **********************************************************************************************************************/
-        switch (store.get("visual.hw_acceleration")) {
+        switch (store.visual.hw_acceleration) {
             default:
             case "default":
                 electron.app.commandLine.appendSwitch('enable-accelerated-mjpeg-decode')
@@ -73,6 +73,10 @@ export class AppEvents {
                 console.info("Hardware acceleration is disabled.");
                 electron.app.commandLine.appendSwitch('disable-gpu')
                 break;
+        }
+
+        if (process.platform === "linux") {
+            electron.app.commandLine.appendSwitch('disable-features', 'MediaSessionService');
         }
 
         /***********************************************************************************************************************

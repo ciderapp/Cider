@@ -1,4 +1,11 @@
-{ // Base File 
+{ // Base File
+
+  // i18n Info
+  "i18n.languageName": "English",        // name of language in native language
+  "i18n.languageNameEnglish": "English", // name of language in English
+  "i18n.category": "main", // main = real language, fun = fun community languages
+  "i18n.authors": "@maikirakiwi", // Authors, if you contribute to this file feel free to add your name seperated with a space
+
   // App info
   "app.name": "Cider",
 
@@ -98,6 +105,10 @@
   "term.developer": "Developer",
   "term.socialTeam": "Social Team",
   "term.contributors": "Contributors",
+  "term.equalizer": "Equalizer",
+  "term.reset": "Reset",
+  "term.tracks": "tracks", // Assume x amount of tracks. e.g. 50 tracks 
+  
 
   // Home
   "home.title": "Home",
@@ -158,6 +169,9 @@
   "action.dislike": "Dislike",
   "action.undoDislike": "Undo dislike",
   "action.showWebRemoteQR": "Show Web Remote QR",
+  "action.playTracksNext": "Play ${app.selectedMediaItems.length} tracks next",
+  "action.playTracksLater": "Play ${app.selectedMediaItems.length} tracks later",
+  "action.removeTracks": "Remove ${self.selectedItems.length} tracks from queue",
 
   // Settings - Audio
   "settings.header.audio": "Audio",
@@ -220,12 +234,17 @@
   "settings.option.connectivity.lastfmScrobble.delay": "LastFM Scrobble Delay (%)", 
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "Enable LastFM Now Playing", 
   "settings.option.connectivity.lastfmScrobble.removeFeatured": "Remove featuring artists from song title (LastFM)", 
+  "settings.option.connectivity.lastfmScrobble.filterLoop": "Filter looped track (LastFM)", 
   // Refer to term.connect for the connect button
 
   // Settings - Experimental
   "settings.header.experimental": "Experimental",
   "settings.header.experimental.description": "Adjust the experimental settings for Cider.",
   "settings.option.experimental.compactUI": "Compact UI", // Toggle
+  "settings.option.experimental.closeButtonBehaviour": "Close Button Behaviour",
+  "settings.option.experimental.closeButtonBehaviour.quit": "Quit Cider",
+  "settings.option.experimental.closeButtonBehaviour.minimizeTaskbar": "Minimize to taskbar",
+  "settings.option.experimental.closeButtonBehaviour.minimizeTray": "Minimize to system tray",
   // Refer to term.disabled & term.enabled
 
   // Spatialization Menu
@@ -233,6 +252,7 @@
   "spatial.width" : "Width",
   "spatial.height" : "Height",
   "spatial.depth" : "Depth",
+  "spatial.gain" : "Gain",
   "spatial.roomMaterials" : "Room Materials",
   "spatial.roomDimensions" : "Room Dimensions",
   "spatial.roomPositions" : "Room Positions",
@@ -254,6 +274,6 @@
   "remote.web.title": "Cider Remote",
   "remote.web.description": "Scan the QR code to pair your phone up with this Cider instance",
 
-  //About
+  // About
   "about.thanks": "Major thanks to the Cider Collective Team and all of our contributors."
 }
