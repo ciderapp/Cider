@@ -87,6 +87,16 @@
   "term.clearAll": "クリア",
   "term.recentStations": "最近の再生",
   "term.language": "言語",
+  "term.noLyrics": "ローディング。。 / 歌詞が見つからない / 器楽曲.",
+  "term.copyright": "著作権",
+  "term.rightsReserved": "All Rights Reserved.", // Translation does not exist in Japanese
+  "term.sponsor": "スポンサーになりましょう",
+  "term.ciderTeam": "Cider チーム",
+  "term.developer": "開発者",
+  "term.socialTeam": "ソーシャル チーム",
+  "term.contributors": "貢献者",
+  "term.equalizer": "イコライザー",
+  "term.reset": "リセット",
 
   // Home
   "home.title": "ホーム",
@@ -103,6 +113,16 @@
   "error.noResults": "見つかりませんでした",
   "error.noResults.description": "もう一度お試しください。",
   
+  //Podcasts
+  "podcast.followOnCider": "Ciderでフォロー",
+  "podcast.followedOnCider": "フォロー中",
+  "podcast.subscribeOnItunes": "iTunesで購読",
+  "podcast.subscribedOnItunes": "購読中",
+  "podcast.itunesStore": "iTunes Store",
+  "podcast.episodes": "番組",
+  "podcast.playEpisode": "再生",
+  "podcast.website": "Podcast ウェブ",
+
   // Actions
   "action.addToLibrary": "ライブラリに追加",
   "action.addToLibrary.success": "ライブラリに追加されました",
@@ -131,7 +151,7 @@
   "action.goToAlbum": "アルバムへ移動",
   "action.moveToTop": "上に戻る",
   "action.share": "曲を共有",
-  "action.rename": "リネーム",
+  "action.rename": "名前の変更",
   "action.love": "ラブ",
   "action.unlove": "ラブを解除",
   "action.dislike": "これに似たものをすすめない",
@@ -195,6 +215,9 @@
   "settings.header.connectivity.discordRPC.appleMusic": "'Apple Music' を表示する",
   "settings.option.connectivity.discordRPC.clearOnPause": "一時停止時にDiscord Rich Presenceをクリアする", // Toggle
   "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling", // Option to Connect
+  "settings.option.connectivity.lastfmScrobble.delay": "LastFM Scrobble Delay (%)", 
+  "settings.option.connectivity.lastfmScrobble.nowPlaying": "Enable LastFM Now Playing", 
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "Remove featuring artists from song title (LastFM)", 
   // Refer to term.connect for the connect button
 
   // Settings - Experimental
@@ -203,11 +226,33 @@
   "settings.option.experimental.compactUI": "コンパクトインターフェース", // Toggle
   // Refer to term.disabled & term.enabled
   
+  // Spatialization Menu
+  "spatial.spatialProperties" : "空間化のプロパティ",
+  "spatial.width" : "幅",
+  "spatial.height" : "高さ",
+  "spatial.depth" : "奥行",
+  "spatial.roomMaterials" : "部屋のマテリアル",
+  "spatial.roomDimensions" : "部屋の大きさ",
+  "spatial.roomPositions" : "部屋の位置",
+  "spatial.setDimensions" : "大きさを設定",
+  "spatial.setPositions" : "位置を設定",
+  "spatial.up" : "上",
+  "spatial.front" : "前",
+  "spatial.left" : "左",
+  "spatial.right" : "右",
+  "spatial.back" : "後",
+  "spatial.down" : "下",
+  "spatial.listener" : "リスナー",
+  "spatial.audioSource" : "音源",
+
   // Settings - Unfinished
   "settings.header.unfinished": "未完成",
 
   // Web Remote
   "remote.web.title": "Cider リモート",
-  "remote.web.description": "QRコードを使用して、Ciderとスマートフォンをペアリングする"
+  "remote.web.description": "QRコードを使用して、Ciderとスマートフォンをペアリングする",
+
+  //About
+  "about.thanks": "Cider Collective とご協力いただいた貢献者様に感謝申し上げます。"
 
 }

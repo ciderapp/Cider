@@ -93,7 +93,7 @@
   "term.sponsor": "赞助",
   "term.ciderTeam": "Cider 团队",
   "term.developer": "开发者",
-  "term.socialTeam": "公关团队",
+  "term.socialTeam": "媒体团队",
   "term.contributors": "贡献者",
   "term.equalizer": "均衡器",
   "term.reset": "重置",
@@ -255,5 +255,5 @@
   "remote.web.description": "扫描以下的二维码以控制 Cider",
 
   //About
-  "about.thanks": "郑重感谢 Cider Collective 团队以及为这个项目提供支持的贡献者。"
+  "about.thanks": "郑重感谢 Cider Collective 以及为这个项目提供支持的贡献者。"
 }
