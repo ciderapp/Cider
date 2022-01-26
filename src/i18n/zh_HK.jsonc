@@ -13,6 +13,7 @@
   "notification.updatingLibraryAlbums": "正在更新資料庫的專輯...",
   "notification.updatingLibraryArtists": "正在更新資料庫的藝人...",
   // Terms
+  "term.appleInc": "Apple Inc.",
   "term.appleMusic": "Apple Music", // Follows brand term
   "term.applePodcasts": "Apple Podcasts", // Follows brand term
   "term.itunes": "iTunes", // Follows brand term
@@ -24,7 +25,7 @@
   "term.login": "登入",
   "term.about": "關於",
   "term.privateSession": "私人模式",
-  "term.queue": "播放清單",
+  "term.queue": "待播清單",
   "term.search": "搜尋",
   "term.library": "資料庫",
   "term.listenNow": "立即聆聽",
@@ -70,6 +71,9 @@
   "term.enabled": "已啟用",
   "term.disabled": "已停用",
   "term.connect": "連結",
+  "term.connecting": "連結中",
+  "term.disconnect": "取消連結",
+  "term.authed": "已授權",
   "term.confirm": "確認?",
   "term.more": "更多",
   "term.less": "較少",
@@ -82,10 +86,18 @@
   "term.time.updated": "更新於",
   "term.fullscreenView": "全螢幕檢視",
   "term.defaultView": "一般檢視",
-  "term.spacializedAudioSetting": "音频空间化设置",
+  "term.spacializedAudioSetting": "空間音訊設定",
   "term.clearAll": "清空",
   "term.recentStations": "最近播放的頻道",
   "term.language": "語言",
+  "term.noLyrics": "加載中... / 找不到歌詞。/ 純音樂。",
+  "term.copyright": "Copyright",
+  "term.rightsReserved": "保留一切權利。",
+  "term.sponsor": "贊助這個項目",
+  "term.ciderTeam": "Cider 團隊",
+  "term.developer": "開發者",
+  "term.socialTeam": "社交團隊",
+  "term.contributors": "貢獻者",
 
   // Home
   "home.title": "主頁",
@@ -98,21 +110,32 @@
   "home.followedArtists": "追蹤的藝人",
   // Errors
   "error.appleMusicSubRequired": "需要訂閱Apple Music以使用Cider",
-  "error.connectionError": "There was a problem connecting to Apple Music.",
-  "error.noResults": "No Results.",
-  "error.noResults.description": "Try a new search.",
+  "error.connectionError": "無法連接到 Apple Music。",
+  "error.noResults": "沒有結果",
+  "error.noResults.description": "請嘗試新的搜尋內容。",
+
+  //Podcasts
+  "podcast.followOnCider": "在Cider上追蹤",
+  "podcast.followedOnCider": "已在Cider上追蹤",
+  "podcast.subscribeOnItunes": "在iTunes上訂閱",
+  "podcast.subscribedOnItunes": "已在iTunes上訂閱",
+  "podcast.itunesStore": "iTunes Store",
+  "podcast.episodes": "單集",
+  "podcast.playEpisode": "播放單集",
+  "podcast.website": "Podcast 網頁",
+
   // Actions
   "action.addToLibrary": "加入資料庫",
   "action.addToLibrary.success": "成功加入資料庫",
   "action.addToLibrary.error": "加入資料庫的過程發生錯誤",
   "action.removeFromLibrary": "從資料庫刪除",
   "action.removeFromLibrary.success": "已從資料庫刪除",
-  "action.addToQueue": "加入播放清單",
-  "action.addToQueue.success": "成功加入播放清單",
-  "action.addToQueue.error": "加入播放清單的過程發生錯誤",
-  "action.removeFromQueue": "從播放清單刪除",
-  "action.removeFromQueue.success": "已從播放清單刪除",
-  "action.removeFromQueue.error": "從播放清單刪除的過程中發生錯誤",
+  "action.addToQueue": "加入待播清單",
+  "action.addToQueue.success": "成功加入待播清單",
+  "action.addToQueue.error": "加入待播清單的過程發生錯誤",
+  "action.removeFromQueue": "從待播清單刪除",
+  "action.removeFromQueue.success": "已從待播清單刪除",
+  "action.removeFromQueue.error": "從待播清單刪除的過程中發生錯誤",
   "action.addToPlaylist": "加至播放列表",
   "action.removeFromPlaylist": "從播放列表刪除",
   "action.addToFavorites": "加至收藏",
@@ -194,6 +217,9 @@
   "settings.header.connectivity.discordRPC.appleMusic": "顯示為'Apple Music'",
   "settings.option.connectivity.discordRPC.clearOnPause": "暫停時清除 Discord 狀態", // Toggle
   "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling 記錄", // Option to Connect
+  "settings.option.connectivity.lastfmScrobble.delay": "LastFM Scrobble 延遲 (%)",
+  "settings.option.connectivity.lastfmScrobble.nowPlaying": "啟用 LastFM 正在播放",
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "Remove featuring artists from song title (LastFM)",
   // Refer to term.connect for the connect button
 
   // Settings - Experimental
@@ -202,10 +228,32 @@
   "settings.option.experimental.compactUI": "緊凑型 UI", // Toggle
   // Refer to term.disabled & term.enabled
   
+  // Spatialization Menu
+  "spatial.spatialProperties" : "空間音訊屬性",
+  "spatial.width" : "闊度",
+  "spatial.height" : "高度",
+  "spatial.depth" : "深度",
+  "spatial.roomMaterials" : "空間材質",
+  "spatial.roomDimensions" : "空間大小",
+  "spatial.roomPositions" : "空間位置",
+  "spatial.setDimensions" : "大小設定",
+  "spatial.setPositions" : "位置設定",
+  "spatial.up" : "上方",
+  "spatial.front" : "前方",
+  "spatial.left" : "左方",
+  "spatial.right" : "右方",
+  "spatial.back" : "後方",
+  "spatial.down" : "下方",
+  "spatial.listener" : "觀眾",
+  "spatial.audioSource" : "音源",
+
   // Settings - Unfinished
   "settings.header.unfinished": "未完成",
 
   // Web Remote
   "remote.web.title": "遙距控制 Cider",
   "remote.web.description": "掃描以下的二維碼以控制 Cider",
+
+  //About
+  "about.thanks": "感謝Cider Collective團隊以及所有貢獻者所作出的貢獻。"
 }

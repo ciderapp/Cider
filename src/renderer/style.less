@@ -5701,4 +5701,72 @@ body.no-gpu {
   overflow-y: hidden;
 }
 
+.equalizer-panel {
+  .modal-window {
+    height: 300px;
+    max-height: 300px;
+    width: 400px;
+    max-width: 400px;
+    overflow: hidden;
+
+    .info-header {
+      padding-left: 12px;
+    }
+
+    .visual-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+   
+    .modal-header {
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+
+      .modal-title {
+        text-align: center;
+      }
+
+      .close-btn {
+        width: 50px;
+        height: 100%;
+        background-image: var(--gfx-closeBtn);
+        background-position: center;
+        background-repeat: no-repeat;
+        -webkit-app-region: no-drag;
+        appearance: none;
+        border: 0;
+        background-color: transparent;
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        &:hover {
+          background-color: rgb(196, 43, 28)
+        }
+      }
+    }
+    .modal-content{
+      display: block;
+      .input-container{
+        display: inline-grid;
+        width: 35px;
+        justify-items: center;
+        font-size: 0.7em;
+      }
+      .reset-button{
+        width: 50%;
+        margin-left: 25%;
+      }
+    }
+  }
+}
+input.eq-slider {
+  -webkit-appearance: slider-vertical;
+  width: 5%;
+}
+
 @import url("less/compact.less");

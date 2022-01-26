@@ -2,7 +2,7 @@ import * as Store from 'electron-store';
 import * as electron from "electron";
 
 export class ConfigStore {
-    public store: Store | undefined;
+    private _store: Store;
 
     private defaults: any = {
         "general": {
@@ -49,6 +49,18 @@ export class ConfigStore {
                     "down": 'acoustic-ceiling-tiles',
                     "up": 'acoustic-ceiling-tiles',
                 }
+            }, 
+            "equalizer": {
+                '60' : 0, 
+                '170': 0 ,
+                '310': 0 ,
+                '600': 0 , 
+                '1000': 0 , 
+                '3000': 0 , 
+                '6000': 0 , 
+                '12000': 0 , 
+                '14000': 0 ,
+                '16000': 0 ,
             }
         },
         "visual": {
@@ -84,14 +96,26 @@ export class ConfigStore {
     private migrations: any = {}
 
     constructor() {
-        this.store = new Store({
+        this._store = new Store({
             name: 'cider-config',
             defaults: this.defaults,
             migrations: this.migrations,
         });
 
-        this.store.set(this.mergeStore(this.defaults, this.store.store))
-        this.ipcHandler(this.store);
+        this._store.set(this.mergeStore(this.defaults, this._store.store))
+        this.ipcHandler(this._store);
+    }
+
+    get store() {
+        return this._store.store;
+    }
+
+    get(key: string) {
+        return this._store.get(key);
+    }
+
+    set(key: string, value: any) {
+        this._store.set(key, value);
     }
 
     /**

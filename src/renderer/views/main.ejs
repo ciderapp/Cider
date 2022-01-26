@@ -207,7 +207,7 @@
                         <sidebar-library-item :name="$root.getLz('home.title')" svg-icon="./assets/feather/home.svg" page="home">
                         </sidebar-library-item>
                         <div class="app-sidebar-header-text">
-                            Apple Music
+                            {{$root.getLz('term.appleMusic')}}
                         </div>
                         <sidebar-library-item :name="$root.getLz('term.listenNow')" svg-icon="./assets/feather/play-circle.svg"
                                               page="listen_now"></sidebar-library-item>
@@ -216,7 +216,7 @@
                         <sidebar-library-item :name="$root.getLz('term.radio')" svg-icon="./assets/feather/radio.svg" page="radio">
                         </sidebar-library-item>
                         <div class="app-sidebar-header-text">
-                            Library
+                            {{$root.getLz('term.library')}}
                         </div>
                         <sidebar-library-item :name="$root.getLz('term.recentlyAdded')" svg-icon="./assets/feather/plus-circle.svg"
                                               page="library-recentlyadded"></sidebar-library-item>
@@ -263,6 +263,10 @@
                                             ✔️
                                         </div>
                                     </div>
+                                </button>
+                                <button class="usermenu-item" v-if="cfg.advanced.AudioContext"
+                                @click="modals.equalizer = true">
+                                    {{$root.getLz('term.equalizer')}}
                                 </button>
                                 <button class="usermenu-item" v-if="cfg.advanced.AudioContext && cfg.audio.spatial"
                                         @click="modals.spatialProperties = true">
@@ -620,6 +624,9 @@
         <spatial-properties v-if="modals.spatialProperties"></spatial-properties>
     </transition>
     <transition name="modal">
+        <eq-view v-if="modals.equalizer"></eq-view>
+    </transition>
+    <transition name="modal">
         <qrcode-modal v-if="modals.qrcode" :src="webremoteqr" :url="webremoteurl"></qrcode-modal>
     </transition>
     <div id="apple-music-video-container">
@@ -729,6 +736,9 @@
 %>
 <!-- QRCode Modal -->
 <%- include('components/qrcode-modal') 
+%>
+<!-- Equalizer -->
+<%- include('components/equalizer') 
 %>
 <!-- Add to playlist -->
 <%- include('components/add-to-playlist')

@@ -98,6 +98,8 @@
   "term.developer": "Developer",
   "term.socialTeam": "Social Team",
   "term.contributors": "Contributors",
+  "term.equalizer": "Equalizer",
+  "term.reset": "Reset",
 
   // Home
   "home.title": "Home",
