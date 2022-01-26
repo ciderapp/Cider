@@ -3,6 +3,13 @@
   "app.name": "Cider",
 
   "date.format": "${y}年${m}月${d}日",
+ 
+  // i18n Info
+  "i18n.languageName": "中文（台湾）",        // name of language in native language
+  "i18n.languageNameEnglish": "Chinese (Taiwan)", // name of language in English
+  "i18n.category": "main", // main = real language, fun = fun community languages
+  "i18n.authors": "@maikirakiwi", // Authors, if you contribute to this file feel free to add your name seperated with a space
+
 
   // Dialogs
   "dialog.cancel": "取消",
