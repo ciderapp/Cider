@@ -22,8 +22,13 @@ var CiderAudio = {
     },
     off: function(){
         try{
-        CiderAudio.audioNodes.gainNode.disconnect();
-        CiderAudio.audioNodes.spatialNode.disconnect();
+            try{
+        CiderAudio.audioNodes.gainNode.disconnect(); } catch(e){}
+        try{ CiderAudio.audioNodes.spatialNode.disconnect();} catch(e){}
+        try{
+            CiderAudio.audioNodes.audioBands[0].disconnect();
+            CiderAudio.audioNodes.audioBands[9].disconnect();
+        } catch(e){}
         CiderAudio.source.connect(CiderAudio.context.destination);} catch(e){}
     },
     connectContext: function (mediaElem){
@@ -97,41 +102,29 @@ var CiderAudio = {
         let BANDS = app.cfg.audio.equalizer.frequencies;
         let GAIN = app.cfg.audio.equalizer.gain;
         let Q = app.cfg.audio.equalizer.Q;
-        CiderAudio.audioNodes.audioBands = {};
+        CiderAudio.audioNodes.audioBands = [];
 
-        BANDS.forEach((band, i) => {
-        const filter = CiderAudio.context.createBiquadFilter();
 
-        CiderAudio.audioNodes.audioBands[i] = filter;
-
-        if (i === 0) {
-            // The first filter, includes all lower frequencies
-            filter.type = "lowshelf";
-        } else if (i === BANDS.length - 1) {
-            // The last filter, includes all higher frequencies
-            filter.type = "highshelf";
-        } else {
-            filter.type = "peaking";
+        for (i = 0; i < BANDS.length; i++) {
+            CiderAudio.audioNodes.audioBands[i] = CiderAudio.context.createBiquadFilter();
+            CiderAudio.audioNodes.audioBands[i].type = 'peaking'; // 'peaking';
+            CiderAudio.audioNodes.audioBands[i].frequency.value = BANDS[i];
+            CiderAudio.audioNodes.audioBands[i].Q.value = Q[i];
+            CiderAudio.audioNodes.audioBands[i].gain.value = GAIN[i];
         }
-        filter.frequency.value = BANDS[i];
-        filter.gain.value = GAIN[i];
-        filter.Q.value = Q[i];
-        if (i == 0){
-            if (app.cfg.audio.spatial) {
-                CiderAudio.audioNodes.spatialNode.output.disconnect(CiderAudio.context.destination);
-                CiderAudio.audioNodes.spatialNode.output.connect(filter);
-            } else {
-                CiderAudio.audioNodes.gainNode.disconnect(CiderAudio.context.destination);
-                CiderAudio.audioNodes.gainNode.connect(filter);
-            }
-        } else if (i === BANDS.length - 1) {
-            CiderAudio.audioNodes.audioBands[i - 1].connect(filter);
+        if (app.cfg.audio.spatial) {
+            try{
+            CiderAudio.audioNodes.spatialNode.output.disconnect(CiderAudio.context.destination); } catch(e){}
+            CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.audioNodes.audioBands[0]);
         } else {
-            CiderAudio.audioNodes.audioBands[i - 1].connect(filter);
-            filter.connect(CiderAudio.context.destination);
+            try{
+            CiderAudio.audioNodes.gainNode.disconnect(CiderAudio.context.destination);} catch(e){}
+            CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.audioBands[0]);
         }
-
-        });
+        for (i = 1; i < BANDS.length; i ++) {
+            CiderAudio.audioNodes.audioBands[i-1].connect(CiderAudio.audioNodes.audioBands[i]);
+        }
+        CiderAudio.audioNodes.audioBands[ BANDS.length-1].connect(CiderAudio.context.destination);
     }
 
 }
