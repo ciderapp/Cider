@@ -94,7 +94,7 @@ var CiderAudio = {
         }
     },
     equalizer: function (){
-        const BANDS = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
+        const BANDS = [32, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000];
         CiderAudio.audioNodes.audioBands = {};
 
         BANDS.forEach((band, i) => {
