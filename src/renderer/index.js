@@ -3419,6 +3419,23 @@ const app = new Vue({
                 document.getElementsByClassName('song-name')[0].classList.add('marquee');
                 document.getElementsByClassName('song-name')[1].classList.add('marquee-after');
             } 
+        },
+        closeWindow(){
+            switch (app.cfg.general.close_behavior) {
+                case 0:
+                case '0':
+                    ipcRenderer.send('close');
+                    break;
+                case 1:    
+                case '1':
+                    ipcRenderer.send('minimize');
+                    break;
+                case 2:
+                case '2':
+                    ipcRenderer.send('minimizeTray');
+                    break;    
+
+            }
         }
     }  
     
