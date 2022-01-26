@@ -97,7 +97,7 @@
                     },
                     multiple: {
                         items: [{
-                            "name": `Remove ${self.selectedItems.length} tracks from queue`,
+                            "name": app.getLz('action.removeTracks'),
                             "action": function () {
                                 // add property to items to be removed
                                 self.selectedItems.forEach(function (item) {
