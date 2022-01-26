@@ -551,6 +551,8 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   display: flex;
   font-size: 14px;
   flex-direction: column;
+  text-align: center;
+  margin-right: 35px ;
 }
 
 .app-sidebar-button > .sidebar-user-text .fullname {
@@ -5698,5 +5700,87 @@ body.no-gpu {
   overflow-x: hidden;
   overflow-y: hidden;
 }
+
+.equalizer-panel {
+  .modal-window {
+    height: 330px;
+    max-height: 330px;
+    width: 630px;
+    max-width: 630px;
+    overflow: hidden;
+
+    .info-header {
+      padding-left: 12px;
+    }
+
+    .visual-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+   
+    .modal-header {
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+
+      .modal-title {
+        text-align: center;
+      }
+
+      .close-btn {
+        width: 50px;
+        height: 100%;
+        background-image: var(--gfx-closeBtn);
+        background-position: center;
+        background-repeat: no-repeat;
+        -webkit-app-region: no-drag;
+        appearance: none;
+        border: 0;
+        background-color: transparent;
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        &:hover {
+          background-color: rgb(196, 43, 28)
+        }
+      }
+    }
+    .modal-content{
+      display: block;
+      .input-container{
+        display: inline-grid;
+        width: 52px;
+        justify-items: center;
+        font-size: 0.7em;
+      }
+      .freq-header{
+        margin-bottom: 2px;
+      }
+      
+      .reset-button{
+        width: 50%;
+        margin-left: 25%;
+      }
+      input.eq-slider {
+        -webkit-appearance: slider-vertical;
+        width: 5%;
+      }
+      input[type="number"]{
+        padding: unset;
+        width: 55px;
+      }
+      .header  input.eq-slider {
+        -webkit-appearance: slider-vertical;
+        width: 5%;
+        opacity: 0;
+      }
+    }
+  }
+}
+
 
 @import url("less/compact.less");

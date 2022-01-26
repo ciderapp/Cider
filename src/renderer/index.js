@@ -297,7 +297,8 @@ const app = new Vue({
         modals: {
             addToPlaylist: false,
             spatialProperties: false,
-            qrcode: false
+            qrcode: false,
+            equalizer: false,
         },
         socialBadges: {
             badgeMap: {},
