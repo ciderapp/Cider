@@ -247,6 +247,7 @@
   "spatial.width" : "闊度",
   "spatial.height" : "高度",
   "spatial.depth" : "深度",
+  "spatial.gain" : "增益",
   "spatial.roomMaterials" : "空間材質",
   "spatial.roomDimensions" : "空間大小",
   "spatial.roomPositions" : "空間位置",
