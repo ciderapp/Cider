@@ -97,6 +97,7 @@
   "term.contributors": "贡献者",
   "term.equalizer": "均衡器",
   "term.reset": "重置",
+  "term.tracks": "首歌曲", // Assume x amount of tracks. e.g. 50 tracks 
 
   // Home
   "home.title": "主页",
@@ -159,6 +160,10 @@
   "action.dislike": "减少此类建议",
   "action.undoDislike": "增加此类建议",
   "action.showWebRemoteQR": "显示远程控制的二维码",
+  "action.playTracksNext": "插播 ${app.selectedMediaItems.length} 首歌曲",
+  "action.playTracksLater": "最后播放 ${app.selectedMediaItems.length} 首歌曲",
+  "action.removeTracks": "从队列中移除 ${self.selectedItems.length} 首歌曲",
+
   // Settings - Audio
   "settings.header.audio": "音频",
   "settings.header.audio.description": "调整 Cider 的音频设置",

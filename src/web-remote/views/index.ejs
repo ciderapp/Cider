@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Web Remote</title>
+    <title>{{this.$root.getLz('remote.web.title')}}</title>
     <link rel="stylesheet" href="style.css?v=2">
     <script src="vue.js"></script>
     <script src="sortable.min.js"></script>
@@ -54,8 +54,8 @@
                       <h3>Quit Cider</h3>
                       <p>Are you sure you want to quit Cider?</p>
                       <div class="button-holder two-button">
-                        <a href="#" @click="quit()"> Yes</a> 
-                        <a href="#" @click="screen = 'player'">Naah</a>
+                        <a href="#" @click="quit()"> {{this.$root.getLz('dialog.ok')}}</a> 
+                        <a href="#" @click="screen = 'player'">{{this.$root.getLz('dialog.cancel')}}</a>
                         <div style="clear: both"></div>
                       </div>
                     </div>
@@ -111,7 +111,7 @@
                                 </template>
                             </template>
                             <template v-else>
-                                No Lyrics Available
+                                {{this.$root.getLz('term.noLyrics')}}
                             </template>
                         </div>
                         <div class="md-footer">
@@ -216,7 +216,7 @@
                                 :class="searchTypeClass('applemusic')" style="width:100%;">Apple Music
                             </button>
                             <button class="search-type-button" @click="search.searchType = 'library';searchQuery()"
-                                :class="searchTypeClass('library')" style="width:100%;">Library
+                                :class="searchTypeClass('library')" style="width:100%;">{{this.$root.getLz('term.library')}}
                             </button>
                         </div>
                         <div class="md-header search-tab-container" v-if="search.state == 2">
@@ -224,16 +224,16 @@
                                 Results
                             </button>
                             <button class="search-tab" @click="search.tab = 'songs'"
-                                :class="searchTabClass('songs')">Songs
+                                :class="searchTabClass('songs')">{{this.$root.getLz('term.songs')}}
                             </button>
                             <button class="search-tab" @click="search.tab = 'albums'"
-                                :class="searchTabClass('albums')">Albums
+                                :class="searchTabClass('albums')">{{this.$root.getLz('term.albums')}}
                             </button>
                             <button class="search-tab" @click="search.tab = 'artists'"
-                                :class="searchTabClass('artists')">Artists
+                                :class="searchTabClass('artists')">{{this.$root.getLz('term.artists')}}
                             </button>
                             <button class="search-tab" @click="search.tab = 'playlists'"
-                                :class="searchTabClass('playlists')">Playlists
+                                :class="searchTabClass('playlists')">{{this.$root.getLz('term.playlists')}}
                             </button>
                         </div>
                     </div>
@@ -243,7 +243,7 @@
                                 <div
                                     style="font-size: 17px;display:flex;flex-direction: column;justify-content: center;align-items: center;">
                                     <img src="./assets/search.svg" style="width: 40px;margin: 32px;opacity: 0.85">
-                                    Search by song, album, artist, or lyrics.
+                                    {{this.$root.getLz('term.search')}}
                                 </div>
                             </div>
                         </transition>
@@ -256,7 +256,7 @@
                             <div class="md-body search-body" ref="searchBody" @scroll="searchScroll"
                                 style="overflow-y:auto;" v-if="search.state == 2">
                                 <template v-if="canShowSearchTab('songs')">
-                                    <div class="list-entry-header">Songs</div>
+                                    <div class="list-entry-header">{{this.$root.getLz('term.songs')}}</div>
                                     <template v-if="search.results.songs != null">
                                         <div class="list-entry" v-for="song in search.results.songs.data"
                                             @click="trackSelect(song)">
@@ -389,7 +389,7 @@
                                     </template>
                                 </template>
                                 <template v-if="canShowSearchTab('playlists')">
-                                    <div class="list-entry-header">Playlists</div>
+                                    <div class="list-entry-header">{{this.$root.getLz('term.playlists')}}</div>
                                     <template v-if="search.results.playlists != null">
                                         <div class="list-entry" v-for="playlist in search.results.playlists.data"
                                             @click="showPlaylist(playlist.attributes.playParams.id)">
@@ -473,7 +473,7 @@
                             @click="playMediaItemById(search.selected.attributes.playParams?.id ?? search.selected.id );clearSelectedTrack()">
                             <div class="row">
                                 <div class="col">
-                                    Play
+                                    {{this.$root.getLz('term.play')}}
                                 </div>
                                 <div class="col-auto">
                                     ▶️
@@ -484,7 +484,7 @@
                             @click="playNext('song',search.selected.attributes.playParams?.id ?? search.selected.id );clearSelectedTrack()">
                             <div class="row">
                                 <div class="col">
-                                    Play Next
+                                    {{this.$root.getLz('action.playNext')}}
                                 </div>
                                 <div class="col-auto">
                                     ⏭️
@@ -495,7 +495,7 @@
                             @click="playLater('song', search.selected.attributes.playParams?.id ?? search.selected.id );clearSelectedTrack()">
                             <div class="row">
                                 <div class="col">
-                                    Play Later
+                                    {{this.$root.getLz('action.playLater')}}
                                 </div>
                                 <div class="col-auto">
                                     ⌛
@@ -528,7 +528,7 @@
                         <button class="context-menu-item context-menu-item--left" v-if="false">
                             <div class="row">
                                 <div class="col">
-                                    Add To Library
+                                    {{this.$root.getLz('action.addToLibrary')}}
                                 </div>
                                 <div class="col-auto">
                                     ➕
@@ -538,7 +538,7 @@
                         <button class="context-menu-item context-menu-item--left" v-if="false">
                             <div class="row">
                                 <div class="col">
-                                    Love
+                                    {{this.$root.getLz('action.love')}}
                                 </div>
                                 <div class="col-auto">
                                     ❤️
@@ -548,7 +548,7 @@
                         <button class="context-menu-item context-menu-item--left">
                             <div class="row">
                                 <div class="col">
-                                    Share
+                                    {{this.$root.getLz('action.share')}}
                                 </div>
                                 <div class="col-auto">
                                     🌐
@@ -594,14 +594,14 @@
                             <h2>{{ artistPage.data.attributes["name"] }}</h2>
                         </div>
                         <div class="md-body artist-body">
-                            <h2>Songs</h2>
+                            <h2>{{this.$root.getLz('term.songs')}}</h2>
                             <div class="song-scroller-horizontal">
                                 <button v-for="song in artistPage.data.relationships['songs'].data"
                                     class="song-placeholder" @click="trackSelect(song)">
                                     {{ song.attributes.name }}
                                 </button>
                             </div>
-                            <h2>Albums</h2>
+                            <h2>{{this.$root.getLz('term.albums')}}</h2>
                             <div class="mediaitem-scroller-horizontal">
                                 <div v-for="album in artistPage.data.relationships['albums'].data" @click="showAlbum(album.attributes.playParams.id)">
                                     <template v-if="album.attributes.artwork">
@@ -615,7 +615,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <h2>Playlists</h2>
+                            <h2>{{this.$root.getLz('term.playlists')}}</h2>
                             <div class="mediaitem-scroller-horizontal">
                                 <div v-for="playlist in artistPage.data.relationships['playlists'].data" @click="showPlaylist(playlist.attributes.playParams.id)">
                                     <template v-if="playlist.attributes.artwork">
@@ -743,7 +743,7 @@
                             </template>
                         </template>
                         <template v-else>
-                            No Lyrics Available
+                            {{this.$root.getLz('term.noLyrics')}}
                         </template>
                     </div>
                     <div class="md-footer">
@@ -789,12 +789,12 @@
                             <div class="row" style="margin-top: 20px;">
                                 <div class="col">
                                     <button class="wr-btn" @click="playCustom(albumPage.data.attributes.playParams.id, albumPage.data.attributes.playParams.kind, false)"
-                                        style="width:100%;">Play
+                                        style="width:100%;">{{this.$root.getLz('term.play')}}
                                     </button>
                                 </div>
                                 <div class="col">
                                     <button class="wr-btn" style="width:100%;"
-                                        @click="playCustom(albumPage.data.attributes.playParams.id, albumPage.data.attributes.playParams.kind, true)">Shuffle
+                                        @click="playCustom(albumPage.data.attributes.playParams.id, albumPage.data.attributes.playParams.kind, true)">{{this.$root.getLz('term.shuffle')}}
                                     </button>
                                 </div>
                             </div>
@@ -802,11 +802,11 @@
                                 <div class="notes-preview"
                                     v-html="albumPage.data.attributes['editorialNotes']['standard']">
                                 </div>
-                                <button @click="albumPage.editorsNotes = true" class="notes-more">More</button>
+                                <button @click="albumPage.editorsNotes = true" class="notes-more">{{this.$root.getLz('term.showMore')}}</button>
                             </div>
                         </div>
                         <div class="md-body artist-body">
-                            <div class="list-entry-header">Tracks</div>
+                            <div class="list-entry-header">{{this.$root.getLz('term.songs')}}</div>
                             <div class="list-entry" v-for="song in albumPage.data.relationships['tracks'].data"
                                 @click="trackSelect(song)">
                                 <div class="row">
@@ -826,7 +826,7 @@
                                 </div>
                             </div>
                             <div class="md-footer">
-                                <div>{{ albumPage.data.relationships['tracks'].data.length }} Tracks</div>
+                                <div>{{ albumPage.data.relationships['tracks'].data.length }} {{this.$root.getLz('term.tracks')}}</div>
                                 <div>
                                     {{ albumPage.data.attributes['copyright'] }}
                                 </div>
@@ -866,7 +866,7 @@
                         Loading...
                     </div>
                     <div v-else>
-                        <h3 style="text-align:center;">Connection Interrupted</h3>
+                        <h3 style="text-align:center;">{{this.$root.getLz('error.connectionError')}}</h3>
                         <!--<button class="md-btn md-btn-primary" style="font-weight:500;width: 120px;border-radius: 50px;display:block;margin: 0 auto;" @click="connect()">Retry-->
                         <button class="md-btn md-btn-primary"
                             style="font-weight:500;width: 120px;border-radius: 50px;display:block;margin: 0 auto;"

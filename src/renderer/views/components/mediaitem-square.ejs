@@ -250,7 +250,7 @@
                     multiple: {
                         items: [
                             {
-                                name: `Play ${app.selectedMediaItems.length} tracks next`,
+                                name: app.getLz('action.playTracksNext'),
                                 "icon": "./assets/arrow-bend-up.svg",
                                 action: () => {
                                     let itemsToPlay = {}
@@ -272,7 +272,7 @@
                                 }
                             },
                             {
-                                name: `Play ${app.selectedMediaItems.length} tracks later`,
+                                name: app.getLz('action.playTracksLater'),
                                 "icon": "./assets/arrow-bend-down.svg",
                                 action: () => {
                                     let itemsToPlay = {}

@@ -100,6 +100,8 @@
   "term.contributors": "Contributors",
   "term.equalizer": "Equalizer",
   "term.reset": "Reset",
+  "term.tracks": "tracks", // Assume x amount of tracks. e.g. 50 tracks 
+  
 
   // Home
   "home.title": "Home",
@@ -160,6 +162,9 @@
   "action.dislike": "Dislike",
   "action.undoDislike": "Undo dislike",
   "action.showWebRemoteQR": "Show Web Remote QR",
+  "action.playTracksNext": "Play ${app.selectedMediaItems.length} tracks next",
+  "action.playTracksLater": "Play ${app.selectedMediaItems.length} tracks later",
+  "action.removeTracks": "Remove ${self.selectedItems.length} tracks from queue",
 
   // Settings - Audio
   "settings.header.audio": "Audio",
