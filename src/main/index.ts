@@ -35,12 +35,6 @@ electron.app.on('ready', () => {
         App.bwCreated(win);
         /// please dont change this for plugins to get proper and fully initialized Win objects
         plug.callPlugins('onReady', win);
-        const reactDevToolsPath = "E:/Cider/build/audion"
-
-         
-        await electron.session.defaultSession.loadExtension(reactDevToolsPath).then(() => {
-            console.log('reads')
-        })
         win.on("ready-to-show", () => {
             win.show();
         });
