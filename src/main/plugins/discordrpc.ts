@@ -130,6 +130,8 @@ export default class DiscordRichPresence {
             } else {
                 this._activity.smallImageKey = 'pause';
                 this._activity.smallImageText = 'Paused';
+                delete this._activity.endTimestamp;
+                delete this._activity.startTimestamp;
                 this._client.setActivity(this._activity)
                     .catch((e: any) => console.error(`[DiscordRichPresence][setActivity] ${e}`));
             }
