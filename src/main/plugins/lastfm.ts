@@ -244,7 +244,7 @@ export default class LastFMPlugin {
      */
     onNowPlayingItemDidChange(attributes: object): void {
         if (!this._store.lastfm.filterLoop){
-            this._lastfm.cachedAttributes = []}
+            this._lastfm.cachedAttributes = false}
         this.scrobbleSong(attributes)
         this.updateNowPlayingSong(attributes)
     }
