@@ -79,6 +79,7 @@ export class ConfigStore {
             "scrobble_after": 30,
             "auth_token": "",
             "enabledRemoveFeaturingArtists": true,
+            "filterLoop": true,
             "NowPlaying": "true"
         },
         "advanced": {
