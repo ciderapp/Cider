@@ -256,6 +256,6 @@
   "remote.web.title": "Cider Remote",
   "remote.web.description": "Scan the QR code to pair your phone up with this Cider instance",
 
-  //About
+  // About
   "about.thanks": "Major thanks to the Cider Collective Team and all of our contributors."
 }
