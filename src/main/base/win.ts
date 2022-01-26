@@ -15,10 +15,10 @@ import {wsapi} from "./wsapi";
 import * as jsonc from "jsonc";
 
 export class Win {
-    win: any | undefined = null;
-    app: any | undefined = null;
-    store: any | undefined = null;
-    devMode: boolean = !electron.app.isPackaged;
+    private win: any | undefined = null;
+    private app: any | undefined = null;
+    private store: any | undefined = null;
+    private devMode: boolean = !electron.app.isPackaged;
 
     constructor(app: electron.App, store: any) {
         this.app = app;
