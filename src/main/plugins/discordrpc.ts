@@ -124,9 +124,19 @@ export default class DiscordRichPresence {
 
         // Check if its pausing (false) or playing (true)
         if (!attributes.status) {
-            this._client.clearActivity()
-                .catch((e: any) => console.error(`[DiscordRichPresence][clearActivity] ${e}`));
+            if (DiscordRichPresence._store.general.discordClearActivityOnPause == 1) {
+                this._client.clearActivity()
+                    .catch((e: any) => console.error(`[DiscordRichPresence][clearActivity] ${e}`));
+            } else {
+                this._activity.smallImageKey = 'pause';
+                this._activity.smallImageText = 'Paused';
+                this._client.setActivity(this._activity)
+                    .catch((e: any) => console.error(`[DiscordRichPresence][setActivity] ${e}`));
+            }
+
         } else if (this._activity && this._activityCache !== this._activity && this._activity.details) {
+            this._activity.smallImageKey = 'play';
+            this._activity.smallImageText = 'Playing';
             this._client.setActivity(this._activity)
                 .catch((e: any) => console.error(`[DiscordRichPresence][updateActivity] ${e}`));
             this._activityCache = this._activity;
