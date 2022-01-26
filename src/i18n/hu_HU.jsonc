@@ -181,6 +181,7 @@
   // Refer to term.disabled for the disabled option
   "settings.header.connectivity.discordRPC.cider": "Megjelenítés 'Cider'-ként",
   "settings.header.connectivity.discordRPC.appleMusic": "Megjelenítés 'Apple Music'-ként",
+  "settings.option.connectivity.discordRPC.clearOnPause": "Discord Rich Presence törlése megállításnál", // Toggle
   "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling", // Option to Connect
   // Refer to term.connect for the connect button
 

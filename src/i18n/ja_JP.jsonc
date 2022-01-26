@@ -227,6 +227,7 @@
   // Refer to term.disabled for the disabled option
   "settings.header.connectivity.discordRPC.cider": "'Cider' を表示する",
   "settings.header.connectivity.discordRPC.appleMusic": "'Apple Music' を表示する",
+  "settings.option.connectivity.discordRPC.clearOnPause": "一時停止時にDiscord Rich Presenceをクリアする", // Toggle
   "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling", // Option to Connect
   "settings.option.connectivity.lastfmScrobble.delay": "LastFM Scrobble Delay (%)", 
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "Enable LastFM Now Playing", 

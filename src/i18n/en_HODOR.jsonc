@@ -228,6 +228,7 @@
   // Refer to term.disabled for the disabled option
   "settings.header.connectivity.discordRPC.cider": "HODOR HODOR 'HODOR'",
   "settings.header.connectivity.discordRPC.appleMusic": "HODOR HODOR 'HODOR HODOR'",
+  "settings.option.connectivity.discordRPC.clearOnPause": "HODOR HODOR HODOR HODOR HODOR HODOR", // Toggle
   "settings.option.connectivity.lastfmScrobble": "HODOR HODOR", // Option to Connect
   "settings.option.connectivity.lastfmScrobble.delay": "HODOR HODOR HODOR (%)", 
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "HODOR HODOR HODOR HODOR", 
