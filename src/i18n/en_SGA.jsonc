@@ -234,12 +234,17 @@
   "settings.option.connectivity.lastfmScrobble.delay": "|:ᖋϟᒣ⎓ᒲ ϟᔮ∷ᒍᕊᕊ|:ᒷ ↸ᒷ|:ᖋ॥ (%)", 
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "ᒷリᖋᕊ|:ᒷ |:ᖋϟᒣ⎓ᒲ リᒍ∴ i!|:ᖋ॥╎リ┤", 
   "settings.option.connectivity.lastfmScrobble.removeFeatured": "∷ᒷᒲᒍ⍊ᒷ ⎓ᒷᖋᒣ⚍∷╎リ┤ ᖋ∷ᒣ╎ϟᒣϟ ⎓∷ᒍᒲ ϟᒍリ┤ ᒣ╎ᒣ|:ᒷ (|:ᖋϟᒣ⎓ᒲ)", 
+  "settings.option.connectivity.lastfmScrobble.filterLoop": "⎓╎|:ᒣᒷ∷ |:ᒍᒍi!ᒷ↸ ᒣ∷ᖋᔮ·ǀ· (|:ᖋϟᒣ⎓ᒲ)", 
   // Refer to term.connect for the connect button
 
   // Settings - Experimental
   "settings.header.experimental": "ᒷ/i!ᒷ∷╎ᒲᒷリᒣᖋ|:",
   "settings.header.experimental.description": "ᖋ↸⋮⚍ϟᒣ ᒣ⍑ᒷ ᒷ/i!ᒷ∷╎ᒲᒷリᒣᖋ|: ϟᒷᒣᒣ╎リ┤ϟ ⎓ᒍ∷ ᔮ╎↸ᒷ∷.",
   "settings.option.experimental.compactUI": "ᔮᒍᒲi!ᖋᔮᒣ ⚍╎", // Toggle
+  "settings.option.experimental.closeButtonBehaviour": "ᔮ|:ᒍϟᒷ ᕊ⚍ᒣᒣᒍリ ᕊᒷ⍑ᖋ⍊╎ᒍ⚍∷",
+  "settings.option.experimental.closeButtonBehaviour.quit": "ᑑ⚍╎ᒣ ᔮ╎↸ᒷ∷",
+  "settings.option.experimental.closeButtonBehaviour.minimizeTaskbar": "ᒲ╎リ╎ᒲ╎∩ᒷ ᒣᒍ ᒣᖋϟ·ǀ·ᕊᖋ∷",
+  "settings.option.experimental.closeButtonBehaviour.minimizeTray": "ᒲ╎リ╎ᒲ╎∩ᒷ ᒣᒍ ϟ॥ϟᒣᒷᒲ ᒣ∷ᖋ॥",
   // Refer to term.disabled & term.enabled
 
   // Spatialization Menu
