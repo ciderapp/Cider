@@ -252,6 +252,7 @@
   "spatial.width" : "Width",
   "spatial.height" : "Height",
   "spatial.depth" : "Depth",
+  "spatial.gain" : "Gain",
   "spatial.roomMaterials" : "Room Materials",
   "spatial.roomDimensions" : "Room Dimensions",
   "spatial.roomPositions" : "Room Positions",

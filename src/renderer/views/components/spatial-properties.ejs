@@ -58,7 +58,7 @@
                                 </div>
                             </div>
                             <label v-if="!app.cfg.audio.normalization">
-                                Gain
+                                {{$root.getLz('spatial.gain')}}
                                 <input type="number" min="0" @change="setRoom()" style="width: 100%;"
                                        v-model="app.cfg.audio.spatial_properties.gain" step="0.1"/>
                             </label>
