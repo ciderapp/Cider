@@ -27,7 +27,7 @@ export class ConfigStore {
             "volume": 1,
             "lastVolume": 1,
             "muted": false,
-            "quality": "990",
+            "quality": "256",
             "seamless_audio": true,
             "normalization": false,
             "spatial": false,
@@ -51,16 +51,9 @@ export class ConfigStore {
                 }
             }, 
             "equalizer": {
-                '60' : 0, 
-                '170': 0 ,
-                '310': 0 ,
-                '600': 0 , 
-                '1000': 0 , 
-                '3000': 0 , 
-                '6000': 0 , 
-                '12000': 0 , 
-                '14000': 0 ,
-                '16000': 0 ,
+                'frequencies': [32, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000],
+                'gain': [0,0,0,0,0,0,0,0,0,0],
+                'Q' :   [1,1,1,1,1,1,1,1,1,1]               
             }
         },
         "visual": {
