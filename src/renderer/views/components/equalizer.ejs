@@ -109,9 +109,13 @@
                 CiderAudio.audioNodes.audioBands[i].Q.value = app.cfg.audio.equalizer.Q[i]
             },
             resetGain(){
-                this.app.cfg.audio.equalizer.gain = [0,0,0,0,0,0,0,0,0,0]
+                this.app.cfg.audio.equalizer  = {'frequencies': [32, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000],
+                'gain': [0,0,0,0,0,0,0,0,0,0],
+                'Q' :   [1,1,1,1,1,1,1,1,1,1]  }
                 for (var i in this.app.cfg.audio.equalizer){
                     this.changeGain(i)
+                    this.changeFreq(i)
+                    this.changeQ(i)
                 }
             }
         }
