@@ -46,6 +46,7 @@ export default class MPRIS {
     /**
      * Blocks non-linux systems from running this plugin
      * @private
+     * @decorator
      */
     private static linuxOnly(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
         if (process.platform !== 'linux') {
@@ -53,7 +54,6 @@ export default class MPRIS {
                 return
             }
         }
-
     }
 
 
@@ -157,7 +157,7 @@ export default class MPRIS {
      */
     constructor(app: any, _store: any) {
         this._app = app;
-        console.log(`[${this.name}] plugin loaded`);
+        console.debug(`[Plugin][${this.name}] Loading Complete.`);
     }
 
     /**
@@ -165,7 +165,7 @@ export default class MPRIS {
      */
     onReady(win: any): void {
         this._win = win;
-        console.log(`[${this.name}] plugin ready`);
+        console.debug(`[Plugin][${this.name}] Ready.`);
         this.connect()
     }
 
@@ -173,7 +173,7 @@ export default class MPRIS {
      * Runs on app stop
      */
     onBeforeQuit(): void {
-        console.log(`[${this.name}] plugin stopped`);
+        console.debug(`[Plugin][${this.name}] Stopped.`);
         this.clearState()
     }
 

@@ -44,7 +44,7 @@ export default class PluginHandler {
                 }
             });
         }
-        console.log('loaded plugins:', JSON.stringify(plugins))
+        console.log('[PluginHandler] Loaded plugins:', Object.keys(plugins));
         return plugins;
     }
 

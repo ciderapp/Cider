@@ -15,8 +15,6 @@ export class AppEvents {
     private static win: any = null;
 
     constructor(store: any) {
-        console.log('App started');
-
         AppEvents.store = store
         AppEvents.start(store);
     }
@@ -26,7 +24,7 @@ export class AppEvents {
      * @returns {void}
      */
     private static start(store: any): void {
-        console.log('App started');
+        console.info('[AppEvents] App started');
 
         /**********************************************************************************************************************
          * Startup arguments handling
@@ -38,7 +36,7 @@ export class AppEvents {
 
         // Verbose Check
         if (electron.app.commandLine.hasSwitch('verbose')) {
-            console.log("[Apple-Music-Electron] User has launched the application with --verbose");
+            console.log("[Cider] User has launched the application with --verbose");
         }
 
         // Log File Location
@@ -103,7 +101,7 @@ export class AppEvents {
 
     public ready(plug: any) {
         AppEvents.plugin = plug
-        console.log('App ready');
+        console.log('[AppEvents] App ready');
     }
 
     public bwCreated(win: Electron.BrowserWindow) {

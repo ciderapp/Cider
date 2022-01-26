@@ -233,7 +233,6 @@
   // Refer to term.disabled for the disabled option
   "settings.header.connectivity.discordRPC.cider": "'Cider' Olarak",
   "settings.header.connectivity.discordRPC.appleMusic": "'Apple Music' Olarak",
-  "settings.option.connectivity.discordRPC.clearOnPause": "Duraklatıldığında Discord'da Gösterme", // Toggle
   "settings.option.connectivity.lastfmScrobble": "LastFM Bağlantısı", // Option to Connect
   "settings.option.connectivity.lastfmScrobble.removeFeatured": "Albüm sanatçısını Scrobbledan kaldır(LastFM)", 
   "settings.option.connectivity.lastfmScrobble.filterLoop": "Tekrar edilen şarkıyı filtrele (LastFM)", 

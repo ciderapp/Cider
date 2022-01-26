@@ -459,17 +459,6 @@
                     </select>
                 </div>
             </div>
-            <div class="md-option-line" v-show="app.cfg.general.discord_rpc != 0">
-                <div class="md-option-segment">
-                    {{$root.getLz('settings.option.connectivity.discordRPC.clearOnPause')}}
-                </div>
-                <div class="md-option-segment md-option-segment_auto">
-                    <select class="md-select" v-model="app.cfg.general.discordClearActivityOnPause">
-                        <option value="0">{{$root.getLz('term.disabled')}}</option>
-                        <option value="1">{{$root.getLz('term.enabled')}}</option>
-                    </select>
-                </div>
-            </div>
             <div class="md-option-line">
                 <div class="md-option-segment">
                     {{$root.getLz('settings.option.connectivity.lastfmScrobble')}}

@@ -11,7 +11,11 @@
     "paths": {
       "*": ["node_modules/*"]
     },
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "typeRoots": [
+      "node_modules/musickit-typescript",
+      "node_modules/@types"
+    ]
   },
   "include": [
     "src/**/*"

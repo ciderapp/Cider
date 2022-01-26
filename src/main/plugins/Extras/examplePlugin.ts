@@ -21,7 +21,7 @@ export default class ExamplePlugin {
     constructor(app: any, store: any) {
         this._app = app;
         this._store = store;
-        console.log('Example plugin loaded');
+        console.debug(`[Plugin][${this.name}] Loading Complete.`);
     }
 
     /**
@@ -29,14 +29,14 @@ export default class ExamplePlugin {
      */
     onReady(win: any): void {
         this._win = win;
-        console.log('Example plugin ready');
+        console.debug(`[Plugin][${this.name}] Ready.`);
     }
 
     /**
      * Runs on app stop
      */
     onBeforeQuit(): void {
-        console.log('Example plugin stopped');
+        console.debug(`[Plugin][${this.name}] Stopped.`);
     }
 
     /**
