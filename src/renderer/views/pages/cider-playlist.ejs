@@ -444,8 +444,12 @@
                     // month = new Intl.DateTimeFormat(this.app.cfg.general.language.replace('_','-'), {month: 'long'}).format(releaseDate);
                     // date = releaseDate.getDate();
                     // year = releaseDate.getFullYear();
-
-                    return prefix + new Intl.DateTimeFormat(this.app.cfg.general.language?.replace('_','-') ?? 'en-US', {day:'numeric',month: 'long', year: 'numeric'}).format(releaseDate);
+                    let formatted = ''
+                    try {formatted = new Intl.DateTimeFormat(this.app.cfg.general.language?.replace('_','-') ?? 'en-US', {day:'numeric',month: 'long', year: 'numeric'}).format(releaseDate);} 
+                    catch(e){
+                        formatted = new Intl.DateTimeFormat('en-US', {day:'numeric',month: 'long', year: 'numeric'}).format(releaseDate);
+                    }
+                    return prefix + formatted
                 } catch (e) {
                     return ""
                 }
