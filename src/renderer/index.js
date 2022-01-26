@@ -135,6 +135,7 @@ const app = new Vue({
         mk: {},
         quickPlayQuery: "",
         lz: ipcRenderer.sendSync("get-i18n", "en_US"),
+        lzListing: ipcRenderer.sendSync("get-i18n-listing"),
         search: {
             term: "",
             hints: [],

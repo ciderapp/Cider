@@ -288,8 +288,6 @@ export class Win {
             event.returnValue = process.platform;
         });
 
-        console.warn(path.join(__dirname, "../../src/i18n/en_US.jsonc"))
-
         electron.ipcMain.on("get-i18n", (event, key) => {
             let i18nBase = fs.readFileSync(path.join(__dirname, "../../src/i18n/en_US.jsonc"), "utf8");
             i18nBase = jsonc.parse(i18nBase)
@@ -305,6 +303,24 @@ export class Win {
             event.returnValue = i18nBase;
 
         });
+
+        electron.ipcMain.on("get-i18n-listing", event => {
+            let i18nFiles = fs.readdirSync(path.join(__dirname, "../../src/i18n")).filter(file => file.endsWith(".jsonc"));
+            // read all the files and parse them
+            let i18nListing = []
+            for (let i = 0; i < i18nFiles.length; i++) {
+                let i18n = fs.readFileSync(path.join(__dirname, `../../src/i18n/${i18nFiles[i]}`), "utf8");
+                i18n = jsonc.parse(i18n)
+                i18nListing.push({
+                    "code": i18nFiles[i].replace(".jsonc", ""),
+                    "nameNative": i18n["i18n.languageName"] ?? i18nFiles[i].replace(".jsonc", ""),
+                    "nameEnglish": i18n["i18n.languageNameEnglish"] ?? i18nFiles[i].replace(".jsonc", ""),
+                    "category": i18n["i18n.category"] ?? "",
+                    "authors": i18n["i18n.authors"] ?? ""
+                })
+            }
+            event.returnValue = i18nListing;
+        })
 
         electron.ipcMain.on("get-gpu-mode", (event) => {
             event.returnValue = process.platform;

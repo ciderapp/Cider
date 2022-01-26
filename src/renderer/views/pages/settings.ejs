@@ -534,16 +534,9 @@
                 </div>
                 <div class="md-option-segment md-option-segment_auto">
                     <select class="md-select" @change="$root.setLz('')" v-model="app.cfg.general.language">
-                        <option value="en_US">en_US</option>
-                        <option value="el_GR">el_GR</option>
-                        <option value="ja_JP">ja_JP</option>
-                        <option value="pt_BR">pt_BR</option>
-                        <option value="tr_TR">tr_TR</option>
-                        <option value="zh_CN">zh_CN</option>
-                        <option value="zh_TW">zh_TW</option>
-                        <option value="zh_HK">zh_HK</option>
-                        <option value="en_HODOR">HODOR?</option>
-                        <option value="en_SGA">Galactic</option>
+                        <optgroup :label="index" v-for="(categories, index) in getLanguages()">
+                            <option v-for="lang in categories" :value="lang.code">{{lang.nameNative}} ({{ lang.nameEnglish }})</option>
+                        </optgroup>
                     </select>
                 </div>
             </div>
@@ -649,6 +642,24 @@
             }
         },
         methods: {
+            getLanguages: function () {
+                let langs = this.$root.lzListing
+                let categories = {
+                    "main": [],
+                    "fun": [],
+                    "unsorted": []
+                }
+                // sort by category if category is undefined or empty put it in "unsorted"
+                for (let i = 0; i < langs.length; i++) {
+                    if (langs[i].category === undefined || langs[i].category === "") {
+                        categories.unsorted.push(langs[i])
+                    } else {
+                        categories[langs[i].category].push(langs[i])
+                    }
+                }
+                // return
+                return categories
+            },
             addExperiment(flag) {
                 app.cfg.advanced.experiments.push(flag);
             },
