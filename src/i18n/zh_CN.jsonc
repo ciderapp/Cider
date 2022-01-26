@@ -229,7 +229,6 @@
   // Refer to term.disabled for the disabled option
   "settings.header.connectivity.discordRPC.cider": "显示正在玩 'Cider'",
   "settings.header.connectivity.discordRPC.appleMusic": "显示正在玩 'Apple Music'",
-  "settings.option.connectivity.discordRPC.clearOnPause": "暂停时清除Discord 动态", // Toggle
   "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling 记录", // Option to Connect
   "settings.option.connectivity.lastfmScrobble.delay": "LastFM Scrobble 延迟 (%)", 
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "启用 LastFM 正在播放", 
