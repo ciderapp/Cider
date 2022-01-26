@@ -1,28 +1,30 @@
-import * as electron from 'electron';
 import * as DiscordRPC from 'discord-rpc'
+
 export default class DiscordRPCPlugin {
-	/**
-	 * Private variables for interaction in plugins
-	 */
-	private _win: any;
-	private _app: any;
+    /**
+     * Private variables for interaction in plugins
+     */
+    private _win: Electron.BrowserWindow | undefined;
+    private _app: any;
+    private _store: any;
     private _discord: any;
+
     private connect(clientId: any) {
-        this._discord = { isConnected: false };
-        if (this._win.store.store.general.discord_rpc == 0 || this._discord.isConnected) return;
+        this._discord = {isConnected: false};
+        if (this._store.general.discord_rpc == 0 || this._discord.isConnected) return;
 
         DiscordRPC.register(clientId) // Apparently needed for ask to join, join, spectate etc.
-        const client = new DiscordRPC.Client({ transport: "ipc" });
-        this._discord = Object.assign(client, { error: false, activityCache: null, isConnected: false });
+        const client = new DiscordRPC.Client({transport: "ipc"});
+        this._discord = Object.assign(client, {error: false, activityCache: null, isConnected: false});
 
         // Login to Discord
-        this._discord.login({ clientId })
+        this._discord.login({clientId})
             .then(() => {
                 this._discord.isConnected = true;
             })
-            .catch((e : any) => console.error(`[DiscordRPC][connect] ${e}`));
+            .catch((e: any) => console.error(`[DiscordRPC][connect] ${e}`));
 
-            this._discord.on('ready', () => {
+        this._discord.on('ready', () => {
             console.log(`[DiscordRPC][connect] Successfully Connected to Discord. Authed for user: ${client.user.username} (${client.user.id})`);
         })
 
@@ -34,19 +36,19 @@ export default class DiscordRPCPlugin {
         });
     }
 
-        /**
+    /**
      * Disconnects from Discord RPC
      */
     private disconnect() {
-        if (this._win.store.store.general.discord_rpc == 0 || !this._discord.isConnected) return;
-    
+        if (this._store.general.discord_rpc == 0 || !this._discord.isConnected) return;
+
         try {
             this._discord.destroy().then(() => {
                 this._discord.isConnected = false;
                 console.log('[DiscordRPC][disconnect] Disconnected from discord.')
-            }).catch((e : any) => console.error(`[DiscordRPC][disconnect] ${e}`));
+            }).catch((e: any) => console.error(`[DiscordRPC][disconnect] ${e}`));
         } catch (err) {
-                console.error(err)
+            console.error(err)
         }
     }
 
@@ -54,54 +56,57 @@ export default class DiscordRPCPlugin {
      * Sets the activity of the client
      * @param {object} attributes
      */
-    private updateActivity(attributes : any) {
-        if (this._win.store.store.general.discord_rpc == 0) return;
+    private updateActivity(attributes: any) {
+        if (this._store.general.discord_rpc == 0) return;
 
         if (!this._discord.isConnected) {
-            this._discord.clearActivity().catch((e : any) => console.error(`[DiscordRPC][updateActivity] ${e}`));
+            this._discord.clearActivity().catch((e: any) => console.error(`[DiscordRPC][updateActivity] ${e}`));
             return;
         }
 
         // console.log('[DiscordRPC][updateActivity] Updating Discord Activity.')
 
         const listenURL = `https://cider.sh/p?s&id=${attributes.playParams.id}` // cider://play/s/[id] (for song) 
-            //console.log(attributes)
+        //console.log(attributes)
 
-        interface ActObject {
+        interface ActObject extends DiscordRPC.Presence {
             details?: any,
             state?: any,
             startTimestamp?: any,
             endTimestamp?: any,
-            largeImageKey? : any,
+            largeImageKey?: any,
             largeImageText?: any,
             smallImageKey?: any,
             smallImageText?: any,
             instance: true,
             buttons?: [
-                { label: "Listen on Cider", url?: any },
+                {
+                    label: string,
+                    url: string
+                }
             ]
-        }   
+        }
 
-        let ActivityObject : ActObject | null = {
+        let ActivityObject: ActObject | null = {
             details: attributes.name,
             state: `by ${attributes.artistName}`,
             startTimestamp: attributes.startTime,
             endTimestamp: attributes.endTime,
-            largeImageKey : (attributes.artwork.url.replace('{w}', '1024').replace('{h}', '1024')) ?? 'cider',
+            largeImageKey: (attributes.artwork.url.replace('{w}', '1024').replace('{h}', '1024')) ?? 'cider',
             largeImageText: attributes.albumName,
             smallImageKey: (attributes.status ? 'play' : 'pause'),
             smallImageText: (attributes.status ? 'Playing' : 'Paused'),
             instance: true,
             buttons: [
-                { label: "Listen on Cider", url: listenURL },
+                {label: "Listen on Cider", url: listenURL},
             ]
         };
         if (ActivityObject.largeImageKey == "" || ActivityObject.largeImageKey == null) {
-            ActivityObject.largeImageKey = (this._win.store.store.general.discord_rpc == 1) ? "cider" : "logo"
+            ActivityObject.largeImageKey = (this._store.general.discord_rpc == 1) ? "cider" : "logo"
         }
 
         // Remove the pause/play icon and test for clear activity on pause
-        if (this._win.store.store.general.discordClearActivityOnPause == 1) {
+        if (this._store.general.discordClearActivityOnPause == 1) {
             delete ActivityObject.smallImageKey
             delete ActivityObject.smallImageText
         }
@@ -128,13 +133,11 @@ export default class DiscordRPCPlugin {
         }
 
 
-
-
         // Check if its pausing (false) or playing (true)
         if (!attributes.status) {
-            if (this._win.store.store.general.discordClearActivityOnPause == 1) {
-                this._discord.clearActivity().catch((e : any) => console.error(`[DiscordRPC][clearActivity] ${e}`));
-                ActivityObject = null 
+            if (this._store.general.discordClearActivityOnPause == 1) {
+                this._discord.clearActivity().catch((e: any) => console.error(`[DiscordRPC][clearActivity] ${e}`));
+                ActivityObject = null
             } else {
                 delete ActivityObject.startTimestamp
                 delete ActivityObject.endTimestamp
@@ -168,16 +171,17 @@ export default class DiscordRPCPlugin {
     /**
      * Runs on plugin load (Currently run on application start)
      */
-    constructor(app: any) {
-		this._app = app;
-	}
+    constructor(app: any, store: any) {
+        this._app = app;
+        this._store = store
+    }
 
     /**
      * Runs on app ready
      */
     onReady(win: any): void {
-		this._win = win;
-        this.connect((this._win.store.store.general.discord_rpc == 1) ? '911790844204437504' : '886578863147192350'); 
+        this._win = win;
+        this.connect((this._store.general.discord_rpc == 1) ? '911790844204437504' : '886578863147192350');
         // electron.ipcMain.on("forceUpdateRPC", (event, attributes : object) => {          
         //     this.updateActivity(attributes)
         // });

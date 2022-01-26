@@ -13,7 +13,7 @@ import PluginHandler from "./base/plugins";
 const config = new ConfigStore();
 const App = new AppEvents(config.store);
 const Cider = new Win(electron.app, config.store)
-const plug = new PluginHandler();
+const plug = new PluginHandler(config.store);
 
 let win: Electron.BrowserWindow;
 
@@ -34,7 +34,7 @@ electron.app.on('ready', () => {
         win = await Cider.createWindow()
         App.bwCreated(win);
         /// please dont change this for plugins to get proper and fully initialized Win objects
-        plug.callPlugins('onReady', Cider);
+        plug.callPlugins('onReady', win);
         win.on("ready-to-show", () => {
             win.show();
         });
