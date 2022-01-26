@@ -84,7 +84,7 @@
   "term.fullscreenView": "全画面表示",
   "term.defaultView": "ウィンドウ表示",
   "term.spacializedAudioSetting": "オーディオ空間化設定",
-  "term.clearAll": "消去",
+  "term.clearAll": "クリア",
   "term.recentStations": "最近の再生",
   "term.language": "言語",
   "term.noLyrics": "ローディング。。 / 歌詞が見つからない / 器楽曲.",
@@ -97,7 +97,6 @@
   "term.contributors": "貢献者",
   "term.equalizer": "イコライザー",
   "term.reset": "リセット",
-  "term.tracks": "曲", // Assume x amount of tracks. e.g. 50 tracks 
 
   // Home
   "home.title": "ホーム",
@@ -130,14 +129,14 @@
   "action.addToLibrary.error": "ライブラリへの追加に失敗しました",
   "action.removeFromLibrary": "ライブラリから削除",
   "action.removeFromLibrary.success": "ライブラリから削除されました",
-  "action.addToQueue": "「次はこちら」に項目を追加",
-  "action.addToQueue.success": "「次はこちら」に項目を追加されました",
+  "action.addToQueue": "キューに追加",
+  "action.addToQueue.success": "キューに追加されました",
   "action.addToQueue.error": "操作を完了できませんでした",
   "action.addToPlaylist": "プレイリストに追加",
   "action.removeFromPlaylist": "プレイリストから削除",
-  "action.addToFavorites": "ラブに追加",
-  "action.removeFromQueue": "「次はこちら」から項目を削除",
-  "action.removeFromQueue.success": "「次はこちら」から項目を削除されました",
+  "action.addToFavorites": " ",
+  "action.removeFromQueue": "キューから削除",
+  "action.removeFromQueue.success": "キューから削除されました",
   "action.removeFromQueue.error": "操作を完了できませんでした",
   "action.follow": "フォロー",
   "action.follow.success": "フォロー中",
@@ -158,10 +157,6 @@
   "action.dislike": "これに似たものをすすめない",
   "action.undoDislike": "「これと似た曲のおすすめを減らす」を取り消す",
   "action.showWebRemoteQR": "WEBリモコンQRコードを表示",
-  "action.playTracksNext": "${app.selectedMediaItems.length}曲が次に再生",
-  "action.playTracksLater": "${app.selectedMediaItems.length}曲が最後に再生",
-  "action.removeTracks": "${self.selectedItems.length}曲が「次はこちら」から削除",
-
   // Settings - Audio
   "settings.header.audio": "オーディオ",
   "settings.header.audio.description": "Ciderのオーディオ設定",

@@ -96,8 +96,6 @@
   "term.contributors": "貢獻者",
   "term.equalizer": "等化器",
   "term.reset": "重置",
-  "term.tracks": "首歌曲", // Assume x amount of tracks. e.g. 50 tracks 
-
   
   // Home
   "home.title": "主頁",
@@ -158,9 +156,6 @@
   "action.dislike": "減少此類建議",
   "action.undoDislike": "還原減小此類建議",
   "action.showWebRemoteQR": "顯示遠程遙控行動條碼",
-  "action.playTracksNext": "插播 ${app.selectedMediaItems.length} 首歌曲",
-  "action.playTracksLater": "最後播放 ${app.selectedMediaItems.length} 首歌曲",
-  "action.removeTracks": "從待播清單刪除 ${self.selectedItems.length} 首歌曲",
   
   // Settings - Audio
   "settings.header.audio": "音訊",

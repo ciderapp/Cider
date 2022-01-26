@@ -238,7 +238,7 @@
                                 }
                             },
                             {
-                                name: app.getLz('action.playTracksNext'),
+                                name: `Play ${app.selectedMediaItems.length} tracks next`,
                                 "icon": "./assets/arrow-bend-up.svg",
                                 action: () => {
                                     let itemsToPlay = {}
@@ -260,7 +260,7 @@
                                 }
                             },
                             {
-                                name: app.getLz('action.playTracksLater'),
+                                name: `Play ${app.selectedMediaItems.length} tracks later`,
                                 "icon": "./assets/arrow-bend-down.svg",
                                 action: () => {
                                     let itemsToPlay = {}

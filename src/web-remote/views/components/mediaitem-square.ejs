@@ -263,7 +263,7 @@
                     multiple: {
                         items: [
                             {
-                                name: app.getLz('action.playTracksNext'),
+                                name: `Play ${app.selectedMediaItems.length} tracks next`,
                                 "icon": "./assets/arrow-bend-up.svg",
                                 action: () => {
                                     let itemsToPlay = {}
@@ -285,7 +285,7 @@
                                 }
                             },
                             {
-                                name: app.getLz('action.playTracksLater'),
+                                name: `Play ${app.selectedMediaItems.length} tracks later`,
                                 "icon": "./assets/arrow-bend-down.svg",
                                 action: () => {
                                     let itemsToPlay = {}
@@ -312,7 +312,7 @@
                             {
                                 "icon": "./assets/feather/heart.svg",
                                 "id": "love",
-                                "name": app.getLz('action.love'),
+                                "name": "Love",
                                 "hidden": false,
                                 "disabled": true,
                                 "action": function () {
@@ -323,7 +323,7 @@
                                 "icon": "./assets/feather/heart.svg",
                                 "id": "unlove",
                                 "active": true,
-                                "name": app.getLz('action.unlove'),
+                                "name": "Unlove",
                                 "hidden": true,
                                 "action": function () {
                                     app.unlove(self.item)
@@ -332,7 +332,7 @@
                             {
                                 "icon": "./assets/feather/thumbs-down.svg",
                                 "id": "dislike",
-                                "name": app.getLz('action.dislike'),
+                                "name": "Dislike",
                                 "hidden": false,
                                 "disabled": true,
                                 "action": function () {
@@ -342,7 +342,7 @@
                             {
                                 "icon": "./assets/feather/thumbs-down.svg",
                                 "id": "undo_dislike",
-                                "name": app.getLz('action.undoDislike'),
+                                "name": "Undo dislike",
                                 "active": true,
                                 "hidden": true,
                                 "action": function () {
@@ -354,7 +354,7 @@
                             {
                                 "icon": "./assets/feather/list.svg",
                                 "id": "addToPlaylist",
-                                "name": app.getLz('action.addToPlaylist'),
+                                "name": "Add to Playlist...",
                                 "action": function () {
                                     app.promptAddToPlaylist()
                                 }
@@ -362,7 +362,7 @@
                             {
                                 "id": "addToLibrary",
                                 "icon": "./assets/feather/plus.svg",
-                                "name": app.getLz('action.addToLibrary'),
+                                "name": "Add to library",
                                 "hidden": false,
                                 "disabled": true,
                                 "action": function () {
@@ -375,7 +375,7 @@
                             {
                                 "id": "removeFromLibrary",
                                 "icon": "./assets/feather/x-circle.svg",
-                                "name": app.getLz('action.removeFromLibrary'),
+                                "name": "Remove from library",
                                 "hidden": true,
                                 "action": async function () {
                                     console.log("remove");
@@ -386,7 +386,7 @@
                                 }
                             },
                             {
-                                "name": app.getLz('action.playNext'),
+                                "name": "Play Next",
                                 "icon": "./assets/arrow-bend-up.svg",
                                 "action": function () {
                                     app.mk.playNext({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
@@ -395,7 +395,7 @@
                                 }
                             },
                             {
-                                "name": app.getLz('action.playLater'),
+                                "name": "Play Later",
                                 "icon": "./assets/arrow-bend-down.svg",
                                 "action": function () {
                                     app.mk.playLater({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
@@ -405,7 +405,7 @@
                             },
                             {
                                 "icon": "./assets/feather/share.svg",
-                                "name": app.getLz('action.share'),
+                                "name": "Share",
                                 "action": function () {
                                     self.app.copyToClipboard(self.item.attributes.url)
                                 }
