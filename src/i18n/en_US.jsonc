@@ -1,4 +1,11 @@
-{ // Base File 
+{ // Base File
+
+  // i18n Info
+  "i18n.languageName": "English",        // name of language in native language
+  "i18n.languageNameEnglish": "English", // name of language in English
+  "i18n.category": "main", // main = real language, fun = fun community languages
+  "i18n.authors": "", // Authors, if you contribute to this file feel free to add your name seperated with a space
+
   // App info
   "app.name": "Cider",
 
@@ -100,6 +107,8 @@
   "term.contributors": "Contributors",
   "term.equalizer": "Equalizer",
   "term.reset": "Reset",
+  "term.tracks": "tracks", // Assume x amount of tracks. e.g. 50 tracks 
+  
 
   // Home
   "home.title": "Home",
@@ -160,6 +169,9 @@
   "action.dislike": "Dislike",
   "action.undoDislike": "Undo dislike",
   "action.showWebRemoteQR": "Show Web Remote QR",
+  "action.playTracksNext": "Play ${app.selectedMediaItems.length} tracks next",
+  "action.playTracksLater": "Play ${app.selectedMediaItems.length} tracks later",
+  "action.removeTracks": "Remove ${self.selectedItems.length} tracks from queue",
 
   // Settings - Audio
   "settings.header.audio": "Audio",
@@ -256,6 +268,6 @@
   "remote.web.title": "Cider Remote",
   "remote.web.description": "Scan the QR code to pair your phone up with this Cider instance",
 
-  //About
+  // About
   "about.thanks": "Major thanks to the Cider Collective Team and all of our contributors."
 }
