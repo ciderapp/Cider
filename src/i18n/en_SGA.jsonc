@@ -174,100 +174,100 @@
   "action.removeTracks": "∷ᒷᒲᒍ⍊ᒷ ${self.selectedItems.length} ᒣ∷ᖋᔮ·ǀ·ϟ ⎓∷ᒍᒲ ᑑ⚍ᒷ⚍ᒷ",
 
   // Settings - Audio
-  "settings.header.audio": "Audio",
-  "settings.header.audio.description": "Adjust the audio settings for Cider.",
-  "settings.option.audio.quality": "Audio Quality", // Dropdown
-  "settings.header.audio.quality.high": "High",
-  "settings.header.audio.quality.low": "Low",
-  "settings.header.audio.quality.auto": "Auto",
-  "settings.option.audio.seamlessTransition": "Seamless Audio Transition", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality": "Enable Advanced Functionality", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.description": "Enabling AudioContext functionality will allow for extended audio features like Audio Normalization , Equalizers and Visualizers, however on some systems this may cause stuttering in audio tracks.",
-  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Audio Normalization", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizes peak volume for individual tracks to create a more uniform listening experience.",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Audio Spatialization", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Spatialize audio and make audio more 3-dimensional (note: This is not Dolby Atmos)",
+  "settings.header.audio": "ᖋ⚍↸╎ᒍ",
+  "settings.header.audio.description": "ᖋ↸⋮⚍ϟᒣ ᒣ⍑ᒷ ᖋ⚍↸╎ᒍ ϟᒷᒣᒣ╎リ┤ϟ ⎓ᒍ∷ ᔮ╎↸ᒷ∷.",
+  "settings.option.audio.quality": "ᖋ⚍↸╎ᒍ ᑑ⚍ᖋ|:╎ᒣ॥", // Dropdown
+  "settings.header.audio.quality.high": "⍑╎┤⍑",
+  "settings.header.audio.quality.low": "|:ᒍ∴",
+  "settings.header.audio.quality.auto": "ᖋ⚍ᒣᒍ",
+  "settings.option.audio.seamlessTransition": "ϟᒷᖋᒲ|:ᒷϟϟ ᖋ⚍↸╎ᒍ ᒣ∷ᖋリϟ╎ᒣ╎ᒍリ", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality": "ᒷリᖋᕊ|:ᒷ ᖋ↸⍊ᖋリᔮᒷ↸ ⎓⚍リᔮᒣ╎ᒍリᖋ|:╎ᒣ॥", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.description": "ᒷリᖋᕊ|:╎リ┤ ᖋ⚍↸╎ᒍᔮᒍリᒣᒷ/ᒣ ⎓⚍リᔮᒣ╎ᒍリᖋ|:╎ᒣ॥ ∴╎|:|: ᖋ|:|:ᒍ∴ ⎓ᒍ∷ ᒷ/ᒣᒷリ↸ᒷ↸ ᖋ⚍↸╎ᒍ ⎓ᒷᖋᒣ⚍∷ᒷϟ |:╎·ǀ·ᒷ ᖋ⚍↸╎ᒍ リᒍ∷ᒲᖋ|:╎∩ᖋᒣ╎ᒍリ , ᒷᑑ⚍ᖋ|:╎∩ᒷ∷ϟ ᖋリ↸ ⍊╎ϟ⚍ᖋ|:╎∩ᒷ∷ϟ, ⍑ᒍ∴ᒷ⍊ᒷ∷ ᒍリ ϟᒍᒲᒷ ϟ॥ϟᒣᒷᒲϟ ᒣ⍑╎ϟ ᒲᖋ॥ ᔮᖋ⚍ϟᒷ ϟᒣ⚍ᒣᒣᒷ∷╎リ┤ ╎リ ᖋ⚍↸╎ᒍ ᒣ∷ᖋᔮ·ǀ·ϟ.",
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "ᖋ⚍↸╎ᒍ リᒍ∷ᒲᖋ|:╎∩ᖋᒣ╎ᒍリ", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "リᒍ∷ᒲᖋ|:╎∩ᒷϟ i!ᒷᖋ·ǀ· ⍊ᒍ|:⚍ᒲᒷ ⎓ᒍ∷ ╎リ↸╎⍊╎↸⚍ᖋ|: ᒣ∷ᖋᔮ·ǀ·ϟ ᒣᒍ ᔮ∷ᒷᖋᒣᒷ ᖋ ᒲᒍ∷ᒷ ⚍リ╎⎓ᒍ∷ᒲ |:╎ϟᒣᒷリ╎リ┤ ᒷ/i!ᒷ∷╎ᒷリᔮᒷ.",
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "ᖋ⚍↸╎ᒍ ϟi!ᖋᒣ╎ᖋ|:╎∩ᖋᒣ╎ᒍリ", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "ϟi!ᖋᒣ╎ᖋ|:╎∩ᒷ ᖋ⚍↸╎ᒍ ᖋリ↸ ᒲᖋ·ǀ·ᒷ ᖋ⚍↸╎ᒍ ᒲᒍ∷ᒷ 3-↸╎ᒲᒷリϟ╎ᒍリᖋ|: (リᒍᒣᒷ: ᒣ⍑╎ϟ ╎ϟ リᒍᒣ ↸ᒍ|:ᕊ॥ ᖋᒣᒲᒍϟ)",
   // Settings - Visual
-  "settings.header.visual": "Visual", 
-  "settings.header.visual.description": "Adjust the visual settings for Cider.",
-  "settings.option.visual.windowBackgroundStyle": "Window Background Style", // Toggle
-  "settings.header.visual.windowBackgroundStyle.none": "None",
-  "settings.header.visual.windowBackgroundStyle.artwork": "Artwork",
-  "settings.option.visual.animatedArtwork": "Animated Artwork", // Dropdown
-  "settings.header.visual.animatedArtwork.always": "Always",
-  "settings.header.visual.animatedArtwork.limited": "Limited to pages and special entries",
-  "settings.header.visual.animatedArtwork.disable": "Disable everywhere",
-  "settings.option.visual.animatedArtworkQuality": "Animated Artwork Quality", // Dropdown
-  "settings.header.visual.animatedArtworkQuality.low": "Low",
-  "settings.header.visual.animatedArtworkQuality.medium": "Medium",
-  "settings.header.visual.animatedArtworkQuality.high": "High",
-  "settings.header.visual.animatedArtworkQuality.veryHigh": "Very High",
-  "settings.header.visual.animatedArtworkQuality.extreme": "Extreme",
-  "settings.option.visual.animatedWindowBackground": "Animated Window Background", // Toggle
-  "settings.option.visual.hardwareAcceleration": "Hardware Acceleration", // Dropdown
-  "settings.option.visual.hardwareAcceleration.description": "Requires relaunch",
-  "settings.header.visual.hardwareAcceleration.default": "Default", 
-  "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
+  "settings.header.visual": "⍊╎ϟ⚍ᖋ|:", 
+  "settings.header.visual.description": "ᖋ↸⋮⚍ϟᒣ ᒣ⍑ᒷ ⍊╎ϟ⚍ᖋ| ϟᒷᒣᒣ╎リ┤ϟ ⎓ᒍ∷ ᔮ╎↸ᒷ∷.",
+  "settings.option.visual.windowBackgroundStyle": "∴╎リ↸ᒍ∴ ᕊᖋᔮ·ǀ·┤∷ᒍ⚍リ↸ ϟᒣ॥|:ᒷ", // Toggle
+  "settings.header.visual.windowBackgroundStyle.none": "リᒍリᒷ",
+  "settings.header.visual.windowBackgroundStyle.artwork": "ᖋ∷ᒣ∴ᒍ∷·ǀ·",
+  "settings.option.visual.animatedArtwork": "ᖋリ╎ᒲᖋᒣᒷ↸ ᖋ∷ᒣ∴ᒍ∷·ǀ·", // Dropdown
+  "settings.header.visual.animatedArtwork.always": "ᖋ|:∴ᖋ॥ϟ",
+  "settings.header.visual.animatedArtwork.limited": "|:╎ᒲ╎ᒣᒷ↸ ᒣᒍ i!ᖋ┤ᒷϟ ᖋリ↸ ϟi!ᒷᔮ╎ᖋ|: ᒷリᒣ∷╎ᒷϟ",
+  "settings.header.visual.animatedArtwork.disable": "↸╎ϟᖋᕊ|:ᒷ ᒷ⍊ᒷ∷॥∴⍑ᒷ∷ᒷ",
+  "settings.option.visual.animatedArtworkQuality": "ᖋリ╎ᒲᖋᒣᒷ↸ ᖋ∷ᒣ∴ᒍ∷·ǀ· ᑑ⚍ᖋ|:╎ᒣ॥", // Dropdown
+  "settings.header.visual.animatedArtworkQuality.low": "|:ᒍ∴",
+  "settings.header.visual.animatedArtworkQuality.medium": "ᒲᒷ↸╎⚍ᒲ",
+  "settings.header.visual.animatedArtworkQuality.high": "⍑╎┤⍑",
+  "settings.header.visual.animatedArtworkQuality.veryHigh": "⍊ᒷ∷॥ ⍑╎┤⍑",
+  "settings.header.visual.animatedArtworkQuality.extreme": "ᒷ/ᒣ∷ᒷᒲᒷ",
+  "settings.option.visual.animatedWindowBackground": "ᖋリ╎ᒲᖋᒣᒷ↸ ∴╎リ↸ᒍ∴ ᕊᖋᔮ·ǀ·┤∷ᒍ⚍リ↸", // Toggle
+  "settings.option.visual.hardwareAcceleration": "⍑ᖋ∷↸∴ᖋ∷ᒷ ᖋᔮᔮᒷ|:ᒷ∷ᖋᒣ╎ᒍリ", // Dropdown
+  "settings.option.visual.hardwareAcceleration.description": "∷ᒷᑑ⚍╎∷ᒷϟ ∷ᒷ|:ᖋ⚍リᔮ⍑",
+  "settings.header.visual.hardwareAcceleration.default": "↸ᒷ⎓ᖋ⚍|:ᒣ", 
+  "settings.header.visual.hardwareAcceleration.webGPU": "∴ᒷᕊ┤i!⚍", 
   // Refer to term.disabled for the disabled option
-  "settings.option.visual.showPersonalInfo": "Show Personal Info", // Toggle
+  "settings.option.visual.showPersonalInfo": "ϟ⍑ᒍ∴ i!ᒷ∷ϟᒍリᖋ|: ╎リ⎓ᒍ", // Toggle
   // Settings - General (Reserved)
-  "settings.header.general": "General",
-  "settings.header.general.description": "Adjust the general settings for Cider.",
+  "settings.header.general": "┤ᒷリᒷ∷ᖋ|:",
+  "settings.header.general.description": "ᖋ↸⋮⚍ϟᒣ ᒣ⍑ᒷ ┤ᒷリᒷ∷ᖋ|: ϟᒷᒣᒣ╎リ┤ϟ ⎓ᒍ∷ ᔮ╎↸ᒷ∷.",
   
   // Settings - Lyrics
-  "settings.header.lyrics": "Lyrics",
-  "settings.header.lyrics.description": "Adjust the lyrics settings for Cider.",
-  "settings.option.lyrics.enableMusixmatch": "Enable Musixmatch Lyrics", // Toggle
-  "settings.option.lyrics.enableMusixmatchKaraoke": "Enable Karaoke Mode (Musixmatch only)", // Toggle
-  "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch Translation Preferred Language", // Dropdown
-  "settings.option.lyrics.enableYoutubeLyrics": "Enable Youtube Lyrics for Music Videos", // Toggle
+  "settings.header.lyrics": "|:॥∷╎ᔮϟ",
+  "settings.header.lyrics.description": "ᖋ↸⋮⚍ϟᒣ ᒣ⍑ᒷ |:॥∷╎ᔮϟ ϟᒷᒣᒣ╎リ┤ϟ ⎓ᒍ∷ ᔮ╎↸ᒷ∷.",
+  "settings.option.lyrics.enableMusixmatch": "ᒷリᖋᕊ|:ᒷ ᒲ⚍ϟ╎̇/ᒲᖋᒣᔮ⍑ |:॥∷╎ᔮϟ", // Toggle
+  "settings.option.lyrics.enableMusixmatchKaraoke": "ᒷリᖋᕊ|:ᒷ ·ǀ·ᖋ∷ᖋᒍ·ǀ·ᒷ ᒲᒍ↸ᒷ (ᒲ⚍ϟ╎̇/ᒲᖋᒣᔮ⍑ ᒍリ|:॥)", // Toggle
+  "settings.option.lyrics.musixmatchPreferredLanguage": "ᒲ⚍ϟ╎̇/ᒲᖋᒣᔮ⍑ ᒣ∷ᖋリϟ|:ᖋᒣ╎ᒍリ i!∷ᒷ⎓ᒷ∷∷ᒷ↸ |:ᖋリ┤⚍ᖋ┤ᒷ", // Dropdown
+  "settings.option.lyrics.enableYoutubeLyrics": "ᒷリᖋᕊ|:ᒷ ॥ᒍ⚍ᒣ⚍ᕊᒷ |:॥∷╎ᔮϟ ⎓ᒍ∷ ᒲ⚍ϟ╎ᔮ ⍊╎↸ᒷᒍϟ", // Toggle
 
   // Settings - Connectivity
-  "settings.header.connectivity": "Connectivity",
-  "settings.header.connectivity.description": "Adjust the connectivity settings for Cider.",
-  "settings.option.connectivity.discordRPC": "Discord Rich Presence", // Dropdown
+  "settings.header.connectivity": "ᔮᒍリリᒷᔮᒣ╎⍊╎ᒣ॥",
+  "settings.header.connectivity.description": "ᖋ↸⋮⚍ϟᒣ ᒣ⍑ᒷ ᔮᒍリリᒷᔮᒣ╎⍊╎ᒣ॥ ϟᒷᒣᒣ╎リ┤ϟ ⎓ᒍ∷ ᔮ╎↸ᒷ∷.",
+  "settings.option.connectivity.discordRPC": "↸╎ϟᔮᒍ∷↸ ∷╎ᔮ⍑ i!∷ᒷϟᒷリᔮᒷ", // Dropdown
   // Refer to term.disabled for the disabled option
-  "settings.header.connectivity.discordRPC.cider": "Display as 'Cider'",
-  "settings.header.connectivity.discordRPC.appleMusic": "Display as 'Apple Music'",
-  "settings.option.connectivity.discordRPC.clearOnPause": "Clear Discord Rich Presence on Pause", // Toggle
-  "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling", // Option to Connect
-  "settings.option.connectivity.lastfmScrobble.delay": "LastFM Scrobble Delay (%)", 
-  "settings.option.connectivity.lastfmScrobble.nowPlaying": "Enable LastFM Now Playing", 
-  "settings.option.connectivity.lastfmScrobble.removeFeatured": "Remove featuring artists from song title (LastFM)", 
+  "settings.header.connectivity.discordRPC.cider": "↸╎ϟi!|:ᖋ॥ ᖋϟ 'ᔮ╎↸ᒷ∷'",
+  "settings.header.connectivity.discordRPC.appleMusic": "↸╎ϟi!|:ᖋ॥ ᖋϟ 'ᖋi!i!|:ᒷ ᒲ⚍ϟ╎ᔮ'",
+  "settings.option.connectivity.discordRPC.clearOnPause": "ᔮ|:ᒷᖋ∷ ↸╎ϟᔮᒍ∷↸ ∷╎ᔮ⍑ i!∷ᒷϟᒷリᔮᒷ ᒍリ i!ᖋ⚍ϟᒷ", // Toggle
+  "settings.option.connectivity.lastfmScrobble": "|:ᖋϟᒣ⎓ᒲ ϟᔮ∷ᒍᕊᕊ|:╎リ┤", // Option to Connect
+  "settings.option.connectivity.lastfmScrobble.delay": "|:ᖋϟᒣ⎓ᒲ ϟᔮ∷ᒍᕊᕊ|:ᒷ ↸ᒷ|:ᖋ॥ (%)", 
+  "settings.option.connectivity.lastfmScrobble.nowPlaying": "ᒷリᖋᕊ|:ᒷ |:ᖋϟᒣ⎓ᒲ リᒍ∴ i!|:ᖋ॥╎リ┤", 
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "∷ᒷᒲᒍ⍊ᒷ ⎓ᒷᖋᒣ⚍∷╎リ┤ ᖋ∷ᒣ╎ϟᒣϟ ⎓∷ᒍᒲ ϟᒍリ┤ ᒣ╎ᒣ|:ᒷ (|:ᖋϟᒣ⎓ᒲ)", 
   // Refer to term.connect for the connect button
 
   // Settings - Experimental
-  "settings.header.experimental": "Experimental",
-  "settings.header.experimental.description": "Adjust the experimental settings for Cider.",
-  "settings.option.experimental.compactUI": "Compact UI", // Toggle
+  "settings.header.experimental": "ᒷ/i!ᒷ∷╎ᒲᒷリᒣᖋ|:",
+  "settings.header.experimental.description": "ᖋ↸⋮⚍ϟᒣ ᒣ⍑ᒷ ᒷ/i!ᒷ∷╎ᒲᒷリᒣᖋ|: ϟᒷᒣᒣ╎リ┤ϟ ⎓ᒍ∷ ᔮ╎↸ᒷ∷.",
+  "settings.option.experimental.compactUI": "ᔮᒍᒲi!ᖋᔮᒣ ⚍╎", // Toggle
   // Refer to term.disabled & term.enabled
 
   // Spatialization Menu
-  "spatial.spatialProperties" : "Spatial Properties",
-  "spatial.width" : "Width",
-  "spatial.height" : "Height",
-  "spatial.depth" : "Depth",
-  "spatial.roomMaterials" : "Room Materials",
-  "spatial.roomDimensions" : "Room Dimensions",
-  "spatial.roomPositions" : "Room Positions",
-  "spatial.setDimensions" : "Set Dimensions",
-  "spatial.setPositions" : "Set Positions",
-  "spatial.up" : "Up",
-  "spatial.front" : "Front",
-  "spatial.left" : "Left",
-  "spatial.right" : "Right",
-  "spatial.back" : "Back",
-  "spatial.down" : "Down",
-  "spatial.listener" : "Listener",
-  "spatial.audioSource" : "Audio Source",
+  "spatial.spatialProperties" : "ϟi!ᖋᒣ╎ᖋ|: i!∷ᒍi!ᒷ∷ᒣ╎ᒷϟ",
+  "spatial.width" : "∴╎↸ᒣ⍑",
+  "spatial.height" : "⍑ᒷ╎┤⍑ᒣ",
+  "spatial.depth" : "↸ᒷi!ᒣ⍑",
+  "spatial.roomMaterials" : "∷ᒍᒍᒲ ᒲᖋᒣᒷ∷╎ᖋ|:ϟ",
+  "spatial.roomDimensions" : "∷ᒍᒍᒲ ↸╎ᒲᒷリϟ╎ᒍリϟ",
+  "spatial.roomPositions" : "∷ᒍᒍᒲ i!ᒍϟ╎ᒣ╎ᒍリϟ",
+  "spatial.setDimensions" : "ϟᒷᒣ ↸╎ᒲᒷリϟ╎ᒍリϟ",
+  "spatial.setPositions" : "ϟᒷᒣ i!ᒍϟ╎ᒣ╎ᒍリϟ",
+  "spatial.up" : "⚍i!",
+  "spatial.front" : "⎓∷ᒍリᒣ",
+  "spatial.left" : "|:ᒷ⎓ᒣ",
+  "spatial.right" : "∷╎┤⍑ᒣ",
+  "spatial.back" : "ᕊᖋᔮ·ǀ·",
+  "spatial.down" : "↸ᒍ∴リ",
+  "spatial.listener" : "|:╎ϟᒣᒷリᒷ∷",
+  "spatial.audioSource" : "ᖋ⚍↸╎ᒍ ϟᒍ⚍∷ᔮᒷ",
   
   // Settings - Unfinished
-  "settings.header.unfinished": "Unfinished",
+  "settings.header.unfinished": "⚍リ⎓╎リ╎ϟ⍑ᒷ↸",
 
   // Web Remote
-  "remote.web.title": "Cider Remote",
-  "remote.web.description": "Scan the QR code to pair your phone up with this Cider instance",
+  "remote.web.title": "ᔮ╎↸ᒷ∷ ∷ᒷᒲᒍᒣᒷ",
+  "remote.web.description": "ϟᔮᖋリ ᒣ⍑ᒷ ᑑ∷ ᔮᒍ↸ᒷ ᒣᒍ i!ᖋ╎∷ ॥ᒍ⚍∷ i!⍑ᒍリᒷ ⚍i! ∴╎ᒣ⍑ ᒣ⍑╎ϟ ᔮ╎↸ᒷ∷ ╎リϟᒣᖋリᔮᒷ",
 
   // About
-  "about.thanks": "Major thanks to the Cider Collective Team and all of our contributors."
+  "about.thanks": "ᒲᖋ⋮ᒍ∷ ᒣ⍑ᖋリ·ǀ·ϟ ᒣᒍ ᒣ⍑ᒷ ᔮ╎↸ᒷ∷ ᔮᒍ|:|:ᒷᔮᒣ╎⍊ᒷ ᒣᒷᖋᒲ ᖋリ↸ ᖋ|:|: ᒍ⎓ ᒍ⚍∷ ᔮᒍリᒣ∷╎ᕊ⚍ᒣᒍ∷ϟ."
 }
