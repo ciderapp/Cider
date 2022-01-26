@@ -234,12 +234,17 @@
   "settings.option.connectivity.lastfmScrobble.delay": "LastFM Scrobble Delay (%)", 
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "Enable LastFM Now Playing", 
   "settings.option.connectivity.lastfmScrobble.removeFeatured": "Remove featuring artists from song title (LastFM)", 
+  "settings.option.connectivity.lastfmScrobble.filterLoop": "Filter looped track (LastFM)", 
   // Refer to term.connect for the connect button
 
   // Settings - Experimental
   "settings.header.experimental": "Experimental",
   "settings.header.experimental.description": "Adjust the experimental settings for Cider.",
   "settings.option.experimental.compactUI": "Compact UI", // Toggle
+  "settings.option.experimental.closeButtonBehaviour": "Close Button Behaviour",
+  "settings.option.experimental.closeButtonBehaviour.quit": "Quit Cider",
+  "settings.option.experimental.closeButtonBehaviour.minimizeTaskbar": "Minimize to taskbar",
+  "settings.option.experimental.closeButtonBehaviour.minimizeTray": "Minimize to system tray",
   // Refer to term.disabled & term.enabled
 
   // Spatialization Menu
