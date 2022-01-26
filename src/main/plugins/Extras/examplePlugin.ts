@@ -1,10 +1,11 @@
 let i = 1, k = 1;
 export default class ExamplePlugin {
-		/**
-		 * Private variables for interaction in plugins
-		 */
-		private _win: any;
-		private _app: any;
+    /**
+     * Private variables for interaction in plugins
+     */
+    private _win: any;
+    private _app: any;
+    private _store: any;
 
     /**
      * Base Plugin Details (Eventually implemented into a GUI in settings)
@@ -17,16 +18,17 @@ export default class ExamplePlugin {
     /**
      * Runs on plugin load (Currently run on application start)
      */
-    constructor(app: any) {
-				this._app = app;
-				console.log('Example plugin loaded');
-		}
+    constructor(app: any, store: any) {
+        this._app = app;
+        this._store = store;
+        console.log('Example plugin loaded');
+    }
 
     /**
      * Runs on app ready
      */
     onReady(win: any): void {
-				this._win = win;
+        this._win = win;
         console.log('Example plugin ready');
     }
 
@@ -42,7 +44,7 @@ export default class ExamplePlugin {
      * @param attributes Music Attributes (attributes.state = current state)
      */
     onPlaybackStateDidChange(attributes: object): void {
-        console.log('onPlaybackStateDidChange has been called ' + i +' times');
+        console.log('onPlaybackStateDidChange has been called ' + i + ' times');
         i++
     }
 
@@ -51,7 +53,7 @@ export default class ExamplePlugin {
      * @param attributes Music Attributes
      */
     onNowPlayingItemDidChange(attributes: object): void {
-        console.log('onNowPlayingDidChange has been called ' + k +' times');
+        console.log('onNowPlayingDidChange has been called ' + k + ' times');
         k++
     }
 

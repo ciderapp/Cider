@@ -1,0 +1,261 @@
+{ // Base File 
+  // App info
+  "app.name": "HODOR",
+
+  "date.format": "${m} ${d}, ${y}",
+  
+  // Dialogs
+  "dialog.cancel": "HODOR",
+  "dialog.ok": "HODOR",
+
+  // Notification
+  "notification.updatingLibrarySongs": "HODOR HODOR HODOR...",
+  "notification.updatingLibraryAlbums": "HODOR HODOR HODOR...",
+  "notification.updatingLibraryArtists": "HODOR HODOR HODOR...",
+  // Terms
+  "term.appleInc": "HODOR Inc.",
+  "term.appleMusic": "HODOR HODOR",
+  "term.applePodcasts": "HODOR HODOR",
+  "term.itunes": "HODOR",
+  "term.github": "HODOR",
+  "term.discord": "HODOR",
+  "term.learnMore": "HODOR HODOR",
+  "term.accountSettings": "HODOR HODOR",
+  "term.logout": "HODOR",
+  "term.login": "HODOR",
+  "term.about": "HODOR",
+  "term.privateSession": "HODOR HODOR",
+  "term.queue": "HODOR",
+  "term.search": "HODOR",
+  "term.library": "HODOR",
+  "term.listenNow": "HODOR HODOR",
+  "term.browse": "HODOR",
+  "term.radio": "HODOR",
+  "term.recentlyAdded": "HODOR HODOR",
+  "term.songs": "HODOR",
+  "term.albums": "HODOR",
+  "term.artists": "HODOR",
+  "term.podcasts": "HODOR",
+  "term.playlists": "HODOR",
+  "term.playlist": "HODOR",
+  "term.play": "HODOR",
+  "term.pause": "HODOR",
+  "term.previous": "HODOR",
+  "term.next": "HODOR",
+  "term.shuffle": "HODOR",
+  "term.repeat": "HODOR",
+  "term.volume": "HODOR",
+  "term.mute": "HODOR",
+  "term.unmute": "HODOR",
+  "term.share": "HODOR",
+  "term.settings": "HODOR",
+  "term.seeAll": "HODOR HODOR",
+  "term.sortBy": "HODOR HODOR",
+  "term.sortBy.album": "HODOR",
+  "term.sortBy.artist": "HODOR",
+  "term.sortBy.name": "HODOR",
+  "term.sortBy.genre": "HODOR",
+  "term.sortBy.releaseDate": "HODOR HODOR",
+  "term.sortBy.duration": "HODOR",
+  "term.sortOrder": "HODOR-HODOR",
+  "term.sortOrder.ascending": "HODOR",
+  "term.sortOrder.descending": "HODOR",
+  "term.viewAs": "HODOR HODOR",
+  "term.viewAs.coverArt": "HODOR HODOR",
+  "term.viewAs.list": "HODOR",
+  "term.size": "HODOR",
+  "term.size.normal": "HODOR",
+  "term.size.compact": "HODOR",
+  "term.enable": "HODOR",
+  "term.disable": "HODOR",
+  "term.enabled": "HODOR",
+  "term.disabled": "HODOR",
+  "term.connect": "HODOR",
+  "term.connecting": "HODOR",
+  "term.disconnect": "HODOR",
+  "term.authed": "HODOR",
+  "term.confirm": "HODOR ?",
+  "term.more": "HODOR",
+  "term.less": "HODOR",
+  "term.showMore": "HODOR HODOR",
+  "term.showLess": "HODOR HODOR",
+  "term.topSongs" : "HODOR HODOR",
+  "term.latestReleases": "HODOR HODOR",
+  "term.time.added": "HODOR",
+  "term.time.released": "HODOR", 
+  "term.time.updated": "HODOR",
+  "term.fullscreenView": "HODOR HODOR",
+  "term.defaultView": "HODOR HODOR",
+  "term.spacializedAudioSetting": "HODOR HODOR HODOR",
+  "term.clearAll": "HODOR HODOR",
+  "term.recentStations": "HODOR HODOR",
+  "term.language": "HODOR",
+  "term.noLyrics": "HODOR... / HODOR HODOR HODOR./ HODOR.",
+  "term.copyright": "HODOR",
+  "term.rightsReserved": "HODOR HODOR HODOR.",
+  "term.sponsor": "HODOR HODOR HODOR",
+  "term.ciderTeam": "HODOR HODOR",
+  "term.developer": "HODOR",
+  "term.socialTeam": "HODOR HODOR",
+  "term.contributors": "HODOR",
+  "term.equalizer": "HODOR",
+  "term.reset": "HODOR",
+
+  // Home
+  "home.title": "HODOR",
+  "home.recentlyPlayed": "HODOR HODOR",
+  "home.recentlyAdded": "HODOR HODOR",
+  "home.artistsFeed": "HODOR HODOR HODOR",
+  "home.artistsFeed.noArtist": "HODOR HODOR HODOR HODOR HODOR HODOR HODOR HODOR HODOR HODOR HODOR",
+  "home.madeForYou": "HODOR HODOR HODOR",
+  "home.friendsListeningTo": "HODOR HODOR HODOR",
+  "home.followedArtists": "HODOR HODOR",
+  // Errors
+  "error.appleMusicSubRequired": "HODOR HODOR HODOR HODOR HODOR.",
+  "error.connectionError": "HODOR HODOR HODOR HODOR HODOR HODOR HODOR HODOR.",
+  "error.noResults": "HODOR HODOR.",
+  "error.noResults.description": "HODOR HODOR HODOR HODOR.",
+
+  //Podcasts
+  "podcast.followOnCider": "HODOR HODOR HODOR",
+  "podcast.followedOnCider": "HODOR HODOR HODOR",
+  "podcast.subscribeOnItunes": "HODOR HODOR HODOR",
+  "podcast.subscribedOnItunes": "HODOR HODOR HODOR",
+  "podcast.itunesStore": "HODOR HODOR",
+  "podcast.episodes": "HODOR",
+  "podcast.playEpisode": "HODOR HODOR",
+  "podcast.website": "HODOR HODOR",
+
+  // Actions
+  "action.addToLibrary": "HODOR HODOR HODOR",
+  "action.addToLibrary.success": "HODOR HODOR HODOR",
+  "action.addToLibrary.error": "HODOR HODOR HODOR LiHODORbrary",
+  "action.removeFromLibrary": "HODOR HODOR HODOR",
+  "action.removeFromLibrary.success": "HODOR HODOR HODOR",
+  "action.addToQueue": "HODOR HODOR HODOR",
+  "action.addToQueue.success": "HODOR HODOR HODOR",
+  "action.addToQueue.error": "HODOR HODOR HODOR HODOR",
+  "action.removeFromQueue": "HODOR HODOR HODOR",
+  "action.removeFromQueue.success": "HODOR HODOR HODOR",
+  "action.removeFromQueue.error": "HODOR HODOR HODOR HODOR",
+  "action.addToPlaylist": "HODOR HODOR HODOR",
+  "action.removeFromPlaylist": "HODOR HODOR HODOR",
+  "action.addToFavorites": "HODOR HODOR HODOR",
+  "action.follow": "HODOR",
+  "action.follow.success": "HODOR",
+  "action.follow.error": "HODOR HODOR",
+  "action.unfollow": "HODOR",
+  "action.unfollow.success": "HODOR",
+  "action.unfollow.error": "HODOR HODOR",
+  "action.playNext": "HODOR HODOR",
+  "action.playLater": "HODOR HODOR",
+  "action.startRadio": "HODOR HODOR",
+  "action.goToArtist": "HODOR HODOR HODOR",
+  "action.goToAlbum": "HODOR HODOR HODOR",
+  "action.moveToTop": "HODOR HODOR HODOR",
+  "action.share": "HODOR",
+  "action.rename": "HODOR",
+  "action.love": "HODOR",
+  "action.unlove": "HODOR",
+  "action.dislike": "HODOR",
+  "action.undoDislike": "HODOR HODOR",
+  "action.showWebRemoteQR": "HODOR HODOR HODOR HODOR",
+
+  // Settings - Audio
+  "settings.header.audio": "HODOR",
+  "settings.header.audio.description": "HODOR HODOR HODOR HODOR HODOR HODOR.",
+  "settings.option.audio.quality": "HODOR HODOR", // Dropdown
+  "settings.header.audio.quality.high": "HODOR.",
+  "settings.header.audio.quality.low": "HODOR!",
+  "settings.header.audio.quality.auto": "HODOR",
+  "settings.option.audio.seamlessTransition": "HODOR HODOR HODOR", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality": "HODOR HODOR HODOR", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.description": "HODOR HODOR HODOR HODOR HODOR HODOR HODOR HODOR HODOR HODOR HODOR HODOR , HODOR HODOR HODOR, HODOR HODOR HODOR HODOR HODOR HODOR HODOR HODOR HODOR HODOR HODOR.",
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "HODOR HODOR", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "HODOR HODOR HODOR HODOR HODOR HODOR HODOR HODOR HODOR HODOR HODOR HODOR HODOR.",
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "HODOR HODOR", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "HODOR HODOR HODOR HODOR HODOR HODOR 3-HODOR (HODOR: HODOR HODOR HODOR HODOR HODOR)",
+  // Settings - Visual
+  "settings.header.visual": "HODOR", 
+  "settings.header.visual.description": "HODOR HODOR HODOR HODOR HODOR HODOR.",
+  "settings.option.visual.windowBackgroundStyle": "HODOR HODOR HODOR", // Toggle
+  "settings.header.visual.windowBackgroundStyle.none": "HODOR",
+  "settings.header.visual.windowBackgroundStyle.artwork": "HODOR",
+  "settings.option.visual.animatedArtwork": "HODOR HODOR", // Dropdown
+  "settings.header.visual.animatedArtwork.always": "HODOR",
+  "settings.header.visual.animatedArtwork.limited": "HODOR HODOR HODOR HODOR HODOR HODOR",
+  "settings.header.visual.animatedArtwork.disable": "HODOR HODOR",
+  "settings.option.visual.animatedArtworkQuality": "HODOR HODOR HODOR", // Dropdown
+  "settings.header.visual.animatedArtworkQuality.low": "HODOR..",
+  "settings.header.visual.animatedArtworkQuality.medium": "HODOR.",
+  "settings.header.visual.animatedArtworkQuality.high": "HODOR!",
+  "settings.header.visual.animatedArtworkQuality.veryHigh": "HODOR HODOR!",
+  "settings.header.visual.animatedArtworkQuality.extreme": "HODOOOR!!",
+  "settings.option.visual.animatedWindowBackground": "HODOR HODOR HODOR", // Toggle
+  "settings.option.visual.hardwareAcceleration": "HODOR HODOR", // Dropdown
+  "settings.option.visual.hardwareAcceleration.description": "HODOR HODOR",
+  "settings.header.visual.hardwareAcceleration.default": "HODOR.", 
+  "settings.header.visual.hardwareAcceleration.webGPU": "HODOR!!", 
+  // Refer to term.disabled for the disabled option
+  "settings.option.visual.showPersonalInfo": "HODOR HODOR HODOR?", // Toggle
+  // Settings - General (Reserved)
+  "settings.header.general": "HODOR",
+  "settings.header.general.description": "HODOR HODOR HODOR HODOR HODOR HODOR.",
+  
+  // Settings - Lyrics
+  "settings.header.lyrics": "HODOR",
+  "settings.header.lyrics.description": "HODOR HODOR HODOR HODOR HODOR HODOR.",
+  "settings.option.lyrics.enableMusixmatch": "HODOR HODOR HODOR", // Toggle
+  "settings.option.lyrics.enableMusixmatchKaraoke": "HODOR HODOR HODOR (HODOR HODOR)", // Toggle
+  "settings.option.lyrics.musixmatchPreferredLanguage": "HODOR HODOR HODOR HODOR", // Dropdown
+  "settings.option.lyrics.enableYoutubeLyrics": "HODOR HODOR HODOR HODOR HODOR HODOR", // Toggle
+
+  // Settings - Connectivity
+  "settings.header.connectivity": "HODOR",
+  "settings.header.connectivity.description": "HODOR HODOR HODOR HODOR HODOR HODOR.",
+  "settings.option.connectivity.discordRPC": "HODOR HODOR HODOR", // Dropdown
+  // Refer to term.disabled for the disabled option
+  "settings.header.connectivity.discordRPC.cider": "HODOR HODOR 'HODOR'",
+  "settings.header.connectivity.discordRPC.appleMusic": "HODOR HODOR 'HODOR HODOR'",
+  "settings.option.connectivity.discordRPC.clearOnPause": "HODOR HODOR HODOR HODOR HODOR HODOR", // Toggle
+  "settings.option.connectivity.lastfmScrobble": "HODOR HODOR", // Option to Connect
+  "settings.option.connectivity.lastfmScrobble.delay": "HODOR HODOR HODOR (%)", 
+  "settings.option.connectivity.lastfmScrobble.nowPlaying": "HODOR HODOR HODOR HODOR", 
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "HODOR HODOR HODOR HODOR HODOR HODOR (HODOR)", 
+  // Refer to term.connect for the connect button
+
+  // Settings - Experimental
+  "settings.header.experimental": "HODOR",
+  "settings.header.experimental.description": "HODOR HODOR HODOR HODOR HODOR HODOR.",
+  "settings.option.experimental.compactUI": "HODOR UI", // Toggle
+  // Refer to term.disabled & term.enabled
+
+  // Spatialization Menu
+  "spatial.spatialProperties" : "HODOR HODOR",
+  "spatial.width" : "HODOR",
+  "spatial.height" : "HODOR",
+  "spatial.depth" : "HODOR",
+  "spatial.roomMaterials" : "HODOR HODOR",
+  "spatial.roomDimensions" : "HODOR HODOR",
+  "spatial.roomPositions" : "HODOR HODOR",
+  "spatial.setDimensions" : "HODOR HODOR",
+  "spatial.setPositions" : "HODOR HODOR",
+  "spatial.up" : "HODOR",
+  "spatial.front" : "HODOR",
+  "spatial.left" : "HODOR",
+  "spatial.right" : "HODOR",
+  "spatial.back" : "HODOR",
+  "spatial.down" : "HODOR",
+  "spatial.listener" : "HODOR",
+  "spatial.audioSource" : "HODOR HODOR",
+  
+  // Settings - Unfinished
+  "settings.header.unfinished": "HODOR",
+
+  // Web Remote
+  "remote.web.title": "HODOR HODOR",
+  "remote.web.description": "HODOR HODOR HODOR HODOR HODOR HODOR HODOR HODOR HODOR HODOR HODOR HODOR HODOR",
+
+  //About
+  "about.thanks": "HODOR HODOR HODOR HODOR HODOR HODOR HODOR HODOR HODOR HODOR HODOR HODOR."
+}
