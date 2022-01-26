@@ -191,7 +191,7 @@ export default class LastFMPlugin {
                         this._store.lastfm.enabled = true;
                         this._store.lastfm.auth_token = authKey;
                         console.log(authKey);
-                        this._win.win.webContents.send('LastfmAuthenticated', authKey);
+                        this._win.webContents.send('LastfmAuthenticated', authKey);
                         this.authenticate();
                     }
                 }
@@ -206,7 +206,7 @@ export default class LastFMPlugin {
                     const authKey = authURI.split('lastfm?token=')[1];
                     this._store.lastfm.enabled = true;
                     this._store.lastfm.auth_token = authKey;
-                    this._win.win.webContents.send('LastfmAuthenticated', authKey);
+                    this._win.webContents.send('LastfmAuthenticated', authKey);
                     console.log(authKey);
                     this.authenticate();
                 }
