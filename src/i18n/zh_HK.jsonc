@@ -1,4 +1,10 @@
 {
+  // i18n Info
+  "i18n.languageName": "繁體中文（香港）",        // name of language in native language
+  "i18n.languageNameEnglish": "Traditional Chinese (Hong Kong)", // name of language in English
+  "i18n.category": "main", // main = real language, fun = fun community languages
+  "i18n.authors": "@kyw504100 @maikirakiwi", // Authors, if you contribute to this file feel free to add your name seperated with a space
+
   // App info
   "app.name": "Cider",
 
@@ -255,5 +261,5 @@
   "remote.web.description": "掃描以下的二維碼以控制 Cider",
 
   //About
-  "about.thanks": "感謝Cider Collective團隊以及所有貢獻者所作出的貢獻。"
+  "about.thanks": "感謝 Cider Collective 以及所有貢獻者所作出的貢獻。"
 }

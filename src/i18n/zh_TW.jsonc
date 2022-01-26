@@ -3,6 +3,13 @@
   "app.name": "Cider",
 
   "date.format": "${y}年${m}月${d}日",
+ 
+  // i18n Info
+  "i18n.languageName": "中文（台湾）",        // name of language in native language
+  "i18n.languageNameEnglish": "Chinese (Taiwan)", // name of language in English
+  "i18n.category": "main", // main = real language, fun = fun community languages
+  "i18n.authors": "@maikirakiwi", // Authors, if you contribute to this file feel free to add your name seperated with a space
+
 
   // Dialogs
   "dialog.cancel": "取消",
@@ -86,6 +93,19 @@
   "term.clearAll": "清空",
   "term.recentStations": "最近收聽的廣播",
   "term.language": "語言",
+  "term.noLyrics": "正在載入。。/ 無歌詞結果 / 純音樂",
+  "term.copyright": "版權聲明",
+  "term.rightsReserved": "保留所有權利。",
+  "term.sponsor": "贊助",
+  "term.ciderTeam": "Cider 團隊",
+  "term.developer": "開發者",
+  "term.socialTeam": "公關團隊",
+  "term.contributors": "貢獻者",
+  "term.equalizer": "等化器",
+  "term.reset": "重置",
+  "term.tracks": "首歌曲", // Assume x amount of tracks. e.g. 50 tracks 
+
+  
   // Home
   "home.title": "主頁",
   "home.recentlyPlayed": "最近播放",
@@ -100,6 +120,16 @@
   "error.connectionError": "無法連接到 Apple Music。",
   "error.noResults": "沒有結果",
   "error.noResults.description": "嘗試新的搜尋項目。",
+
+  //Podcasts
+  "podcast.followOnCider": "在 Cider 上追蹤",
+  "podcast.followedOnCider": "已追蹤",
+  "podcast.subscribeOnItunes": "在 iTunes 上訂閱",
+  "podcast.subscribedOnItunes": "已訂閱",
+  "podcast.itunesStore": "iTunes Store", // Follows brand term
+  "podcast.episodes": "單集",
+  "podcast.playEpisode": "播放單集",
+  "podcast.website": "Podcast 網站",
 
   // Actions
   "action.addToLibrary": "加入資料庫",
@@ -129,12 +159,15 @@
   "action.goToAlbum": "前往專輯",
   "action.moveToTop": "移至頂端",
   "action.share": "分享歌曲",
-  "action.rename": "Rename",
+  "action.rename": "重新命名",
   "action.love": "喜愛",
   "action.unlove": "取消喜愛",
   "action.dislike": "減少此類建議",
   "action.undoDislike": "還原減小此類建議",
   "action.showWebRemoteQR": "顯示遠程遙控行動條碼",
+  "action.playTracksNext": "插播 ${app.selectedMediaItems.length} 首歌曲",
+  "action.playTracksLater": "最後播放 ${app.selectedMediaItems.length} 首歌曲",
+  "action.removeTracks": "從待播清單刪除 ${self.selectedItems.length} 首歌曲",
   
   // Settings - Audio
   "settings.header.audio": "音訊",
@@ -194,6 +227,9 @@
   "settings.header.connectivity.discordRPC.appleMusic": "顯示正在玩 'Apple Music'",
   "settings.option.connectivity.discordRPC.clearOnPause": "暫停時清除 Discord 動態", // Toggle
   "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling 記錄", // Option to Connect
+  "settings.option.connectivity.lastfmScrobble.delay": "LastFM Scrobble 延遲 (%)", 
+  "settings.option.connectivity.lastfmScrobble.nowPlaying": "啟用 LastFM 目前聆聽", // Toggle
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "從歌名中移除藝人推薦 (LastFM)", 
   // Refer to term.connect for the connect button
 
   // Settings - Experimental
@@ -202,10 +238,32 @@
   "settings.option.experimental.compactUI": "緊凑型 UI", // Toggle
   // Refer to term.disabled & term.enabled
   
+  // Spatialization Menu
+  "spatial.spatialProperties" : "空間化屬性",
+  "spatial.width" : "寬度",
+  "spatial.height" : "高度",
+  "spatial.depth" : "深度",
+  "spatial.roomMaterials" : "空間材質",
+  "spatial.roomDimensions" : "空間尺寸",
+  "spatial.roomPositions" : "空間位置",
+  "spatial.setDimensions" : "設定尺寸",
+  "spatial.setPositions" : "設定位置",
+  "spatial.up" : "上",
+  "spatial.front" : "前",
+  "spatial.left" : "左",
+  "spatial.right" : "右",
+  "spatial.back" : "後",
+  "spatial.down" : "下",
+  "spatial.listener" : "聽衆",
+  "spatial.audioSource" : "音訊來源",
+
   // Settings - Unfinished
   "settings.header.unfinished": "未完成",
   
   // Web Remote
   "remote.web.title": "Cider 遠控",
-  "remote.web.description": "掃描以下的行動條碼以控制 Cider"
+  "remote.web.description": "掃描以下的行動條碼以控制 Cider",
+
+  //About
+  "about.thanks": "著重感謝 Cider Collective 的成員以及所有為項目付出的貢獻者。"
 }

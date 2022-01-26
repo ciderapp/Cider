@@ -5703,10 +5703,10 @@ body.no-gpu {
 
 .equalizer-panel {
   .modal-window {
-    height: 300px;
-    max-height: 300px;
-    width: 400px;
-    max-width: 400px;
+    height: 330px;
+    max-height: 330px;
+    width: 630px;
+    max-width: 630px;
     overflow: hidden;
 
     .info-header {
@@ -5753,20 +5753,34 @@ body.no-gpu {
       display: block;
       .input-container{
         display: inline-grid;
-        width: 35px;
+        width: 52px;
         justify-items: center;
         font-size: 0.7em;
       }
+      .freq-header{
+        margin-bottom: 2px;
+      }
+      
       .reset-button{
         width: 50%;
         margin-left: 25%;
       }
+      input.eq-slider {
+        -webkit-appearance: slider-vertical;
+        width: 5%;
+      }
+      input[type="number"]{
+        padding: unset;
+        width: 55px;
+      }
+      .header  input.eq-slider {
+        -webkit-appearance: slider-vertical;
+        width: 5%;
+        opacity: 0;
+      }
     }
   }
 }
-input.eq-slider {
-  -webkit-appearance: slider-vertical;
-  width: 5%;
-}
+
 
 @import url("less/compact.less");
