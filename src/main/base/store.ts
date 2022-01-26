@@ -49,6 +49,18 @@ export class ConfigStore {
                     "down": 'acoustic-ceiling-tiles',
                     "up": 'acoustic-ceiling-tiles',
                 }
+            }, 
+            "equalizer": {
+                '60' : 0, 
+                '170': 0 ,
+                '310': 0 ,
+                '600': 0 , 
+                '1000': 0 , 
+                '3000': 0 , 
+                '6000': 0 , 
+                '12000': 0 , 
+                '14000': 0 ,
+                '16000': 0 ,
             }
         },
         "visual": {

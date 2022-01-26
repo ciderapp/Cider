@@ -5,6 +5,7 @@ var CiderAudio = {
         gainNode : null,
         spatialNode : null,
         spatialInput: null,
+        audioBands : null,
     },
     init: function (cb = function () { }) {
         //AudioOutputs.fInit = true;
@@ -42,6 +43,7 @@ var CiderAudio = {
         if (app.cfg.audio.spatial){
             CiderAudio.spatialOn()
         }    
+        CiderAudio.equalizer()
     },
     normalizerOn: function (){},
     normalizerOff: function (){
@@ -49,7 +51,7 @@ var CiderAudio = {
     },
     spatialOn: function (){
         try{
-        CiderAudio.audioNodes.gainNode.connect(CiderAudio.context.destination);} catch(e){}
+        CiderAudio.audioNodes.gainNode.disconnect(CiderAudio.context.destination);} catch(e){}
         CiderAudio.audioNodes.spatialNode = new ResonanceAudio(CiderAudio.context);
         CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.context.destination);
         let roomDimensions = {
@@ -90,6 +92,43 @@ var CiderAudio = {
             }
           );                   
         }
+    },
+    equalizer: function (){
+        const BANDS = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
+        CiderAudio.audioNodes.audioBands = {};
+
+        BANDS.forEach((band, i) => {
+        const filter = CiderAudio.context.createBiquadFilter();
+
+        CiderAudio.audioNodes.audioBands[band] = filter;
+
+        if (i === 0) {
+            // The first filter, includes all lower frequencies
+            filter.type = "lowshelf";
+        } else if (i === BANDS.length - 1) {
+            // The last filter, includes all higher frequencies
+            filter.type = "highshelf";
+        } else {
+            filter.type = "peaking";
+        }
+        filter.frequency.value = band;
+        filter.gain.value = 0;
+        if (i == 0){
+            if (app.cfg.audio.spatial) {
+                CiderAudio.audioNodes.spatialNode.output.disconnect(CiderAudio.context.destination);
+                CiderAudio.audioNodes.spatialNode.output.connect(filter);
+            } else {
+                CiderAudio.audioNodes.gainNode.disconnect(CiderAudio.context.destination);
+                CiderAudio.audioNodes.gainNode.connect(filter);
+            }
+        } else if (i === BANDS.length - 1) {
+        CiderAudio.audioNodes.audioBands[BANDS[i - 1]].connect(filter);
+        } else {
+        CiderAudio.audioNodes.audioBands[BANDS[i - 1]].connect(filter);
+        filter.connect(CiderAudio.context.destination);
+        }
+
+        });
     }
 
 }
