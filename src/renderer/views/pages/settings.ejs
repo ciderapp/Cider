@@ -494,6 +494,14 @@
                     <input type="checkbox"  v-model="app.cfg.lastfm.enabledRemoveFeaturingArtists" switch/>
                 </div>
             </div>
+            <div class="md-option-line" v-show ="app.cfg.lastfm.enabled">
+                <div class="md-option-segment">
+                    {{$root.getLz('settings.option.connectivity.lastfmScrobble.filterLoop')}}
+                </div>
+                <div class="md-option-segment md-option-segment_auto" >
+                    <input type="checkbox"  v-model="app.cfg.lastfm.filterLoop" switch/>
+                </div>
+            </div>
         </div>
         <div class="md-option-header">
             <span>{{$root.getLz('settings.header.experimental')}}</span>
@@ -532,13 +540,13 @@
             </div>
             <div class="md-option-line">
                 <div class="md-option-segment">
-                    Close Button Behavior
+                    {{$root.getLz("settings.option.experimental.closeButtonBehaviour")}}
                 </div>
                 <div class="md-option-segment md-option-segment_auto">
                     <select class="md-select" v-model="app.cfg.general.close_behavior">
-                        <option value='0'>Quit Cider</option>
-                        <option value='1'>Minimize to taskbar</option>
-                        <option value='2'>Minimize to system tray</option>
+                        <option value='0'>{{$root.getLz("settings.option.experimental.closeButtonBehaviour.quit")}}</option>
+                        <option value='1'>{{$root.getLz("settings.option.experimental.closeButtonBehaviour.minimizeTaskbar")}}</option>
+                        <option value='2'>{{$root.getLz("settings.option.experimental.closeButtonBehaviour.minimizeTray")}}</option>
                     </select>
                 </div>
             </div>
