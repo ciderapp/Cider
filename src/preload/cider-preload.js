@@ -24,7 +24,7 @@ const MusicKitInterop = {
         /** wsapi */
 
         MusicKit.getInstance().addEventListener(MusicKit.Events.nowPlayingItemDidChange, () => {
-            if (MusicKitInterop.filterTrack(MusicKitInterop.getAttributes(), false, true)) {
+            if (MusicKitInterop.filterTrack(MusicKitInterop.getAttributes(), false, true) || !app.cfg.lastfm.filterLoop) {
                 global.ipcRenderer.send('nowPlayingItemDidChange', MusicKitInterop.getAttributes());
             }
         });
