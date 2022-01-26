@@ -94,13 +94,15 @@ var CiderAudio = {
         }
     },
     equalizer: function (){
-        const BANDS = [32, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000];
+        let BANDS = app.cfg.audio.equalizer.frequencies;
+        let GAIN = app.cfg.audio.equalizer.gain;
+        let Q = app.cfg.audio.equalizer.Q;
         CiderAudio.audioNodes.audioBands = {};
 
         BANDS.forEach((band, i) => {
         const filter = CiderAudio.context.createBiquadFilter();
 
-        CiderAudio.audioNodes.audioBands[band] = filter;
+        CiderAudio.audioNodes.audioBands[i] = filter;
 
         if (i === 0) {
             // The first filter, includes all lower frequencies
@@ -111,8 +113,9 @@ var CiderAudio = {
         } else {
             filter.type = "peaking";
         }
-        filter.frequency.value = band;
-        filter.gain.value = 0;
+        filter.frequency.value = BANDS[i];
+        filter.gain.value = GAIN[i];
+        filter.Q.value = Q[i];
         if (i == 0){
             if (app.cfg.audio.spatial) {
                 CiderAudio.audioNodes.spatialNode.output.disconnect(CiderAudio.context.destination);
@@ -122,10 +125,10 @@ var CiderAudio = {
                 CiderAudio.audioNodes.gainNode.connect(filter);
             }
         } else if (i === BANDS.length - 1) {
-        CiderAudio.audioNodes.audioBands[BANDS[i - 1]].connect(filter);
+            CiderAudio.audioNodes.audioBands[i - 1].connect(filter);
         } else {
-        CiderAudio.audioNodes.audioBands[BANDS[i - 1]].connect(filter);
-        filter.connect(CiderAudio.context.destination);
+            CiderAudio.audioNodes.audioBands[i - 1].connect(filter);
+            filter.connect(CiderAudio.context.destination);
         }
 
         });
