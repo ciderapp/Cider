@@ -344,6 +344,7 @@ const app = new Vue({
                 lang = this.cfg.general.language
             }
             this.lz = ipcRenderer.sendSync("get-i18n", lang)
+            setLzManual()
         },
         getLz(message) {
             if(this.lz[message]) {
