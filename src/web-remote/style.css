@@ -255,7 +255,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 }
 
 .playback-button--small.active {
-    background-color: rgb(200 200 200 / 10%);
+    background-color: rgb(200 200 200 / 25%);
 }
 
 .playback-button--small.activeColor {
@@ -283,11 +283,11 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 }
 
 .playback-button--small.repeat {
-    background-color: var(--keyColor);
     background-image: url("./assets/repeat.svg");
 }
 
 .playback-button--small.repeat.repeatOne {
+    background-color: rgb(200 200 200 / 25%);
     background-image: url("./assets/repeatOne.svg");
 }
 
