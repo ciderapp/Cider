@@ -3084,7 +3084,7 @@ const app = new Vue({
                     if (this.mk.volume <= 0.9) {
                         this.mk.volume += 0.1
                     } else {
-                        this.mk.volume = 1
+                        this.mk.volume = this.cfg.audio.maxVolume
                     }
                 }
             } else if (event.deltaY > 0) {

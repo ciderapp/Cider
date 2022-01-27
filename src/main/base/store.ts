@@ -31,6 +31,7 @@ export class ConfigStore {
             "seamless_audio": true,
             "normalization": false,
             "spatial": false,
+            "maxVolume": 1,
             "spatial_properties": {
                 "presets": [],
                 "gain": 0.8,
