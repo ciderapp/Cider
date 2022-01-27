@@ -5,8 +5,8 @@
   "date.format": "${y}年${m}月${d}日",
 
     // i18n Info
-  "i18n.languageName": "中文（中国）",        // name of language in native language
-  "i18n.languageNameEnglish": "Chinese (China)", // name of language in English
+  "i18n.languageName": "简体中文（中国）",        // name of language in native language
+  "i18n.languageNameEnglish": "Simp. Chinese (China)", // name of language in English
   "i18n.category": "main", // main = real language, fun = fun community languages
   "i18n.authors": "@maikirakiwi", // Authors, if you contribute to this file feel free to add your name seperated with a space
 
@@ -240,6 +240,10 @@
   "settings.header.experimental": "实验性功能",
   "settings.header.experimental.description": "调整Cider的实验性功能",
   "settings.option.experimental.compactUI": "紧凑型 UI", // Toggle
+  "settings.option.experimental.closeButtonBehaviour": "点击关闭按钮时",
+  "settings.option.experimental.closeButtonBehaviour.quit": "退出 Cider",
+  "settings.option.experimental.closeButtonBehaviour.minimizeTaskbar": "最小化到任务栏",
+  "settings.option.experimental.closeButtonBehaviour.minimizeTray": "最小化到系统托盘",
   // Refer to term.disabled & term.enabled
   
   // Spatialization Menu
