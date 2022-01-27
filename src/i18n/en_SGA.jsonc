@@ -229,6 +229,7 @@
   // Refer to term.disabled for the disabled option
   "settings.header.connectivity.discordRPC.cider": "↸╎ϟi!|:ᖋ॥ ᖋϟ 'ᔮ╎↸ᒷ∷'",
   "settings.header.connectivity.discordRPC.appleMusic": "↸╎ϟi!|:ᖋ॥ ᖋϟ 'ᖋi!i!|:ᒷ ᒲ⚍ϟ╎ᔮ'",
+  "settings.option.connectivity.discordRPC.clearOnPause": "ᔮ|:ᒷᖋ∷ ↸╎ϟᔮᒍ∷↸ ∷╎ᔮ⍑ i!∷ᒷϟᒷリᔮᒷ ᒍリ i!ᖋ⚍ϟᒷ", // Toggle
   "settings.option.connectivity.lastfmScrobble": "|:ᖋϟᒣ⎓ᒲ ϟᔮ∷ᒍᕊᕊ|:╎リ┤", // Option to Connect
   "settings.option.connectivity.lastfmScrobble.delay": "|:ᖋϟᒣ⎓ᒲ ϟᔮ∷ᒍᕊᕊ|:ᒷ ↸ᒷ|:ᖋ॥ (%)", 
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "ᒷリᖋᕊ|:ᒷ |:ᖋϟᒣ⎓ᒲ リᒍ∴ i!|:ᖋ॥╎リ┤", 

@@ -1,8 +1,8 @@
 { // Base File
 
   // i18n Info
-  "i18n.languageName": "English",        // name of language in native language
-  "i18n.languageNameEnglish": "English", // name of language in English
+  "i18n.languageName": "English US",        // name of language in native language
+  "i18n.languageNameEnglish": "English US", // name of language in English
   "i18n.category": "main", // main = real language, fun = fun community languages
   "i18n.authors": "@maikirakiwi", // Authors, if you contribute to this file feel free to add your name seperated with a space
 
@@ -97,6 +97,7 @@
   "term.clearAll": "Clear All",
   "term.recentStations": "Recent Stations",
   "term.language": "Language",
+  "term.funLanguages": "Fun",
   "term.noLyrics": "Loading... / Lyrics not found./ Instrumental.",
   "term.copyright": "Copyright",
   "term.rightsReserved": "All Rights Reserved.",
@@ -173,6 +174,13 @@
   "action.playTracksLater": "Play ${app.selectedMediaItems.length} tracks later",
   "action.removeTracks": "Remove ${self.selectedItems.length} tracks from queue",
 
+  // Settings - General
+  "settings.header.general": "General",
+  "settings.option.general.language": "Language",
+  // Language optgroups
+  "settings.option.general.language.main": "Languages",
+  "settings.option.general.language.fun": "Fun Languages",
+  "settings.option.general.language.unsorted": "Unsorted",
   // Settings - Audio
   "settings.header.audio": "Audio",
   "settings.header.audio.description": "Adjust the audio settings for Cider.",
@@ -229,6 +237,7 @@
   // Refer to term.disabled for the disabled option
   "settings.header.connectivity.discordRPC.cider": "Display as 'Cider'",
   "settings.header.connectivity.discordRPC.appleMusic": "Display as 'Apple Music'",
+  "settings.option.connectivity.discordRPC.clearOnPause": "Clear Discord Rich Presence on Pause", // Toggle
   "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling", // Option to Connect
   "settings.option.connectivity.lastfmScrobble.delay": "LastFM Scrobble Delay (%)", 
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "Enable LastFM Now Playing", 

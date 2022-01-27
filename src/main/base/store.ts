@@ -9,6 +9,7 @@ export class ConfigStore {
             "close_behavior": 0, // 0 = close, 1 = minimize, 2 = minimize to tray
             "startup_behavior": 0, // 0 = nothing, 1 = open on startup
             "discord_rpc": 1, // 0 = disabled, 1 = enabled as Cider, 2 = enabled as Apple Music
+            "discordClearActivityOnPause": 1, // 0 = disabled, 1 = enabled
             "language" : "en_US"
         },
         "home": {
@@ -30,6 +31,7 @@ export class ConfigStore {
             "seamless_audio": true,
             "normalization": false,
             "spatial": false,
+            "maxVolume": 1,
             "spatial_properties": {
                 "presets": [],
                 "gain": 0.8,
