@@ -22,6 +22,7 @@
 
 .md-option-segment.md-option-segment_auto {
     width: auto;
+    white-space: nowrap;
 }
 
 .md-option-container .md-option-line:not(:last-child) {
@@ -102,6 +103,7 @@ input[type=range].md-slider::-webkit-slider-runnable-track {
     font-size: 15px;
     border: 1px solid rgb(100 100 100 / 35%);
     box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.3), 0px 1px 1px rgba(0, 0, 0, 0.4);
+    white-space: nowrap;
 }
 
 .md-btn.md-btn-block {

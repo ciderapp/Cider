@@ -128,7 +128,7 @@
                                 {{ data.attributes.bornOrFormed }}
                             </div>
                             <div v-if="data.attributes.genreNames">
-                                <h3>Genre</h3>
+                                <h3>{{app.getLz('term.sortBy.genre')}}</h3>
                                 {{ data.attributes.genreNames.join(', ') }}
                             </div>
                         </div>
@@ -192,7 +192,7 @@
                         followActions[followAction],
                         {
                             icon: "./assets/feather/share.svg",
-                            name: app.getLz('action.share'),
+                            name: app.getLz('term.share'),
                             action: ()=>{
                                 self.app.copyToClipboard(self.data.attributes.url)
                             }

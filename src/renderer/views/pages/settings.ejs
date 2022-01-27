@@ -533,7 +533,7 @@
                     {{$root.getLz('term.language')}}
                 </div>
                 <div class="md-option-segment md-option-segment_auto">
-                    <select class="md-select" @change="$root.setLz('')" v-model="app.cfg.general.language">
+                    <select class="md-select" @change="$root.setLz('');$root.setLzManual()" v-model="app.cfg.general.language">
                         <optgroup :label="index" v-for="(categories, index) in getLanguages()">
                             <option v-for="lang in categories" :value="lang.code">{{lang.nameNative}} ({{ lang.nameEnglish }})</option>
                         </optgroup>
