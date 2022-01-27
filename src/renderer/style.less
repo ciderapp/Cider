@@ -5715,8 +5715,8 @@ body.no-gpu {
   .modal-window {
     height: 330px;
     max-height: 330px;
-    width: 630px;
-    max-width: 630px;
+    width: 720px;
+    max-width: 720px;
     overflow: hidden;
 
     .info-header {
@@ -5761,9 +5761,20 @@ body.no-gpu {
     }
     .modal-content{
       display: block;
+      
+      .inputs-container{
+        margin-left: 8px;
+      }
+
       .input-container{
         display: inline-grid;
         width: 52px;
+        justify-items: center;
+        font-size: 0.7em;
+      }
+      .input-container.mini{
+        display: inline-grid;
+        width: 43px;
         justify-items: center;
         font-size: 0.7em;
       }
