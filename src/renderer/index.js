@@ -1988,6 +1988,10 @@ const app = new Vue({
             this.library.albums.meta = response.data.meta
         },
         async getListenNow(attempt = 0) {
+            if (this.listennow.timestamp > Date.now() - 120000) {
+                return
+            }
+
             if (attempt > 3) {
                 return
             }
@@ -2018,6 +2022,7 @@ const app = new Vue({
                     includeResponseMeta: !0,
                     reload: !0
                 })).data;
+                this.listennow.timestamp = Date.now()
                 console.log(this.listennow)
             } catch (e) {
                 console.log(e)
@@ -2025,6 +2030,9 @@ const app = new Vue({
             }
         },
         async getBrowsePage(attempt = 0) {
+            if (this.browsepage.timestamp > Date.now() - 120000) {
+                return
+            }
             if (attempt > 3) {
                 return
             }
@@ -2041,6 +2049,7 @@ const app = new Vue({
                     "art[url]": "f"
                 });
                 this.browsepage = browse.data.data[0];
+                this.browsepage.timestamp = Date.now()
                 console.log(this.browsepage)
             } catch (e) {
                 console.log(e)
