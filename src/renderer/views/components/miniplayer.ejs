@@ -74,9 +74,9 @@
                     <div class="app-chrome-item">
                         <button class="playback-button--small repeat" v-if="app.mk.repeatMode == 0"
                                 @click="app.mk.repeatMode = 1"></button>
-                        <button class="playback-button--small repeat active" @click="app.mk.repeatMode = 2"
+                        <button class="playback-button--small repeat repeatOne" @click="app.mk.repeatMode = 2"
                                 v-else-if="app.mk.repeatMode == 1"></button>
-                        <button class="playback-button--small repeat repeatOne" @click="app.mk.repeatMode = 0"
+                        <button class="playback-button--small repeat active" @click="app.mk.repeatMode = 0"
                                 v-else-if="app.mk.repeatMode == 2"></button>
                     </div>
                 </div>
