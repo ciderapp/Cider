@@ -182,11 +182,14 @@
 
   // Settings - General
   "settings.header.general": "General",
+  "settings.header.general.description": "Adjust the general settings for Cider.",
   "settings.option.general.language": "Language",
+
   // Language optgroups
   "settings.option.general.language.main": "Languages",
   "settings.option.general.language.fun": "Fun Languages",
   "settings.option.general.language.unsorted": "Unsorted",
+  
   // Settings - Audio
   "settings.header.audio": "Audio",
   "settings.header.audio.description": "Adjust the audio settings for Cider.",
@@ -224,10 +227,7 @@
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "Show Personal Info", // Toggle
-  // Settings - General (Reserved)
-  "settings.header.general": "General",
-  "settings.header.general.description": "Adjust the general settings for Cider.",
-  
+
   // Settings - Lyrics
   "settings.header.lyrics": "Lyrics",
   "settings.header.lyrics.description": "Adjust the lyrics settings for Cider.",
