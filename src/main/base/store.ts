@@ -32,6 +32,9 @@ export class ConfigStore {
             "normalization": false,
             "spatial": false,
             "maxVolume": 1,
+            "volumePrecision": 0.1,
+            "volumeRoundMax": 0.9,
+            "volumeRoundMin": 0.1,
             "spatial_properties": {
                 "presets": [],
                 "gain": 0.8,

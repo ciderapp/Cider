@@ -3079,18 +3079,23 @@ const app = new Vue({
             })
         },
         volumeWheel(event) {
+            if (this.cfg.audio.maxVolume < 1.0 && this.cfg.audio.maxVolume > 0.01) {
+                this.cfg.audio.volumePrecision = 0.01
+                this.cfg.audio.volumeRoundMax = this.cfg.audio.maxVolume - 0.01
+                this.cfg.audio.volumeRoundMin = 0.01
+            }
             if (event.deltaY < 0) {
-                if (this.mk.volume < 1) {
-                    if (this.mk.volume <= 0.9) {
-                        this.mk.volume += 0.1
+                if (this.mk.volume < this.cfg.audio.maxVolume) {
+                    if (this.mk.volume <= this.cfg.audio.volumeRoundMax) {
+                        this.mk.volume += this.cfg.audio.volumePrecision
                     } else {
                         this.mk.volume = this.cfg.audio.maxVolume
                     }
                 }
             } else if (event.deltaY > 0) {
                 if (this.mk.volume > 0) {
-                    if (this.mk.volume >= 0.1) {
-                        this.mk.volume -= 0.1
+                    if (this.mk.volume >= this.cfg.audio.volumeRoundMin) {
+                        this.mk.volume -= this.cfg.audio.volumePrecision
                     } else {
                         this.mk.volume = 0
                     }
