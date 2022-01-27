@@ -27,6 +27,7 @@
 
 .md-option-segment.md-option-segment_auto {
     width: auto;
+    white-space: nowrap;
 }
 
 .md-option-container .md-option-line:not(:last-child) {
