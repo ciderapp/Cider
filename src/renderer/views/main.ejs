@@ -360,10 +360,10 @@
                             </div>
                         </button>
                     </div>
-                    <div class="app-sidebar-notification libraryNotification"
-                         v-if="library.downloadNotification.show">
-                        <div class="message">{{ library.downloadNotification.message }} ({{
-                            library.downloadNotification.progress }} / {{ library.downloadNotification.total }})
+                    <div class="app-sidebar-notification backgroundNotification"
+                         v-if="library.backgroundNotification.show">
+                        <div class="message">{{ library.backgroundNotification.message }} ({{
+                            library.backgroundNotification.progress }} / {{ library.backgroundNotification.total }})
                         </div>
                     </div>
                 </div>
