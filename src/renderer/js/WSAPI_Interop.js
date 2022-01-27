@@ -98,9 +98,9 @@ const wsapi = {
     },
     toggleRepeat() {
         if(MusicKit.getInstance().repeatMode == 0) {
-            MusicKit.getInstance().repeatMode = 2
-        }else if(MusicKit.getInstance().repeatMode == 2){
             MusicKit.getInstance().repeatMode = 1
+        }else if(MusicKit.getInstance().repeatMode == 1){
+            MusicKit.getInstance().repeatMode = 2
         }else{
             MusicKit.getInstance().repeatMode = 0
         }
