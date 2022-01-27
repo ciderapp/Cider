@@ -128,7 +128,7 @@
                                 {{ data.attributes.bornOrFormed }}
                             </div>
                             <div v-if="data.attributes.genreNames">
-                                <h3>Genre</h3>
+                                <h3>{{app.getLz('term.sortBy.genre')}}</h3>
                                 {{ data.attributes.genreNames.join(', ') }}
                             </div>
                         </div>
