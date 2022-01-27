@@ -1,10 +1,10 @@
 { // Base File
 
   // i18n Info
-  "i18n.languageName": "English",        // name of language in native language
-  "i18n.languageNameEnglish": "English", // name of language in English
+  "i18n.languageName": "English US",        // name of language in native language
+  "i18n.languageNameEnglish": "English US", // name of language in English
   "i18n.category": "main", // main = real language, fun = fun community languages
-  "i18n.authors": "", // Authors, if you contribute to this file feel free to add your name seperated with a space
+  "i18n.authors": "@maikirakiwi", // Authors, if you contribute to this file feel free to add your name seperated with a space
 
   // App info
   "app.name": "Cider",
@@ -97,6 +97,7 @@
   "term.clearAll": "Clear All",
   "term.recentStations": "Recent Stations",
   "term.language": "Language",
+  "term.funLanguages": "Fun",
   "term.noLyrics": "Loading... / Lyrics not found./ Instrumental.",
   "term.copyright": "Copyright",
   "term.rightsReserved": "All Rights Reserved.",
@@ -173,6 +174,13 @@
   "action.playTracksLater": "Play ${app.selectedMediaItems.length} tracks later",
   "action.removeTracks": "Remove ${self.selectedItems.length} tracks from queue",
 
+  // Settings - General
+  "settings.header.general": "General",
+  "settings.option.general.language": "Language",
+  // Language optgroups
+  "settings.option.general.language.main": "Languages",
+  "settings.option.general.language.fun": "Fun Languages",
+  "settings.option.general.language.unsorted": "Unsorted",
   // Settings - Audio
   "settings.header.audio": "Audio",
   "settings.header.audio.description": "Adjust the audio settings for Cider.",
@@ -234,12 +242,17 @@
   "settings.option.connectivity.lastfmScrobble.delay": "LastFM Scrobble Delay (%)", 
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "Enable LastFM Now Playing", 
   "settings.option.connectivity.lastfmScrobble.removeFeatured": "Remove featuring artists from song title (LastFM)", 
+  "settings.option.connectivity.lastfmScrobble.filterLoop": "Filter looped track (LastFM)", 
   // Refer to term.connect for the connect button
 
   // Settings - Experimental
   "settings.header.experimental": "Experimental",
   "settings.header.experimental.description": "Adjust the experimental settings for Cider.",
   "settings.option.experimental.compactUI": "Compact UI", // Toggle
+  "settings.option.experimental.closeButtonBehaviour": "Close Button Behaviour",
+  "settings.option.experimental.closeButtonBehaviour.quit": "Quit Cider",
+  "settings.option.experimental.closeButtonBehaviour.minimizeTaskbar": "Minimize to taskbar",
+  "settings.option.experimental.closeButtonBehaviour.minimizeTray": "Minimize to system tray",
   // Refer to term.disabled & term.enabled
 
   // Spatialization Menu
@@ -247,6 +260,7 @@
   "spatial.width" : "Width",
   "spatial.height" : "Height",
   "spatial.depth" : "Depth",
+  "spatial.gain" : "Gain",
   "spatial.roomMaterials" : "Room Materials",
   "spatial.roomDimensions" : "Room Dimensions",
   "spatial.roomPositions" : "Room Positions",

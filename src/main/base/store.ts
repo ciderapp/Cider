@@ -31,6 +31,7 @@ export class ConfigStore {
             "seamless_audio": true,
             "normalization": false,
             "spatial": false,
+            "maxVolume": 1,
             "spatial_properties": {
                 "presets": [],
                 "gain": 0.8,
@@ -79,6 +80,7 @@ export class ConfigStore {
             "scrobble_after": 30,
             "auth_token": "",
             "enabledRemoveFeaturingArtists": true,
+            "filterLoop": true,
             "NowPlaying": "true"
         },
         "advanced": {

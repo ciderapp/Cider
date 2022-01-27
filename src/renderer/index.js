@@ -135,6 +135,7 @@ const app = new Vue({
         mk: {},
         quickPlayQuery: "",
         lz: ipcRenderer.sendSync("get-i18n", "en_US"),
+        lzListing: ipcRenderer.sendSync("get-i18n-listing"),
         search: {
             term: "",
             hints: [],
@@ -3083,7 +3084,7 @@ const app = new Vue({
                     if (this.mk.volume <= 0.9) {
                         this.mk.volume += 0.1
                     } else {
-                        this.mk.volume = 1
+                        this.mk.volume = this.cfg.audio.maxVolume
                     }
                 }
             } else if (event.deltaY > 0) {
@@ -3409,7 +3410,6 @@ const app = new Vue({
            //this.webremoteqr = await ipcRenderer.invoke('setRemoteQR','')
            this.webremoteurl =  await ipcRenderer.invoke('showQR','')
            //this.modals.qrcode = true;
-           
         }
     }  
     

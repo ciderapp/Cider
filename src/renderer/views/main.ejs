@@ -41,7 +41,7 @@
                 <div class="app-chrome--left">
                     <div class="app-chrome-item full-height" v-if="chrome.windowControlPosition == 'left'">
                         <div class="window-controls">
-                            <div class="close" @click="ipcRenderer.send('close')"></div>
+                            <div class="close" @click="closeWindow()"></div>
                             <div class="minimize" @click="ipcRenderer.send('minimize')"></div>
                             <div class="minmax restore" v-if="chrome.maximized"
                                  @click="ipcRenderer.send('maximize')">
@@ -144,7 +144,7 @@
                     <div class="app-chrome-item volume display--large">
                         <button class="volume-button--small volume" @click="muteButtonPressed()"
                                 :class="{'active': this.cfg.audio.volume == 0}"></button>
-                        <input type="range" class="" @wheel="volumeWheel" step="0.01" min="0" max="1"
+                        <input type="range" class="" @wheel="volumeWheel" step="0.01" min="0" :max="cfg.audio.maxVolume"
                                v-model="mk.volume" v-if="typeof mk.volume != 'undefined'" @change="checkMuteChange()">
                     </div>
                     <div class="app-chrome-item generic" v-if="false">
@@ -175,7 +175,7 @@
                                  @click="ipcRenderer.send('maximize')">
                             </div>
                             <div class="minmax" v-else @click="ipcRenderer.send('maximize')"></div>
-                            <div class="close" @click="ipcRenderer.send('close')"></div>
+                            <div class="close" @click="closeWindow()"></div>
                         </div>
                     </div>
                 </div>
@@ -326,7 +326,7 @@
                                 <div class="input-container">
                                     <button class="volume-button--small volume" @click="muteButtonPressed()"
                                             :class="{'active': this.cfg.audio.volume == 0}"></button>
-                                    <input type="range" class="" @wheel="volumeWheel" step="0.01" min="0" max="1"
+                                    <input type="range" class="" @wheel="volumeWheel" step="0.01" min="0" :max="cfg.audio.maxVolume"
                                            v-model="mk.volume" v-if="typeof mk.volume != 'undefined'"
                                            @change="checkMuteChange()">
                                 </div>

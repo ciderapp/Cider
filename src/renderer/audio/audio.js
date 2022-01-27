@@ -124,7 +124,7 @@ var CiderAudio = {
         for (i = 1; i < BANDS.length; i ++) {
             CiderAudio.audioNodes.audioBands[i-1].connect(CiderAudio.audioNodes.audioBands[i]);
         }
-        CiderAudio.audioNodes.audioBands[ BANDS.length-1].connect(CiderAudio.context.destination);
+        CiderAudio.audioNodes.audioBands[BANDS.length-1].connect(CiderAudio.context.destination);
     }
 
 }

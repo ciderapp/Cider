@@ -4,7 +4,7 @@
   "productName": "Cider",
   "version": "1.0.0",
   "description": "A new look into listening and enjoying music in style and performance.",
-  "license": "MIT",
+  "license": "AGPL-3.0",
   "main": "./build/index.js",
   "author": "Cider Collective <cryptofyre@cider.sh> (https://cider.sh)",
   "repository": "https://github.com/ciderapp/Cider.git",

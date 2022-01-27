@@ -58,7 +58,7 @@
                                 </div>
                             </div>
                             <label v-if="!app.cfg.audio.normalization">
-                                Gain
+                                {{$root.getLz('spatial.gain')}}
                                 <input type="number" min="0" @change="setRoom()" style="width: 100%;"
                                        v-model="app.cfg.audio.spatial_properties.gain" step="0.1"/>
                             </label>
@@ -73,7 +73,7 @@
                 </template>
                 <template v-if="roomEditType == 'positions'">
                     <div class="row">
-                        <div class="col"><h3>{{$root.getLz('spatial.roomPositons')}}</h3></div>
+                        <div class="col"><h3>{{$root.getLz('spatial.roomPositions')}}</h3></div>
                         <div class="col-auto flex-center">
                             <button class="md-btn" @click="roomEditType = 'dimensions'">{{$root.getLz('spatial.setDimensions')}}</button>
                         </div>
