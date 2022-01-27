@@ -1111,6 +1111,9 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   &.song-name{
     overflow: unset ;
   }
+  &::after{
+    content: attr(data-value);
+  }
 }
 
 
@@ -1166,11 +1169,11 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 
 @keyframes marquee {
   from {
-    transform: translateX(100%);
+    transform: translateX(0);
   }
 
   to {
-    transform: translateX(-100%);
+    transform: translateX(-140%);
   }
 }
 
@@ -1249,24 +1252,30 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   display: flex;
   position: relative;
 }
-.app-chrome .app-chrome-item > .app-playback-controls .song-artist-album {
+.app-chrome .app-chrome-item > .app-playback-controls > div >.song-artist-album {
   font-weight: 400;
   font-size: 12px;
   text-align: center;
   /*height: 1.2em;
   line-height: 1.2em;*/
-
   z-index: 1;
   align-items: center;
   justify-content: center;
   width: 80%;
   max-width: 340px;
   overflow: hidden;
-  
 
-  .song-artist-normal {
-    height: inherit;
+  .song-artist-album-content{
+    font-weight: 400;
+    font-size: 12px;
+    text-align: center;
+    width:100%;
+
+    &.song-artist-normal {
+      height: inherit;
+    }
   }
+  
 
   &.song-artist-marquee {
     > marquee {
