@@ -1,10 +1,9 @@
 {
-
   // i18n Info
   "i18n.languageName": "Türkçe",        // name of language in native language
   "i18n.languageNameEnglish": "Turkish", // name of language in English
   "i18n.category": "main", // main = real language, fun = fun community languages
-  "i18n.authors": "gms10ur", // Authors, if you contribute to this file feel free to add your name seperated with a space
+  "i18n.authors": "@gms10ur", // Authors, if you contribute to this file feel free to add your name seperated with a space
 
   // App info
   "app.name": "Cider",
@@ -97,7 +96,8 @@
   "term.spacializedAudioSetting": "Uzamsal Ses Ayarları",
   "term.clearAll": "Tümünü Temizle",
   "term.recentStations": "Son İstasyonlar",
-  "term.language": "Dil Seçimi",
+  "term.language": "Dil",
+  "term.funLanguages": "Mizahi Diller",
   "term.noLyrics": "Yükleniyor... / Şarkı Sözü Bulunamadı./ Enstrumantal.",
   "term.copyright": "Copyright",
   "term.rightsReserved": "Tüm Haklası Saklıdır.",
@@ -109,6 +109,12 @@
   "term.equalizer": "Ekolayzer",
   "term.reset": "Sıfırla",
   "term.tracks": "adet şarkı", // Assume x amount of tracks. e.g. 50 tracks 
+  "term.time.hours": "saat",
+  "term.time.hour": "saat",
+  "term.time.minutes": "dakika",
+  "term.time.minute": "dakika",
+  "term.time.seconds": "saniye",
+  "term.time.second": "saniye",
 
   // Home
   "home.title": "Ana Sayfa",
@@ -174,6 +180,15 @@
   "action.playTracksLater": "En Son ${app.selectedMediaItems.length} şarkıları çal",
   "action.removeTracks": "Sıradan ${self.selectedItems.length} şarkıları kaldır",
 
+  // Settings - General (Reserved)
+  "settings.header.general": "Genel Ayarlar",
+  "settings.header.general.description": "Genel ayarları buradan düzenleyin.",
+  "settings.option.general.language": "Dil Seçeneği",
+
+  // Language optgroups
+  "settings.option.general.language.main": "Gerçek Diller",
+  "settings.option.general.language.fun": "Mizahi Diller",
+  "settings.option.general.language.unsorted": "Henüz Tamamlanmamış Diller",
 
   // Settings - Audio
   "settings.header.audio": "Çalma / Oynatma",
@@ -184,7 +199,7 @@
   "settings.header.audio.quality.auto": "Otomatik",
   "settings.option.audio.seamlessTransition": "Kesintisiz Ses Geçişi", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "Gelişmiş Ses Deneyimi", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.description": "Gelişmiş ses deneyiminin etkinleştirilmesi, Ses Normalleştirme, Ekolayzer ve Görselleştirici gibi genişletilmiş ses özelliklerine izin verir, ancak bazı sistemlerde bu, seste bozulmalara neden olabilir.",
+  "settings.option.audio.enableAdvancedFunctionality.description": "Gelişmiş ses deneyiminin etkinleştirilmesi, Ses Normalleştirme, Ekolayzer ve Görselleştirici gibi genişletilmiş ses özelliklerine izin verir, ancak bu durum bazı sistemlerde seste bozulmalara neden olabilir.",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Ses Normalleştirme", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Ses normalleştirme alçak ve yüksek sesli şarkıları dengeler ve daha düzgün bir dinleme deneyimi sağlar.",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Uzamsal Ses", // Toggle
@@ -214,10 +229,6 @@
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "Kullanıcı Adımı Göster", // Toggle
 
-  // Settings - General (Reserved)
-  "settings.header.general": "Genel Ayarlar",
-  "settings.header.general.description": "Genel ayarları buradan düzenleyin.",
-
   // Settings - Lyrics
   "settings.header.lyrics": "Şarkı Sözleri",
   "settings.header.lyrics.description": "Cider'in şarkı sözlerini nasıl görüntülemesini istediğini buradan ayarlayın.",
@@ -235,6 +246,8 @@
   "settings.header.connectivity.discordRPC.appleMusic": "'Apple Music' Olarak",
   "settings.option.connectivity.discordRPC.clearOnPause": "Duraklatıldığında Discord'da Gösterme", // Toggle
   "settings.option.connectivity.lastfmScrobble": "LastFM Bağlantısı", // Option to Connect
+  "settings.option.connectivity.lastfmScrobble.delay": "LastFM Scrobblalma Yüzdesi (%)", 
+  "settings.option.connectivity.lastfmScrobble.nowPlaying": "Şimdi çalan şarkıyı LastFM'de göster", 
   "settings.option.connectivity.lastfmScrobble.removeFeatured": "Albüm sanatçısını Scrobbledan kaldır(LastFM)", 
   "settings.option.connectivity.lastfmScrobble.filterLoop": "Tekrar edilen şarkıyı filtrele (LastFM)", 
   // Refer to term.connect for the connect button
@@ -268,8 +281,8 @@
   "spatial.listener" : "Dinleyici",
   "spatial.audioSource" : "Ses Kaynağı",
 
-    // Settings - Unfinished
-    "settings.header.unfinished": "Geliştirme Aşamasında",
+  // Settings - Unfinished
+  "settings.header.unfinished": "Geliştirme Aşamasında",
 
   // Web Remote
   "remote.web.title": "Cider'e Bağlan",
