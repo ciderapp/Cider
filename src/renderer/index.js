@@ -171,7 +171,7 @@ const app = new Vue({
             data: {},
         },
         library: {
-            downloadNotification: {
+            backgroundNotification: {
                 show: false,
                 message: "",
                 total: 0,
@@ -605,9 +605,9 @@ const app = new Vue({
 
             // Load saved quality
             switch (app.cfg.audio.quality) {
-                case "extreme":
+                /** case "extreme":
                     app.mk.bitrate = app.cfg.audio.quality = 990
-                    break;
+                    break; **/
                 case "high":
                     app.mk.bitrate = app.cfg.audio.quality = 256
                     break;
@@ -1736,8 +1736,8 @@ const app = new Vue({
                 return
             }
             this.library.songs.downloadState = 1
-            this.library.downloadNotification.show = true
-            this.library.downloadNotification.message = app.getLz('notification.updatingLibrarySongs')
+            this.library.backgroundNotification.show = true
+            this.library.backgroundNotification.message = app.getLz('notification.updatingLibrarySongs')
 
             function downloadChunk() {
                 const params = {
@@ -1769,10 +1769,10 @@ const app = new Vue({
             function processChunk(response) {
                 downloaded = response
                 library = library.concat(downloaded.data)
-                self.library.downloadNotification.show = true
-                self.library.downloadNotification.message = app.getLz('notification.updatingLibrarySongs')
-                self.library.downloadNotification.total = downloaded.meta.total
-                self.library.downloadNotification.progress = library.length
+                self.library.backgroundNotification.show = true
+                self.library.backgroundNotification.message = app.getLz('notification.updatingLibrarySongs')
+                self.library.backgroundNotification.total = downloaded.meta.total
+                self.library.backgroundNotification.progress = library.length
 
                 if (downloaded.meta.total == 0) {
                     self.library.songs.downloadState = 3
@@ -1782,7 +1782,7 @@ const app = new Vue({
                     console.log("downloaded.next is undefined")
                     self.library.songs.listing = library
                     self.library.songs.downloadState = 2
-                    self.library.downloadNotification.show = false
+                    self.library.backgroundNotification.show = false
                     self.searchLibrarySongs()
                     localStorage.setItem("librarySongs", JSON.stringify(library))
                 }
@@ -1792,7 +1792,7 @@ const app = new Vue({
                 } else {
                     self.library.songs.listing = library
                     self.library.songs.downloadState = 2
-                    self.library.downloadNotification.show = false
+                    self.library.backgroundNotification.show = false
                     self.searchLibrarySongs()
                     localStorage.setItem("librarySongs", JSON.stringify(library))
                     console.log(library)
@@ -1817,8 +1817,8 @@ const app = new Vue({
                 return
             }
             this.library.albums.downloadState = 1
-            this.library.downloadNotification.show = true
-            this.library.downloadNotification.message = app.getLz('notification.updatingLibraryAlbums')
+            this.library.backgroundNotification.show = true
+            this.library.backgroundNotification.message = app.getLz('notification.updatingLibraryAlbums')
 
             function downloadChunk() {
                 self.library.albums.downloadState = 1
@@ -1849,10 +1849,10 @@ const app = new Vue({
             function processChunk(response) {
                 downloaded = response
                 library = library.concat(downloaded.data)
-                self.library.downloadNotification.show = true
-                self.library.downloadNotification.message = app.getLz('notification.updatingLibraryAlbums')
-                self.library.downloadNotification.total = downloaded.meta.total
-                self.library.downloadNotification.progress = library.length
+                self.library.backgroundNotification.show = true
+                self.library.backgroundNotification.message = app.getLz('notification.updatingLibraryAlbums')
+                self.library.backgroundNotification.total = downloaded.meta.total
+                self.library.backgroundNotification.progress = library.length
                 if (downloaded.meta.total == 0) {
                     self.library.albums.downloadState = 3
                     return
@@ -1861,7 +1861,7 @@ const app = new Vue({
                     console.log("downloaded.next is undefined")
                     self.library.albums.listing = library
                     self.library.albums.downloadState = 2
-                    self.library.downloadNotification.show = false
+                    self.library.backgroundNotification.show = false
                     localStorage.setItem("libraryAlbums", JSON.stringify(library))
                     self.searchLibraryAlbums(index)
                 }
@@ -1872,7 +1872,7 @@ const app = new Vue({
                 } else {
                     self.library.albums.listing = library
                     self.library.albums.downloadState = 2
-                    self.library.downloadNotification.show = false
+                    self.library.backgroundNotification.show = false
                     localStorage.setItem("libraryAlbums", JSON.stringify(library))
                     self.searchLibraryAlbums(index)
                     console.log(library)
@@ -1897,8 +1897,8 @@ const app = new Vue({
                 return
             }
             this.library.artists.downloadState = 1
-            this.library.downloadNotification.show = true
-            this.library.downloadNotification.message = app.getLz('notification.updatingLibraryArtists')
+            this.library.backgroundNotification.show = true
+            this.library.backgroundNotification.message = app.getLz('notification.updatingLibraryArtists')
 
             function downloadChunk() {
                 self.library.artists.downloadState = 1
@@ -1932,10 +1932,10 @@ const app = new Vue({
             function processChunk(response) {
                 downloaded = response
                 library = library.concat(downloaded.data)
-                self.library.downloadNotification.show = true
-                self.library.downloadNotification.message = app.getLz('notification.updatingLibraryArtists')
-                self.library.downloadNotification.total = downloaded.meta.total
-                self.library.downloadNotification.progress = library.length
+                self.library.backgroundNotification.show = true
+                self.library.backgroundNotification.message = app.getLz('notification.updatingLibraryArtists')
+                self.library.backgroundNotification.total = downloaded.meta.total
+                self.library.backgroundNotification.progress = library.length
                 if (downloaded.meta.total == 0) {
                     self.library.albums.downloadState = 3
                     return
@@ -1955,7 +1955,7 @@ const app = new Vue({
                 } else {
                     self.library.artists.listing = library
                     self.library.artists.downloadState = 2
-                    self.library.downloadNotification.show = false
+                    self.library.backgroundNotification.show = false
                     localStorage.setItem("libraryArtists", JSON.stringify(library))
                     self.searchLibraryArtists(index)
                     console.log(library)
