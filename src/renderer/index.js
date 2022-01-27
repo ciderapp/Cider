@@ -3424,6 +3424,33 @@ const app = new Vue({
            //this.webremoteqr = await ipcRenderer.invoke('setRemoteQR','')
            this.webremoteurl =  await ipcRenderer.invoke('showQR','')
            //this.modals.qrcode = true;
+        },
+        checkMarquee() {
+            if(isElementOverflowing('#app-main > div.app-chrome > div.app-chrome--center > div > div > div.playback-info > div.song-artist') == true) {
+                document.getElementsByClassName('song-artist')[0].classList.add('marquee');
+                document.getElementsByClassName('song-artist')[1].classList.add('marquee-after');
+            }
+            if(isElementOverflowing('#app-main > div.app-chrome > div.app-chrome--center > div > div > div.playback-info > div.song-name') == true) {
+                document.getElementsByClassName('song-name')[0].classList.add('marquee');
+                document.getElementsByClassName('song-name')[1].classList.add('marquee-after');
+            }
+        },
+        closeWindow(){
+            switch (app.cfg.general.close_behavior) {
+                case 0:
+                case '0':
+                    ipcRenderer.send('close');
+                    break;
+                case 1:
+                case '1':
+                    ipcRenderer.send('minimize');
+                    break;
+                case 2:
+                case '2':
+                    ipcRenderer.send('minimizeTray');
+                    break;
+
+            }
         }
     }  
     
