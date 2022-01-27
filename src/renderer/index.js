@@ -3401,6 +3401,7 @@ const app = new Vue({
                 let element = document.querySelector(selector);
                 var overflowX = element.offsetWidth < element.scrollWidth,
                 overflowY = element.offsetHeight < element.scrollHeight;
+                element.setAttribute('data-value', '\xa0\xa0\xa0\xa0' + element.textContent);
           
             return (overflowX || overflowY); } catch (e) { return false}
         },
@@ -3409,16 +3410,6 @@ const app = new Vue({
            this.webremoteurl =  await ipcRenderer.invoke('showQR','')
            //this.modals.qrcode = true;
            
-        },
-        checkMarquee() {
-            if(isElementOverflowing('#app-main > div.app-chrome > div.app-chrome--center > div > div > div.playback-info > div.song-artist') == true) {
-                document.getElementsByClassName('song-artist')[0].classList.add('marquee');
-                document.getElementsByClassName('song-artist')[1].classList.add('marquee-after');
-            }
-            if(isElementOverflowing('#app-main > div.app-chrome > div.app-chrome--center > div > div > div.playback-info > div.song-name') == true) {
-                document.getElementsByClassName('song-name')[0].classList.add('marquee');
-                document.getElementsByClassName('song-name')[1].classList.add('marquee-after');
-            } 
         }
     }  
     
