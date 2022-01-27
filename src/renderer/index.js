@@ -344,7 +344,6 @@ const app = new Vue({
                 lang = this.cfg.general.language
             }
             this.lz = ipcRenderer.sendSync("get-i18n", lang)
-            setLzManual()
         },
         getLz(message) {
             if(this.lz[message]) {
@@ -1972,7 +1971,7 @@ const app = new Vue({
                     let hours = Math.floor(time / 3600)
                     let mins = Math.floor(time / 60) % 60
                     let secs = time % 60
-                    return app.showingPlaylist.relationships.tracks.data.length + " track" + (app.showingPlaylist.relationships.tracks.data.length > 1 ? "s" : "") + ", " + ((hours > 0) ? (hours + (" hour" + ((hours > 1) ? "s, " : ", "))) : "") + ((mins > 0) ? (mins + (" minute" + ((mins > 1) ? "s, " : ", "))) : "") + secs + (" second" + ((secs > 1) ? "s." : "."));
+                    return app.showingPlaylist.relationships.tracks.data.length + " " + app.getLz('term.tracks') +", " + ((hours > 0) ? (hours + (" " + ((hours > 1) ? app.getLz('term.time.hours') + ", " : app.getLz('term.time.hour') +", "))) : "") + ((mins > 0) ? (mins + ((mins > 1) ? " " + app.getLz('term.time.minutes') + ", " : " " + app.getLz('term.time.minute') + ", ")) : "") + secs + ((secs > 1) ? " " + app.getLz('term.time.seconds') + "." : " " +  app.getLz('term.time.second') + ".");
                 } else return ""
             } catch (err) {
                 return ""
