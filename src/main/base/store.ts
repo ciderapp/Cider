@@ -61,7 +61,8 @@ export class ConfigStore {
                 'Q' :   [1,1,1,1,1,1,1,1,1,1],
                 'preamp' : 0,
                 'mix' : 1,
-                'presets': []
+                'presets': [],
+                'userGenerated': false
             }
         },
         "visual": {

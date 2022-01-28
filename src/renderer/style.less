@@ -118,6 +118,11 @@ body.notransparency::before {
   box-shadow: inset 0px 0px 10px 10px rgb(200 200 200 / 80%);
 }
 
+[disabled] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
 #app {
   --color1: rgba(30, 30, 30, 30%);
   --color2: rgba(15, 15, 15, 30%);
@@ -5800,6 +5805,11 @@ body.no-gpu {
         width: 5%;
         opacity: 0;
       }
+    }
+
+    .modal-lowercontent {
+      padding: 16px;
+      background-color: var(--modalBackground);
     }
   }
 }
