@@ -106,7 +106,6 @@ var CiderAudio = {
         let Q = app.cfg.audio.equalizer.Q;
         CiderAudio.audioNodes.audioBands = [];
 
-
         for (i = 0; i < BANDS.length; i++) {
             CiderAudio.audioNodes.audioBands[i] = CiderAudio.context.createBiquadFilter();
             CiderAudio.audioNodes.audioBands[i].type = 'peaking'; // 'peaking';
