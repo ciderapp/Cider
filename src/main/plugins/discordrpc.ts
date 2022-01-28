@@ -102,7 +102,6 @@ export default class DiscordRichPresence {
             return;
         }
         const listenURL = `https://cider.sh/p?s&id=${attributes.playParams.id}` // cider://play/s/[id] (for song)
-        
         this._activity = {
             details: attributes.name,
             state: `${attributes.artistName ? `by ${attributes.artistName}` : ''}`,
@@ -114,7 +113,7 @@ export default class DiscordRichPresence {
             
             buttons: [
                 {label: "Listen on Cider", url: listenURL},
-                {label: "Open In Apple Music", url: data.attributes.url},
+                {label: "Open In Apple Music", url: attributes.songURL},
             ]
         };
 
