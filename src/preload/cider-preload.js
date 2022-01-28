@@ -2,107 +2,113 @@ global.ipcRenderer = require('electron').ipcRenderer;
 console.log('Loaded Preload')
 
 let cache = {playParams: {id: 0}, status: null, remainingTime: 0},
-    playbackCache = {status: null, time: Date.now()};
+	playbackCache = {status: null, time: Date.now()};
 
 const MusicKitInterop = {
-    init: function () {
-        MusicKit.getInstance().addEventListener(MusicKit.Events.playbackStateDidChange, () => {
-            if (MusicKitInterop.filterTrack(MusicKitInterop.getAttributes(), true, false)) {
-                console.log("ayy");
-                global.ipcRenderer.send('playbackStateDidChange', MusicKitInterop.getAttributes())
-                ipcRenderer.send('wsapi-updatePlaybackState', MusicKitInterop.getAttributes());
-                // if (typeof _plugins != "undefined") {
-                //     _plugins.execute("OnPlaybackStateChanged", {Attributes: MusicKitInterop.getAttributes()})
-                // }
-            }
-        });
+	init: function () {
+		MusicKit.getInstance().addEventListener(MusicKit.Events.playbackStateDidChange, () => {
+			if (MusicKitInterop.filterTrack(MusicKitInterop.getAttributes(), true, false)) {
+				global.ipcRenderer.send('playbackStateDidChange', MusicKitInterop.getAttributes())
+				ipcRenderer.send('wsapi-updatePlaybackState', MusicKitInterop.getAttributes());
+				// if (typeof _plugins != "undefined") {
+				//     _plugins.execute("OnPlaybackStateChanged", {Attributes: MusicKitInterop.getAttributes()})
+				// }
+			}
+		});
 
-        /** wsapi */
-         MusicKit.getInstance().addEventListener(MusicKit.Events.playbackProgressDidChange, () => {
-            ipcRenderer.send('wsapi-updatePlaybackState', MusicKitInterop.getAttributes());
-        });
-        /** wsapi */
+		/** wsapi */
+		MusicKit.getInstance().addEventListener(MusicKit.Events.playbackProgressDidChange, () => {
+			ipcRenderer.send('wsapi-updatePlaybackState', MusicKitInterop.getAttributes());
+		});
+		/** wsapi */
 
-        MusicKit.getInstance().addEventListener(MusicKit.Events.nowPlayingItemDidChange, () => {
-            if (MusicKitInterop.filterTrack(MusicKitInterop.getAttributes(), false, true) || !app.cfg.lastfm.filterLoop) {
-                global.ipcRenderer.send('nowPlayingItemDidChange', MusicKitInterop.getAttributes());
-            }
-        });
+		MusicKit.getInstance().addEventListener(MusicKit.Events.nowPlayingItemDidChange, () => {
+			if (MusicKitInterop.filterTrack(MusicKitInterop.getAttributes(), false, true) || !app.cfg.lastfm.filterLoop) {
+				global.ipcRenderer.send('nowPlayingItemDidChange', MusicKitInterop.getAttributes());
+			}
+		});
 
-        MusicKit.getInstance().addEventListener(MusicKit.Events.authorizationStatusDidChange, () => {
-            global.ipcRenderer.send('authorizationStatusDidChange', MusicKit.getInstance().authorizationStatus)
-        })
+		MusicKit.getInstance().addEventListener(MusicKit.Events.authorizationStatusDidChange, () => {
+			global.ipcRenderer.send('authorizationStatusDidChange', MusicKit.getInstance().authorizationStatus)
+		})
 
-        MusicKit.getInstance().addEventListener(MusicKit.Events.mediaPlaybackError, (e) => {
-            console.warn(`[mediaPlaybackError] ${e}`);
-        })
-    },
+		MusicKit.getInstance().addEventListener(MusicKit.Events.mediaPlaybackError, (e) => {
+			console.warn(`[mediaPlaybackError] ${e}`);
+		})
+	},
 
-    getAttributes: function () {
-        const nowPlayingItem = MusicKit.getInstance().nowPlayingItem;
-        const isPlayingExport = MusicKit.getInstance().isPlaying;
-        const remainingTimeExport = MusicKit.getInstance().currentPlaybackTimeRemaining;
-        const attributes = (nowPlayingItem != null ? nowPlayingItem.attributes : {});
-        const storefrontId = MusicKit.getInstance().storefrontId;
-        attributes.storefrontId = storefrontId;
-        attributes.status = isPlayingExport ?? false;
-        attributes.name = attributes?.name ?? 'No Title Found';
-        attributes.artwork = attributes?.artwork ?? { url: '' };
-        attributes.artwork.url = (attributes?.artwork?.url ?? '').replace(`{f}`,"png");
-        attributes.playParams = attributes?.playParams ?? { id: 'no-id-found' };
-        attributes.playParams.id = attributes?.playParams?.id ?? 'no-id-found';
-        if (attributes.playParams.id === 'no-id-found') { attributes.playParams.id = nowPlayingItem?.id ?? 'no-id-found'; } 
-        attributes.albumName = attributes?.albumName ?? '';
-        attributes.artistName = attributes?.artistName ?? '';
-        attributes.genreNames = attributes?.genreNames ?? [];
-        attributes.remainingTime = remainingTimeExport
-            ? remainingTimeExport * 1000
-            : 0;
-        attributes.durationInMillis = attributes?.durationInMillis ?? 0;
-        attributes.startTime = Date.now();
-        attributes.endTime = Math.round(
-            attributes?.playParams?.id === cache.playParams.id
-                ? Date.now() + attributes?.remainingTime
-                : attributes?.startTime + attributes?.durationInMillis
-        );
-        return attributes;
-    },
+	getAttributes: function () {
+		const mk = MusicKit.getInstance()
+		const nowPlayingItem = mk.nowPlayingItem;
+		const isPlayingExport = mk.isPlaying;
+		const remainingTimeExport = mk.currentPlaybackTimeRemaining;
+		const attributes = (nowPlayingItem != null ? nowPlayingItem.attributes : {});
 
-    filterTrack: function (a, playbackCheck, mediaCheck) {
-        if (a.title === "No Title Found" || a.playParams.id === "no-id-found"  ) {
-            return;
-        } else if (mediaCheck && a.playParams.id === cache.playParams.id) {
-            return;
-        } else if (playbackCheck && a.status === playbackCache.status) {
-            return;
-        } else if (playbackCheck && !a.status && a.remainingTime === playbackCache.time) { /* Pretty much have to do this to prevent multiple runs when a song starts playing */
-            return;
-        }
-        cache = a;
-        if (playbackCheck) playbackCache = {status: a.status, time: a.remainingTime};
-        return true;
-    },
+		attributes.status = isPlayingExport ?? false;
+		attributes.name = attributes?.name ?? 'No Title Found';
+		attributes.artwork = attributes?.artwork ?? {url: ''};
+		attributes.artwork.url = (attributes?.artwork?.url ?? '').replace(`{f}`, "png");
+		attributes.playParams = attributes?.playParams ?? {id: 'no-id-found'};
+		attributes.playParams.id = attributes?.playParams?.id ?? 'no-id-found';
+		attributes.playParams.songid = nowPlayingItem.songId ?? 'no-id-found'
+		attributes.url = {
+			cider: "https://cider.sh/p?id=" + attributes.playParams.id,
+			appleMusic: "https://music.apple.com/song/" + nowPlayingItem.songId
+		}
+		if (attributes.playParams.id === 'no-id-found') {
+			attributes.playParams.id = nowPlayingItem?.id ?? 'no-id-found';
+		}
+		attributes.albumName = attributes?.albumName ?? '';
+		attributes.artistName = attributes?.artistName ?? '';
+		attributes.genreNames = attributes?.genreNames ?? [];
+		attributes.remainingTime = remainingTimeExport
+			? remainingTimeExport * 1000
+			: 0;
+		attributes.durationInMillis = attributes?.durationInMillis ?? 0;
+		attributes.startTime = Date.now();
+		attributes.endTime = Math.round(
+			attributes?.playParams?.id === cache.playParams.id
+				? Date.now() + attributes?.remainingTime
+				: attributes?.startTime + attributes?.durationInMillis
+		);
+		return attributes;
+	},
 
-    pausePlay: function () {
-        if (MusicKit.getInstance().isPlaying) {
-            MusicKit.getInstance().pause();
-        } else if (MusicKit.getInstance().nowPlayingItem != null) {
-            MusicKit.getInstance().play().then(r => console.log(`[MusicKitInterop] Playing ${r}`));
-        }
-    },
+	filterTrack: function (a, playbackCheck, mediaCheck) {
+		if (a.title === "No Title Found" || a.playParams.id === "no-id-found") {
+			return;
+		} else if (mediaCheck && a.playParams.id === cache.playParams.id) {
+			return;
+		} else if (playbackCheck && a.status === playbackCache.status) {
+			return;
+		} else if (playbackCheck && !a.status && a.remainingTime === playbackCache.time) { /* Pretty much have to do this to prevent multiple runs when a song starts playing */
+			return;
+		}
+		cache = a;
+		if (playbackCheck) playbackCache = {status: a.status, time: a.remainingTime};
+		return true;
+	},
 
-    nextTrack: function () {
-        MusicKit.getInstance().skipToNextItem().then(r => console.log(`[MusicKitInterop] Skipping to Next ${r}`));
-    },
+	pausePlay: function () {
+		if (MusicKit.getInstance().isPlaying) {
+			MusicKit.getInstance().pause();
+		} else if (MusicKit.getInstance().nowPlayingItem != null) {
+			MusicKit.getInstance().play().then(r => console.log(`[MusicKitInterop] Playing ${r}`));
+		}
+	},
 
-    previousTrack: function () {
-        MusicKit.getInstance().skipToPreviousItem().then(r => console.log(`[MusicKitInterop] Skipping to Previous ${r}`));
-    }
+	nextTrack: function () {
+		MusicKit.getInstance().skipToNextItem().then(r => console.log(`[MusicKitInterop] Skipping to Next ${r}`));
+	},
+
+	previousTrack: function () {
+		MusicKit.getInstance().skipToPreviousItem().then(r => console.log(`[MusicKitInterop] Skipping to Previous ${r}`));
+	}
 
 }
 
 
 process.once('loaded', () => {
-    console.log("Setting ipcRenderer")
-    global.MusicKitInterop = MusicKitInterop;
+	console.log("Setting ipcRenderer")
+	global.MusicKitInterop = MusicKitInterop;
 });

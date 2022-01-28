@@ -101,9 +101,7 @@ export default class DiscordRichPresence {
             this._client.clearActivity().catch((e: any) => console.error(`[DiscordRichPresence][clearActivity] ${e}`));
             return;
         }
-        const listenURL = `https://cider.sh/p?s&id=${attributes.playParams.id}` // cider://play/s/[id] (for song)
-        const amURL = `https://music.apple.com/${attributes.storefrontId}/song/${attributes.playParams.catalogId || attributes.playParams.id}`;
-        console.log("DiscordRPC URL: ", amURL);
+
         this._activity = {
             details: attributes.name,
             state: `${attributes.artistName ? `by ${attributes.artistName}` : ''}`,
@@ -114,8 +112,8 @@ export default class DiscordRichPresence {
             instance: false, // Whether the activity is in a game session
             
             buttons: [
-                {label: "Listen on Cider", url: listenURL},
-                {label: "View on Apple Music", url: amURL},
+                {label: "Listen on Cider", url: attributes.url.cider},
+                {label: "View on Apple Music", url: attributes.url.appleMusic},
             ]
         };
 
