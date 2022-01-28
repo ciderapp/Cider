@@ -50,7 +50,7 @@ const MusicKitInterop = {
 		attributes.artwork.url = (attributes?.artwork?.url ?? '').replace(`{f}`, "png");
 		attributes.playParams = attributes?.playParams ?? {id: 'no-id-found'};
 		attributes.playParams.id = attributes?.playParams?.id ?? 'no-id-found';
-		attributes.playParams.songid = nowPlayingItem.songId ?? 'no-id-found'
+		attributes.playParams.songid = nowPlayingItem._songId ?? 'no-id-found'
 		attributes.url = {
 			cider: "https://cider.sh/p?id=" + attributes.playParams.id,
 			appleMusic: "https://music.apple.com/song/" + nowPlayingItem.songId
