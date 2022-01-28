@@ -102,7 +102,15 @@ export default class DiscordRichPresence {
             return;
         }
         const listenURL = `https://cider.sh/p?s&id=${attributes.playParams.id}` // cider://play/s/[id] (for song)
-        const AMWebURL = `https://music.apple.com/us/song/${attributes.playParams.catalogId}`
+        let AMWebURL = '';
+        if(attributes.playParams.catalogId  == null){
+            AMWebURL = `https://music.apple.com/${attributes.storefrontId}/song/${attributes.playParams.id}`
+            console.log("No Catalog ID");
+        }
+        else {
+            AMWebURL = `https://music.apple.com/${attributes.storefrontId}/song/${attributes.playParams.catalogId}`
+        }
+        console.log("DiscordRPC URL: ", AMWebURL);
         this._activity = {
             details: attributes.name,
             state: `${attributes.artistName ? `by ${attributes.artistName}` : ''}`,
