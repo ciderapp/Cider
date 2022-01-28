@@ -1,5 +1,4 @@
 import * as RPC from 'discord-rpc'
-import { app } from 'electron';
 
 export default class DiscordRichPresence {
 
@@ -15,7 +14,7 @@ export default class DiscordRichPresence {
     public name: string = 'Discord Rich Presence';
     public description: string = 'Discord RPC plugin for Cider';
     public version: string = '1.0.0';
-    public author: string = 'yazninja/Core (Cider Collective)';
+    public author: string = 'vapormusic/Core (Cider Collective)';
 
     /**
      * Plugin Initialization
@@ -102,10 +101,6 @@ export default class DiscordRichPresence {
             this._client.clearActivity().catch((e: any) => console.error(`[DiscordRichPresence][clearActivity] ${e}`));
             return;
         }
-        let data = app.mk.api.v3.music(`/v1/me/library/songs/${app.mk.nowPlayingItem.id}`);
-                    data = data.data.data[0];
-        console.log("DISCORDRPC", data.attributes);
-
         const listenURL = `https://cider.sh/p?s&id=${attributes.playParams.id}` // cider://play/s/[id] (for song)
         
         this._activity = {
