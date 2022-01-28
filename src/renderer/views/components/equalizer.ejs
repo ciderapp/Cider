@@ -116,6 +116,8 @@
             return {
                 app: this.$root,
                 eqPreset: function () {
+                    this.preset = uuidv4()
+                    this.name = ""
                     this.frequencies = []
                     this.gain = []
                     this.Q = []
@@ -218,7 +220,6 @@
         },
         props: ["src", "url"],
         mounted() {
-            console.log(new this.eqPreset())
         },
         methods: {
             close() {
@@ -251,18 +252,18 @@
                 })
             },
             addPreset() {
+                let self = this
                 bootbox.prompt("New EQ Preset Name", (res) => {
                     if (res) {
                         let eqSettings = Clone(app.cfg.audio.equalizer)
-                        app.cfg.audio.equalizer.presets.push({
-                            preset: uuidv4(),
-                            name: res,
-                            frequencies: eqSettings.frequencies,
-                            gain: eqSettings.gain,
-                            Q: eqSettings.Q,
-                            preamp: eqSettings.preamp,
-                            mix: eqSettings.mix,
-                        })
+                        let newPreset = new self.eqPreset()
+                        newPreset.name = res
+                        newPreset.frequencies = eqSettings.frequencies
+                        newPreset.gain = eqSettings.gain
+                        newPreset.Q = eqSettings.Q
+                        newPreset.preamp = eqSettings.preamp
+                        newPreset.mix = eqSettings.mix
+                        app.cfg.audio.equalizer.presets.push(newPreset)
                         notyf.success("Added Preset")
                     }
                 })
