@@ -251,7 +251,7 @@
                     multiple: {
                         items: [
                             {
-                                name: app.getLz('action.playTracksNext'),
+                                name: app.getLz('action.playTracksNext').replace("${app.selectedMediaItems.length}", app.selectedMediaItems.length),
                                 "icon": "./assets/arrow-bend-up.svg",
                                 action: () => {
                                     let itemsToPlay = {}
@@ -273,7 +273,7 @@
                                 }
                             },
                             {
-                                name: app.getLz('action.playTracksLater'),
+                                name: app.getLz('action.playTracksLater').replace("${app.selectedMediaItems.length}", app.selectedMediaItems.length),
                                 "icon": "./assets/arrow-bend-down.svg",
                                 action: () => {
                                     let itemsToPlay = {}
