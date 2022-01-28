@@ -227,6 +227,7 @@
                                               page="library-albums"></sidebar-library-item>
                         <sidebar-library-item :name="$root.getLz('term.artists')" svg-icon="./assets/feather/user.svg"
                                               page="library-artists"></sidebar-library-item>
+                        <sidebar-library-item :name="$root.getLz('term.videos')" svg-icon="./assets/feather/video.svg" page="library-videos"></sidebar-library-item>
                         <sidebar-library-item :name="$root.getLz('term.podcasts')" svg-icon="./assets/feather/mic.svg" page="podcasts">
                         </sidebar-library-item>
                         <div class="app-sidebar-header-text" @contextmenu="playlistHeaderContextMenu">
@@ -381,6 +382,12 @@
                     <transition name="wpfade">
                         <template v-if="page == 'podcasts'">
                             <apple-podcasts></apple-podcasts>
+                        </template>
+                    </transition>
+                    <!-- Library - Library Videos -->
+                    <transition name="wpfade" >
+                        <template v-if="page == 'library-videos'">                       
+                            <cider-library-videos></cider-library-videos>
                         </template>
                     </transition>
 
@@ -709,6 +716,9 @@
 
 <!-- About -->
 <%- include('pages/about') %>
+
+
+<%- include('pages/library-videos') %>
 
 <script type="text/x-template"
         id="am-musiccovershelf">
