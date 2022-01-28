@@ -5,7 +5,7 @@
                 <div class="modal-title">{{$root.getLz('term.equalizer')}}</div>
                 <button class="close-btn" @click="close()"></button>
                 <div class="md-option-segment md-option-segment_auto">
-                    <select class="md-select" style="width:110px;text-align:center;margin-right:195pt" v-model="app.cfg.audio.equalizer.preset" v-on:change="changePreset()">
+                    <select class="md-select" style="width:110px;text-align:center;margin-right:195pt" :placeholder="Default" v-model="app.cfg.audio.equalizer.preset" v-on:change="changePreset()">
                         <option value="default">Default</option>
                         <option value="boostBrightness">Boost Brightness</option>
                         <option value="warmth">Warmth</option>
@@ -165,6 +165,20 @@
                             'frequencies': [32, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000],
                             'gain': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                             'Q': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                            'preamp': 0,
+                            'mix': 1,
+                        }
+                        for (var i = 0; i < 10; i++) {
+                            this.changeGain(i)
+                            this.changeFreq(i)
+                            this.changeQ(i)}
+                        break;
+
+                    case "boostBrightness":
+                        this.app.cfg.audio.equalizer = {
+                            'frequencies': [32, 63, 125, 250, 466, 1000, 2000, 4000, 8000, 20000],
+                            'gain': [0, 0, 0, 0, -2, 0, 0, 0, 0, 10],
+                            'Q': [1, 1, 1, 1, 0.6, 1, 1, 1, 1, 0.1],
                             'preamp': 0,
                             'mix': 1,
                         }
