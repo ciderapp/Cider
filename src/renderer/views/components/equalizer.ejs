@@ -109,7 +109,7 @@
                         <button class="md-btn" :disabled="!$root.cfg.audio.equalizer.userGenerated" style="width:100%" @click="deletePreset()">Delete Preset</button>
                     </div>
                     <div class="col">
-                        <button class="md-btn" :disabled="!$root.cfg.audio.equalizer.userGenerated" style="width:100%" @click="sharePreset()">Share</button>
+                        <button class="md-btn" :disabled="!$root.cfg.audio.equalizer.userGenerated" style="width:100%" @click="sharePreset($event)">Share...</button>
                     </div>
                 </div>
             </div>
@@ -230,8 +230,26 @@
         mounted() {
         },
         methods: {
-            sharePreset() {
-                notyf.error("Not implemented")
+            sharePreset(event) {
+                let menu = {
+                    items: [
+                        {
+                            "icon": "./assets/feather/share.svg",
+                            "name": app.getLz('action.import'),
+                            "action": function () {
+                                notyf.error("Not implemented yet")
+                            }
+                        },
+                        {
+                            "icon": "./assets/feather/share.svg",
+                            "name": app.getLz('action.export'),
+                            "action": function () {
+                                notyf.error("Not implemented yet")
+                            }
+                        },
+                    ]
+                }
+                app.showMenuPanel(menu, event)
             },
             deletePreset() {
                 let presets = this.$root.cfg.audio.equalizer.presets
@@ -273,7 +291,7 @@
                     'preamp': 0,
                     'mix': 1,
                 })
-                if(app.cfg.audio.equalizer.userGenerated) {
+                if (app.cfg.audio.equalizer.userGenerated) {
                     this.saveSelectedPreset()
                 }
             },
