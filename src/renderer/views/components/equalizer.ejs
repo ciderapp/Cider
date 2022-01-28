@@ -5,7 +5,7 @@
                 <div class="modal-title">{{$root.getLz('term.equalizer')}}</div>
                 <button class="close-btn" @click="close()"></button>
                 <div class="md-option-segment md-option-segment_auto">
-                    <select class="md-select" style="width:110px;text-align:center;margin-right:16.75em" placeholder="Default" v-model="app.cfg.audio.equalizer.preset" v-on:change="changePreset()">
+                    <select class="md-select" style="width:220px;text-align:center;margin-right:16.75em" v-model="app.cfg.audio.equalizer.preset" v-on:change="changePreset()">
                         <option value="default">Default</option>
                         <option value="boostBrightness">Boost Brightness</option>
                         <option value="warmth">Warmth</option>
