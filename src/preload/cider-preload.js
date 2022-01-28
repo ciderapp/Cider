@@ -43,7 +43,8 @@ const MusicKitInterop = {
         const isPlayingExport = MusicKit.getInstance().isPlaying;
         const remainingTimeExport = MusicKit.getInstance().currentPlaybackTimeRemaining;
         const attributes = (nowPlayingItem != null ? nowPlayingItem.attributes : {});
-
+        const storefrontId = MusicKit.getInstance().storefrontId;
+        attributes.storefrontId = storefrontId;
         attributes.status = isPlayingExport ?? false;
         attributes.name = attributes?.name ?? 'No Title Found';
         attributes.artwork = attributes?.artwork ?? { url: '' };
