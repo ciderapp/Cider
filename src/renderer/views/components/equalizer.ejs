@@ -11,7 +11,6 @@
                         <option value="warmth">Warmth</option>
                         <option value="acoustic">Acoustic</option>
                         <option value="clearVocal">Clear Vocal</option>
-                        <option value="pop">Pop</option>
                         <option value="instrumentClarity">Instrument Clarity</option>    
                         <option value="smileyFace">Smiley Face</option>
                         <option value="reduceHarshness">Reduce Harshness</option>
@@ -156,12 +155,13 @@
                 }
             },
            
-            changePreset(preset) {
+            changePreset() {
 
                 switch (app.cfg.audio.equalizer.preset) {
 
                     case "default":
                         this.app.cfg.audio.equalizer = {
+                            'preset': 'default',
                             'frequencies': [32, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000],
                             'gain': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                             'Q': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -176,6 +176,7 @@
 
                     case "boostBrightness":
                         this.app.cfg.audio.equalizer = {
+                            'preset': 'boostBrightness',
                             'frequencies': [32, 63, 125, 250, 466, 1000, 2000, 4000, 8000, 20000],
                             'gain': [0, 0, 0, 0, -2, 0, 0, 0, 0, 10],
                             'Q': [1, 1, 1, 1, 0.6, 1, 1, 1, 1, 0.1],
@@ -190,6 +191,7 @@
 
                     case "warmth":
                         this.app.cfg.audio.equalizer = {
+                            'preset': 'warmth',
                             'frequencies': [32, 75, 125, 197, 500, 1000, 2000, 3040, 8000, 16000],
                             'gain': [0, 2.1, 0, 0.8, 0, 0, 0, -1.5, 0, 0],
                             'Q': [1, 0.7, 1, 1.5, 1, 1, 1, 2, 1, 1],
@@ -204,6 +206,7 @@
 
                     case "acoustic":
                         this.app.cfg.audio.equalizer = {
+                            'preset': 'acoustic',
                             'frequencies': [32, 75, 125, 220, 700, 1000, 2000, 4000, 10000, 16000],
                             'gain': [0, -8, 0, -0.1, -3, 0, 0, 0, 4, 0],
                             'Q': [1, 0.2, 1, 2.0, 1.4, 1, 1, 1, 0.1, 1],
@@ -218,6 +221,7 @@
 
                     case "clearVocal":
                         this.app.cfg.audio.equalizer = {
+                            'preset': 'clearVocal',
                             'frequencies': [20, 63, 125, 250, 400, 1000, 2000, 4000, 8000, 20000],
                             'gain': [-22, 0, 0, 0, -3, 0, 1.8, 0, 0, 3.5],
                             'Q': [0.3, 1, 1, 1, 2.0, 1, 0.7, 1, 1, 0.8],
@@ -232,6 +236,7 @@
 
                     case "instrumentClarity":
                         this.app.cfg.audio.equalizer = {
+                            'preset': 'instrumentClarity',
                             'frequencies': [20, 63, 155, 250, 500, 1000, 2000, 5000, 11000, 16000],
                             'gain': [-15, 0, -3, 0, 0, 0, 0, 3.1, 0, 0],
                             'Q': [0.5, 1, 2, 1, 1, 1, 1, 1.5, 0.1, 1],
@@ -246,6 +251,7 @@
                     
                 case "smileyFace":
                         this.app.cfg.audio.equalizer = {
+                            'preset': 'smileyFace',
                             'frequencies': [35, 63, 125, 250, 500, 800, 2000, 4000, 8000, 20000],
                             'gain': [5, 0, 0, 0, 0, -5, 0, 0, 0, 5],
                             'Q': [0.1, 1, 1, 1, 1, 0.6, 1, 1, 1, 0.2],
@@ -260,6 +266,7 @@
 
                 case "reduceHarshness":
                         this.app.cfg.audio.equalizer = {
+                            'preset': 'reduceHarshness',
                             'frequencies': [32, 63, 125, 250, 500, 1128, 2000, 4057, 8000, 16000],
                             'gain': [0, 0, 0, 0, 0, 2, 0, -6.4, 0, 0],
                             'Q': [1, 1, 1, 1, 1, 2, 1, 1, 1, 1],
@@ -274,6 +281,7 @@
 
                 case "tightPerc":
                         this.app.cfg.audio.equalizer = {
+                            'preset': 'tightPerc',
                             'frequencies': [20, 63, 125, 250, 402, 1000, 1677, 3000, 8000, 11000],
                             'gain': [-6.5, 0, 0, 0, -4.5, 0, -1.5, 3, 0, 0.1],
                             'Q': [0.8, 1, 1, 1, 6, 1, 0.8, 0.8, 1, 1],
@@ -287,6 +295,7 @@
                         break;
                 case "Maikiwi":
                     this.app.cfg.audio.equalizer = {
+                        'preset': 'Maikiwi',
                         'frequencies': [20, 63, 160, 250, 500, 1000, 2000, 3500, 8000, 20000],
                         'gain': [1.5, 0, -0.7, 0, 0, 0, 0, 0.5, 0, 1.2],
                         'Q': [0.4, 1, 2.9, 1, 1, 1, 1, 1.5, 1, 0.1],
