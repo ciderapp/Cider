@@ -2140,12 +2140,12 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
 .md-btn {
   background: rgba(100, 100, 100, 0.5);
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-size: 16px;
-  border: 1px solid rgb(100 100 100 / 35%);
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  border: 1px solid rgba(100, 100, 100, 0.35);
+  border-top: 1px solid rgba(100, 100, 100, 0.5);
   color: #eee;
-  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.3), 0px 1px 1px rgba(0, 0, 0, 0.4);
   transition: transform 0.2s var(--appleEase), box-shadow 0.2s var(--appleEase);
 
   &.md-btn-block {
@@ -2174,6 +2174,21 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     transform: scale(0.98);
     transition: transform 0s var(--appleEase), box-shadow 0.2s var(--appleEase);
   }
+
+  &.md-btn-icon {
+    display: inline-flex;
+    vertical-align: middle;
+    justify-content: center;
+
+    > img {
+      margin: 0px 16px 0px 0px;
+      pointer-events: none;
+    }
+
+    > .md-btn-text {
+      margin: 0px;
+    }
+  }
 }
 
 .md-ico-play {
@@ -2186,8 +2201,8 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
 .md-ico-shuffle {
   content:url("./assets/shuffle.svg");
-  width: 17px;
-  height: 17px; 
+  width: 1em;
+  height: 1em;
   margin-right: 1px;
   margin-bottom: -2px;
   align-self: center;
@@ -2204,8 +2219,8 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
 .md-ico-add {
   content:url("./assets/feather/plus-circle-white.svg");
-  width: 16px;
-  height: 16px; 
+  width: 1em;
+  height: 1em;
   margin-right: 1px;
   margin-bottom: -1.5px;
   align-self: center;
