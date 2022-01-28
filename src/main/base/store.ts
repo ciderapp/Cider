@@ -55,6 +55,7 @@ export class ConfigStore {
                 }
             }, 
             "equalizer": {
+                'preset': 'default',
                 'frequencies': [32, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000],
                 'gain': [0,0,0,0,0,0,0,0,0,0],
                 'Q' :   [1,1,1,1,1,1,1,1,1,1],
