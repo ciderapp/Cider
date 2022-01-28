@@ -1087,6 +1087,7 @@ const app = new Vue({
 
         },
         async getArtistFromID(id) {
+            this.page = ""
             const artistData = await this.mkapi("artists", false, id, {
                 "views": "featured-release,full-albums,appears-on-albums,featured-albums,featured-on-albums,singles,compilation-albums,live-albums,latest-release,top-music-videos,similar-artists,top-songs,playlists,more-to-hear,more-to-see",
                 "extend": "artistBio,bornOrFormed,editorialArtwork,editorialVideo,isGroup,origin,hero",
