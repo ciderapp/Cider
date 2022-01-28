@@ -110,7 +110,7 @@ export default class DiscordRichPresence {
             largeImageKey: (attributes.artwork.url.replace('{w}', '1024').replace('{h}', '1024')) ?? 'cider',
             largeImageText: attributes.albumName,
             instance: false, // Whether the activity is in a game session
-            
+
             buttons: [
                 {label: "Listen on Cider", url: attributes.url.cider},
                 {label: "View on Apple Music", url: attributes.url.appleMusic},
