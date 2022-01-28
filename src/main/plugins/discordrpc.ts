@@ -102,15 +102,8 @@ export default class DiscordRichPresence {
             return;
         }
         const listenURL = `https://cider.sh/p?s&id=${attributes.playParams.id}` // cider://play/s/[id] (for song)
-        let AMWebURL = '';
-        if(attributes.playParams.catalogId  == null){
-            AMWebURL = `https://music.apple.com/${attributes.storefrontId}/song/${attributes.playParams.id}`
-            console.log("No Catalog ID");
-        }
-        else {
-            AMWebURL = `https://music.apple.com/${attributes.storefrontId}/song/${attributes.playParams.catalogId}`
-        }
-        console.log("DiscordRPC URL: ", AMWebURL);
+        const amURL = `https://music.apple.com/${attributes.storefrontId}/song/${attributes.playParams.catalogId || attributes.playParams.id}`;
+        console.log("DiscordRPC URL: ", amURL);
         this._activity = {
             details: attributes.name,
             state: `${attributes.artistName ? `by ${attributes.artistName}` : ''}`,
@@ -122,7 +115,7 @@ export default class DiscordRichPresence {
             
             buttons: [
                 {label: "Listen on Cider", url: listenURL},
-                {label: "View on Web", url: AMWebURL},
+                {label: "View on Apple Music", url: amURL},
             ]
         };
 
