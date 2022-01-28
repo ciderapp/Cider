@@ -101,9 +101,7 @@ export default class DiscordRichPresence {
             this._client.clearActivity().catch((e: any) => console.error(`[DiscordRichPresence][clearActivity] ${e}`));
             return;
         }
-
         const listenURL = `https://cider.sh/p?s&id=${attributes.playParams.id}` // cider://play/s/[id] (for song)
-
         this._activity = {
             details: attributes.name,
             state: `${attributes.artistName ? `by ${attributes.artistName}` : ''}`,
@@ -112,10 +110,13 @@ export default class DiscordRichPresence {
             largeImageKey: (attributes.artwork.url.replace('{w}', '1024').replace('{h}', '1024')) ?? 'cider',
             largeImageText: attributes.albumName,
             instance: false, // Whether the activity is in a game session
+            
             buttons: [
                 {label: "Listen on Cider", url: listenURL},
+                {label: "Open In Apple Music", url: attributes.songURL},
             ]
         };
+
 
         // Checks if the name is greater than 128 because some songs can be that long
         if (this._activity.details && this._activity.details.length > 128) {
