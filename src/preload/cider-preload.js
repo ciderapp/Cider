@@ -8,7 +8,6 @@ const MusicKitInterop = {
     init: function () {
         MusicKit.getInstance().addEventListener(MusicKit.Events.playbackStateDidChange, () => {
             if (MusicKitInterop.filterTrack(MusicKitInterop.getAttributes(), true, false)) {
-                console.log("ayy");
                 global.ipcRenderer.send('playbackStateDidChange', MusicKitInterop.getAttributes())
                 ipcRenderer.send('wsapi-updatePlaybackState', MusicKitInterop.getAttributes());
                 // if (typeof _plugins != "undefined") {
@@ -39,11 +38,12 @@ const MusicKitInterop = {
     },
 
     getAttributes: function () {
-        const nowPlayingItem = MusicKit.getInstance().nowPlayingItem;
-        const isPlayingExport = MusicKit.getInstance().isPlaying;
-        const remainingTimeExport = MusicKit.getInstance().currentPlaybackTimeRemaining;
+				const mk = MusicKit.getInstance()
+        const nowPlayingItem = mk.nowPlayingItem;
+        const isPlayingExport = mk.isPlaying;
+        const remainingTimeExport = mk.currentPlaybackTimeRemaining;
         const attributes = (nowPlayingItem != null ? nowPlayingItem.attributes : {});
-        const storefrontId = MusicKit.getInstance().storefrontId;
+
         attributes.storefrontId = storefrontId;
         attributes.status = isPlayingExport ?? false;
         attributes.name = attributes?.name ?? 'No Title Found';
@@ -51,6 +51,8 @@ const MusicKitInterop = {
         attributes.artwork.url = (attributes?.artwork?.url ?? '').replace(`{f}`,"png");
         attributes.playParams = attributes?.playParams ?? { id: 'no-id-found' };
         attributes.playParams.id = attributes?.playParams?.id ?? 'no-id-found';
+				attributes.playParams.songid = nowPlayingItem.songId ?? 'no-id-found'
+				attribtues.url = { cider: "https://cider.sh/p?id=" + attributes.playParams.id, appleMusic: "https://music.apple.com/song/" + nowPlayingItem.songId }
         if (attributes.playParams.id === 'no-id-found') { attributes.playParams.id = nowPlayingItem?.id ?? 'no-id-found'; } 
         attributes.albumName = attributes?.albumName ?? '';
         attributes.artistName = attributes?.artistName ?? '';
