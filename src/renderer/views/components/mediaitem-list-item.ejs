@@ -20,12 +20,12 @@
                         <div class="svg-icon" :style="{'--color': 'var(--keyColor)', '--url': 'url(./assets/feather/plus.svg)'}"></div>
                     </button>
                 </div>
-                <div v-if="showIndex" :style="{display: ((showIndex && !showInLibrary) ? 'block' : 'none'), 'margin-left':'11px'}">
+                <div v-if="!(app.mk.isPlaying && (app.mk.nowPlayingItem._songId ?? app.mk.nowPlayingItem.id )  == item.attributes.playParams.id) && showIndex" :style="{display: ((showIndex && !showInLibrary) ? 'block' : 'none'), 'margin-left':'11px'}">
                     <div>
-                        <div>{{ item.attributes ? (item.attributes.trackNumber ?? '') : ''}}</div>
+                        <div>{{ (item.attributes && !showIndexPlaylist) ? (item.attributes.trackNumber ?? '') : ((index * 1 + 1 ) ?? '')}}</div>
                     </div>
                 </div>
-                <div v-if="app.mk.isPlaying && app.mk.nowPlayingItem._songId == item.attributes.playParams.id" :style="{display: (showInLibrary ? 'none' : 'block')}">
+                <div v-if="app.mk.isPlaying && (app.mk.nowPlayingItem._songId ?? app.mk.nowPlayingItem.id ) == item.attributes.playParams.id" :style="{display: (showInLibrary ? 'none' : 'block')}">
                     <div class="loadbar-sound"></div>
                 </div>
             </div>
@@ -98,6 +98,7 @@
             'show-meta-data': {type: Boolean, default: false},
             'show-duration': {type: Boolean, default: true},
             'showIndex': {type: Boolean, required: false},
+            'showIndexPlaylist': {type: Boolean, required: false},
             'contextExt': {type: Object, required: false},
             'class-list': {type: String, required: false, default: ""},
         },
