@@ -129,7 +129,7 @@ export default class MinimizeToTray {
         }) 
         this._win.on("close", (e :any) => {
             if (this._forceQuit || this._store.general["close_behavior"] == '0'  ) {
-                this._app.exit();
+                this._app.quit();
             } else if (this._store.general["close_behavior"] == '1') {
                 e.preventDefault();
                 this._win.minimize();
