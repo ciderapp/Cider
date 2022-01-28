@@ -5,12 +5,13 @@
                 <div class="modal-title">{{$root.getLz('term.equalizer')}}</div>
                 <button class="close-btn" @click="close()"></button>
                 <div class="md-option-segment md-option-segment_auto">
-                    <select class="md-select" style="width:220px;text-align:center;margin-right:16.75em" placeholder="default" v-model="app.cfg.audio.equalizer.preset" v-on:change="changePreset()">
+                    <select class="md-select" style="width:220px;text-align:center;margin-right:16.75em" v-model="app.cfg.audio.equalizer.preset" v-on:change="changePreset()">
                         <option value="default">Default</option>
                         <option value="boostBrightness">Boost Brightness</option>
                         <option value="warmth">Warmth</option>
                         <option value="acoustic">Acoustic</option>
                         <option value="clearVocal">Clear Vocal</option>
+                        <option value="pop">Pop</option>
                         <option value="instrumentClarity">Instrument Clarity</option>    
                         <option value="smileyFace">Smiley Face</option>
                         <option value="reduceHarshness">Reduce Harshness</option>
@@ -155,7 +156,7 @@
                 }
             },
            
-            changePreset() {
+            changePreset(preset) {
 
                 switch (app.cfg.audio.equalizer.preset) {
 
@@ -167,6 +168,11 @@
                             'preamp': 0,
                             'mix': 1,
                         }
+                        for (var i = 0; i < 10; i++) {
+                            this.changeGain(i)
+                            this.changeFreq(i)
+                            this.changeQ(i)}
+                        break;
 
                     case "boostBrightness":
                         this.app.cfg.audio.equalizer = {
@@ -176,6 +182,11 @@
                             'preamp': 0,
                             'mix': 1,
                         }
+                        for (var i = 0; i < 10; i++) {
+                            this.changeGain(i)
+                            this.changeFreq(i)
+                            this.changeQ(i)}
+                        break;
 
                     case "warmth":
                         this.app.cfg.audio.equalizer = {
@@ -185,6 +196,11 @@
                             'preamp': 0,
                             'mix': 1,
                         }
+                        for (var i = 0; i < 10; i++) {
+                            this.changeGain(i)
+                            this.changeFreq(i)
+                            this.changeQ(i)}
+                        break;
 
                     case "acoustic":
                         this.app.cfg.audio.equalizer = {
@@ -194,6 +210,11 @@
                             'preamp': 0,
                             'mix': 1,
                         }
+                        for (var i = 0; i < 10; i++) {
+                            this.changeGain(i)
+                            this.changeFreq(i)
+                            this.changeQ(i)}
+                        break;
 
                     case "clearVocal":
                         this.app.cfg.audio.equalizer = {
@@ -203,6 +224,11 @@
                             'preamp': 0,
                             'mix': 1,
                         }
+                        for (var i = 0; i < 10; i++) {
+                            this.changeGain(i)
+                            this.changeFreq(i)
+                            this.changeQ(i)}
+                        break;
 
                     case "instrumentClarity":
                         this.app.cfg.audio.equalizer = {
@@ -212,48 +238,66 @@
                             'preamp': 0,
                             'mix': 1,
                         }
-                        
-                    case "smileyFace":
-                            this.app.cfg.audio.equalizer = {
-                                'frequencies': [35, 63, 125, 250, 500, 800, 2000, 4000, 8000, 20000],
-                                'gain': [5, 0, 0, 0, 0, -5, 0, 0, 0, 5],
-                                'Q': [0.1, 1, 1, 1, 1, 0.6, 1, 1, 1, 0.2],
-                                'preamp': 0,
-                                'mix': 1,
-                            }
-
-                    case "reduceHarshness":
-                            this.app.cfg.audio.equalizer = {
-                                'frequencies': [32, 63, 125, 250, 500, 1128, 2000, 4057, 8000, 16000],
-                                'gain': [0, 0, 0, 0, 0, 2, 0, -6.4, 0, 0],
-                                'Q': [1, 1, 1, 1, 1, 2, 1, 1, 1, 1],
-                                'preamp': 0,
-                                'mix': 1,
-                            }
-            
-                    case "tightPerc":
-                            this.app.cfg.audio.equalizer = {
-                                'frequencies': [20, 63, 125, 250, 402, 1000, 1677, 3000, 8000, 11000],
-                                'gain': [-6.5, 0, 0, 0, -4.5, 0, -1.5, 3, 0, 0.1],
-                                'Q': [0.8, 1, 1, 1, 6, 1, 0.8, 0.8, 1, 1],
-                                'preamp': 0,
-                                'mix': 1,
-                            }
-                        
-                    case "Maikiwi":
-                        this.app.cfg.audio.equalizer = {
-                            'frequencies': [20, 63, 160, 250, 500, 1000, 2000, 3500, 8000, 20000],
-                            'gain': [1.5, 0, -0.7, 0, 0, 0, 0, 0.5, 0, 1.2],
-                            'Q': [0.4, 1, 2.9, 1, 1, 1, 1, 1.5, 1, 0.1],
-                            'preamp': 0,
-                            'mix': 1.2,
-                        }
-                        
-                    for (var i = 0; i < 10; i++) {
+                        for (var i = 0; i < 10; i++) {
                             this.changeGain(i)
                             this.changeFreq(i)
                             this.changeQ(i)}
                         break;
+                    
+                case "smileyFace":
+                        this.app.cfg.audio.equalizer = {
+                            'frequencies': [35, 63, 125, 250, 500, 800, 2000, 4000, 8000, 20000],
+                            'gain': [5, 0, 0, 0, 0, -5, 0, 0, 0, 5],
+                            'Q': [0.1, 1, 1, 1, 1, 0.6, 1, 1, 1, 0.2],
+                            'preamp': 0,
+                            'mix': 1,
+                        }
+                        for (var i = 0; i < 10; i++) {
+                            this.changeGain(i)
+                            this.changeFreq(i)
+                            this.changeQ(i)}
+                        break;
+
+                case "reduceHarshness":
+                        this.app.cfg.audio.equalizer = {
+                            'frequencies': [32, 63, 125, 250, 500, 1128, 2000, 4057, 8000, 16000],
+                            'gain': [0, 0, 0, 0, 0, 2, 0, -6.4, 0, 0],
+                            'Q': [1, 1, 1, 1, 1, 2, 1, 1, 1, 1],
+                            'preamp': 0,
+                            'mix': 1,
+                        }
+                        for (var i = 0; i < 10; i++) {
+                            this.changeGain(i)
+                            this.changeFreq(i)
+                            this.changeQ(i)}
+                        break;
+
+                case "tightPerc":
+                        this.app.cfg.audio.equalizer = {
+                            'frequencies': [20, 63, 125, 250, 402, 1000, 1677, 3000, 8000, 11000],
+                            'gain': [-6.5, 0, 0, 0, -4.5, 0, -1.5, 3, 0, 0.1],
+                            'Q': [0.8, 1, 1, 1, 6, 1, 0.8, 0.8, 1, 1],
+                            'preamp': 0,
+                            'mix': 1,
+                        }
+                        for (var i = 0; i < 10; i++) {
+                            this.changeGain(i)
+                            this.changeFreq(i)
+                            this.changeQ(i)}
+                        break;
+                case "Maikiwi":
+                    this.app.cfg.audio.equalizer = {
+                        'frequencies': [20, 63, 160, 250, 500, 1000, 2000, 3500, 8000, 20000],
+                        'gain': [1.5, 0, -0.7, 0, 0, 0, 0, 0.5, 0, 1.2],
+                        'Q': [0.4, 1, 2.9, 1, 1, 1, 1, 1.5, 1, 0.1],
+                        'preamp': 0,
+                        'mix': 1.2,
+                    }
+                    for (var i = 0; i < 10; i++) {
+                        this.changeGain(i)
+                        this.changeFreq(i)
+                        this.changeQ(i)}
+                    break;
     }
            
         }
