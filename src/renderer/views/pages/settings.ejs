@@ -546,10 +546,10 @@
                     {{$root.getLz("settings.option.experimental.closeButtonBehaviour")}}
                 </div>
                 <div class="md-option-segment md-option-segment_auto">
-                    <select class="md-select" v-model="app.cfg.general.close_behavior">
-                        <option value='0'>{{$root.getLz("settings.option.experimental.closeButtonBehaviour.quit")}}</option>
-                        <option value='1'>{{$root.getLz("settings.option.experimental.closeButtonBehaviour.minimizeTaskbar")}}</option>
-                        <option value='2'>{{$root.getLz("settings.option.experimental.closeButtonBehaviour.minimizeTray")}}</option>
+                    <select class="md-select" v-model="app.cfg.general.close_behavior" @change="sendDataToMTT()">
+                        <option value="0">{{$root.getLz("settings.option.experimental.closeButtonBehaviour.quit")}}</option>
+                        <option value="1">{{$root.getLz("settings.option.experimental.closeButtonBehaviour.minimizeTaskbar")}}</option>
+                        <option value="2">{{$root.getLz("settings.option.experimental.closeButtonBehaviour.minimizeTray")}}</option>
                     </select>
                 </div>
             </div>
@@ -695,6 +695,9 @@
             },
             toggleUserInfo: function () {
                 app.chrome.hideUserInfo = !app.cfg.visual.showuserinfo
+            },
+            sendDataToMTT: function() {
+                window.ipcRenderer.invoke('update-store-mtt', app.cfg.general.close_behavior);
             }
         }
     })

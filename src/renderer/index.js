@@ -3435,7 +3435,8 @@ const app = new Vue({
             switch (app.cfg.general.close_behavior) {
                 case 0:
                 case '0':
-                    ipcRenderer.send('close');
+                    // the minimizeToTray plugin will handle this
+                    window.close();
                     break;
                 case 1:
                 case '1':

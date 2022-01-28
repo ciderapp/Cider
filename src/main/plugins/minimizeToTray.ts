@@ -10,6 +10,7 @@ export default class MinimizeToTray {
     private _app: any;
     private _store: any;
     private _tray: any;
+    private _forceQuit = false;
 
     /**
      * Base Plugin Details (Eventually implemented into a GUI in settings)
@@ -46,7 +47,7 @@ export default class MinimizeToTray {
                 {
                     label: 'Quit',
                     click: function () {
-                        self._app.quit();
+                        self._forceQuit = true; self._app.quit();
                     }
                 }
             ]));
@@ -70,7 +71,7 @@ export default class MinimizeToTray {
                 {
                     label: 'Quit',
                     click: function () {
-                        self._app.quit();
+                        self._forceQuit = true; self._app.quit();
                     }
                 }
             ]));
@@ -122,7 +123,22 @@ export default class MinimizeToTray {
             // listen for close event
             this._win.hide();
             this.SetContextMenu(false);
-        });   
+        });  
+        electron.ipcMain.handle("update-store-mtt", (event, value) => {
+            this._store.general["close_behavior"] = value;
+        }) 
+        this._win.on("close", (e :any) => {
+            if (this._forceQuit || this._store.general["close_behavior"] == '0'  ) {
+                this._app.exit();
+            } else if (this._store.general["close_behavior"] == '1') {
+                e.preventDefault();
+                this._win.minimize();
+            } else {
+                e.preventDefault();
+                this._win.hide();
+                this.SetContextMenu(false);
+            }
+        }); 
     }
 
     /**
