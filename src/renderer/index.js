@@ -686,12 +686,7 @@ const app = new Vue({
                     app.mk.play()
                 })
               } else {
-                let data = MusicKit.formattedMediaURL(id);
-                if (data != null && data.contentId != null && data.kind != null){
-                    self.mk.setQueue({[data.kind]: data.contentId}).then(() => {
-                        app.mk.play()
-                    })  
-                }
+                    app.openAppleMusicURL(id)
               }
             });
 
