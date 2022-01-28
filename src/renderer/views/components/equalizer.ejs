@@ -103,13 +103,7 @@
                         <button class="md-btn" style="width:100%" @click="resetGain()">{{$root.getLz('term.reset')}}</button>
                     </div>
                     <div class="col">
-                        <button class="md-btn" style="width:100%" @click="addPreset()">New Preset</button>
-                    </div>
-                    <div class="col">
-                        <button class="md-btn" :disabled="!$root.cfg.audio.equalizer.userGenerated" style="width:100%" @click="deletePreset()">Delete Preset</button>
-                    </div>
-                    <div class="col">
-                        <button class="md-btn" :disabled="!$root.cfg.audio.equalizer.userGenerated" style="width:100%" @click="sharePreset($event)">Share...</button>
+                        <button class="md-btn" style="width:100%" @click="presetOptions($event)">Menu</button>
                     </div>
                 </div>
             </div>
@@ -230,6 +224,46 @@
         mounted() {
         },
         methods: {
+            presetOptions(event) {
+                let menu = {
+                    items: {
+                        "new": {
+                            "icon": "./assets/feather/plus.svg",
+                            name: "New Preset...",
+                            action: () => {
+                                this.addPreset()
+                            }
+                        },
+                        "delete": {
+                            "icon": "./assets/feather/x-circle.svg",
+                            name: "Delete Preset",
+                            action: () => {
+                                this.deletePreset()
+                            }
+                        },
+                        "import": {
+                            "icon": "./assets/feather/share.svg",
+                            "name": app.getLz('action.import'),
+                            "action": function () {
+                                notyf.error("Not implemented yet")
+                            }
+                        },
+                        "export": {
+                            "icon": "./assets/feather/share.svg",
+                            "name": app.getLz('action.export'),
+                            "action": function () {
+                                notyf.error("Not implemented yet")
+                            }
+                        },
+                    }
+                }
+
+                if(!this.$root.cfg.audio.equalizer.userGenerated) {
+                    delete menu.items.delete
+                }
+
+                app.showMenuPanel(menu, event)
+            },
             sharePreset(event) {
                 let menu = {
                     items: [
