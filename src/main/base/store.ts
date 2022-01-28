@@ -60,7 +60,8 @@ export class ConfigStore {
                 'gain': [0,0,0,0,0,0,0,0,0,0],
                 'Q' :   [1,1,1,1,1,1,1,1,1,1],
                 'preamp' : 0,
-                'mix' : 1,               
+                'mix' : 1,
+                'presets': []
             }
         },
         "visual": {

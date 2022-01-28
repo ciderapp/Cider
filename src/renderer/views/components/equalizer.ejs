@@ -6,16 +6,21 @@
                 <button class="close-btn" @click="close()"></button>
                 <div class="md-option-segment md-option-segment_auto">
                     <select class="md-select" style="width:220px;text-align:center;margin-right:16.75em" v-model="app.cfg.audio.equalizer.preset" v-on:change="changePreset()">
-                        <option value="default">Default</option>
-                        <option value="boostBrightness">Boost Brightness</option>
-                        <option value="warmth">Warmth</option>
-                        <option value="acoustic">Acoustic</option>
-                        <option value="clearVocal">Clear Vocal</option>
-                        <option value="instrumentClarity">Instrument Clarity</option>    
-                        <option value="smileyFace">Smiley Face</option>
-                        <option value="reduceHarshness">Reduce Harshness</option>
-                        <option value="tightPerc">Tight Percussion</option>
-                        <option value="Maikiwi">Maikiwi Personal</option>
+                        <optgroup label="User Presets">
+                            <option v-for="preset in app.cfg.audio.equalizer.presets" :value="preset.name">{{preset.name}}</option>
+                        </optgroup>
+                        <optgroup label="Default Presets">
+                            <option value="default">Default</option>
+                            <option value="boostBrightness">Boost Brightness</option>
+                            <option value="warmth">Warmth</option>
+                            <option value="acoustic">Acoustic</option>
+                            <option value="clearVocal">Clear Vocal</option>
+                            <option value="instrumentClarity">Instrument Clarity</option>    
+                            <option value="smileyFace">Smiley Face</option>
+                            <option value="reduceHarshness">Reduce Harshness</option>
+                            <option value="tightPerc">Tight Percussion</option>
+                            <option value="Maikiwi">Maikiwi Personal</option>
+                        </optgroup>
                     </select>
                 </div>
             </div>
@@ -100,7 +105,14 @@
                     </div>
                 </div>
                 </br>
-                <div class="reset-button md-btn" @click="resetGain()">{{$root.getLz('term.reset')}}</div>
+                <div class="row">
+                    <div class="col">
+                        <button class="md-btn" style="width:100%" @click="resetGain()">{{$root.getLz('term.reset')}}</button>
+                    </div>
+                    <div class="col">
+                        <button class="md-btn" style="width:100%" @click="addPreset()">Save Preset</button>
+                    </div>
+                </div>
             </div>    
         </div>
     </div>
@@ -112,12 +124,18 @@
         data: function () {
             return {
                 app: this.$root,
-
+                eqPreset: function () {
+                    this.frequencies = []
+                    this.gain = []
+                    this.Q = []
+                    this.preamp = 0
+                    this.mix = 1
+                }
             }
         },
         props: ["src", "url"],
         mounted() {
-
+            console.log(new this.eqPreset())
         },
         methods: {
             close() {
@@ -154,7 +172,22 @@
                     this.changeQ(i)
                 }
             },
-           
+            addPreset() {
+                bootbox.prompt("New EQ Preset Name", (res)=>{
+                    if (res) {
+                        let eqSettings = Clone(app.cfg.audio.equalizer)
+                        app.cfg.audio.equalizer.presets.push({
+                            name: res,
+                            frequencies: eqSettings.frequencies,
+                            gain: eqSettings.gain,
+                            Q: eqSettings.Q,
+                            preamp: eqSettings.preamp,
+                            mix: eqSettings.mix,
+                        })
+                        notyf.success("Added Preset")
+                    }
+                })
+            },
             changePreset() {
 
                 switch (app.cfg.audio.equalizer.preset) {
