@@ -122,7 +122,7 @@ export default class DiscordRichPresence {
             
             buttons: [
                 {label: "Listen on Cider", url: listenURL},
-                {label: "Open In Apple Music", url: AMWebURL},
+                {label: "View on Web", url: AMWebURL},
             ]
         };
 
