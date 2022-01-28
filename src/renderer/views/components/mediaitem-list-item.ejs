@@ -20,6 +20,11 @@
                         <div class="svg-icon" :style="{'--color': 'var(--keyColor)', '--url': 'url(./assets/feather/plus.svg)'}"></div>
                     </button>
                 </div>
+                <div v-if="showIndex" :style="{display: ((showIndex && !showInLibrary) ? 'block' : 'none'), 'margin-left':'11px'}">
+                    <div>
+                        <div>{{ item.attributes ? (item.attributes.trackNumber ?? '') : ''}}</div>
+                    </div>
+                </div>
                 <div v-if="app.mk.isPlaying && app.mk.nowPlayingItem._songId == item.attributes.playParams.id" :style="{display: (showInLibrary ? 'none' : 'block')}">
                     <div class="loadbar-sound"></div>
                 </div>
@@ -92,6 +97,7 @@
             'show-library-status': {type: Boolean, default: true},
             'show-meta-data': {type: Boolean, default: false},
             'show-duration': {type: Boolean, default: true},
+            'showIndex': {type: Boolean, required: false},
             'contextExt': {type: Object, required: false},
             'class-list': {type: String, required: false, default: ""},
         },
