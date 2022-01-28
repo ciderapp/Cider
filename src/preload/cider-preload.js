@@ -48,6 +48,7 @@ const MusicKitInterop = {
         attributes.name = attributes?.name ?? 'No Title Found';
         attributes.artwork = attributes?.artwork ?? { url: '' };
         attributes.artwork.url = (attributes?.artwork?.url ?? '').replace(`{f}`,"png");
+        attributes.songUrl = ('https://music.apple.com/song/' + nowPlayingItem?._songId) ?? '';
         attributes.playParams = attributes?.playParams ?? { id: 'no-id-found' };
         attributes.playParams.id = attributes?.playParams?.id ?? 'no-id-found';
         if (attributes.playParams.id === 'no-id-found') { attributes.playParams.id = nowPlayingItem?.id ?? 'no-id-found'; } 
