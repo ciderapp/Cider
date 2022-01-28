@@ -210,6 +210,7 @@
   "settings.option.visual.windowBackgroundStyle": "Window Background Style", // Toggle
   "settings.header.visual.windowBackgroundStyle.none": "None",
   "settings.header.visual.windowBackgroundStyle.artwork": "Artwork",
+  "settings.header.visual.windowBackgroundStyle.image": "Image",
   "settings.option.visual.animatedArtwork": "Animated Artwork", // Dropdown
   "settings.header.visual.animatedArtwork.always": "Always",
   "settings.header.visual.animatedArtwork.limited": "Limited to pages and special entries",

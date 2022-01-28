@@ -132,6 +132,9 @@ export class ConfigStore {
             if (key.includes('migrations')) {
                 continue;
             }
+            if(source[key] instanceof Array) {
+                continue
+            }
             if (source[key] instanceof Object) Object.assign(source[key], this.mergeStore(target[key], source[key]))
         }
         // Join `target` and modified `source`
