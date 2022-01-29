@@ -176,6 +176,8 @@
   "action.playTracksNext": "${app.selectedMediaItems.length}曲が次に再生",
   "action.playTracksLater": "${app.selectedMediaItems.length}曲が最後に再生",
   "action.removeTracks": "${self.selectedItems.length}曲が「次はこちら」から削除",
+  "action.import": "インポート",
+  "action.export": "エクスポート",
 
   // Settings - Audio
   "settings.header.audio": "オーディオ",
