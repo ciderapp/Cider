@@ -113,6 +113,8 @@
   "term.equalizer": "均衡器",
   "term.reset": "重置",
   "term.tracks": "首歌曲", // Assume x amount of tracks. e.g. 50 tracks 
+  "term.videos": "视频", 
+  "term.menu": "菜单",
 
   // Home
   "home.title": "主页",
