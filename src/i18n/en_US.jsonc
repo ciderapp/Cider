@@ -116,7 +116,6 @@
   "term.reset": "Reset",
   "term.tracks": "tracks", // Assume x amount of tracks. e.g. 50 tracks 
   "term.videos": "Videos", 
-  "term.menu": "Menu",
   
 
   // Home
