@@ -1,4 +1,5 @@
 {
+
   // i18n Info
   "i18n.languageName": "繁體中文（香港）",        // name of language in native language
   "i18n.languageNameEnglish": "Trad. Chinese (Hong Kong)", // name of language in English
@@ -90,12 +91,19 @@
   "term.time.added": "加入於",
   "term.time.released": "發行於", 
   "term.time.updated": "更新於",
+  "term.time.hours": "小時",
+  "term.time.hour": "小時",
+  "term.time.minutes": "分鐘",
+  "term.time.minute": "分鐘",
+  "term.time.seconds": "秒",
+  "term.time.second": "秒",
   "term.fullscreenView": "全螢幕檢視",
   "term.defaultView": "一般檢視",
   "term.spacializedAudioSetting": "空間音訊設定",
   "term.clearAll": "清空",
   "term.recentStations": "最近播放的頻道",
   "term.language": "語言",
+  "term.funLanguages": "惡搞",
   "term.noLyrics": "加載中... / 找不到歌詞。/ 純音樂。",
   "term.copyright": "Copyright",
   "term.rightsReserved": "保留一切權利。",
@@ -104,9 +112,11 @@
   "term.developer": "開發者",
   "term.socialTeam": "社交團隊",
   "term.contributors": "貢獻者",
-  "term.equalizer": "等化器",
+  "term.equalizer": "均衡器",
   "term.reset": "重設",
   "term.tracks": "首歌曲", // Assume x amount of tracks. e.g. 50 tracks 
+  "term.videos": "影片", 
+  "term.menu": "選項", 
 
   // Home
   "home.title": "主頁",
@@ -167,7 +177,22 @@
   "action.dislike": "減少此類建議",
   "action.undoDislike": "還原減小此類建議",
   "action.showWebRemoteQR": "顯示遙距控制二維碼",
-
+  "action.playTracksNext": "插播 ${app.selectedMediaItems.length} 首歌曲",
+  "action.playTracksLater": "稍後播放 ${app.selectedMediaItems.length} 首歌曲",
+  "action.removeTracks": "從待播清單刪除 ${self.selectedItems.length} 首歌曲",
+  "action.import": "匯入",
+  "action.export": "匯出",
+  
+  // Settings - General
+  "settings.header.general": "一般",
+  "settings.header.general.description": "調整Cider的一般設定",
+  "settings.option.general.language": "語言",
+  
+  // Language optgroups
+  "settings.option.general.language.main": "語言",
+  "settings.option.general.language.fun": "惡搞語言",
+  "settings.option.general.language.unsorted": "未分類",
+  
   // Settings - Audio
   "settings.header.audio": "音訊",
   "settings.header.audio.description": "調整Cider的音訊設定",
@@ -177,7 +202,7 @@
   "settings.header.audio.quality.auto": "自動",
   "settings.option.audio.seamlessTransition": "無縫播放", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "進階功能", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.description": "啟用 AudioContext 將解鎖類似音量平衡和等化器的進階功能。但是會在一些電腦造成音樂卡頓。",
+  "settings.option.audio.enableAdvancedFunctionality.description": "啟用 AudioContext 將解鎖類似音量平衡和均衡器的進階功能。但是會在一些電腦造成音樂卡頓。",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "音量平衡", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "將平衡輕柔和響亮的歌曲，建立更統一的聆聽體驗。",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "空間音訊", // Toggle
@@ -188,6 +213,7 @@
   "settings.option.visual.windowBackgroundStyle": "窗口背景樣式", // Toggle
   "settings.header.visual.windowBackgroundStyle.none": "空白",
   "settings.header.visual.windowBackgroundStyle.artwork": "專輯封面",
+  "settings.header.visual.windowBackgroundStyle.image": "圖片",
   "settings.option.visual.animatedArtwork": "動態專輯封面", // Dropdown
   "settings.header.visual.animatedArtwork.always": "總是顯示",
   "settings.header.visual.animatedArtwork.limited": "只在藝人頁面和專輯封面顯示",
@@ -201,13 +227,10 @@
   "settings.option.visual.animatedWindowBackground": "動態窗口背景", // Toggle
   "settings.option.visual.hardwareAcceleration": "硬體加速", // Dropdown
   "settings.option.visual.hardwareAcceleration.description": "需要重啓 Cider 才能生效",
-  "settings.header.visual.hardwareAcceleration.default": "默認", 
+  "settings.header.visual.hardwareAcceleration.default": "預設", 
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "顯示個人檔案", // Toggle
-  // Settings - General (Reserved)
-  "settings.header.general": "一般",
-  "settings.header.general.description": "調整Cider的一般設定",
   
   // Settings - Lyrics
   "settings.header.lyrics": "歌詞",
