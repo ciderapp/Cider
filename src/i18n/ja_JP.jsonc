@@ -113,6 +113,8 @@
   "term.equalizer": "イコライザー",
   "term.reset": "リセット",
   "term.tracks": "曲", // Assume x amount of tracks. e.g. 50 tracks 
+  "term.videos": "ビデオ", 
+  "term.menu": "メニュー",
 
   // Home
   "home.title": "ホーム",
