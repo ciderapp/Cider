@@ -39,7 +39,7 @@ jobs:
     - uses: bilelmoussaoui/flatpak-github-actions/flatpak-builder@v4
       with:
         bundle: Cider.flatpak
-        manifest-path: org.cidercollective.cider.yml
+        manifest-path: ./flatpak/org.cidercollective.cider.yml
         cache-key: flatpak-builder-${{ github.sha }}
 
   analyze:
