@@ -214,6 +214,7 @@
   "settings.option.visual.windowBackgroundStyle": "HODOR HODOR HODOR", // Toggle
   "settings.header.visual.windowBackgroundStyle.none": "HODOR",
   "settings.header.visual.windowBackgroundStyle.artwork": "HODOR",
+  "settings.header.visual.windowBackgroundStyle.image": "HODOR",
   "settings.option.visual.animatedArtwork": "HODOR HODOR", // Dropdown
   "settings.header.visual.animatedArtwork.always": "HODOR",
   "settings.header.visual.animatedArtwork.limited": "HODOR HODOR HODOR HODOR HODOR HODOR",
@@ -244,6 +245,7 @@
   "settings.header.connectivity": "HODOR",
   "settings.header.connectivity.description": "HODOR HODOR HODOR HODOR HODOR HODOR.",
   "settings.option.connectivity.discordRPC": "HODOR HODOR HODOR", // Dropdown
+  "settings.option.connectivity.playbackNotifications": "HODOR HODOR HODOR HODOR", // Toggle
   // Refer to term.disabled for the disabled option
   "settings.header.connectivity.discordRPC.cider": "HODOR HODOR 'HODOR'",
   "settings.header.connectivity.discordRPC.appleMusic": "HODOR HODOR 'HODOR HODOR'",
@@ -283,6 +285,7 @@
   "spatial.down" : "HODOR",
   "spatial.listener" : "HODOR",
   "spatial.audioSource" : "HODOR HODOR",
+  "spatial.gain" : "HODOR",
   
   // Settings - Unfinished
   "settings.header.unfinished": "HODOR",
