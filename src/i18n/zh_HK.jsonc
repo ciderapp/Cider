@@ -181,7 +181,6 @@
   "action.removeTracks": "從待播清單刪除 ${self.selectedItems.length} 首歌曲",
   "action.import": "匯入",
   "action.export": "匯出",
-
   
   // Settings - General
   "settings.header.general": "一般",
