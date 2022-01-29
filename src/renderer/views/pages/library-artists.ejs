@@ -1,7 +1,7 @@
     <div class="content-inner">
         <div class="row">
             <div class="col" style="padding:0;">
-                <h1 class="header-text">Artists</h1>
+                <h1 class="header-text">{{$root.getLz('term.artists')}}</h1>
             </div>
             
         </div>
@@ -12,7 +12,7 @@
                     <input type="search"
                            style="width:100%;"
                            spellcheck="false"
-                           placeholder="Search..."
+                           :placeholder="$root.getLz('term.search') + '...'"
                            @input="searchLibraryArtists"
                            v-model="library.artists.search" class="search-input">
                 </div>
@@ -28,9 +28,9 @@
                     </div> -->
                     <div class="col">
                         <select class="md-select" v-model="library.artists.sortOrder[1]" @change="searchLibraryArtists(1)">
-                            <optgroup label="Sort Order">
-                                <option value="asc">Ascending</option>
-                                <option value="desc">Descending</option>
+                            <optgroup :label="$root.getLz('term.sortOrder')">
+                                <option value="asc">{{$root.getLz('term.sortOrder.ascending')}}</option>
+                                <option value="desc">{{$root.getLz('term.sortOrder.descending')}}</option>
                             </optgroup>
                         </select>
                     </div>

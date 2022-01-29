@@ -14,17 +14,26 @@
          @mouseleave="showInLibrary = false"
          :class="[{'mediaitem-selected': app.select_hasMediaItem(guid)}, addClasses]">
         <template v-if="isVisible">
-            <div class="isLibrary" :style="{opacity: (showInLibrary ? 1 : 0)}" v-if="showLibraryStatus == true">
-                <button @click="addToLibrary()"
-                        v-if="!addedToLibrary">
-                    <div class="svg-icon" :style="{'--color': 'var(--keyColor)', '--url': 'url(./assets/feather/plus.svg)'}"></div>
-                </button>
-                <button v-else style="opacity:0;">❤️</button>
+            <div class="isLibrary"" v-if="showLibraryStatus == true">
+                <div v-if="showInLibrary" :style="{display: (showInLibrary ? 'block' : 'none'), 'margin-left':'11px'}">
+                    <button @click="addToLibrary()" v-if="!addedToLibrary">
+                        <div class="svg-icon" :style="{'--color': 'var(--keyColor)', '--url': 'url(./assets/feather/plus.svg)'}"></div>
+                    </button>
+                </div>
+                <div v-if="!(app.mk.isPlaying && (((app.mk.nowPlayingItem._songId ?? app.mk.nowPlayingItem.id )  == item.attributes.playParams.id) || (app.mk.nowPlayingItem.id  == item.id ))) && showIndex" :style="{display: ((showIndex && !showInLibrary) ? 'block' : 'none'), 'margin-left':'11px'}">
+                    <div>
+                        <div>{{ (item.attributes && !showIndexPlaylist) ? (item.attributes.trackNumber ?? '') : ((index * 1 + 1 ) ?? '')}}</div>
+                    </div>
+                </div>
+                <div v-if="app.mk.isPlaying && (((app.mk.nowPlayingItem._songId ?? app.mk.nowPlayingItem.id )  == item.attributes.playParams.id) || (app.mk.nowPlayingItem.id == item.id))" :style="{display: (showInLibrary ? 'none' : 'block')}">
+                    <div class="loadbar-sound"></div>
+                </div>
             </div>
             <div class="artwork" v-if="showArtwork == true">
                 <mediaitem-artwork
                         :url="item.attributes.artwork ? item.attributes.artwork.url : ''"
                         :size="48"
+                        :bgcolor="getBgColor()"
                         :type="item.type"></mediaitem-artwork>
                 <button class="overlay-play" @click="playTrack()"><%- include("../svg/play.svg") %></button>
             </div>
@@ -88,6 +97,8 @@
             'show-library-status': {type: Boolean, default: true},
             'show-meta-data': {type: Boolean, default: false},
             'show-duration': {type: Boolean, default: true},
+            'showIndex': {type: Boolean, required: false},
+            'showIndexPlaylist': {type: Boolean, required: false},
             'contextExt': {type: Object, required: false},
             'class-list': {type: String, required: false, default: ""},
         },
@@ -99,6 +110,10 @@
             this.getClasses()
         },
         methods: {
+            getBgColor() {
+                let color = `#${(this.item.attributes.artwork != null && this.item.attributes.artwork.bgColor != null) ? (this.item.attributes.artwork.bgColor) : ``}`
+                return color
+            },
             async checkLibrary() {
                 if(this.addedToLibrary) {return this.addedToLibrary}
                 if(this.item.type.includes("library-playlists") || this.item.type.includes("station")) {
@@ -223,14 +238,14 @@
                     multiple: {
                         items: [
                             {
-                                "name": "Add to Playlist...",
+                                "name": app.getLz('action.addToPlaylist'),
                                 "icon": "./assets/feather/plus.svg",
                                 "action": function () {
                                     app.promptAddToPlaylist()
                                 }
                             },
                             {
-                                name: `Play ${app.selectedMediaItems.length} tracks next`,
+                                name: app.getLz('action.playTracksNext').replace("${app.selectedMediaItems.length}", app.selectedMediaItems.length),
                                 "icon": "./assets/arrow-bend-up.svg",
                                 action: () => {
                                     let itemsToPlay = {}
@@ -252,7 +267,7 @@
                                 }
                             },
                             {
-                                name: `Play ${app.selectedMediaItems.length} tracks later`,
+                                name: app.getLz('action.playTracksLater').replace("${app.selectedMediaItems.length}", app.selectedMediaItems.length),
                                 "icon": "./assets/arrow-bend-down.svg",
                                 action: () => {
                                     let itemsToPlay = {}
@@ -279,7 +294,7 @@
                             {
                                 "icon": "./assets/feather/heart.svg",
                                 "id": "love",
-                                "name": "Love",
+                                "name": this.app.getLz('action.love'),
                                 "hidden": false,
                                 "disabled": true,
                                 "action": function () {
@@ -290,7 +305,7 @@
                                 "icon": "./assets/feather/heart.svg",
                                 "id": "unlove",
                                 "active": true,
-                                "name": "Unlove",
+                                "name": this.app.getLz('action.unload'),
                                 "hidden": true,
                                 "action": function () {
                                     app.unlove(self.item)
@@ -299,7 +314,7 @@
                             {
                                 "icon": "./assets/feather/thumbs-down.svg",
                                 "id": "dislike",
-                                "name": "Dislike",
+                                "name": this.app.getLz('action.dislike'),
                                 "hidden": false,
                                 "disabled": true,
                                 "action": function () {
@@ -309,7 +324,7 @@
                             {
                                 "icon": "./assets/feather/thumbs-down.svg",
                                 "id": "undo_dislike",
-                                "name": "Undo dislike",
+                                "name": this.app.getLz('action.undoDislike'),
                                 "active": true,
                                 "hidden": true,
                                 "action": function () {
@@ -321,7 +336,7 @@
                             {
                                 "id": "addToLibrary",
                                 "icon": "./assets/feather/plus.svg",
-                                "name": "Add to library",
+                                "name": this.app.getLz('action.addToLibrary'),
                                 "hidden": false,
                                 "disabled": true,
                                 "action": function () {
@@ -331,7 +346,7 @@
                             {
                                 "id": "removeFromLibrary",
                                 "icon": "./assets/feather/x-circle.svg",
-                                "name": "Remove from library",
+                                "name": app.getLz('action.removeFromLibrary'),
                                 "hidden": true,
                                 "action": function () {
                                     self.removeFromLibrary()
@@ -339,13 +354,13 @@
                             },
                             {
                                 "icon": "./assets/feather/list.svg",
-                                "name": "Add to Playlist...",
+                                "name": app.getLz('action.addToPlaylist'),
                                 "action": function () {
                                     app.promptAddToPlaylist()
                                 }
                             },
                             {
-                                "name": "Play Next",
+                                "name": app.getLz('action.playNext'),
                                 "icon": "./assets/arrow-bend-up.svg",
                                 "action": function () {
                                     app.mk.playNext({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
@@ -354,7 +369,7 @@
                                 }
                             },
                             {
-                                "name": "Play Later",
+                                "name": app.getLz('action.playLater'),
                                 "icon": "./assets/arrow-bend-down.svg",
                                 "action": function () {
                                     app.mk.playLater({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
@@ -364,7 +379,7 @@
                             },
                             {
                                 "icon": "./assets/feather/radio.svg",
-                                "name": "Start Radio",
+                                "name": app.getLz('action.startRadio'),
                                 "action": function () {
                                     app.mk.setStationQueue({song: self.item.attributes.playParams.id ?? self.item.id}).then(() => {
                                         app.mk.play()
@@ -374,25 +389,25 @@
                             },
                             {
                                 "icon": "./assets/feather/user.svg",
-                                "name": "Go to Artist",
+                                "name": app.getLz('action.goToArtist'),
                                 "action": function () {
                                     app.searchAndNavigate(self.item, 'artist')
                                 }
                             },
                             {
                                 "icon": "./assets/feather/disc.svg",
-                                "name": "Go to Album",
+                                "name": app.getLz('action.goToAlbum'),
                                 "action": function () {
                                     app.searchAndNavigate(self.item, 'album')
                                 }
                             },
                             {
                                 "icon": "./assets/feather/share.svg",
-                                "name": "Share",
+                                "name": app.getLz('action.share'),
                                 "action": function () {
                                     if (!self.item.attributes.url && self.item.relationships){
                                         if (self.item.relationships.catalog){
-                                            app.mkapi(self.item.attributes.playParams.kind, false, self.item.relationships.catalog.data[0].id).then(u => {self.app.copyToClipboard((u.length && u.length > 0)? u[0].attributes.url : u.attributes.url)})
+                                            app.mkapi(self.item.attributes.playParams.kind, false, self.item.relationships.catalog.data[0].id).then(u => {self.app.copyToClipboard((u.data.data.length && u.data.data.length > 0)? u.data.data[0].attributes.url : u.data.data.attributes.url)})
                                         }
                                     }else {
                                     self.app.copyToClipboard(self.item.attributes.url)}
@@ -502,22 +517,21 @@
                                 app.mk.setQueue({[truekind]: [item.attributes.playParams.id ?? item.id]}).then(function () {
                                    app.mk.play().then(function (){
                                         var playlistId = id
-                                        function getPlaylist(id, params, isLibrary){
+                                        function getPlaylist(id, isLibrary){
                                             if (isLibrary){
-                                                return  app.mk.api.library.playlist(id, params)
-                                            } else {  return app.mk.api.playlist(id, params)}
+                                                return  this.app.mk.api.v3.music(`/v1/me/library/playlists/${id}`)
+                                            } else { return this.app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/playlists/${id}`)}
                                         }
                                         try {
-
-                                            getPlaylist(id, params, isLibrary).then(res => {
+                                            getPlaylist(id, isLibrary).then(res => {
                                                 //let query = res.relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
                                                 //if (app.mk.shuffleMode == 1){shuffleArray(query); }
                                                 // console.log(query)
                                                 // app.mk.queue.append(query)
-                                                if (!res.relationships.tracks.next) {
+                                                if (!res.data.relationships.tracks.next) {
                                                     return
                                                 } else {
-                                                    getPlaylistTracks(res.relationships.tracks.next)
+                                                    getPlaylistTracks(res.data.relationships.tracks.next)
                                                 }
 
                                                 function getPlaylistTracks(next) {

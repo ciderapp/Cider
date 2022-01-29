@@ -1,0 +1,32 @@
+<script type="text/x-template" id="cider-library-videos">
+    <div class="content-inner">
+            <div class="row">
+                <div class="col" style="padding:0">
+                    <h1 class="header-text">{{$root.getLz('term.videos')}}</h1>
+                </div>
+            </div> 
+            <div class="madeforyou-body">  
+                <mediaitem-square :size="300" :item="item" v-for="item in videos">
+                </mediaitem-square>  
+            </div>                   
+    </div>
+</script>
+
+<script>
+    Vue.component('cider-library-videos', {
+        template: "#cider-library-videos",
+        props: ["data"],
+        data: function(){
+            return {
+                videos: [],
+            }
+        },
+        mounted() {
+            this.$nextTick(async function () {
+                if (this.$data.videos == null || this.$data.videos.length == 0)
+                this.$data.videos = (await this.$root.mk.api.v3.music('/v1/me/library/music-videos')).data?.data ?? []
+            })
+        }
+    })    
+</script>
+    

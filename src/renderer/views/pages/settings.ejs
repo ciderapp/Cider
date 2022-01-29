@@ -2,113 +2,151 @@
     <div class="content-inner settings-page">
         <div class="md-option-container">
             <div class="md-option-header">
-                <span>Audio</span>
+                <span>{{$root.getLz('settings.header.audio')}}</span>
             </div>
-            <div class="md-option-line">
-                <div class="md-option-segment">
-                    Audio Quality
+            <div class="settings-option-body">
+                <div class="md-option-line">
+                    <div class="md-option-segment">
+                        {{$root.getLz('settings.option.audio.quality')}}
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <select class="md-select" style="width:180px;" v-model="app.cfg.audio.quality"  v-on:change="changeAudioQuality">
+                         <!-- //   <option value="990">Extreme</option> -->
+                            <option value="256">{{$root.getLz('settings.header.audio.quality.high')}}</option>
+                            <option value="64">{{$root.getLz('settings.header.audio.quality.low')}}</option>
+                            <option value="auto">{{$root.getLz('settings.header.audio.quality.auto')}}</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="md-option-segment md-option-segment_auto">
-                    <select class="md-select" style="width:180px;" v-model="app.cfg.audio.quality"  v-on:change="changeAudioQuality">
-                        <option value="990">Extreme</option>
-                        <option value="256">High</option>
-                        <option value="64">Low</option>
-                        <option value="auto">Auto</option>
-                    </select>
+                <div class="md-option-line">
+                    <div class="md-option-segment">
+                        {{$root.getLz('settings.option.audio.seamlessTransition')}}
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <input type="checkbox" v-model="app.cfg.audio.seamless_audio" switch/>
+                    </div>
                 </div>
-            </div>
-            <div class="md-option-line">
-                <div class="md-option-segment">
-                    Seamless Audio Transitions
+                <div class="md-option-line">
+                    <div class="md-option-segment">
+                        {{$root.getLz('settings.option.audio.enableAdvancedFunctionality')}}
+                        <br>
+                        <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.description')}}</small>
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <input type="checkbox" v-model="app.cfg.advanced.AudioContext" v-on:change="toggleAudioContext" switch/>
+                    </div>
                 </div>
-                <div class="md-option-segment md-option-segment_auto">
-                    <input type="checkbox" v-model="app.cfg.audio.seamless_audio" switch/>
+                <div class="md-option-line" v-show="app.cfg.advanced.AudioContext">
+                    <div class="md-option-segment">
+                        {{$root.getLz('term.equalizer')}}
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <button class="md-btn" onclick="app.modals.equalizer = true">
+                            {{$root.getLz('term.equalizer')}}
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <div class="md-option-line">
-                <div class="md-option-segment">
-                    Enable Advanced Functionality
+                <div class="md-option-line" v-show="app.cfg.advanced.AudioContext">
+                    <div class="md-option-segment" >
+                    {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.audioNormalization')}}
                     <br>
-                    <small>Enabling AudioContext functionality will allow for extended audio features like Audio Normalization , Equalizers and Visualizers, however on some systems this may cause stuttering in audio tracks.</small>
+                    <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.audioNormalization.description')}}</small>
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <input type="checkbox" v-model="app.cfg.audio.normalization"  v-on:change="toggleNormalization" switch/>
+                    </div>
                 </div>
-                <div class="md-option-segment md-option-segment_auto">
-                    <input type="checkbox" v-model="app.cfg.advanced.AudioContext" v-on:change="toggleAudioContext" switch/>
-                </div>
-            </div>
-            <div class="md-option-line" v-show="app.cfg.advanced.AudioContext">
-                <div class="md-option-segment" >
-                Audio Normalization
-                </div>
-                <div class="md-option-segment md-option-segment_auto">
-                    <input type="checkbox" v-model="app.cfg.audio.normalization"  v-on:change="toggleNormalization" switch/>
-                </div>
-            </div>
-            <div class="md-option-line" v-show="app.cfg.advanced.AudioContext">
-                <div class="md-option-segment" >
-                Audio Spatialization
-                <br>
-                <small>Spatialize audio and make audio more 3-dimensional (note: This is not Dolby Atmos)</small>
-                </div>
-                <div class="md-option-segment md-option-segment_auto">
-                    <input type="checkbox" v-model="app.cfg.audio.spatial" v-on:change="toggleSpatial" switch/>
+                <div class="md-option-line" v-show="app.cfg.advanced.AudioContext">
+                    <div class="md-option-segment" >
+                    {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.audioSpatialization')}}
+                    <br>
+                    <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description')}}</small>
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <input type="checkbox" v-model="app.cfg.audio.spatial" v-on:change="toggleSpatial" switch/>
+                    </div>
                 </div>
             </div>
             <div class="md-option-header">
-                <span>Visual</span>
+                <span>{{$root.getLz('settings.header.visual')}}</span>
             </div>
-            <div class="md-option-line">
-                <div class="md-option-segment">
-                    Animated Artwork
+            <div class="settings-option-body">
+                <div class="md-option-line">
+                    <div class="md-option-segment">
+                        {{$root.getLz('settings.option.visual.windowBackgroundStyle')}}
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <select class="md-select" @change="$root.getNowPlayingArtworkBG(undefined, true)" v-model="app.cfg.visual.window_background_style">
+                            <option value="none">{{$root.getLz('settings.header.visual.windowBackgroundStyle.none')}}</option>
+                            <option value="artwork">{{$root.getLz('settings.header.visual.windowBackgroundStyle.artwork')}}</option>
+                            <option value="image">{{$root.getLz('settings.header.visual.windowBackgroundStyle.image')}}</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="md-option-segment md-option-segment_auto">
-                    <select class="md-select" v-model="app.cfg.visual.animated_artwork">
-                        <option value="always">Always</option>
-                        <option value="limited">Limit to pages and special entries</option>
-                        <option value="disabled">Disable Everywhere</option>
-                    </select>
+                <div class="md-option-line">
+                    <div class="md-option-segment">
+                        {{$root.getLz('settings.option.visual.animatedArtwork')}}
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <select class="md-select" v-model="app.cfg.visual.animated_artwork">
+                            <option value="always">{{$root.getLz('settings.header.visual.animatedArtwork.always')}}</option>
+                            <option value="limited">{{$root.getLz('settings.header.visual.animatedArtwork.limited')}}</option>
+                            <option value="disabled">{{$root.getLz('settings.header.visual.animatedArtwork.disable')}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="md-option-line" v-if="app.cfg.visual.animated_artwork == 'always' || app.cfg.visual.animated_artwork == 'limited'">
+                    <div class="md-option-segment">
+                        {{$root.getLz('settings.option.visual.animatedArtworkQuality')}}
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <select class="md-select" v-model="app.cfg.visual.animated_artwork_qualityLevel">
+                            <option value="0">{{$root.getLz('settings.header.visual.animatedArtworkQuality.low')}}</option>
+                            <option value="1">{{$root.getLz('settings.header.visual.animatedArtworkQuality.medium')}}</option>
+                            <option value="2">{{$root.getLz('settings.header.visual.animatedArtworkQuality.high')}}</option>
+                            <option value="3">{{$root.getLz('settings.header.visual.animatedArtworkQuality.veryHigh')}}</option>
+                            <option value="4">{{$root.getLz('settings.header.visual.animatedArtworkQuality.extreme')}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="md-option-line">
+                    <div class="md-option-segment">
+                        {{$root.getLz('settings.option.visual.animatedWindowBackground')}}
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <input type="checkbox" switch v-model="app.cfg.visual.bg_artwork_rotation"/>
+                    </div>
+                </div>
+                <div class="md-option-line">
+                    <div class="md-option-segment">
+                        {{$root.getLz('settings.option.visual.hardwareAcceleration')}}<br>
+                        <small>({{$root.getLz('settings.option.visual.hardwareAcceleration.description')}})</small>
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <select class="md-select" style="width:180px;" v-model="app.cfg.visual.hw_acceleration" >
+                            <option value="default">{{$root.getLz('settings.header.visual.hardwareAcceleration.default')}}</option>
+                            <option value="webgpu">{{$root.getLz('settings.header.visual.hardwareAcceleration.webGPU')}}</option>
+                            <option value="disabled">{{$root.getLz('term.disabled')}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="md-option-line">
+                    <div class="md-option-segment">
+                        {{$root.getLz('settings.option.visual.showPersonalInfo')}}
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <input type="checkbox" v-model="app.cfg.visual.showuserinfo" v-on:change="toggleUserInfo" switch/>
+                    </div>
                 </div>
             </div>
-            <div class="md-option-line" v-if="app.cfg.visual.animated_artwork == 'always' || app.cfg.visual.animated_artwork == 'limited'">
-                <div class="md-option-segment">
-                    Animated Artwork Quality
-                </div>
-                <div class="md-option-segment md-option-segment_auto">
-                    <select class="md-select" v-model="app.cfg.visual.animated_artwork_qualityLevel">
-                        <option value="0">Low</option>
-                        <option value="1">Medium</option>
-                        <option value="2">High</option>
-                        <option value="3">Very High</option>
-                        <option value="4">Extreme</option>
-                    </select>
-                </div>
-            </div>
-            <div class="md-option-line">
-                <div class="md-option-segment">
-                    Animated Window Background
-                </div>
-                <div class="md-option-segment md-option-segment_auto">
-                    <input type="checkbox" switch v-model="app.cfg.visual.bg_artwork_rotation"/>
-                </div>
-            </div>
-            <div class="md-option-line">
-                <div class="md-option-segment">
-                    Hardware Acceleration<br>
-                    <small>(Requires relaunch)</small>
-                </div>
-                <div class="md-option-segment md-option-segment_auto">
-                    <select class="md-select" style="width:180px;" v-model="app.cfg.visual.hw_acceleration" >
-                        <option value="default">Default</option>
-                        <option value="webgpu">WebGPU</option>
-                        <option value="disabled">Disabled</option>
-                    </select>
-                </div>
-            </div>
+
             <div class="md-option-header">
-                <span>Lyrics</span>
+                <span>{{$root.getLz('settings.header.lyrics')}}</span>
             </div>
+            <div class="settings-option-body">
             <div class="md-option-line">
                 <div class="md-option-segment">
-                    Enable Musixmatch Lyrics
+                    {{$root.getLz('settings.option.lyrics.enableMusixmatch')}}
                 </div>
                 <div class="md-option-segment md-option-segment_auto">
                     <input type="checkbox" v-model="app.cfg.lyrics.enable_mxm" switch/>
@@ -116,7 +154,7 @@
             </div>
             <div class="md-option-line"  v-if="app.cfg.lyrics.enable_mxm">
                 <div class="md-option-segment">
-                    Enable Karaoke Mode (Musixmatch only)
+                    {{$root.getLz('settings.option.lyrics.enableMusixmatchKaraoke')}}
                 </div>
                 <div class="md-option-segment md-option-segment_auto">
                     <input type="checkbox" v-model="app.cfg.lyrics.mxm_karaoke" switch/>
@@ -124,7 +162,7 @@
             </div>
             <div class="md-option-line">
                 <div class="md-option-segment">
-                    Musixmatch Translation Preferred Language
+                    {{$root.getLz('settings.option.lyrics.musixmatchPreferredLanguage')}}
                 </div>
                 <div class="md-option-segment md-option-segment_auto">
                     <select class="md-select" v-model="app.cfg.lyrics.mxm_language">
@@ -399,50 +437,55 @@
             </div>
             <div class="md-option-line">
                 <div class="md-option-segment">
-                    Enable Youtube Lyrics for Music Videos
+                    {{$root.getLz('settings.option.lyrics.enableYoutubeLyrics')}}
                 </div>
                 <div class="md-option-segment md-option-segment_auto">
                     <input type="checkbox" v-model="app.cfg.lyrics.enable_yt" switch/>
                 </div>
             </div>
-            <div class="md-option-header">
-                <span>Conectivity</span>
-            </div>
+        </div>
+        <div class="md-option-header">
+            <span>{{$root.getLz('settings.header.connectivity')}}</span>
+        </div>
+        <div class="settings-option-body">
+
             <div class="md-option-line">
                 <div class="md-option-segment">
-                    Discord Rich Presence
+                    {{$root.getLz('settings.option.connectivity.discordRPC')}}
                 </div>
                 <div class="md-option-segment md-option-segment_auto">
                     <select class="md-select" v-model="app.cfg.general.discord_rpc">
-                        <option value="0">Disabled</option>
-                        <option value="1">Display as 'Cider'</option>
-                        <option value="2">Display as 'Apple Music'</option>
+                        <option value="0">{{$root.getLz('term.disabled')}}</option>
+                        <option value="1">{{$root.getLz('settings.header.connectivity.discordRPC.cider')}}</option>
+                        <option value="2">{{$root.getLz('settings.header.connectivity.discordRPC.appleMusic')}}</option>
                     </select>
                 </div>
             </div>
             <div class="md-option-line" v-show="app.cfg.general.discord_rpc != 0">
                 <div class="md-option-segment">
-                    Clear Discord RPC on Pause
+                    {{$root.getLz('settings.option.connectivity.discordRPC.clearOnPause')}}
                 </div>
                 <div class="md-option-segment md-option-segment_auto">
                     <select class="md-select" v-model="app.cfg.general.discordClearActivityOnPause">
-                        <option value="0">Disabled</option>
-                        <option value="1">Enabled</option>
+                        <option value="0">{{$root.getLz('term.disabled')}}</option>
+                        <option value="1">{{$root.getLz('term.enabled')}}</option>
                     </select>
                 </div>
             </div>
             <div class="md-option-line">
                 <div class="md-option-segment">
-                    LastFM Scrobbling
+                    {{$root.getLz('settings.option.connectivity.lastfmScrobble')}}
                 </div>
-                <div class="md-option-segment md-btn md-option-segment_auto">
-                    <label class="list-button list-element" id="lfmConnect" ref="lfmConnect"
-                    onclick="app.LastFMAuthenticate()">Connect</label>
+                <div class="md-option-segment md-option-segment_auto">
+                    <button class="md-btn" id="lfmConnect" ref="lfmConnect"
+                            onclick="app.LastFMAuthenticate()">
+                        {{$root.getLz('term.connect')}}
+                    </button>
                 </div>
             </div>
             <div class="md-option-line" v-show ="app.cfg.lastfm.enabled">
                 <div class="md-option-segment">
-                    LastFM Scrobble Delay (%)
+                    {{$root.getLz('settings.option.connectivity.lastfmScrobble.delay')}}
                 </div>
                 <div class="md-option-segment md-option-segment_auto" >
                     <input type="number" min="50" max="100" v-model="app.cfg.lastfm.scrobble_after"/>
@@ -450,7 +493,7 @@
             </div>
             <div class="md-option-line" v-show ="app.cfg.lastfm.enabled">
                 <div class="md-option-segment">
-                    Enable LastFM Now Playing 
+                    {{$root.getLz('settings.option.connectivity.lastfmScrobble.nowPlaying')}} 
                 </div>
                 <div class="md-option-segment md-option-segment_auto" >
                     <input type="checkbox"  v-model="app.cfg.lastfm.NowPlaying" switch/>
@@ -458,29 +501,67 @@
             </div>
             <div class="md-option-line" v-show ="app.cfg.lastfm.enabled">
                 <div class="md-option-segment">
-                    Remove featuring artists from song title (LastFM)
+                    {{$root.getLz('settings.option.connectivity.lastfmScrobble.removeFeatured')}}
                 </div>
                 <div class="md-option-segment md-option-segment_auto" >
                     <input type="checkbox"  v-model="app.cfg.lastfm.enabledRemoveFeaturingArtists" switch/>
                 </div>
             </div>
-            <div class="md-option-header">
-                <span>Experimental</span>
+            <div class="md-option-line" v-show ="app.cfg.lastfm.enabled">
+                <div class="md-option-segment">
+                    {{$root.getLz('settings.option.connectivity.lastfmScrobble.filterLoop')}}
+                </div>
+                <div class="md-option-segment md-option-segment_auto" >
+                    <input type="checkbox"  v-model="app.cfg.lastfm.filterLoop" switch/>
+                </div>
             </div>
+        </div>
+        <div class="md-option-header">
+            <span>{{$root.getLz('settings.header.experimental')}}</span>
+        </div>
+        <div class="settings-option-body">
+
             <div class="md-option-line">
                 <div class="md-option-segment">
-                    Compact UI
+                    {{$root.getLz('settings.option.experimental.compactUI')}}
                 </div>
                 <div class="md-option-segment md-option-segment_auto" >
                     <button class="md-btn" :class="{'md-btn-primary': app.cfg.advanced.experiments.includes('compactui')}" @click="app.cfg.advanced.experiments.includes('compactui') ? removeExperiment('compactui') : addExperiment('compactui')">
-                        {{app.cfg.advanced.experiments.includes('compactui') ? 'Enabled' : 'Disabled'}}
+                        {{app.cfg.advanced.experiments.includes('compactui') ? $root.getLz('term.enabled') : $root.getLz('term.disabled')}}
                     </button>
                 </div>
             </div>
+
+            <div class="md-option-line">
+                <div class="md-option-segment">
+                    {{$root.getLz('term.language')}}
+                </div>
+                <div class="md-option-segment md-option-segment_auto">
+                    <select class="md-select" @change="$root.setLz('');$root.setLzManual()" v-model="app.cfg.general.language">
+                        <optgroup :label="index" v-for="(categories, index) in getLanguages()">
+                            <option v-for="lang in categories" :value="lang.code">{{lang.nameNative}} ({{ lang.nameEnglish }})</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+            <div class="md-option-line">
+                <div class="md-option-segment">
+                    {{$root.getLz("settings.option.experimental.closeButtonBehaviour")}}
+                </div>
+                <div class="md-option-segment md-option-segment_auto">
+                    <select class="md-select" v-model="app.cfg.general.close_behavior" @change="sendDataToMTT()">
+                        <option value="0">{{$root.getLz("settings.option.experimental.closeButtonBehaviour.quit")}}</option>
+                        <option value="1">{{$root.getLz("settings.option.experimental.closeButtonBehaviour.minimizeTaskbar")}}</option>
+                        <option value="2">{{$root.getLz("settings.option.experimental.closeButtonBehaviour.minimizeTray")}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
             <div style="opacity: 0.5; pointer-events: none">
                 <div class="md-option-header">
-                    <span>Unfinished / Non Functional</span>
+                    <span>{{$root.getLz('settings.header.unfinished')}}</span>
                 </div>
+                <div class="settings-option-body">
                 <div class="md-option-line">
                     <div class="md-option-segment">
                         Theme
@@ -529,18 +610,6 @@
                 </div>
                 <div class="md-option-line">
                     <div class="md-option-segment">
-                        Close Button Behavior
-                    </div>
-                    <div class="md-option-segment md-option-segment_auto">
-                        <select class="md-select">
-                            <option value='0'>Minimize to system tray</option>
-                            <option value='1'>Minimize to taskbar ? dock</option>
-                            <option value='2'>Quit Cider</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="md-option-line">
-                    <div class="md-option-segment">
                         Open Cider on Startup
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
@@ -552,6 +621,7 @@
                         </select>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
     </div>
@@ -567,44 +637,70 @@
             }
         },
         mounted: function () {
-            if (app.cfg.lastfm.enabled){
+            if (app.cfg.lastfm.enabled) {
                 const element = document.getElementById('lfmConnect');
-                if (element){
-                element.innerHTML = `Disconnect\n<p style="font-size: 8px"><i>(Authed: ${app.cfg.lastfm.auth_token})</i></p>`;
-                element.onclick = app.LastFMDeauthorize;
+                if (element) {
+                    element.innerHTML = `Disconnect\n<p style="font-size: 8px"><i>(Authed: ${app.cfg.lastfm.auth_token})</i></p>`;
+                    element.onclick = app.LastFMDeauthorize;
                 }
             }
         },
         methods: {
+            getLanguages: function () {
+                let langs = this.$root.lzListing
+                let categories = {
+                    "main": [],
+                    "fun": [],
+                    "unsorted": []
+                }
+                // sort by category if category is undefined or empty put it in "unsorted"
+                for (let i = 0; i < langs.length; i++) {
+                    if (langs[i].category === undefined || langs[i].category === "") {
+                        categories.unsorted.push(langs[i])
+                    } else {
+                        categories[langs[i].category].push(langs[i])
+                    }
+                }
+                // return
+                return categories
+            },
             addExperiment(flag) {
                 app.cfg.advanced.experiments.push(flag);
             },
             removeExperiment(flag) {
                 app.cfg.advanced.experiments.splice(app.cfg.advanced.experiments.indexOf(flag), 1);
             },
-            toggleAudioContext: function(){
-                if (app.cfg.advanced.AudioContext){
+            toggleAudioContext: function () {
+                if (app.cfg.advanced.AudioContext) {
                     CiderAudio.init();
-                    if (app.cfg.audio.normalization){
-                    CiderAudio.normalizerOn()}
-                    if (app.cfg.audio.spatial){
-                    CiderAudio.spatialOn()} 
+                    if (app.cfg.audio.normalization) {
+                        CiderAudio.normalizerOn()
+                    }
+                    if (app.cfg.audio.spatial) {
+                        CiderAudio.spatialOn()
+                    }
                 } else {
                     CiderAudio.off();
                 }
             },
-            toggleNormalization : function(){
-                if (app.cfg.audio.normalization){
+            toggleNormalization: function () {
+                if (app.cfg.audio.normalization) {
                     CiderAudio.normalizerOn()
-                } else {CiderAudio.normalizerOff()}
+                } else { CiderAudio.normalizerOff() }
             },
-            toggleSpatial : function(){
-                if (app.cfg.audio.spatial){
+            toggleSpatial: function () {
+                if (app.cfg.audio.spatial) {
                     CiderAudio.spatialOn()
-                } else {CiderAudio.spatialOff()}
+                } else { CiderAudio.spatialOff() }
             },
-            changeAudioQuality : function(){
+            changeAudioQuality: function () {
                 app.mk.bitrate = app.cfg.audio.quality
+            },
+            toggleUserInfo: function () {
+                app.chrome.hideUserInfo = !app.cfg.visual.showuserinfo
+            },
+            sendDataToMTT: function() {
+                window.ipcRenderer.invoke('update-store-mtt', app.cfg.general.close_behavior);
             }
         }
     })

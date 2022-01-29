@@ -1,0 +1,163 @@
+<script type="text/x-template" id="mini-view">
+    <div class="mini-view" tabindex="0">
+        <div class="background">
+        </div>
+        <div class="player-pin" title="Pin to Top" @click="app.pinMiniPlayer()">
+            <span id="mini-pin">📌</span>
+        </div>
+        <div class="player-exit" title="Close" @click="app.miniPlayer(false)">
+            <svg fill="#323232e3" xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21"
+                 aria-role="presentation" focusable="false">
+                <path
+                        d="M10.5 21C4.724 21 0 16.275 0 10.5S4.724 0 10.5 0 21 4.725 21 10.5 16.276 21 10.5 21zm-3.543-5.967a.96.96 0 00.693-.295l2.837-2.842 2.85 2.842c.167.167.41.295.693.295.552 0 1.001-.461 1.001-1.012 0-.281-.115-.512-.295-.704L11.899 10.5l2.85-2.855a.875.875 0 00.295-.68c0-.55-.45-.998-1.001-.998a.871.871 0 00-.668.295l-2.888 2.855-2.862-2.843a.891.891 0 00-.668-.281.99.99 0 00-1.001.986c0 .269.116.512.295.678L9.088 10.5l-2.837 2.843a.926.926 0 00-.295.678c0 .551.45 1.012 1.001 1.012z"
+                        fill-rule="nonzero"/>
+            </svg>
+        </div>  
+        <div class="col artwork-col">
+            <div class="artwork"  @click="app.miniPlayer(false)">
+                <mediaitem-artwork
+                        :size="600"
+                        :url="image ?? ''"
+                ></mediaitem-artwork>
+            </div>
+            <div class="controls-parents">
+            <template v-if="app.mkReady()">
+                <div class="app-playback-controls" @mouseover="app.chrome.progresshover = true"
+                     @mouseleave="app.chrome.progresshover = false" @contextmenu="app.nowPlayingContextMenu">
+                    <div class="playback-info">
+                        <div class="song-name">
+                            {{ app.mk.nowPlayingItem["attributes"]["name"] }}
+                        </div>
+                        <div
+                             style="display: inline-block; -webkit-box-orient: horizontal; white-space: nowrap; margin-top: 0.25vh; overflow: hidden; margin-bottom: 5px;">
+                            <div class="item-navigate song-artist" style="display: inline-block;"
+                                 @click="app.getNowPlayingItemDetailed(`artist`)">
+                                {{ app.mk.nowPlayingItem["attributes"]["artistName"] }}
+                            </div>
+                            <div class="song-artist item-navigate" style="display: inline-block;"
+                                 @click="app.getNowPlayingItemDetailed('album')">
+                                {{ (app.mk.nowPlayingItem["attributes"]["albumName"]) ? (" — " +
+                                app.mk.nowPlayingItem["attributes"]["albumName"]) : "" }}
+                            </div>
+                        </div>
+
+                        <div class="song-progress">
+                            <div class="song-duration" style="justify-content: space-between; height: 1px; margin-bottom: 1px;"
+                                 :style="[app.chrome.progresshover ? {'display': 'flex'} : {'display' : 'none'} ]">
+                                <p style="width: auto">{{ app.convertToMins(app.getSongProgress()) }}</p>
+                                <p style="width: auto">{{ app.convertToMins(app.mk.currentPlaybackDuration) }}</p>
+                            </div>
+
+                            <input type="range" step="0.01" min="0" :style="app.progressBarStyle()"
+                                   @input="app.playerLCD.desiredDuration = $event.target.value;app.playerLCD.userInteraction = true"
+                                   @mouseup="app.mk.seekToTime($event.target.value);app.playerLCD.desiredDuration = 0;app.playerLCD.userInteraction = false"
+                                   :max="app.mk.currentPlaybackDuration" :value="app.getSongProgress()">
+                        </div>
+                    </div>
+                <div class="control-buttons">    
+                    <div class="app-chrome-item">
+                        <button class="playback-button--small shuffle" v-if="app.mk.shuffleMode == 0"
+                                @click="app.mk.shuffleMode = 1"></button>
+                        <button class="playback-button--small shuffle active" v-else
+                                @click="app.mk.shuffleMode = 0"></button>
+                    </div>
+                    <div class="app-chrome-item">
+                        <button class="playback-button previous" @click="app.prevButton()"></button>
+                    </div>
+                    <div class="app-chrome-item">
+                        <button class="playback-button pause" @click="app.mk.pause()" v-if="app.mk.isPlaying"></button>
+                        <button class="playback-button play" @click="app.mk.play()" v-else></button>
+                    </div>
+                    <div class="app-chrome-item">
+                        <button class="playback-button next" @click="app.mk.skipToNextItem()"></button>
+                    </div>
+                    <div class="app-chrome-item">
+                        <button class="playback-button--small repeat" v-if="app.mk.repeatMode == 0"
+                                @click="app.mk.repeatMode = 1"></button>
+                        <button class="playback-button--small repeat repeatOne" @click="app.mk.repeatMode = 2"
+                                v-else-if="app.mk.repeatMode == 1"></button>
+                        <button class="playback-button--small repeat active" @click="app.mk.repeatMode = 0"
+                                v-else-if="app.mk.repeatMode == 2"></button>
+                    </div>
+                </div>
+                <div class="app-chrome-item volume display--large">
+                    <div class="input-container">
+                    <button class="volume-button--small volume" @click="app.muteButtonPressed()" :class="{'active': app.cfg.audio.volume == 0}"></button>
+                    <input type="range" class="slider" @wheel="app.volumeWheel" step="0.01" min="0" max="1" v-model="app.mk.volume"
+                           v-if="typeof app.mk.volume != 'undefined'" @change="app.checkMuteChange()">
+                    </div>       
+                </div>
+                </div>
+            </template>
+            </div>
+        </div>
+        <!-- <div class="row fs-row">
+           
+            <div class="col right-col" v-if="tabMode != ''">
+                 <div class="fs-info">
+                    <div>Name</div>
+                    <div>Name</div>
+                    <div>Name</div>
+                </div> 
+                <div class="lyrics-col" v-if="tabMode == 'lyrics'">
+                    <lyrics-view :yoffset="120" :time="time" :lyrics="lyrics"
+                    :richlyrics="richlyrics"></lyrics-view>
+                </div>
+                <div class="queue-col" v-if="tabMode == 'queue'">    
+                    <cider-queue v-if="tabMode == 'queue'" ref="queue" ></cider-queue>    
+                </div>
+            </div>
+        </div> -->
+        <!-- <div class="tab-toggles">
+            <div class="lyrics" :class="{active: tabMode == 'lyrics'}" @click="tabMode = (tabMode == 'lyrics') ? '' : 'lyrics'"></div>
+            <div class="queue"  :class="{active: tabMode == 'queue'}" @click="tabMode =  (tabMode == 'queue') ? '' :'queue'"></div>
+        </div>  -->
+    </div>
+ 
+
+
+</script>
+
+<script>
+    Vue.component('mini-view', {
+        template: '#mini-view',
+        props: {
+            time: {
+                type: Number,
+                required: false
+            },
+            lyrics: {
+                type: Array,
+                required: false
+            },
+            richlyrics: {
+                type: Array,
+                required: false
+            },
+            image: {
+                type: String,
+                required: false
+            },
+        },
+        data: function () {
+            return {
+                app: this.$root,
+                tabMode: "",
+            }
+        },
+        beforeMount() {
+            window.addEventListener('keyup', this.onEscapeKeyUp);
+        },
+        beforeDestroy() {
+            window.removeEventListener('keyup', this.onEscapeKeyUp)
+        },
+        methods: {
+            onEscapeKeyUp(event) {
+                if (event.which === 27) {
+                    app.miniPlayer(false);
+                    console.log('js')
+                }
+            },
+        }
+    });
+</script>

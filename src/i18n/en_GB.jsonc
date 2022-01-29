@@ -1,0 +1,10 @@
+{
+        // i18n Info
+    "i18n.languageName": "English (UK)",        // name of language in native language
+    "i18n.languageNameEnglish": "English (UK)", // name of language in English
+    "i18n.category": "main", // main = real language, fun = fun community languages
+    "i18n.authors": "", // Authors, if you contribute to this file feel free to add your name seperated with a space
+    "date.format": "${d} ${m}, ${y}",
+
+    "home.friendsListeningTo": "Bruv's Listening To"
+}

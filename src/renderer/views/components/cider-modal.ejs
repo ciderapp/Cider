@@ -1,0 +1,82 @@
+<script type="text/x-template" id="add-to-playlist">
+    <template>
+        <div class="modal-fullscreen modal-generic" @click.self="app.resetState()" @contextmenu.self="app.resetState()">
+            <div class="modal-window">
+                <div class="modal-header">
+                    <div class="modal-title">{{app.getLz('action.addToLibrary')}}</div>
+                    <button class="close-btn" @click="app.resetState()"></button>
+                </div>
+                <div class="modal-content">
+                    <button class="playlist-item" 
+                    :class="{ focused: playlist.id == focused }"
+                    @click="addToPlaylist(playlist.id)" style="width:100%;" v-for="playlist in playlistSorted" v-if="playlist.attributes.canEdit && playlist.type != 'library-playlist-folders'">
+                    <div class="icon"><%- include("../svg/playlist.svg") %></div>
+                    <div class="name">{{ playlist.attributes.name }}</div>
+                </button>
+                </div>
+                <div class="modal-search">
+                    <div class="search-input-container" style="width:100%;margin: 16px 0;">
+                        <div class="search-input--icon"></div>
+                        <input type="search"
+                               ref="searchInput"
+                               style="width:100%;"
+                               spellcheck="false"
+                               :placeholder="app.getLz('term.search') + '...'"
+                               v-model="searchQuery"
+                               @input="search()"
+                               class="search-input">
+                    </div>                
+                </div>
+            </div>
+        </div>
+    </template>
+</script>
+
+<script>
+    Vue.component('add-to-playlist', {
+        template: '#add-to-playlist',
+        data: function () {
+            return {
+                playlistSorted: [],
+                searchQuery: "",
+                focused: "",
+                app: this.$root,
+            }
+        },
+        props: {
+            playlists: {
+                type: Array,
+                required: true
+            }
+        },
+        mounted() {
+            this.search()
+            this.$refs.searchInput.focus()
+            this.$refs.searchInput.addEventListener('keydown', (e) => {
+                if (e.keyCode == 13) {
+                    if (this.focused != "") {
+                        this.addToPlaylist(this.focused)
+                    }
+                }
+            })
+        },
+        methods: {
+            addToPlaylist(id) {
+                app.addSelectedToPlaylist(id)
+            },
+            search() {
+                this.focused = ""
+                if (this.searchQuery == "") {
+                    this.playlistSorted = this.playlists
+                } else {
+                    this.playlistSorted = this.playlists.filter(playlist => {
+                        return playlist.attributes.name.toLowerCase().indexOf(this.searchQuery.toLowerCase()) > -1
+                    })
+                    if (this.playlistSorted.length == 1) {
+                        this.focused = this.playlistSorted[0].id
+                    }
+                }
+            },
+        }
+    });
+</script>

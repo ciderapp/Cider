@@ -1,10 +1,10 @@
 <script type="text/x-template" id="mediaitem-artwork">
-    <div class="mediaitem-artwork" :class="[{'rounded': (type == 'artists')}, classes]" :key="url"
-         v-observe-visibility="{callback: visibilityChanged}">
+    <div class="mediaitem-artwork" :class="[{'rounded': (type == 'artists')}, classes]" :key="url">
         <img :src="app.getMediaItemArtwork(url, size, width)"
-             decoding="async" loading="lazy"
+             decoding="async"
+             :style="{background: bgcolor}"
              class="mediaitem-artwork--img">
-        <div v-if="video && isVisible && getVideoPriority()" class="animatedartwork-view-box">
+        <div v-if="video && getVideoPriority()" class="animatedartwork-view-box">
             <animatedartwork-view :priority="getVideoPriority()" :video="video"></animatedartwork-view>
         </div>
     </div>
@@ -21,6 +21,10 @@
             width: {
                 type: [String, Number],
                 required: false
+            },
+            bgcolor: {
+                type: String,
+                default: ''
             },
             url: {
                 type: String,
@@ -88,9 +92,6 @@
                     width: this.size + 'px',
                     height: this.size + 'px'
                 };
-            },
-            visibilityChanged: function (isVisible, entry) {
-                this.isVisible = isVisible
             }
         }
     });

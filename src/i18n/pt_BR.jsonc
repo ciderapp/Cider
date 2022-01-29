@@ -1,0 +1,238 @@
+{ // Base File 
+  // App info
+  "app.name": "Cider",
+
+  "date.format": "${d} ${m}, ${y}",
+  
+  // Dialogs
+  "dialog.cancel": "Cancelar",
+  "dialog.ok": "OK",
+
+  // Notification
+  "notification.updatingLibrarySongs": "Atualizando músicas na biblioteca...",
+  "notification.updatingLibraryAlbums": "Atualizando albuns na biblioteca...",
+  "notification.updatingLibraryArtists": "Atualizando artistas na biblioteca...",
+  "notification.connectionError": "Houve um problema a se conectar no Apple Music",
+
+  // Terms
+  "term.appleMusic": "Apple Music",
+  "term.applePodcasts": "Apple Podcasts",
+  "term.itunes": "iTunes",
+  "term.github": "GitHub",
+  "term.discord": "Discord",
+  "term.learnMore": "Saiba Mais",
+  "term.accountSettings": "Definições da Conta",
+  "term.logout": "Sair",
+  "term.login": "Entrar",
+  "term.about": "Sobre",
+  "term.privateSession": "Sessão Privada",
+  "term.queue": "Fila",
+  "term.search": "Procurar",
+  "term.library": "Biblioteca",
+  "term.listenNow": "Ouça Agora",
+  "term.browse": "Explorar",
+  "term.radio": "Radio",
+  "term.recentlyAdded": "Adicionado Recentemente",
+  "term.songs": "Músicas",
+  "term.albums": "Albuns",
+  "term.artists": "Artistas",
+  "term.podcasts": "Podcasts",
+  "term.playlists": "Listas de Reprodução",
+  "term.playlist": "Lista de Reprodução",
+  "term.play": "Tocar",
+  "term.pause": "Pausar",
+  "term.previous": "Anterior",
+  "term.next": "Próximo",
+  "term.shuffle": "Aleatório",
+  "term.repeat": "Repetir",
+  "term.volume": "Volume",
+  "term.mute": "Mudo",
+  "term.unmute": "Tirar o Mudo",
+  "term.share": "Partilhar",
+  "term.settings": "Definições",
+  "term.seeAll": "Ver Tudo",
+  "term.sortBy": "Organizar Por",
+  "term.sortBy.album": "Album",
+  "term.sortBy.artist": "Artista",
+  "term.sortBy.name": "Nome",
+  "term.sortBy.genre": "Genero",
+  "term.sortBy.releaseDate": "Data de Lançamento",
+  "term.sortBy.duration": "Duração",
+  "term.sortOrder": "A-Z",
+  "term.sortOrder.ascending": "Ascendente",
+  "term.sortOrder.descending": "Descendente",
+  "term.viewAs": "Ver Como",
+  "term.viewAs.coverArt": "Capa",
+  "term.viewAs.list": "Lista",
+  "term.size": "Tamanho",
+  "term.size.normal": "Normal",
+  "term.size.compact": "Compacto",
+  "term.enable": "Ativar",
+  "term.disable": "Desativar",
+  "term.enabled": "Ativado",
+  "term.disabled": "Desativado",
+  "term.connect": "Conectar",
+  "term.disconnect": "Desconectar",
+  "term.connecting": "Conectando",
+  "term.confirm": "Confirmar ?",
+  "term.more": "Mais",
+  "term.less": "Menos",
+  "term.showMore": "Mostrar Mais",
+  "term.showLess": "Mostrar Menos",
+  "term.topSongs" : "Top de Músicas",
+  "term.latestReleases": "Ultimos Lançamentos",
+  "term.time.added": "Adicionado",
+  "term.time.released": "Lançado", 
+  "term.time.updated": "Atualizado",
+  "term.fullscreenView": "Visualização em Tela Cheia",
+  "term.defaultView": "Visualização Normal",
+  "term.spacializedAudioSetting": "Definições de Audio Espacial",
+  "term.clearAll": "Limpar Tudo",
+  "term.language": "Idioma",
+  "term.recentStations": "Estações Recentes",
+
+  // Home
+  "home.title": "Inicio",
+  "home.recentlyPlayed": "Tocado Recentemente",
+  "home.recentlyAdded": "Adicionado Recentemente",
+  "home.artistsFeed": "Novidades dos seus Artistas",
+  "home.madeForYou": "Feito para Você",
+  "home.friendsListeningTo": "Amigos Ouvindo",
+  "home.followedArtists": "Artistas Seguidos",
+  // Errors
+  "error.appleMusicSubRequired": "Necessário uma assinatura Apple Music.",
+
+  // Actions
+  "action.addToLibrary": "Adicionar à Biblioteca",
+  "action.addToLibrary.success": "Adicionado à Biblioteca",
+  "action.addToLibrary.error": "Erro ao Adicionar na Biblioteca",
+  "action.removeFromLibrary": "Remover da Biblioteca",
+  "action.removeFromLibrary.success": "Removido da Biblioteca",
+  "action.addToQueue": "Adicionar à Fila",
+  "action.addToQueue.success": "Adicionado à Fila",
+  "action.addToQueue.error": "Erro ao Adicionar à Fila",
+  "action.removeFromQueue": "Remover da Fila",
+  "action.removeFromQueue.success": "Removido da Fila",
+  "action.removeFromQueue.error": "Erro ao Remover da Fila",
+  "action.addToPlaylist": "Adicionar à Lista de Reprodução",
+  "action.removeFromPlaylist": "Remover da Lista de Reprodução",
+  "action.addToFavorites": "Adicionar aos Favoritos",
+  "action.follow": "Seguir",
+  "action.follow.success": "A Seguir",
+  "action.follow.error": "Erro ao Seguir",
+  "action.unfollow": "Deixar de Seguir",
+  "action.unfollow.success": "Deixou de Seguir",
+  "action.unfollow.error": "Erro ao Deixar de Seguir",
+  "action.playNext": "Tocar Proximo",
+  "action.playLater": "Tocar por Ultimo",
+  "action.startRadio": "Começar Radio",
+  "action.goToArtist": "Ir para o Artista",
+  "action.goToAlbum": "Ir para o Album",
+  "action.moveToTop": "Mover para cima",
+  "action.share": "Partilhar",
+  "action.rename": "Mudar o Nome",
+  "action.love": "Gostar",
+  "action.unlove": "Deixar de Gostar",
+  "action.dislike": "Não Gostar",
+  "action.undoDislike": "Deixar de Não Gostar",
+  "action.showWebRemoteQR": "Mostrar o QR para Página Remota",
+  // Settings - Audio
+  "settings.header.audio": "Audio",
+  "settings.header.audio.description": "Ajustar as definições de audio no Cider.",
+  "settings.option.audio.quality": "Qualidade do Audio", // Dropdown
+  "settings.header.audio.quality.high": "Alta",
+  "settings.header.audio.quality.low": "Baixa",
+  "settings.header.audio.quality.auto": "Automatico",
+  "settings.option.audio.seamlessTransition": "Transição de Áudio Perfeita", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality": "Ativar Funcionabilidades Avançadas", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.description": "Habilitar a funcionalidade AudioContext permitirá recursos de áudio estendidos, como Normalização de Áudio , Equalizadores e Visualizadores. No entanto, em alguns sistemas, isso pode causar travamentos nas faixas de áudio.",
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Normalização de Audio", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normaliza o volume alto para faixas individuais para criar uma experiência de audição mais uniforme.",
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Audio Espacial", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Espacialize o áudio e torne o áudio mais tridimensional (nota: isto não é Dolby Atmos)",
+  // Settings - Visual
+  "settings.header.visual": "Visual", 
+  "settings.header.visual.description": "Ajustar as Definições de Visual do Cider.",
+  "settings.option.visual.windowBackgroundStyle": "Estilo do Fundo da Janela", // Toggle
+  "settings.header.visual.windowBackgroundStyle.none": "Nenhum",
+  "settings.header.visual.windowBackgroundStyle.artwork": "Capa",
+  "settings.option.visual.animatedArtwork": "Capa Animada", // Dropdown
+  "settings.header.visual.animatedArtwork.always": "Sempre",
+  "settings.header.visual.animatedArtwork.limited": "Limitado a páginas e entradas especiais",
+  "settings.header.visual.animatedArtwork.disable": "Desativar em Tudo",
+  "settings.option.visual.animatedArtworkQuality": "Qualidade da Capa Animada", // Dropdown
+  "settings.header.visual.animatedArtworkQuality.low": "Baixa",
+  "settings.header.visual.animatedArtworkQuality.medium": "Media",
+  "settings.header.visual.animatedArtworkQuality.high": "Alta",
+  "settings.header.visual.animatedArtworkQuality.veryHigh": "Muito Alta",
+  "settings.header.visual.animatedArtworkQuality.extreme": "Extrema",
+  "settings.option.visual.animatedWindowBackground": "Fundo de Janela Animado", // Toggle
+  "settings.option.visual.hardwareAcceleration": "Acelaração no Hardware", // Dropdown
+  "settings.option.visual.hardwareAcceleration.description": "Necessário reiniciar a aplicação",
+  "settings.header.visual.hardwareAcceleration.default": "Normal", 
+  "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
+  
+
+  // Refer to term.disabled for the disabled option
+  "settings.option.visual.showPersonalInfo": "Mostrar Informaçoes Pessoais", // Toggle
+  // Settings - General (Reserved)
+  "settings.header.general": "Principal",
+  "settings.header.general.description": "Ajustar as definiçoes principais no Cider.",
+  
+  // Settings - Lyrics
+  "settings.header.lyrics": "Letras",
+  "settings.header.lyrics.description": "Ajustar as definições das letras no Cider.",
+  "settings.option.lyrics.enableMusixmatch": "Ativar Letras do Musixmatch", // Toggle
+  "settings.option.lyrics.enableMusixmatchKaraoke": "Ativar Modo Karaoke (só para Musixmatch)", // Toggle
+  "settings.option.lyrics.musixmatchPreferredLanguage": "Idioma Preferido para Tradução Musixmatch", // Dropdown
+  "settings.option.lyrics.enableYoutubeLyrics": "Ativar letras do Youtube para videos musicais", // Toggle
+
+  // Settings - Connectivity
+  "settings.header.connectivity": "Conectividade",
+  "settings.header.connectivity.description": "Ajustar as definições de conectividade no Cider.",
+  "settings.option.connectivity.discordRPC": "Discord Rich Presence", // Dropdown
+  // Refer to term.disabled for the disabled option
+  "settings.header.connectivity.discordRPC.cider": "Mostrar como 'Cider'",
+  "settings.header.connectivity.discordRPC.appleMusic": "Mostrar como 'Apple Music'",
+  "settings.option.connectivity.discordRPC.clearOnPause": "Apagar Discord Rich Presence quando estiver pausado", // Toggle
+  "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling", // Option to Connect
+  "settings.option.connectivity.lastfmScrobble.delay": "Atraso dos Scrobbles do LastFM (%)", 
+  "settings.option.connectivity.lastfmScrobble.nowPlaying": "Ativar LastFM Now Playing", 
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "Remover artistas de colaboração do nome da música (LastFM)", 
+  // Refer to term.connect for the connect button
+
+  // Settings - Experimental
+  "settings.header.experimental": "Experimental",
+  "settings.header.experimental.description": "Ajustar as definições experimental no Cider.",
+  "settings.option.experimental.compactUI": "UI Compacto", // Toggle
+  // Refer to term.disabled & term.enabled
+  
+  // Spatialization Menu
+  "spatial.spatialProperties" : "Propriedades do Espacial",
+  "spatial.width" : "Largura",
+  "spatial.height" : "Altura",
+  "spatial.depth" : "Profundidade",
+  "spatial.roomMaterials" : "Materiais da Sala",
+  "spatial.roomDimensions" : "Dimensões da Sala",
+  "spatial.roomPositions" : "Posições da Sala",
+  "spatial.setDimensions" : "Definir Dimensões",
+  "spatial.setPositions" : "Definir Posições",
+  "spatial.up" : "Acima",
+  "spatial.front" : "Frente",
+  "spatial.left" : "Esquerda",
+  "spatial.right" : "Direita",
+  "spatial.back" : "Atrás",
+  "spatial.down" : "Abaixo",
+  "spatial.listener" : "Ouvinte",
+  "spatial.audioSource" : "Fonte de Audio",
+
+
+
+  
+  // Settings - Unfinished
+  "settings.header.unfinished": "Inacabado",
+  
+  // Web Remote
+  "remote.web.title": "Cider Remoto",
+  "remote.web.description": "Digitalize o código QR para emparelhar seu telefone com esta instância Cider"
+}
