@@ -751,7 +751,7 @@ const app = new Vue({
                 app.loadLyrics();
 
                 // Playback Notifications
-                if ((app.platform === "darwin" || app.platform === "linux") && !document.hasFocus() && a.artistName && a.artwork && a.name) {
+                if (this.cfg.general.playbackNotifications && !document.hasFocus() && a.artistName && a.artwork && a.name) {
                     if (this.notification) {
                         this.notification.close()
                     }

@@ -244,6 +244,7 @@
   "settings.header.connectivity": "Connectivity",
   "settings.header.connectivity.description": "Adjust the connectivity settings for Cider.",
   "settings.option.connectivity.discordRPC": "Discord Rich Presence", // Dropdown
+  "settings.option.connectivity.playbackNotifications": "Playback Notifications", // Toggle
   // Refer to term.disabled for the disabled option
   "settings.header.connectivity.discordRPC.cider": "Display as 'Cider'",
   "settings.header.connectivity.discordRPC.appleMusic": "Display as 'Apple Music'",
@@ -261,8 +262,8 @@
   "settings.option.experimental.compactUI": "Compact UI", // Toggle
   "settings.option.experimental.closeButtonBehaviour": "Close Button Behavior",
   "settings.option.experimental.closeButtonBehaviour.quit": "Quit Cider",
-  "settings.option.experimental.closeButtonBehaviour.minimizeTaskbar": "Minimize to taskbar",
-  "settings.option.experimental.closeButtonBehaviour.minimizeTray": "Minimize to system tray",
+  "settings.option.experimental.closeButtonBehaviour.minimizeTaskbar": "Minimize to Taskbar",
+  "settings.option.experimental.closeButtonBehaviour.minimizeTray": "Minimize to Tray",
   // Refer to term.disabled & term.enabled
 
   // Spatialization Menu
