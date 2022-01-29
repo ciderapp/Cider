@@ -157,7 +157,7 @@
   "action.removeFromQueue.error": "喺待播清單到刪除唔到",
   "action.addToPlaylist": "加入播放清單",
   "action.removeFromPlaylist": "喺播放清單到刪除",
-  "action.addToFavorites": "加至我",
+  "action.addToFavorites": "加至收藏",
   "action.follow": "Follow",
   "action.follow.success": "Follow緊",
   "action.follow.error": "Follow唔到",
