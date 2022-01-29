@@ -37,7 +37,7 @@ modules:
       - '*'
     sources:
       - type: archive
-        url: https://github.com/yarnpkg/yarn/releases/download/v1.19.1/yarn-v1.19.1.tar.gz
+        url: https://github.com/yarnpkg/yarn/releases/download/v1.22.17/yarn-v1.22.17.tar.gz
         sha256: 34293da6266f2aae9690d59c2d764056053ff7eebc56b80b8df05010c3da9343
 
   - name: cider
