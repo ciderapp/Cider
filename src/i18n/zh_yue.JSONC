@@ -201,7 +201,7 @@
   "settings.header.audio.quality.low": "流暢度優先",
   "settings.header.audio.quality.auto": "自動",
   "settings.option.audio.seamlessTransition": "無縫播放", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality": "進階功能" // Toggle
+  "settings.option.audio.enableAdvancedFunctionality": "進階功能", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.description": "啟用AudioContext，解鎖類似音量平衡和均衡器嘅進階功能，但係會喺部分電腦造成音樂Lag機。",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "音量平衡", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "平衡輕柔同響亮嘅歌曲，令你有統一嘅聆聽體驗。",
