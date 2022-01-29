@@ -156,8 +156,8 @@
                     {{data.attributes.copyright}}
                 </div>
                 <template v-if="(data.attributes?.playParams?.kind ?? data.type ?? '').includes('album') &&  data.relationships.catalog != null && data.relationships.catalog != null && data.relationships.catalog.data.length > 0">
-                    <div class="playlist-time showExtended item-navigate" @click="app.routeView(data.relationships.catalog.data[0])">
-                        Show complete album
+                    <div class="playlist-time showExtended item-navigate" style="color:#fa586a; font-weight: bold" @click="app.routeView(data.relationships.catalog.data[0])">
+                        {{$root.getLz("term.showAlbum")}}
                     </div>    
                 </template>    
                 <hr>

@@ -115,6 +115,9 @@
   "term.time.seconds": "HODOR",
   "term.time.second": "HODOR",
   "term.funLanguages": "HODOR",
+  "term.videos": "HODOR", 
+  "term.menu": "HODOR",
+  "term.showAlbum": "HODOR HODOR HODOR",
 
   // Home
   "home.title": "HODOR",
@@ -178,6 +181,8 @@
   "action.playTracksNext": "HODOR ${app.selectedMediaItems.length} HODOR HODOR",
   "action.playTracksLater": "HODOR ${app.selectedMediaItems.length} HODOR HODOR",
   "action.removeTracks": "HODOR ${self.selectedItems.length} HODOR HODOR HODOR",
+  "action.import": "HODOR",
+  "action.export": "HODOR",
 
   // Settings - General (Reserved)
   "settings.header.general": "HODOR HODOR",
