@@ -48,6 +48,8 @@ export class AppEvents {
         // Expose GC
         electron.app.commandLine.appendSwitch('js-flags','--expose_gc')
 
+        electron.app.setAppUserModelId(process.execPath) // For notification name
+
         /***********************************************************************************************************************
          * Commandline arguments
          **********************************************************************************************************************/
