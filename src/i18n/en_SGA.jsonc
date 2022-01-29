@@ -91,12 +91,19 @@
   "term.time.added": "ᖋ↸↸ᒷ↸",
   "term.time.released": "∷ᒷ|:ᒷᖋϟᒷ↸", 
   "term.time.updated": "⚍i!↸ᖋᒣᒷ↸",
+  "term.time.hours": "⍑ᒍ⚍∷ϟ",
+  "term.time.hour": "⍑ᒍ⚍∷",
+  "term.time.minutes": "ᒲ╎リ⚍ᒣᒷϟ",
+  "term.time.minute": "ᒲ╎リ⚍ᒣᒷ",
+  "term.time.seconds": "ϟᒷᔮᒍリ↸ϟ",
+  "term.time.second": "ϟᒷᔮᒍリ↸",
   "term.fullscreenView": "⎓⚍|:|:ϟᔮ∷ᒷᒷリ ⍊╎ᒷ∴",
   "term.defaultView": "↸ᒷ⎓ᖋ⚍|:ᒣ ⍊╎ᒷ∴",
   "term.spacializedAudioSetting": "ϟi!ᖋᔮ╎ᖋ|:╎∩ᒷ↸ ᖋ⚍↸╎ᒍ ϟᒷᒣᒣ╎リ┤",
   "term.clearAll": "ᔮ|:ᒷᖋ∷ ᖋ|:|:",
   "term.recentStations": "∷ᒷᔮᒷリᒣ ϟᒣᖋᒣ╎ᒍリϟ",
   "term.language": "|:ᖋリ┤⚍ᖋ┤ᒷ",
+  "term.funLanguages": "⎓⚍リ",
   "term.noLyrics": "|:ᒍᖋ↸╎リ┤... / |:॥∷╎ᔮϟ リᒍᒣ ⎓ᒍ⚍リ↸./ ╎リϟᒣ∷⚍ᒲᒷリᒣᖋ|:.",
   "term.copyright": "ᔮᒍi!॥∷╎┤⍑ᒣ",
   "term.rightsReserved": "ᖋ|:|: ∷╎┤⍑ᒣϟ ∷ᒷϟᒷ∷⍊ᒷ↸.",
@@ -108,8 +115,8 @@
   "term.equalizer": "ᒷᑑ⚍ᖋ|:╎∩ᒷ∷",
   "term.reset": "∷ᒷϟᒷᒣ",
   "term.tracks": "ᒣ∷ᖋᔮ·ǀ·ϟ", // Assume x amount of tracks. e.g. 50 tracks 
+  "term.videos": "⍊╎↸ᒷᒍ",
   
-
   // Home
   "home.title": "⍑ᒍᒲᒷ",
   "home.recentlyPlayed": "∷ᒷᔮᒷリᒣ|:॥ i!|:ᖋ॥ᒷ↸",
@@ -172,6 +179,18 @@
   "action.playTracksNext": "i!|:ᖋ॥ ${app.selectedMediaItems.length} ᒣ∷ᖋᔮ·ǀ·ϟ リᒷ/ᒣ",
   "action.playTracksLater": "i!|:ᖋ॥ ${app.selectedMediaItems.length} ᒣ∷ᖋᔮ·ǀ·ϟ |:ᖋᒣᒷ∷",
   "action.removeTracks": "∷ᒷᒲᒍ⍊ᒷ ${self.selectedItems.length} ᒣ∷ᖋᔮ·ǀ·ϟ ⎓∷ᒍᒲ ᑑ⚍ᒷ⚍ᒷ",
+  "action.import": "╎ᒲi!ᒍ∷ᒣ",
+  "action.export": "ᒷ/i!ᒍ∷ᒣ",
+
+  // Settings - General
+  "settings.header.general": "┤ᒷリᒷ∷ᖋ|:",
+  "settings.header.general.description": "ᖋ↸⋮⚍ϟᒣ ᒣ⍑ᒷ ┤ᒷリᒷ∷ᖋ|: ϟᒷᒣᒣ╎リ┤ϟ ⎓ᒍ∷ ᔮ╎↸ᒷ∷.",
+  "settings.option.general.language": "|:ᖋリ┤⚍ᖋ┤ᒷ",
+
+  // Language optgroups
+  "settings.option.general.language.main": "|:ᖋリ┤⚍ᖋ┤ᒷϟ",
+  "settings.option.general.language.fun": "⎓⚍リ |:ᖋリ┤⚍ᖋ┤ᒷϟ",
+  "settings.option.general.language.unsorted": "⚍リϟᒍ∷ᒣᒷ↸",
 
   // Settings - Audio
   "settings.header.audio": "ᖋ⚍↸╎ᒍ",
@@ -193,6 +212,7 @@
   "settings.option.visual.windowBackgroundStyle": "∴╎リ↸ᒍ∴ ᕊᖋᔮ·ǀ·┤∷ᒍ⚍リ↸ ϟᒣ॥|:ᒷ", // Toggle
   "settings.header.visual.windowBackgroundStyle.none": "リᒍリᒷ",
   "settings.header.visual.windowBackgroundStyle.artwork": "ᖋ∷ᒣ∴ᒍ∷·ǀ·",
+  "settings.header.visual.windowBackgroundStyle.image": "╎ᒲᖋ┤ᒷ",
   "settings.option.visual.animatedArtwork": "ᖋリ╎ᒲᖋᒣᒷ↸ ᖋ∷ᒣ∴ᒍ∷·ǀ·", // Dropdown
   "settings.header.visual.animatedArtwork.always": "ᖋ|:∴ᖋ॥ϟ",
   "settings.header.visual.animatedArtwork.limited": "|:╎ᒲ╎ᒣᒷ↸ ᒣᒍ i!ᖋ┤ᒷϟ ᖋリ↸ ϟi!ᒷᔮ╎ᖋ|: ᒷリᒣ∷╎ᒷϟ",
@@ -210,9 +230,6 @@
   "settings.header.visual.hardwareAcceleration.webGPU": "∴ᒷᕊ┤i!⚍", 
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "ϟ⍑ᒍ∴ i!ᒷ∷ϟᒍリᖋ|: ╎リ⎓ᒍ", // Toggle
-  // Settings - General (Reserved)
-  "settings.header.general": "┤ᒷリᒷ∷ᖋ|:",
-  "settings.header.general.description": "ᖋ↸⋮⚍ϟᒣ ᒣ⍑ᒷ ┤ᒷリᒷ∷ᖋ|: ϟᒷᒣᒣ╎リ┤ϟ ⎓ᒍ∷ ᔮ╎↸ᒷ∷.",
   
   // Settings - Lyrics
   "settings.header.lyrics": "|:॥∷╎ᔮϟ",
