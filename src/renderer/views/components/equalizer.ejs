@@ -128,15 +128,6 @@
                     this.userGenerated = true
                 },
                 defaultPresets: [{
-                    'preset': 'default',
-                    'name': 'Default',
-                    'frequencies': [32, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000],
-                    'gain': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    'Q': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                    'preamp': 0,
-                    'mix': 1,
-                    'userGenerated': false
-                }, {
                     'preset': 'warmth',
                     'name': 'Warmth',
                     'frequencies': [32, 75, 125, 197, 500, 1000, 2000, 3040, 8000, 16000],
@@ -199,7 +190,18 @@
                     'preamp': 0,
                     'mix': 1,
                     'userGenerated': false
-                }, {
+                }, 
+                {
+                    'preset': 'bassBoostCrystal',
+                    'name': 'Crystal Bass Boost',
+                    'frequencies': [45.53,88.06,116.18,161.3,247.05,295.6,365.79,495.13,716.85,960.76],
+                    'gain': [-0.36,4.07,-1.3,1.92,0.77,-0.53,-1.33,0.44,0.46,-0.5],
+                    'Q': [1.768,0.625,5,8.409,10,16.82,5.946,7.071,20,10],
+                    'preamp': -2,
+                    'mix': 1,
+                    'userGenerated': false
+                },
+                {
                     'preset': 'bassBoostSurgical',
                     'name': 'Surgical Bass Boost',
                     'frequencies': [32, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000],
