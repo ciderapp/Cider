@@ -227,7 +227,7 @@ export class Win {
      * Starts the session for the renderer process.
      */
     private startSession(): void {
-        // intercept "https://js-cdn.music.apple.com/hls.js/2.141.0/hls.js/hls.js" and redirect to local file "./apple-hls.js" instead
+        // intercept "https://js-cdn.music.apple.com/hls.js/2.141.1/hls.js/hls.js" and redirect to local file "./apple-hls.js" instead
         this.win.webContents.session.webRequest.onBeforeRequest(
             {
                 urls: ["https://*/*.js"],

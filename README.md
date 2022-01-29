@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./resources/banner.png" width="80%" height="40%" alt="Banner"><br><br>
+  <img src="./resources/banner.png" width="80%" height="60%" alt="Banner"><br><br>
   <img src="https://img.shields.io/github/release/ciderapp/Cider.svg?style=flat&label=Latest%20Release" alt="GitHub Releases"/>
   <img src="https://img.shields.io/github/stars/ciderapp/Cider?label=Stars" alt="GitHub Stars"/>
   <img src="https://img.shields.io/github/forks/ciderapp/Cider?label=Forks" alt="GitHub Forks"/>

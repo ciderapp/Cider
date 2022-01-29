@@ -72,10 +72,10 @@ export default class DiscordRichPresence {
 
         // Login to Discord
         this._client.login({clientId})
-            .then(() => {
-                DiscordRichPresence._connection = true;
-            })
-            .catch((e: any) => console.error(`[DiscordRichPresence][connect] ${e}`));
+        .then(() => {
+            DiscordRichPresence._connection = true;
+        })
+        .catch((e: any) => console.error(`[DiscordRichPresence][connect] ${e}`));
     }
 
     /**
@@ -110,7 +110,7 @@ export default class DiscordRichPresence {
             largeImageKey: (attributes.artwork.url.replace('{w}', '1024').replace('{h}', '1024')) ?? 'cider',
             largeImageText: attributes.albumName,
             instance: false, // Whether the activity is in a game session
-            
+
             buttons: [
                 {label: "Listen on Cider", url: attributes.url.cider},
                 {label: "View on Apple Music", url: attributes.url.appleMusic},
@@ -127,21 +127,24 @@ export default class DiscordRichPresence {
         if (!attributes.status) {
             if (DiscordRichPresence._store.general.discordClearActivityOnPause == 1) {
                 this._client.clearActivity()
-                    .catch((e: any) => console.error(`[DiscordRichPresence][clearActivity] ${e}`));
+                .catch((e: any) => console.error(`[DiscordRichPresence][clearActivity] ${e}`));
             } else {
                 this._activity.smallImageKey = 'pause';
                 this._activity.smallImageText = 'Paused';
                 delete this._activity.endTimestamp;
                 delete this._activity.startTimestamp;
                 this._client.setActivity(this._activity)
-                    .catch((e: any) => console.error(`[DiscordRichPresence][setActivity] ${e}`));
+                .catch((e: any) => console.error(`[DiscordRichPresence][setActivity] ${e}`));
             }
 
         } else if (this._activity && this._activityCache !== this._activity && this._activity.details) {
-            this._activity.smallImageKey = 'play';
-            this._activity.smallImageText = 'Playing';
+            if (DiscordRichPresence._store.general.discordClearActivityOnPause != 1) {
+                this._activity.smallImageKey = 'play';
+                this._activity.smallImageText = 'Playing';
+            }
+
             this._client.setActivity(this._activity)
-                .catch((e: any) => console.error(`[DiscordRichPresence][updateActivity] ${e}`));
+            .catch((e: any) => console.error(`[DiscordRichPresence][updateActivity] ${e}`));
             this._activityCache = this._activity;
         }
 
