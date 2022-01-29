@@ -51,8 +51,8 @@ const MusicKitInterop = {
 		attributes.playParams = attributes?.playParams ?? {id: 'no-id-found'};
 		attributes.playParams.id = attributes?.playParams?.id ?? 'no-id-found';
 		attributes.url = {
-			cider: "cider://play/s/" + nowPlayingItem?.songId ?? 'no-id-found',
-			appleMusic: "https://music.apple.com/song/" + nowPlayingItem?.songId ?? 'no-id-found'
+			cider: "cider://play/s/" + nowPlayingItem?._songId ?? 'no-id-found',
+			appleMusic: "https://music.apple.com/song/" + nowPlayingItem?._songId ?? 'no-id-found'
 		}
 		if (attributes.playParams.id === 'no-id-found') {
 			attributes.playParams.id = nowPlayingItem?.id ?? 'no-id-found';
