@@ -2,7 +2,7 @@
   "name": "cider",
   "applicationId": "Cider",
   "productName": "Cider",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A new look into listening and enjoying music in style and performance.",
   "license": "AGPL-3.0",
   "main": "./build/index.js",
@@ -22,7 +22,8 @@
     "start:darwin": "npm run build && export ELECTRON_ENABLE_LOGGING=true && electron ./build/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
     "pack": "electron-builder --dir",
     "dist": "npm run build && electron-builder",
-    "msft": "electron-builder -c msft-package.json",
+    "dist:all": "npm run build && electron-builder -mwl",
+    "msft": "npm run build && electron-builder -c msft-package.json",
     "postinstall": "electron-builder install-app-deps"
   },
   "dependencies": {

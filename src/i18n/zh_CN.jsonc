@@ -178,6 +178,8 @@
   "action.playTracksNext": "插播 ${app.selectedMediaItems.length} 首歌曲",
   "action.playTracksLater": "最后播放 ${app.selectedMediaItems.length} 首歌曲",
   "action.removeTracks": "从队列中移除 ${self.selectedItems.length} 首歌曲",
+  "action.import": "导入",
+  "action.export": "导出",
 
   // Settings - Audio
   "settings.header.audio": "音频",
