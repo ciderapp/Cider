@@ -54,7 +54,6 @@ modules:
     build-commands:
       # Have Yarn use the offline mirror.
       - 'HOME=$PWD yarn config --offline set yarn-offline-mirror $FLATPAK_BUILDER_BUILDDIR/flatpak-node/yarn-mirror'
-      - 'HOME=$PWD yarn config --offline set yarn-offline-mirror-pruning true'
       # Download the packages.
       - 'yarn install --offline'
       # If you were using npm with electron-webpack/electron-builder, then the above two commands
@@ -75,7 +74,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/ciderapp/cider
-        commit: 58dc5e9fd3eec2700d672494037f025dc1b99f4c
+        branch: main
       # Add the flatpak-node-generator generated sources.
       - generated-sources.json
       # Our runner script.
