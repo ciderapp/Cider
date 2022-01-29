@@ -5,7 +5,7 @@
   "version": "1.1.0",
   "description": "A new look into listening and enjoying music in style and performance.",
   "license": "AGPL-3.0",
-  "main": "./src/main/index.ts",
+  "main": "./build/index.ts",
   "author": "Cider Collective <cryptofyre@cider.sh> (https://cider.sh)",
   "repository": "https://github.com/ciderapp/Cider.git",
   "bugs": {
