@@ -7,10 +7,11 @@ export class ConfigStore {
     private defaults: any = {
         "general": {
             "close_behavior": 0, // 0 = close, 1 = minimize, 2 = minimize to tray
-            "startup_behavior": 0, // 0 = nothing, 1 = open on startup
+            "open_on_startup": false,
             "discord_rpc": 1, // 0 = disabled, 1 = enabled as Cider, 2 = enabled as Apple Music
-            "discordClearActivityOnPause": 1, // 0 = disabled, 1 = enabled
-            "language" : "en_US"
+            "discord_rpc_clear_on_pause": true,
+            "language": "en_US", // electron.app.getLocale().replace('-', '_') this can be used in future
+            "playbackNotifications": true
         },
         "home": {
             "followedArtists": [],

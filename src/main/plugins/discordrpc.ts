@@ -125,7 +125,7 @@ export default class DiscordRichPresence {
 
         // Check if its pausing (false) or playing (true)
         if (!attributes.status) {
-            if (DiscordRichPresence._store.general.discordClearActivityOnPause == 1) {
+            if (DiscordRichPresence._store.general.discord_rpc_clear_on_pause) {
                 this._client.clearActivity()
                 .catch((e: any) => console.error(`[DiscordRichPresence][clearActivity] ${e}`));
             } else {
@@ -138,7 +138,7 @@ export default class DiscordRichPresence {
             }
 
         } else if (this._activity && this._activityCache !== this._activity && this._activity.details) {
-            if (DiscordRichPresence._store.general.discordClearActivityOnPause != 1) {
+            if (!DiscordRichPresence._store.general.discord_rpc_clear_on_pause) {
                 this._activity.smallImageKey = 'play';
                 this._activity.smallImageText = 'Playing';
             }

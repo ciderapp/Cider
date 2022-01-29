@@ -123,10 +123,7 @@ export default class MinimizeToTray {
             // listen for close event
             this._win.hide();
             this.SetContextMenu(false);
-        });  
-        electron.ipcMain.handle("update-store-mtt", (event, value) => {
-            this._store.general["close_behavior"] = value;
-        }) 
+        });
         this._win.on("close", (e :any) => {
             if (this._forceQuit || this._store.general["close_behavior"] == '0'  ) {
                 this._app.quit();
