@@ -91,12 +91,19 @@
   "term.time.added": "Προστέθηκε",
   "term.time.released": "Κυκλοφόρησε", 
   "term.time.updated": "Ενημερώθηκε",
+  "term.time.hours": "ώρες",
+  "term.time.hour": "ώρα",
+  "term.time.minutes": "λεπτά",
+  "term.time.minute": "λεπτό",
+  "term.time.seconds": "δευτερόλεπτα",
+  "term.time.second": "δευτερόλεπτο",
   "term.fullscreenView": "Πλήρης οθόνη",
   "term.defaultView": "Κανονική οθόνη",
   "term.spacializedAudioSetting": "Χωρική ρύθμιση ήχου",
   "term.clearAll": "Εκκαθάριση όλων",
   "term.recentStations": "Πρόσφατοι σταθμοί",
   "term.language": "Γλώσσα",
+  "term.funLanguages": "Για πλάκα",
   "term.noLyrics": "Φόρτωση... / Δεν βρέθηκαν στίχοι. / Ορχηστικό.",
   "term.copyright": "Copyright",
   "term.rightsReserved": "Όλα τα δικαιώματα διατηρούνται.",
@@ -107,8 +114,10 @@
   "term.contributors": "Συνεισφέροντες",
   "term.equalizer": "Ισοσταθμιστής",
   "term.reset": "Επαναφορά",
-  "term.tracks": "τραγούδια", // Assume x amount of tracks. e.g. 50 tracks 
-
+  "term.tracks": "τραγούδια", // Assume x amount of tracks. e.g. 50 tracks
+  "term.videos": "Βίντεο", 
+  "term.menu": "Μενού",
+  "term.showAlbum": "Εμφάνιση ολόκληρου άλμπουμ", 
 
   // Home
   "home.title": "Αρχική",
@@ -172,6 +181,18 @@
   "action.playTracksNext": "Αναπαραγωγή ${app.selectedMediaItems.length} τραγουδιών ως επόμενων",
   "action.playTracksLater": "Αναπαραγωγή ${app.selectedMediaItems.length} τραγουδιών αργότερα",
   "action.removeTracks": "Αφαίρεση ${self.selectedItems.length} τραγουδιών από την ουρά",
+  "action.import": "Εισαγωγή",
+  "action.export": "Εξαγωγή",
+
+  // Settings - General
+  "settings.header.general": "Γενικά",
+  "settings.header.general.description": "Προσαρμογή γενικών ρυθμίσεων για το Cider.",
+  "settings.option.general.language": "Γλώσσα",
+
+  // Language optgroups
+  "settings.option.general.language.main": "Γλώσσες",
+  "settings.option.general.language.fun": "Γλώσσες για πλάκα",
+  "settings.option.general.language.unsorted": "Αταξινόμητες",
   
   // Settings - Audio
   "settings.header.audio": "Ήχος",
@@ -193,6 +214,7 @@
   "settings.option.visual.windowBackgroundStyle": "Στυλ Φόντου Παραθύρου", // Toggle
   "settings.header.visual.windowBackgroundStyle.none": "Κανένα",
   "settings.header.visual.windowBackgroundStyle.artwork": "Εξώφυλλο",
+  "settings.header.visual.windowBackgroundStyle.image": "Εικόνα",
   "settings.option.visual.animatedArtwork": "Κινούμενο Εξώφυλλο", // Dropdown
   "settings.header.visual.animatedArtwork.always": "Πάντα",
   "settings.header.visual.animatedArtwork.limited": "Περιορισμός σε σελίδες και ειδικές καταχωρήσεις",
@@ -209,10 +231,7 @@
   "settings.header.visual.hardwareAcceleration.default": "Προεπιλογή",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
   // Refer to term.disabled for the disabled option
-  "settings.option.visual.showPersonalInfo": "Εμφάνιση Προσωπικών Στοιχείων", // Toggle
-  // Settings - General (Reserved)
-  "settings.header.general": "Γενικά",
-  "settings.header.general.description": "Προσαρμογή γενικών ρυθμίσεων για το Cider.",
+  "settings.option.visual.showPersonalInfo": "Εμφάνιση προσωπικών στοιχείων", // Toggle
 
   // Settings - Lyrics
   "settings.header.lyrics": "Στίχοι",
@@ -226,6 +245,7 @@
   "settings.header.connectivity": "Σύνδεση",
   "settings.header.connectivity.description": "Προσαρμογή ρυθμίσεων σύνδεσης για το Cider.",
   "settings.option.connectivity.discordRPC": "Discord Rich Presence", // Dropdown
+  "settings.option.connectivity.playbackNotifications": "Ειδοποιήσεις Αναπαραγωγής", // Toggle
   // Refer to term.disabled for the disabled option
   "settings.header.connectivity.discordRPC.cider": "Εμφάνιση ως 'Cider'",
   "settings.header.connectivity.discordRPC.appleMusic": "Εμφάνιση ως 'Apple Music'",
