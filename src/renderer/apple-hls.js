@@ -5,7 +5,7 @@
     e = this,
     t = function() {
         "use strict";
-        var P, e = e=>e && e.Math === Math && e, d = e("object" == typeof globalThis && globalThis) || e("object" == typeof window && window) || e("object" == typeof jy && jy) || e("object" == typeof global && global) || Function("return this")();
+        var x, e = e=>e && e.Math === Math && e, d = e("object" == typeof globalThis && globalThis) || e("object" == typeof window && window) || e("object" == typeof jy && jy) || e("object" == typeof global && global) || Function("return this")();
         class l {
             constructor() {
                 this.keySize = null,
@@ -211,7 +211,7 @@
                 e.register("decrypt", this.decrypt)
             }
         }
-        (gr = P = P || {}).MEDIA_ATTACHING = "hlsMediaAttaching",
+        (gr = x = x || {}).MEDIA_ATTACHING = "hlsMediaAttaching",
         gr.MEDIA_ATTACHED = "hlsMediaAttached",
         gr.MEDIA_DETACHING = "hlsMediaDetaching",
         gr.MEDIA_DETACHED = "hlsMediaDetached",
@@ -259,7 +259,7 @@
         gr.ITEM_TRANSITIONED = "hlsItemTransitioned",
         gr.ITEM_EVICTED = "hlsItemEvicted",
         gr.DATERANGE_UPDATED = "hlsDaterangeUpdated";
-        var v, x = P;
+        var v, P = x;
         (dd = v = v || {}).FRAG_PARSING_INIT_SEGMENT = "hlsFragParsingInitSegment",
         dd.FRAG_PARSING_DATA = "hlsFragParsingData",
         dd.FRAG_PARSED = "hlsFragParsed",
@@ -738,7 +738,7 @@
                 };
             {
                 const t = new D(!0,`invalid ADTS sampling index:${c}`,$.InvalidADTSSamplingIndex);
-                e.trigger(x.INTERNAL_ERROR, t)
+                e.trigger(P.INTERNAL_ERROR, t)
             }
         }
         class u {
@@ -1201,14 +1201,14 @@
             let n;
             if (i + 8 > t.length)
                 return n = new D(!0,"error parsing ac-3, not enough data",$.InsufficientAC3Data),
-                void e.trigger(x.INTERNAL_ERROR, n);
+                void e.trigger(P.INTERNAL_ERROR, n);
             if (11 !== t[i] || 119 !== t[i + 1])
                 return n = new D(!0,"invalid ac-3 magic",$.InvalidAC3Magic),
-                void e.trigger(x.INTERNAL_ERROR, n);
+                void e.trigger(P.INTERNAL_ERROR, n);
             var s = t[i + 4] >> 6;
             if (3 <= s)
                 return n = new D(!0,`invalid ac-3 samplingRateCode:${s}`,$.InvalidAC3SamplingRateCode),
-                void e.trigger(x.INTERNAL_ERROR, n);
+                void e.trigger(P.INTERNAL_ERROR, n);
             var a = 63 & t[i + 4]
               , o = t[i + 6] >> 5;
             let d = 0;
@@ -1230,13 +1230,13 @@
             let r;
             if (i + 8 > t.length)
                 return r = new D(!0,"error parsing ac-3, not enough data",$.InsufficientAC3Data),
-                void e.trigger(x.INTERNAL_ERROR, r);
+                void e.trigger(P.INTERNAL_ERROR, r);
             if (11 !== t[i] || 119 !== t[i + 1])
                 return r = new D(!0,"invalid ac-3 magic",$.InvalidAC3Magic),
-                void e.trigger(x.INTERNAL_ERROR, r);
+                void e.trigger(P.INTERNAL_ERROR, r);
             var n = t[i + 4] >> 6;
             return 3 <= n ? (r = new D(!0,`invalid ac-3 samplingRateCode:${n}`,$.InvalidAC3SamplingRateCode),
-            void e.trigger(x.INTERNAL_ERROR, r)) : (i = 63 & t[i + 4],
+            void e.trigger(P.INTERNAL_ERROR, r)) : (i = 63 & t[i + 4],
             2 * W[3 * i + n])
         }
         const G = [48e3, 44100, 32e3]
@@ -1290,7 +1290,7 @@
                     if (M.isHeader(e, l) && (l += new M(e.subarray(l),this.logger).length),
                     11 !== e[l] || 119 !== e[l + 1]) {
                         const e = new D(!0,"invalid ac-3 magic",$.InvalidAC3Magic);
-                        return void this.observer.trigger(x.INTERNAL_ERROR, e)
+                        return void this.observer.trigger(P.INTERNAL_ERROR, e)
                     }
                     const t = Q(this.observer, e, l)
                       , i = a + d * u
@@ -1322,13 +1322,13 @@
             for (; r < i.length; ) {
                 if (r + 8 > i.length)
                     return a = new D(!0,"error parsing ec-3, not enough data",$.InsufficientEC3Data),
-                    void t.trigger(x.INTERNAL_ERROR, a);
+                    void t.trigger(P.INTERNAL_ERROR, a);
                 let e = 0;
                 if (M.isHeader(i, r) && (e = new M(i.subarray(r),n).length || 0,
                 r += e),
                 11 !== i[r] || 119 !== i[r + 1])
                     return a = new D(!0,"invalid ec-3 magic",$.InvalidEC3Magic),
-                    void t.trigger(x.INTERNAL_ERROR, a);
+                    void t.trigger(P.INTERNAL_ERROR, a);
                 var l = {
                     byteOffset: r + 2,
                     usedBits: 0
@@ -1343,7 +1343,7 @@
                         o = !0;
                 else if (1 !== u)
                     return a = new D(!0,"reserved stream type",$.ReservedStreamType),
-                    void t.trigger(x.INTERNAL_ERROR, a);
+                    void t.trigger(P.INTERNAL_ERROR, a);
                 l = 2 * (s.bsReadAndUpdate(i, l, 11) + 1);
                 r += l,
                 d += l + (e || 0)
@@ -1383,13 +1383,13 @@
             for (; r < i.length; ) {
                 if (r + 8 > i.length)
                     return d = new D(!0,"error parsing ec-3, not enough data",$.InsufficientEC3Data),
-                    void t.trigger(x.INTERNAL_ERROR, d);
+                    void t.trigger(P.INTERNAL_ERROR, d);
                 let e = 0;
                 if (M.isHeader(i, r) && (e = new M(i.subarray(r),n).length || 0,
                 r += e),
                 11 !== i[r] || 119 !== i[r + 1])
                     return d = new D(!0,"invalid ec-3 magic",$.InvalidEC3Magic),
-                    void t.trigger(x.INTERNAL_ERROR, d);
+                    void t.trigger(P.INTERNAL_ERROR, d);
                 const h = {
                     byteOffset: r + 2,
                     usedBits: 0
@@ -1407,7 +1407,7 @@
                 } else {
                     if (1 !== s.strmtyp)
                         return d = new D(!0,"reserved stream type",$.ReservedStreamType),
-                        void t.trigger(x.INTERNAL_ERROR, d);
+                        void t.trigger(P.INTERNAL_ERROR, d);
                     a.num_dep_sub[a.num_ind_sub - 1]++
                 }
                 if (s.frmsiz = o.bsReadAndUpdate(i, h, 11),
@@ -2647,7 +2647,7 @@
                         this._initDTS = n;
                     else {
                         const e = new D(!1,"invalid initPTS or initDTS",$.InvalidInitTimestamp);
-                        this.observer.trigger(x.INTERNAL_ERROR, e)
+                        this.observer.trigger(P.INTERNAL_ERROR, e)
                     }
                 }
             }
@@ -2696,7 +2696,7 @@
                     this.observer.trigger(v.FRAG_PARSING_INIT_SEGMENT, e)
                 } else {
                     const e = new D(!1,"no audio/video samples found",$.NoAVSamplesFound);
-                    this.observer.trigger(x.INTERNAL_ERROR, e)
+                    this.observer.trigger(P.INTERNAL_ERROR, e)
                 }
             }
             remuxVideo(n, e, s, a, o) {
@@ -2768,7 +2768,7 @@
                     l = new Uint8Array(e)
                 } catch (n) {
                     const M = new F(!1,`fail allocating video mdat ${e}`,$.FailedToAllocateVideoMdat,e);
-                    return void this.observer.trigger(x.INTERNAL_ERROR, M)
+                    return void this.observer.trigger(P.INTERNAL_ERROR, M)
                 }
                 const C = new DataView(l.buffer);
                 C.setUint32(0, e),
@@ -2811,8 +2811,8 @@
                                 const n = s.maxBufferHole
                                   , l = s.maxSeekHole
                                   , c = Math.floor(Math.min(n, l) * m)
-                                  , x = (a ? u + a * m : this.nextAudioPts) - M.pts;
-                                x > c ? (d = x - o,
+                                  , P = (a ? u + a * m : this.nextAudioPts) - M.pts;
+                                P > c ? (d = P - o,
                                 d < 0 && (d = o)) : d = o
                             } else
                                 d = o
@@ -2953,7 +2953,7 @@
                                 g = new Uint8Array(i)
                             } catch (r) {
                                 const n = new F(!1,`fail allocating audio mdat ${i}`,$.FailedToAllocateAudioMdat,i);
-                                return void this.observer.trigger(x.INTERNAL_ERROR, n)
+                                return void this.observer.trigger(P.INTERNAL_ERROR, n)
                             }
                             l || (h = new DataView(g.buffer),
                             h.setUint32(0, i),
@@ -3400,11 +3400,11 @@
         }
         function Pe(i, r, n) {
             return function() {
-                try{const e = new Array(1 + arguments.length);
+              try{  const e = new Array(1 + arguments.length);
                 e[0] = r;
                 for (var t = 1; t < e.length; t++)
                     e[t] = arguments[t - 1];
-                return i[n].apply(this, e) } catch(e){}
+                return i[n].apply(this, e) } catch (e){}
             }
         }
         function xe(e) {
@@ -5039,7 +5039,7 @@
                 o = 0; o < O; o += 188) {
                     if (71 !== e[o]) {
                         const e = new D(!1,"TS packet did not start with 0x47",$.NoTSSyncByteFound);
-                        return void this.observer.trigger(x.INTERNAL_ERROR, e)
+                        return void this.observer.trigger(P.INTERNAL_ERROR, e)
                     }
                     if (d = !!(64 & e[o + 1]),
                     l = ((31 & e[o + 1]) << 8) + e[o + 2],
@@ -5534,7 +5534,7 @@
                     $.NoADTSHeaderInPES),
                     this.logger.warn(tt, `parsing error:${e}`);
                     const r = new D(t,e,i);
-                    if (this.observer.trigger(x.INTERNAL_ERROR, r),
+                    if (this.observer.trigger(P.INTERNAL_ERROR, r),
                     t)
                         return
                 }
@@ -5607,7 +5607,7 @@
                 for (; a + u <= l; ) {
                     if (11 !== i[a] || 119 !== i[a + 1]) {
                         const c = new D(!0,"invalid dolby audio magic",$.InvalidDolbyAudioMagic);
-                        return void this.observer.trigger(x.INTERNAL_ERROR, c)
+                        return void this.observer.trigger(P.INTERNAL_ERROR, c)
                     }
                     "ac3" === t.segmentCodec ? u = Q(this.observer, i, a) : "ec3" === t.segmentCodec && (u = X(this.observer, i, a, this.logger));
                     const c = r + s * d;
@@ -5680,7 +5680,7 @@
                         }
                         if (!e) {
                             const t = new D(!0,"no demux matching with content found",$.DemuxerNotFound);
-                            return void this.trigger(x.INTERNAL_ERROR, t)
+                            return void this.trigger(P.INTERNAL_ERROR, t)
                         }
                         this.demuxer = e
                     }
@@ -5710,7 +5710,7 @@
                 this.init = (t,n,s)=>e=>{
                     const i = st()
                       , r = this.demuxers[i] = new nt(t,n,s,this.logger);
-                    [v.INIT_PTS_FOUND, v.FRAG_PARSING_INIT_SEGMENT, v.FRAG_PARSING_DATA, v.FRAG_PARSED, x.INTERNAL_ERROR].forEach(t=>{
+                    [v.INIT_PTS_FOUND, v.FRAG_PARSING_INIT_SEGMENT, v.FRAG_PARSING_DATA, v.FRAG_PARSED, P.INTERNAL_ERROR].forEach(t=>{
                         r.on(t, e=>this.rpc.invoke("demuxer.event", [i, t, e])(()=>{}
                         ))
                     }
@@ -11740,6 +11740,7 @@
             vttConcurrentLoadCount: 1,
             trottleCheckInterval: 2e3,
             subtitleLeadTime: 30,
+            lateTolerance: 2,
             stretchShortVideoTrack: !1,
             forceKeyFrameOnDiscontinuity: !0,
             useFirstLevelAtIncompatDiscontinuity: !0,
@@ -14336,7 +14337,7 @@
                 var t = e.decryptdata
                   , i = t.uri
                   , e = e.setKeyRequestState($c.GET_REQUEST_INFO);
-                return this.eventEmitter.trigger(x.KEY_REQUEST_STARTED, {
+                return this.eventEmitter.trigger(P.KEY_REQUEST_STARTED, {
                     keyuri: i,
                     decryptdata: t,
                     timestamp: Date.now()
@@ -14665,7 +14666,7 @@
             getKeyRequestResponse(e, t) {
                 var i = e.decryptdata.uri
                   , e = e.setKeyRequestState($c.GET_KEY_RESPONSE);
-                return this.eventEmitter.trigger(x.LICENSE_CHALLENGE_CREATED, {
+                return this.eventEmitter.trigger(P.LICENSE_CHALLENGE_CREATED, {
                     keyuri: i,
                     licenseChallenge: t,
                     keysystem: this.systemString
@@ -14868,7 +14869,7 @@
                     n.pos,
                     t[ah.SessionLifespanSPC] = n.data
                 }
-                this.eventEmitter.trigger(x.LICENSE_RELEASED, {
+                this.eventEmitter.trigger(P.LICENSE_RELEASED, {
                     keysystem: this.systemString,
                     itemId: this.itemId,
                     releaseRecord: t
@@ -15034,7 +15035,7 @@
             getKeyRequestResponse(e, t) {
                 var i = e.decryptdata.uri
                   , r = e.setKeyRequestState($c.GET_KEY_RESPONSE);
-                return this.eventEmitter.trigger(x.LICENSE_CHALLENGE_CREATED, {
+                return this.eventEmitter.trigger(P.LICENSE_CHALLENGE_CREATED, {
                     keyuri: i,
                     licenseChallenge: t,
                     keysystem: this.systemString,
@@ -15146,7 +15147,7 @@
                 getKeyRequestResponse(e, t) {
                     var i = e.decryptdata.uri
                       , r = e.setKeyRequestState($c.GET_KEY_RESPONSE);
-                    return this.eventEmitter.trigger(x.LICENSE_CHALLENGE_CREATED, {
+                    return this.eventEmitter.trigger(P.LICENSE_CHALLENGE_CREATED, {
                         keyuri: i,
                         licenseChallenge: t,
                         keysystem: this.systemString,
@@ -15476,7 +15477,7 @@
                                 certificate: new Uint8Array(e)
                             })))),
                             e && e.pipe(Ra(e=>this.onServerCertificateLoaded(e)), Un(e=>{
-                                throw this.eventEmitter.trigger(x.INTERNAL_ERROR, {
+                                throw this.eventEmitter.trigger(P.INTERNAL_ERROR, {
                                     type: o,
                                     details: "certificateLoadError",
                                     fatal: !1,
@@ -15565,7 +15566,7 @@
                     i = this.keyUriToRequest[s] = e.pipe(ur(e=>{
                         var t = e.decryptdata;
                         return this.ksService.updateKeyValue(s, t.key),
-                        this.eventEmitter.trigger(x.KEY_LOADED, e),
+                        this.eventEmitter.trigger(P.KEY_LOADED, e),
                         e.decryptdata
                     }
                     ), Un(e=>{
@@ -15639,7 +15640,7 @@
             }
             handleKeySystemError(e) {
                 e = new cu(e.message,void 0,void 0,$.KeySystemSetupError,void 0);
-                this.eventEmitter.trigger(x.INTERNAL_ERROR, e)
+                this.eventEmitter.trigger(P.INTERNAL_ERROR, e)
             }
         }
         class Ch extends Od {
@@ -18085,7 +18086,7 @@
             constructor(e, t, i, r) {
                 super(e=>{
                     const t = wc(this.hls, this);
-                    if (e.add(t.event(x.INLINE_STYLES_PARSED, this.onInlineStylesParsed).pipe($s(()=>this.destroy())).subscribe()),
+                    if (e.add(t.event(P.INLINE_STYLES_PARSED, this.onInlineStylesParsed).pipe($s(()=>this.destroy())).subscribe()),
                     e.add(vn(0, this.config.trottleCheckInterval).pipe(Ra(()=>(this.checkReadyToLoadNextSubtitleFragment(),
                     Ul))).subscribe()),
                     this.mediaSink.textTracks && "onchange"in this.mediaSink.textTracks) {
@@ -18142,9 +18143,9 @@
                 this.mediaSink.mediaQuery.currentTime >= this.lastCueEndTime - this.config.subtitleLeadTime && (e = !0),
                 this.needNextSubtitle$.next(e)
             }
-            checkReadyToLoadNextSubtitleFragment$() {
-                return this.checkReadyToLoadNextSubtitleFragment(),
-                this.needNextSubtitle$
+            checkReadyToLoadNextSubtitleFragment$(e, t) {
+                return e.mediaSeqNum === (null === (t = t[0]) || void 0 === t ? void 0 : t.mediaSeqNum) ? Bi(!0) : (this.checkReadyToLoadNextSubtitleFragment(),
+                this.needNextSubtitle$)
             }
             getNextFragment(e, t) {
                 t = t.mediaSeqNum + 1;
@@ -18228,13 +18229,9 @@
                             ;
                         d = e - i + 1 <= this.config.earlyFragTolerance
                     } else if (s.startTime > o && n.mediaSeqNum !== r.startSN) {
-                        const l = t.prevFragSN;
-                        if (n.mediaSeqNum === l + 1 && (null === (t = t.fragInfoMap[l]) || void 0 === t ? void 0 : t.count) === (null === (a = a[l]) || void 0 === a ? void 0 : a.count))
-                            d = !0;
-                        else {
-                            const l = r.fragments[n.mediaSeqNum - r.startSN - 1];
-                            d = s.startTime - o < l.duration
-                        }
+                        const l = s.startTime - o
+                          , i = t.prevFragSN;
+                        d = n.mediaSeqNum === i + 1 && (null === (t = t.fragInfoMap[i]) || void 0 === t ? void 0 : t.count) === (null === (a = a[i]) || void 0 === a ? void 0 : a.count) || l <= this.config.lateTolerance
                     }
                 }
                 return d ? Ap.CloseEnough : Ap.TooFar
@@ -18251,54 +18248,62 @@
                 r = e.fragments[r];
                 return r && r.discoSeqNum === t.discoSeqNum && !i[t.mediaSeqNum] ? r : t
             }
-            inferSubtitleFragmentForPosition(i, r, t, e, n) {
-                let s, a, o, d, l;
-                if (ne(e.prevFragSN) && (a = e.prevFragSN - n.startSN,
-                o = t[e.prevFragSN]),
-                ne(e.nextFragSN) && (d = e.nextFragSN - n.startSN,
-                l = t[e.nextFragSN]),
-                ne(a) && 0 <= a && a < n.fragments.length && o) {
-                    let t = o.startTime;
-                    for (let e = a; e < n.fragments.length; ++e) {
-                        const o = n.fragments[e];
+            inferSubtitleFragmentForPosition(i, r, t, n, s) {
+                let a, o, e, d, l;
+                if (ne(n.prevFragSN) && (o = n.prevFragSN - s.startSN,
+                e = t[n.prevFragSN]),
+                ne(n.nextFragSN) && (d = n.nextFragSN - s.startSN,
+                l = t[n.nextFragSN]),
+                ne(o) && 0 <= o && o < s.fragments.length && e) {
+                    let t = e.startTime;
+                    const n = ne(d) ? d : s.fragments.length;
+                    for (let e = o; e < n; ++e) {
+                        const d = s.fragments[e];
+                        if (!ne(r) || d.discoSeqNum === r) {
+                            if (e === n - 1) {
+                                a = {
+                                    foundFrag: d,
+                                    timelineEstablished: !0
+                                };
+                                break
+                            }
+                            if (t + d.duration > i && e > o) {
+                                a = {
+                                    foundFrag: d,
+                                    timelineEstablished: !0
+                                };
+                                break
+                            }
+                            t += d.duration
+                        }
+                    }
+                } else if (ne(d) && 0 <= d && d < s.fragments.length && l) {
+                    let t = l.startTime;
+                    for (let e = d - 1; 0 <= e; --e) {
+                        const o = s.fragments[e];
                         if (!ne(r) || o.discoSeqNum === r) {
-                            if (t + o.duration > i && e > a) {
-                                s = {
+                            if (t <= i) {
+                                a = {
                                     foundFrag: o,
                                     timelineEstablished: !0
                                 };
                                 break
                             }
-                            t += o.duration
-                        }
-                    }
-                } else if (ne(d) && 0 <= d && d < n.fragments.length && l) {
-                    let t = l.startTime;
-                    for (let e = d - 1; 0 <= e; --e) {
-                        const a = n.fragments[e];
-                        if (!ne(r) || a.discoSeqNum === r) {
-                            if (t <= i) {
-                                s = {
-                                    foundFrag: a,
-                                    timelineEstablished: !0
-                                };
-                                break
-                            }
-                            t -= a.duration
+                            t -= o.duration
                         }
                     }
                 } else
-                    for (let e = 0; e < n.fragments.length; ++e) {
-                        const t = n.fragments[e];
+                    for (let e = 0; e < s.fragments.length; ++e) {
+                        const t = s.fragments[e];
                         if (ne(r) && t.discoSeqNum === r) {
-                            s = {
+                            a = {
                                 foundFrag: t,
                                 timelineEstablished: !1
                             };
                             break
                         }
                     }
-                return s
+                return a
             }
             generateFragmentBatch(t, i, e, r, n, s) {
                 var a;
@@ -18595,7 +18600,7 @@
                 }
                 , e=>{}
                 , e=>{
-                    this.hls.trigger(x.INLINE_STYLES_PARSED, {
+                    this.hls.trigger(P.INLINE_STYLES_PARSED, {
                         styles: e
                     })
                 }
@@ -19905,11 +19910,11 @@
             }
         }
         class hf extends Ut {
-            constructor(w, A, e, t, i, r) {
+            constructor(w, A, e, t, i, r, n) {
                 super(e=>{
                     const t = this.config
                       , i = A.startMediaSession(w, t.maxBufferLength, t.almostDryBufferSec, t.defaultTargetDuration)
-                      , r = Bi(w).pipe(pf(A, this._mediaQuery, this, this.hlsGapless, t, this.logger))
+                      , r = Bi(w).pipe(pf(A, this._mediaQuery, this, this.hlsGapless, t, this.logger, this.rtcService))
                       , n = this.mediaSource$.pipe(Ra(e=>e || Ti))
                       , s = this._mediaQuery.seekTo$.pipe((u = w,
                     c = this._mediaQuery,
@@ -20002,6 +20007,7 @@
                 this.hlsGapless = t,
                 this.logger = i,
                 this.teardownWorker = r,
+                this.rtcService = n,
                 this.mediaSource$ = new gi(null),
                 this._mediaQuery = new Yp(w,A),
                 this.logger = i.child({
@@ -20637,7 +20643,7 @@
                 this.mediaSource$.value.clearLiveSeekableRange()
             }
         }
-        const pf = (r,n,s,a,o,d)=>e=>e.pipe(Ra(t=>{
+        const pf = (r,n,s,a,o,d,i)=>e=>e.pipe(Ra(t=>{
             if (!t)
                 return Ti;
             const e = wc(t);
@@ -20698,8 +20704,8 @@
                 r.readyState = e,
                 r.ended = t.ended
             }
-            ), Un(e=>e instanceof MediaError ? (d.warn(`mediaElementError, code: ${e.code}, message: ${e.message}`),
-            Ui(e)) : (d.error(`media event error: ${e.message}`),
+            ), Un(e=>(e instanceof MediaError ? (d.warn(`mediaElementError, code: ${e.code}, message: ${e.message}`),
+            null == i || i.handleMediaElementError(e)) : d.error(`media event error: ${e.message}`),
             Ti)))
         }
         ), Ra(()=>Ti));
@@ -21326,7131 +21332,21 @@
             }
             return Of(t)
         }
-          , Df = a=>(e,t)=>{
-            let i = 0
-              , r = 0;
-            for (var {timestamp: n, value: s} of e) {
-                const e = Math.pow(Math.max(0, n - t) / 1e3, a);
-                i += e * s,
-                r += e
-            }
-            return i / r
-        }
-          , Mf = {
-            "uniform-time-weighted": Df(0),
-            "linear-time-weighted": Df(1),
-            "quadratic-time-weighted": Df(2)
-        };
-        class Pf {
-            constructor(e, t="quadratic-time-weighted", i={
-                avgLatencyMs: NaN,
-                avgBandwidth: NaN
-            }) {
-                this.windowSize = e,
-                this.aggregationMethod = t,
-                this.latencyEntries = [],
-                this.bandwidthEntries = [],
-                this.minEntries = 1,
-                this.cleanUpExpiredEntries = this.cleanUpExpiredEntries.bind(this),
-                this.bwSubject = new gi(i)
-            }
-            get estimate$() {
-                return this.bwSubject.asObservable()
-            }
-            record(e) {
-                var {trequest: t, tfirst: i, tload: r, bitsDownloaded: e} = e;
-                t !== r && (this.recordLatency(t, i),
-                this.recordBandwidth(t, r, 1e3 * e / (r - t)),
-                this.bwSubject.closed || (t = this.getEstimate(),
-                this.bwSubject.next(t)))
-            }
-            getEstimate() {
-                if (this.latencyEntries.length < this.minEntries)
-                    return {
-                        avgLatencyMs: NaN,
-                        avgBandwidth: NaN
-                    };
-                const e = performance.now() - this.windowSize
-                  , t = Mf[this.aggregationMethod]
-                  , i = this.latencyEntries.map(({start: e, end: t})=>({
-                    timestamp: t,
-                    value: t - e,
-                    duration: 1
-                }));
-                this.bandwidthEntries = function(r) {
-                    function n(t, i) {
-                        if (t.length) {
-                            for (let e = 0; e < t.length; e++)
-                                if (t[e].start > i.start || t[e].start === i.start && t[e].end > i.end) {
-                                    t.splice(e, 0, i);
-                                    break
-                                }
-                        } else
-                            t.push(i)
-                    }
-                    const s = [...r].sort((e,t)=>e.start !== t.start ? e.start - t.start : e.end - t.end)
-                      , t = [];
-                    for (; s.length; ) {
-                        const r = s[0];
-                        let e;
-                        if (s.shift(),
-                        t.length && (e = t[t.length - 1]),
-                        0 === t.length || e.end <= r.start)
-                            t.push(r);
-                        else if (r.start === e.start)
-                            r.end === e.end ? e.bitsPerSec += r.bitsPerSec : r.end < e.end || (e.bitsPerSec += r.bitsPerSec,
-                            r.start = e.end,
-                            n(s, r));
-                        else {
-                            var a = e.end
-                              , o = e.bitsPerSec;
-                            e.end = r.start;
-                            var i = {
-                                start: r.start,
-                                end: Math.min(a, r.end),
-                                bitsPerSec: r.bitsPerSec + o
-                            };
-                            if (t.push(i),
-                            a !== r.end) {
-                                let e = 0
-                                  , t = 0
-                                  , i = 0;
-                                i = a < r.end ? (e = a,
-                                t = r.end,
-                                r.bitsPerSec) : (e = r.end,
-                                t = a,
-                                o),
-                                n(s, {
-                                    start: e,
-                                    end: t,
-                                    bitsPerSec: i
-                                })
-                            }
-                        }
-                    }
-                    return t
-                }(this.bandwidthEntries);
-                var r = this.bandwidthEntries.map(({end: e, bitsPerSec: t})=>({
-                    timestamp: e,
-                    duration: 1,
-                    value: t
-                }));
-                return {
-                    avgLatencyMs: t(i, e),
-                    avgBandwidth: t(r, e)
-                }
-            }
-            getLatest() {
-                if (0 === this.latencyEntries.length)
-                    return {
-                        avgLatencyMs: NaN,
-                        avgBandwidth: NaN
-                    };
-                var e = this.latencyEntries[this.latencyEntries.length - 1]
-                  , t = this.bandwidthEntries[this.bandwidthEntries.length - 1];
-                return {
-                    avgLatencyMs: e.end - e.start,
-                    avgBandwidth: t.bitsPerSec
-                }
-            }
-            recordLatency(e, t) {
-                this.latencyEntries.push({
-                    start: e,
-                    end: t
-                }),
-                this.updateCleanupTimeout(t)
-            }
-            recordBandwidth(e, t, i) {
-                this.bandwidthEntries.push({
-                    start: e,
-                    end: t,
-                    bitsPerSec: i
-                }),
-                this.updateCleanupTimeout(t)
-            }
-            setCleanupTimeout(e) {
-                this.cleanupTimeout = setTimeout(this.cleanUpExpiredEntries, Math.max(e - performance.now(), 0)),
-                this.cleanupTimestamp = e
-            }
-            clearCleanupTimeout() {
-                void 0 !== this.cleanupTimeout && (clearTimeout(this.cleanupTimeout),
-                this.cleanupTimeout = void 0),
-                this.cleanupTimestamp = void 0
-            }
-            updateCleanupTimeout(e) {
-                e += this.windowSize;
-                (!this.cleanupTimestamp || e < this.cleanupTimestamp) && (this.clearCleanupTimeout(),
-                this.setCleanupTimeout(e))
-            }
-            cleanUpExpiredEntries() {
-                this.clearCleanupTimeout();
-                const t = performance.now() - this.windowSize;
-                if (this.latencyEntries = this.latencyEntries.filter(e=>e.end >= t),
-                this.bandwidthEntries = this.bandwidthEntries.filter(e=>e.end >= t),
-                this.bwSubject.closed || this.bwSubject.next(this.getEstimate()),
-                0 < this.latencyEntries.length || 0 < this.bandwidthEntries.length) {
-                    const t = Math.min(...this.latencyEntries.map(e=>e.end), ...this.bandwidthEntries.map(e=>e.end));
-                    this.updateCleanupTimeout(t)
-                }
-            }
-            destroy() {
-                this.clearCleanupTimeout()
-            }
-        }
-        const xf = {
-            setCombinedEstimate: function(t, i, r) {
-                const n = qe();
-                if (void 0 !== t.storage.set) {
-                    var s = t.bandwidthHistoryStorageKey
-                      , a = {
-                        avgLatencyMs: i.avgLatencyMs,
-                        avgBandwidth: i.avgBandwidth
-                    }
-                      , a = Object.assign({}, a, {
-                        expires: Date.now() + t.bandwidthHistoryTTL
-                    });
-                    try {
-                        t.storage.set(s, JSON.stringify(a))
-                    } catch (t) {
-                        n.warn(`Error stringifying! Not persisting bandwidth estimates: ${t.message}`)
-                    }
-                    i = {
-                        maxDuration: i.maxDurationSec,
-                        avgFragParseTimeMs: i.avgParseTimeMs,
-                        avgFragBufferCreationDelayMs: i.avgBufferCreateMs,
-                        avgPlaylistLoadTimeMs: i.avgPlaylistLoadTimeMs,
-                        avgPlaylistParseTimeMs: i.avgPlaylistParseTimeMs,
-                        avgInitFragAppendMs: i.avgInitFragAppendMs,
-                        avgDataFragAppendMs: i.avgDataFragAppendMs
-                    };
-                    let e = t.storageKeyPrefix;
-                    r && (e += r);
-                    try {
-                        t.storage.set(e, JSON.stringify(i))
-                    } catch (t) {
-                        n.warn(`Error stringifying! Not persisting bandwidth estimates: ${t.message}`)
-                    }
-                } else
-                    n.warn("storage.set is not supported! Not persisting bandwidth estimates")
-            },
-            getCombinedEstimate: function(t, e) {
-                const i = qe();
-                let r = {};
-                if (void 0 === t.storage.get)
-                    return i.warn("storage.get is not supported! unable to retreive bandwidth estimates"),
-                    this.convertStorageJsonToCombinedEstimate(r);
-                try {
-                    let e = JSON.parse(t.storage.get(t.bandwidthHistoryStorageKey));
-                    e = null != e && e.expires && e.expires < Date.now() ? null : {
-                        avgLatencyMs: null == e ? void 0 : e.avgLatencyMs,
-                        avgBandwidth: null == e ? void 0 : e.avgBandwidth
-                    },
-                    r = Object.assign(Object.assign({}, r), e)
-                } catch (t) {
-                    i.warn(`Unable to get persisted bandwidth history: ${t.message}`)
-                }
-                let n = t.storageKeyPrefix;
-                e && (n += e);
-                try {
-                    const e = JSON.parse(t.storage.get(n));
-                    r = Object.assign(Object.assign({}, r), e)
-                } catch (t) {
-                    i.warn(`Unable to get persisted bandwidth history: ${t.message}`)
-                }
-                return this.convertStorageJsonToCombinedEstimate(r)
-            },
-            convertStorageJsonToCombinedEstimate: function(e) {
-                return {
-                    avgLatencyMs: (null == e ? void 0 : e.avgLatencyMs) || NaN,
-                    avgBandwidth: (null == e ? void 0 : e.avgBandwidth) || NaN,
-                    maxDurationSec: (null == e ? void 0 : e.maxDuration) || NaN,
-                    avgParseTimeMs: (null == e ? void 0 : e.avgFragParseTimeMs) || NaN,
-                    avgBufferCreateMs: (null == e ? void 0 : e.avgFragBufferCreationDelayMs) || NaN,
-                    avgPlaylistLoadTimeMs: (null == e ? void 0 : e.avgPlaylistLoadTimeMs) || NaN,
-                    avgPlaylistParseTimeMs: (null == e ? void 0 : e.avgPlaylistParseTimeMs) || NaN,
-                    avgInitFragAppendMs: (null == e ? void 0 : e.avgInitFragAppendMs) || NaN,
-                    avgDataFragAppendMs: (null == e ? void 0 : e.avgDataFragAppendMs) || NaN
-                }
-            },
-            getBandwidthEstimate: function(e, t) {
-                const i = this.getCombinedEstimate(e, t)
-                  , r = {
-                    avgLatencyMs: null == i ? void 0 : i.avgLatencyMs,
-                    avgBandwidth: null == i ? void 0 : i.avgBandwidth
-                };
-                return ne(r.avgLatencyMs) || (r.avgLatencyMs = NaN),
-                ne(r.avgBandwidth) || (r.avgBandwidth = NaN),
-                r
-            },
-            getPlaylistEstimate: function(e, t) {
-                const i = this.getCombinedEstimate(e, t)
-                  , r = {
-                    avgPlaylistLoadTimeMs: null == i ? void 0 : i.avgPlaylistLoadTimeMs,
-                    avgPlaylistParseTimeMs: null == i ? void 0 : i.avgPlaylistParseTimeMs
-                };
-                return ne(r.avgPlaylistLoadTimeMs) || (r.avgPlaylistLoadTimeMs = NaN),
-                ne(r.avgPlaylistParseTimeMs) || (r.avgPlaylistParseTimeMs = NaN),
-                r
-            },
-            getFragEstimate: function(e, t) {
-                const i = this.getCombinedEstimate(e, t)
-                  , r = {
-                    maxDurationSec: null == i ? void 0 : i.maxDurationSec,
-                    avgParseTimeMs: null == i ? void 0 : i.avgParseTimeMs
-                };
-                return ne(r.maxDurationSec) || (r.maxDurationSec = NaN),
-                ne(r.avgParseTimeMs) || (r.avgParseTimeMs = NaN),
-                r
-            },
-            getBufferEstimate: function(e, t) {
-                const i = this.getCombinedEstimate(e, t)
-                  , r = {
-                    avgBufferCreateMs: null == i ? void 0 : i.avgBufferCreateMs,
-                    avgInitFragAppendMs: null == i ? void 0 : i.avgInitFragAppendMs,
-                    avgDataFragAppendMs: null == i ? void 0 : i.avgDataFragAppendMs
-                };
-                return ne(r.avgBufferCreateMs) || (r.avgBufferCreateMs = NaN),
-                ne(r.avgInitFragAppendMs) || (r.avgInitFragAppendMs = NaN),
-                ne(r.avgDataFragAppendMs) || (r.avgDataFragAppendMs = NaN),
-                r
-            }
-        };
-        var Rf = xf;
-        class Lf {
-            constructor(e=0) {
-                this._minSamples = e,
-                this._sum = 0,
-                this._max = Number.NEGATIVE_INFINITY,
-                this._numSamples = 0
-            }
-            get avg() {
-                return this._numSamples < this._minSamples ? NaN : this._sum / this._numSamples
-            }
-            get max() {
-                return 0 < this.count ? this._max : NaN
-            }
-            get count() {
-                return this._numSamples
-            }
-            reset() {
-                this._sum = 0,
-                this._numSamples = 0,
-                this._max = Number.NEGATIVE_INFINITY
-            }
-            add(e) {
-                this._sum += e,
-                this._max = Math.max(this._max, e),
-                ++this._numSamples
-            }
-        }
-        class _f extends Od {
-            constructor(e, t) {
-                super(e),
-                this.id = t
-            }
-            getBandwidthEstimate(e, t) {
-                var i;
-                const r = Object.assign({}, null === (i = this.statsEntity) || void 0 === i ? void 0 : i.bandwidthEstimate);
-                if (ne(r.avgBandwidth) && ne(r.avgLatencyMs))
-                    return r;
-                if (e) {
-                    const i = xf.getBandwidthEstimate(e, t);
-                    ne(r.avgBandwidth) || (r.avgBandwidth = i.avgBandwidth),
-                    ne(r.avgLatencyMs) || (r.avgLatencyMs = i.avgLatencyMs)
-                }
-                return r
-            }
-            getPlaylistEstimate(e, t) {
-                var i;
-                const r = Object.assign({}, null === (i = this.statsEntity) || void 0 === i ? void 0 : i.playlistEstimate)
-                  , n = e=>ne(e.avgPlaylistLoadTimeMs) && ne(e.avgPlaylistParseTimeMs);
-                if (n(r))
-                    return r;
-                if (e) {
-                    const i = xf.getPlaylistEstimate(e, t);
-                    if (ne(r.avgPlaylistLoadTimeMs) || (r.avgPlaylistLoadTimeMs = i.avgPlaylistLoadTimeMs),
-                    ne(r.avgPlaylistParseTimeMs) || (r.avgPlaylistParseTimeMs = i.avgPlaylistParseTimeMs),
-                    n(r))
-                        return r;
-                    ne(r.avgPlaylistLoadTimeMs) || (r.avgPlaylistLoadTimeMs = e.statDefaults.playlistLoadTimeMs),
-                    ne(r.avgPlaylistParseTimeMs) || (r.avgPlaylistParseTimeMs = e.statDefaults.playlistParseTimeMs)
-                }
-                return r
-            }
-            getBufferEstimate(e, t) {
-                var i;
-                const r = Object.assign({}, null === (i = this.statsEntity) || void 0 === i ? void 0 : i.bufferEstimate)
-                  , n = e=>ne(e.avgBufferCreateMs) && ne(e.avgDataFragAppendMs) && ne(e.avgInitFragAppendMs);
-                if (n(r))
-                    return r;
-                if (e) {
-                    const i = xf.getBufferEstimate(e, t);
-                    if (ne(r.avgBufferCreateMs) || (r.avgBufferCreateMs = i.avgBufferCreateMs),
-                    ne(r.avgDataFragAppendMs) || (r.avgDataFragAppendMs = i.avgDataFragAppendMs),
-                    ne(r.avgInitFragAppendMs) || (r.avgInitFragAppendMs = i.avgInitFragAppendMs),
-                    n(r))
-                        return r;
-                    ne(r.avgBufferCreateMs) || (r.avgBufferCreateMs = e.statDefaults.fragBufferCreationDelayMs),
-                    ne(r.avgDataFragAppendMs) || (r.avgDataFragAppendMs = e.statDefaults.dataFragAppendMs),
-                    ne(r.avgInitFragAppendMs) || (r.avgInitFragAppendMs = e.statDefaults.initFragAppendMs)
-                }
-                return r
-            }
-            getFragEstimate(e, t) {
-                var i;
-                const r = Object.assign({}, null === (i = this.statsEntity) || void 0 === i ? void 0 : i.fragEstimate)
-                  , n = e=>ne(e.maxDurationSec) && ne(e.avgParseTimeMs);
-                if (n(r))
-                    return r;
-                if (e) {
-                    const i = xf.getFragEstimate(e, t);
-                    if (ne(r.maxDurationSec) || (r.maxDurationSec = i.maxDurationSec),
-                    ne(r.avgParseTimeMs) || (r.avgParseTimeMs = i.avgParseTimeMs),
-                    n(r))
-                        return r;
-                    ne(r.maxDurationSec) || (r.maxDurationSec = e.defaultTargetDuration),
-                    ne(r.avgParseTimeMs) || (r.avgParseTimeMs = e.statDefaults.fragParseTimeMs)
-                }
-                return r
-            }
-            getCombinedEstimate() {
-                return Object.assign(Object.assign(Object.assign(Object.assign({}, this.getFragEstimate()), this.getPlaylistEstimate()), this.getBufferEstimate()), this.getBandwidthEstimate())
-            }
-            get statsEntity() {
-                return this.getEntity(this.id)
-            }
-            get bandwidthSample() {
-                var e;
-                return null === (e = this.statsEntity) || void 0 === e ? void 0 : e.bandwidthSample
-            }
-            get bandwidthStatus() {
-                var e;
-                return null === (e = this.statsEntity) || void 0 === e ? void 0 : e.bandwidthStatus
-            }
-            get fragSample() {
-                var e;
-                return null === (e = this.statsEntity) || void 0 === e ? void 0 : e.fragSample
-            }
-            get bandwidthEstimate$() {
-                return this.selectEntity(this.id, "bandwidthEstimate")
-            }
-            get fragEstimate$() {
-                return this.selectEntity(this.id, "fragEstimate")
-            }
-            get playlistEstimate$() {
-                return this.selectEntity(this.id, "playlistEstimate")
-            }
-            get bufferEstimate$() {
-                return this.selectEntity(this.id, "bufferEstimate")
-            }
-            get bandwidthSample$() {
-                return this.selectEntity(this.id, ({bandwidthSample: e})=>e).pipe(Up())
-            }
-            get fragSample$() {
-                return this.selectEntity(this.id, ({fragSample: e})=>e).pipe(Up())
-            }
-            get playlistSample$() {
-                return this.selectEntity(this.id, ({playlistSample: e})=>e).pipe(Up())
-            }
-            get bufferMetric$() {
-                return this.selectEntity(this.id, ({bufferMetric: e})=>e).pipe(Up())
-            }
-        }
-        class Nf {
-            constructor(e) {
-                this.statsStore = e
-            }
-            getQuery() {
-                return new Od(this.statsStore)
-            }
-            getQueryForItem(e) {
-                return new _f(this.statsStore,e)
-            }
-            remove(e) {
-                this.statsStore.remove(e)
-            }
-            removeAll() {
-                this.statsStore.remove()
-            }
-            setBandwidthSample(e) {
-                this.statsStore.bandwidthSample = e
-            }
-            setFragSample(e) {
-                this.statsStore.fragSample = e
-            }
-            setPlaylistSample(e) {
-                this.statsStore.playlistSample = e
-            }
-            setBufferMetric(e) {
-                this.statsStore.bufferMetric = e
-            }
-            setBandwidthEstimate(e) {
-                this.statsStore.bandwidthEstimate = e
-            }
-            setFragEstimate(e) {
-                this.statsStore.fragEstimate = e
-            }
-            setPlaylistEstimate(e) {
-                this.statsStore.playlistEstimate = e
-            }
-            setBufferEstimate(e) {
-                this.statsStore.bufferEstimate = e
-            }
-        }
-        const Ff = new class extends pd {
-            constructor() {
-                super({}, {
-                    name: "stats-store",
-                    producerFn: vc
-                })
-            }
-            set statsEntity(e) {
-                Co("statsStore.set.stats"),
-                sd(()=>{
-                    this.add(e),
-                    this.setActive(e.id)
-                }
-                )
-            }
-            set playlistSample(t) {
-                Co(`stats.set.playlistSample: ${t}`),
-                this.updateActive(e=>{
-                    e.playlistSample = t
-                }
-                )
-            }
-            set bandwidthSample(t) {
-                Co(`stats.set.bandwidthSample: ${t}`),
-                this.updateActive(e=>{
-                    e.bandwidthSample = t,
-                    e.bandwidthStatus.bandwidthSampleCount += 1,
-                    e.bandwidthStatus.instantBw = 8e3 * t.loaded / (t.tload - t.trequest)
-                }
-                )
-            }
-            set fragSample(t) {
-                Co(`stats.set.fragSample: ${t}`),
-                this.updateActive(e=>{
-                    e.fragSample = t
-                }
-                )
-            }
-            set bufferMetric(t) {
-                Co(`stats.set.bufferMetric: ${t}`),
-                this.updateActive(e=>{
-                    e.bufferMetric = t
-                }
-                )
-            }
-            set bandwidthEstimate(t) {
-                Co(`stats.set.bandwidthEstimate: ${t}`),
-                this.updateActive(e=>{
-                    e.bandwidthEstimate = t
-                }
-                )
-            }
-            set fragEstimate(t) {
-                Co(`stats.set.fragEstimate: ${t}`),
-                this.updateActive(e=>{
-                    e.fragEstimate = t
-                }
-                )
-            }
-            set playlistEstimate(t) {
-                Co(`stats.set.playlistEstimate: ${t}`),
-                this.updateActive(e=>{
-                    e.playlistEstimate = t
-                }
-                )
-            }
-            set bufferEstimate(t) {
-                Co(`stats.set.bufferEstimate: ${t}`),
-                this.updateActive(e=>{
-                    e.bufferEstimate = t
-                }
-                )
-            }
-        }
         ;
-        let Bf = null;
-        const Uf = e=>new _f(Ff,e);
-        function $f(e, t) {
-            if (e === t)
-                return !0;
-            if (!e || !t)
-                return !1;
-            let i = Object.keys(e).length === Object.keys(t).length;
-            for (const r of Object.keys(e))
-                i = i && (isNaN(e[r]) && isNaN(t[r]) || e[r] === t[r]);
-            return i
-        }
-        function Vf(f, m, g) {
-            return new Ut(e=>{
-                (e=>{
-                    const t = Uf(e);
-                    t.hasEntity(e) ? Bi(t) : (i = Ff,
-                    e = e,
-                    Co("stats.loading"),
-                    i.setLoading(!0),
-                    i.statsEntity = {
-                        id: e,
-                        bandwidthEstimate: {
-                            avgLatencyMs: NaN,
-                            avgBandwidth: NaN
-                        },
-                        bandwidthStatus: {
-                            bandwidthSampleCount: 0,
-                            instantBw: NaN
-                        },
-                        fragEstimate: {
-                            maxDurationSec: NaN,
-                            avgParseTimeMs: NaN
-                        },
-                        playlistEstimate: {
-                            avgPlaylistLoadTimeMs: NaN,
-                            avgPlaylistParseTimeMs: NaN
-                        },
-                        bufferEstimate: {
-                            avgBufferCreateMs: NaN,
-                            avgInitFragAppendMs: NaN,
-                            avgDataFragAppendMs: NaN
-                        }
-                    },
-                    i.setLoading(!1),
-                    Co("stats.loaded"));
-                    var i
-                }
-                )(g.itemId);
-                const t = Uf(g.itemId)
-                  , {fragSample$: i, playlistSample$: r, bandwidthSample$: n, bufferMetric$: s} = t;
-                return nn(r.pipe(Hi(Zi), (h = f,
-                p = m,
-                e=>e.pipe(Ql.tag("statsPlaylistProcessingEpic.in"), na((e,t)=>(e.playlistLoadTimeMs.add(t.playlistLoadTimeMs),
-                e.playlistParseTimeMs.add(t.playlistParseTimeMs),
-                e), {
-                    playlistLoadTimeMs: new Lf(h.minPlaylistCount),
-                    playlistParseTimeMs: new Lf(h.minPlaylistCount)
-                }), ur(e=>({
-                    avgPlaylistLoadTimeMs: e.playlistLoadTimeMs.avg,
-                    avgPlaylistParseTimeMs: e.playlistParseTimeMs.avg
-                })), Es($f), Ja(e=>{
-                    p.setPlaylistEstimate(e)
-                }
-                )))), n.pipe(Hi(Zi), (u = f,
-                c = m,
-                n=>new Ut(e=>{
-                    let t = new Pf(u.bandwidthHistoryWindowSize,u.bandwidthHistoryAggregationMethod,{
-                        avgLatencyMs: NaN,
-                        avgBandwidth: NaN
-                    });
-                    const i = t.estimate$
-                      , r = nn(n.pipe(an(e=>e.complete), Ja(e=>{}
-                    ), ur(e=>({
-                        trequest: e.trequest,
-                        tfirst: e.tfirst,
-                        tload: e.tload,
-                        bitsDownloaded: 8 * e.loaded
-                    })), Ql.tag("statsBandwidthProcessingEpic.in"), Ra(e=>(t.record(e),
-                    Ti))), i.pipe(Es(), Ql.tag("statsBandwidthProcessingEpic.change"), Ja(e=>{
-                        c && c.setBandwidthEstimate(e)
-                    }
-                    ))).subscribe(e);
-                    return ()=>{
-                        r.unsubscribe(),
-                        t.destroy(),
-                        t = void 0
-                    }
-                }
-                ))), i.pipe(Hi(Zi), (d = f,
-                l = m,
-                e=>e.pipe(Ql.tag("statsFragProcessingEpic.in"), na((e,t)=>(e.durationSec.add(t.durationSec),
-                e.fragParseMs.add(t.parseTimeMs),
-                e), {
-                    durationSec: new Lf,
-                    fragParseMs: new Lf(d.minFragmentCount)
-                }), ur(e=>({
-                    maxDurationSec: e.durationSec.max,
-                    avgParseTimeMs: e.fragParseMs.avg
-                })), Es($f), Ja(e=>l.setFragEstimate(e))))), s.pipe(Hi(Zi), (a = f,
-                o = m,
-                e=>e.pipe(Ql.tag("statsBufferMetricProcessingEpic.in"), na((e,t)=>(ne(t.bufferCreationStart) && ne(t.bufferCreationEnd) && e.bufferCreateMs.add(t.bufferCreationEnd - t.bufferCreationStart),
-                ne(t.startInitAppend) && ne(t.endInitAppend) && e.initFragAppendMs.add(t.endInitAppend - t.startInitAppend),
-                ne(t.startDataAppend) && ne(t.endDataAppend) && e.dataFragAppendMs.add(t.endDataAppend - t.startDataAppend),
-                e), {
-                    bufferCreateMs: new Lf,
-                    initFragAppendMs: new Lf,
-                    dataFragAppendMs: new Lf(a.minFragmentCount)
-                }), ur(e=>({
-                    avgBufferCreateMs: e.bufferCreateMs.avg,
-                    avgInitFragAppendMs: e.initFragAppendMs.avg,
-                    avgDataFragAppendMs: e.dataFragAppendMs.avg
-                })), Es($f), Ja(e=>{
-                    o.setBufferEstimate(e)
-                }
-                ))))).pipe(Ua(Ti)).subscribe(e),
-                ()=>{
-                    Rf.setCombinedEstimate(f, Object.assign(Object.assign(Object.assign(Object.assign({}, t.getFragEstimate()), t.getPlaylistEstimate()), t.getBufferEstimate()), t.getBandwidthEstimate()), g.serviceName),
-                    m.remove(g.itemId)
-                }
-                ;
-                var a, o, d, l, u, c, h, p
-            }
-            )
-        }
-        const Kf = {
-            isWebkitMediaElement: e=>"webkitDroppedFrameCount"in e,
-            isHtmlVideoElement: e=>"getVideoPlaybackQuality"in e,
-            timeRangeToArray(t) {
-                const i = [];
-                for (let e = 0; e < t.length; e++)
-                    i.push([t.start(e), t.end(e)]);
-                return i
-            }
-        };
-        class Hf extends Ut {
-            constructor() {
-                super(e=>this.works$.pipe(ur(e=>Lr(e)), zr()).subscribe(e)),
-                this.works$ = new zt
-            }
-            addWork(e) {
-                this.works$.next(e)
-            }
-            complete() {
-                this.works$.complete()
-            }
-        }
-        class jf {
-            constructor(e, t) {
-                this.hls = e,
-                this.sessionID = t,
-                this.rtcQuery = null,
-                this.accessLogData = this.createAccessLogEntry(),
-                this.accesslog = [],
-                this.errorlog = []
-            }
-            destroy() {
-                this.rtcQuery = null,
-                this.accesslog = [],
-                this.errorlog = [],
-                this.accessLogData = void 0,
-                this.accessLogReporter = void 0
-            }
-            setRTCQuery(e) {
-                this.rtcQuery = e
-            }
-            setupReporter(e) {
-                this.accessLogReporter = {
-                    SessionID: this.sessionID,
-                    ClientName: null == e ? void 0 : e.clientName,
-                    ServiceName: null == e ? void 0 : e.serviceName
-                }
-            }
-            addPlayTime(e) {
-                var t, e = null === (t = this.rtcQuery) || void 0 === t ? void 0 : t.getEntity(e);
-                !e || "RTC_STATE_PLAY" === (e = e.sessionControlRecord).state && (this.accessLogData.PlayTimeWC = (this.accessLogData.PlayTimeWC || 0) + e.eventStartTime)
-            }
-            updatePlaybackInfo(e, t) {
-                this.accessLogData.ViFrDr = this.rtcQuery.getEntity(e).sessionControlRecord.droppedVideoFrames || 0
-            }
-            updateStallCount(e) {
-                "RTC_STATE_PLAY" === this.rtcQuery.getEntity(e).sessionControlRecord.state && this.accessLogData.StallCount++
-            }
-            updateMediaEngineStallCount(e) {
-                "RTC_STATE_PLAY" === this.rtcQuery.getEntity(e).sessionControlRecord.state && this.accessLogData.MediaEngineStallCount++
-            }
-            updateCanPlay(e) {
-                this.accessLogData.StartupTime = this.rtcQuery.getEntity(e).sessionControlRecord.eventStartTime
-            }
-            updateFragLoaded(e, t, i) {
-                var r;
-                i.fragType === ul.Variant ? (this.accessLogData.NetBytes += i.bytes,
-                this.accessLogData.ADT += i.adt,
-                r = this.aggregateFragObserverdBitrate(i, ++this.accessLogData.fragmentCnt, this.accessLogData.NetBytes, this.accessLogData.ADT),
-                this.accessLogData.OBRLast = r.obrLast,
-                this.accessLogData.OBRMean = r.obrMean,
-                this.aggregateFragMinMaxBitrate(this.accessLogData, r.obr),
-                this.hls.realCurrentTime > i.startPTS && !t && this.accessLogData.overdue++,
-                this.hasGap(i.startPTS, i.endPTS, this.accessLogData.lastStartPTS, this.accessLogData.lastEndPTS) && this.addToAccessLog(e),
-                this.accessLogData.startPTS || (this.accessLogData.startPTS = i.startPTS),
-                this.accessLogData.lastStartPTS = i.startPTS,
-                this.accessLogData.lastEndPTS = i.endPTS,
-                this.accessLogData.videoBytes += i.bytes,
-                this.accessLogData.videoDuration += i.duration) : i.fragType === ul.AltAudio && (this.accessLogData.audioBytes += i.bytes,
-                this.accessLogData.audioDuration += i.duration)
-            }
-            addToAccessLog(e) {
-                var t = this.getVariantInfo(e)
-                  , i = this.rtcQuery.getEntity(e).sessionControlRecord.curLevelUrl
-                  , r = this.rtcQuery.getEntity(e).playEndedRecord.PlayType;
-                if (i && "" !== i) {
-                    r = this.translateToAccessLogItem(e, i, t, r);
-                    if (r) {
-                        const n = this.accesslog.length - 20;
-                        0 < n && this.accesslog.splice(0, n),
-                        this.accesslog.push(r)
-                    }
-                    this.accessLogData = this.createAccessLogEntry();
-                    e = this.rtcQuery.getEntity(e).switchCompleteRecord.MediaDur;
-                    this.accessLogData.lastMediaDur = e || this.hls.bufferedDuration
-                }
-            }
-            addToErrorLog(e, t) {
-                var i = null === (r = this.rtcQuery) || void 0 === r ? void 0 : r.getEntity(e);
-                if (i) {
-                    var r = Number(("mediaError" === t ? i.playErrorRecord : i.nwErrorRecord).ErrCode)
-                      , i = i.sessionControlRecord.curLevelUrl
-                      , r = this.translateToErrorLogItem(e, i, {
-                        domain: t,
-                        code: r
-                    });
-                    if (r) {
-                        const e = this.errorlog.length - 20;
-                        0 < e && this.errorlog.splice(0, e),
-                        this.errorlog.push(r)
-                    }
-                }
-            }
-            getAccessLog(e) {
-                var t;
-                const i = this.accesslog.slice(0)
-                  , r = null === (t = this.rtcQuery) || void 0 === t ? void 0 : t.getEntity(e);
-                if (i && r) {
-                    const t = r.sessionControlRecord.curLevelUrl;
-                    if (t && "" !== t) {
-                        const r = this.getVariantInfo(e)
-                          , n = this.translateToAccessLogItem(e, t, r, this.rtcQuery.getEntity(e).playEndedRecord.PlayType);
-                        n && (n["c-provisional-entry"] = !0,
-                        i.push(n))
-                    }
-                }
-                return i
-            }
-            get errorLog() {
-                return this.errorlog
-            }
-            createAccessLogEntry() {
-                return {
-                    fragmentCnt: 0,
-                    overdue: 0,
-                    startPTS: 0,
-                    obrMax: 0,
-                    obrMin: 0,
-                    audioBytes: 0,
-                    audioDuration: 0,
-                    videoBytes: 0,
-                    videoDuration: 0,
-                    svrAddrChanged: 0,
-                    svrAddr: "",
-                    PlayTimeWC: 0,
-                    ViFrDr: 0,
-                    StallCount: 0,
-                    MediaEngineStallCount: 0,
-                    ADT: 0,
-                    NetBytes: 0,
-                    StartupTime: 0,
-                    OBRMean: 0,
-                    OBRLast: 0
-                }
-            }
-            convertStringObjectToPrimitive(e) {
-                return e ? "object" == typeof e ? e.toString() : e : ""
-            }
-            updateSvrAddrStats(t) {
-                const i = fl.parseURL(t);
-                if (i && i.netLoc) {
-                    const t = i.netLoc.indexOf(":");
-                    let e = 0 <= t ? i.netLoc.slice(0, t) : i.netLoc;
-                    e.startsWith("//") && (e = e.slice(2)),
-                    this.accessLogData.svrAddr ? e !== this.accessLogData.svrAddr && this.accessLogData.svrAddrChanged++ : this.accessLogData.svrAddrChanged = 0,
-                    this.accessLogData.svrAddr = e
-                }
-            }
-            translateToAccessLogItem(e, t, i, r) {
-                t = this.convertStringObjectToPrimitive(t);
-                this.updateSvrAddrStats(t);
-                let n = this.rtcQuery.getEntity(e).switchCompleteRecord.MediaDur;
-                n = n || this.hls.bufferedDuration,
-                n = n || 0;
-                const s = {
-                    uri: t,
-                    "s-ip": this.accessLogData.svrAddr,
-                    "s-ip-changes": this.accessLogData.svrAddrChanged,
-                    "sc-wwan-count": -1,
-                    "c-transfer-duration": this.accessLogData.ADT,
-                    bytes: this.accessLogData.NetBytes,
-                    "c-total-media-requests": this.accessLogData.fragmentCnt,
-                    "cs-guid": this.accessLogReporter.SessionID,
-                    "c-start-time": this.accessLogData.startPTS,
-                    "c-startup-time": this.accessLogData.StartupTime,
-                    "c-duration-watched": this.accessLogData.PlayTimeWC / 1e3,
-                    "c-frames-dropped": this.accessLogData.ViFrDr,
-                    "c-stalls": this.accessLogData.StallCount + this.accessLogData.MediaEngineStallCount,
-                    "c-duration-downloaded": this.accessLogData.lastMediaDur ? n - this.accessLogData.lastMediaDur : n,
-                    "c-overdue": this.accessLogData.overdue,
-                    "c-avg-video-bitrate": 8 * this.accessLogData.videoBytes / (this.accessLogData.videoDuration || 1),
-                    "c-observed-max-bitrate": this.accessLogData.obrMax,
-                    "c-observed-min-bitrate": this.accessLogData.obrMin,
-                    "sc-indicated-bitrate": i.bandwidth || 0,
-                    "sc-indicated-avg-bitrate": i.avgBandwidth || 0,
-                    "c-observed-bitrate": this.accessLogData.OBRMean,
-                    "c-switch-bitrate": this.accessLogData.OBRLast,
-                    "c-provisional-entry": !1
-                };
-                return s["s-playback-type"] = r,
-                this.accessLogData.audioBytes && (s["c-avg-audio-bitrate"] = 8 * this.accessLogData.audioBytes / (this.accessLogData.audioDuration || 1)),
-                s
-            }
-            translateToErrorLogItem(e, t, i) {
-                t = this.convertStringObjectToPrimitive(t);
-                return this.updateSvrAddrStats(t),
-                {
-                    date: new Date,
-                    "cs-guid": this.accessLogReporter.SessionID + "-" + e,
-                    uri: t,
-                    "s-ip": this.accessLogData.svrAddr,
-                    status: "" + i.code,
-                    domain: i.domain
-                }
-            }
-            hasGap(e, t, i, r) {
-                return void 0 !== e && void 0 !== i && (1 < e - r || 1 < i - t)
-            }
-            aggregateFragObserverdBitrate(e, t, i, r) {
-                r = 8 * i / (r / 1e3);
-                return {
-                    obr: r,
-                    obrLast: 8 * e.bytes / (e.adt / 1e3),
-                    obrMean: r / t
-                }
-            }
-            aggregateFragMinMaxBitrate(e, t) {
-                (!e.obrMax || t > e.obrMax) && (e.obrMax = t),
-                (!e.obrMin || t < e.obrMin) && (e.obrMin = t)
-            }
-            getVariantInfo(e) {
-                var t = this.rtcQuery.getEntity(e).sessionControlRecord.curLevelUrl
-                  , e = null === (e = this.rtcQuery.getEntity(e).sessionControlRecord.manifestData) || void 0 === e ? void 0 : e.variantList;
-                return t && e && e[t] ? e[t] : {}
-            }
-        }
-        const qf = (r,e,t,i,n,s)=>{
-            var a, {absoluteUrl: o, byteRangeOffset: d, keyTagInfo: l, iframe: u, isInitSegment: c} = r, h = o, p = l["method"], {start: o, end: l} = d, t = xc({
-                url: h
-            }, t);
-            let f, m = o, g = l, y = !1, v = ne(o) || ne(l) ? d : void 0;
-            if ("AES-128" === p && l && (u || c)) {
-                const r = l - o;
-                r % 16 && (g = l + (16 - r % 16)),
-                0 !== o && (y = !0,
-                m = o - 16),
-                v = {
-                    start: m,
-                    end: g
-                }
-            }
-            return n && ne(r.mediaSeqNum) && r.mediaOptionType === ul.Variant && (f = [],
-            null === (n = t.reportHTTPResponseHeaders) || void 0 === n || n.forEach(function(e) {
-                vl.includes(e) ? f.push(e) : qe().warn({
-                    name: "load-media-fragment"
-                }, `${e} is not in approved privacy list. Actions required.`)
-            }),
-            0 === f.length && (f = void 0)),
-            Pc({
-                url: h,
-                byteRangeOffset: v,
-                checkContentLength: !0,
-                extendMaxTTFB: s,
-                collectServerInstanceInfo: f,
-                onProgress: i,
-                xhrSetup: e.xhrSetup
-            }, t).pipe(ur(([e,t,i])=>{
-                if (y) {
-                    const t = e;
-                    r.keyTagInfo.iv = new Uint8Array(t.slice(0, 16)),
-                    e = t.slice(16)
-                }
-                return [r, e, t, i]
-            }
-            ), (a = r,
-            e=>e.pipe(Un(e=>{
-                if (e instanceof ou)
-                    throw new au(!1,"Timeout",0,$.FragmentTimeoutError,!0,a,e.stats);
-                if (e instanceof tu)
-                    throw new au(!1,e.message,e.code,{
-                        code: e.code,
-                        text: "Fragment Network Error"
-                    },!1,a);
-                throw e
-            }
-            ))))
-        }
-          , Qf = {
-            clearkey: Zc,
-            fairplaystreaming: pu,
-            playready: _c,
-            widevine: Nc
-        }
-          , Gf = {
-            getKeySystemFormat(e) {
-                e = Qf[e];
-                return e ? e.keyFormatString : ""
-            },
-            getKeySystemSecurityLevel(e) {
-                e = Qf[e];
-                return e ? e.securityLevels : null
-            }
-        }
-          , Wf = {
-            NONE: "",
-            "AES-128": "",
-            "ISO-23001-7": "",
-            "SAMPLE-AES": "",
-            "SAMPLE-AES-CTR": ""
-        }
-          , zf = {
-            NONE: 0,
-            "TYPE-0": 1,
-            "TYPE-1": 2,
-            "TYPE-2": 3
-        };
-        function Xf(e) {
-            return e in zf
-        }
-        function Yf(e) {
-            return null == e ? 4 : zf[e]
-        }
-        const Jf = ["SDR", "PQ", "HLG"]
-          , Zf = {
-            afr: "af",
-            aka: "ak",
-            amh: "am",
-            ara: "ar",
-            arg: "an",
-            asm: "as",
-            ava: "av",
-            ave: "ae",
-            aym: "ay",
-            aze: "az",
-            bam: "bm",
-            bel: "be",
-            ben: "bn",
-            bih: "bh",
-            bod: "bo",
-            bos: "bs",
-            bre: "br",
-            bul: "bg",
-            cat: "ca",
-            ces: "cs",
-            cha: "ch",
-            che: "ce",
-            chu: "cu",
-            chv: "cv",
-            cor: "kw",
-            cos: "co",
-            cre: "cr",
-            cym: "cy",
-            dan: "da",
-            deu: "de",
-            div: "dv",
-            dzo: "dz",
-            ell: "el",
-            eng: "en",
-            epo: "eo",
-            est: "et",
-            eus: "eu",
-            ewe: "ee",
-            fao: "fo",
-            fas: "fa",
-            fin: "fi",
-            fra: "fr",
-            fry: "fy",
-            ful: "ff",
-            gla: "gd",
-            gle: "ga",
-            glg: "gl",
-            glv: "gv",
-            grn: "gn",
-            guj: "gu",
-            hat: "ht",
-            heb: "he",
-            her: "hz",
-            hin: "hi",
-            hmo: "ho",
-            hrv: "hr",
-            hun: "hu",
-            hye: "hy",
-            ibo: "ig",
-            ido: "io",
-            iii: "ii",
-            iku: "iu",
-            ile: "ie",
-            ina: "ia",
-            ind: "id",
-            isl: "is",
-            ita: "it",
-            jav: "jv",
-            jpn: "ja",
-            kal: "kl",
-            kan: "kn",
-            kas: "ks",
-            kat: "ka",
-            kau: "kr",
-            kaz: "kk",
-            khm: "km",
-            kik: "ki",
-            kin: "rw",
-            kir: "ky",
-            kom: "kv",
-            kon: "kg",
-            kor: "ko",
-            kua: "kj",
-            kur: "ku",
-            lao: "lo",
-            lat: "la",
-            lav: "lv",
-            lim: "li",
-            lit: "lt",
-            ltz: "lb",
-            lub: "lu",
-            lug: "lg",
-            mah: "mh",
-            mal: "ml",
-            mar: "mr",
-            mkd: "mk",
-            mlg: "mg",
-            mlt: "mt",
-            mol: "mo",
-            mon: "mn",
-            mri: "mi",
-            msa: "ms",
-            mya: "my",
-            nav: "nv",
-            nbl: "nr",
-            nde: "nd",
-            ndo: "ng",
-            nep: "ne",
-            nld: "nl",
-            nno: "nn",
-            nob: "nb",
-            nya: "ny",
-            oci: "oc",
-            oji: "oj",
-            ori: "or",
-            orm: "om",
-            oss: "os",
-            pan: "pa",
-            pli: "pi",
-            pol: "pl",
-            por: "pt",
-            pus: "ps",
-            que: "qu",
-            roh: "rm",
-            ron: "ro",
-            run: "rn",
-            rus: "ru",
-            san: "sa",
-            sin: "si",
-            slk: "sk",
-            slv: "sl",
-            sme: "se",
-            snd: "sd",
-            som: "so",
-            spa: "es",
-            sqi: "sq",
-            srd: "sc",
-            srp: "sr",
-            sun: "su",
-            swa: "sw",
-            swe: "sv",
-            tah: "ty",
-            tam: "ta",
-            tat: "tt",
-            tel: "te",
-            tgk: "tg",
-            tgl: "tl",
-            tha: "th",
-            tir: "ti",
-            ton: "to",
-            tuk: "tk",
-            tur: "tr",
-            uig: "ug",
-            ukr: "uk",
-            urd: "ur",
-            uzb: "uz",
-            ven: "ve",
-            vie: "vi",
-            wln: "wa",
-            yid: "yi",
-            zha: "za",
-            zho: "zh"
-        }
-          , em = {
-            isLanguageCode: e=>e in Zf,
-            shortenLanguageCode(e) {
-                let t;
-                var i, r;
-                return e && (r = 0 <= (i = e.indexOf("-")) ? e.slice(0, i) : e,
-                em.isLanguageCode(r) && (t = Zf[r]),
-                t = t || r,
-                0 < i && (t += "-" + e.slice(i + 1))),
-                t
-            }
-        }
-          , tm = {
-            getRichestVideoCodec(e) {
-                if (e && e.length) {
-                    e = e.sort((e,t)=>$p(t) - $p(e));
-                    return e && e.length ? e[0] : void 0
-                }
-            },
-            getRichestAudioCodec(e) {
-                if (e && e.length) {
-                    e = e.sort((e,t)=>Kp(t) - Kp(e));
-                    return e && e.length ? e[0] : void 0
-                }
-            },
-            getRichestChannelLayoutForGroupId(t, i) {
-                if (t && i && i.length) {
-                    let e;
-                    const r = i.filter(e=>e.groupId === t);
-                    if (r && r.length) {
-                        const t = r.sort((e,t)=>Se.getChannelCount(t.channels) - Se.getChannelCount(e.channels));
-                        t && t.length && (e = t[0].channels)
-                    }
-                    return e
-                }
-            }
-        };
-        function im(e) {
-            return new R(L,"steeringManifestParsingError",!1,e,$.FormatError)
-        }
-        class rm {
-            constructor(e) {
-                this._url = null,
-                this._programDateTime = null,
-                this._byteRange = null,
-                this.relurl = null,
-                this.baseurl = null,
-                this.isInitSegment = !1,
-                this.mediaSeqNum = NaN,
-                this.cc = NaN,
-                this.iframe = !1,
-                this.bitrate = NaN,
-                this.start = NaN,
-                this.duration = NaN,
-                this.lastByteRangeEndOffset = NaN,
-                this.inheritQuery = e,
-                this.tagList = new Array,
-                this.iframe = !1
-            }
-            getMediaFragment(e, t, i) {
-                const r = {
-                    mediaOptionType: i,
-                    absoluteUrl: this.url,
-                    start: this.start,
-                    duration: this.duration,
-                    mediaSeqNum: this.mediaSeqNum,
-                    discoSeqNum: this.cc,
-                    mediaOptionId: t,
-                    itemId: e,
-                    isLastFragment: !1,
-                    isInitSegment: this.isInitSegment
-                };
-                return null !== (e = this.byteRange) && void 0 !== e && e.length && (r.byteRangeOffset = {
-                    start: this.byteRangeStartOffset,
-                    end: this.byteRangeEndOffset
-                }),
-                this.iframe && (r.iframe = this.iframe),
-                this.levelkey && (r.keyTagInfo = this.levelkey),
-                this.programDateTime && (r.programDateTime = this.programDateTime),
-                r
-            }
-            get url() {
-                return !this._url && this.relurl && this.baseurl && (this._url = fl.buildAbsoluteURL(this.baseurl, this.relurl, {
-                    alwaysNormalize: !0,
-                    inheritQuery: this.inheritQuery
-                })),
-                this._url
-            }
-            set url(e) {
-                this._url = e
-            }
-            get programDateTime() {
-                return !this._programDateTime && this.rawProgramDateTime && (this._programDateTime = new Date(Date.parse(this.rawProgramDateTime))),
-                this._programDateTime
-            }
-            get byteRange() {
-                if (!this._byteRange) {
-                    const i = new Array(2);
-                    var e, t;
-                    this.rawByteRange && (1 === (e = this.rawByteRange.split("@", 2)).length ? (t = this["lastByteRangeEndOffset"],
-                    i[0] = t || 0) : i[0] = parseInt(e[1]),
-                    i[1] = parseInt(e[0]) + i[0]),
-                    this._byteRange = i
-                }
-                return this._byteRange
-            }
-            get byteRangeStartOffset() {
-                return this.byteRange[0]
-            }
-            get byteRangeEndOffset() {
-                return this.byteRange[1]
-            }
-            get rangeString() {
-                return 0 <= this.start && 0 <= this.duration ? `${this.start.toFixed(2)}-${(this.start + this.duration).toFixed(2)}` : "N/A"
-            }
-            get fragTag() {
-                return `sn/cc/levelId: ${this.mediaSeqNum}/${this.cc}`
-            }
-        }
-        const nm = {
-            parseMediaCharacteristics: e=>e ? e.split(/\s*,\s*/) : new Array,
-            addMediaToSelectionArray(e, t, i) {
-                if (void 0 === e)
-                    return -1;
-                const r = e.MediaSelectionGroupOptions;
-                let n = r.find(e=>e.MediaSelectionOptionsMediaType === t.mediaType && e.MediaSelectionOptionsName === t.name && e.MediaSelectionOptionsExtendedLanguageTag === t.lang);
-                return n || (n = {
-                    MediaSelectionOptionsMediaType: t.mediaType,
-                    MediaSelectionOptionsExtendedLanguageTag: t.lang,
-                    MediaSelectionOptionsIsDefault: t.default,
-                    MediaSelectionOptionsName: t.name,
-                    MediaSelectionOptionsPersistentID: i,
-                    MediaSelectionOptionsTaggedMediaCharacteristics: t.characteristics
-                },
-                t.mediaType === pl.SUBTITLE && (n.MediaSelectionOptionsDisplaysNonForcedSubtitles = t.forced ? hl.NO : hl.YES),
-                i++,
-                r.push(n)),
-                t.persistentID = n.MediaSelectionOptionsPersistentID,
-                i
-            },
-            addDefaultClosedCaptionOption(e, t, i, r) {
-                e = {
-                    itemId: e,
-                    mediaOptionType: ul.Subtitle,
-                    id: 0,
-                    mediaOptionId: "cc1_" + Jd(),
-                    mediaType: pl.CLOSEDCAPTION,
-                    inStreamID: "CC1",
-                    groupId: "cc",
-                    name: "English-CC",
-                    type: "CLOSED-CAPTIONS",
-                    default: !1,
-                    autoselect: !1,
-                    forced: !1,
-                    lang: "en",
-                    characteristics: ["public.accessibility.transcribes-spoken-dialog", "public.accessibility.describes-music-and-sound"],
-                    persistentID: r
-                };
-                t.push(e),
-                nm.addMediaToSelectionArray(i, e, r)
-            }
-        }
-          , sm = {
-            BANDWIDTH: NaN,
-            "AVERAGE-BANDWIDTH": NaN
-        }
-          , am = {
-            "TIME-OFFSET": NaN,
-            "FRAME-RATE": NaN,
-            SCORE: NaN,
-            "PLANNED-DURATION": NaN,
-            DURATION: NaN
-        }
-          , om = /^(\d+)x(\d+)$/
-          , dm = /\s*(.+?)\s*=((?:\".*?\")|.*?)(?:,|$)/g;
-        class lm {
-            constructor(e) {
-                this.validTags = e
-            }
-            isKey(e) {
-                return e in this.validTags
-            }
-            trySetValue(e, t, i) {
-                return !!this.isKey(e) && (i[e] = this.parseFunc(t),
-                !0)
-            }
-        }
-        class um {
-            static parseTags(t) {
-                let i;
-                var r = {};
-                if (!t)
-                    return r;
-                for (dm.lastIndex = 0; null !== (i = dm.exec(t)); ) {
-                    const t = i[1].toUpperCase();
-                    let e = i[2];
-                    0 === e.indexOf('"') && e.lastIndexOf('"') === e.length - 1 && (e = e.slice(1, -1));
-                    for (const i of um.tagParsers)
-                        if (i.trySetValue(t, e, r))
-                            break
-                }
-                return r
-            }
-        }
-        um.tagParsers = [new class extends lm {
-            parseFunc(e) {
-                return e
-            }
-        }
-        ({
-            NAME: "",
-            TYPE: "",
-            DEFAULT: "",
-            AUTOSELECT: "",
-            FORCED: "",
-            LANGUAGE: "",
-            URI: "",
-            AUDIO: "",
-            "VIDEO-RANGE": "",
-            "CLOSED-CAPTIONS": "",
-            CODECS: "",
-            BYTERANGE: "",
-            "INSTREAM-ID": "",
-            "GROUP-ID": "",
-            CHANNELS: "",
-            CHARACTERISTICS: "",
-            KEYFORMAT: "",
-            KEYFORMATVERSIONS: "",
-            "DATA-ID": "",
-            VALUE: "",
-            METHOD: "",
-            "HDCP-LEVEL": "",
-            "ALLOWED-CPC": "",
-            SUBTITLES: "",
-            ID: "",
-            CLASS: "",
-            "START-DATE": "",
-            "END-DATE": "",
-            "END-ON-NEXT": "",
-            "SERVER-URI": "",
-            "PATHWAY-ID": ""
-        }), new class extends lm {
-            parseFunc(e) {
-                e = parseInt(e);
-                return e > Number.MAX_SAFE_INTEGER ? 1 / 0 : e
-            }
-        }
-        (sm), new class extends lm {
-            constructor() {
-                super(...arguments),
-                this.parseFunc = parseFloat
-            }
-        }
-        (am), new class extends lm {
-            parseFunc(e) {
-                let t = (e || "0x").slice(2);
-                t = (1 & t.length ? "0" : "") + t;
-                const i = new Uint8Array(t.length / 2);
-                for (let e = 0; e < t.length / 2; e++) {
-                    var r = parseInt(t.slice(2 * e, 2 * e + 2), 16);
-                    if (!ne(r))
-                        return;
-                    i[e] = r
-                }
-                return i
-            }
-        }
-        ({
-            IV: null
-        }), new class extends lm {
-            parseFunc(e) {
-                e = om.exec(e);
-                let t;
-                return null !== e && (t = {
-                    width: parseInt(e[1], 10),
-                    height: parseInt(e[2], 10)
-                }),
-                t
-            }
-        }
-        ({
-            RESOLUTION: null
-        })];
-        const cm = {
-            ExtractVariableParameter: /{\$(.*?)}/g,
-            LevelPlaylistFast: /#EXTINF:(\d*(?:\.\d+)?)(?:,(.*))?|(?!#)(\S.+)|#EXT-X-BYTERANGE: *(.+)|#EXT-X-PROGRAM-DATE-TIME:(.+)|#EXT-X-BITRATE:(.+)|#EXT-X-DATERANGE:(.+)|#.*/g,
-            LevelPlaylistSlow: /(?:(?:#(EXTM3U))|(?:#EXT-X-(PLAYLIST-TYPE):(.+))|(?:#EXT-X-(MEDIA-SEQUENCE): *(\d+))|(?:#EXT-X-(TARGETDURATION): *(\d+))|(?:#EXT-X-(KEY):(.+))|(?:#EXT-X-(START):(.+))|(?:#EXT-X-(ENDLIST))|(?:#EXT-X-(DISCONTINUITY-SEQ)UENCE:(\d+))|(?:#EXT-X-(DIS)CONTINUITY))|(?:#EXT-X-(VERSION):(\d+))|(?:#EXT-X-(MAP):(.+))|(?:#EXT-X-(I-FRAMES)-ONLY)|(?:#EXT-X-(DEFINE):(.+))|(?:(#)(.*):(.*))|(?:(#)(.*))(?:.*)\r?\n?/,
-            MasterPlaylist: /#EXT-X-STREAM-INF:([^\n\r]*)[\r\n]+([^\r\n]+)|#EXT-X-I-FRAME-STREAM-INF:([^\r\n]+)|#EXT-X-DEFINE:([^\n\r]*)|#EXT-X-CONTENT-STEERING:([^\n\r]*)/g,
-            MasterPlaylistAlternateMedia: /#EXT-X-MEDIA:(.*)/g,
-            SessionData: /#EXT-X-SESSION-DATA[^:]*:(.*)/g,
-            SessionKeys: /#EXT-X-SESSION-KEY:([^\n\r]*)/g,
-            VARIABLE_PLAYLIST_REGEX: /(NAME|VALUE)=\"(.*)\",(NAME|VALUE)=\"(.*)\"|(IMPORT)=\"(.*)\"/
-        };
-        function hm(e, t, i) {
-            return sl.buildAbsoluteURL(t, e, {
-                alwaysNormalize: !0,
-                inheritQuery: i
-            })
-        }
-        class pm {
-            static isValidPlaylist(e) {
-                return 0 === e.indexOf("#EXTM3U")
-            }
-            static isMediaPlaylist(e) {
-                return 0 < e.indexOf("#EXTINF:") || 0 < e.indexOf("#EXT-X-PLAYLIST-TYPE:")
-            }
-            static replaceVariables(e, t) {
-                let i, r = !1;
-                return e && t && (i = e.replace(cm.ExtractVariableParameter, e=>{
-                    cm.ExtractVariableParameter.lastIndex = 0;
-                    e = cm.ExtractVariableParameter.exec(e)[1];
-                    if (e && t.hasOwnProperty(e))
-                        return t[e];
-                    r = !0
-                }
-                )),
-                {
-                    updatedString: i,
-                    error: r
-                }
-            }
-            static parseDecryptData(e, t, i) {
-                const r = um.parseTags(e)
-                  , n = (e = r.METHOD) && e in Wf ? r.METHOD : null;
-                e = null !== (e = r.KEYFORMAT) && void 0 !== e ? e : null;
-                if (n && pm.shouldSelectKeyTag(e, n, i)) {
-                    const s = r.URI
-                      , i = r.IV || null;
-                    if (s && r.IV && !i) {
-                        const s = new R(L,_,!0,`Invalid IV: ${r.IV}`,$.PlaylistErrorInvalidEntry);
-                        throw s.url = t,
-                        s
-                    }
-                    const a = s ? sl.buildAbsoluteURL(t, s, {
-                        alwaysNormalize: !0
-                    }) : t
-                      , o = (r.KEYFORMATVERSIONS || "1").split("/").map(Number).filter(isFinite);
-                    return new Gc(n,a,i,e,o)
-                }
-            }
-            static shouldSelectKeyTag(e, t, i) {
-                return "AES-128" === t || "NONE" === t || null == i || e === Gf.getKeySystemFormat(i)
-            }
-            static optOutClosedCaption(t) {
-                let i = !1
-                  , r = !1;
-                if (t)
-                    for (let e = 0; e < t.length; ++e) {
-                        const n = t[e];
-                        if (n.videoCodec && ((r = !0) !== n.iframes && n.closedcaption && "none" === n.closedcaption.toLowerCase())) {
-                            i = !0;
-                            break
-                        }
-                    }
-                return !r || i
-            }
-            static parseRootPlaylistAlternateMediaOptions(a, o, d, l, u, c) {
-                let h, p;
-                var f = {
-                    MediaSelectionGroupAllowEmptySelection: 1,
-                    MediaSelectionGroupMediaCharacteristics: ["public.audible"],
-                    MediaSelectionGroupMediaType: pl.AUDIO,
-                    MediaSelectionGroupOptions: []
-                }
-                  , m = {
-                    MediaSelectionGroupAllowEmptySelection: 1,
-                    MediaSelectionGroupMediaCharacteristics: ["public.legible"],
-                    MediaSelectionGroupMediaType: pl.SUBTITLE,
-                    MediaSelectionGroupOptions: []
-                }
-                  , g = {
-                    videoAlternateOptions: [],
-                    audioAlternateOptions: [],
-                    subtitleAlternateOptions: [],
-                    audioMediaSelectionGroup: f,
-                    subtitleMediaSelectionGroup: m
-                };
-                let y = 0;
-                for (cm.MasterPlaylistAlternateMedia.lastIndex = 0; null != (h = cm.MasterPlaylistAlternateMedia.exec(o)); ) {
-                    const o = pm.replaceVariables(h[1], c);
-                    if (o.error) {
-                        p = new R(L,N,!0,$.PlaylistErrorInvalidEXTXDEFINE.text,$.PlaylistErrorInvalidEXTXDEFINE);
-                        break
-                    }
-                    var v = um.parseTags(o.updatedString);
-                    let e, t, i, r = pl.UNKNOWN;
-                    const S = nm.parseMediaCharacteristics(v.CHARACTERISTICS)
-                      , b = v["GROUP-ID"]
-                      , T = v.CHANNELS;
-                    let n, s = null;
-                    switch (v.TYPE) {
-                    case "VIDEO":
-                        r = pl.VIDEO,
-                        t = g.videoAlternateOptions;
-                        break;
-                    case "AUDIO":
-                        r = pl.AUDIO,
-                        s = ul.AltAudio,
-                        t = g.audioAlternateOptions,
-                        i = f;
-                        const a = l.find(e=>e.audioGroupId === b);
-                        n = a ? a.audioCodecList : [];
-                        break;
-                    case "SUBTITLES":
-                        r = pl.SUBTITLE,
-                        s = ul.Subtitle,
-                        t = g.subtitleAlternateOptions,
-                        i = m;
-                        break;
-                    case "CLOSED-CAPTIONS":
-                        r = pl.CLOSEDCAPTION,
-                        s = ul.Subtitle,
-                        e = v["INSTREAM-ID"],
-                        t = g.subtitleAlternateOptions,
-                        i = m
-                    }
-                    const E = {
-                        itemId: a,
-                        mediaOptionType: s,
-                        mediaType: r,
-                        groupId: b,
-                        channels: T,
-                        groupCodecList: n,
-                        name: v.NAME,
-                        type: v.TYPE,
-                        default: "YES" === v.DEFAULT,
-                        autoselect: "YES" === v.AUTOSELECT,
-                        forced: "YES" === v.FORCED,
-                        characteristics: S,
-                        persistentID: y,
-                        id: t ? t.length : 0,
-                        mediaOptionId: `${v.NAME}_${b}_${y}`,
-                        lang: em.shortenLanguageCode(v.LANGUAGE)
-                    };
-                    v.URI && (E.url = hm(v.URI, d, u)),
-                    E.name || (E.name = E.lang,
-                    E.mediaType === pl.CLOSEDCAPTION && (E.name += " CC")),
-                    E.mediaType === pl.CLOSEDCAPTION && e && (E.inStreamID = e),
-                    t && (E.id = t.length,
-                    t.push(E)),
-                    y = nm.addMediaToSelectionArray(i, E, y)
-                }
-                return 0 !== g.subtitleAlternateOptions.length || pm.optOutClosedCaption(l) || nm.addDefaultClosedCaptionOption(a, g.subtitleAlternateOptions, m, y),
-                {
-                    alternateMediaInfo: g,
-                    playlistParsingError: p
-                }
-            }
-            static parseMediaOptionPlaylist(e, t, i=!0, r, n, s, a, o, d, l=0) {
-                var u;
-                let c = 0
-                  , h = 0;
-                const p = {
-                    itemId: s,
-                    mediaOptionId: a,
-                    mediaOptionType: o,
-                    type: "",
-                    version: 0,
-                    url: t,
-                    initSegments: {},
-                    fragments: [],
-                    liveOrEvent: !0,
-                    startSN: 0,
-                    endSN: 0,
-                    iframesOnly: !1,
-                    targetduration: 0,
-                    totalduration: 0,
-                    averagetargetduration: 0,
-                    ptsKnown: !1
-                };
-                let f, m, g, y = new Gc("NONE",t,null,null,null), v = !1, S = !1, b = 0, T = null, E = new rm(i), I = 0;
-                const w = {};
-                let A, O, k, C = !0, D = !0;
-                cm.LevelPlaylistFast.lastIndex = 0;
-                for (var M = ()=>new R(L,_,!0,"Invalid key system preference for the playlist",$.IncompatibleAsset); null !== (f = cm.LevelPlaylistFast.exec(e)); ) {
-                    const e = f[1];
-                    if (e) {
-                        E.duration = parseFloat(e);
-                        const t = (" " + f[2]).slice(1);
-                        E.title = t || null,
-                        E.tagList.push(t ? ["INF", e, t] : ["INF", e])
-                    } else if (f[3]) {
-                        if (ne(E.duration)) {
-                            const e = c++;
-                            if (E.start = h + l,
-                            E.levelkey = y,
-                            S && !v) {
-                                O = M();
-                                break
-                            }
-                            if (v = !1,
-                            S = !1,
-                            E.mediaSeqNum = e,
-                            E.cc = b,
-                            E.iframe = p.iframesOnly,
-                            E.baseurl = t,
-                            (A = pm.replaceVariables((" " + f[3]).slice(1), w)).error) {
-                                O = new R(L,N,!0,$.PlaylistErrorInvalidEXTXDEFINE.text,$.PlaylistErrorInvalidEXTXDEFINE);
-                                break
-                            }
-                            if (E.relurl = A.updatedString,
-                            E.bitrate = ne(E.byteRangeEndOffset) ? 8 * (E.byteRangeEndOffset - E.byteRangeStartOffset) / E.duration : I,
-                            null != g) {
-                                E.rawProgramDateTime = g,
-                                E.tagList.push(["PROGRAM-DATE-TIME", E.rawProgramDateTime]);
-                                const e = E.programDateTime.getTime();
-                                p.programDateTimeMap = null !== (u = p.programDateTimeMap) && void 0 !== u ? u : {},
-                                p.programDateTimeMap[e] = E.mediaSeqNum,
-                                p.dateMediaTimePairs = null !== (u = p.dateMediaTimePairs) && void 0 !== u ? u : [],
-                                p.dateMediaTimePairs.push([e, E.start]),
-                                g = void 0
-                            }
-                            if (p.fragments.push(E.getMediaFragment(s, a, o)),
-                            T = E,
-                            h += E.duration,
-                            C || !p.initSegments[b] || D)
-                                if (p.iframesOnly && 0 < E.byteRangeStartOffset && !p.initSegments[b] && !D) {
-                                    const e = new rm(i);
-                                    if (e.url = E.url,
-                                    e.rawByteRange = Math.min(E.byteRangeStartOffset, 1316) + "@0",
-                                    e.baseurl = t,
-                                    e.isInitSegment = !0,
-                                    e.cc = b,
-                                    e.levelkey = y,
-                                    e.iframe = !0,
-                                    S && !v) {
-                                        O = M();
-                                        break
-                                    }
-                                    v = !1,
-                                    S = !1,
-                                    p.initSegments[b] = e.getMediaFragment(s, a, o)
-                                } else
-                                    k && (k.discoSeqNum = b,
-                                    p.initSegments[b] = k);
-                            C = !1,
-                            D = !1,
-                            E = new rm(i)
-                        }
-                    } else if (f[4]) {
-                        if (E.rawByteRange = (" " + f[4]).slice(1),
-                        T) {
-                            const e = T.byteRangeEndOffset;
-                            e && (E.lastByteRangeEndOffset = e)
-                        }
-                    } else if (f[5])
-                        g = (" " + f[5]).slice(1);
-                    else if (f[6]) {
-                        const e = parseInt(f[6]);
-                        ne(e) && (I = 1e3 * e)
-                    } else if (f[7]) {
-                        const e = f[7]
-                          , t = um.parseTags(e);
-                        t.ID && (p.daterangeTags || (p.daterangeTags = {}),
-                        p.daterangeTags[t.ID] = t)
-                    } else {
-                        for (f = f[0].match(cm.LevelPlaylistSlow),
-                        m = 1; m < f.length && void 0 === f[m]; m++)
-                            ;
-                        const e = pm.replaceVariables((" " + f[m + 1]).slice(1), w)
-                          , d = pm.replaceVariables((" " + f[m + 2]).slice(1), w);
-                        if (e.error || d.error) {
-                            O = new R(L,N,!0,$.PlaylistErrorInvalidEXTXDEFINE.text,$.PlaylistErrorInvalidEXTXDEFINE);
-                            break
-                        }
-                        const l = e.updatedString
-                          , P = d.updatedString;
-                        switch (f[m]) {
-                        case "#":
-                            E.tagList.push(P ? [l, P] : [l]);
-                            break;
-                        case "PLAYLIST-TYPE":
-                            p.type = l.toUpperCase(),
-                            "VOD" === p.type && (p.liveOrEvent = !1);
-                            break;
-                        case "MEDIA-SEQUENCE":
-                            0 === p.fragments.length && (c = p.startSN = parseInt(l));
-                            break;
-                        case "TARGETDURATION":
-                            p.targetduration = parseFloat(l);
-                            break;
-                        case "VERSION":
-                            p.version = parseInt(l);
-                            break;
-                        case "EXTM3U":
-                            break;
-                        case "ENDLIST":
-                            p.liveOrEvent = !1;
-                            break;
-                        case "DIS":
-                            b++,
-                            E.tagList.push(["DIS"]),
-                            C = !0;
-                            break;
-                        case "DISCONTINUITY-SEQ":
-                            b = parseInt(l);
-                            break;
-                        case "KEY":
-                            const e = l;
-                            if (S = !0,
-                            !v) {
-                                try {
-                                    y = pm.parseDecryptData(e, t, r)
-                                } catch (e) {
-                                    O = e
-                                }
-                                y && (v = !0)
-                            }
-                            break;
-                        case "START":
-                            const d = l
-                              , u = um.parseTags(d)["TIME-OFFSET"];
-                            ne(u) && (p.startTimeOffset = u);
-                            break;
-                        case "I-FRAMES":
-                            p.iframesOnly = !0;
-                            break;
-                        case "MAP":
-                            const h = um.parseTags(l);
-                            if (E.relurl = h.URI,
-                            E.rawByteRange = h.BYTERANGE,
-                            E.baseurl = t,
-                            E.isInitSegment = !0,
-                            E.levelkey = y,
-                            S && !v) {
-                                O = M();
-                                break
-                            }
-                            v = !1,
-                            S = !1,
-                            k = E.getMediaFragment(s, a, o),
-                            D = !0,
-                            E = new rm(i);
-                            break;
-                        case "DEFINE":
-                            const f = cm.VARIABLE_PLAYLIST_REGEX.exec(l)
-                              , m = "NAME" === f[1] ? f[2] : f[4]
-                              , g = "VALUE" === f[1] ? f[2] : f[4]
-                              , N = f[5]
-                              , T = f[6];
-                            if (m || g || "IMPORT" !== N || !n.hasOwnProperty(T)) {
-                                if (!m || N || f[1] === f[3] || w.hasOwnProperty(m)) {
-                                    O = new R(L,_,!0,$.PlaylistErrorMissingImportReference.text,$.PlaylistErrorMissingImportReference);
-                                    break
-                                }
-                                w[m] = g
-                            } else
-                                w[T] = n[T]
-                        }
-                    }
-                }
-                return E = T,
-                E && !E.relurl && (p.fragments.pop(),
-                h -= E.duration),
-                !p.liveOrEvent && 0 < p.fragments.length && (p.fragments[p.fragments.length - 1].isLastFragment = !0),
-                p.totalduration = h,
-                p.averagetargetduration = h / p.fragments.length,
-                p.endSN = c - 1,
-                {
-                    mediaOptionDetails: p,
-                    playlistParsingError: O
-                }
-            }
-            static parseRootPlaylist(t, e, i, r) {
-                const n = []
-                  , s = {};
-                let a, o, d, l, u = null, c = !0;
-                for (cm.MasterPlaylist.lastIndex = 0; null != (a = cm.MasterPlaylist.exec(e)); )
-                    if (a[4]) {
-                        a = cm.VARIABLE_PLAYLIST_REGEX.exec(a[4]);
-                        const t = "NAME" === a[1] ? a[2] : a[4]
-                          , e = "VALUE" === a[1] ? a[2] : a[4]
-                          , i = a[5];
-                        if (!t || s.hasOwnProperty(t) || i || a[1] === a[3]) {
-                            l = new R(L,_,!0,$.PlaylistErrorInvalidEXTXDEFINE.text,$.PlaylistErrorInvalidEXTXDEFINE);
-                            break
-                        }
-                        s[t] = e
-                    } else if (a[5]) {
-                        const t = pm.replaceVariables(a[5], s);
-                        if (t.error) {
-                            l = new R(L,_,!0,$.PlaylistErrorInvalidEXTXDEFINE.text,$.PlaylistErrorInvalidEXTXDEFINE);
-                            break
-                        }
-                        const e = um.parseTags(t.updatedString);
-                        if ("string" != typeof e["SERVER-URI"]) {
-                            l = new R(L,_,!0,$.PlaylistErrorInvalidSERVERURI.text,$.PlaylistErrorInvalidSERVERURI);
-                            break
-                        }
-                        if (null != e["PATHWAY-ID"] && "string" != typeof e["PATHWAY-ID"]) {
-                            l = new R(L,_,!0,$.PlaylistErrorInvalidPATHWAYID.text,$.PlaylistErrorInvalidPATHWAYID);
-                            break
-                        }
-                        u = {
-                            serverURI: hm(e["SERVER-URI"], i, !1),
-                            initPathwayID: e["PATHWAY-ID"] || "."
-                        }
-                    } else {
-                        d = pm.replaceVariables(a[1] || a[3], s);
-                        const e = um.parseTags(d.updatedString);
-                        if (o = pm.replaceVariables(a[2] || e.URI, s),
-                        d.error || o.error) {
-                            l = new R(L,_,!0,$.PlaylistErrorInvalidEXTXDEFINE.text,$.PlaylistErrorInvalidEXTXDEFINE);
-                            break
-                        }
-                        if (void 0 !== e.SCORE && !ne(e.SCORE) || e.SCORE < 0) {
-                            l = new R(L,_,!0,$.PlaylistErrorInvalidSCORE.text,$.PlaylistErrorInvalidSCORE),
-                            c = !1;
-                            break
-                        }
-                        c && void 0 === e.SCORE && (c = !1);
-                        const u = e.BANDWIDTH
-                          , p = e["AVERAGE-BANDWIDTH"]
-                          , f = p || u
-                          , m = null !== (h = e["VIDEO-RANGE"]) && void 0 !== h ? h : "SDR";
-                        if (null == (h = m) || !Jf.includes(h))
-                            continue;
-                        const g = {
-                            itemId: t,
-                            mediaOptionId: `level_${(f || 0) + n.length % 1e3 / 1e3}`,
-                            mediaOptionType: ul.Variant,
-                            attrs: e,
-                            url: hm(o.updatedString, i, r),
-                            name: e.NAME,
-                            audioGroupId: e.AUDIO,
-                            subtitleGroupId: e.SUBTITLES,
-                            iframes: !!a[3],
-                            bandwidth: u,
-                            avgBandwidth: p,
-                            bitrate: f,
-                            videoRange: m,
-                            frameRate: e["FRAME-RATE"],
-                            allowedCPCMap: pm.parseAllowedCPC(e["ALLOWED-CPC"]),
-                            closedcaption: e["CLOSED-CAPTIONS"],
-                            levelCodec: e.CODECS,
-                            score: e.SCORE,
-                            pathwayID: e["PATHWAY-ID"] || "."
-                        }
-                          , y = e["HDCP-LEVEL"];
-                        Xf(y) && (g.hdcpLevel = y);
-                        var h = e.RESOLUTION;
-                        if (h && (g.width = h.width,
-                        g.height = h.height),
-                        e.CODECS) {
-                            g.videoCodecList = new Array,
-                            g.audioCodecList = new Array;
-                            const t = e.CODECS.split(/[ ,]+/)
-                              , i = t["length"];
-                            for (let e = 0; e < i; e++) {
-                                const i = t[e];
-                                switch (i.slice(0, 4)) {
-                                case "avc1":
-                                    g.videoCodec = Se.avc1toavcoti(i),
-                                    g.videoCodecList.push(g.videoCodec);
-                                    break;
-                                case "avc3":
-                                case "dvav":
-                                case "dva1":
-                                case "hev1":
-                                case "hvc1":
-                                case "dvh1":
-                                case "dvhe":
-                                case "vp09":
-                                    g.videoCodec = i,
-                                    g.videoCodecList.push(g.videoCodec);
-                                    break;
-                                default:
-                                    g.audioCodec = i,
-                                    g.audioCodecList.push(g.audioCodec)
-                                }
-                            }
-                            1 < g.audioCodecList.length && (g.audioCodec = tm.getRichestAudioCodec(g.audioCodecList)),
-                            1 < g.videoCodecList.length && (g.videoCodec = tm.getRichestVideoCodec(g.videoCodecList))
-                        }
-                        if (null != (l = "string" != typeof (h = g.pathwayID) ? im("invalid steering manifest PATHWAY-PRIORITY list item data type") : /^[\w\-\.]+$/.test(h) ? void 0 : im("steering manifest contains invalid pathway ID: " + h)))
-                            break;
-                        let cpc = g.allowedCPCMap ? JSON.stringify(g.allowedCPCMap) : "null";
-                        if (!cpc.includes("WIDEVINE_HARDWARE") && !g.url.includes('trickPlay') && !g.videoCodec.includes("hvc1"))
-                        n.push(g)
-                    }
-                        
-                        
-                    
-                    try{
-                    // console.log(n,  window.screen.width)
-                    let ok = (n.map(  function(item){return{height : item.height, content: item}}));
-                    let screenHeight = (app.cfg.visual.videoRes ?? window.screen.height) ;
-                    ok.sort(function (a, b) {
-                        return a.height - b.height;
-                      });
-                    for (var i = 0; i < ok.length; i++){
-                        if (ok[i].height > screenHeight){
-                            if (i == 0){n.splice(0,n.length);n.push(ok[i].content)} 
-                            else{n.splice(0,n.length);n.push(ok[i-1].content)}
-                            console.log('selected' , n[0].height)
-                            break; 
-                            
-                        }
-                            
-                    }
-                    if (n.length > 1){
-                        n.splice(0,n.length - 1);                      
-                    }
-                    // console.log(n)
-                    // console.log(ok)
-                    } catch (e){ console.log(e)}
-                return {
-                    variantMediaOptions: n,
-                    contentSteeringOption: u,
-                    masterVariableList: s,
-                    playlistParsingError: l,
-                    scoreAvailable: c
-                }
-            }
-            static parseAllowedCPC(e) {
-                if ("string" != typeof e)
-                    return null;
-                const n = {};
-                return e.split(",").forEach(e=>{
-                    const t = e.split(":");
-                    let i, r;
-                    if (2 === t.length)
-                        i = t[0].trim(),
-                        r = t[1].trim();
-                    else {
-                        if (!(2 < t.length))
-                            return;
-                        r = t[t.length - 1].trim(),
-                        t.pop(),
-                        i = t.join(":")
-                    }
-                    if (!(i in n)) {
-                        let e = new Array;
-                        "" !== r && (e = r.split("/").map(e=>e.trim())),
-                        n[i] = e
-                    }
-                }
-                ),
-                n
-            }
-            static parseSessionKeys(e, t, i) {
-                var r;
-                const n = [];
-                for (cm.SessionData.lastIndex = 0; r = cm.SessionKeys.exec(e); )
-                    try {
-                        const e = pm.parseDecryptData(r[1], t, i);
-                        e && e.isEncrypted && n.push(e)
-                    } catch (e) {}
-                return n
-            }
-            static parseSessionData(e, t) {
-                var i;
-                const r = []
-                  , n = new Set;
-                for (cm.SessionData.lastIndex = 0; null != (i = cm.SessionData.exec(e)); ) {
-                    const e = um.parseTags(i[1]);
-                    e.LANGUAGE = em.shortenLanguageCode(e.LANGUAGE);
-                    const t = e.LANGUAGE ? e["DATA-ID"] + "|" + e.LANGUAGE : void 0;
-                    "DATA-ID"in e ? t && n.has(t) || ("com.apple.hls.other-tags" === e["DATA-ID"] && (e.VALUE = function(t) {
-                        let i;
-                        try {
-                            i = JSON.parse(Vc.base64DecodeToStr(t))
-                        } catch (e) {
-                            i = t
-                        }
-                        return i
-                    }(e.VALUE)),
-                    r.push(e),
-                    t && n.add(t)) : qe().error(`Error processing DATA-ID ${e["DATA-ID"]} and LANGUAGE ${e.LANGUAGE}`)
-                }
-                return {
-                    itemList: r,
-                    baseUrl: t
-                }
-            }
-        }
-        var fm, mm, gm, ym, vm, Sm = pm;
-        const bm = (e,t,i)=>{
-            i = Object.assign(Object.assign({}, e), {
-                method: "GET",
-                responseType: "text",
-                extendMaxTTFB: i
-            });
-            return ml(i.url) ? Mc().load(i, t).pipe(ur(e=>({
-                responseText: e.data.response.data,
-                responseURL: e.data.response.uri,
-                stats: e.stats
-            }))) : Oc(i, t).pipe(ur(([e,t])=>({
-                responseText: e.responseText,
-                responseURL: e.responseURL,
-                stats: t
-            })))
-        }
-          , Tm = (e,n,t,i,s,a,o,d,r)=>{
-            const {url: l, itemId: u, mediaOptionId: c, mediaOptionType: h} = e
-              , p = xc(e, i);
-            return bm({
-                url: l,
-                xhrSetup: t.xhrSetup
-            }, p, r).pipe(ur(({responseText: e, stats: t})=>{
-                var i = performance.now()
-                  , r = pm.parseMediaOptionPlaylist(e, l, !0, a, d, u, c, h, s, n);
-                Lc(r.mediaOptionDetails);
-                var e = performance.now()
-                  , r = r["mediaOptionDetails"]
-                  , i = {
-                    playlistLoadTimeMs: t.tload - t.trequest,
-                    playlistParseTimeMs: e - i
-                };
-                return o.setPlaylistSample(i),
-                {
-                    mediaOptionDetails: r,
-                    stats: t
-                }
-            }
-            ), (f = h,
-            m = c,
-            g = l,
-            e=>e.pipe(Un(e=>{
-                if (e instanceof ou)
-                    throw new nu(!1,"Timeout",0,$.PlaylistTimeoutError,!0,f,m,g);
-                if (e instanceof tu)
-                    throw new nu(!1,e.message,e.code,{
-                        code: e.code,
-                        text: "Playlist Network Error"
-                    },!1,f,m,g);
-                throw e
-            }
-            ))));
-            var f, m, g
-        }
-          , Em = (f,e,m,t,g)=>Bi(e).pipe(Ra(e=>{
-            const {keyTagInfo: t, isInitSegment: i, iframe: r, byteRangeOffset: n} = f
-              , s = t["method"]
-              , {start: a, end: o} = n;
-            if ("AES-128" !== s)
-                return Bi(e);
-            {
-                !t.uri || t.iv || t.format && "identity" !== t.format || (t.iv = function(t) {
-                    const i = new Uint8Array(16);
-                    for (let e = 12; e < 16; e++)
-                        i[e] = t >> 8 * (15 - e) & 255;
-                    return i
-                }(f.mediaSeqNum));
-                const n = e
-                  , s = t.key.buffer
-                  , d = t.iv.buffer
-                  , l = o && (r || i) ? o - a : void 0
-                  , u = !m.enableWebCrypto || !!l
-                  , c = s.slice(0)
-                  , h = d.slice(0)
-                  , p = {
-                    useJSCrypto: u,
-                    plainTextLength: l
-                };
-                return g.decrypt(c, h, "AES-CBC", n, p)
-            }
-        }
-        ));
-        class Im {
-            constructor(e) {
-                this.option = e
-            }
-            get name() {
-                return this.option.name
-            }
-            get priority() {
-                return this.option.priority
-            }
-            get expiry() {
-                return this.option.expiry
-            }
-            filter(i, e) {
-                const r = this.option.initFn && this.option.initFn(i, e) || (e ? Object.assign({}, e) : {});
-                let t = i;
-                return this.option.firstPassFn && i.forEach((e,t)=>this.option.firstPassFn(e, t, r, i)),
-                this.option.filterFn && (t = i.filter((e,t)=>this.option.filterFn(e, t, r, i))),
-                null != this.option.filterFn && 0 !== t.length || !this.option.minSortingFn || (t = i.sort((e,t)=>this.option.minSortingFn(e, t, r, i))),
-                this.option.finalFn && this.option.finalFn(t, r, i),
-                t
-            }
-        }
-        function wm(e, t, i) {
-            return (t || []).reduce((e,t)=>t.filter(e, i), Array.from(e))
-        }
-        function Am(t, e) {
-            return e.filter(e=>{
-                return yl(t, null !== (e = e.url) && void 0 !== e ? e : null)
-            }
-            )
-        }
-        function Om() {
-            return [new Im({
-                name: "Remove Filter",
-                priority: 0,
-                filterFn: (t,e,i)=>!i || i.removed.every(e=>t.mediaOptionId !== e)
-            }), new Im({
-                name: "Penalty Box Filter",
-                priority: 1,
-                filterFn: (t,e,i)=>{
-                    const r = performance.now();
-                    return !i || i.penaltyBoxQueue.every(e=>e.expiry <= r || t.mediaOptionId !== e.mediaOptionId)
-                }
-            }), new Im({
-                name: "Compatible IDs Filter",
-                priority: 1,
-                filterFn: (t,e,i)=>!i || null == i.compatibleIds || i.compatibleIds.some(e=>e === t.mediaOptionId)
-            })]
-        }
-        class km extends Od {
-            constructor(e, t, i) {
-                super(e),
-                this.itemId = t,
-                this.mediaOptionType = i,
-                this.allowFilters = this._initFilters()
-            }
-            get mediaOptionList() {
-                var e;
-                return (null === (e = this.mediaOptionListInfo) || void 0 === e ? void 0 : e.mediaOptions) || null
-            }
-            get mediaOptionList$() {
-                return this.mediaOptionListInfo$.pipe(ur(({mediaOptions: e})=>e))
-            }
-            mediaOptionFromId(t) {
-                var e;
-                return null !== (e = (null !== (e = this.mediaOptionList) && void 0 !== e ? e : []).find(e=>e.mediaOptionId === t)) && void 0 !== e ? e : null
-            }
-            _getFilteredList(e) {
-                return wm(e.mediaOptions, this.allowFilters, e)
-            }
-            get filteredMediaOptionList() {
-                return this.mediaOptionListInfo ? this._getFilteredList(this.mediaOptionListInfo) : null
-            }
-            get filteredMediaOptionList$() {
-                return this.mediaOptionListInfo$.pipe(Ra(e=>{
-                    const t = [Ul]
-                      , i = performance.now();
-                    for (const r of e.penaltyBoxQueue)
-                        ne(r.expiry) && r.expiry > i && t.push(vn(r.expiry - i));
-                    return nn(...t).pipe(ur(()=>this._getFilteredList(e)))
-                }
-                ), yd())
-            }
-            get preferredMediaOptionList() {
-                return this.filteredMediaOptionList ? Am(this.preferredHost, this.filteredMediaOptionList) : []
-            }
-            get preferredMediaOptionList$() {
-                return Zd([this.preferredHost$, this.filteredMediaOptionList$]).pipe(ur(([e,t])=>Am(e, t)))
-            }
-            getNewHost(e) {
-                e = this.getFallbackVariant(e, !1, !0);
-                return null != e && e.url ? gl(e.url) : this.preferredHost
-            }
-        }
-        function Cm(e) {
-            return "PQ" === e.videoRange || "HLG" === e.videoRange
-        }
-        function Dm(e, t) {
-            return t.iframes === e
-        }
-        function Mm(e, t, i, r) {
-            return !r || i.bitrate > r.bitrate && i.bitrate <= e.bitrate ? fm.Better : i.bitrate === r.bitrate ? fm.Same : fm.Worse
-        }
-        function Pm(e, t) {
-            return e && !t ? -1 : !e && t ? 1 : 0
-        }
-        (dd = fm = fm || {})[dd.Better = 1] = "Better",
-        dd[dd.Same = 0] = "Same",
-        dd[dd.Worse = -1] = "Worse";
-        class xm extends km {
-            constructor(e, t) {
-                super(e, t, ul.Variant)
-            }
-            static makeFilters() {
-                return [...Om().concat([new Im({
-                    name: "HDR Filter",
-                    priority: 1,
-                    filterFn: (e,t,i)=>!i || (i.hasHdrLevels && i.preferHDR) === Cm(e)
-                }), new Im({
-                    name: "Viewport Filter",
-                    priority: 1,
-                    firstPassFn: (e,t,i)=>{
-                        if (i && e && !e.iframes && e.videoCodec) {
-                            const t = !i.lowestBitrate || e.bitrate < i.lowestBitrate ? e.bitrate : i.lowestBitrate;
-                            i.lowestBitrate = t
-                        }
-                    }
-                    ,
-                    filterFn: (e,t,i)=>!(e && i && i.viewportInfo && e.videoCodec && i.lowestBitrate) || function(e, t) {
-                        return e.width < 1.35 * t.width && e.height < 1.35 * t.height && e.width * e.height < t.width * t.height * 1.35
-                    }({
-                        width: e.width,
-                        height: e.height
-                    }, i.viewportInfo) || e.bitrate === i.lowestBitrate
-                }), new Im({
-                    name: "HDCP Filter",
-                    priority: 2,
-                    filterFn: (e,t,i)=>!i || !Xf(i.maxHdcpLevel) || Yf(e.hdcpLevel) < Yf(i.maxHdcpLevel)
-                })])].sort((e,t)=>{
-                    return (null !== (e = e.priority) && void 0 !== e ? e : Number.MAX_SAFE_INTEGER) - (null !== (t = t.priority) && void 0 !== t ? t : Number.MAX_SAFE_INTEGER)
-                }
-                )
-            }
-            _initFilters() {
-                return xm.kAllowFilters
-            }
-            get preferredHost() {
-                var e;
-                return null !== (e = null === (e = this.mediaOptionListInfo) || void 0 === e ? void 0 : e.preferredHost) && void 0 !== e ? e : null
-            }
-            get preferredHost$() {
-                return this.selectEntity(this.itemId, e=>{
-                    return null !== (e = null == e ? void 0 : e.mediaOptionListTuple[ul.Variant].preferredHost) && void 0 !== e ? e : null
-                }
-                )
-            }
-            get mediaOptionListInfo() {
-                var e;
-                return null !== (e = null === (e = this.getEntity(this.itemId)) || void 0 === e ? void 0 : e.mediaOptionListTuple[ul.Variant]) && void 0 !== e ? e : null
-            }
-            get mediaOptionListInfo$() {
-                return this.selectEntity(this.itemId, e=>{
-                    return null === (e = null == e ? void 0 : e.mediaOptionListTuple) || void 0 === e ? void 0 : e[ul.Variant]
-                }
-                ).pipe(Up())
-            }
-            get hdrMode$() {
-                return this.mediaOptionListInfo$.pipe(ur(e=>!0 === e.preferHDR && e.hasHdrLevels), Es())
-            }
-            get maxHdcpLevel$() {
-                return this.selectEntity(this.itemId, e=>{
-                    e = null === (e = null == e ? void 0 : e.mediaOptionListTuple) || void 0 === e ? void 0 : e[ul.Variant];
-                    return null == e ? void 0 : e.maxHdcpLevel
-                }
-                ).pipe(Es())
-            }
-            listFallbackVariants(t, e, i, r, n) {
-                var s = this.mediaOptionListInfo
-                  , a = null === (o = this.mediaOptionList) || void 0 === o ? void 0 : o.find(e=>e.mediaOptionId === t);
-                if (!a || !s)
-                    return null;
-                var o = this.makeFilteredListFromVariant(a, e, n);
-                if (!o)
-                    return null;
-                e = gl(a.url),
-                s = s.hasScore;
-                return xm._listFallbackVariants(o, a, e, s, i, r, n)
-            }
-            getFallbackVariant(t, e, i, r) {
-                var n = this.mediaOptionListInfo
-                  , s = null === (s = this.mediaOptionList) || void 0 === s ? void 0 : s.find(e=>e.mediaOptionId === t);
-                if (!s || !n)
-                    return null;
-                e = this.makeFilteredListFromVariant(s, e, r);
-                if (!e)
-                    return null;
-                r = gl(s.url),
-                n = n.hasScore;
-                return xm._getFallbackVariant(e, s, r, n, i)
-            }
-            makeFilteredListFromVariant(e, t, i) {
-                let r = this.mediaOptionListInfo;
-                if (!e || !this.mediaOptionList || !r)
-                    return null;
-                r = Object.assign(Object.assign({}, r), {
-                    includeAllEligiblePathways: !0
-                });
-                e = Array.from(this.mediaOptionList);
-                let n = t ? wm(e, this.allowFilters, Object.assign(Object.assign({}, r), {
-                    preferHDR: !1,
-                    compatibleIds: null
-                })) : this._getFilteredList(r);
-                return n ? (i && 0 < i.length && (n = n.filter(e=>!i.includes(e.mediaOptionId))),
-                n) : null
-            }
-            get hasIframes() {
-                var e;
-                return null !== (e = null === (e = this.mediaOptionListInfo) || void 0 === e ? void 0 : e.hasIframeLevels) && void 0 !== e && e
-            }
-            canSwitchToSDR(e, t, i=!1) {
-                var r = this.mediaOptionListInfo;
-                if (!this.mediaOptionList || !r)
-                    return !1;
-                var n = this.mediaOptionFromId(e);
-                if (!n)
-                    return !1;
-                if (!Cm(n))
-                    return !1;
-                var s = gl(n.url)
-                  , e = wm(Array.from(this.mediaOptionList), this.allowFilters, Object.assign(Object.assign({}, r), {
-                    preferHDR: !1,
-                    compatibleIds: null
-                }))
-                  , r = r.hasScore;
-                return null != xm._getFallbackVariant(e, n, s, r, t, i)
-            }
-            static _listFallbackVariants(e, r, n, t, s, a=!1, i=null) {
-                let o = !1;
-                const d = function(e, s, a) {
-                    const t = [...e]
-                      , o = gl(s.url)
-                      , d = s.audioGroupId;
-                    return t.sort((e,t)=>{
-                        let i = 0;
-                        var r = a && ne(e.score) && ne(t.score)
-                          , n = r ? e.score > t.score && e.score <= s.score : e.bitrate > t.bitrate && e.bitrate <= s.bitrate
-                          , r = r ? e.score === t.score : e.bitrate === t.bitrate;
-                        return n ? i = -1 : r ? (i = Pm(yl(o, e.url), yl(o, t.url)),
-                        0 === i && (i = Pm(!d || e.audioGroupId === d, !d || t.audioGroupId === d))) : i = 1,
-                        i
-                    }
-                    ),
-                    t
-                }(e.filter(e=>{
-                    var t = !(e.iframes !== r.iframes || s && yl(n, e.url))
-                      , i = a ? e.bitrate < r.bitrate : e.bitrate <= r.bitrate
-                      , i = t && i;
-                    return r.mediaOptionId === e.mediaOptionId ? (o = i,
-                    !1) : i
-                }
-                ), r, t);
-                return !o || i && i.includes(r.mediaOptionId) || d.unshift(r),
-                d
-            }
-            static _getFallbackVariant(e, t, i, r, n, s=!1) {
-                let a = null;
-                e = (e = s ? e.filter(e=>e.bitrate < t.bitrate) : e).filter(e=>e.mediaOptionId !== t.mediaOptionId && e.iframes === t.iframes);
-                if (n && null != i)
-                    for (const o of e)
-                        Mm(t, 0, o, a) !== fm.Better || yl(i, o.url) || (a = o);
-                else
-                    for (const o of e) {
-                        const r = Mm(t, 0, o, a);
-                        r !== fm.Better && (r !== fm.Same || !yl(i, o.url) || yl(i, a.url) && o.audioGroupId !== t.audioGroupId) || (a = o)
-                    }
-                return a
-            }
-            getMatchingVariant(e, t) {
-                var i = this.mediaOptionFromId(e)
-                  , r = gl(null == i ? void 0 : i.url)
-                  , n = t.mediaOptionType === ul.AltAudio ? "audioGroupId" : "subtitleGroupId";
-                let s = null;
-                this.mediaOptionListInfo.hasScore;
-                for (const e of this.filteredMediaOptionList)
-                    if (e[n] === t.groupId) {
-                        if (!i) {
-                            s = e;
-                            break
-                        }
-                        var a = Mm(i, 0, e, s);
-                        a !== fm.Better && (a !== fm.Same || s.mediaOptionId === i.mediaOptionId || e.mediaOptionId !== i.mediaOptionId && !yl(r, e.url)) || (s = e)
-                    }
-                return s
-            }
-            get currentPathwayID() {
-                var e;
-                return null === (e = this.mediaOptionListInfo) || void 0 === e ? void 0 : e.currentPathwayID
-            }
-        }
-        function Rm(e, t) {
-            switch (e) {
-            case mm.SendAlternateToPenaltyBox:
-                e = mm.RetryRequest,
-                401 !== t && 403 !== t && 407 !== t && t !== $.CorruptStream.code && t !== $.LivePlaylistUpdateError.code || (e = mm.SendEndCallback);
-                break;
-            case mm.RemoveAlternatePermanently:
-                e = mm.SendEndCallback
-            }
-            return e
-        }
-        function Lm(e, t, i, r, n, s, a, o=!1) {
-            const d = s.mediaOptionListQueries[n]
-              , l = 0 != (e.errorActionFlags & gm.MoveAllAlternatesMatchingHost)
-              , u = s.mediaOptionListQueries[n].mediaOptionFromId(r)
-              , c = a.getFallbackMediaOptionTupleFromMediaOptionId(s, n, r, u.backingMediaOptionId, !1, l, o);
-            let {errorAction: h, errorActionFlags: p} = e;
-            return s.isValidMediaOptionTuple(c) ? yl(d.preferredHost, c[n].url) && (p &= ~gm.MoveAllAlternatesMatchingHost) : (t || (h = Rm(h, i),
-            p = 0),
-            d instanceof xm && (!0 === d.mediaOptionFromId(r).iframes ? (h = mm.DoNothing,
-            p = 0) : !t && a.canSwitchToSDR(s, r, l, o) && (h = e.errorAction,
-            p = gm.SwitchToSDR))),
-            {
-                errorAction: h,
-                errorActionFlags: p
-            }
-        }
-        function _m(e) {
-            let t, i = 0;
-            switch (e) {
-            case 0:
-                t = mm.SendAlternateToPenaltyBox,
-                i = gm.MoveAllAlternatesMatchingHost;
-                break;
-            case 410:
-                t = mm.RemoveAlternatePermanently;
-                break;
-            case 500:
-            case 502:
-            case 503:
-            case 504:
-            case 404:
-            case 409:
-            case 401:
-            case 403:
-            case 407:
-            case $.LivePlaylistUpdateError.code:
-            case $.PlaylistNotReceived.code:
-            default:
-                t = mm.SendAlternateToPenaltyBox,
-                i = 0
-            }
-            return {
-                errorAction: t,
-                errorActionFlags: i
-            }
-        }
-        function Nm(i, r, n, s, a, o, d) {
-            var {errorAction: l, errorActionFlags: u} = i;
-            let e = !0;
-            switch (l) {
-            case mm.RemoveAlternatePermanently:
-            case mm.SendAlternateToPenaltyBox:
-                {
-                    if (null == a || null == o)
-                        return r.handled = !1;
-                    const i = n.itemId;
-                    let e = o
-                      , t = n.mediaOptionListQueries[a].mediaOptionFromId(o);
-                    t.backingMediaOptionId && (e = t.backingMediaOptionId,
-                    t = n.mediaOptionListQueries[a].mediaOptionFromId(e));
-                    var c = 0 != (u & gm.MoveAllAlternatesMatchingHost)
-                      , h = 0 != (u & gm.MoveAllAlternatesMatchingHDCP)
-                      , p = 0 != (u & gm.SwitchToSDR)
-                      , f = l === mm.RemoveAlternatePermanently;
-                    if (h && "hdcpLevel"in t) {
-                        const r = t.hdcpLevel;
-                        s.setMaxHdcpLevel(i, r)
-                    }
-                    if (p && s.switchToSDROnly(i),
-                    c) {
-                        const r = gl(t.url);
-                        s.moveAllWithMatchingHosts(i, a, r, f)
-                    } else
-                        f ? s.removePermanently(i, a, e) : s.addToPenaltyBox(i, a, e);
-                    if (n.enabledMediaOptionIdByType(a) === o) {
-                        let e = [Ol, Ol, Ol];
-                        e = s.getFallbackMediaOptionTupleFromMediaOptionId(n, a, o, null, !1, c, d),
-                        n.isValidMediaOptionTuple(e) ? s.setPreferredHost(i, gl(e[ul.Variant].url)) : r.fatal = !0,
-                        r.fatal && (e = [Ol, Ol, Ol]),
-                        s.setNextMediaOptions(n.itemId, e)
-                    }
-                    break
-                }
-            case mm.SendEndCallback:
-                r.fatal = !0;
-                break;
-            case mm.RetryRequest:
-            case mm.DoNothing:
-            default:
-                e = !1
-            }
-            return r.handled = e,
-            e
-        }
-        function Fm(e, t) {
-            t instanceof ru || t instanceof nu || t instanceof au || (t instanceof uu || t instanceof lu) && oe(t.keyuri)
-        }
-        function Bm(t, i, r) {
-            if (t.handled = !0,
-            r && i < r.maxNumRetry && ne(r.retryDelayMs)) {
-                let e;
-                return e = "linear" === r.backoff ? (i + 1) * r.retryDelayMs : Math.pow(2, i) * r.retryDelayMs,
-                e = Math.min(r.maxRetryDelayMs, e),
-                Fm(0, t),
-                vn(e)
-            }
-            return t.fatal = !0,
-            Fm(0, t),
-            Ui(t)
-        }
-        function Um(e, t, i, r, n, s, a, o, d=!1) {
-            return (null == r ? void 0 : r.errorAction) === mm.RetryRequest ? Bm(e, t, i, s.logger) : $m(e, 0, r, n, s, a, o, d)
-        }
-        function $m(e, t, i, r, n, s, a, o=!1) {
-            const d = new Ji;
-            return sd(()=>{
-                i && (Fm(n.logger, e),
-                Nm(i, e, r, n, s, a, o)),
-                d.error(e)
-            }
-            ),
-            d
-        }
-        function Vm(t, i, r, n) {
-            return e=>e.pipe(Un(e=>{
-                if (t.logger.error(`Got demux error ${e.message}`),
-                e instanceof D || e instanceof F) {
-                    mm.SendAlternateToPenaltyBox;
-                    return $m(e, 0, {
-                        errorAction: e.fatal ? mm.SendEndCallback : e instanceof F ? mm.SendAlternateToPenaltyBox : mm.RemoveAlternatePermanently,
-                        errorActionFlags: 0
-                    }, i, t, r, n)
-                }
-                throw e
-            }
-            ))
-        }
-        function Km(e, t, i, r, n) {
-            e = null !== (e = null === (e = n.getKeyInfo(e)) || void 0 === e ? void 0 : e.mediaOptionIds) && void 0 !== e ? e : [];
-            for (const s of e)
-                for (const n of i.mediaOptionListQueries)
-                    null != n.mediaOptionFromId(s) && r.updateConsecutiveTimeouts(i.itemId, n.mediaOptionType, t, "key")
-        }
-        function Hm(r, t, e, n, s, a) {
-            const o = n.logger
-              , i = s.enabledMediaOptionKeys
-              , d = [];
-            for (const t of r.mediaOptionIds) {
-                const r = i.some(e=>e.mediaOptionId === t)
-                  , e = s.mediaOptionListQueries.find(e=>null != e.mediaOptionFromId(t));
-                if (e) {
-                    const n = e.mediaOptionType
-                      , a = {
-                        mediaOptionId: t,
-                        mediaOptionType: n
-                    };
-                    r ? d.push(a) : d.unshift(a)
-                } else
-                    o.warn(`Couldn't find query for ${t}`)
-            }
-            const l = new Ji;
-            return sd(()=>{
-                const e = r instanceof lu;
-                Km(r.keyuri, e, s, n, a);
-                let t, i = !1;
-                for (const {mediaOptionId: e, mediaOptionType: a} of d)
-                    t = function(e, t, i, r, n) {
-                        let s = {
-                            errorAction: mm.SendAlternateToPenaltyBox,
-                            errorActionFlags: 0
-                        };
-                        if (e instanceof lu)
-                            s.errorAction = mm.SendAlternateToPenaltyBox;
-                        else {
-                            const t = e.isOkToRetry;
-                            e.keyErrorReason === Xl.OutputRestricted ? (s.errorAction = mm.RemoveAlternatePermanently,
-                            s.errorActionFlags |= gm.MoveAllAlternatesMatchingHDCP) : t ? s = _m(e.code) : s.errorAction = mm.RemoveAlternatePermanently
-                        }
-                        s.errorActionFlags &= ~gm.MoveAllAlternatesMatchingHost;
-                        var a = r.enabledMediaOptionIdByType(i);
-                        return t === a ? Lm(s, !1, e.code, a, i, r, n, e.isTimeout) : s
-                    }(r, e, a, s, n),
-                    o.error(`[Keys] handleNetworkError uri=${oe(r.keyuri)} mediaOptionId=${e} mediaOptionType=${a} action=${JSON.stringify(t)}`),
-                    t.errorAction === mm.RetryRequest && (i = !0),
-                    Nm(t, r, s, n, a, e);
-                i ? (l.next(),
-                l.complete()) : (Fm(0, r),
-                l.error(r))
-            }
-            ),
-            l.pipe(Ra(()=>Bm(r, t, e, n.logger)))
-        }
-        function jm(t, i, r, n, s, a, o, d) {
-            return n = Math.max(0, n),
-            e=>e.pipe(Ja(()=>{
-                null != i && o.updateConsecutiveTimeouts(t, i, !1, "load")
-            }
-            ), ya(e=>e.pipe(Kr((e,t)=>function(e, t, i, r, n, s, a, o) {
-                var d;
-                if (!(e instanceof p))
-                    return Ui(e);
-                let l, u, c, h = !1;
-                if (e instanceof ru)
-                    c = {
-                        errorAction: Rm(_m((d = e).response.code).errorAction, d.response.code),
-                        errorActionFlags: 0
-                    };
-                else if (e instanceof nu || e instanceof au) {
-                    ({mediaOptionType: u, mediaOptionId: l, isTimeout: h} = e);
-                    const t = null === (d = s.mediaOptionListQueries[u]) || void 0 === d ? void 0 : d.mediaOptionFromId(l);
-                    if (!r && e.isTimeout && null != t && (!("iframes"in t) || !0 !== t.iframes) && (a.updateConsecutiveTimeouts(s.itemId, e.mediaOptionType, !0, "load"),
-                    e instanceof au && e.stats)) {
-                        const t = performance.now();
-                        o.setBandwidthSample(Object.assign(Object.assign({}, e.stats), {
-                            tfirst: e.stats.tfirst || t,
-                            tload: e.stats.tload || t,
-                            complete: !0,
-                            mediaOptionType: u
-                        }))
-                    }
-                    c = function(e, t, i, r, n) {
-                        var s = e.response.code;
-                        let a = _m(s);
-                        var {mediaOptionId: o, mediaOptionType: d} = e;
-                        return t ? a.errorActionFlags &= ~gm.MoveAllAlternatesMatchingHost : a = function(e, t, i, r, n) {
-                            let {errorAction: s, errorActionFlags: a} = t;
-                            if (e.isTimeout) {
-                                const t = e["mediaOptionType"]
-                                  , o = null !== (n = null === (n = n.getErrorInfoByType(t)) || void 0 === n ? void 0 : n.timeouts.load) && void 0 !== n ? n : 0;
-                                !i && r <= o && (s = mm.DoNothing,
-                                a = 0)
-                            }
-                            return {
-                                errorAction: s,
-                                errorActionFlags: a
-                            }
-                        }(e, a, t, i, r),
-                        a = Lm(a, t, s, o, d, r, n, e.isTimeout),
-                        a
-                    }(e, r, n, s, a)
-                }
-                return Um(e, t, i, c, s, a, u, l, h)
-            }(e, t, Rc(e, r), s, n, a, o, d)))))
-        }
-        xm.kAllowFilters = xm.makeFilters(),
-        (dd = mm = mm || {})[dd.DoNothing = 0] = "DoNothing",
-        dd[dd.SendEndCallback = 1] = "SendEndCallback",
-        dd[dd.SendAlternateToPenaltyBox = 2] = "SendAlternateToPenaltyBox",
-        dd[dd.RemoveAlternatePermanently = 3] = "RemoveAlternatePermanently",
-        dd[dd.InsertDiscontinuity = 4] = "InsertDiscontinuity",
-        dd[dd.RetryRequest = 5] = "RetryRequest",
-        (dd = gm = gm || {})[dd.MoveAllAlternatesMatchingHost = 1] = "MoveAllAlternatesMatchingHost",
-        dd[dd.MoveAllAlternatesMatchingHDCP = 2] = "MoveAllAlternatesMatchingHDCP",
-        dd[dd.SwitchToSDR = 4] = "SwitchToSDR";
-        class qm extends Od {
-            constructor(e) {
-                super(e)
-            }
-            get currentConfig() {
-                var e;
-                return null === (e = this.getActive()) || void 0 === e ? void 0 : e.config
-            }
-            get extendMaxTTFB() {
-                var e;
-                return null === (e = this.getActive()) || void 0 === e ? void 0 : e.extendMaxTTFB
-            }
-            get config$() {
-                return this.selectActive(e=>null == e ? void 0 : e.config)
-            }
-            get userSeek$() {
-                return this.selectActive(e=>null == e ? void 0 : e.userSeek)
-            }
-        }
-        w();
-        class Qm extends pd {
-            constructor() {
-                super({}, {
-                    name: "hls-store",
-                    producerFn: vc
-                })
-            }
-        }
-        class Gm {
-            constructor(e) {
-                this.store = e
-            }
-            getQuery() {
-                return new qm(this.store)
-            }
-            setHlsEntity(e) {
-                const t = e.id;
-                Co(`hls.set.entity ${t}`),
-                sd(()=>{
-                    this.store.add(de(e)),
-                    this.store.setActive(t)
-                }
-                )
-            }
-            removeEntity(e) {
-                Co(`hls.remove ${e}`),
-                this.store.remove(e)
-            }
-            setStartTime(t) {
-                this.store.updateActive(e=>{
-                    e.config.startPosition = t
-                }
-                )
-            }
-            setUserSeek(t) {
-                this.store.updateActive(e=>{
-                    e.userSeek = t
-                }
-                )
-            }
-            setExtendMaxTTFB(t) {
-                this.store.updateActive(e=>{
-                    e.extendMaxTTFB = t
-                }
-                )
-            }
-        }
-        let Wm, zm;
-        function Xm() {
-            return Wm = Wm || new Gm(new Qm),
-            Wm
-        }
-        function Ym() {
-            return Xm().getQuery().currentConfig
-        }
-        function Jm(e, t, i, r) {
-            var n = t.mediaSeqNum - e.startSN;
-            if (n < 0 || n >= e.fragments.length)
-                return e;
-            const s = Object.assign(Object.assign({}, e), {
-                fragments: e.fragments.map(e=>Object.assign({}, e))
-            })
-              , a = s.fragments
-              , o = a[n];
-            if (!Fp(t, a[n]))
-                return null == r || r.warn("Parsed and existing fragments don't match"),
-                e;
-            var {startDtsTs: d, startPts: e, endPts: t} = t;
-            o.startDtsTs = d,
-            o.startPts = e,
-            o.endPts = t,
-            o.start = i,
-            o.duration = b(o.endPts, o.startPts);
-            for (let e = n; 0 < e; e--)
-                Zm(a, e, e - 1, r);
-            for (let e = n; e < a.length - 1; e++)
-                Zm(a, e, e + 1, r);
-            s.totalduration = 0;
-            for (const l of a)
-                s.totalduration += l.duration;
-            return s.ptsKnown = !0,
-            eg(s),
-            s
-        }
-        function Zm(e, t, i, r) {
-            const n = e[t]
-              , s = e[i];
-            s.startPts ? (t < i && n.start + n.duration > s.start || i < t && s.start + s.duration > n.start) && (null == r || r.warn(`overlapping segments found ${n.mediaSeqNum}->${s.mediaSeqNum}`)) : s.start = t < i ? n.start + n.duration : Math.max(n.start - s.duration, 0)
-        }
-        function eg(e) {
-            if (e.programDateTimeMap) {
-                e.dateMediaTimePairs = [];
-                for (var [t,i] of Object.entries(e.programDateTimeMap)) {
-                    t = Number(t),
-                    i = e.fragments[i - e.startSN];
-                    i && (i = i.start,
-                    e.dateMediaTimePairs.push([t, i]))
-                }
-                e.dateMediaTimePairs.sort((e,t)=>e[0] - t[0])
-            }
-        }
-        function tg(t, i) {
-            if ("VOD" === t.type || "VOD" === i.type || t.iframesOnly !== i.iframesOnly)
-                return i;
-            var r = t.mediaOptionId === i.mediaOptionId;
-            let n = Object.assign(Object.assign({}, i), {
-                initSegments: {},
-                fragments: [],
-                ptsKnown: !1
-            });
-            const s = Math.max(t.startSN, n.startSN) - n.startSN
-              , a = Math.min(t.endSN, n.endSN) - n.startSN
-              , o = n.startSN - t.startSN
-              , d = t.fragments
-              , l = i.fragments;
-            let u = 0;
-            for (let e = s; e <= a; ++e)
-                if (d[o + e] && l[e]) {
-                    u = d[o + e].discoSeqNum - l[e].discoSeqNum;
-                    break
-                }
-            const c = n.initSegments;
-            let h = null;
-            for (let e = 0; e < l.length; e++) {
-                const p = d[o + e]
-                  , s = l[e]
-                  , a = Object.assign({}, s)
-                  , f = s.discoSeqNum + u;
-                i.initSegments[s.discoSeqNum] && (c[f] = Object.assign(Object.assign({}, i.initSegments[s.discoSeqNum]), {
-                    discoSeqNum: f
-                })),
-                a.discoSeqNum = f,
-                r && a.mediaSeqNum === (null == p ? void 0 : p.mediaSeqNum) && null != p.startPts && (a.start = p.start,
-                a.duration = p.duration,
-                a.startDtsTs = p.startDtsTs,
-                a.endDtsTs = p.endDtsTs,
-                a.startPts = p.startPts,
-                a.endPts = p.endPts,
-                h = a),
-                n.fragments.push(a)
-            }
-            if (h)
-                n = Jm(n, h, h.start);
-            else if (0 <= o && o < d.length) {
-                const t = d[o].start
-                  , i = n.fragments;
-                for (let e = 0; e < l.length; e++)
-                    i[e].start += t
-            }
-            return n.ptsKnown = n.ptsKnown || r && !0 === t.ptsKnown && t.endSN >= i.startSN,
-            eg(n),
-            n
-        }
-        function ig(e, t, i) {
-            let r = t.targetduration;
-            return ne(i.liveSyncDuration) ? r = i.liveSyncDuration : ne(i.liveSyncDurationCount) && (r = i.liveSyncDurationCount * t.targetduration),
-            e + Math.max(0, t.totalduration - r)
-        }
-        function rg(e, t, i, r, n) {
-            if (!t.ptsKnown)
-                return 0;
-            var s = t.targetduration
-              , a = t.fragments[0].start
-              , r = n.canContinuePlaybackWithoutGap(t, i, {
-                avgPlaylistLoadTimeMs: 0,
-                avgPlaylistParseTimeMs: 0
-            }, r);
-            let o = Math.max(0, e - s);
-            return e < a && !r && (o = a),
-            o
-        }
-        function ng(e) {
-            return 1e3 * (e.averagetargetduration || e.targetduration)
-        }
-        function sg(e, t) {
-            var i = ng(e)
-              , t = performance.now() - t;
-            return e.liveOrEvent && i <= t
-        }
-        function ag(e, t) {
-            return function(e) {
-                const t = []
-                  , i = e.fragments;
-                for (const e of i) {
-                    const {discoSeqNum: i, start: r} = e;
-                    t.push({
-                        timelineOffset: r,
-                        mediaFragment: e
-                    })
-                }
-                return t
-            }(e).find(e=>t(e.mediaFragment))
-        }
-        function og(s, e, a, t, o) {
-            var i;
-            const d = !t.liveOrEvent || t.ptsKnown;
-            let r = null !== (i = ag(t, t=>{
-                var e = t.mediaSeqNum >= a
-                  , i = 0 < t.duration
-                  , r = t.start + t.duration
-                  , n = !d || s < r || s - r < 1 && t.isLastFragment
-                  , r = o.every(e=>!Fp(e.frag, t));
-                return e && i && n && r
-            }
-            )) && void 0 !== i ? i : null
-              , n = NaN;
-            null != r && ne(e) && r.mediaFragment.discoSeqNum !== e && (n = r.mediaFragment.discoSeqNum,
-            r = null);
-            e = o.some(e=>0 < e.frag.framesWithoutIDR);
-            return r && e && o[o.length - 1].frag.mediaOptionId !== t.mediaOptionId && (r = null !== (t = ag(t, e=>e.mediaSeqNum === r.mediaFragment.mediaSeqNum - 1)) && void 0 !== t ? t : r),
-            {
-                foundFrag: r,
-                nextDisco: n
-            }
-        }
-        function dg(e) {
-            const t = e.fragments;
-            return t.map(e=>e.duration).reduce((e,t)=>e + t, null !== (e = t[0].start) && void 0 !== e ? e : 0)
-        }
-        class lg extends Od {
-            constructor(e, t) {
-                super(e),
-                this.mediaOption = t
-            }
-            get itemId() {
-                return this.mediaOption.itemId
-            }
-            get mediaOptionId() {
-                return this.mediaOption.mediaOptionId
-            }
-            get initSegmentEntities() {
-                var e;
-                return null === (e = this.mediaOptionDetailsEntity) || void 0 === e ? void 0 : e.initSegmentCacheEntities
-            }
-            get mediaLibraryEntity() {
-                return this.getEntity(this.itemId)
-            }
-            get mediaOptionDetailsEntityRecord() {
-                var e;
-                return null === (e = this.mediaLibraryEntity) || void 0 === e ? void 0 : e.mediaOptionDetailsEntityRecord
-            }
-            get mediaOptionDetailsEntity() {
-                return this.mediaOptionDetailsEntityRecord ? this.mediaOptionDetailsEntityRecord[this.mediaOptionId] : null
-            }
-            get mediaOptionDetails() {
-                var e;
-                return null === (e = this.mediaOptionDetailsEntity) || void 0 === e ? void 0 : e.mediaOptionDetails
-            }
-            get playlistDuration() {
-                var e;
-                return null === (e = this.mediaOptionDetailsEntity) || void 0 === e ? void 0 : e.playlistDuration
-            }
-            get mediaOptionDetailsEntity$() {
-                const {itemId: e, mediaOptionId: t} = this;
-                return this.selectEntity(e, e=>{
-                    if (null != e && e.mediaOptionDetailsEntityRecord)
-                        return null == e ? void 0 : e.mediaOptionDetailsEntityRecord[t]
-                }
-                )
-            }
-            get mediaOptionDetails$() {
-                return this.selectEntity(this.itemId, e=>{
-                    return null === (e = null == e ? void 0 : e.mediaOptionDetailsEntityRecord[this.mediaOptionId]) || void 0 === e ? void 0 : e.mediaOptionDetails
-                }
-                ).pipe(Up())
-            }
-            get playlistDuration$() {
-                return this.mediaOptionDetailsEntity$.pipe(ur(e=>null == e ? void 0 : e.playlistDuration), Up(), Es())
-            }
-            get live$() {
-                return this.mediaOptionDetails$.pipe(ur(e=>null == e ? void 0 : e.liveOrEvent), Es())
-            }
-        }
-        class ug extends pd {
-            constructor() {
-                super({}, {
-                    name: "media-library-store",
-                    idKey: "itemId",
-                    producerFn: vc
-                })
-            }
-        }
-        class cg {
-            constructor(e) {
-                this.store = e
-            }
-            getQuery() {
-                return new Od(this.store)
-            }
-            getQueryForOption(e) {
-                return new lg(this.store,e)
-            }
-            createMediaLibraryEntity(e) {
-                var t = {
-                    itemId: e,
-                    mediaOptionDetailsEntityRecord: {}
-                };
-                Co(`library.entity.create: ${e}`),
-                this.store.add(t)
-            }
-            setDetailsLoading(e) {
-                const {itemId: t, mediaOptionId: i} = e;
-                Co(`library.details.loading: ${i}`),
-                this.store.update(t, ({mediaOptionDetailsEntityRecord: e})=>{
-                    e[i] || (e[i] = {
-                        initSegmentCacheEntities: {},
-                        unchangedCount: 0
-                    }),
-                    e[i].detailsLoading = !0
-                }
-                )
-            }
-            archiveMediaOptionDetails(i, r, n) {
-                const {itemId: e, mediaOptionId: s} = i
-                  , a = performance.now()
-                  , o = dg(i);
-                Co(`library.details.loaded: ${s}`),
-                this.store.update(e, e=>{
-                    const t = e.mediaOptionDetailsEntityRecord[s];
-                    t.detailsLoading = !1,
-                    t.mediaOptionDetails = i,
-                    t.lastUpdateMillis = a,
-                    n ? t.unchangedCount = 0 : ++t.unchangedCount,
-                    t.playlistDuration = o,
-                    t.stats = r,
-                    e.liveOrEvent = i.liveOrEvent
-                }
-                )
-            }
-            setInitSegmentLoading(e) {
-                const {itemId: t, mediaOptionId: i, discoSeqNum: r} = e;
-                Co(`library.initsegs.loading: ${i}/${r}`),
-                this.store.update(t, e=>{
-                    e.mediaOptionDetailsEntityRecord[i].initSegLoading = r
-                }
-                )
-            }
-            archiveInitSegmentEntity(i, r) {
-                const {itemId: e, mediaOptionId: n, discoSeqNum: s} = i;
-                Co(`library.initseg.loaded: ${n}/${s}`),
-                this.store.update(e, ({mediaOptionDetailsEntityRecord: e})=>{
-                    const t = e[n];
-                    t.initSegmentCacheEntities[s] = [i, r],
-                    t.initSegLoading = null
-                }
-                )
-            }
-            updatePTSDTS(e, r, n, s) {
-                this.store.update(e, ({mediaOptionDetailsEntityRecord: e})=>{
-                    const t = e[r];
-                    var i;
-                    null != t && t.mediaOptionDetails && ({variantDTS: i, timelineOffset: e} = n,
-                    e = S(s.startDtsTs) - S(i) + e,
-                    e = Jm(t.mediaOptionDetails, s, e),
-                    t.mediaOptionDetails = e,
-                    t.playlistDuration = dg(e))
-                }
-                )
-            }
-            remove(e) {
-                this.store.remove(e)
-            }
-            clear() {
-                this.store.remove()
-            }
-        }
-        function hg() {
-            return zm = zm || new cg(new ug),
-            zm
-        }
-        const pg = e=>hg().getQueryForOption(e)
-          , fg = (d,e,t=!1)=>{
-            if (!kl(e))
-                return Bi(null);
-            const i = e["itemId"]
-              , r = d["mediaLibraryService"]
-              , n = r.getQueryForOption(e);
-            n.hasEntity(i) || r.createMediaLibraryEntity(i);
-            var s = n.mediaOptionDetailsEntity
-              , a = n.mediaOptionDetails;
-            return null == a || t || "VOD" !== a.type && (!a.liveOrEvent || sg(a, s.lastUpdateMillis)) ? (r.setDetailsLoading(e),
-            function(l) {
-                var e;
-                const {logger: t, config: u, rootPlaylistQuery: c, rootPlaylistService: h, statsService: i, mediaLibraryService: p, mediaSink: r} = d
-                  , f = r.mediaQuery
-                  , n = u.playlistLoadPolicy
-                  , s = u.keySystemPreference
-                  , a = c.masterVariableList
-                  , o = null === (e = null === (e = Xm()) || void 0 === e ? void 0 : e.getQuery()) || void 0 === e ? void 0 : e.extendMaxTTFB;
-                return Tm(l, c.itemStartOffset, u, n, t, s, i, a, o).pipe(Hi(Zi), ur(t=>{
-                    const i = p.getQueryForOption(l)
-                      , r = i.mediaOptionDetails;
-                    let n = t["mediaOptionDetails"];
-                    var e = t["stats"];
-                    let s = !0;
-                    if (n.liveOrEvent) {
-                        const d = n["mediaOptionType"];
-                        t = n,
-                        s = null == r || t.endSN !== r.endSN || t.liveOrEvent !== r.liveOrEvent;
-                        let e = n;
-                        r && (e = tg(r, n));
-                        const i = c.lastLoadedMediaOptionByType(d)
-                          , u = i ? null === (t = p.getQueryForOption(i)) || void 0 === t ? void 0 : t.mediaOptionDetails : null;
-                        !e.ptsKnown && u && u.mediaOptionId !== (null == r ? void 0 : r.mediaOptionId) && (e = tg(u, n)),
-                        n = e
-                    }
-                    n && (p.archiveMediaOptionDetails(n, e, s),
-                    h.setLastLoadedMediaOptionByType(c.itemId, l.mediaOptionType, l));
-                    const a = !s && i.mediaOptionDetailsEntity.unchangedCount >= u.liveMaxUnchangedPlaylistRefresh
-                      , o = function(e, t, i, r) {
-                        t = rg(r.currentTime, e, t, i, r),
-                        i = e.fragments[e.fragments.length - 1],
-                        r = i.start + i.duration;
-                        return {
-                            expired: null != i && e.liveOrEvent && e.ptsKnown && r < t,
-                            windowEnd: r,
-                            minPosition: t
-                        }
-                    }(n, e.tload, u.maxBufferHole, f);
-                    if (a || o.expired) {
-                        e = a ? $.LivePlaylistUpdateError : {
-                            text: `Live window too far in the past end:${o.windowEnd.toFixed(3)} minPosition:${o.minPosition}`,
-                            code: 0
-                        };
-                        throw new nu(!1,e.text,e.code,e,!1,l.mediaOptionType,l.mediaOptionId,l.url)
-                    }
-                    return n
-                }
-                ), Ql.tag("getMediaOptionDetailsCommon.emit.loaded"), jm(l.itemId, l.mediaOptionType, xc(l, n), u.maxNumAddLevelToPenaltyBox, !1, c, h, i)).pipe(Cs(1))
-            }(e)) : Bi(a).pipe(Ql.tag("retrieveMediaOptionDetails.emit.cached")).pipe(Cs(1))
-        }
-        ;
-        const mg = (t,i)=>{
-            if (!i)
-                return Bi(null);
-            const {mediaLibraryService: r, mediaParser: n} = t
-              , e = r.getQueryForOption(i)
-              , {mediaOption: s, mediaOptionDetailsEntityRecord: a, mediaOptionDetails: o} = e
-              , d = s["mediaOptionId"];
-            if (null == a || !a[d])
-                throw new Error("retrieveInitSegmentCacheEntity no details entity");
-            if (!o)
-                throw new Error("retrieveInitSegmentCacheEntity no details");
-            var l = a[d]["initSegmentCacheEntities"]
-              , u = o["initSegments"]
-              , c = i["discoSeqNum"];
-            if (l[c]) {
-                const [t,r] = l[c];
-                let e = t;
-                return r && (e = n.willBeTrackSwitch(i) ? t : r),
-                Bi(e)
-            }
-            const h = u[c];
-            return h ? (r.setInitSegmentLoading(h),
-            yg(t, h, !1, !1).pipe(Hi(Zi), Ra(e=>gg(e, h, t)), Ql.tag("retrieveInitSegmentCacheEntity.emit"))) : Bi(null)
-        }
-        ;
-        function gg(e, n, t) {
-            const {logger: s, mediaSink: i, rootPlaylistService: r, rootPlaylistQuery: a, mediaParser: o, mediaLibraryService: d, gaplessInstance: l} = t
-              , u = i["mediaQuery"]
-              , c = d.getQueryForOption(n)
-              , {mediaOption: h, mediaOptionDetails: p} = c
-              , {itemId: f, mediaOptionId: m} = h
-              , {keyTagInfo: g, discoSeqNum: y, mediaOptionType: v} = n
-              , S = u.seeking
-              , b = p.liveOrEvent
-              , T = v === ul.Variant && p.ptsKnown;
-            let E, I;
-            n.isInitSegment ? I = new Uint8Array(e) : E = new Uint8Array(e);
-            var e = {
-                segment: E,
-                initSegment: I,
-                frag: n,
-                ptsKnown: T,
-                seeking: S,
-                live: b,
-                totalDuration: p.totalduration
-            };
-            return o.parseInitSegment(e, null !== (e = null === navigator || void 0 === navigator ? void 0 : navigator.vendor) && void 0 !== e ? e : "").pipe(ur(e=>{
-                var {track: t, moovData: i, mimeType: r} = e
-                  , e = t["initSegment"];
-                l.inGaplessMode && Se.isVideoCodec(t.codec) && (s.warn(`Video codec discovered in gapless mode codec:${t.codec}`),
-                l.dequeueSource("InvalidFormat"));
-                r = {
-                    itemId: f,
-                    mediaOptionId: m,
-                    discoSeqNum: y,
-                    initParsedData: i,
-                    data: e,
-                    mimeType: r,
-                    keyTagInfo: g,
-                    fragment: n
-                };
-                return d.archiveInitSegmentEntity(r),
-                r
-            }
-            ), Vm(r, a, v, m))
-        }
-        function yg(n, s, i, r) {
-            var e;
-            const {rootPlaylistQuery: t, rootPlaylistService: a, config: o, rtcService: d, statsService: l} = n
-              , {itemId: u, mediaOptionType: c} = s
-              , h = o.fragLoadPolicy
-              , p = ne(s.mediaSeqNum);
-            let f;
-            p && (f = {
-                getData: !1,
-                cb: (e,t,i,r)=>(a.updateInflightFrag(u, s.mediaOptionType, s, "loading", i),
-                !1)
-            });
-            let m = !1;
-            return r && null === d.serverInfoInstance && (m = !0),
-            Jr([Sg(n, s.keyTagInfo, {
-                itemId: s.itemId,
-                mediaOptionId: s.mediaOptionId
-            }), qf(s, o, h, f, m, null === (e = null === (e = Xm()) || void 0 === e ? void 0 : e.getQuery()) || void 0 === e ? void 0 : e.extendMaxTTFB).pipe(Ja(([,,e,t])=>{
-                i && l.setBandwidthSample(Object.assign(Object.assign({}, e), {
-                    mediaOptionType: s.mediaOptionType
-                })),
-                r && m && (d.serverInfoInstance = t),
-                p && a.updateInflightFrag(u, s.mediaOptionType, s, "loaded", e)
-            }
-            ), jm(u, c, xc(s, h), o.maxNumAddLevelToPenaltyBox, !1, t, a, l))]).pipe(Cs(1), Ja(([,e])=>{
-                var t;
-                r && ([t,,e] = e,
-                d.handleFragLoaded(t, e))
-            }
-            ), Ra(([e,t])=>{
-                const [i,r] = t;
-                return i.keyTagInfo.key = e.key,
-                Em(i, r, o, n.logger, n.rpcClients.crypto)
-            }
-            ), Ql.tag("getMediaFragmentCommon.emit"))
-        }
-        const vg = (i,e,t)=>{
-            const {rootPlaylistService: r, rootPlaylistQuery: n} = i
-              , {timelineOffset: s, mediaFragment: a} = t.foundFrag
-              , {itemId: o, discoSeqNum: d} = a;
-            return r.updateInflightFrag(o, a.mediaOptionType, a, "loading", null),
-            Jr([Sg(i, a.keyTagInfo, {
-                itemId: a.itemId,
-                mediaOptionId: a.mediaOptionId
-            }), mg(i, a).pipe(Ra(t=>yg(i, a, !0, !0).pipe(Ra(e=>{
-                return function(e, t, i, y, v, S) {
-                    const r = new Uint8Array(e)
-                      , {rootPlaylistService: n, mediaSink: s, mediaParser: a, rootPlaylistQuery: o, mediaLibraryService: b} = S
-                      , d = s["mediaQuery"]
-                      , l = b.getQueryForOption(y)
-                      , {mediaOption: u, mediaOptionDetails: c} = l
-                      , {itemId: T, mediaOptionId: E} = u
-                      , {discoSeqNum: I, mediaSeqNum: w, mediaOptionType: h, isLastFragment: A} = y
-                      , p = d.seeking
-                      , f = c.liveOrEvent
-                      , m = h === ul.Variant && c.ptsKnown
-                      , O = {
-                        segment: r,
-                        frag: y,
-                        seeking: p,
-                        live: f,
-                        ptsKnown: m,
-                        totalDuration: c.totalduration,
-                        defaultInitPTS: t,
-                        iframeMediaStart: Np(y) ? y.iframeMediaStart : void 0,
-                        iframeDuration: Np(y) ? y.iframeMediaDuration : void 0
-                    };
-                    let g;
-                    if (null != i && (null === (t = y.keyTagInfo) || void 0 === t ? void 0 : t.uri) === (null === (t = i.keyTagInfo) || void 0 === t ? void 0 : t.uri))
-                        g = Bi(i);
-                    else if (null != i) {
-                        const e = Object.assign(Object.assign({}, i.fragment), {
-                            keyTagInfo: y.keyTagInfo
-                        });
-                        g = gg(i.data, e, S)
-                    } else
-                        g = gg(e, y, S);
-                    return g.pipe(Ra(m=>{
-                        const g = performance.now();
-                        if (null != m) {
-                            const g = m["data"]
-                              , e = new Uint8Array(g);
-                            O.initSegment = e
-                        }
-                        return a.parseSegment(O, "").pipe(ur(e=>{
-                            var t = performance.now()
-                              , {startPTS: i, startDTS: r, endPTS: n, endDTS: s, firstKeyframePts: a, framesWithoutIDR: o, dropped: d, data1: l, data2: u, captionData: c, id3Samples: h, parsedInitSegment: e} = e
-                              , t = {
-                                durationSec: n.baseTime / n.timescale - i.baseTime / i.timescale,
-                                parseTimeMs: t - g
-                            };
-                            S.statsService.setFragSample(t);
-                            let p = Object.assign({}, m);
-                            if (e) {
-                                const {track: g, moovData: f, mimeType: v} = e
-                                  , S = g["initSegment"];
-                                p = {
-                                    itemId: T,
-                                    mediaOptionId: E,
-                                    discoSeqNum: I,
-                                    initParsedData: f,
-                                    data: S,
-                                    mimeType: v,
-                                    keyTagInfo: y.keyTagInfo,
-                                    fragment: y
-                                },
-                                b.archiveInitSegmentEntity(m, p)
-                            }
-                            e = y.keyTagInfo;
-                            return [p, {
-                                itemId: T,
-                                mediaOptionId: E,
-                                mediaSeqNum: w,
-                                discoSeqNum: I,
-                                startDtsTs: r,
-                                endDtsTs: s,
-                                timelineOffset: v,
-                                firstKeyframePts: a,
-                                framesWithoutIDR: o,
-                                dropped: d,
-                                data1: l,
-                                data2: u,
-                                startPts: i,
-                                endPts: n,
-                                keyTagInfo: e,
-                                isLastFragment: A,
-                                iframe: null !== (e = y.iframe) && void 0 !== e && e,
-                                duration: y.duration,
-                                iframeMediaDuration: Np(y) ? y.iframeMediaDuration : void 0,
-                                captionData: c,
-                                id3Samples: h
-                            }]
-                        }
-                        ))
-                    }
-                    ), Vm(n, o, h, E))
-                }(e, null === (e = n.getInitPTS(d)) || void 0 === e ? void 0 : e.offsetTimestamp, t, a, s, i)
-            }
-            ), Ja(e=>{}
-            ), Ql.tag(`retrieveMediaFragmentCacheEntity.${e}.emit`)))).pipe(Cs(1))]).pipe(Ra(([,e])=>Bi(e)))
-        }
-        ;
-        function Sg(e, t, i) {
-            const {keySystemAdapter: r, rootPlaylistQuery: n, rootPlaylistService: s, config: a} = e;
-            return r.getKeyFromDecryptData(t, i).pipe((o = t.uri,
-            d = xc({
-                url: t.uri
-            }, a.keyLoadPolicy),
-            l = n,
-            u = s,
-            c = r.ksQuery,
-            e=>e.pipe(od(()=>{
-                Km(o, !1, l, u, c)
-            }
-            ), ya(e=>e.pipe(Kr((e,t)=>{
-                if (e instanceof lu || e instanceof uu)
-                    return Hm(e, t, Rc(e, d), u, l, c);
-                throw e
-            }
-            ))))));
-            var o, d, l, u, c
-        }
-        class bg {
-            constructor(e, t, i) {
-                this.hls = e,
-                this.destroy$ = new zt,
-                this.iframeSwitchStart = 0,
-                this.logger = t.child({
-                    name: "hls-player-events"
-                }),
-                this.rtc = i,
-                this.subscribeAndEmit()
-            }
-            destroy() {
-                this.destroy$.next()
-            }
-            subscribeAndEmit() {
-                var e = this.loaderQueryListener(new fu(bc))
-                  , t = this.hls.publicQueries$.pipe(Ra(([e,t])=>nn(this.rootPlaylistQueryListener(e, t), this.mediaElementQueryListener(t, e))));
-                nn(e, t, this.activeItemListener(this.hls.itemQueue)).pipe(Un(e=>{
-                    var t = e.message;
-                    return this.logger.error(`Got error in HlsPlayerEvents ${t}`, e),
-                    Ti
-                }
-                ), $a(this.destroy$), $s(()=>{}
-                )).subscribe()
-            }
-            activeItemListener(e) {
-                return e.activeItemById$.pipe(Up(), Ra(e=>{
-                    e = e.url;
-                    return this.hls.trigger(P.MANIFEST_LOADING, {
-                        url: e
-                    }),
-                    Ti
-                }
-                ))
-            }
-            rootPlaylistQueryListener(t, e) {
-                var i = t.enabledMediaOptionByType$(ul.Variant).pipe(an(e=>!!e), Ra(e=>{
-                    var t;
-                    return this.hls.trigger(P.LEVEL_SWITCHING, e),
-                    null === (t = this.rtc) || void 0 === t || t.handleLevelSwitching(e.url),
-                    Ti
-                }
-                ))
-                  , r = t.enabledMediaOptionByType$(ul.Variant).pipe(Ra(i=>pg(i).mediaOptionDetailsEntity$.pipe(an(e=>!0 === (null == e ? void 0 : e.detailsLoading)), Ja(e=>{
-                    var t = {
-                        url: oe(null == i ? void 0 : i.url),
-                        level: i.mediaOptionId,
-                        type: Cl[i.mediaOptionType]
-                    };
-                    return this.hls.trigger(P.LEVEL_LOADING, t),
-                    Ti
-                }
-                ))))
-                  , n = t.enabledMediaOptionByType$(ul.Variant).pipe(Ra(e=>{
-                    const t = pg(e);
-                    let i = 0;
-                    return t.mediaOptionDetailsEntity$.pipe(Up(), an(e=>{
-                        var t = null !== e.stats && !1 === e.detailsLoading && e.lastUpdateMillis > i;
-                        return i = null !== (e = e.lastUpdateMillis) && void 0 !== e ? e : 0,
-                        t
-                    }
-                    ))
-                }
-                ), Ra(e=>{
-                    var t = e.mediaOptionDetails
-                      , i = e.stats
-                      , r = {
-                        mediaOptionId: t.mediaOptionId,
-                        details: t,
-                        playlistType: t.type,
-                        stats: i
-                    };
-                    if (null === (i = this.rtc) || void 0 === i || i.handleLevelLoaded(t, r.stats),
-                    this.hls.trigger(P.LEVEL_LOADED, r),
-                    0 === e.unchangedCount) {
-                        const e = {
-                            level: 0,
-                            details: t
-                        };
-                        this.hls.trigger(P.LEVEL_UPDATED, e)
-                    }
-                    if (null != t && t.daterangeTags) {
-                        const e = {
-                            daterangeTags: t.daterangeTags
-                        };
-                        this.hls.trigger(P.DATERANGE_UPDATED, e)
-                    }
-                    return Ti
-                }
-                ))
-                  , s = t.enableMediaOptionSwitchedForType$(ul.AltAudio).pipe(Ra(e=>{
-                    e = t.alternateMediaOptionById(ul.AltAudio, e.mediaOptionId);
-                    return e && this.triggerAudioSwitch(e),
-                    Ti
-                }
-                ))
-                  , a = t.rootPlaylistEntity$.pipe(an(e=>null !== e.enabledMediaOptionKeys[ul.AltAudio].mediaOptionId), Cs(1), Ra(e=>{
-                    const t = e.enabledMediaOptionKeys[ul.AltAudio].mediaOptionId;
-                    return t && (e = e.mediaOptionListTuple[ul.AltAudio].mediaOptions.find(e=>e.mediaOptionId === t),
-                    this.triggerAudioSwitch(e)),
-                    Ti
-                }
-                ));
-                return nn(i, s, $l(e.textTracksCreated$, e=>e).pipe(Ra(()=>t.enabledMediaOptionByType$(ul.Subtitle).pipe(Ra(e=>{
-                    e = t.alternateMediaOptionById(ul.Subtitle, e.mediaOptionId);
-                    return e ? this.hls.trigger(P.SUBTITLE_TRACK_SWITCH, {
-                        track: Object.assign({}, e),
-                        hidden: !1
-                    }) : this.hls.trigger(P.SUBTITLE_TRACK_SWITCH, {
-                        track: void 0,
-                        hidden: !1
-                    }),
-                    Ti
-                }
-                )))), t.sessionData$.pipe(an(e=>null != e.complete), Cs(1), Ja(e=>{}
-                ), ur(e=>{
-                    this.hls.trigger(P.SESSION_DATA_COMPLETE, e)
-                }
-                )), t.getPreferredMediaOptionsByType$(ul.Variant).pipe(Oa(1), ur(e=>{
-                    const t = e;
-                    null === (e = this.rtc) || void 0 === e || e.handleLevelsChanged(t),
-                    t.forEach(e=>{}
-                    ),
-                    this.hls.trigger(P.LEVELS_CHANGED, {
-                        requiresReset: !1,
-                        levels: t
-                    })
-                }
-                )), t.getPreferredMediaOptionsByType$(ul.AltAudio).pipe(ur(e=>{
-                    this.hls.trigger(P.AUDIO_TRACKS_UPDATED, {
-                        audioTracks: e
-                    })
-                }
-                )), $l(e.textTracksCreated$, e=>e).pipe(Ra(()=>t.getPreferredMediaOptionsByType$(ul.Subtitle).pipe(Cs(1), ur(e=>{
-                    this.hls.trigger(P.SUBTITLE_TRACKS_UPDATED, {
-                        subtitleTracks: e
-                    }),
-                    this.hls.trigger(P.SUBTITLE_TRACKS_CREATED)
-                }
-                )))), n, r, a)
-            }
-            mediaElementQueryListener(s, e) {
-                return nn(s.seekTo$.pipe(ur(e=>{
-                    var t;
-                    e && ne(e.pos) ? (null === (t = this.rtc) || void 0 === t || t.handleSeek("SEEKING"),
-                    this.hls.trigger(P.SEEKING, {
-                        seekToPos: e.pos
-                    })) : null === e && (null === (e = this.rtc) || void 0 === e || e.handleSeek("SEEKED"),
-                    this.hls.trigger(P.SEEKED))
-                }
-                )), s.desiredRate$.pipe(xa(0), ca(), ur(e=>{
-                    var t = e[0]
-                      , i = e[1];
-                    jp(i) ? 0 == this.iframeSwitchStart && (this.iframeSwitchStart = performance.now()) : this.iframeSwitchStart = 0,
-                    this.hls.trigger(P.DESIRED_RATE_CHANGED, {
-                        oldRate: t,
-                        newRate: i
-                    }),
-                    null === (e = this.rtc) || void 0 === e || e.handleDesiredRateChanged(t, i)
-                }
-                )), s.sourceBufferEntityByType$(cl.AltAudio).pipe(an(e=>!!e), Es((e,t)=>e.totalBytes === t.totalBytes), ur(e=>{
-                    this.hls.trigger(P.BUFFER_APPENDED)
-                }
-                )), s.sourceBufferEntityByType$(cl.Variant).pipe(an(e=>!!e), Es((e,t)=>e.totalBytes === t.totalBytes), ur(e=>{
-                    var t;
-                    null === (t = this.rtc) || void 0 === t || t.handleVariantBufferAppended(e.timestampOffset, e.totalBytes),
-                    this.hls.trigger(P.BUFFER_APPENDED)
-                }
-                )), s.stallInfo$.pipe(Up(), So(s.combinedBuffer$), ur(([e])=>{
-                    var t;
-                    null === (t = this.rtc) || void 0 === t || t.handleStalled(e, s.getCombinedBufferInfo(e.currentTime, 0).len),
-                    this.hls.trigger(P.STALLED, e)
-                }
-                )), Cr([Bi(e), Zd([s.timeupdate$, s.bufferedSegmentsByType$(cl.Variant)]).pipe(so(1e3), ur(([t,e])=>null == e ? void 0 : e.find(e=>e.startPTS <= t && e.endPTS > t)), an(e=>!!e), xa(null), ca())]).pipe(Ra(([e,[t,i]])=>{
-                    var r = null == i ? void 0 : i.frag
-                      , t = null == t ? void 0 : t.frag;
-                    if (r && !Fp(t, r) && (this.hls.trigger(P.FRAG_CHANGED, i),
-                    this.hls.inGaplessMode && this.checkAndTriggerReadyForNext(s, i),
-                    !t || r.mediaOptionId !== t.mediaOptionId)) {
-                        const s = e.mediaOptionListQueries[ul.Variant].mediaOptionFromId(r.mediaOptionId);
-                        if (!s)
-                            return this.logger.warn("variantInfo is undefined in fragChangeMonitor"),
-                            Ti;
-                        const n = t ? t.mediaOptionId : ""
-                          , i = r.mediaOptionId;
-                        s.iframes && (performance.now(),
-                        this.iframeSwitchStart),
-                        null === (r = this.rtc) || void 0 === r || r.handleLevelSwitched({
-                            url: s.url,
-                            mediaOptionId: s.mediaOptionId,
-                            oldVariant: "" !== n ? n : void 0,
-                            newVariant: i
-                        }),
-                        this.hls.trigger(P.LEVEL_SWITCHED, s)
-                    }
-                    return Ti
-                }
-                )), s.isBufferedToEnd$(this.hls.config.maxBufferHole, !1).pipe(an(e=>!0 === e), Hi(Zi), ur(e=>{
-                    if (e && !this.hls.itemQueue.isPreloading() && this.hls.inGaplessMode) {
-                        const i = s.getCombinedBufferInfo(s.currentTime, 0);
-                        var t = 0;
-                        i && (t = i.end,
-                        e = s.mediaElementDuration,
-                        0 < t && e - s.currentTime < 10 && this.hls.trigger(P.READY_FOR_NEXT_ITEM, {
-                            duration: t
-                        }))
-                    }
-                }
-                )))
-            }
-            checkAndTriggerReadyForNext(e, t) {
-                var i, r;
-                t && t.frag && (i = e.currentTime,
-                (r = e.getCombinedBufferInfo(i, 0)) && (i = r.end,
-                r = e.mediaElementDuration,
-                e = e.bufferMonitorInfo,
-                e = Math.max(e.almostDryWaterLevelSeconds, e.lowWaterLevelSeconds / 2),
-                (r - t.endPTS <= e || t.frag.isLastFragment) && this.hls.inGaplessMode && !this.hls.isPreloading && this.hls.trigger(P.READY_FOR_NEXT_ITEM, {
-                    duration: i
-                })))
-            }
-            loaderQueryListener(e) {
-                return nn(e.unresolvedUriLoading$.pipe(ur(e=>e.map(e=>{
-                    e = {
-                        uri: e.uri,
-                        responseType: e.responseType,
-                        userAgent: e.userAgent
-                    };
-                    this.hls.trigger(P.UNRESOLVED_URI_LOADING, e)
-                }
-                ))))
-            }
-            triggerAudioSwitch(e) {
-                e && this.hls.trigger(P.AUDIO_TRACK_SWITCHED, {
-                    id: e.id
-                })
-            }
-            triggerManifestLoaded(e) {
-                e = {
-                    levels: e.rootMediaOptionsTuple[ul.Variant],
-                    audioTracks: e.rootMediaOptionsTuple[ul.AltAudio],
-                    subtitleTracks: e.rootMediaOptionsTuple[ul.Subtitle],
-                    url: e.baseUrl,
-                    audioMediaSelectionGroup: e.audioMediaSelectionGroup,
-                    subtitleMediaSelectionGroup: e.subtitleMediaSelectionGroup,
-                    stats: e.stats,
-                    isMediaPlaylist: e.isMediaPlaylist
-                };
-                this.hls.trigger(P.MANIFEST_LOADED, e)
-            }
-            triggerManifestParsed(e) {
-                var t = {
-                    levels: e.mediaOptionListQueries[ul.Variant].filteredMediaOptionList,
-                    firstLevel: 0,
-                    audio: !1,
-                    video: !0,
-                    altAudio: !1,
-                    audioTracks: e.mediaOptionListQueries[ul.AltAudio].filteredMediaOptionList,
-                    audioMediaSelectionGroup: e.audioMediaSelectionGroup,
-                    subtitleMediaSelectionGroup: e.subtitleMediaSelectionGroup,
-                    stats: e.loadStats
-                };
-                null === (e = this.rtc) || void 0 === e || e.handleManifestParsed(t),
-                this.hls.trigger(P.MANIFEST_PARSED, t)
-            }
-            urlRedactedManifestLoaded(e) {
-                const t = Object.assign({}, e);
-                return t.url = oe(t.url),
-                t.levels = le(t.levels),
-                t.audioTracks = ue(t.audioTracks),
-                t.subtitleTracks = ue(t.subtitleTracks),
-                t
-            }
-            urlRedactedManifestParsed(e) {
-                const t = Object.assign({}, e);
-                return t.levels = le(t.levels),
-                t.audioTracks = ue(t.audioTracks),
-                t
-            }
-        }
-        (w = ym = ym || {}).LowBandwidth = "LowBandwidth",
-        w.HighBandwidth = "HighBandwidth",
-        w.PreferredListChanged = "PreferredListChanged",
-        w.IframeModeChange = "IframeModeChange",
-        w.None = "";
-        const Tg = {
-            minValidBitrate: 2e6,
-            maxValidBitrate: 5e6,
-            maxPreferredBitrate: 3e6,
-            minValidHeight: 480,
-            maxValidHeight: 720
-        };
-        function Eg(e, a, o, d, l, u) {
-            return e.reduce((e,t)=>{
-                if (t.iframes)
-                    return e;
-                let i = e;
-                const r = (n = t.score,
-                s = a && o && d && l && !Ig(t, a, o, d, l, u) ? ll.INVALID : ll.VALID,
-                new Hp(s,n));
-                var n, s;
-                return (!e || r.isGreaterThan(e.bestRank) || r.isEqualTo(e.bestRank) && t.bandwidth < e.selected.bandwidth) && (i = {
-                    selected: t,
-                    bestRank: r
-                }),
-                i
-            }
-            , null).selected
-        }
-        function Ig(e, t, i, r, n, s) {
-            var {targetDuration: a, targetStartupMs: o} = i
-              , d = r["avgPlaylistLoadTimeMs"]
-              , l = n["avgParseTimeMs"]
-              , {avgBufferCreateMs: i, avgInitFragAppendMs: r, avgDataFragAppendMs: n} = s
-              , {avgBandwidth: s, avgLatencyMs: t} = t;
-            return e.bandwidth <= s && (e.avgBandwidth || e.bandwidth) * a / s * 1e3 + d + i + +(t + l + (r + n)) <= o
-        }
-        const wg = {
-            name: "abr"
-        };
-        function Ag(e, t) {
-            return ne(e) ? Math.min(e, t) : t
-        }
-        function Og(e) {
-            return ne(null == e ? void 0 : e.avgBandwidth)
-        }
-        function kg(e, t) {
-            return e.getCurrentWaterLevelByType(cl.Variant, t) / (0 !== e.playbackRate ? Math.abs(e.playbackRate) : 1)
-        }
-        function Cg(t, i, e, r) {
-            if (e)
-                return t;
-            let n = -1;
-            if (t < 0)
-                return n;
-            for (let e = t; e < i.length; ++e) {
-                const t = Mg(i[e], r);
-                if (t.altAudio && t.subtitle) {
-                    n = e;
-                    break
-                }
-            }
-            return n
-        }
-        function Dg(t, e, i, r, n, s, a) {
-            const o = i.preferredMediaOptions[ul.Variant].filter(e=>e.iframes === t);
-            if (!o.length)
-                return {
-                    variantMediaOption: Ol.mediaOptionId,
-                    holdOffDuration: 0,
-                    lowestCandidate: null
-                };
-            let d = 0;
-            const l = i.nextMinAutoOptionId;
-            if (l !== Ol.mediaOptionId) {
-                const t = o.findIndex(e=>e.mediaOptionId === l);
-                0 <= t && (d = t)
-            }
-            if (d = Cg(d, o, t, i),
-            d < 0)
-                return {
-                    variantMediaOption: Ol.mediaOptionId,
-                    holdOffDuration: 0,
-                    lowestCandidate: null
-                };
-            let u = o.length - 1;
-            const c = i.nextMaxAutoOptionId;
-            if (c !== Ol.mediaOptionId) {
-                const t = o.findIndex(e=>e.mediaOptionId === c);
-                0 <= t && (u = t)
-            }
-            var h = i.variantMediaOptionById(r.mediaOptionId)
-              , p = r.mediaOptionDetails
-              , f = (null == h ? void 0 : h.iframes) !== t ? 0 : kg(n, e.maxBufferHole);
-            let m, g;
-            if (t) {
-                const t = e.desiredIframeFPS;
-                g = p ? p.targetduration / t : 0,
-                g = Math.max(1 / t, g)
-            } else
-                g = p ? p.targetduration : 0;
-            h = e.abrBandWidthUpFactor,
-            p = e.abrBandWidthFactor;
-            return m = Pg(o, g, d, u, f, t, s.getCombinedEstimate(), s.bandwidthStatus, p, h, e, i, r, n, a),
-            m.variantMediaOption === Ol.mediaOptionId && (m = Pg(o, g, d, u, f + Ag(g, e.maxStarvationDelay), t, s.getCombinedEstimate(), s.bandwidthStatus, p, h, e, i, r, n, a),
-            m.variantMediaOption === Ol.mediaOptionId && 0 <= d && (m.variantMediaOption = o[d].mediaOptionId,
-            m.alternates = t ? null : Mg(o[d], i))),
-            m
-        }
-        function Mg(e, t) {
-            var i = t.enabledMediaOptionKeys
-              , r = i[ul.AltAudio]
-              , r = kl(r) ? t.mediaOptionListQueries[ul.AltAudio].getMatchingAlternate(r.mediaOptionId, e) : Ol
-              , i = i[ul.Subtitle];
-            return {
-                altAudio: r,
-                subtitle: kl(i) ? t.mediaOptionListQueries[ul.Subtitle].getMatchingAlternate(i.mediaOptionId, e) : Ol
-            }
-        }
-        function Pg(i, r, n, e, s, a, o, d, t, l, u, c, h, p, f) {
-            "bandwidth-history-controller" !== u.abrBandwidthEstimator && f.warn(`Unsupported configuration: ${u.abrBandwidthEstimator} for ABR bandwidth estimator`);
-            const m = d.bandwidthSampleCount
-              , g = c.abrStatus
-              , y = p.maxBufferSize
-              , v = u.minTargetDurations || 1
-              , S = c.mediaOptionListQueries[ul.Variant].mediaOptionListInfo.hasScore;
-            if (!i.length)
-                return {
-                    variantMediaOption: Ol.mediaOptionId,
-                    holdOffDuration: -1,
-                    lowestCandidate: null
-                };
-            const b = c.enabledMediaOptionIdByType(ul.Variant)
-              , T = c.variantMediaOptionById(b)
-              , E = null != i.find(e=>e.mediaOptionId === b)
-              , I = T && T.iframes === a
-              , w = T && I ? T.score : void 0
-              , A = T && I ? T.frameRate : void 0
-              , O = T && I ? T.height : void 0
-              , k = I ? kg(p, u.maxBufferHole) : 0;
-            e = Math.max(0, Math.min(i.length - 1, e)),
-            n = Math.max(0, Math.min(i.length - 1, n));
-            var C = h.mediaOptionDetailsEntityRecord
-              , D = xg(o.avgBandwidth, l, t, m);
-            let M;
-            for (let t = e; t >= n; t--) {
-                const n = i[t];
-                let e = n.mediaOptionId;
-                const l = n.score
-                  , u = C && C[e] ? C[e].mediaOptionDetails : void 0
-                  , h = C && C[e] ? C[e].lastUpdateMillis : null
-                  , p = u ? u.totalduration / u.fragments.length : r
-                  , f = null != T && n.bitrate > T.bitrate
-                  , B = null != T && n.bitrate < T.bitrate
-                  , m = !(null != A && (f && n.frameRate < A || B && n.frameRate > A))
-                  , U = !(f && null != O && O > n.height)
-                  , $ = !(B && (n.bitrate === T.bitrate - 1 || n.bitrate === T.bitrate + 1))
-                  , V = !(S && f && null != w && (l < w || l === w && T && n.bitrate >= T.bitrate))
-                  , K = n.iframes === a;
-                if (ne(p) && K && m && U && $ && V) {
-                    var {adjustedbw: P, bitrate: x, fetchDuration: R, rejectLevelDueToPeakBW: L, canFitMultipleSegments: _, requireAlternates: N, alternates: F} = function(e, t, i, r, n, s, a, o, d, l, u, c) {
-                        var h = n ? a.bwUp : a.bwDown
-                          , n = e.bitrate
-                          , a = t ? t.totalduration / t.fragments.length : o
-                          , s = Rg(e, t, o, h, ne(s.avgPlaylistLoadTimeMs) ? s.avgPlaylistLoadTimeMs : s.avgLatencyMs, l)
-                          , l = e.bandwidth
-                          , i = n < h && h < l && i <= 2 * a
-                          , d = r * ((l || n || 0) * ((null == t ? void 0 : t.targetduration) || a)) / 8 <= d;
-                        let p = null;
-                        u = !u;
-                        return u && (p = Mg(e, c),
-                        p.altAudio && p.subtitle || (p = null)),
-                        {
-                            adjustedbw: h,
-                            bitrate: n,
-                            fetchDuration: s,
-                            rejectLevelDueToPeakBW: i,
-                            canFitMultipleSegments: d,
-                            requireAlternates: u,
-                            alternates: p
-                        }
-                    }(n, u, k, v, f, o, D, r, y, h, a, c);
-                    if (N && Boolean(F) && (M = e),
-                    x < P && _ && !L && (!N || Boolean(F)) && (a || !R || R < s))
-                        return L = P,
-                        N = g,
-                        P = (P = d).instantBw,
-                        (N.fragDownloadSlow || N.fragDownloadTooSlow || ne(P) && P < L) && E && I && k <= 2 * p && f && (e = b),
-                        {
-                            variantMediaOption: e,
-                            holdOffDuration: R,
-                            alternates: F,
-                            lowestCandidate: M
-                        }
-                }
-            }
-            return {
-                variantMediaOption: Ol.mediaOptionId,
-                holdOffDuration: -1,
-                lowestCandidate: M
-            }
-        }
-        function xg(e, t, i, r) {
-            let n, s;
-            return 4 <= r ? (n = e * t,
-            s = e * i) : n = s = e / 1.8,
-            {
-                bwUp: n,
-                bwDown: s
-            }
-        }
-        function Rg(e, t, i, r, n, s) {
-            let a = e.bitrate * (t ? t.totalduration / t.fragments.length : i) / r;
-            return null == t || !t.liveOrEvent || t.ptsKnown && !_g(t.totalduration, n, s) || (a *= 2),
-            ne(n) && (!ne(s) || null != t && t.liveOrEvent) && (a += n / 1e3),
-            a
-        }
-        function Lg(t, e) {
-            let i = 1 / 0;
-            if (t === Ol.mediaOptionId)
-                return i;
-            var r = e.find(e=>e.mediaOptionId === t);
-            if (!r)
-                return 1 / 0;
-            const n = r.iframes
-              , s = r.bitrate
-              , a = r.frameRate
-              , o = e.find(e=>e.iframes === n && (void 0 === a || e.frameRate >= a) && e.bitrate > s);
-            return o && (i = o.bitrate),
-            i
-        }
-        function _g(e, t, i) {
-            return t = ne(t) ? t : 0,
-            !ne(i) || performance.now() - i + t > 1e3 * e
-        }
-        function Ng(e, t) {
-            return (null == e ? void 0 : e.fragDownloadSlow) === (null == t ? void 0 : t.fragDownloadSlow) && e.fragDownloadTooSlow === (null == t ? void 0 : t.fragDownloadTooSlow)
-        }
-        function Fg(e) {
-            return "loading" === (null == e ? void 0 : e.state) && ne(null === (e = e.bwSample) || void 0 === e ? void 0 : e.trequest)
-        }
-        const Bg = 2e3;
-        function Ug(e, t, i, r) {
-            let {fragDownloadSlow: n, fragDownloadTooSlow: s} = t;
-            var a = i.variantMediaOptionById(e.mediaOptionId).bitrate
-              , t = e.bwSample;
-            r = r.child(wg);
-            i = t.total || Math.max(t.loaded, Math.round(e.duration * a / 8)),
-            a = performance.now() - t.tfirst,
-            i = t.loaded * e.duration * 1e3 / i;
-            return a >= Bg && 1e3 <= a - i && (n || r.warn(`flow indicates low bandwidth, after time/duration behind real time: ${a}/${a - i}`),
-            n = !0),
-            a >= 1e3 * e.duration && (s || r.warn(`too much time spent downloading fragment, likely to switch down ${a} > ${1e3 * e.duration}`),
-            s = !0),
-            {
-                fragDownloadSlow: n,
-                fragDownloadTooSlow: s
-            }
-        }
-        function $g(e, t, i, r, n) {
-            var s;
-            const a = n.logger.child(wg)
-              , o = r.isIframeRate
-              , d = i.mediaOptionListQueries[ul.Variant].preferredMediaOptionList
-              , l = i.enabledMediaOptionKeys[ul.Variant];
-            let u = e;
-            if (u !== ym.None || d.some(e=>e.mediaOptionId === l.mediaOptionId) || (u = ym.PreferredListChanged),
-            u !== ym.None && !(o && u !== ym.IframeModeChange && r.getBufferedSegmentsByType(cl.Variant).filter(e=>e.frag.iframe).length < t.minFramesBeforeSwitchingLevel)) {
-                const c = Uf(i.itemId)
-                  , h = pg(l)
-                  , p = [Ol, Ol, Ol]
-                  , f = function(e, t, i, r, n, s, a) {
-                    let o = t.nextMaxAutoOptionId;
-                    if (o === Ol.mediaOptionId || Og(s.getBandwidthEstimate()))
-                        return d = e,
-                        l = t,
-                        u = r,
-                        e = n,
-                        r = s,
-                        s = a.child({
-                            name: "abr"
-                        }),
-                        a = e.isIframeRate,
-                        l.enabledMediaOptionIdByType(ul.Variant),
-                        Dg(a, d, l, u, e, r, s);
-                    if (n.isIframeRate)
-                        return {
-                            variantMediaOption: o,
-                            holdOffDuration: 0,
-                            lowestCandidate: null
-                        };
-                    {
-                        const c = t.variantMediaOptionById(o)
-                          , h = t.enabledAlternateMediaOptionByType(ul.Subtitle)
-                          , n = t.enabledAlternateMediaOptionByType(ul.AltAudio)
-                          , p = null == n ? void 0 : n.persistentID
-                          , f = null == h ? void 0 : h.persistentID
-                          , m = !t.preferHDR
-                          , g = i.getBestMediaOptionTupleFromVariantAndPersistentId(t, c, p, f, void 0, [], m, !1, !1);
-                        return t.isValidMediaOptionTuple(g) ? (o = g[ul.Variant].mediaOptionId,
-                        {
-                            variantMediaOption: o,
-                            holdOffDuration: 0,
-                            alternates: {
-                                altAudio: g[ul.AltAudio],
-                                subtitle: g[ul.Subtitle]
-                            },
-                            lowestCandidate: null
-                        }) : {
-                            variantMediaOption: t.enabledMediaOptionKeys[ul.Variant].mediaOptionId,
-                            holdOffDuration: 0,
-                            lowestCandidate: null
-                        }
-                    }
-                    var d, l, u
-                }(t, i, n, h, r, c, a);
-                if (f.variantMediaOption !== l.mediaOptionId) {
-                    p[ul.Variant] = {
-                        itemId: i.itemId,
-                        mediaOptionId: f.variantMediaOption
-                    };
-                    for (const e of [ul.AltAudio, ul.Subtitle]) {
-                        const t = i.enabledMediaOptionIdByType(e);
-                        if (t !== Ol.mediaOptionId) {
-                            const r = e === ul.AltAudio ? null === (s = f.alternates) || void 0 === s ? void 0 : s.altAudio : null === (s = f.alternates) || void 0 === s ? void 0 : s.subtitle;
-                            p[e] = r || {
-                                itemId: i.itemId,
-                                mediaOptionId: t
-                            }
-                        }
-                    }
-                    return n.setEnabledMediaOptions(i.itemId, p),
-                    1
-                }
-            }
-        }
-        const Vg = {
-            name: "iframes"
-        }
-          , Kg = new pd({},{
-            name: "item-queue",
-            producerFn: vc,
-            idKey: "itemId",
-            resettable: !0
-        })
-          , Hg = new class extends Od {
-        }
-        (Kg);
-        class jg {
-            constructor() {
-                this.firstItem = !0,
-                this.playingEntity = null,
-                this.loadingEntity = null
-            }
-            static createItem(e, t, i, r, n) {
-                const s = new Date
-                  , a = `${s.getHours()}:${s.getMinutes()}:${s.getSeconds()}`;
-                qe();
-                var o = function(e) {
-                    e = sl.parseURL(e).fragment.substr(1);
-                    if (0 === e.length)
-                        return null;
-                    const t = new URLSearchParams(e);
-                    if (!t.has("t"))
-                        return null;
-                    e = Number(t.get("t"));
-                    return ne(e) ? e : null
-                }(t);
-                if (o)
-                    i = o;
-                else {
-                    const e = Ym();
-                    ne(null == e ? void 0 : e.startPosition) && (i = e.startPosition)
-                }
-                return {
-                    itemId: `${e}_${a}`,
-                    name: e,
-                    url: t,
-                    serviceName: n,
-                    createTime: a,
-                    initialSeekTime: i,
-                    itemStartOffset: 0,
-                    platformInfo: r,
-                    config: {}
-                }
-            }
-            get activeItemById$() {
-                return Hg.selectActiveId().pipe(ur(e=>Hg.getActive()))
-            }
-            get removedItems$() {
-                return Hg.selectEntityAction(To.Remove).pipe(ur(e=>e))
-            }
-            get activeItem() {
-                return Hg.getActive()
-            }
-            get queueItems$() {
-                return Hg.selectAll().pipe(ur(e=>null != e ? e : []))
-            }
-            get isFirstItem() {
-                return this.firstItem
-            }
-            get playingItem() {
-                return this.playingEntity
-            }
-            get loadingItem() {
-                return this.loadingEntity
-            }
-            addQueueItem(e, t, i, r, n, s) {
-                Hg.getCount();
-                const a = jg.createItem(e, t, i, r, s);
-                null != this.playingEntity && (a.initialSeekTime = void 0),
-                n && (a.itemStartOffset = n,
-                this.firstItem = !1,
-                this.playingEntity = this.activeItem,
-                this.loadingEntity = a),
-                Co(`queue.add.item: ${e}`),
-                sd(()=>{
-                    Kg.add(a),
-                    Kg.setActive(a.itemId)
-                }
-                )
-            }
-            updatePlayingItemId() {
-                this.playingEntity = this.loadingEntity,
-                this.loadingEntity = null,
-                this.clearAllButActive()
-            }
-            resetLoadingItem() {
-                this.removeQueueItem(this.loadingEntity.itemId),
-                this.loadingEntity = null,
-                sd(()=>{
-                    Kg.setActive(this.playingEntity.itemId)
-                }
-                )
-            }
-            isPreloading() {
-                return null !== this.playingEntity && null !== this.loadingEntity
-            }
-            setQueueItem(t, i, r, n, s) {
-                Co("queue.set.item"),
-                this.loadingEntity = null,
-                sd(()=>{
-                    Kg.reset();
-                    var e = jg.createItem(t, i, r, n, s);
-                    Kg.add(e),
-                    Kg.setActive(e.itemId)
-                }
-                ),
-                this.playingEntity = this.activeItem
-            }
-            removeQueueItem(e) {
-                Kg.remove(e)
-            }
-            clearQueue() {
-                Kg.reset()
-            }
-            clearAllButActive() {
-                var e;
-                const t = null === (e = this.activeItem) || void 0 === e ? void 0 : e.itemId;
-                sd(()=>{
-                    Hg.getAll().forEach(e=>{
-                        e.itemId !== t && Kg.remove(e.itemId)
-                    }
-                    )
-                }
-                )
-            }
-            set earlyAudioSelection(t) {
-                Kg.updateActive(e=>{
-                    e.earlySelection || (e.earlySelection = {}),
-                    e.earlySelection.audioPersistentId = t
-                }
-                )
-            }
-            get earlyAudioSelection() {
-                var e;
-                return null === (e = this.activeItem.earlySelection) || void 0 === e ? void 0 : e.audioPersistentId
-            }
-            set earlySubtitleSelection(t) {
-                Kg.updateActive(e=>{
-                    e.earlySelection || (e.earlySelection = {}),
-                    e.earlySelection.subtitlePersistentId = t
-                }
-                )
-            }
-            get earlySubtitleSelection() {
-                var e;
-                return null === (e = this.activeItem.earlySelection) || void 0 === e ? void 0 : e.subtitlePersistentId
-            }
-        }
-        function qg(e, t, i, r, n, s) {
-            return $m(e, 0, Lm({
-                errorAction: mm.RemoveAlternatePermanently,
-                errorActionFlags: 0
-            }, !1, e.response.code, i, t, s, n), s, n, t, i).pipe(Un(e=>{
-                throw !1 === e.fatal && r.resetMediaSource(),
-                e
-            }
-            ))
-        }
-        function Qg(e, t) {
-            if (!e || 0 === e.length)
-                return 0;
-            const i = [...e].sort((e,t)=>t[0] - e[0])
-              , r = t.getTime()
-              , n = null !== (t = i.find(([e])=>r >= e)) && void 0 !== t ? t : i[i.length - 1]
-              , [s,a] = n
-              , o = a + (r - s) / 1e3;
-            return Math.max(0, o)
-        }
-        function Gg(e, t) {
-            if (e && 0 !== e.length) {
-                const i = [...e].sort((e,t)=>t[1] - e[1])
-                  , r = null !== (e = i.find(([,e])=>e <= t)) && void 0 !== e ? e : i[i.length - 1]
-                  , [n,s] = r;
-                return new Date(n + 1e3 * (t - s))
-            }
-        }
-        function Wg(l, e, u, c, h, p) {
-            return e.child({
-                name: "seek"
-            }),
-            e=>e.pipe(Ra((e,t)=>{
-                var i, r, n, s, a, o, d = u.mediaQuery.seekTo$.pipe(Up());
-                return i = 0 === t,
-                r = l,
-                n = h,
-                s = p,
-                (null == (t = e) ? Ti : t instanceof Date ? (a = t,
-                o = s,
-                n.enabledMediaOptionByType$(ul.Variant).pipe(Ra(e=>o.getQueryForOption(e).mediaOptionDetails$), ur(e=>Qg(e.dateMediaTimePairs, a)), Cs(1))) : function(n, e, s, a, t) {
-                    let i = a.enabledMediaOptionByType$(ul.Variant).pipe(Ra(e=>t.getQueryForOption(e).mediaOptionDetails$), an(e=>ne(null == e ? void 0 : e.totalduration)), Cs(1), ur(e=>{
-                        var t = !e.liveOrEvent
-                          , i = e.totalduration
-                          , r = a.itemStartOffset;
-                        return t ? ne(n) ? 0 <= n ? n : r + (i + n) : r + (ne(e.startTimeOffset) ? e.startTimeOffset : 0) : !ne(n) || n < 0 || 0 === n && s.liveEdgeForZeroStartPositon ? ig(0, e, s) : n
-                    }
-                    ));
-                    return e && (i = i.pipe(Ja(e=>{}
-                    ))),
-                    i
-                }(t, i, r, n, s)).pipe($s(()=>{
-                    null != e && c.setPendingSeek(h.itemId, void 0)
-                }
-                ), $a(d))
-            }
-            ), Ja(e=>{
-                ne(e) && (u.seekTo = e)
-            }
-            ))
-        }
-        class zg {
-            constructor(e, t, i, r, n, s) {
-                this.logger = e,
-                this._rootPlaylistService = t,
-                this._rootQuery = i,
-                this._mediaQuery = r,
-                this._iframeMachine = n,
-                this._anchorMSNs = [NaN, NaN],
-                this._avDetails = [null, null],
-                this.logger = e.child({
-                    name: "fpicker"
-                }),
-                this._discoSeqNum = NaN,
-                this.lookUpTolerance = Math.max(s.maxBufferHole, s.maxFragLookUpTolerance)
-            }
-            destroy() {
-                this._anchorMSNs = [NaN, NaN],
-                this._avDetails = [null, null],
-                this._rootQuery = null,
-                this._mediaQuery = null,
-                this._rootPlaylistService = null,
-                this._iframeMachine = null
-            }
-            get discoSeqNum() {
-                return this._discoSeqNum
-            }
-            get _discoSeqNum() {
-                return this._rootQuery.discoSeqNum
-            }
-            set _discoSeqNum(e) {
-                this._rootPlaylistService.setDiscoSeqNum(this._rootQuery.itemId, e)
-            }
-            get anchorMSNs() {
-                return this._anchorMSNs
-            }
-            _resolvePosition(e, t, i) {
-                let r = e;
-                t = this._avDetails[t];
-                if ((null == t ? void 0 : t.mediaOptionId) !== (null == i ? void 0 : i.mediaOptionId) && i.liveOrEvent && !1 === i.ptsKnown)
-                    if (null != (null == t ? void 0 : t.dateMediaTimePairs) && i.dateMediaTimePairs) {
-                        const n = Gg(t.dateMediaTimePairs, e);
-                        r = Qg(i.dateMediaTimePairs, n)
-                    } else {
-                        const e = 3 * i.targetduration
-                          , n = i.fragments[0].start + i.totalduration;
-                        r = Math.max(0, n - e)
-                    }
-                return r
-            }
-            _updateAnchorByPosition(e, t) {
-                let i = NaN;
-                const r = t[cl.Variant];
-                if (r) {
-                    const t = r.fragments
-                      , n = this._resolvePosition(e, cl.Variant, r);
-                    if (i = Bl.ccForTime(t, n),
-                    !ne(i)) {
-                        const r = t[0]
-                          , s = t[t.length - 1]
-                          , a = r.start
-                          , o = s.start + s.duration;
-                        this.logger.warn(`${e.toFixed(3)} out of range [${a.toFixed(3)},${o.toFixed(3)}]`),
-                        e <= a ? i = r.discoSeqNum : e >= o && (i = s.discoSeqNum)
-                    }
-                } else
-                    this.logger.warn("No variant details for anchoring");
-                this._updateAnchor(i, t)
-            }
-            _updateAnchor(e, n) {
-                const s = e !== this._discoSeqNum;
-                s && (this._discoSeqNum = e),
-                Ml.forEach(e=>{
-                    const t = this._avDetails[e]
-                      , i = n[e]
-                      , r = (null == t ? void 0 : t.mediaOptionId) !== (null == i ? void 0 : i.mediaOptionId);
-                    if (s || r)
-                        this._updateAnchorForType(xl(e), i);
-                    else if (i) {
-                        const {mediaOptionId: n, ptsKnown: s, dateMediaTimePairs: t} = i;
-                        this._avDetails[e] = {
-                            mediaOptionId: n,
-                            ptsKnown: s,
-                            dateMediaTimePairs: t
-                        }
-                    }
-                }
-                )
-            }
-            getNextFragments(e, i) {
-                const {position: r, bufferInfoTuple: t, switchContexts: n} = e
-                  , s = t.map((e,t)=>Xg(r, i[t], n[t], null == e ? void 0 : e.buffered, this.lookUpTolerance)).reduce((e,t)=>Math.min(t, e), Number.POSITIVE_INFINITY);
-                return this._updateAnchorByPosition(s, i),
-                this._getNextFragmentsInternal(e, i)
-            }
-            _getNextFragmentsInternal(i, r) {
-                const n = [null, null];
-                r.forEach((e,t)=>{
-                    n[t] = this._getNextFragmentForType(i, r, t)
-                }
-                );
-                var e = n[cl.Variant]
-                  , t = n[cl.AltAudio]
-                  , s = null === (a = null == e ? void 0 : e.foundFrag) || void 0 === a ? void 0 : a.mediaFragment
-                  , a = null === (a = null == t ? void 0 : t.foundFrag) || void 0 === a ? void 0 : a.mediaFragment;
-                if (s && a && (a.start > s.start + s.duration ? (this.logger.warn("Audio too far ahead"),
-                n[cl.AltAudio] = zg.noopResult) : s.start > a.start + a.duration && !this._mediaQuery.isIframeRate && (this.logger.warn("Video too far ahead"),
-                n[cl.Variant] = zg.noopResult)),
-                !isFinite(null == e ? void 0 : e.nextDisco) || null != t && !ne(t.nextDisco))
-                    return n;
-                {
-                    const o = n[cl.Variant].nextDisco;
-                    return this._updateAnchor(o, r),
-                    this._getNextFragmentsInternal(i, r)
-                }
-            }
-            _getNextFragmentForType(e, t, i) {
-                var {position: r, bufferInfoTuple: n, switchContexts: s} = e
-                  , a = t[i]
-                  , o = null !== (l = null === (c = n[i]) || void 0 === c ? void 0 : c.buffered) && void 0 !== l ? l : {
-                    start: r,
-                    end: r,
-                    len: 0
-                }
-                  , d = this._mediaQuery.getBufferedSegmentsByType(i)
-                  , l = null !== (c = null === (e = s[i]) || void 0 === e ? void 0 : e.userInitiated) && void 0 !== c && c
-                  , u = Xg(r, a, s[i], o, this.lookUpTolerance);
-                if (!a)
-                    return null;
-                var {highWaterLevelSeconds: e, lowWaterLevelSeconds: c} = this._mediaQuery.bufferMonitorInfo
-                  , r = o.len;
-                if (!l && e <= r)
-                    return zg.noopResult;
-                var e = i === cl.Variant ? cl.AltAudio : cl.Variant
-                  , n = null === (n = n[e]) || void 0 === n ? void 0 : n.buffered
-                  , e = null !== (e = null === (e = s[e]) || void 0 === e ? void 0 : e.userInitiated) && void 0 !== e && e;
-                let h = !1;
-                i === cl.Variant && c <= r && 1 < this._mediaQuery.expectedSbCount && null != n && n.end < o.end && (e || n.end - n.start < c) && (h = !0);
-                let p, f = null, m = NaN;
-                if (this._mediaQuery.isIframeRate && i === cl.Variant && a.iframesOnly) {
-                    const g = function(e, t, i) {
-                        e = i.nextFragment(a.fragments, (null == e ? void 0 : e.fragments) || [], t, u);
-                        if (!e)
-                            return null;
-                        var {frag: t, newMediaRootTime: e} = e;
-                        return {
-                            foundFrag: {
-                                timelineOffset: t.iframeMediaStart,
-                                mediaFragment: t
-                            },
-                            nextDisco: NaN,
-                            newMediaRootTime: e
-                        }
-                    }(t[cl.AltAudio], this._mediaQuery.desiredRate, this._iframeMachine);
-                    if (g) {
-                        ({foundFrag: f, nextDisco: m, newMediaRootTime: p} = g);
-                        const i = f.mediaFragment;
-                        i.discoSeqNum !== this._discoSeqNum && this._updateAnchor(i.discoSeqNum, t)
-                    }
-                } else {
-                    const g = this._anchorMSNs[i];
-                    ({foundFrag: f, nextDisco: m, newMediaRootTime: p} = og(u, this._discoSeqNum, g, a, d))
-                }
-                return h && this._rootQuery.getInitPTS(null == f ? void 0 : f.mediaFragment.discoSeqNum) ? zg.noopResult : {
-                    foundFrag: f,
-                    nextDisco: m,
-                    newMediaRootTime: p
-                }
-            }
-            _updateAnchorForType(e, t) {
-                var i, r, n;
-                if (!t)
-                    return this._anchorMSNs[e] = NaN,
-                    void (this._avDetails[e] = null);
-                ne(this._discoSeqNum) ? (n = this._discoSeqNum,
-                n = null !== (r = null == (n = (r = t.fragments,
-                i = n,
-                r.find(e=>e.discoSeqNum === i))) ? void 0 : n.mediaSeqNum) && void 0 !== r ? r : t.startSN,
-                this._anchorMSNs[e] = n,
-                {mediaOptionId: r, ptsKnown: n, dateMediaTimePairs: t} = t,
-                this._avDetails[e] = {
-                    mediaOptionId: r,
-                    ptsKnown: n,
-                    dateMediaTimePairs: t
-                }) : this.logger.warn("Trying to anchor with non-finite discoSeqNum")
-            }
-        }
-        function Xg(e, t, i, r, n) {
-            r = null != r ? r : {
-                start: e,
-                end: e,
-                len: 0
-            };
-            i = null !== (i = null == i ? void 0 : i.userInitiated) && void 0 !== i && i,
-            n = null != t && t.iframesOnly ? 0 : n;
-            return i || 0 === r.len ? e : r.end + n
-        }
-        zg.noopResult = {
-            foundFrag: null,
-            nextDisco: NaN
-        };
-        const Yg = {
-            name: "avpipe"
-        };
-        function Jg(r) {
-            const {config: o, rootPlaylistService: d, rootPlaylistQuery: l, mediaSink: e, gaplessInstance: t} = r
-              , u = e.mediaQuery
-              , i = Zd(Ml.map(e=>l.enabledMediaOptionSwitchForType$(e).pipe(Ja(e=>{}
-            )))).pipe(Ra(e=>{
-                if (!kl({
-                    itemId: l.itemId,
-                    mediaOptionId: e[ul.Variant].toId
-                }))
-                    throw new V(!0,`No valid variant enabled id:${e[ul.Variant].toId}`,$.NoValidAlternates);
-                e = e.map(({fromId: e, toId: t},i)=>function(t, i, r, n, s) {
-                    var e, a, o;
-                    const {rootPlaylistQuery: d, rootPlaylistService: l, mediaSink: u, mediaParser: c, config: h, iframeMachine: p} = t
-                      , f = u.mediaQuery;
-                    if (!n || !s || n === s)
-                        return Ul;
-                    switch (r) {
-                    case ul.Variant:
-                        {
-                            c.reset(ul.Variant);
-                            const t = xl(r)
-                              , l = d.variantMediaOptionById(n)
-                              , g = d.variantMediaOptionById(s);
-                            if (null == g || null == l)
-                                return Ul;
-                            let e = NaN;
-                            if (l.iframes !== g.iframes || !g.iframes && p.isStarted) {
-                                if (u.toggleTrickPlaybackMode(g.iframes),
-                                !g.iframes && p.isStarted) {
-                                    const t = u.mediaQuery.autoPausedRestartTime
-                                      , i = t || p.iframeClockTimeSeconds;
-                                    u.autoPausedRestartTime = void 0,
-                                    e = i,
-                                    p.stop()
-                                }
-                                return u.pause(),
-                                u.flushData(t, 0, 1 / 0, !0).pipe(Ja(()=>{
-                                    isFinite(e) && (u.seekTo = e)
-                                }
-                                ))
-                            }
-                            if (!h.allowFastSwitchUp || g.iframes)
-                                return Ul;
-                            var m = pg(l).mediaOptionDetails;
-                            if (null != m && null != g && l.bitrate < g.bitrate) {
-                                const r = m.targetduration
-                                  , n = pg(g)
-                                  , s = n.mediaOptionDetails
-                                  , c = n.mediaOptionDetailsEntity.lastUpdateMillis
-                                  , p = f.getCurrentWaterLevelByType(t, h.maxBufferHole)
-                                  , y = function(e, t, i, r, n, s, a, o) {
-                                    if (n.nextMaxAutoOptionId !== Ol.mediaOptionId && !Og(s.getBandwidthEstimate()))
-                                        return Number.POSITIVE_INFINITY;
-                                    a = xg(s.getBandwidthEstimate().avgBandwidth, a.abrBandWidthUpFactor, a.abrBandWidthFactor, s.bandwidthStatus.bandwidthSampleCount),
-                                    s = ne(s.getPlaylistEstimate().avgPlaylistLoadTimeMs) ? s.getPlaylistEstimate().avgPlaylistLoadTimeMs : s.getBandwidthEstimate().avgLatencyMs,
-                                    a = t.bitrate > e.bitrate ? a.bwUp : a.bwDown;
-                                    return null == i || !i.liveOrEvent || i.ptsKnown && !_g(i.totalduration, s, o) ? Rg(t, i, r, a, s, o) : Number.POSITIVE_INFINITY
-                                }(l, g, s, r, d.abrStatus, i, h, c) + h.maxStarvationDelay
-                                  , v = f.currentTime + y
-                                  , S = null === (o = null === (a = f.sourceBufferEntityByType(t)) || void 0 === a ? void 0 : a.bufferedSegments) || void 0 === o ? void 0 : o.find(e=>e.startPTS >= v);
-                                let e;
-                                if (S) {
-                                    const t = S.endPTS - S.startPTS;
-                                    e = S.startPTS + Math.min(Math.max(t - h.maxFragLookUpTolerance, .5 * t), .75 * t)
-                                }
-                                if (ne(e) && p >= y)
-                                    return u.flushData(t, e, 1 / 0)
-                            }
-                        }
-                        break;
-                    case ul.AltAudio:
-                        e = d,
-                        m = s,
-                        o = "Nah" === (a = n) ? null : e.alternateMediaOptionById(ul.AltAudio, a),
-                        o = Boolean(o && o.url),
-                        m = "Nah" === a ? null : e.alternateMediaOptionById(ul.AltAudio, m),
-                        m = Boolean(m && m.url),
-                        o && !m && (l.setEnabledMediaOptionSwitchContextByType(d.itemId, ul.AltAudio, s, void 0),
-                        u.resetMediaSource(f.currentTime)),
-                        c.reset(ul.AltAudio)
-                    }
-                    return Ul
-                }(r, n, i, e, t));
-                return Xr(Bi(!0), Jr(e).pipe(Js(!1)))
-            }
-            ), Ql.tag("mediaOptionSwitch.audiovideo.out"))
-              , n = Uf(l.itemId)
-              , s = r.logger.child(Yg)
-              , a = new zg(s,d,l,u,r.iframeMachine,o);
-            return Zd([l.anchorTime$.pipe(Ql.tag("anchorTime.audiovideo.in")), i]).pipe(Ra(([i,e])=>e ? Ti : u.needData$(o.maxBufferHole, t.inGaplessMode, t.isPreloading).pipe(ur(e=>{
-                var t = [l.enabledMediaOptionSwitchContexts[ul.Variant], l.enabledMediaOptionSwitchContexts[ul.AltAudio]];
-                return u.getSourceBufferInfoAction(e, i, t, o.maxBufferHole)
-            }
-            ), Ls(e=>{
-                if (!e)
-                    return Ti;
-                e = Bi(e).pipe(Zg(r, a), ty(r));
-                return hn($l(function(e) {
-                    const {mediaSink: t, rootPlaylistQuery: i, rootPlaylistService: r} = e
-                      , n = t.mediaQuery
-                      , s = e.logger.child(wg);
-                    return nn((a = i,
-                    o = s,
-                    Zd([n.fellBelowLowWater$, a.getInFlightFragByType$(ul.Variant)]).pipe(Ra(e=>{
-                        var [,t] = e;
-                        if (!Fg(t))
-                            return Ti;
-                        const i = performance.now() - t.bwSample.trequest
-                          , r = Bg - i
-                          , n = 1e3 * t.duration - i
-                          , s = [Ul];
-                        return 0 < r && s.push(vn(r)),
-                        0 < n && s.push(vn(n)),
-                        nn(...s).pipe(Js(e))
-                    }
-                    ), na((e,[t,i])=>{
-                        const r = Object.assign({}, e);
-                        return t && (r.fragDownloadSlow = !0),
-                        Ug(i, r, a, o)
-                    }
-                    , {
-                        fragDownloadSlow: !1,
-                        fragDownloadTooSlow: !1
-                    }), xa({
-                        fragDownloadSlow: !1,
-                        fragDownloadTooSlow: !1
-                    }), Es(Ng))), function(r) {
-                        const s = r.mediaSink.mediaQuery
-                          , {rootPlaylistQuery: e, config: a} = r;
-                        return s.desiredRate$.pipe(Ra(t=>0 === t ? Ti : Zd([e.getInFlightFragByType$(ul.Variant), e.mediaOptionListQueries[ul.Variant].preferredMediaOptionList$.pipe(ur(e=>e.filter(Dm.bind(null, jp(t)))))])), so(100), Ra(e=>{
-                            const [t,i] = e;
-                            if (!Fg(t) || i.findIndex(e=>e.mediaOptionId === t.mediaOptionId) <= 0)
-                                return Ti;
-                            var r = performance.now() - t.bwSample.trequest
-                              , n = Ag(t.duration, a.maxStarvationDelay)
-                              , n = Math.min(1e3 * n, 500 * t.duration / s.playbackRate);
-                            return vn(Math.max(0, n - r), 100).pipe(Js(e))
-                        }
-                        )).pipe(na((e,[t,i])=>function(t, i, r, e) {
-                            let {fragDownloadSlow: n, fragDownloadTooSlow: s} = t;
-                            const {config: a, rootPlaylistService: o, rootPlaylistQuery: d, mediaSink: l, statsService: u, mediaLibraryService: c} = e
-                              , h = e.logger.child(wg)
-                              , p = l.mediaQuery;
-                            if (p.paused)
-                                return t;
-                            e = i.bwSample;
-                            if (!ne(e.tfirst))
-                                return t;
-                            const f = performance.now()
-                              , m = f - e.trequest
-                              , g = Ag(i.duration, a.maxStarvationDelay)
-                              , y = ul.Variant
-                              , v = i.mediaOptionId
-                              , S = d.variantMediaOptionById(v)
-                              , b = c.getQueryForOption(S)
-                              , T = S.bitrate
-                              , E = Math.max(1, 8e3 * e.loaded / m)
-                              , I = 8 * ((ne(e.total) ? e.total : Math.max(e.loaded, Math.round(i.duration * T / 8))) - e.loaded) / E
-                              , w = kg(p, a.maxBufferHole);
-                            let A;
-                            if (ne(w) && 0 < w && !ne(null === (O = p.seekTo) || void 0 === O ? void 0 : O.pos))
-                                A = w;
-                            else {
-                                const _ = m / 1e3;
-                                A = _ < g ? g - _ : g
-                            }
-                            var O = n;
-                            ({fragDownloadSlow: n, fragDownloadTooSlow: s} = Ug(i, t, d, h));
-                            t = 2 * ((null === (t = b.mediaOptionDetails) || void 0 === t ? void 0 : t.targetduration) || i.duration);
-                            if (!(w <= t && (I >= A || n)))
-                                return Xm().getQuery().extendMaxTTFB && Xm().setExtendMaxTTFB(0),
-                                {
-                                    fragDownloadSlow: n,
-                                    fragDownloadTooSlow: s
-                                };
-                            O || h.warn(`likely to stall ${se({
-                                maxTimeToLoadSec: A,
-                                minSwitchDuration: t,
-                                stats: e,
-                                elapsedMs: m,
-                                remainingTimeSec: I,
-                                instantBw: E,
-                                bufferAheadSec: w,
-                                fragDownloadSlow: n
-                            })}`),
-                            n = !0,
-                            Xm().getQuery().extendMaxTTFB || Xm().setExtendMaxTTFB(6e5);
-                            O = I >= A;
-                            let k;
-                            const C = i.itemId
-                              , D = u.getQueryForItem(C)
-                              , M = D.getCombinedEstimate()
-                              , P = Object.assign(Object.assign({}, M), {
-                                avgBandwidth: E
-                            })
-                              , x = D.bandwidthStatus
-                              , R = S.iframes
-                              , L = Cg(0, r, R, d);
-                            if (L < 0)
-                                return {
-                                    fragDownloadSlow: n,
-                                    fragDownloadTooSlow: s
-                                };
-                            t = Math.max(L, r.findIndex(e=>e && e.mediaOptionId === S.mediaOptionId));
-                            if (O) {
-                                let e = Pg(r, i.duration, L, t, A, R, P, x, 1, 1, a, d, b, p, h);
-                                const N = Ol.mediaOptionId;
-                                k = e.variantMediaOption !== N || (e = Pg(r, i.duration, L, t, I, R, P, x, 1, 1, a, d, b, p, h)).variantMediaOption !== N ? e.variantMediaOption : e.lowestCandidate
-                            } else {
-                                const _ = Cg(0, r.slice(L, t).reverse(), R, d)
-                                  , i = t - 1 - _;
-                                (0 <= _ || t === L) && (k = r[i].mediaOptionId)
-                            }
-                            if (null != k && k !== d.abrStatus.nextMaxAutoOptionId && o.setNextMaxAutoOptionId(C, k),
-                            O)
-                                throw h.warn(`loading too slow, abort fragment loading and switch to level ${k}`),
-                                u.setBandwidthSample(Object.assign(Object.assign({}, e), {
-                                    tfirst: e.tfirst || f,
-                                    tload: e.tload || f,
-                                    complete: !0,
-                                    mediaOptionType: y
-                                })),
-                                s = !0,
-                                new du({
-                                    mediaOptionType: y,
-                                    mediaOptionId: v
-                                },k,$.FragmentAbortError);
-                            return {
-                                fragDownloadSlow: n,
-                                fragDownloadTooSlow: s
-                            }
-                        }(e, t, i, r), {
-                            fragDownloadSlow: !1,
-                            fragDownloadTooSlow: !1
-                        }), xa({
-                            fragDownloadSlow: !1,
-                            fragDownloadTooSlow: !1
-                        }), Es(Ng))
-                    }(e)).pipe(xa({
-                        fragDownloadSlow: !1,
-                        fragDownloadTooSlow: !1
-                    }), na((e,t)=>({
-                        fragDownloadSlow: e.fragDownloadSlow || t.fragDownloadSlow,
-                        fragDownloadTooSlow: e.fragDownloadTooSlow || t.fragDownloadTooSlow
-                    })), Es(Ng), ur(e=>(r.setFragLoadSlow(i.itemId, e),
-                    !1)), Un(e=>{
-                        if (e instanceof du) {
-                            const e = {
-                                fragDownloadSlow: !0,
-                                fragDownloadTooSlow: !0
-                            };
-                            return r.setFragLoadSlow(i.itemId, e),
-                            Bi(!0)
-                        }
-                        return Ui(e)
-                    }
-                    ));
-                    var a, o
-                }(r), e=>e), e).pipe(Cs(1), $s(()=>{
-                    Ml.forEach(e=>{
-                        d.updateInflightFrag(l.itemId, e, null, null, null)
-                    }
-                    )
-                }
-                ))
-            }
-            ))), ur(()=>{
-                if (!l.getEntity(l.itemId).manualMode) {
-                    let e = ym.None;
-                    var i, r, n, s;
-                    i = bf(),
-                    r = u,
-                    n = o,
-                    s = null == r ? void 0 : r.clientWidth,
-                    a = null == r ? void 0 : r.clientHeight,
-                    r = "object" == typeof window && window.devicePixelRatio ? window.devicePixelRatio : 1,
-                    a = s && a ? {
-                        width: s * r,
-                        height: a * r
-                    } : void 0,
-                    r = (r = (null === (r = i.getQuery()) || void 0 === r ? void 0 : r.viewportInfo) || {}) && a && (r.width !== a.width || r.height !== a.height),
-                    n.useViewportSizeForLevelCap && r && (i.updateViewportInfo(a),
-                    1) && (e = ym.PreferredListChanged);
-                    let t = !1;
-                    var a = l.enabledVariantMediaOption;
-                    !function(e, t) {
-                        const i = d.logger.child(wg)
-                          , r = e.abrStatus
-                          , n = r.fragDownloadSlow || r.fragDownloadTooSlow
-                          , s = ne(null === (t = t.seekTo) || void 0 === t ? void 0 : t.pos);
-                        return n && !r.fragDownloadTooSlow && s ? (i.warn("could be ignoring low bandwidth due to seek"),
-                        0) : n
-                    }(l, u) ? function(e, t) {
-                        const i = Uf(t.itemId)
-                          , r = i.getBandwidthEstimate()
-                          , n = t.abrStatus;
-                        if (Og(r)) {
-                            var t = (null === (t = i.bandwidthStatus) || void 0 === t ? void 0 : t.bandwidthSampleCount) || 0
-                              , t = xg(r.avgBandwidth, e.abrBandWidthUpFactor, e.abrBandWidthFactor, t)["bwUp"];
-                            return t > n.highBWTrigger
-                        }
-                    }(o, l) && (e = ym.HighBandwidth,
-                    d.setNextMinAutoOptionId(a.itemId, a.mediaOptionId)) : (e = ym.LowBandwidth,
-                    l.nextMaxAutoOptionId === Ol.mediaOptionId && (d.setNextMaxAutoOptionId(a.itemId, a.mediaOptionId),
-                    t = !0)),
-                    $g(e, o, l, u, d),
-                    t ? d.setNextMaxAutoOptionId(a.itemId, Ol.mediaOptionId) : e === ym.HighBandwidth && d.setNextMinAutoOptionId(a.itemId, Ol.mediaOptionId)
-                }
-            }
-            ), $s(()=>{}
-            ))
-        }
-        const Zg = (r,n)=>e=>{
-            const {rootPlaylistQuery: t, mediaSink: a} = r
-              , i = r.logger.child(Yg);
-            return e.pipe(Hi(Zi), So(t.enabledMediaOptionKeys$), Ra(([s,e])=>bn(ey(s, ul.Variant, r, e).pipe(Ja(e=>{
-                var e = e.detailsEntity;
-                if (!e.mediaOptionDetails.liveOrEvent || e.mediaOptionDetails.ptsKnown) {
-                    const t = e.playlistDuration
-                      , i = (null === (e = s.bufferInfoTuple[0]) || void 0 === e ? void 0 : e.buffered.end) || 0
-                      , r = (null === (e = s.bufferInfoTuple[1]) || void 0 === e ? void 0 : e.buffered.end) || 0
-                      , n = Math.max(i, r);
-                    a.msDuration = ne(a.msDuration) ? Math.max(a.msDuration, t, n) : t
-                }
-            }
-            )), ey(s, ul.AltAudio, r, e)).pipe(ur(e=>({
-                action: s,
-                detailsAndContext: e
-            })))), Ra(({action: e, detailsAndContext: t})=>function t(i, r, n, s, l) {
-                var e;
-                const {mediaSink: u, iframeMachine: c, rootPlaylistQuery: a} = n
-                  , o = [l[ul.Variant].detailsEntity.mediaOptionDetails, null === (e = null === (e = l[ul.AltAudio]) || void 0 === e ? void 0 : e.detailsEntity) || void 0 === e ? void 0 : e.mediaOptionDetails];
-                let d = r.getNextFragments(s, o);
-                const h = d.reduce((e,t)=>Math.max(e, ne(null == t ? void 0 : t.newMediaRootTime) ? t.newMediaRootTime : -1 / 0), -1 / 0);
-                return ne(h) && (u.seekTo = h,
-                d = [null, null]),
-                d.every(e=>null == (null == e ? void 0 : e.foundFrag)) ? Bi(null) : bn(...d.map((e,d)=>e && null != e.foundFrag ? vg(n, d, e).pipe(Ja(e=>{
-                    const t = e[1]
-                      , i = l[d].switchContext;
-                    t.switchPosition = null == i ? void 0 : i.switchPosition;
-                    const r = null !== (e = null == i ? void 0 : i.userInitiated) && void 0 !== e && e
-                      , n = u["mediaQuery"]
-                      , {desiredRate: s, isIframeRate: a} = n
-                      , o = a && c.isStarted && s && s < 0 && s !== c.iframeRate;
-                    (r || o) && (t.flushBeforeAppend = {
-                        start: 0,
-                        end: Number.POSITIVE_INFINITY
-                    })
-                }
-                )) : Bi(null))).pipe(ur(e=>function(g, e, t, i) {
-                    const {rootPlaylistService: r, rootPlaylistQuery: n, mediaSink: s, mediaLibraryService: a, config: y} = e
-                      , v = s.mediaQuery
-                      , o = n.itemId
-                      , d = v.isIframeRate;
-                    let l = n.getInitPTS(t);
-                    if (null == l || !d && l.iframeMode !== d) {
-                        const c = null !== (e = null === (e = i[ul.Variant]) || void 0 === e ? void 0 : e[1].startDtsTs) && void 0 !== e ? e : null;
-                        if (null == c)
-                            return g.warn("updatePTSInfo: Variant data missing."),
-                            null;
-                        const n = null !== (e = null === (e = i[ul.Variant]) || void 0 === e ? void 0 : e[1].timelineOffset) && void 0 !== e ? e : 0
-                          , s = B(n, c.timescale)
-                          , a = {
-                            baseTime: c.baseTime - s.baseTime,
-                            timescale: c.timescale
-                        };
-                        r.setInitPTS(o, t, c, n, a, d),
-                        l = {
-                            variantDTS: c,
-                            timelineOffset: n,
-                            offsetTimestamp: a,
-                            iframeMode: d
-                        }
-                    }
-                    i.forEach(e=>{
-                        e && !ne(e[1].iframeMediaDuration) && a.updatePTSDTS(o, e[1].mediaOptionId, l, e[1])
-                    }
-                    );
-                    const S = [null, null];
-                    if (i[ul.Variant]) {
-                        const [g,c] = i[ul.Variant];
-                        let e = l.offsetTimestamp;
-                        if (d) {
-                            const g = c.startDtsTs
-                              , i = B(c.timelineOffset, g.timescale);
-                            e = {
-                                baseTime: g.baseTime - i.baseTime,
-                                timescale: g.timescale
-                            }
-                        }
-                        S[cl.Variant] = {
-                            initSeg: g,
-                            dataSeg: c,
-                            offsetTimestamp: e
-                        }
-                    }
-                    if (i[ul.AltAudio]) {
-                        const [g,c] = i[ul.AltAudio];
-                        S[cl.AltAudio] = {
-                            initSeg: g,
-                            dataSeg: c,
-                            offsetTimestamp: l.offsetTimestamp
-                        }
-                    }
-                    const u = S.map((e,t)=>{
-                        const i = null == e ? void 0 : e.dataSeg;
-                        if (i) {
-                            const {itemId: r, mediaOptionId: n, mediaSeqNum: s, discoSeqNum: a, startPts: o, endPts: d, duration: l, iframe: u} = i
-                              , c = e["offsetTimestamp"]
-                              , h = b(o, c)
-                              , p = b(d, c)
-                              , f = pg(i)
-                              , m = S[0];
-                            return m && m.dataSeg.dropped || i.flushBeforeAppend || !((null === (e = null === (e = v.getBufferInfo(h, y.maxBufferHole)[t]) || void 0 === e ? void 0 : e.buffered) || void 0 === e ? void 0 : e.len) >= p - h) ? {
-                                start: h,
-                                duration: u ? l : p - h,
-                                itemId: r,
-                                mediaOptionId: n,
-                                mediaSeqNum: s,
-                                discoSeqNum: a,
-                                targetDuration: f.mediaOptionDetails.targetduration
-                            } : (g.warn(`${Cl[t]} Discarding append due to complete overlap with existing buffer`),
-                            S[t] = null)
-                        }
-                        return null
-                    }
-                    );
-                    return u.every(e=>!e) ? null : {
-                        appendDataTuple: S,
-                        inFlightFrags: u,
-                        initPTSInfo: l
-                    }
-                }(i, n, r.discoSeqNum, e)), Ra(e=>{
-                    if (e)
-                        return Bi(e);
-                    {
-                        const e = function(e, r) {
-                            const n = e.enabledMediaOptionKeys
-                              , s = [null, null]
-                              , a = [null, null];
-                            return Ml.map(e=>{
-                                var t;
-                                if (kl(n[e])) {
-                                    const i = pg(n[e]).mediaOptionDetailsEntity;
-                                    a[e] = null === (t = i.mediaOptionDetails) || void 0 === t ? void 0 : t.ptsKnown,
-                                    s[e] = {
-                                        detailsEntity: i,
-                                        switchContext: null === (e = r[e]) || void 0 === e ? void 0 : e.switchContext
-                                    }
-                                }
-                            }
-                            ),
-                            s
-                        }(a, l);
-                        return t(i, r, n, s, e)
-                    }
-                }
-                ))
-            }(i, n, r, e, t)), Ql.tag("mediaProducerEpic.emit"))
-        }
-        ;
-        function ey(e, i, t, r) {
-            const {rootPlaylistQuery: n, mediaLibraryService: s} = t
-              , a = r[i];
-            if (t.logger.child({
-                name: Cl[i]
-            }),
-            !a || "Nah" === a.mediaOptionId)
-                return Bi({
-                    detailsEntity: null,
-                    switchContext: null
-                });
-            const o = s.getQueryForOption(a);
-            return Cr([Bi(e), o.mediaOptionDetailsEntity$.pipe(Es((e,t)=>(null == e ? void 0 : e.lastUpdateMillis) === (null == t ? void 0 : t.lastUpdateMillis)))]).pipe(an(([,e])=>{
-                if (i === ul.AltAudio && !n.altMediaOptionHasValidUrl(i, a.mediaOptionId))
-                    return !0;
-                var t = null == e ? void 0 : e.mediaOptionDetails;
-                return null != t && (e = null !== (e = e.lastUpdateMillis) && void 0 !== e ? e : 0,
-                !t.liveOrEvent || !t.ptsKnown || !_g(null == t ? void 0 : t.totalduration, 0, e))
-            }
-            ), Cs(1), So(n.enabledMediaOptionSwitchContextsByType$(i)), ur(([[,e],t])=>({
-                detailsEntity: e,
-                switchContext: t
-            })))
-        }
-        const ty = t=>e=>{
-            const {rootPlaylistQuery: g, rootPlaylistService: y, mediaSink: v, legibleSystemAdapter: o, statsService: d, rtcService: l} = t;
-            return e.pipe(Ql.tag("mediaConsumerEpic.in"), Ra(e=>{
-                if (!e)
-                    return Bi(!1);
-                const {appendDataTuple: r, inFlightFrags: m, initPTSInfo: t} = e
-                  , i = t["offsetTimestamp"];
-                return m.forEach((e,t)=>{
-                    e && y.updateInflightFrag(e.itemId, t, e, "appending", null)
-                }
-                ),
-                r.forEach(e=>{
-                    e && (e = e.dataSeg,
-                    o.addLegibleSamples(i, e.captionData, e.id3Samples, e.endPts))
-                }
-                ),
-                v.appendData(r, (e,t,i,r,n)=>{
-                    var s, a, o, d, l, u, c, h, p, f = null !== (f = m[t].targetDuration) && void 0 !== f ? f : 10;
-                    return s = v,
-                    a = e,
-                    o = t,
-                    d = i,
-                    l = f,
-                    u = r,
-                    c = g,
-                    h = y,
-                    p = n,
-                    e=>e.pipe(Ja(()=>{
-                        h.updateConsecutiveTimeouts(c.itemId, o, !1, "append")
-                    }
-                    ), ya(e=>e.pipe(Kr((e,t)=>{
-                        var i = e instanceof rf && e.isTimeout;
-                        if (h.updateConsecutiveTimeouts(c.itemId, o, i, "append"),
-                        i)
-                            return function(e, t, i, r, n, s, a, o) {
-                                let d = {
-                                    errorAction: mm.SendAlternateToPenaltyBox,
-                                    errorActionFlags: 0
-                                };
-                                var l = s.getCurrentWaterLevel(i.maxBufferHole)
-                                  , u = l < i.almostDryBufferSec;
-                                let c = NaN;
-                                s = i.appendErrorMaxRetry,
-                                i = a.rootPlaylistEntity.errorsByType[r].timeouts.append;
-                                u && s <= i || s <= t ? d.errorAction = mm.SendEndCallback : c = 1e3 * l;
-                                s = {
-                                    retryDelayMs: c,
-                                    maxNumRetry: s,
-                                    maxRetryDelayMs: c
-                                };
-                                return d = Lm(d, !1, e.response.code, n, r, a, o),
-                                Um(e, t, s, d, a, o, r, n).pipe()
-                            }(e, t, u, o, d, p, c, h);
-                        if (e instanceof nf)
-                            return function(e, t, i, r, n, s, a, o, d, l) {
-                                var u = t.type
-                                  , u = o.getCurrentWaterLevelByType(u, n.maxBufferHole);
-                                if (u >= n.almostDryBufferSec) {
-                                    const t = 1e3 * r
-                                      , n = {
-                                        errorAction: mm.RetryRequest,
-                                        errorActionFlags: 0
-                                    };
-                                    return 1e3 * u < t && (l.hasFallbackMediaOptionTuple(d, s, a, !1) ? n.errorAction = mm.SendAlternateToPenaltyBox : n.errorAction = mm.SendEndCallback),
-                                    Um(e, i, {
-                                        retryDelayMs: t,
-                                        maxNumRetry: 1 / 0,
-                                        maxRetryDelayMs: t
-                                    }, n, d, l, s, a)
-                                }
-                                return i < n.appendErrorMaxRetry ? t.remove(0, Number.POSITIVE_INFINITY) : (e.fatal = !0,
-                                Ui(e))
-                            }(e, a, t, l, u, o, d, p, c, h);
-                        if (e instanceof af) {
-                            const {mediaOptionType: a, mediaOptionId: o} = e;
-                            return qg(e, a, o, s, h, c)
-                        }
-                        throw e
-                    }
-                    ))))
-                }
-                , g.highestVideoCodec).pipe(ur(e=>{
-                    m.forEach((e,t)=>{
-                        e && y.updateInflightFrag(e.itemId, t, e, "appended", null)
-                    }
-                    );
-                    var t = e.filter(e=>(null == e ? void 0 : e.fragmentType) === ul.Variant);
-                    t.length && (d.setBufferMetric(t[0]),
-                    null == l || l.handleFragBuffered(t[0]));
-                    e = r[cl.AltAudio];
-                    if (null !== (t = null == e ? void 0 : e.dataSeg) && void 0 !== t && t.flushBeforeAppend || ne(null === (t = null == e ? void 0 : e.dataSeg) || void 0 === t ? void 0 : t.switchPosition)) {
-                        const {itemId: i, mediaOptionId: r} = e.dataSeg;
-                        y.setEnabledMediaOptionSwitchContextByType(i, ul.AltAudio, r, void 0)
-                    }
-                    return !0
-                }
-                ), (n = v,
-                s = y,
-                a = g,
-                e=>e.pipe(Un(e=>{
-                    if (e instanceof tf) {
-                        var {mediaOptionType: t, mediaOptionId: i} = e;
-                        return qg(e, t, i, n, s, a)
-                    }
-                    throw e
-                }
-                ))));
-                var n, s, a
-            }
-            ))
-        }
-        ;
-        function iy(e) {
-            const {logger: r, rootPlaylistService: n, rootPlaylistQuery: t} = e
-              , s = t.itemId;
-            return e=>e.pipe(ya(e=>e.pipe(Kr(e=>{
-                if (r.error(`Got error in pipeline ${e.message} fatal:${null == e ? void 0 : e.fatal} handled:${null == e ? void 0 : e.handled}`),
-                !(e instanceof p) || e.fatal)
-                    throw e;
-                return e.handled ? (t = n,
-                i = s,
-                vn(0).pipe(ur(()=>{
-                    t.updateEnabledMediaOptions(i)
-                }
-                ))) : Ti;
-                var t, i
-            }
-            ))))
-        }
-        const ry = ()=>e=>e.pipe(Ql.tag("mediaFragmentPipelineEpic.in"), Ra(i=>{
-            if (!i)
-                return Ti;
-            const {logger: e, config: t, platformService: r, rootPlaylistService: n, rootPlaylistQuery: s, keySystemAdapter: a, mediaSink: o, mediaParser: d, gaplessInstance: l, mediaLibraryService: u} = i
-              , c = s["itemId"]
-              , h = o["mediaQuery"]
-              , p = a.keyStatusChange$.pipe((f = i,
-            e=>e.pipe(Ra(e=>{
-                const {decryptdata: t, status: i, error: r} = e
-                  , n = f["rootPlaylistQuery"];
-                if ("needs-renewal" === i)
-                    return Sg(f, t, null);
-                if ("error" !== i || !(r instanceof uu || r instanceof lu) || r.handled)
-                    return Ti;
-                {
-                    const {rootPlaylistService: e, keySystemAdapter: t} = f;
-                    return Hm(r, 0, null, e, n, t.ksQuery)
-                }
-            }
-            ), Ra(()=>Ti))));
-            var f;
-            const m = r.getQuery()
-              , g = m.displaySupportsHdr$.pipe(Es(), Ra(e=>(n.setHDRPreference(c, e, !0),
-            Ti)))
-              , y = m.viewportInfo$.pipe(Es((e,t)=>e && t && e.width === t.width && e.height === t.height), Ja(e=>{
-                t.useViewportSizeForLevelCap && n.setViewportInfo(c, e)
-            }
-            ), Ua(Ti))
-              , v = Zd([s.hdrMode$.pipe(Es()), s.maxHdcpLevel$.pipe(Es())]).pipe(Ra(([])=>(l.inGaplessMode || 0 !== s.itemStartOffset || (o.resetMediaSource(),
-            d.reset()),
-            Ti)))
-              , S = nn(function(i) {
-                const {rootPlaylistQuery: t, mediaSink: r} = i
-                  , e = t.enabledMediaOptions$.pipe(Up(), Ja(e=>{
-                    e = e[ul.AltAudio],
-                    e = kl(e) && null != (null == e ? void 0 : e.url) ? 2 : 1;
-                    r.setExpectedSbCount(e)
-                }
-                ))
-                  , n = t.enabledMediaOptionByType$(ul.Variant).pipe(an(e=>kl(e)), Ra(e=>pg(e).mediaOptionDetails$), Cs(1), Ja(e=>{
-                    r.bufferMonitorTargetDuration = e.targetduration
-                }
-                ))
-                  , s = Dl.map(e=>t.enabledMediaOptionByType$(e).pipe(Ql.tag("mediaOptionRetrieve.switch"), Ra(t=>{
-                    if (!t || !t.url || !kl(t))
-                        return Ti;
-                    var e = r.mediaQuery.desiredRate$.pipe(ur(e=>0 !== e), Es());
-                    return fg(i, t).pipe(Ql.tag("mediaOptionRetrieve.first"), Ua(e), Ra(e=>e ? function e(t, i) {
-                        const r = t.mediaLibraryService;
-                        return function(e) {
-                            if (!e)
-                                return Ti;
-                            var {mediaOptionDetails: t, lastUpdateMillis: i, unchangedCount: e} = e;
-                            if (null == t || !t.liveOrEvent)
-                                return Ti;
-                            if (sg(t, i))
-                                return vn(0).pipe(Ja(()=>{}
-                                ));
-                            let r = ng(t);
-                            return 0 < e && (r /= 2,
-                            r = Math.max(r, 5e3)),
-                            r -= performance.now() - i,
-                            r += 0,
-                            r = Math.max(1e3, Math.round(r)),
-                            vn(r).pipe(Ja(()=>{}
-                            ))
-                        }(r.getQueryForOption(i).mediaOptionDetailsEntity).pipe(Ra(()=>fg(t, i, !0)), Ra(()=>e(t, i)))
-                    }(i, t) : Ti))
-                }
-                )));
-                return nn(e, n, nn(...s)).pipe(Ua(Ti))
-            }(i), Jg(i), function(t) {
-                const {rootPlaylistQuery: i, mediaSink: e} = t;
-                return $l(e.mediaQuery.mediaElementEntity$, e=>!!e).pipe(Ra(e=>i.anchorTime$.pipe(Up(), Ql.tag("anchorTime.subtitle.in"), (s=>e=>{
-                    const {rootPlaylistQuery: i, rootPlaylistService: t, legibleSystemAdapter: r} = s
-                      , n = i.enabledAlternateMediaOptionByType(ul.Subtitle);
-                    if (r.gotTracks)
-                        r.selectedTrack = n;
-                    else {
-                        const s = i.preferredMediaOptions[ul.Subtitle];
-                        r.setTracks(s, n, i.getDisabledMediaOption(ul.Subtitle))
-                    }
-                    return e.pipe(Ql.tag("subtitleEpic.select.in"), Ra(()=>(r.anchorTimeChanged(),
-                    nn(r.nativeSubtitleTrackChange$.pipe(Ra(e=>(e.mediaOptionId !== r.selectedMediaOption.mediaOptionId && t.setEnabledMediaOptionByType(e.itemId, ul.Subtitle, e),
-                    Ti))), i.enabledMediaOptionByType$(ul.Subtitle).pipe(ur(e=>{
-                        const t = kl(e) ? i.alternateMediaOptionById(ul.Subtitle, e.mediaOptionId) : e;
-                        return r.selectedMediaOption = t,
-                        t
-                    }
-                    )).pipe(Es((e,t)=>(null == e ? void 0 : e.mediaOptionId) === (null == t ? void 0 : t.mediaOptionId)))))), Ql.tag("subtitleEpic.select.emit"))
-                }
-                )(t), (s=>e=>{
-                    const {mediaSink: t, rootPlaylistQuery: i, legibleSystemAdapter: r, logger: n} = s;
-                    return e.pipe(Ql.tag("subtitleEpic.process.in"), Ra(e=>{
-                        if (!e || !e.url || !kl(e))
-                            return Bi([null, null, null]);
-                        return Zd([pg(e).mediaOptionDetails$, i.discoSeqNum$.pipe(an(e=>ne(e)))]).pipe(Ra(([e,t])=>((i,r,e)=>{
-                            const {legibleSystemAdapter: n, rootPlaylistQuery: t} = i;
-                            return t.initPTS$(e).pipe(Ra(t=>t ? n.findFrags$(r, e).pipe(Ra(e=>r && (null == e ? void 0 : e.foundFrags) ? ny(i, t.offsetTimestamp, e, r) : Ul)) : sn))
-                        }
-                        )(s, e, t)))
-                    }
-                    ), Ql.tag("subtitleEpic.process.emit"))
-                }
-                )(t))))
-            }(i), p).pipe(Js(void 0), iy(i))
-              , b = h.seekTo$.pipe(ur(e=>null == e ? void 0 : e.pos), an(e=>ne(e)), Es((e,t)=>Math.abs(e - t) < Number.EPSILON), Ra(e=>(n.setAnchorTime(c, e),
-            Ti)))
-              , T = h.gotPlaying$.pipe(an(e=>e), Ja(e=>{
-                s.mediaOptionListQueries[ul.Variant].filteredMediaOptionList.forEach(e=>{}
-                )
-            }
-            ), Cs(1), Ua(Ti));
-            return nn(s.pendingSeek$.pipe(Wg(t, e, o, n, s, u)), function() {
-                const {config: s, mediaSink: a, rootPlaylistQuery: e, mediaLibraryService: t} = i
-                  , o = i.logger.child({
-                    name: "live"
-                })
-                  , d = a.mediaQuery;
-                return e.enabledMediaOptionByType$(ul.Variant).pipe(an(kl), Ra(e=>t.getQueryForOption(e).mediaOptionDetailsEntity$.pipe(an(e=>{
-                    var t;
-                    return (null === (t = null == e ? void 0 : e.mediaOptionDetails) || void 0 === t ? void 0 : t.ptsKnown) && e.mediaOptionDetails.liveOrEvent
-                }
-                ), Es((e,t)=>(null == e ? void 0 : e.lastUpdateMillis) === (null == t ? void 0 : t.lastUpdateMillis)))), ur(e=>{
-                    var t = e.mediaOptionDetails
-                      , i = d.currentTime
-                      , r = d.msDuration;
-                    let n = NaN;
-                    return i < rg(i, t, e.lastUpdateMillis, s.maxBufferHole, d) && (n = ig(t.fragments[0].start, t, s),
-                    n >= r && (o.warn(`seekTo position > duration, updating ${a.msDuration}->${e.playlistDuration}`),
-                    a.msDuration = e.playlistDuration),
-                    a.seekTo = n),
-                    n
-                }
-                ))
-            }(), b, S, g, y, v, function() {
-                const e = i.mediaSink.mediaQuery;
-                return Cr([Bi(i), e.desiredRate$.pipe(ca())]).pipe(Ra(([e,[t,i]])=>{
-                    const {rootPlaylistQuery: s, rootPlaylistService: r, config: a, mediaSink: n, mediaLibraryService: o, statsService: d} = e
-                      , l = n.mediaQuery;
-                    if (jp(t) !== jp(i))
-                        $g(ym.IframeModeChange, a, s, l, r);
-                    else if (0 === t && 1 === i && !Ml.every(e=>{
-                        const t = s.enabledMediaOptionKeys[e]
-                          , i = o.getQueryForOption(t)
-                          , r = d.getQueryForItem(s.itemId)
-                          , n = i.mediaOptionDetailsEntity;
-                        return !(null !== (e = null == n ? void 0 : n.mediaOptionDetails) && void 0 !== e && e.ptsKnown) || l.canContinuePlaybackWithoutGap(n.mediaOptionDetails, n.lastUpdateMillis, r.getPlaylistEstimate(), a.maxBufferHole)
-                    }
-                    ))
-                        return n.pause(),
-                        n.flushAll(0, 1 / 0, !0);
-                    return Ti
-                }
-                ), Ua(Ti))
-            }(), function(e) {
-                const s = e.rootPlaylistQuery
-                  , t = e.mediaSink.mediaQuery
-                  , i = s.enabledMediaOptionByType$(ul.Variant);
-                return Cr([Bi(e), t.desiredRate$.pipe(ca()), i]).pipe(Es((e,t)=>e[1] === t[1]), Ra(([e,[t,i],r])=>{
-                    t = jp(t),
-                    i = jp(i);
-                    if (t === i)
-                        return Ti;
-                    const n = e["rootPlaylistService"];
-                    return i ? e.rootPlaylistQuery.nextMaxAutoOptionId === Ol.mediaOptionId && n.setNextMaxAutoOptionId(e.rootPlaylistQuery.itemId, r.mediaOptionId) : n.setNextMaxAutoOptionId(s.itemId, Ol.mediaOptionId),
-                    Ti
-                }
-                ))
-            }(i), T).pipe(Ql.tag("mediaFragmentPiplineEpic.emit"), Js(void 0))
-        }
-        ))
-          , ny = (i,r,t,n)=>{
-            const s = i.legibleSystemAdapter;
-            return Lr(t.foundFrags).pipe(ur(e=>{
-                return ((e,t,i)=>{
-                    const {rootPlaylistQuery: r, legibleSystemAdapter: n} = e;
-                    return Yr(()=>((t,i)=>yg(e, i, !1, !1).pipe(ur(e=>({
-                        initPTS: t,
-                        data: e,
-                        mediaFragment: i
-                    })), Ql.tag("retrieveSubtitleFragmentCacheEntity.emit")))(t, i).pipe(ur(({initPTS: e, data: t, mediaFragment: i})=>({
-                        frag: i,
-                        cueRange: function(e, t, i, r, n) {
-                            if (e)
-                                return n.processSubtitleFrag(e, t, i, r)
-                        }(r.enabledAlternateMediaOptionByType(ul.Subtitle), i, e, t, n)
-                    }))))
-                }
-                )(i, r, e).pipe((t = e=>s.checkReadyToLoadNextSubtitleFragment$().pipe(an(e=>e)),
-                function(e) {
-                    return e.lift(new ms(t))
-                }
-                ));
-                var t
-            }
-            ), Wr(i.config.vttConcurrentLoadCount), Ja(e=>{
-                s.reviewParsedFrag(e, t, n) !== Ap.CloseEnough && i.legibleSystemAdapter.tryAgain$.next(!0)
-            }
-            ))
-        }
-          , sy = (e,t)=>{
-            let i, r = "";
-            return i = e.videoCodec && e.audioCodec ? (r = `${e.videoCodec}, ${e.audioCodec}`,
-            t = null != t ? t : "video/mp4",
-            "audiovideo") : e.videoCodec ? (r = `${e.videoCodec}`,
-            t = null != t ? t : "video/mp4",
-            "video") : (r = `${null !== (e = e.audioCodec) && void 0 !== e ? e : ""}`,
-            t = null != t ? t : "audio/mp4",
-            "audio"),
-            {
-                mimeType: `${t};codecs=${r}`,
-                codec: r,
-                container: t,
-                type: i
-            }
-        }
-        ;
-        class ay {
-            constructor(e, t, i) {
-                this.config = e,
-                this.logger = t,
-                this.demuxClient = i,
-                this.typeSupported = {
-                    mp4: MediaSource.isTypeSupported("video/mp4"),
-                    mpeg: MediaSource.isTypeSupported("audio/mpeg"),
-                    mp3: MediaSource.isTypeSupported('audio/mp4; codecs="mp3"'),
-                    ac3: MediaSource.isTypeSupported('audio/mp4; codecs="ac-3"'),
-                    ec3: MediaSource.isTypeSupported('audio/mp4; codecs="ec-3"')
-                },
-                this.demuxers = [],
-                this.lastInitFrags = [],
-                this.lastFrags = []
-            }
-            parseInitSegment(h, e) {
-                return this.getDemuxerInfo(h, this.lastInitFrags, e, this.demuxClient).pipe(Ra(({demuxer: e, contiguous: t, trackSwitch: i, discontinuity: r, accurateTimeOffset: n})=>{
-                    const s = h["frag"]
-                      , {keyTagInfo: a, start: o, mediaOptionType: d} = s;
-                    if (this.lastInitFrags[d] = s,
-                    h.initSegment) {
-                        const e = We.remuxInitSegment(new Uint8Array(h.initSegment), this.logger, a)
-                          , t = Je.parseInitSegment(e)
-                          , {mimeType: i, type: r, codec: n, container: s} = sy(t);
-                        return Bi({
-                            moovData: t,
-                            mimeType: i,
-                            track: {
-                                type: r,
-                                codec: n,
-                                initSegment: e,
-                                container: s
-                            }
-                        })
-                    }
-                    const l = h.segment || h.initSegment
-                      , u = l ? h.initSegment : void 0
-                      , c = wc(e.observer);
-                    return Bi(c.event(v.FRAG_PARSING_INIT_SEGMENT).pipe(ur(this.handleInitSegmentData)), c.event(x.INTERNAL_ERROR).pipe(Ra(this.handleError)), e.pushWithoutTransfer(l, a, u, o, r, i, t, h.totalDuration, n, void 0, h.iframeMediaStart, h.iframeDuration).pipe(Ua(Ti))).pipe(Wr(), Cs(1))
-                }
-                ))
-            }
-            parseSegment(y, e) {
-                return this.getDemuxerInfo(y, this.lastFrags, e, this.demuxClient).pipe(Ra(({demuxer: e, contiguous: t, trackSwitch: i, discontinuity: r, accurateTimeOffset: n})=>{
-                    const {frag: h, defaultInitPTS: p} = y
-                      , {keyTagInfo: s, start: a, duration: f, mediaOptionType: m} = h;
-                    let g;
-                    this.lastFrags[m] = h;
-                    const o = wc(e.observer);
-                    return Bi(o.event(v.FRAG_PARSING_INIT_SEGMENT).pipe(Ra(e=>{
-                        var t;
-                        return e.track.initSegment.byteLength !== (null === (t = y.initSegment) || void 0 === t ? void 0 : t.byteLength) && (g = this.handleInitSegmentData(e)),
-                        Ti
-                    }
-                    )), o.event(v.FRAG_PARSING_DATA).pipe(ur(e=>{
-                        var {startPTS: t, startDTS: i, firstKeyframePts: r, framesWithoutIDR: n, dropped: s, data1: a, data2: o, captionData: d, id3Samples: l} = e;
-                        let {endPTS: u, endDTS: c} = e;
-                        return null == u && (this.logger.warn(`${Cl[m]} ${Bp(h)}: null endPTS parsed, using duration ${f}`),
-                        u = Object.assign(Object.assign({}, t), {
-                            baseTime: t.baseTime + B(f, t.timescale).baseTime
-                        })),
-                        null == c && (this.logger.warn(`${Cl[m]} ${Bp(h)}: null endDTS parsed, using duration ${f}`),
-                        c = Object.assign(Object.assign({}, i), {
-                            baseTime: i.baseTime + B(f, i.timescale).baseTime
-                        })),
-                        ne(y.iframeMediaStart) || function(e, t, i, r) {
-                            let n = NaN
-                              , s = NaN;
-                            if (ne(i))
-                                s = i,
-                                n = .01,
-                                isFinite(s) && isFinite(r) && (s += r);
-                            else {
-                                {
-                                    const o = void 0
-                                }
-                            }
-                            var {startPTS: a, startDTS: i, endPTS: r, endDTS: t} = t;
-                            if (!(0 <= a.baseTime && 0 <= i.baseTime && 0 < e.duration && (null == r || 0 < b(r, a)) && (null == t || 0 < b(t, i)) && (!ne(n) || !ne(s) || Math.abs(S(i) - s) <= n)))
-                                throw new D(!1,`Failed demuxer sanity check frag=${Bp(e)} parsed=${JSON.stringify({
-                                    startPTS: a,
-                                    endPTS: r,
-                                    startDTS: i,
-                                    endDTS: t
-                                })} ${se({
-                                    expectedStartDTS: s,
-                                    fudge: n
-                                })}`,$.FailedDemuxerSanityCheck)
-                        }(h, e, (p,
-                        y.iframeMediaStart), this.config.audioPrimingDelay),
-                        {
-                            startPTS: t,
-                            endPTS: u,
-                            startDTS: i,
-                            endDTS: c,
-                            firstKeyframePts: r,
-                            framesWithoutIDR: n,
-                            dropped: s,
-                            data1: a,
-                            data2: o,
-                            captionData: d,
-                            id3Samples: l,
-                            parsedInitSegment: g
-                        }
-                    }
-                    )), o.event(x.INTERNAL_ERROR).pipe(Ra(this.handleError)), e.push(y.segment, s, y.initSegment, a, r, i, t, y.totalDuration, n, p, y.iframeMediaStart, y.iframeDuration).pipe(Ua(Ti))).pipe(Wr(), Cs(1))
-                }
-                ))
-            }
-            reset(e) {
-                if (null == e)
-                    return this.demuxers.forEach(e=>{
-                        e && e.destroy()
-                    }
-                    ),
-                    void (this.demuxers = []);
-                const t = this.demuxers[e];
-                null == t || t.destroy(),
-                this.demuxers[e] = null
-            }
-            destroy(e) {
-                null != e ? this.reset(e) : this.reset()
-            }
-            willBeTrackSwitch(e, t) {
-                var {mediaOptionType: i, mediaOptionId: e} = e
-                  , i = (t || this.lastFrags)[i];
-                return !(i && i.mediaOptionId === e)
-            }
-            getDemuxerInfo(e, r, t, i) {
-                const {frag: n, ptsKnown: s, seeking: a, live: o} = e
-                  , {discoSeqNum: d, mediaSeqNum: l, mediaOptionType: u} = n;
-                return Yr(()=>{
-                    var e = this.demuxers[u];
-                    return e ? Bi(e) : i.init(this.typeSupported, this.config, t).pipe(Ja(e=>this.demuxers[u] = e))
-                }
-                ).pipe(ur(e=>{
-                    var t = r[u]
-                      , i = this.willBeTrackSwitch(n, r);
-                    return {
-                        demuxer: e,
-                        trackSwitch: i,
-                        discontinuity: !(t && d === t.discoSeqNum),
-                        contiguous: !!t && !i && t.mediaSeqNum + 1 === l,
-                        accurateTimeOffset: !a && (s || !o)
-                    }
-                }
-                ))
-            }
-            handleInitSegmentData(e) {
-                var t = e["track"]
-                  , i = t["initSegment"]
-                  , r = Je.parseInitSegment(i)
-                  , {mimeType: n, type: s, codec: a, container: e} = sy(r, t.container);
-                return {
-                    moovData: r,
-                    mimeType: n,
-                    track: Object.assign(Object.assign({}, t), {
-                        type: s,
-                        codec: a,
-                        initSegment: i,
-                        container: e
-                    })
-                }
-            }
-            handleError(e) {
-                return Ui(e)
-            }
-        }
-        function oy(e) {
-            return Math.min(e.targetduration, 15)
-        }
-        function dy(e, t, i, r) {
-            if (200 === t && r && 10 < r.length) {
-                if (Sm.isValidPlaylist(r))
-                    return !0;
-                {
-                    const t = new R(o,_,!0,"response doesnt have #EXTM3U tag",$.PlaylistErrorMissingEXTM3U);
-                    throw t.url = e,
-                    t
-                }
-            }
-            return !1
-        }
-        const ly = {
-            name: "pltfrm"
-        };
-        function uy(e, t) {
-            t = Ih.getKeySystemSecurityLevel(t);
-            return null != e && void 0 !== t[e]
-        }
-        function cy(e) {
-            return e.every(e=>e.iframes)
-        }
-        function hy(e, t) {
-            return !ne(e) || !ne(t) || e <= t
-        }
-        function py() {
-            const n = new Set
-              , s = new Set;
-            return e=>{
-                const i = (e,t)=>{
-                    t = t ? "audio" : "video";
-                    n.has(e) || s.has(e) || (((e,t)=>{
-                        let i = MediaSource.isTypeSupported(`${e}/mp4;codecs=${t}`);
-                        return "mp4a.40.34" !== t || i || (i = MediaSource.isTypeSupported(`${e}/mpeg`)),
-                        i
-                    }
-                    )(t, e) ? n : s).add(e)
-                }
-                  , t = (e,t)=>(i(e, t),
-                s.has(e));
-                let r = !1;
-                return e.audioCodecList && (r = e.audioCodecList.some(e=>t(e, !0))),
-                !r && e.videoCodecList && (r = e.videoCodecList.some(e=>t(e, !1))),
-                !r
-            }
-        }
-        function fy(e, t) {
-            for (const i in e)
-                if (e[i].type === t)
-                    return e[i];
-            return {}
-        }
-        function my(e, t, i) {
-            t.filter(e=>!i.includes(e)).map(e=>e.mediaOptionId)
-        }
-        function gy(e, i, s) {
-            const a = new Map
-              , r = new Array;
-            return e.forEach(t=>{
-                var e = Array();
-                !function(e, t, i) {
-                    var r = qc.getCapabilities(t.videoCodecList, t.audioCodecList)
-                      , t = JSON.stringify(r);
-                    let n;
-                    a.has(t) ? n = a.get(t) : (n = Ih.requestKeySystemAccess(e, r, void 0, s).pipe(ur(()=>!0), Un(e=>(s.warn(`Request key system error: ${e.message}`),
-                    Bi(!1))), Aa({
-                        bufferSize: 1,
-                        refCount: !0
-                    })),
-                    a.set(t, n)),
-                    i.push(n)
-                }(i, t, e);
-                e = Jr(e).pipe(ur(e=>{
-                    if (void 0 === e.find(e=>!1 === e))
-                        return t
-                }
-                ));
-                r.push(e)
-            }
-            ),
-            Jr(r).pipe(ur(e=>e.filter(e=>Boolean(e))))
-        }
-        function yy(e, r) {
-            const o = new Set
-              , d = new Set
-              , l = !MediaSource.isTypeSupported('audio/mp4; codecs="mp4a.40.2"; channels="-1"')
-              , u = l && !MediaSource.isTypeSupported('audio/mp4; codecs="mp4a.40.2"; channels="2"; features="INVALID"')
-              , t = e.filter(e=>{
-                let t = !1;
-                var i;
-                return e.audioCodecList && e.audioGroupId && (i = tm.getRichestChannelLayoutForGroupId(e.audioGroupId, r),
-                0 < e.audioCodecList.length && i && (t = ((e,t)=>{
-                    var i, r, n, s = Se.isDolbyAtmos(e, t);
-                    if (u || l && !s) {
-                        n = `${i = e}/${r = t}`,
-                        o.has(n) || d.has(n) || (((e,t)=>{
-                            const i = t.split("/")
-                              , r = parseInt(i[0]);
-                            let n, s;
-                            if (1 < i.length) {
-                                const t = i[1].split(",")[0];
-                                n = `audio/mp4;codecs="${e}";channels="${r}";features="${t}"`,
-                                s = `audio/mp4;codecs="${e}";channels="8";features="${t}"`
-                            } else
-                                n = `audio/mp4;codecs="${e}";channels="${r}"`;
-                            let a = MediaSource.isTypeSupported(n);
-                            return !a && s && (a = MediaSource.isTypeSupported(s)),
-                            a
-                        }
-                        )(i, r) ? o : d).add(n);
-                        const a = `${e}/${t}`;
-                        return d.has(a)
-                    }
-                    return !!s
-                }
-                )(tm.getRichestAudioCodec(e.audioCodecList), i))),
-                !t
-            }
-            );
-            return my(0, e, t),
-            t
-        }
-        function vy(e, t, d) {
-            const n = 0 < (null == t ? void 0 : t.length)
-              , i = e.filter(o=>{
-                var e = function() {
-                    if (!d)
-                        return {
-                            highestPlayableAverageBitRate: void 0,
-                            highestPlayablePeakBitRate: void 0,
-                            highestPlayableWidth: void 0,
-                            highestPlayableHeight: void 0,
-                            highestPlayableFrameRate: void 0
-                        };
-                    const e = o.videoCodec
-                      , t = o.videoRange
-                      , i = d.videoDynamicRangeFormats
-                      , r = d.videoCodecs
-                      , n = Se.getDynamicRangeType(t, e)
-                      , s = Se.getCompressionType(e)
-                      , a = function(e, t, i, r) {
-                        if (!r && !i)
-                            return {};
-                        var n, s, t = i ? fy(i, t) : {}, r = r ? fy(r, e) : {};
-                        let a, o;
-                        return o = e === pe.SDR ? (a = t,
-                        r) : (a = r,
-                        t),
-                        n = Object.assign({}, a),
-                        s = o,
-                        Object.keys(s).forEach(e=>{
-                            n[e] || (n[e] = s[e])
-                        }
-                        ),
-                        n
-                    }(n, s, r, i);
-                    return s !== fe.VP09 && (a.highestPlayablePeakBitRateForClearContent = void 0),
-                    a
-                }()
-                  , t = e["highestPlayablePeakBitRateForClearContent"]
-                  , i = o.allowedCPCMap || n
-                  , r = hy(o.bandwidth, e.highestPlayablePeakBitRate);
-                return (i || !t ? r : r || hy(o.bandwidth, t)) && hy(o.avgBandwidth, e.highestPlayableAverageBitRate) && hy(o.width, e.highestPlayableWidth) && hy(o.height, e.highestPlayableHeight) && hy(o.frameRate, e.highestPlayableFrameRate)
-            }
-            );
-            return my(0, e, i),
-            i
-        }
-        function Sy(e, a, o, d, l, u) {
-            var r = (null == d ? void 0 : d.maxHdcpLevel) || void 0;
-            let c = [...e];
-            (0 < l.disableVideoCodecList.size || 0 < l.disableAudioCodecList.size) && (c = function(e, t, i) {
-                let r = e.filter(e=>!e.videoCodec || e.videoCodecList.every(e=>{
-                    e = $p(e);
-                    return !t.has(e)
-                }
-                ));
-                return r = r.filter(e=>!(!e.iframes && e.audioCodec) || e.audioCodecList.every(e=>{
-                    e = Kp(e);
-                    return !i.has(e)
-                }
-                )),
-                my(0, e, r),
-                r
-            }(c, l.disableVideoCodecList, l.disableAudioCodecList)),
-            r && Xf(r) && (c = function(e) {
-                const t = Yf(r)
-                  , i = e.filter(e=>{
-                    e = e.hdcpLevel;
-                    return !e || Yf(e) <= t
-                }
-                );
-                return my(0, e, i),
-                i
-            }(c));
-            var t = null == d ? void 0 : d.maxSecurityLevel
-              , e = null == l ? void 0 : l.keySystemPreference;
-            t && e && uy(t, e) && (c = function(e, t, i) {
-                function r(e) {
-                    return uy(e, i) ? n[e] : -1
-                }
-                const n = Ih.getKeySystemSecurityLevel(i)
-                  , s = Ih.getKeySystemFormat(i)
-                  , a = r(t)
-                  , o = e.filter(e=>{
-                    e = null !== (e = null === (e = e.allowedCPCMap) || void 0 === e ? void 0 : e[s]) && void 0 !== e ? e : [];
-                    let t = !0;
-                    for (const i of e)
-                        if (t = r(i) <= a,
-                        !t)
-                            break;
-                    return t
-                }
-                );
-                return my(0, e, o),
-                [...o]
-            }(c, t, e)),
-            c = c.map(t=>{
-                var e;
-                return t.audioCodecList && t.audioGroupId && ((e = null == (e = a.find(e=>e.groupId === t.audioGroupId)) ? void 0 : e.channels) && (t.audioChannelCount = parseInt(e))),
-                t
-            }
-            );
-            const h = !(null == l || !l.useMediaKeySystemAccessFilter) && e && navigator && "function" == typeof navigator.requestMediaKeySystemAccess;
-            return (h ? gy(c, e, u) : Bi(c)).pipe(Ra(e=>{
-                if (0 === e.length || cy(e))
-                    throw new R(L,f,void 0,"no media option with compatible codecs found in playlist",void 0);
-                h && my(0, c, e);
-                const t = navigator && navigator.mediaCapabilities
-                  , n = !(null == l || !l.useMediaCapabilities) && t && "function" == typeof t.decodingInfo;
-                let i;
-                return i = n ? function(e, n, s) {
-                    const a = []
-                      , o = py()
-                      , d = function(o) {
-                        const d = new Map
-                          , l = navigator && navigator.mediaCapabilities;
-                        return (i,e,t,n,r)=>{
-                            const s = {
-                                type: "media-source"
-                            };
-                            n ? s.video = function(e) {
-                                const t = {
-                                    contentType: `video/mp4;codecs=${e}`,
-                                    width: i.width,
-                                    height: i.height,
-                                    bitrate: i.bandwidth || i.avgBandwidth,
-                                    framerate: i.iframes ? 8 : i.frameRate
-                                };
-                                if (i.videoRange)
-                                    switch (i.videoRange) {
-                                    case "PQ":
-                                        Se.isDolby(e) ? (t.hdrMetadataType = vm.DoVi,
-                                        t.colorGamut = "rec2020") : (Se.isHEVC(e) || Se.isVP09(e)) && (t.hdrMetadataType = vm.HDR10,
-                                        t.colorGamut = "rec2020"),
-                                        t.transferFunction = "pq";
-                                        break;
-                                    case "HLG":
-                                        t.colorGamut = "rec2020",
-                                        t.transferFunction = "hlg"
-                                    }
-                                return t
-                            }(t) : s.audio = function(e, t, i) {
-                                const r = {
-                                    contentType: `audio/mp4;codecs=${e}`
-                                }
-                                  , n = tm.getRichestChannelLayoutForGroupId(t.audioGroupId, i);
-                                return n && (r.channels = Se.getChannelCount(n).toString(),
-                                r.spatialRendering = Se.isDolbyAtmos(e, n)),
-                                r
-                            }(t, i, e);
-                            e = JSON.stringify(s);
-                            let a;
-                            return d.has(e) ? a = d.get(e) : (a = Lr(l.decodingInfo(s)).pipe(ur(e=>{
-                                const t = e.configuration || e.supportedConfiguration
-                                  , i = t instanceof Object && (!s.video || null == Object.keys(s.video).find(e=>!(e in t.video))) && (!s.audio || null == Object.keys(s.audio).find(e=>!(e in t.audio)))
-                                  , r = e.supported && (!n || e.powerEfficient) && i;
-                                return r || o.warn(ly, `Unsupported config ${e.supported}/${e.powerEfficient}/${i} ${JSON.stringify(s)} supportedConfig=${JSON.stringify(t)}`),
-                                r
-                            }
-                            )),
-                            d.set(e, a)),
-                            [...r, a]
-                        }
-                    }(s);
-                    return e.forEach(t=>{
-                        var e;
-                        let i = [];
-                        if (null === (e = t.videoCodecList) || void 0 === e || e.forEach(e=>{
-                            i = d(t, n, e, !0, i)
-                        }
-                        ),
-                        0 < (null === (e = t.audioCodecList) || void 0 === e ? void 0 : e.length)) {
-                            const s = tm.getRichestAudioCodec(t.audioCodecList);
-                            i = d(t, n, s, !1, i)
-                        }
-                        let r = Bi(t);
-                        0 < i.length && (r = Jr(i).pipe(ur(e=>null == e.find(e=>!1 === e) ? t : null), Un(e=>(s.warn(ly, `decodingInfo errror: ${e.message}`),
-                        Bi(o(t) ? t : null))))),
-                        a.push(r)
-                    }
-                    ),
-                    Jr(a).pipe(ur(e=>e.filter(e=>Boolean(e))))
-                }(e, a, u) : Bi(e = yy((r = e,
-                s = py(),
-                s = r.filter(s),
-                my(0, r, s),
-                e = s), a)),
-                i.pipe(ur(e=>{
-                    if (0 === e.length || cy(e))
-                        throw new R(L,f,void 0,"no media option with compatible codecs found in manifest",void 0);
-                    if (0 === (t = e = vy(e, o, d),
-                    r = t.filter(e=>!e.iframes || !e.width || !e.height || e.width * e.height <= 2488320),
-                    my(0, t, r),
-                    (e = r).length) || cy(e))
-                        throw new R(L,f,void 0,"no media option with compatible codecs found in manifest",void 0);
-                    var t;
-                    let i = (null == d ? void 0 : d.videoDynamicRangeFormats) || [];
-                    n && 0 === i.length && (i = [{
-                        type: pe.SDR
-                    }, {
-                        type: pe.HDR
-                    }, {
-                        type: pe.HDR10
-                    }, {
-                        type: pe.DolbyVision
-                    }, {
-                        type: pe.HLG
-                    }]);
-                    var {hdrMediaOptions: r, sdrMediaOptions: e} = function(e, t) {
-                        const i = t.reduce((e,t)=>{
-                            switch (t.type) {
-                            case pe.DolbyVision:
-                                e.doViSupported = !0;
-                                break;
-                            case pe.HDR10:
-                                e.hdr10Supported = !0;
-                                break;
-                            case pe.HLG:
-                                e.hlgSupported = !0
-                            }
-                            return e
-                        }
-                        , {
-                            doViSupported: !1,
-                            hdr10Supported: !1,
-                            hlgSupported: !1
-                        })
-                          , {doViSupported: r, hdr10Supported: n, hlgSupported: s} = i;
-                        return e.reduce((e,t)=>{
-                            var i;
-                            switch (Se.getDynamicRangeType(t.videoRange, null !== (i = t.videoCodec) && void 0 !== i ? i : "")) {
-                            case pe.HDR:
-                            case pe.HDR10:
-                                n && e.hdrMediaOptions.push(t);
-                                break;
-                            case pe.DolbyVision:
-                                r && e.hdrMediaOptions.push(t);
-                                break;
-                            case pe.HLG:
-                                s && e.hdrMediaOptions.push(t);
-                                break;
-                            default:
-                                "SDR" !== t.videoRange && null != t.videoRange || e.sdrMediaOptions.push(t)
-                            }
-                            return e
-                        }
-                        , {
-                            hdrMediaOptions: new Array,
-                            sdrMediaOptions: new Array
-                        })
-                    }(e, i);
-                    if (0 === r.length && 0 === e.length || cy(r) && cy(e))
-                        throw new R(L,"manifestIncompatibleVideoRangeError",void 0,"mediaOption with compatible VIDEO-RANGE not found in manifest",void 0);
-                    return {
-                        hdrMediaOptions: r,
-                        sdrMediaOptions: e
-                    }
-                }
-                ), Un(e=>{
-                    throw e instanceof R && (e.fatal = !0,
-                    e.response = $.IncompatibleAsset),
-                    e
-                }
-                ));
-                var r, s
-            }
-            ))
-        }
-        function by(e, t) {
-            return t.mediaOptionId !== e.mediaOptionId && t.persistentID === e.persistentID && t.groupId !== e.groupId
-        }
-        (w = vm = vm || {}).HDR10 = "smpteSt2086",
-        w.DoVi = "smpteSt2094-10",
-        w.HDR10Plus = "smpteSt2094-40";
-        class Ty extends km {
-            constructor(e, t, i) {
-                super(e, t, i)
-            }
-            static makeFilters() {
-                return Om()
-            }
-            _initFilters() {
-                return Ty.kAllowFilters
-            }
-            get _mediaOptionType() {
-                return this.mediaOptionType
-            }
-            get preferredHost() {
-                return null
-            }
-            get preferredHost$() {
-                return Bi(null)
-            }
-            get mediaOptionListInfo() {
-                var e;
-                return null !== (e = null === (e = this.getEntity(this.itemId)) || void 0 === e ? void 0 : e.mediaOptionListTuple[this._mediaOptionType]) && void 0 !== e ? e : null
-            }
-            get mediaOptionListInfo$() {
-                return this.selectEntity(this.itemId, e=>e && e.mediaOptionListTuple ? e.mediaOptionListTuple[this._mediaOptionType] : null).pipe(Up())
-            }
-            getFallbackVariant(t, e, i, r) {
-                var n;
-                const s = null === (n = this.mediaOptionList) || void 0 === n ? void 0 : n.find(e=>e.mediaOptionId === t);
-                if (!s)
-                    return null;
-                const a = this.filteredMediaOptionList;
-                if (!a)
-                    return null;
-                const o = gl(s.url);
-                if (i)
-                    return null !== (i = a.find(e=>by(s, e) && !yl(o, e.url))) && void 0 !== i ? i : null;
-                let d = null;
-                for (const t of a)
-                    !by(s, t) || d && !yl(o, t.url) || (d = t);
-                return d
-            }
-            getMatchingAlternateWithPersistentId(t, i, r) {
-                var e;
-                return null !== (e = this.preferredMediaOptionList.find(e=>!(0 < (null == r ? void 0 : r.length) && r.includes(e.mediaOptionId)) && (!ne(t) || e.persistentID === t) && (!i || this.matchGroup(e, i.audioGroupId, i.subtitleGroupId, i.closedcaption)))) && void 0 !== e ? e : null
-            }
-            matchGroup(e, t, i, r) {
-                let n = !1;
-                switch (e.type) {
-                case "CLOSED-CAPTIONS":
-                    n = !r || e.groupId === r;
-                    break;
-                case "SUBTITLES":
-                    n = !i || e.groupId === i;
-                    break;
-                case "AUDIO":
-                    n = !t || e.groupId === t
-                }
-                return n
-            }
-            getMatchingAlternate(e, t) {
-                e = this.mediaOptionFromId(e);
-                return this.getMatchingAlternateWithPersistentId(null == e ? void 0 : e.persistentID, t, [])
-            }
-            packageAlternateMediaOption(e, t, i) {
-                return t.mediaType === pl.CLOSEDCAPTION ? this.augmentClosedCaptionsWithForcedSubtitles(null == e ? void 0 : e.subtitleGroupId, t, i) : t
-            }
-            augmentClosedCaptionsWithForcedSubtitles(e, t, i) {
-                i = this.pairForcedSubtitleMediaOptionWithClosedCaption(e, t, i);
-                return i ? Object.assign(Object.assign({}, t), {
-                    url: i.url,
-                    backingMediaOptionId: i.mediaOptionId
-                }) : t
-            }
-            pairForcedSubtitleMediaOptionWithClosedCaption(t, i, r) {
-                let n;
-                if (i && i.mediaType === pl.CLOSEDCAPTION) {
-                    let e = this.mediaOptionList;
-                    r && (e = this.preferredMediaOptionList),
-                    n = Ty.pairForcedSubtitleMediaOptionWithClosedCaptionInList(t, i, e)
-                }
-                return n
-            }
-            static pairForcedSubtitleMediaOptionWithClosedCaptionInList(t, i, e) {
-                return e.find(function(e) {
-                    return e.mediaType === pl.SUBTITLE && e.lang === i.lang && e.forced && e.autoselect && (!t || e.groupId === t)
-                })
-            }
-        }
-        Ty.kAllowFilters = Ty.makeFilters();
-        class Ey extends Od {
-            constructor(e, t) {
-                super(e),
-                this.itemId = t,
-                this.mediaOptionListQueries = [new xm(e,this.itemId), new Ty(e,this.itemId,ul.AltAudio), new Ty(e,this.itemId,ul.Subtitle)]
-            }
-            get rootPlaylistEntity() {
-                return this.getEntity(this.itemId)
-            }
-            get rootMediaOptionsTuple() {
-                var e = null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.mediaOptionListTuple;
-                return e ? [e[0].mediaOptions, e[1].mediaOptions, e[2].mediaOptions] : [[], [], []]
-            }
-            get itemStartOffset() {
-                var e, t;
-                return null !== (e = this.rootPlaylistEntity) && void 0 !== e && e.itemStartOffset && ne(null === (t = this.rootPlaylistEntity) || void 0 === t ? void 0 : t.itemStartOffset) ? null === (t = this.rootPlaylistEntity) || void 0 === t ? void 0 : t.itemStartOffset : 0
-            }
-            get highestVideoCodec() {
-                var e;
-                return null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.highestVideoCodec
-            }
-            get baseUrl() {
-                var e;
-                return null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.baseUrl
-            }
-            get anchorTime() {
-                var e;
-                return null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.anchorTime
-            }
-            get discoSeqNum() {
-                var e;
-                return null !== (e = null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.discoSeqNum) && void 0 !== e ? e : NaN
-            }
-            get discoSeqNum$() {
-                return this.selectEntity(this.itemId, "discoSeqNum")
-            }
-            get audioMediaSelectionGroup() {
-                var e;
-                return null !== (e = null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.audioMediaSelectionGroup) && void 0 !== e ? e : null
-            }
-            get subtitleMediaSelectionGroup() {
-                var e;
-                return null !== (e = null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.subtitleMediaSelectionGroup) && void 0 !== e ? e : null
-            }
-            get audioMediaSelectionOptions() {
-                var e;
-                return null !== (e = null === (e = null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.audioMediaSelectionGroup) || void 0 === e ? void 0 : e.MediaSelectionGroupOptions) && void 0 !== e ? e : []
-            }
-            get subtitleMediaSelectionOptions() {
-                var e;
-                return null !== (e = null === (e = null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.subtitleMediaSelectionGroup) || void 0 === e ? void 0 : e.MediaSelectionGroupOptions) && void 0 !== e ? e : []
-            }
-            get contentSteeringOption() {
-                var e;
-                return null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.contentSteeringOption
-            }
-            get masterVariableList() {
-                var e;
-                return null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.masterVariableList
-            }
-            get loadStats() {
-                var e;
-                return null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.loadStats
-            }
-            get isMediaPlaylist() {
-                var e;
-                return null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.isMediaPlaylist
-            }
-            getInitPTS(e) {
-                var t;
-                return null === (t = this.rootPlaylistEntity) || void 0 === t ? void 0 : t.initPtsRecord[e]
-            }
-            get abrStatus$() {
-                return this.selectEntity(this.itemId, e=>null == e ? void 0 : e.abrStatus)
-            }
-            get abrStatus() {
-                var e;
-                return null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.abrStatus
-            }
-            get nextMaxAutoOptionId() {
-                var e;
-                return null === (e = null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.abrStatus) || void 0 === e ? void 0 : e.nextMaxAutoOptionId
-            }
-            get nextMinAutoOptionId() {
-                var e;
-                return null === (e = null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.abrStatus) || void 0 === e ? void 0 : e.nextMinAutoOptionId
-            }
-            initPTS$(t) {
-                return this.selectEntity(this.itemId, ({initPtsRecord: e})=>e[t])
-            }
-            get rootPlaylistEntity$() {
-                return this.selectEntity(this.itemId).pipe(an(e=>Boolean(e)), ur(e=>e))
-            }
-            get rootPlaylistEntityAdded$() {
-                return this.selectEntityAction(To.Add).pipe(ur(e=>e.map(e=>this.getEntity(e))))
-            }
-            get rootMediaOptionsTuple$() {
-                return Zd([this.selectEntity(this.itemId, e=>e.mediaOptionListTuple[0].mediaOptions), this.selectEntity(this.itemId, e=>e.mediaOptionListTuple[1].mediaOptions), this.selectEntity(this.itemId, e=>e.mediaOptionListTuple[2].mediaOptions)])
-            }
-            get sessionData() {
-                var e;
-                return null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.sessionData
-            }
-            get sessionData$() {
-                return this.selectEntity(this.itemId, ({sessionData: e})=>e).pipe(Up())
-            }
-            get anchorTime$() {
-                return this.selectEntity(this.itemId, "anchorTime").pipe(Ra(e=>ne(e) ? e !== this.anchorTime ? (qe().warn(`anchorTime doesn't match stored value! ${e} !== ${this.anchorTime}`),
-                Ti) : Bi(e) : Ti))
-            }
-            get pendingSeek$() {
-                return this.selectEntity(this.itemId, ({pendingSeek: e})=>e).pipe(Es((e,t)=>e === t || "number" == typeof e && "number" == typeof t && isNaN(e) && isNaN(t)))
-            }
-            get enabledMediaOptionKeys$() {
-                return this.selectEntity(this.itemId, "enabledMediaOptionKeys").pipe(an(e=>Boolean(e)))
-            }
-            get enabledMediaOptionKeys() {
-                var e;
-                return null !== (e = null === (e = this.getEntity(this.itemId)) || void 0 === e ? void 0 : e.enabledMediaOptionKeys) && void 0 !== e ? e : [Ol, Ol, Ol]
-            }
-            get enabledMediaOptionSwitchContexts() {
-                var e;
-                return null !== (e = null === (e = this.getEntity(this.itemId)) || void 0 === e ? void 0 : e.mediaOptionSwitchContexts) && void 0 !== e ? e : [null, null, null]
-            }
-            enabledMediaOptionSwitchContextsByType$(t) {
-                return this.selectEntity(this.itemId, "mediaOptionSwitchContexts").pipe(ur(e=>null == e ? void 0 : e[t]))
-            }
-            get enabledMediaOptions$() {
-                return Zd([this.enabledMediaOptionByType$(ul.Variant), this.enabledMediaOptionByType$(ul.AltAudio), this.enabledMediaOptionByType$(ul.Subtitle)])
-            }
-            get enabledAVOptions$() {
-                return Zd([this.enabledMediaOptionByType$(ul.Variant), this.enabledMediaOptionByType$(ul.AltAudio)])
-            }
-            rawEnabledMediaOptionByType$(t) {
-                return this.enabledMediaOptionKeys$.pipe(ur(e=>{
-                    const i = e[t];
-                    return kl(i) && this.rootMediaOptionsTuple[t].find(e=>{
-                        return t = i,
-                        e.itemId === t.itemId && e.mediaOptionId === t.mediaOptionId;
-                        var t
-                    }
-                    ) || Ol
-                }
-                ))
-            }
-            enabledMediaOptionByType$(e) {
-                return this.rawEnabledMediaOptionByType$(e).pipe(Es((e,t)=>e.mediaOptionId === t.mediaOptionId && e.url === t.url))
-            }
-            enabledMediaOptionSwitchForType$(e) {
-                return this.rawEnabledMediaOptionByType$(e).pipe(So(this.enabledMediaOptionSwitchContextsByType$(e)), xa(null), ca(), ur(([e,t])=>({
-                    fromId: null == e ? void 0 : e[0].mediaOptionId,
-                    toId: null == t ? void 0 : t[0].mediaOptionId,
-                    switchContext: null == t ? void 0 : t[1]
-                })), Es((e,t)=>e.fromId === t.fromId && e.toId === t.toId))
-            }
-            enableMediaOptionSwitchedForType$(t) {
-                return this.enabledMediaOptionByType$(t).pipe(Ra(e=>$l(Cr([Bi(e), this.enabledMediaOptionSwitchContextsByType$(t).pipe(ca())]), ([,e])=>e[0] && !e[1])), ur(([e])=>e))
-            }
-            enabledMediaOptionIdByType(e) {
-                return this.getEntity(this.itemId).enabledMediaOptionKeys[e].mediaOptionId
-            }
-            variantMediaOptionById(e) {
-                return this.mediaOptionListQueries[ul.Variant].mediaOptionFromId(e)
-            }
-            alternateMediaOptionById(e, t) {
-                return this.mediaOptionListQueries[e].mediaOptionFromId(t)
-            }
-            enabledAlternateMediaOptionByType(e) {
-                var t = this.enabledMediaOptionIdByType(e);
-                return this.alternateMediaOptionById(e, t)
-            }
-            get enabledVariantMediaOption() {
-                var e = this.enabledMediaOptionIdByType(ul.Variant);
-                return this.variantMediaOptionById(e)
-            }
-            lastLoadedMediaOptionByType(e) {
-                var t;
-                return null === (t = this.getEntity(this.itemId).lastLoadedMediaOptionKeys) || void 0 === t ? void 0 : t[e]
-            }
-            get nextMediaOptionsKeys$() {
-                return this.selectEntity(this.itemId, "nextMediaOptionKeys")
-            }
-            get preferredMediaOptions() {
-                return [this.mediaOptionListQueries[0].preferredMediaOptionList, this.mediaOptionListQueries[1].preferredMediaOptionList, this.mediaOptionListQueries[2].preferredMediaOptionList]
-            }
-            get preferredMediaOptions$() {
-                return Zd([this.mediaOptionListQueries[0].preferredMediaOptionList$, this.mediaOptionListQueries[1].preferredMediaOptionList$, this.mediaOptionListQueries[2].preferredMediaOptionList$])
-            }
-            get filteredMediaOptions() {
-                return [this.mediaOptionListQueries[0].filteredMediaOptionList, this.mediaOptionListQueries[1].filteredMediaOptionList, this.mediaOptionListQueries[2].filteredMediaOptionList]
-            }
-            getDisabledMediaOption(e) {
-                return {
-                    itemId: this.itemId,
-                    mediaOptionType: e,
-                    mediaOptionId: "Nah"
-                }
-            }
-            getEnabledMediaOptionMask() {
-                return this.enabledMediaOptionKeys.map(e=>kl(e))
-            }
-            getPreferredMediaOptionsByType$(e) {
-                return this.mediaOptionListQueries[e].preferredMediaOptionList$
-            }
-            altMediaOptionHasValidUrl(e, t) {
-                t = this.alternateMediaOptionById(e, t);
-                return Boolean(null == t ? void 0 : t.url)
-            }
-            get hdrMode$() {
-                return this.mediaOptionListQueries[ul.Variant].hdrMode$
-            }
-            get maxHdcpLevel$() {
-                return this.mediaOptionListQueries[ul.Variant].maxHdcpLevel$
-            }
-            get currentPathwayID() {
-                return this.mediaOptionListQueries[ul.Variant].currentPathwayID
-            }
-            get preferredHost() {
-                return this.mediaOptionListQueries[ul.Variant].preferredHost
-            }
-            getErrorInfoByType(e) {
-                var t;
-                return null != (null === (t = this.rootPlaylistEntity) || void 0 === t ? void 0 : t.errorsByType) ? this.rootPlaylistEntity.errorsByType[e] : null
-            }
-            getInFlightFragByType(e) {
-                var t;
-                return null !== (e = null === (t = null === (t = this.getEntity(this.itemId)) || void 0 === t ? void 0 : t.inFlightFrags) || void 0 === t ? void 0 : t[e]) && void 0 !== e ? e : null
-            }
-            getInFlightFragByType$(t) {
-                return this.selectEntity(this.itemId, e=>{
-                    return null === (e = null == e ? void 0 : e.inFlightFrags) || void 0 === e ? void 0 : e[t]
-                }
-                )
-            }
-            matchAlternates(e, t, i, r) {
-                t = ne(t) ? this.mediaOptionListQueries[ul.AltAudio].getMatchingAlternateWithPersistentId(t, e, r) : void 0,
-                r = ne(i) ? this.mediaOptionListQueries[ul.Subtitle].getMatchingAlternateWithPersistentId(i, e, r) : void 0;
-                return [t || Ol, r || Ol]
-            }
-            getLegacyMatchingAlternateWithPersistentId(e, t, i) {
-                let r = this.mediaOptionListQueries[e].getMatchingAlternateWithPersistentId(t, i, []);
-                return r = r || this.mediaOptionListQueries[e].getMatchingAlternateWithPersistentId(t, void 0, []),
-                r
-            }
-            isValidMediaOptionTuple(i, e) {
-                const r = e || this.getEnabledMediaOptionMask();
-                return [ul.Variant, ul.AltAudio, ul.Subtitle].reduce((e,t)=>e && r[t] === kl(i[t]), !0)
-            }
-            matchGroup(e, t, i, r) {
-                var n = e.mediaOptionType;
-                return this.mediaOptionListQueries[n].matchGroup(e, t, i, r)
-            }
-            get preferHDR() {
-                return this.mediaOptionListQueries[ul.Variant].mediaOptionListInfo.preferHDR
-            }
-        }
-        const Iy = {
-            name: "rps"
-        };
-        class wy {
-            constructor(e, t) {
-                this.store = e,
-                this.logger = t
-            }
-            getQuery() {
-                return new Od(this.store)
-            }
-            getQueryForId(e) {
-                return new Ey(this.store,e)
-            }
-            set rootPlaylistEntity(e) {
-                Co("root.add.rootPlaylist"),
-                this.store.add(e)
-            }
-            removeItems(e) {
-                Co(`root.add.remove ${JSON.stringify(e)}`),
-                this.store.remove(e)
-            }
-            removeAll() {
-                Co("root.add.clear"),
-                this.store.remove()
-            }
-            setRootPlaylistEntity(e, t) {
-                Co("root.set.rootPlaylistEntity"),
-                this.store.update(e, e=>t)
-            }
-            setSessionData(e, t) {
-                Co("root.set.sessionData"),
-                this.store.update(e, e=>{
-                    e.sessionData = t
-                }
-                )
-            }
-            setAnchorTime(e, t) {
-                Co(`root.set.anchorTime: ${t}`),
-                this.store.update(e, e=>{
-                    e.anchorTime = t
-                }
-                )
-            }
-            setDiscoSeqNum(e, t) {
-                Co(`root.set.discoSeqNum: ${t}`),
-                this.store.update(e, e=>{
-                    e.discoSeqNum = t
-                }
-                )
-            }
-            setPendingSeek(e, t) {
-                Co("root.set.pendingSeek"),
-                this.store.update(e, e=>{
-                    e.pendingSeek = t
-                }
-                ),
-                void 0 === t && Xm().setUserSeek(t)
-            }
-            setEnabledMediaOptionSwitchContextByType(e, i, r, n) {
-                this.store.update(e, e=>{
-                    var t;
-                    if (e.enabledMediaOptionKeys[i].mediaOptionId === r) {
-                        const r = null !== (t = e.mediaOptionSwitchContexts) && void 0 !== t ? t : [null, null, null];
-                        r[i] = n ? {
-                            userInitiated: n.userInitiated,
-                            switchPosition: n.switchPosition
-                        } : null,
-                        e.mediaOptionSwitchContexts = r
-                    } else
-                        Co(`root.set.mediaOptionSwitchContextByType ${r} doesn't match existing mediaOption ${e.enabledMediaOptionKeys[i].mediaOptionId}`)
-                }
-                )
-            }
-            setEnabledMediaOptionByType(r, n, s, a=!1, o) {
-                s = s || {
-                    itemId: r,
-                    mediaOptionType: n,
-                    mediaOptionId: "Nah"
-                },
-                this.store.update(r, e=>{
-                    var t;
-                    const i = null !== (t = [...e.enabledMediaOptionKeys]) ? t : [Ol, Ol, Ol];
-                    if (i[n] = {
-                        itemId: r,
-                        mediaOptionId: s.mediaOptionId
-                    },
-                    this._updateEnabledMediaOptionKeys(e, i),
-                    a) {
-                        const r = null !== (t = e.mediaOptionSwitchContexts) && void 0 !== t ? t : [null, null, null];
-                        r[n] = o ? {
-                            userInitiated: o.userInitiated,
-                            switchPosition: o.switchPosition
-                        } : null,
-                        e.mediaOptionSwitchContexts = r
-                    }
-                }
-                )
-            }
-            _associateForcedSubtitleWithClosedCaption(e, t, i, r) {
-                if ((null == i ? void 0 : i.mediaType) === pl.CLOSEDCAPTION) {
-                    t = r.variantMediaOptionById(t),
-                    r = r.mediaOptionListQueries[ul.Subtitle].packageAlternateMediaOption(t, i, !0);
-                    if (r.url !== i.url) {
-                        const n = My(t, r, e.mediaOptionListTuple[ul.Subtitle].mediaOptions, qe());
-                        e.mediaOptionListTuple[ul.Subtitle].mediaOptions = n
-                    }
-                }
-            }
-            _updateEnabledMediaOptionKeys(t, i) {
-                var e, r;
-                const n = null !== (e = t.enabledMediaOptionKeys) && void 0 !== e ? e : [Ol, Ol, Ol];
-                let s;
-                for (let e = 0; e < i.length; ++e) {
-                    var a = i[e]
-                      , o = n[e].mediaOptionId !== a.mediaOptionId;
-                    if (o && (n[e] = Object.assign({}, a)),
-                    e === ul.Variant) {
-                        const i = this.getQueryForId(a.itemId).mediaOptionListQueries[e].mediaOptionList;
-                        o ? t.abrStatus = (r = a.mediaOptionId,
-                        o = i,
-                        o = Lg(r, o),
-                        {
-                            fragDownloadSlow: !1,
-                            fragDownloadTooSlow: !1,
-                            nextMinAutoOptionId: Ol.mediaOptionId,
-                            nextMaxAutoOptionId: Ol.mediaOptionId,
-                            highBWTrigger: o
-                        }) : t.abrStatus.highBWTrigger = Lg(a.mediaOptionId, i),
-                        s = a
-                    } else if (e === ul.Subtitle && kl(a)) {
-                        const i = this.getQueryForId(a.itemId)
-                          , n = i.alternateMediaOptionById(e, a.mediaOptionId);
-                        this._associateForcedSubtitleWithClosedCaption(t, s.mediaOptionId, n, i)
-                    }
-                }
-                t.enabledMediaOptionKeys = n,
-                t.nextMediaOptionKeys = void 0
-            }
-            setManualMode(e, t) {
-                this.store.update(e, e=>{
-                    e.manualMode = t
-                }
-                )
-            }
-            setEnabledMediaOptions(e, i) {
-                this.store.update(e, e=>{
-                    var t = i.map(({mediaOptionId: e, itemId: t})=>({
-                        mediaOptionId: e,
-                        itemId: t
-                    }));
-                    this._updateEnabledMediaOptionKeys(e, t)
-                }
-                )
-            }
-            setEnabledMediaOptionsAndSwitchContexts(e, i, r) {
-                this.store.update(e, e=>{
-                    var t = i.map(({mediaOptionId: e, itemId: t})=>({
-                        mediaOptionId: e,
-                        itemId: t
-                    }));
-                    this._updateEnabledMediaOptionKeys(e, t),
-                    e.mediaOptionSwitchContexts = r
-                }
-                )
-            }
-            setNextMediaOptions(e, i) {
-                Co(`root.set.nextMediaOptions: ${JSON.stringify(null == i ? void 0 : i.map(e=>e.mediaOptionId))}`),
-                this.store.update(e, e=>{
-                    var t = i ? i.map(({itemId: e, mediaOptionId: t})=>({
-                        itemId: e,
-                        mediaOptionId: t
-                    })) : null;
-                    e.nextMediaOptionKeys = t
-                }
-                )
-            }
-            updateEnabledMediaOptions(e) {
-                Co("root.set.updateEnabledMediaOptions"),
-                this.store.update(e, e=>{
-                    e.nextMediaOptionKeys && !0 !== e.manualMode && (Co(`root.set.updateEnabledMediaOptions ${JSON.stringify(e.nextMediaOptionKeys)}`),
-                    this._updateEnabledMediaOptionKeys(e, [...e.nextMediaOptionKeys])),
-                    e.nextMediaOptionKeys = void 0
-                }
-                )
-            }
-            setLastLoadedMediaOptionByType(r, n, s) {
-                Co(`root.set.lastLoadedMediaOptionByType: ${n} ${(s = s || {
-                    itemId: r,
-                    mediaOptionType: n,
-                    mediaOptionId: "Nah"
-                }).mediaOptionId}`),
-                this.store.update(r, e=>{
-                    var t;
-                    const i = null !== (t = e.lastLoadedMediaOptionKeys) && void 0 !== t ? t : [Ol, Ol, Ol];
-                    i[n] = {
-                        itemId: r,
-                        mediaOptionId: s.mediaOptionId
-                    },
-                    e.lastLoadedMediaOptionKeys = i
-                }
-                )
-            }
-            setPreferredHost(e, t) {
-                Co(`root.set.preferredHost: ${t}`),
-                this.store.update(e, e=>{
-                    e && (e.mediaOptionListTuple[ul.Variant].preferredHost = t)
-                }
-                )
-            }
-            setViewportInfo(e, t) {
-                Co(`root.set.viewportInfo: ${JSON.stringify(t)}`),
-                this.store.update(e, e=>{
-                    e && (e.mediaOptionListTuple[ul.Variant].viewportInfo = t)
-                }
-                )
-            }
-            static getExistingPersistentIds(e) {
-                var t;
-                const i = {}
-                  , r = null === (t = e.enabledMediaOptionKeys[ul.AltAudio]) || void 0 === t ? void 0 : t.mediaOptionId;
-                if ("Nah" !== r) {
-                    const s = e.mediaOptionListTuple[ul.AltAudio]
-                      , t = wm(s.mediaOptions, Ty.kAllowFilters, s).find(e=>e.mediaOptionId === r);
-                    i.audioPersistentId = null == t ? void 0 : t.persistentID
-                }
-                const n = null === (t = e.enabledMediaOptionKeys[ul.Subtitle]) || void 0 === t ? void 0 : t.mediaOptionId;
-                if ("Nah" !== n) {
-                    const s = e.mediaOptionListTuple[ul.Subtitle]
-                      , t = wm(s.mediaOptions, Ty.kAllowFilters, s).find(e=>e.mediaOptionId === n);
-                    i.subtitlePersistentId = null == t ? void 0 : t.persistentID
-                }
-                return i
-            }
-            static doUpdateRootHDRSwitch(e, t, i, r) {
-                const n = e.mediaOptionListTuple.map(e=>Object.assign({}, e));
-                n[ul.Variant].preferHDR = t,
-                n[ul.Variant].hasHdrLevels = i;
-                const s = Ym()
-                  , a = Hg.getEntity(e.itemId)
-                  , o = Uf(e.itemId)
-                  , d = o.getBandwidthEstimate(s, null == a ? void 0 : a.serviceName)
-                  , l = o.getPlaylistEstimate(s, null == a ? void 0 : a.serviceName)
-                  , u = o.getFragEstimate(s, null == a ? void 0 : a.serviceName)
-                  , c = o.getBufferEstimate(s, null == a ? void 0 : a.serviceName)
-                  , h = {
-                    targetDuration: u.maxDurationSec || (null == s ? void 0 : s.defaultTargetDuration),
-                    targetStartupMs: null == s ? void 0 : s.targetStartupMs
-                }
-                  , p = wy.getExistingPersistentIds(e);
-                return Py(Object.assign(Object.assign({}, e), {
-                    mediaOptionListTuple: n,
-                    nextMediaOptionKeys: null
-                }), p, r, d, h, l, u, c)
-            }
-            switchToSDROnly(e) {
-                Co("root.switchToSDROnly"),
-                this.store.update(e, e=>{
-                    var t = wy.doUpdateRootHDRSwitch(e, !1, !1, this.logger)["mediaOptionListTuple"];
-                    e.mediaOptionListTuple = t
-                }
-                )
-            }
-            setHDRPreference(e, i, r) {
-                Co(`root.set.HDRPreference: ${i}`),
-                this.store.update(e, e=>{
-                    var t = e.mediaOptionListTuple[ul.Variant];
-                    if (t.preferHDR !== i && (!i || t.hasHdrLevels)) {
-                        t = wy.doUpdateRootHDRSwitch(e, i, t.hasHdrLevels, this.logger);
-                        if (r)
-                            return t;
-                        e.mediaOptionListTuple = t.mediaOptionListTuple
-                    }
-                }
-                )
-            }
-            setPathwayPriority(e, i) {
-                Co(`root.set.PathwayPriority: [ ${i.join(", ")} ]`),
-                this.store.update(e, e=>{
-                    if (e) {
-                        const t = e.mediaOptionListTuple[ul.Variant];
-                        t.pathwayPriority = i,
-                        t.preferredHost = null
-                    }
-                }
-                )
-            }
-            setCurrentPathwayID(e, t) {
-                Co(`root.set.currentPathwayID: ${t}`),
-                this.store.update(e, e=>{
-                    e && (e.mediaOptionListTuple[ul.Variant].currentPathwayID = t)
-                }
-                )
-            }
-            setInitPTS(e, t, i, r, n, s) {
-                Co(`root.set.initPTS: ${e} ${t} variantDTS:${JSON.stringify(i)} timelineOffset: ${r}`),
-                this.store.update(e, e=>{
-                    e.initPtsRecord[t] = {
-                        variantDTS: i,
-                        timelineOffset: r,
-                        offsetTimestamp: n,
-                        iframeMode: s
-                    }
-                }
-                )
-            }
-            static prunePenaltyBox(e, t) {
-                return e.filter(e=>!(e.expiry <= t))
-            }
-            static addToPenaltyBox(e, t, i) {
-                return e.push({
-                    mediaOptionId: i,
-                    expiry: t + 12e4
-                })
-            }
-            addToPenaltyBox(e, r, n) {
-                Co(`root.set.penaltyBox: ${r}: ${n}`),
-                this.store.update(e, ({mediaOptionListTuple: e})=>{
-                    const t = e[r]
-                      , i = performance.now();
-                    t.penaltyBoxQueue = wy.prunePenaltyBox(t.penaltyBoxQueue, i),
-                    wy.addToPenaltyBox(t.penaltyBoxQueue, i, n)
-                }
-                )
-            }
-            prunePenaltyBox(e, r=null) {
-                Co(`root.set.prunePenaltyBox: ${r}`),
-                this.store.update(e, ({mediaOptionListTuple: e})=>{
-                    var e = r ? [e[r]] : e
-                      , t = performance.now();
-                    for (const i of e)
-                        i.penaltyBoxQueue = wy.prunePenaltyBox(i.penaltyBoxQueue, t)
-                }
-                )
-            }
-            removePermanently(e, r, n) {
-                Co(`root.set.removePermanently: ${r}: ${n}`),
-                this.store.update(e, ({mediaOptionListTuple: e})=>{
-                    const t = e[r]
-                      , i = new Set(t.removed);
-                    i.add(n),
-                    t.removed = Array.from(i)
-                }
-                )
-            }
-            moveAllWithMatchingHosts(e, r, n, s) {
-                Co(`root.set.moveAllMatchingHosts: ${r}:${n} remove:${s}`),
-                this.store.update(e, ({mediaOptionListTuple: e})=>{
-                    const t = e[r]
-                      , i = [...t.mediaOptions].filter(e=>yl(n, e.url)).map(e=>e.mediaOptionId);
-                    if (s) {
-                        const e = new Set([...t.removed, ...i]);
-                        t.removed = Array.from(e)
-                    } else {
-                        const e = performance.now();
-                        t.penaltyBoxQueue = wy.prunePenaltyBox(t.penaltyBoxQueue, e);
-                        for (const r of i)
-                            wy.addToPenaltyBox(t.penaltyBoxQueue, e, r)
-                    }
-                }
-                )
-            }
-            setMaxHdcpLevel(e, i, r=!1) {
-                Co(`root.set.maxHdcpLevel: ${i}`),
-                this.store.update(e, ({mediaOptionListTuple: e})=>{
-                    const t = e[ul.Variant];
-                    (r || Yf(i) < Yf(t.maxHdcpLevel)) && (t.maxHdcpLevel = i)
-                }
-                )
-            }
-            updateConsecutiveTimeouts(e, i, r, n) {
-                this.store.update(e, e=>{
-                    const t = e.errorsByType || [{
-                        timeouts: {
-                            load: 0,
-                            append: 0,
-                            key: 0
-                        }
-                    }, {
-                        timeouts: {
-                            load: 0,
-                            append: 0,
-                            key: 0
-                        }
-                    }, {
-                        timeouts: {
-                            load: 0,
-                            append: 0,
-                            key: 0
-                        }
-                    }];
-                    r ? ++t[i].timeouts[n] : t[i].timeouts[n] = 0,
-                    e.errorsByType = t
-                }
-                )
-            }
-            updateInflightFrag(d, l, u, c, h) {
-                Co("root.set.updateInflightFrag"),
-                this.store.update(d, r=>{
-                    if (r.inFlightFrags || (r.inFlightFrags = [null, null]),
-                    !(l === ul.Subtitle || u && u.itemId !== d))
-                        if (u) {
-                            let {start: e, duration: t} = u;
-                            var {mediaOptionId: n, mediaSeqNum: s, discoSeqNum: a} = u
-                              , o = r.inFlightFrags[l];
-                            let i = null == o ? void 0 : o.tstart;
-                            c !== (null == o ? void 0 : o.state) && (i = performance.now()),
-                            Fp(o, u) && (e = o.start,
-                            t = o.duration),
-                            r.inFlightFrags[l] = {
-                                itemId: d,
-                                mediaOptionId: n,
-                                mediaSeqNum: s,
-                                discoSeqNum: a,
-                                start: e,
-                                duration: t,
-                                tstart: i,
-                                state: c,
-                                bwSample: Object.assign({}, h)
-                            }
-                        } else
-                            r.inFlightFrags[l] = null
-                }
-                )
-            }
-            setNextMaxAutoOptionId(e, t) {
-                Co(`root.set.nextMaxAutoOptionId: ${t}`),
-                this.store.update(e, ({abrStatus: e})=>{
-                    e.nextMaxAutoOptionId = t
-                }
-                )
-            }
-            setNextMinAutoOptionId(e, t) {
-                Co(`root.set.nextMinAutoOptionId: ${t}`),
-                this.store.update(e, ({abrStatus: e})=>{
-                    e.nextMinAutoOptionId = t
-                }
-                )
-            }
-            setHighBWTrigger(e, t) {
-                Co(`root.set.setHighBWTrigger: ${t}`),
-                this.store.update(e, ({abrStatus: e})=>{
-                    e.highBWTrigger = t
-                }
-                )
-            }
-            setFragLoadSlow(e, t) {
-                Co(`root.set.setFragLoadSlow ${e} ${JSON.stringify(t)}`),
-                this.store.update(e, ({abrStatus: e})=>{
-                    e.fragDownloadSlow = t.fragDownloadSlow,
-                    e.fragDownloadTooSlow = t.fragDownloadTooSlow
-                }
-                )
-            }
-            pickMediaOptionTupleByPersistentId(e, t, i, r=!1, n=!1) {
-                var s = e.enabledMediaOptionIdByType(ul.Variant)
-                  , s = e.variantMediaOptionById(s);
-                let a, o;
-                if (t === ul.AltAudio) {
-                    const t = e.enabledAlternateMediaOptionByType(ul.Subtitle);
-                    o = null == t ? void 0 : t.persistentID,
-                    a = i
-                } else {
-                    const t = e.enabledAlternateMediaOptionByType(ul.AltAudio);
-                    a = null == t ? void 0 : t.persistentID,
-                    o = i
-                }
-                const d = e.getEnabledMediaOptionMask();
-                return d[t] = !!(ne(i) && 0 <= i),
-                s ? this.getBestMediaOptionTupleFromVariantAndPersistentId(e, s, a, o, d, void 0, r, n, !1) : [Ol, Ol, Ol]
-            }
-            getFallbackMediaOptionTupleFromMediaOptionId(e, t, i, r, n=!1, s=!1, a=!1) {
-                var o = r ? [r] : [i]
-                  , d = e.enabledMediaOptionIdByType(ul.Variant)
-                  , r = e.variantMediaOptionById(d)
-                  , d = t === ul.AltAudio ? e.alternateMediaOptionById(ul.AltAudio, i) : e.enabledAlternateMediaOptionByType(ul.AltAudio)
-                  , d = null == d ? void 0 : d.persistentID
-                  , i = t === ul.Subtitle ? e.alternateMediaOptionById(ul.Subtitle, i) : e.enabledAlternateMediaOptionByType(ul.Subtitle)
-                  , i = null == i ? void 0 : i.persistentID;
-                return r ? this.getBestMediaOptionTupleFromVariantAndPersistentId(e, r, d, i, void 0, o, n, s, a) : [Ol, Ol, Ol]
-            }
-            hasFallbackMediaOptionTuple(e, t, i, r) {
-                var n = e.mediaOptionListQueries[t].mediaOptionFromId(i);
-                return e.isValidMediaOptionTuple(this.getFallbackMediaOptionTupleFromMediaOptionId(e, t, i, n.backingMediaOptionId, !1, r))
-            }
-            setLegacyAlternateMediaOption(e, t, i, r, n) {
-                var s = e.enabledMediaOptionIdByType(ul.Variant)
-                  , s = e.variantMediaOptionById(s)
-                  , s = e.getLegacyMatchingAlternateWithPersistentId(i, r, s);
-                s ? this.setEnabledMediaOptionByType(t, i, s, !0, n) : this.logger.warn(`${Cl[i]} can't find matching mediaOption for persistent id ${r}`)
-            }
-            setEnabledMediaOptionTupleWithMatchedGroups(t, i, e, r) {
-                const n = ky(t)
-                  , s = this.pickMediaOptionTupleByPersistentId(n, i, e);
-                if (!n.isValidMediaOptionTuple(s))
-                    return this.setLegacyAlternateMediaOption(n, t, i, e, r);
-                sd(()=>{
-                    this.setEnabledMediaOptionByType(t, i, s[i], !0, r),
-                    s[ul.Variant].mediaOptionId !== n.enabledMediaOptionIdByType(ul.Variant) && this.setPreferredHost(t, gl(s[ul.Variant].url)),
-                    this.setEnabledMediaOptionByType(t, ul.Variant, s[ul.Variant]);
-                    var e = i === ul.AltAudio ? ul.Subtitle : ul.AltAudio;
-                    s[e].mediaOptionId !== n.enabledMediaOptionIdByType(e) && this.setEnabledMediaOptionByType(t, e, s[e], !1)
-                }
-                )
-            }
-            canSwitchToSDR(e, t, i, r=!1) {
-                var n = e.mediaOptionListQueries[ul.Variant].mediaOptionFromId(t)
-                  , r = this.getFallbackMediaOptionTupleFromMediaOptionId(e, ul.Variant, t, n.backingMediaOptionId, !0, i, r);
-                return e.isValidMediaOptionTuple(r)
-            }
-            getBestMediaOptionTupleFromVariantAndPersistentId(t, e, i, r, n, s, a, o, d) {
-                var l, u = t.mediaOptionListQueries[ul.Variant].listFallbackVariants(e.mediaOptionId, a, o, d, s);
-                let c = [Ol, Ol, Ol];
-                for (let e = 0; e < u.length; ++e) {
-                    const a = u[e];
-                    if (l = t.matchAlternates(a, i, r, s),
-                    t.isValidMediaOptionTuple([a, ...l], n)) {
-                        c = [a, ...l];
-                        break
-                    }
-                }
-                return c
-            }
-        }
-        const Ay = new class extends pd {
-            constructor() {
-                super({}, {
-                    name: "root-playlist-store",
-                    idKey: "itemId",
-                    producerFn: vc
-                })
-            }
-            akitaPreAddEntity(e) {
-                return null == e.errorsByType ? Object.assign(Object.assign({}, e), {
-                    errorsByType: [{
-                        timeouts: {
-                            load: 0,
-                            append: 0,
-                            key: 0
-                        }
-                    }, {
-                        timeouts: {
-                            load: 0,
-                            append: 0,
-                            key: 0
-                        }
-                    }, {
-                        timeouts: {
-                            load: 0,
-                            append: 0,
-                            key: 0
-                        }
-                    }]
-                }) : e
-            }
-        }
-        ;
-        new Od(Ay);
-        let Oy = null;
-        function ky(e) {
-            return new Ey(Ay,e)
-        }
-        const Cy = (n,e,t,s,i)=>{
-            const {rootMediaOptionsTuple: r, sessionKeys: a} = n
-              , o = Array.from(r[ul.Variant])
-              , d = Array.from(r[ul.AltAudio]);
-            let l = !1
-              , u = !1
-              , c = o.map(e=>(l = l || Boolean(e.videoCodec),
-            u = u || Boolean(e.audioCodec) || Boolean(e.audioGroupId),
-            e));
-            return l && u && (c = c.filter(({videoCodec: e})=>Boolean(e))),
-            Sy(o, d, a, e, t, i).pipe(ur(({hdrMediaOptions: e, sdrMediaOptions: t})=>{
-                var i = e.concat(t)
-                  , r = 0 < e.length;
-                return e.concat(t),
-                function(e, t, i, r) {
-                    var {itemId: n, itemStartOffset: s, rootMediaOptionsTuple: a, audioMediaSelectionGroup: o, subtitleMediaSelectionGroup: d} = e
-                      , l = Array.from(a[ul.AltAudio])
-                      , u = Array.from(a[ul.Subtitle])
-                      , c = t.every(e=>ne(e.score))
-                      , h = t.some(e=>Dm(!0, e))
-                      , p = function(e, t) {
-                        const i = [...e];
-                        return t ? i.sort((e,t)=>e.score - t.score || t.bitrate - e.bitrate) : i.sort((e,t)=>e.bitrate - t.bitrate),
-                        i
-                    }(t, c)
-                      , f = e.baseUrl
-                      , t = null === (a = e.contentSteeringOption) || void 0 === a ? void 0 : a.initPathwayID
-                      , a = e.sessionData;
-                    return {
-                        itemId: n,
-                        baseUrl: f,
-                        mediaOptionListTuple: [{
-                            mediaOptions: p,
-                            hasHdrLevels: i,
-                            hasIframeLevels: h,
-                            hasScore: c,
-                            preferHDR: r,
-                            compatibleIds: null,
-                            penaltyBoxQueue: [],
-                            removed: [],
-                            currentPathwayID: t
-                        }, {
-                            mediaOptions: l,
-                            compatibleIds: null,
-                            penaltyBoxQueue: [],
-                            removed: []
-                        }, {
-                            mediaOptions: u,
-                            penaltyBoxQueue: [],
-                            removed: []
-                        }],
-                        audioMediaSelectionGroup: o,
-                        subtitleMediaSelectionGroup: d,
-                        enabledMediaOptionKeys: [Ol, Ol, Ol],
-                        mediaOptionSwitchContexts: [null, null, null],
-                        anchorTime: 0,
-                        discoSeqNum: NaN,
-                        pendingSeek: void 0,
-                        itemStartOffset: s,
-                        initPtsRecord: {},
-                        contentSteeringOption: e.contentSteeringOption,
-                        masterVariableList: e.masterVariableList,
-                        loadStats: e.stats,
-                        isMediaPlaylist: e.isMediaPlaylist,
-                        abrStatus: {
-                            fragDownloadSlow: !1,
-                            fragDownloadTooSlow: !1,
-                            nextMinAutoOptionId: Ol.mediaOptionId,
-                            nextMaxAutoOptionId: Ol.mediaOptionId,
-                            highBWTrigger: NaN
-                        },
-                        sessionData: a
-                    }
-                }(n, i, r, s)
-            }
-            ))
-        }
-        ;
-        function Dy(e, t, i, r, n, s, a) {
-            var o, d, l, u, c, h, p, f = e.mediaOptionListTuple[ul.Variant], m = wm(f.mediaOptions, xm.kAllowFilters, Object.assign(Object.assign({}, f), {
-                compatibleIds: null
-            })), g = Am(f.preferredHost, m);
-            return {
-                firstVariant: (o = g,
-                e = Tg,
-                f = f.hasScore,
-                t = t,
-                i = i,
-                r = r,
-                n = n,
-                s = s,
-                a = a,
-                !o || o.length < 1 || o.every(e=>e.iframes) ? void t.warn("no non-iframe media option found") : ((o = f ? Eg(o, i, r, n, s, a) : (d = e,
-                l = i,
-                u = r,
-                c = n,
-                h = s,
-                p = a,
-                o.reduce((e,t)=>{
-                    if (t.iframes)
-                        return e;
-                    let i = e;
-                    const r = function(e, t, i, r, n, s, a) {
-                        var o, d, l = (o = e.bitrate,
-                        u = e.height,
-                        (d = (e,t,i)=>(e - t) * (e - i) <= 0)(o, t.minValidBitrate, t.maxValidBitrate) && d(u, t.minValidHeight, t.maxValidHeight) ? ll.VALID : ll.INVALID), o = "PQ" === (c = e.videoRange) ? ol.PQ : "HLG" === c ? ol.HLG : "SDR" === c ? ol.SDR : ol.UNKNOWN, {videoCodecRank: u, audioCodecRank: c} = {
-                            videoCodecRank: $p((d = e).videoCodec),
-                            audioCodecRank: Kp(d.audioCodec)
-                        }, d = e.bitrate < t.maxPreferredBitrate ? ll.VALID : ll.INVALID, t = e.audioChannelCount || 1, a = i && r && n && s && !Ig(e, i, r, n, s, a) ? ll.INVALID : ll.VALID;
-                        return new Hp(l,o,u,t,c,a,d,e.height)
-                    }(t, d, l, u, c, h, p);
-                    return (!e || r.isGreaterThan(e.bestRank) || r.isEqualTo(e.bestRank) && t.bitrate > e.selected.bitrate) && (i = {
-                        selected: t,
-                        bestRank: r
-                    }),
-                    i
-                }
-                , null).selected)) || t.warn("no valid first media option found"),
-                o)),
-                filteredVariants: m,
-                preferredVariants: g
-            }
-        }
-        function My(e, t, i) {
-            if ((null == t ? void 0 : t.mediaType) === pl.CLOSEDCAPTION) {
-                const r = Ty.pairForcedSubtitleMediaOptionWithClosedCaptionInList(e.subtitleGroupId, t, i);
-                if (r)
-                    return t = Object.assign(Object.assign({}, t), {
-                        url: r.url,
-                        backingMediaOptionId: r.mediaOptionId
-                    }),
-                    i.map(e=>e.mediaOptionId === t.mediaOptionId ? t : e)
-            }
-            return i
-        }
-        function Py(e, t, i, r, n, s, a, o) {
-            var d;
-            const l = e.itemId
-              , u = e.mediaOptionListTuple[ul.Variant]
-              , c = e.mediaOptionListTuple[ul.AltAudio]
-              , h = e.mediaOptionListTuple[ul.Subtitle]
-              , p = wm(c.mediaOptions, Ty.kAllowFilters, c)
-              , f = wm(h.mediaOptions, Ty.kAllowFilters, h);
-            let {firstVariant: m, filteredVariants: g} = Dy(e, i, r, n, s, a, o);
-            if (!m) {
-                const U = u.preferHDR;
-                u.preferHDR = !U && u.hasHdrLevels,
-                u.preferHDR !== U && (i.warn(`No valid first variant found, toggling hdr preference=${U}->${u.preferHDR}`),
-                {firstVariant: m, filteredVariants: g} = Dy(e, i, r, n, s, a, o))
-            }
-            if (!m)
-                throw new V(!0,"No valid first variant found",$.NoValidAlternates);
-            const y = gl(m.url)
-              , v = {
-                itemId: l,
-                mediaOptionId: null !== (o = null == m ? void 0 : m.mediaOptionId) && void 0 !== o ? o : null
-            }
-              , S = null != p && p.length ? null === (o = ((i,r,e,n)=>{
-                if (e) {
-                    let t;
-                    return t = ne(i) ? e.MediaSelectionGroupOptions.find(function(e) {
-                        return e.MediaSelectionOptionsPersistentID === i
-                    }) : e.MediaSelectionGroupOptions.find(function(e) {
-                        return e.MediaSelectionOptionsIsDefault
-                    }),
-                    t = t || e.MediaSelectionGroupOptions[0],
-                    n.find(e=>(!r || e.groupId === r) && e.persistentID === (null == t ? void 0 : t.MediaSelectionOptionsPersistentID))
-                }
-            }
-            )(null == t ? void 0 : t.audioPersistentId, m.audioGroupId, e.audioMediaSelectionGroup, p)) || void 0 === o ? void 0 : o.mediaOptionId : null
-              , b = S ? {
-                itemId: l,
-                mediaOptionId: S
-            } : Ol
-              , T = ((i,r,n,s,a,o)=>{
-                if (s) {
-                    let t, e;
-                    return t = ne(i) ? s.MediaSelectionGroupOptions.find(function(e) {
-                        return e.MediaSelectionOptionsPersistentID === i
-                    }) : s.MediaSelectionGroupOptions.find(function(e) {
-                        return e.MediaSelectionOptionsIsDefault
-                    }),
-                    t && (e = a.find(e=>e.mediaType === pl.CLOSEDCAPTION ? (!r || e.groupId === r) && e.persistentID === t.MediaSelectionOptionsPersistentID : e.mediaType === pl.SUBTITLE ? (!n || e.groupId === n) && e.persistentID === t.MediaSelectionOptionsPersistentID : void o.warn(Iy, `subtitle media option has unknown type ${e.mediaType}`))),
-                    e
-                }
-            }
-            )(null == t ? void 0 : t.subtitlePersistentId, m.closedcaption, m.subtitleGroupId, e.subtitleMediaSelectionGroup, f, i)
-              , E = null != f && f.length ? null == T ? void 0 : T.mediaOptionId : null
-              , I = E ? {
-                itemId: l,
-                mediaOptionId: E,
-                mediaOptionType: ul.Subtitle
-            } : Ol
-              , {mediaOptions: w, audioGroups: A, subtitleGroups: O} = (t = g,
-            d = m,
-            t.reduce((e,t)=>{
-                if (((e,t)=>{
-                    let i = !0;
-                    e.videoCodec && t.videoCodec && (i = Se.isCompatibleVideoCodec(e.videoCodec, t.videoCodec));
-                    let r = !1;
-                    e.videoRange && t.videoRange ? r = e.videoRange == t.videoRange : e.videoRange || t.videoRange || (r = !0);
-                    let n = !0;
-                    return e.audioCodec && t.audioCodec && (n = Se.isCompatibleAudioCodec(e.audioCodec, t.audioCodec)),
-                    i && r && n
-                }
-                )(d, t)) {
-                    const d = t.audioGroupId;
-                    d && e.audioGroups.add(d),
-                    e.mediaOptions.add(t)
-                }
-                var i = t.subtitleGroupId;
-                i && e.subtitleGroups.add(i);
-                t = t.closedcaption;
-                return t && e.closedCaptionGroups.add(t),
-                e
-            }
-            , {
-                mediaOptions: new Set,
-                audioGroups: new Set,
-                subtitleGroups: new Set,
-                closedCaptionGroups: new Set
-            }))
-              , k = Array.from(w).map(e=>e.mediaOptionId)
-              , C = m.pathwayID
-              , D = Object.assign(Object.assign({}, u), {
-                compatibleIds: k,
-                preferredHost: y,
-                currentPathwayID: C
-            })
-              , M = []
-              , P = c.mediaOptions.reduce((e,t)=>(A.has(t.groupId) && (e.persistentIds.add(t.persistentID),
-            M.push(t.mediaOptionId),
-            e.filteredAudioMediaOptions.push(t),
-            e.altAudio || (e.altAudio = !!t.url)),
-            e), {
-                filteredAudioMediaOptions: [],
-                persistentIds: new Set,
-                altAudio: !1
-            })
-              , x = Object.assign(Object.assign({}, c), {
-                compatibleIds: M
-            });
-            let R = e.audioMediaSelectionGroup;
-            const L = null == R ? void 0 : R.MediaSelectionGroupOptions;
-            if (L) {
-                const e = L.reduce((e,t)=>(P.persistentIds.has(t.MediaSelectionOptionsPersistentID) && e.push(t),
-                e), new Array);
-                R = Object.assign(Object.assign({}, R), {
-                    MediaSelectionGroupOptions: e
-                })
-            }
-            h.mediaOptions = My(m, T, h.mediaOptions);
-            const _ = h.mediaOptions.reduce((e,t)=>(O.has(t.groupId) && (e.persistentIds.add(t.persistentID),
-            e.filteredSubtitleMediaOptions.push(t)),
-            e), {
-                filteredSubtitleMediaOptions: [],
-                persistentIds: new Set
-            });
-            let N = e.subtitleMediaSelectionGroup;
-            const F = null == N ? void 0 : N.MediaSelectionGroupOptions;
-            if (F) {
-                const e = F.reduce((e,t)=>(_.persistentIds.has(t.MediaSelectionOptionsPersistentID) && e.push(t),
-                e), new Array);
-                N = Object.assign(Object.assign({}, N), {
-                    MediaSelectionGroupOptions: e
-                })
-            }
-            i = [D, x, h];
-            let B = new Map;
-            Ym().useHighestVideoCodecPrivate && (B = null == D ? void 0 : D.mediaOptions.reduce((e,t)=>{
-                const i = t.videoCodecList;
-                if (i)
-                    for (const t of i) {
-                        const i = Vp(t)
-                          , r = e.get(i);
-                        Se.isHigherCodecByFamily(r, t) && e.set(i, t)
-                    }
-                return e
-            }
-            , B)),
-            B.size && B.forEach((e,t)=>{}
-            );
-            t = {
-                fragDownloadSlow: !1,
-                fragDownloadTooSlow: !1,
-                nextMinAutoOptionId: Ol.mediaOptionId,
-                nextMaxAutoOptionId: Ol.mediaOptionId,
-                highBWTrigger: Lg(v.mediaOptionId, D.mediaOptions)
-            };
-            return Object.assign(Object.assign({}, e), {
-                enabledMediaOptionKeys: [v, b, I],
-                mediaOptionListTuple: i,
-                audioMediaSelectionGroup: R,
-                abrStatus: t,
-                highestVideoCodec: B
-            })
-        }
-        const xy = (o,d,l,u,c,h,p)=>e=>e.pipe(Ql.tag("retrieveRootMediaOptions.input"), Ra(t=>{
-            var e;
-            if (!t)
-                return Ti;
-            const {itemId: i, platformInfo: r} = t
-              , n = ky(i)
-              , s = d["logger"];
-            if (n.hasEntity(i))
-                return Bi(n);
-            Ay.setLoading(!0);
-            const a = performance.now();
-            return function(e, t, u, c, i) {
-                const {itemId: h, url: p, itemStartOffset: f} = e
-                  , r = xc(e, t);
-                return bm({
-                    url: p,
-                    onProgress: {
-                        getData: !0,
-                        cb: dy
-                    },
-                    xhrSetup: c.xhrSetup
-                }, r, i).pipe(ur(({responseText: e, stats: t})=>{
-                    var i = c["keySystemPreference"];
-                    if (Sm.isMediaPlaylist(e)) {
-                        const c = "media-pl-" + Jd()
-                          , d = Sm.parseMediaOptionPlaylist(e, p, !0, i, {}, h, c, ul.Variant, u, f);
-                        Lc(d.mediaOptionDetails);
-                        var r = {
-                            itemId: h,
-                            mediaOptionId: c,
-                            mediaOptionType: ul.Variant,
-                            url: p,
-                            bandwidth: 0,
-                            bitrate: 0,
-                            iframes: d.mediaOptionDetails.iframesOnly,
-                            pathwayID: "."
-                        };
-                        return {
-                            itemId: h,
-                            itemStartOffset: f,
-                            rootMediaOptionsTuple: [[r], [], []],
-                            stats: t,
-                            baseUrl: p,
-                            initialDetails: d.mediaOptionDetails,
-                            isMediaPlaylist: !0
-                        }
-                    }
-                    {
-                        const u = Sm.parseSessionData(e, p)
-                          , c = Sm.parseSessionKeys(e, p, i)
-                          , l = Sm.parseRootPlaylist(h, e, p, !0);
-                        if (l.playlistParsingError)
-                            throw l.playlistParsingError;
-                        var {variantMediaOptions: n, contentSteeringOption: s, masterVariableList: a} = l
-                          , o = Sm.parseRootPlaylistAlternateMediaOptions(h, e, p, l.variantMediaOptions, !0, a);
-                        if (o.playlistParsingError)
-                            throw o.playlistParsingError;
-                        var {audioAlternateOptions: r, subtitleAlternateOptions: i, audioMediaSelectionGroup: e, subtitleMediaSelectionGroup: o} = o.alternateMediaInfo;
-                        return {
-                            itemId: h,
-                            itemStartOffset: f,
-                            rootMediaOptionsTuple: [n, r, i],
-                            stats: t,
-                            baseUrl: p,
-                            audioMediaSelectionGroup: e,
-                            subtitleMediaSelectionGroup: o,
-                            contentSteeringOption: s,
-                            sessionData: u,
-                            sessionKeys: c,
-                            masterVariableList: a
-                        }
-                    }
-                }
-                ), e=>e.pipe(Un(e=>{
-                    if (e instanceof ou)
-                        throw new ru(!1,"Timeout",0,$.ManifestTimeoutError,!0);
-                    if (e instanceof tu)
-                        throw new ru(!1,e.message,e.code,{
-                            code: e.code,
-                            text: "Manifest network error"
-                        },!1);
-                    throw e
-                }
-                )))
-            }(t, o, s, l, null === (e = null === (e = Xm()) || void 0 === e ? void 0 : e.getQuery()) || void 0 === e ? void 0 : e.extendMaxTTFB).pipe(Ja(e=>p.triggerManifestLoaded(e)), Ja(({initialDetails: e, stats: t})=>{
-                e && (e = e,
-                t = t,
-                hg().archiveMediaOptionDetails(e, t, !0))
-            }
-            ), So(u.displaySupportsHdr$), Ra(([e,t])=>Cy(e, r, l, t, s)), ur(e=>(d.rootPlaylistEntity = function(e, t, i, r, n, s) {
-                const {itemId: a, initialSeekTime: o} = e
-                  , d = Uf(a)
-                  , l = n.enableAdaptiveStartup ? d.getBandwidthEstimate(n, e.serviceName) : void 0
-                  , u = n.enableAdaptiveStartup ? d.getPlaylistEstimate(n, e.serviceName) : void 0
-                  , c = n.enableAdaptiveStartup ? d.getFragEstimate(n, e.serviceName) : void 0
-                  , h = n.enableAdaptiveStartup ? d.getBufferEstimate(n, e.serviceName) : void 0
-                  , p = n.targetStartupMs - (performance.now() - r)
-                  , f = n.enableAdaptiveStartup ? {
-                    targetDuration: c.maxDurationSec || n.defaultTargetDuration,
-                    targetStartupMs: p
-                } : void 0
-                  , m = Py(t, i, s, l, f, u, c, h);
-                return m.pendingSeek = o,
-                m
-            }(t, e, c, a, l, s),
-            n)), jm(i, null, xc(t, o), 0, !1, n, d, h), $s(()=>{
-                Ay.setLoading(!1)
-            }
-            ))
-        }
-        ), Ql.tag("retrieveRootMediaOptions.emit"));
-        class Ry {
-        }
-        Ry.PlayEnded = 6101,
-        Ry.Periodic = 6110,
-        Ry.PlayStalled = 6103,
-        Ry.KeySessionComplete = 6104,
-        Ry.PlayLikelyToKeepUp = 6105,
-        Ry.PlayRateChanged = 6106,
-        Ry.PlayError = 6107,
-        Ry.MediaEngineStalled = 6108,
-        Ry.SwitchComplete = 6109,
-        Ry.VariantEnded = 6111,
-        Ry.NwError = 6202;
-        const Ly = {
+        class Df {
+        }
+        Df.PlayEnded = 6101,
+        Df.Periodic = 6110,
+        Df.PlayStalled = 6103,
+        Df.KeySessionComplete = 6104,
+        Df.PlayLikelyToKeepUp = 6105,
+        Df.PlayRateChanged = 6106,
+        Df.PlayError = 6107,
+        Df.MediaEngineStalled = 6108,
+        Df.SwitchComplete = 6109,
+        Df.VariantEnded = 6111,
+        Df.NwError = 6202;
+        const Mf = {
             avc1: 1,
             avc3: 1,
             hvc1: {
@@ -28472,7 +21368,7 @@
                 PQ: 12
             }
         };
-        class _y {
+        class Pf {
             constructor(e, t) {
                 this.query = e,
                 this.logger = t
@@ -28481,51 +21377,51 @@
                 this.reportingAgent = e
             }
             sendPlayEnded(e) {
-                var t = Ry.PlayEnded;
+                var t = Df.PlayEnded;
                 this.fillAndFire(t, this.query.playEnded(e))
             }
             sendPlayStalled(e) {
-                var t = Ry.PlayStalled;
+                var t = Df.PlayStalled;
                 this.fillAndFire(t, this.query.playStalled(e))
             }
             sendMediaEngineStalled(e) {
-                var t = Ry.MediaEngineStalled;
+                var t = Df.MediaEngineStalled;
                 this.fillAndFire(t, this.query.mediaEngineStalled(e))
             }
             sendKeySessionComplete(e) {
-                var t = Ry.KeySessionComplete;
+                var t = Df.KeySessionComplete;
                 this.fillAndFire(t, this.query.keySessionComplete(e))
             }
             sendPlayLikelyToKeepUp(e) {
-                var t = Ry.PlayLikelyToKeepUp;
+                var t = Df.PlayLikelyToKeepUp;
                 this.fillAndFire(t, this.query.playLikelyToKeepUp(e))
             }
             sendPlayRateChange(e) {
-                var t = Ry.PlayRateChanged;
+                var t = Df.PlayRateChanged;
                 this.fillAndFire(t, this.query.playRateChanged(e))
             }
             sendSwitchComplete(e) {
-                var t = Ry.SwitchComplete;
+                var t = Df.SwitchComplete;
                 this.fillAndFire(t, this.query.switchComplete(e))
             }
             sendVariantEnded(e) {
-                var t = Ry.VariantEnded;
+                var t = Df.VariantEnded;
                 this.fillAndFire(t, this.query.variantEnded(e))
             }
             sendPlayError(e) {
-                var t = Ry.PlayError;
+                var t = Df.PlayError;
                 this.fillAndFire(t, this.query.playError(e))
             }
             sendNwError(e) {
-                var t = Ry.NwError;
+                var t = Df.NwError;
                 this.fillAndFire(t, this.query.nwError(e))
             }
             sendPeriodic(e) {
-                var t = Ry.Periodic;
+                var t = Df.Periodic;
                 this.fillAndFire(t, this.query.periodic(e))
             }
             fillAndFire(e, t) {
-                var r = e === Ry.PlayEnded || e === Ry.Periodic ? 1 : 0;
+                var r = e === Df.PlayEnded || e === Df.Periodic ? 1 : 0;
                 if (this.reportingAgent) {
                     let i = {};
                     Object.entries(t).forEach(([e,t])=>{
@@ -28542,7 +21438,7 @@
                 }
             }
         }
-        class Ny extends Od {
+        class xf extends Od {
             constructor(e, t) {
                 super(e),
                 this.logger = t
@@ -28587,7 +21483,7 @@
                 return null === (e = this.getEntity(e)) || void 0 === e ? void 0 : e.nwErrorRecord
             }
         }
-        class Fy extends pd {
+        class Rf extends pd {
             constructor(e) {
                 super({}, {
                     name: "rtc-store",
@@ -28825,7 +21721,7 @@
             }
             finalize(e, t) {
                 switch (t) {
-                case Ry.PlayEnded:
+                case Df.PlayEnded:
                     this.update(e, ({sessionControlRecord: e})=>{
                         e.state = "RTC_STATE_STOP",
                         e.oldRate = 0
@@ -28836,7 +21732,7 @@
                     }
                     );
                     break;
-                case Ry.Periodic:
+                case Df.Periodic:
                     this.update(e, ({sessionControlRecord: t})=>{
                         t.lastPeriodicTime = Date.now(),
                         t.periodicEventCounter += 1,
@@ -28851,7 +21747,7 @@
                     }
                     );
                     break;
-                case Ry.PlayStalled:
+                case Df.PlayStalled:
                     this.update(e, ({sessionControlRecord: e})=>{
                         e.state = "RTC_STATE_STALL",
                         e.oldRate = 0
@@ -28862,7 +21758,7 @@
                     }
                     );
                     break;
-                case Ry.KeySessionComplete:
+                case Df.KeySessionComplete:
                     this.update(e, ({sessionControlRecord: e})=>{
                         delete e.activeKeySessions[e.finishedKeyUri]
                     }
@@ -28872,7 +21768,7 @@
                     }
                     );
                     break;
-                case Ry.PlayLikelyToKeepUp:
+                case Df.PlayLikelyToKeepUp:
                     this.update(e, ({sessionControlRecord: e})=>{
                         "RTC_STATE_PLAY" !== e.state && (e.state = "RTC_STATE_CANPLAY",
                         e.lastLikelyToKeepUpTime = Date.now(),
@@ -28884,7 +21780,7 @@
                     }
                     );
                     break;
-                case Ry.PlayRateChanged:
+                case Df.PlayRateChanged:
                     this.update(e, ({sessionControlRecord: e, playEndedRecord: t, playStalledRecord: i, mediaEngineStalledRecord: r, playErrorRecord: n, nwErrorRecord: s})=>{
                         0 !== e.rate ? (e.state = "RTC_STATE_PLAY",
                         delete t.LastStall,
@@ -28904,7 +21800,7 @@
                     }
                     );
                     break;
-                case Ry.PlayError:
+                case Df.PlayError:
                     this.update(e, ({sessionControlRecord: e})=>{
                         e.state = "RTC_STATE_PLAYERROR"
                     }
@@ -28914,7 +21810,7 @@
                     }
                     );
                     break;
-                case Ry.MediaEngineStalled:
+                case Df.MediaEngineStalled:
                     this.update(e, ({sessionControlRecord: e})=>{
                         e.state = "RTC_STATE_MEDIAENGINESTALL",
                         e.oldRate = 0
@@ -28925,14 +21821,14 @@
                     }
                     );
                     break;
-                case Ry.SwitchComplete:
+                case Df.SwitchComplete:
                     this.update(e, e=>{
                         e.switchCompleteRecord = {},
                         e.sessionControlRecord.prevLevelUrl = e.sessionControlRecord.curLevelUrl
                     }
                     );
                     break;
-                case Ry.VariantEnded:
+                case Df.VariantEnded:
                     this.update(e, ({sessionControlRecord: e})=>{
                         e.decodedFramesForVariant = 0,
                         e.decodedFramesForVariantSampleCount = 0
@@ -28943,7 +21839,7 @@
                     }
                     );
                     break;
-                case Ry.NwError:
+                case Df.NwError:
                     this.update(e, ({sessionControlRecord: e})=>{
                         e.state = "RTC_STATE_NWERROR"
                     }
@@ -29473,13 +22369,13 @@
                 n
             }
             _getNormalizedPeak(e, t) {
-                return "object" == typeof Ly[t] ? 1.5 * e : +e
+                return "object" == typeof Mf[t] ? 1.5 * e : +e
             }
             _getVideoFourCC(e) {
-                return e && e.split(",").map(e=>e.split(".")[0].trim()).find(e=>!!Ly[e])
+                return e && e.split(",").map(e=>e.split(".")[0].trim()).find(e=>!!Mf[e])
             }
             _getVideoQualityIndex(e, t) {
-                return "object" == typeof Ly[e] ? Ly[e][t] : Ly[e]
+                return "object" == typeof Mf[e] ? Mf[e][t] : Mf[e]
             }
             _getBitrateRank(e, t, i) {
                 t = Math.max(1, this._getNormalizedPeak(e, t));
@@ -29640,10 +22536,10 @@
                 )
             }
         }
-        const By = {
+        const Lf = {
             name: "rtc-service"
         };
-        class Uy {
+        class _f {
             constructor(e, t, i, r) {
                 this.hls = e,
                 this.config = t,
@@ -29654,9 +22550,9 @@
                 this.seekStart = null,
                 this.periodicInterval = t.rtcIntervalTimeout || 3e5,
                 this.intervalFunc = null,
-                this.rtcStore = new Fy(this.logger),
-                this.rtcQuery = new Ny(this.rtcStore,this.logger),
-                this.rtcComponent = new _y(this.rtcQuery,this.logger),
+                this.rtcStore = new Rf(this.logger),
+                this.rtcQuery = new xf(this.rtcStore,this.logger),
+                this.rtcComponent = new Pf(this.rtcQuery,this.logger),
                 i.setRTCQuery(this.rtcQuery),
                 this.subscribeAndUpdateStore(),
                 this.registerForEvents()
@@ -29674,13 +22570,13 @@
                     this.rtcStore.updateVariantEnd(this.rtcEventItemId(!0), {
                         currentTime: e
                     }),
-                    this.sendAndFinalize(this.rtcEventItemId(!0), Ry.VariantEnded),
+                    this.sendAndFinalize(this.rtcEventItemId(!0), Df.VariantEnded),
                     this.rtcStore.updatePeriodic(this.rtcEventItemId(!0), !0),
-                    this.sendAndFinalize(this.rtcEventItemId(!0), Ry.Periodic),
+                    this.sendAndFinalize(this.rtcEventItemId(!0), Df.Periodic),
                     this.rtcStore.updateEnded(this.rtcEventItemId(!0)),
-                    this.sendAndFinalize(this.rtcEventItemId(!0), Ry.PlayEnded)
+                    this.sendAndFinalize(this.rtcEventItemId(!0), Df.PlayEnded)
                 } catch (e) {
-                    this.logger.warn(By, e)
+                    this.logger.warn(Lf, e)
                 }
             }
             handleError(e) {
@@ -29690,25 +22586,25 @@
                     mediaDur: this.hls.bufferedDuration,
                     isSeeking: this.isSeeking
                 }),
-                this.sendAndFinalize(this.rtcEventItemId(), Ry.SwitchComplete)) : t.type === o ? (this.rtcStore.updateNwError(this.rtcEventItemId(), {
+                this.sendAndFinalize(this.rtcEventItemId(), Df.SwitchComplete)) : t.type === o ? (this.rtcStore.updateNwError(this.rtcEventItemId(), {
                     fatal: t.fatal,
                     details: t.details,
                     code: null === (e = t.response) || void 0 === e ? void 0 : e.code
                 }),
-                this.sendAndFinalize(this.rtcEventItemId(), Ry.NwError)) : (this.rtcStore.updateMediaError(this.rtcEventItemId(), {
+                this.sendAndFinalize(this.rtcEventItemId(), Df.NwError)) : (this.rtcStore.updateMediaError(this.rtcEventItemId(), {
                     fatal: t.fatal,
                     details: t.details,
                     code: null === (t = t.response) || void 0 === t ? void 0 : t.code
                 }),
-                this.sendAndFinalize(this.rtcEventItemId(), Ry.PlayError))
+                this.sendAndFinalize(this.rtcEventItemId(), Df.PlayError))
             }
             handleMediaElementError(e) {
                 this.rtcStore.updateMediaElementError(this.rtcEventItemId(), e),
-                this.sendAndFinalize(this.rtcEventItemId(), Ry.PlayError)
+                this.sendAndFinalize(this.rtcEventItemId(), Df.PlayError)
             }
             handleFragLoaded(e, t) {
                 var i, r, n;
-                this.checkMediaOptionType(e.mediaOptionType) && (e.itemId !== this.rtcEventItemId() && this.logger.warn(By, `Frag id does not match current item id. Frag Id=${e.itemId}, playing id=${this.rtcEventItemId(!0)}, loading id=${null === (n = this.hls.loadingItem) || void 0 === n ? void 0 : n.itemId}`),
+                this.checkMediaOptionType(e.mediaOptionType) && (e.itemId !== this.rtcEventItemId() && this.logger.warn(Lf, `Frag id does not match current item id. Frag Id=${e.itemId}, playing id=${this.rtcEventItemId(!0)}, loading id=${null === (n = this.hls.loadingItem) || void 0 === n ? void 0 : n.itemId}`),
                 i = t.tload - t.trequest,
                 r = t.tload - t.tfirst,
                 n = this.serverInfoInstance || {},
@@ -29743,7 +22639,7 @@
             }
             handleLevelLoaded(e, t) {
                 var i;
-                e ? (e.itemId !== this.rtcEventItemId() && this.logger.warn(By, `media option id does not match current item id. media Id=${e.itemId}, current id=${this.rtcEventItemId}`),
+                e ? (e.itemId !== this.rtcEventItemId() && this.logger.warn(Lf, `media option id does not match current item id. media Id=${e.itemId}, current id=${this.rtcEventItemId}`),
                 e.mediaOptionType === ul.Variant && (i = t.tload - t.trequest,
                 this.rtcStore.updateLevelLoaded(this.rtcEventItemId(), {
                     url: e.url,
@@ -29763,9 +22659,9 @@
                 e.oldVariant && (this.rtcStore.updateVariantEnd(this.rtcEventItemId(), {
                     currentTime: this.hls.realCurrentTime
                 }),
-                this.sendAndFinalize(this.rtcEventItemId(), Ry.VariantEnded)),
+                this.sendAndFinalize(this.rtcEventItemId(), Df.VariantEnded)),
                 this.rtcStore.updateLevelSwitched(this.rtcEventItemId(), t),
-                this.sendAndFinalize(this.rtcEventItemId(), Ry.SwitchComplete)
+                this.sendAndFinalize(this.rtcEventItemId(), Df.SwitchComplete)
             }
             handleLevelSwitching(e) {
                 this.levelSwitchingUrl = e
@@ -29809,7 +22705,7 @@
                     currentTime: this.hls.realCurrentTime,
                     url: this.levelSwitchingUrl
                 }),
-                this.sendAndFinalize(this.rtcEventItemId(!0), Ry.PlayRateChanged)) : 1 !== e && 1 === t && (this.playStart = Date.now()),
+                this.sendAndFinalize(this.rtcEventItemId(!0), Df.PlayRateChanged)) : 1 !== e && 1 === t && (this.playStart = Date.now()),
                 this.oldRate = e,
                 this.newRate = t
             }
@@ -29830,8 +22726,8 @@
                 }
                   , t = this.rtcQuery.getEntity(this.rtcEventItemId(!0)).sessionControlRecord.state;
                 e.type === Op.LowBuffer || e.type === Op.Seek && e.isLowBufferStall ? "RTC_STATE_PLAY" === t && (this.rtcStore.updateBufferStalled(this.rtcEventItemId(!0), i),
-                this.sendAndFinalize(this.rtcEventItemId(!0), Ry.PlayStalled)) : "RTC_STATE_PLAY" === t && (this.rtcStore.updateMediaEngineStalled(this.rtcEventItemId(!0), i),
-                this.sendAndFinalize(this.rtcEventItemId(!0), Ry.MediaEngineStalled))
+                this.sendAndFinalize(this.rtcEventItemId(!0), Df.PlayStalled)) : "RTC_STATE_PLAY" === t && (this.rtcStore.updateMediaEngineStalled(this.rtcEventItemId(!0), i),
+                this.sendAndFinalize(this.rtcEventItemId(!0), Df.MediaEngineStalled))
             }
             handlePlaybackInfo(e, t) {
                 this.rtcStore.updatePlaybackInfo(this.rtcEventItemId(!0), {
@@ -29844,7 +22740,7 @@
                 })
             }
             checkMediaOptionType(e) {
-                return e === ul.Variant || e === ul.AltAudio || (this.logger.error(By, 'Should not have media option type = "%s" in RTC', Cl[e]),
+                return e === ul.Variant || e === ul.AltAudio || (this.logger.error(Lf, 'Should not have media option type = "%s" in RTC', Cl[e]),
                 !1)
             }
             rtcEventItemId(e=!1) {
@@ -29858,7 +22754,7 @@
                         if (this.hls.userInfo ? this.hls.userInfo.internalBuild ? e = !0 : this.hls.userInfo.diagnosticsAndUsage && (e = this.config.enableRtcReporting) : e = this.config.enableRtcReporting,
                         e) {
                             const i = this.hls.reportingAgent;
-                            i ? this.rtcComponent.setReportingAgent(i) : this.logger.warn(By, "[RTCA] - Reporting is enabled but reportingAgent is null")
+                            i ? this.rtcComponent.setReportingAgent(i) : this.logger.warn(Lf, "[RTCA] - Reporting is enabled but reportingAgent is null")
                         } else
                             this.rtcComponent.setReportingAgent(null);
                         this.serverInfoInstance = null;
@@ -29873,11 +22769,11 @@
                 this.rtcStore.updateVariantEnd(e, {
                     currentTime: this.hls.realCurrentTime
                 }),
-                this.sendAndFinalize(e, Ry.VariantEnded),
+                this.sendAndFinalize(e, Df.VariantEnded),
                 this.rtcStore.updatePeriodic(e, !0),
-                this.sendAndFinalize(e, Ry.Periodic),
+                this.sendAndFinalize(e, Df.Periodic),
                 this.rtcStore.updateEnded(e),
-                this.sendAndFinalize(e, Ry.PlayEnded),
+                this.sendAndFinalize(e, Df.PlayEnded),
                 this.setPeriodic(t)
             }
             mediaElementQueryListener(e) {
@@ -29888,7 +22784,7 @@
                         1 < Math.abs(e) && 1 < Math.abs(t) || (this.rtcStore.updateCanPlay(this.rtcEventItemId(!0), {
                             mediaDur: this.hls.bufferedDuration
                         }),
-                        this.sendAndFinalize(this.rtcEventItemId(!0), Ry.PlayLikelyToKeepUp),
+                        this.sendAndFinalize(this.rtcEventItemId(!0), Df.PlayLikelyToKeepUp),
                         this.rtcStore.updateRateChanged(this.rtcEventItemId(!0), {
                             rate: t,
                             latency: ne(this.playStart) ? Date.now() - this.playStart : 0,
@@ -29896,14 +22792,14 @@
                             currentTime: this.hls.realCurrentTime,
                             url: this.levelSwitchingUrl
                         }),
-                        this.sendAndFinalize(this.rtcEventItemId(!0), Ry.PlayRateChanged))
+                        this.sendAndFinalize(this.rtcEventItemId(!0), Df.PlayRateChanged))
                     }
                 }
                 ))
             }
             registerForEvents() {
                 const e = wc(this.hls, this);
-                nn(e.event(P.KEY_REQUEST_STARTED, this.keyRequestStarted, this), e.event(P.KEY_LOADED, this.keyLoaded, this)).pipe($a(this.destroy$)).subscribe()
+                nn(e.event(x.KEY_REQUEST_STARTED, this.keyRequestStarted, this), e.event(x.KEY_LOADED, this.keyLoaded, this)).pipe($a(this.destroy$)).subscribe()
             }
             keyRequestStarted(e) {
                 e.timestamp = Date.now(),
@@ -29954,21 +22850,21 @@
                     keyuri: e.keyuri,
                     currentTime: this.hls.realCurrentTime
                 }),
-                this.sendAndFinalize(this.rtcEventItemId(), Ry.KeySessionComplete)
+                this.sendAndFinalize(this.rtcEventItemId(), Df.KeySessionComplete)
             }
             licenseChallengeError(e) {
                 this.rtcStore.updateLicenseChallengeError(this.rtcEventItemId(), {
                     timestamp: Date.now(),
                     keyuri: e.keyuri
                 }),
-                this.sendAndFinalize(this.rtcEventItemId(), Ry.KeySessionComplete)
+                this.sendAndFinalize(this.rtcEventItemId(), Df.KeySessionComplete)
             }
             licenseResponseError(e) {
                 this.rtcStore.updateLicenseResponseError(this.rtcEventItemId(), {
                     timestamp: Date.now(),
                     keyuri: e.keyuri
                 }),
-                this.sendAndFinalize(this.rtcEventItemId(), Ry.KeySessionComplete)
+                this.sendAndFinalize(this.rtcEventItemId(), Df.KeySessionComplete)
             }
             keyAborted(e) {
                 var t;
@@ -29976,7 +22872,7 @@
                     timestamp: Date.now(),
                     keyuri: e.keyuri
                 }),
-                this.sendAndFinalize(this.rtcEventItemId(), Ry.KeySessionComplete)) : this.logger.warn(`keyAbort called without active key session ${oe(e.keyuri)}`)
+                this.sendAndFinalize(this.rtcEventItemId(), Df.KeySessionComplete)) : this.logger.warn(`keyAbort called without active key session ${oe(e.keyuri)}`)
             }
             setPeriodic(e) {
                 this.clearPeriodic(),
@@ -29984,7 +22880,7 @@
             }
             handlePeriodic(e) {
                 this.rtcStore.updatePeriodic(e, !1),
-                this.sendAndFinalize(e, Ry.Periodic)
+                this.sendAndFinalize(e, Df.Periodic)
             }
             clearPeriodic() {
                 this.intervalFunc && clearInterval(this.intervalFunc),
@@ -29993,58 +22889,7168 @@
             sendAndFinalize(e, t) {
                 switch (this.accessLog.addPlayTime(e),
                 t) {
-                case Ry.PlayEnded:
+                case Df.PlayEnded:
                     this.rtcComponent.sendPlayEnded(e);
                     break;
-                case Ry.Periodic:
+                case Df.Periodic:
                     this.rtcComponent.sendPeriodic(e);
                     break;
-                case Ry.PlayStalled:
+                case Df.PlayStalled:
                     this.accessLog.updateStallCount(e),
                     this.rtcComponent.sendPlayStalled(e);
                     break;
-                case Ry.KeySessionComplete:
+                case Df.KeySessionComplete:
                     this.rtcComponent.sendKeySessionComplete(e);
                     break;
-                case Ry.PlayLikelyToKeepUp:
+                case Df.PlayLikelyToKeepUp:
                     this.accessLog.updateCanPlay(e),
                     this.rtcComponent.sendPlayLikelyToKeepUp(e);
                     break;
-                case Ry.PlayRateChanged:
+                case Df.PlayRateChanged:
                     this.rtcComponent.sendPlayRateChange(e);
                     break;
-                case Ry.PlayError:
+                case Df.PlayError:
                     this.accessLog.addToErrorLog(e, "mediaError"),
                     this.rtcComponent.sendPlayError(e);
                     break;
-                case Ry.MediaEngineStalled:
+                case Df.MediaEngineStalled:
                     this.accessLog.updateMediaEngineStallCount(e),
                     this.rtcComponent.sendMediaEngineStalled(e);
                     break;
-                case Ry.SwitchComplete:
+                case Df.SwitchComplete:
                     this.accessLog.addToAccessLog(e),
                     this.rtcComponent.sendSwitchComplete(e);
                     break;
-                case Ry.VariantEnded:
+                case Df.VariantEnded:
                     this.rtcComponent.sendVariantEnded(e);
                     break;
-                case Ry.NwError:
+                case Df.NwError:
                     this.accessLog.addToErrorLog(e, "networkError"),
                     this.rtcComponent.sendNwError(e);
                     break;
                 default:
-                    return void this.logger.error(By, `Unknown rtc event eventGroupId:${e}`)
+                    return void this.logger.error(Lf, `Unknown rtc event eventGroupId:${e}`)
                 }
                 this.rtcStore.finalize(e, t)
             }
         }
+        const Nf = a=>(e,t)=>{
+            let i = 0
+              , r = 0;
+            for (var {timestamp: n, value: s} of e) {
+                const e = Math.pow(Math.max(0, n - t) / 1e3, a);
+                i += e * s,
+                r += e
+            }
+            return i / r
+        }
+          , Ff = {
+            "uniform-time-weighted": Nf(0),
+            "linear-time-weighted": Nf(1),
+            "quadratic-time-weighted": Nf(2)
+        };
+        class Bf {
+            constructor(e, t="quadratic-time-weighted", i={
+                avgLatencyMs: NaN,
+                avgBandwidth: NaN
+            }) {
+                this.windowSize = e,
+                this.aggregationMethod = t,
+                this.latencyEntries = [],
+                this.bandwidthEntries = [],
+                this.minEntries = 1,
+                this.cleanUpExpiredEntries = this.cleanUpExpiredEntries.bind(this),
+                this.bwSubject = new gi(i)
+            }
+            get estimate$() {
+                return this.bwSubject.asObservable()
+            }
+            record(e) {
+                var {trequest: t, tfirst: i, tload: r, bitsDownloaded: e} = e;
+                t !== r && (this.recordLatency(t, i),
+                this.recordBandwidth(t, r, 1e3 * e / (r - t)),
+                this.bwSubject.closed || (t = this.getEstimate(),
+                this.bwSubject.next(t)))
+            }
+            getEstimate() {
+                if (this.latencyEntries.length < this.minEntries)
+                    return {
+                        avgLatencyMs: NaN,
+                        avgBandwidth: NaN
+                    };
+                const e = performance.now() - this.windowSize
+                  , t = Ff[this.aggregationMethod]
+                  , i = this.latencyEntries.map(({start: e, end: t})=>({
+                    timestamp: t,
+                    value: t - e,
+                    duration: 1
+                }));
+                this.bandwidthEntries = function(r) {
+                    function n(t, i) {
+                        if (t.length) {
+                            for (let e = 0; e < t.length; e++)
+                                if (t[e].start > i.start || t[e].start === i.start && t[e].end > i.end) {
+                                    t.splice(e, 0, i);
+                                    break
+                                }
+                        } else
+                            t.push(i)
+                    }
+                    const s = [...r].sort((e,t)=>e.start !== t.start ? e.start - t.start : e.end - t.end)
+                      , t = [];
+                    for (; s.length; ) {
+                        const r = s[0];
+                        let e;
+                        if (s.shift(),
+                        t.length && (e = t[t.length - 1]),
+                        0 === t.length || e.end <= r.start)
+                            t.push(r);
+                        else if (r.start === e.start)
+                            r.end === e.end ? e.bitsPerSec += r.bitsPerSec : r.end < e.end || (e.bitsPerSec += r.bitsPerSec,
+                            r.start = e.end,
+                            n(s, r));
+                        else {
+                            var a = e.end
+                              , o = e.bitsPerSec;
+                            e.end = r.start;
+                            var i = {
+                                start: r.start,
+                                end: Math.min(a, r.end),
+                                bitsPerSec: r.bitsPerSec + o
+                            };
+                            if (t.push(i),
+                            a !== r.end) {
+                                let e = 0
+                                  , t = 0
+                                  , i = 0;
+                                i = a < r.end ? (e = a,
+                                t = r.end,
+                                r.bitsPerSec) : (e = r.end,
+                                t = a,
+                                o),
+                                n(s, {
+                                    start: e,
+                                    end: t,
+                                    bitsPerSec: i
+                                })
+                            }
+                        }
+                    }
+                    return t
+                }(this.bandwidthEntries);
+                var r = this.bandwidthEntries.map(({end: e, bitsPerSec: t})=>({
+                    timestamp: e,
+                    duration: 1,
+                    value: t
+                }));
+                return {
+                    avgLatencyMs: t(i, e),
+                    avgBandwidth: t(r, e)
+                }
+            }
+            getLatest() {
+                if (0 === this.latencyEntries.length)
+                    return {
+                        avgLatencyMs: NaN,
+                        avgBandwidth: NaN
+                    };
+                var e = this.latencyEntries[this.latencyEntries.length - 1]
+                  , t = this.bandwidthEntries[this.bandwidthEntries.length - 1];
+                return {
+                    avgLatencyMs: e.end - e.start,
+                    avgBandwidth: t.bitsPerSec
+                }
+            }
+            recordLatency(e, t) {
+                this.latencyEntries.push({
+                    start: e,
+                    end: t
+                }),
+                this.updateCleanupTimeout(t)
+            }
+            recordBandwidth(e, t, i) {
+                this.bandwidthEntries.push({
+                    start: e,
+                    end: t,
+                    bitsPerSec: i
+                }),
+                this.updateCleanupTimeout(t)
+            }
+            setCleanupTimeout(e) {
+                this.cleanupTimeout = setTimeout(this.cleanUpExpiredEntries, Math.max(e - performance.now(), 0)),
+                this.cleanupTimestamp = e
+            }
+            clearCleanupTimeout() {
+                void 0 !== this.cleanupTimeout && (clearTimeout(this.cleanupTimeout),
+                this.cleanupTimeout = void 0),
+                this.cleanupTimestamp = void 0
+            }
+            updateCleanupTimeout(e) {
+                e += this.windowSize;
+                (!this.cleanupTimestamp || e < this.cleanupTimestamp) && (this.clearCleanupTimeout(),
+                this.setCleanupTimeout(e))
+            }
+            cleanUpExpiredEntries() {
+                this.clearCleanupTimeout();
+                const t = performance.now() - this.windowSize;
+                if (this.latencyEntries = this.latencyEntries.filter(e=>e.end >= t),
+                this.bandwidthEntries = this.bandwidthEntries.filter(e=>e.end >= t),
+                this.bwSubject.closed || this.bwSubject.next(this.getEstimate()),
+                0 < this.latencyEntries.length || 0 < this.bandwidthEntries.length) {
+                    const t = Math.min(...this.latencyEntries.map(e=>e.end), ...this.bandwidthEntries.map(e=>e.end));
+                    this.updateCleanupTimeout(t)
+                }
+            }
+            destroy() {
+                this.clearCleanupTimeout()
+            }
+        }
+        const Uf = {
+            setCombinedEstimate: function(t, i, r) {
+                const n = qe();
+                if (void 0 !== t.storage.set) {
+                    var s = t.bandwidthHistoryStorageKey
+                      , a = {
+                        avgLatencyMs: i.avgLatencyMs,
+                        avgBandwidth: i.avgBandwidth
+                    }
+                      , a = Object.assign({}, a, {
+                        expires: Date.now() + t.bandwidthHistoryTTL
+                    });
+                    try {
+                        t.storage.set(s, JSON.stringify(a))
+                    } catch (t) {
+                        n.warn(`Error stringifying! Not persisting bandwidth estimates: ${t.message}`)
+                    }
+                    i = {
+                        maxDuration: i.maxDurationSec,
+                        avgFragParseTimeMs: i.avgParseTimeMs,
+                        avgFragBufferCreationDelayMs: i.avgBufferCreateMs,
+                        avgPlaylistLoadTimeMs: i.avgPlaylistLoadTimeMs,
+                        avgPlaylistParseTimeMs: i.avgPlaylistParseTimeMs,
+                        avgInitFragAppendMs: i.avgInitFragAppendMs,
+                        avgDataFragAppendMs: i.avgDataFragAppendMs
+                    };
+                    let e = t.storageKeyPrefix;
+                    r && (e += r);
+                    try {
+                        t.storage.set(e, JSON.stringify(i))
+                    } catch (t) {
+                        n.warn(`Error stringifying! Not persisting bandwidth estimates: ${t.message}`)
+                    }
+                } else
+                    n.warn("storage.set is not supported! Not persisting bandwidth estimates")
+            },
+            getCombinedEstimate: function(t, e) {
+                const i = qe();
+                let r = {};
+                if (void 0 === t.storage.get)
+                    return i.warn("storage.get is not supported! unable to retreive bandwidth estimates"),
+                    this.convertStorageJsonToCombinedEstimate(r);
+                try {
+                    let e = JSON.parse(t.storage.get(t.bandwidthHistoryStorageKey));
+                    e = null != e && e.expires && e.expires < Date.now() ? null : {
+                        avgLatencyMs: null == e ? void 0 : e.avgLatencyMs,
+                        avgBandwidth: null == e ? void 0 : e.avgBandwidth
+                    },
+                    r = Object.assign(Object.assign({}, r), e)
+                } catch (t) {
+                    i.warn(`Unable to get persisted bandwidth history: ${t.message}`)
+                }
+                let n = t.storageKeyPrefix;
+                e && (n += e);
+                try {
+                    const e = JSON.parse(t.storage.get(n));
+                    r = Object.assign(Object.assign({}, r), e)
+                } catch (t) {
+                    i.warn(`Unable to get persisted bandwidth history: ${t.message}`)
+                }
+                return this.convertStorageJsonToCombinedEstimate(r)
+            },
+            convertStorageJsonToCombinedEstimate: function(e) {
+                return {
+                    avgLatencyMs: (null == e ? void 0 : e.avgLatencyMs) || NaN,
+                    avgBandwidth: (null == e ? void 0 : e.avgBandwidth) || NaN,
+                    maxDurationSec: (null == e ? void 0 : e.maxDuration) || NaN,
+                    avgParseTimeMs: (null == e ? void 0 : e.avgFragParseTimeMs) || NaN,
+                    avgBufferCreateMs: (null == e ? void 0 : e.avgFragBufferCreationDelayMs) || NaN,
+                    avgPlaylistLoadTimeMs: (null == e ? void 0 : e.avgPlaylistLoadTimeMs) || NaN,
+                    avgPlaylistParseTimeMs: (null == e ? void 0 : e.avgPlaylistParseTimeMs) || NaN,
+                    avgInitFragAppendMs: (null == e ? void 0 : e.avgInitFragAppendMs) || NaN,
+                    avgDataFragAppendMs: (null == e ? void 0 : e.avgDataFragAppendMs) || NaN
+                }
+            },
+            getBandwidthEstimate: function(e, t) {
+                const i = this.getCombinedEstimate(e, t)
+                  , r = {
+                    avgLatencyMs: null == i ? void 0 : i.avgLatencyMs,
+                    avgBandwidth: null == i ? void 0 : i.avgBandwidth
+                };
+                return ne(r.avgLatencyMs) || (r.avgLatencyMs = NaN),
+                ne(r.avgBandwidth) || (r.avgBandwidth = NaN),
+                r
+            },
+            getPlaylistEstimate: function(e, t) {
+                const i = this.getCombinedEstimate(e, t)
+                  , r = {
+                    avgPlaylistLoadTimeMs: null == i ? void 0 : i.avgPlaylistLoadTimeMs,
+                    avgPlaylistParseTimeMs: null == i ? void 0 : i.avgPlaylistParseTimeMs
+                };
+                return ne(r.avgPlaylistLoadTimeMs) || (r.avgPlaylistLoadTimeMs = NaN),
+                ne(r.avgPlaylistParseTimeMs) || (r.avgPlaylistParseTimeMs = NaN),
+                r
+            },
+            getFragEstimate: function(e, t) {
+                const i = this.getCombinedEstimate(e, t)
+                  , r = {
+                    maxDurationSec: null == i ? void 0 : i.maxDurationSec,
+                    avgParseTimeMs: null == i ? void 0 : i.avgParseTimeMs
+                };
+                return ne(r.maxDurationSec) || (r.maxDurationSec = NaN),
+                ne(r.avgParseTimeMs) || (r.avgParseTimeMs = NaN),
+                r
+            },
+            getBufferEstimate: function(e, t) {
+                const i = this.getCombinedEstimate(e, t)
+                  , r = {
+                    avgBufferCreateMs: null == i ? void 0 : i.avgBufferCreateMs,
+                    avgInitFragAppendMs: null == i ? void 0 : i.avgInitFragAppendMs,
+                    avgDataFragAppendMs: null == i ? void 0 : i.avgDataFragAppendMs
+                };
+                return ne(r.avgBufferCreateMs) || (r.avgBufferCreateMs = NaN),
+                ne(r.avgInitFragAppendMs) || (r.avgInitFragAppendMs = NaN),
+                ne(r.avgDataFragAppendMs) || (r.avgDataFragAppendMs = NaN),
+                r
+            }
+        };
+        var $f = Uf;
+        class Vf {
+            constructor(e=0) {
+                this._minSamples = e,
+                this._sum = 0,
+                this._max = Number.NEGATIVE_INFINITY,
+                this._numSamples = 0
+            }
+            get avg() {
+                return this._numSamples < this._minSamples ? NaN : this._sum / this._numSamples
+            }
+            get max() {
+                return 0 < this.count ? this._max : NaN
+            }
+            get count() {
+                return this._numSamples
+            }
+            reset() {
+                this._sum = 0,
+                this._numSamples = 0,
+                this._max = Number.NEGATIVE_INFINITY
+            }
+            add(e) {
+                this._sum += e,
+                this._max = Math.max(this._max, e),
+                ++this._numSamples
+            }
+        }
+        class Kf extends Od {
+            constructor(e, t) {
+                super(e),
+                this.id = t
+            }
+            getBandwidthEstimate(e, t) {
+                var i;
+                const r = Object.assign({}, null === (i = this.statsEntity) || void 0 === i ? void 0 : i.bandwidthEstimate);
+                if (ne(r.avgBandwidth) && ne(r.avgLatencyMs))
+                    return r;
+                if (e) {
+                    const i = Uf.getBandwidthEstimate(e, t);
+                    ne(r.avgBandwidth) || (r.avgBandwidth = i.avgBandwidth),
+                    ne(r.avgLatencyMs) || (r.avgLatencyMs = i.avgLatencyMs)
+                }
+                return r
+            }
+            getPlaylistEstimate(e, t) {
+                var i;
+                const r = Object.assign({}, null === (i = this.statsEntity) || void 0 === i ? void 0 : i.playlistEstimate)
+                  , n = e=>ne(e.avgPlaylistLoadTimeMs) && ne(e.avgPlaylistParseTimeMs);
+                if (n(r))
+                    return r;
+                if (e) {
+                    const i = Uf.getPlaylistEstimate(e, t);
+                    if (ne(r.avgPlaylistLoadTimeMs) || (r.avgPlaylistLoadTimeMs = i.avgPlaylistLoadTimeMs),
+                    ne(r.avgPlaylistParseTimeMs) || (r.avgPlaylistParseTimeMs = i.avgPlaylistParseTimeMs),
+                    n(r))
+                        return r;
+                    ne(r.avgPlaylistLoadTimeMs) || (r.avgPlaylistLoadTimeMs = e.statDefaults.playlistLoadTimeMs),
+                    ne(r.avgPlaylistParseTimeMs) || (r.avgPlaylistParseTimeMs = e.statDefaults.playlistParseTimeMs)
+                }
+                return r
+            }
+            getBufferEstimate(e, t) {
+                var i;
+                const r = Object.assign({}, null === (i = this.statsEntity) || void 0 === i ? void 0 : i.bufferEstimate)
+                  , n = e=>ne(e.avgBufferCreateMs) && ne(e.avgDataFragAppendMs) && ne(e.avgInitFragAppendMs);
+                if (n(r))
+                    return r;
+                if (e) {
+                    const i = Uf.getBufferEstimate(e, t);
+                    if (ne(r.avgBufferCreateMs) || (r.avgBufferCreateMs = i.avgBufferCreateMs),
+                    ne(r.avgDataFragAppendMs) || (r.avgDataFragAppendMs = i.avgDataFragAppendMs),
+                    ne(r.avgInitFragAppendMs) || (r.avgInitFragAppendMs = i.avgInitFragAppendMs),
+                    n(r))
+                        return r;
+                    ne(r.avgBufferCreateMs) || (r.avgBufferCreateMs = e.statDefaults.fragBufferCreationDelayMs),
+                    ne(r.avgDataFragAppendMs) || (r.avgDataFragAppendMs = e.statDefaults.dataFragAppendMs),
+                    ne(r.avgInitFragAppendMs) || (r.avgInitFragAppendMs = e.statDefaults.initFragAppendMs)
+                }
+                return r
+            }
+            getFragEstimate(e, t) {
+                var i;
+                const r = Object.assign({}, null === (i = this.statsEntity) || void 0 === i ? void 0 : i.fragEstimate)
+                  , n = e=>ne(e.maxDurationSec) && ne(e.avgParseTimeMs);
+                if (n(r))
+                    return r;
+                if (e) {
+                    const i = Uf.getFragEstimate(e, t);
+                    if (ne(r.maxDurationSec) || (r.maxDurationSec = i.maxDurationSec),
+                    ne(r.avgParseTimeMs) || (r.avgParseTimeMs = i.avgParseTimeMs),
+                    n(r))
+                        return r;
+                    ne(r.maxDurationSec) || (r.maxDurationSec = e.defaultTargetDuration),
+                    ne(r.avgParseTimeMs) || (r.avgParseTimeMs = e.statDefaults.fragParseTimeMs)
+                }
+                return r
+            }
+            getCombinedEstimate() {
+                return Object.assign(Object.assign(Object.assign(Object.assign({}, this.getFragEstimate()), this.getPlaylistEstimate()), this.getBufferEstimate()), this.getBandwidthEstimate())
+            }
+            get statsEntity() {
+                return this.getEntity(this.id)
+            }
+            get bandwidthSample() {
+                var e;
+                return null === (e = this.statsEntity) || void 0 === e ? void 0 : e.bandwidthSample
+            }
+            get bandwidthStatus() {
+                var e;
+                return null === (e = this.statsEntity) || void 0 === e ? void 0 : e.bandwidthStatus
+            }
+            get fragSample() {
+                var e;
+                return null === (e = this.statsEntity) || void 0 === e ? void 0 : e.fragSample
+            }
+            get bandwidthEstimate$() {
+                return this.selectEntity(this.id, "bandwidthEstimate")
+            }
+            get fragEstimate$() {
+                return this.selectEntity(this.id, "fragEstimate")
+            }
+            get playlistEstimate$() {
+                return this.selectEntity(this.id, "playlistEstimate")
+            }
+            get bufferEstimate$() {
+                return this.selectEntity(this.id, "bufferEstimate")
+            }
+            get bandwidthSample$() {
+                return this.selectEntity(this.id, ({bandwidthSample: e})=>e).pipe(Up())
+            }
+            get fragSample$() {
+                return this.selectEntity(this.id, ({fragSample: e})=>e).pipe(Up())
+            }
+            get playlistSample$() {
+                return this.selectEntity(this.id, ({playlistSample: e})=>e).pipe(Up())
+            }
+            get bufferMetric$() {
+                return this.selectEntity(this.id, ({bufferMetric: e})=>e).pipe(Up())
+            }
+        }
+        class Hf {
+            constructor(e) {
+                this.statsStore = e
+            }
+            getQuery() {
+                return new Od(this.statsStore)
+            }
+            getQueryForItem(e) {
+                return new Kf(this.statsStore,e)
+            }
+            remove(e) {
+                this.statsStore.remove(e)
+            }
+            removeAll() {
+                this.statsStore.remove()
+            }
+            setBandwidthSample(e) {
+                this.statsStore.bandwidthSample = e
+            }
+            setFragSample(e) {
+                this.statsStore.fragSample = e
+            }
+            setPlaylistSample(e) {
+                this.statsStore.playlistSample = e
+            }
+            setBufferMetric(e) {
+                this.statsStore.bufferMetric = e
+            }
+            setBandwidthEstimate(e) {
+                this.statsStore.bandwidthEstimate = e
+            }
+            setFragEstimate(e) {
+                this.statsStore.fragEstimate = e
+            }
+            setPlaylistEstimate(e) {
+                this.statsStore.playlistEstimate = e
+            }
+            setBufferEstimate(e) {
+                this.statsStore.bufferEstimate = e
+            }
+        }
+        const jf = new class extends pd {
+            constructor() {
+                super({}, {
+                    name: "stats-store",
+                    producerFn: vc
+                })
+            }
+            set statsEntity(e) {
+                Co("statsStore.set.stats"),
+                sd(()=>{
+                    this.add(e),
+                    this.setActive(e.id)
+                }
+                )
+            }
+            set playlistSample(t) {
+                Co(`stats.set.playlistSample: ${t}`),
+                this.updateActive(e=>{
+                    e.playlistSample = t
+                }
+                )
+            }
+            set bandwidthSample(t) {
+                Co(`stats.set.bandwidthSample: ${t}`),
+                this.updateActive(e=>{
+                    e.bandwidthSample = t,
+                    e.bandwidthStatus.bandwidthSampleCount += 1,
+                    e.bandwidthStatus.instantBw = 8e3 * t.loaded / (t.tload - t.trequest)
+                }
+                )
+            }
+            set fragSample(t) {
+                Co(`stats.set.fragSample: ${t}`),
+                this.updateActive(e=>{
+                    e.fragSample = t
+                }
+                )
+            }
+            set bufferMetric(t) {
+                Co(`stats.set.bufferMetric: ${t}`),
+                this.updateActive(e=>{
+                    e.bufferMetric = t
+                }
+                )
+            }
+            set bandwidthEstimate(t) {
+                Co(`stats.set.bandwidthEstimate: ${t}`),
+                this.updateActive(e=>{
+                    e.bandwidthEstimate = t
+                }
+                )
+            }
+            set fragEstimate(t) {
+                Co(`stats.set.fragEstimate: ${t}`),
+                this.updateActive(e=>{
+                    e.fragEstimate = t
+                }
+                )
+            }
+            set playlistEstimate(t) {
+                Co(`stats.set.playlistEstimate: ${t}`),
+                this.updateActive(e=>{
+                    e.playlistEstimate = t
+                }
+                )
+            }
+            set bufferEstimate(t) {
+                Co(`stats.set.bufferEstimate: ${t}`),
+                this.updateActive(e=>{
+                    e.bufferEstimate = t
+                }
+                )
+            }
+        }
+        ;
+        let qf = null;
+        const Qf = e=>new Kf(jf,e);
+        function Gf(e, t) {
+            if (e === t)
+                return !0;
+            if (!e || !t)
+                return !1;
+            let i = Object.keys(e).length === Object.keys(t).length;
+            for (const r of Object.keys(e))
+                i = i && (isNaN(e[r]) && isNaN(t[r]) || e[r] === t[r]);
+            return i
+        }
+        function Wf(f, m, g) {
+            return new Ut(e=>{
+                (e=>{
+                    const t = Qf(e);
+                    t.hasEntity(e) ? Bi(t) : (i = jf,
+                    e = e,
+                    Co("stats.loading"),
+                    i.setLoading(!0),
+                    i.statsEntity = {
+                        id: e,
+                        bandwidthEstimate: {
+                            avgLatencyMs: NaN,
+                            avgBandwidth: NaN
+                        },
+                        bandwidthStatus: {
+                            bandwidthSampleCount: 0,
+                            instantBw: NaN
+                        },
+                        fragEstimate: {
+                            maxDurationSec: NaN,
+                            avgParseTimeMs: NaN
+                        },
+                        playlistEstimate: {
+                            avgPlaylistLoadTimeMs: NaN,
+                            avgPlaylistParseTimeMs: NaN
+                        },
+                        bufferEstimate: {
+                            avgBufferCreateMs: NaN,
+                            avgInitFragAppendMs: NaN,
+                            avgDataFragAppendMs: NaN
+                        }
+                    },
+                    i.setLoading(!1),
+                    Co("stats.loaded"));
+                    var i
+                }
+                )(g.itemId);
+                const t = Qf(g.itemId)
+                  , {fragSample$: i, playlistSample$: r, bandwidthSample$: n, bufferMetric$: s} = t;
+                return nn(r.pipe(Hi(Zi), (h = f,
+                p = m,
+                e=>e.pipe(Ql.tag("statsPlaylistProcessingEpic.in"), na((e,t)=>(e.playlistLoadTimeMs.add(t.playlistLoadTimeMs),
+                e.playlistParseTimeMs.add(t.playlistParseTimeMs),
+                e), {
+                    playlistLoadTimeMs: new Vf(h.minPlaylistCount),
+                    playlistParseTimeMs: new Vf(h.minPlaylistCount)
+                }), ur(e=>({
+                    avgPlaylistLoadTimeMs: e.playlistLoadTimeMs.avg,
+                    avgPlaylistParseTimeMs: e.playlistParseTimeMs.avg
+                })), Es(Gf), Ja(e=>{
+                    p.setPlaylistEstimate(e)
+                }
+                )))), n.pipe(Hi(Zi), (u = f,
+                c = m,
+                n=>new Ut(e=>{
+                    let t = new Bf(u.bandwidthHistoryWindowSize,u.bandwidthHistoryAggregationMethod,{
+                        avgLatencyMs: NaN,
+                        avgBandwidth: NaN
+                    });
+                    const i = t.estimate$
+                      , r = nn(n.pipe(an(e=>e.complete), Ja(e=>{}
+                    ), ur(e=>({
+                        trequest: e.trequest,
+                        tfirst: e.tfirst,
+                        tload: e.tload,
+                        bitsDownloaded: 8 * e.loaded
+                    })), Ql.tag("statsBandwidthProcessingEpic.in"), Ra(e=>(t.record(e),
+                    Ti))), i.pipe(Es(), Ql.tag("statsBandwidthProcessingEpic.change"), Ja(e=>{
+                        c && c.setBandwidthEstimate(e)
+                    }
+                    ))).subscribe(e);
+                    return ()=>{
+                        r.unsubscribe(),
+                        t.destroy(),
+                        t = void 0
+                    }
+                }
+                ))), i.pipe(Hi(Zi), (d = f,
+                l = m,
+                e=>e.pipe(Ql.tag("statsFragProcessingEpic.in"), na((e,t)=>(e.durationSec.add(t.durationSec),
+                e.fragParseMs.add(t.parseTimeMs),
+                e), {
+                    durationSec: new Vf,
+                    fragParseMs: new Vf(d.minFragmentCount)
+                }), ur(e=>({
+                    maxDurationSec: e.durationSec.max,
+                    avgParseTimeMs: e.fragParseMs.avg
+                })), Es(Gf), Ja(e=>l.setFragEstimate(e))))), s.pipe(Hi(Zi), (a = f,
+                o = m,
+                e=>e.pipe(Ql.tag("statsBufferMetricProcessingEpic.in"), na((e,t)=>(ne(t.bufferCreationStart) && ne(t.bufferCreationEnd) && e.bufferCreateMs.add(t.bufferCreationEnd - t.bufferCreationStart),
+                ne(t.startInitAppend) && ne(t.endInitAppend) && e.initFragAppendMs.add(t.endInitAppend - t.startInitAppend),
+                ne(t.startDataAppend) && ne(t.endDataAppend) && e.dataFragAppendMs.add(t.endDataAppend - t.startDataAppend),
+                e), {
+                    bufferCreateMs: new Vf,
+                    initFragAppendMs: new Vf,
+                    dataFragAppendMs: new Vf(a.minFragmentCount)
+                }), ur(e=>({
+                    avgBufferCreateMs: e.bufferCreateMs.avg,
+                    avgInitFragAppendMs: e.initFragAppendMs.avg,
+                    avgDataFragAppendMs: e.dataFragAppendMs.avg
+                })), Es(Gf), Ja(e=>{
+                    o.setBufferEstimate(e)
+                }
+                ))))).pipe(Ua(Ti)).subscribe(e),
+                ()=>{
+                    $f.setCombinedEstimate(f, Object.assign(Object.assign(Object.assign(Object.assign({}, t.getFragEstimate()), t.getPlaylistEstimate()), t.getBufferEstimate()), t.getBandwidthEstimate()), g.serviceName),
+                    m.remove(g.itemId)
+                }
+                ;
+                var a, o, d, l, u, c, h, p
+            }
+            )
+        }
+        const zf = {
+            isWebkitMediaElement: e=>"webkitDroppedFrameCount"in e,
+            isHtmlVideoElement: e=>"getVideoPlaybackQuality"in e,
+            timeRangeToArray(t) {
+                const i = [];
+                for (let e = 0; e < t.length; e++)
+                    i.push([t.start(e), t.end(e)]);
+                return i
+            }
+        };
+        class Xf extends Ut {
+            constructor() {
+                super(e=>this.works$.pipe(ur(e=>Lr(e)), zr()).subscribe(e)),
+                this.works$ = new zt
+            }
+            addWork(e) {
+                this.works$.next(e)
+            }
+            complete() {
+                this.works$.complete()
+            }
+        }
+        class Yf {
+            constructor(e, t) {
+                this.hls = e,
+                this.sessionID = t,
+                this.rtcQuery = null,
+                this.accessLogData = this.createAccessLogEntry(),
+                this.accesslog = [],
+                this.errorlog = []
+            }
+            destroy() {
+                this.rtcQuery = null,
+                this.accesslog = [],
+                this.errorlog = [],
+                this.accessLogData = void 0,
+                this.accessLogReporter = void 0
+            }
+            setRTCQuery(e) {
+                this.rtcQuery = e
+            }
+            setupReporter(e) {
+                this.accessLogReporter = {
+                    SessionID: this.sessionID,
+                    ClientName: null == e ? void 0 : e.clientName,
+                    ServiceName: null == e ? void 0 : e.serviceName
+                }
+            }
+            addPlayTime(e) {
+                var t, e = null === (t = this.rtcQuery) || void 0 === t ? void 0 : t.getEntity(e);
+                !e || "RTC_STATE_PLAY" === (e = e.sessionControlRecord).state && (this.accessLogData.PlayTimeWC = (this.accessLogData.PlayTimeWC || 0) + e.eventStartTime)
+            }
+            updatePlaybackInfo(e, t) {
+                this.accessLogData.ViFrDr = this.rtcQuery.getEntity(e).sessionControlRecord.droppedVideoFrames || 0
+            }
+            updateStallCount(e) {
+                "RTC_STATE_PLAY" === this.rtcQuery.getEntity(e).sessionControlRecord.state && this.accessLogData.StallCount++
+            }
+            updateMediaEngineStallCount(e) {
+                "RTC_STATE_PLAY" === this.rtcQuery.getEntity(e).sessionControlRecord.state && this.accessLogData.MediaEngineStallCount++
+            }
+            updateCanPlay(e) {
+                this.accessLogData.StartupTime = this.rtcQuery.getEntity(e).sessionControlRecord.eventStartTime
+            }
+            updateFragLoaded(e, t, i) {
+                var r;
+                i.fragType === ul.Variant ? (this.accessLogData.NetBytes += i.bytes,
+                this.accessLogData.ADT += i.adt,
+                r = this.aggregateFragObserverdBitrate(i, ++this.accessLogData.fragmentCnt, this.accessLogData.NetBytes, this.accessLogData.ADT),
+                this.accessLogData.OBRLast = r.obrLast,
+                this.accessLogData.OBRMean = r.obrMean,
+                this.aggregateFragMinMaxBitrate(this.accessLogData, r.obr),
+                this.hls.realCurrentTime > i.startPTS && !t && this.accessLogData.overdue++,
+                this.hasGap(i.startPTS, i.endPTS, this.accessLogData.lastStartPTS, this.accessLogData.lastEndPTS) && this.addToAccessLog(e),
+                this.accessLogData.startPTS || (this.accessLogData.startPTS = i.startPTS),
+                this.accessLogData.lastStartPTS = i.startPTS,
+                this.accessLogData.lastEndPTS = i.endPTS,
+                this.accessLogData.videoBytes += i.bytes,
+                this.accessLogData.videoDuration += i.duration) : i.fragType === ul.AltAudio && (this.accessLogData.audioBytes += i.bytes,
+                this.accessLogData.audioDuration += i.duration)
+            }
+            addToAccessLog(e) {
+                var t = this.getVariantInfo(e)
+                  , i = this.rtcQuery.getEntity(e).sessionControlRecord.curLevelUrl
+                  , r = this.rtcQuery.getEntity(e).playEndedRecord.PlayType;
+                if (i && "" !== i) {
+                    r = this.translateToAccessLogItem(e, i, t, r);
+                    if (r) {
+                        const n = this.accesslog.length - 20;
+                        0 < n && this.accesslog.splice(0, n),
+                        this.accesslog.push(r)
+                    }
+                    this.accessLogData = this.createAccessLogEntry();
+                    e = this.rtcQuery.getEntity(e).switchCompleteRecord.MediaDur;
+                    this.accessLogData.lastMediaDur = e || this.hls.bufferedDuration
+                }
+            }
+            addToErrorLog(e, t) {
+                var i = null === (r = this.rtcQuery) || void 0 === r ? void 0 : r.getEntity(e);
+                if (i) {
+                    var r = Number(("mediaError" === t ? i.playErrorRecord : i.nwErrorRecord).ErrCode)
+                      , i = i.sessionControlRecord.curLevelUrl
+                      , r = this.translateToErrorLogItem(e, i, {
+                        domain: t,
+                        code: r
+                    });
+                    if (r) {
+                        const e = this.errorlog.length - 20;
+                        0 < e && this.errorlog.splice(0, e),
+                        this.errorlog.push(r)
+                    }
+                }
+            }
+            getAccessLog(e) {
+                var t;
+                const i = this.accesslog.slice(0)
+                  , r = null === (t = this.rtcQuery) || void 0 === t ? void 0 : t.getEntity(e);
+                if (i && r) {
+                    const t = r.sessionControlRecord.curLevelUrl;
+                    if (t && "" !== t) {
+                        const r = this.getVariantInfo(e)
+                          , n = this.translateToAccessLogItem(e, t, r, this.rtcQuery.getEntity(e).playEndedRecord.PlayType);
+                        n && (n["c-provisional-entry"] = !0,
+                        i.push(n))
+                    }
+                }
+                return i
+            }
+            get errorLog() {
+                return this.errorlog
+            }
+            createAccessLogEntry() {
+                return {
+                    fragmentCnt: 0,
+                    overdue: 0,
+                    startPTS: 0,
+                    obrMax: 0,
+                    obrMin: 0,
+                    audioBytes: 0,
+                    audioDuration: 0,
+                    videoBytes: 0,
+                    videoDuration: 0,
+                    svrAddrChanged: 0,
+                    svrAddr: "",
+                    PlayTimeWC: 0,
+                    ViFrDr: 0,
+                    StallCount: 0,
+                    MediaEngineStallCount: 0,
+                    ADT: 0,
+                    NetBytes: 0,
+                    StartupTime: 0,
+                    OBRMean: 0,
+                    OBRLast: 0
+                }
+            }
+            convertStringObjectToPrimitive(e) {
+                return e ? "object" == typeof e ? e.toString() : e : ""
+            }
+            updateSvrAddrStats(t) {
+                const i = fl.parseURL(t);
+                if (i && i.netLoc) {
+                    const t = i.netLoc.indexOf(":");
+                    let e = 0 <= t ? i.netLoc.slice(0, t) : i.netLoc;
+                    e.startsWith("//") && (e = e.slice(2)),
+                    this.accessLogData.svrAddr ? e !== this.accessLogData.svrAddr && this.accessLogData.svrAddrChanged++ : this.accessLogData.svrAddrChanged = 0,
+                    this.accessLogData.svrAddr = e
+                }
+            }
+            translateToAccessLogItem(e, t, i, r) {
+                t = this.convertStringObjectToPrimitive(t);
+                this.updateSvrAddrStats(t);
+                let n = this.rtcQuery.getEntity(e).switchCompleteRecord.MediaDur;
+                n = n || this.hls.bufferedDuration,
+                n = n || 0;
+                const s = {
+                    uri: t,
+                    "s-ip": this.accessLogData.svrAddr,
+                    "s-ip-changes": this.accessLogData.svrAddrChanged,
+                    "sc-wwan-count": -1,
+                    "c-transfer-duration": this.accessLogData.ADT,
+                    bytes: this.accessLogData.NetBytes,
+                    "c-total-media-requests": this.accessLogData.fragmentCnt,
+                    "cs-guid": this.accessLogReporter.SessionID,
+                    "c-start-time": this.accessLogData.startPTS,
+                    "c-startup-time": this.accessLogData.StartupTime,
+                    "c-duration-watched": this.accessLogData.PlayTimeWC / 1e3,
+                    "c-frames-dropped": this.accessLogData.ViFrDr,
+                    "c-stalls": this.accessLogData.StallCount + this.accessLogData.MediaEngineStallCount,
+                    "c-duration-downloaded": this.accessLogData.lastMediaDur ? n - this.accessLogData.lastMediaDur : n,
+                    "c-overdue": this.accessLogData.overdue,
+                    "c-avg-video-bitrate": 8 * this.accessLogData.videoBytes / (this.accessLogData.videoDuration || 1),
+                    "c-observed-max-bitrate": this.accessLogData.obrMax,
+                    "c-observed-min-bitrate": this.accessLogData.obrMin,
+                    "sc-indicated-bitrate": i.bandwidth || 0,
+                    "sc-indicated-avg-bitrate": i.avgBandwidth || 0,
+                    "c-observed-bitrate": this.accessLogData.OBRMean,
+                    "c-switch-bitrate": this.accessLogData.OBRLast,
+                    "c-provisional-entry": !1
+                };
+                return s["s-playback-type"] = r,
+                this.accessLogData.audioBytes && (s["c-avg-audio-bitrate"] = 8 * this.accessLogData.audioBytes / (this.accessLogData.audioDuration || 1)),
+                s
+            }
+            translateToErrorLogItem(e, t, i) {
+                t = this.convertStringObjectToPrimitive(t);
+                return this.updateSvrAddrStats(t),
+                {
+                    date: new Date,
+                    "cs-guid": this.accessLogReporter.SessionID + "-" + e,
+                    uri: t,
+                    "s-ip": this.accessLogData.svrAddr,
+                    status: "" + i.code,
+                    domain: i.domain
+                }
+            }
+            hasGap(e, t, i, r) {
+                return void 0 !== e && void 0 !== i && (1 < e - r || 1 < i - t)
+            }
+            aggregateFragObserverdBitrate(e, t, i, r) {
+                r = 8 * i / (r / 1e3);
+                return {
+                    obr: r,
+                    obrLast: 8 * e.bytes / (e.adt / 1e3),
+                    obrMean: r / t
+                }
+            }
+            aggregateFragMinMaxBitrate(e, t) {
+                (!e.obrMax || t > e.obrMax) && (e.obrMax = t),
+                (!e.obrMin || t < e.obrMin) && (e.obrMin = t)
+            }
+            getVariantInfo(e) {
+                var t = this.rtcQuery.getEntity(e).sessionControlRecord.curLevelUrl
+                  , e = null === (e = this.rtcQuery.getEntity(e).sessionControlRecord.manifestData) || void 0 === e ? void 0 : e.variantList;
+                return t && e && e[t] ? e[t] : {}
+            }
+        }
+        const Jf = (r,e,t,i,n,s)=>{
+            var a, {absoluteUrl: o, byteRangeOffset: d, keyTagInfo: l, iframe: u, isInitSegment: c} = r, h = o, p = l["method"], {start: o, end: l} = d, t = xc({
+                url: h
+            }, t);
+            let f, m = o, g = l, y = !1, v = ne(o) || ne(l) ? d : void 0;
+            if ("AES-128" === p && l && (u || c)) {
+                const r = l - o;
+                r % 16 && (g = l + (16 - r % 16)),
+                0 !== o && (y = !0,
+                m = o - 16),
+                v = {
+                    start: m,
+                    end: g
+                }
+            }
+            return n && ne(r.mediaSeqNum) && r.mediaOptionType === ul.Variant && (f = [],
+            null === (n = t.reportHTTPResponseHeaders) || void 0 === n || n.forEach(function(e) {
+                vl.includes(e) ? f.push(e) : qe().warn({
+                    name: "load-media-fragment"
+                }, `${e} is not in approved privacy list. Actions required.`)
+            }),
+            0 === f.length && (f = void 0)),
+            Pc({
+                url: h,
+                byteRangeOffset: v,
+                checkContentLength: !0,
+                extendMaxTTFB: s,
+                collectServerInstanceInfo: f,
+                onProgress: i,
+                xhrSetup: e.xhrSetup
+            }, t).pipe(ur(([e,t,i])=>{
+                if (y) {
+                    const t = e;
+                    r.keyTagInfo.iv = new Uint8Array(t.slice(0, 16)),
+                    e = t.slice(16)
+                }
+                return [r, e, t, i]
+            }
+            ), (a = r,
+            e=>e.pipe(Un(e=>{
+                if (e instanceof ou)
+                    throw new au(!1,"Timeout",0,$.FragmentTimeoutError,!0,a,e.stats);
+                if (e instanceof tu)
+                    throw new au(!1,e.message,e.code,{
+                        code: e.code,
+                        text: "Fragment Network Error"
+                    },!1,a);
+                throw e
+            }
+            ))))
+        }
+          , Zf = {
+            clearkey: Zc,
+            fairplaystreaming: pu,
+            playready: _c,
+            widevine: Nc
+        }
+          , em = {
+            getKeySystemFormat(e) {
+                e = Zf[e];
+                return e ? e.keyFormatString : ""
+            },
+            getKeySystemSecurityLevel(e) {
+                e = Zf[e];
+                return e ? e.securityLevels : null
+            }
+        }
+          , tm = {
+            NONE: "",
+            "AES-128": "",
+            "ISO-23001-7": "",
+            "SAMPLE-AES": "",
+            "SAMPLE-AES-CTR": ""
+        }
+          , im = {
+            NONE: 0,
+            "TYPE-0": 1,
+            "TYPE-1": 2,
+            "TYPE-2": 3
+        };
+        function rm(e) {
+            return e in im
+        }
+        function nm(e) {
+            return null == e ? 4 : im[e]
+        }
+        const sm = ["SDR", "PQ", "HLG"]
+          , am = {
+            afr: "af",
+            aka: "ak",
+            amh: "am",
+            ara: "ar",
+            arg: "an",
+            asm: "as",
+            ava: "av",
+            ave: "ae",
+            aym: "ay",
+            aze: "az",
+            bam: "bm",
+            bel: "be",
+            ben: "bn",
+            bih: "bh",
+            bod: "bo",
+            bos: "bs",
+            bre: "br",
+            bul: "bg",
+            cat: "ca",
+            ces: "cs",
+            cha: "ch",
+            che: "ce",
+            chu: "cu",
+            chv: "cv",
+            cor: "kw",
+            cos: "co",
+            cre: "cr",
+            cym: "cy",
+            dan: "da",
+            deu: "de",
+            div: "dv",
+            dzo: "dz",
+            ell: "el",
+            eng: "en",
+            epo: "eo",
+            est: "et",
+            eus: "eu",
+            ewe: "ee",
+            fao: "fo",
+            fas: "fa",
+            fin: "fi",
+            fra: "fr",
+            fry: "fy",
+            ful: "ff",
+            gla: "gd",
+            gle: "ga",
+            glg: "gl",
+            glv: "gv",
+            grn: "gn",
+            guj: "gu",
+            hat: "ht",
+            heb: "he",
+            her: "hz",
+            hin: "hi",
+            hmo: "ho",
+            hrv: "hr",
+            hun: "hu",
+            hye: "hy",
+            ibo: "ig",
+            ido: "io",
+            iii: "ii",
+            iku: "iu",
+            ile: "ie",
+            ina: "ia",
+            ind: "id",
+            isl: "is",
+            ita: "it",
+            jav: "jv",
+            jpn: "ja",
+            kal: "kl",
+            kan: "kn",
+            kas: "ks",
+            kat: "ka",
+            kau: "kr",
+            kaz: "kk",
+            khm: "km",
+            kik: "ki",
+            kin: "rw",
+            kir: "ky",
+            kom: "kv",
+            kon: "kg",
+            kor: "ko",
+            kua: "kj",
+            kur: "ku",
+            lao: "lo",
+            lat: "la",
+            lav: "lv",
+            lim: "li",
+            lit: "lt",
+            ltz: "lb",
+            lub: "lu",
+            lug: "lg",
+            mah: "mh",
+            mal: "ml",
+            mar: "mr",
+            mkd: "mk",
+            mlg: "mg",
+            mlt: "mt",
+            mol: "mo",
+            mon: "mn",
+            mri: "mi",
+            msa: "ms",
+            mya: "my",
+            nav: "nv",
+            nbl: "nr",
+            nde: "nd",
+            ndo: "ng",
+            nep: "ne",
+            nld: "nl",
+            nno: "nn",
+            nob: "nb",
+            nya: "ny",
+            oci: "oc",
+            oji: "oj",
+            ori: "or",
+            orm: "om",
+            oss: "os",
+            pan: "pa",
+            pli: "pi",
+            pol: "pl",
+            por: "pt",
+            pus: "ps",
+            que: "qu",
+            roh: "rm",
+            ron: "ro",
+            run: "rn",
+            rus: "ru",
+            san: "sa",
+            sin: "si",
+            slk: "sk",
+            slv: "sl",
+            sme: "se",
+            snd: "sd",
+            som: "so",
+            spa: "es",
+            sqi: "sq",
+            srd: "sc",
+            srp: "sr",
+            sun: "su",
+            swa: "sw",
+            swe: "sv",
+            tah: "ty",
+            tam: "ta",
+            tat: "tt",
+            tel: "te",
+            tgk: "tg",
+            tgl: "tl",
+            tha: "th",
+            tir: "ti",
+            ton: "to",
+            tuk: "tk",
+            tur: "tr",
+            uig: "ug",
+            ukr: "uk",
+            urd: "ur",
+            uzb: "uz",
+            ven: "ve",
+            vie: "vi",
+            wln: "wa",
+            yid: "yi",
+            zha: "za",
+            zho: "zh"
+        }
+          , om = {
+            isLanguageCode: e=>e in am,
+            shortenLanguageCode(e) {
+                let t;
+                var i, r;
+                return e && (r = 0 <= (i = e.indexOf("-")) ? e.slice(0, i) : e,
+                om.isLanguageCode(r) && (t = am[r]),
+                t = t || r,
+                0 < i && (t += "-" + e.slice(i + 1))),
+                t
+            }
+        }
+          , dm = {
+            getRichestVideoCodec(e) {
+                if (e && e.length) {
+                    e = e.sort((e,t)=>$p(t) - $p(e));
+                    return e && e.length ? e[0] : void 0
+                }
+            },
+            getRichestAudioCodec(e) {
+                if (e && e.length) {
+                    e = e.sort((e,t)=>Kp(t) - Kp(e));
+                    return e && e.length ? e[0] : void 0
+                }
+            },
+            getRichestChannelLayoutForGroupId(t, i) {
+                if (t && i && i.length) {
+                    let e;
+                    const r = i.filter(e=>e.groupId === t);
+                    if (r && r.length) {
+                        const t = r.sort((e,t)=>Se.getChannelCount(t.channels) - Se.getChannelCount(e.channels));
+                        t && t.length && (e = t[0].channels)
+                    }
+                    return e
+                }
+            }
+        };
+        function lm(e) {
+            return new R(L,"steeringManifestParsingError",!1,e,$.FormatError)
+        }
+        class um {
+            constructor(e) {
+                this._url = null,
+                this._programDateTime = null,
+                this._byteRange = null,
+                this.relurl = null,
+                this.baseurl = null,
+                this.isInitSegment = !1,
+                this.mediaSeqNum = NaN,
+                this.cc = NaN,
+                this.iframe = !1,
+                this.bitrate = NaN,
+                this.start = NaN,
+                this.duration = NaN,
+                this.lastByteRangeEndOffset = NaN,
+                this.inheritQuery = e,
+                this.tagList = new Array,
+                this.iframe = !1
+            }
+            getMediaFragment(e, t, i) {
+                const r = {
+                    mediaOptionType: i,
+                    absoluteUrl: this.url,
+                    start: this.start,
+                    duration: this.duration,
+                    mediaSeqNum: this.mediaSeqNum,
+                    discoSeqNum: this.cc,
+                    mediaOptionId: t,
+                    itemId: e,
+                    isLastFragment: !1,
+                    isInitSegment: this.isInitSegment
+                };
+                return null !== (e = this.byteRange) && void 0 !== e && e.length && (r.byteRangeOffset = {
+                    start: this.byteRangeStartOffset,
+                    end: this.byteRangeEndOffset
+                }),
+                this.iframe && (r.iframe = this.iframe),
+                this.levelkey && (r.keyTagInfo = this.levelkey),
+                this.programDateTime && (r.programDateTime = this.programDateTime),
+                r
+            }
+            get url() {
+                return !this._url && this.relurl && this.baseurl && (this._url = fl.buildAbsoluteURL(this.baseurl, this.relurl, {
+                    alwaysNormalize: !0,
+                    inheritQuery: this.inheritQuery
+                })),
+                this._url
+            }
+            set url(e) {
+                this._url = e
+            }
+            get programDateTime() {
+                return !this._programDateTime && this.rawProgramDateTime && (this._programDateTime = new Date(Date.parse(this.rawProgramDateTime))),
+                this._programDateTime
+            }
+            get byteRange() {
+                if (!this._byteRange) {
+                    const i = new Array(2);
+                    var e, t;
+                    this.rawByteRange && (1 === (e = this.rawByteRange.split("@", 2)).length ? (t = this["lastByteRangeEndOffset"],
+                    i[0] = t || 0) : i[0] = parseInt(e[1]),
+                    i[1] = parseInt(e[0]) + i[0]),
+                    this._byteRange = i
+                }
+                return this._byteRange
+            }
+            get byteRangeStartOffset() {
+                return this.byteRange[0]
+            }
+            get byteRangeEndOffset() {
+                return this.byteRange[1]
+            }
+            get rangeString() {
+                return 0 <= this.start && 0 <= this.duration ? `${this.start.toFixed(2)}-${(this.start + this.duration).toFixed(2)}` : "N/A"
+            }
+            get fragTag() {
+                return `sn/cc/levelId: ${this.mediaSeqNum}/${this.cc}`
+            }
+        }
+        const cm = {
+            parseMediaCharacteristics: e=>e ? e.split(/\s*,\s*/) : new Array,
+            addMediaToSelectionArray(e, t, i) {
+                if (void 0 === e)
+                    return -1;
+                const r = e.MediaSelectionGroupOptions;
+                let n = r.find(e=>e.MediaSelectionOptionsMediaType === t.mediaType && e.MediaSelectionOptionsName === t.name && e.MediaSelectionOptionsExtendedLanguageTag === t.lang);
+                return n || (n = {
+                    MediaSelectionOptionsMediaType: t.mediaType,
+                    MediaSelectionOptionsExtendedLanguageTag: t.lang,
+                    MediaSelectionOptionsIsDefault: t.default,
+                    MediaSelectionOptionsName: t.name,
+                    MediaSelectionOptionsPersistentID: i,
+                    MediaSelectionOptionsTaggedMediaCharacteristics: t.characteristics
+                },
+                t.mediaType === pl.SUBTITLE && (n.MediaSelectionOptionsDisplaysNonForcedSubtitles = t.forced ? hl.NO : hl.YES),
+                i++,
+                r.push(n)),
+                t.persistentID = n.MediaSelectionOptionsPersistentID,
+                i
+            },
+            addDefaultClosedCaptionOption(e, t, i, r) {
+                e = {
+                    itemId: e,
+                    mediaOptionType: ul.Subtitle,
+                    id: 0,
+                    mediaOptionId: "cc1_" + Jd(),
+                    mediaType: pl.CLOSEDCAPTION,
+                    inStreamID: "CC1",
+                    groupId: "cc",
+                    name: "English-CC",
+                    type: "CLOSED-CAPTIONS",
+                    default: !1,
+                    autoselect: !1,
+                    forced: !1,
+                    lang: "en",
+                    characteristics: ["public.accessibility.transcribes-spoken-dialog", "public.accessibility.describes-music-and-sound"],
+                    persistentID: r
+                };
+                t.push(e),
+                cm.addMediaToSelectionArray(i, e, r)
+            }
+        }
+          , hm = {
+            BANDWIDTH: NaN,
+            "AVERAGE-BANDWIDTH": NaN
+        }
+          , pm = {
+            "TIME-OFFSET": NaN,
+            "FRAME-RATE": NaN,
+            SCORE: NaN,
+            "PLANNED-DURATION": NaN,
+            DURATION: NaN
+        }
+          , fm = /^(\d+)x(\d+)$/
+          , mm = /\s*(.+?)\s*=((?:\".*?\")|.*?)(?:,|$)/g;
+        class gm {
+            constructor(e) {
+                this.validTags = e
+            }
+            isKey(e) {
+                return e in this.validTags
+            }
+            trySetValue(e, t, i) {
+                return !!this.isKey(e) && (i[e] = this.parseFunc(t),
+                !0)
+            }
+        }
+        class ym {
+            static parseTags(t) {
+                let i;
+                var r = {};
+                if (!t)
+                    return r;
+                for (mm.lastIndex = 0; null !== (i = mm.exec(t)); ) {
+                    const t = i[1].toUpperCase();
+                    let e = i[2];
+                    0 === e.indexOf('"') && e.lastIndexOf('"') === e.length - 1 && (e = e.slice(1, -1));
+                    for (const i of ym.tagParsers)
+                        if (i.trySetValue(t, e, r))
+                            break
+                }
+                return r
+            }
+        }
+        ym.tagParsers = [new class extends gm {
+            parseFunc(e) {
+                return e
+            }
+        }
+        ({
+            NAME: "",
+            TYPE: "",
+            DEFAULT: "",
+            AUTOSELECT: "",
+            FORCED: "",
+            LANGUAGE: "",
+            URI: "",
+            AUDIO: "",
+            "VIDEO-RANGE": "",
+            "CLOSED-CAPTIONS": "",
+            CODECS: "",
+            BYTERANGE: "",
+            "INSTREAM-ID": "",
+            "GROUP-ID": "",
+            CHANNELS: "",
+            CHARACTERISTICS: "",
+            KEYFORMAT: "",
+            KEYFORMATVERSIONS: "",
+            "DATA-ID": "",
+            VALUE: "",
+            METHOD: "",
+            "HDCP-LEVEL": "",
+            "ALLOWED-CPC": "",
+            SUBTITLES: "",
+            ID: "",
+            CLASS: "",
+            "START-DATE": "",
+            "END-DATE": "",
+            "END-ON-NEXT": "",
+            "SERVER-URI": "",
+            "PATHWAY-ID": ""
+        }), new class extends gm {
+            parseFunc(e) {
+                e = parseInt(e);
+                return e > Number.MAX_SAFE_INTEGER ? 1 / 0 : e
+            }
+        }
+        (hm), new class extends gm {
+            constructor() {
+                super(...arguments),
+                this.parseFunc = parseFloat
+            }
+        }
+        (pm), new class extends gm {
+            parseFunc(e) {
+                let t = (e || "0x").slice(2);
+                t = (1 & t.length ? "0" : "") + t;
+                const i = new Uint8Array(t.length / 2);
+                for (let e = 0; e < t.length / 2; e++) {
+                    var r = parseInt(t.slice(2 * e, 2 * e + 2), 16);
+                    if (!ne(r))
+                        return;
+                    i[e] = r
+                }
+                return i
+            }
+        }
+        ({
+            IV: null
+        }), new class extends gm {
+            parseFunc(e) {
+                e = fm.exec(e);
+                let t;
+                return null !== e && (t = {
+                    width: parseInt(e[1], 10),
+                    height: parseInt(e[2], 10)
+                }),
+                t
+            }
+        }
+        ({
+            RESOLUTION: null
+        })];
+        const vm = {
+            ExtractVariableParameter: /{\$(.*?)}/g,
+            LevelPlaylistFast: /#EXTINF:(\d*(?:\.\d+)?)(?:,(.*))?|(?!#)(\S.+)|#EXT-X-BYTERANGE: *(.+)|#EXT-X-PROGRAM-DATE-TIME:(.+)|#EXT-X-BITRATE:(.+)|#EXT-X-DATERANGE:(.+)|#.*/g,
+            LevelPlaylistSlow: /(?:(?:#(EXTM3U))|(?:#EXT-X-(PLAYLIST-TYPE):(.+))|(?:#EXT-X-(MEDIA-SEQUENCE): *(\d+))|(?:#EXT-X-(TARGETDURATION): *(\d+))|(?:#EXT-X-(KEY):(.+))|(?:#EXT-X-(START):(.+))|(?:#EXT-X-(ENDLIST))|(?:#EXT-X-(DISCONTINUITY-SEQ)UENCE:(\d+))|(?:#EXT-X-(DIS)CONTINUITY))|(?:#EXT-X-(VERSION):(\d+))|(?:#EXT-X-(MAP):(.+))|(?:#EXT-X-(I-FRAMES)-ONLY)|(?:#EXT-X-(DEFINE):(.+))|(?:(#)(.*):(.*))|(?:(#)(.*))(?:.*)\r?\n?/,
+            MasterPlaylist: /#EXT-X-STREAM-INF:([^\n\r]*)[\r\n]+([^\r\n]+)|#EXT-X-I-FRAME-STREAM-INF:([^\r\n]+)|#EXT-X-DEFINE:([^\n\r]*)|#EXT-X-CONTENT-STEERING:([^\n\r]*)/g,
+            MasterPlaylistAlternateMedia: /#EXT-X-MEDIA:(.*)/g,
+            SessionData: /#EXT-X-SESSION-DATA[^:]*:(.*)/g,
+            SessionKeys: /#EXT-X-SESSION-KEY:([^\n\r]*)/g,
+            VARIABLE_PLAYLIST_REGEX: /(NAME|VALUE)=\"(.*)\",(NAME|VALUE)=\"(.*)\"|(IMPORT)=\"(.*)\"/
+        };
+        function Sm(e, t, i) {
+            return sl.buildAbsoluteURL(t, e, {
+                alwaysNormalize: !0,
+                inheritQuery: i
+            })
+        }
+        class bm {
+            static isValidPlaylist(e) {
+                return 0 === e.indexOf("#EXTM3U")
+            }
+            static isMediaPlaylist(e) {
+                return 0 < e.indexOf("#EXTINF:") || 0 < e.indexOf("#EXT-X-PLAYLIST-TYPE:")
+            }
+            static replaceVariables(e, t) {
+                let i, r = !1;
+                return e && t && (i = e.replace(vm.ExtractVariableParameter, e=>{
+                    vm.ExtractVariableParameter.lastIndex = 0;
+                    e = vm.ExtractVariableParameter.exec(e)[1];
+                    if (e && t.hasOwnProperty(e))
+                        return t[e];
+                    r = !0
+                }
+                )),
+                {
+                    updatedString: i,
+                    error: r
+                }
+            }
+            static parseDecryptData(e, t, i) {
+                const r = ym.parseTags(e)
+                  , n = (e = r.METHOD) && e in tm ? r.METHOD : null;
+                e = null !== (e = r.KEYFORMAT) && void 0 !== e ? e : null;
+                if (n && bm.shouldSelectKeyTag(e, n, i)) {
+                    const s = r.URI
+                      , i = r.IV || null;
+                    if (s && r.IV && !i) {
+                        const s = new R(L,_,!0,`Invalid IV: ${r.IV}`,$.PlaylistErrorInvalidEntry);
+                        throw s.url = t,
+                        s
+                    }
+                    const a = s ? sl.buildAbsoluteURL(t, s, {
+                        alwaysNormalize: !0
+                    }) : t
+                      , o = (r.KEYFORMATVERSIONS || "1").split("/").map(Number).filter(isFinite);
+                    return new Gc(n,a,i,e,o)
+                }
+            }
+            static shouldSelectKeyTag(e, t, i) {
+                return "AES-128" === t || "NONE" === t || null == i || e === em.getKeySystemFormat(i)
+            }
+            static optOutClosedCaption(t) {
+                let i = !1
+                  , r = !1;
+                if (t)
+                    for (let e = 0; e < t.length; ++e) {
+                        const n = t[e];
+                        if (n.videoCodec && ((r = !0) !== n.iframes && n.closedcaption && "none" === n.closedcaption.toLowerCase())) {
+                            i = !0;
+                            break
+                        }
+                    }
+                return !r || i
+            }
+            static parseRootPlaylistAlternateMediaOptions(a, o, d, l, u, c) {
+                let h, p;
+                var f = {
+                    MediaSelectionGroupAllowEmptySelection: 1,
+                    MediaSelectionGroupMediaCharacteristics: ["public.audible"],
+                    MediaSelectionGroupMediaType: pl.AUDIO,
+                    MediaSelectionGroupOptions: []
+                }
+                  , m = {
+                    MediaSelectionGroupAllowEmptySelection: 1,
+                    MediaSelectionGroupMediaCharacteristics: ["public.legible"],
+                    MediaSelectionGroupMediaType: pl.SUBTITLE,
+                    MediaSelectionGroupOptions: []
+                }
+                  , g = {
+                    videoAlternateOptions: [],
+                    audioAlternateOptions: [],
+                    subtitleAlternateOptions: [],
+                    audioMediaSelectionGroup: f,
+                    subtitleMediaSelectionGroup: m
+                };
+                let y = 0;
+                for (vm.MasterPlaylistAlternateMedia.lastIndex = 0; null != (h = vm.MasterPlaylistAlternateMedia.exec(o)); ) {
+                    const o = bm.replaceVariables(h[1], c);
+                    if (o.error) {
+                        p = new R(L,N,!0,$.PlaylistErrorInvalidEXTXDEFINE.text,$.PlaylistErrorInvalidEXTXDEFINE);
+                        break
+                    }
+                    var v = ym.parseTags(o.updatedString);
+                    let e, t, i, r = pl.UNKNOWN;
+                    const S = cm.parseMediaCharacteristics(v.CHARACTERISTICS)
+                      , b = v["GROUP-ID"]
+                      , T = v.CHANNELS;
+                    let n, s = null;
+                    switch (v.TYPE) {
+                    case "VIDEO":
+                        r = pl.VIDEO,
+                        t = g.videoAlternateOptions;
+                        break;
+                    case "AUDIO":
+                        r = pl.AUDIO,
+                        s = ul.AltAudio,
+                        t = g.audioAlternateOptions,
+                        i = f;
+                        const a = l.find(e=>e.audioGroupId === b);
+                        n = a ? a.audioCodecList : [];
+                        break;
+                    case "SUBTITLES":
+                        r = pl.SUBTITLE,
+                        s = ul.Subtitle,
+                        t = g.subtitleAlternateOptions,
+                        i = m;
+                        break;
+                    case "CLOSED-CAPTIONS":
+                        r = pl.CLOSEDCAPTION,
+                        s = ul.Subtitle,
+                        e = v["INSTREAM-ID"],
+                        t = g.subtitleAlternateOptions,
+                        i = m
+                    }
+                    const E = {
+                        itemId: a,
+                        mediaOptionType: s,
+                        mediaType: r,
+                        groupId: b,
+                        channels: T,
+                        groupCodecList: n,
+                        name: v.NAME,
+                        type: v.TYPE,
+                        default: "YES" === v.DEFAULT,
+                        autoselect: "YES" === v.AUTOSELECT,
+                        forced: "YES" === v.FORCED,
+                        characteristics: S,
+                        persistentID: y,
+                        id: t ? t.length : 0,
+                        mediaOptionId: `${v.NAME}_${b}_${y}`,
+                        lang: om.shortenLanguageCode(v.LANGUAGE)
+                    };
+                    v.URI && (E.url = Sm(v.URI, d, u)),
+                    E.name || (E.name = E.lang,
+                    E.mediaType === pl.CLOSEDCAPTION && (E.name += " CC")),
+                    E.mediaType === pl.CLOSEDCAPTION && e && (E.inStreamID = e),
+                    t && (E.id = t.length,
+                    t.push(E)),
+                    y = cm.addMediaToSelectionArray(i, E, y)
+                }
+                return 0 !== g.subtitleAlternateOptions.length || bm.optOutClosedCaption(l) || cm.addDefaultClosedCaptionOption(a, g.subtitleAlternateOptions, m, y),
+                {
+                    alternateMediaInfo: g,
+                    playlistParsingError: p
+                }
+            }
+            static parseMediaOptionPlaylist(e, t, i=!0, r, n, s, a, o, d, l=0) {
+                var u;
+                let c = 0
+                  , h = 0;
+                const p = {
+                    itemId: s,
+                    mediaOptionId: a,
+                    mediaOptionType: o,
+                    type: "",
+                    version: 0,
+                    url: t,
+                    initSegments: {},
+                    fragments: [],
+                    liveOrEvent: !0,
+                    startSN: 0,
+                    endSN: 0,
+                    iframesOnly: !1,
+                    targetduration: 0,
+                    totalduration: 0,
+                    averagetargetduration: 0,
+                    ptsKnown: !1
+                };
+                let f, m, g, y = new Gc("NONE",t,null,null,null), v = !1, S = !1, b = 0, T = null, E = new um(i), I = 0;
+                const w = {};
+                let A, O, k, C = !0, D = !0;
+                vm.LevelPlaylistFast.lastIndex = 0;
+                for (var M = ()=>new R(L,_,!0,"Invalid key system preference for the playlist",$.IncompatibleAsset); null !== (f = vm.LevelPlaylistFast.exec(e)); ) {
+                    const e = f[1];
+                    if (e) {
+                        E.duration = parseFloat(e);
+                        const t = (" " + f[2]).slice(1);
+                        E.title = t || null,
+                        E.tagList.push(t ? ["INF", e, t] : ["INF", e])
+                    } else if (f[3]) {
+                        if (ne(E.duration)) {
+                            const e = c++;
+                            if (E.start = h + l,
+                            E.levelkey = y,
+                            S && !v) {
+                                O = M();
+                                break
+                            }
+                            if (v = !1,
+                            S = !1,
+                            E.mediaSeqNum = e,
+                            E.cc = b,
+                            E.iframe = p.iframesOnly,
+                            E.baseurl = t,
+                            (A = bm.replaceVariables((" " + f[3]).slice(1), w)).error) {
+                                O = new R(L,N,!0,$.PlaylistErrorInvalidEXTXDEFINE.text,$.PlaylistErrorInvalidEXTXDEFINE);
+                                break
+                            }
+                            if (E.relurl = A.updatedString,
+                            E.bitrate = ne(E.byteRangeEndOffset) ? 8 * (E.byteRangeEndOffset - E.byteRangeStartOffset) / E.duration : I,
+                            null != g) {
+                                E.rawProgramDateTime = g,
+                                E.tagList.push(["PROGRAM-DATE-TIME", E.rawProgramDateTime]);
+                                const e = E.programDateTime.getTime();
+                                p.programDateTimeMap = null !== (u = p.programDateTimeMap) && void 0 !== u ? u : {},
+                                p.programDateTimeMap[e] = E.mediaSeqNum,
+                                p.dateMediaTimePairs = null !== (u = p.dateMediaTimePairs) && void 0 !== u ? u : [],
+                                p.dateMediaTimePairs.push([e, E.start]),
+                                g = void 0
+                            }
+                            if (p.fragments.push(E.getMediaFragment(s, a, o)),
+                            T = E,
+                            h += E.duration,
+                            C || !p.initSegments[b] || D)
+                                if (p.iframesOnly && 0 < E.byteRangeStartOffset && !p.initSegments[b] && !D) {
+                                    const e = new um(i);
+                                    if (e.url = E.url,
+                                    e.rawByteRange = Math.min(E.byteRangeStartOffset, 1316) + "@0",
+                                    e.baseurl = t,
+                                    e.isInitSegment = !0,
+                                    e.cc = b,
+                                    e.levelkey = y,
+                                    e.iframe = !0,
+                                    S && !v) {
+                                        O = M();
+                                        break
+                                    }
+                                    v = !1,
+                                    S = !1,
+                                    p.initSegments[b] = e.getMediaFragment(s, a, o)
+                                } else
+                                    k && (k.discoSeqNum = b,
+                                    p.initSegments[b] = k);
+                            C = !1,
+                            D = !1,
+                            E = new um(i)
+                        }
+                    } else if (f[4]) {
+                        if (E.rawByteRange = (" " + f[4]).slice(1),
+                        T) {
+                            const e = T.byteRangeEndOffset;
+                            e && (E.lastByteRangeEndOffset = e)
+                        }
+                    } else if (f[5])
+                        g = (" " + f[5]).slice(1);
+                    else if (f[6]) {
+                        const e = parseInt(f[6]);
+                        ne(e) && (I = 1e3 * e)
+                    } else if (f[7]) {
+                        const e = f[7]
+                          , t = ym.parseTags(e);
+                        t.ID && (p.daterangeTags || (p.daterangeTags = {}),
+                        p.daterangeTags[t.ID] = t)
+                    } else {
+                        for (f = f[0].match(vm.LevelPlaylistSlow),
+                        m = 1; m < f.length && void 0 === f[m]; m++)
+                            ;
+                        const e = bm.replaceVariables((" " + f[m + 1]).slice(1), w)
+                          , d = bm.replaceVariables((" " + f[m + 2]).slice(1), w);
+                        if (e.error || d.error) {
+                            O = new R(L,N,!0,$.PlaylistErrorInvalidEXTXDEFINE.text,$.PlaylistErrorInvalidEXTXDEFINE);
+                            break
+                        }
+                        const l = e.updatedString
+                          , P = d.updatedString;
+                        switch (f[m]) {
+                        case "#":
+                            E.tagList.push(P ? [l, P] : [l]);
+                            break;
+                        case "PLAYLIST-TYPE":
+                            p.type = l.toUpperCase(),
+                            "VOD" === p.type && (p.liveOrEvent = !1);
+                            break;
+                        case "MEDIA-SEQUENCE":
+                            0 === p.fragments.length && (c = p.startSN = parseInt(l));
+                            break;
+                        case "TARGETDURATION":
+                            p.targetduration = parseFloat(l);
+                            break;
+                        case "VERSION":
+                            p.version = parseInt(l);
+                            break;
+                        case "EXTM3U":
+                            break;
+                        case "ENDLIST":
+                            p.liveOrEvent = !1;
+                            break;
+                        case "DIS":
+                            b++,
+                            E.tagList.push(["DIS"]),
+                            C = !0;
+                            break;
+                        case "DISCONTINUITY-SEQ":
+                            b = parseInt(l);
+                            break;
+                        case "KEY":
+                            const e = l;
+                            if (S = !0,
+                            !v) {
+                                try {
+                                    y = bm.parseDecryptData(e, t, r)
+                                } catch (e) {
+                                    O = e
+                                }
+                                y && (v = !0)
+                            }
+                            break;
+                        case "START":
+                            const d = l
+                              , u = ym.parseTags(d)["TIME-OFFSET"];
+                            ne(u) && (p.startTimeOffset = u);
+                            break;
+                        case "I-FRAMES":
+                            p.iframesOnly = !0;
+                            break;
+                        case "MAP":
+                            const h = ym.parseTags(l);
+                            if (E.relurl = h.URI,
+                            E.rawByteRange = h.BYTERANGE,
+                            E.baseurl = t,
+                            E.isInitSegment = !0,
+                            E.levelkey = y,
+                            S && !v) {
+                                O = M();
+                                break
+                            }
+                            v = !1,
+                            S = !1,
+                            k = E.getMediaFragment(s, a, o),
+                            D = !0,
+                            E = new um(i);
+                            break;
+                        case "DEFINE":
+                            const f = vm.VARIABLE_PLAYLIST_REGEX.exec(l)
+                              , m = "NAME" === f[1] ? f[2] : f[4]
+                              , g = "VALUE" === f[1] ? f[2] : f[4]
+                              , N = f[5]
+                              , T = f[6];
+                            if (m || g || "IMPORT" !== N || !n.hasOwnProperty(T)) {
+                                if (!m || N || f[1] === f[3] || w.hasOwnProperty(m)) {
+                                    O = new R(L,_,!0,$.PlaylistErrorMissingImportReference.text,$.PlaylistErrorMissingImportReference);
+                                    break
+                                }
+                                w[m] = g
+                            } else
+                                w[T] = n[T]
+                        }
+                    }
+                }
+                return E = T,
+                E && !E.relurl && (p.fragments.pop(),
+                h -= E.duration),
+                !p.liveOrEvent && 0 < p.fragments.length && (p.fragments[p.fragments.length - 1].isLastFragment = !0),
+                p.totalduration = h,
+                p.averagetargetduration = h / p.fragments.length,
+                p.endSN = c - 1,
+                {
+                    mediaOptionDetails: p,
+                    playlistParsingError: O
+                }
+            }
+            static parseRootPlaylist(t, e, i, r) {
+                const n = []
+                  , s = {};
+                let a, o, d, l, u = null, c = !0;
+                for (vm.MasterPlaylist.lastIndex = 0; null != (a = vm.MasterPlaylist.exec(e)); )
+                    if (a[4]) {
+                        a = vm.VARIABLE_PLAYLIST_REGEX.exec(a[4]);
+                        const t = "NAME" === a[1] ? a[2] : a[4]
+                          , e = "VALUE" === a[1] ? a[2] : a[4]
+                          , i = a[5];
+                        if (!t || s.hasOwnProperty(t) || i || a[1] === a[3]) {
+                            l = new R(L,_,!0,$.PlaylistErrorInvalidEXTXDEFINE.text,$.PlaylistErrorInvalidEXTXDEFINE);
+                            break
+                        }
+                        s[t] = e
+                    } else if (a[5]) {
+                        const t = bm.replaceVariables(a[5], s);
+                        if (t.error) {
+                            l = new R(L,_,!0,$.PlaylistErrorInvalidEXTXDEFINE.text,$.PlaylistErrorInvalidEXTXDEFINE);
+                            break
+                        }
+                        const e = ym.parseTags(t.updatedString);
+                        if ("string" != typeof e["SERVER-URI"]) {
+                            l = new R(L,_,!0,$.PlaylistErrorInvalidSERVERURI.text,$.PlaylistErrorInvalidSERVERURI);
+                            break
+                        }
+                        if (null != e["PATHWAY-ID"] && "string" != typeof e["PATHWAY-ID"]) {
+                            l = new R(L,_,!0,$.PlaylistErrorInvalidPATHWAYID.text,$.PlaylistErrorInvalidPATHWAYID);
+                            break
+                        }
+                        u = {
+                            serverURI: Sm(e["SERVER-URI"], i, !1),
+                            initPathwayID: e["PATHWAY-ID"] || "."
+                        }
+                    } else {
+                        d = bm.replaceVariables(a[1] || a[3], s);
+                        const e = ym.parseTags(d.updatedString);
+                        if (o = bm.replaceVariables(a[2] || e.URI, s),
+                        d.error || o.error) {
+                            l = new R(L,_,!0,$.PlaylistErrorInvalidEXTXDEFINE.text,$.PlaylistErrorInvalidEXTXDEFINE);
+                            break
+                        }
+                        if (void 0 !== e.SCORE && !ne(e.SCORE) || e.SCORE < 0) {
+                            l = new R(L,_,!0,$.PlaylistErrorInvalidSCORE.text,$.PlaylistErrorInvalidSCORE),
+                            c = !1;
+                            break
+                        }
+                        c && void 0 === e.SCORE && (c = !1);
+                        const u = e.BANDWIDTH
+                          , p = e["AVERAGE-BANDWIDTH"]
+                          , f = p || u
+                          , m = null !== (h = e["VIDEO-RANGE"]) && void 0 !== h ? h : "SDR";
+                        if (null == (h = m) || !sm.includes(h))
+                            continue;
+                        const g = {
+                            itemId: t,
+                            mediaOptionId: `level_${(f || 0) + n.length % 1e3 / 1e3}`,
+                            mediaOptionType: ul.Variant,
+                            attrs: e,
+                            url: Sm(o.updatedString, i, r),
+                            name: e.NAME,
+                            audioGroupId: e.AUDIO,
+                            subtitleGroupId: e.SUBTITLES,
+                            iframes: !!a[3],
+                            bandwidth: u,
+                            avgBandwidth: p,
+                            bitrate: f,
+                            videoRange: m,
+                            frameRate: e["FRAME-RATE"],
+                            allowedCPCMap: bm.parseAllowedCPC(e["ALLOWED-CPC"]),
+                            closedcaption: e["CLOSED-CAPTIONS"],
+                            levelCodec: e.CODECS,
+                            score: e.SCORE,
+                            pathwayID: e["PATHWAY-ID"] || "."
+                        }
+                          , y = e["HDCP-LEVEL"];
+                        rm(y) && (g.hdcpLevel = y);
+                        var h = e.RESOLUTION;
+                        if (h && (g.width = h.width,
+                        g.height = h.height),
+                        e.CODECS) {
+                            g.videoCodecList = new Array,
+                            g.audioCodecList = new Array;
+                            const t = e.CODECS.split(/[ ,]+/)
+                              , i = t["length"];
+                            for (let e = 0; e < i; e++) {
+                                const i = t[e];
+                                switch (i.slice(0, 4)) {
+                                case "avc1":
+                                    g.videoCodec = Se.avc1toavcoti(i),
+                                    g.videoCodecList.push(g.videoCodec);
+                                    break;
+                                case "avc3":
+                                case "dvav":
+                                case "dva1":
+                                case "hev1":
+                                case "hvc1":
+                                case "dvh1":
+                                case "dvhe":
+                                case "vp09":
+                                    g.videoCodec = i,
+                                    g.videoCodecList.push(g.videoCodec);
+                                    break;
+                                default:
+                                    g.audioCodec = i,
+                                    g.audioCodecList.push(g.audioCodec)
+                                }
+                            }
+                            1 < g.audioCodecList.length && (g.audioCodec = dm.getRichestAudioCodec(g.audioCodecList)),
+                            1 < g.videoCodecList.length && (g.videoCodec = dm.getRichestVideoCodec(g.videoCodecList))
+                        }
+                        if (null != (l = "string" != typeof (h = g.pathwayID) ? lm("invalid steering manifest PATHWAY-PRIORITY list item data type") : /^[\w\-\.]+$/.test(h) ? void 0 : lm("steering manifest contains invalid pathway ID: " + h)))
+                            break;
+                            let cpc = g.allowedCPCMap ? JSON.stringify(g.allowedCPCMap) : "null";
+                            if (!cpc.includes("WIDEVINE_HARDWARE") && !g.url.includes('trickPlay') && !g.videoCodec.includes("hvc1"))
+                            n.push(g)
+                    }
+                                        
+                    try{
+                        // console.log(n,  window.screen.width)
+                        let ok = (n.map(  function(item){return{height : item.height, content: item}}));
+                        let screenHeight = (app.cfg.visual.videoRes ?? window.screen.height) ;
+                        ok.sort(function (a, b) {
+                            return a.height - b.height;
+                          });
+                        for (var i = 0; i < ok.length; i++){
+                            if (ok[i].height > screenHeight){
+                                if (i == 0){n.splice(0,n.length);n.push(ok[i].content)} 
+                                else{n.splice(0,n.length);n.push(ok[i-1].content)}
+                                console.log('selected' , n[0].height)
+                                break; 
+                                
+                            }
+                                
+                        }
+                        if (n.length > 1){
+                            n.splice(0,n.length - 1);                      
+                        }
+                        // console.log(n)
+                        // console.log(ok)
+                        } catch (e){ console.log(e)}
+                return {
+                    variantMediaOptions: n,
+                    contentSteeringOption: u,
+                    masterVariableList: s,
+                    playlistParsingError: l,
+                    scoreAvailable: c
+                }
+            }
+            static parseAllowedCPC(e) {
+                if ("string" != typeof e)
+                    return null;
+                const n = {};
+                return e.split(",").forEach(e=>{
+                    const t = e.split(":");
+                    let i, r;
+                    if (2 === t.length)
+                        i = t[0].trim(),
+                        r = t[1].trim();
+                    else {
+                        if (!(2 < t.length))
+                            return;
+                        r = t[t.length - 1].trim(),
+                        t.pop(),
+                        i = t.join(":")
+                    }
+                    if (!(i in n)) {
+                        let e = new Array;
+                        "" !== r && (e = r.split("/").map(e=>e.trim())),
+                        n[i] = e
+                    }
+                }
+                ),
+                n
+            }
+            static parseSessionKeys(e, t, i) {
+                var r;
+                const n = [];
+                for (vm.SessionData.lastIndex = 0; r = vm.SessionKeys.exec(e); )
+                    try {
+                        const e = bm.parseDecryptData(r[1], t, i);
+                        e && e.isEncrypted && n.push(e)
+                    } catch (e) {}
+                return n
+            }
+            static parseSessionData(e, t) {
+                var i;
+                const r = []
+                  , n = new Set;
+                for (vm.SessionData.lastIndex = 0; null != (i = vm.SessionData.exec(e)); ) {
+                    const e = ym.parseTags(i[1]);
+                    e.LANGUAGE = om.shortenLanguageCode(e.LANGUAGE);
+                    const t = e.LANGUAGE ? e["DATA-ID"] + "|" + e.LANGUAGE : void 0;
+                    "DATA-ID"in e ? t && n.has(t) || ("com.apple.hls.other-tags" === e["DATA-ID"] && (e.VALUE = function(t) {
+                        let i;
+                        try {
+                            i = JSON.parse(Vc.base64DecodeToStr(t))
+                        } catch (e) {
+                            i = t
+                        }
+                        return i
+                    }(e.VALUE)),
+                    r.push(e),
+                    t && n.add(t)) : qe().error(`Error processing DATA-ID ${e["DATA-ID"]} and LANGUAGE ${e.LANGUAGE}`)
+                }
+                return {
+                    itemList: r,
+                    baseUrl: t
+                }
+            }
+        }
+        var Tm, Em, Im, wm, Am, Om = bm;
+        const km = (e,t,i)=>{
+            i = Object.assign(Object.assign({}, e), {
+                method: "GET",
+                responseType: "text",
+                extendMaxTTFB: i
+            });
+            return ml(i.url) ? Mc().load(i, t).pipe(ur(e=>({
+                responseText: e.data.response.data,
+                responseURL: e.data.response.uri,
+                stats: e.stats
+            }))) : Oc(i, t).pipe(ur(([e,t])=>({
+                responseText: e.responseText,
+                responseURL: e.responseURL,
+                stats: t
+            })))
+        }
+          , Cm = (e,n,t,i,s,a,o,d,r)=>{
+            const {url: l, itemId: u, mediaOptionId: c, mediaOptionType: h} = e
+              , p = xc(e, i);
+            return km({
+                url: l,
+                xhrSetup: t.xhrSetup
+            }, p, r).pipe(ur(({responseText: e, stats: t})=>{
+                var i = performance.now()
+                  , r = bm.parseMediaOptionPlaylist(e, l, !0, a, d, u, c, h, s, n);
+                Lc(r.mediaOptionDetails);
+                var e = performance.now()
+                  , r = r["mediaOptionDetails"]
+                  , i = {
+                    playlistLoadTimeMs: t.tload - t.trequest,
+                    playlistParseTimeMs: e - i
+                };
+                return o.setPlaylistSample(i),
+                {
+                    mediaOptionDetails: r,
+                    stats: t
+                }
+            }
+            ), (f = h,
+            m = c,
+            g = l,
+            e=>e.pipe(Un(e=>{
+                if (e instanceof ou)
+                    throw new nu(!1,"Timeout",0,$.PlaylistTimeoutError,!0,f,m,g);
+                if (e instanceof tu)
+                    throw new nu(!1,e.message,e.code,{
+                        code: e.code,
+                        text: "Playlist Network Error"
+                    },!1,f,m,g);
+                throw e
+            }
+            ))));
+            var f, m, g
+        }
+          , Dm = (f,e,m,t,g)=>Bi(e).pipe(Ra(e=>{
+            const {keyTagInfo: t, isInitSegment: i, iframe: r, byteRangeOffset: n} = f
+              , s = t["method"]
+              , {start: a, end: o} = n;
+            if ("AES-128" !== s)
+                return Bi(e);
+            {
+                !t.uri || t.iv || t.format && "identity" !== t.format || (t.iv = function(t) {
+                    const i = new Uint8Array(16);
+                    for (let e = 12; e < 16; e++)
+                        i[e] = t >> 8 * (15 - e) & 255;
+                    return i
+                }(f.mediaSeqNum));
+                const n = e
+                  , s = t.key.buffer
+                  , d = t.iv.buffer
+                  , l = o && (r || i) ? o - a : void 0
+                  , u = !m.enableWebCrypto || !!l
+                  , c = s.slice(0)
+                  , h = d.slice(0)
+                  , p = {
+                    useJSCrypto: u,
+                    plainTextLength: l
+                };
+                return g.decrypt(c, h, "AES-CBC", n, p)
+            }
+        }
+        ));
+        class Mm {
+            constructor(e) {
+                this.option = e
+            }
+            get name() {
+                return this.option.name
+            }
+            get priority() {
+                return this.option.priority
+            }
+            get expiry() {
+                return this.option.expiry
+            }
+            filter(i, e) {
+                const r = this.option.initFn && this.option.initFn(i, e) || (e ? Object.assign({}, e) : {});
+                let t = i;
+                return this.option.firstPassFn && i.forEach((e,t)=>this.option.firstPassFn(e, t, r, i)),
+                this.option.filterFn && (t = i.filter((e,t)=>this.option.filterFn(e, t, r, i))),
+                null != this.option.filterFn && 0 !== t.length || !this.option.minSortingFn || (t = i.sort((e,t)=>this.option.minSortingFn(e, t, r, i))),
+                this.option.finalFn && this.option.finalFn(t, r, i),
+                t
+            }
+        }
+        function Pm(e, t, i) {
+            return (t || []).reduce((e,t)=>t.filter(e, i), Array.from(e))
+        }
+        function xm(t, e) {
+            return e.filter(e=>{
+                return yl(t, null !== (e = e.url) && void 0 !== e ? e : null)
+            }
+            )
+        }
+        function Rm() {
+            return [new Mm({
+                name: "Remove Filter",
+                priority: 0,
+                filterFn: (t,e,i)=>!i || i.removed.every(e=>t.mediaOptionId !== e)
+            }), new Mm({
+                name: "Penalty Box Filter",
+                priority: 1,
+                filterFn: (t,e,i)=>{
+                    const r = performance.now();
+                    return !i || i.penaltyBoxQueue.every(e=>e.expiry <= r || t.mediaOptionId !== e.mediaOptionId)
+                }
+            }), new Mm({
+                name: "Compatible IDs Filter",
+                priority: 1,
+                filterFn: (t,e,i)=>!i || null == i.compatibleIds || i.compatibleIds.some(e=>e === t.mediaOptionId)
+            })]
+        }
+        class Lm extends Od {
+            constructor(e, t, i) {
+                super(e),
+                this.itemId = t,
+                this.mediaOptionType = i,
+                this.allowFilters = this._initFilters()
+            }
+            get mediaOptionList() {
+                var e;
+                return (null === (e = this.mediaOptionListInfo) || void 0 === e ? void 0 : e.mediaOptions) || null
+            }
+            get mediaOptionList$() {
+                return this.mediaOptionListInfo$.pipe(ur(({mediaOptions: e})=>e))
+            }
+            mediaOptionFromId(t) {
+                var e;
+                return null !== (e = (null !== (e = this.mediaOptionList) && void 0 !== e ? e : []).find(e=>e.mediaOptionId === t)) && void 0 !== e ? e : null
+            }
+            _getFilteredList(e) {
+                return Pm(e.mediaOptions, this.allowFilters, e)
+            }
+            get filteredMediaOptionList() {
+                return this.mediaOptionListInfo ? this._getFilteredList(this.mediaOptionListInfo) : null
+            }
+            get filteredMediaOptionList$() {
+                return this.mediaOptionListInfo$.pipe(Ra(e=>{
+                    const t = [Ul]
+                      , i = performance.now();
+                    for (const r of e.penaltyBoxQueue)
+                        ne(r.expiry) && r.expiry > i && t.push(vn(r.expiry - i));
+                    return nn(...t).pipe(ur(()=>this._getFilteredList(e)))
+                }
+                ), yd())
+            }
+            get preferredMediaOptionList() {
+                return this.filteredMediaOptionList ? xm(this.preferredHost, this.filteredMediaOptionList) : []
+            }
+            get preferredMediaOptionList$() {
+                return Zd([this.preferredHost$, this.filteredMediaOptionList$]).pipe(ur(([e,t])=>xm(e, t)))
+            }
+            getNewHost(e) {
+                e = this.getFallbackVariant(e, !1, !0);
+                return null != e && e.url ? gl(e.url) : this.preferredHost
+            }
+        }
+        function _m(e) {
+            return "PQ" === e.videoRange || "HLG" === e.videoRange
+        }
+        function Nm(e, t) {
+            return t.iframes === e
+        }
+        function Fm(e, t, i, r) {
+            return !r || i.bitrate > r.bitrate && i.bitrate <= e.bitrate ? Tm.Better : i.bitrate === r.bitrate ? Tm.Same : Tm.Worse
+        }
+        function Bm(e, t) {
+            return e && !t ? -1 : !e && t ? 1 : 0
+        }
+        (dd = Tm = Tm || {})[dd.Better = 1] = "Better",
+        dd[dd.Same = 0] = "Same",
+        dd[dd.Worse = -1] = "Worse";
+        class Um extends Lm {
+            constructor(e, t) {
+                super(e, t, ul.Variant)
+            }
+            static makeFilters() {
+                return [...Rm().concat([new Mm({
+                    name: "HDR Filter",
+                    priority: 1,
+                    filterFn: (e,t,i)=>!i || (i.hasHdrLevels && i.preferHDR) === _m(e)
+                }), new Mm({
+                    name: "Viewport Filter",
+                    priority: 1,
+                    firstPassFn: (e,t,i)=>{
+                        if (i && e && !e.iframes && e.videoCodec) {
+                            const t = !i.lowestBitrate || e.bitrate < i.lowestBitrate ? e.bitrate : i.lowestBitrate;
+                            i.lowestBitrate = t
+                        }
+                    }
+                    ,
+                    filterFn: (e,t,i)=>!(e && i && i.viewportInfo && e.videoCodec && i.lowestBitrate) || function(e, t) {
+                        return e.width < 1.35 * t.width && e.height < 1.35 * t.height && e.width * e.height < t.width * t.height * 1.35
+                    }({
+                        width: e.width,
+                        height: e.height
+                    }, i.viewportInfo) || e.bitrate === i.lowestBitrate
+                }), new Mm({
+                    name: "HDCP Filter",
+                    priority: 2,
+                    filterFn: (e,t,i)=>!i || !rm(i.maxHdcpLevel) || nm(e.hdcpLevel) < nm(i.maxHdcpLevel)
+                })])].sort((e,t)=>{
+                    return (null !== (e = e.priority) && void 0 !== e ? e : Number.MAX_SAFE_INTEGER) - (null !== (t = t.priority) && void 0 !== t ? t : Number.MAX_SAFE_INTEGER)
+                }
+                )
+            }
+            _initFilters() {
+                return Um.kAllowFilters
+            }
+            get preferredHost() {
+                var e;
+                return null !== (e = null === (e = this.mediaOptionListInfo) || void 0 === e ? void 0 : e.preferredHost) && void 0 !== e ? e : null
+            }
+            get preferredHost$() {
+                return this.selectEntity(this.itemId, e=>{
+                    return null !== (e = null == e ? void 0 : e.mediaOptionListTuple[ul.Variant].preferredHost) && void 0 !== e ? e : null
+                }
+                )
+            }
+            get mediaOptionListInfo() {
+                var e;
+                return null !== (e = null === (e = this.getEntity(this.itemId)) || void 0 === e ? void 0 : e.mediaOptionListTuple[ul.Variant]) && void 0 !== e ? e : null
+            }
+            get mediaOptionListInfo$() {
+                return this.selectEntity(this.itemId, e=>{
+                    return null === (e = null == e ? void 0 : e.mediaOptionListTuple) || void 0 === e ? void 0 : e[ul.Variant]
+                }
+                ).pipe(Up())
+            }
+            get hdrMode$() {
+                return this.mediaOptionListInfo$.pipe(ur(e=>!0 === e.preferHDR && e.hasHdrLevels), Es())
+            }
+            get maxHdcpLevel$() {
+                return this.selectEntity(this.itemId, e=>{
+                    e = null === (e = null == e ? void 0 : e.mediaOptionListTuple) || void 0 === e ? void 0 : e[ul.Variant];
+                    return null == e ? void 0 : e.maxHdcpLevel
+                }
+                ).pipe(Es())
+            }
+            listFallbackVariants(t, e, i, r, n) {
+                var s = this.mediaOptionListInfo
+                  , a = null === (o = this.mediaOptionList) || void 0 === o ? void 0 : o.find(e=>e.mediaOptionId === t);
+                if (!a || !s)
+                    return null;
+                var o = this.makeFilteredListFromVariant(a, e, n);
+                if (!o)
+                    return null;
+                e = gl(a.url),
+                s = s.hasScore;
+                return Um._listFallbackVariants(o, a, e, s, i, r, n)
+            }
+            getFallbackVariant(t, e, i, r) {
+                var n = this.mediaOptionListInfo
+                  , s = null === (s = this.mediaOptionList) || void 0 === s ? void 0 : s.find(e=>e.mediaOptionId === t);
+                if (!s || !n)
+                    return null;
+                e = this.makeFilteredListFromVariant(s, e, r);
+                if (!e)
+                    return null;
+                r = gl(s.url),
+                n = n.hasScore;
+                return Um._getFallbackVariant(e, s, r, n, i)
+            }
+            makeFilteredListFromVariant(e, t, i) {
+                let r = this.mediaOptionListInfo;
+                if (!e || !this.mediaOptionList || !r)
+                    return null;
+                r = Object.assign(Object.assign({}, r), {
+                    includeAllEligiblePathways: !0
+                });
+                e = Array.from(this.mediaOptionList);
+                let n = t ? Pm(e, this.allowFilters, Object.assign(Object.assign({}, r), {
+                    preferHDR: !1,
+                    compatibleIds: null
+                })) : this._getFilteredList(r);
+                return n ? (i && 0 < i.length && (n = n.filter(e=>!i.includes(e.mediaOptionId))),
+                n) : null
+            }
+            get hasIframes() {
+                var e;
+                return null !== (e = null === (e = this.mediaOptionListInfo) || void 0 === e ? void 0 : e.hasIframeLevels) && void 0 !== e && e
+            }
+            canSwitchToSDR(e, t, i=!1) {
+                var r = this.mediaOptionListInfo;
+                if (!this.mediaOptionList || !r)
+                    return !1;
+                var n = this.mediaOptionFromId(e);
+                if (!n)
+                    return !1;
+                if (!_m(n))
+                    return !1;
+                var s = gl(n.url)
+                  , e = Pm(Array.from(this.mediaOptionList), this.allowFilters, Object.assign(Object.assign({}, r), {
+                    preferHDR: !1,
+                    compatibleIds: null
+                }))
+                  , r = r.hasScore;
+                return null != Um._getFallbackVariant(e, n, s, r, t, i)
+            }
+            static _listFallbackVariants(e, r, n, t, s, a=!1, i=null) {
+                let o = !1;
+                const d = function(e, s, a) {
+                    const t = [...e]
+                      , o = gl(s.url)
+                      , d = s.audioGroupId;
+                    return t.sort((e,t)=>{
+                        let i = 0;
+                        var r = a && ne(e.score) && ne(t.score)
+                          , n = r ? e.score > t.score && e.score <= s.score : e.bitrate > t.bitrate && e.bitrate <= s.bitrate
+                          , r = r ? e.score === t.score : e.bitrate === t.bitrate;
+                        return n ? i = -1 : r ? (i = Bm(yl(o, e.url), yl(o, t.url)),
+                        0 === i && (i = Bm(!d || e.audioGroupId === d, !d || t.audioGroupId === d))) : i = 1,
+                        i
+                    }
+                    ),
+                    t
+                }(e.filter(e=>{
+                    var t = !(e.iframes !== r.iframes || s && yl(n, e.url))
+                      , i = a ? e.bitrate < r.bitrate : e.bitrate <= r.bitrate
+                      , i = t && i;
+                    return r.mediaOptionId === e.mediaOptionId ? (o = i,
+                    !1) : i
+                }
+                ), r, t);
+                return !o || i && i.includes(r.mediaOptionId) || d.unshift(r),
+                d
+            }
+            static _getFallbackVariant(e, t, i, r, n, s=!1) {
+                let a = null;
+                e = (e = s ? e.filter(e=>e.bitrate < t.bitrate) : e).filter(e=>e.mediaOptionId !== t.mediaOptionId && e.iframes === t.iframes);
+                if (n && null != i)
+                    for (const o of e)
+                        Fm(t, 0, o, a) !== Tm.Better || yl(i, o.url) || (a = o);
+                else
+                    for (const o of e) {
+                        const r = Fm(t, 0, o, a);
+                        r !== Tm.Better && (r !== Tm.Same || !yl(i, o.url) || yl(i, a.url) && o.audioGroupId !== t.audioGroupId) || (a = o)
+                    }
+                return a
+            }
+            getMatchingVariant(e, t) {
+                var i = this.mediaOptionFromId(e)
+                  , r = gl(null == i ? void 0 : i.url)
+                  , n = t.mediaOptionType === ul.AltAudio ? "audioGroupId" : "subtitleGroupId";
+                let s = null;
+                this.mediaOptionListInfo.hasScore;
+                for (const e of this.filteredMediaOptionList)
+                    if (e[n] === t.groupId) {
+                        if (!i) {
+                            s = e;
+                            break
+                        }
+                        var a = Fm(i, 0, e, s);
+                        a !== Tm.Better && (a !== Tm.Same || s.mediaOptionId === i.mediaOptionId || e.mediaOptionId !== i.mediaOptionId && !yl(r, e.url)) || (s = e)
+                    }
+                return s
+            }
+            get currentPathwayID() {
+                var e;
+                return null === (e = this.mediaOptionListInfo) || void 0 === e ? void 0 : e.currentPathwayID
+            }
+        }
+        function $m(e, t) {
+            switch (e) {
+            case Em.SendAlternateToPenaltyBox:
+                e = Em.RetryRequest,
+                401 !== t && 403 !== t && 407 !== t && t !== $.CorruptStream.code && t !== $.LivePlaylistUpdateError.code || (e = Em.SendEndCallback);
+                break;
+            case Em.RemoveAlternatePermanently:
+                e = Em.SendEndCallback
+            }
+            return e
+        }
+        function Vm(e, t, i, r, n, s, a, o=!1) {
+            const d = s.mediaOptionListQueries[n]
+              , l = 0 != (e.errorActionFlags & Im.MoveAllAlternatesMatchingHost)
+              , u = s.mediaOptionListQueries[n].mediaOptionFromId(r)
+              , c = a.getFallbackMediaOptionTupleFromMediaOptionId(s, n, r, u.backingMediaOptionId, !1, l, o);
+            let {errorAction: h, errorActionFlags: p} = e;
+            return s.isValidMediaOptionTuple(c) ? yl(d.preferredHost, c[n].url) && (p &= ~Im.MoveAllAlternatesMatchingHost) : (t || (h = $m(h, i),
+            p = 0),
+            d instanceof Um && (!0 === d.mediaOptionFromId(r).iframes ? (h = Em.DoNothing,
+            p = 0) : !t && a.canSwitchToSDR(s, r, l, o) && (h = e.errorAction,
+            p = Im.SwitchToSDR))),
+            {
+                errorAction: h,
+                errorActionFlags: p
+            }
+        }
+        function Km(e) {
+            let t, i = 0;
+            switch (e) {
+            case 0:
+                t = Em.SendAlternateToPenaltyBox,
+                i = Im.MoveAllAlternatesMatchingHost;
+                break;
+            case 410:
+                t = Em.RemoveAlternatePermanently;
+                break;
+            case 500:
+            case 502:
+            case 503:
+            case 504:
+            case 404:
+            case 409:
+            case 401:
+            case 403:
+            case 407:
+            case $.LivePlaylistUpdateError.code:
+            case $.PlaylistNotReceived.code:
+            default:
+                t = Em.SendAlternateToPenaltyBox,
+                i = 0
+            }
+            return {
+                errorAction: t,
+                errorActionFlags: i
+            }
+        }
+        function Hm(i, r, n, s, a, o, d) {
+            var {errorAction: l, errorActionFlags: u} = i;
+            let e = !0;
+            switch (l) {
+            case Em.RemoveAlternatePermanently:
+            case Em.SendAlternateToPenaltyBox:
+                {
+                    if (null == a || null == o)
+                        return r.handled = !1;
+                    const i = n.itemId;
+                    let e = o
+                      , t = n.mediaOptionListQueries[a].mediaOptionFromId(o);
+                    t.backingMediaOptionId && (e = t.backingMediaOptionId,
+                    t = n.mediaOptionListQueries[a].mediaOptionFromId(e));
+                    var c = 0 != (u & Im.MoveAllAlternatesMatchingHost)
+                      , h = 0 != (u & Im.MoveAllAlternatesMatchingHDCP)
+                      , p = 0 != (u & Im.SwitchToSDR)
+                      , f = l === Em.RemoveAlternatePermanently;
+                    if (h && "hdcpLevel"in t) {
+                        const r = t.hdcpLevel;
+                        s.setMaxHdcpLevel(i, r)
+                    }
+                    if (p && s.switchToSDROnly(i),
+                    c) {
+                        const r = gl(t.url);
+                        s.moveAllWithMatchingHosts(i, a, r, f)
+                    } else
+                        f ? s.removePermanently(i, a, e) : s.addToPenaltyBox(i, a, e);
+                    if (n.enabledMediaOptionIdByType(a) === o) {
+                        let e = [Ol, Ol, Ol];
+                        e = s.getFallbackMediaOptionTupleFromMediaOptionId(n, a, o, null, !1, c, d),
+                        n.isValidMediaOptionTuple(e) ? s.setPreferredHost(i, gl(e[ul.Variant].url)) : r.fatal = !0,
+                        r.fatal && (e = [Ol, Ol, Ol]),
+                        s.setNextMediaOptions(n.itemId, e)
+                    }
+                    break
+                }
+            case Em.SendEndCallback:
+                r.fatal = !0;
+                break;
+            case Em.RetryRequest:
+            case Em.DoNothing:
+            default:
+                e = !1
+            }
+            return r.handled = e,
+            e
+        }
+        function jm(e, t) {
+            t instanceof ru || t instanceof nu || t instanceof au || (t instanceof uu || t instanceof lu) && oe(t.keyuri)
+        }
+        function qm(t, i, r) {
+            if (t.handled = !0,
+            r && i < r.maxNumRetry && ne(r.retryDelayMs)) {
+                let e;
+                return e = "linear" === r.backoff ? (i + 1) * r.retryDelayMs : Math.pow(2, i) * r.retryDelayMs,
+                e = Math.min(r.maxRetryDelayMs, e),
+                jm(0, t),
+                vn(e)
+            }
+            return t.fatal = !0,
+            jm(0, t),
+            Ui(t)
+        }
+        function Qm(e, t, i, r, n, s, a, o, d=!1) {
+            return (null == r ? void 0 : r.errorAction) === Em.RetryRequest ? qm(e, t, i, s.logger) : Gm(e, 0, r, n, s, a, o, d)
+        }
+        function Gm(e, t, i, r, n, s, a, o=!1) {
+            const d = new Ji;
+            return sd(()=>{
+                i && (jm(n.logger, e),
+                Hm(i, e, r, n, s, a, o)),
+                d.error(e)
+            }
+            ),
+            d
+        }
+        function Wm(t, i, r, n) {
+            return e=>e.pipe(Un(e=>{
+                if (t.logger.error(`Got demux error ${e.message}`),
+                e instanceof D || e instanceof F) {
+                    Em.SendAlternateToPenaltyBox;
+                    return Gm(e, 0, {
+                        errorAction: e.fatal ? Em.SendEndCallback : e instanceof F ? Em.SendAlternateToPenaltyBox : Em.RemoveAlternatePermanently,
+                        errorActionFlags: 0
+                    }, i, t, r, n)
+                }
+                throw e
+            }
+            ))
+        }
+        function zm(e, t, i, r, n) {
+            e = null !== (e = null === (e = n.getKeyInfo(e)) || void 0 === e ? void 0 : e.mediaOptionIds) && void 0 !== e ? e : [];
+            for (const s of e)
+                for (const n of i.mediaOptionListQueries)
+                    null != n.mediaOptionFromId(s) && r.updateConsecutiveTimeouts(i.itemId, n.mediaOptionType, t, "key")
+        }
+        function Xm(r, t, e, n, s, a) {
+            const o = n.logger
+              , i = s.enabledMediaOptionKeys
+              , d = [];
+            for (const t of r.mediaOptionIds) {
+                const r = i.some(e=>e.mediaOptionId === t)
+                  , e = s.mediaOptionListQueries.find(e=>null != e.mediaOptionFromId(t));
+                if (e) {
+                    const n = e.mediaOptionType
+                      , a = {
+                        mediaOptionId: t,
+                        mediaOptionType: n
+                    };
+                    r ? d.push(a) : d.unshift(a)
+                } else
+                    o.warn(`Couldn't find query for ${t}`)
+            }
+            const l = new Ji;
+            return sd(()=>{
+                const e = r instanceof lu;
+                zm(r.keyuri, e, s, n, a);
+                let t, i = !1;
+                for (const {mediaOptionId: e, mediaOptionType: a} of d)
+                    t = function(e, t, i, r, n) {
+                        let s = {
+                            errorAction: Em.SendAlternateToPenaltyBox,
+                            errorActionFlags: 0
+                        };
+                        if (e instanceof lu)
+                            s.errorAction = Em.SendAlternateToPenaltyBox;
+                        else {
+                            const t = e.isOkToRetry;
+                            e.keyErrorReason === Xl.OutputRestricted ? (s.errorAction = Em.RemoveAlternatePermanently,
+                            s.errorActionFlags |= Im.MoveAllAlternatesMatchingHDCP) : t ? s = Km(e.code) : s.errorAction = Em.RemoveAlternatePermanently
+                        }
+                        s.errorActionFlags &= ~Im.MoveAllAlternatesMatchingHost;
+                        var a = r.enabledMediaOptionIdByType(i);
+                        return t === a ? Vm(s, !1, e.code, a, i, r, n, e.isTimeout) : s
+                    }(r, e, a, s, n),
+                    o.error(`[Keys] handleNetworkError uri=${oe(r.keyuri)} mediaOptionId=${e} mediaOptionType=${a} action=${JSON.stringify(t)}`),
+                    t.errorAction === Em.RetryRequest && (i = !0),
+                    Hm(t, r, s, n, a, e);
+                i ? (l.next(),
+                l.complete()) : (jm(0, r),
+                l.error(r))
+            }
+            ),
+            l.pipe(Ra(()=>qm(r, t, e, n.logger)))
+        }
+        function Ym(t, i, r, n, s, a, o, d) {
+            return n = Math.max(0, n),
+            e=>e.pipe(Ja(()=>{
+                null != i && o.updateConsecutiveTimeouts(t, i, !1, "load")
+            }
+            ), ya(e=>e.pipe(Kr((e,t)=>function(e, t, i, r, n, s, a, o) {
+                var d;
+                if (!(e instanceof p))
+                    return Ui(e);
+                let l, u, c, h = !1;
+                if (e instanceof ru)
+                    c = {
+                        errorAction: $m(Km((d = e).response.code).errorAction, d.response.code),
+                        errorActionFlags: 0
+                    };
+                else if (e instanceof nu || e instanceof au) {
+                    ({mediaOptionType: u, mediaOptionId: l, isTimeout: h} = e);
+                    const t = null === (d = s.mediaOptionListQueries[u]) || void 0 === d ? void 0 : d.mediaOptionFromId(l);
+                    if (!r && e.isTimeout && null != t && (!("iframes"in t) || !0 !== t.iframes) && (a.updateConsecutiveTimeouts(s.itemId, e.mediaOptionType, !0, "load"),
+                    e instanceof au && e.stats)) {
+                        const t = performance.now();
+                        o.setBandwidthSample(Object.assign(Object.assign({}, e.stats), {
+                            tfirst: e.stats.tfirst || t,
+                            tload: e.stats.tload || t,
+                            complete: !0,
+                            mediaOptionType: u
+                        }))
+                    }
+                    c = function(e, t, i, r, n) {
+                        var s = e.response.code;
+                        let a = Km(s);
+                        var {mediaOptionId: o, mediaOptionType: d} = e;
+                        return t ? a.errorActionFlags &= ~Im.MoveAllAlternatesMatchingHost : a = function(e, t, i, r, n) {
+                            let {errorAction: s, errorActionFlags: a} = t;
+                            if (e.isTimeout) {
+                                const t = e["mediaOptionType"]
+                                  , o = null !== (n = null === (n = n.getErrorInfoByType(t)) || void 0 === n ? void 0 : n.timeouts.load) && void 0 !== n ? n : 0;
+                                !i && r <= o && (s = Em.DoNothing,
+                                a = 0)
+                            }
+                            return {
+                                errorAction: s,
+                                errorActionFlags: a
+                            }
+                        }(e, a, t, i, r),
+                        a = Vm(a, t, s, o, d, r, n, e.isTimeout),
+                        a
+                    }(e, r, n, s, a)
+                }
+                return Qm(e, t, i, c, s, a, u, l, h)
+            }(e, t, Rc(e, r), s, n, a, o, d)))))
+        }
+        Um.kAllowFilters = Um.makeFilters(),
+        (dd = Em = Em || {})[dd.DoNothing = 0] = "DoNothing",
+        dd[dd.SendEndCallback = 1] = "SendEndCallback",
+        dd[dd.SendAlternateToPenaltyBox = 2] = "SendAlternateToPenaltyBox",
+        dd[dd.RemoveAlternatePermanently = 3] = "RemoveAlternatePermanently",
+        dd[dd.InsertDiscontinuity = 4] = "InsertDiscontinuity",
+        dd[dd.RetryRequest = 5] = "RetryRequest",
+        (dd = Im = Im || {})[dd.MoveAllAlternatesMatchingHost = 1] = "MoveAllAlternatesMatchingHost",
+        dd[dd.MoveAllAlternatesMatchingHDCP = 2] = "MoveAllAlternatesMatchingHDCP",
+        dd[dd.SwitchToSDR = 4] = "SwitchToSDR";
+        class Jm extends Od {
+            constructor(e) {
+                super(e)
+            }
+            get currentConfig() {
+                var e;
+                return null === (e = this.getActive()) || void 0 === e ? void 0 : e.config
+            }
+            get extendMaxTTFB() {
+                var e;
+                return null === (e = this.getActive()) || void 0 === e ? void 0 : e.extendMaxTTFB
+            }
+            get config$() {
+                return this.selectActive(e=>null == e ? void 0 : e.config)
+            }
+            get userSeek$() {
+                return this.selectActive(e=>null == e ? void 0 : e.userSeek)
+            }
+        }
+        w();
+        class Zm extends pd {
+            constructor() {
+                super({}, {
+                    name: "hls-store",
+                    producerFn: vc
+                })
+            }
+        }
+        class eg {
+            constructor(e) {
+                this.store = e
+            }
+            getQuery() {
+                return new Jm(this.store)
+            }
+            setHlsEntity(e) {
+                const t = e.id;
+                Co(`hls.set.entity ${t}`),
+                sd(()=>{
+                    this.store.add(de(e)),
+                    this.store.setActive(t)
+                }
+                )
+            }
+            removeEntity(e) {
+                Co(`hls.remove ${e}`),
+                this.store.remove(e)
+            }
+            setStartTime(t) {
+                this.store.updateActive(e=>{
+                    e.config.startPosition = t
+                }
+                )
+            }
+            setUserSeek(t) {
+                this.store.updateActive(e=>{
+                    e.userSeek = t
+                }
+                )
+            }
+            setExtendMaxTTFB(t) {
+                this.store.updateActive(e=>{
+                    e.extendMaxTTFB = t
+                }
+                )
+            }
+        }
+        let tg, ig;
+        function rg() {
+            return tg = tg || new eg(new Zm),
+            tg
+        }
+        function ng() {
+            return rg().getQuery().currentConfig
+        }
+        function sg(e, t, i, r) {
+            var n = t.mediaSeqNum - e.startSN;
+            if (n < 0 || n >= e.fragments.length)
+                return e;
+            const s = Object.assign(Object.assign({}, e), {
+                fragments: e.fragments.map(e=>Object.assign({}, e))
+            })
+              , a = s.fragments
+              , o = a[n];
+            if (!Fp(t, a[n]))
+                return null == r || r.warn("Parsed and existing fragments don't match"),
+                e;
+            var {startDtsTs: d, startPts: e, endPts: t} = t;
+            o.startDtsTs = d,
+            o.startPts = e,
+            o.endPts = t,
+            o.start = i,
+            o.duration = b(o.endPts, o.startPts);
+            for (let e = n; 0 < e; e--)
+                ag(a, e, e - 1, r);
+            for (let e = n; e < a.length - 1; e++)
+                ag(a, e, e + 1, r);
+            s.totalduration = 0;
+            for (const l of a)
+                s.totalduration += l.duration;
+            return s.ptsKnown = !0,
+            og(s),
+            s
+        }
+        function ag(e, t, i, r) {
+            const n = e[t]
+              , s = e[i];
+            s.startPts ? (t < i && n.start + n.duration > s.start || i < t && s.start + s.duration > n.start) && (null == r || r.warn(`overlapping segments found ${n.mediaSeqNum}->${s.mediaSeqNum}`)) : s.start = t < i ? n.start + n.duration : Math.max(n.start - s.duration, 0)
+        }
+        function og(e) {
+            if (e.programDateTimeMap) {
+                e.dateMediaTimePairs = [];
+                for (var [t,i] of Object.entries(e.programDateTimeMap)) {
+                    t = Number(t),
+                    i = e.fragments[i - e.startSN];
+                    i && (i = i.start,
+                    e.dateMediaTimePairs.push([t, i]))
+                }
+                e.dateMediaTimePairs.sort((e,t)=>e[0] - t[0])
+            }
+        }
+        function dg(t, i) {
+            if ("VOD" === t.type || "VOD" === i.type || t.iframesOnly !== i.iframesOnly)
+                return i;
+            var r = t.mediaOptionId === i.mediaOptionId;
+            let n = Object.assign(Object.assign({}, i), {
+                initSegments: {},
+                fragments: [],
+                ptsKnown: !1
+            });
+            const s = Math.max(t.startSN, n.startSN) - n.startSN
+              , a = Math.min(t.endSN, n.endSN) - n.startSN
+              , o = n.startSN - t.startSN
+              , d = t.fragments
+              , l = i.fragments;
+            let u = 0;
+            for (let e = s; e <= a; ++e)
+                if (d[o + e] && l[e]) {
+                    u = d[o + e].discoSeqNum - l[e].discoSeqNum;
+                    break
+                }
+            const c = n.initSegments;
+            let h = null;
+            for (let e = 0; e < l.length; e++) {
+                const p = d[o + e]
+                  , s = l[e]
+                  , a = Object.assign({}, s)
+                  , f = s.discoSeqNum + u;
+                i.initSegments[s.discoSeqNum] && (c[f] = Object.assign(Object.assign({}, i.initSegments[s.discoSeqNum]), {
+                    discoSeqNum: f
+                })),
+                a.discoSeqNum = f,
+                r && a.mediaSeqNum === (null == p ? void 0 : p.mediaSeqNum) && null != p.startPts && (a.start = p.start,
+                a.duration = p.duration,
+                a.startDtsTs = p.startDtsTs,
+                a.endDtsTs = p.endDtsTs,
+                a.startPts = p.startPts,
+                a.endPts = p.endPts,
+                h = a),
+                n.fragments.push(a)
+            }
+            if (h)
+                n = sg(n, h, h.start);
+            else if (0 <= o && o < d.length) {
+                const t = d[o].start
+                  , i = n.fragments;
+                for (let e = 0; e < l.length; e++)
+                    i[e].start += t
+            }
+            return n.ptsKnown = n.ptsKnown || r && !0 === t.ptsKnown && t.endSN >= i.startSN,
+            og(n),
+            n
+        }
+        function lg(e, t, i) {
+            let r = t.targetduration;
+            return ne(i.liveSyncDuration) ? r = i.liveSyncDuration : ne(i.liveSyncDurationCount) && (r = i.liveSyncDurationCount * t.targetduration),
+            e + Math.max(0, t.totalduration - r)
+        }
+        function ug(e, t, i, r, n) {
+            if (!t.ptsKnown)
+                return 0;
+            var s = t.targetduration
+              , a = t.fragments[0].start
+              , r = n.canContinuePlaybackWithoutGap(t, i, {
+                avgPlaylistLoadTimeMs: 0,
+                avgPlaylistParseTimeMs: 0
+            }, r);
+            let o = Math.max(0, e - s);
+            return e < a && !r && (o = a),
+            o
+        }
+        function cg(e) {
+            return 1e3 * (e.averagetargetduration || e.targetduration)
+        }
+        function hg(e, t) {
+            var i = cg(e)
+              , t = performance.now() - t;
+            return e.liveOrEvent && i <= t
+        }
+        function pg(e, t) {
+            return function(e) {
+                const t = []
+                  , i = e.fragments;
+                for (const e of i) {
+                    const {discoSeqNum: i, start: r} = e;
+                    t.push({
+                        timelineOffset: r,
+                        mediaFragment: e
+                    })
+                }
+                return t
+            }(e).find(e=>t(e.mediaFragment))
+        }
+        function fg(s, e, a, t, o) {
+            var i;
+            const d = !t.liveOrEvent || t.ptsKnown;
+            let r = null !== (i = pg(t, t=>{
+                var e = t.mediaSeqNum >= a
+                  , i = 0 < t.duration
+                  , r = t.start + t.duration
+                  , n = !d || s < r || s - r < 1 && t.isLastFragment
+                  , r = o.every(e=>!Fp(e.frag, t));
+                return e && i && n && r
+            }
+            )) && void 0 !== i ? i : null
+              , n = NaN;
+            null != r && ne(e) && r.mediaFragment.discoSeqNum !== e && (n = r.mediaFragment.discoSeqNum,
+            r = null);
+            e = o.some(e=>0 < e.frag.framesWithoutIDR);
+            return r && e && o[o.length - 1].frag.mediaOptionId !== t.mediaOptionId && (r = null !== (t = pg(t, e=>e.mediaSeqNum === r.mediaFragment.mediaSeqNum - 1)) && void 0 !== t ? t : r),
+            {
+                foundFrag: r,
+                nextDisco: n
+            }
+        }
+        function mg(e) {
+            const t = e.fragments;
+            return t.map(e=>e.duration).reduce((e,t)=>e + t, null !== (e = t[0].start) && void 0 !== e ? e : 0)
+        }
+        class gg extends Od {
+            constructor(e, t) {
+                super(e),
+                this.mediaOption = t
+            }
+            get itemId() {
+                return this.mediaOption.itemId
+            }
+            get mediaOptionId() {
+                return this.mediaOption.mediaOptionId
+            }
+            get initSegmentEntities() {
+                var e;
+                return null === (e = this.mediaOptionDetailsEntity) || void 0 === e ? void 0 : e.initSegmentCacheEntities
+            }
+            get mediaLibraryEntity() {
+                return this.getEntity(this.itemId)
+            }
+            get mediaOptionDetailsEntityRecord() {
+                var e;
+                return null === (e = this.mediaLibraryEntity) || void 0 === e ? void 0 : e.mediaOptionDetailsEntityRecord
+            }
+            get mediaOptionDetailsEntity() {
+                return this.mediaOptionDetailsEntityRecord ? this.mediaOptionDetailsEntityRecord[this.mediaOptionId] : null
+            }
+            get mediaOptionDetails() {
+                var e;
+                return null === (e = this.mediaOptionDetailsEntity) || void 0 === e ? void 0 : e.mediaOptionDetails
+            }
+            get playlistDuration() {
+                var e;
+                return null === (e = this.mediaOptionDetailsEntity) || void 0 === e ? void 0 : e.playlistDuration
+            }
+            get mediaOptionDetailsEntity$() {
+                const {itemId: e, mediaOptionId: t} = this;
+                return this.selectEntity(e, e=>{
+                    if (null != e && e.mediaOptionDetailsEntityRecord)
+                        return null == e ? void 0 : e.mediaOptionDetailsEntityRecord[t]
+                }
+                )
+            }
+            get mediaOptionDetails$() {
+                return this.selectEntity(this.itemId, e=>{
+                    return null === (e = null == e ? void 0 : e.mediaOptionDetailsEntityRecord[this.mediaOptionId]) || void 0 === e ? void 0 : e.mediaOptionDetails
+                }
+                ).pipe(Up())
+            }
+            get playlistDuration$() {
+                return this.mediaOptionDetailsEntity$.pipe(ur(e=>null == e ? void 0 : e.playlistDuration), Up(), Es())
+            }
+            get live$() {
+                return this.mediaOptionDetails$.pipe(ur(e=>null == e ? void 0 : e.liveOrEvent), Es())
+            }
+        }
+        class yg extends pd {
+            constructor() {
+                super({}, {
+                    name: "media-library-store",
+                    idKey: "itemId",
+                    producerFn: vc
+                })
+            }
+        }
+        class vg {
+            constructor(e) {
+                this.store = e
+            }
+            getQuery() {
+                return new Od(this.store)
+            }
+            getQueryForOption(e) {
+                return new gg(this.store,e)
+            }
+            createMediaLibraryEntity(e) {
+                var t = {
+                    itemId: e,
+                    mediaOptionDetailsEntityRecord: {}
+                };
+                Co(`library.entity.create: ${e}`),
+                this.store.add(t)
+            }
+            setDetailsLoading(e) {
+                const {itemId: t, mediaOptionId: i} = e;
+                Co(`library.details.loading: ${i}`),
+                this.store.update(t, ({mediaOptionDetailsEntityRecord: e})=>{
+                    e[i] || (e[i] = {
+                        initSegmentCacheEntities: {},
+                        unchangedCount: 0
+                    }),
+                    e[i].detailsLoading = !0
+                }
+                )
+            }
+            archiveMediaOptionDetails(i, r, n) {
+                const {itemId: e, mediaOptionId: s} = i
+                  , a = performance.now()
+                  , o = mg(i);
+                Co(`library.details.loaded: ${s}`),
+                this.store.update(e, e=>{
+                    const t = e.mediaOptionDetailsEntityRecord[s];
+                    t.detailsLoading = !1,
+                    t.mediaOptionDetails = i,
+                    t.lastUpdateMillis = a,
+                    n ? t.unchangedCount = 0 : ++t.unchangedCount,
+                    t.playlistDuration = o,
+                    t.stats = r,
+                    e.liveOrEvent = i.liveOrEvent
+                }
+                )
+            }
+            setInitSegmentLoading(e) {
+                const {itemId: t, mediaOptionId: i, discoSeqNum: r} = e;
+                Co(`library.initsegs.loading: ${i}/${r}`),
+                this.store.update(t, e=>{
+                    e.mediaOptionDetailsEntityRecord[i].initSegLoading = r
+                }
+                )
+            }
+            archiveInitSegmentEntity(i, r) {
+                const {itemId: e, mediaOptionId: n, discoSeqNum: s} = i;
+                Co(`library.initseg.loaded: ${n}/${s}`),
+                this.store.update(e, ({mediaOptionDetailsEntityRecord: e})=>{
+                    const t = e[n];
+                    t.initSegmentCacheEntities[s] = [i, r],
+                    t.initSegLoading = null
+                }
+                )
+            }
+            updatePTSDTS(e, r, n, s) {
+                this.store.update(e, ({mediaOptionDetailsEntityRecord: e})=>{
+                    const t = e[r];
+                    var i;
+                    null != t && t.mediaOptionDetails && ({variantDTS: i, timelineOffset: e} = n,
+                    e = S(s.startDtsTs) - S(i) + e,
+                    e = sg(t.mediaOptionDetails, s, e),
+                    t.mediaOptionDetails = e,
+                    t.playlistDuration = mg(e))
+                }
+                )
+            }
+            remove(e) {
+                this.store.remove(e)
+            }
+            clear() {
+                this.store.remove()
+            }
+        }
+        function Sg() {
+            return ig = ig || new vg(new yg),
+            ig
+        }
+        const bg = e=>Sg().getQueryForOption(e)
+          , Tg = (d,e,t=!1)=>{
+            if (!kl(e))
+                return Bi(null);
+            const i = e["itemId"]
+              , r = d["mediaLibraryService"]
+              , n = r.getQueryForOption(e);
+            n.hasEntity(i) || r.createMediaLibraryEntity(i);
+            var s = n.mediaOptionDetailsEntity
+              , a = n.mediaOptionDetails;
+            return null == a || t || "VOD" !== a.type && (!a.liveOrEvent || hg(a, s.lastUpdateMillis)) ? (r.setDetailsLoading(e),
+            function(l) {
+                var e;
+                const {logger: t, config: u, rootPlaylistQuery: c, rootPlaylistService: h, statsService: i, mediaLibraryService: p, mediaSink: r} = d
+                  , f = r.mediaQuery
+                  , n = u.playlistLoadPolicy
+                  , s = u.keySystemPreference
+                  , a = c.masterVariableList
+                  , o = null === (e = null === (e = rg()) || void 0 === e ? void 0 : e.getQuery()) || void 0 === e ? void 0 : e.extendMaxTTFB;
+                return Cm(l, c.itemStartOffset, u, n, t, s, i, a, o).pipe(Hi(Zi), ur(t=>{
+                    const i = p.getQueryForOption(l)
+                      , r = i.mediaOptionDetails;
+                    let n = t["mediaOptionDetails"];
+                    var e = t["stats"];
+                    let s = !0;
+                    if (n.liveOrEvent) {
+                        const d = n["mediaOptionType"];
+                        t = n,
+                        s = null == r || t.endSN !== r.endSN || t.liveOrEvent !== r.liveOrEvent;
+                        let e = n;
+                        r && (e = dg(r, n));
+                        const i = c.lastLoadedMediaOptionByType(d)
+                          , u = i ? null === (t = p.getQueryForOption(i)) || void 0 === t ? void 0 : t.mediaOptionDetails : null;
+                        !e.ptsKnown && u && u.mediaOptionId !== (null == r ? void 0 : r.mediaOptionId) && (e = dg(u, n)),
+                        n = e
+                    }
+                    n && (p.archiveMediaOptionDetails(n, e, s),
+                    h.setLastLoadedMediaOptionByType(c.itemId, l.mediaOptionType, l));
+                    const a = !s && i.mediaOptionDetailsEntity.unchangedCount >= u.liveMaxUnchangedPlaylistRefresh
+                      , o = function(e, t, i, r) {
+                        t = ug(r.currentTime, e, t, i, r),
+                        i = e.fragments[e.fragments.length - 1],
+                        r = i.start + i.duration;
+                        return {
+                            expired: null != i && e.liveOrEvent && e.ptsKnown && r < t,
+                            windowEnd: r,
+                            minPosition: t
+                        }
+                    }(n, e.tload, u.maxBufferHole, f);
+                    if (a || o.expired) {
+                        e = a ? $.LivePlaylistUpdateError : {
+                            text: `Live window too far in the past end:${o.windowEnd.toFixed(3)} minPosition:${o.minPosition}`,
+                            code: 0
+                        };
+                        throw new nu(!1,e.text,e.code,e,!1,l.mediaOptionType,l.mediaOptionId,l.url)
+                    }
+                    return n
+                }
+                ), Ql.tag("getMediaOptionDetailsCommon.emit.loaded"), Ym(l.itemId, l.mediaOptionType, xc(l, n), u.maxNumAddLevelToPenaltyBox, !1, c, h, i)).pipe(Cs(1))
+            }(e)) : Bi(a).pipe(Ql.tag("retrieveMediaOptionDetails.emit.cached")).pipe(Cs(1))
+        }
+        ;
+        const Eg = (t,i)=>{
+            if (!i)
+                return Bi(null);
+            const {mediaLibraryService: r, mediaParser: n} = t
+              , e = r.getQueryForOption(i)
+              , {mediaOption: s, mediaOptionDetailsEntityRecord: a, mediaOptionDetails: o} = e
+              , d = s["mediaOptionId"];
+            if (null == a || !a[d])
+                throw new Error("retrieveInitSegmentCacheEntity no details entity");
+            if (!o)
+                throw new Error("retrieveInitSegmentCacheEntity no details");
+            var l = a[d]["initSegmentCacheEntities"]
+              , u = o["initSegments"]
+              , c = i["discoSeqNum"];
+            if (l[c]) {
+                const [t,r] = l[c];
+                let e = t;
+                return r && (e = n.willBeTrackSwitch(i) ? t : r),
+                Bi(e)
+            }
+            const h = u[c];
+            return h ? (r.setInitSegmentLoading(h),
+            wg(t, h, !1, !1).pipe(Hi(Zi), Ra(e=>Ig(e, h, t)), Ql.tag("retrieveInitSegmentCacheEntity.emit"))) : Bi(null)
+        }
+        ;
+        function Ig(e, n, t) {
+            const {logger: s, mediaSink: i, rootPlaylistService: r, rootPlaylistQuery: a, mediaParser: o, mediaLibraryService: d, gaplessInstance: l} = t
+              , u = i["mediaQuery"]
+              , c = d.getQueryForOption(n)
+              , {mediaOption: h, mediaOptionDetails: p} = c
+              , {itemId: f, mediaOptionId: m} = h
+              , {keyTagInfo: g, discoSeqNum: y, mediaOptionType: v} = n
+              , S = u.seeking
+              , b = p.liveOrEvent
+              , T = v === ul.Variant && p.ptsKnown;
+            let E, I;
+            n.isInitSegment ? I = new Uint8Array(e) : E = new Uint8Array(e);
+            var e = {
+                segment: E,
+                initSegment: I,
+                frag: n,
+                ptsKnown: T,
+                seeking: S,
+                live: b,
+                totalDuration: p.totalduration
+            };
+            return o.parseInitSegment(e, null !== (e = null === navigator || void 0 === navigator ? void 0 : navigator.vendor) && void 0 !== e ? e : "").pipe(ur(e=>{
+                var {track: t, moovData: i, mimeType: r} = e
+                  , e = t["initSegment"];
+                l.inGaplessMode && Se.isVideoCodec(t.codec) && (s.warn(`Video codec discovered in gapless mode codec:${t.codec}`),
+                l.dequeueSource("InvalidFormat"));
+                r = {
+                    itemId: f,
+                    mediaOptionId: m,
+                    discoSeqNum: y,
+                    initParsedData: i,
+                    data: e,
+                    mimeType: r,
+                    keyTagInfo: g,
+                    fragment: n
+                };
+                return d.archiveInitSegmentEntity(r),
+                r
+            }
+            ), Wm(r, a, v, m))
+        }
+        function wg(n, s, i, r) {
+            var e;
+            const {rootPlaylistQuery: t, rootPlaylistService: a, config: o, rtcService: d, statsService: l} = n
+              , {itemId: u, mediaOptionType: c} = s
+              , h = o.fragLoadPolicy
+              , p = ne(s.mediaSeqNum);
+            let f;
+            p && (f = {
+                getData: !1,
+                cb: (e,t,i,r)=>(a.updateInflightFrag(u, s.mediaOptionType, s, "loading", i),
+                !1)
+            });
+            let m = !1;
+            return r && null === d.serverInfoInstance && (m = !0),
+            Jr([Og(n, s.keyTagInfo, {
+                itemId: s.itemId,
+                mediaOptionId: s.mediaOptionId
+            }), Jf(s, o, h, f, m, null === (e = null === (e = rg()) || void 0 === e ? void 0 : e.getQuery()) || void 0 === e ? void 0 : e.extendMaxTTFB).pipe(Ja(([,,e,t])=>{
+                i && l.setBandwidthSample(Object.assign(Object.assign({}, e), {
+                    mediaOptionType: s.mediaOptionType
+                })),
+                r && m && (d.serverInfoInstance = t),
+                p && a.updateInflightFrag(u, s.mediaOptionType, s, "loaded", e)
+            }
+            ), Ym(u, c, xc(s, h), o.maxNumAddLevelToPenaltyBox, !1, t, a, l))]).pipe(Cs(1), Ja(([,e])=>{
+                var t;
+                r && ([t,,e] = e,
+                d.handleFragLoaded(t, e))
+            }
+            ), Ra(([e,t])=>{
+                const [i,r] = t;
+                return i.keyTagInfo.key = e.key,
+                Dm(i, r, o, n.logger, n.rpcClients.crypto)
+            }
+            ), Ql.tag("getMediaFragmentCommon.emit"))
+        }
+        const Ag = (i,e,t)=>{
+            const {rootPlaylistService: r, rootPlaylistQuery: n} = i
+              , {timelineOffset: s, mediaFragment: a} = t.foundFrag
+              , {itemId: o, discoSeqNum: d} = a;
+            return r.updateInflightFrag(o, a.mediaOptionType, a, "loading", null),
+            Jr([Og(i, a.keyTagInfo, {
+                itemId: a.itemId,
+                mediaOptionId: a.mediaOptionId
+            }), Eg(i, a).pipe(Ra(t=>wg(i, a, !0, !0).pipe(Ra(e=>{
+                return function(e, t, i, y, v, S) {
+                    const r = new Uint8Array(e)
+                      , {rootPlaylistService: n, mediaSink: s, mediaParser: a, rootPlaylistQuery: o, mediaLibraryService: b} = S
+                      , d = s["mediaQuery"]
+                      , l = b.getQueryForOption(y)
+                      , {mediaOption: u, mediaOptionDetails: c} = l
+                      , {itemId: T, mediaOptionId: E} = u
+                      , {discoSeqNum: I, mediaSeqNum: w, mediaOptionType: h, isLastFragment: A} = y
+                      , p = d.seeking
+                      , f = c.liveOrEvent
+                      , m = h === ul.Variant && c.ptsKnown
+                      , O = {
+                        segment: r,
+                        frag: y,
+                        seeking: p,
+                        live: f,
+                        ptsKnown: m,
+                        totalDuration: c.totalduration,
+                        defaultInitPTS: t,
+                        iframeMediaStart: Np(y) ? y.iframeMediaStart : void 0,
+                        iframeDuration: Np(y) ? y.iframeMediaDuration : void 0
+                    };
+                    let g;
+                    if (null != i && (null === (t = y.keyTagInfo) || void 0 === t ? void 0 : t.uri) === (null === (t = i.keyTagInfo) || void 0 === t ? void 0 : t.uri))
+                        g = Bi(i);
+                    else if (null != i) {
+                        const e = Object.assign(Object.assign({}, i.fragment), {
+                            keyTagInfo: y.keyTagInfo
+                        });
+                        g = Ig(i.data, e, S)
+                    } else
+                        g = Ig(e, y, S);
+                    return g.pipe(Ra(m=>{
+                        const g = performance.now();
+                        if (null != m) {
+                            const g = m["data"]
+                              , e = new Uint8Array(g);
+                            O.initSegment = e
+                        }
+                        return a.parseSegment(O, "").pipe(ur(e=>{
+                            var t = performance.now()
+                              , {startPTS: i, startDTS: r, endPTS: n, endDTS: s, firstKeyframePts: a, framesWithoutIDR: o, dropped: d, data1: l, data2: u, captionData: c, id3Samples: h, parsedInitSegment: e} = e
+                              , t = {
+                                durationSec: n.baseTime / n.timescale - i.baseTime / i.timescale,
+                                parseTimeMs: t - g
+                            };
+                            S.statsService.setFragSample(t);
+                            let p = Object.assign({}, m);
+                            if (e) {
+                                const {track: g, moovData: f, mimeType: v} = e
+                                  , S = g["initSegment"];
+                                p = {
+                                    itemId: T,
+                                    mediaOptionId: E,
+                                    discoSeqNum: I,
+                                    initParsedData: f,
+                                    data: S,
+                                    mimeType: v,
+                                    keyTagInfo: y.keyTagInfo,
+                                    fragment: y
+                                },
+                                b.archiveInitSegmentEntity(m, p)
+                            }
+                            e = y.keyTagInfo;
+                            return [p, {
+                                itemId: T,
+                                mediaOptionId: E,
+                                mediaSeqNum: w,
+                                discoSeqNum: I,
+                                startDtsTs: r,
+                                endDtsTs: s,
+                                timelineOffset: v,
+                                firstKeyframePts: a,
+                                framesWithoutIDR: o,
+                                dropped: d,
+                                data1: l,
+                                data2: u,
+                                startPts: i,
+                                endPts: n,
+                                keyTagInfo: e,
+                                isLastFragment: A,
+                                iframe: null !== (e = y.iframe) && void 0 !== e && e,
+                                duration: y.duration,
+                                iframeMediaDuration: Np(y) ? y.iframeMediaDuration : void 0,
+                                captionData: c,
+                                id3Samples: h
+                            }]
+                        }
+                        ))
+                    }
+                    ), Wm(n, o, h, E))
+                }(e, null === (e = n.getInitPTS(d)) || void 0 === e ? void 0 : e.offsetTimestamp, t, a, s, i)
+            }
+            ), Ja(e=>{}
+            ), Ql.tag(`retrieveMediaFragmentCacheEntity.${e}.emit`)))).pipe(Cs(1))]).pipe(Ra(([,e])=>Bi(e)))
+        }
+        ;
+        function Og(e, t, i) {
+            const {keySystemAdapter: r, rootPlaylistQuery: n, rootPlaylistService: s, config: a} = e;
+            return r.getKeyFromDecryptData(t, i).pipe((o = t.uri,
+            d = xc({
+                url: t.uri
+            }, a.keyLoadPolicy),
+            l = n,
+            u = s,
+            c = r.ksQuery,
+            e=>e.pipe(od(()=>{
+                zm(o, !1, l, u, c)
+            }
+            ), ya(e=>e.pipe(Kr((e,t)=>{
+                if (e instanceof lu || e instanceof uu)
+                    return Xm(e, t, Rc(e, d), u, l, c);
+                throw e
+            }
+            ))))));
+            var o, d, l, u, c
+        }
+        class kg {
+            constructor(e, t, i) {
+                this.hls = e,
+                this.destroy$ = new zt,
+                this.iframeSwitchStart = 0,
+                this.logger = t.child({
+                    name: "hls-player-events"
+                }),
+                this.rtc = i,
+                this.subscribeAndEmit()
+            }
+            destroy() {
+                this.destroy$.next()
+            }
+            subscribeAndEmit() {
+                var e = this.loaderQueryListener(new fu(bc))
+                  , t = this.hls.publicQueries$.pipe(Ra(([e,t])=>nn(this.rootPlaylistQueryListener(e, t), this.mediaElementQueryListener(t, e))));
+                nn(e, t, this.activeItemListener(this.hls.itemQueue)).pipe(Un(e=>{
+                    var t = e.message;
+                    return this.logger.error(`Got error in HlsPlayerEvents ${t}`, e),
+                    Ti
+                }
+                ), $a(this.destroy$), $s(()=>{}
+                )).subscribe()
+            }
+            activeItemListener(e) {
+                return e.activeItemById$.pipe(Up(), Ra(e=>{
+                    e = e.url;
+                    return this.hls.trigger(x.MANIFEST_LOADING, {
+                        url: e
+                    }),
+                    Ti
+                }
+                ))
+            }
+            rootPlaylistQueryListener(t, e) {
+                var i = t.enabledMediaOptionByType$(ul.Variant).pipe(an(e=>!!e), Ra(e=>{
+                    var t;
+                    return this.hls.trigger(x.LEVEL_SWITCHING, e),
+                    null === (t = this.rtc) || void 0 === t || t.handleLevelSwitching(e.url),
+                    Ti
+                }
+                ))
+                  , r = t.enabledMediaOptionByType$(ul.Variant).pipe(Ra(i=>bg(i).mediaOptionDetailsEntity$.pipe(an(e=>!0 === (null == e ? void 0 : e.detailsLoading)), Ja(e=>{
+                    var t = {
+                        url: oe(null == i ? void 0 : i.url),
+                        level: i.mediaOptionId,
+                        type: Cl[i.mediaOptionType]
+                    };
+                    return this.hls.trigger(x.LEVEL_LOADING, t),
+                    Ti
+                }
+                ))))
+                  , n = t.enabledMediaOptionByType$(ul.Variant).pipe(Ra(e=>{
+                    const t = bg(e);
+                    let i = 0;
+                    return t.mediaOptionDetailsEntity$.pipe(Up(), an(e=>{
+                        var t = null !== e.stats && !1 === e.detailsLoading && e.lastUpdateMillis > i;
+                        return i = null !== (e = e.lastUpdateMillis) && void 0 !== e ? e : 0,
+                        t
+                    }
+                    ))
+                }
+                ), Ra(e=>{
+                    var t = e.mediaOptionDetails
+                      , i = e.stats
+                      , r = {
+                        mediaOptionId: t.mediaOptionId,
+                        details: t,
+                        playlistType: t.type,
+                        stats: i
+                    };
+                    if (null === (i = this.rtc) || void 0 === i || i.handleLevelLoaded(t, r.stats),
+                    this.hls.trigger(x.LEVEL_LOADED, r),
+                    0 === e.unchangedCount) {
+                        const e = {
+                            level: 0,
+                            details: t
+                        };
+                        this.hls.trigger(x.LEVEL_UPDATED, e)
+                    }
+                    if (null != t && t.daterangeTags) {
+                        const e = {
+                            daterangeTags: t.daterangeTags
+                        };
+                        this.hls.trigger(x.DATERANGE_UPDATED, e)
+                    }
+                    return Ti
+                }
+                ))
+                  , s = t.enableMediaOptionSwitchedForType$(ul.AltAudio).pipe(Ra(e=>{
+                    e = t.alternateMediaOptionById(ul.AltAudio, e.mediaOptionId);
+                    return e && this.triggerAudioSwitch(e),
+                    Ti
+                }
+                ))
+                  , a = t.rootPlaylistEntity$.pipe(an(e=>null !== e.enabledMediaOptionKeys[ul.AltAudio].mediaOptionId), Cs(1), Ra(e=>{
+                    const t = e.enabledMediaOptionKeys[ul.AltAudio].mediaOptionId;
+                    return t && (e = e.mediaOptionListTuple[ul.AltAudio].mediaOptions.find(e=>e.mediaOptionId === t),
+                    this.triggerAudioSwitch(e)),
+                    Ti
+                }
+                ));
+                return nn(i, s, $l(e.textTracksCreated$, e=>e).pipe(Ra(()=>t.enabledMediaOptionByType$(ul.Subtitle).pipe(Ra(e=>{
+                    e = t.alternateMediaOptionById(ul.Subtitle, e.mediaOptionId);
+                    return e ? this.hls.trigger(x.SUBTITLE_TRACK_SWITCH, {
+                        track: Object.assign({}, e),
+                        hidden: !1
+                    }) : this.hls.trigger(x.SUBTITLE_TRACK_SWITCH, {
+                        track: void 0,
+                        hidden: !1
+                    }),
+                    Ti
+                }
+                )))), t.sessionData$.pipe(an(e=>null != e.complete), Cs(1), Ja(e=>{}
+                ), ur(e=>{
+                    this.hls.trigger(x.SESSION_DATA_COMPLETE, e)
+                }
+                )), t.getPreferredMediaOptionsByType$(ul.Variant).pipe(Oa(1), ur(e=>{
+                    const t = e;
+                    null === (e = this.rtc) || void 0 === e || e.handleLevelsChanged(t),
+                    t.forEach(e=>{}
+                    ),
+                    this.hls.trigger(x.LEVELS_CHANGED, {
+                        requiresReset: !1,
+                        levels: t
+                    })
+                }
+                )), t.getPreferredMediaOptionsByType$(ul.AltAudio).pipe(ur(e=>{
+                    this.hls.trigger(x.AUDIO_TRACKS_UPDATED, {
+                        audioTracks: e
+                    })
+                }
+                )), $l(e.textTracksCreated$, e=>e).pipe(Ra(()=>t.getPreferredMediaOptionsByType$(ul.Subtitle).pipe(Cs(1), ur(e=>{
+                    this.hls.trigger(x.SUBTITLE_TRACKS_UPDATED, {
+                        subtitleTracks: e
+                    }),
+                    this.hls.trigger(x.SUBTITLE_TRACKS_CREATED)
+                }
+                )))), n, r, a)
+            }
+            mediaElementQueryListener(s, e) {
+                return nn(s.seekTo$.pipe(ur(e=>{
+                    var t;
+                    e && ne(e.pos) ? (null === (t = this.rtc) || void 0 === t || t.handleSeek("SEEKING"),
+                    this.hls.trigger(x.SEEKING, {
+                        seekToPos: e.pos
+                    })) : null === e && (null === (e = this.rtc) || void 0 === e || e.handleSeek("SEEKED"),
+                    this.hls.trigger(x.SEEKED))
+                }
+                )), s.desiredRate$.pipe(xa(0), ca(), ur(e=>{
+                    var t = e[0]
+                      , i = e[1];
+                    jp(i) ? 0 == this.iframeSwitchStart && (this.iframeSwitchStart = performance.now()) : this.iframeSwitchStart = 0,
+                    this.hls.trigger(x.DESIRED_RATE_CHANGED, {
+                        oldRate: t,
+                        newRate: i
+                    }),
+                    null === (e = this.rtc) || void 0 === e || e.handleDesiredRateChanged(t, i)
+                }
+                )), s.sourceBufferEntityByType$(cl.AltAudio).pipe(an(e=>!!e), Es((e,t)=>e.totalBytes === t.totalBytes), ur(e=>{
+                    this.hls.trigger(x.BUFFER_APPENDED)
+                }
+                )), s.sourceBufferEntityByType$(cl.Variant).pipe(an(e=>!!e), Es((e,t)=>e.totalBytes === t.totalBytes), ur(e=>{
+                    var t;
+                    null === (t = this.rtc) || void 0 === t || t.handleVariantBufferAppended(e.timestampOffset, e.totalBytes),
+                    this.hls.trigger(x.BUFFER_APPENDED)
+                }
+                )), s.stallInfo$.pipe(Up(), So(s.combinedBuffer$), ur(([e])=>{
+                    var t;
+                    null === (t = this.rtc) || void 0 === t || t.handleStalled(e, s.getCombinedBufferInfo(e.currentTime, 0).len),
+                    this.hls.trigger(x.STALLED, e)
+                }
+                )), Cr([Bi(e), Zd([s.timeupdate$, s.bufferedSegmentsByType$(cl.Variant)]).pipe(so(1e3), ur(([t,e])=>null == e ? void 0 : e.find(e=>e.startPTS <= t && e.endPTS > t)), an(e=>!!e), xa(null), ca())]).pipe(Ra(([e,[t,i]])=>{
+                    var r = null == i ? void 0 : i.frag
+                      , t = null == t ? void 0 : t.frag;
+                    if (r && !Fp(t, r) && (this.hls.trigger(x.FRAG_CHANGED, i),
+                    this.hls.inGaplessMode && this.checkAndTriggerReadyForNext(s, i),
+                    !t || r.mediaOptionId !== t.mediaOptionId)) {
+                        const s = e.mediaOptionListQueries[ul.Variant].mediaOptionFromId(r.mediaOptionId);
+                        if (!s)
+                            return this.logger.warn("variantInfo is undefined in fragChangeMonitor"),
+                            Ti;
+                        const n = t ? t.mediaOptionId : ""
+                          , i = r.mediaOptionId;
+                        s.iframes && (performance.now(),
+                        this.iframeSwitchStart),
+                        null === (r = this.rtc) || void 0 === r || r.handleLevelSwitched({
+                            url: s.url,
+                            mediaOptionId: s.mediaOptionId,
+                            oldVariant: "" !== n ? n : void 0,
+                            newVariant: i
+                        }),
+                        this.hls.trigger(x.LEVEL_SWITCHED, s)
+                    }
+                    return Ti
+                }
+                )), s.isBufferedToEnd$(this.hls.config.maxBufferHole, !1).pipe(an(e=>!0 === e), Hi(Zi), ur(e=>{
+                    if (e && !this.hls.itemQueue.isPreloading() && this.hls.inGaplessMode) {
+                        const i = s.getCombinedBufferInfo(s.currentTime, 0);
+                        var t = 0;
+                        i && (t = i.end,
+                        e = s.mediaElementDuration,
+                        0 < t && e - s.currentTime < 10 && this.hls.trigger(x.READY_FOR_NEXT_ITEM, {
+                            duration: t
+                        }))
+                    }
+                }
+                )))
+            }
+            checkAndTriggerReadyForNext(e, t) {
+                var i, r;
+                t && t.frag && (i = e.currentTime,
+                (r = e.getCombinedBufferInfo(i, 0)) && (i = r.end,
+                r = e.mediaElementDuration,
+                e = e.bufferMonitorInfo,
+                e = Math.max(e.almostDryWaterLevelSeconds, e.lowWaterLevelSeconds / 2),
+                (r - t.endPTS <= e || t.frag.isLastFragment) && this.hls.inGaplessMode && !this.hls.isPreloading && this.hls.trigger(x.READY_FOR_NEXT_ITEM, {
+                    duration: i
+                })))
+            }
+            loaderQueryListener(e) {
+                return nn(e.unresolvedUriLoading$.pipe(ur(e=>e.map(e=>{
+                    e = {
+                        uri: e.uri,
+                        responseType: e.responseType,
+                        userAgent: e.userAgent
+                    };
+                    this.hls.trigger(x.UNRESOLVED_URI_LOADING, e)
+                }
+                ))))
+            }
+            triggerAudioSwitch(e) {
+                e && this.hls.trigger(x.AUDIO_TRACK_SWITCHED, {
+                    id: e.id
+                })
+            }
+            triggerManifestLoaded(e) {
+                e = {
+                    levels: e.rootMediaOptionsTuple[ul.Variant],
+                    audioTracks: e.rootMediaOptionsTuple[ul.AltAudio],
+                    subtitleTracks: e.rootMediaOptionsTuple[ul.Subtitle],
+                    url: e.baseUrl,
+                    audioMediaSelectionGroup: e.audioMediaSelectionGroup,
+                    subtitleMediaSelectionGroup: e.subtitleMediaSelectionGroup,
+                    stats: e.stats,
+                    isMediaPlaylist: e.isMediaPlaylist
+                };
+                this.hls.trigger(x.MANIFEST_LOADED, e)
+            }
+            triggerManifestParsed(e) {
+                var t = {
+                    levels: e.mediaOptionListQueries[ul.Variant].filteredMediaOptionList,
+                    firstLevel: 0,
+                    audio: !1,
+                    video: !0,
+                    altAudio: !1,
+                    audioTracks: e.mediaOptionListQueries[ul.AltAudio].filteredMediaOptionList,
+                    audioMediaSelectionGroup: e.audioMediaSelectionGroup,
+                    subtitleMediaSelectionGroup: e.subtitleMediaSelectionGroup,
+                    stats: e.loadStats
+                };
+                null === (e = this.rtc) || void 0 === e || e.handleManifestParsed(t),
+                this.hls.trigger(x.MANIFEST_PARSED, t)
+            }
+            urlRedactedManifestLoaded(e) {
+                const t = Object.assign({}, e);
+                return t.url = oe(t.url),
+                t.levels = le(t.levels),
+                t.audioTracks = ue(t.audioTracks),
+                t.subtitleTracks = ue(t.subtitleTracks),
+                t
+            }
+            urlRedactedManifestParsed(e) {
+                const t = Object.assign({}, e);
+                return t.levels = le(t.levels),
+                t.audioTracks = ue(t.audioTracks),
+                t
+            }
+        }
+        (w = wm = wm || {}).LowBandwidth = "LowBandwidth",
+        w.HighBandwidth = "HighBandwidth",
+        w.PreferredListChanged = "PreferredListChanged",
+        w.IframeModeChange = "IframeModeChange",
+        w.None = "";
+        const Cg = {
+            minValidBitrate: 2e6,
+            maxValidBitrate: 5e6,
+            maxPreferredBitrate: 3e6,
+            minValidHeight: 480,
+            maxValidHeight: 720
+        };
+        function Dg(e, a, o, d, l, u) {
+            return e.reduce((e,t)=>{
+                if (t.iframes)
+                    return e;
+                let i = e;
+                const r = (n = t.score,
+                s = a && o && d && l && !Mg(t, a, o, d, l, u) ? ll.INVALID : ll.VALID,
+                new Hp(s,n));
+                var n, s;
+                return (!e || r.isGreaterThan(e.bestRank) || r.isEqualTo(e.bestRank) && t.bandwidth < e.selected.bandwidth) && (i = {
+                    selected: t,
+                    bestRank: r
+                }),
+                i
+            }
+            , null).selected
+        }
+        function Mg(e, t, i, r, n, s) {
+            var {targetDuration: a, targetStartupMs: o} = i
+              , d = r["avgPlaylistLoadTimeMs"]
+              , l = n["avgParseTimeMs"]
+              , {avgBufferCreateMs: i, avgInitFragAppendMs: r, avgDataFragAppendMs: n} = s
+              , {avgBandwidth: s, avgLatencyMs: t} = t;
+            return e.bandwidth <= s && (e.avgBandwidth || e.bandwidth) * a / s * 1e3 + d + i + +(t + l + (r + n)) <= o
+        }
+        const Pg = {
+            name: "abr"
+        };
+        function xg(e, t) {
+            return ne(e) ? Math.min(e, t) : t
+        }
+        function Rg(e) {
+            return ne(null == e ? void 0 : e.avgBandwidth)
+        }
+        function Lg(e, t) {
+            return e.getCurrentWaterLevelByType(cl.Variant, t) / (0 !== e.playbackRate ? Math.abs(e.playbackRate) : 1)
+        }
+        function _g(t, i, e, r) {
+            if (e)
+                return t;
+            let n = -1;
+            if (t < 0)
+                return n;
+            for (let e = t; e < i.length; ++e) {
+                const t = Fg(i[e], r);
+                if (t.altAudio && t.subtitle) {
+                    n = e;
+                    break
+                }
+            }
+            return n
+        }
+        function Ng(t, e, i, r, n, s, a) {
+            const o = i.preferredMediaOptions[ul.Variant].filter(e=>e.iframes === t);
+            if (!o.length)
+                return {
+                    variantMediaOption: Ol.mediaOptionId,
+                    holdOffDuration: 0,
+                    lowestCandidate: null
+                };
+            let d = 0;
+            const l = i.nextMinAutoOptionId;
+            if (l !== Ol.mediaOptionId) {
+                const t = o.findIndex(e=>e.mediaOptionId === l);
+                0 <= t && (d = t)
+            }
+            if (d = _g(d, o, t, i),
+            d < 0)
+                return {
+                    variantMediaOption: Ol.mediaOptionId,
+                    holdOffDuration: 0,
+                    lowestCandidate: null
+                };
+            let u = o.length - 1;
+            const c = i.nextMaxAutoOptionId;
+            if (c !== Ol.mediaOptionId) {
+                const t = o.findIndex(e=>e.mediaOptionId === c);
+                0 <= t && (u = t)
+            }
+            var h = i.variantMediaOptionById(r.mediaOptionId)
+              , p = r.mediaOptionDetails
+              , f = (null == h ? void 0 : h.iframes) !== t ? 0 : Lg(n, e.maxBufferHole);
+            let m, g;
+            if (t) {
+                const t = e.desiredIframeFPS;
+                g = p ? p.targetduration / t : 0,
+                g = Math.max(1 / t, g)
+            } else
+                g = p ? p.targetduration : 0;
+            h = e.abrBandWidthUpFactor,
+            p = e.abrBandWidthFactor;
+            return m = Bg(o, g, d, u, f, t, s.getCombinedEstimate(), s.bandwidthStatus, p, h, e, i, r, n, a),
+            m.variantMediaOption === Ol.mediaOptionId && (m = Bg(o, g, d, u, f + xg(g, e.maxStarvationDelay), t, s.getCombinedEstimate(), s.bandwidthStatus, p, h, e, i, r, n, a),
+            m.variantMediaOption === Ol.mediaOptionId && 0 <= d && (m.variantMediaOption = o[d].mediaOptionId,
+            m.alternates = t ? null : Fg(o[d], i))),
+            m
+        }
+        function Fg(e, t) {
+            var i = t.enabledMediaOptionKeys
+              , r = i[ul.AltAudio]
+              , r = kl(r) ? t.mediaOptionListQueries[ul.AltAudio].getMatchingAlternate(r.mediaOptionId, e) : Ol
+              , i = i[ul.Subtitle];
+            return {
+                altAudio: r,
+                subtitle: kl(i) ? t.mediaOptionListQueries[ul.Subtitle].getMatchingAlternate(i.mediaOptionId, e) : Ol
+            }
+        }
+        function Bg(i, r, n, e, s, a, o, d, t, l, u, c, h, p, f) {
+            "bandwidth-history-controller" !== u.abrBandwidthEstimator && f.warn(`Unsupported configuration: ${u.abrBandwidthEstimator} for ABR bandwidth estimator`);
+            const m = d.bandwidthSampleCount
+              , g = c.abrStatus
+              , y = p.maxBufferSize
+              , v = u.minTargetDurations || 1
+              , S = c.mediaOptionListQueries[ul.Variant].mediaOptionListInfo.hasScore;
+            if (!i.length)
+                return {
+                    variantMediaOption: Ol.mediaOptionId,
+                    holdOffDuration: -1,
+                    lowestCandidate: null
+                };
+            const b = c.enabledMediaOptionIdByType(ul.Variant)
+              , T = c.variantMediaOptionById(b)
+              , E = null != i.find(e=>e.mediaOptionId === b)
+              , I = T && T.iframes === a
+              , w = T && I ? T.score : void 0
+              , A = T && I ? T.frameRate : void 0
+              , O = T && I ? T.height : void 0
+              , k = I ? Lg(p, u.maxBufferHole) : 0;
+            e = Math.max(0, Math.min(i.length - 1, e)),
+            n = Math.max(0, Math.min(i.length - 1, n));
+            var C = h.mediaOptionDetailsEntityRecord
+              , D = Ug(o.avgBandwidth, l, t, m);
+            let M;
+            for (let t = e; t >= n; t--) {
+                const n = i[t];
+                let e = n.mediaOptionId;
+                const l = n.score
+                  , u = C && C[e] ? C[e].mediaOptionDetails : void 0
+                  , h = C && C[e] ? C[e].lastUpdateMillis : null
+                  , p = u ? u.totalduration / u.fragments.length : r
+                  , f = null != T && n.bitrate > T.bitrate
+                  , B = null != T && n.bitrate < T.bitrate
+                  , m = !(null != A && (f && n.frameRate < A || B && n.frameRate > A))
+                  , U = !(f && null != O && O > n.height)
+                  , $ = !(B && (n.bitrate === T.bitrate - 1 || n.bitrate === T.bitrate + 1))
+                  , V = !(S && f && null != w && (l < w || l === w && T && n.bitrate >= T.bitrate))
+                  , K = n.iframes === a;
+                if (ne(p) && K && m && U && $ && V) {
+                    var {adjustedbw: P, bitrate: x, fetchDuration: R, rejectLevelDueToPeakBW: L, canFitMultipleSegments: _, requireAlternates: N, alternates: F} = function(e, t, i, r, n, s, a, o, d, l, u, c) {
+                        var h = n ? a.bwUp : a.bwDown
+                          , n = e.bitrate
+                          , a = t ? t.totalduration / t.fragments.length : o
+                          , s = $g(e, t, o, h, ne(s.avgPlaylistLoadTimeMs) ? s.avgPlaylistLoadTimeMs : s.avgLatencyMs, l)
+                          , l = e.bandwidth
+                          , i = n < h && h < l && i <= 2 * a
+                          , d = r * ((l || n || 0) * ((null == t ? void 0 : t.targetduration) || a)) / 8 <= d;
+                        let p = null;
+                        u = !u;
+                        return u && (p = Fg(e, c),
+                        p.altAudio && p.subtitle || (p = null)),
+                        {
+                            adjustedbw: h,
+                            bitrate: n,
+                            fetchDuration: s,
+                            rejectLevelDueToPeakBW: i,
+                            canFitMultipleSegments: d,
+                            requireAlternates: u,
+                            alternates: p
+                        }
+                    }(n, u, k, v, f, o, D, r, y, h, a, c);
+                    if (N && Boolean(F) && (M = e),
+                    x < P && _ && !L && (!N || Boolean(F)) && (a || !R || R < s))
+                        return L = P,
+                        N = g,
+                        P = (P = d).instantBw,
+                        (N.fragDownloadSlow || N.fragDownloadTooSlow || ne(P) && P < L) && E && I && k <= 2 * p && f && (e = b),
+                        {
+                            variantMediaOption: e,
+                            holdOffDuration: R,
+                            alternates: F,
+                            lowestCandidate: M
+                        }
+                }
+            }
+            return {
+                variantMediaOption: Ol.mediaOptionId,
+                holdOffDuration: -1,
+                lowestCandidate: M
+            }
+        }
+        function Ug(e, t, i, r) {
+            let n, s;
+            return 4 <= r ? (n = e * t,
+            s = e * i) : n = s = e / 1.8,
+            {
+                bwUp: n,
+                bwDown: s
+            }
+        }
+        function $g(e, t, i, r, n, s) {
+            let a = e.bitrate * (t ? t.totalduration / t.fragments.length : i) / r;
+            return null == t || !t.liveOrEvent || t.ptsKnown && !Kg(t.totalduration, n, s) || (a *= 2),
+            ne(n) && (!ne(s) || null != t && t.liveOrEvent) && (a += n / 1e3),
+            a
+        }
+        function Vg(t, e) {
+            let i = 1 / 0;
+            if (t === Ol.mediaOptionId)
+                return i;
+            var r = e.find(e=>e.mediaOptionId === t);
+            if (!r)
+                return 1 / 0;
+            const n = r.iframes
+              , s = r.bitrate
+              , a = r.frameRate
+              , o = e.find(e=>e.iframes === n && (void 0 === a || e.frameRate >= a) && e.bitrate > s);
+            return o && (i = o.bitrate),
+            i
+        }
+        function Kg(e, t, i) {
+            return t = ne(t) ? t : 0,
+            !ne(i) || performance.now() - i + t > 1e3 * e
+        }
+        function Hg(e, t) {
+            return (null == e ? void 0 : e.fragDownloadSlow) === (null == t ? void 0 : t.fragDownloadSlow) && e.fragDownloadTooSlow === (null == t ? void 0 : t.fragDownloadTooSlow)
+        }
+        function jg(e) {
+            return "loading" === (null == e ? void 0 : e.state) && ne(null === (e = e.bwSample) || void 0 === e ? void 0 : e.trequest)
+        }
+        const qg = 2e3;
+        function Qg(e, t, i, r) {
+            let {fragDownloadSlow: n, fragDownloadTooSlow: s} = t;
+            var a = i.variantMediaOptionById(e.mediaOptionId).bitrate
+              , t = e.bwSample;
+            r = r.child(Pg);
+            i = t.total || Math.max(t.loaded, Math.round(e.duration * a / 8)),
+            a = performance.now() - t.tfirst,
+            i = t.loaded * e.duration * 1e3 / i;
+            return a >= qg && 1e3 <= a - i && (n || r.warn(`flow indicates low bandwidth, after time/duration behind real time: ${a}/${a - i}`),
+            n = !0),
+            a >= 1e3 * e.duration && (s || r.warn(`too much time spent downloading fragment, likely to switch down ${a} > ${1e3 * e.duration}`),
+            s = !0),
+            {
+                fragDownloadSlow: n,
+                fragDownloadTooSlow: s
+            }
+        }
+        function Gg(e, t, i, r, n) {
+            var s;
+            const a = n.logger.child(Pg)
+              , o = r.isIframeRate
+              , d = i.mediaOptionListQueries[ul.Variant].preferredMediaOptionList
+              , l = i.enabledMediaOptionKeys[ul.Variant];
+            let u = e;
+            if (u !== wm.None || d.some(e=>e.mediaOptionId === l.mediaOptionId) || (u = wm.PreferredListChanged),
+            u !== wm.None && !(o && u !== wm.IframeModeChange && r.getBufferedSegmentsByType(cl.Variant).filter(e=>e.frag.iframe).length < t.minFramesBeforeSwitchingLevel)) {
+                const c = Qf(i.itemId)
+                  , h = bg(l)
+                  , p = [Ol, Ol, Ol]
+                  , f = function(e, t, i, r, n, s, a) {
+                    let o = t.nextMaxAutoOptionId;
+                    if (o === Ol.mediaOptionId || Rg(s.getBandwidthEstimate()))
+                        return d = e,
+                        l = t,
+                        u = r,
+                        e = n,
+                        r = s,
+                        s = a.child({
+                            name: "abr"
+                        }),
+                        a = e.isIframeRate,
+                        l.enabledMediaOptionIdByType(ul.Variant),
+                        Ng(a, d, l, u, e, r, s);
+                    if (n.isIframeRate)
+                        return {
+                            variantMediaOption: o,
+                            holdOffDuration: 0,
+                            lowestCandidate: null
+                        };
+                    {
+                        const c = t.variantMediaOptionById(o)
+                          , h = t.enabledAlternateMediaOptionByType(ul.Subtitle)
+                          , n = t.enabledAlternateMediaOptionByType(ul.AltAudio)
+                          , p = null == n ? void 0 : n.persistentID
+                          , f = null == h ? void 0 : h.persistentID
+                          , m = !t.preferHDR
+                          , g = i.getBestMediaOptionTupleFromVariantAndPersistentId(t, c, p, f, void 0, [], m, !1, !1);
+                        return t.isValidMediaOptionTuple(g) ? (o = g[ul.Variant].mediaOptionId,
+                        {
+                            variantMediaOption: o,
+                            holdOffDuration: 0,
+                            alternates: {
+                                altAudio: g[ul.AltAudio],
+                                subtitle: g[ul.Subtitle]
+                            },
+                            lowestCandidate: null
+                        }) : {
+                            variantMediaOption: t.enabledMediaOptionKeys[ul.Variant].mediaOptionId,
+                            holdOffDuration: 0,
+                            lowestCandidate: null
+                        }
+                    }
+                    var d, l, u
+                }(t, i, n, h, r, c, a);
+                if (f.variantMediaOption !== l.mediaOptionId) {
+                    p[ul.Variant] = {
+                        itemId: i.itemId,
+                        mediaOptionId: f.variantMediaOption
+                    };
+                    for (const e of [ul.AltAudio, ul.Subtitle]) {
+                        const t = i.enabledMediaOptionIdByType(e);
+                        if (t !== Ol.mediaOptionId) {
+                            const r = e === ul.AltAudio ? null === (s = f.alternates) || void 0 === s ? void 0 : s.altAudio : null === (s = f.alternates) || void 0 === s ? void 0 : s.subtitle;
+                            p[e] = r || {
+                                itemId: i.itemId,
+                                mediaOptionId: t
+                            }
+                        }
+                    }
+                    return n.setEnabledMediaOptions(i.itemId, p),
+                    1
+                }
+            }
+        }
+        const Wg = {
+            name: "iframes"
+        }
+          , zg = new pd({},{
+            name: "item-queue",
+            producerFn: vc,
+            idKey: "itemId",
+            resettable: !0
+        })
+          , Xg = new class extends Od {
+        }
+        (zg);
+        class Yg {
+            constructor() {
+                this.firstItem = !0,
+                this.playingEntity = null,
+                this.loadingEntity = null
+            }
+            static createItem(e, t, i, r, n) {
+                const s = new Date
+                  , a = `${s.getHours()}:${s.getMinutes()}:${s.getSeconds()}`;
+                qe();
+                var o = function(e) {
+                    e = sl.parseURL(e).fragment.substr(1);
+                    if (0 === e.length)
+                        return null;
+                    const t = new URLSearchParams(e);
+                    if (!t.has("t"))
+                        return null;
+                    e = Number(t.get("t"));
+                    return ne(e) ? e : null
+                }(t);
+                if (o)
+                    i = o;
+                else {
+                    const e = ng();
+                    ne(null == e ? void 0 : e.startPosition) && (i = e.startPosition)
+                }
+                return {
+                    itemId: `${e}_${a}`,
+                    name: e,
+                    url: t,
+                    serviceName: n,
+                    createTime: a,
+                    initialSeekTime: i,
+                    itemStartOffset: 0,
+                    platformInfo: r,
+                    config: {}
+                }
+            }
+            get activeItemById$() {
+                return Xg.selectActiveId().pipe(ur(e=>Xg.getActive()))
+            }
+            get removedItems$() {
+                return Xg.selectEntityAction(To.Remove).pipe(ur(e=>e))
+            }
+            get activeItem() {
+                return Xg.getActive()
+            }
+            get queueItems$() {
+                return Xg.selectAll().pipe(ur(e=>null != e ? e : []))
+            }
+            get isFirstItem() {
+                return this.firstItem
+            }
+            get playingItem() {
+                return this.playingEntity
+            }
+            get loadingItem() {
+                return this.loadingEntity
+            }
+            addQueueItem(e, t, i, r, n, s) {
+                Xg.getCount();
+                const a = Yg.createItem(e, t, i, r, s);
+                null != this.playingEntity && (a.initialSeekTime = void 0),
+                n && (a.itemStartOffset = n,
+                this.firstItem = !1,
+                this.playingEntity = this.activeItem,
+                this.loadingEntity = a),
+                Co(`queue.add.item: ${e}`),
+                sd(()=>{
+                    zg.add(a),
+                    zg.setActive(a.itemId)
+                }
+                )
+            }
+            updatePlayingItemId() {
+                this.playingEntity = this.loadingEntity,
+                this.loadingEntity = null,
+                this.clearAllButActive()
+            }
+            resetLoadingItem() {
+                this.removeQueueItem(this.loadingEntity.itemId),
+                this.loadingEntity = null,
+                sd(()=>{
+                    zg.setActive(this.playingEntity.itemId)
+                }
+                )
+            }
+            isPreloading() {
+                return null !== this.playingEntity && null !== this.loadingEntity
+            }
+            setQueueItem(t, i, r, n, s) {
+                Co("queue.set.item"),
+                this.loadingEntity = null,
+                sd(()=>{
+                    zg.reset();
+                    var e = Yg.createItem(t, i, r, n, s);
+                    zg.add(e),
+                    zg.setActive(e.itemId)
+                }
+                ),
+                this.playingEntity = this.activeItem
+            }
+            removeQueueItem(e) {
+                zg.remove(e)
+            }
+            clearQueue() {
+                zg.reset()
+            }
+            clearAllButActive() {
+                var e;
+                const t = null === (e = this.activeItem) || void 0 === e ? void 0 : e.itemId;
+                sd(()=>{
+                    Xg.getAll().forEach(e=>{
+                        e.itemId !== t && zg.remove(e.itemId)
+                    }
+                    )
+                }
+                )
+            }
+            set earlyAudioSelection(t) {
+                zg.updateActive(e=>{
+                    e.earlySelection || (e.earlySelection = {}),
+                    e.earlySelection.audioPersistentId = t
+                }
+                )
+            }
+            get earlyAudioSelection() {
+                var e;
+                return null === (e = this.activeItem.earlySelection) || void 0 === e ? void 0 : e.audioPersistentId
+            }
+            set earlySubtitleSelection(t) {
+                zg.updateActive(e=>{
+                    e.earlySelection || (e.earlySelection = {}),
+                    e.earlySelection.subtitlePersistentId = t
+                }
+                )
+            }
+            get earlySubtitleSelection() {
+                var e;
+                return null === (e = this.activeItem.earlySelection) || void 0 === e ? void 0 : e.subtitlePersistentId
+            }
+        }
+        function Jg(e, t, i, r, n, s) {
+            return Gm(e, 0, Vm({
+                errorAction: Em.RemoveAlternatePermanently,
+                errorActionFlags: 0
+            }, !1, e.response.code, i, t, s, n), s, n, t, i).pipe(Un(e=>{
+                throw !1 === e.fatal && r.resetMediaSource(),
+                e
+            }
+            ))
+        }
+        function Zg(e, t) {
+            if (!e || 0 === e.length)
+                return 0;
+            const i = [...e].sort((e,t)=>t[0] - e[0])
+              , r = t.getTime()
+              , n = null !== (t = i.find(([e])=>r >= e)) && void 0 !== t ? t : i[i.length - 1]
+              , [s,a] = n
+              , o = a + (r - s) / 1e3;
+            return Math.max(0, o)
+        }
+        function ey(e, t) {
+            if (e && 0 !== e.length) {
+                const i = [...e].sort((e,t)=>t[1] - e[1])
+                  , r = null !== (e = i.find(([,e])=>e <= t)) && void 0 !== e ? e : i[i.length - 1]
+                  , [n,s] = r;
+                return new Date(n + 1e3 * (t - s))
+            }
+        }
+        function ty(l, e, u, c, h, p) {
+            return e.child({
+                name: "seek"
+            }),
+            e=>e.pipe(Ra((e,t)=>{
+                var i, r, n, s, a, o, d = u.mediaQuery.seekTo$.pipe(Up());
+                return i = 0 === t,
+                r = l,
+                n = h,
+                s = p,
+                (null == (t = e) ? Ti : t instanceof Date ? (a = t,
+                o = s,
+                n.enabledMediaOptionByType$(ul.Variant).pipe(Ra(e=>o.getQueryForOption(e).mediaOptionDetails$), ur(e=>Zg(e.dateMediaTimePairs, a)), Cs(1))) : function(n, e, s, a, t) {
+                    let i = a.enabledMediaOptionByType$(ul.Variant).pipe(Ra(e=>t.getQueryForOption(e).mediaOptionDetails$), an(e=>ne(null == e ? void 0 : e.totalduration)), Cs(1), ur(e=>{
+                        var t = !e.liveOrEvent
+                          , i = e.totalduration
+                          , r = a.itemStartOffset;
+                        return t ? ne(n) ? 0 <= n ? n : r + (i + n) : r + (ne(e.startTimeOffset) ? e.startTimeOffset : 0) : !ne(n) || n < 0 || 0 === n && s.liveEdgeForZeroStartPositon ? lg(0, e, s) : n
+                    }
+                    ));
+                    return e && (i = i.pipe(Ja(e=>{}
+                    ))),
+                    i
+                }(t, i, r, n, s)).pipe($s(()=>{
+                    null != e && c.setPendingSeek(h.itemId, void 0)
+                }
+                ), $a(d))
+            }
+            ), Ja(e=>{
+                ne(e) && (u.seekTo = e)
+            }
+            ))
+        }
+        class iy {
+            constructor(e, t, i, r, n, s) {
+                this.logger = e,
+                this._rootPlaylistService = t,
+                this._rootQuery = i,
+                this._mediaQuery = r,
+                this._iframeMachine = n,
+                this._anchorMSNs = [NaN, NaN],
+                this._avDetails = [null, null],
+                this.logger = e.child({
+                    name: "fpicker"
+                }),
+                this._discoSeqNum = NaN,
+                this.lookUpTolerance = Math.max(s.maxBufferHole, s.maxFragLookUpTolerance)
+            }
+            destroy() {
+                this._anchorMSNs = [NaN, NaN],
+                this._avDetails = [null, null],
+                this._rootQuery = null,
+                this._mediaQuery = null,
+                this._rootPlaylistService = null,
+                this._iframeMachine = null
+            }
+            get discoSeqNum() {
+                return this._discoSeqNum
+            }
+            get _discoSeqNum() {
+                return this._rootQuery.discoSeqNum
+            }
+            set _discoSeqNum(e) {
+                this._rootPlaylistService.setDiscoSeqNum(this._rootQuery.itemId, e)
+            }
+            get anchorMSNs() {
+                return this._anchorMSNs
+            }
+            _resolvePosition(e, t, i) {
+                let r = e;
+                t = this._avDetails[t];
+                if ((null == t ? void 0 : t.mediaOptionId) !== (null == i ? void 0 : i.mediaOptionId) && i.liveOrEvent && !1 === i.ptsKnown)
+                    if (null != (null == t ? void 0 : t.dateMediaTimePairs) && i.dateMediaTimePairs) {
+                        const n = ey(t.dateMediaTimePairs, e);
+                        r = Zg(i.dateMediaTimePairs, n)
+                    } else {
+                        const e = 3 * i.targetduration
+                          , n = i.fragments[0].start + i.totalduration;
+                        r = Math.max(0, n - e)
+                    }
+                return r
+            }
+            _updateAnchorByPosition(e, t) {
+                let i = NaN;
+                const r = t[cl.Variant];
+                if (r) {
+                    const t = r.fragments
+                      , n = this._resolvePosition(e, cl.Variant, r);
+                    if (i = Bl.ccForTime(t, n),
+                    !ne(i)) {
+                        const r = t[0]
+                          , s = t[t.length - 1]
+                          , a = r.start
+                          , o = s.start + s.duration;
+                        this.logger.warn(`${e.toFixed(3)} out of range [${a.toFixed(3)},${o.toFixed(3)}]`),
+                        e <= a ? i = r.discoSeqNum : e >= o && (i = s.discoSeqNum)
+                    }
+                } else
+                    this.logger.warn("No variant details for anchoring");
+                this._updateAnchor(i, t)
+            }
+            _updateAnchor(e, n) {
+                const s = e !== this._discoSeqNum;
+                s && (this._discoSeqNum = e),
+                Ml.forEach(e=>{
+                    const t = this._avDetails[e]
+                      , i = n[e]
+                      , r = (null == t ? void 0 : t.mediaOptionId) !== (null == i ? void 0 : i.mediaOptionId);
+                    if (s || r)
+                        this._updateAnchorForType(xl(e), i);
+                    else if (i) {
+                        const {mediaOptionId: n, ptsKnown: s, dateMediaTimePairs: t} = i;
+                        this._avDetails[e] = {
+                            mediaOptionId: n,
+                            ptsKnown: s,
+                            dateMediaTimePairs: t
+                        }
+                    }
+                }
+                )
+            }
+            getNextFragments(e, i) {
+                const {position: r, bufferInfoTuple: t, switchContexts: n} = e
+                  , s = t.map((e,t)=>ry(r, i[t], n[t], null == e ? void 0 : e.buffered, this.lookUpTolerance)).reduce((e,t)=>Math.min(t, e), Number.POSITIVE_INFINITY);
+                return this._updateAnchorByPosition(s, i),
+                this._getNextFragmentsInternal(e, i)
+            }
+            _getNextFragmentsInternal(i, r) {
+                const n = [null, null];
+                r.forEach((e,t)=>{
+                    n[t] = this._getNextFragmentForType(i, r, t)
+                }
+                );
+                var e = n[cl.Variant]
+                  , t = n[cl.AltAudio]
+                  , s = null === (a = null == e ? void 0 : e.foundFrag) || void 0 === a ? void 0 : a.mediaFragment
+                  , a = null === (a = null == t ? void 0 : t.foundFrag) || void 0 === a ? void 0 : a.mediaFragment;
+                if (s && a && (a.start > s.start + s.duration ? (this.logger.warn("Audio too far ahead"),
+                n[cl.AltAudio] = iy.noopResult) : s.start > a.start + a.duration && !this._mediaQuery.isIframeRate && (this.logger.warn("Video too far ahead"),
+                n[cl.Variant] = iy.noopResult)),
+                !isFinite(null == e ? void 0 : e.nextDisco) || null != t && !ne(t.nextDisco))
+                    return n;
+                {
+                    const o = n[cl.Variant].nextDisco;
+                    return this._updateAnchor(o, r),
+                    this._getNextFragmentsInternal(i, r)
+                }
+            }
+            _getNextFragmentForType(e, t, i) {
+                var {position: r, bufferInfoTuple: n, switchContexts: s} = e
+                  , a = t[i]
+                  , o = null !== (l = null === (c = n[i]) || void 0 === c ? void 0 : c.buffered) && void 0 !== l ? l : {
+                    start: r,
+                    end: r,
+                    len: 0
+                }
+                  , d = this._mediaQuery.getBufferedSegmentsByType(i)
+                  , l = null !== (c = null === (e = s[i]) || void 0 === e ? void 0 : e.userInitiated) && void 0 !== c && c
+                  , u = ry(r, a, s[i], o, this.lookUpTolerance);
+                if (!a)
+                    return null;
+                var {highWaterLevelSeconds: e, lowWaterLevelSeconds: c} = this._mediaQuery.bufferMonitorInfo
+                  , r = o.len;
+                if (!l && e <= r)
+                    return iy.noopResult;
+                var e = i === cl.Variant ? cl.AltAudio : cl.Variant
+                  , n = null === (n = n[e]) || void 0 === n ? void 0 : n.buffered
+                  , e = null !== (e = null === (e = s[e]) || void 0 === e ? void 0 : e.userInitiated) && void 0 !== e && e;
+                let h = !1;
+                i === cl.Variant && c <= r && 1 < this._mediaQuery.expectedSbCount && null != n && n.end < o.end && (e || n.end - n.start < c) && (h = !0);
+                let p, f = null, m = NaN;
+                if (this._mediaQuery.isIframeRate && i === cl.Variant && a.iframesOnly) {
+                    const g = function(e, t, i) {
+                        e = i.nextFragment(a.fragments, (null == e ? void 0 : e.fragments) || [], t, u);
+                        if (!e)
+                            return null;
+                        var {frag: t, newMediaRootTime: e} = e;
+                        return {
+                            foundFrag: {
+                                timelineOffset: t.iframeMediaStart,
+                                mediaFragment: t
+                            },
+                            nextDisco: NaN,
+                            newMediaRootTime: e
+                        }
+                    }(t[cl.AltAudio], this._mediaQuery.desiredRate, this._iframeMachine);
+                    if (g) {
+                        ({foundFrag: f, nextDisco: m, newMediaRootTime: p} = g);
+                        const i = f.mediaFragment;
+                        i.discoSeqNum !== this._discoSeqNum && this._updateAnchor(i.discoSeqNum, t)
+                    }
+                } else {
+                    const g = this._anchorMSNs[i];
+                    ({foundFrag: f, nextDisco: m, newMediaRootTime: p} = fg(u, this._discoSeqNum, g, a, d))
+                }
+                return h && this._rootQuery.getInitPTS(null == f ? void 0 : f.mediaFragment.discoSeqNum) ? iy.noopResult : {
+                    foundFrag: f,
+                    nextDisco: m,
+                    newMediaRootTime: p
+                }
+            }
+            _updateAnchorForType(e, t) {
+                var i, r, n;
+                if (!t)
+                    return this._anchorMSNs[e] = NaN,
+                    void (this._avDetails[e] = null);
+                ne(this._discoSeqNum) ? (n = this._discoSeqNum,
+                n = null !== (r = null == (n = (r = t.fragments,
+                i = n,
+                r.find(e=>e.discoSeqNum === i))) ? void 0 : n.mediaSeqNum) && void 0 !== r ? r : t.startSN,
+                this._anchorMSNs[e] = n,
+                {mediaOptionId: r, ptsKnown: n, dateMediaTimePairs: t} = t,
+                this._avDetails[e] = {
+                    mediaOptionId: r,
+                    ptsKnown: n,
+                    dateMediaTimePairs: t
+                }) : this.logger.warn("Trying to anchor with non-finite discoSeqNum")
+            }
+        }
+        function ry(e, t, i, r, n) {
+            r = null != r ? r : {
+                start: e,
+                end: e,
+                len: 0
+            };
+            i = null !== (i = null == i ? void 0 : i.userInitiated) && void 0 !== i && i,
+            n = null != t && t.iframesOnly ? 0 : n;
+            return i || 0 === r.len ? e : r.end + n
+        }
+        iy.noopResult = {
+            foundFrag: null,
+            nextDisco: NaN
+        };
+        const ny = {
+            name: "avpipe"
+        };
+        function sy(r) {
+            const {config: o, rootPlaylistService: d, rootPlaylistQuery: l, mediaSink: e, gaplessInstance: t} = r
+              , u = e.mediaQuery
+              , i = Zd(Ml.map(e=>l.enabledMediaOptionSwitchForType$(e).pipe(Ja(e=>{}
+            )))).pipe(Ra(e=>{
+                if (!kl({
+                    itemId: l.itemId,
+                    mediaOptionId: e[ul.Variant].toId
+                }))
+                    throw new V(!0,`No valid variant enabled id:${e[ul.Variant].toId}`,$.NoValidAlternates);
+                e = e.map(({fromId: e, toId: t},i)=>function(t, i, r, n, s) {
+                    var e, a, o;
+                    const {rootPlaylistQuery: d, rootPlaylistService: l, mediaSink: u, mediaParser: c, config: h, iframeMachine: p} = t
+                      , f = u.mediaQuery;
+                    if (!n || !s || n === s)
+                        return Ul;
+                    switch (r) {
+                    case ul.Variant:
+                        {
+                            c.reset(ul.Variant);
+                            const t = xl(r)
+                              , l = d.variantMediaOptionById(n)
+                              , g = d.variantMediaOptionById(s);
+                            if (null == g || null == l)
+                                return Ul;
+                            let e = NaN;
+                            if (l.iframes !== g.iframes || !g.iframes && p.isStarted) {
+                                if (u.toggleTrickPlaybackMode(g.iframes),
+                                !g.iframes && p.isStarted) {
+                                    const t = u.mediaQuery.autoPausedRestartTime
+                                      , i = t || p.iframeClockTimeSeconds;
+                                    u.autoPausedRestartTime = void 0,
+                                    e = i,
+                                    p.stop()
+                                }
+                                return u.pause(),
+                                u.flushData(t, 0, 1 / 0, !0).pipe(Ja(()=>{
+                                    isFinite(e) && (u.seekTo = e)
+                                }
+                                ))
+                            }
+                            if (!h.allowFastSwitchUp || g.iframes)
+                                return Ul;
+                            var m = bg(l).mediaOptionDetails;
+                            if (null != m && null != g && l.bitrate < g.bitrate) {
+                                const r = m.targetduration
+                                  , n = bg(g)
+                                  , s = n.mediaOptionDetails
+                                  , c = n.mediaOptionDetailsEntity.lastUpdateMillis
+                                  , p = f.getCurrentWaterLevelByType(t, h.maxBufferHole)
+                                  , y = function(e, t, i, r, n, s, a, o) {
+                                    if (n.nextMaxAutoOptionId !== Ol.mediaOptionId && !Rg(s.getBandwidthEstimate()))
+                                        return Number.POSITIVE_INFINITY;
+                                    a = Ug(s.getBandwidthEstimate().avgBandwidth, a.abrBandWidthUpFactor, a.abrBandWidthFactor, s.bandwidthStatus.bandwidthSampleCount),
+                                    s = ne(s.getPlaylistEstimate().avgPlaylistLoadTimeMs) ? s.getPlaylistEstimate().avgPlaylistLoadTimeMs : s.getBandwidthEstimate().avgLatencyMs,
+                                    a = t.bitrate > e.bitrate ? a.bwUp : a.bwDown;
+                                    return null == i || !i.liveOrEvent || i.ptsKnown && !Kg(i.totalduration, s, o) ? $g(t, i, r, a, s, o) : Number.POSITIVE_INFINITY
+                                }(l, g, s, r, d.abrStatus, i, h, c) + h.maxStarvationDelay
+                                  , v = f.currentTime + y
+                                  , S = null === (o = null === (a = f.sourceBufferEntityByType(t)) || void 0 === a ? void 0 : a.bufferedSegments) || void 0 === o ? void 0 : o.find(e=>e.startPTS >= v);
+                                let e;
+                                if (S) {
+                                    const t = S.endPTS - S.startPTS;
+                                    e = S.startPTS + Math.min(Math.max(t - h.maxFragLookUpTolerance, .5 * t), .75 * t)
+                                }
+                                if (ne(e) && p >= y)
+                                    return u.flushData(t, e, 1 / 0)
+                            }
+                        }
+                        break;
+                    case ul.AltAudio:
+                        e = d,
+                        m = s,
+                        o = "Nah" === (a = n) ? null : e.alternateMediaOptionById(ul.AltAudio, a),
+                        o = Boolean(o && o.url),
+                        m = "Nah" === a ? null : e.alternateMediaOptionById(ul.AltAudio, m),
+                        m = Boolean(m && m.url),
+                        o && !m && (l.setEnabledMediaOptionSwitchContextByType(d.itemId, ul.AltAudio, s, void 0),
+                        u.resetMediaSource(f.currentTime)),
+                        c.reset(ul.AltAudio)
+                    }
+                    return Ul
+                }(r, n, i, e, t));
+                return Xr(Bi(!0), Jr(e).pipe(Js(!1)))
+            }
+            ), Ql.tag("mediaOptionSwitch.audiovideo.out"))
+              , n = Qf(l.itemId)
+              , s = r.logger.child(ny)
+              , a = new iy(s,d,l,u,r.iframeMachine,o);
+            return Zd([l.anchorTime$.pipe(Ql.tag("anchorTime.audiovideo.in")), i]).pipe(Ra(([i,e])=>e ? Ti : u.needData$(o.maxBufferHole, t.inGaplessMode, t.isPreloading).pipe(ur(e=>{
+                var t = [l.enabledMediaOptionSwitchContexts[ul.Variant], l.enabledMediaOptionSwitchContexts[ul.AltAudio]];
+                return u.getSourceBufferInfoAction(e, i, t, o.maxBufferHole)
+            }
+            ), Ls(e=>{
+                if (!e)
+                    return Ti;
+                e = Bi(e).pipe(ay(r, a), dy(r));
+                return hn($l(function(e) {
+                    const {mediaSink: t, rootPlaylistQuery: i, rootPlaylistService: r} = e
+                      , n = t.mediaQuery
+                      , s = e.logger.child(Pg);
+                    return nn((a = i,
+                    o = s,
+                    Zd([n.fellBelowLowWater$, a.getInFlightFragByType$(ul.Variant)]).pipe(Ra(e=>{
+                        var [,t] = e;
+                        if (!jg(t))
+                            return Ti;
+                        const i = performance.now() - t.bwSample.trequest
+                          , r = qg - i
+                          , n = 1e3 * t.duration - i
+                          , s = [Ul];
+                        return 0 < r && s.push(vn(r)),
+                        0 < n && s.push(vn(n)),
+                        nn(...s).pipe(Js(e))
+                    }
+                    ), na((e,[t,i])=>{
+                        const r = Object.assign({}, e);
+                        return t && (r.fragDownloadSlow = !0),
+                        Qg(i, r, a, o)
+                    }
+                    , {
+                        fragDownloadSlow: !1,
+                        fragDownloadTooSlow: !1
+                    }), xa({
+                        fragDownloadSlow: !1,
+                        fragDownloadTooSlow: !1
+                    }), Es(Hg))), function(r) {
+                        const s = r.mediaSink.mediaQuery
+                          , {rootPlaylistQuery: e, config: a} = r;
+                        return s.desiredRate$.pipe(Ra(t=>0 === t ? Ti : Zd([e.getInFlightFragByType$(ul.Variant), e.mediaOptionListQueries[ul.Variant].preferredMediaOptionList$.pipe(ur(e=>e.filter(Nm.bind(null, jp(t)))))])), so(100), Ra(e=>{
+                            const [t,i] = e;
+                            if (!jg(t) || i.findIndex(e=>e.mediaOptionId === t.mediaOptionId) <= 0)
+                                return Ti;
+                            var r = performance.now() - t.bwSample.trequest
+                              , n = xg(t.duration, a.maxStarvationDelay)
+                              , n = Math.min(1e3 * n, 500 * t.duration / s.playbackRate);
+                            return vn(Math.max(0, n - r), 100).pipe(Js(e))
+                        }
+                        )).pipe(na((e,[t,i])=>function(t, i, r, e) {
+                            let {fragDownloadSlow: n, fragDownloadTooSlow: s} = t;
+                            const {config: a, rootPlaylistService: o, rootPlaylistQuery: d, mediaSink: l, statsService: u, mediaLibraryService: c} = e
+                              , h = e.logger.child(Pg)
+                              , p = l.mediaQuery;
+                            if (p.paused)
+                                return t;
+                            e = i.bwSample;
+                            if (!ne(e.tfirst))
+                                return t;
+                            const f = performance.now()
+                              , m = f - e.trequest
+                              , g = xg(i.duration, a.maxStarvationDelay)
+                              , y = ul.Variant
+                              , v = i.mediaOptionId
+                              , S = d.variantMediaOptionById(v)
+                              , b = c.getQueryForOption(S)
+                              , T = S.bitrate
+                              , E = Math.max(1, 8e3 * e.loaded / m)
+                              , I = 8 * ((ne(e.total) ? e.total : Math.max(e.loaded, Math.round(i.duration * T / 8))) - e.loaded) / E
+                              , w = Lg(p, a.maxBufferHole);
+                            let A;
+                            if (ne(w) && 0 < w && !ne(null === (O = p.seekTo) || void 0 === O ? void 0 : O.pos))
+                                A = w;
+                            else {
+                                const _ = m / 1e3;
+                                A = _ < g ? g - _ : g
+                            }
+                            var O = n;
+                            ({fragDownloadSlow: n, fragDownloadTooSlow: s} = Qg(i, t, d, h));
+                            t = 2 * ((null === (t = b.mediaOptionDetails) || void 0 === t ? void 0 : t.targetduration) || i.duration);
+                            if (!(w <= t && (I >= A || n)))
+                                return rg().getQuery().extendMaxTTFB && rg().setExtendMaxTTFB(0),
+                                {
+                                    fragDownloadSlow: n,
+                                    fragDownloadTooSlow: s
+                                };
+                            O || h.warn(`likely to stall ${se({
+                                maxTimeToLoadSec: A,
+                                minSwitchDuration: t,
+                                stats: e,
+                                elapsedMs: m,
+                                remainingTimeSec: I,
+                                instantBw: E,
+                                bufferAheadSec: w,
+                                fragDownloadSlow: n
+                            })}`),
+                            n = !0,
+                            rg().getQuery().extendMaxTTFB || rg().setExtendMaxTTFB(6e5);
+                            O = I >= A;
+                            let k;
+                            const C = i.itemId
+                              , D = u.getQueryForItem(C)
+                              , M = D.getCombinedEstimate()
+                              , P = Object.assign(Object.assign({}, M), {
+                                avgBandwidth: E
+                            })
+                              , x = D.bandwidthStatus
+                              , R = S.iframes
+                              , L = _g(0, r, R, d);
+                            if (L < 0)
+                                return {
+                                    fragDownloadSlow: n,
+                                    fragDownloadTooSlow: s
+                                };
+                            t = Math.max(L, r.findIndex(e=>e && e.mediaOptionId === S.mediaOptionId));
+                            if (O) {
+                                let e = Bg(r, i.duration, L, t, A, R, P, x, 1, 1, a, d, b, p, h);
+                                const N = Ol.mediaOptionId;
+                                k = e.variantMediaOption !== N || (e = Bg(r, i.duration, L, t, I, R, P, x, 1, 1, a, d, b, p, h)).variantMediaOption !== N ? e.variantMediaOption : e.lowestCandidate
+                            } else {
+                                const _ = _g(0, r.slice(L, t).reverse(), R, d)
+                                  , i = t - 1 - _;
+                                (0 <= _ || t === L) && (k = r[i].mediaOptionId)
+                            }
+                            if (null != k && k !== d.abrStatus.nextMaxAutoOptionId && o.setNextMaxAutoOptionId(C, k),
+                            O)
+                                throw h.warn(`loading too slow, abort fragment loading and switch to level ${k}`),
+                                u.setBandwidthSample(Object.assign(Object.assign({}, e), {
+                                    tfirst: e.tfirst || f,
+                                    tload: e.tload || f,
+                                    complete: !0,
+                                    mediaOptionType: y
+                                })),
+                                s = !0,
+                                new du({
+                                    mediaOptionType: y,
+                                    mediaOptionId: v
+                                },k,$.FragmentAbortError);
+                            return {
+                                fragDownloadSlow: n,
+                                fragDownloadTooSlow: s
+                            }
+                        }(e, t, i, r), {
+                            fragDownloadSlow: !1,
+                            fragDownloadTooSlow: !1
+                        }), xa({
+                            fragDownloadSlow: !1,
+                            fragDownloadTooSlow: !1
+                        }), Es(Hg))
+                    }(e)).pipe(xa({
+                        fragDownloadSlow: !1,
+                        fragDownloadTooSlow: !1
+                    }), na((e,t)=>({
+                        fragDownloadSlow: e.fragDownloadSlow || t.fragDownloadSlow,
+                        fragDownloadTooSlow: e.fragDownloadTooSlow || t.fragDownloadTooSlow
+                    })), Es(Hg), ur(e=>(r.setFragLoadSlow(i.itemId, e),
+                    !1)), Un(e=>{
+                        if (e instanceof du) {
+                            const e = {
+                                fragDownloadSlow: !0,
+                                fragDownloadTooSlow: !0
+                            };
+                            return r.setFragLoadSlow(i.itemId, e),
+                            Bi(!0)
+                        }
+                        return Ui(e)
+                    }
+                    ));
+                    var a, o
+                }(r), e=>e), e).pipe(Cs(1), $s(()=>{
+                    Ml.forEach(e=>{
+                        d.updateInflightFrag(l.itemId, e, null, null, null)
+                    }
+                    )
+                }
+                ))
+            }
+            ))), ur(()=>{
+                if (!l.getEntity(l.itemId).manualMode) {
+                    let e = wm.None;
+                    var i, r, n, s;
+                    i = bf(),
+                    r = u,
+                    n = o,
+                    s = null == r ? void 0 : r.clientWidth,
+                    a = null == r ? void 0 : r.clientHeight,
+                    r = "object" == typeof window && window.devicePixelRatio ? window.devicePixelRatio : 1,
+                    a = s && a ? {
+                        width: s * r,
+                        height: a * r
+                    } : void 0,
+                    r = (r = (null === (r = i.getQuery()) || void 0 === r ? void 0 : r.viewportInfo) || {}) && a && (r.width !== a.width || r.height !== a.height),
+                    n.useViewportSizeForLevelCap && r && (i.updateViewportInfo(a),
+                    1) && (e = wm.PreferredListChanged);
+                    let t = !1;
+                    var a = l.enabledVariantMediaOption;
+                    !function(e, t) {
+                        const i = d.logger.child(Pg)
+                          , r = e.abrStatus
+                          , n = r.fragDownloadSlow || r.fragDownloadTooSlow
+                          , s = ne(null === (t = t.seekTo) || void 0 === t ? void 0 : t.pos);
+                        return n && !r.fragDownloadTooSlow && s ? (i.warn("could be ignoring low bandwidth due to seek"),
+                        0) : n
+                    }(l, u) ? function(e, t) {
+                        const i = Qf(t.itemId)
+                          , r = i.getBandwidthEstimate()
+                          , n = t.abrStatus;
+                        if (Rg(r)) {
+                            var t = (null === (t = i.bandwidthStatus) || void 0 === t ? void 0 : t.bandwidthSampleCount) || 0
+                              , t = Ug(r.avgBandwidth, e.abrBandWidthUpFactor, e.abrBandWidthFactor, t)["bwUp"];
+                            return t > n.highBWTrigger
+                        }
+                    }(o, l) && (e = wm.HighBandwidth,
+                    d.setNextMinAutoOptionId(a.itemId, a.mediaOptionId)) : (e = wm.LowBandwidth,
+                    l.nextMaxAutoOptionId === Ol.mediaOptionId && (d.setNextMaxAutoOptionId(a.itemId, a.mediaOptionId),
+                    t = !0)),
+                    Gg(e, o, l, u, d),
+                    t ? d.setNextMaxAutoOptionId(a.itemId, Ol.mediaOptionId) : e === wm.HighBandwidth && d.setNextMinAutoOptionId(a.itemId, Ol.mediaOptionId)
+                }
+            }
+            ), $s(()=>{}
+            ))
+        }
+        const ay = (r,n)=>e=>{
+            const {rootPlaylistQuery: t, mediaSink: a} = r
+              , i = r.logger.child(ny);
+            return e.pipe(Hi(Zi), So(t.enabledMediaOptionKeys$), Ra(([s,e])=>bn(oy(s, ul.Variant, r, e).pipe(Ja(e=>{
+                var e = e.detailsEntity;
+                if (!e.mediaOptionDetails.liveOrEvent || e.mediaOptionDetails.ptsKnown) {
+                    const t = e.playlistDuration
+                      , i = (null === (e = s.bufferInfoTuple[0]) || void 0 === e ? void 0 : e.buffered.end) || 0
+                      , r = (null === (e = s.bufferInfoTuple[1]) || void 0 === e ? void 0 : e.buffered.end) || 0
+                      , n = Math.max(i, r);
+                    a.msDuration = ne(a.msDuration) ? Math.max(a.msDuration, t, n) : t
+                }
+            }
+            )), oy(s, ul.AltAudio, r, e)).pipe(ur(e=>({
+                action: s,
+                detailsAndContext: e
+            })))), Ra(({action: e, detailsAndContext: t})=>function t(i, r, n, s, l) {
+                var e;
+                const {mediaSink: u, iframeMachine: c, rootPlaylistQuery: a} = n
+                  , o = [l[ul.Variant].detailsEntity.mediaOptionDetails, null === (e = null === (e = l[ul.AltAudio]) || void 0 === e ? void 0 : e.detailsEntity) || void 0 === e ? void 0 : e.mediaOptionDetails];
+                let d = r.getNextFragments(s, o);
+                const h = d.reduce((e,t)=>Math.max(e, ne(null == t ? void 0 : t.newMediaRootTime) ? t.newMediaRootTime : -1 / 0), -1 / 0);
+                return ne(h) && (u.seekTo = h,
+                d = [null, null]),
+                d.every(e=>null == (null == e ? void 0 : e.foundFrag)) ? Bi(null) : bn(...d.map((e,d)=>e && null != e.foundFrag ? Ag(n, d, e).pipe(Ja(e=>{
+                    const t = e[1]
+                      , i = l[d].switchContext;
+                    t.switchPosition = null == i ? void 0 : i.switchPosition;
+                    const r = null !== (e = null == i ? void 0 : i.userInitiated) && void 0 !== e && e
+                      , n = u["mediaQuery"]
+                      , {desiredRate: s, isIframeRate: a} = n
+                      , o = a && c.isStarted && s && s < 0 && s !== c.iframeRate;
+                    (r || o) && (t.flushBeforeAppend = {
+                        start: 0,
+                        end: Number.POSITIVE_INFINITY
+                    })
+                }
+                )) : Bi(null))).pipe(ur(e=>function(g, e, t, i) {
+                    const {rootPlaylistService: r, rootPlaylistQuery: n, mediaSink: s, mediaLibraryService: a, config: y} = e
+                      , v = s.mediaQuery
+                      , o = n.itemId
+                      , d = v.isIframeRate;
+                    let l = n.getInitPTS(t);
+                    if (null == l || !d && l.iframeMode !== d) {
+                        const c = null !== (e = null === (e = i[ul.Variant]) || void 0 === e ? void 0 : e[1].startDtsTs) && void 0 !== e ? e : null;
+                        if (null == c)
+                            return g.warn("updatePTSInfo: Variant data missing."),
+                            null;
+                        const n = null !== (e = null === (e = i[ul.Variant]) || void 0 === e ? void 0 : e[1].timelineOffset) && void 0 !== e ? e : 0
+                          , s = B(n, c.timescale)
+                          , a = {
+                            baseTime: c.baseTime - s.baseTime,
+                            timescale: c.timescale
+                        };
+                        r.setInitPTS(o, t, c, n, a, d),
+                        l = {
+                            variantDTS: c,
+                            timelineOffset: n,
+                            offsetTimestamp: a,
+                            iframeMode: d
+                        }
+                    }
+                    i.forEach(e=>{
+                        e && !ne(e[1].iframeMediaDuration) && a.updatePTSDTS(o, e[1].mediaOptionId, l, e[1])
+                    }
+                    );
+                    const S = [null, null];
+                    if (i[ul.Variant]) {
+                        const [g,c] = i[ul.Variant];
+                        let e = l.offsetTimestamp;
+                        if (d) {
+                            const g = c.startDtsTs
+                              , i = B(c.timelineOffset, g.timescale);
+                            e = {
+                                baseTime: g.baseTime - i.baseTime,
+                                timescale: g.timescale
+                            }
+                        }
+                        S[cl.Variant] = {
+                            initSeg: g,
+                            dataSeg: c,
+                            offsetTimestamp: e
+                        }
+                    }
+                    if (i[ul.AltAudio]) {
+                        const [g,c] = i[ul.AltAudio];
+                        S[cl.AltAudio] = {
+                            initSeg: g,
+                            dataSeg: c,
+                            offsetTimestamp: l.offsetTimestamp
+                        }
+                    }
+                    const u = S.map((e,t)=>{
+                        const i = null == e ? void 0 : e.dataSeg;
+                        if (i) {
+                            const {itemId: r, mediaOptionId: n, mediaSeqNum: s, discoSeqNum: a, startPts: o, endPts: d, duration: l, iframe: u} = i
+                              , c = e["offsetTimestamp"]
+                              , h = b(o, c)
+                              , p = b(d, c)
+                              , f = bg(i)
+                              , m = S[0];
+                            return m && m.dataSeg.dropped || i.flushBeforeAppend || !((null === (e = null === (e = v.getBufferInfo(h, y.maxBufferHole)[t]) || void 0 === e ? void 0 : e.buffered) || void 0 === e ? void 0 : e.len) >= p - h) ? {
+                                start: h,
+                                duration: u ? l : p - h,
+                                itemId: r,
+                                mediaOptionId: n,
+                                mediaSeqNum: s,
+                                discoSeqNum: a,
+                                targetDuration: f.mediaOptionDetails.targetduration
+                            } : (g.warn(`${Cl[t]} Discarding append due to complete overlap with existing buffer`),
+                            S[t] = null)
+                        }
+                        return null
+                    }
+                    );
+                    return u.every(e=>!e) ? null : {
+                        appendDataTuple: S,
+                        inFlightFrags: u,
+                        initPTSInfo: l
+                    }
+                }(i, n, r.discoSeqNum, e)), Ra(e=>{
+                    if (e)
+                        return Bi(e);
+                    {
+                        const e = function(e, r) {
+                            const n = e.enabledMediaOptionKeys
+                              , s = [null, null]
+                              , a = [null, null];
+                            return Ml.map(e=>{
+                                var t;
+                                if (kl(n[e])) {
+                                    const i = bg(n[e]).mediaOptionDetailsEntity;
+                                    a[e] = null === (t = i.mediaOptionDetails) || void 0 === t ? void 0 : t.ptsKnown,
+                                    s[e] = {
+                                        detailsEntity: i,
+                                        switchContext: null === (e = r[e]) || void 0 === e ? void 0 : e.switchContext
+                                    }
+                                }
+                            }
+                            ),
+                            s
+                        }(a, l);
+                        return t(i, r, n, s, e)
+                    }
+                }
+                ))
+            }(i, n, r, e, t)), Ql.tag("mediaProducerEpic.emit"))
+        }
+        ;
+        function oy(e, i, t, r) {
+            const {rootPlaylistQuery: n, mediaLibraryService: s} = t
+              , a = r[i];
+            if (t.logger.child({
+                name: Cl[i]
+            }),
+            !a || "Nah" === a.mediaOptionId)
+                return Bi({
+                    detailsEntity: null,
+                    switchContext: null
+                });
+            const o = s.getQueryForOption(a);
+            return Cr([Bi(e), o.mediaOptionDetailsEntity$.pipe(Es((e,t)=>(null == e ? void 0 : e.lastUpdateMillis) === (null == t ? void 0 : t.lastUpdateMillis)))]).pipe(an(([,e])=>{
+                if (i === ul.AltAudio && !n.altMediaOptionHasValidUrl(i, a.mediaOptionId))
+                    return !0;
+                var t = null == e ? void 0 : e.mediaOptionDetails;
+                return null != t && (e = null !== (e = e.lastUpdateMillis) && void 0 !== e ? e : 0,
+                !t.liveOrEvent || !t.ptsKnown || !Kg(null == t ? void 0 : t.totalduration, 0, e))
+            }
+            ), Cs(1), So(n.enabledMediaOptionSwitchContextsByType$(i)), ur(([[,e],t])=>({
+                detailsEntity: e,
+                switchContext: t
+            })))
+        }
+        const dy = t=>e=>{
+            const {rootPlaylistQuery: g, rootPlaylistService: y, mediaSink: v, legibleSystemAdapter: o, statsService: d, rtcService: l} = t;
+            return e.pipe(Ql.tag("mediaConsumerEpic.in"), Ra(e=>{
+                if (!e)
+                    return Bi(!1);
+                const {appendDataTuple: r, inFlightFrags: m, initPTSInfo: t} = e
+                  , i = t["offsetTimestamp"];
+                return m.forEach((e,t)=>{
+                    e && y.updateInflightFrag(e.itemId, t, e, "appending", null)
+                }
+                ),
+                r.forEach(e=>{
+                    e && (e = e.dataSeg,
+                    o.addLegibleSamples(i, e.captionData, e.id3Samples, e.endPts))
+                }
+                ),
+                v.appendData(r, (e,t,i,r,n)=>{
+                    var s, a, o, d, l, u, c, h, p, f = null !== (f = m[t].targetDuration) && void 0 !== f ? f : 10;
+                    return s = v,
+                    a = e,
+                    o = t,
+                    d = i,
+                    l = f,
+                    u = r,
+                    c = g,
+                    h = y,
+                    p = n,
+                    e=>e.pipe(Ja(()=>{
+                        h.updateConsecutiveTimeouts(c.itemId, o, !1, "append")
+                    }
+                    ), ya(e=>e.pipe(Kr((e,t)=>{
+                        var i = e instanceof rf && e.isTimeout;
+                        if (h.updateConsecutiveTimeouts(c.itemId, o, i, "append"),
+                        i)
+                            return function(e, t, i, r, n, s, a, o) {
+                                let d = {
+                                    errorAction: Em.SendAlternateToPenaltyBox,
+                                    errorActionFlags: 0
+                                };
+                                var l = s.getCurrentWaterLevel(i.maxBufferHole)
+                                  , u = l < i.almostDryBufferSec;
+                                let c = NaN;
+                                s = i.appendErrorMaxRetry,
+                                i = a.rootPlaylistEntity.errorsByType[r].timeouts.append;
+                                u && s <= i || s <= t ? d.errorAction = Em.SendEndCallback : c = 1e3 * l;
+                                s = {
+                                    retryDelayMs: c,
+                                    maxNumRetry: s,
+                                    maxRetryDelayMs: c
+                                };
+                                return d = Vm(d, !1, e.response.code, n, r, a, o),
+                                Qm(e, t, s, d, a, o, r, n).pipe()
+                            }(e, t, u, o, d, p, c, h);
+                        if (e instanceof nf)
+                            return function(e, t, i, r, n, s, a, o, d, l) {
+                                var u = t.type
+                                  , u = o.getCurrentWaterLevelByType(u, n.maxBufferHole);
+                                if (u >= n.almostDryBufferSec) {
+                                    const t = 1e3 * r
+                                      , n = {
+                                        errorAction: Em.RetryRequest,
+                                        errorActionFlags: 0
+                                    };
+                                    return 1e3 * u < t && (l.hasFallbackMediaOptionTuple(d, s, a, !1) ? n.errorAction = Em.SendAlternateToPenaltyBox : n.errorAction = Em.SendEndCallback),
+                                    Qm(e, i, {
+                                        retryDelayMs: t,
+                                        maxNumRetry: 1 / 0,
+                                        maxRetryDelayMs: t
+                                    }, n, d, l, s, a)
+                                }
+                                return i < n.appendErrorMaxRetry ? t.remove(0, Number.POSITIVE_INFINITY) : (e.fatal = !0,
+                                Ui(e))
+                            }(e, a, t, l, u, o, d, p, c, h);
+                        if (e instanceof af) {
+                            const {mediaOptionType: a, mediaOptionId: o} = e;
+                            return Jg(e, a, o, s, h, c)
+                        }
+                        throw e
+                    }
+                    ))))
+                }
+                , g.highestVideoCodec).pipe(ur(e=>{
+                    m.forEach((e,t)=>{
+                        e && y.updateInflightFrag(e.itemId, t, e, "appended", null)
+                    }
+                    );
+                    var t = e.filter(e=>(null == e ? void 0 : e.fragmentType) === ul.Variant);
+                    t.length && (d.setBufferMetric(t[0]),
+                    null == l || l.handleFragBuffered(t[0]));
+                    e = r[cl.AltAudio];
+                    if (null !== (t = null == e ? void 0 : e.dataSeg) && void 0 !== t && t.flushBeforeAppend || ne(null === (t = null == e ? void 0 : e.dataSeg) || void 0 === t ? void 0 : t.switchPosition)) {
+                        const {itemId: i, mediaOptionId: r} = e.dataSeg;
+                        y.setEnabledMediaOptionSwitchContextByType(i, ul.AltAudio, r, void 0)
+                    }
+                    return !0
+                }
+                ), (n = v,
+                s = y,
+                a = g,
+                e=>e.pipe(Un(e=>{
+                    if (e instanceof tf) {
+                        var {mediaOptionType: t, mediaOptionId: i} = e;
+                        return Jg(e, t, i, n, s, a)
+                    }
+                    throw e
+                }
+                ))));
+                var n, s, a
+            }
+            ))
+        }
+        ;
+        function ly(e) {
+            const {logger: r, rootPlaylistService: n, rootPlaylistQuery: t} = e
+              , s = t.itemId;
+            return e=>e.pipe(ya(e=>e.pipe(Kr(e=>{
+                if (r.error(`Got error in pipeline ${e.message} fatal:${null == e ? void 0 : e.fatal} handled:${null == e ? void 0 : e.handled}`),
+                !(e instanceof p) || e.fatal)
+                    throw e;
+                return e.handled ? (t = n,
+                i = s,
+                vn(0).pipe(ur(()=>{
+                    t.updateEnabledMediaOptions(i)
+                }
+                ))) : Ti;
+                var t, i
+            }
+            ))))
+        }
+        const uy = ()=>e=>e.pipe(Ql.tag("mediaFragmentPipelineEpic.in"), Ra(i=>{
+            if (!i)
+                return Ti;
+            const {logger: e, config: t, platformService: r, rootPlaylistService: n, rootPlaylistQuery: s, keySystemAdapter: a, mediaSink: o, mediaParser: d, gaplessInstance: l, mediaLibraryService: u} = i
+              , c = s["itemId"]
+              , h = o["mediaQuery"]
+              , p = a.keyStatusChange$.pipe((f = i,
+            e=>e.pipe(Ra(e=>{
+                const {decryptdata: t, status: i, error: r} = e
+                  , n = f["rootPlaylistQuery"];
+                if ("needs-renewal" === i)
+                    return Og(f, t, null);
+                if ("error" !== i || !(r instanceof uu || r instanceof lu) || r.handled)
+                    return Ti;
+                {
+                    const {rootPlaylistService: e, keySystemAdapter: t} = f;
+                    return Xm(r, 0, null, e, n, t.ksQuery)
+                }
+            }
+            ), Ra(()=>Ti))));
+            var f;
+            const m = r.getQuery()
+              , g = m.displaySupportsHdr$.pipe(Es(), Ra(e=>(n.setHDRPreference(c, e, !0),
+            Ti)))
+              , y = m.viewportInfo$.pipe(Es((e,t)=>e && t && e.width === t.width && e.height === t.height), Ja(e=>{
+                t.useViewportSizeForLevelCap && n.setViewportInfo(c, e)
+            }
+            ), Ua(Ti))
+              , v = Zd([s.hdrMode$.pipe(Es()), s.maxHdcpLevel$.pipe(Es())]).pipe(Ra(([])=>(l.inGaplessMode || 0 !== s.itemStartOffset || (o.resetMediaSource(),
+            d.reset()),
+            Ti)))
+              , S = nn(function(i) {
+                const {rootPlaylistQuery: t, mediaSink: r} = i
+                  , e = t.enabledMediaOptions$.pipe(Up(), Ja(e=>{
+                    e = e[ul.AltAudio],
+                    e = kl(e) && null != (null == e ? void 0 : e.url) ? 2 : 1;
+                    r.setExpectedSbCount(e)
+                }
+                ))
+                  , n = t.enabledMediaOptionByType$(ul.Variant).pipe(an(e=>kl(e)), Ra(e=>bg(e).mediaOptionDetails$), Cs(1), Ja(e=>{
+                    r.bufferMonitorTargetDuration = e.targetduration
+                }
+                ))
+                  , s = Dl.map(e=>t.enabledMediaOptionByType$(e).pipe(Ql.tag("mediaOptionRetrieve.switch"), Ra(t=>{
+                    if (!t || !t.url || !kl(t))
+                        return Ti;
+                    var e = r.mediaQuery.desiredRate$.pipe(ur(e=>0 !== e), Es());
+                    return Tg(i, t).pipe(Ql.tag("mediaOptionRetrieve.first"), Ua(e), Ra(e=>e ? function e(t, i) {
+                        const r = t.mediaLibraryService;
+                        return function(e) {
+                            if (!e)
+                                return Ti;
+                            var {mediaOptionDetails: t, lastUpdateMillis: i, unchangedCount: e} = e;
+                            if (null == t || !t.liveOrEvent)
+                                return Ti;
+                            if (hg(t, i))
+                                return vn(0).pipe(Ja(()=>{}
+                                ));
+                            let r = cg(t);
+                            return 0 < e && (r /= 2,
+                            r = Math.max(r, 5e3)),
+                            r -= performance.now() - i,
+                            r += 0,
+                            r = Math.max(1e3, Math.round(r)),
+                            vn(r).pipe(Ja(()=>{}
+                            ))
+                        }(r.getQueryForOption(i).mediaOptionDetailsEntity).pipe(Ra(()=>Tg(t, i, !0)), Ra(()=>e(t, i)))
+                    }(i, t) : Ti))
+                }
+                )));
+                return nn(e, n, nn(...s)).pipe(Ua(Ti))
+            }(i), sy(i), function(t) {
+                const {rootPlaylistQuery: i, mediaSink: e} = t;
+                return $l(e.mediaQuery.mediaElementEntity$, e=>!!e).pipe(Ra(e=>i.anchorTime$.pipe(Up(), Ql.tag("anchorTime.subtitle.in"), (s=>e=>{
+                    const {rootPlaylistQuery: i, rootPlaylistService: t, legibleSystemAdapter: r} = s
+                      , n = i.enabledAlternateMediaOptionByType(ul.Subtitle);
+                    if (r.gotTracks)
+                        r.selectedTrack = n;
+                    else {
+                        const s = i.preferredMediaOptions[ul.Subtitle];
+                        r.setTracks(s, n, i.getDisabledMediaOption(ul.Subtitle))
+                    }
+                    return e.pipe(Ql.tag("subtitleEpic.select.in"), Ra(()=>(r.anchorTimeChanged(),
+                    nn(r.nativeSubtitleTrackChange$.pipe(Ra(e=>(e.mediaOptionId !== r.selectedMediaOption.mediaOptionId && t.setEnabledMediaOptionByType(e.itemId, ul.Subtitle, e),
+                    Ti))), i.enabledMediaOptionByType$(ul.Subtitle).pipe(ur(e=>{
+                        const t = kl(e) ? i.alternateMediaOptionById(ul.Subtitle, e.mediaOptionId) : e;
+                        return r.selectedMediaOption = t,
+                        t
+                    }
+                    )).pipe(Es((e,t)=>(null == e ? void 0 : e.mediaOptionId) === (null == t ? void 0 : t.mediaOptionId)))))), Ql.tag("subtitleEpic.select.emit"))
+                }
+                )(t), (s=>e=>{
+                    const {mediaSink: t, rootPlaylistQuery: i, legibleSystemAdapter: r, logger: n} = s;
+                    return e.pipe(Ql.tag("subtitleEpic.process.in"), Ra(e=>{
+                        if (!e || !e.url || !kl(e))
+                            return Bi([null, null, null]);
+                        return Zd([bg(e).mediaOptionDetails$, i.discoSeqNum$.pipe(an(e=>ne(e)))]).pipe(Ra(([e,t])=>((i,r,e)=>{
+                            const {legibleSystemAdapter: n, rootPlaylistQuery: t} = i;
+                            return t.initPTS$(e).pipe(Ra(t=>t ? n.findFrags$(r, e).pipe(Ra(e=>r && (null == e ? void 0 : e.foundFrags) ? cy(i, t.offsetTimestamp, e, r) : Ul)) : sn))
+                        }
+                        )(s, e, t)))
+                    }
+                    ), Ql.tag("subtitleEpic.process.emit"))
+                }
+                )(t))))
+            }(i), p).pipe(Js(void 0), ly(i))
+              , b = h.seekTo$.pipe(ur(e=>null == e ? void 0 : e.pos), an(e=>ne(e)), Es((e,t)=>Math.abs(e - t) < Number.EPSILON), Ra(e=>(n.setAnchorTime(c, e),
+            Ti)))
+              , T = h.gotPlaying$.pipe(an(e=>e), Ja(e=>{
+                s.mediaOptionListQueries[ul.Variant].filteredMediaOptionList.forEach(e=>{}
+                )
+            }
+            ), Cs(1), Ua(Ti));
+            return nn(s.pendingSeek$.pipe(ty(t, e, o, n, s, u)), function() {
+                const {config: s, mediaSink: a, rootPlaylistQuery: e, mediaLibraryService: t} = i
+                  , o = i.logger.child({
+                    name: "live"
+                })
+                  , d = a.mediaQuery;
+                return e.enabledMediaOptionByType$(ul.Variant).pipe(an(kl), Ra(e=>t.getQueryForOption(e).mediaOptionDetailsEntity$.pipe(an(e=>{
+                    var t;
+                    return (null === (t = null == e ? void 0 : e.mediaOptionDetails) || void 0 === t ? void 0 : t.ptsKnown) && e.mediaOptionDetails.liveOrEvent
+                }
+                ), Es((e,t)=>(null == e ? void 0 : e.lastUpdateMillis) === (null == t ? void 0 : t.lastUpdateMillis)))), ur(e=>{
+                    var t = e.mediaOptionDetails
+                      , i = d.currentTime
+                      , r = d.msDuration;
+                    let n = NaN;
+                    return i < ug(i, t, e.lastUpdateMillis, s.maxBufferHole, d) && (n = lg(t.fragments[0].start, t, s),
+                    n >= r && (o.warn(`seekTo position > duration, updating ${a.msDuration}->${e.playlistDuration}`),
+                    a.msDuration = e.playlistDuration),
+                    a.seekTo = n),
+                    n
+                }
+                ))
+            }(), b, S, g, y, v, function() {
+                const e = i.mediaSink.mediaQuery;
+                return Cr([Bi(i), e.desiredRate$.pipe(ca())]).pipe(Ra(([e,[t,i]])=>{
+                    const {rootPlaylistQuery: s, rootPlaylistService: r, config: a, mediaSink: n, mediaLibraryService: o, statsService: d} = e
+                      , l = n.mediaQuery;
+                    if (jp(t) !== jp(i))
+                        Gg(wm.IframeModeChange, a, s, l, r);
+                    else if (0 === t && 1 === i && !Ml.every(e=>{
+                        const t = s.enabledMediaOptionKeys[e]
+                          , i = o.getQueryForOption(t)
+                          , r = d.getQueryForItem(s.itemId)
+                          , n = i.mediaOptionDetailsEntity;
+                        return !(null !== (e = null == n ? void 0 : n.mediaOptionDetails) && void 0 !== e && e.ptsKnown) || l.canContinuePlaybackWithoutGap(n.mediaOptionDetails, n.lastUpdateMillis, r.getPlaylistEstimate(), a.maxBufferHole)
+                    }
+                    ))
+                        return n.pause(),
+                        n.flushAll(0, 1 / 0, !0);
+                    return Ti
+                }
+                ), Ua(Ti))
+            }(), function(e) {
+                const s = e.rootPlaylistQuery
+                  , t = e.mediaSink.mediaQuery
+                  , i = s.enabledMediaOptionByType$(ul.Variant);
+                return Cr([Bi(e), t.desiredRate$.pipe(ca()), i]).pipe(Es((e,t)=>e[1] === t[1]), Ra(([e,[t,i],r])=>{
+                    t = jp(t),
+                    i = jp(i);
+                    if (t === i)
+                        return Ti;
+                    const n = e["rootPlaylistService"];
+                    return i ? e.rootPlaylistQuery.nextMaxAutoOptionId === Ol.mediaOptionId && n.setNextMaxAutoOptionId(e.rootPlaylistQuery.itemId, r.mediaOptionId) : n.setNextMaxAutoOptionId(s.itemId, Ol.mediaOptionId),
+                    Ti
+                }
+                ))
+            }(i), T).pipe(Ql.tag("mediaFragmentPiplineEpic.emit"), Js(void 0))
+        }
+        ))
+          , cy = (r,e,t,i)=>{
+            const n = r.legibleSystemAdapter
+              , s = t.foundFrags;
+            return Lr(s).pipe(ur(t=>{
+                return ((e,t,i)=>{
+                    const {rootPlaylistQuery: r, legibleSystemAdapter: n} = e;
+                    return Yr(()=>((t,i)=>wg(e, i, !1, !1).pipe(ur(e=>({
+                        initPTS: t,
+                        data: e,
+                        mediaFragment: i
+                    })), Ql.tag("retrieveSubtitleFragmentCacheEntity.emit")))(t, i).pipe(ur(({initPTS: e, data: t, mediaFragment: i})=>({
+                        frag: i,
+                        cueRange: function(e, t, i, r, n) {
+                            if (e)
+                                return n.processSubtitleFrag(e, t, i, r)
+                        }(r.enabledAlternateMediaOptionByType(ul.Subtitle), i, e, t, n)
+                    }))))
+                }
+                )(r, e, t).pipe((i = e=>n.checkReadyToLoadNextSubtitleFragment$(t, s).pipe(an(e=>e)),
+                function(e) {
+                    return e.lift(new ms(i))
+                }
+                ));
+                var i
+            }
+            ), Wr(r.config.vttConcurrentLoadCount), Ja(e=>{
+                n.reviewParsedFrag(e, t, i) !== Ap.CloseEnough && r.legibleSystemAdapter.tryAgain$.next(!0)
+            }
+            ))
+        }
+          , hy = (e,t)=>{
+            let i, r = "";
+            return i = e.videoCodec && e.audioCodec ? (r = `${e.videoCodec}, ${e.audioCodec}`,
+            t = null != t ? t : "video/mp4",
+            "audiovideo") : e.videoCodec ? (r = `${e.videoCodec}`,
+            t = null != t ? t : "video/mp4",
+            "video") : (r = `${null !== (e = e.audioCodec) && void 0 !== e ? e : ""}`,
+            t = null != t ? t : "audio/mp4",
+            "audio"),
+            {
+                mimeType: `${t};codecs=${r}`,
+                codec: r,
+                container: t,
+                type: i
+            }
+        }
+        ;
+        class py {
+            constructor(e, t, i) {
+                this.config = e,
+                this.logger = t,
+                this.demuxClient = i,
+                this.typeSupported = {
+                    mp4: MediaSource.isTypeSupported("video/mp4"),
+                    mpeg: MediaSource.isTypeSupported("audio/mpeg"),
+                    mp3: MediaSource.isTypeSupported('audio/mp4; codecs="mp3"'),
+                    ac3: MediaSource.isTypeSupported('audio/mp4; codecs="ac-3"'),
+                    ec3: MediaSource.isTypeSupported('audio/mp4; codecs="ec-3"')
+                },
+                this.demuxers = [],
+                this.lastInitFrags = [],
+                this.lastFrags = []
+            }
+            parseInitSegment(h, e) {
+                return this.getDemuxerInfo(h, this.lastInitFrags, e, this.demuxClient).pipe(Ra(({demuxer: e, contiguous: t, trackSwitch: i, discontinuity: r, accurateTimeOffset: n})=>{
+                    const s = h["frag"]
+                      , {keyTagInfo: a, start: o, mediaOptionType: d} = s;
+                    if (this.lastInitFrags[d] = s,
+                    h.initSegment) {
+                        const e = We.remuxInitSegment(new Uint8Array(h.initSegment), this.logger, a)
+                          , t = Je.parseInitSegment(e)
+                          , {mimeType: i, type: r, codec: n, container: s} = hy(t);
+                        return Bi({
+                            moovData: t,
+                            mimeType: i,
+                            track: {
+                                type: r,
+                                codec: n,
+                                initSegment: e,
+                                container: s
+                            }
+                        })
+                    }
+                    const l = h.segment || h.initSegment
+                      , u = l ? h.initSegment : void 0
+                      , c = wc(e.observer);
+                    return Bi(c.event(v.FRAG_PARSING_INIT_SEGMENT).pipe(ur(this.handleInitSegmentData)), c.event(P.INTERNAL_ERROR).pipe(Ra(this.handleError)), e.pushWithoutTransfer(l, a, u, o, r, i, t, h.totalDuration, n, void 0, h.iframeMediaStart, h.iframeDuration).pipe(Ua(Ti))).pipe(Wr(), Cs(1))
+                }
+                ))
+            }
+            parseSegment(y, e) {
+                return this.getDemuxerInfo(y, this.lastFrags, e, this.demuxClient).pipe(Ra(({demuxer: e, contiguous: t, trackSwitch: i, discontinuity: r, accurateTimeOffset: n})=>{
+                    const {frag: h, defaultInitPTS: p} = y
+                      , {keyTagInfo: s, start: a, duration: f, mediaOptionType: m} = h;
+                    let g;
+                    this.lastFrags[m] = h;
+                    const o = wc(e.observer);
+                    return Bi(o.event(v.FRAG_PARSING_INIT_SEGMENT).pipe(Ra(e=>{
+                        var t;
+                        return e.track.initSegment.byteLength !== (null === (t = y.initSegment) || void 0 === t ? void 0 : t.byteLength) && (g = this.handleInitSegmentData(e)),
+                        Ti
+                    }
+                    )), o.event(v.FRAG_PARSING_DATA).pipe(ur(e=>{
+                        var {startPTS: t, startDTS: i, firstKeyframePts: r, framesWithoutIDR: n, dropped: s, data1: a, data2: o, captionData: d, id3Samples: l} = e;
+                        let {endPTS: u, endDTS: c} = e;
+                        return null == u && (this.logger.warn(`${Cl[m]} ${Bp(h)}: null endPTS parsed, using duration ${f}`),
+                        u = Object.assign(Object.assign({}, t), {
+                            baseTime: t.baseTime + B(f, t.timescale).baseTime
+                        })),
+                        null == c && (this.logger.warn(`${Cl[m]} ${Bp(h)}: null endDTS parsed, using duration ${f}`),
+                        c = Object.assign(Object.assign({}, i), {
+                            baseTime: i.baseTime + B(f, i.timescale).baseTime
+                        })),
+                        ne(y.iframeMediaStart) || function(e, t, i, r) {
+                            let n = NaN
+                              , s = NaN;
+                            if (ne(i))
+                                s = i,
+                                n = .01,
+                                isFinite(s) && isFinite(r) && (s += r);
+                            else {
+                                {
+                                    const o = void 0
+                                }
+                            }
+                            var {startPTS: a, startDTS: i, endPTS: r, endDTS: t} = t;
+                            if (!(0 <= a.baseTime && 0 <= i.baseTime && 0 < e.duration && (null == r || 0 < b(r, a)) && (null == t || 0 < b(t, i)) && (!ne(n) || !ne(s) || Math.abs(S(i) - s) <= n)))
+                                throw new D(!1,`Failed demuxer sanity check frag=${Bp(e)} parsed=${JSON.stringify({
+                                    startPTS: a,
+                                    endPTS: r,
+                                    startDTS: i,
+                                    endDTS: t
+                                })} ${se({
+                                    expectedStartDTS: s,
+                                    fudge: n
+                                })}`,$.FailedDemuxerSanityCheck)
+                        }(h, e, (p,
+                        y.iframeMediaStart), this.config.audioPrimingDelay),
+                        {
+                            startPTS: t,
+                            endPTS: u,
+                            startDTS: i,
+                            endDTS: c,
+                            firstKeyframePts: r,
+                            framesWithoutIDR: n,
+                            dropped: s,
+                            data1: a,
+                            data2: o,
+                            captionData: d,
+                            id3Samples: l,
+                            parsedInitSegment: g
+                        }
+                    }
+                    )), o.event(P.INTERNAL_ERROR).pipe(Ra(this.handleError)), e.push(y.segment, s, y.initSegment, a, r, i, t, y.totalDuration, n, p, y.iframeMediaStart, y.iframeDuration).pipe(Ua(Ti))).pipe(Wr(), Cs(1))
+                }
+                ))
+            }
+            reset(e) {
+                if (null == e)
+                    return this.demuxers.forEach(e=>{
+                        e && e.destroy()
+                    }
+                    ),
+                    void (this.demuxers = []);
+                const t = this.demuxers[e];
+                null == t || t.destroy(),
+                this.demuxers[e] = null
+            }
+            destroy(e) {
+                null != e ? this.reset(e) : this.reset()
+            }
+            willBeTrackSwitch(e, t) {
+                var {mediaOptionType: i, mediaOptionId: e} = e
+                  , i = (t || this.lastFrags)[i];
+                return !(i && i.mediaOptionId === e)
+            }
+            getDemuxerInfo(e, r, t, i) {
+                const {frag: n, ptsKnown: s, seeking: a, live: o} = e
+                  , {discoSeqNum: d, mediaSeqNum: l, mediaOptionType: u} = n;
+                return Yr(()=>{
+                    var e = this.demuxers[u];
+                    return e ? Bi(e) : i.init(this.typeSupported, this.config, t).pipe(Ja(e=>this.demuxers[u] = e))
+                }
+                ).pipe(ur(e=>{
+                    var t = r[u]
+                      , i = this.willBeTrackSwitch(n, r);
+                    return {
+                        demuxer: e,
+                        trackSwitch: i,
+                        discontinuity: !(t && d === t.discoSeqNum),
+                        contiguous: !!t && !i && t.mediaSeqNum + 1 === l,
+                        accurateTimeOffset: !a && (s || !o)
+                    }
+                }
+                ))
+            }
+            handleInitSegmentData(e) {
+                var t = e["track"]
+                  , i = t["initSegment"]
+                  , r = Je.parseInitSegment(i)
+                  , {mimeType: n, type: s, codec: a, container: e} = hy(r, t.container);
+                return {
+                    moovData: r,
+                    mimeType: n,
+                    track: Object.assign(Object.assign({}, t), {
+                        type: s,
+                        codec: a,
+                        initSegment: i,
+                        container: e
+                    })
+                }
+            }
+            handleError(e) {
+                return Ui(e)
+            }
+        }
+        function fy(e) {
+            return Math.min(e.targetduration, 15)
+        }
+        function my(e, t, i, r) {
+            if (200 === t && r && 10 < r.length) {
+                if (Om.isValidPlaylist(r))
+                    return !0;
+                {
+                    const t = new R(o,_,!0,"response doesnt have #EXTM3U tag",$.PlaylistErrorMissingEXTM3U);
+                    throw t.url = e,
+                    t
+                }
+            }
+            return !1
+        }
+        const gy = {
+            name: "pltfrm"
+        };
+        function yy(e, t) {
+            t = Ih.getKeySystemSecurityLevel(t);
+            return null != e && void 0 !== t[e]
+        }
+        function vy(e) {
+            return e.every(e=>e.iframes)
+        }
+        function Sy(e, t) {
+            return !ne(e) || !ne(t) || e <= t
+        }
+        function by() {
+            const n = new Set
+              , s = new Set;
+            return e=>{
+                const i = (e,t)=>{
+                    t = t ? "audio" : "video";
+                    n.has(e) || s.has(e) || (((e,t)=>{
+                        let i = MediaSource.isTypeSupported(`${e}/mp4;codecs=${t}`);
+                        return "mp4a.40.34" !== t || i || (i = MediaSource.isTypeSupported(`${e}/mpeg`)),
+                        i
+                    }
+                    )(t, e) ? n : s).add(e)
+                }
+                  , t = (e,t)=>(i(e, t),
+                s.has(e));
+                let r = !1;
+                return e.audioCodecList && (r = e.audioCodecList.some(e=>t(e, !0))),
+                !r && e.videoCodecList && (r = e.videoCodecList.some(e=>t(e, !1))),
+                !r
+            }
+        }
+        function Ty(e, t) {
+            for (const i in e)
+                if (e[i].type === t)
+                    return e[i];
+            return {}
+        }
+        function Ey(e, t, i) {
+            t.filter(e=>!i.includes(e)).map(e=>e.mediaOptionId)
+        }
+        function Iy(e, i, s) {
+            const a = new Map
+              , r = new Array;
+            return e.forEach(t=>{
+                var e = Array();
+                !function(e, t, i) {
+                    var r = qc.getCapabilities(t.videoCodecList, t.audioCodecList)
+                      , t = JSON.stringify(r);
+                    let n;
+                    a.has(t) ? n = a.get(t) : (n = Ih.requestKeySystemAccess(e, r, void 0, s).pipe(ur(()=>!0), Un(e=>(s.warn(`Request key system error: ${e.message}`),
+                    Bi(!1))), Aa({
+                        bufferSize: 1,
+                        refCount: !0
+                    })),
+                    a.set(t, n)),
+                    i.push(n)
+                }(i, t, e);
+                e = Jr(e).pipe(ur(e=>{
+                    if (void 0 === e.find(e=>!1 === e))
+                        return t
+                }
+                ));
+                r.push(e)
+            }
+            ),
+            Jr(r).pipe(ur(e=>e.filter(e=>Boolean(e))))
+        }
+        function wy(e, r) {
+            const o = new Set
+              , d = new Set
+              , l = !MediaSource.isTypeSupported('audio/mp4; codecs="mp4a.40.2"; channels="-1"')
+              , u = l && !MediaSource.isTypeSupported('audio/mp4; codecs="mp4a.40.2"; channels="2"; features="INVALID"')
+              , t = e.filter(e=>{
+                let t = !1;
+                var i;
+                return e.audioCodecList && e.audioGroupId && (i = dm.getRichestChannelLayoutForGroupId(e.audioGroupId, r),
+                0 < e.audioCodecList.length && i && (t = ((e,t)=>{
+                    var i, r, n, s = Se.isDolbyAtmos(e, t);
+                    if (u || l && !s) {
+                        n = `${i = e}/${r = t}`,
+                        o.has(n) || d.has(n) || (((e,t)=>{
+                            const i = t.split("/")
+                              , r = parseInt(i[0]);
+                            let n, s;
+                            if (1 < i.length) {
+                                const t = i[1].split(",")[0];
+                                n = `audio/mp4;codecs="${e}";channels="${r}";features="${t}"`,
+                                s = `audio/mp4;codecs="${e}";channels="8";features="${t}"`
+                            } else
+                                n = `audio/mp4;codecs="${e}";channels="${r}"`;
+                            let a = MediaSource.isTypeSupported(n);
+                            return !a && s && (a = MediaSource.isTypeSupported(s)),
+                            a
+                        }
+                        )(i, r) ? o : d).add(n);
+                        const a = `${e}/${t}`;
+                        return d.has(a)
+                    }
+                    return !!s
+                }
+                )(dm.getRichestAudioCodec(e.audioCodecList), i))),
+                !t
+            }
+            );
+            return Ey(0, e, t),
+            t
+        }
+        function Ay(e, t, d) {
+            const n = 0 < (null == t ? void 0 : t.length)
+              , i = e.filter(o=>{
+                var e = function() {
+                    if (!d)
+                        return {
+                            highestPlayableAverageBitRate: void 0,
+                            highestPlayablePeakBitRate: void 0,
+                            highestPlayableWidth: void 0,
+                            highestPlayableHeight: void 0,
+                            highestPlayableFrameRate: void 0
+                        };
+                    const e = o.videoCodec
+                      , t = o.videoRange
+                      , i = d.videoDynamicRangeFormats
+                      , r = d.videoCodecs
+                      , n = Se.getDynamicRangeType(t, e)
+                      , s = Se.getCompressionType(e)
+                      , a = function(e, t, i, r) {
+                        if (!r && !i)
+                            return {};
+                        var n, s, t = i ? Ty(i, t) : {}, r = r ? Ty(r, e) : {};
+                        let a, o;
+                        return o = e === pe.SDR ? (a = t,
+                        r) : (a = r,
+                        t),
+                        n = Object.assign({}, a),
+                        s = o,
+                        Object.keys(s).forEach(e=>{
+                            n[e] || (n[e] = s[e])
+                        }
+                        ),
+                        n
+                    }(n, s, r, i);
+                    return s !== fe.VP09 && (a.highestPlayablePeakBitRateForClearContent = void 0),
+                    a
+                }()
+                  , t = e["highestPlayablePeakBitRateForClearContent"]
+                  , i = o.allowedCPCMap || n
+                  , r = Sy(o.bandwidth, e.highestPlayablePeakBitRate);
+                return (i || !t ? r : r || Sy(o.bandwidth, t)) && Sy(o.avgBandwidth, e.highestPlayableAverageBitRate) && Sy(o.width, e.highestPlayableWidth) && Sy(o.height, e.highestPlayableHeight) && Sy(o.frameRate, e.highestPlayableFrameRate)
+            }
+            );
+            return Ey(0, e, i),
+            i
+        }
+        function Oy(e, a, o, d, l, u) {
+            var r = (null == d ? void 0 : d.maxHdcpLevel) || void 0;
+            let c = [...e];
+            (0 < l.disableVideoCodecList.size || 0 < l.disableAudioCodecList.size) && (c = function(e, t, i) {
+                let r = e.filter(e=>!e.videoCodec || e.videoCodecList.every(e=>{
+                    e = $p(e);
+                    return !t.has(e)
+                }
+                ));
+                return r = r.filter(e=>!(!e.iframes && e.audioCodec) || e.audioCodecList.every(e=>{
+                    e = Kp(e);
+                    return !i.has(e)
+                }
+                )),
+                Ey(0, e, r),
+                r
+            }(c, l.disableVideoCodecList, l.disableAudioCodecList)),
+            r && rm(r) && (c = function(e) {
+                const t = nm(r)
+                  , i = e.filter(e=>{
+                    e = e.hdcpLevel;
+                    return !e || nm(e) <= t
+                }
+                );
+                return Ey(0, e, i),
+                i
+            }(c));
+            var t = null == d ? void 0 : d.maxSecurityLevel
+              , e = null == l ? void 0 : l.keySystemPreference;
+            t && e && yy(t, e) && (c = function(e, t, i) {
+                function r(e) {
+                    return yy(e, i) ? n[e] : -1
+                }
+                const n = Ih.getKeySystemSecurityLevel(i)
+                  , s = Ih.getKeySystemFormat(i)
+                  , a = r(t)
+                  , o = e.filter(e=>{
+                    e = null !== (e = null === (e = e.allowedCPCMap) || void 0 === e ? void 0 : e[s]) && void 0 !== e ? e : [];
+                    let t = !0;
+                    for (const i of e)
+                        if (t = r(i) <= a,
+                        !t)
+                            break;
+                    return t
+                }
+                );
+                return Ey(0, e, o),
+                [...o]
+            }(c, t, e)),
+            c = c.map(t=>{
+                var e;
+                return t.audioCodecList && t.audioGroupId && ((e = null == (e = a.find(e=>e.groupId === t.audioGroupId)) ? void 0 : e.channels) && (t.audioChannelCount = parseInt(e))),
+                t
+            }
+            );
+            const h = !(null == l || !l.useMediaKeySystemAccessFilter) && e && navigator && "function" == typeof navigator.requestMediaKeySystemAccess;
+            return (h ? Iy(c, e, u) : Bi(c)).pipe(Ra(e=>{
+                if (0 === e.length || vy(e))
+                    throw new R(L,f,void 0,"no media option with compatible codecs found in playlist",void 0);
+                h && Ey(0, c, e);
+                const t = navigator && navigator.mediaCapabilities
+                  , n = !(null == l || !l.useMediaCapabilities) && t && "function" == typeof t.decodingInfo;
+                let i;
+                return i = n ? function(e, n, s) {
+                    const a = []
+                      , o = by()
+                      , d = function(o) {
+                        const d = new Map
+                          , l = navigator && navigator.mediaCapabilities;
+                        return (i,e,t,n,r)=>{
+                            const s = {
+                                type: "media-source"
+                            };
+                            n ? s.video = function(e) {
+                                const t = {
+                                    contentType: `video/mp4;codecs=${e}`,
+                                    width: i.width,
+                                    height: i.height,
+                                    bitrate: i.bandwidth || i.avgBandwidth,
+                                    framerate: i.iframes ? 8 : i.frameRate
+                                };
+                                if (i.videoRange)
+                                    switch (i.videoRange) {
+                                    case "PQ":
+                                        Se.isDolby(e) ? (t.hdrMetadataType = Am.DoVi,
+                                        t.colorGamut = "rec2020") : (Se.isHEVC(e) || Se.isVP09(e)) && (t.hdrMetadataType = Am.HDR10,
+                                        t.colorGamut = "rec2020"),
+                                        t.transferFunction = "pq";
+                                        break;
+                                    case "HLG":
+                                        t.colorGamut = "rec2020",
+                                        t.transferFunction = "hlg"
+                                    }
+                                return t
+                            }(t) : s.audio = function(e, t, i) {
+                                const r = {
+                                    contentType: `audio/mp4;codecs=${e}`
+                                }
+                                  , n = dm.getRichestChannelLayoutForGroupId(t.audioGroupId, i);
+                                return n && (r.channels = Se.getChannelCount(n).toString(),
+                                r.spatialRendering = Se.isDolbyAtmos(e, n)),
+                                r
+                            }(t, i, e);
+                            e = JSON.stringify(s);
+                            let a;
+                            return d.has(e) ? a = d.get(e) : (a = Lr(l.decodingInfo(s)).pipe(ur(e=>{
+                                const t = e.configuration || e.supportedConfiguration
+                                  , i = t instanceof Object && (!s.video || null == Object.keys(s.video).find(e=>!(e in t.video))) && (!s.audio || null == Object.keys(s.audio).find(e=>!(e in t.audio)))
+                                  , r = e.supported && (!n || e.powerEfficient) && i;
+                                return r || o.warn(gy, `Unsupported config ${e.supported}/${e.powerEfficient}/${i} ${JSON.stringify(s)} supportedConfig=${JSON.stringify(t)}`),
+                                r
+                            }
+                            )),
+                            d.set(e, a)),
+                            [...r, a]
+                        }
+                    }(s);
+                    return e.forEach(t=>{
+                        var e;
+                        let i = [];
+                        if (null === (e = t.videoCodecList) || void 0 === e || e.forEach(e=>{
+                            i = d(t, n, e, !0, i)
+                        }
+                        ),
+                        0 < (null === (e = t.audioCodecList) || void 0 === e ? void 0 : e.length)) {
+                            const s = dm.getRichestAudioCodec(t.audioCodecList);
+                            i = d(t, n, s, !1, i)
+                        }
+                        let r = Bi(t);
+                        0 < i.length && (r = Jr(i).pipe(ur(e=>null == e.find(e=>!1 === e) ? t : null), Un(e=>(s.warn(gy, `decodingInfo errror: ${e.message}`),
+                        Bi(o(t) ? t : null))))),
+                        a.push(r)
+                    }
+                    ),
+                    Jr(a).pipe(ur(e=>e.filter(e=>Boolean(e))))
+                }(e, a, u) : Bi(e = wy((r = e,
+                s = by(),
+                s = r.filter(s),
+                Ey(0, r, s),
+                e = s), a)),
+                i.pipe(ur(e=>{
+                    if (0 === e.length || vy(e))
+                        throw new R(L,f,void 0,"no media option with compatible codecs found in manifest",void 0);
+                    if (0 === (t = e = Ay(e, o, d),
+                    r = t.filter(e=>!e.iframes || !e.width || !e.height || e.width * e.height <= 2488320),
+                    Ey(0, t, r),
+                    (e = r).length) || vy(e))
+                        throw new R(L,f,void 0,"no media option with compatible codecs found in manifest",void 0);
+                    var t;
+                    let i = (null == d ? void 0 : d.videoDynamicRangeFormats) || [];
+                    n && 0 === i.length && (i = [{
+                        type: pe.SDR
+                    }, {
+                        type: pe.HDR
+                    }, {
+                        type: pe.HDR10
+                    }, {
+                        type: pe.DolbyVision
+                    }, {
+                        type: pe.HLG
+                    }]);
+                    var {hdrMediaOptions: r, sdrMediaOptions: e} = function(e, t) {
+                        const i = t.reduce((e,t)=>{
+                            switch (t.type) {
+                            case pe.DolbyVision:
+                                e.doViSupported = !0;
+                                break;
+                            case pe.HDR10:
+                                e.hdr10Supported = !0;
+                                break;
+                            case pe.HLG:
+                                e.hlgSupported = !0
+                            }
+                            return e
+                        }
+                        , {
+                            doViSupported: !1,
+                            hdr10Supported: !1,
+                            hlgSupported: !1
+                        })
+                          , {doViSupported: r, hdr10Supported: n, hlgSupported: s} = i;
+                        return e.reduce((e,t)=>{
+                            var i;
+                            switch (Se.getDynamicRangeType(t.videoRange, null !== (i = t.videoCodec) && void 0 !== i ? i : "")) {
+                            case pe.HDR:
+                            case pe.HDR10:
+                                n && e.hdrMediaOptions.push(t);
+                                break;
+                            case pe.DolbyVision:
+                                r && e.hdrMediaOptions.push(t);
+                                break;
+                            case pe.HLG:
+                                s && e.hdrMediaOptions.push(t);
+                                break;
+                            default:
+                                "SDR" !== t.videoRange && null != t.videoRange || e.sdrMediaOptions.push(t)
+                            }
+                            return e
+                        }
+                        , {
+                            hdrMediaOptions: new Array,
+                            sdrMediaOptions: new Array
+                        })
+                    }(e, i);
+                    if (0 === r.length && 0 === e.length || vy(r) && vy(e))
+                        throw new R(L,"manifestIncompatibleVideoRangeError",void 0,"mediaOption with compatible VIDEO-RANGE not found in manifest",void 0);
+                    return {
+                        hdrMediaOptions: r,
+                        sdrMediaOptions: e
+                    }
+                }
+                ), Un(e=>{
+                    throw e instanceof R && (e.fatal = !0,
+                    e.response = $.IncompatibleAsset),
+                    e
+                }
+                ));
+                var r, s
+            }
+            ))
+        }
+        function ky(e, t) {
+            return t.mediaOptionId !== e.mediaOptionId && t.persistentID === e.persistentID && t.groupId !== e.groupId
+        }
+        (w = Am = Am || {}).HDR10 = "smpteSt2086",
+        w.DoVi = "smpteSt2094-10",
+        w.HDR10Plus = "smpteSt2094-40";
+        class Cy extends Lm {
+            constructor(e, t, i) {
+                super(e, t, i)
+            }
+            static makeFilters() {
+                return Rm()
+            }
+            _initFilters() {
+                return Cy.kAllowFilters
+            }
+            get _mediaOptionType() {
+                return this.mediaOptionType
+            }
+            get preferredHost() {
+                return null
+            }
+            get preferredHost$() {
+                return Bi(null)
+            }
+            get mediaOptionListInfo() {
+                var e;
+                return null !== (e = null === (e = this.getEntity(this.itemId)) || void 0 === e ? void 0 : e.mediaOptionListTuple[this._mediaOptionType]) && void 0 !== e ? e : null
+            }
+            get mediaOptionListInfo$() {
+                return this.selectEntity(this.itemId, e=>e && e.mediaOptionListTuple ? e.mediaOptionListTuple[this._mediaOptionType] : null).pipe(Up())
+            }
+            getFallbackVariant(t, e, i, r) {
+                var n;
+                const s = null === (n = this.mediaOptionList) || void 0 === n ? void 0 : n.find(e=>e.mediaOptionId === t);
+                if (!s)
+                    return null;
+                const a = this.filteredMediaOptionList;
+                if (!a)
+                    return null;
+                const o = gl(s.url);
+                if (i)
+                    return null !== (i = a.find(e=>ky(s, e) && !yl(o, e.url))) && void 0 !== i ? i : null;
+                let d = null;
+                for (const t of a)
+                    !ky(s, t) || d && !yl(o, t.url) || (d = t);
+                return d
+            }
+            getMatchingAlternateWithPersistentId(t, i, r) {
+                var e;
+                return null !== (e = this.preferredMediaOptionList.find(e=>!(0 < (null == r ? void 0 : r.length) && r.includes(e.mediaOptionId)) && (!ne(t) || e.persistentID === t) && (!i || this.matchGroup(e, i.audioGroupId, i.subtitleGroupId, i.closedcaption)))) && void 0 !== e ? e : null
+            }
+            matchGroup(e, t, i, r) {
+                let n = !1;
+                switch (e.type) {
+                case "CLOSED-CAPTIONS":
+                    n = !r || e.groupId === r;
+                    break;
+                case "SUBTITLES":
+                    n = !i || e.groupId === i;
+                    break;
+                case "AUDIO":
+                    n = !t || e.groupId === t
+                }
+                return n
+            }
+            getMatchingAlternate(e, t) {
+                e = this.mediaOptionFromId(e);
+                return this.getMatchingAlternateWithPersistentId(null == e ? void 0 : e.persistentID, t, [])
+            }
+            packageAlternateMediaOption(e, t, i) {
+                return t.mediaType === pl.CLOSEDCAPTION ? this.augmentClosedCaptionsWithForcedSubtitles(null == e ? void 0 : e.subtitleGroupId, t, i) : t
+            }
+            augmentClosedCaptionsWithForcedSubtitles(e, t, i) {
+                i = this.pairForcedSubtitleMediaOptionWithClosedCaption(e, t, i);
+                return i ? Object.assign(Object.assign({}, t), {
+                    url: i.url,
+                    backingMediaOptionId: i.mediaOptionId
+                }) : t
+            }
+            pairForcedSubtitleMediaOptionWithClosedCaption(t, i, r) {
+                let n;
+                if (i && i.mediaType === pl.CLOSEDCAPTION) {
+                    let e = this.mediaOptionList;
+                    r && (e = this.preferredMediaOptionList),
+                    n = Cy.pairForcedSubtitleMediaOptionWithClosedCaptionInList(t, i, e)
+                }
+                return n
+            }
+            static pairForcedSubtitleMediaOptionWithClosedCaptionInList(t, i, e) {
+                return e.find(function(e) {
+                    return e.mediaType === pl.SUBTITLE && e.lang === i.lang && e.forced && e.autoselect && (!t || e.groupId === t)
+                })
+            }
+        }
+        Cy.kAllowFilters = Cy.makeFilters();
+        class Dy extends Od {
+            constructor(e, t) {
+                super(e),
+                this.itemId = t,
+                this.mediaOptionListQueries = [new Um(e,this.itemId), new Cy(e,this.itemId,ul.AltAudio), new Cy(e,this.itemId,ul.Subtitle)]
+            }
+            get rootPlaylistEntity() {
+                return this.getEntity(this.itemId)
+            }
+            get rootMediaOptionsTuple() {
+                var e = null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.mediaOptionListTuple;
+                return e ? [e[0].mediaOptions, e[1].mediaOptions, e[2].mediaOptions] : [[], [], []]
+            }
+            get itemStartOffset() {
+                var e, t;
+                return null !== (e = this.rootPlaylistEntity) && void 0 !== e && e.itemStartOffset && ne(null === (t = this.rootPlaylistEntity) || void 0 === t ? void 0 : t.itemStartOffset) ? null === (t = this.rootPlaylistEntity) || void 0 === t ? void 0 : t.itemStartOffset : 0
+            }
+            get highestVideoCodec() {
+                var e;
+                return null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.highestVideoCodec
+            }
+            get baseUrl() {
+                var e;
+                return null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.baseUrl
+            }
+            get anchorTime() {
+                var e;
+                return null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.anchorTime
+            }
+            get discoSeqNum() {
+                var e;
+                return null !== (e = null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.discoSeqNum) && void 0 !== e ? e : NaN
+            }
+            get discoSeqNum$() {
+                return this.selectEntity(this.itemId, "discoSeqNum")
+            }
+            get audioMediaSelectionGroup() {
+                var e;
+                return null !== (e = null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.audioMediaSelectionGroup) && void 0 !== e ? e : null
+            }
+            get subtitleMediaSelectionGroup() {
+                var e;
+                return null !== (e = null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.subtitleMediaSelectionGroup) && void 0 !== e ? e : null
+            }
+            get audioMediaSelectionOptions() {
+                var e;
+                return null !== (e = null === (e = null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.audioMediaSelectionGroup) || void 0 === e ? void 0 : e.MediaSelectionGroupOptions) && void 0 !== e ? e : []
+            }
+            get subtitleMediaSelectionOptions() {
+                var e;
+                return null !== (e = null === (e = null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.subtitleMediaSelectionGroup) || void 0 === e ? void 0 : e.MediaSelectionGroupOptions) && void 0 !== e ? e : []
+            }
+            get contentSteeringOption() {
+                var e;
+                return null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.contentSteeringOption
+            }
+            get masterVariableList() {
+                var e;
+                return null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.masterVariableList
+            }
+            get loadStats() {
+                var e;
+                return null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.loadStats
+            }
+            get isMediaPlaylist() {
+                var e;
+                return null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.isMediaPlaylist
+            }
+            getInitPTS(e) {
+                var t;
+                return null === (t = this.rootPlaylistEntity) || void 0 === t ? void 0 : t.initPtsRecord[e]
+            }
+            get abrStatus$() {
+                return this.selectEntity(this.itemId, e=>null == e ? void 0 : e.abrStatus)
+            }
+            get abrStatus() {
+                var e;
+                return null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.abrStatus
+            }
+            get nextMaxAutoOptionId() {
+                var e;
+                return null === (e = null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.abrStatus) || void 0 === e ? void 0 : e.nextMaxAutoOptionId
+            }
+            get nextMinAutoOptionId() {
+                var e;
+                return null === (e = null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.abrStatus) || void 0 === e ? void 0 : e.nextMinAutoOptionId
+            }
+            initPTS$(t) {
+                return this.selectEntity(this.itemId, ({initPtsRecord: e})=>e[t])
+            }
+            get rootPlaylistEntity$() {
+                return this.selectEntity(this.itemId).pipe(an(e=>Boolean(e)), ur(e=>e))
+            }
+            get rootPlaylistEntityAdded$() {
+                return this.selectEntityAction(To.Add).pipe(ur(e=>e.map(e=>this.getEntity(e))))
+            }
+            get rootMediaOptionsTuple$() {
+                return Zd([this.selectEntity(this.itemId, e=>e.mediaOptionListTuple[0].mediaOptions), this.selectEntity(this.itemId, e=>e.mediaOptionListTuple[1].mediaOptions), this.selectEntity(this.itemId, e=>e.mediaOptionListTuple[2].mediaOptions)])
+            }
+            get sessionData() {
+                var e;
+                return null === (e = this.rootPlaylistEntity) || void 0 === e ? void 0 : e.sessionData
+            }
+            get sessionData$() {
+                return this.selectEntity(this.itemId, ({sessionData: e})=>e).pipe(Up())
+            }
+            get anchorTime$() {
+                return this.selectEntity(this.itemId, "anchorTime").pipe(Ra(e=>ne(e) ? e !== this.anchorTime ? (qe().warn(`anchorTime doesn't match stored value! ${e} !== ${this.anchorTime}`),
+                Ti) : Bi(e) : Ti))
+            }
+            get pendingSeek$() {
+                return this.selectEntity(this.itemId, ({pendingSeek: e})=>e).pipe(Es((e,t)=>e === t || "number" == typeof e && "number" == typeof t && isNaN(e) && isNaN(t)))
+            }
+            get enabledMediaOptionKeys$() {
+                return this.selectEntity(this.itemId, "enabledMediaOptionKeys").pipe(an(e=>Boolean(e)))
+            }
+            get enabledMediaOptionKeys() {
+                var e;
+                return null !== (e = null === (e = this.getEntity(this.itemId)) || void 0 === e ? void 0 : e.enabledMediaOptionKeys) && void 0 !== e ? e : [Ol, Ol, Ol]
+            }
+            get enabledMediaOptionSwitchContexts() {
+                var e;
+                return null !== (e = null === (e = this.getEntity(this.itemId)) || void 0 === e ? void 0 : e.mediaOptionSwitchContexts) && void 0 !== e ? e : [null, null, null]
+            }
+            enabledMediaOptionSwitchContextsByType$(t) {
+                return this.selectEntity(this.itemId, "mediaOptionSwitchContexts").pipe(ur(e=>null == e ? void 0 : e[t]))
+            }
+            get enabledMediaOptions$() {
+                return Zd([this.enabledMediaOptionByType$(ul.Variant), this.enabledMediaOptionByType$(ul.AltAudio), this.enabledMediaOptionByType$(ul.Subtitle)])
+            }
+            get enabledAVOptions$() {
+                return Zd([this.enabledMediaOptionByType$(ul.Variant), this.enabledMediaOptionByType$(ul.AltAudio)])
+            }
+            rawEnabledMediaOptionByType$(t) {
+                return this.enabledMediaOptionKeys$.pipe(ur(e=>{
+                    const i = e[t];
+                    return kl(i) && this.rootMediaOptionsTuple[t].find(e=>{
+                        return t = i,
+                        e.itemId === t.itemId && e.mediaOptionId === t.mediaOptionId;
+                        var t
+                    }
+                    ) || Ol
+                }
+                ))
+            }
+            enabledMediaOptionByType$(e) {
+                return this.rawEnabledMediaOptionByType$(e).pipe(Es((e,t)=>e.mediaOptionId === t.mediaOptionId && e.url === t.url))
+            }
+            enabledMediaOptionSwitchForType$(e) {
+                return this.rawEnabledMediaOptionByType$(e).pipe(So(this.enabledMediaOptionSwitchContextsByType$(e)), xa(null), ca(), ur(([e,t])=>({
+                    fromId: null == e ? void 0 : e[0].mediaOptionId,
+                    toId: null == t ? void 0 : t[0].mediaOptionId,
+                    switchContext: null == t ? void 0 : t[1]
+                })), Es((e,t)=>e.fromId === t.fromId && e.toId === t.toId))
+            }
+            enableMediaOptionSwitchedForType$(t) {
+                return this.enabledMediaOptionByType$(t).pipe(Ra(e=>$l(Cr([Bi(e), this.enabledMediaOptionSwitchContextsByType$(t).pipe(ca())]), ([,e])=>e[0] && !e[1])), ur(([e])=>e))
+            }
+            enabledMediaOptionIdByType(e) {
+                return this.getEntity(this.itemId).enabledMediaOptionKeys[e].mediaOptionId
+            }
+            variantMediaOptionById(e) {
+                return this.mediaOptionListQueries[ul.Variant].mediaOptionFromId(e)
+            }
+            alternateMediaOptionById(e, t) {
+                return this.mediaOptionListQueries[e].mediaOptionFromId(t)
+            }
+            enabledAlternateMediaOptionByType(e) {
+                var t = this.enabledMediaOptionIdByType(e);
+                return this.alternateMediaOptionById(e, t)
+            }
+            get enabledVariantMediaOption() {
+                var e = this.enabledMediaOptionIdByType(ul.Variant);
+                return this.variantMediaOptionById(e)
+            }
+            lastLoadedMediaOptionByType(e) {
+                var t;
+                return null === (t = this.getEntity(this.itemId).lastLoadedMediaOptionKeys) || void 0 === t ? void 0 : t[e]
+            }
+            get nextMediaOptionsKeys$() {
+                return this.selectEntity(this.itemId, "nextMediaOptionKeys")
+            }
+            get preferredMediaOptions() {
+                return [this.mediaOptionListQueries[0].preferredMediaOptionList, this.mediaOptionListQueries[1].preferredMediaOptionList, this.mediaOptionListQueries[2].preferredMediaOptionList]
+            }
+            get preferredMediaOptions$() {
+                return Zd([this.mediaOptionListQueries[0].preferredMediaOptionList$, this.mediaOptionListQueries[1].preferredMediaOptionList$, this.mediaOptionListQueries[2].preferredMediaOptionList$])
+            }
+            get filteredMediaOptions() {
+                return [this.mediaOptionListQueries[0].filteredMediaOptionList, this.mediaOptionListQueries[1].filteredMediaOptionList, this.mediaOptionListQueries[2].filteredMediaOptionList]
+            }
+            getDisabledMediaOption(e) {
+                return {
+                    itemId: this.itemId,
+                    mediaOptionType: e,
+                    mediaOptionId: "Nah"
+                }
+            }
+            getEnabledMediaOptionMask() {
+                return this.enabledMediaOptionKeys.map(e=>kl(e))
+            }
+            getPreferredMediaOptionsByType$(e) {
+                return this.mediaOptionListQueries[e].preferredMediaOptionList$
+            }
+            altMediaOptionHasValidUrl(e, t) {
+                t = this.alternateMediaOptionById(e, t);
+                return Boolean(null == t ? void 0 : t.url)
+            }
+            get hdrMode$() {
+                return this.mediaOptionListQueries[ul.Variant].hdrMode$
+            }
+            get maxHdcpLevel$() {
+                return this.mediaOptionListQueries[ul.Variant].maxHdcpLevel$
+            }
+            get currentPathwayID() {
+                return this.mediaOptionListQueries[ul.Variant].currentPathwayID
+            }
+            get preferredHost() {
+                return this.mediaOptionListQueries[ul.Variant].preferredHost
+            }
+            getErrorInfoByType(e) {
+                var t;
+                return null != (null === (t = this.rootPlaylistEntity) || void 0 === t ? void 0 : t.errorsByType) ? this.rootPlaylistEntity.errorsByType[e] : null
+            }
+            getInFlightFragByType(e) {
+                var t;
+                return null !== (e = null === (t = null === (t = this.getEntity(this.itemId)) || void 0 === t ? void 0 : t.inFlightFrags) || void 0 === t ? void 0 : t[e]) && void 0 !== e ? e : null
+            }
+            getInFlightFragByType$(t) {
+                return this.selectEntity(this.itemId, e=>{
+                    return null === (e = null == e ? void 0 : e.inFlightFrags) || void 0 === e ? void 0 : e[t]
+                }
+                )
+            }
+            matchAlternates(e, t, i, r) {
+                t = ne(t) ? this.mediaOptionListQueries[ul.AltAudio].getMatchingAlternateWithPersistentId(t, e, r) : void 0,
+                r = ne(i) ? this.mediaOptionListQueries[ul.Subtitle].getMatchingAlternateWithPersistentId(i, e, r) : void 0;
+                return [t || Ol, r || Ol]
+            }
+            getLegacyMatchingAlternateWithPersistentId(e, t, i) {
+                let r = this.mediaOptionListQueries[e].getMatchingAlternateWithPersistentId(t, i, []);
+                return r = r || this.mediaOptionListQueries[e].getMatchingAlternateWithPersistentId(t, void 0, []),
+                r
+            }
+            isValidMediaOptionTuple(i, e) {
+                const r = e || this.getEnabledMediaOptionMask();
+                return [ul.Variant, ul.AltAudio, ul.Subtitle].reduce((e,t)=>e && r[t] === kl(i[t]), !0)
+            }
+            matchGroup(e, t, i, r) {
+                var n = e.mediaOptionType;
+                return this.mediaOptionListQueries[n].matchGroup(e, t, i, r)
+            }
+            get preferHDR() {
+                return this.mediaOptionListQueries[ul.Variant].mediaOptionListInfo.preferHDR
+            }
+        }
+        const My = {
+            name: "rps"
+        };
+        class Py {
+            constructor(e, t) {
+                this.store = e,
+                this.logger = t
+            }
+            getQuery() {
+                return new Od(this.store)
+            }
+            getQueryForId(e) {
+                return new Dy(this.store,e)
+            }
+            set rootPlaylistEntity(e) {
+                Co("root.add.rootPlaylist"),
+                this.store.add(e)
+            }
+            removeItems(e) {
+                Co(`root.add.remove ${JSON.stringify(e)}`),
+                this.store.remove(e)
+            }
+            removeAll() {
+                Co("root.add.clear"),
+                this.store.remove()
+            }
+            setRootPlaylistEntity(e, t) {
+                Co("root.set.rootPlaylistEntity"),
+                this.store.update(e, e=>t)
+            }
+            setSessionData(e, t) {
+                Co("root.set.sessionData"),
+                this.store.update(e, e=>{
+                    e.sessionData = t
+                }
+                )
+            }
+            setAnchorTime(e, t) {
+                Co(`root.set.anchorTime: ${t}`),
+                this.store.update(e, e=>{
+                    e.anchorTime = t
+                }
+                )
+            }
+            setDiscoSeqNum(e, t) {
+                Co(`root.set.discoSeqNum: ${t}`),
+                this.store.update(e, e=>{
+                    e.discoSeqNum = t
+                }
+                )
+            }
+            setPendingSeek(e, t) {
+                Co("root.set.pendingSeek"),
+                this.store.update(e, e=>{
+                    e.pendingSeek = t
+                }
+                ),
+                void 0 === t && rg().setUserSeek(t)
+            }
+            setEnabledMediaOptionSwitchContextByType(e, i, r, n) {
+                this.store.update(e, e=>{
+                    var t;
+                    if (e.enabledMediaOptionKeys[i].mediaOptionId === r) {
+                        const r = null !== (t = e.mediaOptionSwitchContexts) && void 0 !== t ? t : [null, null, null];
+                        r[i] = n ? {
+                            userInitiated: n.userInitiated,
+                            switchPosition: n.switchPosition
+                        } : null,
+                        e.mediaOptionSwitchContexts = r
+                    } else
+                        Co(`root.set.mediaOptionSwitchContextByType ${r} doesn't match existing mediaOption ${e.enabledMediaOptionKeys[i].mediaOptionId}`)
+                }
+                )
+            }
+            setEnabledMediaOptionByType(r, n, s, a=!1, o) {
+                s = s || {
+                    itemId: r,
+                    mediaOptionType: n,
+                    mediaOptionId: "Nah"
+                },
+                this.store.update(r, e=>{
+                    var t;
+                    const i = null !== (t = [...e.enabledMediaOptionKeys]) ? t : [Ol, Ol, Ol];
+                    if (i[n] = {
+                        itemId: r,
+                        mediaOptionId: s.mediaOptionId
+                    },
+                    this._updateEnabledMediaOptionKeys(e, i),
+                    a) {
+                        const r = null !== (t = e.mediaOptionSwitchContexts) && void 0 !== t ? t : [null, null, null];
+                        r[n] = o ? {
+                            userInitiated: o.userInitiated,
+                            switchPosition: o.switchPosition
+                        } : null,
+                        e.mediaOptionSwitchContexts = r
+                    }
+                }
+                )
+            }
+            _associateForcedSubtitleWithClosedCaption(e, t, i, r) {
+                if ((null == i ? void 0 : i.mediaType) === pl.CLOSEDCAPTION) {
+                    t = r.variantMediaOptionById(t),
+                    r = r.mediaOptionListQueries[ul.Subtitle].packageAlternateMediaOption(t, i, !0);
+                    if (r.url !== i.url) {
+                        const n = Fy(t, r, e.mediaOptionListTuple[ul.Subtitle].mediaOptions, qe());
+                        e.mediaOptionListTuple[ul.Subtitle].mediaOptions = n
+                    }
+                }
+            }
+            _updateEnabledMediaOptionKeys(t, i) {
+                var e, r;
+                const n = null !== (e = t.enabledMediaOptionKeys) && void 0 !== e ? e : [Ol, Ol, Ol];
+                let s;
+                for (let e = 0; e < i.length; ++e) {
+                    var a = i[e]
+                      , o = n[e].mediaOptionId !== a.mediaOptionId;
+                    if (o && (n[e] = Object.assign({}, a)),
+                    e === ul.Variant) {
+                        const i = this.getQueryForId(a.itemId).mediaOptionListQueries[e].mediaOptionList;
+                        o ? t.abrStatus = (r = a.mediaOptionId,
+                        o = i,
+                        o = Vg(r, o),
+                        {
+                            fragDownloadSlow: !1,
+                            fragDownloadTooSlow: !1,
+                            nextMinAutoOptionId: Ol.mediaOptionId,
+                            nextMaxAutoOptionId: Ol.mediaOptionId,
+                            highBWTrigger: o
+                        }) : t.abrStatus.highBWTrigger = Vg(a.mediaOptionId, i),
+                        s = a
+                    } else if (e === ul.Subtitle && kl(a)) {
+                        const i = this.getQueryForId(a.itemId)
+                          , n = i.alternateMediaOptionById(e, a.mediaOptionId);
+                        this._associateForcedSubtitleWithClosedCaption(t, s.mediaOptionId, n, i)
+                    }
+                }
+                t.enabledMediaOptionKeys = n,
+                t.nextMediaOptionKeys = void 0
+            }
+            setManualMode(e, t) {
+                this.store.update(e, e=>{
+                    e.manualMode = t
+                }
+                )
+            }
+            setEnabledMediaOptions(e, i) {
+                this.store.update(e, e=>{
+                    var t = i.map(({mediaOptionId: e, itemId: t})=>({
+                        mediaOptionId: e,
+                        itemId: t
+                    }));
+                    this._updateEnabledMediaOptionKeys(e, t)
+                }
+                )
+            }
+            setEnabledMediaOptionsAndSwitchContexts(e, i, r) {
+                this.store.update(e, e=>{
+                    var t = i.map(({mediaOptionId: e, itemId: t})=>({
+                        mediaOptionId: e,
+                        itemId: t
+                    }));
+                    this._updateEnabledMediaOptionKeys(e, t),
+                    e.mediaOptionSwitchContexts = r
+                }
+                )
+            }
+            setNextMediaOptions(e, i) {
+                Co(`root.set.nextMediaOptions: ${JSON.stringify(null == i ? void 0 : i.map(e=>e.mediaOptionId))}`),
+                this.store.update(e, e=>{
+                    var t = i ? i.map(({itemId: e, mediaOptionId: t})=>({
+                        itemId: e,
+                        mediaOptionId: t
+                    })) : null;
+                    e.nextMediaOptionKeys = t
+                }
+                )
+            }
+            updateEnabledMediaOptions(e) {
+                Co("root.set.updateEnabledMediaOptions"),
+                this.store.update(e, e=>{
+                    e.nextMediaOptionKeys && !0 !== e.manualMode && (Co(`root.set.updateEnabledMediaOptions ${JSON.stringify(e.nextMediaOptionKeys)}`),
+                    this._updateEnabledMediaOptionKeys(e, [...e.nextMediaOptionKeys])),
+                    e.nextMediaOptionKeys = void 0
+                }
+                )
+            }
+            setLastLoadedMediaOptionByType(r, n, s) {
+                Co(`root.set.lastLoadedMediaOptionByType: ${n} ${(s = s || {
+                    itemId: r,
+                    mediaOptionType: n,
+                    mediaOptionId: "Nah"
+                }).mediaOptionId}`),
+                this.store.update(r, e=>{
+                    var t;
+                    const i = null !== (t = e.lastLoadedMediaOptionKeys) && void 0 !== t ? t : [Ol, Ol, Ol];
+                    i[n] = {
+                        itemId: r,
+                        mediaOptionId: s.mediaOptionId
+                    },
+                    e.lastLoadedMediaOptionKeys = i
+                }
+                )
+            }
+            setPreferredHost(e, t) {
+                Co(`root.set.preferredHost: ${t}`),
+                this.store.update(e, e=>{
+                    e && (e.mediaOptionListTuple[ul.Variant].preferredHost = t)
+                }
+                )
+            }
+            setViewportInfo(e, t) {
+                Co(`root.set.viewportInfo: ${JSON.stringify(t)}`),
+                this.store.update(e, e=>{
+                    e && (e.mediaOptionListTuple[ul.Variant].viewportInfo = t)
+                }
+                )
+            }
+            static getExistingPersistentIds(e) {
+                var t;
+                const i = {}
+                  , r = null === (t = e.enabledMediaOptionKeys[ul.AltAudio]) || void 0 === t ? void 0 : t.mediaOptionId;
+                if ("Nah" !== r) {
+                    const s = e.mediaOptionListTuple[ul.AltAudio]
+                      , t = Pm(s.mediaOptions, Cy.kAllowFilters, s).find(e=>e.mediaOptionId === r);
+                    i.audioPersistentId = null == t ? void 0 : t.persistentID
+                }
+                const n = null === (t = e.enabledMediaOptionKeys[ul.Subtitle]) || void 0 === t ? void 0 : t.mediaOptionId;
+                if ("Nah" !== n) {
+                    const s = e.mediaOptionListTuple[ul.Subtitle]
+                      , t = Pm(s.mediaOptions, Cy.kAllowFilters, s).find(e=>e.mediaOptionId === n);
+                    i.subtitlePersistentId = null == t ? void 0 : t.persistentID
+                }
+                return i
+            }
+            static doUpdateRootHDRSwitch(e, t, i, r) {
+                const n = e.mediaOptionListTuple.map(e=>Object.assign({}, e));
+                n[ul.Variant].preferHDR = t,
+                n[ul.Variant].hasHdrLevels = i;
+                const s = ng()
+                  , a = Xg.getEntity(e.itemId)
+                  , o = Qf(e.itemId)
+                  , d = o.getBandwidthEstimate(s, null == a ? void 0 : a.serviceName)
+                  , l = o.getPlaylistEstimate(s, null == a ? void 0 : a.serviceName)
+                  , u = o.getFragEstimate(s, null == a ? void 0 : a.serviceName)
+                  , c = o.getBufferEstimate(s, null == a ? void 0 : a.serviceName)
+                  , h = {
+                    targetDuration: u.maxDurationSec || (null == s ? void 0 : s.defaultTargetDuration),
+                    targetStartupMs: null == s ? void 0 : s.targetStartupMs
+                }
+                  , p = Py.getExistingPersistentIds(e);
+                return By(Object.assign(Object.assign({}, e), {
+                    mediaOptionListTuple: n,
+                    nextMediaOptionKeys: null
+                }), p, r, d, h, l, u, c)
+            }
+            switchToSDROnly(e) {
+                Co("root.switchToSDROnly"),
+                this.store.update(e, e=>{
+                    var t = Py.doUpdateRootHDRSwitch(e, !1, !1, this.logger)["mediaOptionListTuple"];
+                    e.mediaOptionListTuple = t
+                }
+                )
+            }
+            setHDRPreference(e, i, r) {
+                Co(`root.set.HDRPreference: ${i}`),
+                this.store.update(e, e=>{
+                    var t = e.mediaOptionListTuple[ul.Variant];
+                    if (t.preferHDR !== i && (!i || t.hasHdrLevels)) {
+                        t = Py.doUpdateRootHDRSwitch(e, i, t.hasHdrLevels, this.logger);
+                        if (r)
+                            return t;
+                        e.mediaOptionListTuple = t.mediaOptionListTuple
+                    }
+                }
+                )
+            }
+            setPathwayPriority(e, i) {
+                Co(`root.set.PathwayPriority: [ ${i.join(", ")} ]`),
+                this.store.update(e, e=>{
+                    if (e) {
+                        const t = e.mediaOptionListTuple[ul.Variant];
+                        t.pathwayPriority = i,
+                        t.preferredHost = null
+                    }
+                }
+                )
+            }
+            setCurrentPathwayID(e, t) {
+                Co(`root.set.currentPathwayID: ${t}`),
+                this.store.update(e, e=>{
+                    e && (e.mediaOptionListTuple[ul.Variant].currentPathwayID = t)
+                }
+                )
+            }
+            setInitPTS(e, t, i, r, n, s) {
+                Co(`root.set.initPTS: ${e} ${t} variantDTS:${JSON.stringify(i)} timelineOffset: ${r}`),
+                this.store.update(e, e=>{
+                    e.initPtsRecord[t] = {
+                        variantDTS: i,
+                        timelineOffset: r,
+                        offsetTimestamp: n,
+                        iframeMode: s
+                    }
+                }
+                )
+            }
+            static prunePenaltyBox(e, t) {
+                return e.filter(e=>!(e.expiry <= t))
+            }
+            static addToPenaltyBox(e, t, i) {
+                return e.push({
+                    mediaOptionId: i,
+                    expiry: t + 12e4
+                })
+            }
+            addToPenaltyBox(e, r, n) {
+                Co(`root.set.penaltyBox: ${r}: ${n}`),
+                this.store.update(e, ({mediaOptionListTuple: e})=>{
+                    const t = e[r]
+                      , i = performance.now();
+                    t.penaltyBoxQueue = Py.prunePenaltyBox(t.penaltyBoxQueue, i),
+                    Py.addToPenaltyBox(t.penaltyBoxQueue, i, n)
+                }
+                )
+            }
+            prunePenaltyBox(e, r=null) {
+                Co(`root.set.prunePenaltyBox: ${r}`),
+                this.store.update(e, ({mediaOptionListTuple: e})=>{
+                    var e = r ? [e[r]] : e
+                      , t = performance.now();
+                    for (const i of e)
+                        i.penaltyBoxQueue = Py.prunePenaltyBox(i.penaltyBoxQueue, t)
+                }
+                )
+            }
+            removePermanently(e, r, n) {
+                Co(`root.set.removePermanently: ${r}: ${n}`),
+                this.store.update(e, ({mediaOptionListTuple: e})=>{
+                    const t = e[r]
+                      , i = new Set(t.removed);
+                    i.add(n),
+                    t.removed = Array.from(i)
+                }
+                )
+            }
+            moveAllWithMatchingHosts(e, r, n, s) {
+                Co(`root.set.moveAllMatchingHosts: ${r}:${n} remove:${s}`),
+                this.store.update(e, ({mediaOptionListTuple: e})=>{
+                    const t = e[r]
+                      , i = [...t.mediaOptions].filter(e=>yl(n, e.url)).map(e=>e.mediaOptionId);
+                    if (s) {
+                        const e = new Set([...t.removed, ...i]);
+                        t.removed = Array.from(e)
+                    } else {
+                        const e = performance.now();
+                        t.penaltyBoxQueue = Py.prunePenaltyBox(t.penaltyBoxQueue, e);
+                        for (const r of i)
+                            Py.addToPenaltyBox(t.penaltyBoxQueue, e, r)
+                    }
+                }
+                )
+            }
+            setMaxHdcpLevel(e, i, r=!1) {
+                Co(`root.set.maxHdcpLevel: ${i}`),
+                this.store.update(e, ({mediaOptionListTuple: e})=>{
+                    const t = e[ul.Variant];
+                    (r || nm(i) < nm(t.maxHdcpLevel)) && (t.maxHdcpLevel = i)
+                }
+                )
+            }
+            updateConsecutiveTimeouts(e, i, r, n) {
+                this.store.update(e, e=>{
+                    const t = e.errorsByType || [{
+                        timeouts: {
+                            load: 0,
+                            append: 0,
+                            key: 0
+                        }
+                    }, {
+                        timeouts: {
+                            load: 0,
+                            append: 0,
+                            key: 0
+                        }
+                    }, {
+                        timeouts: {
+                            load: 0,
+                            append: 0,
+                            key: 0
+                        }
+                    }];
+                    r ? ++t[i].timeouts[n] : t[i].timeouts[n] = 0,
+                    e.errorsByType = t
+                }
+                )
+            }
+            updateInflightFrag(d, l, u, c, h) {
+                Co("root.set.updateInflightFrag"),
+                this.store.update(d, r=>{
+                    if (r.inFlightFrags || (r.inFlightFrags = [null, null]),
+                    !(l === ul.Subtitle || u && u.itemId !== d))
+                        if (u) {
+                            let {start: e, duration: t} = u;
+                            var {mediaOptionId: n, mediaSeqNum: s, discoSeqNum: a} = u
+                              , o = r.inFlightFrags[l];
+                            let i = null == o ? void 0 : o.tstart;
+                            c !== (null == o ? void 0 : o.state) && (i = performance.now()),
+                            Fp(o, u) && (e = o.start,
+                            t = o.duration),
+                            r.inFlightFrags[l] = {
+                                itemId: d,
+                                mediaOptionId: n,
+                                mediaSeqNum: s,
+                                discoSeqNum: a,
+                                start: e,
+                                duration: t,
+                                tstart: i,
+                                state: c,
+                                bwSample: Object.assign({}, h)
+                            }
+                        } else
+                            r.inFlightFrags[l] = null
+                }
+                )
+            }
+            setNextMaxAutoOptionId(e, t) {
+                Co(`root.set.nextMaxAutoOptionId: ${t}`),
+                this.store.update(e, ({abrStatus: e})=>{
+                    e.nextMaxAutoOptionId = t
+                }
+                )
+            }
+            setNextMinAutoOptionId(e, t) {
+                Co(`root.set.nextMinAutoOptionId: ${t}`),
+                this.store.update(e, ({abrStatus: e})=>{
+                    e.nextMinAutoOptionId = t
+                }
+                )
+            }
+            setHighBWTrigger(e, t) {
+                Co(`root.set.setHighBWTrigger: ${t}`),
+                this.store.update(e, ({abrStatus: e})=>{
+                    e.highBWTrigger = t
+                }
+                )
+            }
+            setFragLoadSlow(e, t) {
+                Co(`root.set.setFragLoadSlow ${e} ${JSON.stringify(t)}`),
+                this.store.update(e, ({abrStatus: e})=>{
+                    e.fragDownloadSlow = t.fragDownloadSlow,
+                    e.fragDownloadTooSlow = t.fragDownloadTooSlow
+                }
+                )
+            }
+            pickMediaOptionTupleByPersistentId(e, t, i, r=!1, n=!1) {
+                var s = e.enabledMediaOptionIdByType(ul.Variant)
+                  , s = e.variantMediaOptionById(s);
+                let a, o;
+                if (t === ul.AltAudio) {
+                    const t = e.enabledAlternateMediaOptionByType(ul.Subtitle);
+                    o = null == t ? void 0 : t.persistentID,
+                    a = i
+                } else {
+                    const t = e.enabledAlternateMediaOptionByType(ul.AltAudio);
+                    a = null == t ? void 0 : t.persistentID,
+                    o = i
+                }
+                const d = e.getEnabledMediaOptionMask();
+                return d[t] = !!(ne(i) && 0 <= i),
+                s ? this.getBestMediaOptionTupleFromVariantAndPersistentId(e, s, a, o, d, void 0, r, n, !1) : [Ol, Ol, Ol]
+            }
+            getFallbackMediaOptionTupleFromMediaOptionId(e, t, i, r, n=!1, s=!1, a=!1) {
+                var o = r ? [r] : [i]
+                  , d = e.enabledMediaOptionIdByType(ul.Variant)
+                  , r = e.variantMediaOptionById(d)
+                  , d = t === ul.AltAudio ? e.alternateMediaOptionById(ul.AltAudio, i) : e.enabledAlternateMediaOptionByType(ul.AltAudio)
+                  , d = null == d ? void 0 : d.persistentID
+                  , i = t === ul.Subtitle ? e.alternateMediaOptionById(ul.Subtitle, i) : e.enabledAlternateMediaOptionByType(ul.Subtitle)
+                  , i = null == i ? void 0 : i.persistentID;
+                return r ? this.getBestMediaOptionTupleFromVariantAndPersistentId(e, r, d, i, void 0, o, n, s, a) : [Ol, Ol, Ol]
+            }
+            hasFallbackMediaOptionTuple(e, t, i, r) {
+                var n = e.mediaOptionListQueries[t].mediaOptionFromId(i);
+                return e.isValidMediaOptionTuple(this.getFallbackMediaOptionTupleFromMediaOptionId(e, t, i, n.backingMediaOptionId, !1, r))
+            }
+            setLegacyAlternateMediaOption(e, t, i, r, n) {
+                var s = e.enabledMediaOptionIdByType(ul.Variant)
+                  , s = e.variantMediaOptionById(s)
+                  , s = e.getLegacyMatchingAlternateWithPersistentId(i, r, s);
+                s ? this.setEnabledMediaOptionByType(t, i, s, !0, n) : this.logger.warn(`${Cl[i]} can't find matching mediaOption for persistent id ${r}`)
+            }
+            setEnabledMediaOptionTupleWithMatchedGroups(t, i, e, r) {
+                const n = Ly(t)
+                  , s = this.pickMediaOptionTupleByPersistentId(n, i, e);
+                if (!n.isValidMediaOptionTuple(s))
+                    return this.setLegacyAlternateMediaOption(n, t, i, e, r);
+                sd(()=>{
+                    this.setEnabledMediaOptionByType(t, i, s[i], !0, r),
+                    s[ul.Variant].mediaOptionId !== n.enabledMediaOptionIdByType(ul.Variant) && this.setPreferredHost(t, gl(s[ul.Variant].url)),
+                    this.setEnabledMediaOptionByType(t, ul.Variant, s[ul.Variant]);
+                    var e = i === ul.AltAudio ? ul.Subtitle : ul.AltAudio;
+                    s[e].mediaOptionId !== n.enabledMediaOptionIdByType(e) && this.setEnabledMediaOptionByType(t, e, s[e], !1)
+                }
+                )
+            }
+            canSwitchToSDR(e, t, i, r=!1) {
+                var n = e.mediaOptionListQueries[ul.Variant].mediaOptionFromId(t)
+                  , r = this.getFallbackMediaOptionTupleFromMediaOptionId(e, ul.Variant, t, n.backingMediaOptionId, !0, i, r);
+                return e.isValidMediaOptionTuple(r)
+            }
+            getBestMediaOptionTupleFromVariantAndPersistentId(t, e, i, r, n, s, a, o, d) {
+                var l, u = t.mediaOptionListQueries[ul.Variant].listFallbackVariants(e.mediaOptionId, a, o, d, s);
+                let c = [Ol, Ol, Ol];
+                for (let e = 0; e < u.length; ++e) {
+                    const a = u[e];
+                    if (l = t.matchAlternates(a, i, r, s),
+                    t.isValidMediaOptionTuple([a, ...l], n)) {
+                        c = [a, ...l];
+                        break
+                    }
+                }
+                return c
+            }
+        }
+        const xy = new class extends pd {
+            constructor() {
+                super({}, {
+                    name: "root-playlist-store",
+                    idKey: "itemId",
+                    producerFn: vc
+                })
+            }
+            akitaPreAddEntity(e) {
+                return null == e.errorsByType ? Object.assign(Object.assign({}, e), {
+                    errorsByType: [{
+                        timeouts: {
+                            load: 0,
+                            append: 0,
+                            key: 0
+                        }
+                    }, {
+                        timeouts: {
+                            load: 0,
+                            append: 0,
+                            key: 0
+                        }
+                    }, {
+                        timeouts: {
+                            load: 0,
+                            append: 0,
+                            key: 0
+                        }
+                    }]
+                }) : e
+            }
+        }
+        ;
+        new Od(xy);
+        let Ry = null;
+        function Ly(e) {
+            return new Dy(xy,e)
+        }
+        const _y = (n,e,t,s,i)=>{
+            const {rootMediaOptionsTuple: r, sessionKeys: a} = n
+              , o = Array.from(r[ul.Variant])
+              , d = Array.from(r[ul.AltAudio]);
+            let l = !1
+              , u = !1
+              , c = o.map(e=>(l = l || Boolean(e.videoCodec),
+            u = u || Boolean(e.audioCodec) || Boolean(e.audioGroupId),
+            e));
+            return l && u && (c = c.filter(({videoCodec: e})=>Boolean(e))),
+            Oy(o, d, a, e, t, i).pipe(ur(({hdrMediaOptions: e, sdrMediaOptions: t})=>{
+                var i = e.concat(t)
+                  , r = 0 < e.length;
+                return e.concat(t),
+                function(e, t, i, r) {
+                    var {itemId: n, itemStartOffset: s, rootMediaOptionsTuple: a, audioMediaSelectionGroup: o, subtitleMediaSelectionGroup: d} = e
+                      , l = Array.from(a[ul.AltAudio])
+                      , u = Array.from(a[ul.Subtitle])
+                      , c = t.every(e=>ne(e.score))
+                      , h = t.some(e=>Nm(!0, e))
+                      , p = function(e, t) {
+                        const i = [...e];
+                        return t ? i.sort((e,t)=>e.score - t.score || t.bitrate - e.bitrate) : i.sort((e,t)=>e.bitrate - t.bitrate),
+                        i
+                    }(t, c)
+                      , f = e.baseUrl
+                      , t = null === (a = e.contentSteeringOption) || void 0 === a ? void 0 : a.initPathwayID
+                      , a = e.sessionData;
+                    return {
+                        itemId: n,
+                        baseUrl: f,
+                        mediaOptionListTuple: [{
+                            mediaOptions: p,
+                            hasHdrLevels: i,
+                            hasIframeLevels: h,
+                            hasScore: c,
+                            preferHDR: r,
+                            compatibleIds: null,
+                            penaltyBoxQueue: [],
+                            removed: [],
+                            currentPathwayID: t
+                        }, {
+                            mediaOptions: l,
+                            compatibleIds: null,
+                            penaltyBoxQueue: [],
+                            removed: []
+                        }, {
+                            mediaOptions: u,
+                            penaltyBoxQueue: [],
+                            removed: []
+                        }],
+                        audioMediaSelectionGroup: o,
+                        subtitleMediaSelectionGroup: d,
+                        enabledMediaOptionKeys: [Ol, Ol, Ol],
+                        mediaOptionSwitchContexts: [null, null, null],
+                        anchorTime: 0,
+                        discoSeqNum: NaN,
+                        pendingSeek: void 0,
+                        itemStartOffset: s,
+                        initPtsRecord: {},
+                        contentSteeringOption: e.contentSteeringOption,
+                        masterVariableList: e.masterVariableList,
+                        loadStats: e.stats,
+                        isMediaPlaylist: e.isMediaPlaylist,
+                        abrStatus: {
+                            fragDownloadSlow: !1,
+                            fragDownloadTooSlow: !1,
+                            nextMinAutoOptionId: Ol.mediaOptionId,
+                            nextMaxAutoOptionId: Ol.mediaOptionId,
+                            highBWTrigger: NaN
+                        },
+                        sessionData: a
+                    }
+                }(n, i, r, s)
+            }
+            ))
+        }
+        ;
+        function Ny(e, t, i, r, n, s, a) {
+            var o, d, l, u, c, h, p, f = e.mediaOptionListTuple[ul.Variant], m = Pm(f.mediaOptions, Um.kAllowFilters, Object.assign(Object.assign({}, f), {
+                compatibleIds: null
+            })), g = xm(f.preferredHost, m);
+            return {
+                firstVariant: (o = g,
+                e = Cg,
+                f = f.hasScore,
+                t = t,
+                i = i,
+                r = r,
+                n = n,
+                s = s,
+                a = a,
+                !o || o.length < 1 || o.every(e=>e.iframes) ? void t.warn("no non-iframe media option found") : ((o = f ? Dg(o, i, r, n, s, a) : (d = e,
+                l = i,
+                u = r,
+                c = n,
+                h = s,
+                p = a,
+                o.reduce((e,t)=>{
+                    if (t.iframes)
+                        return e;
+                    let i = e;
+                    const r = function(e, t, i, r, n, s, a) {
+                        var o, d, l = (o = e.bitrate,
+                        u = e.height,
+                        (d = (e,t,i)=>(e - t) * (e - i) <= 0)(o, t.minValidBitrate, t.maxValidBitrate) && d(u, t.minValidHeight, t.maxValidHeight) ? ll.VALID : ll.INVALID), o = "PQ" === (c = e.videoRange) ? ol.PQ : "HLG" === c ? ol.HLG : "SDR" === c ? ol.SDR : ol.UNKNOWN, {videoCodecRank: u, audioCodecRank: c} = {
+                            videoCodecRank: $p((d = e).videoCodec),
+                            audioCodecRank: Kp(d.audioCodec)
+                        }, d = e.bitrate < t.maxPreferredBitrate ? ll.VALID : ll.INVALID, t = e.audioChannelCount || 1, a = i && r && n && s && !Mg(e, i, r, n, s, a) ? ll.INVALID : ll.VALID;
+                        return new Hp(l,o,u,t,c,a,d,e.height)
+                    }(t, d, l, u, c, h, p);
+                    return (!e || r.isGreaterThan(e.bestRank) || r.isEqualTo(e.bestRank) && t.bitrate > e.selected.bitrate) && (i = {
+                        selected: t,
+                        bestRank: r
+                    }),
+                    i
+                }
+                , null).selected)) || t.warn("no valid first media option found"),
+                o)),
+                filteredVariants: m,
+                preferredVariants: g
+            }
+        }
+        function Fy(e, t, i) {
+            if ((null == t ? void 0 : t.mediaType) === pl.CLOSEDCAPTION) {
+                const r = Cy.pairForcedSubtitleMediaOptionWithClosedCaptionInList(e.subtitleGroupId, t, i);
+                if (r)
+                    return t = Object.assign(Object.assign({}, t), {
+                        url: r.url,
+                        backingMediaOptionId: r.mediaOptionId
+                    }),
+                    i.map(e=>e.mediaOptionId === t.mediaOptionId ? t : e)
+            }
+            return i
+        }
+        function By(e, t, i, r, n, s, a, o) {
+            var d;
+            const l = e.itemId
+              , u = e.mediaOptionListTuple[ul.Variant]
+              , c = e.mediaOptionListTuple[ul.AltAudio]
+              , h = e.mediaOptionListTuple[ul.Subtitle]
+              , p = Pm(c.mediaOptions, Cy.kAllowFilters, c)
+              , f = Pm(h.mediaOptions, Cy.kAllowFilters, h);
+            let {firstVariant: m, filteredVariants: g} = Ny(e, i, r, n, s, a, o);
+            if (!m) {
+                const U = u.preferHDR;
+                u.preferHDR = !U && u.hasHdrLevels,
+                u.preferHDR !== U && (i.warn(`No valid first variant found, toggling hdr preference=${U}->${u.preferHDR}`),
+                {firstVariant: m, filteredVariants: g} = Ny(e, i, r, n, s, a, o))
+            }
+            if (!m)
+                throw new V(!0,"No valid first variant found",$.NoValidAlternates);
+            const y = gl(m.url)
+              , v = {
+                itemId: l,
+                mediaOptionId: null !== (o = null == m ? void 0 : m.mediaOptionId) && void 0 !== o ? o : null
+            }
+              , S = null != p && p.length ? null === (o = ((i,r,e,n)=>{
+                if (e) {
+                    let t;
+                    return t = ne(i) ? e.MediaSelectionGroupOptions.find(function(e) {
+                        return e.MediaSelectionOptionsPersistentID === i
+                    }) : e.MediaSelectionGroupOptions.find(function(e) {
+                        return e.MediaSelectionOptionsIsDefault
+                    }),
+                    t = t || e.MediaSelectionGroupOptions[0],
+                    n.find(e=>(!r || e.groupId === r) && e.persistentID === (null == t ? void 0 : t.MediaSelectionOptionsPersistentID))
+                }
+            }
+            )(null == t ? void 0 : t.audioPersistentId, m.audioGroupId, e.audioMediaSelectionGroup, p)) || void 0 === o ? void 0 : o.mediaOptionId : null
+              , b = S ? {
+                itemId: l,
+                mediaOptionId: S
+            } : Ol
+              , T = ((i,r,n,s,a,o)=>{
+                if (s) {
+                    let t, e;
+                    return t = ne(i) ? s.MediaSelectionGroupOptions.find(function(e) {
+                        return e.MediaSelectionOptionsPersistentID === i
+                    }) : s.MediaSelectionGroupOptions.find(function(e) {
+                        return e.MediaSelectionOptionsIsDefault
+                    }),
+                    t && (e = a.find(e=>e.mediaType === pl.CLOSEDCAPTION ? (!r || e.groupId === r) && e.persistentID === t.MediaSelectionOptionsPersistentID : e.mediaType === pl.SUBTITLE ? (!n || e.groupId === n) && e.persistentID === t.MediaSelectionOptionsPersistentID : void o.warn(My, `subtitle media option has unknown type ${e.mediaType}`))),
+                    e
+                }
+            }
+            )(null == t ? void 0 : t.subtitlePersistentId, m.closedcaption, m.subtitleGroupId, e.subtitleMediaSelectionGroup, f, i)
+              , E = null != f && f.length ? null == T ? void 0 : T.mediaOptionId : null
+              , I = E ? {
+                itemId: l,
+                mediaOptionId: E,
+                mediaOptionType: ul.Subtitle
+            } : Ol
+              , {mediaOptions: w, audioGroups: A, subtitleGroups: O} = (t = g,
+            d = m,
+            t.reduce((e,t)=>{
+                if (((e,t)=>{
+                    let i = !0;
+                    e.videoCodec && t.videoCodec && (i = Se.isCompatibleVideoCodec(e.videoCodec, t.videoCodec));
+                    let r = !1;
+                    e.videoRange && t.videoRange ? r = e.videoRange == t.videoRange : e.videoRange || t.videoRange || (r = !0);
+                    let n = !0;
+                    return e.audioCodec && t.audioCodec && (n = Se.isCompatibleAudioCodec(e.audioCodec, t.audioCodec)),
+                    i && r && n
+                }
+                )(d, t)) {
+                    const d = t.audioGroupId;
+                    d && e.audioGroups.add(d),
+                    e.mediaOptions.add(t)
+                }
+                var i = t.subtitleGroupId;
+                i && e.subtitleGroups.add(i);
+                t = t.closedcaption;
+                return t && e.closedCaptionGroups.add(t),
+                e
+            }
+            , {
+                mediaOptions: new Set,
+                audioGroups: new Set,
+                subtitleGroups: new Set,
+                closedCaptionGroups: new Set
+            }))
+              , k = Array.from(w).map(e=>e.mediaOptionId)
+              , C = m.pathwayID
+              , D = Object.assign(Object.assign({}, u), {
+                compatibleIds: k,
+                preferredHost: y,
+                currentPathwayID: C
+            })
+              , M = []
+              , P = c.mediaOptions.reduce((e,t)=>(A.has(t.groupId) && (e.persistentIds.add(t.persistentID),
+            M.push(t.mediaOptionId),
+            e.filteredAudioMediaOptions.push(t),
+            e.altAudio || (e.altAudio = !!t.url)),
+            e), {
+                filteredAudioMediaOptions: [],
+                persistentIds: new Set,
+                altAudio: !1
+            })
+              , x = Object.assign(Object.assign({}, c), {
+                compatibleIds: M
+            });
+            let R = e.audioMediaSelectionGroup;
+            const L = null == R ? void 0 : R.MediaSelectionGroupOptions;
+            if (L) {
+                const e = L.reduce((e,t)=>(P.persistentIds.has(t.MediaSelectionOptionsPersistentID) && e.push(t),
+                e), new Array);
+                R = Object.assign(Object.assign({}, R), {
+                    MediaSelectionGroupOptions: e
+                })
+            }
+            h.mediaOptions = Fy(m, T, h.mediaOptions);
+            const _ = h.mediaOptions.reduce((e,t)=>(O.has(t.groupId) && (e.persistentIds.add(t.persistentID),
+            e.filteredSubtitleMediaOptions.push(t)),
+            e), {
+                filteredSubtitleMediaOptions: [],
+                persistentIds: new Set
+            });
+            let N = e.subtitleMediaSelectionGroup;
+            const F = null == N ? void 0 : N.MediaSelectionGroupOptions;
+            if (F) {
+                const e = F.reduce((e,t)=>(_.persistentIds.has(t.MediaSelectionOptionsPersistentID) && e.push(t),
+                e), new Array);
+                N = Object.assign(Object.assign({}, N), {
+                    MediaSelectionGroupOptions: e
+                })
+            }
+            i = [D, x, h];
+            let B = new Map;
+            ng().useHighestVideoCodecPrivate && (B = null == D ? void 0 : D.mediaOptions.reduce((e,t)=>{
+                const i = t.videoCodecList;
+                if (i)
+                    for (const t of i) {
+                        const i = Vp(t)
+                          , r = e.get(i);
+                        Se.isHigherCodecByFamily(r, t) && e.set(i, t)
+                    }
+                return e
+            }
+            , B)),
+            B.size && B.forEach((e,t)=>{}
+            );
+            t = {
+                fragDownloadSlow: !1,
+                fragDownloadTooSlow: !1,
+                nextMinAutoOptionId: Ol.mediaOptionId,
+                nextMaxAutoOptionId: Ol.mediaOptionId,
+                highBWTrigger: Vg(v.mediaOptionId, D.mediaOptions)
+            };
+            return Object.assign(Object.assign({}, e), {
+                enabledMediaOptionKeys: [v, b, I],
+                mediaOptionListTuple: i,
+                audioMediaSelectionGroup: R,
+                abrStatus: t,
+                highestVideoCodec: B
+            })
+        }
+        const Uy = (o,d,l,u,c,h,p)=>e=>e.pipe(Ql.tag("retrieveRootMediaOptions.input"), Ra(t=>{
+            var e;
+            if (!t)
+                return Ti;
+            const {itemId: i, platformInfo: r} = t
+              , n = Ly(i)
+              , s = d["logger"];
+            if (n.hasEntity(i))
+                return Bi(n);
+            xy.setLoading(!0);
+            const a = performance.now();
+            return function(e, t, u, c, i) {
+                const {itemId: h, url: p, itemStartOffset: f} = e
+                  , r = xc(e, t);
+                return km({
+                    url: p,
+                    onProgress: {
+                        getData: !0,
+                        cb: my
+                    },
+                    xhrSetup: c.xhrSetup
+                }, r, i).pipe(ur(({responseText: e, stats: t})=>{
+                    var i = c["keySystemPreference"];
+                    if (Om.isMediaPlaylist(e)) {
+                        const c = "media-pl-" + Jd()
+                          , d = Om.parseMediaOptionPlaylist(e, p, !0, i, {}, h, c, ul.Variant, u, f);
+                        Lc(d.mediaOptionDetails);
+                        var r = {
+                            itemId: h,
+                            mediaOptionId: c,
+                            mediaOptionType: ul.Variant,
+                            url: p,
+                            bandwidth: 0,
+                            bitrate: 0,
+                            iframes: d.mediaOptionDetails.iframesOnly,
+                            pathwayID: "."
+                        };
+                        return {
+                            itemId: h,
+                            itemStartOffset: f,
+                            rootMediaOptionsTuple: [[r], [], []],
+                            stats: t,
+                            baseUrl: p,
+                            initialDetails: d.mediaOptionDetails,
+                            isMediaPlaylist: !0
+                        }
+                    }
+                    {
+                        const u = Om.parseSessionData(e, p)
+                          , c = Om.parseSessionKeys(e, p, i)
+                          , l = Om.parseRootPlaylist(h, e, p, !0);
+                        if (l.playlistParsingError)
+                            throw l.playlistParsingError;
+                        var {variantMediaOptions: n, contentSteeringOption: s, masterVariableList: a} = l
+                          , o = Om.parseRootPlaylistAlternateMediaOptions(h, e, p, l.variantMediaOptions, !0, a);
+                        if (o.playlistParsingError)
+                            throw o.playlistParsingError;
+                        var {audioAlternateOptions: r, subtitleAlternateOptions: i, audioMediaSelectionGroup: e, subtitleMediaSelectionGroup: o} = o.alternateMediaInfo;
+                        return {
+                            itemId: h,
+                            itemStartOffset: f,
+                            rootMediaOptionsTuple: [n, r, i],
+                            stats: t,
+                            baseUrl: p,
+                            audioMediaSelectionGroup: e,
+                            subtitleMediaSelectionGroup: o,
+                            contentSteeringOption: s,
+                            sessionData: u,
+                            sessionKeys: c,
+                            masterVariableList: a
+                        }
+                    }
+                }
+                ), e=>e.pipe(Un(e=>{
+                    if (e instanceof ou)
+                        throw new ru(!1,"Timeout",0,$.ManifestTimeoutError,!0);
+                    if (e instanceof tu)
+                        throw new ru(!1,e.message,e.code,{
+                            code: e.code,
+                            text: "Manifest network error"
+                        },!1);
+                    throw e
+                }
+                )))
+            }(t, o, s, l, null === (e = null === (e = rg()) || void 0 === e ? void 0 : e.getQuery()) || void 0 === e ? void 0 : e.extendMaxTTFB).pipe(Ja(e=>p.triggerManifestLoaded(e)), Ja(({initialDetails: e, stats: t})=>{
+                e && (e = e,
+                t = t,
+                Sg().archiveMediaOptionDetails(e, t, !0))
+            }
+            ), So(u.displaySupportsHdr$), Ra(([e,t])=>_y(e, r, l, t, s)), ur(e=>(d.rootPlaylistEntity = function(e, t, i, r, n, s) {
+                const {itemId: a, initialSeekTime: o} = e
+                  , d = Qf(a)
+                  , l = n.enableAdaptiveStartup ? d.getBandwidthEstimate(n, e.serviceName) : void 0
+                  , u = n.enableAdaptiveStartup ? d.getPlaylistEstimate(n, e.serviceName) : void 0
+                  , c = n.enableAdaptiveStartup ? d.getFragEstimate(n, e.serviceName) : void 0
+                  , h = n.enableAdaptiveStartup ? d.getBufferEstimate(n, e.serviceName) : void 0
+                  , p = n.targetStartupMs - (performance.now() - r)
+                  , f = n.enableAdaptiveStartup ? {
+                    targetDuration: c.maxDurationSec || n.defaultTargetDuration,
+                    targetStartupMs: p
+                } : void 0
+                  , m = By(t, i, s, l, f, u, c, h);
+                return m.pendingSeek = o,
+                m
+            }(t, e, c, a, l, s),
+            n)), Ym(i, null, xc(t, o), 0, !1, n, d, h), $s(()=>{
+                xy.setLoading(!1)
+            }
+            ))
+        }
+        ), Ql.tag("retrieveRootMediaOptions.emit"));
         function $y(t, o, d, l, u, c, h) {
             return e=>e.pipe(Up(), Ra(e=>{
-                return e ? Cr([Bi(e).pipe(xy(t.manifestLoadPolicy, d, t, l, null, u, c)), (n = t,
+                return e ? Cr([Bi(e).pipe(Uy(t.manifestLoadPolicy, d, t, l, null, u, c)), (n = t,
                 s = o,
                 a = h.mux,
                 new Ut(e=>{
-                    const t = new ay(n,s,a);
+                    const t = new py(n,s,a);
                     return e.next(t),
                     ()=>{
                         t.destroy()
@@ -30082,11 +30088,11 @@
                 this.keySystemAdapter = null,
                 this.legibleSystemAdapter = null,
                 this.sessionID = Jd(),
-                this.statsService = (Bf = Bf || new Nf(Ff),
-                Bf),
+                this.statsService = (qf = qf || new Hf(jf),
+                qf),
                 this.gaplessCapable = !0,
-                this.teardownWorker$ = new Hf,
-                this.itemQueue = new jg,
+                this.teardownWorker$ = new Xf,
+                this.itemQueue = new Yg,
                 (e.liveSyncDurationCount || e.liveMaxLatencyDurationCount) && (e.liveSyncDuration || e.liveMaxLatencyDuration))
                     throw new Error("Illegal hls.js config: don't mix up liveSyncDurationCount/liveMaxLatencyDurationCount and liveSyncDuration/liveMaxLatencyDuration");
                 const f = Object.assign(Object.assign({}, Al), e);
@@ -30095,16 +30101,16 @@
                 const r = this.sessionID;
                 let n = "silent";
                 e.debug && (n = f.debugLevel),
-                this.logger = null !== (i = this.logger) && void 0 !== i ? i : ([D,c={}] = [r, (u = {
+                this.logger = null !== (i = this.logger) && void 0 !== i ? i : ([M,h={}] = [r, (c = {
                     sendLogs: e.sendLogs,
                     level: "log" === n ? "debug" : n,
                     consoleOverride: "boolean" != typeof e.debug ? e.debug : void 0,
                     buildType: f.buildType
                 },
-                M = u.consoleOverride,
+                P = c.consoleOverride,
                 Object.assign({
                     name: "hls",
-                    timestamp: u.sendLogs ? Ae.stdTimeFunctions.epochTime : Ae.stdTimeFunctions.isoTime,
+                    timestamp: c.sendLogs ? Ae.stdTimeFunctions.epochTime : Ae.stdTimeFunctions.isoTime,
                     browser: {
                         asObject: !0,
                         serialize: !0,
@@ -30112,49 +30118,49 @@
                             send: (e,t)=>{}
                         },
                         write: {
-                            debug: Ke.bind(null, Ve(M || console, "debug"), "debug"),
-                            info: Ke.bind(null, Ve(M || console, "info"), "info"),
-                            warn: Ke.bind(null, Ve(M || console, "warn"), "warn"),
-                            error: Ke.bind(null, Ve(M || console, "error"), "error"),
-                            fatal: Ke.bind(null, Ve(M || console, "error"), "fatal")
+                            debug: Ke.bind(null, Ve(P || console, "debug"), "debug"),
+                            info: Ke.bind(null, Ve(P || console, "info"), "info"),
+                            warn: Ke.bind(null, Ve(P || console, "warn"), "warn"),
+                            error: Ke.bind(null, Ve(P || console, "error"), "error"),
+                            fatal: Ke.bind(null, Ve(P || console, "error"), "fatal")
                         }
                     }
-                }, u))],
-                Be && Be.sessionId === D ? Be.warn("Logger Singleton already setup, returning existing singleton") : (Be = Ae(Ue(c)).child({
-                    sessionId: D,
+                }, c))],
+                Be && Be.sessionId === M ? Be.warn("Logger Singleton already setup, returning existing singleton") : (Be = Ae(Ue(h)).child({
+                    sessionId: M,
                     name: "hls"
                 }),
                 Be.qe = e=>Be.info(e),
-                Be.sessionId = D),
+                Be.sessionId = M),
                 Be),
                 Lo = !1,
                 Ro && (delete window.$$stores,
                 delete window.$$queries),
                 this.hlsConfig.audioPrimingDelay = 0,
-                this.rootPlaylistService = (M = this.logger,
-                Oy = new wy(Ay,M),
-                Oy),
+                this.rootPlaylistService = (P = this.logger,
+                Ry = new Py(xy,P),
+                Ry),
                 this.customUrlLoader = Mc(),
                 this.sessionDataLoader = new _p(f,Oc,this.customUrlLoader.load,this.logger);
-                var s, a, o, d, l, u = f.liveMaxLatencyDurationCount, c = f.liveSyncDurationCount;
-                if (ne(u) && ne(c) && u <= c)
+                var s, a, o, d, l, u, c = f.liveMaxLatencyDurationCount, h = f.liveSyncDurationCount;
+                if (ne(c) && ne(h) && c <= h)
                     throw new Error('Illegal hls.js config: "liveMaxLatencyDurationCount" must be gt "liveSyncDurationCount"');
                 if (ne(f.liveMaxLatencyDuration) && (f.liveMaxLatencyDuration <= f.liveSyncDuration || !ne(f.liveSyncDuration)))
                     throw new Error('Illegal hls.js config: "liveMaxLatencyDuration" must be gt "liveSyncDuration"');
-                const h = Xm();
-                h.setHlsEntity({
+                const p = rg();
+                p.setHlsEntity({
                     id: r,
                     config: f
                 });
-                const p = hg()
-                  , m = new gf(vf)
-                  , g = (Ph = Ph || new Dh(Mh),
+                const m = Sg()
+                  , g = new gf(vf)
+                  , y = (Ph = Ph || new Dh(Mh),
                 Ph);
-                this.accessLogInstance = new jf(this,r),
-                this.rtcService = new Uy(this,f,this.accessLogInstance,this.logger),
-                this.playerEvents = new bg(this,this.logger,this.rtcService);
-                const y = (D = this.platformService,
-                l = D,
+                this.accessLogInstance = new Yf(this,r),
+                this.rtcService = new _f(this,f,this.accessLogInstance,this.logger),
+                this.playerEvents = new kg(this,this.logger,this.rtcService);
+                const v = (M = this.platformService,
+                u = M,
                 (()=>{
                     if ("function" == typeof matchMedia) {
                         var e = matchMedia("(dynamic-range: high)")
@@ -30165,21 +30171,22 @@
                     return Bi(!0)
                 }
                 )().pipe(Ja(e=>{
-                    l.updateSupportsHdr(e)
+                    u.updateSupportsHdr(e)
                 }
                 )).pipe(Ua(Ti)))
-                  , v = this.mediaElement$.pipe((s = f,
+                  , S = this.mediaElement$.pipe((s = f,
                 o = (a = this).logger,
                 d = this.teardownWorker$,
+                l = this.rtcService,
                 e=>e.pipe(Ql.tag("playback.mediaElementServiceEpic.in"), Ra(e=>{
                     if (!e)
                         return Bi(null);
-                    const t = new hf(e,mf,s,a,o,d);
+                    const t = new hf(e,mf,s,a,o,d,l);
                     return t.openMediaSource(new MediaSource),
                     nn(Bi(t), t)
                 }
                 ), Ql.tag("playback.mediaElementServiceEpic.emit"))), wa())
-                  , S = this.itemQueue.activeItemById$.pipe(Ra(e=>e ? Vf(f, this.statsService, e, this.logger) : Ti));
+                  , b = this.itemQueue.activeItemById$.pipe(Ra(e=>e ? Wf(f, this.statsService, e, this.logger) : Ti));
                 this.rpcService = (()=>{
                     let e = f.createRPCService;
                     return f.enableWorker && null == e && (e = Cf),
@@ -30187,23 +30194,23 @@
                     e(this.logger)
                 }
                 )(),
-                this.rpcClients = (M = this.rpcService,
+                this.rpcClients = (P = this.rpcService,
                 {
-                    crypto: new Ef(M),
-                    mux: new If(M)
+                    crypto: new Ef(P),
+                    mux: new If(P)
                 });
-                var b, T, E, I, w, A, O, k, C, u = Cr([this.itemQueue.activeItemById$.pipe($y(f, this.logger, this.rootPlaylistService, m, this.statsService, this.playerEvents, this.rpcClients), Ja(e=>{
+                var T, E, I, w, A, O, k, C, D, c = Cr([this.itemQueue.activeItemById$.pipe($y(f, this.logger, this.rootPlaylistService, g, this.statsService, this.playerEvents, this.rpcClients), Ja(e=>{
                     var t = null == e ? void 0 : e.rootPlaylistQuery;
                     this.publicQueriesInternal$.next([t, null]),
                     this.iframeMachine = null == e ? void 0 : e.iframeMachine,
                     t && this.playerEvents.triggerManifestParsed(t)
                 }
-                )), v.pipe((E = this.itemQueue.removedItems$,
-                I = g,
-                w = f,
-                A = m,
-                k = (O = this).rtcService,
-                C = this.logger,
+                )), S.pipe((I = this.itemQueue.removedItems$,
+                w = y,
+                A = f,
+                O = g,
+                C = (k = this).rtcService,
+                D = this.logger,
                 e=>Cr([((n,s,a,o,d,l,u)=>e.pipe(Ql.tag("[Keys] playback.keySystemServiceEpic.in"), Ra(r=>r ? new Ut(e=>{
                     let t = new kh(n,r,a,o,d,l,u);
                     const i = nn(Bi(t), s.pipe(Kr(e=>t.removeKeysForItems(e)), Ua(Ti))).subscribe(e);
@@ -30214,7 +30221,7 @@
                         t = void 0
                     }
                 }
-                ) : Bi(null)), Ql.tag("[Keys] playback.keySystemServiceEpic.emit")))(I, E, w, A, O, k, C), ((t,i,r)=>e.pipe(Ql.tag("playback.legibleServiceEpic.in"), Ra(e=>e ? nn(Bi(e = new Rp(e,t,i,r)), e) : Bi(null)), Ql.tag("playback.legibleServiceEpic.emit")))(w, O, C), e]).pipe(ur(([e,t,i])=>({
+                ) : Bi(null)), Ql.tag("[Keys] playback.keySystemServiceEpic.emit")))(w, I, A, O, k, C, D), ((t,i,r)=>e.pipe(Ql.tag("playback.legibleServiceEpic.in"), Ra(e=>e ? nn(Bi(e = new Rp(e,t,i,r)), e) : Bi(null)), Ql.tag("playback.legibleServiceEpic.emit")))(A, k, D), e]).pipe(ur(([e,t,i])=>({
                     keySystemAdapter: e,
                     legibleSystemAdapter: t,
                     mediaSink: i
@@ -30237,7 +30244,7 @@
                         rpcClients: this.rpcClients,
                         rootPlaylistService: this.rootPlaylistService,
                         rootPlaylistQuery: s,
-                        mediaLibraryService: p,
+                        mediaLibraryService: m,
                         keySystemAdapter: i,
                         legibleSystemAdapter: r,
                         mediaSink: n,
@@ -30253,7 +30260,7 @@
                     const {rootPlaylistQuery: t, mediaSink: e, mediaLibraryService: i} = a;
                     this.publicQueriesInternal$.next([t, e.mediaQuery]);
                     const n = e.mediaQuery
-                      , r = Bi(a).pipe(ry())
+                      , r = Bi(a).pipe(uy())
                       , s = t.rootPlaylistEntity$.pipe(Up(), Cs(1), Ja(()=>{
                         this.commitEarlySelection(a.logger)
                     }
@@ -30263,7 +30270,7 @@
                     }
                     ), Un(e=>(this.logger.error(e.message),
                     Ti)))
-                      , d = Uf(t.itemId)
+                      , d = Qf(t.itemId)
                       , l = function(l, e, u, r, t) {
                         const a = u.mediaQuery
                           , i = Zd([a.seekTo$, a.bufferedSegmentsByType$(cl.Variant)]).pipe(ur(([e,t])=>{
@@ -30310,7 +30317,7 @@
                                     var a = 0 != p && 1 != p
                                       , o = t.details
                                       , d = o.fragments
-                                      , t = oy(o)
+                                      , t = fy(o)
                                       , i = Math.max(1, t * i);
                                     let l = a || n.len >= t || n.len >= i;
                                     a = d[o.fragments.length - 1],
@@ -30326,7 +30333,7 @@
                                 }(t, i, e.startTargetDurationFactor);
                                 var o = h.combined;
                                 if (!a && 0 < o.len) {
-                                    const p = oy(i.details);
+                                    const p = fy(i.details);
                                     a = function(n, e, t, i, r, s, a) {
                                         var o = null === (o = h.sbTuple[ul.Variant]) || void 0 === o ? void 0 : o.buffered;
                                         if ((null == o ? void 0 : o.len) >= t)
@@ -30423,22 +30430,22 @@
                             return d.waterLevelChangedForType$(cl.Variant).pipe(an(e=>e === kp.AboveHighWater), Ls(()=>n.enabledMediaOptionByType$(ul.Variant).pipe(Ra(e=>{
                                 var t = n.mediaOptionListQueries[ul.Variant].hasIframes
                                   , i = null !== (i = null === (i = s.getQuery().getEntity(n.itemId)) || void 0 === i ? void 0 : i.liveOrEvent) && void 0 !== i && i;
-                                return !t || i ? Ti : (i = Uf(n.itemId),
-                                e = pg(e),
-                                i = Dg(!0, o, n, e, d, i, a),
+                                return !t || i ? Ti : (i = Qf(n.itemId),
+                                e = bg(e),
+                                i = Ng(!0, o, n, e, d, i, a),
                                 i = n.variantMediaOptionById(i.variantMediaOption),
-                                fg(r, i))
+                                Tg(r, i))
                             }
                             ), Ra(e=>{
-                                var t = og(d.currentTime, n.discoSeqNum, 0, e, []);
+                                var t = fg(d.currentTime, n.discoSeqNum, 0, e, []);
                                 return null !== (e = null == t ? void 0 : t.foundFrag) && void 0 !== e && e.mediaFragment ? (t = t.foundFrag.mediaFragment,
-                                nn(Sg(r, t.keyTagInfo, {
+                                nn(Og(r, t.keyTagInfo, {
                                     itemId: t.itemId,
                                     mediaOptionId: t.mediaOptionId
-                                }), mg(r, t))) : (a.warn(Vg, "Unable to find fragment for iframe prefetch"),
+                                }), Eg(r, t))) : (a.warn(Wg, "Unable to find fragment for iframe prefetch"),
                                 Ti)
                             }
-                            ), Cs(1), Ua(Ti), Un(e=>(a.error(Vg, `got error ${e.message} in prefetch`),
+                            ), Cs(1), Ua(Ti), Un(e=>(a.error(Wg, `got error ${e.message} in prefetch`),
                             Ti)), $s(()=>{}
                             ))))
                         }(t)))
@@ -30458,7 +30465,7 @@
                                 nextDuration: n.msDuration - this.loadingItem.itemStartOffset
                             };
                             this.itemQueue.updatePlayingItemId(),
-                            this.trigger(P.ITEM_TRANSITIONED, i),
+                            this.trigger(x.ITEM_TRANSITIONED, i),
                             this.rtcService.itemTransitioned(e, t)
                         }
                     }
@@ -30476,41 +30483,36 @@
                     }
                     return nn(...p)
                 }
-                )), c = this.itemQueue.removedItems$.pipe(od(e=>{
+                )), h = this.itemQueue.removedItems$.pipe(od(e=>{
                     var t;
                     t = e,
-                    hg().remove(t),
+                    Sg().remove(t),
                     this.rootPlaylistService.removeItems(e)
                 }
-                )), D = h.getQuery().userSeek$.pipe((b = this.itemQueue,
-                T = this.rootPlaylistService,
-                e=>e.pipe(Up(), Ra(e=>Jr([Bi(e), b.activeItemById$.pipe(Up(), Ra(e=>T.getQueryForId(e.itemId).rootPlaylistEntity$), Cs(1))])), ur(([e,t])=>(T.setPendingSeek(t.itemId, e),
-                e))))), M = h.getQuery().selectEntityAction(To.Add).pipe(Ja(()=>{
+                )), M = p.getQuery().userSeek$.pipe((T = this.itemQueue,
+                E = this.rootPlaylistService,
+                e=>e.pipe(Up(), Ra(e=>Jr([Bi(e), T.activeItemById$.pipe(Up(), Ra(e=>E.getQueryForId(e.itemId).rootPlaylistEntity$), Cs(1))])), ur(([e,t])=>(E.setPendingSeek(t.itemId, e),
+                e))))), P = p.getQuery().selectEntityAction(To.Add).pipe(Ja(()=>{
                     this.logger.warn(`new Hls instance added while old one still active sessionId:${r}`)
                 }
                 ));
-                nn(v.pipe(Un(e=>{
-                    var t;
-                    return e instanceof MediaError && (null === (t = this.rtcService) || void 0 === t || t.handleMediaElementError(e)),
-                    Ti
-                }
-                )), nn(y, D, S, c, u, this.teardownWorker$).pipe(Un(e=>this._handleError(e)))).pipe($s(()=>{
+                nn(S.pipe(Un(()=>Ti)), nn(v, M, b, h, c, this.teardownWorker$).pipe(Un(e=>this._handleError(e)))).pipe($s(()=>{
                     var e, t;
                     try {
                         this.detachMedia(),
-                        this.trigger(P.DESTROYING),
+                        this.trigger(x.DESTROYING),
                         this.playerEvents.destroy(),
                         null === (e = this.accessLogInstance) || void 0 === e || e.destroy(),
                         null === (t = this.rtcService) || void 0 === t || t.destroy(),
-                        hg().clear(),
+                        Sg().clear(),
                         this.rootPlaylistService.removeAll(),
                         this.itemQueue.clearQueue(),
-                        h.removeEntity(this.sessionID)
+                        p.removeEntity(this.sessionID)
                     } catch (e) {
                         this.logger.error(`Got error in finalize ${e.message}`)
                     }
                 }
-                ), $a(hn(this.destroy$, M))).subscribe()
+                ), $a(hn(this.destroy$, P))).subscribe()
             }
             get publicQueries$() {
                 return this.publicQueriesInternal$.pipe(an(e=>Boolean(e) && Boolean(e[0]) && Boolean(e[1])))
@@ -30524,10 +30526,10 @@
                 return null !== (e = null == e ? void 0 : e[1]) && void 0 !== e ? e : null
             }
             static get version() {
-                return "2.141.0"
+                return "2.141.1"
             }
             static get Events() {
-                return P
+                return x
             }
             get Events() {
                 return Vy.Events
@@ -30573,10 +30575,10 @@
                             0 < (null == n ? void 0 : n.len) && (e = $l(this.mediaElementAdapter.mediaQuery.stallInfo$, e=>null != e).pipe(ur(()=>{}
                             )))
                         }
-                        return e.pipe(Ra(()=>(this.trigger(P.ERROR, t),
+                        return e.pipe(Ra(()=>(this.trigger(x.ERROR, t),
                         Ti)))
                     }
-                    this.trigger(P.ERROR, t)
+                    this.trigger(x.ERROR, t)
                 } catch (i) {
                     throw this.logger.error(`Error thrown inside _handleError ${i.message}`, i),
                     i
@@ -30585,7 +30587,7 @@
             }
             updateLiveSeekableRange(e, t) {
                 return e.enabledMediaOptionByType$(ul.Variant).pipe(Ra(e=>{
-                    const t = pg(e);
+                    const t = bg(e);
                     let i = 0;
                     return t.mediaOptionDetailsEntity$.pipe(Up(), an(e=>{
                         var t = null !== e.stats && !1 === e.detailsLoading && e.lastUpdateMillis > i;
@@ -30608,12 +30610,12 @@
                         paused: n.paused,
                         position: n.currentTime,
                         duration: n.duration,
-                        seekableTimeRanges: Kf.timeRangeToArray(n.seekable),
-                        loadedTimeRanges: Kf.timeRangeToArray(n.buffered)
+                        seekableTimeRanges: zf.timeRangeToArray(n.seekable),
+                        loadedTimeRanges: zf.timeRangeToArray(n.buffered)
                     };
                     let e = 0
                       , t = 0;
-                    if (Kf.isHtmlVideoElement(n)) {
+                    if (zf.isHtmlVideoElement(n)) {
                         const o = n.getVideoPlaybackQuality;
                         if (o && typeof o == typeof Function) {
                             const o = n.getVideoPlaybackQuality();
@@ -30623,7 +30625,7 @@
                             t = a.totalVideoFrames - e
                         }
                     } else
-                        Kf.isWebkitMediaElement(n) && (e = a.droppedVideoFrames = n.webkitDroppedFrameCount,
+                        zf.isWebkitMediaElement(n) && (e = a.droppedVideoFrames = n.webkitDroppedFrameCount,
                         t = a.decodedFrameCount = n.webkitDecodedFrameCount);
                     i.enablePerformanceLogging && r.getCombinedMediaSourceBufferInfo(i.maxBufferHole),
                     null === (i = this.rtcService) || void 0 === i || i.handlePlaybackInfo(e, t)
@@ -30661,7 +30663,7 @@
                 const e = this.hlsConfig.trickPlaybackConfig.enabled
                   , t = [0, 1]
                   , i = this._activeRootQuery
-                  , r = hg().getQuery();
+                  , r = Sg().getQuery();
                 return e && i && r.getEntity(i.itemId) && !1 === r.getEntity(i.itemId).liveOrEvent && t.push(8, 24, 48, 96),
                 t
             }
@@ -30682,7 +30684,7 @@
                 null === (r = this.accessLogInstance) || void 0 === r || r.setupReporter(i.appData),
                 null != i && i.platformInfo && this.platformService.updatePlatformInfo(i.platformInfo),
                 this.itemQueue.setQueueItem(`item:${null !== (r = null == i ? void 0 : i.itemId) && void 0 !== r ? r : Jd()}`, e, t, null == i ? void 0 : i.platformInfo, null === (t = null == i ? void 0 : i.appData) || void 0 === t ? void 0 : t.serviceName),
-                Xm().setStartTime(void 0)
+                rg().setStartTime(void 0)
             }
             queueSource(e, t, i) {
                 var r;
@@ -30717,7 +30719,7 @@
                 Object.assign(Object.assign({}, t), {
                     url: oe(e.url)
                 }),
-                this.trigger(P.ITEM_EVICTED, t)) : this.logger.error("dequeueSource called with no playing or loading item")
+                this.trigger(x.ITEM_EVICTED, t)) : this.logger.error("dequeueSource called with no playing or loading item")
             }
             endSource() {
                 this.gaplessCapable = !1,
@@ -30755,21 +30757,21 @@
                 this.teardownWorker$)
             }
             attachMedia(e) {
-                this.trigger(P.MEDIA_ATTACHING, {
+                this.trigger(x.MEDIA_ATTACHING, {
                     media: e
                 }),
                 this.mediaElement$.next(e),
                 this.encryptedMediaElement$.next(e),
-                this.trigger(P.MEDIA_ATTACHED, {
+                this.trigger(x.MEDIA_ATTACHED, {
                     media: e
                 })
             }
             detachMedia() {
                 var e;
-                this.mediaElement$.getValue() && (this.trigger(P.MEDIA_DETACHING),
+                this.mediaElement$.getValue() && (this.trigger(x.MEDIA_DETACHING),
                 null === (e = this.rtcService) || void 0 === e || e.detachMedia(),
                 this.mediaElement$.next(null),
-                this.trigger(P.MEDIA_DETACHED))
+                this.trigger(x.MEDIA_DETACHED))
             }
             handleResolvedUri(e, t) {
                 this.customUrlLoader.setCustomUrlResponse(e, {
@@ -30909,14 +30911,14 @@
                 this.isPreloading && (e > this.loadingItem.itemStartOffset && (this.logger.warn(`[Gapless] Seeking past track boundary oldSeek=${e}, adjustedSeek=${this.loadingItem.itemStartOffset}`),
                 e = this.loadingItem.itemStartOffset),
                 e < this._mediaElementQuery.getBufferInfo(this._mediaElementQuery.currentTime, this.config.maxBufferHole)[0].buffered.start && this.dequeueSource("SeekToUnbufferedTimeRanges")),
-                Xm().setUserSeek(e)
+                rg().setUserSeek(e)
             }
             set seekTo(e) {
                 var t = Number(e);
-                ne(t) ? this.inGaplessMode ? this.gaplessSeekTo(t) : Xm().setUserSeek(t) : this.logger.error(`[seek] got invalid seek value ${e}`)
+                ne(t) ? this.inGaplessMode ? this.gaplessSeekTo(t) : rg().setUserSeek(t) : this.logger.error(`[seek] got invalid seek value ${e}`)
             }
             seekToDate(e) {
-                Xm().setUserSeek(e)
+                rg().setUserSeek(e)
             }
             get availableProgramDateTime() {
                 return new Map(this._currentDateToMediaTimeTuple)
@@ -30925,10 +30927,10 @@
                 if (!this._activeRootQuery)
                     return [];
                 var e = this._activeRootQuery.enabledMediaOptionKeys[ul.Variant];
-                return kl(e) && null !== (e = null === (e = hg().getQueryForOption(e).mediaOptionDetails) || void 0 === e ? void 0 : e.dateMediaTimePairs) && void 0 !== e ? e : []
+                return kl(e) && null !== (e = null === (e = Sg().getQueryForOption(e).mediaOptionDetails) || void 0 === e ? void 0 : e.dateMediaTimePairs) && void 0 !== e ? e : []
             }
             get playingDate() {
-                return Gg(this._currentDateToMediaTimeTuple, this.realCurrentTime)
+                return ey(this._currentDateToMediaTimeTuple, this.realCurrentTime)
             }
             set variantId(e) {}
             set audioSelectedPersistentID(e) {
@@ -31009,7 +31011,7 @@
             get bufferInfo$() {
                 return this.publicQueries$.pipe(Ra(e=>{
                     const [,t] = e
-                      , i = Xm().getQuery().currentConfig;
+                      , i = rg().getQuery().currentConfig;
                     return nn(t.timeupdate$, t.bufferedRangeTuple$).pipe(so(1e3), ur(()=>{
                         var e = t.currentTime;
                         return {
@@ -31034,10 +31036,10 @@
             }
             stopLoad() {}
             get config() {
-                return Object.assign(Object.assign({}, de(Ym())), {
+                return Object.assign(Object.assign({}, de(ng())), {
                     set startPosition(e) {
                         qe().warn(`Setting start position ${null == e ? void 0 : e.toFixed(3)} using deprecated method`),
-                        Xm().setStartTime(e)
+                        rg().setStartTime(e)
                     }
                 })
             }
@@ -31053,4 +31055,3 @@
     "object" == typeof exports && "undefined" != typeof module ? module.exports = t() : "function" == typeof define && define.amd ? define(t) : (e = "undefined" != typeof globalThis ? globalThis : e || jy).Hls = t()
 }(!1);
 //# sourceMappingURL=hls.js.map
-
