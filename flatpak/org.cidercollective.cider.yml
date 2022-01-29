@@ -11,7 +11,7 @@ sdk-extensions:
   - org.freedesktop.Sdk.Extension.node14
 # Electron doesn't use a traditional locale format so separate-locales is useless.
 separate-locales: false
-command: start-electron-webpack-quick-start
+command: cider
 finish-args:
   # These two lines add Xorg access for graphics.
   - '--share=ipc'
