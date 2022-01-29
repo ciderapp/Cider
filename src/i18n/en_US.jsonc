@@ -116,6 +116,7 @@
   "term.reset": "Reset",
   "term.tracks": "tracks", // Assume x amount of tracks. e.g. 50 tracks 
   "term.videos": "Videos", 
+  "term.menu": "Menu",
   
 
   // Home
@@ -180,6 +181,8 @@
   "action.playTracksNext": "Play ${app.selectedMediaItems.length} tracks next",
   "action.playTracksLater": "Play ${app.selectedMediaItems.length} tracks later",
   "action.removeTracks": "Remove ${self.selectedItems.length} tracks from queue",
+  "action.import": "Import",
+  "action.export": "Export",
 
   // Settings - General
   "settings.header.general": "General",

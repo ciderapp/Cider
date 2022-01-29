@@ -116,6 +116,7 @@
   "term.reset": "重設",
   "term.tracks": "首歌曲", // Assume x amount of tracks. e.g. 50 tracks 
   "term.videos": "影片", 
+  "term.menu": "選項", 
 
   // Home
   "home.title": "主頁",

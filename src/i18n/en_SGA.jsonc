@@ -116,6 +116,7 @@
   "term.reset": "∷ᒷϟᒷᒣ",
   "term.tracks": "ᒣ∷ᖋᔮ·ǀ·ϟ", // Assume x amount of tracks. e.g. 50 tracks 
   "term.videos": "⍊╎↸ᒷᒍ",
+  "term.menu": "ᒲᒷ⚍リ", 
   
   // Home
   "home.title": "⍑ᒍᒲᒷ",
