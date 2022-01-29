@@ -11,11 +11,6 @@ jobs:
         os: [macos-latest, ubuntu-latest, windows-latest]
 
     steps:
-      - create-tag: 
-        uses: rickstaa/action-create-tag@v1
-        with:
-          tag: "canary-${{ github.sha }}"
-          message: "https://github.com/ciderapp/Cider/commit/${{ github.sha }}"
 
       - name: Check out Git repository
         uses: actions/checkout@v1
