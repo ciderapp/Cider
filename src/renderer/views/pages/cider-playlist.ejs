@@ -447,7 +447,12 @@
                     let formatted = ''
                     try {formatted = new Intl.DateTimeFormat(this.app.cfg.general.language?.replace('_','-') ?? 'en-US', {day:'numeric',month: 'long', year: 'numeric'}).format(releaseDate);} 
                     catch(e){
-                        formatted = new Intl.DateTimeFormat('en-US', {day:'numeric',month: 'long', year: 'numeric'}).format(releaseDate);
+                        // use the format in json instead
+                        if (this.app.getLz('date.format') != null){
+                            formatted = new this.app.getLz('date.format').replace("${d}", releaseDate.getDate()).replace("${m}", releaseDate.getMonth()).replace("${y}", releaseDate.getFullYear());
+                        } else {
+                            formatted = new Intl.DateTimeFormat('en-US', {day:'numeric',month: 'long', year: 'numeric'}).format(releaseDate);
+                        }
                     }
                     return prefix + formatted
                 } catch (e) {
