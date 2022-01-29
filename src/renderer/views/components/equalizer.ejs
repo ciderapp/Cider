@@ -362,6 +362,7 @@
             },
             applyPreset(preset) {
                 Object.assign(this.$root.cfg.audio.equalizer, preset)
+                this.changePreamp()
                 for (var i = 0; i < 10; i++) {
                     this.changeGain(i)
                     this.changeFreq(i)
