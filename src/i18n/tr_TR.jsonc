@@ -214,6 +214,7 @@
   "settings.header.visual": "Görünüm",
   "settings.header.visual.description": "Cider'in nasıl gözükmesini istediğinizi ayarlayın",
   "settings.option.visual.windowBackgroundStyle": "Uygulama Arka Plan Stili", // Toggle
+  "settings.header.visual.windowBackgroundStyle.image": "Görsel",
   "settings.header.visual.windowBackgroundStyle.none": "Karanlık",
   "settings.header.visual.windowBackgroundStyle.artwork": "Albüm Kapağı",
   "settings.option.visual.animatedArtwork": "Hareketli Albüm Kapakları", // Dropdown
@@ -246,6 +247,7 @@
   "settings.header.connectivity": "Diğer Servisler",
   "settings.header.connectivity.description": "Cider'i diğer servislere bağlayarak deneyiminizi zenginleştirin.",
   "settings.option.connectivity.discordRPC": "Ne Dinlediğimi Discord'da Göster", // Dropdown
+  "settings.option.connectivity.playbackNotifications": "Oynatılan değiştiğinde bildirim göster", // Toggle
   // Refer to term.disabled for the disabled option
   "settings.header.connectivity.discordRPC.cider": "'Cider' Olarak",
   "settings.header.connectivity.discordRPC.appleMusic": "'Apple Music' Olarak",
@@ -285,6 +287,7 @@
   "spatial.down" : "Aşağı",
   "spatial.listener" : "Dinleyici",
   "spatial.audioSource" : "Ses Kaynağı",
+  "spatial.gain" : "Kazanç",
 
   // Settings - Unfinished
   "settings.header.unfinished": "Geliştirme Aşamasında",
@@ -295,5 +298,4 @@
 
   //About
   "about.thanks": "Cider Collective Ekibine ve tüm katkıda bulunanlara çok teşekkür ederiz."
-  
 }
