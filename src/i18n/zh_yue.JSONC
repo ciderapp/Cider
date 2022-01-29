@@ -2,7 +2,7 @@
   
   // i18n Info
   "i18n.languageName": "廣東話（香港﹚", // name of language in native language
-  "i18n.languageNameEnglish": "Yue", // name of language in English
+  "i18n.languageNameEnglish": "Cantonese (Hong Kong)", // name of language in English
   "i18n.category": "main", // main = real language, fun = fun community languages
   "i18n.authors": "@tszngaiyip", // Authors, if you contribute to this file feel free to add your name seperated with a space
 
