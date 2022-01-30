@@ -1,6 +1,6 @@
 <script type="text/x-template" id="audio-settings">
     <template>
-        <div class="modal-fullscreen audiosettings-panel" @click.self="app.resetState()" @contextmenu.self="app.resetState()">
+        <div class="modal-fullscreen addtoplaylist-panel" @click.self="app.resetState()" @contextmenu.self="app.resetState()">
             <div class="modal-window">
                 <div class="modal-header">
                     <div class="modal-title">{{app.getLz('term.audioSettings')}}</div>
@@ -9,10 +9,12 @@
                 <div class="modal-content">
                     <button class="playlist-item"
                             @click="openEqualizer()" style="width:100%;">
+                        <div class="icon"><%- include("../svg/speaker.svg") %></div>
                         <div class="name">{{app.getLz('term.equalizer')}}</div>
                     </button>
                     <button class="playlist-item"
                             @click="openSpacialAudio()" style="width:100%;">
+                        <div class="icon"><%- include("../svg/speaker.svg") %></div>
                         <div class="name">{{app.getLz('settings.option.audio.enableAdvancedFunctionality.audioSpatialization')}}</div>
                     </button>
                 </div>
