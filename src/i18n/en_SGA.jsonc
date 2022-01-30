@@ -99,7 +99,7 @@
   "term.time.second": "ϟᒷᔮᒍリ↸",
   "term.fullscreenView": "⎓⚍|:|:ϟᔮ∷ᒷᒷリ ⍊╎ᒷ∴",
   "term.defaultView": "↸ᒷ⎓ᖋ⚍|:ᒣ ⍊╎ᒷ∴",
-  "term.spacializedAudioSetting": "ϟi!ᖋᔮ╎ᖋ|:╎∩ᒷ↸ ᖋ⚍↸╎ᒍ ϟᒷᒣᒣ╎リ┤",
+  "term.audioSettings": "ᖋ⚍↸╎ᒍ ϟᒷᒣᒣ╎リ┤ϟ",
   "term.clearAll": "ᔮ|:ᒷᖋ∷ ᖋ|:|:",
   "term.recentStations": "∷ᒷᔮᒷリᒣ ϟᒣᖋᒣ╎ᒍリϟ",
   "term.language": "|:ᖋリ┤⚍ᖋ┤ᒷ",
@@ -111,12 +111,14 @@
   "term.ciderTeam": "ᔮ╎↸ᒷ∷ ᒣᒷᖋᒲ",
   "term.developer": "↸ᒷ⍊ᒷ|:ᒍi!ᒷ∷",
   "term.socialTeam": "ϟᒍᔮ╎ᖋ|: ᒣᒷᖋᒲ",
+  "term.socials": "ϟᒍᔮ╎ᖋ|:ϟ",
   "term.contributors": "ᔮᒍリᒣ∷╎ᕊ⚍ᒣᒍ∷ϟ",
   "term.equalizer": "ᒷᑑ⚍ᖋ|:╎∩ᒷ∷",
   "term.reset": "∷ᒷϟᒷᒣ",
   "term.tracks": "ᒣ∷ᖋᔮ·ǀ·ϟ", // Assume x amount of tracks. e.g. 50 tracks 
   "term.videos": "⍊╎↸ᒷᒍ",
   "term.menu": "ᒲᒷ⚍リ", 
+  "term.showAlbum": "ϟ⍑ᒍ∴ ᔮᒍᒲi!|:ᒷᒣᒷ ᖋ|:ᕊ⚍ᒲ",
   
   // Home
   "home.title": "⍑ᒍᒲᒷ",
@@ -155,6 +157,7 @@
   "action.removeFromQueue": "∷ᒷᒲᒍ⍊ᒷ ⎓∷ᒍᒲ ᑑ⚍ᒷ⚍ᒷ",
   "action.removeFromQueue.success": "∷ᒷᒲᒍ⍊ᒷ↸ ⎓∷ᒍᒲ ᑑ⚍ᒷ⚍ᒷ",
   "action.removeFromQueue.error": "ᒷ∷∷ᒍ∷ ∷ᒷᒲᒍ⍊╎リ┤ ⎓∷ᒍᒲ ᑑ⚍ᒷ⚍ᒷ",
+  "action.createPlaylist": "ᔮ∷ᒷᖋᒣᒷ i!|:ᖋ॥|:╎ϟᒣ",
   "action.addToPlaylist": "ᖋ↸↸ ᒣᒍ i!|:ᖋ॥|:╎ϟᒣ",
   "action.removeFromPlaylist": "∷ᒷᒲᒍ⍊ᒷ ⎓∷ᒍᒲ i!|:ᖋ॥|:╎ϟᒣ",
   "action.addToFavorites": "ᖋ↸↸ ᒣᒍ ⎓ᖋ⍊ᒍ∷╎ᒣᒷϟ",
@@ -176,7 +179,7 @@
   "action.unlove": "⚍リ|:ᒍ⍊ᒷ",
   "action.dislike": "↸╎ϟ|:╎·ǀ·ᒷ",
   "action.undoDislike": "⚍リ↸ᒍ ↸╎ϟ|:╎·ǀ·ᒷ",
-  "action.showWebRemoteQR": "ϟ⍑ᒍ∴ ∴ᒷᕊ ∷ᒷᒲᒍᒣᒷ ᑑ∷",
+  "action.showWebRemoteQR": "∴ᒷᕊ ∷ᒷᒲᒍᒣᒷ",
   "action.playTracksNext": "i!|:ᖋ॥ ${app.selectedMediaItems.length} ᒣ∷ᖋᔮ·ǀ·ϟ リᒷ/ᒣ",
   "action.playTracksLater": "i!|:ᖋ॥ ${app.selectedMediaItems.length} ᒣ∷ᖋᔮ·ǀ·ϟ |:ᖋᒣᒷ∷",
   "action.removeTracks": "∷ᒷᒲᒍ⍊ᒷ ${self.selectedItems.length} ᒣ∷ᖋᔮ·ǀ·ϟ ⎓∷ᒍᒲ ᑑ⚍ᒷ⚍ᒷ",
@@ -244,6 +247,7 @@
   "settings.header.connectivity": "ᔮᒍリリᒷᔮᒣ╎⍊╎ᒣ॥",
   "settings.header.connectivity.description": "ᖋ↸⋮⚍ϟᒣ ᒣ⍑ᒷ ᔮᒍリリᒷᔮᒣ╎⍊╎ᒣ॥ ϟᒷᒣᒣ╎リ┤ϟ ⎓ᒍ∷ ᔮ╎↸ᒷ∷.",
   "settings.option.connectivity.discordRPC": "↸╎ϟᔮᒍ∷↸ ∷╎ᔮ⍑ i!∷ᒷϟᒷリᔮᒷ", // Dropdown
+  "settings.option.connectivity.playbackNotifications": "i!|:ᖋ॥ᕊᖋᔮ·ǀ· リᒍᒣ╎⎓╎ᔮᖋᒣ╎ᒍリϟ", // Toggle
   // Refer to term.disabled for the disabled option
   "settings.header.connectivity.discordRPC.cider": "↸╎ϟi!|:ᖋ॥ ᖋϟ 'ᔮ╎↸ᒷ∷'",
   "settings.header.connectivity.discordRPC.appleMusic": "↸╎ϟi!|:ᖋ॥ ᖋϟ 'ᖋi!i!|:ᒷ ᒲ⚍ϟ╎ᔮ'",
