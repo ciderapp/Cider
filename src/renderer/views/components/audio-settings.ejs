@@ -39,8 +39,12 @@
                 app.modals.audioSettings = false
             },
             openSpacialAudio() {
-                app.modals.spatialProperties = true
-                app.modals.audioSettings = false
+                if(app.cfg.audio.spatial) {
+                    app.modals.spatialProperties = true
+                    app.modals.audioSettings = false
+                } else {
+                    notyf.error(app.getLz('spatial.notTurnedOn'))
+                }
             },
         }
     });
