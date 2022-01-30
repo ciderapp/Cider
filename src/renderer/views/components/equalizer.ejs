@@ -5,7 +5,7 @@
                 <div class="modal-title">{{$root.getLz('term.equalizer')}}</div>
                 <button class="close-btn" @click="close()"></button>
                 <div class="md-option-segment md-option-segment_auto">
-                    <select class="md-select" style="width:220px;text-align:center;margin-right:16.75em" v-model="$root.cfg.audio.equalizer.preset" v-on:change="changePreset($root.cfg.audio.equalizer.preset)">
+                    <select class="md-select" style="width:220px;text-align:center;margin-right:19.75em" v-model="$root.cfg.audio.equalizer.preset" v-on:change="changePreset($root.cfg.audio.equalizer.preset)">
                         <optgroup label="User Presets">
                             <option v-for="preset in $root.cfg.audio.equalizer.presets" :value="preset.preset">{{preset.name}}</option>
                         </optgroup>
@@ -18,6 +18,11 @@
             <div class="modal-content">
                 <!-- BANDS = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000]; -->
                 <div class="inputs-container">
+                    <div class="input-container mini">
+                        {{$root.cfg.audio.equalizer.smoothbass}}
+                        <input tabindex="0" type="range" class="eq-slider mini" orient="vertical" min="-10" max="10" step="1" v-model="$root.cfg.audio.equalizer.smoothbass" @change="changeSmoothBass()">
+                        Smooth Bass
+                    </div>
                     <div class="input-container mini">
                         <input tabindex="0" type="number" class="eq-freq" orient="vertical" min="-12" max="12" step="0.1" v-model="$root.cfg.audio.equalizer.preamp" @change="changePreamp()">
                         <input tabindex="0" type="range" class="eq-slider mini" orient="vertical" min="-12" max="12" step="0.1" v-model="$root.cfg.audio.equalizer.preamp" @change="changePreamp()">
