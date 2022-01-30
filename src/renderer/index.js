@@ -2003,7 +2003,7 @@ const app = new Vue({
                         app.mk.api.v3.music(`/v1/me/library/artists/`, safeparams).then((response) => {
                             processChunk(response.data)
                         }).catch((error) => {console.log('safe loading failed', error)                    
-                        app.library.songs.downloadState = 2
+                        app.library.artists.downloadState = 2
                         app.library.backgroundNotification.show = false})
                     })
 
@@ -2016,7 +2016,7 @@ const app = new Vue({
                             app.mk.api.v3.music(downloaded.next, safeparams).then((response) => {
                                 processChunk(response.data)
                             }).catch((error) => {console.log('safe loading failed', error)                    
-                            app.library.songs.downloadState = 2
+                            app.library.artists.downloadState = 2
                             app.library.backgroundNotification.show = false})
                         })
                     } else {
