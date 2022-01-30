@@ -183,7 +183,7 @@
   "action.removeTracks": "Sıradan ${self.selectedItems.length} adet şarkıyı kaldır",
   "action.import": "Import",
   "action.export": "Export",
-  "term.showAlbum": "Tüm Albümü Göster",
+  "action.showAlbum": "Tüm Albümü Göster",
 
   // Settings - General (Reserved)
   "settings.header.general": "Genel Ayarlar",
