@@ -110,8 +110,8 @@
   "term.sponsor": "Támogasd ezt a projektet",
   "term.ciderTeam": "A Cider Csapata",
   "term.developer": "Fejlesztő",
-  "term.socialTeam": "Social Team",
-  "term.contributors": "Contributors",
+  "term.socialTeam": "Közösségi csapat",
+  "term.contributors": "Hozzájárulók",
   "term.equalizer": "Equalizer",
   "term.reset": "Reset",
   "term.tracks": "zeneszám", // Assume x amount of tracks. e.g. 50 tracks 
@@ -184,14 +184,14 @@
   "action.export": "Exportálás",
 
   // Settings - General
-  "settings.header.general": "General",
-  "settings.header.general.description": "Adjust the general settings for Cider.",
-  "settings.option.general.language": "Language",
+  "settings.header.general": "Általános",
+  "settings.header.general.description": "A Cider általános beállításainak módosítása.",
+  "settings.option.general.language": "Nyelv",
 
   // Language optgroups
-  "settings.option.general.language.main": "Languages",
-  "settings.option.general.language.fun": "Fun Languages",
-  "settings.option.general.language.unsorted": "Unsorted",
+  "settings.option.general.language.main": "Nyelvek",
+  "settings.option.general.language.fun": "Fantázianyelvek",
+  "settings.option.general.language.unsorted": "Azonosítatlan",
   
   // Settings - Audio
   "settings.header.audio": "Hang",
@@ -211,7 +211,7 @@
   "settings.header.visual": "Vizuális", 
   "settings.header.visual.description": "A Cider vizuális beállításainak módosítása.",
   "settings.option.visual.windowBackgroundStyle": "Ablak háttér stílusa", // Toggle
-  "settings.header.visual.windowBackgroundStyle.none": "None",
+  "settings.header.visual.windowBackgroundStyle.none": "Sehol",
   "settings.header.visual.windowBackgroundStyle.artwork": "Borító",
   "settings.header.visual.windowBackgroundStyle.image": "Kép",
   "settings.option.visual.animatedArtwork": "Animált borító", // Dropdown
@@ -282,7 +282,7 @@
   "spatial.right" : "Jobbra",
   "spatial.back" : "Hátul",
   "spatial.down" : "Lent",
-  "spatial.listener" : "Listener",
+  "spatial.listener" : "Hallgató",
   "spatial.audioSource" : "Audio Source",
   
   // Settings - Unfinished
