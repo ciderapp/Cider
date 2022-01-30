@@ -6,7 +6,7 @@ export class ConfigStore {
 
     private defaults: any = {
         "general": {
-            "close_behavior": 0, // 0 = close, 1 = minimize, 2 = minimize to tray
+            "close_button_hide": true,
             "open_on_startup": false,
             "discord_rpc": 1, // 0 = disabled, 1 = enabled as Cider, 2 = enabled as Apple Music
             "discord_rpc_clear_on_pause": true,

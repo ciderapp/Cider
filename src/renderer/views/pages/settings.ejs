@@ -598,20 +598,10 @@
                 </div>
                 <div class="md-option-line">
                     <div class="md-option-segment">
-                        {{$root.getLz("settings.option.experimental.closeButtonBehaviour")}}
+                        {{$root.getLz("settings.option.experimental.close_button_hide")}}
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <select class="md-select" v-model="app.cfg.general.close_behavior" @change="sendDataToMTT()">
-                            <option value="0">
-                                {{$root.getLz("settings.option.experimental.closeButtonBehaviour.quit")}}
-                            </option>
-                            <option value="1">
-                                {{$root.getLz("settings.option.experimental.closeButtonBehaviour.minimizeTaskbar")}}
-                            </option>
-                            <option value="2">
-                                {{$root.getLz("settings.option.experimental.closeButtonBehaviour.minimizeTray")}}
-                            </option>
-                        </select>
+                        <input type="checkbox" v-model="app.cfg.general.close_button_hide" switch/>
                     </div>
                 </div>
             </div>

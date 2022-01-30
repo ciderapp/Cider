@@ -263,10 +263,7 @@
   "settings.header.experimental": "Experimental",
   "settings.header.experimental.description": "Adjust the experimental settings for Cider.",
   "settings.option.experimental.compactUI": "Compact UI", // Toggle
-  "settings.option.experimental.closeButtonBehaviour": "Close Button Behavior",
-  "settings.option.experimental.closeButtonBehaviour.quit": "Quit Cider",
-  "settings.option.experimental.closeButtonBehaviour.minimizeTaskbar": "Minimize to Taskbar",
-  "settings.option.experimental.closeButtonBehaviour.minimizeTray": "Minimize to Tray",
+  "settings.option.experimental.close_button_hide": "Close Button Should Hide the Application",
   // Refer to term.disabled & term.enabled
 
   // Spatialization Menu
