@@ -12,8 +12,8 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
-          name: Install yarn
-          command: sudo npm install -g yarn
+          name: Update yarn
+          command: sudo npm upgrade -g yarn
       - run:
           name: Install Dependencies
           command: yarn install
