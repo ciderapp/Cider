@@ -473,6 +473,46 @@ const app = new Vue({
         promptAddToPlaylist() {
             app.modals.addToPlaylist = true;
         },
+        async addSelectedToNewPlaylist() {
+            let self = this
+            let pl_items = []
+            for (let i = 0; i < self.selectedMediaItems.length; i++) {
+                if (self.selectedMediaItems[i].kind == "song" || self.selectedMediaItems[i].kind == "songs") {
+                    self.selectedMediaItems[i].kind = "songs"
+                    pl_items.push({
+                        id: self.selectedMediaItems[i].id,
+                        type: self.selectedMediaItems[i].kind
+                    })
+                } else if ((self.selectedMediaItems[i].kind == "album" || self.selectedMediaItems[i].kind == "albums") && self.selectedMediaItems[i].isLibrary != true) {
+                    self.selectedMediaItems[i].kind = "albums"
+                    let res = await self.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/albums/${self.selectedMediaItems[i].id}/tracks`);
+                    let ids = res.data.data.map(function (i) {
+                        return {id: i.id, type: i.type}
+                    })
+                    pl_items = pl_items.concat(ids)
+                } else if (self.selectedMediaItems[i].kind == "library-song" || self.selectedMediaItems[i].kind == "library-songs") {
+                    self.selectedMediaItems[i].kind = "library-songs"
+                    pl_items.push({
+                        id: self.selectedMediaItems[i].id,
+                        type: self.selectedMediaItems[i].kind
+                    })
+                } else if ((self.selectedMediaItems[i].kind == "library-album" || self.selectedMediaItems[i].kind == "library-albums") || (self.selectedMediaItems[i].kind == "album" && self.selectedMediaItems[i].isLibrary == true)) {
+                    self.selectedMediaItems[i].kind = "library-albums"
+                    let res = await self.mk.api.v3.music(`/v1/me/library/albums/${self.selectedMediaItems[i].id}/tracks`);
+                    let ids = res.data.data.map(function (i) {
+                        return {id: i.id, type: i.type}
+                    })
+                    pl_items = pl_items.concat(ids)
+                } else {
+                    pl_items.push({
+                        id: self.selectedMediaItems[i].id,
+                        type: self.selectedMediaItems[i].kind
+                    })
+                }
+            }
+            this.modals.addToPlaylist = false
+            app.newPlaylist("New Playlist", pl_items)
+        },
         async addSelectedToPlaylist(playlist_id) {
             let self = this
             let pl_items = []
