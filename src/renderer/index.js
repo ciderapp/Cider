@@ -3533,22 +3533,8 @@ const app = new Vue({
             }
         },
         closeWindow(){
-            switch (app.cfg.general.close_behavior) {
-                case 0:
-                case '0':
-                    // the minimizeToTray plugin will handle this
-                    window.close();
-                    break;
-                case 1:
-                case '1':
-                    ipcRenderer.send('minimize');
-                    break;
-                case 2:
-                case '2':
-                    ipcRenderer.send('minimizeTray');
-                    break;
-
-            }
+            // window.close doesnt call the win "close" event for some reason
+            ipcRenderer.send('win-close');
         }
     }  
     

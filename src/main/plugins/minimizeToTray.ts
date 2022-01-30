@@ -119,10 +119,19 @@ export default class MinimizeToTray {
                 }
             }
         }) 
-        electron.ipcMain.on("minimizeTray", (event, value) => {
-            // listen for close event
-            this._win.hide();
-            this.SetContextMenu(false);
+        electron.ipcMain.handle("update-store-mtt", (event, value) => {
+            this._store.general["close_behavior"] = value;
+        }) 
+        electron.ipcMain.on("win-close", (event, value) => {
+            console.log("tray", this._store.general["close_behavior"] )
+            if (this._forceQuit || this._store.general["close_behavior"] == '0'  ) {
+                this._app.quit();
+            } else if (this._store.general["close_behavior"] == '1') {
+                this._win.minimize();
+            } else {
+                this._win.hide();
+                this.SetContextMenu(false);
+            }
         });
         this._win.on("close", (e :any) => {
             if (this._forceQuit || this._store.general["close_behavior"] == '0'  ) {
