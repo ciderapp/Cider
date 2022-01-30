@@ -12,9 +12,7 @@
   <a target="_blank" href="https://twitter.com/UseCider"><img src="https://img.shields.io/twitter/follow/UseCider?label=Twitter&color=%231DA1F2&logo=twitter&style=flat" alt="Twitter"/></a>
   <a target="_blank" href="https://reddit.com/r/applemusicelectron"><img src="https://custom-icon-badges.herokuapp.com/reddit/subreddit-subscribers/applemusicelectron?label=Reddit&color=FF5700&logo=redditnew" alt="Reddit"/></a>
   <br><br>
-  <img src="https://github.com/ciderapp/Cider/actions/workflows/build-analyze-win.yml/badge.svg" alt="Windows Build Status"/>
-  <img src="https://github.com/ciderapp/Cider/actions/workflows/build-analyze-linux.yml/badge.svg" alt="Linux Build Status"/>
-  <img src="https://github.com/ciderapp/Cider/actions/workflows/build-analyze-macos.yml/badge.svg" alt="macOS Build Status"/>
+  <a href="https://circleci.com/gh/ciderapp/Cider/tree/main"><img src="https://circleci.com/gh/ciderapp/Cider/tree/main.svg?style=svg" alt="CircleCI Status"/></a>
 </p>
 
 #### Links
