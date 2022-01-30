@@ -24,7 +24,7 @@ jobs:
           name: Install system build dependencies
           command: |
             sudo apt-get update -y
-            sudo apt-get install -y dpkg fakeroot wine64
+            sudo apt-get install -y dpkg fakeroot wine64 rpm
 
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
