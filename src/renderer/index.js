@@ -1786,16 +1786,33 @@ const app = new Vue({
                     "fields[songs]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,name,playParams,releaseDate,url",
                     limit: 100,
                 }
+                const safeparams = {
+                    "platform": "web",
+                    "limit": 80,
+                }
                 self.library.songs.downloadState = 1
                 if (downloaded == null) {
                     app.mk.api.v3.music(`/v1/me/library/songs/`, params).then((response) => {
                         processChunk(response.data)
+                    }).catch((error) => {
+                        console.log('safe loading');
+                        app.mk.api.v3.music(`/v1/me/library/songs/`, safeparams).then((response) => {
+                            processChunk(response.data)
+                        }).catch((error) => {console.log('safe loading failed', error)                    
+                        app.library.songs.downloadState = 2
+                        app.library.backgroundNotification.show = false})
                     })
                 } else {
-
                     if (downloaded.next != null) {
                         app.mk.api.v3.music(downloaded.next, params).then((response) => {
                             processChunk(response.data)
+                        }).catch((error) => {
+                            console.log('safe loading');
+                            app.mk.api.v3.music(downloaded.next, safeparams).then((response) => {
+                                processChunk(response.data)
+                            }).catch((error) => {console.log('safe loading failed', error)                    
+                            app.library.songs.downloadState = 2
+                            app.library.backgroundNotification.show = false})
                         })
                     } else {
                         console.log("Download next", downloaded.next)
@@ -1868,14 +1885,38 @@ const app = new Vue({
                     "fields[albums]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,name,playParams,releaseDate,url",
                     limit: 100,
                 }
+                const safeparams = {
+                    platform: "web",
+                    limit: "60",
+                    "include[library-albums]": "artists",
+                    "include[library-artists]": "catalog",
+                    "include[albums]": "artists",
+                    "fields[artists]": "name,url",
+                    "fields[albums]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,name,playParams,releaseDate,url",
+                    "includeOnly": "catalog,artists"
+                }
                 if (downloaded == null) {
                     app.mk.api.v3.music(`/v1/me/library/albums/`, params).then((response) => {
                         processChunk(response.data)
+                    }).catch((error) => {
+                        console.log('safe loading');
+                        app.mk.api.v3.music(`/v1/me/library/albums/`, safeparams).then((response) => {
+                            processChunk(response.data)
+                        }).catch((error) => {console.log('safe loading failed', error)                    
+                        app.library.albums.downloadState = 2
+                        app.library.backgroundNotification.show = false})
                     })
                 } else {
                     if (downloaded.next != null) {
                         app.mk.api.v3.music(downloaded.next, params).then((response) => {
                             processChunk(response.data)
+                        }).catch((error) => {
+                            console.log('safe loading');
+                            app.mk.api.v3.music(downloaded.next, safeparams).then((response) => {
+                                processChunk(response.data)
+                            }).catch((error) => {console.log('safe loading failed', error);
+                            app.library.albums.downloadState = 2
+                            app.library.backgroundNotification.show = false})
                         })
                     } else {
                         console.log("Download next", downloaded.next)
@@ -1949,15 +1990,34 @@ const app = new Vue({
                     // "fields[artists]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,name,playParams,releaseDate,url",
                     limit: 100,
                 }
+                const safeparams = {
+                    include: "catalog",
+                    platform: "web",
+                    limit: 50,
+                }
                 if (downloaded == null) {
                     app.mk.api.v3.music(`/v1/me/library/artists/`, params).then((response) => {
                         processChunk(response.data)
+                    }).catch((error) => {
+                        console.log('safe loading');
+                        app.mk.api.v3.music(`/v1/me/library/artists/`, safeparams).then((response) => {
+                            processChunk(response.data)
+                        }).catch((error) => {console.log('safe loading failed', error)                    
+                        app.library.songs.downloadState = 2
+                        app.library.backgroundNotification.show = false})
                     })
 
                 } else {
                     if (downloaded.next != null) {
                         app.mk.api.v3.music(downloaded.next, params).then((response) => {
                             processChunk(response.data)
+                        }).catch((error) => {
+                            console.log('safe loading');
+                            app.mk.api.v3.music(downloaded.next, safeparams).then((response) => {
+                                processChunk(response.data)
+                            }).catch((error) => {console.log('safe loading failed', error)                    
+                            app.library.songs.downloadState = 2
+                            app.library.backgroundNotification.show = false})
                         })
                     } else {
                         console.log("Download next", downloaded.next)
