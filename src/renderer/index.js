@@ -997,7 +997,7 @@ const app = new Vue({
         },
         deletePlaylist(id) {
             let self = this
-            if (confirm(`Are you sure you want to delete this playlist?`)) {
+            if (confirm(app.getLz('term.deletePlaylist'))) {
                 app.mk.api.v3.music(`/v1/me/library/playlists/${id}`, {}, {
                     fetchOptions: {
                         method: "DELETE"
