@@ -99,7 +99,7 @@
   "term.time.second": "秒",
   "term.fullscreenView": "全螢幕檢視",
   "term.defaultView": "一般檢視",
-  "term.spacializedAudioSetting": "空間音訊設定",
+  "term.audioSetting": "音訊設定",
   "term.clearAll": "清空",
   "term.recentStations": "最近播放的頻道",
   "term.language": "語言",
@@ -111,12 +111,14 @@
   "term.ciderTeam": "Cider 團隊",
   "term.developer": "開發者",
   "term.socialTeam": "社交團隊",
+  "term.socials": "社群",
   "term.contributors": "貢獻者",
   "term.equalizer": "均衡器",
   "term.reset": "重設",
   "term.tracks": "首歌曲", // Assume x amount of tracks. e.g. 50 tracks 
   "term.videos": "影片", 
   "term.menu": "選項", 
+  "term.showAlbum": "顯示完整的專輯",
 
   // Home
   "home.title": "主頁",
@@ -155,6 +157,7 @@
   "action.removeFromQueue": "從待播清單刪除",
   "action.removeFromQueue.success": "已從待播清單刪除",
   "action.removeFromQueue.error": "從待播清單刪除的過程中發生錯誤",
+  "action.createPlaylist": "新增播放清單",
   "action.addToPlaylist": "加至播放列表",
   "action.removeFromPlaylist": "從播放列表刪除",
   "action.addToFavorites": "加至收藏",
@@ -176,7 +179,7 @@
   "action.unlove": "取消喜愛",
   "action.dislike": "減少此類建議",
   "action.undoDislike": "還原減小此類建議",
-  "action.showWebRemoteQR": "顯示遙距控制二維碼",
+  "action.showWebRemoteQR": "遙距控制",
   "action.playTracksNext": "插播 ${app.selectedMediaItems.length} 首歌曲",
   "action.playTracksLater": "稍後播放 ${app.selectedMediaItems.length} 首歌曲",
   "action.removeTracks": "從待播清單刪除 ${self.selectedItems.length} 首歌曲",
@@ -244,6 +247,7 @@
   "settings.header.connectivity": "外部連結",
   "settings.header.connectivity.description": "調整Cider與外部的連結",
   "settings.option.connectivity.discordRPC": "Discord 狀態", // Dropdown
+  "settings.option.connectivity.playbackNotifications": "播放通知", // Toggle
   // Refer to term.disabled for the disabled option
   "settings.header.connectivity.discordRPC.cider": "顯示為'Cider'",
   "settings.header.connectivity.discordRPC.appleMusic": "顯示為'Apple Music'",
