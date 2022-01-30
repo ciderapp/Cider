@@ -300,6 +300,7 @@ const app = new Vue({
             spatialProperties: false,
             qrcode: false,
             equalizer: false,
+            audioSettings: false,
         },
         socialBadges: {
             badgeMap: {},

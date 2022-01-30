@@ -246,42 +246,12 @@
                                         </div>
                                     </div>
                                 </button>
-                                <button class="usermenu-item" @click="toggleHideUserInfo()">
-                                    <div class="row nopadding">
-                                        <div class="col nopadding">
-                                            {{$root.getLz('settings.option.visual.showPersonalInfo')}}
-                                        </div>
-                                        <div class="col-auto nopadding" v-if="!chrome.hideUserInfo">
-                                            ✔️
-                                        </div>
-                                    </div>
-                                </button>
-                                <button class="usermenu-item" @click="mk.privateEnabled = !mk.privateEnabled">
-                                    <div class="row nopadding">
-                                        <div class="col nopadding">
-                                            {{$root.getLz('term.privateSession')}}
-                                        </div>
-                                        <div class="col-auto nopadding" v-if="mk.privateEnabled">
-                                            ✔️
-                                        </div>
-                                    </div>
-                                </button>
                                 <button class="usermenu-item" v-if="cfg.advanced.AudioContext"
-                                @click="modals.equalizer = true">
-                                    {{$root.getLz('term.equalizer')}}
-                                </button>
-                                <button class="usermenu-item" v-if="cfg.advanced.AudioContext && cfg.audio.spatial"
-                                        @click="modals.spatialProperties = true">
-                                    {{$root.getLz('term.spacializedAudioSetting')}}
-                                </button>
-                                <button class="usermenu-item" @click="appRoute('apple-account-settings')">
-                                    {{$root.getLz('term.accountSettings')}}
+                                        @click="modals.audioSettings = true">
+                                    {{$root.getLz('term.audioSettings')}}
                                 </button>
                                 <button class="usermenu-item" @click="appRoute('about')">
                                     {{$root.getLz('term.about')}}
-                                </button>
-                                <button class="usermenu-item" @click="window.open('https://discord.gg/applemusic')">
-                                    {{$root.getLz('term.discord')}}
                                 </button>
                                 <button class="usermenu-item" @click="appRoute('settings')">
                                     {{$root.getLz('term.settings')}}
@@ -632,6 +602,9 @@
         <spatial-properties v-if="modals.spatialProperties"></spatial-properties>
     </transition>
     <transition name="modal">
+        <audio-settings v-if="modals.audioSettings"></audio-settings>
+    </transition>
+    <transition name="modal">
         <eq-view v-if="modals.equalizer"></eq-view>
     </transition>
     <transition name="modal">
@@ -744,6 +717,9 @@
 %>
 <!-- Spatial Properties -->
 <%- include('components/spatial-properties') 
+%>
+<!-- Audio Settings -->
+<%- include('components/audio-settings')
 %>
 <!-- QRCode Modal -->
 <%- include('components/qrcode-modal') 
