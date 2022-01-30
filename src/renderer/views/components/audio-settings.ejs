@@ -35,10 +35,12 @@
         mounted() {},
         methods: {
             openEqualizer() {
-
+                app.modals.equalizer = true
+                app.modals.audioSettings = false
             },
             openSpacialAudio() {
-
+                app.modals.spatialProperties = true
+                app.modals.audioSettings = false
             },
         }
     });
