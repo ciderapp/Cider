@@ -1,6 +1,26 @@
 <script type="text/x-template" id="cider-settings">
     <div class="content-inner settings-page">
-        <div class="md-option-container">
+        <div class="md-option-container">  
+            <div class="md-option-header">
+                <span>{{$root.getLz('settings.header.general')}}</span>
+            </div>
+            <div class="settings-option-body">
+                <div class="md-option-line">
+                    <div class="md-option-segment md-option-segment_auto">
+                        <button class="md-btn" @click="app.appRoute('apple-account-settings')">
+                            {{$root.getLz('term.accountSettings')}}
+                        </button>
+                    </div>
+                </div>
+                <div class="md-option-line">
+                    <div class="md-option-segment">
+                        {{$root.getLz('term.privateSession')}}
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <input type="checkbox" v-model="app.mk.privateEnabled" switch/>
+                    </div>
+                </div>
+            </div>
             <div class="md-option-header">
                 <span>{{$root.getLz('settings.header.audio')}}</span>
             </div>
@@ -557,12 +577,7 @@
                         {{$root.getLz('settings.option.experimental.compactUI')}}
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <button class="md-btn"
-                                :class="{'md-btn-primary': app.cfg.advanced.experiments.includes('compactui')}"
-                                @click="app.cfg.advanced.experiments.includes('compactui') ? removeExperiment('compactui') : addExperiment('compactui')">
-                            {{app.cfg.advanced.experiments.includes('compactui') ? $root.getLz('term.disabled') :
-                            $root.getLz('term.enabled')}}
-                        </button>
+                        <input type="checkbox" v-model="app.cfg.advanced.experiments.includes('compactui')" @click="app.cfg.advanced.experiments.includes('compactui') ? removeExperiment('compactui') : addExperiment('compactui')" switch/>
                     </div>
                 </div>
 
