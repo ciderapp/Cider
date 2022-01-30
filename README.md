@@ -15,8 +15,6 @@
   <a href="https://circleci.com/gh/ciderapp/Cider/tree/main"><img src="https://circleci.com/gh/ciderapp/Cider/tree/main.svg?style=svg" alt="CircleCI Status"/></a>
 </p>
 
-[![CircleCI](https://circleci.com/gh/ciderapp/Cider/tree/main.svg?style=svg)](https://circleci.com/gh/ciderapp/Cider/tree/main)
-
 #### Links
 * [Wiki](https://github.com/ciderapp/Cider/wiki)
 * [Request Feature](https://github.com/ciderapp/Cider/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=%5BEnhancement%5D)
