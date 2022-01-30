@@ -250,14 +250,6 @@
                                         @click="modals.audioSettings = true">
                                     {{$root.getLz('term.audioSettings')}}
                                 </button>
-                                <button class="usermenu-item" v-if="cfg.advanced.AudioContext"
-                                @click="modals.equalizer = true">
-                                    {{$root.getLz('term.equalizer')}}
-                                </button>
-                                <button class="usermenu-item" v-if="cfg.advanced.AudioContext && cfg.audio.spatial"
-                                        @click="modals.spatialProperties = true">
-                                    {{$root.getLz('term.spacializedAudioSetting')}}
-                                </button>
                                 <button class="usermenu-item" @click="appRoute('about')">
                                     {{$root.getLz('term.about')}}
                                 </button>
