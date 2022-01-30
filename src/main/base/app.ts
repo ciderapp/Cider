@@ -14,6 +14,7 @@ export class AppEvents {
     private store: any = undefined;
     private win: any = undefined;
     private tray: any = undefined;
+    private i18n: any = undefined;
 
     constructor(store: any) {
         this.store = store
@@ -112,8 +113,9 @@ export class AppEvents {
         console.log('[AppEvents] App ready');
     }
 
-    public bwCreated(win: Electron.BrowserWindow) {
+    public bwCreated(win: Electron.BrowserWindow, i18n: any) {
         this.win = win
+        this.i18n = i18n
 
         electron.app.on('open-url', (event, url) => {
             event.preventDefault()
@@ -226,6 +228,7 @@ export class AppEvents {
                 height: 20
             }),
         }
+        console.log(this.i18n)
 
         this.tray = new electron.Tray(process.platform === 'win32' ? icons.win32 : (process.platform === 'darwin' ? icons.darwin : icons.linux))
         this.tray.setToolTip(electron.app.getName())
@@ -266,7 +269,7 @@ export class AppEvents {
 
         const menu = electron.Menu.buildFromTemplate([
             {
-                label: (visible ? 'Minimize to Tray' : `Show ${electron.app.getName()}`),
+                label: (visible ? this.i18n['action.tray.minimize'] : `${this.i18n['action.tray.show']} ${electron.app.getName()}`),
                 click: () => {
                     if (this.win) {
                         if (visible) {
@@ -278,7 +281,7 @@ export class AppEvents {
                 }
             },
             {
-                label: 'Quit',
+                label: this.i18n['action.tray.quit'],
                 click: () => {
                     electron.app.quit()
                 }

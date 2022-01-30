@@ -32,7 +32,7 @@ electron.app.on('ready', () => {
 
     electron.components.whenReady().then(async () => {
         win = await Cider.createWindow()
-        App.bwCreated(win);
+        App.bwCreated(win, Cider.i18n);
         /// please dont change this for plugins to get proper and fully initialized Win objects
         plug.callPlugins('onReady', win);
         win.on("ready-to-show", () => {

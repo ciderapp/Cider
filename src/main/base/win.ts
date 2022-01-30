@@ -19,6 +19,7 @@ export class Win {
     private app: any | undefined = null;
     private store: any | undefined = null;
     private devMode: boolean = !electron.app.isPackaged;
+    public i18n: any = {};
 
     constructor(app: electron.App, store: any) {
         this.app = app;
@@ -288,18 +289,29 @@ export class Win {
             event.returnValue = process.platform;
         });
 
+        let i18nBase = fs.readFileSync(path.join(__dirname, "../../src/i18n/en_US.jsonc"), "utf8");
+        i18nBase = jsonc.parse(i18nBase)
+        try {
+            let i18n = fs.readFileSync(path.join(__dirname, `../../src/i18n/${this.store.general.language}.jsonc`), "utf8");
+            i18n = jsonc.parse(i18n)
+            this.i18n = Object.assign(i18nBase, i18n)
+        } catch (e) {
+            console.error(e);
+        }
+
         electron.ipcMain.on("get-i18n", (event, key) => {
             let i18nBase = fs.readFileSync(path.join(__dirname, "../../src/i18n/en_US.jsonc"), "utf8");
             i18nBase = jsonc.parse(i18nBase)
             try {
                 let i18n = fs.readFileSync(path.join(__dirname, `../../src/i18n/${key}.jsonc`), "utf8");
                 i18n = jsonc.parse(i18n)
-                Object.assign(i18nBase, i18n)
+                this.i18n = Object.assign(i18nBase, i18n)
             } catch (e) {
                 console.error(e);
                 event.returnValue = e;
             }
-
+            
+            this.i18n = i18nBase;
             event.returnValue = i18nBase;
 
         });
