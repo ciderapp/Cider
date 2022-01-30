@@ -1,0 +1,41 @@
+version: 2.1
+jobs:
+  build:
+    working_directory: ~/Cider
+    docker:
+      - image: circleci/node:11
+    steps:
+      - checkout
+      - run:
+          name: Update NPM
+          command: "sudo npm install -g npm"
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install yarn
+          command: npm install -g yarn
+      - run:
+          name: Install Dependencies
+          command: yarn install
+      - run:
+          name: Update Dependencies
+          command: yarn upgrade
+      - run:
+          name: Install system build dependencies
+          command: |
+            sudo apt-get update -y
+            sudo apt-get install -y dpkg fakeroot wine64
+
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: Generate Builds (Linux)
+          command: yarn dist -l
+      - run:
+          name: Generate Builds (Windows)
+          command: yarn dist -w --x64
+
+      - store_artifacts:
+          path: ~/Cider/dist/
