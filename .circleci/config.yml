@@ -37,9 +37,6 @@ jobs:
           name: Generate Builds (Linux)
           command: yarn dist -l -p never
       - run:
-          name: Generate Builds (Linux pacman)
-          command: yarn dist -l --pacman -p never
-      - run:
           name: Generate Builds (Windows)
           command: yarn dist -w --x64 -p never
       - run:
