@@ -93,7 +93,7 @@
   "term.time.updated": "HODOR",
   "term.fullscreenView": "HODOR HODOR",
   "term.defaultView": "HODOR HODOR",
-  "term.spacializedAudioSetting": "HODOR HODOR HODOR",
+  "term.audioSetting": "HODOR HODOR",
   "term.clearAll": "HODOR HODOR",
   "term.recentStations": "HODOR HODOR",
   "term.language": "HODOR",
@@ -104,6 +104,7 @@
   "term.ciderTeam": "HODOR HODOR",
   "term.developer": "HODOR",
   "term.socialTeam": "HODOR HODOR",
+  "term.socials": "HODOR",
   "term.contributors": "HODOR",
   "term.equalizer": "HODOR",
   "term.reset": "HODOR",
@@ -156,6 +157,7 @@
   "action.removeFromQueue": "HODOR HODOR HODOR",
   "action.removeFromQueue.success": "HODOR HODOR HODOR",
   "action.removeFromQueue.error": "HODOR HODOR HODOR HODOR",
+  "action.createPlaylist": "HODOR HODOR",
   "action.addToPlaylist": "HODOR HODOR HODOR",
   "action.removeFromPlaylist": "HODOR HODOR HODOR",
   "action.addToFavorites": "HODOR HODOR HODOR",
@@ -177,7 +179,7 @@
   "action.unlove": "HODOR",
   "action.dislike": "HODOR",
   "action.undoDislike": "HODOR HODOR",
-  "action.showWebRemoteQR": "HODOR HODOR HODOR HODOR",
+  "action.showWebRemoteQR": "HODOR HODOR",
   "action.playTracksNext": "HODOR ${app.selectedMediaItems.length} HODOR HODOR",
   "action.playTracksLater": "HODOR ${app.selectedMediaItems.length} HODOR HODOR",
   "action.removeTracks": "HODOR ${self.selectedItems.length} HODOR HODOR HODOR",
@@ -214,6 +216,7 @@
   "settings.option.visual.windowBackgroundStyle": "HODOR HODOR HODOR", // Toggle
   "settings.header.visual.windowBackgroundStyle.none": "HODOR",
   "settings.header.visual.windowBackgroundStyle.artwork": "HODOR",
+  "settings.header.visual.windowBackgroundStyle.image": "HODOR",
   "settings.option.visual.animatedArtwork": "HODOR HODOR", // Dropdown
   "settings.header.visual.animatedArtwork.always": "HODOR",
   "settings.header.visual.animatedArtwork.limited": "HODOR HODOR HODOR HODOR HODOR HODOR",
@@ -244,6 +247,7 @@
   "settings.header.connectivity": "HODOR",
   "settings.header.connectivity.description": "HODOR HODOR HODOR HODOR HODOR HODOR.",
   "settings.option.connectivity.discordRPC": "HODOR HODOR HODOR", // Dropdown
+  "settings.option.connectivity.playbackNotifications": "HODOR HODOR", // Toggle
   // Refer to term.disabled for the disabled option
   "settings.header.connectivity.discordRPC.cider": "HODOR HODOR 'HODOR'",
   "settings.header.connectivity.discordRPC.appleMusic": "HODOR HODOR 'HODOR HODOR'",
@@ -270,6 +274,7 @@
   "spatial.width" : "HODOR",
   "spatial.height" : "HODOR",
   "spatial.depth" : "HODOR",
+  "spatial.gain" : "HODOR",
   "spatial.roomMaterials" : "HODOR HODOR",
   "spatial.roomDimensions" : "HODOR HODOR",
   "spatial.roomPositions" : "HODOR HODOR",
