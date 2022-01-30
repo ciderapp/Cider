@@ -247,6 +247,10 @@
                                     </div>
                                 </button>
                                 <button class="usermenu-item" v-if="cfg.advanced.AudioContext"
+                                        @click="modals.audioSettings = true">
+                                    {{$root.getLz('term.audioSettings')}}
+                                </button>
+                                <button class="usermenu-item" v-if="cfg.advanced.AudioContext"
                                 @click="modals.equalizer = true">
                                     {{$root.getLz('term.equalizer')}}
                                 </button>
@@ -606,6 +610,9 @@
         <spatial-properties v-if="modals.spatialProperties"></spatial-properties>
     </transition>
     <transition name="modal">
+        <audio-settings v-if="modals.audioSettings"></audio-settings>
+    </transition>
+    <transition name="modal">
         <eq-view v-if="modals.equalizer"></eq-view>
     </transition>
     <transition name="modal">
@@ -718,6 +725,9 @@
 %>
 <!-- Spatial Properties -->
 <%- include('components/spatial-properties') 
+%>
+<!-- Audio Settings -->
+<%- include('components/audio-settings')
 %>
 <!-- QRCode Modal -->
 <%- include('components/qrcode-modal') 
