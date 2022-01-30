@@ -121,8 +121,7 @@
       "target": [
         "AppImage",
         "deb",
-        "snap",
-        "rpm"
+        "snap"
       ],
       "synopsis": "A new look into listening and enjoying music in style and performance. ",
       "category": "AudioVideo",

@@ -45,6 +45,11 @@
   "term.podcasts": "Podcasts",
   "term.playlists": "Playlists",
   "term.playlist": "Playlist",
+  "term.newPlaylist": "New Playlist",
+  "term.newPlaylistFolder": "New Playlist Folder",
+  "term.createNewPlaylist": "Create New Playlist",
+  "term.createNewPlaylistFolder": "Create New Playlist Folder",
+  "term.deletePlaylist": "Are you sure you want to delete this playlist?",
   "term.play": "Play",
   "term.pause": "Pause",
   "term.previous": "Previous",
@@ -99,7 +104,7 @@
   "term.time.second": "second",
   "term.fullscreenView": "Fullscreen View",
   "term.defaultView": "Default View",
-  "term.spacializedAudioSetting": "Spacialized Audio Setting",
+  "term.audioSettings": "Audio Settings",
   "term.clearAll": "Clear All",
   "term.recentStations": "Recent Stations",
   "term.language": "Language",
@@ -111,13 +116,13 @@
   "term.ciderTeam": "Cider Team",
   "term.developer": "Developer",
   "term.socialTeam": "Social Team",
+  "term.socials": "Socials",
   "term.contributors": "Contributors",
   "term.equalizer": "Equalizer",
   "term.reset": "Reset",
   "term.tracks": "tracks", // Assume x amount of tracks. e.g. 50 tracks 
   "term.videos": "Videos", 
   "term.menu": "Menu",
-  "term.showAlbum": "Show Complete Album",
 
   // Home
   "home.title": "Home",
@@ -156,7 +161,7 @@
   "action.removeFromQueue": "Remove from Queue",
   "action.removeFromQueue.success": "Removed from Queue",
   "action.removeFromQueue.error": "Error Removing from Queue",
-  "action.createPlaylist": "Create Playlist",
+  "action.createPlaylist": "Create a New Playlist",
   "action.addToPlaylist": "Add to Playlist",
   "action.removeFromPlaylist": "Remove from Playlist",
   "action.addToFavorites": "Add to Favorites",
@@ -178,12 +183,17 @@
   "action.unlove": "Unlove",
   "action.dislike": "Dislike",
   "action.undoDislike": "Undo dislike",
-  "action.showWebRemoteQR": "Show Web Remote QR",
+  "action.showWebRemoteQR": "Web Remote",
   "action.playTracksNext": "Play ${app.selectedMediaItems.length} tracks next",
   "action.playTracksLater": "Play ${app.selectedMediaItems.length} tracks later",
   "action.removeTracks": "Remove ${self.selectedItems.length} tracks from queue",
   "action.import": "Import",
   "action.export": "Export",
+  "action.showAlbum": "Show Complete Album",
+  // Waiting on Core for moving plugin to app.ts
+  "action.tray.minimize": "Minimize to Tray",
+  "action.tray.quit": "Quit",
+  "action.tray.show": "Show",
 
   // Settings - General
   "settings.header.general": "General",
@@ -269,6 +279,7 @@
   // Refer to term.disabled & term.enabled
 
   // Spatialization Menu
+  "spatial.notTurnedOn": "Audio Spatialization is disabled. To use, please enable it first.",
   "spatial.spatialProperties" : "Spatial Properties",
   "spatial.width" : "Width",
   "spatial.height" : "Height",

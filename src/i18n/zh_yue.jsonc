@@ -99,7 +99,7 @@
   "term.time.second": "秒",
   "term.fullscreenView": "用全螢幕睇",
   "term.defaultView": "平時咁睇",
-  "term.spacializedAudioSetting": "空間音訊設定",
+  "term.audioSettings": "音訊設定",
   "term.clearAll": "清除",
   "term.recentStations": "呢排聽緊嘅",
   "term.language": "語言",
@@ -111,12 +111,14 @@
   "term.ciderTeam": "Cider 團隊",
   "term.developer": "開發者",
   "term.socialTeam": "PR",
+  "term.socials": "我哋嘅社群",
   "term.contributors": "合作人",
   "term.equalizer": "均衡器 (EQ)",
   "term.reset": "重設",
   "term.tracks": "首歌", // Assume x amount of tracks. e.g. 50 tracks 
   "term.videos": "影片", 
   "term.menu": "選項", 
+  "term.showAlbum": "顯示完整嘅專輯",
   
   // Home
   "home.title": "主頁",
@@ -155,6 +157,7 @@
   "action.removeFromQueue": "喺待播清單刪除",
   "action.removeFromQueue.success": "已經喺待播清單到刪除咗",
   "action.removeFromQueue.error": "喺待播清單到刪除唔到",
+  "action.createPlaylist": "建立新嘅播放清單",
   "action.addToPlaylist": "加入播放清單",
   "action.removeFromPlaylist": "喺播放清單到刪除",
   "action.addToFavorites": "加至收藏",
@@ -176,7 +179,7 @@
   "action.unlove": "唔鐘意",
   "action.dislike": "唔想再睇到",
   "action.undoDislike": "還原唔想再睇到",
-  "action.showWebRemoteQR": "顯示遙距控制QR Code",
+  "action.showWebRemoteQR": "遙距控制",
   "action.playTracksNext": "插播 ${app.selectedMediaItems.length} 首歌曲",
   "action.playTracksLater": "陣間播放 ${app.selectedMediaItems.length} 首歌曲",
   "action.removeTracks": "喺待播清單到刪除 ${self.selectedItems.length} 首歌曲",
@@ -244,6 +247,7 @@
   "settings.header.connectivity": "外部連結",
   "settings.header.connectivity.description": "調整Cider同外部嘅連結",
   "settings.option.connectivity.discordRPC": "Discord 狀態", // Dropdown
+  "settings.option.connectivity.playbackNotifications": "喺播歌嘅時候通知你", // Toggle
   // Refer to term.disabled for the disabled option
   "settings.header.connectivity.discordRPC.cider": "顯示為'Cider'",
   "settings.header.connectivity.discordRPC.appleMusic": "顯示為'Apple Music'",
@@ -271,7 +275,7 @@
   "spatial.height" : "幾高",
   "spatial.depth" : "幾深",
   "spatial.gain" : "增益",
- "spatial.roomMaterials" : "空間材質",
+  "spatial.roomMaterials" : "空間材質",
   "spatial.roomDimensions" : "空間大小",
   "spatial.roomPositions" : "空間位置",
   "spatial.setDimensions" : "大小設定",

@@ -1,6 +1,26 @@
 <script type="text/x-template" id="cider-settings">
     <div class="content-inner settings-page">
-        <div class="md-option-container">
+        <div class="md-option-container">  
+            <div class="md-option-header">
+                <span>{{$root.getLz('settings.header.general')}}</span>
+            </div>
+            <div class="settings-option-body">
+                <div class="md-option-line">
+                    <div class="md-option-segment md-option-segment_auto">
+                        <button class="md-btn" @click="app.appRoute('apple-account-settings')">
+                            {{$root.getLz('term.accountSettings')}}
+                        </button>
+                    </div>
+                </div>
+                <div class="md-option-line">
+                    <div class="md-option-segment">
+                        {{$root.getLz('term.privateSession')}}
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <input type="checkbox" v-model="app.mk.privateEnabled" switch/>
+                    </div>
+                </div>
+            </div>
             <div class="md-option-header">
                 <span>{{$root.getLz('settings.header.audio')}}</span>
             </div>
@@ -742,7 +762,9 @@
 				app.chrome.hideUserInfo = !app.cfg.visual.showuserinfo
 			},
 			sendDataToMTT: function () {
-				ipcRenderer.invoke('setStoreValue', 'general.close_behavior', app.cfg.general.close_behavior);
+			    	ipcRenderer.invoke('setStoreValue', 'general.close_behavior', app.cfg.general.close_behavior);
+                //  setStoreValue does not change plugin store values somehow
+                    ipcRenderer.invoke('update-store-mtt', app.cfg.general.close_behavior);
 			}
 		}
 	})

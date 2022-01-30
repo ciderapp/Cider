@@ -3,14 +3,14 @@
         <div class="modal-fullscreen addtoplaylist-panel" @click.self="app.resetState()" @contextmenu.self="app.resetState()">
             <div class="modal-window">
                 <div class="modal-header">
-                    <div class="modal-title">{{app.getLz('action.addToPlaylist')}</div>
+                    <div class="modal-title">{{app.getLz('action.addToPlaylist')}}</div>
                     <button class="close-btn" @click="app.resetState()"></button>
                 </div>
                 <div class="modal-content">
                     <button class="playlist-item"
                             @click="app.addSelectedToNewPlaylist()" style="width:100%;">
                         <div class="icon"><%- include("../svg/plus.svg") %></div>
-                        <div class="name">{{app.getLz('action.createPlaylist')}</div>
+                        <div class="name">{{app.getLz('action.createPlaylist')}}</div>
                     </button>
                     <button class="playlist-item" 
                     :class="{ focused: playlist.id == focused }"
@@ -26,7 +26,7 @@
                                ref="searchInput"
                                style="width:100%;"
                                spellcheck="false"
-                               placeholder="app.getLz('term.search') + '...'"
+                               :placeholder="app.getLz('term.search') + '...'"
                                v-model="searchQuery"
                                @input="search()"
                                class="search-input">

@@ -37,9 +37,9 @@
                         :type="item.type"></mediaitem-artwork>
                 <button class="overlay-play" @click="playTrack()"><%- include("../svg/play.svg") %></button>
             </div>
-            <div class="info-rect" :style="{'padding-left': (showArtwork ? '' : '16px')}"
+            <div class="info-rect text-overflow-elipsis" :style="{'padding-left': (showArtwork ? '' : '16px')}"
                  @dblclick="route()">
-                <div class="title text-overflow-elipsis">
+                <div class="title" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
                     {{ item.attributes.name }}
                 </div>
                 <div class="subtitle text-overflow-elipsis" style="-webkit-box-orient: horizontal;">
