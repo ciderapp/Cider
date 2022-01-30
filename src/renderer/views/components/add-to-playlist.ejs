@@ -10,7 +10,7 @@
                     <button class="playlist-item"
                             @click="app.addSelectedToNewPlaylist()" style="width:100%;">
                         <div class="icon"><%- include("../svg/plus.svg") %></div>
-                        <div class="name">Create New Playlist</div>
+                        <div class="name">{{app.getLz('action.createPlaylist')}</div>
                     </button>
                     <button class="playlist-item" 
                     :class="{ focused: playlist.id == focused }"
