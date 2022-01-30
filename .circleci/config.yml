@@ -24,7 +24,7 @@ jobs:
           name: Install system build dependencies
           command: |
             sudo apt-get update -y
-            sudo apt-get install -y dpkg fakeroot wine64 rpm
+            sudo apt-get install -y dpkg fakeroot wine64
 
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
@@ -32,10 +32,10 @@ jobs:
             - ./node_modules
       - run:
           name: Generate Builds (Linux)
-          command: yarn dist -l
+          command: yarn dist -l -p never
       - run:
           name: Generate Builds (Windows)
-          command: yarn dist -w --x64
+          command: yarn dist -w --x64 -p never
 
       - store_artifacts:
           path: ~/Cider/dist/
