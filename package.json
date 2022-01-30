@@ -2,10 +2,11 @@
   "name": "cider",
   "applicationId": "Cider",
   "productName": "Cider",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A new look into listening and enjoying music in style and performance.",
-  "license": "MIT",
-  "author": "Cider Collective <cryptofyre@cryptofyre.org> (https://cider.sh)",
+  "license": "AGPL-3.0",
+  "main": "./build/index.js",
+  "author": "Cider Collective <cryptofyre@cider.sh> (https://cider.sh)",
   "repository": "https://github.com/ciderapp/Cider.git",
   "bugs": {
     "url": "https://github.com/ciderapp/Cider/issues?q=is%3Aopen+is%3Aissue+label%3Abug"
@@ -13,11 +14,16 @@
   "homepage": "https://cider.sh/",
   "buildResources": "resources",
   "scripts": {
-    "init": "yarn install --force",
-    "start": "electron . --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "start": "run-script-os",
+    "start:win32": "npm run build && set ELECTRON_ENABLE_LOGGING=true && electron ./build/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
+    "start:linux": "npm run build && export ELECTRON_ENABLE_LOGGING=true && electron ./build/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
+    "start:darwin": "npm run build && export ELECTRON_ENABLE_LOGGING=true && electron ./build/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder",
-    "msft": "electron-builder -c msft-package.json",
+    "dist": "npm run build && electron-builder",
+    "dist:all": "npm run build && electron-builder -mwl",
+    "msft": "npm run build && electron-builder -c msft-package.json",
     "postinstall": "electron-builder install-app-deps"
   },
   "dependencies": {
@@ -25,29 +31,39 @@
     "discord-rpc": "^4.0.1",
     "ejs": "^3.1.6",
     "electron-fetch": "^1.7.4",
-    "electron-log": "^4.4.3",
+    "electron-log": "^4.4.4",
+    "electron-notarize": "^1.1.1",
+    "electron-packager": "^15.4.0",
     "electron-store": "^8.0.1",
     "electron-updater": "^4.6.1",
     "electron-window-state": "^5.0.3",
     "express": "^4.17.2",
     "get-port": "^5.1.1",
+    "jsonc": "^2.0.0",
     "lastfmapi": "^0.1.1",
+    "mdns-js": "github:bitfocus/node-mdns-js",
     "mpris-service": "^2.1.2",
     "music-metadata": "^7.11.4",
+    "qrcode": "^1.5.0",
     "qrcode-terminal": "^0.12.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "run-script-os": "^1.1.6",
     "source-map-support": "^0.5.21",
     "v8-compile-cache": "^2.3.0",
-    "ws": "^8.3.0",
+    "ws": "^8.4.2",
     "xml2js": "^0.4.23",
     "youtube-search-without-api-key": "^1.0.7"
   },
   "devDependencies": {
+    "@types/discord-rpc": "^4.0.0",
+    "@types/express": "^4.17.13",
+    "@types/ws": "^8.2.2",
     "electron": "https://github.com/castlabs/electron-releases.git",
     "electron-builder": "^22.14.5",
     "electron-webpack": "^2.8.2",
     "musickit-typescript": "^1.2.4",
+    "typescript": "^4.5.4",
     "vue-devtools": "^5.1.4",
     "webpack": "~5.65.0"
   },
@@ -74,12 +90,14 @@
     }
   ],
   "build": {
-    "electronVersion": "16.0.6",
+    "electronVersion": "16.0.7",
     "electronDownload": {
-      "version": "16.0.6+wvcus",
+      "version": "16.0.7+wvcus",
       "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
     },
     "appId": "cider",
+    "afterPack": "./resources/afterPack.js",
+    "afterSign": "./resources/notarize.js",
     "protocols": [
       {
         "name": "Cider",
@@ -95,9 +113,9 @@
     ],
     "extends": null,
     "files": [
-      "**/*",
-      "./src/**/*",
-      "./resources/icons/icon.*"
+      "./build/**/*",
+      "./resources/icons/icon.*",
+      "./src/**/*"
     ],
     "linux": {
       "target": [
@@ -119,6 +137,13 @@
       "backgroundColor": "transparent",
       "setBuildNumber": true
     },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "license": "LICENSE",
+      "deleteAppDataOnUninstall": true
+    },
     "win": {
       "target": [
         "nsis"
@@ -126,13 +151,20 @@
       "icon": "resources/icons/icon.ico"
     },
     "directories": {
-      "buildResources": "."
+      "buildResources": ".",
+      "output": "dist"
     },
     "mac": {
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
       "icon": "./resources/icons/icon.icns",
       "category": "public.app-category.music",
-      "entitlements": "resources/entitlements.mac.plist",
-      "darkModeSupport": true
+      "entitlements": "./resources/entitlements.mac.plist",
+      "entitlementsInherit": "./resources/entitlements.mac.plist",
+      "darkModeSupport": true,
+      "target": [
+        "dmg"
+      ]
     }
   }
 }

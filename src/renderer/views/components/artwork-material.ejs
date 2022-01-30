@@ -1,0 +1,37 @@
+<script type="text/x-template" id="artwork-material">
+    <div class="artworkMaterial">
+        <img :src="src" v-for="image in images"/>
+    </div>
+</script>
+
+<script>
+    Vue.component('artwork-material', {
+        template: '#artwork-material',
+        data: function () {
+            return {
+                src: ""
+            }
+        },
+        mounted() {
+            this.src = app.getMediaItemArtwork(this.url, this.size)
+        },
+        props: {
+            url: {
+                type: String,
+                required: true
+            },
+            size: {
+                type: [String, Number],
+                required: false,
+                default: '32'
+            },
+            images: {
+                type: [String, Number],
+                required: false,
+                default: '2'
+            }
+        },
+        methods: {
+        }
+    });
+</script>

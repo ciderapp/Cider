@@ -7,7 +7,7 @@
                 @dragover="dragOver"
                 @drop="onDrop"
                 :href="item.href"
-                @click='item.type != "library-playlist-folders" ? openPlaylist(item) : getPlaylistChildren(item)'>
+                @click='clickEvent()'>
             <template v-if="!renaming">
                 <div class="sidebar-icon" v-html="icon"></div> {{ item.attributes.name }}
             </template>
@@ -15,7 +15,7 @@
         </button>
         <div class="folder-body" v-if="item.type === 'library-playlist-folders' && folderOpened">
             <template v-if="children.length != 0">
-                <sidebar-playlist v-for="item in children" :item="item" :key="item.id"></sidebar-playlist>
+                <sidebar-playlist v-for="item in children" :playlist-select="playlistSelect" :item="item" :key="item.id"></sidebar-playlist>
             </template>
             <template v-else>
                 <div class="spinner"></div>
@@ -31,6 +31,10 @@
             item: {
                 type: Object,
                 required: true
+            },
+            playlistSelect: {
+                type: Function,
+                required: false
             }
         },
         data: function () {
@@ -50,6 +54,17 @@
             }
         },
         methods: {
+            clickEvent() {
+                if(this.item.type != "library-playlist-folders") {
+                    if(this.playlistSelect) {
+                        this.playlistSelect(this.item)
+                    }else{
+                        this.openPlaylist(this.item)
+                    }
+                }else{
+                    this.getPlaylistChildren(this.item)
+                }
+            },
             rename() {
                 this.renaming = false
 
@@ -105,7 +120,7 @@
                 let menu = {
                     items: {
                         "moveToParent": {
-                            name: "Move to top",
+                            name: this.$root.getLz('action.moveToTop'),
                             action: () => {
                                 let self = this
                                 this.move(this.item, {
@@ -116,7 +131,7 @@
                             }
                         },
                         "rename": {
-                            name: "Rename",
+                            name: this.$root.getLz('action.rename'),
                             action: () => {
                                 this.renaming = true
                                 setTimeout(()=>{
@@ -126,13 +141,13 @@
                             }
                         },
                         "deleteFromPlaylist": {
-                            name: "Delete from library",
+                            name: this.$root.getLz('action.removeFromLibrary'),
                             action: () => {
                                 this.$root.deletePlaylist(playlist_id)
                             }
                         },
                         "addToFavorites": {
-                            name: "Add to favorites",
+                            name: this.$root.getLz('action.addToFavorites'),
                             disabled: true,
                             hidden: true,
                             action: () => {
@@ -181,7 +196,9 @@
                 this.children = []
                 this.getChildren()
                 this.toggleFolder()
-                this.$root.mk.api.library.playlistFolderChildren(item.id).then(children => {
+               
+                this.$root.mk.api.v3.music(`v1/me/library/playlist-folders/${item.id}/children`).then(data => {
+                    let children = data.data.data;
                     children.forEach(child => {
                         if(!self.$root.playlists.listing.find(listing => listing.id == child.id)) {
                             child.parent = self.item.id

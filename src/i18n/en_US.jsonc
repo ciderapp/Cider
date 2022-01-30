@@ -1,0 +1,299 @@
+{ // Base File
+
+  // i18n Info
+  "i18n.languageName": "English (US)",        // name of language in native language
+  "i18n.languageNameEnglish": "English (US)", // name of language in English
+  "i18n.category": "main", // main = real language, fun = fun community languages
+  "i18n.authors": "@maikirakiwi", // Authors, if you contribute to this file feel free to add your name seperated with a space
+
+  // App info
+  "app.name": "Cider",
+
+  "date.format": "${m} ${d}, ${y}",
+  
+  // Dialogs
+  "dialog.cancel": "Cancel",
+  "dialog.ok": "OK",
+
+  // Notification
+  "notification.updatingLibrarySongs": "Updating library songs...",
+  "notification.updatingLibraryAlbums": "Updating library albums...",
+  "notification.updatingLibraryArtists": "Updating library artists...",
+  // Terms
+  "term.appleInc": "Apple Inc.",
+  "term.appleMusic": "Apple Music",
+  "term.applePodcasts": "Apple Podcasts",
+  "term.itunes": "iTunes",
+  "term.github": "GitHub",
+  "term.discord": "Discord",
+  "term.learnMore": "Learn more",
+  "term.accountSettings": "Account Settings",
+  "term.logout": "Logout",
+  "term.login": "Login",
+  "term.about": "About",
+  "term.privateSession": "Private Session",
+  "term.queue": "Queue",
+  "term.search": "Search",
+  "term.library": "Library",
+  "term.listenNow": "Listen Now",
+  "term.browse": "Browse",
+  "term.radio": "Radio",
+  "term.recentlyAdded": "Recently Added",
+  "term.songs": "Songs",
+  "term.albums": "Albums",
+  "term.artists": "Artists",
+  "term.podcasts": "Podcasts",
+  "term.playlists": "Playlists",
+  "term.playlist": "Playlist",
+  "term.play": "Play",
+  "term.pause": "Pause",
+  "term.previous": "Previous",
+  "term.next": "Next",
+  "term.shuffle": "Shuffle",
+  "term.repeat": "Repeat",
+  "term.volume": "Volume",
+  "term.mute": "Mute",
+  "term.unmute": "Unmute",
+  "term.share": "Share",
+  "term.settings": "Settings",
+  "term.seeAll": "See All",
+  "term.sortBy": "Sort By",
+  "term.sortBy.album": "Album",
+  "term.sortBy.artist": "Artist",
+  "term.sortBy.name": "Name",
+  "term.sortBy.genre": "Genre",
+  "term.sortBy.releaseDate": "Release Date",
+  "term.sortBy.duration": "Duration",
+  "term.sortOrder": "A-Z",
+  "term.sortOrder.ascending": "Ascending",
+  "term.sortOrder.descending": "Descending",
+  "term.viewAs": "View As",
+  "term.viewAs.coverArt": "Cover Art",
+  "term.viewAs.list": "List",
+  "term.size": "Size",
+  "term.size.normal": "Normal",
+  "term.size.compact": "Compact",
+  "term.enable": "Enable",
+  "term.disable": "Disable",
+  "term.enabled": "Enabled",
+  "term.disabled": "Disabled",
+  "term.connect": "Connect",
+  "term.connecting": "Connecting",
+  "term.disconnect": "Disconnect",
+  "term.authed": "Authed",
+  "term.confirm": "Confirm ?",
+  "term.more": "More",
+  "term.less": "Less",
+  "term.showMore": "Show more",
+  "term.showLess": "Show less",
+  "term.topSongs" : "Top Songs",
+  "term.latestReleases": "Latest Releases",
+  "term.time.added": "Added",
+  "term.time.released": "Released", 
+  "term.time.updated": "Updated",
+  "term.time.hours": "hours",
+  "term.time.hour": "hour",
+  "term.time.minutes": "minutes",
+  "term.time.minute": "minute",
+  "term.time.seconds": "seconds",
+  "term.time.second": "second",
+  "term.fullscreenView": "Fullscreen View",
+  "term.defaultView": "Default View",
+  "term.spacializedAudioSetting": "Spacialized Audio Setting",
+  "term.clearAll": "Clear All",
+  "term.recentStations": "Recent Stations",
+  "term.language": "Language",
+  "term.funLanguages": "Fun",
+  "term.noLyrics": "Loading... / Lyrics not found./ Instrumental.",
+  "term.copyright": "Copyright",
+  "term.rightsReserved": "All Rights Reserved.",
+  "term.sponsor": "Sponsor this project",
+  "term.ciderTeam": "Cider Team",
+  "term.developer": "Developer",
+  "term.socialTeam": "Social Team",
+  "term.contributors": "Contributors",
+  "term.equalizer": "Equalizer",
+  "term.reset": "Reset",
+  "term.tracks": "tracks", // Assume x amount of tracks. e.g. 50 tracks 
+  "term.videos": "Videos", 
+  "term.menu": "Menu",
+  "term.showAlbum": "Show Complete Album",
+
+  // Home
+  "home.title": "Home",
+  "home.recentlyPlayed": "Recently Played",
+  "home.recentlyAdded": "Recently Added",
+  "home.artistsFeed": "Your Artists Feed",
+  "home.artistsFeed.noArtist": "Follow some artists first and their latest releases will be here",
+  "home.madeForYou": "Made For You",
+  "home.friendsListeningTo": "Friends Listening To",
+  "home.followedArtists": "Followed Artists",
+  // Errors
+  "error.appleMusicSubRequired": "Apple Music requires a subscription.",
+  "error.connectionError": "There was a problem connecting to Apple Music.",
+  "error.noResults": "No Results.",
+  "error.noResults.description": "Try a new search.",
+
+  //Podcasts
+  "podcast.followOnCider": "Follow On Cider",
+  "podcast.followedOnCider": "Following On Cider",
+  "podcast.subscribeOnItunes": "Subscribe On iTunes",
+  "podcast.subscribedOnItunes": "Subscribed On iTunes",
+  "podcast.itunesStore": "iTunes Store",
+  "podcast.episodes": "Episodes",
+  "podcast.playEpisode": "Play Episode",
+  "podcast.website": "Podcast Website",
+
+  // Actions
+  "action.addToLibrary": "Add to Library",
+  "action.addToLibrary.success": "Added to Library",
+  "action.addToLibrary.error": "Error Adding to Library",
+  "action.removeFromLibrary": "Remove from Library",
+  "action.removeFromLibrary.success": "Removed from Library",
+  "action.addToQueue": "Add to Queue",
+  "action.addToQueue.success": "Added to Queue",
+  "action.addToQueue.error": "Error Adding to Queue",
+  "action.removeFromQueue": "Remove from Queue",
+  "action.removeFromQueue.success": "Removed from Queue",
+  "action.removeFromQueue.error": "Error Removing from Queue",
+  "action.addToPlaylist": "Add to Playlist",
+  "action.removeFromPlaylist": "Remove from Playlist",
+  "action.addToFavorites": "Add to Favorites",
+  "action.follow": "Follow",
+  "action.follow.success": "Followed",
+  "action.follow.error": "Error Following",
+  "action.unfollow": "Unfollow",
+  "action.unfollow.success": "Unfollowed",
+  "action.unfollow.error": "Error Unfollowing",
+  "action.playNext": "Play Next",
+  "action.playLater": "Play Later",
+  "action.startRadio": "Start Radio",
+  "action.goToArtist": "Go to Artist",
+  "action.goToAlbum": "Go to Album",
+  "action.moveToTop": "Move to top",
+  "action.share": "Share",
+  "action.rename": "Rename",
+  "action.love": "Love",
+  "action.unlove": "Unlove",
+  "action.dislike": "Dislike",
+  "action.undoDislike": "Undo dislike",
+  "action.showWebRemoteQR": "Show Web Remote QR",
+  "action.playTracksNext": "Play ${app.selectedMediaItems.length} tracks next",
+  "action.playTracksLater": "Play ${app.selectedMediaItems.length} tracks later",
+  "action.removeTracks": "Remove ${self.selectedItems.length} tracks from queue",
+  "action.import": "Import",
+  "action.export": "Export",
+
+  // Settings - General
+  "settings.header.general": "General",
+  "settings.header.general.description": "Adjust the general settings for Cider.",
+  "settings.option.general.language": "Language",
+
+  // Language optgroups
+  "settings.option.general.language.main": "Languages",
+  "settings.option.general.language.fun": "Fun Languages",
+  "settings.option.general.language.unsorted": "Unsorted",
+  
+  // Settings - Audio
+  "settings.header.audio": "Audio",
+  "settings.header.audio.description": "Adjust the audio settings for Cider.",
+  "settings.option.audio.quality": "Audio Quality", // Dropdown
+  "settings.header.audio.quality.high": "High",
+  "settings.header.audio.quality.low": "Low",
+  "settings.header.audio.quality.auto": "Auto",
+  "settings.option.audio.seamlessTransition": "Seamless Audio Transition", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality": "Enable Advanced Functionality", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.description": "Enabling AudioContext functionality will allow for extended audio features like Audio Normalization , Equalizers and Visualizers, however on some systems this may cause stuttering in audio tracks.",
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Audio Normalization", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizes peak volume for individual tracks to create a more uniform listening experience.",
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Audio Spatialization", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Spatialize audio and make audio more 3-dimensional (note: This is not Dolby Atmos)",
+  // Settings - Visual
+  "settings.header.visual": "Visual", 
+  "settings.header.visual.description": "Adjust the visual settings for Cider.",
+  "settings.option.visual.windowBackgroundStyle": "Window Background Style", // Toggle
+  "settings.header.visual.windowBackgroundStyle.none": "None",
+  "settings.header.visual.windowBackgroundStyle.artwork": "Artwork",
+  "settings.header.visual.windowBackgroundStyle.image": "Image",
+  "settings.option.visual.animatedArtwork": "Animated Artwork", // Dropdown
+  "settings.header.visual.animatedArtwork.always": "Always",
+  "settings.header.visual.animatedArtwork.limited": "Limited to pages and special entries",
+  "settings.header.visual.animatedArtwork.disable": "Disable everywhere",
+  "settings.option.visual.animatedArtworkQuality": "Animated Artwork Quality", // Dropdown
+  "settings.header.visual.animatedArtworkQuality.low": "Low",
+  "settings.header.visual.animatedArtworkQuality.medium": "Medium",
+  "settings.header.visual.animatedArtworkQuality.high": "High",
+  "settings.header.visual.animatedArtworkQuality.veryHigh": "Very High",
+  "settings.header.visual.animatedArtworkQuality.extreme": "Extreme",
+  "settings.option.visual.animatedWindowBackground": "Animated Window Background", // Toggle
+  "settings.option.visual.hardwareAcceleration": "Hardware Acceleration", // Dropdown
+  "settings.option.visual.hardwareAcceleration.description": "Requires relaunch",
+  "settings.header.visual.hardwareAcceleration.default": "Default", 
+  "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
+  // Refer to term.disabled for the disabled option
+  "settings.option.visual.showPersonalInfo": "Show Personal Info", // Toggle
+
+  // Settings - Lyrics
+  "settings.header.lyrics": "Lyrics",
+  "settings.header.lyrics.description": "Adjust the lyrics settings for Cider.",
+  "settings.option.lyrics.enableMusixmatch": "Enable Musixmatch Lyrics", // Toggle
+  "settings.option.lyrics.enableMusixmatchKaraoke": "Enable Karaoke Mode (Musixmatch only)", // Toggle
+  "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch Translation Preferred Language", // Dropdown
+  "settings.option.lyrics.enableYoutubeLyrics": "Enable Youtube Lyrics for Music Videos", // Toggle
+
+  // Settings - Connectivity
+  "settings.header.connectivity": "Connectivity",
+  "settings.header.connectivity.description": "Adjust the connectivity settings for Cider.",
+  "settings.option.connectivity.discordRPC": "Discord Rich Presence", // Dropdown
+  "settings.option.connectivity.playbackNotifications": "Playback Notifications", // Toggle
+  // Refer to term.disabled for the disabled option
+  "settings.header.connectivity.discordRPC.cider": "Display as 'Cider'",
+  "settings.header.connectivity.discordRPC.appleMusic": "Display as 'Apple Music'",
+  "settings.option.connectivity.discordRPC.clearOnPause": "Clear Discord Rich Presence on Pause", // Toggle
+  "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling", // Option to Connect
+  "settings.option.connectivity.lastfmScrobble.delay": "LastFM Scrobble Delay (%)", 
+  "settings.option.connectivity.lastfmScrobble.nowPlaying": "Enable LastFM Now Playing", 
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "Remove featuring artists from song title (LastFM)", 
+  "settings.option.connectivity.lastfmScrobble.filterLoop": "Filter looped track (LastFM)", 
+  // Refer to term.connect for the connect button
+
+  // Settings - Experimental
+  "settings.header.experimental": "Experimental",
+  "settings.header.experimental.description": "Adjust the experimental settings for Cider.",
+  "settings.option.experimental.compactUI": "Compact UI", // Toggle
+  "settings.option.experimental.closeButtonBehaviour": "Close Button Behavior",
+  "settings.option.experimental.closeButtonBehaviour.quit": "Quit Cider",
+  "settings.option.experimental.closeButtonBehaviour.minimizeTaskbar": "Minimize to Taskbar",
+  "settings.option.experimental.closeButtonBehaviour.minimizeTray": "Minimize to Tray",
+  // Refer to term.disabled & term.enabled
+
+  // Spatialization Menu
+  "spatial.spatialProperties" : "Spatial Properties",
+  "spatial.width" : "Width",
+  "spatial.height" : "Height",
+  "spatial.depth" : "Depth",
+  "spatial.gain" : "Gain",
+  "spatial.roomMaterials" : "Room Materials",
+  "spatial.roomDimensions" : "Room Dimensions",
+  "spatial.roomPositions" : "Room Positions",
+  "spatial.setDimensions" : "Set Dimensions",
+  "spatial.setPositions" : "Set Positions",
+  "spatial.up" : "Up",
+  "spatial.front" : "Front",
+  "spatial.left" : "Left",
+  "spatial.right" : "Right",
+  "spatial.back" : "Back",
+  "spatial.down" : "Down",
+  "spatial.listener" : "Listener",
+  "spatial.audioSource" : "Audio Source",
+  
+  // Settings - Unfinished
+  "settings.header.unfinished": "Unfinished",
+
+  // Web Remote
+  "remote.web.title": "Cider Remote",
+  "remote.web.description": "Scan the QR code to pair your phone up with this Cider instance",
+
+  // About
+  "about.thanks": "Major thanks to the Cider Collective Team and all of our contributors."
+}

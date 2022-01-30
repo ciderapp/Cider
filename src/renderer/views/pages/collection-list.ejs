@@ -14,13 +14,16 @@
                     <mediaitem-square v-else :item="item" :type="getKind(item)"></mediaitem-square>
                 </template>
             </template>
-            <button v-if="triggerEnabled" style="opacity:0;height: 32px;" v-observe-visibility="{callback: visibilityChanged}">Show More</button>
+            <button v-if="triggerEnabled" style="opacity:0;height: 32px;"
+                    v-observe-visibility="{callback: visibilityChanged}">{{this.app.getLz('term.showMore')}}
+            </button>
         </div>
         <transition name="fabfade">
             <button class="top-fab" v-show="showFab" @click="scrollToTop()">
                 <%- include("../svg/arrow-up.svg") %>
             </button>
         </transition>
+        <div class="well" v-show="loading"><div class="spinner"></div></div>
     </div>
 </script>
 <script>
@@ -47,16 +50,18 @@
                 canSeeTrigger: false,
                 showFab: false,
                 commonKind: "song",
-                api: this.$root.mk.api
+                api: this.$root.mk.api,
+                loading: false,
+                app: this.$root,
             }
         },
         methods: {
             getKind(item) {
-                if(typeof item.kind != "undefined") {
+                if (typeof item.kind != "undefined") {
                     this.commonKind = item.kind;
                     return item.kind
                 }
-                if(typeof item.attributes.playParams != "undefined") {
+                if (typeof item.attributes.playParams != "undefined") {
                     this.commonKind = item.attributes.playParams.kind
                     return item.attributes.playParams.kind
                 }
@@ -71,73 +76,48 @@
                 })
             },
             getNext() {
-                // if this.data.next is not null, then we can run this.data.next() and concat to this.data.data to get the next page
-                switch(this.type) {
-                    default:
-                    case "artists":
-                        if (this.data.next && this.triggerEnabled) {
-                            this.triggerEnabled = false;
-
-                            let nextFn = (data => {
-                                console.log(data);
-                                this.data.next = data.next;
-                                this.data.data = this.data.data.concat(data.data);
-                                this.triggerEnabled = true;
-                            });
-                            if(typeof this.data.next == "function") {
-                                this.data.next().then(data => nextFn(data));
-                            }else{
-                                this.api.v3.music(this.data.next).then(data => nextFn(data));
-                            }
-                        }else{
-                            console.log("No next page");
-                            this.triggerEnabled = false;
-                        }
-                        break;
-                    case "search":
-                        if (this.data.next && this.triggerEnabled) {
-                            this.triggerEnabled = false;
-                            this.data.next().then(data => {
-                                console.log(data);
-                                this.data.next = data[this.data.groups].next;
-                                this.data.data = this.data.data.concat(data[this.data.groups].data.data);
-                                this.triggerEnabled = true;
-                            });
-                        }else{
-                            console.log("No next page");
-                            this.triggerEnabled = false;
-                        }
-                        break;
-                    case "listen_now":    
-                    case "curator":
-                    if (this.data.next && this.triggerEnabled) {
-                            this.triggerEnabled = false;
-                            app.mk.api.v3.music(this.data.next).then(data => {
-                                console.log(data);
-                                this.data.next = data.data.next;
-                                this.data.data = this.data.data.concat(data.data.data);
-                                this.triggerEnabled = true;
-                            });
-                        }else{
-                            console.log("No next page");
-                            this.triggerEnabled = false;
-                        }
-                        break;   
+                let self = this
+                this.triggerEnabled = false;
+                if (typeof this.data.next == "undefined") {
+                    return
                 }
+                this.loading = true
 
+                this.api.v3.music(this.data.next, app.collectionList.requestBody).then((response) => {
+                    console.log(response)
+                    if (!app.collectionList.response.groups) {
+                        this.data.data = this.data.data.concat(response.data.data);
+                        if (response.data.next) {
+                            this.data.next = response.data.next;
+                            this.triggerEnabled = true;
+                        }
+                        this.loading = false
+                    }else{
+                        if(!response.data.results[app.collectionList.response.groups]) {
+                            this.loading = false
+                            return
+                        }
+                        this.data.data = this.data.data.concat(response.data.results[app.collectionList.response.groups].data);
+                        if (response.data.results[app.collectionList.response.groups].next) {
+                            this.data.next = response.data.results[app.collectionList.response.groups].next;
+                            this.triggerEnabled = true;
+                            this.loading = false
+                        }
+                    }
+                })
             },
             headerVisibility: function (isVisible, entry) {
-                if(isVisible) {
+                if (isVisible) {
                     this.showFab = false;
-                }else{
+                } else {
                     this.showFab = true;
                 }
             },
             visibilityChanged: function (isVisible, entry) {
-                if(isVisible) {
+                if (isVisible) {
                     this.canSeeTrigger = true;
                     this.getNext();
-                }else{
+                } else {
                     this.canSeeTrigger = false;
                 }
             }

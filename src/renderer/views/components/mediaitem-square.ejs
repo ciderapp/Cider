@@ -11,6 +11,7 @@
                             :video="(item.attributes != null && item.attributes.editorialVideo != null) ? (item.attributes.editorialVideo.motionDetailSquare ? item.attributes.editorialVideo.motionDetailSquare.video : (item.attributes.editorialVideo.motionSquareVideo1x1 ? item.attributes.editorialVideo.motionSquareVideo1x1.video : '')) : '' "
                             :size="size"
                             shadow="subtle"
+                            :bgcolor="getBgColor()"
                             :type="item.type"></mediaitem-artwork>
                 </div>
                 <button class="menu-btn" v-if="!nomenu.includes(item.type)"
@@ -75,22 +76,8 @@
         },
         methods: {
             getBgColor() {
-                let color = `#${(this.item.attributes.artwork != null && this.item.attributes.artwork.bgColor != null) ? (this.item.attributes.artwork.bgColor) : `333333`}`
-                let c = color.substring(1);      // strip #
-                var rgb = parseInt(c, 16);   // convert rrggbb to decimal
-                var r = (rgb >> 16) & 0xff;  // extract red
-                var g = (rgb >>  8) & 0xff;  // extract green
-                var b = (rgb >>  0) & 0xff;  // extract blue
-
-                var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b; // per ITU-R BT.709
-
-                if (luma > 140) {
-                    return "#aaaaaa"
-                }else{
-                    return color
-                }
-
-
+                let color = `#${(this.item.attributes.artwork != null && this.item.attributes.artwork.bgColor != null) ? (this.item.attributes.artwork.bgColor) : ``}`
+                return color
             },
             getSubtitle() {
                 if(this.kind == 'card') {
@@ -145,8 +132,8 @@
                     let friends = this.badges[id]
                     if (friends) {
                         friends.forEach(function (friend) {
-                            self.app.mk.api.socialProfile(friend).then(data => {
-                                self.itemBadges.push(data)
+                            self.app.mk.api.v3.music(`/v1/social/${app.mk.storefrontId}/social-profiles/${friend}`).then(data => {
+                                self.itemBadges.push(data.data.data[0])
                             })
                         })
                     }
@@ -164,6 +151,7 @@
                         "extend": this.revisedRandId()
                     }
                     var res = await app.mkapi(this.item.attributes.playParams.kind ?? this.item.type, this.item.attributes.playParams.isLibrary ?? false, this.item.attributes.playParams.id ?? this.item.id, params);
+                    res = res.data.data[0]
                     this.addedToLibrary = (res && res.attributes && res.attributes.inLibrary) ? res.attributes.inLibrary : false
                 } else {
                     this.addedToLibrary = true
@@ -179,12 +167,17 @@
                 }
                 var id = this.item.id ?? this.item.attributes.playParams.id
                 var res = await app.mkapi(this.item.attributes.playParams.kind ?? this.item.type, this.item.attributes.playParams.isLibrary ?? false, this.item.attributes.playParams.id ?? this.item.id, params);
+                res= res.data.data[0]
                 if (res && res.relationships && res.relationships.library && res.relationships.library.data && res.relationships.library.data.length > 0) {
                     id = res.relationships.library.data[0].id
                 }
                 let kind = this.item.attributes.playParams.kind ?? this.item.type ?? '';
                 var truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
-                app.mk.api.library.remove({[truekind]: id})
+                app.mk.api.v3.music(`v1/me/library/${truekind}/${id.toString()}`,{},
+                    {
+                    fetchOptions: {
+                    method: "DELETE"
+                }})
                 this.addedToLibrary = true
             },
             uuidv4() {
@@ -229,6 +222,7 @@
                     case "music-videos":
                     case "uploadedVideo":
                     case "uploaded-videos":
+                    case "library-music-videos":    
                         return "mediaitem-video";
                         break;
                 }
@@ -257,7 +251,7 @@
                     multiple: {
                         items: [
                             {
-                                name: `Play ${app.selectedMediaItems.length} tracks next`,
+                                name: app.getLz('action.playTracksNext').replace("${app.selectedMediaItems.length}", app.selectedMediaItems.length),
                                 "icon": "./assets/arrow-bend-up.svg",
                                 action: () => {
                                     let itemsToPlay = {}
@@ -279,7 +273,7 @@
                                 }
                             },
                             {
-                                name: `Play ${app.selectedMediaItems.length} tracks later`,
+                                name: app.getLz('action.playTracksLater').replace("${app.selectedMediaItems.length}", app.selectedMediaItems.length),
                                 "icon": "./assets/arrow-bend-down.svg",
                                 action: () => {
                                     let itemsToPlay = {}
@@ -306,7 +300,7 @@
                             {
                                 "icon": "./assets/feather/heart.svg",
                                 "id": "love",
-                                "name": "Love",
+                                "name": app.getLz('action.love'),
                                 "hidden": false,
                                 "disabled": true,
                                 "action": function () {
@@ -317,7 +311,7 @@
                                 "icon": "./assets/feather/heart.svg",
                                 "id": "unlove",
                                 "active": true,
-                                "name": "Unlove",
+                                "name": app.getLz('action.unlove'),
                                 "hidden": true,
                                 "action": function () {
                                     app.unlove(self.item)
@@ -326,7 +320,7 @@
                             {
                                 "icon": "./assets/feather/thumbs-down.svg",
                                 "id": "dislike",
-                                "name": "Dislike",
+                                "name": app.getLz('action.dislike'),
                                 "hidden": false,
                                 "disabled": true,
                                 "action": function () {
@@ -336,7 +330,7 @@
                             {
                                 "icon": "./assets/feather/thumbs-down.svg",
                                 "id": "undo_dislike",
-                                "name": "Undo dislike",
+                                "name": app.getLz('action.undoDislike'),
                                 "active": true,
                                 "hidden": true,
                                 "action": function () {
@@ -348,7 +342,7 @@
                             {
                                 "icon": "./assets/feather/list.svg",
                                 "id": "addToPlaylist",
-                                "name": "Add to Playlist...",
+                                "name": app.getLz('action.addToPlaylist'),
                                 "action": function () {
                                     app.promptAddToPlaylist()
                                 }
@@ -356,7 +350,7 @@
                             {
                                 "id": "addToLibrary",
                                 "icon": "./assets/feather/plus.svg",
-                                "name": "Add to library",
+                                "name": app.getLz('action.addToLibrary'),
                                 "hidden": false,
                                 "disabled": true,
                                 "action": function () {
@@ -369,7 +363,7 @@
                             {
                                 "id": "removeFromLibrary",
                                 "icon": "./assets/feather/x-circle.svg",
-                                "name": "Remove from library",
+                                "name": app.getLz('action.removeFromLibrary'),
                                 "hidden": true,
                                 "action": async function () {
                                     console.log("remove");
@@ -380,7 +374,7 @@
                                 }
                             },
                             {
-                                "name": "Play Next",
+                                "name": app.getLz('action.playNext'),
                                 "icon": "./assets/arrow-bend-up.svg",
                                 "action": function () {
                                     app.mk.playNext({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
@@ -389,7 +383,7 @@
                                 }
                             },
                             {
-                                "name": "Play Later",
+                                "name": app.getLz('action.playLater'),
                                 "icon": "./assets/arrow-bend-down.svg",
                                 "action": function () {
                                     app.mk.playLater({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
@@ -399,9 +393,14 @@
                             },
                             {
                                 "icon": "./assets/feather/share.svg",
-                                "name": "Share",
+                                "name": app.getLz('action.share'),
                                 "action": function () {
-                                    self.app.copyToClipboard(self.item.attributes.url)
+                                     if (!self.item.attributes.url && self.item.relationships){
+                                        if (self.item.relationships.catalog){
+                                            app.mkapi(self.item.attributes.playParams.kind, false, self.item.relationships.catalog.data[0].id).then(u => {self.app.copyToClipboard((u.data.data.length && u.data.data.length > 0)? u.data.data[0].attributes.url : u.data.data.attributes.url)})
+                                        }
+                                    }else {
+                                    self.app.copyToClipboard(self.item.attributes.url)}
                                 }
                             }
                         ]

@@ -1,0 +1,84 @@
+app-id: org.cidercollective.cider
+branch: main
+runtime: org.freedesktop.Platform
+runtime-version: '21.08'
+sdk: org.freedesktop.Sdk
+# Use the Electron 2 BaseApp, which adds several common libraries we'll need.
+base: org.electronjs.Electron2.BaseApp
+base-version: '21.08'
+# Add the Node 10 SDK extension.
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.node14
+# Electron doesn't use a traditional locale format so separate-locales is useless.
+separate-locales: false
+command: cider
+finish-args:
+  # These two lines add Xorg access for graphics.
+  - '--share=ipc'
+  - '--socket=x11'
+  # Sound access.
+  - '--socket=pulseaudio'
+  # Network access.
+  - '--share=network'
+  # If you need to access the filesystem, also add:
+  # - '--filesystem=home'
+modules:
+  # With electron-webpack and electron-builder we don't install Node to /app/node,
+  # because electron-builder will bundle everything for us in one piece.
+  # Instead we jump straight to the quick start module.
+
+  # However, since this quick start uses yarn, we do have to install that.
+  - name: yarn
+    buildsystem: simple
+    build-commands:
+      - 'cp -a * /app'
+    # Only used for building, so clean it up afterwards.
+    cleanup:
+      - '*'
+    sources:
+      - type: archive
+        url: https://github.com/yarnpkg/yarn/releases/download/v1.22.17/yarn-v1.22.17.tar.gz
+        sha256: 267982c61119a055ba2b23d9cf90b02d3d16c202c03cb0c3a53b9633eae37249
+
+  - name: cider
+    buildsystem: simple
+    build-options:
+      # Add the node bin directory & yarn directory.
+      append-path: '/usr/lib/sdk/node14/bin:/app/yarn/bin'
+      env:
+        # Set the Electron cache directory.
+        # (The directory format is: /run/build/MODULE_NAME/flatpak-node/electron-cache)
+        ELECTRON_CACHE: '/run/build/cider/flatpak-node/electron-cache'
+        # Sets the directory where Node is located so way npm won't download the headers.
+        npm_config_nodedir: '/usr/lib/sdk/node14'
+    build-commands:
+      # Have Yarn use the offline mirror.
+      - 'HOME=$PWD yarn config --offline set yarn-offline-mirror $FLATPAK_BUILDER_BUILDDIR/flatpak-node/yarn-mirror'
+      # Download the packages.
+      - 'yarn install --offline'
+      # If you were using npm with electron-webpack/electron-builder, then the above two commands
+      # would look more like the npm commands in the vanilla-quick-start manifest, just without
+      # the --prefix.
+
+      # Run electron-builder, passing the architecture arguments to it.
+      # Note that the -- is important; without that, the argument will be passed to
+      # yarn instead of electron-builder.
+      - '. flatpak-node/electron-builder-arch-args.sh; yarn run --offline electron-builder build --linux dir -- $ELECTRON_BUILDER_ARCH_ARGS'
+      # Copy the resulting, unpacked directory to /app.
+      # (A glob is used because the directory name may contain the current arch.)
+      - 'cp -r dist/linux*unpacked /app/cider'
+      # If you passed --electron-non-patented-ffmpeg, you could install it like this:
+      # - 'install -Dm 755 flatpak-node/libffmpeg.so -t /app/electron-webpack-quick-start'
+      # Install the wrapper script to start it.
+      - 'install -Dm 755 cider.sh /app/bin/cider'
+    sources:
+      - type: git
+        url: https://github.com/ciderapp/cider
+        branch: main
+      # Add the flatpak-node-generator generated sources.
+      - generated-sources.json
+      # Our runner script.
+      - type: script
+        dest-filename: cider.sh
+        commands:
+          - '/app/cider/cider'

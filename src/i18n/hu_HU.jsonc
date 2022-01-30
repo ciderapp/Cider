@@ -1,0 +1,297 @@
+{ // Base File 
+
+  // i18n Info
+  "i18n.languageName": "Magyar",        // name of language in native language
+  "i18n.languageNameEnglish": "Hungarian", // name of language in English
+  "i18n.category": "main", // main = real language, fun = fun community languages
+  "i18n.authors": "@Greenoliv @Rias", // Authors, if you contribute to this file feel free to add your name seperated with a space
+  
+  // App info
+  "app.name": "Cider",
+
+  "date.format": "${m} ${d}, ${y}",
+
+  // Dialogs
+  "dialog.cancel": "Mégsem",
+  "dialog.ok": "OK",
+
+  // Notification
+  "notification.updatingLibrarySongs": "Zenekönyvtár frissítése...",
+  "notification.updatingLibraryAlbums": "Albumok frissítése...",
+  "notification.updatingLibraryArtists": "Előadók frissítése...",
+  // Terms
+  "term.appleInc": "Apple Inc.",
+  "term.appleMusic": "Apple Music",
+  "term.applePodcasts": "Apple Podcastok",
+  "term.itunes": "iTunes",
+  "term.github": "GitHub",
+  "term.discord": "Discord",
+  "term.learnMore": "Tudj meg többet",
+  "term.accountSettings": "Fiókbeállítások",
+  "term.logout": "Kijelentkezés",
+  "term.login": "Bejelentkezés",
+  "term.about": "About",
+  "term.privateSession": "Privát hallgatás",
+  "term.queue": "Várólista",
+  "term.search": "Keresés",
+  "term.library": "Könyvtár",
+  "term.listenNow": "Hallgatás most",
+  "term.browse": "Böngészés",
+  "term.radio": "Rádió",
+  "term.recentlyAdded": "Nemrég hozzáadott",
+  "term.songs": "Dalok",
+  "term.albums": "Albumok",
+  "term.artists": "Előadók",
+  "term.podcasts": "Podcastok",
+  "term.playlists": "Lejátszási listák",
+  "term.playlist": "Lejátszási lista",
+  "term.play": "Lejátszás",
+  "term.pause": "Megállítás",
+  "term.previous": "Előző",
+  "term.next": "Következő",
+  "term.shuffle": "Keverés",
+  "term.repeat": "Ismétlés",
+  "term.volume": "Hangerő",
+  "term.mute": "Némítás",
+  "term.unmute": "Némítás feloldása",
+  "term.share": "Megosztás",
+  "term.settings": "Beállítások",
+  "term.seeAll": "Összes",
+  "term.sortBy": "Rendezés",
+  "term.sortBy.album": "Album",
+  "term.sortBy.artist": "Előadó",
+  "term.sortBy.name": "Név",
+  "term.sortBy.genre": "Műfaj",
+  "term.sortBy.releaseDate": "Kiadás dátuma",
+  "term.sortBy.duration": "Időtartam",
+  "term.sortOrder": "A-Z",
+  "term.sortOrder.ascending": "Növekvő",
+  "term.sortOrder.descending": "Csökkenő",
+  "term.viewAs": "Megjelenítés",
+  "term.viewAs.coverArt": "Borító",
+  "term.viewAs.list": "Lista",
+  "term.size": "Méret",
+  "term.size.normal": "Normál",
+  "term.size.compact": "Kompakt",
+  "term.enable": "Be",
+  "term.disable": "Ki",
+  "term.enabled": "Be",
+  "term.disabled": "Ki",
+  "term.connect": "Csatlakoztatás",
+  "term.connecting": "Csatlakozás",
+  "term.disconnect": "Lecsatlakozatás",
+  "term.authed": "Authed",
+  "term.confirm": "Jóváhagyás ?",
+  "term.more": "Több",
+  "term.less": "Kevesebb",
+  "term.showMore": "Mutass többet",
+  "term.showLess": "Mutass kevesebbet",
+  "term.topSongs" : "A legjobb dalok",
+  "term.latestReleases": "Új megjelenések",
+  "term.time.added": "Hozzáadva",
+  "term.time.released": "Kiadva", 
+  "term.time.updated": "Frissítve",
+  "term.time.hours": "óra",
+  "term.time.hour": "óra",
+  "term.time.minutes": "perc",
+  "term.time.minute": "perc",
+  "term.time.seconds": "másodperc",
+  "term.time.second": "másodperc",
+  "term.fullscreenView": "Teljes képernyős mód",
+  "term.defaultView": "Alapértelmezett nézet",
+  "term.spacializedAudioSetting": "Térbeli hang",
+  "term.clearAll": "Összes törlése",
+  "term.recentStations": "Nemrég játszott",
+  "term.language": "Nyelv",
+  "term.funLanguages": "Játékos",
+  "term.noLyrics": "Betöltés... / Dalszöveg nem található. / Instrumentális.",
+  "term.copyright": "Copyright",
+  "term.rightsReserved": "Minden jog fenntartva.",
+  "term.sponsor": "Támogasd ezt a projektet",
+  "term.ciderTeam": "A Cider Csapata",
+  "term.developer": "Fejlesztő",
+  "term.socialTeam": "Social Team",
+  "term.contributors": "Contributors",
+  "term.equalizer": "Equalizer",
+  "term.reset": "Reset",
+  "term.tracks": "zeneszám", // Assume x amount of tracks. e.g. 50 tracks 
+  "term.videos": "Videók", 
+  "term.menu": "Menü",
+
+  // Home
+  "home.title": "Kezdőlap",
+  "home.recentlyPlayed": "Nemrég játszott",
+  "home.recentlyAdded": "Nemrég hozzáadott",
+  "home.artistsFeed": "Az előadóid feedje",
+  "home.artistsFeed.noArtist": "Kövess néhány művészt, hogy a legújabb zenéik itt legyenek",
+  "home.madeForYou": "Személyre szabva",
+  "home.friendsListeningTo": "A barátok épp ezt hallgatják",
+  "home.followedArtists": "Követett előadók",
+  // Errors
+  "error.appleMusicSubRequired": "Apple Music előfizetés szükséges.",
+  "error.connectionError": "Hiba történt az Apple Musichoz való csatlakozás közben.",
+  "error.noResults": "Nincs találat",
+  "error.noResults.description": "Próbálkozzon új kereséssel",
+
+  //Podcasts
+  "podcast.followOnCider": "Követés a Cideren",
+  "podcast.followedOnCider": "Követve a Cideren",
+  "podcast.subscribeOnItunes": "Feliratkozás az iTunesban",
+  "podcast.subscribedOnItunes": "Feliratkozva az iTunesban",
+  "podcast.itunesStore": "iTunes Store",
+  "podcast.episodes": "Epizódok",
+  "podcast.playEpisode": "Epizód lejátszása",
+  "podcast.website": "Podcast Weboldala",
+
+  // Actions
+  "action.addToLibrary": "Hozzáadás a Könyvtárhoz",
+  "action.addToLibrary.success": "Hozzáadva a Könyvtárhoz",
+  "action.addToLibrary.error": "Hiba történt! Sikertelen hozzáadás.",
+  "action.removeFromLibrary": "Törlés a Könytárból",
+  "action.removeFromLibrary.success": "Törölve a Könyvtárból",
+  "action.addToQueue": "Hozzáadás a várólistához",
+  "action.addToQueue.success": "Hozzáadva a várólistához",
+  "action.addToQueue.error": "Sikertelen hozzáadás a várólistához",
+  "action.removeFromQueue": "Törlés a várólistáról",
+  "action.removeFromQueue.success": "Törölve a várólistáról",
+  "action.removeFromQueue.error": "Sikertelen törlés a várólistáról",
+  "action.addToPlaylist": "Lejátszási listához adás",
+  "action.removeFromPlaylist": "Törlés a lejátszási listáról",
+  "action.addToFavorites": "Hozzáadás a kedvencekhez",
+  "action.follow": "Követés",
+  "action.follow.success": "Követve",
+  "action.follow.error": "Sikertelen követés",
+  "action.unfollow": "Követés visszavonása",
+  "action.unfollow.success": "Követés visszavonva",
+  "action.unfollow.error": "Sikertelen visszavonás",
+  "action.playNext": "Lejátszás következőként",
+  "action.playLater": "Lejátszás utolsóként",
+  "action.startRadio": "Állomás létrehozása",
+  "action.goToArtist": "Előadó megjelenítése",
+  "action.goToAlbum": "Album megjelenítése",
+  "action.moveToTop": "Mozgatás legfelülre",
+  "action.share": "Megosztás",
+  "action.rename": "Átnevezés",
+  "action.love": "Szeretem",
+  "action.unlove": "Mégsem szeretem",
+  "action.dislike": "Kevesebb ilyen javasolása",
+  "action.undoDislike": "A Kevesebb ilyen javasolása visszavonása",
+  "action.showWebRemoteQR": "Távirányító QR kód megjelenítése",
+  "action.playTracksNext": "Play ${app.selectedMediaItems.length} tracks next",
+  "action.playTracksLater": "Play ${app.selectedMediaItems.length} tracks later",
+  "action.removeTracks": "Remove ${self.selectedItems.length} tracks from queue",
+  "action.import": "Importálás",
+  "action.export": "Exportálás",
+
+  // Settings - General
+  "settings.header.general": "General",
+  "settings.header.general.description": "Adjust the general settings for Cider.",
+  "settings.option.general.language": "Language",
+
+  // Language optgroups
+  "settings.option.general.language.main": "Languages",
+  "settings.option.general.language.fun": "Fun Languages",
+  "settings.option.general.language.unsorted": "Unsorted",
+  
+  // Settings - Audio
+  "settings.header.audio": "Hang",
+  "settings.header.audio.description": "A Cider hangbeállításainak módosítása.",
+  "settings.option.audio.quality": "Hangminőség", // Dropdown
+  "settings.header.audio.quality.high": "Magas",
+  "settings.header.audio.quality.low": "Alacsony",
+  "settings.header.audio.quality.auto": "Auto",
+  "settings.option.audio.seamlessTransition": "Szünetmentes lejátszás", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality": "Haladó funkcionalitás engedélyezése", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.description": "Az AudioContext funkció engedélyezése lehetővé teszi a fejlettebb hangfunkciókat, például a Normalizásást, az Equalizereket és a Visualizer funkciókat, azonban egyes számítógépeken ez akadozást okozhat a hangsávokban.",
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Normalizálás", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizálja az egyes zeneszámok hangosabb részeit, hogy egységesebb hallgatási élményt hozzon létre.",
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Térbeli hang", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Térbeli hang és a hang háromdimenziósabbá tétele (Ez nem összekeverendő a Dolby Atmos-szal!)",
+  // Settings - Visual
+  "settings.header.visual": "Vizuális", 
+  "settings.header.visual.description": "A Cider vizuális beállításainak módosítása.",
+  "settings.option.visual.windowBackgroundStyle": "Ablak háttér stílusa", // Toggle
+  "settings.header.visual.windowBackgroundStyle.none": "None",
+  "settings.header.visual.windowBackgroundStyle.artwork": "Borító",
+  "settings.header.visual.windowBackgroundStyle.image": "Kép",
+  "settings.option.visual.animatedArtwork": "Animált borító", // Dropdown
+  "settings.header.visual.animatedArtwork.always": "Mindig",
+  "settings.header.visual.animatedArtwork.limited": "Oldalakra és speciális bejegyzésekre korlátozva.",
+  "settings.header.visual.animatedArtwork.disable": "Kikapcsolás mindenhol",
+  "settings.option.visual.animatedArtworkQuality": "Animált borító minősége", // Dropdown
+  "settings.header.visual.animatedArtworkQuality.low": "Alacsony",
+  "settings.header.visual.animatedArtworkQuality.medium": "Közepes",
+  "settings.header.visual.animatedArtworkQuality.high": "Magas",
+  "settings.header.visual.animatedArtworkQuality.veryHigh": "Nagyon magas",
+  "settings.header.visual.animatedArtworkQuality.extreme": "Extrém",
+  "settings.option.visual.animatedWindowBackground": "Animált ablakháttér", // Toggle
+  "settings.option.visual.hardwareAcceleration": "Hardveres gyorsítás", // Dropdown
+  "settings.option.visual.hardwareAcceleration.description": "Újraindítás szükséges",
+  "settings.header.visual.hardwareAcceleration.default": "Alap", 
+  "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
+  // Refer to term.disabled for the disabled option
+  "settings.option.visual.showPersonalInfo": "Személyes adatok mutatása", // Toggle
+
+  // Settings - Lyrics
+  "settings.header.lyrics": "Dalszöveg",
+  "settings.header.lyrics.description": "A Cider dalszöveg beállításainak módosítása.",
+  "settings.option.lyrics.enableMusixmatch": "MusixMatch dalszövegek engedélyezése", // Toggle
+  "settings.option.lyrics.enableMusixmatchKaraoke": "Karaoke mód bekapcsolása (Csak MusixMatch)", // Toggle
+  "settings.option.lyrics.musixmatchPreferredLanguage": "MusixMatch fordítás nyelve", // Dropdown
+  "settings.option.lyrics.enableYoutubeLyrics": "YouTube dalszövegek engedélyezése a zenei videóknál", // Toggle
+
+  // Settings - Connectivity
+  "settings.header.connectivity": "Csatlakozások",
+  "settings.header.connectivity.description": "A Cider csatlakozás beállításainak módosítása.",
+  "settings.option.connectivity.discordRPC": "Discord Rich Presence", // Dropdown
+  // Refer to term.disabled for the disabled option
+  "settings.header.connectivity.discordRPC.cider": "Megjelenítés 'Cider'-ként",
+  "settings.header.connectivity.discordRPC.appleMusic": "Megjelenítés 'Apple Music'-ként",
+  "settings.option.connectivity.discordRPC.clearOnPause": "Discord Rich Presence törlése megállításnál", // Toggle
+  "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling", // Option to Connect
+  "settings.option.connectivity.lastfmScrobble.delay": "LastFM Scrobble Késleltetés (%)", 
+  "settings.option.connectivity.lastfmScrobble.nowPlaying": "LastFM Now Playing engedélyezése", 
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "Remove featuring artists from song title (LastFM)", 
+  "settings.option.connectivity.lastfmScrobble.filterLoop": "Loopolt zeneszám szűrése (LastFM)", 
+  // Refer to term.connect for the connect button
+
+  // Settings - Experimental
+  "settings.header.experimental": "Kísérleti",
+  "settings.header.experimental.description": "A Cider kísérleti beállításainak módosítása.",
+  "settings.option.experimental.compactUI": "Kompakt UI", // Toggle
+  "settings.option.experimental.closeButtonBehaviour": "Bezárás gomb működése",
+  "settings.option.experimental.closeButtonBehaviour.quit": "Cider bezárása",
+  "settings.option.experimental.closeButtonBehaviour.minimizeTaskbar": "Kis méret",
+  "settings.option.experimental.closeButtonBehaviour.minimizeTray": "Kicsinyítés tálcára",
+  // Refer to term.disabled & term.enabled
+
+  // Spatialization Menu
+  "spatial.spatialProperties" : "Térbeli hang",
+  "spatial.width" : "Szélesség",
+  "spatial.height" : "Magasság",
+  "spatial.depth" : "Hosszúság",
+  "spatial.gain" : "Gain",
+  "spatial.roomMaterials" : "Szoba felépítése",
+  "spatial.roomDimensions" : "Room Dimensions",
+  "spatial.roomPositions" : "Room Positions",
+  "spatial.setDimensions" : "Set Dimensions",
+  "spatial.setPositions" : "Set Positions",
+  "spatial.up" : "Fent",
+  "spatial.front" : "Elől",
+  "spatial.left" : "Balra",
+  "spatial.right" : "Jobbra",
+  "spatial.back" : "Hátul",
+  "spatial.down" : "Lent",
+  "spatial.listener" : "Listener",
+  "spatial.audioSource" : "Audio Source",
+  
+  // Settings - Unfinished
+  "settings.header.unfinished": "Félkész",
+
+  // Web Remote
+  "remote.web.title": "Cider Remote",
+  "remote.web.description": "Olvasd be ezt a QR-kódot a telefonoddal, hogy tudd vezérelni a lejátszót.",
+
+  // About
+  "about.thanks": "Köszönet a Cider Collective csapatának és minden hozzájárulónak."
+}

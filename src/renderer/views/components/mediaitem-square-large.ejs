@@ -122,7 +122,11 @@
                 }
                 let kind = this.item.attributes.playParams.kind ?? this.item.type ?? '';
                 var truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
-                app.mk.api.library.remove({[truekind]: id})
+                app.mk.api.v3.music(`v1/me/library/${truekind}/${id.toString()}`,{},
+                    {
+                    fetchOptions: {
+                    method: "DELETE"
+                }})
                 this.addedToLibrary = true
             },
             async contextMenu(event) {
@@ -140,7 +144,7 @@
                     multiple: {
                         items: [
                             {
-                                name: `Play ${app.selectedMediaItems.length} tracks next`,
+                                name: this.$root.getLz('action.playTracksNext').replace("${app.selectedMediaItems.length}", app.selectedMediaItems.length),
                                 action: () => {
                                     let itemsToPlay = {}
                                     app.selectedMediaItems.forEach(item => {
@@ -161,7 +165,7 @@
                                 }
                             },
                             {
-                                name: `Play ${app.selectedMediaItems.length} tracks later`,
+                                name: app.getLz('action.playTracksLater').replace("${app.selectedMediaItems.length}", app.selectedMediaItems.length),
                                 action: () => {
                                     let itemsToPlay = {}
                                     app.selectedMediaItems.forEach(item => {
@@ -225,7 +229,7 @@
                                 }
                             },
                             {
-                                "name": "Share",
+                                "name": this.$root.getLz('term.share'),
                                 "action": function () {
                                     self.app.copyToClipboard(self.item.attributes.url)
                                 }

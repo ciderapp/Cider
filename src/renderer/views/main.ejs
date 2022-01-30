@@ -16,17 +16,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Cider</title>
     <link rel="stylesheet/less" type="text/css" href="style.less"/>
-    <script src="less.js"></script>
-    <script src="<%- (env.dev ? "vue.js" : "vue.dev.js") %>"></script>
-    <script src="vuex.min.js"></script>
-    <script src="sortable.min.js"></script>
-    <script src="vue-observe-visibility.min.js"></script>
-    <script src="sortable.min.js"></script>
-    <script src="vibrant.min.js"></script>
-    <script src="vuedraggable.umd.min.js"></script>
+    <script src="./js/less.js"></script>
+    <script src="<%- (env.dev ? "./js/vue.js" : "./js/vue.dev.js") %>"></script>
+    <script src="./js/vuex.min.js"></script>
+    <script src="./js/sortable.min.js"></script>
+    <script src="./js/vue-observe-visibility.min.js"></script>
+    <script src="./js/vuedraggable.umd.min.js"></script>
     <link rel="manifest" href="./manifest.json?v=2">
     <script src="https://js-cdn.music.apple.com/hls.js/2.141.0/hls.js/hls.js"></script>
     <script src="hlscider.js"></script>
+    <script src="./js/jquery-3.2.1.slim.min.js"></script>
+    <script src="./js/popper.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/bootbox.min.js"></script>
+    <script src="./js/notyf.min.js"></script>
 </head>
 
 <body oncontextmenu="return false;" loading="1" platform="<%= env.platform %>">
@@ -38,9 +41,10 @@
                 <div class="app-chrome--left">
                     <div class="app-chrome-item full-height" v-if="chrome.windowControlPosition == 'left'">
                         <div class="window-controls">
-                            <div class="close" @click="ipcRenderer.send('close')"></div>
+                            <div class="close" @click="closeWindow()"></div>
                             <div class="minimize" @click="ipcRenderer.send('minimize')"></div>
-                            <div class="minmax restore" v-if="chrome.maximized" @click="ipcRenderer.send('maximize')">
+                            <div class="minmax restore" v-if="chrome.maximized"
+                                 @click="ipcRenderer.send('maximize')">
                             </div>
                             <div class="minmax" v-else @click="ipcRenderer.send('maximize')"></div>
                         </div>
@@ -67,9 +71,9 @@
                     <div class="app-chrome-item display--large">
                         <button class="playback-button--small repeat" v-if="mk.repeatMode == 0"
                                 @click="mk.repeatMode = 1"></button>
-                        <button class="playback-button--small repeat active" @click="mk.repeatMode = 2"
+                        <button class="playback-button--small repeat repeatOne" @click="mk.repeatMode = 2"
                                 v-else-if="mk.repeatMode == 1"></button>
-                        <button class="playback-button--small repeat repeatOne" @click="mk.repeatMode = 0"
+                        <button class="playback-button--small repeat active" @click="mk.repeatMode = 0"
                                 v-else-if="mk.repeatMode == 2"></button>
                     </div>
                 </div>
@@ -83,29 +87,38 @@
                                 </div>
                                 <div class="playback-info">
                                     <div class="song-name" style="-webkit-box-orient: horizontal;"
-                                        :style="[mk.nowPlayingItem['attributes']['contentRating'] == 'explicit' ? {'margin-left' : '23px'} : {'margin-left' : '0px'} ]">
+                                        :class="[isElementOverflowing('#app-main > div.app-chrome > div.app-chrome--center > div > div > div.playback-info > div.song-name') ? 'marquee' : '']"
+                                         :style="[mk.nowPlayingItem['attributes']['contentRating'] == 'explicit' ? {'margin-left' : '23px'} : {'margin-left' : '0px'} ]">
                                         {{ mk.nowPlayingItem["attributes"]["name"] }}
-                                        <div class="explicit-icon" v-if="mk.nowPlayingItem['attributes']['contentRating'] == 'explicit'" style="display: inline-block"></div>
+                                        <div class="explicit-icon"
+                                             v-if="mk.nowPlayingItem['attributes']['contentRating'] == 'explicit'"
+                                             style="display: inline-block"></div>
                                     </div>
-                                    <div class="song-artist"
+                                    <div class="song-artist-album">
+                                    <div class="song-artist-album-content"
+                                        :class="[isElementOverflowing('#app-main > .app-chrome .app-chrome-item > .app-playback-controls > div >.song-artist-album > .song-artist-album-content') ? 'marquee' : '']"
                                          style="display: inline-block; -webkit-box-orient: horizontal; white-space: nowrap;">
-                                        <div class="item-navigate song-artist" style="display: inline-block;"
+                                        <div class="item-navigate song-artist" style="display: inline-block"
                                              @click="getNowPlayingItemDetailed(`artist`)">
                                             {{ mk.nowPlayingItem["attributes"]["artistName"] }}
                                         </div>
-                                        <div class="song-artist item-navigate" style="display: inline-block;"
-                                             @click="getNowPlayingItemDetailed('album')" v-if="mk.nowPlayingItem['attributes']['albumName'] != ''">
+                                        <div class="song-artist item-navigate" style="display: inline-block"
+                                             @click="getNowPlayingItemDetailed('album')"
+                                             v-if="mk.nowPlayingItem['attributes']['albumName'] != ''">
                                             <div class="separator" style="display: inline-block;">{{"—"}}</div>
                                             {{(mk.nowPlayingItem["attributes"]["albumName"]) ?
                                             (mk.nowPlayingItem["attributes"]["albumName"]) : "" }}
                                         </div>
                                     </div>
+                                    </div>
 
                                     <div class="song-progress">
-                                        <div class="song-duration" style="justify-content: space-between; height: 1px;"
+                                        <div class="song-duration"
+                                             style="justify-content: space-between; height: 1px;"
                                              :style="[chrome.progresshover ? {'display': 'flex'} : {'display' : 'none'} ]">
                                             <p style="width: auto">{{ convertToMins(getSongProgress()) }}</p>
-                                            <p style="width: auto">{{ convertToMins(mk.currentPlaybackDuration) }}</p>
+                                            <p style="width: auto">{{ convertToMins(mk.currentPlaybackDuration) }}
+                                            </p>
                                         </div>
 
                                         <input type="range" step="0.01" min="0" :style="progressBarStyle()"
@@ -115,11 +128,11 @@
                                     </div>
                                 </div>
                                 <template v-if="mk.nowPlayingItem['attributes']['playParams']">
-                                    <div class="actions"
-                                         v-if="isInLibrary(mk.nowPlayingItem['attributes']['playParams'])">
-                                        ❤️
+                                    <div class="actions">
+                                        <button class="lcdMenu" @click="nowPlayingContextMenu">
+                                            <div class="svg-icon"></div>
+                                        </button>
                                     </div>
-                                    <div class="actions" v-else>🖤</div>
                                 </template>
 
                             </div>
@@ -129,10 +142,10 @@
                 </div>
                 <div class="app-chrome--right">
                     <div class="app-chrome-item volume display--large">
-                        <div class="app-chrome-item volume-icon"></div>
-                        <input type="range" class="" @wheel="volumeWheel" step="0.01" min="0" max="1"
-                               v-model="mk.volume"
-                               v-if="typeof mk.volume != 'undefined'">
+                        <button class="volume-button--small volume" @click="muteButtonPressed()"
+                                :class="{'active': this.cfg.audio.volume == 0}"></button>
+                        <input type="range" class="" @wheel="volumeWheel" step="0.01" min="0" :max="cfg.audio.maxVolume"
+                               v-model="mk.volume" v-if="typeof mk.volume != 'undefined'" @change="checkMuteChange()">
                     </div>
                     <div class="app-chrome-item generic" v-if="false">
                         <button class="playback-button--small">
@@ -140,23 +153,29 @@
                         </button>
                     </div>
                     <div class="app-chrome-item generic">
+                        <button class="playback-button--small miniplayer"
+                        @click="drawer.open = false; miniPlayer(true)"></button>
+                    </div>
+                    <div class="app-chrome-item generic">
                         <button class="playback-button--small queue" :class="{'active': drawer.panel == 'queue'}"
                                 @click="invokeDrawer('queue')"></button>
                     </div>
                     <div class="app-chrome-item generic">
                         <template v-if="lyrics && lyrics != [] && lyrics.length > 0">
-                            <button class="playback-button--small lyrics" :class="{'active': drawer.panel == 'lyrics'}"
-                                @click="invokeDrawer('lyrics')"></button>
-                            </template>
-                        
+                            <button class="playback-button--small lyrics"
+                                    :class="{'active': drawer.panel == 'lyrics'}"
+                                    @click="invokeDrawer('lyrics')"></button>
+                        </template>
+
                     </div>
                     <div class="app-chrome-item full-height" v-if="chrome.windowControlPosition == 'right'">
                         <div class="window-controls">
                             <div class="minimize" @click="ipcRenderer.send('minimize')"></div>
-                            <div class="minmax restore" v-if="chrome.maximized" @click="ipcRenderer.send('maximize')">
+                            <div class="minmax restore" v-if="chrome.maximized"
+                                 @click="ipcRenderer.send('maximize')">
                             </div>
                             <div class="minmax" v-else @click="ipcRenderer.send('maximize')"></div>
-                            <div class="close" @click="ipcRenderer.send('close')"></div>
+                            <div class="close" @click="closeWindow()"></div>
                         </div>
                     </div>
                 </div>
@@ -169,11 +188,9 @@
                             <input type="search" spellcheck="false" @click="showSearch()"
                                    @focus="search.showHints = true"
                                    @blur="setTimeout(()=>{search.showHints = false}, 300)"
-                                   v-on:keyup.enter="searchQuery();search.showHints = false"
-                                   @change="showSearch();" @input="getSearchHints()" placeholder="Search..."
-                                   v-model="search.term"
-                                   ref="searchInput"
-                                   class="search-input">
+                                   v-on:keyup.enter="searchQuery();search.showHints = false" @change="showSearch();"
+                                   @input="getSearchHints()" :placeholder="$root.getLz('term.search') + '...'" v-model="search.term"
+                                   ref="searchInput" class="search-input">
                         </div>
                     </div>
                     <div class="search-hints-container" v-if="search.showHints && search.hints.length != 0">
@@ -186,40 +203,53 @@
                     </div>
                     <div class="app-sidebar-content">
                         <div class="app-sidebar-header-text">
-                            Apple Music
+                            Cider
                         </div>
-                        <sidebar-library-item name="Home" svg-icon="./assets/feather/home.svg"
-                                              page="home"></sidebar-library-item>
-                        <sidebar-library-item name="Listen Now" svg-icon="./assets/feather/play-circle.svg"
-                                              page="listen_now"></sidebar-library-item>
-                        <sidebar-library-item name="Browse" svg-icon="./assets/feather/globe.svg"
-                                              page="browse"></sidebar-library-item>
-                        <sidebar-library-item name="Radio" svg-icon="./assets/feather/radio.svg"
-                                              page="radio"></sidebar-library-item>
+                        <sidebar-library-item :name="$root.getLz('home.title')" svg-icon="./assets/feather/home.svg" page="home">
+                        </sidebar-library-item>
                         <div class="app-sidebar-header-text">
-                            Library
+                            {{$root.getLz('term.appleMusic')}}
                         </div>
-                        <sidebar-library-item name="Recently Added" svg-icon="./assets/feather/plus-circle.svg"
+                        <sidebar-library-item :name="$root.getLz('term.listenNow')" svg-icon="./assets/feather/play-circle.svg"
+                                              page="listen_now"></sidebar-library-item>
+                        <sidebar-library-item :name="$root.getLz('term.browse')" svg-icon="./assets/feather/globe.svg" page="browse">
+                        </sidebar-library-item>
+                        <sidebar-library-item :name="$root.getLz('term.radio')" svg-icon="./assets/feather/radio.svg" page="radio">
+                        </sidebar-library-item>
+                        <div class="app-sidebar-header-text">
+                            {{$root.getLz('term.library')}}
+                        </div>
+                        <sidebar-library-item :name="$root.getLz('term.recentlyAdded')" svg-icon="./assets/feather/plus-circle.svg"
                                               page="library-recentlyadded"></sidebar-library-item>
-                        <sidebar-library-item name="Songs" svg-icon="./assets/feather/music.svg"
+                        <sidebar-library-item :name="$root.getLz('term.songs')" svg-icon="./assets/feather/music.svg"
                                               page="library-songs"></sidebar-library-item>
-                        <sidebar-library-item name="Albums" svg-icon="./assets/feather/disc.svg"
+                        <sidebar-library-item :name="$root.getLz('term.albums')" svg-icon="./assets/feather/disc.svg"
                                               page="library-albums"></sidebar-library-item>
-                        <sidebar-library-item name="Artists" svg-icon="./assets/feather/user.svg"
+                        <sidebar-library-item :name="$root.getLz('term.artists')" svg-icon="./assets/feather/user.svg"
                                               page="library-artists"></sidebar-library-item>
+                        <sidebar-library-item :name="$root.getLz('term.videos')" svg-icon="./assets/feather/video.svg" page="library-videos"></sidebar-library-item>
+                        <sidebar-library-item :name="$root.getLz('term.podcasts')" svg-icon="./assets/feather/mic.svg" page="podcasts">
+                        </sidebar-library-item>
                         <div class="app-sidebar-header-text" @contextmenu="playlistHeaderContextMenu">
-                            Playlists
+                            {{ $root.getLz('term.playlists') }}
                         </div>
-                        <sidebar-playlist v-for="item in getPlaylistFolderChildren('p.playlistsroot')"
-                                          :item="item"></sidebar-playlist>
+                        <sidebar-playlist v-for="item in getPlaylistFolderChildren('p.playlistsroot')" :item="item">
+                        </sidebar-playlist>
                     </div>
                     <transition name="wpfade">
                         <div class="usermenu-container" v-if="chrome.menuOpened">
                             <div class="usermenu-body">
-                                <button class="usermenu-item" @click="chrome.hideUserInfo = !chrome.hideUserInfo">
+                                <button class="usermenu-item" @click="showWebRemoteQR()">
                                     <div class="row nopadding">
                                         <div class="col nopadding">
-                                            Show Personal Info
+                                            {{$root.getLz('action.showWebRemoteQR')}}
+                                        </div>
+                                    </div>
+                                </button>
+                                <button class="usermenu-item" @click="toggleHideUserInfo()">
+                                    <div class="row nopadding">
+                                        <div class="col nopadding">
+                                            {{$root.getLz('settings.option.visual.showPersonalInfo')}}
                                         </div>
                                         <div class="col-auto nopadding" v-if="!chrome.hideUserInfo">
                                             ✔️
@@ -229,31 +259,35 @@
                                 <button class="usermenu-item" @click="mk.privateEnabled = !mk.privateEnabled">
                                     <div class="row nopadding">
                                         <div class="col nopadding">
-                                            Private Session
+                                            {{$root.getLz('term.privateSession')}}
                                         </div>
                                         <div class="col-auto nopadding" v-if="mk.privateEnabled">
                                             ✔️
                                         </div>
                                     </div>
                                 </button>
+                                <button class="usermenu-item" v-if="cfg.advanced.AudioContext"
+                                @click="modals.equalizer = true">
+                                    {{$root.getLz('term.equalizer')}}
+                                </button>
                                 <button class="usermenu-item" v-if="cfg.advanced.AudioContext && cfg.audio.spatial"
                                         @click="modals.spatialProperties = true">
-                                    Spatialized Audio Settings
+                                    {{$root.getLz('term.spacializedAudioSetting')}}
                                 </button>
                                 <button class="usermenu-item" @click="appRoute('apple-account-settings')">
-                                    Account Settings
+                                    {{$root.getLz('term.accountSettings')}}
                                 </button>
                                 <button class="usermenu-item" @click="appRoute('about')">
-                                    About
+                                    {{$root.getLz('term.about')}}
                                 </button>
                                 <button class="usermenu-item" @click="window.open('https://discord.gg/applemusic')">
-                                    Discord
+                                    {{$root.getLz('term.discord')}}
                                 </button>
                                 <button class="usermenu-item" @click="appRoute('settings')">
-                                    Settings
+                                    {{$root.getLz('term.settings')}}
                                 </button>
-                                <button class="usermenu-item" @click="mk.unauthorize()">
-                                    Sign Out
+                                <button class="usermenu-item" @click="unauthorize()">
+                                    {{$root.getLz('term.logout')}}
                                 </button>
                             </div>
                         </div>
@@ -283,23 +317,23 @@
                                 <div class="app-chrome-item">
                                     <button class="playback-button--small repeat" v-if="mk.repeatMode == 0"
                                             @click="mk.repeatMode = 1"></button>
-                                    <button class="playback-button--small repeat active" @click="mk.repeatMode = 2"
+                                    <button class="playback-button--small repeat repeatOne" @click="mk.repeatMode = 2"
                                             v-else-if="mk.repeatMode == 1"></button>
-                                    <button class="playback-button--small repeat repeatOne" @click="mk.repeatMode = 0"
-                                            v-else-if="mk.repeatMode == 2"></button>
+                                    <button class="playback-button--small repeat active"
+                                            @click="mk.repeatMode = 0" v-else-if="mk.repeatMode == 2"></button>
                                 </div>
                             </div>
                             <div class="app-chrome-item volume">
                                 <div class="input-container">
-                                    <div class="app-chrome-item volume-icon"></div>
-                                    <input type="range" class="" @wheel="volumeWheel" step="0.01" min="0" max="1"
-                                           v-model="mk.volume"
-                                           v-if="typeof mk.volume != 'undefined'">
+                                    <button class="volume-button--small volume" @click="muteButtonPressed()"
+                                            :class="{'active': this.cfg.audio.volume == 0}"></button>
+                                    <input type="range" class="" @wheel="volumeWheel" step="0.01" min="0" :max="cfg.audio.maxVolume"
+                                           v-model="mk.volume" v-if="typeof mk.volume != 'undefined'"
+                                           @change="checkMuteChange()">
                                 </div>
                             </div>
                         </div>
-                        <button class="app-sidebar-button" style="width:100%"
-                                :class="{active: chrome.menuOpened}"
+                        <button class="app-sidebar-button" style="width:100%" :class="{active: chrome.menuOpened}"
                                 @blur="setTimeout(()=>{chrome.menuOpened = false}, 100)"
                                 @click="(chrome.userinfo.id) ? chrome.menuOpened = !chrome.menuOpened : false">
 
@@ -308,9 +342,11 @@
 
                             <div class="sidebar-user-text" v-if="!chrome.hideUserInfo">
                                 <template v-if="chrome.userinfo.id">
-                                    <div class="fullname text-overflow-elipsis">{{ chrome.userinfo.attributes.name }}
+                                    <div class="fullname text-overflow-elipsis">{{ chrome.userinfo.attributes.name
+                                        }}
                                     </div>
-                                    <div class="handle-text text-overflow-elipsis">@{{ chrome.userinfo.attributes.handle
+                                    <div class="handle-text text-overflow-elipsis">{{
+                                        chrome.userinfo.attributes.handle
                                         }}
                                     </div>
                                 </template>
@@ -325,18 +361,36 @@
                             </div>
                         </button>
                     </div>
-                    <div class="app-sidebar-notification libraryNotification" v-if="library.downloadNotification.show">
-                        <div class="message">{{ library.downloadNotification.message }} ({{
-                            library.downloadNotification.progress }} / {{ library.downloadNotification.total }})
+                    <div class="app-sidebar-notification backgroundNotification"
+                         v-if="library.backgroundNotification.show">
+                        <div class="message">{{ library.backgroundNotification.message }} ({{
+                            library.backgroundNotification.progress }} / {{ library.backgroundNotification.total }})
                         </div>
                     </div>
                 </div>
                 <div id="app-content">
                     <div id="navigation-bar">
-                        <button class="nav-item" @click="navigateBack()"><%- include('svg/chevron-left.svg') %></button>
-                        <button class="nav-item"
-                                @click="navigateForward()"><%- include('svg/chevron-right.svg') %></button>
+                        <button class="nav-item" @click="navigateBack()">
+                            <%- include('svg/chevron-left.svg') %>
+                        </button>
+                        <button class="nav-item" @click="navigateForward()">
+                            <%- include('svg/chevron-right.svg') %>
+                        </button>
                     </div>
+
+                    <!--                    Podcasts -->
+                    <transition name="wpfade">
+                        <template v-if="page == 'podcasts'">
+                            <apple-podcasts></apple-podcasts>
+                        </template>
+                    </transition>
+                    <!-- Library - Library Videos -->
+                    <transition name="wpfade" >
+                        <template v-if="page == 'library-videos'">                       
+                            <cider-library-videos></cider-library-videos>
+                        </template>
+                    </transition>
+
                     <!-- Apple Setings Page -->
                     <transition name="wpfade">
                         <template v-if="page == 'apple-account-settings'">
@@ -407,53 +461,53 @@
                         <template v-if="page == 'browse'">
                             <!-- <div class="content-inner">
 
-                                <button id="apple-music-authorize" class="md-btn md-btn-primary" @click="init()">Start
-                                    MusicKit
-                                </button>
-                                <button id="apple-music-unauthorize" class="md-btn md-btn-primary"
-                                        @click="unauthorize()">
-                                    Stop
-                                    MusicKit
-                                </button>
+                            <button id="apple-music-authorize" class="md-btn md-btn-primary" @click="init()">Start
+                                MusicKit
+                            </button>
+                            <button id="apple-music-unauthorize" class="md-btn md-btn-primary"
+                                    @click="unauthorize()">
+                                Stop
+                                MusicKit
+                            </button>
+                            <br>
+                            <template v-if="mk.nowPlayingItem">
+                                currentPlaybackProgress: {{ app.mk.currentPlaybackProgress }}
                                 <br>
-                                <template v-if="mk.nowPlayingItem">
-                                    currentPlaybackProgress: {{ app.mk.currentPlaybackProgress }}
-                                    <br>
-                                    currentPlaybackDuration: {{ app.mk.currentPlaybackDuration }}
-                                </template>
-                                <div><input type="text" v-model="quickPlayQuery">
-                                    <button @click="quickPlay(quickPlayQuery)">Play</button>
-                                </div>
-                                <h1 class="header-text">Browse</h1>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna eu
-                                    tincidunt
-                                    consectetur, nisl nunc euismod nisi, eu porttitor nisl nisi euismod nisi.
-                                </p>
-                                <div class="media-item--small">
-                                    <div class="artwork">
+                                currentPlaybackDuration: {{ app.mk.currentPlaybackDuration }}
+                            </template>
+                            <div><input type="text" v-model="quickPlayQuery">
+                                <button @click="quickPlay(quickPlayQuery)">Play</button>
+                            </div>
+                            <h1 class="header-text">{{$root.getLz('term.browse')}}</h1>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna eu
+                                tincidunt
+                                consectetur, nisl nunc euismod nisi, eu porttitor nisl nisi euismod nisi.
+                            </p>
+                            <div class="media-item--small">
+                                <div class="artwork">
 
-                                    </div>
-                                    <div class="text">
-                                        Text
-                                    </div>
-                                    <div class="subtext">
-                                        Subtext
-                                    </div>
                                 </div>
-                                <br>
-                                <br>
-                                <h1 class="header-text">Listen Now</h1>
-                                <div class="winbox">
-                                    <div class="fancy">990kbps</div>
-                                    <div class="">
-                                        <button class="md-btn md-btn-primary">Audio Quality Settings</button>
-                                    </div>
+                                <div class="text">
+                                    Text
                                 </div>
-                                <button class="md-btn" @click="drawertest = !drawertest">Toggle Drawer</button>
-                                <button class="md-btn">Button</button>
-                                <button class="md-btn md-btn-primary">Button</button>
-                            </div> -->
+                                <div class="subtext">
+                                    Subtext
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                            <h1 class="header-text">{{$root.getLz('term.listenNow')}}</h1>
+                            <div class="winbox">
+                                <div class="fancy">990kbps</div>
+                                <div class="">
+                                    <button class="md-btn md-btn-primary">Audio Quality Settings</button>
+                                </div>
+                            </div>
+                            <button class="md-btn" @click="drawertest = !drawertest">Toggle Drawer</button>
+                            <button class="md-btn">Button</button>
+                            <button class="md-btn md-btn-primary">Button</button>
+                        </div> -->
                             <cider-browse :data="browsepage"></cider-browse>
                         </template>
                     </transition>
@@ -467,8 +521,8 @@
                     <transition v-on:enter="getRadioStations()" name="wpfade">
                         <template v-if="page == 'radio'" @created="console.log('radio')">
                             <div class="content-inner">
-                                <h1 class="header-text">Radio</h1>
-                                <h3>Recent Stations</h3>
+                                <h1 class="header-text">{{$root.getLz('term.radio')}}</h1>
+                                <h3>{{$root.getLz('term.recentStations')}}</h3>
                                 <mediaitem-square :item="item" v-for="item in radio.personal"></mediaitem-square>
                             </div>
                         </template>
@@ -522,7 +576,8 @@
 
                 </div>
                 <transition name="drawertransition">
-                    <div class="app-drawer" v-if="drawer.open && drawer.panel == 'lyrics' && lyrics && lyrics != [] && lyrics.length > 0">
+                    <div class="app-drawer"
+                         v-if="drawer.open && drawer.panel == 'lyrics' && lyrics && lyrics != [] && lyrics.length > 0">
                         <div class="bgArtworkMaterial">
                             <div class="bg-artwork-container">
                                 <img class="bg-artwork a" :src="$store.state.artwork.playerLCD">
@@ -533,7 +588,7 @@
                                      :richlyrics="richlyrics"></lyrics-view>
                         <div v-if="drawer.panel == 'lyrics'" class="lyric-footer">
                             <button class="md-btn" @click="modularUITest(!fullscreenLyrics)">{{fullscreenLyrics ?
-                                "Default View":'Fullscreen View'}}
+                                $root.getLz('term.defaultView'): $root.getLz('term.fullscreenView')}}
                             </button>
                         </div>
                     </div>
@@ -543,25 +598,28 @@
                         <cider-queue ref="queue" v-if="drawer.panel == 'queue'"></cider-queue>
                     </div>
                 </transition>
-                <cider-menu-panel v-if="menuPanel.visible">
-                </cider-menu-panel>
-
             </div>
         </div>
     </transition>
+    <cider-menu-panel v-if="menuPanel.visible">
+    </cider-menu-panel>
     <transition name="fsModeSwitch">
         <div class="fullscreen-view-container" v-if="appMode == 'fullscreen'">
             <fullscreen-view :image="currentArtUrl.replace('50x50', '600x600')" :time="lyriccurrenttime"
                              :lyrics="lyrics" :richlyrics="richlyrics"></fullscreen-view>
         </div>
     </transition>
+    <transition name="fsModeSwitch">
+        <div class="fullscreen-view-container" v-if="appMode == 'mini'">
+            <mini-view :image="currentArtUrl.replace('50x50', '600x600')" :time="lyriccurrenttime"
+                             :lyrics="lyrics" :richlyrics="richlyrics"></mini-view>
+        </div>
+    </transition>
     <transition name="wpfade">
-        <div class="bg-artwork-container"
+        <div class="bg-artwork-container" v-if="cfg.visual.window_background_style == 'artwork'"
              :class="{noanimation: (!cfg.visual.bg_artwork_rotation || !animateBackground)}">
-            <img @load="chrome.artworkReady = true" class="bg-artwork a "
-            >
-            <img class="bg-artwork b"
-            >
+            <img @load="chrome.artworkReady = true" class="bg-artwork a ">
+            <img class="bg-artwork b">
         </div>
     </transition>
     <transition name="wpfade">
@@ -572,6 +630,12 @@
     </transition>
     <transition name="modal">
         <spatial-properties v-if="modals.spatialProperties"></spatial-properties>
+    </transition>
+    <transition name="modal">
+        <eq-view v-if="modals.equalizer"></eq-view>
+    </transition>
+    <transition name="modal">
+        <qrcode-modal v-if="modals.qrcode" :src="webremoteqr" :url="webremoteurl"></qrcode-modal>
     </transition>
     <div id="apple-music-video-container">
         <div id="apple-music-video-player-controls">
@@ -585,9 +649,11 @@
             </div>
             <div id="captions">{{((lyricon) ? ((lyrics.length > 0 && lyrics[currentLyricsLine] &&
                 lyrics[currentLyricsLine].line ) ?
-                lyrics[currentLyricsLine].line.replace('lrcInstrumental','') : "") : '') + ((lyricon) ? ((lyrics.length
+                lyrics[currentLyricsLine].line.replace('lrcInstrumental','') : "") : '') + ((lyricon) ?
+                ((lyrics.length
                 > 0 && lyrics[currentLyricsLine] && lyrics[currentLyricsLine].line ) ?
-                (lyrics[currentLyricsLine].translation ? ('\n\r' + lyrics[currentLyricsLine].translation) : ""): "") :
+                (lyrics[currentLyricsLine].translation ? ('\n\r' + lyrics[currentLyricsLine].translation) : ""): "")
+                :
                 '')}}
             </div>
             <div id="player-pip"
@@ -605,6 +671,9 @@
     </div>
 </div>
 
+
+<!-- Apple Settings Page -->
+<%- include('pages/podcasts') %>
 <!-- Apple Settings Page -->
 <%- include('pages/apple-account-settings') %>
 <!-- Library - Songs -->
@@ -648,12 +717,17 @@
 <!-- About -->
 <%- include('pages/about') %>
 
-<script type="text/x-template" id="am-musiccovershelf">
+
+<%- include('pages/library-videos') %>
+
+<script type="text/x-template"
+        id="am-musiccovershelf">
     <h1>{{ component.attributes.title.stringForDisplay }}</h1>
 </script>
 
 <!-- Sidebar Item -->
-<script type="text/x-template" id="sidebar-library-item">
+<script type="text/x-template"
+        id="sidebar-library-item">
     <button class="app-sidebar-item"
             :class="$parent.getSidebarItemClass(page)" @click="$root.appRoute(page)">
         <div class="sidebar-icon" v-html="svgIconData" v-if="svgIconData != ''"></div>
@@ -661,56 +735,95 @@
     </button>
 </script>
 
+<!-- Artwork Material -->
+<%- include('components/artwork-material') %>
 <!-- Menu Panel -->
 <%- include('components/menu-panel') %>
 <!-- Playlist Listing -->
-<%- include('components/sidebar-playlist') %>
+<%- include('components/sidebar-playlist')
+%>
 <!-- Spatial Properties -->
-<%- include('components/spatial-properties') %>
+<%- include('components/spatial-properties') 
+%>
+<!-- QRCode Modal -->
+<%- include('components/qrcode-modal') 
+%>
+<!-- Equalizer -->
+<%- include('components/equalizer') 
+%>
 <!-- Add to playlist -->
-<%- include('components/add-to-playlist') %>
+<%- include('components/add-to-playlist')
+%>
 <!-- Queue -->
-<%- include('components/queue') %>
+<%- include('components/queue')
+%>
 <!-- Queue Item -->
-<%- include('components/queue-item') %>
+<%- include('components/queue-item')
+%>
 <!-- Horizontal MediaItem Scroller -->
-<%- include('components/mediaitem-scroller-horizontal') %>
+<%- include('components/mediaitem-scroller-horizontal')
+%>
 <!-- Horizontal MediaItem Scroller (Large) -->
-<%- include('components/mediaitem-scroller-horizontal-large') %>
+<%- include('components/mediaitem-scroller-horizontal-large')
+%>
 <!-- Horizontal MediaItem Scroller (SP : Special) -->
-<%- include('components/mediaitem-scroller-horizontal-sp') %>
+<%- include('components/mediaitem-scroller-horizontal-sp')
+%>
 <!-- Horizontal MediaItem Scroller (MV) -->
-<%- include('components/mediaitem-scroller-horizontal-mvview') %>
+<%- include('components/mediaitem-scroller-horizontal-mvview')
+%>
 <!-- MediaItem List Item -->
-<%- include('components/mediaitem-list-item') %>
+<%- include('components/mediaitem-list-item')
+%>
 <!-- MediaItem Horizontal Rectangle -->
-<%- include('components/mediaitem-hrect') %>
+<%- include('components/mediaitem-hrect')
+%>
 <!-- MediaItem Square -->
-<%- include('components/mediaitem-square') %>
+<%- include('components/mediaitem-square')
+%>
 <!-- MediaItem Square SP -->
-<%- include('components/mediaitem-square-sp') %>
+<%- include('components/mediaitem-square-sp')
+%>
 <!-- MediaItem MusicVideo -->
-<%- include('components/mediaitem-mvview') %>
+<%- include('components/mediaitem-mvview')
+%>
 <!-- MediaItem MusicVideo -->
-<%- include('components/libraryartist-item') %>
-<%- include('components/listennow-child') %>
+<%- include('components/libraryartist-item')
+%>
+<%- include('components/listennow-child')
+%>
 <!-- MediaItem MusicVideo SP -->
-<%- include('components/mediaitem-mvview-sp') %>
+<%- include('components/mediaitem-mvview-sp')
+%>
 <!-- Animated Artwork View -->
-<%- include('components/animatedartwork-view') %>
+<%- include('components/animatedartwork-view')
+%>
 <!-- Lyrics View -->
-<%- include('components/lyrics-view') %>
+<%- include('components/lyrics-view')
+%>
 <!-- Fullscreen View -->
-<%- include('components/fullscreen') %>
+<%- include('components/fullscreen')
+%>
 
-<script src="musickit.js?v=1"></script>
+<!-- Miniplayer View -->
+<%- include('components/miniplayer')
+%>
+
+<script
+        src="musickit.js?v=1"></script>
 <script>
     if (typeof MusicKit == 'undefined') {
         document.write(unescape("%3Cscript src='https://js-cdn.music.apple.com/musickit/v2/amp/musickit.js' type='text/javascript'%3E%3C/script%3E"));
     }
 </script>
-<script src="index.js?v=1"></script>
-<script src="https://cdn.jsdelivr.net/npm/resonance-audio/build/resonance-audio.min.js"></script>
-<script src="/audio/audio.js?v=1"></script>
+<script
+        src="index.js?v=1"></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/resonance-audio/build/resonance-audio.min.js"></script>
+<script
+        src="/audio/audio.js?v=1"></script>
+<script
+        src="./js/WSAPI_Interop.js"></script>
 </body>
+
 </html>

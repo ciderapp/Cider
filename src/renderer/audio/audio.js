@@ -5,6 +5,8 @@ var CiderAudio = {
         gainNode : null,
         spatialNode : null,
         spatialInput: null,
+        audioBands : null,
+        preampNode : null,
     },
     init: function (cb = function () { }) {
         //AudioOutputs.fInit = true;
@@ -21,8 +23,14 @@ var CiderAudio = {
     },
     off: function(){
         try{
-        CiderAudio.audioNodes.gainNode.disconnect();
-        CiderAudio.audioNodes.spatialNode.disconnect();
+            try{
+        CiderAudio.audioNodes.gainNode.disconnect(); } catch(e){}
+        try{ CiderAudio.audioNodes.spatialNode.disconnect();} catch(e){}
+        try{
+            CiderAudio.audioNodes.preampNode.disconnect();
+            CiderAudio.audioNodes.audioBands[0].disconnect();
+            CiderAudio.audioNodes.audioBands[9].disconnect();
+        } catch(e){}
         CiderAudio.source.connect(CiderAudio.context.destination);} catch(e){}
     },
     connectContext: function (mediaElem){
@@ -42,6 +50,7 @@ var CiderAudio = {
         if (app.cfg.audio.spatial){
             CiderAudio.spatialOn()
         }    
+        CiderAudio.equalizer()
     },
     normalizerOn: function (){},
     normalizerOff: function (){
@@ -49,7 +58,7 @@ var CiderAudio = {
     },
     spatialOn: function (){
         try{
-        CiderAudio.audioNodes.gainNode.connect(CiderAudio.context.destination);} catch(e){}
+        CiderAudio.audioNodes.gainNode.disconnect(CiderAudio.context.destination);} catch(e){}
         CiderAudio.audioNodes.spatialNode = new ResonanceAudio(CiderAudio.context);
         CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.context.destination);
         let roomDimensions = {
@@ -90,6 +99,42 @@ var CiderAudio = {
             }
           );                   
         }
+    },
+    equalizer: function (){
+        let BANDS = app.cfg.audio.equalizer.frequencies;
+        let GAIN = app.cfg.audio.equalizer.gain;
+        let Q = app.cfg.audio.equalizer.Q;
+        CiderAudio.audioNodes.audioBands = [];
+
+        for (i = 0; i < BANDS.length; i++) {
+            CiderAudio.audioNodes.audioBands[i] = CiderAudio.context.createBiquadFilter();
+            CiderAudio.audioNodes.audioBands[i].type = 'peaking'; // 'peaking';
+            CiderAudio.audioNodes.audioBands[i].frequency.value = BANDS[i];
+            CiderAudio.audioNodes.audioBands[i].Q.value = Q[i];
+            CiderAudio.audioNodes.audioBands[i].gain.value = GAIN[i] * app.cfg.audio.equalizer.mix;
+        }
+
+        CiderAudio.audioNodes.preampNode = CiderAudio.context.createBiquadFilter();
+        CiderAudio.audioNodes.preampNode.type = 'highshelf'; 
+        CiderAudio.audioNodes.preampNode.frequency.value = 0; // allow all
+        CiderAudio.audioNodes.preampNode.gain.value = app.cfg.audio.equalizer.preamp;
+
+        if (app.cfg.audio.spatial) {
+            try{
+            CiderAudio.audioNodes.spatialNode.output.disconnect(CiderAudio.context.destination); } catch(e){}
+            CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.audioNodes.preampNode);
+        } else {
+            try{
+            CiderAudio.audioNodes.gainNode.disconnect(CiderAudio.context.destination);} catch(e){}
+            CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.preampNode);
+        }
+
+        CiderAudio.audioNodes.preampNode.connect(CiderAudio.audioNodes.audioBands[0]);
+
+        for (i = 1; i < BANDS.length; i ++) {
+            CiderAudio.audioNodes.audioBands[i-1].connect(CiderAudio.audioNodes.audioBands[i]);
+        }
+        CiderAudio.audioNodes.audioBands[BANDS.length-1].connect(CiderAudio.context.destination);
     }
 
 }
