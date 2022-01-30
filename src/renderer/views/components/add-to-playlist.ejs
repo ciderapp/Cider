@@ -7,12 +7,17 @@
                     <button class="close-btn" @click="app.resetState()"></button>
                 </div>
                 <div class="modal-content">
+                    <button class="playlist-item"
+                            @click="app.addSelectedToNewPlaylist()" style="width:100%;">
+                        <div class="icon"><%- include("../svg/playlist.svg") %></div>
+                        <div class="name">Create New Playlist</div>
+                    </button>
                     <button class="playlist-item" 
                     :class="{ focused: playlist.id == focused }"
                     @click="addToPlaylist(playlist.id)" style="width:100%;" v-for="playlist in playlistSorted" v-if="playlist.attributes.canEdit && playlist.type != 'library-playlist-folders'">
-                    <div class="icon"><%- include("../svg/playlist.svg") %></div>
-                    <div class="name">{{ playlist.attributes.name }}</div>
-                </button>
+                        <div class="icon"><%- include("../svg/playlist.svg") %></div>
+                        <div class="name">{{ playlist.attributes.name }}</div>
+                    </button>
                 </div>
                 <div class="modal-search">
                     <div class="search-input-container" style="width:100%;margin: 16px 0;">
