@@ -246,16 +246,6 @@
                                         </div>
                                     </div>
                                 </button>
-                                <button class="usermenu-item" @click="mk.privateEnabled = !mk.privateEnabled">
-                                    <div class="row nopadding">
-                                        <div class="col nopadding">
-                                            {{$root.getLz('term.privateSession')}}
-                                        </div>
-                                        <div class="col-auto nopadding" v-if="mk.privateEnabled">
-                                            ✔️
-                                        </div>
-                                    </div>
-                                </button>
                                 <button class="usermenu-item" v-if="cfg.advanced.AudioContext"
                                 @click="modals.equalizer = true">
                                     {{$root.getLz('term.equalizer')}}
