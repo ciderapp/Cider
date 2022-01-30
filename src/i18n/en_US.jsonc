@@ -179,7 +179,7 @@
   "action.unlove": "Unlove",
   "action.dislike": "Dislike",
   "action.undoDislike": "Undo dislike",
-  "action.showWebRemoteQR": "Show Web Remote QR",
+  "action.showWebRemoteQR": "Web Remote",
   "action.playTracksNext": "Play ${app.selectedMediaItems.length} tracks next",
   "action.playTracksLater": "Play ${app.selectedMediaItems.length} tracks later",
   "action.removeTracks": "Remove ${self.selectedItems.length} tracks from queue",
