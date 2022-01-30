@@ -117,7 +117,7 @@
   "term.tracks": "Lieder", // Assume x amount of tracks. e.g. 50 tracks 
   "term.videos": "Videos", 
   "term.menu": "Menü",
-  "term.showAlbum": "Zeige ganzes Album",
+  "action.showAlbum": "Zeige ganzes Album",
 
   // Home
   "home.title": "Home",
