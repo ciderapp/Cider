@@ -246,16 +246,6 @@
                                         </div>
                                     </div>
                                 </button>
-                                <button class="usermenu-item" @click="toggleHideUserInfo()">
-                                    <div class="row nopadding">
-                                        <div class="col nopadding">
-                                            {{$root.getLz('settings.option.visual.showPersonalInfo')}}
-                                        </div>
-                                        <div class="col-auto nopadding" v-if="!chrome.hideUserInfo">
-                                            ✔️
-                                        </div>
-                                    </div>
-                                </button>
                                 <button class="usermenu-item" @click="mk.privateEnabled = !mk.privateEnabled">
                                     <div class="row nopadding">
                                         <div class="col nopadding">
