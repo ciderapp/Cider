@@ -117,7 +117,7 @@
   "term.tracks": "τραγούδια", // Assume x amount of tracks. e.g. 50 tracks
   "term.videos": "Βίντεο", 
   "term.menu": "Μενού",
-  "term.showAlbum": "Εμφάνιση ολόκληρου άλμπουμ", 
+  "action.showAlbum": "Εμφάνιση ολόκληρου άλμπουμ", 
 
   // Home
   "home.title": "Αρχική",

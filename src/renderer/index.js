@@ -512,7 +512,7 @@ const app = new Vue({
                 }
             }
             this.modals.addToPlaylist = false
-            app.newPlaylist("New Playlist", pl_items)
+            app.newPlaylist(app.getLz('term.newPlaylist'), pl_items)
         },
         async addSelectedToPlaylist(playlist_id) {
             let self = this
@@ -910,13 +910,13 @@ const app = new Vue({
         playlistHeaderContextMenu(event) {
             let menu = {
                 items: [{
-                        name: "New Playlist",
+                        name: app.getLz('term.createNewPlaylist'),
                         action: () => {
                             this.newPlaylist()
                         }
                     },
                     {
-                        name: "New Playlist Folder",
+                        name: app.getLz('term.createNewPlaylistFolder'),
                         action: () => {
                             this.newPlaylistFolder()
                         }
@@ -925,7 +925,7 @@ const app = new Vue({
             }
             this.showMenuPanel(menu, event)
         },
-        async editPlaylistFolder(id, name = "New Playlist") {
+        async editPlaylistFolder(id, name = app.getLz('term.newPlaylist')) {
             let self = this
             this.mk.api.v3.music(
                 `/v1/me/library/playlist-folders/${id}`, {}, {
@@ -940,7 +940,7 @@ const app = new Vue({
                 self.refreshPlaylists()
             })
         },
-        async editPlaylist(id, name = "New Playlist") {
+        async editPlaylist(id, name = app.getLz('term.newPlaylist')) {
             let self = this
             this.mk.api.v3.music(
                 `/v1/me/library/playlists/${id}`, {}, {
@@ -958,7 +958,7 @@ const app = new Vue({
         copyToClipboard(str) {
             navigator.clipboard.writeText(str)
         },
-        newPlaylist(name = "New Playlist", tracks = []) {
+        newPlaylist(name = app.getLz('term.newPlaylist'), tracks = []) {
             let self = this
             let request = {
                 name: name
@@ -997,7 +997,7 @@ const app = new Vue({
         },
         deletePlaylist(id) {
             let self = this
-            if (confirm(`Are you sure you want to delete this playlist?`)) {
+            if (confirm(app.getLz('term.deletePlaylist'))) {
                 app.mk.api.v3.music(`/v1/me/library/playlists/${id}`, {}, {
                     fetchOptions: {
                         method: "DELETE"
@@ -1786,16 +1786,33 @@ const app = new Vue({
                     "fields[songs]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,name,playParams,releaseDate,url",
                     limit: 100,
                 }
+                const safeparams = {
+                    "platform": "web",
+                    "limit": 80,
+                }
                 self.library.songs.downloadState = 1
                 if (downloaded == null) {
                     app.mk.api.v3.music(`/v1/me/library/songs/`, params).then((response) => {
                         processChunk(response.data)
+                    }).catch((error) => {
+                        console.log('safe loading');
+                        app.mk.api.v3.music(`/v1/me/library/songs/`, safeparams).then((response) => {
+                            processChunk(response.data)
+                        }).catch((error) => {console.log('safe loading failed', error)                    
+                        app.library.songs.downloadState = 2
+                        app.library.backgroundNotification.show = false})
                     })
                 } else {
-
                     if (downloaded.next != null) {
                         app.mk.api.v3.music(downloaded.next, params).then((response) => {
                             processChunk(response.data)
+                        }).catch((error) => {
+                            console.log('safe loading');
+                            app.mk.api.v3.music(downloaded.next, safeparams).then((response) => {
+                                processChunk(response.data)
+                            }).catch((error) => {console.log('safe loading failed', error)                    
+                            app.library.songs.downloadState = 2
+                            app.library.backgroundNotification.show = false})
                         })
                     } else {
                         console.log("Download next", downloaded.next)
@@ -1868,14 +1885,38 @@ const app = new Vue({
                     "fields[albums]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,name,playParams,releaseDate,url",
                     limit: 100,
                 }
+                const safeparams = {
+                    platform: "web",
+                    limit: "60",
+                    "include[library-albums]": "artists",
+                    "include[library-artists]": "catalog",
+                    "include[albums]": "artists",
+                    "fields[artists]": "name,url",
+                    "fields[albums]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,name,playParams,releaseDate,url",
+                    "includeOnly": "catalog,artists"
+                }
                 if (downloaded == null) {
                     app.mk.api.v3.music(`/v1/me/library/albums/`, params).then((response) => {
                         processChunk(response.data)
+                    }).catch((error) => {
+                        console.log('safe loading');
+                        app.mk.api.v3.music(`/v1/me/library/albums/`, safeparams).then((response) => {
+                            processChunk(response.data)
+                        }).catch((error) => {console.log('safe loading failed', error)                    
+                        app.library.albums.downloadState = 2
+                        app.library.backgroundNotification.show = false})
                     })
                 } else {
                     if (downloaded.next != null) {
                         app.mk.api.v3.music(downloaded.next, params).then((response) => {
                             processChunk(response.data)
+                        }).catch((error) => {
+                            console.log('safe loading');
+                            app.mk.api.v3.music(downloaded.next, safeparams).then((response) => {
+                                processChunk(response.data)
+                            }).catch((error) => {console.log('safe loading failed', error);
+                            app.library.albums.downloadState = 2
+                            app.library.backgroundNotification.show = false})
                         })
                     } else {
                         console.log("Download next", downloaded.next)
@@ -1949,15 +1990,34 @@ const app = new Vue({
                     // "fields[artists]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,name,playParams,releaseDate,url",
                     limit: 100,
                 }
+                const safeparams = {
+                    include: "catalog",
+                    platform: "web",
+                    limit: 50,
+                }
                 if (downloaded == null) {
                     app.mk.api.v3.music(`/v1/me/library/artists/`, params).then((response) => {
                         processChunk(response.data)
+                    }).catch((error) => {
+                        console.log('safe loading');
+                        app.mk.api.v3.music(`/v1/me/library/artists/`, safeparams).then((response) => {
+                            processChunk(response.data)
+                        }).catch((error) => {console.log('safe loading failed', error)                    
+                        app.library.artists.downloadState = 2
+                        app.library.backgroundNotification.show = false})
                     })
 
                 } else {
                     if (downloaded.next != null) {
                         app.mk.api.v3.music(downloaded.next, params).then((response) => {
                             processChunk(response.data)
+                        }).catch((error) => {
+                            console.log('safe loading');
+                            app.mk.api.v3.music(downloaded.next, safeparams).then((response) => {
+                                processChunk(response.data)
+                            }).catch((error) => {console.log('safe loading failed', error)                    
+                            app.library.artists.downloadState = 2
+                            app.library.backgroundNotification.show = false})
                         })
                     } else {
                         console.log("Download next", downloaded.next)
@@ -2119,7 +2179,7 @@ const app = new Vue({
                 this.getMadeForYou(attempt + 1)
             }
         },
-        newPlaylistFolder(name = "New Folder") {
+        newPlaylistFolder(name = app.getLz('term.newPlaylistFolder')) {
             let self = this
             this.mk.api.v3.music(
                 "/v1/me/library/playlist-folders/", {}, {
