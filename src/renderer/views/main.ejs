@@ -311,12 +311,12 @@
                                  :src="getMediaItemArtwork(chrome.hideUserInfo ? 'http://localhost:9000/assets/logocut.png' : (chrome.userinfo.attributes['artwork'] ? chrome.userinfo.attributes['artwork']['url'] : ''), 26)"/>
 
                             <div class="sidebar-user-text" v-if="!chrome.hideUserInfo">
-                                <template v-if="chrome.userinfo.id">
-                                    <div class="fullname text-overflow-elipsis">{{ chrome.userinfo.attributes.name
+                                <template v-if="chrome.userinfo.id || mk.isAuthorized">
+                                    <div class="fullname text-overflow-elipsis">{{  (chrome.userinfo != null && chrome.userinfo.attributes != null) ? (chrome.userinfo.attributes.name ?? "") : ""
                                         }}
                                     </div>
                                     <div class="handle-text text-overflow-elipsis">{{
-                                        chrome.userinfo.attributes.handle
+                                        (chrome.userinfo != null && chrome.userinfo.attributes != null)  ? (chrome.userinfo.attributes.handle ?? "") : ""
                                         }}
                                     </div>
                                 </template>
