@@ -557,12 +557,7 @@
                         {{$root.getLz('settings.option.experimental.compactUI')}}
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <button class="md-btn"
-                                :class="{'md-btn-primary': app.cfg.advanced.experiments.includes('compactui')}"
-                                @click="app.cfg.advanced.experiments.includes('compactui') ? removeExperiment('compactui') : addExperiment('compactui')">
-                            {{app.cfg.advanced.experiments.includes('compactui') ? $root.getLz('term.disabled') :
-                            $root.getLz('term.enabled')}}
-                        </button>
+                        <input type="checkbox" v-model="app.cfg.advanced.experiments.includes('compactui')" @click="app.cfg.advanced.experiments.includes('compactui') ? removeExperiment('compactui') : addExperiment('compactui')" switch/>
                     </div>
                 </div>
 

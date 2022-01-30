@@ -156,6 +156,7 @@
   "action.removeFromQueue": "Remove from Queue",
   "action.removeFromQueue.success": "Removed from Queue",
   "action.removeFromQueue.error": "Error Removing from Queue",
+  "action.createPlaylist": "Create Playlist",
   "action.addToPlaylist": "Add to Playlist",
   "action.removeFromPlaylist": "Remove from Playlist",
   "action.addToFavorites": "Add to Favorites",
