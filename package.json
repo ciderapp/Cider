@@ -164,6 +164,7 @@
       "target": [
         "dmg"
       ]
-    }
+    },
+    "artifactName" : "${productName}.${ext}"
   }
 }

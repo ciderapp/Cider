@@ -43,10 +43,7 @@ jobs:
           name: Move Build Files
           command: |
               mkdir ~/Cider/dist/artifacts/
-              mv ~/Cider/dist/Cider\ Setup\ 1.1.0.exe ~/Cider/dist/artifacts
-              mv ~/Cider/dist/Cider-1.1.0.AppImage ~/Cider/dist/artifacts
-              mv ~/Cider/dist/cider_1.1.0_amd64.deb ~/Cider/dist/artifacts
-              mv ~/Cider/dist/cider_1.1.0_amd64.snap ~/Cider/dist/artifacts
+              mv ~/Cider/dist/* ~/Cider/dist/artifacts
 
       - store_artifacts:
           path: ~/Cider/dist/artifacts
