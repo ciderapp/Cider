@@ -6,7 +6,7 @@
                 <div class="spinner"></div>
             </div>
         </template>
-        <template v-if="app.playlists.loadingState == 1">
+        <template>
             <div class="playlist-display"
                  :style="{
                 '--bgColor': (data.attributes.artwork != null && data.attributes.artwork['bgColor'] != null) ? ('#' + data.attributes.artwork.bgColor) : '',
@@ -132,6 +132,11 @@
                                                  :context-ext="buildContextMenu()"
                                                  v-for="(item,index) in data.relationships.tracks.data"></mediaitem-list-item>
                         </draggable>
+
+                        <div class="mt-3" v-if="app.playlists.loadingState != 1">
+                            <div class="spinner" style="width: 25px; height: 25px;"></div>
+                            <span>{{$root.getLz("term.loadingPlaylist")}}</span>
+                        </div>
                     </div>
 
                 </div>
@@ -476,6 +481,7 @@
                 const truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
 
                 let query = (this.data ?? app.showingPlaylist).relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
+                console.log(query);
                 app.mk.stop().then(function () {
                     app.mk.setQueue({[truekind]: [id]}).then(function () {
                         app.mk.play().then(function () {

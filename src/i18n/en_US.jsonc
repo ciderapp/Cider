@@ -124,6 +124,7 @@
   "term.videos": "Videos", 
   "term.menu": "Menu",
   "term.check": "Check",
+  "term.loadingPlaylist": "Loading playlist...",
 
   // Home
   "home.title": "Home",
