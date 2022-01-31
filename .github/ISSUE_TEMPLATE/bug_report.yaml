@@ -2,7 +2,7 @@ name: Test Report
 description: If you encounter an issue whilst using our app, please use this template to help improve the app.
 title: "[Bug]: "
 labels: ["bug", "triage"]
-assignees: []
+assignees:
 body:
   - type: markdown
     attributes:
@@ -12,42 +12,47 @@ body:
     id: description
     attributes:
       label: Describe the Bug
-      description: A clear and concise description of what the bug is. Also tell us, what did you expect to happen?
+      description: A clear and concise description of the bug you encountered. Also tell us, what did you expect to happen?
       placeholder: Tell us what you see!
       value: "A bug happened!"
     validations:
       required: true
-  - type: dropdown
-    id: version
+  - type: textarea
+    id: replication
     attributes:
-      label: Version
-      description: What version of our software are you running?
-      options:
-        - 1.0.2 (Default)
-        - 1.0.3 (Edge)
+      label: Steps to Reproduce
+      description: How did you produce this bug, tell us how you did it so we can do it ourselves.
+      placeholder: Tell us how you did it
+      value: "1. Clicked on..."
     validations:
       required: true
-  - type: dropdown
-    id: browsers
-    attributes:
-      label: What browsers are you seeing the problem on?
-      multiple: true
-      options:
-        - Firefox
-        - Chrome
-        - Safari
-        - Microsoft Edge
   - type: textarea
-    id: logs
+    id: environment
     attributes:
-      label: Relevant log output
-      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
-      render: shell
+      label: Environment Information
+      description: |
+        examples:
+          - **OS**: Ubuntu 20.04
+          - **App Version**: 1.0.0
+          - **Commit ID**: c9d43be
+    value: |
+        - OS:
+        - App Version:
+        - Commit ID:
+    render: markdown
+    validations:
+      required: true
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Information
+      description: Any additional information that you would like to add that could assist us with your issue.
+      render: markdown
   - type: checkboxes
     id: terms
     attributes:
       label: Code of Conduct
-      description: By submitting this issue, you agree to follow our [Code of Conduct](https://example.com)
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/ciderapp/Cider/blob/main/CODE_OF_CONDUCT.md)
       options:
         - label: I agree to follow this project's Code of Conduct
           required: true
