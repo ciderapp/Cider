@@ -124,6 +124,7 @@
   "term.videos": "Videos", 
   "term.menu": "Menu",
   "term.check": "Check",
+  "term.loadingPlaylist": "Loading playlist...", // Text shown at the bottom of a playlist's body while loading song pages
 
   // Home
   "home.title": "Home",
