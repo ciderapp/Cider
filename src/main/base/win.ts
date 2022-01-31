@@ -13,7 +13,7 @@ import * as mm from 'music-metadata';
 import fetch from 'electron-fetch'
 import {wsapi} from "./wsapi";
 import * as jsonc from "jsonc";
-
+import { NsisUpdater, AppImageUpdater } from "electron-updater";
 export class Win {
     private win: any | undefined = null;
     private app: any | undefined = null;
@@ -521,6 +521,15 @@ export class Win {
                     }
                 })
         });
+
+        electron.ipcMain.on('check-for-update', async (_event, url) => {
+            const options = {
+                provider: 'generic',
+                url: 'https://43-429851205-gh.circle-artifacts.com/0/%257E/Cider/dist/artifacts' //Base URL
+            }
+            const autoUpdater = new NsisUpdater(options) //Windows Only (for now) -q
+            autoUpdater.checkForUpdatesAndNotify()
+        })
 
         /* *********************************************************************************************
          * Window Events

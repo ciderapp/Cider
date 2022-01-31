@@ -123,6 +123,7 @@
   "term.tracks": "tracks", // Assume x amount of tracks. e.g. 50 tracks 
   "term.videos": "Videos", 
   "term.menu": "Menu",
+  "term.check": "Check",
 
   // Home
   "home.title": "Home",

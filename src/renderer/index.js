@@ -3535,9 +3535,11 @@ const app = new Vue({
         closeWindow(){
             // window.close doesnt call the win "close" event for some reason
             ipcRenderer.send('win-close');
+        },
+        checkForUpdate(){
+            ipcRenderer.send('check-for-update')
         }
-    }  
-    
+    }
 })
 
 Vue.component('animated-number', {
