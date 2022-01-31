@@ -525,7 +525,7 @@ export class Win {
         electron.ipcMain.on('check-for-update', async (_event, url) => {
             const options = {
                 provider: 'generic',
-                url: 'https://43-429851205-gh.circle-artifacts.com/0/%257E/Cider/dist/artifacts' //Base URL
+                url: 'https://43-429851205-gh.circle-artifacts.com/0/%7E/Cider/dist/artifacts' //Base URL
             }
             const autoUpdater = new NsisUpdater(options) //Windows Only (for now) -q
             autoUpdater.checkForUpdatesAndNotify()
