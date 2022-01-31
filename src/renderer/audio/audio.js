@@ -7,6 +7,7 @@ var CiderAudio = {
         spatialInput: null,
         audioBands : null,
         preampNode : null,
+        vibrantbassNode: null,
     },
     init: function (cb = function () { }) {
         //AudioOutputs.fInit = true;
@@ -28,6 +29,7 @@ var CiderAudio = {
         try{ CiderAudio.audioNodes.spatialNode.disconnect();} catch(e){}
         try{
             CiderAudio.audioNodes.preampNode.disconnect();
+            CiderAudio.audioNodes.vibrantbassNode.disconnect();
             CiderAudio.audioNodes.audioBands[0].disconnect();
             CiderAudio.audioNodes.audioBands[9].disconnect();
         } catch(e){}
@@ -104,7 +106,10 @@ var CiderAudio = {
         let BANDS = app.cfg.audio.equalizer.frequencies;
         let GAIN = app.cfg.audio.equalizer.gain;
         let Q = app.cfg.audio.equalizer.Q;
-        CiderAudio.audioNodes.audioBands = [];
+        let VIBRANTBASSBANDS = app.cfg.audio.vibrantBass.frequencies;
+        let VIBRANTBASSGAIN = app.cfg.audio.vibrantBass.gain;
+        let VIBRANTBASSQ = app.cfg.audio.vibrantBass.Q;
+        CiderAudio.audioNodes.audioBands = []; CiderAudio.audioNodes.vibrantbassNode = [];
 
         for (i = 0; i < BANDS.length; i++) {
             CiderAudio.audioNodes.audioBands[i] = CiderAudio.context.createBiquadFilter();
@@ -119,6 +124,14 @@ var CiderAudio = {
         CiderAudio.audioNodes.preampNode.frequency.value = 0; // allow all
         CiderAudio.audioNodes.preampNode.gain.value = app.cfg.audio.equalizer.preamp;
 
+        for (i = 0; i < VIBRANTBASSBANDS.length; i++) {
+            CiderAudio.audioNodes.vibrantbassNode[i] = CiderAudio.context.createBiquadFilter();
+            CiderAudio.audioNodes.vibrantbassNode[i].type = 'peaking'; // 'peaking';
+            CiderAudio.audioNodes.vibrantbassNode[i].frequency.value = VIBRANTBASSBANDS[i];
+            CiderAudio.audioNodes.vibrantbassNode[i].Q.value = VIBRANTBASSQ[i];
+            CiderAudio.audioNodes.vibrantbassNode[i].gain.value = VIBRANTBASSGAIN[i] * app.cfg.audio.vibrantBass.multiplier;
+        }
+
         if (app.cfg.audio.spatial) {
             try{
             CiderAudio.audioNodes.spatialNode.output.disconnect(CiderAudio.context.destination); } catch(e){}
@@ -129,7 +142,12 @@ var CiderAudio = {
             CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.preampNode);
         }
 
-        CiderAudio.audioNodes.preampNode.connect(CiderAudio.audioNodes.audioBands[0]);
+        CiderAudio.audioNodes.preampNode.connect(CiderAudio.audioNodes.vibrantbassNode[0]);
+
+        for (i = 1; i < VIBRANTBASSBANDS.length; i ++) {
+            CiderAudio.audioNodes.vibrantbassNode[i-1].connect(CiderAudio.audioNodes.vibrantbassNode[i]);
+        }
+        CiderAudio.audioNodes.vibrantbassNode[VIBRANTBASSBANDS.length-1].connect(CiderAudio.audioNodes.audioBands[0]);
 
         for (i = 1; i < BANDS.length; i ++) {
             CiderAudio.audioNodes.audioBands[i-1].connect(CiderAudio.audioNodes.audioBands[i]);
