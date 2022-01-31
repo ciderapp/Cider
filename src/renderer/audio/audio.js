@@ -143,7 +143,6 @@ var CiderAudio = {
         }
 
         CiderAudio.audioNodes.preampNode.connect(CiderAudio.audioNodes.vibrantbassNode[0]);
-        CiderAudio.audioNodes.vibrantbassNode.connect(CiderAudio.audioNodes.audioBands[0]);
 
         for (i = 1; i < VIBRANTBASSBANDS.length; i ++) {
             CiderAudio.audioNodes.vibrantbassNode[i-1].connect(CiderAudio.audioNodes.vibrantbassNode[i]);
