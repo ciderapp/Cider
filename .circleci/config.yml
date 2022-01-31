@@ -47,6 +47,7 @@ jobs:
               mv ~/Cider/dist/*.deb ~/Cider/dist/artifacts
               mv ~/Cider/dist/*.AppImage ~/Cider/dist/artifacts
               mv ~/Cider/dist/*.snap ~/Cider/dist/artifacts
+              mv ~/Cider/dist/*.yml ~/Cider/dist/artifacts
 
       - store_artifacts:
           path: ~/Cider/dist/artifacts
