@@ -3533,8 +3533,7 @@ const app = new Vue({
             }
         },
         closeWindow(){
-            // window.close doesnt call the win "close" event for some reason
-            ipcRenderer.send('win-close');
+            ipcRenderer.send('close');
         },
         checkForUpdate(){
             ipcRenderer.send('check-for-update')

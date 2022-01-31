@@ -6,7 +6,7 @@ import * as express from "express";
 import * as getPort from "get-port";
 import * as yt from "youtube-search-without-api-key";
 import * as fs from "fs";
-import { Stream } from "stream";
+import {Stream} from "stream";
 import * as qrcode from "qrcode-terminal";
 import * as os from "os";
 import * as mm from 'music-metadata';
@@ -19,6 +19,7 @@ export class Win {
     private app: any | undefined = null;
     private store: any | undefined = null;
     private devMode: boolean = !electron.app.isPackaged;
+    public i18n: any = {};
 
     constructor(app: electron.App, store: any) {
         this.app = app;
@@ -76,7 +77,7 @@ export class Win {
      * Creates the browser window
      */
     async createWindow(): Promise<Electron.BrowserWindow> {
-        this.clientPort = await getPort({ port: 9000 });
+        this.clientPort = await getPort({port: 9000});
         this.verifyFiles();
 
         // Load the previous state with fallback to defaults
@@ -140,7 +141,7 @@ export class Win {
      */
     private startWebServer(): void {
         const app = express();
-        
+
         app.use(express.static(path.join(this.paths.srcPath, "./renderer/")));
         app.set("views", path.join(this.paths.srcPath, "./renderer/views"));
         app.set("view engine", "ejs");
@@ -157,7 +158,7 @@ export class Win {
                 res.redirect("https://discord.gg/applemusic");
             }
         });
-        
+
         app.get("/", (req, res) => {
             res.render("main", this.EnvironmentVariables);
         });
@@ -199,7 +200,7 @@ export class Win {
         remote.set("views", path.join(this.paths.srcPath, "./web-remote/views"));
         remote.set("view engine", "ejs");
         getPort({port: 6942}).then((port) => {
-            this.remotePort = port; 
+            this.remotePort = port;
             // Start Remote Discovery
             this.broadcastRemote()
             remote.listen(this.remotePort, () => {
@@ -262,7 +263,7 @@ export class Win {
                     if (itspod != null)
                         details.requestHeaders["Cookie"] = `itspod=${itspod}`;
                 }
-                callback({ requestHeaders: details.requestHeaders });
+                callback({requestHeaders: details.requestHeaders});
             }
         );
 
@@ -288,18 +289,29 @@ export class Win {
             event.returnValue = process.platform;
         });
 
+        let i18nBase = fs.readFileSync(path.join(__dirname, "../../src/i18n/en_US.jsonc"), "utf8");
+        i18nBase = jsonc.parse(i18nBase)
+        try {
+            let i18n = fs.readFileSync(path.join(__dirname, `../../src/i18n/${this.store.general.language}.jsonc`), "utf8");
+            i18n = jsonc.parse(i18n)
+            this.i18n = Object.assign(i18nBase, i18n)
+        } catch (e) {
+            console.error(e);
+        }
+
         electron.ipcMain.on("get-i18n", (event, key) => {
             let i18nBase = fs.readFileSync(path.join(__dirname, "../../src/i18n/en_US.jsonc"), "utf8");
             i18nBase = jsonc.parse(i18nBase)
             try {
                 let i18n = fs.readFileSync(path.join(__dirname, `../../src/i18n/${key}.jsonc`), "utf8");
                 i18n = jsonc.parse(i18n)
-                Object.assign(i18nBase, i18n)
-            }catch(e) {
+                this.i18n = Object.assign(i18nBase, i18n)
+            } catch (e) {
                 console.error(e);
                 event.returnValue = e;
             }
-
+            
+            this.i18n = i18nBase;
             event.returnValue = i18nBase;
 
         });
@@ -328,11 +340,6 @@ export class Win {
 
         electron.ipcMain.on("is-dev", (event) => {
             event.returnValue = this.devMode;
-        });
-
-        electron.ipcMain.on("close", () => {
-            // listen for close event
-            this.win.close();
         });
 
         electron.ipcMain.on("put-library-songs", (event, arg) => {
@@ -415,8 +422,8 @@ export class Win {
             return await yt.search(u);
         });
 
-        electron.ipcMain.handle("setVibrancy", (event, key, value) => {
-            this.win.setVibrancy(value);
+        electron.ipcMain.on("close", () => {
+            this.win.close();
         });
 
         electron.ipcMain.on("maximize", () => {
@@ -429,7 +436,7 @@ export class Win {
         });
         electron.ipcMain.on("unmaximize", () => {
             // listen for maximize event
-                this.win.unmaximize();
+            this.win.unmaximize();
         });
 
         electron.ipcMain.on("minimize", () => {
@@ -443,7 +450,7 @@ export class Win {
         });
 
         electron.ipcMain.on("windowmin", (event, width, height) => {
-            this.win.setMinimumSize(width,height);
+            this.win.setMinimumSize(width, height);
         })
 
         electron.ipcMain.on("windowontop", (event, ontop) => {
@@ -451,7 +458,7 @@ export class Win {
         });
 
         // Set scale
-        electron.ipcMain.on("windowresize", (event, width, height, lock = false) => {          
+        electron.ipcMain.on("windowresize", (event, width, height, lock = false) => {
             this.win.setContentSize(width, height);
             this.win.setResizable(!lock);
         });
@@ -462,9 +469,9 @@ export class Win {
         })
         //Fullscreen
         electron.ipcMain.on('detachDT', (event, _) => {
-            this.win.webContents.openDevTools({ mode: 'detach' });
+            this.win.webContents.openDevTools({mode: 'detach'});
         })
-        
+
 
         electron.ipcMain.on('play', (event, type, id) => {
             this.win.webContents.executeJavaScript(`
@@ -497,7 +504,7 @@ export class Win {
         }
 
         //QR Code
-        electron.ipcMain.handle('showQR', async (event , _) => {
+        electron.ipcMain.handle('showQR', async (event, _) => {
             let url = `http://${getIp()}:${this.remotePort}`;
             electron.shell.openExternal(`https://cider.sh/pair-remote?url=${btoa(encodeURI(url))}`);
             /*
@@ -510,11 +517,11 @@ export class Win {
             'get url'
             fetch(url)
                 .then(res => res.buffer())
-                .then(async(buffer) => {
+                .then(async (buffer) => {
                     try {
                         const metadata = await mm.parseBuffer(buffer, 'audio/x-m4a');
                         let SoundCheckTag = metadata.native.iTunes[1].value
-                        console.log('sc',SoundCheckTag)
+                        console.log('sc', SoundCheckTag)
                         this.win.webContents.send('SoundCheckTag', SoundCheckTag)
                     } catch (error) {
                         console.error(error.message);
@@ -564,6 +571,25 @@ export class Win {
             });
         }
 
+        let isQuiting = false
+
+        this.win.on("close", (event: Event) => {
+            if ((this.store.general.close_button_hide || process.platform === "darwin" )&& !isQuiting) {
+                event.preventDefault();
+                this.win.hide();
+            } else {
+                this.win.destroy();
+            }
+        })
+
+        electron.app.on('before-quit', () => {
+            isQuiting = true
+        });
+
+        electron.app.on('window-all-closed', () => {
+            electron.app.quit()
+        })
+
         this.win.on("closed", () => {
             this.win = null;
         });
@@ -571,19 +597,20 @@ export class Win {
         // Set window Handler
         this.win.webContents.setWindowOpenHandler((x: any) => {
             if (x.url.includes("apple") || x.url.includes("localhost")) {
-                return { action: "allow" };
+                return {action: "allow"};
             }
             electron.shell.openExternal(x.url).catch(console.error);
-            return { action: "deny" };
+            return {action: "deny"};
         });
     }
+
     private async broadcastRemote() {
         function getIp() {
-            let ip :any = false;
+            let ip: any = false;
             let alias = 0;
-            const ifaces: any = os.networkInterfaces() ;
+            const ifaces: any = os.networkInterfaces();
             for (var dev in ifaces) {
-                ifaces[dev].forEach( (details: any) => {
+                ifaces[dev].forEach((details: any) => {
                     if (details.family === 'IPv4') {
                         if (!/(loopback|vmware|internal|hamachi|vboxnet|virtualbox)/gi.test(dev + (alias ? ':' + alias : ''))) {
                             if (details.address.substring(0, 8) === '192.168.' ||
@@ -595,14 +622,15 @@ export class Win {
                             }
                         }
                     }
-                }) ;
+                });
             }
             return ip;
         }
+
         const myString = `http://${getIp()}:${this.remotePort}`;
         let mdns = require('mdns-js');
         const encoded = new Buffer(myString).toString('base64');
-        var x =  mdns.tcp('cider-remote');   
+        var x = mdns.tcp('cider-remote');
         var txt_record = {
             "Ver": "131077",
             'DvSv': '3689',
@@ -613,7 +641,7 @@ export class Win {
             "CtlN": "Cider",
             "iV": "196623"
         }
-        let server2 = mdns.createAdvertisement(x, `${await getPort({port: 3839})}`, { name: encoded, txt: txt_record });
+        let server2 = mdns.createAdvertisement(x, `${await getPort({port: 3839})}`, {name: encoded, txt: txt_record});
         server2.start();
         console.log('remote broadcasted')
     }

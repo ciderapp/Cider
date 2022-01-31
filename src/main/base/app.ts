@@ -2,7 +2,7 @@ import * as electron from 'electron';
 import * as path from 'path';
 
 export class AppEvents {
-    private static protocols: any = [
+    private protocols: string[] = [
         "ame",
         "cider",
         "itms",
@@ -10,20 +10,22 @@ export class AppEvents {
         "musics",
         "music"
     ]
-    private static plugin: any = null;
-    private static store: any = null;
-    private static win: any = null;
+    private plugin: any = undefined;
+    private store: any = undefined;
+    private win: any = undefined;
+    private tray: any = undefined;
+    private i18n: any = undefined;
 
     constructor(store: any) {
-        AppEvents.store = store
-        AppEvents.start(store);
+        this.store = store
+        this.start(store);
     }
 
     /**
      * Handles all actions that occur for the app on start (Mainly commandline arguments)
      * @returns {void}
      */
-    private static start(store: any): void {
+    private start(store: any): void {
         console.info('[AppEvents] App started');
 
         /**********************************************************************************************************************
@@ -46,12 +48,12 @@ export class AppEvents {
         }
 
         // Expose GC
-        electron.app.commandLine.appendSwitch('js-flags','--expose_gc')
+        electron.app.commandLine.appendSwitch('js-flags', '--expose_gc')
 
-        if (process.platform === "win32")  {
-            electron.app.setAppUserModelId("Cider") // For notification name
+        if (process.platform === "win32") {
+            electron.app.setAppUserModelId(electron.app.getName()) // For notification name
         }
-        
+
         /***********************************************************************************************************************
          * Commandline arguments
          **********************************************************************************************************************/
@@ -103,33 +105,39 @@ export class AppEvents {
     }
 
     public quit() {
-        console.log('App stopped');
+        console.log('[AppEvents] App quit');
     }
 
     public ready(plug: any) {
-        AppEvents.plugin = plug
+        this.plugin = plug
         console.log('[AppEvents] App ready');
     }
 
-    public bwCreated(win: Electron.BrowserWindow) {
-        AppEvents.win = win
+    public bwCreated(win: Electron.BrowserWindow, i18n: any) {
+        this.win = win
+        this.i18n = i18n
 
         electron.app.on('open-url', (event, url) => {
             event.preventDefault()
-            if (AppEvents.protocols.some((protocol: string) => url.includes(protocol))) {
-                AppEvents.LinkHandler(url)
+            if (this.protocols.some((protocol: string) => url.includes(protocol))) {
+                this.LinkHandler(url)
                 console.log(url)
             }
         })
 
-        AppEvents.InstanceHandler()
+        this.InstanceHandler()
+        this.InitTray()
     }
 
     /***********************************************************************************************************************
      * Private methods
      **********************************************************************************************************************/
 
-    private static LinkHandler(arg: string) {
+    /**
+     * Handles links (URI) and protocols for the application
+     * @param arg
+     */
+    private LinkHandler(arg: string) {
         if (!arg) return;
 
         // LastFM Auth URL
@@ -137,10 +145,10 @@ export class AppEvents {
             let authURI = arg.split('/auth/')[1]
             if (authURI.startsWith('lastfm')) { // If we wanted more auth options
                 const authKey = authURI.split('lastfm?token=')[1];
-                AppEvents.store.set('lastfm.enabled', true);
-                AppEvents.store.set('lastfm.auth_token', authKey);
-                AppEvents.win.webContents.send('LastfmAuthenticated', authKey);
-                AppEvents.plugin.callPlugin('lastfm', 'authenticate', authKey);
+                this.store.set('lastfm.enabled', true);
+                this.store.set('lastfm.auth_token', authKey);
+                this.win.webContents.send('LastfmAuthenticated', authKey);
+                this.plugin.callPlugin('lastfm', 'authenticate', authKey);
             }
         }
         // Play
@@ -156,7 +164,7 @@ export class AppEvents {
             for (const [key, value] of Object.entries(mediaType)) {
                 if (playParam.includes(key)) {
                     const id = playParam.split(key)[1]
-                    AppEvents.win.webContents.send('play', value, id)
+                    this.win.webContents.send('play', value, id)
                     console.debug(`[LinkHandler] Attempting to load ${value} by id: ${id}`)
                 }
             }
@@ -165,11 +173,14 @@ export class AppEvents {
             console.log(arg)
             let url = arg.split('//')[1]
             console.warn(`[LinkHandler] Attempting to load url: ${url}`);
-            AppEvents.win.webContents.send('play', 'url', url)
+            this.win.webContents.send('play', 'url', url)
         }
     }
 
-    private static InstanceHandler() {
+    /**
+     * Handles the creation of a new instance of the app
+     */
+    private InstanceHandler() {
 
         // Detects of an existing instance is running (So if the lock has been achieved, no existing instance has been found)
         const gotTheLock = electron.app.requestSingleInstanceLock()
@@ -185,17 +196,97 @@ export class AppEvents {
                     console.log(arg)
                     if (arg.includes("cider://")) {
                         console.debug('[InstanceHandler] (second-instance) Link detected with ' + arg)
-                        AppEvents.LinkHandler(arg)
+                        this.LinkHandler(arg)
                     } else if (arg.includes("--force-quit")) {
                         console.warn('[InstanceHandler] (second-instance) Force Quit found. Quitting App.');
                         electron.app.quit()
-                    } else if (AppEvents.win) {
-                        if (AppEvents.win.isMinimized()) AppEvents.win.restore()
-                        AppEvents.win.focus()
+                    } else if (this.win) {
+                        if (this.win.isMinimized()) this.win.restore()
+                        this.win.focus()
                     }
                 })
             })
         }
 
+    }
+
+    /**
+     * Initializes the applications tray
+     */
+    private InitTray() {
+        const icons = {
+            "win32": electron.nativeImage.createFromPath(path.join(__dirname, `../../resources/icons/icon.ico`)).resize({
+                width: 32,
+                height: 32
+            }),
+            "linux": electron.nativeImage.createFromPath(path.join(__dirname, `../../resources/icons/icon.png`)).resize({
+                width: 32,
+                height: 32
+            }),
+            "darwin": electron.nativeImage.createFromPath(path.join(__dirname, `../../resources/icons/icon.png`)).resize({
+                width: 20,
+                height: 20
+            }),
+        }
+        console.log(this.i18n)
+
+        this.tray = new electron.Tray(process.platform === 'win32' ? icons.win32 : (process.platform === 'darwin' ? icons.darwin : icons.linux))
+        this.tray.setToolTip(electron.app.getName())
+        this.setTray(false)
+
+        this.tray.on('double-click', () => {
+            if (this.win) {
+                if (this.win.isVisible()) {
+                    this.win.focus()
+                } else {
+                    this.win.show()
+                }
+            }
+        })
+
+        this.win.on('show', () => {
+            this.setTray(true)
+        })
+
+        this.win.on('restore', () => {
+            this.setTray(true)
+        })
+
+        this.win.on('hide', () => {
+            this.setTray(false)
+        })
+
+        this.win.on('minimize', () => {
+            this.setTray(false)
+        })
+    }
+
+    /**
+     * Sets the tray context menu to a given state
+     * @param visible - BrowserWindow Visibility
+     */
+    private setTray(visible: boolean = this.win.isVisible()) {
+
+        const menu = electron.Menu.buildFromTemplate([
+            {
+                label: (visible ? this.i18n['action.tray.minimize'] : `${this.i18n['action.tray.show']} ${electron.app.getName()}`),
+                click: () => {
+                    if (this.win) {
+                        if (visible) {
+                            this.win.hide()
+                        } else {
+                            this.win.show()
+                        }
+                    }
+                }
+            },
+            {
+                label: this.i18n['action.tray.quit'],
+                click: () => {
+                    electron.app.quit()
+                }
+            }
+        ])
+        this.tray.setContextMenu(menu)
     }
 }
