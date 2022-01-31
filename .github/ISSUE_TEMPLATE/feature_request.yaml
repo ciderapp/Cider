@@ -22,7 +22,6 @@ body:
       label: Alternatives and Other Information
       description: If you have any alternative solutions to implement your request or other information that could help.
       placeholder: Anything that can help us?
-      value: ... could be used to implement this
     validations:
       required: false
   - type: checkboxes

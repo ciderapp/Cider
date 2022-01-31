@@ -8,7 +8,7 @@ body:
     attributes:
       value: |
         Thanks for taking the time to fill out this report!
-  - type: textarea
+  - type: input
     id: language
     attributes:
       label: Relevant Language
