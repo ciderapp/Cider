@@ -242,22 +242,27 @@
                                 <button class="usermenu-item" @click="showWebRemoteQR()">
                                     <div class="row nopadding">
                                         <div class="col nopadding">
-                                            {{$root.getLz('action.showWebRemoteQR')}}
+                                            <span class="usermenu-item-icon"><%- include("./svg/smartphone.svg") %></span>
+                                            <span class="usermenu-item-name">{{$root.getLz('action.showWebRemoteQR')}}</span>
                                         </div>
                                     </div>
                                 </button>
                                 <button class="usermenu-item" v-if="cfg.advanced.AudioContext"
                                         @click="modals.audioSettings = true">
-                                    {{$root.getLz('term.audioSettings')}}
+                                    <span class="usermenu-item-icon"><%- include("./svg/headphones.svg") %></span>
+                                    <span class="usermenu-item-name">{{$root.getLz('term.audioSettings')}}</span>
                                 </button>
                                 <button class="usermenu-item" @click="appRoute('about')">
-                                    {{$root.getLz('term.about')}}
+                                    <span class="usermenu-item-icon"><%- include("./svg/info.svg") %></span>
+                                    <span class="usermenu-item-name">{{$root.getLz('term.about')}}</span>
                                 </button>
                                 <button class="usermenu-item" @click="appRoute('settings')">
-                                    {{$root.getLz('term.settings')}}
+                                    <span class="usermenu-item-icon"><%- include("./svg/settings.svg") %></span>
+                                    <span class="usermenu-item-name">{{$root.getLz('term.settings')}}</span>
                                 </button>
                                 <button class="usermenu-item" @click="unauthorize()">
-                                    {{$root.getLz('term.logout')}}
+                                    <span class="usermenu-item-icon" style="right:2.5px;"><%- include("./svg/log-out.svg") %></span>
+                                    <span class="usermenu-item-name">{{$root.getLz('term.logout')}}</span>
                                 </button>
                             </div>
                         </div>
