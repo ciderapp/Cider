@@ -2,7 +2,7 @@ name: Test Report
 description: If you encounter an issue whilst using our app, please use this template to help improve the app.
 title: "[Bug]: "
 labels: ["bug", "triage"]
-assignees:
+assignees: []
 body:
   - type: markdown
     attributes:
@@ -35,11 +35,10 @@ body:
           - **OS**: Ubuntu 20.04
           - **App Version**: 1.0.0
           - **Commit ID**: c9d43be
-    value: |
+      value: |
         - OS:
         - App Version:
         - Commit ID:
-    render: markdown
     validations:
       required: true
   - type: textarea
@@ -47,7 +46,6 @@ body:
     attributes:
       label: Additional Information
       description: Any additional information that you would like to add that could assist us with your issue.
-      render: markdown
   - type: checkboxes
     id: terms
     attributes:
