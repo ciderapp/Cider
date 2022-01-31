@@ -207,6 +207,7 @@
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizálja az egyes zeneszámok hangosabb részeit, hogy egységesebb hallgatási élményt hozzon létre.",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Térbeli hangzás", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Térbeli hangzás és a hang háromdimenziósabbá tétele (Ez nem összekeverendő a Dolby Atmos-szal!)",
+
   // Settings - Visual
   "settings.header.visual": "Vizuális", 
   "settings.header.visual.description": "A Cider vizuális beállításainak módosítása.",
