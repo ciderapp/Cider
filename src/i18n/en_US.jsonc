@@ -262,11 +262,11 @@
   "settings.header.connectivity.discordRPC.cider": "Display as 'Cider'",
   "settings.header.connectivity.discordRPC.appleMusic": "Display as 'Apple Music'",
   "settings.option.connectivity.discordRPC.clearOnPause": "Clear Discord Rich Presence on Pause", // Toggle
-  "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling", // Option to Connect
-  "settings.option.connectivity.lastfmScrobble.delay": "LastFM Scrobble Delay (%)", 
-  "settings.option.connectivity.lastfmScrobble.nowPlaying": "Enable LastFM Now Playing", 
-  "settings.option.connectivity.lastfmScrobble.removeFeatured": "Remove featuring artists from song title (LastFM)", 
-  "settings.option.connectivity.lastfmScrobble.filterLoop": "Filter looped track (LastFM)", 
+  "settings.option.connectivity.lastfmScrobble": "Last.fm Scrobbling", // Option to Connect
+  "settings.option.connectivity.lastfmScrobble.delay": "Last.fm Scrobble Delay (%)", 
+  "settings.option.connectivity.lastfmScrobble.nowPlaying": "Enable Last.fm Now Playing", 
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "Remove featuring artists from song title (Last.fm)", 
+  "settings.option.connectivity.lastfmScrobble.filterLoop": "Filter looped track (Last.fm)", 
   // Refer to term.connect for the connect button
 
   // Settings - Experimental
@@ -281,24 +281,24 @@
 
   // Spatialization Menu
   "spatial.notTurnedOn": "Audio Spatialization is disabled. To use, please enable it first.",
-  "spatial.spatialProperties" : "Spatial Properties",
-  "spatial.width" : "Width",
-  "spatial.height" : "Height",
-  "spatial.depth" : "Depth",
-  "spatial.gain" : "Gain",
-  "spatial.roomMaterials" : "Room Materials",
-  "spatial.roomDimensions" : "Room Dimensions",
-  "spatial.roomPositions" : "Room Positions",
-  "spatial.setDimensions" : "Set Dimensions",
-  "spatial.setPositions" : "Set Positions",
-  "spatial.up" : "Up",
-  "spatial.front" : "Front",
-  "spatial.left" : "Left",
-  "spatial.right" : "Right",
-  "spatial.back" : "Back",
-  "spatial.down" : "Down",
-  "spatial.listener" : "Listener",
-  "spatial.audioSource" : "Audio Source",
+  "spatial.spatialProperties": "Spatial Properties",
+  "spatial.width": "Width",
+  "spatial.height": "Height",
+  "spatial.depth": "Depth",
+  "spatial.gain": "Gain",
+  "spatial.roomMaterials": "Room Materials",
+  "spatial.roomDimensions": "Room Dimensions",
+  "spatial.roomPositions": "Room Positions",
+  "spatial.setDimensions": "Set Dimensions",
+  "spatial.setPositions": "Set Positions",
+  "spatial.up": "Up",
+  "spatial.front": "Front",
+  "spatial.left": "Left",
+  "spatial.right": "Right",
+  "spatial.back": "Back",
+  "spatial.down": "Down",
+  "spatial.listener": "Listener",
+  "spatial.audioSource": "Audio Source",
   
   // Settings - Unfinished
   "settings.header.unfinished": "Unfinished",

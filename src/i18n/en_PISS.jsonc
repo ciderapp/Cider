@@ -1,0 +1,312 @@
+{ // Base File
+
+  // i18n Info
+  "i18n.languageName": "piss",        // name of language in native language
+  "i18n.languageNameEnglish": "English (piss)", // name of language in English
+  "i18n.category": "fun", // main = real language, fun = fun community languages
+  "i18n.authors": "@SoNothingMC", // Authors, if you contribute to this file feel free to add your name seperated with a space
+
+  // App info
+  "app.name": "piss",
+
+  "date.format": "${y}-${m}-${d}", // ISO 8601 for the win!
+  
+  // Dialogs
+  "dialog.cancel": "no piss",
+  "dialog.ok": "yes piss",
+
+  // Notification
+  "notification.updatingLibrarySongs": "pisssing all over your songs",
+  "notification.updatingLibraryAlbums": "pissing all over your albums",
+  "notification.updatingLibraryArtists": "pissing all over your idols",
+  // Terms
+  "term.appleInc": "piss Inc.",
+  "term.appleMusic": "piss music",
+  "term.applePodcasts": "piss podcasts",
+  "term.itunes": "iPiss",
+  "term.github": "PissHub",
+  "term.discord": "Pisscord",
+  "term.learnMore": "piss more",
+  "term.accountSettings": "piss music settings",
+  "term.logout": "piss out",
+  "term.login": "piss in",
+  "term.about": "piss info",
+  "term.privateSession": "piss in private",
+  "term.queue": "to be pissed",
+  "term.search": "find piss",
+  "term.library": "obtained piss",
+  "term.listenNow": "piss now",
+  "term.browse": "find piss",
+  "term.radio": "piss everywhere",
+  "term.recentlyAdded": "recently obtained piss",
+  "term.songs": "piss list", // not to be confused with pisslist (playlist)
+  "term.albums": "piss collection",
+  "term.artists": "pissers",
+  "term.podcasts": "pisscasts",
+  "term.playlists": "pisslists",
+  "term.playlist": "pisslist",
+  "term.newPlaylist": "new pisslist",
+  "term.newPlaylistFolder": "new pisslist folder",
+  "term.createNewPlaylist": "create new pisslist",
+  "term.createNewPlaylistFolder": "create new pisslist folder",
+  "term.deletePlaylist": "obliterate pisslist?",
+  "term.play": "piss",
+  "term.pause": "hold your piss",
+  "term.previous": "piss",
+  "term.next": "piss",
+  "term.shuffle": "piss randomly",
+  "term.repeat": "piss at the same place",
+  "term.volume": "piss loudness",
+  "term.mute": "piss without sound",
+  "term.unmute": "piss with sound",
+  "term.share": "piss on your friends",
+  "term.settings": "pissettings",
+  "term.seeAll": "all of the piss",
+  "term.sortBy": "piss by",
+  "term.sortBy.album": "piss collection",
+  "term.sortBy.artist": "pissers",
+  "term.sortBy.name": "piss name",
+  "term.sortBy.genre": "way to piss",
+  "term.sortBy.releaseDate": "pissed date",
+  "term.sortBy.duration": "piss duration",
+  "term.sortOrder": "piss-PISS",
+  "term.sortOrder.ascending": "pissing upwards",
+  "term.sortOrder.descending": "pissing downwards",
+  "term.viewAs": "piss as",
+  "term.viewAs.coverArt": "piss art",
+  "term.viewAs.list": "piss list", // not to be confused with pisslist (playlist)
+  "term.size": "piss size",
+  "term.size.normal": "normal piss",
+  "term.size.compact": "compact piss",
+  "term.enable": "piss!",
+  "term.disable": "piss…",
+  "term.enabled": "pissed!",
+  "term.disabled": "pissed…",
+  "term.connect": "piss",
+  "term.connecting": "pissing",
+  "term.disconnect": "unpiss",
+  "term.authed": "pissed",
+  "term.confirm": "piss…?",
+  "term.more": "piss more",
+  "term.less": "piss less",
+  "term.showMore": "more piss",
+  "term.showLess": "less piss",
+  "term.topSongs" : "top piss",
+  "term.latestReleases": "latest piss collection",
+  "term.time.added": "pissed",
+  "term.time.released": "pissed", 
+  "term.time.updated": "pissed",
+  "term.time.hours": "hours",
+  "term.time.hour": "hour",
+  "term.time.minutes": "minutes",
+  "term.time.minute": "minute",
+  "term.time.seconds": "seconds",
+  "term.time.second": "second",
+  "term.fullscreenView": "fullpiss view",
+  "term.defaultView": "normal piss view",
+  "term.audioSettings": "cool piss tricks",
+  "term.clearAll": "flush the toilet",
+  "term.recentStations": "recent pisses",
+  "term.language": "piss around the world",
+  "term.funLanguages": "piss languages",
+  "term.noLyrics": "piss…",
+  "term.copyright": "copypiss",
+  "term.rightsReserved": "all piss reserved.",
+  "term.sponsor": "piss on Cider",
+  "term.ciderTeam": "meet the pisseneers",
+  "term.developer": "pisseneer",
+  "term.socialTeam": "social pisser",
+  "term.socials": "our piss",
+  "term.contributors": "more pisseneers",
+  "term.equalizer": "advanced piss configuration",
+  "term.reset": "repiss",
+  "term.tracks": "pisses", // Assume x amount of tracks. e.g. 50 tracks 
+  "term.videos": "piss videos 😳", 
+  "term.menu": "piss menu",
+  "term.check": "piss!",
+
+  // Home
+  "home.title": "piss central",
+  "home.recentlyPlayed": "recently pissed on",
+  "home.recentlyAdded": "recently obtained piss",
+  "home.artistsFeed": "your piss feed",
+  "home.artistsFeed.noArtist": "follow some pissers, their new piss will be here.",
+  "home.madeForYou": "pissed for you",
+  "home.friendsListeningTo": "friends pissing to",
+  "home.followedArtists": "followed pissers",
+  // Errors
+  "error.appleMusicSubRequired": "piss music requires, like y'know, an actual piss music subscription to actually use.",
+  "error.connectionError": "oh, piss.",
+  "error.noResults": "no piss found",
+  "error.noResults.description": "try pissing somewhere else (or press Enter/Return to search)",
+
+  //Podcasts
+  "podcast.followOnCider": "piss on Cider",
+  "podcast.followedOnCider": "pissed on Cider",
+  "podcast.subscribeOnItunes": "piss on iPiss",
+  "podcast.subscribedOnItunes": "pissed On iPiss",
+  "podcast.itunesStore": "iPiss store",
+  "podcast.episodes": "pisses",
+  "podcast.playEpisode": "play piss",
+  "podcast.website": "pisscast site",
+
+  // Actions
+  "action.addToLibrary": "obtain piss",
+  "action.addToLibrary.success": "piss obtained",
+  "action.addToLibrary.error": "error obtaining piss",
+  "action.removeFromLibrary": "unobtain piss",
+  "action.removeFromLibrary.success": "piss unobtained",
+  "action.addToQueue": "add to toilet",
+  "action.addToQueue.success": "added to toilet",
+  "action.addToQueue.error": "error adding to toilet",
+  "action.removeFromQueue": "flsuh from the toilet",
+  "action.removeFromQueue.success": "flushed from the toilet",
+  "action.removeFromQueue.error": "error flushing from toilet",
+  "action.createPlaylist": "create new pisslist",
+  "action.addToPlaylist": "add to pisslist",
+  "action.removeFromPlaylist": "flush from pisslist",
+  "action.addToFavorites": "add to favourite piss",
+  "action.follow": "follow pisser",
+  "action.follow.success": "pisser followed",
+  "action.follow.error": "error following pisser",
+  "action.unfollow": "unfollow pisser",
+  "action.unfollow.success": "pisser unfollowed",
+  "action.unfollow.error": "error unfollowing pisser",
+  "action.playNext": "piss next",
+  "action.playLater": "piss later",
+  "action.startRadio": "start pissing everywhere",
+  "action.goToArtist": "go to pisser",
+  "action.goToAlbum": "go to piss collection",
+  "action.moveToTop": "piss to top",
+  "action.share": "piss on your friends",
+  "action.rename": "rename piss",
+  "action.love": "love piss",
+  "action.unlove": "unlove piss",
+  "action.dislike": "dislike piss",
+  "action.undoDislike": "undislike piss",
+  "action.showWebRemoteQR": "piss remote",
+  "action.playTracksNext": "piss ${app.selectedMediaItems.length} pisses next",
+  "action.playTracksLater": "piss ${app.selectedMediaItems.length} pisses later",
+  "action.removeTracks": "flush ${self.selectedItems.length} pisses from toilet",
+  "action.import": "impiss",
+  "action.export": "expiss",
+  "action.showAlbum": "show complete piss collection",
+  // Waiting on Core for moving plugin to app.ts
+  "action.tray.minimize": "piss off to tray",
+  "action.tray.quit": "piss off",
+  "action.tray.show": "piss back",
+
+  // Settings - General
+  "settings.header.general": "general",
+  "settings.header.general.description": "the dumping place for settings when there are no other places to put them into",
+  "settings.option.general.language": "piss around the world", 
+
+  // Language optgroups
+  "settings.option.general.language.main": "actaul human languages",
+  "settings.option.general.language.fun": "piss languages",
+  "settings.option.general.language.unsorted": "???? who put this here",
+  
+  // Settings - Audio
+  "settings.header.audio": "piss sounds",
+  "settings.header.audio.description": "change how your piss sounds",
+  "settings.option.audio.quality": "piss quality", // Dropdown
+  "settings.header.audio.quality.high": "nice piss",
+  "settings.header.audio.quality.low": "piss with blood",
+  "settings.header.audio.quality.auto": "automatic piss",
+  "settings.option.audio.seamlessTransition": "seamless piss-to-piss transition", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality": "cool piss tricks", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.description": "enabling the AudioContext thingy allows you to do cool stuffs, however on some systems your song may stutter",
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "piss normaliztion", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "protect your eardrums from overly loud/slient pisses",
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "3D piss", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "this aint the dolby atmos you are looking for but its still pretty crazy so check it out",
+  // Settings - Visual
+  "settings.header.visual": "piss appearance", 
+  "settings.header.visual.description": "change how your piss looks",
+  "settings.option.visual.windowBackgroundStyle": "background piss", // Toggle
+  "settings.header.visual.windowBackgroundStyle.none": "no piss",
+  "settings.header.visual.windowBackgroundStyle.artwork": "piss art",
+  "settings.header.visual.windowBackgroundStyle.image": "piss image",
+  "settings.option.visual.animatedArtwork": "moving piss art", // Dropdown
+  "settings.header.visual.animatedArtwork.always": "yes piss",
+  "settings.header.visual.animatedArtwork.limited": "only piss pages and special pisses",
+  "settings.header.visual.animatedArtwork.disable": "no piss",
+  "settings.option.visual.animatedArtworkQuality": "moving piss art quality", // Dropdown
+  "settings.header.visual.animatedArtworkQuality.low": "piss with blood",
+  "settings.header.visual.animatedArtworkQuality.medium": "okay piss",
+  "settings.header.visual.animatedArtworkQuality.high": "nice piss",
+  "settings.header.visual.animatedArtworkQuality.veryHigh": "good piss",
+  "settings.header.visual.animatedArtworkQuality.extreme": "literally 4k piss",
+  "settings.option.visual.animatedWindowBackground": "moving background piss", // Toggle
+  "settings.option.visual.hardwareAcceleration": "make Cider piss faster", // Dropdown
+  "settings.option.visual.hardwareAcceleration.description": "you need to relaunch Cider",
+  "settings.header.visual.hardwareAcceleration.default": "default piss", 
+  "settings.header.visual.hardwareAcceleration.webGPU": "WebPISS", 
+  // Refer to term.disabled for the disabled option
+  "settings.option.visual.showPersonalInfo": "show yourself to the pissiverse", // Toggle
+
+  // Settings - Lyrics
+  "settings.header.lyrics": "piss lyrics",
+  "settings.header.lyrics.description": "change how your piss speaks to you",
+  "settings.option.lyrics.enableMusixmatch": "Musixpiss piss lyrics", // Toggle
+  "settings.option.lyrics.enableMusixmatchKaraoke": "pissraoke mode (Musixpiss only)", // Toggle
+  "settings.option.lyrics.musixmatchPreferredLanguage": "language for Musixpiss translations", // Dropdown
+  "settings.option.lyrics.enableYoutubeLyrics": "PissTube subtitles for piss videos", // Toggle
+
+  // Settings - Connectivity
+  "settings.header.connectivity": "pisser-to-pisser connections",
+  "settings.header.connectivity.description": "change how Cider piss on other people, including you",
+  "settings.option.connectivity.discordRPC": "Pisscord rich pissence", // Dropdown
+  "settings.option.connectivity.playbackNotifications": "toilet notifications", // Toggle
+  // Refer to term.disabled for the disabled option
+  "settings.header.connectivity.discordRPC.cider": "piss as 'Cider'",
+  "settings.header.connectivity.discordRPC.appleMusic": "piss as 'piss music'",
+  "settings.option.connectivity.discordRPC.clearOnPause": "flush Pisscord rich pissence when holding your piss", // Toggle
+  "settings.option.connectivity.lastfmScrobble": "Piss.fm scrobbling", // Option to Connect
+  "settings.option.connectivity.lastfmScrobble.delay": "Piss.fm scrobble delay (%)", 
+  "settings.option.connectivity.lastfmScrobble.nowPlaying": "push now playing data to Piss.fm", 
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "remove featured pissers from piss names (Piss.fm)", 
+  "settings.option.connectivity.lastfmScrobble.filterLoop": "filter same piss (Piss.fm)", 
+  // Refer to term.connect for the connect button
+
+  // Settings - Experimental
+  "settings.header.experimental": "piss lab",
+  "settings.header.experimental.description": "mitochondria is the powerhouse of the cell",
+  "settings.option.experimental.compactUI": "compact piss", // Toggle
+  "settings.option.experimental.closeButtonBehaviour": "piss off button behaviour",
+  "settings.option.experimental.closeButtonBehaviour.quit": "ask cider to piss off",
+  "settings.option.experimental.closeButtonBehaviour.minimizeTaskbar": "piss off to the taskbar",
+  "settings.option.experimental.closeButtonBehaviour.minimizeTray": "piss off to the tray",
+  // Refer to term.disabled & term.enabled
+
+  // Spatialization Menu
+  "spatial.notTurnedOn": "3D piss is not on. turn it on lol",
+  "spatial.spatialProperties": "3D properties",
+  "spatial.width": "longness",
+  "spatial.height": "thiccness",
+  "spatial.depth": "longness, the other way",
+  "spatial.gain": "eardrum explosion level",
+  "spatial.roomMaterials": "toilet materials",
+  "spatial.roomDimensions": "toilet size",
+  "spatial.roomPositions": "toilet positions",
+  "spatial.setDimensions": "set size",
+  "spatial.setPositions": "set positions",
+  "spatial.up": "the piss on the ceiling",
+  "spatial.front": "the piss in front",
+  "spatial.left": "the piss on the left",
+  "spatial.right": "the piss on the right",
+  "spatial.back": "the piss at the back",
+  "spatial.down": "the piss on the floor",
+  "spatial.listener": "you",
+  "spatial.audioSource": "piss source",
+  
+  // Settings - Unfinished
+  "settings.header.unfinished": "DLC piss",
+
+  // Web Remote
+  "remote.web.title": "piss remote",
+  "remote.web.description": "piss on your phone camera to connect to Cider.",
+
+  // About
+  "about.thanks": "thanks to the Cider Collective team and all the pisseneers putting this together"
+}
