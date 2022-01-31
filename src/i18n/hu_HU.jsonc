@@ -45,6 +45,11 @@
   "term.podcasts": "Podcastok",
   "term.playlists": "Lejátszási listák",
   "term.playlist": "Lejátszási lista",
+  "term.newPlaylist": "Új lejátszási lista",
+  "term.newPlaylistFolder": "Új lejátszási lista mappa",
+  "term.createNewPlaylist": "Új lejátszási lista létrehozása",
+  "term.createNewPlaylistFolder": "Új lejátszási lista mappa létrehozása",
+  "term.deletePlaylist": "Biztosan szeretné törölni a lejátszási listát?",
   "term.play": "Lejátszás",
   "term.pause": "Megállítás",
   "term.previous": "Előző",
@@ -110,13 +115,15 @@
   "term.sponsor": "Támogasd a projektet",
   "term.ciderTeam": "A Cider csapata",
   "term.developer": "Fejlesztő",
-  "term.socialTeam": "Társaság",
+  "term.socialTeam": "Szociális csapat",
+  "term.socials": "Szociális",
   "term.contributors": "Közreműködők",
   "term.equalizer": "Hangszínszabályozó",
   "term.reset": "Visszaállítás",
   "term.tracks": "zeneszám", // Assume x amount of tracks. e.g. 50 tracks 
   "term.videos": "Videók", 
   "term.menu": "Menü",
+  "term.check": "Bejelöl",
 
   // Home
   "home.title": "Kezdőlap",
@@ -155,6 +162,7 @@
   "action.removeFromQueue": "Törlés a várólistáról",
   "action.removeFromQueue.success": "Törölve a várólistáról",
   "action.removeFromQueue.error": "Sikertelen törlés a várólistáról",
+  "action.createPlaylist": "Új lejátszási lista létrehozása",
   "action.addToPlaylist": "Lejátszási listához adás",
   "action.removeFromPlaylist": "Törlés a lejátszási listáról",
   "action.addToFavorites": "Hozzáadás a kedvencekhez",
@@ -182,6 +190,11 @@
   "action.removeTracks": "${self.selectedItems.length} zenék eltávolítása a várólistáról",
   "action.import": "Importálás",
   "action.export": "Exportálás",
+  "action.showAlbum": "Teljes album megjelenítése",
+  // Waiting on Core for moving plugin to app.ts
+  "action.tray.minimize": "Kicsinyítés a tálcára",
+  "action.tray.quit": "Kilépés",
+  "action.tray.show": "Megjelenítés",
 
   // Settings - General
   "settings.header.general": "Általános",
@@ -267,24 +280,25 @@
   // Refer to term.disabled & term.enabled
 
   // Spatialization Menu
-  "spatial.spatialProperties" : "Térbeli hangzás",
-  "spatial.width" : "Szélesség",
-  "spatial.height" : "Magasság",
-  "spatial.depth" : "Hosszúság",
-  "spatial.gain" : "Gain",
-  "spatial.roomMaterials" : "Szoba felépítése",
-  "spatial.roomDimensions" : "Szoba méretei",
-  "spatial.roomPositions" : "Szoba pozíciói",
-  "spatial.setDimensions" : "Méretek beállítása",
-  "spatial.setPositions" : "Pozíciók beállítása",
-  "spatial.up" : "Fent",
-  "spatial.front" : "Elől",
-  "spatial.left" : "Balra",
-  "spatial.right" : "Jobbra",
-  "spatial.back" : "Hátul",
-  "spatial.down" : "Lent",
-  "spatial.listener" : "Hallgató",
-  "spatial.audioSource" : "Hangforrás",
+  "spatial.notTurnedOn": "A térbeli hangzás ki van kapcsolva, használatához kapcsolja be.",
+  "spatial.spatialProperties": "Térbeli hangzás",
+  "spatial.width": "Szélesség",
+  "spatial.height": "Magasság",
+  "spatial.depth": "Hosszúság",
+  "spatial.gain": "Gain",
+  "spatial.roomMaterials": "Szoba felépítése",
+  "spatial.roomDimensions": "Szoba méretei",
+  "spatial.roomPositions": "Szoba pozíciói",
+  "spatial.setDimensions": "Méretek beállítása",
+  "spatial.setPositions": "Pozíciók beállítása",
+  "spatial.up": "Fent",
+  "spatial.front": "Elől",
+  "spatial.left": "Balra",
+  "spatial.right": "Jobbra",
+  "spatial.back": "Hátul",
+  "spatial.down": "Lent",
+  "spatial.listener": "Hallgató",
+  "spatial.audioSource": "Hangforrás",
   
   // Settings - Unfinished
   "settings.header.unfinished": "Befejezetlen",
@@ -294,5 +308,5 @@
   "remote.web.description": "Olvasd be ezt a QR-kódot a telefonoddal, hogy tudd vezérelni a lejátszót.",
 
   // About
-  "about.thanks": "Köszönet a Cider Collective csapatának és minden hozzájárulónak."
+  "about.thanks": "Köszönet a Cider Collective csapatának és minden közreműködőnek."
 }
