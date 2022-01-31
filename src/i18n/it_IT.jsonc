@@ -1,0 +1,312 @@
+{ // Base File
+
+  // i18n Info
+  "i18n.languageName": "Italiano",        // name of language in native language
+  "i18n.languageNameEnglish": "Italian", // name of language in English
+  "i18n.category": "main", // main = real language, fun = fun community languages
+  "i18n.authors": "ConnectedR", // Authors, if you contribute to this file feel free to add your name seperated with a space
+
+  // App info
+  "app.name": "Cider",
+
+  "date.format": "${d} ${m}, ${y}",
+  
+  // Dialogs
+  "dialog.cancel": "Annulla",
+  "dialog.ok": "OK",
+
+  // Notification
+  "notification.updatingLibrarySongs": "Aggiornamento raccolta brani...",
+  "notification.updatingLibraryAlbums": "Aggornamento raccolta album...",
+  "notification.updatingLibraryArtists": "Aggiornamento raccolta artisti...",
+  // Terms
+  "term.appleInc": "Apple Inc.",
+  "term.appleMusic": "Apple Music",
+  "term.applePodcasts": "Apple Podcasts",
+  "term.itunes": "iTunes",
+  "term.github": "GitHub",
+  "term.discord": "Discord",
+  "term.learnMore": "Impara di più",
+  "term.accountSettings": "Impostazioni Account",
+  "term.logout": "Disconnetti",
+  "term.login": "Accedi",
+  "term.about": "Informazioni",
+  "term.privateSession": "Sessione Privata",
+  "term.queue": "Coda",
+  "term.search": "Cerca",
+  "term.library": "Raccolta",
+  "term.listenNow": "Ascolta ora",
+  "term.browse": "Sfoglia",
+  "term.radio": "Radio",
+  "term.recentlyAdded": "Aggiunto di recente",
+  "term.songs": "Brani",
+  "term.albums": "Album",
+  "term.artists": "Artisti",
+  "term.podcasts": "Podcast",
+  "term.playlists": "Playlist",
+  "term.playlist": "Playlist",
+  "term.newPlaylist": "Nuova Playlist",
+  "term.newPlaylistFolder": "Nuova Cartella Playlist",
+  "term.createNewPlaylist": "Crea Nuova Playlist",
+  "term.createNewPlaylistFolder": "Crea Nuova Cartella Playlist",
+  "term.deletePlaylist": "Sei sicuro che vuoi eliminare questa playlist?",
+  "term.play": "Riproduci",
+  "term.pause": "Pausa",
+  "term.previous": "Precedente",
+  "term.next": "Avanti",
+  "term.shuffle": "Shuffle",
+  "term.repeat": "Ripeti",
+  "term.volume": "Volume",
+  "term.mute": "Muta",
+  "term.unmute": "Riattiva",
+  "term.share": "Condividi",
+  "term.settings": "Impostazioni",
+  "term.seeAll": "Vedi tutto",
+  "term.sortBy": "Ordina per",
+  "term.sortBy.album": "Album",
+  "term.sortBy.artist": "Artista",
+  "term.sortBy.name": "Nome",
+  "term.sortBy.genre": "Genere",
+  "term.sortBy.releaseDate": "Data di rilascio",
+  "term.sortBy.duration": "Durata",
+  "term.sortOrder": "A-Z",
+  "term.sortOrder.ascending": "Crescente",
+  "term.sortOrder.descending": "Decrescente",
+  "term.viewAs": "Visualizza come",
+  "term.viewAs.coverArt": "Copertina",
+  "term.viewAs.list": "Lista",
+  "term.size": "Dimensione",
+  "term.size.normal": "Normale",
+  "term.size.compact": "Compatto",
+  "term.enable": "Attive",
+  "term.disable": "Disattiva",
+  "term.enabled": "Attivo",
+  "term.disabled": "Disattivo",
+  "term.connect": "Connetti",
+  "term.connecting": "Connessione",
+  "term.disconnect": "Disconnetti",
+  "term.authed": "Connesso",
+  "term.confirm": "Conferma?",
+  "term.more": "Altro",
+  "term.less": "Meno",
+  "term.showMore": "Mostra altro",
+  "term.showLess": "Mostra menu",
+  "term.topSongs" : "Brani top",
+  "term.latestReleases": "Uscite Recenti",
+  "term.time.added": "Aggiunto",
+  "term.time.released": "Rilasciato", 
+  "term.time.updated": "Aggiornato",
+  "term.time.hours": "ore",
+  "term.time.hour": "ora",
+  "term.time.minutes": "minuti",
+  "term.time.minute": "minuto",
+  "term.time.seconds": "secondi",
+  "term.time.second": "secondo",
+  "term.fullscreenView": "Vista schermo pieno",
+  "term.defaultView": "Vista normale",
+  "term.audioSettings": "Impostazioni Audio",
+  "term.clearAll": "Rimuovi Tutto",
+  "term.recentStations": "Stazioni recenti",
+  "term.language": "Lingua",
+  "term.funLanguages": "Scherzo",
+  "term.noLyrics": "Caricamento... / Testo non trovato. / Strumentale.",
+  "term.copyright": "Copyright",
+  "term.rightsReserved": "Tutti i diritti riservati.",
+  "term.sponsor": "Sponsorizza questo progetto",
+  "term.ciderTeam": "Team di Cider",
+  "term.developer": "Sviluppatore",
+  "term.socialTeam": "Team Sociale",
+  "term.socials": "Social",
+  "term.contributors": "Contribuenti",
+  "term.equalizer": "Equalizzatore",
+  "term.reset": "Reset",
+  "term.tracks": "brani", // Assume x amount of tracks. e.g. 50 tracks 
+  "term.videos": "Video", 
+  "term.menu": "Menu",
+  "term.check": "Controllo",
+
+  // Home
+  "home.title": "Casa",
+  "home.recentlyPlayed": "Ascoltato di recente",
+  "home.recentlyAdded": "Aggiunto di recente",
+  "home.artistsFeed": "Feed di Artisti",
+  "home.artistsFeed.noArtist": "Segui alcuni artisti e le loro uscite recenti appariranno qui",
+  "home.madeForYou": "Per Te",
+  "home.friendsListeningTo": "Ascoltato da Amici",
+  "home.followedArtists": "Artisti Seguiti",
+  // Errors
+  "error.appleMusicSubRequired": "Apple Music ha bisogno di un abbonamento.",
+  "error.connectionError": "C'è stato un problema nella connessione a Apple Music.",
+  "error.noResults": "Nessun risultato.",
+  "error.noResults.description": "Prova un'altra ricerca.",
+
+  //Podcasts
+  "podcast.followOnCider": "Segui in Cider",
+  "podcast.followedOnCider": "Seguiti in Cider",
+  "podcast.subscribeOnItunes": "Iscriviti in iTunes",
+  "podcast.subscribedOnItunes": "Iscritto in iTunes",
+  "podcast.itunesStore": "iTunes Store",
+  "podcast.episodes": "Episodi",
+  "podcast.playEpisode": "Ascolta Episodio",
+  "podcast.website": "Sito Podcast",
+
+  // Actions
+  "action.addToLibrary": "Aggiungi a Raccolta",
+  "action.addToLibrary.success": "Aggiunto a Raccolta",
+  "action.addToLibrary.error": "Errore ad Aggiungere a Raccolta",
+  "action.removeFromLibrary": "Rimuovi da Raccolta",
+  "action.removeFromLibrary.success": "Rimosso da Raccolta",
+  "action.addToQueue": "Aggiungi a Coda",
+  "action.addToQueue.success": "Aggiunto a Coda",
+  "action.addToQueue.error": "Errore ad Aggiungere a Coda",
+  "action.removeFromQueue": "Rimuovi da Coda",
+  "action.removeFromQueue.success": "Rimosso da Coda",
+  "action.removeFromQueue.error": "Errore a Rimuovere da Coda",
+  "action.createPlaylist": "Crea Nuova Playlist",
+  "action.addToPlaylist": "Aggiungi a Playlist",
+  "action.removeFromPlaylist": "Rimuovi da Playlist",
+  "action.addToFavorites": "Aggiungi a Preferiti",
+  "action.follow": "Segui",
+  "action.follow.success": "Seguito",
+  "action.follow.error": "Errore a Seguire",
+  "action.unfollow": "Non Seguire",
+  "action.unfollow.success": "Rimosso dai Seguiti",
+  "action.unfollow.error": "Errore a Rimuovere dai Seguiti",
+  "action.playNext": "Riproduci Dopo",
+  "action.playLater": "Riprodici in Fine",
+  "action.startRadio": "Inizia Radio",
+  "action.goToArtist": "Vai all'Artista",
+  "action.goToAlbum": "Vai all'Album",
+  "action.moveToTop": "Torna in Alto",
+  "action.share": "Condividi",
+  "action.rename": "Rinomina",
+  "action.love": "Mi Piace",
+  "action.unlove": "Rimuovi Mi Piace",
+  "action.dislike": "Non Mi Piace",
+  "action.undoDislike": "Rimuovi Non Mi Piace",
+  "action.showWebRemoteQR": "Telecomando Web",
+  "action.playTracksNext": "Riproduci ${app.selectedMediaItems.length} brani Dopo",
+  "action.playTracksLater": "Riproduci ${app.selectedMediaItems.length} brani in fine",
+  "action.removeTracks": "Riproduci ${self.selectedItems.length} brani dalla coda",
+  "action.import": "Importa",
+  "action.export": "Esporta",
+  "action.showAlbum": "Mostra Album Intero",
+  // Waiting on Core for moving plugin to app.ts
+  "action.tray.minimize": "Minimizza nel tray",
+  "action.tray.quit": "Chiudi",
+  "action.tray.show": "Mostra",
+
+  // Settings - General
+  "settings.header.general": "Generale",
+  "settings.header.general.description": "Cambia le impostazioni generali di Cider.",
+  "settings.option.general.language": "Lingua",
+
+  // Language optgroups
+  "settings.option.general.language.main": "Lingue",
+  "settings.option.general.language.fun": "Lingue da Scherzo",
+  "settings.option.general.language.unsorted": "Non ordinato",
+  
+  // Settings - Audio
+  "settings.header.audio": "Audio",
+  "settings.header.audio.description": "Cambia le impostazioni di audio di Cider.",
+  "settings.option.audio.quality": "Qualità di audio", // Dropdown
+  "settings.header.audio.quality.high": "Alta",
+  "settings.header.audio.quality.low": "Bassa",
+  "settings.header.audio.quality.auto": "Automatica",
+  "settings.option.audio.seamlessTransition": "Transizioni Audio Immediate", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality": "Attiva funzionalità avanzata", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.description": "Attiva AudioContext per funzionalià audio avanzata Normalizzazione Audio, Equalizzatori and Visualizzatori, però su alcuni sistemi potrebbero causare lag nei brani.",
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Normalizzazione Audio", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizza il volume massimo nei brani per un'esperienza d'ascolto più uniforme.",
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Spazializzazione Audio", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Spazializza l'audio per dare un effetto più tridimensionale (nota: questo non è Dolby Atmos)",
+  // Settings - Visual
+  "settings.header.visual": "Visuale", 
+  "settings.header.visual.description": "Cambia le impostazioni visuali per Cider.",
+  "settings.option.visual.windowBackgroundStyle": "Stile Sfondo Finestra", // Toggle
+  "settings.header.visual.windowBackgroundStyle.none": "Nessuno",
+  "settings.header.visual.windowBackgroundStyle.artwork": "Copertina",
+  "settings.header.visual.windowBackgroundStyle.image": "Immagine",
+  "settings.option.visual.animatedArtwork": "Copertina Animata", // Dropdown
+  "settings.header.visual.animatedArtwork.always": "Sempre",
+  "settings.header.visual.animatedArtwork.limited": "Limita ad alcune pagine",
+  "settings.header.visual.animatedArtwork.disable": "Disattiva dappertutto",
+  "settings.option.visual.animatedArtworkQuality": "Qualità Copertina Animata", // Dropdown
+  "settings.header.visual.animatedArtworkQuality.low": "Bassa",
+  "settings.header.visual.animatedArtworkQuality.medium": "Media",
+  "settings.header.visual.animatedArtworkQuality.high": "Alta",
+  "settings.header.visual.animatedArtworkQuality.veryHigh": "Molto Alta",
+  "settings.header.visual.animatedArtworkQuality.extreme": "Estrema",
+  "settings.option.visual.animatedWindowBackground": "Sfondo Finestra Animato", // Toggle
+  "settings.option.visual.hardwareAcceleration": "Accelerazione Hardware", // Dropdown
+  "settings.option.visual.hardwareAcceleration.description": "Richiede riavvio del'app",
+  "settings.header.visual.hardwareAcceleration.default": "Normale", 
+  "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
+  // Refer to term.disabled for the disabled option
+  "settings.option.visual.showPersonalInfo": "Mostra Informazione Personale", // Toggle
+
+  // Settings - Lyrics
+  "settings.header.lyrics": "Testi",
+  "settings.header.lyrics.description": "Aggiusta le impostazioni dei testi per Cider.",
+  "settings.option.lyrics.enableMusixmatch": "Attiva Testi Musixmatch", // Toggle
+  "settings.option.lyrics.enableMusixmatchKaraoke": "Attiva Modalità Karaoke (solo Musixmatch)", // Toggle
+  "settings.option.lyrics.musixmatchPreferredLanguage": "Lingua di Traduzione MusixMatch Preferita", // Dropdown
+  "settings.option.lyrics.enableYoutubeLyrics": "Attiva Testi da YouTube Per i Video ", // Toggle
+
+  // Settings - Connectivity
+  "settings.header.connectivity": "Connectività",
+  "settings.header.connectivity.description": "Cambia le impostazioni di connettività per Cider.",
+  "settings.option.connectivity.discordRPC": "Discord Rich Presence", // Dropdown
+  "settings.option.connectivity.playbackNotifications": "Notifiche di Riproduzione", // Toggle
+  // Refer to term.disabled for the disabled option
+  "settings.header.connectivity.discordRPC.cider": "Mostra come 'Cider'",
+  "settings.header.connectivity.discordRPC.appleMusic": "Mostra come 'Apple Music'",
+  "settings.option.connectivity.discordRPC.clearOnPause": "Pausare Disattiva la Rich Presence", // Toggle
+  "settings.option.connectivity.lastfmScrobble": "Scrobbling LastFM", // Option to Connect
+  "settings.option.connectivity.lastfmScrobble.delay": "Ritardo di Scrobbling LastFM (%)", 
+  "settings.option.connectivity.lastfmScrobble.nowPlaying": "Attiva Now Playing in LastFM", 
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "Rimouvi Artisti Extra dal Titolo del Brano (LastFM)", 
+  "settings.option.connectivity.lastfmScrobble.filterLoop": "Filtra Brani Ripetuti (LastFM)", 
+  // Refer to term.connect for the connect button
+
+  // Settings - Experimental
+  "settings.header.experimental": "Sperimentale",
+  "settings.header.experimental.description": "Cambia impostazioni sperimentali per Cider.",
+  "settings.option.experimental.compactUI": "Interfaccia Compatta", // Toggle
+  "settings.option.experimental.closeButtonBehaviour": "Comportamento Tasto Chiudi",
+  "settings.option.experimental.closeButtonBehaviour.quit": "Chiudi Cider",
+  "settings.option.experimental.closeButtonBehaviour.minimizeTaskbar": "Minimizza",
+  "settings.option.experimental.closeButtonBehaviour.minimizeTray": "Minimizza Nel Tray",
+  // Refer to term.disabled & term.enabled
+
+  // Spatialization Menu
+  "spatial.notTurnedOn": "Spazializzazione Audio è disattivata. Attivala prima.",
+  "spatial.spatialProperties" : "Proprietà Spaziali",
+  "spatial.width" : "Larghezza",
+  "spatial.height" : "Altezza",
+  "spatial.depth" : "Profondità",
+  "spatial.gain" : "Guadagno",
+  "spatial.roomMaterials" : "Materiali Stanza",
+  "spatial.roomDimensions" : "Dimensioni Stanza",
+  "spatial.roomPositions" : "Posizioni Stanza",
+  "spatial.setDimensions" : "Imposta Dimensioni",
+  "spatial.setPositions" : "Imposta Posizioni",
+  "spatial.up" : "Sopra",
+  "spatial.front" : "In fronte",
+  "spatial.left" : "Sinistra",
+  "spatial.right" : "Destra",
+  "spatial.back" : "Dietro",
+  "spatial.down" : "Sotto",
+  "spatial.listener" : "Utente",
+  "spatial.audioSource" : "Fonte Audio",
+  
+  // Settings - Unfinished
+  "settings.header.unfinished": "Incompleto",
+
+  // Web Remote
+  "remote.web.title": "Telecomando Cider",
+  "remote.web.description": "Leggi il codice QR per connettere il tuo telefono con questa istanza di Cider",
+
+  // About
+  "about.thanks": "Grazie mille alla Team di Cider Collective e tutti i nostri contribuenti."
+}
