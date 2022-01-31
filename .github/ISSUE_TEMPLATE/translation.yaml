@@ -19,11 +19,13 @@ body:
   - type: dropdown
     id: requestType
     attributes:
-      label: Change or addition
+      label: Change or Addition or Both
       multiple: true
       options:
-        - Change the Language
-        - Add the Language
+        - Change a Language
+        - Add a Language
+    validations:
+      required: true
   - type: textarea
     id: description
     attributes:
