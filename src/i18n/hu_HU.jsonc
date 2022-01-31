@@ -22,7 +22,7 @@
   // Terms
   "term.appleInc": "Apple Inc.",
   "term.appleMusic": "Apple Music",
-  "term.applePodcasts": "Apple Podcastok",
+  "term.applePodcasts": "Apple Podcasts",
   "term.itunes": "iTunes",
   "term.github": "GitHub",
   "term.discord": "Discord",
@@ -30,7 +30,7 @@
   "term.accountSettings": "Fiókbeállítások",
   "term.logout": "Kijelentkezés",
   "term.login": "Bejelentkezés",
-  "term.about": "About",
+  "term.about": "Névjegy",
   "term.privateSession": "Privát hallgatás",
   "term.queue": "Várólista",
   "term.search": "Keresés",
@@ -80,14 +80,14 @@
   "term.connect": "Csatlakoztatás",
   "term.connecting": "Csatlakozás",
   "term.disconnect": "Lecsatlakozatás",
-  "term.authed": "Authed",
-  "term.confirm": "Jóváhagyás ?",
+  "term.authed": "Hitelesítve",
+  "term.confirm": "Jóváhagyja?",
   "term.more": "Több",
   "term.less": "Kevesebb",
   "term.showMore": "Mutass többet",
   "term.showLess": "Mutass kevesebbet",
   "term.topSongs" : "A legjobb dalok",
-  "term.latestReleases": "Új megjelenések",
+  "term.latestReleases": "Új zenék",
   "term.time.added": "Hozzáadva",
   "term.time.released": "Kiadva", 
   "term.time.updated": "Frissítve",
@@ -99,7 +99,7 @@
   "term.time.second": "másodperc",
   "term.fullscreenView": "Teljes képernyős mód",
   "term.defaultView": "Alapértelmezett nézet",
-  "term.spacializedAudioSetting": "Térbeli hang",
+  "term.spacializedAudioSetting": "Térbeli hangzás",
   "term.clearAll": "Összes törlése",
   "term.recentStations": "Nemrég játszott",
   "term.language": "Nyelv",
@@ -108,7 +108,7 @@
   "term.copyright": "Szerzői jog",
   "term.rightsReserved": "Minden jog fenntartva.",
   "term.sponsor": "Támogasd a projektet",
-  "term.ciderTeam": "A Cider Csapata",
+  "term.ciderTeam": "A Cider csapata",
   "term.developer": "Fejlesztő",
   "term.socialTeam": "Társaság",
   "term.contributors": "Közreműködők",
@@ -141,14 +141,14 @@
   "podcast.itunesStore": "iTunes Store",
   "podcast.episodes": "Epizódok",
   "podcast.playEpisode": "Epizód lejátszása",
-  "podcast.website": "Podcast Weboldala",
+  "podcast.website": "Podcast weboldala",
 
   // Actions
-  "action.addToLibrary": "Hozzáadás a Könyvtárhoz",
-  "action.addToLibrary.success": "Hozzáadva a Könyvtárhoz",
+  "action.addToLibrary": "Hozzáadás a könyvtárhoz",
+  "action.addToLibrary.success": "Hozzáadva a könyvtárhoz",
   "action.addToLibrary.error": "Hiba a hozzáadáskor.",
   "action.removeFromLibrary": "Törlés a Könytárból",
-  "action.removeFromLibrary.success": "Törölve a Könyvtárból",
+  "action.removeFromLibrary.success": "Törölve a könyvtárból",
   "action.addToQueue": "Hozzáadás a várólistához",
   "action.addToQueue.success": "Hozzáadva a várólistához",
   "action.addToQueue.error": "Sikertelen hozzáadás a várólistához",
@@ -190,7 +190,7 @@
 
   // Language optgroups
   "settings.option.general.language.main": "Nyelvek",
-  "settings.option.general.language.fun": "Mókás Nyelvek",
+  "settings.option.general.language.fun": "Mókás nyelvek",
   "settings.option.general.language.unsorted": "Nem besorolható",
   
   // Settings - Audio
@@ -199,14 +199,15 @@
   "settings.option.audio.quality": "Hangminőség", // Dropdown
   "settings.header.audio.quality.high": "Magas",
   "settings.header.audio.quality.low": "Alacsony",
-  "settings.header.audio.quality.auto": "Auto",
+  "settings.header.audio.quality.auto": "Automatikus",
   "settings.option.audio.seamlessTransition": "Szünetmentes lejátszás", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "Haladó funkcionalitás engedélyezése", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.description": "Az AudioContext funkció engedélyezése lehetővé teszi a fejlettebb hangfunkciókat, például a Normalizásást, az Equalizereket és a Visualizer funkciókat, azonban egyes számítógépeken ez akadozást okozhat a hangsávokban.",
+  "settings.option.audio.enableAdvancedFunctionality.description": "Az AudioContext funkció engedélyezése lehetővé teszi a fejlettebb hangfunkciókat, például a normalizásást, a hangszínszabályozót és a vizualizáció funkciókat, azonban egyes számítógépeken ez akadozást okozhat a hangsávokban.",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Normalizálás", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizálja az egyes zeneszámok hangosabb részeit, hogy egységesebb hallgatási élményt hozzon létre.",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Térbeli hangzás", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Térbeli hang és a hang háromdimenziósabbá tétele (Ez nem összekeverendő a Dolby Atmos-szal!)",
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Térbeli hangzás és a hang háromdimenziósabbá tétele (Ez nem összekeverendő a Dolby Atmos-szal!)",
+
   // Settings - Visual
   "settings.header.visual": "Vizuális", 
   "settings.header.visual.description": "A Cider vizuális beállításainak módosítása.",
@@ -266,7 +267,7 @@
   // Refer to term.disabled & term.enabled
 
   // Spatialization Menu
-  "spatial.spatialProperties" : "Térbeli hang",
+  "spatial.spatialProperties" : "Térbeli hangzás",
   "spatial.width" : "Szélesség",
   "spatial.height" : "Magasság",
   "spatial.depth" : "Hosszúság",
