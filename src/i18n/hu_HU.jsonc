@@ -4,7 +4,7 @@
   "i18n.languageName": "Magyar",        // name of language in native language
   "i18n.languageNameEnglish": "Hungarian", // name of language in English
   "i18n.category": "main", // main = real language, fun = fun community languages
-  "i18n.authors": "@Greenoliv @Rias", // Authors, if you contribute to this file feel free to add your name seperated with a space
+  "i18n.authors": "@Greenoliv @Rias @BenjaminStonawski", // Authors, if you contribute to this file feel free to add your name seperated with a space
   
   // App info
   "app.name": "Cider",
@@ -103,17 +103,17 @@
   "term.clearAll": "Összes törlése",
   "term.recentStations": "Nemrég játszott",
   "term.language": "Nyelv",
-  "term.funLanguages": "Játékos",
+  "term.funLanguages": "Mókás",
   "term.noLyrics": "Betöltés... / Dalszöveg nem található. / Instrumentális.",
-  "term.copyright": "Copyright",
+  "term.copyright": "Szerzői jog",
   "term.rightsReserved": "Minden jog fenntartva.",
-  "term.sponsor": "Támogasd ezt a projektet",
+  "term.sponsor": "Támogasd a projektet",
   "term.ciderTeam": "A Cider Csapata",
   "term.developer": "Fejlesztő",
-  "term.socialTeam": "Social Team",
-  "term.contributors": "Contributors",
-  "term.equalizer": "Equalizer",
-  "term.reset": "Reset",
+  "term.socialTeam": "Társaság",
+  "term.contributors": "Közreműködők",
+  "term.equalizer": "Hangszínszabályozó",
+  "term.reset": "Visszaállítás",
   "term.tracks": "zeneszám", // Assume x amount of tracks. e.g. 50 tracks 
   "term.videos": "Videók", 
   "term.menu": "Menü",
@@ -123,9 +123,9 @@
   "home.recentlyPlayed": "Nemrég játszott",
   "home.recentlyAdded": "Nemrég hozzáadott",
   "home.artistsFeed": "Az előadóid feedje",
-  "home.artistsFeed.noArtist": "Kövess néhány művészt, hogy a legújabb zenéik itt legyenek",
-  "home.madeForYou": "Személyre szabva",
-  "home.friendsListeningTo": "A barátok épp ezt hallgatják",
+  "home.artistsFeed.noArtist": "Kövess néhány előadót, hogy a legújabb zenéi itt megjelenhessenek.",
+  "home.madeForYou": "Neked készítve",
+  "home.friendsListeningTo": "A barátaid épp ezt hallgatják",
   "home.followedArtists": "Követett előadók",
   // Errors
   "error.appleMusicSubRequired": "Apple Music előfizetés szükséges.",
@@ -146,7 +146,7 @@
   // Actions
   "action.addToLibrary": "Hozzáadás a Könyvtárhoz",
   "action.addToLibrary.success": "Hozzáadva a Könyvtárhoz",
-  "action.addToLibrary.error": "Hiba történt! Sikertelen hozzáadás.",
+  "action.addToLibrary.error": "Hiba a hozzáadáskor.",
   "action.removeFromLibrary": "Törlés a Könytárból",
   "action.removeFromLibrary.success": "Törölve a Könyvtárból",
   "action.addToQueue": "Hozzáadás a várólistához",
@@ -166,36 +166,36 @@
   "action.unfollow.error": "Sikertelen visszavonás",
   "action.playNext": "Lejátszás következőként",
   "action.playLater": "Lejátszás utolsóként",
-  "action.startRadio": "Állomás létrehozása",
+  "action.startRadio": "Rádióállomás létrehozása",
   "action.goToArtist": "Előadó megjelenítése",
   "action.goToAlbum": "Album megjelenítése",
   "action.moveToTop": "Mozgatás legfelülre",
   "action.share": "Megosztás",
   "action.rename": "Átnevezés",
-  "action.love": "Szeretem",
-  "action.unlove": "Mégsem szeretem",
-  "action.dislike": "Kevesebb ilyen javasolása",
-  "action.undoDislike": "A Kevesebb ilyen javasolása visszavonása",
+  "action.love": "Kedvelés",
+  "action.unlove": "Kedvelés visszavonása",
+  "action.dislike": "Nem kedvelem",
+  "action.undoDislike": "Nem kedvelés visszavonása",
   "action.showWebRemoteQR": "Távirányító QR kód megjelenítése",
-  "action.playTracksNext": "Play ${app.selectedMediaItems.length} tracks next",
-  "action.playTracksLater": "Play ${app.selectedMediaItems.length} tracks later",
-  "action.removeTracks": "Remove ${self.selectedItems.length} tracks from queue",
+  "action.playTracksNext": "${app.selectedMediaItems.length} zenék lejátszása következőnek",
+  "action.playTracksLater": "${app.selectedMediaItems.length} zenék lejátszása később",
+  "action.removeTracks": "${self.selectedItems.length} zenék eltávolítása a várólistáról",
   "action.import": "Importálás",
   "action.export": "Exportálás",
 
   // Settings - General
-  "settings.header.general": "General",
-  "settings.header.general.description": "Adjust the general settings for Cider.",
-  "settings.option.general.language": "Language",
+  "settings.header.general": "Általános",
+  "settings.header.general.description": "A Cider általános beállításainak módosítása",
+  "settings.option.general.language": "Nyelv",
 
   // Language optgroups
-  "settings.option.general.language.main": "Languages",
-  "settings.option.general.language.fun": "Fun Languages",
-  "settings.option.general.language.unsorted": "Unsorted",
+  "settings.option.general.language.main": "Nyelvek",
+  "settings.option.general.language.fun": "Mókás Nyelvek",
+  "settings.option.general.language.unsorted": "Nem besorolható",
   
   // Settings - Audio
   "settings.header.audio": "Hang",
-  "settings.header.audio.description": "A Cider hangbeállításainak módosítása.",
+  "settings.header.audio.description": "A Cider hangbeállításainak módosítása",
   "settings.option.audio.quality": "Hangminőség", // Dropdown
   "settings.header.audio.quality.high": "Magas",
   "settings.header.audio.quality.low": "Alacsony",
@@ -205,13 +205,13 @@
   "settings.option.audio.enableAdvancedFunctionality.description": "Az AudioContext funkció engedélyezése lehetővé teszi a fejlettebb hangfunkciókat, például a Normalizásást, az Equalizereket és a Visualizer funkciókat, azonban egyes számítógépeken ez akadozást okozhat a hangsávokban.",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Normalizálás", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizálja az egyes zeneszámok hangosabb részeit, hogy egységesebb hallgatási élményt hozzon létre.",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Térbeli hang", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Térbeli hangzás", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Térbeli hang és a hang háromdimenziósabbá tétele (Ez nem összekeverendő a Dolby Atmos-szal!)",
   // Settings - Visual
   "settings.header.visual": "Vizuális", 
   "settings.header.visual.description": "A Cider vizuális beállításainak módosítása.",
   "settings.option.visual.windowBackgroundStyle": "Ablak háttér stílusa", // Toggle
-  "settings.header.visual.windowBackgroundStyle.none": "None",
+  "settings.header.visual.windowBackgroundStyle.none": "Egyik sem",
   "settings.header.visual.windowBackgroundStyle.artwork": "Borító",
   "settings.header.visual.windowBackgroundStyle.image": "Kép",
   "settings.option.visual.animatedArtwork": "Animált borító", // Dropdown
@@ -236,12 +236,12 @@
   "settings.header.lyrics": "Dalszöveg",
   "settings.header.lyrics.description": "A Cider dalszöveg beállításainak módosítása.",
   "settings.option.lyrics.enableMusixmatch": "MusixMatch dalszövegek engedélyezése", // Toggle
-  "settings.option.lyrics.enableMusixmatchKaraoke": "Karaoke mód bekapcsolása (Csak MusixMatch)", // Toggle
+  "settings.option.lyrics.enableMusixmatchKaraoke": "Karaoke mód bekapcsolása (Csak MusixMatch esetén)", // Toggle
   "settings.option.lyrics.musixmatchPreferredLanguage": "MusixMatch fordítás nyelve", // Dropdown
   "settings.option.lyrics.enableYoutubeLyrics": "YouTube dalszövegek engedélyezése a zenei videóknál", // Toggle
 
   // Settings - Connectivity
-  "settings.header.connectivity": "Csatlakozások",
+  "settings.header.connectivity": "Csatlakozhatóságok",
   "settings.header.connectivity.description": "A Cider csatlakozás beállításainak módosítása.",
   "settings.option.connectivity.discordRPC": "Discord Rich Presence", // Dropdown
   // Refer to term.disabled for the disabled option
@@ -272,21 +272,21 @@
   "spatial.depth" : "Hosszúság",
   "spatial.gain" : "Gain",
   "spatial.roomMaterials" : "Szoba felépítése",
-  "spatial.roomDimensions" : "Room Dimensions",
-  "spatial.roomPositions" : "Room Positions",
-  "spatial.setDimensions" : "Set Dimensions",
-  "spatial.setPositions" : "Set Positions",
+  "spatial.roomDimensions" : "Szoba méretei",
+  "spatial.roomPositions" : "Szoba pozíciói",
+  "spatial.setDimensions" : "Méretek beállítása",
+  "spatial.setPositions" : "Pozíciók beállítása",
   "spatial.up" : "Fent",
   "spatial.front" : "Elől",
   "spatial.left" : "Balra",
   "spatial.right" : "Jobbra",
   "spatial.back" : "Hátul",
   "spatial.down" : "Lent",
-  "spatial.listener" : "Listener",
-  "spatial.audioSource" : "Audio Source",
+  "spatial.listener" : "Hallgató",
+  "spatial.audioSource" : "Hangforrás",
   
   // Settings - Unfinished
-  "settings.header.unfinished": "Félkész",
+  "settings.header.unfinished": "Befejezetlen",
 
   // Web Remote
   "remote.web.title": "Cider Remote",
