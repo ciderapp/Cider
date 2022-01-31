@@ -604,6 +604,17 @@
                         <input type="checkbox" v-model="app.cfg.general.close_button_hide" switch/>
                     </div>
                 </div>
+                <div class="md-option-line">
+                    <div class="md-option-segment">
+                        Update Cider
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <button class="md-btn" id="lfmConnect" ref="lfmConnect"
+                                onclick="app.checkForUpdate()">
+                            {{$root.getLz('term.check')}}
+                        </button>
+                    </div>
+                </div>
             </div>
             <div style="opacity: 0.5; pointer-events: none">
                 <div class="md-option-header">

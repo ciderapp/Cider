@@ -1,0 +1,44 @@
+name: Translation Report/Request
+description: Request a language or report an issue with one.
+title: "[Translation]: "
+labels: ["🌐 Translations"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this report!
+  - type: input
+    id: language
+    attributes:
+      label: Relevant Language
+      description: The language you would like to request for or have an issue with.
+      placeholder: en_US
+    validations:
+      required: true
+  - type: dropdown
+    id: requestType
+    attributes:
+      label: Change or Addition or Both
+      multiple: true
+      options:
+        - Change a Language
+        - Add a Language
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Change Requested / Any Additional Information
+      description: If you are requesting a change, place all the information here, or you can provide additional information to additions if you want.
+      placeholder: I would like ... changed to ...
+    validations:
+      required: false
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/ciderapp/Cider/blob/main/CODE_OF_CONDUCT.md)
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

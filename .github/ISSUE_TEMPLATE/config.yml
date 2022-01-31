@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Discord Support
+    url: https://discord.com/invite/AppleMusic
+    about: For quick support, make a ticket or ask for community support here.
+  - name: GitHub Troublshooting
+    url: https://github.com/ciderapp/Cider/wiki/Troubleshooting
+    about: In most cases, these troubleshooting tips can resolve basic issues. Try them out before opening an issue.
+  - name: GitHub Issues
+    url: https://github.com/ciderapp/Cider/issues
+    about: Check to make sure there is not an issues already open that is related to your issue.

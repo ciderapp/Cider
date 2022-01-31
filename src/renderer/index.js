@@ -3534,9 +3534,11 @@ const app = new Vue({
         },
         closeWindow(){
             ipcRenderer.send('close');
+        },
+        checkForUpdate(){
+            ipcRenderer.send('check-for-update')
         }
-    }  
-    
+    }
 })
 
 Vue.component('animated-number', {
