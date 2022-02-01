@@ -12,12 +12,8 @@
                         <div class="icon"><%- include("../svg/plus.svg") %></div>
                         <div class="name">{{app.getLz('action.createPlaylist')}}</div>
                     </button>
-                    <button class="playlist-item" 
-                    :class="{ focused: playlist.id == focused }"
-                    @click="addToPlaylist(playlist.id)" style="width:100%;" v-for="playlist in playlistSorted" v-if="playlist.attributes.canEdit && playlist.type != 'library-playlist-folders'">
-                        <div class="icon"><%- include("../svg/playlist.svg") %></div>
-                        <div class="name">{{ playlist.attributes.name }}</div>
-                    </button>
+                    <sidebar-playlist :playlist-select="playlistSelect" v-for="item in $root.getPlaylistFolderChildren('p.playlistsroot')" :item="item">
+                    </sidebar-playlist>
                 </div>
                 <div class="modal-search">
                     <div class="search-input-container" style="width:100%;margin: 16px 0;">
