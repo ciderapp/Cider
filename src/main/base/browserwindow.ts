@@ -1,6 +1,5 @@
-// @ts-nocheck
 import * as path from "path";
-import * as electron from "electron";
+import {app, BrowserWindow as bw, ipcMain, shell} from "electron";
 import * as windowStateKeeper from "electron-window-state";
 import * as express from "express";
 import * as getPort from "get-port";
@@ -12,26 +11,20 @@ import * as os from "os";
 import * as mm from 'music-metadata';
 import fetch from 'electron-fetch'
 import {wsapi} from "./wsapi";
-import * as jsonc from "jsonc";
-import { NsisUpdater, AppImageUpdater } from "electron-updater";
-export class Win {
-    private win: any | undefined = null;
-    private app: any | undefined = null;
-    private store: any | undefined = null;
-    private devMode: boolean = !electron.app.isPackaged;
-    public i18n: any = {};
+import {jsonc} from "jsonc";
+import {NsisUpdater} from "electron-updater";
+import {utils} from './utils'
 
-    constructor(app: electron.App, store: any) {
-        this.app = app;
-        this.store = store;
-    }
+export class BrowserWindow {
+    public static win: any | undefined = null;
+    private devMode: boolean = !app.isPackaged;
 
     private paths: any = {
         srcPath: path.join(__dirname, "../../src"),
         resourcePath: path.join(__dirname, "../../resources"),
-        ciderCache: path.resolve(electron.app.getPath("userData"), "CiderCache"),
-        themes: path.resolve(electron.app.getPath("userData"), "Themes"),
-        plugins: path.resolve(electron.app.getPath("userData"), "Plugins"),
+        ciderCache: path.resolve(app.getPath("userData"), "CiderCache"),
+        themes: path.resolve(app.getPath("userData"), "Themes"),
+        plugins: path.resolve(app.getPath("userData"), "Plugins"),
     };
     private audioStream: any = new Stream.PassThrough();
     private clientPort: number = 0;
@@ -39,7 +32,7 @@ export class Win {
     private EnvironmentVariables: object = {
         env: {
             platform: process.platform,
-            dev: electron.app.isPackaged,
+            dev: app.isPackaged,
         },
     };
     private options: any = {
@@ -92,17 +85,17 @@ export class Win {
 
         this.startWebServer();
 
-        this.win = new electron.BrowserWindow(this.options);
-        const ws = new wsapi(this.win)
+        BrowserWindow.win = new bw(this.options);
+        const ws = new wsapi(BrowserWindow.win)
         ws.InitWebSockets()
         // and load the renderer.
         this.startSession();
         this.startHandlers();
 
         // Register listeners on Window to track size and position of the Window.
-        windowState.manage(this.win);
+        windowState.manage(BrowserWindow.win);
 
-        return this.win;
+        return BrowserWindow.win
     }
 
     /**
@@ -120,11 +113,11 @@ export class Win {
         for (let i = 0; i < expectedDirectories.length; i++) {
             if (
                 !fs.existsSync(
-                    path.join(electron.app.getPath("userData"), expectedDirectories[i])
+                    path.join(app.getPath("userData"), expectedDirectories[i])
                 )
             ) {
                 fs.mkdirSync(
-                    path.join(electron.app.getPath("userData"), expectedDirectories[i])
+                    path.join(app.getPath("userData"), expectedDirectories[i])
                 );
             }
         }
@@ -147,19 +140,18 @@ export class Win {
         app.set("view engine", "ejs");
         let firstRequest = true;
         app.use((req, res, next) => {
-            // @ts-ignore
-            if (
-                req.url.includes("audio.webm") ||
-                (req.headers.host.includes("localhost") &&
-                    (this.devMode || req.headers["user-agent"].includes("Electron")))
-            ) {
+            if (!req || !req.headers || !req.headers.host || !req.headers["user-agent"]) {
+                console.error('Req not defined')
+                return
+            }
+            if (req.url.includes("audio.webm") || (req.headers.host.includes("localhost") && (this.devMode || req.headers["user-agent"].includes("Electron")))) {
                 next();
             } else {
                 res.redirect("https://discord.gg/applemusic");
             }
         });
 
-        app.get("/", (req, res) => {
+        app.get("/", (_req, res) => {
             res.render("main", this.EnvironmentVariables);
         });
 
@@ -191,7 +183,7 @@ export class Win {
         });
 
         /*
-         * Remote Client (I had no idea how to add it to our existing express server, so I just made another one) -@quacksire 
+         * Remote Client (I had no idea how to add it to our existing express server, so I just made another one) -@quacksire
          * TODO: Broadcast the remote so that /web-remote/ can connect
          * https://github.com/ciderapp/Apple-Music-Electron/blob/818ed18940ff600d76eb59d22016723a75885cd5/resources/functions/handler.js#L1173
          */
@@ -210,15 +202,15 @@ export class Win {
                     qrcode.generate(`http://${os.hostname}:${this.remotePort}`);
                     console.log("---- Ignore Me ;) ---");
                     /*
-                    *
-                    *   USING https://www.npmjs.com/package/qrcode-terminal for terminal
-                    *   WE SHOULD USE https://www.npmjs.com/package/qrcode for the remote (or others) for showing to user via an in-app dialog
-                    *   -@quacksire
-                    */
+                     *
+                     *   USING https://www.npmjs.com/package/qrcode-terminal for terminal
+                     *   WE SHOULD USE https://www.npmjs.com/package/qrcode for the remote (or others) for showing to user via an in-app dialog
+                     *   -@quacksire
+                     */
                 }
                 firstRequest = false;
             })
-            remote.get("/", (req, res) => {
+            remote.get("/", (_req, res) => {
                 res.render("index", this.EnvironmentVariables);
             });
         })
@@ -229,7 +221,7 @@ export class Win {
      */
     private startSession(): void {
         // intercept "https://js-cdn.music.apple.com/hls.js/2.141.1/hls.js/hls.js" and redirect to local file "./apple-hls.js" instead
-        this.win.webContents.session.webRequest.onBeforeRequest(
+        BrowserWindow.win.webContents.session.webRequest.onBeforeRequest(
             {
                 urls: ["https://*/*.js"],
             },
@@ -249,7 +241,7 @@ export class Win {
             }
         );
 
-        this.win.webContents.session.webRequest.onBeforeSendHeaders(
+        BrowserWindow.win.webContents.session.webRequest.onBeforeSendHeaders(
             async (
                 details: { url: string; requestHeaders: { [x: string]: string } },
                 callback: (arg0: { requestHeaders: any }) => void
@@ -257,7 +249,7 @@ export class Win {
                 if (details.url === "https://buy.itunes.apple.com/account/web/info") {
                     details.requestHeaders["sec-fetch-site"] = "same-site";
                     details.requestHeaders["DNT"] = "1";
-                    let itspod = await this.win.webContents.executeJavaScript(
+                    let itspod = await BrowserWindow.win.webContents.executeJavaScript(
                         `window.localStorage.getItem("music.ampwebplay.itspod")`
                     );
                     if (itspod != null)
@@ -269,10 +261,10 @@ export class Win {
 
         let location = `http://localhost:${this.clientPort}/`;
 
-        if (electron.app.isPackaged) {
-            this.win.loadURL(location);
+        if (app.isPackaged) {
+            BrowserWindow.win.loadURL(location);
         } else {
-            this.win.loadURL(location, {
+            BrowserWindow.win.loadURL(location, {
                 userAgent: "Cider Development Environment",
             });
         }
@@ -285,44 +277,20 @@ export class Win {
         /**********************************************************************************************************************
          * ipcMain Events
          ****************************************************************************************************************** */
-        electron.ipcMain.on("cider-platform", (event) => {
+        ipcMain.on("cider-platform", (event) => {
             event.returnValue = process.platform;
         });
 
-        let i18nBase = fs.readFileSync(path.join(__dirname, "../../src/i18n/en_US.jsonc"), "utf8");
-        i18nBase = jsonc.parse(i18nBase)
-        try {
-            let i18n = fs.readFileSync(path.join(__dirname, `../../src/i18n/${this.store.general.language}.jsonc`), "utf8");
-            i18n = jsonc.parse(i18n)
-            this.i18n = Object.assign(i18nBase, i18n)
-        } catch (e) {
-            console.error(e);
-        }
-
-        electron.ipcMain.on("get-i18n", (event, key) => {
-            let i18nBase = fs.readFileSync(path.join(__dirname, "../../src/i18n/en_US.jsonc"), "utf8");
-            i18nBase = jsonc.parse(i18nBase)
-            try {
-                let i18n = fs.readFileSync(path.join(__dirname, `../../src/i18n/${key}.jsonc`), "utf8");
-                i18n = jsonc.parse(i18n)
-                this.i18n = Object.assign(i18nBase, i18n)
-            } catch (e) {
-                console.error(e);
-                event.returnValue = e;
-            }
-            
-            this.i18n = i18nBase;
-            event.returnValue = i18nBase;
-
+        ipcMain.on("get-i18n", (event, key) => {
+            event.returnValue = utils.getLocale(key);
         });
 
-        electron.ipcMain.on("get-i18n-listing", event => {
+        ipcMain.on("get-i18n-listing", event => {
             let i18nFiles = fs.readdirSync(path.join(__dirname, "../../src/i18n")).filter(file => file.endsWith(".jsonc"));
             // read all the files and parse them
             let i18nListing = []
             for (let i = 0; i < i18nFiles.length; i++) {
-                let i18n = fs.readFileSync(path.join(__dirname, `../../src/i18n/${i18nFiles[i]}`), "utf8");
-                i18n = jsonc.parse(i18n)
+                const i18n: { [index: string]: Object } = jsonc.parse(fs.readFileSync(path.join(__dirname, `../../src/i18n/${i18nFiles[i]}`), "utf8"));
                 i18nListing.push({
                     "code": i18nFiles[i].replace(".jsonc", ""),
                     "nameNative": i18n["i18n.languageName"] ?? i18nFiles[i].replace(".jsonc", ""),
@@ -334,50 +302,50 @@ export class Win {
             event.returnValue = i18nListing;
         })
 
-        electron.ipcMain.on("get-gpu-mode", (event) => {
+        ipcMain.on("get-gpu-mode", (event) => {
             event.returnValue = process.platform;
         });
 
-        electron.ipcMain.on("is-dev", (event) => {
+        ipcMain.on("is-dev", (event) => {
             event.returnValue = this.devMode;
         });
 
-        electron.ipcMain.on("put-library-songs", (event, arg) => {
+        ipcMain.on("put-library-songs", (_event, arg) => {
             fs.writeFileSync(
                 path.join(this.paths.ciderCache, "library-songs.json"),
                 JSON.stringify(arg)
             );
         });
 
-        electron.ipcMain.on("put-library-artists", (event, arg) => {
+        ipcMain.on("put-library-artists", (_event, arg) => {
             fs.writeFileSync(
                 path.join(this.paths.ciderCache, "library-artists.json"),
                 JSON.stringify(arg)
             );
         });
 
-        electron.ipcMain.on("put-library-albums", (event, arg) => {
+        ipcMain.on("put-library-albums", (_event, arg) => {
             fs.writeFileSync(
                 path.join(this.paths.ciderCache, "library-albums.json"),
                 JSON.stringify(arg)
             );
         });
 
-        electron.ipcMain.on("put-library-playlists", (event, arg) => {
+        ipcMain.on("put-library-playlists", (_event, arg) => {
             fs.writeFileSync(
                 path.join(this.paths.ciderCache, "library-playlists.json"),
                 JSON.stringify(arg)
             );
         });
 
-        electron.ipcMain.on("put-library-recentlyAdded", (event, arg) => {
+        ipcMain.on("put-library-recentlyAdded", (_event, arg) => {
             fs.writeFileSync(
                 path.join(this.paths.ciderCache, "library-recentlyAdded.json"),
                 JSON.stringify(arg)
             );
         });
 
-        electron.ipcMain.on("get-library-songs", (event) => {
+        ipcMain.on("get-library-songs", (event) => {
             let librarySongs = fs.readFileSync(
                 path.join(this.paths.ciderCache, "library-songs.json"),
                 "utf8"
@@ -385,7 +353,7 @@ export class Win {
             event.returnValue = JSON.parse(librarySongs);
         });
 
-        electron.ipcMain.on("get-library-artists", (event) => {
+        ipcMain.on("get-library-artists", (event) => {
             let libraryArtists = fs.readFileSync(
                 path.join(this.paths.ciderCache, "library-artists.json"),
                 "utf8"
@@ -393,7 +361,7 @@ export class Win {
             event.returnValue = JSON.parse(libraryArtists);
         });
 
-        electron.ipcMain.on("get-library-albums", (event) => {
+        ipcMain.on("get-library-albums", (event) => {
             let libraryAlbums = fs.readFileSync(
                 path.join(this.paths.ciderCache, "library-albums.json"),
                 "utf8"
@@ -401,7 +369,7 @@ export class Win {
             event.returnValue = JSON.parse(libraryAlbums);
         });
 
-        electron.ipcMain.on("get-library-playlists", (event) => {
+        ipcMain.on("get-library-playlists", (event) => {
             let libraryPlaylists = fs.readFileSync(
                 path.join(this.paths.ciderCache, "library-playlists.json"),
                 "utf8"
@@ -409,7 +377,7 @@ export class Win {
             event.returnValue = JSON.parse(libraryPlaylists);
         });
 
-        electron.ipcMain.on("get-library-recentlyAdded", (event) => {
+        ipcMain.on("get-library-recentlyAdded", (event) => {
             let libraryRecentlyAdded = fs.readFileSync(
                 path.join(this.paths.ciderCache, "library-recentlyAdded.json"),
                 "utf8"
@@ -417,125 +385,98 @@ export class Win {
             event.returnValue = JSON.parse(libraryRecentlyAdded);
         });
 
-        electron.ipcMain.handle("getYTLyrics", async (event, track, artist) => {
+        ipcMain.handle("getYTLyrics", async (_event, track, artist) => {
             const u = track + " " + artist + " official video";
             return await yt.search(u);
         });
 
-        electron.ipcMain.on("close", () => {
-            this.win.close();
+        ipcMain.on("close", () => {
+            BrowserWindow.win.close();
         });
 
-        electron.ipcMain.on("maximize", () => {
+        ipcMain.on("maximize", () => {
             // listen for maximize event
-            if (this.win.isMaximized()) {
-                this.win.unmaximize();
+            if (BrowserWindow.win.isMaximized()) {
+                BrowserWindow.win.unmaximize();
             } else {
-                this.win.maximize();
+                BrowserWindow.win.maximize();
             }
         });
-        electron.ipcMain.on("unmaximize", () => {
+        ipcMain.on("unmaximize", () => {
             // listen for maximize event
-            this.win.unmaximize();
+            BrowserWindow.win.unmaximize();
         });
 
-        electron.ipcMain.on("minimize", () => {
+        ipcMain.on("minimize", () => {
             // listen for minimize event
-            this.win.minimize();
+            BrowserWindow.win.minimize();
         });
 
         // Set scale
-        electron.ipcMain.on("setScreenScale", (event, scale) => {
-            this.win.webContents.setZoomFactor(parseFloat(scale));
+        ipcMain.on("setScreenScale", (_event, scale) => {
+            BrowserWindow.win.webContents.setZoomFactor(parseFloat(scale));
         });
 
-        electron.ipcMain.on("windowmin", (event, width, height) => {
-            this.win.setMinimumSize(width, height);
+        ipcMain.on("windowmin", (_event, width, height) => {
+            BrowserWindow.win.setMinimumSize(width, height);
         })
 
-        electron.ipcMain.on("windowontop", (event, ontop) => {
-            this.win.setAlwaysOnTop(ontop);
+        ipcMain.on("windowontop", (_event, ontop) => {
+            BrowserWindow.win.setAlwaysOnTop(ontop);
         });
 
         // Set scale
-        electron.ipcMain.on("windowresize", (event, width, height, lock = false) => {
-            this.win.setContentSize(width, height);
-            this.win.setResizable(!lock);
+        ipcMain.on("windowresize", (_event, width, height, lock = false) => {
+            BrowserWindow.win.setContentSize(width, height);
+            BrowserWindow.win.setResizable(!lock);
         });
 
         //Fullscreen
-        electron.ipcMain.on('setFullScreen', (event, flag) => {
-            this.win.setFullScreen(flag)
+        ipcMain.on('setFullScreen', (_event, flag) => {
+            BrowserWindow.win.setFullScreen(flag)
         })
         //Fullscreen
-        electron.ipcMain.on('detachDT', (event, _) => {
-            this.win.webContents.openDevTools({mode: 'detach'});
+        ipcMain.on('detachDT', (_event, _) => {
+            BrowserWindow.win.webContents.openDevTools({mode: 'detach'});
         })
 
 
-        electron.ipcMain.on('play', (event, type, id) => {
-            this.win.webContents.executeJavaScript(`
-                     MusicKit.getInstance().setQueue({ ${type}: '${id}'}).then(function(queue) {
-                         MusicKit.getInstance().play();
-                     });
-                `)
+        ipcMain.on('play', (_event, type, id) => {
+            BrowserWindow.win.webContents.executeJavaScript(`
+															MusicKit.getInstance().setQueue({ ${type}: '${id}'}).then(function(queue) {
+																MusicKit.getInstance().play();
+															});
+															`)
         })
-
-        function getIp() {
-            let ip = false;
-            let alias = 0;
-            let ifaces = os.networkInterfaces();
-            for (var dev in ifaces) {
-                ifaces[dev].forEach(details => {
-                    if (details.family === 'IPv4') {
-                        if (!/(loopback|vmware|internal|hamachi|vboxnet|virtualbox)/gi.test(dev + (alias ? ':' + alias : ''))) {
-                            if (details.address.substring(0, 8) === '192.168.' ||
-                                details.address.substring(0, 7) === '172.16.' ||
-                                details.address.substring(0, 3) === '10.'
-                            ) {
-                                ip = details.address;
-                                ++alias;
-                            }
-                        }
-                    }
-                });
-            }
-            return ip;
-        }
 
         //QR Code
-        electron.ipcMain.handle('showQR', async (event, _) => {
-            let url = `http://${getIp()}:${this.remotePort}`;
-            electron.shell.openExternal(`https://cider.sh/pair-remote?url=${btoa(encodeURI(url))}`);
-            /*
-            *  Doing this because we can give them the link and let them send it via Pocket or another in-browser tool -q
-            */
+        ipcMain.handle('showQR', async (event, _) => {
+            let url = `http://${BrowserWindow.getIP()}:${this.remotePort}`;
+            shell.openExternal(`https://cider.sh/pair-remote?url=${Buffer.from(encodeURI(url)).toString('base64')}`).catch(console.error);
         })
 
         // Get previews for normalization
-        electron.ipcMain.on("getPreviewURL", (_event, url) => {
-            'get url'
+        ipcMain.on("getPreviewURL", (_event, url) => {
+
             fetch(url)
                 .then(res => res.buffer())
                 .then(async (buffer) => {
-                    try {
-                        const metadata = await mm.parseBuffer(buffer, 'audio/x-m4a');
-                        let SoundCheckTag = metadata.native.iTunes[1].value
-                        console.log('sc', SoundCheckTag)
-                        this.win.webContents.send('SoundCheckTag', SoundCheckTag)
-                    } catch (error) {
-                        console.error(error.message);
-                    }
-                })
+                    const metadata = await mm.parseBuffer(buffer, 'audio/x-m4a');
+                    let SoundCheckTag = metadata.native.iTunes[1].value
+                    console.log('sc', SoundCheckTag)
+                    BrowserWindow.win.webContents.send('SoundCheckTag', SoundCheckTag)
+                }).catch(err => {
+                console.log(err)
+            });
         });
 
-        electron.ipcMain.on('check-for-update', async (_event, url) => {
-            const options = {
+        ipcMain.on('check-for-update', async (_event, url) => {
+            const options: any = {
                 provider: 'generic',
                 url: 'https://43-429851205-gh.circle-artifacts.com/0/%7E/Cider/dist/artifacts' //Base URL
             }
             const autoUpdater = new NsisUpdater(options) //Windows Only (for now) -q
-            autoUpdater.checkForUpdatesAndNotify()
+            await autoUpdater.checkForUpdatesAndNotify()
         })
 
         /* *********************************************************************************************
@@ -550,10 +491,10 @@ export class Win {
             };
             let wndState = WND_STATE.NORMAL;
 
-            this.win.on("resize", (_: any) => {
-                const isMaximized = this.win.isMaximized();
-                const isMinimized = this.win.isMinimized();
-                const isFullScreen = this.win.isFullScreen();
+            BrowserWindow.win.on("resize", (_: any) => {
+                const isMaximized = BrowserWindow.win.isMaximized();
+                const isMinimized = BrowserWindow.win.isMinimized();
+                const isFullScreen = BrowserWindow.win.isFullScreen();
                 const state = wndState;
                 if (isMinimized && state !== WND_STATE.MINIMIZED) {
                     wndState = WND_STATE.MINIMIZED;
@@ -561,10 +502,10 @@ export class Win {
                     wndState = WND_STATE.FULL_SCREEN;
                 } else if (isMaximized && state !== WND_STATE.MAXIMIZED) {
                     wndState = WND_STATE.MAXIMIZED;
-                    this.win.webContents.executeJavaScript(`app.chrome.maximized = true`);
+                    BrowserWindow.win.webContents.executeJavaScript(`app.chrome.maximized = true`);
                 } else if (state !== WND_STATE.NORMAL) {
                     wndState = WND_STATE.NORMAL;
-                    this.win.webContents.executeJavaScript(
+                    BrowserWindow.win.webContents.executeJavaScript(
                         `app.chrome.maximized = false`
                     );
                 }
@@ -573,65 +514,69 @@ export class Win {
 
         let isQuiting = false
 
-        this.win.on("close", (event: Event) => {
-            if ((this.store.general.close_button_hide || process.platform === "darwin" )&& !isQuiting) {
+        BrowserWindow.win.on("close", (event: Event) => {
+            if ((utils.getStoreValue('general.close_button_hide') || process.platform === "darwin") && !isQuiting) {
                 event.preventDefault();
-                this.win.hide();
+                BrowserWindow.win.hide();
             } else {
-                this.win.destroy();
+                BrowserWindow.win.destroy();
             }
         })
 
-        electron.app.on('before-quit', () => {
+        app.on('before-quit', () => {
             isQuiting = true
         });
 
-        electron.app.on('window-all-closed', () => {
-            electron.app.quit()
+        app.on('window-all-closed', () => {
+            app.quit()
         })
 
-        this.win.on("closed", () => {
-            this.win = null;
+        BrowserWindow.win.on("closed", () => {
+            BrowserWindow.win = null;
         });
 
         // Set window Handler
-        this.win.webContents.setWindowOpenHandler((x: any) => {
+        BrowserWindow.win.webContents.setWindowOpenHandler((x: any) => {
             if (x.url.includes("apple") || x.url.includes("localhost")) {
                 return {action: "allow"};
             }
-            electron.shell.openExternal(x.url).catch(console.error);
+            shell.openExternal(x.url).catch(console.error);
             return {action: "deny"};
         });
     }
 
-    private async broadcastRemote() {
-        function getIp() {
-            let ip: any = false;
-            let alias = 0;
-            const ifaces: any = os.networkInterfaces();
-            for (var dev in ifaces) {
-                ifaces[dev].forEach((details: any) => {
-                    if (details.family === 'IPv4') {
-                        if (!/(loopback|vmware|internal|hamachi|vboxnet|virtualbox)/gi.test(dev + (alias ? ':' + alias : ''))) {
-                            if (details.address.substring(0, 8) === '192.168.' ||
-                                details.address.substring(0, 7) === '172.16.' ||
-                                details.address.substring(0, 3) === '10.'
-                            ) {
-                                ip = details.address;
-                                ++alias;
-                            }
+    private static getIP(): string {
+        let ip: string = '';
+        let alias = 0;
+        const ifaces: any = os.networkInterfaces();
+        for (let dev in ifaces) {
+            ifaces[dev].forEach((details: any) => {
+                if (details.family === 'IPv4') {
+                    if (!/(loopback|vmware|internal|hamachi|vboxnet|virtualbox)/gi.test(dev + (alias ? ':' + alias : ''))) {
+                        if (details.address.substring(0, 8) === '192.168.' ||
+                            details.address.substring(0, 7) === '172.16.' ||
+                            details.address.substring(0, 3) === '10.'
+                        ) {
+                            ip = details.address;
+                            ++alias;
                         }
                     }
-                });
-            }
-            return ip;
+                }
+            });
         }
+        return ip;
+    }
 
-        const myString = `http://${getIp()}:${this.remotePort}`;
-        let mdns = require('mdns-js');
+    /**
+     * Broadcast the remote to the IP
+     * @private
+     */
+    private async broadcastRemote() {
+        const myString = `http://${BrowserWindow.getIP()}:${this.remotePort}`;
+        const mdns = require('mdns-js');
         const encoded = new Buffer(myString).toString('base64');
-        var x = mdns.tcp('cider-remote');
-        var txt_record = {
+        const x = mdns.tcp('cider-remote');
+        const txt_record = {
             "Ver": "131077",
             'DvSv': '3689',
             'DbId': 'D41D8CD98F00B205',
@@ -640,8 +585,11 @@ export class Win {
             'txtvers': '1',
             "CtlN": "Cider",
             "iV": "196623"
-        }
-        let server2 = mdns.createAdvertisement(x, `${await getPort({port: 3839})}`, {name: encoded, txt: txt_record});
+        };
+        let server2 = mdns.createAdvertisement(x, `${await getPort({port: 3839})}`, {
+            name: encoded,
+            txt: txt_record
+        });
         server2.start();
         console.log('remote broadcasted')
     }

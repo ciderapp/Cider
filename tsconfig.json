@@ -18,6 +18,6 @@
     ]
   },
   "include": [
-    "src/**/*"
+    "src/main/*"
   ]
 }
