@@ -86,7 +86,7 @@
   "term.connecting": "Ansluter",
   "term.disconnect": "Koppla från",
   "term.authed": "Godkänd",
-  "term.confirm": "Godkänn?",
+  "term.confirm": "Klicka igen för att bekräfta",
   "term.more": "Mer",
   "term.less": "Mindre",
   "term.showMore": "Visa mer",
@@ -94,7 +94,7 @@
   "term.topSongs" : "Topplåtar",
   "term.latestReleases": "Senaste releaserna",
   "term.time.added": "Tillagd",
-  "term.time.released": "Släpd", 
+  "term.time.released": "Tillagd den", 
   "term.time.updated": "Uppdaterad",
   "term.time.hours": "timmar",
   "term.time.hour": "timme",
@@ -107,7 +107,7 @@
   "term.audioSettings": "Ljudinställningar",
   "term.clearAll": "Rensa allt",
   "term.recentStations": "Senaste stationerna",
-  "term.language": "Språk",
+  "term.language": "Språk (Language)",
   "term.funLanguages": "Roliga",
   "term.noLyrics": "Laddar... / Inga låttexter hittades./ Instrumental.",
   "term.copyright": "Copyright",
@@ -123,7 +123,7 @@
   "term.tracks": "låtar", // Assume x amount of tracks. e.g. 50 tracks 
   "term.videos": "Videor", 
   "term.menu": "Meny",
-  "term.check": "Markera",
+  "term.check": "Sök efter uppdateringar",
   "term.aboutArtist": "Om {{artistName}}", // e.g. 'About Doja Cat'
   "term.updateCider": "Uppdatera Cider",
  
@@ -171,7 +171,7 @@
   "action.follow": "Följ",
   "action.follow.success": "Följd",
   "action.follow.error": "Kunde inte följa",
-  "action.unfollow": "Avföljd",
+  "action.unfollow": "Avfölj",
   "action.unfollow.success": "Avföljd",
   "action.unfollow.error": "Kunde inte avfölja",
   "action.playNext": "Spela härnäst",
@@ -216,8 +216,8 @@
   "settings.header.audio.quality.low": "Låg",
   "settings.header.audio.quality.auto": "Automatisk",
   "settings.option.audio.seamlessTransition": "Sömlösa ljudövergångar", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality": "Aktivera avancerade funktioner", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.description": "Om du aktiverar avancerade funktioner kommer funktioner som ljudnormalisering, EQ och virtualisering aktiveras, men på några system kan detta orsaka ljudproblem.",
+  "settings.option.audio.enableAdvancedFunctionality": "Aktivera avancerade ljudfunktioner", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.description": "Om du aktiverar avancerade ljudfunktioner kommer funktioner som ljudnormalisering, EQ och virtualisering aktiveras, men på några system kan detta orsaka ljudproblem.",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Ljudnormalisering", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normaliserar höga ljudnivåer för att förbättra ljudkvaliteten.",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Spiralljud", // Toggle
@@ -225,13 +225,13 @@
   // Settings - Visual
   "settings.header.visual": "Visuellt", 
   "settings.header.visual.description": "Ändra Ciders visuella inställningar.",
-  "settings.option.visual.windowBackgroundStyle": " Bakgrundsstil för kanter", // Toggle
+  "settings.option.visual.windowBackgroundStyle": "Stil för bakgrunden", // Toggle
   "settings.header.visual.windowBackgroundStyle.none": "Ingen",
-  "settings.header.visual.windowBackgroundStyle.artwork": "Omslagsbild",
+  "settings.header.visual.windowBackgroundStyle.artwork": "Från omslagsbilden",
   "settings.header.visual.windowBackgroundStyle.image": "Bild",
   "settings.option.visual.animatedArtwork": "Animerad omslagsbild", // Dropdown
   "settings.header.visual.animatedArtwork.always": "Alltid",
-  "settings.header.visual.animatedArtwork.limited": "Endast sidor där det behövs",
+  "settings.header.visual.animatedArtwork.limited": "Endast på sidor där det behövs",
   "settings.header.visual.animatedArtwork.disable": "Aldrig",
   "settings.option.visual.animatedArtworkQuality": "Kvalitet för animerad omslagsbild", // Dropdown
   "settings.header.visual.animatedArtworkQuality.low": "Låg",
@@ -250,7 +250,7 @@
   // Settings - Lyrics
   "settings.header.lyrics": "Låttext",
   "settings.header.lyrics.description": "Ändra Ciders låttextsinställningar.",
-  "settings.option.lyrics.enableMusixmatch": "Använd Musixmatch istället för Apple", // Toggle
+  "settings.option.lyrics.enableMusixmatch": "Använd Musixmatch istället för Apple Lyrics", // Toggle
   "settings.option.lyrics.enableMusixmatchKaraoke": "Aktivera Karokeläge (Endast Musixmatch)", // Toggle
   "settings.option.lyrics.musixmatchPreferredLanguage": "Språk för låttextsöversättning (Endast Musixmatch)", // Dropdown
   "settings.option.lyrics.enableYoutubeLyrics": "Använd YouTube Lyrcis för videor", // Toggle
@@ -300,12 +300,12 @@
   "spatial.audioSource": "Ljudkälla",
   
   // Settings - Unfinished
-  "settings.header.unfinished": "Oklart",
+  "settings.header.unfinished": "Ej tillägigt",
 
   // Web Remote
   "remote.web.title": "Cider fjärrkontroll",
   "remote.web.description": "Skanna QR koden för att ansluta din telefon till Cider.",
 
   // About
-  "about.thanks": "Stort tack till Ciders Collective Team och alla som har bidragit!."
+  "about.thanks": "Stort tack till Ciders Collective Team och alla som har bidragit!"
 }
