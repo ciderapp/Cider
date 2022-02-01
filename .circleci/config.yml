@@ -33,6 +33,7 @@ jobs:
             sudo dpkg --add-architecture i386
             sudo apt-get update -y
             sudo apt-get install -y wine32
+            sudo apt-get install -y xvfb
       - store_test_results:
           path: test-results
       - run:
