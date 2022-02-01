@@ -16,5 +16,4 @@ Several changes have been made to configuration options and will be listed below
 been modified, the ones not mentioned in the list need modifying.
 
 * `settings.option.experimental.closeButtonBehaviour`: Changed to `close_button_hide` - Should be "Close Button Should Hide the Application". `.quit`, `.minimizeTaskbar` and `.minimizeTray` have been removed. Translations done for en_US.
-* `term.loadingPlaylist`: Added for `en_US` and `en_PISS`.
 * `action.update`: Added for `en_US`.
