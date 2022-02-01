@@ -417,6 +417,9 @@
                     newPreset.vibrantBass = result.vibrantBass
                     app.cfg.audio.equalizer.presets.push(newPreset)
                     notyf.success("Imported preset " + result.name)
+                }).catch(err => {
+                    console.error("[EQ Import] " + err)
+                    notyf.error("Could not import preset")
                 })
             },
             applyPreset(preset) {
