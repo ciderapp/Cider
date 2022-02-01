@@ -400,7 +400,7 @@
             },
             exportPreset() {
                 const preset = app.cfg.audio.equalizer.presets.find(p => p.preset == app.cfg.audio.equalizer.preset)
-                const jsonObj = {"name": preset.name, "frequency": preset.frequencies, "gain": preset.gain, "q": preset.Q, "preamp": preset.preamp, "mix": preset.mix, "vibrantBass": preset.vibrantBass};
+                const jsonObj = {"name": preset.name, "author": app.chrome.userinfo.attributes.name, "frequency": preset.frequencies, "gain": preset.gain, "q": preset.Q, "preamp": preset.preamp, "mix": preset.mix, "vibrantBass": preset.vibrantBass};
                 ipcRenderer.send("export-eq", JSON.stringify(jsonObj))
             },
             importPreset() {
@@ -408,6 +408,7 @@
                     JSON.parse(result)
                     let newPreset = new self.eqPreset()
                     newPreset.name = result.name
+                    newPreset.author = result.author
                     newPreset.frequencies = result.frequency
                     newPreset.gain = result.gain
                     newPreset.Q = result.q
