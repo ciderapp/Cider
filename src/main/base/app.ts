@@ -1,5 +1,6 @@
-import * as electron from 'electron';
+import {app, Menu, nativeImage, Tray} from 'electron';
 import * as path from 'path';
+import {utils} from './utils'
 
 export class AppEvents {
     private protocols: string[] = [
@@ -11,79 +12,76 @@ export class AppEvents {
         "music"
     ]
     private plugin: any = undefined;
-    private store: any = undefined;
-    private win: any = undefined;
     private tray: any = undefined;
     private i18n: any = undefined;
 
-    constructor(store: any) {
-        this.store = store
-        this.start(store);
+    constructor() {
+        this.start();
     }
 
     /**
      * Handles all actions that occur for the app on start (Mainly commandline arguments)
      * @returns {void}
      */
-    private start(store: any): void {
+    private start(): void {
         console.info('[AppEvents] App started');
 
         /**********************************************************************************************************************
          * Startup arguments handling
          **********************************************************************************************************************/
-        if (electron.app.commandLine.hasSwitch('version') || electron.app.commandLine.hasSwitch('v')) {
-            console.log(electron.app.getVersion())
-            electron.app.exit()
+        if (app.commandLine.hasSwitch('version') || app.commandLine.hasSwitch('v')) {
+            console.log(app.getVersion())
+            app.exit()
         }
 
         // Verbose Check
-        if (electron.app.commandLine.hasSwitch('verbose')) {
+        if (app.commandLine.hasSwitch('verbose')) {
             console.log("[Cider] User has launched the application with --verbose");
         }
 
         // Log File Location
-        if (electron.app.commandLine.hasSwitch('log') || electron.app.commandLine.hasSwitch('l')) {
-            console.log(path.join(electron.app.getPath('userData'), 'logs'))
-            electron.app.exit()
+        if (app.commandLine.hasSwitch('log') || app.commandLine.hasSwitch('l')) {
+            console.log(path.join(app.getPath('userData'), 'logs'))
+            app.exit()
         }
 
         // Expose GC
-        electron.app.commandLine.appendSwitch('js-flags', '--expose_gc')
+        app.commandLine.appendSwitch('js-flags', '--expose_gc')
 
         if (process.platform === "win32") {
-            electron.app.setAppUserModelId(electron.app.getName()) // For notification name
+            app.setAppUserModelId(app.getName()) // For notification name
         }
 
         /***********************************************************************************************************************
          * Commandline arguments
          **********************************************************************************************************************/
-        switch (store.visual.hw_acceleration) {
+        switch (utils.getStoreValue('visual.hw_acceleration') as string) {
             default:
             case "default":
-                electron.app.commandLine.appendSwitch('enable-accelerated-mjpeg-decode')
-                electron.app.commandLine.appendSwitch('enable-accelerated-video')
-                electron.app.commandLine.appendSwitch('disable-gpu-driver-bug-workarounds')
-                electron.app.commandLine.appendSwitch('ignore-gpu-blacklist')
-                electron.app.commandLine.appendSwitch('enable-native-gpu-memory-buffers')
-                electron.app.commandLine.appendSwitch('enable-accelerated-video-decode');
-                electron.app.commandLine.appendSwitch('enable-gpu-rasterization');
-                electron.app.commandLine.appendSwitch('enable-native-gpu-memory-buffers');
-                electron.app.commandLine.appendSwitch('enable-oop-rasterization');
+                app.commandLine.appendSwitch('enable-accelerated-mjpeg-decode')
+                app.commandLine.appendSwitch('enable-accelerated-video')
+                app.commandLine.appendSwitch('disable-gpu-driver-bug-workarounds')
+                app.commandLine.appendSwitch('ignore-gpu-blacklist')
+                app.commandLine.appendSwitch('enable-native-gpu-memory-buffers')
+                app.commandLine.appendSwitch('enable-accelerated-video-decode');
+                app.commandLine.appendSwitch('enable-gpu-rasterization');
+                app.commandLine.appendSwitch('enable-native-gpu-memory-buffers');
+                app.commandLine.appendSwitch('enable-oop-rasterization');
                 break;
 
             case "webgpu":
                 console.info("WebGPU is enabled.");
-                electron.app.commandLine.appendSwitch('enable-unsafe-webgpu')
+                app.commandLine.appendSwitch('enable-unsafe-webgpu')
                 break;
 
             case "disabled":
                 console.info("Hardware acceleration is disabled.");
-                electron.app.commandLine.appendSwitch('disable-gpu')
+                app.commandLine.appendSwitch('disable-gpu')
                 break;
         }
 
         if (process.platform === "linux") {
-            electron.app.commandLine.appendSwitch('disable-features', 'MediaSessionService');
+            app.commandLine.appendSwitch('disable-features', 'MediaSessionService');
         }
 
         /***********************************************************************************************************************
@@ -92,12 +90,12 @@ export class AppEvents {
         if (process.defaultApp) {
             if (process.argv.length >= 2) {
                 this.protocols.forEach((protocol: string) => {
-                    electron.app.setAsDefaultProtocolClient(protocol, process.execPath, [path.resolve(process.argv[1])])
+                    app.setAsDefaultProtocolClient(protocol, process.execPath, [path.resolve(process.argv[1])])
                 })
             }
         } else {
             this.protocols.forEach((protocol: string) => {
-                electron.app.setAsDefaultProtocolClient(protocol)
+                app.setAsDefaultProtocolClient(protocol)
             })
         }
 
@@ -113,11 +111,8 @@ export class AppEvents {
         console.log('[AppEvents] App ready');
     }
 
-    public bwCreated(win: Electron.BrowserWindow, i18n: any) {
-        this.win = win
-        this.i18n = i18n
-
-        electron.app.on('open-url', (event, url) => {
+    public bwCreated() {
+        app.on('open-url', (event, url) => {
             event.preventDefault()
             if (this.protocols.some((protocol: string) => url.includes(protocol))) {
                 this.LinkHandler(url)
@@ -145,9 +140,9 @@ export class AppEvents {
             let authURI = arg.split('/auth/')[1]
             if (authURI.startsWith('lastfm')) { // If we wanted more auth options
                 const authKey = authURI.split('lastfm?token=')[1];
-                this.store.set('lastfm.enabled', true);
-                this.store.set('lastfm.auth_token', authKey);
-                this.win.webContents.send('LastfmAuthenticated', authKey);
+                utils.setStoreValue('lastfm.enabled', true);
+                utils.setStoreValue('lastfm.auth_token', authKey);
+                utils.getWindow().webContents.send('LastfmAuthenticated', authKey);
                 this.plugin.callPlugin('lastfm', 'authenticate', authKey);
             }
         }
@@ -164,7 +159,7 @@ export class AppEvents {
             for (const [key, value] of Object.entries(mediaType)) {
                 if (playParam.includes(key)) {
                     const id = playParam.split(key)[1]
-                    this.win.webContents.send('play', value, id)
+                    utils.getWindow().webContents.send('play', value, id)
                     console.debug(`[LinkHandler] Attempting to load ${value} by id: ${id}`)
                 }
             }
@@ -173,7 +168,7 @@ export class AppEvents {
             console.log(arg)
             let url = arg.split('//')[1]
             console.warn(`[LinkHandler] Attempting to load url: ${url}`);
-            this.win.webContents.send('play', 'url', url)
+            utils.getWindow().webContents.send('play', 'url', url)
         }
     }
 
@@ -183,13 +178,13 @@ export class AppEvents {
     private InstanceHandler() {
 
         // Detects of an existing instance is running (So if the lock has been achieved, no existing instance has been found)
-        const gotTheLock = electron.app.requestSingleInstanceLock()
+        const gotTheLock = app.requestSingleInstanceLock()
 
         if (!gotTheLock) { // Runs on the new instance if another instance has been found
             console.log('[Cider] Another instance has been found, quitting.')
-            electron.app.quit()
+            app.quit()
         } else { // Runs on the first instance if no other instance has been found
-            electron.app.on('second-instance', (_event, startArgs) => {
+            app.on('second-instance', (_event, startArgs) => {
                 console.log("[InstanceHandler] (second-instance) Instance started with " + startArgs.toString())
 
                 startArgs.forEach(arg => {
@@ -199,10 +194,10 @@ export class AppEvents {
                         this.LinkHandler(arg)
                     } else if (arg.includes("--force-quit")) {
                         console.warn('[InstanceHandler] (second-instance) Force Quit found. Quitting App.');
-                        electron.app.quit()
-                    } else if (this.win) {
-                        if (this.win.isMinimized()) this.win.restore()
-                        this.win.focus()
+                        app.quit()
+                    } else if (utils.getWindow()) {
+                        if (utils.getWindow().isMinimized()) utils.getWindow().restore()
+                        utils.getWindow().focus()
                     }
                 })
             })
@@ -215,48 +210,50 @@ export class AppEvents {
      */
     private InitTray() {
         const icons = {
-            "win32": electron.nativeImage.createFromPath(path.join(__dirname, `../../resources/icons/icon.ico`)).resize({
+            "win32": nativeImage.createFromPath(path.join(__dirname, `../../resources/icons/icon.ico`)).resize({
                 width: 32,
                 height: 32
             }),
-            "linux": electron.nativeImage.createFromPath(path.join(__dirname, `../../resources/icons/icon.png`)).resize({
+            "linux": nativeImage.createFromPath(path.join(__dirname, `../../resources/icons/icon.png`)).resize({
                 width: 32,
                 height: 32
             }),
-            "darwin": electron.nativeImage.createFromPath(path.join(__dirname, `../../resources/icons/icon.png`)).resize({
+            "darwin": nativeImage.createFromPath(path.join(__dirname, `../../resources/icons/icon.png`)).resize({
                 width: 20,
                 height: 20
             }),
         }
-        console.log(this.i18n)
 
-        this.tray = new electron.Tray(process.platform === 'win32' ? icons.win32 : (process.platform === 'darwin' ? icons.darwin : icons.linux))
-        this.tray.setToolTip(electron.app.getName())
+        this.tray = new Tray(process.platform === 'win32' ? icons.win32 : (process.platform === 'darwin' ? icons.darwin : icons.linux))
+        this.tray.setToolTip(app.getName())
         this.setTray(false)
 
         this.tray.on('double-click', () => {
-            if (this.win) {
-                if (this.win.isVisible()) {
-                    this.win.focus()
+            if (utils.getWindow()) {
+                if (utils.getWindow().isVisible()) {
+                    utils.getWindow().focus()
                 } else {
-                    this.win.show()
+                    utils.getWindow().show()
                 }
             }
         })
 
-        this.win.on('show', () => {
+        console.log("THISHI ISFJDKIASKJDBKDJSFDLJ<KBSIJUBSDFKJBSKJDBFIKJSBDIHJNFSIHNB ")
+        console.log(utils.getWindow())
+
+        utils.getWindow().on('show', () => {
             this.setTray(true)
         })
 
-        this.win.on('restore', () => {
+        utils.getWindow().on('restore', () => {
             this.setTray(true)
         })
 
-        this.win.on('hide', () => {
+        utils.getWindow().on('hide', () => {
             this.setTray(false)
         })
 
-        this.win.on('minimize', () => {
+        utils.getWindow().on('minimize', () => {
             this.setTray(false)
         })
     }
@@ -265,17 +262,18 @@ export class AppEvents {
      * Sets the tray context menu to a given state
      * @param visible - BrowserWindow Visibility
      */
-    private setTray(visible: boolean = this.win.isVisible()) {
+    private setTray(visible: boolean = utils.getWindow().isVisible()) {
+        this.i18n = utils.getLocale(utils.getStoreValue('general.language'))
 
-        const menu = electron.Menu.buildFromTemplate([
+        const menu = Menu.buildFromTemplate([
             {
-                label: (visible ? this.i18n['action.tray.minimize'] : `${this.i18n['action.tray.show']} ${electron.app.getName()}`),
+                label: (visible ? this.i18n['action.tray.minimize'] : `${this.i18n['action.tray.show']} ${app.getName()}`),
                 click: () => {
-                    if (this.win) {
+                    if (utils.getWindow()) {
                         if (visible) {
-                            this.win.hide()
+                            utils.getWindow().hide()
                         } else {
-                            this.win.show()
+                            utils.getWindow().show()
                         }
                     }
                 }
@@ -283,7 +281,7 @@ export class AppEvents {
             {
                 label: this.i18n['action.tray.quit'],
                 click: () => {
-                    electron.app.quit()
+                    app.quit()
                 }
             }
         ])

@@ -1,8 +1,8 @@
-import * as Store from 'electron-store';
+import * as ElectronStore from 'electron-store';
 import * as electron from "electron";
 
-export class ConfigStore {
-    private _store: Store;
+export class Store {
+    static cfg: ElectronStore;
 
     private defaults: any = {
         "general": {
@@ -54,7 +54,7 @@ export class ConfigStore {
                     "down": 'acoustic-ceiling-tiles',
                     "up": 'acoustic-ceiling-tiles',
                 }
-            }, 
+            },
             "equalizer": {
                 'preset': "default",
                 'frequencies': [32, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000],
@@ -107,26 +107,14 @@ export class ConfigStore {
     private migrations: any = {}
 
     constructor() {
-        this._store = new Store({
+        Store.cfg = new ElectronStore({
             name: 'cider-config',
             defaults: this.defaults,
             migrations: this.migrations,
         });
 
-        this._store.set(this.mergeStore(this.defaults, this._store.store))
-        this.ipcHandler(this._store);
-    }
-
-    get store() {
-        return this._store.store;
-    }
-
-    get(key: string) {
-        return this._store.get(key);
-    }
-
-    set(key: string, value: any) {
-        this._store.set(key, value);
+        Store.cfg.set(this.mergeStore(this.defaults, Store.cfg.store))
+        this.ipcHandler();
     }
 
     /**
@@ -140,7 +128,7 @@ export class ConfigStore {
             if (key.includes('migrations')) {
                 continue;
             }
-            if(source[key] instanceof Array) {
+            if (source[key] instanceof Array) {
                 continue
             }
             if (source[key] instanceof Object) Object.assign(source[key], this.mergeStore(target[key], source[key]))
@@ -153,21 +141,21 @@ export class ConfigStore {
     /**
      * IPC Handler
      */
-    private ipcHandler(cfg: Store | any): void {
+    private ipcHandler(): void {
         electron.ipcMain.handle('getStoreValue', (event, key, defaultValue) => {
-            return (defaultValue ? cfg.get(key, true) : cfg.get(key));
+            return (defaultValue ? Store.cfg.get(key, true) : Store.cfg.get(key));
         });
 
         electron.ipcMain.handle('setStoreValue', (event, key, value) => {
-            cfg.set(key, value);
+            Store.cfg.set(key, value);
         });
 
         electron.ipcMain.on('getStore', (event) => {
-            event.returnValue = cfg.store
+            event.returnValue = Store.cfg.store
         })
 
         electron.ipcMain.on('setStore', (event, store) => {
-            cfg.store = store
+            Store.cfg.store = store
         })
     }
 

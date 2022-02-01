@@ -1,15 +1,14 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as electron from 'electron'
+import {utils} from './utils';
 
-export default class PluginHandler {
+export class Plugins {
     private basePluginsPath = path.join(__dirname, '../plugins');
     private userPluginsPath = path.join(electron.app.getPath('userData'), 'plugins');
     private readonly pluginsList: any = {};
-    private readonly _store: any;
 
-    constructor(config: any) {
-        this._store = config;
+    constructor() {
         this.pluginsList = this.getPlugins();
     }
 
@@ -24,7 +23,7 @@ export default class PluginHandler {
                     if (plugins[file] || plugin.name in plugins) {
                         console.log(`[${plugin.name}] Plugin already loaded / Duplicate Class Name`);
                     } else {
-                        plugins[file] = new plugin(electron.app, this._store);
+                        plugins[file] = new plugin(electron.app, utils.getStore());
                     }
                 }
             });
@@ -39,7 +38,7 @@ export default class PluginHandler {
                     if (plugins[file] || plugin in plugins) {
                         console.log(`[${plugin.name}] Plugin already loaded / Duplicate Class Name`);
                     } else {
-                        plugins[file] = new plugin(electron.app, this._store);
+                        plugins[file] = new plugin(electron.app, utils.getStore());
                     }
                 }
             });
