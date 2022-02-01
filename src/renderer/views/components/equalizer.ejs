@@ -274,14 +274,14 @@
                             "icon": "./assets/feather/share.svg",
                             "name": app.getLz('action.import'),
                             "action": function () {
-                                notyf.error("Not implemented yet")
+                                this.importPreset()
                             }
                         },
                         "export": {
                             "icon": "./assets/feather/share.svg",
                             "name": app.getLz('action.export'),
                             "action": function () {
-                                notyf.error("Not implemented yet")
+                                this.exportPreset()
                             }
                         },
                     }
@@ -397,6 +397,26 @@
                 preset.mix = app.cfg.audio.equalizer.mix
                 preset.vibrantBass = app.cfg.audio.equalizer.vibrantBass
                 notyf.success("Saved Preset")
+            },
+            exportPreset() {
+                app.cfg.audio.equalizer.presets.find(p => p.preset == app.cfg.audio.equalizer.preset)
+                const jsonObj = {"name": preset.name, "frequency": preset.frequencies, "gain": newPreset.gain, "q": preset.Q, "preamp": preset.preamp, "mix": preset.mix, "vibrantBass": preset.vibrantBass};
+                ipcRenderer.send("export-eq", JSON.stringify(jsonObj))
+            },
+            importPreset() {
+                ipcRenderer.sendSync("import-eq").then((result) => {
+                    JSON.parse(result)
+                    let newPreset = new self.eqPreset()
+                    newPreset.name = res
+                    newPreset.frequencies = result.frequency
+                    newPreset.gain = result.gain
+                    newPreset.Q = result.q
+                    newPreset.preamp = result.preamp
+                    newPreset.mix = result.mix
+                    newPreset.vibrantBass = result.vibrantBass
+                    app.cfg.audio.equalizer.presets.push(newPreset)
+                    notyf.success("Imported preset " + result.name)
+                })
             },
             applyPreset(preset) {
                 Object.assign(this.$root.cfg.audio.equalizer, preset)
