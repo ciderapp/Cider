@@ -399,8 +399,8 @@
                 notyf.success("Saved Preset")
             },
             exportPreset() {
-                app.cfg.audio.equalizer.presets.find(p => p.preset == app.cfg.audio.equalizer.preset)
-                const jsonObj = {"name": preset.name, "frequency": preset.frequencies, "gain": newPreset.gain, "q": preset.Q, "preamp": preset.preamp, "mix": preset.mix, "vibrantBass": preset.vibrantBass};
+                const preset = app.cfg.audio.equalizer.presets.find(p => p.preset == app.cfg.audio.equalizer.preset)
+                const jsonObj = {"name": preset.name, "frequency": preset.frequencies, "gain": preset.gain, "q": preset.Q, "preamp": preset.preamp, "mix": preset.mix, "vibrantBass": preset.vibrantBass};
                 ipcRenderer.send("export-eq", JSON.stringify(jsonObj))
             },
             importPreset() {
