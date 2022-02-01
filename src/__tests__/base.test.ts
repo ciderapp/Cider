@@ -5,7 +5,7 @@ import * as fs from "fs";
 
 test("Launch electron app", async () => {
 
-	const aa = fs.readdirSync(join(__dirname, "../../"))
+	const aa = fs.readdirSync(join(__dirname, "../../build"))
 
 	console.log(aa)
 	console.log(__dirname)
