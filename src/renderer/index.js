@@ -340,6 +340,15 @@ const app = new Vue({
         },
     },
     methods: {
+        stringTemplateParser(expression, valueObj) {
+            const templateMatcher = /{{\s?([^{}\s]*)\s?}}/g;
+            let text = expression.replace(templateMatcher, (substring, value, index) => {
+                value = valueObj[value];
+                return value;
+            });
+            return text
+            // stringTemplateParser('my name is {{name}} and age is {{age}}', {name: 'Tom', age:100})
+        },
         setLz(lang) {
             if(lang == "") {
                 lang = this.cfg.general.language
