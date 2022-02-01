@@ -550,22 +550,19 @@ export class BrowserWindow {
         let alias = 0;
         const ifaces: any = os.networkInterfaces();
         for (let dev in ifaces) {
-            console.log(dev)
-            console.log(ifaces)
-            console.log(ifaces[dev])
-            // ifaces[dev].forEach((details: any) => {
-            //     if (details.family === 'IPv4') {
-            //         if (!/(loopback|vmware|internal|hamachi|vboxnet|virtualbox)/gi.test(dev + (alias ? ':' + alias : ''))) {
-            //             if (details.address.substring(0, 8) === '192.168.' ||
-            //                 details.address.substring(0, 7) === '172.16.' ||
-            //                 details.address.substring(0, 3) === '10.'
-            //             ) {
-            //                 ip = details.address;
-            //                 ++alias;
-            //             }
-            //         }
-            //     }
-            // });
+            ifaces[dev].forEach((details: any) => {
+                if (details.family === 'IPv4') {
+                    if (!/(loopback|vmware|internal|hamachi|vboxnet|virtualbox)/gi.test(dev + (alias ? ':' + alias : ''))) {
+                        if (details.address.substring(0, 8) === '192.168.' ||
+                            details.address.substring(0, 7) === '172.16.' ||
+                            details.address.substring(0, 3) === '10.'
+                        ) {
+                            ip = details.address;
+                            ++alias;
+                        }
+                    }
+                }
+            });
         }
         return ip;
     }

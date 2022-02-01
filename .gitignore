@@ -310,3 +310,5 @@ src/renderer/workbox-962786f2.js.map
 #Mac certs
 *.p12
 keys.sh
+
+package-lock.json
