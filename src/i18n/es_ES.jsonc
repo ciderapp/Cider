@@ -124,8 +124,9 @@
     "term.videos": "Vídeos", 
     "term.menu": "Menú",
     "term.check": "Comprobar",
-    "term.loadingPlaylist": "Cargando playlist...", // Text shown at the bottom of a playlist's body while loading song pages
-  
+    "term.aboutArtist": "Sobre {{artistName}}", // e.g. 'About Doja Cat'
+    "term.updateCider": "Actualizar Cider",
+
     // Home
     "home.title": "Inicio",
     "home.recentlyPlayed": "Reproducciones recientes",
@@ -191,10 +192,11 @@
     "action.removeTracks": "Eliminar ${self.selectedItems.length} canciones de la cola",
     "action.import": "Importar",
     "action.export": "Exportar",
-    "action.showAlbum": "Mostar álbum completo",
-    "action.tray.minimize": "Minimizar a la bandeja",
+    "action.showAlbum": "Mostrar álbum completo",
+    "action.tray.minimize": "Mover a la bandeja",
     "action.tray.quit": "Salir",
-    "action.tray.show": "Mostrar",
+    "action.tray.show": "Abrir",
+    "action.update": "Actualizar",
   
     // Settings - General
     "settings.header.general": "General",
@@ -236,7 +238,7 @@
     "settings.header.visual.animatedArtworkQuality.medium": "Medio",
     "settings.header.visual.animatedArtworkQuality.high": "Alto",
     "settings.header.visual.animatedArtworkQuality.veryHigh": "Muy alto",
-    "settings.header.visual.animatedArtworkQuality.extreme": "Extremo",
+    "settings.header.visual.animatedArtworkQuality.extreme": "Extrema",
     "settings.option.visual.animatedWindowBackground": "Fondo de la ventana animado", // Toggle
     "settings.option.visual.hardwareAcceleration": "Aceleración del hardware", // Dropdown
     "settings.option.visual.hardwareAcceleration.description": "Requiere reiniciarlo",
