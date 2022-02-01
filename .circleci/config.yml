@@ -4,8 +4,6 @@ jobs:
     working_directory: ~/Cider
     docker:
       - image: circleci/node:16
-    environment:
-      NODE_ENV: development
     steps:
       - checkout
       - run:
@@ -18,6 +16,9 @@ jobs:
       - run:
           name: Install Dependencies
           command: yarn install --immutable
+      - run:
+          name: Install Playwright
+          command: yarn playwright install --with-deps
       - save_cache:
           name: Save Yarn Package Cache
           key: yarn-packages-{{ checksum "yarn.lock" }}
@@ -32,7 +33,6 @@ jobs:
             sudo dpkg --add-architecture i386
             sudo apt-get update -y
             sudo apt-get install -y wine32
-            yarn playwright install-deps chromium
       - store_test_results:
           path: test-results
       - run:
