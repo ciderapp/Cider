@@ -1,9 +1,5 @@
 # Building
 dist
-*.lock
-yarn*
-package-lock.json
-.yarnclean
 build
 
 # Misc
@@ -139,6 +135,7 @@ dist
 .vscode-test
 
 # yarn v2
+.yarn/
 .yarn/cache
 .yarn/unplugged
 .yarn/build-state.yml
@@ -314,5 +311,3 @@ src/renderer/workbox-962786f2.js.map
 #Mac certs
 *.p12
 keys.sh
-
-.yarnrc.yml
