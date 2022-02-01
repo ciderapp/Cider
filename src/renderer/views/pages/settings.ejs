@@ -606,11 +606,10 @@
                 </div>
                 <div class="md-option-line">
                     <div class="md-option-segment">
-                        Update Cider
+                        {{$root.getLz('action.update')}} {{$root.getLz('app.name')}}
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <button class="md-btn" id="lfmConnect" ref="lfmConnect"
-                                onclick="app.checkForUpdate()">
+                        <button class="md-btn" @click="app.checkForUpdate()">
                             {{$root.getLz('term.check')}}
                         </button>
                     </div>
