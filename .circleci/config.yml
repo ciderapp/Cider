@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/Cider
     docker:
-      - image: mcr.microsoft.com/playwright:focal
+      - image: circleci/node:16
     environment:
       NODE_ENV: development
     steps:
@@ -32,6 +32,7 @@ jobs:
             sudo dpkg --add-architecture i386
             sudo apt-get update -y
             sudo apt-get install -y wine32
+            yarn playwright install-deps chromium
       - store_test_results:
           path: test-results
       - run:
