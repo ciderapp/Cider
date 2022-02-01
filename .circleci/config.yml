@@ -3,7 +3,9 @@ jobs:
   build:
     working_directory: ~/Cider
     docker:
-      - image: circleci/node:16
+      - image: mcr.microsoft.com/playwright:focal
+    environment:
+      NODE_ENV: development
     steps:
       - checkout
       - run:

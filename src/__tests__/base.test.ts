@@ -6,7 +6,8 @@ import * as fs from "fs";
 test("Launch electron app", async () => {
 
 	const paths = {
-		"main": join(__dirname, "../../build/main"),
+		"mainBuild": join(__dirname, "../../build/"),
+		"main": join(__dirname, "../main"),
 		"root": join(__dirname, "../../"),
 	}
 
@@ -14,7 +15,7 @@ test("Launch electron app", async () => {
 
 	console.log(fs.readdirSync(paths.main))
 
-	const electronApp = await electron.launch({ args: [paths.main], cwd: paths.root });
+	const electronApp = await electron.launch({ args: [paths.mainBuild] });
 
 	const appPath = await electronApp.evaluate(async ({ app }) => {
 		// This runs in the main Electron process, parameter here is always
