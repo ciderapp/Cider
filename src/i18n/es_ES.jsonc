@@ -124,7 +124,7 @@
     "term.videos": "Vídeos", 
     "term.menu": "Menú",
     "term.check": "Comprobar",
-    "term.aboutArtist": "Sobre {{artistName}}", // e.g. 'About Doja Cat'
+    "term.aboutArtist": "Más sobre {{artistName}}", // e.g. 'About Doja Cat'
     "term.updateCider": "Actualizar Cider",
 
     // Home
@@ -134,7 +134,7 @@
     "home.artistsFeed": "Historial de tus artistas",
     "home.artistsFeed.noArtist": "Sigue primero a algunos artistas y sus últimos lanzamientos aparecerán aquí",
     "home.madeForYou": "Hecho para ti",
-    "home.friendsListeningTo": "Tus amigos escuchan",
+    "home.friendsListeningTo": "Tus amigos están escuchando",
     "home.followedArtists": "Artistas que sigues",
     // Errors
     "error.appleMusicSubRequired": "Apple Music necesita una suscripción.",
@@ -241,11 +241,11 @@
     "settings.header.visual.animatedArtworkQuality.extreme": "Extrema",
     "settings.option.visual.animatedWindowBackground": "Fondo de la ventana animado", // Toggle
     "settings.option.visual.hardwareAcceleration": "Aceleración del hardware", // Dropdown
-    "settings.option.visual.hardwareAcceleration.description": "Requiere reiniciarlo",
+    "settings.option.visual.hardwareAcceleration.description": "La app requiere reinicio",
     "settings.header.visual.hardwareAcceleration.default": "Por defecto", 
     "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
     // Refer to term.disabled for the disabled option
-    "settings.option.visual.showPersonalInfo": "Mostrar info personal", // Toggle
+    "settings.option.visual.showPersonalInfo": "Mostrar información personal", // Toggle
   
     // Settings - Lyrics
     "settings.header.lyrics": "Letras",
@@ -272,10 +272,10 @@
     // Refer to term.connect for the connect button
   
     // Settings - Experimental
-    "settings.header.experimental": "Experimental",
-    "settings.header.experimental.description": "Ajustes experimentales para Cider.",
+    "settings.header.experimental": "En pruebas",
+    "settings.header.experimental.description": "Ajustes en pruebas para Cider.",
     "settings.option.experimental.compactUI": "Interfaz de usuario compacto", // Toggle
-    "settings.option.experimental.close_button_hide": "El boton de cerrar minimizará la aplicación en la bandeja",
+    "settings.option.experimental.close_button_hide": "El botón de cerrar minimizará la aplicación en la bandeja",
     // Refer to term.disabled & term.enabled
   
     // Spatialization Menu
@@ -301,12 +301,12 @@
     
     // Settings - Unfinished
     "settings.header.unfinished": "Sin acabar",
-    "settings.header.unfinished.description": "Ajustes siendo testeados, no estan acabados.",
+    "settings.header.unfinished.description": "Ajustes siendo testeados, no están acabados.",
   
     // Web Remote
     "remote.web.title": "Cider Remoto",
-    "remote.web.description": "Escanee el código QR para emparejar su teléfono con este cliente de Cider",
+    "remote.web.description": "Escanee el código QR para emparejar su teléfono con su cliente de Cider",
   
     // About
-    "about.thanks": "Muchísimas gracias al equipo de Cider Collective y a todos nuestros contribuidores."
+    "about.thanks": "Muchísimas gracias al equipo de Cider Collective y también a todos nuestros contribuidores."
   }
