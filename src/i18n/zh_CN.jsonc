@@ -116,6 +116,9 @@
   "term.tracks": "首歌曲", // Assume x amount of tracks. e.g. 50 tracks 
   "term.videos": "视频", 
   "term.menu": "菜单",
+  "term.check": "检查",
+  "term.aboutArtist": "关于{{artistName}}", // e.g. 'About Doja Cat'
+  "term.updateCider": "更新 Cider",
 
   // Home
   "home.title": "主页",
@@ -183,6 +186,12 @@
   "action.removeTracks": "从队列中移除 ${self.selectedItems.length} 首歌曲",
   "action.import": "导入",
   "action.export": "导出",
+  "action.showAlbum": "显示专辑",
+  "action.tray.minimize": "最小化",
+  "action.tray.quit": "退出",
+  "action.tray.show": "显示",
+  "action.update": "更新",
+  
 
   // Settings - Audio
   "settings.header.audio": "音频",
@@ -251,10 +260,7 @@
   "settings.header.experimental": "实验性功能",
   "settings.header.experimental.description": "调整Cider的实验性功能",
   "settings.option.experimental.compactUI": "紧凑型 UI", // Toggle
-  "settings.option.experimental.closeButtonBehaviour": "点击关闭按钮时",
-  "settings.option.experimental.closeButtonBehaviour.quit": "退出 Cider",
-  "settings.option.experimental.closeButtonBehaviour.minimizeTaskbar": "最小化到任务栏",
-  "settings.option.experimental.closeButtonBehaviour.minimizeTray": "最小化到系统托盘",
+  "settings.option.experimental.close_button_hide": "点击关闭按钮时仅隐藏窗口",
   // Refer to term.disabled & term.enabled
   
   // Spatialization Menu
