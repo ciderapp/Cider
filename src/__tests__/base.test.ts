@@ -15,7 +15,7 @@ test("Launch electron app", async () => {
 
 	console.log(fs.readdirSync(paths.main))
 
-	const electronApp = await electron.launch({ args: [paths.mainBuild] });
+	const electronApp = await electron.launch({ args: ['main.js'] });
 
 	const appPath = await electronApp.evaluate(async ({ app }) => {
 		// This runs in the main Electron process, parameter here is always
