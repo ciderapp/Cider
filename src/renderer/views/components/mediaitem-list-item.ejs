@@ -14,7 +14,7 @@
          @mouseleave="showInLibrary = false"
          :class="[{'mediaitem-selected': app.select_hasMediaItem(guid)}, addClasses]">
         <template v-if="isVisible">
-            <div class="isLibrary"" v-if="showLibraryStatus == true">
+            <div class="isLibrary" v-if="showLibraryStatus == true">
                 <div v-if="showInLibrary" :style="{display: (showInLibrary ? 'block' : 'none'), 'margin-left':'11px'}">
                     <button @click="addToLibrary()" v-if="!addedToLibrary">
                         <div class="svg-icon" :style="{'--color': 'var(--keyColor)', '--url': 'url(./assets/feather/plus.svg)'}"></div>
@@ -39,7 +39,7 @@
             </div>
             <div class="info-rect text-overflow-elipsis" :style="{'padding-left': (showArtwork ? '' : '16px')}"
                  @dblclick="route()">
-                <div class="title" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
+                <div class="title">
                     {{ item.attributes.name }}
                 </div>
                 <div class="subtitle text-overflow-elipsis" style="-webkit-box-orient: horizontal;">
@@ -501,10 +501,10 @@
                 let isLibrary = item.attributes.playParams ? (item.attributes.playParams.isLibrary ?? false) : false;
                 let truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
                 console.log(item, parent, childIndex, kind, id, isLibrary, kind == "playlists", id.startsWith("p.") || id.startsWith("pl.u"))
-                app.mk.stop().then(() => {       
+                app.mk.stop().then(() => {
                 if (parent != null && childIndex != null) {
                     app.queueParentandplayChild(parent, childIndex, item);
-                } 
+                }
                 else if (kind.includes("playlist") && (id.startsWith("p.") || id.startsWith("pl."))){
                         function shuffleArray(array) {
                             for (var i = array.length - 1; i > 0; i--) {
@@ -543,22 +543,22 @@
                                                         let query = res.data.map(item => new MusicKit.MediaItem(item))
                                                         if (app.mk.shuffleMode == 1){shuffleArray(query); console.log('shf')}
                                                         app.mk.queue.append(query)
-                                                        
+
                                                         if (res.next) {
                                                             getPlaylistTracks(res.next)
-                                                        } 
+                                                        }
                                                     })
                                                 }
                                             })
                                         } catch (e) {}
-                                       
 
-                                       
+
+
                                    })
                                 })
-                            
-                                         
-                } 
+
+
+                }
                 else {
                     app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)
                 }})
