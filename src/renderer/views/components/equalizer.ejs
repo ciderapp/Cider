@@ -407,7 +407,7 @@
                 ipcRenderer.sendSync("import-eq").then((result) => {
                     JSON.parse(result)
                     let newPreset = new self.eqPreset()
-                    newPreset.name = res
+                    newPreset.name = result.name
                     newPreset.frequencies = result.frequency
                     newPreset.gain = result.gain
                     newPreset.Q = result.q
