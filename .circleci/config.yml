@@ -6,6 +6,9 @@ jobs:
       - image: circleci/node:16
     steps:
       - checkout
+      - run:
+          name: Update Package Managers
+          command: sudo npm update -g npm yarn
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
@@ -13,18 +16,15 @@ jobs:
       - run:
           name: Install Dependencies
           command: yarn install --immutable
+      - run:
+          name: Update Dependencies
+          command: yarn upgrade
       - save_cache:
           name: Save Yarn Package Cache
           key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
             - .yarn/cache
             - .yarn/unplugged
-      - run:
-          name: Install npm and yarn
-          command: sudo npm i -g npm yarn
-      - run:
-          name: Update Dependencies
-          command: yarn upgrade
       - run:
           name: Install system build dependencies
           command: |
@@ -33,11 +33,6 @@ jobs:
             sudo dpkg --add-architecture i386
             sudo apt-get update -y
             sudo apt-get install -y wine32
-
-      - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - ./node_modules
       - run:
           name: Generate Builds (Linux)
           command: yarn dist -l -p never
