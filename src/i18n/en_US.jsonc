@@ -124,7 +124,8 @@
   "term.videos": "Videos", 
   "term.menu": "Menu",
   "term.check": "Check",
-
+  "term.aboutArtist": "About {{artistName}}", // e.g. 'About Doja Cat'
+ 
   // Home
   "home.title": "Home",
   "home.recentlyPlayed": "Recently Played",
