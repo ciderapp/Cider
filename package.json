@@ -18,7 +18,6 @@
     "build": "tsc",
     "watch": "tsc --watch",
     "test": "yarn build && playwright test",
-    "citest": "yarn build && xvfb-run --auto-servernum playwright test",
     "start": "run-script-os",
     "start:win32": "yarn build && set ELECTRON_ENABLE_LOGGING=true && electron ./build/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
     "start:linux": "yarn build && ELECTRON_ENABLE_LOGGING=true && electron ./build/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",

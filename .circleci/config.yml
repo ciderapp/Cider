@@ -37,7 +37,7 @@ jobs:
           path: test-results
       - run:
           name: Base Functionality Test
-          command: yarn citest
+          command: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- npm run test -- 
       - run:
           name: Generate Builds (Linux)
           command: yarn dist -l -p never
