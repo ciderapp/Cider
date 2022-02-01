@@ -33,11 +33,8 @@ jobs:
       - store_test_results:
           path: test-results
       - run:
-          name: Building JavaScript
-          command: yarn build
-      - run:
           name: Base Functionality Test
-          command: yarn playwright test
+          command: yarn test
       - run:
           name: Generate Builds (Linux)
           command: yarn dist -l -p never

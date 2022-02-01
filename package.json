@@ -17,16 +17,16 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
+    "test": "yarn build && playwright test",
     "start": "run-script-os",
-    "start:win32": "npm run build && set ELECTRON_ENABLE_LOGGING=true && electron ./build/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
-    "start:linux": "npm run build && ELECTRON_ENABLE_LOGGING=true && electron ./build/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
-    "start:darwin": "npm run build && ELECTRON_ENABLE_LOGGING=true && electron ./build/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
+    "start:win32": "yarn build && set ELECTRON_ENABLE_LOGGING=true && electron ./build/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
+    "start:linux": "yarn build && ELECTRON_ENABLE_LOGGING=true && electron ./build/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
+    "start:darwin": "yarn build && ELECTRON_ENABLE_LOGGING=true && electron ./build/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
     "pack": "electron-builder --dir",
-    "dist": "npm run build && electron-builder",
-    "dist:all": "npm run build && electron-builder -mwl",
-    "msft": "npm run build && electron-builder -c msft-package.json",
-    "postinstall": "electron-builder install-app-deps",
-    "test": "jest"
+    "dist": "yarn build && electron-builder",
+    "dist:all": "yarn build && electron-builder -mwl",
+    "msft": "yarn build && electron-builder -c msft-package.json",
+    "postinstall": "electron-builder install-app-deps"
   },
   "dependencies": {
     "@sentry/electron": "^2.5.4",
@@ -53,6 +53,7 @@
     "react-dom": "^17.0.2",
     "run-script-os": "^1.1.6",
     "source-map-support": "^0.5.21",
+    "typescript": "^4.5.5",
     "v8-compile-cache": "^2.3.0",
     "ws": "^8.4.2",
     "xml2js": "^0.4.23",
@@ -69,8 +70,6 @@
     "electron-webpack": "^2.8.2",
     "musickit-typescript": "^1.2.4",
     "playwright": "^1.18.1",
-    "ts-node": "^10.4.0",
-    "typescript": "^4.5.5",
     "vue-devtools": "^5.1.4",
     "webpack": "~5.65.0"
   },
