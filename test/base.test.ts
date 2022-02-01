@@ -2,14 +2,14 @@ import { _electron as electron } from "playwright";
 import { test, expect } from "@playwright/test";
 
 test("Launch electron app", async () => {
-	const electronApp = await electron.launch({ args: ["./index.js"], cwd: "../build" });
+	const electronApp = await electron.launch({ args: ["./build/index.js"] });
 
 	const appPath = await electronApp.evaluate(async ({ app }) => {
 		// This runs in the main Electron process, parameter here is always
 		// the result of the require('electron') in the main app script.
 		return app.getAppPath();
 	});
-	console.log(appPath);
+	console.log(`cwd: ${appPath}`);
 
 
 
