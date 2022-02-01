@@ -9,6 +9,8 @@ test("Launch electron app", async () => {
 		"mainBuild": resolve(__dirname, "../../build/"),
 		"main": resolve(__dirname, "../main"),
 		"root": resolve(__dirname, "../../"),
+		"cwd": __dirname,
+		"processcwd": process.cwd()
 	}
 
 	console.log(paths)
