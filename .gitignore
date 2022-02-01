@@ -315,3 +315,4 @@ src/renderer/workbox-962786f2.js.map
 *.p12
 keys.sh
 
+.yarnrc.yml

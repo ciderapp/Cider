@@ -13,6 +13,7 @@
   },
   "homepage": "https://cider.sh/",
   "buildResources": "resources",
+  "packageManager": "yarn@3.1.1",
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
@@ -165,6 +166,6 @@
         "dmg"
       ]
     },
-    "artifactName" : "${productName}.${ext}"
+    "artifactName": "${productName}.${ext}"
   }
 }
