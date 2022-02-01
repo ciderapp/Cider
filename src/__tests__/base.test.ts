@@ -15,7 +15,7 @@ test("Launch electron app", async () => {
 
 	console.log(paths)
 
-	console.log(fs.readdirSync(paths.main))
+	console.log(fs.readdirSync(paths.mainBuild))
 
 	const electronApp = await electron.launch({ args: ['build/index.js'], cwd: paths.root });
 
