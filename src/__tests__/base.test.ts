@@ -3,6 +3,9 @@ import { test, expect } from "@playwright/test";
 import { join } from "path";
 
 test("Launch electron app", async () => {
+
+	console.log(__dirname)
+
 	const electronApp = await electron.launch({ args: [join(__dirname, "../../build")] });
 
 	const appPath = await electronApp.evaluate(async ({ app }) => {
