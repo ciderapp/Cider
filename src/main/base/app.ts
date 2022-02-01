@@ -238,9 +238,6 @@ export class AppEvents {
             }
         })
 
-        console.log("THISHI ISFJDKIASKJDBKDJSFDLJ<KBSIJUBSDFKJBSKJDBFIKJSBDIHJNFSIHNB ")
-        console.log(utils.getWindow())
-
         utils.getWindow().on('show', () => {
             this.setTray(true)
         })

@@ -1,20 +1,23 @@
 import { _electron as electron } from "playwright";
 import { test, expect } from "@playwright/test";
-import { join } from "path";
+import { resolve } from "path";
 import * as fs from "fs";
 
 test("Launch electron app", async () => {
 
 	const paths = {
-		"main": join(__dirname, "../../build/main"),
-		"root": join(__dirname, "../../"),
+		"mainBuild": resolve(__dirname, "../../build/"),
+		"main": resolve(__dirname, "../main"),
+		"root": resolve(__dirname, "../../"),
+		"cwd": __dirname,
+		"processcwd": process.cwd()
 	}
 
 	console.log(paths)
 
 	console.log(fs.readdirSync(paths.main))
 
-	const electronApp = await electron.launch({ args: [paths.main], cwd: paths.root });
+	const electronApp = await electron.launch({ args: ['build/index.js'], cwd: paths.root });
 
 	const appPath = await electronApp.evaluate(async ({ app }) => {
 		// This runs in the main Electron process, parameter here is always
