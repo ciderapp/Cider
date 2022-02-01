@@ -45,7 +45,7 @@
     "term.podcasts": "Podcasts",
     "term.playlists": "Playlists",
     "term.playlist": "Playlist",
-    "term.newPlaylist": "Nueva Playlist",
+    "term.newPlaylist": "Nueva playlist",
     "term.newPlaylistFolder": "Nueva carpeta de playlists",
     "term.createNewPlaylist": "Crear nueva playlists",
     "term.createNewPlaylistFolder": "Crear nueva carpeta de playlists",
@@ -121,9 +121,10 @@
     "term.equalizer": "Equalizador",
     "term.reset": "Resetear",
     "term.tracks": "canciones", // Assume x amount of tracks. e.g. 50 tracks 
-    "term.videos": "Videos", 
+    "term.videos": "Vídeos", 
     "term.menu": "Menú",
     "term.check": "Comprobar",
+    "term.loadingPlaylist": "Cargando playlist...", // Text shown at the bottom of a playlist's body while loading song pages
   
     // Home
     "home.title": "Inicio",
@@ -176,7 +177,7 @@
     "action.playLater": "Reproducir al final",
     "action.startRadio": "Crear emisora",
     "action.goToArtist": "Ir al artista",
-    "action.goToAlbum": "Mostar álbum",
+    "action.goToAlbum": "Mostrar álbum",
     "action.moveToTop": "Mover a arriba",
     "action.share": "Compartir",
     "action.rename": "Renombrar",
@@ -191,7 +192,6 @@
     "action.import": "Importar",
     "action.export": "Exportar",
     "action.showAlbum": "Mostar álbum completo",
-    // Waiting on Core for moving plugin to app.ts
     "action.tray.minimize": "Minimizar a la bandeja",
     "action.tray.quit": "Salir",
     "action.tray.show": "Mostrar",
@@ -224,7 +224,7 @@
     "settings.header.visual": "Visual", 
     "settings.header.visual.description": "Ajustes visuales para Cider.",
     "settings.option.visual.windowBackgroundStyle": "Estilo del fondo de la ventana", // Toggle
-    "settings.header.visual.windowBackgroundStyle.none": "None",
+    "settings.header.visual.windowBackgroundStyle.none": "Nada",
     "settings.header.visual.windowBackgroundStyle.artwork": "Carátula",
     "settings.header.visual.windowBackgroundStyle.image": "Imagen",
     "settings.option.visual.animatedArtwork": "Carátula animada", // Dropdown
@@ -273,10 +273,7 @@
     "settings.header.experimental": "Experimental",
     "settings.header.experimental.description": "Ajustes experimentales para Cider.",
     "settings.option.experimental.compactUI": "Interfaz de usuario compacto", // Toggle
-    "settings.option.experimental.closeButtonBehaviour": "Acción del botón cerrar",
-    "settings.option.experimental.closeButtonBehaviour.quit": "Cerrar Cider",
-    "settings.option.experimental.closeButtonBehaviour.minimizeTaskbar": "Minimizar a la barra de tareas",
-    "settings.option.experimental.closeButtonBehaviour.minimizeTray": "Minimizar a la bandeja",
+    "settings.option.experimental.close_button_hide": "El boton de cerrar minimizará la aplicación en la bandeja",
     // Refer to term.disabled & term.enabled
   
     // Spatialization Menu
@@ -302,6 +299,7 @@
     
     // Settings - Unfinished
     "settings.header.unfinished": "Sin acabar",
+    "settings.header.unfinished.description": "Ajustes siendo testeados, no estan acabados.",
   
     // Web Remote
     "remote.web.title": "Cider Remoto",
