@@ -257,7 +257,7 @@
   "settings.header.experimental": "試験的な機能",
   "settings.header.experimental.description": "開発中の実験的な機能は不完全で不安定である可能性があります",
   "settings.option.experimental.compactUI": "コンパクトインターフェース", // Toggle
-  "settings.option.experimental.closeButtonBehaviour": "「閉じる」ボタンでアプリを隠します", // Dropdown
+  "settings.option.experimental.close_button_hide": "「閉じる」ボタンでアプリを隠します", // Dropdown
   // Refer to term.disabled & term.enabled
   
   // Spatialization Menu
