@@ -25,7 +25,8 @@
     "dist": "npm run build && electron-builder",
     "dist:all": "npm run build && electron-builder -mwl",
     "msft": "npm run build && electron-builder -c msft-package.json",
-    "postinstall": "electron-builder install-app-deps"
+    "postinstall": "electron-builder install-app-deps",
+    "test": "jest"
   },
   "dependencies": {
     "@sentry/electron": "^2.5.4",
@@ -68,7 +69,8 @@
     "electron-webpack": "^2.8.2",
     "musickit-typescript": "^1.2.4",
     "playwright": "^1.18.1",
-    "typescript": "^4.5.4",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.5",
     "vue-devtools": "^5.1.4",
     "webpack": "~5.65.0"
   },

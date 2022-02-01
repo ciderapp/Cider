@@ -1,8 +1,9 @@
 import { _electron as electron } from "playwright";
 import { test, expect } from "@playwright/test";
+import { join } from "path";
 
 test("Launch electron app", async () => {
-	const electronApp = await electron.launch({ args: ["./build/index.js"] });
+	const electronApp = await electron.launch({ args: [join(__dirname, "../../")] });
 
 	const appPath = await electronApp.evaluate(async ({ app }) => {
 		// This runs in the main Electron process, parameter here is always
