@@ -274,14 +274,14 @@
                             "icon": "./assets/feather/share.svg",
                             "name": app.getLz('action.import'),
                             "action": function () {
-                                notyf.error("Not implemented yet")
+                                this.importPreset()
                             }
                         },
                         "export": {
                             "icon": "./assets/feather/share.svg",
                             "name": app.getLz('action.export'),
                             "action": function () {
-                                notyf.error("Not implemented yet")
+                                this.exportPreset()
                             }
                         },
                     }
@@ -397,6 +397,29 @@
                 preset.mix = app.cfg.audio.equalizer.mix
                 preset.vibrantBass = app.cfg.audio.equalizer.vibrantBass
                 notyf.success("Saved Preset")
+            },
+            exportPreset() {
+                const preset = app.cfg.audio.equalizer.presets.find(p => p.preset == app.cfg.audio.equalizer.preset)
+                const jsonObj = {"name": preset.name, "author": app.chrome.userinfo.attributes.name, "frequency": preset.frequencies, "gain": preset.gain, "q": preset.Q, "preamp": preset.preamp, "mix": preset.mix, "vibrantBass": preset.vibrantBass};
+                ipcRenderer.send("export-eq", jsonObj)
+            },
+            importPreset() {
+                ipcRenderer.sendSync("import-eq").then((result) => {
+                    let newPreset = new self.eqPreset()
+                    newPreset.name = result.name
+                    newPreset.author = result.author
+                    newPreset.frequencies = result.frequency
+                    newPreset.gain = result.gain
+                    newPreset.Q = result.q
+                    newPreset.preamp = result.preamp
+                    newPreset.mix = result.mix
+                    newPreset.vibrantBass = result.vibrantBass
+                    app.cfg.audio.equalizer.presets.push(newPreset)
+                    notyf.success("Imported preset " + result.name)
+                }).catch(err => {
+                    console.error("[EQ Import] " + err)
+                    notyf.error("Could not import preset")
+                })
             },
             applyPreset(preset) {
                 Object.assign(this.$root.cfg.audio.equalizer, preset)
