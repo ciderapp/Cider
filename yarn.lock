@@ -3710,12 +3710,12 @@ __metadata:
   linkType: hard
 
 "core-js-compat@npm:^3.20.0, core-js-compat@npm:^3.20.2":
-  version: 3.20.3
-  resolution: "core-js-compat@npm:3.20.3"
+  version: 3.21.0
+  resolution: "core-js-compat@npm:3.21.0"
   dependencies:
     browserslist: ^4.19.1
     semver: 7.0.0
-  checksum: ebb7af23e798e87b9a5fc00cb304089160b5e259db7002a1026d81d928a74a32cd9c4adda4959526fa75382f074e635fedd6590d16bda60df751734d033988e6
+  checksum: 7914d2f8a2f7c1b400e1c04c7560f4c96028bf23cec3cea6063ba594e38023cccbd38ad88af41c5d6b65450e97a989eb37598f609e3f7fbc6ebc1856d4195cbb
   languageName: node
   linkType: hard
 
@@ -4186,7 +4186,7 @@ __metadata:
 
 "dns-js@github:bitfocus/node-dns-js#v0.2.2":
   version: 0.2.2
-  resolution: "dns-js@git+ssh://git@github.com/bitfocus/node-dns-js.git#commit=e5f0c3da63653398005bf36f66ad0b77770dcad6"
+  resolution: "dns-js@https://github.com/bitfocus/node-dns-js.git#commit=3309232ac202dbde041688f33f88538515a62dfc"
   dependencies:
     debug: ^2.1.0
     qap: ^3.1.2
@@ -4482,9 +4482,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.17":
-  version: 1.4.59
-  resolution: "electron-to-chromium@npm:1.4.59"
-  checksum: f058ae0197f2eda65698956467935a3b79470a9264e95a4a549cdfce85c8ad9fc07152ec409e9c51c1ad699558ff50c1b3785966272df0e4e0edd1e51d758768
+  version: 1.4.60
+  resolution: "electron-to-chromium@npm:1.4.60"
+  checksum: e90775c4b497aaecb4b5c848699dc6f2e2972ba61bd3d8f4b0c01756142151087d69468ce439fde6aec4dc4b47b8eeb81113f26c50425f0598c3998e1c7a26b3
   languageName: node
   linkType: hard
 
@@ -4569,15 +4569,15 @@ __metadata:
   linkType: hard
 
 "electron@https://github.com/castlabs/electron-releases.git":
-  version: 17.0.0-beta.8+wvcus
-  resolution: "electron@git+ssh://git@github.com/castlabs/electron-releases.git#commit=a3484109f0f0710a65f255e7c8e235aea1f06b24"
+  version: 17.0.0-beta.9+wvcus
+  resolution: "electron@https://github.com/castlabs/electron-releases.git#commit=327f9c4bdcf3e11a1420483ea698f7857920295f"
   dependencies:
     "@electron/get": ^1.13.0
     "@types/node": ^14.6.2
     extract-zip: ^1.0.3
   bin:
     electron: cli.js
-  checksum: 8af3874fb63f15e5af8d6760c88f9f173e04e232299a550ce6373da20289bc67a32ff3d417be776aa8e898bea6c065b2cabfed66753fc496fe9c9a5e9c8b0ba4
+  checksum: 2815f3fe22ac186087b3cc651b06336fb1f7f47d3a34c7a85a812dce8d714f7eb6f694614323df6ba17a88b7216972f59e548e96edacd903821b6b9bb6cc3248
   languageName: node
   linkType: hard
 
@@ -6832,7 +6832,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-worker@npm:^27.4.1":
+"jest-worker@npm:^27.4.5":
   version: 27.4.6
   resolution: "jest-worker@npm:27.4.6"
   dependencies:
@@ -7374,7 +7374,7 @@ __metadata:
 
 "mdns-js@github:bitfocus/node-mdns-js":
   version: 1.0.7
-  resolution: "mdns-js@git+ssh://git@github.com/bitfocus/node-mdns-js.git#commit=1af6b83ce91e5538012f977e1dcadbda5dc0d3b5"
+  resolution: "mdns-js@https://github.com/bitfocus/node-mdns-js.git#commit=1af6b83ce91e5538012f977e1dcadbda5dc0d3b5"
   dependencies:
     debug: ^4.1.1
     dns-js: "github:bitfocus/node-dns-js#v0.2.2"
@@ -10334,10 +10334,10 @@ __metadata:
   linkType: hard
 
 "terser-webpack-plugin@npm:^5.1.3":
-  version: 5.3.0
-  resolution: "terser-webpack-plugin@npm:5.3.0"
+  version: 5.3.1
+  resolution: "terser-webpack-plugin@npm:5.3.1"
   dependencies:
-    jest-worker: ^27.4.1
+    jest-worker: ^27.4.5
     schema-utils: ^3.1.1
     serialize-javascript: ^6.0.0
     source-map: ^0.6.1
@@ -10351,7 +10351,7 @@ __metadata:
       optional: true
     uglify-js:
       optional: true
-  checksum: f6735b8bb2604e8ca8b78d21f610fb2488866db72bb38e8d7c32aab97ea81fa0a19cabed074a431ff3dd9510d6efd505fc6930cdd8c1d3faa71c1bf7da4c7469
+  checksum: 1b808fd4f58ce0b532baacc50b9a850fc69ce0077a0e9e5076d4156c52fab3d40b02d5d9148a3eba64630cf7f40057de54f6a5a87fac1849b1f11d6bfdb42072
   languageName: node
   linkType: hard
 
