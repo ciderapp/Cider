@@ -115,7 +115,7 @@
                     </template>
                     <div class="row">
                         <div class="col" v-if="data.attributes.artistBio">
-                            <h3>{{ app.getLz('term.about') }} {{ data.attributes.name }}</h3>
+                            <h3>{{ $root.stringTemplateParser($root.getLz('term.aboutArtist'), {"artistName": data.attributes.name}) }}</h3> 
                             <p v-html="data.attributes.artistBio"></p>
                         </div>
                         <div class="col">

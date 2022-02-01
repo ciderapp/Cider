@@ -8,12 +8,12 @@
   "main": "./build/index.js",
   "author": "Cider Collective <cryptofyre@cider.sh> (https://cider.sh)",
   "repository": "https://github.com/ciderapp/Cider.git",
+  "packageManager": "yarn@3.1.1",
   "bugs": {
     "url": "https://github.com/ciderapp/Cider/issues?q=is%3Aopen+is%3Aissue+label%3Abug"
   },
   "homepage": "https://cider.sh/",
   "buildResources": "resources",
-  "packageManager": "yarn@3.1.1",
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
