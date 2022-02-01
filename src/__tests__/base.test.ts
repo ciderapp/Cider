@@ -10,7 +10,7 @@ test("Launch electron app", async () => {
 	console.log(aa)
 	console.log(__dirname)
 
-	const electronApp = await electron.launch({ args: [join(__dirname, "../main")] });
+	const electronApp = await electron.launch({ args: [join(__dirname, "../../build/index.js")] });
 
 	const appPath = await electronApp.evaluate(async ({ app }) => {
 		// This runs in the main Electron process, parameter here is always
