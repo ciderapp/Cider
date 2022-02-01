@@ -192,10 +192,10 @@
   "action.import": "Import",
   "action.export": "Export",
   "action.showAlbum": "Show Complete Album",
-  // Waiting on Core for moving plugin to app.ts
   "action.tray.minimize": "Minimize to Tray",
   "action.tray.quit": "Quit",
   "action.tray.show": "Show",
+  "action.update": "Update",
 
   // Settings - General
   "settings.header.general": "General",
