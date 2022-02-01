@@ -37,7 +37,7 @@ jobs:
           path: test-results
       - run:
           name: Base Functionality Test
-          command: xvfb-run --auto-servernum npm run test
+          command: yarn test
       - run:
           name: Generate Builds (Linux)
           command: yarn dist -l -p never
