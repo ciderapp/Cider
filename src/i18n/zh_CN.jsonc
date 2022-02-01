@@ -116,6 +116,9 @@
   "term.tracks": "首歌曲", // Assume x amount of tracks. e.g. 50 tracks 
   "term.videos": "视频", 
   "term.menu": "菜单",
+  "term.check": "检查",
+  "term.aboutArtist": "关于{{artistName}}", // e.g. 'About Doja Cat'
+  "term.updateCider": "更新 Cider",
 
   // Home
   "home.title": "主页",
@@ -183,6 +186,12 @@
   "action.removeTracks": "从队列中移除 ${self.selectedItems.length} 首歌曲",
   "action.import": "导入",
   "action.export": "导出",
+  "action.showAlbum": "显示专辑",
+  "action.tray.minimize": "最小化",
+  "action.tray.quit": "退出",
+  "action.tray.show": "显示",
+  "action.update": "更新",
+  
 
   // Settings - Audio
   "settings.header.audio": "音频",
