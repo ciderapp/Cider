@@ -116,6 +116,9 @@
   "term.tracks": "曲", // Assume x amount of tracks. e.g. 50 tracks 
   "term.videos": "ビデオ", 
   "term.menu": "メニュー",
+  "term.check": "確認",
+  "term.aboutArtist": "{{artistName}}について", // e.g. 'About Doja Cat'
+  "term.updateCider": "Cider 更新",
 
   // Home
   "home.title": "ホーム",
@@ -181,6 +184,11 @@
   "action.removeTracks": "${self.selectedItems.length}曲が「次はこちら」から削除",
   "action.import": "インポート",
   "action.export": "エクスポート",
+  "action.showAlbum": "すべて見る",
+  "action.tray.minimize": "最小化",
+  "action.tray.quit": "終了",
+  "action.tray.show": "表示",
+  "action.update": "アップデート",
 
   // Settings - Audio
   "settings.header.audio": "オーディオ",
@@ -249,10 +257,7 @@
   "settings.header.experimental": "試験的な機能",
   "settings.header.experimental.description": "開発中の実験的な機能は不完全で不安定である可能性があります",
   "settings.option.experimental.compactUI": "コンパクトインターフェース", // Toggle
-  "settings.option.experimental.closeButtonBehaviour": "「閉じる」ボタンの動作", // Dropdown
-  "settings.option.experimental.closeButtonBehaviour.quit": "アプリを終了する",
-  "settings.option.experimental.closeButtonBehaviour.minimizeTaskbar": "タスクバーに最小化する",
-  "settings.option.experimental.closeButtonBehaviour.minimizeTray": "トレイに最小化する",
+  "settings.option.experimental.close_button_hide": "「閉じる」ボタンでアプリを隠します", // Dropdown
   // Refer to term.disabled & term.enabled
   
   // Spatialization Menu
