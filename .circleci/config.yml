@@ -33,12 +33,11 @@ jobs:
             sudo dpkg --add-architecture i386
             sudo apt-get update -y
             sudo apt-get install -y wine32
-            sudo apt-get install -y xvfb
       - store_test_results:
           path: test-results
       - run:
           name: Base Functionality Test
-          command: yarn test
+          command: xvfb-run --auto-servernum npm run test
       - run:
           name: Generate Builds (Linux)
           command: yarn dist -l -p never
