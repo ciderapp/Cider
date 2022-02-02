@@ -60,6 +60,7 @@
   "term.mute": "Mute",
   "term.unmute": "Unmute",
   "term.share": "Share",
+  "term.share.success": "Copied to clipboard",
   "term.settings": "Settings",
   "term.seeAll": "See All",
   "term.sortBy": "Sort By",

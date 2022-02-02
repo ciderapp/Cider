@@ -15,16 +15,15 @@ jobs:
             - yarn-packages-{{ checksum "yarn.lock" }}
       - run:
           name: Install Dependencies
-          command: yarn install --immutable
-      - run:
-          name: Install Playwright
-          command: yarn playwright install --with-deps
+          command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
       - save_cache:
           name: Save Yarn Package Cache
           key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
-            - .yarn/cache
-            - .yarn/unplugged
+            - ~/.cache/yarn
+      - run:
+          name: Install Playwright
+          command: yarn playwright install --with-deps
       - run:
           name: Install system build dependencies
           command: |
@@ -35,9 +34,6 @@ jobs:
             sudo apt-get install -y wine32
       - store_test_results:
           path: test-results
-      - run:
-          name: Base Functionality Test
-          command: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- npm run test -- 
       - run:
           name: Generate Builds (Linux)
           command: yarn dist -l -p never
