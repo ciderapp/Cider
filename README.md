@@ -35,7 +35,7 @@
 [![Get it from the AUR](https://img.shields.io/badge/Get_It_From_The_AUR-100000?style=for-the-badge&logo=archlinux)](https://aur.archlinux.org/packages/cider)
 
 ### Compiling and Configuration
-For more information surrounding configuration, compiling and other developer documentation, see the [compilation docs](https://cider.sh/docs/compile).
+For more information surrounding configuration, compiling and other developer documentation, see the [compilation docs](https://cider.sh/compile.html).
 
 ### Credits
 ![Contributors](https://contrib.rocks/image?repo=ciderapp/Cider)
