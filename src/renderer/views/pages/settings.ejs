@@ -6,6 +6,9 @@
             </div>
             <div class="settings-option-body">
                 <div class="md-option-line">
+                    <div class="md-option-segment">
+                        {{$root.getLz('term.accountSettings')}}
+                    </div>
                     <div class="md-option-segment md-option-segment_auto">
                         <button class="md-btn" @click="app.appRoute('apple-account-settings')">
                             {{$root.getLz('term.accountSettings')}}
