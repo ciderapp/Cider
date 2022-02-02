@@ -21,11 +21,11 @@ export default class MPRIS {
      */
     private mpris: any;
     private mprisEvents: Object = {
-        "playpause": "pausePlay",
-        "play": "pausePlay",
-        "pause": "pausePlay",
-        "next": "nextTrack",
-        "previous": "previousTrack",
+        "playpause": "playPause",
+        "play": "play",
+        "pause": "pause",
+        "next": "next",
+        "previous": "previous",
     }
 
     /*******************************************************************************************
