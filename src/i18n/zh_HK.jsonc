@@ -130,6 +130,18 @@
   "term.topResult": "熱門搜尋結果",   // Search Results
   "term.sharedPlaylists": "播放列表", // Search Results
   "term.people": "個人檔案", // Search Results
+  "term.newpreset.name": "新均衡器範本名稱", // Equalizer Preset
+  "term.addedpreset": "已新增",
+  "term.deletepreset.warn": "你確認要刪除這個範本？",
+  "term.deletedpreset": "已刪除",
+  "term.musicVideos": "MV", // Search page friendlyTypes
+  "term.stations": "電台",
+  "term.curators": "Curators",
+  "term.appleCurators": "Apple Curators",
+  "term.radioShows": "廣播單集",
+  "term.recordLabels": "唱片公司",
+  "term.videoExtras": "影片特輯",
+  "term.top": "Top",
 
   // Home
   "home.title": "主頁",
@@ -201,6 +213,8 @@
   "action.tray.quit": "結束",
   "action.tray.show": "顯示",
   "action.update": "更新",
+  "action.newpreset": "新增範本",  //Equallizer preset
+  "action.deletepreset": "刪除範本",
   
   // Settings - General
   "settings.header.general": "一般",
