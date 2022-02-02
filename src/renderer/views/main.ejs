@@ -50,7 +50,10 @@
                         </div>
                     </div>
                     <div class="app-chrome-item full-height" v-else>
-                        <div class="app-title"></div>
+                        <button class="app-mainmenu"
+                                @blur="mainMenuVisibility(false)"
+                                @click="mainMenuVisibility(true)"
+                                :class="{active: chrome.menuOpened}"></button>
                     </div>
                     <div class="app-chrome-item display--large">
                         <button class="playback-button--small shuffle" v-if="mk.shuffleMode == 0"
@@ -87,7 +90,7 @@
                                 </div>
                                 <div class="playback-info">
                                     <div class="song-name" style="-webkit-box-orient: horizontal;"
-                                        :class="[isElementOverflowing('#app-main > div.app-chrome > div.app-chrome--center > div > div > div.playback-info > div.song-name') ? 'marquee' : '']"
+                                         :class="[isElementOverflowing('#app-main > div.app-chrome > div.app-chrome--center > div > div > div.playback-info > div.song-name') ? 'marquee' : '']"
                                          :style="[mk.nowPlayingItem['attributes']['contentRating'] == 'explicit' ? {'margin-left' : '23px'} : {'margin-left' : '0px'} ]">
                                         {{ mk.nowPlayingItem["attributes"]["name"] }}
                                         <div class="explicit-icon"
@@ -95,21 +98,21 @@
                                              style="display: inline-block"></div>
                                     </div>
                                     <div class="song-artist-album">
-                                    <div class="song-artist-album-content"
-                                        :class="[isElementOverflowing('#app-main > .app-chrome .app-chrome-item > .app-playback-controls > div >.song-artist-album > .song-artist-album-content') ? 'marquee' : '']"
-                                         style="display: inline-block; -webkit-box-orient: horizontal; white-space: nowrap;">
-                                        <div class="item-navigate song-artist" style="display: inline-block"
-                                             @click="getNowPlayingItemDetailed(`artist`)">
-                                            {{ mk.nowPlayingItem["attributes"]["artistName"] }}
+                                        <div class="song-artist-album-content"
+                                             :class="[isElementOverflowing('#app-main > .app-chrome .app-chrome-item > .app-playback-controls > div >.song-artist-album > .song-artist-album-content') ? 'marquee' : '']"
+                                             style="display: inline-block; -webkit-box-orient: horizontal; white-space: nowrap;">
+                                            <div class="item-navigate song-artist" style="display: inline-block"
+                                                 @click="getNowPlayingItemDetailed(`artist`)">
+                                                {{ mk.nowPlayingItem["attributes"]["artistName"] }}
+                                            </div>
+                                            <div class="song-artist item-navigate" style="display: inline-block"
+                                                 @click="getNowPlayingItemDetailed('album')"
+                                                 v-if="mk.nowPlayingItem['attributes']['albumName'] != ''">
+                                                <div class="separator" style="display: inline-block;">{{"—"}}</div>
+                                                {{(mk.nowPlayingItem["attributes"]["albumName"]) ?
+                                                (mk.nowPlayingItem["attributes"]["albumName"]) : "" }}
+                                            </div>
                                         </div>
-                                        <div class="song-artist item-navigate" style="display: inline-block"
-                                             @click="getNowPlayingItemDetailed('album')"
-                                             v-if="mk.nowPlayingItem['attributes']['albumName'] != ''">
-                                            <div class="separator" style="display: inline-block;">{{"—"}}</div>
-                                            {{(mk.nowPlayingItem["attributes"]["albumName"]) ?
-                                            (mk.nowPlayingItem["attributes"]["albumName"]) : "" }}
-                                        </div>
-                                    </div>
                                     </div>
 
                                     <div class="song-progress">
@@ -154,7 +157,7 @@
                     </div>
                     <div class="app-chrome-item generic">
                         <button class="playback-button--small miniplayer"
-                        @click="drawer.open = false; miniPlayer(true)"></button>
+                                @click="drawer.open = false; miniPlayer(true)"></button>
                     </div>
                     <div class="app-chrome-item generic">
                         <button class="playback-button--small queue" :class="{'active': drawer.panel == 'queue'}"
@@ -189,7 +192,8 @@
                                    @focus="search.showHints = true"
                                    @blur="setTimeout(()=>{search.showHints = false}, 300)"
                                    v-on:keyup.enter="searchQuery();search.showHints = false" @change="showSearch();"
-                                   @input="getSearchHints()" :placeholder="$root.getLz('term.search') + '...'" v-model="search.term"
+                                   @input="getSearchHints()" :placeholder="$root.getLz('term.search') + '...'"
+                                   v-model="search.term"
                                    ref="searchInput" class="search-input">
                         </div>
                     </div>
@@ -205,21 +209,26 @@
                         <div class="app-sidebar-header-text">
                             Cider
                         </div>
-                        <sidebar-library-item :name="$root.getLz('home.title')" svg-icon="./assets/feather/home.svg" page="home">
+                        <sidebar-library-item :name="$root.getLz('home.title')" svg-icon="./assets/feather/home.svg"
+                                              page="home">
                         </sidebar-library-item>
                         <div class="app-sidebar-header-text">
                             {{$root.getLz('term.appleMusic')}}
                         </div>
-                        <sidebar-library-item :name="$root.getLz('term.listenNow')" svg-icon="./assets/feather/play-circle.svg"
+                        <sidebar-library-item :name="$root.getLz('term.listenNow')"
+                                              svg-icon="./assets/feather/play-circle.svg"
                                               page="listen_now"></sidebar-library-item>
-                        <sidebar-library-item :name="$root.getLz('term.browse')" svg-icon="./assets/feather/globe.svg" page="browse">
+                        <sidebar-library-item :name="$root.getLz('term.browse')" svg-icon="./assets/feather/globe.svg"
+                                              page="browse">
                         </sidebar-library-item>
-                        <sidebar-library-item :name="$root.getLz('term.radio')" svg-icon="./assets/feather/radio.svg" page="radio">
+                        <sidebar-library-item :name="$root.getLz('term.radio')" svg-icon="./assets/feather/radio.svg"
+                                              page="radio">
                         </sidebar-library-item>
                         <div class="app-sidebar-header-text">
                             {{$root.getLz('term.library')}}
                         </div>
-                        <sidebar-library-item :name="$root.getLz('term.recentlyAdded')" svg-icon="./assets/feather/plus-circle.svg"
+                        <sidebar-library-item :name="$root.getLz('term.recentlyAdded')"
+                                              svg-icon="./assets/feather/plus-circle.svg"
                                               page="library-recentlyadded"></sidebar-library-item>
                         <sidebar-library-item :name="$root.getLz('term.songs')" svg-icon="./assets/feather/music.svg"
                                               page="library-songs"></sidebar-library-item>
@@ -227,8 +236,10 @@
                                               page="library-albums"></sidebar-library-item>
                         <sidebar-library-item :name="$root.getLz('term.artists')" svg-icon="./assets/feather/user.svg"
                                               page="library-artists"></sidebar-library-item>
-                        <sidebar-library-item :name="$root.getLz('term.videos')" svg-icon="./assets/feather/video.svg" page="library-videos"></sidebar-library-item>
-                        <sidebar-library-item :name="$root.getLz('term.podcasts')" svg-icon="./assets/feather/mic.svg" page="podcasts">
+                        <sidebar-library-item :name="$root.getLz('term.videos')" svg-icon="./assets/feather/video.svg"
+                                              page="library-videos"></sidebar-library-item>
+                        <sidebar-library-item :name="$root.getLz('term.podcasts')" svg-icon="./assets/feather/mic.svg"
+                                              page="podcasts">
                         </sidebar-library-item>
                         <div class="app-sidebar-header-text" @contextmenu="playlistHeaderContextMenu">
                             {{ $root.getLz('term.playlists') }}
@@ -239,6 +250,34 @@
                     <transition name="wpfade">
                         <div class="usermenu-container" v-if="chrome.menuOpened">
                             <div class="usermenu-body">
+                                <button class="app-sidebar-button" style="width:100%">
+
+                                    <img class="sidebar-user-icon" loading="lazy"
+                                         :src="getMediaItemArtwork(chrome.hideUserInfo ? 'http://localhost:9000/assets/logocut.png' : (chrome.userinfo.attributes['artwork'] ? chrome.userinfo.attributes['artwork']['url'] : ''), 26)"/>
+
+                                    <div class="sidebar-user-text" v-if="!chrome.hideUserInfo">
+                                        <template v-if="chrome.userinfo.id || mk.isAuthorized">
+                                            <div class="fullname text-overflow-elipsis">{{ (chrome.userinfo != null &&
+                                                chrome.userinfo.attributes != null) ? (chrome.userinfo.attributes.name ?? "") :
+                                                ""
+                                                }}
+                                            </div>
+                                            <div class="handle-text text-overflow-elipsis">{{
+                                                (chrome.userinfo != null && chrome.userinfo.attributes != null) ?
+                                                (chrome.userinfo.attributes.handle ?? "") : ""
+                                                }}
+                                            </div>
+                                        </template>
+                                        <template v-else>
+                                            <div @click="mk.authorize()">
+                                                Sign In
+                                            </div>
+                                        </template>
+                                    </div>
+                                    <div class="sidebar-user-text" v-else>
+                                        Cider
+                                    </div>
+                                </button>
                                 <button class="usermenu-item" @click="showWebRemoteQR()">
                                     <div class="row nopadding">
                                         <div class="col nopadding">
@@ -261,15 +300,16 @@
                                     <span class="usermenu-item-name">{{$root.getLz('term.settings')}}</span>
                                 </button>
                                 <button class="usermenu-item" @click="unauthorize()">
-                                    <span class="usermenu-item-icon" style="right:2.5px;"><%- include("./svg/log-out.svg") %></span>
+                                    <span class="usermenu-item-icon"
+                                          style="right:2.5px;"><%- include("./svg/log-out.svg") %></span>
                                     <span class="usermenu-item-name">{{$root.getLz('term.logout')}}</span>
                                 </button>
                             </div>
                         </div>
                     </transition>
-                    <div class="app-sidebar-footer">
+                    <div class="app-sidebar-footer display--small">
 
-                        <div class="app-playback-controls display--small" v-if="mkReady()"
+                        <div class="app-playback-controls " v-if="mkReady()"
                              @contextmenu="nowPlayingContextMenu">
                             <div class="control-buttons">
                                 <div class="app-chrome-item">
@@ -302,39 +342,13 @@
                                 <div class="input-container">
                                     <button class="volume-button--small volume" @click="muteButtonPressed()"
                                             :class="{'active': this.cfg.audio.volume == 0}"></button>
-                                    <input type="range" class="" @wheel="volumeWheel" step="0.01" min="0" :max="cfg.audio.maxVolume"
+                                    <input type="range" class="" @wheel="volumeWheel" step="0.01" min="0"
+                                           :max="cfg.audio.maxVolume"
                                            v-model="mk.volume" v-if="typeof mk.volume != 'undefined'"
                                            @change="checkMuteChange()">
                                 </div>
                             </div>
                         </div>
-                        <button class="app-sidebar-button" style="width:100%" :class="{active: chrome.menuOpened}"
-                                @blur="setTimeout(()=>{chrome.menuOpened = false}, 100)"
-                                @click="(chrome.userinfo.id) ? chrome.menuOpened = !chrome.menuOpened : false">
-
-                            <img class="sidebar-user-icon" loading="lazy"
-                                 :src="getMediaItemArtwork(chrome.hideUserInfo ? 'http://localhost:9000/assets/logocut.png' : (chrome.userinfo.attributes['artwork'] ? chrome.userinfo.attributes['artwork']['url'] : ''), 26)"/>
-
-                            <div class="sidebar-user-text" v-if="!chrome.hideUserInfo">
-                                <template v-if="chrome.userinfo.id || mk.isAuthorized">
-                                    <div class="fullname text-overflow-elipsis">{{  (chrome.userinfo != null && chrome.userinfo.attributes != null) ? (chrome.userinfo.attributes.name ?? "") : ""
-                                        }}
-                                    </div>
-                                    <div class="handle-text text-overflow-elipsis">{{
-                                        (chrome.userinfo != null && chrome.userinfo.attributes != null)  ? (chrome.userinfo.attributes.handle ?? "") : ""
-                                        }}
-                                    </div>
-                                </template>
-                                <template v-else>
-                                    <div @click="mk.authorize()">
-                                        Sign In
-                                    </div>
-                                </template>
-                            </div>
-                            <div class="sidebar-user-text" v-else>
-                                Cider
-                            </div>
-                        </button>
                     </div>
                     <div class="app-sidebar-notification backgroundNotification"
                          v-if="library.backgroundNotification.show">
@@ -360,8 +374,8 @@
                         </template>
                     </transition>
                     <!-- Library - Library Videos -->
-                    <transition name="wpfade" >
-                        <template v-if="page == 'library-videos'">                       
+                    <transition name="wpfade">
+                        <template v-if="page == 'library-videos'">
                             <cider-library-videos></cider-library-videos>
                         </template>
                     </transition>
@@ -587,7 +601,7 @@
     <transition name="fsModeSwitch">
         <div class="fullscreen-view-container" v-if="appMode == 'mini'">
             <mini-view :image="currentArtUrl.replace('50x50', '600x600')" :time="lyriccurrenttime"
-                             :lyrics="lyrics" :richlyrics="richlyrics"></mini-view>
+                       :lyrics="lyrics" :richlyrics="richlyrics"></mini-view>
         </div>
     </transition>
     <transition name="wpfade">
@@ -721,16 +735,16 @@
 <%- include('components/sidebar-playlist')
 %>
 <!-- Spatial Properties -->
-<%- include('components/spatial-properties') 
+<%- include('components/spatial-properties')
 %>
 <!-- Audio Settings -->
 <%- include('components/audio-settings')
 %>
 <!-- QRCode Modal -->
-<%- include('components/qrcode-modal') 
+<%- include('components/qrcode-modal')
 %>
 <!-- Equalizer -->
-<%- include('components/equalizer') 
+<%- include('components/equalizer')
 %>
 <!-- Add to playlist -->
 <%- include('components/add-to-playlist')

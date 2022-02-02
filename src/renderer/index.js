@@ -340,6 +340,13 @@ const app = new Vue({
         },
     },
     methods: {
+        mainMenuVisibility(val) {
+            if(val) {
+                (this.chrome.userinfo.id) ? this.chrome.menuOpened = !this.chrome.menuOpened : false
+            }else{
+                setTimeout(()=>{this.chrome.menuOpened = false}, 100)
+            }
+        },
         stringTemplateParser(expression, valueObj) {
             const templateMatcher = /{{\s?([^{}\s]*)\s?}}/g;
             let text = expression.replace(templateMatcher, (substring, value, index) => {
@@ -594,7 +601,6 @@ const app = new Vue({
             if (this.isDev) {
                 this.mk.privateEnabled = true
                 // Hide UserInfo if Dev mode
-                this.chrome.hideUserInfo = true
             } else {
                 // Get Hide User from Settings
                 this.chrome.hideUserInfo = !this.cfg.visual.showuserinfo
