@@ -120,8 +120,8 @@ export default class DiscordRichPresence {
             delete activity.largeImageText
         }
 
-		activity.buttons.forEach((key: {label: string, url: string}, value: Number) => {
-			if (key.url.endsWith('undefined') || key.url.includes('undefined')) {
+		activity.buttons.forEach((key: {label: string, url: string}, _v: Number) => {
+			if (key.url.includes('undefined') || key.url.includes('no-id-found')) {
                 activity.buttons.splice(key, 1);
 			}
 		})
