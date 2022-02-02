@@ -385,13 +385,13 @@ export class BrowserWindow {
             return await yt.search(u);
         });
 
-        ipcMain.on("close", (_event, mac) => {
-            if (mac) return
+        ipcMain.on("close", (_event, platformCheck) => {
+            if (platformCheck && process.platform === "darwin") return
             BrowserWindow.win.close();
         });
 
-        ipcMain.on("maximize", (_event, mac) => {
-            if (mac) return
+        ipcMain.on("maximize", (_event, platformCheck) => {
+            if (platformCheck && process.platform === "darwin") return
             // listen for maximize event
             if (BrowserWindow.win.isMaximized()) {
                 BrowserWindow.win.unmaximize();
@@ -404,8 +404,8 @@ export class BrowserWindow {
             BrowserWindow.win.unmaximize();
         });
 
-        ipcMain.on("minimize", (_event, mac) => {
-            if (mac) return
+        ipcMain.on("minimize", (_event, platformCheck) => {
+            if (platformCheck && process.platform === "darwin") return
             // listen for minimize event
             BrowserWindow.win.minimize();
         });
