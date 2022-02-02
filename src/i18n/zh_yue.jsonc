@@ -130,6 +130,18 @@
   "term.topResult": "熱門搜尋結果",   // Search Results
   "term.sharedPlaylists": "播放清單", // Search Results
   "term.people": "個人檔案", // Search Results
+  "term.newpreset.name": "New EQ Preset Name", // Equalizer Preset
+  "term.addedpreset": "Added Preset",
+  "term.deletepreset.warn": "Are you sure you want to delete this preset?",
+  "term.deletedpreset": "Removed preset",
+  "term.musicVideos": "Music Videos", // Search page friendlyTypes
+  "term.stations": "電台",
+  "term.curators": "Curators",
+  "term.appleCurators": "Apple Curators",
+  "term.radioShows": "廣播單集",
+  "term.recordLabels": "唱片公司",
+  "term.videoExtras": "影片特輯",
+  "term.top": "Top",
   
   // Home
   "home.title": "主頁",
@@ -201,6 +213,8 @@
   "action.tray.quit": "結束",
   "action.tray.show": "顯示",
   "action.update": "更新",
+  "action.newpreset": "New Preset...",  // Equalizer Preset
+  "action.deletepreset": "Delete Preset",
 
   // Settings - General
   "settings.header.general": "一般",
