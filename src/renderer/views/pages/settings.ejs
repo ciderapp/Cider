@@ -35,7 +35,7 @@
                     <div class="md-option-segment md-option-segment_auto">
                         <select class="md-select" style="width:180px;" v-model="app.cfg.audio.quality"
                                 v-on:change="changeAudioQuality">
-                            <!-- //   <option value="990">Extreme</option> -->
+                            <option value="990">Extreme</option>
                             <option value="256">{{$root.getLz('settings.header.audio.quality.high')}}</option>
                             <option value="64">{{$root.getLz('settings.header.audio.quality.low')}}</option>
                             <option value="auto">{{$root.getLz('settings.header.audio.quality.auto')}}</option>
