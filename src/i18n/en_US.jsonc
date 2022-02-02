@@ -130,6 +130,10 @@
   "term.topResult": "Top Result",   // Search Results
   "term.sharedPlaylists": "Shared Playlists", // Search Results
   "term.people": "People", // Search Results
+  "term.newpreset.name": "New EQ Preset Name", // Equalizer Preset
+  "term.addedpreset": "Added Preset",
+  "term.deletepreset.warn": "Are you sure you want to delete this preset?",
+  "term.deletedpreset": "Removed preset",
  
   // Home
   "home.title": "Home",
@@ -201,6 +205,8 @@
   "action.tray.quit": "Quit",
   "action.tray.show": "Show",
   "action.update": "Update",
+  "action.newpreset": "New Preset...",  // Equalizer Preset
+  "action.deletepreset": "Delete Preset",
 
   // Settings - General
   "settings.header.general": "General",
