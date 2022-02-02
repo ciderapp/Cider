@@ -18,6 +18,7 @@
     ]
   },
   "include": [
-    "src/main/*"
+    "src/main/*",
+    "src/main/plugins/*"
   ]
 }
