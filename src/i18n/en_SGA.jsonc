@@ -49,7 +49,7 @@
   "term.newPlaylistFolder": "リᒷ∴ i!|:ᖋ॥|:╎ϟᒣ ⎓ᒍ|:↸ᒷ∷",
   "term.createNewPlaylist": "ᔮ∷ᒷᖋᒣᒷ リᒷ∴ i!|:ᖋ॥|:╎ϟᒣ",
   "term.createNewPlaylistFolder": "ᔮ∷ᒷᖋᒣᒷ リᒷ∴ i!|:ᖋ॥|:╎ϟᒣ ⎓ᒍ|:↸ᒷ∷",
-  "term.deletePlaylist": "ᖋ∷ᒷ ॥ᒍ⚍ ϟ⚍∷ᒷ ॥ᒍ⚍ ∴ᖋリᒣ ᒣᒍ ↸ᒷ|:ᒷᒣᒷ this i!|:ᖋ॥|:╎ϟᒣ?",
+  "term.deletePlaylist": "ᖋ∷ᒷ ॥ᒍ⚍ ϟ⚍∷ᒷ ॥ᒍ⚍ ∴ᖋリᒣ ᒣᒍ ↸ᒷ|:ᒷᒣᒷ ᒣ⍑╎ϟ i!|:ᖋ॥|:╎ϟᒣ?",
   "term.play": "i!|:ᖋ॥",
   "term.pause": "I!ᖋ⚍ϟᒷ",
   "term.previous": "I!∷ᒷ⍊╎ᒍ⚍ϟ",
@@ -130,7 +130,19 @@
   "term.topResult": "ᒣᒍi! ∷ᒷϟ⚍|:ᒣ",   // Search Results
   "term.sharedPlaylists": "ϟ⍑ᖋ∷ᒷ↸ i!|:ᖋ॥|:╎ϟᒣϟ", // Search Results
   "term.people": "i!ᒷᒍi!|:ᒷ", // Search Results
-  
+  "term.newpreset.name": "リᒷ∴ ᒷᑑ i!∷ᒷϟᒷᒣ リᖋᒲᒷ", // Equalizer Preset
+  "term.addedpreset": "ᖋ↸↸ᒷ↸ i!∷ᒷϟᒷᒣ",
+  "term.deletepreset.warn": "ᖋ∷ᒷ ॥ᒍ⚍ ϟ⚍∷ᒷ ॥ᒍ⚍ ∴ᖋリᒣ ᒣᒍ ↸ᒷ|:ᒷᒣᒷ ᒣ⍑╎ϟ i!∷ᒷϟᒷᒣ?",
+  "term.deletedpreset": "∷ᒷᒲᒍ⍊ᒷ↸ i!∷ᒷϟᒷᒣ",
+  "term.musicVideos": "ᒲ⚍ϟ╎ᔮ ⍊╎↸ᒷᒍϟ", // Search page friendlyTypes
+  "term.stations": "ϟᒣᖋᒣ╎ᒍリϟ",
+  "term.curators": "ᔮ⚍∷ᖋᒣᒍ∷ϟ",
+  "term.appleCurators": "ᖋi!i!|:ᒷ ᔮ⚍∷ᖋᒣᒍ∷ϟ",
+  "term.radioShows": "∷ᖋ↸╎ᒍ ϟ⍑ᒍ∴ϟ",
+  "term.recordLabels": "∷ᒷᔮᒍ∷↸ |:ᖋᕊᒷ|:ϟ",
+  "term.videoExtras": "⍊╎↸ᒷᒍ ᒷ/ᒣ∷ᖋϟ",
+  "term.top": "ᒣᒍi!",
+
   // Home
   "home.title": "⍑ᒍᒲᒷ",
   "home.recentlyPlayed": "∷ᒷᔮᒷリᒣ|:॥ i!|:ᖋ॥ᒷ↸",
@@ -201,6 +213,8 @@
   "action.tray.quit": "ᑑ⚍╎ᒣ",
   "action.tray.show": "ϟ⍑ᒍ∴",
   "action.update": "⚍i!↸ᖋᒣᒷ",
+  "action.newpreset": "リᒷ∴ i!∷ᒷϟᒷᒣ...",  // Equalizer Preset
+  "action.deletepreset": "↸ᒷ|:ᒷᒣᒷ i!∷ᒷϟᒷᒣ",
 
   // Settings - General
   "settings.header.general": "┤ᒷリᒷ∷ᖋ|:",
