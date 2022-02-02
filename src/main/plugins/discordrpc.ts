@@ -123,6 +123,10 @@ export default class DiscordRichPresence {
             this._activity.details = this._activity.details.substring(0, 125) + '...'
         }
 
+        if (this._activity.largeImageKey == null || this._activity.largeImageKey == ""){
+            this._activity.largeImageKey = "cider";
+        }
+
         // Check if its pausing (false) or playing (true)
         if (!attributes.status) {
             if (DiscordRichPresence._store.general.discord_rpc_clear_on_pause) {
