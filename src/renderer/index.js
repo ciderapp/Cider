@@ -3270,11 +3270,13 @@ const app = new Vue({
                 document.querySelectorAll(".animated-artwork-video").forEach(el => {
                     el.play()
                 })
+                document.querySelector("body").classList.remove("stopanimation")
                 this.animateBackground = true
             } else {
                 document.querySelectorAll(".animated-artwork-video").forEach(el => {
                     el.pause()
                 })
+                document.querySelector("body").classList.add("stopanimation")
                 this.animateBackground = false
             }
         },
