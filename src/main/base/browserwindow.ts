@@ -12,7 +12,7 @@ import * as mm from 'music-metadata';
 import fetch from 'electron-fetch'
 import {wsapi} from "./wsapi";
 import {jsonc} from "jsonc";
-import {NsisUpdater} from "electron-updater";
+import {NsisUpdater, AppImageUpdater} from "electron-updater";
 import {utils} from './utils'
 
 export class BrowserWindow {
@@ -41,13 +41,11 @@ export class BrowserWindow {
         minHeight: 390,
         frame: false,
         title: "Cider",
-        vibrancy: "fullscreen-ui",
+        vibrancy: "dark",
         transparent: process.platform === "darwin",
         hasShadow: false,
         show: false,
         backgroundColor: "#1E1E1E",
-        titleBarStyle: 'customButtonsOnHover',
-        trafficLightPosition: { x: 960, y: 20 },
         webPreferences: {
             nodeIntegration: true,
             sandbox: true,
@@ -385,13 +383,11 @@ export class BrowserWindow {
             return await yt.search(u);
         });
 
-        ipcMain.on("close", (_event, platformCheck) => {
-            if (platformCheck && process.platform === "darwin") return
+        ipcMain.on("close", () => {
             BrowserWindow.win.close();
         });
 
-        ipcMain.on("maximize", (_event, platformCheck) => {
-            if (platformCheck && process.platform === "darwin") return
+        ipcMain.on("maximize", () => {
             // listen for maximize event
             if (BrowserWindow.win.isMaximized()) {
                 BrowserWindow.win.unmaximize();
@@ -404,8 +400,7 @@ export class BrowserWindow {
             BrowserWindow.win.unmaximize();
         });
 
-        ipcMain.on("minimize", (_event, platformCheck) => {
-            if (platformCheck && process.platform === "darwin") return
+        ipcMain.on("minimize", () => {
             // listen for minimize event
             BrowserWindow.win.minimize();
         });
@@ -441,10 +436,10 @@ export class BrowserWindow {
 
         ipcMain.on('play', (_event, type, id) => {
             BrowserWindow.win.webContents.executeJavaScript(`
-															MusicKit.getInstance().setQueue({ ${type}: '${id}'}).then(function(queue) {
-																MusicKit.getInstance().play();
-															});
-															`)
+			    MusicKit.getInstance().setQueue({ ${type}: '${id}'}).then(function(queue) {
+				    MusicKit.getInstance().play();
+			    });
+		    `)
         })
 
         //QR Code
@@ -473,8 +468,13 @@ export class BrowserWindow {
                 provider: 'generic',
                 url: 'https://43-429851205-gh.circle-artifacts.com/0/%7E/Cider/dist/artifacts' //Base URL
             }
-            const autoUpdater = new NsisUpdater(options) //Windows Only (for now) -q
-            await autoUpdater.checkForUpdatesAndNotify()
+            /*
+            *  Have to handle the auto updaters seperatly until we can support macOS. electron-builder limitation -q
+            */
+            const win_autoUpdater = new NsisUpdater(options) //Windows
+            const linux_autoUpdater = new AppImageUpdater(options) //Linux
+            await win_autoUpdater.checkForUpdatesAndNotify()
+            await linux_autoUpdater.checkForUpdatesAndNotify()
         })
 
         /* *********************************************************************************************
