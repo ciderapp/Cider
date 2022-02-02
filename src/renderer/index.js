@@ -1379,7 +1379,9 @@ const app = new Vue({
                 case "album":
                     let albumId = '';
                     try {
-                        if (item.relationships.albums && item.relationships.albums.data.length > 0 && !item.relationships.albums.data[0].type.includes("library")) {
+                        if((item.type ?? item.playParams?.kind ?? "") == "albums" ){
+                            albumId = item.id ?? ""
+                        } else if (item.relationships.albums && item.relationships.albums.data.length > 0 && !item.relationships.albums.data[0].type.includes("library")) {
                             if (item.relationships.albums.data[0].type === "album" || item.relationships.albums.data[0].type === "albums") {
                                 albumId = item.relationships.albums.data[0].id
                             }
@@ -1395,7 +1397,7 @@ const app = new Vue({
 
                     if (albumId == "") {
                         try {
-                            let albumQuery = (await app.mk.api.v3.music(`v1/catalog/${app.mk.storefrontId}/search?term=${item.attributes.albumName + " " + (item.attributes.artistName ?? "")}`, {
+                            let albumQuery = (await app.mk.api.v3.music(`v1/catalog/${app.mk.storefrontId}/search?term=${(item.attributes.albumName ?? item.attributes.name ?? "" )+ " " + (item.attributes.artistName ?? "")}`, {
                                 limit: 1,
                                 types: 'albums'
                             })).data.results;
