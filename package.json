@@ -119,8 +119,8 @@
     "extends": null,
     "files": [
       "./build/**/*",
-      "./resources/icons/icon.*",
-      "./src/**/*"
+      "./src/**/*",
+      "./resources/icons/**/*"
     ],
     "linux": {
       "target": [

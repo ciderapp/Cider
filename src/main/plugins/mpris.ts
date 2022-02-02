@@ -179,7 +179,7 @@ export default class MPRIS {
 
     /**
      * Runs on playback State Change
-     * @param attributes Music Attributes (attributes.state = current state)
+     * @param attributes Music Attributes (attributes.status = current state)
      */
     onPlaybackStateDidChange(attributes: object): void {
         this.updatePlayerState(attributes)

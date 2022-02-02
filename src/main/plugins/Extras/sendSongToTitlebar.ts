@@ -24,7 +24,7 @@ export default class sendSongToTitlebar {
     onBeforeQuit(): void {}
     /**
      * Runs on playback State Change
-     * @param attributes Music Attributes (attributes.state = current state)
+     * @param attributes Music Attributes (attributes.status = current state)
      */
     onPlaybackStateDidChange(attributes: any): void {
         this._win.setTitle(`${(attributes != null && attributes.name != null && attributes.name.length > 0) ? (attributes.name + " - ") : ''}Cider`)

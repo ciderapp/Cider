@@ -21,26 +21,15 @@ export default class Thumbar {
      * Thumbnail Toolbar Assets
      */
     private icons: { pause: Electron.NativeImage, play: Electron.NativeImage, next: Electron.NativeImage, previous: Electron.NativeImage } = {
-        pause: nativeImage.createFromPath(join(utils.getPath('resourcePath'), 'icons/thumbar', `${nativeTheme.shouldUseDarkColors ? 'dark' : 'light'}_pause.png`)).resize({width: 32, height: 32}),
-        play: nativeImage.createFromPath(join(utils.getPath('resourcePath'), 'icons/thumbar', `${nativeTheme.shouldUseDarkColors ? 'dark' : 'light'}_play.png`)).resize({width: 32, height: 32}),
-        next: nativeImage.createFromPath(join(utils.getPath('resourcePath'), 'icons/thumbar', `${nativeTheme.shouldUseDarkColors ? 'dark' : 'light'}_next.png`)).resize({width: 32, height: 32}),
-        previous: nativeImage.createFromPath(join(utils.getPath('resourcePath'), 'icons/thumbar', `${nativeTheme.shouldUseDarkColors ? 'dark' : 'light'}_previous.png`)).resize({width: 32, height: 32}),
+        pause: nativeImage.createFromPath(join(utils.getPath('resourcePath'), 'icons/thumbar', `${nativeTheme.shouldUseDarkColors ? 'light' : 'dark'}_pause.png`)),
+        play: nativeImage.createFromPath(join(utils.getPath('resourcePath'), 'icons/thumbar', `${nativeTheme.shouldUseDarkColors ? 'light' : 'dark'}_play.png`)),
+        next: nativeImage.createFromPath(join(utils.getPath('resourcePath'), 'icons/thumbar', `${nativeTheme.shouldUseDarkColors ? 'light' : 'dark'}_next.png`)),
+        previous: nativeImage.createFromPath(join(utils.getPath('resourcePath'), 'icons/thumbar', `${nativeTheme.shouldUseDarkColors ? 'light' : 'dark'}_previous.png`)),
     }
 
     /*******************************************************************************************
      * Private Methods
      * ****************************************************************************************/
-
-    /**
-     * Runs a media event
-     * @param type - pausePlay, nextTrack, PreviousTrack
-     * @private
-     */
-    private runMediaEvent(type: string) {
-        if (this._win) {
-            this._win.webContents.executeJavaScript(`MusicKitInterop.${type}()`).catch(console.error)
-        }
-    }
 
     /**
      * Blocks non-windows systems from running this plugin
@@ -60,28 +49,33 @@ export default class Thumbar {
      */
     @Thumbar.windowsOnly
     private updateButtons(attributes: any) {
-        const runMediaEvent = this.runMediaEvent;
+
+        console.log(attributes)
+
+        if (!attributes) {
+            return
+        }
 
         const buttons = [
             {
                 tooltip: 'Previous',
                 icon: this.icons.previous,
                 click() {
-                    runMediaEvent('previous')
+                    utils.playback.previous()
                 }
             },
             {
-                tooltip: this._app.media.status ? 'Pause' : 'Play',
-                icon: attributes.state ? this.icons.pause : this.icons.play,
+                tooltip: attributes.status ? 'Pause' : 'Play',
+                icon: attributes.status ? this.icons.pause : this.icons.play,
                 click() {
-                    runMediaEvent('playPause')
+                    utils.playback.playPause()
                 }
             },
             {
                 tooltip: 'Next',
                 icon: this.icons.next,
                 click() {
-                    runMediaEvent('nextTrack')
+                    utils.playback.next()
                 }
             }
         ];
@@ -108,7 +102,7 @@ export default class Thumbar {
     /**
      * Runs on app ready
      */
-    onReady(win: any): void {
+    onReady(win: Electron.BrowserWindow): void {
         this._win = win;
         console.debug(`[Plugin][${this.name}] Ready.`);
     }
@@ -122,7 +116,7 @@ export default class Thumbar {
 
     /**
      * Runs on playback State Change
-     * @param attributes Music Attributes (attributes.state = current state)
+     * @param attributes Music Attributes (attributes.status = current state)
      */
     onPlaybackStateDidChange(attributes: object): void {
         this.updateButtons(attributes)
@@ -133,6 +127,7 @@ export default class Thumbar {
      * @param attributes Music Attributes
      */
     onNowPlayingItemDidChange(attributes: object): void {
+        this.updateButtons(attributes)
     }
 
 }

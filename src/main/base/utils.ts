@@ -85,19 +85,19 @@ export class utils {
      */
     static playback = {
         pause: () => {
-            bw.win.webContents.send("MusicKitInterop.pause()")
+            bw.win.webContents.executeJavaScript("MusicKitInterop.pause()")
         },
         play: () => {
-            bw.win.webContents.send("MusicKitInterop.play()")
+            bw.win.webContents.executeJavaScript("MusicKitInterop.play()")
         },
         playPause: () => {
-            bw.win.webContents.send("MusicKitInterop.playPause()")
+            bw.win.webContents.executeJavaScript("MusicKitInterop.playPause()")
         },
         next: () => {
-            bw.win.webContents.send("MusicKitInterop.next()")
+            bw.win.webContents.executeJavaScript("MusicKitInterop.next()")
         },
         previous: () => {
-            bw.win.webContents.send("MusicKitInterop.previous()")
+            bw.win.webContents.executeJavaScript("MusicKitInterop.previous()")
         }
     }
 }
