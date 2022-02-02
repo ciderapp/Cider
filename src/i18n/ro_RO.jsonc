@@ -5,7 +5,7 @@
   "i18n.category": "main", // main = real language, fun = fun community 
 languages
   "i18n.authors": "georgechrc, ", // Authors, if you contribute to this 
-file feel free to add your name seperated with a space
+//file feel free to add your name seperated with a space
   "date.format": "${d} ${m}, ${y}",
   // translations
   "term.equalizer": "Egalizator",
