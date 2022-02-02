@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-sm" style="width: auto;" v-if="getTopResult()">
                     <template>
-                        <h3>Top Result</h3>
+                        <h3>{{app.getLz('term.topResult')}}</h3>
                         <mediaitem-square :item="getTopResult()"></mediaitem-square>
                     </template>
                 </div>
@@ -15,7 +15,7 @@
                 <div class="col" v-if="search.results.song">
                     <div class="row">
                         <div class="col">
-                            <h3>Songs</h3>
+                            <h3>{{app.getLz('term.songs')}}</h3>
                         </div>
                         <div class="col-auto flex-center"
                             @click="app.showSearchView(app.search.term, 'song', app.friendlyTypes('song'))"
@@ -41,8 +41,7 @@
                         </div>
                         <div class="col-auto flex-center" v-if="search.results[section].data.length >= 10">
                             <button class="cd-btn-seeall"
-                                    @click="app.showSearchView(app.search.term, section, app.friendlyTypes(section))">See
-                                All
+                                    @click="app.showSearchView(app.search.term, section, app.friendlyTypes(section))">{{app.getLz('term.seeAll')}}
                             </button>
                         </div>
                     </div>
@@ -59,7 +58,7 @@
             <template v-if="search.resultsSocial.playlist">
                 <div class="row">
                     <div class="col">
-                        <h3>Shared Playlists</h3>
+                        <h3>{{app.getLz('term.sharedPlaylists')}}</h3>
                     </div>
                     <div class="col-auto flex-center" v-if="search.resultsSocial.playlist.data.length >= 10">
                         <button class="cd-btn-seeall"
@@ -73,7 +72,7 @@
             <template v-if="search.resultsSocial.profile">
                 <div class="row">
                     <div class="col">
-                        <h3>People</h3>
+                        <h3>{{app.getLz('term.people')}}</h3>
                     </div>
                     <div class="col-auto flex-center" v-if="search.resultsSocial.profile.data.length >= 10">
                         <button class="cd-btn-seeall"
