@@ -18,14 +18,7 @@ import {utils} from './utils'
 export class BrowserWindow {
     public static win: any | undefined = null;
     private devMode: boolean = !app.isPackaged;
-
-    private paths: any = {
-        srcPath: path.join(__dirname, "../../src"),
-        resourcePath: path.join(__dirname, "../../resources"),
-        ciderCache: path.resolve(app.getPath("userData"), "CiderCache"),
-        themes: path.resolve(app.getPath("userData"), "Themes"),
-        plugins: path.resolve(app.getPath("userData"), "Plugins"),
-    };
+    
     private audioStream: any = new Stream.PassThrough();
     private clientPort: number = 0;
     private remotePort: number = 6942;
@@ -37,7 +30,7 @@ export class BrowserWindow {
     };
     private options: any = {
         icon: path.join(
-            this.paths.resourcePath,
+            utils.getPath('resourcePath'),
             `icons/icon.` + (process.platform === "win32" ? "ico" : "png")
         ),
         width: 1024,
@@ -62,7 +55,7 @@ export class BrowserWindow {
             plugins: true,
             nodeIntegrationInWorker: false,
             webSecurity: false,
-            preload: path.join(this.paths.srcPath, "./preload/cider-preload.js"),
+            preload: path.join(utils.getPath('srcPath'), "./preload/cider-preload.js"),
         },
     };
 
@@ -122,7 +115,7 @@ export class BrowserWindow {
             }
         }
         for (let i = 0; i < expectedFiles.length; i++) {
-            const file = path.join(this.paths.ciderCache, expectedFiles[i]);
+            const file = path.join(utils.getPath('ciderCache'), expectedFiles[i]);
             if (!fs.existsSync(file)) {
                 fs.writeFileSync(file, JSON.stringify([]));
             }
@@ -135,8 +128,8 @@ export class BrowserWindow {
     private startWebServer(): void {
         const app = express();
 
-        app.use(express.static(path.join(this.paths.srcPath, "./renderer/")));
-        app.set("views", path.join(this.paths.srcPath, "./renderer/views"));
+        app.use(express.static(path.join(utils.getPath('srcPath'), "./renderer/")));
+        app.set("views", path.join(utils.getPath('srcPath'), "./renderer/views"));
         app.set("view engine", "ejs");
         let firstRequest = true;
         app.use((req, res, next) => {
@@ -188,8 +181,8 @@ export class BrowserWindow {
          * https://github.com/ciderapp/Apple-Music-Electron/blob/818ed18940ff600d76eb59d22016723a75885cd5/resources/functions/handler.js#L1173
          */
         const remote = express();
-        remote.use(express.static(path.join(this.paths.srcPath, "./web-remote/")))
-        remote.set("views", path.join(this.paths.srcPath, "./web-remote/views"));
+        remote.use(express.static(path.join(utils.getPath('srcPath'), "./web-remote/")))
+        remote.set("views", path.join(utils.getPath('srcPath'), "./web-remote/views"));
         remote.set("view engine", "ejs");
         getPort({port: 6942}).then((port) => {
             this.remotePort = port;
@@ -312,42 +305,42 @@ export class BrowserWindow {
 
         ipcMain.on("put-library-songs", (_event, arg) => {
             fs.writeFileSync(
-                path.join(this.paths.ciderCache, "library-songs.json"),
+                path.join(utils.getPath('ciderCache'), "library-songs.json"),
                 JSON.stringify(arg)
             );
         });
 
         ipcMain.on("put-library-artists", (_event, arg) => {
             fs.writeFileSync(
-                path.join(this.paths.ciderCache, "library-artists.json"),
+                path.join(utils.getPath('ciderCache'), "library-artists.json"),
                 JSON.stringify(arg)
             );
         });
 
         ipcMain.on("put-library-albums", (_event, arg) => {
             fs.writeFileSync(
-                path.join(this.paths.ciderCache, "library-albums.json"),
+                path.join(utils.getPath('ciderCache'), "library-albums.json"),
                 JSON.stringify(arg)
             );
         });
 
         ipcMain.on("put-library-playlists", (_event, arg) => {
             fs.writeFileSync(
-                path.join(this.paths.ciderCache, "library-playlists.json"),
+                path.join(utils.getPath('ciderCache'), "library-playlists.json"),
                 JSON.stringify(arg)
             );
         });
 
         ipcMain.on("put-library-recentlyAdded", (_event, arg) => {
             fs.writeFileSync(
-                path.join(this.paths.ciderCache, "library-recentlyAdded.json"),
+                path.join(utils.getPath('ciderCache'), "library-recentlyAdded.json"),
                 JSON.stringify(arg)
             );
         });
 
         ipcMain.on("get-library-songs", (event) => {
             let librarySongs = fs.readFileSync(
-                path.join(this.paths.ciderCache, "library-songs.json"),
+                path.join(utils.getPath('ciderCache'), "library-songs.json"),
                 "utf8"
             );
             event.returnValue = JSON.parse(librarySongs);
@@ -355,7 +348,7 @@ export class BrowserWindow {
 
         ipcMain.on("get-library-artists", (event) => {
             let libraryArtists = fs.readFileSync(
-                path.join(this.paths.ciderCache, "library-artists.json"),
+                path.join(utils.getPath('ciderCache'), "library-artists.json"),
                 "utf8"
             );
             event.returnValue = JSON.parse(libraryArtists);
@@ -363,7 +356,7 @@ export class BrowserWindow {
 
         ipcMain.on("get-library-albums", (event) => {
             let libraryAlbums = fs.readFileSync(
-                path.join(this.paths.ciderCache, "library-albums.json"),
+                path.join(utils.getPath('ciderCache'), "library-albums.json"),
                 "utf8"
             );
             event.returnValue = JSON.parse(libraryAlbums);
@@ -371,7 +364,7 @@ export class BrowserWindow {
 
         ipcMain.on("get-library-playlists", (event) => {
             let libraryPlaylists = fs.readFileSync(
-                path.join(this.paths.ciderCache, "library-playlists.json"),
+                path.join(utils.getPath('ciderCache'), "library-playlists.json"),
                 "utf8"
             );
             event.returnValue = JSON.parse(libraryPlaylists);
@@ -379,7 +372,7 @@ export class BrowserWindow {
 
         ipcMain.on("get-library-recentlyAdded", (event) => {
             let libraryRecentlyAdded = fs.readFileSync(
-                path.join(this.paths.ciderCache, "library-recentlyAdded.json"),
+                path.join(utils.getPath('ciderCache'), "library-recentlyAdded.json"),
                 "utf8"
             );
             event.returnValue = JSON.parse(libraryRecentlyAdded);

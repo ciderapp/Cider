@@ -3,8 +3,29 @@ import * as path from "path";
 import {jsonc} from "jsonc";
 import {Store} from "./store";
 import {BrowserWindow as bw} from "./browserwindow";
+import {app} from "electron";
 
 export class utils {
+
+    /**
+     * Paths for the application to use
+     */
+    private static paths: any = {
+        srcPath: path.join(__dirname, "../../src"),
+        resourcePath: path.join(__dirname, "../../resources"),
+        ciderCache: path.resolve(app.getPath("userData"), "CiderCache"),
+        themes: path.resolve(app.getPath("userData"), "Themes"),
+        plugins: path.resolve(app.getPath("userData"), "Plugins"),
+    };
+
+    /**
+     * Get the path
+     * @returns {string}
+     * @param name
+     */
+    static getPath(name: string): string {
+        return this.paths[name];
+    }
 
     /**
      * Fetches the i18n locale for the given language.
@@ -57,5 +78,26 @@ export class utils {
      */
     static getWindow(): Electron.BrowserWindow {
         return bw.win
+    }
+
+    /**
+     * Playback Functions
+     */
+    static playback = {
+        pause: () => {
+            bw.win.webContents.send("MusicKitInterop.pause()")
+        },
+        play: () => {
+            bw.win.webContents.send("MusicKitInterop.play()")
+        },
+        playPause: () => {
+            bw.win.webContents.send("MusicKitInterop.playPause()")
+        },
+        next: () => {
+            bw.win.webContents.send("MusicKitInterop.next()")
+        },
+        previous: () => {
+            bw.win.webContents.send("MusicKitInterop.previous()")
+        }
     }
 }
