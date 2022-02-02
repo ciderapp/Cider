@@ -99,6 +99,17 @@
             <div class="settings-option-body">
                 <div class="md-option-line">
                     <div class="md-option-segment">
+                        Theme
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <select class="md-select" @change="$root.setTheme($root.cfg.visual.theme)" v-model="$root.cfg.visual.theme">
+                            <option value="default.less">Cider</option>
+                            <option v-for="theme in themes" :value="theme">{{ theme }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="md-option-line">
+                    <div class="md-option-segment">
                         {{$root.getLz('settings.option.visual.windowBackgroundStyle')}}
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
@@ -623,16 +634,7 @@
                     <span>{{$root.getLz('settings.header.unfinished')}}</span>
                 </div>
                 <div class="settings-option-body">
-                    <div class="md-option-line">
-                        <div class="md-option-segment">
-                            Theme
-                        </div>
-                        <div class="md-option-segment md-option-segment_auto">
-                            <select class="md-select">
-                                <option value="0">Cider</option>
-                            </select>
-                        </div>
-                    </div>
+
                     <div class="md-option-line">
                         <div class="md-option-segment">
                             Theme Options
@@ -694,7 +696,8 @@
 		props: [],
 		data: function () {
 			return {
-				app: this.$root
+				app: this.$root,
+                themes: ipcRenderer.sendSync("get-themes")
 			}
 		},
 		mounted: function () {

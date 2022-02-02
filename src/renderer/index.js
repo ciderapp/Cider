@@ -586,6 +586,9 @@ const app = new Vue({
         },
         async init() {
             let self = this
+            if(this.cfg.visual.theme != "default.less" || this.cfg.visual.theme != "") {
+                this.setTheme()
+            }
             this.setLz(this.cfg.general.language)
             this.setLzManual()
             clearTimeout(this.hangtimer)
@@ -839,6 +842,18 @@ const app = new Vue({
                 this.getBrowsePage();
                 this.$forceUpdate()
             }, 500)
+        },
+        setTheme(theme = "") {
+            if(this.cfg.visual.theme == "") {
+                this.cfg.visual.theme = "default.less"
+            }
+            if(theme == ""){
+                theme = this.cfg.visual.theme
+            }else{
+                this.cfg.visual.theme = theme
+            }
+            document.querySelector("#userTheme").href = `themes/${this.cfg.visual.theme}`
+            document.querySelectorAll(`[id*='less']`).forEach(el => { el.remove() });less.refresh()
         },
         unauthorize() {
             this.mk.unauthorize()

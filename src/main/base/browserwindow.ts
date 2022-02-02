@@ -150,6 +150,20 @@ export class BrowserWindow {
             res.render("main", this.EnvironmentVariables);
         });
 
+        app.get("/themes/:theme", (req, res) => {
+            const theme = req.params.theme.toLowerCase();
+            const themePath = path.join(utils.getPath('srcPath'), "./renderer/themes/", theme);
+            const userThemePath = path.join(utils.getPath('themes'), theme);
+            if (fs.existsSync(userThemePath)) {
+                res.sendFile(userThemePath);
+            } else if (fs.existsSync(themePath)) {
+                res.sendFile(themePath);
+            } else {
+                res.send(`// Theme not found - ${userThemePath}`);
+            }
+
+        });
+
         app.get("/audio.webm", (req, res) => {
             try {
                 req.socket.setTimeout(Number.MAX_SAFE_INTEGER);
@@ -274,6 +288,14 @@ export class BrowserWindow {
          ****************************************************************************************************************** */
         ipcMain.on("cider-platform", (event) => {
             event.returnValue = process.platform;
+        });
+
+        ipcMain.on("get-themes", (event, key) => {
+            if (fs.existsSync(utils.getPath("themes"))) {
+                event.returnValue = fs.readdirSync(utils.getPath("themes"));
+            } else {
+                event.returnValue = [];
+            }
         });
 
         ipcMain.on("get-i18n", (event, key) => {
