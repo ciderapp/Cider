@@ -126,6 +126,9 @@
   "term.check": "Sök efter uppdateringar",
   "term.aboutArtist": "Om {{artistName}}", // e.g. 'About Doja Cat'
   "term.updateCider": "Uppdatera Cider",
+  "term.topResult": "Toppresultat"
+  "term.sharedPlaylists": "Delade spellistor"
+  "term.people": "Personer"
  
   // Home
   "home.title": "Hem",
