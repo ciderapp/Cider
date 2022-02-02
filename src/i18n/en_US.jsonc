@@ -134,6 +134,14 @@
   "term.addedpreset": "Added Preset",
   "term.deletepreset.warn": "Are you sure you want to delete this preset?",
   "term.deletedpreset": "Removed preset",
+  "term.musicVideos": "Music Videos", // Search page friendlyTypes
+  "term.stations": "Stations",
+  "term.curators": "Curators",
+  "term.appleCurators": "Apple Curators",
+  "term.radioShows": "Radio Shows",
+  "term.recordLabels": "Record Labels",
+  "term.videoExtras": "Video Extras",
+  "term.top": "Top",
  
   // Home
   "home.title": "Home",

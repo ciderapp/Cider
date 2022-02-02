@@ -2784,43 +2784,43 @@ const app = new Vue({
             // use switch statement to return friendly name for media types "songs,artists,albums,playlists,music-videos,stations,apple-curators,curators"
             switch (type) {
                 case "song":
-                    return "Songs"
+                    return app.getLz('term.songs')
                     break;
                 case "artist":
-                    return "Artists"
+                    return app.getLz('term.artists')
                     break;
                 case "album":
-                    return "Albums"
+                    return app.getLz('term.albums')
                     break;
                 case "playlist":
-                    return "Playlists"
+                    return app.getLz('term.playlists')
                     break;
                 case "music_video":
-                    return "Music Videos"
+                    return app.getLz('term.musicVideos')
                     break;
                 case "station":
-                    return "Stations"
+                    return app.getLz('term.stations')
                     break;
                 case "apple-curator":
-                    return "Apple Curators"
+                    return app.getLz('term.appleCurators')
                     break;
                 case "radio_show":
-                    return "Radio Shows"
+                    return app.getLz('term.radioShows')
                     break;
                 case "record_label":
-                    return "Record Labels"
+                    return app.getLz('term.recordLabels')
                     break;
                 case "radio_episode":
-                    return "Episodes"
+                    return app.getLz('podcast.episodes')
                     break;
                 case "video_extra":
-                    return "Video Extras"
+                    return app.getLz('term.videoExtras')
                     break;
                 case "curator":
-                    return "Curators"
+                    return app.getLz('term.curators')
                     break;
                 case "top":
-                    return "Top"
+                    return app.getLz('term.top')
                     break;
                 default:
                     return type
