@@ -41,11 +41,13 @@ export class BrowserWindow {
         minHeight: 390,
         frame: false,
         title: "Cider",
-        vibrancy: "dark",
+        vibrancy: "fullscreen-ui",
         transparent: process.platform === "darwin",
         hasShadow: false,
         show: false,
         backgroundColor: "#1E1E1E",
+        titleBarStyle: 'customButtonsOnHover',
+        trafficLightPosition: { x: 960, y: 20 },
         webPreferences: {
             nodeIntegration: true,
             sandbox: true,
@@ -383,11 +385,13 @@ export class BrowserWindow {
             return await yt.search(u);
         });
 
-        ipcMain.on("close", () => {
+        ipcMain.on("close", (_event, mac) => {
+            if (mac) return
             BrowserWindow.win.close();
         });
 
-        ipcMain.on("maximize", () => {
+        ipcMain.on("maximize", (_event, mac) => {
+            if (mac) return
             // listen for maximize event
             if (BrowserWindow.win.isMaximized()) {
                 BrowserWindow.win.unmaximize();
@@ -400,7 +404,8 @@ export class BrowserWindow {
             BrowserWindow.win.unmaximize();
         });
 
-        ipcMain.on("minimize", () => {
+        ipcMain.on("minimize", (_event, mac) => {
+            if (mac) return
             // listen for minimize event
             BrowserWindow.win.minimize();
         });
