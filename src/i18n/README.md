@@ -20,3 +20,20 @@ been modified, the ones not mentioned in the list need modifying.
 * `term.topResult`: "Top Result" - Added for `en_US`.
 * `term.sharedPlaylists`: "Shared Playlists" - Added for `en_US`.
 * `term.people`: "People" - Added for `en_US`.
+
+Updated 02/02/2022 17:16 UTC
+
+* `term.newpreset.name`: Added for `en_US`.
+* `term.addedpreset`: Added for `en_US`.
+* `term.deletepreset.warn`: Added for `en_US`.
+* `term.deletedpreset`: Added for `en_US`.
+* `term.musicVideos`: Added for `en_US`.
+* `term.stations`: Added for `en_US`.
+* `term.curators`: Added for `en_US`.
+* `term.appleCurators`: Added for `en_US`.
+* `term.radioShows`: Added for `en_US`.
+* `term.recordLabels`: Added for `en_US`.
+* `term.videoExtras`: Added for `en_US`.
+* `term.top`: Added for `en_US`.
+* `action.newpreset`: Added for `en_US`.
+* `action.deletepreset`: Added for `en_US`.
