@@ -124,6 +124,8 @@
   "term.videos": "Videók", 
   "term.menu": "Menü",
   "term.check": "Bejelöl",
+  "term.aboutArtist": "További információ {{artistName}} előadóról", // e.g. 'About Doja Cat'
+  "term.updateCider": "Cider frissítése",
 
   // Home
   "home.title": "Kezdőlap",
@@ -220,7 +222,6 @@
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizálja az egyes zeneszámok hangosabb részeit, hogy egységesebb hallgatási élményt hozzon létre.",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Térbeli hangzás", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Térbeli hangzás és a hang háromdimenziósabbá tétele (Ez nem összekeverendő a Dolby Atmos-szal!)",
-
   // Settings - Visual
   "settings.header.visual": "Vizuális", 
   "settings.header.visual.description": "A Cider vizuális beállításainak módosítása.",
@@ -258,6 +259,7 @@
   "settings.header.connectivity": "Csatlakozhatóságok",
   "settings.header.connectivity.description": "A Cider csatlakozás beállításainak módosítása.",
   "settings.option.connectivity.discordRPC": "Discord Rich Presence", // Dropdown
+  "settings.option.connectivity.playbackNotifications": "Értesítés új dal lejátszásakor", // Toggle
   // Refer to term.disabled for the disabled option
   "settings.header.connectivity.discordRPC.cider": "Megjelenítés 'Cider'-ként",
   "settings.header.connectivity.discordRPC.appleMusic": "Megjelenítés 'Apple Music'-ként",
@@ -265,7 +267,7 @@
   "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling", // Option to Connect
   "settings.option.connectivity.lastfmScrobble.delay": "LastFM Scrobble Késleltetés (%)", 
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "LastFM Now Playing engedélyezése", 
-  "settings.option.connectivity.lastfmScrobble.removeFeatured": "Remove featuring artists from song title (LastFM)", 
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "A közreműködő előadók eltávolítása a dal címéből (LastFM)", 
   "settings.option.connectivity.lastfmScrobble.filterLoop": "Loopolt zeneszám szűrése (LastFM)", 
   // Refer to term.connect for the connect button
 
@@ -273,10 +275,7 @@
   "settings.header.experimental": "Kísérleti",
   "settings.header.experimental.description": "A Cider kísérleti beállításainak módosítása.",
   "settings.option.experimental.compactUI": "Kompakt UI", // Toggle
-  "settings.option.experimental.closeButtonBehaviour": "Bezárás gomb működése",
-  "settings.option.experimental.closeButtonBehaviour.quit": "Cider bezárása",
-  "settings.option.experimental.closeButtonBehaviour.minimizeTaskbar": "Kis méret",
-  "settings.option.experimental.closeButtonBehaviour.minimizeTray": "Kicsinyítés tálcára",
+  "settings.option.experimental.close_button_hide": "A bezárás gomb rejtse el az alkalmazást",
   // Refer to term.disabled & term.enabled
 
   // Spatialization Menu
