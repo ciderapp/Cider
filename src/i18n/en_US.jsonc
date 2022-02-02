@@ -127,6 +127,9 @@
   "term.check": "Check",
   "term.aboutArtist": "About {{artistName}}", // e.g. 'About Doja Cat'
   "term.updateCider": "Update Cider",
+  "term.topResult": "Top Result",   // Search Results
+  "term.sharedPlaylists": "Shared Playlists", // Search Results
+  "term.people": "People", // Search Results
  
   // Home
   "home.title": "Home",
