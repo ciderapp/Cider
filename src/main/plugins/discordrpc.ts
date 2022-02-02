@@ -90,6 +90,44 @@ export default class DiscordRichPresence {
         }).catch((e: any) => console.error(`[DiscordRPC][disconnect] ${e}`));
     }
 
+	/**
+	 * Filter the Discord activity object
+	 */
+	private filterActivity(activity: any, attributes: any): Object {
+		
+		// Checks if the name is greater than 128 because some songs can be that long
+        if (activity.details && activity.details.length > 128) {
+            activity.details = activity.details.substring(0, 125) + '...'
+        }
+
+		// Check large image
+        if (activity.largeImageKey === null || activity.largeImageKey === ""){
+            activity.largeImageKey = "cider";
+        }
+
+		// Timestamp 
+		if (new Date(attributes.endTime).getTime() < 0) {
+			delete activity.startTime
+			delete activity.endTime
+		}
+
+		// not sure
+		if (!attributes.artistName) {
+			delete activity.state;
+		}
+
+		if (!activity.largeImageText || activity.largeImageText.length < 2) {
+            delete activity.largeImageText
+        }
+
+		activity.buttons.forEach((key: {label: string, url: string}, _v: Number) => {
+			if (key.url.includes('undefined') || key.url.includes('no-id-found')) {
+                activity.buttons.splice(key, 1);
+			}
+		})
+		return activity
+	}
+
     /**
      * Sets the activity of the client
      * @param {object} attributes
@@ -105,27 +143,18 @@ export default class DiscordRichPresence {
         this._activity = {
             details: attributes.name,
             state: `${attributes.artistName ? `by ${attributes.artistName}` : ''}`,
-            startTimestamp: ((new Date(attributes.endTime).getTime() < 0) ? null : attributes.startTime),
-            endTimestamp: ((new Date(attributes.endTime).getTime() < 0) ? null : attributes.endTime),
-            largeImageKey: (attributes.artwork.url.replace('{w}', '1024').replace('{h}', '1024')) ?? 'cider',
+            startTimestamp: attributes.startTime,
+            endTimestamp: attributes.endTime,
+            largeImageKey: attributes.artwork.url.replace('{w}', '1024').replace('{h}', '1024'),
             largeImageText: attributes.albumName,
             instance: false, // Whether the activity is in a game session
-
             buttons: [
                 {label: "Listen on Cider", url: attributes.url.cider},
                 {label: "View on Apple Music", url: attributes.url.appleMusic},
             ]
         };
 
-
-        // Checks if the name is greater than 128 because some songs can be that long
-        if (this._activity.details && this._activity.details.length > 128) {
-            this._activity.details = this._activity.details.substring(0, 125) + '...'
-        }
-
-        if (this._activity.largeImageKey == null || this._activity.largeImageKey == ""){
-            this._activity.largeImageKey = "cider";
-        }
+		this._activity = this.filterActivity(this._activity, attributes)
 
         // Check if its pausing (false) or playing (true)
         if (!attributes.status) {
