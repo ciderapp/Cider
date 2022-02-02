@@ -45,6 +45,11 @@
   "term.podcasts": "I!ᒍ↸ᔮᖋϟᒣϟ",
   "term.playlists": "i!|:ᖋ॥|:╎ϟᒣϟ",
   "term.playlist": "i!|:ᖋ॥|:╎ϟᒣ",
+  "term.newPlaylist": "リᒷ∴ i!|:ᖋ॥|:╎ϟᒣ",
+  "term.newPlaylistFolder": "リᒷ∴ i!|:ᖋ॥|:╎ϟᒣ ⎓ᒍ|:↸ᒷ∷",
+  "term.createNewPlaylist": "ᔮ∷ᒷᖋᒣᒷ リᒷ∴ i!|:ᖋ॥|:╎ϟᒣ",
+  "term.createNewPlaylistFolder": "ᔮ∷ᒷᖋᒣᒷ リᒷ∴ i!|:ᖋ॥|:╎ϟᒣ ⎓ᒍ|:↸ᒷ∷",
+  "term.deletePlaylist": "ᖋ∷ᒷ ॥ᒍ⚍ ϟ⚍∷ᒷ ॥ᒍ⚍ ∴ᖋリᒣ ᒣᒍ ↸ᒷ|:ᒷᒣᒷ ᒣ⍑╎ϟ i!|:ᖋ॥|:╎ϟᒣ?",
   "term.play": "i!|:ᖋ॥",
   "term.pause": "I!ᖋ⚍ϟᒷ",
   "term.previous": "I!∷ᒷ⍊╎ᒍ⚍ϟ",
@@ -55,6 +60,7 @@
   "term.mute": "ᒲ⚍ᒣᒷ",
   "term.unmute": "⚍リᒲ⚍ᒣᒷ",
   "term.share": "ϟ⍑ᖋ∷ᒷ",
+  "term.share.success": "ᔮᒍi!╎ᒷ↸ ᒣᒍ ᔮ|:╎i!ᕊᒍᖋ∷↸",
   "term.settings": "ϟᒷᒣᒣ╎リ┤ϟ",
   "term.seeAll": "ϟᒷᒷ ᖋ|:|:",
   "term.sortBy": "ϟᒍ∷ᒣ ᕊ॥",
@@ -118,8 +124,25 @@
   "term.tracks": "ᒣ∷ᖋᔮ·ǀ·ϟ", // Assume x amount of tracks. e.g. 50 tracks 
   "term.videos": "⍊╎↸ᒷᒍ",
   "term.menu": "ᒲᒷ⚍リ", 
-  "term.showAlbum": "ϟ⍑ᒍ∴ ᔮᒍᒲi!|:ᒷᒣᒷ ᖋ|:ᕊ⚍ᒲ",
-  
+  "term.check": "ᔮ⍑ᒷᔮ·ǀ·",
+  "term.aboutArtist": "ᖋᕊᒍ⚍ᒣ {{artistName}}", // e.g. 'About Doja Cat'
+  "term.updateCider": "⚍i!↸ᖋᒣᒷ ᔮ╎↸ᒷ∷",
+  "term.topResult": "ᒣᒍi! ∷ᒷϟ⚍|:ᒣ",   // Search Results
+  "term.sharedPlaylists": "ϟ⍑ᖋ∷ᒷ↸ i!|:ᖋ॥|:╎ϟᒣϟ", // Search Results
+  "term.people": "i!ᒷᒍi!|:ᒷ", // Search Results
+  "term.newpreset.name": "リᒷ∴ ᒷᑑ i!∷ᒷϟᒷᒣ リᖋᒲᒷ", // Equalizer Preset
+  "term.addedpreset": "ᖋ↸↸ᒷ↸ i!∷ᒷϟᒷᒣ",
+  "term.deletepreset.warn": "ᖋ∷ᒷ ॥ᒍ⚍ ϟ⚍∷ᒷ ॥ᒍ⚍ ∴ᖋリᒣ ᒣᒍ ↸ᒷ|:ᒷᒣᒷ ᒣ⍑╎ϟ i!∷ᒷϟᒷᒣ?",
+  "term.deletedpreset": "∷ᒷᒲᒍ⍊ᒷ↸ i!∷ᒷϟᒷᒣ",
+  "term.musicVideos": "ᒲ⚍ϟ╎ᔮ ⍊╎↸ᒷᒍϟ", // Search page friendlyTypes
+  "term.stations": "ϟᒣᖋᒣ╎ᒍリϟ",
+  "term.curators": "ᔮ⚍∷ᖋᒣᒍ∷ϟ",
+  "term.appleCurators": "ᖋi!i!|:ᒷ ᔮ⚍∷ᖋᒣᒍ∷ϟ",
+  "term.radioShows": "∷ᖋ↸╎ᒍ ϟ⍑ᒍ∴ϟ",
+  "term.recordLabels": "∷ᒷᔮᒍ∷↸ |:ᖋᕊᒷ|:ϟ",
+  "term.videoExtras": "⍊╎↸ᒷᒍ ᒷ/ᒣ∷ᖋϟ",
+  "term.top": "ᒣᒍi!",
+
   // Home
   "home.title": "⍑ᒍᒲᒷ",
   "home.recentlyPlayed": "∷ᒷᔮᒷリᒣ|:॥ i!|:ᖋ॥ᒷ↸",
@@ -185,6 +208,13 @@
   "action.removeTracks": "∷ᒷᒲᒍ⍊ᒷ ${self.selectedItems.length} ᒣ∷ᖋᔮ·ǀ·ϟ ⎓∷ᒍᒲ ᑑ⚍ᒷ⚍ᒷ",
   "action.import": "╎ᒲi!ᒍ∷ᒣ",
   "action.export": "ᒷ/i!ᒍ∷ᒣ",
+  "action.showAlbum": "ϟ⍑ᒍ∴ ᔮᒍᒲi!|:ᒷᒣᒷ ᖋ|:ᕊ⚍ᒲ",
+  "action.tray.minimize": "ᒲ╎リ╎ᒲ╎∩ᒷ ᒣᒍ ᒣ∷ᖋ॥",
+  "action.tray.quit": "ᑑ⚍╎ᒣ",
+  "action.tray.show": "ϟ⍑ᒍ∴",
+  "action.update": "⚍i!↸ᖋᒣᒷ",
+  "action.newpreset": "リᒷ∴ i!∷ᒷϟᒷᒣ...",  // Equalizer Preset
+  "action.deletepreset": "↸ᒷ|:ᒷᒣᒷ i!∷ᒷϟᒷᒣ",
 
   // Settings - General
   "settings.header.general": "┤ᒷリᒷ∷ᖋ|:",
@@ -252,24 +282,22 @@
   "settings.header.connectivity.discordRPC.cider": "↸╎ϟi!|:ᖋ॥ ᖋϟ 'ᔮ╎↸ᒷ∷'",
   "settings.header.connectivity.discordRPC.appleMusic": "↸╎ϟi!|:ᖋ॥ ᖋϟ 'ᖋi!i!|:ᒷ ᒲ⚍ϟ╎ᔮ'",
   "settings.option.connectivity.discordRPC.clearOnPause": "ᔮ|:ᒷᖋ∷ ↸╎ϟᔮᒍ∷↸ ∷╎ᔮ⍑ i!∷ᒷϟᒷリᔮᒷ ᒍリ i!ᖋ⚍ϟᒷ", // Toggle
-  "settings.option.connectivity.lastfmScrobble": "|:ᖋϟᒣ⎓ᒲ ϟᔮ∷ᒍᕊᕊ|:╎リ┤", // Option to Connect
-  "settings.option.connectivity.lastfmScrobble.delay": "|:ᖋϟᒣ⎓ᒲ ϟᔮ∷ᒍᕊᕊ|:ᒷ ↸ᒷ|:ᖋ॥ (%)", 
-  "settings.option.connectivity.lastfmScrobble.nowPlaying": "ᒷリᖋᕊ|:ᒷ |:ᖋϟᒣ⎓ᒲ リᒍ∴ i!|:ᖋ॥╎リ┤", 
-  "settings.option.connectivity.lastfmScrobble.removeFeatured": "∷ᒷᒲᒍ⍊ᒷ ⎓ᒷᖋᒣ⚍∷╎リ┤ ᖋ∷ᒣ╎ϟᒣϟ ⎓∷ᒍᒲ ϟᒍリ┤ ᒣ╎ᒣ|:ᒷ (|:ᖋϟᒣ⎓ᒲ)", 
-  "settings.option.connectivity.lastfmScrobble.filterLoop": "⎓╎|:ᒣᒷ∷ |:ᒍᒍi!ᒷ↸ ᒣ∷ᖋᔮ·ǀ· (|:ᖋϟᒣ⎓ᒲ)", 
+  "settings.option.connectivity.lastfmScrobble": "|:ᖋϟᒣ.⎓ᒲ ϟᔮ∷ᒍᕊᕊ|:╎リ┤", // Option to Connect
+  "settings.option.connectivity.lastfmScrobble.delay": "|:ᖋϟᒣ.⎓ᒲ ϟᔮ∷ᒍᕊᕊ|:ᒷ ↸ᒷ|:ᖋ॥ (%)", 
+  "settings.option.connectivity.lastfmScrobble.nowPlaying": "ᒷリᖋᕊ|:ᒷ |:ᖋϟᒣ.⎓ᒲ リᒍ∴ i!|:ᖋ॥╎リ┤", 
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "∷ᒷᒲᒍ⍊ᒷ ⎓ᒷᖋᒣ⚍∷╎リ┤ ᖋ∷ᒣ╎ϟᒣϟ ⎓∷ᒍᒲ ϟᒍリ┤ ᒣ╎ᒣ|:ᒷ (|:ᖋϟᒣ.⎓ᒲ)", 
+  "settings.option.connectivity.lastfmScrobble.filterLoop": "⎓╎|:ᒣᒷ∷ |:ᒍᒍi!ᒷ↸ ᒣ∷ᖋᔮ·ǀ· (|:ᖋϟᒣ.⎓ᒲ)", 
   // Refer to term.connect for the connect button
 
   // Settings - Experimental
   "settings.header.experimental": "ᒷ/i!ᒷ∷╎ᒲᒷリᒣᖋ|:",
   "settings.header.experimental.description": "ᖋ↸⋮⚍ϟᒣ ᒣ⍑ᒷ ᒷ/i!ᒷ∷╎ᒲᒷリᒣᖋ|: ϟᒷᒣᒣ╎リ┤ϟ ⎓ᒍ∷ ᔮ╎↸ᒷ∷.",
   "settings.option.experimental.compactUI": "ᔮᒍᒲi!ᖋᔮᒣ ⚍╎", // Toggle
-  "settings.option.experimental.closeButtonBehaviour": "ᔮ|:ᒍϟᒷ ᕊ⚍ᒣᒣᒍリ ᕊᒷ⍑ᖋ⍊╎ᒍ⚍∷",
-  "settings.option.experimental.closeButtonBehaviour.quit": "ᑑ⚍╎ᒣ ᔮ╎↸ᒷ∷",
-  "settings.option.experimental.closeButtonBehaviour.minimizeTaskbar": "ᒲ╎リ╎ᒲ╎∩ᒷ ᒣᒍ ᒣᖋϟ·ǀ·ᕊᖋ∷",
-  "settings.option.experimental.closeButtonBehaviour.minimizeTray": "ᒲ╎リ╎ᒲ╎∩ᒷ ᒣᒍ ϟ॥ϟᒣᒷᒲ ᒣ∷ᖋ॥",
+  "settings.option.experimental.close_button_hide": "ᔮ|:ᒍϟᒷ ᕊ⚍ᒣᒣᒍリ ϟ⍑ᒍ⚍|:↸ ⍑╎↸ᒷ ᒣ⍑ᒷ ᖋi!i!|:╎ᔮᖋᒣ╎ᒍリ",
   // Refer to term.disabled & term.enabled
 
   // Spatialization Menu
+  "spatial.notTurnedOn": "ᖋ⚍↸╎ᒍ ϟi!ᖋᒣ╎ᖋ|:╎∩ᖋᒣ╎ᒍリ ╎ϟ ↸╎ϟᖋᕊ|:ᒷ↸. ᒣᒍ ⚍ϟᒷ, i!|:ᒷᖋϟᒷ ᒷリᖋᕊ|:ᒷ ╎ᒣ ⎓╎∷ϟᒣ.",
   "spatial.spatialProperties" : "ϟi!ᖋᒣ╎ᖋ|: i!∷ᒍi!ᒷ∷ᒣ╎ᒷϟ",
   "spatial.width" : "∴╎↸ᒣ⍑",
   "spatial.height" : "⍑ᒷ╎┤⍑ᒣ",
