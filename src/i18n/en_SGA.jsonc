@@ -268,11 +268,11 @@
   "settings.header.connectivity.discordRPC.cider": "↸╎ϟi!|:ᖋ॥ ᖋϟ 'ᔮ╎↸ᒷ∷'",
   "settings.header.connectivity.discordRPC.appleMusic": "↸╎ϟi!|:ᖋ॥ ᖋϟ 'ᖋi!i!|:ᒷ ᒲ⚍ϟ╎ᔮ'",
   "settings.option.connectivity.discordRPC.clearOnPause": "ᔮ|:ᒷᖋ∷ ↸╎ϟᔮᒍ∷↸ ∷╎ᔮ⍑ i!∷ᒷϟᒷリᔮᒷ ᒍリ i!ᖋ⚍ϟᒷ", // Toggle
-  "settings.option.connectivity.lastfmScrobble": "|:ᖋϟᒣ⎓ᒲ ϟᔮ∷ᒍᕊᕊ|:╎リ┤", // Option to Connect
-  "settings.option.connectivity.lastfmScrobble.delay": "|:ᖋϟᒣ⎓ᒲ ϟᔮ∷ᒍᕊᕊ|:ᒷ ↸ᒷ|:ᖋ॥ (%)", 
-  "settings.option.connectivity.lastfmScrobble.nowPlaying": "ᒷリᖋᕊ|:ᒷ |:ᖋϟᒣ⎓ᒲ リᒍ∴ i!|:ᖋ॥╎リ┤", 
-  "settings.option.connectivity.lastfmScrobble.removeFeatured": "∷ᒷᒲᒍ⍊ᒷ ⎓ᒷᖋᒣ⚍∷╎リ┤ ᖋ∷ᒣ╎ϟᒣϟ ⎓∷ᒍᒲ ϟᒍリ┤ ᒣ╎ᒣ|:ᒷ (|:ᖋϟᒣ⎓ᒲ)", 
-  "settings.option.connectivity.lastfmScrobble.filterLoop": "⎓╎|:ᒣᒷ∷ |:ᒍᒍi!ᒷ↸ ᒣ∷ᖋᔮ·ǀ· (|:ᖋϟᒣ⎓ᒲ)", 
+  "settings.option.connectivity.lastfmScrobble": "|:ᖋϟᒣ.⎓ᒲ ϟᔮ∷ᒍᕊᕊ|:╎リ┤", // Option to Connect
+  "settings.option.connectivity.lastfmScrobble.delay": "|:ᖋϟᒣ.⎓ᒲ ϟᔮ∷ᒍᕊᕊ|:ᒷ ↸ᒷ|:ᖋ॥ (%)", 
+  "settings.option.connectivity.lastfmScrobble.nowPlaying": "ᒷリᖋᕊ|:ᒷ |:ᖋϟᒣ.⎓ᒲ リᒍ∴ i!|:ᖋ॥╎リ┤", 
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "∷ᒷᒲᒍ⍊ᒷ ⎓ᒷᖋᒣ⚍∷╎リ┤ ᖋ∷ᒣ╎ϟᒣϟ ⎓∷ᒍᒲ ϟᒍリ┤ ᒣ╎ᒣ|:ᒷ (|:ᖋϟᒣ.⎓ᒲ)", 
+  "settings.option.connectivity.lastfmScrobble.filterLoop": "⎓╎|:ᒣᒷ∷ |:ᒍᒍi!ᒷ↸ ᒣ∷ᖋᔮ·ǀ· (|:ᖋϟᒣ.⎓ᒲ)", 
   // Refer to term.connect for the connect button
 
   // Settings - Experimental
