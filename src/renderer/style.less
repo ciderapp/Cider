@@ -1069,6 +1069,44 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   height: 100%;
 }
 
+body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls > div.minimize {
+  height: 12px;
+  width: 12px;
+  background-color: rgb(0, 202, 86);
+  border-radius: 50%;
+  display: inline-block;
+  margin: auto 4px;
+  color: rgb(130, 0, 5);
+  -webkit-app-region: no-drag;
+  background-image: unset;
+}
+
+body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls {
+  width: 67px;
+}
+
+body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls > div.minmax {
+  height: 12px;
+  width: 12px;
+  background-color: rgb(255, 189, 76);
+  border-radius: 50%;
+  display: inline-block;
+  margin: auto 4px;
+  -webkit-app-region: no-drag;
+  background-image: unset;
+}
+
+body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls > div.close {
+  height: 12px;
+  width: 12px;
+  background-color: rgb(255, 92, 92);
+  border-radius: 50%;
+  display: inline-block;
+  margin: auto 4px auto 4px;
+  -webkit-app-region: no-drag;
+  background-image: unset;
+}
+
 .app-chrome .app-chrome-item.playback-controls {
   width: 80%;
   height: 90%;
