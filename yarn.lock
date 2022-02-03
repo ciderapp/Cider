@@ -3423,9 +3423,9 @@ electron-window-state@^5.0.3:
     jsonfile "^4.0.0"
     mkdirp "^0.5.1"
 
-"electron@https://github.com/castlabs/electron-releases.git":
-  version "17.0.0-beta.9"
-  resolved "https://github.com/castlabs/electron-releases.git#327f9c4bdcf3e11a1420483ea698f7857920295f"
+"electron@git+https://github.com/castlabs/electron-releases.git":
+  version "17.0.0"
+  resolved "git+https://github.com/castlabs/electron-releases.git#199a1451fd1ee8c53133e9f0f5dc4dd094475bd8"
   dependencies:
     "@electron/get" "^1.13.0"
     "@types/node" "^14.6.2"
@@ -5549,9 +5549,9 @@ matcher@^3.0.0:
   dependencies:
     escape-string-regexp "^4.0.0"
 
-"mdns-js@github:bitfocus/node-mdns-js":
+"mdns-js@git+https://github.com/bitfocus/node-mdns-js.git":
   version "1.0.7"
-  resolved "https://codeload.github.com/bitfocus/node-mdns-js/tar.gz/1af6b83ce91e5538012f977e1dcadbda5dc0d3b5"
+  resolved "git+https://github.com/bitfocus/node-mdns-js.git#1af6b83ce91e5538012f977e1dcadbda5dc0d3b5"
   dependencies:
     debug "^4.1.1"
     dns-js "github:bitfocus/node-dns-js#v0.2.2"
