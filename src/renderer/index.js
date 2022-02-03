@@ -599,6 +599,7 @@ const app = new Vue({
             })
             this.$forceUpdate()
             if (this.isDev) {
+                less.watch() // automatically reload the styles when they change
                 this.mk.privateEnabled = true
                 // Hide UserInfo if Dev mode
             } else {
