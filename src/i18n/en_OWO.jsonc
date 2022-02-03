@@ -203,9 +203,9 @@
   "action.dislike": "Diswike",
   "action.undoDislike": "Undo diswike",
   "action.showWebRemoteQR": "Web Wiimote",
-  "action.playTracksNext": "Pway ${app.selectedMediaItems.length} tracks next",
+  "action.playTracksNext": "Pway ${app.selectedMediaItems.length} twacks next",
   "action.playTracksLater": "Pway ${app.selectedMediaItems.length} twacks latew",
-  "action.removeTracks": "Wemove ${self.selectedItems.length} tracks from quwue",
+  "action.removeTracks": "Wemove ${self.selectedItems.length} twacks from quwue",
   "action.import": "Impowt",
   "action.export": "Expowt",
   "action.showAlbum": "Show Compwete Awbum",
@@ -229,9 +229,9 @@
   // Settings - Audio
   "settings.header.audio": "Audiowo",
   "settings.header.audio.description": "Adjust the audiowo settings for Cidew.",
-  "settings.option.audio.quality": "Audiowo Quality", // Dropdown
+  "settings.option.audio.quality": "Audiowo Quawity", // Dropdown
   "settings.header.audio.quality.high": "High",
-  "settings.header.audio.quality.low": "Low",
+  "settings.header.audio.quality.low": "Low", // keeping as low because confusion with the word wow
   "settings.header.audio.quality.auto": "Autowo",
   "settings.option.audio.seamlessTransition": "Seamwess Audiowo Twansition", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "Enabwe Advanced Functionawity", // Toggle
@@ -268,10 +268,10 @@
   // Settings - Lyrics
   "settings.header.lyrics": "Wywics",
   "settings.header.lyrics.description": "Adjust the wywics settings for Cidew.",
-  "settings.option.lyrics.enableMusixmatch": "Enabwe Musixmatch Wyrics", // Toggle
+  "settings.option.lyrics.enableMusixmatch": "Enabwe Musixmatch Wywics", // Toggle
   "settings.option.lyrics.enableMusixmatchKaraoke": "Enabwe Kawaoke Mode (Musixmatch onwy)", // Toggle
   "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch Transwation Pweferred Wanguage", // Dropdown
-  "settings.option.lyrics.enableYoutubeLyrics": "Enabwe Youtube Wywics for Mewsic Videos", // Toggle
+  "settings.option.lyrics.enableYoutubeLyrics": "Enabwe Youtube Wywics for Mewsic Videowos", // Toggle
 
   // Settings - Connectivity
   "settings.header.connectivity": "Connectivity",
@@ -291,7 +291,7 @@
 
   // Settings - Experimental
   "settings.header.experimental": "Expewimentaw",
-  "settings.header.experimental.description": "Adjust the expewimentaw settings for Cidew.",
+  "settings.header.experimental.description": "Adjust the expewimentaw settings fow Cidew.",
   "settings.option.experimental.compactUI": "Wittwe UI", // Toggle
   "settings.option.experimental.close_button_hide": "Cwose Button Shouwd Hide the Appwication",
   // Refer to term.disabled & term.enabled
