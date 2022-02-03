@@ -3120,13 +3120,6 @@ dns-equal@^1.0.0:
   resolved "https://registry.npmjs.org/dns-equal/-/dns-equal-1.0.0.tgz"
   integrity sha1-s55/HabrCnW6nBcySzR1PEfgZU0=
 
-"dns-js@github:bitfocus/node-dns-js#v0.2.2":
-  version "0.2.2"
-  resolved "git+ssh://git@github.com/bitfocus/node-dns-js.git#e5f0c3da63653398005bf36f66ad0b77770dcad6"
-  dependencies:
-    debug "^2.1.0"
-    qap "^3.1.2"
-
 dns-packet@^1.3.1:
   version "1.3.4"
   resolved "https://registry.npmjs.org/dns-packet/-/dns-packet-1.3.4.tgz"
@@ -3423,9 +3416,9 @@ electron-window-state@^5.0.3:
     jsonfile "^4.0.0"
     mkdirp "^0.5.1"
 
-"electron@https://github.com/castlabs/electron-releases.git":
+"electron@git+https://github.com/castlabs/electron-releases.git":
   version "17.0.0"
-  resolved "git+ssh://git@github.com/castlabs/electron-releases.git#199a1451fd1ee8c53133e9f0f5dc4dd094475bd8"
+  resolved "git+https://github.com/castlabs/electron-releases.git#199a1451fd1ee8c53133e9f0f5dc4dd094475bd8"
   dependencies:
     "@electron/get" "^1.13.0"
     "@types/node" "^14.6.2"
@@ -5549,13 +5542,12 @@ matcher@^3.0.0:
   dependencies:
     escape-string-regexp "^4.0.0"
 
-"mdns-js@github:bitfocus/node-mdns-js":
-  version "1.0.7"
-  resolved "git+ssh://git@github.com/bitfocus/node-mdns-js.git#1af6b83ce91e5538012f977e1dcadbda5dc0d3b5"
+"mdns-js@git+https://github.com/bitfocus/node-dns-js":
+  version "0.2.2"
+  resolved "git+https://github.com/bitfocus/node-dns-js#e5f0c3da63653398005bf36f66ad0b77770dcad6"
   dependencies:
-    debug "^4.1.1"
-    dns-js "github:bitfocus/node-dns-js#v0.2.2"
-    semver "^7.2.3"
+    debug "^2.1.0"
+    qap "^3.1.2"
 
 media-typer@0.3.0:
   version "0.3.0"
@@ -7182,7 +7174,7 @@ semver@^6.0.0, semver@^6.1.1, semver@^6.1.2, semver@^6.2.0, semver@^6.3.0:
   resolved "https://registry.npmjs.org/semver/-/semver-6.3.0.tgz"
   integrity sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==
 
-semver@^7.1.3, semver@^7.2.3, semver@^7.3.2, semver@^7.3.4, semver@^7.3.5:
+semver@^7.1.3, semver@^7.3.2, semver@^7.3.4, semver@^7.3.5:
   version "7.3.5"
   resolved "https://registry.npmjs.org/semver/-/semver-7.3.5.tgz"
   integrity sha512-PoeGJYh8HK4BTO/a9Tf6ZG3veo/A7ZVsYrSA6J8ny9nb3B1VrpkuN+z9OE5wfE5p6H4LchYZsegiQgbJD94ZFQ==
