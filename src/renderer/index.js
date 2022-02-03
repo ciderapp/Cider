@@ -586,7 +586,9 @@ const app = new Vue({
         },
         async init() {
             let self = this
-            this.setTheme()
+            if(this.cfg.visual.theme != "default.less" || this.cfg.visual.theme != "") {
+                this.setTheme()
+            }
             this.setLz(this.cfg.general.language)
             this.setLzManual()
             clearTimeout(this.hangtimer)
