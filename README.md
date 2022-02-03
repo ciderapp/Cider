@@ -26,6 +26,8 @@
 
 [![Get it from the Microsoft Store](https://img.shields.io/badge/Get_It_From_The_Microsoft_Store-100000?style=for-the-badge&logo=microsoft)](https://www.microsoft.com/store/apps/9P21XJ9D9G66)
 
+[![Get it from Windows Package Manager](https://custom-icon-badges.herokuapp.com/badge/Get_It_via_Winget-100000?style=for-the-badge&logo=winstall)](https://winstall.app/apps/CiderCollective.Cider.Nightly)
+
 <!--
 
 [![Get it from Windows Package Manager](https://custom-icon-badges.herokuapp.com/badge/Get_It_via_Winget-100000?style=for-the-badge&logo=winstall)](https://winstall.app/apps/cryptofyre.AppleMusicElectron)
@@ -35,7 +37,7 @@
 [![Get it from the AUR](https://img.shields.io/badge/Get_It_From_The_AUR-100000?style=for-the-badge&logo=archlinux)](https://aur.archlinux.org/packages/cider)
 
 ### Compiling and Configuration
-For more information surrounding configuration, compiling and other developer documentation, see the [compilation docs](https://cider.sh/docs/compile).
+For more information surrounding configuration, compiling and other developer documentation, see the [compilation docs](https://cider.sh/compile.html).
 
 ### Credits
 ![Contributors](https://contrib.rocks/image?repo=ciderapp/Cider)

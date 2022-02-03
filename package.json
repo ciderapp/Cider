@@ -42,7 +42,7 @@
     "get-port": "^5.1.1",
     "jsonc": "^2.0.0",
     "lastfmapi": "^0.1.1",
-    "mdns-js": "git+https://github.com/bitfocus/node-dns-js",
+    "mdns-js": "git+https://github.com/bitfocus/node-mdns-js.git",
     "mpris-service": "^2.1.2",
     "music-metadata": "^7.11.4",
     "node-gyp": "^8.4.1",
