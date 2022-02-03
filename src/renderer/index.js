@@ -3394,6 +3394,13 @@ const app = new Vue({
                                 })
                             }
                         },
+                        {
+                            "icon": "./assets/feather/share.svg",
+                            "name": app.getLz('action.share'),
+                            "action": function () {
+                                app.mkapi( app.mk.nowPlayingItem.attributes?.playParams?.kind ?? app.mk.nowPlayingItem.type ?? 'songs', false, app.mk.nowPlayingItem._songId ?? app.mk.nowPlayingItem.id ?? '').then(u => {app.copyToClipboard((u.data.data.length && u.data.data.length > 0)? u.data.data[0].attributes.url : u.data.data.attributes.url)})  
+                            }
+                        }
                     ]
                 }
             }
