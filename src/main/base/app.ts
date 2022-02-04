@@ -1,4 +1,4 @@
-import {app, Menu, nativeImage, Tray, ipcMain, clipboard} from 'electron';
+import {app, Menu, nativeImage, Tray, ipcMain, clipboard, shell} from 'electron';
 import {readFileSync} from "fs";
 import * as path from 'path';
 import * as log from 'electron-log';
@@ -172,6 +172,8 @@ export class AppEvents {
             let url = arg.split('//')[1]
             console.warn(`[LinkHandler] Attempting to load url: ${url}`);
             utils.getWindow().webContents.send('play', 'url', url)
+        } else if (arg.includes('/debug/appdata')) {
+            shell.openPath(app.getPath('userData'))
         }
     }
 
