@@ -34,9 +34,9 @@ jobs:
             sudo apt-get install -y wine32
             sudo apt-get install -y x11vnc
       - run:
-        name: Start X VNC Server
-        command: x11vnc -forever -nopw -create
-        background: true
+          name: Start X VNC Server
+          command: x11vnc -forever -nopw -create
+          background: true
       - run:
           name: Base Functionality Testing
           command: yarn test
