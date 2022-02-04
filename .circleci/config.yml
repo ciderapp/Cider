@@ -37,9 +37,9 @@ jobs:
           name: Start X VNC Server
           command: x11vnc -forever -nopw -create
           background: true
-      - run:
-          name: Base Functionality Testing
-          command: yarn test
+            #- run:
+            #name: Base Functionality Testing
+            #command: yarn test
       - store_test_results:
           path: test-results
       - run:
