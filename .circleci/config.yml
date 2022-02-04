@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/Cider
     docker:
-      - image: circleci/node:16
+      - image: circleci/node:16-browsers
     steps:
       - checkout
       - run:
@@ -32,6 +32,9 @@ jobs:
             sudo dpkg --add-architecture i386
             sudo apt-get update -y
             sudo apt-get install -y wine32
+      - run:
+          name: Base Functionality Testing
+          command: yarn test
       - store_test_results:
           path: test-results
       - run:
