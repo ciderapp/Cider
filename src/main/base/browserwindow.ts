@@ -153,6 +153,10 @@ export class BrowserWindow {
         app.get("/api/playback/:action", (req, res)=>{
             const action = req.params.action;
             switch(action) {
+                case "playpause":
+                    BrowserWindow.win.webContents.executeJavaScript("wsapi.togglePlayPause()")
+                    res.send("Play/Pause toggle")
+                    break;
                 case "play":
                     BrowserWindow.win.webContents.executeJavaScript("MusicKit.getInstance().play()")
                     res.send("Playing")
