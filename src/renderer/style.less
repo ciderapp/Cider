@@ -68,10 +68,6 @@ body[loading] {
   }
 }
 
-body[platform='linux'] {
-  background: #222;
-}
-
 body.notransparency::before {
   content: "";
   position: absolute;
@@ -5954,6 +5950,17 @@ body.no-gpu {
       padding: 16px;
       background-color: var(--modalBackground);
     }
+  }
+}
+
+body[platform='darwin'] {
+  #window-controls-container {
+    display: none;
+  }
+
+  .app-chrome .app-chrome-item > .app-mainmenu {
+    opacity: 0;
+    pointer-events: none;
   }
 }
 

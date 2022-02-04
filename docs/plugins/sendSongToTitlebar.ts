@@ -1,4 +1,4 @@
-export default class sendSongToTitlebar {
+class sendSongToTitlebar {
     /**
      * Base Plugin Details (Eventually implemented into a GUI in settings)
      */
@@ -35,3 +35,5 @@ export default class sendSongToTitlebar {
      */
     onNowPlayingItemDidChange(attributes: object): void {}
 }
+
+module.exports = sendSongToTitlebar;

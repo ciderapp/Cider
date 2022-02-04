@@ -13,6 +13,7 @@ export class utils {
     private static paths: any = {
         srcPath: path.join(__dirname, "../../src"),
         resourcePath: path.join(__dirname, "../../resources"),
+        i18nPath: path.join(__dirname, "../../src/i18n"),
         ciderCache: path.resolve(app.getPath("userData"), "CiderCache"),
         themes: path.resolve(app.getPath("userData"), "Themes"),
         plugins: path.resolve(app.getPath("userData"), "Plugins"),
@@ -34,10 +35,10 @@ export class utils {
      * @returns {string | Object} The locale value.
      */
     static getLocale(language: string, key?: string): string | object {
-        let i18n: { [index: string]: Object } = jsonc.parse(fs.readFileSync(path.join(__dirname, "../../src/i18n/en_US.jsonc"), "utf8"));
+        let i18n: { [index: string]: Object } = jsonc.parse(fs.readFileSync(path.join(this.paths.i18nPath, "en_US.jsonc"), "utf8"));
 
-        if (language !== "en_US" && fs.existsSync(path.join(__dirname, `../../src/i18n/${language}.jsonc`))) {
-            i18n = Object.assign(i18n, jsonc.parse(fs.readFileSync(path.join(__dirname, `../../src/i18n/${language}.jsonc`), "utf8")));
+        if (language !== "en_US" && fs.existsSync(path.join(this.paths.i18nPath, `${language}.jsonc`))) {
+            i18n = Object.assign(i18n, jsonc.parse(fs.readFileSync(path.join(this.paths.i18nPath, `${language}.jsonc`), "utf8")));
         }
 
         if (key) {
