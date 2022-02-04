@@ -69,7 +69,7 @@
   "term.sortBy.genre": "Genre",
   "term.sortBy.releaseDate": "Releasedatum",
   "term.sortBy.duration": "Längd",
-  "term.sortOrder": "A-Ö",
+  "term.sortOrder": "Ordna efter",
   "term.sortOrder.ascending": "Stigande",
   "term.sortOrder.descending": "Fallande",
   "term.viewAs": "Visa som",
@@ -150,7 +150,7 @@
   "podcast.itunesStore": "iTunes Store",
   "podcast.episodes": "Avsnitt",
   "podcast.playEpisode": "Spela avsnitt",
-  "podcast.website": "Webbsida för podcasten",
+  "podcast.website": "Öppna webbsida",
 
   // Actions
   "action.addToLibrary": "Lägg till i bibliotek",
@@ -193,9 +193,9 @@
   "action.import": "Importera",
   "action.export": "Exportera",
   "action.showAlbum": "Visa komplett album",
-  "action.tray.minimize": "Minimera till brickan",
-  "action.tray.quit": "Stäng",
-  "action.tray.show": "Visa",
+  "action.tray.minimize": "Dölj Cider",
+  "action.tray.quit": "Avsluta",
+  "action.tray.show": "Visa Cider",
   "action.update": "Uppdatera",
 
   // Settings - General
@@ -221,7 +221,7 @@
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Ljudnormalisering", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normaliserar höga ljudnivåer för att förbättra ljudkvaliteten.",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Spiralljud", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Gör ljudet mer 3D (OBS: ej Dolby Atmos)",
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Gör ljudet mer 3D (Ej Dolby Atmos)",
   // Settings - Visual
   "settings.header.visual": "Visuellt", 
   "settings.header.visual.description": "Ändra Ciders visuella inställningar.",
@@ -241,7 +241,7 @@
   "settings.header.visual.animatedArtworkQuality.extreme": "Okomprimerat",
   "settings.option.visual.animatedWindowBackground": "Animerad fönsterbakgrund", // Toggle
   "settings.option.visual.hardwareAcceleration": "Hårdvaruacceleration", // Dropdown
-  "settings.option.visual.hardwareAcceleration.description": "Kräver omstart",
+  "settings.option.visual.hardwareAcceleration.description": "kräver omstart",
   "settings.header.visual.hardwareAcceleration.default": "Standard", 
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
   // Refer to term.disabled for the disabled option
@@ -251,7 +251,7 @@
   "settings.header.lyrics": "Låttext",
   "settings.header.lyrics.description": "Ändra Ciders låttextsinställningar.",
   "settings.option.lyrics.enableMusixmatch": "Använd Musixmatch istället för Apple Lyrics", // Toggle
-  "settings.option.lyrics.enableMusixmatchKaraoke": "Aktivera Karokeläge (Endast Musixmatch)", // Toggle
+  "settings.option.lyrics.enableMusixmatchKaraoke": "Aktivera karaokeläge (Endast Musixmatch)", // Toggle
   "settings.option.lyrics.musixmatchPreferredLanguage": "Språk för låttextsöversättning (Endast Musixmatch)", // Dropdown
   "settings.option.lyrics.enableYoutubeLyrics": "Använd YouTube Lyrcis för videor", // Toggle
 
@@ -259,16 +259,16 @@
   "settings.header.connectivity": "Anslutning",
   "settings.header.connectivity.description": "Ändra Ciders anslutningsinställningar.",
   "settings.option.connectivity.discordRPC": "Discord integration (discordRPC)", // Dropdown
-  "settings.option.connectivity.playbackNotifications": "Uppspelningsnotiser i Discord", // Toggle
+  "settings.option.connectivity.playbackNotifications": "Uppspelningsnotiser", // Toggle
   // Refer to term.disabled for the disabled option
-  "settings.header.connectivity.discordRPC.cider": "Visa som 'Cider'",
-  "settings.header.connectivity.discordRPC.appleMusic": "Visa som 'Apple Music'",
+  "settings.header.connectivity.discordRPC.cider": "På, visa som 'Cider'",
+  "settings.header.connectivity.discordRPC.appleMusic": "På, visa som 'Apple Music'",
   "settings.option.connectivity.discordRPC.clearOnPause": "Rensa Discord notiser från Cider när du pausar", // Toggle
   "settings.option.connectivity.lastfmScrobble": "Last.fm integration", // Option to Connect
-  "settings.option.connectivity.lastfmScrobble.delay": "Last.fm Delay i %", 
-  "settings.option.connectivity.lastfmScrobble.nowPlaying": "Aktivera Spelas Nu i Last.fm", 
-  "settings.option.connectivity.lastfmScrobble.removeFeatured": "Ta bort extraartister i Last.fm", 
-  "settings.option.connectivity.lastfmScrobble.filterLoop": "Filtrera loopade låtar i Last.fm", 
+  "settings.option.connectivity.lastfmScrobble.delay": "Last.fm fördröjning i %", 
+  "settings.option.connectivity.lastfmScrobble.nowPlaying": "Visa vad som spelas nu i Last.fm", 
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "Visa inte extraartister i Last.fm", 
+  "settings.option.connectivity.lastfmScrobble.filterLoop": "Filtrera bort loopade låtar i Last.fm", 
   // Refer to term.connect for the connect button
 
   // Settings - Experimental
@@ -300,7 +300,7 @@
   "spatial.audioSource": "Ljudkälla",
   
   // Settings - Unfinished
-  "settings.header.unfinished": "Ej tillägigt",
+  "settings.header.unfinished": "Ej tillgängligt",
 
   // Web Remote
   "remote.web.title": "Cider fjärrkontroll",
