@@ -2254,6 +2254,11 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     border-top: 1px solid rgb(220 53 69 / 50%);
   }
 
+  &.md-btn-small {
+    padding: 6px 8px;
+    font-size: 13px;
+  }
+
   &:hover {
     filter: brightness(125%);
   }
@@ -2277,6 +2282,27 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     > .md-btn-text {
       margin: 0px;
     }
+  }
+}
+
+.btn-group {
+  display:inline-flex;
+  justify-content: center;
+  align-items: center;
+  > .md-btn {
+    border-radius:0px;
+    width:100%;
+  }
+  > .md-btn:first-child {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+  }
+  > .md-btn:last-child {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+  }
+  > .md-btn:not(:first-child):not(:last-child) {
+    border-radius: 0px;
   }
 }
 

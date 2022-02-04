@@ -8,7 +8,10 @@
                 <button class="autoplay" :style="{'background': app.mk.autoplayEnabled ? 'var(--keyColor)' : ''}" @click="app.mk.autoplayEnabled = !app.mk.autoplayEnabled"> <img class="infinity"></button>
             </div>
         </div>
-        <div class="queue-body">
+        <div class="queue-body" v-if="page == 'history'">
+            <mediaitem-list-item v-for="item in history" :item="item"></mediaitem-list-item>
+        </div>
+        <div class="queue-body" v-if="page == 'queue'">
             <draggable v-model="queueItems" @start="drag=true" @end="drag=false;move()">
                 <template v-for="(queueItem, position) in queueItems">
                     <div v-if="position <= queuePosition" style="display: none;">{{ position }}</div>
@@ -33,7 +36,11 @@
             </draggable>
         </div>
         <div class="queue-footer">
-            <button class="md-btn" style="width:100%;" v-if="queueItems.length > 1" @click="app.mk.clearQueue();updateQueue()">{{app.getLz('term.clearAll')}}</button>
+            <div class="btn-group" style="width:100%;">
+                <button class="md-btn md-btn-small" :class="{'md-btn-primary': (page == 'queue')}" @click="page = 'queue'">Queue</button>
+                <button class="md-btn md-btn-small" :class="{'md-btn-primary': (page == 'history')}" @click="getHistory();page = 'history'">History</button>
+            </div>
+            <button class="md-btn md-btn-small" style="width:100%;margin-top:6px;" v-if="queueItems.length > 1" @click="app.mk.clearQueue();updateQueue()">{{app.getLz('term.clearAll')}}</button>
         </div>
     </div>
 </script>
@@ -49,6 +56,8 @@
                 queueItems: [],
                 selected: -1,
                 selectedItems: [],
+                history: [],
+                page: "queue",
                 app: this.$root
             }
         },
@@ -56,6 +65,10 @@
             this.updateQueue()
         },
         methods: {
+            async getHistory() {
+                let history = await app.mk.api.v3.music(`/v1/me/recent/played/tracks`)
+                this.history = history.data.data
+            },
             select(e, position) {
                 if(e.ctrlKey || e.shiftKey) {
                     if(this.selectedItems.indexOf(position) == -1) {
