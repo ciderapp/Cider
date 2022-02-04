@@ -46,8 +46,8 @@ export class BrowserWindow {
         hasShadow: false,
         show: false,
         backgroundColor: "#1E1E1E",
-        titleBarStyle: 'customButtonsOnHover',
-        trafficLightPosition: {x: 960, y: 20},
+        titleBarStyle: 'hidden',
+        trafficLightPosition: {x: 15, y: 20},
         webPreferences: {
             nodeIntegration: true,
             sandbox: true,
@@ -440,13 +440,11 @@ export class BrowserWindow {
             return await search(u);
         });
 
-        ipcMain.on("close", (_event, platformCheck) => {
-            if (platformCheck && process.platform === "darwin") return
+        ipcMain.on("close", (_event) => {
             BrowserWindow.win.close();
         });
 
-        ipcMain.on("maximize", (_event, platformCheck) => {
-            if (platformCheck && process.platform === "darwin") return
+        ipcMain.on("maximize", (_event) => {
             // listen for maximize event
             if (BrowserWindow.win.isMaximized()) {
                 BrowserWindow.win.unmaximize();
@@ -459,8 +457,7 @@ export class BrowserWindow {
             BrowserWindow.win.unmaximize();
         });
 
-        ipcMain.on("minimize", (_event, platformCheck) => {
-            if (platformCheck && process.platform === "darwin") return
+        ipcMain.on("minimize", () => {
             // listen for minimize event
             BrowserWindow.win.minimize();
         });
