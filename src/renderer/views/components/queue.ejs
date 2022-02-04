@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="queue-body" v-if="page == 'history'">
-            <mediaitem-list-item v-for="item in history" :item="item"></mediaitem-list-item>
+            <mediaitem-list-item :show-library-status="false" v-for="item in history" :item="item"></mediaitem-list-item>
         </div>
         <div class="queue-body" v-if="page == 'queue'">
             <draggable v-model="queueItems" @start="drag=true" @end="drag=false;move()">
