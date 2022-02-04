@@ -32,7 +32,7 @@
   "term.login": "piss in",
   "term.about": "piss info",
   "term.privateSession": "piss in private",
-  "term.queue": "to be pissed",
+  "term.queue": "the toilet",
   "term.search": "find piss",
   "term.library": "obtained piss",
   "term.listenNow": "piss now",
@@ -121,9 +121,11 @@
   "term.equalizer": "advanced piss configuration",
   "term.reset": "repiss",
   "term.tracks": "pisses", // Assume x amount of tracks. e.g. 50 tracks 
-  "term.videos": "piss videos 😳", 
+  "term.videos": "piss videos", 
   "term.menu": "piss menu",
   "term.check": "piss!",
+  "term.aboutArtist": "about pisser {{artistName}}", // e.g. 'About Doja Cat'
+  "term.updateCider": "piss on cider",
 
   // Home
   "home.title": "piss central",
@@ -154,8 +156,8 @@
   "action.addToLibrary": "obtain piss",
   "action.addToLibrary.success": "piss obtained",
   "action.addToLibrary.error": "error obtaining piss",
-  "action.removeFromLibrary": "unobtain piss",
-  "action.removeFromLibrary.success": "piss unobtained",
+  "action.removeFromLibrary": "dump piss",
+  "action.removeFromLibrary.success": "piss dumped",
   "action.addToQueue": "add to toilet",
   "action.addToQueue.success": "added to toilet",
   "action.addToQueue.error": "error adding to toilet",
@@ -191,10 +193,10 @@
   "action.import": "impiss",
   "action.export": "expiss",
   "action.showAlbum": "show complete piss collection",
-  // Waiting on Core for moving plugin to app.ts
   "action.tray.minimize": "piss off to tray",
   "action.tray.quit": "piss off",
   "action.tray.show": "piss back",
+  "action.update": "piss!",
 
   // Settings - General
   "settings.header.general": "general",
@@ -273,10 +275,7 @@
   "settings.header.experimental": "piss lab",
   "settings.header.experimental.description": "mitochondria is the powerhouse of the cell",
   "settings.option.experimental.compactUI": "compact piss", // Toggle
-  "settings.option.experimental.closeButtonBehaviour": "piss off button behaviour",
-  "settings.option.experimental.closeButtonBehaviour.quit": "ask cider to piss off",
-  "settings.option.experimental.closeButtonBehaviour.minimizeTaskbar": "piss off to the taskbar",
-  "settings.option.experimental.closeButtonBehaviour.minimizeTray": "piss off to the tray",
+  "settings.option.experimental.close_button_hide": "play hide-and-seek when clicking close button",
   // Refer to term.disabled & term.enabled
 
   // Spatialization Menu
