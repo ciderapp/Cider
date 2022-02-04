@@ -113,7 +113,7 @@
         methods: {
             async seeAllHistory() {
                 let hist = await app.mk.api.v3.music(`/v1/me/recent/played/tracks`)
-                app.showCollection(hist.data, "History")
+                app.showCollection(hist.data, app.getLz('term.history'))
             },
             isSectionReady(section) {
                 return this.sectionsReady.includes(section)
