@@ -594,8 +594,8 @@ const app = new Vue({
         },
         async init() {
             let self = this
-            if (this.cfg.visual.theme != "default.less" || this.cfg.visual.theme != "") {
-                this.setTheme()
+            if (this.cfg.visual.theme != "default.less" && this.cfg.visual.theme != "") {
+                this.setTheme(this.cfg.visual.theme)
             }
             this.setLz(this.cfg.general.language)
             this.setLzManual()
@@ -855,6 +855,7 @@ const app = new Vue({
             }, 500)
         },
         setTheme(theme = "") {
+            console.log(theme)
             if (this.cfg.visual.theme == "") {
                 this.cfg.visual.theme = "default.less"
             }
