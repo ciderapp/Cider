@@ -1,5 +1,5 @@
 import {join} from "path";
-import {app, BrowserWindow as bw, ipcMain, shell} from "electron";
+import {app, BrowserWindow as bw, ipcMain, shell, ShareMenu} from "electron";
 import * as windowStateKeeper from "electron-window-state";
 import * as express from "express";
 import * as getPort from "get-port";
@@ -533,6 +533,25 @@ export class BrowserWindow {
             await win_autoUpdater.checkForUpdatesAndNotify()
             await linux_autoUpdater.checkForUpdatesAndNotify()
         })
+
+        ipcMain.on('share-menu', async (_event, url) => {
+            if ( process.platform != 'darwin') return;
+            //https://www.electronjs.org/docs/latest/api/share-menu
+            console.log('[Share Sheet - App.ts]', url)
+            const options = {
+                title: 'Share',
+                urls: [url]
+            };
+            // @ts-ignore
+            const shareMenu = new ShareMenu(options);
+            shareMenu.popup();
+        })
+
+
+
+
+
+
 
         /* *********************************************************************************************
          * Window Events
