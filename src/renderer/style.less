@@ -5957,5 +5957,16 @@ body.no-gpu {
   }
 }
 
+body[platform='darwin'] {
+  #window-controls-container {
+    display: none;
+  }
+
+  .app-chrome .app-chrome-item > .app-mainmenu {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
 
 @import url("less/compact.less");
