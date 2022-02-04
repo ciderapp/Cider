@@ -37,3 +37,13 @@ Updated 02/02/2022 17:16 UTC
 * `term.top`: Added for `en_US`.
 * `action.newpreset`: Added for `en_US`.
 * `action.deletepreset`: Added for `en_US`.
+
+Updated 04/02/2022 10:00 UTC
+
+* `term.history`: Added for `en_US`.
+* `action.copy`: Added for `en_US`.
+* `settings.header.visual.theme`: Added for `en_US`.
+* `settings.option.visual.theme.default`: Added for `en_US`.
+* `settings.option.visual.theme.dark`: Added for `en_US`.
+* `settings.option.experimental.copy_log`: Added for `en_US`.
+* `settings.option.experimental.inline_playlists`: Added for `en_US`.
