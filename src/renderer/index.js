@@ -987,8 +987,12 @@ const app = new Vue({
             })
         },
         copyToClipboard(str) {
-            notyf.success(app.getLz('term.share.success'))
-            navigator.clipboard.writeText(str)
+            if (process.platform === 'darwin') {
+                this.darwinShare(str)
+            } else {
+                notyf.success(app.getLz('term.share.success'))
+                navigator.clipboard.writeText(str)
+            }
         },
         newPlaylist(name = app.getLz('term.newPlaylist'), tracks = []) {
             let self = this
@@ -3580,7 +3584,10 @@ const app = new Vue({
         },
         checkForUpdate(){
             ipcRenderer.send('check-for-update')
-        }
+        },
+        darwinShare(url){
+            ipcRenderer.send('share-menu', url)
+        },
     }
 })
 

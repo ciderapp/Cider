@@ -1,5 +1,5 @@
 import {join} from "path";
-import {app, BrowserWindow as bw, ipcMain, shell} from "electron";
+import {app, BrowserWindow as bw, ipcMain, shell, ShareMenu} from "electron";
 import * as windowStateKeeper from "electron-window-state";
 import * as express from "express";
 import * as getPort from "get-port";
@@ -26,6 +26,51 @@ export class BrowserWindow {
         env: {
             platform: process.platform,
             dev: app.isPackaged,
+            components: [
+                "pages/podcasts",
+                "pages/apple-account-settings",
+                "pages/library-songs",
+                "pages/browse",
+                "pages/settings",
+                "pages/listen_now",
+                "pages/home",
+                "pages/artist-feed",
+                "pages/cider-playlist",
+                "pages/recordLabel",
+                "pages/collection-list",
+                "pages/apple-curator",
+                "pages/artist",
+                "pages/search",
+                "pages/about",
+                "pages/library-videos",
+                "components/mediaitem-artwork",
+                "components/artwork-material",
+                "components/menu-panel",
+                "components/sidebar-playlist",
+                "components/spatial-properties",
+                "components/audio-settings",
+                "components/qrcode-modal",
+                "components/equalizer",
+                "components/add-to-playlist",
+                "components/queue",
+                "components/queue-item",
+                "components/mediaitem-scroller-horizontal",
+                "components/mediaitem-scroller-horizontal-large",
+                "components/mediaitem-scroller-horizontal-sp",
+                "components/mediaitem-scroller-horizontal-mvview",
+                "components/mediaitem-list-item",
+                "components/mediaitem-hrect",
+                "components/mediaitem-square",
+                "components/mediaitem-square-sp",
+                "components/mediaitem-mvview",
+                "components/libraryartist-item",
+                "components/listennow-child",
+                "components/mediaitem-mvview-sp",
+                "components/animatedartwork-view",
+                "components/lyrics-view",
+                "components/fullscreen",
+                "components/miniplayer",
+            ]
         },
     };
     private options: any = {
@@ -533,6 +578,25 @@ export class BrowserWindow {
             await win_autoUpdater.checkForUpdatesAndNotify()
             await linux_autoUpdater.checkForUpdatesAndNotify()
         })
+
+        ipcMain.on('share-menu', async (_event, url) => {
+            if ( process.platform != 'darwin') return;
+            //https://www.electronjs.org/docs/latest/api/share-menu
+            console.log('[Share Sheet - App.ts]', url)
+            const options = {
+                title: 'Share',
+                urls: [url]
+            };
+            // @ts-ignore
+            const shareMenu = new ShareMenu(options);
+            shareMenu.popup();
+        })
+
+
+
+
+
+
 
         /* *********************************************************************************************
          * Window Events
