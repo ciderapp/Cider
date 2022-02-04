@@ -1,192 +1,230 @@
 <script type="text/x-template" id="playlist-inline">
     <div class="content-inner playlist-page inline-playlist" @click.self="$root.resetState()">
-            <div class="playlist-inner" v-if="data != [] && data.attributes != null">
-                <div class="close-btn" title="Close" @click="$root.resetState()">
-                    <svg fill="white" xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21"
-                         aria-role="presentation" focusable="false">
-                        <path
-                                d="M10.5 21C4.724 21 0 16.275 0 10.5S4.724 0 10.5 0 21 4.725 21 10.5 16.276 21 10.5 21zm-3.543-5.967a.96.96 0 00.693-.295l2.837-2.842 2.85 2.842c.167.167.41.295.693.295.552 0 1.001-.461 1.001-1.012 0-.281-.115-.512-.295-.704L11.899 10.5l2.85-2.855a.875.875 0 00.295-.68c0-.55-.45-.998-1.001-.998a.871.871 0 00-.668.295l-2.888 2.855-2.862-2.843a.891.891 0 00-.668-.281.99.99 0 00-1.001.986c0 .269.116.512.295.678L9.088 10.5l-2.837 2.843a.926.926 0 00-.295.678c0 .551.45 1.012 1.001 1.012z"
-                                fill-rule="nonzero"/>
-                    </svg>
+        <div class="playlist-inner" v-if="data != [] && data.attributes != null">
+            <div class="close-btn" title="Close" @click="$root.resetState()">
+                <svg fill="white" xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21"
+                     aria-role="presentation" focusable="false">
+                    <path
+                            d="M10.5 21C4.724 21 0 16.275 0 10.5S4.724 0 10.5 0 21 4.725 21 10.5 16.276 21 10.5 21zm-3.543-5.967a.96.96 0 00.693-.295l2.837-2.842 2.85 2.842c.167.167.41.295.693.295.552 0 1.001-.461 1.001-1.012 0-.281-.115-.512-.295-.704L11.899 10.5l2.85-2.855a.875.875 0 00.295-.68c0-.55-.45-.998-1.001-.998a.871.871 0 00-.668.295l-2.888 2.855-2.862-2.843a.891.891 0 00-.668-.281.99.99 0 00-1.001.986c0 .269.116.512.295.678L9.088 10.5l-2.837 2.843a.926.926 0 00-.295.678c0 .551.45 1.012 1.001 1.012z"
+                            fill-rule="nonzero"/>
+                </svg>
+            </div>
+            <template v-if="app.playlists.loadingState == 0">
+                <div class="content-inner centered">
+                    <div class="spinner"></div>
                 </div>
-                <template v-if="app.playlists.loadingState == 0">
-                    <div class="content-inner centered">
-                        <div class="spinner"></div>
-                    </div>
-                </template>
-                <template v-if="app.playlists.loadingState == 1">
-                    <div class="playlist-display"
-                         :style="{
+            </template>
+            <template v-if="app.playlists.loadingState == 1">
+                <div class="playlist-display"
+                     :style="{
                 '--bgColor': (data.attributes.artwork != null && data.attributes.artwork['bgColor'] != null) ? ('#' + data.attributes.artwork.bgColor) : '',
                 '--textColor': (data.attributes.artwork != null && data.attributes.artwork['textColor1'] != null) ? ('#' + data.attributes.artwork.textColor1) : ''
             }">
-                        <div class="playlistInfo">
-                            <div class="row">
-                                <div class="col-auto flex-center">
-                                    <div style="width: 260px;height:260px;">
-                                        <mediaitem-artwork
-                                                shadow="large"
-                                                :video-priority="true"
-                                                :url="(data.attributes != null && data.attributes.artwork != null) ? data.attributes.artwork.url : ((data.relationships != null && data.relationships.tracks.data.length > 0 && data.relationships.tracks.data[0].attributes != null) ? ((data.relationships.tracks.data[0].attributes.artwork != null)? data.relationships.tracks.data[0].attributes.artwork.url : ''):'')"
-                                                :video="(data.attributes != null && data.attributes.editorialVideo != null) ? (data.attributes.editorialVideo.motionDetailSquare ? data.attributes.editorialVideo.motionDetailSquare.video : (data.attributes.editorialVideo.motionSquareVideo1x1 ? data.attributes.editorialVideo.motionSquareVideo1x1.video : '')) : '' "
-                                                size="260"
-                                        ></mediaitem-artwork>
-                                    </div>
+                    <div class="playlistInfo">
+                        <div class="row">
+                            <div class="col-auto flex-center">
+                                <div style="width: 260px;height:260px;">
+                                    <mediaitem-artwork
+                                            shadow="large"
+                                            :video-priority="true"
+                                            :url="(data.attributes != null && data.attributes.artwork != null) ? data.attributes.artwork.url : ((data.relationships != null && data.relationships.tracks.data.length > 0 && data.relationships.tracks.data[0].attributes != null) ? ((data.relationships.tracks.data[0].attributes.artwork != null)? data.relationships.tracks.data[0].attributes.artwork.url : ''):'')"
+                                            :video="(data.attributes != null && data.attributes.editorialVideo != null) ? (data.attributes.editorialVideo.motionDetailSquare ? data.attributes.editorialVideo.motionDetailSquare.video : (data.attributes.editorialVideo.motionSquareVideo1x1 ? data.attributes.editorialVideo.motionSquareVideo1x1.video : '')) : '' "
+                                            size="260"
+                                    ></mediaitem-artwork>
                                 </div>
-                                <div class="col playlist-info">
-                                    <template v-if="!editorialNotesExpanded">
-                                        <div>
-                                            <div class="playlist-name" @click="editPlaylistName()" v-show="!nameEditing">
-                                                {{data.attributes ? (data.attributes.name ??
-                                                (data.attributes.title ?? '') ?? '') : ''}}
-                                            </div>
-                                            <div class="playlist-name" v-show="nameEditing"><input type="text" spellcheck="false"
-                                                                                                   class="nameEdit"
-                                                                                                   v-model="data.attributes.name"
-                                                                                                   @blur="editPlaylist"
-                                                                                                   @change="editPlaylist"
-                                                                                                   @keydown.enter="editPlaylist"/></div>
-                                            <div class="playlist-artist item-navigate"
-                                                 v-if="getArtistName(data) != ''"
-                                                 @click="data.attributes && data.attributes.artistName ? app.searchAndNavigate(data,'artist') : ''">
-                                                {{getArtistName(data)}}
-                                            </div>
-                                            <div class="playlist-desc" v-if="data.attributes.description && (data.attributes.description.standard || data.attributes.description.short)">
-                                                <div v-if="data.attributes.description.short" class="content" v-html="data.attributes.description.short"></div>
-                                                <div v-else-if="data.attributes.description.standard" class="content" v-html="data.attributes.description.standard"></div>
-                                                <button v-if="data.attributes.description.short" class="more-btn"
-                                                        @click="editorialNotesExpanded = !editorialNotesExpanded">
-                                                    {{app.getLz('term.showMore')}}
-                                                </button>
-                                            </div>
+                            </div>
+                            <div class="col playlist-info">
+                                <template v-if="!editorialNotesExpanded">
+                                    <div>
+                                        <div class="playlist-name" @click="editPlaylistName()" v-show="!nameEditing">
+                                            {{data.attributes ? (data.attributes.name ??
+                                            (data.attributes.title ?? '') ?? '') : ''}}
                                         </div>
-                                    </template>
-                                    <template v-if="editorialNotesExpanded">
-                                        <div class="playlist-desc-expanded">
-                                            <div class="content"
-                                                 v-html="((data.attributes.editorialNotes) ? (data.attributes.editorialNotes.standard ?? (data.attributes.editorialNotes.short ?? '') ) : (data.attributes.description ? (data.attributes.description.standard ?? (data.attributes.description.short ?? '')) : ''))"></div>
-                                            <button class="more-btn" @click="editorialNotesExpanded = !editorialNotesExpanded">{{app.getLz('term.showLess')}}
+                                        <div class="playlist-name" v-show="nameEditing"><input type="text"
+                                                                                               spellcheck="false"
+                                                                                               class="nameEdit"
+                                                                                               v-model="data.attributes.name"
+                                                                                               @blur="editPlaylist"
+                                                                                               @change="editPlaylist"
+                                                                                               @keydown.enter="editPlaylist"/>
+                                        </div>
+                                        <div class="playlist-artist item-navigate"
+                                             v-if="getArtistName(data) != ''"
+                                             @click="data.attributes && data.attributes.artistName ? app.searchAndNavigate(data,'artist') : ''">
+                                            {{getArtistName(data)}}
+                                        </div>
+                                        <div class="playlist-desc"
+                                             v-if="data.attributes.description && (data.attributes.description.standard || data.attributes.description.short)">
+                                            <div v-if="data.attributes.description.short" class="content"
+                                                 v-html="data.attributes.description.short"></div>
+                                            <div v-else-if="data.attributes.description.standard" class="content"
+                                                 v-html="data.attributes.description.standard"></div>
+                                            <button v-if="data.attributes.description.short" class="more-btn"
+                                                    @click="editorialNotesExpanded = !editorialNotesExpanded">
+                                                {{app.getLz('term.showMore')}}
                                             </button>
                                         </div>
-                                    </template>
-                                    <div class="playlist-controls" v-observe-visibility="{callback: isHeaderVisible}">
-                                        <button class="md-btn md-btn-primary md-btn-icon" style="min-width: 100px;"
-                                                @click="app.mk.shuffleMode = 0; play()"> <img class="md-ico-play">
-                                            {{app.getLz('term.play')}}
-                                        </button>
-                                        <button class="md-btn md-btn-primary md-btn-icon" style="min-width: 100px;"
-                                                @click="app.mk.shuffleMode = 1;play()"> <img class="md-ico-shuffle">
-                                            {{app.getLz('term.shuffle')}}
-                                        </button>
-                                        <button class="md-btn md-btn-icon" style="min-width: 180px;" v-if="inLibrary!=null && confirm!=true"
-                                                @click="confirmButton()"> <img :class="(!inLibrary) ? 'md-ico-add' : 'md-ico-remove'">
-                                            {{ (!inLibrary) ? app.getLz('action.addToLibrary') : app.getLz("action.removeFromLibrary") }}
-                                        </button>
-                                        <button class="md-btn md-btn-icon" style="min-width: 180px;" v-if="confirm==true"
-                                                @click="(!inLibrary) ? addToLibrary(data.attributes.playParams.id.toString()) : removeFromLibrary(data.attributes.playParams.id.toString()) "> <img :class="(!inLibrary) ? 'md-ico-add' : 'md-ico-remove'">
-                                            {{app.getLz('term.confirm')}}
-                                        </button>
-                                        <button class="more-btn-round" style="float:right;" @click="menu">
-                                            <div class="svg-icon"></div>
+                                    </div>
+                                </template>
+                                <template v-if="editorialNotesExpanded">
+                                    <div class="playlist-desc-expanded">
+                                        <div class="content"
+                                             v-html="((data.attributes.editorialNotes) ? (data.attributes.editorialNotes.standard ?? (data.attributes.editorialNotes.short ?? '') ) : (data.attributes.description ? (data.attributes.description.standard ?? (data.attributes.description.short ?? '')) : ''))"></div>
+                                        <button class="more-btn"
+                                                @click="editorialNotesExpanded = !editorialNotesExpanded">
+                                            {{app.getLz('term.showLess')}}
                                         </button>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="artworkContainer" v-if="data.attributes.artwork != null">
-                            <artwork-material :url="data.attributes.artwork.url" size="260" images="1"></artwork-material>
-                        </div>
-
-                    </div>
-                    <div class="floating-header" :style="{opacity: (headerVisible ? 0 : 1),'pointer-events': (headerVisible ? 'none' : '')}">
-                        <div class="row">
-                            <div class="col">
-                                <h3>{{data.attributes ? (data.attributes.name ??
-                                    (data.attributes.title ?? '') ?? '') : ''}}</h3>
-                            </div>
-                            <div class="col-auto flex-center">
-                                <div>
-                                    <button class="md-btn md-btn-primary  md-btn-icon" style="min-width: 100px;"
-                                            @click="app.mk.shuffleMode = 0; play()"> <img class="md-ico-play">
+                                </template>
+                                <div class="playlist-controls" v-observe-visibility="{callback: isHeaderVisible}">
+                                    <button class="md-btn md-btn-primary md-btn-icon" style="min-width: 100px;"
+                                            @click="app.mk.shuffleMode = 0; play()"><img class="md-ico-play">
                                         {{app.getLz('term.play')}}
                                     </button>
-                                    <button class="md-btn md-btn-primary  md-btn-icon" style="min-width: 100px;"
-                                            @click="app.mk.shuffleMode = 1;play()"> <img class="md-ico-shuffle">
+                                    <button class="md-btn md-btn-primary md-btn-icon" style="min-width: 100px;"
+                                            @click="app.mk.shuffleMode = 1;play()"><img class="md-ico-shuffle">
                                         {{app.getLz('term.shuffle')}}
                                     </button>
-                                    <button class="md-btn md-btn-icon" style="min-width: 180px;" v-if="inLibrary!=null && confirm!=true"
-                                            @click="confirmButton()"> <img :class="(!inLibrary) ? 'md-ico-add' : 'md-ico-remove'">
-                                        {{ (!inLibrary) ? app.getLz('action.addToLibrary') : app.getLz("action.removeFromLibrary") }}
+                                    <button class="md-btn md-btn-icon" style="min-width: 180px;"
+                                            v-if="inLibrary!=null && confirm!=true"
+                                            @click="confirmButton()"><img
+                                                :class="(!inLibrary) ? 'md-ico-add' : 'md-ico-remove'">
+                                        {{ (!inLibrary) ? app.getLz('action.addToLibrary') :
+                                        app.getLz("action.removeFromLibrary") }}
                                     </button>
                                     <button class="md-btn md-btn-icon" style="min-width: 180px;" v-if="confirm==true"
-                                            @click="(!inLibrary) ? addToLibrary(data.attributes.playParams.id.toString()) : removeFromLibrary(data.attributes.playParams.id.toString()) "> <img :class="(!inLibrary) ? 'md-ico-add' : 'md-ico-remove'">
+                                            @click="(!inLibrary) ? addToLibrary(data.attributes.playParams.id.toString()) : removeFromLibrary(data.attributes.playParams.id.toString()) ">
+                                        <img :class="(!inLibrary) ? 'md-ico-add' : 'md-ico-remove'">
                                         {{app.getLz('term.confirm')}}
+                                    </button>
+                                    <button class="more-btn-round" style="float:right;" @click="menu">
+                                        <div class="svg-icon"></div>
                                     </button>
                                 </div>
                             </div>
-                            <div class="col-auto flex-center">
-                                <button class="more-btn-round" style="float:right;" @click="menu">
-                                    <div class="svg-icon"></div>
+                        </div>
+                    </div>
+                    <div class="artworkContainer" v-if="data.attributes.artwork != null">
+                        <artwork-material :url="data.attributes.artwork.url" size="260" images="1"></artwork-material>
+                    </div>
+
+                </div>
+                <div class="floating-header"
+                     :style="{opacity: (headerVisible ? 0 : 1),'pointer-events': (headerVisible ? 'none' : '')}">
+                    <div class="row">
+                        <div class="col">
+                            <h3>{{data.attributes ? (data.attributes.name ??
+                                (data.attributes.title ?? '') ?? '') : ''}}</h3>
+                        </div>
+                        <div class="col-auto flex-center">
+                            <div>
+                                <button class="md-btn md-btn-primary  md-btn-icon" style="min-width: 100px;"
+                                        @click="app.mk.shuffleMode = 0; play()"><img class="md-ico-play">
+                                    {{app.getLz('term.play')}}
+                                </button>
+                                <button class="md-btn md-btn-primary  md-btn-icon" style="min-width: 100px;"
+                                        @click="app.mk.shuffleMode = 1;play()"><img class="md-ico-shuffle">
+                                    {{app.getLz('term.shuffle')}}
+                                </button>
+                                <button class="md-btn md-btn-icon" style="min-width: 180px;"
+                                        v-if="inLibrary!=null && confirm!=true"
+                                        @click="confirmButton()"><img
+                                            :class="(!inLibrary) ? 'md-ico-add' : 'md-ico-remove'">
+                                    {{ (!inLibrary) ? app.getLz('action.addToLibrary') :
+                                    app.getLz("action.removeFromLibrary") }}
+                                </button>
+                                <button class="md-btn md-btn-icon" style="min-width: 180px;" v-if="confirm==true"
+                                        @click="(!inLibrary) ? addToLibrary(data.attributes.playParams.id.toString()) : removeFromLibrary(data.attributes.playParams.id.toString()) ">
+                                    <img :class="(!inLibrary) ? 'md-ico-add' : 'md-ico-remove'">
+                                    {{app.getLz('term.confirm')}}
                                 </button>
                             </div>
                         </div>
+                        <div class="col-auto flex-center">
+                            <button class="more-btn-round" style="float:right;" @click="menu">
+                                <div class="svg-icon"></div>
+                            </button>
+                        </div>
                     </div>
-                    <div class="playlist-body">
+                </div>
+                <div class="playlist-body">
+                    <div class="well">
+                        <div style="width:100%">
+                            <draggable :sort="data.attributes.canEdit && data.type == 'library-playlists'"
+                                       v-model="data.relationships.tracks.data" @start="drag=true"
+                                       @end="drag=false;put()">
+                                <mediaitem-list-item :item="item" :parent="getItemParent(data)" :index="index"
+                                                     :showIndex="true"
+                                                     :showIndexPlaylist="(data.attributes.playParams.kind ?? data.type ?? '').includes('playlist')"
+                                                     :context-ext="buildContextMenu()"
+                                                     v-for="(item,index) in data.relationships.tracks.data"></mediaitem-list-item>
+                            </draggable>
+
+                        </div>
+
+                    </div>
+                    <div class="friends-info" v-if="itemBadges.length != 0">
                         <div class="well">
-                            <div style="width:100%">
-                                <draggable :sort="data.attributes.canEdit && data.type == 'library-playlists'"
-                                           v-model="data.relationships.tracks.data" @start="drag=true" @end="drag=false;put()">
-                                    <mediaitem-list-item :item="item" :parent="getItemParent(data)" :index="index" :showIndex="true" :showIndexPlaylist="(data.attributes.playParams.kind ?? data.type ?? '').includes('playlist')"
-                                                         :context-ext="buildContextMenu()"
-                                                         v-for="(item,index) in data.relationships.tracks.data"></mediaitem-list-item>
-                                </draggable>
-
-                            </div>
-
-                        </div>
-                        <div class="friends-info" v-if="itemBadges.length != 0">
-                            <div class="well">
-                                <div class="badge-container">
-                                    <div class="socialBadge" :title="`${badge.attributes.name} - @${badge.attributes.handle}`"
-                                         v-for="badge in itemBadges">
-                                        <mediaitem-artwork
-                                                :url="badge.attributes.artwork.url"
-                                                :size="60"></mediaitem-artwork>
-                                    </div>
+                            <div class="badge-container">
+                                <div class="socialBadge"
+                                     :title="`${badge.attributes.name} - @${badge.attributes.handle}`"
+                                     v-for="badge in itemBadges">
+                                    <mediaitem-artwork
+                                            :url="badge.attributes.artwork.url"
+                                            :size="60"></mediaitem-artwork>
                                 </div>
                             </div>
                         </div>
-                        <div class="playlist-time">
-                            {{getFormattedDate()}}
-                        </div>
-                        <div class="playlist-time total">{{app.getTotalTime()}}</div>
-                        <div class="playlist-time item-navigate" @click="app.searchAndNavigate(data,'recordLabel') "
-                             style="width: 50%;">
-                            {{data.attributes.copyright}}
-                        </div>
-                        <template v-if="(data.attributes?.playParams?.kind ?? data.type ?? '').includes('album') &&  data.relationships.catalog != null && data.relationships.catalog != null && data.relationships.catalog.data.length > 0">
-                            <div class="playlist-time showExtended item-navigate" style="color:#fa586a; font-weight: bold" @click="app.routeView(data.relationships.catalog.data[0])">
-                                {{$root.getLz("action.showAlbum")}}
-                            </div>
-                        </template>
-                        <hr>
-                        <template v-if="typeof data.meta != 'undefined'">
-                            <div v-for="view in data.meta.views.order" v-if="data.views[view].data.length != 0">
-                                <div class="row" >
-                                    <div class="col">
-                                        <h3>{{ data.views[view].attributes.title }}</h3>
-                                    </div>
-                                </div>
-                                <div>
-                                    <mediaitem-scroller-horizontal :items="data.views[view].data"></mediaitem-scroller-horizontal>
-                                </div>
-                            </div>
-                        </template>
-
                     </div>
-                </template>
-            </div>
+                    <div class="playlist-time">
+                        {{getFormattedDate()}}
+                    </div>
+                    <div class="playlist-time total">{{app.getTotalTime()}}</div>
+                    <div class="playlist-time item-navigate" @click="app.searchAndNavigate(data,'recordLabel') "
+                         style="width: 50%;">
+                        {{data.attributes.copyright}}
+                    </div>
+                    <template
+                            v-if="(data.attributes?.playParams?.kind ?? data.type ?? '').includes('album') &&  data.relationships.catalog != null && data.relationships.catalog != null && data.relationships.catalog.data.length > 0">
+                        <div class="playlist-time showExtended item-navigate" style="color:#fa586a; font-weight: bold"
+                             @click="app.routeView(data.relationships.catalog.data[0])">
+                            {{$root.getLz("action.showAlbum")}}
+                        </div>
+                    </template>
+                    <hr>
+                    <template v-if="typeof data.meta != 'undefined'">
+                        <div v-for="view in data.meta.views.order" v-if="data.views[view].data.length != 0">
+                            <div class="row">
+                                <div class="col">
+                                    <h3>{{ data.views[view].attributes.title }}</h3>
+                                </div>
+                            </div>
+                            <div>
+                                <mediaitem-scroller-horizontal
+                                        :items="data.views[view].data"></mediaitem-scroller-horizontal>
+                            </div>
+                        </div>
+                    </template>
+
+                </div>
+            </template>
         </div>
+        <div class="playlist-inner" v-else>
+            <div class="close-btn" title="Close" @click="$root.resetState()">
+                <svg fill="white" xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21"
+                     aria-role="presentation" focusable="false">
+                    <path
+                            d="M10.5 21C4.724 21 0 16.275 0 10.5S4.724 0 10.5 0 21 4.725 21 10.5 16.276 21 10.5 21zm-3.543-5.967a.96.96 0 00.693-.295l2.837-2.842 2.85 2.842c.167.167.41.295.693.295.552 0 1.001-.461 1.001-1.012 0-.281-.115-.512-.295-.704L11.899 10.5l2.85-2.855a.875.875 0 00.295-.68c0-.55-.45-.998-1.001-.998a.871.871 0 00-.668.295l-2.888 2.855-2.862-2.843a.891.891 0 00-.668-.281.99.99 0 00-1.001.986c0 .269.116.512.295.678L9.088 10.5l-2.837 2.843a.926.926 0 00-.295.678c0 .551.45 1.012 1.001 1.012z"
+                            fill-rule="nonzero"/>
+                </svg>
+            </div>
+            <template v-if="app.playlists.loadingState == 0">
+                <div class="content-inner centered">
+                    <div class="spinner"></div>
+                </div>
+            </template>
+        </div>
+    </div>
 </script>
 
 <script>
@@ -303,11 +341,12 @@
                 }
                 let kind = this.data.attributes.playParams.kind ?? this.data.type ?? '';
                 const truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
-                app.mk.api.v3.music(`v1/me/library/${truekind}/${id.toString()}`,{},
+                app.mk.api.v3.music(`v1/me/library/${truekind}/${id.toString()}`, {},
                     {
                         fetchOptions: {
                             method: "DELETE"
-                        }})
+                        }
+                    })
                 this.inLibrary = false
                 this.confirm = false
             },
@@ -347,7 +386,7 @@
                 if (!this.data.attributes.canEdit) {
                     return
                 }
-                console.log('sds',this.convert())
+                console.log('sds', this.convert())
                 await app.mk.api.v3.music(
                     `/v1/me/library/playlists/${this.data.attributes.playParams.id}/tracks`,
                     {},
@@ -438,13 +477,13 @@
                 if (date == null || date === "") return "";
                 switch (date) {
                     case this.data.attributes.releaseDate:
-                        prefix = this.app.getLz('term.time.released')+ ' '
+                        prefix = this.app.getLz('term.time.released') + ' '
                         break;
                     case this.data.attributes.lastModifiedDate:
-                        prefix = this.app.getLz('term.time.updated')+ ' '
+                        prefix = this.app.getLz('term.time.updated') + ' '
                         break;
                     case this.data.attributes.dateAdded:
-                        prefix = this.app.getLz('term.time.added')+ ' '
+                        prefix = this.app.getLz('term.time.added') + ' '
                         break;
                 }
                 let month, year;
@@ -454,13 +493,22 @@
                     // date = releaseDate.getDate();
                     // year = releaseDate.getFullYear();
                     let formatted = ''
-                    try {formatted = new Intl.DateTimeFormat(this.app.cfg.general.language?.replace('_','-') ?? 'en-US', {day:'numeric',month: 'long', year: 'numeric'}).format(releaseDate);}
-                    catch(e){
+                    try {
+                        formatted = new Intl.DateTimeFormat(this.app.cfg.general.language?.replace('_', '-') ?? 'en-US', {
+                            day: 'numeric',
+                            month: 'long',
+                            year: 'numeric'
+                        }).format(releaseDate);
+                    } catch (e) {
                         // use the format in json instead
-                        if (this.app.getLz('date.format') != null){
+                        if (this.app.getLz('date.format') != null) {
                             formatted = new this.app.getLz('date.format').replace("${d}", releaseDate.getDate()).replace("${m}", releaseDate.getMonth()).replace("${y}", releaseDate.getFullYear());
                         } else {
-                            formatted = new Intl.DateTimeFormat('en-US', {day:'numeric',month: 'long', year: 'numeric'}).format(releaseDate);
+                            formatted = new Intl.DateTimeFormat('en-US', {
+                                day: 'numeric',
+                                month: 'long',
+                                year: 'numeric'
+                            }).format(releaseDate);
                         }
                     }
                     return prefix + formatted
