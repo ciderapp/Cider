@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/Cider
     docker:
-      - image: circleci/node:16-browsers
+      - image: circleci/node:16-node-browsers
     steps:
       - checkout
       - run:
