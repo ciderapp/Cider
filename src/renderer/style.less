@@ -68,10 +68,6 @@ body[loading] {
   }
 }
 
-body[platform='linux'] {
-  background: #222;
-}
-
 body.notransparency::before {
   content: "";
   position: absolute;
@@ -880,6 +876,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 .app-chrome .app-chrome--left {
   width: 30%;
   justify-content: left;
+  -webkit-app-region: drag;
 }
 
 .app-chrome .app-chrome--center {
@@ -5954,6 +5951,18 @@ body.no-gpu {
       padding: 16px;
       background-color: var(--modalBackground);
     }
+  }
+}
+
+body[platform='darwin'] {
+  #window-controls-container {
+    display: none;
+  }
+
+  .app-chrome .app-chrome-item > .app-mainmenu {
+    opacity: 0;
+    pointer-events: none;
+    -webkit-app-region: drag;
   }
 }
 
