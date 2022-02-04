@@ -1,4 +1,4 @@
-import {app, Menu, nativeImage, Tray} from 'electron';
+import {app, Menu, nativeImage, Tray, shell } from 'electron';
 import * as path from 'path';
 import {utils} from './utils'
 
@@ -169,6 +169,8 @@ export class AppEvents {
             let url = arg.split('//')[1]
             console.warn(`[LinkHandler] Attempting to load url: ${url}`);
             utils.getWindow().webContents.send('play', 'url', url)
+        } else if (arg.includes('/debug.appdata/')) {
+            shell.openPath(app.getPath('userData'));
         }
     }
 
