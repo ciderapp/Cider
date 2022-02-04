@@ -44,54 +44,9 @@
     <%- include('app/panels'); %>
 </div>
 
-
-<!-- Apple Settings Page -->
-<%- include('pages/podcasts') %>
-<!-- Apple Settings Page -->
-<%- include('pages/apple-account-settings') %>
-<!-- Library - Songs -->
-<%- include('pages/library-songs') %>
-
-<!-- Media Item Artwork-->
-<%- include("components/mediaitem-artwork"); %>
-<!-- Browse -->
-<%- include('pages/browse') %>
-
-<!-- Settings -->
-<%- include('pages/settings') %>
-
-<!-- Listen Now -->
-<%- include('pages/listen_now') %>
-
-<!-- Home -->
-<%- include('pages/home') %>
-
-<!-- Artist Feed -->
-<%- include('pages/artist-feed') %>
-
-<!-- Playlists / Albums -->
-<%- include('pages/cider-playlist') %>
-
-<!-- Record Label -->
-<%- include('pages/recordLabel') %>
-
-<!-- Collection List -->
-<%- include('pages/collection-list') %>
-
-<!-- Apple Curator -->
-<%- include('pages/apple-curator') %>
-
-<!-- Artist Page -->
-<%- include('pages/artist') %>
-
-<!-- Search -->
-<%- include('pages/search') %>
-
-<!-- About -->
-<%- include('pages/about') %>
-
-
-<%- include('pages/library-videos') %>
+<% for(var i=0; i < Object.keys(env.components).length ; i++) {%>
+    <%- include(env.components[i]); %>
+<% } %>
 
 <script type="text/x-template"
         id="am-musiccovershelf">
@@ -107,83 +62,6 @@
         {{ name }}
     </button>
 </script>
-
-<!-- Artwork Material -->
-<%- include('components/artwork-material') %>
-<!-- Menu Panel -->
-<%- include('components/menu-panel') %>
-<!-- Playlist Listing -->
-<%- include('components/sidebar-playlist')
-%>
-<!-- Spatial Properties -->
-<%- include('components/spatial-properties')
-%>
-<!-- Audio Settings -->
-<%- include('components/audio-settings')
-%>
-<!-- QRCode Modal -->
-<%- include('components/qrcode-modal')
-%>
-<!-- Equalizer -->
-<%- include('components/equalizer')
-%>
-<!-- Add to playlist -->
-<%- include('components/add-to-playlist')
-%>
-<!-- Queue -->
-<%- include('components/queue')
-%>
-<!-- Queue Item -->
-<%- include('components/queue-item')
-%>
-<!-- Horizontal MediaItem Scroller -->
-<%- include('components/mediaitem-scroller-horizontal')
-%>
-<!-- Horizontal MediaItem Scroller (Large) -->
-<%- include('components/mediaitem-scroller-horizontal-large')
-%>
-<!-- Horizontal MediaItem Scroller (SP : Special) -->
-<%- include('components/mediaitem-scroller-horizontal-sp')
-%>
-<!-- Horizontal MediaItem Scroller (MV) -->
-<%- include('components/mediaitem-scroller-horizontal-mvview')
-%>
-<!-- MediaItem List Item -->
-<%- include('components/mediaitem-list-item')
-%>
-<!-- MediaItem Horizontal Rectangle -->
-<%- include('components/mediaitem-hrect')
-%>
-<!-- MediaItem Square -->
-<%- include('components/mediaitem-square')
-%>
-<!-- MediaItem Square SP -->
-<%- include('components/mediaitem-square-sp')
-%>
-<!-- MediaItem MusicVideo -->
-<%- include('components/mediaitem-mvview')
-%>
-<!-- MediaItem MusicVideo -->
-<%- include('components/libraryartist-item')
-%>
-<%- include('components/listennow-child')
-%>
-<!-- MediaItem MusicVideo SP -->
-<%- include('components/mediaitem-mvview-sp')
-%>
-<!-- Animated Artwork View -->
-<%- include('components/animatedartwork-view')
-%>
-<!-- Lyrics View -->
-<%- include('components/lyrics-view')
-%>
-<!-- Fullscreen View -->
-<%- include('components/fullscreen')
-%>
-
-<!-- Miniplayer View -->
-<%- include('components/miniplayer')
-%>
 
 <script
         src="musickit.js?v=1"></script>
