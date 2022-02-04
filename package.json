@@ -5,7 +5,7 @@
   "version": "1.1.0",
   "description": "A new look into listening and enjoying music in style and performance.",
   "license": "AGPL-3.0",
-  "main": "./dist/index.js",
+  "main": "./build/index.js",
   "author": "Cider Collective <cryptofyre@cider.sh> (https://cider.sh)",
   "repository": "https://github.com/ciderapp/Cider.git",
   "bugs": {
@@ -18,9 +18,9 @@
     "watch": "tsc --watch",
     "test": "yarn build && playwright test",
     "start": "run-script-os",
-    "start:win32": "yarn build && set ELECTRON_ENABLE_LOGGING=true && electron ./dist/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
-    "start:linux": "yarn build && ELECTRON_ENABLE_LOGGING=true && electron ./dist/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
-    "start:darwin": "yarn build && ELECTRON_ENABLE_LOGGING=true && electron ./dist/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
+    "start:win32": "yarn build && set ELECTRON_ENABLE_LOGGING=true && electron ./build/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
+    "start:linux": "yarn build && ELECTRON_ENABLE_LOGGING=true && electron ./build/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
+    "start:darwin": "yarn build && ELECTRON_ENABLE_LOGGING=true && electron ./build/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
     "pack": "electron-builder --dir",
     "dist": "yarn build && electron-builder",
     "dist:all": "yarn build && electron-builder -mwl",
@@ -119,7 +119,7 @@
     ],
     "extends": null,
     "files": [
-      "./dist/**/*",
+      "./build/**/*",
       "./src/**/*",
       "./resources/icons/**/*"
     ],
