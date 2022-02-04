@@ -37,8 +37,8 @@
         </div>
         <div class="queue-footer">
             <div class="btn-group" style="width:100%;">
-                <button class="md-btn md-btn-small" :class="{'md-btn-primary': (page == 'queue')}" @click="page = 'queue'">Queue</button>
-                <button class="md-btn md-btn-small" :class="{'md-btn-primary': (page == 'history')}" @click="getHistory();page = 'history'">History</button>
+                <button class="md-btn md-btn-small" :class="{'md-btn-primary': (page == 'queue')}" @click="page = 'queue'">{{app.getLz('term.queue')}}</button>
+                <button class="md-btn md-btn-small" :class="{'md-btn-primary': (page == 'history')}" @click="getHistory();page = 'history'">{{app.getLz('term.history')}}</button>
             </div>
             <button class="md-btn md-btn-small" style="width:100%;margin-top:6px;" v-if="queueItems.length > 1" @click="app.mk.clearQueue();updateQueue()">{{app.getLz('term.clearAll')}}</button>
         </div>
