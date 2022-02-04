@@ -66,6 +66,11 @@
     </transition>
     <!-- Playlist / Album page-->
     <transition name="wpfade">
+        <template v-if="modals.showPlaylist">
+            <playlist-inline :data="showingPlaylist"></playlist-inline>
+        </template>
+    </transition>
+    <transition name="wpfade">
         <template v-if="page.includes('playlist_')">
             <cider-playlist :data="showingPlaylist"></cider-playlist>
         </template>

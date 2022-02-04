@@ -598,6 +598,15 @@
 
                 <div class="md-option-line">
                     <div class="md-option-segment">
+                        Inline Playlists and Albums
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <input type="checkbox" v-model="app.cfg.advanced.experiments.includes('inline-playlists')" @click="app.cfg.advanced.experiments.includes('inline-playlists') ? removeExperiment('inline-playlists') : addExperiment('inline-playlists')" switch/>
+                    </div>
+                </div>
+
+                <div class="md-option-line">
+                    <div class="md-option-segment">
                         {{$root.getLz('term.language')}}
                     </div>
                     <div class="md-option-segment md-option-segment_auto">

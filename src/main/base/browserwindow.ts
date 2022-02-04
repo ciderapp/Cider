@@ -36,6 +36,7 @@ export class BrowserWindow {
                 "pages/home",
                 "pages/artist-feed",
                 "pages/cider-playlist",
+                "pages/playlist-inline",
                 "pages/recordLabel",
                 "pages/collection-list",
                 "pages/apple-curator",
