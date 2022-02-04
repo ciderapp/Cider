@@ -46,8 +46,8 @@ export class BrowserWindow {
         hasShadow: false,
         show: false,
         backgroundColor: "#1E1E1E",
-        titleBarStyle: 'customButtonsOnHover',
-        trafficLightPosition: {x: 960, y: 20},
+        titleBarStyle: 'hidden',
+        trafficLightPosition: {x: 15, y: 20},
         webPreferences: {
             nodeIntegration: true,
             sandbox: true,
