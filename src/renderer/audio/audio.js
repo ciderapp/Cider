@@ -29,14 +29,26 @@ var CiderAudio = {
         try{ CiderAudio.audioNodes.spatialNode.disconnect();} catch(e){}
         try{
             CiderAudio.audioNodes.preampNode.disconnect();
-            CiderAudio.audioNodes.vibrantbassNode.disconnect();
-            CiderAudio.audioNodes.audioBands[0].disconnect();
-            CiderAudio.audioNodes.audioBands[9].disconnect();
+            for (var i of CiderAudio.audioNodes.vibrantbassNode){
+                i.disconnect();
+            }
+            for (var i of CiderAudio.audioNodes.audioBands){
+                i.disconnect();
+            }
         } catch(e){}
+        try{
+            CiderAudio.audioNodes = {
+                gainNode : null,
+                spatialNode : null,
+                spatialInput: null,
+                audioBands : null,
+                preampNode : null,
+                vibrantbassNode: null,
+            }
+        } catch (e) {}
         CiderAudio.source.connect(CiderAudio.context.destination);} catch(e){}
     },
     connectContext: function (mediaElem){
-
         if (!CiderAudio.context){
         CiderAudio.context = new (window.AudioContext || window.webkitAudioContext);
         }
