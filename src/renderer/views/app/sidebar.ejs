@@ -21,7 +21,7 @@
     </div>
     <div class="app-sidebar-content">
         <div class="app-sidebar-header-text">
-            Cider
+            {{$root.getLz('app.name')}}
         </div>
         <sidebar-library-item :name="$root.getLz('home.title')" svg-icon="./assets/feather/home.svg"
                               page="home">
@@ -84,12 +84,12 @@
                         </template>
                         <template v-else>
                             <div @click="mk.authorize()">
-                                Sign In
+                                {{$root.getLz('term.login')}}
                             </div>
                         </template>
                     </div>
                     <div class="sidebar-user-text" v-else>
-                        Cider
+                        {{$root.getLz('app.name')}}
                     </div>
                 </button>
                 <button class="usermenu-item" @click="showWebRemoteQR()">
@@ -114,8 +114,8 @@
                     <span class="usermenu-item-name">{{$root.getLz('term.settings')}}</span>
                 </button>
                 <button class="usermenu-item" @click="unauthorize()">
-                                    <span class="usermenu-item-icon"
-                                          style="right:2.5px;"><%- include("../svg/log-out.svg") %></span>
+                    <span class="usermenu-item-icon"
+                                style="right:2.5px;"><%- include("../svg/log-out.svg") %></span>
                     <span class="usermenu-item-name">{{$root.getLz('term.logout')}}</span>
                 </button>
             </div>

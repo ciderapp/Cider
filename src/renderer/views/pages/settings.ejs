@@ -99,12 +99,12 @@
             <div class="settings-option-body">
                 <div class="md-option-line">
                     <div class="md-option-segment">
-                        Theme
+                        {{$root.getLz('settings.header.visual.theme')}}
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
                         <select class="md-select" @change="$root.setTheme($root.cfg.visual.theme)" v-model="$root.cfg.visual.theme">
-                            <option value="default.less">Cider</option>
-                            <option value="dark.less">Dark</option>
+                            <option value="default.less">{{$root.getLz('settings.option.visual.theme.default')}}</option>
+                            <option value="dark.less">{{$root.getLz('settings.option.visual.theme.dark')}}</option>
                             <option v-for="theme in themes" :value="theme">{{ theme }}</option>
                         </select>
                     </div>
@@ -598,7 +598,7 @@
 
                 <div class="md-option-line">
                     <div class="md-option-segment">
-                        Inline Playlists and Albums
+                        {{$root.getLz('settings.option.experimental.inline_playlists')}}
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
                         <input type="checkbox" v-model="app.cfg.advanced.experiments.includes('inline-playlists')" @click="app.cfg.advanced.experiments.includes('inline-playlists') ? removeExperiment('inline-playlists') : addExperiment('inline-playlists')" switch/>
@@ -640,11 +640,11 @@
                 </div>
                 <div class="md-option-line">
                     <div class="md-option-segment">
-                        Copy logs to clipboard
+                        {{$root.getLz('settings.option.experimental.copy_log')}} 
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
                         <button class="md-btn" @click="copyLogs">
-                            Copy
+                            {{$root.getLz('action.copy')}} 
                         </button>
                     </div>
                 </div>
@@ -732,7 +732,7 @@
 		methods: {
             copyLogs() {
                 ipcRenderer.send('fetch-log')
-                notyf.success('Logs copied to clipboard');
+                notyf.success(app.getLz('term.share.success'));
             },
 			getLanguages: function () {
 				let langs = this.$root.lzListing
