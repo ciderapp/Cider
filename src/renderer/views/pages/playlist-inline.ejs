@@ -1,7 +1,7 @@
 <script type="text/x-template" id="playlist-inline">
-    <div class="content-inner playlist-page inline-playlist" @click.self="$root.modals.showPlaylist = false">
+    <div class="content-inner playlist-page inline-playlist" @click.self="$root.resetState()">
             <div class="playlist-inner" v-if="data != [] && data.attributes != null">
-                <div class="close-btn" title="Close" @click="$root.modals.showPlaylist = false">
+                <div class="close-btn" title="Close" @click="$root.resetState()">
                     <svg fill="white" xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21"
                          aria-role="presentation" focusable="false">
                         <path

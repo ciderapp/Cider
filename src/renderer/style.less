@@ -3161,12 +3161,23 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     overflow: hidden;
     width: 100%;
     height: 100%;
-    background: rgb(0 0 0 / 50%);
+    background: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: calc(var(--navigationBarHeight) + 32px) 0px 0px 0px;
-    z-index:2;
+    z-index: 6;
+    position: sticky;
+    margin-top: calc(var(--navigationBarHeight) * -1);
+
+    .floating-header {
+      opacity: 1;
+      top: 0px;
+      z-index: 6;
+      padding: 1em;
+      h3 {
+        display: none;
+      }
+    }
     .playlist-inner {
       background: black;
       width: 80%;
@@ -3180,7 +3191,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
         top: 16px;
         left: 16px;
         margin-left: 16px;
-        z-index: 3;
+        z-index: 7;
       }
     }
   }
