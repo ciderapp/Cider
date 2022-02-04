@@ -172,7 +172,7 @@
                         </template>
 
                     </div>
-                    <div class="app-chrome-item full-height" v-if="chrome.windowControlPosition == 'right'">
+                    <div class="app-chrome-item full-height" id="window-controls-container" v-if="chrome.windowControlPosition == 'right'">
                         <div class="window-controls">
                             <div class="minimize" @click="ipcRenderer.send('minimize', true)"></div>
                             <div class="minmax restore" v-if="chrome.maximized"

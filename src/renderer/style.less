@@ -998,7 +998,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 }
 
 .app-chrome .app-chrome-item > .app-mainmenu {
-  width: 116px;
+  width: 110px;
   font-size: 13px;
   background: url("./assets/AppChromeBtn.svg");
   background-size: contain;
@@ -1007,6 +1007,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   height: 70%;
   margin-right: 16px;
   margin-left: 16px;
+  margin-top: 1.5px;
   border: 0px;
   border-radius: 6px;
 
@@ -1016,6 +1017,10 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 
   &:active, &.active {
     background-color: var(--selected-click);
+  }
+
+  &.active {
+    background-image: url("./assets/AppChromeBtn-Open.svg");
   }
 }
 

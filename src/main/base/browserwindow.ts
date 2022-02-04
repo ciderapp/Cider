@@ -150,6 +150,39 @@ export class BrowserWindow {
             res.render("main", this.EnvironmentVariables);
         });
 
+        app.get("/api/playback/:action", (req, res)=>{
+            const action = req.params.action;
+            switch(action) {
+                case "playpause":
+                    BrowserWindow.win.webContents.executeJavaScript("wsapi.togglePlayPause()")
+                    res.send("Play/Pause toggle")
+                    break;
+                case "play":
+                    BrowserWindow.win.webContents.executeJavaScript("MusicKit.getInstance().play()")
+                    res.send("Playing")
+                    break;
+                case "pause":
+                    BrowserWindow.win.webContents.executeJavaScript("MusicKit.getInstance().pause()")
+                    res.send("Paused")
+                    break;
+                case "stop":
+                    BrowserWindow.win.webContents.executeJavaScript("MusicKit.getInstance().stop()")
+                    res.send("Stopped")
+                    break;
+                case "next":
+                    BrowserWindow.win.webContents.executeJavaScript("MusicKit.getInstance().skipToNextItem()")
+                    res.send("Next")
+                    break;
+                case "previous":
+                    BrowserWindow.win.webContents.executeJavaScript("MusicKit.getInstance().skipToPreviousItem()")
+                    res.send("Previous")
+                    break;
+                default: {
+                    res.send("Invalid action")
+                }
+            }
+        })
+
         app.get("/themes/:theme", (req, res) => {
             const theme = req.params.theme.toLowerCase();
             const themePath = join(utils.getPath('srcPath'), "./renderer/themes/", theme);

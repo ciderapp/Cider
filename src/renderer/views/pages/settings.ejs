@@ -104,6 +104,7 @@
                     <div class="md-option-segment md-option-segment_auto">
                         <select class="md-select" @change="$root.setTheme($root.cfg.visual.theme)" v-model="$root.cfg.visual.theme">
                             <option value="default.less">Cider</option>
+                            <option value="dark.less">Dark</option>
                             <option v-for="theme in themes" :value="theme">{{ theme }}</option>
                         </select>
                     </div>
