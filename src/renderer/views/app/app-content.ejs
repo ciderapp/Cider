@@ -1,4 +1,4 @@
-<div id="app-content">
+<div id="app-content" :style="{'overflow': (chrome.contentAreaScrolling ? '' : 'hidden')}">
     <div id="navigation-bar">
         <button class="nav-item" @click="navigateBack()">
             <%- include('../svg/chevron-left.svg') %>

@@ -279,7 +279,8 @@ const app = new Vue({
             drawerState: "queue",
             topChromeVisible: true,
             progresshover: false,
-            windowControlPosition: "right"
+            windowControlPosition: "right",
+            contentAreaScrolling: true
         },
         collectionList: {
             response: {},
@@ -332,8 +333,10 @@ const app = new Vue({
             app.resetState()
         },
         showingPlaylist: () => {
-            document.getElementById("app-content").scrollTo(0, 0);
-            // app.resetState()
+            if (!app.modals.showPlaylist) {
+                document.getElementById("app-content").scrollTo(0, 0);
+                app.resetState()
+            }
         },
         artistPage: () => {
             document.getElementById("app-content").scrollTo(0, 0);
@@ -487,6 +490,7 @@ const app = new Vue({
         resetState() {
             this.menuPanel.visible = false;
             app.selectedMediaItems = [];
+            this.chrome.contentAreaScrolling = true
             for (let key in app.modals) {
                 app.modals[key] = false;
             }
@@ -1330,8 +1334,13 @@ const app = new Vue({
                 }
 
                 if (this.cfg.advanced.experiments.includes('inline-playlists')) {
-                    if (kind.toString().includes("album") || kind.toString().includes("playlist")) {
+                    let showModal = kind.toString().includes("album") || kind.toString().includes("playlist")
+                    if (app.page.includes("playlist") || app.page.includes("album")) {
+                        showModal = false
+                    }
+                    if (showModal) {
                         app.modals.showPlaylist = true
+                        app.chrome.contentAreaScrolling = false
                     } else {
                         app.page = (kind) + "_" + (id);
                         window.location.hash = `${kind}/${id}${isLibrary ? "/" + isLibrary : ''}`
@@ -1343,7 +1352,7 @@ const app = new Vue({
 
 
                 app.getTypeFromID((kind), (id), (isLibrary), params);
-                document.querySelector("#app-content").scrollTop = 0
+                // document.querySelector("#app-content").scrollTop = 0
             } else {
                 app.playMediaItemById((id), (kind), (isLibrary), item.attributes.url ?? '')
             }
