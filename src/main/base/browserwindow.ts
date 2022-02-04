@@ -150,7 +150,7 @@ export class BrowserWindow {
             res.render("main", this.EnvironmentVariables);
         });
 
-        app.get("/playback/:action", (req, res)=>{
+        app.get("/api/playback/:action", (req, res)=>{
             const action = req.params.action;
             switch(action) {
                 case "play":
@@ -164,6 +164,14 @@ export class BrowserWindow {
                 case "stop":
                     BrowserWindow.win.webContents.executeJavaScript("MusicKit.getInstance().stop()")
                     res.send("Stopped")
+                    break;
+                case "next":
+                    BrowserWindow.win.webContents.executeJavaScript("MusicKit.getInstance().skipToNextItem()")
+                    res.send("Next")
+                    break;
+                case "previous":
+                    BrowserWindow.win.webContents.executeJavaScript("MusicKit.getInstance().skipToPreviousItem()")
+                    res.send("Previous")
                     break;
                 default: {
                     res.send("Invalid action")
