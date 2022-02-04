@@ -1,5 +1,5 @@
 let i = 1, k = 1;
-export default class ExamplePlugin {
+class ExamplePlugin {
     /**
      * Private variables for interaction in plugins
      */
@@ -58,3 +58,5 @@ export default class ExamplePlugin {
     }
 
 }
+
+module.exports = ExamplePlugin;

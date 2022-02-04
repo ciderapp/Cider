@@ -1,6 +1,8 @@
-import {app, Menu, nativeImage, Tray} from 'electron';
+import {app, Menu, nativeImage, Tray, ipcMain, clipboard} from 'electron';
+import {readFileSync} from "fs";
 import * as path from 'path';
-import {utils} from './utils'
+import * as log from 'electron-log';
+import {utils} from './utils';
 
 export class AppEvents {
     private protocols: string[] = [
@@ -24,6 +26,7 @@ export class AppEvents {
      * @returns {void}
      */
     private start(): void {
+        AppEvents.initLogging()
         console.info('[AppEvents] App started');
 
         /**********************************************************************************************************************
@@ -283,5 +286,19 @@ export class AppEvents {
             }
         ])
         this.tray.setContextMenu(menu)
+    }
+
+    /**
+     * Initializes logging in the application
+     * @private
+     */
+    private static initLogging() {
+        log.transports.console.format = '[{h}:{i}:{s}.{ms}] [{level}] {text}';
+        Object.assign(console, log.functions);
+
+        ipcMain.on('fetch-log', (_event) => {
+            const data = readFileSync(log.transports.file.getFile().path, {encoding: 'utf8', flag: 'r'});
+            clipboard.writeText(data)
+        })
     }
 }

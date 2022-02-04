@@ -1,19 +1,19 @@
-import * as path from "path";
+import {join} from "path";
 import {app, BrowserWindow as bw, ipcMain, shell} from "electron";
 import * as windowStateKeeper from "electron-window-state";
 import * as express from "express";
 import * as getPort from "get-port";
-import * as yt from "youtube-search-without-api-key";
-import * as fs from "fs";
+import {search} from "youtube-search-without-api-key";
+import {existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync} from "fs";
 import {Stream} from "stream";
-import * as qrcode from "qrcode-terminal";
-import * as os from "os";
+import {generate as generateQR} from "qrcode-terminal";
+import {hostname, networkInterfaces} from "os";
 import * as mm from 'music-metadata';
 import fetch from 'electron-fetch'
 import {wsapi} from "./wsapi";
 import {jsonc} from "jsonc";
 import {AppImageUpdater, NsisUpdater} from "electron-updater";
-import {utils} from './utils'
+import {utils} from './utils';
 
 export class BrowserWindow {
     public static win: any | undefined = null;
@@ -29,7 +29,7 @@ export class BrowserWindow {
         },
     };
     private options: any = {
-        icon: path.join(
+        icon: join(
             utils.getPath('resourcePath'),
             `icons/icon.` + (process.platform === "win32" ? "ico" : "png")
         ),
@@ -57,7 +57,7 @@ export class BrowserWindow {
             plugins: true,
             nodeIntegrationInWorker: false,
             webSecurity: false,
-            preload: path.join(utils.getPath('srcPath'), "./preload/cider-preload.js"),
+            preload: join(utils.getPath('srcPath'), "./preload/cider-preload.js"),
         },
     };
 
@@ -66,7 +66,7 @@ export class BrowserWindow {
      */
     async createWindow(): Promise<Electron.BrowserWindow> {
         this.clientPort = await getPort({port: 9000});
-        this.verifyFiles();
+        BrowserWindow.verifyFiles();
 
         // Load the previous state with fallback to defaults
         const windowState = windowStateKeeper({
@@ -96,7 +96,7 @@ export class BrowserWindow {
     /**
      * Verifies the files for the renderer to use (Cache, library info, etc.)
      */
-    private verifyFiles(): void {
+    private static verifyFiles(): void {
         const expectedDirectories = ["CiderCache"];
         const expectedFiles = [
             "library-songs.json",
@@ -107,19 +107,19 @@ export class BrowserWindow {
         ];
         for (let i = 0; i < expectedDirectories.length; i++) {
             if (
-                !fs.existsSync(
-                    path.join(app.getPath("userData"), expectedDirectories[i])
+                !existsSync(
+                    join(app.getPath("userData"), expectedDirectories[i])
                 )
             ) {
-                fs.mkdirSync(
-                    path.join(app.getPath("userData"), expectedDirectories[i])
+                mkdirSync(
+                    join(app.getPath("userData"), expectedDirectories[i])
                 );
             }
         }
         for (let i = 0; i < expectedFiles.length; i++) {
-            const file = path.join(utils.getPath('ciderCache'), expectedFiles[i]);
-            if (!fs.existsSync(file)) {
-                fs.writeFileSync(file, JSON.stringify([]));
+            const file = join(utils.getPath('ciderCache'), expectedFiles[i]);
+            if (!existsSync(file)) {
+                writeFileSync(file, JSON.stringify([]));
             }
         }
     }
@@ -130,8 +130,8 @@ export class BrowserWindow {
     private startWebServer(): void {
         const app = express();
 
-        app.use(express.static(path.join(utils.getPath('srcPath'), "./renderer/")));
-        app.set("views", path.join(utils.getPath('srcPath'), "./renderer/views"));
+        app.use(express.static(join(utils.getPath('srcPath'), "./renderer/")));
+        app.set("views", join(utils.getPath('srcPath'), "./renderer/views"));
         app.set("view engine", "ejs");
         let firstRequest = true;
         app.use((req, res, next) => {
@@ -185,11 +185,11 @@ export class BrowserWindow {
 
         app.get("/themes/:theme", (req, res) => {
             const theme = req.params.theme.toLowerCase();
-            const themePath = path.join(utils.getPath('srcPath'), "./renderer/themes/", theme);
-            const userThemePath = path.join(utils.getPath('themes'), theme);
-            if (fs.existsSync(userThemePath)) {
+            const themePath = join(utils.getPath('srcPath'), "./renderer/themes/", theme);
+            const userThemePath = join(utils.getPath('themes'), theme);
+            if (existsSync(userThemePath)) {
                 res.sendFile(userThemePath);
-            } else if (fs.existsSync(themePath)) {
+            } else if (existsSync(themePath)) {
                 res.sendFile(themePath);
             } else {
                 res.send(`// Theme not found - ${userThemePath}`);
@@ -230,8 +230,8 @@ export class BrowserWindow {
          * https://github.com/ciderapp/Apple-Music-Electron/blob/818ed18940ff600d76eb59d22016723a75885cd5/resources/functions/handler.js#L1173
          */
         const remote = express();
-        remote.use(express.static(path.join(utils.getPath('srcPath'), "./web-remote/")))
-        remote.set("views", path.join(utils.getPath('srcPath'), "./web-remote/views"));
+        remote.use(express.static(join(utils.getPath('srcPath'), "./web-remote/")))
+        remote.set("views", join(utils.getPath('srcPath'), "./web-remote/views"));
         remote.set("view engine", "ejs");
         getPort({port: 6942}).then((port) => {
             this.remotePort = port;
@@ -241,7 +241,7 @@ export class BrowserWindow {
                 console.log(`Cider remote port: ${this.remotePort}`);
                 if (firstRequest) {
                     console.log("---- Ignore Me ;) ---");
-                    qrcode.generate(`http://${os.hostname}:${this.remotePort}`);
+                    generateQR(`http://${hostname}:${this.remotePort}`);
                     console.log("---- Ignore Me ;) ---");
                     /*
                      *
@@ -323,9 +323,9 @@ export class BrowserWindow {
             event.returnValue = process.platform;
         });
 
-        ipcMain.on("get-themes", (event, key) => {
-            if (fs.existsSync(utils.getPath("themes"))) {
-                event.returnValue = fs.readdirSync(utils.getPath("themes"));
+        ipcMain.on("get-themes", (event, _key) => {
+            if (existsSync(utils.getPath("themes"))) {
+                event.returnValue = readdirSync(utils.getPath("themes"));
             } else {
                 event.returnValue = [];
             }
@@ -336,11 +336,11 @@ export class BrowserWindow {
         });
 
         ipcMain.on("get-i18n-listing", event => {
-            let i18nFiles = fs.readdirSync(path.join(__dirname, "../../src/i18n")).filter(file => file.endsWith(".jsonc"));
+            let i18nFiles = readdirSync(join(__dirname, "../../src/i18n")).filter(file => file.endsWith(".jsonc"));
             // read all the files and parse them
             let i18nListing = []
             for (let i = 0; i < i18nFiles.length; i++) {
-                const i18n: { [index: string]: Object } = jsonc.parse(fs.readFileSync(path.join(__dirname, `../../src/i18n/${i18nFiles[i]}`), "utf8"));
+                const i18n: { [index: string]: Object } = jsonc.parse(readFileSync(join(__dirname, `../../src/i18n/${i18nFiles[i]}`), "utf8"));
                 i18nListing.push({
                     "code": i18nFiles[i].replace(".jsonc", ""),
                     "nameNative": i18n["i18n.languageName"] ?? i18nFiles[i].replace(".jsonc", ""),
@@ -361,75 +361,75 @@ export class BrowserWindow {
         });
 
         ipcMain.on("put-library-songs", (_event, arg) => {
-            fs.writeFileSync(
-                path.join(utils.getPath('ciderCache'), "library-songs.json"),
+            writeFileSync(
+                join(utils.getPath('ciderCache'), "library-songs.json"),
                 JSON.stringify(arg)
             );
         });
 
         ipcMain.on("put-library-artists", (_event, arg) => {
-            fs.writeFileSync(
-                path.join(utils.getPath('ciderCache'), "library-artists.json"),
+            writeFileSync(
+                join(utils.getPath('ciderCache'), "library-artists.json"),
                 JSON.stringify(arg)
             );
         });
 
         ipcMain.on("put-library-albums", (_event, arg) => {
-            fs.writeFileSync(
-                path.join(utils.getPath('ciderCache'), "library-albums.json"),
+            writeFileSync(
+                join(utils.getPath('ciderCache'), "library-albums.json"),
                 JSON.stringify(arg)
             );
         });
 
         ipcMain.on("put-library-playlists", (_event, arg) => {
-            fs.writeFileSync(
-                path.join(utils.getPath('ciderCache'), "library-playlists.json"),
+            writeFileSync(
+                join(utils.getPath('ciderCache'), "library-playlists.json"),
                 JSON.stringify(arg)
             );
         });
 
         ipcMain.on("put-library-recentlyAdded", (_event, arg) => {
-            fs.writeFileSync(
-                path.join(utils.getPath('ciderCache'), "library-recentlyAdded.json"),
+            writeFileSync(
+                join(utils.getPath('ciderCache'), "library-recentlyAdded.json"),
                 JSON.stringify(arg)
             );
         });
 
         ipcMain.on("get-library-songs", (event) => {
-            let librarySongs = fs.readFileSync(
-                path.join(utils.getPath('ciderCache'), "library-songs.json"),
+            let librarySongs = readFileSync(
+                join(utils.getPath('ciderCache'), "library-songs.json"),
                 "utf8"
             );
             event.returnValue = JSON.parse(librarySongs);
         });
 
         ipcMain.on("get-library-artists", (event) => {
-            let libraryArtists = fs.readFileSync(
-                path.join(utils.getPath('ciderCache'), "library-artists.json"),
+            let libraryArtists = readFileSync(
+                join(utils.getPath('ciderCache'), "library-artists.json"),
                 "utf8"
             );
             event.returnValue = JSON.parse(libraryArtists);
         });
 
         ipcMain.on("get-library-albums", (event) => {
-            let libraryAlbums = fs.readFileSync(
-                path.join(utils.getPath('ciderCache'), "library-albums.json"),
+            let libraryAlbums = readFileSync(
+                join(utils.getPath('ciderCache'), "library-albums.json"),
                 "utf8"
             );
             event.returnValue = JSON.parse(libraryAlbums);
         });
 
         ipcMain.on("get-library-playlists", (event) => {
-            let libraryPlaylists = fs.readFileSync(
-                path.join(utils.getPath('ciderCache'), "library-playlists.json"),
+            let libraryPlaylists = readFileSync(
+                join(utils.getPath('ciderCache'), "library-playlists.json"),
                 "utf8"
             );
             event.returnValue = JSON.parse(libraryPlaylists);
         });
 
         ipcMain.on("get-library-recentlyAdded", (event) => {
-            let libraryRecentlyAdded = fs.readFileSync(
-                path.join(utils.getPath('ciderCache'), "library-recentlyAdded.json"),
+            let libraryRecentlyAdded = readFileSync(
+                join(utils.getPath('ciderCache'), "library-recentlyAdded.json"),
                 "utf8"
             );
             event.returnValue = JSON.parse(libraryRecentlyAdded);
@@ -437,7 +437,7 @@ export class BrowserWindow {
 
         ipcMain.handle("getYTLyrics", async (_event, track, artist) => {
             const u = track + " " + artist + " official video";
-            return await yt.search(u);
+            return await search(u);
         });
 
         ipcMain.on("close", (_event, platformCheck) => {
@@ -503,7 +503,7 @@ export class BrowserWindow {
         })
 
         //QR Code
-        ipcMain.handle('showQR', async (event, _) => {
+        ipcMain.handle('showQR', async (_event, _) => {
             let url = `http://${BrowserWindow.getIP()}:${this.remotePort}`;
             shell.openExternal(`https://cider.sh/pair-remote?url=${Buffer.from(encodeURI(url)).toString('base64')}`).catch(console.error);
         })
@@ -523,7 +523,7 @@ export class BrowserWindow {
             });
         });
 
-        ipcMain.on('check-for-update', async (_event, url) => {
+        ipcMain.on('check-for-update', async (_event) => {
             const options: any = {
                 provider: 'generic',
                 url: 'https://43-429851205-gh.circle-artifacts.com/0/%7E/Cider/dist/artifacts' //Base URL
@@ -603,10 +603,14 @@ export class BrowserWindow {
         });
     }
 
+    /**
+     * Gets ip
+     * @private
+     */
     private static getIP(): string {
         let ip: string = '';
         let alias = 0;
-        const ifaces: any = os.networkInterfaces();
+        const ifaces: any = networkInterfaces();
         for (let dev in ifaces) {
             ifaces[dev].forEach((details: any) => {
                 if (details.family === 'IPv4') {
