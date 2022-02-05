@@ -3,7 +3,14 @@
         <div v-if="page == 'main'">
             <div class="row">
                 <div class="col">
-                    <h3>{{app.getLz('home.recentlyPlayed')}}</h3>
+                    <div class="row nopadding">
+                        <div class="col nopadding">
+                            <h3>{{app.getLz('home.recentlyPlayed')}}</h3>
+                        </div>
+                        <div class="col-auto nopadding flex-center">
+                            <button class="cd-btn-seeall" @click="seeAllHistory()">{{app.getLz('term.seeAll')}}</button>
+                        </div>
+                    </div>
                     <div class="well artistfeed-well">
                         <template v-if="isSectionReady('recentlyPlayed')">
                             <mediaitem-list-item v-for="item in recentlyPlayed.limit(6)"
@@ -104,6 +111,10 @@
             await this.getFavorites()
         },
         methods: {
+            async seeAllHistory() {
+                let hist = await app.mk.api.v3.music(`/v1/me/recent/played/tracks`)
+                app.showCollection(hist.data, app.getLz('term.history'))
+            },
             isSectionReady(section) {
                 return this.sectionsReady.includes(section)
             },

@@ -1,6 +1,7 @@
 # Building
 dist
 build
+.flatpak*
 
 # Misc
 .idea

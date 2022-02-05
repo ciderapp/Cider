@@ -1,11 +1,6 @@
 import * as ws from "ws";
-import * as http from "http";
-import * as https from "https";
-import * as url from "url";
-import * as fs from "fs";
-import * as path from "path";
 import * as electron from "electron";
-const WebSocket = ws;
+
 const WebSocketServer = ws.Server;
 
 interface standardResponse {
@@ -21,12 +16,13 @@ export class wsapi {
     port: any = 26369
     wss: any = null
     clients: any = []
-    private _win : any;
-    constructor(win : any) {
+    private _win: any;
+
+    constructor(win: any) {
         this._win = win;
     }
-    
-    
+
+
     createId() {
         // create random guid
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -35,33 +31,34 @@ export class wsapi {
             return v.toString(16);
         });
     }
-    public async InitWebSockets () {
-        electron.ipcMain.on('wsapi-updatePlaybackState', (event :any, arg :any) => {
+
+    public async InitWebSockets() {
+        electron.ipcMain.on('wsapi-updatePlaybackState', (_event: any, arg: any) => {
             this.updatePlaybackState(arg);
         })
 
-        electron.ipcMain.on('wsapi-returnQueue', (event :any, arg :any) => {
+        electron.ipcMain.on('wsapi-returnQueue', (_event: any, arg: any) => {
             this.returnQueue(JSON.parse(arg));
         });
 
-        electron.ipcMain.on('wsapi-returnSearch', (event :any, arg :any) => {
+        electron.ipcMain.on('wsapi-returnSearch', (_event: any, arg: any) => {
             console.log("SEARCH")
             this.returnSearch(JSON.parse(arg));
         });
 
-        electron.ipcMain.on('wsapi-returnSearchLibrary', (event :any, arg :any) => {
+        electron.ipcMain.on('wsapi-returnSearchLibrary', (_event: any, arg: any) => {
             this.returnSearchLibrary(JSON.parse(arg));
         });
 
-        electron.ipcMain.on('wsapi-returnDynamic', (event :any, arg :any, type :any) => {
+        electron.ipcMain.on('wsapi-returnDynamic', (_event: any, arg: any, type: any) => {
             this.returnDynamic(JSON.parse(arg), type);
         });
 
-        electron.ipcMain.on('wsapi-returnMusicKitApi', (event :any, arg :any, method :any) => {
+        electron.ipcMain.on('wsapi-returnMusicKitApi', (_event: any, arg: any, method: any) => {
             this.returnMusicKitApi(JSON.parse(arg), method);
         });
 
-        electron.ipcMain.on('wsapi-returnLyrics', (event :any, arg :any) => {
+        electron.ipcMain.on('wsapi-returnLyrics', (_event: any, arg: any) => {
             this.returnLyrics(JSON.parse(arg));
         });
         this.wss = new WebSocketServer({
@@ -88,20 +85,20 @@ export class wsapi {
         })
         console.log(`WebSocketServer started on port: ${this.port}`);
 
-        const defaultResponse :standardResponse = {status :0, data:{}, message:"OK", type:"generic"};
+        const defaultResponse: standardResponse = {status: 0, data: {}, message: "OK", type: "generic"};
 
 
-        this.wss.on('connection', (ws : any) => {
+        this.wss.on('connection', (ws: any) => {
             ws.id = this.createId();
             console.log(`Client ${ws.id} connected`)
             this.clients.push(ws);
-            ws.on('message', function incoming(message : any) {
+            ws.on('message', function incoming(_message: any) {
 
             });
             // ws on message
-            ws.on('message', (message : any) => {
+            ws.on('message', (message: any) => {
                 let data = JSON.parse(message);
-                let response :standardResponse = {status :0, data:{}, message:"OK", type:"generic"};
+                let response: standardResponse = {status: 0, data: {}, message: "OK", type: "generic"};
                 if (data.action) {
                     data.action.toLowerCase();
                 }
@@ -140,9 +137,9 @@ export class wsapi {
                         this._win.webContents.executeJavaScript(`wsapi.toggleShuffle()`);
                         break;
                     case "set-shuffle":
-                        if(data.shuffle == true) {
+                        if (data.shuffle == true) {
                             this._win.webContents.executeJavaScript(`MusicKit.getInstance().shuffleMode = 1`);
-                        }else{
+                        } else {
                             this._win.webContents.executeJavaScript(`MusicKit.getInstance().shuffleMode = 0`);
                         }
                         break;
@@ -232,7 +229,7 @@ export class wsapi {
                         break;
                     case "quit":
                         electron.app.quit();
-                    break;
+                        break;
                 }
                 ws.send(JSON.stringify(response));
             });
@@ -245,48 +242,56 @@ export class wsapi {
             ws.send(JSON.stringify(defaultResponse));
         });
     }
-    sendToClient(id : any) {
+
+    sendToClient(_id: any) {
         // replace the clients.forEach with a filter to find the client that requested
     }
-    updatePlaybackState(attr : any) {
-        const response : standardResponse = {status: 0, data: attr, message: "OK",  type:"playbackStateUpdate"};
+
+    updatePlaybackState(attr: any) {
+        const response: standardResponse = {status: 0, data: attr, message: "OK", type: "playbackStateUpdate"};
         this.clients.forEach(function each(client: any) {
             client.send(JSON.stringify(response));
         });
     }
-    returnMusicKitApi(results :any, method :any) {
-        const response : standardResponse = {status :0, data: results, message:"OK", type:`musickitapi.${method}`};
-        this.clients.forEach(function each(client :any) {
+
+    returnMusicKitApi(results: any, method: any) {
+        const response: standardResponse = {status: 0, data: results, message: "OK", type: `musickitapi.${method}`};
+        this.clients.forEach(function each(client: any) {
             client.send(JSON.stringify(response));
         });
     }
-    returnDynamic(results :any, type :any) {
-        const response : standardResponse = {status :0, data: results, message: "OK", type: type};
-        this.clients.forEach(function each(client :any) {
+
+    returnDynamic(results: any, type: any) {
+        const response: standardResponse = {status: 0, data: results, message: "OK", type: type};
+        this.clients.forEach(function each(client: any) {
             client.send(JSON.stringify(response));
         });
     }
-    returnLyrics(results :any) {
-        const response : standardResponse = {status :0, data: results, message:  "OK", type: "lyrics"};
-        this.clients.forEach(function each(client :any) {
+
+    returnLyrics(results: any) {
+        const response: standardResponse = {status: 0, data: results, message: "OK", type: "lyrics"};
+        this.clients.forEach(function each(client: any) {
             client.send(JSON.stringify(response));
         });
     }
-    returnSearch(results :any) {
-        const response : standardResponse = {status :0, data: results, message: "OK", type: "searchResults"};
-        this.clients.forEach(function each(client :any) {
+
+    returnSearch(results: any) {
+        const response: standardResponse = {status: 0, data: results, message: "OK", type: "searchResults"};
+        this.clients.forEach(function each(client: any) {
             client.send(JSON.stringify(response));
         });
     }
-    returnSearchLibrary(results :any) {
-        const response: standardResponse = {status :0, data :results, message:"OK", type:"searchResultsLibrary"};
-        this.clients.forEach(function each(client :any) {
+
+    returnSearchLibrary(results: any) {
+        const response: standardResponse = {status: 0, data: results, message: "OK", type: "searchResultsLibrary"};
+        this.clients.forEach(function each(client: any) {
             client.send(JSON.stringify(response));
         });
     }
-    returnQueue(queue :any) {
-        const response : standardResponse = {status :0,data :queue, message:"OK", type:"queue"};
-        this.clients.forEach(function each(client :any) {
+
+    returnQueue(queue: any) {
+        const response: standardResponse = {status: 0, data: queue, message: "OK", type: "queue"};
+        this.clients.forEach(function each(client: any) {
             client.send(JSON.stringify(response));
         });
     }

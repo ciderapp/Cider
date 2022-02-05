@@ -31,6 +31,7 @@ export class Store {
             "quality": "256",
             "seamless_audio": true,
             "normalization": false,
+            "decryptLLPW": false,
             "spatial": false,
             "maxVolume": 1,
             "volumePrecision": 0.1,
@@ -142,11 +143,11 @@ export class Store {
      * IPC Handler
      */
     private ipcHandler(): void {
-        electron.ipcMain.handle('getStoreValue', (event, key, defaultValue) => {
+        electron.ipcMain.handle('getStoreValue', (_event, key, defaultValue) => {
             return (defaultValue ? Store.cfg.get(key, true) : Store.cfg.get(key));
         });
 
-        electron.ipcMain.handle('setStoreValue', (event, key, value) => {
+        electron.ipcMain.handle('setStoreValue', (_event, key, value) => {
             Store.cfg.set(key, value);
         });
 
@@ -154,7 +155,7 @@ export class Store {
             event.returnValue = Store.cfg.store
         })
 
-        electron.ipcMain.on('setStore', (event, store) => {
+        electron.ipcMain.on('setStore', (_event, store) => {
             Store.cfg.store = store
         })
     }

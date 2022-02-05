@@ -3,9 +3,9 @@
         <div class="background">
             <div class="bgArtworkMaterial">
                 <div class="bg-artwork-container">
-                    <img v-if="(app.cfg.visual.bg_artwork_rotation || app.animateBackground)" class="bg-artwork a" :src="image.replace('600x600','30x30') ?? ''">
-                    <img v-if="(app.cfg.visual.bg_artwork_rotation || app.animateBackground)" class="bg-artwork b" :src="image.replace('600x600','30x30') ?? ''">
-                    <img v-if="!(app.cfg.visual.bg_artwork_rotation || app.animateBackground)" class="bg-artwork no-animation" :src="image.replace('600x600','30x30') ?? ''">
+                    <img v-if="(app.cfg.visual.bg_artwork_rotation && app.animateBackground)" class="bg-artwork a" :src="image.replace('600x600','30x30') ?? ''">
+                    <img v-if="(app.cfg.visual.bg_artwork_rotation && app.animateBackground)" class="bg-artwork b" :src="image.replace('600x600','30x30') ?? ''">
+                    <img v-if="!(app.cfg.visual.bg_artwork_rotation && app.animateBackground)" class="bg-artwork no-animation" :src="image.replace('600x600','30x30') ?? ''">
                 </div>
             </div>
         </div>

@@ -29,10 +29,11 @@
   },
   "dependencies": {
     "@sentry/electron": "^2.5.4",
+    "@sentry/integrations": "^6.17.4",
     "discord-rpc": "^4.0.1",
     "ejs": "^3.1.6",
     "electron-fetch": "^1.7.4",
-    "electron-log": "^4.4.4",
+    "electron-log": "^4.4.5",
     "electron-notarize": "^1.1.1",
     "electron-packager": "^15.4.0",
     "electron-store": "^8.0.1",
@@ -119,8 +120,8 @@
     "extends": null,
     "files": [
       "./build/**/*",
-      "./resources/icons/icon.*",
-      "./src/**/*"
+      "./src/**/*",
+      "./resources/icons/**/*"
     ],
     "linux": {
       "target": [

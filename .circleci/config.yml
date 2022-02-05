@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/Cider
     docker:
-      - image: circleci/node:16
+      - image: circleci/node:16-browsers
     steps:
       - checkout
       - run:
@@ -12,13 +12,13 @@ jobs:
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
-            - yarn-packages-{{ checksum "yarn.lock" }}
+            - yarn-packages-{{ checksum "cider-yarn.lock" }}
       - run:
           name: Install Dependencies
           command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
       - save_cache:
           name: Save Yarn Package Cache
-          key: yarn-packages-{{ checksum "yarn.lock" }}
+          key: yarn-packages-{{ checksum "cider-yarn.lock" }}
           paths:
             - ~/.cache/yarn
       - run:
@@ -32,6 +32,14 @@ jobs:
             sudo dpkg --add-architecture i386
             sudo apt-get update -y
             sudo apt-get install -y wine32
+            sudo apt-get install -y x11vnc
+      - run:
+          name: Start X VNC Server
+          command: x11vnc -forever -nopw -create
+          background: true
+            #- run:
+            #name: Base Functionality Testing
+            #command: yarn test
       - store_test_results:
           path: test-results
       - run:

@@ -6,6 +6,9 @@
             </div>
             <div class="settings-option-body">
                 <div class="md-option-line">
+                    <div class="md-option-segment">
+                        {{$root.getLz('term.accountSettings')}}
+                    </div>
                     <div class="md-option-segment md-option-segment_auto">
                         <button class="md-btn" @click="app.appRoute('apple-account-settings')">
                             {{$root.getLz('term.accountSettings')}}
@@ -32,7 +35,8 @@
                     <div class="md-option-segment md-option-segment_auto">
                         <select class="md-select" style="width:180px;" v-model="app.cfg.audio.quality"
                                 v-on:change="changeAudioQuality">
-                            <!-- //   <option value="990">Extreme</option> -->
+                            <!-- // <option value="9216">{{$root.getLz('settings.header.audio.quality.hireslossless')}}</option> -->
+                            <option value="2304">{{$root.getLz('settings.header.audio.quality.lossless')}}</option> 
                             <option value="256">{{$root.getLz('settings.header.audio.quality.high')}}</option>
                             <option value="64">{{$root.getLz('settings.header.audio.quality.low')}}</option>
                             <option value="auto">{{$root.getLz('settings.header.audio.quality.auto')}}</option>
@@ -56,6 +60,16 @@
                     <div class="md-option-segment md-option-segment_auto">
                         <input type="checkbox" v-model="app.cfg.advanced.AudioContext" v-on:change="toggleAudioContext"
                                switch/>
+                    </div>
+                </div>
+                <div class="md-option-line" v-show="app.cfg.advanced.AudioContext">
+                    <div class="md-option-segment">
+                        {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.decryptLLPW')}}
+                        <br>
+                        <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.decryptLLPW.description')}}</small>
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <input type="checkbox" v-model="app.cfg.advanced.decryptLLPW" switch/>
                     </div>
                 </div>
                 <div class="md-option-line" v-show="app.cfg.advanced.AudioContext">
@@ -94,6 +108,18 @@
                 <span>{{$root.getLz('settings.header.visual')}}</span>
             </div>
             <div class="settings-option-body">
+                <div class="md-option-line">
+                    <div class="md-option-segment">
+                        {{$root.getLz('settings.header.visual.theme')}}
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <select class="md-select" @change="$root.setTheme($root.cfg.visual.theme)" v-model="$root.cfg.visual.theme">
+                            <option value="default.less">{{$root.getLz('settings.option.visual.theme.default')}}</option>
+                            <option value="dark.less">{{$root.getLz('settings.option.visual.theme.dark')}}</option>
+                            <option v-for="theme in themes" :value="theme">{{ theme }}</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="md-option-line">
                     <div class="md-option-segment">
                         {{$root.getLz('settings.option.visual.windowBackgroundStyle')}}
@@ -583,6 +609,15 @@
 
                 <div class="md-option-line">
                     <div class="md-option-segment">
+                        {{$root.getLz('settings.option.experimental.inline_playlists')}}
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <input type="checkbox" v-model="app.cfg.advanced.experiments.includes('inline-playlists')" @click="app.cfg.advanced.experiments.includes('inline-playlists') ? removeExperiment('inline-playlists') : addExperiment('inline-playlists')" switch/>
+                    </div>
+                </div>
+
+                <div class="md-option-line">
+                    <div class="md-option-segment">
                         {{$root.getLz('term.language')}}
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
@@ -614,22 +649,23 @@
                         </button>
                     </div>
                 </div>
+                <div class="md-option-line">
+                    <div class="md-option-segment">
+                        {{$root.getLz('settings.option.experimental.copy_log')}} 
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <button class="md-btn" @click="copyLogs">
+                            {{$root.getLz('action.copy')}} 
+                        </button>
+                    </div>
+                </div>
             </div>
             <div style="opacity: 0.5; pointer-events: none">
                 <div class="md-option-header">
                     <span>{{$root.getLz('settings.header.unfinished')}}</span>
                 </div>
                 <div class="settings-option-body">
-                    <div class="md-option-line">
-                        <div class="md-option-segment">
-                            Theme
-                        </div>
-                        <div class="md-option-segment md-option-segment_auto">
-                            <select class="md-select">
-                                <option value="0">Cider</option>
-                            </select>
-                        </div>
-                    </div>
+
                     <div class="md-option-line">
                         <div class="md-option-segment">
                             Theme Options
@@ -691,7 +727,8 @@
 		props: [],
 		data: function () {
 			return {
-				app: this.$root
+				app: this.$root,
+                themes: ipcRenderer.sendSync("get-themes")
 			}
 		},
 		mounted: function () {
@@ -704,6 +741,10 @@
 			}
 		},
 		methods: {
+            copyLogs() {
+                ipcRenderer.send('fetch-log')
+                notyf.success(app.getLz('term.share.success'));
+            },
 			getLanguages: function () {
 				let langs = this.$root.lzListing
 				let categories = {
@@ -738,6 +779,7 @@
 						CiderAudio.spatialOn()
 					}
 				} else {
+                    app.cfg.advanced.decryptLLPW = false;
 					CiderAudio.off();
 				}
 			},

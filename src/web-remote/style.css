@@ -193,6 +193,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 }
 
 .lossless-badge {
+    background-image: url("./assets/lossless.svg");
     background: rgb(150 150 150);
     border-radius: 6px;
     padding: 0px 6px;
