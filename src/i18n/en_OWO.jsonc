@@ -230,12 +230,18 @@
   "settings.header.audio": "Audiowo",
   "settings.header.audio.description": "Adjust the audiowo settings fow Cidew.",
   "settings.option.audio.quality": "Audiowo Quawity", // Dropdown
+  "settings.header.audio.quality.hireslossless": "Hi-res losswess",
+  "settings.header.audio.quality.hireslossless.description": "(uwp to 24-bit/192 khz)",
+  "settings.header.audio.quality.lossless": "Losswess",
+  "settings.header.audio.quality.lossless.description": "(uwp to 24-bit/48 khz)",
   "settings.header.audio.quality.high": "High",
   "settings.header.audio.quality.low": "Low", // keeping as low because confusion with the word wow
   "settings.header.audio.quality.auto": "Autowo",
   "settings.option.audio.seamlessTransition": "Seamwess Audiowo Twansition", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "Enabwe Advanced Functionawity", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.description": "Enabwing AudiowoContext functionawity wiww awwow fow extended audiowo featuwes wike Audiowo Nowmawization, Equalizews and Visuawizews, howevew on some systems dis may cause stuttewing in audiowo twacks.",
+  "settings.option.audio.enableAdvancedFunctionality.decryptLLPW": "Decwypt losswess pwayback wowkfwow", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.decryptLLPW.description": "Enabwes the abiwity fow cidew to decwypt losswess auwdio fiwes. A minow pewfowmance hit wiww occuww.",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Audiowo Nowmawization", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Nowmawizes peak vowume fow individuaw twacks to cweate a moar unifowm wistening expewience.",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Audiowo Spatiawization", // Toggle
