@@ -672,9 +672,9 @@ const app = new Vue({
 
             // Load saved quality
             switch (app.cfg.audio.quality) {
-                /** case "extreme":
-                 app.mk.bitrate = app.cfg.audio.quality = 990
-                 break; **/
+                case "extreme":
+                    app.mk.bitrate = app.cfg.audio.quality = 990
+                    break;
                 case "high":
                     app.mk.bitrate = app.cfg.audio.quality = 256
                     break;
@@ -1002,11 +1002,11 @@ const app = new Vue({
             })
         },
         copyToClipboard(str) {
-            if (process.platform === 'darwin') {
+            if (navigator.userAgent.includes('Darwin')) {
                 this.darwinShare(str)
             } else {
                 notyf.success(app.getLz('term.share.success'))
-                navigator.clipboard.writeText(str)
+                navigator.clipboard.writeText(str).then(r => console.log("Copied to clipboard."))
             }
         },
         newPlaylist(name = app.getLz('term.newPlaylist'), tracks = []) {
