@@ -15,7 +15,7 @@ jobs:
             - yarn-packages-{{ checksum "cider-yarn.lock" }}
       - run:
           name: Install Dependencies
-          command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
+          command: yarn install  --cache-folder ~/.cache/yarn
       - save_cache:
           name: Save Yarn Package Cache
           key: yarn-packages-{{ checksum "cider-yarn.lock" }}
