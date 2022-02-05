@@ -121,7 +121,7 @@
   "term.updateCider": "更新 Cider",
   
   // Home
-  "home.title": "主頁",
+  "home.title": "首頁",
   "home.recentlyPlayed": "最近播放",
   "home.recentlyAdded": "最近加入",
   "home.artistsFeed": "藝人追蹤",
@@ -186,7 +186,7 @@
   "action.export": "輸出",
   "action.showAlbum": "顯示專輯",
   "action.tray.minimize": "最小化",
-  "action.tray.quit": "關比",
+  "action.tray.quit": "關閉",
   "action.tray.show": "顯示",
   "action.update": "更新",
 
