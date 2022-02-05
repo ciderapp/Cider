@@ -171,7 +171,6 @@ var CiderAudio = {
             CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.llpw);
         }
 
-        CiderAudio.audioNodes.llpw.connect(CiderAudio.audioNodes.preampNode);
         for (i = 1; i < LLPW_FREQUENCIES.length; i ++) {
             CiderAudio.audioNodes.llpw[i-1].connect(CiderAudio.audioNodes.llpw[i]);
         }
