@@ -236,6 +236,10 @@
   "settings.header.audio": "Audio",
   "settings.header.audio.description": "Adjust the audio settings for Cider.",
   "settings.option.audio.quality": "Audio Quality", // Dropdown
+  "settings.header.audio.quality.hireslossless": "Hi-Res Lossless",
+  "settings.header.audio.quality.hireslossless.description": "(up to 24-bit/192 kHz)",
+  "settings.header.audio.quality.lossless": "Lossless",
+  "settings.header.audio.quality.lossless.description": "(up to 24-bit/48 kHz)",
   "settings.header.audio.quality.high": "High",
   "settings.header.audio.quality.low": "Low",
   "settings.header.audio.quality.auto": "Auto",

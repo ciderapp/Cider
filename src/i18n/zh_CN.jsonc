@@ -119,10 +119,6 @@
   "term.check": "检查",
   "term.aboutArtist": "关于{{artistName}}", // e.g. 'About Doja Cat'
   "term.updateCider": "更新 Cider",
-  "term.lossless": "无损",
-  "term.lossless.description": "(最高 24 位/48 kHz)",
-  "term.hireslossless": "高解析度无损",
-  "term.hireslossless.description": "(最高 24 位/192 kHz)",
 
   // Home
   "home.title": "主页",
@@ -201,6 +197,10 @@
   "settings.header.audio": "音频",
   "settings.header.audio.description": "调整 Cider 的音频设置",
   "settings.option.audio.quality": "音质", // Dropdown
+  "settings.header.audio.quality.hireslossless": "高解析度无损",
+  "settings.header.audio.quality.hireslossless.description": "(最高 24 位/192 kHz)",
+  "settings.header.audio.quality.lossless": "无损",
+  "settings.header.audio.quality.lossless.description": "(最高 24 位/48 kHz)",
   "settings.header.audio.quality.high": "高音质",
   "settings.header.audio.quality.low": "高效率",
   "settings.header.audio.quality.auto": "自动",
