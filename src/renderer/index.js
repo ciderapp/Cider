@@ -748,12 +748,13 @@ const app = new Vue({
                 }
             })
 
-            ipcRenderer.on('play', function (_event, mode, id) {
-                if (mode !== 'url') {
-                    self.mk.setQueue({[mode]: id}).then(() => {
-                        app.mk.play()
-                    })
-                } else {
+            ipcRenderer.on('play', function(_event, mode, id) {
+              if (mode !== 'url'){
+                self.mk.setQueue({[mode]: id}).then(() => {
+                    app.mk.play()
+                })
+                
+              } else {
                     app.openAppleMusicURL(id)
                 }
             });
@@ -775,7 +776,7 @@ const app = new Vue({
                     self.$refs.queue.updateQueue();
                 }
                 this.currentSongInfo = a
-
+                
 
                 if (app.cfg.audio.normalization) {
                     // get unencrypted audio previews to get SoundCheck's normalization tag
@@ -799,6 +800,7 @@ const app = new Vue({
                     } catch (e) {
                     }
                 }
+                
 
                 try {
                     a = a.item.attributes;
@@ -820,6 +822,7 @@ const app = new Vue({
                 // app.getNowPlayingArtwork(42); 
                 app.getNowPlayingArtworkBG(32);
                 app.loadLyrics();
+                app.losslessBadge();
 
                 // Playback Notifications
                 if (this.cfg.general.playbackNotifications && !document.hasFocus() && a.artistName && a.artwork && a.name) {
@@ -2302,7 +2305,7 @@ const app = new Vue({
         showSearch() {
             this.page = "search"
         },
-        loadLyrics() {
+        loadLyrics() { 
             const musicType = (MusicKit.getInstance().nowPlayingItem != null) ? MusicKit.getInstance().nowPlayingItem["type"] ?? '' : '';
             console.log("mt", musicType)
             if (musicType === "musicVideo") {
@@ -2344,6 +2347,22 @@ const app = new Vue({
                 self.getLibrarySongsFull(true)
             })
             notyf.success('Removed from library.')
+        },
+        async losslessBadge() {
+            const songID = (this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem["_songId"] ?? -1 : -1;
+            if (app.cfg.audio.quality == 2304 && app.cfg.advanced.decryptLLPW && songID != -1) {
+                let extendedAssets = await app.mk.api.song(songID, {extend : 'extendedAssetUrls'})
+                if (extendedAssets.attributes.audioTraits.includes('lossless')) {
+                    app.mk.nowPlayingItem['attributes']['lossless'] = true
+                    CiderAudio.audioNodes.llpwEnabled = 1}
+                else {
+                    CiderAudio.audioNodes.llpwEnabled = 0
+                }    
+            }
+            
+            else {
+                CiderAudio.audioNodes.llpwEnabled = 0
+            }
         },
         async loadYTLyrics() {
             const track = (this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.title ?? '' : '';
@@ -2959,7 +2978,7 @@ const app = new Vue({
                 if (type.slice(-1) != "s") {
                     type += "s"
                 }
-                type = type.replace("library-", "")
+                type = type.replace("library-", "") 
                 let id = item.attributes.playParams.catalogId ?? item.id
 
                 let index = types.findIndex(function (type) {
