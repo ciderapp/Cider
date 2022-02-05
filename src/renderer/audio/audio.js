@@ -8,6 +8,8 @@ var CiderAudio = {
         audioBands : null,
         preampNode : null,
         vibrantbassNode: null,
+        llpw: null,
+        llpwEnabled: null
     },
     init: function (cb = function () { }) {
         //AudioOutputs.fInit = true;
@@ -28,6 +30,7 @@ var CiderAudio = {
         CiderAudio.audioNodes.gainNode.disconnect(); } catch(e){}
         try{ CiderAudio.audioNodes.spatialNode.disconnect();} catch(e){}
         try{
+            CiderAudio.audioNodes.llpw.disconnect()
             CiderAudio.audioNodes.preampNode.disconnect();
             for (var i of CiderAudio.audioNodes.vibrantbassNode){
                 i.disconnect();
@@ -125,7 +128,7 @@ var CiderAudio = {
         LLPW_GAIN = [0.38, -1.81, -0.23, -0.51, 0.4, 0.84, 0.36, -0.34, 0.27, -1.2, -0.42, -0.67, 0.81, 1.31, -0.71, 0.68, -1.04, 0.79, -0.73, -1.33, 1.17, 0.57, 0.35, 6.33];
         LLPW_FREQUENCIES = [16.452, 24.636, 37.134, 74.483, 159.54, 308.18, 670.21, 915.81, 1200.7, 2766.4, 2930.6, 4050.6, 4409.1, 5395.2, 5901.6, 6455.5, 7164.1, 7724.1, 8449, 10573, 12368, 14198, 17910, 18916];
         CiderAudio.audioNodes.audioBands = []; CiderAudio.audioNodes.vibrantbassNode = []; 
-        CiderAudio.audioNodes.llpw = [];
+        CiderAudio.audioNodes.llpw = []; CiderAudio.audioNodes.llpwEnabled = 0;
 
         for (i = 0; i < BANDS.length; i++) {
             CiderAudio.audioNodes.audioBands[i] = CiderAudio.context.createBiquadFilter();
@@ -134,15 +137,15 @@ var CiderAudio = {
             CiderAudio.audioNodes.audioBands[i].Q.value = Q[i];
             CiderAudio.audioNodes.audioBands[i].gain.value = GAIN[i] * app.cfg.audio.equalizer.mix;
         }
-        if (app.mk.nowPlayingItem != null && app.mk.nowPlayingItem['attributes']['lossless']) {
+        
         for (i = 0; i < LLPW_FREQUENCIES.length; i++) {
             CiderAudio.audioNodes.llpw[i] = CiderAudio.context.createBiquadFilter();
             CiderAudio.audioNodes.llpw[i].type = 'peaking'; // 'peaking';
             CiderAudio.audioNodes.llpw[i].frequency.value = LLPW_FREQUENCIES[i];
             CiderAudio.audioNodes.llpw[i].Q.value = LLPW_Q[i];
-            CiderAudio.audioNodes.llpw[i].gain.value = LLPW_GAIN[i] * 0.5;
+            CiderAudio.audioNodes.llpw[i].gain.value = LLPW_GAIN[i] * 0.5 * CiderAudio.audioNodes.llpwEnabled; 
         }
-    }
+
         CiderAudio.audioNodes.preampNode = CiderAudio.context.createBiquadFilter();
         CiderAudio.audioNodes.preampNode.type = 'highshelf'; 
         CiderAudio.audioNodes.preampNode.frequency.value = 0; // allow all
@@ -165,16 +168,16 @@ var CiderAudio = {
             CiderAudio.audioNodes.gainNode.disconnect(CiderAudio.context.destination);} catch(e){}
             CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.preampNode);
         }
-        if (app.mk.nowPlayingItem['attributes']['lossless']) {
-        console.log("LLPW RUNNING")
-        CiderAudio.audioNodes.llpw.connect(CiderAudio.audioNodes.preampNode[0]);
+
+        CiderAudio.audioNodes.preampNode.connect(CiderAudio.audioNodes.llpw[0]);
+
+        CiderAudio.audioNodes.llpw.connect(CiderAudio.audioNodes.vibrantbassNode[0]);
+
         for (i = 1; i < LLPW_FREQUENCIES.length; i ++) {
             CiderAudio.audioNodes.llpw[i-1].connect(CiderAudio.audioNodes.llpw[i]);
         }
-        CiderAudio.audioNodes.llpw[LLPW_FREQUENCIES.length-1].connect(CiderAudio.audioNodes.preampNode[0]);
-    }
-        CiderAudio.audioNodes.preampNode.connect(CiderAudio.audioNodes.vibrantbassNode[0]);
-
+        CiderAudio.audioNodes.llpw[LLPW_FREQUENCIES.length-1].connect(CiderAudio.audioNodes.vibrantbassNode[0]);
+        
         for (i = 1; i < VIBRANTBASSBANDS.length; i ++) {
             CiderAudio.audioNodes.vibrantbassNode[i-1].connect(CiderAudio.audioNodes.vibrantbassNode[i]);
         }

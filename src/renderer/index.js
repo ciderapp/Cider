@@ -822,6 +822,7 @@ const app = new Vue({
                 // app.getNowPlayingArtwork(42); 
                 app.getNowPlayingArtworkBG(32);
                 app.loadLyrics();
+                app.losslessBadge();
 
                 // Playback Notifications
                 if (this.cfg.general.playbackNotifications && !document.hasFocus() && a.artistName && a.artwork && a.name) {
@@ -2344,6 +2345,23 @@ const app = new Vue({
             }).then((data) => {
                 self.getLibrarySongsFull(true)
             })
+        },
+        async losslessBadge() {
+            const songID = (this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem["_songId"] ?? -1 : -1;
+            // this.getMXM( trackName, artistName, 'en', duration);
+            if (app.cfg.audio.quality == 2304 && app.cfg.advanced.decryptLLPW && songID != -1) {
+                let extendedAssets = app.mk.api.song(songID, {extend : 'extendedAssetUrls'})
+                if (extendedAssets.attributes.audioTraits.includes('lossless')) {
+                    app.mk.nowPlayingItem['attributes']['lossless'] = true
+                    CiderAudio.audioNodes.llpwEnabled = 1}
+                else {
+                    CiderAudio.audioNodes.llpwEnabled = 0
+                }    
+            }
+            
+            else {
+                CiderAudio.audioNodes.llpwEnabled = 0
+            }
         },
         async loadYTLyrics() {
             const track = (this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.title ?? '' : '';
