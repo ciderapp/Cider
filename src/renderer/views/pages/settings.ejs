@@ -64,6 +64,16 @@
                 </div>
                 <div class="md-option-line" v-show="app.cfg.advanced.AudioContext">
                     <div class="md-option-segment">
+                        {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.decryptLLPW')}}
+                        <br>
+                        <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.decryptLLPW.description')}}</small>
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <input type="checkbox" v-model="app.cfg.advanced.decryptLLPW" switch/>
+                    </div>
+                </div>
+                <div class="md-option-line" v-show="app.cfg.advanced.AudioContext">
+                    <div class="md-option-segment">
                         {{$root.getLz('term.equalizer')}}
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
@@ -769,6 +779,7 @@
 						CiderAudio.spatialOn()
 					}
 				} else {
+                    app.cfg.advanced.decryptLLPW = false;
 					CiderAudio.off();
 				}
 			},
