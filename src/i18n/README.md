@@ -55,4 +55,4 @@ Update 05/02/2022 09:00 UTC
 * `settings.header.audio.quality.lossless`: Added for `en_US`.
 * `settings.header.audio.quality.lossless.description`: Added for `en_US`.
 * `settings.option.audio.enableAdvancedFunctionality.decryptLLPW`: Added for `en_US`.
-* `settings.option.audio.enableAdvancedFunctionality.decryptLLPW`: Added for `en_US`.
+* `settings.option.audio.enableAdvancedFunctionality.decryptLLPW.description`: Added for `en_US`.
