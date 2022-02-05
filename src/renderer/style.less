@@ -1148,10 +1148,20 @@ body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls > div.cl
   .explicit-icon {
     background-image: url("./assets/explicit.svg");
     height: 9px;
+    width: 13px;
+    filter: contrast(0);
+    background-repeat: no-repeat;
+    margin-left: 3px;
+  }
+
+  .lossless-icon {
+    background-image: url("http://localhost:9000/assets/lossless.svg");
+    height: 9px;
     width: 36px;
     filter: contrast(0);
     background-repeat: no-repeat;
     margin-left: 3px;
+    background-size: contain;
   }
 }
 
