@@ -13,7 +13,7 @@
 
   // Dialogs
   "dialog.cancel": "取消",
-  "dialog.ok": "OK",
+  "dialog.ok": "確定",
 
   // Notification
   "notification.updatingLibrarySongs": "正在更新資料庫的歌曲...",
@@ -26,7 +26,7 @@
   "term.github": "GitHub", // Follows brand term
   "term.discord": "Discord", // Follows brand term
   "term.learnMore": "更多内容",
-  "term.accountSettings": "賬戶設定",
+  "term.accountSettings": "帳戶設定",
   "term.logout": "登出",
   "term.login": "登入",
   "term.about": "關於",
@@ -87,9 +87,9 @@
   "term.showLess": "顯示更少",
   "term.topSongs" : "熱門歌曲",
   "term.latestReleases": "最新發行",
-  "term.time.added": "加入于",
-  "term.time.released": "發行于", 
-  "term.time.updated": "更改于",
+  "term.time.added": "加入於",
+  "term.time.released": "發行於", 
+  "term.time.updated": "更改於",
   "term.time.hours": "小時",
   "term.time.hour": "小時",
   "term.time.minutes": "分鐘",
@@ -99,7 +99,7 @@
   "term.fullscreenView": "全螢幕顯示",
   "term.defaultView": "預設顯示",
   "term.audioSettings": "音訊設定",
-  "term.spacializedAudioSetting": "音頻空間化設置",
+  "term.spacializedAudioSetting": "音訊空間化設定",
   "term.clearAll": "清空",
   "term.recentStations": "最近收聽的廣播",
   "term.language": "語言",
@@ -121,7 +121,7 @@
   "term.updateCider": "更新 Cider",
   
   // Home
-  "home.title": "主頁",
+  "home.title": "首頁",
   "home.recentlyPlayed": "最近播放",
   "home.recentlyAdded": "最近加入",
   "home.artistsFeed": "藝人追蹤",
@@ -130,7 +130,7 @@
   "home.friendsListeningTo": "朋友正在聆聽",
   "home.followedArtists": "追蹤的藝人",
   // Errors
-  "error.appleMusicSubRequired": "需要訂閱Apple Music以使用Cider",
+  "error.appleMusicSubRequired": "需要訂閱 Apple Music 以使用 Cider",
   "error.connectionError": "無法連接到 Apple Music。",
   "error.noResults": "沒有結果",
   "error.noResults.description": "嘗試新的搜尋項目。",
@@ -178,15 +178,15 @@
   "action.unlove": "取消喜愛",
   "action.dislike": "減少此類建議",
   "action.undoDislike": "還原減小此類建議",
-  "action.showWebRemoteQR": "顯示遠程遙控行動條碼",
+  "action.showWebRemoteQR": "顯示遠程操控行動條碼",
   "action.playTracksNext": "插播 ${app.selectedMediaItems.length} 首歌曲",
   "action.playTracksLater": "最後播放 ${app.selectedMediaItems.length} 首歌曲",
   "action.removeTracks": "從待播清單刪除 ${self.selectedItems.length} 首歌曲",
-  "action.import": "導入",
-  "action.export": "導出",
+  "action.import": "輸入",
+  "action.export": "輸出",
   "action.showAlbum": "顯示專輯",
   "action.tray.minimize": "最小化",
-  "action.tray.quit": "退出",
+  "action.tray.quit": "關閉",
   "action.tray.show": "顯示",
   "action.update": "更新",
   "action.copy": "複製",
@@ -196,28 +196,28 @@
   
   // Settings - Audio
   "settings.header.audio": "音訊",
-  "settings.header.audio.description": "調整Cider的音訊設定",
+  "settings.header.audio.description": "調整 Cider 的音訊設定",
   "settings.option.audio.quality": "音訊音質", // Dropdown
-  "settings.header.audio.quality.hireslossless": "高解析度保真壓縮",
-  "settings.header.audio.quality.hireslossless.description": "(最高 24 位元/192 kHz)",
-  "settings.header.audio.quality.lossless": "保真壓縮",
-  "settings.header.audio.quality.lossless.description": "(最高 24 位元/48 kHz)",
+  "settings.header.audio.quality.hireslossless": "高品質無損壓縮",
+  "settings.header.audio.quality.hireslossless.description": "（高達 24-bit/192 kHz）",
+  "settings.header.audio.quality.lossless": "無損壓縮",
+  "settings.header.audio.quality.lossless.description": "（高達 24-bit/48 kHz）",
   "settings.header.audio.quality.high": "高品質",
   "settings.header.audio.quality.low": "高效率",
   "settings.header.audio.quality.auto": "自動",
   "settings.option.audio.seamlessTransition": "無間斷播放", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "進階機能", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.description": "啟用 AudioContext 將解鎖類似音訊標準化和等化器的進階機能。但是會在一些電腦造成音樂卡頓。",
-  "settings.option.audio.enableAdvancedFunctionality.decryptLLPW": "保真壓縮解碼", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.decryptLLPW.description": "給予 Cider 解碼保真壓縮檔案的能力。相對的，這將會增加運算工作量。",
+  "settings.option.audio.enableAdvancedFunctionality.description": "啟用 AudioContext 將解鎖類似音訊標準化和等化器的進階機能。但是會在部分電腦造成音樂卡頓。",
+  "settings.option.audio.enableAdvancedFunctionality.decryptLLPW": "無損壓縮解碼", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.decryptLLPW.description": "提供 Cider 解碼無損壓縮檔案的能力，但相應地也會對電腦硬體提升使用率。",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "音訊標準化", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "將平衡輕柔和響亮的歌曲，建立更統一的聆聽體驗。",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "音訊空間化", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "將音訊進行空間化處理來製造一個更立體的聆聽體驗（注：此功能不是官方的杜比全景聲）",
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "將音訊進行空間化處理來製造一個更立體的聆聽體驗（註：此功能不是官方的杜比全景聲）",
   // Settings - Visual
   "settings.header.visual": "外觀",
-  "settings.header.visual.description": "調整Cider的外觀",
-  "settings.option.visual.windowBackgroundStyle": "窗口背景樣式", // Toggle
+  "settings.header.visual.description": "調整 Cider 的外觀",
+  "settings.option.visual.windowBackgroundStyle": "視窗背景樣式", // Toggle
   "settings.header.visual.windowBackgroundStyle.none": "空白",
   "settings.header.visual.windowBackgroundStyle.artwork": "專輯封面",
   "settings.option.visual.animatedArtwork": "動態專輯封面", // Dropdown
@@ -230,16 +230,16 @@
   "settings.header.visual.animatedArtworkQuality.high": "高",
   "settings.header.visual.animatedArtworkQuality.veryHigh": "非常高",
   "settings.header.visual.animatedArtworkQuality.extreme": "極高",
-  "settings.option.visual.animatedWindowBackground": "動態窗口背景", // Toggle
+  "settings.option.visual.animatedWindowBackground": "動態視窗背景", // Toggle
   "settings.option.visual.hardwareAcceleration": "硬體加速", // Dropdown
   "settings.option.visual.hardwareAcceleration.description": "需要重新啟動 Cider 才會生效",
-  "settings.header.visual.hardwareAcceleration.default": "默認", 
+  "settings.header.visual.hardwareAcceleration.default": "預設", 
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "顯示個人檔案", // Toggle
   // Settings - General (Reserved)
   "settings.header.general": "一般",
-  "settings.header.general.description": "調整Cider的一般設定",
+  "settings.header.general.description": "調整 Cider 的一般設定",
   
   // Settings - Lyrics
   "settings.header.lyrics": "歌詞",
@@ -251,7 +251,7 @@
 
   // Settings - Connectivity
   "settings.header.connectivity": "外部連接",
-  "settings.header.connectivity.description": "調整Cider與外部的連接",
+  "settings.header.connectivity.description": "調整 Cider 與外部的連接",
   "settings.option.connectivity.discordRPC": "Discord 動態", // Dropdown
   // Refer to term.disabled for the disabled option
   "settings.header.connectivity.discordRPC.cider": "顯示正在玩 'Cider'",
@@ -267,7 +267,7 @@
   "settings.header.experimental": "實驗性功能",
   "settings.header.experimental.description": "調整 Cider 的實驗性功能",
   "settings.option.experimental.compactUI": "緊凑型 UI", // Toggle
-  "settings.option.experimental.closeButtonBehaviour": "關閉按鈕行為", // Dropdown
+  "settings.option.experimental.closeButtonBehaviour": "關閉按鈕操作", // Dropdown
   "settings.option.experimental.close_button_hide": "關閉按鈕會隱藏 Cider",
   // Refer to term.disabled & term.enabled
   
@@ -295,8 +295,8 @@
   "settings.header.unfinished": "未完成",
   
   // Web Remote
-  "remote.web.title": "Cider 遠控",
-  "remote.web.description": "掃描以下的行動條碼以控制 Cider",
+  "remote.web.title": "Cider 遠端操控",
+  "remote.web.description": "掃描以下的行動條碼以操控 Cider",
 
   //About
   "about.thanks": "著重感謝 Cider Collective 的成員以及所有為項目付出的貢獻者。"
