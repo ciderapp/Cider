@@ -119,6 +119,11 @@
   "term.check": "檢查",
   "term.aboutArtist": "關於{{artistName}}", // e.g. 'About Doja Cat'
   "term.updateCider": "更新 Cider",
+  "term.lossless": "保真壓縮",
+  "term.lossless.description": "(最高 24 位元/48 kHz)",
+  "term.hireslossless": "高解析度保真壓縮",
+  "term.hireslossless.description": "(最高 24 位元/192 kHz)",
+
   
   // Home
   "home.title": "主頁",

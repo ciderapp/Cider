@@ -119,6 +119,10 @@
   "term.check": "確認",
   "term.aboutArtist": "{{artistName}}について", // e.g. 'About Doja Cat'
   "term.updateCider": "Cider 更新",
+  "term.lossless": "ロスレス",
+  "term.lossless.description": "(最大解像度 24 ビット／48 kHz)",
+  "term.hireslossless": "ハイレゾロスレス",
+  "term.hireslossless.description": "(最大解像度 24 ビット／192 kHz)",
 
   // Home
   "home.title": "ホーム",
