@@ -57,8 +57,8 @@
                             <div class="explicit-icon"
                                  v-if="mk.nowPlayingItem['attributes']['contentRating'] == 'explicit'"
                                  style="display: inline-block"></div>
-                            <div class="lossless-icon"
-                                 v-if="mk.nowPlayingItem['attributes']['lossless'] == true"
+                            <div class="ppe-icon"
+                                 v-if="app.cfg.advanced.ciderPPE == true"
                                  style="display: inline-block"></div>
                         </div>
                         <div class="song-artist-album">
