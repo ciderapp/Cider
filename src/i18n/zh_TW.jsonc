@@ -96,10 +96,10 @@
   "term.time.minute": "分鐘",
   "term.time.seconds": "秒",
   "term.time.second": "秒",
-  "term.fullscreenView": "全螢幕顯示",
+  "term.fullscreenView": "全螢幕顯示歌詞",
   "term.defaultView": "預設顯示",
   "term.audioSettings": "音訊設定",
-  "term.spacializedAudioSetting": "音訊空間化設定",
+  "term.spacializedAudioSetting": "音訊空間設定",
   "term.clearAll": "清空",
   "term.recentStations": "最近收聽的廣播",
   "term.language": "語言",
@@ -107,12 +107,13 @@
   "term.copyright": "版權聲明",
   "term.rightsReserved": "保留所有權利。",
   "term.sponsor": "贊助",
+  "term.socials": "社群",
   "term.ciderTeam": "Cider 團隊",
   "term.developer": "開發者",
   "term.socialTeam": "公關團隊",
   "term.contributors": "貢獻者",
   "term.equalizer": "等化器",
-  "term.reset": "重置",
+  "term.reset": "重設",
   "term.tracks": "首歌曲", // Assume x amount of tracks. e.g. 50 tracks 
   "term.videos": "影片", 
   "term.menu": "選單",
@@ -131,7 +132,7 @@
   "home.followedArtists": "追蹤的藝人",
   // Errors
   "error.appleMusicSubRequired": "需要訂閱 Apple Music 以使用 Cider",
-  "error.connectionError": "無法連接到 Apple Music。",
+  "error.connectionError": "無法連線到 Apple Music。",
   "error.noResults": "沒有結果",
   "error.noResults.description": "嘗試新的搜尋項目。",
 
@@ -182,19 +183,23 @@
   "action.playTracksNext": "插播 ${app.selectedMediaItems.length} 首歌曲",
   "action.playTracksLater": "最後播放 ${app.selectedMediaItems.length} 首歌曲",
   "action.removeTracks": "從待播清單刪除 ${self.selectedItems.length} 首歌曲",
-  "action.import": "輸入",
-  "action.export": "輸出",
+  "action.import": "匯入",
+  "action.export": "匯出",
   "action.showAlbum": "顯示專輯",
   "action.tray.minimize": "最小化",
   "action.tray.quit": "關閉",
   "action.tray.show": "顯示",
   "action.update": "更新",
-
+  
+  // Language optgroups
+  "settings.option.general.language.main": "語言",
+  "settings.option.general.language.fun": "惡搞語言",
+  "settings.option.general.language.unsorted": "未分類",
   
   // Settings - Audio
   "settings.header.audio": "音訊",
   "settings.header.audio.description": "調整 Cider 的音訊設定",
-  "settings.option.audio.quality": "音訊音質", // Dropdown
+  "settings.option.audio.quality": "音訊品質", // Dropdown
   "settings.header.audio.quality.hireslossless": "高品質無損壓縮",
   "settings.header.audio.quality.hireslossless.description": "（高達 24-bit/192 kHz）",
   "settings.header.audio.quality.lossless": "無損壓縮",
@@ -203,14 +208,15 @@
   "settings.header.audio.quality.low": "高效率",
   "settings.header.audio.quality.auto": "自動",
   "settings.option.audio.seamlessTransition": "無間斷播放", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality": "進階機能", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.description": "啟用 AudioContext 將解鎖類似音訊標準化和等化器的進階機能。但是會在部分電腦造成音樂卡頓。",
+  "settings.option.audio.enableAdvancedFunctionality": "進階音訊功能", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.description": "啟用 AudioContext 將解鎖類似音訊標準和等化器的進階功能。但這並不一定適合每部電腦，可能會發生音樂卡頓。",
   "settings.option.audio.enableAdvancedFunctionality.decryptLLPW": "無損壓縮解碼", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.decryptLLPW.description": "提供 Cider 解碼無損壓縮檔案的能力，但相應地也會對電腦硬體提升使用率。",
-  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "音訊標準化", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.decryptLLPW.description": "提供 Cider 解碼無損壓縮檔案的能力，但相對應的也會提升對電腦效能的使用率。",
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "音訊平衡", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "將平衡輕柔和響亮的歌曲，建立更統一的聆聽體驗。",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "音訊空間化", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "將音訊進行空間化處理來製造一個更立體的聆聽體驗（註：此功能不是官方的杜比全景聲）",
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "空間音訊", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "將音訊進行空間化處理來製造一個更立體的聆聽體驗（註：此功能不是官方的杜比全景聲）。",
+    
   // Settings - Visual
   "settings.header.visual": "外觀",
   "settings.header.visual.description": "調整 Cider 的外觀",
@@ -229,11 +235,13 @@
   "settings.header.visual.animatedArtworkQuality.extreme": "極高",
   "settings.option.visual.animatedWindowBackground": "動態視窗背景", // Toggle
   "settings.option.visual.hardwareAcceleration": "硬體加速", // Dropdown
-  "settings.option.visual.hardwareAcceleration.description": "需要重新啟動 Cider 才會生效",
+  "settings.option.visual.hardwareAcceleration.description": "需要重新啟動 Cider 才會套用",
   "settings.header.visual.hardwareAcceleration.default": "預設", 
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
+    
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "顯示個人檔案", // Toggle
+    
   // Settings - General (Reserved)
   "settings.header.general": "一般",
   "settings.header.general.description": "調整 Cider 的一般設定",
@@ -263,13 +271,13 @@
   // Settings - Experimental
   "settings.header.experimental": "實驗性功能",
   "settings.header.experimental.description": "調整 Cider 的實驗性功能",
-  "settings.option.experimental.compactUI": "緊凑型 UI", // Toggle
+  "settings.option.experimental.compactUI": "緊凑的介面", // Toggle
   "settings.option.experimental.closeButtonBehaviour": "關閉按鈕操作", // Dropdown
-  "settings.option.experimental.close_button_hide": "關閉按鈕會隱藏 Cider",
+  "settings.option.experimental.close_button_hide": "關閉按鈕將 Cider 隱藏至系統列",
   // Refer to term.disabled & term.enabled
   
   // Spatialization Menu
-  "spatial.spatialProperties" : "空間化屬性",
+  "spatial.spatialProperties" : "音訊空間屬性",
   "spatial.width" : "寬度",
   "spatial.height" : "高度",
   "spatial.depth" : "深度",
