@@ -4,7 +4,7 @@
   "i18n.languageName": "Deutsch",        // name of language in native language
   "i18n.languageNameEnglish": "German", // name of language in English
   "i18n.category": "main", // main = real language, fun = fun community languages
-  "i18n.authors": "@motz0815", // Authors, if you contribute to this file feel free to add your name seperated with a space
+  "i18n.authors": "@motz0815 @n0chteil", // Authors, if you contribute to this file feel free to add your name seperated with a space
 
   // App info
   "app.name": "Cider",
@@ -45,6 +45,11 @@
   "term.podcasts": "Podcasts",
   "term.playlists": "Playlists",
   "term.playlist": "Playlist",
+  "term.newPlaylist": "Neue Playlist",
+  "term.newPlaylistFolder": "Neuer Playlist-Ordner",
+  "term.createNewPlaylist": "Neue Playlist erstellen",
+  "term.createNewPlaylistFolder": "Neuen Playlist-Ordner erstellen",
+  "term.deletePlaylist": "Bist du sicher, dass du diese Playlist löschen willst?",
   "term.play": "Play",
   "term.pause": "Pause",
   "term.previous": "Zurück",
@@ -81,12 +86,12 @@
   "term.connecting": "Verbindet",
   "term.disconnect": "Trennen",
   "term.authed": "Autorisiert",
-  "term.confirm": "Bestätigen ?",
+  "term.confirm": "Bestätigen?",
   "term.more": "Mehr",
   "term.less": "Weniger",
-  "term.showMore": "Zeige mehr",
-  "term.showLess": "Zeige weniger",
-  "term.topSongs" : "Top Songs",
+  "term.showMore": "Mehr anzeigen",
+  "term.showLess": "Weniger anzeigen",
+  "term.topSongs": "Top Songs",
   "term.latestReleases": "Letzte Veröffentlichungen",
   "term.time.added": "Hinzugefügt",
   "term.time.released": "Veröffentlicht", 
@@ -99,25 +104,29 @@
   "term.time.second": "Sekunde",
   "term.fullscreenView": "Vollbildansicht",
   "term.defaultView": "Normale Ansicht",
+  "term.audioSettings": "Audio-Einstellungen",
   "term.spacializedAudioSetting": "Räumliches Audio",
   "term.clearAll": "Alle löschen",
-  "term.recentStations": "Letzte Stationen",
+  "term.recentStations": "Letzte Sender",
   "term.language": "Sprache",
   "term.funLanguages": "Spaß",
-  "term.noLyrics": "Lädt... / Liedtext nicht gefunden./ Instrumental.",
+  "term.noLyrics": "Lädt... / Lyrik nicht gefunden./ Instrumental.",
   "term.copyright": "Copyright",
-  "term.rightsReserved": "All Rights Reserved.",
+  "term.rightsReserved": "Alle Rechte vorbehalten.",
   "term.sponsor": "Unterstütze dieses Projekt",
   "term.ciderTeam": "Cider Team",
   "term.developer": "Entwickler",
   "term.socialTeam": "Social Team",
+  "term.socials": "Soziale Medien",
   "term.contributors": "Mithelfer",
   "term.equalizer": "Equalizer",
   "term.reset": "Zurücksetzen",
   "term.tracks": "Lieder", // Assume x amount of tracks. e.g. 50 tracks 
   "term.videos": "Videos", 
   "term.menu": "Menü",
-  "action.showAlbum": "Zeige ganzes Album",
+  "term.check": "Nach Updates suchen",
+  "term.aboutArtist": "Über {{artistName}}", // e.g. 'About Doja Cat'
+  "term.updateCider": "Cider aktualisieren",
 
   // Home
   "home.title": "Home",
@@ -130,7 +139,7 @@
   "home.followedArtists": "Gefolgte Künstler",
   // Errors
   "error.appleMusicSubRequired": "Apple Music benötigt ein Abonnement.",
-  "error.connectionError": "Es ist ein Fehler aufgetreten, während sich mit Apple Music verbunden wurde.",
+  "error.connectionError": "Es gab ein Problem beim Verbinden mit Apple Music.",
   "error.noResults": "Keine Ergebnisse.",
   "error.noResults.description": "Versuche einen anderen Suchbegriff.",
 
@@ -156,6 +165,7 @@
   "action.removeFromQueue": "Aus Warteschlange entfernen",
   "action.removeFromQueue.success": "Aus Warteschlange entfernt",
   "action.removeFromQueue.error": "Fehler beim Entfernen aus der Warteschlange",
+  "action.createPlaylist": "Neue Playlist erstellen",
   "action.addToPlaylist": "Zur Playlist hinzufügen",
   "action.removeFromPlaylist": "Aus Playlist entfernen",
   "action.addToFavorites": "Zu Favoriten hinzufügen",
@@ -183,6 +193,11 @@
   "action.removeTracks": "Entferne ${self.selectedItems.length} Lieder aus der Warteschlange",
   "action.import": "Importieren",
   "action.export": "Exportieren",
+  "action.showAlbum": "Ganzes Album anzeigen",
+  "action.tray.minimize": "Zu Tray minimieren",
+  "action.tray.quit": "Beenden",
+  "action.tray.show": "{appName} anzeigen",
+  "action.update": "Update",
 
   // Settings - General
   "settings.header.general": "Allgemein",
@@ -247,8 +262,8 @@
   "settings.option.connectivity.discordRPC": "Discord Rich Presence", // Dropdown
   "settings.option.connectivity.playbackNotifications": "Wiedergabe-Benachrichtigungen", // Toggle
   // Refer to term.disabled for the disabled option
-  "settings.header.connectivity.discordRPC.cider": "Zeige als 'Cider'",
-  "settings.header.connectivity.discordRPC.appleMusic": "Zeige als 'Apple Music'",
+  "settings.header.connectivity.discordRPC.cider": "'Cider' anzeigen",
+  "settings.header.connectivity.discordRPC.appleMusic": "'Apple Music' anzeigen",
   "settings.option.connectivity.discordRPC.clearOnPause": "Leere Discord Rich Presence wenn pausiert", // Toggle
   "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling", // Option to Connect
   "settings.option.connectivity.lastfmScrobble.delay": "LastFM Scrobble Delay (%)", 
@@ -261,34 +276,35 @@
   "settings.header.experimental": "Experimentell",
   "settings.header.experimental.description": "Passe die experimentellen Einstellungen für Cider an.",
   "settings.option.experimental.compactUI": "Kompaktes UI", // Toggle
-  "settings.option.experimental.closeButtonBehaviour": "Verhalten der Schließtaste",
+  "settings.option.experimental.close_button_hide": "Close Button Should Hide the Application",
   "settings.option.experimental.closeButtonBehaviour.quit": "Cider Schließen",
   "settings.option.experimental.closeButtonBehaviour.minimizeTaskbar": "In Taskleiste minimieren",
   "settings.option.experimental.closeButtonBehaviour.minimizeTray": "In den Tray minimieren",
   // Refer to term.disabled & term.enabled
 
   // Spatialization Menu
-  "spatial.spatialProperties" : "Räumliche Einstellungen",
-  "spatial.width" : "Breite",
-  "spatial.height" : "Höhe",
-  "spatial.depth" : "Tiefe",
-  "spatial.gain" : "Gain",
-  "spatial.roomMaterials" : "Raummaterialien",
-  "spatial.roomDimensions" : "Raumabmessungen",
-  "spatial.roomPositions" : "Raumpositionen",
-  "spatial.setDimensions" : "Setze Abmessungen",
-  "spatial.setPositions" : "Setze Positionen",
-  "spatial.up" : "Oben",
-  "spatial.front" : "Vorne",
-  "spatial.left" : "Links",
-  "spatial.right" : "Rechts",
-  "spatial.back" : "Hinten",
-  "spatial.down" : "Unten",
-  "spatial.listener" : "Hörer*in",
-  "spatial.audioSource" : "Audioquelle",
+  "spatial.notTurnedOn": "Die Audio-Spatialisierung ist deaktiviert. Um sie zu verwenden, musst du diese zuerst aktivieren.",
+  "spatial.spatialProperties": "Räumliche Einstellungen",
+  "spatial.width": "Breite",
+  "spatial.height": "Höhe",
+  "spatial.depth": "Tiefe",
+  "spatial.gain": "Gain",
+  "spatial.roomMaterials": "Raummaterialien",
+  "spatial.roomDimensions": "Raumabmessungen",
+  "spatial.roomPositions": "Raumpositionen",
+  "spatial.setDimensions": "Setze Abmessungen",
+  "spatial.setPositions": "Setze Positionen",
+  "spatial.up": "Oben",
+  "spatial.front": "Vorne",
+  "spatial.left": "Links",
+  "spatial.right": "Rechts",
+  "spatial.back": "Hinten",
+  "spatial.down": "Unten",
+  "spatial.listener": "Hörer*in",
+  "spatial.audioSource": "Audioquelle",
   
   // Settings - Unfinished
-  "settings.header.unfinished": "Unfertig",
+  "settings.header.unfinished": "Unvollendet",
 
   // Web Remote
   "remote.web.title": "Cider Remote",
