@@ -32,6 +32,7 @@ export class Store {
             "seamless_audio": true,
             "normalization": false,
             "ciderPPE": false,
+            "ciderPPE_value": 0.5,
             "spatial": false,
             "maxVolume": 1,
             "volumePrecision": 0.1,
