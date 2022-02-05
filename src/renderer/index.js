@@ -748,12 +748,13 @@ const app = new Vue({
                 }
             })
 
-            ipcRenderer.on('play', function (_event, mode, id) {
-                if (mode !== 'url') {
-                    self.mk.setQueue({[mode]: id}).then(() => {
-                        app.mk.play()
-                    })
-                } else {
+            ipcRenderer.on('play', function(_event, mode, id) {
+              if (mode !== 'url'){
+                self.mk.setQueue({[mode]: id}).then(() => {
+                    app.mk.play()
+                })
+                
+              } else {
                     app.openAppleMusicURL(id)
                 }
             });
@@ -775,7 +776,7 @@ const app = new Vue({
                     self.$refs.queue.updateQueue();
                 }
                 this.currentSongInfo = a
-
+                
 
                 if (app.cfg.audio.normalization) {
                     // get unencrypted audio previews to get SoundCheck's normalization tag
@@ -799,6 +800,7 @@ const app = new Vue({
                     } catch (e) {
                     }
                 }
+                
 
                 try {
                     a = a.item.attributes;
@@ -2302,7 +2304,7 @@ const app = new Vue({
         showSearch() {
             this.page = "search"
         },
-        loadLyrics() {
+        loadLyrics() { 
             const musicType = (MusicKit.getInstance().nowPlayingItem != null) ? MusicKit.getInstance().nowPlayingItem["type"] ?? '' : '';
             console.log("mt", musicType)
             if (musicType === "musicVideo") {
@@ -2957,7 +2959,7 @@ const app = new Vue({
                 if (type.slice(-1) != "s") {
                     type += "s"
                 }
-                type = type.replace("library-", "")
+                type = type.replace("library-", "") 
                 let id = item.attributes.playParams.catalogId ?? item.id
 
                 let index = types.findIndex(function (type) {
