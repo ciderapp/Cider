@@ -145,7 +145,7 @@ var CiderAudio = {
             CiderAudio.audioNodes.llpw[i].type = 'peaking'; // 'peaking';
             CiderAudio.audioNodes.llpw[i].frequency.value = LLPW_FREQUENCIES[i];
             CiderAudio.audioNodes.llpw[i].Q.value = LLPW_Q[i];
-            CiderAudio.audioNodes.llpw[i].gain.value = LLPW_GAIN[i] * 0.5 * CiderAudio.audioNodes.llpwEnabled; 
+            CiderAudio.audioNodes.llpw[i].gain.value = LLPW_GAIN[i] * 0.6 * CiderAudio.audioNodes.llpwEnabled; 
         }
 
         CiderAudio.audioNodes.preampNode = CiderAudio.context.createBiquadFilter();
