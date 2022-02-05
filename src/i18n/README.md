@@ -47,3 +47,12 @@ Updated 04/02/2022 10:00 UTC
 * `settings.option.visual.theme.dark`: Added for `en_US`.
 * `settings.option.experimental.copy_log`: Added for `en_US`.
 * `settings.option.experimental.inline_playlists`: Added for `en_US`.
+
+Update 05/02/2022 09:00 UTC
+
+* `settings.header.audio.quality.hireslossless`: Added for `en_US`.
+* `settings.header.audio.quality.hireslossless.description`: Added for `en_US`.
+* `settings.header.audio.quality.lossless`: Added for `en_US`.
+* `settings.header.audio.quality.lossless.description`: Added for `en_US`.
+* `settings.option.audio.enableAdvancedFunctionality.decryptLLPW`: Added for `en_US`.
+* `settings.option.audio.enableAdvancedFunctionality.decryptLLPW.description`: Added for `en_US`.
