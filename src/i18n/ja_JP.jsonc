@@ -189,6 +189,9 @@
   "action.tray.quit": "終了",
   "action.tray.show": "表示",
   "action.update": "アップデート",
+  "action.copy": "コピー",
+  "action.newpreset": "ニュープリセット",  // Equalizer Preset
+  "action.deletepreset": "プリセットを削除",  // Equalizer Preset
 
   // Settings - Audio
   "settings.header.audio": "オーディオ",
