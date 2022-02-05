@@ -264,7 +264,7 @@ export class AppEvents {
 
         const menu = Menu.buildFromTemplate([
             {
-                label: (visible ? this.i18n['action.tray.minimize'] : `${this.i18n['action.tray.show']} ${app.getName()}`),
+                label: (visible ? this.i18n['action.tray.minimize'] : this.i18n['action.tray.show'].includes("{appName}") ? `${this.i18n['action.tray.show'].replace("{appName}", app.getName())}` : `${this.i18n['action.tray.show']} ${app.getName()}`),
                 click: () => {
                     if (utils.getWindow()) {
                         if (visible) {

@@ -135,6 +135,7 @@ dist
 .vscode-test
 
 # yarn v2
+yarn.lock
 .pnp.*
 .yarn/*
 .yarn/cache
