@@ -2350,7 +2350,7 @@ const app = new Vue({
         },
         async losslessBadge() {
             const songID = (this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem["_songId"] ?? -1 : -1;
-            if (app.cfg.audio.quality == 2304 && app.cfg.advanced.decryptLLPW && songID != -1) {
+            if (app.cfg.audio.quality == 2304 && app.cfg.advanced.ciderPPE && songID != -1) {
                 let extendedAssets = await app.mk.api.song(songID, {extend : 'extendedAssetUrls'})
                 if (extendedAssets.attributes.audioTraits.includes('lossless')) {
                     app.mk.nowPlayingItem['attributes']['lossless'] = true

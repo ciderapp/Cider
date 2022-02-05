@@ -36,7 +36,8 @@
                         <select class="md-select" style="width:180px;" v-model="app.cfg.audio.quality"
                                 v-on:change="changeAudioQuality">
                             <!-- // <option value="9216">{{$root.getLz('settings.header.audio.quality.hireslossless')}}</option> -->
-                            <option value="2304">{{$root.getLz('settings.header.audio.quality.lossless')}}</option> 
+                            <!-- <option value="2304">{{$root.getLz('settings.header.audio.quality.lossless')}}</option> -->
+                            <option value="2303">{{$root.getLz('settings.header.audio.quality.ciderPPE')}}</option> 
                             <option value="256">{{$root.getLz('settings.header.audio.quality.high')}}</option>
                             <option value="64">{{$root.getLz('settings.header.audio.quality.low')}}</option>
                             <option value="auto">{{$root.getLz('settings.header.audio.quality.auto')}}</option>
@@ -64,12 +65,12 @@
                 </div>
                 <div class="md-option-line" v-show="app.cfg.advanced.AudioContext">
                     <div class="md-option-segment">
-                        {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.decryptLLPW')}}
+                        {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPE')}}
                         <br>
-                        <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.decryptLLPW.description')}}</small>
+                        <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPE.description')}}</small>
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <input type="checkbox" v-model="app.cfg.advanced.decryptLLPW" switch/>
+                        <input type="checkbox" v-model="app.cfg.advanced.ciderPPE" switch/>
                     </div>
                 </div>
                 <div class="md-option-line" v-show="app.cfg.advanced.AudioContext">
@@ -779,7 +780,7 @@
 						CiderAudio.spatialOn()
 					}
 				} else {
-                    app.cfg.advanced.decryptLLPW = false;
+                    app.cfg.advanced.ciderPPE = false;
 					CiderAudio.off();
 				}
 			},

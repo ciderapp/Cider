@@ -201,14 +201,15 @@
   "settings.header.audio.quality.hireslossless.description": "(最大解像度 24 ビット／192 kHz)",
   "settings.header.audio.quality.lossless": "ロスレス",
   "settings.header.audio.quality.lossless.description": "(最大解像度 24 ビット／48 kHz)",
+  "settings.header.audio.quality.enhanced": "エンハンスド",
   "settings.header.audio.quality.high": "高品質",
   "settings.header.audio.quality.low": "高効率",
   "settings.header.audio.quality.auto": "自動",
   "settings.option.audio.seamlessTransition": "曲間なしで再生", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "先進的な機能", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.description": "AudioContext 機能を有効にすると、オーディオノーマライズ、空間オーディオ、イコライザーなどの機能を使用できますが、音が途切れるかもしれません。", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.decryptLLPW": "ロスレスオーディオ", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.decryptLLPW.description": "ロスレスオーディオを有効にする", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider PPE", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "圧縮音源を高解像度に処理することによって、ロスレス相当の音質に向上させます。", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "オーディオノーマライズ", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "さまざまな曲の音量を均一にし、より整った音を楽しめるようにする機能です。",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "オーディオ空間化", // Toggle

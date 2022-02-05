@@ -31,7 +31,7 @@ export class Store {
             "quality": "256",
             "seamless_audio": true,
             "normalization": false,
-            "decryptLLPW": false,
+            "ciderPPE": false,
             "spatial": false,
             "maxVolume": 1,
             "volumePrecision": 0.1,

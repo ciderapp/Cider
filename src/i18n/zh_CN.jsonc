@@ -201,12 +201,15 @@
   "settings.header.audio.quality.hireslossless.description": "(最高 24 位/192 kHz)",
   "settings.header.audio.quality.lossless": "无损",
   "settings.header.audio.quality.lossless.description": "(最高 24 位/48 kHz)",
+  "settings.header.audio.quality.enhanced": "数字增强",
   "settings.header.audio.quality.high": "高音质",
   "settings.header.audio.quality.low": "高效率",
   "settings.header.audio.quality.auto": "自动",
   "settings.option.audio.seamlessTransition": "无缝播放", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "进阶功能", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.description": "启用 AudioContext 将解锁例如音量标准化和音频空间化的功能，但可能会在小部分设备上出现音频上的卡顿。",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider 数字增强引擎", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "将欺骗您的大脑来感知到近似无损音频的效果。",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "音量标准化", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "使所感知到的音频响度统一",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "音频空间化", // Toggle
