@@ -4,7 +4,7 @@
   "i18n.languageName": "piss",        // name of language in native language
   "i18n.languageNameEnglish": "English (piss)", // name of language in English
   "i18n.category": "fun", // main = real language, fun = fun community languages
-  "i18n.authors": "@SoNothingMC", // Authors, if you contribute to this file feel free to add your name seperated with a space
+  "i18n.authors": "@SoNothingMC @saboooor", // Authors, if you contribute to this file feel free to add your name seperated with a space
 
   // App info
   "app.name": "piss",
@@ -212,12 +212,18 @@
   "settings.header.audio": "piss sounds",
   "settings.header.audio.description": "change how your piss sounds",
   "settings.option.audio.quality": "piss quality", // Dropdown
+  "settings.header.audio.quality.hireslossless": "ungodly piss",
+  "settings.header.audio.quality.hireslossless.description": "(up to 24-pisses/192 piss hertz)",
+  "settings.header.audio.quality.lossless": "colorful piss",
+  "settings.header.audio.quality.lossless.description": "(up to 24-pisses/48 piss hertz)",
   "settings.header.audio.quality.high": "nice piss",
   "settings.header.audio.quality.low": "piss with blood",
   "settings.header.audio.quality.auto": "automatic piss",
   "settings.option.audio.seamlessTransition": "seamless piss-to-piss transition", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "cool piss tricks", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.description": "enabling the AudioContext thingy allows you to do cool stuffs, however on some systems your song may stutter",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "clear piss", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "makes your bladder go overboard and makes your piss crisp and clear.",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "piss normaliztion", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "protect your eardrums from overly loud/slient pisses",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "3D piss", // Toggle
