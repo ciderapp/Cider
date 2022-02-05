@@ -232,12 +232,18 @@
   "settings.header.audio": "ᖋ⚍↸╎ᒍ",
   "settings.header.audio.description": "ᖋ↸⋮⚍ϟᒣ ᒣ⍑ᒷ ᖋ⚍↸╎ᒍ ϟᒷᒣᒣ╎リ┤ϟ ⎓ᒍ∷ ᔮ╎↸ᒷ∷.",
   "settings.option.audio.quality": "ᖋ⚍↸╎ᒍ ᑑ⚍ᖋ|:╎ᒣ॥", // Dropdown
+  "settings.header.audio.quality.hireslossless": "⍑╎-∷ᒷϟ |:ᒍϟϟ|:ᒷϟϟ",
+  "settings.header.audio.quality.hireslossless.description": "(⚍i! ᒣᒍ 24-ᕊ╎ᒣ/192 ·ǀ·⍑∩)",
+  "settings.header.audio.quality.lossless": "|:ᒍϟϟ|:ᒷϟϟ",
+  "settings.header.audio.quality.lossless.description": "(⚍i! ᒣᒍ 24-ᕊ╎ᒣ/48 ·ǀ·⍑∩)",
   "settings.header.audio.quality.high": "⍑╎┤⍑",
   "settings.header.audio.quality.low": "|:ᒍ∴",
   "settings.header.audio.quality.auto": "ᖋ⚍ᒣᒍ",
   "settings.option.audio.seamlessTransition": "ϟᒷᖋᒲ|:ᒷϟϟ ᖋ⚍↸╎ᒍ ᒣ∷ᖋリϟ╎ᒣ╎ᒍリ", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "ᒷリᖋᕊ|:ᒷ ᖋ↸⍊ᖋリᔮᒷ↸ ⎓⚍リᔮᒣ╎ᒍリᖋ|:╎ᒣ॥", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.description": "ᒷリᖋᕊ|:╎リ┤ ᖋ⚍↸╎ᒍᔮᒍリᒣᒷ/ᒣ ⎓⚍リᔮᒣ╎ᒍリᖋ|:╎ᒣ॥ ∴╎|:|: ᖋ|:|:ᒍ∴ ⎓ᒍ∷ ᒷ/ᒣᒷリ↸ᒷ↸ ᖋ⚍↸╎ᒍ ⎓ᒷᖋᒣ⚍∷ᒷϟ |:╎·ǀ·ᒷ ᖋ⚍↸╎ᒍ リᒍ∷ᒲᖋ|:╎∩ᖋᒣ╎ᒍリ , ᒷᑑ⚍ᖋ|:╎∩ᒷ∷ϟ ᖋリ↸ ⍊╎ϟ⚍ᖋ|:╎∩ᒷ∷ϟ, ⍑ᒍ∴ᒷ⍊ᒷ∷ ᒍリ ϟᒍᒲᒷ ϟ॥ϟᒣᒷᒲϟ ᒣ⍑╎ϟ ᒲᖋ॥ ᔮᖋ⚍ϟᒷ ϟᒣ⚍ᒣᒣᒷ∷╎リ┤ ╎リ ᖋ⚍↸╎ᒍ ᒣ∷ᖋᔮ·ǀ·ϟ.",
+  "settings.option.audio.enableAdvancedFunctionality.decryptLLPW": "↸ᒷᔮ∷॥i!ᒣ |:ᒍϟϟ|:ᒷϟϟ i!|:ᖋ॥ᕊᖋᔮ·ǀ· ∴ᒍ∷·ǀ·⎓|:ᒍ∴", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.decryptLLPW.description": "ᒷリᖋᕊ|:ᒷϟ ᒣ⍑ᒷ ᖋᕊ╎|:╎ᒣ॥ ⎓ᒍ∷ ᔮ╎↸ᒷ∷ ᒣᒍ ↸ᒷᔮ∷॥i!ᒣ |:ᒍϟϟ|:ᒷϟϟ ᖋ⚍↸╎ᒍ ⎓╎|:ᒷϟ. ᖋ ᒲ╎リᒍ∷ i!ᒷ∷⎓ᒍ∷ᒲᖋリᔮᒷ ⍑╎ᒣ ∴╎|:|: ᒍᔮᔮ⚍∷.",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "ᖋ⚍↸╎ᒍ リᒍ∷ᒲᖋ|:╎∩ᖋᒣ╎ᒍリ", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "リᒍ∷ᒲᖋ|:╎∩ᒷϟ i!ᒷᖋ·ǀ· ⍊ᒍ|:⚍ᒲᒷ ⎓ᒍ∷ ╎リ↸╎⍊╎↸⚍ᖋ|: ᒣ∷ᖋᔮ·ǀ·ϟ ᒣᒍ ᔮ∷ᒷᖋᒣᒷ ᖋ ᒲᒍ∷ᒷ ⚍リ╎⎓ᒍ∷ᒲ |:╎ϟᒣᒷリ╎リ┤ ᒷ/i!ᒷ∷╎ᒷリᔮᒷ.",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "ᖋ⚍↸╎ᒍ ϟi!ᖋᒣ╎ᖋ|:╎∩ᖋᒣ╎ᒍリ", // Toggle
