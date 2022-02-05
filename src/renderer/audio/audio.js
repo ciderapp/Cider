@@ -173,10 +173,6 @@ var CiderAudio = {
         }
         CiderAudio.audioNodes.llpw[LLPW_FREQUENCIES.length-1].connect(CiderAudio.audioNodes.preampNode[0]);
     }
-        else {
-            console.log("LLPW DISABLED")
-            CiderAudio.audioNodes.llpw[LLPW_FREQUENCIES.length-1].disconnect(CiderAudio.audioNodes.preampNode[0]);
-        }
         CiderAudio.audioNodes.preampNode.connect(CiderAudio.audioNodes.vibrantbassNode[0]);
 
         for (i = 1; i < VIBRANTBASSBANDS.length; i ++) {
