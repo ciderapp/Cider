@@ -2355,7 +2355,7 @@ const app = new Vue({
                 if (extendedAssets.attributes.audioTraits.includes('lossless')) {
                     app.mk.nowPlayingItem['attributes']['lossless'] = true
                     CiderAudio.audioNodes.llpwEnabled = 1
-                    console.log("[Cider][Lossless] Audio being decrypted...")
+                    console.log("[Cider][Enhanced] Audio being processed by PPE")
                 }
                 else {
                     CiderAudio.audioNodes.llpwEnabled = 0
