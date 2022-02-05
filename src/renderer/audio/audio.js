@@ -30,8 +30,10 @@ var CiderAudio = {
         CiderAudio.audioNodes.gainNode.disconnect(); } catch(e){}
         try{ CiderAudio.audioNodes.spatialNode.disconnect();} catch(e){}
         try{
-            CiderAudio.audioNodes.llpw.disconnect()
             CiderAudio.audioNodes.preampNode.disconnect();
+            for (var i of CiderAudio.audioNodes.llpw){
+                i.disconnect();
+            }
             for (var i of CiderAudio.audioNodes.vibrantbassNode){
                 i.disconnect();
             }
@@ -162,22 +164,21 @@ var CiderAudio = {
         if (app.cfg.audio.spatial) {
             try{
             CiderAudio.audioNodes.spatialNode.output.disconnect(CiderAudio.context.destination); } catch(e){}
-            CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.audioNodes.preampNode);
+            CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.audioNodes.llpw);
         } else {
             try{
             CiderAudio.audioNodes.gainNode.disconnect(CiderAudio.context.destination);} catch(e){}
-            CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.preampNode);
+            CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.llpw);
         }
 
-        CiderAudio.audioNodes.preampNode.connect(CiderAudio.audioNodes.llpw[0]);
-
-        CiderAudio.audioNodes.llpw.connect(CiderAudio.audioNodes.vibrantbassNode[0]);
-
+        CiderAudio.audioNodes.llpw.connect(CiderAudio.audioNodes.preampNode);
         for (i = 1; i < LLPW_FREQUENCIES.length; i ++) {
             CiderAudio.audioNodes.llpw[i-1].connect(CiderAudio.audioNodes.llpw[i]);
         }
-        CiderAudio.audioNodes.llpw[LLPW_FREQUENCIES.length-1].connect(CiderAudio.audioNodes.vibrantbassNode[0]);
-        
+        CiderAudio.audioNodes.llpw[LLPW_FREQUENCIES.length-1].connect(CiderAudio.audioNodes.preampNode);
+
+        CiderAudio.audioNodes.preampNode.connect(CiderAudio.audioNodes.vibrantbassNode[0]);
+
         for (i = 1; i < VIBRANTBASSBANDS.length; i ++) {
             CiderAudio.audioNodes.vibrantbassNode[i-1].connect(CiderAudio.audioNodes.vibrantbassNode[i]);
         }
