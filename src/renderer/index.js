@@ -2331,6 +2331,7 @@ const app = new Vue({
             this.mk.addToLibrary(id).then((data) => {
                 self.getLibrarySongsFull(true)
             })
+            notyf.success('Added to library.');
         },
         removeFromLibrary(kind, id) {
             let self = this
@@ -2342,6 +2343,7 @@ const app = new Vue({
             }).then((data) => {
                 self.getLibrarySongsFull(true)
             })
+            notyf.success('Removed from library.')
         },
         async loadYTLyrics() {
             const track = (this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.title ?? '' : '';
