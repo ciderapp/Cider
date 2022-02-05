@@ -675,6 +675,7 @@ export class BrowserWindow {
         const aboutIcon = nativeImage.createFromPath(path.join(__dirname, '../../src/renderer/views/svg/info.svg')).toPNG()
         const settingsIcon = nativeImage.createFromPath(path.join(__dirname, '../../src/renderer/views/svg/settings.svg')).toPNG()
         const logoutIcon = nativeImage.createFromPath(path.join(__dirname, '../../src/renderer/views/svg/log-out.svg')).toPNG()
+        const ciderIcon = nativeImage.createFromPath(path.join(__dirname, '../../src/renderer/assets/logocute.png'))
         const template = [
             // { role: 'appMenu' }
             ...(isMac ? [{
@@ -725,9 +726,19 @@ export class BrowserWindow {
                 submenu: [
                     {
                         label: 'Discord',
+                        accelerator: 'CommandOrControl+Shift+D',
                         click: async () => {
                             const { shell } = require('electron')
                             await shell.openExternal('https://discord.gg/applemusic')
+                        }
+                    },
+                    {
+                        label: 'Donate',
+                        accelerator: 'CommandOrControl+D',
+                        icon: ciderIcon,
+                        click: async () => {
+                            const { shell } = require('electron')
+                            await shell.openExternal('https://opencollective.com/ciderapp/')
                         }
                     },
                     {
