@@ -164,11 +164,11 @@ var CiderAudio = {
         if (app.cfg.audio.spatial) {
             try{
             CiderAudio.audioNodes.spatialNode.output.disconnect(CiderAudio.context.destination); } catch(e){}
-            CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.audioNodes.llpw);
+            CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.audioNodes.llpw[0]);
         } else {
             try{
             CiderAudio.audioNodes.gainNode.disconnect(CiderAudio.context.destination);} catch(e){}
-            CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.llpw);
+            CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.llpw[0]);
         }
 
         for (i = 1; i < LLPW_FREQUENCIES.length; i ++) {
