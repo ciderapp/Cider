@@ -240,8 +240,8 @@
   "settings.option.audio.seamlessTransition": "Seamwess Audiowo Twansition", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "Enabwe Advanced Functionawity", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.description": "Enabwing AudiowoContext functionawity wiww awwow fow extended audiowo featuwes wike Audiowo Nowmawization, Equalizews and Visuawizews, howevew on some systems dis may cause stuttewing in audiowo twacks.",
-  "settings.option.audio.enableAdvancedFunctionality.decryptLLPW": "Decwypt losswess pwayback wowkfwow", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.decryptLLPW.description": "Enabwes the abiwity fow cidew to decwypt losswess auwdio fiwes. A minow pewfowmance hit wiww occuww.",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cidew Pswychwoacwoustic Pwocessing Engwine", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Pwocessing wowkfwow that twicks youw bwain into thinking that the fiwes awe highew-quawity sownding.",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Audiowo Nowmawization", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Nowmawizes peak vowume fow individuaw twacks to cweate a moar unifowm wistening expewience.",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Audiowo Spatiawization", // Toggle
