@@ -1005,7 +1005,7 @@ const app = new Vue({
             })
         },
         copyToClipboard(str) {
-            if (navigator.userAgent.includes('Darwin')) {
+            if (navigator.userAgent.includes('Darwin') || navigator.appVersion.indexOf("Mac")!=-1) {
                 this.darwinShare(str)
             } else {
                 notyf.success(app.getLz('term.share.success'))
