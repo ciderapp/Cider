@@ -189,9 +189,6 @@
   "action.tray.quit": "關閉",
   "action.tray.show": "顯示",
   "action.update": "更新",
-  "action.copy": "複製",
-  "action.newpreset": "新預設",  // Equalizer Preset
-  "action.deletepreset": "刪除預設",  // Equalizer Preset
 
   
   // Settings - Audio

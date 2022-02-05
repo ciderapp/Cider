@@ -1,7 +1,7 @@
 {
   
   // i18n Info
-  "i18n.languageName": "廣東話（香港）", // name of language in native language
+  "i18n.languageName": "廣東話（香港﹚", // name of language in native language
   "i18n.languageNameEnglish": "Cantonese (Hong Kong)", // name of language in English
   "i18n.category": "main", // main = real language, fun = fun community languages
   "i18n.authors": "@tszngaiyip  @strikesnc", // Authors, if you contribute to this file feel free to add your name seperated with a space
@@ -33,7 +33,6 @@
   "term.about": "關於",
   "term.privateSession": "無痕模式",
   "term.queue": "待播清單",
-  "term.history": "播放歷史",
   "term.search": "搵野",
   "term.library": "資料庫",
   "term.listenNow": "即刻聽",
@@ -46,11 +45,6 @@
   "term.podcasts": "Podcasts",
   "term.playlists": "播放清單",
   "term.playlist": "播放清單",
-  "term.newPlaylist": "新播放清單",
-  "term.newPlaylistFolder": "新資料夾",
-  "term.createNewPlaylist": "新增播放清單",
-  "term.createNewPlaylistFolder": "新增資料夾",
-  "term.deletePlaylist": "你係咪要刪除呢個播放清單？",
   "term.play": "播放",
   "term.pause": "暫停",
   "term.previous": "前一首",
@@ -61,7 +55,6 @@
   "term.mute": "靜音",
   "term.unmute": "取消靜音",
   "term.share": "分享",
-  "term.share.success": "複製咗喺剪貼簿",
   "term.settings": "設定",
   "term.seeAll": "睇哂全部",
   "term.sortBy": "排序",
@@ -125,24 +118,7 @@
   "term.tracks": "首歌", // Assume x amount of tracks. e.g. 50 tracks 
   "term.videos": "影片", 
   "term.menu": "選項", 
-  "term.check": "檢查",
-  "term.aboutArtist": "關於 {{artistName}}", // e.g. 'About Doja Cat'
-  "term.updateCider": "更新 Cider",
-  "term.topResult": "熱門搜尋結果",   // Search Results
-  "term.sharedPlaylists": "播放清單", // Search Results
-  "term.people": "個人檔案", // Search Results
-  "term.newpreset.name": "新EQ範本嘅名", // Equalizer Preset
-  "term.addedpreset": "新增咗",
-  "term.deletepreset.warn": "你係咪要刪除呢個範本？",
-  "term.deletedpreset": "刪除咗",
-  "term.musicVideos": "MV", // Search page friendlyTypes
-  "term.stations": "電台",
-    //"term.curators": "Curators",
-    //"term.appleCurators": "Apple Curators",
-  "term.radioShows": "電台單集",
-  "term.recordLabels": "唱片公司",
-  "term.videoExtras": "相關嘅片",
-    //"term.top": "Top",
+  "term.showAlbum": "顯示完整嘅專輯",
   
   // Home
   "home.title": "主頁",
@@ -209,14 +185,6 @@
   "action.removeTracks": "喺待播清單到刪除 ${self.selectedItems.length} 首歌曲",
   "action.import": "匯入",
   "action.export": "匯出",
-  "action.showAlbum": "顯示完整嘅專輯",
-  "action.tray.minimize": "收埋喺系統托盤",
-  "action.tray.quit": "結束",
-  "action.tray.show": "顯示",
-  "action.update": "更新",
-  "action.copy": "複製",
-  "action.newpreset": "新增範本",  // Equalizer Preset
-  "action.deletepreset": "刪除範本",
 
   // Settings - General
   "settings.header.general": "一般",
@@ -264,12 +232,6 @@
   "settings.option.visual.hardwareAcceleration.description": "需要重開Cider先會生效",
   "settings.header.visual.hardwareAcceleration.default": "預設", 
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
-  "settings.header.visual.theme": "主題",
-
-  // Settings - Visual - Theme name
-  "settings.option.visual.theme.default": "預設",
-  "settings.option.visual.theme.dark": "黑色",
-
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "顯示個人檔案", // Toggle
 
@@ -290,24 +252,24 @@
   "settings.header.connectivity.discordRPC.cider": "顯示為'Cider'",
   "settings.header.connectivity.discordRPC.appleMusic": "顯示為'Apple Music'",
   "settings.option.connectivity.discordRPC.clearOnPause": "暫停時清除 Discord 狀態", // Toggle
-  "settings.option.connectivity.lastfmScrobble": "Last.FM Scrobbling 記錄", // Option to Connect
-  "settings.option.connectivity.lastfmScrobble.delay": "Last.FM Scrobble 延遲 (%)", 
-  "settings.option.connectivity.lastfmScrobble.nowPlaying": "啟用 Last.FM 正在播放", 
-  "settings.option.connectivity.lastfmScrobble.removeFeatured": "從歌名中移除藝人推薦 (Last.FM)", 
-  "settings.option.connectivity.lastfmScrobble.filterLoop": "Filter looped track (Last.FM)", 
+  "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling 記錄", // Option to Connect
+  "settings.option.connectivity.lastfmScrobble.delay": "LastFM Scrobble 延遲 (%)", 
+  "settings.option.connectivity.lastfmScrobble.nowPlaying": "啟用 LastFM 正在播放", 
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "從歌名中移除藝人推薦 (LastFM)", 
+  "settings.option.connectivity.lastfmScrobble.filterLoop": "Filter looped track (LastFM)", 
   // Refer to term.connect for the connect button
 
   // Settings - Experimental
   "settings.header.experimental": "實驗性功能",
   "settings.header.experimental.description": "調整Cider嘅實驗性功能",
   "settings.option.experimental.compactUI": "逼啲既 UI", // Toggle
-  "settings.option.experimental.close_button_hide": "㩒交叉制嚟隱藏 Cider",
-  "settings.option.experimental.copy_log": "將log複製喺剪貼簿",
-    //"settings.option.experimental.inline_playlists": "Inline Playlists and Albums",
+  "settings.option.experimental.closeButtonBehaviour": "關閉按鈕行為",
+  "settings.option.experimental.closeButtonBehaviour.quit": "熄左Cider佢",
+  "settings.option.experimental.closeButtonBehaviour.minimizeTaskbar": "收埋Cider喺工作列",
+  "settings.option.experimental.closeButtonBehaviour.minimizeTray": "收埋Cider喺系統托盤",
   // Refer to term.disabled & term.enabled
 
   // Spatialization Menu
-  "spatial.notTurnedOn": "唔該喺設定入面啟用左空間音訊先。",
   "spatial.spatialProperties" : "空間音訊屬性",
   "spatial.width" : "幾闊",
   "spatial.height" : "幾高",

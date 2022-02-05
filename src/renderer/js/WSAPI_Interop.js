@@ -96,9 +96,6 @@ const wsapi = {
     toggleShuffle() {
         MusicKit.getInstance().shuffleMode = MusicKit.getInstance().shuffleMode === 0 ? 1 : 0
     },
-    togglePlayPause() {
-        app.mk.isPlaying ? app.mk.pause() : app.mk.play()
-    },
     toggleRepeat() {
         if(MusicKit.getInstance().repeatMode == 0) {
             MusicKit.getInstance().repeatMode = 1

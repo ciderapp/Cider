@@ -51,8 +51,8 @@ const MusicKitInterop = {
 		attributes.playParams = attributes?.playParams ?? {id: 'no-id-found'};
 		attributes.playParams.id = attributes?.playParams?.id ?? 'no-id-found';
 		attributes.url = {
-			cider: `cider://play/s/${nowPlayingItem?._songId ?? 'no-id-found'}`,
-			appleMusic: attributes.websiteUrl ? attributes.websiteUrl : `https://music.apple.com/${mk.storefrontId}/song/${nowPlayingItem?._songId ?? 'no-id-found'}`  
+			cider: "cider://play/s/" + nowPlayingItem?._songId ?? 'no-id-found',
+			appleMusic: "https://music.apple.com/"+ mk.storefrontId +"/song/" + nowPlayingItem?._songId ?? 'no-id-found'
 		}
 		if (attributes.playParams.id === 'no-id-found') {
 			attributes.playParams.id = nowPlayingItem?.id ?? 'no-id-found';
@@ -88,28 +88,20 @@ const MusicKitInterop = {
 		return true;
 	},
 
-	play: () => {
-		MusicKit.getInstance().play().then(r => console.log(`[MusicKitInterop.play] ${r}`));
-	},
-
-	pause: () => {
-		MusicKit.getInstance().pause();
-	},
-
-	playPause: () => {
+	pausePlay: function () {
 		if (MusicKit.getInstance().isPlaying) {
 			MusicKit.getInstance().pause();
 		} else if (MusicKit.getInstance().nowPlayingItem != null) {
-			MusicKit.getInstance().play().then(r => console.log(`[MusicKitInterop.playPause] Playing ${r}`));
+			MusicKit.getInstance().play().then(r => console.log(`[MusicKitInterop] Playing ${r}`));
 		}
 	},
 
-	next: () => {
-		MusicKit.getInstance().skipToNextItem().then(r => console.log(`[MusicKitInterop.next] Skipping to Next ${r}`));
+	nextTrack: function () {
+		MusicKit.getInstance().skipToNextItem().then(r => console.log(`[MusicKitInterop] Skipping to Next ${r}`));
 	},
 
-	previous: () => {
-		MusicKit.getInstance().skipToPreviousItem().then(r => console.log(`[MusicKitInterop.previous] Skipping to Previous ${r}`));
+	previousTrack: function () {
+		MusicKit.getInstance().skipToPreviousItem().then(r => console.log(`[MusicKitInterop] Skipping to Previous ${r}`));
 	}
 
 }
