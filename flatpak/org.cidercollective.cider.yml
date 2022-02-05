@@ -49,14 +49,12 @@ modules:
         # Set the Electron cache directory.
         # (The directory format is: /run/build/MODULE_NAME/flatpak-node/electron-cache)
         ELECTRON_CACHE: '/run/build/cider/flatpak-node/electron-cache'
-        XDG_CACHE_HOME: /run/build/cider/flatpak-node/cache
         # Sets the directory where Node is located so way npm won't download the headers.
-        npm_config_nodedir: 'flatpak-node/node-gyp/electron-current'
+        npm_config_nodedir: '/usr/lib/sdk/node14'
     build-commands:
       # Have Yarn use the offline mirror.
       - 'HOME=$PWD yarn config --offline set yarn-offline-mirror $FLATPAK_BUILDER_BUILDDIR/flatpak-node/yarn-mirror'
-      # Download the packages
-      - 'cp cider-yarn.lock yarn.lock'
+      # Download the packages.
       - 'yarn install --offline'
       # If you were using npm with electron-webpack/electron-builder, then the above two commands
       # would look more like the npm commands in the vanilla-quick-start manifest, just without
@@ -76,7 +74,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/ciderapp/cider
-        branch: develop
+        branch: main
       # Add the flatpak-node-generator generated sources.
       - generated-sources.json
       # Our runner script.

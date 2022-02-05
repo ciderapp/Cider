@@ -21,11 +21,11 @@ export default class MPRIS {
      */
     private mpris: any;
     private mprisEvents: Object = {
-        "playpause": "playPause",
-        "play": "play",
-        "pause": "pause",
-        "next": "next",
-        "previous": "previous",
+        "playpause": "pausePlay",
+        "play": "pausePlay",
+        "pause": "pausePlay",
+        "next": "nextTrack",
+        "previous": "previousTrack",
     }
 
     /*******************************************************************************************
@@ -179,7 +179,7 @@ export default class MPRIS {
 
     /**
      * Runs on playback State Change
-     * @param attributes Music Attributes (attributes.status = current state)
+     * @param attributes Music Attributes (attributes.state = current state)
      */
     onPlaybackStateDidChange(attributes: object): void {
         this.updatePlayerState(attributes)

@@ -1,5 +1,5 @@
 let i = 1, k = 1;
-class ExamplePlugin {
+export default class ExamplePlugin {
     /**
      * Private variables for interaction in plugins
      */
@@ -41,7 +41,7 @@ class ExamplePlugin {
 
     /**
      * Runs on playback State Change
-     * @param attributes Music Attributes (attributes.status = current state)
+     * @param attributes Music Attributes (attributes.state = current state)
      */
     onPlaybackStateDidChange(attributes: object): void {
         console.log('onPlaybackStateDidChange has been called ' + i + ' times');
@@ -58,5 +58,3 @@ class ExamplePlugin {
     }
 
 }
-
-module.exports = ExamplePlugin;

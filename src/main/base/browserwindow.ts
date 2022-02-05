@@ -1,27 +1,31 @@
-import {join} from "path";
-import {app, BrowserWindow as bw, ipcMain, shell, ShareMenu, Menu, nativeImage} from "electron";
+import * as path from "path";
+import {app, BrowserWindow as bw, ipcMain, shell} from "electron";
 import * as windowStateKeeper from "electron-window-state";
 import * as express from "express";
 import * as getPort from "get-port";
-import {search} from "youtube-search-without-api-key";
-import {existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync} from "fs";
+import * as yt from "youtube-search-without-api-key";
+import * as fs from "fs";
 import {Stream} from "stream";
-import {generate as generateQR} from "qrcode-terminal";
-import {hostname, networkInterfaces} from "os";
+import * as qrcode from "qrcode-terminal";
+import * as os from "os";
 import * as mm from 'music-metadata';
 import fetch from 'electron-fetch'
 import {wsapi} from "./wsapi";
 import {jsonc} from "jsonc";
-import {AppImageUpdater, NsisUpdater} from "electron-updater";
-import {utils} from './utils';
-import * as path from "path";
-
-
+import {NsisUpdater} from "electron-updater";
+import {utils} from './utils'
 
 export class BrowserWindow {
     public static win: any | undefined = null;
     private devMode: boolean = !app.isPackaged;
 
+    private paths: any = {
+        srcPath: path.join(__dirname, "../../src"),
+        resourcePath: path.join(__dirname, "../../resources"),
+        ciderCache: path.resolve(app.getPath("userData"), "CiderCache"),
+        themes: path.resolve(app.getPath("userData"), "Themes"),
+        plugins: path.resolve(app.getPath("userData"), "Plugins"),
+    };
     private audioStream: any = new Stream.PassThrough();
     private clientPort: number = 0;
     private remotePort: number = 6942;
@@ -29,57 +33,11 @@ export class BrowserWindow {
         env: {
             platform: process.platform,
             dev: app.isPackaged,
-            components: [
-                "pages/podcasts",
-                "pages/apple-account-settings",
-                "pages/library-songs",
-                "pages/browse",
-                "pages/settings",
-                "pages/listen_now",
-                "pages/home",
-                "pages/artist-feed",
-                "pages/cider-playlist",
-                "pages/playlist-inline",
-                "pages/recordLabel",
-                "pages/collection-list",
-                "pages/apple-curator",
-                "pages/artist",
-                "pages/search",
-                "pages/about",
-                "pages/library-videos",
-                "components/mediaitem-artwork",
-                "components/artwork-material",
-                "components/menu-panel",
-                "components/sidebar-playlist",
-                "components/spatial-properties",
-                "components/audio-settings",
-                "components/qrcode-modal",
-                "components/equalizer",
-                "components/add-to-playlist",
-                "components/queue",
-                "components/queue-item",
-                "components/mediaitem-scroller-horizontal",
-                "components/mediaitem-scroller-horizontal-large",
-                "components/mediaitem-scroller-horizontal-sp",
-                "components/mediaitem-scroller-horizontal-mvview",
-                "components/mediaitem-list-item",
-                "components/mediaitem-hrect",
-                "components/mediaitem-square",
-                "components/mediaitem-square-sp",
-                "components/mediaitem-mvview",
-                "components/libraryartist-item",
-                "components/listennow-child",
-                "components/mediaitem-mvview-sp",
-                "components/animatedartwork-view",
-                "components/lyrics-view",
-                "components/fullscreen",
-                "components/miniplayer",
-            ]
         },
     };
     private options: any = {
-        icon: join(
-            utils.getPath('resourcePath'),
+        icon: path.join(
+            this.paths.resourcePath,
             `icons/icon.` + (process.platform === "win32" ? "ico" : "png")
         ),
         width: 1024,
@@ -90,13 +48,11 @@ export class BrowserWindow {
         minHeight: 390,
         frame: false,
         title: "Cider",
-        vibrancy: "fullscreen-ui",
+        vibrancy: "dark",
         transparent: process.platform === "darwin",
         hasShadow: false,
         show: false,
         backgroundColor: "#1E1E1E",
-        titleBarStyle: 'hidden',
-        trafficLightPosition: {x: 15, y: 20},
         webPreferences: {
             nodeIntegration: true,
             sandbox: true,
@@ -106,7 +62,7 @@ export class BrowserWindow {
             plugins: true,
             nodeIntegrationInWorker: false,
             webSecurity: false,
-            preload: join(utils.getPath('srcPath'), "./preload/cider-preload.js"),
+            preload: path.join(this.paths.srcPath, "./preload/cider-preload.js"),
         },
     };
 
@@ -115,7 +71,7 @@ export class BrowserWindow {
      */
     async createWindow(): Promise<Electron.BrowserWindow> {
         this.clientPort = await getPort({port: 9000});
-        BrowserWindow.verifyFiles();
+        this.verifyFiles();
 
         // Load the previous state with fallback to defaults
         const windowState = windowStateKeeper({
@@ -145,7 +101,7 @@ export class BrowserWindow {
     /**
      * Verifies the files for the renderer to use (Cache, library info, etc.)
      */
-    private static verifyFiles(): void {
+    private verifyFiles(): void {
         const expectedDirectories = ["CiderCache"];
         const expectedFiles = [
             "library-songs.json",
@@ -156,19 +112,19 @@ export class BrowserWindow {
         ];
         for (let i = 0; i < expectedDirectories.length; i++) {
             if (
-                !existsSync(
-                    join(app.getPath("userData"), expectedDirectories[i])
+                !fs.existsSync(
+                    path.join(app.getPath("userData"), expectedDirectories[i])
                 )
             ) {
-                mkdirSync(
-                    join(app.getPath("userData"), expectedDirectories[i])
+                fs.mkdirSync(
+                    path.join(app.getPath("userData"), expectedDirectories[i])
                 );
             }
         }
         for (let i = 0; i < expectedFiles.length; i++) {
-            const file = join(utils.getPath('ciderCache'), expectedFiles[i]);
-            if (!existsSync(file)) {
-                writeFileSync(file, JSON.stringify([]));
+            const file = path.join(this.paths.ciderCache, expectedFiles[i]);
+            if (!fs.existsSync(file)) {
+                fs.writeFileSync(file, JSON.stringify([]));
             }
         }
     }
@@ -179,8 +135,8 @@ export class BrowserWindow {
     private startWebServer(): void {
         const app = express();
 
-        app.use(express.static(join(utils.getPath('srcPath'), "./renderer/")));
-        app.set("views", join(utils.getPath('srcPath'), "./renderer/views"));
+        app.use(express.static(path.join(this.paths.srcPath, "./renderer/")));
+        app.set("views", path.join(this.paths.srcPath, "./renderer/views"));
         app.set("view engine", "ejs");
         let firstRequest = true;
         app.use((req, res, next) => {
@@ -197,53 +153,6 @@ export class BrowserWindow {
 
         app.get("/", (_req, res) => {
             res.render("main", this.EnvironmentVariables);
-        });
-
-        app.get("/api/playback/:action", (req, res)=>{
-            const action = req.params.action;
-            switch(action) {
-                case "playpause":
-                    BrowserWindow.win.webContents.executeJavaScript("wsapi.togglePlayPause()")
-                    res.send("Play/Pause toggle")
-                    break;
-                case "play":
-                    BrowserWindow.win.webContents.executeJavaScript("MusicKit.getInstance().play()")
-                    res.send("Playing")
-                    break;
-                case "pause":
-                    BrowserWindow.win.webContents.executeJavaScript("MusicKit.getInstance().pause()")
-                    res.send("Paused")
-                    break;
-                case "stop":
-                    BrowserWindow.win.webContents.executeJavaScript("MusicKit.getInstance().stop()")
-                    res.send("Stopped")
-                    break;
-                case "next":
-                    BrowserWindow.win.webContents.executeJavaScript("MusicKit.getInstance().skipToNextItem()")
-                    res.send("Next")
-                    break;
-                case "previous":
-                    BrowserWindow.win.webContents.executeJavaScript("MusicKit.getInstance().skipToPreviousItem()")
-                    res.send("Previous")
-                    break;
-                default: {
-                    res.send("Invalid action")
-                }
-            }
-        })
-
-        app.get("/themes/:theme", (req, res) => {
-            const theme = req.params.theme.toLowerCase();
-            const themePath = join(utils.getPath('srcPath'), "./renderer/themes/", theme);
-            const userThemePath = join(utils.getPath('themes'), theme);
-            if (existsSync(userThemePath)) {
-                res.sendFile(userThemePath);
-            } else if (existsSync(themePath)) {
-                res.sendFile(themePath);
-            } else {
-                res.send(`// Theme not found - ${userThemePath}`);
-            }
-
         });
 
         app.get("/audio.webm", (req, res) => {
@@ -274,12 +183,13 @@ export class BrowserWindow {
         });
 
         /*
-         * Remote Client -@quacksire
-         * https://github.com/ciderapp/Apple-Music-Electron/blob/818189ed40ff600d76eb59d22016723a75885cd5/resources/functions/handler.js#L1173
+         * Remote Client (I had no idea how to add it to our existing express server, so I just made another one) -@quacksire
+         * TODO: Broadcast the remote so that /web-remote/ can connect
+         * https://github.com/ciderapp/Apple-Music-Electron/blob/818ed18940ff600d76eb59d22016723a75885cd5/resources/functions/handler.js#L1173
          */
         const remote = express();
-        remote.use(express.static(join(utils.getPath('srcPath'), "./web-remote/")))
-        remote.set("views", join(utils.getPath('srcPath'), "./web-remote/views"));
+        remote.use(express.static(path.join(this.paths.srcPath, "./web-remote/")))
+        remote.set("views", path.join(this.paths.srcPath, "./web-remote/views"));
         remote.set("view engine", "ejs");
         getPort({port: 6942}).then((port) => {
             this.remotePort = port;
@@ -288,7 +198,15 @@ export class BrowserWindow {
             remote.listen(this.remotePort, () => {
                 console.log(`Cider remote port: ${this.remotePort}`);
                 if (firstRequest) {
-                    generateQR(`http://${hostname}:${this.remotePort}`);
+                    console.log("---- Ignore Me ;) ---");
+                    qrcode.generate(`http://${os.hostname}:${this.remotePort}`);
+                    console.log("---- Ignore Me ;) ---");
+                    /*
+                     *
+                     *   USING https://www.npmjs.com/package/qrcode-terminal for terminal
+                     *   WE SHOULD USE https://www.npmjs.com/package/qrcode for the remote (or others) for showing to user via an in-app dialog
+                     *   -@quacksire
+                     */
                 }
                 firstRequest = false;
             })
@@ -363,24 +281,16 @@ export class BrowserWindow {
             event.returnValue = process.platform;
         });
 
-        ipcMain.on("get-themes", (event, _key) => {
-            if (existsSync(utils.getPath("themes"))) {
-                event.returnValue = readdirSync(utils.getPath("themes"));
-            } else {
-                event.returnValue = [];
-            }
-        });
-
         ipcMain.on("get-i18n", (event, key) => {
             event.returnValue = utils.getLocale(key);
         });
 
         ipcMain.on("get-i18n-listing", event => {
-            let i18nFiles = readdirSync(join(__dirname, "../../src/i18n")).filter(file => file.endsWith(".jsonc"));
+            let i18nFiles = fs.readdirSync(path.join(__dirname, "../../src/i18n")).filter(file => file.endsWith(".jsonc"));
             // read all the files and parse them
             let i18nListing = []
             for (let i = 0; i < i18nFiles.length; i++) {
-                const i18n: { [index: string]: Object } = jsonc.parse(readFileSync(join(__dirname, `../../src/i18n/${i18nFiles[i]}`), "utf8"));
+                const i18n: { [index: string]: Object } = jsonc.parse(fs.readFileSync(path.join(__dirname, `../../src/i18n/${i18nFiles[i]}`), "utf8"));
                 i18nListing.push({
                     "code": i18nFiles[i].replace(".jsonc", ""),
                     "nameNative": i18n["i18n.languageName"] ?? i18nFiles[i].replace(".jsonc", ""),
@@ -401,75 +311,75 @@ export class BrowserWindow {
         });
 
         ipcMain.on("put-library-songs", (_event, arg) => {
-            writeFileSync(
-                join(utils.getPath('ciderCache'), "library-songs.json"),
+            fs.writeFileSync(
+                path.join(this.paths.ciderCache, "library-songs.json"),
                 JSON.stringify(arg)
             );
         });
 
         ipcMain.on("put-library-artists", (_event, arg) => {
-            writeFileSync(
-                join(utils.getPath('ciderCache'), "library-artists.json"),
+            fs.writeFileSync(
+                path.join(this.paths.ciderCache, "library-artists.json"),
                 JSON.stringify(arg)
             );
         });
 
         ipcMain.on("put-library-albums", (_event, arg) => {
-            writeFileSync(
-                join(utils.getPath('ciderCache'), "library-albums.json"),
+            fs.writeFileSync(
+                path.join(this.paths.ciderCache, "library-albums.json"),
                 JSON.stringify(arg)
             );
         });
 
         ipcMain.on("put-library-playlists", (_event, arg) => {
-            writeFileSync(
-                join(utils.getPath('ciderCache'), "library-playlists.json"),
+            fs.writeFileSync(
+                path.join(this.paths.ciderCache, "library-playlists.json"),
                 JSON.stringify(arg)
             );
         });
 
         ipcMain.on("put-library-recentlyAdded", (_event, arg) => {
-            writeFileSync(
-                join(utils.getPath('ciderCache'), "library-recentlyAdded.json"),
+            fs.writeFileSync(
+                path.join(this.paths.ciderCache, "library-recentlyAdded.json"),
                 JSON.stringify(arg)
             );
         });
 
         ipcMain.on("get-library-songs", (event) => {
-            let librarySongs = readFileSync(
-                join(utils.getPath('ciderCache'), "library-songs.json"),
+            let librarySongs = fs.readFileSync(
+                path.join(this.paths.ciderCache, "library-songs.json"),
                 "utf8"
             );
             event.returnValue = JSON.parse(librarySongs);
         });
 
         ipcMain.on("get-library-artists", (event) => {
-            let libraryArtists = readFileSync(
-                join(utils.getPath('ciderCache'), "library-artists.json"),
+            let libraryArtists = fs.readFileSync(
+                path.join(this.paths.ciderCache, "library-artists.json"),
                 "utf8"
             );
             event.returnValue = JSON.parse(libraryArtists);
         });
 
         ipcMain.on("get-library-albums", (event) => {
-            let libraryAlbums = readFileSync(
-                join(utils.getPath('ciderCache'), "library-albums.json"),
+            let libraryAlbums = fs.readFileSync(
+                path.join(this.paths.ciderCache, "library-albums.json"),
                 "utf8"
             );
             event.returnValue = JSON.parse(libraryAlbums);
         });
 
         ipcMain.on("get-library-playlists", (event) => {
-            let libraryPlaylists = readFileSync(
-                join(utils.getPath('ciderCache'), "library-playlists.json"),
+            let libraryPlaylists = fs.readFileSync(
+                path.join(this.paths.ciderCache, "library-playlists.json"),
                 "utf8"
             );
             event.returnValue = JSON.parse(libraryPlaylists);
         });
 
         ipcMain.on("get-library-recentlyAdded", (event) => {
-            let libraryRecentlyAdded = readFileSync(
-                join(utils.getPath('ciderCache'), "library-recentlyAdded.json"),
+            let libraryRecentlyAdded = fs.readFileSync(
+                path.join(this.paths.ciderCache, "library-recentlyAdded.json"),
                 "utf8"
             );
             event.returnValue = JSON.parse(libraryRecentlyAdded);
@@ -477,14 +387,14 @@ export class BrowserWindow {
 
         ipcMain.handle("getYTLyrics", async (_event, track, artist) => {
             const u = track + " " + artist + " official video";
-            return await search(u);
+            return await yt.search(u);
         });
 
-        ipcMain.on("close", (_event) => {
+        ipcMain.on("close", () => {
             BrowserWindow.win.close();
         });
 
-        ipcMain.on("maximize", (_event) => {
+        ipcMain.on("maximize", () => {
             // listen for maximize event
             if (BrowserWindow.win.isMaximized()) {
                 BrowserWindow.win.unmaximize();
@@ -533,21 +443,16 @@ export class BrowserWindow {
 
         ipcMain.on('play', (_event, type, id) => {
             BrowserWindow.win.webContents.executeJavaScript(`
-			    MusicKit.getInstance().setQueue({ ${type}: '${id}'}).then(function(queue) {
-				    MusicKit.getInstance().play();
-			    });
-		    `)
+															MusicKit.getInstance().setQueue({ ${type}: '${id}'}).then(function(queue) {
+																MusicKit.getInstance().play();
+															});
+															`)
         })
 
         //QR Code
-        ipcMain.handle('showQR', async (_event, _) => {
+        ipcMain.handle('showQR', async (event, _) => {
             let url = `http://${BrowserWindow.getIP()}:${this.remotePort}`;
             shell.openExternal(`https://cider.sh/pair-remote?url=${Buffer.from(encodeURI(url)).toString('base64')}`).catch(console.error);
-        })
-
-        ipcMain.on('get-remote-pair-url', (_event, _) => {
-            let url = `http://${BrowserWindow.getIP()}:${this.remotePort}`;
-            BrowserWindow.win.webContents.send('send-remote-pair-url', url);
         })
 
         // Get previews for normalization
@@ -565,38 +470,14 @@ export class BrowserWindow {
             });
         });
 
-        ipcMain.on('check-for-update', async (_event) => {
+        ipcMain.on('check-for-update', async (_event, url) => {
             const options: any = {
                 provider: 'generic',
                 url: 'https://43-429851205-gh.circle-artifacts.com/0/%7E/Cider/dist/artifacts' //Base URL
             }
-            /*
-            *  Have to handle the auto updaters seperatly until we can support macOS. electron-builder limitation -q
-            */
-            const win_autoUpdater = new NsisUpdater(options) //Windows
-            const linux_autoUpdater = new AppImageUpdater(options) //Linux
-            await win_autoUpdater.checkForUpdatesAndNotify()
-            await linux_autoUpdater.checkForUpdatesAndNotify()
+            const autoUpdater = new NsisUpdater(options) //Windows Only (for now) -q
+            await autoUpdater.checkForUpdatesAndNotify()
         })
-
-        ipcMain.on('share-menu', async (_event, url) => {
-            if ( process.platform != 'darwin') return;
-            //https://www.electronjs.org/docs/latest/api/share-menu
-            console.log('[Share Sheet - App.ts]', url)
-            const options = {
-                title: 'Share',
-                urls: [url]
-            };
-            // @ts-ignore
-            const shareMenu = new ShareMenu(options);
-            shareMenu.popup();
-        })
-
-
-
-
-
-
 
         /* *********************************************************************************************
          * Window Events
@@ -662,128 +543,12 @@ export class BrowserWindow {
             shell.openExternal(x.url).catch(console.error);
             return {action: "deny"};
         });
-
-        /* *********************************************************************************************
-         * Menu
-         * **********************************************************************************************/
-        //@ts-ignore
-        console.log(path.join(__dirname, '../../src/renderer/views/svg/smartphone.svg'))
-        const isMac = process.platform === 'darwin';
-        //TODO: Figure out the icons
-        const remoteIcon = nativeImage.createFromPath(path.join(__dirname, '../../src/renderer/views/svg/smartphone.svg')).toPNG()
-        const soundIcon = nativeImage.createFromPath(path.join(__dirname, '../../src/renderer/views/svg/headphones.svg')).toPNG()
-        const aboutIcon = nativeImage.createFromPath(path.join(__dirname, '../../src/renderer/views/svg/info.svg')).toPNG()
-        const settingsIcon = nativeImage.createFromPath(path.join(__dirname, '../../src/renderer/views/svg/settings.svg')).toPNG()
-        const logoutIcon = nativeImage.createFromPath(path.join(__dirname, '../../src/renderer/views/svg/log-out.svg')).toPNG()
-        const ciderIcon = nativeImage.createFromPath(path.join(__dirname, '../../src/renderer/assets/logocute.png'))
-        const template = [
-            // { role: 'appMenu' }
-            ...(isMac ? [{
-                label: app.name,
-                submenu: [
-                    { label: 'Web Remote', accelerator: 'CommandOrControl+W', sublabel: 'Opens in external window', click: () => BrowserWindow.win.webContents.executeJavaScript(`ipcRenderer.invoke('showQR')`)}, //accelerator
-                    { label: 'Audio Settings', accelerator: 'CommandOrControl+Shift+A', click: () => BrowserWindow.win.webContents.executeJavaScript(`app.modals.audioSettings = true`)},
-                    { label: 'About', accelerator: 'CommandOrControl+Shift+B', click: () => BrowserWindow.win.webContents.executeJavaScript(`app.appRoute('about'`)},
-                    { label: 'Settings', accelerator: 'CommandOrControl+,', click: () => BrowserWindow.win.webContents.executeJavaScript(`app.appRoute('settings')`)},
-                    { label: 'Logout', accelerator: 'CommandOrControl+Shift+O', click: () => BrowserWindow.win.webContents.executeJavaScript(`app.unauthorize(); document.location.reload()`)},
-                    { type: 'separator' },
-                    { role: 'quit' }
-                ]
-            }] : []),
-            // { role: 'viewMenu' }
-            {
-                label: 'View',
-                submenu: [
-                    { role: 'reload' },
-                    { role: 'forceReload' },
-                    { role: 'toggleDevTools' },
-                    { type: 'separator' },
-                    { role: 'resetZoom' },
-                    { role: 'zoomIn' },
-                    { role: 'zoomOut' },
-                    { type: 'separator' },
-                    { role: 'togglefullscreen' }
-                ]
-            },
-            // { role: 'windowMenu' }
-            {
-                label: 'Window',
-                submenu: [
-                    { role: 'minimize' },
-                    { role: 'zoom' },
-                    ...(isMac ? [
-                        { type: 'separator' },
-                        { role: 'front' },
-                        { type: 'separator' },
-                        { role: 'window' }
-                    ] : [
-                        { role: 'close' }
-                    ])
-                ]
-            },
-            {
-                role: 'help',
-                submenu: [
-                    {
-                        label: 'Discord',
-                        accelerator: 'CommandOrControl+Shift+D',
-                        click: async () => {
-                            const { shell } = require('electron')
-                            await shell.openExternal('https://discord.gg/applemusic')
-                        }
-                    },
-                    {
-                        label: 'Donate',
-                        accelerator: 'CommandOrControl+D',
-                        icon: ciderIcon,
-                        click: async () => {
-                            const { shell } = require('electron')
-                            await shell.openExternal('https://opencollective.com/ciderapp/')
-                        }
-                    },
-                    {
-                        label: 'Report a...',
-                        submenu: [
-                            {
-                                label: 'Bug',
-                                click: async () => {
-                                    const {shell} = require('electron')
-                                    await shell.openExternal("https://github.com/ciderapp/Cider/issues/new?assignees=&labels=bug%2Ctriage&template=bug_report.yaml&title=%5BBug%5D%3A+")
-                                }
-                            },
-                            {
-                                label: 'Feature Request',
-                                click: async () => {
-                                    const {shell} = require('electron')
-                                    await shell.openExternal("https://github.com/ciderapp/Cider/issues/new?assignees=&labels=enhancement%2Ctriage&template=feature_request.yaml&title=%5BEnhancement%5D%3A+")
-                                }
-                            },
-                            {
-                                label: 'Translation Report/Request',
-                                click: async () => {
-                                    const {shell} = require('electron')
-                                    await shell.openExternal("https://github.com/ciderapp/Cider/issues/new?assignees=&labels=%F0%9F%8C%90+Translations&template=translation.yaml&title=%5BTranslation%5D%3A+")
-                                }
-                            },
-                        ]
-                    },
-                ]
-            }
-        ]
-        //@ts-ignore
-        const menu = Menu.buildFromTemplate(template)
-        Menu.setApplicationMenu(menu)
-
     }
 
-    /**
-     * Gets ip
-     * @private
-     */
     private static getIP(): string {
         let ip: string = '';
         let alias = 0;
-        const ifaces: any = networkInterfaces();
+        const ifaces: any = os.networkInterfaces();
         for (let dev in ifaces) {
             ifaces[dev].forEach((details: any) => {
                 if (details.family === 'IPv4') {

@@ -1,4 +1,4 @@
-class sendSongToTitlebar {
+export default class sendSongToTitlebar {
     /**
      * Base Plugin Details (Eventually implemented into a GUI in settings)
      */
@@ -24,7 +24,7 @@ class sendSongToTitlebar {
     onBeforeQuit(): void {}
     /**
      * Runs on playback State Change
-     * @param attributes Music Attributes (attributes.status = current state)
+     * @param attributes Music Attributes (attributes.state = current state)
      */
     onPlaybackStateDidChange(attributes: any): void {
         this._win.setTitle(`${(attributes != null && attributes.name != null && attributes.name.length > 0) ? (attributes.name + " - ") : ''}Cider`)
@@ -35,5 +35,3 @@ class sendSongToTitlebar {
      */
     onNowPlayingItemDidChange(attributes: object): void {}
 }
-
-module.exports = sendSongToTitlebar;
