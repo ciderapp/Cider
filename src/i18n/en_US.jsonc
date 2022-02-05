@@ -143,10 +143,6 @@
   "term.recordLabels": "Record Labels",
   "term.videoExtras": "Video Extras",
   "term.top": "Top",
-  "term.lossless": "Lossless",
-  "term.lossless.description": "(up to 24-bit/48 kHz)",
-  "term.hireslossless": "Hi-Res Lossless",
-  "term.hireslossless.description": "(up to 24-bit/192 kHz)",
 
   // Home
   "home.title": "Home",
