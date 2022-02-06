@@ -74,16 +74,16 @@
                 </div>
                 <div class="md-option-line" v-show="app.cfg.advanced.AudioContext && app.cfg.advanced.ciderPPE === true">
                     <div class="md-option-segment">
-                        {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPE.strength')}}
+                        {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength')}}
                         <br>
-                        <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPE.strength.description')}}</small>
+                        <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description')}}</small>
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <button class="md-btn" :disabled="app.cfg.audio.ciderPPE_value === 0.55" v-model="app.cfg.audio.ciderPPE_value" onclick="app.cfg.audio.ciderPPE_value = 0.55">
-                            {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPE.strength.agressive')}}
+                        <button class="md-btn" :disabled="app.cfg.audio.ciderPPE_value === 0.5" v-model="app.cfg.audio.ciderPPE_value" onclick="app.cfg.audio.ciderPPE_value = 0.5">
+                            {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard')}}
                         </button>
-                        <button class="md-btn" style="margin-top: 5px;" :disabled="app.cfg.audio.ciderPPE_value === 0.5" v-model="app.cfg.audio.ciderPPE_value" onclick="app.cfg.audio.ciderPPE_value = 0.5">
-                            {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPE.strength.standard')}}
+                        <button class="md-btn" style="margin-top: 5px;" :disabled="app.cfg.audio.ciderPPE_value === 0.55" v-model="app.cfg.audio.ciderPPE_value" onclick="app.cfg.audio.ciderPPE_value = 0.55">
+                            {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive')}}
                         </button>
                     </div>
                 </div>
