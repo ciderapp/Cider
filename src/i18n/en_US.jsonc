@@ -232,12 +232,12 @@
   "settings.option.audio.seamlessTransition": "Seamless Audio Transition", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "Enable Advanced Functionality", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.description": "Enabling AudioContext functionality will allow for extended audio features like Audio Normalization , Equalizers and Visualizers, however on some systems this may cause stuttering in audio tracks.",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider Adrenaline Process", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "CAP sets a pre-defined advanced mix/process that allows media to produce more rich sounding frequencies. (Designed by Maikiwi)",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.strength": "CAP Strength", // Multiple Choice
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.strength.description": "Changes the strength of the mixing/processing done to audio. (May cause clipping or abnormal low freq's if set too high.)",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.strength.aggressive": "Aggressive",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.strength.standard": "Standard",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider Adrenaline Processor", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Psychoacoustic Enhancements that makes everything sound both richer and more lively. | Designed by Maikiwi",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "CAP Strength", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Changes the strength of the processing done to the audio. (Aggressive may yield undesirable results)",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "Standard",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive": "Aggressive",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Audio Normalization", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizes peak volume for individual tracks to create a more uniform listening experience.",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Audio Spatialization", // Toggle
