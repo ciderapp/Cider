@@ -197,7 +197,7 @@
   "action.unlove": "Mégsem szeretem",
   "action.dislike": "Kevesebb ilyen javasolása",
   "action.undoDislike": "A Kevesebb ilyen javasolása visszavonása",
-  "action.showWebRemoteQR": "Távirányító QR kód megjelenítése",
+  "action.showWebRemoteQR": "Távirányító QR kód",
   "action.playTracksNext": "${app.selectedMediaItems.length} zenék lejátszása következőnek",
   "action.playTracksLater": "${app.selectedMediaItems.length} zenék lejátszása később",
   "action.removeTracks": "${self.selectedItems.length} zenék eltávolítása a várólistáról",
