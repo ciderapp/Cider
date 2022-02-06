@@ -808,12 +808,12 @@
             ciderPPECompatibility: function () {
                 if (app.cfg.audio.spatial) {
                     notyf.error("CAP is not compatible with Spatialization. Please disable Spatialization to continue.")
-                    app.cfg.audio.advanced.ciderPPE = false;
+                    app.cfg.advanced.ciderPPE = false;
                 }    
                 },
             toggleSpatial: function () {
                 if (app.cfg.audio.spatial) {
-                    if (!app.cfg.audio.advanced.ciderPPE) {
+                    if (!app.cfg.advanced.ciderPPE) {
                     CiderAudio.spatialOn()}
                     else {
                         notyf.error("Spatialization is not compatible with CAP. Please disable CAP to continue.")
