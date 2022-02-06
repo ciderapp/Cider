@@ -549,6 +549,9 @@ export class BrowserWindow {
             let url = `http://${BrowserWindow.getIP()}:${this.remotePort}`;
             BrowserWindow.win.webContents.send('send-remote-pair-url', url);
         })
+        app.setUserActivity('com.CiderCollective.remote.pair', {
+            ip: `${BrowserWindow.getIP()}`
+        }, `http://${BrowserWindow.getIP()}:${this.remotePort}`);
 
         // Get previews for normalization
         ipcMain.on("getPreviewURL", (_event, url) => {

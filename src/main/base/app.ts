@@ -174,6 +174,16 @@ export class AppEvents {
             utils.getWindow().webContents.send('play', 'url', url)
         } else if (arg.includes('/debug/appdata')) {
             shell.openPath(app.getPath('userData'))
+        }  else if (arg.includes('/debug/logs')) {
+            shell.openPath(app.getPath('logs'))
+        } else if (arg.includes('/discord')) {
+            shell.openExternal('https://discord.gg/applemusic')
+        } else if (arg.includes('/github')) {
+            shell.openExternal('https://github.com/ciderapp/cider')
+        } else if (arg.includes('/donate')) {
+            shell.openExternal('https://opencollective.com/ciderapp')
+        } else if (arg.includes('/beep')) {
+            shell.beep()
         }
     }
 
