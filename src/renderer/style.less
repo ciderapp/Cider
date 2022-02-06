@@ -1126,51 +1126,53 @@ body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls > div.cl
   width: 100%;
 }
 
-.app-chrome .app-chrome-item > .app-playback-controls .song-name {
-  font-weight: 600;
-  text-align: center;
-  font-size: 13px;
-  height: 1.3em;
-  line-height: 1.3em;
-  white-space: nowrap;
-  max-width: 360px;
+.app-chrome .app-chrome-item > .app-playback-controls {
+  .song-name {
+    font-weight: 600;
+    text-align: center;
+    font-size: 13px;
+    height: 1.3em;
+    line-height: 1.3em;
+    white-space: nowrap;
+    max-width: 360px;
 
-  .song-name-normal {
-    height: inherit;
-  }
+    .song-name-normal {
+      height: inherit;
+    }
 
-  &.song-artist-marquee {
-    > marquee {
-      //margin-bottom: -3px;
+    &.song-artist-marquee {
+      > marquee {
+        //margin-bottom: -3px;
+      }
+    }
+
+    .explicit-icon {
+      background-image: url("./assets/explicit.svg");
+      height: 9px;
+      width: 13px;
+      filter: contrast(0);
+      background-repeat: no-repeat;
+      margin-left: 3px;
     }
   }
 
-  .explicit-icon {
-    background-image: url("./assets/explicit.svg");
-    height: 9px;
-    width: 13px;
-    filter: contrast(0);
-    background-repeat: no-repeat;
-    margin-left: 3px;
-  }
-
   .lossless-icon {
-    background-image: url("http://localhost:9000/assets/lossless.svg");
-    height: 9px;
-    width: 36px;
-    filter: contrast(0);
-    background-repeat: no-repeat;
-    margin-left: 3px;
-    background-size: contain;
+    background-image: url("./assets/lossless.svg") !important;
   }
 
   .ppe-icon {
-    background-image: url("./assets/ppe.svg");
-    height: 12px;
-    width: 13px;
+    background-image: url("./assets/ppe.svg") !important;
+  }
+
+  .audio-type {
     filter: contrast(0);
     background-repeat: no-repeat;
     background-size: contain;
+    height: 15px;
+    width: 15px;
+    position: absolute;
+    right: 0;
+    margin-bottom: 15px;
   }
 }
 
