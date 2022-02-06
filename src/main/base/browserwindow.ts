@@ -6,8 +6,7 @@ import * as getPort from "get-port";
 import {search} from "youtube-search-without-api-key";
 import {existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync} from "fs";
 import {Stream} from "stream";
-import {generate as generateQR} from "qrcode-terminal";
-import {hostname, networkInterfaces} from "os";
+import {networkInterfaces} from "os";
 import * as mm from 'music-metadata';
 import fetch from 'electron-fetch'
 import {wsapi} from "./wsapi";
@@ -287,9 +286,6 @@ export class BrowserWindow {
             this.broadcastRemote()
             remote.listen(this.remotePort, () => {
                 console.log(`Cider remote port: ${this.remotePort}`);
-                if (firstRequest) {
-                    generateQR(`http://${hostname}:${this.remotePort}`);
-                }
                 firstRequest = false;
             })
             remote.get("/", (_req, res) => {
