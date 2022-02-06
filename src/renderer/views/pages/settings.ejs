@@ -74,15 +74,15 @@
                 </div>
                 <div class="md-option-line" v-show="app.cfg.advanced.AudioContext && app.cfg.advanced.ciderPPE === true">
                     <div class="md-option-segment">
-                        CPPE Strength
+                        CAPE Strength
                         <br>
-                        <small>Changes the strength of the processing done to audio. (May cause clipping or abnormal bass)</small>
+                        <small>Changes the strength of the mixing/processing done to audio. (May cause clipping or abnormal low freq's if set too high.)</small>
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <button class="md-btn" onclick="app.cfg.audio.ciderPPE_value = 0.55">
+                        <button class="md-btn" :disabled="app.cfg.audio.ciderPPE_value === 0.55" v-model="app.cfg.audio.ciderPPE_value" onclick="app.cfg.audio.ciderPPE_value = 0.55">
                             Aggressive
                         </button>
-                        <button class="md-btn" style="margin-top: 5px;" onclick="app.cfg.audio.ciderPPE_value = 0.5;">
+                        <button class="md-btn" style="margin-top: 5px;" :disabled="app.cfg.audio.ciderPPE_value === 0.5" v-model="app.cfg.audio.ciderPPE_value" onclick="app.cfg.audio.ciderPPE_value = 0.5">
                             Standard
                         </button>
                     </div>
