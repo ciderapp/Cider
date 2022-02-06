@@ -229,12 +229,12 @@
   "settings.option.audio.seamlessTransition": "Seamwess Audiowo Twansition", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "Enabwe Advanced Functionawity", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.description": "Enabwing AudiowoContext functionawity wiww awwow fow extended audiowo featuwes wike Audiowo Nowmawization, Equalizews and Visuawizews, howevew on some systems dis may cause stuttewing in audiowo twacks.",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cidew Adwenawine Pwocess", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "CAP sets a pwe-defined advanced mix/pwocess that awwows media to pwoduwce mowe wich souwnding fwequwencies. (Designed by maikiwi)",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.strength": "CAP stwength", // Multiple Choice
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.strength.description": "Changes the stwength of the mixing/pwocessing done to auwdio. (May cauwse cwipping ow abnowmaw wow fweq's if set too high.)",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.strength.aggressive": "Aggwessive",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.strength.standard": "Standawd",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cidew Adwenawine Pwocessow", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Psychoacouwstic enhancements that makes evewything souwnd both wichew and mowe wivewy. | Designed by Maikiwi",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "CAP stwength", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Changes the stwength of the pwocessing done to the auwdio. (Aggwessive may yiewd uwndesiwabwe wesuwwts)",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "Standawd",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive": "Aggwessive",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Audiowo Nowmawization", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Nowmawizes peak vowume fow individuaw twacks to cweate a moar unifowm wistening expewience.",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Audiowo Spatiawization", // Toggle
