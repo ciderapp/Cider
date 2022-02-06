@@ -56,3 +56,12 @@ Update 05/02/2022 09:00 UTC
 * `settings.header.audio.quality.lossless.description`: Added for `en_US`.
 * `settings.option.audio.enableAdvancedFunctionality.ciderPPE`: Added for `en_US`.
 * `settings.option.audio.enableAdvancedFunctionality.ciderPPE.description`: Added for `en_US`.
+
+Update 06/02/2022 10:35 UTC
+
+* `settings.header.audio.quality.hireslossless.description`: Brackets removed, handled in renderer.
+* `settings.header.audio.quality.lossless.description`: Brackets removed, handled in renderer.
+* `settings.header.audio.quality.high.description`: Added for `en_US`.
+* `settings.header.audio.quality.auto`: Removed as default for MusicKit is 256.
+* `settings.header.audio.quality.standard`: Replaced `settings.header.audio.quality.low` to match MusicKit naming.
+* `settings.header.audio.quality.standard.description`: Added for `en_US`.

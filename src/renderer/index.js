@@ -670,22 +670,12 @@ const app = new Vue({
                 window.localStorage.setItem("currentQueue", JSON.stringify(app.mk.queue.items))
             };
 
-            // Load saved quality
-            switch (app.cfg.audio.quality) {
-                case "extreme":
-                    app.mk.bitrate = app.cfg.audio.quality = 990
-                    break;
-                case "high":
-                    app.mk.bitrate = app.cfg.audio.quality = 256
-                    break;
-                case "low":
-                    app.mk.bitrate = app.cfg.audio.quality = 64
-                    break;
-                default:
-                    // app.mk.bitrate = app.cfg.audio.quality
-                    break;
+            if (typeof MusicKit.PlaybackBitrate[app.cfg.audio.quality] !== "string") {
+                app.mk.bitrate = MusicKit.PlaybackBitrate[app.cfg.audio.quality]
+            } else {
+                app.mk.bitrate = 256
+                app.cfg.audio.quality = "HIGH"
             }
-
 
             // load last played track
             try {

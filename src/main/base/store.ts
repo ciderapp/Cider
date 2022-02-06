@@ -28,7 +28,7 @@ export class Store {
             "volume": 1,
             "lastVolume": 1,
             "muted": false,
-            "quality": "256",
+            "quality": "HIGH",
             "seamless_audio": true,
             "normalization": false,
             "ciderPPE": false,

@@ -222,13 +222,13 @@
   "settings.header.audio.description": "Adjust the audio settings for Cider.",
   "settings.option.audio.quality": "Audio Quality", // Dropdown
   "settings.header.audio.quality.hireslossless": "Hi-Res Lossless",
-  "settings.header.audio.quality.hireslossless.description": "(up to 24-bit/192 kHz)",
+  "settings.header.audio.quality.hireslossless.description": "up to 24-bit/192 kHz",
   "settings.header.audio.quality.lossless": "Lossless",
-  "settings.header.audio.quality.lossless.description": "(up to 24-bit/48 kHz)",
-  "settings.header.audio.quality.enhanced": "Enhanced",
+  "settings.header.audio.quality.lossless.description": "up to 24-bit/48 kHz",
   "settings.header.audio.quality.high": "High",
-  "settings.header.audio.quality.low": "Low",
-  "settings.header.audio.quality.auto": "Auto",
+  "settings.header.audio.quality.high.description": "256 kbps",
+  "settings.header.audio.quality.standard": "Standard",
+  "settings.header.audio.quality.standard.description": "64 kbps",
   "settings.option.audio.seamlessTransition": "Seamless Audio Transition", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "Enable Advanced Functionality", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.description": "Enabling AudioContext functionality will allow for extended audio features like Audio Normalization , Equalizers and Visualizers, however on some systems this may cause stuttering in audio tracks.",

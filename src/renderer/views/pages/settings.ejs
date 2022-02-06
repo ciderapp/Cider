@@ -35,11 +35,10 @@
                     <div class="md-option-segment md-option-segment_auto">
                         <select class="md-select" style="width:180px;" v-model="app.cfg.audio.quality"
                                 v-on:change="changeAudioQuality">
-                            <!-- // <option value="9216">{{$root.getLz('settings.header.audio.quality.hireslossless')}}</option> -->
-                            <!-- <option value="2304">{{$root.getLz('settings.header.audio.quality.lossless')}}</option> -->
-                            <option value="256">{{$root.getLz('settings.header.audio.quality.high')}}</option>
-                            <option value="64">{{$root.getLz('settings.header.audio.quality.low')}}</option>
-                            <option value="auto">{{$root.getLz('settings.header.audio.quality.auto')}}</option>
+                            <!-- // <option value="">{{$root.getLz('settings.header.audio.quality.hireslossless')}}</option> -->
+                            <!-- <option value="">{{$root.getLz('settings.header.audio.quality.lossless')}}</option> -->
+                            <option value="HIGH">{{$root.getLz('settings.header.audio.quality.high')}} ({{$root.getLz('settings.header.audio.quality.high.description')}})</option>
+                            <option value="STANDARD">{{$root.getLz('settings.header.audio.quality.standard')}} ({{$root.getLz('settings.header.audio.quality.standard.description')}})</option>
                         </select>
                     </div>
                 </div>
@@ -823,8 +822,8 @@
                 }
             
             },
-            changeAudioQuality: function () {
-                app.mk.bitrate = app.cfg.audio.quality
+            changeAudioQuality: function () {1
+	            app.mk.bitrate = MusicKit.PlaybackBitrate[app.cfg.audio.quality];
             },
             toggleUserInfo: function () {
                 app.chrome.hideUserInfo = !app.cfg.visual.showuserinfo
