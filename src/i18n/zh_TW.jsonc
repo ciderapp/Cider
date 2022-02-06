@@ -209,7 +209,7 @@
   "settings.option.audio.seamlessTransition": "無間斷播放", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "進階機能", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.description": "啟用 AudioContext 將解鎖類似音訊標準化和等化器的進階機能。但是會在部分電腦造成音樂卡頓。",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider 數位增强音訊處理", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider 數位增强音訊處理™️", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "將欺騙您的大腦使其感受近似保真壓縮的音質。| 由 Maikiwi 設計",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "數位增强音訊處理設置", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "將更改音訊處理的激進程度（增强選項有可能會引起雜訊）",

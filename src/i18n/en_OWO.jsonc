@@ -229,7 +229,7 @@
   "settings.option.audio.seamlessTransition": "Seamwess Audiowo Twansition", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "Enabwe Advanced Functionawity", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.description": "Enabwing AudiowoContext functionawity wiww awwow fow extended audiowo featuwes wike Audiowo Nowmawization, Equalizews and Visuawizews, howevew on some systems dis may cause stuttewing in audiowo twacks.",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cidew Adwenawine Pwocessow", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cidew Adwenawine Pwocessow™️", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Psychoacouwstic enhancements that makes evewything souwnd both wichew and mowe wivewy. | Designed by Maikiwi",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "CAP stwength", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Changes the stwength of the pwocessing done to the auwdio. (Aggwessive may yiewd uwndesiwabwe wesuwwts)",
