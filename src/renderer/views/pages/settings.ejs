@@ -74,9 +74,9 @@
                 </div>
                 <div class="md-option-line" v-show="app.cfg.advanced.AudioContext && app.cfg.advanced.ciderPPE === true">
                     <div class="md-option-segment">
-                        CAP Strength
+                        {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPE.strength')}}
                         <br>
-                        <small>Changes the strength of the mixing/processing done to audio. (May cause clipping or abnormal low freq's if set too high.)</small>
+                        <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPE.strength.description')}}</small>
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
                         <button class="md-btn" :disabled="app.cfg.audio.ciderPPE_value === 0.55" v-model="app.cfg.audio.ciderPPE_value" onclick="app.cfg.audio.ciderPPE_value = 0.55">
@@ -737,92 +737,92 @@
 </script>
 
 <script>
-	Vue.component('cider-settings', {
-		template: "#cider-settings",
-		props: [],
-		data: function () {
-			return {
-				app: this.$root,
+    Vue.component('cider-settings', {
+        template: "#cider-settings",
+        props: [],
+        data: function () {
+            return {
+                app: this.$root,
                 themes: ipcRenderer.sendSync("get-themes")
-			}
-		},
-		mounted: function () {
-			if (app.cfg.lastfm.enabled) {
-				const element = document.getElementById('lfmConnect');
-				if (element) {
-					element.innerHTML = `Disconnect\n<p style="font-size: 8px"><i>(Authed: ${app.cfg.lastfm.auth_token})</i></p>`;
-					element.onclick = app.LastFMDeauthorize;
-				}
-			}
-		},
-		methods: {
+            }
+        },
+        mounted: function () {
+            if (app.cfg.lastfm.enabled) {
+                const element = document.getElementById('lfmConnect');
+                if (element) {
+                    element.innerHTML = `Disconnect\n<p style="font-size: 8px"><i>(Authed: ${app.cfg.lastfm.auth_token})</i></p>`;
+                    element.onclick = app.LastFMDeauthorize;
+                }
+            }
+        },
+        methods: {
             copyLogs() {
                 ipcRenderer.send('fetch-log')
                 notyf.success(app.getLz('term.share.success'));
             },
-			getLanguages: function () {
-				let langs = this.$root.lzListing
-				let categories = {
-					"main": [],
-					"fun": [],
-					"unsorted": []
-				}
-				// sort by category if category is undefined or empty put it in "unsorted"
-				for (let i = 0; i < langs.length; i++) {
-					if (langs[i].category === undefined || langs[i].category === "") {
-						categories.unsorted.push(langs[i])
-					} else {
-						categories[langs[i].category].push(langs[i])
-					}
-				}
-				// return
-				return categories
-			},
-			addExperiment(flag) {
-				app.cfg.advanced.experiments.push(flag);
-			},
-			removeExperiment(flag) {
-				app.cfg.advanced.experiments.splice(app.cfg.advanced.experiments.indexOf(flag), 1);
-			},
-			toggleAudioContext: function () {
-				if (app.cfg.advanced.AudioContext) {
-					CiderAudio.init();
-					if (app.cfg.audio.normalization) {
-						CiderAudio.normalizerOn()
-					}
-					if (app.cfg.audio.spatial) {
-						CiderAudio.spatialOn()
-					}
-				} else {
+            getLanguages: function () {
+                let langs = this.$root.lzListing
+                let categories = {
+                    "main": [],
+                    "fun": [],
+                    "unsorted": []
+                }
+                // sort by category if category is undefined or empty put it in "unsorted"
+                for (let i = 0; i < langs.length; i++) {
+                    if (langs[i].category === undefined || langs[i].category === "") {
+                        categories.unsorted.push(langs[i])
+                    } else {
+                        categories[langs[i].category].push(langs[i])
+                    }
+                }
+                // return
+                return categories
+            },
+            addExperiment(flag) {
+                app.cfg.advanced.experiments.push(flag);
+            },
+            removeExperiment(flag) {
+                app.cfg.advanced.experiments.splice(app.cfg.advanced.experiments.indexOf(flag), 1);
+            },
+            toggleAudioContext: function () {
+                if (app.cfg.advanced.AudioContext) {
+                    CiderAudio.init();
+                    if (app.cfg.audio.normalization) {
+                        CiderAudio.normalizerOn()
+                    }
+                    if (app.cfg.audio.spatial) {
+                        CiderAudio.spatialOn()
+                    }
+                } else {
                     app.cfg.advanced.ciderPPE = false;
-					CiderAudio.off();
-				}
-			},
-			toggleNormalization: function () {
-				if (app.cfg.audio.normalization) {
-					CiderAudio.normalizerOn()
-				} else {
-					CiderAudio.normalizerOff()
-				}
-			},
-			toggleSpatial: function () {
-				if (app.cfg.audio.spatial) {
-					CiderAudio.spatialOn()
-				} else {
-					CiderAudio.spatialOff()
-				}
-			},
-			changeAudioQuality: function () {
-				app.mk.bitrate = app.cfg.audio.quality
-			},
-			toggleUserInfo: function () {
-				app.chrome.hideUserInfo = !app.cfg.visual.showuserinfo
-			},
-			sendDataToMTT: function () {
-			    	ipcRenderer.invoke('setStoreValue', 'general.close_behavior', app.cfg.general.close_behavior);
+                    CiderAudio.off();
+                }
+            },
+            toggleNormalization: function () {
+                if (app.cfg.audio.normalization) {
+                    CiderAudio.normalizerOn()
+                } else {
+                    CiderAudio.normalizerOff()
+                }
+            },
+            toggleSpatial: function () {
+                if (app.cfg.audio.spatial) {
+                    CiderAudio.spatialOn()
+                } else {
+                    CiderAudio.spatialOff()
+                }
+            },
+            changeAudioQuality: function () {
+                app.mk.bitrate = app.cfg.audio.quality
+            },
+            toggleUserInfo: function () {
+                app.chrome.hideUserInfo = !app.cfg.visual.showuserinfo
+            },
+            sendDataToMTT: function () {
+                ipcRenderer.invoke('setStoreValue', 'general.close_behavior', app.cfg.general.close_behavior);
                 //  setStoreValue does not change plugin store values somehow
-                    ipcRenderer.invoke('update-store-mtt', app.cfg.general.close_behavior);
-			}
-		}
-	})
+                ipcRenderer.invoke('update-store-mtt', app.cfg.general.close_behavior);
+            }
+        }
+    })
 </script>
