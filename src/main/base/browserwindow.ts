@@ -1,5 +1,5 @@
 import {join} from "path";
-import {app, BrowserWindow as bw, ipcMain, shell, ShareMenu, Menu, nativeImage} from "electron";
+import {app, BrowserWindow as bw, ipcMain, ShareMenu, shell} from "electron";
 import * as windowStateKeeper from "electron-window-state";
 import * as express from "express";
 import * as getPort from "get-port";
@@ -13,8 +13,6 @@ import {wsapi} from "./wsapi";
 import {jsonc} from "jsonc";
 import {AppImageUpdater, NsisUpdater} from "electron-updater";
 import {utils} from './utils';
-import * as path from "path";
-
 
 
 export class BrowserWindow {
@@ -198,9 +196,9 @@ export class BrowserWindow {
             res.render("main", this.EnvironmentVariables);
         });
 
-        app.get("/api/playback/:action", (req, res)=>{
+        app.get("/api/playback/:action", (req, res) => {
             const action = req.params.action;
-            switch(action) {
+            switch (action) {
                 case "playpause":
                     BrowserWindow.win.webContents.executeJavaScript("wsapi.togglePlayPause()")
                     res.send("Play/Pause toggle")
@@ -546,9 +544,9 @@ export class BrowserWindow {
             BrowserWindow.win.webContents.send('send-remote-pair-url', url);
         })
         if (process.platform === "darwin") {
-        app.setUserActivity('com.CiderCollective.remote.pair', {
-            ip: `${BrowserWindow.getIP()}`
-        }, `http://${BrowserWindow.getIP()}:${this.remotePort}`);
+            app.setUserActivity('com.CiderCollective.remote.pair', {
+                ip: `${BrowserWindow.getIP()}`
+            }, `http://${BrowserWindow.getIP()}:${this.remotePort}`);
         }
         // Get previews for normalization
         ipcMain.on("getPreviewURL", (_event, url) => {
@@ -580,7 +578,7 @@ export class BrowserWindow {
         })
 
         ipcMain.on('share-menu', async (_event, url) => {
-            if ( process.platform != 'darwin') return;
+            if (process.platform != 'darwin') return;
             //https://www.electronjs.org/docs/latest/api/share-menu
             console.log('[Share Sheet - App.ts]', url)
             const options = {
@@ -591,11 +589,6 @@ export class BrowserWindow {
             const shareMenu = new ShareMenu(options);
             shareMenu.popup();
         })
-
-
-
-
-
 
 
         /* *********************************************************************************************
@@ -662,118 +655,6 @@ export class BrowserWindow {
             shell.openExternal(x.url).catch(console.error);
             return {action: "deny"};
         });
-
-        /* *********************************************************************************************
-         * Menu
-         * **********************************************************************************************/
-        //@ts-ignore
-        console.log(path.join(__dirname, '../../src/renderer/views/svg/smartphone.svg'))
-        const isMac = process.platform === 'darwin';
-        //TODO: Figure out the icons
-        const remoteIcon = nativeImage.createFromPath(path.join(__dirname, '../../src/renderer/views/svg/smartphone.svg')).toPNG()
-        const soundIcon = nativeImage.createFromPath(path.join(__dirname, '../../src/renderer/views/svg/headphones.svg')).toPNG()
-        const aboutIcon = nativeImage.createFromPath(path.join(__dirname, '../../src/renderer/views/svg/info.svg')).toPNG()
-        const settingsIcon = nativeImage.createFromPath(path.join(__dirname, '../../src/renderer/views/svg/settings.svg')).toPNG()
-        const logoutIcon = nativeImage.createFromPath(path.join(__dirname, '../../src/renderer/views/svg/log-out.svg')).toPNG()
-        const ciderIcon = nativeImage.createFromPath(path.join(__dirname, '../../src/renderer/assets/logocute.png'))
-        const template = [
-            // { role: 'appMenu' }
-            ...(isMac ? [{
-                label: app.name,
-                submenu: [
-                    { label: 'Web Remote', accelerator: 'CommandOrControl+W', sublabel: 'Opens in external window', click: () => BrowserWindow.win.webContents.executeJavaScript(`ipcRenderer.invoke('showQR')`)}, //accelerator
-                    { label: 'Audio Settings', accelerator: 'CommandOrControl+Shift+A', click: () => BrowserWindow.win.webContents.executeJavaScript(`app.modals.audioSettings = true`)},
-                    { label: 'About', accelerator: 'CommandOrControl+Shift+B', click: () => BrowserWindow.win.webContents.executeJavaScript(`app.appRoute('about'`)},
-                    { label: 'Settings', accelerator: 'CommandOrControl+,', click: () => BrowserWindow.win.webContents.executeJavaScript(`app.appRoute('settings')`)},
-                    { label: 'Logout', accelerator: 'CommandOrControl+Shift+O', click: () => BrowserWindow.win.webContents.executeJavaScript(`app.unauthorize(); document.location.reload()`)},
-                    { type: 'separator' },
-                    { role: 'quit' }
-                ]
-            }] : []),
-            // { role: 'viewMenu' }
-            {
-                label: 'View',
-                submenu: [
-                    { role: 'reload' },
-                    { role: 'forceReload' },
-                    { role: 'toggleDevTools' },
-                    { type: 'separator' },
-                    { role: 'resetZoom' },
-                    { role: 'zoomIn' },
-                    { role: 'zoomOut' },
-                    { type: 'separator' },
-                    { role: 'togglefullscreen' }
-                ]
-            },
-            // { role: 'windowMenu' }
-            {
-                label: 'Window',
-                submenu: [
-                    { role: 'minimize' },
-                    { role: 'zoom' },
-                    ...(isMac ? [
-                        { type: 'separator' },
-                        { role: 'front' },
-                        { type: 'separator' },
-                        { role: 'window' }
-                    ] : [
-                        { role: 'close' }
-                    ])
-                ]
-            },
-            {
-                role: 'help',
-                submenu: [
-                    {
-                        label: 'Discord',
-                        accelerator: 'CommandOrControl+Shift+D',
-                        click: async () => {
-                            const { shell } = require('electron')
-                            await shell.openExternal('https://discord.gg/applemusic')
-                        }
-                    },
-                    {
-                        label: 'Donate',
-                        accelerator: 'CommandOrControl+D',
-                        icon: ciderIcon,
-                        click: async () => {
-                            const { shell } = require('electron')
-                            await shell.openExternal('https://opencollective.com/ciderapp/')
-                        }
-                    },
-                    {
-                        label: 'Report a...',
-                        submenu: [
-                            {
-                                label: 'Bug',
-                                click: async () => {
-                                    const {shell} = require('electron')
-                                    await shell.openExternal("https://github.com/ciderapp/Cider/issues/new?assignees=&labels=bug%2Ctriage&template=bug_report.yaml&title=%5BBug%5D%3A+")
-                                }
-                            },
-                            {
-                                label: 'Feature Request',
-                                click: async () => {
-                                    const {shell} = require('electron')
-                                    await shell.openExternal("https://github.com/ciderapp/Cider/issues/new?assignees=&labels=enhancement%2Ctriage&template=feature_request.yaml&title=%5BEnhancement%5D%3A+")
-                                }
-                            },
-                            {
-                                label: 'Translation Report/Request',
-                                click: async () => {
-                                    const {shell} = require('electron')
-                                    await shell.openExternal("https://github.com/ciderapp/Cider/issues/new?assignees=&labels=%F0%9F%8C%90+Translations&template=translation.yaml&title=%5BTranslation%5D%3A+")
-                                }
-                            },
-                        ]
-                    },
-                ]
-            }
-        ]
-        //@ts-ignore
-        const menu = Menu.buildFromTemplate(template)
-        Menu.setApplicationMenu(menu)
-
     }
 
     /**
