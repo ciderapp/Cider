@@ -233,6 +233,8 @@
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "CAP sets a pwe-defined advanced mix/pwocess that awwows media to pwoduwce mowe wich souwnding fwequwencies. (Designed by maikiwi)",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE.strength": "CAP stwength", // Multiple Choice
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE.strength.description": "Changes the stwength of the mixing/pwocessing done to auwdio. (May cauwse cwipping ow abnowmaw wow fweq's if set too high.)",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.strength.aggressive": "Aggwessive",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.strength.standard": "Standawd",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Audiowo Nowmawization", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Nowmawizes peak vowume fow individuaw twacks to cweate a moar unifowm wistening expewience.",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Audiowo Spatiawization", // Toggle
