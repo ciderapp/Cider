@@ -36,36 +36,17 @@ export default class Thumbar {
     private isMac: boolean = process.platform === 'darwin';
     private menubarTemplate: any = [
         {
-            label: app.name,
+            label: app.getName(),
             submenu: [
-                {
-                    label: 'Web Remote',
-                    accelerator: 'CommandOrControl+Shift+W',
-                    sublabel: 'Opens in external window',
-                    click: () => this._win.webContents.executeJavaScript(`ipcRenderer.invoke('showQR')`)
-                }, //accelerator
-                {
-                    label: 'Audio Settings',
-                    accelerator: 'CommandOrControl+Shift+A',
-                    click: () => this._win.webContents.executeJavaScript(`app.modals.audioSettings = true`)
-                },
-                {
-                    label: 'About',
-                    accelerator: 'CommandOrControl+Shift+B',
-                    click: () => this._win.webContents.executeJavaScript(`app.appRoute('about'`)
-                },
-                {
-                    label: 'Settings',
-                    accelerator: 'CommandOrControl+,',
-                    click: () => this._win.webContents.executeJavaScript(`app.appRoute('settings')`)
-                },
-                {
-                    label: 'Logout',
-                    accelerator: 'CommandOrControl+Shift+O',
-                    click: () => this._win.webContents.executeJavaScript(`app.unauthorize()`)
-                },
-                {type: 'separator'},
-                {role: 'quit'}
+                { role: 'about' },
+                { type: 'separator' },
+                { role: 'services' },
+                { type: 'separator' },
+                { role: 'hide' },
+                { role: 'hideOthers' },
+                { role: 'unhide' },
+                { type: 'separator' },
+                { role: 'quit' }
             ]
         },
         {
@@ -79,7 +60,7 @@ export default class Thumbar {
                 {role: 'zoomIn'},
                 {role: 'zoomOut'},
                 {type: 'separator'},
-                {role: 'togglefullscreen'}
+                {role: 'togglefullscreen'},
             ]
         },
         {
@@ -94,7 +75,37 @@ export default class Thumbar {
                     {role: 'window'}
                 ] : [
                     {role: 'close'}
-                ])
+                ]),
+                {type: 'separator'},
+                {
+                    label: 'Web Remote',
+                    accelerator: 'CommandOrControl+Shift+W',
+                    sublabel: 'Opens in external window',
+                    click: () => this._win.webContents.executeJavaScript(`ipcRenderer.invoke('showQR')`)
+                },
+                {
+                    label: 'Audio Settings',
+                    accelerator: 'CommandOrControl+Shift+A',
+                    click: () => this._win.webContents.executeJavaScript(`app.modals.audioSettings = true`)
+                },
+                {
+                    label: 'Settings',
+                    accelerator: 'CommandOrControl+,',
+                    click: () => this._win.webContents.executeJavaScript(`app.appRoute('settings')`)
+                }
+            ]
+        },
+        {
+            label: 'Account',
+            submenu: [
+                {
+                    label: 'Account Settings',
+                    click: () => this._win.webContents.executeJavaScript(`app.appRoute('apple-account-settings')`)
+                },
+                {
+                    label: 'Sign Out',
+                    click: () => this._win.webContents.executeJavaScript(`app.unauthorize()`)
+                }
             ]
         },
         {
