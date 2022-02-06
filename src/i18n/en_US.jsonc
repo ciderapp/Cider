@@ -236,6 +236,8 @@
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "CAP sets a pre-defined advanced mix/process that allows media to produce more rich sounding frequencies. (Designed by Maikiwi)",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE.strength": "CAP Strength", // Multiple Choice
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE.strength.description": "Changes the strength of the mixing/processing done to audio. (May cause clipping or abnormal low freq's if set too high.)",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.strength.aggressive": "Aggressive",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.strength.standard": "Standard",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Audio Normalization", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizes peak volume for individual tracks to create a more uniform listening experience.",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Audio Spatialization", // Toggle

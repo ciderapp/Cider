@@ -80,10 +80,10 @@
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
                         <button class="md-btn" :disabled="app.cfg.audio.ciderPPE_value === 0.55" v-model="app.cfg.audio.ciderPPE_value" onclick="app.cfg.audio.ciderPPE_value = 0.55">
-                            Aggressive
+                            {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPE.strength.agressive')}}
                         </button>
                         <button class="md-btn" style="margin-top: 5px;" :disabled="app.cfg.audio.ciderPPE_value === 0.5" v-model="app.cfg.audio.ciderPPE_value" onclick="app.cfg.audio.ciderPPE_value = 0.5">
-                            Standard
+                            {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPE.strength.standard')}}
                         </button>
                     </div>
                 </div>
