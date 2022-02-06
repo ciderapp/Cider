@@ -1,0 +1,311 @@
+{ // Base File
+
+  // i18n Info
+  "i18n.languageName": "한국어",        // name of language in native language
+  "i18n.languageNameEnglish": "Korean", // name of language in English
+  "i18n.category": "main", // main = real language, fun = fun community languages
+  "i18n.authors": "@sj8923", // Authors, if you contribute to this file feel free to add your name seperated with a space
+
+  // App info
+  "app.name": "Cider",
+
+  "date.format": "${y}년 ${m}월 ${d}일",
+  
+  // Dialogs
+  "dialog.cancel": "취소",
+  "dialog.ok": "확인",
+
+  // Notification
+  "notification.updatingLibrarySongs": "라이브러리 곡 업데이트 중...",
+  "notification.updatingLibraryAlbums": "라이브러리 앨범 업데이트 중...",
+  "notification.updatingLibraryArtists": "라이브러리 아티스트 업데이트 중...",
+  // Terms
+  "term.appleInc": "Apple Inc.",
+  "term.appleMusic": "Apple Music",
+  "term.applePodcasts": "Apple Podcasts",
+  "term.itunes": "iTunes",
+  "term.github": "GitHub",
+  "term.discord": "Discord",
+  "term.learnMore": "더보기",
+  "term.accountSettings": "계정 설정",
+  "term.logout": "로그아웃",
+  "term.login": "로그인",
+  "term.about": "정보",
+  "term.privateSession": "개인 세션",
+  "term.queue": "대기열",
+  "term.search": "검색",
+  "term.library": "라이브러리",
+  "term.listenNow": "지금 듣기",
+  "term.browse": "둘러보기",
+  "term.radio": "라디오",
+  "term.recentlyAdded": "최근 추가된 항목",
+  "term.songs": "노래",
+  "term.albums": "앨범",
+  "term.artists": "아티스트",
+  "term.podcasts": "팟캐스트",
+  "term.playlists": "플레이리스트",
+  "term.playlist": "플레이리스트",
+  "term.newPlaylist": "새 플레이리스트",
+  "term.newPlaylistFolder": "새 플레이리스트 폴더",
+  "term.createNewPlaylist": "새 플레이리스트 만들기",
+  "term.createNewPlaylistFolder": "새 플레이리스트 폴더 만들기",
+  "term.deletePlaylist": "정말 플레이리스트를 삭제하시겠습니까?",
+  "term.play": "재생",
+  "term.pause": "정지",
+  "term.previous": "이전",
+  "term.next": "다음",
+  "term.shuffle": "셔플",
+  "term.repeat": "반복재생",
+  "term.volume": "볼륨",
+  "term.mute": "음소거",
+  "term.unmute": "음소거 해제",
+  "term.share": "공유",
+  "term.settings": "설정",
+  "term.seeAll": "모두 보기",
+  "term.sortBy": "정렬방식",
+  "term.sortBy.album": "앨범",
+  "term.sortBy.artist": "아티스트",
+  "term.sortBy.name": "이름",
+  "term.sortBy.genre": "장르",
+  "term.sortBy.releaseDate": "출시일",
+  "term.sortBy.duration": "재생시간",
+  "term.sortOrder": "ㄱ-ㅎ",
+  "term.sortOrder.ascending": "오름차순",
+  "term.sortOrder.descending": "내림차순",
+  "term.viewAs": "표시방식",
+  "term.viewAs.coverArt": "커버아트",
+  "term.viewAs.list": "리스트",
+  "term.size": "크기",
+  "term.size.normal": "일반",
+  "term.size.compact": "컴팩트",
+  "term.enable": "활성화",
+  "term.disable": "비활성화",
+  "term.enabled": "활성화",
+  "term.disabled": "비활성화",
+  "term.connect": "연결",
+  "term.connecting": "연결 중",
+  "term.disconnect": "연결 끊김",
+  "term.authed": "인증됨",
+  "term.confirm": "확인하시겠습니까 ?",
+  "term.more": "더",
+  "term.less": "적게",
+  "term.showMore": "더 보기",
+  "term.showLess": "적게 보기",
+  "term.topSongs" : "인기곡",
+  "term.latestReleases": "최신곡",
+  "term.time.added": "추가",
+  "term.time.released": "발매일", 
+  "term.time.updated": "업데이트일",
+  "term.time.hours": "시간",
+  "term.time.hour": "시간",
+  "term.time.minutes": "분",
+  "term.time.minute": "분",
+  "term.time.seconds": "초",
+  "term.time.second": "초",
+  "term.fullscreenView": "전체화면",
+  "term.defaultView": "기본화면",
+  "term.audioSettings": "오디오 설정",
+  "term.clearAll": "비우기",
+  "term.recentStations": "최근 스테이션",
+  "term.language": "언어",
+  "term.funLanguages": "재미있는",
+  "term.noLyrics": "불러오는 중... / 가사를 찾을 수 없습니다/ 연주곡",
+  "term.copyright": "Copyright", // Used in Korea w/o translation
+  "term.rightsReserved": "All Rights Reserved.",
+  "term.sponsor": "이 프로젝트를 후원하세요",
+  "term.ciderTeam": "Cider 팀",
+  "term.developer": "개발자",
+  "term.socialTeam": "소셜 팀",
+  "term.socials": "소셜",
+  "term.contributors": "기여자",
+  "term.equalizer": "이퀄라이저",
+  "term.reset": "초기화",
+  "term.tracks": "트랙", // Assume x amount of tracks. e.g. 50 tracks 
+  "term.videos": "비디오", 
+  "term.menu": "메뉴",
+  "term.check": "확인",
+  "term.aboutArtist": "{{artistName}}에 대해", // e.g. 'About Doja Cat'
+  "term.updateCider": "Cider 업데이트",
+ 
+  // Home
+  "home.title": "홈",
+  "home.recentlyPlayed": "최근 재생된 항목",
+  "home.recentlyAdded": "최근 추가된 항목",
+  "home.artistsFeed": "내 아티스트 피드",
+  "home.artistsFeed.noArtist": "아티스트를 팔로우하면 최근 발매곡이 표시됩니다",
+  "home.madeForYou": "나만을 위한 추천",
+  "home.friendsListeningTo": "친구들이 듣는",
+  "home.followedArtists": "팔로우한 아티스트",
+  // Errors
+  "error.appleMusicSubRequired": "애플뮤직 구독이 필요합니다.",
+  "error.connectionError": "애플뮤직 연결에 문제가 발생했습니다.",
+  "error.noResults": "결과 없음.",
+  "error.noResults.description": "새로 검색해주세요.",
+
+  //Podcasts
+  "podcast.followOnCider": "Cider 팔로우",
+  "podcast.followedOnCider": "Cider 팔로우됨",
+  "podcast.subscribeOnItunes": "iTunes 구독하기",
+  "podcast.subscribedOnItunes": "iTunes 구독 중",
+  "podcast.itunesStore": "iTunes 스토어",
+  "podcast.episodes": "에피소드",
+  "podcast.playEpisode": "에피소드 재생",
+  "podcast.website": "팟캐스트 웹사이트",
+
+  // Actions
+  "action.addToLibrary": "보관함에 추가",
+  "action.addToLibrary.success": "보관함에 추가됨",
+  "action.addToLibrary.error": "보관함에 추가 실패",
+  "action.removeFromLibrary": "보관함에서 삭제",
+  "action.removeFromLibrary.success": "보관함에서 삭제됨",
+  "action.addToQueue": "대기열에 추가",
+  "action.addToQueue.success": "대기열에 추가됨",
+  "action.addToQueue.error": "대기열에 추가 실패",
+  "action.removeFromQueue": "대기열에서 삭제",
+  "action.removeFromQueue.success": "대기열에서 삭제됨",
+  "action.removeFromQueue.error": "대기열에서 삭제 실패",
+  "action.createPlaylist": "새 플레이리스트",
+  "action.addToPlaylist": "플레이리스트에 추가...",
+  "action.removeFromPlaylist": "플레이리스트에서 삭제",
+  "action.addToFavorites": "선호항목에 추가",
+  "action.follow": "팔로우",
+  "action.follow.success": "팔로우됨",
+  "action.follow.error": "팔로우 실패",
+  "action.unfollow": "언팔로우",
+  "action.unfollow.success": "언팔로우됨",
+  "action.unfollow.error": "언팔로우 실패",
+  "action.playNext": "바로 다음에 재생",
+  "action.playLater": "맨 나중에 재생",
+  "action.startRadio": "스테이션 생성",
+  "action.goToArtist": "아티스트 보기",
+  "action.goToAlbum": "앨범 보기",
+  "action.moveToTop": "맨 위로 이동",
+  "action.share": "공유하기",
+  "action.rename": "이름 편집하기",
+  "action.love": "좋아요",
+  "action.unlove": "좋아요 취소",
+  "action.dislike": "비슷한 항목의 제안 줄이기",
+  "action.undoDislike": "비슷한 항목의 제안 줄이기 실행 취소",
+  "action.showWebRemoteQR": "웹 리모트",
+  "action.playTracksNext": "${app.selectedMediaItems.length} 바로 다음에 재생",
+  "action.playTracksLater": "${app.selectedMediaItems.length} 맨 나중에 재생",
+  "action.removeTracks": "${self.selectedItems.length} 대기열에서 삭제",
+  "action.import": "가져오기",
+  "action.export": "내보내기",
+  "action.showAlbum": "전체 앨범 보기",
+  "action.tray.minimize": "트레이로 최소화",
+  "action.tray.quit": "종료",
+  "action.tray.show": "", // None is Better in Korean
+  "action.update": "업데이트",
+
+  // Settings - General
+  "settings.header.general": "일반 설정",
+  "settings.header.general.description": "Cider를 위한 일반 설정을 조절합니다.",
+  "settings.option.general.language": "언어",
+
+  // Language optgroups
+  "settings.option.general.language.main": "언어",
+  "settings.option.general.language.fun": "실험적인 언어",
+  "settings.option.general.language.unsorted": "정리되지않음",
+  
+  // Settings - Audio
+  "settings.header.audio": "오디오",
+  "settings.header.audio.description": "Cider를 위한 오디오 설정을 조절하세요.",
+  "settings.option.audio.quality": "오디오 품질", // Dropdown
+  "settings.header.audio.quality.high": "높음",
+  "settings.header.audio.quality.low": "낮음",
+  "settings.header.audio.quality.auto": "자동",
+  "settings.option.audio.seamlessTransition": "간격 없는 재생", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality": "실험적인 기능", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.description": "노멀라이즈와 이퀄라이저와 같은 확장기능을 사용할 수 있지만 일부 시스템에서 끊김 현상이 발생할 수 있습니다.",
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "사운드 자동 조절", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "각각 트랙의 볼륨을 자동 조절합니다.",
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "공간 음향", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "소리를 공간 음향으로 만들고 3d효과를 줍니다. (주의: 돌비 애트모스가 아님)",
+  // Settings - Visual
+  "settings.header.visual": "시각 효과", 
+  "settings.header.visual.description": "Cider를 위한 시각 효과 설정을 조절하세요.",
+  "settings.option.visual.windowBackgroundStyle": "창 배경 설정", // Toggle
+  "settings.header.visual.windowBackgroundStyle.none": "없음",
+  "settings.header.visual.windowBackgroundStyle.artwork": "아트워크",
+  "settings.header.visual.windowBackgroundStyle.image": "이미지",
+  "settings.option.visual.animatedArtwork": "움직이는 아트워크", // Dropdown
+  "settings.header.visual.animatedArtwork.always": "활성화",
+  "settings.header.visual.animatedArtwork.limited": "특정 페이지에 한정",
+  "settings.header.visual.animatedArtwork.disable": "비활성화",
+  "settings.option.visual.animatedArtworkQuality": "움직이는 아트워크 품질", // Dropdown
+  "settings.header.visual.animatedArtworkQuality.low": "낮음",
+  "settings.header.visual.animatedArtworkQuality.medium": "중간",
+  "settings.header.visual.animatedArtworkQuality.high": "높음",
+  "settings.header.visual.animatedArtworkQuality.veryHigh": "매우 높음",
+  "settings.header.visual.animatedArtworkQuality.extreme": "최고",
+  "settings.option.visual.animatedWindowBackground": "움직이는 창 배경", // Toggle
+  "settings.option.visual.hardwareAcceleration": "하드웨어 가속", // Dropdown
+  "settings.option.visual.hardwareAcceleration.description": "재실행 필요",
+  "settings.header.visual.hardwareAcceleration.default": "기본", 
+  "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
+  // Refer to term.disabled for the disabled option
+  "settings.option.visual.showPersonalInfo": "ID 표시", // Toggle
+
+  // Settings - Lyrics
+  "settings.header.lyrics": "가사",
+  "settings.header.lyrics.description": "Cider를 위한 가사 설정을 조절하세요.",
+  "settings.option.lyrics.enableMusixmatch": "Musixmatch 가사", // Toggle
+  "settings.option.lyrics.enableMusixmatchKaraoke": "노래방 모드 (Musixmatch만)", // Toggle
+  "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch 선호 번역 언어", // Dropdown
+  "settings.option.lyrics.enableYoutubeLyrics": "뮤직비디오 재생 시 유튜브에서 가사 가져오기", // Toggle
+
+  // Settings - Connectivity
+  "settings.header.connectivity": "연결",
+  "settings.header.connectivity.description": "Cider를 위한 연결 설정을 조절하세요.",
+  "settings.option.connectivity.discordRPC": "Discord 상태 표시", // Dropdown
+  "settings.option.connectivity.playbackNotifications": "재생 상태 표시", // Toggle
+  // Refer to term.disabled for the disabled option
+  "settings.header.connectivity.discordRPC.cider": "'Cider'로 표시",
+  "settings.header.connectivity.discordRPC.appleMusic": "'Apple Music'으로 표시",
+  "settings.option.connectivity.discordRPC.clearOnPause": "일시 정지 상태에서 Discord 상태 표시 끄기", // Toggle
+  "settings.option.connectivity.lastfmScrobble": "Last.fm Scrobbling", // Option to Connect
+  "settings.option.connectivity.lastfmScrobble.delay": "Last.fm Scrobble 지연 (%)", 
+  "settings.option.connectivity.lastfmScrobble.nowPlaying": "Last.fm Now Playing 활성", 
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "곡 이름에서 피쳐링 아티스트 빼기 (Last.fm)", 
+  "settings.option.connectivity.lastfmScrobble.filterLoop": "반복 재생 트랙 제거 (Last.fm)", 
+  // Refer to term.connect for the connect button
+
+  // Settings - Experimental
+  "settings.header.experimental": "실험 기능",
+  "settings.header.experimental.description": "Cider를 위한 실험 기능을 조절하세요.",
+  "settings.option.experimental.compactUI": "컴팩트 UI", // Toggle
+  "settings.option.experimental.close_button_hide": "닫기 버튼으로 프로그램 숨기기",
+  // Refer to term.disabled & term.enabled
+
+  // Spatialization Menu
+  "spatial.notTurnedOn": "먼저 공간 음향 설정을 활성화해주세요.",
+  "spatial.spatialProperties": "공간 속성",
+  "spatial.width": "너비",
+  "spatial.height": "높이",
+  "spatial.depth": "깊이",
+  "spatial.gain": "게인",
+  "spatial.roomMaterials": "방 재질",
+  "spatial.roomDimensions": "방 차원",
+  "spatial.roomPositions": "방 위치",
+  "spatial.setDimensions": "차원 설정",
+  "spatial.setPositions": "위치 설정",
+  "spatial.up": "위",
+  "spatial.front": "앞",
+  "spatial.left": "왼쪽",
+  "spatial.right": "오른쪽",
+  "spatial.back": "뒤",
+  "spatial.down": "아래",
+  "spatial.listener": "청취자",
+  "spatial.audioSource": "오디오 출처",
+  
+  // Settings - Unfinished
+  "settings.header.unfinished": "미완성",
+
+  // Web Remote
+  "remote.web.title": "Cider 리모트",
+  "remote.web.description": "Cider 인스턴스와 휴대 전화를 연결하려면 QR 코드를 스캔해주세요",
+
+  // About
+  "about.thanks": "Cider 컬렉티브 팀과 우리의 모든 기여자들께 대단히 감사를 표합니다."
+}
