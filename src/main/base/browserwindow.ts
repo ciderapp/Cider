@@ -564,7 +564,6 @@ export class BrowserWindow {
         });
 
         ipcMain.on('checkupdate', async (_event) => {
-            console.log('Checking for updates')
             const branch = utils.getStoreValue('general.update_branch')
             let latestbranch = await fetch(`https://circleci.com/api/v1.1/project/gh/ciderapp/Cider/latest/artifacts?branch=${branch}&filter=successful`)
             if (latestbranch.status != 200) {
@@ -572,12 +571,14 @@ export class BrowserWindow {
                 return
             }
 
-            let latestbranchjson = await latestbranch.json()
-            console.log('Artifact - ', latestbranchjson[0].url)
+            latestbranch = await latestbranch.json()
+            let base_url = latestbranch[0].url
+            base_url = base_url.substr(0, base_url.lastIndexOf('/'))
+            console.log('BaseURL - ', base_url)
 
             const options: any = {
                 provider: 'generic',
-                url: 'https://43-429851205-gh.circle-artifacts.com/0/%7E/Cider/dist/artifacts' //Base URL
+                url: `${base_url}`
             }
             /*
             *  Have to handle the auto updaters seperatly until we can support macOS. electron-builder limitation -q
