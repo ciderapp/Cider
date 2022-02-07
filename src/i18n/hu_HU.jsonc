@@ -4,16 +4,21 @@
   "i18n.languageNameEnglish": "Hungarian", // name of language in English
   "i18n.category": "main", // main = real language, fun = fun community languages
   "i18n.authors": "@Greenoliv @Amaru @BenjaminStonawski", // Authors, if you contribute to this file feel free to add your name seperated with a space
+  
   // App info
   "app.name": "Cider",
+  
   "date.format": "${m} ${d}, ${y}",
+  
   // Dialogs
   "dialog.cancel": "Mégsem",
   "dialog.ok": "OK",
+  
   // Notification
   "notification.updatingLibrarySongs": "Zenekönyvtár frissítése...",
   "notification.updatingLibraryAlbums": "Albumok frissítése...",
   "notification.updatingLibraryArtists": "Előadók frissítése...",
+  
   // Terms
   "term.appleInc": "Apple Inc.",
   "term.appleMusic": "Apple Music",
@@ -136,6 +141,7 @@
   "term.recordLabels": "Record Labels",
   "term.videoExtras": "Videóextrák",
   "term.top": "Top",
+  
   // Home
   "home.title": "Kezdőlap",
   "home.recentlyPlayed": "Nemrég játszott",
@@ -145,12 +151,14 @@
   "home.madeForYou": "Személyre szabva",
   "home.friendsListeningTo": "A barátaid épp ezt hallgatják",
   "home.followedArtists": "Követett előadók",
+  
   // Errors
   "error.appleMusicSubRequired": "Apple Music előfizetés szükséges.",
   "error.connectionError": "Hiba történt az Apple Musichoz való csatlakozás közben.",
   "error.noResults": "Nincs találat",
   "error.noResults.description": "Próbálkozzon új kereséssel",
-  //Podcasts
+  
+  // Podcasts
   "podcast.followOnCider": "Követés a Cideren",
   "podcast.followedOnCider": "Követve a Cideren",
   "podcast.subscribeOnItunes": "Feliratkozás az iTunesban",
@@ -159,6 +167,7 @@
   "podcast.episodes": "Epizódok",
   "podcast.playEpisode": "Epizód lejátszása",
   "podcast.website": "Podcast weboldala",
+  
   // Actions
   "action.addToLibrary": "Hozzáadás a Könyvtárhoz",
   "action.addToLibrary.success": "Hozzáadva a Könyvtárhoz",
@@ -207,14 +216,17 @@
   "action.copy": "Másolás",
   "action.newpreset": "Új Preset...", // Equalizer Preset
   "action.deletepreset": "Preset törlése",
+  
   // Settings - General
   "settings.header.general": "Általános",
   "settings.header.general.description": "A Cider általános beállításainak módosítása.",
   "settings.option.general.language": "Nyelv",
+  
   // Language optgroups
   "settings.option.general.language.main": "Nyelvek",
   "settings.option.general.language.fun": "Fantázianyelvek",
   "settings.option.general.language.unsorted": "Azonosítatlan",
+  
   // Settings - Audio
   "settings.header.audio": "Hang",
   "settings.header.audio.description": "A Cider hangbeállításainak módosítása.",
@@ -240,6 +252,7 @@
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizálja az egyes zeneszámok hangosabb részeit, hogy egységesebb hallgatási élményt hozzon létre.",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Térbeli hang", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Térbeli hang és a hang háromdimenziósabbá tétele (Ez nem összekeverendő a Dolby Atmos-szal!)",
+  
   // Settings - Visual
   "settings.header.visual": "Vizuális",
   "settings.header.visual.description": "A Cider vizuális beállításainak módosítása.",
@@ -263,11 +276,13 @@
   "settings.header.visual.hardwareAcceleration.default": "Alap",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
   "settings.header.visual.theme": "Téma",
+  
   // Settings - Visual - Theme name
   "settings.option.visual.theme.default": "Cider",
   "settings.option.visual.theme.dark": "Sötét",
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "Személyes adatok mutatása", // Toggle
+  
   // Settings - Lyrics
   "settings.header.lyrics": "Dalszöveg",
   "settings.header.lyrics.description": "A Cider dalszöveg beállításainak módosítása.",
@@ -275,6 +290,7 @@
   "settings.option.lyrics.enableMusixmatchKaraoke": "Karaoke mód bekapcsolása (Csak MusixMatch)", // Toggle
   "settings.option.lyrics.musixmatchPreferredLanguage": "MusixMatch fordítás nyelve", // Dropdown
   "settings.option.lyrics.enableYoutubeLyrics": "YouTube dalszövegek engedélyezése a zenei videóknál", // Toggle
+  
   // Settings - Connectivity
   "settings.header.connectivity": "Csatlakozások",
   "settings.header.connectivity.description": "A Cider csatlakozás beállításainak módosítása.",
@@ -290,6 +306,7 @@
   "settings.option.connectivity.lastfmScrobble.removeFeatured": "Remove featuring artists from song title (LastFM)",
   "settings.option.connectivity.lastfmScrobble.filterLoop": "Loopolt zeneszám szűrése (LastFM)",
   // Refer to term.connect for the connect button
+  
   // Settings - Experimental
   "settings.header.experimental": "Kísérleti",
   "settings.header.experimental.description": "A Cider kísérleti beállításainak módosítása.",
@@ -298,6 +315,7 @@
   "settings.option.experimental.copy_log": "Napló másolása a vágólapra",
   "settings.option.experimental.inline_playlists": "Inline Playlists and Albums",
   "settings.option.experimental.updateCider": "A Cider frissítése", // Button
+  
   // Refer to term.disabled & term.enabled
   // Spatialization Menu
   "spatial.notTurnedOn": "A térbeli hangzás ki van kapcsolva, használatához kapcsolja be.",
@@ -319,11 +337,14 @@
   "spatial.down": "Lent",
   "spatial.listener": "Hallgató",
   "spatial.audioSource": "Hangforrás",
+  
   // Settings - Unfinished
   "settings.header.unfinished": "Befejezetlen",
+  
   // Web Remote
   "remote.web.title": "Cider Remote",
   "remote.web.description": "Olvasd be ezt a QR-kódot a telefonoddal, hogy tudd vezérelni a lejátszót.",
+  
   // About
   "about.thanks": "Köszönet a Cider Collective csapatának és minden hozzájárulónak."
 }

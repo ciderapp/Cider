@@ -1,19 +1,24 @@
 {
-  // App info
-  "app.name": "Cider",
-  "date.format": "${y}年${m}月${d}日",
   // i18n Info
   "i18n.languageName": "简体中文（中国）", // name of language in native language
   "i18n.languageNameEnglish": "Simp. Chinese (China)", // name of language in English
   "i18n.category": "main", // main = real language, fun = fun community languages
   "i18n.authors": "@maikirakiwi", // Authors, if you contribute to this file feel free to add your name seperated with a space
+
+  // App info
+  "app.name": "Cider",
+
+  "date.format": "${y}年${m}月${d}日",
+
   // Dialogs
   "dialog.cancel": "取消",
   "dialog.ok": "确定",
+  
   // Notification
   "notification.updatingLibrarySongs": "正在更新资料库的歌曲信息...",
   "notification.updatingLibraryAlbums": "正在更新资料库的专辑信息...",
   "notification.updatingLibraryArtists": "正在更新资料库的艺人信息...",
+  
   // Terms
   "term.appleMusic": "Apple Music", // Follows brand term
   "term.applePodcasts": "Apple Podcasts", // Follows brand term
@@ -113,6 +118,7 @@
   "term.menu": "菜单",
   "term.check": "检查",
   "term.aboutArtist": "关于{{artistName}}", // e.g. 'About Doja Cat'
+  
   // Home
   "home.title": "主页",
   "home.recentlyPlayed": "最近播放",
@@ -122,12 +128,14 @@
   "home.madeForYou": "专属推荐",
   "home.friendsListeningTo": "朋友正在听",
   "home.followedArtists": "关注的艺人",
+  
   // Errors
   "error.appleMusicSubRequired": "需要订阅 Apple Music 以使用 Cider",
   "error.connectionError": "无法连接到 Apple Music。",
   "error.noResults": "没有结果",
   "error.noResults.description": "尝试更改搜索条件。",
-  //Podcasts
+  
+  // Podcasts
   "podcast.followOnCider": "在 Cider 中追踪",
   "podcast.followedOnCider": "已追踪",
   "podcast.subscribeOnItunes": "在 iTunes 上订阅",
@@ -136,6 +144,7 @@
   "podcast.episodes": "单集",
   "podcast.playEpisode": "播放单集",
   "podcast.website": "Podcast 网站",
+  
   // Actions
   "action.addToLibrary": "加入资料库",
   "action.addToLibrary.success": "成功加入资料库",
@@ -180,6 +189,7 @@
   "action.tray.quit": "退出",
   "action.tray.show": "显示",
   "action.update": "更新",
+  
   // Settings - Audio
   "settings.header.audio": "音频",
   "settings.header.audio.description": "调整 Cider 的音频设置",
@@ -201,6 +211,7 @@
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "使所感知到的音频响度统一",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "音频空间化", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "使所感知到的音频更有立体感 (注: 这不是杜比全景声)",
+  
   // Settings - Visual
   "settings.header.visual": "外观",
   "settings.header.visual.description": "调整 Cider 的外观",
@@ -224,9 +235,11 @@
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "显示个人资料", // Toggle
+  
   // Settings - General (Reserved)
   "settings.header.general": "通用",
   "settings.header.general.description": "调整 Cider 的通用设置",
+  
   // Settings - Lyrics
   "settings.header.lyrics": "歌词",
   "settings.header.lyrics.description": "调整 Cider 的歌词设置",
@@ -234,6 +247,7 @@
   "settings.option.lyrics.enableMusixmatchKaraoke": "启用卡拉 OK 模式（仅 Musixmatch）", // Toggle
   "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch 歌词语言偏好", // Dropdown
   "settings.option.lyrics.enableYoutubeLyrics": "播放 MV 时使用 YouTube 歌词", // Toggle
+  
   // Settings - Connectivity
   "settings.header.connectivity": "外部连接",
   "settings.header.connectivity.description": "调整Cider与外部应用的交互设置",
@@ -247,12 +261,14 @@
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "启用 LastFM 正在播放",
   "settings.option.connectivity.lastfmScrobble.removeFeatured": "从歌名里去除艺人推荐 (LastFM)",
   // Refer to term.connect for the connect button
+  
   // Settings - Experimental
   "settings.header.experimental": "实验性功能",
   "settings.header.experimental.description": "调整Cider的实验性功能",
   "settings.option.experimental.compactUI": "紧凑型 UI", // Toggle
   "settings.option.experimental.close_button_hide": "点击关闭按钮时仅隐藏窗口",
   "settings.option.experimental.updateCider": "更新 Cider", // Button
+  
   // Refer to term.disabled & term.enabled
   // Spatialization Menu
   "spatial.spatialProperties": "空间属性",
@@ -273,11 +289,14 @@
   "spatial.down": "下",
   "spatial.listener": "您",
   "spatial.audioSource": "音源",
+  
   // Settings - Unfinished
   "settings.header.unfinished": "未完成",
+  
   // Web Remote
   "remote.web.title": "Cider 远程控制",
   "remote.web.description": "扫描以下的二维码以控制 Cider",
+  
   //About
   "about.thanks": "郑重感谢 Cider Collective 以及为这个项目提供支持的贡献者。"
 }

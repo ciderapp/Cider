@@ -4,16 +4,21 @@
   "i18n.languageNameEnglish": "Spanish (Spain)", // name of language in English
   "i18n.category": "main", // main = real language, fun = fun community languages
   "i18n.authors": "@j.fl220", // Authors, if you contribute to this file feel free to add your name seperated with a space
+  
   // App info
   "app.name": "Cider",
+  
   "date.format": "${d} ${m}, ${y}",
+  
   // Dialogs
   "dialog.cancel": "Cancelar",
   "dialog.ok": "Aceptar",
+  
   // Notification
   "notification.updatingLibrarySongs": "Actualizando canciones de la biblioteca...",
   "notification.updatingLibraryAlbums": "Actualizando álbumes de la biblioteca...",
   "notification.updatingLibraryArtists": "Actualizando biblioteca de artistas...",
+  
   // Terms
   "term.appleInc": "Apple Inc.",
   "term.appleMusic": "Apple Music",
@@ -120,6 +125,7 @@
   "term.menu": "Menú",
   "term.check": "Comprobar",
   "term.aboutArtist": "Más sobre {{artistName}}", // e.g. 'About Doja Cat'
+  
   // Home
   "home.title": "Inicio",
   "home.recentlyPlayed": "Reproducciones recientes",
@@ -129,12 +135,14 @@
   "home.madeForYou": "Hecho para ti",
   "home.friendsListeningTo": "Tus amigos están escuchando",
   "home.followedArtists": "Artistas que sigues",
+  
   // Errors
   "error.appleMusicSubRequired": "Apple Music necesita una suscripción.",
   "error.connectionError": "Ha habido un problema al conectar con Apple Music.",
   "error.noResults": "Sin resultados",
   "error.noResults.description": "Intenta otra búsqueda.",
-  //Podcasts
+  
+  // Podcasts
   "podcast.followOnCider": "Seguir en Cider",
   "podcast.followedOnCider": "Siguiendo en Cider",
   "podcast.subscribeOnItunes": "Suscribirse en iTunes",
@@ -143,6 +151,7 @@
   "podcast.episodes": "Episodios",
   "podcast.playEpisode": "Iniciar Episodio",
   "podcast.website": "Pagina del podcast",
+  
   // Actions
   "action.addToLibrary": "Añadir a la biblioteca",
   "action.addToLibrary.success": "Añadido a la biblioteca",
@@ -188,14 +197,17 @@
   "action.tray.quit": "Salir",
   "action.tray.show": "Abrir",
   "action.update": "Actualizar",
+  
   // Settings - General
   "settings.header.general": "General",
   "settings.header.general.description": "Ajustes generales de Cider.",
   "settings.option.general.language": "Idioma",
+  
   // Language optgroups
   "settings.option.general.language.main": "Idiomas",
   "settings.option.general.language.fun": "Idiomas divertidos",
   "settings.option.general.language.unsorted": "Sin clasificar",
+  
   // Settings - Audio
   "settings.header.audio": "Audio",
   "settings.header.audio.description": "Ajustes del audio de Cider.",
@@ -210,6 +222,7 @@
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normaliza los picos altos de canciones para hacer la experiencia de escucha mejor.",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Espacialización del audio", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Espacializa más el audio y conviértelo más 3-dimensional (nota: Esto no es Dolby Atmos)",
+  
   // Settings - Visual
   "settings.header.visual": "Visual",
   "settings.header.visual.description": "Ajustes visuales para Cider.",
@@ -234,6 +247,7 @@
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "Mostrar información personal", // Toggle
+  
   // Settings - Lyrics
   "settings.header.lyrics": "Letras",
   "settings.header.lyrics.description": "Ajuste las letras para Cider",
@@ -241,6 +255,7 @@
   "settings.option.lyrics.enableMusixmatchKaraoke": "Habilita el modo Karaoke (solo con Musixmatch)", // Toggle
   "settings.option.lyrics.musixmatchPreferredLanguage": "Idioma de traducción por defecto en Musixmatch", // Dropdown
   "settings.option.lyrics.enableYoutubeLyrics": "Habilitar las letras de Youtube para los videos con música", // Toggle
+  
   // Settings - Connectivity
   "settings.header.connectivity": "Conectividad",
   "settings.header.connectivity.description": "Ajusta la conectividad para Cider.",
@@ -256,12 +271,14 @@
   "settings.option.connectivity.lastfmScrobble.removeFeatured": "Eliminar artistas destacados del título de la canción (Last.fm)",
   "settings.option.connectivity.lastfmScrobble.filterLoop": "Filtrar pista en bucle (Last.fm)",
   // Refer to term.connect for the connect button
+  
   // Settings - Experimental
   "settings.header.experimental": "En pruebas",
   "settings.header.experimental.description": "Ajustes en pruebas para Cider.",
   "settings.option.experimental.compactUI": "Interfaz de usuario compacto", // Toggle
   "settings.option.experimental.close_button_hide": "El botón de cerrar minimizará la aplicación en la bandeja",
   "settings.option.experimental.updateCider": "Actualizar Cider", // Button
+  
   // Refer to term.disabled & term.enabled
   // Spatialization Menu
   "spatial.notTurnedOn": "La espacialización del audio esta desactivada. Para usarlo primero actívelo.",
@@ -283,12 +300,15 @@
   "spatial.down": "Abajo",
   "spatial.listener": "Oyente",
   "spatial.audioSource": "Salida del audio",
+  
   // Settings - Unfinished
   "settings.header.unfinished": "Sin acabar",
   "settings.header.unfinished.description": "Ajustes siendo testeados, no están acabados.",
+  
   // Web Remote
   "remote.web.title": "Cider Remoto",
   "remote.web.description": "Escanee el código QR para emparejar su teléfono con su cliente de Cider",
+  
   // About
   "about.thanks": "Muchísimas gracias al equipo de Cider Collective y también a todos nuestros contribuidores."
 }
