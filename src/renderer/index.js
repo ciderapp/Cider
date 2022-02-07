@@ -3337,33 +3337,32 @@ const app = new Vue({
                             app.promptAddToPlaylist()
                         }
                     },
-                        {
-                            "icon": "./assets/feather/plus.svg",
-                            "id": "addToLibrary",
-                            "name": app.getLz('action.addToLibrary') + " ...",
-                            "disabled": false,
-                            "action": function () {
-                                app.addToLibrary(app.mk.nowPlayingItem.id);
-                            }
-                        },
-                        {
-                            "icon": "./assets/feather/radio.svg",
-                            "name": app.getLz('action.startRadio'),
-                            "action": function () {
-                                app.mk.setStationQueue({song: app.mk.nowPlayingItem.id}).then(() => {
-                                    app.mk.play()
-                                    app.selectedMediaItems = []
-                                })
-                            }
-                        },
-                        {
-                            "icon": "./assets/feather/share.svg",
-                            "name": app.getLz('action.share'),
-                            "action": function () {
-                                app.mkapi(app.mk.nowPlayingItem.attributes?.playParams?.kind ?? app.mk.nowPlayingItem.type ?? 'songs', false, app.mk.nowPlayingItem._songId ?? app.mk.nowPlayingItem.id ?? '').then(u => {
-                                    app.copyToClipboard((u.data.data.length && u.data.data.length > 0) ? u.data.data[0].attributes.url : u.data.data.attributes.url)
-                                })
-                            }
+                    {
+                        "icon": "./assets/feather/plus.svg",
+                        "id": "addToLibrary",
+                        "name": app.getLz('action.addToLibrary') + " ...",
+                        "disabled": false,
+                        "action": function () {
+                            app.addToLibrary(app.mk.nowPlayingItem.id);
+                        }
+                    },
+                    {
+                        "icon": "./assets/feather/radio.svg",
+                        "name": app.getLz('action.startRadio'),
+                        "action": function () {
+                            app.mk.setStationQueue({song: app.mk.nowPlayingItem.id}).then(() => {
+                                app.mk.play()
+                                app.selectedMediaItems = []
+                            })
+                        }
+                    },
+                    {
+                        "icon": "./assets/feather/share.svg",
+                        "name": app.getLz('action.share'),
+                        "action": function () {
+                            app.mkapi(app.mk.nowPlayingItem.attributes?.playParams?.kind ?? app.mk.nowPlayingItem.type ?? 'songs', false, app.mk.nowPlayingItem._songId ?? app.mk.nowPlayingItem.id ?? '').then(u => {
+                                app.copyToClipboard((u.data.data.length && u.data.data.length > 0) ? u.data.data[0].attributes.url : u.data.data.attributes.url)
+                            })
                         }
                     }
                     ]
