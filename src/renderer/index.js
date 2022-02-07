@@ -1242,10 +1242,24 @@ const app = new Vue({
                 return this.playerLCD.playbackDuration
             }
         },
-        convertToMins(time) {
-            let mins = Math.floor(time / 60)
-            let seconds = (Math.floor(time % 60) / 100).toFixed(2)
-            return `${mins}:${seconds.replace("0.", "")}`
+        convertTime(time) {
+            if (typeof time !== "number") {
+                time = parseInt(time)
+            }
+
+            const timeGates = {
+                600: 15,
+                3600: 14,
+                36000: 12,
+            }
+
+            for (let key in timeGates) {
+                if (time < key) {
+                    return new Date(time * 1000).toISOString().substring(timeGates[key], 19)
+                }
+            }
+
+            return new Date(time * 1000).toISOString().substring(11, 19)
         },
         hashCode(str) {
             let hash = 0,

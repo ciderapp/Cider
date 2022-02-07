@@ -80,8 +80,8 @@
                             <div class="song-duration"
                                  style="justify-content: space-between; height: 1px;"
                                  :style="[chrome.progresshover ? {'display': 'flex'} : {'display' : 'none'} ]">
-                                <p style="width: auto">{{ convertToMins(getSongProgress()) }}</p>
-                                <p style="width: auto">{{ convertToMins(mk.currentPlaybackDuration) }}
+                                <p style="width: auto">{{ convertTime(getSongProgress()) }}</p>
+                                <p style="width: auto">{{ convertTime(mk.currentPlaybackDuration) }}
                                 </p>
                             </div>
 
