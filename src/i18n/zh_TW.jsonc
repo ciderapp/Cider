@@ -291,7 +291,7 @@
   // Refer to term.disabled & term.enabled
   
   // Spatialization Menu
-  "spatial.notTurnedOn": "空間音訊目前是關閉狀態， 請先啟用再使用。",
+  "spatial.notTurnedOn": "空間音訊目前是關閉狀態，請先啟用再使用。",
   "spatial.spatialProperties" : "空間音訊屬性設定",
   "spatial.width" : "寬度",
   "spatial.height" : "高度",
