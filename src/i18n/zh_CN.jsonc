@@ -203,7 +203,7 @@
   "settings.header.audio.quality.lossless.description": "(最高 24 位/48 kHz)",
   "settings.header.audio.quality.enhanced": "数字增强",
   "settings.header.audio.quality.high": "高音质",
-  "settings.header.audio.quality.low": "高效率",
+  "settings.header.audio.quality.standard": "高效率",
   "settings.header.audio.quality.auto": "自动",
   "settings.option.audio.seamlessTransition": "无缝播放", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "进阶功能", // Toggle
