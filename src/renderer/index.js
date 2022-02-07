@@ -1,78 +1,5 @@
 Vue.use(VueObserveVisibility);
 var notyf = new Notyf();
-// This is going to suck to code
-var CiderContextMenu = {
-    Menu: function (event) {
-        this.items = []
-    },
-    async Create(event, menudata) {
-        var menuBackground = document.createElement("div");
-        var menu = document.createElement("div");
-        menu.classList.add("context-menu-body");
-        menu.classList.add("context-menu-open");
-        menuBackground.classList.add("context-menu");
-        menu.style.left = 0 + "px";
-        menu.style.top = 0 + "px";
-        menu.style.position = "absolute";
-        menu.style.zIndex = "99909";
-        menu.addEventListener("animationend", function () {
-            menu.classList.remove("context-menu-open");
-        }, {once: true});
-
-        function close() {
-            menuBackground.style.pointerEvents = "none";
-            menu.classList.add("context-menu-close");
-            menu.addEventListener("animationend", function () {
-                menuBackground.remove();
-                menu.remove();
-            }, {once: true});
-        }
-
-        // when menubackground is clicked, remove it
-        menuBackground.addEventListener("click", close);
-        menuBackground.addEventListener("contextmenu", close);
-
-        // add menu to menuBackground
-        menuBackground.appendChild(menu);
-
-        document.body.appendChild(menuBackground);
-
-        if (typeof menudata.items == "object") {
-            menudata.items = Object.values(menudata.items);
-        }
-
-        console.log(menudata);
-
-        // for each item in menudata create a menu item
-        for (var i = 0; i < menudata.items.length; i++) {
-            let item = document.createElement("button")
-
-            if (menudata.items[i]["disabled"] === true) {
-                continue
-            }
-            item.tabIndex = 0
-            item.classList.add("context-menu-item")
-            if (menudata.items[i]["icon"]) {
-                item.innerHTML += `<div class="sidebar-icon">${await app.getSvgIcon(menudata.items[i]["icon"])}</div>`
-            }
-            item.innerHTML += menudata.items[i].name
-            item.onclick = menudata.items[i].action
-            menu.appendChild(item)
-        }
-        menu.style.width = (menu.offsetWidth + 10) + "px";
-        menu.style.left = event.clientX + "px";
-        menu.style.top = event.clientY + "px";
-        // if menu would be off the screen, move it into view, but preserve the width
-        if (menu.offsetLeft + menu.offsetWidth > window.innerWidth) {
-            menu.style.left = (window.innerWidth - menu.offsetWidth) + "px";
-        }
-        if (menu.offsetTop + menu.offsetHeight > window.innerHeight) {
-            menu.style.top = (window.innerHeight - menu.offsetHeight) + "px";
-        }
-
-        return menuBackground;
-    }
-}
 
 const MusicKitObjects = {
     LibraryPlaylist: function () {
@@ -1242,10 +1169,24 @@ const app = new Vue({
                 return this.playerLCD.playbackDuration
             }
         },
-        convertToMins(time) {
-            let mins = Math.floor(time / 60)
-            let seconds = (Math.floor(time % 60) / 100).toFixed(2)
-            return `${mins}:${seconds.replace("0.", "")}`
+        convertTime(time) {
+            if (typeof time !== "number") {
+                time = parseInt(time)
+            }
+
+            const timeGates = {
+                600: 15,
+                3600: 14,
+                36000: 12,
+            }
+
+            for (let key in timeGates) {
+                if (time < key) {
+                    return new Date(time * 1000).toISOString().substring(timeGates[key], 19)
+                }
+            }
+
+            return new Date(time * 1000).toISOString().substring(11, 19)
         },
         hashCode(str) {
             let hash = 0,
@@ -3073,23 +3014,6 @@ const app = new Vue({
                                 })
                                 self.$store.commit("setLCDArtwork", img)
                             })
-
-                            // Vibrant.from(this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"].replace('{w}', size).replace('{h}', size)).getPalette().then(palette=>{
-                            //     let angle = "140deg"
-                            //     let gradient = ""
-                            //     let colors = Object.values(palette).filter(color=>color!=null)
-                            //     if(colors.length > 0){
-                            //         let stops = []
-                            //         colors.forEach(color=>{
-                            //             stops.push(`${self._rgbToRgb(color._rgb)} 0%`)
-                            //         })
-                            //         stops.push(`${self._rgbToRgb(colors[0]._rgb)} 100%`)
-                            //         gradient = `linear-gradient(${angle}, ${stops.join(", ")}`
-                            //     }
-                            //
-                            //     document.querySelector("#app").style.setProperty("--bgColor", gradient)
-                            // }).setQuantizer(Vibrant.Quantizer.WebWorker)
-
                             try {
                                 clearInterval(bginterval);
                             } catch (err) {
@@ -3114,47 +3038,6 @@ const app = new Vue({
                 }
             }, 200)
         },
-
-        // getNowPlayingArtwork(size = 600) {
-        //     if (typeof this.mk.nowPlayingItem === "undefined") return;
-        //     let interval = setInterval(() => {
-
-        //         try {
-        //             if (this.mk.nowPlayingItem && this.mk.nowPlayingItem["id"] != this.currentTrackIDBG && document.querySelector('.app-playback-controls .artwork')) {
-        //                 this.currentTrackIDBG = this.mk.nowPlayingItem["id"];
-        //                 if (document.querySelector('.app-playback-controls .artwork') != null) {
-        //                     clearInterval(interval);
-        //                 }
-        //                 if (app.mk.nowPlayingItem.attributes.artwork != null && app.mk.nowPlayingItem.attributes.artwork.url != null && app.mk.nowPlayingItem.attributes.artwork.url!= '' ) {
-        //                     document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${decodeURI((this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"])).replace('{w}', size).replace('{h}', size)}")`);
-        //                     try {
-        //                         clearInterval(interval);
-        //                     } catch (err) {
-        //                     }
-        //                 } else {
-        //                     this.setLibraryArt()
-        //                 }
-        //             } else if (this.mk.nowPlayingItem["id"] == this.currentTrackID) {
-        //                 try {
-        //                     clearInterval(interval);
-        //                 } catch (err) {
-        //                 }
-        //             }
-        //         } catch (e) {
-        //             if (this.mk.nowPlayingItem && this.mk.nowPlayingItem["id"] && document.querySelector('.app-playback-controls .artwork')) {
-        //                 this.setLibraryArt()
-        //                 try {
-        //                     clearInterval(interval);
-        //                 } catch (err) {
-        //                 }
-
-        //             }
-
-        //         }
-        //     }, 200)
-
-
-        // },
         async getCurrentArtURL() {
             try {
                 this.currentArtUrl = '';
@@ -3169,11 +3052,6 @@ const app = new Vue({
                     data = data.data.data[0];
                     if (data != null && data !== "" && data.attributes != null && data.attributes.artwork != null) {
                         this.currentArtUrl = (data["attributes"]["artwork"]["url"] ?? '').replace('{w}', 50).replace('{h}', 50);
-                        // if (this.currentArtUrl != ""){
-                        //     let attr = MusicKitInterop.getAttributes();
-                        //     attr.artwork.url = this.currentArtUrl;
-                        //     ipcRenderer.send('forceUpdateRPC',attr)
-                        // }              
                         try {
                             document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
                         } catch (e) {
@@ -3398,18 +3276,11 @@ const app = new Vue({
             }
         },
         async nowPlayingContextMenu(event) {
-            // function revisedRandId() {
-            //     return Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10);
-            // }
             let self = this
             let data_type = this.mk.nowPlayingItem.playParams.kind
             let item_id = this.mk.nowPlayingItem.attributes.playParams.id ?? this.mk.nowPlayingItem.id
             let isLibrary = this.mk.nowPlayingItem.attributes.playParams.isLibrary ?? false
             let params = {"fields[songs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library", "t": "1"}
-            // let res = await app.mkapi(data_type, isLibrary , item_id, params);
-            // if (res && res.relationships && res.relationships.library && res.relationships.library.data && res.relationships.library.data.length > 0) {
-            //     item_id = res.relationships.library.data[0].id
-            // }
             app.selectedMediaItems = []
             app.select_selectMediaItem(item_id, data_type, 0, '12344', isLibrary)
             let useMenu = "normal"
@@ -3466,54 +3337,43 @@ const app = new Vue({
                             app.promptAddToPlaylist()
                         }
                     },
-                    {
-                        "icon": "./assets/feather/plus.svg",
-                        "id": "addToLibrary",
-                        "name": app.getLz('action.addToLibrary') + " ...",
-                        "disabled": false,
-                        "action": function () {
-                            app.addToLibrary(app.mk.nowPlayingItem.id);
-                            //   if (!isLibrary)  {app.addToLibrary(item_id); this.mk.nowPlayingItem.attributes.playParams["isLibrary"] = true} else { app.removeFromLibrary(data_type,item_id); this.mk.nowPlayingItem.attributes.playParams["isLibrary"] = false};
-                        }
-                    },
-                    {
-                        "icon": "./assets/feather/radio.svg",
-                        "name": app.getLz('action.startRadio'),
-                        "action": function () {
-                            app.mk.setStationQueue({song: app.mk.nowPlayingItem.id}).then(() => {
-                                app.mk.play()
-                                app.selectedMediaItems = []
-                            })
-                        }
-                    },
-                    {
-                        "icon": "./assets/feather/share.svg",
-                        "name": app.getLz('action.share'),
-                        "action": function () {
-                            app.mkapi(app.mk.nowPlayingItem.attributes?.playParams?.kind ?? app.mk.nowPlayingItem.type ?? 'songs', false, app.mk.nowPlayingItem._songId ?? app.mk.nowPlayingItem.id ?? '').then(u => {
-                                app.copyToClipboard((u.data.data.length && u.data.data.length > 0) ? u.data.data[0].attributes.url : u.data.data.attributes.url)
-                            })
+                        {
+                            "icon": "./assets/feather/plus.svg",
+                            "id": "addToLibrary",
+                            "name": app.getLz('action.addToLibrary') + " ...",
+                            "disabled": false,
+                            "action": function () {
+                                app.addToLibrary(app.mk.nowPlayingItem.id);
+                            }
+                        },
+                        {
+                            "icon": "./assets/feather/radio.svg",
+                            "name": app.getLz('action.startRadio'),
+                            "action": function () {
+                                app.mk.setStationQueue({song: app.mk.nowPlayingItem.id}).then(() => {
+                                    app.mk.play()
+                                    app.selectedMediaItems = []
+                                })
+                            }
+                        },
+                        {
+                            "icon": "./assets/feather/share.svg",
+                            "name": app.getLz('action.share'),
+                            "action": function () {
+                                app.mkapi(app.mk.nowPlayingItem.attributes?.playParams?.kind ?? app.mk.nowPlayingItem.type ?? 'songs', false, app.mk.nowPlayingItem._songId ?? app.mk.nowPlayingItem.id ?? '').then(u => {
+                                    app.copyToClipboard((u.data.data.length && u.data.data.length > 0) ? u.data.data[0].attributes.url : u.data.data.attributes.url)
+                                })
+                            }
                         }
                     }
                     ]
                 }
             }
             if (this.contextExt) {
-                // if this.context-ext.normal is true append all options to the 'normal' menu which is a kvp of arrays
                 if (this.contextExt.normal) {
                     menus.normal.items = menus.normal.items.concat(this.contextExt.normal)
                 }
             }
-
-            // isLibrary = await app.inLibrary([this.mk.nowPlayingItem])
-            // console.warn(isLibrary)
-            // if(isLibrary.length != 0) {
-            //     if (isLibrary[0].attributes.inLibrary) {
-            //         menus.normal.items.find(x => x.id == "addToLibrary").disabled = true
-            //     }
-            // }else{
-            //     menus.normal.items.find(x => x.id == "addToLibrary").disabled = true
-            // }
             this.showMenuPanel(menus[useMenu], event)
 
             try {

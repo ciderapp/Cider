@@ -44,8 +44,8 @@
                         <div class="song-progress">
                             <div class="song-duration" style="justify-content: space-between; height: 1px; margin-bottom: 1px;"
                                  :style="[app.chrome.progresshover ? {'display': 'flex'} : {'display' : 'none'} ]">
-                                <p style="width: auto">{{ app.convertToMins(app.getSongProgress()) }}</p>
-                                <p style="width: auto">{{ app.convertToMins(app.mk.currentPlaybackDuration) }}</p>
+                                <p style="width: auto">{{ app.convertTime(app.getSongProgress()) }}</p>
+                                <p style="width: auto">{{ app.convertTime(app.mk.currentPlaybackDuration) }}</p>
                             </div>
 
                             <input type="range" step="0.01" min="0" :style="app.progressBarStyle()"
