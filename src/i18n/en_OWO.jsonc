@@ -230,7 +230,7 @@
   "settings.option.audio.enableAdvancedFunctionality.description": "Enabwing AudiowoContext functionawity wiww awwow fow extended audiowo featuwes wike Audiowo Nowmawization, Equalizews and Visuawizews, howevew on some systems dis may cause stuttewing in audiowo twacks.",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cidew Adwenawine Pwocessow™️", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Psychoacouwstic enhancements that makes evewything souwnd both wichew and mowe wivewy. | Designed by Maikiwi",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "CAP stwength", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "CAP Stwength", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Changes the stwength of the pwocessing done to the auwdio. (Aggwessive may yiewd uwndesiwabwe wesuwwts)",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "Standawd",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive": "Aggwessive",
@@ -290,6 +290,10 @@
   "settings.option.experimental.compactUI": "Wittwe UI", // Toggle
   "settings.option.experimental.close_button_hide": "Cwose Button Shouwd Hide the Appwication",
   "settings.option.experimental.updateCider": "Update Cidew", // Button
+  "settings.option.experimental.updateCider.branch": "Cidew Update Bwanch", // Dropdown
+  "settings.option.experimental.updateCider.branch.description": "Sewect the bwanch to uwpdate Cidew to",
+  "settings.option.experimental.updateCider.branch.main": "Stabwe",
+  "settings.option.experimental.updateCider.branch.develop": "Devewopment",
   // Refer to term.disabled & term.enabled
   // Spatialization Menu
   "spatial.notTurnedOn": "Audiowo Spatiawization is disabwed. To use, pwease enabwe it fiwst.",
@@ -314,7 +318,7 @@
   // Settings - Unfinished
   "settings.header.unfinished": "Unfinished",
   // Web Remote
-  "remote.web.title": "Cider Wiimote",
+  "remote.web.title": "Cidew Wiimote",
   "remote.web.description": "Scan da QR code to paiw chur phone up with dis Cidew instance",
   // About
   "about.thanks": "Majow tanks to da Cidew Cowwective Team and aww of ouw contwibutows."
