@@ -574,7 +574,6 @@ export class BrowserWindow {
             let latestbranchjson = await latestbranch.json()
             let base_url = latestbranchjson[0].url
             base_url = base_url.substr(0, base_url.lastIndexOf('/'))
-            console.log('BaseURL - ', base_url)
 
             const options: any = {
                 provider: 'generic',
