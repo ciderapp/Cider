@@ -564,6 +564,7 @@ export class BrowserWindow {
         });
 
         ipcMain.on('check-for-update', async (_event) => {
+            console.log('Checking for updates')
             const branch = utils.getStoreValue('general.update_branch')
             let latestbranch = await fetch(`https://circleci.com/api/v1.1/project/gh/ciderapp/Cider/latest/artifacts?branch=${branch}&filter=successful`)
             if (latestbranch.status != 200) {
