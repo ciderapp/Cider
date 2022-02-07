@@ -268,13 +268,15 @@
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "Enable LastFM Now Playing",
   "settings.option.connectivity.lastfmScrobble.removeFeatured": "Remove featuring artists from song title (LastFM)",
   // Refer to term.connect for the connect button
+
+  // Settings - General - Update Cider
+  "settings.option.general.updateCider": "Cider 更新", // Button
   
   // Settings - Experimental
   "settings.header.experimental": "試験的な機能",
   "settings.header.experimental.description": "開発中の実験的な機能は不完全で不安定である可能性があります",
   "settings.option.experimental.compactUI": "コンパクトインターフェース", // Toggle
   "settings.option.experimental.close_button_hide": "「閉じる」ボタンでアプリを隠します", // Dropdown
-  "settings.option.experimental.updateCider": "Cider 更新", // Button
   
   // Refer to term.disabled & term.enabled
   // Spatialization Menu

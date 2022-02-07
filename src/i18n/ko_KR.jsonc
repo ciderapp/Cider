@@ -227,6 +227,9 @@
   "settings.option.general.language.main": "언어",
   "settings.option.general.language.fun": "재미를 위한 언어",
   "settings.option.general.language.unsorted": "미분류",
+
+  // Update Cider
+  "settings.option.general.updateCider": "Cider 업데이트", // Button
   
   // Settings - Audio
   "settings.header.audio": "오디오",
@@ -304,7 +307,6 @@
   "settings.option.experimental.close_button_hide": "닫기 버튼이 애플리케이션을 가릴 것입니다",
   "settings.option.experimental.copy_log": "로그를 클립보드에 복사하기",
   "settings.option.experimental.inline_playlists": "인라인 플레이리스트 및 앨범",
-  "settings.option.experimental.updateCider": "Cider 업데이트", // Button
   
   // Refer to term.disabled & term.enabled
   // Spatialization Menu

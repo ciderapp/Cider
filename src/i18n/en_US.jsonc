@@ -227,6 +227,13 @@
   "settings.option.general.language.main": "Languages",
   "settings.option.general.language.fun": "Fun Languages",
   "settings.option.general.language.unsorted": "Unsorted",
+
+  // Update Cider
+  "settings.option.general.updateCider": "Update Cider", // Button. Refer to term.check for the check button
+  "settings.option.general.updateCider.branch": "Cider Update Branch", // Dropdown
+  "settings.option.general.updateCider.branch.description": "Select the branch to update Cider to",
+  "settings.option.general.updateCider.branch.main": "Stable",
+  "settings.option.general.updateCider.branch.develop": "Development",
   
   // Settings - Audio
   "settings.header.audio": "Audio",
@@ -315,11 +322,6 @@
   "settings.option.experimental.close_button_hide": "Close Button Should Hide the Application",
   "settings.option.experimental.copy_log": "Copy logs to clipboard",
   "settings.option.experimental.inline_playlists": "Inline Playlists and Albums",
-  "settings.option.experimental.updateCider": "Update Cider", // Button. Refer to term.check for the check button
-  "settings.option.experimental.updateCider.branch": "Cider Update Branch", // Dropdown
-  "settings.option.experimental.updateCider.branch.description": "Select the branch to update Cider to",
-  "settings.option.experimental.updateCider.branch.main": "Stable",
-  "settings.option.experimental.updateCider.branch.develop": "Development",
   
   // Refer to term.disabled & term.enabled
   // Spatialization Menu

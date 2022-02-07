@@ -207,6 +207,9 @@
   "settings.option.general.language.main": "Språk",
   "settings.option.general.language.fun": "Roliga språk",
   "settings.option.general.language.unsorted": "Osorterade",
+
+  // Update Cider
+  "settings.option.general.updateCider": "Uppdatera Cider", // Button
   
   // Settings - Audio
   "settings.header.audio": "Ljud",
@@ -277,7 +280,6 @@
   "settings.header.experimental.description": "Ändra Ciders experimentella inställningar.",
   "settings.option.experimental.compactUI": "Kompakt gränssnitt", // Toggle
   "settings.option.experimental.close_button_hide": "Stängknappen gömmer Cider istället",
-  "settings.option.experimental.updateCider": "Uppdatera Cider", // Button
   
   // Refer to term.disabled & term.enabled
   // Spatialization Menu

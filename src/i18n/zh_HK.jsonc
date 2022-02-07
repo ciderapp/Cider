@@ -227,6 +227,9 @@
   "settings.option.general.language.main": "語言",
   "settings.option.general.language.fun": "惡搞語言",
   "settings.option.general.language.unsorted": "未分類",
+
+  // Update Cider
+  "settings.option.general.updateCider": "更新 Cider", // Button
   
   // Settings - Audio
   "settings.header.audio": "音訊",
@@ -310,7 +313,6 @@
   "settings.option.experimental.close_button_hide": "以關閉按鈕來隱藏 Cider",
   "settings.option.experimental.copy_log": "複製運行記錄檔至剪貼簿",
   //"settings.option.experimental.inline_playlists": "Inline Playlists and Albums",
-  "settings.option.experimental.updateCider": "更新 Cider", // Button
   
   // Refer to term.disabled & term.enabled
   // Spatialization Menu

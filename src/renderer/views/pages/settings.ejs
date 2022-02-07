@@ -655,7 +655,7 @@
                 </div>
                 <div class="md-option-line">
                     <div class="md-option-segment">
-                        {{$root.getLz('settings.option.experimental.updateCider')}} 
+                        {{$root.getLz('settings.option.general.updateCider')}} 
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
                         <button class="md-btn" onclick="app.checkForUpdate()">
@@ -665,16 +665,16 @@
                 </div>
                 <div class="md-option-line">
                     <div class="md-option-segment">
-                        {{$root.getLz('settings.option.experimental.updateCider.branch')}}<br>
-                        <small>({{$root.getLz('settings.option.experimental.updateCider.branch.description')}})</small>
+                        {{$root.getLz('settings.option.general.updateCider.branch')}}<br>
+                        <small>({{$root.getLz('settings.option.general.updateCider.branch.description')}})</small>
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
                         <select class="md-select" style="width:180px;" v-model="app.cfg.general.update_branch">
                             <option value="main">
-                                {{$root.getLz('settings.option.experimental.updateCider.branch.main')}}
+                                {{$root.getLz('settings.option.general.updateCider.branch.main')}}
                             </option>
                             <option value="develop">
-                                {{$root.getLz('settings.option.experimental.updateCider.branch.develop')}}
+                                {{$root.getLz('settings.option.general.updateCider.branch.develop')}}
                             </option>
                         </select>
                     </div>

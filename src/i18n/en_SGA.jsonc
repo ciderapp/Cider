@@ -127,7 +127,6 @@
   "term.menu": "ᒲᒷ⚍リ",
   "term.check": "ᔮ⍑ᒷᔮ·ǀ·",
   "term.aboutArtist": "ᖋᕊᒍ⚍ᒣ {{artistName}}", // e.g. 'About Doja Cat'
-  "settings.option.experimental.updateCider": "⚍i!↸ᖋᒣᒷ ᔮ╎↸ᒷ∷",
   "term.topResult": "ᒣᒍi! ∷ᒷϟ⚍|:ᒣ", // Search Results
   "term.sharedPlaylists": "ϟ⍑ᖋ∷ᒷ↸ i!|:ᖋ॥|:╎ϟᒣϟ", // Search Results
   "term.people": "i!ᒷᒍi!|:ᒷ", // Search Results
@@ -228,6 +227,9 @@
   "settings.option.general.language.main": "|:ᖋリ┤⚍ᖋ┤ᒷϟ",
   "settings.option.general.language.fun": "⎓⚍リ |:ᖋリ┤⚍ᖋ┤ᒷϟ",
   "settings.option.general.language.unsorted": "⚍リϟᒍ∷ᒣᒷ↸",
+
+  // Update Cider
+  "settings.option.general.updateCider": "⚍i!↸ᖋᒣᒷ ᔮ╎↸ᒷ∷",
 
   // Settings - Audio
   "settings.header.audio": "ᖋ⚍↸╎ᒍ",

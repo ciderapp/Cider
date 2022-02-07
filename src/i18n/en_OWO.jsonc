@@ -225,6 +225,13 @@
   "settings.option.general.language.main": "Wanguages",
   "settings.option.general.language.fun": "Fun Wanguages",
   "settings.option.general.language.unsorted": "Unsowted",
+
+  // Update Cider
+  "settings.option.general.updateCider": "Update Cidew", // Button
+  "settings.option.general.updateCider.branch": "Cidew Update Bwanch", // Dropdown
+  "settings.option.general.updateCider.branch.description": "Sewect the bwanch to uwpdate Cidew to",
+  "settings.option.general.updateCider.branch.main": "Stabwe",
+  "settings.option.general.updateCider.branch.develop": "Devewopment",
   
   // Settings - Audio
   "settings.header.audio": "Audiowo",
@@ -305,11 +312,6 @@
   "settings.header.experimental.description": "Adjust the expewimentaw settings fow Cidew.",
   "settings.option.experimental.compactUI": "Wittwe UI", // Toggle
   "settings.option.experimental.close_button_hide": "Cwose Button Shouwd Hide the Appwication",
-  "settings.option.experimental.updateCider": "Update Cidew", // Button
-  "settings.option.experimental.updateCider.branch": "Cidew Update Bwanch", // Dropdown
-  "settings.option.experimental.updateCider.branch.description": "Sewect the bwanch to uwpdate Cidew to",
-  "settings.option.experimental.updateCider.branch.main": "Stabwe",
-  "settings.option.experimental.updateCider.branch.develop": "Devewopment",
   
   // Refer to term.disabled & term.enabled
   // Spatialization Menu

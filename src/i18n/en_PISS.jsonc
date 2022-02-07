@@ -228,6 +228,9 @@
   "settings.option.general.language.fun": "piss languages",
   "settings.option.general.language.unsorted": "???? who put this here",
 
+  // Update Cider 
+  "settings.option.general.updateCider": "piss on cider", // Button
+
   // Settings - Audio
   "settings.header.audio": "piss sounds",
   "settings.header.audio.description": "change how your piss sounds",
@@ -311,7 +314,6 @@
   "settings.option.experimental.close_button_hide": "play hide-and-seek when clicking close button",
   "settings.option.experimental.copy_log": "copy sewage to pissboard",
   "settings.option.experimental.inline_playlists": "inpiss pisslists and piss collections",
-  "settings.option.experimental.updateCider": "piss on cider", // Button
 
   // Refer to term.disabled & term.enabled
   // Spatialization Menu

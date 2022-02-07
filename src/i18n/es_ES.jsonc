@@ -207,6 +207,9 @@
   "settings.option.general.language.main": "Idiomas",
   "settings.option.general.language.fun": "Idiomas divertidos",
   "settings.option.general.language.unsorted": "Sin clasificar",
+
+  // Update Cider
+  "settings.option.general.updateCider": "Actualizar Cider", // Button
   
   // Settings - Audio
   "settings.header.audio": "Audio",
@@ -277,7 +280,6 @@
   "settings.header.experimental.description": "Ajustes en pruebas para Cider.",
   "settings.option.experimental.compactUI": "Interfaz de usuario compacto", // Toggle
   "settings.option.experimental.close_button_hide": "El botón de cerrar minimizará la aplicación en la bandeja",
-  "settings.option.experimental.updateCider": "Actualizar Cider", // Button
   
   // Refer to term.disabled & term.enabled
   // Spatialization Menu
