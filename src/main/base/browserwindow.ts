@@ -531,18 +531,18 @@ export class BrowserWindow {
 				    MusicKit.getInstance().play();
 			    });
 		    `)
-        })
+        });
 
         //QR Code
         ipcMain.handle('showQR', async (_event, _) => {
             let url = `http://${BrowserWindow.getIP()}:${this.remotePort}`;
             shell.openExternal(`https://cider.sh/pair-remote?url=${Buffer.from(encodeURI(url)).toString('base64')}`).catch(console.error);
-        })
+        });
 
         ipcMain.on('get-remote-pair-url', (_event, _) => {
             let url = `http://${BrowserWindow.getIP()}:${this.remotePort}`;
             BrowserWindow.win.webContents.send('send-remote-pair-url', url);
-        })
+        });
         if (process.platform === "darwin") {
             app.setUserActivity('com.CiderCollective.remote.pair', {
                 ip: `${BrowserWindow.getIP()}`
