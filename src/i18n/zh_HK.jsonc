@@ -1,20 +1,15 @@
 {
-
   // i18n Info
-  "i18n.languageName": "繁體中文（香港）",        // name of language in native language
+  "i18n.languageName": "繁體中文（香港）", // name of language in native language
   "i18n.languageNameEnglish": "Trad. Chinese (Hong Kong)", // name of language in English
   "i18n.category": "main", // main = real language, fun = fun community languages
   "i18n.authors": "@kyw504100 @maikirakiwi", // Authors, if you contribute to this file feel free to add your name seperated with a space
-
   // App info
   "app.name": "Cider",
-
-  "date.format": "${y}年${m}月${d}日", 
-
+  "date.format": "${y}年${m}月${d}日",
   // Dialogs
   "dialog.cancel": "取消",
   "dialog.ok": "確認",
-
   // Notification
   "notification.updatingLibrarySongs": "正在更新資料庫的歌曲...",
   "notification.updatingLibraryAlbums": "正在更新資料庫的專輯...",
@@ -93,10 +88,10 @@
   "term.less": "較少",
   "term.showMore": "顯示更多",
   "term.showLess": "顯示較少",
-  "term.topSongs" : "熱門歌曲",
+  "term.topSongs": "熱門歌曲",
   "term.latestReleases": "最新發行",
   "term.time.added": "加入於",
-  "term.time.released": "發行於", 
+  "term.time.released": "發行於",
   "term.time.updated": "更新於",
   "term.time.hours": "小時",
   "term.time.hour": "小時",
@@ -123,12 +118,11 @@
   "term.equalizer": "均衡器",
   "term.reset": "重設",
   "term.tracks": "首歌曲", // Assume x amount of tracks. e.g. 50 tracks 
-  "term.videos": "影片", 
-  "term.menu": "選項", 
+  "term.videos": "影片",
+  "term.menu": "選項",
   "term.check": "檢查",
   "term.aboutArtist": "關於 {{artistName}}", // e.g. 'About Doja Cat'
-  "term.updateCider": "更新 Cider",
-  "term.topResult": "熱門搜尋結果",   // Search Results
+  "term.topResult": "熱門搜尋結果", // Search Results
   "term.sharedPlaylists": "播放列表", // Search Results
   "term.people": "個人檔案", // Search Results
   "term.newpreset.name": "新均衡器範本名稱", // Equalizer Preset
@@ -137,13 +131,12 @@
   "term.deletedpreset": "已刪除",
   "term.musicVideos": "MV", // Search page friendlyTypes
   "term.stations": "電台",
-    //"term.curators": "Curators",
-    //"term.appleCurators": "Apple Curators",
+  //"term.curators": "Curators",
+  //"term.appleCurators": "Apple Curators",
   "term.radioShows": "廣播單集",
   "term.recordLabels": "唱片公司",
   "term.videoExtras": "影片特輯",
-    //"term.top": "Top",
-
+  //"term.top": "Top",
   // Home
   "home.title": "主頁",
   "home.recentlyPlayed": "最近播放",
@@ -158,7 +151,6 @@
   "error.connectionError": "無法連接到 Apple Music。",
   "error.noResults": "沒有結果",
   "error.noResults.description": "請嘗試新的搜尋內容。",
-
   //Podcasts
   "podcast.followOnCider": "在Cider上追蹤",
   "podcast.followedOnCider": "已在Cider上追蹤",
@@ -168,7 +160,6 @@
   "podcast.episodes": "單集",
   "podcast.playEpisode": "播放單集",
   "podcast.website": "Podcast 網頁",
-
   // Actions
   "action.addToLibrary": "加入資料庫",
   "action.addToLibrary.success": "成功加入資料庫",
@@ -215,19 +206,16 @@
   "action.tray.show": "顯示",
   "action.update": "更新",
   "action.copy": "複製",
-  "action.newpreset": "新增範本",  //Equallizer preset
+  "action.newpreset": "新增範本", //Equallizer preset
   "action.deletepreset": "刪除範本",
-  
   // Settings - General
   "settings.header.general": "一般",
   "settings.header.general.description": "調整Cider的一般設定",
   "settings.option.general.language": "語言",
-  
   // Language optgroups
   "settings.option.general.language.main": "語言",
   "settings.option.general.language.fun": "惡搞語言",
   "settings.option.general.language.unsorted": "未分類",
-  
   // Settings - Audio
   "settings.header.audio": "音訊",
   "settings.header.audio.description": "調整Cider的音訊設定",
@@ -268,17 +256,14 @@
   "settings.option.visual.animatedWindowBackground": "動態窗口背景", // Toggle
   "settings.option.visual.hardwareAcceleration": "硬體加速", // Dropdown
   "settings.option.visual.hardwareAcceleration.description": "需要重啓 Cider 才能生效",
-  "settings.header.visual.hardwareAcceleration.default": "預設", 
-  "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
+  "settings.header.visual.hardwareAcceleration.default": "預設",
+  "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
   "settings.header.visual.theme": "主題",
-
   // Settings - Visual - Theme name
   "settings.option.visual.theme.default": "預設",
   "settings.option.visual.theme.dark": "午夜暗",
-
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "顯示個人檔案", // Toggle
-  
   // Settings - Lyrics
   "settings.header.lyrics": "歌詞",
   "settings.header.lyrics.description": "調整Cider的歌詞設定",
@@ -286,7 +271,6 @@
   "settings.option.lyrics.enableMusixmatchKaraoke": "啟用卡拉OK模式（僅限Musixmatch）", // Toggle
   "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch 歌詞語言偏好", // Dropdown
   "settings.option.lyrics.enableYoutubeLyrics": "播放 MV 時使用 YouTube 歌詞", // Toggle
-
   // Settings - Connectivity
   "settings.header.connectivity": "外部連結",
   "settings.header.connectivity.description": "調整Cider與外部的連結",
@@ -300,46 +284,42 @@
   "settings.option.connectivity.lastfmScrobble.delay": "Last.fm Scrobble 延遲 (%)",
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "啟用 Last.fm 正在播放",
   "settings.option.connectivity.lastfmScrobble.removeFeatured": "從歌名中移除藝人推薦 (Last.fm)",
-    //"settings.option.connectivity.lastfmScrobble.filterLoop": "Filter looped track (Last.fm)", 
+  //"settings.option.connectivity.lastfmScrobble.filterLoop": "Filter looped track (Last.fm)", 
   // Refer to term.connect for the connect button
-
   // Settings - Experimental
   "settings.header.experimental": "實驗性功能",
   "settings.header.experimental.description": "調整Cider的實驗性功能",
   "settings.option.experimental.compactUI": "緊凑型 UI", // Toggle
   "settings.option.experimental.close_button_hide": "以關閉按鈕來隱藏 Cider",
   "settings.option.experimental.copy_log": "複製運行記錄檔至剪貼簿",
-    //"settings.option.experimental.inline_playlists": "Inline Playlists and Albums",
+  //"settings.option.experimental.inline_playlists": "Inline Playlists and Albums",
+  "settings.option.experimental.updateCider": "更新 Cider", // Button
   // Refer to term.disabled & term.enabled
-  
   // Spatialization Menu
   "spatial.notTurnedOn": "請先在設定中啟用空間音訊。",
-  "spatial.spatialProperties" : "空間音訊屬性",
-  "spatial.width" : "闊度",
-  "spatial.height" : "高度",
-  "spatial.depth" : "深度",
-  "spatial.gain" : "增益",
-  "spatial.roomMaterials" : "空間材質",
-  "spatial.roomDimensions" : "空間大小",
-  "spatial.roomPositions" : "空間位置",
-  "spatial.setDimensions" : "大小設定",
-  "spatial.setPositions" : "位置設定",
-  "spatial.up" : "上方",
-  "spatial.front" : "前方",
-  "spatial.left" : "左方",
-  "spatial.right" : "右方",
-  "spatial.back" : "後方",
-  "spatial.down" : "下方",
-  "spatial.listener" : "觀眾",
-  "spatial.audioSource" : "音源",
-
+  "spatial.spatialProperties": "空間音訊屬性",
+  "spatial.width": "闊度",
+  "spatial.height": "高度",
+  "spatial.depth": "深度",
+  "spatial.gain": "增益",
+  "spatial.roomMaterials": "空間材質",
+  "spatial.roomDimensions": "空間大小",
+  "spatial.roomPositions": "空間位置",
+  "spatial.setDimensions": "大小設定",
+  "spatial.setPositions": "位置設定",
+  "spatial.up": "上方",
+  "spatial.front": "前方",
+  "spatial.left": "左方",
+  "spatial.right": "右方",
+  "spatial.back": "後方",
+  "spatial.down": "下方",
+  "spatial.listener": "觀眾",
+  "spatial.audioSource": "音源",
   // Settings - Unfinished
   "settings.header.unfinished": "未完成",
-
   // Web Remote
   "remote.web.title": "遙距控制 Cider",
   "remote.web.description": "掃描以下的二維碼以控制 Cider",
-
   //About
   "about.thanks": "感謝 Cider Collective 以及所有貢獻者所作出的貢獻。"
 }

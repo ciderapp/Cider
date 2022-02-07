@@ -1,20 +1,15 @@
 { // Base File
-
     // i18n Info
-    "i18n.languageName": "Français",        // name of language in native language
+    "i18n.languageName": "Français", // name of language in native language
     "i18n.languageNameEnglish": "French", // name of language in English
     "i18n.category": "main", // main = real language, fun = fun community languages
     "i18n.authors": "@ErwanGit", // Authors, if you contribute to this file feel free to add your name seperated with a space
-  
     // App info
     "app.name": "Cider",
-  
     "date.format": "${d} ${m} ${y}",
-    
     // Dialogs
     "dialog.cancel": "Annuler",
     "dialog.ok": "OK",
-  
     // Notification
     "notification.updatingLibrarySongs": "Mise à jour des chansons de la bibliothèque...",
     "notification.updatingLibraryAlbums": "Mise à jour des albums de la bibliothèque...",
@@ -93,10 +88,10 @@
     "term.less": "Moins",
     "term.showMore": "Afficher plus",
     "term.showLess": "Afficher moins",
-    "term.topSongs" : "Meilleurs titres",
+    "term.topSongs": "Meilleurs titres",
     "term.latestReleases": "Dernières sorties",
     "term.time.added": "Ajouté",
-    "term.time.released": "Publié", 
+    "term.time.released": "Publié",
     "term.time.updated": "Mis à jour",
     "term.time.hours": "heures",
     "term.time.hour": "heure",
@@ -123,12 +118,11 @@
     "term.equalizer": "Égaliseur",
     "term.reset": "Réinitialiser",
     "term.tracks": "musiques", // Assume x amount of tracks. e.g. 50 tracks 
-    "term.videos": "Vidéos", 
+    "term.videos": "Vidéos",
     "term.menu": "Menu",
     "term.check": "Vérifier",
     "term.aboutArtist": "À propos de {{artistName}}", // e.g. 'About Doja Cat'
-    "term.updateCider": "Mettre à jour Cider",
-    "term.topResult": "Meilleurs résultats",   // Search Results
+    "term.topResult": "Meilleurs résultats", // Search Results
     "term.sharedPlaylists": "Playlists partagées", // Search Results
     "term.people": "Personnes", // Search Results
     "term.newpreset.name": "Nouveau nom du préréglage de l'égaliseur", // Equalizer Preset
@@ -143,7 +137,6 @@
     "term.recordLabels": "Labels de disques",
     "term.videoExtras": "Vidéos bonus",
     "term.top": "Top",
-  
     // Home
     "home.title": "Accueil",
     "home.recentlyPlayed": "Joué récemment",
@@ -158,7 +151,6 @@
     "error.connectionError": "Il y a eu un problème de connexion à Apple Music.",
     "error.noResults": "Aucun résultat.",
     "error.noResults.description": "Essayez une nouvelle recherche.",
-  
     //Podcasts
     "podcast.followOnCider": "Suivre sur Cider",
     "podcast.followedOnCider": "Suivi sur Cider",
@@ -168,7 +160,6 @@
     "podcast.episodes": "Épisodes",
     "podcast.playEpisode": "Lire l'épisode",
     "podcast.website": "Site du podcast",
-  
     // Actions
     "action.addToLibrary": "Ajouter à la bibliothèque",
     "action.addToLibrary.success": "Ajouté à la bibliothèque",
@@ -215,19 +206,16 @@
     "action.tray.show": "Afficher",
     "action.update": "Mettre à jour",
     "action.copy": "Copier",
-    "action.newpreset": "Nouveau préréglage...",  // Equalizer Preset
+    "action.newpreset": "Nouveau préréglage...", // Equalizer Preset
     "action.deletepreset": "Supprimer le préréglage",
-  
     // Settings - General
     "settings.header.general": "Général",
     "settings.header.general.description": "Ajuster les paramètres généraux de Cider.",
     "settings.option.general.language": "Langue",
-  
     // Language optgroups
     "settings.option.general.language.main": "Langues",
     "settings.option.general.language.fun": "Langues amusantes",
     "settings.option.general.language.unsorted": "Non trié",
-    
     // Settings - Audio
     "settings.header.audio": "Audio",
     "settings.header.audio.description": "Ajuster les paramètres audio de Cider.",
@@ -250,7 +238,7 @@
     "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Spatialisation audio", // Toggle
     "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Spatialiser l'audio et rendre l'audio plus tridimensionnel (note: Ce n'est pas Dolby Atmos)",
     // Settings - Visual
-    "settings.header.visual": "Visuel", 
+    "settings.header.visual": "Visuel",
     "settings.header.visual.description": "Ajuster les paramètres visuels de Cider.",
     "settings.option.visual.windowBackgroundStyle": "Style d'arrière-plan de la fenêtre", // Toggle
     "settings.header.visual.windowBackgroundStyle.none": "Aucun",
@@ -269,17 +257,14 @@
     "settings.option.visual.animatedWindowBackground": "Arrière-plan de fenêtre animé", // Toggle
     "settings.option.visual.hardwareAcceleration": "Accélération matérielle", // Dropdown
     "settings.option.visual.hardwareAcceleration.description": "Nécessite un relancement",
-    "settings.header.visual.hardwareAcceleration.default": "Défaut", 
-    "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
+    "settings.header.visual.hardwareAcceleration.default": "Défaut",
+    "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
     "settings.header.visual.theme": "Thème",
-
     // Settings - Visual - Theme name
     "settings.option.visual.theme.default": "Cider",
     "settings.option.visual.theme.dark": "Sombre",
-
     // Refer to term.disabled for the disabled option
     "settings.option.visual.showPersonalInfo": "Afficher vos informations personnelles", // Toggle
-  
     // Settings - Lyrics
     "settings.header.lyrics": "Paroles",
     "settings.header.lyrics.description": "Ajuster les paramètres des paroles pour Cider.",
@@ -287,7 +272,6 @@
     "settings.option.lyrics.enableMusixmatchKaraoke": "Activer le mode karaoké (Musixmatch seulement)", // Toggle
     "settings.option.lyrics.musixmatchPreferredLanguage": "Langue préférée pour les traductions Musixmatch", // Dropdown
     "settings.option.lyrics.enableYoutubeLyrics": "Activer les paroles YouTube pour les vidéos de musique", // Toggle
-  
     // Settings - Connectivity
     "settings.header.connectivity": "Connectivité",
     "settings.header.connectivity.description": "Ajuster les paramètres de connectivité de Cider.",
@@ -298,12 +282,11 @@
     "settings.header.connectivity.discordRPC.appleMusic": "Afficher comme 'Apple Music'",
     "settings.option.connectivity.discordRPC.clearOnPause": "Désactiver le Discord Rich Presence quand la musique est en pause", // Toggle
     "settings.option.connectivity.lastfmScrobble": "Scrobble LastFM", // Option to Connect
-    "settings.option.connectivity.lastfmScrobble.delay": "Délai de Scrobble LastFM (%)", 
-    "settings.option.connectivity.lastfmScrobble.nowPlaying": "Activer la lecture en cours sur LastFM", 
-    "settings.option.connectivity.lastfmScrobble.removeFeatured": "Supprimer les artistes en vedette du titre de la chanson (LastFM)", 
-    "settings.option.connectivity.lastfmScrobble.filterLoop": "Filtrer les titres en boucle (LastFM)", 
+    "settings.option.connectivity.lastfmScrobble.delay": "Délai de Scrobble LastFM (%)",
+    "settings.option.connectivity.lastfmScrobble.nowPlaying": "Activer la lecture en cours sur LastFM",
+    "settings.option.connectivity.lastfmScrobble.removeFeatured": "Supprimer les artistes en vedette du titre de la chanson (LastFM)",
+    "settings.option.connectivity.lastfmScrobble.filterLoop": "Filtrer les titres en boucle (LastFM)",
     // Refer to term.connect for the connect button
-  
     // Settings - Experimental
     "settings.header.experimental": "Expérimental",
     "settings.header.experimental.description": "Ajuster les paramètres expérimentaux de Cider.",
@@ -311,8 +294,8 @@
     "settings.option.experimental.close_button_hide": "Le bouton de fermeture doit masquer l'application",
     "settings.option.experimental.copy_log": "Copier les logs dans le presse-papier",
     "settings.option.experimental.inline_playlists": "Playlists et albums en ligne",
+    "settings.option.experimental.updateCider": "Mettre à jour Cider", // Button
     // Refer to term.disabled & term.enabled
-  
     // Spatialization Menu
     "spatial.notTurnedOn": "La spatialisation audio est désactivée. Pour l'utiliser, vous devez d'abord l'activer.",
     "spatial.spatialProperties": "Propriétés spatiales",
@@ -333,15 +316,11 @@
     "spatial.down": "Bas",
     "spatial.listener": "Auditeur",
     "spatial.audioSource": "Source Audio",
-    
     // Settings - Unfinished
     "settings.header.unfinished": "Inachevée",
-  
     // Web Remote
     "remote.web.title": "Cider à distance",
     "remote.web.description": "Scanner le QR code pour associer votre téléphone avec cette instance Cider",
-  
     // About
     "about.thanks": "Un grand merci à l'équipe de la Cider Collective et à tous nos contributeurs."
 }
-  

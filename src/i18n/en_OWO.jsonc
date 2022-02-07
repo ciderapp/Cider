@@ -121,7 +121,6 @@
   "term.menu": "Menuwu",
   "term.check": "Check",
   "term.aboutArtist": "About {{artistName}}", // e.g. 'About Doja Cat'
-  "term.updateCider": "Update Cidew",
   "term.topResult": "Top Wesuwt", // Search Results
   "term.sharedPlaylists": "Shawed Pwaywists", // Search Results
   "term.people": "Peopwe", // Search Results
@@ -290,6 +289,7 @@
   "settings.header.experimental.description": "Adjust the expewimentaw settings fow Cidew.",
   "settings.option.experimental.compactUI": "Wittwe UI", // Toggle
   "settings.option.experimental.close_button_hide": "Cwose Button Shouwd Hide the Appwication",
+  "settings.option.experimental.updateCider": "Update Cidew", // Button
   // Refer to term.disabled & term.enabled
   // Spatialization Menu
   "spatial.notTurnedOn": "Audiowo Spatiawization is disabwed. To use, pwease enabwe it fiwst.",
