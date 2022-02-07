@@ -57,7 +57,7 @@
                                  v-if="mk.nowPlayingItem['attributes']['contentRating'] == 'explicit'"
                                  style="display: inline-block"></div>
                         </div>
-                        <div class="audio-type ppe-icon" v-if="app.cfg.advanced.ciderPPE == true"></div>
+                        <div class="audio-type ppe-icon" v-if="cfg.advanced.ciderPPE == true"></div>
                         <div class="song-artist-album">
                             <div class="song-artist-album-content"
                                  :class="[isElementOverflowing('#app-main > .app-chrome .app-chrome-item > .app-playback-controls > div >.song-artist-album > .song-artist-album-content') ? 'marquee' : '']"
