@@ -563,16 +563,16 @@ export class BrowserWindow {
                 });
         });
 
-        ipcMain.on('check-for-update', async (_event) => {
+        ipcMain.on('check-for-update', (_event) => {
             console.log('Checking for updates')
             const branch = utils.getStoreValue('general.update_branch')
-            let latestbranch = await fetch(`https://circleci.com/api/v1.1/project/gh/ciderapp/Cider/latest/artifacts?branch=${branch}&filter=successful`)
+            let latestbranch = fetch(`https://circleci.com/api/v1.1/project/gh/ciderapp/Cider/latest/artifacts?branch=${branch}&filter=successful`).then().catch()
             if (latestbranch.status != 200) {
                 console.log(`Error fetching latest artifact from the **${branch}** branch`)
                 return
             }
 
-            let latestbranchjson = await latestbranch.json()
+            let latestbranchjson = latestbranch.json().then().catch()
             console.log('Artifact - ', latestbranchjson[0].url)
 
             const options: any = {
@@ -584,8 +584,8 @@ export class BrowserWindow {
             */
             const win_autoUpdater = new NsisUpdater(options) //Windows
             const linux_autoUpdater = new AppImageUpdater(options) //Linux
-            await win_autoUpdater.checkForUpdatesAndNotify()
-            await linux_autoUpdater.checkForUpdatesAndNotify()
+            await win_autoUpdater.checkForUpdatesAndNotify().then().catch()
+            await linux_autoUpdater.checkForUpdatesAndNotify().then().catch()
         })
 
         ipcMain.on('share-menu', async (_event, url) => {
