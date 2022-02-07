@@ -563,7 +563,7 @@ export class BrowserWindow {
                 });
         });
 
-        ipcMain.on('checkupdate', async (_event) => {
+        ipcMain.on('check-for-update', async (_event) => {
             const branch = utils.getStoreValue('general.update_branch')
             let latestbranch = await fetch(`https://circleci.com/api/v1.1/project/gh/ciderapp/Cider/latest/artifacts?branch=${branch}&filter=successful`)
             if (latestbranch.status != 200) {
@@ -571,8 +571,8 @@ export class BrowserWindow {
                 return
             }
 
-            latestbranch = await latestbranch.json()
-            let base_url = latestbranch[0].url
+            let latestbranchjson = await latestbranch.json()
+            let base_url = latestbranchjson[0].url
             base_url = base_url.substr(0, base_url.lastIndexOf('/'))
             console.log('BaseURL - ', base_url)
 

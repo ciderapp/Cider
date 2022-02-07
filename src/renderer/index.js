@@ -3674,7 +3674,7 @@ const app = new Vue({
         },
         checkForUpdate() {
             console.log('Checking for updates...');
-            ipcRenderer.send('checkupdate')
+            ipcRenderer.send('check-for-update')
         },
         darwinShare(url) {
             ipcRenderer.send('share-menu', url)
