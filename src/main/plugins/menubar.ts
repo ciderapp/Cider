@@ -96,6 +96,37 @@ export default class Thumbar {
             ]
         },
         {
+            label: 'Controls',
+            submenu: [
+                {
+                    label: 'Pause / Play',
+                    accelerator: 'Space',
+                    click: () => this._win.webContents.executeJavaScript(`MusicKitInterop.playPause()`)
+                },
+                {
+                    label: 'Next',
+                    accelerator: 'CommandOrControl+Right',
+                    click: () => this._win.webContents.executeJavaScript(`MusicKitInterop.next()`)
+                },
+                {
+                    label: 'Previous',
+                    accelerator: 'CommandOrControl+Left',
+                    click: () => this._win.webContents.executeJavaScript(`MusicKitInterop.previous()`)
+                },
+                { type: 'separator' },
+                {
+                    label: 'Volume Up',
+                    accelerator: 'CommandOrControl+Up',
+                    click: () => this._win.webContents.executeJavaScript(`app.volumeUp()`)
+                },
+                {
+                    label: 'Volume Down',
+                    accelerator: 'CommandOrControl+Down',
+                    click: () => this._win.webContents.executeJavaScript(`app.volumeDown()`)
+                }
+            ]
+        },
+        {
             label: 'Account',
             submenu: [
                 {

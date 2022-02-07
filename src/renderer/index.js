@@ -3307,29 +3307,32 @@ const app = new Vue({
                 }
             })
         },
+        checkScrollDirectionIsUp(event) {
+            if (event.wheelDelta) {
+                return event.wheelDelta > 0;
+            }
+            return event.deltaY < 0;
+        },
+        volumeUp() {
+            if ((app.mk.volume + app.cfg.audio.volumeStep) > 1) {
+                app.mk.volume = 1;
+                console.log('setting to 1')
+            } else {
+                console.log('volume up')
+                app.mk.volume += app.cfg.audio.volumeStep;
+            }
+        },
+        volumeDown() {
+            if ((app.mk.volume - app.cfg.audio.volumeStep) < 0) {
+                app.mk.volume = 0;
+                console.log('settings to 0')
+            } else {
+                console.log('volume down')
+                app.mk.volume -= app.cfg.audio.volumeStep;
+            }
+        },
         volumeWheel(event) {
-            if (this.cfg.audio.maxVolume < 1.0 && this.cfg.audio.maxVolume > 0.01) {
-                this.cfg.audio.volumePrecision = 0.01
-                this.cfg.audio.volumeRoundMax = this.cfg.audio.maxVolume - 0.01
-                this.cfg.audio.volumeRoundMin = 0.01
-            }
-            if (event.deltaY < 0) {
-                if (this.mk.volume < this.cfg.audio.maxVolume) {
-                    if (this.mk.volume <= this.cfg.audio.volumeRoundMax) {
-                        this.mk.volume += this.cfg.audio.volumePrecision
-                    } else {
-                        this.mk.volume = this.cfg.audio.maxVolume
-                    }
-                }
-            } else if (event.deltaY > 0) {
-                if (this.mk.volume > 0) {
-                    if (this.mk.volume >= this.cfg.audio.volumeRoundMin) {
-                        this.mk.volume -= this.cfg.audio.volumePrecision
-                    } else {
-                        this.mk.volume = 0
-                    }
-                }
-            }
+            app.checkScrollDirectionIsUp(event) ? app.volumeUp() : app.volumeDown()
         },
         muteButtonPressed() {
             if (this.cfg.audio.muted) {
