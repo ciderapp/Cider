@@ -62,7 +62,6 @@ export class Store {
                 'frequencies': [32, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000],
                 'gain': [0,0,0,0,0,0,0,0,0,0],
                 'Q' :   [1,1,1,1,1,1,1,1,1,1],
-                'preamp' : 0,
                 'mix' : 1,
                 'vibrantBass' : 0,
                 'presets': [],

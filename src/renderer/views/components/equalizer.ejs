@@ -24,11 +24,6 @@
                         Vibrant Bass
                     </div>
                     <div class="input-container mini">
-                        <input tabindex="0" type="number" class="eq-freq" orient="vertical" min="-12" max="12" step="0.1" v-model="$root.cfg.audio.equalizer.preamp" @change="changePreamp()">
-                        <input tabindex="0" type="range" class="eq-slider mini" orient="vertical" min="-12" max="12" step="0.1" v-model="$root.cfg.audio.equalizer.preamp" @change="changePreamp()">
-                        Preamp
-                    </div>
-                    <div class="input-container mini">
                         {{$root.cfg.audio.equalizer.mix}}
                         <input tabindex="0" type="range" class="eq-slider mini" orient="vertical" min="0" max="2" step="0.1" v-model="$root.cfg.audio.equalizer.mix" @change="changeMix()">
                         Mix
@@ -128,7 +123,6 @@
                     this.frequencies = []
                     this.gain = []
                     this.Q = []
-                    this.preamp = 0
                     this.mix = 1
                     this.vibrantBass = 0
                     this.userGenerated = true
@@ -140,7 +134,6 @@
                     'frequencies': [32, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000],
                     'gain': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     'Q': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                    'preamp': 0,
                     'mix': 1,
                     'vibrantBass': 0,
                     'userGenerated': false
@@ -150,7 +143,6 @@
                     'frequencies': [32, 75, 125, 197, 500, 1000, 2000, 3040, 8000, 16000],
                     'gain': [0, 2.1, 0, 0.8, 0, 0, 0, -1.5, 0, 0],
                     'Q': [1, 0.7, 1, 1.5, 1, 1, 1, 2, 1, 1],
-                    'preamp': 0,
                     'mix': 1,
                     'vibrantBass': 0,
                     'userGenerated': false
@@ -160,7 +152,6 @@
                     'frequencies': [32, 63, 125, 250, 466, 1000, 2000, 4000, 8000, 20000],
                     'gain': [0, 0, 0, 0, -2, 0, 0, 0, 0, 10],
                     'Q': [1, 1, 1, 1, 0.6, 1, 1, 1, 1, 0.1],
-                    'preamp': 0,
                     'mix': 1,
                     'vibrantBass': 0,
                     'userGenerated': false
@@ -170,7 +161,6 @@
                     'frequencies': [32, 75, 125, 220, 700, 1000, 2000, 4000, 10000, 16000],
                     'gain': [0, -8, 0, -0.1, -3, 0, 0, 0, 4, 0],
                     'Q': [1, 0.2, 1, 2.0, 1.4, 1, 1, 1, 0.1, 1],
-                    'preamp': 0,
                     'mix': 1,
                     'vibrantBass': 0,
                     'userGenerated': false
@@ -180,7 +170,6 @@
                     'frequencies': [20, 63, 125, 250, 400, 1000, 2000, 4000, 8000, 20000],
                     'gain': [-22, 0, 0, 0, -3, 0, 1.8, 0, 0, 3.5],
                     'Q': [0.3, 1, 1, 1, 2.0, 1, 0.7, 1, 1, 0.8],
-                    'preamp': 0,
                     'mix': 1,
                     'vibrantBass': 0,
                     'userGenerated': false
@@ -190,7 +179,6 @@
                     'frequencies': [20, 63, 155, 250, 500, 1000, 2000, 5000, 11000, 16000],
                     'gain': [-15, 0, -3, 0, 0, 0, 0, 3.1, 0, 0],
                     'Q': [0.5, 1, 2, 1, 1, 1, 1, 1.5, 0.1, 1],
-                    'preamp': 0,
                     'mix': 1,
                     'vibrantBass': 0,
                     'userGenerated': false
@@ -200,7 +188,6 @@
                     'frequencies': [32, 63, 125, 250, 500, 1128, 2000, 4057, 8000, 16000],
                     'gain': [0, 0, 0, 0, 0, 2, 0, -6.4, 0, 0],
                     'Q': [1, 1, 1, 1, 1, 2, 1, 1, 1, 1],
-                    'preamp': 0,
                     'mix': 1,
                     'vibrantBass': 0,
                     'userGenerated': false
@@ -210,7 +197,6 @@
                     'frequencies': [35, 63, 125, 250, 500, 800, 2000, 4000, 8000, 20000],
                     'gain': [5, 0, 0, 0, 0, -5, 0, 0, 0, 5],
                     'Q': [0.1, 1, 1, 1, 1, 0.6, 1, 1, 1, 0.2],
-                    'preamp': 0,
                     'mix': 1,
                     'vibrantBass': 0,
                     'userGenerated': false
@@ -221,7 +207,6 @@
                     'frequencies': [45.53,88.06,116.18,161.3,247.05,295.6,365.79,495.13,716.85,960.76],
                     'gain': [-0.36,4.07,-1.3,1.92,0.77,-0.53,-1.33,0.44,0.46,-0.5],
                     'Q': [1.768,0.625,5,8.409,10,16.82,5.946,7.071,20,10],
-                    'preamp': -2,
                     'mix': 1,
                     'vibrantBass': 0,
                     'userGenerated': false
@@ -232,7 +217,6 @@
                     'frequencies': [32, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000],
                     'gain': [2.7, 2.2, 1.6, 1.4, 0.6, 0, 0, 0, 0, 0],
                     'Q': [1.4, 1.4, 1.4, 1.4, 1.4, 1, 1, 1, 1, 1],
-                    'preamp': 0,
                     'mix': 1,
                     'vibrantBass': 0,
                     'userGenerated': false
@@ -242,7 +226,6 @@
                     'frequencies': [32, 63, 160, 250, 500, 1000, 2000, 3500, 8000, 20000],
                     'gain': [2.7, 2.2, 1.6, 1.4, 0.6, 0, 0, 0, 0, 0],
                     'Q': [0.7, 0.7, 0.7, 0.7, 0.7, 1, 1, 1, 1, 1],
-                    'preamp': 0,
                     'mix': 1,
                     'vibrantBass': 0,
                     'userGenerated': false
@@ -333,18 +316,20 @@
                 app.cfg.audio.vibrantBass.multiplier = app.cfg.audio.equalizer.vibrantBass / 10
                 for (var i = 0; i < 21; i++) {
                     CiderAudio.audioNodes.vibrantbassNode[i].gain.value = app.cfg.audio.vibrantBass.gain[i] * (app.cfg.audio.equalizer.vibrantBass / 10);
-                }            
-            },
-            changePreamp() {
-                CiderAudio.audioNodes.preampNode.gain.value = app.cfg.audio.equalizer.preamp;
+                }           
             },
             changeMix() {
                 for (var i = 0; i < 10; i++) {
                     CiderAudio.audioNodes.audioBands[i].gain.value = app.cfg.audio.equalizer.gain[i] * app.cfg.audio.equalizer.mix
                 }
             },
+            changePreamp() { 
+                if (CiderAudio.audioNodes.llpwEnabled === 1) {CiderAudio.audioNodes.preampNode.gain.value = (-Math.max(...app.cfg.audio.equalizer.gain.concat(CiderAudio.audioNodes.llpw[23].gain.value)));} 
+                else {CiderAudio.audioNodes.preampNode.gain.value = (-Math.max(...app.cfg.audio.equalizer.gain));}
+            },
             changeGain(i) {
                 CiderAudio.audioNodes.audioBands[i].gain.value = app.cfg.audio.equalizer.gain[i] * app.cfg.audio.equalizer.mix
+                this.changePreamp()
             },
             changeFreq(i) {
                 CiderAudio.audioNodes.audioBands[i].frequency.value = app.cfg.audio.equalizer.frequencies[i]
@@ -357,10 +342,10 @@
                     'frequencies': [32, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000],
                     'gain': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     'Q': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                    'preamp': 0,
                     'mix': 1,
                     'vibrantBass': 0,
                 })
+                CiderAudio.audioNodes.preampNode.gain.value = 0;
                 if (app.cfg.audio.equalizer.userGenerated) {
                     this.saveSelectedPreset()
                 }
@@ -375,7 +360,6 @@
                         newPreset.frequencies = eqSettings.frequencies
                         newPreset.gain = eqSettings.gain
                         newPreset.Q = eqSettings.Q
-                        newPreset.preamp = eqSettings.preamp
                         newPreset.mix = eqSettings.mix
                         newPreset.vibrantBass = eqSettings.vibrantBass
                         app.cfg.audio.equalizer.presets.push(newPreset)
@@ -393,14 +377,13 @@
                 preset.frequencies = app.cfg.audio.equalizer.frequencies
                 preset.gain = app.cfg.audio.equalizer.gain
                 preset.Q = app.cfg.audio.equalizer.Q
-                preset.preamp = app.cfg.audio.equalizer.preamp
                 preset.mix = app.cfg.audio.equalizer.mix
                 preset.vibrantBass = app.cfg.audio.equalizer.vibrantBass
                 notyf.success("Saved Preset")
             },
             exportPreset() {
                 const preset = app.cfg.audio.equalizer.presets.find(p => p.preset == app.cfg.audio.equalizer.preset)
-                const jsonObj = {"name": preset.name, "author": app.chrome.userinfo.attributes.name, "frequency": preset.frequencies, "gain": preset.gain, "q": preset.Q, "preamp": preset.preamp, "mix": preset.mix, "vibrantBass": preset.vibrantBass};
+                const jsonObj = {"name": preset.name, "author": app.chrome.userinfo.attributes.name, "frequency": preset.frequencies, "gain": preset.gain, "q": preset.Q, "mix": preset.mix, "vibrantBass": preset.vibrantBass};
                 ipcRenderer.send("export-eq", jsonObj)
             },
             importPreset() {
@@ -411,7 +394,6 @@
                     newPreset.frequencies = result.frequency
                     newPreset.gain = result.gain
                     newPreset.Q = result.q
-                    newPreset.preamp = result.preamp
                     newPreset.mix = result.mix
                     newPreset.vibrantBass = result.vibrantBass
                     app.cfg.audio.equalizer.presets.push(newPreset)
@@ -423,7 +405,6 @@
             },
             applyPreset(preset) {
                 Object.assign(this.$root.cfg.audio.equalizer, preset)
-                this.changePreamp()
                 this.changeVibrantBass()
                 for (var i = 0; i < 10; i++) {
                     this.changeGain(i)
