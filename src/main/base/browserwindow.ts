@@ -1,18 +1,18 @@
-import { join } from "path";
-import { app, BrowserWindow as bw, ipcMain, ShareMenu, shell } from "electron";
+import {join} from "path";
+import {app, BrowserWindow as bw, ipcMain, ShareMenu, shell} from "electron";
 import * as windowStateKeeper from "electron-window-state";
 import * as express from "express";
 import * as getPort from "get-port";
-import { search } from "youtube-search-without-api-key";
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "fs";
-import { Stream } from "stream";
-import { networkInterfaces } from "os";
+import {search} from "youtube-search-without-api-key";
+import {existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync} from "fs";
+import {Stream} from "stream";
+import {networkInterfaces} from "os";
 import * as mm from 'music-metadata';
 import fetch from 'electron-fetch'
-import { wsapi } from "./wsapi";
-import { jsonc } from "jsonc";
-import { AppImageUpdater, NsisUpdater } from "electron-updater";
-import { utils } from './utils';
+import {wsapi} from "./wsapi";
+import {jsonc} from "jsonc";
+import {AppImageUpdater, NsisUpdater} from "electron-updater";
+import {utils} from './utils';
 
 
 export class BrowserWindow {
@@ -93,7 +93,7 @@ export class BrowserWindow {
         show: false,
         backgroundColor: "#1E1E1E",
         titleBarStyle: 'hidden',
-        trafficLightPosition: { x: 15, y: 20 },
+        trafficLightPosition: {x: 15, y: 20},
         webPreferences: {
             nodeIntegration: true,
             sandbox: true,
@@ -111,7 +111,7 @@ export class BrowserWindow {
      * Creates the browser window
      */
     async createWindow(): Promise<Electron.BrowserWindow> {
-        this.clientPort = await getPort({ port: 9000 });
+        this.clientPort = await getPort({port: 9000});
         BrowserWindow.verifyFiles();
 
         // Load the previous state with fallback to defaults
@@ -278,7 +278,7 @@ export class BrowserWindow {
         remote.use(express.static(join(utils.getPath('srcPath'), "./web-remote/")))
         remote.set("views", join(utils.getPath('srcPath'), "./web-remote/views"));
         remote.set("view engine", "ejs");
-        getPort({ port: 6942 }).then((port) => {
+        getPort({port: 6942}).then((port) => {
             this.remotePort = port;
             // Start Remote Discovery
             this.broadcastRemote()
@@ -331,7 +331,7 @@ export class BrowserWindow {
                     if (itspod != null)
                         details.requestHeaders["Cookie"] = `itspod=${itspod}`;
                 }
-                callback({ requestHeaders: details.requestHeaders });
+                callback({requestHeaders: details.requestHeaders});
             }
         );
 
@@ -521,7 +521,7 @@ export class BrowserWindow {
         })
         //Fullscreen
         ipcMain.on('detachDT', (_event, _) => {
-            BrowserWindow.win.webContents.openDevTools({ mode: 'detach' });
+            BrowserWindow.win.webContents.openDevTools({mode: 'detach'});
         })
 
 
@@ -661,10 +661,10 @@ export class BrowserWindow {
         // Set window Handler
         BrowserWindow.win.webContents.setWindowOpenHandler((x: any) => {
             if (x.url.includes("apple") || x.url.includes("localhost")) {
-                return { action: "allow" };
+                return {action: "allow"};
             }
             shell.openExternal(x.url).catch(console.error);
-            return { action: "deny" };
+            return {action: "deny"};
         });
     }
 
@@ -713,7 +713,7 @@ export class BrowserWindow {
             "CtlN": "Cider",
             "iV": "196623"
         };
-        let server2 = mdns.createAdvertisement(x, `${await getPort({ port: 3839 })}`, {
+        let server2 = mdns.createAdvertisement(x, `${await getPort({port: 3839})}`, {
             name: encoded,
             txt: txt_record
         });
