@@ -563,34 +563,30 @@ export class BrowserWindow {
                 });
         });
 
-        ipcMain.on('check-for-update', (_event) => {
+        ipcMain.on('check-for-update', async (_event) => {
             console.log('Checking for updates')
-            /*
             const branch = utils.getStoreValue('general.update_branch')
-            let latestbranch = fetch(`https://circleci.com/api/v1.1/project/gh/ciderapp/Cider/latest/artifacts?branch=${branch}&filter=successful`).then().catch()
+            let latestbranch = await fetch(`https://circleci.com/api/v1.1/project/gh/ciderapp/Cider/latest/artifacts?branch=${branch}&filter=successful`)
             if (latestbranch.status != 200) {
                 console.log(`Error fetching latest artifact from the **${branch}** branch`)
                 return
             }
 
-            let latestbranchjson = latestbranch.json().then().catch()
+            let latestbranchjson = await latestbranch.json()
             console.log('Artifact - ', latestbranchjson[0].url)
 
             const options: any = {
                 provider: 'generic',
                 url: 'https://43-429851205-gh.circle-artifacts.com/0/%7E/Cider/dist/artifacts' //Base URL
             }
-            */
             /*
             *  Have to handle the auto updaters seperatly until we can support macOS. electron-builder limitation -q
             */
-            /*
-             const win_autoUpdater = new NsisUpdater(options) //Windows
-             const linux_autoUpdater = new AppImageUpdater(options) //Linux
-             win_autoUpdater.checkForUpdatesAndNotify().then().catch()
-             linux_autoUpdater.checkForUpdatesAndNotify().then().catch()
-             */
-        })
+            const win_autoUpdater = new NsisUpdater(options) //Windows
+            const linux_autoUpdater = new AppImageUpdater(options) //Linux
+            await win_autoUpdater.checkForUpdatesAndNotify()
+            await linux_autoUpdater.checkForUpdatesAndNotify()
+        });
 
         ipcMain.on('share-menu', async (_event, url) => {
             if (process.platform != 'darwin') return;
