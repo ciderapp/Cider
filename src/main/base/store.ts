@@ -11,7 +11,8 @@ export class Store {
             "discord_rpc": 1, // 0 = disabled, 1 = enabled as Cider, 2 = enabled as Apple Music
             "discord_rpc_clear_on_pause": true,
             "language": "en_US", // electron.app.getLocale().replace('-', '_') this can be used in future
-            "playbackNotifications": true
+            "playbackNotifications": true,
+            "update_branch": "main"
         },
         "home": {
             "followedArtists": [],
@@ -60,10 +61,10 @@ export class Store {
             "equalizer": {
                 'preset': "default",
                 'frequencies': [32, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000],
-                'gain': [0,0,0,0,0,0,0,0,0,0],
-                'Q' :   [1,1,1,1,1,1,1,1,1,1],
-                'mix' : 1,
-                'vibrantBass' : 0,
+                'gain': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                'Q': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                'mix': 1,
+                'vibrantBass': 0,
                 'presets': [],
                 'userGenerated': false
             },
