@@ -27,6 +27,7 @@ export class Store {
         },
         "audio": {
             "volume": 1,
+            "volumeStep": 0.02,
             "lastVolume": 1,
             "muted": false,
             "quality": "HIGH",
@@ -35,10 +36,6 @@ export class Store {
             "ciderPPE": false,
             "ciderPPE_value": 0.5,
             "spatial": false,
-            "maxVolume": 1,
-            "volumePrecision": 0.1,
-            "volumeRoundMax": 0.9,
-            "volumeRoundMin": 0.1,
             "spatial_properties": {
                 "presets": [],
                 "gain": 0.8,
