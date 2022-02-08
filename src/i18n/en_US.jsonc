@@ -1,9 +1,10 @@
 { // Base File
+
   // i18n Info
   "i18n.languageName": "English (US)", // name of language in native language
   "i18n.languageNameEnglish": "English (US)", // name of language in English
   "i18n.category": "main", // main = real language, fun = fun community languages
-  "i18n.authors": "@maikirakiwi", // Authors, if you contribute to this file feel free to add your name seperated with a space
+  "i18n.authors": "@maikirakiwi @kyw504100", // Authors, if you contribute to this file feel free to add your name seperated with a space
   
   // App info
   "app.name": "Cider",
@@ -288,6 +289,7 @@
   // Settings - Visual - Theme name
   "settings.option.visual.theme.default": "Cider",
   "settings.option.visual.theme.dark": "Dark",
+  
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "Show Personal Info", // Toggle
   
@@ -344,14 +346,14 @@
   "spatial.down": "Down",
   "spatial.listener": "Listener",
   "spatial.audioSource": "Audio Source",
- 
+
   // Settings - Unfinished
   "settings.header.unfinished": "Unfinished",
- 
+
   // Web Remote
   "remote.web.title": "Cider Remote",
   "remote.web.description": "Scan the QR code to pair your phone up with this Cider instance",
- 
+
   // About
   "about.thanks": "Major thanks to the Cider Collective Team and all of our contributors."
 }

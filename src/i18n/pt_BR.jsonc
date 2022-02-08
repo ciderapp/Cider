@@ -1,14 +1,15 @@
-{ // Base File 
+{
+  
+  // i18n Info
+  "i18n.languageName": "Português ( brasileiro )",        // name of language in native language
+  "i18n.languageNameEnglish": "Portuguese (Brazil)", // name of language in English
+  "i18n.category": "main", // main = real language, fun = fun community languages
+  "i18n.authors": "", // Authors, if you contribute to this file feel free to add your name seperated with a space
+
   // App info
   "app.name": "Cider",
 
   "date.format": "${d} ${m}, ${y}",
-
-   // i18n Info
-   "i18n.languageName": "Português ( brasileiro )",        // name of language in native language
-   "i18n.languageNameEnglish": "Portuguese (Brazil)", // name of language in English
-   "i18n.category": "main", // main = real language, fun = fun community languages
-   "i18n.authors": "", // Authors, if you contribute to this file feel free to add your name seperated with a space
 
   // Dialogs
   "dialog.cancel": "Cancelar",
@@ -105,6 +106,7 @@
   "home.madeForYou": "Feito para Você",
   "home.friendsListeningTo": "Amigos Ouvindo",
   "home.followedArtists": "Artistas Seguidos",
+
   // Errors
   "error.appleMusicSubRequired": "Necessário uma assinatura Apple Music.",
 
@@ -142,6 +144,15 @@
   "action.dislike": "Não Gostar",
   "action.undoDislike": "Deixar de Não Gostar",
   "action.showWebRemoteQR": "Mostrar o QR para Página Remota",
+
+  // Settings - General
+  "settings.header.general": "Principal",
+  "settings.header.general.description": "Ajustar as definiçoes principais no Cider.",
+
+  // Language optgroups
+
+  // Update Cider
+
   // Settings - Audio
   "settings.header.audio": "Audio",
   "settings.header.audio.description": "Ajustar as definições de audio no Cider.",
@@ -156,6 +167,7 @@
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normaliza o volume alto para faixas individuais para criar uma experiência de audição mais uniforme.",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Audio Espacial", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Espacialize o áudio e torne o áudio mais tridimensional (nota: isto não é Dolby Atmos)",
+
   // Settings - Visual
   "settings.header.visual": "Visual", 
   "settings.header.visual.description": "Ajustar as Definições de Visual do Cider.",
@@ -178,12 +190,10 @@
   "settings.header.visual.hardwareAcceleration.default": "Normal", 
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
   
+  // Settings - Visual - Theme name
 
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "Mostrar Informaçoes Pessoais", // Toggle
-  // Settings - General (Reserved)
-  "settings.header.general": "Principal",
-  "settings.header.general.description": "Ajustar as definiçoes principais no Cider.",
   
   // Settings - Lyrics
   "settings.header.lyrics": "Letras",
@@ -211,8 +221,8 @@
   "settings.header.experimental": "Experimental",
   "settings.header.experimental.description": "Ajustar as definições experimental no Cider.",
   "settings.option.experimental.compactUI": "UI Compacto", // Toggle
-  // Refer to term.disabled & term.enabled
   
+  // Refer to term.disabled & term.enabled
   // Spatialization Menu
   "spatial.spatialProperties" : "Propriedades do Espacial",
   "spatial.width" : "Largura",
@@ -232,13 +242,12 @@
   "spatial.listener" : "Ouvinte",
   "spatial.audioSource" : "Fonte de Audio",
 
-
-
-  
   // Settings - Unfinished
   "settings.header.unfinished": "Inacabado",
   
   // Web Remote
   "remote.web.title": "Cider Remoto",
   "remote.web.description": "Digitalize o código QR para emparelhar seu telefone com esta instância Cider"
+
+  // About
 }

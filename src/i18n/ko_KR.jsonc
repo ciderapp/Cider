@@ -1,4 +1,5 @@
-{ // Base File
+{
+  
   // i18n Info
   "i18n.languageName": "한국어 (KR)", // name of language in native language
   "i18n.languageNameEnglish": "Korean (KR)", // name of language in English
@@ -273,6 +274,7 @@
   // Settings - Visual - Theme name
   "settings.option.visual.theme.default": "Cider",
   "settings.option.visual.theme.dark": "다크",
+  
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "개인 정보 보기", // Toggle
   

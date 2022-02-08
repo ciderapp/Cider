@@ -1,4 +1,5 @@
 {
+  
   // i18n Info
   "i18n.languageName": "廣東話（香港）", // name of language in native language
   "i18n.languageNameEnglish": "Cantonese (Hong Kong)", // name of language in English
@@ -136,12 +137,12 @@
   "term.deletedpreset": "刪除咗",
   "term.musicVideos": "MV", // Search page friendlyTypes
   "term.stations": "電台",
-  //"term.curators": "Curators",
-  //"term.appleCurators": "Apple Curators",
+    //"term.curators": "Curators",
+    //"term.appleCurators": "Apple Curators",
   "term.radioShows": "電台單集",
   "term.recordLabels": "唱片公司",
   "term.videoExtras": "相關嘅片",
-  //"term.top": "Top",
+    //"term.top": "Top",
   
   // Home
   "home.title": "主頁",
@@ -273,6 +274,7 @@
   // Settings - Visual - Theme name
   "settings.option.visual.theme.default": "預設",
   "settings.option.visual.theme.dark": "黑色",
+
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "顯示個人檔案", // Toggle
   
@@ -306,7 +308,7 @@
   "settings.option.experimental.compactUI": "逼啲既 UI", // Toggle
   "settings.option.experimental.close_button_hide": "㩒交叉制嚟隱藏 Cider",
   "settings.option.experimental.copy_log": "將log複製喺剪貼簿",
-  //"settings.option.experimental.inline_playlists": "Inline Playlists and Albums",
+    //"settings.option.experimental.inline_playlists": "Inline Playlists and Albums",
   
   // Refer to term.disabled & term.enabled
   // Spatialization Menu

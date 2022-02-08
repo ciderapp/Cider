@@ -1,4 +1,5 @@
-{ // Base File
+{
+  
   // i18n Info
   "i18n.languageName": "Svenska (SE)", // name of language in native language
   "i18n.languageNameEnglish": "Swedish (SE)", // name of language in English
@@ -248,6 +249,9 @@
   "settings.option.visual.hardwareAcceleration.description": "kräver omstart",
   "settings.header.visual.hardwareAcceleration.default": "Standard",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
+
+  // Settings - Visual - Theme name
+  
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "Visa personlig information", // Toggle
   

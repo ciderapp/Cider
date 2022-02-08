@@ -1,10 +1,10 @@
 {
 
   // i18n Info
-  "i18n.languageName": "Ελληνικά",
-  "i18n.languageNameEnglish": "Greek",
-  "i18n.category": "main",
-  "i18n.authors": "@down-bad",
+  "i18n.languageName": "Ελληνικά", // name of language in native language
+  "i18n.languageNameEnglish": "Greek", // name of language in English
+  "i18n.category": "main", // main = real language, fun = fun community languages
+  "i18n.authors": "@down-bad", // Authors, if you contribute to this file feel free to add your name seperated with a space
 
   // App info
   "app.name": "Cider",
@@ -19,6 +19,7 @@
   "notification.updatingLibrarySongs": "Ενημέρωση βιβλιοθήκης τραγουδιών...",
   "notification.updatingLibraryAlbums": "Ενημέρωση βιβλιοθήκης άλμπουμ...",
   "notification.updatingLibraryArtists": "Ενημέρωση βιβλιοθήκης καλλιτεχνών...",
+
   // Terms
   "term.appleInc": "Apple Inc.",
   "term.appleMusic": "Apple Music",
@@ -117,7 +118,6 @@
   "term.tracks": "τραγούδια", // Assume x amount of tracks. e.g. 50 tracks
   "term.videos": "Βίντεο", 
   "term.menu": "Μενού",
-  "action.showAlbum": "Εμφάνιση ολόκληρου άλμπουμ", 
 
   // Home
   "home.title": "Αρχική",
@@ -128,13 +128,14 @@
   "home.madeForYou": "Δημιουργήθηκε για εσάς",
   "home.friendsListeningTo": "Οι φίλοι σου ακούν",
   "home.followedArtists": "Καλλιτέχνες που ακολουθείτε",
+
   // Errors
   "error.appleMusicSubRequired": "Το Apple Music απαιτεί μια συνδρομή.",
   "error.connectionError": "Δεν είναι δυνατή η σύνδεση με το Apple Music.",
   "error.noResults": "Κανένα αποτέλεσμα.",
   "error.noResults.description": "Δοκιμάστε μια νέα αναζήτηση.",
 
-  //Podcasts
+  // Podcasts
   "podcast.followOnCider": "Ακολούθηση στο Cider",
   "podcast.followedOnCider": "Ακολουθείτε στο Cider",
   "podcast.subscribeOnItunes": "Συνδρομή στο iTunes",
@@ -183,6 +184,7 @@
   "action.removeTracks": "Αφαίρεση ${self.selectedItems.length} τραγουδιών από την ουρά",
   "action.import": "Εισαγωγή",
   "action.export": "Εξαγωγή",
+  "action.showAlbum": "Εμφάνιση ολόκληρου άλμπουμ", 
 
   // Settings - General
   "settings.header.general": "Γενικά",
@@ -193,6 +195,8 @@
   "settings.option.general.language.main": "Γλώσσες",
   "settings.option.general.language.fun": "Γλώσσες για πλάκα",
   "settings.option.general.language.unsorted": "Αταξινόμητες",
+
+  // Update Cider
   
   // Settings - Audio
   "settings.header.audio": "Ήχος",
@@ -208,6 +212,7 @@
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Κανονικοποιεί την ένταση για μεμονωμένα κομμάτια για μια πιο ομοιόμορφη εμπειρία ακρόασης.",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Χωρικοποίηση Ήχου", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Πιο τρισδιάστατος και χωρικοποιημένος ήχος (σημείωση: Αυτό δεν είναι Dolby Atmos)",
+
   // Settings - Visual
   "settings.header.visual": "Οπτικά",
   "settings.header.visual.description": "Προσαρμογή οπτικών ρυθμίσεων για το Cider.",
@@ -230,6 +235,9 @@
   "settings.option.visual.hardwareAcceleration.description": "Απαιτεί επανεκκίνηση",
   "settings.header.visual.hardwareAcceleration.default": "Προεπιλογή",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
+
+  // Settings - Visual - Theme name
+
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "Εμφάνιση προσωπικών στοιχείων", // Toggle
 
@@ -265,8 +273,8 @@
   "settings.option.experimental.closeButtonBehaviour.quit": "Έξοδος του Cider",
   "settings.option.experimental.closeButtonBehaviour.minimizeTaskbar": "Ελαχιστοποίηση στη γραμμή εργασιών",
   "settings.option.experimental.closeButtonBehaviour.minimizeTray": "Ελαχιστοποίηση στη γωνία γραμμής εργασιών",
+  
   // Refer to term.disabled & term.enabled
-
   // Spatialization Menu
   "spatial.spatialProperties" : "Χωρικές Ιδιότητες",
   "spatial.width" : "Πλάτος",

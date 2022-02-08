@@ -1,4 +1,5 @@
 {
+  
   // i18n Info
   "i18n.languageName": "简体中文（中国）", // name of language in native language
   "i18n.languageNameEnglish": "Simp. Chinese (China)", // name of language in English
@@ -190,6 +191,15 @@
   "action.tray.show": "显示",
   "action.update": "更新",
   
+  // Settings - General
+  "settings.header.general": "通用",
+  "settings.header.general.description": "调整 Cider 的通用设置",
+
+  // Language optgroups
+
+  // Update Cider
+  "settings.option.general.updateCider": "更新 Cider", // Button
+  
   // Settings - Audio
   "settings.header.audio": "音频",
   "settings.header.audio.description": "调整 Cider 的音频设置",
@@ -233,15 +243,11 @@
   "settings.option.visual.hardwareAcceleration.description": "需要重启 Cider 才会生效",
   "settings.header.visual.hardwareAcceleration.default": "默认",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
+
+  // Settings - Visual - Theme name
+
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "显示个人资料", // Toggle
-  
-  // Settings - General (Reserved)
-  "settings.header.general": "通用",
-  "settings.header.general.description": "调整 Cider 的通用设置",
-
-  // Settings - General - Update Cider
-  "settings.option.general.updateCider": "更新 Cider", // Button
   
   // Settings - Lyrics
   "settings.header.lyrics": "歌词",
