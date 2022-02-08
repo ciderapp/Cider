@@ -402,6 +402,18 @@
                                     }else {
                                     self.app.copyToClipboard(self.item.attributes.url)}
                                 }
+                            },
+                            {
+                                "icon": "./assets/feather/share.svg",
+                                "name": `${app.getLz('action.share')} (song.link)`,
+                                "action": function () {
+                                    if (!self.item.attributes.url && self.item.relationships){
+                                        if (self.item.relationships.catalog){
+                                            app.mkapi(self.item.attributes.playParams.kind, false, self.item.relationships.catalog.data[0].id).then(u => {self.app.songLinkShare((u.data.data.length && u.data.data.length > 0)? u.data.data[0].attributes.url : u.data.data.attributes.url)})
+                                        }
+                                    }else {
+                                    self.app.songLinkShare(self.item.attributes.url)}
+                                }
                             }
                         ]
                     }

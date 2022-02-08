@@ -15,7 +15,7 @@ jobs:
             - yarn-packages-{{ checksum "yarn.lock" }}
       - run:
           name: Install Dependencies
-          command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
+          command: yarn install  --cache-folder ~/.cache/yarn
       - save_cache:
           name: Save Yarn Package Cache
           key: yarn-packages-{{ checksum "yarn.lock" }}
@@ -34,6 +34,9 @@ jobs:
             sudo apt-get install -y wine32
       - store_test_results:
           path: test-results
+      - run:
+          name: Append Commit SHA to Version
+          command: yarn circle:append-sha
       - run:
           name: Generate Builds (Linux)
           command: yarn dist -l -p never

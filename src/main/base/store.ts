@@ -6,12 +6,13 @@ export class Store {
 
     private defaults: any = {
         "general": {
-            "close_button_hide": true,
+            "close_button_hide": false,
             "open_on_startup": false,
             "discord_rpc": 1, // 0 = disabled, 1 = enabled as Cider, 2 = enabled as Apple Music
             "discord_rpc_clear_on_pause": true,
             "language": "en_US", // electron.app.getLocale().replace('-', '_') this can be used in future
-            "playbackNotifications": true
+            "playbackNotifications": true,
+            "update_branch": "main"
         },
         "home": {
             "followedArtists": [],
@@ -26,16 +27,15 @@ export class Store {
         },
         "audio": {
             "volume": 1,
+            "volumeStep": 0.02,
             "lastVolume": 1,
             "muted": false,
-            "quality": "256",
+            "quality": "HIGH",
             "seamless_audio": true,
             "normalization": false,
+            "ciderPPE": false,
+            "ciderPPE_value": 0.5,
             "spatial": false,
-            "maxVolume": 1,
-            "volumePrecision": 0.1,
-            "volumeRoundMax": 0.9,
-            "volumeRoundMin": 0.1,
             "spatial_properties": {
                 "presets": [],
                 "gain": 0.8,
@@ -59,10 +59,9 @@ export class Store {
                 'preset': "default",
                 'frequencies': [32, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000],
                 'gain': [0,0,0,0,0,0,0,0,0,0],
-                'Q' :   [1,1,1,1,1,1,1,1,1,1],
-                'preamp' : 0,
-                'mix' : 1,
-                'vibrantBass' : 0,
+                'Q': [1,1,1,1,1,1,1,1,1,1],
+                'mix': 1,
+                'vibrantBass': 0,
                 'presets': [],
                 'userGenerated': false
             },
@@ -142,11 +141,11 @@ export class Store {
      * IPC Handler
      */
     private ipcHandler(): void {
-        electron.ipcMain.handle('getStoreValue', (event, key, defaultValue) => {
+        electron.ipcMain.handle('getStoreValue', (_event, key, defaultValue) => {
             return (defaultValue ? Store.cfg.get(key, true) : Store.cfg.get(key));
         });
 
-        electron.ipcMain.handle('setStoreValue', (event, key, value) => {
+        electron.ipcMain.handle('setStoreValue', (_event, key, value) => {
             Store.cfg.set(key, value);
         });
 
@@ -154,7 +153,7 @@ export class Store {
             event.returnValue = Store.cfg.store
         })
 
-        electron.ipcMain.on('setStore', (event, store) => {
+        electron.ipcMain.on('setStore', (_event, store) => {
             Store.cfg.store = store
         })
     }

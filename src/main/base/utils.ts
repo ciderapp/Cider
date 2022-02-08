@@ -3,8 +3,32 @@ import * as path from "path";
 import {jsonc} from "jsonc";
 import {Store} from "./store";
 import {BrowserWindow as bw} from "./browserwindow";
+import {app} from "electron";
 
 export class utils {
+
+    /**
+     * Paths for the application to use
+     */
+    private static paths: any = {
+        srcPath: path.join(__dirname, "../../src"),
+        rendererPath: path.join(__dirname, "../../src/renderer"),
+        mainPath: path.join(__dirname, "../../src/main"),
+        resourcePath: path.join(__dirname, "../../resources"),
+        i18nPath: path.join(__dirname, "../../src/i18n"),
+        ciderCache: path.resolve(app.getPath("userData"), "CiderCache"),
+        themes: path.resolve(app.getPath("userData"), "Themes"),
+        plugins: path.resolve(app.getPath("userData"), "Plugins"),
+    };
+
+    /**
+     * Get the path
+     * @returns {string}
+     * @param name
+     */
+    static getPath(name: string): string {
+        return this.paths[name];
+    }
 
     /**
      * Fetches the i18n locale for the given language.
@@ -13,10 +37,10 @@ export class utils {
      * @returns {string | Object} The locale value.
      */
     static getLocale(language: string, key?: string): string | object {
-        let i18n: { [index: string]: Object } = jsonc.parse(fs.readFileSync(path.join(__dirname, "../../src/i18n/en_US.jsonc"), "utf8"));
+        let i18n: { [index: string]: Object } = jsonc.parse(fs.readFileSync(path.join(this.paths.i18nPath, "en_US.jsonc"), "utf8"));
 
-        if (language !== "en_US" && fs.existsSync(path.join(__dirname, `../../src/i18n/${language}.jsonc`))) {
-            i18n = Object.assign(i18n, jsonc.parse(fs.readFileSync(path.join(__dirname, `../../src/i18n/${language}.jsonc`), "utf8")));
+        if (language !== "en_US" && fs.existsSync(path.join(this.paths.i18nPath, `${language}.jsonc`))) {
+            i18n = Object.assign(i18n, jsonc.parse(fs.readFileSync(path.join(this.paths.i18nPath, `${language}.jsonc`), "utf8")));
         }
 
         if (key) {
@@ -57,5 +81,26 @@ export class utils {
      */
     static getWindow(): Electron.BrowserWindow {
         return bw.win
+    }
+
+    /**
+     * Playback Functions
+     */
+    static playback = {
+        pause: () => {
+            bw.win.webContents.executeJavaScript("MusicKitInterop.pause()")
+        },
+        play: () => {
+            bw.win.webContents.executeJavaScript("MusicKitInterop.play()")
+        },
+        playPause: () => {
+            bw.win.webContents.executeJavaScript("MusicKitInterop.playPause()")
+        },
+        next: () => {
+            bw.win.webContents.executeJavaScript("MusicKitInterop.next()")
+        },
+        previous: () => {
+            bw.win.webContents.executeJavaScript("MusicKitInterop.previous()")
+        }
     }
 }

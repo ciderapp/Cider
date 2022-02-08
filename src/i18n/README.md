@@ -17,3 +17,51 @@ been modified, the ones not mentioned in the list need modifying.
 
 * `settings.option.experimental.closeButtonBehaviour`: Changed to `close_button_hide` - Should be "Close Button Should Hide the Application". `.quit`, `.minimizeTaskbar` and `.minimizeTray` have been removed. Translations done for en_US.
 * `action.update`: Added for `en_US`.
+* `term.topResult`: "Top Result" - Added for `en_US`.
+* `term.sharedPlaylists`: "Shared Playlists" - Added for `en_US`.
+* `term.people`: "People" - Added for `en_US`.
+
+Updated 02/02/2022 17:16 UTC
+
+* `term.newpreset.name`: Added for `en_US`.
+* `term.addedpreset`: Added for `en_US`.
+* `term.deletepreset.warn`: Added for `en_US`.
+* `term.deletedpreset`: Added for `en_US`.
+* `term.musicVideos`: Added for `en_US`.
+* `term.stations`: Added for `en_US`.
+* `term.curators`: Added for `en_US`.
+* `term.appleCurators`: Added for `en_US`.
+* `term.radioShows`: Added for `en_US`.
+* `term.recordLabels`: Added for `en_US`.
+* `term.videoExtras`: Added for `en_US`.
+* `term.top`: Added for `en_US`.
+* `action.newpreset`: Added for `en_US`.
+* `action.deletepreset`: Added for `en_US`.
+
+Updated 04/02/2022 10:00 UTC
+
+* `term.history`: Added for `en_US`.
+* `action.copy`: Added for `en_US`.
+* `settings.header.visual.theme`: Added for `en_US`.
+* `settings.option.visual.theme.default`: Added for `en_US`.
+* `settings.option.visual.theme.dark`: Added for `en_US`.
+* `settings.option.experimental.copy_log`: Added for `en_US`.
+* `settings.option.experimental.inline_playlists`: Added for `en_US`.
+
+Update 05/02/2022 09:00 UTC
+
+* `settings.header.audio.quality.hireslossless`: Added for `en_US`.
+* `settings.header.audio.quality.hireslossless.description`: Added for `en_US`.
+* `settings.header.audio.quality.lossless`: Added for `en_US`.
+* `settings.header.audio.quality.lossless.description`: Added for `en_US`.
+* `settings.option.audio.enableAdvancedFunctionality.ciderPPE`: Added for `en_US`.
+* `settings.option.audio.enableAdvancedFunctionality.ciderPPE.description`: Added for `en_US`.
+
+Update 06/02/2022 10:35 UTC
+
+* `settings.header.audio.quality.hireslossless.description`: Brackets removed, handled in renderer.
+* `settings.header.audio.quality.lossless.description`: Brackets removed, handled in renderer.
+* `settings.header.audio.quality.high.description`: Added for `en_US`.
+* `settings.header.audio.quality.auto`: Removed as default for MusicKit is 256.
+* `settings.header.audio.quality.standard`: Replaced `settings.header.audio.quality.low` to match MusicKit naming.
+* `settings.header.audio.quality.standard.description`: Added for `en_US`.

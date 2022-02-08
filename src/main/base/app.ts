@@ -1,6 +1,8 @@
-import {app, Menu, nativeImage, Tray} from 'electron';
+import {app, Menu, nativeImage, Tray, ipcMain, clipboard, shell} from 'electron';
+import {readFileSync} from "fs";
 import * as path from 'path';
-import {utils} from './utils'
+import * as log from 'electron-log';
+import {utils} from './utils';
 
 export class AppEvents {
     private protocols: string[] = [
@@ -24,6 +26,7 @@ export class AppEvents {
      * @returns {void}
      */
     private start(): void {
+        AppEvents.initLogging()
         console.info('[AppEvents] App started');
 
         /**********************************************************************************************************************
@@ -169,6 +172,18 @@ export class AppEvents {
             let url = arg.split('//')[1]
             console.warn(`[LinkHandler] Attempting to load url: ${url}`);
             utils.getWindow().webContents.send('play', 'url', url)
+        } else if (arg.includes('/debug/appdata')) {
+            shell.openPath(app.getPath('userData'))
+        }  else if (arg.includes('/debug/logs')) {
+            shell.openPath(app.getPath('logs'))
+        } else if (arg.includes('/discord')) {
+            shell.openExternal('https://discord.gg/applemusic')
+        } else if (arg.includes('/github')) {
+            shell.openExternal('https://github.com/ciderapp/cider')
+        } else if (arg.includes('/donate')) {
+            shell.openExternal('https://opencollective.com/ciderapp')
+        } else if (arg.includes('/beep')) {
+            shell.beep()
         }
     }
 
@@ -264,7 +279,7 @@ export class AppEvents {
 
         const menu = Menu.buildFromTemplate([
             {
-                label: (visible ? this.i18n['action.tray.minimize'] : this.i18n['action.tray.show'].includes("{appName}") ? `${this.i18n['action.tray.show'].replace("{appName}", app.getName())}` : `${this.i18n['action.tray.show']} ${app.getName()}`),
+                label: (visible ? this.i18n['action.tray.minimize'] : `${this.i18n['action.tray.show']} ${app.getName()}`),
                 click: () => {
                     if (utils.getWindow()) {
                         if (visible) {
@@ -283,5 +298,19 @@ export class AppEvents {
             }
         ])
         this.tray.setContextMenu(menu)
+    }
+
+    /**
+     * Initializes logging in the application
+     * @private
+     */
+    private static initLogging() {
+        log.transports.console.format = '[{h}:{i}:{s}.{ms}] [{level}] {text}';
+        Object.assign(console, log.functions);
+
+        ipcMain.on('fetch-log', (_event) => {
+            const data = readFileSync(log.transports.file.getFile().path, {encoding: 'utf8', flag: 'r'});
+            clipboard.writeText(data)
+        })
     }
 }
