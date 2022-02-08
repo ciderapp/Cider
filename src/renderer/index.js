@@ -1884,7 +1884,7 @@ const app = new Vue({
                     self.library.backgroundNotification.show = false
                     self.searchLibrarySongs()
                     localStorage.setItem("librarySongs", JSON.stringify(library))
-                    console.log(library)
+                    // console.log(library)
                 }
             }
 
@@ -1992,7 +1992,7 @@ const app = new Vue({
                     self.library.backgroundNotification.show = false
                     localStorage.setItem("libraryAlbums", JSON.stringify(library))
                     self.searchLibraryAlbums(index)
-                    console.log(library)
+                    // console.log(library)
                 }
             }
 
@@ -2098,7 +2098,7 @@ const app = new Vue({
                     self.library.backgroundNotification.show = false
                     localStorage.setItem("libraryArtists", JSON.stringify(library))
                     self.searchLibraryArtists(index)
-                    console.log(library)
+                    // console.log(library)
                 }
             }
 
