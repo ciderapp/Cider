@@ -272,7 +272,7 @@ const app = new Vue({
     },
     methods: {
         songLinkShare(amUrl) {
-            notyf.open({type: "info", message: "Getting song.link share URL..."})
+            notyf.open({type: "info", message: app.getLz('term.song.link.generate')})
             let self = this
             httpRequest = new XMLHttpRequest();
             httpRequest.open('GET', `https://api.song.link/v1-alpha.1/links?url=${amUrl}&userCountry=US`, true);
@@ -285,7 +285,7 @@ const app = new Vue({
                         self.copyToClipboard(response.pageUrl)
                     } else {
                         console.log('There was a problem with the request.');
-                        notyf.error("There was a problem with the request.")
+                        notyf.error(app.getLz('term.requestError'))
                     }
                 }
             }
