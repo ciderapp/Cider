@@ -3212,8 +3212,8 @@ const app = new Vue({
         },
         volumeUp() {
             if ((app.mk.volume + app.cfg.audio.volumeStep) > 1) {
-                app.mk.volume = 1;
-                console.log('setting to 1')
+                app.mk.volume = app.cfg.audio.maxVolume;
+                console.log('setting max volume')
             } else {
                 console.log('volume up')
                 app.mk.volume += app.cfg.audio.volumeStep;
@@ -3222,7 +3222,7 @@ const app = new Vue({
         volumeDown() {
             if ((app.mk.volume - app.cfg.audio.volumeStep) < 0) {
                 app.mk.volume = 0;
-                console.log('settings to 0')
+                console.log('setting volume to 0')
             } else {
                 console.log('volume down')
                 app.mk.volume -= app.cfg.audio.volumeStep;
