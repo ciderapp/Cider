@@ -1,24 +1,25 @@
 {
+
   // i18n Info
   "i18n.languageName": "繁體中文（香港）", // name of language in native language
   "i18n.languageNameEnglish": "Trad. Chinese (Hong Kong)", // name of language in English
   "i18n.category": "main", // main = real language, fun = fun community languages
   "i18n.authors": "@kyw504100 @maikirakiwi", // Authors, if you contribute to this file feel free to add your name seperated with a space
-  
+
   // App info
   "app.name": "Cider",
-  
+
   "date.format": "${y}年${m}月${d}日",
-  
+
   // Dialogs
   "dialog.cancel": "取消",
   "dialog.ok": "確認",
-  
+
   // Notification
   "notification.updatingLibrarySongs": "正在更新資料庫的歌曲...",
   "notification.updatingLibraryAlbums": "正在更新資料庫的專輯...",
   "notification.updatingLibraryArtists": "正在更新資料庫的藝人...",
-  
+
   // Terms
   "term.appleInc": "Apple Inc.",
   "term.appleMusic": "Apple Music", // Follows brand term
@@ -136,13 +137,13 @@
   "term.deletedpreset": "已刪除",
   "term.musicVideos": "MV", // Search page friendlyTypes
   "term.stations": "電台",
-  //"term.curators": "Curators",
-  //"term.appleCurators": "Apple Curators",
+    //"term.curators": "Curators",
+    //"term.appleCurators": "Apple Curators",
   "term.radioShows": "廣播單集",
   "term.recordLabels": "唱片公司",
   "term.videoExtras": "影片特輯",
-  //"term.top": "Top",
-  
+    //"term.top": "Top",
+
   // Home
   "home.title": "主頁",
   "home.recentlyPlayed": "最近播放",
@@ -152,13 +153,13 @@
   "home.madeForYou": "為您推薦",
   "home.friendsListeningTo": "朋友正在聆聽",
   "home.followedArtists": "追蹤的藝人",
-  
+
   // Errors
   "error.appleMusicSubRequired": "需要訂閱Apple Music以使用Cider",
   "error.connectionError": "無法連接到 Apple Music。",
   "error.noResults": "沒有結果",
   "error.noResults.description": "請嘗試新的搜尋內容。",
-  
+
   // Podcasts
   "podcast.followOnCider": "在Cider上追蹤",
   "podcast.followedOnCider": "已在Cider上追蹤",
@@ -168,7 +169,7 @@
   "podcast.episodes": "單集",
   "podcast.playEpisode": "播放單集",
   "podcast.website": "Podcast 網頁",
-  
+
   // Actions
   "action.addToLibrary": "加入資料庫",
   "action.addToLibrary.success": "成功加入資料庫",
@@ -215,7 +216,7 @@
   "action.tray.show": "顯示",
   "action.update": "更新",
   "action.copy": "複製",
-  "action.newpreset": "新增範本", //Equallizer preset
+  "action.newpreset": "新增範本", // Equallizer preset
   "action.deletepreset": "刪除範本",
   
   // Settings - General
@@ -230,6 +231,10 @@
 
   // Update Cider
   "settings.option.general.updateCider": "更新 Cider", // Button
+  "settings.option.general.updateCider.branch": "Cider 更新通道", // Dropdown
+  "settings.option.general.updateCider.branch.description": "選擇你想要接收來自哪個通道的更新",
+  "settings.option.general.updateCider.branch.main": "穩定",
+  "settings.option.general.updateCider.branch.develop": "測試",
   
   // Settings - Audio
   "settings.header.audio": "音訊",
@@ -240,18 +245,23 @@
   "settings.header.audio.quality.lossless": "無損壓縮",
   "settings.header.audio.quality.lossless.description": "（高達 24-bit/48 kHz）",
   "settings.header.audio.quality.high": "高素質",
-  "settings.header.audio.quality.low": "高效率",
-  "settings.header.audio.quality.auto": "自動",
+    //"settings.header.audio.quality.high.description": "256 kbps",
+  "settings.header.audio.quality.standard": "高效率",
+    //"settings.header.audio.quality.standard.description": "64 kbps",
   "settings.option.audio.seamlessTransition": "無縫播放", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "進階功能", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.description": "啟用 AudioContext 將解鎖類似音量平衡和均衡器的進階功能。但是會在一些電腦造成音樂卡頓。",
-  "settings.option.audio.enableAdvancedFunctionality.decryptLLPW": "無損壓縮解碼", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.decryptLLPW.description": "提供 Cider 解碼無損壓縮檔案的能力，但相應地會增加電腦的工作量。",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider 數碼音訊增強處理™️", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "能夠欺騙你的大腦讓你感受到近似無損壓縮的音質 | 由 Maikiwi 設計",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "數碼音訊增強處理設定", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "將更改音訊處理的激進程度（激進型選項有可能會引起雜訊）",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "標準型",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive": "激進型",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "音量平衡", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "將平衡輕柔和響亮的歌曲，建立更統一的聆聽體驗。",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "空間音訊", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "將音訊進行空間化處理來製造一個更立體的聆聽體驗（注：此功能不是官方的杜比全景聲）",
-  
+
   // Settings - Visual
   "settings.header.visual": "外觀",
   "settings.header.visual.description": "調整Cider的外觀",
@@ -275,10 +285,11 @@
   "settings.header.visual.hardwareAcceleration.default": "預設",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
   "settings.header.visual.theme": "主題",
-  
+
   // Settings - Visual - Theme name
   "settings.option.visual.theme.default": "預設",
   "settings.option.visual.theme.dark": "午夜暗",
+  
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "顯示個人檔案", // Toggle
   
@@ -289,7 +300,7 @@
   "settings.option.lyrics.enableMusixmatchKaraoke": "啟用卡拉OK模式（僅限Musixmatch）", // Toggle
   "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch 歌詞語言偏好", // Dropdown
   "settings.option.lyrics.enableYoutubeLyrics": "播放 MV 時使用 YouTube 歌詞", // Toggle
-  
+
   // Settings - Connectivity
   "settings.header.connectivity": "外部連結",
   "settings.header.connectivity.description": "調整Cider與外部的連結",
@@ -303,18 +314,18 @@
   "settings.option.connectivity.lastfmScrobble.delay": "Last.fm Scrobble 延遲 (%)",
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "啟用 Last.fm 正在播放",
   "settings.option.connectivity.lastfmScrobble.removeFeatured": "從歌名中移除藝人推薦 (Last.fm)",
-  //"settings.option.connectivity.lastfmScrobble.filterLoop": "Filter looped track (Last.fm)", 
+    //"settings.option.connectivity.lastfmScrobble.filterLoop": "Filter looped track (Last.fm)", 
   // Refer to term.connect for the connect button
-  
+
   // Settings - Experimental
   "settings.header.experimental": "實驗性功能",
   "settings.header.experimental.description": "調整Cider的實驗性功能",
   "settings.option.experimental.compactUI": "緊凑型 UI", // Toggle
   "settings.option.experimental.close_button_hide": "以關閉按鈕來隱藏 Cider",
   "settings.option.experimental.copy_log": "複製運行記錄檔至剪貼簿",
-  //"settings.option.experimental.inline_playlists": "Inline Playlists and Albums",
-  
+    //"settings.option.experimental.inline_playlists": "Inline Playlists and Albums",
   // Refer to term.disabled & term.enabled
+  
   // Spatialization Menu
   "spatial.notTurnedOn": "請先在設定中啟用空間音訊。",
   "spatial.spatialProperties": "空間音訊屬性",
@@ -335,14 +346,14 @@
   "spatial.down": "下方",
   "spatial.listener": "觀眾",
   "spatial.audioSource": "音源",
-  
+
   // Settings - Unfinished
   "settings.header.unfinished": "未完成",
-  
+
   // Web Remote
   "remote.web.title": "遙距控制 Cider",
   "remote.web.description": "掃描以下的二維碼以控制 Cider",
-  
-  // About
+
+  //About
   "about.thanks": "感謝 Cider Collective 以及所有貢獻者所作出的貢獻。"
 }
