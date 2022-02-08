@@ -324,8 +324,8 @@
                 }
             },
             changePreamp() { 
-                if (CiderAudio.audioNodes.llpwEnabled === 1) {CiderAudio.audioNodes.preampNode.gain.value = (-Math.max(...app.cfg.audio.equalizer.gain.concat(CiderAudio.audioNodes.llpw[23].gain.value)));} 
-                else {CiderAudio.audioNodes.preampNode.gain.value = (-Math.max(...app.cfg.audio.equalizer.gain));}
+                /** if (CiderAudio.audioNodes.llpwEnabled === 1) {CiderAudio.audioNodes.preampNode.gain.value = (-Math.max(...app.cfg.audio.equalizer.gain.concat(CiderAudio.audioNodes.llpw[23].gain.value)));} 
+                else {CiderAudio.audioNodes.preampNode.gain.value = (-Math.max(...app.cfg.audio.equalizer.gain));} */
             },
             changeGain(i) {
                 CiderAudio.audioNodes.audioBands[i].gain.value = app.cfg.audio.equalizer.gain[i] * app.cfg.audio.equalizer.mix
