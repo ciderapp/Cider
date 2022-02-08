@@ -1,7 +1,7 @@
-{ // Base File
+{
 
   // i18n Info
-  "i18n.languageName": "Slovenčina (SK)",        // name of language in native language
+  "i18n.languageName": "Slovenčina (SK)", // name of language in native language
   "i18n.languageNameEnglish": "Slovak (SK)", // name of language in English
   "i18n.category": "main", // main = real language, fun = fun community languages
   "i18n.authors": "@jurosic-JurajJanosik", // Authors, if you contribute to this file feel free to add your name seperated with a space
@@ -19,6 +19,7 @@
   "notification.updatingLibrarySongs": "Aktualizujem pesničky v knižnici...",
   "notification.updatingLibraryAlbums": "Aktualizujem albumy v knižnici...",
   "notification.updatingLibraryArtists": "Aktualizujem tvorcov v knižnici...",
+  
   // Terms
   "term.appleInc": "Apple Inc.",
   "term.appleMusic": "Apple Music",
@@ -125,7 +126,6 @@
   "term.menu": "Menu",
   "term.check": "Skontrolovať",
   "term.aboutArtist": "Viac o {{artistName}}", // e.g. 'About Doja Cat'
-  "term.updateCider": "Aktualizovať Cider",
 
   // Home
   "home.title": "Domov",
@@ -136,13 +136,14 @@
   "home.madeForYou": "Robené Pre Teba",
   "home.friendsListeningTo": "Kamaráti počúvajú",
   "home.followedArtists": "Sledovaný Tvorcovia",
+
   // Errors
   "error.appleMusicSubRequired": "Apple Music potrebuje subscription.",
   "error.connectionError": "Pri pripojovaní ku Apple Music sa vyskytol problém",
   "error.noResults": "Žiadne výsledky",
   "error.noResults.description": "Skús nové vyhľádavanie",
 
-  //Podcasts
+  // Podcasts
   "podcast.followOnCider": "Sleduj na Cider",
   "podcast.followedOnCider": "Sledované na Cider",
   "podcast.subscribeOnItunes": "Odoberaj na iTunes",
@@ -208,6 +209,9 @@
   "settings.option.general.language.fun": "Zábanve Jazyky",
   "settings.option.general.language.unsorted": "Nepotriedené",
 
+  // Update Cider
+  "settings.option.general.updateCider": "Aktualizovať Cider",
+
   // Settings - Audio
   "settings.header.audio": "Zvuk",
   "settings.header.audio.description": "Zmeniť nastavenia zvuku pre Cider.",
@@ -228,6 +232,7 @@
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizuje silu zvuku v pesničkách pre hľadší počúvací zážitok",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Priestorový Zvuk", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Priestorový zvuk urobí zvuk 3-dimenzionálny (poznámka: Toto nie je Dolby Atmos)",
+  
   // Settings - Visual
   "settings.header.visual": "Visuálne",
   "settings.header.visual.description": "Zmenit Visuálne nastavenia pre Cider.",
@@ -251,9 +256,11 @@
   "settings.header.visual.hardwareAcceleration.default": "Predvoľba",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
   "settings.header.visual.theme": "Theme",
+
   // Settings - Visual - Theme name
   "settings.option.visual.theme.default": "Cider",
   "settings.option.visual.theme.dark": "Dark",
+
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "Zobraziť osobné informácie", // Toggle
 
@@ -284,10 +291,12 @@
   // Settings - Experimental
   "settings.header.experimental": "Experimentálne",
   "settings.header.experimental.description": "Zmeniť experimentálne nastavenia pre Cider.",
+  "settings.option.experimental.compactUI": "Compact UI", // Toggle
+  "settings.option.experimental.close_button_hide": "Zatvoriť by malo skriť aplikáciu",
   "settings.option.experimental.compactUI": "Kompaktný UI", // Toggle
   "settings.option.experimental.close_button_hide": "Zatvaranie aplikácie ju malo skriť",
-  // Refer to term.disabled & term.enabled
 
+  // Refer to term.disabled & term.enabled
   // Spatialization Menu
   "spatial.notTurnedOn": "Priestorový Zvuk je vypnutý. Prosím najprv ho zapnite.",
   "spatial.spatialProperties": "Špeciálne Nastavenia",

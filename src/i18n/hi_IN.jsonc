@@ -1,5 +1,5 @@
 {
-	// Base File
+	
 	// i18n Info
 	"i18n.languageName": "English (US)", // name of language in native language
 	"i18n.languageNameEnglish": "English (US)", // name of language in English
@@ -289,6 +289,7 @@
 	// Settings - Visual - Theme name
 	"settings.option.visual.theme.default": "Cider",
 	"settings.option.visual.theme.dark": "Dark",
+
 	// Refer to term.disabled for the disabled option
 	"settings.option.visual.showPersonalInfo": "दिखाएं Personal Info", // Toggle
 
