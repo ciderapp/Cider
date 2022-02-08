@@ -29,7 +29,7 @@
                     <div class="loadbar-sound"></div>
                 </div>
             </div>
-            <div class="artwork" v-if="showArtwork == true">
+            <div class="artwork" v-if="showArtwork == true && (showIndex == false ||(showIndex == true && showIndexPlaylist != false)) ">
                 <mediaitem-artwork
                         :url="item.attributes.artwork ? item.attributes.artwork.url : ''"
                         :size="48"
