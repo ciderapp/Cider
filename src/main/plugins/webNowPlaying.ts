@@ -53,7 +53,7 @@ export default class WebNowPlaying {
         }
     }
 
-    sendSongInfo(attributes: any) {
+    private sendSongInfo(attributes: any) {
         if (!this.ws || this.ws.readyState !== WebSocket.OPEN) return;
 
         const fields = ['STATE', 'TITLE', 'ARTIST', 'ALBUM', 'COVER', 'DURATION', 'POSITION', 'VOLUME', 'REPEAT', 'SHUFFLE'];
@@ -102,7 +102,7 @@ export default class WebNowPlaying {
         });
     }
 
-    fireEvent(evt: any) {
+    private fireEvent(evt: any) {
         if (!evt.data) return;
         let value = '';
         if (evt.data.split(/ (.+)/).length > 1) {
@@ -156,7 +156,7 @@ export default class WebNowPlaying {
      * Runs on app ready
      */
     @WebNowPlaying.windowsOnly
-    onReady(win: any) {
+    public onReady(win: any) {
         this._win = win;
 
         // Connect to Rainmeter plugin and retry on disconnect.
@@ -212,7 +212,7 @@ export default class WebNowPlaying {
      * Runs on app stop
      */
     @WebNowPlaying.windowsOnly
-    onBeforeQuit() {
+    public onBeforeQuit() {
         if (this.ws) {
             this.ws.send('STATE:0');
             this.ws.onclose = null; // disable onclose handler first to stop it from retrying
@@ -229,7 +229,7 @@ export default class WebNowPlaying {
      * @param attributes Music Attributes (attributes.status = current state)
      */
     @WebNowPlaying.windowsOnly
-    onPlaybackStateDidChange(attributes: any) {
+    public onPlaybackStateDidChange(attributes: any) {
         this.sendSongInfo(attributes);
     }
 
@@ -238,7 +238,7 @@ export default class WebNowPlaying {
      * @param attributes Music Attributes
      */
     @WebNowPlaying.windowsOnly
-    onNowPlayingItemDidChange(attributes: any) {
+    public onNowPlayingItemDidChange(attributes: any) {
         this.sendSongInfo(attributes);
     }
 }
