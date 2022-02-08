@@ -118,7 +118,7 @@
   "term.socialTeam": "Social Team",
   "term.socials": "Socials",
   "term.contributors": "Contributors",
-  "term.equalizer": "Ekvalizr",
+  "term.equalizer": "Equalizer",
   "term.reset": "Resetovať",
   "term.tracks": "pesničiek", // Assume x amount of tracks. e.g. 50 tracks
   "term.videos": "Videá",
@@ -217,7 +217,13 @@
   "settings.header.audio.quality.auto": "Automatické",
   "settings.option.audio.seamlessTransition": "Hladký Prevod Zvuku", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "Zapnút Pokročilé Nastavenia Zvuku", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.description": "Zapnutie AudioContext funkcionality dovolí rozšírené funkcie zvuku ako Zvuková Normalizávia , Ekvalizéry a Visualízery, ale na niektorých systémoch to može spôsobiť problémy so zvukom.",
+  "settings.option.audio.enableAdvancedFunctionality.description": "Zapnutie AudioContext funkcionality dovolí rozšírené funkcie zvuku ako Zvuková Normalizávia , Equalizéry a Visualízery, ale na niektorých systémoch to može spôsobiť problémy so zvukom.",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider Adrenaline Processor™️", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Psychoakustické Vylepšenia ktoré urobia zvuk viac bohatý a živý | Urobil Maikiwi.",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "CAP Sila", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Zmení silu CAP (Agresivná môže spôsobiť nežiadané výsledky)",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "Štandardná",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive": "Agresivná",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Normalízacia Zvuku", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizuje silu zvuku v pesničkách pre hľadší počúvací zážitok",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Priestorový Zvuk", // Toggle
@@ -244,6 +250,11 @@
   "settings.option.visual.hardwareAcceleration.description": "Vyžaduje Reštart",
   "settings.header.visual.hardwareAcceleration.default": "Predvoľba",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
+  "settings.header.visual.theme": "Theme",
+  // Settings - Visual - Theme name
+  "settings.option.visual.theme.default": "Cider",
+  "settings.option.visual.theme.dark": "Dark",
+  // Refer to term.disabled for the disabled option
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "Zobraziť osobné informácie", // Toggle
 
