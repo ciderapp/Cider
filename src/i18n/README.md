@@ -77,3 +77,7 @@ Update 08/02/2022 10:20 UTC
 * `settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description`: Added for `en_US`.
 * `settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard`: Added for `en_US`.
 * `settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive`: Added for `en_US`.
+* `settings.warn.audio.enableAdvancedFunctionality.ciderPPE.compatibility`: Added for `en_US`.
+* `settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility`: Added for `en_US`.
+* `term.requestError`: Added for `en_US`.
+* `term.song.link.generate`: Added for `en_US`.
