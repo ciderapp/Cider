@@ -202,6 +202,10 @@
 
   // Update Cider
   "settings.option.general.updateCider": "更新 Cider", // Button
+  "settings.option.general.updateCider.branch": "Cider 更新通道", // Dropdown
+  "settings.option.general.updateCider.branch.description": "選擇您要接收 Cider 軟體更新的通道",
+  "settings.option.general.updateCider.branch.main": "穩定版(建議)",
+  "settings.option.general.updateCider.branch.develop": "開發者測試版(不穩定)",
   
   // Settings - Audio
   "settings.header.audio": "音訊",
