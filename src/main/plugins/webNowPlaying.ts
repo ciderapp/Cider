@@ -40,6 +40,19 @@ export default class WebNowPlaying {
         console.debug(`[Plugin][${this.name}] Loading Complete.`);
     }
 
+    /**
+     * Blocks non-windows systems from running this plugin
+     * @private
+     * @decorator
+     */
+    private static windowsOnly(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
+        if (process.platform !== 'win32') {
+            descriptor.value = function () {
+                return
+            }
+        }
+    }
+
     sendSongInfo(attributes: any) {
         if (!this.ws || this.ws.readyState !== WebSocket.OPEN) return;
 
@@ -142,6 +155,7 @@ export default class WebNowPlaying {
     /**
      * Runs on app ready
      */
+    @WebNowPlaying.windowsOnly
     onReady(win: any) {
         this._win = win;
 
@@ -197,6 +211,7 @@ export default class WebNowPlaying {
     /**
      * Runs on app stop
      */
+    @WebNowPlaying.windowsOnly
     onBeforeQuit() {
         if (this.ws) {
             this.ws.send('STATE:0');
@@ -213,6 +228,7 @@ export default class WebNowPlaying {
      * Runs on playback State Change
      * @param attributes Music Attributes (attributes.status = current state)
      */
+    @WebNowPlaying.windowsOnly
     onPlaybackStateDidChange(attributes: any) {
         this.sendSongInfo(attributes);
     }
@@ -221,6 +237,7 @@ export default class WebNowPlaying {
      * Runs on song change
      * @param attributes Music Attributes
      */
+    @WebNowPlaying.windowsOnly
     onNowPlayingItemDidChange(attributes: any) {
         this.sendSongInfo(attributes);
     }
