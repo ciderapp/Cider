@@ -31,7 +31,7 @@
   "term.logout": "Odhlásiť",
   "term.login": "Prihlásiť",
   "term.about": "About",
-  "term.privateSession": "Osobný Session",
+  "term.privateSession": "Osobný Počúvanie",
   "term.queue": "Poradie",
   "term.search": "Vyhládavať",
   "term.library": "Knižnica",
@@ -223,7 +223,7 @@
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "CAP Sila", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Zmení silu CAP (Agresívná môže spôsobiť nežiadané výsledky)",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "Štandardná",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive": "Agresvná",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive": "Agresívná",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Normalízacia Zvuku", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizuje silu zvuku v pesničkách pre hľadší počúvací zážitok",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Priestorový Zvuk", // Toggle
