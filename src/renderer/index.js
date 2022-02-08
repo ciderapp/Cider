@@ -2284,7 +2284,7 @@ const app = new Vue({
             this.mk.addToLibrary(id).then((data) => {
                 self.getLibrarySongsFull(true)
             })
-            notyf.success('Added to library.');
+            notyf.success(app.getLz('action.addToLibrary.success'));
         },
         removeFromLibrary(kind, id) {
             let self = this
@@ -2296,7 +2296,7 @@ const app = new Vue({
             }).then((data) => {
                 self.getLibrarySongsFull(true)
             })
-            notyf.success('Removed from library.')
+            notyf.success(app.getLz('action.removeFromLibrary.success'))
         },
         
         async losslessBadge() {
