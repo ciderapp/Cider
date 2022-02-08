@@ -13,7 +13,7 @@ var package = JSON.parse(data);
 package.version = `${package.version}.${process.env['CIRCLE_BUILD_NUM']}`
 
 
-fs.writeFile('package.json', package, err => {
+fs.writeFile('package.json', JSON.stringify(package), err => {
     // error checking
     if(err) throw err;
     console.log("VERSION CHANGED");
