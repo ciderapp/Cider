@@ -1,4 +1,4 @@
-# Cider i18n
+# Cider i18n Notices & Changelog
 
 Some notes about Cider's i18n support.
 
