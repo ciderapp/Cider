@@ -25,7 +25,8 @@
     "dist": "yarn build && electron-builder",
     "dist:all": "yarn build && electron-builder -mwl",
     "msft": "yarn build && electron-builder -c msft-package.json",
-    "postinstall": "electron-builder install-app-deps"
+    "postinstall": "electron-builder install-app-deps",
+    "circle:append-sha": "node resources/appendCommitToVersion"
   },
   "dependencies": {
     "@sentry/electron": "^2.5.4",
