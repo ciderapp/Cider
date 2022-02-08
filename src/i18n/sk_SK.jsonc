@@ -118,7 +118,7 @@
   "term.socialTeam": "Social Team",
   "term.socials": "Socials",
   "term.contributors": "Contributors",
-  "term.equalizer": "Equalizer",
+  "term.equalizer": "Ekvalizr",
   "term.reset": "Resetovať",
   "term.tracks": "pesničiek", // Assume x amount of tracks. e.g. 50 tracks
   "term.videos": "Videá",
@@ -217,7 +217,7 @@
   "settings.header.audio.quality.auto": "Automatické",
   "settings.option.audio.seamlessTransition": "Hladký Prevod Zvuku", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "Zapnút Pokročilé Nastavenia Zvuku", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.description": "Zapnutie AudioContext funkcionality dovolí rozšírené funkcie zvuku ako Zvuková Normalizávia , Equalizéry a Visualízery, ale na niektorých systémoch to može spôsobiť problémy so zvukom.",
+  "settings.option.audio.enableAdvancedFunctionality.description": "Zapnutie AudioContext funkcionality dovolí rozšírené funkcie zvuku ako Zvuková Normalizávia , Ekvalizéry a Visualízery, ale na niektorých systémoch to može spôsobiť problémy so zvukom.",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Normalízacia Zvuku", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizuje silu zvuku v pesničkách pre hľadší počúvací zážitok",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Priestorový Zvuk", // Toggle
