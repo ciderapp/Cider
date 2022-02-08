@@ -147,7 +147,7 @@
     "home.title": "Beranda",
     "home.recentlyPlayed": "Baru Dimainkan",
     "home.recentlyAdded": "Baru Ditambahkan",
-    "home.artistsFeed": "Artists Feed Anda",
+    "home.artistsFeed": "Feed Artis Anda",
     "home.artistsFeed.noArtist": "Ikuti beberapa artis terlebih dahulu dan rilisan terbaru mereka akan ada di sini",
     "home.madeForYou": "Dibuat Untuk Kamu",
     "home.friendsListeningTo": "Teman Sedang Mendengarkan",
@@ -249,7 +249,7 @@
     "settings.header.audio.quality.standard.description": "64 kbps",
     "settings.option.audio.seamlessTransition": "Transisi Audio Mulus", // Toggle
     "settings.option.audio.enableAdvancedFunctionality": "Aktifkan Fungsi Lanjutan", // Toggle
-    "settings.option.audio.enableAdvancedFunctionality.description": "Mengaktifkan fungsionalitas AudioContext memungkinkan fitur audio yang lanjutan seperti Normalisasi Audio, Equalizer dan Visualizer. Namun pada beberapa perangkat dapat menyebabkan tersendatnya audio.",
+    "settings.option.audio.enableAdvancedFunctionality.description": "Mengaktifkan fungsionalitas AudioContext memungkinkan fitur audio lanjutan seperti Normalisasi Audio, Equalizer dan Visualizer. Namun pada beberapa perangkat dapat menyebabkan tersendatnya audio.",
     "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider Adrenaline Processor™️", // Toggle
     "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Peningkatan Psikoakustik yang membuat semuanya terdengar lebih jelas dan lebih hidup | Dirancang oleh Maikiwi.",
     "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "Kekuatan CAP", // Toggle
