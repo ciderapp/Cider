@@ -271,6 +271,25 @@ const app = new Vue({
         },
     },
     methods: {
+        songLinkShare(amUrl) {
+            notyf.open({type: "info", message: app.getLz('term.song.link.generate')})
+            let self = this
+            httpRequest = new XMLHttpRequest();
+            httpRequest.open('GET', `https://api.song.link/v1-alpha.1/links?url=${amUrl}&userCountry=US`, true);
+            httpRequest.send();
+            httpRequest.onreadystatechange = function () {
+                if (httpRequest.readyState === 4) {
+                    if (httpRequest.status === 200) {
+                        let response = JSON.parse(httpRequest.responseText);
+                        console.log(response);
+                        self.copyToClipboard(response.pageUrl)
+                    } else {
+                        console.log('There was a problem with the request.');
+                        notyf.error(app.getLz('term.requestError'))
+                    }
+                }
+            }
+        },
         mainMenuVisibility(val) {
             if (val) {
                 (this.chrome.userinfo.id) ? this.chrome.menuOpened = !this.chrome.menuOpened : false
@@ -1865,7 +1884,7 @@ const app = new Vue({
                     self.library.backgroundNotification.show = false
                     self.searchLibrarySongs()
                     localStorage.setItem("librarySongs", JSON.stringify(library))
-                    console.log(library)
+                    // console.log(library)
                 }
             }
 
@@ -1973,7 +1992,7 @@ const app = new Vue({
                     self.library.backgroundNotification.show = false
                     localStorage.setItem("libraryAlbums", JSON.stringify(library))
                     self.searchLibraryAlbums(index)
-                    console.log(library)
+                    // console.log(library)
                 }
             }
 
@@ -2079,7 +2098,7 @@ const app = new Vue({
                     self.library.backgroundNotification.show = false
                     localStorage.setItem("libraryArtists", JSON.stringify(library))
                     self.searchLibraryArtists(index)
-                    console.log(library)
+                    // console.log(library)
                 }
             }
 
@@ -2265,7 +2284,7 @@ const app = new Vue({
             this.mk.addToLibrary(id).then((data) => {
                 self.getLibrarySongsFull(true)
             })
-            notyf.success('Added to library.');
+            notyf.success(app.getLz('action.addToLibrary.success'));
         },
         removeFromLibrary(kind, id) {
             let self = this
@@ -2277,7 +2296,7 @@ const app = new Vue({
             }).then((data) => {
                 self.getLibrarySongsFull(true)
             })
-            notyf.success('Removed from library.')
+            notyf.success(app.getLz('action.removeFromLibrary.success'))
         },
         
         async losslessBadge() {
@@ -3193,8 +3212,8 @@ const app = new Vue({
         },
         volumeUp() {
             if ((app.mk.volume + app.cfg.audio.volumeStep) > 1) {
-                app.mk.volume = 1;
-                console.log('setting to 1')
+                app.mk.volume = app.cfg.audio.maxVolume;
+                console.log('setting max volume')
             } else {
                 console.log('volume up')
                 app.mk.volume += app.cfg.audio.volumeStep;
@@ -3203,7 +3222,7 @@ const app = new Vue({
         volumeDown() {
             if ((app.mk.volume - app.cfg.audio.volumeStep) < 0) {
                 app.mk.volume = 0;
-                console.log('settings to 0')
+                console.log('setting volume to 0')
             } else {
                 console.log('volume down')
                 app.mk.volume -= app.cfg.audio.volumeStep;
@@ -3364,7 +3383,16 @@ const app = new Vue({
                                     app.copyToClipboard((u.data.data.length && u.data.data.length > 0) ? u.data.data[0].attributes.url : u.data.data.attributes.url)
                                 })
                             }
-                        }
+                        },
+                        {
+                            "icon": "./assets/feather/share.svg",
+                            "name": `${app.getLz('action.share')} (song.link)`,
+                            "action": function () {
+                                app.mkapi(app.mk.nowPlayingItem.attributes?.playParams?.kind ?? app.mk.nowPlayingItem.type ?? 'songs', false, app.mk.nowPlayingItem._songId ?? app.mk.nowPlayingItem.id ?? '').then(u => {
+                                    app.songLinkShare((u.data.data.length && u.data.data.length > 0) ? u.data.data[0].attributes.url : u.data.data.attributes.url)
+                                })
+                            }
+                        }                        
                     ]
                 }
             }

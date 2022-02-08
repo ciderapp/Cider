@@ -1,4 +1,4 @@
-{ // Base File
+{
 
   // i18n Info
   "i18n.languageName": "Italiano",        // name of language in native language
@@ -19,6 +19,7 @@
   "notification.updatingLibrarySongs": "Aggiornamento raccolta brani...",
   "notification.updatingLibraryAlbums": "Aggornamento raccolta album...",
   "notification.updatingLibraryArtists": "Aggiornamento raccolta artisti...",
+  
   // Terms
   "term.appleInc": "Apple Inc.",
   "term.appleMusic": "Apple Music",
@@ -134,13 +135,14 @@
   "home.madeForYou": "Per Te",
   "home.friendsListeningTo": "Ascoltato da Amici",
   "home.followedArtists": "Artisti Seguiti",
+
   // Errors
   "error.appleMusicSubRequired": "Apple Music ha bisogno di un abbonamento.",
   "error.connectionError": "C'è stato un problema nella connessione a Apple Music.",
   "error.noResults": "Nessun risultato.",
   "error.noResults.description": "Prova un'altra ricerca.",
 
-  //Podcasts
+  // Podcasts
   "podcast.followOnCider": "Segui in Cider",
   "podcast.followedOnCider": "Seguiti in Cider",
   "podcast.subscribeOnItunes": "Iscriviti in iTunes",
@@ -191,7 +193,6 @@
   "action.import": "Importa",
   "action.export": "Esporta",
   "action.showAlbum": "Mostra Album Intero",
-  // Waiting on Core for moving plugin to app.ts
   "action.tray.minimize": "Minimizza nel tray",
   "action.tray.quit": "Chiudi",
   "action.tray.show": "Mostra",
@@ -205,6 +206,8 @@
   "settings.option.general.language.main": "Lingue",
   "settings.option.general.language.fun": "Lingue da Scherzo",
   "settings.option.general.language.unsorted": "Non ordinato",
+
+  // Update Cider
   
   // Settings - Audio
   "settings.header.audio": "Audio",
@@ -220,6 +223,7 @@
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizza il volume massimo nei brani per un'esperienza d'ascolto più uniforme.",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Spazializzazione Audio", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Spazializza l'audio per dare un effetto più tridimensionale (nota: questo non è Dolby Atmos)",
+
   // Settings - Visual
   "settings.header.visual": "Visuale", 
   "settings.header.visual.description": "Cambia le impostazioni visuali per Cider.",
@@ -242,6 +246,9 @@
   "settings.option.visual.hardwareAcceleration.description": "Richiede riavvio del'app",
   "settings.header.visual.hardwareAcceleration.default": "Normale", 
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
+
+  // Settings - Visual - Theme name
+
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "Mostra Informazione Personale", // Toggle
 
@@ -277,8 +284,8 @@
   "settings.option.experimental.closeButtonBehaviour.quit": "Chiudi Cider",
   "settings.option.experimental.closeButtonBehaviour.minimizeTaskbar": "Minimizza",
   "settings.option.experimental.closeButtonBehaviour.minimizeTray": "Minimizza Nel Tray",
+  
   // Refer to term.disabled & term.enabled
-
   // Spatialization Menu
   "spatial.notTurnedOn": "Spazializzazione Audio è disattivata. Attivala prima.",
   "spatial.spatialProperties" : "Proprietà Spaziali",

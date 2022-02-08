@@ -1,5 +1,6 @@
 exports.default = function(context) {
     const { execSync } = require('child_process')
+    const fs = require('fs')
 
     if (process.platform !== 'darwin')
         return
@@ -8,11 +9,15 @@ exports.default = function(context) {
     execSync('python3 -m pip install --upgrade castlabs-evs')
     console.log('Castlabs-evs update complete')
 
-
+    
 
     console.log('VMP signing start')
-
+    if (fs.existsSync('dist/mac'))
     execSync('python3 -m castlabs_evs.vmp -n sign-pkg dist/mac',{stdio: 'inherit'})
+    if (fs.existsSync('dist/mac-arm64'))
+    execSync('python3 -m castlabs_evs.vmp -n sign-pkg dist/mac-arm64 -z',{stdio: 'inherit'})
+    if (fs.existsSync('dist/mac-x64'))
+    execSync('python3 -m castlabs_evs.vmp -n sign-pkg dist/mac-x64',{stdio: 'inherit'})
     
     console.log('VMP signing complete')
 }

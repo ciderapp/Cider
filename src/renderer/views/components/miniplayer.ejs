@@ -83,7 +83,7 @@
                 <div class="app-chrome-item volume display--large">
                     <div class="input-container">
                     <button class="volume-button--small volume" @click="app.muteButtonPressed()" :class="{'active': app.cfg.audio.volume == 0}"></button>
-                    <input type="range" class="slider" @wheel="app.volumeWheel" step="0.01" min="0" max="1" v-model="app.mk.volume"
+                    <input type="range" class="slider" @wheel="app.volumeWheel" :step="app.cfg.audio.volumeStep" min="0" :max="app.cfg.audio.maxVolume" v-model="app.mk.volume"
                            v-if="typeof app.mk.volume != 'undefined'" @change="app.checkMuteChange()">
                     </div>       
                 </div>

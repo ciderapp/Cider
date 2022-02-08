@@ -1,7 +1,7 @@
 {
 
   // i18n Info
-  "i18n.languageName": "繁體中文（香港）",        // name of language in native language
+  "i18n.languageName": "繁體中文（香港）", // name of language in native language
   "i18n.languageNameEnglish": "Trad. Chinese (Hong Kong)", // name of language in English
   "i18n.category": "main", // main = real language, fun = fun community languages
   "i18n.authors": "@kyw504100 @maikirakiwi", // Authors, if you contribute to this file feel free to add your name seperated with a space
@@ -9,7 +9,7 @@
   // App info
   "app.name": "Cider",
 
-  "date.format": "${y}年${m}月${d}日", 
+  "date.format": "${y}年${m}月${d}日",
 
   // Dialogs
   "dialog.cancel": "取消",
@@ -19,6 +19,7 @@
   "notification.updatingLibrarySongs": "正在更新資料庫的歌曲...",
   "notification.updatingLibraryAlbums": "正在更新資料庫的專輯...",
   "notification.updatingLibraryArtists": "正在更新資料庫的藝人...",
+
   // Terms
   "term.appleInc": "Apple Inc.",
   "term.appleMusic": "Apple Music", // Follows brand term
@@ -93,10 +94,10 @@
   "term.less": "較少",
   "term.showMore": "顯示更多",
   "term.showLess": "顯示較少",
-  "term.topSongs" : "熱門歌曲",
+  "term.topSongs": "熱門歌曲",
   "term.latestReleases": "最新發行",
   "term.time.added": "加入於",
-  "term.time.released": "發行於", 
+  "term.time.released": "發行於",
   "term.time.updated": "更新於",
   "term.time.hours": "小時",
   "term.time.hour": "小時",
@@ -123,18 +124,19 @@
   "term.equalizer": "均衡器",
   "term.reset": "重設",
   "term.tracks": "首歌曲", // Assume x amount of tracks. e.g. 50 tracks 
-  "term.videos": "影片", 
-  "term.menu": "選項", 
+  "term.videos": "影片",
+  "term.menu": "選項",
   "term.check": "檢查",
   "term.aboutArtist": "關於 {{artistName}}", // e.g. 'About Doja Cat'
-  "term.updateCider": "更新 Cider",
-  "term.topResult": "熱門搜尋結果",   // Search Results
+  "term.topResult": "熱門搜尋結果", // Search Results
   "term.sharedPlaylists": "播放列表", // Search Results
   "term.people": "個人檔案", // Search Results
   "term.newpreset.name": "新均衡器範本名稱", // Equalizer Preset
   "term.addedpreset": "已新增",
   "term.deletepreset.warn": "你確認要刪除這個範本？",
   "term.deletedpreset": "已刪除",
+  "term.requestError": "處理請求時發生錯誤",
+  "term.song.link.generate": "正在生成 song.link 分享連結...",
   "term.musicVideos": "MV", // Search page friendlyTypes
   "term.stations": "電台",
     //"term.curators": "Curators",
@@ -153,13 +155,14 @@
   "home.madeForYou": "為您推薦",
   "home.friendsListeningTo": "朋友正在聆聽",
   "home.followedArtists": "追蹤的藝人",
+
   // Errors
   "error.appleMusicSubRequired": "需要訂閱Apple Music以使用Cider",
   "error.connectionError": "無法連接到 Apple Music。",
   "error.noResults": "沒有結果",
   "error.noResults.description": "請嘗試新的搜尋內容。",
 
-  //Podcasts
+  // Podcasts
   "podcast.followOnCider": "在Cider上追蹤",
   "podcast.followedOnCider": "已在Cider上追蹤",
   "podcast.subscribeOnItunes": "在iTunes上訂閱",
@@ -215,7 +218,7 @@
   "action.tray.show": "顯示",
   "action.update": "更新",
   "action.copy": "複製",
-  "action.newpreset": "新增範本",  //Equallizer preset
+  "action.newpreset": "新增範本", // Equallizer preset
   "action.deletepreset": "刪除範本",
   
   // Settings - General
@@ -227,6 +230,13 @@
   "settings.option.general.language.main": "語言",
   "settings.option.general.language.fun": "惡搞語言",
   "settings.option.general.language.unsorted": "未分類",
+
+  // Update Cider
+  "settings.option.general.updateCider": "更新 Cider", // Button
+  "settings.option.general.updateCider.branch": "Cider 更新通道", // Dropdown
+  "settings.option.general.updateCider.branch.description": "選擇你想要接收來自哪個通道的更新",
+  "settings.option.general.updateCider.branch.main": "穩定",
+  "settings.option.general.updateCider.branch.develop": "測試",
   
   // Settings - Audio
   "settings.header.audio": "音訊",
@@ -237,17 +247,25 @@
   "settings.header.audio.quality.lossless": "無損壓縮",
   "settings.header.audio.quality.lossless.description": "（高達 24-bit/48 kHz）",
   "settings.header.audio.quality.high": "高素質",
-  "settings.header.audio.quality.low": "高效率",
-  "settings.header.audio.quality.auto": "自動",
+    //"settings.header.audio.quality.high.description": "256 kbps",
+  "settings.header.audio.quality.standard": "高效率",
+    //"settings.header.audio.quality.standard.description": "64 kbps",
   "settings.option.audio.seamlessTransition": "無縫播放", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "進階功能", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.description": "啟用 AudioContext 將解鎖類似音量平衡和均衡器的進階功能。但是會在一些電腦造成音樂卡頓。",
-  "settings.option.audio.enableAdvancedFunctionality.decryptLLPW": "無損壓縮解碼", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.decryptLLPW.description": "提供 Cider 解碼無損壓縮檔案的能力，但相應地會增加電腦的工作量。",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider 數碼音訊增強處理™️", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "能夠欺騙你的大腦讓你感受到近似無損壓縮的音質 | 由 Maikiwi 設計",
+  "settings.warn.audio.enableAdvancedFunctionality.ciderPPE.compatibility": "音訊增強處理不兼容於空間音訊，請先停用空間音訊。",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "數碼音訊增強處理設定", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "將更改音訊處理的激進程度（激進型選項有可能會引起雜訊）",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "標準型",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive": "激進型",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "音量平衡", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "將平衡輕柔和響亮的歌曲，建立更統一的聆聽體驗。",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "空間音訊", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "將音訊進行空間化處理來製造一個更立體的聆聽體驗（注：此功能不是官方的杜比全景聲）",
+  "settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility": "空間音訊不兼容於音訊增強處理，請先停用音訊增強處理。",
+
   // Settings - Visual
   "settings.header.visual": "外觀",
   "settings.header.visual.description": "調整Cider的外觀",
@@ -268,14 +286,14 @@
   "settings.option.visual.animatedWindowBackground": "動態窗口背景", // Toggle
   "settings.option.visual.hardwareAcceleration": "硬體加速", // Dropdown
   "settings.option.visual.hardwareAcceleration.description": "需要重啓 Cider 才能生效",
-  "settings.header.visual.hardwareAcceleration.default": "預設", 
-  "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
+  "settings.header.visual.hardwareAcceleration.default": "預設",
+  "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
   "settings.header.visual.theme": "主題",
 
   // Settings - Visual - Theme name
   "settings.option.visual.theme.default": "預設",
   "settings.option.visual.theme.dark": "午夜暗",
-
+  
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "顯示個人檔案", // Toggle
   
@@ -314,24 +332,24 @@
   
   // Spatialization Menu
   "spatial.notTurnedOn": "請先在設定中啟用空間音訊。",
-  "spatial.spatialProperties" : "空間音訊屬性",
-  "spatial.width" : "闊度",
-  "spatial.height" : "高度",
-  "spatial.depth" : "深度",
-  "spatial.gain" : "增益",
-  "spatial.roomMaterials" : "空間材質",
-  "spatial.roomDimensions" : "空間大小",
-  "spatial.roomPositions" : "空間位置",
-  "spatial.setDimensions" : "大小設定",
-  "spatial.setPositions" : "位置設定",
-  "spatial.up" : "上方",
-  "spatial.front" : "前方",
-  "spatial.left" : "左方",
-  "spatial.right" : "右方",
-  "spatial.back" : "後方",
-  "spatial.down" : "下方",
-  "spatial.listener" : "觀眾",
-  "spatial.audioSource" : "音源",
+  "spatial.spatialProperties": "空間音訊屬性",
+  "spatial.width": "闊度",
+  "spatial.height": "高度",
+  "spatial.depth": "深度",
+  "spatial.gain": "增益",
+  "spatial.roomMaterials": "空間材質",
+  "spatial.roomDimensions": "空間大小",
+  "spatial.roomPositions": "空間位置",
+  "spatial.setDimensions": "大小設定",
+  "spatial.setPositions": "位置設定",
+  "spatial.up": "上方",
+  "spatial.front": "前方",
+  "spatial.left": "左方",
+  "spatial.right": "右方",
+  "spatial.back": "後方",
+  "spatial.down": "下方",
+  "spatial.listener": "觀眾",
+  "spatial.audioSource": "音源",
 
   // Settings - Unfinished
   "settings.header.unfinished": "未完成",
