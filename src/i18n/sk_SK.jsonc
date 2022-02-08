@@ -1,0 +1,311 @@
+{ // Base File
+
+  // i18n Info
+  "i18n.languageName": "Slovenčina (SK)",        // name of language in native language
+  "i18n.languageNameEnglish": "Slovak (SK)", // name of language in English
+  "i18n.category": "main", // main = real language, fun = fun community languages
+  "i18n.authors": "@jurosic", // Authors, if you contribute to this file feel free to add your name seperated with a space
+
+  // App info
+  "app.name": "Cider",
+
+  "date.format": "${d} ${m}, ${y}",
+
+  // Dialogs
+  "dialog.cancel": "Zrušit",
+  "dialog.ok": "OK",
+
+  // Notification
+  "notification.updatingLibrarySongs": "Aktualizujem pesničky v knižnici...",
+  "notification.updatingLibraryAlbums": "Aktualizujem albumy v knižnici...",
+  "notification.updatingLibraryArtists": "Aktualizujem tvorcov v knižnici...",
+  // Terms
+  "term.appleInc": "Apple Inc.",
+  "term.appleMusic": "Apple Music",
+  "term.applePodcasts": "Apple Podcasts",
+  "term.itunes": "iTunes",
+  "term.github": "GitHub",
+  "term.discord": "Discord",
+  "term.learnMore": "Zistiť viac",
+  "term.accountSettings": "Nastavenia účtu",
+  "term.logout": "Odhlásiť",
+  "term.login": "Prihlásiť",
+  "term.about": "About",
+  "term.privateSession": "Osobný Session",
+  "term.queue": "Poradie",
+  "term.search": "Vyhládavať",
+  "term.library": "Knižnica",
+  "term.listenNow": "Počúvať teraz",
+  "term.browse": "Prehliadávať",
+  "term.radio": "Rádio",
+  "term.recentlyAdded": "Nedávno Pridané",
+  "term.songs": "Pesničky",
+  "term.albums": "Albumy",
+  "term.artists": "Tvorcovia",
+  "term.podcasts": "Podcasty",
+  "term.playlists": "Playlisty",
+  "term.playlist": "Playlist",
+  "term.newPlaylist": "Nový Playlist",
+  "term.newPlaylistFolder": "Nový Priečinok Playlistov",
+  "term.createNewPlaylist": "Urobiť Nový Playlist",
+  "term.createNewPlaylistFolder": "Urobiť Nový Priečinok Playlistov",
+  "term.deletePlaylist": "Ste si istý že chcete zmazat tento playlist?",
+  "term.play": "Play",
+  "term.pause": "Pause",
+  "term.previous": "Previous",
+  "term.next": "Next",
+  "term.shuffle": "Shuffle",
+  "term.repeat": "Repeat",
+  "term.volume": "Hlasitosť",
+  "term.mute": "Ztlmiť",
+  "term.unmute": "Vypnúť Ztlmenie",
+  "term.share": "Zdielať",
+  "term.settings": "Nastavenia",
+  "term.seeAll": "Vidieť Všetko",
+  "term.sortBy": "Zodariť Podľa",
+  "term.sortBy.album": "Album",
+  "term.sortBy.artist": "Tvorca",
+  "term.sortBy.name": "Názov",
+  "term.sortBy.genre": "Žáner",
+  "term.sortBy.releaseDate": "Dátum Vydania",
+  "term.sortBy.duration": "Dĺžka",
+  "term.sortOrder": "A-Z",
+  "term.sortOrder.ascending": "Vzostupne",
+  "term.sortOrder.descending": "Zostupne",
+  "term.viewAs": "Zobraziť Ako",
+  "term.viewAs.coverArt": "Náhľadovka",
+  "term.viewAs.list": "List",
+  "term.size": "Velkosť",
+  "term.size.normal": "Normal",
+  "term.size.compact": "Compact",
+  "term.enable": "Zapnúť",
+  "term.disable": "Vypnúť",
+  "term.enabled": "Zapnuté",
+  "term.disabled": "Vypnuté",
+  "term.connect": "Pripojiť",
+  "term.connecting": "Pripájam",
+  "term.disconnect": "Odpojiť",
+  "term.authed": "Authentikovaný",
+  "term.confirm": "Podvrdiť ?",
+  "term.more": "Viac",
+  "term.less": "Menej",
+  "term.showMore": "Ukázať viac",
+  "term.showLess": "Ukázať menej",
+  "term.topSongs" : "Top Pesničky",
+  "term.latestReleases": "Najnovšie vydania",
+  "term.time.added": "Pridané",
+  "term.time.released": "Vydané",
+  "term.time.updated": "Aktualizované",
+  "term.time.hours": "hodín",
+  "term.time.hour": "hodina",
+  "term.time.minutes": "minút",
+  "term.time.minute": "minúta",
+  "term.time.seconds": "sekúnd",
+  "term.time.second": "sekunda",
+  "term.fullscreenView": "Zobrazenie na celej obrazovke",
+  "term.defaultView": "Default View",
+  "term.audioSettings": "Nastavenia Zvuku",
+  "term.clearAll": "Vyčistiť Všetko",
+  "term.recentStations": "Nedávne Stanice",
+  "term.language": "Jazyk",
+  "term.funLanguages": "Zábava",
+  "term.noLyrics": "Načítavam... / Text nebol najdený./ Instrumental.",
+  "term.copyright": "Copyright",
+  "term.rightsReserved": "All Rights Reserved.",
+  "term.sponsor": "Sponzoruj tento projekt",
+  "term.ciderTeam": "Cider Team",
+  "term.developer": "Developer",
+  "term.socialTeam": "Social Team",
+  "term.socials": "Socials",
+  "term.contributors": "Contributors",
+  "term.equalizer": "Equalizer",
+  "term.reset": "Resetovať",
+  "term.tracks": "pesničiek", // Assume x amount of tracks. e.g. 50 tracks
+  "term.videos": "Videá",
+  "term.menu": "Menu",
+  "term.check": "Skontrolovať",
+  "term.aboutArtist": "Viac o {{artistName}}", // e.g. 'About Doja Cat'
+  "term.updateCider": "Aktualizovať Cider",
+
+  // Home
+  "home.title": "Domov",
+  "home.recentlyPlayed": "Nedávno Prehrané",
+  "home.recentlyAdded": "Nedávno Pridané",
+  "home.artistsFeed": "Feed Tvojho Tvorcu",
+  "home.artistsFeed.noArtist": "Najprv sleduj niektorých tvorcov, ich pesničky potom budú tu",
+  "home.madeForYou": "Robené Pre Teba",
+  "home.friendsListeningTo": "Kamaráti počúvajú",
+  "home.followedArtists": "Sledovaný Tvorcovia",
+  // Errors
+  "error.appleMusicSubRequired": "Apple Music potrebuje subscription.",
+  "error.connectionError": "Pri pripojovaní ku Apple Music sa vyskytol problém",
+  "error.noResults": "Žiadne výsledky",
+  "error.noResults.description": "Skús nové vyhľádavanie",
+
+  //Podcasts
+  "podcast.followOnCider": "Sleduj na Cider",
+  "podcast.followedOnCider": "Sledované na Cider",
+  "podcast.subscribeOnItunes": "Odoberaj na iTunes",
+  "podcast.subscribedOnItunes": "Odoberane na iTunes",
+  "podcast.itunesStore": "iTunes Obchod",
+  "podcast.episodes": "Epizódy",
+  "podcast.playEpisode": "Prehraj Epizódu",
+  "podcast.website": "Stránka Podcastu",
+
+  // Actions
+  "action.addToLibrary": "Pridaj do Knižnice",
+  "action.addToLibrary.success": "Pridané do Knižnice",
+  "action.addToLibrary.error": "Pri pridávani do Knižnice sa vzskytol problém",
+  "action.removeFromLibrary": "Odstrániť z Knižnice",
+  "action.removeFromLibrary.success": "Odstránene z Knižnice",
+  "action.addToQueue": "Pridať do Poradia",
+  "action.addToQueue.success": "Pridané do Poradia",
+  "action.addToQueue.error": "Pri pridávaní do Poradia sa vyskytol problém",
+  "action.removeFromQueue": "Odstrániť z Poradia",
+  "action.removeFromQueue.success": "Odstránené z Poradia",
+  "action.removeFromQueue.error": "Pri odstranovaní z Poradia sa vyskytol probém",
+  "action.createPlaylist": "Urobiť nový Playlist",
+  "action.addToPlaylist": "Pridať do Playlistu",
+  "action.removeFromPlaylist": "Odstrániť z Playlistu",
+  "action.addToFavorites": "Pridať do Obľubéných",
+  "action.follow": "Sledovať",
+  "action.follow.success": "Sleduješ",
+  "action.follow.error": "Pri Sledovaní sa vyskytol problém",
+  "action.unfollow": "Zrušit Sledovanie",
+  "action.unfollow.success": "Sledovanie Zrušené",
+  "action.unfollow.error": "Pri zrušení sledovania sa vyskytol problém",
+  "action.playNext": "Hrať Ďalšie",
+  "action.playLater": "Hrať Neskor",
+  "action.startRadio": "Zapnúť Rádio",
+  "action.goToArtist": "Ku Tvorcovi",
+  "action.goToAlbum": "Ku Albumu",
+  "action.moveToTop": "Premiestniť Hore",
+  "action.share": "Zdielať",
+  "action.rename": "Premenovať",
+  "action.love": "Love",
+  "action.unlove": "Unlove",
+  "action.dislike": "Dislike",
+  "action.undoDislike": "Zrušiť dislike",
+  "action.showWebRemoteQR": "Web Remote",
+  "action.playTracksNext": "Hrať ${app.selectedMediaItems.length} pesničiek ďalej",
+  "action.playTracksLater": "Hrať ${app.selectedMediaItems.length} pesničiek neskôr",
+  "action.removeTracks": "Odstrániť ${self.selectedItems.length} pesničiek z poradia",
+  "action.import": "Importovať",
+  "action.export": "Exportovať",
+  "action.showAlbum": "Zobraziť Celý Album",
+  "action.tray.minimize": "Minimaizovať",
+  "action.tray.quit": "Odísť",
+  "action.tray.show": "Ukázať",
+  "action.update": "Aktualizovať",
+
+  // Settings - General
+  "settings.header.general": "všeobecné",
+  "settings.header.general.description": "Zmeniť všeobecné nastavenia pre Cider.",
+  "settings.option.general.language": "Jazyk",
+
+  // Language optgroups
+  "settings.option.general.language.main": "Jazyky",
+  "settings.option.general.language.fun": "Zábanve Jazyky",
+  "settings.option.general.language.unsorted": "Nepotriedené",
+
+  // Settings - Audio
+  "settings.header.audio": "Zvuk",
+  "settings.header.audio.description": "Zmeniť nastavenia zvuku pre Cider.",
+  "settings.option.audio.quality": "Kvalita zvuku", // Dropdown
+  "settings.header.audio.quality.high": "Vysoká",
+  "settings.header.audio.quality.low": "Nizká",
+  "settings.header.audio.quality.auto": "Automatické",
+  "settings.option.audio.seamlessTransition": "Hladký Prevod Zvuku", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality": "Zapnút Pokročilé Nastavenia Zvuku", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.description": "Zapnutie AudioContext funkcionality dovolí rozšírené funkcie zvuku ako Zvuková Normalizávia , Equalizéry a Visualízery, ale na niektorých systémoch to može spôsobiť problémy so zvukom.",
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Normalízacia Zvuku", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizuje silu zvuku v pesničkách pre hľadší počúvací zážitok",
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Priestorový Zvuk", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Priestorový zvuk urobí zvuk 3-dimenzionálny (poznámka: Toto nie je Dolby Atmos)",
+  // Settings - Visual
+  "settings.header.visual": "Visuálne",
+  "settings.header.visual.description": "Zmenit Visuálne nastavenia pre Cider.",
+  "settings.option.visual.windowBackgroundStyle": "Štýl pozadia okna", // Toggle
+  "settings.header.visual.windowBackgroundStyle.none": "Žiadne",
+  "settings.header.visual.windowBackgroundStyle.artwork": "Náhľadovka",
+  "settings.header.visual.windowBackgroundStyle.image": "Obrátok",
+  "settings.option.visual.animatedArtwork": "Animované Náhľadovky", // Dropdown
+  "settings.header.visual.animatedArtwork.always": "Vždy",
+  "settings.header.visual.animatedArtwork.limited": "Limitované pre stránky a špecialne vydania",
+  "settings.header.visual.animatedArtwork.disable": "Vypnuť Všade",
+  "settings.option.visual.animatedArtworkQuality": "Kvalita Animovanej Náhľadovky", // Dropdown
+  "settings.header.visual.animatedArtworkQuality.low": "Nízka",
+  "settings.header.visual.animatedArtworkQuality.medium": "Stredná",
+  "settings.header.visual.animatedArtworkQuality.high": "Vysoká",
+  "settings.header.visual.animatedArtworkQuality.veryHigh": "Veľmi Vysoká",
+  "settings.header.visual.animatedArtworkQuality.extreme": "Extrémna",
+  "settings.option.visual.animatedWindowBackground": "Pozadie Animováneho Okna", // Toggle
+  "settings.option.visual.hardwareAcceleration": "Hardvérova Akcelerácia", // Dropdown
+  "settings.option.visual.hardwareAcceleration.description": "Vyžaduje Reštart",
+  "settings.header.visual.hardwareAcceleration.default": "Predvoľba",
+  "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
+  // Refer to term.disabled for the disabled option
+  "settings.option.visual.showPersonalInfo": "Zobraziť osobné informácie", // Toggle
+
+  // Settings - Lyrics
+  "settings.header.lyrics": "Text",
+  "settings.header.lyrics.description": "Zmenit nastavenia textu pre Cider.",
+  "settings.option.lyrics.enableMusixmatch": "Zapnúť Musixmatch Texty", // Toggle
+  "settings.option.lyrics.enableMusixmatchKaraoke": "Zapnúť Karaoke Režim (Iba pre Musixmatch)", // Toggle
+  "settings.option.lyrics.musixmatchPreferredLanguage": "Predvolený jazyk pre Musixmatch prekladanie", // Dropdown
+  "settings.option.lyrics.enableYoutubeLyrics": "Zapnúť Youtube Lyrics pre videá", // Toggle
+
+  // Settings - Connectivity
+  "settings.header.connectivity": "Konektivita",
+  "settings.header.connectivity.description": "Zmeniť nastavenia konektivity pre Cider.",
+  "settings.option.connectivity.discordRPC": "Zobraziť status v Discord", // Dropdown
+  "settings.option.connectivity.playbackNotifications": "Notifikácie", // Toggle
+  // Refer to term.disabled for the disabled option
+  "settings.header.connectivity.discordRPC.cider": "Zobraziť ako 'Cider'",
+  "settings.header.connectivity.discordRPC.appleMusic": "Zobraziť ako 'Apple Music'",
+  "settings.option.connectivity.discordRPC.clearOnPause": "Vypnút Discord status pri Pauze", // Toggle
+  "settings.option.connectivity.lastfmScrobble": "Last.fm zaznamenanie počúvanej hudby", // Option to Connect
+  "settings.option.connectivity.lastfmScrobble.delay": "Last.fm Oneskorenie (%)",
+  "settings.option.connectivity.lastfmScrobble.nowPlaying": "Zapnúť Last.fm Now Playing",
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "Odstrániť tvorcov z počúvanej pesničky (Last.fm)",
+  "settings.option.connectivity.lastfmScrobble.filterLoop": "Filtrovať loopované pesničky (Last.fm)",
+  // Refer to term.connect for the connect button
+
+  // Settings - Experimental
+  "settings.header.experimental": "Experimentálne",
+  "settings.header.experimental.description": "Zmeniť experimentálne nastavenia pre Cider.",
+  "settings.option.experimental.compactUI": "Compact UI", // Toggle
+  "settings.option.experimental.close_button_hide": "Zatvoriť by malo skriť aplikáciu",
+  // Refer to term.disabled & term.enabled
+
+  // Spatialization Menu
+  "spatial.notTurnedOn": "Priestorový Zvuk je vypnutý. Prosím najprv ho zapnite.",
+  "spatial.spatialProperties": "Špeciálne Nastavenia",
+  "spatial.width": "Šírka",
+  "spatial.height": "Výška",
+  "spatial.depth": "Hĺbka",
+  "spatial.gain": "Gain",
+  "spatial.roomMaterials": "Materiály Priestoru",
+  "spatial.roomDimensions": "Velkosť Priestoru",
+  "spatial.roomPositions": "Pozicia v Priestoru",
+  "spatial.setDimensions": "Nastaviť Rozmery",
+  "spatial.setPositions": "Nastavit Pozíciu",
+  "spatial.up": "Hore",
+  "spatial.front": "V predu",
+  "spatial.left": "V ľavo",
+  "spatial.right": "V pravo",
+  "spatial.back": "V zadu",
+  "spatial.down": "Dole",
+  "spatial.listener": "Listener",
+  "spatial.audioSource": "Zdroj zvuku",
+
+  // Settings - Unfinished
+  "settings.header.unfinished": "Nedokončené",
+
+  // Web Remote
+  "remote.web.title": "Cider Remote",
+  "remote.web.description": "Naskenujte QR kód aby ste si spárovali telefón s touto Cider session",
+
+  // About
+  "about.thanks": "Ďakujeme Cider Tímu, Komunite a Kontribútorom, bez vás by to nebolo možné."
+}
