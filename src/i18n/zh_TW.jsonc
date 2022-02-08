@@ -1,9 +1,10 @@
 {
+  
   // i18n Info
   "i18n.languageName": "繁體中文（台灣）", // name of language in native language
   "i18n.languageNameEnglish": "Trad. Chinese (Taiwan)", // name of language in English
   "i18n.category": "main", // main = real language, fun = fun community languages
-  "i18n.authors": "@maikirakiwi @jay900604", // Authors, if you contribute to this file feel free to add your name seperated with a space
+  "i18n.authors": "@maikirakiwi @jay900604 @kyw504100", // Authors, if you contribute to this file feel free to add your name seperated with a space
 
   // App info
   "app.name": "Cider",
@@ -194,6 +195,10 @@
   "action.copy": "複製",
   "action.newpreset": "新增預設",  // Equalizer Preset
   "action.deletepreset": "刪除預設",  // Equalizer Preset
+
+  // Settings - General
+  "settings.header.general": "一般",
+  "settings.header.general.description": "調整 Cider 的一般設定",
   
   // Language optgroups
   "settings.option.general.language.main": "語言",
@@ -239,7 +244,7 @@
   "settings.option.visual.windowBackgroundStyle": "視窗背景樣式", // Toggle
   "settings.header.visual.windowBackgroundStyle.none": "空白",
   "settings.header.visual.windowBackgroundStyle.artwork": "專輯封面",
-    "settings.header.visual.windowBackgroundStyle.image": "圖片",
+  "settings.header.visual.windowBackgroundStyle.image": "圖片",
   "settings.option.visual.animatedArtwork": "動態專輯封面", // Dropdown
   "settings.header.visual.animatedArtwork.always": "總是顯示",
   "settings.header.visual.animatedArtwork.limited": "只在藝人頁面和專輯封面顯示",
@@ -256,15 +261,13 @@
   "settings.header.visual.hardwareAcceleration.default": "預設",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
   "settings.header.visual.theme": "主題",
+
   // Settings - Visual - Theme name
   "settings.option.visual.theme.default": "Cider",
   "settings.option.visual.theme.dark": "暗黑模式",
+
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "顯示個人檔案", // Toggle
-  
-  // Settings - General (Reserved)
-  "settings.header.general": "一般",
-  "settings.header.general.description": "調整 Cider 的一般設定",
   
   // Settings - Lyrics
   "settings.header.lyrics": "歌詞",

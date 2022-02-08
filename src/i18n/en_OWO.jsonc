@@ -1,4 +1,5 @@
-{ // Base File
+{
+  
   // i18n Info
   "i18n.languageName": "Engwish (OwO)", // name of language in native language
   "i18n.languageNameEnglish": "Engwish (OwO)", // name of language in English
@@ -280,6 +281,9 @@
   "settings.option.visual.hardwareAcceleration.description": "Wequiwes wewaunch",
   "settings.header.visual.hardwareAcceleration.default": "Defauwt",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
+
+  // Settings - Visual - Theme name
+  
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "Show Pewsonaw Info", // Toggle
   

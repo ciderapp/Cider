@@ -1,7 +1,7 @@
-{ // Base File
+{
 
   // i18n Info
-  "i18n.languageName": "Français (CA)",        // name of language in native language
+  "i18n.languageName": "Français (CA)", // name of language in native language
   "i18n.languageNameEnglish": "French (CA)", // name of language in English
   "i18n.category": "main", // main = real language, fun = fun community languages
   "i18n.authors": "brock#7527", // Authors, if you contribute to this file feel free to add your name seperated with a space
@@ -19,6 +19,7 @@
   "notification.updatingLibrarySongs": "Rafraîchir des chansons...",
   "notification.updatingLibraryAlbums": "Rafraîchir des albums...",
   "notification.updatingLibraryArtists": "Rafraîchir des artistes...",
+
   // Terms
   "term.appleInc": "Apple Inc.",
   "term.appleMusic": "Apple Music",
@@ -128,13 +129,14 @@
   "home.madeForYou": "Creér pour toi",
   "home.friendsListeningTo": "Amis écoutant",
   "home.followedArtists": "Artistes suivis",
+
   // Errors
   "error.appleMusicSubRequired": "Apple Music nécessite un abonnement.",
   "error.connectionError": "Un problème est survenu lors de la connexion à Apple Music.",
   "error.noResults": "Pas de resultats.",
   "error.noResults.description": "Essayez une nouvelle recherche.",
 
-  //Podcasts
+  // Podcasts
   "podcast.followOnCider": "Suivez sur Cider",
   "podcast.followedOnCider": "Suivi sur Cider",
   "podcast.subscribeOnItunes": "S'abonner sur iTunes",
@@ -193,6 +195,8 @@
   "settings.option.general.language.main": "Langue",
   "settings.option.general.language.fun": "Langues amusantes",
   "settings.option.general.language.unsorted": "Non trié",
+
+  // Update Cider
   
   // Settings - Audio
   "settings.header.audio": "Audio",
@@ -208,6 +212,7 @@
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalise le volume maximal des pistes individuelles pour créer une expérience d'écoute plus uniforme.",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Audio Spatialization", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Spatialisez l'audio et rendez l'audio plus tridimensionnel (remarque: il ne s'agit pas de Dolby Atmos)",
+
   // Settings - Visual
   "settings.header.visual": "Visuel", 
   "settings.header.visual.description": "Ajustez les réglages visuels de Cider.",
@@ -230,6 +235,9 @@
   "settings.option.visual.hardwareAcceleration.description": "Nécessite une relance",
   "settings.header.visual.hardwareAcceleration.default": "Défaut", 
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
+
+  // Settings - Visual - Theme name
+
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "Afficher les informations personnelles", // Toggle
 
@@ -265,8 +273,8 @@
   "settings.option.experimental.closeButtonBehaviour.quit": "Quitter Cider",
   "settings.option.experimental.closeButtonBehaviour.minimizeTaskbar": "Réduire à la barre des tâches",
   "settings.option.experimental.closeButtonBehaviour.minimizeTray": "Réduire dans le bac",
+  
   // Refer to term.disabled & term.enabled
-
   // Spatialization Menu
   "spatial.spatialProperties" : "Propriétés spatiales",
   "spatial.width" : "Largeur",

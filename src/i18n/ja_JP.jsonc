@@ -1,4 +1,5 @@
 {
+  
   // i18n Info
   "i18n.languageName": "日本語", // name of language in native language
   "i18n.languageNameEnglish": "Japanese", // name of language in English
@@ -135,7 +136,7 @@
   "error.noResults": "見つかりませんでした",
   "error.noResults.description": "もう一度お試しください。",
   
-  //Podcasts
+  // Podcasts
   "podcast.followOnCider": "Ciderでフォロー",
   "podcast.followedOnCider": "フォロー中",
   "podcast.subscribeOnItunes": "iTunesで購読",
@@ -192,7 +193,16 @@
   "action.copy": "コピー",
   "action.newpreset": "ニュープリセット", // Equalizer Preset
   "action.deletepreset": "プリセットを削除", // Equalizer Preset
+
+  // Settings - General
+  "settings.header.general": "一般",
+  "settings.header.general.description": "Ciderの一般設定",
   
+  // Language optgroups
+
+  // Update Cider
+  "settings.option.general.updateCider": "Cider 更新", // Button
+
   // Settings - Audio
   "settings.header.audio": "オーディオ",
   "settings.header.audio.description": "Ciderのオーディオ設定",
@@ -240,12 +250,12 @@
   "settings.option.visual.hardwareAcceleration.description": "アプリを再起動する必要があります",
   "settings.header.visual.hardwareAcceleration.default": "既定",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
+
+  // Settings - Visual - Theme name
+
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "プロフィールを表示", // Toggle
   
-  // Settings - General (Reserved)
-  "settings.header.general": "一般",
-  "settings.header.general.description": "Ciderの一般設定",
   
   // Settings - Lyrics
   "settings.header.lyrics": "歌詞",
@@ -268,9 +278,6 @@
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "Enable LastFM Now Playing",
   "settings.option.connectivity.lastfmScrobble.removeFeatured": "Remove featuring artists from song title (LastFM)",
   // Refer to term.connect for the connect button
-
-  // Settings - General - Update Cider
-  "settings.option.general.updateCider": "Cider 更新", // Button
   
   // Settings - Experimental
   "settings.header.experimental": "試験的な機能",

@@ -1,7 +1,7 @@
-{ // Base File
+{
 
   // i18n Info
-  "i18n.languageName": "Deutsch",        // name of language in native language
+  "i18n.languageName": "Deutsch", // name of language in native language
   "i18n.languageNameEnglish": "German", // name of language in English
   "i18n.category": "main", // main = real language, fun = fun community languages
   "i18n.authors": "@motz0815", // Authors, if you contribute to this file feel free to add your name seperated with a space
@@ -19,6 +19,7 @@
   "notification.updatingLibrarySongs": "Aktualisiere Songs...",
   "notification.updatingLibraryAlbums": "Aktualisiere Alben...",
   "notification.updatingLibraryArtists": "Aktualisiere Künstler...",
+
   // Terms
   "term.appleInc": "Apple Inc.",
   "term.appleMusic": "Apple Music",
@@ -117,7 +118,6 @@
   "term.tracks": "Lieder", // Assume x amount of tracks. e.g. 50 tracks 
   "term.videos": "Videos", 
   "term.menu": "Menü",
-  "action.showAlbum": "Zeige ganzes Album",
 
   // Home
   "home.title": "Home",
@@ -128,13 +128,14 @@
   "home.madeForYou": "Für dich gemacht",
   "home.friendsListeningTo": "Freunde hören",
   "home.followedArtists": "Gefolgte Künstler",
+
   // Errors
   "error.appleMusicSubRequired": "Apple Music benötigt ein Abonnement.",
   "error.connectionError": "Es ist ein Fehler aufgetreten, während sich mit Apple Music verbunden wurde.",
   "error.noResults": "Keine Ergebnisse.",
   "error.noResults.description": "Versuche einen anderen Suchbegriff.",
 
-  //Podcasts
+  // Podcasts
   "podcast.followOnCider": "Folge auf Cider",
   "podcast.followedOnCider": "Gefolgt auf Cider",
   "podcast.subscribeOnItunes": "Folge auf iTunes",
@@ -183,6 +184,7 @@
   "action.removeTracks": "Entferne ${self.selectedItems.length} Lieder aus der Warteschlange",
   "action.import": "Importieren",
   "action.export": "Exportieren",
+  "action.showAlbum": "Zeige ganzes Album",
 
   // Settings - General
   "settings.header.general": "Allgemein",
@@ -193,6 +195,8 @@
   "settings.option.general.language.main": "Sprachen",
   "settings.option.general.language.fun": "Lustige Sprachen",
   "settings.option.general.language.unsorted": "Unsortiert",
+
+  // Update Cider
   
   // Settings - Audio
   "settings.header.audio": "Audio",
@@ -208,6 +212,7 @@
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalisiert die Lautstärke aller Lieder, um die Hörerfahrung einheitlicher zu machen.",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Räumliches Audio", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Macht die Musik räumlicher (3D-Effekt) (Beachte: Dies ist kein Dolby Atmos)",
+
   // Settings - Visual
   "settings.header.visual": "Visuell", 
   "settings.header.visual.description": "Passe die visuellen Einstellungen für Cider an.",
@@ -230,6 +235,9 @@
   "settings.option.visual.hardwareAcceleration.description": "Erfordert Neustart der Anwendung",
   "settings.header.visual.hardwareAcceleration.default": "Normal", 
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
+
+  // Settings - Visual - Theme name
+
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "Persönliche Daten anzeigen", // Toggle
 
@@ -265,8 +273,8 @@
   "settings.option.experimental.closeButtonBehaviour.quit": "Cider Schließen",
   "settings.option.experimental.closeButtonBehaviour.minimizeTaskbar": "In Taskleiste minimieren",
   "settings.option.experimental.closeButtonBehaviour.minimizeTray": "In den Tray minimieren",
+  
   // Refer to term.disabled & term.enabled
-
   // Spatialization Menu
   "spatial.spatialProperties" : "Räumliche Einstellungen",
   "spatial.width" : "Breite",

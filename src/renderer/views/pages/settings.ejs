@@ -824,7 +824,7 @@
                 if (app.cfg.advanced.ciderPPE) {
                     if (app.cfg.audio.spatial) {
                         app.cfg.advanced.ciderPPE = false;
-                        notyf.error("CAP is not compatible with Spatialization. Please disable Spatialization to continue.")
+                        notyf.error(app.getLz('settings.warn.audio.enableAdvancedFunctionality.ciderPPE.compatibility'))
                     }
                 }
             },
@@ -836,7 +836,7 @@
                     else {
                         CiderAudio.spatialOff()
                         app.cfg.audio.spatial = false;
-                        notyf.error("Spatialization is not compatible with CAP. Please disable CAP to continue.")
+                        notyf.error(app.getLz('settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility'))
                     }
                 } else {
                     CiderAudio.spatialOff()

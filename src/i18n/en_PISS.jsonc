@@ -1,4 +1,5 @@
-{ // Base File
+{
+  
   // i18n Info
   "i18n.languageName": "piss", // name of language in native language
   "i18n.languageNameEnglish": "English (piss)", // name of language in English
@@ -280,6 +281,7 @@
   // Settings - Visual - Theme name
   "settings.option.visual.theme.default": "regular piss",
   "settings.option.visual.theme.dark": "black piss",
+  
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "show yourself to the pissiverse", // Toggle
 
