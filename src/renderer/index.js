@@ -271,6 +271,25 @@ const app = new Vue({
         },
     },
     methods: {
+        songLinkShare(amUrl) {
+            notyf.open({type: "info", message: "Getting song.link share URL..."})
+            let self = this
+            httpRequest = new XMLHttpRequest();
+            httpRequest.open('GET', `https://api.song.link/v1-alpha.1/links?url=${amUrl}&userCountry=US`, true);
+            httpRequest.send();
+            httpRequest.onreadystatechange = function () {
+                if (httpRequest.readyState === 4) {
+                    if (httpRequest.status === 200) {
+                        let response = JSON.parse(httpRequest.responseText);
+                        console.log(response);
+                        self.copyToClipboard(response.pageUrl)
+                    } else {
+                        console.log('There was a problem with the request.');
+                        notyf.error("There was a problem with the request.")
+                    }
+                }
+            }
+        },
         mainMenuVisibility(val) {
             if (val) {
                 (this.chrome.userinfo.id) ? this.chrome.menuOpened = !this.chrome.menuOpened : false
@@ -3364,7 +3383,16 @@ const app = new Vue({
                                     app.copyToClipboard((u.data.data.length && u.data.data.length > 0) ? u.data.data[0].attributes.url : u.data.data.attributes.url)
                                 })
                             }
-                        }
+                        },
+                        {
+                            "icon": "./assets/feather/share.svg",
+                            "name": `${app.getLz('action.share')} (song.link)`,
+                            "action": function () {
+                                app.mkapi(app.mk.nowPlayingItem.attributes?.playParams?.kind ?? app.mk.nowPlayingItem.type ?? 'songs', false, app.mk.nowPlayingItem._songId ?? app.mk.nowPlayingItem.id ?? '').then(u => {
+                                    app.songLinkShare((u.data.data.length && u.data.data.length > 0) ? u.data.data[0].attributes.url : u.data.data.attributes.url)
+                                })
+                            }
+                        }                        
                     ]
                 }
             }
