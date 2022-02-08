@@ -76,8 +76,8 @@
   "term.viewAs.coverArt": "Náhľadovka",
   "term.viewAs.list": "List",
   "term.size": "Velkosť",
-  "term.size.normal": "Normal",
-  "term.size.compact": "Compact",
+  "term.size.normal": "Normálny",
+  "term.size.compact": "Kompaktný",
   "term.enable": "Zapnúť",
   "term.disable": "Vypnúť",
   "term.enabled": "Zapnuté",
@@ -199,7 +199,7 @@
   "action.update": "Aktualizovať",
 
   // Settings - General
-  "settings.header.general": "všeobecné",
+  "settings.header.general": "Všeobecné",
   "settings.header.general.description": "Zmeniť všeobecné nastavenia pre Cider.",
   "settings.option.general.language": "Jazyk",
 
@@ -274,8 +274,8 @@
   // Settings - Experimental
   "settings.header.experimental": "Experimentálne",
   "settings.header.experimental.description": "Zmeniť experimentálne nastavenia pre Cider.",
-  "settings.option.experimental.compactUI": "Compact UI", // Toggle
-  "settings.option.experimental.close_button_hide": "Zatvoriť by malo skriť aplikáciu",
+  "settings.option.experimental.compactUI": "Kompaktný UI", // Toggle
+  "settings.option.experimental.close_button_hide": "Zatvaranie aplikácie ju malo skriť",
   // Refer to term.disabled & term.enabled
 
   // Spatialization Menu
