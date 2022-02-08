@@ -118,7 +118,6 @@
   "term.tracks": "Lieder", // Assume x amount of tracks. e.g. 50 tracks 
   "term.videos": "Videos", 
   "term.menu": "Menü",
-  "action.showAlbum": "Zeige ganzes Album",
 
   // Home
   "home.title": "Home",
@@ -129,6 +128,7 @@
   "home.madeForYou": "Für dich gemacht",
   "home.friendsListeningTo": "Freunde hören",
   "home.followedArtists": "Gefolgte Künstler",
+
   // Errors
   "error.appleMusicSubRequired": "Apple Music benötigt ein Abonnement.",
   "error.connectionError": "Es ist ein Fehler aufgetreten, während sich mit Apple Music verbunden wurde.",
@@ -184,6 +184,7 @@
   "action.removeTracks": "Entferne ${self.selectedItems.length} Lieder aus der Warteschlange",
   "action.import": "Importieren",
   "action.export": "Exportieren",
+  "action.showAlbum": "Zeige ganzes Album",
 
   // Settings - General
   "settings.header.general": "Allgemein",
