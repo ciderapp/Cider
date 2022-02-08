@@ -4,7 +4,7 @@
   "i18n.languageName": "Slovenčina (SK)",        // name of language in native language
   "i18n.languageNameEnglish": "Slovak (SK)", // name of language in English
   "i18n.category": "main", // main = real language, fun = fun community languages
-  "i18n.authors": "@jurosic", // Authors, if you contribute to this file feel free to add your name seperated with a space
+  "i18n.authors": "@jurosic-JurajJanosik", // Authors, if you contribute to this file feel free to add your name seperated with a space
 
   // App info
   "app.name": "Cider",
