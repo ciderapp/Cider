@@ -1,16 +1,16 @@
-{ // Base File
-
+{
+  
   // i18n Info
-  "i18n.languageName": "piss",        // name of language in native language
+  "i18n.languageName": "piss", // name of language in native language
   "i18n.languageNameEnglish": "English (piss)", // name of language in English
   "i18n.category": "fun", // main = real language, fun = fun community languages
   "i18n.authors": "@SoNothingMC @saboooor", // Authors, if you contribute to this file feel free to add your name seperated with a space
-
+  
   // App info
   "app.name": "piss",
-
-  "date.format": "${y}-${m}-${d}", // ISO 8601 for the win!
   
+  "date.format": "${y}-${m}-${d}", // ISO 8601 for the win!
+
   // Dialogs
   "dialog.cancel": "no piss",
   "dialog.ok": "yes piss",
@@ -19,6 +19,7 @@
   "notification.updatingLibrarySongs": "pisssing all over your songs",
   "notification.updatingLibraryAlbums": "pissing all over your albums",
   "notification.updatingLibraryArtists": "pissing all over your idols",
+
   // Terms
   "term.appleInc": "piss Inc.",
   "term.appleMusic": "piss music",
@@ -93,10 +94,10 @@
   "term.less": "piss less",
   "term.showMore": "more piss",
   "term.showLess": "less piss",
-  "term.topSongs" : "top piss",
+  "term.topSongs": "top piss",
   "term.latestReleases": "latest piss collection",
   "term.time.added": "pissed",
-  "term.time.released": "pissed", 
+  "term.time.released": "pissed",
   "term.time.updated": "pissed",
   "term.time.hours": "hours",
   "term.time.hour": "hour",
@@ -123,12 +124,11 @@
   "term.equalizer": "advanced piss configuration",
   "term.reset": "repiss",
   "term.tracks": "pisses", // Assume x amount of tracks. e.g. 50 tracks 
-  "term.videos": "piss videos", 
+  "term.videos": "piss videos",
   "term.menu": "piss menu",
   "term.check": "piss!",
   "term.aboutArtist": "about pisser {{artistName}}", // e.g. 'About Doja Cat'
-  "term.updateCider": "piss on cider",
-  "term.topResult": "top piss",   // Search Results
+  "term.topResult": "top piss", // Search Results
   "term.sharedPlaylists": "shared pisslists", // Search Results
   "term.people": "pissers", // Search Results
   "term.newpreset.name": "new advanced piss prepiss name", // Equalizer Preset
@@ -153,13 +153,14 @@
   "home.madeForYou": "pissed for you",
   "home.friendsListeningTo": "friends pissing to",
   "home.followedArtists": "followed pissers",
+
   // Errors
   "error.appleMusicSubRequired": "piss music requires, like y'know, an actual piss music subscription to actually use.",
   "error.connectionError": "oh, piss.",
   "error.noResults": "no piss found",
   "error.noResults.description": "try pissing somewhere else (or press Enter/Return to search)",
 
-  //Podcasts
+  // Podcasts
   "podcast.followOnCider": "piss on Cider",
   "podcast.followedOnCider": "pissed on Cider",
   "podcast.subscribeOnItunes": "piss on iPiss",
@@ -215,19 +216,22 @@
   "action.tray.show": "piss back",
   "action.update": "piss!",
   "action.copy": "copiss",
-  "action.newpreset": "new prepiss...",  // Equalizer Preset
+  "action.newpreset": "new prepiss...", // Equalizer Preset
   "action.deletepreset": "unpiss prepiss",
 
   // Settings - General
   "settings.header.general": "general",
   "settings.header.general.description": "the dumping place for settings when there are no other places to put them into",
-  "settings.option.general.language": "piss around the world", 
+  "settings.option.general.language": "piss around the world",
 
   // Language optgroups
   "settings.option.general.language.main": "actaul human languages",
   "settings.option.general.language.fun": "piss languages",
   "settings.option.general.language.unsorted": "???? who put this here",
-  
+
+  // Update Cider 
+  "settings.option.general.updateCider": "piss on cider", // Button
+
   // Settings - Audio
   "settings.header.audio": "piss sounds",
   "settings.header.audio.description": "change how your piss sounds",
@@ -243,14 +247,15 @@
   "settings.option.audio.seamlessTransition": "seamless piss-to-piss transition", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "cool piss tricks", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.description": "enabling the AudioContext thingy allows you to do cool stuffs, however on some systems your song may stutter",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "clear piss", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "clear piss™️", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "makes your bladder go overboard and makes your piss crisp and clear.",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "piss normaliztion", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "protect your eardrums from overly loud/slient pisses",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "3D piss", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "this aint the dolby atmos you are looking for but its still pretty crazy so check it out",
+  
   // Settings - Visual
-  "settings.header.visual": "piss appearance", 
+  "settings.header.visual": "piss appearance",
   "settings.header.visual.description": "change how your piss looks",
   "settings.option.visual.windowBackgroundStyle": "background piss", // Toggle
   "settings.header.visual.windowBackgroundStyle.none": "no piss",
@@ -269,14 +274,14 @@
   "settings.option.visual.animatedWindowBackground": "moving background piss", // Toggle
   "settings.option.visual.hardwareAcceleration": "make Cider piss faster", // Dropdown
   "settings.option.visual.hardwareAcceleration.description": "you need to relaunch Cider",
-  "settings.header.visual.hardwareAcceleration.default": "default piss", 
-  "settings.header.visual.hardwareAcceleration.webGPU": "WebPISS", 
+  "settings.header.visual.hardwareAcceleration.default": "default piss",
+  "settings.header.visual.hardwareAcceleration.webGPU": "WebPISS",
   "settings.header.visual.theme": "colored piss",
 
   // Settings - Visual - Theme name
   "settings.option.visual.theme.default": "regular piss",
   "settings.option.visual.theme.dark": "black piss",
-
+  
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "show yourself to the pissiverse", // Toggle
 
@@ -298,12 +303,12 @@
   "settings.header.connectivity.discordRPC.appleMusic": "piss as 'piss music'",
   "settings.option.connectivity.discordRPC.clearOnPause": "flush Pisscord rich pissence when holding your piss", // Toggle
   "settings.option.connectivity.lastfmScrobble": "Piss.fm scrobbling", // Option to Connect
-  "settings.option.connectivity.lastfmScrobble.delay": "Piss.fm scrobble delay (%)", 
-  "settings.option.connectivity.lastfmScrobble.nowPlaying": "push now playing data to Piss.fm", 
-  "settings.option.connectivity.lastfmScrobble.removeFeatured": "remove featured pissers from piss names (Piss.fm)", 
-  "settings.option.connectivity.lastfmScrobble.filterLoop": "filter same piss (Piss.fm)", 
+  "settings.option.connectivity.lastfmScrobble.delay": "Piss.fm scrobble delay (%)",
+  "settings.option.connectivity.lastfmScrobble.nowPlaying": "push now playing data to Piss.fm",
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "remove featured pissers from piss names (Piss.fm)",
+  "settings.option.connectivity.lastfmScrobble.filterLoop": "filter same piss (Piss.fm)",
   // Refer to term.connect for the connect button
-
+  
   // Settings - Experimental
   "settings.header.experimental": "piss lab",
   "settings.header.experimental.description": "mitochondria is the powerhouse of the cell",
@@ -311,8 +316,8 @@
   "settings.option.experimental.close_button_hide": "play hide-and-seek when clicking close button",
   "settings.option.experimental.copy_log": "copy sewage to pissboard",
   "settings.option.experimental.inline_playlists": "inpiss pisslists and piss collections",
-  // Refer to term.disabled & term.enabled
 
+  // Refer to term.disabled & term.enabled
   // Spatialization Menu
   "spatial.notTurnedOn": "3D piss is not on. turn it on lol",
   "spatial.spatialProperties": "3D properties",
@@ -333,7 +338,7 @@
   "spatial.down": "the piss on the floor",
   "spatial.listener": "you",
   "spatial.audioSource": "piss source",
-  
+
   // Settings - Unfinished
   "settings.header.unfinished": "DLC piss",
 

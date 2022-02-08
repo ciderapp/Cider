@@ -50,17 +50,14 @@
                         <mediaitem-artwork :url="currentArtUrl"></mediaitem-artwork>
                     </div>
                     <div class="playback-info">
-                        <div class="song-name" style="-webkit-box-orient: horizontal;"
-                             :class="[isElementOverflowing('#app-main > div.app-chrome > div.app-chrome--center > div > div > div.playback-info > div.song-name') ? 'marquee' : '']"
-                             :style="[mk.nowPlayingItem['attributes']['contentRating'] == 'explicit' || mk.nowPlayingItem['attributes']['lossless'] == true ? {'margin-left' : '23px'} : {'margin-left' : '0px'} ]">
+                        <div class="song-name"
+                             :class="[isElementOverflowing('#app-main > div.app-chrome > div.app-chrome--center > div > div > div.playback-info > div.song-name') ? 'marquee' : '']">
                             {{ mk.nowPlayingItem["attributes"]["name"] }}
                             <div class="explicit-icon"
                                  v-if="mk.nowPlayingItem['attributes']['contentRating'] == 'explicit'"
                                  style="display: inline-block"></div>
-                            <div class="ppe-icon"
-                                 v-if="app.cfg.advanced.ciderPPE == true"
-                                 style="display: inline-block"></div>
                         </div>
+                        <div class="audio-type ppe-icon" v-if="cfg.advanced.ciderPPE == true"></div>
                         <div class="song-artist-album">
                             <div class="song-artist-album-content"
                                  :class="[isElementOverflowing('#app-main > .app-chrome .app-chrome-item > .app-playback-controls > div >.song-artist-album > .song-artist-album-content') ? 'marquee' : '']"
@@ -83,8 +80,8 @@
                             <div class="song-duration"
                                  style="justify-content: space-between; height: 1px;"
                                  :style="[chrome.progresshover ? {'display': 'flex'} : {'display' : 'none'} ]">
-                                <p style="width: auto">{{ convertToMins(getSongProgress()) }}</p>
-                                <p style="width: auto">{{ convertToMins(mk.currentPlaybackDuration) }}
+                                <p style="width: auto">{{ convertTime(getSongProgress()) }}</p>
+                                <p style="width: auto">{{ convertTime(mk.currentPlaybackDuration) }}
                                 </p>
                             </div>
 
@@ -111,7 +108,7 @@
         <div class="app-chrome-item volume display--large">
             <button class="volume-button--small volume" @click="muteButtonPressed()"
                     :class="{'active': this.cfg.audio.volume == 0}"></button>
-            <input type="range" class="" @wheel="volumeWheel" step="0.01" min="0" :max="cfg.audio.maxVolume"
+            <input type="range" @wheel="volumeWheel" :step="cfg.audio.volumeStep" min="0" :max="cfg.audio.maxVolume"
                    v-model="mk.volume" v-if="typeof mk.volume != 'undefined'" @change="checkMuteChange()">
         </div>
         <div class="app-chrome-item generic">

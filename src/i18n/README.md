@@ -1,4 +1,4 @@
-# Cider i18n
+# Cider i18n Notices & Changelog
 
 Some notes about Cider's i18n support.
 
@@ -21,7 +21,7 @@ been modified, the ones not mentioned in the list need modifying.
 * `term.sharedPlaylists`: "Shared Playlists" - Added for `en_US`.
 * `term.people`: "People" - Added for `en_US`.
 
-Updated 02/02/2022 17:16 UTC
+Update 02/02/2022 17:16 UTC
 
 * `term.newpreset.name`: Added for `en_US`.
 * `term.addedpreset`: Added for `en_US`.
@@ -38,7 +38,7 @@ Updated 02/02/2022 17:16 UTC
 * `action.newpreset`: Added for `en_US`.
 * `action.deletepreset`: Added for `en_US`.
 
-Updated 04/02/2022 10:00 UTC
+Update 04/02/2022 10:00 UTC
 
 * `term.history`: Added for `en_US`.
 * `action.copy`: Added for `en_US`.
@@ -56,3 +56,28 @@ Update 05/02/2022 09:00 UTC
 * `settings.header.audio.quality.lossless.description`: Added for `en_US`.
 * `settings.option.audio.enableAdvancedFunctionality.ciderPPE`: Added for `en_US`.
 * `settings.option.audio.enableAdvancedFunctionality.ciderPPE.description`: Added for `en_US`.
+
+Update 06/02/2022 10:35 UTC
+
+* `settings.header.audio.quality.hireslossless.description`: Brackets removed, handled in renderer.
+* `settings.header.audio.quality.lossless.description`: Brackets removed, handled in renderer.
+* `settings.header.audio.quality.high.description`: Added for `en_US`.
+* `settings.header.audio.quality.auto`: Removed as default for MusicKit is 256.
+* `settings.header.audio.quality.standard`: Replaced `settings.header.audio.quality.low` to match MusicKit naming.
+* `settings.header.audio.quality.standard.description`: Added for `en_US`.
+
+Update 08/02/2022 10:20 UTC
+
+* `settings.option.general.updateCider`: Added for `en_US`.
+* `settings.option.general.updateCider.branch`: Added for `en_US`.
+* `settings.option.general.updateCider.branch.description`: Added for `en_US`.
+* `settings.option.general.updateCider.branch.main`: Added for `en_US`.
+* `settings.option.general.updateCider.branch.develop`: Added for `en_US`.
+* `settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength`: Added for `en_US`.
+* `settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description`: Added for `en_US`.
+* `settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard`: Added for `en_US`.
+* `settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive`: Added for `en_US`.
+* `settings.warn.audio.enableAdvancedFunctionality.ciderPPE.compatibility`: Added for `en_US`.
+* `settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility`: Added for `en_US`.
+* `term.requestError`: Added for `en_US`.
+* `term.song.link.generate`: Added for `en_US`.

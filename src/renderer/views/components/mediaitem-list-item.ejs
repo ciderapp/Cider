@@ -29,7 +29,7 @@
                     <div class="loadbar-sound"></div>
                 </div>
             </div>
-            <div class="artwork" v-if="showArtwork == true">
+            <div class="artwork" v-if="showArtwork == true && (showIndex == false ||(showIndex == true && showIndexPlaylist != false)) ">
                 <mediaitem-artwork
                         :url="item.attributes.artwork ? item.attributes.artwork.url : ''"
                         :size="48"
@@ -90,17 +90,17 @@
             }
         },
         props: {
-            'item': {type: Object, required: true},
-            'parent': {type: String, required: false},
-            'index': {type: Number, required: false, default: -1},
-            'show-artwork': {type: Boolean, default: true},
-            'show-library-status': {type: Boolean, default: true},
-            'show-meta-data': {type: Boolean, default: false},
-            'show-duration': {type: Boolean, default: true},
-            'showIndex': {type: Boolean, required: false},
-            'showIndexPlaylist': {type: Boolean, required: false},
-            'contextExt': {type: Object, required: false},
-            'class-list': {type: String, required: false, default: ""},
+            'item': { type: Object, required: true },
+            'parent': { type: String, required: false },
+            'index': { type: Number, required: false, default: -1 },
+            'show-artwork': { type: Boolean, default: true },
+            'show-library-status': { type: Boolean, default: true },
+            'show-meta-data': { type: Boolean, default: false },
+            'show-duration': { type: Boolean, default: true },
+            'showIndex': { type: Boolean, required: false },
+            'showIndexPlaylist': { type: Boolean, required: false },
+            'contextExt': { type: Object, required: false },
+            'class-list': { type: String, required: false, default: "" },
         },
         mounted() {
             let duration = this.item.attributes.durationInMillis ?? 0
@@ -115,8 +115,8 @@
                 return color
             },
             async checkLibrary() {
-                if(this.addedToLibrary) {return this.addedToLibrary}
-                if(this.item.type.includes("library-playlists") || this.item.type.includes("station")) {
+                if (this.addedToLibrary) { return this.addedToLibrary }
+                if (this.item.type.includes("library-playlists") || this.item.type.includes("station")) {
                     this.addedToLibrary = true
                     return
                 }
@@ -126,10 +126,10 @@
                 return this.addedToLibrary
             },
             getClasses() {
-                if(this.classList) {
+                if (this.classList) {
                     this.addClasses = {}
                     let classList = this.classList.split(' ')
-                    for(let i = 0; i < classList.length; i++) {
+                    for (let i = 0; i < classList.length; i++) {
                         this.addClasses[classList[i]] = true
                     }
                 }
@@ -259,7 +259,7 @@
                                     for (let kind in itemsToPlay) {
                                         let ids = itemsToPlay[kind]
                                         if (ids.length > 0) {
-                                            app.mk.playNext({[kind + "s"]: itemsToPlay[kind]})
+                                            app.mk.playNext({ [kind + "s"]: itemsToPlay[kind] })
                                         }
                                     }
                                     console.log(itemsToPlay)
@@ -281,7 +281,7 @@
                                     for (let kind in itemsToPlay) {
                                         let ids = itemsToPlay[kind]
                                         if (ids.length > 0) {
-                                            app.mk.playLater({[kind + "s"]: itemsToPlay[kind]})
+                                            app.mk.playLater({ [kind + "s"]: itemsToPlay[kind] })
                                         }
                                     }
                                     app.selectedMediaItems = []
@@ -363,7 +363,7 @@
                                 "name": app.getLz('action.playNext'),
                                 "icon": "./assets/arrow-bend-up.svg",
                                 "action": function () {
-                                    app.mk.playNext({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
+                                    app.mk.playNext({ [self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id })
                                     app.mk.queue._reindex()
                                     app.selectedMediaItems = []
                                 }
@@ -372,7 +372,7 @@
                                 "name": app.getLz('action.playLater'),
                                 "icon": "./assets/arrow-bend-down.svg",
                                 "action": function () {
-                                    app.mk.playLater({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
+                                    app.mk.playLater({ [self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id })
                                     app.mk.queue._reindex()
                                     app.selectedMediaItems = []
                                 }
@@ -381,7 +381,7 @@
                                 "icon": "./assets/feather/radio.svg",
                                 "name": app.getLz('action.startRadio'),
                                 "action": function () {
-                                    app.mk.setStationQueue({song: self.item.attributes.playParams.id ?? self.item.id}).then(() => {
+                                    app.mk.setStationQueue({ song: self.item.attributes.playParams.id ?? self.item.id }).then(() => {
                                         app.mk.play()
                                         app.selectedMediaItems = []
                                     })
@@ -405,12 +405,26 @@
                                 "icon": "./assets/feather/share.svg",
                                 "name": app.getLz('action.share'),
                                 "action": function () {
-                                    if (!self.item.attributes.url && self.item.relationships){
-                                        if (self.item.relationships.catalog){
-                                            app.mkapi(self.item.attributes.playParams.kind, false, self.item.relationships.catalog.data[0].id).then(u => {self.app.copyToClipboard((u.data.data.length && u.data.data.length > 0)? u.data.data[0].attributes.url : u.data.data.attributes.url)})
+                                    if (!self.item.attributes.url && self.item.relationships) {
+                                        if (self.item.relationships.catalog) {
+                                            app.mkapi(self.item.attributes.playParams.kind, false, self.item.relationships.catalog.data[0].id).then(u => { self.app.copyToClipboard((u.data.data.length && u.data.data.length > 0) ? u.data.data[0].attributes.url : u.data.data.attributes.url) })
                                         }
-                                    }else {
-                                    self.app.copyToClipboard(self.item.attributes.url)}
+                                    } else {
+                                        self.app.copyToClipboard(self.item.attributes.url)
+                                    }
+                                }
+                            },
+                            {
+                                "icon": "./assets/feather/share.svg",
+                                "name": `${app.getLz('action.share')} (song.link)`,
+                                "action": function () {
+                                    if (!self.item.attributes.url && self.item.relationships) {
+                                        if (self.item.relationships.catalog) {
+                                            app.mkapi(self.item.attributes.playParams.kind, false, self.item.relationships.catalog.data[0].id).then(u => { self.app.songLinkShare((u.data.data.length && u.data.data.length > 0) ? u.data.data[0].attributes.url : u.data.data.attributes.url) })
+                                        }
+                                    } else {
+                                        self.app.songLinkShare(self.item.attributes.url)
+                                    }
                                 }
                             }
                         ]
@@ -430,30 +444,30 @@
                 try {
                     await this.checkLibrary().then(res => {
                         console.log(res)
-                        if(res) {
+                        if (res) {
                             menus.normal.items.find(x => x.id == 'addToLibrary').hidden = true
                             menus.normal.items.find(x => x.id == 'removeFromLibrary').hidden = false
-                        }else{
+                        } else {
                             menus.normal.items.find(x => x.id == 'addToLibrary').disabled = false
                         }
                     })
 
-                }catch(e) {
+                } catch (e) {
 
                 }
-                try{
-                let rating = await app.getRating(self.item)
-                if (rating == 0) {
-                    menus.normal.headerItems.find(x => x.id == 'love').disabled = false
-                    menus.normal.headerItems.find(x => x.id == 'dislike').disabled = false
-                } else if (rating == 1) {
-                    menus.normal.headerItems.find(x => x.id == 'unlove').hidden = false
-                    menus.normal.headerItems.find(x => x.id == 'love').hidden = true
-                } else if (rating == -1) {
-                    menus.normal.headerItems.find(x => x.id == 'undo_dislike').hidden = false
-                    menus.normal.headerItems.find(x => x.id == 'dislike').hidden = true
-                }
-                } catch(err) {
+                try {
+                    let rating = await app.getRating(self.item)
+                    if (rating == 0) {
+                        menus.normal.headerItems.find(x => x.id == 'love').disabled = false
+                        menus.normal.headerItems.find(x => x.id == 'dislike').disabled = false
+                    } else if (rating == 1) {
+                        menus.normal.headerItems.find(x => x.id == 'unlove').hidden = false
+                        menus.normal.headerItems.find(x => x.id == 'love').hidden = true
+                    } else if (rating == -1) {
+                        menus.normal.headerItems.find(x => x.id == 'undo_dislike').hidden = false
+                        menus.normal.headerItems.find(x => x.id == 'dislike').hidden = true
+                    }
+                } catch (err) {
 
                 }
             },
@@ -474,7 +488,7 @@
             },
             async removeFromLibrary() {
                 let item = this.item
-                let params = {"fields[songs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library"}
+                let params = { "fields[songs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library" }
                 let id = item.id ?? item.attributes.playParams.id
                 let res = await app.mkapi(item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.playParams.id ?? item.id, params);
                 if (res && res.relationships && res.relationships.library && res.relationships.library.data && res.relationships.library.data.length > 0) {
@@ -502,10 +516,10 @@
                 let truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
                 console.log(item, parent, childIndex, kind, id, isLibrary, kind == "playlists", id.startsWith("p.") || id.startsWith("pl.u"))
                 app.mk.stop().then(() => {
-                if (parent != null && childIndex != null) {
-                    app.queueParentandplayChild(parent, childIndex, item);
-                }
-                else if (kind.includes("playlist") && (id.startsWith("p.") || id.startsWith("pl."))){
+                    if (parent != null && childIndex != null) {
+                        app.queueParentandplayChild(parent, childIndex, item);
+                    }
+                    else if (kind.includes("playlist") && (id.startsWith("p.") || id.startsWith("pl."))) {
                         function shuffleArray(array) {
                             for (var i = array.length - 1; i > 0; i--) {
                                 var j = Math.floor(Math.random() * (i + 1));
@@ -514,58 +528,59 @@
                                 array[j] = temp;
                             }
                         }
-                                app.mk.setQueue({[truekind]: [item.attributes.playParams.id ?? item.id]}).then(function () {
-                                   app.mk.play().then(function (){
-                                        var playlistId = id
-                                        function getPlaylist(id, isLibrary){
-                                            if (isLibrary){
-                                                return  this.app.mk.api.v3.music(`/v1/me/library/playlists/${id}`)
-                                            } else { return this.app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/playlists/${id}`)}
+                        app.mk.setQueue({ [truekind]: [item.attributes.playParams.id ?? item.id] }).then(function () {
+                            app.mk.play().then(function () {
+                                var playlistId = id
+                                function getPlaylist(id, isLibrary) {
+                                    if (isLibrary) {
+                                        return this.app.mk.api.v3.music(`/v1/me/library/playlists/${id}`)
+                                    } else { return this.app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/playlists/${id}`) }
+                                }
+                                try {
+                                    getPlaylist(id, isLibrary).then(res => {
+                                        //let query = res.relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
+                                        //if (app.mk.shuffleMode == 1){shuffleArray(query); }
+                                        // console.log(query)
+                                        // app.mk.queue.append(query)
+                                        if (!res.data.relationships.tracks.next) {
+                                            return
+                                        } else {
+                                            getPlaylistTracks(res.data.relationships.tracks.next)
                                         }
-                                        try {
-                                            getPlaylist(id, isLibrary).then(res => {
-                                                //let query = res.relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
-                                                //if (app.mk.shuffleMode == 1){shuffleArray(query); }
-                                                // console.log(query)
-                                                // app.mk.queue.append(query)
-                                                if (!res.data.relationships.tracks.next) {
-                                                    return
-                                                } else {
-                                                    getPlaylistTracks(res.data.relationships.tracks.next)
-                                                }
 
-                                                function getPlaylistTracks(next) {
-                                                    app.apiCall(app.musicBaseUrl + next, res => {
-                                                        // if (res.id != playlistId || next.includes(playlistId)) {
-                                                        //     return
-                                                        // }
-                                                        console.log('nextres', res)
-                                                        let query = res.data.map(item => new MusicKit.MediaItem(item))
-                                                        if (app.mk.shuffleMode == 1){shuffleArray(query); console.log('shf')}
-                                                        app.mk.queue.append(query)
+                                        function getPlaylistTracks(next) {
+                                            app.apiCall(app.musicBaseUrl + next, res => {
+                                                // if (res.id != playlistId || next.includes(playlistId)) {
+                                                //     return
+                                                // }
+                                                console.log('nextres', res)
+                                                let query = res.data.map(item => new MusicKit.MediaItem(item))
+                                                if (app.mk.shuffleMode == 1) { shuffleArray(query); console.log('shf') }
+                                                app.mk.queue.append(query)
 
-                                                        if (res.next) {
-                                                            getPlaylistTracks(res.next)
-                                                        }
-                                                    })
+                                                if (res.next) {
+                                                    getPlaylistTracks(res.next)
                                                 }
                                             })
-                                        } catch (e) {}
+                                        }
+                                    })
+                                } catch (e) { }
 
 
 
-                                   })
-                                })
+                            })
+                        })
 
 
-                }
-                else {
-                    app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)
-                }})
+                    }
+                    else {
+                        app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)
+                    }
+                })
             },
-            route(){
+            route() {
                 let kind = (this.item.attributes.playParams ? (this.item.attributes.playParams.kind ?? (this.item.type ?? '')) : (this.item.type ?? ''));
-                if (kind.toLowerCase().includes('album') || kind.toLowerCase().includes('playlist')){
+                if (kind.toLowerCase().includes('album') || kind.toLowerCase().includes('playlist')) {
                     app.routeView(this.item)
                 } else {
                     this.playTrack()

@@ -20,7 +20,7 @@ export default class Thumbar {
     /**
      * Thumbnail Toolbar Assets
      */
-    private icons: { pause: Electron.NativeImage, play: Electron.NativeImage, next: Electron.NativeImage, previous: Electron.NativeImage } = {
+    private icons: { [key: string]: Electron.NativeImage } = {
         pause: nativeImage.createFromPath(join(utils.getPath('resourcePath'), 'icons/thumbar', `${nativeTheme.shouldUseDarkColors ? 'light' : 'dark'}_pause.png`)),
         play: nativeImage.createFromPath(join(utils.getPath('resourcePath'), 'icons/thumbar', `${nativeTheme.shouldUseDarkColors ? 'light' : 'dark'}_play.png`)),
         next: nativeImage.createFromPath(join(utils.getPath('resourcePath'), 'icons/thumbar', `${nativeTheme.shouldUseDarkColors ? 'light' : 'dark'}_next.png`)),

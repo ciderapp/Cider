@@ -2,6 +2,7 @@
 dist
 build
 .flatpak*
+yarn-cache
 
 # Misc
 .idea

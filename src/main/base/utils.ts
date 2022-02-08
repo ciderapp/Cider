@@ -12,6 +12,8 @@ export class utils {
      */
     private static paths: any = {
         srcPath: path.join(__dirname, "../../src"),
+        rendererPath: path.join(__dirname, "../../src/renderer"),
+        mainPath: path.join(__dirname, "../../src/main"),
         resourcePath: path.join(__dirname, "../../resources"),
         i18nPath: path.join(__dirname, "../../src/i18n"),
         ciderCache: path.resolve(app.getPath("userData"), "CiderCache"),

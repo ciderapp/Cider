@@ -23,20 +23,21 @@
     "start:darwin": "yarn build && ELECTRON_ENABLE_LOGGING=true && electron ./build/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
     "pack": "electron-builder --dir",
     "dist": "yarn build && electron-builder",
+    "dist:macarm" : "yarn build && electron-builder --mac --arm64",
+    "dist:universalNotWorking": "yarn build && electron-builder --mac --universal", 
     "dist:all": "yarn build && electron-builder -mwl",
     "msft": "yarn build && electron-builder -c msft-package.json",
-    "postinstall": "electron-builder install-app-deps"
+    "postinstall": "electron-builder install-app-deps",
+    "circle:append-bid": "node resources/appendCommitToVersion"
   },
   "dependencies": {
     "@sentry/electron": "^2.5.4",
     "@sentry/integrations": "^6.17.4",
-    "castv2-client": "^1.2.0",
     "discord-rpc": "^4.0.1",
     "ejs": "^3.1.6",
     "electron-fetch": "^1.7.4",
     "electron-log": "^4.4.5",
     "electron-notarize": "^1.1.1",
-    "electron-packager": "^15.4.0",
     "electron-store": "^8.0.1",
     "electron-updater": "^4.6.1",
     "electron-window-state": "^5.0.3",
@@ -48,18 +49,13 @@
     "mpris-service": "^2.1.2",
     "music-metadata": "^7.11.4",
     "node-gyp": "^8.4.1",
-    "node-ssdp": "^4.0.1",
     "qrcode": "^1.5.0",
-    "qrcode-terminal": "^0.12.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "run-script-os": "^1.1.6",
     "source-map-support": "^0.5.21",
-    "tsc": "^2.0.4",
     "typescript": "^4.5.5",
-    "upnp-mediarenderer-client": "^1.4.0",
     "v8-compile-cache": "^2.3.0",
-    "wavefile": "^11.0.0",
     "ws": "^8.4.2",
     "xml2js": "^0.4.23",
     "youtube-search-without-api-key": "^1.0.7"
@@ -71,7 +67,7 @@
     "@types/qrcode-terminal": "^0.12.0",
     "@types/ws": "^8.2.2",
     "electron": "git+https://github.com/castlabs/electron-releases.git",
-    "electron-builder": "^22.14.5",
+    "electron-builder": "^22.14.13",
     "electron-webpack": "^2.8.2",
     "musickit-typescript": "^1.2.4",
     "playwright": "^1.18.1",
@@ -175,7 +171,6 @@
       "target": [
         "dmg"
       ]
-    },
-    "artifactName": "${productName}.${ext}"
+    }
   }
 }

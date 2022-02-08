@@ -1,4 +1,5 @@
 {
+  
   // i18n Info
   "i18n.languageName": "Türkçe",        // name of language in native language
   "i18n.languageNameEnglish": "Turkish", // name of language in English
@@ -21,8 +22,8 @@
   
   // Terms
   "term.appleInc": "Apple",
-  "term.appleMusic": "Apple Müzik",
-  "term.applePodcasts": "Apple Podcastler",
+  "term.appleMusic": "Apple Music",
+  "term.applePodcasts": "Apple Podcasts",
   "term.itunes": "iTunes",
   "term.github": "GitHub",
   "term.discord": "Discord",
@@ -124,6 +125,25 @@
   "term.time.second": "saniye",
   "term.videos": "Video Klipler", 
   "term.menu": "Menü",
+  "term.check": "Şimdi Kontrol Et",
+  "term.aboutArtist": "About {{artistName}}", // e.g. 'About Doja Cat'
+  "term.updateCider": "Güncellemeleri Denetle",
+  "term.share.success": "Panoya Kopyalandı",
+  "term.topResult": "En İyi Sonuç", // Search Results
+  "term.sharedPlaylists": "Paylaşılan Listeler", // Search Results
+  "term.people": "Kişiler", // Search Results
+  "term.newpreset.name": "Yeni Önayar İsmi", // Equalizer Preset
+  "term.addedpreset": "Önayar Kaydedildi",
+  "term.deletepreset.warn": "Bu önayarı silmek istediğinize emin misiniz?",
+  "term.deletedpreset": "Önayar Silindi",
+  "term.musicVideos": "Video Klipler", // Search page friendlyTypes
+  "term.stations": "İstasyonlar",
+  "term.curators": "Editörler",
+  "term.appleCurators": "Apple Editörleri",
+  "term.radioShows": "Radio Şovları",
+  "term.recordLabels": "Kayıt Stüdyoları",
+  "term.videoExtras": "Ekstra Videolar",
+  "term.top": "En İyi",
 
   // Home
   "home.title": "Ana Sayfa",
@@ -141,7 +161,7 @@
   "error.noResults": "Hiç sonuç yok",
   "error.noResults.description": "Tekrar deneyin.",
 
-  //Podcasts
+  // Podcasts
   "podcast.followOnCider": "Cider'de Takip Et",
   "podcast.followedOnCider": "Cider'de Takip Ediliyor",
   "podcast.subscribeOnItunes": "itunes'de Abone Ol",
@@ -193,8 +213,12 @@
   "action.export": "Export",
   "action.showAlbum": "Tüm Albümü Göster",
   "action.tray.minimize": "Görev Çubuğuna Küçült",
-  "action.tray.quit": "'den Çık",
-  "action.tray.show": "'i Göster",
+  "action.tray.quit": "Çık",
+  "action.tray.show": "Göster",
+  "action.update": "Güncelle",
+  "action.copy": "Kopyala",
+  "action.newpreset": "Yeni Önayar...", // Equalizer Preset
+  "action.deletepreset": "Önayarı Sil",
 
   // Settings - General
   "settings.header.general": "Genel Ayarlar",
@@ -206,16 +230,35 @@
   "settings.option.general.language.fun": "Mizahi Diller",
   "settings.option.general.language.unsorted": "Henüz Tamamlanmamış Diller",
 
+  // Update Cider
+  "settings.option.general.updateCider": "Güncellemeleri Kontrol Et", // Button. Refer to term.check for the check button
+  "settings.option.general.updateCider.branch": "Seçilen GitHub Versiyonu", // Dropdown
+  "settings.option.general.updateCider.branch.description": "Cider'in hangi versiyonuna güncelleneceğini seçin",
+  "settings.option.general.updateCider.branch.main": "Stabil",
+  "settings.option.general.updateCider.branch.develop": "Deneysel",
+  
   // Settings - Audio
   "settings.header.audio": "Çalma / Oynatma",
   "settings.header.audio.description": "Cider'in sizin için en iyi dinleme deneyimini sağlayabilmesi için ses ayarlarınızı yapın.",
   "settings.option.audio.quality": "Ses Kalitesi", // Dropdown
+  "settings.header.audio.quality.hireslossless": "Yüksek Çözünürlüklü Kayıpsız",
+  "settings.header.audio.quality.hireslossless.description": "24-bit/192 kHz'e kadar",
+  "settings.header.audio.quality.lossless": "Kayıpsız",
+  "settings.header.audio.quality.lossless.description": "24-bit/48 kHz'e kadar",
   "settings.header.audio.quality.high": "Yüksek Kalite",
-  "settings.header.audio.quality.low": "Yüksek Verimlilik",
+  "settings.header.audio.quality.high.description": "256 kbps",
+  "settings.header.audio.quality.standard": "Standart",
+  "settings.header.audio.quality.standard.description": "64 kbps",
   "settings.header.audio.quality.auto": "Otomatik",
   "settings.option.audio.seamlessTransition": "Kesintisiz Ses Geçişi", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "Gelişmiş Ses Deneyimi", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.description": "Gelişmiş ses deneyiminin etkinleştirilmesi, Ses Normalleştirme, Ekolayzer ve Görselleştirici gibi genişletilmiş ses özelliklerine izin verir, ancak bu durum bazı sistemlerde seste bozulmalara neden olabilir.",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider Adrenalin Prosesörü™️", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Müziğin hem daha zengin hem de daha canlı duyulmasını sağlayan Psikoakustik Geliştirme Sistemi | Maikiwi tarafından tasarlanmıştır.",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "CAP Kuvveti", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Sese yapılan işlemin gücünü değiştirir. (Agresif istenmeyen sonuçlar doğurabilir)",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "Standart",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive": "Agresif",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Ses Normalleştirme", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Ses normalleştirme alçak ve yüksek sesli şarkıları dengeler ve daha düzgün bir dinleme deneyimi sağlar.",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Uzamsal Ses", // Toggle
@@ -243,6 +286,12 @@
   "settings.option.visual.hardwareAcceleration.description": "Etki etmesi için uygulamayı yeniden başlatmak gerekir.",
   "settings.header.visual.hardwareAcceleration.default": "Varsayılan", 
   "settings.header.visual.hardwareAcceleration.webGPU": "Gelişmiş", 
+  "settings.header.visual.theme": "Tema",
+
+  // Settings - Visual - Theme name
+  "settings.option.visual.theme.default": "Cider",
+  "settings.option.visual.theme.dark": "Karanlık",
+
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "Kullanıcı Adımı Göster", // Toggle
 
@@ -274,18 +323,18 @@
   "settings.header.experimental": "Deneysel",
   "settings.header.experimental.description": "Cider'deki deneysel özelliklere erişim sağlayın. (Not: Bazı özellikler düzgün çalışmayabilir.)",
   "settings.option.experimental.compactUI": "Kompakt Arayüz", // Toggle
-  "settings.option.experimental.closeButtonBehaviour": "Kapat düğmesi davranışı",
-  "settings.option.experimental.closeButtonBehaviour.quit": "Cider'den çık",
-  "settings.option.experimental.closeButtonBehaviour.minimizeTaskbar": "Simge durumuna küçült",
-  "settings.option.experimental.closeButtonBehaviour.minimizeTray": "Görev çubuğuna küçült",
+  "settings.option.experimental.close_button_hide": "Kapatma Düğmesi Cider'i Küçültür",
+  "settings.option.experimental.copy_log": "Günlüğü Panoya Kopyala",
+  "settings.option.experimental.inline_playlists": "Listeleri ve Albümleri Açılır Pencere İle göster",
+  
   // Refer to term.disabled & term.enabled
-
   // Spatialization Menu
   "spatial.notTurnedOn": "Uzamsal ses devre dışı. Kullanabilmek için lütfen önce etkinleştirin.",
   "spatial.spatialProperties" : "Uzamsal Özellikler",
   "spatial.width" : "Genişlik",
   "spatial.height" : "Yükseklik",
   "spatial.depth" : "Derinlik",
+  "spatial.gain" : "Kazanç",
   "spatial.roomMaterials" : "Oda Materyalleri",
   "spatial.roomDimensions" : "Oda Ölçüleri",
   "spatial.roomPositions" : "Oda Pozisyonu",
@@ -299,7 +348,6 @@
   "spatial.down" : "Aşağı",
   "spatial.listener" : "Dinleyici",
   "spatial.audioSource" : "Ses Kaynağı",
-  "spatial.gain" : "Kazanç",
 
   // Settings - Unfinished
   "settings.header.unfinished": "Geliştirme Aşamasında",
@@ -310,5 +358,4 @@
 
   //About
   "about.thanks": "Cider Collective Ekibine ve tüm katkıda bulunanlara çok teşekkür ederiz."
-
 }

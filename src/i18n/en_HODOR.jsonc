@@ -1,7 +1,7 @@
 { // HODOR
 
   // i18n Info
-  "i18n.languageName": "HODOR",        // name of language in native language
+  "i18n.languageName": "HODOR", // name of language in native language
   "i18n.languageNameEnglish": "HODOR", // name of language in English
   "i18n.category": "fun", // main = real language, fun = fun community languages
   "i18n.authors": "HODOR", // Authors, if you contribute to this file feel free to add your name seperated with a space
@@ -19,6 +19,7 @@
   "notification.updatingLibrarySongs": "UPDATING HODOR HODORS...",
   "notification.updatingLibraryAlbums": "UPDATING HODOR HODORBUMS...",
   "notification.updatingLibraryArtists": "UPDATING HODOR HODORTISTS...",
+
   // Terms
   "term.appleInc": "HODOR Inc.",
   "term.appleMusic": "HODOR MUSIC",
@@ -139,7 +140,7 @@
   "error.noResults": "NO HODOR.",
   "error.noResults.description": "TRY NEW HODOR.",
 
-  //Podcasts
+  // Podcasts
   "podcast.followOnCider": "FOLLOW ON HODOR",
   "podcast.followedOnCider": "FOLLOWING ON HODOR",
   "podcast.subscribeOnItunes": "SUBSCRIBE ON iHODOR",
@@ -190,12 +191,11 @@
   "action.import": "HODOR IN",
   "action.export": "HODOR OUT",
   "action.showAlbum": "SHOW HODOR HODOR",
-  // Waiting on Core for moving plugin to app.ts
   "action.tray.minimize": "HODOR TO TRAY",
   "action.tray.quit": "HODOR",
   "action.tray.show": "SEE",
 
-  // Settings - General (Reserved)
+  // Settings - General
   "settings.header.general": "HODORAL",
   "settings.header.general.description": "HODOR HODORAL HODOR FOR HODOR.",
   "settings.option.general.language": "HODOR SPEAKS",
@@ -204,6 +204,8 @@
   "settings.option.general.language.main": "REAL HODORS",
   "settings.option.general.language.fun": "HODOR HODORS",
   "settings.option.general.language.unsorted": "NO HODORS",
+
+  // Update Cider
 
   // Settings - Audio
   "settings.header.audio": "HODOR HEARS",
@@ -219,6 +221,7 @@
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "NORMALIZES HODOR VOLUME FOR INDIVIDUAL HODORS TO HODOR A MORE HODOR LISTENING HODOR.",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "HODOR SPATIALIZATION", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "SPATIALIZE HODOR AND MAKE HODOR MORE 3-HODOR (HODOR: THIS IS NOT HODOR ATMOS)",
+
   // Settings - Visual
   "settings.header.visual": "HODOR SEES", 
   "settings.header.visual.description": "ADJUST HODOR EYES FOR HODOR.",
@@ -241,6 +244,9 @@
   "settings.option.visual.hardwareAcceleration.description": "NEED RE HODOR",
   "settings.header.visual.hardwareAcceleration.default": "HODOR.", 
   "settings.header.visual.hardwareAcceleration.webGPU": "WEB HODOR!!", 
+
+  // Settings - Visual - Theme name
+
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "SHOW HODOR NAME?", // Toggle
 
@@ -276,8 +282,8 @@
   "settings.option.experimental.closeButtonBehaviour.quit": "END HODOR",
   "settings.option.experimental.closeButtonBehaviour.minimizeTaskbar": "MINIMIZE HODOR TO HODORBAR",
   "settings.option.experimental.closeButtonBehaviour.minimizeTray": "MINIMIZE HODOR TO HODORAY",
+  
   // Refer to term.disabled & term.enabled
-
   // Spatialization Menu
   "spatial.notTurnedOn": "HODOR SPATIALIZATION IS HODOR. TO HODOR, PLEASE HODOR IT HODOR.",
   "spatial.spatialProperties" : "SPATIAL HODOR",
@@ -308,5 +314,4 @@
 
   //About
   "about.thanks": "HODOR THANKS TO THE HODOR TEAM AND ALL OF OUR HODORS."
-  
 }
