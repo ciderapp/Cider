@@ -135,6 +135,8 @@
   "term.addedpreset": "ᖋ↸↸ᒷ↸ i!∷ᒷϟᒷᒣ",
   "term.deletepreset.warn": "ᖋ∷ᒷ ॥ᒍ⚍ ϟ⚍∷ᒷ ॥ᒍ⚍ ∴ᖋリᒣ ᒣᒍ ↸ᒷ|:ᒷᒣᒷ ᒣ⍑╎ϟ i!∷ᒷϟᒷᒣ?",
   "term.deletedpreset": "∷ᒷᒲᒍ⍊ᒷ↸ i!∷ᒷϟᒷᒣ",
+  "term.requestError": "ᒣ⍑ᒷ∷ᒷ ∴ᖋϟ ᖋ i!∷ᒍᕊ|:ᒷᒲ ∴╎ᒣ⍑ ᒣ⍑ᒷ ∷ᒷᑑ⚍ᒷϟᒣ.",
+  "term.song.link.generate": "┤ᒷᒣᒣ╎リ┤ ϟᒍリ┤.|:╎リ·ǀ· ϟ⍑ᖋ∷ᒷ ⚍∷|:...",
   "term.musicVideos": "ᒲ⚍ϟ╎ᔮ ⍊╎↸ᒷᒍϟ", // Search page friendlyTypes
   "term.stations": "ϟᒣᖋᒣ╎ᒍリϟ",
   "term.curators": "ᔮ⚍∷ᖋᒣᒍ∷ϟ",
@@ -253,6 +255,7 @@
   "settings.option.audio.enableAdvancedFunctionality.description": "ᒷリᖋᕊ|:╎リ┤ ᖋ⚍↸╎ᒍᔮᒍリᒣᒷ/ᒣ ⎓⚍リᔮᒣ╎ᒍリᖋ|:╎ᒣ॥ ∴╎|:|: ᖋ|:|:ᒍ∴ ⎓ᒍ∷ ᒷ/ᒣᒷリ↸ᒷ↸ ᖋ⚍↸╎ᒍ ⎓ᒷᖋᒣ⚍∷ᒷϟ |:╎·ǀ·ᒷ ᖋ⚍↸╎ᒍ リᒍ∷ᒲᖋ|:╎∩ᖋᒣ╎ᒍリ , ᒷᑑ⚍ᖋ|:╎∩ᒷ∷ϟ ᖋリ↸ ⍊╎ϟ⚍ᖋ|:╎∩ᒷ∷ϟ, ⍑ᒍ∴ᒷ⍊ᒷ∷ ᒍリ ϟᒍᒲᒷ ϟ॥ϟᒣᒷᒲϟ ᒣ⍑╎ϟ ᒲᖋ॥ ᔮᖋ⚍ϟᒷ ϟᒣ⚍ᒣᒣᒷ∷╎リ┤ ╎リ ᖋ⚍↸╎ᒍ ᒣ∷ᖋᔮ·ǀ·ϟ.",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "ᔮ╎↸ᒷ∷ ᖋ↸∷ᒷリᖋ|:╎リᒷ i!∷ᒍᔮᒷϟϟᒍ∷™️", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "i!ϟ॥ᔮ⍑ᒍᖋᔮᒍ⚍ϟᒣ╎ᔮ ᒷリ⍑ᖋリᔮᒷᒲᒷリᒣϟ ᒣ⍑ᖋᒣ ᒲᖋ·ǀ·ᒷϟ ᒷ⍊ᒷ∷॥ᒣ⍑╎リ┤ ϟᒍ⚍リ↸ ᕊᒍᒣ⍑ ∷╎ᔮ⍑ᒷ∷ ᖋリ↸ ᒲᒍ∷ᒷ |:╎⍊ᒷ|:॥ | ↸ᒷϟ╎┤リᒷ↸ ᕊ॥ ᒲᖋ╎·ǀ·╎∴╎.",
+  "settings.warn.audio.enableAdvancedFunctionality.ciderPPE.compatibility": "ᔮᖋi! ╎ϟ リᒍᒣ ᔮᒍᒲi!ᖋᒣ╎ᕊ|:ᒷ ∴╎ᒣ⍑ ϟi!ᖋᒣ╎ᖋ|:╎∩ᖋᒣ╎ᒍリ. i!|:ᒷᖋϟᒷ ↸╎ϟᖋᕊ|:ᒷ ϟi!ᖋᒣ╎ᖋ|:╎∩ᖋᒣ╎ᒍリ ᒣᒍ ᔮᒍリᒣ╎リ⚍ᒷ.",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "ᔮᖋi! ϟᒣ∷ᒷリ┤ᒣ⍑", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "ᔮ⍑ᖋリ┤ᒷϟ ᒣ⍑ᒷ ϟᒣ∷ᒷリ┤ᒣ⍑ ᒍ⎓ ᒣ⍑ᒷ i!∷ᒍᔮᒷϟϟ╎リ┤ ↸ᒍリᒷ ᒣᒍ ᒣ⍑ᒷ ᖋ⚍↸╎ᒍ. (ᖋ┤┤∷ᒷϟϟ╎⍊ᒷ ᒲᖋ॥ ॥╎ᒷ|:↸ ⚍リ↸ᒷϟ╎∷ᖋᕊ|:ᒷ ∷ᒷϟ⚍|:ᒣϟ)",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "ϟᒣᖋリ↸ᖋ∷↸",
@@ -261,7 +264,8 @@
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "リᒍ∷ᒲᖋ|:╎∩ᒷϟ i!ᒷᖋ·ǀ· ⍊ᒍ|:⚍ᒲᒷ ⎓ᒍ∷ ╎リ↸╎⍊╎↸⚍ᖋ|: ᒣ∷ᖋᔮ·ǀ·ϟ ᒣᒍ ᔮ∷ᒷᖋᒣᒷ ᖋ ᒲᒍ∷ᒷ ⚍リ╎⎓ᒍ∷ᒲ |:╎ϟᒣᒷリ╎リ┤ ᒷ/i!ᒷ∷╎ᒷリᔮᒷ.",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "ᖋ⚍↸╎ᒍ ϟi!ᖋᒣ╎ᖋ|:╎∩ᖋᒣ╎ᒍリ", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "ϟi!ᖋᒣ╎ᖋ|:╎∩ᒷ ᖋ⚍↸╎ᒍ ᖋリ↸ ᒲᖋ·ǀ·ᒷ ᖋ⚍↸╎ᒍ ᒲᒍ∷ᒷ 3-↸╎ᒲᒷリϟ╎ᒍリᖋ|: (リᒍᒣᒷ: ᒣ⍑╎ϟ ╎ϟ リᒍᒣ ↸ᒍ|:ᕊ॥ ᖋᒣᒲᒍϟ)",
-  
+  "settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility": "ϟi!ᖋᒣ╎ᖋ|:╎∩ᖋᒣ╎ᒍリ ╎ϟ リᒍᒣ ᔮᒍᒲi!ᖋᒣ╎ᕊ|:ᒷ ∴╎ᒣ⍑ ᔮᖋi!. i!|:ᒷᖋϟᒷ ↸╎ϟᖋᕊ|:ᒷ ᔮᖋi! ᒣᒍ ᔮᒍリᒣ╎リ⚍ᒷ.",
+
   // Settings - Visual
   "settings.header.visual": "⍊╎ϟ⚍ᖋ|:",
   "settings.header.visual.description": "ᖋ↸⋮⚍ϟᒣ ᒣ⍑ᒷ ⍊╎ϟ⚍ᖋ| ϟᒷᒣᒣ╎リ┤ϟ ⎓ᒍ∷ ᔮ╎↸ᒷ∷.",
