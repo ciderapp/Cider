@@ -14,12 +14,12 @@ const pad = (number: number, length: number) => String(number).padStart(length, 
  * @param {Number} timeInSeconds 
  * @returns String
  */
-const convertTimeToString = (timeInSeconds: number) => {
-    const timeInMinutes = timeInSeconds / 60;
+ const convertTimeToString = (timeInSeconds: number) => {
+    const timeInMinutes = Math.floor(timeInSeconds / 60);
     if (timeInMinutes < 60) {
-        return timeInMinutes + ":" + pad(timeInSeconds % 60, 2);
+        return timeInMinutes + ":" + pad(Math.floor(timeInSeconds % 60), 2);
     }
-    return timeInMinutes / 60 + ":" + pad(timeInMinutes % 60, 2) + ":" + pad(timeInSeconds % 60, 2);
+    return Math.floor(timeInMinutes / 60) + ":" + pad(Math.floor(timeInMinutes % 60), 2) + ":" + pad(Math.floor(timeInSeconds % 60), 2);
 }
 
 export default class WebNowPlaying {
