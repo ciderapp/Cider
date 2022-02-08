@@ -1,5 +1,5 @@
 {
-	
+	// Base File
 	// i18n Info
 	"i18n.languageName": "English (US)", // name of language in native language
 	"i18n.languageNameEnglish": "English (US)", // name of language in English
@@ -94,88 +94,88 @@
 	"term.less": "कम",
 	"term.showMore": "दिखाएं ज़्यादा",
 	"term.showLess": "दिखाएं कम",
-	"term.topSongs": "Top Songs",
-	"term.latestReleases": "Latest Releases",
-	"term.time.added": "Added",
-	"term.time.released": "Released",
-	"term.time.updated": "Updated",
-	"term.time.hours": "hours",
-	"term.time.hour": "hour",
-	"term.time.minutes": "minutes",
-	"term.time.minute": "minute",
-	"term.time.seconds": "seconds",
-	"term.time.second": "second",
-	"term.fullscreenView": "Fullscreen View",
-	"term.defaultView": "Default View",
-	"term.audioSettings": "Audio Settings",
-	"term.clearAll": "Clear All",
-	"term.recentStations": "Recent Stations",
-	"term.language": "Language",
-	"term.funLanguages": "Fun",
-	"term.noLyrics": "Loading... / Lyrics not found./ Instrumental.",
-	"term.copyright": "Copyright",
-	"term.rightsReserved": "All Rights Reserved.",
-	"term.sponsor": "Sponsor this project",
-	"term.ciderTeam": "Cider Team",
-	"term.developer": "Developer",
-	"term.socialTeam": "Social Team",
-	"term.socials": "Socials",
-	"term.contributors": "Contributors",
-	"term.equalizer": "Equalizer",
-	"term.reset": "Reset",
-	"term.tracks": "tracks", // Assume x amount of tracks. e.g. 50 tracks
-	"term.videos": "Videos",
-	"term.menu": "Menu",
-	"term.check": "Check",
-	"term.aboutArtist": "About {{artistName}}", // e.g. 'About Doja Cat'
-	"term.topResult": "Top Result", // Search Results
-	"term.sharedPlaylists": "Shared Playlists", // Search Results
-	"term.people": "People", // Search Results
-	"term.newpreset.name": "नई EQ Preset Name", // Equalizer Preset
-	"term.addedpreset": "Added Preset",
-	"term.deletepreset.warn": "Are you sure you want to delete this preset?",
-	"term.deletedpreset": "Removed preset",
-	"term.musicVideos": "Music Videos", // Search page friendlyTypes
-	"term.stations": "Stations",
-	"term.curators": "Curators",
-	"term.appleCurators": "Apple Curators",
-	"term.radioShows": "Radio Shows",
-	"term.recordLabels": "Record Labels",
-	"term.videoExtras": "Video Extras",
-	"term.top": "Top",
+	"term.topSongs": "टौप गीत",
+	"term.latestReleases": "नए गाने",
+	"term.time.added": "जोड़ें हुए",
+	"term.time.released": "निकले हुए",
+	"term.time.updated": "अपडेटिड",
+	"term.time.hours": "घंटे",
+	"term.time.hour": "घंटा",
+	"term.time.minutes": "मिनट",
+	"term.time.minute": "मिनट",
+	"term.time.seconds": "सेकंड",
+	"term.time.second": "सेकंड",
+	"term.fullscreenView": "पूरा दृश्य",
+	"term.defaultView": "पूरा दृश्य",
+	"term.audioSettings": "पूरा दृश्य",
+	"term.clearAll": "सब साफ करें",
+	"term.recentStations": "पिछले स्टेशन",
+	"term.language": "भाषा",
+	"term.funLanguages": "मजाक",
+	"term.noLyrics": "लोडिंग... / लिरिक्स नहीं मिले./ इंस्ट्रुमेंटल.",
+	"term.copyright": "कॉपीराइट",
+	"term.rightsReserved": "आल राइट्स रिज़र्व्ड.",
+	"term.sponsor": "स्पांसर दिस प्रोजेक्ट",
+	"term.ciderTeam": "साइडर टीम",
+	"term.developer": "डेवेलपर",
+	"term.socialTeam": "सोसिअल टीम",
+	"term.socials": "सोसिअल्स",
+	"term.contributors": "कोंट्रिबिउटेरस",
+	"term.equalizer": "कोंट्रिबिउटेरस",
+	"term.reset": "रीसेट",
+	"term.tracks": "ट्रैक्स", // Assume x amount of tracks. e.g. 50 tracks
+	"term.videos": "विडिओस",
+	"term.menu": "मेन्यू",
+	"term.check": "चेक",
+	"term.aboutArtist": "{{artistName}} के बारे में", // e.g. 'About Doja Cat'
+	"term.topResult": "टॉप रिज़ल्ट", // Search Results
+	"term.sharedPlaylists": "शेयर्ड प्लेलिस्ट्स", // Search Results
+	"term.people": "लोग", // Search Results
+	"term.newpreset.name": "नई ई-क्यू प्रीसेट का नाम", // Equalizer Preset
+	"term.addedpreset": "ऐडेड प्रीसेट",
+	"term.deletepreset.warn": "क्या आप वाकई इस प्रीसेट को हटाना चाहते हैं?",
+	"term.deletedpreset": "प्रीसेट हटा दिया",
+	"term.musicVideos": "गाने की वीडियो", // Search page friendlyTypes
+	"term.stations": "स्टेशन",
+	"term.curators": "क्यूरेटर",
+	"term.appleCurators": "एप्पल क्यूरेटर",
+	"term.radioShows": "रेडिओ शोस",
+	"term.recordLabels": "रिकॉर्ड लेबल्स",
+	"term.videoExtras": "वीडियो एक्स्ट्रास",
+	"term.top": "टॉप",
 
 	// Home
-	"home.title": "Home",
-	"home.recentlyPlayed": "Recently Played",
-	"home.recentlyAdded": "Recently Added",
-	"home.artistsFeed": "Your Artists Feed",
-	"home.artistsFeed.noArtist": "Follow some artists first and their latest releases will be here",
-	"home.madeForYou": "Made For You",
-	"home.friendsListeningTo": "Friends Listening To",
-	"home.followedArtists": "Followed Artists",
+	"home.title": "घर",
+	"home.recentlyPlayed": "हाल ही में चलाये हुए",
+	"home.recentlyAdded": "हाल ही में जोड़ें हुए",
+	"home.artistsFeed": "आपकी कलाकार फीड",
+	"home.artistsFeed.noArtist": "पहले कुछ कलाकारों का फॉलो करें और उनकी नवीनतम रिलीज़ यहां होंगी",
+	"home.madeForYou": "आपके लिए बानी हुई",
+	"home.friendsListeningTo": "दोस्त सुन्न रहे हैं",
+	"home.followedArtists": "फॉलो किए गए कलाकार",
 
 	// Errors
-	"error.appleMusicSubRequired": "Apple Music requires a subscription.",
-	"error.connectionError": "There was a problem connecting to Apple Music.",
-	"error.noResults": "No Results.",
-	"error.noResults.description": "Try a नई search.",
+	"error.appleMusicSubRequired": "Apple Music को सदस्यता की आवश्यकता है।",
+	"error.connectionError": "Apple Music से कनेक्ट करने में एक समस्या थी।",
+	"error.noResults": "कोई परिणाम नहीं",
+	"error.noResults.description": "एक नई खोज का प्रयास करें",
 
 	// Podcasts
-	"podcast.followOnCider": "Follow On Cider",
-	"podcast.followedOnCider": "Following On Cider",
-	"podcast.subscribeOnItunes": "Subscribe On iTunes",
-	"podcast.subscribedOnItunes": "Subscribed On iTunes",
-	"podcast.itunesStore": "iTunes Store",
-	"podcast.episodes": "Episodes",
-	"podcast.playEpisode": "Play Episode",
-	"podcast.website": "Podcast Website",
+	"podcast.followOnCider": "Cider पे फॉलो करें",
+	"podcast.followedOnCider": "Cider पे फॉलोड",
+	"podcast.subscribeOnItunes": "iTunes पे सब्स्क्राइब करें",
+	"podcast.subscribedOnItunes": "iTunes पे सब्स्क्राइब्ड",
+	"podcast.itunesStore": "iTunes स्टोर",
+	"podcast.episodes": "एपिसोड्स",
+	"podcast.playEpisode": "एपिसोड चलाएं",
+	"podcast.website": "Podcast की वेबसाइट",
 
 	// Actions
-	"action.addToLibrary": "Add to Library",
-	"action.addToLibrary.success": "Added to Library",
-	"action.addToLibrary.error": "Error Adding to Library",
-	"action.removeFromLibrary": "Remove from Library",
-	"action.removeFromLibrary.success": "Removed from Library",
+	"action.addToLibrary": "लाइब्रेरी लाइब्रेरी",
+	"action.addToLibrary.success": "लाइब्रेरी में जोड़ा गया",
+	"action.addToLibrary.error": "इसे लाइब्रेरी में जोड़ने में त्रुटि",
+	"action.removeFromLibrary": "लाइब्रेरी से निकालें",
+	"action.removeFromLibrary.success": "लाइब्रेरी से हटा दिया गया",
 	"action.addToQueue": "Add to Queue",
 	"action.addToQueue.success": "Added to Queue",
 	"action.addToQueue.error": "Error Adding to Queue",
@@ -289,7 +289,6 @@
 	// Settings - Visual - Theme name
 	"settings.option.visual.theme.default": "Cider",
 	"settings.option.visual.theme.dark": "Dark",
-
 	// Refer to term.disabled for the disabled option
 	"settings.option.visual.showPersonalInfo": "दिखाएं Personal Info", // Toggle
 
