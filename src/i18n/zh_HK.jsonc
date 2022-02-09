@@ -45,6 +45,11 @@
   "term.podcasts": "Podcasts",
   "term.playlists": "播放列表",
   "term.playlist": "播放列表",
+  "term.newPlaylist": "新播放列表",
+  "term.newPlaylistFolder": "新播放列表資料夾",
+  "term.createNewPlaylist": "新建播放列表",
+  "term.createNewPlaylistFolder": "新建播放列表資料夾",
+  "term.deletePlaylist": "您确定要删除该播放列表吗?",
   "term.play": "播放",
   "term.pause": "暫停",
   "term.previous": "上一首",
@@ -178,7 +183,7 @@
   "action.love": "喜愛",
   "action.unlove": "取消喜愛",
   "action.dislike": "減少此類建議",
-  "action.undoDislike": "還原減小此類建議",
+  "action.undoDislike": "還原減少此類建議",
   "action.showWebRemoteQR": "遙距控制",
   "action.playTracksNext": "插播 ${app.selectedMediaItems.length} 首歌曲",
   "action.playTracksLater": "稍後播放 ${app.selectedMediaItems.length} 首歌曲",
@@ -200,8 +205,8 @@
   "settings.header.audio": "音訊",
   "settings.header.audio.description": "調整Cider的音訊設定",
   "settings.option.audio.quality": "音訊音質", // Dropdown
-  "settings.header.audio.quality.high": "高素質",
-  "settings.header.audio.quality.low": "高效率",
+  "settings.header.audio.quality.high": "高",
+  "settings.header.audio.quality.low": "低",
   "settings.header.audio.quality.auto": "自動",
   "settings.option.audio.seamlessTransition": "無縫播放", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "進階功能", // Toggle
@@ -255,8 +260,8 @@
   "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling 記錄", // Option to Connect
   "settings.option.connectivity.lastfmScrobble.delay": "LastFM Scrobble 延遲 (%)",
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "啟用 LastFM 正在播放",
-  "settings.option.connectivity.lastfmScrobble.removeFeatured": "從歌名中移除藝人推薦 (LastFM)",
-  "settings.option.connectivity.lastfmScrobble.filterLoop": "Filter looped track (LastFM)", 
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "從歌名中移除客串藝人 (LastFM)",
+  "settings.option.connectivity.lastfmScrobble.filterLoop": "不記錄單曲循環 (LastFM)", 
   // Refer to term.connect for the connect button
 
   // Settings - Experimental
@@ -270,6 +275,7 @@
   // Refer to term.disabled & term.enabled
   
   // Spatialization Menu
+  "spatial.notTurnedOn": "空間音訊功能被禁用，使用前請先啓用。",
   "spatial.spatialProperties" : "空間音訊屬性",
   "spatial.width" : "闊度",
   "spatial.height" : "高度",
