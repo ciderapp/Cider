@@ -3572,6 +3572,27 @@ const app = new Vue({
         darwinShare(url) {
             ipcRenderer.send('share-menu', url)
         },
+        SpacePause() {       
+            const elems = document.querySelectorAll('input');
+            for (elem of elems){
+                if (elem === document.activeElement) {
+                    return;
+                }
+            }
+            if (!this.isDev) // disable in dev mode to keep my sanity
+            MusicKitInterop.playPause();
+        },
+        MKJSLang(){
+            let u = this.cfg.general.language;
+            let langcodes = ['af', 'sq', 'ar', 'eu', 'bg', 'be', 'ca', 'zh', 'zh-tw', 'zh-cn', 'zh-hk', 'zh-sg', 'hr', 'cs', 'da', 'nl', 'nl-be', 'en', 'en-us', 'en-eg', 'en-au', 'en-gb', 'en-ca', 'en-nz', 'en-ie', 'en-za', 'en-jm', 'en-bz', 'en-tt', 'en-001', 'et', 'fo', 'fa', 'fi', 'fr', 'fr-ca', 'gd', 'de', 'de-ch', 'el', 'he', 'hi', 'hu', 'is', 'id', 'it', 'ja', 'ko', 'lv', 'lt', 'mk', 'mt', 'no', 'nb', 'nn', 'pl', 'pt-br', 'pt', 'rm', 'ro', 'ru', 'sr', 'sk', 'sl', 'es', 'es-mx', 'es-419', 'sv', 'th', 'ts', 'tn', 'tr', 'uk', 'ur', 've', 'vi', 'xh', 'yi', 'zu', 'ms', 'iw', 'lo', 'tl', 'kk', 'ta', 'te', 'bn', 'ga', 'ht', 'la', 'pa', 'sa'];
+            let sellang = "en"
+            if (u && langcodes.includes(u.toLowerCase().replace('_', "-"))) {
+                sellang = ((u.toLowerCase()).replace('_', "-"))
+            } else if (u && u.includes('_') && langcodes.includes(((u.toLowerCase()).replace('_', "-")).split("-")[0])) {
+                sellang = ((u.toLowerCase()).replace('_', "-")).split("-")[0]
+            }
+            return sellang
+        }
     }
 })
 

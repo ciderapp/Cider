@@ -101,7 +101,7 @@ export default class Thumbar {
                 {
                     label: 'Pause / Play',
                     accelerator: 'Space',
-                    click: () => this._win.webContents.executeJavaScript(`MusicKitInterop.playPause()`)
+                    click: () => this._win.webContents.executeJavaScript(`app.SpacePause()`)
                 },
                 {
                     label: 'Next',
