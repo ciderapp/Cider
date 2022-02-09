@@ -196,7 +196,7 @@
   // Waiting on Core for moving plugin to app.ts
   "action.tray.minimize": "Kicsinyítés a tálcára",
   "action.tray.quit": "Kilépés",
-  "action.tray.show": "Megjelenítés",
+  "action.tray.show": "A következő megjelenítése:",
 
   // Settings - General
   "settings.header.general": "Általános",
