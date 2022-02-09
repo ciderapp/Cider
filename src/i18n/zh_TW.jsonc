@@ -1,24 +1,25 @@
 {
+  
+  // i18n Info
+  "i18n.languageName": "繁體中文（台灣）", // name of language in native language
+  "i18n.languageNameEnglish": "Trad. Chinese (Taiwan)", // name of language in English
+  "i18n.category": "main", // main = real language, fun = fun community languages
+  "i18n.authors": "@maikirakiwi @jay900604 @kyw504100", // Authors, if you contribute to this file feel free to add your name seperated with a space
+
   // App info
   "app.name": "Cider",
 
   "date.format": "${y}年${m}月${d}日",
- 
-  // i18n Info
-  "i18n.languageName": "繁體中文（台灣）",        // name of language in native language
-  "i18n.languageNameEnglish": "Trad. Chinese (Taiwan)", // name of language in English
-  "i18n.category": "main", // main = real language, fun = fun community languages
-  "i18n.authors": "@maikirakiwi", // Authors, if you contribute to this file feel free to add your name seperated with a space
-
 
   // Dialogs
   "dialog.cancel": "取消",
   "dialog.ok": "確定",
-
+  
   // Notification
   "notification.updatingLibrarySongs": "正在更新資料庫的歌曲...",
   "notification.updatingLibraryAlbums": "正在更新資料庫的專輯...",
   "notification.updatingLibraryArtists": "正在更新資料庫的藝人...",
+  
   // Terms
   "term.appleMusic": "Apple Music", // Follows brand term
   "term.applePodcasts": "Apple Podcasts", // Follows brand term
@@ -54,6 +55,7 @@
   "term.mute": "靜音",
   "term.unmute": "取消靜音",
   "term.share": "分享",
+  "term.share.success": "已複製至剪貼簿",
   "term.settings": "設定",
   "term.seeAll": "顯示全部",
   "term.sortBy": "排序",
@@ -71,7 +73,7 @@
   "term.viewAs.list": "列表",
   "term.size": "大小",
   "term.size.normal": "正常",
-  "term.size.compact": "緊凑",
+  "term.size.compact": "緊密",
   "term.enable": "啟用",
   "term.disable": "停用",
   "term.enabled": "已啟用",
@@ -85,10 +87,10 @@
   "term.less": "更少",
   "term.showMore": "顯示更多",
   "term.showLess": "顯示更少",
-  "term.topSongs" : "熱門歌曲",
+  "term.topSongs": "熱門歌曲",
   "term.latestReleases": "最新發行",
   "term.time.added": "加入於",
-  "term.time.released": "發行於", 
+  "term.time.released": "發行於",
   "term.time.updated": "更改於",
   "term.time.hours": "小時",
   "term.time.hour": "小時",
@@ -96,18 +98,18 @@
   "term.time.minute": "分鐘",
   "term.time.seconds": "秒",
   "term.time.second": "秒",
-  "term.fullscreenView": "全螢幕顯示歌詞",
+  "term.fullscreenView": "全螢幕顯示",
   "term.defaultView": "預設顯示",
   "term.audioSettings": "音訊設定",
-  "term.spacializedAudioSetting": "音訊空間設定",
+  "term.spacializedAudioSetting": "空間音訊設定",
   "term.clearAll": "清空",
   "term.recentStations": "最近收聽的廣播",
   "term.language": "語言",
   "term.noLyrics": "正在載入。。/ 無歌詞結果 / 純音樂",
   "term.copyright": "版權聲明",
   "term.rightsReserved": "保留所有權利。",
-  "term.sponsor": "贊助",
-  "term.socials": "社群",
+  "term.sponsor": "贊助我們",
+  "term.socials": "社群平台",
   "term.ciderTeam": "Cider 團隊",
   "term.developer": "開發者",
   "term.socialTeam": "公關團隊",
@@ -115,11 +117,10 @@
   "term.equalizer": "等化器",
   "term.reset": "重設",
   "term.tracks": "首歌曲", // Assume x amount of tracks. e.g. 50 tracks 
-  "term.videos": "影片", 
+  "term.videos": "影片",
   "term.menu": "選單",
   "term.check": "檢查",
   "term.aboutArtist": "關於{{artistName}}", // e.g. 'About Doja Cat'
-  "term.updateCider": "更新 Cider",
   
   // Home
   "home.title": "首頁",
@@ -130,13 +131,14 @@
   "home.madeForYou": "為您推薦",
   "home.friendsListeningTo": "朋友正在聆聽",
   "home.followedArtists": "追蹤的藝人",
+  
   // Errors
   "error.appleMusicSubRequired": "需要訂閱 Apple Music 以使用 Cider",
-  "error.connectionError": "無法連線到 Apple Music。",
+  "error.connectionError": "無法連接到 Apple Music。",
   "error.noResults": "沒有結果",
   "error.noResults.description": "嘗試新的搜尋項目。",
-
-  //Podcasts
+  
+  // Podcasts
   "podcast.followOnCider": "在 Cider 上追蹤",
   "podcast.followedOnCider": "已追蹤",
   "podcast.subscribeOnItunes": "在 iTunes 上訂閱",
@@ -145,7 +147,7 @@
   "podcast.episodes": "單集",
   "podcast.playEpisode": "播放單集",
   "podcast.website": "Podcast 網站",
-
+  
   // Actions
   "action.addToLibrary": "加入資料庫",
   "action.addToLibrary.success": "成功加入資料庫",
@@ -190,11 +192,25 @@
   "action.tray.quit": "關閉",
   "action.tray.show": "顯示",
   "action.update": "更新",
+  "action.copy": "複製",
+  "action.newpreset": "新增預設",  // Equalizer Preset
+  "action.deletepreset": "刪除預設",  // Equalizer Preset
+
+  // Settings - General
+  "settings.header.general": "一般",
+  "settings.header.general.description": "調整 Cider 的一般設定",
   
   // Language optgroups
   "settings.option.general.language.main": "語言",
-  "settings.option.general.language.fun": "惡搞語言",
+  "settings.option.general.language.fun": "特殊語言",
   "settings.option.general.language.unsorted": "未分類",
+
+  // Update Cider
+  "settings.option.general.updateCider": "更新 Cider", // Button
+  "settings.option.general.updateCider.branch": "Cider 更新通道", // Dropdown
+  "settings.option.general.updateCider.branch.description": "選擇您要接收 Cider 軟體更新的通道",
+  "settings.option.general.updateCider.branch.main": "穩定版(建議)",
+  "settings.option.general.updateCider.branch.develop": "開發者測試版(不穩定)",
   
   // Settings - Audio
   "settings.header.audio": "音訊",
@@ -204,25 +220,31 @@
   "settings.header.audio.quality.hireslossless.description": "（高達 24-bit/192 kHz）",
   "settings.header.audio.quality.lossless": "無損壓縮",
   "settings.header.audio.quality.lossless.description": "（高達 24-bit/48 kHz）",
+  "settings.header.audio.quality.enhanced": "數位增強",
   "settings.header.audio.quality.high": "高品質",
-  "settings.header.audio.quality.low": "高效率",
+  "settings.header.audio.quality.standard": "高效率",
   "settings.header.audio.quality.auto": "自動",
   "settings.option.audio.seamlessTransition": "無間斷播放", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "進階音訊功能", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.description": "啟用 AudioContext 將解鎖類似音訊標準和等化器的進階功能。但這並不一定適合每部電腦，可能會發生音樂卡頓。",
-  "settings.option.audio.enableAdvancedFunctionality.decryptLLPW": "無損壓縮解碼", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.decryptLLPW.description": "提供 Cider 解碼無損壓縮檔案的能力，但相對應的也會提升對電腦效能的使用率。",
+  "settings.option.audio.enableAdvancedFunctionality.description": "啟用 AudioContext 將開啟類似音訊平衡和等化器的進階設定。但這並不一定適合每部電腦，可能會發生音樂卡頓。",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider 數位增強音訊處理™️", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "將欺騙您的大腦讓您感受到近似保真壓縮的音質。| 由 Maikiwi 設計",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "數位增強音訊處理設定", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "將更改音訊處理的激進/振奮程度（增強選項有可能會引起雜訊）",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "標準",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive": "增強",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "音訊平衡", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "將平衡輕柔和響亮的歌曲，建立更統一的聆聽體驗。",
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "將平衡輕柔和響亮的歌曲，建立更統一舒適的聆聽體驗。",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "空間音訊", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "將音訊進行空間化處理來製造一個更立體的聆聽體驗（註：此功能不是官方的杜比全景聲）。",
-    
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "將音訊進行空間化處理來製造一個更立體的聆聽體驗（註：此功能不是官方的杜比全景聲）",
+  
   // Settings - Visual
   "settings.header.visual": "外觀",
   "settings.header.visual.description": "調整 Cider 的外觀",
   "settings.option.visual.windowBackgroundStyle": "視窗背景樣式", // Toggle
   "settings.header.visual.windowBackgroundStyle.none": "空白",
   "settings.header.visual.windowBackgroundStyle.artwork": "專輯封面",
+  "settings.header.visual.windowBackgroundStyle.image": "圖片",
   "settings.option.visual.animatedArtwork": "動態專輯封面", // Dropdown
   "settings.header.visual.animatedArtwork.always": "總是顯示",
   "settings.header.visual.animatedArtwork.limited": "只在藝人頁面和專輯封面顯示",
@@ -236,15 +258,16 @@
   "settings.option.visual.animatedWindowBackground": "動態視窗背景", // Toggle
   "settings.option.visual.hardwareAcceleration": "硬體加速", // Dropdown
   "settings.option.visual.hardwareAcceleration.description": "需要重新啟動 Cider 才會套用",
-  "settings.header.visual.hardwareAcceleration.default": "預設", 
-  "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
-    
+  "settings.header.visual.hardwareAcceleration.default": "預設",
+  "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
+  "settings.header.visual.theme": "主題",
+
+  // Settings - Visual - Theme name
+  "settings.option.visual.theme.default": "Cider",
+  "settings.option.visual.theme.dark": "暗黑模式",
+
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "顯示個人檔案", // Toggle
-    
-  // Settings - General (Reserved)
-  "settings.header.general": "一般",
-  "settings.header.general.description": "調整 Cider 的一般設定",
   
   // Settings - Lyrics
   "settings.header.lyrics": "歌詞",
@@ -253,31 +276,35 @@
   "settings.option.lyrics.enableMusixmatchKaraoke": "啟用K歌模式（僅限Musixmatch）", // Toggle
   "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch 歌詞語言偏好", // Dropdown
   "settings.option.lyrics.enableYoutubeLyrics": "播放 MV 時使用 YouTube 歌詞", // Toggle
-
+  
   // Settings - Connectivity
   "settings.header.connectivity": "外部連接",
   "settings.header.connectivity.description": "調整 Cider 與外部的連接",
   "settings.option.connectivity.discordRPC": "Discord 動態", // Dropdown
+  "settings.option.connectivity.playbackNotifications": "歌曲播放通知", // Toggle
   // Refer to term.disabled for the disabled option
   "settings.header.connectivity.discordRPC.cider": "顯示正在玩 'Cider'",
   "settings.header.connectivity.discordRPC.appleMusic": "顯示正在玩 'Apple Music'",
   "settings.option.connectivity.discordRPC.clearOnPause": "暫停時清除 Discord 動態", // Toggle
   "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling 記錄", // Option to Connect
-  "settings.option.connectivity.lastfmScrobble.delay": "LastFM Scrobble 延遲 (%)", 
+  "settings.option.connectivity.lastfmScrobble.delay": "LastFM Scrobble 延遲 (%)",
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "啟用 LastFM 目前聆聽", // Toggle
-  "settings.option.connectivity.lastfmScrobble.removeFeatured": "從歌名中移除藝人推薦 (LastFM)", 
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "從歌名中移除藝人推薦 (LastFM)",
   // Refer to term.connect for the connect button
-
+  
   // Settings - Experimental
   "settings.header.experimental": "實驗性功能",
   "settings.header.experimental.description": "調整 Cider 的實驗性功能",
-  "settings.option.experimental.compactUI": "緊凑的介面", // Toggle
+  "settings.option.experimental.compactUI": "使用緊密的介面設計", // Toggle
   "settings.option.experimental.closeButtonBehaviour": "關閉按鈕操作", // Dropdown
   "settings.option.experimental.close_button_hide": "關閉按鈕將 Cider 隱藏至系統列",
-  // Refer to term.disabled & term.enabled
+  "settings.option.experimental.copy_log": "複製執行紀錄檔至剪貼簿",
+  "settings.option.experimental.inline_playlists": "將播放列表做為行内元素顯示",
   
+  // Refer to term.disabled & term.enabled
   // Spatialization Menu
-  "spatial.spatialProperties" : "音訊空間屬性",
+  "spatial.notTurnedOn": "空間音訊目前是關閉狀態，請先啟用再使用。",
+  "spatial.spatialProperties" : "空間音訊屬性設定",
   "spatial.width" : "寬度",
   "spatial.height" : "高度",
   "spatial.depth" : "深度",
@@ -286,7 +313,7 @@
   "spatial.roomDimensions" : "空間尺寸",
   "spatial.roomPositions" : "空間位置",
   "spatial.setDimensions" : "設定尺寸",
-  "spatial.setPositions" : "設定位置",
+  "spatial.setPositions" : "套用設定",
   "spatial.up" : "上",
   "spatial.front" : "前",
   "spatial.left" : "左",
@@ -297,12 +324,12 @@
   "spatial.audioSource" : "音訊來源",
 
   // Settings - Unfinished
-  "settings.header.unfinished": "未完成",
+  "settings.header.unfinished": "未開發完成的功能",
   
   // Web Remote
   "remote.web.title": "Cider 遠端操控",
   "remote.web.description": "掃描以下的行動條碼以操控 Cider",
-
+  
   //About
   "about.thanks": "著重感謝 Cider Collective 的成員以及所有為項目付出的貢獻者。"
 }
