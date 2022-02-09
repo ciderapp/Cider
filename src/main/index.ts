@@ -41,9 +41,12 @@ app.on('ready', () => {
         require('vue-devtools').install()
     }
 
-    components.whenReady().then(async () => {
+    app.whenReady().then(async () => {
+        await components.whenReady();
         const bw = new BrowserWindow()
         const win = await bw.createWindow()
+
+        console.log('[Cider][Widevine] Status:', components.status());
 
         win.on("ready-to-show", () => {
             Cider.bwCreated();
