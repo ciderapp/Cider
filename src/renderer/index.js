@@ -1,3 +1,4 @@
+Vue.use(VueHorizontal);
 Vue.use(VueObserveVisibility);
 var notyf = new Notyf();
 

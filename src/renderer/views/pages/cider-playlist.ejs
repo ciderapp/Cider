@@ -169,8 +169,10 @@
                                 <h3>{{ data.views[view].attributes.title }}</h3>
                             </div>
                         </div>
-                        <div>
-                            <mediaitem-scroller-horizontal :items="data.views[view].data"></mediaitem-scroller-horizontal>
+                        <div class="row" >
+                            <div class="col">
+                                <mediaitem-scroller-horizontal :items="data.views[view].data"></mediaitem-scroller-horizontal>
+                            </div>
                         </div>
                     </div>
                 </template>
