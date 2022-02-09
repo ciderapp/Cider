@@ -3572,6 +3572,16 @@ const app = new Vue({
         darwinShare(url) {
             ipcRenderer.send('share-menu', url)
         },
+        SpacePause() {       
+            const elems = document.querySelectorAll('input');
+            for (elem of elems){
+                if (elem === document.activeElement) {
+                    return;
+                }
+            }
+            if (!this.isDev) // disable in dev mode to keep my sanity
+            MusicKitInterop.playPause();
+        }
     }
 })
 
