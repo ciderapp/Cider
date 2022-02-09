@@ -216,7 +216,7 @@ export default class WebNowPlaying {
         if (this.ws) {
             this.ws.send('STATE:0');
             this.ws.onclose = () => void 0; // disable onclose handler first to stop it from retrying
-		    this.ws.close();
+            this.ws.close();
         }
         if (this.wsapiConn) {
             this.wsapiConn.close();
