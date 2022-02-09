@@ -3692,7 +3692,7 @@ document.addEventListener('musickitloaded', function () {
     function initMusicKit() {
         let parsedJson = JSON.parse(this.responseText)
         MusicKit.configure({
-            developerToken: parsedJson.Key,
+            developerToken: parsedJson.token,
             app: {
                 name: 'Apple Music',
                 build: '1978.4.1',
@@ -3716,7 +3716,7 @@ document.addEventListener('musickitloaded', function () {
                 fallbackinitMusicKit()
         }
     };
-    request.open("GET", "https://api.cider.sh/");
+    request.open("GET", "https://api.cider.sh/v1/");
     request.send();
 
     // check for widevine failure and reconfigure the instance.
