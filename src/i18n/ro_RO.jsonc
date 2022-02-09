@@ -1,17 +1,311 @@
 {
+
   // i18n Info
-  "i18n.languageName": "Română", // name of language in native language
+  "i18n.languageName": "Română",        // name of language in native language
   "i18n.languageNameEnglish": "Romanian", // name of language in English
-  "i18n.category": "main", // main = real language, fun = fun community 
-  "i18n.authors": "georgechrc, ", // Authors, if you contribute to this 
-  //file feel free to add your name seperated with a space
+  "i18n.category": "main", // main = real language, fun = fun community languages
+  "i18n.authors": "@SubZeroNexii georgechrc", // Authors, if you contribute to this file feel free to add your name seperated with a space
+
+  // App info
+  "app.name": "Cider",
+
   "date.format": "${d} ${m}, ${y}",
-  // translations
+  
+  // Dialogs
+  "dialog.cancel": "Anulare",
+  "dialog.ok": "OK",
+
+  // Notification
+  "notification.updatingLibrarySongs": "Actualizare bibliotecă muzică...",
+  "notification.updatingLibraryAlbums": "Actualizare bibliotecă albume...",
+  "notification.updatingLibraryArtists": "Actualizare bibliotecă artiști...",
+  // Terms
+  "term.appleInc": "Apple Inc.",
+  "term.appleMusic": "Apple Music",
+  "term.applePodcasts": "Apple Podcasts",
+  "term.itunes": "iTunes",
+  "term.github": "GitHub",
+  "term.discord": "Discord",
+  "term.learnMore": "Află mai multe",
+  "term.accountSettings": "Setări cont",
+  "term.logout": "Deconectare",
+  "term.login": "Autentificare",
+  "term.about": "Despre",
+  "term.privateSession": "Sesiune Privată",
+  "term.queue": "în Coadă",
+  "term.search": "Căutare",
+  "term.library": "Bibliotecă",
+  "term.listenNow": "Ascultă acum",
+  "term.browse": "Navigați",
+  "term.radio": "Radio",
+  "term.recentlyAdded": "Recent Adăugate",
+  "term.songs": "Muzică",
+  "term.albums": "Albume",
+  "term.artists": "Artiști",
+  "term.podcasts": "Podcast-uri",
+  "term.playlists": "Playlist-uri",
+  "term.playlist": "Playlist",
+  "term.newPlaylist": "Playlist Nou",
+  "term.newPlaylistFolder": "Dosar Playlist Nou",
+  "term.createNewPlaylist": "Creează un Playlist Nou",
+  "term.createNewPlaylistFolder": "Creează un Dosar Playlist Nou",
+  "term.deletePlaylist": "Sunteți siguri că vreți să ștergeți acest Playlist?",
+  "term.play": "Redă",
+  "term.pause": "Pauză",
+  "term.previous": "Înapoi",
+  "term.next": "Înainte",
+  "term.shuffle": "Aleator",
+  "term.repeat": "Repetă",
+  "term.volume": "Volum",
+  "term.mute": "Fară sunet",
+  "term.unmute": "Activare sunet",
+  "term.share": "Partajează",
+  "term.settings": "Setări",
+  "term.seeAll": "Vedeți tot",
+  "term.sortBy": "Sortare după",
+  "term.sortBy.album": "Album",
+  "term.sortBy.artist": "Artist",
+  "term.sortBy.name": "Nume",
+  "term.sortBy.genre": "Gen",
+  "term.sortBy.releaseDate": "Data Lansării",
+  "term.sortBy.duration": "Durată",
+  "term.sortOrder": "A-Z",
+  "term.sortOrder.ascending": "Ascendent",
+  "term.sortOrder.descending": "Descendent",
+  "term.viewAs": "Vizualizare ca",
+  "term.viewAs.coverArt": "Artă Copertă",
+  "term.viewAs.list": "Listă",
+  "term.size": "Mărime",
+  "term.size.normal": "Normal",
+  "term.size.compact": "Compact",
+  "term.enable": "Activare",
+  "term.disable": "Dezactivare",
+  "term.enabled": "Activat",
+  "term.disabled": "Dezactivat",
+  "term.connect": "Conectare",
+  "term.connecting": "Se conectează",
+  "term.disconnect": "Deconectare",
+  "term.authed": "Autentificat",
+  "term.confirm": "Confirmați ?",
+  "term.more": "Mai mult",
+  "term.less": "Mai puțin",
+  "term.showMore": "Arată mai mult",
+  "term.showLess": "Arată mai puțin",
+  "term.topSongs" : "Top Muzică",
+  "term.latestReleases": "Ultimele Lansări",
+  "term.time.added": "Adăugate",
+  "term.time.released": "Lansate", 
+  "term.time.updated": "Actualizate",
+  "term.time.hours": "ore",
+  "term.time.hour": "oră",
+  "term.time.minutes": "minute",
+  "term.time.minute": "minut",
+  "term.time.seconds": "secunde",
+  "term.time.second": "secundă",
+  "term.fullscreenView": "Vizualizare Ecran Complet",
+  "term.defaultView": "Vizualizare Standard",
+  "term.audioSettings": "Setări Audio",
+  "term.clearAll": "Ștergere toate",
+  "term.recentStations": "Stații Recente",
+  "term.language": "Limbă",
+  "term.funLanguages": "Amuzament",
+  "term.noLyrics": "Incărcare... / Versurile nu au fost găsite./ Instrumental.",
+  "term.copyright": "Copyright",
+  "term.rightsReserved": "Toate drepturile rezervate.",
+  "term.sponsor": "Sponsorizați acest proiect",
+  "term.ciderTeam": "Echipa Cider",
+  "term.developer": "Dezvoltatori",
+  "term.socialTeam": "Echipa de relații publice",
+  "term.socials": "Rețele Sociale",
+  "term.contributors": "Contribuitori",
   "term.equalizer": "Egalizator",
-  "settings.option.audio.enableAdvancedFunctionality.description": "Pornirea funcționalităților AudioContext va permite folosirea funcțiilor audio avansate precum Normalizare Volum , Egalizator și Vizualizator, pe unele sisteme mai slabe poate cauza probleme precum întreruperi în redare.",
+  "term.reset": "Reset",
+  "term.tracks": "melodii", // Assume x amount of tracks. e.g. 50 tracks 
+  "term.videos": "Videoclipuri", 
+  "term.menu": "Meniu",
+  "term.check": "Verificare",
+  "term.aboutArtist": "Despre {{artistName}}", // e.g. 'About Doja Cat'
+  "term.updateCider": "Actualizare Cider",
+ 
+  // Home
+  "home.title": "Acasă",
+  "home.recentlyPlayed": "Asculate Recent",
+  "home.recentlyAdded": "Adăugate Recent",
+  "home.artistsFeed": "Fluxul Artiștilor tăi",
+  "home.artistsFeed.noArtist": "Urmărește prima oară cațiva artiști și ultimele lor lansări vor apărea aici",
+  "home.madeForYou": "Pentru tine",
+  "home.friendsListeningTo": "Prietenii tăi ascultă",
+  "home.followedArtists": "Artiști Urmăriți",
+  // Errors
+  "error.appleMusicSubRequired": "Apple Music necesită un abonament.",
+  "error.connectionError": "A apărut o problemă în conectarea la Apple Music.",
+  "error.noResults": "Nici un rezultat.",
+  "error.noResults.description": "încearcă o nouă căutare.",
+
+  //Podcasts
+  "podcast.followOnCider": "Urmărește pe Cider",
+  "podcast.followedOnCider": "Urmărit pe Cider",
+  "podcast.subscribeOnItunes": "Abonează-te pe iTunes",
+  "podcast.subscribedOnItunes": "Abonat pe iTunes",
+  "podcast.itunesStore": "Magazin iTunes",
+  "podcast.episodes": "Episoade",
+  "podcast.playEpisode": "Începe Episodul",
+  "podcast.website": "Pagină Podcast",
+
+  // Actions
+  "action.addToLibrary": "Adaugă în Librărie",
+  "action.addToLibrary.success": "Adăugat în Librărie",
+  "action.addToLibrary.error": "Eroare la adăugarea în Librărie",
+  "action.removeFromLibrary": "Ștergere din Librărie",
+  "action.removeFromLibrary.success": "Șters din Librărie",
+  "action.addToQueue": "Adăugare la Coadă",
+  "action.addToQueue.success": "Adăugat la Coadă",
+  "action.addToQueue.error": "Eroare adăugare la Coadă",
+  "action.removeFromQueue": "Ștergere din Coadă",
+  "action.removeFromQueue.success": "Șters din Coadă",
+  "action.removeFromQueue.error": "Eroare Ștergere din Coadă",
+  "action.createPlaylist": "Creează un nou Playlist",
+  "action.addToPlaylist": "Adaugă la Playlist",
+  "action.removeFromPlaylist": "Ștergere din Playlist",
+  "action.addToFavorites": "Adaugă la Favorite",
+  "action.follow": "Urmărește",
+  "action.follow.success": "Urmărit",
+  "action.follow.error": "Eroare Urmărire",
+  "action.unfollow": "Nu mai urmăriți",
+  "action.unfollow.success": "Urmărire încetată",
+  "action.unfollow.error": "Eroare încetare Urmărire",
+  "action.playNext": "Ascultă în Continuare",
+  "action.playLater": "Ascultă Mai Târziu",
+  "action.startRadio": "Pornește Radio",
+  "action.goToArtist": "Du-te la Artist",
+  "action.goToAlbum": "Du-te la Album",
+  "action.moveToTop": "Mută în vârf",
+  "action.share": "Partajează",
+  "action.rename": "Redenumire",
+  "action.love": "Apreciază",
+  "action.unlove": "Elimină Apreciere",
+  "action.dislike": "Dislike",
+  "action.undoDislike": "Elimină dislike",
+  "action.showWebRemoteQR": "Telecomandă Web",
+  "action.playTracksNext": "Redă ${app.selectedMediaItems.length} de melodii în continuare",
+  "action.playTracksLater": "Redă ${app.selectedMediaItems.length} de melodii mai târziu",
+  "action.removeTracks": "Șterge ${self.selectedItems.length} de melodii din Coadă",
+  "action.import": "Import",
+  "action.export": "Export",
+  "action.showAlbum": "Arată Albumul Complet",
+  "action.tray.minimize": "Minimizează în Tray",
+  "action.tray.quit": "Ieșire",
+  "action.tray.show": "Arată",
+  "action.update": "Actualizează",
+
+  // Settings - General
+  "settings.header.general": "General",
+  "settings.header.general.description": "Ajustează setările generale pentru Cider.",
+  "settings.option.general.language": "Limbă",
+
+  // Language optgroups
+  "settings.option.general.language.main": "Limbi",
+  "settings.option.general.language.fun": "Amuzant",
+  "settings.option.general.language.unsorted": "Nesortate",
+  
+  // Settings - Audio
+  "settings.header.audio": "Audio",
+  "settings.header.audio.description": "Ajustează setările audio pentru Cider.",
+  "settings.option.audio.quality": "Calitate Audio", // Dropdown
+  "settings.header.audio.quality.high": "Ridicată",
+  "settings.header.audio.quality.low": "Redusă",
+  "settings.header.audio.quality.auto": "Auto",
+  "settings.option.audio.seamlessTransition": "Tranziție Audio Neîntreruptă", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality": "Activează Funcționalitate Avansată", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.description": "Pornirea funcționalității AudioContext va permite folosirea funcțiilor audio avansate precum Normalizare Volum , Egalizator și Vizualizator, dar pe unele sisteme poate cauza probleme precum întreruperi în redare.",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Normalizare Volum", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizează volumul maxim al melodiilor pentru a genera o experiență audio optimă.",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Spațializare Sunet", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Efect de spațializare tri-dimensională a sunetului(Atenție, nu e Dolby Atmos!)",
-  "spatial.notTurnedOn": "Spațializarea Sunetului e dezactivată, pentru a o utiliza pornește-o."
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Spațializare Audio", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Spațializează sunetul și face sunetul 3-dimensional (notă: Nu este Dolby Atmos)",
+  // Settings - Visual
+  "settings.header.visual": "Vizual", 
+  "settings.header.visual.description": "Ajustează setările vizuale pentru Cider.",
+  "settings.option.visual.windowBackgroundStyle": "Stil Fundal Fereastră", // Toggle
+  "settings.header.visual.windowBackgroundStyle.none": "Niciunul",
+  "settings.header.visual.windowBackgroundStyle.artwork": "Copertă Melodie",
+  "settings.header.visual.windowBackgroundStyle.image": "Imagine",
+  "settings.option.visual.animatedArtwork": "Copertă Animată", // Dropdown
+  "settings.header.visual.animatedArtwork.always": "Întotdeauna",
+  "settings.header.visual.animatedArtwork.limited": "Limitat la pagini și Albume speciale",
+  "settings.header.visual.animatedArtwork.disable": "Dezactivează peste tot",
+  "settings.option.visual.animatedArtworkQuality": "Calitate Copertă Animată", // Dropdown
+  "settings.header.visual.animatedArtworkQuality.low": "Redusă",
+  "settings.header.visual.animatedArtworkQuality.medium": "Medie",
+  "settings.header.visual.animatedArtworkQuality.high": "Ridicată",
+  "settings.header.visual.animatedArtworkQuality.veryHigh": "Foarte Ridicată",
+  "settings.header.visual.animatedArtworkQuality.extreme": "Extremă",
+  "settings.option.visual.animatedWindowBackground": "Fundal Fereastră Animat", // Toggle
+  "settings.option.visual.hardwareAcceleration": "Accelerare Hardware", // Dropdown
+  "settings.option.visual.hardwareAcceleration.description": "Necesită Repornire",
+  "settings.header.visual.hardwareAcceleration.default": "Implitcit", 
+  "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
+  // Refer to term.disabled for the disabled option
+  "settings.option.visual.showPersonalInfo": "Arată informații personale", // Toggle
+
+  // Settings - Lyrics
+  "settings.header.lyrics": "Versuri",
+  "settings.header.lyrics.description": "Ajustează setările versurilor pentru Cider.",
+  "settings.option.lyrics.enableMusixmatch": "Activează Versuri Musixmatch", // Toggle
+  "settings.option.lyrics.enableMusixmatchKaraoke": "Activează Mod Karaoke (numai Musixmatch)", // Toggle
+  "settings.option.lyrics.musixmatchPreferredLanguage": "Limbă Preferată Traducere Musixmatch", // Dropdown
+  "settings.option.lyrics.enableYoutubeLyrics": "Activează Versuri Youtube pentru Videoclipuri Muzică", // Toggle
+
+  // Settings - Connectivity
+  "settings.header.connectivity": "Conectivitate",
+  "settings.header.connectivity.description": "Ajustează setările de conectivitate pentru Cider.",
+  "settings.option.connectivity.discordRPC": "Discord Rich Presence", // Dropdown
+  "settings.option.connectivity.playbackNotifications": "Notificări Redare", // Toggle
+  // Refer to term.disabled for the disabled option
+  "settings.header.connectivity.discordRPC.cider": "Afișează ca 'Cider'",
+  "settings.header.connectivity.discordRPC.appleMusic": "Afișează ca 'Apple Music'",
+  "settings.option.connectivity.discordRPC.clearOnPause": "Curăță Discord Rich Presence la Pauză", // Toggle
+  "settings.option.connectivity.lastfmScrobble": "Last.fm Scrobbling", // Option to Connect
+  "settings.option.connectivity.lastfmScrobble.delay": "Last.fm Scrobble Delay (%)", 
+  "settings.option.connectivity.lastfmScrobble.nowPlaying": "Activează Last.fm Now Playing", 
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "Ștergeți artiștii invitat din titlul melodiei (Last.fm)", 
+  "settings.option.connectivity.lastfmScrobble.filterLoop": "Filtrează melodii repetate (Last.fm)", 
+  // Refer to term.connect for the connect button
+
+  // Settings - Experimental
+  "settings.header.experimental": "Experimental",
+  "settings.header.experimental.description": "Ajustează setările experimentale pentru Cider.",
+  "settings.option.experimental.compactUI": "UI Compact", // Toggle
+  "settings.option.experimental.close_button_hide": "Butonul de închidere ar trebui să ascundă aplicația",
+  // Refer to term.disabled & term.enabled
+
+  // Spatialization Menu
+  "spatial.notTurnedOn": "Spațializarea Audio este dezactivată. Pentru a folosi opțiunea aceasta, activați-o mai întâi.",
+  "spatial.spatialProperties": "Proprietăți Spațiale",
+  "spatial.width": "Lățime",
+  "spatial.height": "Înălțime",
+  "spatial.depth": "Adâncime",
+  "spatial.gain": "Gain",
+  "spatial.roomMaterials": "Materiale Cameră",
+  "spatial.roomDimensions": "Dimensiuni Cameră",
+  "spatial.roomPositions": "Poziții Cameră",
+  "spatial.setDimensions": "Setează Dimensiunile",
+  "spatial.setPositions": "Setează Pozițiile",
+  "spatial.up": "Sus",
+  "spatial.front": "În Față",
+  "spatial.left": "Stânga",
+  "spatial.right": "Dreapta",
+  "spatial.back": "În Spate",
+  "spatial.down": "Jos",
+  "spatial.listener": "Ascultător",
+  "spatial.audioSource": "Sursă Audio",
+  
+  // Settings - Unfinished
+  "settings.header.unfinished": "Neterminat",
+
+  // Web Remote
+  "remote.web.title": "Telecomandă Cider",
+  "remote.web.description": "Scanează codul QR pentru a împerechea telefonul tău cu această instanță Cider",
+
+  // About
+  "about.thanks": "Multe Mulțumiri Echipei Colectiv Cider și a tuturor contribuitorilor."
 }
