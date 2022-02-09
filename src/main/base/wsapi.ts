@@ -61,6 +61,9 @@ export class wsapi {
         electron.ipcMain.on('wsapi-returnLyrics', (_event: any, arg: any) => {
             this.returnLyrics(JSON.parse(arg));
         });
+        electron.ipcMain.on('wsapi-returnvolumeMax', (_event: any, arg: any) => {
+            this.returnmaxVolume(JSON.parse(arg));
+        });
         this.wss = new WebSocketServer({
             port: this.port,
             perMessageDeflate: {
@@ -161,6 +164,10 @@ export class wsapi {
                     case "stop":
                         this._win.webContents.executeJavaScript(`MusicKit.getInstance().stop()`);
                         response.message = "Stopped";
+                        break;
+                    case "volumeMax":
+                        this._win.webContents.executeJavaScript(`wsapi.getmaxVolume()`);
+                        response.message = "maxVolume";
                         break;
                     case "volume":
                         this._win.webContents.executeJavaScript(`MusicKit.getInstance().volume = ${parseFloat(data.volume)}`);
@@ -291,6 +298,13 @@ export class wsapi {
 
     returnQueue(queue: any) {
         const response: standardResponse = {status: 0, data: queue, message: "OK", type: "queue"};
+        this.clients.forEach(function each(client: any) {
+            client.send(JSON.stringify(response));
+        });
+    }
+
+    returnmaxVolume(vol: any) {
+        const response: standardResponse = {status: 0, data: vol, message: "OK", type: "maxVolume"};
         this.clients.forEach(function each(client: any) {
             client.send(JSON.stringify(response));
         });

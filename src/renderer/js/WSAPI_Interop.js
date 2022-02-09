@@ -107,5 +107,8 @@ const wsapi = {
         }else{
             MusicKit.getInstance().repeatMode = 0
         }
+    },
+    getmaxVolume() {
+        ipcRenderer.send('wsapi-returnvolumeMax',JSON.stringify(app.cfg.audio.maxVolume));
     }
 }

@@ -13,6 +13,7 @@ var app = new Vue({
         player: {
             currentMediaItem: {},
             songActions: false,
+            maxVolume: 1,
             lyrics: {},
             lyricsMediaItem: {},
             lyricsDebug: {
@@ -159,6 +160,11 @@ var app = new Vue({
             socket.send(JSON.stringify({
                 action: "volume",
                 volume: volume
+            }));
+        },
+        getVolumeMax() {
+            socket.send(JSON.stringify({
+                action: "volumeMax",
             }));
         },
         getQueue() {
@@ -569,6 +575,9 @@ var app = new Vue({
                             if (!self.player.userInteraction) {
                                 self.updatePlaybackState(response.data)
                             }
+                        break;
+                    case "maxVolume":
+                        this.player.maxVolume = response.data;
                         break;
                 }
                 // console.log(e.data);
