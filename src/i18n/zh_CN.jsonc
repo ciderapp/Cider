@@ -108,6 +108,7 @@
   "term.copyright": "版权所有",
   "term.rightsReserved": "保留所有权利。",
   "term.sponsor": "赞助",
+  "term.socials": "社群",
   "term.ciderTeam": "Cider 团队",
   "term.developer": "开发者",
   "term.socialTeam": "媒体团队",
@@ -199,6 +200,10 @@
 
   // Update Cider
   "settings.option.general.updateCider": "更新 Cider", // Button
+  "settings.option.general.updateCider.branch": "Cider 更新通道", // Dropdown
+  "settings.option.general.updateCider.branch.description": "选择你要接收 Cider 软件更新的通道",
+  "settings.option.general.updateCider.branch.main": "稳定",
+  "settings.option.general.updateCider.branch.develop": "不稳定",
   
   // Settings - Audio
   "settings.header.audio": "音频",
@@ -245,7 +250,9 @@
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
 
   // Settings - Visual - Theme name
-
+  "settings.option.visual.theme.default": "Cider",
+  "settings.option.visual.theme.dark": "暗黑模式",
+    
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "显示个人资料", // Toggle
   
@@ -274,8 +281,10 @@
   // Settings - Experimental
   "settings.header.experimental": "实验性功能",
   "settings.header.experimental.description": "调整Cider的实验性功能",
-  "settings.option.experimental.compactUI": "紧凑型 UI", // Toggle
+  "settings.option.experimental.compactUI": "使用紧凑的版面设计", // Toggle
   "settings.option.experimental.close_button_hide": "点击关闭按钮时仅隐藏窗口",
+  "settings.option.experimental.copy_log": "复制运行纪录档至剪贴板",
+  "settings.option.experimental.inline_playlists": "将播放列表做为行内元素显示",
   
   // Refer to term.disabled & term.enabled
   // Spatialization Menu
