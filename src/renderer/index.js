@@ -3569,6 +3569,13 @@ const app = new Vue({
         darwinShare(url) {
             ipcRenderer.send('share-menu', url)
         },
+        arrayToChunk(arr, chunkSize) {
+            let R = [];
+            for (let i = 0, len = arr.length; i < len; i += chunkSize) {
+                R.push(arr.slice(i, i + chunkSize));
+            }
+            return R;
+        }
     }
 })
 
