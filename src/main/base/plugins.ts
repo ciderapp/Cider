@@ -33,13 +33,24 @@ export class Plugins {
         if (fs.existsSync(this.userPluginsPath)) {
             fs.readdirSync(this.userPluginsPath).forEach(file => {
                 if (file.endsWith('.ts') || file.endsWith('.js')) {
-                    const plugin = require(path.join(this.userPluginsPath, file));
-                    file = file.replace('.ts', '').replace('.js', '');
-                    if (plugins[file] || plugin in plugins) {
-                        console.log(`[${plugin.name}] Plugin already loaded / Duplicate Class Name`);
+                    if (!electron.app.isPackaged) {
+                        const plugin = require(path.join(this.userPluginsPath, file)).default;
+                        file = file.replace('.ts', '').replace('.js', '');
+                        if (plugins[file] || plugin in plugins) {
+                            console.log(`[${plugin.name}] Plugin already loaded / Duplicate Class Name`);
+                        } else {
+                            plugins[file] = new plugin(electron.app, utils.getStore());
+                        }
                     } else {
-                        plugins[file] = new plugin(electron.app, utils.getStore());
+                        const plugin = require(path.join(this.userPluginsPath, file));
+                        file = file.replace('.ts', '').replace('.js', '');
+                        if (plugins[file] || plugin in plugins) {
+                            console.log(`[${plugin.name}] Plugin already loaded / Duplicate Class Name`);
+                        } else {
+                            plugins[file] = new plugin(electron.app, utils.getStore());
+                        }
                     }
+                   
                 }
             });
         }

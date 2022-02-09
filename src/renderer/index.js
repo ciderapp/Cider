@@ -293,7 +293,10 @@ const app = new Vue({
         },
         mainMenuVisibility(val) {
             if (val) {
-                (this.chrome.userinfo.id) ? this.chrome.menuOpened = !this.chrome.menuOpened : false
+                (this.mk.isAuthorized) ? this.chrome.menuOpened = !this.chrome.menuOpened : false;
+                if (!this.mk.isAuthorized){
+                    this.mk.authorize()
+                }
             } else {
                 setTimeout(() => {
                     this.chrome.menuOpened = false
