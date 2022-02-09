@@ -319,3 +319,8 @@ keys.sh
 package-lock.json
 yarn.lock
 resources/b64.txt
+
+
+savedconfig/cider-config.json
+savedconfig/config.json
+savedconfig/session.json
