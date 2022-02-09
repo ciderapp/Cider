@@ -4,7 +4,7 @@
   "i18n.languageName": "简体中文（中国）", // name of language in native language
   "i18n.languageNameEnglish": "Simp. Chinese (China)", // name of language in English
   "i18n.category": "main", // main = real language, fun = fun community languages
-  "i18n.authors": "@maikirakiwi", // Authors, if you contribute to this file feel free to add your name seperated with a space
+  "i18n.authors": "@maikirakiwi @BillKerman", // Authors, if you contribute to this file feel free to add your name seperated with a space
 
   // App info
   "app.name": "Cider",
@@ -21,6 +21,7 @@
   "notification.updatingLibraryArtists": "正在更新资料库的艺人信息...",
   
   // Terms
+  "term.appleInc": "Apple Inc.",
   "term.appleMusic": "Apple Music", // Follows brand term
   "term.applePodcasts": "Apple Podcasts", // Follows brand term
   "term.itunes": "iTunes", // Follows brand term
@@ -45,6 +46,11 @@
   "term.podcasts": "播客",
   "term.playlists": "播放列表",
   "term.playlist": "播放列表",
+  "term.newPlaylist": "新播放列表",
+  "term.newPlaylistFolder": "新播放列表文件夹",
+  "term.createNewPlaylist": "新建播放列表",
+  "term.createNewPlaylistFolder": "新建播放列表文件夹",
+  "term.deletePlaylist": "您确定要删除该播放列表吗?",
   "term.play": "播放",
   "term.pause": "暂停",
   "term.previous": "上一首",
@@ -55,6 +61,7 @@
   "term.mute": "静音",
   "term.unmute": "解除静音",
   "term.share": "分享",
+  "term.share.success": "已复制到剪贴板",
   "term.settings": "设置",
   "term.seeAll": "查看全部",
   "term.sortBy": "排序",
@@ -104,7 +111,7 @@
   "term.clearAll": "清空",
   "term.recentStations": "最近播放的频道",
   "term.language": "语言",
-  "term.noLyrics": "加载中。。/ 搜索无结果 / 纯音乐",
+  "term.noLyrics": "加载中... / 搜索无结果 / 纯音乐",
   "term.copyright": "版权所有",
   "term.rightsReserved": "保留所有权利。",
   "term.sponsor": "赞助",
@@ -119,13 +126,14 @@
   "term.menu": "菜单",
   "term.check": "检查",
   "term.aboutArtist": "关于{{artistName}}", // e.g. 'About Doja Cat'
+  "term.updateCider": "更新 Cider",
   
   // Home
   "home.title": "主页",
   "home.recentlyPlayed": "最近播放",
   "home.recentlyAdded": "最近添加",
   "home.artistsFeed": "艺人推荐",
-  "home.artistsFeed.noArtist": "追踪您喜爱的艺人后便可查看他们的最新发行。",
+  "home.artistsFeed.noArtist": "关注您喜爱的艺人后便可查看他们的最新发行歌曲。",
   "home.madeForYou": "专属推荐",
   "home.friendsListeningTo": "朋友正在听",
   "home.followedArtists": "关注的艺人",
@@ -137,8 +145,8 @@
   "error.noResults.description": "尝试更改搜索条件。",
   
   // Podcasts
-  "podcast.followOnCider": "在 Cider 中追踪",
-  "podcast.followedOnCider": "已追踪",
+  "podcast.followOnCider": "在 Cider 中关注",
+  "podcast.followedOnCider": "已关注",
   "podcast.subscribeOnItunes": "在 iTunes 上订阅",
   "podcast.subscribedOnItunes": "已订阅",
   "podcast.itunesStore": "iTunes Store", // Follow brand term
@@ -152,12 +160,12 @@
   "action.addToLibrary.error": "加入资料库的过程发生了错误",
   "action.removeFromLibrary": "从资料库中移除",
   "action.removeFromLibrary.success": "已从资料库中移除",
-  "action.addToQueue": "加入队列",
-  "action.addToQueue.success": "成功加入队列",
-  "action.addToQueue.error": "加入队列的过程发生了错误",
-  "action.removeFromQueue": "从队列中移除",
-  "action.removeFromQueue.success": "已从队列中移除",
-  "action.removeFromQueue.error": "从队列中移除的过程发生了错误",
+  "action.addToQueue": "加入待播清单",
+  "action.addToQueue.success": "成功加入加入待播清单",
+  "action.addToQueue.error": "加入加入待播清单的过程发生了错误",
+  "action.removeFromQueue": "从加入待播清单中移除",
+  "action.removeFromQueue.success": "已从加入待播清单中移除",
+  "action.removeFromQueue.error": "从加入待播清单中移除的过程发生了错误",
   "action.addToPlaylist": "加入播放列表",
   "action.removeFromPlaylist": "从播放列表中移除",
   "action.addToFavorites": "加至收藏",
@@ -167,7 +175,7 @@
   "action.unfollow": "取消关注",
   "action.unfollow.success": "已取消关注",
   "action.unfollow.error": "尝试取消关注的过程发生了错误",
-  "action.playNext": "下一首播放",
+  "action.playNext": "插播",
   "action.playLater": "最后播放",
   "action.startRadio": "开始电台",
   "action.goToArtist": "前往艺人",
@@ -178,7 +186,7 @@
   "action.love": "喜欢",
   "action.unlove": "踩",
   "action.dislike": "减少此类建议",
-  "action.undoDislike": "增加此类建议",
+  "action.undoDislike": "撤销减少此类建议",
   "action.showWebRemoteQR": "显示远程控制的二维码",
   "action.playTracksNext": "插播 ${app.selectedMediaItems.length} 首歌曲",
   "action.playTracksLater": "最后播放 ${app.selectedMediaItems.length} 首歌曲",
@@ -245,6 +253,8 @@
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
 
   // Settings - Visual - Theme name
+  "settings.option.visual.theme.default": "默认",
+  "settings.option.visual.theme.dark": "午夜黑",
 
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "显示个人资料", // Toggle
@@ -261,14 +271,16 @@
   "settings.header.connectivity": "外部连接",
   "settings.header.connectivity.description": "调整Cider与外部应用的交互设置",
   "settings.option.connectivity.discordRPC": "Discord 动态", // Dropdown
+  "settings.option.connectivity.playbackNotifications": "歌曲播放通知", // Toggle
   // Refer to term.disabled for the disabled option
-  "settings.header.connectivity.discordRPC.cider": "显示正在玩 'Cider'",
-  "settings.header.connectivity.discordRPC.appleMusic": "显示正在玩 'Apple Music'",
-  "settings.option.connectivity.discordRPC.clearOnPause": "暂停时清除Discord 动态", // Toggle
+  "settings.header.connectivity.discordRPC.cider": "显示正在使用 'Cider'",
+  "settings.header.connectivity.discordRPC.appleMusic": "显示正在使用 'Apple Music'",
+  "settings.option.connectivity.discordRPC.clearOnPause": "暂停时清除 Discord 动态", // Toggle
   "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling 记录", // Option to Connect
   "settings.option.connectivity.lastfmScrobble.delay": "LastFM Scrobble 延迟 (%)",
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "启用 LastFM 正在播放",
-  "settings.option.connectivity.lastfmScrobble.removeFeatured": "从歌名里去除艺人推荐 (LastFM)",
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "从歌名里去除合作者 (LastFM)",
+  "settings.option.connectivity.lastfmScrobble.filterLoop": "不记录单曲循环 (LastFM)", 
   // Refer to term.connect for the connect button
   
   // Settings - Experimental
@@ -279,6 +291,7 @@
   
   // Refer to term.disabled & term.enabled
   // Spatialization Menu
+  "spatial.notTurnedOn": "请在设定中开启空间音频。",
   "spatial.spatialProperties": "空间属性",
   "spatial.width": "宽度",
   "spatial.height": "高度",
