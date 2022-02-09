@@ -318,3 +318,4 @@ keys.sh
 
 package-lock.json
 yarn.lock
+resources/b64.txt
