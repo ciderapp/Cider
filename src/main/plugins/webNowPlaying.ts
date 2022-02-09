@@ -14,7 +14,7 @@ const pad = (number: number, length: number) => String(number).padStart(length, 
  * @param {Number} timeInSeconds 
  * @returns String
  */
- const convertTimeToString = (timeInSeconds: number) => {
+const convertTimeToString = (timeInSeconds: number) => {
     const timeInMinutes = Math.floor(timeInSeconds / 60);
     if (timeInMinutes < 60) {
         return timeInMinutes + ":" + pad(Math.floor(timeInSeconds % 60), 2);
