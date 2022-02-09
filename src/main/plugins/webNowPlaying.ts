@@ -14,12 +14,12 @@ const pad = (number: number, length: number) => String(number).padStart(length, 
  * @param {Number} timeInSeconds 
  * @returns String
  */
-const convertTimeToString = (timeInSeconds: number) => {
-    const timeInMinutes = timeInSeconds / 60;
+ const convertTimeToString = (timeInSeconds: number) => {
+    const timeInMinutes = Math.floor(timeInSeconds / 60);
     if (timeInMinutes < 60) {
-        return timeInMinutes + ":" + pad(timeInSeconds % 60, 2);
+        return timeInMinutes + ":" + pad(Math.floor(timeInSeconds % 60), 2);
     }
-    return timeInMinutes / 60 + ":" + pad(timeInMinutes % 60, 2) + ":" + pad(timeInSeconds % 60, 2);
+    return Math.floor(timeInMinutes / 60) + ":" + pad(Math.floor(timeInMinutes % 60), 2) + ":" + pad(Math.floor(timeInSeconds % 60), 2);
 }
 
 export default class WebNowPlaying {
@@ -40,7 +40,20 @@ export default class WebNowPlaying {
         console.debug(`[Plugin][${this.name}] Loading Complete.`);
     }
 
-    sendSongInfo(attributes: any) {
+    /**
+     * Blocks non-windows systems from running this plugin
+     * @private
+     * @decorator
+     */
+    private static windowsOnly(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
+        if (process.platform !== 'win32') {
+            descriptor.value = function () {
+                return
+            }
+        }
+    }
+
+    private sendSongInfo(attributes: any) {
         if (!this.ws || this.ws.readyState !== WebSocket.OPEN) return;
 
         const fields = ['STATE', 'TITLE', 'ARTIST', 'ALBUM', 'COVER', 'DURATION', 'POSITION', 'VOLUME', 'REPEAT', 'SHUFFLE'];
@@ -88,8 +101,7 @@ export default class WebNowPlaying {
             }
         });
     }
-
-    fireEvent(evt: any) {
+    private fireEvent(evt: any) {
         if (!evt.data) return;
         let value = '';
         if (evt.data.split(/ (.+)/).length > 1) {
@@ -142,7 +154,8 @@ export default class WebNowPlaying {
     /**
      * Runs on app ready
      */
-    onReady(win: any) {
+    @WebNowPlaying.windowsOnly
+    public onReady(win: any) {
         this._win = win;
 
         // Connect to Rainmeter plugin and retry on disconnect.
@@ -197,7 +210,8 @@ export default class WebNowPlaying {
     /**
      * Runs on app stop
      */
-    onBeforeQuit() {
+    @WebNowPlaying.windowsOnly
+    public onBeforeQuit() {
         if (this.ws) {
             this.ws.send('STATE:0');
             this.ws.onclose = null; // disable onclose handler first to stop it from retrying
@@ -221,7 +235,8 @@ export default class WebNowPlaying {
      * Runs on song change
      * @param attributes Music Attributes
      */
-    onNowPlayingItemDidChange(attributes: any) {
+    @WebNowPlaying.windowsOnly
+    public onNowPlayingItemDidChange(attributes: any) {
         this.sendSongInfo(attributes);
     }
 }
