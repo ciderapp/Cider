@@ -101,7 +101,6 @@ export default class WebNowPlaying {
             }
         });
     }
-
     private fireEvent(evt: any) {
         if (!evt.data) return;
         let value = '';
@@ -228,8 +227,7 @@ export default class WebNowPlaying {
      * Runs on playback State Change
      * @param attributes Music Attributes (attributes.status = current state)
      */
-    @WebNowPlaying.windowsOnly
-    public onPlaybackStateDidChange(attributes: any) {
+    onPlaybackStateDidChange(attributes: any) {
         this.sendSongInfo(attributes);
     }
 
