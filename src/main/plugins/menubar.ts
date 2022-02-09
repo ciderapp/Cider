@@ -100,7 +100,7 @@ export default class Thumbar {
             submenu: [
                 {
                     label: 'Pause / Play',
-                    accelerator: 'Space',
+                    accelerator: 'CommandOrControl+Space',
                     click: () => this._win.webContents.executeJavaScript(`MusicKitInterop.playPause()`)
                 },
                 {
