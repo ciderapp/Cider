@@ -15,6 +15,7 @@ export default class LastFMPlugin {
     private _app: any;
     private _lastfm: any;
     private _store: any;
+    private _timer: any;
 
     private authenticateFromFile() {
         let sessionData = require(this.sessionPath)
@@ -78,7 +79,7 @@ export default class LastFMPlugin {
     }
 
     private async scrobbleSong(attributes: any) {
-        await new Promise(resolve => setTimeout(resolve, Math.round(attributes.durationInMillis * (this._store.lastfm.scrobble_after / 100))));
+        this._timer = setTimeout(() => {
         const currentAttributes = attributes;
 
         if (!this._lastfm || this._lastfm.cachedAttributes === attributes) {
@@ -113,7 +114,7 @@ export default class LastFMPlugin {
             }
         } else {
             return console.log('[LastFM] Did not add ', attributes.name, '—', this.filterArtistName(attributes.artistName), 'because now playing a other song.');
-        }
+        }},Math.round(attributes.durationInMillis * (this._store.lastfm.scrobble_after / 100)));
     }
 
     private filterArtistName(artist: any) {
@@ -248,6 +249,7 @@ export default class LastFMPlugin {
             this._lastfm.cachedAttributes = false}
         this.scrobbleSong(attributes)
         this.updateNowPlayingSong(attributes)
+        if(this._timer) clearTimeout(this._timer)
     }
 
 }
