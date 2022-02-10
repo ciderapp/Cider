@@ -88,6 +88,7 @@ const app = new Vue({
         radio: {
             personal: []
         },
+        mklang : 'en',
         webview: {
             url: "",
             title: "",
@@ -317,6 +318,7 @@ const app = new Vue({
                 lang = this.cfg.general.language
             }
             this.lz = ipcRenderer.sendSync("get-i18n", lang)
+            this.mklang = this.MKJSLang()
         },
         getLz(message) {
             if (this.lz[message]) {
@@ -572,6 +574,8 @@ const app = new Vue({
             this.mk._services.timing.mode = 0
             this.platform = ipcRenderer.sendSync('cider-platform');
 
+            this.mklang = this.MKJSLang()
+
             try {
                 // Set profile name
                 this.chrome.userinfo = (await app.mk.api.v3.music(`/v1/me/social-profile`)).data.data[0]
@@ -796,6 +800,7 @@ const app = new Vue({
                 this.getBrowsePage();
                 this.$forceUpdate()
             }, 500)
+
         },
         setTheme(theme = "") {
             console.log(theme)
@@ -1016,12 +1021,12 @@ const app = new Vue({
             app.appRoute("collection-list")
         },
         async showArtistView(artist, title, view) {
-            let response = (await app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/artists/${artist}/view/${view}`, {}, {includeResponseMeta: !0})).data
+            let response = (await app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/artists/${artist}/view/${view}?l=${this.mklang}`, {}, {includeResponseMeta: !0})).data
             console.log(response)
             await this.showCollection(response, title, "artists")
         },
         async showRecordLabelView(label, title, view) {
-            let response = (await app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/record-labels/${label}/view/${view}`)).data
+            let response = (await app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/record-labels/${label}/view/${view}?l=${this.mklang}`)).data
             await this.showCollection(response, title, "record-labels")
         },
         async showSearchView(term, group, title) {
@@ -1051,7 +1056,8 @@ const app = new Vue({
                 omit: {
                     resource: ["autos"]
                 },
-                groups: group
+                groups: group,
+                l : this.mklang
             }
             let response = await app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/search?term=${term}`, requestBody, {
                 includeResponseMeta: !0
@@ -1102,7 +1108,8 @@ const app = new Vue({
                 "fields[playlists]": "curatorName,playlistType,name,artwork,url,playParams",
                 "include[library-songs]": "catalog,artists,albums,playParams,name,artwork,url",
                 "fields[catalog]": "artistUrl,albumUrl,url",
-                "fields[songs]": "artistUrl,albumUrl,playParams,name,artwork,url,artistName,albumName,durationInMillis"
+                "fields[songs]": "artistUrl,albumUrl,playParams,name,artwork,url,artistName,albumName,durationInMillis",
+                l : this.mklang
             }
             if (!transient) {
                 this.playlists.loadingState = 0;
@@ -1130,7 +1137,8 @@ const app = new Vue({
                 "include[songs]": "albums",
                 "fields[albums]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialVideo,name,playParams,releaseDate,url,trackCount",
                 "limit[artists:top-songs]": 20,
-                "art[url]": "f"
+                "art[url]": "f",
+                l : this.mklang
             }, {includeResponseMeta: !0})
             console.log(artistData.data.data[0])
             this.artistPage.data = artistData.data.data[0]
@@ -1325,7 +1333,7 @@ const app = new Vue({
             }
         },
         async getNowPlayingItemDetailed(target) {
-            let u = await app.mkapi(app.mk.nowPlayingItem.playParams.kind, (app.mk.nowPlayingItem.songId == -1), (app.mk.nowPlayingItem.songId != -1) ? app.mk.nowPlayingItem.songId : app.mk.nowPlayingItem["id"], {"include[songs]": "albums,artists"});
+            let u = await app.mkapi(app.mk.nowPlayingItem.playParams.kind, (app.mk.nowPlayingItem.songId == -1), (app.mk.nowPlayingItem.songId != -1) ? app.mk.nowPlayingItem.songId : app.mk.nowPlayingItem["id"], {"include[songs]": "albums,artists", l : this.mklang});
             app.searchAndNavigate(u.data.data[0], target)
         },
         async searchAndNavigate(item, target) {
@@ -1530,6 +1538,7 @@ const app = new Vue({
             if (kind == "album" | kind == "albums") {
                 params["include"] = "tracks,artists,record-labels,catalog";
             }
+            params['l'] = this.mklang;
             try {
                 a = await this.mkapi(kind.toString(), isLibrary, id.toString(), params, params2);
             } catch (e) {
@@ -1820,10 +1829,11 @@ const app = new Vue({
                     "fields[catalog]": "artistUrl,albumUrl",
                     "fields[songs]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,name,playParams,releaseDate,url",
                     limit: 100,
+                    l: this.mklang
                 }
                 const safeparams = {
                     "platform": "web",
-                    "limit": 80,
+                    "limit": 80
                 }
                 self.library.songs.downloadState = 1
                 if (downloaded == null) {
@@ -1923,6 +1933,7 @@ const app = new Vue({
                     "fields[catalog]": "artistUrl,albumUrl",
                     "fields[albums]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,name,playParams,releaseDate,url",
                     limit: 100,
+                    l: this.mklang
                 }
                 const safeparams = {
                     platform: "web",
@@ -2032,6 +2043,7 @@ const app = new Vue({
                     // "fields[catalog]": "artistUrl,albumUrl",
                     // "fields[artists]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,name,playParams,releaseDate,url",
                     limit: 100,
+                    l: this.mklang
                 }
                 const safeparams = {
                     include: "catalog",
@@ -2122,12 +2134,12 @@ const app = new Vue({
             }
         },
         async getLibrarySongs() {
-            let response = await this.mkapi("songs", true, "", {limit: 100}, {includeResponseMeta: !0})
+            let response = await this.mkapi("songs", true, "", {limit: 100, l : this.mklang}, {includeResponseMeta: !0})
             this.library.songs.listing = response.data.data
             this.library.songs.meta = response.data.meta
         },
         async getLibraryAlbums() {
-            let response = await this.mkapi("albums", true, "", {limit: 100}, {includeResponseMeta: !0})
+            let response = await this.mkapi("albums", true, "", {limit: 100,l : this.mklang}, {includeResponseMeta: !0})
             this.library.albums.listing = response.data.data
             this.library.albums.meta = response.data.meta
         },
@@ -2161,7 +2173,8 @@ const app = new Vue({
                     "extend[stations]": ["airDate", "supportsAirTimeUpdates"],
                     "meta[stations]": "inflectionPoints",
                     types: "artists,albums,editorial-items,library-albums,library-playlists,music-movies,music-videos,playlists,stations,uploaded-audios,uploaded-videos,activities,apple-curators,curators,tv-shows,social-upsells",
-                    platform: "web"
+                    platform: "web",
+                    l: this.mklang
                 }, {
                     includeResponseMeta: !0,
                     reload: !0
@@ -2190,7 +2203,8 @@ const app = new Vue({
                     "include[music-videos]": "artists",
                     extend: "editorialArtwork,artistUrl",
                     "fields[artists]": "name,url,artwork,editorialArtwork,genreNames,editorialNotes",
-                    "art[url]": "f"
+                    "art[url]": "f",
+                    l: this.mklang
                 });
                 this.browsepage = browse.data.data[0];
                 this.browsepage.timestamp = Date.now()
@@ -2207,7 +2221,8 @@ const app = new Vue({
             try {
                 this.radio.personal = (await app.mk.api.v3.music(`/v1/me/recent/radio-stations`, {
                     "platform": "web",
-                    "art[url]": "f"
+                    "art[url]": "f",
+                    l: this.mklang
                 })).data.data;
             } catch (e) {
                 console.log(e)
@@ -2910,7 +2925,8 @@ const app = new Vue({
                 "art[url]": "c,f",
                 "omit[resource]": "autos",
                 "platform": "web",
-                limit: 25
+                limit: 25,
+                l: this.mklang
             }).then(function (results) {
                 results.data.results["meta"] = results.data.meta
                 self.search.results = results.data.results

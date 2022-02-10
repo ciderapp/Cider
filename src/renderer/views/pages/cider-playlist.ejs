@@ -289,7 +289,7 @@
                 this.confirm = false
             },
             async removeFromLibrary(id) {
-                const params = {"fields[somgs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library"};
+                const params = {"fields[songs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library"};
                 var id = this.data.id ?? this.data.attributes.playParams.id
                 const res = await app.mkapi(this.data.attributes.playParams.kind ?? this.data.type, this.data.attributes.playParams.isLibrary ?? false, this.data.attributes.playParams.id ?? this.data.id, params);
                 if (res.data.data[0] && res.data.data[0].relationships && res.data.data[0].relationships.library && res.data.data[0].relationships.library.data && res.data.data[0].relationships.library.data.length > 0) {
