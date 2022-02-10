@@ -2148,7 +2148,7 @@ const app = new Vue({
             this.library.songs.meta = response.data.meta
         },
         async getLibraryAlbums() {
-            let response = await this.mkapi("albums", true, "", {limit: 100,l : this.mklang}, {includeResponseMeta: !0})
+            let response = await this.mkapi("albums", true, "", {limit: 100, l : this.mklang}, {includeResponseMeta: !0})
             this.library.albums.listing = response.data.data
             this.library.albums.meta = response.data.meta
         },
@@ -3623,6 +3623,7 @@ const app = new Vue({
             } else if (u && u.includes('_') && langcodes.includes(((u.toLowerCase()).replace('_', "-")).split("-")[0])) {
                 sellang = ((u.toLowerCase()).replace('_', "-")).split("-")[0]
             }
+            if (sellang.startsWith("en") && this.mk.storefrontId != "en-us") sellang = "en-gb"
             return sellang
         }
     }
