@@ -1582,10 +1582,10 @@ const app = new Vue({
                         bb = b.attributes.genreNames[0]
                     }
                     if (prefs.sort == "dateAdded"){
-                    let albumida =  a.relationships?.albums?.data[0]?.id ?? '1970-01-01T00:01:01Z'
-                    let albumidb =  b.relationships?.albums?.data[0]?.id ?? '1970-01-01T00:01:01Z'
-                    aa = startTime - new Date(((albumAdded.find(i => i[albumida]))?? [])[albumida] ?? '1970-01-01T00:01:01Z').getTime()
-                    bb = startTime - new Date(((albumAdded.find(i => i[albumidb]))?? [])[albumidb] ?? '1970-01-01T00:01:01Z').getTime()
+                        let albumida =  a.relationships?.albums?.data[0]?.id ?? '1970-01-01T00:01:01Z'
+                        let albumidb =  b.relationships?.albums?.data[0]?.id ?? '1970-01-01T00:01:01Z'
+                        aa = startTime - new Date(((albumAdded.find(i => i[albumida]))?? [])[albumida] ?? '1970-01-01T00:01:01Z').getTime()
+                        bb = startTime - new Date(((albumAdded.find(i => i[albumidb]))?? [])[albumidb] ?? '1970-01-01T00:01:01Z').getTime()
                     }
                     if (aa == null) {
                         aa = ""

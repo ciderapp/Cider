@@ -44,6 +44,7 @@ export class BrowserWindow {
                 "pages/search",
                 "pages/about",
                 "pages/library-videos",
+                "pages/remote-pair",
                 "components/mediaitem-artwork",
                 "components/artwork-material",
                 "components/menu-panel",
@@ -540,7 +541,7 @@ export class BrowserWindow {
 
         ipcMain.on('get-remote-pair-url', (_event, _) => {
             let url = `http://${BrowserWindow.getIP()}:${this.remotePort}`;
-            BrowserWindow.win.webContents.send('send-remote-pair-url', url);
+            BrowserWindow.win.webContents.send('send-remote-pair-url', (`https://cider.sh/pair-remote?url=${Buffer.from(encodeURI(url)).toString('base64')}`).toString());
         });
         if (process.platform === "darwin") {
             app.setUserActivity('com.CiderCollective.remote.pair', {
