@@ -14,6 +14,7 @@
   // Dialogs
   "dialog.cancel": "Cancel",
   "dialog.ok": "OK",
+  
   // Notification
   "notification.updatingLibrarySongs": "Updating library songs...",
   "notification.updatingLibraryAlbums": "Updating library albums...",
