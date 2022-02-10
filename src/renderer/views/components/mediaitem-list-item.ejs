@@ -531,7 +531,7 @@
                                 array[j] = temp;
                             }
                         }
-                        app.mk.setQueue({ [truekind]: [item.attributes.playParams.id ?? item.id] }).then(function () {
+                        app.mk.setQueue({ [truekind]: [item.attributes.playParams.id ?? item.id] , parameters : {l : this.app.mklang} }).then(function () {
                             app.mk.play().then(function () {
                                 var playlistId = id
                                 function getPlaylist(id, isLibrary) {

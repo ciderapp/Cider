@@ -527,7 +527,7 @@ export class BrowserWindow {
 
         ipcMain.on('play', (_event, type, id) => {
             BrowserWindow.win.webContents.executeJavaScript(`
-			    MusicKit.getInstance().setQueue({ ${type}: '${id}'}).then(function(queue) {
+			    MusicKit.getInstance().setQueue({ ${type}: '${id}', parameters : {l : app.mklang}}).then(function(queue) {
 				    MusicKit.getInstance().play();
 			    });
 		    `)

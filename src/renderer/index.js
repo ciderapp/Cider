@@ -643,7 +643,8 @@ const app = new Vue({
                     let kind = lastItem.attributes.playParams.kind;
                     let truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
                     app.mk.setQueue({
-                        [truekind]: [lastItem.attributes.playParams.id]
+                        [truekind]: [lastItem.attributes.playParams.id],
+                        parameters : {l : app.mklang}
                     })
                     app.mk.mute()
                     setTimeout(() => {
@@ -696,7 +697,7 @@ const app = new Vue({
 
             ipcRenderer.on('play', function(_event, mode, id) {
               if (mode !== 'url'){
-                self.mk.setQueue({[mode]: id}).then(() => {
+                self.mk.setQueue({[mode]: id , parameters : {l : self.mklang}}).then(() => {
                     app.mk.play()
                 })
                 
@@ -2722,7 +2723,8 @@ const app = new Vue({
                     });
                 } else {
                     this.mk.setQueue({
-                        [truekind]: [id]
+                        [truekind]: [id],
+                        parameters : {l : this.mklang}
                     }).then(function (queue) {
                         MusicKit.getInstance().play()
                     })
@@ -2762,7 +2764,8 @@ const app = new Vue({
                     app.mk.stop().then(() => {
                         if (item) {
                             app.mk.setQueue({
-                                [item.attributes.playParams.kind ?? item.type]: item.attributes.playParams.id ?? item.id
+                                [item.attributes.playParams.kind ?? item.type]: item.attributes.playParams.id ?? item.id,
+                                parameters : {l : app.mklang}
                             }).then(function () {
                                 app.mk.play().then(() => {
                                     if (app.mk.shuffleMode == 1) {
@@ -2796,7 +2799,8 @@ const app = new Vue({
                     app.mk.stop().then(() => {
                         if (truekind == "playlists" && (id.startsWith("p.") || id.startsWith("pl.u"))) {
                             app.mk.setQueue({
-                                [item.attributes.playParams.kind ?? item.type]: item.attributes.playParams.id ?? item.id
+                                [item.attributes.playParams.kind ?? item.type]: item.attributes.playParams.id ?? item.id,
+                                parameters : {l : app.mklang}
                             }).then(function () {
                                 app.mk.changeToMediaAtIndex(app.mk.queue._itemIDs.indexOf(item.id) ?? 1).then(function () {
                                     if ((app.showingPlaylist && app.showingPlaylist.id == id)) {
@@ -2835,7 +2839,8 @@ const app = new Vue({
                             })
                         } else {
                             this.mk.setQueue({
-                                [truekind]: [id]
+                                [truekind]: [id],
+                                parameters : {l : this.mklang}
                             }).then(function (queue) {
                                 if (item && ((queue._itemIDs[childIndex] != item.id))) {
                                     childIndex = queue._itemIDs.indexOf(item.id)
@@ -3151,7 +3156,7 @@ const app = new Vue({
         quickPlay(query) {
             let self = this
             MusicKit.getInstance().api.search(query, {limit: 2, types: 'songs'}).then(function (data) {
-                MusicKit.getInstance().setQueue({song: data["songs"]['data'][0]["id"]}).then(function (queue) {
+                MusicKit.getInstance().setQueue({song: data["songs"]['data'][0]["id"], parameters : {l : app.mklang}}).then(function (queue) {
                     MusicKit.getInstance().play()
                     setTimeout(() => {
                         self.$forceUpdate()
