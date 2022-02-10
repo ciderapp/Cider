@@ -1,8 +1,8 @@
 { // Base File
 
   // i18n Info
-  "i18n.languageName": "Tiếng Việt (VN)", // name of language in native language
-  "i18n.languageNameEnglish": "Vietnamese (VN)", // name of language in English
+  "i18n.languageName": "Tiếng Việt", // name of language in native language
+  "i18n.languageNameEnglish": "Vietnamese", // name of language in English
   "i18n.category": "main", // main = real language, fun = fun community languages
   "i18n.authors": "@vapormusic", // Authors, if you contribute to this file feel free to add your name seperated with a space
   
@@ -166,7 +166,7 @@
   "podcast.followOnCider": "Theo dõi trên Cider",
   "podcast.followedOnCider": "Đang theo dõi trên Cider",
   "podcast.subscribeOnItunes": "Theo dõi trên iTunes",
-  "podcast.subscribedOnItunes": "Đang theo dõi  iTunes",
+  "podcast.subscribedOnItunes": "Đang theo dõi trên iTunes",
   "podcast.itunesStore": "Cửa hàng iTunes",
   "podcast.episodes": "Các tập",
   "podcast.playEpisode": "Phát",
