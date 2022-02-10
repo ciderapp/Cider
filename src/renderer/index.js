@@ -1570,6 +1570,7 @@ const app = new Vue({
             let self = this
             let prefs = this.cfg.libraryPrefs.songs
             let albumAdded = self.library?.albums?.listing?.map(function(i){return {[i.id]: i.attributes?.dateAdded}})
+            let startTime = new Date().getTime()
             function sortSongs() {
                 // sort this.library.songs.displayListing by song.attributes[self.library.songs.sorting] in descending or ascending order based on alphabetical order and numeric order
                 // check if song.attributes[self.library.songs.sorting] is a number and if so, sort by number if not, sort by alphabetical order ignoring case
@@ -1583,8 +1584,8 @@ const app = new Vue({
                     if (prefs.sort == "dateAdded"){
                     let albumida =  a.relationships?.albums?.data[0]?.id ?? '1970-01-01T00:01:01Z'
                     let albumidb =  b.relationships?.albums?.data[0]?.id ?? '1970-01-01T00:01:01Z'
-                    aa = new Date(((albumAdded.find(i => i[albumida]))?? [])[albumida] ?? '1970-01-01T00:01:01Z').getTime()
-                    bb = new Date(((albumAdded.find(i => i[albumidb]))?? [])[albumidb] ?? '1970-01-01T00:01:01Z').getTime()
+                    aa = startTime - new Date(((albumAdded.find(i => i[albumida]))?? [])[albumida] ?? '1970-01-01T00:01:01Z').getTime()
+                    bb = startTime - new Date(((albumAdded.find(i => i[albumidb]))?? [])[albumidb] ?? '1970-01-01T00:01:01Z').getTime()
                     }
                     if (aa == null) {
                         aa = ""
