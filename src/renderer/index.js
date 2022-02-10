@@ -314,12 +314,12 @@ const app = new Vue({
             return text
             // stringTemplateParser('my name is {{name}} and age is {{age}}', {name: 'Tom', age:100})
         },
-        setLz(lang) {
+        async setLz(lang) {
             if (lang == "") {
                 lang = this.cfg.general.language
             }
             this.lz = ipcRenderer.sendSync("get-i18n", lang)
-            this.mklang = this.MKJSLang()
+            this.mklang = await this.MKJSLang()
         },
         getLz(message) {
             if (this.lz[message]) {
@@ -576,7 +576,7 @@ const app = new Vue({
             this.mk._services.timing.mode = 0
             this.platform = ipcRenderer.sendSync('cider-platform');
 
-            this.mklang = this.MKJSLang()
+            this.mklang = await this.MKJSLang()
 
             try {
                 // Set profile name
@@ -3614,17 +3614,36 @@ const app = new Vue({
             if (!this.isDev) // disable in dev mode to keep my sanity
             MusicKitInterop.playPause();
         },
-        MKJSLang(){
+        async MKJSLang(){
             let u = this.cfg.general.language;
-            let langcodes = ['af', 'sq', 'ar', 'eu', 'bg', 'be', 'ca', 'zh', 'zh-tw', 'zh-cn', 'zh-hk', 'zh-sg', 'hr', 'cs', 'da', 'nl', 'nl-be', 'en', 'en-us', 'en-eg', 'en-au', 'en-gb', 'en-ca', 'en-nz', 'en-ie', 'en-za', 'en-jm', 'en-bz', 'en-tt', 'en-001', 'et', 'fo', 'fa', 'fi', 'fr', 'fr-ca', 'gd', 'de', 'de-ch', 'el', 'he', 'hi', 'hu', 'is', 'id', 'it', 'ja', 'ko', 'lv', 'lt', 'mk', 'mt', 'no', 'nb', 'nn', 'pl', 'pt-br', 'pt', 'rm', 'ro', 'ru', 'sr', 'sk', 'sl', 'es', 'es-mx', 'es-419', 'sv', 'th', 'ts', 'tn', 'tr', 'uk', 'ur', 've', 'vi', 'xh', 'yi', 'zu', 'ms', 'iw', 'lo', 'tl', 'kk', 'ta', 'te', 'bn', 'ga', 'ht', 'la', 'pa', 'sa'];
-            let sellang = "en"
-            if (u && langcodes.includes(u.toLowerCase().replace('_', "-"))) {
-                sellang = ((u.toLowerCase()).replace('_', "-"))
-            } else if (u && u.includes('_') && langcodes.includes(((u.toLowerCase()).replace('_', "-")).split("-")[0])) {
-                sellang = ((u.toLowerCase()).replace('_', "-")).split("-")[0]
+            // use MusicKit.getInstance or crash
+            try {
+                item = await MusicKit.getInstance().api.v3.music(`v1/storefronts/${app.mk.storefrontId}`)
+                let langcodes = item.data.data[0].attributes.supportedLanguageTags;
+                if (langcodes) langcodes = langcodes.map(function (u) { return u.toLowerCase() })
+                console.log(langcodes)
+                let sellang = ""
+                if (u && langcodes.includes(u.toLowerCase().replace('_', "-"))) {
+                    sellang = ((u.toLowerCase()).replace('_', "-"))
+                } else if (u && u.includes('_') && langcodes.includes(((u.toLowerCase()).replace('_', "-")).split("-")[0])) {
+                    sellang = ((u.toLowerCase()).replace('_', "-")).split("-")[0]
+                }
+                if (sellang == "") sellang = (item.data.data[0].attributes.defaultLanguageTag).toLowerCase()
+                console.log(sellang)
+                return await sellang
             }
-            if (sellang.startsWith("en") && this.mk.storefrontId != "en-us") sellang = "en-gb"
-            return sellang
+            catch (err) {
+                console.log('locale err', err)
+                let langcodes = ['af', 'sq', 'ar', 'eu', 'bg', 'be', 'ca', 'zh', 'zh-tw', 'zh-cn', 'zh-hk', 'zh-sg', 'hr', 'cs', 'da', 'nl', 'nl-be', 'en', 'en-us', 'en-eg', 'en-au', 'en-gb', 'en-ca', 'en-nz', 'en-ie', 'en-za', 'en-jm', 'en-bz', 'en-tt', 'en-001', 'et', 'fo', 'fa', 'fi', 'fr', 'fr-ca', 'gd', 'de', 'de-ch', 'el', 'he', 'hi', 'hu', 'is', 'id', 'it', 'ja', 'ko', 'lv', 'lt', 'mk', 'mt', 'no', 'nb', 'nn', 'pl', 'pt-br', 'pt', 'rm', 'ro', 'ru', 'sr', 'sk', 'sl', 'es', 'es-mx', 'es-419', 'sv', 'th', 'ts', 'tn', 'tr', 'uk', 'ur', 've', 'vi', 'xh', 'yi', 'zu', 'ms', 'iw', 'lo', 'tl', 'kk', 'ta', 'te', 'bn', 'ga', 'ht', 'la', 'pa', 'sa'];
+                let sellang = "en"
+                if (u && langcodes.includes(u.toLowerCase().replace('_', "-"))) {
+                    sellang = ((u.toLowerCase()).replace('_', "-"))
+                } else if (u && u.includes('_') && langcodes.includes(((u.toLowerCase()).replace('_', "-")).split("-")[0])) {
+                    sellang = ((u.toLowerCase()).replace('_', "-")).split("-")[0]
+                }
+                if (sellang.startsWith("en") && this.mk.storefrontId != "en-us") sellang = "en-gb"
+                return await sellang
+            }          
         }
     }
 })
