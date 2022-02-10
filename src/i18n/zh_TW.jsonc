@@ -273,7 +273,6 @@
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "啟用 LastFM 目前聆聽", // Toggle
   "settings.option.connectivity.lastfmScrobble.removeFeatured": "從歌名中移除客串藝人 (LastFM)", 
   "settings.option.connectivity.lastfmScrobble.filterLoop": "不記錄單曲循環 (LastFM)", 
-
   // Refer to term.connect for the connect button
 
   // Settings - Experimental
@@ -285,7 +284,7 @@
   // Refer to term.disabled & term.enabled
   
   // Spatialization Menu
-  "spatial.notTurnedOn": "音訊空間功能被禁用，使用前請先啓用。",
+  "spatial.notTurnedOn": "空間音訊目前是關閉狀態，請先啟用再使用。",
   "spatial.spatialProperties" : "音訊空間屬性",
   "spatial.width" : "寬度",
   "spatial.height" : "高度",
