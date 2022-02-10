@@ -45,6 +45,11 @@
   "term.podcasts": "Podcasts",
   "term.playlists": "播放列表",
   "term.playlist": "播放列表",
+  "term.newPlaylist": "新播放列表",
+  "term.newPlaylistFolder": "新播放列表資料夾",
+  "term.createNewPlaylist": "新增播放列表",
+  "term.createNewPlaylistFolder": "新增播放列表資料夾",
+  "term.deletePlaylist": "您确定要删除该播放列表吗?",
   "term.play": "播放",
   "term.pause": "暫停",
   "term.previous": "上一首",
@@ -160,6 +165,7 @@
   "action.removeFromQueue": "從待播清單刪除",
   "action.removeFromQueue.success": "已從待播清單刪除",
   "action.removeFromQueue.error": "從待播清單刪除的過程發生錯誤",
+  "action.createPlaylist": "新增播放列表",
   "action.addToPlaylist": "加入播放列表",
   "action.removeFromPlaylist": "從播放列表刪除",
   "action.addToFavorites": "加入我的最愛",
@@ -289,7 +295,8 @@
   "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling 記錄", // Option to Connect
   "settings.option.connectivity.lastfmScrobble.delay": "LastFM Scrobble 延遲 (%)",
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "啟用 LastFM 目前聆聽", // Toggle
-  "settings.option.connectivity.lastfmScrobble.removeFeatured": "從歌名中移除藝人推薦 (LastFM)",
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "從歌名中移除客串藝人 (LastFM)", 
+  "settings.option.connectivity.lastfmScrobble.filterLoop": "不記錄單曲循環 (LastFM)", 
   // Refer to term.connect for the connect button
   
   // Settings - Experimental
