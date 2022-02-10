@@ -81,3 +81,7 @@ Update 08/02/2022 10:20 UTC
 * `settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility`: Added for `en_US`.
 * `term.requestError`: Added for `en_US`.
 * `term.song.link.generate`: Added for `en_US`.
+
+Update 10/02/2022 05:58 UTC
+
+* `term.sortBy.dateAdded`: Added for `en_US`.
