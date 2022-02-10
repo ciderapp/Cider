@@ -88,7 +88,7 @@
                     <mediaitem-square :kind="'385'" size="600"
                     :item="item ? (item.attributes.kind ? item : ((item.relationships && item.relationships.contents ) ? item.relationships.contents.data[0] : item)) : []"
                     :imagesize="800"
-                    v-for="item in categoriesView[1].relationships.contents.data.filter(item => item.type != 'editorial-items')">
+                    v-for="item of getFlattenedCategories()">
                 </div>
            </div>
         </div>    
@@ -118,9 +118,22 @@
                 if (this.categoriesView != [] && this.categoriesView.length > 0) { this.categoriesReady = true; return await true; } else {
                     let response = await this.app.mk.api.v3.music(`/v1/recommendations/${this.app.mk.storefrontId}?timezone=${encodeURIComponent(this.app.formatTimezoneOffset())}&name=search-landing&platform=web&extend=editorialArtwork&art%5Burl%5D=f%2Cc&types=editorial-items%2Capple-curators%2Cactivities`);
                     this.categoriesView = response.data.data;
+                    console.log(this.categoriesView)
                     this.categoriesReady = true;
                     return await true;
                 }
+            },
+            getFlattenedCategories() {
+                let flattened = [];
+                for (let i = 0; i < this.categoriesView.length; i++) {
+                    if (this.categoriesView[i].relationships && this.categoriesView[i].relationships.contents && this.categoriesView[i].relationships.contents.data) {
+                        for (let j = 0; j < this.categoriesView[i].relationships.contents.data.length; j++) {
+                            if (this.categoriesView[i].relationships.contents.data[j].type != 'editorial-items')
+                            flattened.push(this.categoriesView[i].relationships.contents.data[j])
+                        }
+                    }
+                }
+                return flattened;
             }
         }
     })
