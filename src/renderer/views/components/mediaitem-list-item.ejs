@@ -19,7 +19,7 @@
                     <button @click="addToLibrary()" v-if="!addedToLibrary && (showIndex == false ||(showIndex == true && showIndexPlaylist != false))">
                         <div class="svg-icon" :style="{'--color': 'var(--keyColor)', '--url': 'url(./assets/feather/plus.svg)'}"></div>
                     </button>
-                    <button v-else @click="playTrack()" style="width: 44px;margin-left: -11px;">
+                    <button v-else-if='showIndex == true' @click="playTrack()" style="width: 44px;margin-left: -11px;">
                         <%- include("../svg/play.svg") %>
                     </button>
                 </div>
