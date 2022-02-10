@@ -113,7 +113,8 @@ const app = new Vue({
                     "name": "0",
                     "genre": "0",
                     "releaseDate": "0",
-                    "durationInMillis": "0"
+                    "durationInMillis": "0",
+                    "dateAdded": "0"
                 },
                 sorting: "name",
                 sortOrder: "asc",
@@ -334,7 +335,8 @@ const app = new Vue({
                 "name": app.getLz('term.sortBy.name'),
                 "genre": app.getLz('term.sortBy.genre'),
                 "releaseDate": app.getLz('term.sortBy.releaseDate'),
-                "durationInMillis": app.getLz('term.sortBy.duration')
+                "durationInMillis": app.getLz('term.sortBy.duration'),
+                "dateAdded": app.getLz('term.sortBy.dateAdded')
             }
 
             app.$data.library.albums.sortingOptions = {
@@ -1333,7 +1335,7 @@ const app = new Vue({
             }
         },
         async getNowPlayingItemDetailed(target) {
-            let u = await app.mkapi(app.mk.nowPlayingItem.playParams.kind, (app.mk.nowPlayingItem.songId == -1), (app.mk.nowPlayingItem.songId != -1) ? app.mk.nowPlayingItem.songId : app.mk.nowPlayingItem["id"], {"include[songs]": "albums,artists", l : this.mklang});
+            let u = await app.mkapi(app.mk.nowPlayingItem.playParams.kind, (app.mk.nowPlayingItem.songId == -1), (app.mk.nowPlayingItem.songId != -1) ? app.mk.nowPlayingItem.songId : app.mk.nowPlayingItem["id"], {"include[songs]": "albums,artists", l : app.mklang});
             app.searchAndNavigate(u.data.data[0], target)
         },
         async searchAndNavigate(item, target) {
@@ -1567,16 +1569,22 @@ const app = new Vue({
         searchLibrarySongs() {
             let self = this
             let prefs = this.cfg.libraryPrefs.songs
-
+            let albumAdded = self.library?.albums?.listing?.map(function(i){return {[i.id]: i.attributes?.dateAdded}})
             function sortSongs() {
                 // sort this.library.songs.displayListing by song.attributes[self.library.songs.sorting] in descending or ascending order based on alphabetical order and numeric order
                 // check if song.attributes[self.library.songs.sorting] is a number and if so, sort by number if not, sort by alphabetical order ignoring case
                 self.library.songs.displayListing.sort((a, b) => {
                     let aa = a.attributes[prefs.sort]
                     let bb = b.attributes[prefs.sort]
-                    if (self.library.songs.sorting == "genre") {
+                    if (prefs.sort == "genre") {
                         aa = a.attributes.genreNames[0]
                         bb = b.attributes.genreNames[0]
+                    }
+                    if (prefs.sort == "dateAdded"){
+                    let albumida =  a.relationships?.albums?.data[0]?.id ?? '1970-01-01T00:01:01Z'
+                    let albumidb =  b.relationships?.albums?.data[0]?.id ?? '1970-01-01T00:01:01Z'
+                    aa = new Date(((albumAdded.find(i => i[albumida]))?? [])[albumida] ?? '1970-01-01T00:01:01Z').getTime()
+                    bb = new Date(((albumAdded.find(i => i[albumidb]))?? [])[albumidb] ?? '1970-01-01T00:01:01Z').getTime()
                     }
                     if (aa == null) {
                         aa = ""
@@ -1829,7 +1837,7 @@ const app = new Vue({
                     "fields[catalog]": "artistUrl,albumUrl",
                     "fields[songs]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,name,playParams,releaseDate,url",
                     limit: 100,
-                    l: this.mklang
+                    l: self.mklang
                 }
                 const safeparams = {
                     "platform": "web",
@@ -1933,7 +1941,7 @@ const app = new Vue({
                     "fields[catalog]": "artistUrl,albumUrl",
                     "fields[albums]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,name,playParams,releaseDate,url",
                     limit: 100,
-                    l: this.mklang
+                    l: self.mklang
                 }
                 const safeparams = {
                     platform: "web",
@@ -2043,7 +2051,7 @@ const app = new Vue({
                     // "fields[catalog]": "artistUrl,albumUrl",
                     // "fields[artists]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,name,playParams,releaseDate,url",
                     limit: 100,
-                    l: this.mklang
+                    l: self.mklang
                 }
                 const safeparams = {
                     include: "catalog",

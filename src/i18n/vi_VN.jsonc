@@ -72,6 +72,7 @@
   "term.sortBy.genre": "Dòng nhạc",
   "term.sortBy.releaseDate": "Ngày ra mắt",
   "term.sortBy.duration": "Thời lượng",
+  "term.sortBy.dateAdded": "Ngày thêm vào",
   "term.sortOrder": "A-Z",
   "term.sortOrder.ascending": "Tăng dần",
   "term.sortOrder.descending": "Giảm dần",
