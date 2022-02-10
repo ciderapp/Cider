@@ -318,6 +318,7 @@ const app = new Vue({
                 lang = this.cfg.general.language
             }
             this.lz = ipcRenderer.sendSync("get-i18n", lang)
+            this.mklang = this.MKJSLang()
         },
         getLz(message) {
             if (this.lz[message]) {
