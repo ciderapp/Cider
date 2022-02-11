@@ -3,12 +3,12 @@
         <div v-if="page == 'main'">
             <div class="row">
                 <div class="col">
-                    <div class="row nopadding">
+                    <div class="row">
                         <div class="col nopadding">
                             <h3>{{app.getLz('home.recentlyPlayed')}}</h3>
                         </div>
                         <div class="col-auto nopadding flex-center">
-                            <button class="cd-btn-seeall" @click="seeAllHistory()">{{app.getLz('term.seeAll')}}</button>
+                            <button class="cd-btn-seeall" @click="seeAllHistory()">{{app.getLz('term.history')}}</button>
                         </div>
                     </div>
                     <div class="well artistfeed-well">
@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <div class="col">
-                    <div class="row nopadding">
+                    <div class="row">
                         <div class="col nopadding">
                             <h3>{{app.getLz('home.artistsFeed')}}</h3>
                         </div>
@@ -54,7 +54,7 @@
                     <h3>{{app.getLz('home.madeForYou')}}</h3>
                     <div class="well">
                         <vue-horizontal v-if="isSectionReady('madeForYou')">
-                                <mediaitem-square kind="small" v-for="item in madeForYou" :item="item"></mediaitem-square>
+                            <mediaitem-square kind="small" v-for="item in madeForYou" :item="item"></mediaitem-square>
                         </vue-horizontal>
                         <div class="spinner" v-else></div>
                     </div>
@@ -72,9 +72,8 @@
                     </div>
                     <div class="well">
                         <vue-horizontal v-if="isSectionReady('friendsListeningTo')">
-                            <mediaitem-square kind="small" v-for="item in friendsListeningTo"
-                                :item="item"></mediaitem-square>
-                            </vue-horizontal>
+                            <mediaitem-square kind="small" v-for="item in friendsListeningTo" :item="item"></mediaitem-square>
+                        </vue-horizontal>
                         <div class="spinner" v-else></div>
                     </div>
                 </div>
@@ -86,7 +85,7 @@
 <script>
     Vue.component('cider-home', {
         template: '#cider-home',
-        data: function () {
+        data: function() {
             return {
                 app: this.$root,
                 followedArtists: this.$root.cfg.home.followedArtists,
@@ -112,7 +111,9 @@
         },
         methods: {
             async seeAllHistory() {
-                let hist = await app.mk.api.v3.music(`/v1/me/recent/played/tracks`)
+                let hist = await app.mk.api.v3.music(`/v1/me/recent/played/tracks`, {
+                    l: this.$root.mklang
+                })
                 app.showCollection(hist.data, app.getLz('term.history'))
             },
             isSectionReady(section) {
@@ -122,7 +123,7 @@
                 let self = this
                 return {
                     name: "Remove from Favorites",
-                    action: function (item) {
+                    action: function(item) {
                         let index = self.favoriteItems.findIndex(x => x.id == item.id)
                         if (index > -1) {
                             self.favoriteItems.splice(index, 1)
@@ -143,12 +144,16 @@
                     }
                 }
                 if (playlists.length != 0) {
-                    this.app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/playlists/${playlists.toString()}`).then(playlistsData => {
+                    this.app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/playlists/${playlists.toString()}`, {
+                        l: this.$root.mklang
+                    }).then(playlistsData => {
                         self.favorites.push(...playlistsData.data)
                     })
                 }
                 if (libraryPlaylists.length != 0) {
-                    this.app.mk.api.v3.music(`v1/me/library/playlists/${playlists.toString()}`).then(playlistsData => {
+                    this.app.mk.api.v3.music(`v1/me/library/playlists/${playlists.toString()}`, {
+                        l: this.$root.mklang
+                    }).then(playlistsData => {
                         self.favorites.push(...playlistsData.data)
                     })
                 }
@@ -156,13 +161,13 @@
             async getArtistFeed() {
                 let artists = this.followedArtists
                 let self = this
-                this.app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/artists?ids=${artists.toString()}&views=latest-release&include[songs]=albums&fields[albums]=artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialVideo,name,playParams,releaseDate,url,trackCount&limit[artists:top-songs]=2&art[url]=f`).then(artistData => {
+                this.app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/artists?ids=${artists.toString()}&views=latest-release&include[songs]=albums&fields[albums]=artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialVideo,name,playParams,releaseDate,url,trackCount&limit[artists:top-songs]=2&art[url]=f&l=${this.$root.mklang}`).then(artistData => {
                     artistData.data.data.forEach(item => {
-                        if (item.views["latest-release"].data.length != 0) {
-                            self.artistFeed.push(item.views["latest-release"].data[0])
-                        }
-                    })
-                    // sort artistFeed by attributes.releaseDate descending, date is formatted as "YYYY-MM-DD"
+                            if (item.views["latest-release"].data.length != 0) {
+                                self.artistFeed.push(item.views["latest-release"].data[0])
+                            }
+                        })
+                        // sort artistFeed by attributes.releaseDate descending, date is formatted as "YYYY-MM-DD"
                     this.artistFeed.sort((a, b) => {
                         let dateA = new Date(a.attributes.releaseDate)
                         let dateB = new Date(b.attributes.releaseDate)
@@ -177,7 +182,7 @@
             },
             async getListenNowData() {
                 let self = this
-                this.app.mk.api.v3.music(`/v1/me/recommendations?timezone=${encodeURIComponent(app.formatTimezoneOffset())}&name=listen-now&with=friendsMix,library,social&art[social-profiles:url]=c&art[url]=c,f&omit[resource]=autos&relate[editorial-items]=contents&extend=editorialCard,editorialVideo&extend[albums]=artistUrl&extend[library-albums]=artistUrl,editorialVideo&extend[playlists]=artistNames,editorialArtwork,editorialVideo&extend[library-playlists]=artistNames,editorialArtwork,editorialVideo&extend[social-profiles]=topGenreNames&include[albums]=artists&include[songs]=artists&include[music-videos]=artists&fields[albums]=artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialVideo,name,playParams,releaseDate,url&fields[artists]=name,url&extend[stations]=airDate,supportsAirTimeUpdates&meta[stations]=inflectionPoints&types=artists,albums,editorial-items,library-albums,library-playlists,music-movies,music-videos,playlists,stations,uploaded-audios,uploaded-videos,activities,apple-curators,curators,tv-shows,social-upsells&platform=web`).then((data) => {
+                this.app.mk.api.v3.music(`/v1/me/recommendations?timezone=${encodeURIComponent(app.formatTimezoneOffset())}&name=listen-now&with=friendsMix,library,social&art[social-profiles:url]=c&art[url]=c,f&omit[resource]=autos&relate[editorial-items]=contents&extend=editorialCard,editorialVideo&extend[albums]=artistUrl&extend[library-albums]=artistUrl,editorialVideo&extend[playlists]=artistNames,editorialArtwork,editorialVideo&extend[library-playlists]=artistNames,editorialArtwork,editorialVideo&extend[social-profiles]=topGenreNames&include[albums]=artists&include[songs]=artists&include[music-videos]=artists&fields[albums]=artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialVideo,name,playParams,releaseDate,url&fields[artists]=name,url&extend[stations]=airDate,supportsAirTimeUpdates&meta[stations]=inflectionPoints&types=artists,albums,editorial-items,library-albums,library-playlists,music-movies,music-videos,playlists,stations,uploaded-audios,uploaded-videos,activities,apple-curators,curators,tv-shows,social-upsells&platform=web&l=${this.$root.mklang}`).then((data) => {
                     console.log(data.data.data[1])
                     try {
                         self.madeForYou = data.data.data.filter(section => {
@@ -185,7 +190,7 @@
                                 return section
                             };
                         })[0].relationships.contents.data
-                    } catch (err) { }
+                    } catch (err) {}
                     self.sectionsReady.push("madeForYou")
 
                     try {
@@ -195,7 +200,7 @@
                                 return section
                             };
                         })[0].relationships.contents.data
-                    } catch (err) { }
+                    } catch (err) {}
                     self.sectionsReady.push("recentlyPlayed")
                     self.sectionsReady.push("friendsListeningTo")
                 });

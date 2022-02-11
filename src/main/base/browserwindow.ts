@@ -44,6 +44,7 @@ export class BrowserWindow {
                 "pages/search",
                 "pages/about",
                 "pages/library-videos",
+                "pages/remote-pair",
                 "components/mediaitem-artwork",
                 "components/artwork-material",
                 "components/menu-panel",
@@ -66,6 +67,7 @@ export class BrowserWindow {
                 "components/listennow-child",
                 "components/mediaitem-mvview-sp",
                 "components/animatedartwork-view",
+                "components/listitem-horizontal",
                 "components/lyrics-view",
                 "components/fullscreen",
                 "components/miniplayer",
@@ -525,7 +527,7 @@ export class BrowserWindow {
 
         ipcMain.on('play', (_event, type, id) => {
             BrowserWindow.win.webContents.executeJavaScript(`
-			    MusicKit.getInstance().setQueue({ ${type}: '${id}'}).then(function(queue) {
+			    MusicKit.getInstance().setQueue({ ${type}: '${id}', parameters : {l : app.mklang}}).then(function(queue) {
 				    MusicKit.getInstance().play();
 			    });
 		    `)
@@ -539,7 +541,7 @@ export class BrowserWindow {
 
         ipcMain.on('get-remote-pair-url', (_event, _) => {
             let url = `http://${BrowserWindow.getIP()}:${this.remotePort}`;
-            BrowserWindow.win.webContents.send('send-remote-pair-url', url);
+            BrowserWindow.win.webContents.send('send-remote-pair-url', (`https://cider.sh/pair-remote?url=${Buffer.from(encodeURI(url)).toString('base64')}`).toString());
         });
         if (process.platform === "darwin") {
             app.setUserActivity('com.CiderCollective.remote.pair', {

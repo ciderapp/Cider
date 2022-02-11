@@ -15,6 +15,7 @@ export default class LastFMPlugin {
     private _app: any;
     private _lastfm: any;
     private _store: any;
+    private _timer: any;
 
     private authenticateFromFile() {
         let sessionData = require(this.sessionPath)
@@ -77,27 +78,29 @@ export default class LastFMPlugin {
         }
     }
 
-    private async scrobbleSong(attributes: any) {
-        await new Promise(resolve => setTimeout(resolve, Math.round(attributes.durationInMillis * (this._store.lastfm.scrobble_after / 100))));
+    private scrobbleSong(attributes: any) {
+        if(this._timer) clearTimeout(this._timer);
+        var self = this;
+        this._timer = setTimeout(() => {
         const currentAttributes = attributes;
 
-        if (!this._lastfm || this._lastfm.cachedAttributes === attributes) {
+        if (!self._lastfm || self._lastfm.cachedAttributes === attributes) {
             return
         }
 
-        if (this._lastfm.cachedAttributes) {
-            if (this._lastfm.cachedAttributes.playParams.id === attributes.playParams.id) return;
+        if (self._lastfm.cachedAttributes) {
+            if (self._lastfm.cachedAttributes.playParams.id === attributes.playParams.id) return;
         }
 
         if (currentAttributes.status && currentAttributes === attributes) {
             if (fs.existsSync(this.sessionPath)) {
                 // Scrobble playing song.
                 if (attributes.status === true) {
-                    this._lastfm.track.scrobble({
+                    self._lastfm.track.scrobble({
                         'artist': this.filterArtistName(attributes.artistName),
                         'track': attributes.name,
                         'album': attributes.albumName,
-                        'albumArtist': this.filterArtistName(attributes.artistName),
+                        'albumArtist': self.filterArtistName(attributes.artistName),
                         'timestamp': new Date().getTime() / 1000
                     }, function (err: any, scrobbled: any) {
                         if (err) {
@@ -106,14 +109,14 @@ export default class LastFMPlugin {
 
                         console.log('[LastFM] Successfully scrobbled: ', scrobbled);
                     });
-                    this._lastfm.cachedAttributes = attributes
+                    self._lastfm.cachedAttributes = attributes
                 }
             } else {
-                this.authenticate();
+                self.authenticate();
             }
         } else {
-            return console.log('[LastFM] Did not add ', attributes.name, '—', this.filterArtistName(attributes.artistName), 'because now playing a other song.');
-        }
+            return console.log('[LastFM] Did not add ', attributes.name, '—', self.filterArtistName(attributes.artistName), 'because now playing a other song.');
+        }},Math.round(attributes.durationInMillis * (self._store.lastfm.scrobble_after / 100)));
     }
 
     private filterArtistName(artist: any) {
@@ -234,8 +237,8 @@ export default class LastFMPlugin {
      * @param attributes Music Attributes (attributes.status = current state)
      */
     onPlaybackStateDidChange(attributes: object): void {
-        this.scrobbleSong(attributes)
         this.updateNowPlayingSong(attributes)
+        this.scrobbleSong(attributes)
     }
 
     /**
@@ -245,9 +248,9 @@ export default class LastFMPlugin {
     onNowPlayingItemDidChange(attributes: object): void {
         if (!this._store.lastfm.filterLoop){
             this._lastfm.cachedNowPlayingAttributes = false;
-            this._lastfm.cachedAttributes = false}
-        this.scrobbleSong(attributes)
-        this.updateNowPlayingSong(attributes)
+            this._lastfm.cachedAttributes = false}    
+        this.updateNowPlayingSong(attributes)    
+        this.scrobbleSong(attributes)                
     }
 
 }

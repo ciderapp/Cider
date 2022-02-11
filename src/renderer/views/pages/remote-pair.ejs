@@ -4,8 +4,8 @@
     </div>
 </script>
 <script>
-    Vue.component('apple-account-settings', {
-        template: '#apple-account-settings',
+    Vue.component('remote-pair', {
+        template: '#remote-pair',
         async mounted() {
             ipcRenderer.send('get-remote-pair-url')
             ipcRenderer.on('send-remote-pair-url', (event, url) => {

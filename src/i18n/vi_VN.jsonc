@@ -1,0 +1,364 @@
+{ // Base File
+
+  // i18n Info
+  "i18n.languageName": "Tiếng Việt", // name of language in native language
+  "i18n.languageNameEnglish": "Vietnamese", // name of language in English
+  "i18n.category": "main", // main = real language, fun = fun community languages
+  "i18n.authors": "@vapormusic", // Authors, if you contribute to this file feel free to add your name seperated with a space
+  
+  // App info
+  "app.name": "Cider",
+  
+  "date.format": "${d} ${m}, ${y}",
+  
+  // Dialogs
+  "dialog.cancel": "Cancel",
+  "dialog.ok": "OK",
+  
+  // Notification
+  "notification.updatingLibrarySongs": "Cập nhật bài hát trong thư viện...",
+  "notification.updatingLibraryAlbums": "Cập nhật album trong thư viện...",
+  "notification.updatingLibraryArtists": "Cập nhật ca sĩ trong thư viện...",
+  
+  // Terms
+  "term.appleInc": "Apple Inc.",
+  "term.appleMusic": "Apple Music",
+  "term.applePodcasts": "Apple Podcasts",
+  "term.itunes": "iTunes",
+  "term.github": "GitHub",
+  "term.discord": "Discord",
+  "term.learnMore": "Tìm hiểu thêm",
+  "term.accountSettings": "Cài đặt tài khoản",
+  "term.logout": "Đăng xuất",
+  "term.login": "Đăng nhập",
+  "term.about": "Giới thiệu",
+  "term.privateSession": "Phiên dùng riêng tư",
+  "term.queue": "Hàng đợi",
+  "term.history": "Lịch sử",
+  "term.search": "Tìm kiếm",
+  "term.library": "Thư viện",
+  "term.listenNow": "Nghe ngay",
+  "term.browse": "Khám phá",
+  "term.radio": "Radio",
+  "term.recentlyAdded": "Vừa được thêm",
+  "term.songs": "Bài hát",
+  "term.albums": "Album",
+  "term.artists": "Nghệ sĩ",
+  "term.podcasts": "Podcast",
+  "term.playlists": "Playlist",
+  "term.playlist": "Playlist",
+  "term.newPlaylist": "Playlist mới",
+  "term.newPlaylistFolder": "Cụm playlist mới",
+  "term.createNewPlaylist": "Tạo playlist",
+  "term.createNewPlaylistFolder": "Tạo cụm playlist",
+  "term.deletePlaylist": "Bạn có muốn xoá playlist này?",
+  "term.play": "Phát",
+  "term.pause": "Dừng",
+  "term.previous": "Trước đó",
+  "term.next": "Tiếp theo",
+  "term.shuffle": "Xáo trộn",
+  "term.repeat": "Lặp",
+  "term.volume": "Âm lượng",
+  "term.mute": "Tắt tiếng",
+  "term.unmute": "Huỷ tắt tiếng",
+  "term.share": "Chia sẻ",
+  "term.share.success": "Đã lưu vào bộ nhớ tạm",
+  "term.settings": "Cài đặt",
+  "term.seeAll": "Xem tất cả",
+  "term.sortBy": "Xếp theo",
+  "term.sortBy.album": "Album",
+  "term.sortBy.artist": "Nghệ sĩ",
+  "term.sortBy.name": "Tên",
+  "term.sortBy.genre": "Dòng nhạc",
+  "term.sortBy.releaseDate": "Ngày phát hành",
+  "term.sortBy.duration": "Thời lượng",
+  "term.sortBy.dateAdded": "Ngày thêm vào",
+  "term.sortOrder": "A-Z",
+  "term.sortOrder.ascending": "Tăng dần",
+  "term.sortOrder.descending": "Giảm dần",
+  "term.viewAs": "Xem theo kiểu",
+  "term.viewAs.coverArt": "Ảnh bìa",
+  "term.viewAs.list": "Danh sách",
+  "term.size": "Cỡ",
+  "term.size.normal": "Vừa",
+  "term.size.compact": "Thu gọn",
+  "term.enable": "Bật",
+  "term.disable": "Tắt",
+  "term.enabled": "Đã bật",
+  "term.disabled": "Đã tắt",
+  "term.connect": "Kết nối",
+  "term.connecting": "Đang kết nối",
+  "term.disconnect": "Dừng kết nối",
+  "term.authed": "Đã đăng nhập",
+  "term.confirm": "Bạn có chăc không?",
+  "term.more": "Thêm",
+  "term.less": "Ít hơn",
+  "term.showMore": "Hiện thêm",
+  "term.showLess": "Hiện ít hơn",
+  "term.topSongs": "Các bài hát nổi bật",
+  "term.latestReleases": "Mới nhất",
+  "term.time.added": "Thêm vào ngày",
+  "term.time.released": "Phát hành vào ngày",
+  "term.time.updated": "Cập nhật vào ngày",
+  "term.time.hours": "giờ",
+  "term.time.hour": "giờ",
+  "term.time.minutes": "phút",
+  "term.time.minute": "phút",
+  "term.time.seconds": "giây",
+  "term.time.second": "giây",
+  "term.fullscreenView": "Xem toàn màn hình",
+  "term.defaultView": "Xem gốc",
+  "term.audioSettings": "Cài đặt âm thanh",
+  "term.clearAll": "Xoá tất cả",
+  "term.recentStations": "Các đài gần đây",
+  "term.language": "Ngôn ngữ",
+  "term.funLanguages": "Vui vẻ",
+  "term.noLyrics": "Đang tìm... / Không có lời bài hát.",
+  "term.copyright": "Bản quyền",
+  "term.rightsReserved": "Mọi quyền thuộc về các chủ sở hữu.",
+  "term.sponsor": "Tài trợ cho dự án này",
+  "term.ciderTeam": "Cider Team",
+  "term.developer": "Lập trình viên",
+  "term.socialTeam": "Social Team",
+  "term.socials": "PR",
+  "term.contributors": "Các đóng góp viên",
+  "term.equalizer": "EQ",
+  "term.reset": "Đặt về mặc định",
+  "term.tracks": "bài", // Assume x amount of tracks. e.g. 50 tracks 
+  "term.videos": "Video",
+  "term.menu": "Menu",
+  "term.check": "Kiểm tra",
+  "term.aboutArtist": "Về {{artistName}}", // e.g. 'About Doja Cat'
+  "term.topResult": "Kết quả gần nhất", // Search Results
+  "term.sharedPlaylists": "Playlist được chia sẻ", // Search Results
+  "term.people": "Người dùng", // Search Results
+  "term.newpreset.name": "Tạo thiét lập EQ", // Equalizer Preset
+  "term.addedpreset": "Các thiét lập EQ đã được thêm", // Equalizer Preset
+  "term.deletepreset.warn": "Bạn có muốn xoá thiết lập này?",
+  "term.deletedpreset": "Thiết lập đã bị xoá",
+  "term.requestError": "Có vấn đề khi thực hiện yêu cầu.",
+  "term.song.link.generate": "Tìm URL danh mục trên song.link ...",
+  "term.musicVideos": "Video ca nhạc", // Search page friendlyTypes
+  "term.stations": "Các đài",
+  "term.curators": "Nhà tuyển chọn",
+  "term.appleCurators": "Tuyển chọn từ Apple",
+  "term.radioShows": "Các chương trình radio",
+  "term.recordLabels": "Nhà phát hành âm nhạc",
+  "term.videoExtras": "Video khác",
+  "term.top": "Top",
+  
+  // Home
+  "home.title": "Chính",
+  "home.recentlyPlayed": "Mới phát",
+  "home.recentlyAdded": "Mới thêm vào",
+  "home.artistsFeed": "Theo dõi",
+  "home.artistsFeed.noArtist": "Theo dõi các nhạc sĩ mà bạn yêu thích và nhận thông báo khi có bài hát mới.",
+  "home.madeForYou": "Dành cho bạn",
+  "home.friendsListeningTo": "Bạn bè đang nghe",
+  "home.followedArtists": "Các nghệ sĩ đang theo dõi",
+  
+  // Errors
+  "error.appleMusicSubRequired": "Apple Music yêu cầu bạn đăng kí.",
+  "error.connectionError": "Có vấn đề kết nối tới Apple Music.",
+  "error.noResults": "Không có kết quả.",
+  "error.noResults.description": "Hãy thử tìm kiếm bẳng từ khoá khác.",
+  
+  // Podcasts
+  "podcast.followOnCider": "Theo dõi trên Cider",
+  "podcast.followedOnCider": "Đang theo dõi trên Cider",
+  "podcast.subscribeOnItunes": "Theo dõi trên iTunes",
+  "podcast.subscribedOnItunes": "Đang theo dõi trên iTunes",
+  "podcast.itunesStore": "Cửa hàng iTunes",
+  "podcast.episodes": "Các tập",
+  "podcast.playEpisode": "Phát",
+  "podcast.website": "Trang chủ",
+  
+  // Actions
+  "action.addToLibrary": "Thêm vào thư viện",
+  "action.addToLibrary.success": "Đã thêm vào thư viện",
+  "action.addToLibrary.error": "Có lỗi khi thêm vào thư viện",
+  "action.removeFromLibrary": "Xoá khỏi thư viện",
+  "action.removeFromLibrary.success": "Đã xoá khỏi thư viện",
+  "action.addToQueue": "Thêm vào hàng đợi",
+  "action.addToQueue.success": "Đã thêm vào hàng đợi",
+  "action.addToQueue.error": "Có lỗi khi thêm vào hàng đợi",
+  "action.removeFromQueue": "Xoá khỏi hàng đợi",
+  "action.removeFromQueue.success": "Đã xoá khỏi hàng đợi",
+  "action.removeFromQueue.error": "Có lỗi khi xoá khỏi hàng đợi",
+  "action.createPlaylist": "Tạo playlist",
+  "action.addToPlaylist": "Thêm vào playlist",
+  "action.removeFromPlaylist": "Xoá khỏi playlist",
+  "action.addToFavorites": "Thêm vào Yêu thích",
+  "action.follow": "Theo dõi",
+  "action.follow.success": "Đã theo dõi",
+  "action.follow.error": "Có lỗi khi theo dõi",
+  "action.unfollow": "Ngừng theo dõi",
+  "action.unfollow.success": "Đã ngừng theo dõi",
+  "action.unfollow.error": "Có lỗi khi ngừng theo dõi",
+  "action.playNext": "Phát tiếp theo",
+  "action.playLater": "Phát cuối cùng",
+  "action.startRadio": "Tạo đài phát",
+  "action.goToArtist": "Đi đến nghệ sĩ",
+  "action.goToAlbum": "Đi đến album",
+  "action.moveToTop": "Đưa lên đầu",
+  "action.share": "Chia sẻ",
+  "action.rename": "Đổi tên",
+  "action.love": "Yêu thích",
+  "action.unlove": "Bỏ yêu thích",
+  "action.dislike": "Không thích",
+  "action.undoDislike": "Bỏ không thích",
+  "action.showWebRemoteQR": "Điều khiển từ xa",
+  "action.playTracksNext": "Phát ${app.selectedMediaItems.length} bài tiếp theo",
+  "action.playTracksLater": "Phát ${app.selectedMediaItems.length} bài cuối cùng",
+  "action.removeTracks": "Bỏ ${self.selectedItems.length} bài khỏi hàng đợi",
+  "action.import": "Nhập",
+  "action.export": "Xuất",
+  "action.showAlbum": "Hiện album đầy đủ",
+  "action.tray.minimize": "Thu nhỏ xuống khay hệ thống",
+  "action.tray.quit": "Thoát",
+  "action.tray.show": "Hiện",
+  "action.update": "Cập nhật",
+  "action.copy": "Sao chép",
+  "action.newpreset": "Thiếp lập mới...", // Equalizer Preset
+  "action.deletepreset": "Xoá thiêt lập",
+  
+  // Settings - General
+  "settings.header.general": "Cài đặt chung",
+  "settings.header.general.description": "Thay đổi các cài đặt chung của Cider.",
+  "settings.option.general.language": "Ngôn ngữ",
+  
+  // Language optgroups
+  "settings.option.general.language.main": "Ngôn ngữ chính",
+  "settings.option.general.language.fun": "Ngôn ngữ hư cấu",
+  "settings.option.general.language.unsorted": "Ngôn ngữ khác",
+
+  // Update Cider
+  "settings.option.general.updateCider": "Cập nhật Cider", // Button. Refer to term.check for the check button
+  "settings.option.general.updateCider.branch": "Nhánh cập nhật", // Dropdown
+  "settings.option.general.updateCider.branch.description": "Chọn nhánh cập nhật của Cider:",
+  "settings.option.general.updateCider.branch.main": "Ổn định",
+  "settings.option.general.updateCider.branch.develop": "Thử nghiệm",
+  
+  // Settings - Audio
+  "settings.header.audio": "Âm thanh",
+  "settings.header.audio.description": "Thay đổi các cài đặt âm thanh của Cider.",
+  "settings.option.audio.quality": "Chất lượng âm thanh", // Dropdown
+  "settings.header.audio.quality.hireslossless": "Hi-Res Lossless",
+  "settings.header.audio.quality.hireslossless.description": "lên tới 24-bit/192 kHz",
+  "settings.header.audio.quality.lossless": "Lossless",
+  "settings.header.audio.quality.lossless.description": "lên tới 24-bit/48 kHz",
+  "settings.header.audio.quality.high": "Cao",
+  "settings.header.audio.quality.high.description": "256 kbps",
+  "settings.header.audio.quality.standard": "Tiêu chuẩn",
+  "settings.header.audio.quality.standard.description": "64 kbps",
+  "settings.option.audio.seamlessTransition": "Gapless playback", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality": "Kích hoạt chính năng nâng cao", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.description": "Bật các chức năng nâng cao sẽ kích hoạt các chức năng như EQ, Chuẩn hoá âm lượng hay Visualizer, tuy nhiên có thể sẽ ảnh hưởng tới chất lượng âm thanh",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider Adrenaline Processor™️", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Các tinh chỉnh về âm thanh giúp cho nhạc của bạn ấm và rõ hơn | Tạo bởi Maikiwi.",
+  "settings.warn.audio.enableAdvancedFunctionality.ciderPPE.compatibility": "CAP không tương thích với Âm thanh đa chiều. Hãy tắt Âm thanh đa chiều để kích hoạt.",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "CAP Strength", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Chỉnh mức độ ảnh hưởng của CAP đến âm thanh. (Chế độ Mạnh có thể ảnh hưởng đến âm thanh của bạn)",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "Tiêu chuẩn",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive": "Mạnh",
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Chuẩn hoá âm lượng", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Đặt cùng mức âm lượng cho mọi bài hát",
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Tạo Âm thanh đa chiều ", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Làm cho âm thanh trở nên nhiều chiều hơn (Ghi chú: Đây không phải là Dolby Atmos)",
+  "settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility": "Âm thanh đa chiều không tương thích với CAP. Hãy tắt CAP để kích hoạt.",
+  
+  // Settings - Visual
+  "settings.header.visual": "Hiển thị",
+  "settings.header.visual.description": "Thay đổi các cài đặt hiển thị của Cider.",
+  "settings.option.visual.windowBackgroundStyle": "Chế độ ảnh nền", // Toggle
+  "settings.header.visual.windowBackgroundStyle.none": "Không",
+  "settings.header.visual.windowBackgroundStyle.artwork": "Ảnh bìa",
+  "settings.header.visual.windowBackgroundStyle.image": "Ảnh",
+  "settings.option.visual.animatedArtwork": "Ảnh bìa động", // Dropdown
+  "settings.header.visual.animatedArtwork.always": "Luôn bật",
+  "settings.header.visual.animatedArtwork.limited": "Chỉ hiện ở mốt số trang cá nhân",
+  "settings.header.visual.animatedArtwork.disable": "Tắt",
+  "settings.option.visual.animatedArtworkQuality": "Chất lượng ảnh bìa động", // Dropdown
+  "settings.header.visual.animatedArtworkQuality.low": "Thấp",
+  "settings.header.visual.animatedArtworkQuality.medium": "Trung bình",
+  "settings.header.visual.animatedArtworkQuality.high": "Cao",
+  "settings.header.visual.animatedArtworkQuality.veryHigh": "Rất cao",
+  "settings.header.visual.animatedArtworkQuality.extreme": "Rất rất cao",
+  "settings.option.visual.animatedWindowBackground": "Hình nền chuyển động", // Toggle
+  "settings.option.visual.hardwareAcceleration": "Chế độ Hiển thị", // Dropdown
+  "settings.option.visual.hardwareAcceleration.description": "Yêu cầu restart lại Cider để kích hoạt",
+  "settings.header.visual.hardwareAcceleration.default": "Gốc",
+  "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
+  "settings.header.visual.theme": "Chủ đề",
+  
+  // Settings - Visual - Theme name
+  "settings.option.visual.theme.default": "Cider",
+  "settings.option.visual.theme.dark": "Tối hơn",
+  
+  // Refer to term.disabled for the disabled option
+  "settings.option.visual.showPersonalInfo": "Hiện thông tin cá nhân", // Toggle
+  
+  // Settings - Lyrics
+  "settings.header.lyrics": "Lời bài hát",
+  "settings.header.lyrics.description": "Thay đổi các cài đặt lời bài hát của Cider.",
+  "settings.option.lyrics.enableMusixmatch": "Dùng lời từ Musixmatch", // Toggle
+  "settings.option.lyrics.enableMusixmatchKaraoke": "Bật chế độ karaoke (chỉ trên lời từ Musixmatch)", // Toggle
+  "settings.option.lyrics.musixmatchPreferredLanguage": "Ngôn ngữ dịch của Musixmatch", // Dropdown
+  "settings.option.lyrics.enableYoutubeLyrics": "Dùng lời từ Youtube cho các Video ca nhạc", // Toggle
+  
+  // Settings - Connectivity
+  "settings.header.connectivity": "Kết nối",
+  "settings.header.connectivity.description": "Thay đổi các cài đặt lời kết nối của Cider.",
+  "settings.option.connectivity.discordRPC": "Discord Rich Presence", // Dropdown
+  "settings.option.connectivity.playbackNotifications": "Thông báo chuyển bài", // Toggle
+  // Refer to term.disabled for the disabled option
+  "settings.header.connectivity.discordRPC.cider": "Hiện là 'Cider'",
+  "settings.header.connectivity.discordRPC.appleMusic": "Hiện là 'Apple Music'",
+  "settings.option.connectivity.discordRPC.clearOnPause": "Xoá Discord Rich Presence khi dừng nhạc", // Toggle
+  "settings.option.connectivity.lastfmScrobble": "Last.fm Scrobbling", // Option to Connect
+  "settings.option.connectivity.lastfmScrobble.delay": "Last.fm Scrobble Delay (%)",
+  "settings.option.connectivity.lastfmScrobble.nowPlaying": "Bật Last.fm Now Playing",
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "Xoá các nghệ sĩ phối hợp ở tên bài hát (Last.fm)",
+  "settings.option.connectivity.lastfmScrobble.filterLoop": "Lọc các bài trùng (Last.fm)",
+  // Refer to term.connect for the connect button
+  
+  // Settings - Experimental
+  "settings.header.experimental": "Thử nghiệm",
+  "settings.header.experimental.description": "Thay đổi các cài đặt lời thử nghiệm của Cider.",
+  "settings.option.experimental.compactUI": "UI thu gọn", // Toggle
+  "settings.option.experimental.close_button_hide": "Nút thoát cửa số sẽ ẩn Cider xuống khay hệ thống",
+  "settings.option.experimental.copy_log": "Sao chép logs ra bộ nhớ tạm",
+  "settings.option.experimental.inline_playlists": "Playlists and Albums hiện nổi lên trên",
+  
+  // Refer to term.disabled & term.enabled
+  // Spatialization Menu
+  "spatial.notTurnedOn": "Âm thanh đa chiều chưa được kích hoạt. Hãy kích hoạt nó trước",
+  "spatial.spatialProperties": "Tinh chỉnh cho Âm thanh đa chiều",
+  "spatial.width": "Chiều rộng",
+  "spatial.height": "Chiều cao",
+  "spatial.depth": "Chiều sâu",
+  "spatial.gain": "Gain",
+  "spatial.roomMaterials": "Chất liệu phòng",
+  "spatial.roomDimensions": "Kích thước phòng",
+  "spatial.roomPositions": "Vị trí phòng",
+  "spatial.setDimensions": "Chỉnh kích thước",
+  "spatial.setPositions": "Chỉnh vị trí",
+  "spatial.up": "Trên",
+  "spatial.front": "Trước",
+  "spatial.left": "Trái",
+  "spatial.right": "Phải",
+  "spatial.back": "Sau",
+  "spatial.down": "Dưới",
+  "spatial.listener": "Người nghe",
+  "spatial.audioSource": "Nguồn âm thanh",
+
+  // Settings - Unfinished
+  "settings.header.unfinished": "Chưa hoàn thiện",
+
+  // Web Remote
+  "remote.web.title": "Điều khiển từ xa của Cider",
+  "remote.web.description": "Quét mã QR để kết nối thiết bị của bạn với Cider",
+
+  // About
+  "about.thanks": "Trân trọng cảm ơn Cider Collective Team và tất cả các đóng góp viên của chúng tôi."
+}
