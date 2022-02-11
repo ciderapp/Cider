@@ -34,8 +34,18 @@ jobs:
             sudo dpkg --add-architecture i386
             sudo apt-get update -y
             sudo apt-get install -y wine32
+      - run:
+          name: Start X VNC Server
+          command: x11vnc -forever -nopw -create
+          background: true
+            #- run:
+            #name: Base Functionality Testing
+            #command: yarn test
       - store_test_results:
           path: test-results
+      - run:
+          name: Append Commit BuildID to Version
+          command: yarn circle:append-bid
       - run:
           name: Generate Builds (Linux)
           command: yarn dist -l -p never
