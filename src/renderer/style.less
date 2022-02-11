@@ -2746,22 +2746,25 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   padding: var(--contentInnerPadding);
   box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
   margin-top: 16px;
-  display: flex;
-  flex-flow: wrap;
-  justify-content: center;
 
-  > .cd-mediaitem-square {
-    width: 220px;
-    height: 260px;
-    display: inline-flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    font-size: 14px;
+
+  &.itemContainer {
+    display: flex;
+    flex-flow: wrap;
     justify-content: center;
-    align-items: center;
-    border-radius: 6px;
-    max-width: 240px;
-    flex-grow: 1;
+    .cd-mediaitem-square {
+      width: 220px;
+      height: 260px;
+      display: inline-flex;
+      flex: 0 0 auto;
+      flex-direction: column;
+      font-size: 14px;
+      justify-content: center;
+      align-items: center;
+      border-radius: 6px;
+      max-width: 240px;
+      flex-grow: 1;
+    }
   }
 }
 

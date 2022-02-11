@@ -53,9 +53,8 @@
                 <div class="col">
                     <h3>{{app.getLz('home.madeForYou')}}</h3>
                     <div class="well">
-                        <vue-horizontal v-if="isSectionReady('madeForYou')">
-                            <mediaitem-square kind="small" v-for="item in madeForYou" :item="item"></mediaitem-square>
-                        </vue-horizontal>
+                        <mediaitem-scroller-horizontal :items="madeForYou" v-if="isSectionReady('madeForYou')">
+                        </mediaitem-scroller-horizontal>
                         <div class="spinner" v-else></div>
                     </div>
                 </div>
@@ -71,9 +70,8 @@
                         </div>
                     </div>
                     <div class="well">
-                        <vue-horizontal v-if="isSectionReady('friendsListeningTo')">
-                            <mediaitem-square kind="small" v-for="item in friendsListeningTo" :item="item"></mediaitem-square>
-                        </vue-horizontal>
+                        <mediaitem-scroller-horizontal :items="friendsListeningTo" v-if="isSectionReady('friendsListeningTo')">
+                        </mediaitem-scroller-horizontal>
                         <div class="spinner" v-else></div>
                     </div>
                 </div>
