@@ -1244,9 +1244,9 @@ const app = new Vue({
             if (route.indexOf("/") == -1) {
                 this.page = route
                 window.location.hash = this.page
-                if (this.page == "settings") {
-                    this.getVersion()
-                }
+                // if (this.page == "settings") {
+                //     this.version
+                // }
                 return
             }
             let hash = route.split("/")
