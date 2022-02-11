@@ -734,7 +734,7 @@ const app = new Vue({
                         } catch (e) {
                         }
                         if (!previewURL) {
-                            app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/songs/${app.mk.nowPlayingItem._songId ?? app.mk.nowPlayingItem.relationships.catalog.data[0].id}`).then((response) => {
+                            app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/songs/${app.mk.nowPlayingItem?._songId ?? (app.mk.nowPlayingItem["songId"] ??  app.mk.nowPlayingItem.relationships.catalog.data[0].id)}`).then((response) => {
                                 previewURL = response.data.data[0].attributes.previews[0].url
                                 if (previewURL)
                                     ipcRenderer.send('getPreviewURL', previewURL)
@@ -2298,12 +2298,12 @@ const app = new Vue({
             }
         },
         loadAMLyrics() {
-            const songID = (this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem["_songId"] ?? -1 : -1;
+            const songID = (this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem["_songId"] ?? (this.mk.nowPlayingItem["songId"] ?? -1) : -1;
             // this.getMXM( trackName, artistName, 'en', duration);
             if (songID != -1) {
-                MusicKit.getInstance().api.lyric(songID)
+                this.mk.api.v3.music(`v1/catalog/${this.mk.storefrontId}/songs/${songID}/lyrics`)
                     .then((response) => {
-                        this.lyricsMediaItem = response.attributes["ttml"]
+                        this.lyricsMediaItem = response.data?.data[0]?.attributes["ttml"]
                         this.parseTTML()
                     })
             }
@@ -2329,7 +2329,7 @@ const app = new Vue({
         },
         
         async losslessBadge() {
-            const songID = (this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem["_songId"] ?? -1 : -1;
+            const songID = (this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem["_songId"] ?? (this.mk.nowPlayingItem["songId"] ?? -1) : -1;
             if (app.cfg.advanced.ciderPPE && songID != -1) {
                 /**let extendedAssets = await app.mk.api.song(songID, {extend : 'extendedAssetUrls'})
                  if (extendedAssets.attributes.audioTraits.includes('lossless')) {*/
@@ -2414,7 +2414,7 @@ const app = new Vue({
             const track = encodeURIComponent((this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.title ?? '' : '');
             const artist = encodeURIComponent((this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.artistName ?? '' : '');
             const time = encodeURIComponent((this.mk.nowPlayingItem != null) ? (Math.round((this.mk.nowPlayingItem.attributes["durationInMillis"] ?? -1000) / 1000) ?? -1) : -1);
-            const id = encodeURIComponent((this.mk.nowPlayingItem != null) ? app.mk.nowPlayingItem._songId ?? '' : '');
+            const id = encodeURIComponent((this.mk.nowPlayingItem != null) ? app.mk.nowPlayingItem._songId ?? (app.mk.nowPlayingItem["songId"] ?? '') : '');
             let lrcfile = "";
             let richsync = [];
             const lang = app.cfg.lyrics.mxm_language //  translation language
@@ -3413,7 +3413,7 @@ const app = new Vue({
                             "icon": "./assets/feather/share.svg",
                             "name": app.getLz('action.share'),
                             "action": function () {
-                                app.mkapi(app.mk.nowPlayingItem.attributes?.playParams?.kind ?? app.mk.nowPlayingItem.type ?? 'songs', false, app.mk.nowPlayingItem._songId ?? app.mk.nowPlayingItem.id ?? '').then(u => {
+                                app.mkapi(app.mk.nowPlayingItem.attributes?.playParams?.kind ?? app.mk.nowPlayingItem.type ?? 'songs', false, app.mk.nowPlayingItem._songId ?? (app.mk.nowPlayingItem.songId ?? app.mk.nowPlayingItem.id) ?? '').then(u => {
                                     app.copyToClipboard((u.data.data.length && u.data.data.length > 0) ? u.data.data[0].attributes.url : u.data.data.attributes.url)
                                 })
                             }
@@ -3422,7 +3422,7 @@ const app = new Vue({
                             "icon": "./assets/feather/share.svg",
                             "name": `${app.getLz('action.share')} (song.link)`,
                             "action": function () {
-                                app.mkapi(app.mk.nowPlayingItem.attributes?.playParams?.kind ?? app.mk.nowPlayingItem.type ?? 'songs', false, app.mk.nowPlayingItem._songId ?? app.mk.nowPlayingItem.id ?? '').then(u => {
+                                app.mkapi(app.mk.nowPlayingItem.attributes?.playParams?.kind ?? app.mk.nowPlayingItem.type ?? 'songs', false, app.mk.nowPlayingItem._songId ?? (app.mk.nowPlayingItem.songId ?? app.mk.nowPlayingItem.id) ?? '').then(u => {
                                     app.songLinkShare((u.data.data.length && u.data.data.length > 0) ? u.data.data[0].attributes.url : u.data.data.attributes.url)
                                 })
                             }
