@@ -57,7 +57,4 @@ jobs:
               mv ~/Cider/dist/*.yml ~/Cider/dist/artifacts
       - store_artifacts:
           path: ~/Cider/dist/artifacts
-          post-steps:
-            - jira/notify
-
           
