@@ -54,6 +54,7 @@ const app = new Vue({
     el: "#app",
     store: store,
     data: {
+        version: ipcRenderer.sendSync("get-version"),
         appMode: "player",
         ipcRenderer: ipcRenderer,
         cfg: ipcRenderer.sendSync("getStore"),
@@ -3652,12 +3653,6 @@ const app = new Vue({
                 if (sellang.startsWith("en") && this.mk.storefrontId != "en-us") sellang = "en-gb"
                 return await sellang
             }          
-        },
-        getVersion() {
-            ipcRenderer.send('get-version')
-            ipcRenderer.on('version', (event, version) => {
-                document.getElementById('version').innerHTML = `Version ${version}`
-            })
         }
     }
 })

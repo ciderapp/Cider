@@ -602,8 +602,7 @@ export class BrowserWindow {
         })
 
         ipcMain.on('get-version', (_event) => {
-            app.getVersion()
-            BrowserWindow.win.webContents.send('version', app.getVersion());
+            _event.returnValue = app.getVersion()
         });
 
         /* *********************************************************************************************
