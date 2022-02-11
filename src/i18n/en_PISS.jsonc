@@ -1,5 +1,5 @@
-{
-  
+{ // en_PISS Note: This language uses the ellipsis symbol (…) instead of 3 dots.
+
   // i18n Info
   "i18n.languageName": "piss", // name of language in native language
   "i18n.languageNameEnglish": "English (piss)", // name of language in English
@@ -70,8 +70,9 @@
   "term.sortBy.artist": "pissers",
   "term.sortBy.name": "piss name",
   "term.sortBy.genre": "way to piss",
-  "term.sortBy.releaseDate": "pissed date",
+  "term.sortBy.releaseDate": "repissed date",
   "term.sortBy.duration": "piss duration",
+  "term.sortBy.dateAdded": "obtained date",
   "term.sortOrder": "piss-PISS",
   "term.sortOrder.ascending": "pissing upwards",
   "term.sortOrder.descending": "pissing downwards",
@@ -95,10 +96,10 @@
   "term.showMore": "more piss",
   "term.showLess": "less piss",
   "term.topSongs": "top piss",
-  "term.latestReleases": "latest piss collection",
-  "term.time.added": "pissed",
-  "term.time.released": "pissed",
-  "term.time.updated": "pissed",
+  "term.latestReleases": "latest piss",
+  "term.time.added": "obtained",
+  "term.time.released": "repissed",
+  "term.time.updated": "pissdated",
   "term.time.hours": "hours",
   "term.time.hour": "hour",
   "term.time.minutes": "minutes",
@@ -132,11 +133,13 @@
   "term.sharedPlaylists": "shared pisslists", // Search Results
   "term.people": "pissers", // Search Results
   "term.newpreset.name": "new advanced piss prepiss name", // Equalizer Preset
-  "term.addedpreset": "pissed prepiss",
-  "term.deletepreset.warn": "are you sure you want to unpiss this prepiss?",
-  "term.deletedpreset": "unpissed prepiss",
-  "term.musicVideos": "piss music videos", // Search page friendlyTypes
-  "term.stations": "pisses",
+  "term.addedpreset": "obtained prepiss",
+  "term.deletepreset.warn": "are you sure you want to obliterate this prepiss?",
+  "term.deletedpreset": "obliterated prepiss",
+  "term.requestError": "the request got pissed on",
+  "term.song.link.generate": "pissing on piss.link…",
+  "term.musicVideos": "piss videos", // Search page friendlyTypes
+  "term.stations": "piss stations",
   "term.curators": "pissators",
   "term.appleCurators": "piss pissators",
   "term.radioShows": "shows that piss everywhere",
@@ -216,8 +219,8 @@
   "action.tray.show": "piss back",
   "action.update": "piss!",
   "action.copy": "copiss",
-  "action.newpreset": "new prepiss...", // Equalizer Preset
-  "action.deletepreset": "unpiss prepiss",
+  "action.newpreset": "new prepiss…", // Equalizer Preset
+  "action.deletepreset": "obliterate prepiss",
 
   // Settings - General
   "settings.header.general": "general",
@@ -230,25 +233,35 @@
   "settings.option.general.language.unsorted": "???? who put this here",
 
   // Update Cider 
-  "settings.option.general.updateCider": "piss on cider", // Button
+  "settings.option.general.updateCider": "piss on cider", // Button. Refer to term.check for the check button
+  "settings.option.general.updateCider.branch": "where to piss on cider", // Dropdown
+  "settings.option.general.updateCider.branch.description": "there are two toilets, where do you want to piss?",
+  "settings.option.general.updateCider.branch.main": "smooth pissing experience",
+  "settings.option.general.updateCider.branch.develop": "cutting-edge piss development",
 
   // Settings - Audio
   "settings.header.audio": "piss sounds",
   "settings.header.audio.description": "change how your piss sounds",
   "settings.option.audio.quality": "piss quality", // Dropdown
   "settings.header.audio.quality.hireslossless": "ungodly piss",
-  "settings.header.audio.quality.hireslossless.description": "(up to 24-pisses/192 piss hertz)",
+  "settings.header.audio.quality.hireslossless.description": "up to 24-piss/192 pissHz",
   "settings.header.audio.quality.lossless": "colorful piss",
-  "settings.header.audio.quality.lossless.description": "(up to 24-pisses/48 piss hertz)",
-  "settings.header.audio.quality.enhanced": "enhanced piss",
+  "settings.header.audio.quality.lossless.description": "up to 24-piss/48 pissHz",
+  "settings.header.audio.quality.enhanced": "business class piss",
   "settings.header.audio.quality.high": "nice piss",
-  "settings.header.audio.quality.low": "piss with blood",
-  "settings.header.audio.quality.auto": "automatic piss",
+  "settings.header.audio.quality.high.description": "256 kpiss",
+  "settings.header.audio.quality.standard": "piss with blood",
+  "settings.header.audio.quality.standard.description": "64 kpiss",
   "settings.option.audio.seamlessTransition": "seamless piss-to-piss transition", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "cool piss tricks", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.description": "enabling the AudioContext thingy allows you to do cool stuffs, however on some systems your song may stutter",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "clear piss™️", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "makes your bladder go overboard and makes your piss crisp and clear.",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider Audio Pissifier™️", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "makes your bladder go overboard and makes your piss crisp and clear",
+  "settings.warn.audio.enableAdvancedFunctionality.ciderPPE.compatibility": "pissifier dont go well with 3d piss. turn it off and try again.",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "pissifier strength", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "tune your bladder (blood may appear with turbo strength)",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "normal piss",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive": "turbo piss",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "piss normaliztion", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "protect your eardrums from overly loud/slient pisses",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "3D piss", // Toggle
@@ -279,7 +292,7 @@
   "settings.header.visual.theme": "colored piss",
 
   // Settings - Visual - Theme name
-  "settings.option.visual.theme.default": "regular piss",
+  "settings.option.visual.theme.default": "same old piss",
   "settings.option.visual.theme.dark": "black piss",
   
   // Refer to term.disabled for the disabled option
@@ -305,7 +318,7 @@
   "settings.option.connectivity.lastfmScrobble": "Piss.fm scrobbling", // Option to Connect
   "settings.option.connectivity.lastfmScrobble.delay": "Piss.fm scrobble delay (%)",
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "push now playing data to Piss.fm",
-  "settings.option.connectivity.lastfmScrobble.removeFeatured": "remove featured pissers from piss names (Piss.fm)",
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "dump featured pissers from piss names (Piss.fm)",
   "settings.option.connectivity.lastfmScrobble.filterLoop": "filter same piss (Piss.fm)",
   // Refer to term.connect for the connect button
   
@@ -344,7 +357,7 @@
 
   // Web Remote
   "remote.web.title": "piss remote",
-  "remote.web.description": "piss on your phone camera to connect to Cider.",
+  "remote.web.description": "piss on your phone camera to pair with Cider.",
 
   // About
   "about.thanks": "thanks to the Cider Collective team and all the pisseneers putting this together"

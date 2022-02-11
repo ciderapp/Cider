@@ -16,16 +16,19 @@
         <template v-if="isVisible">
             <div class="isLibrary" v-if="showLibraryStatus == true">
                 <div v-if="showInLibrary" :style="{display: (showInLibrary ? 'block' : 'none'), 'margin-left':'11px'}">
-                    <button @click="addToLibrary()" v-if="!addedToLibrary">
+                    <button @click="addToLibrary()" v-if="!addedToLibrary && (showIndex == false ||(showIndex == true && showIndexPlaylist != false))">
                         <div class="svg-icon" :style="{'--color': 'var(--keyColor)', '--url': 'url(./assets/feather/plus.svg)'}"></div>
                     </button>
+                    <button v-else-if='!(showArtwork == true && (showIndex == false ||(showIndex == true && showIndexPlaylist != false)))' @click="playTrack()" style="width: 44px;margin-left: -11px;">
+                        <%- include("../svg/play.svg") %>
+                    </button>
                 </div>
-                <div v-if="!(app.mk.isPlaying && (((app.mk.nowPlayingItem._songId ?? app.mk.nowPlayingItem.id )  == item.attributes.playParams.id) || (app.mk.nowPlayingItem.id  == item.id ))) && showIndex" :style="{display: ((showIndex && !showInLibrary) ? 'block' : 'none'), 'margin-left':'11px'}">
+                <div v-if="!(app.mk.isPlaying && (((app.mk.nowPlayingItem._songId ?? (app.mk.nowPlayingItem.songId ?? app.mk.nowPlayingItem.id ))  == item.attributes.playParams.id) || (app.mk.nowPlayingItem.id  == item.id ))) && showIndex" :style="{display: ((showIndex && !showInLibrary) ? 'block' : 'none'), 'margin-left':'11px'}">
                     <div>
                         <div>{{ (item.attributes && !showIndexPlaylist) ? (item.attributes.trackNumber ?? '') : ((index * 1 + 1 ) ?? '')}}</div>
                     </div>
                 </div>
-                <div v-if="app.mk.isPlaying && (((app.mk.nowPlayingItem._songId ?? app.mk.nowPlayingItem.id )  == item.attributes.playParams.id) || (app.mk.nowPlayingItem.id == item.id))" :style="{display: (showInLibrary ? 'none' : 'block')}">
+                <div v-if="app.mk.isPlaying && (((app.mk.nowPlayingItem._songId ?? (app.mk.nowPlayingItem.songId ?? app.mk.nowPlayingItem.id ))  == item.attributes.playParams.id) || (app.mk.nowPlayingItem.id == item.id))" :style="{display: (showInLibrary ? 'none' : 'block')}">
                     <div class="loadbar-sound"></div>
                 </div>
             </div>
@@ -528,7 +531,7 @@
                                 array[j] = temp;
                             }
                         }
-                        app.mk.setQueue({ [truekind]: [item.attributes.playParams.id ?? item.id] }).then(function () {
+                        app.mk.setQueue({ [truekind]: [item.attributes.playParams.id ?? item.id] , parameters : {l : this.app.mklang} }).then(function () {
                             app.mk.play().then(function () {
                                 var playlistId = id
                                 function getPlaylist(id, isLibrary) {

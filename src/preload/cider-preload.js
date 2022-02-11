@@ -22,7 +22,8 @@ const MusicKitInterop = {
 		});
 		/** wsapi */
 
-		MusicKit.getInstance().addEventListener(MusicKit.Events.nowPlayingItemDidChange, () => {
+		MusicKit.getInstance().addEventListener(MusicKit.Events.nowPlayingItemDidChange, async () => {
+			await MusicKitInterop.modifyNamesOnLocale();
 			if (MusicKitInterop.filterTrack(MusicKitInterop.getAttributes(), false, true) || !app.cfg.lastfm.filterLoop) {
 				global.ipcRenderer.send('nowPlayingItemDidChange', MusicKitInterop.getAttributes());
 			}
@@ -36,7 +37,28 @@ const MusicKitInterop = {
 			console.warn(`[mediaPlaybackError] ${e}`);
 		})
 	},
+	async modifyNamesOnLocale() {
+		if (app.mklang == '' || app.mklang == null) {
+			return;
+		} 
+		const mk = MusicKit.getInstance()
+		const nowPlayingItem = mk.nowPlayingItem;
+		if ((nowPlayingItem?._songId ?? nowPlayingItem?.songId) == null){
+			return;
+		} 
+		const id = nowPlayingItem?._songId ?? (nowPlayingItem?.songId ?? nowPlayingItem?.id)
+		if (id != null) {
+			try{
+			const query = await mk.api.v3.music(`/v1${((nowPlayingItem?._songId ?? nowPlayingItem?.songId) != null) ? `/catalog/${mk.storefrontId}/` : `/me/library/`}songs/${id}?l=${app.mklang}`);
+			if (query?.data?.data[0]){
+					let attrs = query?.data?.data[0]?.attributes;
+					if (attrs?.name) { nowPlayingItem.attributes.name = attrs?.name ?? ''}
+					if (attrs?.albumName) { nowPlayingItem.attributes.albumName = attrs?.albumName ?? ''}
+					if (attrs?.artistName) { nowPlayingItem.attributes.artistName = attrs?.artistName ?? ''}
 
+			}} catch (e) { return;}
+		} else {return;}
+	},
 	getAttributes: function () {
 		const mk = MusicKit.getInstance()
 		const nowPlayingItem = mk.nowPlayingItem;
@@ -51,8 +73,8 @@ const MusicKitInterop = {
 		attributes.playParams = attributes?.playParams ?? {id: 'no-id-found'};
 		attributes.playParams.id = attributes?.playParams?.id ?? 'no-id-found';
 		attributes.url = {
-			cider: `cider://play/s/${nowPlayingItem?._songId ?? 'no-id-found'}`,
-			appleMusic: attributes.websiteUrl ? attributes.websiteUrl : `https://music.apple.com/${mk.storefrontId}/song/${nowPlayingItem?._songId ?? 'no-id-found'}`  
+			cider: `cider://play/s/${nowPlayingItem?._songId ?? (nowPlayingItem?.songId ??'no-id-found')}`,
+			appleMusic: attributes.websiteUrl ? attributes.websiteUrl : `https://music.apple.com/${mk.storefrontId}/song/${nowPlayingItem?._songId ?? (nowPlayingItem?.songId ??'no-id-found')}`  
 		}
 		if (attributes.playParams.id === 'no-id-found') {
 			attributes.playParams.id = nowPlayingItem?.id ?? 'no-id-found';
@@ -69,7 +91,7 @@ const MusicKitInterop = {
 			attributes?.playParams?.id === cache.playParams.id
 				? Date.now() + attributes?.remainingTime
 				: attributes?.startTime + attributes?.durationInMillis
-		);
+		);	
 		return attributes;
 	},
 

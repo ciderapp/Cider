@@ -93,12 +93,8 @@
                     </div>
                 </button>
                 <button class="usermenu-item" @click="appRoute('remote-pair')">
-                    <div class="row nopadding">
-                        <div class="col nopadding">
                             <span class="usermenu-item-icon"><%- include("../svg/smartphone.svg") %></span>
                             <span class="usermenu-item-name">{{$root.getLz('action.showWebRemoteQR')}}</span>
-                        </div>
-                    </div>
                 </button>
                 <button class="usermenu-item" v-if="cfg.advanced.AudioContext"
                         @click="modals.audioSettings = true">

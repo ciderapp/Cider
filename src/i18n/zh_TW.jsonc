@@ -4,7 +4,7 @@
   "i18n.languageName": "繁體中文（台灣）", // name of language in native language
   "i18n.languageNameEnglish": "Trad. Chinese (Taiwan)", // name of language in English
   "i18n.category": "main", // main = real language, fun = fun community languages
-  "i18n.authors": "@maikirakiwi @jay900604 @kyw504100", // Authors, if you contribute to this file feel free to add your name seperated with a space
+  "i18n.authors": "@maikirakiwi @jay900604 @kyw504100 @BillKerman", // Authors, if you contribute to this file feel free to add your name seperated with a space
 
   // App info
   "app.name": "Cider",
@@ -45,6 +45,11 @@
   "term.podcasts": "Podcasts",
   "term.playlists": "播放列表",
   "term.playlist": "播放列表",
+  "term.newPlaylist": "新播放列表",
+  "term.newPlaylistFolder": "新播放列表資料夾",
+  "term.createNewPlaylist": "新增播放列表",
+  "term.createNewPlaylistFolder": "新增播放列表資料夾",
+  "term.deletePlaylist": "您確定要刪除此播放列表嗎？",
   "term.play": "播放",
   "term.pause": "暫停",
   "term.previous": "上一首",
@@ -55,7 +60,7 @@
   "term.mute": "靜音",
   "term.unmute": "取消靜音",
   "term.share": "分享",
-  "term.share.success": "已複製至剪貼簿",
+  "term.share.success": "已複製到剪貼簿",
   "term.settings": "設定",
   "term.seeAll": "顯示全部",
   "term.sortBy": "排序",
@@ -105,7 +110,7 @@
   "term.clearAll": "清空",
   "term.recentStations": "最近收聽的廣播",
   "term.language": "語言",
-  "term.noLyrics": "正在載入。。/ 無歌詞結果 / 純音樂",
+  "term.noLyrics": "正在載入... / 無歌詞結果 / 純音樂",
   "term.copyright": "版權聲明",
   "term.rightsReserved": "保留所有權利。",
   "term.sponsor": "贊助我們",
@@ -283,13 +288,14 @@
   "settings.option.connectivity.discordRPC": "Discord 動態", // Dropdown
   "settings.option.connectivity.playbackNotifications": "歌曲播放通知", // Toggle
   // Refer to term.disabled for the disabled option
-  "settings.header.connectivity.discordRPC.cider": "顯示正在玩 'Cider'",
-  "settings.header.connectivity.discordRPC.appleMusic": "顯示正在玩 'Apple Music'",
+  "settings.header.connectivity.discordRPC.cider": "顯示正在使用 'Cider'",
+  "settings.header.connectivity.discordRPC.appleMusic": "顯示正在使用 'Apple Music'",
   "settings.option.connectivity.discordRPC.clearOnPause": "暫停時清除 Discord 動態", // Toggle
   "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling 記錄", // Option to Connect
   "settings.option.connectivity.lastfmScrobble.delay": "LastFM Scrobble 延遲 (%)",
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "啟用 LastFM 目前聆聽", // Toggle
-  "settings.option.connectivity.lastfmScrobble.removeFeatured": "從歌名中移除藝人推薦 (LastFM)",
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "從歌名中移除客串藝人 (LastFM)", 
+  "settings.option.connectivity.lastfmScrobble.filterLoop": "不記錄單曲循環 (LastFM)", 
   // Refer to term.connect for the connect button
   
   // Settings - Experimental

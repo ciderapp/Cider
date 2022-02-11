@@ -218,9 +218,9 @@
   "settings.option.audio.seamlessTransition": "曲間なしで再生", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "先進的な機能", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.description": "AudioContext 機能を有効にすると、オーディオノーマライズ、空間オーディオ、イコライザーなどの機能を使用できますが、音が途切れるかもしれません。", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider AEP™️", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider Adrenaline Processor™️", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "圧縮音源を高解像度に処理することによって、ロスレス相当の音質に向上させます。", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "AEPの強さ", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "CAPの強さ", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Changes the strength of the processing done to the audio. (Aggressive may yield undesirable results)",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "標準",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive": "高",

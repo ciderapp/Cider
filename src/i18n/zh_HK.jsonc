@@ -4,7 +4,7 @@
   "i18n.languageName": "繁體中文（香港）", // name of language in native language
   "i18n.languageNameEnglish": "Trad. Chinese (Hong Kong)", // name of language in English
   "i18n.category": "main", // main = real language, fun = fun community languages
-  "i18n.authors": "@kyw504100 @maikirakiwi", // Authors, if you contribute to this file feel free to add your name seperated with a space
+  "i18n.authors": "@kyw504100 @maikirakiwi @BillKerman", // Authors, if you contribute to this file feel free to add your name seperated with a space
 
   // App info
   "app.name": "Cider",
@@ -48,9 +48,9 @@
   "term.playlists": "播放列表",
   "term.playlist": "播放列表",
   "term.newPlaylist": "新播放列表",
-  "term.newPlaylistFolder": "新資料夾",
+  "term.newPlaylistFolder": "新播放列表資料夾",
   "term.createNewPlaylist": "新增播放列表",
-  "term.createNewPlaylistFolder": "新增資料夾",
+  "term.createNewPlaylistFolder": "新增播放列表資料夾",
   "term.deletePlaylist": "你確認要刪除這個播放列表？",
   "term.play": "播放",
   "term.pause": "暫停",
@@ -317,8 +317,8 @@
   "settings.option.connectivity.lastfmScrobble": "Last.fm Scrobbling 記錄", // Option to Connect
   "settings.option.connectivity.lastfmScrobble.delay": "Last.fm Scrobble 延遲 (%)",
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "啟用 Last.fm 正在播放",
-  "settings.option.connectivity.lastfmScrobble.removeFeatured": "從歌名中移除藝人推薦 (Last.fm)",
-    //"settings.option.connectivity.lastfmScrobble.filterLoop": "Filter looped track (Last.fm)", 
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "從歌名中移除客串藝人 (LastFM)", 
+  "settings.option.connectivity.lastfmScrobble.filterLoop": "不記錄單曲循環 (LastFM)", 
   // Refer to term.connect for the connect button
 
   // Settings - Experimental

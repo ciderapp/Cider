@@ -1,0 +1,43 @@
+<script type="text/x-template" id="listitem-horizontal">
+     <div class="listitem-horizontal">
+    <vue-horizontal>
+        <div v-for="items in itemPages">
+            <mediaitem-list-item
+                v-for="(song, index) in items"
+                :index="song.index"
+                :item="song"></mediaitem-list-item>
+        </div>
+    </vue-horizontal>
+</div>
+</script>
+
+<script>
+    Vue.component('listitem-horizontal', {
+        template: '#listitem-horizontal',
+        name: "listitem-horizontal",
+        props: {
+            items: {
+                type: Array,
+                required: true
+            }
+        },
+        data: function () {
+            return {
+                itemPages: []
+            }
+        },
+        mounted() {
+            // give every item an id    
+            this.items.forEach(function (item, index) {
+                item.id = index;
+            });
+            // split items into pages
+            this.itemPages = app.arrayToChunk(this.items, 4);
+        },
+        methods: {
+            sayHello: function () {
+                alert('Hello world!');
+            }
+        }
+    });
+</script>

@@ -534,7 +534,7 @@
 
                 let query = (this.data ?? app.showingPlaylist).relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
                 app.mk.stop().then(function () {
-                    app.mk.setQueue({[truekind]: [id]}).then(function () {
+                    app.mk.setQueue({[truekind]: [id] , parameters : {l : app.mklang}}).then(function () {
                         app.mk.play().then(function () {
                             if (query.length > 100) {
                                 let u = query.slice(100);

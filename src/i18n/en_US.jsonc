@@ -72,6 +72,7 @@
   "term.sortBy.genre": "Genre",
   "term.sortBy.releaseDate": "Release Date",
   "term.sortBy.duration": "Duration",
+  "term.sortBy.dateAdded": "Date Added",
   "term.sortOrder": "A-Z",
   "term.sortOrder.ascending": "Ascending",
   "term.sortOrder.descending": "Descending",

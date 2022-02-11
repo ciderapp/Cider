@@ -1,12 +1,12 @@
 <script type="text/x-template" id="cider-collection-list">
     <div class="content-inner collection-page">
         <h3 class="header-text" v-observe-visibility="{callback: headerVisibility}">{{ title }}</h3>
-        <div v-if="data['data'] != 'null'" class="well">
+        <div v-if="data['data'] != 'null'" class="well itemContainer">
             <template v-for="(item, key) in data.data">
                 <template v-if="item.type == 'artists'">
                     <mediaitem-square :item="item"></mediaitem-square>
                 </template>
-                <template v-else>
+            <template v-else>
                     <mediaitem-list-item
                             v-if="getKind(item) == 'song'"
                             :index="key"
@@ -14,8 +14,7 @@
                     <mediaitem-square v-else :item="item" :type="getKind(item)"></mediaitem-square>
                 </template>
             </template>
-            <button v-if="triggerEnabled" style="opacity:0;height: 32px;"
-                    v-observe-visibility="{callback: visibilityChanged}">{{this.app.getLz('term.showMore')}}
+            <button v-if="triggerEnabled" style="opacity:0;height: 32px;" v-observe-visibility="{callback: visibilityChanged}">{{this.app.getLz('term.showMore')}}
             </button>
         </div>
         <transition name="fabfade">
@@ -23,7 +22,9 @@
                 <%- include("../svg/arrow-up.svg") %>
             </button>
         </transition>
-        <div class="well" v-show="loading"><div class="spinner"></div></div>
+        <div class="well itemContainer" v-show="loading">
+            <div class="spinner"></div>
+        </div>
     </div>
 </script>
 <script>
@@ -44,7 +45,7 @@
                 default: "artists"
             }
         },
-        data: function () {
+        data: function() {
             return {
                 triggerEnabled: true,
                 canSeeTrigger: false,
@@ -92,8 +93,8 @@
                             this.triggerEnabled = true;
                         }
                         this.loading = false
-                    }else{
-                        if(!response.data.results[app.collectionList.response.groups]) {
+                    } else {
+                        if (!response.data.results[app.collectionList.response.groups]) {
                             this.loading = false
                             return
                         }
@@ -106,14 +107,14 @@
                     }
                 })
             },
-            headerVisibility: function (isVisible, entry) {
+            headerVisibility: function(isVisible, entry) {
                 if (isVisible) {
                     this.showFab = false;
                 } else {
                     this.showFab = true;
                 }
             },
-            visibilityChanged: function (isVisible, entry) {
+            visibilityChanged: function(isVisible, entry) {
                 if (isVisible) {
                     this.canSeeTrigger = true;
                     this.getNext();

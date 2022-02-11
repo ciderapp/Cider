@@ -15,11 +15,11 @@ const pad = (number: number, length: number) => String(number).padStart(length, 
  * @returns String
  */
 const convertTimeToString = (timeInSeconds: number) => {
-    const timeInMinutes = timeInSeconds / 60;
+    const timeInMinutes = Math.floor(timeInSeconds / 60);
     if (timeInMinutes < 60) {
-        return timeInMinutes + ":" + pad(timeInSeconds % 60, 2);
+        return timeInMinutes + ":" + pad(Math.floor(timeInSeconds % 60), 2);
     }
-    return timeInMinutes / 60 + ":" + pad(timeInMinutes % 60, 2) + ":" + pad(timeInSeconds % 60, 2);
+    return Math.floor(timeInMinutes / 60) + ":" + pad(Math.floor(timeInMinutes % 60), 2) + ":" + pad(Math.floor(timeInSeconds % 60), 2);
 }
 
 export default class WebNowPlaying {
@@ -28,19 +28,30 @@ export default class WebNowPlaying {
      */
     public name: string = 'WebNowPlaying';
     public description: string = 'Song info and playback control for the Rainmeter WebNowPlaying plugin.';
-    public version: string = '1.0.0';
+    public version: string = '1.0.1';
     public author: string = 'Zennn <me@jozen.blue>'; 
 
     private _win: any;
-    private ws: any = null;
-    private wsapiConn: any = null;
-    private playerName: string = 'Cider'/* Apple Music */;
+    private ws?: WebSocket;
+    private wsapiConn?: WebSocket;
+    private playerName: string = 'Cider';
 
     constructor() {
         console.debug(`[Plugin][${this.name}] Loading Complete.`);
     }
 
-    sendSongInfo(attributes: any) {
+    /**
+     * Blocks non-windows systems from running this plugin
+     * @private
+     * @decorator
+     */
+    private static windowsOnly(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
+        if (process.platform !== 'win32') {
+            descriptor.value = () => void 0;
+        }
+    }
+
+    private sendSongInfo(attributes: any) {
         if (!this.ws || this.ws.readyState !== WebSocket.OPEN) return;
 
         const fields = ['STATE', 'TITLE', 'ARTIST', 'ALBUM', 'COVER', 'DURATION', 'POSITION', 'VOLUME', 'REPEAT', 'SHUFFLE'];
@@ -79,9 +90,9 @@ export default class WebNowPlaying {
                         value = attributes.shuffleMode;
                         break;
                 }
-                this.ws.send(`${field}:${value}`);
+                this.ws?.send(`${field}:${value}`);
             } catch (error) {
-                if (this.ws.readyState === WebSocket.OPEN) {
+                if (this.ws?.readyState === WebSocket.OPEN) {
                     this.ws.send(`Error:Error updating ${field} for ${this.playerName}`);
                     this.ws.send(`ErrorD:${error}`);
                 }
@@ -89,13 +100,15 @@ export default class WebNowPlaying {
         });
     }
 
-    fireEvent(evt: any) {
+    private fireEvent(evt: WebSocket.MessageEvent) {
         if (!evt.data) return;
-        let value = '';
-        if (evt.data.split(/ (.+)/).length > 1) {
-            value = evt.data.split(/ (.+)/)[1];
+        const data = <string>evt.data;
+
+        let value: string = '';
+        if (data.split(/ (.+)/).length > 1) {
+            value = data.split(/ (.+)/)[1];
         }
-        const eventName = evt.data.split(' ')[0].toLowerCase();
+        const eventName = data.split(' ')[0].toLowerCase();
 
         try {
             switch (eventName) {
@@ -132,7 +145,7 @@ export default class WebNowPlaying {
             }
         } catch (error) {
             console.debug(error);
-            if (this.ws.readyState === WebSocket.OPEN) {
+            if (this.ws?.readyState === WebSocket.OPEN) {
                 this.ws.send(`Error:Error sending event to ${this.playerName}`);
                 this.ws.send(`ErrorD:${error}`);
             }
@@ -142,7 +155,8 @@ export default class WebNowPlaying {
     /**
      * Runs on app ready
      */
-    onReady(win: any) {
+    @WebNowPlaying.windowsOnly
+    public onReady(win: any) {
         this._win = win;
 
         // Connect to Rainmeter plugin and retry on disconnect.
@@ -150,10 +164,10 @@ export default class WebNowPlaying {
             try {
                 this.ws = new WebSocket('ws://127.0.0.1:8974/');
                 let retry: NodeJS.Timeout;
-                this.ws.onopen = (() => {
+                this.ws.onopen = () => {
                     console.info('[WebNowPlaying] Connected to Rainmeter');
-                    this.ws.send(`PLAYER:${this.playerName}`);
-                }).bind(this);
+                    this.ws?.send(`PLAYER:${this.playerName}`);
+                };
         
                 this.ws.onclose = () => {
                     clearTimeout(retry);
@@ -162,7 +176,7 @@ export default class WebNowPlaying {
     
                 this.ws.onerror = () => {
                     clearTimeout(retry);
-                    this.ws.close();
+                    this.ws?.close();
                 };
                 
                 this.ws.onmessage = this.fireEvent?.bind(this);
@@ -181,8 +195,8 @@ export default class WebNowPlaying {
                 console.info('[WebNowPlaying] Connected to wsapi');
             };
 
-            this.wsapiConn.onmessage = (evt: { data: string; }) => {
-                const response = JSON.parse(evt.data);
+            this.wsapiConn.onmessage = (evt: WebSocket.MessageEvent) => {
+                const response = JSON.parse(<string>evt.data);
                 if (response.type === 'playbackStateUpdate') {
                     this.sendSongInfo(response.data);
                 }
@@ -197,11 +211,12 @@ export default class WebNowPlaying {
     /**
      * Runs on app stop
      */
-    onBeforeQuit() {
+    @WebNowPlaying.windowsOnly
+    public onBeforeQuit() {
         if (this.ws) {
             this.ws.send('STATE:0');
-            this.ws.onclose = null; // disable onclose handler first to stop it from retrying
-		    this.ws.close();
+            this.ws.onclose = () => void 0; // disable onclose handler first to stop it from retrying
+            this.ws.close();
         }
         if (this.wsapiConn) {
             this.wsapiConn.close();
@@ -213,7 +228,8 @@ export default class WebNowPlaying {
      * Runs on playback State Change
      * @param attributes Music Attributes (attributes.status = current state)
      */
-    onPlaybackStateDidChange(attributes: any) {
+    @WebNowPlaying.windowsOnly
+    public onPlaybackStateDidChange(attributes: any) {
         this.sendSongInfo(attributes);
     }
 
@@ -221,7 +237,8 @@ export default class WebNowPlaying {
      * Runs on song change
      * @param attributes Music Attributes
      */
-    onNowPlayingItemDidChange(attributes: any) {
+    @WebNowPlaying.windowsOnly
+    public onNowPlayingItemDidChange(attributes: any) {
         this.sendSongInfo(attributes);
     }
 }

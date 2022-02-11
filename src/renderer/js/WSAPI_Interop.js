@@ -81,14 +81,14 @@ const wsapi = {
 
     },
     playTrackById(id, kind = "song") {
-        MusicKit.getInstance().setQueue({ [kind]: id }).then(function (queue) {
+        MusicKit.getInstance().setQueue({ [kind]: id , parameters : {l : app.mklang}}).then(function (queue) {
             MusicKit.getInstance().play()
         })
     },
     quickPlay(term) {
         // Quick play by song name
         MusicKit.getInstance().api.search(term, { limit: 2, types: 'songs' }).then(function (data) {
-            MusicKit.getInstance().setQueue({ song: data["songs"][0]["id"] }).then(function (queue) {
+            MusicKit.getInstance().setQueue({ song: data["songs"][0]["id"],parameters : {l : app.mklang} }).then(function (queue) {
                 MusicKit.getInstance().play()
             })
         })
@@ -107,5 +107,8 @@ const wsapi = {
         }else{
             MusicKit.getInstance().repeatMode = 0
         }
+    },
+    getmaxVolume() {
+        ipcRenderer.send('wsapi-returnvolumeMax',JSON.stringify(app.cfg.audio.maxVolume));
     }
 }

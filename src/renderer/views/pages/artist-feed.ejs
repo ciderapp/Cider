@@ -8,18 +8,16 @@
                             <h3>{{app.getLz('home.followedArtists')}}</h3>
                         </div>
                     </div>
-                    <div class="well">
-                        <mediaitem-scroller-horizontal>
-                            <div v-for="artist in artists" style="margin: 6px;">
-                                <mediaitem-square :item="artist" kind="small"></mediaitem-square>
-                                <button @click="unfollow(artist.id)" class="md-btn md-btn-glyph" style="display:flex;">
-                                    <div class="sidebar-icon">
-                                        <div class="svg-icon" :style="{'--url': 'url(./assets/feather/x-circle.svg)'}"></div>
-                                    </div> {{app.getLz('action.unfollow')}}
-                                </button>
-                            </div>
-                        </mediaitem-scroller-horizontal>
-                    </div>
+                    <vue-horizontal>
+                        <div v-for="artist in artists" style="margin: 6px;">
+                            <mediaitem-square :item="artist" kind="small"></mediaitem-square>
+                            <button @click="unfollow(artist.id)" class="md-btn md-btn-glyph" style="display:flex;">
+                                <div class="sidebar-icon">
+                                    <div class="svg-icon" :style="{'--url': 'url(./assets/feather/x-circle.svg)'}"></div>
+                                </div> {{app.getLz('action.unfollow')}}
+                            </button>
+                        </div>
+                    </vue-horizontal>
                 </div>
             </div>
         </div>
@@ -80,7 +78,7 @@
                 let self = this
                 this.artists = []
                 this.artistFeed = []
-                this.app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/artists?ids=${artists.toString()}&views=latest-release&include[songs]=albums&fields[albums]=artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialVideo,name,playParams,releaseDate,url,trackCount&limit[artists:top-songs]=2&art[url]=f`).then(artistData => {
+                this.app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/artists?ids=${artists.toString()}&views=latest-release&include[songs]=albums&fields[albums]=artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialVideo,name,playParams,releaseDate,url,trackCount&limit[artists:top-songs]=2&art[url]=f`,{ l : this.$root.mklang}).then(artistData => {
                     artistData.data.data.forEach(item => {
                         self.artists.push(item)
                         if (item.views["latest-release"].data.length != 0) {

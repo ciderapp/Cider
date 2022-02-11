@@ -1,10 +1,8 @@
 <script type="text/x-template" id="mediaitem-scroller-horizontal-large">
-    <div class="cd-hmedia-scroller">
-        <template >
-            <mediaitem-square :item="item" 
-                            v-for="item in items"></mediaitem-square>
-        </template>                  
-    </div>
+    <vue-horizontal>
+        <mediaitem-square :item="item" 
+                            v-for="item in items"></mediaitem-square>                 
+    </vue-horizontal>
 </script>
 
 
