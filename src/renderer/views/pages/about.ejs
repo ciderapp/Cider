@@ -3,6 +3,7 @@
         <div class="row">
             <div class="col">
                 <img src="assets/banner.png" alt="Cider Logo" style="display:block;margin:0 auto;width: 500px;">
+                <p style="text-align: center" id="version">Version Unkown</p>
                 <p style="text-align: center"> {{$root.getLz('about.thanks')}} </p>
 
                 <p style="text-align: center">"{{$root.getLz('term.appleMusic')}}" - {{$root.getLz('term.copyright')}} © 2022 <a href="https://www.apple.com/" class="dt-footer__link"
@@ -56,6 +57,7 @@
         data: function () {
             return {
                 window: window,
+                version: app.getVersion(),
                 team: [
                     {
                         name: 'cryptofyre',

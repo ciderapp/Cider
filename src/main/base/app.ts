@@ -123,6 +123,14 @@ export class AppEvents {
             }
         })
 
+        if (process.platform === "darwin") {
+            app.setUserActivity('8R23J2835D.com.ciderapp.webremote.play', {
+                title: 'Web Remote',
+                description: 'Connect to your Web Remote',
+            }, "https://webremote.cider.sh")
+        }
+        console.log(app.getCurrentActivityType())
+
         this.InstanceHandler()
         this.InitTray()
     }
