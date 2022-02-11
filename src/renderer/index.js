@@ -3650,7 +3650,7 @@ const app = new Vue({
                 } else if (u && u.includes('_') && langcodes.includes(((u.toLowerCase()).replace('_', "-")).split("-")[0])) {
                     sellang = ((u.toLowerCase()).replace('_', "-")).split("-")[0]
                 }
-                if (sellang.startsWith("en") && this.mk.storefrontId != "en-us") sellang = "en-gb"
+                if (sellang.startsWith("en") && this.mk.storefrontId != "us") sellang = "en-gb"
                 return await sellang
             }          
         }
