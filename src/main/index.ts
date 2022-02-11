@@ -47,11 +47,11 @@ app.on('ready', () => {
         const win = await bw.createWindow()
 
         console.log('[Cider][Widevine] Status:', components.status());
-        win.show();
+        
         win.on("ready-to-show", () => {
             Cider.bwCreated();
             CiderPlug.callPlugins('onReady', win);
-
+            win.show();
         });
     });
 

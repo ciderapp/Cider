@@ -129,7 +129,6 @@ export class AppEvents {
                 description: 'Connect to your Web Remote',
             }, "https://webremote.cider.sh")
         }
-        console.log(app.getCurrentActivityType())
 
         this.InstanceHandler()
         this.InitTray()
