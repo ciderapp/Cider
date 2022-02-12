@@ -100,12 +100,24 @@
   "term.time.added": "Добавлено",
   "term.time.released": "Релиз: ", // From itunes
   "term.time.updated": "Обновлено",
-  "term.time.hours": "часа",
-  "term.time.hour": "час",
-  "term.time.minutes": "минут",
-  "term.time.minute": "минута",
-  "term.time.seconds": "секунд",
-  "term.time.second": "секунда",
+  "term.time.hour": {
+    "one": "час",
+  	"few": "часа",
+  	"other": "часов"
+  },
+  // "term.time.hour": "час",
+  "term.time.minute": {
+    "one": "минута",
+  	"few": "минуты",
+  	"other": "минут"
+  },
+  // "term.time.minute": "минута",
+  "term.time.second": {
+    "one": "секунд",
+  	"few": "секунды",
+  	"other": "секунд"
+  },
+  // "term.time.second": "секунда",
   "term.fullscreenView": "Полноэкранное отображение",
   "term.defaultView": "Стандартное отображение",
   "term.audioSettings": "Настройки звука",
@@ -121,10 +133,14 @@
   "term.developer": "Разработчик",
   "term.socialTeam": "Социальная команда",
   "term.socials": "Социальные сети",
-  "term.contributors": "Вкладчики",
+  "term.contributors": "Внесли вклад",
   "term.equalizer": "Эквалайзер",
   "term.reset": "Сбросить",
-  "term.tracks": "песен", // Assume x amount of tracks. e.g. 50 tracks 
+  "term.tracks": {
+    "one" : "песня",
+    "few": "песни",
+    "other" : "песен"
+  }, // Assume x amount of tracks. e.g. 50 tracks 
   "term.videos": "Видео",
   "term.menu": "Меню",
   "term.check": "Проверить",
@@ -136,6 +152,8 @@
   "term.addedpreset": "Пресет добавлен",
   "term.deletepreset.warn": "Вы уверены, что хотите удалить пресет?",
   "term.deletedpreset": "Пресет удален",
+  "term.defaultPresets": "Предустановки по умолчанию",
+  "term.userPresets": "Предустановки пользователя",
   "term.requestError": "Возникла проблема с запросом.",
   "term.song.link.generate": "Получение ссылки с song.link...",
   "term.musicVideos": "Музыкальные видео", // Search page friendlyTypes FROM ITUNES
@@ -145,7 +163,7 @@
   "term.radioShows": "Радиошоу", // FROM ITUNES
   "term.recordLabels": "Лейблы звукозаписи",
   "term.videoExtras": "Ещё", // FROM ITUNES
-  "term.top": "Top", // NOT SURE, NOT TRANSLATED
+  "term.top": "Top", // NOT SURE WHAT IT IS, NOT TRANSLATED
   "term.version": "Версия",
   // Home
   "home.title": "Главная",
@@ -235,22 +253,22 @@
   // Update Cider
   "settings.option.general.updateCider": "Обновить Cider", // Button. Refer to term.check for the check button
   "settings.option.general.updateCider.branch": "Ветка обновления Cider", // Dropdown
-  "settings.option.general.updateCider.branch.description": "Выберите ветку для обновления Cider",
+  "settings.option.general.updateCider.branch.description": "Выберите ветку обновления Cider",
   "settings.option.general.updateCider.branch.main": "Стабильная",
   "settings.option.general.updateCider.branch.develop": "Нестабильная",
   
   // Settings - Audio
   "settings.header.audio": "Звук",
-  "settings.header.audio.description": "Отрегулируйте настройки звука для Cider.",
+  "settings.header.audio.description": "Настройка звука Cider.",
   "settings.option.audio.quality": "Качество звука", // Dropdown FROM IOS
-  "settings.header.audio.quality.hireslossless": "Высокое разрешение, без потерь",
-  "settings.header.audio.quality.hireslossless.description": "ALAC до 24 бит/192 кГц",
+  "settings.header.audio.quality.hireslossless": "Высокое разрешение, без потерь", // FROM IOS
+  "settings.header.audio.quality.hireslossless.description": "ALAC до 24 бит/192 кГц", // FROM IOS
   "settings.header.audio.quality.lossless": "Без потерь", // FROM IOS
   "settings.header.audio.quality.lossless.description": "ALAC до 24 бит/48 кГц", // FROM IOS
   "settings.header.audio.quality.high": "Высокое качество", // FROM IOS
   "settings.header.audio.quality.high.description": "AAC 256 кб/с", // FROM IOS
   "settings.header.audio.quality.standard": "Высокая эффективность", // FROM IOS
-  "settings.header.audio.quality.standard.description": "НЕ-ААС для экономии трафика(64 Кбит/сек)", // FROM IOS
+  "settings.header.audio.quality.standard.description": "НЕ-ААС для экономии трафика(64 кб/с)", // FROM IOS
   "settings.option.audio.seamlessTransition": "Плавный переход между песнями", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "Включить расширенный функционал", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.description": "Включение функции AudioContext позволит использовать расширенные функции звука, такие как нормализация звука, эквалайзеры и визуализаторы, однако в некоторых системах это может вызвать заикание звуковых дорожек.",
@@ -290,6 +308,10 @@
   "settings.header.visual.hardwareAcceleration.default": "По умолчанию",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
   "settings.header.visual.theme": "Тема",
+  "settings.option.visual.theme.github.download": "Install from GitHub URL",
+  "settings.prompt.visual.theme.github.URL": "Enter the URL of the theme you want to install",
+  "settings.notyf.visual.theme.install.success": "Theme installed successfully",
+  "settings.notyf.visual.theme.install.error": "Theme installation failed",
   
   // Settings - Visual - Theme name
   "settings.option.visual.theme.default": "Cider",
@@ -307,8 +329,8 @@
   "settings.option.lyrics.enableYoutubeLyrics": "Включить Youtube Lyrics для музыкальных клипов", // Toggle
   
   // Settings - Connectivity
-  "settings.header.connectivity": "Подключения",
-  "settings.header.connectivity.description": "Настройте параметры подключения для Cider.",
+  "settings.header.connectivity": "Прочее",
+  "settings.header.connectivity.description": "Настройка прочих параметров Cider.",
   "settings.option.connectivity.discordRPC": "Discord Rich Presence", // Dropdown
   "settings.option.connectivity.playbackNotifications": "Уведомления о воспроизведении", // Toggle
   // Refer to term.disabled for the disabled option
