@@ -2814,7 +2814,67 @@ const app = new Vue({
                             })
                         }
                     })
-                } else {
+                } else if (parent.startsWith('listitem-hr')) {
+                    app.mk.stop().then(() => {
+                        if (app.mk.shuffleMode == 1) {
+                            app.mk.setQueue({
+                                [item.attributes.playParams.kind ?? item.type]: item.attributes.playParams.id ?? item.id
+                            }).then(function () {
+                                app.mk.play().then(() => {
+                                    const data = JSON.parse(parent.split('listitem-hr')[1] ?? '[]')
+                                    let itemsToPlay = {}
+                                    let u = data.map(x => x.id)
+                                    try {
+                                        data.splice(u.indexOf(item.attributes.playParams.id ?? item.id), 1)
+                                    } catch (e) { }
+                                    if (app.mk.shuffleMode == 1) {
+                                        shuffleArray(data)
+                                    }
+                                    data.forEach(item => {
+                                        if (!itemsToPlay[item.kind]) {
+                                            itemsToPlay[item.kind] = []
+                                        }
+                                        itemsToPlay[item.kind].push(item.id)
+                                    })
+                                    // loop through itemsToPlay
+                                    for (let kind in itemsToPlay) {
+                                        let ids = itemsToPlay[kind]
+                                        if (ids.length > 0) {
+                                            app.mk.playLater({ [kind + "s"]: itemsToPlay[kind] })
+                                        }
+                                    }
+                                })
+                            })
+                        } else {
+                            const data = JSON.parse(parent.split('listitem-hr')[1] ?? '[]')
+                            let itemsToPlay = {}
+                            let u = data.map(x => x.id)
+                            data.forEach(item => {
+                                if (!itemsToPlay[item.kind]) {
+                                    itemsToPlay[item.kind] = []
+                                }
+                                itemsToPlay[item.kind].push(item.id)
+                            })
+                            // loop through itemsToPlay
+                            let ind = 0;
+                            for (let kind in itemsToPlay) {
+                                let ids = itemsToPlay[kind]
+                                app.mk.clearQueue().then(function () {
+                                    if (ids.length > 0) {
+                                        app.mk.playLater({ [kind + "s"]: itemsToPlay[kind] }).then(function() {
+                                            ind += 1;
+                                            console.log(ind , Object.keys(itemsToPlay).length)
+                                            if(ind >= Object.keys(itemsToPlay).length) {                        
+                                                app.mk.changeToMediaAtIndex(app.mk.queue._itemIDs.indexOf(item.attributes.playParams.id ?? item.id))
+                                            }
+                                        }
+                                    )}
+                                })
+                            }
+                        }
+                    })
+                }
+                else {
                     app.mk.stop().then(() => {
                         if (truekind == "playlists" && (id.startsWith("p.") || id.startsWith("pl.u"))) {
                             app.mk.setQueue({
