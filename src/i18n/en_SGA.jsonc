@@ -72,6 +72,7 @@
   "term.sortBy.genre": "┤ᒷリ∷ᒷ",
   "term.sortBy.releaseDate": "∷ᒷ|:ᒷᖋϟᒷ ↸ᖋᒣᒷ",
   "term.sortBy.duration": "↸⚍∷ᖋᒣ╎ᒍリ",
+  "term.sortBy.dateAdded": "↸ᖋᒣᒷ ᖋ↸↸ᒷ↸",
   "term.sortOrder": "ᖋ-∩",
   "term.sortOrder.ascending": "ᖋϟᔮᒷリ↸╎リ┤",
   "term.sortOrder.descending": "↸ᒷϟᔮᒷリ↸╎リ┤",
@@ -123,6 +124,11 @@
   "term.contributors": "ᔮᒍリᒣ∷╎ᕊ⚍ᒣᒍ∷ϟ",
   "term.equalizer": "ᒷᑑ⚍ᖋ|:╎∩ᒷ∷",
   "term.reset": "∷ᒷϟᒷᒣ",
+  // Example for multiple plural forms : look up the key for your language in https://github.com/prantlf/fast-plural-rules/blob/master/docs/languages.md#supported-languages
+  // "term.track": {
+  //   "one" : "track",
+  //   "other" : "tracks"
+  // },
   "term.tracks": "ᒣ∷ᖋᔮ·ǀ·ϟ", // Assume x amount of tracks. e.g. 50 tracks 
   "term.videos": "⍊╎↸ᒷᒍ",
   "term.menu": "ᒲᒷ⚍リ",
@@ -145,6 +151,7 @@
   "term.recordLabels": "∷ᒷᔮᒍ∷↸ |:ᖋᕊᒷ|:ϟ",
   "term.videoExtras": "⍊╎↸ᒷᒍ ᒷ/ᒣ∷ᖋϟ",
   "term.top": "ᒣᒍi!",
+  "term.version": "⍊ᒷ∷ϟ╎ᒍリ",
 
   // Home
   "home.title": "⍑ᒍᒲᒷ",
