@@ -97,11 +97,16 @@ jobs:
 #     - name: Perform CodeQL Analysis
 #       uses: github/codeql-action/analyze@v1
 
+    - name: Add license to dmg
+      run: |
+        npm install --global dmg-license
+        dmg-license resources/license.json dist/*.dmg
+
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2.2.3
       with:
         # Artifact name
         name: macOS
         # A file, directory or wildcard pattern that describes what to upload
-        path: dist/
+        path: dist/*.dmg
         # The desired behavior if no files are found using the provided path.

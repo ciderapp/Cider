@@ -107,7 +107,6 @@
     "appId": "cider",
     "afterPack": "./resources/afterPack.js",
     "afterSign": "./resources/notarize.js",
-    "afterAllArtifactBuild": "electron-builder-notarize-pkg",
     "protocols": [
       {
         "name": "Cider",
@@ -195,7 +194,7 @@
       "entitlementsInherit": "./resources/entitlements.mac.plist",
       "darkModeSupport": true,
       "target": [
-        "dmg" , "mas"
+        "dmg"
       ]
     }
   }
