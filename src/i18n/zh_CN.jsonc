@@ -127,6 +127,26 @@
   "term.check": "检查",
   "term.aboutArtist": "关于{{artistName}}", // e.g. 'About Doja Cat'
   "term.updateCider": "更新 Cider",
+  "term.topResult": "热门搜索结果", // Search Results
+  "term.sharedPlaylists": "分享播放列表", // Search Results
+  "term.people": "个人档案", // Search Results
+  "term.newpreset.name": "新均衡器预设名", // Equalizer Preset
+  "term.addedpreset": "预设已添加",
+  "term.deletepreset.warn": "你确定要删除此预设吗?",
+  "term.deletedpreset": "预设已删除",
+  "term.defaultPresets": "默认预设",
+  "term.userPresets": "用户预设",
+  "term.requestError": "请求出现一个问题。",
+  "term.song.link.generate": "获取song.link共享URL...",
+  "term.musicVideos": "音乐视频", // Search page friendlyTypes
+  "term.stations": "电台",
+  //"term.curators": "Curators",
+  //"term.appleCurators": "Apple Curators",
+  "term.radioShows": "广播单集",
+  "term.recordLabels": "唱片公司",
+  "term.videoExtras": "视频特辑",
+  //"term.top": "Top",
+  "term.version": "版本",
   
   // Home
   "home.title": "主页",
@@ -198,15 +218,27 @@
   "action.tray.quit": "退出",
   "action.tray.show": "显示",
   "action.update": "更新",
+  "action.copy": "复制",
+  "action.newpreset": "新建预设...", // Equalizer Preset
+  "action.deletepreset": "删除预设",
   
   // Settings - General
   "settings.header.general": "通用",
   "settings.header.general.description": "调整 Cider 的通用设置",
+  "settings.option.general.language": "语言",
 
   // Language optgroups
+  "settings.option.general.language.main": "语言",
+  "settings.option.general.language.fun": "恶搞语言",
+  "settings.option.general.language.unsorted": "未分类",
 
   // Update Cider
   "settings.option.general.updateCider": "更新 Cider", // Button
+  "settings.option.general.updateCider.branch": "Cider更新通道", // Dropdown
+  "settings.option.general.updateCider.branch.description": "选择接受Cider更新的通道",
+  "settings.option.general.updateCider.branch.main": "稳定版",
+  "settings.option.general.updateCider.branch.develop": "测试版",
+  
   
   // Settings - Audio
   "settings.header.audio": "音频",
@@ -229,6 +261,10 @@
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "使所感知到的音频响度统一",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "音频空间化", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "使所感知到的音频更有立体感 (注: 这不是杜比全景声)",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "标准",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive": "激进",
+  "settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility": "空间音频与数字增强引擎不兼容，请先停用数字增强引擎",
+  
   
   // Settings - Visual
   "settings.header.visual": "外观",
@@ -236,6 +272,7 @@
   "settings.option.visual.windowBackgroundStyle": "窗口背景样式", // Toggle
   "settings.header.visual.windowBackgroundStyle.none": "无",
   "settings.header.visual.windowBackgroundStyle.artwork": "专辑封面",
+    "settings.header.visual.windowBackgroundStyle.image": "图像",
   "settings.option.visual.animatedArtwork": "动态专辑封面", // Dropdown
   "settings.header.visual.animatedArtwork.always": "总是显示",
   "settings.header.visual.animatedArtwork.limited": "只在艺人页面和专辑封面显示",
@@ -251,6 +288,11 @@
   "settings.option.visual.hardwareAcceleration.description": "需要重启 Cider 才会生效",
   "settings.header.visual.hardwareAcceleration.default": "默认",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
+  "settings.header.visual.theme": "主题",
+  "settings.option.visual.theme.github.download": "通过GitHub URL安装",
+  "settings.prompt.visual.theme.github.URL": "请输入欲安装主题的URL",
+  "settings.notyf.visual.theme.install.success": "主题安装成功",
+  "settings.notyf.visual.theme.install.error": "主题安装失败",
 
   // Settings - Visual - Theme name
   "settings.option.visual.theme.default": "默认",
@@ -288,6 +330,8 @@
   "settings.header.experimental.description": "调整Cider的实验性功能",
   "settings.option.experimental.compactUI": "紧凑型 UI", // Toggle
   "settings.option.experimental.close_button_hide": "点击关闭按钮时仅隐藏窗口",
+  "settings.option.experimental.copy_log": "复制日志至剪贴板",
+  //"settings.option.experimental.inline_playlists": "Inline Playlists and Albums",
   
   // Refer to term.disabled & term.enabled
   // Spatialization Menu
