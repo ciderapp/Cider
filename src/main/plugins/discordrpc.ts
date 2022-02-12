@@ -62,7 +62,6 @@ export default class DiscordRichPresence {
 
         // Create the client
         this._client = new RPC.Client({transport: "ipc"});
-
         // Runs on Ready
         this._client.on('ready', () => {
             console.info(`[DiscordRPC][connect] Successfully Connected to Discord. Authed for user: ${this._client.user.id}.`);
