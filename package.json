@@ -168,6 +168,14 @@
       "isRelocatable": false,
       "overwriteAction": "upgrade"
     },
+    "dmg": {
+      "background": "./resources/bg.png",
+      "icon": "resources/icons/icon.ico"
+    },
+    "mas": {
+      "entitlements": "./resources/entitlements.mac.plist",
+      "entitlementsInherit": "./resources/entitlements.mac.plist"
+    },
     "win": {
       "target": [
         "nsis"
@@ -187,7 +195,7 @@
       "entitlementsInherit": "./resources/entitlements.mac.plist",
       "darkModeSupport": true,
       "target": [
-        "pkg"
+        "dmg" , "mas"
       ]
     }
   }
