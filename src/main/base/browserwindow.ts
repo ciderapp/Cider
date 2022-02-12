@@ -4,7 +4,7 @@ import * as windowStateKeeper from "electron-window-state";
 import * as express from "express";
 import * as getPort from "get-port";
 import {search} from "youtube-search-without-api-key";
-import {existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync} from "fs";
+import {existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync, statSync} from "fs";
 import {Stream} from "stream";
 import {networkInterfaces} from "os";
 import * as mm from 'music-metadata';
@@ -240,7 +240,20 @@ export class BrowserWindow {
             } else {
                 res.send(`// Theme not found - ${userThemePath}`);
             }
+        });
 
+        app.get("/themes/:theme/:file", (req, res) => {
+            const theme = req.params.theme.toLowerCase();
+            const file = req.params.file;
+            const themePath = join(utils.getPath('srcPath'), "./renderer/themes/", theme);
+            const userThemePath = join(utils.getPath('themes'), theme);
+            if (existsSync(userThemePath)) {
+                res.sendFile(join(userThemePath, file));
+            } else if (existsSync(themePath)) {
+                res.sendFile(join(themePath, file));
+            } else {
+                res.send(`// File not found - ${userThemePath}`);
+            }
         });
 
         app.get("/audio.webm", (req, res) => {
@@ -359,10 +372,21 @@ export class BrowserWindow {
 
         ipcMain.on("get-themes", (event, _key) => {
             if (existsSync(utils.getPath("themes"))) {
+                // return any .less files and scan any folders in the themes folder for .less files
                 let files = readdirSync(utils.getPath("themes"));
-                let themes = files.filter((file) => {
-                    return file.endsWith(".less");
-                });
+                let themes = [];
+                for (let file of files) {
+                    if (file.endsWith(".less")) {
+                        themes.push(file);
+                    } else if (statSync(join(utils.getPath("themes"), file)).isDirectory()) {
+                        let subFiles = readdirSync(join(utils.getPath("themes"), file));
+                        for (let subFile of subFiles) {
+                            if (subFile.endsWith(".less")) {
+                                themes.push(join(file, subFile));
+                            }
+                        }
+                    }
+                }
                 event.returnValue = themes;
             } else {
                 event.returnValue = [];
