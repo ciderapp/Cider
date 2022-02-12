@@ -329,6 +329,8 @@ const app = new Vue({
                         return (Math.abs(curr.value - options["plural"]) < Math.abs(prev.value - options["plural"]) ? curr : prev);
                     });
                     return closest.text;
+                }else if(typeof this.lz[message] === "object") {
+                    return this.lz[message][0].text;
                 }
                 return this.lz[message]
             } else {
