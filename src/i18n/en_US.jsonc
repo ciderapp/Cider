@@ -125,10 +125,10 @@
   "term.equalizer": "Equalizer",
   "term.reset": "Reset",
   // Example for multiple plural forms : look up the key for your language in https://github.com/prantlf/fast-plural-rules/blob/master/docs/languages.md#supported-languages
-  "term.track": {
-    "one" : "track",
-    "other" : "tracks"
-  },
+  // "term.track": {
+  //   "one" : "track",
+  //   "other" : "tracks"
+  // },
   "term.tracks": "tracks", // Assume x amount of tracks. e.g. 50 tracks 
   "term.videos": "Videos",
   "term.menu": "Menu",
