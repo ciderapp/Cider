@@ -124,6 +124,16 @@
   "term.contributors": "Contributors",
   "term.equalizer": "Equalizer",
   "term.reset": "Reset",
+  "term.track": [
+    {
+      "value": 1,
+      "text": "track"
+    },
+    {
+      "value": 2,
+      "text": "tracks"
+    }
+  ],
   "term.tracks": "tracks", // Assume x amount of tracks. e.g. 50 tracks 
   "term.videos": "Videos",
   "term.menu": "Menu",

@@ -322,8 +322,16 @@ const app = new Vue({
             this.lz = ipcRenderer.sendSync("get-i18n", lang)
             this.mklang = await this.MKJSLang()
         },
-        getLz(message) {
+        getLz(message, options = {}) {
             if (this.lz[message]) {
+                if(options["plural"]) {
+                    let closest = this.lz[message].reduce(function(prev, curr) {
+                        return (Math.abs(curr.value - options["plural"]) < Math.abs(prev.value - options["plural"]) ? curr : prev);
+                    });
+                    return closest.text;
+                }else{
+                    return this.lz[message][0].text
+                }
                 return this.lz[message]
             } else {
                 return message
