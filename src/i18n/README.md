@@ -9,6 +9,26 @@ Some notes about Cider's i18n support.
 - Most of the strings in the content area are provided and translated by Apple themselves, and do not need to be translated.
 - The language Apple Music uses are dependent on the storefront region.
 
+# Multiple Plural Forms
+
+Multiple plural forms can be supported as below: 
+
+The keys and its meanings are here : https://github.com/prantlf/fast-plural-rules/blob/master/docs/languages.md#supported-languages
+
+For example , English is in Plural rule #1 and has 2 keys ```one``` and ```other```
+
+Russian is in Plural rule #7 (3 forms) : ```one```, ```few``` and ```other```
+
+How it is implemented for English:
+
+```
+ "term.track": {
+    "one" : "track",
+    "other" : "tracks"
+  },
+```
+
+
 
 ## Localization Notices
 

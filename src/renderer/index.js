@@ -331,7 +331,7 @@ const app = new Vue({
                     } else {
                         // fallback English plural forms ( old i18n )
                         if (options["count"] > 1) {
-                            return this.lz[message+ "s"] ?? this.lz[message]} else { return this.lz[message]}
+                            return this.lz[message+ "s"] ?? this.lz[message]} else { return this.lz[message] ?? this.lz[message+ "s"]}
                     }
                 } else if(typeof this.lz[message] === "object") {
                     return (this.lz[message])[Object.keys(this.lz[message])[0]]
