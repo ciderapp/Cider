@@ -9,6 +9,26 @@ Some notes about Cider's i18n support.
 - Most of the strings in the content area are provided and translated by Apple themselves, and do not need to be translated.
 - The language Apple Music uses are dependent on the storefront region.
 
+# Multiple Plural Forms
+
+Multiple plural forms can be supported as below: 
+
+The keys and its meanings are here : https://github.com/prantlf/fast-plural-rules/blob/master/docs/languages.md#supported-languages
+
+For example , English is in Plural rule #1 and has 2 keys ```one``` and ```other```
+
+Russian is in Plural rule #7 (3 forms) : ```one```, ```few``` and ```other```
+
+How it is implemented for English:
+
+```
+ "term.track": {
+    "one" : "track",
+    "other" : "tracks"
+  },
+```
+
+
 
 ## Localization Notices
 
@@ -85,3 +105,14 @@ Update 08/02/2022 10:20 UTC
 Update 10/02/2022 05:58 UTC
 
 * `term.sortBy.dateAdded`: Added for `en_US`.
+
+Update 12/02/2022 12:00 UTC
+
+* Added support for multiple plural forms. [Details](#multiple-plural-forms)
+* `term.version`: Added for `en_US`.
+* `settings.option.visual.theme.github.download`: Added for `en_US`.
+* `settings.prompt.visual.theme.github.URL`: Added for `en_US`.
+* `settings.notyf.visual.theme.install.success`: Added for `en_US`.
+* `settings.notyf.visual.theme.install.error`: Added for `en_US`.
+* `term.defaultPresets`: Added for `en_US`.
+* `term.userPresets`: Added for `en_US`.

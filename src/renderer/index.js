@@ -322,8 +322,20 @@ const app = new Vue({
             this.lz = ipcRenderer.sendSync("get-i18n", lang)
             this.mklang = await this.MKJSLang()
         },
-        getLz(message) {
+        getLz(message, options = {}) {
             if (this.lz[message]) {
+                if(options["count"] ) {
+                    if (typeof this.lz[message] === "object"){
+                        let type = window.fastPluralRules.getPluralFormNameForCardinalByLocale(this.cfg.general.language.replace("_","-"),options["count"]);
+                        return this.lz[message][type] ?? ((this.lz[message])[Object.keys(this.lz[message])[0]] ?? this.lz[message])
+                    } else {
+                        // fallback English plural forms ( old i18n )
+                        if (options["count"] > 1) {
+                            return this.lz[message+ "s"] ?? this.lz[message]} else { return this.lz[message] ?? this.lz[message+ "s"]}
+                    }
+                } else if(typeof this.lz[message] === "object") {
+                    return (this.lz[message])[Object.keys(this.lz[message])[0]]
+                }
                 return this.lz[message]
             } else {
                 return message
@@ -734,7 +746,7 @@ const app = new Vue({
                             previewURL = app.mk.nowPlayingItem.previewURL
                         } catch (e) {
                         }
-                        if (!previewURL) {
+                        if (previewURL == null && ((app.mk.nowPlayingItem?._songId ?? (app.mk.nowPlayingItem["songId"] ??  app.mk.nowPlayingItem.relationships.catalog.data[0].id)) != -1)) {
                             app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/songs/${app.mk.nowPlayingItem?._songId ?? (app.mk.nowPlayingItem["songId"] ??  app.mk.nowPlayingItem.relationships.catalog.data[0].id)}`).then((response) => {
                                 previewURL = response.data.data[0].attributes.previews[0].url
                                 if (previewURL)
@@ -2141,7 +2153,10 @@ const app = new Vue({
                     let hours = Math.floor(time / 3600)
                     let mins = Math.floor(time / 60) % 60
                     let secs = time % 60
-                    return app.showingPlaylist.relationships.tracks.data.length + " " + app.getLz('term.tracks') + ", " + ((hours > 0) ? (hours + (" " + ((hours > 1) ? app.getLz('term.time.hours') + ", " : app.getLz('term.time.hour') + ", "))) : "") + ((mins > 0) ? (mins + ((mins > 1) ? " " + app.getLz('term.time.minutes') + ", " : " " + app.getLz('term.time.minute') + ", ")) : "") + secs + ((secs > 1) ? " " + app.getLz('term.time.seconds') + "." : " " + app.getLz('term.time.second') + ".");
+                    return app.showingPlaylist.relationships.tracks.data.length + " " + app.getLz('term.tracks', options = {count : app.showingPlaylist.relationships.tracks.data.length}) + ", " 
+                    + ((hours > 0) ? (hours + (" " + (app.getLz('term.time.hour', options = {count : hours}) + ", "))) : "") + 
+                    ((mins > 0) ? (mins + (" " + app.getLz('term.time.minute', options = {count : mins}) + ", ")) : "") + 
+                    secs + (" " + app.getLz('term.time.second', options = {count : secs}) + ".");
                 } else return ""
             } catch (err) {
                 return ""
@@ -2799,7 +2814,67 @@ const app = new Vue({
                             })
                         }
                     })
-                } else {
+                } else if (parent.startsWith('listitem-hr')) {
+                    app.mk.stop().then(() => {
+                        if (app.mk.shuffleMode == 1) {
+                            app.mk.setQueue({
+                                [item.attributes.playParams.kind ?? item.type]: item.attributes.playParams.id ?? item.id
+                            }).then(function () {
+                                app.mk.play().then(() => {
+                                    const data = JSON.parse(parent.split('listitem-hr')[1] ?? '[]')
+                                    let itemsToPlay = {}
+                                    let u = data.map(x => x.id)
+                                    try {
+                                        data.splice(u.indexOf(item.attributes.playParams.id ?? item.id), 1)
+                                    } catch (e) { }
+                                    if (app.mk.shuffleMode == 1) {
+                                        shuffleArray(data)
+                                    }
+                                    data.forEach(item => {
+                                        if (!itemsToPlay[item.kind]) {
+                                            itemsToPlay[item.kind] = []
+                                        }
+                                        itemsToPlay[item.kind].push(item.id)
+                                    })
+                                    // loop through itemsToPlay
+                                    for (let kind in itemsToPlay) {
+                                        let ids = itemsToPlay[kind]
+                                        if (ids.length > 0) {
+                                            app.mk.playLater({ [kind + "s"]: itemsToPlay[kind] })
+                                        }
+                                    }
+                                })
+                            })
+                        } else {
+                            const data = JSON.parse(parent.split('listitem-hr')[1] ?? '[]')
+                            let itemsToPlay = {}
+                            let u = data.map(x => x.id)
+                            data.forEach(item => {
+                                if (!itemsToPlay[item.kind]) {
+                                    itemsToPlay[item.kind] = []
+                                }
+                                itemsToPlay[item.kind].push(item.id)
+                            })
+                            // loop through itemsToPlay
+                            let ind = 0;
+                            for (let kind in itemsToPlay) {
+                                let ids = itemsToPlay[kind]
+                                app.mk.clearQueue().then(function () {
+                                    if (ids.length > 0) {
+                                        app.mk.playLater({ [kind + "s"]: itemsToPlay[kind] }).then(function() {
+                                            ind += 1;
+                                            console.log(ind , Object.keys(itemsToPlay).length)
+                                            if(ind >= Object.keys(itemsToPlay).length) {                        
+                                                app.mk.changeToMediaAtIndex(app.mk.queue._itemIDs.indexOf(item.attributes.playParams.id ?? item.id))
+                                            }
+                                        }
+                                    )}
+                                })
+                            }
+                        }
+                    })
+                }
+                else {
                     app.mk.stop().then(() => {
                         if (truekind == "playlists" && (id.startsWith("p.") || id.startsWith("pl.u"))) {
                             app.mk.setQueue({
@@ -3109,6 +3184,7 @@ const app = new Vue({
                     data = data.data.data[0];
                     if (data != null && data !== "" && data.attributes != null && data.attributes.artwork != null) {
                         this.currentArtUrl = (data["attributes"]["artwork"]["url"] ?? '').replace('{w}', 50).replace('{h}', 50);
+                        ipcRenderer.send('updateRPCImage', this.currentArtUrl ?? '');
                         try {
                             document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
                         } catch (e) {

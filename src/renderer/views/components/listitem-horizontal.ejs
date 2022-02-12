@@ -3,7 +3,7 @@
     <vue-horizontal>
         <div v-for="items in itemPages">
             <mediaitem-list-item
-                v-for="(song, index) in items"
+                v-for="(song, index) in items" :parent="'listitem-hr' + simplifiedParent"
                 :index="song.index"
                 :item="song"></mediaitem-list-item>
         </div>
@@ -23,7 +23,8 @@
         },
         data: function () {
             return {
-                itemPages: []
+                itemPages: [],
+                simplifiedParent : []
             }
         },
         mounted() {
@@ -33,6 +34,12 @@
             });
             // split items into pages
             this.itemPages = app.arrayToChunk(this.items, 4);
+            try{
+            this.simplifiedParent = JSON.stringify(this.items.map ( function(x){return x.attributes.playParams}));
+            console.log("simplifiedParent: " + this.simplifiedParent);
+            }
+            catch (e){}
+            
         },
         methods: {
             sayHello: function () {

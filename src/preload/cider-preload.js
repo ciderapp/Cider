@@ -47,9 +47,9 @@ const MusicKitInterop = {
 			return;
 		} 
 		const id = nowPlayingItem?._songId ?? (nowPlayingItem?.songId ?? nowPlayingItem?.id)
-		if (id != null) {
+		if (id != null && id != -1) {
 			try{
-			const query = await mk.api.v3.music(`/v1${((nowPlayingItem?._songId ?? nowPlayingItem?.songId) != null) ? `/catalog/${mk.storefrontId}/` : `/me/library/`}songs/${id}?l=${app.mklang}`);
+			const query = await mk.api.v3.music(`/v1${(((nowPlayingItem?._songId ?? nowPlayingItem?.songId) != null) && ((nowPlayingItem?._songId ?? nowPlayingItem?.songId) != -1)) ? `/catalog/${mk.storefrontId}/` : `/me/library/`}songs/${id}?l=${app.mklang}`);
 			if (query?.data?.data[0]){
 					let attrs = query?.data?.data[0]?.attributes;
 					if (attrs?.name) { nowPlayingItem.attributes.name = attrs?.name ?? ''}
