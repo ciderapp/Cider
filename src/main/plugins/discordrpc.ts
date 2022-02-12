@@ -202,22 +202,27 @@ export default class DiscordRichPresence {
      * Runs on app ready
      */
     onReady(_win: any): void {
+        let self = this
         this.connect((DiscordRichPresence._store.general.discord_rpc == 1) ? '911790844204437504' : '886578863147192350');
         console.debug(`[Plugin][${this.name}] Ready.`);
-        // ipcMain.on('updateRPCImage', (_event, imageurl) => {
-        //     fetch('https://api.cider.sh/v1/images' ,{ 
+        ipcMain.on('updateRPCImage', (_event, imageurl) => {
+            fetch('https://api.cider.sh/v1/images' ,{ 
 
-        //         method: 'POST',
-        //         body: JSON.stringify({url : imageurl}),
-        //         headers: { 
-        //             'Content-Type': 'application/json',
-        //             'User-Agent': 'Cider Development Environment'
-        //         },
-        //     })
-        //     .then(res => res.text())
-        //     .then(json => console.log(json))
+                method: 'POST',
+                body: JSON.stringify({url : imageurl}),
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'User-Agent': _win.webContents.getUserAgent()
+                },
+            })
+            .then(res => res.json())
+            .then(function(json){
+                self._activity['largeImageKey'] = json.url
+                console.log(json.url)
+                self._client.setActivity(self._activity);
+            })
         
-        // })
+        })
     }
 
     /**
