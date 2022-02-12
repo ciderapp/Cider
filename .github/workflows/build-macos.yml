@@ -84,6 +84,8 @@ jobs:
         CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }} 
         APPLEID: ${{ secrets.APPLEID }}
         APPLEIDPASS: ${{ secrets.APPLEIDPASS }}
+        APPLE_ID: ${{ secrets.APPLEID }}
+        APPLE_ID_PASSWORD: ${{ secrets.APPLEIDPASS }}
         DEVELOPER_DIR: /Applications/Xcode_12.4.app/Contents/Developer
       run: |
         rm cider-yarn.lock || true
