@@ -150,7 +150,8 @@
       "perMachine": false,
       "allowToChangeInstallationDirectory": true,
       "license": "LICENSE",
-      "deleteAppDataOnUninstall": true
+      "deleteAppDataOnUninstall": true,
+      "artifactName": "${productName}-Setup-${version}.${ext}"
     },
     "pkg": {
       "installLocation": "/Applications",
