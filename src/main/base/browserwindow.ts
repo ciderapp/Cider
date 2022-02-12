@@ -359,7 +359,11 @@ export class BrowserWindow {
 
         ipcMain.on("get-themes", (event, _key) => {
             if (existsSync(utils.getPath("themes"))) {
-                event.returnValue = readdirSync(utils.getPath("themes"));
+                let files = readdirSync(utils.getPath("themes"));
+                let themes = files.filter((file) => {
+                    return file.endsWith(".less");
+                });
+                event.returnValue = themes;
             } else {
                 event.returnValue = [];
             }
