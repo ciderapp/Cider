@@ -100,5 +100,5 @@ jobs:
         # Artifact name
         name: macOS
         # A file, directory or wildcard pattern that describes what to upload
-        path: dist/*.dmg
+        path: dist/*.pkg
         # The desired behavior if no files are found using the provided path.
