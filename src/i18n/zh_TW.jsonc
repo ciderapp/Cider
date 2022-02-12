@@ -126,7 +126,8 @@
   "term.menu": "選單",
   "term.check": "檢查",
   "term.aboutArtist": "關於{{artistName}}", // e.g. 'About Doja Cat'
-  
+  "term.version": "版本",
+   
   // Home
   "home.title": "首頁",
   "home.recentlyPlayed": "最近播放",
