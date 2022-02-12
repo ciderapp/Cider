@@ -69,7 +69,7 @@
     "@types/ws": "^8.2.2",
     "electron": "git+https://github.com/castlabs/electron-releases.git",
     "electron-builder": "^22.14.13",
-    "electron-builder-notarize-pkg": "^1.2.0",
+    "electron-builder-notarize-pkg": "^1.1.0",
     "electron-webpack": "^2.8.2",
     "musickit-typescript": "^1.2.4",
     "playwright": "^1.18.1",
@@ -154,15 +154,20 @@
       "deleteAppDataOnUninstall": true
     },
     "pkg": {
-      "allowAnywhere": true,
-      "allowRootDirectory" : true,
-      "license" : "LICENSE",
-      "overwriteAction": "upgrade",
-      "background" : {
+      "scripts": "../build/pkg-scripts",
+      "installLocation": "/Applications",
+      "background": {
         "file": "./resources/bg.png",
         "alignment": "bottomleft",
         "scaling": "tofit"
-      }
+      },
+      "allowAnywhere": true,
+      "allowCurrentUserHome": true,
+      "allowRootDirectory": true,
+      "license": "/resources/license.txt",
+      "isVersionChecked": true,
+      "isRelocatable": false,
+      "overwriteAction": "upgrade"
     },
     "win": {
       "target": [
