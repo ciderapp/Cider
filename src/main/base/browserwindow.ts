@@ -372,6 +372,9 @@ export class BrowserWindow {
         });
 
         ipcMain.on("get-github-theme", async (event, url) => {
+            if (!existsSync(utils.getPath("themes"))) {
+                mkdirSync(utils.getPath("themes"));
+            }
             if (url.endsWith("/")) url = url.slice(0, -1);
             let response = await fetch(
                 `${url}/archive/refs/heads/main.zip`
