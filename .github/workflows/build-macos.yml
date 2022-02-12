@@ -20,9 +20,6 @@ on:
     - '.gitmodules'
     - '.gitignore'
     - 'LICENSE'
-  pull_request:
-    # The branches below must be a subset of the branches above
-    branches: [ develop ]
   schedule:
     - cron: '44 20 * * 1'
 
