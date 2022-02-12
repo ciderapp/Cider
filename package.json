@@ -154,7 +154,7 @@
       "deleteAppDataOnUninstall": true
     },
     "pkg": {
-      "scripts": "/build/pkg-scripts",
+      "scripts": "build/pkg-scripts",
       "installLocation": "/Applications",
       "background": {
         "file": "./resources/bg.png",
@@ -165,7 +165,7 @@
       "allowCurrentUserHome": true,
       "allowRootDirectory": true,
       "license": "./resources/license.txt",
-      "isVersionChecked": true,
+      "isVersionChecked": false,
       "isRelocatable": false,
       "overwriteAction": "upgrade"
     },
