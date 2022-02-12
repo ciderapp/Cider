@@ -154,7 +154,7 @@
       "deleteAppDataOnUninstall": true
     },
     "pkg": {
-      "scripts": "../build/pkg-scripts",
+      "scripts": "/build/pkg-scripts",
       "installLocation": "/Applications",
       "background": {
         "file": "./resources/bg.png",
