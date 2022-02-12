@@ -371,21 +371,28 @@ export class BrowserWindow {
             event.returnValue = process.platform;
         });
 
-        ipcMain.on("get-github-theme", async (event, url) => {
-            if (!existsSync(utils.getPath("themes"))) {
-                mkdirSync(utils.getPath("themes"));
-            }
-            if (url.endsWith("/")) url = url.slice(0, -1);
-            let response = await fetch(
-                `${url}/archive/refs/heads/main.zip`
-            );
-            let zip = await response.buffer();
-            let zipFile = new AdmZip(zip);
-            zipFile.extractAllTo(utils.getPath("themes"), true);
-            BrowserWindow.win.webContents.send("theme-installed", "");
-            event.returnValue = {
+        ipcMain.handle("get-github-theme", async (event, url) => {
+            const returnVal = {
                 success: true,
-            };
+                theme: null,
+                message: ""
+            }
+            try {
+                if (!existsSync(utils.getPath("themes"))) {
+                    mkdirSync(utils.getPath("themes"));
+                }
+                if (url.endsWith("/")) url = url.slice(0, -1);
+                let response = await fetch(
+                    `${url}/archive/refs/heads/main.zip`
+                );
+                let zip = await response.buffer();
+                let zipFile = new AdmZip(zip);
+                zipFile.extractAllTo(utils.getPath("themes"), true);
+
+            }catch(e) {
+                returnVal.success = false;
+            }
+            BrowserWindow.win.webContents.send("theme-installed", returnVal);
         });
 
         ipcMain.on("get-themes", (event, _key) => {

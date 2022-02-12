@@ -693,11 +693,6 @@ const app = new Vue({
                 console.log(e)
             }
 
-            ipcRenderer.on("theme-installed", (event, arg) => {
-                notyf.success("Theme installed")
-                //app.setTheme(arg)
-            })
-
             MusicKit.getInstance().videoContainerElement = document.getElementById("apple-music-video-player")
 
             ipcRenderer.on('SoundCheckTag', (event, tag) => {
