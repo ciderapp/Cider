@@ -105,3 +105,8 @@ Update 08/02/2022 10:20 UTC
 Update 10/02/2022 05:58 UTC
 
 * `term.sortBy.dateAdded`: Added for `en_US`.
+
+Update 12/02/2022 12:00 UTC
+
+* Added support for multiple plural forms. [Details](#multiple-plural-forms)
+* `term.version`: Added for `en_US`.
