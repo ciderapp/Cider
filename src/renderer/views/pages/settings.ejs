@@ -130,7 +130,7 @@
                         <select class="md-select" @change="$root.setTheme($root.cfg.visual.theme)" v-model="$root.cfg.visual.theme">
                             <option value="default.less">{{$root.getLz('settings.option.visual.theme.default')}}</option>
                             <option value="dark.less">{{$root.getLz('settings.option.visual.theme.dark')}}</option>
-                            <option v-for="theme in themes" :value="theme">{{ theme }}</option>
+                            <option v-for="theme in themes" :value="theme">{{ theme.replace(".less", "") }}</option>
                         </select>
                     </div>
                 </div>
