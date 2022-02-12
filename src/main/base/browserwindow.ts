@@ -397,7 +397,6 @@ export class BrowserWindow {
 
         ipcMain.on("get-themes", (event, _key) => {
             if (existsSync(utils.getPath("themes"))) {
-                // return any .less files and scan any folders in the themes folder for .less files
                 let files = readdirSync(utils.getPath("themes"));
                 let themes = [];
                 for (let file of files) {
@@ -412,7 +411,39 @@ export class BrowserWindow {
                         }
                     }
                 }
-                event.returnValue = themes;
+                let themeObjects = [];
+                for (let theme of themes) {
+                    let themePath = join(utils.getPath("themes"), theme);
+                    let themeName = theme;
+                    let themeDescription = "";
+                    if (theme.includes("/")) {
+                        themeName = theme.split("/")[1];
+                        themeDescription = theme.split("/")[0];
+                    }
+                    if (themePath.endsWith("index.less")) {
+                        themePath = themePath.slice(0, -10);
+                    }
+                    if (existsSync(join(themePath, "theme.json"))) {
+                        let themeJson = JSON.parse(readFileSync(join(themePath, "theme.json"), "utf8"));
+                        themeObjects.push({
+                            name: themeJson.name || themeName,
+                            description: themeJson.description || themeDescription,
+                            path: themePath,
+                            file: theme,
+                            test: join(themePath, "theme.json")
+                        });
+                    } else {
+                        themeObjects.push({
+                            name: themeName,
+                            description: themeDescription,
+                            path: themePath,
+                            file: theme,
+                            test: join(themePath, "theme.json")
+                        });
+                    }
+                }
+                event.returnValue = themeObjects;
+
             } else {
                 event.returnValue = [];
             }
