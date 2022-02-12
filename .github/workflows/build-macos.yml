@@ -86,6 +86,7 @@ jobs:
         APPLEIDPASS: ${{ secrets.APPLEIDPASS }}
         APPLE_ID: ${{ secrets.APPLEID }}
         APPLE_ID_PASSWORD: ${{ secrets.APPLEIDPASS }}
+        PSC_NAME: ${{ secrets.PSC_NAME }}
         DEVELOPER_DIR: /Applications/Xcode_12.4.app/Contents/Developer
       run: |
         rm cider-yarn.lock || true
