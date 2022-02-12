@@ -1,4 +1,5 @@
-{ // Base File
+{
+  
   // i18n Info
   "i18n.languageName": "Čeština (CZ)", // name of language in native language
   "i18n.languageNameEnglish": "Czech (CZ)", // name of language in English
