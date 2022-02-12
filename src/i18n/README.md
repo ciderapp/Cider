@@ -110,3 +110,9 @@ Update 12/02/2022 12:00 UTC
 
 * Added support for multiple plural forms. [Details](#multiple-plural-forms)
 * `term.version`: Added for `en_US`.
+* `settings.option.visual.theme.github.download`: Added for `en_US`.
+* `settings.prompt.visual.theme.github.URL`: Added for `en_US`.
+* `settings.notyf.visual.theme.install.success`: Added for `en_US`.
+* `settings.notyf.visual.theme.install.error`: Added for `en_US`.
+* `term.defaultPresets`: Added for `en_US`.
+* `term.userPresets`: Added for `en_US`.

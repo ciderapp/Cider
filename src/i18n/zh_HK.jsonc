@@ -141,6 +141,8 @@
   "term.addedpreset": "已新增",
   "term.deletepreset.warn": "你確認要刪除這個範本？",
   "term.deletedpreset": "已刪除",
+  "term.defaultPresets": "預設範本",
+  "term.userPresets": "自訂範本",
   "term.requestError": "處理請求時發生錯誤",
   "term.song.link.generate": "正在生成 song.link 分享連結...",
   "term.musicVideos": "MV", // Search page friendlyTypes
@@ -296,6 +298,10 @@
   "settings.header.visual.hardwareAcceleration.default": "預設",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
   "settings.header.visual.theme": "主題",
+  "settings.option.visual.theme.github.download": "從 Github 安裝",
+  "settings.prompt.visual.theme.github.URL": "請輸入你想要安裝的主題的連結",
+  "settings.notyf.visual.theme.install.success": "成功安裝主題",
+  "settings.notyf.visual.theme.install.error": "主題安裝失敗",
 
   // Settings - Visual - Theme name
   "settings.option.visual.theme.default": "預設",
@@ -324,8 +330,8 @@
   "settings.option.connectivity.lastfmScrobble": "Last.fm Scrobbling 記錄", // Option to Connect
   "settings.option.connectivity.lastfmScrobble.delay": "Last.fm Scrobble 延遲 (%)",
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "啟用 Last.fm 正在播放",
-  "settings.option.connectivity.lastfmScrobble.removeFeatured": "從歌名中移除客串藝人 (LastFM)", 
-  "settings.option.connectivity.lastfmScrobble.filterLoop": "不記錄單曲循環 (LastFM)", 
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "從歌名中移除客串藝人（Last.fm）", 
+  "settings.option.connectivity.lastfmScrobble.filterLoop": "不記錄單曲循環（Last.fm）", 
   // Refer to term.connect for the connect button
 
   // Settings - Experimental

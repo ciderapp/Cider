@@ -141,6 +141,8 @@
   "term.addedpreset": "Added Preset",
   "term.deletepreset.warn": "Are you sure you want to delete this preset?",
   "term.deletedpreset": "Removed preset",
+  "term.defaultPresets": "Default Presets",
+  "term.userPresets": "User Presets",
   "term.requestError": "There was a problem with the request.",
   "term.song.link.generate": "Getting song.link share URL...",
   "term.musicVideos": "Music Videos", // Search page friendlyTypes
@@ -296,6 +298,10 @@
   "settings.header.visual.hardwareAcceleration.default": "Default",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
   "settings.header.visual.theme": "Theme",
+  "settings.option.visual.theme.github.download": "Install from GitHub URL",
+  "settings.prompt.visual.theme.github.URL": "Enter the URL of the theme you want to install",
+  "settings.notyf.visual.theme.install.success": "Theme installed successfully",
+  "settings.notyf.visual.theme.install.error": "Theme installation failed",
   
   // Settings - Visual - Theme name
   "settings.option.visual.theme.default": "Cider",
