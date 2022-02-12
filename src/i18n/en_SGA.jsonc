@@ -141,6 +141,8 @@
   "term.addedpreset": "ᖋ↸↸ᒷ↸ i!∷ᒷϟᒷᒣ",
   "term.deletepreset.warn": "ᖋ∷ᒷ ॥ᒍ⚍ ϟ⚍∷ᒷ ॥ᒍ⚍ ∴ᖋリᒣ ᒣᒍ ↸ᒷ|:ᒷᒣᒷ ᒣ⍑╎ϟ i!∷ᒷϟᒷᒣ?",
   "term.deletedpreset": "∷ᒷᒲᒍ⍊ᒷ↸ i!∷ᒷϟᒷᒣ",
+  "term.defaultPresets": "↸ᒷ⎓ᖋ⚍|:ᒣ i!∷ᒷϟᒷᒣϟ",
+  "term.userPresets": "⚍ϟᒷ∷ i!∷ᒷϟᒷᒣϟ",
   "term.requestError": "ᒣ⍑ᒷ∷ᒷ ∴ᖋϟ ᖋ i!∷ᒍᕊ|:ᒷᒲ ∴╎ᒣ⍑ ᒣ⍑ᒷ ∷ᒷᑑ⚍ᒷϟᒣ.",
   "term.song.link.generate": "┤ᒷᒣᒣ╎リ┤ ϟᒍリ┤.|:╎リ·ǀ· ϟ⍑ᖋ∷ᒷ ⚍∷|:...",
   "term.musicVideos": "ᒲ⚍ϟ╎ᔮ ⍊╎↸ᒷᒍϟ", // Search page friendlyTypes
@@ -296,6 +298,10 @@
   "settings.header.visual.hardwareAcceleration.default": "↸ᒷ⎓ᖋ⚍|:ᒣ",
   "settings.header.visual.hardwareAcceleration.webGPU": "∴ᒷᕊ┤i!⚍",
   "settings.header.visual.theme": "ᒣ⍑ᒷᒲᒷ",
+  "settings.option.visual.theme.github.download": "╎リϟᒣᖋ|:|: ⎓∷ᒍᒲ ┤╎ᒣ⍑⚍ᕊ ⚍∷|:",
+  "settings.prompt.visual.theme.github.URL": "ᒷリᒣᒷ∷ ᒣ⍑ᒷ ⚍∷|: ᒍ⎓ ᒣ⍑ᒷ ᒣ⍑ᒷᒲᒷ ॥ᒍ⚍ ∴ᖋリᒣ ᒣᒍ ╎リϟᒣᖋ|:|:",
+  "settings.notyf.visual.theme.install.success": "ᒣ⍑ᒷᒲᒷ ╎リϟᒣᖋ|:|:ᒷ↸ ϟ⚍ᔮᔮᒷϟϟ⎓⚍|:|:॥",
+  "settings.notyf.visual.theme.install.error": "ᒣ⍑ᒷᒲᒷ ╎リϟᒣᖋ|:|:ᖋᒣ╎ᒍリ ⎓ᖋ╎|:ᒷ↸",
   
   // Settings - Visual - Theme name
   "settings.option.visual.theme.default": "ᔮ╎↸ᒷ∷",
