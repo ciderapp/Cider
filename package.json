@@ -23,8 +23,8 @@
     "start:darwin": "yarn build && ELECTRON_ENABLE_LOGGING=true && electron ./build/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
     "pack": "electron-builder --dir",
     "dist": "yarn build && electron-builder",
-    "dist:macarm" : "yarn build && electron-builder --mac --arm64",
-    "dist:universalNotWorking": "yarn build && electron-builder --mac --universal", 
+    "dist:macarm": "yarn build && electron-builder --mac --arm64",
+    "dist:universalNotWorking": "yarn build && electron-builder --mac --universal",
     "dist:all": "yarn build && electron-builder -mwl",
     "msft": "yarn build && electron-builder -c msft-package.json",
     "postinstall": "electron-builder install-app-deps",
@@ -33,6 +33,7 @@
   "dependencies": {
     "@sentry/electron": "^2.5.4",
     "@sentry/integrations": "^6.17.4",
+    "adm-zip": "^0.5.9",
     "discord-rpc": "^4.0.1",
     "ejs": "^3.1.6",
     "electron-fetch": "^1.7.4",
