@@ -99,8 +99,7 @@ jobs:
 
     - name: Add license to dmg
       run: |
-        npm install --global dmg-license --save-dev
-        dmg-license resources/license.json dist/*.dmg
+        npx dmg-license resources/license.json dist/*.dmg
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2.2.3
