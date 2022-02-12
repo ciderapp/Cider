@@ -3109,6 +3109,7 @@ const app = new Vue({
                     data = data.data.data[0];
                     if (data != null && data !== "" && data.attributes != null && data.attributes.artwork != null) {
                         this.currentArtUrl = (data["attributes"]["artwork"]["url"] ?? '').replace('{w}', 50).replace('{h}', 50);
+                        ipcRenderer.send('updateRPCImage', this.currentArtUrl ?? '');
                         try {
                             document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
                         } catch (e) {
