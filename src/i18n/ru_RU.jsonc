@@ -308,10 +308,10 @@
   "settings.header.visual.hardwareAcceleration.default": "По умолчанию",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
   "settings.header.visual.theme": "Тема",
-  "settings.option.visual.theme.github.download": "Install from GitHub URL",
-  "settings.prompt.visual.theme.github.URL": "Enter the URL of the theme you want to install",
-  "settings.notyf.visual.theme.install.success": "Theme installed successfully",
-  "settings.notyf.visual.theme.install.error": "Theme installation failed",
+  "settings.option.visual.theme.github.download": "Установить с GitHub",
+  "settings.prompt.visual.theme.github.URL": "Введите URL темы, которую хотите установить",
+  "settings.notyf.visual.theme.install.success": "Тема успешно установлена",
+  "settings.notyf.visual.theme.install.error": "Не удалось установить тему",
   
   // Settings - Visual - Theme name
   "settings.option.visual.theme.default": "Cider",
