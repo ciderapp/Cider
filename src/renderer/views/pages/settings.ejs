@@ -130,8 +130,11 @@
                         <select class="md-select" @change="$root.setTheme($root.cfg.visual.theme)" v-model="$root.cfg.visual.theme">
                             <option value="default.less">{{$root.getLz('settings.option.visual.theme.default')}}</option>
                             <option value="dark.less">{{$root.getLz('settings.option.visual.theme.dark')}}</option>
-                            <option v-for="theme in themes" :value="theme">{{ theme }}</option>
+                            <option v-for="theme in themes" :value="theme.file">{{ theme.name }}</option>
                         </select>
+                        <button class="md-btn md-btn-small md-btn-block" @click="installTheme()" style="margin-top: 8px">
+                            {{$root.getLz('settings.option.visual.theme.github.download')}}
+                        </button>
                     </div>
                 </div>
                 <div class="md-option-line">
@@ -771,6 +774,22 @@
             }
         },
         methods: {
+            installTheme() {
+                let self = this
+                bootbox.prompt(app.getLz('settings.prompt.visual.theme.github.URL'), (result) => {
+                    if (result) {
+                        ipcRenderer.once("theme-installed", (event, arg) => {
+                            if (arg.success) {
+                                self.themes = ipcRenderer.sendSync("get-themes")
+                                notyf.success(app.getLz('settings.notyf.visual.theme.install.success'));
+                            } else {
+                                notyf.error(app.getLz('settings.notyf.visual.theme.install.error'));
+                            }
+                        });
+                        ipcRenderer.invoke("get-github-theme", result)
+                    }
+                });
+            },
             copyLogs() {
                 ipcRenderer.send('fetch-log')
                 notyf.success(app.getLz('term.share.success'));

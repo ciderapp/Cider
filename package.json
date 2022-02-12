@@ -23,8 +23,8 @@
     "start:darwin": "yarn build && ELECTRON_ENABLE_LOGGING=true && electron ./build/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
     "pack": "electron-builder --dir",
     "dist": "yarn build && electron-builder",
-    "dist:macarm" : "yarn build && electron-builder --mac --arm64",
-    "dist:universalNotWorking": "yarn build && electron-builder --mac --universal", 
+    "dist:macarm": "yarn build && electron-builder --mac --arm64",
+    "dist:universalNotWorking": "yarn build && electron-builder --mac --universal",
     "dist:all": "yarn build && electron-builder -mwl",
     "msft": "yarn build && electron-builder -c msft-package.json",
     "postinstall": "electron-builder install-app-deps",
@@ -33,6 +33,7 @@
   "dependencies": {
     "@sentry/electron": "^2.5.4",
     "@sentry/integrations": "^6.17.4",
+    "adm-zip": "^0.5.9",
     "discord-rpc": "^4.0.1",
     "ejs": "^3.1.6",
     "electron-fetch": "^1.7.4",
@@ -68,6 +69,7 @@
     "@types/ws": "^8.2.2",
     "electron": "git+https://github.com/castlabs/electron-releases.git",
     "electron-builder": "^22.14.13",
+    "electron-builder-notarize-pkg": "^1.1.0",
     "electron-webpack": "^2.8.2",
     "musickit-typescript": "^1.2.4",
     "playwright": "^1.18.1",
@@ -148,7 +150,31 @@
       "perMachine": false,
       "allowToChangeInstallationDirectory": true,
       "license": "LICENSE",
-      "deleteAppDataOnUninstall": true
+      "deleteAppDataOnUninstall": true,
+      "artifactName": "${productName}-Setup-${version}.${ext}"
+    },
+    "pkg": {
+      "installLocation": "/Applications",
+      "background": {
+        "file": "./resources/bg.png",
+        "alignment": "bottomleft",
+        "scaling": "tofit"
+      },
+      "allowAnywhere": true,
+      "allowCurrentUserHome": true,
+      "allowRootDirectory": true,
+      "license": "./resources/license.txt",
+      "isVersionChecked": false,
+      "isRelocatable": false,
+      "overwriteAction": "upgrade"
+    },
+    "dmg": {
+      "background": "./resources/bg.png",
+      "icon": "resources/icons/icon.ico"
+    },
+    "mas": {
+      "entitlements": "./resources/entitlements.mac.plist",
+      "entitlementsInherit": "./resources/entitlements.mac.plist"
     },
     "win": {
       "target": [

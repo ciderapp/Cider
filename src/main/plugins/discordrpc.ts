@@ -1,4 +1,6 @@
 import * as RPC from 'discord-rpc'
+import {ipcMain} from "electron";
+import fetch from 'electron-fetch'
 
 export default class DiscordRichPresence {
 
@@ -6,6 +8,7 @@ export default class DiscordRichPresence {
      * Private variables for interaction in plugins
      */
     private static _store: any;
+    private _app : any;
     private static _connection: boolean = false;
 
     /**
@@ -29,6 +32,7 @@ export default class DiscordRichPresence {
         smallImageText: '',
         instance: false
     };
+
     private _activityCache: RPC.Presence = {
         details: '',
         state: '',
@@ -58,7 +62,6 @@ export default class DiscordRichPresence {
 
         // Create the client
         this._client = new RPC.Client({transport: "ipc"});
-
         // Runs on Ready
         this._client.on('ready', () => {
             console.info(`[DiscordRPC][connect] Successfully Connected to Discord. Authed for user: ${this._client.user.id}.`);
@@ -101,7 +104,7 @@ export default class DiscordRichPresence {
         }
 
 		// Check large image
-        if (activity.largeImageKey === null || activity.largeImageKey === ""){
+        if (activity.largeImageKey == null || activity.largeImageKey === "" || activity.largeImageKey.length > 256) { 
             activity.largeImageKey = "cider";
         }
 
@@ -169,7 +172,6 @@ export default class DiscordRichPresence {
                 this._client.setActivity(this._activity)
                 .catch((e: any) => console.error(`[DiscordRichPresence][setActivity] ${e}`));
             }
-
         } else if (this._activity && this._activityCache !== this._activity && this._activity.details) {
             if (!DiscordRichPresence._store.general.discord_rpc_clear_on_pause) {
                 this._activity.smallImageKey = 'play';
@@ -190,17 +192,37 @@ export default class DiscordRichPresence {
     /**
      * Runs on plugin load (Currently run on application start)
      */
-    constructor(_app: any, store: any) {
+    constructor(app: any, store: any) {
         DiscordRichPresence._store = store
         console.debug(`[Plugin][${this.name}] Loading Complete.`);
+        this._app = app;
     }
 
     /**
      * Runs on app ready
      */
     onReady(_win: any): void {
+        let self = this
         this.connect((DiscordRichPresence._store.general.discord_rpc == 1) ? '911790844204437504' : '886578863147192350');
         console.debug(`[Plugin][${this.name}] Ready.`);
+        ipcMain.on('updateRPCImage', (_event, imageurl) => {
+            fetch('https://api.cider.sh/v1/images' ,{ 
+
+                method: 'POST',
+                body: JSON.stringify({url : imageurl}),
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'User-Agent': _win.webContents.getUserAgent()
+                },
+            })
+            .then(res => res.json())
+            .then(function(json){
+                self._activity['largeImageKey'] = json.url
+                console.log(json.url)
+                self._client.setActivity(self._activity);
+            })
+        
+        })
     }
 
     /**

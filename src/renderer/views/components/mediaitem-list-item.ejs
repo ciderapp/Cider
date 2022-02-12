@@ -124,7 +124,7 @@
                     return
                 }
                 this.$root.inLibrary([this.item]).then(res => {
-                    this.addedToLibrary = res[0].attributes.inLibrary
+                    this.addedToLibrary = res[0]?.attributes?.inLibrary ?? false
                 })
                 return this.addedToLibrary
             },

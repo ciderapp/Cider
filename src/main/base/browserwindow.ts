@@ -4,7 +4,7 @@ import * as windowStateKeeper from "electron-window-state";
 import * as express from "express";
 import * as getPort from "get-port";
 import {search} from "youtube-search-without-api-key";
-import {existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync} from "fs";
+import {existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync, statSync} from "fs";
 import {Stream} from "stream";
 import {networkInterfaces} from "os";
 import * as mm from 'music-metadata';
@@ -13,6 +13,7 @@ import {wsapi} from "./wsapi";
 import {jsonc} from "jsonc";
 import {AppImageUpdater, NsisUpdater} from "electron-updater";
 import {utils} from './utils';
+const AdmZip = require("adm-zip");
 
 
 export class BrowserWindow {
@@ -240,7 +241,20 @@ export class BrowserWindow {
             } else {
                 res.send(`// Theme not found - ${userThemePath}`);
             }
+        });
 
+        app.get("/themes/:theme/:file", (req, res) => {
+            const theme = req.params.theme.toLowerCase();
+            const file = req.params.file;
+            const themePath = join(utils.getPath('srcPath'), "./renderer/themes/", theme);
+            const userThemePath = join(utils.getPath('themes'), theme);
+            if (existsSync(userThemePath)) {
+                res.sendFile(join(userThemePath, file));
+            } else if (existsSync(themePath)) {
+                res.sendFile(join(themePath, file));
+            } else {
+                res.send(`// File not found - ${userThemePath}`);
+            }
         });
 
         app.get("/audio.webm", (req, res) => {
@@ -357,9 +371,79 @@ export class BrowserWindow {
             event.returnValue = process.platform;
         });
 
+        ipcMain.handle("get-github-theme", async (event, url) => {
+            const returnVal = {
+                success: true,
+                theme: null,
+                message: ""
+            }
+            try {
+                if (!existsSync(utils.getPath("themes"))) {
+                    mkdirSync(utils.getPath("themes"));
+                }
+                if (url.endsWith("/")) url = url.slice(0, -1);
+                let response = await fetch(
+                    `${url}/archive/refs/heads/main.zip`
+                );
+                let zip = await response.buffer();
+                let zipFile = new AdmZip(zip);
+                zipFile.extractAllTo(utils.getPath("themes"), true);
+
+            }catch(e) {
+                returnVal.success = false;
+            }
+            BrowserWindow.win.webContents.send("theme-installed", returnVal);
+        });
+
         ipcMain.on("get-themes", (event, _key) => {
             if (existsSync(utils.getPath("themes"))) {
-                event.returnValue = readdirSync(utils.getPath("themes"));
+                let files = readdirSync(utils.getPath("themes"));
+                let themes = [];
+                for (let file of files) {
+                    if (file.endsWith(".less")) {
+                        themes.push(file);
+                    } else if (statSync(join(utils.getPath("themes"), file)).isDirectory()) {
+                        let subFiles = readdirSync(join(utils.getPath("themes"), file));
+                        for (let subFile of subFiles) {
+                            if (subFile.endsWith(".less")) {
+                                themes.push(join(file, subFile));
+                            }
+                        }
+                    }
+                }
+                let themeObjects = [];
+                for (let theme of themes) {
+                    let themePath = join(utils.getPath("themes"), theme);
+                    let themeName = theme;
+                    let themeDescription = "";
+                    if (theme.includes("/")) {
+                        themeName = theme.split("/")[1];
+                        themeDescription = theme.split("/")[0];
+                    }
+                    if (themePath.endsWith("index.less")) {
+                        themePath = themePath.slice(0, -10);
+                    }
+                    if (existsSync(join(themePath, "theme.json"))) {
+                        let themeJson = JSON.parse(readFileSync(join(themePath, "theme.json"), "utf8"));
+                        themeObjects.push({
+                            name: themeJson.name || themeName,
+                            description: themeJson.description || themeDescription,
+                            path: themePath,
+                            file: theme,
+                            test: join(themePath, "theme.json")
+                        });
+                    } else {
+                        themeObjects.push({
+                            name: themeName,
+                            description: themeDescription,
+                            path: themePath,
+                            file: theme,
+                            test: join(themePath, "theme.json")
+                        });
+                    }
+                }
+                event.returnValue = themeObjects;
+
             } else {
                 event.returnValue = [];
             }
@@ -601,6 +685,9 @@ export class BrowserWindow {
             shareMenu.popup();
         })
 
+        ipcMain.on('get-version', (_event) => {
+            _event.returnValue = app.getVersion()
+        });
 
         /* *********************************************************************************************
          * Window Events
