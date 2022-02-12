@@ -13,6 +13,7 @@ import {wsapi} from "./wsapi";
 import {jsonc} from "jsonc";
 import {AppImageUpdater, NsisUpdater} from "electron-updater";
 import {utils} from './utils';
+const AdmZip = require("adm-zip");
 
 
 export class BrowserWindow {
@@ -368,6 +369,23 @@ export class BrowserWindow {
          ****************************************************************************************************************** */
         ipcMain.on("cider-platform", (event) => {
             event.returnValue = process.platform;
+        });
+
+        ipcMain.on("get-github-theme", async (event, url) => {
+            if (!existsSync(utils.getPath("themes"))) {
+                mkdirSync(utils.getPath("themes"));
+            }
+            if (url.endsWith("/")) url = url.slice(0, -1);
+            let response = await fetch(
+                `${url}/archive/refs/heads/main.zip`
+            );
+            let zip = await response.buffer();
+            let zipFile = new AdmZip(zip);
+            zipFile.extractAllTo(utils.getPath("themes"), true);
+            BrowserWindow.win.webContents.send("theme-installed", "");
+            event.returnValue = {
+                success: true,
+            };
         });
 
         ipcMain.on("get-themes", (event, _key) => {
