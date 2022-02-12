@@ -164,7 +164,7 @@
       "allowAnywhere": true,
       "allowCurrentUserHome": true,
       "allowRootDirectory": true,
-      "license": "/resources/license.txt",
+      "license": "./resources/license.txt",
       "isVersionChecked": true,
       "isRelocatable": false,
       "overwriteAction": "upgrade"
