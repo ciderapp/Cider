@@ -1,4 +1,4 @@
-{
+{ // To translator, please correct Line 294-297. Delete this sentence after that.
 
   // i18n Info
   "i18n.languageName": "Slovenčina (SK)", // name of language in native language
@@ -291,10 +291,10 @@
   // Settings - Experimental
   "settings.header.experimental": "Experimentálne",
   "settings.header.experimental.description": "Zmeniť experimentálne nastavenia pre Cider.",
-  "settings.option.experimental.compactUI": "Compact UI", // Toggle
-  "settings.option.experimental.close_button_hide": "Zatvoriť by malo skriť aplikáciu",
-  "settings.option.experimental.compactUI": "Kompaktný UI", // Toggle
-  "settings.option.experimental.close_button_hide": "Zatvaranie aplikácie ju malo skriť",
+    //"settings.option.experimental.compactUI": "Compact UI", // Toggle
+    //"settings.option.experimental.close_button_hide": "Zatvoriť by malo skriť aplikáciu",
+    //"settings.option.experimental.compactUI": "Kompaktný UI", // Toggle
+    //"settings.option.experimental.close_button_hide": "Zatvaranie aplikácie ju malo skriť",
 
   // Refer to term.disabled & term.enabled
   // Spatialization Menu
