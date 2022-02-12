@@ -324,13 +324,17 @@ const app = new Vue({
         },
         getLz(message, options = {}) {
             if (this.lz[message]) {
-                if(options["plural"]) {
-                    let closest = this.lz[message].reduce(function(prev, curr) {
-                        return (Math.abs(curr.value - options["plural"]) < Math.abs(prev.value - options["plural"]) ? curr : prev);
-                    });
-                    return closest.text;
-                }else if(typeof this.lz[message] === "object") {
-                    return this.lz[message][0].text;
+                if(options["count"] ) {
+                    if (typeof this.lz[message] === "object"){
+                        let type = window.fastPluralRules.getPluralFormNameForCardinalByLocale(this.cfg.general.language.replace("_","-"),options["count"]);
+                        return this.lz[message][type] ?? ((this.lz[message])[Object.keys(this.lz[message])[0]] ?? this.lz[message])
+                    } else {
+                        // fallback English plural forms ( old i18n )
+                        if (options["count"] > 1) {
+                            return this.lz[message+ "s"] ?? this.lz[message]} else { return this.lz[message]}
+                    }
+                } else if(typeof this.lz[message] === "object") {
+                    return (this.lz[message])[Object.keys(this.lz[message])[0]]
                 }
                 return this.lz[message]
             } else {
@@ -2149,7 +2153,10 @@ const app = new Vue({
                     let hours = Math.floor(time / 3600)
                     let mins = Math.floor(time / 60) % 60
                     let secs = time % 60
-                    return app.showingPlaylist.relationships.tracks.data.length + " " + app.getLz('term.tracks') + ", " + ((hours > 0) ? (hours + (" " + ((hours > 1) ? app.getLz('term.time.hours') + ", " : app.getLz('term.time.hour') + ", "))) : "") + ((mins > 0) ? (mins + ((mins > 1) ? " " + app.getLz('term.time.minutes') + ", " : " " + app.getLz('term.time.minute') + ", ")) : "") + secs + ((secs > 1) ? " " + app.getLz('term.time.seconds') + "." : " " + app.getLz('term.time.second') + ".");
+                    return app.showingPlaylist.relationships.tracks.data.length + " " + app.getLz('term.track', options = {count : app.showingPlaylist.relationships.tracks.data.length}) + ", " 
+                    + ((hours > 0) ? (hours + (" " + (app.getLz('term.time.hour', options = {count : hours}) + ", "))) : "") + 
+                    ((mins > 0) ? (mins + (" " + app.getLz('term.time.minute', options = {count : mins}) + ", ")) : "") + 
+                    secs + (" " + app.getLz('term.time.second', options = {count : secs}) + ".");
                 } else return ""
             } catch (err) {
                 return ""
