@@ -101,11 +101,13 @@ jobs:
       run: |
         npx dmg-license resources/license.json dist/*.dmg
     
-    - name: Create PKG manually
+    - name: Import 
       uses: apple-actions/import-codesign-certs@v1
       with: 
         p12-file-base64: ${{ secrets.CSC_LINK }}
         p12-password: ${{ secrets.CSC_KEY_PASSWORD }}
+
+    - name: Create PKG manually   
       run: |
          pkgbuild --component dist/mac-universal/Cider.app --install-location /Applications dist/Cider.pkg --sign ${{ secrets.PSC_NAME }} 
          xcrun altool --notarize-app --primary-bundle-id com.ciderapp.cider -f dist/Cider.pkg  -p  --username ${{ secrets.APPLEID }} --password ${{ secrets.APPLEIDPASS }}
