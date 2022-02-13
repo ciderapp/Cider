@@ -3730,6 +3730,11 @@ const app = new Vue({
                 if (sellang.startsWith("en") && this.mk.storefrontId != "us") sellang = "en-gb"
                 return await sellang
             }          
+        },
+        skipToNextItem(){
+            // app.mk.skipToNextItem() is buggy somehow so use this
+            if (this.mk.queue.nextPlayableItemIndex != -1) 
+            this.mk.changeToMediaAtIndex(this.mk.queue.nextPlayableItemIndex);
         }
     }
 })

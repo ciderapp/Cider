@@ -127,7 +127,9 @@ const MusicKitInterop = {
 	},
 
 	next: () => {
-		MusicKit.getInstance().skipToNextItem().then(r => console.log(`[MusicKitInterop.next] Skipping to Next ${r}`));
+		if (MusicKit.getInstance().queue.nextPlayableItemIndex != -1) 
+		MusicKit.getInstance().changeToMediaAtIndex(MusicKit.getInstance().queue.nextPlayableItemIndex);
+	//	MusicKit.getInstance().skipToNextItem().then(r => console.log(`[MusicKitInterop.next] Skipping to Next ${r}`));
 	},
 
 	previous: () => {
