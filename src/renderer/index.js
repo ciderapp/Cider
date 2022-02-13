@@ -1350,7 +1350,7 @@ const app = new Vue({
                 app.mk.seekToTime(0);
             } else {
                 app.prevButtonBackIndicator = false;
-                app.mk.skipToPreviousItem()
+                app.skipToPreviousItem()
             }
         },
         async getNowPlayingItemDetailed(target) {
@@ -3735,8 +3735,13 @@ const app = new Vue({
         },
         skipToNextItem(){
             // app.mk.skipToNextItem() is buggy somehow so use this
-            if (this.mk.queue.nextPlayableItemIndex != -1) 
+            if (this.mk.queue.nextPlayableItemIndex != -1 && this.mk.queue.nextPlayableItemIndex != null) 
             this.mk.changeToMediaAtIndex(this.mk.queue.nextPlayableItemIndex);
+        },
+        skipToPreviousItem(){
+            // app.mk.skipToPreviousItem() is buggy somehow so use this
+            if (this.mk.queue.previousPlayableItemIndex != -1 && this.mk.queue.previousPlayableItemIndex != null)
+            this.mk.changeToMediaAtIndex(this.mk.queue.previousPlayableItemIndex);
         }
     }
 })
