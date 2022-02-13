@@ -29,7 +29,7 @@ jobs:
     runs-on: macos-11
     permissions:
       actions: read
-      contents: read
+      contents: write
       security-events: write
 
     strategy:
@@ -118,6 +118,7 @@ jobs:
          xcrun altool --notarize-app --primary-bundle-id com.ciderapp.cider -f dist/Cider.pkg  --username ${{ secrets.APPLEID }} --password ${{ secrets.APPLEIDPASS }}
          sleep 5m
          xcrun stapler staple dist/Cider.pkg || true
+         mv dist/*.dmg dist/Cider.dmg
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2.2.3
@@ -129,3 +130,16 @@ jobs:
           dist/*.dmg
           dist/*.pkg
         # The desired behavior if no files are found using the provided path.
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          dist/Cider.dmg
+          dist/Cider.pkg
+        body: signed Develop MacOS Builds
+        name: macOS builds  
+        tag_name: macos-beta  
+        prerelease : true
+        generate_release_notes: true
+        append_body : false
+        fail_on_unmatched_files: false
