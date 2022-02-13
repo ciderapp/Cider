@@ -64,6 +64,7 @@
   "term.sortBy.genre": "ジャンル",
   "term.sortBy.releaseDate": "配信開始日",
   "term.sortBy.duration": "時間",
+  "term.sortBy.dateAdded": "追加日",
   "term.sortOrder": "並べ替え",
   "term.sortOrder.ascending": "昇順",
   "term.sortOrder.descending": "降順",
@@ -114,12 +115,16 @@
   "term.contributors": "貢献者",
   "term.equalizer": "イコライザー",
   "term.reset": "リセット",
-  "term.tracks": "曲", // Assume x amount of tracks. e.g. 50 tracks 
+  "term.track": {
+    "one" : "曲",
+    "other" : "曲"
+  },
   "term.videos": "ビデオ",
   "term.menu": "メニュー",
   "term.check": "確認",
   "term.aboutArtist": "{{artistName}}について", // e.g. 'About Doja Cat'
-  
+  "term.version": "バージョン",
+
   // Home
   "home.title": "ホーム",
   "home.recentlyPlayed": "最近の再生",
@@ -199,6 +204,9 @@
   "settings.header.general.description": "Ciderの一般設定",
   
   // Language optgroups
+  "settings.option.general.language.main": "メイン",
+  "settings.option.general.language.fun": "荒らし",
+  "settings.option.general.language.unsorted": "未分類",
 
   // Update Cider
   "settings.option.general.updateCider": "Cider 更新", // Button
@@ -250,8 +258,11 @@
   "settings.option.visual.hardwareAcceleration.description": "アプリを再起動する必要があります",
   "settings.header.visual.hardwareAcceleration.default": "既定",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
+  "settings.header.visual.theme": "テーマ",
 
   // Settings - Visual - Theme name
+  "settings.option.visual.theme.default": "Cider",
+  "settings.option.visual.theme.dark": "ダーク",
 
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "プロフィールを表示", // Toggle
@@ -284,7 +295,9 @@
   "settings.header.experimental.description": "開発中の実験的な機能は不完全で不安定である可能性があります",
   "settings.option.experimental.compactUI": "コンパクトインターフェース", // Toggle
   "settings.option.experimental.close_button_hide": "「閉じる」ボタンでアプリを隠します", // Dropdown
-  
+  "settings.option.experimental.copy_log": "ログをコピーする", 
+  "settings.option.experimental.inline_playlists": "プレイリストをインラインで表示", // Toggle
+
   // Refer to term.disabled & term.enabled
   // Spatialization Menu
   "spatial.spatialProperties": "空間化のプロパティ",

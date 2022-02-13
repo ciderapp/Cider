@@ -123,7 +123,10 @@
   "term.contributors": "貢獻者",
   "term.equalizer": "等化器",
   "term.reset": "重設",
-  "term.tracks": "首歌曲", // Assume x amount of tracks. e.g. 50 tracks 
+  "term.track": {
+    "one" : "首歌曲",
+    "other" : "首歌曲"
+  },
   "term.videos": "影片",
   "term.menu": "選單",
   "term.check": "檢查",
