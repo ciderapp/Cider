@@ -2355,6 +2355,7 @@ const app = new Vue({
                     app.mk.nowPlayingItem['attributes']['lossless'] = true
                     CiderAudio.audioNodes.llpwEnabled = 1
                     console.log("[Cider][Audio] PPE Kicking in...");
+                    CiderAudio.hierarchical_loading();
                 /**}
                 else {
                     CiderAudio.audioNodes.llpwEnabled = 0
