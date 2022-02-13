@@ -127,10 +127,13 @@
     "one" : "首歌曲",
     "other" : "首歌曲"
   },
+  "term.tracks": "首歌曲",
   "term.videos": "影片",
   "term.menu": "選單",
   "term.check": "檢查",
   "term.aboutArtist": "關於{{artistName}}", // e.g. 'About Doja Cat'
+  "term.requestError": "請求發生錯誤。",
+  "term.song.link.generate": "正在取得 song.link 的分享網址...",
   "term.version": "版本",
    
   // Home
