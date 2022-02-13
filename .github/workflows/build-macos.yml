@@ -100,6 +100,17 @@ jobs:
     - name: Add license to dmg
       run: |
         npx dmg-license resources/license.json dist/*.dmg
+    
+    - name: Create PKG manually
+      uses: apple-actions/import-codesign-certs@v1
+      with: 
+        p12-file-base64: ${{ secrets.CSC_LINK }}
+        p12-password: ${{ secrets.CSC_KEY_PASSWORD }}
+      run: |
+         pkgbuild --component dist/mac-universal/Cider.app --install-location /Applications dist/Cider.pkg --sign ${{ secrets.PSC_NAME }} 
+         xcrun altool --notarize-app --primary-bundle-id com.ciderapp.cider -f dist/Cider.pkg  -p  --username ${{ secrets.APPLEID }} --password ${{ secrets.APPLEIDPASS }}
+         sleep 5m
+         xcrun stapler staple dist/Cider.pkg || true
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2.2.3
@@ -107,5 +118,7 @@ jobs:
         # Artifact name
         name: macOS
         # A file, directory or wildcard pattern that describes what to upload
-        path: dist/*.dmg
+        path: |
+          dist/*.dmg
+          dist/*.pkg
         # The desired behavior if no files are found using the provided path.
