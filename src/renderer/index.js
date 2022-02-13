@@ -597,6 +597,8 @@ const app = new Vue({
             } catch (err) {
             }
 
+            this.mk._bag.features['seamless-audio-transitions'] = this.cfg.audio.seamless_audio
+
             // API Fallback
             if (!this.chrome.userinfo) {
                 this.chrome.userinfo = {
@@ -1348,7 +1350,7 @@ const app = new Vue({
                 app.mk.seekToTime(0);
             } else {
                 app.prevButtonBackIndicator = false;
-                app.mk.skipToPreviousItem()
+                app.skipToPreviousItem()
             }
         },
         async getNowPlayingItemDetailed(target) {
@@ -3730,6 +3732,16 @@ const app = new Vue({
                 if (sellang.startsWith("en") && this.mk.storefrontId != "us") sellang = "en-gb"
                 return await sellang
             }          
+        },
+        skipToNextItem(){
+            // app.mk.skipToNextItem() is buggy somehow so use this
+            if (this.mk.queue.nextPlayableItemIndex != -1 && this.mk.queue.nextPlayableItemIndex != null) 
+            this.mk.changeToMediaAtIndex(this.mk.queue.nextPlayableItemIndex);
+        },
+        skipToPreviousItem(){
+            // app.mk.skipToPreviousItem() is buggy somehow so use this
+            if (this.mk.queue.previousPlayableItemIndex != -1 && this.mk.queue.previousPlayableItemIndex != null)
+            this.mk.changeToMediaAtIndex(this.mk.queue.previousPlayableItemIndex);
         }
     }
 })

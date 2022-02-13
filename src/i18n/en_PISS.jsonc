@@ -124,7 +124,12 @@
   "term.contributors": "more pisseneers",
   "term.equalizer": "advanced piss configuration",
   "term.reset": "repiss",
-  "term.tracks": "pisses", // Assume x amount of tracks. e.g. 50 tracks 
+  // Example for multiple plural forms : look up the key for your language in https://github.com/prantlf/fast-plural-rules/blob/master/docs/languages.md#supported-languages
+  "term.track": {
+    "one" : "piss",
+    "other" : "pisses"
+  },
+  // "term.tracks": "pisses", // Assume x amount of tracks. e.g. 50 tracks 
   "term.videos": "piss videos",
   "term.menu": "piss menu",
   "term.check": "piss!",
@@ -136,6 +141,8 @@
   "term.addedpreset": "obtained prepiss",
   "term.deletepreset.warn": "are you sure you want to obliterate this prepiss?",
   "term.deletedpreset": "obliterated prepiss",
+  "term.defaultPresets": "default prepisses",
+  "term.userPresets": "your prepisses",
   "term.requestError": "the request got pissed on",
   "term.song.link.generate": "pissing on piss.link…",
   "term.musicVideos": "piss videos", // Search page friendlyTypes
@@ -146,6 +153,7 @@
   "term.recordLabels": "piss labels",
   "term.videoExtras": "extra piss videos",
   "term.top": "topiss",
+  "term.version": "pission",
 
   // Home
   "home.title": "piss central",
@@ -290,6 +298,10 @@
   "settings.header.visual.hardwareAcceleration.default": "default piss",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebPISS",
   "settings.header.visual.theme": "colored piss",
+  "settings.option.visual.theme.github.download": "piss from PissHub URL",
+  "settings.prompt.visual.theme.github.URL": "piss on the URL for your colorful piss",
+  "settings.notyf.visual.theme.install.success": "colored piss obtained",
+  "settings.notyf.visual.theme.install.error": "colored piss got pissed on…",
 
   // Settings - Visual - Theme name
   "settings.option.visual.theme.default": "same old piss",

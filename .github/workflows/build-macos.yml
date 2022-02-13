@@ -29,7 +29,7 @@ jobs:
     runs-on: macos-11
     permissions:
       actions: read
-      contents: read
+      contents: write
       security-events: write
 
     strategy:
@@ -100,6 +100,25 @@ jobs:
     - name: Add license to dmg
       run: |
         npx dmg-license resources/license.json dist/*.dmg
+    
+    - name: Import 
+      uses: apple-actions/import-codesign-certs@v1
+      with: 
+        p12-file-base64: ${{ secrets.CSC_LINK }}
+        p12-password: ${{ secrets.CSC_KEY_PASSWORD }}
+
+    - name: Create PKG manually  
+      env: 
+        CSC_LINK: ${{ secrets.CSC_LINK }}
+        CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }} 
+        APPLEID: ${{ secrets.APPLEID }}
+        APPLEIDPASS: ${{ secrets.APPLEIDPASS }}
+      run: |
+         pkgbuild --component dist/mac-universal/Cider.app --install-location /Applications dist/Cider.pkg --sign ${{ secrets.PSC_NAME }} 
+         xcrun altool --notarize-app --primary-bundle-id com.ciderapp.cider -f dist/Cider.pkg  --username ${{ secrets.APPLEID }} --password ${{ secrets.APPLEIDPASS }}
+         sleep 5m
+         xcrun stapler staple dist/Cider.pkg || true
+         mv dist/*.dmg dist/Cider.dmg
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2.2.3
@@ -107,5 +126,20 @@ jobs:
         # Artifact name
         name: macOS
         # A file, directory or wildcard pattern that describes what to upload
-        path: dist/*.dmg
+        path: |
+          dist/*.dmg
+          dist/*.pkg
         # The desired behavior if no files are found using the provided path.
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          dist/Cider.dmg
+          dist/Cider.pkg
+        body: signed Develop MacOS Builds
+        name: macOS builds  
+        tag_name: macos-beta  
+        prerelease : true
+        generate_release_notes: true
+        append_body : false
+        fail_on_unmatched_files: false

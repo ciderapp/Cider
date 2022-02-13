@@ -9,6 +9,7 @@ export default class DiscordRichPresence {
      */
     private static _store: any;
     private _app : any;
+    private _attributes : any;
     private static _connection: boolean = false;
 
     /**
@@ -148,7 +149,7 @@ export default class DiscordRichPresence {
             state: `${attributes.artistName ? `by ${attributes.artistName}` : ''}`,
             startTimestamp: attributes.startTime,
             endTimestamp: attributes.endTime,
-            largeImageKey: attributes.artwork.url.replace('{w}', '1024').replace('{h}', '1024'),
+            largeImageKey: attributes?.artwork?.url?.replace('{w}', '1024').replace('{h}', '1024'),
             largeImageText: attributes.albumName,
             instance: false, // Whether the activity is in a game session
             buttons: [
@@ -217,9 +218,8 @@ export default class DiscordRichPresence {
             })
             .then(res => res.json())
             .then(function(json){
-                self._activity['largeImageKey'] = json.url
-                console.log(json.url)
-                self._client.setActivity(self._activity);
+                self._attributes["artwork"]["url"] = json.url
+                self.updateActivity(self._attributes)
             })
         
         })
@@ -237,6 +237,7 @@ export default class DiscordRichPresence {
      * @param attributes Music Attributes (attributes.status = current state)
      */
     onPlaybackStateDidChange(attributes: object): void {
+        this._attributes = attributes
         this.updateActivity(attributes)
     }
 
@@ -245,6 +246,7 @@ export default class DiscordRichPresence {
      * @param attributes Music Attributes
      */
     onNowPlayingItemDidChange(attributes: object): void {
+        this._attributes = attributes
         this.updateActivity(attributes)
     }
 }

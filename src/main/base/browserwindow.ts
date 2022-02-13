@@ -217,11 +217,11 @@ export class BrowserWindow {
                     res.send("Stopped")
                     break;
                 case "next":
-                    BrowserWindow.win.webContents.executeJavaScript("MusicKit.getInstance().skipToNextItem()")
+                    BrowserWindow.win.webContents.executeJavaScript("if (MusicKit.getInstance().queue.nextPlayableItemIndex != -1 && MusicKit.getInstance().queue.nextPlayableItemIndex != null) {MusicKit.getInstance().changeToMediaAtIndex(MusicKit.getInstance().queue.nextPlayableItemIndex);}")
                     res.send("Next")
                     break;
                 case "previous":
-                    BrowserWindow.win.webContents.executeJavaScript("MusicKit.getInstance().skipToPreviousItem()")
+                    BrowserWindow.win.webContents.executeJavaScript("if (MusicKit.getInstance().queue.previousPlayableItemIndex != -1 && MusicKit.getInstance().queue.previousPlayableItemIndex != null) {MusicKit.getInstance().changeToMediaAtIndex(MusicKit.getInstance().queue.previousPlayableItemIndex);}")
                     res.send("Previous")
                     break;
                 default: {
