@@ -597,6 +597,8 @@ const app = new Vue({
             } catch (err) {
             }
 
+            this.mk._bag.features['seamless-audio-transitions'] = this.cfg.audio.seamless_audio
+
             // API Fallback
             if (!this.chrome.userinfo) {
                 this.chrome.userinfo = {
