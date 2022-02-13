@@ -217,7 +217,7 @@ export class BrowserWindow {
                     res.send("Stopped")
                     break;
                 case "next":
-                    BrowserWindow.win.webContents.executeJavaScript("MusicKit.getInstance().skipToNextItem()")
+                    BrowserWindow.win.webContents.executeJavaScript("if (MusicKit.getInstance().queue.nextPlayableItemIndex != -1) {MusicKit.getInstance().changeToMediaAtIndex(MusicKit.getInstance().queue.nextPlayableItemIndex);}")
                     res.send("Next")
                     break;
                 case "previous":
