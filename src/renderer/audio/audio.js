@@ -189,20 +189,24 @@ var CiderAudio = {
             if (CiderAudio.audioNodes.llpwEnabled == 1) { // If CAP & vibrant bass is enabled
                 CiderAudio.vibrantbass_h2_1(true)
                 CiderAudio.llpw_h2_2(true, 2)
+                console.log("[Cider][Audio] CAP & vibrant bass is enabled")
         }
             else {                                         // If only vibrant bass is enabled          
                 CiderAudio.vibrantbass_h2_1(true)
                 CiderAudio.llpw_h2_2(false, 0)
+                console.log("[Cider][Audio] Only vibrant bass is enabled")
             }
         }
         else {                                           // If vibrant bass is disabled
             if (CiderAudio.audioNodes.llpwEnabled == 1) { // If CAP is enabled & vibrant bass is disabled
                 CiderAudio.vibrantbass_h2_1(false)
                 CiderAudio.llpw_h2_2(true, 1)
+                console.log("[Cider][Audio] CAP is enabled & vibrant bass is disabled")
             }
             else {                                        // If CAP & vibrant bass is disabled
                 CiderAudio.vibrantbass_h2_1(false)
                 CiderAudio.llpw_h2_2(false, 0)
+                console.log("[Cider][Audio] CAP & vibrant bass is disabled")
             }
         }
 
