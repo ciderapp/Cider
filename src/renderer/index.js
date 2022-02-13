@@ -2804,17 +2804,17 @@ const app = new Vue({
                                 })
                             })
                         } else {
-                            this.mk.clearQueue().then(function (_) {
-                                if (app.mk.shuffleMode == 1) {
-                                    shuffleArray(query)
-                                }
-                                app.mk.queue.append(query)
-                                if (childIndex != -1) {
-                                    app.mk.changeToMediaAtIndex(childIndex)
-                                } else {
-                                    app.mk.play()
-                                }
-                            })
+                            app.mk.queue.splice(0, app.mk.queue._itemIDs.length)
+                            if (app.mk.shuffleMode == 1) {
+                                shuffleArray(query)
+                            }
+                            app.mk.queue.append(query)
+                            if (childIndex != -1) {
+                                app.mk.changeToMediaAtIndex(childIndex)
+                            } else {
+                                app.mk.play()
+                            }
+                            
                         }
                     })
                 } else if (parent.startsWith('listitem-hr')) {
@@ -2859,20 +2859,30 @@ const app = new Vue({
                                 itemsToPlay[item.kind].push(item.id)
                             })
                             // loop through itemsToPlay
+                            app.mk.queue.splice(0, app.mk.queue._itemIDs.length)
                             let ind = 0;
                             for (let kind in itemsToPlay) {
                                 let ids = itemsToPlay[kind]
-                                app.mk.clearQueue().then(function () {
-                                    if (ids.length > 0) {
-                                        app.mk.playLater({ [kind + "s"]: itemsToPlay[kind] }).then(function() {
+                                if (ids.length > 0) {
+                                    if (app.mk.queue._itemIDs.length > 0) {
+                                    app.mk.playLater({ [kind + "s"]: itemsToPlay[kind] }).then(function () {
+                                        ind += 1;
+                                        console.log(ind, Object.keys(itemsToPlay).length)
+                                        if (ind >= Object.keys(itemsToPlay).length) {
+                                            app.mk.changeToMediaAtIndex(app.mk.queue._itemIDs.indexOf(item.attributes.playParams.id ?? item.id))
+                                        }
+                                    }
+                                    )} else {
+                                        app.mk.setQueue({ [kind + "s"]: itemsToPlay[kind] }).then(function () {
                                             ind += 1;
-                                            console.log(ind , Object.keys(itemsToPlay).length)
-                                            if(ind >= Object.keys(itemsToPlay).length) {                        
+                                            console.log(ind, Object.keys(itemsToPlay).length)
+                                            if (ind >= Object.keys(itemsToPlay).length) {
                                                 app.mk.changeToMediaAtIndex(app.mk.queue._itemIDs.indexOf(item.attributes.playParams.id ?? item.id))
                                             }
-                                        }
-                                    )}
-                                })
+                                        } 
+                                        )}
+                                }
+                                
                             }
                         }
                     })
