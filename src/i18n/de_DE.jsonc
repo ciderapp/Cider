@@ -61,6 +61,7 @@
   "term.mute": "Stummschalten",
   "term.unmute": "Stummschaltung aufheben",
   "term.share": "Teilen",
+  "term.share.success": "In die Zwischenablage kopiert",
   "term.settings": "Einstellungen",
   "term.seeAll": "Alle Sehen",
   "term.sortBy": "Sortieren nach",
@@ -70,6 +71,7 @@
   "term.sortBy.genre": "Genre",
   "term.sortBy.releaseDate": "Veröffentlichungsdatum",
   "term.sortBy.duration": "Länge",
+  "term.sortBy.dateAdded": "Hinzugefügt am",
   "term.sortOrder": "A-Z",
   "term.sortOrder.ascending": "Aufsteigend",
   "term.sortOrder.descending": "Absteigend",
@@ -127,7 +129,26 @@
   "term.menu": "Menü",
   "term.check": "Nach Updates suchen",
   "term.aboutArtist": "Über {{artistName}}", // e.g. 'About Doja Cat'
-  "term.updateCider": "Cider aktualisieren",
+  "term.topResult": "Bestes Ergebnis", // Search Results
+  "term.sharedPlaylists": "Geteilte Playlists", // Search Results
+  "term.people": "Personen", // Search Results
+  "term.newpreset.name": "Neuer EQ-Preset Name", // Equalizer Preset
+  "term.addedpreset": "Preset erstellt",
+  "term.deletepreset.warn": "Bist du sicher, dass du dieses Preset löschen willst?",
+  "term.deletedpreset": "Preset gelöscht",
+  "term.defaultPresets": "Standard-Presets",
+  "term.userPresets": "Nutzer-Presets",
+  "term.requestError": "Es gab ein Problem bei der Anfrage.",
+  "term.song.link.generate": "song.link URL wird gesucht...",
+  "term.musicVideos": "Musikvideos", // Search page friendlyTypes
+  "term.stations": "Radiosender",
+  "term.curators": "Kuratoren",
+  "term.appleCurators": "Apple-Kuratoren",
+  "term.radioShows": "Radiosendungen",
+  "term.recordLabels": "Plattenfirma",
+  "term.videoExtras": "Video-Extras",
+  "term.top": "Beste",
+  "term.version": "Version",
 
   // Home
   "home.title": "Home",
@@ -200,6 +221,9 @@
   "action.tray.quit": "Beenden",
   "action.tray.show": "{appName} anzeigen",
   "action.update": "Update",
+  "action.copy": "Kopieren",
+  "action.newpreset": "Neues Preset", // Equalizer Preset
+  "action.deletepreset": "Preset löschen",
 
   // Settings - General
   "settings.header.general": "Allgemein",
@@ -212,21 +236,37 @@
   "settings.option.general.language.unsorted": "Unsortiert",
 
   // Update Cider
+  "settings.option.general.updateCider": "Cider updaten", // Button. Refer to term.check for the check button
+  "settings.option.general.updateCider.branch": "Update-Branch", // Dropdown
+  "settings.option.general.updateCider.branch.description": "Der Branch, von welchem Cider geupdatet werden soll",
+  "settings.option.general.updateCider.branch.main": "Stabil",
+  "settings.option.general.updateCider.branch.develop": "Entwicklung",
   
   // Settings - Audio
   "settings.header.audio": "Audio",
   "settings.header.audio.description": "Passe die Audio-Einstellungen für Cider an.",
   "settings.option.audio.quality": "Audioqualität", // Dropdown
+  "settings.header.audio.quality.hireslossless": "Hi-Res Lossless",
+  "settings.header.audio.quality.hireslossless.description": "bis zu 24-bit/192 kHz",
+  "settings.header.audio.quality.lossless": "Lossless",
+  "settings.header.audio.quality.lossless.description": "bis zu 24-bit/48 kHz",
   "settings.header.audio.quality.high": "Hoch",
-  "settings.header.audio.quality.low": "Niedrig",
-  "settings.header.audio.quality.auto": "Auto",
+  "settings.header.audio.quality.standard": "Standard",
   "settings.option.audio.seamlessTransition": "Nahtloser Audioübergang", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "Akiviere erweiterte Funktionalität", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.description": "Das Aktivieren der erweiterten Funktionalität ermöglicht spezielle Features wie Audio-Normalisierung, Equalizer und Visualizer, jedoch könnte dies auf einigen Systemen zu Aussetzern in der Musik führen.",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider Adrenaline Processor™️", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Psychoakustische Verbesserungen die die Musik lebensechter erscheinen lassen | Designed by Maikiwi.",
+  "settings.warn.audio.enableAdvancedFunctionality.ciderPPE.compatibility": "CAP ist nicht mit räumlichem Audio kompatibel. Bitte deaktiviere räumliches Audio zuerst.",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "CAP-Stärke", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Ändert die Stärke der Nachbearbeitung. (Aggressiv könnte zu ungewünschten Änderungen führen)",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "Standard",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive": "Aggressiv",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Audio-Normalisierung", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalisiert die Lautstärke aller Lieder, um die Hörerfahrung einheitlicher zu machen.",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Räumliches Audio", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Macht die Musik räumlicher (3D-Effekt) (Beachte: Dies ist kein Dolby Atmos)",
+  "settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility": "Räumliches Audio ist nicht mit CAP kompatibel. Bitte deaktiviere CAP zuerst.",
 
   // Settings - Visual
   "settings.header.visual": "Visuell", 
@@ -250,8 +290,15 @@
   "settings.option.visual.hardwareAcceleration.description": "Erfordert Neustart der Anwendung",
   "settings.header.visual.hardwareAcceleration.default": "Normal", 
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
+  "settings.header.visual.theme": "Theme",
+  "settings.option.visual.theme.github.download": "Von GitHub URL installieren",
+  "settings.prompt.visual.theme.github.URL": "Gib die URL des Themes ein, welches du installieren möchtest",
+  "settings.notyf.visual.theme.install.success": "Theme erfolgreich installiert",
+  "settings.notyf.visual.theme.install.error": "Theme-Installation fehlgeschlagen",
 
   // Settings - Visual - Theme name
+  "settings.option.visual.theme.default": "Cider",
+  "settings.option.visual.theme.dark": "Dunkel",
 
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "Persönliche Daten anzeigen", // Toggle
@@ -284,7 +331,10 @@
   "settings.header.experimental": "Experimentell",
   "settings.header.experimental.description": "Passe die experimentellen Einstellungen für Cider an.",
   "settings.option.experimental.compactUI": "Kompaktes UI", // Toggle
-  "settings.option.experimental.close_button_hide": "Schließ-Taste soll die App verbergen",
+  "settings.option.experimental.close_button_hide": "Schließtaste soll die App verbergen",
+  "settings.option.experimental.copy_log": "Kopiere Logs in die Zwischenablage",
+  "settings.option.experimental.inline_playlists": "Inline Playlists und Alben",
+  
   // Refer to term.disabled & term.enabled
   // Spatialization Menu
   "spatial.notTurnedOn": "Die Audio-Spatialisierung ist deaktiviert. Um sie zu verwenden, musst du diese zuerst aktivieren.",
