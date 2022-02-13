@@ -107,10 +107,15 @@ jobs:
         p12-file-base64: ${{ secrets.CSC_LINK }}
         p12-password: ${{ secrets.CSC_KEY_PASSWORD }}
 
-    - name: Create PKG manually   
+    - name: Create PKG manually  
+      env: 
+        CSC_LINK: ${{ secrets.CSC_LINK }}
+        CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }} 
+        APPLEID: ${{ secrets.APPLEID }}
+        APPLEIDPASS: ${{ secrets.APPLEIDPASS }}
       run: |
          pkgbuild --component dist/mac-universal/Cider.app --install-location /Applications dist/Cider.pkg --sign ${{ secrets.PSC_NAME }} 
-         xcrun altool --notarize-app --primary-bundle-id com.ciderapp.cider -f dist/Cider.pkg  -p  --username ${{ secrets.APPLEID }} --password ${{ secrets.APPLEIDPASS }}
+         xcrun altool --notarize-app --primary-bundle-id com.ciderapp.cider -f dist/Cider.pkg  --username ${{ secrets.APPLEID }} --password ${{ secrets.APPLEIDPASS }}
          sleep 5m
          xcrun stapler staple dist/Cider.pkg || true
 
