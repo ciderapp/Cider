@@ -183,7 +183,7 @@ var CiderAudio = {
     hierarchical_loading: function (){ 
         CiderAudio.hierarchical_unloading();
         if (app.cfg.audio.vibrantBass.multiplier !== 0) {  // If vibrant bass is enabled
-            if (app.cfg.audio.ciderPPE) { // If CAP & vibrant bass is enabled
+            if (app.cfg.advanced.ciderPPE) { // If CAP & vibrant bass is enabled
                 CiderAudio.vibrantbass_h2_1(true)
                 if (app.cfg.audio.spatial) {
                     app.cfg.advanced.ciderPPE = false;
@@ -200,7 +200,7 @@ var CiderAudio = {
             }
         }
         else {                                           // If vibrant bass is disabled
-            if (app.cfg.audio.ciderPPE) { // If CAP is enabled & vibrant bass is disabled
+            if (app.cfg.advanced.ciderPPE) { // If CAP is enabled & vibrant bass is disabled
                 //CiderAudio.vibrantbass_h2_1(false)
                 if (app.cfg.audio.spatial) {
                     app.cfg.advanced.ciderPPE = false;
