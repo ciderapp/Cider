@@ -61,14 +61,14 @@
                                switch/>
                     </div>
                 </div>
-                <div class="md-option-line" v-show="app.cfg.advanced.AudioContext && !app.cfg.audio.spatial">
+                <div class="md-option-line" v-show="app.cfg.advanced.AudioContext">
                     <div class="md-option-segment">
                         {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPE')}}
                         <br>
                         <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPE.description')}}</small>
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <input type="checkbox" v-model="app.cfg.advanced.ciderPPE" v-on:change="CiderAudio.hierarchical_loading();" switch/>
+                        <input type="checkbox" v-model="app.cfg.advanced.ciderPPE" :disabled="app.cfg.audio.spatial === true" v-on:change="CiderAudio.hierarchical_loading();" switch/>
                     </div>
                 </div>
                 <div class="md-option-line" v-show="app.cfg.advanced.AudioContext && app.cfg.advanced.ciderPPE === true">
@@ -107,14 +107,14 @@
                                switch/>
                     </div>
                 </div>
-                <div class="md-option-line" v-show="app.cfg.advanced.AudioContext && !app.cfg.advanced.ciderPPE">
+                <div class="md-option-line" v-show="app.cfg.advanced.AudioContext">
                     <div class="md-option-segment">
                         {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.audioSpatialization')}}
                         <br>
                         <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description')}}</small>
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <input type="checkbox" v-model="app.cfg.audio.spatial" v-on:change="toggleSpatial" switch/>
+                        <input type="checkbox" v-model="app.cfg.audio.spatial" :disabled="app.cfg.advanced.ciderPPE === true" v-on:change="toggleSpatial" switch/>
                     </div>
                 </div>
             </div>
