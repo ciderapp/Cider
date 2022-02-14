@@ -77,6 +77,7 @@ var CiderAudio = {
     spatialOn: function (){
         try{
         CiderAudio.audioNodes.gainNode.disconnect(CiderAudio.context.destination);} catch(e){}
+        
         CiderAudio.audioNodes.spatialNode = new ResonanceAudio(CiderAudio.context);
         CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.context.destination);
         let roomDimensions = {
@@ -96,12 +97,13 @@ var CiderAudio = {
         CiderAudio.audioNodes.spatialNode.setRoomProperties(roomDimensions, roomMaterials);
         CiderAudio.audioNodes.spatialInput = CiderAudio.audioNodes.spatialNode.createSource();
         CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialInput.input);
+        CiderAudio.hierarchical_loading();
     },
     spatialOff: function (){
         try{
         CiderAudio.audioNodes.spatialNode.output.disconnect(CiderAudio.context.destination);
         CiderAudio.audioNodes.gainNode.disconnect(CiderAudio.audioNodes.spatialInput.input);} catch(e){}
-        CiderAudio.audioNodes.gainNode.connect(CiderAudio.context.destination);
+        CiderAudio.hierarchical_loading();
     },
     sendAudio: function (){
         var options = {
@@ -134,7 +136,7 @@ var CiderAudio = {
             CiderAudio.audioNodes.llpw[i].type = 'peaking'; // 'peaking';
             CiderAudio.audioNodes.llpw[i].frequency.value = LLPW_FREQUENCIES[i];
             CiderAudio.audioNodes.llpw[i].Q.value = LLPW_Q[i];
-            CiderAudio.audioNodes.llpw[i].gain.value = LLPW_GAIN[i] * app.cfg.audio.ciderPPE_value * CiderAudio.audioNodes.llpwEnabled; 
+            CiderAudio.audioNodes.llpw[i].gain.value = LLPW_GAIN[i] * app.cfg.audio.ciderPPE_value; 
         }
 
         for (i = 1; i < LLPW_FREQUENCIES.length; i ++) {
@@ -147,13 +149,6 @@ var CiderAudio = {
         else if (hierarchy === 1) {
         try{
         CiderAudio.audioNodes.llpw[LLPW_FREQUENCIES.length-1].connect(CiderAudio.audioNodes.audioBands[0]);} catch(e){}}
-        } 
-        else {
-            try{
-            for (var i of CiderAudio.audioNodes.llpw){
-                i.disconnect();
-            }
-            CiderAudio.audioNodes.llpw = [];} catch(e){}
         } 
 
     },
@@ -187,28 +182,21 @@ var CiderAudio = {
         CiderAudio.audioNodes.vibrantbassNode[VIBRANTBASSBANDS.length-1].connect(CiderAudio.audioNodes.audioBands[0]);
         }
         
-        else {
-            try { 
-                for (var i of CiderAudio.audioNodes.vibrantbassNode){
-                    i.disconnect();
-                }
-                CiderAudio.audioNodes.vibrantbassNode = [];
-            } catch(e){}
-        } 
     },
     hiererchical_unloading: function (){
         try {
         CiderAudio.audioNodes.spatialNode.output.disconnect(); CiderAudio.audioNodes.gainNode.disconnect(); 
         for (var i of CiderAudio.audioNodes.llpw){i.disconnect();} 
         for (var i of CiderAudio.audioNodes.vibrantbassNode){i.disconnect();}
-    
         } catch(e){}
+
+        console.log("[Cider][Audio] Finished hierarchical unloading");
         
     },
     hierarchical_loading: function (){ 
         CiderAudio.hiererchical_unloading();
         if (app.cfg.audio.vibrantBass.multiplier !== 0) {  // If vibrant bass is enabled
-            if (CiderAudio.audioNodes.llpwEnabled === 1) { // If CAP & vibrant bass is enabled
+            if (app.cfg.audio.ciderPPE) { // If CAP & vibrant bass is enabled
                 CiderAudio.vibrantbass_h2_1(true)
                 CiderAudio.llpw_h2_2(true, 2)    
                 if (app.cfg.audio.spatial) {CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.audioNodes.llpw[0]);}
@@ -224,7 +212,7 @@ var CiderAudio = {
             }
         }
         else {                                           // If vibrant bass is disabled
-            if (CiderAudio.audioNodes.llpwEnabled === 1) { // If CAP is enabled & vibrant bass is disabled
+            if (app.cfg.audio.ciderPPE) { // If CAP is enabled & vibrant bass is disabled
                 CiderAudio.vibrantbass_h2_1(false)
                 CiderAudio.llpw_h2_2(true, 1)
                 if (app.cfg.audio.spatial) {CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.audioNodes.llpw[0]);}
