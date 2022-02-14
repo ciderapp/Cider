@@ -4003,6 +4003,12 @@ webGPU().then()
 let screenWidth = screen.width;
 let screenHeight = screen.height;
 
+window.onerror = function(error) {
+    console.log(error)
+    bootbox.alert("Error occured: " + error)
+};
+
+
 // Key bind to unjam MusicKit in case it fails: CTRL+F10
 document.addEventListener('keydown', function (event) {
     if (event.ctrlKey && event.keyCode == 121) {
