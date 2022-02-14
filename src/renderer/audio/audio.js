@@ -119,10 +119,15 @@ var CiderAudio = {
         }
     },
     llpw_h2_2: function (status, hierarchy){ 
-        if (status == true) { 
+        if (status === true) { 
         let LLPW_Q = [5, 1, 3.536, 1.25, 8.409, 1.25, 14.14, 7.071, 5, 0.625, 16.82, 20, 20, 20, 28.28, 28.28, 28.28, 20, 33.64, 33.64, 10, 28.28, 7.071, 3.856];
         let LLPW_GAIN = [0.38, -1.81, -0.23, -0.51, 0.4, 0.84, 0.36, -0.34, 0.27, -1.2, -0.42, -0.67, 0.81, 1.31, -0.71, 0.68, -1.04, 0.79, -0.73, -1.33, 1.17, 0.57, 0.35, 6.33];
         let LLPW_FREQUENCIES = [16.452, 24.636, 37.134, 74.483, 159.54, 308.18, 670.21, 915.81, 1200.7, 2766.4, 2930.6, 4050.6, 4409.1, 5395.2, 5901.6, 6455.5, 7164.1, 7724.1, 8449, 10573, 12368, 14198, 17910, 18916];
+        try {
+            for (var i of CiderAudio.audioNodes.llpw){
+                i.disconnect();
+            }
+        } catch(e){}
         CiderAudio.audioNodes.llpw = [];
         for (i = 0; i < LLPW_FREQUENCIES.length; i++) {
             CiderAudio.audioNodes.llpw[i] = CiderAudio.context.createBiquadFilter();
@@ -131,8 +136,6 @@ var CiderAudio = {
             CiderAudio.audioNodes.llpw[i].Q.value = LLPW_Q[i];
             CiderAudio.audioNodes.llpw[i].gain.value = LLPW_GAIN[i] * app.cfg.audio.ciderPPE_value * CiderAudio.audioNodes.llpwEnabled; 
         }
-        try {
-        CiderAudio.audioNodes.llpw[LLPW_FREQUENCIES.length-1].disconnect();} catch(e){}
 
         for (i = 1; i < LLPW_FREQUENCIES.length; i ++) {
             CiderAudio.audioNodes.llpw[i-1].connect(CiderAudio.audioNodes.llpw[i]);
@@ -155,10 +158,16 @@ var CiderAudio = {
 
     },
     vibrantbass_h2_1: function (status){ 
-        if (status == true) { 
+        if (status === true) { 
         let VIBRANTBASSBANDS = app.cfg.audio.vibrantBass.frequencies;
         let VIBRANTBASSGAIN = app.cfg.audio.vibrantBass.gain;
         let VIBRANTBASSQ = app.cfg.audio.vibrantBass.Q;
+        try{
+            for (var i of CiderAudio.audioNodes.vibrantbassNode){
+                i.disconnect();
+            }
+        } catch(e){}
+
         CiderAudio.audioNodes.vibrantbassNode = []; 
          
         for (i = 0; i < VIBRANTBASSBANDS.length; i++) {
@@ -169,8 +178,7 @@ var CiderAudio = {
             CiderAudio.audioNodes.vibrantbassNode[i].gain.value = VIBRANTBASSGAIN[i] * app.cfg.audio.vibrantBass.multiplier;
         }
 
-        try{
-        CiderAudio.audioNodes.vibrantbassNode[VIBRANTBASSBANDS.length-1].disconnect();} catch(e){}
+
 
         for (i = 1; i < VIBRANTBASSBANDS.length; i ++) {
             CiderAudio.audioNodes.vibrantbassNode[i-1].connect(CiderAudio.audioNodes.vibrantbassNode[i]);
@@ -181,88 +189,57 @@ var CiderAudio = {
         
         else {
             try { 
-            for (var i of CiderAudio.audioNodes.vibrantbassNode){
-                i.disconnect();
-            }
-            CiderAudio.audioNodes.vibrantbassNode = [];} catch(e){}
+                for (var i of CiderAudio.audioNodes.vibrantbassNode){
+                    i.disconnect();
+                }
+                CiderAudio.audioNodes.vibrantbassNode = [];
+            } catch(e){}
         } 
     },
+    hiererchical_unloading: function (){
+        try {
+        CiderAudio.audioNodes.spatialNode.output.disconnect(); CiderAudio.audioNodes.gainNode.disconnect(); 
+        for (var i of CiderAudio.audioNodes.llpw){i.disconnect();} 
+        for (var i of CiderAudio.audioNodes.vibrantbassNode){i.disconnect();}
+    
+        } catch(e){}
+        
+    },
     hierarchical_loading: function (){ 
-        if (app.cfg.audio.vibrantBass.multiplier != 0) {  // If vibrant bass is enabled
-            if (CiderAudio.audioNodes.llpwEnabled == 1) { // If CAP & vibrant bass is enabled
+        CiderAudio.hiererchical_unloading();
+        if (app.cfg.audio.vibrantBass.multiplier !== 0) {  // If vibrant bass is enabled
+            if (CiderAudio.audioNodes.llpwEnabled === 1) { // If CAP & vibrant bass is enabled
                 CiderAudio.vibrantbass_h2_1(true)
-                CiderAudio.llpw_h2_2(true, 2)
+                CiderAudio.llpw_h2_2(true, 2)    
+                if (app.cfg.audio.spatial) {CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.audioNodes.llpw[0]);}
+                else {CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.llpw[0]);}
                 console.log("[Cider][Audio] CAP & vibrant bass is enabled")
         }
             else {                                         // If only vibrant bass is enabled          
                 CiderAudio.vibrantbass_h2_1(true)
                 CiderAudio.llpw_h2_2(false, 0)
+                if (app.cfg.audio.spatial) {CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.audioNodes.vibrantbassNode[0]);}
+                else {CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.vibrantbassNode[0]);}
                 console.log("[Cider][Audio] Only vibrant bass is enabled")
             }
         }
         else {                                           // If vibrant bass is disabled
-            if (CiderAudio.audioNodes.llpwEnabled == 1) { // If CAP is enabled & vibrant bass is disabled
+            if (CiderAudio.audioNodes.llpwEnabled === 1) { // If CAP is enabled & vibrant bass is disabled
                 CiderAudio.vibrantbass_h2_1(false)
                 CiderAudio.llpw_h2_2(true, 1)
+                if (app.cfg.audio.spatial) {CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.audioNodes.llpw[0]);}
+                else {CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.llpw[0]);}
                 console.log("[Cider][Audio] CAP is enabled & vibrant bass is disabled")
             }
             else {                                        // If CAP & vibrant bass is disabled
                 CiderAudio.vibrantbass_h2_1(false)
                 CiderAudio.llpw_h2_2(false, 0)
+                if (app.cfg.audio.spatial) {CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.audioNodes.audioBands[0]);}
+                else {CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.audioBands[0]);}
                 console.log("[Cider][Audio] CAP & vibrant bass is disabled")
             }
         }
 
-        if (app.cfg.audio.spatial) {
-            try{
-            CiderAudio.audioNodes.spatialNode.output.disconnect(CiderAudio.context.destination);} catch(e){}
-            if (app.cfg.audio.vibrantBass.multiplier != 0) {  // If vibrant bass is enabled
-                if (CiderAudio.audioNodes.llpwEnabled == 1) { // If CAP & vibrant bass is enabled
-                    CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.audioNodes.llpw[0]);
-                    console.log("[Cider][Audio] Spatial is connecting to LLPW")
-                }
-                else {                                         // If only vibrant bass is enabled          
-                    CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.audioNodes.vibrantbassNode[0]);
-                    console.log("[Cider][Audio] Spatial is connecting to Vibrant Bass")
-                }
-            }
-            else {                                           // If vibrant bass is disabled
-                if (CiderAudio.audioNodes.llpwEnabled == 1) { // If CAP is enabled & vibrant bass is disabled
-                    CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.audioNodes.llpw[0]);
-                    console.log("[Cider][Audio] Spatial is connecting to LLPW")
-                }
-                else {                                        // If CAP & vibrant bass is disabled
-                    CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.audioNodes.audioBands[0]);
-                    console.log("[Cider][Audio] Spatial is connecting to EQ")
-                }
-            }
-        
-
-        } else {
-            try{
-            CiderAudio.audioNodes.gainNode.disconnect(CiderAudio.context.destination);} catch(e){}
-            if (app.cfg.audio.vibrantBass.multiplier != 0) {  // If vibrant bass is enabled
-                if (CiderAudio.audioNodes.llpwEnabled == 1) { // If CAP & vibrant bass is enabled
-                    CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.llpw[0]);
-                    console.log("[Cider][Audio] Gain is connecting to LLPW")
-                }
-                else {                                         // If only vibrant bass is enabled          
-                    CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.vibrantbassNode[0]);
-                    console.log("[Cider][Audio] Gain is connecting to Vibrant Bass")
-                }
-            }
-            else {                                           // If vibrant bass is disabled
-                if (CiderAudio.audioNodes.llpwEnabled == 1) { // If CAP is enabled & vibrant bass is disabled
-                    CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.llpw[0]);
-                    console.log("[Cider][Audio] Gain is connecting to LLPW")
-                }
-                else {                                        // If CAP & vibrant bass is disabled
-                    CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.audioBands[0]);
-                    console.log("[Cider][Audio] Gain is connecting to EQ")
-                }
-            }
-
-        } 
         console.log("[Cider][Audio] Finished hierarchical loading");
         
     },

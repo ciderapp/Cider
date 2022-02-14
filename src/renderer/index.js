@@ -784,7 +784,6 @@ const app = new Vue({
                 // app.getNowPlayingArtwork(42); 
                 app.getNowPlayingArtworkBG(32);
                 app.loadLyrics();
-                app.losslessBadge();
 
                 // Playback Notifications
                 if (this.cfg.general.playbackNotifications && !document.hasFocus() && a.artistName && a.artwork && a.name) {
@@ -2348,26 +2347,6 @@ const app = new Vue({
             })
             notyf.success(app.getLz('action.removeFromLibrary.success'))
         },
-        
-        async losslessBadge() {
-            const songID = (this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem["_songId"] ?? (this.mk.nowPlayingItem["songId"] ?? -1) : -1;
-            if (app.cfg.advanced.ciderPPE && songID != -1) {
-                /**let extendedAssets = await app.mk.api.song(songID, {extend : 'extendedAssetUrls'})
-                 if (extendedAssets.attributes.audioTraits.includes('lossless')) {*/
-                    app.mk.nowPlayingItem['attributes']['lossless'] = true
-                    CiderAudio.audioNodes.llpwEnabled = 1
-                    console.log("[Cider][Audio] PPE Kicking in...");
-                    CiderAudio.hierarchical_loading();
-                /**}
-                else {
-                    CiderAudio.audioNodes.llpwEnabled = 0
-                }    */
-            }
-            
-            else {
-                CiderAudio.audioNodes.llpwEnabled = 0
-            }
-        },
         async loadYTLyrics() {
             const track = (this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.title ?? '' : '';
             const artist = (this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.artistName ?? '' : '';
@@ -2824,7 +2803,7 @@ const app = new Vue({
                                 [item.attributes.playParams.kind ?? item.type]: item.attributes.playParams.id ?? item.id
                             }).then(function () {
                                 app.mk.play().then(() => {
-                                    const data = JSON.parse(parent.split('listitem-hr')[1] ?? '[]')
+                                    let data = JSON.parse(parent.split('listitem-hr')[1] ?? '[]')
                                     let itemsToPlay = {}
                                     let u = data.map(x => x.id)
                                     try {
@@ -2849,9 +2828,8 @@ const app = new Vue({
                                 })
                             })
                         } else {
-                            const data = JSON.parse(parent.split('listitem-hr')[1] ?? '[]')
+                            let data = JSON.parse(parent.split('listitem-hr')[1] ?? '[]')
                             let itemsToPlay = {}
-                            let u = data.map(x => x.id)
                             data.forEach(item => {
                                 if (!itemsToPlay[item.kind]) {
                                     itemsToPlay[item.kind] = []
