@@ -132,8 +132,8 @@
                             <option value="dark.less">{{$root.getLz('settings.option.visual.theme.dark')}}</option>
                             <option v-for="theme in themes" :value="theme.file">{{ theme.name }}</option>
                         </select>
-                        <button class="md-btn md-btn-small md-btn-block" @click="installTheme()" style="margin-top: 8px">
-                            {{$root.getLz('settings.option.visual.theme.github.download')}}
+                        <button class="md-btn md-btn-small md-btn-block" @click="gitHubExplore()" style="margin-top: 8px">
+                            {{$root.getLz('settings.option.visual.theme.github.explore')}}
                         </button>
                     </div>
                 </div>
@@ -774,21 +774,8 @@
             }
         },
         methods: {
-            installTheme() {
-                let self = this
-                bootbox.prompt(app.getLz('settings.prompt.visual.theme.github.URL'), (result) => {
-                    if (result) {
-                        ipcRenderer.once("theme-installed", (event, arg) => {
-                            if (arg.success) {
-                                self.themes = ipcRenderer.sendSync("get-themes")
-                                notyf.success(app.getLz('settings.notyf.visual.theme.install.success'));
-                            } else {
-                                notyf.error(app.getLz('settings.notyf.visual.theme.install.error'));
-                            }
-                        });
-                        ipcRenderer.invoke("get-github-theme", result)
-                    }
-                });
+            gitHubExplore() {
+                app.appRoute("themes-github")
             },
             copyLogs() {
                 ipcRenderer.send('fetch-log')

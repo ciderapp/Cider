@@ -46,6 +46,7 @@ export class BrowserWindow {
                 "pages/about",
                 "pages/library-videos",
                 "pages/remote-pair",
+                "pages/themes-github",
                 "components/mediaitem-artwork",
                 "components/artwork-material",
                 "components/menu-panel",

@@ -1,0 +1,96 @@
+<script type="text/x-template" id="themes-github">
+    <div class="content-inner github-themes-page">
+        <div class="row">
+            <div class="col nopadding">
+                <h1 class="header-text">Themes from GitHub</h1>
+            </div>
+            <div class="col-auto nopadding flex-center">
+                <button class="md-btn md-btn-small md-btn-block" @click="installThemeURL()" style="margin-top: 8px">
+                    {{$root.getLz('settings.option.visual.theme.github.download')}}
+                </button>
+            </div>
+        </div>
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-dark" v-for="repo in repos">
+                <div class="row">
+                    <div class="col-1 flex-center">
+                        <img class="github-avatar" :src="repo.owner.avatar_url" alt="">
+                    </div>
+                    <div class="col flex-center">
+                        <div>
+                            <h3 class="repo-name">{{ repo.description }}</h3>
+                            <small><a :href="repo.html_url" target="_blank">{{ repo.full_name }}</a></small>
+                        </div>
+                    </div>
+                    <div class="col-auto flex-center">
+                        <button class="md-btn md-btn-primary" @click="installThemeRepo(repo)">Install</button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</script>
+<script>
+    Vue.component('themes-github', {
+        template: "#themes-github",
+        props: [],
+        data: function () {
+            return {
+                repos: [],
+            }
+        },
+        mounted() {
+            this.getRepos();
+        },
+        methods: {
+            installThemeRepo(repo) {
+                let self = this
+                let msg = app.stringTemplateParser(app.getLz('settings.option.visual.theme.github.install.confirm'), {
+                    repo: repo.full_name
+                });
+                bootbox.confirm(msg, ()=>{
+                    ipcRenderer.once("theme-installed", (event, arg) => {
+                        if (arg.success) {
+                            self.themes = ipcRenderer.sendSync("get-themes")
+                            notyf.success(app.getLz('settings.notyf.visual.theme.install.success'));
+                        } else {
+                            notyf.error(app.getLz('settings.notyf.visual.theme.install.error'));
+                        }
+                    });
+                    ipcRenderer.invoke("get-github-theme", repo.html_url)
+                })
+            },
+            installThemeURL() {
+                let self = this
+                bootbox.prompt(app.getLz('settings.prompt.visual.theme.github.URL'), (result) => {
+                    if (result) {
+                        ipcRenderer.once("theme-installed", (event, arg) => {
+                            if (arg.success) {
+                                self.themes = ipcRenderer.sendSync("get-themes")
+                                notyf.success(app.getLz('settings.notyf.visual.theme.install.success'));
+                            } else {
+                                notyf.error(app.getLz('settings.notyf.visual.theme.install.error'));
+                            }
+                        });
+                        ipcRenderer.invoke("get-github-theme", result)
+                    }
+                });
+            },
+            getRepos() {
+                let self = this
+                var requestOptions = {
+                    method: 'GET',
+                    redirect: 'follow'
+                };
+
+                fetch("https://api.github.com/search/repositories?q=topic:cidermusictheme fork:true", requestOptions)
+                    .then(response => response.text())
+                    .then(result => {
+                        console.log(result)
+                        self.repos = JSON.parse(result).items
+                    })
+                    .catch(error => console.log('error', error));
+            }
+        }
+    })
+</script>
