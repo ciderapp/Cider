@@ -125,11 +125,6 @@ var CiderAudio = {
         let LLPW_Q = [5, 1, 3.536, 1.25, 8.409, 1.25, 14.14, 7.071, 5, 0.625, 16.82, 20, 20, 20, 28.28, 28.28, 28.28, 20, 33.64, 33.64, 10, 28.28, 7.071, 3.856];
         let LLPW_GAIN = [0.38, -1.81, -0.23, -0.51, 0.4, 0.84, 0.36, -0.34, 0.27, -1.2, -0.42, -0.67, 0.81, 1.31, -0.71, 0.68, -1.04, 0.79, -0.73, -1.33, 1.17, 0.57, 0.35, 6.33];
         let LLPW_FREQUENCIES = [16.452, 24.636, 37.134, 74.483, 159.54, 308.18, 670.21, 915.81, 1200.7, 2766.4, 2930.6, 4050.6, 4409.1, 5395.2, 5901.6, 6455.5, 7164.1, 7724.1, 8449, 10573, 12368, 14198, 17910, 18916];
-        try {
-            for (var i of CiderAudio.audioNodes.llpw){
-                i.disconnect();
-            }
-        } catch(e){}
         CiderAudio.audioNodes.llpw = [];
         for (i = 0; i < LLPW_FREQUENCIES.length; i++) {
             CiderAudio.audioNodes.llpw[i] = CiderAudio.context.createBiquadFilter();
@@ -157,11 +152,6 @@ var CiderAudio = {
         let VIBRANTBASSBANDS = app.cfg.audio.vibrantBass.frequencies;
         let VIBRANTBASSGAIN = app.cfg.audio.vibrantBass.gain;
         let VIBRANTBASSQ = app.cfg.audio.vibrantBass.Q;
-        try{
-            for (var i of CiderAudio.audioNodes.vibrantbassNode){
-                i.disconnect();
-            }
-        } catch(e){}
 
         CiderAudio.audioNodes.vibrantbassNode = []; 
          
@@ -173,8 +163,6 @@ var CiderAudio = {
             CiderAudio.audioNodes.vibrantbassNode[i].gain.value = VIBRANTBASSGAIN[i] * app.cfg.audio.vibrantBass.multiplier;
         }
 
-
-
         for (i = 1; i < VIBRANTBASSBANDS.length; i ++) {
             CiderAudio.audioNodes.vibrantbassNode[i-1].connect(CiderAudio.audioNodes.vibrantbassNode[i]);
         }
@@ -184,11 +172,10 @@ var CiderAudio = {
         
     },
     hiererchical_unloading: function (){
-        try {
-        CiderAudio.audioNodes.spatialNode.output.disconnect(); CiderAudio.audioNodes.gainNode.disconnect(); 
-        for (var i of CiderAudio.audioNodes.llpw){i.disconnect();} 
-        for (var i of CiderAudio.audioNodes.vibrantbassNode){i.disconnect();}
-        } catch(e){}
+        try {CiderAudio.audioNodes.spatialNode.output.disconnect();} catch(e){}
+        try {CiderAudio.audioNodes.gainNode.disconnect();} catch(e){}
+        try {for (var i of CiderAudio.audioNodes.llpw){i.disconnect();}} catch(e){}
+        try {for (var i of CiderAudio.audioNodes.vibrantbassNode){i.disconnect();}} catch(e){}
 
         console.log("[Cider][Audio] Finished hierarchical unloading");
         
