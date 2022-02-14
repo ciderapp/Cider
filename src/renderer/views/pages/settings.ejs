@@ -47,7 +47,7 @@
                         {{$root.getLz('settings.option.audio.seamlessTransition')}}
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <input type="checkbox" v-model="app.cfg.audio.seamless_audio" switch/>
+                        <input type="checkbox" v-model="app.cfg.audio.seamless_audio" v-on:change="app.mk._bag.features['seamless-audio-transitions'] = app.cfg.audio.seamless_audio" switch/>
                     </div>
                 </div>
                 <div class="md-option-line">
@@ -68,7 +68,7 @@
                         <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPE.description')}}</small>
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <input type="checkbox" v-model="app.cfg.advanced.ciderPPE" v-on:change="ciderPPE" switch/>
+                        <input type="checkbox" v-model="app.cfg.advanced.ciderPPE" v-on:change="CiderAudio.hierarchical_loading();" switch/>
                     </div>
                 </div>
                 <div class="md-option-line" v-show="app.cfg.advanced.AudioContext && app.cfg.advanced.ciderPPE === true">
@@ -78,10 +78,10 @@
                         <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description')}}</small>
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <button class="md-btn" :disabled="app.cfg.audio.ciderPPE_value === 0.5" v-model="app.cfg.audio.ciderPPE_value" onclick="app.cfg.audio.ciderPPE_value = 0.5">
+                        <button class="md-btn" :disabled="app.cfg.audio.ciderPPE_value === 0.5" v-model="app.cfg.audio.ciderPPE_value" onclick="app.cfg.audio.ciderPPE_value = 0.5; CiderAudio.hierarchical_loading();">
                             {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard')}}
                         </button>
-                        <button class="md-btn" style="margin-top: 5px;" :disabled="app.cfg.audio.ciderPPE_value === 0.55" v-model="app.cfg.audio.ciderPPE_value" onclick="app.cfg.audio.ciderPPE_value = 0.55">
+                        <button class="md-btn" style="margin-top: 5px;" :disabled="app.cfg.audio.ciderPPE_value === 0.55" v-model="app.cfg.audio.ciderPPE_value" onclick="app.cfg.audio.ciderPPE_value = 0.55; CiderAudio.hierarchical_loading();">
                             {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive')}}
                         </button>
                     </div>
@@ -132,8 +132,8 @@
                             <option value="dark.less">{{$root.getLz('settings.option.visual.theme.dark')}}</option>
                             <option v-for="theme in themes" :value="theme.file">{{ theme.name }}</option>
                         </select>
-                        <button class="md-btn md-btn-small md-btn-block" @click="installTheme()" style="margin-top: 8px">
-                            {{$root.getLz('settings.option.visual.theme.github.download')}}
+                        <button class="md-btn md-btn-small md-btn-block" @click="gitHubExplore()" style="margin-top: 8px">
+                            {{$root.getLz('settings.option.visual.theme.github.explore')}}
                         </button>
                     </div>
                 </div>
@@ -774,21 +774,8 @@
             }
         },
         methods: {
-            installTheme() {
-                let self = this
-                bootbox.prompt(app.getLz('settings.prompt.visual.theme.github.URL'), (result) => {
-                    if (result) {
-                        ipcRenderer.once("theme-installed", (event, arg) => {
-                            if (arg.success) {
-                                self.themes = ipcRenderer.sendSync("get-themes")
-                                notyf.success(app.getLz('settings.notyf.visual.theme.install.success'));
-                            } else {
-                                notyf.error(app.getLz('settings.notyf.visual.theme.install.error'));
-                            }
-                        });
-                        ipcRenderer.invoke("get-github-theme", result)
-                    }
-                });
+            gitHubExplore() {
+                app.appRoute("themes-github")
             },
             copyLogs() {
                 ipcRenderer.send('fetch-log')
@@ -837,14 +824,6 @@
                     CiderAudio.normalizerOn()
                 } else {
                     CiderAudio.normalizerOff()
-                }
-            },
-            ciderPPE: function () {
-                if (app.cfg.advanced.ciderPPE) {
-                    if (app.cfg.audio.spatial) {
-                        app.cfg.advanced.ciderPPE = false;
-                        notyf.error(app.getLz('settings.warn.audio.enableAdvancedFunctionality.ciderPPE.compatibility'))
-                    }
                 }
             },
             toggleSpatial: function () {

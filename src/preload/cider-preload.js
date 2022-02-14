@@ -23,7 +23,7 @@ const MusicKitInterop = {
 		/** wsapi */
 
 		MusicKit.getInstance().addEventListener(MusicKit.Events.nowPlayingItemDidChange, async () => {
-			await MusicKitInterop.modifyNamesOnLocale();
+			// await MusicKitInterop.modifyNamesOnLocale();
 			if (MusicKitInterop.filterTrack(MusicKitInterop.getAttributes(), false, true) || !app.cfg.lastfm.filterLoop) {
 				global.ipcRenderer.send('nowPlayingItemDidChange', MusicKitInterop.getAttributes());
 			}
@@ -127,11 +127,14 @@ const MusicKitInterop = {
 	},
 
 	next: () => {
-		MusicKit.getInstance().skipToNextItem().then(r => console.log(`[MusicKitInterop.next] Skipping to Next ${r}`));
+		if (MusicKit.getInstance().queue.nextPlayableItemIndex != -1 && MusicKit.getInstance().queue.nextPlayableItemIndex != null) 
+		MusicKit.getInstance().changeToMediaAtIndex(MusicKit.getInstance().queue.nextPlayableItemIndex);
+	//	MusicKit.getInstance().skipToNextItem().then(r => console.log(`[MusicKitInterop.next] Skipping to Next ${r}`));
 	},
 
 	previous: () => {
-		MusicKit.getInstance().skipToPreviousItem().then(r => console.log(`[MusicKitInterop.previous] Skipping to Previous ${r}`));
+		if (MusicKit.getInstance().queue.previousPlayableItemIndex != -1 && MusicKit.getInstance().queue.previousPlayableItemIndex != null) 
+		MusicKit.getInstance().changeToMediaAtIndex(MusicKit.getInstance().queue.previousPlayableItemIndex);
 	}
 
 }

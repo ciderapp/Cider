@@ -6,10 +6,10 @@
                 <button class="close-btn" @click="close()"></button>
                 <div class="md-option-segment md-option-segment_auto">
                     <select class="md-select" style="width:220px;text-align:center;margin-right:245px" v-model="$root.cfg.audio.equalizer.preset" v-on:change="changePreset($root.cfg.audio.equalizer.preset)">
-                        <optgroup :label="app.getLz('term.userPresets')">
+                        <optgroup :label="$root.getLz('term.userPresets')">
                             <option v-for="preset in $root.cfg.audio.equalizer.presets" :value="preset.preset">{{preset.name}}</option>
                         </optgroup>
-                        <optgroup :label="app.getLz('term.defaultPresets')">
+                        <optgroup :label="$root.getLz('term.defaultPresets')">
                             <option v-for="preset in defaultPresets" :value="preset.preset">{{preset.name}}</option>
                         </optgroup>
                     </select>
@@ -314,22 +314,19 @@
             },
             changeVibrantBass() {
                 app.cfg.audio.vibrantBass.multiplier = app.cfg.audio.equalizer.vibrantBass / 10
+                CiderAudio.hierarchical_loading();
+                if (app.cfg.audio.equalizer.vibrantBass != 0) {
                 for (var i = 0; i < 21; i++) {
                     CiderAudio.audioNodes.vibrantbassNode[i].gain.value = app.cfg.audio.vibrantBass.gain[i] * (app.cfg.audio.equalizer.vibrantBass / 10);
-                }           
+                }}
             },
             changeMix() {
                 for (var i = 0; i < 10; i++) {
                     CiderAudio.audioNodes.audioBands[i].gain.value = app.cfg.audio.equalizer.gain[i] * app.cfg.audio.equalizer.mix
                 }
             },
-            changePreamp() { 
-                /** if (CiderAudio.audioNodes.llpwEnabled === 1) {CiderAudio.audioNodes.preampNode.gain.value = (-Math.max(...app.cfg.audio.equalizer.gain.concat(CiderAudio.audioNodes.llpw[23].gain.value)));} 
-                else {CiderAudio.audioNodes.preampNode.gain.value = (-Math.max(...app.cfg.audio.equalizer.gain));} */
-            },
             changeGain(i) {
                 CiderAudio.audioNodes.audioBands[i].gain.value = app.cfg.audio.equalizer.gain[i] * app.cfg.audio.equalizer.mix
-                this.changePreamp()
             },
             changeFreq(i) {
                 CiderAudio.audioNodes.audioBands[i].frequency.value = app.cfg.audio.equalizer.frequencies[i]
@@ -345,7 +342,6 @@
                     'mix': 1,
                     'vibrantBass': 0,
                 })
-                CiderAudio.audioNodes.preampNode.gain.value = 0;
                 if (app.cfg.audio.equalizer.userGenerated) {
                     this.saveSelectedPreset()
                 }

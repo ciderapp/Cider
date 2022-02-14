@@ -123,11 +123,17 @@
   "term.contributors": "貢獻者",
   "term.equalizer": "等化器",
   "term.reset": "重設",
-  "term.tracks": "首歌曲", // Assume x amount of tracks. e.g. 50 tracks 
+  "term.track": {
+    "one" : "首歌曲",
+    "other" : "首歌曲"
+  },
+  "term.tracks": "首歌曲",
   "term.videos": "影片",
   "term.menu": "選單",
   "term.check": "檢查",
   "term.aboutArtist": "關於{{artistName}}", // e.g. 'About Doja Cat'
+  "term.requestError": "請求發生錯誤。",
+  "term.song.link.generate": "正在取得 song.link 的分享網址...",
   "term.version": "版本",
    
   // Home
@@ -269,6 +275,10 @@
   "settings.header.visual.hardwareAcceleration.default": "預設",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
   "settings.header.visual.theme": "主題",
+  "settings.option.visual.theme.github.download" : "從 GitHub 網址安裝" ,
+  "settings.prompt.visual.theme.github.URL" : "輸入你要安裝的主題網址" ,
+  "settings.notyf.visual.theme.install.success" : "主題成功安裝" ,
+  "settings.notyf.visual.theme.install.error" : "主題安裝失敗" ,
 
   // Settings - Visual - Theme name
   "settings.option.visual.theme.default": "Cider",

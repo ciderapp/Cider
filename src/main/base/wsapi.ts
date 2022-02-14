@@ -182,11 +182,12 @@ export class wsapi {
                         response.message = "Unmuted";
                         break;
                     case "next":
-                        this._win.webContents.executeJavaScript(`MusicKit.getInstance().skipToNextItem()`);
+                        this._win.webContents.executeJavaScript(`if (MusicKit.getInstance().queue.nextPlayableItemIndex != -1 && MusicKit.getInstance().queue.nextPlayableItemIndex != null) {
+                        MusicKit.getInstance().changeToMediaAtIndex(MusicKit.getInstance().queue.nextPlayableItemIndex);}`);
                         response.message = "Next";
                         break;
                     case "previous":
-                        this._win.webContents.executeJavaScript(`MusicKit.getInstance().skipToPreviousItem()`);
+                        this._win.webContents.executeJavaScript(`if (MusicKit.getInstance().queue.previousPlayableItemIndex != -1 && MusicKit.getInstance().queue.previousPlayableItemIndex != null) {MusicKit.getInstance().changeToMediaAtIndex(MusicKit.getInstance().queue.previousPlayableItemIndex)}`);
                         response.message = "Previous";
                         break;
                     case "musickit-api":
