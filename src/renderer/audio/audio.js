@@ -192,7 +192,7 @@ var CiderAudio = {
         }
             else {                                         // If only vibrant bass is enabled          
                 CiderAudio.vibrantbass_h2_1(true)
-                CiderAudio.llpw_h2_2(false, 0)
+                //CiderAudio.llpw_h2_2(false, 0)
                 if (app.cfg.audio.spatial) {CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.audioNodes.vibrantbassNode[0]);}
                 else {CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.vibrantbassNode[0]);}
                 console.log("[Cider][Audio] Only vibrant bass is enabled")
@@ -200,15 +200,15 @@ var CiderAudio = {
         }
         else {                                           // If vibrant bass is disabled
             if (app.cfg.audio.ciderPPE) { // If CAP is enabled & vibrant bass is disabled
-                CiderAudio.vibrantbass_h2_1(false)
+                //CiderAudio.vibrantbass_h2_1(false)
                 CiderAudio.llpw_h2_2(true, 1)
                 if (app.cfg.audio.spatial) {CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.audioNodes.llpw[0]);}
                 else {CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.llpw[0]);}
                 console.log("[Cider][Audio] CAP is enabled & vibrant bass is disabled")
             }
             else {                                        // If CAP & vibrant bass is disabled
-                CiderAudio.vibrantbass_h2_1(false)
-                CiderAudio.llpw_h2_2(false, 0)
+                //CiderAudio.vibrantbass_h2_1(false)
+                //CiderAudio.llpw_h2_2(false, 0)
                 if (app.cfg.audio.spatial) {CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.audioNodes.audioBands[0]);}
                 else {CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.audioBands[0]);}
                 console.log("[Cider][Audio] CAP & vibrant bass is disabled")
