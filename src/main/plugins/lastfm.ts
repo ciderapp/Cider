@@ -162,7 +162,7 @@ export default class LastFMPlugin {
 
         const res = await this._win.webContents.executeJavaScript(`
             (async () => {
-                const subMk = await MusicKit.getInstance().api.v3.music("/v1/catalog/${MusicKit.getInstance().storefrontId}/songs/${songId}", {
+                const subMk = await MusicKit.getInstance().api.v3.music("/v1/catalog/" + MusicKit.getInstance().storefrontId + "/songs/${songId}", {
                     include: {
                         songs: ["artists"]
                     }
