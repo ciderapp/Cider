@@ -81,7 +81,7 @@ export default class LastFMPlugin {
     private scrobbleSong(attributes: any) {
         if(this._timer) clearTimeout(this._timer);
         var self = this;
-        this._timer = setTimeout(() => {
+        this._timer = setTimeout(async () => {
         const currentAttributes = attributes;
 
         if (!self._lastfm || self._lastfm.cachedAttributes === attributes) {
@@ -92,15 +92,17 @@ export default class LastFMPlugin {
             if (self._lastfm.cachedAttributes.playParams.id === attributes.playParams.id) return;
         }
 
+        const artist = await this.getPrimaryArtist(attributes)
+
         if (currentAttributes.status && currentAttributes === attributes) {
             if (fs.existsSync(this.sessionPath)) {
                 // Scrobble playing song.
                 if (attributes.status === true) {
                     self._lastfm.track.scrobble({
-                        'artist': this.filterArtistName(attributes.artistName),
+                        'artist': artist,
                         'track': attributes.name,
                         'album': attributes.albumName,
-                        'albumArtist': self.filterArtistName(attributes.artistName),
+                        'albumArtist': artist,
                         'timestamp': new Date().getTime() / 1000
                     }, function (err: any, scrobbled: any) {
                         if (err) {
@@ -115,29 +117,11 @@ export default class LastFMPlugin {
                 self.authenticate();
             }
         } else {
-            return console.log('[LastFM] Did not add ', attributes.name, '—', self.filterArtistName(attributes.artistName), 'because now playing a other song.');
+            return console.log('[LastFM] Did not add ', attributes.name, '—', artist, 'because now playing a other song.');
         }},Math.round(attributes.durationInMillis * (self._store.lastfm.scrobble_after / 100)));
     }
 
-    private filterArtistName(artist: any) {
-        if (!this._store.lastfm.enabledRemoveFeaturingArtists) return artist;
-
-        artist = artist.split(' ');
-        if (artist.includes('&')) {
-            artist.length = artist.indexOf('&');
-        }
-        if (artist.includes('and')) {
-            artist.length = artist.indexOf('and');
-        }
-        artist = artist.join(' ');
-        if (artist.includes(',')) {
-            artist = artist.split(',')
-            artist = artist[0]
-        }
-        return artist.charAt(0).toUpperCase() + artist.slice(1);
-    }
-
-    private updateNowPlayingSong(attributes: any) {
+    private async updateNowPlayingSong(attributes: any) {
         if (!this._lastfm || this._lastfm.cachedNowPlayingAttributes === attributes || !this._store.lastfm.NowPlaying) {
             return
         }
@@ -147,13 +131,15 @@ export default class LastFMPlugin {
         }
 
         if (fs.existsSync(this.sessionPath)) {
+            const artist = await this.getPrimaryArtist(attributes)
+
             // update Now Playing
             if (attributes.status === true) {
                 this._lastfm.track.updateNowPlaying({
-                    'artist': this.filterArtistName(attributes.artistName),
+                    'artist': artist,
                     'track': attributes.name,
                     'album': attributes.albumName,
-                    'albumArtist': this.filterArtistName(attributes.artistName)
+                    'albumArtist': artist
                 }, function (err: any, nowPlaying: any) {
                     if (err) {
                         return console.error('[LastFM] An error occurred while updating nowPlayingSong', err);
@@ -167,6 +153,40 @@ export default class LastFMPlugin {
         } else {
             this.authenticate()
         }
+    }
+
+    private async getPrimaryArtist (attributes: any) {
+        const songId = attributes.playParams.catalogId || attributes.playParams.id
+
+        if (!this._store.lastfm.enabledRemoveFeaturingArtists || !songId) return attributes.artistName;
+
+        const res = await this._win.webContents.executeJavaScript(`
+            (async () => {
+                const subMk = await MusicKit.getInstance().api.v3.music("/v1/catalog/" + MusicKit.getInstance().storefrontId + "/songs/${songId}", {
+                    include: {
+                        songs: ["artists"]
+                    }
+                })
+                if (!subMk) console.error('[LastFM] Request failed: /v1/catalog/us/songs/${songId}')
+                return subMk.data
+            })()
+        `).catch(console.error)
+        if (!res) return attributes.artistName
+
+        const data = res.data
+        if (!data.length) {
+            console.error(`[LastFM] Unable to locate song with id of ${songId}`)
+            return attributes.artistName;
+        }
+
+        const artists = res.data[0].relationships.artists.data
+        if (!artists.length) {
+            console.error(`[LastFM] Unable to find artists related to the song with id of ${songId}`)
+            return attributes.artistName;
+        }
+
+        const primaryArtist = artists[0]
+        return primaryArtist.attributes.name
     }
 
     /**
