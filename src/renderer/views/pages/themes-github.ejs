@@ -19,6 +19,7 @@
                     <div class="col flex-center">
                         <div>
                             <h3 class="repo-name">{{ repo.description }}</h3>
+                            <div>⭐ {{ repo.stargazers_count }}</div>
                             <small><a :href="repo.html_url" target="_blank">{{ repo.full_name }}</a></small>
                         </div>
                     </div>
