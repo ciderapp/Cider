@@ -20,6 +20,11 @@
 
 // GitHub Themes
 .github-themes-page {
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+  height: calc(100% - var(--navigationBarHeight));
+
   .github-avatar {
     height: 42px;
     width: 42px;
@@ -30,6 +35,42 @@
   .repo-name {
     margin:0px;
     font-weight: 500;
+  }
+
+  .repo-url {
+    color: var(--textColor);
+    font-size: 0.8em;
+  }
+
+  .repo-preview-name {
+    margin:0px;
+  }
+
+  .repos-list {
+    height: 100%;
+    overflow-y: overlay;
+    width: 320px;
+    >.list-group {
+      margin:0px;
+    }
+  }
+
+  .github-preview {
+    height: 100%;
+    flex: 1;
+    background: var(--color2);
+    padding: 16px 32px;
+    overflow-y:overlay;
+  }
+
+  .gh-content {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+  }
+
+  .gh-header {
+    padding: 16px;
   }
 }
 

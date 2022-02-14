@@ -1,34 +1,52 @@
 <script type="text/x-template" id="themes-github">
     <div class="content-inner github-themes-page">
-        <div class="row">
-            <div class="col nopadding">
-                <h1 class="header-text">Themes from GitHub</h1>
-            </div>
-            <div class="col-auto nopadding flex-center">
-                <button class="md-btn md-btn-small md-btn-block" @click="installThemeURL()" style="margin-top: 8px">
-                    {{$root.getLz('settings.option.visual.theme.github.download')}}
-                </button>
+        <div class="gh-header">
+            <div class="row">
+                <div class="col nopadding">
+                    <h1 class="header-text">Themes from GitHub</h1>
+                </div>
+                <div class="col-auto nopadding flex-center">
+                    <button class="md-btn md-btn-small md-btn-block" @click="installThemeURL()">
+                        {{$root.getLz('settings.option.visual.theme.github.download')}}
+                    </button>
+                </div>
             </div>
         </div>
-        <ul class="list-group">
-            <li class="list-group-item list-group-item-dark" v-for="repo in repos">
-                <div class="row">
-                    <div class="col-1 flex-center">
-                        <img class="github-avatar" :src="repo.owner.avatar_url" alt="">
-                    </div>
-                    <div class="col flex-center">
-                        <div>
-                            <h3 class="repo-name">{{ repo.description }}</h3>
-                            <div>⭐ {{ repo.stargazers_count }}</div>
-                            <small><a :href="repo.html_url" target="_blank">{{ repo.full_name }}</a></small>
+        <div class="gh-content">
+            <div class="repos-list">
+                <ul class="list-group list-group-flush">
+                    <li @click="showRepo(repo)" class="list-group-item list-group-item-dark" :style="{'background': (repo.id == openRepo.id) ? 'var(--keyColor)' : ''}" v-for="repo in repos">
+                        <div class="row">
+                            <div class="col flex-center">
+                                <div>
+                                    <h4 class="repo-name">{{ repo.description }}</h4>
+                                    <div>⭐ {{ repo.stargazers_count }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="github-preview" >
+                <div class="gh-preview-header">
+                    <div class="row nopadding">
+                        <div class="col nopadding flex-center">
+                            <div>
+                                <h3 class="repo-preview-name">{{ openRepo.description }}</h3>
+                                <div><a class="repo-url" href="html_url">{{ openRepo.full_name }}</a></div>
+                                <div>⭐ {{ openRepo.stargazers_count }}</div>
+                            </div>
+                        </div>
+                        <div class="col-auto nopadding flex-center">
+                            <button class="md-btn md-btn-primary" @click="installThemeRepo(openRepo)">Install</button>
                         </div>
                     </div>
-                    <div class="col-auto flex-center">
-                        <button class="md-btn md-btn-primary" @click="installThemeRepo(repo)">Install</button>
-                    </div>
                 </div>
-            </li>
-        </ul>
+                <hr>
+                <div v-html="openRepo.readme" class="github-content"></div>
+
+            </div>
+        </div>
     </div>
 </script>
 <script>
@@ -38,12 +56,48 @@
         data: function () {
             return {
                 repos: [],
+                openRepo: {
+                    id: -1,
+                    name: '',
+                    description: '',
+                    html_url: '',
+                    stargazers_count: 0,
+                    owner: {
+                        avatar_url: ''
+                    },
+                    readme: ""
+                }
             }
         },
         mounted() {
             this.getRepos();
         },
         methods: {
+            showRepo(repo) {
+                const self = this
+                const readmeUrl = `https://raw.githubusercontent.com/${repo.full_name}/master/README.md`;
+                var requestOptions = {
+                    method: 'GET',
+                    redirect: 'follow'
+                };
+
+                fetch(readmeUrl, requestOptions)
+                    .then(response => response.text())
+                    .then(result => {
+                        self.openRepo = repo
+                        self.openRepo.readme = self.convertReadMe(result);
+                    })
+                    .catch(error => {
+                        self.openRepo = repo
+                        self.openRepo.readme = `This repository doesn't have a README.md file.`;
+                        console.log('error', error)
+                    });
+            },
+            convertReadMe(text) {
+                var converter = new showdown.Converter(),
+                    html      = converter.makeHtml(text);
+                return html
+            },
             installThemeRepo(repo) {
                 let self = this
                 let msg = app.stringTemplateParser(app.getLz('settings.option.visual.theme.github.install.confirm'), {
@@ -89,7 +143,6 @@
                 fetch("https://api.github.com/search/repositories?q=topic:cidermusictheme fork:true", requestOptions)
                     .then(response => response.text())
                     .then(result => {
-                        console.log(result)
                         self.repos = JSON.parse(result).items
                     })
                     .catch(error => console.log('error', error));
