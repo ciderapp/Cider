@@ -35,6 +35,9 @@
   .repo-name {
     margin:0px;
     font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .repo-url {
@@ -50,8 +53,21 @@
     height: 100%;
     overflow-y: overlay;
     width: 320px;
+    font-size: 14px;
+
     >.list-group {
       margin:0px;
+    }
+    .list-group-item {
+      padding: 12px 6px;
+
+      &:hover {
+        filter: brightness(1.2);
+      }
+
+      &:active {
+        filter: brightness(0.8);
+      }
     }
   }
 

@@ -1,4 +1,3 @@
-
 <script type="text/x-template" id="themes-github">
     <div class="content-inner github-themes-page">
         <div class="gh-header">
@@ -16,7 +15,9 @@
         <div class="gh-content">
             <div class="repos-list">
                 <ul class="list-group list-group-flush">
-                    <li @click="showRepo(repo)" class="list-group-item list-group-item-dark" :style="{'background': (repo.id == openRepo.id) ? 'var(--keyColor)' : ''}" v-for="repo in repos">
+                    <li @click="showRepo(repo)" class="list-group-item list-group-item-dark"
+                        :style="{'background': (repo.id == openRepo.id) ? 'var(--keyColor)' : ''}"
+                        v-for="repo in repos">
                         <div class="row">
                             <div class="col flex-center">
                                 <div>
@@ -28,13 +29,15 @@
                     </li>
                 </ul>
             </div>
-            <div class="github-preview" >
+
+            <div class="github-preview" v-if="openRepo.full_name">
                 <div class="gh-preview-header">
                     <div class="row nopadding">
                         <div class="col nopadding flex-center">
                             <div>
                                 <h3 class="repo-preview-name">{{ openRepo.description }}</h3>
-                                <div><a class="repo-url" target="_blank" :href="openRepo.html_url">{{ openRepo.full_name }}</a></div>
+                                <div><a class="repo-url" target="_blank" :href="openRepo.html_url">{{ openRepo.full_name
+                                        }}</a></div>
                                 <div>⭐ {{ openRepo.stargazers_count }}</div>
                             </div>
                         </div>
@@ -48,8 +51,11 @@
                 </div>
                 <hr>
                 <div v-html="openRepo.readme" class="github-content"></div>
-
             </div>
+            <div class="github-preview" v-else>
+                
+            </div>
+            </transition>
         </div>
     </div>
 </script>
@@ -111,7 +117,7 @@
             },
             convertReadMe(text) {
                 var converter = new showdown.Converter(),
-                    html      = converter.makeHtml(text);
+                    html = converter.makeHtml(text);
                 return html
             },
             installThemeRepo(repo) {
@@ -119,8 +125,8 @@
                 let msg = app.stringTemplateParser(app.getLz('settings.option.visual.theme.github.install.confirm'), {
                     repo: repo.full_name
                 });
-                bootbox.confirm(msg, (res)=>{
-                    if(res) {
+                bootbox.confirm(msg, (res) => {
+                    if (res) {
                         ipcRenderer.once("theme-installed", (event, arg) => {
                             if (arg.success) {
                                 self.themes = ipcRenderer.sendSync("get-themes")
