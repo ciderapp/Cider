@@ -431,7 +431,7 @@ export class BrowserWindow {
                             description: themeJson.description || themeDescription,
                             path: themePath,
                             file: theme,
-                            test: join(themePath, "theme.json")
+                            github_repo: themeJson.github_repo || ""
                         });
                     } else {
                         themeObjects.push({
@@ -439,7 +439,7 @@ export class BrowserWindow {
                             description: themeDescription,
                             path: themePath,
                             file: theme,
-                            test: join(themePath, "theme.json")
+                            github_repo: ""
                         });
                     }
                 }
