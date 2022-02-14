@@ -2824,7 +2824,7 @@ const app = new Vue({
                                 [item.attributes.playParams.kind ?? item.type]: item.attributes.playParams.id ?? item.id
                             }).then(function () {
                                 app.mk.play().then(() => {
-                                    const data = JSON.parse(parent.split('listitem-hr')[1] ?? '[]')
+                                    let data = JSON.parse(parent.split('listitem-hr')[1] ?? '[]')
                                     let itemsToPlay = {}
                                     let u = data.map(x => x.id)
                                     try {
@@ -2849,9 +2849,8 @@ const app = new Vue({
                                 })
                             })
                         } else {
-                            const data = JSON.parse(parent.split('listitem-hr')[1] ?? '[]')
+                            let data = JSON.parse(parent.split('listitem-hr')[1] ?? '[]')
                             let itemsToPlay = {}
-                            let u = data.map(x => x.id)
                             data.forEach(item => {
                                 if (!itemsToPlay[item.kind]) {
                                     itemsToPlay[item.kind] = []
