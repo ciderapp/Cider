@@ -112,4 +112,4 @@ process.once('loaded', () => {
 	global.MusicKitInterop = MusicKitInterop;
 });
 
-console.log('Congratulations! You found an easteregg https://www.youtube.com/watch?v=iik25wqIuFo');
+console.log('Congratulations! You found an easter egg https://www.youtube.com/watch?v=iik25wqIuFo');
