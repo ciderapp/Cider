@@ -111,3 +111,5 @@ process.once('loaded', () => {
 	console.log("Setting ipcRenderer")
 	global.MusicKitInterop = MusicKitInterop;
 });
+
+console.log('Congratulations! You found an easteregg https://www.youtube.com/watch?v=iik25wqIuFo');
