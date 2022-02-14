@@ -61,7 +61,7 @@
                                switch/>
                     </div>
                 </div>
-                <div class="md-option-line" v-show="app.cfg.advanced.AudioContext">
+                <div class="md-option-line" v-show="app.cfg.advanced.AudioContext && !app.cfg.audio.spatial">
                     <div class="md-option-segment">
                         {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPE')}}
                         <br>
@@ -107,7 +107,7 @@
                                switch/>
                     </div>
                 </div>
-                <div class="md-option-line" v-show="app.cfg.advanced.AudioContext">
+                <div class="md-option-line" v-show="app.cfg.advanced.AudioContext && !app.cfg.advanced.ciderPPE">
                     <div class="md-option-segment">
                         {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.audioSpatialization')}}
                         <br>
