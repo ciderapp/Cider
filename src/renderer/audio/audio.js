@@ -168,7 +168,7 @@ var CiderAudio = {
         }
         
     },
-    hiererchical_unloading: function (){
+    hierarchical_unloading: function (){
         try {CiderAudio.audioNodes.spatialNode.output.disconnect();} catch(e){}
         try {CiderAudio.audioNodes.gainNode.disconnect();} catch(e){}
         try {for (var i of CiderAudio.audioNodes.llpw){i.disconnect();} CiderAudio.audioNodes.llpw = []} catch(e){}
