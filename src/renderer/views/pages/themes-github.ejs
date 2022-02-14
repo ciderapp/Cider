@@ -49,16 +49,18 @@
                 let msg = app.stringTemplateParser(app.getLz('settings.option.visual.theme.github.install.confirm'), {
                     repo: repo.full_name
                 });
-                bootbox.confirm(msg, ()=>{
-                    ipcRenderer.once("theme-installed", (event, arg) => {
-                        if (arg.success) {
-                            self.themes = ipcRenderer.sendSync("get-themes")
-                            notyf.success(app.getLz('settings.notyf.visual.theme.install.success'));
-                        } else {
-                            notyf.error(app.getLz('settings.notyf.visual.theme.install.error'));
-                        }
-                    });
-                    ipcRenderer.invoke("get-github-theme", repo.html_url)
+                bootbox.confirm(msg, (res)=>{
+                    if(res) {
+                        ipcRenderer.once("theme-installed", (event, arg) => {
+                            if (arg.success) {
+                                self.themes = ipcRenderer.sendSync("get-themes")
+                                notyf.success(app.getLz('settings.notyf.visual.theme.install.success'));
+                            } else {
+                                notyf.error(app.getLz('settings.notyf.visual.theme.install.error'));
+                            }
+                        });
+                        ipcRenderer.invoke("get-github-theme", repo.html_url)
+                    }
                 })
             },
             installThemeURL() {
