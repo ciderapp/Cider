@@ -197,21 +197,16 @@ var CiderAudio = {
         } 
     },
     hiererchical_unloading: function (){
-        if (app.cfg.audio.spatial) {CiderAudio.audioNodes.spatialNode.output.disconnect();} else {CiderAudio.audioNodes.gainNode.disconnect();}
         try {
-            for (var i of CiderAudio.audioNodes.llpw){
-                i.disconnect();
-            }
+        CiderAudio.audioNodes.spatialNode.output.disconnect(); CiderAudio.audioNodes.gainNode.disconnect(); 
+        for (var i of CiderAudio.audioNodes.llpw){i.disconnect();} 
+        for (var i of CiderAudio.audioNodes.vibrantbassNode){i.disconnect();}
+    
         } catch(e){}
-        try {
-            for (var i of CiderAudio.audioNodes.vibrantbassNode){
-                i.disconnect();
-            }
-        } catch(e){}
-       
         
     },
     hierarchical_loading: function (){ 
+        CiderAudio.hiererchical_unloading();
         if (app.cfg.audio.vibrantBass.multiplier !== 0) {  // If vibrant bass is enabled
             if (CiderAudio.audioNodes.llpwEnabled === 1) { // If CAP & vibrant bass is enabled
                 CiderAudio.vibrantbass_h2_1(true)
