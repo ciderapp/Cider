@@ -46,6 +46,7 @@ export class BrowserWindow {
                 "pages/about",
                 "pages/library-videos",
                 "pages/remote-pair",
+                "pages/themes-github",
                 "components/mediaitem-artwork",
                 "components/artwork-material",
                 "components/menu-panel",
@@ -430,7 +431,7 @@ export class BrowserWindow {
                             description: themeJson.description || themeDescription,
                             path: themePath,
                             file: theme,
-                            test: join(themePath, "theme.json")
+                            github_repo: themeJson.github_repo || ""
                         });
                     } else {
                         themeObjects.push({
@@ -438,7 +439,7 @@ export class BrowserWindow {
                             description: themeDescription,
                             path: themePath,
                             file: theme,
-                            test: join(themePath, "theme.json")
+                            github_repo: ""
                         });
                     }
                 }

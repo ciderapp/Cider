@@ -34,6 +34,7 @@
   "term.about": "关于",
   "term.privateSession": "私人聆听",
   "term.queue": "队列",
+  "term.history": "播放历史",
   "term.search": "搜索",
   "term.library": "资料库",
   "term.listenNow": "现在就听",
@@ -111,13 +112,15 @@
   "term.clearAll": "清空",
   "term.recentStations": "最近播放的频道",
   "term.language": "语言",
-  "term.noLyrics": "加载中... / 搜索无结果 / 纯音乐",
+  "term.funLanguages": "恶搞",
+  "term.noLyrics": "加载中... / 无搜索结果 / 纯音乐",
   "term.copyright": "版权所有",
   "term.rightsReserved": "保留所有权利。",
   "term.sponsor": "赞助",
   "term.ciderTeam": "Cider 团队",
   "term.developer": "开发者",
   "term.socialTeam": "媒体团队",
+  "term.socials": "媒体",
   "term.contributors": "贡献者",
   "term.equalizer": "均衡器",
   "term.reset": "重置",
@@ -137,7 +140,7 @@
   "term.defaultPresets": "默认预设",
   "term.userPresets": "用户预设",
   "term.requestError": "请求出现一个问题。",
-  "term.song.link.generate": "获取 song.link 共享URL...",
+  "term.song.link.generate": "获取 song.link 共享链接...",
   "term.musicVideos": "音乐视频", // Search page friendlyTypes
   "term.stations": "电台",
   //"term.curators": "Curators",
@@ -147,6 +150,8 @@
   "term.videoExtras": "视频特辑",
   //"term.top": "Top",
   "term.version": "版本",
+
+
   
   // Home
   "home.title": "主页",
@@ -186,6 +191,7 @@
   "action.removeFromQueue": "从加入待播清单中移除",
   "action.removeFromQueue.success": "已从加入待播清单中移除",
   "action.removeFromQueue.error": "从加入待播清单中移除的过程发生了错误",
+  "action.createPlaylist": "新建播放列表",
   "action.addToPlaylist": "加入播放列表",
   "action.removeFromPlaylist": "从播放列表中移除",
   "action.addToFavorites": "加至收藏",
@@ -221,7 +227,7 @@
   "action.copy": "复制",
   "action.newpreset": "新建预设...", // Equalizer Preset
   "action.deletepreset": "删除预设",
-  
+
   // Settings - General
   "settings.header.general": "通用",
   "settings.header.general.description": "调整 Cider 的通用设置",
@@ -257,6 +263,8 @@
   "settings.option.audio.enableAdvancedFunctionality.description": "启用 AudioContext 将解锁例如音量标准化和音频空间化的功能，但可能会在小部分设备上出现音频上的卡顿。",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider 数字增强引擎™️", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "将欺骗您的大脑来感知到近似无损音频的效果。",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "数字增强引擎强度", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "改变音频处理的强度。(激进选项可能产生杂音)",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "音量标准化", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "使所感知到的音频响度统一",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "音频空间化", // Toggle
@@ -265,7 +273,7 @@
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive": "激进",
   "settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility": "空间音频与数字增强引擎不兼容，请先停用数字增强引擎",
   
-  
+    
   // Settings - Visual
   "settings.header.visual": "外观",
   "settings.header.visual.description": "调整 Cider 的外观",
@@ -290,6 +298,8 @@
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
   "settings.header.visual.theme": "主题",
   "settings.option.visual.theme.github.download": "通过GitHub URL安装",
+  "settings.option.visual.theme.github.explore": "浏览 GitHub 上的主题",
+  "settings.option.visual.theme.github.install.confirm": "确定要安装 {{ repo }}?",
   "settings.prompt.visual.theme.github.URL": "请输入欲安装主题的URL",
   "settings.notyf.visual.theme.install.success": "主题安装成功",
   "settings.notyf.visual.theme.install.error": "主题安装失败",

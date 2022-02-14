@@ -6,10 +6,10 @@
                 <button class="close-btn" @click="close()"></button>
                 <div class="md-option-segment md-option-segment_auto">
                     <select class="md-select" style="width:220px;text-align:center;margin-right:245px" v-model="$root.cfg.audio.equalizer.preset" v-on:change="changePreset($root.cfg.audio.equalizer.preset)">
-                        <optgroup :label="app.getLz('term.userPresets')">
+                        <optgroup :label="$root.getLz('term.userPresets')">
                             <option v-for="preset in $root.cfg.audio.equalizer.presets" :value="preset.preset">{{preset.name}}</option>
                         </optgroup>
-                        <optgroup :label="app.getLz('term.defaultPresets')">
+                        <optgroup :label="$root.getLz('term.defaultPresets')">
                             <option v-for="preset in defaultPresets" :value="preset.preset">{{preset.name}}</option>
                         </optgroup>
                     </select>

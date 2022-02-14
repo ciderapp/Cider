@@ -1,17 +1,5 @@
 <cider-menu-panel v-if="menuPanel.visible">
 </cider-menu-panel>
-<transition name="fsModeSwitch">
-    <div class="fullscreen-view-container" v-if="appMode == 'fullscreen'">
-        <fullscreen-view :image="currentArtUrl.replace('50x50', '600x600')" :time="lyriccurrenttime"
-                         :lyrics="lyrics" :richlyrics="richlyrics"></fullscreen-view>
-    </div>
-</transition>
-<transition name="fsModeSwitch">
-    <div class="fullscreen-view-container" v-if="appMode == 'mini'">
-        <mini-view :image="currentArtUrl.replace('50x50', '600x600')" :time="lyriccurrenttime"
-                   :lyrics="lyrics" :richlyrics="richlyrics"></mini-view>
-    </div>
-</transition>
 <transition name="wpfade">
     <div class="bg-artwork-container" v-if="cfg.visual.window_background_style == 'artwork'"
          :class="{noanimation: (!cfg.visual.bg_artwork_rotation || !animateBackground)}">

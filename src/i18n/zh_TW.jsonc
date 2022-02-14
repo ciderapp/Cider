@@ -275,8 +275,8 @@
   "settings.header.visual.hardwareAcceleration.default": "預設",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
   "settings.header.visual.theme": "主題",
-  "settings.option.visual.theme.github.download" : "從 GitHub 連結安裝" ,
-  "settings.prompt.visual.theme.github.URL" : "輸入你要安裝的主題連結" ,
+  "settings.option.visual.theme.github.download" : "從 GitHub 網址安裝" ,
+  "settings.prompt.visual.theme.github.URL" : "輸入你要安裝的主題網址" ,
   "settings.notyf.visual.theme.install.success" : "主題成功安裝" ,
   "settings.notyf.visual.theme.install.error" : "主題安裝失敗" ,
 

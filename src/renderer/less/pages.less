@@ -18,6 +18,78 @@
 }
 // End Helpers
 
+// GitHub Themes
+.github-themes-page {
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+  height: calc(100% - var(--navigationBarHeight));
+
+  .github-avatar {
+    height: 42px;
+    width: 42px;
+    margin: 6px;
+    border-radius: 32px;
+  }
+
+  .repo-name {
+    margin:0px;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .repo-url {
+    color: var(--textColor);
+    font-size: 0.8em;
+  }
+
+  .repo-preview-name {
+    margin:0px;
+  }
+
+  .repos-list {
+    height: 100%;
+    overflow-y: overlay;
+    width: 320px;
+    font-size: 14px;
+
+    >.list-group {
+      margin:0px;
+    }
+    .list-group-item {
+      padding: 12px 6px;
+
+      &:hover {
+        filter: brightness(1.2);
+      }
+
+      &:active {
+        filter: brightness(0.8);
+      }
+    }
+  }
+
+  .github-preview {
+    height: 100%;
+    flex: 1;
+    background: var(--color2);
+    padding: 16px 32px;
+    overflow-y:overlay;
+  }
+
+  .gh-content {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  .gh-header {
+    padding: 16px;
+  }
+}
 
 // Library - Songs page
 .library-page {

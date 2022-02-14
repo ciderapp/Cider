@@ -159,6 +159,12 @@
             <cider-applecurator :data="appleCurator"></cider-applecurator>
         </template>
     </transition>
+<!--    Github themes-->
+    <transition name="wpfade">
+        <template v-if="page == 'themes-github'">
+            <themes-github></themes-github>
+        </template>
+    </transition>
         <!-- Library - Library Videos -->
     <transition name="wpfade">
         <template v-if="page == 'remote-pair'">
