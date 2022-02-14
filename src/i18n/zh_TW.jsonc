@@ -275,8 +275,8 @@
   "settings.header.visual.hardwareAcceleration.default": "預設",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
   "settings.header.visual.theme": "主題",
-  "settings.option.visual.theme.github.download" : "從 GitHub 連結安裝" ,
-  "settings.prompt.visual.theme.github.URL" : "輸入你要安裝的主題連結" ,
+  "settings.option.visual.theme.github.download" : "從 GitHub 網址安裝" ,
+  "settings.prompt.visual.theme.github.URL" : "輸入你要安裝的主題網址" ,
   "settings.notyf.visual.theme.install.success" : "主題成功安裝" ,
   "settings.notyf.visual.theme.install.error" : "主題安裝失敗" ,
 
@@ -292,7 +292,7 @@
   "settings.header.lyrics.description": "調整 Cider 的歌詞設定",
   "settings.option.lyrics.enableMusixmatch": "啟用 Musixmatch 歌詞", // Toggle
   "settings.option.lyrics.enableMusixmatchKaraoke": "啟用K歌模式（僅限Musixmatch）", // Toggle
-  "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch 歌詞語言偏好", // Dropdown
+  "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch 歌詞語言偏好設定", // Dropdown
   "settings.option.lyrics.enableYoutubeLyrics": "播放 MV 時使用 YouTube 歌詞", // Toggle
   
   // Settings - Connectivity
