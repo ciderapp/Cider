@@ -672,6 +672,15 @@ export class BrowserWindow {
             await win_autoUpdater.checkForUpdatesAndNotify()
             await linux_autoUpdater.checkForUpdatesAndNotify()
         });
+        ipcMain.on('disable-update', (event) => {
+            // Check if using app store builds so people don't get pissy wen button go bonk
+            if (app.isPackaged && !process.mas || !process.windowsStore) {
+                event.returnValue = false
+            } else {
+                event.returnValue = true
+            }
+        })
+
 
         ipcMain.on('share-menu', async (_event, url) => {
             if (process.platform != 'darwin') return;

@@ -41,6 +41,21 @@
             catch (e){}
             
         },
+        watch: {
+            items: function (items) {
+                    // give every item an id    
+                this.items.forEach(function (item, index) {
+                    item.id = index;
+                });
+                // split items into pages
+                this.itemPages = app.arrayToChunk(this.items, 4);
+                try{
+                this.simplifiedParent = JSON.stringify(this.items.map ( function(x){return x.attributes.playParams}));
+                console.log("simplifiedParent: " + this.simplifiedParent);
+                }
+                catch (e){}  
+            }
+        },
         methods: {
             sayHello: function () {
                 alert('Hello world!');
