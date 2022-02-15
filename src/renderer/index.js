@@ -3694,9 +3694,9 @@ const app = new Vue({
             let u = this.cfg.general.language;
             // use MusicKit.getInstance or crash
             try {
-                item = await MusicKit.getInstance().api.v3.music(`v1/storefronts/${app.mk.storefrontId}`)
+                let item = await MusicKit.getInstance().api.v3.music(`v1/storefronts/${app.mk.storefrontId}`)
                 let langcodes = item.data.data[0].attributes.supportedLanguageTags;
-                if (langcodes) langcodes = langcodes.map(function (u) { return u.toLowerCase() })
+                if (langcodes) langcodes = langcodes.map(function (u) { return u.replace(/-Han[s|t]/i, "").toLowerCase() })
                 console.log(langcodes)
                 let sellang = ""
                 if (u && langcodes.includes(u.toLowerCase().replace('_', "-"))) {
