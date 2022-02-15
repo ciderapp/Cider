@@ -555,7 +555,7 @@ const app = new Vue({
                 }
             ).then(() => {
                 if (this.page == 'playlist_' + this.showingPlaylist.id) {
-                    this.getPlaylistFromID(this.showingPlaylist.id)
+                    this.getPlaylistFromID(this.showingPlaylist.id, true)
                 }
             })
         },
@@ -997,7 +997,7 @@ const app = new Vue({
                 console.log(res)
                 self.appRoute(`playlist_` + res.id);
                 self.showingPlaylist = [];
-                self.getPlaylistFromID(app.page.substring(9))
+                self.getPlaylistFromID(app.page.substring(9), true)
                 self.playlists.listing.push({
                     id: res.id,
                     attributes: {
@@ -1092,7 +1092,7 @@ const app = new Vue({
             response = response.data.data[0]
             let self = this
             let playlistId = response.id
-            if (!transient) this.playlists.loadingState = 0
+            this.playlists.loadingState = (!transient) ? 0 : 1
             this.showingPlaylist = response
             if (!response.relationships.tracks.next) {
                 this.playlists.loadingState = 1
@@ -1572,14 +1572,14 @@ const app = new Vue({
                     if (kind == "appleCurator") {
                         app.appleCurator = a.data.data[0]
                     } else {
-                        this.getPlaylistContinuous(a)
+                        this.getPlaylistContinuous(a, true)
                     }
                 }
             } finally {
                 if (kind == "appleCurator") {
                     app.appleCurator = a.data.data[0]
                 } else {
-                    this.getPlaylistContinuous(a)
+                    this.getPlaylistContinuous(a, true)
                 }
             }
             ;
@@ -3699,12 +3699,17 @@ const app = new Vue({
                 if (langcodes) langcodes = langcodes.map(function (u) { return u.toLowerCase() })
                 console.log(langcodes)
                 let sellang = ""
-                if (u && langcodes.includes(u.toLowerCase().replace('_', "-"))) {
+                if (u && langcodes.startsWith(u.toLowerCase().replace('_', "-"))) {
                     sellang = ((u.toLowerCase()).replace('_', "-"))
                 } else if (u && u.includes('_') && langcodes.includes(((u.toLowerCase()).replace('_', "-")).split("-")[0])) {
                     sellang = ((u.toLowerCase()).replace('_', "-")).split("-")[0]
                 }
                 if (sellang == "") sellang = (item.data.data[0].attributes.defaultLanguageTag).toLowerCase()
+                
+                // Fix weird locales:
+                if (sellang == "iw") sellang = "iw-il"
+                sellang = sellang.replace(/-Han[s|t]/i, "").toLowerCase()
+
                 console.log(sellang)
                 return await sellang
             }
