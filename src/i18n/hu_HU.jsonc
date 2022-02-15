@@ -94,7 +94,7 @@
   "term.topSongs" : "A legjobb dalok",
   "term.latestReleases": "Új megjelenések",
   "term.time.added": "Hozzáadva",
-  "term.time.released": "Kiadva", 
+  "term.time.released": "Kiadva:", 
   "term.time.updated": "Frissítve",
   "term.time.hours": "óra",
   "term.time.hour": "óra",
@@ -109,7 +109,7 @@
   "term.recentStations": "Nemrég játszott",
   "term.language": "Nyelv",
   "term.funLanguages": "Mókás",
-  "term.noLyrics": "Betöltés... / Dalszöveg nem található. / Instrumentális.",
+  "term.noLyrics": "Dalszöveg nem található",
   "term.copyright": "Szerzői jog",
   "term.rightsReserved": "Minden jog fenntartva.",
   "term.sponsor": "Támogasd a projektet",
@@ -118,7 +118,7 @@
   "term.socialTeam": "Szociális csapat",
   "term.socials": "Szociális",
   "term.contributors": "Közreműködők",
-  "term.equalizer": "Hangszínszabályozó",
+  "term.equalizer": "Hangszínszabályzó",
   "term.reset": "Visszaállítás",
   "term.tracks": "zeneszám", // Assume x amount of tracks. e.g. 50 tracks 
   "term.videos": "Videók", 
@@ -217,7 +217,7 @@
   "settings.header.audio.quality.auto": "Automatikus",
   "settings.option.audio.seamlessTransition": "Szünetmentes lejátszás", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "Haladó funkcionalitás engedélyezése", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.description": "Az AudioContext funkció engedélyezése lehetővé teszi a fejlettebb hangfunkciókat, például a normalizásást, a hangszínszabályozót és a vizualizáció funkciókat, azonban egyes számítógépeken ez akadozást okozhat a hangsávokban.",
+  "settings.option.audio.enableAdvancedFunctionality.description": "Az AudioContext funkció engedélyezése lehetővé teszi a fejlettebb hangfunkciókat, például a normalizásást, a hangszínszabályzót és a vizualizáció funkciókat, azonban egyes számítógépeken ez akadozást okozhat a hangsávokban.",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Normalizálás", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizálja az egyes zeneszámok hangosabb részeit, hogy egységesebb hallgatási élményt hozzon létre.",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Térbeli hangzás", // Toggle
@@ -304,7 +304,7 @@
 
   // Web Remote
   "remote.web.title": "Cider Remote",
-  "remote.web.description": "Olvasd be ezt a QR-kódot a telefonoddal, hogy tudd vezérelni a lejátszót.",
+  "remote.web.description": "Olvasd be ezt a QR-kódot a telefonoddal, hogy vezérelhesd a lejátszót.",
 
   // About
   "about.thanks": "Köszönet a Cider Collective csapatának és minden közreműködőnek."
