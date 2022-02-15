@@ -3699,7 +3699,7 @@ const app = new Vue({
                 if (langcodes) langcodes = langcodes.map(function (u) { return u.toLowerCase() })
                 console.log(langcodes)
                 let sellang = ""
-                if (u && langcodes.startsWith(u.toLowerCase().replace('_', "-"))) {
+                if (u && langcodes.includes(u.toLowerCase().replace('_', "-"))) {
                     sellang = ((u.toLowerCase()).replace('_', "-"))
                 } else if (u && u.includes('_') && langcodes.includes(((u.toLowerCase()).replace('_', "-")).split("-")[0])) {
                     sellang = ((u.toLowerCase()).replace('_', "-")).split("-")[0]
