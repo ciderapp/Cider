@@ -68,7 +68,7 @@
                         <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPE.description')}}</small>
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <input type="checkbox" v-model="app.cfg.advanced.ciderPPE" v-on:change="CiderAudio.hierarchical_loading();" switch/>
+                        <input type="checkbox" v-model="app.cfg.advanced.ciderPPE" :disabled="app.cfg.audio.spatial === true" v-on:change="CiderAudio.hierarchical_loading();" switch/>
                     </div>
                 </div>
                 <div class="md-option-line" v-show="app.cfg.advanced.AudioContext && app.cfg.advanced.ciderPPE === true">
@@ -114,7 +114,7 @@
                         <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description')}}</small>
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <input type="checkbox" v-model="app.cfg.audio.spatial" v-on:change="toggleSpatial" switch/>
+                        <input type="checkbox" v-model="app.cfg.audio.spatial" :disabled="app.cfg.advanced.ciderPPE === true" v-on:change="toggleSpatial" switch/>
                     </div>
                 </div>
             </div>
@@ -656,7 +656,7 @@
                         <input type="checkbox" v-model="app.cfg.general.close_button_hide" switch/>
                     </div>
                 </div>
-                <div class="md-option-line">
+                <div class="md-option-line update-check">
                     <div class="md-option-segment">
                         {{$root.getLz('settings.option.general.updateCider')}} 
                     </div>
@@ -666,7 +666,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="md-option-line">
+                <div class="md-option-line update-check">
                     <div class="md-option-segment">
                         {{$root.getLz('settings.option.general.updateCider.branch')}}<br>
                         <small>({{$root.getLz('settings.option.general.updateCider.branch.description')}})</small>
@@ -852,6 +852,15 @@
                 ipcRenderer.invoke('setStoreValue', 'general.close_behavior', app.cfg.general.close_behavior);
                 //  setStoreValue does not change plugin store values somehow
                 ipcRenderer.invoke('update-store-mtt', app.cfg.general.close_behavior);
+            },
+            checkIfUpdateDisabled() {
+                if (ipcRenderer.sendSync('disable-update')) {
+                    let updateFields = document.getElementsByClassName('update-check');
+                    for (var i=0; i < updateFields.length; i++) {
+                        updateFields[i].style = "opacity: 0.5; pointer-events: none;";
+                        updateFields[i].title = "Not available on this type of build";
+                    }
+                }
             }
         }
     })
