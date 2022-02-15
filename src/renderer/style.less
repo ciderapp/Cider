@@ -3120,7 +3120,7 @@ body.no-gpu {
   }
 }
 
-body[platform='darwin'], body[platform='linux'] {
+body[platform='darwin'] {
   #window-controls-container {
     display: none;
   }
@@ -3130,6 +3130,10 @@ body[platform='darwin'], body[platform='linux'] {
     pointer-events: none;
     -webkit-app-region: drag;
   }
+}
+
+body[platform='linux'] #window-controls-container  {
+  display: none;
 }
 
 
