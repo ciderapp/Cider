@@ -555,7 +555,7 @@ const app = new Vue({
                 }
             ).then(() => {
                 if (this.page == 'playlist_' + this.showingPlaylist.id) {
-                    this.getPlaylistFromID(this.showingPlaylist.id, true)
+                    this.getPlaylistFromID(this.showingPlaylist.id)
                 }
             })
         },
@@ -997,7 +997,7 @@ const app = new Vue({
                 console.log(res)
                 self.appRoute(`playlist_` + res.id);
                 self.showingPlaylist = [];
-                self.getPlaylistFromID(app.page.substring(9), true)
+                self.getPlaylistFromID(app.page.substring(9))
                 self.playlists.listing.push({
                     id: res.id,
                     attributes: {
@@ -1572,14 +1572,14 @@ const app = new Vue({
                     if (kind == "appleCurator") {
                         app.appleCurator = a.data.data[0]
                     } else {
-                        this.getPlaylistContinuous(a, true)
+                        this.getPlaylistContinuous(a)
                     }
                 }
             } finally {
                 if (kind == "appleCurator") {
                     app.appleCurator = a.data.data[0]
                 } else {
-                    this.getPlaylistContinuous(a, true)
+                    this.getPlaylistContinuous(a)
                 }
             }
             ;

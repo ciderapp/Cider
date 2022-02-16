@@ -189,7 +189,7 @@
             openPlaylist(item) {
                 this.$root.appRoute(`playlist_` + item.id);
                 this.$root.showingPlaylist = [];
-                this.$root.getPlaylistFromID(this.$root.page.substring(9), true)
+                this.$root.getPlaylistFromID(this.$root.page.substring(9))
             },
             getPlaylistChildren(item) {
                 let self = this
