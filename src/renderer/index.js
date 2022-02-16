@@ -1094,7 +1094,7 @@ const app = new Vue({
             let playlistId = response.id
             this.playlists.loadingState = (!transient) ? 0 : 1
             this.showingPlaylist = response
-            if (!response.relationships?.tracks?.next) {
+            if (!response.relationships.tracks.next) {
                 this.playlists.loadingState = 1
                 return
             }
