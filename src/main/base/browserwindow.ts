@@ -647,7 +647,7 @@ export class BrowserWindow {
                     console.log(err)
                 });
         });
-
+/*
         ipcMain.on('check-for-update', async (_event) => {
             const branch = utils.getStoreValue('general.update_branch')
             let latestbranch = await fetch(`https://circleci.com/api/v1.1/project/gh/ciderapp/Cider/latest/artifacts?branch=${branch}&filter=successful`)
@@ -663,10 +663,10 @@ export class BrowserWindow {
             const options: any = {
                 provider: 'generic',
                 url: `${base_url}`
-            }
+            }*/
             /*
             *  Have to handle the auto updaters seperatly until we can support macOS. electron-builder limitation -q
-            */
+            */ /*
             const win_autoUpdater = new NsisUpdater(options) //Windows
             const linux_autoUpdater = new AppImageUpdater(options) //Linux
             await win_autoUpdater.checkForUpdatesAndNotify()
@@ -680,7 +680,7 @@ export class BrowserWindow {
                 event.returnValue = true
             }
         })
-
+*/
 
         ipcMain.on('share-menu', async (_event, url) => {
             if (process.platform != 'darwin') return;
