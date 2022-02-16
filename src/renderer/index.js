@@ -1170,7 +1170,7 @@ const app = new Vue({
             let max = this.mk.currentPlaybackDuration
             let value = (val - min) / (max - min) * 100
             return {
-                'background': ('linear-gradient(to right, var(--keyColor) 0%, var(--keyColor) ' + value + '%, #333 ' + value + '%, #333 100%)')
+                'background': ('linear-gradient(to right, var(--songProgressColor) 0%, var(--songProgressColor) ' + value + '%, var(--songProgressBackground) ' + value + '%, var(--songProgressBackground) 100%)')
             }
         },
         async getRecursive(response) {
