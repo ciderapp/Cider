@@ -37,7 +37,7 @@ export class Store {
             "ciderPPE": false,
             "ciderPPE_value": 0.5,
             "analogWarmth": false,
-            "analogWarmth_value": 0.75,
+            "analogWarmth_value": 1.25,
             "spatial": false,
             "spatial_properties": {
                 "presets": [],

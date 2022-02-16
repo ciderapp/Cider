@@ -231,13 +231,14 @@ var CiderAudio = {
         // Vibrant Bass, CAP, Analog Warmth
         if (app.cfg.audio.vibrantBass.multiplier !== 0 && 
             app.cfg.advanced.ciderPPE === true && 
-            app.cfg.audio.spatial === true &&
+            app.cfg.audio.spatial === false &&
             app.cfg.audio.analogWarmth === true) { 
 
             CiderAudio.vibrantbass_h2_1(true)
             CiderAudio.llpw_h2_2(true, 2); 
             CiderAudio.analogWarmth_h2_3(true, 3); 
             CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.analogWarmth[0]);
+            console.log('[Cider][Audio] Vibrant Bass, CAP, Analog Warmth')
         }
         // CAP, Analog Warmth
         else if (app.cfg.audio.vibrantBass.multiplier === 0 && 
@@ -246,8 +247,9 @@ var CiderAudio = {
             app.cfg.audio.analogWarmth === true) { 
 
             CiderAudio.llpw_h2_2(true, 1);
-            CiderAudio.analogWarmth_h2_3(true, 2); 
+            CiderAudio.analogWarmth_h2_3(true, 3); 
             CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.analogWarmth[0]);
+            console.log('[Cider][Audio] CAP and Analog Warmth')
         }
          // Vibrant Bass, Analog Warmth
          else if (app.cfg.audio.vibrantBass.multiplier !== 0 && 
@@ -258,6 +260,7 @@ var CiderAudio = {
             CiderAudio.vibrantbass_h2_1(true)
             CiderAudio.analogWarmth_h2_3(true, 2); 
             CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.analogWarmth[0]);
+            console.log('[Cider][Audio] Vibrant Bass, Analog Warmth')
         }
 
         // Vibrant Bass, CAP
@@ -269,6 +272,7 @@ var CiderAudio = {
             CiderAudio.vibrantbass_h2_1(true)
             CiderAudio.llpw_h2_2(true, 2); 
             CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.llpw[0]);
+            console.log('[Cider][Audio] Vibrant Bass, CAP')
         }
         // Vibrant Bass, Spatial
         else if (app.cfg.audio.vibrantBass.multiplier !== 0 && 
@@ -279,6 +283,7 @@ var CiderAudio = {
             CiderAudio.vibrantbass_h2_1(true)
             CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialInput.input);
             CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.audioNodes.vibrantbassNode[0]);
+            console.log('[Cider][Audio] Vibrant Bass, Spatial')
         }
         // Vibrant Bass
         else if (app.cfg.audio.vibrantBass.multiplier !== 0 && 
@@ -287,6 +292,7 @@ var CiderAudio = {
             app.cfg.audio.analogWarmth === false) {  
             CiderAudio.vibrantbass_h2_1(true)
             CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.vibrantbassNode[0]);
+            console.log('[Cider][Audio] Vibrant Bass')
         }
         // CAP
         else if (app.cfg.audio.vibrantBass.multiplier === 0 && 
@@ -295,14 +301,16 @@ var CiderAudio = {
             app.cfg.audio.analogWarmth === false) {  
             CiderAudio.llpw_h2_2(true, 1); 
             CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.llpw[0]);
+            console.log('[Cider][Audio] CAP')
         }
         // Analog Warmth
         else if (app.cfg.audio.vibrantBass.multiplier === 0 && 
             app.cfg.advanced.ciderPPE === false && 
             app.cfg.audio.spatial === false &&
             app.cfg.audio.analogWarmth === true) { 
-            CiderAudio.analogWarmth_h2_2(true, 1); 
+            CiderAudio.analogWarmth_h2_3(true, 1); 
             CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.analogWarmth[0]);
+            console.log('[Cider][Audio] Analog Warmth')
         }
         // Spatial
         else if (app.cfg.audio.vibrantBass.multiplier === 0 && 
@@ -311,11 +319,13 @@ var CiderAudio = {
             app.cfg.audio.analogWarmth === false){
             CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialInput.input);
             CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.audioNodes.audioBands[0]);
+            console.log('[Cider][Audio] Spatial')
 
         }
         // Nothing
         else {        
-            CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.audioBands[0]);                                // If CAP & vibrant bass is disabled
+            CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.audioBands[0]);    
+            console.log('[Cider][Audio] Nothing')                            // If CAP & vibrant bass is disabled
         }
 
         console.log("[Cider][Audio] Finished hierarchical loading");
