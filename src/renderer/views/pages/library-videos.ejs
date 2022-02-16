@@ -6,8 +6,13 @@
                 </div>
             </div> 
             <div class="madeforyou-body">  
-                <mediaitem-square :size="300" :item="item" v-for="item in videos">
-                </mediaitem-square>  
+                <template v-if="videos.length > 0">
+                    <mediaitem-square :size="300" :item="item" v-for="item in videos">
+                    </mediaitem-square>  
+                </template>
+                <template v-else-if="loaded == true">
+                    <div>{{$root.getLz('term.noVideos')}}</div>
+                </template>    
             </div>                   
     </div>
 </script>
@@ -19,12 +24,14 @@
         data: function(){
             return {
                 videos: [],
+                loaded: false
             }
         },
         mounted() {
             this.$nextTick(async function () {
                 if (this.$data.videos == null || this.$data.videos.length == 0)
                 this.$data.videos = (await this.$root.mk.api.v3.music('/v1/me/library/music-videos')).data?.data ?? []
+                this.$data.loaded = true
             })
         }
     })    
