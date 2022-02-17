@@ -25,8 +25,10 @@ const MusicKitInterop = {
 		MusicKit.getInstance().addEventListener(MusicKit.Events.nowPlayingItemDidChange, async () => {
 			// await MusicKitInterop.modifyNamesOnLocale();
 			if (MusicKitInterop.filterTrack(MusicKitInterop.getAttributes(), false, true) || !app.cfg.lastfm.filterLoop) {
-				global.ipcRenderer.send('nowPlayingItemDidChange', MusicKitInterop.getAttributes());
+				global.ipcRenderer.send('lfmItemChange', MusicKitInterop.getAttributes());
 			}
+
+			global.ipcRenderer.send('nowPlayingItemDidChange', MusicKitInterop.getAttributes());
 		});
 
 		MusicKit.getInstance().addEventListener(MusicKit.Events.authorizationStatusDidChange, () => {
