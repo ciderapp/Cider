@@ -909,15 +909,23 @@
     .mediaitem-artwork {
       animation: replayFadeIn .5s var(--appleEase);
     }
+    transition: transform .2s var(--appleEase);
+    transition-delay: .1s;
+    &:hover {
+      transform: scale(1.1);
+      transition-delay: 0s;
+    }
   }
 
   @keyframes replayFadeIn {
     0% {
+      //border-radius: 100%;
       transform: translateY(10px) scale(0.9);
       opacity: 0;
     }
 
     100% {
+      //border-radius: var(--mediaItemRadius);
       transform: scale(1);
       opacity: 1;
     }
