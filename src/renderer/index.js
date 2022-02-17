@@ -1354,8 +1354,15 @@ const app = new Vue({
             }
         },
         async getNowPlayingItemDetailed(target) {
-            let u = await app.mkapi(app.mk.nowPlayingItem.playParams.kind, (app.mk.nowPlayingItem.songId == -1), (app.mk.nowPlayingItem.songId != -1) ? app.mk.nowPlayingItem.songId : app.mk.nowPlayingItem["id"], {"include[songs]": "albums,artists", l : app.mklang});
-            app.searchAndNavigate(u.data.data[0], target)
+            try {
+                let u = await app.mkapi(app.mk.nowPlayingItem.playParams.kind,
+                    (app.mk.nowPlayingItem.songId == -1),
+                    (app.mk.nowPlayingItem.songId != -1) ? app.mk.nowPlayingItem.songId : app.mk.nowPlayingItem["id"],
+                    { "include[songs]": "albums,artists", l: app.mklang });
+                app.searchAndNavigate(u.data.data[0], target)
+            } catch (e) {
+                app.searchAndNavigate(app.mk.nowPlayingItem, target)
+            }
         },
         async searchAndNavigate(item, target) {
             let self = this
