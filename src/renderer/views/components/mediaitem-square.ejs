@@ -144,13 +144,15 @@
             },
             async isInLibrary() {
                 if (this.item.type && !this.item.type.includes("library")) {
-                    var params = {
-                        "fields[playlists]": "inLibrary",
-                        "fields[albums]": "inLibrary",
-                        "relate": "library",
+                    let params = {
+                        relate:"library",
+                        "fields":"inLibrary",
                         "extend": this.revisedRandId()
                     }
-                    var res = await app.mkapi(this.item.attributes.playParams.kind ?? this.item.type, this.item.attributes.playParams.isLibrary ?? false, this.item.attributes.playParams.id ?? this.item.id, params);
+                    let kind = this.item.type ?? this.item.attributes.playParams.kind
+                    let truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
+                    if (truekind == "musicVideos") {truekind = "music-videos"}
+                    let res = await app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/?ids[${truekind}]=${this.item.attributes.playParams.id ?? this.item.id}`,params);
                     res = res.data.data[0]
                     this.addedToLibrary = (res && res.attributes && res.attributes.inLibrary) ? res.attributes.inLibrary : false
                 } else {
@@ -158,21 +160,20 @@
                 }
             },
             async removeFromLibrary(id) {
-                var params = {
-                    "fields[playlists]": "inLibrary",
-                    "fields[songs]": "inLibrary",
-                    "fields[albums]": "inLibrary",
-                    "relate": "library",
-                    "extend": this.revisedRandId()
-                }
-                var id = this.item.id ?? this.item.attributes.playParams.id
-                var res = await app.mkapi(this.item.attributes.playParams.kind ?? this.item.type, this.item.attributes.playParams.isLibrary ?? false, this.item.attributes.playParams.id ?? this.item.id, params);
+                let params = {
+                        relate:"library",
+                        "fields":"inLibrary",
+                        "extend": this.revisedRandId()
+                    }
+                    let kind = this.item.type ?? this.item.attributes.playParams.kind
+                    let truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
+                    if (truekind == "musicVideos") {truekind = "music-videos"}
+                    let res = await app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/?ids[${truekind}]=${this.item.attributes.playParams.id ?? this.item.id}`,params);
                 res= res.data.data[0]
                 if (res && res.relationships && res.relationships.library && res.relationships.library.data && res.relationships.library.data.length > 0) {
                     id = res.relationships.library.data[0].id
                 }
-                let kind = this.item.attributes.playParams.kind ?? this.item.type ?? '';
-                var truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
+
                 app.mk.api.v3.music(`v1/me/library/${truekind}/${id.toString()}`,{},
                     {
                     fetchOptions: {

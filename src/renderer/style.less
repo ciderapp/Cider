@@ -35,6 +35,8 @@
   --keyColor-disabled: rgba(250, 88, 106, 0.35);
   --navigationBarHeight: 38px;
   --modalBackground: #262626;
+  --songProgressColor: var(--keyColor);
+  --songProgressBackground: #333;
   --textColor: #eee;
 }
 
@@ -3130,6 +3132,26 @@ body[platform='darwin'] {
     pointer-events: none;
     -webkit-app-region: drag;
   }
+}
+
+.percent {
+  display: inline-block;
+  position: relative;
+}
+
+.percent::after {
+  position: relative;
+  right: 2em;
+  transition: all .05s ease-in-out;
+}
+
+.percent:hover::after,
+.percent:focus-within::after {
+  right: 3.5em;
+}
+
+.percent::after {
+  content: '%';
 }
 
 
