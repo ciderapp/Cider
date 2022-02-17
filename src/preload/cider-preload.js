@@ -24,7 +24,6 @@ const MusicKitInterop = {
 		/** wsapi */
 
 		MusicKit.getInstance().addEventListener(MusicKit.Events.nowPlayingItemDidChange, async () => {
-			await MusicKitInterop.modifyNamesOnLocale();
 			const attributes = MusicKitInterop.getAttributes()
 			const trackFilter = MusicKitInterop.filterTrack(attributes, false, true)
 
@@ -33,7 +32,7 @@ const MusicKitInterop = {
 			}
 
 			// LastFM's Custom Call
-			// await MusicKitInterop.modifyNamesOnLocale();
+			await MusicKitInterop.modifyNamesOnLocale();
 			if (trackFilter || !app.cfg.lastfm.filterLoop) {
 				global.ipcRenderer.send('nowPlayingItemDidChangeLastFM', attributes);
 			}
