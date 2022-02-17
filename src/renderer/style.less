@@ -3134,5 +3134,25 @@ body[platform='darwin'] {
   }
 }
 
+.percent {
+  display: inline-block;
+  position: relative;
+}
+
+.percent::after {
+  position: relative;
+  right: 2em;
+  transition: all .05s ease-in-out;
+}
+
+.percent:hover::after,
+.percent:focus-within::after {
+  right: 3.5em;
+}
+
+.percent::after {
+  content: '%';
+}
+
 
 @import url("less/compact.less");
