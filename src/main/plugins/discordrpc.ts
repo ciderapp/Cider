@@ -8,8 +8,8 @@ export default class DiscordRichPresence {
      * Private variables for interaction in plugins
      */
     private static _store: any;
-    private _app : any;
-    private _attributes : any;
+    private _app: any;
+    private _attributes: any;
     private static _connection: boolean = false;
 
     /**
@@ -76,10 +76,10 @@ export default class DiscordRichPresence {
 
         // Login to Discord
         this._client.login({clientId})
-        .then(() => {
-            DiscordRichPresence._connection = true;
-        })
-        .catch((e: any) => console.error(`[DiscordRichPresence][connect] ${e}`));
+            .then(() => {
+                DiscordRichPresence._connection = true;
+            })
+            .catch((e: any) => console.error(`[DiscordRichPresence][connect] ${e}`));
     }
 
     /**
@@ -94,43 +94,43 @@ export default class DiscordRichPresence {
         }).catch((e: any) => console.error(`[DiscordRPC][disconnect] ${e}`));
     }
 
-	/**
-	 * Filter the Discord activity object
-	 */
-	private filterActivity(activity: any, attributes: any): Object {
-		
-		// Checks if the name is greater than 128 because some songs can be that long
+    /**
+     * Filter the Discord activity object
+     */
+    private filterActivity(activity: any, attributes: any): Object {
+
+        // Checks if the name is greater than 128 because some songs can be that long
         if (activity.details && activity.details.length > 128) {
             activity.details = activity.details.substring(0, 125) + '...'
         }
 
-		// Check large image
-        if (activity.largeImageKey == null || activity.largeImageKey === "" || activity.largeImageKey.length > 256) { 
+        // Check large image
+        if (activity.largeImageKey == null || activity.largeImageKey === "" || activity.largeImageKey.length > 256) {
             activity.largeImageKey = "cider";
         }
 
-		// Timestamp 
-		if (new Date(attributes.endTime).getTime() < 0) {
-			delete activity.startTime
-			delete activity.endTime
-		}
+        // Timestamp
+        if (new Date(attributes.endTime).getTime() < 0) {
+            delete activity.startTime
+            delete activity.endTime
+        }
 
-		// not sure
-		if (!attributes.artistName) {
-			delete activity.state;
-		}
+        // not sure
+        if (!attributes.artistName) {
+            delete activity.state;
+        }
 
-		if (!activity.largeImageText || activity.largeImageText.length < 2) {
+        if (!activity.largeImageText || activity.largeImageText.length < 2) {
             delete activity.largeImageText
         }
 
-		activity.buttons.forEach((key: {label: string, url: string}, _v: Number) => {
-			if (key.url.includes('undefined') || key.url.includes('no-id-found')) {
+        activity.buttons.forEach((key: { label: string, url: string }, _v: Number) => {
+            if (key.url.includes('undefined') || key.url.includes('no-id-found')) {
                 activity.buttons.splice(key, 1);
-			}
-		})
-		return activity
-	}
+            }
+        })
+        return activity
+    }
 
     /**
      * Sets the activity of the client
@@ -158,29 +158,15 @@ export default class DiscordRichPresence {
             ]
         };
 
-		this._activity = this.filterActivity(this._activity, attributes)
+        this._activity = this.filterActivity(this._activity, attributes)
 
         // Check if its pausing (false) or playing (true)
         if (!attributes.status) {
-            if (DiscordRichPresence._store.general.discord_rpc_clear_on_pause) {
-                this._client.clearActivity()
+            this._client.clearActivity()
                 .catch((e: any) => console.error(`[DiscordRichPresence][clearActivity] ${e}`));
-            } else {
-                this._activity.smallImageKey = 'pause';
-                this._activity.smallImageText = 'Paused';
-                delete this._activity.endTimestamp;
-                delete this._activity.startTimestamp;
-                this._client.setActivity(this._activity)
-                .catch((e: any) => console.error(`[DiscordRichPresence][setActivity] ${e}`));
-            }
         } else if (this._activity && this._activityCache !== this._activity && this._activity.details) {
-            if (!DiscordRichPresence._store.general.discord_rpc_clear_on_pause) {
-                this._activity.smallImageKey = 'play';
-                this._activity.smallImageText = 'Playing';
-            }
-
             this._client.setActivity(this._activity)
-            .catch((e: any) => console.error(`[DiscordRichPresence][updateActivity] ${e}`));
+                .catch((e: any) => console.error(`[DiscordRichPresence][updateActivity] ${e}`));
             this._activityCache = this._activity;
         }
 
@@ -207,21 +193,21 @@ export default class DiscordRichPresence {
         this.connect((DiscordRichPresence._store.general.discord_rpc == 1) ? '911790844204437504' : '886578863147192350');
         console.debug(`[Plugin][${this.name}] Ready.`);
         ipcMain.on('updateRPCImage', (_event, imageurl) => {
-            fetch('https://api.cider.sh/v1/images' ,{ 
+            fetch('https://api.cider.sh/v1/images', {
 
                 method: 'POST',
-                body: JSON.stringify({url : imageurl}),
-                headers: { 
+                body: JSON.stringify({url: imageurl}),
+                headers: {
                     'Content-Type': 'application/json',
                     'User-Agent': _win.webContents.getUserAgent()
                 },
             })
-            .then(res => res.json())
-            .then(function(json){
-                self._attributes["artwork"]["url"] = json.url
-                self.updateActivity(self._attributes)
-            })
-        
+                .then(res => res.json())
+                .then(function (json) {
+                    self._attributes["artwork"]["url"] = json.url
+                    self.updateActivity(self._attributes)
+                })
+
         })
     }
 
