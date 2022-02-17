@@ -904,6 +904,25 @@
 .replay-page {
   --replayTextShadow: 0px 3px 2px #6f3f52;
 
+
+  .cd-mediaitem-square {
+    .mediaitem-artwork {
+      animation: replayFadeIn .5s var(--appleEase);
+    }
+  }
+
+  @keyframes replayFadeIn {
+    0% {
+      transform: translateY(10px) scale(0.9);
+      opacity: 0;
+    }
+
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
   .replay-viewport {
     background: var(--replayGradient);
     padding: 16px 40px;
