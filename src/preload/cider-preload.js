@@ -24,6 +24,7 @@ const MusicKitInterop = {
 		/** wsapi */
 
 		MusicKit.getInstance().addEventListener(MusicKit.Events.nowPlayingItemDidChange, async () => {
+			await MusicKitInterop.modifyNamesOnLocale();
 			const attributes = MusicKitInterop.getAttributes()
 			const trackFilter = MusicKitInterop.filterTrack(attributes, false, true)
 
