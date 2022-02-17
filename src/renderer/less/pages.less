@@ -819,3 +819,133 @@
     margin: 16px;
   }
 }
+
+//Home
+.home-page {
+  top: 0;
+  padding-top: var(--navbarHeight);
+
+  .md-btn-replay {
+    background: var(--replayGradient);
+    border: 0px;
+    box-shadow: inset 0px 0px 0px 1px rgba(200, 200, 200, 0.2);
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  .md-btn-replay--hero {
+    font-size: 1em;
+    padding: 16px;
+    background: var(--replayGradient);
+    border: 0px;
+    box-shadow: inset 0px 0px 0px 1px rgb(200 200 200 / 20%);
+    margin-top: 1em;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  .artist-feed-card {
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    z-index: 1;
+    background: black;
+    width: 80%;
+    height: 96%;
+    overflow: scroll;
+    border-radius: 10px;
+  }
+
+  .col.madeforyou-col {
+    width: 420px;
+    min-width: 0px;
+    max-width: 420px;
+  }
+
+  .well.artistfeed-well {
+    margin-top: 0px;
+    height: 392px;
+    align-content: flex-start;
+  }
+
+  .hint-text {
+    font-size: 0.9rem;
+    color: rgb(200 200 200 / 70%);
+  }
+
+  .user-icon {
+    border-radius: 100%;
+    width: 128px;
+    height: 128px;
+    overflow: hidden;
+    box-shadow: var(--mediaItemShadow-Shadow);
+    margin: 16px;
+  }
+
+  .well.profile-well {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .name {
+      margin: 4px;
+      font-weight: 500;
+    }
+
+    .handle {
+      margin: 4px;
+      opacity: 0.7;
+      font-weight: 500;
+    }
+  }
+}
+
+// Replay
+.replay-page {
+  --replayTextShadow: 0px 3px 2px #6f3f52;
+
+
+  .cd-mediaitem-square {
+    .mediaitem-artwork {
+      animation: replayFadeIn .5s var(--appleEase);
+    }
+    transition: transform .2s var(--appleEase);
+    transition-delay: .1s;
+    &:hover {
+      transform: scale(1.1);
+      transition-delay: 0s;
+    }
+  }
+
+  @keyframes replayFadeIn {
+    0% {
+      //border-radius: 100%;
+      transform: translateY(10px) scale(0.9);
+      opacity: 0;
+    }
+
+    100% {
+      //border-radius: var(--mediaItemRadius);
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .replay-viewport {
+    background: var(--replayGradient);
+    padding: 16px 40px;
+    border-radius: 10px;
+    box-shadow: var(--mediaItemShadow), var(--mediaItemShadow-Shadow);
+    color: rgb(238 238 238 / 86%);
+
+    .replay-header {
+      text-align: center;
+      font-size: 3em;
+      text-shadow: var(--replayTextShadow);
+    }
+  }
+  .replay-card {
+    background: transparent;
+    border:0px;
+  }
+}

@@ -74,6 +74,9 @@
             <div class="duration" v-if="displayDuration" @dblclick="route()">
                 {{ msToMinSec(item.attributes.durationInMillis ?? 0) }}
             </div>
+            <div class="duration" v-if="item.attributes.playCount" @dblclick="route()">
+                {{ item.attributes.playCount }}
+            </div>
         </template>
     </div>
 </script>

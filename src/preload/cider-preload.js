@@ -32,7 +32,7 @@ const MusicKitInterop = {
 			}
 
 			// LastFM's Custom Call
-			// await MusicKitInterop.modifyNamesOnLocale();
+			await MusicKitInterop.modifyNamesOnLocale();
 			if (trackFilter || !app.cfg.lastfm.filterLoop) {
 				global.ipcRenderer.send('nowPlayingItemDidChangeLastFM', attributes);
 			}
