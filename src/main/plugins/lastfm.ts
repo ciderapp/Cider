@@ -266,7 +266,7 @@ export default class LastFMPlugin {
      * Runs on song change
      * @param attributes Music Attributes
      */
-    lfmItemChange(attributes: any): void {
+    nowPlayingItemDidChangeLastFM(attributes: any): void {
         attributes.status = true
         if (!this._store.lastfm.filterLoop) {
             this._lastfm.cachedNowPlayingAttributes = false;
