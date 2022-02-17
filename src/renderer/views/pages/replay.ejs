@@ -1,8 +1,8 @@
 <script type="text/x-template" id="replay-page">
     <div class="content-inner replay-page">
         <h1 class="header-text">Replay</h1>
-        <button v-for="year in years" class="md-btn md-btn-primary" @click="getReplayYear(year)">{{ year.attributes.year }}</button>
-
+        <button v-for="year in years" class="md-btn md-btn-primary" @click="getReplayYear(year.attributes.year)">{{ year.attributes.year }}</button>
+        <button class="md-btn md-btn-primary" @click="getReplayYear()">This Year</button>
         <hr>
         <transition name="replaycard">
         <div class="replay-viewport" v-if="loaded.id != -1">
@@ -29,7 +29,7 @@
                             <mediaitem-square :item="artistData.relationships.artist.data[0]"></mediaitem-square>
                         </div>
                         <div class="card-footer">
-                            {{ artistData.attributes.listenTimeInMinutes }}<br>
+                            {{ artistData.attributes.listenTimeInMinutes }} minutes<br>
                             Listened to: {{ artistData.attributes.playCount }} times
                         </div>
                     </div>
@@ -53,7 +53,7 @@
             <!--            Top Songs-->
             <h3>Top Songs</h3>
             <div class="well">
-                <listitem-horizontal :items="songsToArray(loaded.views['top-songs'].data)"></listitem-horizontal>
+                <listitem-horizontal :show-library-status="false" :items="songsToArray(loaded.views['top-songs'].data)"></listitem-horizontal>
             </div>
         </div>
         </transition>
@@ -79,14 +79,15 @@
             songsToArray(songsData) {
                 let songs = []
                 songsData.forEach(function (songData) {
-                    songs.push(songData.relationships.song.data[0])
+                    let song = songData.relationships.song.data[0]
+                    song.attributes.playCount = songData.attributes.playCount
+                    songs.push(song)
                 })
                 return songs
             },
-            async getReplayYear(year) {
+            async getReplayYear(year = new Date().getFullYear()) {
                 this.loaded.id = -1
-                console.log(year)
-                let response = await app.mk.api.v3.music(`${year.href}?extend=inLibrary&views=top-artists%2Ctop-albums%2Ctop-songs&include[music-summaries]=playlist&include[playlists]=tracks&includeOnly=playlist%2Ctracks%2Csong%2Cartist%2Calbum`)
+                let response = await app.mk.api.v3.music(`/v1/me/music-summaries/year-${year}?extend=inLibrary&views=top-artists%2Ctop-albums%2Ctop-songs&include[music-summaries]=playlist&include[playlists]=tracks&includeOnly=playlist%2Ctracks%2Csong%2Cartist%2Calbum`)
                 console.warn(response.data.data[0])
                 this.loaded = response.data.data[0]
             }
