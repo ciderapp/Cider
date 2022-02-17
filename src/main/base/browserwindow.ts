@@ -125,6 +125,16 @@ export class BrowserWindow {
         this.options.width = windowState.width;
         this.options.height = windowState.height;
 
+        switch(process.platform) {
+            default:
+
+            break;
+            case "linux":
+                this.options.autoHideMenuBar = true
+                this.options.frame = true
+            break;
+        }
+
         // Start the webserver for the browser window to load
 
         this.startWebServer();
