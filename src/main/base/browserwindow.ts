@@ -88,7 +88,7 @@ export class BrowserWindow {
         y: undefined,
         minWidth: 900,
         minHeight: 390,
-        frame: (process.platform === "linux"),
+        frame: false,
         title: "Cider",
         vibrancy: "fullscreen-ui",
         transparent: process.platform === "darwin",
@@ -130,7 +130,6 @@ export class BrowserWindow {
         this.startWebServer();
 
         BrowserWindow.win = new bw(this.options);
-        BrowserWindow.win.setMenuBarVisibility(false)
         const ws = new wsapi(BrowserWindow.win)
         ws.InitWebSockets()
         // and load the renderer.
