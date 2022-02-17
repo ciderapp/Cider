@@ -51,7 +51,14 @@
             <!--            </div>-->
             <div class="row">
                 <div class="col">
-                    <h3>{{app.getLz('home.madeForYou')}}</h3>
+                    <div class="row">
+                        <div class="col nopadding">
+                            <h3>{{app.getLz('home.madeForYou')}}</h3>
+                        </div>
+                        <div class="col-auto nopadding flex-center">
+                            <button class="cd-btn-seeall" @click="$root.appRoute('replay')">Replay</button>
+                        </div>
+                    </div>
                     <div class="well">
                         <mediaitem-scroller-horizontal :items="madeForYou" v-if="isSectionReady('madeForYou')">
                         </mediaitem-scroller-horizontal>

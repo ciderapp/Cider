@@ -819,3 +819,27 @@
     margin: 16px;
   }
 }
+
+// Replay
+.replay-page {
+  --replayGradient: linear-gradient(45deg, hsl(248deg 58% 29%), hsl(13deg 41% 42%));
+  --replayTextShadow: 0px 3px 2px #6f3f52;
+
+  .replay-viewport {
+    background: var(--replayGradient);
+    padding: 16px 40px;
+    border-radius: 10px;
+    box-shadow: var(--mediaItemShadow), var(--mediaItemShadow-Shadow);
+    color: rgb(238 238 238 / 86%);
+
+    .replay-header {
+      text-align: center;
+      font-size: 3em;
+      text-shadow: var(--replayTextShadow);
+    }
+  }
+  .replay-card {
+    background: transparent;
+    border:0px;
+  }
+}

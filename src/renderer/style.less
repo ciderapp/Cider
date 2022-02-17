@@ -2757,6 +2757,17 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
 /* Transitions */
 
+.replaycard-enter-active,
+.replaycard-leave-active {
+  transition: opacity .5s var(--appleEase), transform .5s var(--appleEase);
+}
+
+.replaycard-enter,
+.replaycard-leave-to {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
 .modal-enter-active,
 .modal-leave-active {
   transition: opacity .1s var(--appleEase), transform .1s var(--appleEase);
