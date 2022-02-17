@@ -75,6 +75,7 @@
             let year = await app.mk.api.v3.music("/v1/me/music-summaries/search?extend=inLibrary&period=year&fields[music-summaries]=period%2Cyear&include[music-summaries]=playlist")
             this.years = year.data.data
             localStorage.setItem("seenReplay", true)
+            this.getReplayYear();
         },
         methods: {
             songsToArray(songsData) {
