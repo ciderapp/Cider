@@ -17,6 +17,11 @@
                         <div class="icon"><%- include("../svg/speaker.svg") %></div>
                         <div class="name">{{app.getLz('settings.option.audio.enableAdvancedFunctionality.audioSpatialization')}}</div>
                     </button>
+                    <button class="playlist-item"
+                            @click="openAudioControls" style="width:100%;">
+                        <div class="icon"><%- include("../svg/speaker.svg") %></div>
+                        <div class="name">{{app.getLz('term.audioControls')}}</div>
+                    </button>
                 </div>
             </div>
         </div>
@@ -46,6 +51,10 @@
                     notyf.error(app.getLz('spatial.notTurnedOn'))
                 }
             },
+            openAudioControls() {
+	            app.modals.audioControls = true
+	            app.modals.audioSettings = false
+            }
         }
     });
 </script>

@@ -109,6 +109,7 @@
   "term.fullscreenView": "Fullscreen View",
   "term.defaultView": "Default View",
   "term.audioSettings": "Audio Settings",
+  "term.audioControls": "Audio Controls",
   "term.clearAll": "Clear All",
   "term.recentStations": "Recent Stations",
   "term.language": "Language",
@@ -154,6 +155,7 @@
   "term.videoExtras": "Video Extras",
   "term.top": "Top",
   "term.version": "Version",
+  "term.noVideos": "No videos found.",
   
   // Home
   "home.title": "Home",
@@ -250,6 +252,8 @@
   // Settings - Audio
   "settings.header.audio": "Audio",
   "settings.header.audio.description": "Adjust the audio settings for Cider.",
+  "settings.option.audio.volumeStep": "Volume Step",
+  "settings.option.audio.maxVolume": "Max Volume",
   "settings.option.audio.quality": "Audio Quality", // Dropdown
   "settings.header.audio.quality.hireslossless": "Hi-Res Lossless",
   "settings.header.audio.quality.hireslossless.description": "up to 24-bit/192 kHz",

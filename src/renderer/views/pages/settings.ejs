@@ -44,6 +44,16 @@
                 </div>
                 <div class="md-option-line">
                     <div class="md-option-segment">
+                        {{$root.getLz('term.audioControls')}}
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <button class="md-btn" onclick="app.modals.audioControls = true">
+                            {{$root.getLz('term.audioControls')}}
+                        </button>
+                    </div>
+                </div>
+                <div class="md-option-line">
+                    <div class="md-option-segment">
                         {{$root.getLz('settings.option.audio.seamlessTransition')}}
                     </div>
                     <div class="md-option-segment md-option-segment_auto">

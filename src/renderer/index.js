@@ -233,6 +233,7 @@ const app = new Vue({
             qrcode: false,
             equalizer: false,
             audioSettings: false,
+            audioControls: false,
             showPlaylist: false,
         },
         socialBadges: {
@@ -272,7 +273,7 @@ const app = new Vue({
         artistPage: () => {
             document.getElementById("app-content").scrollTo(0, 0);
             app.resetState()
-        },
+        }
     },
     methods: {
         songLinkShare(amUrl) {
@@ -1094,7 +1095,7 @@ const app = new Vue({
             let playlistId = response.id
             this.playlists.loadingState = (!transient) ? 0 : 1
             this.showingPlaylist = response
-            if (!response.relationships.tracks.next) {
+            if (!response.relationships?.tracks?.next) {
                 this.playlists.loadingState = 1
                 return
             }
@@ -1170,7 +1171,7 @@ const app = new Vue({
             let max = this.mk.currentPlaybackDuration
             let value = (val - min) / (max - min) * 100
             return {
-                'background': ('linear-gradient(to right, var(--keyColor) 0%, var(--keyColor) ' + value + '%, #333 ' + value + '%, #333 100%)')
+                'background': ('linear-gradient(to right, var(--songProgressColor) 0%, var(--songProgressColor) ' + value + '%, var(--songProgressBackground) ' + value + '%, var(--songProgressBackground) 100%)')
             }
         },
         async getRecursive(response) {
@@ -3321,7 +3322,7 @@ const app = new Vue({
                 console.log('setting max volume')
             } else {
                 console.log('volume up')
-                app.mk.volume += app.cfg.audio.volumeStep;
+                app.mk.volume = ((app.mk.volume * 100) + (app.cfg.audio.volumeStep * 100)) / 100
             }
         },
         volumeDown() {
@@ -3330,11 +3331,11 @@ const app = new Vue({
                 console.log('setting volume to 0')
             } else {
                 console.log('volume down')
-                app.mk.volume -= app.cfg.audio.volumeStep;
+                app.mk.volume = ((app.mk.volume * 100) - (app.cfg.audio.volumeStep * 100)) / 100
             }
         },
         volumeWheel(event) {
-            app.checkScrollDirectionIsUp(event) ? app.volumeUp() : app.volumeDown()
+            app.checkScrollDirectionIsUp(event) ? this.volumeUp() : this.volumeDown()
         },
         muteButtonPressed() {
             if (this.cfg.audio.muted) {

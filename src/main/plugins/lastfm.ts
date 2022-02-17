@@ -257,20 +257,22 @@ export default class LastFMPlugin {
      * @param attributes Music Attributes (attributes.status = current state)
      */
     onPlaybackStateDidChange(attributes: object): void {
-        this.updateNowPlayingSong(attributes)
-        this.scrobbleSong(attributes)
+          this.updateNowPlayingSong(attributes)
+    //    this.scrobbleSong(attributes)
     }
 
     /**
      * Runs on song change
      * @param attributes Music Attributes
      */
-    onNowPlayingItemDidChange(attributes: object): void {
+    lfmItemChange(attributes: any): void {
+        attributes.status = true
         if (!this._store.lastfm.filterLoop){
             this._lastfm.cachedNowPlayingAttributes = false;
-            this._lastfm.cachedAttributes = false}    
+            this._lastfm.cachedAttributes = false
+        }
         this.updateNowPlayingSong(attributes)    
-        this.scrobbleSong(attributes)                
+        this.scrobbleSong(attributes)            
     }
 
 }
