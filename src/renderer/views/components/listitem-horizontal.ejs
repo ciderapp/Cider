@@ -3,7 +3,7 @@
     <vue-horizontal>
         <div v-for="items in itemPages">
             <mediaitem-list-item
-                v-for="(song, index) in items" :show-library-status="show-library-status" :parent="'listitem-hr' + simplifiedParent"
+                v-for="(song, index) in items" :show-library-status="showLibraryStatus" :parent="'listitem-hr' + simplifiedParent"
                 :index="song.index"
                 :item="song"></mediaitem-list-item>
         </div>
@@ -20,7 +20,7 @@
                 type: Array,
                 required: true
             },
-            "show-library-status": {
+            showLibraryStatus: {
                 type: Boolean,
                 default: true
             }
