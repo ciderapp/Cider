@@ -116,3 +116,9 @@ Update 12/02/2022 12:00 UTC
 * `settings.notyf.visual.theme.install.error`: Added for `en_US`.
 * `term.defaultPresets`: Added for `en_US`.
 * `term.userPresets`: Added for `en_US`.
+
+Update 16/02/2022 21:45 UTC
+
+* `term.audioControls`: Added for `en_US`.
+* `settings.option.audio.volumeStep`: Added for `en_US`.
+* `settings.option.audio.maxVolume`: Added for `en_US`.`

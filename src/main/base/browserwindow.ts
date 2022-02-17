@@ -53,6 +53,7 @@ export class BrowserWindow {
                 "components/sidebar-playlist",
                 "components/spatial-properties",
                 "components/audio-settings",
+                "components/audio-controls",
                 "components/qrcode-modal",
                 "components/equalizer",
                 "components/add-to-playlist",

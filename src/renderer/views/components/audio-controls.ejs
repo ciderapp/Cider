@@ -1,0 +1,87 @@
+<script type="text/x-template" id="audio-controls">
+    <div class="modal-fullscreen addtoplaylist-panel" @click.self="app.resetState()"
+         @contextmenu.self="app.resetState()">
+        <div class="modal-window">
+            <div class="modal-header">
+                <div class="modal-title">{{app.getLz('term.audioControls')}}</div>
+                <button class="close-btn" @click="app.resetState()"></button>
+            </div>
+            <div class="modal-content">
+                <div class="md-option-line">
+                    <div class="md-option-segment">
+                        {{app.getLz('term.volume')}}
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto percent">
+                        <input type="number"
+                               style="width: 100%; text-align: center; margin-right: 5px;" min="0"
+                               step="5" v-model="volume"/>
+                    </div>
+                </div>
+                <div class="md-option-line">
+                    <div class="md-option-segment">
+                        {{app.getLz('settings.option.audio.volumeStep')}}
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto percent">
+                        <input type="number" style="width: 100%; text-align: center; margin-right: 5px;" min="0"
+                               v-model="volumeStep"/>
+                    </div>
+                </div>
+                <div class="md-option-line">
+                    <div class="md-option-segment">
+                        {{app.getLz('settings.option.audio.maxVolume')}}
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto percent">
+                        <input type="number" style="width: 100%; text-align: center; margin-right: 5px;" min="0"
+                               v-model="maxVolume"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script>
+	Vue.component('audio-controls', {
+		template: '#audio-controls',
+		data: function () {
+			return {
+				app: this.$root,
+				maxVolume: this.$root.cfg.audio.maxVolume * 100,
+				volumeStep: this.$root.cfg.audio.volumeStep * 100,
+				volume: this.$root.cfg.audio.volume * 100
+			}
+		},
+		watch: {
+			maxVolume: function (newValue, _oldValue) {
+				if (newValue > 100) {
+					newValue = 100
+				} else {
+					newValue = Math.round(newValue)
+				}
+				this.$root.cfg.audio.maxVolume = newValue / 100
+                this.maxVolume = newValue
+				console.log(newValue, _oldValue)
+			},
+			volume: function (newValue, _oldValue) {
+				if (newValue > this.maxVolume) {
+					newValue = 100
+				} else {
+					newValue = Math.round(newValue)
+				}
+				this.$root.mk.volume = newValue / 100
+				this.volume = newValue
+				console.log(newValue, _oldValue)
+			},
+			volumeStep: function (newValue, _oldValue) {
+				if (newValue > this.maxVolume) {
+					newValue = 100
+				} else {
+					newValue = Math.round(newValue)
+				}
+				this.$root.cfg.audio.volumeStep = newValue / 100
+				this.volumeStep = newValue
+				console.log(newValue, _oldValue)
+            }
+		}
+	});
+</script>
