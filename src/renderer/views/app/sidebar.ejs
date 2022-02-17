@@ -152,7 +152,7 @@
                 <div class="input-container">
                     <button class="volume-button--small volume" @click="muteButtonPressed()"
                             :class="{'active': this.cfg.audio.volume == 0}"></button>
-                    <input type="range" class="" @wheel="volumeWheel" step="0.01" min="0"
+                    <input type="range" class="" @wheel="volumeWheel" :step="cfg.audio.volumeStep" min="0"
                            :max="cfg.audio.maxVolume"
                            v-model="mk.volume" v-if="typeof mk.volume != 'undefined'"
                            @change="checkMuteChange()">

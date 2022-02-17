@@ -17,6 +17,9 @@
     <spatial-properties v-if="modals.spatialProperties"></spatial-properties>
 </transition>
 <transition name="modal">
+    <audio-controls v-if="modals.audioControls"></audio-controls>
+</transition>
+<transition name="modal">
     <audio-settings v-if="modals.audioSettings"></audio-settings>
 </transition>
 <transition name="modal">

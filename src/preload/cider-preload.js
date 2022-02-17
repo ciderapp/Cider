@@ -7,9 +7,10 @@ let cache = {playParams: {id: 0}, status: null, remainingTime: 0},
 const MusicKitInterop = {
 	init: function () {
 		MusicKit.getInstance().addEventListener(MusicKit.Events.playbackStateDidChange, () => {
-			if (MusicKitInterop.filterTrack(MusicKitInterop.getAttributes(), true, false)) {
-				global.ipcRenderer.send('playbackStateDidChange', MusicKitInterop.getAttributes())
-				ipcRenderer.send('wsapi-updatePlaybackState', MusicKitInterop.getAttributes());
+			const attributes = MusicKitInterop.getAttributes()
+			if (MusicKitInterop.filterTrack(attributes, true, false)) {
+				global.ipcRenderer.send('playbackStateDidChange', attributes)
+				ipcRenderer.send('wsapi-updatePlaybackState', attributes);
 				// if (typeof _plugins != "undefined") {
 				//     _plugins.execute("OnPlaybackStateChanged", {Attributes: MusicKitInterop.getAttributes()})
 				// }
@@ -23,9 +24,17 @@ const MusicKitInterop = {
 		/** wsapi */
 
 		MusicKit.getInstance().addEventListener(MusicKit.Events.nowPlayingItemDidChange, async () => {
+			const attributes = MusicKitInterop.getAttributes()
+			const trackFilter = MusicKitInterop.filterTrack(attributes, false, true)
+
+			if (trackFilter) {
+				global.ipcRenderer.send('nowPlayingItemDidChange', attributes);
+			}
+
+			// LastFM's Custom Call
 			// await MusicKitInterop.modifyNamesOnLocale();
-			if (MusicKitInterop.filterTrack(MusicKitInterop.getAttributes(), false, true) || !app.cfg.lastfm.filterLoop) {
-				global.ipcRenderer.send('nowPlayingItemDidChange', MusicKitInterop.getAttributes());
+			if (trackFilter || !app.cfg.lastfm.filterLoop) {
+				global.ipcRenderer.send('nowPlayingItemDidChangeLastFM', attributes);
 			}
 		});
 
@@ -67,7 +76,7 @@ const MusicKitInterop = {
 		const attributes = (nowPlayingItem != null ? nowPlayingItem.attributes : {});
 
 		attributes.status = isPlayingExport ?? false;
-		attributes.name = attributes?.name ?? 'No Title Found';
+		attributes.name = attributes?.name ?? 'no-title-found';
 		attributes.artwork = attributes?.artwork ?? {url: ''};
 		attributes.artwork.url = (attributes?.artwork?.url ?? '').replace(`{f}`, "png");
 		attributes.playParams = attributes?.playParams ?? {id: 'no-id-found'};
@@ -96,7 +105,7 @@ const MusicKitInterop = {
 	},
 
 	filterTrack: function (a, playbackCheck, mediaCheck) {
-		if (a.title === "No Title Found" || a.playParams.id === "no-id-found") {
+		if (a.name === 'no-title-found' || a.playParams.id === "no-id-found") {
 			return;
 		} else if (mediaCheck && a.playParams.id === cache.playParams.id) {
 			return;
