@@ -699,7 +699,9 @@ export class BrowserWindow {
         ipcMain.on('get-version', (_event) => {
             _event.returnValue = app.getVersion()
         });
-
+        ipcMain.on('open-appdata', (_event) => {
+            shell.openPath(app.getPath('userData'));
+        });
         /* *********************************************************************************************
          * Window Events
          * **********************************************************************************************/

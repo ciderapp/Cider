@@ -122,3 +122,8 @@ Update 16/02/2022 21:45 UTC
 * `term.audioControls`: Added for `en_US`.
 * `settings.option.audio.volumeStep`: Added for `en_US`.
 * `settings.option.audio.maxVolume`: Added for `en_US`.`
+
+Update 17/02/2022 10:00 UTC
++ `settings.header.debug`: Added for `en_US`.
++ `settings.option.debug.copy_log`: Replaces `settings.option.experimental.copy_log`.
++ `settings.option.debug.openAppData`: Added for `en_US`
