@@ -1360,7 +1360,7 @@ const app = new Vue({
                 app.prevButtonBackIndicator = true;
                 try{clearTimeout(app.pauseButtonTimer)} catch (e){ }
                 app.mk.seekToTime(0);
-                app.pauseButtonTimer = setTimeout(app.prevButtonBackIndicator = false,3000);
+                app.pauseButtonTimer = setTimeout(() => {app.prevButtonBackIndicator = false},3000);
             } else {
                 try{clearTimeout(app.pauseButtonTimer)} catch (e){ }
                 app.prevButtonBackIndicator = false;
