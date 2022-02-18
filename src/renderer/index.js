@@ -250,7 +250,8 @@ const app = new Vue({
                 items: {},
                 headerItems: {}
             }
-        }
+        },
+        pauseButtonTimer : null
     },
     watch: {
         cfg: {
@@ -452,7 +453,7 @@ const app = new Vue({
             history.forward()
         },
         getHTMLStyle() {
-            document.querySelector("html").style.background = "#222";
+            // document.querySelector("html").style.background = "#222";
             document.querySelector("body").classList.add("notransparency")
         },
         resetState() {
@@ -812,6 +813,8 @@ const app = new Vue({
             } else {
                 this.page = "home"
             }
+
+            this.mediaKeyFixes()
 
             setTimeout(() => {
                 this.getSocialBadges()
@@ -1319,6 +1322,14 @@ const app = new Vue({
                     extend: "offers,editorialVideo",
                     "views": "appears-on,more-by-artist,related-videos,other-versions,you-might-also-like,video-extras,audio-extras",
                 }
+                if (kind.includes("playlist")){
+                    params["include"] = "tracks";
+                }
+                if (kind.includes("album")){
+                    params["include[albums]"] = "artists"
+                    params["fields[artists]"] = "name,url"
+                    params["fields[albums]"] = "artistName,artistUrl,artwork,contentRating,editorialArtwork,name,playParams,releaseDate,url"
+                }
 
                 if (this.cfg.advanced.experiments.includes('inline-playlists')) {
                     let showModal = kind.toString().includes("album") || kind.toString().includes("playlist")
@@ -1347,8 +1358,11 @@ const app = new Vue({
         prevButton() {
             if (!app.prevButtonBackIndicator && app.mk.nowPlayingItem && app.mk.currentPlaybackTime > 2) {
                 app.prevButtonBackIndicator = true;
+                try{clearTimeout(app.pauseButtonTimer)} catch (e){ }
                 app.mk.seekToTime(0);
+                app.pauseButtonTimer = setTimeout(() => {app.prevButtonBackIndicator = false},3000);
             } else {
+                try{clearTimeout(app.pauseButtonTimer)} catch (e){ }
                 app.prevButtonBackIndicator = false;
                 app.skipToPreviousItem()
             }
@@ -3245,8 +3259,8 @@ const app = new Vue({
         },
         async getRating(item) {
             let type = item.type.slice(-1) === "s" ? item.type : item.type + "s"
-            let id = item.attributes.playParams.catalogId ? item.attributes.playParams.catalogId : item.id
-            if (item.id.startsWith("i.")) {
+            let id = item.attributes?.playParams?.catalogId ? item.attributes.playParams.catalogId : (item.attributes?.playParams?.id ?? item.id)
+            if (item.id != null && (item.id.toString()).startsWith("i.")) {
                 if (!type.startsWith("library-")) {
                     type = "library-" + type
                 }
@@ -3262,8 +3276,8 @@ const app = new Vue({
         },
         love(item) {
             let type = item.type.slice(-1) === "s" ? item.type : item.type + "s"
-            let id = item.attributes.playParams.catalogId ? item.attributes.playParams.catalogId : item.id
-            if (item.id.startsWith("i.")) {
+            let id = item.attributes?.playParams?.catalogId ? item.attributes.playParams.catalogId : (item.attributes?.playParams?.id ?? item.id)
+            if (item.id != null && (item.id.toString()).startsWith("i.")) {
                 if (!type.startsWith("library-")) {
                     type = "library-" + type
                 }
@@ -3283,8 +3297,8 @@ const app = new Vue({
         },
         dislike(item) {
             let type = item.type.slice(-1) === "s" ? item.type : item.type + "s"
-            let id = item.attributes.playParams.catalogId ? item.attributes.playParams.catalogId : item.id
-            if (item.id.startsWith("i.")) {
+            let id = item.attributes?.playParams?.catalogId ? item.attributes.playParams.catalogId : (item.attributes?.playParams?.id ?? item.id)
+            if (item.id != null && (item.id.toString()).startsWith("i.")) {
                 if (!type.startsWith("library-")) {
                     type = "library-" + type
                 }
@@ -3732,6 +3746,7 @@ const app = new Vue({
             }          
         },
         skipToNextItem(){
+            app.prevButtonBackIndicator = false;
             // app.mk.skipToNextItem() is buggy somehow so use this
             if (this.mk.queue.nextPlayableItemIndex != -1 && this.mk.queue.nextPlayableItemIndex != null) 
             this.mk.changeToMediaAtIndex(this.mk.queue.nextPlayableItemIndex);
@@ -3740,6 +3755,10 @@ const app = new Vue({
             // app.mk.skipToPreviousItem() is buggy somehow so use this
             if (this.mk.queue.previousPlayableItemIndex != -1 && this.mk.queue.previousPlayableItemIndex != null)
             this.mk.changeToMediaAtIndex(this.mk.queue.previousPlayableItemIndex);
+        },
+        mediaKeyFixes(){
+            navigator.mediaSession.setActionHandler('previoustrack', function() { app.prevButton() });
+            navigator.mediaSession.setActionHandler('nexttrack', function() { app.skipToNextItem() });
         }
     }
 })
@@ -3849,7 +3868,7 @@ function fallbackinitMusicKit() {
             },
             sourceType: 24,
             suppressErrorDialog: true
-        });
+        })
         setTimeout(() => {
             app.init()
         }, 1000)

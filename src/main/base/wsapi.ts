@@ -183,7 +183,10 @@ export class wsapi {
                         break;
                     case "next":
                         this._win.webContents.executeJavaScript(`if (MusicKit.getInstance().queue.nextPlayableItemIndex != -1 && MusicKit.getInstance().queue.nextPlayableItemIndex != null) {
-                        MusicKit.getInstance().changeToMediaAtIndex(MusicKit.getInstance().queue.nextPlayableItemIndex);}`);
+                            try {
+                                app.prevButtonBackIndicator = false;
+                            } catch (e) { }
+                             MusicKit.getInstance().changeToMediaAtIndex(MusicKit.getInstance().queue.nextPlayableItemIndex);}`);
                         response.message = "Next";
                         break;
                     case "previous":
