@@ -3253,8 +3253,8 @@ const app = new Vue({
         },
         async getRating(item) {
             let type = item.type.slice(-1) === "s" ? item.type : item.type + "s"
-            let id = item.attributes.playParams.catalogId ? item.attributes.playParams.catalogId : item.id
-            if (item.id.startsWith("i.")) {
+            let id = item.attributes?.playParams?.catalogId ? item.attributes.playParams.catalogId : (item.attributes?.playParams?.id ?? item.id)
+            if (item.id && item.id.startsWith("i.")) {
                 if (!type.startsWith("library-")) {
                     type = "library-" + type
                 }
@@ -3270,8 +3270,8 @@ const app = new Vue({
         },
         love(item) {
             let type = item.type.slice(-1) === "s" ? item.type : item.type + "s"
-            let id = item.attributes.playParams.catalogId ? item.attributes.playParams.catalogId : item.id
-            if (item.id.startsWith("i.")) {
+            let id = item.attributes?.playParams?.catalogId ? item.attributes.playParams.catalogId : (item.attributes?.playParams?.id ?? item.id)
+            if (item.id && item.id.startsWith("i.")) {
                 if (!type.startsWith("library-")) {
                     type = "library-" + type
                 }
@@ -3291,8 +3291,8 @@ const app = new Vue({
         },
         dislike(item) {
             let type = item.type.slice(-1) === "s" ? item.type : item.type + "s"
-            let id = item.attributes.playParams.catalogId ? item.attributes.playParams.catalogId : item.id
-            if (item.id.startsWith("i.")) {
+            let id = item.attributes?.playParams?.catalogId ? item.attributes.playParams.catalogId : (item.attributes?.playParams?.id ?? item.id)
+            if (item.id && item.id.startsWith("i.")) {
                 if (!type.startsWith("library-")) {
                     type = "library-" + type
                 }
