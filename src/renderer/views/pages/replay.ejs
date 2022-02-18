@@ -12,6 +12,12 @@
         <transition name="replaycard">
         <div class="replay-viewport" v-if="loaded.id != -1">
             <!-- Stats -->
+            <div class="replay-video" v-if="false">
+                <mediaitem-artwork 
+            :url="loaded.playlist.attributes.editorialVideo.motionWideVideo21x9.previewFrame.url" 
+            :video="loaded.playlist.attributes.editorialVideo.motionWideVideo21x9.video" 
+            :video-priority="true"></mediaitem-artwork>
+            </div>
             <h1 class="replay-header">{{ loaded.attributes.year }} Replay</h1>
             <hr>
             <div class="row">
@@ -21,8 +27,8 @@
                     <h4>{{ loaded.attributes.uniqueArtistCount }} Unique Artists</h4>
                     <h4>{{ loaded.attributes.uniqueSongCount }} Unique Songs</h4>
                 </div>
-                <div class="col-auto">
-                    <mediaitem-square kind="card" :item="loaded.relationships.playlist.data[0]"></mediaitem-square>
+                <div class="col-auto replay-playlist-container">
+                    <mediaitem-square kind="card" :force-video="true" :item="loaded.playlist"></mediaitem-square>
                 </div>
             </div>
             <!--            Top Artists-->
@@ -136,8 +142,11 @@
             async getReplayYear(year = new Date().getFullYear()) {
                 this.loaded.id = -1
                 let response = await app.mk.api.v3.music(`/v1/me/music-summaries/year-${year}?extend=inLibrary&views=top-artists%2Ctop-albums%2Ctop-songs&include[music-summaries]=playlist&include[playlists]=tracks&includeOnly=playlist%2Ctracks%2Csong%2Cartist%2Calbum`)
-                console.warn(response.data.data[0])
-                this.loaded = response.data.data[0]
+                let replayData = response.data.data[0]
+                // extended playlist
+                let playlist = await app.mk.api.v3.music(replayData.relationships.playlist.data[0].href, {extend: "editorialArtwork,editorialVideo"})
+                replayData.playlist = playlist.data.data[0]
+                this.loaded = replayData
             }
         }
     });
