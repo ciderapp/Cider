@@ -1,0 +1,17 @@
+body[platform="darwin"] {
+    html {
+        background: transparent!important;
+    }
+
+    &.notransparency::before {
+        display: none;
+    }
+    #app {
+        &.simplebg {
+            background: transparent;
+        }
+        &::before {
+            display: none;
+        }
+    }
+}
