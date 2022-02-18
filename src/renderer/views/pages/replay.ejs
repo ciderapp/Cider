@@ -1,0 +1,144 @@
+<script type="text/x-template" id="replay-page">
+    <div class="content-inner replay-page">
+        <vue-horizontal style="height: 300px;">
+            <div class="replay-period" v-for="year in years" @click="getReplayYear(year.attributes.year)">
+                <div class="artwork-container">
+                    <mediaitem-artwork :size="200" :url="year.relationships.playlist.data[0].attributes.artwork.url"></mediaitem-artwork>
+                </div>
+                {{ year.attributes.year }}
+            </div>
+        </vue-horizontal>
+        <hr>
+        <transition name="replaycard">
+        <div class="replay-viewport" v-if="loaded.id != -1">
+            <!-- Stats -->
+            <h1 class="replay-header">{{ loaded.attributes.year }} Replay</h1>
+            <hr>
+            <div class="row">
+                <div class="col">
+                    <h4>{{ loaded.attributes.listenTimeInMinutes }} minutes</h4>
+                    <h4>{{ loaded.attributes.uniqueAlbumCount }} Unique Albums</h4>
+                    <h4>{{ loaded.attributes.uniqueArtistCount }} Unique Artists</h4>
+                    <h4>{{ loaded.attributes.uniqueSongCount }} Unique Songs</h4>
+                </div>
+                <div class="col-auto">
+                    <mediaitem-square kind="card" :item="loaded.relationships.playlist.data[0]"></mediaitem-square>
+                </div>
+            </div>
+            <!--            Top Artists-->
+            <h3>Top Artists</h3>
+            <div class="well">
+                <mediaitem-scroller-horizontal>
+                    <div class="card replay-card" v-for="artistData in loaded.views['top-artists'].data">
+                        <div class="card-body">
+                            <mediaitem-square :item="artistData.relationships.artist.data[0]"></mediaitem-square>
+                        </div>
+                        <div class="card-footer">
+                            {{ artistData.attributes.listenTimeInMinutes }} minutes<br>
+                            Listened to: {{ artistData.attributes.playCount }} times
+                        </div>
+                    </div>
+                </mediaitem-scroller-horizontal>
+            </div>
+            <!--            Top Albums-->
+            <h3>Top Albums</h3>
+            <div class="well">
+                <mediaitem-scroller-horizontal>
+                    <div class="card replay-card" v-for="albumData in loaded.views['top-albums'].data">
+                        <div class="card-body">
+                            <mediaitem-square :item="albumData.relationships.album.data[0]"></mediaitem-square>
+                        </div>
+                        <div class="card-footer">
+                            {{ albumData.attributes.listenTimeInMinutes }} minutes<br>
+                            {{ albumData.attributes.playCount }} plays
+                        </div>
+                    </div>
+                </mediaitem-scroller-horizontal>
+            </div>
+            <!--            Top Songs-->
+            <h3>Top Songs</h3>
+            <div class="well">
+                <listitem-horizontal :show-library-status="false" :items="songsToArray(loaded.views['top-songs'].data)"></listitem-horizontal>
+            </div>
+            <h3>Top Genres</h3>
+            <div class="top-genres-container">
+                <div v-for="genre in loaded.topGenres" class="replay-genre-display">
+                    <div class="genre-name">
+                        {{ genre.genre }}
+                    </div>
+                    <div class="genre-count">
+                        <div class="genre-count-bar" :style="{'width': genre.count + '%'}">
+                            {{ genre.count }}%
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </transition>
+    </div>
+</script>
+<script>
+    Vue.component('replay-page', {
+        template: '#replay-page',
+        data: function () {
+            return {
+                years: [],
+                loaded: {
+                    id: -1
+                }
+            }
+        },
+        async mounted() {
+            // Get available years
+            let year = await app.mk.api.v3.music("/v1/me/music-summaries/search?extend=inLibrary&period=year&fields[music-summaries]=period%2Cyear&include[music-summaries]=playlist")
+            this.years = year.data.data
+            this.years.reverse()
+            localStorage.setItem("seenReplay", true)
+            this.getReplayYear();
+        },
+        methods: {
+            songsToArray(songsData) {
+                let songs = []
+                let topGenres = {}
+                let genrePlayCount = 0;
+                songsData.forEach(function (songData) {
+                    let song = songData.relationships.song.data[0]
+                    song.attributes.playCount = songData.attributes.playCount
+                    songs.push(song)
+                    genrePlayCount += song.attributes.playCount
+                    song.attributes.genreNames.forEach(function (genre) {
+                        if (genre != "Music") {
+                            if (topGenres[genre] == undefined) {
+                                topGenres[genre] = song.attributes.playCount
+                            } else {
+                                topGenres[genre] += song.attributes.playCount
+                            }
+                        }
+                    })
+                })
+                let topGenresArray = []
+                for (let genre in topGenres) {
+                    topGenresArray.push({
+                        genre: genre,
+                        count: topGenres[genre]
+                    })
+                }
+                topGenresArray.sort(function (a, b) {
+                    return b.count - a.count
+                })
+                topGenresArray.forEach(function (genre) {
+                    genre.count = Math.round(genre.count / genrePlayCount * 100)
+                })
+                this.loaded.topGenres = topGenresArray
+                
+                return songs
+            },
+            async getReplayYear(year = new Date().getFullYear()) {
+                this.loaded.id = -1
+                let response = await app.mk.api.v3.music(`/v1/me/music-summaries/year-${year}?extend=inLibrary&views=top-artists%2Ctop-albums%2Ctop-songs&include[music-summaries]=playlist&include[playlists]=tracks&includeOnly=playlist%2Ctracks%2Csong%2Cartist%2Calbum`)
+                console.warn(response.data.data[0])
+                this.loaded = response.data.data[0]
+            }
+        }
+    });
+</script>
