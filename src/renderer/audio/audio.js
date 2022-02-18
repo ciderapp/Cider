@@ -236,8 +236,33 @@ var CiderAudio = {
     hierarchical_loading: function (){ 
         CiderAudio.hierarchical_unloading();
 
-        // Vibrant Bass, CAP, Analog Warmth
+        // Vibrant Bass, CAP, Analog Warmth, Spatial
         if (app.cfg.audio.vibrantBass.multiplier !== 0 && 
+            app.cfg.advanced.ciderPPE === true && 
+            app.cfg.audio.spatial === true &&
+            app.cfg.audio.analogWarmth === true) { 
+
+            CiderAudio.vibrantbass_h2_1(true)
+            CiderAudio.llpw_h2_2(true, 2); 
+            CiderAudio.analogWarmth_h2_3(true, 3); 
+            CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialNode);
+            CiderAudio.audioNodes.spatialNode.connect(CiderAudio.audioNodes.analogWarmth[0]);
+            console.log('[Cider][Audio] Vibrant Bass, CAP, Analog Warmth, Spatial')
+        }
+        // Vibrant Bass, CAP, Spatial
+        else if (app.cfg.audio.vibrantBass.multiplier !== 0 && 
+            app.cfg.advanced.ciderPPE === true && 
+            app.cfg.audio.spatial === true &&
+            app.cfg.audio.analogWarmth === false) { 
+
+            CiderAudio.vibrantbass_h2_1(true)
+            CiderAudio.llpw_h2_2(true, 2); 
+            CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialNode);
+            CiderAudio.audioNodes.spatialNode.connect(CiderAudio.audioNodes.llpw[0]);
+            console.log('[Cider][Audio] Vibrant Bass, CAP, Spatial')
+        }
+        // Vibrant Bass, CAP, Analog Warmth
+        else if (app.cfg.audio.vibrantBass.multiplier !== 0 && 
             app.cfg.advanced.ciderPPE === true && 
             app.cfg.audio.spatial === false &&
             app.cfg.audio.analogWarmth === true) { 
@@ -247,6 +272,29 @@ var CiderAudio = {
             CiderAudio.analogWarmth_h2_3(true, 3); 
             CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.analogWarmth[0]);
             console.log('[Cider][Audio] Vibrant Bass, CAP, Analog Warmth')
+        }
+        // CAP, Spatial
+        else if (app.cfg.audio.vibrantBass.multiplier === 0 && 
+            app.cfg.advanced.ciderPPE === true && 
+            app.cfg.audio.spatial === true &&
+            app.cfg.audio.analogWarmth === false) {  
+
+            CiderAudio.llpw_h2_2(true, 1);
+            CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialNode);
+            CiderAudio.audioNodes.spatialNode.connect(CiderAudio.audioNodes.llpw[0]);
+            console.log('[Cider][Audio] CAP, Spatial')
+        }
+        // Analog Warmth, Spatial
+        else if (app.cfg.audio.vibrantBass.multiplier === 0 && 
+            app.cfg.advanced.ciderPPE === false && 
+            app.cfg.audio.spatial === true &&
+            app.cfg.audio.analogWarmth === true) {  
+
+            CCiderAudio.analogWarmth_h2_3(true, 1); 
+            //CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialInput.input);
+            CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialNode);
+            CiderAudio.audioNodes.spatialNode.connect(CiderAudio.audioNodes.analogWarmth[0]);
+            console.log('[Cider][Audio] Analog Warmth, Spatial')
         }
         // CAP, Analog Warmth
         else if (app.cfg.audio.vibrantBass.multiplier === 0 && 
