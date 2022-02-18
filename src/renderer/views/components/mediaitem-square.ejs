@@ -12,6 +12,7 @@
                             :size="size"
                             shadow="subtle"
                             :bgcolor="getBgColor()"
+                            :video-priority="forceVideo"
                             :type="item.type"></mediaitem-artwork>
                 </div>
                 <button class="menu-btn" v-if="!nomenu.includes(item.type)"
@@ -56,6 +57,10 @@
             size: {
                 type: String,
                 default: '190'
+            },
+            forceVideo: {
+                type: Boolean,
+                default: false
             },
             'contextExt': {type: Object, required: false},
         },

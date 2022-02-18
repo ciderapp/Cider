@@ -215,6 +215,8 @@
   // Settings - Audio
   "settings.header.audio": "オーディオ",
   "settings.header.audio.description": "Ciderのオーディオ設定",
+  "settings.option.audio.volumeStep": "音量調整のステップ",
+  "settings.option.audio.maxVolume": "最大音量",
   "settings.option.audio.quality": "音質", // Dropdown
   "settings.header.audio.quality.hireslossless": "ハイレゾロスレス",
   "settings.header.audio.quality.hireslossless.description": "(最大解像度 24 ビット／192 kHz)",
