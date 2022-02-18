@@ -3689,9 +3689,6 @@ const app = new Vue({
         closeWindow() {
             ipcRenderer.send('close');
         },
-        checkForUpdate() {
-            ipcRenderer.send('check-for-update')
-        },
         darwinShare(url) {
             ipcRenderer.send('share-menu', url)
         },

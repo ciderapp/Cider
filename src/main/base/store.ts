@@ -12,7 +12,7 @@ export class Store {
             "discord_rpc_clear_on_pause": true,
             "language": "en_US", // electron.app.getLocale().replace('-', '_') this can be used in future
             "playbackNotifications": true,
-            "update_branch": "main"
+            "update_branch": "innolab"
         },
         "home": {
             "followedArtists": [],
@@ -36,6 +36,8 @@ export class Store {
             "normalization": false,
             "ciderPPE": false,
             "ciderPPE_value": 0.5,
+            "analogWarmth": false,
+            "analogWarmth_value": 1.25,
             "spatial": false,
             "spatial_properties": {
                 "presets": [],
