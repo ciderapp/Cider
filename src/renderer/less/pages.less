@@ -904,6 +904,49 @@
 .replay-page {
   --replayTextShadow: 0px 3px 2px #6f3f52;
 
+  .replay-period {
+    height: 200px;
+    width: 200px;
+    margin: 6px;
+    border-radius: var(--mediaItemRadius);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform .2s var(--appleEase);
+    transition-delay: .1s;
+    align-self: center;
+    &:hover {
+      transform: translateY(-6px);
+      transition-delay: 0s;
+    }
+    .artwork-container {
+      height:200px;
+      width:200px;
+    }
+  }
+
+  .top-genres-container {
+
+    .genre-name {
+      font-size: 1.2em;
+    }
+    .genre-count {
+      width: 100%;
+      height: 32px;
+      background: #ffffff14;
+      border-radius: 10px;
+      overflow: hidden;
+
+      .genre-count-bar {
+        height: 100%;
+        width: 0%;
+        background: var(--keyColor);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 32px;
+      }
+    }
+  }
 
   .cd-mediaitem-square {
     .mediaitem-artwork {
