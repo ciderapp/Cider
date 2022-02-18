@@ -116,11 +116,8 @@
                         <button class="md-btn" :disabled="app.cfg.audio.analogWarmth_value === 1.25" v-model="app.cfg.audio.analogWarmth_value" onclick="app.cfg.audio.analogWarmth_value = 1.25; CiderAudio.hierarchical_loading();">
                             Smooth
                         </button>
-                        <button class="md-btn" :disabled="app.cfg.audio.analogWarmth_value === 1.5" v-model="app.cfg.audio.analogWarmth_value" onclick="app.cfg.audio.analogWarmth_value = 1.5; CiderAudio.hierarchical_loading();">
+                        <button class="md-btn" :disabled="app.cfg.audio.analogWarmth_value === 1.75" v-model="app.cfg.audio.analogWarmth_value" onclick="app.cfg.audio.analogWarmth_value = 1.75; CiderAudio.hierarchical_loading();">
                             Warm
-                        </button>
-                        <button class="md-btn" style="margin-top: 5px;" :disabled="app.cfg.audio.analogWarmth_value === 1.75" v-model="app.cfg.audio.analogWarmth_value" onclick="app.cfg.audio.analogWarmth_value = 1.75; CiderAudio.hierarchical_loading();">
-                            Ex. Warm
                         </button>
                     </div>
                 </div>
