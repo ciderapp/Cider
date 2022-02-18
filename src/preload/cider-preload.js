@@ -136,6 +136,9 @@ const MusicKitInterop = {
 	},
 
 	next: () => {
+		try {
+			app.prevButtonBackIndicator = false;
+		} catch (e) { }
 		if (MusicKit.getInstance().queue.nextPlayableItemIndex != -1 && MusicKit.getInstance().queue.nextPlayableItemIndex != null) 
 		MusicKit.getInstance().changeToMediaAtIndex(MusicKit.getInstance().queue.nextPlayableItemIndex);
 	//	MusicKit.getInstance().skipToNextItem().then(r => console.log(`[MusicKitInterop.next] Skipping to Next ${r}`));

@@ -250,7 +250,8 @@ const app = new Vue({
                 items: {},
                 headerItems: {}
             }
-        }
+        },
+        pauseButtonTimer : null
     },
     watch: {
         cfg: {
@@ -813,6 +814,8 @@ const app = new Vue({
                 this.page = "home"
             }
 
+            this.mediaKeyFixes()
+
             setTimeout(() => {
                 this.getSocialBadges()
                 this.getBrowsePage();
@@ -1355,8 +1358,11 @@ const app = new Vue({
         prevButton() {
             if (!app.prevButtonBackIndicator && app.mk.nowPlayingItem && app.mk.currentPlaybackTime > 2) {
                 app.prevButtonBackIndicator = true;
+                try{clearTimeout(app.pauseButtonTimer)} catch (e){ }
                 app.mk.seekToTime(0);
+                app.pauseButtonTimer = setTimeout(app.prevButtonBackIndicator = false,3000);
             } else {
+                try{clearTimeout(app.pauseButtonTimer)} catch (e){ }
                 app.prevButtonBackIndicator = false;
                 app.skipToPreviousItem()
             }
@@ -3743,6 +3749,7 @@ const app = new Vue({
             }          
         },
         skipToNextItem(){
+            app.prevButtonBackIndicator = false;
             // app.mk.skipToNextItem() is buggy somehow so use this
             if (this.mk.queue.nextPlayableItemIndex != -1 && this.mk.queue.nextPlayableItemIndex != null) 
             this.mk.changeToMediaAtIndex(this.mk.queue.nextPlayableItemIndex);
@@ -3751,6 +3758,10 @@ const app = new Vue({
             // app.mk.skipToPreviousItem() is buggy somehow so use this
             if (this.mk.queue.previousPlayableItemIndex != -1 && this.mk.queue.previousPlayableItemIndex != null)
             this.mk.changeToMediaAtIndex(this.mk.queue.previousPlayableItemIndex);
+        },
+        mediaKeyFixes(){
+            navigator.mediaSession.setActionHandler('previoustrack', function() { app.prevButton() });
+            navigator.mediaSession.setActionHandler('nexttrack', function() { app.skipToNextItem() });
         }
     }
 })
