@@ -38,6 +38,7 @@
   --songProgressColor: var(--keyColor);
   --songProgressBackground: #333;
   --textColor: #eee;
+  --replayGradient: linear-gradient(45deg, hsl(248deg 58% 29%), hsl(13deg 41% 42%));
 }
 
 html,
@@ -1085,6 +1086,7 @@ body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls > div.cl
   max-width: 500px;
   border-left: 1px solid rgb(200 200 200 / 8%);
   border-right: 1px solid rgb(200 200 200 / 8%);
+  -webkit-app-region: drag;
 }
 
 .app-chrome .app-chrome-item > .app-playback-controls {
@@ -1092,6 +1094,7 @@ body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls > div.cl
   justify-content: center;
   align-content: center;
   width: 100%;
+  -webkit-app-region: no-drag;
 }
 
 .app-chrome .app-chrome-item > .app-playback-controls {
@@ -1644,66 +1647,6 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
 .player_top {
   height: 100%;
-}
-
-.home-page {
-  top: 0;
-  padding-top: var(--navbarHeight);
-
-  .artist-feed-card {
-    position: absolute;
-    bottom: 0;
-    left: 10%;
-    z-index: 1;
-    background: black;
-    width: 80%;
-    height: 96%;
-    overflow: scroll;
-    border-radius: 10px;
-  }
-
-  .col.madeforyou-col {
-    width: 420px;
-    min-width: 0px;
-    max-width: 420px;
-  }
-
-  .well.artistfeed-well {
-    margin-top: 0px;
-    height: 392px;
-    align-content: flex-start;
-  }
-
-  .hint-text {
-    font-size: 0.9rem;
-    color: rgb(200 200 200 / 70%);
-  }
-
-  .user-icon {
-    border-radius: 100%;
-    width: 128px;
-    height: 128px;
-    overflow: hidden;
-    box-shadow: var(--mediaItemShadow-Shadow);
-    margin: 16px;
-  }
-
-  .well.profile-well {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    .name {
-      margin: 4px;
-      font-weight: 500;
-    }
-
-    .handle {
-      margin: 4px;
-      opacity: 0.7;
-      font-weight: 500;
-    }
-  }
 }
 
 /* Cider */
@@ -2757,6 +2700,17 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
 /* Transitions */
 
+.replaycard-enter-active,
+.replaycard-leave-active {
+  transition: opacity .5s var(--appleEase), transform .5s var(--appleEase);
+}
+
+.replaycard-enter,
+.replaycard-leave-to {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
 .modal-enter-active,
 .modal-leave-active {
   transition: opacity .1s var(--appleEase), transform .1s var(--appleEase);
@@ -3156,4 +3110,5 @@ body[platform='darwin'] {
 }
 
 
+@import url("less/linux.less");
 @import url("less/compact.less");

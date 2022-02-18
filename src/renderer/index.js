@@ -3044,7 +3044,7 @@ const app = new Vue({
                     type += "s"
                 }
                 type = type.replace("library-", "") 
-                let id = item.attributes.playParams.catalogId ?? item.id
+                let id = item.attributes.playParams.catalogId ?? item.attributes.playParams.id ?? item.id
 
                 let index = types.findIndex(function (type) {
                     return type.type == this
