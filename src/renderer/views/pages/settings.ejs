@@ -871,6 +871,7 @@
                     }
                     if (app.cfg.audio.spatial) {
                         CiderAudio.spatialOn()
+                        CiderAudio.hierarchical_loading();
                     }
                 } else {
                     app.cfg.advanced.ciderPPE = false;
@@ -886,13 +887,14 @@
             },
             toggleSpatial: function () {
                 if (app.cfg.audio.spatial) {
-                    if (app.cfg.advanced.ciderPPE === true || app.cfg.audio.analogWarmth === true) {
+                    if (app.cfg.advanced.ciderPPE === true) {
                         CiderAudio.spatialOff()
                         app.cfg.audio.spatial = false;
                         notyf.error(app.getLz('settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility'))                    
                     }
                     else {
                         CiderAudio.spatialOn()
+                        CiderAudio.hierarchical_loading();
                     }
                 } else {
                     CiderAudio.spatialOff()

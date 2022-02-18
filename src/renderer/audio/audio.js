@@ -8,7 +8,8 @@ var CiderAudio = {
         audioBands : null,
         vibrantbassNode: null,
         llpw: null,
-        llpwEnabled: null
+        llpwEnabled: null,
+        analogWarmth: null
     },
     init: function (cb = function () { }) {
         //AudioOutputs.fInit = true;
@@ -29,6 +30,9 @@ var CiderAudio = {
         CiderAudio.audioNodes.gainNode.disconnect(); } catch(e){}
         try{ CiderAudio.audioNodes.spatialNode.disconnect();} catch(e){}
         try{
+            for (var i of CiderAudio.audioNodes.analogWarmth){
+                i.disconnect();
+            }
             for (var i of CiderAudio.audioNodes.llpw){
                 i.disconnect();
             }
@@ -47,7 +51,8 @@ var CiderAudio = {
                 audioBands : null,
                 vibrantbassNode: null,
                 llpw: null,
-                llpwEnabled: null
+                llpwEnabled: null,
+                analogWarmth: null
             }
         } catch (e) {}
         CiderAudio.source.connect(CiderAudio.context.destination);} catch(e){}
@@ -74,9 +79,13 @@ var CiderAudio = {
     normalizerOff: function (){
         CiderAudio.audioNodes.gainNode.gain.setTargetAtTime(1, CiderAudio.context.currentTime+ 1, 0.5);
     },
+
     spatialOn: function (){
+        
+          
+        /** 
         CiderAudio.audioNodes.spatialNode = new ResonanceAudio(CiderAudio.context);
-        //CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.context.destination);
+        CiderAudio.audioNodes.spatialNode.connect(CiderAudio.context.destination);
         let roomDimensions = {
             width: 32,
             height: 12,
@@ -91,9 +100,17 @@ var CiderAudio = {
             down: 'acoustic-ceiling-tiles',
             up: 'acoustic-ceiling-tiles',
         };
-        CiderAudio.audioNodes.spatialNode.setRoomProperties(roomDimensions, roomMaterials);
-        CiderAudio.audioNodes.spatialInput = CiderAudio.audioNodes.spatialNode.createSource();
-        CiderAudio.hierarchical_loading();
+        CiderAudio.audioNodes.spatialNode.setRoomProperties(roomDimensions, roomMaterials);*/    
+        
+        CiderAudio.audioNodes.spatialNode = CiderAudio.context.createConvolver();
+
+        fetch('./audio/CiderSpatial_Conv.wav').then(async (impulseData) => {
+            let bufferedImpulse = await impulseData.arrayBuffer();
+            CiderAudio.audioNodes.spatialNode.buffer = await CiderAudio.context.decodeAudioData(bufferedImpulse);    
+            
+        });
+        CiderAudio.audioNodes.spatialNode.normalize = true;
+        CiderAudio.audioNodes.spatialNode.connect(CiderAudio.context.destination);
     },
     spatialOff: function (){
         CiderAudio.hierarchical_loading();
@@ -207,7 +224,7 @@ var CiderAudio = {
         
     },
     hierarchical_unloading: function (){
-        try {CiderAudio.audioNodes.spatialNode.output.disconnect();} catch(e){}
+        try {CiderAudio.audioNodes.spatialNode.disconnect();} catch(e){}
         try {CiderAudio.audioNodes.gainNode.disconnect();} catch(e){}
         try {for (var i of CiderAudio.audioNodes.analogWarmth){i.disconnect();} CiderAudio.audioNodes.analogWarmth = []} catch(e){}
         try {for (var i of CiderAudio.audioNodes.llpw){i.disconnect();} CiderAudio.audioNodes.llpw = []} catch(e){}
@@ -218,14 +235,6 @@ var CiderAudio = {
     },
     hierarchical_loading: function (){ 
         CiderAudio.hierarchical_unloading();
-        
-        // Compatibility Check
-        if (app.cfg.audio.spatial === true && app.cfg.advanced.ciderPPE === true || app.cfg.audio.spatial === true && app.cfg.advanced.analogWarmth === true)  { 
-            app.cfg.advanced.analogWarmth = false;
-            app.cfg.advanced.ciderPPE = false;
-            notyf.error(app.getLz('settings.warn.audio.enableAdvancedFunctionality.ciderPPE.compatibility'));
-            this.hierarchical_loading();
-        }
 
         // Vibrant Bass, CAP, Analog Warmth
         if (app.cfg.audio.vibrantBass.multiplier !== 0 && 
@@ -280,8 +289,9 @@ var CiderAudio = {
             app.cfg.audio.analogWarmth === false) {  
 
             CiderAudio.vibrantbass_h2_1(true)
-            CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialInput.input);
-            CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.audioNodes.vibrantbassNode[0]);
+            //CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialInput.input);
+            CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialNode);
+            CiderAudio.audioNodes.spatialNode.connect(CiderAudio.audioNodes.vibrantbassNode[0]);
             console.log('[Cider][Audio] Vibrant Bass, Spatial')
         }
         // Vibrant Bass
@@ -316,8 +326,9 @@ var CiderAudio = {
             app.cfg.advanced.ciderPPE === false && 
             app.cfg.audio.spatial === true &&
             app.cfg.audio.analogWarmth === false){
-            CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialInput.input);
-            CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.audioNodes.audioBands[0]);
+            //CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialInput.input);
+            CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialNode);
+            CiderAudio.audioNodes.spatialNode.connect(CiderAudio.audioNodes.audioBands[0]);
             console.log('[Cider][Audio] Spatial')
 
         }
