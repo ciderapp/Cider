@@ -27,7 +27,7 @@ export class Store {
         },
         "audio": {
             "volume": 1,
-            "volumeStep": 0.1,
+            "volumeStep": 0.02,
             "maxVolume": 1,
             "lastVolume": 1,
             "muted": false,

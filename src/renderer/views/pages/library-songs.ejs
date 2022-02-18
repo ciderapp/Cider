@@ -15,8 +15,16 @@
                                v-model="library.songs.search" class="search-input">
                     </div>
                 </div>
-                <div class="col-auto flex-center">
+                <div class="col-auto flex-center">             
                     <div class="row">
+                        <button class="col md-btn md-btn-primary  md-btn-icon" style="min-width: 100px;margin-right: 3px;"
+                        @click="app.mk.shuffleMode = 0; play()"> <img class="md-ico-play">
+                            {{app.getLz('term.play')}}
+                        </button>
+                        <button class="col md-btn md-btn-primary  md-btn-icon" style="min-width: 100px;margin-right: 3px;"
+                        @click="app.mk.shuffleMode = 1;play()"> <img class="md-ico-shuffle">
+                            {{app.getLz('term.shuffle')}}
+                         </button>   
                         <div class="col">
                             <select class="md-select" v-model="prefs.sort" @change="$root.searchLibrarySongs()">
                                 <optgroup :label="app.getLz('term.sortBy')">
@@ -75,6 +83,28 @@
         methods: {
             sayHello: function () {
                 alert('Hello world!');
+            },
+            play: function () {
+
+                function shuffleArray(array) {
+                    for (var i = array.length - 1; i > 0; i--) {
+                        var j = Math.floor(Math.random() * (i + 1));
+                        var temp = array[i];
+                        array[i] = array[j];
+                        array[j] = temp;
+                    }
+                }
+
+                let query = this.app.library.songs.displayListing.map(item => new MusicKit.MediaItem(item));
+                if (!app.mk.queue.isEmpty)
+                app.mk.queue.splice(0, app.mk.queue._itemIDs.length);
+                app.mk.stop().then(() => {
+                  if (app.mk.shuffleMode == 1) {
+                                shuffleArray(query)
+                            }
+                    app.mk.queue.append(query)
+                    app.mk.changeToMediaAtIndex(0)
+                });
             }
         }
     });

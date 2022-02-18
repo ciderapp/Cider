@@ -231,7 +231,7 @@
   "action.copy": "Copy",
   "action.newpreset": "New Preset...", // Equalizer Preset
   "action.deletepreset": "Delete Preset",
-  
+  "action.open": "Open",
   // Settings - General
   "settings.header.general": "General",
   "settings.header.general.description": "Adjust the general settings for Cider.",
@@ -339,13 +339,19 @@
   "settings.option.connectivity.lastfmScrobble.removeFeatured": "Remove featuring artists from song title (Last.fm)",
   "settings.option.connectivity.lastfmScrobble.filterLoop": "Filter looped track (Last.fm)",
   // Refer to term.connect for the connect button
-  
+
+  // Settings - Debug
+  "settings.header.debug": "Debug",
+  "settings.option.debug.copy_log": "Copy logs to clipboard",
+  "settings.option.debug.openAppData": "Open Cider Folder",
+
+
   // Settings - Experimental
   "settings.header.experimental": "Experimental",
   "settings.header.experimental.description": "Adjust the experimental settings for Cider.",
   "settings.option.experimental.compactUI": "Compact UI", // Toggle
   "settings.option.experimental.close_button_hide": "Close Button Should Hide the Application",
-  "settings.option.experimental.copy_log": "Copy logs to clipboard",
+
   "settings.option.experimental.inline_playlists": "Inline Playlists and Albums",
   
   // Refer to term.disabled & term.enabled
