@@ -128,4 +128,3 @@ Update 17/02/2022 10:00 UTC
 + `settings.option.debug.copy_log`: Replaces `settings.option.experimental.copy_log`.
 + `settings.option.debug.openAppData`: Added for `en_US`
 + `action.open`: Added for `en_US`
-

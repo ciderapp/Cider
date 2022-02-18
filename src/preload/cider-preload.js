@@ -36,8 +36,6 @@ const MusicKitInterop = {
 			if (trackFilter || !app.cfg.lastfm.filterLoop) {
 				global.ipcRenderer.send('nowPlayingItemDidChangeLastFM', attributes);
 			}
-
-			global.ipcRenderer.send('nowPlayingItemDidChange', MusicKitInterop.getAttributes());
 		});
 
 		MusicKit.getInstance().addEventListener(MusicKit.Events.authorizationStatusDidChange, () => {
