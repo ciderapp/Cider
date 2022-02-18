@@ -27,17 +27,26 @@ export class Store {
         },
         "audio": {
             "volume": 1,
-            "volumeStep": 0.02,
+            "volumeStep": 0.1,
             "maxVolume": 1,
             "lastVolume": 1,
             "muted": false,
             "quality": "HIGH",
             "seamless_audio": true,
             "normalization": false,
-            "ciderPPE": false,
-            "ciderPPE_value": 0.5,
-            "analogWarmth": false,
-            "analogWarmth_value": 1.25,
+            "maikiwiAudio": {
+                "ciderPPE": false,
+                "ciderPPE_value": 0.5,
+                "analogWarmth": false,
+                "analogWarmth_value": 1.25,
+                "spatial": false,
+                "vibrantBass": { // Hard coded into the app. Don't include any of this config into exporting presets in store.ts
+                    'multiplier': 0,
+                    'frequencies': [17.182, 42.169, 53.763, 112.69, 119.65, 264.59, 336.57, 400.65, 505.48, 612.7, 838.7, 1155.3, 1175.6, 3406.8, 5158.6, 5968.1, 6999.9, 7468.6, 8862.9, 9666, 10109],
+                    'Q': [2.5, 0.388, 5, 5, 2.5, 7.071, 14.14, 10, 7.071, 14.14, 8.409, 0.372, 7.071, 10, 16.82, 7.071, 28.28, 20, 8.409, 40, 40],
+                    'gain': [-0.34, 2.49, 0.23, -0.49, 0.23, -0.12, 0.32, -0.29, 0.33, 0.19, -0.18, -1.27, -0.11, 0.25, -0.18, -0.53, 0.34, 1.32, 1.78, 0.41, -0.28]
+                }
+            },         
             "spatial": false,
             "spatial_properties": {
                 "presets": [],
@@ -68,12 +77,6 @@ export class Store {
                 'presets': [],
                 'userGenerated': false
             },
-            "vibrantBass": { // Hard coded into the app. Don't include any of this config into exporting presets in store.ts
-                'multiplier': 0,
-                'frequencies': [17.182, 42.169, 53.763, 112.69, 119.65, 264.59, 336.57, 400.65, 505.48, 612.7, 838.7, 1155.3, 1175.6, 3406.8, 5158.6, 5968.1, 6999.9, 7468.6, 8862.9, 9666, 10109],
-                'Q': [2.5, 0.388, 5, 5, 2.5, 7.071, 14.14, 10, 7.071, 14.14, 8.409, 0.372, 7.071, 10, 16.82, 7.071, 28.28, 20, 8.409, 40, 40],
-                'gain': [-0.34, 2.49, 0.23, -0.49, 0.23, -0.12, 0.32, -0.29, 0.33, 0.19, -0.18, -1.27, -0.11, 0.25, -0.18, -0.53, 0.34, 1.32, 1.78, 0.41, -0.28]
-            }
         },
         "visual": {
             "theme": "",
