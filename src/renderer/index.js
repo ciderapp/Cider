@@ -452,7 +452,7 @@ const app = new Vue({
             history.forward()
         },
         getHTMLStyle() {
-            document.querySelector("html").style.background = "#222";
+            // document.querySelector("html").style.background = "#222";
             document.querySelector("body").classList.add("notransparency")
         },
         resetState() {
