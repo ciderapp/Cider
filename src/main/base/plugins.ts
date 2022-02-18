@@ -32,6 +32,7 @@ export class Plugins {
         
         if (fs.existsSync(this.userPluginsPath)) {
             fs.readdirSync(this.userPluginsPath).forEach(file => {
+                // Plugins V1
                 if (file.endsWith('.ts') || file.endsWith('.js')) {
                     if (!electron.app.isPackaged) {
                         const plugin = require(path.join(this.userPluginsPath, file)).default;
@@ -50,7 +51,24 @@ export class Plugins {
                             plugins[file] = new plugin(electron.app, utils.getStore());
                         }
                     }
-                   
+                }
+                // Plugins V2
+                else if (fs.lstatSync(path.join(this.userPluginsPath, file)).isDirectory()) {
+                    const pluginPath = path.join(this.userPluginsPath, file);
+                    if (fs.existsSync(path.join(pluginPath, 'package.json'))) {
+                        const plugin = require(path.join(pluginPath, "index.js"));
+                        if (plugins[plugin.name] || plugin.name in plugins) {
+                            console.log(`[${plugin.name}] Plugin already loaded / Duplicate Class Name`);
+                        } else {
+                            const pluginEnv = {
+                                app: electron.app,
+                                store: utils.getStore(),
+                                utils: utils,
+                                dir: pluginPath
+                            }
+                            plugins[plugin.name] = new plugin(pluginEnv);
+                        }
+                    }
                 }
             });
         }
