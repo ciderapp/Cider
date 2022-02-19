@@ -65,7 +65,8 @@ export class Plugins {
                                 store: utils.getStore(),
                                 utils: utils,
                                 win: utils.getWindow(),
-                                dir: pluginPath
+                                dir: pluginPath,
+                                dirName: file
                             }
                             plugins[plugin.name] = new plugin(pluginEnv);
                         }
