@@ -421,6 +421,16 @@ const app = new Vue({
             }
             app.routeView(item)
         },
+        saveFile(fileName,urlFile){
+            let a = document.createElement("a");
+            a.style = "display: none";
+            document.body.appendChild(a);
+            a.href = urlFile;
+            a.download = fileName;
+            a.click();
+            window.URL.revokeObjectURL(url);
+            a.remove();
+        },
         async showMenuPanel(data, event) {
             app.menuPanel.visible = true;
             app.menuPanel.content.name = data.name ?? "";
