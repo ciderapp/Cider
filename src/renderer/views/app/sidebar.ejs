@@ -114,6 +114,9 @@
                                 style="right:2.5px;"><%- include("../svg/log-out.svg") %></span>
                     <span class="usermenu-item-name">{{$root.getLz('term.logout')}}</span>
                 </button>
+                <button class="usermenu-item" @click="entry.onClick()" v-for="entry in pluginMenuEntries">
+                    {{ entry.name }}
+                </button>
             </div>
         </div>
     </transition>
