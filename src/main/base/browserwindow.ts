@@ -262,9 +262,10 @@ export class BrowserWindow {
             }
         });
 
-        app.get("/themes/:theme/:file", (req, res) => {
+        app.get("/themes/:theme/*", (req, res) => {
             const theme = req.params.theme.toLowerCase();
-            const file = req.params.file;
+            // @ts-ignore
+            const file = req.params[0];
             const themePath = join(utils.getPath('srcPath'), "./renderer/themes/", theme);
             const userThemePath = join(utils.getPath('themes'), theme);
             if (existsSync(userThemePath)) {
@@ -273,6 +274,18 @@ export class BrowserWindow {
                 res.sendFile(join(themePath, file));
             } else {
                 res.send(`// File not found - ${userThemePath}`);
+            }
+        });
+        
+        app.get("/plugins/:plugin/*", (req, res) => {
+            const plugin = req.params.plugin;
+            // @ts-ignore
+            const file = req.params[0];
+            const pluginPath = join(utils.getPath('plugins'), plugin);
+            if (existsSync(pluginPath)) {
+                res.sendFile(join(pluginPath, file));
+            } else {
+                res.send(`// Plugin not found - ${pluginPath}`);
             }
         });
 
