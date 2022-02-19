@@ -89,7 +89,7 @@ var CiderAudio = {
             CiderAudio.audioNodes.spatialNode.buffer = await CiderAudio.context.decodeAudioData(bufferedImpulse);    
             
         });
-        CiderAudio.audioNodes.spatialNode.normalize = true;
+        CiderAudio.audioNodes.spatialNode.normalize = true; 
         CiderAudio.audioNodes.spatialNode.connect(CiderAudio.context.destination);
         }
         else {
