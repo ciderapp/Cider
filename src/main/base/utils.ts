@@ -83,6 +83,10 @@ export class utils {
         return bw.win
     }
 
+    static loadJSFrontend(path: string): void {
+        bw.win.webContents.executeJavaScript(fs.readFileSync(path, "utf8"));
+    }
+
     /**
      * Playback Functions
      */
