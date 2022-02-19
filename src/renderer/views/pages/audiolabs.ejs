@@ -87,7 +87,7 @@
             <div class="md-option-segment">
                 Cider Spatialization Profile
                 <br>
-                <small>Changes the Tuning Profile of the Spatialization.</small>
+                <small>Changes the Tuning Profile of the Spatialization. (Requires App Restart)</small>
             </div>
             <div class="md-option-segment md-option-segment_auto">
                 <button class="md-btn" :disabled="app.cfg.audio.maikiwiAudio.spatialType === 0" v-model="app.cfg.audio.maikiwiAudio.spatialType" onclick="app.cfg.audio.maikiwiAudio.spatialType = 0; CiderAudio.hierarchical_loading();">
