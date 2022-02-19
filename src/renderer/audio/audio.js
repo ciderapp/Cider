@@ -83,12 +83,31 @@ var CiderAudio = {
     spatialOn: function (){
         if (app.cfg.audio.maikiwiAudio.spatial === true) { 
         CiderAudio.audioNodes.spatialNode = CiderAudio.context.createConvolver();
-
-        fetch('./audio/impulses/CiderSpatial_Conv.wav').then(async (impulseData) => {
-            let bufferedImpulse = await impulseData.arrayBuffer();
-            CiderAudio.audioNodes.spatialNode.buffer = await CiderAudio.context.decodeAudioData(bufferedImpulse);    
-            
-        });
+        
+        switch (app.cfg.audio.maikiwiAudio.spatialType) {
+            case 0:
+                fetch('./audio/impulses/CiderSpatial_Conv.wav').then(async (impulseData) => {
+                    let bufferedImpulse = await impulseData.arrayBuffer();
+                    CiderAudio.audioNodes.spatialNode.buffer = await CiderAudio.context.decodeAudioData(bufferedImpulse);    
+                    
+                });
+                break;
+            case 1:
+                fetch('./audio/impulses/CiderSpatial_Conv.wav').then(async (impulseData) => {
+                    let bufferedImpulse = await impulseData.arrayBuffer();
+                    CiderAudio.audioNodes.spatialNode.buffer = await CiderAudio.context.decodeAudioData(bufferedImpulse);    
+                    
+                });
+                break;
+            default:
+                fetch('./audio/impulses/CiderSpatial_Conv.wav').then(async (impulseData) => {
+                    let bufferedImpulse = await impulseData.arrayBuffer();
+                    CiderAudio.audioNodes.spatialNode.buffer = await CiderAudio.context.decodeAudioData(bufferedImpulse);    
+                    
+                });
+                app.cfg.audio.maikiwiAudio.spatialType = 0;
+                break;
+        }
         CiderAudio.audioNodes.spatialNode.normalize = true; 
         CiderAudio.audioNodes.spatialNode.connect(CiderAudio.context.destination);
         }
