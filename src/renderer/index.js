@@ -15,6 +15,19 @@ const MusicKitObjects = {
     }
 }
 
+const CiderFrontAPI = {
+    Objects: {
+        MenuEntry: function () {
+            this.id = ""
+            this.name = ""
+            this.onClick = ()=>{}
+        }
+    },
+    AddMenuEntry(entry) {
+        app.pluginMenuEntries.push(entry)
+    }
+}
+
 const MusicKitTools = {
     getHeader() {
         return new Headers({
@@ -63,6 +76,7 @@ const app = new Vue({
         platform: "",
         mk: {},
         quickPlayQuery: "",
+        pluginMenuEntries: [],
         lz: ipcRenderer.sendSync("get-i18n", "en_US"),
         lzListing: ipcRenderer.sendSync("get-i18n-listing"),
         search: {
