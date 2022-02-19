@@ -23,6 +23,9 @@
     <audio-settings v-if="modals.audioSettings"></audio-settings>
 </transition>
 <transition name="modal">
+    <plugin-menu v-if="modals.pluginMenu"></plugin-menu>
+</transition>
+<transition name="modal">
     <eq-view v-if="modals.equalizer"></eq-view>
 </transition>
 <transition name="modal">

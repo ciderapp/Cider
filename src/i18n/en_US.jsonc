@@ -156,6 +156,8 @@
   "term.top": "Top",
   "term.version": "Version",
   "term.noVideos": "No videos found.",
+  "term.plugin": "Plug-in",
+  "term.pluginMenu": "Plug-in Menu",
   
   // Home
   "home.title": "Home",
