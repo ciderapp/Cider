@@ -171,7 +171,12 @@
                 <remote-pair></remote-pair>
         </template>
     </transition>
-
+    <!-- Audio Labs -->
+    <transition name="wpfade">
+        <template v-if="page == 'audiolabs'">
+            <audiolabs-page></audiolabs-page>
+        </template>
+    </transition>
     <!-- Replay -->
     <transition name="wpfade">
         <template v-if="page == 'replay'">

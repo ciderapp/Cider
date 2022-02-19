@@ -48,6 +48,7 @@ export class BrowserWindow {
                 "pages/remote-pair",
                 "pages/themes-github",
                 "pages/replay",
+                "pages/audiolabs",
                 "components/mediaitem-artwork",
                 "components/artwork-material",
                 "components/menu-panel",
