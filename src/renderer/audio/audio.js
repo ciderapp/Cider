@@ -84,7 +84,7 @@ var CiderAudio = {
         if (app.cfg.audio.maikiwiAudio.spatial === true) { 
         CiderAudio.audioNodes.spatialNode = CiderAudio.context.createConvolver();
 
-        fetch('./audio/CiderSpatial_Conv.wav').then(async (impulseData) => {
+        fetch('./audio/CiderSpatial_Conv_v2.wav').then(async (impulseData) => {
             let bufferedImpulse = await impulseData.arrayBuffer();
             CiderAudio.audioNodes.spatialNode.buffer = await CiderAudio.context.decodeAudioData(bufferedImpulse);    
             
