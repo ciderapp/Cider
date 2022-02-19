@@ -124,7 +124,51 @@ Update 16/02/2022 21:45 UTC
 * `settings.option.audio.maxVolume`: Added for `en_US`.`
 
 Update 17/02/2022 10:00 UTC
+
 + `settings.header.debug`: Added for `en_US`.
 + `settings.option.debug.copy_log`: Replaces `settings.option.experimental.copy_log`.
 + `settings.option.debug.openAppData`: Added for `en_US`
 + `action.open`: Added for `en_US`
+
+Update 19/2/2022 21:00 UTC
+
+* `term.noVideos`: Added for `en_US`
+* `term.plugin`: Added for `en_US`
+* `term.pluginMenu`: Added for `en_US`
+* `term.replay`: Added for `en_US`
+* `term.uniqueAlbums`: Added for `en_US`
+* `term.uniqueArtists`: Added for `en_US`
+* `term.uniqueSongs`: Added for `en_US`
+* `term.topArtists`: Added for `en_US`
+* `term.listenedTo`: Added for `en_US`
+* `term.times`: Added for `en_US`
+* `term.topAlbums`: Added for `en_US`
+* `term.plays`: Added for `en_US`
+* `term.topGenres`: Added for `en_US`
+* `action.install`: Added for `en_US`
+* `settings.option.general.resumebehavior`: Added for `en_US`
+* `settings.option.general.resumebehavior.description`: Added for `en_US`
+* `settings.option.general.resumebehavior.locally`: Added for `en_US`
+* `settings.option.general.resumebehavior.locally.description`: Added for `en_US`
+* `settings.option.general.resumebehavior.history`: Added for `en_US`
+* `settings.option.general.resumebehavior.history.description`: Added for `en_US`
+* `settings.option.audio.audioLab`: Added for `en_US`
+* `settings.option.audio.audioLab.description`: Added for `en_US`
+* `settings.warn.audioLab.withoutAF`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.analogWarmth`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.analogWarmth.description`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.description`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.smooth`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.warm`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.description`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.description`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.standard`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.audiophile`: Added for `en_US`
+* `settings.header.visual.theme.github.page`: Added for `en_US`
+* `settings.option.visual.theme.github.explore`: Added for `en_US`
+* `settings.option.visual.theme.github.install.confirm`: Added for `en_US`
+* `settings.option.experimental.unknownPlugin`: Added for `en_US`
+* `settings.option.experimental.unknownPlugin.description`: Added for `en_US`
