@@ -305,7 +305,7 @@
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
   "settings.header.visual.theme": "主題",
   "settings.option.visual.theme.github.download": "使用 Github 網址安裝",
-  "settings.option.visual.theme.github.explore": "Explore GitHub Themes",
+  "settings.option.visual.theme.github.explore": "探索更多主題",
   "settings.option.visual.theme.github.install.confirm": "你確認要安裝 {{ repo }}?",
   "settings.prompt.visual.theme.github.URL": "請輸入你想要安裝的主題的網址",
   "settings.notyf.visual.theme.install.success": "成功安裝主題",
