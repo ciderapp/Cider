@@ -240,6 +240,8 @@ var CiderAudio = {
     },
     hierarchical_loading: function (){ 
         CiderAudio.hierarchical_unloading();
+        
+        CiderAudio.audioNodes.gainNode.gain.value = 1;
 
         // Vibrant Bass, CAP, Analog Warmth, Spatial
         if (app.cfg.audio.maikiwiAudio.vibrantBass.multiplier !== 0 && 
