@@ -109,6 +109,7 @@
   "term.fullscreenView": "全螢幕檢視",
   "term.defaultView": "一般檢視",
   "term.audioSettings": "音訊設定",
+  "term.audioControls": "音量控制",
   "term.clearAll": "清空",
   "term.recentStations": "最近播放的頻道",
   "term.language": "語言",
@@ -154,6 +155,9 @@
   "term.videoExtras": "影片特輯",
     //"term.top": "Top",
   "term.version": "版本",
+  "term.noVideos": "沒有影片",
+  "term.plugin": "外掛程式",
+  "term.pluginMenu": "外掛程式選單",
 
   // Home
   "home.title": "主頁",
@@ -250,6 +254,8 @@
   // Settings - Audio
   "settings.header.audio": "音訊",
   "settings.header.audio.description": "調整Cider的音訊設定",
+  "settings.option.audio.volumeStep": "音量改變量",
+  "settings.option.audio.maxVolume": "最高音量",
   "settings.option.audio.quality": "音訊音質", // Dropdown
   "settings.header.audio.quality.hireslossless": "高清無損壓縮",
   "settings.header.audio.quality.hireslossless.description": "（高達 24-bit/192 kHz）",
@@ -298,8 +304,10 @@
   "settings.header.visual.hardwareAcceleration.default": "預設",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
   "settings.header.visual.theme": "主題",
-  "settings.option.visual.theme.github.download": "從 Github 安裝",
-  "settings.prompt.visual.theme.github.URL": "請輸入你想要安裝的主題的連結",
+  "settings.option.visual.theme.github.download": "使用 Github 網址安裝",
+  "settings.option.visual.theme.github.explore": "Explore GitHub Themes",
+  "settings.option.visual.theme.github.install.confirm": "你確認要安裝 {{ repo }}?",
+  "settings.prompt.visual.theme.github.URL": "請輸入你想要安裝的主題的網址",
   "settings.notyf.visual.theme.install.success": "成功安裝主題",
   "settings.notyf.visual.theme.install.error": "主題安裝失敗",
 
@@ -334,15 +342,19 @@
   "settings.option.connectivity.lastfmScrobble.filterLoop": "不記錄單曲循環（Last.fm）", 
   // Refer to term.connect for the connect button
 
+  // Settings - Debug
+  "settings.header.debug": "除錯",
+  "settings.option.debug.copy_log": "複製運行記錄檔至剪貼簿",
+  "settings.option.debug.openAppData": "開啟 Cider 程式資料夾",
+
   // Settings - Experimental
   "settings.header.experimental": "實驗性功能",
   "settings.header.experimental.description": "調整Cider的實驗性功能",
   "settings.option.experimental.compactUI": "緊凑型 UI", // Toggle
   "settings.option.experimental.close_button_hide": "以關閉按鈕來隱藏 Cider",
-  "settings.option.experimental.copy_log": "複製運行記錄檔至剪貼簿",
     //"settings.option.experimental.inline_playlists": "Inline Playlists and Albums",
-  // Refer to term.disabled & term.enabled
   
+  // Refer to term.disabled & term.enabled
   // Spatialization Menu
   "spatial.notTurnedOn": "請先在設定中啟用空間音訊。",
   "spatial.spatialProperties": "空間音訊屬性",

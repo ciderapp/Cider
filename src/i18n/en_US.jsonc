@@ -347,13 +347,11 @@
   "settings.option.debug.copy_log": "Copy logs to clipboard",
   "settings.option.debug.openAppData": "Open Cider Folder",
 
-
   // Settings - Experimental
   "settings.header.experimental": "Experimental",
   "settings.header.experimental.description": "Adjust the experimental settings for Cider.",
   "settings.option.experimental.compactUI": "Compact UI", // Toggle
   "settings.option.experimental.close_button_hide": "Close Button Should Hide the Application",
-
   "settings.option.experimental.inline_playlists": "Inline Playlists and Albums",
   
   // Refer to term.disabled & term.enabled
