@@ -18,21 +18,21 @@
             :video="loaded.playlist.attributes.editorialVideo.motionWideVideo21x9.video" 
             :video-priority="true"></mediaitem-artwork>
             </div>
-            <h1 class="replay-header">{{ loaded.attributes.year }} Replay</h1>
+            <h1 class="replay-header">{{ loaded.attributes.year }} {{$root.getLz('term.replay')}}</h1>
             <hr>
             <div class="row">
                 <div class="col">
-                    <h4>{{ loaded.attributes.listenTimeInMinutes }} minutes</h4>
-                    <h4>{{ loaded.attributes.uniqueAlbumCount }} Unique Albums</h4>
-                    <h4>{{ loaded.attributes.uniqueArtistCount }} Unique Artists</h4>
-                    <h4>{{ loaded.attributes.uniqueSongCount }} Unique Songs</h4>
+                    <h4>{{ loaded.attributes.listenTimeInMinutes }} {{$root.getLz('term.time.minutes')}}</h4>
+                    <h4>{{ loaded.attributes.uniqueAlbumCount }} {{$root.getLz('term.uniqueAlbums')}}</h4>
+                    <h4>{{ loaded.attributes.uniqueArtistCount }} {{$root.getLz('term.uniqueArtists')}}</h4>
+                    <h4>{{ loaded.attributes.uniqueSongCount }} {{$root.getLz('term.uniqueSongs')}}</h4>
                 </div>
                 <div class="col-auto replay-playlist-container">
                     <mediaitem-square kind="card" :force-video="true" :item="loaded.playlist"></mediaitem-square>
                 </div>
             </div>
             <!--            Top Artists-->
-            <h3>Top Artists</h3>
+            <h3>{{$root.getLz('term.topArtists')}}</h3>
             <div class="well">
                 <mediaitem-scroller-horizontal>
                     <div class="card replay-card" v-for="artistData in loaded.views['top-artists'].data">
@@ -40,14 +40,14 @@
                             <mediaitem-square :item="artistData.relationships.artist.data[0]"></mediaitem-square>
                         </div>
                         <div class="card-footer">
-                            {{ artistData.attributes.listenTimeInMinutes }} minutes<br>
-                            Listened to: {{ artistData.attributes.playCount }} times
+                            {{ artistData.attributes.listenTimeInMinutes }} {{$root.getLz('term.time.minutes')}}<br>
+                            {{$root.getLz('term.listenedTo')}} {{ artistData.attributes.playCount }} {{$root.getLz('term.times')}}
                         </div>
                     </div>
                 </mediaitem-scroller-horizontal>
             </div>
             <!--            Top Albums-->
-            <h3>Top Albums</h3>
+            <h3>{{$root.getLz('term.topAlbums')}}</h3>
             <div class="well">
                 <mediaitem-scroller-horizontal>
                     <div class="card replay-card" v-for="albumData in loaded.views['top-albums'].data">
@@ -55,18 +55,18 @@
                             <mediaitem-square :item="albumData.relationships.album.data[0]"></mediaitem-square>
                         </div>
                         <div class="card-footer">
-                            {{ albumData.attributes.listenTimeInMinutes }} minutes<br>
-                            {{ albumData.attributes.playCount }} plays
+                            {{ albumData.attributes.listenTimeInMinutes }} {{$root.getLz('term.time.minutes')}}<br>
+                            {{ albumData.attributes.playCount }} {{$root.getLz('term.plays')}}
                         </div>
                     </div>
                 </mediaitem-scroller-horizontal>
             </div>
             <!--            Top Songs-->
-            <h3>Top Songs</h3>
+            <h3>{{$root.getLz('term.topSongs')}}</h3>
             <div class="well">
                 <listitem-horizontal :show-library-status="false" :items="songsToArray(loaded.views['top-songs'].data)"></listitem-horizontal>
             </div>
-            <h3>Top Genres</h3>
+            <h3>{{$root.getLz('term.topGenres')}}</h3>
             <div class="top-genres-container">
                 <div v-for="genre in loaded.topGenres" class="replay-genre-display">
                     <div class="genre-name">
