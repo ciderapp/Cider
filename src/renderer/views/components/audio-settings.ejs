@@ -23,9 +23,9 @@
                         <div class="name">{{app.getLz('term.audioControls')}}</div>
                     </button>
                     <button class="playlist-item"
-                            @click="$root.appRoute('audiolabs')" style="width:100%;">
+                            @click="openCiderAudioLab" style="width:100%;">
                         <div class="icon"><%- include("../svg/speaker.svg") %></div>
-                        <div class="name">Audio Labs</div>
+                        <div class="name">Cider Audio Lab</div>
                     </button>
                 </div>
             </div>
@@ -59,7 +59,15 @@
             openAudioControls() {
 	            app.modals.audioControls = true
 	            app.modals.audioSettings = false
-            }
+            },
+            openCiderAudioLab() { 
+                if (app.cfg.advanced.AudioContext === true) {
+                    $root.appRoute('audiolabs')
+                } else { 
+                    notyf.error("Cider Audio Lab requires 'Advanced Functionality' to be enabled.")
+                }
+             }
+            },
         }
-    });
+    );
 </script>

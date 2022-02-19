@@ -138,8 +138,7 @@
                         <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.audioNormalization.description')}}</small>
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <input type="checkbox" v-model="app.cfg.audio.normalization" v-on:change="toggleNormalization"
-                               switch/>
+                        <input type="checkbox" v-model="app.cfg.audio.normalization" v-on:change="toggleNormalization" :disabled="app.cfg.audio.equalizer.vibrantBass !== 0 || app.cfg.audio.maikiwiAudio.spatial === true" switch/>
                     </div>
                 </div>
                 <div class="md-option-line" v-show="app.cfg.advanced.AudioContext">
@@ -886,12 +885,12 @@
                 app.cfg.advanced.experiments.splice(app.cfg.advanced.experiments.indexOf(flag), 1);
             },
             toggleAudioContext: function () {
-                if (app.cfg.advanced.AudioContext) {
+                if (app.cfg.advanced.AudioContext === true) {
                     CiderAudio.init();
-                    if (app.cfg.audio.normalization) {
+                    if (app.cfg.audio.normalization === true) {
                         CiderAudio.normalizerOn()
                     }
-                    if (app.cfg.audio.spatial) {
+                    if (app.cfg.audio.spatial === true) {
                         CiderAudio.spatialOn()
                         CiderAudio.hierarchical_loading();
                     }
@@ -908,19 +907,11 @@
                 }
             },
             toggleSpatial: function () {
-                if (app.cfg.audio.spatial) {
-                    if (app.cfg.audio.maikiwiAudio.ciderPPE === true && app.cfg.audio.maikiwiAudio.spatial === false) {
-                        CiderAudio.spatialOff()
-                        app.cfg.audio.spatial = false;
-                        notyf.error(app.getLz('settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility'))               
-                        try {
-                        CiderAudio.hierarchical_loading();} catch(e) {}
-                    }
-                    else {
+                if (app.cfg.audio.spatial) {              
                         CiderAudio.spatialOn()
                         CiderAudio.hierarchical_loading();
                     }
-                } else {
+                else {
                     CiderAudio.spatialOff()
                 }
 

@@ -707,8 +707,12 @@ const app = new Vue({
                 let replaygain = self.parseSCTagToRG(tag)
                 try {
                     CiderAudio.audioNodes.gainNode.gain.value = (Math.min(Math.pow(10, (replaygain.gain / 20)), (1 / replaygain.peak)))
-                } catch (e) {
-
+                } catch (e) {}
+                if (app.cfg.advanced.AudioContext === true) { 
+                    CiderAudio.audioNodes.gainNode.gain.value += (9 - app.cfg.audio.equalizer.vibrantBass)
+                    if (app.cfg.audio.maikiwiAudio.spatial === true) { 
+                        CiderAudio.audioNodes.gainNode.gain.value += 10
+                    }
                 }
             })
 
