@@ -88,10 +88,10 @@
                         <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description')}}</small>
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <button class="md-btn" :disabled="app.cfg.audio.ciderPPE_value === 0.5" v-model="app.cfg.audio.ciderPPE_value" onclick="app.cfg.audio.ciderPPE_value = 0.5; CiderAudio.hierarchical_loading();">
+                        <button class="md-btn" :disabled="app.cfg.audio.maikiwiAudio.ciderPPE_value === 0.5" v-model="app.cfg.audio.maikiwiAudio.ciderPPE_value" onclick="app.cfg.audio.maikiwiAudio.ciderPPE_value = 0.5; CiderAudio.hierarchical_loading();">
                             {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard')}}
                         </button>
-                        <button class="md-btn" style="margin-top: 5px;" :disabled="app.cfg.audio.ciderPPE_value === 0.55" v-model="app.cfg.audio.ciderPPE_value" onclick="app.cfg.audio.ciderPPE_value = 0.55; CiderAudio.hierarchical_loading();">
+                        <button class="md-btn" style="margin-top: 5px;" :disabled="app.cfg.audio.maikiwiAudio.ciderPPE_value === 0.55" v-model="app.cfg.audio.maikiwiAudio.ciderPPE_value" onclick="app.cfg.audio.maikiwiAudio.ciderPPE_value = 0.55; CiderAudio.hierarchical_loading();">
                             {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive')}}
                         </button>
                     </div>
@@ -113,10 +113,10 @@
                         <small>Changes the intensity of the Analog Warmth Module processing.</small>
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <button class="md-btn" :disabled="app.cfg.audio.analogWarmth_value === 1.25" v-model="app.cfg.audio.analogWarmth_value" onclick="app.cfg.audio.analogWarmth_value = 1.25; CiderAudio.hierarchical_loading();">
+                        <button class="md-btn" :disabled="app.cfg.audio.maikiwiAudio.analogWarmth_value === 1.25" v-model="app.cfg.audio.maikiwiAudio.analogWarmth_value" onclick="app.cfg.maikiwiAudio.audio.analogWarmth_value = 1.25; CiderAudio.hierarchical_loading();">
                             Smooth
                         </button>
-                        <button class="md-btn" :disabled="app.cfg.audio.analogWarmth_value === 1.75" v-model="app.cfg.audio.analogWarmth_value" onclick="app.cfg.audio.analogWarmth_value = 1.75; CiderAudio.hierarchical_loading();">
+                        <button class="md-btn" :disabled="app.cfg.audio.maikiwiAudio.analogWarmth_value === 1.75" v-model="app.cfg.audio.maikiwiAudio.analogWarmth_value" onclick="app.cfg.maikiwiAudio.audio.analogWarmth_value = 1.75; CiderAudio.hierarchical_loading();">
                             Warm
                         </button>
                     </div>
