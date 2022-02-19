@@ -48,6 +48,7 @@ export class BrowserWindow {
                 "pages/remote-pair",
                 "pages/themes-github",
                 "pages/replay",
+                "pages/audiolabs",
                 "components/mediaitem-artwork",
                 "components/artwork-material",
                 "components/menu-panel",
@@ -261,9 +262,10 @@ export class BrowserWindow {
             }
         });
 
-        app.get("/themes/:theme/:file", (req, res) => {
+        app.get("/themes/:theme/*", (req, res) => {
             const theme = req.params.theme.toLowerCase();
-            const file = req.params.file;
+            // @ts-ignore
+            const file = req.params[0];
             const themePath = join(utils.getPath('srcPath'), "./renderer/themes/", theme);
             const userThemePath = join(utils.getPath('themes'), theme);
             if (existsSync(userThemePath)) {
@@ -272,6 +274,18 @@ export class BrowserWindow {
                 res.sendFile(join(themePath, file));
             } else {
                 res.send(`// File not found - ${userThemePath}`);
+            }
+        });
+        
+        app.get("/plugins/:plugin/*", (req, res) => {
+            const plugin = req.params.plugin;
+            // @ts-ignore
+            const file = req.params[0];
+            const pluginPath = join(utils.getPath('plugins'), plugin);
+            if (existsSync(pluginPath)) {
+                res.sendFile(join(pluginPath, file));
+            } else {
+                res.send(`// Plugin not found - ${pluginPath}`);
             }
         });
 
@@ -664,7 +678,7 @@ export class BrowserWindow {
                     console.log(err)
                 });
         });
-
+/*
         ipcMain.on('check-for-update', async (_event) => {
             const branch = utils.getStoreValue('general.update_branch')
             let latestbranch = await fetch(`https://circleci.com/api/v1.1/project/gh/ciderapp/Cider/latest/artifacts?branch=${branch}&filter=successful`)
@@ -680,10 +694,10 @@ export class BrowserWindow {
             const options: any = {
                 provider: 'generic',
                 url: `${base_url}`
-            }
+            }*/
             /*
             *  Have to handle the auto updaters seperatly until we can support macOS. electron-builder limitation -q
-            */
+            */ /*
             const win_autoUpdater = new NsisUpdater(options) //Windows
             const linux_autoUpdater = new AppImageUpdater(options) //Linux
             await win_autoUpdater.checkForUpdatesAndNotify()
@@ -697,7 +711,7 @@ export class BrowserWindow {
                 event.returnValue = true
             }
         })
-
+*/
 
         ipcMain.on('share-menu', async (_event, url) => {
             if (process.platform != 'darwin') return;

@@ -105,27 +105,25 @@
   	"few": "часа",
   	"other": "часов"
   },
-  // "term.time.hour": "час",
   "term.time.minute": {
     "one": "минута",
   	"few": "минуты",
   	"other": "минут"
   },
-  // "term.time.minute": "минута",
   "term.time.second": {
     "one": "секунд",
   	"few": "секунды",
   	"other": "секунд"
   },
-  // "term.time.second": "секунда",
   "term.fullscreenView": "Полноэкранное отображение",
   "term.defaultView": "Стандартное отображение",
   "term.audioSettings": "Настройки звука",
+  "term.audioControls": "Настройка громкости",
   "term.clearAll": "Очистить",
   "term.recentStations": "Вы недавно слушали", // FROM ITUNES
   "term.language": "Язык",
   "term.funLanguages": "Забавные",
-  "term.noLyrics": "Загрузка... / Текст песни не найден./ Инструментал.",
+  "term.noLyrics": "Текст песни не найден.",
   "term.copyright": "Авторское право",
   "term.rightsReserved": "Все права защищены.",
   "term.sponsor": "Поддержать проект",
@@ -165,6 +163,7 @@
   "term.videoExtras": "Ещё", // FROM ITUNES
   "term.top": "Top", // NOT SURE WHAT IT IS, NOT TRANSLATED
   "term.version": "Версия",
+  "term.noVideos": "Видео не найдено.",
   // Home
   "home.title": "Главная",
   "home.recentlyPlayed": "Недавно прослушанные",
@@ -239,7 +238,7 @@
   "action.copy": "Скопировать",
   "action.newpreset": "Новый пресет...", // Equalizer Preset
   "action.deletepreset": "Удалить пресет",
-  
+  "action.open": "Открыть",
   // Settings - General
   "settings.header.general": "Общие",
   "settings.header.general.description": "Настройка общих параметров Cider.",
@@ -260,6 +259,8 @@
   // Settings - Audio
   "settings.header.audio": "Звук",
   "settings.header.audio.description": "Настройка звука Cider.",
+  "settings.option.audio.volumeStep": "Шаг громкости",
+  "settings.option.audio.maxVolume": "Максимальная громкость",								  
   "settings.option.audio.quality": "Качество звука", // Dropdown FROM IOS
   "settings.header.audio.quality.hireslossless": "Высокое разрешение, без потерь", // FROM IOS
   "settings.header.audio.quality.hireslossless.description": "ALAC до 24 бит/192 кГц", // FROM IOS
@@ -309,6 +310,8 @@
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
   "settings.header.visual.theme": "Тема",
   "settings.option.visual.theme.github.download": "Установить с GitHub",
+  "settings.option.visual.theme.github.explore": "Исследовать темы с GitHub",
+  "settings.option.visual.theme.github.install.confirm": "Вы уверены, что хотите установить {{ repo }}?",
   "settings.prompt.visual.theme.github.URL": "Введите URL темы, которую хотите установить",
   "settings.notyf.visual.theme.install.success": "Тема успешно установлена",
   "settings.notyf.visual.theme.install.error": "Не удалось установить тему",
@@ -343,13 +346,18 @@
   "settings.option.connectivity.lastfmScrobble.removeFeatured": "Удалять фит-исполнителей из названия песни (Last.fm)",
   "settings.option.connectivity.lastfmScrobble.filterLoop": "Фильтровать зацикленный трек (Last.fm)",
   // Refer to term.connect for the connect button
-  
+
+  // Settings - Debug
+  "settings.header.debug": "Debug",
+  "settings.option.debug.copy_log": "Копировать логи в буфер обмена",
+  "settings.option.debug.openAppData": "Открыть папку Cider",
+
+
   // Settings - Experimental
   "settings.header.experimental": "Экспериментальные",
   "settings.header.experimental.description": "Настройка экспериментальных функций Cider.",
   "settings.option.experimental.compactUI": "Компактный интерфейс", // Toggle
   "settings.option.experimental.close_button_hide": "Кнопка «Закрыть» скрывает приложение",
-  "settings.option.experimental.copy_log": "Скопировать логи в буфер обмена",
   "settings.option.experimental.inline_playlists": "Встроенные плейлисты и альбомы", // NOT SURE
   
   // Refer to term.disabled & term.enabled

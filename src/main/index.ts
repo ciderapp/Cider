@@ -61,6 +61,10 @@ app.on('ready', () => {
  * Renderer Event Handlers
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
+ipcMain.handle("renderer-ready", (event) => {
+    CiderPlug.callPlugins("onRendererReady", event);
+})
+
 ipcMain.on('playbackStateDidChange', (_event, attributes) => {
     CiderPlug.callPlugins('onPlaybackStateDidChange', attributes);
 });

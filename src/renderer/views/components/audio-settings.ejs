@@ -22,6 +22,11 @@
                         <div class="icon"><%- include("../svg/speaker.svg") %></div>
                         <div class="name">{{app.getLz('term.audioControls')}}</div>
                     </button>
+                    <button class="playlist-item"
+                            @click="$root.appRoute('audiolabs')" style="width:100%;">
+                        <div class="icon"><%- include("../svg/speaker.svg") %></div>
+                        <div class="name">Audio Labs</div>
+                    </button>
                 </div>
             </div>
         </div>
@@ -44,7 +49,7 @@
                 app.modals.audioSettings = false
             },
             openSpatialAudio() {
-                if(app.cfg.audio.spatial) {
+                if(app.cfg.audio.spatial === true && app.cfg.audio.maikiwiAudio.spatial === false) {
                     app.modals.spatialProperties = true
                     app.modals.audioSettings = false
                 } else {

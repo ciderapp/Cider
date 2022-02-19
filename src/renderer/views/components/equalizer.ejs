@@ -147,11 +147,11 @@
                     'vibrantBass': 0,
                     'userGenerated': false
                 }, {
-                    'preset': 'boostBrightness',
-                    'name': 'Boost Brightness',
-                    'frequencies': [32, 63, 125, 250, 466, 1000, 2000, 4000, 8000, 20000],
-                    'gain': [0, 0, 0, 0, -2, 0, 0, 0, 0, 10],
-                    'Q': [1, 1, 1, 1, 0.6, 1, 1, 1, 1, 0.1],
+                    'preset': 'boostAiriness',
+                    'name': 'Boost Airiness',
+                    'frequencies': [1169, 1733, 5962, 8688, 14125, 18628, 18628, 19000, 19500, 20000],
+                    'gain': [-1.41, 0.25, 3.33, 0.22, -0.53, 0.2, 3.64, 0, 0, 0],
+                    'Q': [0.405, 2.102, 0.025, 2.5, 7.071, 1.768, 1.146, 1, 1, 1],
                     'mix': 1,
                     'vibrantBass': 0,
                     'userGenerated': false
@@ -201,16 +201,6 @@
                     'vibrantBass': 0,
                     'userGenerated': false
                 }, 
-                {
-                    'preset': 'bassBoostGentle',
-                    'name': 'Gentle Bass Boost',
-                    'frequencies': [45.53,88.06,116.18,161.3,247.05,295.6,365.79,495.13,716.85,960.76],
-                    'gain': [-0.36,4.07,-1.3,1.92,0.77,-0.53,-1.33,0.44,0.46,-0.5],
-                    'Q': [1.768,0.625,5,8.409,10,16.82,5.946,7.071,20,10],
-                    'mix': 1,
-                    'vibrantBass': 0,
-                    'userGenerated': false
-                },
                 {
                     'preset': 'bassBoostSurgical',
                     'name': 'Surgical Bass Boost',
@@ -313,11 +303,11 @@
                 app.resetState()
             },
             changeVibrantBass() {
-                app.cfg.audio.vibrantBass.multiplier = app.cfg.audio.equalizer.vibrantBass / 10
+                app.cfg.audio.maikiwiAudio.vibrantBass.multiplier = app.cfg.audio.equalizer.vibrantBass / 10
                 CiderAudio.hierarchical_loading();
                 if (app.cfg.audio.equalizer.vibrantBass != 0) {
                 for (var i = 0; i < 21; i++) {
-                    CiderAudio.audioNodes.vibrantbassNode[i].gain.value = app.cfg.audio.vibrantBass.gain[i] * (app.cfg.audio.equalizer.vibrantBass / 10);
+                    CiderAudio.audioNodes.vibrantbassNode[i].gain.value = app.cfg.audio.maikiwiAudio.vibrantBass.gain[i] * (app.cfg.audio.equalizer.vibrantBass / 10);
                 }}
             },
             changeMix() {
