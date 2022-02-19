@@ -12,7 +12,8 @@ export class Store {
             "discord_rpc_clear_on_pause": true,
             "language": "en_US", // electron.app.getLocale().replace('-', '_') this can be used in future
             "playbackNotifications": true,
-            "update_branch": "innolab"
+            "update_branch": "main",
+            "resumeOnStartupBehavior": "local"
         },
         "home": {
             "followedArtists": [],
