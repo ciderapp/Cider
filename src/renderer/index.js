@@ -821,7 +821,7 @@ const app = new Vue({
                 this.getBrowsePage();
                 this.$forceUpdate()
             }, 500)
-
+            ipcRenderer.invoke("renderer-ready", true)
         },
         setTheme(theme = "") {
             console.log(theme)

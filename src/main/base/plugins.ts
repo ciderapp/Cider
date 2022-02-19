@@ -64,6 +64,7 @@ export class Plugins {
                                 app: electron.app,
                                 store: utils.getStore(),
                                 utils: utils,
+                                win: utils.getWindow(),
                                 dir: pluginPath
                             }
                             plugins[plugin.name] = new plugin(pluginEnv);
