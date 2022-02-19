@@ -234,6 +234,7 @@
   "action.newpreset": "New Preset...", // Equalizer Preset
   "action.deletepreset": "Delete Preset",
   "action.open": "Open",
+  
   // Settings - General
   "settings.header.general": "General",
   "settings.header.general.description": "Adjust the general settings for Cider.",

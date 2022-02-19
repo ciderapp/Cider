@@ -233,6 +233,7 @@
   "action.copy": "複製",
   "action.newpreset": "新增範本", // Equallizer preset
   "action.deletepreset": "刪除範本",
+  "action.open": "開啟",
   
   // Settings - General
   "settings.header.general": "一般",
