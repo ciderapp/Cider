@@ -154,9 +154,9 @@
                 </div>
                 <div class="md-option-line" v-show="app.cfg.advanced.AudioContext">
                     <div class="md-option-segment">
-                        Cider Tuned Spatialization 
+                        Maikiwi Spatialization 
                         <br>
-                        <small>Pre-tuned Spatializing Effect by the Cider Dev Team, disables the customizable settings of Audio Spatialization.</small>
+                        <small>Pre-tuned Spatializing Effect by Maikiwi, disables the customizable settings of Audio Spatialization. Spatialization must be enabled as a prerequisite.</small>
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
                         <input type="checkbox" v-model="app.cfg.audio.maikiwiAudio.spatial" :disabled="app.cfg.audio.spatial === false" v-on:change="toggleSpatial" switch/>
