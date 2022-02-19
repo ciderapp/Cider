@@ -722,11 +722,6 @@ const app = new Vue({
                 try {
                     CiderAudio.audioNodes.gainNode.gain.value = (Math.min(Math.pow(10, (replaygain.gain / 20)), (1 / replaygain.peak)))
                 } catch (e) {}
-                if (app.cfg.advanced.AudioContext === true) { 
-                    if (app.cfg.audio.maikiwiAudio.spatial === true) { 
-                        try { CiderAudio.audioNodes.gainNode.gain.value += 5} catch (e) {}
-                    }
-                }
             })
 
             ipcRenderer.on('play', function(_event, mode, id) {
