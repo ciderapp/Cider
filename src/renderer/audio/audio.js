@@ -93,7 +93,7 @@ var CiderAudio = {
                 });
                 break;
             case 1:
-                fetch('./audio/impulses/CiderSpatial_Conv.wav').then(async (impulseData) => {
+                fetch('./audio/impulses/CiderSpatial_Conv_v2.wav').then(async (impulseData) => {
                     let bufferedImpulse = await impulseData.arrayBuffer();
                     CiderAudio.audioNodes.spatialNode.buffer = await CiderAudio.context.decodeAudioData(bufferedImpulse);    
                     
