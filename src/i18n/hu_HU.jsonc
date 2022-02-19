@@ -123,7 +123,7 @@
   "term.tracks": "zeneszám", // Assume x amount of tracks. e.g. 50 tracks 
   "term.videos": "Videók", 
   "term.menu": "Menü",
-  "term.check": "Bejelöl",
+  "term.check": "Ellenőrzés",
   "term.aboutArtist": "További információ {{artistName}} előadóról", // e.g. 'About Doja Cat'
   "term.updateCider": "Cider frissítése",
 
@@ -182,7 +182,7 @@
   "action.moveToTop": "Mozgatás legfelülre",
   "action.share": "Megosztás",
   "action.rename": "Átnevezés",
-  "action.love": "Kedvelés",
+  "action.love": "Kedvelem",
   "action.unlove": "Kedvelés visszavonása",
   "action.dislike": "Nem kedvelem",
   "action.undoDislike": "Nem kedvelés visszavonása",
@@ -231,7 +231,7 @@
   "settings.header.visual.windowBackgroundStyle.image": "Kép",
   "settings.option.visual.animatedArtwork": "Animált borító", // Dropdown
   "settings.header.visual.animatedArtwork.always": "Mindig",
-  "settings.header.visual.animatedArtwork.limited": "Oldalakra és speciális bejegyzésekre korlátozva.",
+  "settings.header.visual.animatedArtwork.limited": "Oldalakra és speciális bejegyzésekre korlátozva",
   "settings.header.visual.animatedArtwork.disable": "Kikapcsolás mindenhol",
   "settings.option.visual.animatedArtworkQuality": "Animált borító minősége", // Dropdown
   "settings.header.visual.animatedArtworkQuality.low": "Alacsony",
