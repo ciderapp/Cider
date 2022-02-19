@@ -316,6 +316,7 @@ var CiderAudio = {
                 CiderAudio.audioNodes.spatialNode.connect(CiderAudio.audioNodes.analogWarmth[0]);
 
                 if (CiderAudio.audioNodes.gainNode.gain.value <= 1) { 
+                    app.cfg.audio.normalization = true;
                     CiderAudio.audioNodes.gainNode.gain.value += (9 - app.cfg.audio.equalizer.vibrantBass)
                     CiderAudio.audioNodes.gainNode.gain.value += 10      
                 }
@@ -323,6 +324,7 @@ var CiderAudio = {
             }
             else {
                 if (CiderAudio.audioNodes.gainNode.gain.value <= 1) { 
+                    app.cfg.audio.normalization = true;
                     CiderAudio.audioNodes.gainNode.gain.value += (9 - app.cfg.audio.equalizer.vibrantBass)   
                 }
                 CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialInput.input);
@@ -347,6 +349,7 @@ var CiderAudio = {
                 CiderAudio.audioNodes.spatialNode.connect(CiderAudio.audioNodes.analogWarmth[0]);
 
                 if (CiderAudio.audioNodes.gainNode.gain.value <= 1) { 
+                    app.cfg.audio.normalization = true;
                     CiderAudio.audioNodes.gainNode.gain.value += 10      
                 }
 
@@ -372,6 +375,7 @@ var CiderAudio = {
                 CiderAudio.audioNodes.spatialNode.connect(CiderAudio.audioNodes.llpw[0]);
 
                 if (CiderAudio.audioNodes.gainNode.gain.value <= 1) { 
+                    app.cfg.audio.normalization = true;
                     CiderAudio.audioNodes.gainNode.gain.value += (9 - app.cfg.audio.equalizer.vibrantBass)
                     CiderAudio.audioNodes.gainNode.gain.value += 10      
                 }
@@ -380,6 +384,7 @@ var CiderAudio = {
             }
             else {
                 if (CiderAudio.audioNodes.gainNode.gain.value <= 1) { 
+                    app.cfg.audio.normalization = true;
                     CiderAudio.audioNodes.gainNode.gain.value += (9 - app.cfg.audio.equalizer.vibrantBass)
                 }
 
@@ -400,6 +405,7 @@ var CiderAudio = {
             CiderAudio.analogWarmth_h2_3(true, 3); 
 
             if (CiderAudio.audioNodes.gainNode.gain.value <= 1) { 
+                app.cfg.audio.normalization = true;
                 CiderAudio.audioNodes.gainNode.gain.value += (9 - app.cfg.audio.equalizer.vibrantBass)
             }
 
@@ -418,6 +424,7 @@ var CiderAudio = {
                 CiderAudio.audioNodes.spatialNode.connect(CiderAudio.audioNodes.llpw[0]);
 
                 if (CiderAudio.audioNodes.gainNode.gain.value <= 1) { 
+                    app.cfg.audio.normalization = true;
                     CiderAudio.audioNodes.gainNode.gain.value += 10      
                 }
 
@@ -442,6 +449,7 @@ var CiderAudio = {
                 CiderAudio.audioNodes.spatialNode.connect(CiderAudio.audioNodes.analogWarmth[0]);
 
                 if (CiderAudio.audioNodes.gainNode.gain.value <= 1) { 
+                    app.cfg.audio.normalization = true;
                     CiderAudio.audioNodes.gainNode.gain.value += 10      
                 }
 
@@ -476,6 +484,7 @@ var CiderAudio = {
             CiderAudio.analogWarmth_h2_3(true, 2); 
 
             if (CiderAudio.audioNodes.gainNode.gain.value <= 1) { 
+                app.cfg.audio.normalization = true;
                 CiderAudio.audioNodes.gainNode.gain.value += (9 - app.cfg.audio.equalizer.vibrantBass)
             }
 
@@ -493,6 +502,7 @@ var CiderAudio = {
             CiderAudio.llpw_h2_2(true, 2); 
             
             if (CiderAudio.audioNodes.gainNode.gain.value <= 1) { 
+                app.cfg.audio.normalization = true;
                 CiderAudio.audioNodes.gainNode.gain.value += (9 - app.cfg.audio.equalizer.vibrantBass)
             }
 
@@ -509,6 +519,7 @@ var CiderAudio = {
             if (app.cfg.audio.maikiwiAudio.spatial === true) {  
 
                 if (CiderAudio.audioNodes.gainNode.gain.value <= 1) { 
+                    app.cfg.audio.normalization = true;
                     CiderAudio.audioNodes.gainNode.gain.value += (9 - app.cfg.audio.equalizer.vibrantBass)
                     CiderAudio.audioNodes.gainNode.gain.value += 10      
                 }
@@ -533,6 +544,7 @@ var CiderAudio = {
             CiderAudio.vibrantbass_h2_1(true)
 
             if (CiderAudio.audioNodes.gainNode.gain.value <= 1) { 
+                app.cfg.audio.normalization = true;
                 CiderAudio.audioNodes.gainNode.gain.value += (9 - app.cfg.audio.equalizer.vibrantBass)
             }
 
@@ -567,6 +579,7 @@ var CiderAudio = {
                 if (app.cfg.audio.maikiwiAudio.spatial === true) {  
                
                 if (CiderAudio.audioNodes.gainNode.gain.value <= 1) { 
+                    app.cfg.audio.normalization = true;
                     CiderAudio.audioNodes.gainNode.gain.value += 10      
                 }
 
