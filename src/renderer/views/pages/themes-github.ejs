@@ -3,7 +3,7 @@
         <div class="gh-header">
             <div class="row">
                 <div class="col nopadding">
-                    <h1 class="header-text">Themes from GitHub</h1>
+                    <h1 class="header-text">{{$root.getLz('settings.header.visual.theme.github.page')}}</h1>
                 </div>
                 <div class="col-auto nopadding flex-center">
                     <button class="md-btn md-btn-small md-btn-block" @click="installThemeURL()">
@@ -45,8 +45,8 @@
                         </div>
                         <div class="col-auto nopadding flex-center">
                             <button class="md-btn md-btn-primary" @click="installThemeRepo(openRepo)">
-                                <span v-if="!themesInstalled.includes(openRepo.full_name)">Install</span>
-                                <span v-else>Update</span>
+                                <span v-if="!themesInstalled.includes(openRepo.full_name)">{{$root.getLz('action.install')}}</span>
+                                <span v-else>{{$root.getLz('action.update')}}</span>
                             </button>
                         </div>
                     </div>
