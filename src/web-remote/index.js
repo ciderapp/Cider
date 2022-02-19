@@ -55,6 +55,21 @@ var app = new Vue({
         // url: "localhost",
     },
     methods: {
+        isElectron() {
+            // Renderer process
+            if (typeof window !== 'undefined' && typeof window.process === 'object' && window.process.type === 'renderer') {
+                return true;
+            }
+            // Main process
+            if (typeof process !== 'undefined' && typeof process.versions === 'object' && !!process.versions.electron) {
+                return true;
+            }
+            // Detect the user agent when the `nodeIntegration` option is set to true
+            if (typeof navigator === 'object' && typeof navigator.userAgent === 'string' && navigator.userAgent.indexOf('Electron') >= 0) {
+                return true;
+            }
+            return false;
+        },
         searchScroll(e) {
             this.search.lastY = e.target.scrollTop;
         },
@@ -429,7 +444,7 @@ var app = new Vue({
                 '--textColor3': `#${data['artwork']['textColor3'] ?? 'ffffff'}`,
                 '--textColor4': `#${data['artwork']['textColor4'] ?? 'ffffff'}`
             }
-            return palette } else { 
+            return palette } else {
               let u =  {
                     '--bgColor': `#${'000000'}`,
                     '--textColor1': `#${ 'ffffff'}`,
