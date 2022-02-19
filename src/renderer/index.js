@@ -714,7 +714,7 @@ const app = new Vue({
                         CiderAudio.audioNodes.gainNode.gain.value += 5
                     }
                     else { 
-                        CiderAudio.audioNodes.gainNode.gain.value += ((9 - app.cfg.audio.equalizer.vibrantBass))
+                        try {CiderAudio.audioNodes.gainNode.gain.value += ((9 - app.cfg.audio.equalizer.vibrantBass))} catch(e) {}
                     }
                 }
             })
