@@ -724,11 +724,7 @@ const app = new Vue({
                 } catch (e) {}
                 if (app.cfg.advanced.AudioContext === true) { 
                     if (app.cfg.audio.maikiwiAudio.spatial === true) { 
-                        CiderAudio.audioNodes.gainNode.gain.value += ((15 - app.cfg.audio.equalizer.vibrantBass) * 10)
-                        CiderAudio.audioNodes.gainNode.gain.value += 5
-                    }
-                    else { 
-                        try {CiderAudio.audioNodes.gainNode.gain.value += ((9 - app.cfg.audio.equalizer.vibrantBass))} catch(e) {}
+                        try { CiderAudio.audioNodes.gainNode.gain.value += 5} catch (e) {}
                     }
                 }
             })
