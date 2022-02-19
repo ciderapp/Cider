@@ -106,6 +106,11 @@ export default class Thumbar {
                     accelerator: 'CommandOrControl+Shift+A',
                     click: () => this._win.webContents.executeJavaScript(`app.modals.audioSettings = true`)
                 },
+                {
+                    label: 'Plug-in Menu',
+                    accelerator: 'CommandOrControl+Shift+P',
+                    click: () => this._win.webContents.executeJavaScript(`app.modals.pluginMenu = true`)
+                }
 
             ]
         },
