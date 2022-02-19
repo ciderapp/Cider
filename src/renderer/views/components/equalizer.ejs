@@ -305,11 +305,10 @@
             changeVibrantBass() {
                 app.cfg.audio.maikiwiAudio.vibrantBass.multiplier = app.cfg.audio.equalizer.vibrantBass / 10
                 CiderAudio.hierarchical_loading();
-                /**
                 if (app.cfg.audio.equalizer.vibrantBass != 0) {
                 for (var i = 0; i < 21; i++) {
                     CiderAudio.audioNodes.vibrantbassNode[i].gain.value = app.cfg.audio.maikiwiAudio.vibrantBass.gain[i] * (app.cfg.audio.equalizer.vibrantBass / 10);
-                }} */
+                }} 
             },
             changeMix() {
                 for (var i = 0; i < 10; i++) {
