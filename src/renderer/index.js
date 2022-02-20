@@ -2335,7 +2335,7 @@ const app = new Vue({
             let richsync = [];
             const lang = app.cfg.lyrics.mxm_language //  translation language
             function revisedRandId() {
-                return Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10);
+                return Math.random().toString(36).replace(/[^a-z]+/g, '').slice(2, 10);
             }
 
             /* get token */
@@ -3280,7 +3280,7 @@ const app = new Vue({
         },
         async nowPlayingContextMenu(event) {
             // function revisedRandId() {
-            //     return Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10);
+            //     return Math.random().toString(36).replace(/[^a-z]+/g, '').slice(2, 10);
             // }
             let self = this
             let data_type = this.mk.nowPlayingItem.playParams.kind
