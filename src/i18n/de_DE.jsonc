@@ -36,10 +36,10 @@
   "term.search": "Suche",
   "term.library": "Mediathek",
   "term.listenNow": "Jetzt Hören",
-  "term.browse": "Durchsuchen",
+  "term.browse": "Entdecken",
   "term.radio": "Radio",
   "term.recentlyAdded": "Zuletzt hinzugefügt",
-  "term.songs": "Songs",
+  "term.songs": "Titel",
   "term.albums": "Alben",
   "term.artists": "Künstler",
   "term.podcasts": "Podcasts",
@@ -110,7 +110,7 @@
   "term.recentStations": "Letzte Sender",
   "term.language": "Sprache",
   "term.funLanguages": "Spaß",
-  "term.noLyrics": "Lädt... / Lyrik nicht gefunden./ Instrumental.",
+  "term.noLyrics": "Lädt... / Songtext nicht gefunden./ Instrumental.",
   "term.copyright": "Copyright",
   "term.rightsReserved": "Alle Rechte vorbehalten.",
   "term.sponsor": "Unterstütze dieses Projekt",
@@ -121,7 +121,7 @@
   "term.contributors": "Mithelfer",
   "term.equalizer": "Equalizer",
   "term.reset": "Zurücksetzen",
-  "term.tracks": "Lieder", // Assume x amount of tracks. e.g. 50 tracks 
+  "term.tracks": "Titel", // Assume x amount of tracks. e.g. 50 tracks 
   "term.videos": "Videos", 
   "term.menu": "Menü",
   "term.check": "Nach Updates suchen",
@@ -133,9 +133,9 @@
   "home.recentlyPlayed": "Zuletzt gespielt",
   "home.recentlyAdded": "Zuletzt hinzugefügt",
   "home.artistsFeed": "Dein Künstler-Feed",
-  "home.artistsFeed.noArtist": "Folge zuerst einigen Künstlern, dann wirst du hier die neusten Lieder sehen.",
-  "home.madeForYou": "Für dich gemacht",
-  "home.friendsListeningTo": "Freunde hören",
+  "home.artistsFeed.noArtist": "Folge zuerst einigen Künstlern, dann wirst du hier die neusten Titel sehen.",
+  "home.madeForYou": "Für dich zusammengestellt",
+  "home.friendsListeningTo": "Freunde hören gerade",
   "home.followedArtists": "Gefolgte Künstler",
   // Errors
   "error.appleMusicSubRequired": "Apple Music benötigt ein Abonnement.",
@@ -175,22 +175,22 @@
   "action.unfollow": "Entfolgen",
   "action.unfollow.success": "Entfolgt",
   "action.unfollow.error": "Fehler beim Entfolgen",
-  "action.playNext": "Spiele als Nächstes",
-  "action.playLater": "Spiele später",
+  "action.playNext": "Nächster Titel",
+  "action.playLater": "Später wiedergeben",
   "action.startRadio": "Starte Radio",
   "action.goToArtist": "Gehe zu Künstler",
   "action.goToAlbum": "Gehe zu Album",
   "action.moveToTop": "Gehe zum Anfang",
   "action.share": "Teilen",
   "action.rename": "Umbenennen",
-  "action.love": "Lieben",
-  "action.unlove": "Entlieben",
+  "action.love": "Favorit",
+  "action.unlove": "Favorit entfernen",
   "action.dislike": "Dislike",
   "action.undoDislike": "Dislike entfernen",
   "action.showWebRemoteQR": "Zeige Web-Remote QR-Code",
-  "action.playTracksNext": "Spiele ${app.selectedMediaItems.length} Lieder als Nächstes",
-  "action.playTracksLater": "Spiele ${app.selectedMediaItems.length} Lieder später",
-  "action.removeTracks": "Entferne ${self.selectedItems.length} Lieder aus der Warteschlange",
+  "action.playTracksNext": "Spiele ${app.selectedMediaItems.length} Titel als Nächstes",
+  "action.playTracksLater": "Spiele ${app.selectedMediaItems.length} Titel später",
+  "action.removeTracks": "Entferne ${self.selectedItems.length} Titel aus der Warteschlange",
   "action.import": "Importieren",
   "action.export": "Exportieren",
   "action.showAlbum": "Ganzes Album anzeigen",
@@ -220,7 +220,7 @@
   "settings.option.audio.enableAdvancedFunctionality": "Akiviere erweiterte Funktionalität", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.description": "Das Aktivieren der erweiterten Funktionalität ermöglicht spezielle Features wie Audio-Normalisierung, Equalizer und Visualizer, jedoch könnte dies auf einigen Systemen zu Aussetzern in der Musik führen.",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Audio-Normalisierung", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalisiert die Lautstärke aller Lieder, um die Hörerfahrung einheitlicher zu machen.",
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Legt die gleiche Lautstärke für alle Titel fest.",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Räumliches Audio", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Macht die Musik räumlicher (3D-Effekt) (Beachte: Dies ist kein Dolby Atmos)",
   // Settings - Visual
@@ -242,19 +242,19 @@
   "settings.header.visual.animatedArtworkQuality.extreme": "Extrem",
   "settings.option.visual.animatedWindowBackground": "Animierter Fensterhintergrund", // Toggle
   "settings.option.visual.hardwareAcceleration": "Hardware-Beschleunigung", // Dropdown
-  "settings.option.visual.hardwareAcceleration.description": "Erfordert Neustart der Anwendung",
+  "settings.option.visual.hardwareAcceleration.description": "Erfordert Neustart der App",
   "settings.header.visual.hardwareAcceleration.default": "Normal", 
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
   // Refer to term.disabled for the disabled option
   "settings.option.visual.showPersonalInfo": "Persönliche Daten anzeigen", // Toggle
 
   // Settings - Lyrics
-  "settings.header.lyrics": "Liedtext",
-  "settings.header.lyrics.description": "Passe die Liedtext-Einstellungen für Cider an.",
-  "settings.option.lyrics.enableMusixmatch": "Aktiviere Musixmatch-Liedtexte", // Toggle
+  "settings.header.lyrics": "Songtext",
+  "settings.header.lyrics.description": "Passe die Songtext-Einstellungen für Cider an.",
+  "settings.option.lyrics.enableMusixmatch": "Aktiviere Musixmatch-Songtexte", // Toggle
   "settings.option.lyrics.enableMusixmatchKaraoke": "Aktiviere Karaoke-Modus (nur mit Musixmatch)", // Toggle
   "settings.option.lyrics.musixmatchPreferredLanguage": "Bevorzugte Sprache für Musixmatch-Übersetzung", // Dropdown
-  "settings.option.lyrics.enableYoutubeLyrics": "Aktiviere YouTube-Liedtexte für Musikvideos", // Toggle
+  "settings.option.lyrics.enableYoutubeLyrics": "Aktiviere YouTube-Songtexte für Musikvideos", // Toggle
 
   // Settings - Connectivity
   "settings.header.connectivity": "Konnektivität",
@@ -268,15 +268,15 @@
   "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling", // Option to Connect
   "settings.option.connectivity.lastfmScrobble.delay": "LastFM Scrobble Delay (%)", 
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "Aktiviere LastFM Jetzt spielend", 
-  "settings.option.connectivity.lastfmScrobble.removeFeatured": "Entferne Künstler-Featuring von Liedtitel (LastFM)", 
-  "settings.option.connectivity.lastfmScrobble.filterLoop": "Filtere gelooptes Lied (LastFM)", 
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "Entferne Künstler-Featuring von Songtitel (LastFM)", 
+  "settings.option.connectivity.lastfmScrobble.filterLoop": "Filtere geloopte Songs (LastFM)", 
   // Refer to term.connect for the connect button
 
   // Settings - Experimental
   "settings.header.experimental": "Experimentell",
   "settings.header.experimental.description": "Passe die experimentellen Einstellungen für Cider an.",
   "settings.option.experimental.compactUI": "Kompaktes UI", // Toggle
-  "settings.option.experimental.close_button_hide": "Schließ-Taste soll die App verbergen",
+  "settings.option.experimental.close_button_hide": "Schließbutton soll die App minimieren",
   // Refer to term.disabled & term.enabled
 
   // Spatialization Menu
@@ -305,7 +305,7 @@
 
   // Web Remote
   "remote.web.title": "Cider Remote",
-  "remote.web.description": "Scanne den QR-Code um dein Handy mit dieser Cider-Instanz zu verbinden",
+  "remote.web.description": "Scanne den QR-Code um dein Smartphone mit dieser Cider-Instanz zu verbinden",
 
   // About
   "about.thanks": "Vielen lieben Dank an das Cider Collective Team und an alle Mithelfer."
