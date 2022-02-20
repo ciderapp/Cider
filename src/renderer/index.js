@@ -895,8 +895,11 @@ const app = new Vue({
             less.refresh()
         },
         unauthorize() {
-            this.mk.unauthorize()
-            document.location.reload()
+            bootbox.confirm(app.getLz('term.confirmLogout'), function(result){ 
+                if (result){
+                app.mk.unauthorize()
+                document.location.reload()}
+            });
         },
         getAppClasses() {
             let classes = {}
@@ -2374,9 +2377,6 @@ const app = new Vue({
                     app.refreshPlaylists()
                 }, 13000)
             })
-        },
-        unauthorize() {
-            this.mk.unauthorize()
         },
         showSearch() {
             this.page = "search"
