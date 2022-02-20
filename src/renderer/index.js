@@ -3816,7 +3816,10 @@ const app = new Vue({
         mediaKeyFixes() {
             navigator.mediaSession.setActionHandler('previoustrack', function () { app.prevButton() });
             navigator.mediaSession.setActionHandler('nexttrack', function () { app.skipToNextItem() });
-        }
+        },
+        checkForUpdate() {
+            ipcRenderer.send('check-for-update')
+        },
     }
 })
 
