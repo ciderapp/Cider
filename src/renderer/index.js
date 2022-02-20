@@ -25,6 +25,7 @@ const CiderFrontAPI = {
     },
     AddMenuEntry(entry) {
         app.pluginMenuEntries.push(entry)
+        app.pluginInstalled = true
     }
 }
 
@@ -76,6 +77,7 @@ const app = new Vue({
         platform: "",
         mk: {},
         quickPlayQuery: "",
+        pluginInstalled: false,
         pluginMenuEntries: [],
         lz: ipcRenderer.sendSync("get-i18n", "en_US"),
         lzListing: ipcRenderer.sendSync("get-i18n-listing"),
@@ -247,6 +249,7 @@ const app = new Vue({
             qrcode: false,
             equalizer: false,
             audioSettings: false,
+            pluginMenu: false,
             audioControls: false,
             showPlaylist: false,
         },

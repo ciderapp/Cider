@@ -25,18 +25,20 @@
                 </div>
                 <div class="md-option-line">
                     <div class="md-option-segment">
-                        Resume behavior<br>
+                        {{$root.getLz('settings.option.general.resumebehavior')}}<br>
                         <small>
-                            Resume behavior affects how Cider will resume your session when you return to the app.<br>
-                            <b>Locally: </b> Cider will resume your last session on this machine.<br>
-                            <b>History: </b> Cider will queue the last song from your overall Apple Music history, across devices.
+                            {{$root.getLz('settings.option.general.resumebehavior.description')}}<br>
+                            <b>{{$root.getLz('settings.option.general.resumebehavior.locally')}}: </b> 
+                            {{$root.getLz('settings.option.general.resumebehavior.locally.description')}}<br>
+                            <b>{{$root.getLz('settings.option.general.resumebehavior.history')}}: </b> 
+                            {{$root.getLz('settings.option.general.resumebehavior.history.description')}}
                         </small>
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
                         <select class="md-select" style="width:180px;" v-model="$root.cfg.general.resumeOnStartupBehavior">
-                            <option value="disabled">Disabled</option>
-                            <option value="local">Locally</option>
-                            <option value="history">History</option>
+                            <option value="disabled">{{$root.getLz('term.disabled')}}</option>
+                            <option value="local">{{$root.getLz('settings.option.general.resumebehavior.locally')}}</option>
+                            <option value="history">{{$root.getLz('settings.option.general.resumebehavior.history')}}</option>
                         </select>
                     </div>
                 </div>
@@ -90,13 +92,13 @@
                 </div>
                 <div class="md-option-line" v-show="app.cfg.advanced.AudioContext">
                     <div class="md-option-segment">
-                        Cider Audio Lab
+                        {{$root.getLz('settings.option.audio.audioLab')}}
                         <br>
-                        <small>Contains an assortment of Audio Tweaks made by the Cider Dev Team</small>
+                        <small>{{$root.getLz('settings.option.audio.audioLab.description')}}</small>
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
                         <button class="md-btn" onclick="app.appRoute('audiolabs')">
-                            Browse
+                            {{$root.getLz('term.browse')}}
                         </button>
                     </div>
                 </div>
@@ -650,9 +652,9 @@
 
                 <div class="md-option-line">
                     <div class="md-option-segment">
-                        Unknown Sources
+                        {{$root.getLz('settings.option.experimental.unknownPlugin')}}
                         <br>
-                        <small>Allow installation of plugins from repos other than the Cider Plugin Repository</small>
+                        <small>{{$root.getLz('settings.option.experimental.unknownPlugin.description')}}</small>
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
                         <input type="checkbox" v-model="app.cfg.advanced.experiments.includes('unknown-sources')" @click="app.cfg.advanced.experiments.includes('unknown-sources') ? removeExperiment('unknown-sources') : addExperiment('unknown-sources')" switch/>
