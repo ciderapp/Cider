@@ -462,7 +462,7 @@ var CiderAudio = {
         // Analog Warmth
         else if (app.cfg.audio.maikiwiAudio.vibrantBass.multiplier === 0 && 
             app.cfg.audio.maikiwiAudio.ciderPPE === false && 
-            app.cfg.audio.maikiwiAudio.spatial === false &&
+            app.cfg.audio.spatial === false &&
             app.cfg.audio.maikiwiAudio.analogWarmth === true) { 
             CiderAudio.analogWarmth_h2_3(true, 1); 
             CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.analogWarmth[0]);
@@ -476,7 +476,6 @@ var CiderAudio = {
                 if (app.cfg.audio.maikiwiAudio.spatial === true) {  
                
                     app.cfg.audio.normalization = true;
-
                     CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialNode);
                     CiderAudio.audioNodes.spatialNode.connect(CiderAudio.audioNodes.audioBands[0]);
                     console.log('[Cider][Audio] Maikiwi Spatial')
