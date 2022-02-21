@@ -251,7 +251,7 @@ export class BrowserWindow {
         })
 
         app.get("/themes/:theme", (req, res) => {
-            const theme = req.params.theme.toLowerCase();
+            const theme = req.params.theme;
             const themePath = join(utils.getPath('srcPath'), "./renderer/themes/", theme);
             const userThemePath = join(utils.getPath('themes'), theme);
             if (existsSync(userThemePath)) {
