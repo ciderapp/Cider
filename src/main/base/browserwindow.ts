@@ -92,9 +92,6 @@ export class BrowserWindow {
         minHeight: 390,
         frame: false,
         title: "Cider",
-        vibrancy: "dark",
-        transparent: process.platform === "darwin",
-        hasShadow: true,
         show: false,
         // backgroundColor: "#1E1E1E",
         titleBarStyle: 'hidden',
@@ -134,11 +131,17 @@ export class BrowserWindow {
             break;
             case "win32":
                 this.options.backgroundColor = "#1E1E1E";
+                this.options.transparent = false;
             break;
             case "linux":
                 this.options.backgroundColor = "#1E1E1E";
                 this.options.autoHideMenuBar = true
                 this.options.frame = true
+            break;
+            case "darwin":
+                this.options.transparent = true;
+                this.options.vibrancy = "dark";
+                this.options.hasShadow = true;
             break;
         }
 
