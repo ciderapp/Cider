@@ -34,6 +34,7 @@
   "term.about": "Névjegy",
   "term.privateSession": "Privát hallgatás",
   "term.queue": "Várólista",
+  "term.history": "Előzmények",
   "term.search": "Keresés",
   "term.library": "Könyvtár",
   "term.listenNow": "Hallgatás most",
@@ -71,6 +72,7 @@
   "term.sortBy.genre": "Műfaj",
   "term.sortBy.releaseDate": "Kiadás dátuma",
   "term.sortBy.duration": "Időtartam",
+  "term.sortBy.dateAdded": "Hozzáadás dátuma",
   "term.sortOrder": "A-Z",
   "term.sortOrder.ascending": "Növekvő",
   "term.sortOrder.descending": "Csökkenő",
@@ -107,6 +109,7 @@
   "term.fullscreenView": "Teljes képernyős mód",
   "term.defaultView": "Alapértelmezett nézet",
   "term.audioSettings": "Hangbeállítások",
+  "term.audioControls": "Hangerő beállítás",
   "term.clearAll": "Összes törlése",
   "term.recentStations": "Nemrég játszott",
   "term.language": "Nyelv",
@@ -122,6 +125,11 @@
   "term.contributors": "Hozzájárulók",
   "term.equalizer": "Hangszínszabályozó",
   "term.reset": "Visszaállítás",
+  // Example for multiple plural forms : look up the key for your language in https://github.com/prantlf/fast-plural-rules/blob/master/docs/languages.md#supported-languages
+  // "term.tracks": {
+  //   "one" : "track",
+  //   "other" : "tracks"
+  // },
   "term.tracks": "zeneszám", // Assume x amount of tracks. e.g. 50 tracks 
   "term.videos": "Videók",
   "term.menu": "Menü",
@@ -130,18 +138,37 @@
   "term.topResult": "Legjobb találatok", // Search Results
   "term.sharedPlaylists": "Megosztott lejátszási listák", // Search Results
   "term.people": "Profilok", // Search Results
-  "term.newpreset.name": "New EQ Preset Name", // Equalizer Preset
+  "term.newpreset.name": "Új EQ előbeállítás név", // Equalizer Preset
   "term.addedpreset": "Előbeállítás hozzáadva",
   "term.deletepreset.warn": "Biztos törölni szeretnéd ezt az előbeállítást?",
   "term.deletedpreset": "Előbeállítás törölve",
+  "term.defaultPresets": "Alap előbeállítások",
+  "term.userPresets": "Felhasználói beállítások",
+  "term.requestError": "Hiba történt a lekérés közben.",
+  "term.song.link.generate": "song.link URL lekérése...",
   "term.musicVideos": "Videóklipek", // Search page friendlyTypes
   "term.stations": "Állomások",
-  "term.curators": "Curators",
-  "term.appleCurators": "Apple Curators",
-  "term.radioShows": "Radio Shows",
+  "term.curators": "Kurátorok",
+  "term.appleCurators": "Apple Kurátorok",
+  "term.radioShows": "Rádióadások",
   "term.recordLabels": "Record Labels",
   "term.videoExtras": "Videóextrák",
   "term.top": "Top",
+  "term.version": "Verzió",
+  "term.noVideos": "Nincs találat.",
+  "term.plugin": "Plug-in",
+  "term.pluginMenu": "Plug-in Menü",
+  "term.replay": "Replay", //Apple Music Replay
+  "term.uniqueAlbums": "Unique Albums",
+  "term.uniqueArtists": "Unique Artists",
+  "term.uniqueSongs": "Unique Songs",
+  "term.topArtists": "Top Artists",
+  "term.listenedTo": "Listened to:",
+  "term.times": "alkalom",
+  "term.topAlbums": "Top Albums",
+  "term.plays": "Plays",
+  "term.topGenres": "Top Genres",
+  "term.confirmLogout" : "Biztosan ki szeretnél jelentkezni?",
   
   // Home
   "home.title": "Kezdőlap",
@@ -203,7 +230,7 @@
   "action.unlove": "Mégsem szeretem",
   "action.dislike": "Kevesebb ilyen javasolása",
   "action.undoDislike": "A Kevesebb ilyen javasolása visszavonása",
-  "action.showWebRemoteQR": "Távirányító QR kód",
+  "action.showWebRemoteQR": "Távirányító",
   "action.playTracksNext": "${app.selectedMediaItems.length} zenék lejátszása következőnek",
   "action.playTracksLater": "${app.selectedMediaItems.length} zenék lejátszása később",
   "action.removeTracks": "${self.selectedItems.length} zenék eltávolítása a várólistáról",
@@ -214,14 +241,23 @@
   "action.tray.quit": "Kilépés",
   "action.tray.show": "Megjelenítés",
   "action.update": "Frissítés",
+  "action.install": "Telepítés",
   "action.copy": "Másolás",
   "action.newpreset": "Új Preset...", // Equalizer Preset
   "action.deletepreset": "Preset törlése",
+  "action.open": "Megnyitás",
   
   // Settings - General
   "settings.header.general": "Általános",
   "settings.header.general.description": "A Cider általános beállításainak módosítása.",
   "settings.option.general.language": "Nyelv",
+  "settings.option.general.resumebehavior": "Resume behavior",
+  "settings.option.general.resumebehavior.description": "Resume behavior affects how Cider will resume your session when you return to the app.",
+  "settings.option.general.resumebehavior.locally": "Locally",
+  "settings.option.general.resumebehavior.locally.description": "Cider will resume your last session on this machine.",
+  "settings.option.general.resumebehavior.history": "History",
+  "settings.option.general.resumebehavior.history.description": "Cider will queue the last song from your overall Apple Music history, across devices.",
+
   
   // Language optgroups
   "settings.option.general.language.main": "Nyelvek",
@@ -238,6 +274,8 @@
   // Settings - Audio
   "settings.header.audio": "Hang",
   "settings.header.audio.description": "A Cider hangbeállításainak módosítása.",
+  "settings.option.audio.volumeStep": "Hangerő lépték",
+  "settings.option.audio.maxVolume": "Maximum hangerő",
   "settings.option.audio.quality": "Hangminőség", // Dropdown
   "settings.header.audio.quality.hireslossless": "Nagy felbontású veszteségmentes",
   "settings.header.audio.quality.hireslossless.description": "max. 24-bit/192 kHz sebességen",
@@ -250,8 +288,18 @@
   "settings.option.audio.seamlessTransition": "Szünetmentes lejátszás", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "Haladó funkcionalitás engedélyezése", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.description": "Az AudioContext funkció engedélyezése lehetővé teszi a fejlettebb hangfunkciókat, például a Normalizásást, az Equalizereket és a Visualizer funkciókat, azonban egyes számítógépeken ez akadozást okozhat a hangsávokban.",
+  "settings.option.audio.audioLab": "Cider Audio Lab",
+  "settings.option.audio.audioLab.description": "An assortment of in-house developed audio effects for Cider.",
+  "settings.warn.audioLab.withoutAF": "AudioContext (Advanced Functionality) is required to enable Cider Audio Laboratory.",
+  "settings.option.audio.enableAdvancedFunctionality.analogWarmth": "Analog Warmth",
+  "settings.option.audio.enableAdvancedFunctionality.analogWarmth.description": "Simulates the analog warmth modelled after the Korg Nutube 6P1",
+  "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity": "Analog Warmth intensity",
+  "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.description": "Changes the intensity of the Analog Warmth Module processing.",
+  "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.smooth": "Smooth",
+  "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.warm": "Warm",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider Adrenaline Processor™️", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Pszichoakusztikus Módosítások amik minden hangot felerősítenek és ütősebbé tesznek | Készítette Maikiwi",
+  "settings.warn.audio.enableAdvancedFunctionality.ciderPPE.compatibility": "A CAP nem kompatibilis a Térbeli Hanggal. Kapcsold ki a Térbeli Hangot a folytatáshoz.",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "CAP Erősség", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Megváltoztatja a hangra végzett feldolgozás erősségét. (Az Agresszív mód nemkívánatos eredményeket hozhat!)",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "Szokásos",
@@ -260,6 +308,13 @@
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizálja az egyes zeneszámok hangosabb részeit, hogy egységesebb hallgatási élményt hozzon létre.",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Térbeli hang", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Térbeli hang és a hang háromdimenziósabbá tétele (Ez nem összekeverendő a Dolby Atmos-szal!)",
+  "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization": "Cider Tuned Spatialization",
+  "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.description": "Pre-tuned Spatializing Effect, disables the customizable settings of Audio Spatialization. Spatialization must be enabled as a prerequisite.",
+  "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile": "Cider Spatialization Profile",
+  "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.description": "Changes the Tuning Profile of the Spatialization. (Requires App Restart)",
+  "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.standard": "Standard",
+  "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.audiophile": "Audiophile",
+  "settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility": "A Térbeli Hang nem kompatibilis a CAP-pal. Kapcsold ki a CAP-ot a folytatáshoz.",
   
   // Settings - Visual
   "settings.header.visual": "Vizuális",
@@ -284,6 +339,13 @@
   "settings.header.visual.hardwareAcceleration.default": "Alap",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
   "settings.header.visual.theme": "Téma",
+  "settings.option.visual.theme.github.download": "Telepítés GitHub URL-ről",
+  "settings.option.visual.theme.github.explore": "Témaáruház",
+  "settings.header.visual.theme.github.page": "Témák a GitHub-ról",
+  "settings.option.visual.theme.github.install.confirm": "Biztos, hogy szeretnéd telepíteni a(z)  {{ repo }} témát?",
+  "settings.prompt.visual.theme.github.URL": "Add meg a telepítendő téma URL-jét",
+  "settings.notyf.visual.theme.install.success": "Téma sikeresen telepítve",
+  "settings.notyf.visual.theme.install.error": "Sikertelen volt a téma telepítése",
   
   // Settings - Visual - Theme name
   "settings.option.visual.theme.default": "Cider",
@@ -316,12 +378,18 @@
   "settings.option.connectivity.lastfmScrobble.filterLoop": "Loopolt zeneszám szűrése (LastFM)",
   // Refer to term.connect for the connect button
   
+  // Settings - Debug
+  "settings.header.debug": "Hibakeresés",
+  "settings.option.debug.copy_log": "Napló másolása a vágólapra",
+  "settings.option.debug.openAppData": "Cider mappa megnyitása",
+
   // Settings - Experimental
   "settings.header.experimental": "Kísérleti",
   "settings.header.experimental.description": "A Cider kísérleti beállításainak módosítása.",
+  "settings.option.experimental.unknownPlugin": "Unknown Sources",
+  "settings.option.experimental.unknownPlugin.description": "Allow installion of plugins from repos other than the Cider Plugin Repository",
   "settings.option.experimental.compactUI": "Kompakt felület", // Toggle
   "settings.option.experimental.close_button_hide": "A bezárás gomb rejtse el az alkalmazást",
-  "settings.option.experimental.copy_log": "Napló másolása a vágólapra",
   "settings.option.experimental.inline_playlists": "Inline Playlists and Albums",
   
   // Refer to term.disabled & term.enabled
