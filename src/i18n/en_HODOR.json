@@ -1,26 +1,15 @@
-{ // HODOR
-
-  // i18n Info
-  "i18n.languageName": "HODOR", // name of language in native language
-  "i18n.languageNameEnglish": "HODOR", // name of language in English
-  "i18n.category": "fun", // main = real language, fun = fun community languages
-  "i18n.authors": "HODOR", // Authors, if you contribute to this file feel free to add your name seperated with a space
-  
-  // App info
+{
+  "i18n.languageName": "HODOR",
+  "i18n.languageNameEnglish": "HODOR",
+  "i18n.category": "fun",
+  "i18n.authors": "HODOR",
   "app.name": "HODER",
-
   "date.format": "${m} ${d}, ${y}",
-  
-  // Dialogs
   "dialog.cancel": "NO HODOR",
   "dialog.ok": "YES HODOR",
-
-  // Notification
   "notification.updatingLibrarySongs": "UPDATING HODOR HODORS...",
   "notification.updatingLibraryAlbums": "UPDATING HODOR HODORBUMS...",
   "notification.updatingLibraryArtists": "UPDATING HODOR HODORTISTS...",
-
-  // Terms
   "term.appleInc": "HODOR Inc.",
   "term.appleMusic": "HODOR MUSIC",
   "term.applePodcasts": "HODOR PODCASTS",
@@ -92,10 +81,10 @@
   "term.less": "hodor",
   "term.showMore": "MORE HODOR",
   "term.showLess": "LESS HODOR",
-  "term.topSongs" : "TOP HODORS",
+  "term.topSongs": "TOP HODORS",
   "term.latestReleases": "LATEST HODORS",
   "term.time.added": "HODOR ADDED",
-  "term.time.released": "HODOR RELEASED", 
+  "term.time.released": "HODOR RELEASED",
   "term.time.updated": "HODOR UPDATED",
   "term.fullscreenView": "FULL HODOR",
   "term.defaultView": "NO HODOR",
@@ -122,10 +111,8 @@
   "term.time.seconds": "HODOR",
   "term.time.second": "HODOR",
   "term.funLanguages": "HODOR SPEAKS",
-  "term.videos": "HODOR WATCHING", 
+  "term.videos": "HODOR WATCHING",
   "term.menu": "HODOR MENU",
-
-  // Home
   "home.title": "HODOR",
   "home.recentlyPlayed": "RECENTLY HODOR",
   "home.recentlyAdded": "NEW HODOR",
@@ -134,13 +121,10 @@
   "home.madeForYou": "HODOR FOR YOU",
   "home.friendsListeningTo": "FRIENDS HODOR HODOR",
   "home.followedArtists": "FOLLOWED HODOR",
-  // Errors
   "error.appleMusicSubRequired": "HODOR MUSIC REQUIRES A HODOR.",
   "error.connectionError": "CANNOT HODOR TO HODOR.",
   "error.noResults": "NO HODOR.",
   "error.noResults.description": "TRY NEW HODOR.",
-
-  // Podcasts
   "podcast.followOnCider": "FOLLOW ON HODOR",
   "podcast.followedOnCider": "FOLLOWING ON HODOR",
   "podcast.subscribeOnItunes": "SUBSCRIBE ON iHODOR",
@@ -149,8 +133,6 @@
   "podcast.episodes": "HODORS",
   "podcast.playEpisode": "PLAY HODOR",
   "podcast.website": "HODORCAST PAGE",
-
-  // Actions
   "action.addToLibrary": "ADD HODOR",
   "action.addToLibrary.success": "YES HODOR",
   "action.addToLibrary.error": "NO HODOR",
@@ -194,124 +176,93 @@
   "action.tray.minimize": "HODOR TO TRAY",
   "action.tray.quit": "HODOR",
   "action.tray.show": "SEE",
-
-  // Settings - General
   "settings.header.general": "HODORAL",
   "settings.header.general.description": "HODOR HODORAL HODOR FOR HODOR.",
   "settings.option.general.language": "HODOR SPEAKS",
-
-  // Language optgroups
   "settings.option.general.language.main": "REAL HODORS",
   "settings.option.general.language.fun": "HODOR HODORS",
   "settings.option.general.language.unsorted": "NO HODORS",
-
-  // Update Cider
-
-  // Settings - Audio
   "settings.header.audio": "HODOR HEARS",
   "settings.header.audio.description": "ADJUST HODOR EARS FOR HODOR HODOR.",
-  "settings.option.audio.quality": "HODOR QUALITY", // Dropdown
+  "settings.option.audio.quality": "HODOR QUALITY",
   "settings.header.audio.quality.high": "HODOR!!.",
   "settings.header.audio.quality.low": "hodor.",
   "settings.header.audio.quality.auto": "HODORMATIC",
-  "settings.option.audio.seamlessTransition": "SEAMLESS HODOR", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality": "ADVANCED HODOR", // Toggle
+  "settings.option.audio.seamlessTransition": "SEAMLESS HODOR",
+  "settings.option.audio.enableAdvancedFunctionality": "ADVANCED HODOR",
   "settings.option.audio.enableAdvancedFunctionality.description": "ENABLING HODOR FUNCTIONALITY WILL HODOR FOR EXTENDED HODOR FEATURES LIKE HODOR NORMALIZATION , HODORIZERS AND HODORS, BUT ON SOME HODOR SYSTEMS THIS HODOR CAUSE HODOR IN HODOR.",
-  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "HODOR NORMALIZATION", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "HODOR NORMALIZATION",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "NORMALIZES HODOR VOLUME FOR INDIVIDUAL HODORS TO HODOR A MORE HODOR LISTENING HODOR.",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "HODOR SPATIALIZATION", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "HODOR SPATIALIZATION",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "SPATIALIZE HODOR AND MAKE HODOR MORE 3-HODOR (HODOR: THIS IS NOT HODOR ATMOS)",
-
-  // Settings - Visual
-  "settings.header.visual": "HODOR SEES", 
+  "settings.header.visual": "HODOR SEES",
   "settings.header.visual.description": "ADJUST HODOR EYES FOR HODOR.",
-  "settings.option.visual.windowBackgroundStyle": "BACK HODOR STYLE", // Toggle
+  "settings.option.visual.windowBackgroundStyle": "BACK HODOR STYLE",
   "settings.header.visual.windowBackgroundStyle.none": "NO HODOR",
   "settings.header.visual.windowBackgroundStyle.artwork": "HODORWORK",
   "settings.header.visual.windowBackgroundStyle.image": "HODOR",
-  "settings.option.visual.animatedArtwork": "MOVING HODORWORK", // Dropdown
+  "settings.option.visual.animatedArtwork": "MOVING HODORWORK",
   "settings.header.visual.animatedArtwork.always": "YES HODOR",
   "settings.header.visual.animatedArtwork.limited": "SOME HODOR",
   "settings.header.visual.animatedArtwork.disable": "NO HODOR",
-  "settings.option.visual.animatedArtworkQuality": "MOVING HODOR QUALITY", // Dropdown
+  "settings.option.visual.animatedArtworkQuality": "MOVING HODOR QUALITY",
   "settings.header.visual.animatedArtworkQuality.low": "hodor..",
   "settings.header.visual.animatedArtworkQuality.medium": "HODOR.",
   "settings.header.visual.animatedArtworkQuality.high": "HODOR!",
   "settings.header.visual.animatedArtworkQuality.veryHigh": "HODOR HODOR!",
   "settings.header.visual.animatedArtworkQuality.extreme": "HODOOOOOOOR!!",
-  "settings.option.visual.animatedWindowBackground": "ANIMATED HODOR BACK", // Toggle
-  "settings.option.visual.hardwareAcceleration": "HODOR ACCELERATION", // Dropdown
+  "settings.option.visual.animatedWindowBackground": "ANIMATED HODOR BACK",
+  "settings.option.visual.hardwareAcceleration": "HODOR ACCELERATION",
   "settings.option.visual.hardwareAcceleration.description": "NEED RE HODOR",
-  "settings.header.visual.hardwareAcceleration.default": "HODOR.", 
-  "settings.header.visual.hardwareAcceleration.webGPU": "WEB HODOR!!", 
-
-  // Settings - Visual - Theme name
-
-  // Refer to term.disabled for the disabled option
-  "settings.option.visual.showPersonalInfo": "SHOW HODOR NAME?", // Toggle
-
-  // Settings - Lyrics
+  "settings.header.visual.hardwareAcceleration.default": "HODOR.",
+  "settings.header.visual.hardwareAcceleration.webGPU": "WEB HODOR!!",
+  "settings.option.visual.showPersonalInfo": "SHOW HODOR NAME?",
   "settings.header.lyrics": "HODOR READS",
   "settings.header.lyrics.description": "ADJUST THE HODOR TEXT FOR HODOR.",
-  "settings.option.lyrics.enableMusixmatch": "MUSIXMATCH HODOR", // Toggle
-  "settings.option.lyrics.enableMusixmatchKaraoke": "HO-DOR SING MODE (MUSIXMATCH HODOR)", // Toggle
-  "settings.option.lyrics.musixmatchPreferredLanguage": "TRANSLATE HODOR TEXT", // Dropdown
-  "settings.option.lyrics.enableYoutubeLyrics": "HODOR YOUTUBE HODOR TEXT FOR HODOR VIDEOS", // Toggle
-
-  // Settings - Connectivity
+  "settings.option.lyrics.enableMusixmatch": "MUSIXMATCH HODOR",
+  "settings.option.lyrics.enableMusixmatchKaraoke": "HO-DOR SING MODE (MUSIXMATCH HODOR)",
+  "settings.option.lyrics.musixmatchPreferredLanguage": "TRANSLATE HODOR TEXT",
+  "settings.option.lyrics.enableYoutubeLyrics": "HODOR YOUTUBE HODOR TEXT FOR HODOR VIDEOS",
   "settings.header.connectivity": "HODORTIVITY",
   "settings.header.connectivity.description": "ADJUST THE HODORTIVITY FOR HODOR.",
-  "settings.option.connectivity.discordRPC": "DISCORD HODOR", // Dropdown
-  "settings.option.connectivity.playbackNotifications": "NOTIFICATION FOR HODOR", // Toggle
-  // Refer to term.disabled for the disabled option
+  "settings.option.connectivity.discordRPC": "DISCORD HODOR",
+  "settings.option.connectivity.playbackNotifications": "NOTIFICATION FOR HODOR",
   "settings.header.connectivity.discordRPC.cider": "SEE HODOR AS 'CIDER'",
   "settings.header.connectivity.discordRPC.appleMusic": "SEE HODOR AS 'HODOR MUSIC'",
-  "settings.option.connectivity.discordRPC.clearOnPause": "HODOR DISCORD ON PAUSE", // Toggle
-  "settings.option.connectivity.lastfmScrobble": "HODOR.FM SCROBBLING", // Option to Connect
-  "settings.option.connectivity.lastfmScrobble.delay": "HODOR.FM HODOR DELAY (%)", 
-  "settings.option.connectivity.lastfmScrobble.nowPlaying": "YES HODOR.FM NOW HODORING", 
-  "settings.option.connectivity.lastfmScrobble.removeFeatured": "DELETE HODORING HODORTIST FROM HODOR TITLE (HODOR.FM)", 
-  "settings.option.connectivity.lastfmScrobble.filterLoop": "FILTER MULTI HODOEDR HODOR (HODOR.FM)", 
-  // Refer to term.connect for the connect button
-
-  // Settings - Experimental
+  "settings.option.connectivity.discordRPC.clearOnPause": "HODOR DISCORD ON PAUSE",
+  "settings.option.connectivity.lastfmScrobble": "HODOR.FM SCROBBLING",
+  "settings.option.connectivity.lastfmScrobble.delay": "HODOR.FM HODOR DELAY (%)",
+  "settings.option.connectivity.lastfmScrobble.nowPlaying": "YES HODOR.FM NOW HODORING",
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "DELETE HODORING HODORTIST FROM HODOR TITLE (HODOR.FM)",
+  "settings.option.connectivity.lastfmScrobble.filterLoop": "FILTER MULTI HODOEDR HODOR (HODOR.FM)",
   "settings.header.experimental": "EXPERIMENTAL HODOR",
   "settings.header.experimental.description": "ADJUST THE EXPERIMENTAL HODOR FOR HODOR.",
-  "settings.option.experimental.compactUI": "smol hodor", // Toggle
+  "settings.option.experimental.compactUI": "smol hodor",
   "settings.option.experimental.closeButtonBehaviour": "CLOSE HODOR BUTTON",
   "settings.option.experimental.closeButtonBehaviour.quit": "END HODOR",
   "settings.option.experimental.closeButtonBehaviour.minimizeTaskbar": "MINIMIZE HODOR TO HODORBAR",
   "settings.option.experimental.closeButtonBehaviour.minimizeTray": "MINIMIZE HODOR TO HODORAY",
-  
-  // Refer to term.disabled & term.enabled
-  // Spatialization Menu
   "spatial.notTurnedOn": "HODOR SPATIALIZATION IS HODOR. TO HODOR, PLEASE HODOR IT HODOR.",
-  "spatial.spatialProperties" : "SPATIAL HODOR",
-  "spatial.width" : "HODOR WIDTH",
-  "spatial.height" : "HODOR HEIGHT",
-  "spatial.depth" : "HODOR DEPTH",
-  "spatial.gain" : "HODOR POWER",
-  "spatial.roomMaterials" : "ROOM HODORS",
-  "spatial.roomDimensions" : "ROOM HODOR SIZE",
-  "spatial.roomPositions" : "ROOM HODOR POSITION",
-  "spatial.setDimensions" : "HODOR SIZE",
-  "spatial.setPositions" : "SET HODOR POSITION",
-  "spatial.up" : "UP HODOR",
-  "spatial.front" : "FRONT HODOR",
-  "spatial.left" : "LEFT HODOR",
-  "spatial.right" : "RIGHT HODOR",
-  "spatial.back" : "BACK HODOR",
-  "spatial.down" : "DOWN HODOR",
-  "spatial.listener" : "HODOR EARS",
-  "spatial.audioSource" : "HODOR PLAYS",
-
-  // Settings - Unfinished
+  "spatial.spatialProperties": "SPATIAL HODOR",
+  "spatial.width": "HODOR WIDTH",
+  "spatial.height": "HODOR HEIGHT",
+  "spatial.depth": "HODOR DEPTH",
+  "spatial.gain": "HODOR POWER",
+  "spatial.roomMaterials": "ROOM HODORS",
+  "spatial.roomDimensions": "ROOM HODOR SIZE",
+  "spatial.roomPositions": "ROOM HODOR POSITION",
+  "spatial.setDimensions": "HODOR SIZE",
+  "spatial.setPositions": "SET HODOR POSITION",
+  "spatial.up": "UP HODOR",
+  "spatial.front": "FRONT HODOR",
+  "spatial.left": "LEFT HODOR",
+  "spatial.right": "RIGHT HODOR",
+  "spatial.back": "BACK HODOR",
+  "spatial.down": "DOWN HODOR",
+  "spatial.listener": "HODOR EARS",
+  "spatial.audioSource": "HODOR PLAYS",
   "settings.header.unfinished": "NOT HODOR YET",
-
-  // Web Remote
   "remote.web.title": "HODOR REMOTE",
   "remote.web.description": "HODOR THE HODOR TO HODOR YOUR HODOR UP WITH THIS HODOR INSTANCE",
-
-  //About
   "about.thanks": "HODOR THANKS TO THE HODOR TEAM AND ALL OF OUR HODORS."
 }

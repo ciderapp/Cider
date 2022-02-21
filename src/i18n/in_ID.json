@@ -1,26 +1,15 @@
 {
-
-  // i18n Info
-  "i18n.languageName": "Bahasa Indonesia", // name of language in native language
-  "i18n.languageNameEnglish": "Indonesian", // name of language in English
-  "i18n.category": "main", // main = real language, fun = fun community languages
-  "i18n.authors": "@crystalshower", // Authors, if you contribute to this file feel free to add your name seperated with a space
-  
-  // App info
+  "i18n.languageName": "Bahasa Indonesia",
+  "i18n.languageNameEnglish": "Indonesian",
+  "i18n.category": "main",
+  "i18n.authors": "@crystalshower",
   "app.name": "Cider",
-  
   "date.format": "${d} ${m}, ${y}",
-  
-  // Dialogs
   "dialog.cancel": "Batal",
   "dialog.ok": "OK",
-  
-  // Notification
   "notification.updatingLibrarySongs": "Memperbarui Pustaka lagu...",
   "notification.updatingLibraryAlbums": "Memperbarui Pustaka album...",
   "notification.updatingLibraryArtists": "Memperbarui Pustaka artis...",
-  
-  // Terms
   "term.appleInc": "Apple Inc.",
   "term.appleMusic": "Apple Music",
   "term.applePodcasts": "Apple Podcasts",
@@ -123,19 +112,19 @@
   "term.contributors": "Kontributor",
   "term.equalizer": "Equalizer",
   "term.reset": "Atur Ulang",
-  "term.tracks": "lagu", // Assume x amount of tracks. e.g. 50 tracks 
+  "term.tracks": "lagu",
   "term.videos": "Video",
   "term.menu": "Menu",
   "term.check": "Cek",
-  "term.aboutArtist": "Tentang {{artistName}}", // e.g. 'About Doja Cat'
-  "term.topResult": "Hasil Teratas", // Search Results
-  "term.sharedPlaylists": "Playlist yang dibagikan", // Search Results
-  "term.people": "Orang", // Search Results
-  "term.newpreset.name": "Nama Preset EQ Baru", // Equalizer Preset
+  "term.aboutArtist": "Tentang {{artistName}}",
+  "term.topResult": "Hasil Teratas",
+  "term.sharedPlaylists": "Playlist yang dibagikan",
+  "term.people": "Orang",
+  "term.newpreset.name": "Nama Preset EQ Baru",
   "term.addedpreset": "Preset Ditambahkan",
   "term.deletepreset.warn": "Yakin ingin menghapus preset ini?",
   "term.deletedpreset": "Preset dihapus",
-  "term.musicVideos": "Video Musik", // Search page friendlyTypes
+  "term.musicVideos": "Video Musik",
   "term.stations": "Stasiun",
   "term.curators": "Kurator",
   "term.appleCurators": "Kurator Apple",
@@ -143,8 +132,6 @@
   "term.recordLabels": "Label Rekaman",
   "term.videoExtras": "Bonus Video",
   "term.top": "Atas",
-  
-  // Home
   "home.title": "Beranda",
   "home.recentlyPlayed": "Baru Dimainkan",
   "home.recentlyAdded": "Baru Ditambahkan",
@@ -153,14 +140,10 @@
   "home.madeForYou": "Dibuat Untuk Kamu",
   "home.friendsListeningTo": "Teman Sedang Mendengarkan",
   "home.followedArtists": "Artis Diikuti",
-  
-  // Errors
   "error.appleMusicSubRequired": "Apple Music memerlukan langganan.",
   "error.connectionError": "Terjadi masalah saat menyambungkan ke Apple Music.",
   "error.noResults": "Tidak ada hasil.",
   "error.noResults.description": "Coba pencarian baru.",
-  
-  // Podcasts
   "podcast.followOnCider": "Ikuti Di Cider",
   "podcast.followedOnCider": "Mengikuti Di Cider",
   "podcast.subscribeOnItunes": "Langganan Di iTunes",
@@ -169,8 +152,6 @@
   "podcast.episodes": "Episode",
   "podcast.playEpisode": "Mainkan Episode",
   "podcast.website": "Website Podcast",
-  
-  // Actions
   "action.addToLibrary": "Tambahkan ke Pustaka",
   "action.addToLibrary.success": "Ditambahkan ke Pustaka",
   "action.addToLibrary.error": "Terjadi Kesalahan Saat Menambahkan Pustaka",
@@ -216,30 +197,22 @@
   "action.tray.show": "Tampilkan",
   "action.update": "Perbarui",
   "action.copy": "Salin",
-  "action.newpreset": "Preset Baru...", // Equalizer Preset
+  "action.newpreset": "Preset Baru...",
   "action.deletepreset": "Hapus Preset",
-  
-  // Settings - General
   "settings.header.general": "Umum",
   "settings.header.general.description": "Sesuaikan pengaturan umum untuk Cider.",
   "settings.option.general.language": "Bahasa",
-  
-  // Language optgroups
   "settings.option.general.language.main": "Bahasa",
   "settings.option.general.language.fun": "Bahasa Candaan",
   "settings.option.general.language.unsorted": "Tidak disortir",
-  
-  // Update Cider
-  "settings.option.general.updateCider": "Perbarui Cider", // Button. Refer to term.check for the check button
-  "settings.option.general.updateCider.branch": "Branch Pembaruan Cider", // Dropdown
+  "settings.option.general.updateCider": "Perbarui Cider",
+  "settings.option.general.updateCider.branch": "Branch Pembaruan Cider",
   "settings.option.general.updateCider.branch.description": "Pilih branch untuk memperbarui Cider",
   "settings.option.general.updateCider.branch.main": "Stable",
   "settings.option.general.updateCider.branch.develop": "Development",
-  
-  // Settings - Audio
   "settings.header.audio": "Audio",
   "settings.header.audio.description": "Sesuaikan pengaturan audio untuk Cider.",
-  "settings.option.audio.quality": "Kualitas Audio", // Dropdown
+  "settings.option.audio.quality": "Kualitas Audio",
   "settings.header.audio.quality.hireslossless": "Hi-Res Lossless",
   "settings.header.audio.quality.hireslossless.description": "sampai dari 24-bit/192 kHz",
   "settings.header.audio.quality.lossless": "Lossless",
@@ -248,85 +221,68 @@
   "settings.header.audio.quality.high.description": "256 kbps",
   "settings.header.audio.quality.standard": "Standar",
   "settings.header.audio.quality.standard.description": "64 kbps",
-  "settings.option.audio.seamlessTransition": "Transisi Audio Mulus", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality": "Aktifkan Fungsi Lanjutan", // Toggle
+  "settings.option.audio.seamlessTransition": "Transisi Audio Mulus",
+  "settings.option.audio.enableAdvancedFunctionality": "Aktifkan Fungsi Lanjutan",
   "settings.option.audio.enableAdvancedFunctionality.description": "Mengaktifkan fungsionalitas AudioContext memungkinkan fitur audio lanjutan seperti Normalisasi Audio, Equalizer dan Visualizer. Namun pada beberapa perangkat dapat menyebabkan tersendatnya audio.",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider Adrenaline Processor™️", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider Adrenaline Processor™️",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Peningkatan Psikoakustik yang membuat semuanya terdengar lebih jelas dan lebih hidup | Dirancang oleh Maikiwi.",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "Kekuatan CAP", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "Kekuatan CAP",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Mengubah kekuatan pemrosesan yang dilakukan pada audio. (Agresif dapat menghasilkan hasil yang tidak diinginkan)",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "Standar",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive": "Agresif",
-  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Normalisasi Audio", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Normalisasi Audio",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Menormalkan puncak volume untuk masing-masing lagu demi menciptakan pengalaman mendengarkan yang lebih seragam.",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Spasialisasi Audio", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Spasialisasi Audio",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Atur ruang audio dan buat audio lebih 3 dimensi (NB: Bukan Dolby Atmos)",
-  
-  // Settings - Visual
   "settings.header.visual": "Visual",
   "settings.header.visual.description": "Sesuaikan pengaturan visual untuk Cider.",
-  "settings.option.visual.windowBackgroundStyle": "Gaya Latar Belakang Jendela", // Toggle
+  "settings.option.visual.windowBackgroundStyle": "Gaya Latar Belakang Jendela",
   "settings.header.visual.windowBackgroundStyle.none": "Tidak Ada",
   "settings.header.visual.windowBackgroundStyle.artwork": "Artwork",
   "settings.header.visual.windowBackgroundStyle.image": "Gambar",
-  "settings.option.visual.animatedArtwork": "Artwork Bergerak", // Dropdown
+  "settings.option.visual.animatedArtwork": "Artwork Bergerak",
   "settings.header.visual.animatedArtwork.always": "Selalu",
   "settings.header.visual.animatedArtwork.limited": "Terbatas untuk halaman dan entri khusus",
   "settings.header.visual.animatedArtwork.disable": "Matikan di semua tempat",
-  "settings.option.visual.animatedArtworkQuality": "Kualitas Artwork Bergerak", // Dropdown
+  "settings.option.visual.animatedArtworkQuality": "Kualitas Artwork Bergerak",
   "settings.header.visual.animatedArtworkQuality.low": "Rendah",
   "settings.header.visual.animatedArtworkQuality.medium": "Medium",
   "settings.header.visual.animatedArtworkQuality.high": "Tinggi",
   "settings.header.visual.animatedArtworkQuality.veryHigh": "Sangat Tinggi",
   "settings.header.visual.animatedArtworkQuality.extreme": "Paling Tinggi",
-  "settings.option.visual.animatedWindowBackground": "Jendela Latar Belakang Bergerak", // Toggle
-  "settings.option.visual.hardwareAcceleration": "Akselerasi Perangkat Keras (HW Acceleration)", // Dropdown
+  "settings.option.visual.animatedWindowBackground": "Jendela Latar Belakang Bergerak",
+  "settings.option.visual.hardwareAcceleration": "Akselerasi Perangkat Keras (HW Acceleration)",
   "settings.option.visual.hardwareAcceleration.description": "Membutuhkan dibuka ulang",
   "settings.header.visual.hardwareAcceleration.default": "Default",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
   "settings.header.visual.theme": "Tema",
-  
-  // Settings - Visual - Theme name
   "settings.option.visual.theme.default": "Cider",
   "settings.option.visual.theme.dark": "Gelap",
-
-  // Refer to term.disabled for the disabled option
-  "settings.option.visual.showPersonalInfo": "Tampilkan Info Pribadi", // Toggle
-  
-  // Settings - Lyrics
+  "settings.option.visual.showPersonalInfo": "Tampilkan Info Pribadi",
   "settings.header.lyrics": "Lyrics",
   "settings.header.lyrics.description": "Sesuaikan pengaturan lirik untuk Cider.",
-  "settings.option.lyrics.enableMusixmatch": "Aktifkan Lirik Musixmatch", // Toggle
-  "settings.option.lyrics.enableMusixmatchKaraoke": "Aktifkan Mode Karaoke (khusus Musixmatch)", // Toggle
-  "settings.option.lyrics.musixmatchPreferredLanguage": "Bahasa Terjemahan Musixmatch", // Dropdown
-  "settings.option.lyrics.enableYoutubeLyrics": "Aktifkan Lirik Youtube untuk Video Musik", // Toggle
-  
-  // Settings - Connectivity
+  "settings.option.lyrics.enableMusixmatch": "Aktifkan Lirik Musixmatch",
+  "settings.option.lyrics.enableMusixmatchKaraoke": "Aktifkan Mode Karaoke (khusus Musixmatch)",
+  "settings.option.lyrics.musixmatchPreferredLanguage": "Bahasa Terjemahan Musixmatch",
+  "settings.option.lyrics.enableYoutubeLyrics": "Aktifkan Lirik Youtube untuk Video Musik",
   "settings.header.connectivity": "Konektivitas",
   "settings.header.connectivity.description": "Sesuaikan pengaturan konektivitas untuk Cider.",
-  "settings.option.connectivity.discordRPC": "Discord Rich Presence", // Dropdown
-  "settings.option.connectivity.playbackNotifications": "Pemberitahuan Pemutaran", // Toggle
-  // Refer to term.disabled for the disabled option
+  "settings.option.connectivity.discordRPC": "Discord Rich Presence",
+  "settings.option.connectivity.playbackNotifications": "Pemberitahuan Pemutaran",
   "settings.header.connectivity.discordRPC.cider": "Tampilkan sebagai 'Cider'",
   "settings.header.connectivity.discordRPC.appleMusic": "Tampilkan sebagai 'Apple Music'",
-  "settings.option.connectivity.discordRPC.clearOnPause": "Sembunyikan Discord Rich Presence saat dijeda", // Toggle
-  "settings.option.connectivity.lastfmScrobble": "Last.fm Scrobbling", // Option to Connect
+  "settings.option.connectivity.discordRPC.clearOnPause": "Sembunyikan Discord Rich Presence saat dijeda",
+  "settings.option.connectivity.lastfmScrobble": "Last.fm Scrobbling",
   "settings.option.connectivity.lastfmScrobble.delay": "Delay Last.fm Scrobble (%)",
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "Aktifkan Last.fm Now Playing",
   "settings.option.connectivity.lastfmScrobble.removeFeatured": "Hapus featuring artist dari judul lagu (Last.fm)",
   "settings.option.connectivity.lastfmScrobble.filterLoop": "Filter lagu yang diulang (Last.fm)",
-  // Refer to term.connect for the connect button
-  
-  // Settings - Experimental
   "settings.header.experimental": "Eksperimental",
   "settings.header.experimental.description": "Sesuaikan pengaturan eksperimental untuk Cider.",
-  "settings.option.experimental.compactUI": "UI Kompak", // Toggle
+  "settings.option.experimental.compactUI": "UI Kompak",
   "settings.option.experimental.close_button_hide": "Tombol Tutup Menyembunyikan Aplikasi",
   "settings.option.experimental.copy_log": "Salin log ke clipboard",
   "settings.option.experimental.inline_playlists": "Playlist dan Album Sebaris",
-  
-  // Refer to term.disabled & term.enabled
-  // Spatialization Menu
   "spatial.notTurnedOn": "Spasialisasi Audio dinonaktifkan. Untuk menggunakan, aktifkan terlebih dahulu.",
   "spatial.spatialProperties": "Spatial Properties",
   "spatial.width": "Lebar",
@@ -346,14 +302,8 @@
   "spatial.down": "Bawah",
   "spatial.listener": "Pendegar",
   "spatial.audioSource": "Sumber Audio",
-  
-  // Settings - Unfinished
   "settings.header.unfinished": "Belum Diselesaikan",
-  
-  // Web Remote
   "remote.web.title": "Remote Cider",
   "remote.web.description": "Pindai kode QR untuk memasangkan ponsel Anda dengan Cider.",
-  
-  // About
   "about.thanks": "Terima kasih yang sebesar-besarnya kepada Cider Collective Team dan semua kontributor kami."
-  }
+}

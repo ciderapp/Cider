@@ -1,26 +1,15 @@
 {
-  
-  // i18n Info
-  "i18n.languageName": "Svenska (SE)", // name of language in native language
-  "i18n.languageNameEnglish": "Swedish (SE)", // name of language in English
-  "i18n.category": "main", // main = real language, fun = fun community languages
-  "i18n.authors": "@thisismemeboi", // Authors, if you contribute to this file feel free to add your name seperated with a space
-  
-  // App info
+  "i18n.languageName": "Svenska (SE)",
+  "i18n.languageNameEnglish": "Swedish (SE)",
+  "i18n.category": "main",
+  "i18n.authors": "@thisismemeboi",
   "app.name": "Cider",
-  
   "date.format": "${d} ${m}, ${y}",
-  
-  // Dialogs
   "dialog.cancel": "Avbryt",
   "dialog.ok": "OK",
-  
-  // Notification
   "notification.updatingLibrarySongs": "Uppdaterar låtar i biblioteket...",
   "notification.updatingLibraryAlbums": "Uppdaterar album i biblioteket...",
   "notification.updatingLibraryArtists": "Uppdaterar artister i biblioteket...",
-  
-  // Terms
   "term.appleInc": "Apple Inc.",
   "term.appleMusic": "Apple Music",
   "term.applePodcasts": "Apple Podcasts",
@@ -121,13 +110,11 @@
   "term.contributors": "Bidrag",
   "term.equalizer": "EQ",
   "term.reset": "Återställ",
-  "term.tracks": "låtar", // Assume x amount of tracks. e.g. 50 tracks 
+  "term.tracks": "låtar",
   "term.videos": "Videor",
   "term.menu": "Meny",
   "term.check": "Sök efter uppdateringar",
-  "term.aboutArtist": "Om {{artistName}}", // e.g. 'About Doja Cat'
-  
-  // Home
+  "term.aboutArtist": "Om {{artistName}}",
   "home.title": "Hem",
   "home.recentlyPlayed": "Senast spelade",
   "home.recentlyAdded": "Senast tillagda",
@@ -136,14 +123,10 @@
   "home.madeForYou": "Skapat för dig",
   "home.friendsListeningTo": "Vänner lyssnar på",
   "home.followedArtists": "Följda artister",
-  
-  // Errors
   "error.appleMusicSubRequired": "Apple Music kräver en prenumeration.",
   "error.connectionError": "Ojdå. Det gick inte att ansluta till Apple Music.",
   "error.noResults": "Inga träffar.",
   "error.noResults.description": "Prova en ny sökning.",
-  
-  // Podcasts
   "podcast.followOnCider": "Följ på Cider",
   "podcast.followedOnCider": "Följer på Cider",
   "podcast.subscribeOnItunes": "Följ på iTunes",
@@ -152,8 +135,6 @@
   "podcast.episodes": "Avsnitt",
   "podcast.playEpisode": "Spela avsnitt",
   "podcast.website": "Öppna webbsida",
-  
-  // Actions
   "action.addToLibrary": "Lägg till i bibliotek",
   "action.addToLibrary.success": "Tillagd i biblioteket",
   "action.addToLibrary.error": "Kunde inte lägga till i biblioteket",
@@ -198,95 +179,70 @@
   "action.tray.quit": "Avsluta",
   "action.tray.show": "Visa Cider",
   "action.update": "Uppdatera",
-  
-  // Settings - General
   "settings.header.general": "Allmänt",
   "settings.header.general.description": "Ändra Ciders allmänna inställningar.",
   "settings.option.general.language": "Språk",
-  
-  // Language optgroups
   "settings.option.general.language.main": "Språk",
   "settings.option.general.language.fun": "Roliga språk",
   "settings.option.general.language.unsorted": "Osorterade",
-
-  // Update Cider
-  "settings.option.general.updateCider": "Uppdatera Cider", // Button
-  
-  // Settings - Audio
+  "settings.option.general.updateCider": "Uppdatera Cider",
   "settings.header.audio": "Ljud",
   "settings.header.audio.description": "Ändra Ciders ljudinställningar.",
-  "settings.option.audio.quality": "Ljudkvalitet", // Dropdown
+  "settings.option.audio.quality": "Ljudkvalitet",
   "settings.header.audio.quality.high": "Hög",
   "settings.header.audio.quality.low": "Låg",
   "settings.header.audio.quality.auto": "Automatisk",
-  "settings.option.audio.seamlessTransition": "Sömlösa ljudövergångar", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality": "Aktivera avancerade ljudfunktioner", // Toggle
+  "settings.option.audio.seamlessTransition": "Sömlösa ljudövergångar",
+  "settings.option.audio.enableAdvancedFunctionality": "Aktivera avancerade ljudfunktioner",
   "settings.option.audio.enableAdvancedFunctionality.description": "Om du aktiverar avancerade ljudfunktioner kommer funktioner som ljudnormalisering, EQ och virtualisering aktiveras, men på några system kan detta orsaka ljudproblem.",
-  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Ljudnormalisering", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Ljudnormalisering",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normaliserar höga ljudnivåer för att förbättra ljudkvaliteten.",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Spiralljud", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Spiralljud",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Gör ljudet mer 3D (Ej Dolby Atmos)",
-  
-  // Settings - Visual
   "settings.header.visual": "Visuellt",
   "settings.header.visual.description": "Ändra Ciders visuella inställningar.",
-  "settings.option.visual.windowBackgroundStyle": "Stil för bakgrunden", // Toggle
+  "settings.option.visual.windowBackgroundStyle": "Stil för bakgrunden",
   "settings.header.visual.windowBackgroundStyle.none": "Ingen",
   "settings.header.visual.windowBackgroundStyle.artwork": "Från omslagsbilden",
   "settings.header.visual.windowBackgroundStyle.image": "Bild",
-  "settings.option.visual.animatedArtwork": "Animerad omslagsbild", // Dropdown
+  "settings.option.visual.animatedArtwork": "Animerad omslagsbild",
   "settings.header.visual.animatedArtwork.always": "Alltid",
   "settings.header.visual.animatedArtwork.limited": "Endast på sidor där det behövs",
   "settings.header.visual.animatedArtwork.disable": "Aldrig",
-  "settings.option.visual.animatedArtworkQuality": "Kvalitet för animerad omslagsbild", // Dropdown
+  "settings.option.visual.animatedArtworkQuality": "Kvalitet för animerad omslagsbild",
   "settings.header.visual.animatedArtworkQuality.low": "Låg",
   "settings.header.visual.animatedArtworkQuality.medium": "Standard",
   "settings.header.visual.animatedArtworkQuality.high": "Hög",
   "settings.header.visual.animatedArtworkQuality.veryHigh": "Väldigt hög",
   "settings.header.visual.animatedArtworkQuality.extreme": "Okomprimerat",
-  "settings.option.visual.animatedWindowBackground": "Animerad fönsterbakgrund", // Toggle
-  "settings.option.visual.hardwareAcceleration": "Hårdvaruacceleration", // Dropdown
+  "settings.option.visual.animatedWindowBackground": "Animerad fönsterbakgrund",
+  "settings.option.visual.hardwareAcceleration": "Hårdvaruacceleration",
   "settings.option.visual.hardwareAcceleration.description": "kräver omstart",
   "settings.header.visual.hardwareAcceleration.default": "Standard",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
-
-  // Settings - Visual - Theme name
-  
-  // Refer to term.disabled for the disabled option
-  "settings.option.visual.showPersonalInfo": "Visa personlig information", // Toggle
-  
-  // Settings - Lyrics
+  "settings.option.visual.showPersonalInfo": "Visa personlig information",
   "settings.header.lyrics": "Låttext",
   "settings.header.lyrics.description": "Ändra Ciders låttextsinställningar.",
-  "settings.option.lyrics.enableMusixmatch": "Använd Musixmatch istället för Apple Lyrics", // Toggle
-  "settings.option.lyrics.enableMusixmatchKaraoke": "Aktivera karaokeläge (Endast Musixmatch)", // Toggle
-  "settings.option.lyrics.musixmatchPreferredLanguage": "Språk för låttextsöversättning (Endast Musixmatch)", // Dropdown
-  "settings.option.lyrics.enableYoutubeLyrics": "Använd YouTube Lyrcis för videor", // Toggle
-  
-  // Settings - Connectivity
+  "settings.option.lyrics.enableMusixmatch": "Använd Musixmatch istället för Apple Lyrics",
+  "settings.option.lyrics.enableMusixmatchKaraoke": "Aktivera karaokeläge (Endast Musixmatch)",
+  "settings.option.lyrics.musixmatchPreferredLanguage": "Språk för låttextsöversättning (Endast Musixmatch)",
+  "settings.option.lyrics.enableYoutubeLyrics": "Använd YouTube Lyrcis för videor",
   "settings.header.connectivity": "Anslutning",
   "settings.header.connectivity.description": "Ändra Ciders anslutningsinställningar.",
-  "settings.option.connectivity.discordRPC": "Discord integration (discordRPC)", // Dropdown
-  "settings.option.connectivity.playbackNotifications": "Uppspelningsnotiser", // Toggle
-  // Refer to term.disabled for the disabled option
+  "settings.option.connectivity.discordRPC": "Discord integration (discordRPC)",
+  "settings.option.connectivity.playbackNotifications": "Uppspelningsnotiser",
   "settings.header.connectivity.discordRPC.cider": "På, visa som 'Cider'",
   "settings.header.connectivity.discordRPC.appleMusic": "På, visa som 'Apple Music'",
-  "settings.option.connectivity.discordRPC.clearOnPause": "Rensa Discord notiser från Cider när du pausar", // Toggle
-  "settings.option.connectivity.lastfmScrobble": "Last.fm integration", // Option to Connect
+  "settings.option.connectivity.discordRPC.clearOnPause": "Rensa Discord notiser från Cider när du pausar",
+  "settings.option.connectivity.lastfmScrobble": "Last.fm integration",
   "settings.option.connectivity.lastfmScrobble.delay": "Last.fm fördröjning i %",
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "Visa vad som spelas nu i Last.fm",
   "settings.option.connectivity.lastfmScrobble.removeFeatured": "Visa inte extraartister i Last.fm",
   "settings.option.connectivity.lastfmScrobble.filterLoop": "Filtrera bort loopade låtar i Last.fm",
-  // Refer to term.connect for the connect button
-  
-  // Settings - Experimental
   "settings.header.experimental": "Experimentellt",
   "settings.header.experimental.description": "Ändra Ciders experimentella inställningar.",
-  "settings.option.experimental.compactUI": "Kompakt gränssnitt", // Toggle
+  "settings.option.experimental.compactUI": "Kompakt gränssnitt",
   "settings.option.experimental.close_button_hide": "Stängknappen gömmer Cider istället",
-  
-  // Refer to term.disabled & term.enabled
-  // Spatialization Menu
   "spatial.notTurnedOn": "Spiralljud är av. Akrtivera det först.",
   "spatial.spatialProperties": "Spiralljudsintällningar",
   "spatial.width": "Bredd",
@@ -306,14 +262,8 @@
   "spatial.down": "Ner",
   "spatial.listener": "Lyssnare",
   "spatial.audioSource": "Ljudkälla",
-  
-  // Settings - Unfinished
   "settings.header.unfinished": "Ej tillgängligt",
-  
-  // Web Remote
   "remote.web.title": "Cider fjärrkontroll",
   "remote.web.description": "Skanna QR koden för att ansluta din telefon till Cider.",
-  
-  // About
   "about.thanks": "Stort tack till Ciders Collective Team och alla som har bidragit!"
 }

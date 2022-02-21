@@ -10,7 +10,6 @@ import {networkInterfaces} from "os";
 import * as mm from 'music-metadata';
 import fetch from 'electron-fetch'
 import {wsapi} from "./wsapi";
-import {jsonc} from "jsonc";
 import {AppImageUpdater, NsisUpdater} from "electron-updater";
 import {utils} from './utils';
 const AdmZip = require("adm-zip");
@@ -488,15 +487,15 @@ export class BrowserWindow {
         });
 
         ipcMain.on("get-i18n-listing", event => {
-            let i18nFiles = readdirSync(join(__dirname, "../../src/i18n")).filter(file => file.endsWith(".jsonc"));
+            let i18nFiles = readdirSync(join(__dirname, "../../src/i18n")).filter(file => file.endsWith(".json"));
             // read all the files and parse them
             let i18nListing = []
             for (let i = 0; i < i18nFiles.length; i++) {
-                const i18n: { [index: string]: Object } = jsonc.parse(readFileSync(join(__dirname, `../../src/i18n/${i18nFiles[i]}`), "utf8"));
+                const i18n: { [index: string]: Object } = JSON.parse(readFileSync(join(__dirname, `../../src/i18n/${i18nFiles[i]}`), "utf8"));
                 i18nListing.push({
-                    "code": i18nFiles[i].replace(".jsonc", ""),
-                    "nameNative": i18n["i18n.languageName"] ?? i18nFiles[i].replace(".jsonc", ""),
-                    "nameEnglish": i18n["i18n.languageNameEnglish"] ?? i18nFiles[i].replace(".jsonc", ""),
+                    "code": i18nFiles[i].replace(".json", ""),
+                    "nameNative": i18n["i18n.languageName"] ?? i18nFiles[i].replace(".json", ""),
+                    "nameEnglish": i18n["i18n.languageNameEnglish"] ?? i18nFiles[i].replace(".json", ""),
                     "category": i18n["i18n.category"] ?? "",
                     "authors": i18n["i18n.authors"] ?? ""
                 })

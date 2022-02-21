@@ -1,26 +1,15 @@
 {
-  
-  // i18n Info
-  "i18n.languageName": "Engwish (OwO)", // name of language in native language
-  "i18n.languageNameEnglish": "Engwish (OwO)", // name of language in English
-  "i18n.category": "fun", // main = real language, fun = fun community languages
-  "i18n.authors": "@deerwithacurl @gamingliamstudios", // Authors, if you contribute to this file feel free to add your name seperated with a space
-
-  // App info
+  "i18n.languageName": "Engwish (OwO)",
+  "i18n.languageNameEnglish": "Engwish (OwO)",
+  "i18n.category": "fun",
+  "i18n.authors": "@deerwithacurl @gamingliamstudios",
   "app.name": "Cidew",
-
   "date.format": "${m} ${d}, ${y}",
-
-  // Dialogs
   "dialog.cancel": "Nu",
   "dialog.ok": "Oki",
-  
-  // Notification
   "notification.updatingLibrarySongs": "Updating wibwawy songs...",
   "notification.updatingLibraryAlbums": "Updating wibwawy awbums...",
   "notification.updatingLibraryArtists": "Updating wibwawy awtists...",
-  
-  // Terms
   "term.appleInc": "Appwe Inc.",
   "term.appleMusic": "Appwe Mewsic",
   "term.applePodcasts": "Appwe Pawdcasts",
@@ -122,19 +111,19 @@
   "term.contributors": "Contwibutows",
   "term.equalizer": "Equawizew",
   "term.reset": "Weset",
-  "term.tracks": "twacks", // Assume x amount of tracks. e.g. 50 tracks 
+  "term.tracks": "twacks",
   "term.videos": "Videowos",
   "term.menu": "Menuwu",
   "term.check": "Check",
-  "term.aboutArtist": "About {{artistName}}", // e.g. 'About Doja Cat'
-  "term.topResult": "Top Wesuwt", // Search Results
-  "term.sharedPlaylists": "Shawed Pwaywists", // Search Results
-  "term.people": "Peopwe", // Search Results
-  "term.newpreset.name": "New EQ Pweset Name", // Equalizer Preset
+  "term.aboutArtist": "About {{artistName}}",
+  "term.topResult": "Top Wesuwt",
+  "term.sharedPlaylists": "Shawed Pwaywists",
+  "term.people": "Peopwe",
+  "term.newpreset.name": "New EQ Pweset Name",
   "term.addedpreset": "Added Pweset",
   "term.deletepreset.warn": "Awe chu suwe chu want to dewete dis pweset?",
   "term.deletedpreset": "Wemoved pweset",
-  "term.musicVideos": "Music Videowos", // Search page friendlyTypes
+  "term.musicVideos": "Music Videowos",
   "term.stations": "Stations",
   "term.curators": "Cuwatows",
   "term.appleCurators": "Appwe Cuwatows",
@@ -142,8 +131,6 @@
   "term.recordLabels": "Wecowd Wabews",
   "term.videoExtras": "Videowo Extwas",
   "term.top": "Top",
-  
-  // Home
   "home.title": "Home",
   "home.recentlyPlayed": "Wecentwy Pwayed",
   "home.recentlyAdded": "Wecentwy Added",
@@ -152,14 +139,10 @@
   "home.madeForYou": "Made Fow Chu",
   "home.friendsListeningTo": "Fwiends Wistening To",
   "home.followedArtists": "Fowwowed Awtists",
-  
-  // Errors
   "error.appleMusicSubRequired": "Appwe Music wequiwes a subscwiption.",
   "error.connectionError": "Thewe was a pwobwem connecting to Appwe Mewsic.",
   "error.noResults": "No Wesuwts.",
   "error.noResults.description": "Twy a new seawch.",
-  
-  // Podcasts
   "podcast.followOnCider": "Fowwow On Cidew",
   "podcast.followedOnCider": "Fowwowing On Cidew",
   "podcast.subscribeOnItunes": "Subscwibe On iTuwunes",
@@ -168,8 +151,6 @@
   "podcast.episodes": "Episowodes",
   "podcast.playEpisode": "Pway Episowode",
   "podcast.website": "Pawdcast Website",
-  
-  // Actions
   "action.addToLibrary": "Add to Wibwawy",
   "action.addToLibrary.success": "Added to Wibwawy",
   "action.addToLibrary.error": "Ewwow Adding to Wibwawy",
@@ -214,111 +195,86 @@
   "action.tray.quit": "Quit",
   "action.tray.show": "Show",
   "action.update": "Update",
-  "action.newpreset": "New Pweset...", // Equalizer Preset
+  "action.newpreset": "New Pweset...",
   "action.deletepreset": "Dewete Pweset",
-  
-  // Settings - General
   "settings.header.general": "Genewaw",
   "settings.header.general.description": "Adjust the genewaw settings fow Cidew.",
   "settings.option.general.language": "Wanguage",
-  
-  // Language optgroups
   "settings.option.general.language.main": "Wanguages",
   "settings.option.general.language.fun": "Fun Wanguages",
   "settings.option.general.language.unsorted": "Unsowted",
-
-  // Update Cider
-  "settings.option.general.updateCider": "Update Cidew", // Button
-  "settings.option.general.updateCider.branch": "Cidew Update Bwanch", // Dropdown
+  "settings.option.general.updateCider": "Update Cidew",
+  "settings.option.general.updateCider.branch": "Cidew Update Bwanch",
   "settings.option.general.updateCider.branch.description": "Sewect the bwanch to uwpdate Cidew to",
   "settings.option.general.updateCider.branch.main": "Stabwe",
   "settings.option.general.updateCider.branch.develop": "Devewopment",
-  
-  // Settings - Audio
   "settings.header.audio": "Audiowo",
   "settings.header.audio.description": "Adjust the audiowo settings fow Cidew.",
-  "settings.option.audio.quality": "Audiowo Quawity", // Dropdown
+  "settings.option.audio.quality": "Audiowo Quawity",
   "settings.header.audio.quality.hireslossless": "Hi-res losswess",
   "settings.header.audio.quality.hireslossless.description": "(uwp to 24-bit/192 khz)",
   "settings.header.audio.quality.lossless": "Losswess",
   "settings.header.audio.quality.lossless.description": "(uwp to 24-bit/48 khz)",
   "settings.header.audio.quality.high": "High",
-  "settings.header.audio.quality.low": "Low", // keeping as low because confusion with the word wow
+  "settings.header.audio.quality.low": "Low",
   "settings.header.audio.quality.auto": "Autowo",
-  "settings.option.audio.seamlessTransition": "Seamwess Audiowo Twansition", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality": "Enabwe Advanced Functionawity", // Toggle
+  "settings.option.audio.seamlessTransition": "Seamwess Audiowo Twansition",
+  "settings.option.audio.enableAdvancedFunctionality": "Enabwe Advanced Functionawity",
   "settings.option.audio.enableAdvancedFunctionality.description": "Enabwing AudiowoContext functionawity wiww awwow fow extended audiowo featuwes wike Audiowo Nowmawization, Equalizews and Visuawizews, howevew on some systems dis may cause stuttewing in audiowo twacks.",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cidew Adwenawine Pwocessow™️", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cidew Adwenawine Pwocessow™️",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Psychoacouwstic enhancements that makes evewything souwnd both wichew and mowe wivewy. | Designed by Maikiwi",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "CAP Stwength", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "CAP Stwength",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Changes the stwength of the pwocessing done to the auwdio. (Aggwessive may yiewd uwndesiwabwe wesuwwts)",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "Standawd",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive": "Aggwessive",
-  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Audiowo Nowmawization", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Audiowo Nowmawization",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Nowmawizes peak vowume fow individuaw twacks to cweate a moar unifowm wistening expewience.",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Audiowo Spatiawization", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Audiowo Spatiawization",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Spatiawize audiowo and make audiowo moar 3-dimensionaw (note: Dis is not Dowby Atmos)",
-  
-  // Settings - Visual
   "settings.header.visual": "Visuaw",
   "settings.header.visual.description": "Adjust the visuaw settings fow Cidew.",
-  "settings.option.visual.windowBackgroundStyle": "Window Backgwound Stywe", // Toggle
+  "settings.option.visual.windowBackgroundStyle": "Window Backgwound Stywe",
   "settings.header.visual.windowBackgroundStyle.none": "None",
   "settings.header.visual.windowBackgroundStyle.artwork": "Awtwowk",
   "settings.header.visual.windowBackgroundStyle.image": "Image",
-  "settings.option.visual.animatedArtwork": "Animated Awtwowk", // Dropdown
+  "settings.option.visual.animatedArtwork": "Animated Awtwowk",
   "settings.header.visual.animatedArtwork.always": "Awways",
   "settings.header.visual.animatedArtwork.limited": "Wimited to pages and speciaw entwies",
   "settings.header.visual.animatedArtwork.disable": "Disabwe evewywhewe",
-  "settings.option.visual.animatedArtworkQuality": "Animated Awtwowk Quawity", // Dropdown
+  "settings.option.visual.animatedArtworkQuality": "Animated Awtwowk Quawity",
   "settings.header.visual.animatedArtworkQuality.low": "Low",
   "settings.header.visual.animatedArtworkQuality.medium": "Medium",
   "settings.header.visual.animatedArtworkQuality.high": "High",
   "settings.header.visual.animatedArtworkQuality.veryHigh": "Vewy High",
   "settings.header.visual.animatedArtworkQuality.extreme": "Extweme",
-  "settings.option.visual.animatedWindowBackground": "Animated Window Backgwound", // Toggle
-  "settings.option.visual.hardwareAcceleration": "Hawdwawe Accewewation", // Dropdown
+  "settings.option.visual.animatedWindowBackground": "Animated Window Backgwound",
+  "settings.option.visual.hardwareAcceleration": "Hawdwawe Accewewation",
   "settings.option.visual.hardwareAcceleration.description": "Wequiwes wewaunch",
   "settings.header.visual.hardwareAcceleration.default": "Defauwt",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
-
-  // Settings - Visual - Theme name
-  
-  // Refer to term.disabled for the disabled option
-  "settings.option.visual.showPersonalInfo": "Show Pewsonaw Info", // Toggle
-  
-  // Settings - Lyrics
+  "settings.option.visual.showPersonalInfo": "Show Pewsonaw Info",
   "settings.header.lyrics": "Wywics",
   "settings.header.lyrics.description": "Adjust the wywics settings fow Cidew.",
-  "settings.option.lyrics.enableMusixmatch": "Enabwe Musixmatch Wywics", // Toggle
-  "settings.option.lyrics.enableMusixmatchKaraoke": "Enabwe Kawaoke Mode (Musixmatch onwy)", // Toggle
-  "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch Twanswation Pwefewwed Wanguage", // Dropdown
-  "settings.option.lyrics.enableYoutubeLyrics": "Enabwe YouTube Wywics fow Mewsic Videowos", // Toggle
-  
-  // Settings - Connectivity
+  "settings.option.lyrics.enableMusixmatch": "Enabwe Musixmatch Wywics",
+  "settings.option.lyrics.enableMusixmatchKaraoke": "Enabwe Kawaoke Mode (Musixmatch onwy)",
+  "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch Twanswation Pwefewwed Wanguage",
+  "settings.option.lyrics.enableYoutubeLyrics": "Enabwe YouTube Wywics fow Mewsic Videowos",
   "settings.header.connectivity": "Connectivity",
   "settings.header.connectivity.description": "Adjust the connectivity settings fow Cidew.",
-  "settings.option.connectivity.discordRPC": "Discowd Wich Pwesence", // Dropdown
-  "settings.option.connectivity.playbackNotifications": "Pwayback Notifications", // Toggle
-  // Refer to term.disabled for the disabled option
+  "settings.option.connectivity.discordRPC": "Discowd Wich Pwesence",
+  "settings.option.connectivity.playbackNotifications": "Pwayback Notifications",
   "settings.header.connectivity.discordRPC.cider": "Disway as 'Cider'",
   "settings.header.connectivity.discordRPC.appleMusic": "Dispway as 'Apple Music'",
-  "settings.option.connectivity.discordRPC.clearOnPause": "Cweaw Discowd Wich Pwesence on Paws", // Toggle
-  "settings.option.connectivity.lastfmScrobble": "Wast.fm Scwobbwing", // Option to Connect
+  "settings.option.connectivity.discordRPC.clearOnPause": "Cweaw Discowd Wich Pwesence on Paws",
+  "settings.option.connectivity.lastfmScrobble": "Wast.fm Scwobbwing",
   "settings.option.connectivity.lastfmScrobble.delay": "Wast.fm Scwobble Deway (%)",
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "Enabwe Wast.fm Nao Pwaying",
   "settings.option.connectivity.lastfmScrobble.removeFeatured": "Wemove featuwing awtists fwom song titwe (Wast.fm)",
   "settings.option.connectivity.lastfmScrobble.filterLoop": "Fiwtew wooped twack (Wast.fm)",
-  // Refer to term.connect for the connect button
-  
-  // Settings - Experimental
   "settings.header.experimental": "Expewimentaw",
   "settings.header.experimental.description": "Adjust the expewimentaw settings fow Cidew.",
-  "settings.option.experimental.compactUI": "Wittwe UI", // Toggle
+  "settings.option.experimental.compactUI": "Wittwe UI",
   "settings.option.experimental.close_button_hide": "Cwose Button Shouwd Hide the Appwication",
-  
-  // Refer to term.disabled & term.enabled
-  // Spatialization Menu
   "spatial.notTurnedOn": "Audiowo Spatiawization is disabwed. To use, pwease enabwe it fiwst.",
   "spatial.spatialProperties": "Spatiaw Pwopewties",
   "spatial.width": "Width",
@@ -338,14 +294,8 @@
   "spatial.down": "Down",
   "spatial.listener": "Wistenew",
   "spatial.audioSource": "Audiowo Souwce",
-  
-  // Settings - Unfinished
   "settings.header.unfinished": "Unfinished",
-  
-  // Web Remote
   "remote.web.title": "Cidew Wiimote",
   "remote.web.description": "Scan da QR code to paiw chur phone up with dis Cidew instance",
-  
-  // About
   "about.thanks": "Majow tanks to da Cidew Cowwective Team and aww of ouw contwibutows."
 }
