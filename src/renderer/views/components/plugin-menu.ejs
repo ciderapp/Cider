@@ -7,9 +7,13 @@
                   <button class="close-btn" @click="app.resetState()"></button>
               </div>
               <div class="modal-content">
+                <span class="playlist-item" v-if="!app.pluginInstalled">
+                    <span class="icon"><%- include("../svg/x.svg") %></span>
+                    <span class="name" style="top: 0.5px;">{{$root.getLz('term.pluginMenu.none')}}</span>
+                </span>
                 <button class="playlist-item" @click="entry.onClick(); closeMenu();" v-for="entry in app.pluginMenuEntries">
                   <span class="icon"><%- include("../svg/grid.svg") %></span>
-                  <span class="name" style="top: 1px;">{{ entry.name }}</span>
+                  <span class="name" style="top: 0.5px;">{{ entry.name }}</span>
                 </button>
               </div>
           </div>
