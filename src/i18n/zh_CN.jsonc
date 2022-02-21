@@ -1,16 +1,16 @@
-{
-  
+//About
+
   // i18n Info
   "i18n.languageName": "简体中文（中国）", // name of language in native language
-  "i18n.languageNameEnglish": "Simp. Chinese (China)", // name of language in English
+  "i18n.languageNameEnglish": "Simp.
   "i18n.category": "main", // main = real language, fun = fun community languages
   "i18n.authors": "@maikirakiwi @BillKerman", // Authors, if you contribute to this file feel free to add your name seperated with a space
-
+  
   // App info
   "app.name": "Cider",
-
+  
   "date.format": "${y}年${m}月${d}日",
-
+  
   // Dialogs
   "dialog.cancel": "取消",
   "dialog.ok": "确定",
@@ -72,6 +72,7 @@
   "term.sortBy.genre": "类型",
   "term.sortBy.releaseDate": "发行日期",
   "term.sortBy.duration": "时长",
+  "term.time.added": "添加于",
   "term.sortOrder": "字母排序",
   "term.sortOrder.ascending": "升序",
   "term.sortOrder.descending": "倒序",
@@ -96,9 +97,9 @@
   "term.showLess": "显示更少",
   "term.topSongs": "热门歌曲",
   "term.latestReleases": "最新发行",
-  "term.time.added": "添加于",
-  "term.time.released": "发行于",
   "term.time.updated": "更新于",
+  "term.time.released": "发行于",
+  "action.update": "更新",
   "term.time.hours": "小时",
   "term.time.hour": "小时",
   "term.time.minutes": "分钟",
@@ -108,9 +109,9 @@
   "term.fullscreenView": "全屏",
   "term.defaultView": "默认",
   "term.audioSettings": "音频设置",
-  "term.spacializedAudioSetting": "音频空间化设置",
+  "term.equalizer": "均衡器",
   "term.clearAll": "清空",
-  "term.recentStations": "最近播放的频道",
+  "term.stations": "电台",
   "term.language": "语言",
   "term.funLanguages": "恶搞",
   "term.noLyrics": "加载中... / 无搜索结果 / 纯音乐",
@@ -122,14 +123,18 @@
   "term.socialTeam": "媒体团队",
   "term.socials": "媒体",
   "term.contributors": "贡献者",
-  "term.equalizer": "均衡器",
+  //"term.curators": "Curators",
   "term.reset": "重置",
-  "term.tracks": "首歌曲", // Assume x amount of tracks. e.g. 50 tracks 
+  // Example for multiple plural forms : look up the key for your language in https://github.com/prantlf/fast-plural-rules/blob/master/docs/languages.md#supported-languages
+  //"term.top": "Top",
+  "term.tracks": "首歌曲", // Assume x amount of tracks.
+  //   "other" : "tracks"
+  {
+  "term.tracks": "tracks", // Assume x amount of tracks. e.g. 50 tracks 
   "term.videos": "视频",
   "term.menu": "菜单",
   "term.check": "检查",
   "term.aboutArtist": "关于{{artistName}}", // e.g. 'About Doja Cat'
-  "term.updateCider": "更新 Cider",
   "term.topResult": "热门搜索结果", // Search Results
   "term.sharedPlaylists": "分享播放列表", // Search Results
   "term.people": "个人档案", // Search Results
@@ -142,42 +147,54 @@
   "term.requestError": "请求出现一个问题。",
   "term.song.link.generate": "获取 song.link 共享链接...",
   "term.musicVideos": "音乐视频", // Search page friendlyTypes
-  "term.stations": "电台",
-  //"term.curators": "Curators",
+  "term.recentStations": "最近播放的频道",
   //"term.appleCurators": "Apple Curators",
+  "podcast.followedOnCider": "已关注",
   "term.radioShows": "广播单集",
   "term.recordLabels": "唱片公司",
   "term.videoExtras": "视频特辑",
-  //"term.top": "Top",
+  "spatial.up": "上",
   "term.version": "版本",
-
-
+  "error.noResults": "没有结果",
+  "term.updateCider": "更新 Cider",
+  "term.pluginMenu": "Plug-in Menu",
+  "settings.header.connectivity.discordRPC.appleMusic": "显示正在使用 'Apple Music'",
+  "action.goToAlbum": "前往专辑",
+  "action.goToArtist": "前往艺人",
+  "action.share": "分享歌曲",
+  "home.followedArtists": "关注的艺人",
+  "spatial.listener": "您",
+  "home.title": "主页",
+  "action.showAlbum": "显示专辑",
+  "action.playNext": "插播",
+  "settings.option.general.language.unsorted": "未分类",
+  "term.confirmLogout" : "Are you sure you want to logout?",
   
   // Home
-  "home.title": "主页",
+  "home.madeForYou": "专属推荐",
   "home.recentlyPlayed": "最近播放",
   "home.recentlyAdded": "最近添加",
   "home.artistsFeed": "艺人推荐",
   "home.artistsFeed.noArtist": "关注您喜爱的艺人后便可查看他们的最新发行歌曲。",
-  "home.madeForYou": "专属推荐",
   "home.friendsListeningTo": "朋友正在听",
-  "home.followedArtists": "关注的艺人",
+  "spatial.audioSource": "音源",
+  "action.follow": "关注",
   
   // Errors
   "error.appleMusicSubRequired": "需要订阅 Apple Music 以使用 Cider",
   "error.connectionError": "无法连接到 Apple Music。",
-  "error.noResults": "没有结果",
   "error.noResults.description": "尝试更改搜索条件。",
+  "action.follow.error": "尝试关注的过程发生了错误",
   
   // Podcasts
   "podcast.followOnCider": "在 Cider 中关注",
-  "podcast.followedOnCider": "已关注",
-  "podcast.subscribeOnItunes": "在 iTunes 上订阅",
   "podcast.subscribedOnItunes": "已订阅",
+  "podcast.subscribeOnItunes": "在 iTunes 上订阅",
   "podcast.itunesStore": "iTunes Store", // Follow brand term
+  "podcast.website": "Podcast 网站",
   "podcast.episodes": "单集",
   "podcast.playEpisode": "播放单集",
-  "podcast.website": "Podcast 网站",
+  "remote.web.title": "Cider 远程控制",
   
   // Actions
   "action.addToLibrary": "加入资料库",
@@ -195,183 +212,215 @@
   "action.addToPlaylist": "加入播放列表",
   "action.removeFromPlaylist": "从播放列表中移除",
   "action.addToFavorites": "加至收藏",
-  "action.follow": "关注",
   "action.follow.success": "已关注",
-  "action.follow.error": "尝试关注的过程发生了错误",
-  "action.unfollow": "取消关注",
   "action.unfollow.success": "已取消关注",
   "action.unfollow.error": "尝试取消关注的过程发生了错误",
-  "action.playNext": "插播",
+  "action.unfollow": "取消关注",
+  "action.tray.quit": "退出",
+  "action.unfollow.error": "Error Unfollowing",
   "action.playLater": "最后播放",
+  "spatial.back": "后",
   "action.startRadio": "开始电台",
-  "action.goToArtist": "前往艺人",
-  "action.goToAlbum": "前往专辑",
-  "action.moveToTop": "移到顶部",
-  "action.share": "分享歌曲",
-  "action.rename": "重命名",
-  "action.love": "喜欢",
   "action.unlove": "踩",
+  "action.love": "喜欢",
+  "action.moveToTop": "移到顶部",
+  "spatial.gain": "增益",
+  "action.rename": "重命名",
+  "action.tray.show": "显示",
+  "action.import": "导入",
   "action.dislike": "减少此类建议",
   "action.undoDislike": "撤销减少此类建议",
   "action.showWebRemoteQR": "显示远程控制的二维码",
   "action.playTracksNext": "插播 ${app.selectedMediaItems.length} 首歌曲",
   "action.playTracksLater": "最后播放 ${app.selectedMediaItems.length} 首歌曲",
   "action.removeTracks": "从队列中移除 ${self.selectedItems.length} 首歌曲",
-  "action.import": "导入",
   "action.export": "导出",
-  "action.showAlbum": "显示专辑",
-  "action.tray.minimize": "最小化",
-  "action.tray.quit": "退出",
-  "action.tray.show": "显示",
-  "action.update": "更新",
   "action.copy": "复制",
+  "settings.header.visual.windowBackgroundStyle.artwork": "专辑封面",
+  "action.tray.minimize": "最小化",
+  "spatial.down": "下",
+  "settings.header.visual": "外观",
+  "settings.option.general.updateCider": "更新 Cider", // Button
+  "settings.notyf.visual.theme.install.success": "主题安装成功",
+  "settings.option.experimental.copy_log": "复制日志至剪贴板",
   "action.newpreset": "新建预设...", // Equalizer Preset
   "action.deletepreset": "删除预设",
-
+  "settings.header.visual.animatedArtwork.disable": "关闭",
+  
   // Settings - General
   "settings.header.general": "通用",
   "settings.header.general.description": "调整 Cider 的通用设置",
   "settings.option.general.language": "语言",
-
-  // Language optgroups
   "settings.option.general.language.main": "语言",
+  "settings.option.visual.hardwareAcceleration.description": "需要重启 Cider 才会生效",
+  "spatial.setPositions": "设置位置",
+  "settings.option.general.updateCider.branch.main": "稳定",
+  "settings.option.visual.theme.default": "默认",
+  "settings.option.general.resumebehavior.history.description": "Cider will queue the last song from your overall Apple Music history, across devices.",
+
+  
+  // Language optgroups
   "settings.option.general.language.fun": "恶搞语言",
-  "settings.option.general.language.unsorted": "未分类",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "标准",
+  "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch 歌词语言偏好", // Dropdown
 
   // Update Cider
-  "settings.option.general.updateCider": "更新 Cider", // Button
-  "settings.option.general.updateCider.branch": "Cider 更新通道", // Dropdown
+  "settings.option.general.updateCider.branch": "Cider 更新通道", // Dropdown Refer to term.check for the check button
   "settings.option.general.updateCider.branch.description": "选择接受 Cider 更新的通道",
-  "settings.option.general.updateCider.branch.main": "稳定",
   "settings.option.general.updateCider.branch.develop": "测试",
-  
+  "settings.header.audio": "音频",
+  "settings.option.audio.enableAdvancedFunctionality": "进阶功能", // Toggle
   
   // Settings - Audio
-  "settings.header.audio": "音频",
+  "settings.header.audio.quality.high": "高音质",
   "settings.header.audio.description": "调整 Cider 的音频设置",
   "settings.option.audio.quality": "音质", // Dropdown
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "音量标准化", // Toggle
+  "settings.header.audio.quality.lossless": "无损",
   "settings.header.audio.quality.hireslossless": "高解析度无损",
   "settings.header.audio.quality.hireslossless.description": "(最高 24 位/192 kHz)",
-  "settings.header.audio.quality.lossless": "无损",
-  "settings.header.audio.quality.lossless.description": "(最高 24 位/48 kHz)",
-  "settings.header.audio.quality.enhanced": "数字增强",
-  "settings.header.audio.quality.high": "高音质",
-  "settings.header.audio.quality.standard": "高效率",
   "settings.header.audio.quality.auto": "自动",
-  "settings.option.audio.seamlessTransition": "无缝播放", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality": "进阶功能", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.description": "启用 AudioContext 将解锁例如音量标准化和音频空间化的功能，但可能会在小部分设备上出现音频上的卡顿。",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider 数字增强引擎™️", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "将欺骗您的大脑来感知到近似无损音频的效果。",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "数字增强引擎强度", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "改变音频处理的强度。(激进选项可能产生杂音)",
-  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "音量标准化", // Toggle
+  "settings.header.audio.quality.lossless.description": "(最高 24 位/48 kHz)",
+  "settings.header.audio.quality.standard": "高效率",
+  "settings.header.audio.quality.enhanced": "数字增强",
+  "settings.header.visual.hardwareAcceleration.default": "默认",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "使所感知到的音频响度统一",
+  "settings.option.audio.seamlessTransition": "无缝播放", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "音频空间化", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "使所感知到的音频更有立体感 (注: 这不是杜比全景声)",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "标准",
+  "settings.option.audio.enableAdvancedFunctionality.description": "启用 AudioContext 将解锁例如音量标准化和音频空间化的功能，但可能会在小部分设备上出现音频上的卡顿。",
+  "term.spacializedAudioSetting": "音频空间化设置",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "改变音频处理的强度。(激进选项可能产生杂音)",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive": "激进",
-  "settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility": "空间音频与数字增强引擎不兼容，请先停用数字增强引擎",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider 数字增强引擎™️", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.analogWarmth.description": "Simulates the analog warmth modelled after the Korg Nutube 6P1",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "数字增强引擎强度", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.description": "Changes the intensity of the Analog Warmth Module processing.",
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "使所感知到的音频更有立体感 (注: 这不是杜比全景声)",
+  "settings.header.experimental": "实验性功能",
+  "settings.option.visual.hardwareAcceleration": "硬件加速", // Dropdown
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "将欺骗您的大脑来感知到近似无损音频的效果。",
+  "settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility": "空间音频与数字增强引擎不兼容，请先停用数字增强引擎", Please disable Spatialization to continue.",
+  "settings.option.connectivity.playbackNotifications": "歌曲播放通知", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Changes the strength of the processing done to the audio. (Aggressive may yield undesirable results)",
+  "settings.header.visual.animatedArtworkQuality.high": "高",
+  "settings.header.visual.animatedArtworkQuality.extreme": "极高",
+  "settings.option.lyrics.enableMusixmatch": "启用 Musixmatch 歌词", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizes peak volume for individual tracks to create a more uniform listening experience.",
+  "spatial.notTurnedOn": "请在设定中开启空间音频。",
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Spatialize audio and make audio more 3-dimensional (note: This is not Dolby Atmos)",
+  "spatial.setDimensions": "设置尺寸",
+  "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.description": "Pre-tuned Spatializing Effect, disables the customizable settings of Audio Spatialization. Spatialization must be enabled as a prerequisite.",
+  "settings.option.visual.showPersonalInfo": "显示个人资料", // Toggle
+  "settings.header.visual.description": "调整 Cider 的外观", (Requires App Restart)",
+  "settings.header.visual.animatedArtworkQuality.medium": "中",
+  "settings.option.connectivity.lastfmScrobble.nowPlaying": "启用 LastFM 正在播放",
+  "settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility": "Spatialization is not compatible with CAP. Please disable CAP to continue.",
   
-    
   // Settings - Visual
-  "settings.header.visual": "外观",
-  "settings.header.visual.description": "调整 Cider 的外观",
+  "settings.header.visual.theme": "主题",
+  "settings.header.experimental.description": "调整 Cider 的实验性功能",
   "settings.option.visual.windowBackgroundStyle": "窗口背景样式", // Toggle
   "settings.header.visual.windowBackgroundStyle.none": "无",
-  "settings.header.visual.windowBackgroundStyle.artwork": "专辑封面",
-    "settings.header.visual.windowBackgroundStyle.image": "图像",
+  "settings.header.visual.windowBackgroundStyle.image": "图像",
+  "settings.option.visual.animatedWindowBackground": "动态窗口背景", // Toggle
   "settings.option.visual.animatedArtwork": "动态专辑封面", // Dropdown
   "settings.header.visual.animatedArtwork.always": "总是显示",
   "settings.header.visual.animatedArtwork.limited": "只在艺人页面和专辑封面显示",
-  "settings.header.visual.animatedArtwork.disable": "关闭",
-  "settings.option.visual.animatedArtworkQuality": "动态专辑封面画质", // Dropdown
   "settings.header.visual.animatedArtworkQuality.low": "低",
-  "settings.header.visual.animatedArtworkQuality.medium": "中",
-  "settings.header.visual.animatedArtworkQuality.high": "高",
+  "settings.option.visual.animatedArtworkQuality": "动态专辑封面画质", // Dropdown
   "settings.header.visual.animatedArtworkQuality.veryHigh": "非常高",
-  "settings.header.visual.animatedArtworkQuality.extreme": "极高",
-  "settings.option.visual.animatedWindowBackground": "动态窗口背景", // Toggle
-  "settings.option.visual.hardwareAcceleration": "硬件加速", // Dropdown
-  "settings.option.visual.hardwareAcceleration.description": "需要重启 Cider 才会生效",
-  "settings.header.visual.hardwareAcceleration.default": "默认",
+  "settings.header.unfinished": "未完成",
+  "spatial.height": "高度",
+  "settings.option.visual.theme.dark": "午夜黑",
+  "settings.header.lyrics": "歌词",
+  "settings.option.experimental.compactUI": "紧凑型 UI", // Toggle
+  "settings.option.connectivity.discordRPC": "Discord 动态", // Dropdown
+  "settings.option.visual.hardwareAcceleration.description": "Requires relaunch",
+  "settings.header.connectivity": "外部连接",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
-  "settings.header.visual.theme": "主题",
-  "settings.option.visual.theme.github.download": "通过GitHub URL安装",
   "settings.option.visual.theme.github.explore": "浏览 GitHub 上的主题",
+  "settings.option.visual.theme.github.download": "通过GitHub URL安装",
   "settings.option.visual.theme.github.install.confirm": "确定要安装 {{ repo }}?",
   "settings.prompt.visual.theme.github.URL": "请输入欲安装主题的URL",
-  "settings.notyf.visual.theme.install.success": "主题安装成功",
   "settings.notyf.visual.theme.install.error": "主题安装失败",
-
+  "settings.prompt.visual.theme.github.URL": "Enter the URL of the theme you want to install",
+  "settings.notyf.visual.theme.install.success": "Theme installed successfully",
+  "settings.notyf.visual.theme.install.error": "Theme installation failed",
+  
   // Settings - Visual - Theme name
-  "settings.option.visual.theme.default": "默认",
-  "settings.option.visual.theme.dark": "午夜黑",
-
+  "settings.header.lyrics.description": "调整 Cider 的歌词设置",
+  "settings.option.visual.theme.dark": "Dark",
+  
   // Refer to term.disabled for the disabled option
-  "settings.option.visual.showPersonalInfo": "显示个人资料", // Toggle
+  "settings.option.visual.showPersonalInfo": "Show Personal Info", // Toggle
   
   // Settings - Lyrics
-  "settings.header.lyrics": "歌词",
-  "settings.header.lyrics.description": "调整 Cider 的歌词设置",
-  "settings.option.lyrics.enableMusixmatch": "启用 Musixmatch 歌词", // Toggle
-  "settings.option.lyrics.enableMusixmatchKaraoke": "启用卡拉 OK 模式（仅 Musixmatch）", // Toggle
-  "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch 歌词语言偏好", // Dropdown
   "settings.option.lyrics.enableYoutubeLyrics": "播放 MV 时使用 YouTube 歌词", // Toggle
+  "settings.header.connectivity.description": "调整Cider与外部应用的交互设置",
+  "settings.option.lyrics.enableMusixmatchKaraoke": "启用卡拉 OK 模式（仅 Musixmatch）", // Toggle
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "从歌名里去除合作者 (LastFM)",
+  "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch Translation Preferred Language", // Dropdown
+  //"settings.option.experimental.inline_playlists": "Inline Playlists and Albums",
   
   // Settings - Connectivity
-  "settings.header.connectivity": "外部连接",
-  "settings.header.connectivity.description": "调整Cider与外部应用的交互设置",
-  "settings.option.connectivity.discordRPC": "Discord 动态", // Dropdown
-  "settings.option.connectivity.playbackNotifications": "歌曲播放通知", // Toggle
-  // Refer to term.disabled for the disabled option
   "settings.header.connectivity.discordRPC.cider": "显示正在使用 'Cider'",
-  "settings.header.connectivity.discordRPC.appleMusic": "显示正在使用 'Apple Music'",
-  "settings.option.connectivity.discordRPC.clearOnPause": "暂停时清除 Discord 动态", // Toggle
   "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling 记录", // Option to Connect
+  "settings.option.connectivity.discordRPC.clearOnPause": "暂停时清除 Discord 动态", // Toggle
   "settings.option.connectivity.lastfmScrobble.delay": "LastFM Scrobble 延迟 (%)",
-  "settings.option.connectivity.lastfmScrobble.nowPlaying": "启用 LastFM 正在播放",
-  "settings.option.connectivity.lastfmScrobble.removeFeatured": "从歌名里去除合作者 (LastFM)",
-  "settings.option.connectivity.lastfmScrobble.filterLoop": "不记录单曲循环 (LastFM)", 
+  // Refer to term.disabled for the disabled option
+  "settings.header.connectivity.discordRPC.cider": "Display as 'Cider'",
+  "settings.option.connectivity.lastfmScrobble.filterLoop": "不记录单曲循环 (LastFM)",
+  "settings.option.connectivity.discordRPC.clearOnPause": "Clear Discord Rich Presence on Pause", // Toggle
+  "settings.option.connectivity.lastfmScrobble": "Last.fm Scrobbling", // Option to Connect
+  "settings.option.connectivity.lastfmScrobble.delay": "Last.fm Scrobble Delay (%)",
+  "settings.option.connectivity.lastfmScrobble.nowPlaying": "Enable Last.fm Now Playing",
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "Remove featuring artists from song title (Last.fm)",
+  "settings.option.connectivity.lastfmScrobble.filterLoop": "Filter looped track (Last.fm)",
   // Refer to term.connect for the connect button
-  
+
+  // Settings - Debug
+  "settings.header.debug": "Debug",
+  "settings.option.debug.copy_log": "Copy logs to clipboard",
+  "settings.option.debug.openAppData": "Open Cider Folder",
+
   // Settings - Experimental
-  "settings.header.experimental": "实验性功能",
-  "settings.header.experimental.description": "调整 Cider 的实验性功能",
-  "settings.option.experimental.compactUI": "紧凑型 UI", // Toggle
+  "settings.header.experimental": "Experimental",
+  "settings.header.experimental.description": "Adjust the experimental settings for Cider.",
+  "settings.option.experimental.unknownPlugin": "Unknown Sources",
+  "settings.option.experimental.unknownPlugin.description": "Allow installion of plugins from repos other than the Cider Plugin Repository",
   "settings.option.experimental.close_button_hide": "点击关闭按钮时仅隐藏窗口",
-  "settings.option.experimental.copy_log": "复制日志至剪贴板",
-  //"settings.option.experimental.inline_playlists": "Inline Playlists and Albums",
+  "settings.option.experimental.close_button_hide": "Close Button Should Hide the Application",
+  "settings.option.experimental.inline_playlists": "Inline Playlists and Albums",
   
   // Refer to term.disabled & term.enabled
   // Spatialization Menu
-  "spatial.notTurnedOn": "请在设定中开启空间音频。",
+  "spatial.notTurnedOn": "Audio Spatialization is disabled. To use, please enable it first.",
   "spatial.spatialProperties": "空间属性",
   "spatial.width": "宽度",
-  "spatial.height": "高度",
-  "spatial.depth": "深度",
-  "spatial.gain": "增益",
-  "spatial.roomMaterials": "空间材质",
   "spatial.roomDimensions": "空间尺寸",
-  "spatial.roomPositions": "空间位置",
-  "spatial.setDimensions": "设置尺寸",
-  "spatial.setPositions": "设置位置",
-  "spatial.up": "上",
+  "spatial.depth": "深度",
   "spatial.front": "前",
+  "spatial.roomMaterials": "空间材质",
+  "spatial.roomPositions": "空间位置",
   "spatial.left": "左",
+  "spatial.setDimensions": "Set Dimensions",
   "spatial.right": "右",
-  "spatial.back": "后",
-  "spatial.down": "下",
-  "spatial.listener": "您",
-  "spatial.audioSource": "音源",
-  
+  "spatial.up": "Up",
+  "spatial.front": "Front",
+  "spatial.left": "Left",
+  "spatial.right": "Right",
+  "spatial.back": "Back",
+  "spatial.down": "Down",
+  "spatial.listener": "Listener",
+  "spatial.audioSource": "Audio Source",
+
   // Settings - Unfinished
-  "settings.header.unfinished": "未完成",
-  
+  "settings.header.unfinished": "Unfinished",
+
   // Web Remote
-  "remote.web.title": "Cider 远程控制",
   "remote.web.description": "扫描以下的二维码以控制 Cider",
-  
-  //About
+  "remote.web.description": "Scan the QR code to pair your phone up with this Cider instance",
+
+  // About
   "about.thanks": "郑重感谢 Cider Collective 以及为这个项目提供支持的贡献者。"
 }
