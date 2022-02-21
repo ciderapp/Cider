@@ -1,0 +1,311 @@
+{ // Base File
+
+  // i18n Info
+  "i18n.languageName": "Русский (RU)",        // name of language in native language
+  "i18n.languageNameEnglish": "Russian (RU)", // name of language in English
+  "i18n.category": "main", // main = real language, fun = fun community languages
+  "i18n.authors": "@sngvy", // Authors, if you contribute to this file feel free to add your name seperated with a space
+
+  // App info
+  "app.name": "Cider",
+
+  "date.format": "${m} ${d}, ${y}",
+  
+  // Dialogs
+  "dialog.cancel": "Отмена",
+  "dialog.ok": "OK",
+
+  // Notification
+  "notification.updatingLibrarySongs": "Обновление библиотеки музыки...",
+  "notification.updatingLibraryAlbums": "Обновление библиотеки альбомов...",
+  "notification.updatingLibraryArtists": "Обновление библиотеки артистов...",
+  // Terms
+  "term.appleInc": "Apple Inc.",
+  "term.appleMusic": "Apple Music",
+  "term.applePodcasts": "Apple Подкасты",
+  "term.itunes": "iTunes",
+  "term.github": "GitHub",
+  "term.discord": "Discord",
+  "term.learnMore": "Узнать больше",
+  "term.accountSettings": "Настройки профиля",
+  "term.logout": "Выход",
+  "term.login": "Вход",
+  "term.about": "О программе",
+  "term.privateSession": "Приватная сессия",
+  "term.queue": "Очередь",
+  "term.search": "Поиск",
+  "term.library": "Библиотека",
+  "term.listenNow": "Слушать сейчас",
+  "term.browse": "Просмотр",
+  "term.radio": "Радио",
+  "term.recentlyAdded": "Недавно добавленные",
+  "term.songs": "Песни",
+  "term.albums": "Альбомы",
+  "term.artists": "Артисты",
+  "term.podcasts": "Подкасты",
+  "term.playlists": "Плейлисты",
+  "term.playlist": "Плейлист",
+  "term.newPlaylist": "Новый плейлист",
+  "term.newPlaylistFolder": "Новая папка плейлиста",
+  "term.createNewPlaylist": "Создать новый плейлист",
+  "term.createNewPlaylistFolder": "Создать новую папку плейлиста",
+  "term.deletePlaylist": "Вы уверены, что хотите удалить этот плейлист?",
+  "term.play": "Играть",
+  "term.pause": "Пауза",
+  "term.previous": "Предыдущий",
+  "term.next": "Следующий",
+  "term.shuffle": "Перемешать",
+  "term.repeat": "Повтор",
+  "term.volume": "Громкость",
+  "term.mute": "Заглушить",
+  "term.unmute": "Отменить заглушение",
+  "term.share": "Поделиться",
+  "term.settings": "Настройки",
+  "term.seeAll": "Посмотреть все",
+  "term.sortBy": "Порядок сортировки",
+  "term.sortBy.album": "Альбом",
+  "term.sortBy.artist": "Артист",
+  "term.sortBy.name": "Имя",
+  "term.sortBy.genre": "Жанр",
+  "term.sortBy.releaseDate": "Дата выпуска",
+  "term.sortBy.duration": "Длительность",
+  "term.sortOrder": "А-Я",
+  "term.sortOrder.ascending": "По возрастанию",
+  "term.sortOrder.descending": "По убыванию",
+  "term.viewAs": "Посмотреть как",
+  "term.viewAs.coverArt": "Обложка",
+  "term.viewAs.list": "Список",
+  "term.size": "Размер",
+  "term.size.normal": "Нормальный",
+  "term.size.compact": "Компактный",
+  "term.enable": "Включить",
+  "term.disable": "Выключить",
+  "term.enabled": "Включено",
+  "term.disabled": "Выключено",
+  "term.connect": "Подключить",
+  "term.connecting": "Подключение",
+  "term.disconnect": "Отключение",
+  "term.authed": "Авторизовано",
+  "term.confirm": "Подтвердить?",
+  "term.more": "Больше",
+  "term.less": "Меньше",
+  "term.showMore": "Показать больше",
+  "term.showLess": "Показать меньше",
+  "term.topSongs" : "Лучшие песни",
+  "term.latestReleases": "Последние релизы",
+  "term.time.added": "Добавлено",
+  "term.time.released": "Выпущено", 
+  "term.time.updated": "Обновлено",
+  "term.time.hours": "часов",
+  "term.time.hour": "час",
+  "term.time.minutes": "минут",
+  "term.time.minute": "минута",
+  "term.time.seconds": "секунд",
+  "term.time.second": "секунда",
+  "term.fullscreenView": "Полноэкранный вид",
+  "term.defaultView": "Вид по умолчанию",
+  "term.audioSettings": "Настройки аудио",
+  "term.clearAll": "Очистить все",
+  "term.recentStations": "Недавние станции",
+  "term.language": "Язык",
+  "term.funLanguages": "Диалект",
+  "term.noLyrics": "Загрузка... / Слова не найдены./ Инструментал.",
+  "term.copyright": "Авторское право",
+  "term.rightsReserved": "Все права защищены.",
+  "term.sponsor": "Спонсоры этого проекта",
+  "term.ciderTeam": "Команда Cider",
+  "term.developer": "Разработчик",
+  "term.socialTeam": "Команда общественников",
+  "term.socials": "Общественники",
+  "term.contributors": "Авторы",
+  "term.equalizer": "Эквалайзер",
+  "term.reset": "Сброс",
+  "term.tracks": "песен", // Assume x amount of tracks. e.g. 50 tracks 
+  "term.videos": "Видео", 
+  "term.menu": "Меню",
+  "term.check": "Проверка",
+  "term.aboutArtist": "О {{artistName}}", // e.g. 'About Doja Cat'
+  "term.updateCider": "Обновить Cider",
+ 
+  // Home
+  "home.title": "Дом",
+  "home.recentlyPlayed": "Недавно прослушано",
+  "home.recentlyAdded": "Недавно добавлено",
+  "home.artistsFeed": "Твоя лента артистов",
+  "home.artistsFeed.noArtist": "Подпишитесь на артистов первыми и их последние релизы будут здесь",
+  "home.madeForYou": "Сделано для тебя",
+  "home.friendsListeningTo": "Друзья слушают",
+  "home.followedArtists": "Вы подписаны",
+  // Errors
+  "error.appleMusicSubRequired": "Apple Music требует подписку.",
+  "error.connectionError": "При подключении к Apple Music произошла ошибка.",
+  "error.noResults": "Нет результатов.",
+  "error.noResults.description": "Попробуйте поискать снова.",
+
+  //Podcasts
+  "podcast.followOnCider": "Следуйте за Cider",
+  "podcast.followedOnCider": "Следуют за Cider",
+  "podcast.subscribeOnItunes": "Подписаться на iTunes",
+  "podcast.subscribedOnItunes": "Подписаны на iTunes",
+  "podcast.itunesStore": "Магазин iTunes",
+  "podcast.episodes": "Эпизоды",
+  "podcast.playEpisode": "Слушать эпизод",
+  "podcast.website": "Сайт подкаста",
+
+  // Actions
+  "action.addToLibrary": "Добавить в библиотеку",
+  "action.addToLibrary.success": "Добавлено в библиотеку",
+  "action.addToLibrary.error": "Ошибка добавления в библиотеку",
+  "action.removeFromLibrary": "удалить из библиотеки",
+  "action.removeFromLibrary.success": "Удалено из библиотеки",
+  "action.addToQueue": "Добавить в очередь",
+  "action.addToQueue.success": "AДобавлено в очередь",
+  "action.addToQueue.error": "Ошибка добавления в очередь",
+  "action.removeFromQueue": "Удалить из очереди",
+  "action.removeFromQueue.success": "Удалено из очереди",
+  "action.removeFromQueue.error": "Ошибка удаления из очереди",
+  "action.createPlaylist": "Создать новый плейлист",
+  "action.addToPlaylist": "Добавить в плейлист",
+  "action.removeFromPlaylist": "Удалить из плейлиста",
+  "action.addToFavorites": "Добавить в избранное",
+  "action.follow": "Подписаться",
+  "action.follow.success": "Подписаны",
+  "action.follow.error": "Ошибка подписки",
+  "action.unfollow": "Отписаться",
+  "action.unfollow.success": "Больше не подписаны",
+  "action.unfollow.error": "Ошибка отписки",
+  "action.playNext": "Играть следующим",
+  "action.playLater": "Играть позже",
+  "action.startRadio": "Включить радио",
+  "action.goToArtist": "Перейти к артисту",
+  "action.goToAlbum": "Перейти к альбому",
+  "action.moveToTop": "Переместить наверх",
+  "action.share": "Поделиться",
+  "action.rename": "Переименовать",
+  "action.love": "Нравится",
+  "action.unlove": "Не нравится",
+  "action.dislike": "Не предлагать",
+  "action.undoDislike": "Предлагать",
+  "action.showWebRemoteQR": "Удаленное управление",
+  "action.playTracksNext": "Играть ${app.selectedMediaItems.length} песен следующими",
+  "action.playTracksLater": "Играть ${app.selectedMediaItems.length} песен позже",
+  "action.removeTracks": "Удалить ${self.selectedItems.length} песен из очереди",
+  "action.import": "Импорт",
+  "action.export": "Экспорт",
+  "action.showAlbum": "Показать весь альбом",
+  "action.tray.minimize": "Свернуть в трей",
+  "action.tray.quit": "Выйти",
+  "action.tray.show": "Показать",
+  "action.update": "Обновить",
+
+  // Settings - General
+  "settings.header.general": "Общие",
+  "settings.header.general.description": "Настройка общих параметров для Cider.",
+  "settings.option.general.language": "Язык",
+
+  // Language optgroups
+  "settings.option.general.language.main": "Языки",
+  "settings.option.general.language.fun": "Диалекты",
+  "settings.option.general.language.unsorted": "Не сортировано",
+  
+  // Settings - Audio
+  "settings.header.audio": "Аудио",
+  "settings.header.audio.description": "Настройка параметров звука для Cider.",
+  "settings.option.audio.quality": "Качество аудио", // Dropdown
+  "settings.header.audio.quality.high": "Высокое",
+  "settings.header.audio.quality.low": "Низкое",
+  "settings.header.audio.quality.auto": "Авто",
+  "settings.option.audio.seamlessTransition": "Плавный переход звука", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality": "Включить дополнительную функциональность", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.description": "Включение AudioContext позволит использовать расширенные функции звука, такие как нормализатор, эквалайзер и визуализатор, однако в некоторых системах это может вызвать заикание звуковых дорожек.",
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Нормализация аудио", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Нормализует пиковую громкость для отдельных дорожек, чтобы создать более однородное впечатление от прослушивания.",
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Пространственное аудио", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Делает звук пространственным и более трехмерным (эффект Dolby Atmos)",
+  // Settings - Visual
+  "settings.header.visual": "Визуальные", 
+  "settings.header.visual.description": "Настройка параметров внешнего вида для Cider.",
+  "settings.option.visual.windowBackgroundStyle": "Стиль фона окна", // Toggle
+  "settings.header.visual.windowBackgroundStyle.none": "Нет",
+  "settings.header.visual.windowBackgroundStyle.artwork": "Обложка",
+  "settings.header.visual.windowBackgroundStyle.image": "Изображение",
+  "settings.option.visual.animatedArtwork": "Анимированная обложка", // Dropdown
+  "settings.header.visual.animatedArtwork.always": "Всегда",
+  "settings.header.visual.animatedArtwork.limited": "Ограничено страницами и отдельными пунктами",
+  "settings.header.visual.animatedArtwork.disable": "Отключено везде",
+  "settings.option.visual.animatedArtworkQuality": "Качество анимированных обложек", // Dropdown
+  "settings.header.visual.animatedArtworkQuality.low": "Низкое",
+  "settings.header.visual.animatedArtworkQuality.medium": "Среднее",
+  "settings.header.visual.animatedArtworkQuality.high": "Высокое",
+  "settings.header.visual.animatedArtworkQuality.veryHigh": "Очень высокое",
+  "settings.header.visual.animatedArtworkQuality.extreme": "Экстремальное",
+  "settings.option.visual.animatedWindowBackground": "Анимированный фон окна", // Toggle
+  "settings.option.visual.hardwareAcceleration": "Аппаратное ускорение", // Dropdown
+  "settings.option.visual.hardwareAcceleration.description": "Требуется перезапуск",
+  "settings.header.visual.hardwareAcceleration.default": "По умолчанию", 
+  "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU", 
+  // Refer to term.disabled for the disabled option
+  "settings.option.visual.showPersonalInfo": "Показывать персональную информацию", // Toggle
+
+  // Settings - Lyrics
+  "settings.header.lyrics": "Слова",
+  "settings.header.lyrics.description": "Настройка параметров отображения слов для Cider.",
+  "settings.option.lyrics.enableMusixmatch": "Включить слова из Musixmatch", // Toggle
+  "settings.option.lyrics.enableMusixmatchKaraoke": "Включить режим караоке (Musixmatch)", // Toggle
+  "settings.option.lyrics.musixmatchPreferredLanguage": "Предпочитаемый язык Musixmatch", // Dropdown
+  "settings.option.lyrics.enableYoutubeLyrics": "Включить слова из YouTube для клипов", // Toggle
+
+  // Settings - Connectivity
+  "settings.header.connectivity": "Связь",
+  "settings.header.connectivity.description": "Настройка параметров интеграции для Cider.",
+  "settings.option.connectivity.discordRPC": "Присутствие Discord", // Dropdown
+  "settings.option.connectivity.playbackNotifications": "Уведомления о воспроизведении", // Toggle
+  // Refer to term.disabled for the disabled option
+  "settings.header.connectivity.discordRPC.cider": "Отображать как 'Cider'",
+  "settings.header.connectivity.discordRPC.appleMusic": "Отображать как 'Apple Music'",
+  "settings.option.connectivity.discordRPC.clearOnPause": "Очистить присутствие Discord при паузе", // Toggle
+  "settings.option.connectivity.lastfmScrobble": "Скробблинг Last.fm", // Option to Connect
+  "settings.option.connectivity.lastfmScrobble.delay": "Задержка скробблинга Last.fm (в процентах)", 
+  "settings.option.connectivity.lastfmScrobble.nowPlaying": "Включить Сейчас играет на Last.fm", 
+  "settings.option.connectivity.lastfmScrobble.removeFeatured": "Удалить артистов из названия песни (Last.fm)", 
+  "settings.option.connectivity.lastfmScrobble.filterLoop": "Фильтровать зацикленные треки (Last.fm)", 
+  // Refer to term.connect for the connect button
+
+  // Settings - Experimental
+  "settings.header.experimental": "Экспериментальные",
+  "settings.header.experimental.description": "Настройка экспериментальных параметров для Cider.",
+  "settings.option.experimental.compactUI": "Компактный UI", // Toggle
+  "settings.option.experimental.close_button_hide": "Кнопка Закрыть должна скрывать приложение",
+  // Refer to term.disabled & term.enabled
+
+  // Spatialization Menu
+  "spatial.notTurnedOn": "Пространственное аудио отключено. Чтобы использовать, сначала включите его.",
+  "spatial.spatialProperties": "Свойства пространства",
+  "spatial.width": "Ширина",
+  "spatial.height": "Высота",
+  "spatial.depth": "Глубина",
+  "spatial.gain": "Усиление",
+  "spatial.roomMaterials": "Материалы комнаты",
+  "spatial.roomDimensions": "Размеры комнаты",
+  "spatial.roomPositions": "Позиция комнаты",
+  "spatial.setDimensions": "Установить размеры",
+  "spatial.setPositions": "Установить позицию",
+  "spatial.up": "Сверху",
+  "spatial.front": "Спереди",
+  "spatial.left": "Слева",
+  "spatial.right": "Справа",
+  "spatial.back": "Сзади",
+  "spatial.down": "Снизу",
+  "spatial.listener": "Слушатель",
+  "spatial.audioSource": "Источник звука",
+  
+  // Settings - Unfinished
+  "settings.header.unfinished": "В разработке",
+
+  // Web Remote
+  "remote.web.title": "Удаленное управление Cider",
+  "remote.web.description": "Отсканируйте QR-код, чтобы подключить свой телефон к этому экземпляру Cider",
+
+  // About
+  "about.thanks": "Большое спасибо команде Cider и всем нашим участникам."
+}
