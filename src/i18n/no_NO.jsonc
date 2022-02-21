@@ -1,26 +1,15 @@
-{ // Base File
-
-  // i18n Info
-  "i18n.languageName": "Norweigan (NO)", // name of language in native language
-  "i18n.languageNameEnglish": "Norweigan (NO)", // name of language in English
-  "i18n.category": "main", // main = real language, fun = fun community languages
-  "i18n.authors": "@siberias", // Authors, if you contribute to this file feel free to add your name seperated with a space
-  
-  // App info
+{
+  "i18n.languageName": "Norsk (NO)",
+  "i18n.languageNameEnglish": "Norweigan (NO)",
+  "i18n.category": "main",
+  "i18n.authors": "@siberias",
   "app.name": "Cider",
-  
   "date.format": "${d}.${m}.${y}",
-  
-  // Dialogs
   "dialog.cancel": "Avbryt",
   "dialog.ok": "OK",
-  
-  // Notification
-  "notification.updatingLibrarySongs": "Oppdaterer biblioteks Sanger...",
-  "notification.updatingLibraryAlbums": "Oppdaterere biblioteks Albumer...",
-  "notification.updatingLibraryArtists": "Oppdaterer biblioteks Artister...",
-  
-  // Terms
+  "notification.updatingLibrarySongs": "Oppdaterer musikkbibliotekets sanger...",
+  "notification.updatingLibraryAlbums": "Oppdater musikkbiblioteks albumer...",
+  "notification.updatingLibraryArtists": "Oppdaterer musikkbiblioteks artister...",
   "term.appleInc": "Apple Inc.",
   "term.appleMusic": "Apple Music",
   "term.applePodcasts": "Apple Podcasts",
@@ -78,7 +67,7 @@
   "term.sortOrder.ascending": "Stigende",
   "term.sortOrder.descending": "Synkende",
   "term.viewAs": "Se Som",
-  "term.viewAs.coverArt": "Cover Art",
+  "term.viewAs.coverArt": "Cover",
   "term.viewAs.list": "Liste",
   "term.size": "Størrelse",
   "term.size.normal": "Normal",
@@ -86,11 +75,11 @@
   "term.enable": "Aktiver",
   "term.disable": "Deaktiver",
   "term.enabled": "Aktivert",
-  "term.disabled": "Disabled",
+  "term.disabled": "Deaktivert",
   "term.connect": "Tilkoble",
   "term.connecting": "Tilkobler",
   "term.disconnect": "Frakoble",
-  "term.authed": "Authed",
+  "term.authed": "Godkjent",
   "term.confirm": "Bekreft?",
   "term.more": "Mer",
   "term.less": "Mindre",
@@ -107,71 +96,64 @@
   "term.time.minute": "minutt",
   "term.time.seconds": "sekunder",
   "term.time.second": "sekund",
-  "term.fullscreenView": "Fullscreen View",
-  "term.defaultView": "Default View",
+  "term.fullscreenView": "Fullskjermvisning",
+  "term.defaultView": "Standardvisning",
   "term.audioSettings": "Lyd Innstillinger",
-  "term.audioControls": "Volume Controls",
+  "term.audioControls": "Volumkontroller",
   "term.clearAll": "Fjern Alle",
   "term.recentStations": "Nylige Stasjoner",
   "term.language": "Språk",
   "term.funLanguages": "Moro",
-  "term.noLyrics": "Laster... / Sangtenkster ikke funnet./ Instrumental.",
-  "term.copyright": "Copyright",
-  "term.rightsReserved": "All Rights Reserved.",
-  "term.sponsor": "Sponsor this project",
+  "term.noLyrics": "Laster... / Sangtekster ikke funnet./ Instrumental.",
+  "term.copyright": "Opphavsrett",
+  "term.rightsReserved": "Alle Rettigheter Forbeholdt.",
+  "term.sponsor": "Spons dette prosjektet",
   "term.ciderTeam": "Cider Team",
   "term.developer": "Utvikler",
   "term.socialTeam": "Social Team",
-  "term.socials": "Socials",
-  "term.contributors": "Contributors",
+  "term.socials": "Sosiale Medier",
+  "term.contributors": "Bidragsytere",
   "term.equalizer": "Equalizer",
   "term.reset": "Tilbakestill",
-  // Example for multiple plural forms : look up the key for your language in https://github.com/prantlf/fast-plural-rules/blob/master/docs/languages.md#supported-languages
-  // "term.tracks": {
-  //   "one" : "track",
-  //   "other" : "tracks"
-  // },
-  "term.tracks": "tracks", // Assume x amount of tracks. e.g. 50 tracks 
+  "term.tracks": "tracks",
   "term.videos": "Videoer",
   "term.menu": "Meny",
   "term.check": "Sjekk",
-  "term.aboutArtist": "About {{artistName}}", // e.g. 'About Doja Cat'
-  "term.topResult": "Top Result", // Search Results
-  "term.sharedPlaylists": "Shared Playlists", // Search Results
-  "term.people": "People", // Search Results
-  "term.newpreset.name": "New EQ Preset Name", // Equalizer Preset
+  "term.aboutArtist": "Om {{artistName}}",
+  "term.topResult": "Top Resultat",
+  "term.sharedPlaylists": "Delte Spillelister",
+  "term.people": "Folk",
+  "term.newpreset.name": "New EQ Preset Name",
   "term.addedpreset": "Added Preset",
   "term.deletepreset.warn": "Are you sure you want to delete this preset?",
-  "term.deletedpreset": "Removed preset",
+  Fjernet forhåndsinnstillinger
   "term.defaultPresets": "Default Presets",
   "term.userPresets": "User Presets",
   "term.requestError": "There was a problem with the request.",
   "term.song.link.generate": "Getting song.link share URL...",
-  "term.musicVideos": "Music Videos", // Search page friendlyTypes
+  "term.musicVideos": "Musikk Videoer",
   "term.stations": "Stasjoner",
   "term.curators": "Curators",
-  "term.appleCurators": "Apple Curators",
+  "term.appleCurators": "Apple Kuratorer",
   "term.radioShows": "Radio Shows",
   "term.recordLabels": "Record Labels",
-  "term.videoExtras": "Video Extras",
+  "term.videoExtras": "Video Ekstraer",
   "term.top": "Top",
   "term.version": "Versjon",
   "term.noVideos": "Ingen videoer funnet.",
   "term.plugin": "Plug-in",
   "term.pluginMenu": "Plug-in Menu",
-  "term.replay": "Replay", //Apple Music Replay
-  "term.uniqueAlbums": "Unique Albums",
+  "term.replay": "Replay",
+  "term.uniqueAlbums": "Unike Albumer",
   "term.uniqueArtists": "Unike Artister",
   erm.uniqueArtists": "Unike Sanger",
-  "term.topArtists": "Top Artists",
-  "term.listenedTo": "Listened to:",
-  "term.times": "times",
-  "term.topAlbums": "Top Albums",
+  "term.topArtists": "Top Artister",
+  "term.listenedTo": "Lyttet til:",
+  "term.times": "tider",
+  "term.topAlbums": "Top Albumer",
   "term.plays": "Plays",
-  "term.topGenres": "Top Genres",
-  "term.confirmLogout" : "Er du sikker du vil logge av?",
-  
-  // Home
+  "term.topGenres": "Top Sjangre",
+  "term.confirmLogout": "Er du sikker du vil logge av?",
   "home.title": "Hjem",
   "home.recentlyPlayed": "Nylig Spilt",
   "home.recentlyAdded": "Nylig Lagt Til",
@@ -180,24 +162,18 @@
   "home.madeForYou": "Skapt For Deg",
   "home.friendsListeningTo": "Venner Lytter På",
   "home.followedArtists": "Følgte Artister",
-  
-  // Errors
   "error.appleMusicSubRequired": "Apple Music krever et abonnement.",
   "error.connectionError": "There was a problem connecting to Apple Music.",
   "error.noResults": "Ingen Resultater.",
   "error.noResults.description": "Prøv et nytt søk.",
-  
-  // Podcasts
-  "podcast.followOnCider": "Follow On Cider",
-  "podcast.followedOnCider": "Following On Cider",
+  "podcast.followOnCider": "Følg på Cider",
+  "podcast.followedOnCider": "Følger På Cider",
   "podcast.subscribeOnItunes": "Subscribe On iTunes",
   "podcast.subscribedOnItunes": "Subscribed On iTunes",
   "podcast.itunesStore": "iTunes Store",
   "podcast.episodes": "Episoder",
   "podcast.playEpisode": "Spill av Episode",
   "podcast.website": "Podkast Nettside",
-  
-  // Actions
   "action.addToLibrary": "Legg til Musikkbibliotek",
   "action.addToLibrary.success": "Lagt til musikkbibliotek",
   "action.addToLibrary.error": "Error Adding to Library",
@@ -234,21 +210,19 @@
   "action.showWebRemoteQR": "Web Remote",
   "action.playTracksNext": "Play ${app.selectedMediaItems.length} tracks next",
   "action.playTracksLater": "Play ${app.selectedMediaItems.length} tracks later",
-  "action.removeTracks": "Remove ${self.selectedItems.length} tracks from queue",
-  "action.import": "Import",
-  "action.export": "Export",
-  "action.showAlbum": "Show Complete Album",
-  "action.tray.minimize": "Minimize to Tray",
+  "action.removeTracks": "Fjern ${self.selectedItems.length} sanger fra køen",
+  "action.import": "Importer",
+  "action.export": "Eksporter",
+  "action.showAlbum": "Vis Hele Albumet",
+  "action.tray.minimize": "Minimer til Tray",
   "action.tray.quit": "Lukk",
   "action.tray.show": "Vis",
   "action.update": "Oppdater",
   "action.install": "Installer",
   "action.copy": "Kopier",
-  "action.newpreset": "New Preset...", // Equalizer Preset
-  "action.deletepreset": "Delete Preset",
+  "action.newpreset": "Ny Forhåndsinnstilling...",
+  "action.deletepreset": "Slett Forhåndsinnstilling",
   "action.open": "Åpne",
-  
-  // Settings - General
   "settings.header.general": "Generelt",
   "settings.header.general.description": "Adjust the general settings for Cider.",
   "settings.option.general.language": "Språk",
@@ -258,26 +232,19 @@
   "settings.option.general.resumebehavior.locally.description": "Cider will resume your last session on this machine.",
   "settings.option.general.resumebehavior.history": "History",
   "settings.option.general.resumebehavior.history.description": "Cider will queue the last song from your overall Apple Music history, across devices.",
-
-  
-  // Language optgroups
-  "settings.option.general.language.main": "Languages",
-  "settings.option.general.language.fun": "Fun Languages",
-  "settings.option.general.language.unsorted": "Unsorted",
-
-  // Update Cider
-  "settings.option.general.updateCider": "Update Cider", // Button. Refer to term.check for the check button
-  "settings.option.general.updateCider.branch": "Cider Update Branch", // Dropdown
+  "settings.option.general.language.main": "Språk",
+  "settings.option.general.language.fun": "Morsomme Språk",
+  "settings.option.general.language.unsorted": "Usortert",
+  "settings.option.general.updateCider": "Oppdater Cider",
+  "settings.option.general.updateCider.branch": "Cider Update Branch",
   "settings.option.general.updateCider.branch.description": "Select the branch to update Cider to",
-  "settings.option.general.updateCider.branch.main": "Stable",
+  "settings.option.general.updateCider.branch.main": "Stabil",
   "settings.option.general.updateCider.branch.develop": "Development",
-  
-  // Settings - Audio
   "settings.header.audio": "Audio",
   "settings.header.audio.description": "Adjust the audio settings for Cider.",
   "settings.option.audio.volumeStep": "Volume Step",
   "settings.option.audio.maxVolume": "Max Volume",
-  "settings.option.audio.quality": "Audio Quality", // Dropdown
+  "settings.option.audio.quality": "Audio Quality",
   "settings.header.audio.quality.hireslossless": "Hi-Res Lossless",
   "settings.header.audio.quality.hireslossless.description": "up to 24-bit/192 kHz",
   "settings.header.audio.quality.lossless": "Lossless",
@@ -286,8 +253,8 @@
   "settings.header.audio.quality.high.description": "256 kbps",
   "settings.header.audio.quality.standard": "Standard",
   "settings.header.audio.quality.standard.description": "64 kbps",
-  "settings.option.audio.seamlessTransition": "Seamless Audio Transition", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality": "Enable Advanced Functionality", // Toggle
+  "settings.option.audio.seamlessTransition": "Seamless Audio Transition",
+  "settings.option.audio.enableAdvancedFunctionality": "Enable Advanced Functionality",
   "settings.option.audio.enableAdvancedFunctionality.description": "Enabling AudioContext functionality will allow for extended audio features like Audio Normalization , Equalizers and Visualizers, however on some systems this may cause stuttering in audio tracks.",
   "settings.option.audio.audioLab": "Cider Audio Lab",
   "settings.option.audio.audioLab.description": "An assortment of in-house developed audio effects for Cider.",
@@ -296,18 +263,18 @@
   "settings.option.audio.enableAdvancedFunctionality.analogWarmth.description": "Simulates the analog warmth modelled after the Korg Nutube 6P1",
   "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity": "Analog Warmth intensity",
   "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.description": "Changes the intensity of the Analog Warmth Module processing.",
-  "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.smooth": "Smooth",
-  "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.warm": "Warm",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider Adrenaline Processor™️", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.smooth": "Jevn",
+  "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.warm": "Varm",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider Adrenaline Processor™️",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Psychoacoustic Enhancements that makes everything sound both richer and more lively | Designed by Maikiwi.",
   "settings.warn.audio.enableAdvancedFunctionality.ciderPPE.compatibility": "CAP is not compatible with Spatialization. Please disable Spatialization to continue.",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "CAP Strength", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "CAP Strength",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Changes the strength of the processing done to the audio. (Aggressive may yield undesirable results)",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "Standard",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive": "Aggressive",
-  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Audio Normalization", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Audio Normalization",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizes peak volume for individual tracks to create a more uniform listening experience.",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Audio Spatialization", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Audio Spatialization",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Spatialize audio and make audio more 3-dimensional (note: This is not Dolby Atmos)",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization": "Cider Tuned Spatialization",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.description": "Pre-tuned Spatializing Effect, disables the customizable settings of Audio Spatialization. Spatialization must be enabled as a prerequisite.",
@@ -316,30 +283,28 @@
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.standard": "Standard",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.audiophile": "Audiophile",
   "settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility": "Spatialization is not compatible with CAP. Please disable CAP to continue.",
-  
-  // Settings - Visual
   "settings.header.visual": "Visual",
   "settings.header.visual.description": "Adjust the visual settings for Cider.",
-  "settings.option.visual.windowBackgroundStyle": "Window Background Style", // Toggle
-  "settings.header.visual.windowBackgroundStyle.none": "None",
+  "settings.option.visual.windowBackgroundStyle": "Window Background Style",
+  "settings.header.visual.windowBackgroundStyle.none": "Ingenting",
   "settings.header.visual.windowBackgroundStyle.artwork": "Artwork",
-  "settings.header.visual.windowBackgroundStyle.image": "Image",
-  "settings.option.visual.animatedArtwork": "Animated Artwork", // Dropdown
-  "settings.header.visual.animatedArtwork.always": "Always",
+  "settings.header.visual.windowBackgroundStyle.image": "Bilde",
+  "settings.option.visual.animatedArtwork": "Animated Artwork",
+  "settings.header.visual.animatedArtwork.always": "Alltid",
   "settings.header.visual.animatedArtwork.limited": "Limited to pages and special entries",
   "settings.header.visual.animatedArtwork.disable": "Disable everywhere",
-  "settings.option.visual.animatedArtworkQuality": "Animated Artwork Quality", // Dropdown
+  "settings.option.visual.animatedArtworkQuality": "Animated Artwork Quality",
   "settings.header.visual.animatedArtworkQuality.low": "Low",
   "settings.header.visual.animatedArtworkQuality.medium": "Medium",
   "settings.header.visual.animatedArtworkQuality.high": "High",
   "settings.header.visual.animatedArtworkQuality.veryHigh": "Very High",
   "settings.header.visual.animatedArtworkQuality.extreme": "Extreme",
-  "settings.option.visual.animatedWindowBackground": "Animated Window Background", // Toggle
-  "settings.option.visual.hardwareAcceleration": "Hardware Acceleration", // Dropdown
+  "settings.option.visual.animatedWindowBackground": "Animated Window Background",
+  "settings.option.visual.hardwareAcceleration": "Hardware Acceleration",
   "settings.option.visual.hardwareAcceleration.description": "Requires relaunch",
   "settings.header.visual.hardwareAcceleration.default": "Default",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
-  "settings.header.visual.theme": "Theme",
+  "settings.header.visual.theme": "Tema",
   "settings.option.visual.theme.github.download": "Install from GitHub URL",
   "settings.option.visual.theme.github.explore": "Explore GitHub Themes",
   "settings.header.visual.theme.github.page": "Themes from GitHub",
@@ -347,81 +312,58 @@
   "settings.prompt.visual.theme.github.URL": "Enter the URL of the theme you want to install",
   "settings.notyf.visual.theme.install.success": "Theme installed successfully",
   "settings.notyf.visual.theme.install.error": "Theme installation failed",
-  
-  // Settings - Visual - Theme name
   "settings.option.visual.theme.default": "Cider",
-  "settings.option.visual.theme.dark": "Dark",
-  
-  // Refer to term.disabled for the disabled option
-  "settings.option.visual.showPersonalInfo": "Show Personal Info", // Toggle
-  
-  // Settings - Lyrics
+  "settings.option.visual.theme.dark": "Mørk",
+  "settings.option.visual.showPersonalInfo": "Vis Personlig Info",
   "settings.header.lyrics": "Lyrics",
   "settings.header.lyrics.description": "Adjust the lyrics settings for Cider.",
-  "settings.option.lyrics.enableMusixmatch": "Enable Musixmatch Lyrics", // Toggle
-  "settings.option.lyrics.enableMusixmatchKaraoke": "Enable Karaoke Mode (Musixmatch only)", // Toggle
-  "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch Translation Preferred Language", // Dropdown
-  "settings.option.lyrics.enableYoutubeLyrics": "Enable Youtube Lyrics for Music Videos", // Toggle
-  
-  // Settings - Connectivity
+  "settings.option.lyrics.enableMusixmatch": "Enable Musixmatch Lyrics",
+  "settings.option.lyrics.enableMusixmatchKaraoke": "Enable Karaoke Mode (Musixmatch only)",
+  "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch Translation Preferred Language",
+  "settings.option.lyrics.enableYoutubeLyrics": "Enable Youtube Lyrics for Music Videos",
   "settings.header.connectivity": "Connectivity",
   "settings.header.connectivity.description": "Adjust the connectivity settings for Cider.",
-  "settings.option.connectivity.discordRPC": "Discord Rich Presence", // Dropdown
-  "settings.option.connectivity.playbackNotifications": "Playback Notifications", // Toggle
-  // Refer to term.disabled for the disabled option
+  "settings.option.connectivity.discordRPC": "Discord Rich Presence",
+  "settings.option.connectivity.playbackNotifications": "Playback Notifications",
   "settings.header.connectivity.discordRPC.cider": "Display as 'Cider'",
   "settings.header.connectivity.discordRPC.appleMusic": "Display as 'Apple Music'",
-  "settings.option.connectivity.discordRPC.clearOnPause": "Clear Discord Rich Presence on Pause", // Toggle
-  "settings.option.connectivity.lastfmScrobble": "Last.fm Scrobbling", // Option to Connect
+  "settings.option.connectivity.discordRPC.clearOnPause": "Clear Discord Rich Presence on Pause",
+  "settings.option.connectivity.lastfmScrobble": "Last.fm Scrobbling",
   "settings.option.connectivity.lastfmScrobble.delay": "Last.fm Scrobble Delay (%)",
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "Enable Last.fm Now Playing",
   "settings.option.connectivity.lastfmScrobble.removeFeatured": "Remove featuring artists from song title (Last.fm)",
   "settings.option.connectivity.lastfmScrobble.filterLoop": "Filter looped track (Last.fm)",
-  // Refer to term.connect for the connect button
-
-  // Settings - Debug
   "settings.header.debug": "Debug",
-  "settings.option.debug.copy_log": "Copy logs to clipboard",
-  "settings.option.debug.openAppData": "Open Cider Folder",
-
-  // Settings - Experimental
+  "settings.option.debug.copy_log": "Kopier loggs til utklippstavle",
+  "settings.option.debug.openAppData": "Åpne Cider Mappe",
   "settings.header.experimental": "Experimental",
   "settings.header.experimental.description": "Adjust the experimental settings for Cider.",
   "settings.option.experimental.unknownPlugin": "Unknown Sources",
   "settings.option.experimental.unknownPlugin.description": "Allow installion of plugins from repos other than the Cider Plugin Repository",
-  "settings.option.experimental.compactUI": "Compact UI", // Toggle
+  "settings.option.experimental.compactUI": "Compact UI",
   "settings.option.experimental.close_button_hide": "Close Button Should Hide the Application",
   "settings.option.experimental.inline_playlists": "Inline Playlists and Albums",
-  
-  // Refer to term.disabled & term.enabled
-  // Spatialization Menu
   "spatial.notTurnedOn": "Audio Spatialization is disabled. To use, please enable it first.",
   "spatial.spatialProperties": "Spatial Properties",
-  "spatial.width": "Width",
-  "spatial.height": "Height",
-  "spatial.depth": "Depth",
-  "spatial.gain": "Gain",
+  "spatial.width": "Bredde",
+  "spatial.height": "Høyde",
+  "spatial.depth": "Dybde",
+  "spatial.gain": "Vekst",
   "spatial.roomMaterials": "Room Materials",
   "spatial.roomDimensions": "Room Dimensions",
   "spatial.roomPositions": "Room Positions",
   "spatial.setDimensions": "Set Dimensions",
   "spatial.setPositions": "Set Positions",
-  "spatial.up": "Up",
-  "spatial.front": "Front",
-  "spatial.left": "Left",
-  "spatial.right": "Right",
-  "spatial.back": "Back",
-  "spatial.down": "Down",
-  "spatial.listener": "Listener",
-  "spatial.audioSource": "Audio Source",
-
-  // Settings - Unfinished
-  "settings.header.unfinished": "Unfinished",
-
-  // Web Remote
+  "spatial.up": "Opp",
+  "spatial.front": "Foran",
+  "spatial.left": "Venstre",
+  "spatial.right": "Høyre",
+  "spatial.back": "Bak",
+  "spatial.down": "Nede",
+  "spatial.listener": "Lytter",
+  "spatial.audioSource": "Lyd Kilde",
+  "settings.header.unfinished": "Uferdig",
   "remote.web.title": "Cider Remote",
   "remote.web.description": "Scan the QR code to pair your phone up with this Cider instance",
-
-  // About
   "about.thanks": "Major thanks to the Cider Collective Team and all of our contributors."
 }
