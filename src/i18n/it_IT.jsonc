@@ -1,26 +1,15 @@
 {
-
-  // i18n Info
-  "i18n.languageName": "Italiano",        // name of language in native language
-  "i18n.languageNameEnglish": "Italian", // name of language in English
-  "i18n.category": "main", // main = real language, fun = fun community languages
-  "i18n.authors": "ConnectedR", // Authors, if you contribute to this file feel free to add your name seperated with a space
-  
-  // App info
+  "i18n.languageName": "English (US)",
+  "i18n.languageNameEnglish": "English (US)",
+  "i18n.category": "main",
+  "i18n.authors": "@maikirakiwi @kyw504100",
   "app.name": "Cider",
-  
   "date.format": "${d} ${m}, ${y}",
-  
-  // Dialogs
   "dialog.cancel": "Annulla",
   "dialog.ok": "OK",
-  
-  // Notification
   "notification.updatingLibrarySongs": "Aggiornamento raccolta brani...",
   "notification.updatingLibraryAlbums": "Aggornamento raccolta album...",
   "notification.updatingLibraryArtists": "Aggiornamento raccolta artisti...",
-  
-  // Terms
   "term.appleInc": "Apple Inc.",
   "term.appleMusic": "Apple Music",
   "term.applePodcasts": "Apple Podcasts",
@@ -125,20 +114,15 @@
   "term.contributors": "Contribuenti",
   "term.equalizer": "Equalizzatore",
   "term.reset": "Reset",
-  // Example for multiple plural forms : look up the key for your language in https://github.com/prantlf/fast-plural-rules/blob/master/docs/languages.md#supported-languages
-  "term.tracks": "brani", // Assume x amount of tracks.
-  / Strumentale.",
-  //   "other" : "tracks"
-  // },
-  "term.tracks": "tracks", // Assume x amount of tracks. e.g. 50 tracks 
+  "term.tracks": "tracks",
   "home.title": "Casa",
   "term.menu": "Menu",
   "spatial.down" : "Sotto",
-  "home.artistsFeed": "Feed di Artisti", 'About Doja Cat'
-  "action.moveToTop": "Torna in Alto",
-  "action.createPlaylist": "Crea Nuova Playlist",
-  "error.noResults": "Nessun risultato.",
-  "settings.option.audio.quality": "Qualità di audio", // Dropdown
+  "term.aboutArtist": "About {{artistName}}",
+  "term.topResult": "Top Result",
+  "term.sharedPlaylists": "Shared Playlists",
+  "term.people": "People",
+  "term.newpreset.name": "New EQ Preset Name",
   "home.recentlyAdded": "Aggiunto di recente",
   "term.deletepreset.warn": "Are you sure you want to delete this preset?",
   "settings.header.unfinished": "Incompleto",
@@ -146,7 +130,7 @@
   "spatial.listener" : "Utente",
   "error.noResults.description": "Prova un'altra ricerca.",
   "settings.option.connectivity.lastfmScrobble": "Scrobbling LastFM", // Option to Connect
-  "settings.option.lyrics.enableYoutubeLyrics": "Attiva Testi da YouTube Per i Video ", // Toggle
+  "term.musicVideos": "Music Videos",
   "spatial.roomPositions" : "Posizioni Stanza",
   "spatial.roomDimensions" : "Dimensioni Stanza",
   "podcast.followedOnCider": "Seguiti in Cider",
@@ -158,7 +142,7 @@
   "term.noVideos": "No videos found.",
   "settings.header.connectivity": "Connectività",
   "term.pluginMenu": "Plug-in Menu",
-  "settings.header.connectivity.discordRPC.appleMusic": "Mostra come 'Apple Music'",
+  "term.replay": "Replay",
   "action.goToAlbum": "Vai all'Album",
   "home.followedArtists": "Artisti Seguiti",
   "action.showAlbum": "Mostra Album Intero",
@@ -168,9 +152,7 @@
   "term.topAlbums": "Top Albums",
   "action.playLater": "Riprodici in Fine",
   "settings.header.general": "Generale",
-  "term.confirmLogout" : "Are you sure you want to logout?",
-  
-  // Home
+  "term.confirmLogout": "Are you sure you want to logout?",
   "home.madeForYou": "Per Te",
   "home.recentlyPlayed": "Ascoltato di recente",
   "action.addToFavorites": "Aggiungi a Preferiti",
@@ -179,14 +161,10 @@
   "home.friendsListeningTo": "Ascoltato da Amici",
   "podcast.website": "Sito Podcast",
   "action.follow": "Segui",
-  
-  // Errors
   "error.appleMusicSubRequired": "Apple Music ha bisogno di un abbonamento.",
   "error.connectionError": "C'è stato un problema nella connessione a Apple Music.",
   "action.follow.error": "Errore a Seguire",
   "error.noResults.description": "Try a new search.",
-  
-  // Podcasts
   "podcast.followOnCider": "Segui in Cider",
   "remote.web.title": "Telecomando Cider",
   "podcast.subscribeOnItunes": "Iscriviti in iTunes",
@@ -195,8 +173,6 @@
   "podcast.playEpisode": "Ascolta Episodio",
   "action.playNext": "Riproduci Dopo",
   "podcast.website": "Podcast Website",
-  
-  // Actions
   "action.addToLibrary": "Aggiungi a Raccolta",
   "action.addToLibrary.success": "Aggiunto a Raccolta",
   "action.addToLibrary.error": "Errore ad Aggiungere a Raccolta",
@@ -243,11 +219,9 @@
   "action.update": "Update",
   "spatial.setPositions" : "Imposta Posizioni",
   "spatial.right" : "Destra",
-  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Normalizzazione Audio", // Toggle
+  "action.newpreset": "New Preset...",
   "settings.header.visual.animatedArtwork.disable": "Disattiva dappertutto",
   "settings.option.experimental.closeButtonBehaviour": "Comportamento Tasto Chiudi",
-  
-  // Settings - General
   "settings.header.general.description": "Cambia le impostazioni generali di Cider.",
   "settings.header.visual.description": "Cambia le impostazioni visuali per Cider.",
   "settings.option.general.language": "Lingua",
@@ -257,26 +231,19 @@
   "settings.option.general.resumebehavior.locally.description": "Cider will resume your last session on this machine.",
   "settings.option.general.language.fun": "Lingue da Scherzo",
   "settings.option.general.resumebehavior.history.description": "Cider will queue the last song from your overall Apple Music history, across devices.",
-
-  
-  // Language optgroups
   "settings.option.lyrics.musixmatchPreferredLanguage": "Lingua di Traduzione MusixMatch Preferita", // Dropdown
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Spazializzazione Audio", // Toggle
   "settings.option.general.language.unsorted": "Unsorted",
-
-  // Update Cider
-  "settings.option.experimental.closeButtonBehaviour.quit": "Chiudi Cider", Refer to term.check for the check button
-  "settings.header.connectivity.description": "Cambia le impostazioni di connettività per Cider.",
+  "settings.option.general.updateCider": "Update Cider",
+  "settings.option.general.updateCider.branch": "Cider Update Branch",
   "settings.header.experimental.description": "Cambia impostazioni sperimentali per Cider.",
   "settings.header.connectivity.discordRPC.cider": "Mostra come 'Cider'",
   "settings.option.audio.enableAdvancedFunctionality": "Attiva funzionalità avanzata", // Toggle
-  
-  // Settings - Audio
   "settings.header.audio": "Audio",
   "settings.header.audio.description": "Cambia le impostazioni di audio di Cider.",
   "settings.option.audio.seamlessTransition": "Transizioni Audio Immediate", // Toggle
   "settings.header.audio.quality.low": "Bassa",
-  "settings.header.audio.quality.auto": "Automatica",
+  "settings.option.audio.quality": "Audio Quality",
   "settings.header.visual.animatedArtworkQuality.extreme": "Estrema",
   "settings.header.visual.animatedArtworkQuality.low": "Bassa",
   "settings.header.visual.animatedArtworkQuality.medium": "Media",
@@ -285,8 +252,8 @@
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizza il volume massimo nei brani per un'esperienza d'ascolto più uniforme.",
   "settings.header.visual.windowBackgroundStyle.image": "Immagine",
   "settings.header.lyrics.description": "Aggiusta le impostazioni dei testi per Cider.",
-  "spatial.notTurnedOn": "Spazializzazione Audio è disattivata.
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Spazializza l'audio per dare un effetto più tridimensionale (nota: questo non è Dolby Atmos)",
+  "settings.option.audio.seamlessTransition": "Seamless Audio Transition",
+  "settings.option.audio.enableAdvancedFunctionality": "Enable Advanced Functionality",
   "settings.option.audio.enableAdvancedFunctionality.description": "Attiva AudioContext per funzionalià audio avanzata Normalizzazione Audio, Equalizzatori and Visualizzatori, però su alcuni sistemi potrebbero causare lag nei brani.",
   "settings.header.experimental": "Sperimentale",
   "settings.option.audio.audioLab.description": "An assortment of in-house developed audio effects for Cider.",
@@ -297,16 +264,16 @@
   "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.description": "Changes the intensity of the Analog Warmth Module processing.",
   "settings.option.connectivity.lastfmScrobble.filterLoop": "Filtra Brani Ripetuti (LastFM)",
   "settings.option.connectivity.playbackNotifications": "Notifiche di Riproduzione", // Toggle
-  "settings.option.lyrics.enableMusixmatch": "Attiva Testi Musixmatch", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider Adrenaline Processor™️",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Psychoacoustic Enhancements that makes everything sound both richer and more lively | Designed by Maikiwi.",
   "settings.warn.audio.enableAdvancedFunctionality.ciderPPE.compatibility": "CAP is not compatible with Spatialization. Please disable Spatialization to continue.",
-  "settings.option.lyrics.enableMusixmatchKaraoke": "Attiva Modalità Karaoke (solo Musixmatch)", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "CAP Strength",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Changes the strength of the processing done to the audio. (Aggressive may yield undesirable results)",
   "settings.option.visual.animatedArtworkQuality": "Qualità Copertina Animata", // Dropdown
   "settings.option.experimental.compactUI": "Interfaccia Compatta", // Toggle
-  "settings.option.connectivity.discordRPC.clearOnPause": "Pausare Disattiva la Rich Presence", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Audio Normalization",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizes peak volume for individual tracks to create a more uniform listening experience.",
-  "settings.option.visual.windowBackgroundStyle": "Stile Sfondo Finestra", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Audio Spatialization",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Spatialize audio and make audio more 3-dimensional (note: This is not Dolby Atmos)",
   "spatial.setDimensions" : "Imposta Dimensioni",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.description": "Pre-tuned Spatializing Effect, disables the customizable settings of Audio Spatialization. Spatialization must be enabled as a prerequisite.",
@@ -315,26 +282,24 @@
   "settings.header.visual.windowBackgroundStyle.artwork": "Copertina",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.audiophile": "Audiophile",
   "settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility": "Spatialization is not compatible with CAP. Please disable CAP to continue.",
-  
-  // Settings - Visual
   "settings.header.visual.windowBackgroundStyle.none": "Nessuno",
   "settings.header.visual.animatedArtwork.limited": "Limita ad alcune pagine",
-  "settings.option.visual.animatedWindowBackground": "Sfondo Finestra Animato", // Toggle
+  "settings.option.visual.windowBackgroundStyle": "Window Background Style",
   "settings.option.visual.animatedArtwork": "Copertina Animata", // Dropdown
   "settings.option.experimental.closeButtonBehaviour.minimizeTaskbar": "Minimizza",
   "settings.header.visual.windowBackgroundStyle.image": "Image",
-  "settings.option.visual.hardwareAcceleration": "Accelerazione Hardware", // Dropdown
+  "settings.option.visual.animatedArtwork": "Animated Artwork",
   "settings.header.visual.animatedArtwork.always": "Always",
   "settings.header.visual.animatedArtwork.limited": "Limited to pages and special entries",
   "settings.header.visual.animatedArtwork.disable": "Disable everywhere",
-  "settings.option.visual.animatedArtworkQuality": "Animated Artwork Quality", // Dropdown
+  "settings.option.visual.animatedArtworkQuality": "Animated Artwork Quality",
   "settings.header.visual.animatedArtworkQuality.low": "Low",
   "settings.header.visual.animatedArtworkQuality.medium": "Medium",
   "spatial.height" : "Altezza",
   "settings.header.visual.animatedArtworkQuality.veryHigh": "Very High",
   "spatial.depth" : "Profondità",
-  "settings.option.visual.animatedWindowBackground": "Animated Window Background", // Toggle
-  "settings.option.visual.hardwareAcceleration": "Hardware Acceleration", // Dropdown
+  "settings.option.visual.animatedWindowBackground": "Animated Window Background",
+  "settings.option.visual.hardwareAcceleration": "Hardware Acceleration",
   "settings.option.visual.hardwareAcceleration.description": "Requires relaunch",
   "settings.header.visual.hardwareAcceleration.default": "Default",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
@@ -346,54 +311,37 @@
   "settings.prompt.visual.theme.github.URL": "Enter the URL of the theme you want to install",
   "settings.notyf.visual.theme.install.success": "Theme installed successfully",
   "settings.notyf.visual.theme.install.error": "Theme installation failed",
-  
-  // Settings - Visual - Theme name
   "settings.option.visual.theme.default": "Cider",
   "settings.option.visual.theme.dark": "Dark",
-  
-  // Refer to term.disabled for the disabled option
-  "settings.option.visual.showPersonalInfo": "Show Personal Info", // Toggle
-  
-  // Settings - Lyrics
+  "settings.option.visual.showPersonalInfo": "Show Personal Info",
   "settings.header.lyrics": "Lyrics",
   "settings.header.lyrics.description": "Adjust the lyrics settings for Cider.",
-  "settings.option.lyrics.enableMusixmatch": "Enable Musixmatch Lyrics", // Toggle
-  "settings.option.lyrics.enableMusixmatchKaraoke": "Enable Karaoke Mode (Musixmatch only)", // Toggle
-  "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch Translation Preferred Language", // Dropdown
-  "settings.option.lyrics.enableYoutubeLyrics": "Enable Youtube Lyrics for Music Videos", // Toggle
-  
-  // Settings - Connectivity
+  "settings.option.lyrics.enableMusixmatch": "Enable Musixmatch Lyrics",
+  "settings.option.lyrics.enableMusixmatchKaraoke": "Enable Karaoke Mode (Musixmatch only)",
+  "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch Translation Preferred Language",
+  "settings.option.lyrics.enableYoutubeLyrics": "Enable Youtube Lyrics for Music Videos",
   "settings.header.connectivity": "Connectivity",
   "settings.header.connectivity.description": "Adjust the connectivity settings for Cider.",
-  "settings.option.connectivity.discordRPC": "Discord Rich Presence", // Dropdown
-  "settings.option.connectivity.playbackNotifications": "Playback Notifications", // Toggle
-  // Refer to term.disabled for the disabled option
+  "settings.option.connectivity.discordRPC": "Discord Rich Presence",
+  "settings.option.connectivity.playbackNotifications": "Playback Notifications",
   "settings.header.connectivity.discordRPC.cider": "Display as 'Cider'",
   "settings.header.connectivity.discordRPC.appleMusic": "Display as 'Apple Music'",
-  "settings.option.connectivity.discordRPC.clearOnPause": "Clear Discord Rich Presence on Pause", // Toggle
-  "settings.option.connectivity.lastfmScrobble.removeFeatured": "Rimouvi Artisti Extra dal Titolo del Brano (LastFM)",
+  "settings.option.connectivity.discordRPC.clearOnPause": "Clear Discord Rich Presence on Pause",
+  "settings.option.connectivity.lastfmScrobble": "Last.fm Scrobbling",
   "settings.option.connectivity.lastfmScrobble.delay": "Last.fm Scrobble Delay (%)",
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "Enable Last.fm Now Playing",
   "settings.option.connectivity.lastfmScrobble.removeFeatured": "Remove featuring artists from song title (Last.fm)",
   "settings.option.connectivity.lastfmScrobble.filterLoop": "Filter looped track (Last.fm)",
-  // Refer to term.connect for the connect button
-
-  // Settings - Debug
   "settings.header.debug": "Debug",
   "settings.option.debug.copy_log": "Copy logs to clipboard",
   "settings.option.debug.openAppData": "Open Cider Folder",
-
-  // Settings - Experimental
   "settings.header.experimental": "Experimental",
   "settings.header.experimental.description": "Adjust the experimental settings for Cider.",
   "settings.option.experimental.unknownPlugin": "Unknown Sources",
   "settings.option.experimental.unknownPlugin.description": "Allow installion of plugins from repos other than the Cider Plugin Repository",
-  "settings.option.experimental.compactUI": "Compact UI", // Toggle
+  "settings.option.experimental.compactUI": "Compact UI",
   "settings.option.experimental.close_button_hide": "Close Button Should Hide the Application",
   "settings.option.experimental.inline_playlists": "Inline Playlists and Albums",
-  
-  // Refer to term.disabled & term.enabled
-  // Spatialization Menu
   "spatial.notTurnedOn": "Audio Spatialization is disabled. To use, please enable it first.",
   "spatial.spatialProperties" : "Proprietà Spaziali",
   "spatial.width" : "Larghezza",
@@ -413,14 +361,8 @@
   "spatial.down": "Down",
   "spatial.listener": "Listener",
   "spatial.audioSource": "Audio Source",
-
-  // Settings - Unfinished
   "settings.header.unfinished": "Unfinished",
-
-  // Web Remote
   "remote.web.description": "Leggi il codice QR per connettere il tuo telefono con questa istanza di Cider",
   "remote.web.description": "Scan the QR code to pair your phone up with this Cider instance",
-
-  // About
   "about.thanks": "Grazie mille alla Team di Cider Collective e tutti i nostri contribuenti."
 }
