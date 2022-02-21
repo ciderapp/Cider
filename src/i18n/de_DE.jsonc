@@ -3,30 +3,30 @@
   // i18n Info
   "i18n.languageName": "Deutsch", // name of language in native language
   "i18n.languageNameEnglish": "German", // name of language in English
-  "i18n.category": "main", // main = real language, fun = fun community languages
+  Lustige Community Sprachen
   "i18n.authors": "@motz0815 @n0chteil", // Authors, if you contribute to this file feel free to add your name seperated with a space
   
-  // App info
-  "app.name": "Cider",
+  App Info
+  Cider
   
   "date.format": "${d}.${m}.${y}",
   
-  // Dialogs
+  Dialog
   "dialog.cancel": "Abbrechen",
-  "dialog.ok": "OK",
+  OK
   
-  // Notification
+  Benachrichtigungen
   "notification.updatingLibrarySongs": "Aktualisiere Songs...",
   "notification.updatingLibraryAlbums": "Aktualisiere Alben...",
   "notification.updatingLibraryArtists": "Aktualisiere Künstler...",
   
-  // Terms
-  "term.appleInc": "Apple Inc.",
-  "term.appleMusic": "Apple Music",
-  "term.applePodcasts": "Apple Podcasts",
-  "term.itunes": "iTunes",
-  "term.github": "GitHub",
-  "term.discord": "Discord",
+  Bedingungen
+  Apple Inc
+  Apple Music
+  Apple Podcasts
+  ITunes
+  Github
+  Discord
   "term.learnMore": "Mehr erfahren",
   "term.accountSettings": "Account-Einstellungen",
   "term.logout": "Abmelden",
@@ -39,21 +39,21 @@
   "term.library": "Mediathek",
   "term.listenNow": "Jetzt Hören",
   "term.browse": "Durchsuchen",
-  "term.radio": "Radio",
+  Radio
   "term.recentlyAdded": "Zuletzt hinzugefügt",
-  "term.songs": "Songs",
+  Lieder
   "term.albums": "Alben",
   "term.artists": "Künstler",
-  "term.podcasts": "Podcasts",
-  "term.playlists": "Playlists",
-  "term.playlist": "Playlist",
+  Podcasts
+  Playlisten
+  Playlist
   "term.newPlaylist": "Neue Playlist",
   "term.newPlaylistFolder": "Neuer Playlist-Ordner",
   "term.createNewPlaylist": "Neue Playlist erstellen",
   "term.createNewPlaylistFolder": "Neuen Playlist-Ordner erstellen",
   "term.deletePlaylist": "Bist du sicher, dass du diese Playlist löschen willst?",
   "term.play": "Wiedergabe",
-  "term.pause": "Pause",
+  Pause
   "term.next": "Weiter",
   "term.more": "Mehr",
   "term.shuffle": "Zufällig",
@@ -66,21 +66,21 @@
   "term.settings": "Einstellungen",
   "term.seeAll": "Alle Sehen",
   "term.sortBy": "Sortieren nach",
-  "term.sortBy.album": "Album",
+  Album
   "term.sortBy.artist": "Künstler",
-  "term.sortBy.name": "Name",
-  "term.sortBy.genre": "Genre",
+  Name
+  Genre
   "term.sortBy.releaseDate": "Veröffentlichungsdatum",
   "term.sortBy.duration": "Länge",
   "term.sortBy.dateAdded": "Hinzugefügt am",
-  "term.sortOrder": "A-Z",
+  A-Z
   "term.sortOrder.ascending": "Aufsteigend",
   "term.sortOrder.descending": "Absteigend",
   "term.viewAs": "Ansehen als",
   "term.viewAs.coverArt": "Cover-Bild",
   "term.viewAs.list": "Liste",
   "term.size": "Größe",
-  "term.size.normal": "Normal",
+  Normal
   "term.size.compact": "Kompakt",
   "term.enable": "Aktivieren",
   "term.disable": "Deaktivieren",
@@ -95,7 +95,7 @@
   "term.less": "Weniger",
   "term.showLess": "Weniger anzeigen",
   "term.radioShows": "Radiosendungen",
-  "term.topSongs": "Top Songs",
+  Top Lieder
   "term.latestReleases": "Letzte Veröffentlichungen",
   "term.time.added": "Hinzugefügt",
   "term.time.released": "Veröffentlicht",
@@ -115,22 +115,22 @@
   "term.language": "Sprache",
   "term.funLanguages": "Spaß",
   "term.noLyrics": "Lädt... / Lyrik nicht gefunden./ Instrumental.",
-  "term.copyright": "Copyright",
+  Urheberrecht
   "term.rightsReserved": "Alle Rechte vorbehalten.",
   "term.sponsor": "Unterstütze dieses Projekt",
-  "term.ciderTeam": "Cider Team",
+  Cider Team
   "term.developer": "Entwickler",
-  "term.socialTeam": "Social Team",
+  Social Team
   "term.socials": "Soziale Medien",
   "term.contributors": "Mithelfer",
-  "term.equalizer": "Equalizer",
+  Equalizer
   "term.reset": "Zurücksetzen",
   // Example for multiple plural forms : look up the key for your language in https://github.com/prantlf/fast-plural-rules/blob/master/docs/languages.md#supported-languages
   "term.tracks": "Lieder", // Assume x amount of tracks.
   "spatial.up": "Oben",
-  //   "other" : "tracks"
+   andere Lieder
   // },
-  "term.tracks": "tracks", // Assume x amount of tracks. e.g. 50 tracks 
+  "term.tracks": "tracks", // Angenommen, es gibt x Spuren. 50 Lieder 
   "term.videos": "Videos",
   "term.menu": "Menü",
   "term.check": "Nach Updates suchen",
@@ -168,11 +168,11 @@
   "action.showAlbum": "Ganzes Album anzeigen",
   "home.recentlyPlayed": "Zuletzt gespielt",
   "spatial.roomPositions": "Raumpositionen",
-  "term.confirmLogout" : "Are you sure you want to logout?",
+  "term.confirmLogout" : "Bist du sicher, dass du dich ausloggen willst?",
   
   // Home
   "home.title": "Home",
-  "action.playLater": "Spiele später",
+  "action.playLater": "Später abspielen",
   "home.recentlyAdded": "Zuletzt hinzugefügt",
   "home.artistsFeed": "Dein Künstler-Feed",
   "home.artistsFeed.noArtist": "Folge zuerst einigen Künstlern, dann wirst du hier die neusten Lieder sehen.",
@@ -236,8 +236,8 @@
   "action.removeTracks": "Remove ${self.selectedItems.length} tracks from queue",
   "action.import": "Importieren",
   "action.export": "Exportieren",
-  "action.showAlbum": "Show Complete Album",
-  "action.tray.minimize": "Zu Tray minimieren",
+  "action.showAlbum": "Ganzes Album zeigen",
+  "action.tray.minimize": "In den Tray minimieren",
   "action.tray.show": "{appName} anzeigen",
   "settings.header.visual": "Visuell",
   "action.update": "Update",
@@ -245,7 +245,7 @@
   "spatial.back": "Hinten",
   "action.newpreset": "Neues Preset", // Equalizer Preset
   "action.deletepreset": "Preset löschen",
-  "action.open": "Open",
+  "action.open": "Öffnen",
   
   // Settings - General
   "settings.header.general": "Allgemein",
