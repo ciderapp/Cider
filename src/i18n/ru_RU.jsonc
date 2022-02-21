@@ -236,7 +236,7 @@
   "action.removeTracks": "Удалить ${self.selectedItems.length} песен из очереди",
   "action.import": "Импорт",
   "action.export": "Экспорт",
-  "action.showAlbum": "Show Complete Album",
+  "action.showAlbum": "Показать весь альбом",
   "spatial.down": "Снизу",
   "action.copy": "Скопировать",
   "few": "минуты",
@@ -305,7 +305,7 @@
   "settings.header.audio.quality.standard": "Высокая эффективность", // FROM IOS
   "settings.option.experimental.compactUI": "Компактный интерфейс", // Toggle
   "spatial.notTurnedOn": "Пространственное аудио отключено.
-  "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizes peak volume for individual tracks to create a more uniform listening experience.",
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Нормализует пиковую громкость для отдельных треков, чтобы создать более однородное впечатление от прослушивания.",
   "settings.option.connectivity.playbackNotifications": "Уведомления о воспроизведении", // Toggle
   "settings.header.audio.quality.hireslossless": "Высокое разрешение, без потерь", // FROM IOS
   "spatial.audioSource": "Источник звука",
@@ -314,7 +314,7 @@
   "settings.header.lyrics.description": "Настройка текста песен.", (Requires App Restart)",
   "settings.header.visual.hardwareAcceleration.default": "По умолчанию",
   "settings.option.experimental.inline_playlists": "Встроенные плейлисты и альбомы", // NOT SURE
-  "settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility": "Spatialization is not compatible with CAP. Пожалуйста, отключите CAP, чтобы продолжить.",
+  "settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility": "Пространственная обработка несовместима с CAP. Пожалуйста, отключите CAP, чтобы продолжить.",
   
   // Settings - Visual
   "settings.header.visual": "Внешний вид",
