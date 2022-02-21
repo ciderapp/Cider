@@ -264,7 +264,7 @@ export class BrowserWindow {
         });
 
         app.get("/themes/:theme/*", (req, res) => {
-            const theme = req.params.theme.toLowerCase();
+            const theme = req.params.theme;
             // @ts-ignore
             const file = req.params[0];
             const themePath = join(utils.getPath('srcPath'), "./renderer/themes/", theme);
@@ -283,6 +283,7 @@ export class BrowserWindow {
             // @ts-ignore
             const file = req.params[0];
             const pluginPath = join(utils.getPath('plugins'), plugin);
+            console.log(pluginPath)
             if (existsSync(pluginPath)) {
                 res.sendFile(join(pluginPath, file));
             } else {
