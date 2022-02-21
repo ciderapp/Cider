@@ -1,26 +1,15 @@
-{ // Base File
-
-  // i18n Info
-  "i18n.languageName": "Русский (RU)", // name of language in native language
-  "i18n.languageNameEnglish": "Russian (RU)", // name of language in English
-  "i18n.category": "main", // main = real language, fun = fun community languages
-  "i18n.authors": "@h0ckerman", // Authors, if you contribute to this file feel free to add your name seperated with a space
-  
-  // App info
+{
+  "i18n.languageName": "English (US)",
+  "i18n.languageNameEnglish": "English (US)",
+  "i18n.category": "main",
+  "i18n.authors": "@maikirakiwi @kyw504100",
   "app.name": "Cider",
-  
   "date.format": "${d} ${m}, ${y}",
-  
-  // Dialogs
   "dialog.cancel": "Отмена",
   "dialog.ok": "OK",
-  
-  // Notification
   "notification.updatingLibrarySongs": "Обновление медиатеки песен...",
   "notification.updatingLibraryAlbums": "Обновление медиатеки альбомов...",
   "notification.updatingLibraryArtists": "Обновление медиатеки артистов...",
-  
-  // Terms
   "term.appleInc": "Apple Inc.",
   "term.appleMusic": "Apple Music",
   "term.applePodcasts": "Подкасты Apple",
@@ -125,20 +114,15 @@
   "term.contributors": "Внесли вклад",
   "term.equalizer": "Эквалайзер",
   "term.reset": "Сбросить",
-  // Example for multiple plural forms : look up the key for your language in https://github.com/prantlf/fast-plural-rules/blob/master/docs/languages.md#supported-languages
-  "term.tracks": {
-  "one": "минута",
-  "other" : "песен"
-  },
-  }, // Assume x amount of tracks. e.g. 50 tracks 
+  "term.tracks": "tracks",
   "term.videos": "Видео",
   "term.menu": "Меню",
   "term.check": "Проверить",
-  "term.aboutArtist": "О {{artistName}}", // e.g. 'About Doja Cat'
-  "term.topResult": "Топ результатов", // Search Results, FROM ITUNES
-  "term.sharedPlaylists": "Общие плейлисты", // Search Results NOT SURE
-  "term.people": "Люди", // Search Results NOT SURE
-  "term.newpreset.name": "Название нового пресета эквалайзера", // Equalizer Preset
+  "term.aboutArtist": "About {{artistName}}",
+  "term.topResult": "Top Result",
+  "term.sharedPlaylists": "Shared Playlists",
+  "term.people": "People",
+  "term.newpreset.name": "New EQ Preset Name",
   "term.defaultPresets": "Предустановки по умолчанию",
   "term.deletepreset.warn": "Вы уверены, что хотите удалить пресет?",
   "term.deletedpreset": "Пресет удален",
@@ -146,7 +130,7 @@
   "settings.header.general": "Общие",
   "term.requestError": "Возникла проблема с запросом.",
   "term.song.link.generate": "Получение ссылки с song.link...",
-  "term.musicVideos": "Музыкальные видео", // Search page friendlyTypes FROM ITUNES
+  "term.musicVideos": "Music Videos",
   "action.startRadio": "Создать станцию",
   "term.appleCurators": "Кураторы Apple",
   "term.curators": "Кураторы", // FROM ITUNES
@@ -158,7 +142,7 @@
   "term.noVideos": "Видео не найдено.",
   "settings.header.connectivity": "Прочее",
   "term.pluginMenu": "Plug-in Menu",
-  "term.time.released": "Релиз: ", // From itunes
+  "term.replay": "Replay",
   "action.goToAlbum": "Перейти к альбому",
   "home.followedArtists": "Отслеживаемые артисты",
   "few": "песни",
@@ -168,9 +152,7 @@
   "action.showAlbum": "Показать весь альбом", // FROM WEB
   "action.playLater": "Воспроизвести позже",
   "spatial.up": "Сверху",
-  "term.confirmLogout" : "Are you sure you want to logout?",
-  
-  // Home
+  "term.confirmLogout": "Are you sure you want to logout?",
   "home.title": "Главная",
   "spatial.gain": "Усиление",
   "home.recentlyAdded": "Недавно добавленные",
@@ -179,14 +161,10 @@
   "home.madeForYou": "Специально для вас", // FROM APPLE MUSIC WEB
   "home.friendsListeningTo": "Что слушают друзья",
   "action.follow": "Отслеживать",
-  
-  // Errors
   "error.appleMusicSubRequired": "Для прослушивания Apple Music требуется подписка.",
   "error.connectionError": "Возникла проблема с подключением к Apple Music.",
   "error.noResults": "Нет результатов.",
   "error.noResults.description": "Попробуйте ещё раз.",
-  
-  // Podcasts
   "podcast.followOnCider": "Отслеживать в Cider",
   "podcast.followedOnCider": "Отслеживаемые в Cider",
   "podcast.subscribeOnItunes": "Подписаться в iTunes",
@@ -195,8 +173,6 @@
   "podcast.playEpisode": "Воспроизвести",
   "podcast.episodes": "Выпуски радиошоу", // FROM APPLE MUSIC WEB
   "podcast.website": "Веб-сайт", // FROM ITUNES
-  
-  // Actions
   "action.addToLibrary": "Добавить в медиатеку",
   "action.addToLibrary.success": "Добавлено в медиатеку",
   "action.addToLibrary.error": "Ошибка Добавления в медиатику",
@@ -243,11 +219,9 @@
   "settings.option.general.updateCider": "Обновить Cider", // Button.
   "settings.notyf.visual.theme.install.success": "Тема успешно установлена",
   "spatial.back": "Сзади",
-  "action.newpreset": "Новый пресет...", // Equalizer Preset
+  "action.newpreset": "New Preset...",
   "action.deletepreset": "Удалить пресет",
   "settings.option.debug.openAppData": "Открыть папку Cider",
-  
-  // Settings - General
   "settings.header.general.description": "Настройка общих параметров Cider.",
   "settings.header.visual.description": "Настройка внешнего вида Cider.",
   "settings.option.general.language": "Язык",
@@ -257,26 +231,19 @@
   "settings.option.general.updateCider.branch.description": "Выберите ветку обновления Cider",
   "settings.option.general.language.unsorted": "Неотсортированные",
   "settings.header.connectivity.discordRPC.appleMusic": "Отображать как 'Apple Music'",
-
-  
-  // Language optgroups
   "settings.option.general.language.fun": "Забавные языки",
   "settings.option.lyrics.musixmatchPreferredLanguage": "Предпочтительный язык перевода Musixmatch", // Dropdown
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "Стандартный",
-
-  // Update Cider
-  "settings.option.general.updateCider.branch": "Ветка обновления Cider", // Dropdown Refer to term.check for the check button
-  "settings.option.general.updateCider.branch.develop": "Нестабильная",
+  "settings.option.general.updateCider": "Update Cider",
+  "settings.option.general.updateCider.branch": "Cider Update Branch",
   "settings.header.connectivity.description": "Настройка прочих параметров Cider.",
   "settings.header.audio": "Звук",
   "settings.option.visual.theme.github.download": "Установить с GitHub",
-  
-  // Settings - Audio
   "settings.header.audio.description": "Настройка звука Cider.",
   "settings.option.audio.volumeStep": "Шаг громкости",
   "settings.option.audio.maxVolume": "Максимальная громкость",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Нормализация звука", // Toggle
-  "settings.option.audio.quality": "Качество звука", // Dropdown FROM IOS
+  "settings.option.audio.quality": "Audio Quality",
   "settings.header.audio.quality.lossless": "Без потерь", // FROM IOS
   "settings.header.audio.quality.hireslossless.description": "ALAC до 24 бит/192 кГц", // FROM IOS
   "settings.header.visual.animatedArtworkQuality.low": "Низкое",
@@ -285,8 +252,8 @@
   "settings.header.audio.quality.high.description": "AAC 256 кб/с", // FROM IOS
   "settings.header.audio.quality.high": "Высокое качество", // FROM IOS
   "settings.header.audio.quality.standard.description": "НЕ-ААС для экономии трафика(64 кб/с)", // FROM IOS
-  "settings.option.audio.seamlessTransition": "Плавный переход между песнями", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality": "Включить расширенный функционал", // Toggle
+  "settings.option.audio.seamlessTransition": "Seamless Audio Transition",
+  "settings.option.audio.enableAdvancedFunctionality": "Enable Advanced Functionality",
   "settings.option.audio.enableAdvancedFunctionality.description": "Включение функции AudioContext позволит использовать расширенные функции звука, такие как нормализация звука, эквалайзеры и визуализаторы, однако в некоторых системах это может вызвать заикание звуковых дорожек.",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Пространственное звучание", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Нормализует пиковую громкость для отдельных треков, чтобы создать более однородное впечатление от прослушивания.",
@@ -297,16 +264,16 @@
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Изменяет режим обработки звука.
   "spatial.spatialProperties": "Настройка пространственного аудио",
   "settings.option.connectivity.lastfmScrobble.delay": "Частота скробблинга Last.fm (%)",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider Adrenaline Processor™️", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider Adrenaline Processor™️",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Психоакустические улучшения, благодаря которым все звучит богаче и живее | Разработано Maikiwi.",
   "settings.warn.audio.enableAdvancedFunctionality.ciderPPE.compatibility": "CAP не совместим с пространственным звучанием. Пожалуйста, отключите пространственное звучание, чтобы продолжить.",
-  "settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility": "Пространственная обработка несовместима с CAP.
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "CAP Strength",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Changes the strength of the processing done to the audio. (Режим агрессии может привести к нежелаемым результатам)",
   "settings.header.audio.quality.standard": "Высокая эффективность", // FROM IOS
   "settings.option.experimental.compactUI": "Компактный интерфейс", // Toggle
-  "spatial.notTurnedOn": "Пространственное аудио отключено.
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Audio Normalization",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Нормализует пиковую громкость для отдельных треков, чтобы создать более однородное впечатление от прослушивания.",
-  "settings.option.connectivity.playbackNotifications": "Уведомления о воспроизведении", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Audio Spatialization",
   "settings.header.audio.quality.hireslossless": "Высокое разрешение, без потерь", // FROM IOS
   "spatial.audioSource": "Источник звука",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.description": "Pre-tuned Spatializing Effect, disables the customizable settings of Audio Spatialization. Spatialization must be enabled as a prerequisite.",
@@ -315,26 +282,24 @@
   "settings.header.visual.hardwareAcceleration.default": "По умолчанию",
   "settings.option.experimental.inline_playlists": "Встроенные плейлисты и альбомы", // NOT SURE
   "settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility": "Пространственная обработка несовместима с CAP. Пожалуйста, отключите CAP, чтобы продолжить.",
-  
-  // Settings - Visual
   "settings.header.visual": "Внешний вид",
   "settings.header.visual.theme": "Тема",
-  "settings.option.visual.windowBackgroundStyle": "Стиль фона Cider", // Toggle
+  "settings.option.visual.windowBackgroundStyle": "Window Background Style",
   "settings.header.visual.windowBackgroundStyle.none": "Отсутствует",
   "settings.header.visual.windowBackgroundStyle.artwork": "Обложка",
   "settings.header.visual.windowBackgroundStyle.image": "Изображение",
-  "settings.option.visual.animatedArtwork": "Анимированная обложка", // Dropdown
+  "settings.option.visual.animatedArtwork": "Animated Artwork",
   "settings.header.visual.animatedArtwork.always": "Всегда",
   "settings.header.visual.animatedArtwork.limited": "Ограничено специальными страницами",
   "settings.header.visual.animatedArtwork.disable": "Выключено везде",
-  "settings.option.visual.animatedArtworkQuality": "Качество анимированной обложки", // Dropdown
+  "settings.option.visual.animatedArtworkQuality": "Animated Artwork Quality",
   "settings.header.visual.animatedArtworkQuality.high": "Высокое",
   "settings.header.visual.animatedArtworkQuality.medium": "Среднее",
   "spatial.height": "Высота",
   "settings.header.unfinished": "Не завершено",
   "settings.header.experimental": "Экспериментальные",
-  "settings.option.visual.animatedWindowBackground": "Анимированный фон окна Cider", // Toggle
-  "settings.option.visual.hardwareAcceleration": "Аппаратное ускорение", // Dropdown
+  "settings.option.visual.animatedWindowBackground": "Animated Window Background",
+  "settings.option.visual.hardwareAcceleration": "Hardware Acceleration",
   "settings.option.visual.theme.dark": "Тёмная",
   "settings.header.connectivity.discordRPC.cider": "Отображать как 'Cider'",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
@@ -346,54 +311,37 @@
   "settings.prompt.visual.theme.github.URL": "Enter the URL of the theme you want to install",
   "settings.notyf.visual.theme.install.success": "Theme installed successfully",
   "settings.notyf.visual.theme.install.error": "Theme installation failed",
-  
-  // Settings - Visual - Theme name
   "settings.option.visual.theme.default": "Cider",
   "settings.option.visual.showPersonalInfo": "Показать личную информацию", // Toggle
-  
-  // Refer to term.disabled for the disabled option
-  "settings.option.visual.showPersonalInfo": "Show Personal Info", // Toggle
-  
-  // Settings - Lyrics
+  "settings.option.visual.showPersonalInfo": "Show Personal Info",
   "settings.option.lyrics.enableMusixmatch": "Получать текст песен из Musixmatch", // Toggle
   "settings.option.lyrics.enableYoutubeLyrics": "Включить Youtube Lyrics для музыкальных клипов", // Toggle
-  "settings.option.lyrics.enableMusixmatchKaraoke": "Включить режим караоке (только с Musixmatch)", // Toggle
-  "settings.option.connectivity.lastfmScrobble": "Last.fm cкробблинг", // Option to Connect
-  "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch Translation Preferred Language", // Dropdown
-  "settings.option.connectivity.lastfmScrobble.nowPlaying": "Включить Last.fm Сейчас играет",
-  
-  // Settings - Connectivity
+  "settings.option.lyrics.enableMusixmatch": "Enable Musixmatch Lyrics",
+  "settings.option.lyrics.enableMusixmatchKaraoke": "Enable Karaoke Mode (Musixmatch only)",
+  "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch Translation Preferred Language",
+  "settings.option.lyrics.enableYoutubeLyrics": "Enable Youtube Lyrics for Music Videos",
   "settings.header.connectivity": "Connectivity",
   "settings.header.connectivity.description": "Adjust the connectivity settings for Cider.",
-  "settings.option.connectivity.discordRPC": "Discord Rich Presence", // Dropdown
-  "settings.option.connectivity.discordRPC.clearOnPause": "Отключать Discord Rich Presence на паузе", // Toggle
-  // Refer to term.disabled for the disabled option
+  "settings.option.connectivity.discordRPC": "Discord Rich Presence",
+  "settings.option.connectivity.playbackNotifications": "Playback Notifications",
   "settings.header.connectivity.discordRPC.cider": "Display as 'Cider'",
   "term.listenNow": "Слушайте сейчас", // FROM APPLE MUSIC WEB
-  "settings.option.connectivity.discordRPC.clearOnPause": "Clear Discord Rich Presence on Pause", // Toggle
-  "settings.option.connectivity.lastfmScrobble.filterLoop": "Фильтровать зацикленный трек (Last.fm)",
+  "settings.option.connectivity.discordRPC.clearOnPause": "Clear Discord Rich Presence on Pause",
+  "settings.option.connectivity.lastfmScrobble": "Last.fm Scrobbling",
   "settings.option.connectivity.lastfmScrobble.removeFeatured": "Удалять фит-исполнителей из названия песни (Last.fm)",
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "Enable Last.fm Now Playing",
   "settings.option.connectivity.lastfmScrobble.removeFeatured": "Remove featuring artists from song title (Last.fm)",
   "settings.option.connectivity.lastfmScrobble.filterLoop": "Filter looped track (Last.fm)",
-  // Refer to term.connect for the connect button
-
-  // Settings - Debug
   "settings.header.debug": "Debug",
   "settings.option.debug.copy_log": "Копировать логи в буфер обмена",
   "settings.option.experimental.close_button_hide": "Кнопка «Закрыть» скрывает приложение",
-
-  // Settings - Experimental
   "spatial.setDimensions": "Установить размеры",
   "settings.header.experimental.description": "Adjust the experimental settings for Cider.",
   "settings.option.experimental.unknownPlugin": "Unknown Sources",
   "settings.option.experimental.unknownPlugin.description": "Allow installion of plugins from repos other than the Cider Plugin Repository",
-  "settings.option.experimental.compactUI": "Compact UI", // Toggle
+  "settings.option.experimental.compactUI": "Compact UI",
   "settings.option.experimental.close_button_hide": "Close Button Should Hide the Application",
   "settings.option.experimental.inline_playlists": "Inline Playlists and Albums",
-  
-  // Refer to term.disabled & term.enabled
-  // Spatialization Menu
   "spatial.notTurnedOn": "Audio Spatialization is disabled. Чтобы использовать, сначала включите его.",
   "spatial.left": "Слева",
   "spatial.width": "Ширина",
@@ -413,14 +361,8 @@
   "spatial.down": "Down",
   "one" : "песня",
   "spatial.audioSource": "Audio Source",
-
-  // Settings - Unfinished
   "settings.header.unfinished": "Unfinished",
-
-  // Web Remote
   "remote.web.description": "Отсканируйте QR-код, чтобы подключить телефон к Cider Remote",
   "remote.web.description": "Scan the QR code to pair your phone up with this Cider instance",
-
-  // About
   "about.thanks": "Большое спасибо команде Cider Collective и всем нашим вкладчикам."
 }
