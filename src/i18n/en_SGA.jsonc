@@ -109,6 +109,7 @@
   "term.fullscreenView": "⎓⚍|:|:ϟᔮ∷ᒷᒷリ ⍊╎ᒷ∴",
   "term.defaultView": "↸ᒷ⎓ᖋ⚍|:ᒣ ⍊╎ᒷ∴",
   "term.audioSettings": "ᖋ⚍↸╎ᒍ ϟᒷᒣᒣ╎リ┤ϟ",
+  "term.audioControls": "⍊ᒍ|:⚍ᒲᒷ ᔮᒍリᒣ∷ᒍ|:ϟ",
   "term.clearAll": "ᔮ|:ᒷᖋ∷ ᖋ|:|:",
   "term.recentStations": "∷ᒷᔮᒷリᒣ ϟᒣᖋᒣ╎ᒍリϟ",
   "term.language": "|:ᖋリ┤⚍ᖋ┤ᒷ",
@@ -154,6 +155,21 @@
   "term.videoExtras": "⍊╎↸ᒷᒍ ᒷ/ᒣ∷ᖋϟ",
   "term.top": "ᒣᒍi!",
   "term.version": "⍊ᒷ∷ϟ╎ᒍリ",
+  "term.noVideos": "リᒍ ⍊╎↸ᒷᒍϟ ⎓ᒍ⚍リ↸.",
+  "term.plugin": "i!|:⚍┤-╎リ",
+  "term.pluginMenu": "i!|:⚍┤-╎リ ᒲᒷリ⚍",
+  "term.pluginMenu.none": "॥ᒍ⚍ ↸ᒍリ'ᒣ ⍑ᖋ⍊ᒷ ᖋリ॥ i!|:⚍┤-╎リ リᒷᒷ↸ϟ ╎リᒣᒷ∷ᖋᔮᒣ╎ᒍリ.",
+  "term.replay": "∷ᒷi!|:ᖋ॥", //Apple Music Replay
+  "term.uniqueAlbums": "⚍リ╎ᑑ⚍ᒷ ᖋ|:ᕊ⚍ᒲϟ",
+  "term.uniqueArtists": "⚍リ╎ᑑ⚍ᒷ ᖋ∷ᒣ╎ϟᒣϟ",
+  "term.uniqueSongs": "⚍リ╎ᑑ⚍ᒷ ϟᒍリ┤ϟ",
+  "term.topArtists": "ᒣᒍi! ᖋ∷ᒣ╎ϟᒣϟ",
+  "term.listenedTo": "|:╎ϟᒣᒷリᒷ↸ ᒣᒍ:",
+  "term.times": "ᒣ╎ᒲᒷϟ",
+  "term.topAlbums": "ᒣᒍi! ᖋ|:ᕊ⚍ᒲϟ",
+  "term.plays": "i!|:ᖋ॥ϟ",
+  "term.topGenres": "ᒣᒍi! ┤ᒷリ∷ᒷϟ",
+  "term.confirmLogout" : "ᖋ∷ᒷ ॥ᒍ⚍ ϟ⚍∷ᒷ ॥ᒍ⚍ ∴ᖋリᒣ ᒣᒍ |:ᒍ┤ᒍ⚍ᒣ?",
 
   // Home
   "home.title": "⍑ᒍᒲᒷ",
@@ -226,14 +242,22 @@
   "action.tray.quit": "ᑑ⚍╎ᒣ",
   "action.tray.show": "ϟ⍑ᒍ∴",
   "action.update": "⚍i!↸ᖋᒣᒷ",
+  "action.install": "╎リϟᒣᖋ|:|:",
   "action.copy": "ᔮᒍi!॥",
   "action.newpreset": "リᒷ∴ i!∷ᒷϟᒷᒣ...", // Equalizer Preset
   "action.deletepreset": "↸ᒷ|:ᒷᒣᒷ i!∷ᒷϟᒷᒣ",
+  "action.open": "ᒍi!ᒷリ",
 
   // Settings - General
   "settings.header.general": "┤ᒷリᒷ∷ᖋ|:",
   "settings.header.general.description": "ᖋ↸⋮⚍ϟᒣ ᒣ⍑ᒷ ┤ᒷリᒷ∷ᖋ|: ϟᒷᒣᒣ╎リ┤ϟ ⎓ᒍ∷ ᔮ╎↸ᒷ∷.",
   "settings.option.general.language": "|:ᖋリ┤⚍ᖋ┤ᒷ",
+  "settings.option.general.resumebehavior": "∷ᒷϟ⚍ᒲᒷ ᕊᒷ⍑ᖋ⍊╎ᒍ∷",
+  "settings.option.general.resumebehavior.description": "∷ᒷϟ⚍ᒲᒷ ᕊᒷ⍑ᖋ⍊╎ᒍ∷ ᖋ⎓⎓ᒷᔮᒣϟ ⍑ᒍ∴ ᔮ╎↸ᒷ∷ ∴╎|:|: ∷ᒷϟ⚍ᒲᒷ ॥ᒍ⚍∷ ϟᒷϟϟ╎ᒍリ ∴⍑ᒷリ ॥ᒍ⚍ ∷ᒷᒣ⚍∷リ ᒣᒍ ᒣ⍑ᒷ ᖋi!i!.",
+  "settings.option.general.resumebehavior.locally": "|:ᒍᔮᖋ|:|:॥",
+  "settings.option.general.resumebehavior.locally.description": "ᔮ╎↸ᒷ∷ ∴╎|:|: ∷ᒷϟ⚍ᒲᒷ ॥ᒍ⚍∷ |:ᖋϟᒣ ϟᒷϟϟ╎ᒍリ ᒍリ ᒣ⍑╎ϟ ᒲᖋᔮ⍑╎リᒷ.",
+  "settings.option.general.resumebehavior.history": "⍑╎ϟᒣᒍ∷॥",
+  "settings.option.general.resumebehavior.history.description": "ᔮ╎↸ᒷ∷ ∴╎|:|: ᑑ⚍ᒷ⚍ᒷ ᒣ⍑ᒷ |:ᖋϟᒣ ϟᒍリ┤ ⎓∷ᒍᒲ ॥ᒍ⚍∷ ᒍ⍊ᒷ∷ᖋ|:|: ᖋi!i!|:ᒷ ᒲ⚍ϟ╎ᔮ ⍑╎ϟᒣᒍ∷॥, ᖋᔮ∷ᒍϟϟ ↸ᒷ⍊╎ᔮᒷϟ.",
 
   // Language optgroups
   "settings.option.general.language.main": "|:ᖋリ┤⚍ᖋ┤ᒷϟ",
@@ -250,6 +274,8 @@
   // Settings - Audio
   "settings.header.audio": "ᖋ⚍↸╎ᒍ",
   "settings.header.audio.description": "ᖋ↸⋮⚍ϟᒣ ᒣ⍑ᒷ ᖋ⚍↸╎ᒍ ϟᒷᒣᒣ╎リ┤ϟ ⎓ᒍ∷ ᔮ╎↸ᒷ∷.",
+  "settings.option.audio.volumeStep": "⍊ᒍ|:⚍ᒲᒷ ϟᒣᒍi!",
+  "settings.option.audio.maxVolume": "ᒲᖋ/ ⍊ᒍ|:⚍ᒲᒷ",
   "settings.option.audio.quality": "ᖋ⚍↸╎ᒍ ᑑ⚍ᖋ|:╎ᒣ॥", // Dropdown
   "settings.header.audio.quality.hireslossless": "⍑╎-∷ᒷϟ |:ᒍϟϟ|:ᒷϟϟ",
   "settings.header.audio.quality.hireslossless.description": "(⚍i! ᒣᒍ 24-ᕊ╎ᒣ/192 ·ǀ·⍑∩)",
@@ -262,6 +288,15 @@
   "settings.option.audio.seamlessTransition": "ϟᒷᖋᒲ|:ᒷϟϟ ᖋ⚍↸╎ᒍ ᒣ∷ᖋリϟ╎ᒣ╎ᒍリ", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "ᒷリᖋᕊ|:ᒷ ᖋ↸⍊ᖋリᔮᒷ↸ ⎓⚍リᔮᒣ╎ᒍリᖋ|:╎ᒣ॥", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.description": "ᒷリᖋᕊ|:╎リ┤ ᖋ⚍↸╎ᒍᔮᒍリᒣᒷ/ᒣ ⎓⚍リᔮᒣ╎ᒍリᖋ|:╎ᒣ॥ ∴╎|:|: ᖋ|:|:ᒍ∴ ⎓ᒍ∷ ᒷ/ᒣᒷリ↸ᒷ↸ ᖋ⚍↸╎ᒍ ⎓ᒷᖋᒣ⚍∷ᒷϟ |:╎·ǀ·ᒷ ᖋ⚍↸╎ᒍ リᒍ∷ᒲᖋ|:╎∩ᖋᒣ╎ᒍリ , ᒷᑑ⚍ᖋ|:╎∩ᒷ∷ϟ ᖋリ↸ ⍊╎ϟ⚍ᖋ|:╎∩ᒷ∷ϟ, ⍑ᒍ∴ᒷ⍊ᒷ∷ ᒍリ ϟᒍᒲᒷ ϟ॥ϟᒣᒷᒲϟ ᒣ⍑╎ϟ ᒲᖋ॥ ᔮᖋ⚍ϟᒷ ϟᒣ⚍ᒣᒣᒷ∷╎リ┤ ╎リ ᖋ⚍↸╎ᒍ ᒣ∷ᖋᔮ·ǀ·ϟ.",
+  "settings.option.audio.audioLab": "ᔮ╎↸ᒷ∷ ᖋ⚍↸╎ᒍ |:ᖋᕊ",
+  "settings.option.audio.audioLab.description": "ᖋリ ᖋϟϟᒍ∷ᒣᒲᒷリᒣ ᒍ⎓ ╎リ-⍑ᒍ⚍ϟᒷ ↸ᒷ⍊ᒷ|:ᒍi!ᒷ↸ ᖋ⚍↸╎ᒍ ᒷ⎓⎓ᒷᔮᒣϟ ⎓ᒍ∷ ᔮ╎↸ᒷ∷.",
+  "settings.warn.audioLab.withoutAF": "ᖋ⚍↸╎ᒍᔮᒍリᒣᒷ/ᒣ (ᖋ↸⍊ᖋリᔮᒷ↸ ⎓⚍リᔮᒣ╎ᒍリᖋ|:╎ᒣ॥) ╎ϟ ∷ᒷᑑ⚍╎∷ᒷ↸ ᒣᒍ ᒷリᖋᕊ|:ᒷ ᔮ╎↸ᒷ∷ ᖋ⚍↸╎ᒍ |:ᖋᕊᒍ∷ᖋᒣᒍ∷॥.",
+  "settings.option.audio.enableAdvancedFunctionality.analogWarmth": "ᖋリᖋ|:ᒍ┤ ∴ᖋ∷ᒲᒣ⍑",
+  "settings.option.audio.enableAdvancedFunctionality.analogWarmth.description": "ϟ╎ᒲ⚍|:ᖋᒣᒷϟ ᒣ⍑ᒷ ᖋリᖋ|:ᒍ┤ ∴ᖋ∷ᒲᒣ⍑ ᒲᒍ↸ᒷ|:|:ᒷ↸ ᖋ⎓ᒣᒷ∷ ᒣ⍑ᒷ ·ǀ·ᒍ∷┤ リ⚍ᒣ⚍ᕊᒷ 6i!1",
+  "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity": "ᖋリᖋ|:ᒍ┤ ∴ᖋ∷ᒲᒣ⍑ ╎リᒣᒷリϟ╎ᒣ॥",
+  "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.description": "ᔮ⍑ᖋリ┤ᒷϟ ᒣ⍑ᒷ ╎リᒣᒷリϟ╎ᒣ॥ ᒍ⎓ ᒣ⍑ᒷ ᖋリᖋ|:ᒍ┤ ∴ᖋ∷ᒲᒣ⍑ ᒲᒍ↸⚍|:ᒷ i!∷ᒍᔮᒷϟϟ╎リ┤.",
+  "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.smooth": "ϟᒲᒍᒍᒣ⍑",
+  "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.warm": "∴ᖋ∷ᒲ",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "ᔮ╎↸ᒷ∷ ᖋ↸∷ᒷリᖋ|:╎リᒷ i!∷ᒍᔮᒷϟϟᒍ∷™️", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "i!ϟ॥ᔮ⍑ᒍᖋᔮᒍ⚍ϟᒣ╎ᔮ ᒷリ⍑ᖋリᔮᒷᒲᒷリᒣϟ ᒣ⍑ᖋᒣ ᒲᖋ·ǀ·ᒷϟ ᒷ⍊ᒷ∷॥ᒣ⍑╎リ┤ ϟᒍ⚍リ↸ ᕊᒍᒣ⍑ ∷╎ᔮ⍑ᒷ∷ ᖋリ↸ ᒲᒍ∷ᒷ |:╎⍊ᒷ|:॥ | ↸ᒷϟ╎┤リᒷ↸ ᕊ॥ ᒲᖋ╎·ǀ·╎∴╎.",
   "settings.warn.audio.enableAdvancedFunctionality.ciderPPE.compatibility": "ᔮᖋi! ╎ϟ リᒍᒣ ᔮᒍᒲi!ᖋᒣ╎ᕊ|:ᒷ ∴╎ᒣ⍑ ϟi!ᖋᒣ╎ᖋ|:╎∩ᖋᒣ╎ᒍリ. i!|:ᒷᖋϟᒷ ↸╎ϟᖋᕊ|:ᒷ ϟi!ᖋᒣ╎ᖋ|:╎∩ᖋᒣ╎ᒍリ ᒣᒍ ᔮᒍリᒣ╎リ⚍ᒷ.",
@@ -273,6 +308,12 @@
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "リᒍ∷ᒲᖋ|:╎∩ᒷϟ i!ᒷᖋ·ǀ· ⍊ᒍ|:⚍ᒲᒷ ⎓ᒍ∷ ╎リ↸╎⍊╎↸⚍ᖋ|: ᒣ∷ᖋᔮ·ǀ·ϟ ᒣᒍ ᔮ∷ᒷᖋᒣᒷ ᖋ ᒲᒍ∷ᒷ ⚍リ╎⎓ᒍ∷ᒲ |:╎ϟᒣᒷリ╎リ┤ ᒷ/i!ᒷ∷╎ᒷリᔮᒷ.",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "ᖋ⚍↸╎ᒍ ϟi!ᖋᒣ╎ᖋ|:╎∩ᖋᒣ╎ᒍリ", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "ϟi!ᖋᒣ╎ᖋ|:╎∩ᒷ ᖋ⚍↸╎ᒍ ᖋリ↸ ᒲᖋ·ǀ·ᒷ ᖋ⚍↸╎ᒍ ᒲᒍ∷ᒷ 3-↸╎ᒲᒷリϟ╎ᒍリᖋ|: (リᒍᒣᒷ: ᒣ⍑╎ϟ ╎ϟ リᒍᒣ ↸ᒍ|:ᕊ॥ ᖋᒣᒲᒍϟ)",
+  "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization": "ᔮ╎↸ᒷ∷ ᒣ⚍リᒷ↸ ϟi!ᖋᒣ╎ᖋ|:╎∩ᖋᒣ╎ᒍリ",
+  "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.description": "i!∷ᒷ-ᒣ⚍リᒷ↸ ϟi!ᖋᒣ╎ᖋ|:╎∩╎リ┤ ᒷ⎓⎓ᒷᔮᒣ, ↸╎ϟᖋᕊ|:ᒷϟ ᒣ⍑ᒷ ᔮ⚍ϟᒣᒍᒲ╎∩ᖋᕊ|:ᒷ ϟᒷᒣᒣ╎リ┤ϟ ᒍ⎓ ᖋ⚍↸╎ᒍ ϟi!ᖋᒣ╎ᖋ|:╎∩ᖋᒣ╎ᒍリ. ϟi!ᖋᒣ╎ᖋ|:╎∩ᖋᒣ╎ᒍリ ᒲ⚍ϟᒣ ᕊᒷ ᒷリᖋᕊ|:ᒷ↸ ᖋϟ ᖋ i!∷ᒷ∷ᒷᑑ⚍╎ϟ╎ᒣᒷ.",
+  "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile": "ᔮ╎↸ᒷ∷ ϟi!ᖋᒣ╎ᖋ|:╎∩ᖋᒣ╎ᒍリ i!∷ᒍ⎓╎|:ᒷ",
+  "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.description": "ᔮ⍑ᖋリ┤ᒷϟ ᒣ⍑ᒷ ᒣ⚍リ╎リ┤ i!∷ᒍ⎓╎|:ᒷ ᒍ⎓ ᒣ⍑ᒷ ϟi!ᖋᒣ╎ᖋ|:╎∩ᖋᒣ╎ᒍリ. (∷ᒷᑑ⚍╎∷ᒷϟ ᖋi!i! ∷ᒷϟᒣᖋ∷ᒣ)",
+  "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.standard": "ϟᒣᖋリ↸ᖋ∷↸",
+  "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.audiophile": "ᖋ⚍↸╎ᒍi!⍑╎|:ᒷ",
   "settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility": "ϟi!ᖋᒣ╎ᖋ|:╎∩ᖋᒣ╎ᒍリ ╎ϟ リᒍᒣ ᔮᒍᒲi!ᖋᒣ╎ᕊ|:ᒷ ∴╎ᒣ⍑ ᔮᖋi!. i!|:ᒷᖋϟᒷ ↸╎ϟᖋᕊ|:ᒷ ᔮᖋi! ᒣᒍ ᔮᒍリᒣ╎リ⚍ᒷ.",
 
   // Settings - Visual
@@ -299,6 +340,9 @@
   "settings.header.visual.hardwareAcceleration.webGPU": "∴ᒷᕊ┤i!⚍",
   "settings.header.visual.theme": "ᒣ⍑ᒷᒲᒷ",
   "settings.option.visual.theme.github.download": "╎リϟᒣᖋ|:|: ⎓∷ᒍᒲ ┤╎ᒣ⍑⚍ᕊ ⚍∷|:",
+  "settings.option.visual.theme.github.explore": "ᒷ/i!|:ᒍ∷ᒷ ┤╎ᒣ⍑⚍ᕊ ᒣ⍑ᒷᒲᒷϟ",
+  "settings.header.visual.theme.github.page": "ᒣ⍑ᒷᒲᒷϟ ⎓∷ᒍᒲ ┤╎ᒣ⍑⚍ᕊ",
+  "settings.option.visual.theme.github.install.confirm": "ᖋ∷ᒷ ॥ᒍ⚍ ϟ⚍∷ᒷ ॥ᒍ⚍ ∴ᖋリᒣ ᒣᒍ ╎リϟᒣᖋ|:|: {{ repo }}?",
   "settings.prompt.visual.theme.github.URL": "ᒷリᒣᒷ∷ ᒣ⍑ᒷ ⚍∷|: ᒍ⎓ ᒣ⍑ᒷ ᒣ⍑ᒷᒲᒷ ॥ᒍ⚍ ∴ᖋリᒣ ᒣᒍ ╎リϟᒣᖋ|:|:",
   "settings.notyf.visual.theme.install.success": "ᒣ⍑ᒷᒲᒷ ╎リϟᒣᖋ|:|:ᒷ↸ ϟ⚍ᔮᔮᒷϟϟ⎓⚍|:|:॥",
   "settings.notyf.visual.theme.install.error": "ᒣ⍑ᒷᒲᒷ ╎リϟᒣᖋ|:|:ᖋᒣ╎ᒍリ ⎓ᖋ╎|:ᒷ↸",
@@ -333,13 +377,19 @@
   "settings.option.connectivity.lastfmScrobble.removeFeatured": "∷ᒷᒲᒍ⍊ᒷ ⎓ᒷᖋᒣ⚍∷╎リ┤ ᖋ∷ᒣ╎ϟᒣϟ ⎓∷ᒍᒲ ϟᒍリ┤ ᒣ╎ᒣ|:ᒷ (|:ᖋϟᒣ.⎓ᒲ)",
   "settings.option.connectivity.lastfmScrobble.filterLoop": "⎓╎|:ᒣᒷ∷ |:ᒍᒍi!ᒷ↸ ᒣ∷ᖋᔮ·ǀ· (|:ᖋϟᒣ.⎓ᒲ)",
   // Refer to term.connect for the connect button
+
+  // Settings - Debug
+  "settings.header.debug": "↸ᒷᕊ⚍┤",
+  "settings.option.debug.copy_log": "ᔮᒍi!॥ |:ᒍ┤ϟ ᒣᒍ ᔮ|:╎i!ᕊᒍᖋ∷↸",
+  "settings.option.debug.openAppData": "ᒍi!ᒷリ ᔮ╎↸ᒷ∷ ⎓ᒍ|:↸ᒷ∷",
   
   // Settings - Experimental
   "settings.header.experimental": "ᒷ/i!ᒷ∷╎ᒲᒷリᒣᖋ|:",
   "settings.header.experimental.description": "ᖋ↸⋮⚍ϟᒣ ᒣ⍑ᒷ ᒷ/i!ᒷ∷╎ᒲᒷリᒣᖋ|: ϟᒷᒣᒣ╎リ┤ϟ ⎓ᒍ∷ ᔮ╎↸ᒷ∷.",
+  "settings.option.experimental.unknownPlugin": "⚍リ·ǀ·リᒍ∴リ ϟᒍ⚍∷ᔮᒷϟ",
+  "settings.option.experimental.unknownPlugin.description": "ᖋ|:|:ᒍ∴ ╎リϟᒣᖋ|:|:ᖋᒣ╎ᒍリ ᒍ⎓ i!|:⚍┤╎リϟ ⎓∷ᒍᒲ ∷ᒷi!ᒍϟ ᒍᒣ⍑ᒷ∷ ᒣ⍑ᖋリ ᒣ⍑ᒷ ᔮ╎↸ᒷ∷ i!|:⚍┤╎リ ∷ᒷi!ᒍϟ╎ᒣᒍ∷॥",
   "settings.option.experimental.compactUI": "ᔮᒍᒲi!ᖋᔮᒣ ⚍╎", // Toggle
   "settings.option.experimental.close_button_hide": "ᔮ|:ᒍϟᒷ ᕊ⚍ᒣᒣᒍリ ϟ⍑ᒍ⚍|:↸ ⍑╎↸ᒷ ᒣ⍑ᒷ ᖋi!i!|:╎ᔮᖋᒣ╎ᒍリ",
-  "settings.option.experimental.copy_log": "ᔮᒍi!॥ |:ᒍ┤ϟ ᒣᒍ ᔮ|:╎i!ᕊᒍᖋ∷↸",
   "settings.option.experimental.inline_playlists": "╎リ|:╎リᒷ i!|:ᖋ॥|:╎ϟᒣϟ ᖋリ↸ ᖋ|:ᕊ⚍ᒲϟ",
   
   // Refer to term.disabled & term.enabled
