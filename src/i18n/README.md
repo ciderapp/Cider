@@ -172,3 +172,7 @@ Update 19/2/2022 21:00 UTC
 * `settings.option.visual.theme.github.install.confirm`: Added for `en_US`
 * `settings.option.experimental.unknownPlugin`: Added for `en_US`
 * `settings.option.experimental.unknownPlugin.description`: Added for `en_US`
+
+Update 21/02/2022 13:15 UTC
+
+* `term.pluginMenu.none`: Added for `en_US`
