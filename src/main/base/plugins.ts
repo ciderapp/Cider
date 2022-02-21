@@ -5,7 +5,7 @@ import {utils} from './utils';
 
 export class Plugins {
     private basePluginsPath = path.join(__dirname, '../plugins');
-    private userPluginsPath = path.join(electron.app.getPath('userData'), 'plugins');
+    private userPluginsPath = path.join(electron.app.getPath('userData'), 'Plugins');
     private readonly pluginsList: any = {};
 
     constructor() {
