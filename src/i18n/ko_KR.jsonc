@@ -1,26 +1,15 @@
 {
-
-  // i18n Info
-  "i18n.languageName": "한국어 (KR)", // name of language in native language
-  "i18n.languageNameEnglish": "Korean (KR)", // name of language in English
-  "i18n.category": "main", // main = real language, fun = fun community languages
-  "i18n.authors": "@Hazealign", // Authors, if you contribute to this file feel free to add your name seperated with a space
-  
-  // App info
+  "i18n.languageName": "English (US)",
+  "i18n.languageNameEnglish": "English (US)",
+  "i18n.category": "main",
+  "i18n.authors": "@maikirakiwi @kyw504100",
   "app.name": "Cider",
-  
   "date.format": "${y}.
-  
-  // Dialogs
   "dialog.cancel": "취소",
   "dialog.ok": "확인",
-  
-  // Notification
   "notification.updatingLibrarySongs": "라이브러리의 노래를 업데이트하는 중입니다...",
   "notification.updatingLibraryAlbums": "라이브러리의 앨범을 업데이트하는 중입니다...",
   "notification.updatingLibraryArtists": "라이브러리의 아티스트를 업데이트하는 중입니다...",
-  
-  // Terms
   "term.appleInc": "Apple Inc.", // Follows brand term
   "term.appleMusic": "Apple Music", // Follows brand term
   "term.applePodcasts": "Apple Podcasts", // Follows brand term
@@ -125,20 +114,15 @@
   "term.contributors": "기여자",
   "term.equalizer": "이퀄라이저",
   "term.reset": "초기화",
-  // Example for multiple plural forms : look up the key for your language in https://github.com/prantlf/fast-plural-rules/blob/master/docs/languages.md#supported-languages
-  "term.tracks": "곡", // Assume x amount of tracks.
-  ${d}",
-  //   "other" : "tracks"
-  ${m}.
-  "term.tracks": "tracks", // Assume x amount of tracks. e.g. 50 tracks 
+  "term.tracks": "tracks",
   "term.videos": "비디오",
   "term.menu": "메뉴",
   "term.check": "확인",
-  "term.aboutArtist": "{{artistName}}에 대하여", // e.g. 'About Doja Cat'
-  "term.topResult": "Top Result", // Search Results
-  "term.sharedPlaylists": "공유 플레이리스트", // Search Results
-  "term.people": "프로필", // Search Results
-  "term.newpreset.name": "새 이퀄라이저 프리셋", // Equalizer Preset
+  "term.aboutArtist": "About {{artistName}}",
+  "term.topResult": "Top Result",
+  "term.sharedPlaylists": "Shared Playlists",
+  "term.people": "People",
+  "term.newpreset.name": "New EQ Preset Name",
   "term.addedpreset": "추가된 프리셋",
   "term.deletepreset.warn": "정말로 프리셋을 삭제하시겠습니까?",
   "term.deletedpreset": "프리셋 삭제",
@@ -146,7 +130,7 @@
   "spatial.listener": "사용자",
   "action.addToQueue.error": "대기열에 추가하는데 실패함",
   "term.musicVideos": "뮤직 비디오", // Search page friendlyTypes
-  "term.videoExtras": "추가 비디오",
+  "term.musicVideos": "Music Videos",
   "term.stations": "스테이션",
   "term.curators": "큐레이터",
   "term.appleCurators": "애플 큐레이터",
@@ -158,7 +142,7 @@
   "error.noResults": "결과 없음",
   "settings.header.connectivity": "연동",
   "settings.header.visual.theme": "테마",
-  "podcast.subscribedOnItunes": "구독 중",
+  "term.replay": "Replay",
   "action.showAlbum": "전체 앨범 보기",
   "home.followedArtists": "팔로우한 아티스트",
   "settings.header.lyrics": "가사",
@@ -168,9 +152,7 @@
   "action.goToAlbum": "앨범 보기",
   "action.playLater": "맨 나중에 재생",
   "settings.option.general.language.unsorted": "미분류",
-  "term.confirmLogout" : "Are you sure you want to logout?",
-  
-  // Home
+  "term.confirmLogout": "Are you sure you want to logout?",
   "home.title": "홈",
   "home.recentlyPlayed": "최근 재생한 항목",
   "home.recentlyAdded": "최근 추가된 항목",
@@ -179,14 +161,10 @@
   "home.madeForYou": "나만을 위한 추천",
   "home.friendsListeningTo": "친구가 듣는 음악",
   "action.goToArtist": "아티스트 보기",
-  
-  // Errors
   "error.appleMusicSubRequired": "Apple Music은 구독을 필요로 합니다.",
   "error.connectionError": "Apple Music에 연결하지 못했습니다.",
   "error.noResults.description": "다시 시도해주세요.",
   "action.follow.error": "팔로우 실패",
-  
-  // Podcasts
   "podcast.followOnCider": "Cider에서 팔로우하기",
   "action.follow": "팔로우",
   "podcast.subscribeOnItunes": "iTunes에서 구독",
@@ -195,8 +173,6 @@
   "podcast.episodes": "방송",
   "podcast.playEpisode": "재생",
   "podcast.website": "팟캐스트 사이트",
-  
-  // Actions
   "action.addToLibrary": "보관함에 추가",
   "action.addToLibrary.success": "보관함에 추가됨",
   "action.addToLibrary.error": "보관함에 추가하는데 실패함",
@@ -243,11 +219,9 @@
   "settings.option.general.updateCider": "Cider 업데이트", // Button
   "settings.header.unfinished": "미완성",
   "settings.option.experimental.copy_log": "로그를 클립보드에 복사하기",
-  "action.newpreset": "새 프리셋", // Equalizer Preset
+  "action.newpreset": "New Preset...",
   "settings.header.visual.animatedArtwork.disable": "항상 비활성화",
   "spatial.front": "앞",
-  
-  // Settings - General
   "settings.header.general": "일반",
   "settings.header.general.description": "Cider의 일반 기능을 설정합니다.",
   "settings.option.general.language": "언어",
@@ -257,26 +231,19 @@
   "settings.option.general.resumebehavior.locally.description": "Cider will resume your last session on this machine.",
   "settings.option.visual.theme.dark": "다크",
   "settings.option.general.resumebehavior.history.description": "Cider will queue the last song from your overall Apple Music history, across devices.",
-
-  
-  // Language optgroups
   "settings.option.general.language.fun": "재미를 위한 언어",
   "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch 번역 선호 언어", // Dropdown
   "settings.header.visual": "시각",
-
-  // Update Cider
-  "settings.option.audio.enableAdvancedFunctionality": "추가 기능 설정", // Toggle Refer to term.check for the check button
-  "settings.header.connectivity.description": "Cider의 연동 기능을 설정합니다.",
+  "settings.option.general.updateCider": "Update Cider",
+  "settings.option.general.updateCider.branch": "Cider Update Branch",
   "settings.header.lyrics.description": "Cider의 가사 기능을 설정합니다.",
   "spatial.spatialProperties": "공간 설정",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "오디오 정규화", // Toggle
-  
-  // Settings - Audio
   "settings.header.audio.description": "Cider의 오디오 기능을 설정합니다.",
   "settings.header.audio.quality.low": "낮음",
   "settings.option.audio.quality": "오디오 음질", // Dropdown
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "오디오 공간화", // Toggle
-  "settings.header.audio.quality.high": "고품질",
+  "settings.option.audio.quality": "Audio Quality",
   "settings.header.audio.quality.auto": "자동",
   "settings.header.visual.animatedArtworkQuality.low": "낮음",
   "settings.header.visual.windowBackgroundStyle.none": "없음",
@@ -285,8 +252,8 @@
   "settings.header.visual.animatedArtworkQuality.medium": "중간",
   "settings.header.experimental": "실험실",
   "settings.header.visual.windowBackgroundStyle.image": "이미지",
-  "settings.option.audio.seamlessTransition": "크로스페이드 기능", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.description": "AudioContext 기능을 활성화하여 오디오 정규화, 이퀄라이저, 비쥬얼라이저 등의 기능을 쓸 수 있게 해줍니다.
+  "settings.option.audio.seamlessTransition": "Seamless Audio Transition",
+  "settings.option.audio.enableAdvancedFunctionality": "Enable Advanced Functionality",
   일부 시스템에서는 오디오가 끊길 수 있습니다.",
   "settings.header.experimental.description": "Cider의 실험적 기능을 설정합니다.",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "개별 트랙의 최대 볼륨을 정규화하여 보다 균일한 청취 경험을 제공합니다.",
@@ -297,16 +264,16 @@
   "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.description": "Changes the intensity of the Analog Warmth Module processing.",
   "settings.option.connectivity.lastfmScrobble.delay": "Last.fm 스크로블 딜레이 (%)",
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "Last.fm Now Playing 기능 활성화",
-  "settings.option.visual.hardwareAcceleration": "하드웨어 가속", // Dropdown
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider Adrenaline Processor™️",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Psychoacoustic Enhancements that makes everything sound both richer and more lively | Designed by Maikiwi.",
   "spatial.notTurnedOn": "오디오 공간화가 비활성화되어있습니다. Please disable Spatialization to continue.",
-  "settings.header.visual.description": "Cider의 시각 기능을 설정합니다.",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "CAP Strength",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Changes the strength of the processing done to the audio. (Aggressive may yield undesirable results)",
   "settings.header.visual.animatedArtworkQuality.extreme": "최상",
   "settings.option.lyrics.enableMusixmatch": "Musixmatch 가사 활성화", // Toggle
-  "settings.option.connectivity.playbackNotifications": "재생 알림", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Audio Normalization",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizes peak volume for individual tracks to create a more uniform listening experience.",
-  "spatial.audioSource": "오디오 소스",
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Audio Spatialization",
   (참고: 이 기능은 Dolby Atmos가 아닙니다.)",
   "settings.option.connectivity.lastfmScrobble": "Last.fm 스크로블링", // Option to Connect
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.description": "Pre-tuned Spatializing Effect, disables the customizable settings of Audio Spatialization. Spatialization must be enabled as a prerequisite.",
@@ -315,26 +282,24 @@
   "settings.option.experimental.inline_playlists": "인라인 플레이리스트 및 앨범",
   "settings.option.lyrics.enableMusixmatchKaraoke": "노래방 모드 활성화 (Musixmatch만 가능)", // Toggle
   "settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility": "Spatialization is not compatible with CAP. Please disable CAP to continue.",
-  
-  // Settings - Visual
   "settings.header.visual.windowBackgroundStyle.artwork": "앨범 아트",
   "settings.header.connectivity.discordRPC.cider": "'Cider'로 표시하기",
-  "settings.option.visual.windowBackgroundStyle": "윈도우 배경 스타일", // Toggle
+  "settings.option.visual.windowBackgroundStyle": "Window Background Style",
   "settings.option.visual.animatedWindowBackground": "움직이는 윈도우 배경", // Toggle
   "settings.option.visual.animatedArtwork": "애니메이션 앨범 표지", // Dropdown
   "settings.header.visual.windowBackgroundStyle.image": "Image",
-  "settings.option.visual.animatedArtworkQuality": "애니메이션 앨범 표지 화질", // Dropdown
+  "settings.option.visual.animatedArtwork": "Animated Artwork",
   "settings.header.visual.animatedArtwork.limited": "페이지나 특정 화면에서만 활성화",
   "settings.header.visual.animatedArtwork.limited": "Limited to pages and special entries",
   "settings.option.lyrics.enableYoutubeLyrics": "뮤직 비디오에 대한 유튜브 자막 활성화", // Toggle
-  "settings.option.visual.animatedArtworkQuality": "Animated Artwork Quality", // Dropdown
+  "settings.option.visual.animatedArtworkQuality": "Animated Artwork Quality",
   "settings.header.visual.animatedArtworkQuality.low": "Low",
   "spatial.roomDimensions": "방 차원",
   "spatial.height": "높이",
   "settings.header.visual.animatedArtworkQuality.veryHigh": "Very High",
   "spatial.depth": "깊이",
-  "settings.option.visual.showPersonalInfo": "개인 정보 보기", // Toggle
-  "settings.option.visual.hardwareAcceleration.description": "재시작을 필요로 합니다.",
+  "settings.option.visual.animatedWindowBackground": "Animated Window Background",
+  "settings.option.visual.hardwareAcceleration": "Hardware Acceleration",
   "settings.option.visual.hardwareAcceleration.description": "Requires relaunch",
   "settings.header.visual.hardwareAcceleration.default": "Default",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
@@ -346,54 +311,37 @@
   "settings.prompt.visual.theme.github.URL": "Enter the URL of the theme you want to install",
   "settings.notyf.visual.theme.install.success": "Theme installed successfully",
   "settings.notyf.visual.theme.install.error": "Theme installation failed",
-  
-  // Settings - Visual - Theme name
   "settings.option.visual.theme.default": "Cider",
   "settings.option.visual.theme.dark": "Dark",
-  
-  // Refer to term.disabled for the disabled option
-  "settings.option.visual.showPersonalInfo": "Show Personal Info", // Toggle
-  
-  // Settings - Lyrics
+  "settings.option.visual.showPersonalInfo": "Show Personal Info",
   "settings.header.lyrics": "Lyrics",
   "settings.header.lyrics.description": "Adjust the lyrics settings for Cider.",
-  "settings.option.connectivity.lastfmScrobble.removeFeatured": "곡 제목에서 피쳐링 아티스트를 제외하기 (Last.fm)",
-  "settings.option.lyrics.enableMusixmatchKaraoke": "Enable Karaoke Mode (Musixmatch only)", // Toggle
-  "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch Translation Preferred Language", // Dropdown
-  "settings.option.lyrics.enableYoutubeLyrics": "Enable Youtube Lyrics for Music Videos", // Toggle
-  
-  // Settings - Connectivity
+  "settings.option.lyrics.enableMusixmatch": "Enable Musixmatch Lyrics",
+  "settings.option.lyrics.enableMusixmatchKaraoke": "Enable Karaoke Mode (Musixmatch only)",
+  "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch Translation Preferred Language",
+  "settings.option.lyrics.enableYoutubeLyrics": "Enable Youtube Lyrics for Music Videos",
   "settings.header.connectivity": "Connectivity",
   "settings.header.connectivity.description": "Adjust the connectivity settings for Cider.",
-  "settings.option.connectivity.discordRPC": "Discord Rich Presence", // Dropdown
-  "settings.option.connectivity.discordRPC.clearOnPause": "일시 정지 시 Discord Rich Presence을 끄기", // Toggle
-  // Refer to term.disabled for the disabled option
+  "settings.option.connectivity.discordRPC": "Discord Rich Presence",
+  "settings.option.connectivity.playbackNotifications": "Playback Notifications",
   "remote.web.title": "Cider 리모트",
   "settings.header.connectivity.discordRPC.appleMusic": "Display as 'Apple Music'",
-  "settings.option.connectivity.discordRPC.clearOnPause": "Clear Discord Rich Presence on Pause", // Toggle
-  "settings.option.connectivity.lastfmScrobble.filterLoop": "루프 트랙을 필터하기 (Last.fm)",
+  "settings.option.connectivity.discordRPC.clearOnPause": "Clear Discord Rich Presence on Pause",
+  "settings.option.connectivity.lastfmScrobble": "Last.fm Scrobbling",
   "settings.option.connectivity.lastfmScrobble.delay": "Last.fm Scrobble Delay (%)",
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "Enable Last.fm Now Playing",
   "settings.option.connectivity.lastfmScrobble.removeFeatured": "Remove featuring artists from song title (Last.fm)",
   "settings.option.connectivity.lastfmScrobble.filterLoop": "Filter looped track (Last.fm)",
-  // Refer to term.connect for the connect button
-
-  // Settings - Debug
   "settings.header.debug": "Debug",
   "settings.option.debug.copy_log": "Copy logs to clipboard",
   "settings.option.experimental.close_button_hide": "닫기 버튼이 애플리케이션을 가릴 것입니다",
-
-  // Settings - Experimental
   "settings.header.experimental": "Experimental",
   "settings.header.experimental.description": "Adjust the experimental settings for Cider.",
   "settings.option.experimental.unknownPlugin": "Unknown Sources",
   "settings.option.experimental.unknownPlugin.description": "Allow installion of plugins from repos other than the Cider Plugin Repository",
-  "settings.option.experimental.compactUI": "Compact UI", // Toggle
+  "settings.option.experimental.compactUI": "Compact UI",
   "settings.option.experimental.close_button_hide": "Close Button Should Hide the Application",
   "settings.option.experimental.inline_playlists": "Inline Playlists and Albums",
-  
-  // Refer to term.disabled & term.enabled
-  // Spatialization Menu
   "spatial.notTurnedOn": "Audio Spatialization is disabled. 사용하기 전에 먼저 활성화해주세요.",
   "spatial.roomPositions": "방 위치",
   "spatial.left": "좌",
@@ -413,14 +361,8 @@
   "spatial.down": "Down",
   "spatial.listener": "Listener",
   "spatial.audioSource": "Audio Source",
-
-  // Settings - Unfinished
   "settings.header.unfinished": "Unfinished",
-
-  // Web Remote
   "remote.web.description": "QR 코드를 스캔해서 Cider와 스마트폰을 연결하기",
   "remote.web.description": "Scan the QR code to pair your phone up with this Cider instance",
-
-  // About
   "about.thanks": "Cider Collective Team과 모든 기여자들에게 감사합니다."
 }
