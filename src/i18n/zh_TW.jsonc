@@ -1,26 +1,15 @@
-//About
-
-  // i18n Info
-  "i18n.languageName": "繁體中文（台灣）", // name of language in native language
-  "i18n.languageNameEnglish": "Trad.
-  "i18n.category": "main", // main = real language, fun = fun community languages
-  "i18n.authors": "@maikirakiwi @jay900604 @kyw504100 @BillKerman", // Authors, if you contribute to this file feel free to add your name seperated with a space
-  
-  // App info
+{
+  "i18n.languageName": "English (US)",
+  "i18n.languageNameEnglish": "English (US)",
+  "i18n.category": "main",
+  "i18n.authors": "@maikirakiwi @kyw504100",
   "app.name": "Cider",
-  
   "date.format": "${y}年${m}月${d}日",
-  
-  // Dialogs
   "dialog.cancel": "取消",
   "dialog.ok": "確定",
-  
-  // Notification
   "notification.updatingLibrarySongs": "正在更新資料庫的歌曲...",
   "notification.updatingLibraryAlbums": "正在更新資料庫的專輯...",
   "notification.updatingLibraryArtists": "正在更新資料庫的藝人...",
-  
-  // Terms
   "term.appleMusic": "Apple Music", // Follows brand term
   "term.itunes": "iTunes", // Follows brand term
   "term.applePodcasts": "Apple Podcasts", // Follows brand term
@@ -125,20 +114,15 @@
   "term.contributors": "貢獻者",
   "term.equalizer": "等化器",
   "term.reset": "重設",
-  // Example for multiple plural forms : look up the key for your language in https://github.com/prantlf/fast-plural-rules/blob/master/docs/languages.md#supported-languages
-  "term.track": {
-  "one" : "首歌曲",
-  "other" : "首歌曲"
-  },
-  "term.tracks": "首歌曲", e.g. 50 tracks 
+  "term.tracks": "tracks",
   "term.videos": "影片",
   "term.menu": "選單",
   "term.check": "檢查",
-  "term.aboutArtist": "關於{{artistName}}", // e.g. 'About Doja Cat'
-  "action.moveToTop": "移至頂端",
-  "action.share": "分享歌曲",
-  "spatial.listener" : "聽衆",
-  "action.newpreset": "新增預設",  // Equalizer Preset
+  "term.aboutArtist": "About {{artistName}}",
+  "term.topResult": "Top Result",
+  "term.sharedPlaylists": "Shared Playlists",
+  "term.people": "People",
+  "term.newpreset.name": "New EQ Preset Name",
   "home.recentlyAdded": "最近加入",
   "action.deletepreset": "刪除預設",  // Equalizer Preset
   "spatial.setPositions" : "套用設定",
@@ -146,7 +130,7 @@
   "settings.header.general": "一般",
   "term.requestError": "請求發生錯誤。",
   "term.song.link.generate": "正在取得 song.link 的分享網址...",
-  "term.sortBy.genre": "音樂風格",
+  "term.musicVideos": "Music Videos",
   "spatial.roomPositions" : "空間位置",
   "spatial.gain" : "增益",
   "podcast.followedOnCider": "已追蹤",
@@ -158,7 +142,7 @@
   "error.noResults": "沒有結果",
   "action.addToLibrary": "加入資料庫",
   "term.pluginMenu": "Plug-in Menu",
-  "podcast.subscribedOnItunes": "已訂閱",
+  "term.replay": "Replay",
   "action.goToAlbum": "前往專輯",
   "action.goToArtist": "前往藝人",
   "settings.header.lyrics": "歌詞",
@@ -168,9 +152,7 @@
   "term.topAlbums": "Top Albums",
   "home.recentlyPlayed": "最近播放",
   "settings.option.general.language.unsorted": "未分類",
-  "term.confirmLogout" : "Are you sure you want to logout?",
-  
-  // Home
+  "term.confirmLogout": "Are you sure you want to logout?",
   "home.title": "首頁",
   "action.playLater": "最後播放",
   "action.addToFavorites": "加入我的最愛",
@@ -179,14 +161,10 @@
   "home.madeForYou": "為您推薦",
   "home.friendsListeningTo": "朋友正在聆聽",
   "action.follow": "追蹤",
-  
-  // Errors
   "error.appleMusicSubRequired": "需要訂閱 Apple Music 以使用 Cider",
   "error.connectionError": "無法連接到 Apple Music。",
   "error.noResults.description": "嘗試新的搜尋項目。",
   "action.follow.error": "追蹤的過程發生錯誤",
-  
-  // Podcasts
   "podcast.followOnCider": "在 Cider 上追蹤",
   "action.follow.success": "追蹤中",
   "podcast.subscribeOnItunes": "在 iTunes 上訂閱",
@@ -195,8 +173,6 @@
   "podcast.episodes": "單集",
   "podcast.playEpisode": "播放單集",
   "remote.web.title": "Cider 遠端操控",
-  
-  // Actions
   "action.addToLibrary.success": "成功加入資料庫",
   "action.addToLibrary.error": "加入資料庫的過程發生錯誤",
   "action.removeFromLibrary": "從資料庫刪除",
@@ -243,11 +219,9 @@
   "settings.option.general.updateCider": "更新 Cider", // Button
   "settings.notyf.visual.theme.install.success" : "主題成功安裝" ,
   "settings.option.debug.copy_log": "複製執行紀錄檔至剪貼簿",
-  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "音訊平衡", // Toggle
+  "action.newpreset": "New Preset...",
   "settings.header.visual.animatedArtwork.disable": "關閉",
   "settings.option.debug.openAppData": "打開 Cider 資料夾",
-  
-  // Settings - General
   "settings.header.general.description": "調整 Cider 的一般設定",
   "settings.header.visual.description": "調整 Cider 的外觀",
   "settings.option.general.language.fun": "特殊語言",
@@ -257,26 +231,19 @@
   "settings.option.general.resumebehavior.locally.description": "Cider will resume your last session on this machine.",
   "settings.option.visual.showPersonalInfo": "顯示個人檔案", // Toggle
   "settings.option.connectivity.lastfmScrobble.filterLoop": "不記錄單曲循環 (LastFM)",
-
-  
-  // Language optgroups
   "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch 歌詞語言偏好", // Dropdown
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "空間音訊", // Toggle
   "settings.header.lyrics.description": "調整 Cider 的歌詞設定",
-
-  // Update Cider
-  "settings.option.general.updateCider.branch": "Cider 更新通道", // Dropdown Refer to term.check for the check button
-  "settings.option.general.updateCider.branch.description": "選擇您要接收 Cider 軟體更新的通道",
+  "settings.option.general.updateCider": "Update Cider",
+  "settings.option.general.updateCider.branch": "Cider Update Branch",
   "settings.header.audio.description": "調整 Cider 的音訊設定",
   "settings.header.audio": "音訊",
   "settings.header.unfinished": "未開發完成的功能",
-  
-  // Settings - Audio
   "settings.header.audio.quality.auto": "自動",
   "settings.option.audio.volumeStep": "音量改變量",
   "settings.option.audio.maxVolume": "最大音量",
   "settings.option.audio.enableAdvancedFunctionality": "進階音訊功能", // Toggle
-  "settings.option.audio.quality": "音訊品質", // Dropdown
+  "settings.option.audio.quality": "Audio Quality",
   "settings.header.audio.quality.lossless": "無損壓縮",
   "settings.header.audio.quality.hireslossless.description": "（高達 24-bit/192 kHz）",
   "settings.header.audio.quality.hireslossless": "高品質無損壓縮",
@@ -285,8 +252,8 @@
   "settings.header.audio.quality.standard": "高效率",
   "settings.header.audio.quality.enhanced": "數位增強",
   "term.spacializedAudioSetting": "空間音訊設定",
-  "settings.option.audio.seamlessTransition": "無間斷播放", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "數位增強音訊處理設定", // Toggle
+  "settings.option.audio.seamlessTransition": "Seamless Audio Transition",
+  "settings.option.audio.enableAdvancedFunctionality": "Enable Advanced Functionality",
   "settings.option.audio.enableAdvancedFunctionality.description": "啟用 AudioContext 將開啟類似音訊平衡和等化器的進階設定。但這並不一定適合每部電腦，可能會發生音樂卡頓。",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider 數位增強音訊處理™️", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "將音訊進行空間化處理來製造一個更立體的聆聽體驗（註：此功能不是官方的杜比全景聲）",
@@ -297,16 +264,16 @@
   "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.description": "Changes the intensity of the Analog Warmth Module processing.",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "將平衡輕柔和響亮的歌曲，建立更統一舒適的聆聽體驗。",
   "settings.header.experimental": "實驗性功能",
-  "settings.option.visual.hardwareAcceleration": "硬體加速", // Dropdown
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider Adrenaline Processor™️",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "將欺騙您的大腦讓您感受到近似保真壓縮的音質。| 由 Maikiwi 設計",
   "spatial.notTurnedOn": "空間音訊目前是關閉狀態，請先啟用再使用。", Please disable Spatialization to continue.",
-  "settings.option.connectivity.playbackNotifications": "歌曲播放通知", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "CAP Strength",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Changes the strength of the processing done to the audio. (Aggressive may yield undesirable results)",
   "settings.header.visual.animatedArtworkQuality.high": "高",
   "settings.header.visual.animatedArtworkQuality.extreme": "極高",
-  "settings.option.lyrics.enableMusixmatch": "啟用 Musixmatch 歌詞", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Audio Normalization",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizes peak volume for individual tracks to create a more uniform listening experience.",
-  "settings.option.experimental.compactUI": "使用緊密的介面設計", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Audio Spatialization",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Spatialize audio and make audio more 3-dimensional (note: This is not Dolby Atmos)",
   "spatial.setDimensions" : "設定尺寸",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.description": "Pre-tuned Spatializing Effect, disables the customizable settings of Audio Spatialization. Spatialization must be enabled as a prerequisite.",
@@ -315,26 +282,24 @@
   "settings.header.visual.animatedArtworkQuality.medium": "中",
   "settings.option.visual.animatedArtwork": "動態專輯封面", // Dropdown
   "settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility": "Spatialization is not compatible with CAP. Please disable CAP to continue.",
-  
-  // Settings - Visual
   "settings.header.visual.theme": "主題",
   "settings.header.visual.windowBackgroundStyle.image": "圖片",
-  "settings.option.visual.windowBackgroundStyle": "視窗背景樣式", // Toggle
+  "settings.option.visual.windowBackgroundStyle": "Window Background Style",
   "settings.header.visual.windowBackgroundStyle.none": "空白",
   "settings.header.visual.windowBackgroundStyle.artwork": "專輯封面",
   "settings.option.visual.animatedWindowBackground": "動態視窗背景", // Toggle
-  "settings.header.visual.animatedArtwork.always": "總是顯示",
+  "settings.option.visual.animatedArtwork": "Animated Artwork",
   "settings.header.visual.animatedArtworkQuality.veryHigh": "非常高",
   "settings.header.visual.animatedArtwork.limited": "Limited to pages and special entries",
   "settings.header.debug": "除錯",
-  "settings.option.visual.animatedArtworkQuality": "動態專輯封面品質", // Dropdown
+  "settings.option.visual.animatedArtworkQuality": "Animated Artwork Quality",
   "settings.header.visual.hardwareAcceleration.default": "預設",
   "settings.option.visual.theme.dark": "暗黑模式",
   "spatial.height" : "高度",
   "settings.header.connectivity": "外部連接",
   "settings.header.connectivity.discordRPC.cider": "顯示正在使用 'Cider'",
-  "settings.option.visual.theme.github.explore": "瀏覽 GitHub 上的主題",
-  "settings.option.connectivity.discordRPC": "Discord 動態", // Dropdown
+  "settings.option.visual.animatedWindowBackground": "Animated Window Background",
+  "settings.option.visual.hardwareAcceleration": "Hardware Acceleration",
   "settings.option.visual.hardwareAcceleration.description": "Requires relaunch",
   "settings.header.visual.hardwareAcceleration.default": "Default",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
@@ -346,54 +311,37 @@
   "settings.prompt.visual.theme.github.URL": "Enter the URL of the theme you want to install",
   "settings.notyf.visual.theme.install.success": "Theme installed successfully",
   "settings.notyf.visual.theme.install.error": "Theme installation failed",
-  
-  // Settings - Visual - Theme name
   "settings.option.visual.theme.default": "Cider",
   "settings.option.visual.theme.dark": "Dark",
-  
-  // Refer to term.disabled for the disabled option
-  "settings.option.experimental.close_button_hide": "關閉按鈕將 Cider 隱藏至系統列",
-  
-  // Settings - Lyrics
+  "settings.option.visual.showPersonalInfo": "Show Personal Info",
   "settings.option.lyrics.enableYoutubeLyrics": "播放 MV 時使用 YouTube 歌詞", // Toggle
   "settings.header.connectivity.description": "調整 Cider 與外部的連接",
-  "settings.option.lyrics.enableMusixmatchKaraoke": "啟用K歌模式（僅限Musixmatch）", // Toggle
-  "settings.option.connectivity.lastfmScrobble.removeFeatured": "從歌名中移除客串藝人 (LastFM)",
-  "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch Translation Preferred Language", // Dropdown
-  "settings.option.lyrics.enableYoutubeLyrics": "Enable Youtube Lyrics for Music Videos", // Toggle
-  
-  // Settings - Connectivity
+  "settings.option.lyrics.enableMusixmatch": "Enable Musixmatch Lyrics",
+  "settings.option.lyrics.enableMusixmatchKaraoke": "Enable Karaoke Mode (Musixmatch only)",
+  "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch Translation Preferred Language",
+  "settings.option.lyrics.enableYoutubeLyrics": "Enable Youtube Lyrics for Music Videos",
   "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling 記錄", // Option to Connect
   "settings.option.connectivity.lastfmScrobble.delay": "LastFM Scrobble 延遲 (%)",
-  "settings.option.connectivity.discordRPC.clearOnPause": "暫停時清除 Discord 動態", // Toggle
-  "settings.option.experimental.inline_playlists": "將播放列表做為行内元素顯示",
-  // Refer to term.disabled for the disabled option
+  "settings.option.connectivity.discordRPC": "Discord Rich Presence",
+  "settings.option.connectivity.playbackNotifications": "Playback Notifications",
   "settings.header.connectivity.discordRPC.cider": "Display as 'Cider'",
   "settings.header.connectivity.discordRPC.appleMusic": "Display as 'Apple Music'",
-  "settings.option.connectivity.discordRPC.clearOnPause": "Clear Discord Rich Presence on Pause", // Toggle
-  "settings.option.connectivity.lastfmScrobble": "Last.fm Scrobbling", // Option to Connect
+  "settings.option.connectivity.discordRPC.clearOnPause": "Clear Discord Rich Presence on Pause",
+  "settings.option.connectivity.lastfmScrobble": "Last.fm Scrobbling",
   "settings.option.connectivity.lastfmScrobble.delay": "Last.fm Scrobble Delay (%)",
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "Enable Last.fm Now Playing",
   "settings.option.connectivity.lastfmScrobble.removeFeatured": "Remove featuring artists from song title (Last.fm)",
   "settings.option.connectivity.lastfmScrobble.filterLoop": "Filter looped track (Last.fm)",
-  // Refer to term.connect for the connect button
-
-  // Settings - Debug
   "settings.header.debug": "Debug",
   "settings.option.debug.copy_log": "Copy logs to clipboard",
   "settings.option.experimental.closeButtonBehaviour": "關閉按鈕操作", // Dropdown
-
-  // Settings - Experimental
   "settings.header.experimental": "Experimental",
   "settings.header.experimental.description": "Adjust the experimental settings for Cider.",
   "settings.option.experimental.unknownPlugin": "Unknown Sources",
   "settings.option.experimental.unknownPlugin.description": "Allow installion of plugins from repos other than the Cider Plugin Repository",
-  "settings.option.experimental.compactUI": "Compact UI", // Toggle
+  "settings.option.experimental.compactUI": "Compact UI",
   "settings.option.experimental.close_button_hide": "Close Button Should Hide the Application",
   "settings.option.experimental.inline_playlists": "Inline Playlists and Albums",
-  
-  // Refer to term.disabled & term.enabled
-  // Spatialization Menu
   "spatial.notTurnedOn": "Audio Spatialization is disabled. To use, please enable it first.",
   "spatial.roomDimensions" : "空間尺寸",
   "spatial.width" : "寬度",
@@ -413,14 +361,8 @@
   "spatial.down": "Down",
   "spatial.listener": "Listener",
   "spatial.audioSource": "Audio Source",
-
-  // Settings - Unfinished
   "settings.header.unfinished": "Unfinished",
-
-  // Web Remote
   "remote.web.description": "掃描以下的行動條碼以操控 Cider",
   "remote.web.description": "Scan the QR code to pair your phone up with this Cider instance",
-
-  {
   "about.thanks": "著重感謝 Cider Collective 的成員以及所有為項目付出的貢獻者。"
 }
