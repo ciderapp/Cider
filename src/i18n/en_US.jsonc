@@ -259,7 +259,6 @@
   "settings.option.general.resumebehavior.history": "History",
   "settings.option.general.resumebehavior.history.description": "Cider will queue the last song from your overall Apple Music history, across devices.",
 
-  
   // Language optgroups
   "settings.option.general.language.main": "Languages",
   "settings.option.general.language.fun": "Fun Languages",
@@ -388,7 +387,7 @@
   "settings.header.experimental": "Experimental",
   "settings.header.experimental.description": "Adjust the experimental settings for Cider.",
   "settings.option.experimental.unknownPlugin": "Unknown Sources",
-  "settings.option.experimental.unknownPlugin.description": "Allow installion of plugins from repos other than the Cider Plugin Repository",
+  "settings.option.experimental.unknownPlugin.description": "Allow installation of plugins from repos other than the Cider Plugin Repository",
   "settings.option.experimental.compactUI": "Compact UI", // Toggle
   "settings.option.experimental.close_button_hide": "Close Button Should Hide the Application",
   "settings.option.experimental.inline_playlists": "Inline Playlists and Albums",
