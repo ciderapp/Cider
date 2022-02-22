@@ -101,7 +101,7 @@ export default class LastFMPlugin {
                         self._lastfm.track.scrobble({
                             'artist': artist,
                             'track': attributes.name,
-                            'album': attributes.albumName,
+                            'album': this.getAlbumName(attributes),
                             'albumArtist': artist,
                             'timestamp': new Date().getTime() / 1000
                         }, function (err: any, scrobbled: any) {
@@ -139,7 +139,7 @@ export default class LastFMPlugin {
                 this._lastfm.track.updateNowPlaying({
                     'artist': artist,
                     'track': attributes.name,
-                    'album': attributes.albumName,
+                    'album': this.getAlbumName(attributes),
                     'albumArtist': artist
                 }, function (err: any, nowPlaying: any) {
                     if (err) {
@@ -154,6 +154,14 @@ export default class LastFMPlugin {
         } else {
             this.authenticate()
         }
+    }
+
+    private getAlbumName(attributes: any): string {
+        if (!this._store.lastfm.filterAlbumName) {
+            return attributes.albumName;
+        }
+
+        return attributes.albumName.replace(/ - Single| - EP/g, '');
     }
 
     private async getPrimaryArtist(attributes: any) {
