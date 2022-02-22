@@ -142,6 +142,7 @@
   "error.noResults": "Sem resultados.",
   "settings.header.connectivity": "Conectividade",
   "term.pluginMenu": "Plug-in Menu",
+  "term.pluginMenu.none": "No interactive plugins.",
   "term.replay": "Replay",
   "action.goToAlbum": "Ir para o Album",
   "home.artistsFeed": "Novidades dos seus Artistas",
