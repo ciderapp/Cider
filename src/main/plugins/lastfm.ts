@@ -258,13 +258,14 @@ export default class LastFMPlugin {
      * @param attributes Music Attributes
      */
     nowPlayingItemDidChangeLastFM(attributes: any): void {
+        if (this._store.visual.showuserinfo){
         attributes.status = true
         if (!this._store.lastfm.filterLoop) {
             this._lastfm.cachedNowPlayingAttributes = false;
             this._lastfm.cachedAttributes = false
         }
         this.updateNowPlayingSong(attributes)
-        this.scrobbleSong(attributes)
+        this.scrobbleSong(attributes)}
     }
 
 }
