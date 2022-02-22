@@ -177,21 +177,27 @@
             async getArtistFeed() {
                 let artists = this.followedArtists
                 let self = this
-                this.app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/artists?ids=${artists.toString()}&views=latest-release&include[songs]=albums&fields[albums]=artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialVideo,name,playParams,releaseDate,url,trackCount&limit[artists:top-songs]=2&art[url]=f&l=${this.$root.mklang}`).then(artistData => {
-                    artistData.data.data.forEach(item => {
+
+                let chunks = []
+                for (let artistIdx = 0; artistIdx < artists.length; artistIdx += 50) {
+                    chunks.push(artists.slice(artistIdx, artistIdx + 50));
+                }
+                try {
+                    const chunkArtistData = await Promise.all(chunks.map(chunk =>
+                        this.app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/artists?ids=${chunk.toString()}&views=latest-release&include[songs]=albums&fields[albums]=artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialVideo,name,playParams,releaseDate,url,trackCount&limit[artists:top-songs]=2&art[url]=f`)))
+                    chunkArtistData.forEach(chunkResult =>
+                        chunkResult.data.data.forEach(item => {
                             if (item.views["latest-release"].data.length != 0) {
                                 self.artistFeed.push(item.views["latest-release"].data[0])
                             }
-                        })
-                        // sort artistFeed by attributes.releaseDate descending, date is formatted as "YYYY-MM-DD"
+                        }))
+                    // sort artistFeed by attributes.releaseDate descending, date is formatted as "YYYY-MM-DD"
                     this.artistFeed.sort((a, b) => {
                         let dateA = new Date(a.attributes.releaseDate)
                         let dateB = new Date(b.attributes.releaseDate)
                         return dateB - dateA
                     })
-                })
-
-
+                } catch (error) { }
             },
             getRecentlyPlayed() {
 
