@@ -142,6 +142,7 @@
   "term.noVideos": "No videos found.",
   "settings.header.connectivity": "Connectività",
   "term.pluginMenu": "Plug-in Menu",
+  "term.pluginMenu.none": "No interactive plugins.",
   "term.replay": "Replay",
   "action.goToAlbum": "Vai all'Album",
   "home.followedArtists": "Artisti Seguiti",
