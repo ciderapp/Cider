@@ -142,6 +142,7 @@
   "error.noResults": "결과 없음",
   "settings.header.connectivity": "연동",
   "settings.header.visual.theme": "테마",
+  "term.pluginMenu.none": "No interactive plugins.",
   "term.replay": "Replay",
   "action.showAlbum": "전체 앨범 보기",
   "home.followedArtists": "팔로우한 아티스트",
