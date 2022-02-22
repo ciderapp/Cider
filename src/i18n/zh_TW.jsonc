@@ -142,6 +142,7 @@
   "error.noResults": "沒有結果",
   "action.addToLibrary": "加入資料庫",
   "term.pluginMenu": "Plug-in Menu",
+  "term.pluginMenu.none": "No interactive plugins.",
   "term.replay": "Replay",
   "action.goToAlbum": "前往專輯",
   "action.goToArtist": "前往藝人",
