@@ -2635,6 +2635,10 @@ const app = new Vue({
                         getToken(1, track, artist, '', lang, time);
                     }
                 }
+                req.onerror = function () {
+                    console.log('error');
+                    app.loadAMLyrics();
+                };
                 req.send();
             }
 
