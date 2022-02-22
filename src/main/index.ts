@@ -74,7 +74,7 @@ ipcMain.on('nowPlayingItemDidChange', (_event, attributes) => {
 });
 
 ipcMain.on('nowPlayingItemDidChangeLastFM', (_event, attributes) => {
-    CiderPlug.callPlugin('lastfm', 'nowPlayingItemDidChangeLastFM', attributes);
+    CiderPlug.callPlugin('lastfm.js', 'nowPlayingItemDidChangeLastFM', attributes);
 })
 
 app.on('before-quit', () => {
