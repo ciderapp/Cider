@@ -325,7 +325,7 @@
   "settings.header.connectivity": "Tilkobling",
   "settings.header.connectivity.description": "Juster tilkoblings innstillingene for Cider.",
   "settings.option.connectivity.discordRPC": "Discord Rich Presence",
-  "settings.option.connectivity.playbackNotifications": "Avspillings Notifikasjon",
+  "settings.option.connectivity.playbackNotifications": "Avspillings Notifikasjoner",
   "settings.header.connectivity.discordRPC.cider": "Vis som 'Cider'",
   "settings.header.connectivity.discordRPC.appleMusic": "Vis som 'Apple Music'",
   "settings.option.connectivity.discordRPC.clearOnPause": "Fjern Discord Rich Presence på Pause",
