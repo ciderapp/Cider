@@ -142,6 +142,7 @@
   "term.noVideos": "No videos found.",
   "term.plugin": "Plug-in",
   "term.pluginMenu": "Plug-in Menu",
+  "term.pluginMenu.none": "You don't have any plug-in needs interaction",
   "term.replay": "Replay",
   "term.uniqueAlbums": "Unique Albums",
   "term.uniqueArtists": "Unique Artists",
