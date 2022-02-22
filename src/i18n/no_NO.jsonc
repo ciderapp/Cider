@@ -143,6 +143,7 @@
   "term.noVideos": "Ingen videoer funnet.",
   "term.plugin": "Plug-in",
   "term.pluginMenu": "Plug-in Menu",
+  "term.pluginMenu.none": "No interactive plugins.",
   "term.replay": "Replay",
   "term.uniqueAlbums": "Unike Albumer",
   "term.uniqueArtists": "Unike Artister",
