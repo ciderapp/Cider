@@ -130,6 +130,7 @@
   "term.userPresets": "User Presets",
   "term.requestError": "There was a problem with the request.",
   "term.song.link.generate": "Getting song.link share URL...",
+  "term.spotify.coverting": "Converting spotify URL...",
   "term.musicVideos": "Music Videos",
   "term.stations": "Stations",
   "term.curators": "Curators",
