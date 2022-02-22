@@ -142,6 +142,7 @@
   "term.noVideos": "Видео не найдено.",
   "settings.header.connectivity": "Прочее",
   "term.pluginMenu": "Plug-in Menu",
+  "term.pluginMenu.none": "No interactive plugins.",
   "term.replay": "Replay",
   "action.goToAlbum": "Перейти к альбому",
   "home.followedArtists": "Отслеживаемые артисты",
