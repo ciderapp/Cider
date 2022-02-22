@@ -142,6 +142,7 @@
   "error.noResults": "Aucun résultat.",
   "settings.header.connectivity": "Connectivité",
   "action.addToPlaylist": "Ajouter à une playlist",
+  "term.pluginMenu.none": "No interactive plugins.",
   "term.replay": "Replay",
   "action.goToAlbum": "Aller à l'album",
   "home.followedArtists": "Artistes suivis",
