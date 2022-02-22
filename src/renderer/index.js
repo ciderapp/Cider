@@ -612,6 +612,7 @@ const app = new Vue({
             } else {
                 // Get Hide User from Settings
                 this.chrome.hideUserInfo = !this.cfg.visual.showuserinfo
+                this.mk.privateEnabled = this.cfg.general.privateEnabled
             }
             if (this.cfg.visual.hw_acceleration == "disabled") {
                 document.body.classList.add("no-gpu")
@@ -626,7 +627,7 @@ const app = new Vue({
                 this.chrome.userinfo = (await app.mk.api.v3.music(`/v1/me/social-profile`)).data.data[0]
             } catch (err) {
             }
-            this.mk.privateEnabled = !this.cfg.visual.showuserinfo
+            
             this.mk._bag.features['seamless-audio-transitions'] = this.cfg.audio.seamless_audio
 
             // API Fallback

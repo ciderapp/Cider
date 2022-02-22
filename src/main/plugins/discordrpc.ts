@@ -207,7 +207,7 @@ export default class DiscordRichPresence {
         this.connect((DiscordRichPresence._store.general.discord_rpc == 1) ? '911790844204437504' : '886578863147192350');
         console.debug(`[Plugin][${this.name}] Ready.`);
         ipcMain.on('updateRPCImage', (_event, imageurl) => {
-            if (DiscordRichPresence._store.visual.showuserinfo){
+            if (!DiscordRichPresence._store.general.privateEnabled){
             fetch('https://api.cider.sh/v1/images' ,{ 
 
                 method: 'POST',
@@ -238,7 +238,7 @@ export default class DiscordRichPresence {
      * @param attributes Music Attributes (attributes.status = current state)
      */
     onPlaybackStateDidChange(attributes: object): void {
-        if (DiscordRichPresence._store.visual.showuserinfo){
+        if (!DiscordRichPresence._store.general.privateEnabled){
         this._attributes = attributes
         this.updateActivity(attributes)}
     }
@@ -248,7 +248,7 @@ export default class DiscordRichPresence {
      * @param attributes Music Attributes
      */
     onNowPlayingItemDidChange(attributes: object): void {
-        if (DiscordRichPresence._store.visual.showuserinfo){
+        if (!DiscordRichPresence._store.general.privateEnabled){
         this._attributes = attributes
         this.updateActivity(attributes)}
     }

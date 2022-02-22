@@ -119,7 +119,7 @@ export default class LastFMPlugin {
             } else {
                 return console.log('[LastFM] Did not add ', attributes.name, '—', artist, 'because now playing a other song.');
             }
-        }, Math.round(attributes.durationInMillis * (self._store.lastfm.scrobble_after / 100)));
+        }, Math.round(attributes.durationInMillis * Math.min((self._store.lastfm.scrobble_after / 100),0.8)));
     }
 
     private async updateNowPlayingSong(attributes: any) {
@@ -258,7 +258,7 @@ export default class LastFMPlugin {
      * @param attributes Music Attributes
      */
     nowPlayingItemDidChangeLastFM(attributes: any): void {
-        if (this._store.visual.showuserinfo){
+        if (!this._store.general.privateEnabled){
         attributes.status = true
         if (!this._store.lastfm.filterLoop) {
             this._lastfm.cachedNowPlayingAttributes = false;
