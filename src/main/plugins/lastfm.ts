@@ -93,6 +93,7 @@ export default class LastFMPlugin {
             }
 
             const artist = await this.getPrimaryArtist(attributes)
+            const album = this.getAlbumName(attributes)
 
             if (currentAttributes.status && currentAttributes === attributes) {
                 if (fs.existsSync(this.sessionPath)) {
@@ -101,7 +102,7 @@ export default class LastFMPlugin {
                         self._lastfm.track.scrobble({
                             'artist': artist,
                             'track': attributes.name,
-                            'album': this.getAlbumName(attributes),
+                            'album': album,
                             'albumArtist': artist,
                             'timestamp': new Date().getTime() / 1000
                         }, function (err: any, scrobbled: any) {
@@ -133,13 +134,14 @@ export default class LastFMPlugin {
 
         if (fs.existsSync(this.sessionPath)) {
             const artist = await this.getPrimaryArtist(attributes)
+            const album = this.getAlbumName(attributes)
 
             // update Now Playing
             if (attributes.status === true) {
                 this._lastfm.track.updateNowPlaying({
                     'artist': artist,
                     'track': attributes.name,
-                    'album': this.getAlbumName(attributes),
+                    'album': album,
                     'albumArtist': artist
                 }, function (err: any, nowPlaying: any) {
                     if (err) {
@@ -157,10 +159,6 @@ export default class LastFMPlugin {
     }
 
     private getAlbumName(attributes: any): string {
-        if (!this._store.lastfm.filterAlbumName) {
-            return attributes.albumName;
-        }
-
         return attributes.albumName.replace(/ - Single| - EP/g, '');
     }
 

@@ -103,7 +103,6 @@ export class Store {
             "scrobble_after": 30,
             "auth_token": "",
             "enabledRemoveFeaturingArtists": true,
-            "filterAlbumName": false,
             "filterLoop": true,
             "NowPlaying": "true"
         },

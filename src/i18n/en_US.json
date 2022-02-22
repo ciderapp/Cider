@@ -331,7 +331,6 @@
   "settings.option.connectivity.lastfmScrobble.delay": "Last.fm Scrobble Delay (%)",
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "Enable Last.fm Now Playing",
   "settings.option.connectivity.lastfmScrobble.removeFeatured": "Remove featuring artists from song title (Last.fm)",
-  "settings.option.connectivity.lastfmScrobble.filterAlbumName": "Filter attributes from album name (Last.fm)",
   "settings.option.connectivity.lastfmScrobble.filterLoop": "Filter looped track (Last.fm)",
   "settings.header.debug": "Debug",
   "settings.option.debug.copy_log": "Copy logs to clipboard",
