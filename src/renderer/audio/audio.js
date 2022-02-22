@@ -192,32 +192,67 @@ var CiderAudio = {
     },
     llpw_h2_2: function (status, hierarchy){ 
         if (status === true) { 
-        let LLPW_Q = [5, 1, 3.536, 1.25, 8.409, 1.25, 14.14, 7.071, 5, 0.625, 16.82, 20, 20, 20, 28.28, 28.28, 28.28, 20, 33.64, 33.64, 10, 28.28, 7.071, 3.856];
-        let LLPW_GAIN = [0.38, -1.81, -0.23, -0.51, 0.4, 0.84, 0.36, -0.34, 0.27, -1.2, -0.42, -0.67, 0.81, 1.31, -0.71, 0.68, -1.04, 0.79, -0.73, -1.33, 1.17, 0.57, 0.35, 6.33];
-        let LLPW_FREQUENCIES = [16.452, 24.636, 37.134, 74.483, 159.54, 308.18, 670.21, 915.81, 1200.7, 2766.4, 2930.6, 4050.6, 4409.1, 5395.2, 5901.6, 6455.5, 7164.1, 7724.1, 8449, 10573, 12368, 14198, 17910, 18916];
-        CiderAudio.audioNodes.llpw = []
-        
-        for (i = 0; i < LLPW_FREQUENCIES.length; i++) {
-            CiderAudio.audioNodes.llpw[i] = CiderAudio.context.createBiquadFilter();
-            CiderAudio.audioNodes.llpw[i].type = 'peaking'; // 'peaking';
-            CiderAudio.audioNodes.llpw[i].frequency.value = LLPW_FREQUENCIES[i];
-            CiderAudio.audioNodes.llpw[i].Q.value = LLPW_Q[i];
-            CiderAudio.audioNodes.llpw[i].gain.value = LLPW_GAIN[i] * app.cfg.audio.maikiwiAudio.ciderPPE_value; 
+            let c_LLPW_Q = [1.250, 0.131, 10, 2.5, 2.293, 0.110, 14.14, 1.552, 28.28, 7.071, 2.847, 5, 0.625, 7.071, 3.856, 3.856, 20, 28.28, 20, 14.14, 2.102, 6.698, 3.536, 10];
+            let c_LLPW_GAIN = [-0.11, 0.27, -0.8, 0.57, 1.84, -0.38, 0.47, -1.56, 0.83, 1.58, -1.79, -0.45, 0.48, 1.22, -1.58, -1.59, -2.03, 2.56, -2.2, -2.48, 4.75, 10.5, 1.43, 3.76];
+            let c_LLPW_FREQUENCIES = [400.83, 5812.8, 8360, 10413, 10658, 12079, 12899, 13205, 14848, 15591, 15778, 15783, 16716, 16891, 17255, 17496, 18555, 18622, 19219, 19448, 19664, 21341, 21353, 22595];
+            let LLPW_Q = [5, 1, 3.536, 1.25, 8.409, 1.25, 14.14, 7.071, 5, 0.625, 16.82, 20, 20, 20, 28.28, 28.28, 28.28, 20, 33.64, 33.64, 10, 28.28, 7.071, 3.856];
+            let LLPW_GAIN = [0.38, -1.81, -0.23, -0.51, 0.4, 0.84, 0.36, -0.34, 0.27, -1.2, -0.42, -0.67, 0.81, 1.31, -0.71, 0.68, -1.04, 0.79, -0.73, -1.33, 1.17, 0.57, 0.35, 6.33];
+            let LLPW_FREQUENCIES = [16.452, 24.636, 37.134, 74.483, 159.54, 308.18, 670.21, 915.81, 1200.7, 2766.4, 2930.6, 4050.6, 4409.1, 5395.2, 5901.6, 6455.5, 7164.1, 7724.1, 8449, 10573, 12368, 14198, 17910, 18916];
+            CiderAudio.audioNodes.llpw = []
+            
+            if (app.cfg.audio.maikiwiAudio.ciderPPE_value === 0.5)  { 
+            for (i = 0; i < c_LLPW_FREQUENCIES.length; i++) {
+                CiderAudio.audioNodes.llpw[i] = CiderAudio.context.createBiquadFilter();
+                CiderAudio.audioNodes.llpw[i].type = 'peaking'; // 'peaking';
+                CiderAudio.audioNodes.llpw[i].frequency.value = c_LLPW_FREQUENCIES[i];
+                CiderAudio.audioNodes.llpw[i].Q.value = c_LLPW_Q[i];
+                CiderAudio.audioNodes.llpw[i].gain.value = c_LLPW_GAIN[i]; 
+            }
+            
+
+            for (i = 1; i < c_LLPW_FREQUENCIES.length; i ++) {
+                CiderAudio.audioNodes.llpw[i-1].connect(CiderAudio.audioNodes.llpw[i]);
+            } 
+
+            switch (hierarchy) {  
+                case 2: 
+                try{
+                    CiderAudio.audioNodes.llpw[c_LLPW_FREQUENCIES.length-1].connect(CiderAudio.audioNodes.vibrantbassNode[0]);} catch(e){}
+                    break;
+                case 1:
+                    try{CiderAudio.audioNodes.llpw[c_LLPW_FREQUENCIES.length-1].connect(CiderAudio.audioNodes.audioBands[0]);} catch(e){}
+                    break;
+    
+            }
+
+            console.log("[Cider][Audio] CAP - Clarity Mode");
         }
 
-        for (i = 1; i < LLPW_FREQUENCIES.length; i ++) {
-            CiderAudio.audioNodes.llpw[i-1].connect(CiderAudio.audioNodes.llpw[i]);
-        }
+            else if (app.cfg.audio.maikiwiAudio.ciderPPE_value === 0.55)  { 
+            for (i = 0; i < LLPW_FREQUENCIES.length; i++) {
+                CiderAudio.audioNodes.llpw[i] = CiderAudio.context.createBiquadFilter();
+                CiderAudio.audioNodes.llpw[i].type = 'peaking'; // 'peaking';
+                CiderAudio.audioNodes.llpw[i].frequency.value = LLPW_FREQUENCIES[i];
+                CiderAudio.audioNodes.llpw[i].Q.value = LLPW_Q[i];
+                CiderAudio.audioNodes.llpw[i].gain.value = LLPW_GAIN[i]; 
+            }
+           
 
-        switch (hierarchy) {  
-            case 2: 
-            try{
-                CiderAudio.audioNodes.llpw[LLPW_FREQUENCIES.length-1].connect(CiderAudio.audioNodes.vibrantbassNode[0]);} catch(e){}
-                break;
-            case 1:
-                try{CiderAudio.audioNodes.llpw[LLPW_FREQUENCIES.length-1].connect(CiderAudio.audioNodes.audioBands[0]);} catch(e){}
-                break;
+            for (i = 1; i < LLPW_FREQUENCIES.length; i ++) {
+                CiderAudio.audioNodes.llpw[i-1].connect(CiderAudio.audioNodes.llpw[i]);
+            } 
 
+            switch (hierarchy) {  
+                case 2: 
+                try{
+                    CiderAudio.audioNodes.llpw[LLPW_FREQUENCIES.length-1].connect(CiderAudio.audioNodes.vibrantbassNode[0]);} catch(e){}
+                    break;
+                case 1:
+                    try{CiderAudio.audioNodes.llpw[LLPW_FREQUENCIES.length-1].connect(CiderAudio.audioNodes.audioBands[0]);} catch(e){}
+                    break;
+    
+            }
+            console.log("[Cider][Audio] CAP - Biased Mode");
         }
         } 
 
