@@ -254,15 +254,6 @@ export default class LastFMPlugin {
     }
 
     /**
-     * Runs on playback State Change
-     * @param attributes Music Attributes (attributes.status = current state)
-     */
-    onPlaybackStateDidChange(attributes: object): void {
-        this.updateNowPlayingSong(attributes)
-        // this.scrobbleSong(attributes)
-    }
-
-    /**
      * Runs on song change
      * @param attributes Music Attributes
      */
