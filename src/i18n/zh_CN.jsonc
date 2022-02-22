@@ -142,6 +142,7 @@
   "error.noResults": "没有结果",
   "term.updateCider": "更新 Cider",
   "term.pluginMenu": "Plug-in Menu",
+  "term.pluginMenu.none": "No interactive plugins.",
   "term.replay": "Replay",
   "action.goToAlbum": "前往专辑",
   "action.goToArtist": "前往艺人",
