@@ -142,6 +142,7 @@
   "home.title": "ホーム",
   "podcast.followedOnCider": "フォロー中",
   "settings.header.visual.theme": "テーマ",
+  "term.pluginMenu.none": "No interactive plugins.",
   "term.replay": "Replay",
   "action.goToAlbum": "アルバムへ移動",
   "home.followedArtists": "フォローしているアーティスト",
