@@ -142,6 +142,7 @@
   "term.noVideos": "No videos found.",
   "settings.header.connectivity": "Conectividad",
   "action.addToPlaylist": "Añadir a la playlist",
+  "term.pluginMenu.none": "No interactive plugins.",
   "term.replay": "Replay",
   "action.goToAlbum": "Mostrar álbum",
   "action.goToArtist": "Ir al artista",
