@@ -142,6 +142,7 @@
   "spatial.down": "Unten",
   "settings.header.connectivity": "Konnektivität",
   "term.pluginMenu": "Plug-in Menu",
+  "term.pluginMenu.none": "No interactive plugins.",
   "term.replay": "Replay",
   "action.goToAlbum": "Gehe zu Album",
   "home.followedArtists": "Gefolgte Künstler",
