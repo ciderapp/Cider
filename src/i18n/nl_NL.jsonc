@@ -98,25 +98,25 @@
   Volledige scherm
   Standaard weergave
   Geluid instellingen
-  "term.audioControls": "Volume Controls",
-  "term.clearAll": "Clear All",
-  "term.recentStations": "Recent Stations",
-  "term.language": "Language",
-  "term.funLanguages": "Fun",
-  "term.noLyrics": "Loading... / Lyrics not found./ Instrumental.",
-  "term.copyright": "Copyright",
-  "term.rightsReserved": "All Rights Reserved.",
-  "term.sponsor": "Sponsor this project",
-  "term.ciderTeam": "Cider Team",
-  "term.developer": "Developer",
-  "term.socialTeam": "Social Team",
-  "term.socials": "Socials",
-  "term.contributors": "Contributors",
-  "term.equalizer": "Equalizer",
-  "term.reset": "Reset",
-  "term.tracks": "tracks",
-  "term.videos": "Videos",
-  "term.menu": "Menu",
+  Volumeregeling 
+  Wis alles
+  Recente stations
+  Taal
+  grappig
+  Laden /Songtekst niet gevonden./ Instrumentaal.",
+  Copyright
+  Alle rechten voorbehouden
+  Sponsor dit project
+  Cider Team
+  Ontwikkelaar
+  Sociale Team
+  Sociaal
+  Bijdragers
+  Equalizer
+  Resetten 
+  Nummers
+  Video's 
+  Menu
   "term.check": "Check",
   "term.aboutArtist": "About {{artistName}}",
   "term.topResult": "Top Result",
