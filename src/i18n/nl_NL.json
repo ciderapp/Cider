@@ -4,8 +4,8 @@
   Hoofd
   "i18n.authors": "@maikirakiwi @kyw504100",
   "app.name": "Cider",
-  ${d}${m}${y}
-  Annuleer 
+  "date.format": "${d}-${m}-${y}",
+  "dialog.cancel": "Annuleer",
   Oké
   Bibliotheek nummers bijwerken
   Bibliotheek albums bijwerken
@@ -354,16 +354,16 @@
   "spatial.roomPositions": "Room Positions",
   "spatial.setDimensions": "Set Dimensions",
   "spatial.setPositions": "Set Positions",
-  "spatial.up": "Up",
-  "spatial.front": "Front",
-  "spatial.left": "Left",
-  "spatial.right": "Right",
-  "spatial.back": "Back",
-  "spatial.down": "Down",
-  "spatial.listener": "Listener",
-  "spatial.audioSource": "Audio Source",
-  "settings.header.unfinished": "Unfinished",
+  "spatial.up": "Boven",
+  "spatial.front": "Voor",
+  "spatial.left": "Links",
+  "spatial.right": "Rechts",
+  "spatial.back": "Achter",
+  "spatial.down": "Beneden",
+  "spatial.listener": "Luisteraar",
+  "spatial.audioSource": "Geluidsbron",
+  "settings.header.unfinished": "Onvoltooid",
   "remote.web.title": "Cider Remote",
-  "remote.web.description": "Scan the QR code to pair your phone up with this Cider instance",
-  "about.thanks": "Major thanks to the Cider Collective Team and all of our contributors."
+  "remote.web.description": "Scan de QR code om je telefoon te koppelen met deze Cider-instantie",
+  "about.thanks": "Grote dank aan het Cider Collective Team en alle bijdragers."
 }
