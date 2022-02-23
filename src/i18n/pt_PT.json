@@ -121,39 +121,39 @@
   "term.aboutArtist": "Sobre {{artistName}}",
   "term.topResult": "Resultado Principal",
   "term.sharedPlaylists": "Listas de Reprodução Partilhadas",
-  Pessoas
-  Nova Predefinição do Equalizador
-  Adicionada Predefinição
-  Tem a certeza que pretende eliminar esta predefinição?
-  Predefinição removida
-  Predefinições Padrão
-  Predefinições do Utilizador
-  Houve um problema com o pedido.
-  A obter URL de partilha de song.link
-  Videoclipes
-  Estações
-  Curador
-  Curadores da Apple
-  Programas de Rádio
-  Editoras de Discos
-  Extras de Vídeos
-  Topo
-  Versão
-  Nenhuns vídeos encontrados
-  Plug-in
-  Menu de Plug-in's
-  Sem plug-in's interativos
-  Reproduzir de Novo
-  Álbuns Únicos
-  Artistas Únicos
-  Músicas Únicas
-  Artistas de Topo
-  Ouvidos
-  vezes
-  Álbuns de Topo
-  Reproduções
-  Géneros de Topo
-  Tem a certeza que pretende terminar sessão?
+  "term.people": "Pessoas",
+  "term.newpreset.name": "Nova Predefinição do Equalizador",
+  "term.addedpreset": "Adicionada Predefinição",
+  "term.deletepreset.warn": "Tem a certeza que pretende eliminar esta predefinição?"
+  "term.deletedpreset": "Predefinição removida"
+  "term.defaultPresets": "Predefinições Padrão"
+  "term.userPresets": "Predefinições do Utilizador"
+  "term.requestError": "Houve um problema com o pedido.",
+  "term.song.link.generate": "A obter URL de partilha de song.link...",
+  "term.musicVideos": "Videoclipes",
+  "term.stations": "Estações",
+  "term.curators": "Curador",
+  "term.appleCurators": "Curadores da Apple",
+  "term.radioShows": "Programas de Rádio",
+  "term.recordLabels": "Editoras de Discos",
+  "term.videoExtras": "Extras de Vídeo",
+  "term.top": "Topo",
+  "term.version": "Versão",
+  "term.noVideos": "Nenhuns vídeos encontrados",
+  "term.plugin": "Plug-in",
+  "term.pluginMenu": "Menu de Plug-in's",
+  "term.pluginMenu.none": "Sem plug-in's interativos",
+  "term.replay": "Reproduzir de Novo",
+  "term.uniqueAlbums": "Álbuns Únicos",
+  "term.uniqueArtists": "Artistas Únicos",
+  "term.uniqueSongs": "Músicas Únicas",
+  "term.topArtists": "Artistas de Topo",
+  "term.listenedTo": "Ouvidos:",
+  "term.times": "vezes"
+  "term.topAlbums": "Álbuns de Topo",
+  "term.plays": "Reproduções",
+  "term.topGenres": "Géneros de Topo",
+  "term.confirmLogout": "Tem a certeza que pretende terminar sessão?",
   "home.title": "Home",
   "home.recentlyPlayed": "Recently Played",
   "home.recentlyAdded": "Recently Added",
