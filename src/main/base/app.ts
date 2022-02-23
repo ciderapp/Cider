@@ -159,7 +159,7 @@ export class AppEvents {
 
         // Spotify Protocols
         else if (arg.startsWith("spotify://")) {
-
+            app.spotifyConvert
         }
 
         // Play

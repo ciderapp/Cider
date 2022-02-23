@@ -1,3 +1,5 @@
+import {utils} from "../main/base/utils";
+
 Vue.use(VueHorizontal);
 Vue.use(VueObserveVisibility);
 var notyf = new Notyf();
@@ -306,6 +308,27 @@ const app = new Vue({
                         let response = JSON.parse(httpRequest.responseText);
                         console.log(response);
                         self.copyToClipboard(response.pageUrl)
+                    } else {
+                        console.log('There was a problem with the request.');
+                        notyf.error(app.getLz('term.requestError'))
+                    }
+                }
+            }
+        },
+        spotifyConvert(spotURL) {
+            notyf.open({ type: "info", message: app.getLz('term.spotify.coverting') })
+            let self = this
+            let httpRequest = new XMLHttpRequest();
+            let newURL = "https://open.spotify.com/" + spotURL.split("spotify://")[1]
+            console.log(newURL)
+            httpRequest.open('GET', `https://api.song.link/v1-alpha.1/links?url=${newURL}&userCountry=US`, true);
+            httpRequest.send();
+            httpRequest.onreadystatechange = function () {
+                if (httpRequest.readyState === 4) {
+                    if (httpRequest.status === 200) {
+                        let response = JSON.parse(httpRequest.responseText);
+                        console.log(response);
+                        utils.getWindow().webContents.send('play', 'url', response.linksByPlatform.appleMusic.url)
                     } else {
                         console.log('There was a problem with the request.');
                         notyf.error(app.getLz('term.requestError'))
