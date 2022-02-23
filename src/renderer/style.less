@@ -2761,9 +2761,12 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 .wpfade_transform_backwards-enter {
   opacity: 0;
   transform: translateX(-50%);
+  will-change: opacity, transform;
 }
 .wpfade_transform_backwards-leave-to {
   opacity: 0;
+  transform: translateX(50%);
+  will-change: opacity, transform;
 }
 
 .fabfade-enter-active,
