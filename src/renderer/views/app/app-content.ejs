@@ -8,103 +8,26 @@
         </button>
     </div>
 
-    <!--                    Podcasts -->
-    <transition name="wpfade">
-        <template v-if="page == 'podcasts'">
-            <apple-podcasts></apple-podcasts>
-        </template>
-    </transition>
-    <!-- Library - Library Videos -->
-    <transition name="wpfade">
-        <template v-if="page == 'library-videos'">
-            <cider-library-videos></cider-library-videos>
-        </template>
-    </transition>
+    <!-- Include App Routes -->
+    <% for(var i=0; i < Object.keys(env.appRoutes).length ; i++) {%>
+        <transition
+                <% if(env.appRoutes[i].onEnter) {
+                        %>
+                    v-on:enter="<%- env.appRoutes[i].onEnter %>"
+                <%
+                    }
+                %>
+                name="wpfade_transform"
+        >
+            <template
+                v-if="<%- env.appRoutes[i].condition %>"
+            >
+                <%- env.appRoutes[i].component %>
+            </template>
+        </transition>
+    <% } %>
 
-    <!-- Apple Setings Page -->
-    <transition name="wpfade">
-        <template v-if="page == 'apple-account-settings'">
-            <apple-account-settings></apple-account-settings>
-        </template>
-    </transition>
-    <!-- About -->
-    <transition name="wpfade">
-        <template v-if="page == 'about'">
-            <about-page></about-page>
-        </template>
-    </transition>
-    <!-- Artist Page -->
-    <transition name="wpfade">
-        <template v-if="page == 'artist-page' && artistPage.data.attributes">
-            <cider-artist :data="artistPage.data"></cider-artist>
-        </template>
-    </transition>
-    <transition name="wpfade">
-        <%- include('../pages/zoo') %>
-    </transition>
-    <transition name="wpfade">
-        <%- include('../pages/webview') %>
-    </transition>
-    <!-- Collection List -->
-    <transition name="wpfade">
-        <template v-if="page == 'collection-list'">
-            <cider-collection-list :data="collectionList.response" :type="collectionList.type"
-                                   :title="collectionList.title"></cider-collection-list>
-        </template>
-    </transition>
-    <!-- Home -->
-    <transition name="wpfade">
-        <template v-if="page == 'home'">
-            <cider-home></cider-home>
-        </template>
-    </transition>
-    <!-- Home -->
-    <transition name="wpfade">
-        <template v-if="page == 'artist-feed'">
-            <cider-artist-feed></cider-artist-feed>
-        </template>
-    </transition>
-    <!-- Playlist / Album page-->
-    <transition name="wpfade">
-        <template v-if="modals.showPlaylist">
-            <playlist-inline :data="showingPlaylist"></playlist-inline>
-        </template>
-    </transition>
-    <transition name="wpfade">
-        <template v-if="page.includes('playlist_')">
-            <cider-playlist :data="showingPlaylist"></cider-playlist>
-        </template>
-    </transition>
-    <transition name="wpfade">
-        <template v-if="page.includes('album_')">
-            <cider-playlist :data="showingPlaylist"></cider-playlist>
-        </template>
-    </transition>
-    <transition name="wpfade">
-        <template v-if="page.includes('recordLabel_')">
-            <cider-recordlabel :data="showingPlaylist"></cider-recordlabel>
-        </template>
-    </transition>
-
-    <transition name="wpfade">
-        <template v-if="page.includes('curator_')">
-            <cider-recordlabel :data="showingPlaylist"></cider-recordlabel>
-        </template>
-    </transition>
-    <!-- Browse -->
-    <transition v-on:enter="getBrowsePage(); console.log('browse')" name="wpfade">
-        <template v-if="page == 'browse'">
-            <cider-browse :data="browsepage"></cider-browse>
-        </template>
-    </transition>
-    <!-- Listen Now -->
-    <transition v-on:enter="getListenNow()" name="wpfade">
-        <template v-if="page == 'listen_now'" @created="console.log('listennow')">
-            <cider-listen-now :data="listennow"></cider-listen-now>
-        </template>
-    </transition>
-    <!-- Radio -->
-    <transition v-on:enter="getRadioStations()" name="wpfade">
+    <transition v-on:enter="getRadioStations()" name="wpfade_transform">
         <template v-if="page == 'radio'" @created="console.log('radio')">
             <div class="content-inner">
                 <h1 class="header-text">{{$root.getLz('term.radio')}}</h1>
@@ -113,74 +36,27 @@
             </div>
         </template>
     </transition>
-    <!-- Settings -->
-    <transition name="wpfade">
-        <template v-if="page == 'settings'">
-            <cider-settings></cider-settings>
-        </template>
-    </transition>
-    <!-- Search -->
-    <transition name="wpfade">
-        <template v-if="page == 'search'">
-            <cider-search :search="search"></cider-search>
-        </template>
-    </transition>
     <!-- Library - Recently Added -->
-    <transition name="wpfade" v-on:enter="getLibraryAlbumsFull(null, 0); searchLibraryAlbums(0);">
+    <transition name="wpfade_transform" v-on:enter="getLibraryAlbumsFull(null, 0); searchLibraryAlbums(0);">
         <%- include('../pages/library-recentlyadded') %>');
     </transition>
-    <!-- Library - Songs -->
-    <transition name="wpfade" v-on:enter="getLibrarySongsFull()">
-        <template v-if="page == 'library-songs'">
-            <cider-library-songs :data="library.songs"></cider-library-songs>
-        </template>
-    </transition>
     <!-- Library - Albums -->
-    <transition name="wpfade" v-on:enter="getLibraryAlbumsFull(null, 1); searchLibraryAlbums(1);">
+    <transition name="wpfade_transform" v-on:enter="getLibraryAlbumsFull(null, 1); searchLibraryAlbums(1);">
         <%- include('../pages/library-albums') %>');
         %>
     </transition>
     <!-- Library - Made For You -->
-    <transition name="wpfade" v-on:enter="getMadeForYou()">
+    <transition name="wpfade_transform" v-on:enter="getMadeForYou()">
         <template v-if="page == 'library-madeforyou'">
             <%- include('../pages/madeforyou') %>');
             %>
         </template>
     </transition>
     <!-- Library - Artists-->
-    <transition name="wpfade" v-on:enter="getLibraryArtistsFull(null, 0);">
+    <transition name="wpfade_transform" v-on:enter="getLibraryArtistsFull(null, 0);">
         <template v-if="page == 'library-artists'">
             <%- include('../pages/library-artists') %>');
             %>
-        </template>
-    </transition>
-    <transition name="wpfade">
-        <template v-if="page.includes('appleCurator')">
-            <cider-applecurator :data="appleCurator"></cider-applecurator>
-        </template>
-    </transition>
-<!--    Github themes-->
-    <transition name="wpfade">
-        <template v-if="page == 'themes-github'">
-            <themes-github></themes-github>
-        </template>
-    </transition>
-        <!-- Library - Library Videos -->
-    <transition name="wpfade">
-        <template v-if="page == 'remote-pair'">
-                <remote-pair></remote-pair>
-        </template>
-    </transition>
-    <!-- Audio Labs -->
-    <transition name="wpfade">
-        <template v-if="page == 'audiolabs'">
-            <audiolabs-page></audiolabs-page>
-        </template>
-    </transition>
-    <!-- Replay -->
-    <transition name="wpfade">
-        <template v-if="page == 'replay'">
-            <replay-page></replay-page>
         </template>
     </transition>
 

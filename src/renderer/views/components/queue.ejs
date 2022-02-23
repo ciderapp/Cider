@@ -94,8 +94,8 @@
                                 self.queueItems.splice(position, 1)
                                 app.mk.queue._queueItems = self.queueItems;
                                 app.mk.queue._reindex()
-                            }
-                        },
+                                }
+                            },
                             {
                                 "name": app.getLz('action.startRadio'),
                                 "action": function () {
@@ -104,6 +104,18 @@
                                     }).then(() => {
                                         app.mk.play()
                                     })
+                                }
+                            },
+                            {
+                                "name": app.getLz('action.goToArtist'),
+                                "action": function () {
+                                    app.searchAndNavigate(item,'artist')
+                                }
+                            },
+                            {
+                                "name": app.getLz('action.goToAlbum'),
+                                "action": function () {
+                                    app.searchAndNavigate(item,'album')
                                 }
                             },
                         ]

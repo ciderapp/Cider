@@ -12,6 +12,7 @@ import fetch from 'electron-fetch'
 import {wsapi} from "./wsapi";
 import {AppImageUpdater, NsisUpdater} from "electron-updater";
 import {utils} from './utils';
+
 const AdmZip = require("adm-zip");
 
 
@@ -46,6 +47,7 @@ export class BrowserWindow {
                 "pages/library-videos",
                 "pages/remote-pair",
                 "pages/themes-github",
+                "pages/plugins-github",
                 "pages/replay",
                 "pages/audiolabs",
                 "components/mediaitem-artwork",
@@ -76,6 +78,112 @@ export class BrowserWindow {
                 "components/lyrics-view",
                 "components/fullscreen",
                 "components/miniplayer",
+            ],
+            appRoutes: [
+                {
+                    page: "podcasts",
+                    component: `<apple-podcasts></apple-podcasts>`,
+                    condition: `page == 'podcasts'`
+                }, {
+                    page: "library-videos",
+                    component: `<cider-library-videos></cider-library-videos>`,
+                    condition: `page == 'library-videos'`
+                }, {
+                    page: "apple-account-settings",
+                    component: `<apple-account-settings></apple-account-settings>`,
+                    condition: `page == 'apple-account-settings'`
+                }, {
+                    page: "about",
+                    component: `<about-page></about-page>`,
+                    condition: `page == 'about'`
+                }, {
+                    page: "cider-artist",
+                    component: `<cider-artist :data="artistPage.data"></cider-artist>`,
+                    condition: `page == 'artist-page' && artistPage.data.attributes`
+                }, {
+                    page: "collection-list",
+                    component: `<cider-collection-list :data="collectionList.response" :type="collectionList.type" :title="collectionList.title"></cider-collection-list>`,
+                    condition: `page == 'collection-list'`
+                }, {
+                    page: "home",
+                    component: `<cider-home></cider-home>`,
+                    condition: `page == 'home'`
+                }, {
+                    page: "artist-feed",
+                    component: `<cider-artist-feed></cider-artist-feed>`,
+                    condition: `page == 'artist-feed'`
+                }, {
+                    page: "playlist-inline",
+                    component: `<playlist-inline :data="showingPlaylist"></playlist-inline>`,
+                    condition: `modals.showPlaylist`
+                }, {
+                    page: "playlist_",
+                    component: `<cider-playlist :data="showingPlaylist"></cider-playlist>`,
+                    condition: `page.includes('playlist_')`
+                }, {
+                    page: "album_",
+                    component: `<cider-playlist :data="showingPlaylist"></cider-playlist>`,
+                    condition: `page.includes('album_')`
+                }, {
+                    page: "recordLabel_",
+                    component: `<cider-recordlabel :data="showingPlaylist"></cider-recordlabel>`,
+                    condition: `page.includes('recordLabel_')`
+                }, {
+                    page: "curator_",
+                    component: `<cider-recordlabel :data="showingPlaylist"></cider-recordlabel>`,
+                    condition: `page.includes('curator_')`
+                }, {
+                    page: "browsepage",
+                    component: `<cider-browse :data="browsepage"></cider-browse>`,
+                    condition: `page == 'browse'`,
+                    onEnter: `getBrowsePage();`
+                }, {
+                    page: "listen_now",
+                    component: `<cider-listen-now :data="listennow"></cider-listen-now>`,
+                    condition: `page == 'listen_now'`,
+                    onEnter: `getListenNow()`
+                }, {
+                    page: "settings",
+                    component: `<cider-settings></cider-settings>`,
+                    condition: `page == 'settings'`
+                }, {
+                    page: "search",
+                    component: `<cider-search :search="search"></cider-search>`,
+                    condition: `page == 'search'`
+                }, {
+                    page: "library-songs",
+                    component: `<cider-library-songs :data="library.songs"></cider-library-songs>`,
+                    condition: `page == 'library-songs'`,
+                    onEnter: `getLibrarySongsFull()`
+                }, {
+                    page: "appleCurator",
+                    component: `<cider-applecurator :data="appleCurator"></cider-applecurator>`,
+                    condition: `page.includes('appleCurator')`
+                }, {
+                    page: "themes-github",
+                    component: `<themes-github></themes-github>`,
+                    condition: `page == 'themes-github'`
+                },{
+                    page: "plugins-github",
+                    component: `<plugins-github></plugins-github>`,
+                    condition: `page == 'plugins-github'`
+                }, {
+                    page: "podcasts",
+                    component: `<apple-podcasts></apple-podcasts>`,
+                    condition: `page == 'podcasts'`
+                }, {
+                    page: "remote-pair",
+                    component: `<remote-pair></remote-pair>`,
+                    condition: `page == 'remote-pair'`
+                }, {
+                    page: "audiolabs",
+                    component: `<audiolabs-page></audiolabs-page>`,
+                    condition: `page == 'audiolabs'`
+                }, {
+                    page: "replay",
+                    component: `<replay-page></replay-page>`,
+                    condition: `page == 'replay'`
+                }
             ]
         },
     };
@@ -125,24 +233,24 @@ export class BrowserWindow {
         this.options.width = windowState.width;
         this.options.height = windowState.height;
 
-        switch(process.platform) {
+        switch (process.platform) {
             default:
 
-            break;
+                break;
             case "win32":
                 this.options.backgroundColor = "#1E1E1E";
                 this.options.transparent = false;
-            break;
+                break;
             case "linux":
                 this.options.backgroundColor = "#1E1E1E";
                 this.options.autoHideMenuBar = true
                 this.options.frame = true
-            break;
+                break;
             case "darwin":
                 this.options.transparent = true;
                 this.options.vibrancy = "dark";
                 this.options.hasShadow = true;
-            break;
+                break;
         }
 
         // Start the webserver for the browser window to load
@@ -279,7 +387,7 @@ export class BrowserWindow {
                 res.send(`// File not found - ${userThemePath}`);
             }
         });
-        
+
         app.get("/plugins/:plugin/*", (req, res) => {
             const plugin = req.params.plugin;
             // @ts-ignore
@@ -425,7 +533,7 @@ export class BrowserWindow {
                 let zipFile = new AdmZip(zip);
                 zipFile.extractAllTo(utils.getPath("themes"), true);
 
-            }catch(e) {
+            } catch (e) {
                 returnVal.success = false;
             }
             BrowserWindow.win.webContents.send("theme-installed", returnVal);
@@ -684,8 +792,8 @@ export class BrowserWindow {
                     console.log('sc', SoundCheckTag)
                     BrowserWindow.win.webContents.send('SoundCheckTag', SoundCheckTag)
                 }).catch(err => {
-                    console.log(err)
-                });
+                console.log(err)
+            });
         });
 
         ipcMain.on('check-for-update', async (_event) => {
@@ -704,9 +812,9 @@ export class BrowserWindow {
                 provider: 'generic',
                 url: `${base_url}`
             }
-           
+
             //  Have to handle the auto updaters seperatly until we can support macOS. electron-builder limitation -q
-         
+
             const win_autoUpdater = new NsisUpdater(options) //Windows
             const linux_autoUpdater = new AppImageUpdater(options) //Linux
             await win_autoUpdater.checkForUpdatesAndNotify()

@@ -20,7 +20,7 @@
                         {{$root.getLz('term.privateSession')}}
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <input type="checkbox" v-model="app.mk.privateEnabled" switch/>
+                        <input type="checkbox" v-model="$root.cfg.general.privateEnabled" v-on:change="$root.mk.privateEnabled = $root.cfg.general.privateEnabled" switch/>
                     </div>
                 </div>
                 <div class="md-option-line">

@@ -93,6 +93,7 @@ export default class LastFMPlugin {
             }
 
             const artist = await this.getPrimaryArtist(attributes)
+            const album = this.getAlbumName(attributes)
 
             if (currentAttributes.status && currentAttributes === attributes) {
                 if (fs.existsSync(this.sessionPath)) {
@@ -101,7 +102,7 @@ export default class LastFMPlugin {
                         self._lastfm.track.scrobble({
                             'artist': artist,
                             'track': attributes.name,
-                            'album': attributes.albumName,
+                            'album': album,
                             'albumArtist': artist,
                             'timestamp': new Date().getTime() / 1000
                         }, function (err: any, scrobbled: any) {
@@ -119,7 +120,7 @@ export default class LastFMPlugin {
             } else {
                 return console.log('[LastFM] Did not add ', attributes.name, '—', artist, 'because now playing a other song.');
             }
-        }, Math.round(attributes.durationInMillis * (self._store.lastfm.scrobble_after / 100)));
+        }, Math.round(attributes.durationInMillis * Math.min((self._store.lastfm.scrobble_after / 100),0.8)));
     }
 
     private async updateNowPlayingSong(attributes: any) {
@@ -133,13 +134,14 @@ export default class LastFMPlugin {
 
         if (fs.existsSync(this.sessionPath)) {
             const artist = await this.getPrimaryArtist(attributes)
+            const album = this.getAlbumName(attributes)
 
             // update Now Playing
             if (attributes.status === true) {
                 this._lastfm.track.updateNowPlaying({
                     'artist': artist,
                     'track': attributes.name,
-                    'album': attributes.albumName,
+                    'album': album,
                     'albumArtist': artist
                 }, function (err: any, nowPlaying: any) {
                     if (err) {
@@ -154,6 +156,10 @@ export default class LastFMPlugin {
         } else {
             this.authenticate()
         }
+    }
+
+    private getAlbumName(attributes: any): string {
+        return attributes.albumName.replace(/ - Single| - EP/g, '');
     }
 
     private async getPrimaryArtist(attributes: any) {
@@ -254,26 +260,18 @@ export default class LastFMPlugin {
     }
 
     /**
-     * Runs on playback State Change
-     * @param attributes Music Attributes (attributes.status = current state)
-     */
-    onPlaybackStateDidChange(attributes: object): void {
-        this.updateNowPlayingSong(attributes)
-        // this.scrobbleSong(attributes)
-    }
-
-    /**
      * Runs on song change
      * @param attributes Music Attributes
      */
     nowPlayingItemDidChangeLastFM(attributes: any): void {
+        if (!this._store.general.privateEnabled){
         attributes.status = true
         if (!this._store.lastfm.filterLoop) {
             this._lastfm.cachedNowPlayingAttributes = false;
             this._lastfm.cachedAttributes = false
         }
         this.updateNowPlayingSong(attributes)
-        this.scrobbleSong(attributes)
+        this.scrobbleSong(attributes)}
     }
 
 }
