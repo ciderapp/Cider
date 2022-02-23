@@ -41,16 +41,16 @@
   "term.createNewPlaylist": "Create New Playlist",
   "term.createNewPlaylistFolder": "Create New Playlist Folder",
   "term.deletePlaylist": "Are you sure you want to delete this playlist?",
-  "term.play": "Play",
-  "term.pause": "Pause",
-  "term.previous": "Previous",
-  "term.next": "Next",
-  "term.shuffle": "Shuffle",
-  "term.repeat": "Repeat",
-  "term.volume": "Volume",
-  "term.mute": "Mute",
-  "term.unmute": "Unmute",
-  "term.share": "Share",
+  Reproduzir
+  Pausar
+  Anterior
+  Seguinte
+  Aleatório
+  Repetir
+  Volume
+  Silenciar
+  Repor Som
+  Partilhar
   "term.share.success": "Copied to clipboard",
   "term.settings": "Settings",
   "term.seeAll": "See All",
