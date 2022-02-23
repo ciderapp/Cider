@@ -1,4 +1,6 @@
 import * as RPC from 'discord-rpc'
+import {ipcMain} from "electron";
+import fetch from 'electron-fetch'
 
 export default class DiscordRichPresence {
 
@@ -6,6 +8,8 @@ export default class DiscordRichPresence {
      * Private variables for interaction in plugins
      */
     private static _store: any;
+    private _app : any;
+    private _attributes : any;
     private static _connection: boolean = false;
 
     /**
@@ -29,6 +33,7 @@ export default class DiscordRichPresence {
         smallImageText: '',
         instance: false
     };
+
     private _activityCache: RPC.Presence = {
         details: '',
         state: '',
@@ -58,7 +63,6 @@ export default class DiscordRichPresence {
 
         // Create the client
         this._client = new RPC.Client({transport: "ipc"});
-
         // Runs on Ready
         this._client.on('ready', () => {
             console.info(`[DiscordRPC][connect] Successfully Connected to Discord. Authed for user: ${this._client.user.id}.`);
@@ -90,6 +94,44 @@ export default class DiscordRichPresence {
         }).catch((e: any) => console.error(`[DiscordRPC][disconnect] ${e}`));
     }
 
+	/**
+	 * Filter the Discord activity object
+	 */
+	private filterActivity(activity: any, attributes: any): Object {
+		
+		// Checks if the name is greater than 128 because some songs can be that long
+        if (activity.details && activity.details.length > 128) {
+            activity.details = activity.details.substring(0, 125) + '...'
+        }
+
+		// Check large image
+        if (activity.largeImageKey == null || activity.largeImageKey === "" || activity.largeImageKey.length > 256) { 
+            activity.largeImageKey = "cider";
+        }
+
+		// Timestamp 
+		if (new Date(attributes.endTime).getTime() < 0) {
+			delete activity.startTime
+			delete activity.endTime
+		}
+
+		// not sure
+		if (!attributes.artistName) {
+			delete activity.state;
+		}
+
+		if (!activity.largeImageText || activity.largeImageText.length < 2) {
+            delete activity.largeImageText
+        }
+
+		activity.buttons.forEach((key: {label: string, url: string}, _v: Number) => {
+			if (key.url.includes('undefined') || key.url.includes('no-id-found')) {
+                activity.buttons.splice(key, 1);
+			}
+		})
+		return activity
+	}
+
     /**
      * Sets the activity of the client
      * @param {object} attributes
@@ -105,23 +147,18 @@ export default class DiscordRichPresence {
         this._activity = {
             details: attributes.name,
             state: `${attributes.artistName ? `by ${attributes.artistName}` : ''}`,
-            startTimestamp: ((new Date(attributes.endTime).getTime() < 0) ? null : attributes.startTime),
-            endTimestamp: ((new Date(attributes.endTime).getTime() < 0) ? null : attributes.endTime),
-            largeImageKey: (attributes.artwork.url.replace('{w}', '1024').replace('{h}', '1024')) ?? 'cider',
+            startTimestamp: attributes.startTime,
+            endTimestamp: attributes.endTime,
+            largeImageKey: attributes?.artwork?.url?.replace('{w}', '1024').replace('{h}', '1024'),
             largeImageText: attributes.albumName,
             instance: false, // Whether the activity is in a game session
-
             buttons: [
                 {label: "Listen on Cider", url: attributes.url.cider},
                 {label: "View on Apple Music", url: attributes.url.appleMusic},
             ]
         };
 
-
-        // Checks if the name is greater than 128 because some songs can be that long
-        if (this._activity.details && this._activity.details.length > 128) {
-            this._activity.details = this._activity.details.substring(0, 125) + '...'
-        }
+		this._activity = this.filterActivity(this._activity, attributes)
 
         // Check if its pausing (false) or playing (true)
         if (!attributes.status) {
@@ -136,7 +173,6 @@ export default class DiscordRichPresence {
                 this._client.setActivity(this._activity)
                 .catch((e: any) => console.error(`[DiscordRichPresence][setActivity] ${e}`));
             }
-
         } else if (this._activity && this._activityCache !== this._activity && this._activity.details) {
             if (!DiscordRichPresence._store.general.discord_rpc_clear_on_pause) {
                 this._activity.smallImageKey = 'play';
@@ -157,17 +193,37 @@ export default class DiscordRichPresence {
     /**
      * Runs on plugin load (Currently run on application start)
      */
-    constructor(_app: any, store: any) {
+    constructor(app: any, store: any) {
         DiscordRichPresence._store = store
         console.debug(`[Plugin][${this.name}] Loading Complete.`);
+        this._app = app;
     }
 
     /**
      * Runs on app ready
      */
     onReady(_win: any): void {
+        let self = this
         this.connect((DiscordRichPresence._store.general.discord_rpc == 1) ? '911790844204437504' : '886578863147192350');
         console.debug(`[Plugin][${this.name}] Ready.`);
+        ipcMain.on('updateRPCImage', (_event, imageurl) => {
+            if (!DiscordRichPresence._store.general.privateEnabled){
+            fetch('https://api.cider.sh/v1/images' ,{ 
+
+                method: 'POST',
+                body: JSON.stringify({url : imageurl}),
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'User-Agent': _win.webContents.getUserAgent()
+                },
+            })
+            .then(res => res.json())
+            .then(function(json){
+                self._attributes["artwork"]["url"] = json.url
+                self.updateActivity(self._attributes)
+            })
+            }
+        })
     }
 
     /**
@@ -179,10 +235,12 @@ export default class DiscordRichPresence {
 
     /**
      * Runs on playback State Change
-     * @param attributes Music Attributes (attributes.state = current state)
+     * @param attributes Music Attributes (attributes.status = current state)
      */
     onPlaybackStateDidChange(attributes: object): void {
-        this.updateActivity(attributes)
+        if (!DiscordRichPresence._store.general.privateEnabled){
+        this._attributes = attributes
+        this.updateActivity(attributes)}
     }
 
     /**
@@ -190,6 +248,8 @@ export default class DiscordRichPresence {
      * @param attributes Music Attributes
      */
     onNowPlayingItemDidChange(attributes: object): void {
-        this.updateActivity(attributes)
+        if (!DiscordRichPresence._store.general.privateEnabled){
+        this._attributes = attributes
+        this.updateActivity(attributes)}
     }
 }

@@ -64,6 +64,9 @@ export class wsapi {
         electron.ipcMain.on('wsapi-returnLyrics', (event :any, arg :any) => {
             this.returnLyrics(JSON.parse(arg));
         });
+        electron.ipcMain.on('wsapi-returnvolumeMax', (_event: any, arg: any) => {
+            this.returnmaxVolume(JSON.parse(arg));
+        });
         this.wss = new WebSocketServer({
             port: this.port,
             perMessageDeflate: {
@@ -165,6 +168,10 @@ export class wsapi {
                         this._win.webContents.executeJavaScript(`MusicKit.getInstance().stop()`);
                         response.message = "Stopped";
                         break;
+                    case "volumeMax":
+                        this._win.webContents.executeJavaScript(`wsapi.getmaxVolume()`);
+                        response.message = "maxVolume";
+                        break;
                     case "volume":
                         this._win.webContents.executeJavaScript(`MusicKit.getInstance().volume = ${parseFloat(data.volume)}`);
                         response.message = "Volume";
@@ -178,11 +185,15 @@ export class wsapi {
                         response.message = "Unmuted";
                         break;
                     case "next":
-                        this._win.webContents.executeJavaScript(`MusicKit.getInstance().skipToNextItem()`);
+                        this._win.webContents.executeJavaScript(`if (MusicKit.getInstance().queue.nextPlayableItemIndex != -1 && MusicKit.getInstance().queue.nextPlayableItemIndex != null) {
+                            try {
+                                app.prevButtonBackIndicator = false;
+                            } catch (e) { }
+                             MusicKit.getInstance().changeToMediaAtIndex(MusicKit.getInstance().queue.nextPlayableItemIndex);}`);
                         response.message = "Next";
                         break;
                     case "previous":
-                        this._win.webContents.executeJavaScript(`MusicKit.getInstance().skipToPreviousItem()`);
+                        this._win.webContents.executeJavaScript(`if (MusicKit.getInstance().queue.previousPlayableItemIndex != -1 && MusicKit.getInstance().queue.previousPlayableItemIndex != null) {MusicKit.getInstance().changeToMediaAtIndex(MusicKit.getInstance().queue.previousPlayableItemIndex)}`);
                         response.message = "Previous";
                         break;
                     case "musickit-api":
@@ -287,6 +298,13 @@ export class wsapi {
     returnQueue(queue :any) {
         const response : standardResponse = {status :0,data :queue, message:"OK", type:"queue"};
         this.clients.forEach(function each(client :any) {
+            client.send(JSON.stringify(response));
+        });
+    }
+
+    returnmaxVolume(vol: any) {
+        const response: standardResponse = {status: 0, data: vol, message: "OK", type: "maxVolume"};
+        this.clients.forEach(function each(client: any) {
             client.send(JSON.stringify(response));
         });
     }

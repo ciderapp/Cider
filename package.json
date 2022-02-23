@@ -2,7 +2,7 @@
   "name": "cider",
   "applicationId": "Cider",
   "productName": "Cider",
-  "version": "1.1.0",
+  "version": "1.2.1",
   "description": "A new look into listening and enjoying music in style and performance.",
   "license": "AGPL-3.0",
   "main": "./build/index.js",
@@ -21,19 +21,27 @@
     "start:win32": "yarn build && set ELECTRON_ENABLE_LOGGING=true && electron ./build/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
     "start:linux": "yarn build && ELECTRON_ENABLE_LOGGING=true && electron ./build/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
     "start:darwin": "yarn build && ELECTRON_ENABLE_LOGGING=true && electron ./build/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
+    "start-renderer": "run-script-os",
+    "start-renderer:win32": "set ELECTRON_ENABLE_LOGGING=true && electron ./build/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
+    "start-renderer:linux": "ELECTRON_ENABLE_LOGGING=true && electron ./build/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
+    "start-renderer:darwin": "ELECTRON_ENABLE_LOGGING=true && electron ./build/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
     "pack": "electron-builder --dir",
     "dist": "yarn build && electron-builder",
+    "dist:macarm": "yarn build && electron-builder --mac --arm64",
+    "dist:universalNotWorking": "yarn build && electron-builder --mac --universal",
     "dist:all": "yarn build && electron-builder -mwl",
     "msft": "yarn build && electron-builder -c msft-package.json",
     "postinstall": "electron-builder install-app-deps",
-    "circle:append-sha": "node resources/appendCommitToVersion"
+    "circle:append-bid": "node resources/appendCommitToVersion"
   },
   "dependencies": {
     "@sentry/electron": "^2.5.4",
+    "@sentry/integrations": "^6.17.4",
+    "adm-zip": "^0.5.9",
     "discord-rpc": "^4.0.1",
     "ejs": "^3.1.6",
     "electron-fetch": "^1.7.4",
-    "electron-log": "^4.4.4",
+    "electron-log": "^4.4.5",
     "electron-notarize": "^1.1.1",
     "electron-store": "^8.0.1",
     "electron-updater": "^4.6.1",
@@ -42,7 +50,7 @@
     "get-port": "^5.1.1",
     "jsonc": "^2.0.0",
     "lastfmapi": "^0.1.1",
-    "mdns-js": "git+https://github.com/bitfocus/node-mdns-js.git",
+    "mdns-js": "git+https://github.com/ciderapp/node-mdns-js.git",
     "mpris-service": "^2.1.2",
     "music-metadata": "^7.11.4",
     "node-gyp": "^8.4.1",
@@ -64,7 +72,8 @@
     "@types/qrcode-terminal": "^0.12.0",
     "@types/ws": "^8.2.2",
     "electron": "git+https://github.com/castlabs/electron-releases.git",
-    "electron-builder": "^22.14.5",
+    "electron-builder": "^22.14.13",
+    "electron-builder-notarize-pkg": "^1.1.0",
     "electron-webpack": "^2.8.2",
     "musickit-typescript": "^1.2.4",
     "playwright": "^1.18.1",
@@ -118,8 +127,8 @@
     "extends": null,
     "files": [
       "./build/**/*",
-      "./resources/icons/icon.*",
-      "./src/**/*"
+      "./src/**/*",
+      "./resources/icons/**/*"
     ],
     "linux": {
       "target": [
@@ -145,7 +154,31 @@
       "perMachine": false,
       "allowToChangeInstallationDirectory": true,
       "license": "LICENSE",
-      "deleteAppDataOnUninstall": true
+      "deleteAppDataOnUninstall": true,
+      "artifactName": "${productName}-Setup-${version}.${ext}"
+    },
+    "pkg": {
+      "installLocation": "/Applications",
+      "background": {
+        "file": "./resources/bg.png",
+        "alignment": "bottomleft",
+        "scaling": "tofit"
+      },
+      "allowAnywhere": true,
+      "allowCurrentUserHome": true,
+      "allowRootDirectory": true,
+      "license": "./resources/license.txt",
+      "isVersionChecked": false,
+      "isRelocatable": false,
+      "overwriteAction": "upgrade"
+    },
+    "dmg": {
+      "background": "./resources/bg.png",
+      "icon": "resources/icons/icon.ico"
+    },
+    "mas": {
+      "entitlements": "./resources/entitlements.mac.plist",
+      "entitlementsInherit": "./resources/entitlements.mac.plist"
     },
     "win": {
       "target": [
@@ -168,7 +201,6 @@
       "target": [
         "dmg"
       ]
-    },
-    "artifactName": "${productName}.${ext}"
+    }
   }
 }

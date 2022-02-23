@@ -1,0 +1,63 @@
+<div id="app-content" :style="{'overflow': (chrome.contentAreaScrolling ? '' : 'hidden')}">
+    <div id="navigation-bar">
+        <button class="nav-item" @click="navigateBack()">
+            <%- include('../svg/chevron-left.svg') %>
+        </button>
+        <button class="nav-item" @click="navigateForward()">
+            <%- include('../svg/chevron-right.svg') %>
+        </button>
+    </div>
+
+    <!-- Include App Routes -->
+    <% for(var i=0; i < Object.keys(env.appRoutes).length ; i++) {%>
+        <transition
+                <% if(env.appRoutes[i].onEnter) {
+                        %>
+                    v-on:enter="<%- env.appRoutes[i].onEnter %>"
+                <%
+                    }
+                %>
+                name="wpfade_transform"
+        >
+            <template
+                v-if="<%- env.appRoutes[i].condition %>"
+            >
+                <%- env.appRoutes[i].component %>
+            </template>
+        </transition>
+    <% } %>
+
+    <transition v-on:enter="getRadioStations()" name="wpfade_transform">
+        <template v-if="page == 'radio'" @created="console.log('radio')">
+            <div class="content-inner">
+                <h1 class="header-text">{{$root.getLz('term.radio')}}</h1>
+                <h3>{{$root.getLz('term.recentStations')}}</h3>
+                <mediaitem-square :item="item" v-for="item in radio.personal"></mediaitem-square>
+            </div>
+        </template>
+    </transition>
+    <!-- Library - Recently Added -->
+    <transition name="wpfade_transform" v-on:enter="getLibraryAlbumsFull(null, 0); searchLibraryAlbums(0);">
+        <%- include('../pages/library-recentlyadded') %>');
+    </transition>
+    <!-- Library - Albums -->
+    <transition name="wpfade_transform" v-on:enter="getLibraryAlbumsFull(null, 1); searchLibraryAlbums(1);">
+        <%- include('../pages/library-albums') %>');
+        %>
+    </transition>
+    <!-- Library - Made For You -->
+    <transition name="wpfade_transform" v-on:enter="getMadeForYou()">
+        <template v-if="page == 'library-madeforyou'">
+            <%- include('../pages/madeforyou') %>');
+            %>
+        </template>
+    </transition>
+    <!-- Library - Artists-->
+    <transition name="wpfade_transform" v-on:enter="getLibraryArtistsFull(null, 0);">
+        <template v-if="page == 'library-artists'">
+            <%- include('../pages/library-artists') %>');
+            %>
+        </template>
+    </transition>
+
+</div>

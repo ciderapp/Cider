@@ -4,15 +4,16 @@ import * as windowStateKeeper from "electron-window-state";
 import * as express from "express";
 import * as getPort from "get-port";
 import {search} from "youtube-search-without-api-key";
-import {existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync} from "fs";
+import {existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync, statSync} from "fs";
 import {Stream} from "stream";
 import {networkInterfaces} from "os";
 import * as mm from 'music-metadata';
 import fetch from 'electron-fetch'
 import {wsapi} from "./wsapi";
-import {jsonc} from "jsonc";
 import {AppImageUpdater, NsisUpdater} from "electron-updater";
 import {utils} from './utils';
+
+const AdmZip = require("adm-zip");
 
 
 export class BrowserWindow {
@@ -44,12 +45,18 @@ export class BrowserWindow {
                 "pages/search",
                 "pages/about",
                 "pages/library-videos",
+                "pages/remote-pair",
+                "pages/themes-github",
+                "pages/replay",
+                "pages/audiolabs",
                 "components/mediaitem-artwork",
                 "components/artwork-material",
                 "components/menu-panel",
                 "components/sidebar-playlist",
                 "components/spatial-properties",
                 "components/audio-settings",
+                "components/plugin-menu",
+                "components/audio-controls",
                 "components/qrcode-modal",
                 "components/equalizer",
                 "components/add-to-playlist",
@@ -66,9 +73,112 @@ export class BrowserWindow {
                 "components/listennow-child",
                 "components/mediaitem-mvview-sp",
                 "components/animatedartwork-view",
+                "components/listitem-horizontal",
                 "components/lyrics-view",
                 "components/fullscreen",
                 "components/miniplayer",
+            ],
+            appRoutes: [
+                {
+                    page: "podcasts",
+                    component: `<apple-podcasts></apple-podcasts>`,
+                    condition: `page == 'podcasts'`
+                }, {
+                    page: "library-videos",
+                    component: `<cider-library-videos></cider-library-videos>`,
+                    condition: `page == 'library-videos'`
+                }, {
+                    page: "apple-account-settings",
+                    component: `<apple-account-settings></apple-account-settings>`,
+                    condition: `page == 'apple-account-settings'`
+                }, {
+                    page: "about",
+                    component: `<about-page></about-page>`,
+                    condition: `page == 'about'`
+                }, {
+                    page: "cider-artist",
+                    component: `<cider-artist :data="artistPage.data"></cider-artist>`,
+                    condition: `page == 'artist-page' && artistPage.data.attributes`
+                }, {
+                    page: "collection-list",
+                    component: `<cider-collection-list :data="collectionList.response" :type="collectionList.type" :title="collectionList.title"></cider-collection-list>`,
+                    condition: `page == 'collection-list'`
+                }, {
+                    page: "home",
+                    component: `<cider-home></cider-home>`,
+                    condition: `page == 'home'`
+                }, {
+                    page: "artist-feed",
+                    component: `<cider-artist-feed></cider-artist-feed>`,
+                    condition: `page == 'artist-feed'`
+                }, {
+                    page: "playlist-inline",
+                    component: `<playlist-inline :data="showingPlaylist"></playlist-inline>`,
+                    condition: `modals.showPlaylist`
+                }, {
+                    page: "playlist_",
+                    component: `<cider-playlist :data="showingPlaylist"></cider-playlist>`,
+                    condition: `page.includes('playlist_')`
+                }, {
+                    page: "album_",
+                    component: `<cider-playlist :data="showingPlaylist"></cider-playlist>`,
+                    condition: `page.includes('album_')`
+                }, {
+                    page: "recordLabel_",
+                    component: `<cider-recordlabel :data="showingPlaylist"></cider-recordlabel>`,
+                    condition: `page.includes('recordLabel_')`
+                }, {
+                    page: "curator_",
+                    component: `<cider-recordlabel :data="showingPlaylist"></cider-recordlabel>`,
+                    condition: `page.includes('curator_')`
+                }, {
+                    page: "browsepage",
+                    component: `<cider-browse :data="browsepage"></cider-browse>`,
+                    condition: `page == 'browse'`,
+                    onEnter: `getBrowsePage();`
+                }, {
+                    page: "listen_now",
+                    component: `<cider-listen-now :data="listennow"></cider-listen-now>`,
+                    condition: `page == 'listen_now'`,
+                    onEnter: `getListenNow()`
+                }, {
+                    page: "settings",
+                    component: `<cider-settings></cider-settings>`,
+                    condition: `page == 'settings'`
+                }, {
+                    page: "search",
+                    component: `<cider-search :search="search"></cider-search>`,
+                    condition: `page == 'search'`
+                }, {
+                    page: "library-songs",
+                    component: `<cider-library-songs :data="library.songs"></cider-library-songs>`,
+                    condition: `page == 'library-songs'`,
+                    onEnter: `getLibrarySongsFull()`
+                }, {
+                    page: "appleCurator",
+                    component: `<cider-applecurator :data="appleCurator"></cider-applecurator>`,
+                    condition: `page.includes('appleCurator')`
+                }, {
+                    page: "themes-github",
+                    component: `<themes-github></themes-github>`,
+                    condition: `page == 'themes-github'`
+                }, {
+                    page: "podcasts",
+                    component: `<apple-podcasts></apple-podcasts>`,
+                    condition: `page == 'podcasts'`
+                }, {
+                    page: "remote-pair",
+                    component: `<remote-pair></remote-pair>`,
+                    condition: `page == 'remote-pair'`
+                }, {
+                    page: "audiolabs",
+                    component: `<audiolabs-page></audiolabs-page>`,
+                    condition: `page == 'audiolabs'`
+                }, {
+                    page: "replay",
+                    component: `<replay-page></replay-page>`,
+                    condition: `page == 'replay'`
+                }
             ]
         },
     };
@@ -85,14 +195,12 @@ export class BrowserWindow {
         minHeight: 390,
         frame: false,
         title: "Cider",
-        vibrancy: "fullscreen-ui",
-        transparent: process.platform === "darwin",
-        hasShadow: false,
         show: false,
-        backgroundColor: "#1E1E1E",
+        // backgroundColor: "#1E1E1E",
         titleBarStyle: 'hidden',
         trafficLightPosition: {x: 15, y: 20},
         webPreferences: {
+            experimentalFeatures: true,
             nodeIntegration: true,
             sandbox: true,
             allowRunningInsecureContent: true,
@@ -119,6 +227,26 @@ export class BrowserWindow {
         });
         this.options.width = windowState.width;
         this.options.height = windowState.height;
+
+        switch (process.platform) {
+            default:
+
+                break;
+            case "win32":
+                this.options.backgroundColor = "#1E1E1E";
+                this.options.transparent = false;
+                break;
+            case "linux":
+                this.options.backgroundColor = "#1E1E1E";
+                this.options.autoHideMenuBar = true
+                this.options.frame = true
+                break;
+            case "darwin":
+                this.options.transparent = true;
+                this.options.vibrancy = "dark";
+                this.options.hasShadow = true;
+                break;
+        }
 
         // Start the webserver for the browser window to load
 
@@ -214,11 +342,11 @@ export class BrowserWindow {
                     res.send("Stopped")
                     break;
                 case "next":
-                    BrowserWindow.win.webContents.executeJavaScript("MusicKit.getInstance().skipToNextItem()")
+                    BrowserWindow.win.webContents.executeJavaScript("if (MusicKit.getInstance().queue.nextPlayableItemIndex != -1 && MusicKit.getInstance().queue.nextPlayableItemIndex != null) {MusicKit.getInstance().changeToMediaAtIndex(MusicKit.getInstance().queue.nextPlayableItemIndex);}")
                     res.send("Next")
                     break;
                 case "previous":
-                    BrowserWindow.win.webContents.executeJavaScript("MusicKit.getInstance().skipToPreviousItem()")
+                    BrowserWindow.win.webContents.executeJavaScript("if (MusicKit.getInstance().queue.previousPlayableItemIndex != -1 && MusicKit.getInstance().queue.previousPlayableItemIndex != null) {MusicKit.getInstance().changeToMediaAtIndex(MusicKit.getInstance().queue.previousPlayableItemIndex);}")
                     res.send("Previous")
                     break;
                 default: {
@@ -228,7 +356,7 @@ export class BrowserWindow {
         })
 
         app.get("/themes/:theme", (req, res) => {
-            const theme = req.params.theme.toLowerCase();
+            const theme = req.params.theme;
             const themePath = join(utils.getPath('srcPath'), "./renderer/themes/", theme);
             const userThemePath = join(utils.getPath('themes'), theme);
             if (existsSync(userThemePath)) {
@@ -238,7 +366,34 @@ export class BrowserWindow {
             } else {
                 res.send(`// Theme not found - ${userThemePath}`);
             }
+        });
 
+        app.get("/themes/:theme/*", (req, res) => {
+            const theme = req.params.theme;
+            // @ts-ignore
+            const file = req.params[0];
+            const themePath = join(utils.getPath('srcPath'), "./renderer/themes/", theme);
+            const userThemePath = join(utils.getPath('themes'), theme);
+            if (existsSync(userThemePath)) {
+                res.sendFile(join(userThemePath, file));
+            } else if (existsSync(themePath)) {
+                res.sendFile(join(themePath, file));
+            } else {
+                res.send(`// File not found - ${userThemePath}`);
+            }
+        });
+
+        app.get("/plugins/:plugin/*", (req, res) => {
+            const plugin = req.params.plugin;
+            // @ts-ignore
+            const file = req.params[0];
+            const pluginPath = join(utils.getPath('plugins'), plugin);
+            console.log(pluginPath)
+            if (existsSync(pluginPath)) {
+                res.sendFile(join(pluginPath, file));
+            } else {
+                res.send(`// Plugin not found - ${pluginPath}`);
+            }
         });
 
         app.get("/audio.webm", (req, res) => {
@@ -355,9 +510,79 @@ export class BrowserWindow {
             event.returnValue = process.platform;
         });
 
+        ipcMain.handle("get-github-theme", async (event, url) => {
+            const returnVal = {
+                success: true,
+                theme: null,
+                message: ""
+            }
+            try {
+                if (!existsSync(utils.getPath("themes"))) {
+                    mkdirSync(utils.getPath("themes"));
+                }
+                if (url.endsWith("/")) url = url.slice(0, -1);
+                let response = await fetch(
+                    `${url}/archive/refs/heads/main.zip`
+                );
+                let zip = await response.buffer();
+                let zipFile = new AdmZip(zip);
+                zipFile.extractAllTo(utils.getPath("themes"), true);
+
+            } catch (e) {
+                returnVal.success = false;
+            }
+            BrowserWindow.win.webContents.send("theme-installed", returnVal);
+        });
+
         ipcMain.on("get-themes", (event, _key) => {
             if (existsSync(utils.getPath("themes"))) {
-                event.returnValue = readdirSync(utils.getPath("themes"));
+                let files = readdirSync(utils.getPath("themes"));
+                let themes = [];
+                for (let file of files) {
+                    if (file.endsWith(".less")) {
+                        themes.push(file);
+                    } else if (statSync(join(utils.getPath("themes"), file)).isDirectory()) {
+                        let subFiles = readdirSync(join(utils.getPath("themes"), file));
+                        for (let subFile of subFiles) {
+                            if (subFile.endsWith(".less")) {
+                                themes.push(join(file, subFile));
+                            }
+                        }
+                    }
+                }
+                let themeObjects = [];
+                for (let theme of themes) {
+                    let themePath = join(utils.getPath("themes"), theme);
+                    let themeName = theme;
+                    let themeDescription = "";
+                    if (theme.includes("/")) {
+                        themeName = theme.split("/")[1];
+                        themeDescription = theme.split("/")[0];
+                    }
+                    if (themePath.endsWith("index.less")) {
+                        themePath = themePath.slice(0, -10);
+                    }
+                    if (existsSync(join(themePath, "theme.json"))) {
+                        let themeJson = JSON.parse(readFileSync(join(themePath, "theme.json"), "utf8"));
+                        themeObjects.push({
+                            name: themeJson.name || themeName,
+                            description: themeJson.description || themeDescription,
+                            path: themePath,
+                            file: theme,
+                            github_repo: themeJson.github_repo || ""
+                        });
+                    } else {
+                        themeObjects.push({
+                            name: themeName,
+                            description: themeDescription,
+                            path: themePath,
+                            file: theme,
+                            github_repo: ""
+                        });
+                    }
+                }
+                event.returnValue = themeObjects;
+
             } else {
                 event.returnValue = [];
             }
@@ -368,15 +593,15 @@ export class BrowserWindow {
         });
 
         ipcMain.on("get-i18n-listing", event => {
-            let i18nFiles = readdirSync(join(__dirname, "../../src/i18n")).filter(file => file.endsWith(".jsonc"));
+            let i18nFiles = readdirSync(join(__dirname, "../../src/i18n")).filter(file => file.endsWith(".json"));
             // read all the files and parse them
             let i18nListing = []
             for (let i = 0; i < i18nFiles.length; i++) {
-                const i18n: { [index: string]: Object } = jsonc.parse(readFileSync(join(__dirname, `../../src/i18n/${i18nFiles[i]}`), "utf8"));
+                const i18n: { [index: string]: Object } = JSON.parse(readFileSync(join(__dirname, `../../src/i18n/${i18nFiles[i]}`), "utf8"));
                 i18nListing.push({
-                    "code": i18nFiles[i].replace(".jsonc", ""),
-                    "nameNative": i18n["i18n.languageName"] ?? i18nFiles[i].replace(".jsonc", ""),
-                    "nameEnglish": i18n["i18n.languageNameEnglish"] ?? i18nFiles[i].replace(".jsonc", ""),
+                    "code": i18nFiles[i].replace(".json", ""),
+                    "nameNative": i18n["i18n.languageName"] ?? i18nFiles[i].replace(".json", ""),
+                    "nameEnglish": i18n["i18n.languageNameEnglish"] ?? i18nFiles[i].replace(".json", ""),
                     "category": i18n["i18n.category"] ?? "",
                     "authors": i18n["i18n.authors"] ?? ""
                 })
@@ -525,7 +750,7 @@ export class BrowserWindow {
 
         ipcMain.on('play', (_event, type, id) => {
             BrowserWindow.win.webContents.executeJavaScript(`
-			    MusicKit.getInstance().setQueue({ ${type}: '${id}'}).then(function(queue) {
+			    MusicKit.getInstance().setQueue({ ${type}: '${id}', parameters : {l : app.mklang}}).then(function(queue) {
 				    MusicKit.getInstance().play();
 			    });
 		    `)
@@ -539,7 +764,12 @@ export class BrowserWindow {
 
         ipcMain.on('get-remote-pair-url', (_event, _) => {
             let url = `http://${BrowserWindow.getIP()}:${this.remotePort}`;
-            BrowserWindow.win.webContents.send('send-remote-pair-url', url);
+            if (app.isPackaged) {
+                BrowserWindow.win.webContents.send('send-remote-pair-url', (`https://cider.sh/pair-remote?url=${Buffer.from(encodeURI(url)).toString('base64')}`).toString());
+            } else {
+                BrowserWindow.win.webContents.send('send-remote-pair-url', (`http://127.0.0.1:5500/pair-remote.html?url=${Buffer.from(encodeURI(url)).toString('base64')}`).toString());
+            }
+
         });
         if (process.platform === "darwin") {
             app.setUserActivity('com.CiderCollective.remote.pair', {
@@ -557,8 +787,8 @@ export class BrowserWindow {
                     console.log('sc', SoundCheckTag)
                     BrowserWindow.win.webContents.send('SoundCheckTag', SoundCheckTag)
                 }).catch(err => {
-                    console.log(err)
-                });
+                console.log(err)
+            });
         });
 
         ipcMain.on('check-for-update', async (_event) => {
@@ -571,20 +801,28 @@ export class BrowserWindow {
 
             let latestbranchjson = await latestbranch.json()
             let base_url = latestbranchjson[0].url
-            base_url = base_url.substr(0, base_url.lastIndexOf('/'))
+            base_url = base_url.substring(0, base_url.lastIndexOf('/'))
 
             const options: any = {
                 provider: 'generic',
                 url: `${base_url}`
             }
-            /*
-            *  Have to handle the auto updaters seperatly until we can support macOS. electron-builder limitation -q
-            */
+
+            //  Have to handle the auto updaters seperatly until we can support macOS. electron-builder limitation -q
+
             const win_autoUpdater = new NsisUpdater(options) //Windows
             const linux_autoUpdater = new AppImageUpdater(options) //Linux
             await win_autoUpdater.checkForUpdatesAndNotify()
             await linux_autoUpdater.checkForUpdatesAndNotify()
         });
+        ipcMain.on('disable-update', (event) => {
+            // Check if using app store builds so people don't get pissy wen button go bonk
+            if (app.isPackaged && !process.mas || !process.windowsStore) {
+                event.returnValue = false
+            } else {
+                event.returnValue = true
+            }
+        })
 
         ipcMain.on('share-menu', async (_event, url) => {
             if (process.platform != 'darwin') return;
@@ -599,7 +837,12 @@ export class BrowserWindow {
             shareMenu.popup();
         })
 
-
+        ipcMain.on('get-version', (_event) => {
+            _event.returnValue = app.getVersion()
+        });
+        ipcMain.on('open-appdata', (_event) => {
+            shell.openPath(app.getPath('userData'));
+        });
         /* *********************************************************************************************
          * Window Events
          * **********************************************************************************************/

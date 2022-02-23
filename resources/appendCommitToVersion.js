@@ -8,9 +8,10 @@ let fs = require('fs')
 var data = fs.readFileSync('package.json');
 var package = JSON.parse(data);
 
+pvers = package.version.match(/\d+\./g)
 
 // https://circleci.com/docs/2.0/env-vars/#built-in-environment-variables
-package.version = `${package.version}.${process.env['CIRCLE_BUILD_NUM']}`
+package.version = `${pvers[0]}${pvers[1]}${process.env['CIRCLE_BUILD_NUM']}`
 
 
 fs.writeFile('package.json', JSON.stringify(package), err => {

@@ -14,7 +14,7 @@ export default class Thumbar {
     public name: string = 'Menubar Plugin';
     public description: string = 'Creates the menubar';
     public version: string = '1.0.0';
-    public author: string = 'Core / Quack';
+    public author: string = 'Core / Quacksire';
 
     /**
      * Thumbnail Toolbar Assets
@@ -38,7 +38,16 @@ export default class Thumbar {
         {
             label: app.getName(),
             submenu: [
-                { role: 'about' },
+                {
+                    label: 'About',
+                    click: () => this._win.webContents.executeJavaScript(`app.appRoute('about')`)
+                },
+                { type: 'separator' },
+                {
+                    label: 'Settings',
+                    accelerator: 'CommandOrControl+,',
+                    click: () => this._win.webContents.executeJavaScript(`app.appRoute('settings')`)
+                },
                 { type: 'separator' },
                 { role: 'services' },
                 { type: 'separator' },
@@ -71,11 +80,20 @@ export default class Thumbar {
                 ...(this.isMac ? [
                     {type: 'separator'},
                     {role: 'front'},
-                    {type: 'separator'},
-                    {role: 'window'}
                 ] : [
                     {role: 'close'}
                 ]),
+                {
+                    label: 'Edit',
+                    submenu: [
+                        { role: 'undo' },
+                        { role: 'redo' },
+                        { type: 'separator' },
+                        { role: 'cut' },
+                        { role: 'copy' },
+                        { role: 'paste' },
+                    ]
+                },
                 {type: 'separator'},
                 {
                     label: 'Web Remote',
@@ -89,10 +107,11 @@ export default class Thumbar {
                     click: () => this._win.webContents.executeJavaScript(`app.modals.audioSettings = true`)
                 },
                 {
-                    label: 'Settings',
-                    accelerator: 'CommandOrControl+,',
-                    click: () => this._win.webContents.executeJavaScript(`app.appRoute('settings')`)
+                    label: 'Plug-in Menu',
+                    accelerator: 'CommandOrControl+Shift+P',
+                    click: () => this._win.webContents.executeJavaScript(`app.modals.pluginMenu = true`)
                 }
+
             ]
         },
         {
@@ -101,7 +120,7 @@ export default class Thumbar {
                 {
                     label: 'Pause / Play',
                     accelerator: 'Space',
-                    click: () => this._win.webContents.executeJavaScript(`MusicKitInterop.playPause()`)
+                    click: () => this._win.webContents.executeJavaScript(`app.SpacePause()`)
                 },
                 {
                     label: 'Next',
@@ -150,10 +169,6 @@ export default class Thumbar {
                 {
                     label: 'GitHub Wiki',
                     click: () => shell.openExternal("https://github.com/ciderapp/Cider/wiki/Troubleshooting").catch(console.error)
-                },
-                {
-                    label: 'About',
-                    click: () => this._win.webContents.executeJavaScript(`app.appRoute('about')`)
                 },
                 {type: 'separator'},
                 {

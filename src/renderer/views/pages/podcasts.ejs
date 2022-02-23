@@ -204,7 +204,7 @@
                 return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
             },
             playEpisode(episode) {
-                app.mk.setQueue({'episode': episode.id}).then(() => {app.mk.play()})
+                app.mk.setQueue({'episode': episode.id, parameters : {l : app.mklang}}).then(() => {app.mk.play()})
             },
             selectPodcast(podcast) {
                 this.podcastSelected = podcast

@@ -1,6 +1,5 @@
 import * as fs from "fs";
 import * as path from "path";
-import {jsonc} from "jsonc";
 import {Store} from "./store";
 import {BrowserWindow as bw} from "./browserwindow";
 import {app} from "electron";
@@ -16,6 +15,7 @@ export class utils {
         mainPath: path.join(__dirname, "../../src/main"),
         resourcePath: path.join(__dirname, "../../resources"),
         i18nPath: path.join(__dirname, "../../src/i18n"),
+        i18nPathSrc: path.join(__dirname, "../../src/il8n/source"),
         ciderCache: path.resolve(app.getPath("userData"), "CiderCache"),
         themes: path.resolve(app.getPath("userData"), "Themes"),
         plugins: path.resolve(app.getPath("userData"), "Plugins"),
@@ -37,10 +37,10 @@ export class utils {
      * @returns {string | Object} The locale value.
      */
     static getLocale(language: string, key?: string): string | object {
-        let i18n: { [index: string]: Object } = jsonc.parse(fs.readFileSync(path.join(this.paths.i18nPath, "en_US.jsonc"), "utf8"));
+        let i18n: { [index: string]: Object } = JSON.parse(fs.readFileSync(path.join(this.paths.i18nPath, "en_US.json"), "utf8"));
 
-        if (language !== "en_US" && fs.existsSync(path.join(this.paths.i18nPath, `${language}.jsonc`))) {
-            i18n = Object.assign(i18n, jsonc.parse(fs.readFileSync(path.join(this.paths.i18nPath, `${language}.jsonc`), "utf8")));
+        if (language !== "en_US" && fs.existsSync(path.join(this.paths.i18nPath, `${language}.json`))) {
+            i18n = Object.assign(i18n, JSON.parse(fs.readFileSync(path.join(this.paths.i18nPath, `${language}.json`), "utf8")));
         }
 
         if (key) {
@@ -81,6 +81,10 @@ export class utils {
      */
     static getWindow(): Electron.BrowserWindow {
         return bw.win
+    }
+
+    static loadJSFrontend(path: string): void {
+        bw.win.webContents.executeJavaScript(fs.readFileSync(path, "utf8"));
     }
 
     /**

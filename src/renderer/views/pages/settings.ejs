@@ -20,7 +20,26 @@
                         {{$root.getLz('term.privateSession')}}
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <input type="checkbox" v-model="app.mk.privateEnabled" switch/>
+                        <input type="checkbox" v-model="$root.cfg.general.privateEnabled" v-on:change="$root.mk.privateEnabled = $root.cfg.general.privateEnabled" switch/>
+                    </div>
+                </div>
+                <div class="md-option-line">
+                    <div class="md-option-segment">
+                        {{$root.getLz('settings.option.general.resumebehavior')}}<br>
+                        <small>
+                            {{$root.getLz('settings.option.general.resumebehavior.description')}}<br>
+                            <b>{{$root.getLz('settings.option.general.resumebehavior.locally')}}: </b> 
+                            {{$root.getLz('settings.option.general.resumebehavior.locally.description')}}<br>
+                            <b>{{$root.getLz('settings.option.general.resumebehavior.history')}}: </b> 
+                            {{$root.getLz('settings.option.general.resumebehavior.history.description')}}
+                        </small>
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <select class="md-select" style="width:180px;" v-model="$root.cfg.general.resumeOnStartupBehavior">
+                            <option value="disabled">{{$root.getLz('term.disabled')}}</option>
+                            <option value="local">{{$root.getLz('settings.option.general.resumebehavior.locally')}}</option>
+                            <option value="history">{{$root.getLz('settings.option.general.resumebehavior.history')}}</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -44,10 +63,20 @@
                 </div>
                 <div class="md-option-line">
                     <div class="md-option-segment">
+                        {{$root.getLz('term.audioControls')}}
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <button class="md-btn" onclick="app.modals.audioControls = true">
+                            {{$root.getLz('term.audioControls')}}
+                        </button>
+                    </div>
+                </div>
+                <div class="md-option-line">
+                    <div class="md-option-segment">
                         {{$root.getLz('settings.option.audio.seamlessTransition')}}
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <input type="checkbox" v-model="app.cfg.audio.seamless_audio" switch/>
+                        <input type="checkbox" v-model="app.cfg.audio.seamless_audio" v-on:change="app.mk._bag.features['seamless-audio-transitions'] = app.cfg.audio.seamless_audio" switch/>
                     </div>
                 </div>
                 <div class="md-option-line">
@@ -63,26 +92,13 @@
                 </div>
                 <div class="md-option-line" v-show="app.cfg.advanced.AudioContext">
                     <div class="md-option-segment">
-                        {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPE')}}
+                        {{$root.getLz('settings.option.audio.audioLab')}}
                         <br>
-                        <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPE.description')}}</small>
+                        <small>{{$root.getLz('settings.option.audio.audioLab.description')}}</small>
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <input type="checkbox" v-model="app.cfg.advanced.ciderPPE" v-on:change="ciderPPE" switch/>
-                    </div>
-                </div>
-                <div class="md-option-line" v-show="app.cfg.advanced.AudioContext && app.cfg.advanced.ciderPPE === true">
-                    <div class="md-option-segment">
-                        {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength')}}
-                        <br>
-                        <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description')}}</small>
-                    </div>
-                    <div class="md-option-segment md-option-segment_auto">
-                        <button class="md-btn" :disabled="app.cfg.audio.ciderPPE_value === 0.5" v-model="app.cfg.audio.ciderPPE_value" onclick="app.cfg.audio.ciderPPE_value = 0.5">
-                            {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard')}}
-                        </button>
-                        <button class="md-btn" style="margin-top: 5px;" :disabled="app.cfg.audio.ciderPPE_value === 0.55" v-model="app.cfg.audio.ciderPPE_value" onclick="app.cfg.audio.ciderPPE_value = 0.55">
-                            {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive')}}
+                        <button class="md-btn" onclick="app.appRoute('audiolabs')">
+                            {{$root.getLz('term.browse')}}
                         </button>
                     </div>
                 </div>
@@ -103,18 +119,7 @@
                         <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.audioNormalization.description')}}</small>
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <input type="checkbox" v-model="app.cfg.audio.normalization" v-on:change="toggleNormalization"
-                               switch/>
-                    </div>
-                </div>
-                <div class="md-option-line" v-show="app.cfg.advanced.AudioContext">
-                    <div class="md-option-segment">
-                        {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.audioSpatialization')}}
-                        <br>
-                        <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description')}}</small>
-                    </div>
-                    <div class="md-option-segment md-option-segment_auto">
-                        <input type="checkbox" v-model="app.cfg.audio.spatial" v-on:change="toggleSpatial" switch/>
+                        <input type="checkbox" v-model="app.cfg.audio.normalization" v-on:change="toggleNormalization" :disabled="app.cfg.audio.equalizer.vibrantBass !== 0 || app.cfg.audio.maikiwiAudio.spatial === true" switch/>
                     </div>
                 </div>
             </div>
@@ -130,8 +135,11 @@
                         <select class="md-select" @change="$root.setTheme($root.cfg.visual.theme)" v-model="$root.cfg.visual.theme">
                             <option value="default.less">{{$root.getLz('settings.option.visual.theme.default')}}</option>
                             <option value="dark.less">{{$root.getLz('settings.option.visual.theme.dark')}}</option>
-                            <option v-for="theme in themes" :value="theme">{{ theme }}</option>
+                            <option v-for="theme in themes" :value="theme.file">{{ theme.name }}</option>
                         </select>
+                        <button class="md-btn md-btn-small md-btn-block" @click="gitHubExplore()" style="margin-top: 8px">
+                            {{$root.getLz('settings.option.visual.theme.github.explore')}}
+                        </button>
                     </div>
                 </div>
                 <div class="md-option-line">
@@ -607,10 +615,52 @@
                     </div>
                 </div>
             </div>
+
+
+
+            <div class="md-option-header">
+                <span>{{$root.getLz('settings.header.debug')}}</span>
+            </div>
+            <div class="settings-option-body">
+                <div class="md-option-line">
+                    <div class="md-option-segment">
+                        {{$root.getLz('settings.option.debug.copy_log')}}
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <button class="md-btn" @click="copyLogs">
+                            {{$root.getLz('action.copy')}}
+                        </button>
+                    </div>
+                </div>
+                <div class="md-option-line">
+                    <div class="md-option-segment">
+                        {{$root.getLz('settings.option.debug.openAppData')}}
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <button class="md-btn" @click="openAppData">
+                            {{$root.getLz('action.open')}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
             <div class="md-option-header">
                 <span>{{$root.getLz('settings.header.experimental')}}</span>
             </div>
             <div class="settings-option-body">
+
+                <div class="md-option-line">
+                    <div class="md-option-segment">
+                        {{$root.getLz('settings.option.experimental.unknownPlugin')}}
+                        <br>
+                        <small>{{$root.getLz('settings.option.experimental.unknownPlugin.description')}}</small>
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <input type="checkbox" v-model="app.cfg.advanced.experiments.includes('unknown-sources')" @click="app.cfg.advanced.experiments.includes('unknown-sources') ? removeExperiment('unknown-sources') : addExperiment('unknown-sources')" switch/>
+                    </div>
+                </div>
+
 
                 <div class="md-option-line">
                     <div class="md-option-segment">
@@ -653,7 +703,7 @@
                         <input type="checkbox" v-model="app.cfg.general.close_button_hide" switch/>
                     </div>
                 </div>
-                <div class="md-option-line">
+                <div class="md-option-line update-check">
                     <div class="md-option-segment">
                         {{$root.getLz('settings.option.general.updateCider')}} 
                     </div>
@@ -663,7 +713,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="md-option-line">
+                <div class="md-option-line update-check">
                     <div class="md-option-segment">
                         {{$root.getLz('settings.option.general.updateCider.branch')}}<br>
                         <small>({{$root.getLz('settings.option.general.updateCider.branch.description')}})</small>
@@ -677,16 +727,6 @@
                                 {{$root.getLz('settings.option.general.updateCider.branch.develop')}}
                             </option>
                         </select>
-                    </div>
-                </div>
-                <div class="md-option-line">
-                    <div class="md-option-segment">
-                        {{$root.getLz('settings.option.experimental.copy_log')}} 
-                    </div>
-                    <div class="md-option-segment md-option-segment_auto">
-                        <button class="md-btn" @click="copyLogs">
-                            {{$root.getLz('action.copy')}} 
-                        </button>
                     </div>
                 </div>
             </div>
@@ -771,9 +811,15 @@
             }
         },
         methods: {
+            gitHubExplore() {
+                app.appRoute("themes-github")
+            },
             copyLogs() {
                 ipcRenderer.send('fetch-log')
                 notyf.success(app.getLz('term.share.success'));
+            },
+            openAppData() {
+                ipcRenderer.send('open-appdata')
             },
             getLanguages: function () {
                 let langs = this.$root.lzListing
@@ -800,16 +846,16 @@
                 app.cfg.advanced.experiments.splice(app.cfg.advanced.experiments.indexOf(flag), 1);
             },
             toggleAudioContext: function () {
-                if (app.cfg.advanced.AudioContext) {
+                if (app.cfg.advanced.AudioContext === true) {
                     CiderAudio.init();
-                    if (app.cfg.audio.normalization) {
+                    if (app.cfg.audio.normalization === true) {
                         CiderAudio.normalizerOn()
                     }
-                    if (app.cfg.audio.spatial) {
+                    if (app.cfg.audio.spatial === true) {
                         CiderAudio.spatialOn()
+                        CiderAudio.hierarchical_loading();
                     }
                 } else {
-                    app.cfg.advanced.ciderPPE = false;
                     CiderAudio.off();
                 }
             },
@@ -819,29 +865,6 @@
                 } else {
                     CiderAudio.normalizerOff()
                 }
-            },
-            ciderPPE: function () {
-                if (app.cfg.advanced.ciderPPE) {
-                    if (app.cfg.audio.spatial) {
-                        app.cfg.advanced.ciderPPE = false;
-                        notyf.error("CAP is not compatible with Spatialization. Please disable Spatialization to continue.")
-                    }
-                }
-            },
-            toggleSpatial: function () {
-                if (app.cfg.audio.spatial) {
-                    if (!app.cfg.advanced.ciderPPE) {
-                        CiderAudio.spatialOn()
-                    }
-                    else {
-                        CiderAudio.spatialOff()
-                        app.cfg.audio.spatial = false;
-                        notyf.error("Spatialization is not compatible with CAP. Please disable CAP to continue.")
-                    }
-                } else {
-                    CiderAudio.spatialOff()
-                }
-
             },
             changeAudioQuality: function () {
                 1
@@ -854,6 +877,15 @@
                 ipcRenderer.invoke('setStoreValue', 'general.close_behavior', app.cfg.general.close_behavior);
                 //  setStoreValue does not change plugin store values somehow
                 ipcRenderer.invoke('update-store-mtt', app.cfg.general.close_behavior);
+            },
+            checkIfUpdateDisabled() {
+                if (ipcRenderer.sendSync('disable-update')) {
+                    let updateFields = document.getElementsByClassName('update-check');
+                    for (var i=0; i < updateFields.length; i++) {
+                        updateFields[i].style = "opacity: 0.5; pointer-events: none;";
+                        updateFields[i].title = "Not available on this type of build";
+                    }
+                }
             }
         }
     })

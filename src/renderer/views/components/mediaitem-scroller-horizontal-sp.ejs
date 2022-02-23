@@ -1,9 +1,11 @@
 <script type="text/x-template" id="mediaitem-scroller-horizontal-sp">
         <div class="cd-hmedia-scroller hmedia-scroller-card">
-            <template>
-                <mediaitem-square kind="card" :item="item" size="300"
-                v-for="item in items"></mediaitem-square>
-            </template>
+            <vue-horizontal>
+                <template>
+                    <mediaitem-square kind="card" :item="item" size="300"
+                    v-for="item in items"></mediaitem-square>
+                </template>
+            </vue-horizontal>
         </div>
 </script>
 

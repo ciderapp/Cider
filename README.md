@@ -1,9 +1,8 @@
 <p align="center">
   <img src="./resources/banner.png" width="80%" height="60%" alt="Banner"><br><br>
-  <img src="https://img.shields.io/github/release/ciderapp/Cider.svg?style=flat&label=Latest%20Release" alt="GitHub Releases"/>
   <img src="https://img.shields.io/github/stars/ciderapp/Cider?label=Stars" alt="GitHub Stars"/>
   <img src="https://img.shields.io/github/forks/ciderapp/Cider?label=Forks" alt="GitHub Forks"/>
-  <img src="https://img.shields.io/github/downloads/ciderapp/Cider/total.svg?color=23B14D&label=Downloads" alt="GitHub Downloads"/>
+  <a title="Crowdin" target="_blank" href="https://crowdin.com/project/cider-music"><img src="https://badges.crowdin.net/cider-music/localized.svg"></a>
   <br>
   <a target="_blank" href="https://ko-fi.com/cryptofyre"><img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-donate-B48C69" alt="Buy Me A Coffee"/></a>
   <a target="_blank" href="https://opencollective.com/ciderapp"><img src="https://img.shields.io/opencollective/all/ciderapp?color=%237FADF2&label=Backers%20and%20Sponsors&logo=opencollective" alt="Open Collective"/></a>
