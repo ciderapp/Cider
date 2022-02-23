@@ -1,159 +1,159 @@
 {
-  "i18n.languageName": "English (US)",
-  "i18n.languageNameEnglish": "English (US)",
-  "i18n.category": "main",
-  "i18n.authors": "@maikirakiwi @kyw504100",
+  "i18n.languageName": "Inglês (Estados Unidos da América)",
+  "i18n.languageNameEnglish": "Inglês (Estados Unidos da América)",
+  "i18n.category": "principal",
+  "i18n.authors": "@lordgaelish190",
   "app.name": "Cider",
-  "date.format": "${m} ${d}, ${y}",
-  "dialog.cancel": "Cancel",
+  "date.format": "${d} ${m}, ${y}",
+  "dialog.cancel": "Cancelar",
   "dialog.ok": "OK",
-  "notification.updatingLibrarySongs": "Updating library songs...",
-  "notification.updatingLibraryAlbums": "Updating library albums...",
-  "notification.updatingLibraryArtists": "Updating library artists...",
+  "notification.updatingLibrarySongs": "A atualizar músicas da biblioteca...",
+  "notification.updatingLibraryAlbums": "A atualizar álbuns da biblioteca...",
+  "notification.updatingLibraryArtists": "A atualizar artistas da biblioteca...",
   "term.appleInc": "Apple Inc.",
   "term.appleMusic": "Apple Music",
   "term.applePodcasts": "Apple Podcasts",
   "term.itunes": "iTunes",
   "term.github": "GitHub",
   "term.discord": "Discord",
-  "term.learnMore": "Learn more",
-  "term.accountSettings": "Account Settings",
-  "term.logout": "Logout",
-  "term.login": "Log In",
-  "term.about": "About",
-  "term.privateSession": "Private Session",
-  "term.queue": "Queue",
-  "term.history": "History",
-  "term.search": "Search",
-  "term.library": "Library",
-  "term.listenNow": "Listen Now",
-  "term.browse": "Browse",
-  "term.radio": "Radio",
-  "term.recentlyAdded": "Recently Added",
-  "term.songs": "Songs",
-  "term.albums": "Albums",
-  "term.artists": "Artists",
+  "term.learnMore": "Saber mais",
+  "term.accountSettings": "Definições de Conta",
+  "term.logout": "Terminar Sessão",
+  "term.login": "Entrar",
+  "term.about": "Sobre",
+  "term.privateSession": "Sessão Privada",
+  "term.queue": "Fila de Reprodução",
+  "term.history": "Histórico",
+  "term.search": "Pesquisar",
+  "term.library": "Biblioteca",
+  "term.listenNow": "Ouvir Agora",
+  "term.browse": "Explorar",
+  "term.radio": "Rádio"
+  "term.recentlyAdded": "Adicionado Recentemente"
+  "term.songs": "Músicas",
+  "term.albums": "Álbuns",
+  "term.artists": "Artistas"
   "term.podcasts": "Podcasts",
-  "term.playlists": "Playlists",
-  "term.playlist": "Playlist",
-  "term.newPlaylist": "New Playlist",
-  "term.newPlaylistFolder": "New Playlist Folder",
-  "term.createNewPlaylist": "Create New Playlist",
-  "term.createNewPlaylistFolder": "Create New Playlist Folder",
-  "term.deletePlaylist": "Are you sure you want to delete this playlist?",
-  Reproduzir
-  Pausar
-  Anterior
-  Seguinte
-  Aleatório
-  Repetir
-  Volume
-  Silenciar
-  Repor Som
-  Partilhar
-  "term.share.success": "Copied to clipboard",
-  "term.settings": "Settings",
-  "term.seeAll": "See All",
-  "term.sortBy": "Sort By",
-  "term.sortBy.album": "Album",
-  "term.sortBy.artist": "Artist",
-  "term.sortBy.name": "Name",
-  "term.sortBy.genre": "Genre",
-  "term.sortBy.releaseDate": "Release Date",
-  "term.sortBy.duration": "Duration",
-  "term.sortBy.dateAdded": "Date Added",
-  "term.sortOrder": "A-Z",
-  "term.sortOrder.ascending": "Ascending",
-  "term.sortOrder.descending": "Descending",
-  "term.viewAs": "View As",
-  "term.viewAs.coverArt": "Cover Art",
-  "term.viewAs.list": "List",
-  "term.size": "Size",
-  "term.size.normal": "Normal",
-  "term.size.compact": "Compact",
-  "term.enable": "Enable",
-  "term.disable": "Disable",
-  "term.enabled": "Enabled",
-  "term.disabled": "Disabled",
-  "term.connect": "Connect",
-  "term.connecting": "Connecting",
-  "term.disconnect": "Disconnect",
-  "term.authed": "Authed",
-  "term.confirm": "Confirm?",
-  "term.more": "More",
-  "term.less": "Less",
-  "term.showMore": "Show more",
-  "term.showLess": "Show less",
-  "term.topSongs": "Top Songs",
-  "term.latestReleases": "Latest Releases",
-  "term.time.added": "Added",
-  "term.time.released": "Released",
-  "term.time.updated": "Updated",
-  "term.time.hours": "hours",
-  "term.time.hour": "hour",
-  "term.time.minutes": "minutes",
-  "term.time.minute": "minute",
-  "term.time.seconds": "seconds",
-  "term.time.second": "second",
-  "term.fullscreenView": "Fullscreen View",
-  "term.defaultView": "Default View",
-  "term.audioSettings": "Audio Settings",
-  "term.audioControls": "Volume Controls",
-  "term.clearAll": "Clear All",
-  "term.recentStations": "Recent Stations",
-  "term.language": "Language",
-  "term.funLanguages": "Fun",
-  "term.noLyrics": "Loading... / Lyrics not found./ Instrumental.",
-  "term.copyright": "Copyright",
-  "term.rightsReserved": "All Rights Reserved.",
-  "term.sponsor": "Sponsor this project",
-  "term.ciderTeam": "Cider Team",
-  "term.developer": "Developer",
-  "term.socialTeam": "Social Team",
-  "term.socials": "Socials",
-  "term.contributors": "Contributors",
-  "term.equalizer": "Equalizer",
-  "term.reset": "Reset",
-  "term.tracks": "tracks",
-  "term.videos": "Videos",
-  "term.menu": "Menu",
-  "term.check": "Check",
-  "term.aboutArtist": "About {{artistName}}",
-  "term.topResult": "Top Result",
-  "term.sharedPlaylists": "Shared Playlists",
-  "term.people": "People",
-  "term.newpreset.name": "New EQ Preset Name",
-  "term.addedpreset": "Added Preset",
-  "term.deletepreset.warn": "Are you sure you want to delete this preset?",
-  "term.deletedpreset": "Removed preset",
-  "term.defaultPresets": "Default Presets",
-  "term.userPresets": "User Presets",
-  "term.requestError": "There was a problem with the request.",
-  "term.song.link.generate": "Getting song.link share URL...",
-  "term.musicVideos": "Music Videos",
-  "term.stations": "Stations",
-  "term.curators": "Curators",
-  "term.appleCurators": "Apple Curators",
-  "term.radioShows": "Radio Shows",
-  "term.recordLabels": "Record Labels",
-  "term.videoExtras": "Video Extras",
-  "term.top": "Top",
-  "term.version": "Version",
-  "term.noVideos": "No videos found.",
-  "term.plugin": "Plug-in",
-  "term.pluginMenu": "Plug-in Menu",
-  "term.pluginMenu.none": "No interactive plugins.",
-  "term.replay": "Replay",
-  "term.uniqueAlbums": "Unique Albums",
-  "term.uniqueArtists": "Unique Artists",
-  "term.uniqueSongs": "Unique Songs",
-  "term.topArtists": "Top Artists",
-  "term.listenedTo": "Listened to:",
-  "term.times": "times",
-  "term.topAlbums": "Top Albums",
-  "term.plays": "Plays",
-  "term.topGenres": "Top Genres",
-  "term.confirmLogout": "Are you sure you want to logout?",
+  "term.playlists": "Listas de Reprodução",
+  "term.playlist": "Lista de Reprodução",
+  "term.newPlaylist": "Nova Lista de Reprodução",
+  "term.newPlaylistFolder": "Nova Pasta de Listas de Reprodução",
+  "term.createNewPlaylist": "Criar Nova Lista de Reprodução",
+  "term.createNewPlaylistFolder": "Criar Nova Pasta de Listas de Reprodução"
+  "term.deletePlaylist": "Tem a certeza que pretende apagar esta lista de reprodução?",
+  "term.play": "Reproduzir",
+  "term.pause": "Pausar",
+  "term.previous": "Anterior",
+  "term.next": "Seguinte",
+  "term.shuffle": "Aleatório",
+  "term.repeat": "Repetir",
+  "term.volume": "Volume",
+  "term.mute": "Silenciar",
+  "term.unmute": "Repor Som",
+  "term.share": "Partilhar",
+  "term.share.success": "Copiado para a área de transferência",
+  "term.settings": "Definições",
+  Ver Tudo
+  Organizar Por
+  Álbum
+  Artista
+  Nome
+  Género
+  Data de Lançamento
+  Duração
+  Data de Adição
+  A-Z
+  Ascendente
+  Decrescente
+  Ver Como
+  Capa do Álbum
+  Lista
+  Tamanho
+  Normal
+  Compacto
+  Ativar
+  Desativar
+  Ativado
+  Desativado
+  Ligar
+  A Ligar
+  Desligar
+  Autenticado
+  Confirmar?
+  Mais
+  Menos
+  Mostrar mais
+  Mostrar menos
+  Músicas de Topo
+  Últimos Lançamentos
+  Adicionado
+  Lançado
+  Atualizado
+  horas
+  hora
+  minutos
+  minuto
+  segundos
+  segundo
+  Visualização em Ecrã Completo
+  Visualização Normal
+  Definições de Áudio
+  Controlos de Volume
+  Limpar Todos
+  Estações Recentes
+  Linguagem
+  Divertido
+  A Carregar... / Letra não encontrada./ Instrumental.",
+  Copyright
+  Todos os Direitos Reservados.
+  Patrocine este projeto
+  Equipa do Cider
+  Desenvolvedor
+  Equipa de Comunicação Social
+  Redes Sociais
+  Contribuidores
+  Equalizador
+  Reiniciar
+  faixas
+  Vídeos
+  Menu
+  Verificar
+  Sobre {{artistName}}
+  Resultado Principal
+  Listas de Reprodução Partilhadas
+  Pessoas
+  Nova Predefinição do Equalizador
+  Adicionada Predefinição
+  Tem a certeza que pretende eliminar esta predefinição?
+  Predefinição removida
+  Predefinições Padrão
+  Predefinições do Utilizador
+  Houve um problema com o pedido.
+  A obter URL de partilha de song.link
+  Videoclipes
+  Estações
+  Curador
+  Curadores da Apple
+  Programas de Rádio
+  Editoras de Discos
+  Extras de Vídeos
+  Topo
+  Versão
+  Nenhuns vídeos encontrados
+  Plug-in
+  Menu de Plug-in's
+  Sem plug-in's interativos
+  Reproduzir de Novo
+  Álbuns Únicos
+  Artistas Únicos
+  Músicas Únicas
+  Artistas de Topo
+  Ouvidos
+  vezes
+  Álbuns de Topo
+  Reproduções
+  Géneros de Topo
+  Tem a certeza que pretende terminar sessão?
   "home.title": "Home",
   "home.recentlyPlayed": "Recently Played",
   "home.recentlyAdded": "Recently Added",
