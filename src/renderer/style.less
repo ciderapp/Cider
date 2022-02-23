@@ -2737,15 +2737,18 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 .wpfade_transform-leave-active {
   --transitionTime: 0.2s;
   transition: opacity var(--transitionTime) var(--appleEase), transform var(--transitionTime) var(--appleEase);
+  will-change: opacity, transform;
 }
 
 .wpfade_transform-enter {
   opacity: 0;
   transform: translateX(50%);
+  will-change: opacity, transform;
 }
 .wpfade_transform-leave-to {
   opacity: 0;
   transform: translateX(-50%);
+  will-change: opacity, transform;
 }
 
 
