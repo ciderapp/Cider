@@ -304,9 +304,9 @@ var CiderAudio = {
         try {CiderAudio.audioNodes.spatialNode.output.disconnect();} catch(e){}
         try {CiderAudio.audioNodes.spatialNode.disconnect();} catch(e){}
         try {CiderAudio.audioNodes.gainNode.disconnect();} catch(e){}
-        try {for (var i of CiderAudio.audioNodes.analogWarmth){i.disconnect();} CiderAudio.audioNodes.analogWarmth = []} catch(e){}
-        try {for (var i of CiderAudio.audioNodes.llpw){i.disconnect();} CiderAudio.audioNodes.llpw = []} catch(e){}
-        try {for (var i of CiderAudio.audioNodes.vibrantbassNode){i.disconnect();} CiderAudio.audioNodes.vibrantbassNode = []} catch(e){}
+        try {for (var i of CiderAudio.audioNodes.analogWarmth){i.disconnect();} CiderAudio.audioNodes.analogWarmth = null} catch(e){}
+        try {for (var i of CiderAudio.audioNodes.llpw){i.disconnect();} CiderAudio.audioNodes.llpw = null} catch(e){}
+        try {for (var i of CiderAudio.audioNodes.vibrantbassNode){i.disconnect();} CiderAudio.audioNodes.vibrantbassNode = null} catch(e){}
 
         console.log("[Cider][Audio] Finished hierarchical unloading");
         
