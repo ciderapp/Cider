@@ -4127,6 +4127,16 @@ document.addEventListener('keydown', function (event) {
     }
 });
 
+window.addEventListener("mouseup", (e) => {
+    if(e.button === 3) {
+        e.preventDefault()
+        app.navigateBack()
+    }else if(e.button === 4){
+        e.preventDefault()
+        app.navigateForward()
+    }
+ });
+
 document.addEventListener('keydown', function (event) {
     if (event.ctrlKey && event.keyCode == 122) {
         try {
