@@ -277,7 +277,7 @@
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Пространственное звучание",
   "settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility": "Пространственная обработка несовместима с CAP.
   "settings.option.connectivity.lastfmScrobble": "Last.fm cкробблинг",
-  "spatial.notTurnedOn": "Пространственное аудио отключено. Spatialization must be enabled as a prerequisite.",
+  "spatial.notTurnedOn": "Пространственное аудио отключено. Чтобы использовать, сначала включите его.",
   "settings.option.connectivity.lastfmScrobble.delay": "Частота скробблинга Last.fm (%)",
   "settings.header.lyrics.description": "Настройка текста песен.", (Requires App Restart)",
   "settings.header.visual.hardwareAcceleration.default": "По умолчанию",
