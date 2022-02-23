@@ -314,7 +314,7 @@
   "settings.notyf.visual.theme.install.success": "Tema instalado com sucesso",
   "settings.notyf.visual.theme.install.error": "Instalação do tema falhada",
   "settings.option.visual.theme.default": "Cider",
-  "settings.option.visual.theme.dark": "Dark",
+  "settings.option.visual.theme.dark": "Escuro",
   "settings.option.visual.showPersonalInfo": "Show Personal Info",
   "settings.header.lyrics": "Lyrics",
   "settings.header.lyrics.description": "Adjust the lyrics settings for Cider.",
