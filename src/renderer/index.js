@@ -253,6 +253,7 @@ const app = new Vue({
             pluginMenu: false,
             audioControls: false,
             showPlaylist: false,
+            castMenu: false
         },
         socialBadges: {
             badgeMap: {},
@@ -269,7 +270,8 @@ const app = new Vue({
                 headerItems: {}
             }
         },
-        pauseButtonTimer: null
+        pauseButtonTimer: null,
+        activeCasts: []
     },
     watch: {
         cfg: {

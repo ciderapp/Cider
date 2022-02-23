@@ -9,11 +9,13 @@ var CiderAudio = {
         vibrantbassNode: null,
         llpw: null,
         llpwEnabled: null,
-        analogWarmth: null
+        analogWarmth: null,
     },
+    ccON: false,
+    mediaRecorder: null,
     init: function (cb = function () { }) {
         //AudioOutputs.fInit = true;
-        searchInt = setInterval(function () {
+        let searchInt = setInterval(function () {
           if (document.getElementById("apple-music-player")) {
             //AudioOutputs.eqReady = true;
             document.getElementById("apple-music-player").crossOrigin = "anonymous";
@@ -138,19 +140,29 @@ var CiderAudio = {
         CiderAudio.hierarchical_loading();
     },
     sendAudio: function (){
-        var options = {
-            mimeType : 'audio/webm; codecs=opus'
-          };
-          var destnode =  CiderAudio.context.createMediaStreamDestination();
-          CiderAudio.audioNodes.gainNode.connect(destnode)
-          var mediaRecorder = new MediaRecorder(destnode.stream,options); 
-          mediaRecorder.start(1);
-          mediaRecorder.ondataavailable = function(e) {
-            e.data.arrayBuffer().then(buffer => {  
-                ipcRenderer.send('writeAudio',buffer)
-            }
-          );                   
+        if (!CiderAudio.ccON) {
+            CiderAudio.ccON = true
+            let searchInt = setInterval(function () {
+                if (CiderAudio.context != null && CiderAudio.audioNodes.gainNode != null) {
+                    var options = {
+                        mimeType: 'audio/webm; codecs=opus'
+                    };
+                    var destnode = CiderAudio.context.createMediaStreamDestination();
+                    CiderAudio.audioNodes.gainNode.connect(destnode)
+                    var mediaRecorder = new MediaRecorder(destnode.stream, options);
+                    mediaRecorder.start(1);
+                    mediaRecorder.ondataavailable = function (e) {
+                        e.data.arrayBuffer().then(buffer => {
+                            ipcRenderer.send('writeAudio', buffer)
+                        }
+                        );
+                    }
+
+                    clearInterval(searchInt);
+                }
+            }, 1000);
         }
+       
     },
     analogWarmth_h2_3: function (status, hierarchy){ 
         if (status === true) { // 23 Band Adjustment 

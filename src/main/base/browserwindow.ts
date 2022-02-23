@@ -78,6 +78,7 @@ export class BrowserWindow {
                 "components/lyrics-view",
                 "components/fullscreen",
                 "components/miniplayer",
+                "components/castmenu"
             ],
             appRoutes: [
                 {
