@@ -17,11 +17,9 @@
                 <%
                     }
                 %>
-                :name="chrome.desiredPageTransition"
-        >
+                :name="chrome.desiredPageTransition">
             <template
-                v-if="<%- env.appRoutes[i].condition %>"
-            >
+                v-if="<%- env.appRoutes[i].condition %>">
                 <%- env.appRoutes[i].component %>
             </template>
         </transition>
