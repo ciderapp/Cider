@@ -47,6 +47,7 @@ export class BrowserWindow {
                 "pages/library-videos",
                 "pages/remote-pair",
                 "pages/themes-github",
+                "pages/plugins-github",
                 "pages/replay",
                 "pages/audiolabs",
                 "components/mediaitem-artwork",
@@ -162,6 +163,10 @@ export class BrowserWindow {
                     page: "themes-github",
                     component: `<themes-github></themes-github>`,
                     condition: `page == 'themes-github'`
+                },{
+                    page: "plugins-github",
+                    component: `<plugins-github></plugins-github>`,
+                    condition: `page == 'plugins-github'`
                 }, {
                     page: "podcasts",
                     component: `<apple-podcasts></apple-podcasts>`,
