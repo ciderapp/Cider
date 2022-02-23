@@ -761,6 +761,10 @@ export class BrowserWindow {
 		    `)
         });
 
+        ipcMain.on('writeAudio', (event, buffer) => {
+            this.audioStream.write(Buffer.from(buffer));
+        })
+
         //QR Code
         ipcMain.handle('showQR', async (_event, _) => {
             let url = `http://${BrowserWindow.getIP()}:${this.remotePort}`;
