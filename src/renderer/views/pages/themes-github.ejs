@@ -25,6 +25,10 @@
                                     <div>⭐ {{ repo.stargazers_count }}</div>
                                 </div>
                             </div>
+                            <div class="col-auto">
+                                <span v-if="themesInstalled.includes(repo.full_name)" class="codicon codicon-cloud-download"></span>
+
+                            </div>
                         </div>
                     </li>
                 </ul>

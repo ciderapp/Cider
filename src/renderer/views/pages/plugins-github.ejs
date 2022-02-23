@@ -21,7 +21,7 @@
                         <div class="row">
                             <div class="col flex-center">
                                 <div>
-                                    <h4 class="repo-name">{{ repo.description }}</h4>
+                                    <h4 class="repo-name">{{ (repo.description != null) ? repo.description : repo.full_name }}</h4>
                                     <div>⭐ {{ repo.stargazers_count }}</div>
                                 </div>
                             </div>
