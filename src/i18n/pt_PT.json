@@ -53,74 +53,74 @@
   "term.share": "Partilhar",
   "term.share.success": "Copiado para a área de transferência",
   "term.settings": "Definições",
-  Ver Tudo
-  Organizar Por
-  Álbum
-  Artista
-  Nome
-  Género
-  Data de Lançamento
-  Duração
-  Data de Adição
-  A-Z
-  Ascendente
-  Decrescente
-  Ver Como
-  Capa do Álbum
-  Lista
-  Tamanho
-  Normal
-  Compacto
-  Ativar
-  Desativar
-  Ativado
-  Desativado
-  Ligar
-  A Ligar
-  Desligar
-  Autenticado
-  Confirmar?
-  Mais
-  Menos
-  Mostrar mais
-  Mostrar menos
-  Músicas de Topo
-  Últimos Lançamentos
-  Adicionado
-  Lançado
-  Atualizado
-  horas
-  hora
-  minutos
-  minuto
-  segundos
-  segundo
-  Visualização em Ecrã Completo
-  Visualização Normal
-  Definições de Áudio
-  Controlos de Volume
-  Limpar Todos
-  Estações Recentes
-  Linguagem
-  Divertido
-  A Carregar... / Letra não encontrada./ Instrumental.",
-  Copyright
-  Todos os Direitos Reservados.
-  Patrocine este projeto
-  Equipa do Cider
-  Desenvolvedor
-  Equipa de Comunicação Social
-  Redes Sociais
-  Contribuidores
-  Equalizador
-  Reiniciar
-  faixas
-  Vídeos
-  Menu
-  Verificar
-  Sobre {{artistName}}
-  Resultado Principal
-  Listas de Reprodução Partilhadas
+  "term.seeAll": "Ver Tudo",
+  "term.sortBy": "Organizar Por",
+  "term.sortBy.album": "Álbum",
+  "term.sortBy.artist": "Artista",
+  "term.sortBy.name": "Nome",
+  "term.sortBy.genre": "Género",
+  "term.sortBy.releaseDate": "Data de Lançamento",
+  "term.sortBy.duration": "Duração"
+  "term.sortBy.dateAdded": "Data de Adição",
+  "term.sortOrder": "A-Z",
+  "term.sortOrder.ascending": "Ascendente",
+  "term.sortOrder.descending": "Decrescente",
+  "term.viewAs": "Ver Como",
+  "term.viewAs.coverArt": "Capa do Álbum",
+  "term.viewAs.list": "Lista",
+  "term.size": "Tamanho",
+  "term.size.normal": "Normal"
+  "term.size.compact": "Compacto"
+  "term.enable": "Ativar",
+  "term.disable": "Desativar",
+  "term.enabled": "Ativado",
+  "term.disabled": "Desativado",
+  "term.connect": "Ligar",
+  "term.connecting": "A Ligar",
+  "term.disconnect": "Desligar",
+  "term.authed": "Autenticado"
+  "term.confirm": "Confirmar?",
+  "term.more": "Mais"
+  "term.less": "Menos",
+  "term.showMore": "Mostrar mais",
+  "term.showLess": "Mostrar menos",
+  "term.topSongs": "Músicas de Topo",
+  "term.latestReleases": "Últimos Lançamentos",
+  "term.time.added": "Adicionado",
+  "term.time.released": "Lançado",
+  "term.time.updated": "Atualizado",
+  "term.time.hours": "horas",
+  "term.time.hour": "hora",
+  "term.time.minutes": "minutos",
+  "term.time.minute": "minuto",
+  "term.time.seconds": "segundos"
+  "term.time.second": "segundo",
+  "term.fullscreenView": "Visualização em Ecrã Completo",
+  "term.defaultView": "Visualização Normal",
+  "term.audioSettings": "Definições de Áudio"
+  "term.audioControls": "Controlos de Volume"
+  "term.clearAll": "Limpar Todos",
+  "term.recentStations": "Estações Recentes",
+  "term.language": "Linguagem",
+  "term.funLanguages": "Divertido",
+  "term.noLyrics": "A Carregar... / Letra não encontrada./ Instrumental.",
+  "term.copyright": "Copyright",
+  "term.rightsReserved": "Todos os Direitos Reservados.",
+  "term.sponsor": "Patrocine este projeto",
+  "term.ciderTeam": "Equipa do Cider",
+  "term.developer": "Desenvolvedor",
+  "term.socialTeam": "Equipa de Comunicação Social",
+  "term.socials": "Redes Sociais",
+  "term.contributors": "Contribuidores",
+  "term.equalizer": "Equalizador",
+  "term.reset": "Reiniciar",
+  "term.tracks": "faixas",
+  "term.videos": "Vídeos"
+  "term.menu": "Menu",
+  "term.check": "Verificar",
+  "term.aboutArtist": "Sobre {{artistName}}",
+  "term.topResult": "Resultado Principal",
+  "term.sharedPlaylists": "Listas de Reprodução Partilhadas",
   Pessoas
   Nova Predefinição do Equalizador
   Adicionada Predefinição
