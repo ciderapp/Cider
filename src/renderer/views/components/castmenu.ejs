@@ -97,6 +97,7 @@
                 ipcRenderer.send('performGCCast', device, "Cider", "Playing ...", "Test build", '');
             },
             stopCasting() {
+                CiderAudio.stopAudio();
                 ipcRenderer.send('stopGCast', '');
                 this.activeCasts = [];
                 // vm.$forceUpdate();

@@ -149,9 +149,9 @@ var CiderAudio = {
                     };
                     var destnode = CiderAudio.context.createMediaStreamDestination();
                     CiderAudio.audioNodes.gainNode.connect(destnode)
-                    var mediaRecorder = new MediaRecorder(destnode.stream, options);
-                    mediaRecorder.start(1);
-                    mediaRecorder.ondataavailable = function (e) {
+                    CiderAudio.mediaRecorder = new MediaRecorder(destnode.stream, options);
+                    CiderAudio.mediaRecorder.start(1);
+                    CiderAudio.mediaRecorder.ondataavailable = function (e) {
                         e.data.arrayBuffer().then(buffer => {
                             ipcRenderer.send('writeAudio', buffer)
                         }
@@ -163,6 +163,13 @@ var CiderAudio = {
             }, 1000);
         }
        
+    },
+    stopAudio(){
+        if (CiderAudio.mediaRecorder != null){
+            CiderAudio.mediaRecorder.stop();
+            CiderAudio.mediaRecorder = null;
+            CiderAudio.ccON = false;
+        }
     },
     analogWarmth_h2_3: function (status, hierarchy){ 
         if (status === true) { // 23 Band Adjustment 
