@@ -156,6 +156,12 @@ export class AppEvents {
                 this.plugin.callPlugin('lastfm', 'authenticate', authKey);
             }
         }
+
+        // Spotify Protocols
+        else if (arg.startsWith("spotify://")) {
+
+        }
+
         // Play
         else if (arg.includes('/play/')) { //Steer away from protocol:// specific conditionals
             const playParam = arg.split('/play/')[1]
