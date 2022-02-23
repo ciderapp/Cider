@@ -17,7 +17,7 @@
                 <%
                     }
                 %>
-                name="wpfade_transform"
+                :name="chrome.desiredPageTransition"
         >
             <template
                 v-if="<%- env.appRoutes[i].condition %>"
@@ -27,7 +27,7 @@
         </transition>
     <% } %>
 
-    <transition v-on:enter="getRadioStations()" name="wpfade_transform">
+    <transition v-on:enter="getRadioStations()" :name="chrome.desiredPageTransition">
         <template v-if="page == 'radio'" @created="console.log('radio')">
             <div class="content-inner">
                 <h1 class="header-text">{{$root.getLz('term.radio')}}</h1>
@@ -37,23 +37,23 @@
         </template>
     </transition>
     <!-- Library - Recently Added -->
-    <transition name="wpfade_transform" v-on:enter="getLibraryAlbumsFull(null, 0); searchLibraryAlbums(0);">
+    <transition :name="chrome.desiredPageTransition" v-on:enter="getLibraryAlbumsFull(null, 0); searchLibraryAlbums(0);">
         <%- include('../pages/library-recentlyadded') %>');
     </transition>
     <!-- Library - Albums -->
-    <transition name="wpfade_transform" v-on:enter="getLibraryAlbumsFull(null, 1); searchLibraryAlbums(1);">
+    <transition :name="chrome.desiredPageTransition" v-on:enter="getLibraryAlbumsFull(null, 1); searchLibraryAlbums(1);">
         <%- include('../pages/library-albums') %>');
         %>
     </transition>
     <!-- Library - Made For You -->
-    <transition name="wpfade_transform" v-on:enter="getMadeForYou()">
+    <transition :name="chrome.desiredPageTransition" v-on:enter="getMadeForYou()">
         <template v-if="page == 'library-madeforyou'">
             <%- include('../pages/madeforyou') %>');
             %>
         </template>
     </transition>
     <!-- Library - Artists-->
-    <transition name="wpfade_transform" v-on:enter="getLibraryArtistsFull(null, 0);">
+    <transition :name="chrome.desiredPageTransition" v-on:enter="getLibraryArtistsFull(null, 0);">
         <template v-if="page == 'library-artists'">
             <%- include('../pages/library-artists') %>');
             %>

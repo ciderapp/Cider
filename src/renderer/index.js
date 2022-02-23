@@ -210,6 +210,7 @@ const app = new Vue({
         tmpVar: [],
         notification: false,
         chrome: {
+            desiredPageTransition: "wpfade_transform",
             hideUserInfo: ipcRenderer.sendSync("is-dev") || false,
             artworkReady: false,
             userinfo: {
@@ -424,7 +425,7 @@ const app = new Vue({
             }
             app.routeView(item)
         },
-        saveFile(fileName,urlFile){
+        saveFile(fileName, urlFile) {
             let a = document.createElement("a");
             a.style = "display: none";
             document.body.appendChild(a);
@@ -475,7 +476,15 @@ const app = new Vue({
             }
         },
         navigateBack() {
-            history.back()
+            this.chrome.desiredPageTransition = "wpfade_transform_backwards"
+            return new Promise((resolve, reject) => {
+                history.back()
+                setTimeout(() => {
+                    
+                    
+                    resolve(this.chrome.desiredPageTransition = "wpfade_transform")
+                }, 100)
+            })
         },
         navigateForward() {
             history.forward()
@@ -627,7 +636,7 @@ const app = new Vue({
                 this.chrome.userinfo = (await app.mk.api.v3.music(`/v1/me/social-profile`)).data.data[0]
             } catch (err) {
             }
-            
+
             this.mk._bag.features['seamless-audio-transitions'] = this.cfg.audio.seamless_audio
 
             // API Fallback
@@ -734,7 +743,7 @@ const app = new Vue({
                     }
                     break;
                 case "history":
-                    let history = await app.mk.api.v3.music(`/v1/me/recent/played/tracks`, { l : app.mklang})
+                    let history = await app.mk.api.v3.music(`/v1/me/recent/played/tracks`, { l: app.mklang })
                     if (history.data.data.length > 0) {
                         let lastItem = history.data.data[0]
                         let kind = lastItem.attributes.playParams.kind;
@@ -752,7 +761,7 @@ const app = new Vue({
                             })
                         }, 1500)
                     }
-                    
+
                     break;
                 case "disabled":
 
@@ -896,10 +905,11 @@ const app = new Vue({
             less.refresh()
         },
         unauthorize() {
-            bootbox.confirm(app.getLz('term.confirmLogout'), function(result){ 
-                if (result){
-                app.mk.unauthorize()
-                document.location.reload()}
+            bootbox.confirm(app.getLz('term.confirmLogout'), function (result) {
+                if (result) {
+                    app.mk.unauthorize()
+                    document.location.reload()
+                }
             });
         },
         getAppClasses() {

@@ -2735,12 +2735,31 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
 .wpfade_transform-enter-active,
 .wpfade_transform-leave-active {
-  transition: opacity .1s var(--appleEase), transform .1s var(--appleEase);
+  --transitionTime: 0.2s;
+  transition: opacity var(--transitionTime) var(--appleEase), transform var(--transitionTime) var(--appleEase);
 }
 
-.wpfade_transform-enter,
+.wpfade_transform-enter {
+  opacity: 0;
+  transform: translateX(50%);
+}
 .wpfade_transform-leave-to {
-  transform: translateX(20px);
+  opacity: 0;
+  // transform: translateX(-50%);
+}
+
+
+.wpfade_transform_backwards-enter-active,
+.wpfade_transform_backwards-leave-active {
+  --transitionTime: 0.2s;
+  transition: opacity var(--transitionTime) var(--appleEase), transform var(--transitionTime) var(--appleEase);
+}
+
+.wpfade_transform_backwards-enter {
+  opacity: 0;
+  transform: translateX(-50%);
+}
+.wpfade_transform_backwards-leave-to {
   opacity: 0;
 }
 
