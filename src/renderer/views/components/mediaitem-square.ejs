@@ -83,7 +83,7 @@
         async mounted() {
             await this.getBadges()
             if(typeof this.item.attributes.playParams == "object") {
-                if(this.item.attributes.playParams.kind.includes("radioStation") && this.item.attributes.requiresSubscription) {
+                if(this.item.attributes.playParams.kind.includes("radioStation") && (this.item.attributes.playParams.streamingKind == 1 || this.item.attributes.playParams.streamingKind == 2)) {
                     this.unavailable = true
                 }
             }else{
