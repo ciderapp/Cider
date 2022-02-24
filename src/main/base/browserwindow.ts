@@ -838,7 +838,7 @@ export class BrowserWindow {
                         // console.log('a3',input);
                         let d_rand = 0.0;
                         // ditherstate = new Float32Array(h.length);
-                        d_rand = hpDither(channel);
+                        // d_rand = hpDither(channel);
                         const tmpOutput = qt * Math.round(input / qt + d_rand);
                         for (let i = h.length - 1; i >= 0; i--) {
                             nsState[channel][i] = nsState[channel][i - 1];
@@ -856,8 +856,8 @@ export class BrowserWindow {
                 return Math.max(-32768, Math.min(32768, v)); // clamp
             }
 
-            //let newaudio = quantization(leftpcm, rightpcm);
-            let newaudio = [leftpcm, rightpcm];
+            let newaudio = quantization(leftpcm, rightpcm);
+            //let newaudio = [leftpcm, rightpcm];
             // console.log(newaudio.length);
             let pcmData = Buffer.from(new Int8Array(interleave16(Int16Array.from(newaudio[0], x => convert(x)), Int16Array.from(newaudio[1], x => convert(x))).buffer));
 
