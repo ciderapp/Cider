@@ -150,7 +150,7 @@
                     let friends = this.badges[id]
                     if (friends) {
                         friends.forEach(function (friend) {
-                            self.app.mk.api.v3.music(`/v1/social/${app.mk.storefrontId}/social-profiles/${friend}`).then(data => {
+                            self.app.mk.api.music(`/v1/social/${app.mk.storefrontId}/social-profiles/${friend}`).then(data => {
                                 self.itemBadges.push(data.data.data[0])
                             })
                         })
@@ -170,7 +170,7 @@
                     let kind = this.item.type ?? this.item.attributes.playParams.kind
                     let truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
                     if (truekind == "musicVideos") {truekind = "music-videos"}
-                    let res = await app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/?ids[${truekind}]=${this.item.attributes.playParams.id ?? this.item.id}`,params);
+                    let res = await app.mk.api.music(`/v1/catalog/${app.mk.storefrontId}/?ids[${truekind}]=${this.item.attributes.playParams.id ?? this.item.id}`,params);
                     res = res.data.data[0]
                     this.addedToLibrary = (res && res.attributes && res.attributes.inLibrary) ? res.attributes.inLibrary : false
                 } else {
@@ -186,13 +186,13 @@
                     let kind = this.item.type ?? this.item.attributes.playParams.kind
                     let truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
                     if (truekind == "musicVideos") {truekind = "music-videos"}
-                    let res = await app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/?ids[${truekind}]=${this.item.attributes.playParams.id ?? this.item.id}`,params);
+                    let res = await app.mk.api.music(`/v1/catalog/${app.mk.storefrontId}/?ids[${truekind}]=${this.item.attributes.playParams.id ?? this.item.id}`,params);
                 res= res.data.data[0]
                 if (res && res.relationships && res.relationships.library && res.relationships.library.data && res.relationships.library.data.length > 0) {
                     id = res.relationships.library.data[0].id
                 }
 
-                app.mk.api.v3.music(`v1/me/library/${truekind}/${id.toString()}`,{},
+                app.mk.api.music(`v1/me/library/${truekind}/${id.toString()}`,{},
                     {
                     fetchOptions: {
                     method: "DELETE"

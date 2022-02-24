@@ -32,7 +32,7 @@
             if(typeof this.item.relationships.catalog == "object") {
                 artistId = this.item.relationships.catalog.data[0].id
             }
-            app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/artists/${artistId}`).then(response => {
+            app.mk.api.music(`/v1/catalog/${app.mk.storefrontId}/artists/${artistId}`).then(response => {
                 this.artist = response.data.data[0];
             });
         },

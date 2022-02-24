@@ -1,6 +1,6 @@
 <script type="text/x-template" id="listennow-child">
     <div v-observe-visibility="{callback: visibilityChanged}">
-    <template v-if="isVisible && recom.attributes.display.kind != 'MusicSuperHeroShelf'">    
+    <template v-if="isVisible && recom.attributes.display?.kind != 'MusicSuperHeroShelf'">    
         <div class="row">
             <div class="col">
                 <h3>{{ recom.attributes.title ? recom.attributes.title.stringForDisplay : ""}}</h3>
@@ -9,7 +9,7 @@
                         <button class="cd-btn-seeall" @click="app.showCollection(recom.relationships.contents, recom.attributes.title ? recom.attributes.title.stringForDisplay : '', 'listen_now')" >{{app.getLz('term.seeAll')}}</button>
             </div>
         </div>
-        <template v-if="recom.attributes.display.kind == 'MusicCoverShelf'">
+        <template v-if="!recom.id.startsWith('6-') && index != 0">
             <mediaitem-scroller-horizontal-large
                             :items="recom.relationships.contents.data.limit(10)"></mediaitem-scroller-horizontal-large>
         </template>
@@ -18,7 +18,7 @@
                             :items="recom.relationships.contents.data.limit(10)"></mediaitem-scroller-horizontal-sp>
         </template>
     </template> 
-    <template v-else-if="recom.attributes.display.kind != 'MusicSuperHeroShelf'">
+    <template v-else-if="recom.attributes.display?.kind != 'MusicSuperHeroShelf'">
         <div style="height:330px"> </div>
     </template>    
 
@@ -27,11 +27,11 @@
 <script>
     Vue.component('listennow-child', {
         template: "#listennow-child",
-        props: ["recom"],
+        props: ["recom", "index"],
         data: function () {
             return {
                 isVisible: true,
-                app: this.$root
+                app: this.$root,
             }
         },
         methods: {
