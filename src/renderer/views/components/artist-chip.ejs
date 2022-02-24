@@ -6,8 +6,8 @@
         <div class="artist-chip__name">
             <span>{{ item.attributes.name }}</span>
         </div>
-        <button @click="followArtist" title="Follow" v-if="!$root.cfg.home.followedArtists.includes(item.id)" class="artist-chip__follow codicon codicon-add"></button>
-        <button @click="unfollowArtist" title="Following" v-else class="artist-chip__follow codicon codicon-check"></button>
+        <button @click="$root.followArtist(item.id, true)" title="Follow" v-if="!$root.followingArtist(item.id)" class="artist-chip__follow codicon codicon-add"></button>
+        <button @click="$root.followArtist(item.id, false)" title="Following" v-else class="artist-chip__follow codicon codicon-check"></button>
     </div>
 </script>
 
@@ -26,24 +26,13 @@
         },
         template: '#artist-chip',
         async mounted() {
-            app.mk.api.v3.music(`/v1/catalog/us/artists/${this.item.id}`).then(response => {
+            app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/artists/${this.item.id}`).then(response => {
                 this.artist = response.data.data[0];
             });
         },
         methods: {
             route() {
                app.appRoute(`artist/${this.item.id}`);
-            },
-            followArtist () {
-                app.cfg.home.followedArtists.push(this.item.id)
-                notyf.success(`You are now following ${this.item.attributes.name}`)
-            },
-            unfollowArtist () {
-                let index = app.cfg.home.followedArtists.indexOf(this.item.id)
-                if (index > -1) {
-                    app.cfg.home.followedArtists.splice(index, 1)
-                }
-                notyf.success(`You have unfollowed ${this.item.attributes.name}`)
             }
         }
     });

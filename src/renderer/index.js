@@ -1574,6 +1574,19 @@ const app = new Vue({
             this.getArtistFromID(id)
             //this.getTypeFromID("artist",id,isLibrary,query)
         },
+        followArtistById(id, follow) {
+            if (follow && !this.followingArist(id)) {
+                this.cfg.home.followedArtists.push(id)
+            } else {
+                let index = this.cfg.home.followedArtists.indexOf(this.item.id)
+                if (index > -1) {
+                    this.cfg.home.followedArtists.splice(index, 1)
+                }
+            }
+        },
+        followingArtist(id) {
+            return this.cfg.home.followedArtists.includes(id)
+        },
         playMediaItem(item) {
             let kind = (item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')) : (item.type ?? ''));
             let id = (item.attributes.playParams ? (item.attributes.playParams.id ?? (item.id ?? '')) : (item.id ?? ''));
