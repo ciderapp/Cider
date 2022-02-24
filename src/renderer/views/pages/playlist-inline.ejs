@@ -49,10 +49,12 @@
                                                                                                @keydown.enter="editPlaylist"/>
                                         </div>
                                         <div class="playlist-artist item-navigate"
-                                             v-if="getArtistName(data) != ''"
+                                             v-if="getArtistName(data) != '' && !useArtistChip"
                                              @click="data.attributes && data.attributes.artistName ? app.searchAndNavigate(data,'artist') : ''">
                                             {{getArtistName(data)}}
                                         </div>
+                                        <artist-chip v-if="useArtistChip"
+                                                     :item="data.relationships.artists.data[0]"></artist-chip>
                                         <div class="playlist-desc"
                                              v-if="data.attributes.description && (data.attributes.description.standard || data.attributes.description.short)">
                                             <div v-if="data.attributes.description.short" class="content"
@@ -242,7 +244,8 @@
                 app: this.$root,
                 itemBadges: [],
                 badgesRequested: false,
-                headerVisible: true
+                headerVisible: true,
+                useArtistChip: false
             }
         },
         mounted: function () {
@@ -292,10 +295,11 @@
                 setTimeout(() => this.confirm = false, 3000);
             },
             getArtistName(data) {
-                console.log(data.attributes)
                 if (data.attributes.artistName) {
+                    this.useArtistChip = true
                     return data.attributes.artistName
                 } else if (data.attributes.artist) {
+                    this.useArtistChip = true
                     return data.attributes.artist.attributes.name
                 } else if (data.attributes.curatorName) {
                     return data.attributes.curatorName
@@ -333,7 +337,7 @@
                 this.confirm = false
             },
             async removeFromLibrary(id) {
-                const params = {"fields[somgs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library"};
+                const params = {"fields[songs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library"};
                 var id = this.data.id ?? this.data.attributes.playParams.id
                 const res = await app.mkapi(this.data.attributes.playParams.kind ?? this.data.type, this.data.attributes.playParams.isLibrary ?? false, this.data.attributes.playParams.id ?? this.data.id, params);
                 if (res.data.data[0] && res.data.data[0].relationships && res.data.data[0].relationships.library && res.data.data[0].relationships.library.data && res.data.data[0].relationships.library.data.length > 0) {
@@ -433,7 +437,7 @@
                 })
             },
             menu(event) {
-                app.showMenuPanel({
+                let menuItems = {
                     items: {
                         "share": {
                             name: app.getLz('term.share'),
@@ -462,9 +466,34 @@
                                     app.copyToClipboard(res.data.data[0].attributes.url)
                                 })
                             }
-                        }
+                        },
+                        "follow": {
+                            name: app.getLz('action.follow'),
+                            icon: "./assets/feather/plus-circle.svg",
+                            hidden: false,
+                            action: () => {
+                                app.followArtistById(this.data.id, true)
+                            }
+                        },
+                        "unfollow": {
+                            name: app.getLz('action.unfollow'),
+                            icon: "./assets/feather/x-circle.svg",
+                            hidden: true,
+                            action: () => {
+                                app.followArtistById(this.data.id, false)
+                            }
+                        },
                     }
-                }, event)
+                }
+                if(app.followingArtist(this.data.id)){
+                    menuItems.items.follow.hidden = true
+                    menuItems.items.unfollow.hidden = false
+                } else {
+                    menuItems.items.follow.hidden = false
+                    menuItems.items.unfollow.hidden = true
+                }
+                app.showMenuPanel(menuItems, event)
+
             },
             getItemParent: function (data) {
                 kind = data.attributes.playParams.kind;
@@ -534,7 +563,7 @@
 
                 let query = (this.data ?? app.showingPlaylist).relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
                 app.mk.stop().then(function () {
-                    app.mk.setQueue({[truekind]: [id] , parameters : {l : app.mklang}}).then(function () {
+                    app.mk.setQueue({[truekind]: [id], parameters: {l: app.mklang}}).then(function () {
                         app.mk.play().then(function () {
                             if (query.length > 100) {
                                 let u = query.slice(100);

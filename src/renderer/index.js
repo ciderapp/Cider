@@ -1575,10 +1575,10 @@ const app = new Vue({
             //this.getTypeFromID("artist",id,isLibrary,query)
         },
         followArtistById(id, follow) {
-            if (follow && !this.followingArist(id)) {
+            if (follow && !this.followingArtist(id)) {
                 this.cfg.home.followedArtists.push(id)
             } else {
-                let index = this.cfg.home.followedArtists.indexOf(this.item.id)
+                let index = this.cfg.home.followedArtists.indexOf(id)
                 if (index > -1) {
                     this.cfg.home.followedArtists.splice(index, 1)
                 }

@@ -32,24 +32,30 @@
                                         {{data.attributes ? (data.attributes.name ??
                                         (data.attributes.title ?? '') ?? '') : ''}}
                                     </div>
-                                    <div class="playlist-name" v-show="nameEditing"><input type="text" spellcheck="false"
+                                    <div class="playlist-name" v-show="nameEditing"><input type="text"
+                                                                                           spellcheck="false"
                                                                                            class="nameEdit"
                                                                                            v-model="data.attributes.name"
                                                                                            @blur="editPlaylist"
                                                                                            @change="editPlaylist"
-                                                                                           @keydown.enter="editPlaylist"/></div>
+                                                                                           @keydown.enter="editPlaylist"/>
+                                    </div>
                                     <div class="playlist-artist item-navigate"
                                          v-if="getArtistName(data) != '' && !useArtistChip"
                                          @click="data.attributes && data.attributes.artistName ? app.searchAndNavigate(data,'artist') : ''">
                                         {{getArtistName(data)}}
                                     </div>
-                                    <artist-chip v-if="useArtistChip" :item="data.relationships.artists.data[0]"></artist-chip>
-                                    <div class="playlist-desc" v-if="data.attributes.description && (data.attributes.description.standard || data.attributes.description.short)">
-                                        <div v-if="data.attributes.description.short" class="content" v-html="data.attributes.description.short"></div>
-                                        <div v-else-if="data.attributes.description.standard" class="content" v-html="data.attributes.description.standard"></div>
+                                    <artist-chip v-if="useArtistChip"
+                                                 :item="data.relationships.artists.data[0]"></artist-chip>
+                                    <div class="playlist-desc"
+                                         v-if="data.attributes.description && (data.attributes.description.standard || data.attributes.description.short)">
+                                        <div v-if="data.attributes.description.short" class="content"
+                                             v-html="data.attributes.description.short"></div>
+                                        <div v-else-if="data.attributes.description.standard" class="content"
+                                             v-html="data.attributes.description.standard"></div>
                                         <button v-if="data.attributes.description.short" class="more-btn"
                                                 @click="editorialNotesExpanded = !editorialNotesExpanded">
-                                           {{app.getLz('term.showMore')}}
+                                            {{app.getLz('term.showMore')}}
                                         </button>
                                     </div>
                                 </div>
@@ -58,26 +64,31 @@
                                 <div class="playlist-desc-expanded">
                                     <div class="content"
                                          v-html="((data.attributes.editorialNotes) ? (data.attributes.editorialNotes.standard ?? (data.attributes.editorialNotes.short ?? '') ) : (data.attributes.description ? (data.attributes.description.standard ?? (data.attributes.description.short ?? '')) : ''))"></div>
-                                    <button class="more-btn" @click="editorialNotesExpanded = !editorialNotesExpanded">{{app.getLz('term.showLess')}}
+                                    <button class="more-btn" @click="editorialNotesExpanded = !editorialNotesExpanded">
+                                        {{app.getLz('term.showLess')}}
                                     </button>
                                 </div>
                             </template>
                             <div class="playlist-controls" v-observe-visibility="{callback: isHeaderVisible}">
                                 <button class="md-btn md-btn-primary md-btn-icon" style="min-width: 100px;"
-                                        @click="app.mk.shuffleMode = 0; play()"> <img class="md-ico-play">
-                                        {{app.getLz('term.play')}}
+                                        @click="app.mk.shuffleMode = 0; play()"><img class="md-ico-play">
+                                    {{app.getLz('term.play')}}
                                 </button>
                                 <button class="md-btn md-btn-primary md-btn-icon" style="min-width: 100px;"
-                                        @click="app.mk.shuffleMode = 1;play()"> <img class="md-ico-shuffle">
-                                        {{app.getLz('term.shuffle')}}
+                                        @click="app.mk.shuffleMode = 1;play()"><img class="md-ico-shuffle">
+                                    {{app.getLz('term.shuffle')}}
                                 </button>
-                                <button class="md-btn md-btn-icon" style="min-width: 180px;" v-if="inLibrary!=null && confirm!=true"
-                                        @click="confirmButton()"> <img :class="(!inLibrary) ? 'md-ico-add' : 'md-ico-remove'">
-                                    {{ (!inLibrary) ? app.getLz('action.addToLibrary') : app.getLz("action.removeFromLibrary") }}
+                                <button class="md-btn md-btn-icon" style="min-width: 180px;"
+                                        v-if="inLibrary!=null && confirm!=true"
+                                        @click="confirmButton()"><img
+                                            :class="(!inLibrary) ? 'md-ico-add' : 'md-ico-remove'">
+                                    {{ (!inLibrary) ? app.getLz('action.addToLibrary') :
+                                    app.getLz("action.removeFromLibrary") }}
                                 </button>
                                 <button class="md-btn md-btn-icon" style="min-width: 180px;" v-if="confirm==true"
-                                        @click="(!inLibrary) ? addToLibrary(data.attributes.playParams.id.toString()) : removeFromLibrary(data.attributes.playParams.id.toString()) "> <img :class="(!inLibrary) ? 'md-ico-add' : 'md-ico-remove'">
-                                        {{app.getLz('term.confirm')}}
+                                        @click="(!inLibrary) ? addToLibrary(data.attributes.playParams.id.toString()) : removeFromLibrary(data.attributes.playParams.id.toString()) ">
+                                    <img :class="(!inLibrary) ? 'md-ico-add' : 'md-ico-remove'">
+                                    {{app.getLz('term.confirm')}}
                                 </button>
                                 <button class="more-btn-round" style="float:right;" @click="menu">
                                     <div class="svg-icon"></div>
@@ -91,7 +102,8 @@
                 </div>
 
             </div>
-            <div class="floating-header" :style="{opacity: (headerVisible ? 0 : 1),'pointer-events': (headerVisible ? 'none' : '')}">
+            <div class="floating-header"
+                 :style="{opacity: (headerVisible ? 0 : 1),'pointer-events': (headerVisible ? 'none' : '')}">
                 <div class="row">
                     <div class="col">
                         <h3>{{data.attributes ? (data.attributes.name ??
@@ -100,20 +112,24 @@
                     <div class="col-auto flex-center">
                         <div>
                             <button class="md-btn md-btn-primary  md-btn-icon" style="min-width: 100px;"
-                                    @click="app.mk.shuffleMode = 0; play()"> <img class="md-ico-play">
-                                    {{app.getLz('term.play')}}
+                                    @click="app.mk.shuffleMode = 0; play()"><img class="md-ico-play">
+                                {{app.getLz('term.play')}}
                             </button>
                             <button class="md-btn md-btn-primary  md-btn-icon" style="min-width: 100px;"
-                                    @click="app.mk.shuffleMode = 1;play()"> <img class="md-ico-shuffle">
-                                    {{app.getLz('term.shuffle')}}
+                                    @click="app.mk.shuffleMode = 1;play()"><img class="md-ico-shuffle">
+                                {{app.getLz('term.shuffle')}}
                             </button>
-                            <button class="md-btn md-btn-icon" style="min-width: 180px;" v-if="inLibrary!=null && confirm!=true"
-                                    @click="confirmButton()"> <img :class="(!inLibrary) ? 'md-ico-add' : 'md-ico-remove'">
-                                {{ (!inLibrary) ? app.getLz('action.addToLibrary') : app.getLz("action.removeFromLibrary") }}
+                            <button class="md-btn md-btn-icon" style="min-width: 180px;"
+                                    v-if="inLibrary!=null && confirm!=true"
+                                    @click="confirmButton()"><img
+                                        :class="(!inLibrary) ? 'md-ico-add' : 'md-ico-remove'">
+                                {{ (!inLibrary) ? app.getLz('action.addToLibrary') :
+                                app.getLz("action.removeFromLibrary") }}
                             </button>
                             <button class="md-btn md-btn-icon" style="min-width: 180px;" v-if="confirm==true"
-                                    @click="(!inLibrary) ? addToLibrary(data.attributes.playParams.id.toString()) : removeFromLibrary(data.attributes.playParams.id.toString()) "> <img :class="(!inLibrary) ? 'md-ico-add' : 'md-ico-remove'">
-                                    {{app.getLz('term.confirm')}}
+                                    @click="(!inLibrary) ? addToLibrary(data.attributes.playParams.id.toString()) : removeFromLibrary(data.attributes.playParams.id.toString()) ">
+                                <img :class="(!inLibrary) ? 'md-ico-add' : 'md-ico-remove'">
+                                {{app.getLz('term.confirm')}}
                             </button>
                         </div>
                     </div>
@@ -129,7 +145,9 @@
                     <div style="width:100%">
                         <draggable :sort="data.attributes.canEdit && data.type == 'library-playlists'"
                                    v-model="data.relationships.tracks.data" @start="drag=true" @end="drag=false;put()">
-                            <mediaitem-list-item :item="item" :parent="getItemParent(data)" :index="index" :showIndex="true" :showIndexPlaylist="(data.attributes.playParams.kind ?? data.type ?? '').includes('playlist')"
+                            <mediaitem-list-item :item="item" :parent="getItemParent(data)" :index="index"
+                                                 :showIndex="true"
+                                                 :showIndexPlaylist="(data.attributes.playParams.kind ?? data.type ?? '').includes('playlist')"
                                                  :context-ext="buildContextMenu()"
                                                  v-for="(item,index) in data.relationships.tracks.data"></mediaitem-list-item>
                         </draggable>
@@ -157,22 +175,25 @@
                      style="width: 50%;">
                     {{data.attributes.copyright}}
                 </div>
-                <template v-if="(data.attributes?.playParams?.kind ?? data.type ?? '').includes('album') &&  data.relationships.catalog != null && data.relationships.catalog != null && data.relationships.catalog.data.length > 0">
-                    <div class="playlist-time showExtended item-navigate" style="color:#fa586a; font-weight: bold" @click="app.routeView(data.relationships.catalog.data[0])">
+                <template
+                        v-if="(data.attributes?.playParams?.kind ?? data.type ?? '').includes('album') &&  data.relationships.catalog != null && data.relationships.catalog != null && data.relationships.catalog.data.length > 0">
+                    <div class="playlist-time showExtended item-navigate" style="color:#fa586a; font-weight: bold"
+                         @click="app.routeView(data.relationships.catalog.data[0])">
                         {{$root.getLz("action.showAlbum")}}
-                    </div>    
-                </template>    
+                    </div>
+                </template>
                 <hr>
                 <template v-if="typeof data.meta != 'undefined'">
                     <div v-for="view in data.meta.views.order" v-if="data.views[view].data.length != 0">
-                        <div class="row" >
+                        <div class="row">
                             <div class="col">
                                 <h3>{{ data.views[view].attributes.title }}</h3>
                             </div>
                         </div>
-                        <div class="row" >
+                        <div class="row">
                             <div class="col">
-                                <mediaitem-scroller-horizontal :items="data.views[view].data"></mediaitem-scroller-horizontal>
+                                <mediaitem-scroller-horizontal
+                                        :items="data.views[view].data"></mediaitem-scroller-horizontal>
                             </div>
                         </div>
                     </div>
@@ -300,11 +321,12 @@
                 }
                 let kind = this.data.attributes.playParams.kind ?? this.data.type ?? '';
                 const truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
-                app.mk.api.v3.music(`v1/me/library/${truekind}/${id.toString()}`,{},
+                app.mk.api.v3.music(`v1/me/library/${truekind}/${id.toString()}`, {},
                     {
-                    fetchOptions: {
-                    method: "DELETE"
-                }})
+                        fetchOptions: {
+                            method: "DELETE"
+                        }
+                    })
                 this.inLibrary = false
                 this.confirm = false
             },
@@ -344,18 +366,18 @@
                 if (!this.data.attributes.canEdit) {
                     return
                 }
-                console.log('sds',this.convert())
+                console.log('sds', this.convert())
                 await app.mk.api.v3.music(
-                `/v1/me/library/playlists/${this.data.attributes.playParams.id}/tracks`,
-                {},
-                {
-                    fetchOptions: {
-                        method: "PUT",
-                        body: JSON.stringify({
-                           data: this.convert()
-                        })
+                    `/v1/me/library/playlists/${this.data.attributes.playParams.id}/tracks`,
+                    {},
+                    {
+                        fetchOptions: {
+                            method: "PUT",
+                            body: JSON.stringify({
+                                data: this.convert()
+                            })
+                        }
                     }
-                }
                 )
             },
             async remove() {
@@ -391,7 +413,7 @@
                 })
             },
             menu(event) {
-                app.showMenuPanel({
+                let menuItems = {
                     items: {
                         "share": {
                             name: app.getLz('term.share'),
@@ -420,9 +442,34 @@
                                     app.copyToClipboard(res.data.data[0].attributes.url)
                                 })
                             }
-                        }
+                        },
+                        "follow": {
+                            name: app.getLz('action.follow'),
+                            icon: "./assets/feather/plus-circle.svg",
+                            hidden: false,
+                            action: () => {
+                                app.followArtistById(this.data.id, true)
+                            }
+                        },
+                        "unfollow": {
+                            name: app.getLz('action.unfollow'),
+                            icon: "./assets/feather/x-circle.svg",
+                            hidden: true,
+                            action: () => {
+                                app.followArtistById(this.data.id, false)
+                            }
+                        },
                     }
-                }, event)
+                }
+                if(app.followingArtist(this.data.id)){
+                    menuItems.items.follow.hidden = true
+                    menuItems.items.unfollow.hidden = false
+                } else {
+                    menuItems.items.follow.hidden = false
+                    menuItems.items.unfollow.hidden = true
+                }
+                app.showMenuPanel(menuItems, event)
+
             },
             getItemParent: function (data) {
                 kind = data.attributes.playParams.kind;
@@ -435,13 +482,13 @@
                 if (date == null || date === "") return "";
                 switch (date) {
                     case this.data.attributes.releaseDate:
-                        prefix = this.app.getLz('term.time.released')+ ' '
+                        prefix = this.app.getLz('term.time.released') + ' '
                         break;
                     case this.data.attributes.lastModifiedDate:
-                        prefix = this.app.getLz('term.time.updated')+ ' '
+                        prefix = this.app.getLz('term.time.updated') + ' '
                         break;
                     case this.data.attributes.dateAdded:
-                        prefix = this.app.getLz('term.time.added')+ ' '
+                        prefix = this.app.getLz('term.time.added') + ' '
                         break;
                 }
                 let month, year;
@@ -451,13 +498,22 @@
                     // date = releaseDate.getDate();
                     // year = releaseDate.getFullYear();
                     let formatted = ''
-                    try {formatted = new Intl.DateTimeFormat(this.app.cfg.general.language?.replace('_','-') ?? 'en-US', {day:'numeric',month: 'long', year: 'numeric'}).format(releaseDate);} 
-                    catch(e){
+                    try {
+                        formatted = new Intl.DateTimeFormat(this.app.cfg.general.language?.replace('_', '-') ?? 'en-US', {
+                            day: 'numeric',
+                            month: 'long',
+                            year: 'numeric'
+                        }).format(releaseDate);
+                    } catch (e) {
                         // use the format in json instead
-                        if (this.app.getLz('date.format') != null){
+                        if (this.app.getLz('date.format') != null) {
                             formatted = new this.app.getLz('date.format').replace("${d}", releaseDate.getDate()).replace("${m}", releaseDate.getMonth()).replace("${y}", releaseDate.getFullYear());
                         } else {
-                            formatted = new Intl.DateTimeFormat('en-US', {day:'numeric',month: 'long', year: 'numeric'}).format(releaseDate);
+                            formatted = new Intl.DateTimeFormat('en-US', {
+                                day: 'numeric',
+                                month: 'long',
+                                year: 'numeric'
+                            }).format(releaseDate);
                         }
                     }
                     return prefix + formatted
@@ -483,7 +539,7 @@
 
                 let query = (this.data ?? app.showingPlaylist).relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
                 app.mk.stop().then(function () {
-                    app.mk.setQueue({[truekind]: [id] , parameters : {l : app.mklang}}).then(function () {
+                    app.mk.setQueue({[truekind]: [id], parameters: {l: app.mklang}}).then(function () {
                         app.mk.play().then(function () {
                             if (query.length > 100) {
                                 let u = query.slice(100);

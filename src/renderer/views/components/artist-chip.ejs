@@ -6,8 +6,8 @@
         <div class="artist-chip__name">
             <span>{{ item.attributes.name }}</span>
         </div>
-        <button @click="$root.followArtist(item.id, true)" title="Follow" v-if="!$root.followingArtist(item.id)" class="artist-chip__follow codicon codicon-add"></button>
-        <button @click="$root.followArtist(item.id, false)" title="Following" v-else class="artist-chip__follow codicon codicon-check"></button>
+        <button @click="$root.followArtistById(item.id, true)" title="Follow" v-if="!$root.followingArtist(item.id)" class="artist-chip__follow codicon codicon-add"></button>
+        <button @click="$root.followArtistById(item.id, false)" title="Following" v-else class="artist-chip__follow codicon codicon-check"></button>
     </div>
 </script>
 
