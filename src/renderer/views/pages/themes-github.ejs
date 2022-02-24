@@ -105,6 +105,7 @@
                 // for each theme, get the github_repo property and push it to the themesInstalled array, if not blank
                 themes.forEach(theme => {
                     if (theme.github_repo !== "") {
+                        theme.github_repo = theme.github_repo.toLowerCase()
                         self.themesInstalled.push(theme.github_repo)
                     }
                 })
@@ -144,6 +145,7 @@
                         ipcRenderer.once("theme-installed", (event, arg) => {
                             if (arg.success) {
                                 self.themes = ipcRenderer.sendSync("get-themes")
+                                self.getInstalledThemes()
                                 notyf.success(app.getLz('settings.notyf.visual.theme.install.success'));
                             } else {
                                 notyf.error(app.getLz('settings.notyf.visual.theme.install.error'));
@@ -179,7 +181,11 @@
                 fetch("https://api.github.com/search/repositories?q=topic:cidermusictheme fork:true", requestOptions)
                     .then(response => response.text())
                     .then(result => {
-                        self.repos = JSON.parse(result).items
+                        let items = JSON.parse(result).items
+                        items.forEach(repo => {
+                            repo.full_name = repo.full_name.toLowerCase()
+                        })
+                        self.repos = items
                     })
                     .catch(error => console.log('error', error));
             }
