@@ -3568,20 +3568,30 @@ const app = new Vue({
                             }
                         },
                     ],
-                    items: [{
-                        "icon": "./assets/feather/list.svg",
-                        "name": app.getLz('action.addToPlaylist') + " ...",
-                        "action": function () {
-                            app.promptAddToPlaylist()
-                        }
-                    },
+                    items: [
                         {
                             "icon": "./assets/feather/plus.svg",
                             "id": "addToLibrary",
                             "name": app.getLz('action.addToLibrary') + " ...",
-                            "disabled": false,
+                            "disabled": true,
                             "action": function () {
                                 app.addToLibrary(app.mk.nowPlayingItem.id);
+                            }
+                        },
+                        {
+                            "id": "removeFromLibrary",
+                            "icon": "./assets/feather/x-circle.svg",
+                            "name": app.getLz('action.removeFromLibrary'),
+                            "hidden": true,
+                            "action": function () {
+                                self.removeFromLibrary()
+                            }
+                        },
+                        {
+                            "icon": "./assets/feather/list.svg",
+                            "name": app.getLz('action.addToPlaylist') + " ...",
+                            "action": function () {
+                                app.promptAddToPlaylist()
                             }
                         },
                         {
@@ -3635,6 +3645,18 @@ const app = new Vue({
                 }
             }
             this.showMenuPanel(menus[useMenu], event)
+
+            try {
+                let result = await this.inLibrary([this.mk.nowPlayingItem])
+                if (result[0].attributes.inLibrary) {
+                    menus.normal.items.find(x => x.id == 'addToLibrary').hidden = true
+                    menus.normal.items.find(x => x.id == 'removeFromLibrary').hidden = false
+                } else {
+                    menus.normal.items.find(x => x.id == 'addToLibrary').disabled = false
+                }
+            } catch (e) {
+                e = null
+            }
 
             try {
                 let rating = await app.getRating(app.mk.nowPlayingItem)
