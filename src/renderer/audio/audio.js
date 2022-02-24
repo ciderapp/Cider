@@ -8,7 +8,6 @@ var CiderAudio = {
         audioBands : null,
         vibrantbassNode: null,
         llpw: null,
-        llpwEnabled: null,
         analogWarmth: null,
     },
     ccON: false,
@@ -53,7 +52,6 @@ var CiderAudio = {
                 audioBands : null,
                 vibrantbassNode: null,
                 llpw: null,
-                llpwEnabled: null,
                 analogWarmth: null
             }
         } catch (e) {}
