@@ -142,8 +142,8 @@ export default class ChromecastPlugin {
             }
             let media = {
                 // Here you can plug an URL to any mp4, webm, mp3 or jpg file with the proper contentType.
-                contentId: 'http://' + this.getIp() + ':9000/audio.webm',
-                contentType: 'audio/webm',
+                contentId: 'http://' + this.getIp() + ':9000/audio.wav',
+                contentType: 'audio/wav',
                 streamType: 'LIVE', // or LIVE
 
                 // Title and cover displayed while buffering

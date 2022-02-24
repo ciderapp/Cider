@@ -21,6 +21,8 @@ export class BrowserWindow {
     private devMode: boolean = !app.isPackaged;
 
     private audioStream: any = new Stream.PassThrough();
+    private headerSent: any = false;
+    private chromecastIP : any = [];
     private clientPort: number = 0;
     private remotePort: number = 6942;
     private EnvironmentVariables: object = {
@@ -317,7 +319,7 @@ export class BrowserWindow {
                 console.error('Req not defined')
                 return
             }
-            if (req.url.includes("audio.webm") || (req.headers.host.includes("localhost") && (this.devMode || req.headers["user-agent"].includes("Electron")))) {
+            if (req.url.includes("audio.wav") || (req.headers.host.includes("localhost") && (this.devMode || req.headers["user-agent"].includes("Electron")))) {
                 next();
             } else {
                 res.redirect("https://discord.gg/applemusic");
@@ -402,16 +404,22 @@ export class BrowserWindow {
             }
         });
 
-        app.get("/audio.webm", (req, res) => {
+        app.get("/audio.wav", (req, res) => {
             try {
+                 const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+                 if (!this.chromecastIP.includes(ip)) {
+                     this.headerSent = false;
+                     this.chromecastIP.push(ip)
+                }
                 req.socket.setTimeout(Number.MAX_SAFE_INTEGER);
                 // CiderBase.requests.push({req: req, res: res});
                 // var pos = CiderBase.requests.length - 1;
-                // req.on("close", () => {
-                //     console.info("CLOSED", CiderBase.requests.length);
-                //     requests.splice(pos, 1);
-                //     console.info("CLOSED", CiderBase.requests.length);
-                // });
+                 req.on("close", () => {
+                     console.log('disconnected')
+                     this.headerSent = false
+                     this.chromecastIP = this.chromecastIP.filter((item: any) => item !== ip);
+                });
+
                 this.audioStream.on("data", (data: any) => {
                     try {
                         res.write(data);
@@ -762,9 +770,119 @@ export class BrowserWindow {
 		    `)
         });
 
-        ipcMain.on('writeAudio', (event, buffer) => {
-            this.audioStream.write(Buffer.from(buffer));
-        })
+        ipcMain.on('writeWAV', (event, leftpcm, rightpcm, bufferlength) => {
+
+            function interleave16(leftChannel: any, rightChannel: any) {
+                var length = leftChannel.length + rightChannel.length;
+                var result = new Int16Array(length);
+
+                var inputIndex = 0;
+
+                for (var index = 0; index < length;) {
+                    result[index++] = leftChannel[inputIndex];
+                    result[index++] = rightChannel[inputIndex];
+                    inputIndex++;
+                }
+                return result;
+            }
+
+            //https://github.com/HSU-ANT/jsdafx
+
+            function quantization(audiobufferleft: any, audiobufferright: any) {
+
+                let h = Float32Array.from([1]);
+                let nsState = new Array(0);
+                let ditherstate = new Float32Array(0);
+                let qt = Math.pow(2, 1 - 16);
+
+                //noise shifting order 3
+                h = Float32Array.from([1.623, -0.982, 0.109]);
+                for (let i = 0; i < nsState.length; i++) {
+                    nsState[i] = new Float32Array(h.length);
+                }
+
+
+                function setChannelCount(nc: any) {
+                    if (ditherstate.length !== nc) {
+                        ditherstate = new Float32Array(nc);
+                    }
+                    if (nsState.length !== nc) {
+                        nsState = new Array(nc);
+                        for (let i = 0; i < nsState.length; i++) {
+                            nsState[i] = new Float32Array(h.length);
+                        }
+                    }
+                }
+
+                function hpDither(channel: any) {
+                    const rnd = Math.random() - 0.5;
+                    const d = rnd - ditherstate[channel];
+                    ditherstate[channel] = rnd;
+                    return d;
+                }
+
+
+                setChannelCount(2);
+                const inputs = [audiobufferleft, audiobufferright];
+                const outputs = [audiobufferleft, audiobufferright];
+
+                for (let channel = 0; channel < inputs.length; channel++) {
+                    const inputData = inputs[channel];
+                    const outputData = outputs[channel];
+                    for (let sample = 0; sample < bufferlength; sample++) {
+                        let input = inputData[sample];
+                        // console.log('a2',inputData.length);
+                        for (let i = 0; i < h.length; i++) {
+                            input -= h[i] * nsState[channel][i];
+                        }
+                        // console.log('a3',input);
+                        let d_rand = 0.0;
+                        // ditherstate = new Float32Array(h.length);
+                        d_rand = hpDither(channel);
+                        const tmpOutput = qt * Math.round(input / qt + d_rand);
+                        for (let i = h.length - 1; i >= 0; i--) {
+                            nsState[channel][i] = nsState[channel][i - 1];
+                        }
+                        nsState[channel][0] = tmpOutput - input;
+                        outputData[sample] = tmpOutput;
+                    }
+                }
+                return outputs;
+            }
+
+
+            function convert(n: any) {
+                var v = n < 0 ? n * 32768 : n * 32767;       // convert in range [-32768, 32767]
+                return Math.max(-32768, Math.min(32768, v)); // clamp
+            }
+
+            let newaudio = quantization(leftpcm, rightpcm);
+            // console.log(newaudio.length);
+            let pcmData = Buffer.from(new Int8Array(interleave16(Int16Array.from(newaudio[0], x => convert(x)), Int16Array.from(newaudio[1], x => convert(x))).buffer));
+
+            if (!this.headerSent) {
+                console.log('new header')
+                const header = Buffer.alloc(44)
+                header.write('RIFF', 0)
+                header.writeUInt32LE(2147483600, 4)
+                header.write('WAVE', 8)
+                header.write('fmt ', 12)
+                header.writeUInt8(16, 16)
+                header.writeUInt8(1, 20)
+                header.writeUInt8(2, 22)
+                header.writeUInt32LE(48000, 24)
+                header.writeUInt32LE(16, 28)
+                header.writeUInt8(4, 32)
+                header.writeUInt8(16, 34)
+                header.write('data', 36)
+                header.writeUInt32LE(2147483600 + 44 - 8, 40)
+                this.audioStream.write(Buffer.concat([header, pcmData]));
+                this.headerSent = true;
+            } else {
+                this.audioStream.write(pcmData);
+            }
+
+        });
 
         //QR Code
         ipcMain.handle('showQR', async (_event, _) => {
