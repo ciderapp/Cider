@@ -5,6 +5,9 @@
          :style="{'--spcolor': getBgColor()}">
         <template v-if="isVisible">
             <div class="artwork-container">
+                <div class="unavailable-overlay" v-if="unavailable">
+                    <div class="codicon codicon-circle-slash"></div>
+                </div>
                 <div class="artwork" @click='app.routeView(item)'>
                     <mediaitem-artwork
                             :url="getArtworkUrl()"
@@ -73,11 +76,21 @@
                 nomenu: ["artists", "stations", "apple-curators"],
                 app: this.$root,
                 badges: this.$root.socialBadges.badgeMap,
-                itemBadges: []
+                itemBadges: [],
+                unavailable: false
             }
         },
         async mounted() {
             await this.getBadges()
+            if(typeof this.item.attributes.playParams == "object") {
+                if(this.item.attributes.playParams.kind.includes("radioStation") && this.item.attributes.requiresSubscription) {
+                    this.unavailable = true
+                }
+            }else{
+                if(this.item.type == "music-movies") {
+                    this.unavailable = true
+                }
+            }
         },
         methods: {
             getBgColor() {
