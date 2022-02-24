@@ -45,8 +45,10 @@
                                          @click="data.attributes && data.attributes.artistName ? app.searchAndNavigate(data,'artist') : ''">
                                         {{getArtistName(data)}}
                                     </div>
-                                    <artist-chip v-if="useArtistChip"
-                                                 :item="data.relationships.artists.data[0]"></artist-chip>
+                                    <template v-if="useArtistChip">
+                                        <artist-chip v-for="artist in data.relationships.artists.data"
+                                                     :item="artist"></artist-chip>
+                                    </template>
                                     <div class="playlist-desc"
                                          v-if="data.attributes.description && (data.attributes.description.standard || data.attributes.description.short)">
                                         <div v-if="data.attributes.description.short" class="content"
