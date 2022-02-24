@@ -46,6 +46,10 @@ app.on('ready', () => {
         const bw = new BrowserWindow()
         const win = await bw.createWindow()
 
+        app.getGPUInfo("complete").then(gpuInfo => {
+            console.log(gpuInfo)
+        })
+
         console.log('[Cider][Widevine] Status:', components.status());
         
         win.on("ready-to-show", () => {

@@ -91,7 +91,8 @@
                 years: [],
                 loaded: {
                     id: -1
-                }
+                },
+                musicTypeGenre: ""
             }
         },
         async mounted() {
@@ -101,9 +102,12 @@
             this.years.reverse()
             localStorage.setItem("seenReplay", true)
             this.getReplayYear();
+            const musicGenre = await app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/genres/34`)
+            this.musicTypeGenre = musicGenre.data.data[0].attributes.name
         },
         methods: {
             songsToArray(songsData) {
+                let self = this
                 let songs = []
                 let topGenres = {}
                 let genrePlayCount = 0;
@@ -113,7 +117,7 @@
                     songs.push(song)
                     genrePlayCount += song.attributes.playCount
                     song.attributes.genreNames.forEach(function (genre) {
-                        if (genre != "Music") {
+                        if (genre != self.musicTypeGenre) {
                             if (topGenres[genre] == undefined) {
                                 topGenres[genre] = song.attributes.playCount
                             } else {
