@@ -856,7 +856,8 @@ export class BrowserWindow {
                 return Math.max(-32768, Math.min(32768, v)); // clamp
             }
 
-            let newaudio = quantization(leftpcm, rightpcm);
+            //let newaudio = quantization(leftpcm, rightpcm);
+            let newaudio = [leftpcm, rightpcm];
             // console.log(newaudio.length);
             let pcmData = Buffer.from(new Int8Array(interleave16(Int16Array.from(newaudio[0], x => convert(x)), Int16Array.from(newaudio[1], x => convert(x))).buffer));
 
