@@ -1,100 +1,101 @@
 {
-  Nederlands
-  Nederlands (NL)
+  "i18n.languageName": "Nederlands",
+  "i18n.languageNameEnglish": "Nederlands (NL)",
   Hoofd
   "i18n.authors": "@maikirakiwi @kyw504100",
   "app.name": "Cider",
   "date.format": "${d}-${m}-${y}",
   "dialog.cancel": "Annuleer",
-  Oké
-  Bibliotheek nummers bijwerken
-  Bibliotheek albums bijwerken
-  Bibliotheek artiesten bijwerken
+  "dialog.ok": "Oké",
+  "notification.updatingLibrarySongs": "Bibliotheek nummers bijwerken...",
+
+  "notification.updatingLibraryAlbums": "Bibliotheek albums bijwerken...",
+  "notification.updatingLibraryArtists": "Bibliotheek artiesten bijwerken...",
   "term.appleInc": "Apple Inc.",
   "term.appleMusic": "Apple Music",
   "term.applePodcasts": "Apple Podcasts",
   "term.itunes": "iTunes",
   "term.github": "GitHub",
   "term.discord": "Discord",
-  Leer meer
-  Account instellingen
-  Uitloggen
-  Inloggen
-  Over
-  Privésessie
-  Wachtlijst
-  Geschiedenis 
-  Zoeken 
-  Bibliotheek
-  Luister nu
-  Bladeren
-  Radio
-  Onlangs toegevoegd
-  Nummers
-  Albums
-  Artiesten
-  Podcasts
-  Afspeellijsten 
-  Afspeellijst
-  Nieuwe afspeellijst
-  Nieuwe afspeellijst map
-  Maak nieuwe afspeellijst
-  Maak nieuwe afspeellijst map
-  Weet je zeker dat je deze afspeellijst wilt verwijderen?
-  Speel
-  Pauze
-  Vorige
-  Volgende
-  shuffle
-  Herhaal
-  Volume
-  Dempen 
-  Dempen opheffen
-  Delen
-  Gekopieerd naar klembord
-  Instellingen 
-  Zie alles
-  Sorteren op
-  Album
-  Artiest
-  Naam
-  Genre
-  Releasedatum 
-  Duur
-  Datum toegevoegd 
-  A-Z
-  Oplopend
-  Aflopend 
-  Zien als
-  Albumcover
-  Lijst
-  Grootte
-  Normaal
-  Compact 
-  Inschakelen 
-  Uitschakelen
-  Ingeschakeld 
-  Uitgeschakeld 
-  Verbind
-  Verbinden
-  Verbinding verbreken
-  geauthenticeerd
-  Bevestigen?
-  Meer
-  Minder
-  Laat meer zien
-  Laat minder zien
-  Top nummers
-  Laatste releases
-  Toegevoegd 
-  Uitgebracht
-  Bijgewerkt 
-  Uren
-  Uur
-  Minuten
-  Minuut
-  Seconden
-  Seconde
+  "term.learnMore": "Leer meer",
+  "term.accountSettings": "Account Instellingen",
+  "term.logout": "Uitloggen",
+  "term.login": "Inloggen",
+  "term.about": "Over",
+  "term.privateSession": "Privésessie",
+  "term.queue": "Wachtlijst",
+  "term.history": "Geschiedenis",
+  "term.search": "Zoeken",
+  "term.library": "Bibliotheek",
+  "term.listenNow": "Luister nu",
+  "term.browse": "Bladeren",
+  "term.radio": "Radio",
+  "term.recentlyAdded": "Onlangs Toegevoegd",
+  "term.songs": "Nummers",
+  "term.albums": "Albums",
+  "term.artists": "Artiesten",
+  "term.podcasts": "Podcasts",
+  "term.playlists": "Afspeellijsten",
+  "term.playlist": "Afspeellijst",
+  "term.newPlaylist": "Nieuwe Afspeellijst",
+  "term.newPlaylistFolder": "Nieuwe Afspeellijst Map",
+  "term.createNewPlaylist": "Maak Nieuwe Afspeellijst",
+  "term.createNewPlaylistFolder": "Maak Nieuwe Afspeellijst Map",
+  "term.deletePlaylist": "Weet je zeker dat je deze afspeellijst wilt verwijderen?",
+  "term.play": "Speel",
+  "term.pause": "Pauze",
+  "term.previous": "Vorige",
+  "term.next": "Volgende",
+  "term.shuffle": "Shuffle",
+  "term.repeat": "Herhaal",
+  "term.volume": "Volume",
+  "term.mute": "Dempen",
+  "term.unmute": "Dempen opheffen",
+  "term.share": "Delen",
+  "term.share.success": "Gekopieërd naar klembord",
+  "term.settings": "Instellingen",
+  "term.seeAll": "Zie Alles",
+  "term.sortBy": "Sorteren Op",
+  "term.sortBy.album": "Album",
+  "term.sortBy.artist": "Artiest",
+  "term.sortBy.name": "Naam",
+  "term.sortBy.genre": "Genre",
+  "term.sortBy.releaseDate": "Releasedatum",
+  "term.sortBy.duration": "Duur",
+  "term.sortBy.dateAdded": "Datum Toegevoegd",
+  "term.sortOrder": "A-Z",
+  "term.sortOrder.ascending": "Oplopend",
+  "term.sortOrder.descending": "Aflopend",
+  "term.viewAs": "Zien Als",
+  "term.viewAs.coverArt": "Albumcover",
+  "term.viewAs.list": "Lijst",
+  "term.size": "Grootte",
+  "term.size.normal": "Normaal",
+  "term.size.compact": "Compact",
+  "term.enable": "Inschakelen",
+  "term.disable": "Uitschakelen",
+  "term.enabled": "Ingeschakeld",
+  "term.disabled": "Uitgeschakeld",
+  "term.connect": "Verbind",
+  "term.connecting": "Verbinden",
+  "term.disconnect": "Verbinding verbreken",
+  "term.authed": "Geauthenticeerd",
+  "term.confirm": "Bevestigen?",
+  "term.more": "Meer",
+  "term.less": "Minder",
+  "term.showMore": "Laat meer zien",
+  "term.showLess": "Laat minder zien",
+  "term.topSongs": "Top Nummers",
+  "term.latestReleases": "Laatste Releases",
+  "term.time.added": "Toegevoegd",
+  "term.time.released": "Uitgebracht",
+  "term.time.updated": "Bijgewerkt",
+  "term.time.hours": "uren",
+  "term.time.hour": "uur",
+  "term.time.minutes": "minuten",
+  "term.time.minute": "minuut",
+  "term.time.seconds": "seconden",
+  "term.time.second": "seconde",
   Volledige scherm
   Standaard weergave
   Geluid instellingen
