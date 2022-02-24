@@ -1,9 +1,33 @@
-<template v-if="page == 'zoo'">
+<script type="text/x-template" id="cider-zoo">
     <div class="content-inner">
         <h3>Welcome to element park. *BERR NERR NERR NERR NERRRRR BERR NER NER NER NERRR BERRR NR NR NRRRR*</h3>
         <button @click="app.playMediaItemById('1592151778', 'album')">Play Test Album</button>
         {{ $store.state.test }}
         <div class="spinner"></div>
         <button class="md-btn">Cider Button</button>
+        <artist-chip
+        v-if="artistLoaded"
+        :item="artist"
+        ></artist-chip>
     </div>
-</template>
+</script>
+<script>
+    Vue.component('cider-zoo', {
+        template: '#cider-zoo',
+        data: function () {
+            return {
+                artistLoaded: false,
+                    artist: {}
+            }
+        },
+        async mounted() {
+            app.mk.api.v3.music("/v1/catalog/us/artists/669831761").then(response => {
+                this.artist = response.data.data[0];
+                this.artistLoaded = true;
+            });
+        },
+        methods: {
+
+        }
+    });
+</script>

@@ -39,10 +39,11 @@
                                                                                            @change="editPlaylist"
                                                                                            @keydown.enter="editPlaylist"/></div>
                                     <div class="playlist-artist item-navigate"
-                                         v-if="getArtistName(data) != ''"
+                                         v-if="getArtistName(data) != '' && !useArtistChip"
                                          @click="data.attributes && data.attributes.artistName ? app.searchAndNavigate(data,'artist') : ''">
                                         {{getArtistName(data)}}
                                     </div>
+                                    <artist-chip v-if="useArtistChip" :item="data.relationships.artists.data[0]"></artist-chip>
                                     <div class="playlist-desc" v-if="data.attributes.description && (data.attributes.description.standard || data.attributes.description.short)">
                                         <div v-if="data.attributes.description.short" class="content" v-html="data.attributes.description.short"></div>
                                         <div v-else-if="data.attributes.description.standard" class="content" v-html="data.attributes.description.standard"></div>
@@ -198,7 +199,8 @@
                 app: this.$root,
                 itemBadges: [],
                 badgesRequested: false,
-                headerVisible: true
+                headerVisible: true,
+                useArtistChip: false
             }
         },
         mounted: function () {
@@ -248,10 +250,11 @@
                 setTimeout(() => this.confirm = false, 3000);
             },
             getArtistName(data) {
-                console.log(data.attributes)
                 if (data.attributes.artistName) {
+                    this.useArtistChip = true
                     return data.attributes.artistName
                 } else if (data.attributes.artist) {
+                    this.useArtistChip = true
                     return data.attributes.artist.attributes.name
                 } else if (data.attributes.curatorName) {
                     return data.attributes.curatorName

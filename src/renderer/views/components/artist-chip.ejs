@@ -1,0 +1,50 @@
+<script type="text/x-template" id="artist-chip">
+    <div class="artist-chip" @click.self="route">
+        <div class="artist-chip__image">
+            <mediaitem-artwork v-if="artist != null" :url="artist.attributes.artwork.url" :size="32"></mediaitem-artwork>
+        </div>
+        <div class="artist-chip__name">
+            <span>{{ item.attributes.name }}</span>
+        </div>
+        <button @click="followArtist" v-if="!$root.cfg.home.followedArtists.includes(item.id)" class="artist-chip__follow codicon codicon-add"></button>
+        <button @click="unfollowArtist" v-else class="artist-chip__follow codicon codicon-check"></button>
+    </div>
+</script>
+
+<script>
+    Vue.component('artist-chip', {
+        props: {
+            item: {
+                type: Object,
+                required: true
+            }
+        },
+        data: function() {
+            return {
+                artist: null
+            }
+        },
+        template: '#artist-chip',
+        async mounted() {
+            app.mk.api.v3.music(`/v1/catalog/us/artists/${this.item.id}`).then(response => {
+                this.artist = response.data.data[0];
+            });
+        },
+        methods: {
+            route() {
+               app.appRoute(`artist/${this.item.id}`);
+            },
+            followArtist () {
+                app.cfg.home.followedArtists.push(this.item.id)
+                notyf.success(`You are now following ${this.item.attributes.name}`)
+            },
+            unfollowArtist () {
+                let index = app.cfg.home.followedArtists.indexOf(this.item.id)
+                if (index > -1) {
+                    app.cfg.home.followedArtists.splice(index, 1)
+                }
+                notyf.success(`You have unfollowed ${this.item.attributes.name}`)
+            }
+        }
+    });
+</script>

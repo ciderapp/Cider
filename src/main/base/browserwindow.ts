@@ -52,6 +52,7 @@ export class BrowserWindow {
                 "pages/plugins-github",
                 "pages/replay",
                 "pages/audiolabs",
+                "pages/zoo",
                 "components/mediaitem-artwork",
                 "components/artwork-material",
                 "components/menu-panel",
@@ -80,9 +81,15 @@ export class BrowserWindow {
                 "components/lyrics-view",
                 "components/fullscreen",
                 "components/miniplayer",
-                "components/castmenu"
+                "components/castmenu",
+                "components/artist-chip",
             ],
             appRoutes: [
+                {
+                    page: "zoo",
+                    component: "<cider-zoo></cider-zoo>",
+                    condition: "page == 'zoo'"
+                },
                 {
                     page: "podcasts",
                     component: `<apple-podcasts></apple-podcasts>`,
