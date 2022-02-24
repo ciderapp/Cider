@@ -437,6 +437,7 @@
                 })
             },
             menu(event) {
+                let self = this
                 let menuItems = {
                     items: {
                         "share": {
@@ -472,7 +473,7 @@
                             icon: "./assets/feather/plus-circle.svg",
                             hidden: false,
                             action: () => {
-                                app.followArtistById(this.data.id, true)
+                                app.followArtistById(this.data.relationships.artists.data[0].id, true)
                             }
                         },
                         "unfollow": {
@@ -480,19 +481,26 @@
                             icon: "./assets/feather/x-circle.svg",
                             hidden: true,
                             action: () => {
-                                app.followArtistById(this.data.id, false)
+                                app.followArtistById(this.data.relationships.artists.data[0].id, false)
                             }
                         },
                     }
                 }
-                if(app.followingArtist(this.data.id)){
+                if(typeof this.data.relationships.artists != "undefined") {
+                    if(app.followingArtist(this.data.relationships.artists.data[0].id)){
+                        menuItems.items.follow.hidden = true
+                        menuItems.items.unfollow.hidden = false
+                    } else {
+                        menuItems.items.follow.hidden = false
+                        menuItems.items.unfollow.hidden = true
+                    }
+                }else{
                     menuItems.items.follow.hidden = true
-                    menuItems.items.unfollow.hidden = false
-                } else {
-                    menuItems.items.follow.hidden = false
                     menuItems.items.unfollow.hidden = true
                 }
+
                 app.showMenuPanel(menuItems, event)
+
 
             },
             getItemParent: function (data) {
