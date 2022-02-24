@@ -245,7 +245,7 @@
                 itemBadges: [],
                 badgesRequested: false,
                 headerVisible: true,
-                useArtistChip: false
+                useArtistChip: false,
             }
         },
         mounted: function () {
@@ -438,6 +438,15 @@
             },
             menu(event) {
                 let self = this
+                let artistId = null
+
+                if(typeof this.data.relationships.artists != "undefined") {
+                    artistId = this.data.relationships.artists.data[0].id
+                    if(this.data.relationships.artists.data[0].type == "library-artists") {
+                        artistId = this.data.relationships.artists.data[0].relationships.catalog.data[0].id
+                    }
+                }
+
                 let menuItems = {
                     items: {
                         "share": {
@@ -473,7 +482,7 @@
                             icon: "./assets/feather/plus-circle.svg",
                             hidden: false,
                             action: () => {
-                                app.followArtistById(this.data.relationships.artists.data[0].id, true)
+                                app.followArtistById(artistId, true)
                             }
                         },
                         "unfollow": {
@@ -481,13 +490,14 @@
                             icon: "./assets/feather/x-circle.svg",
                             hidden: true,
                             action: () => {
-                                app.followArtistById(this.data.relationships.artists.data[0].id, false)
+                                app.followArtistById(artistId, false)
                             }
                         },
                     }
                 }
-                if(typeof this.data.relationships.artists != "undefined") {
-                    if(app.followingArtist(this.data.relationships.artists.data[0].id)){
+
+                if(artistId != null) {
+                    if(app.followingArtist(artistId)){
                         menuItems.items.follow.hidden = true
                         menuItems.items.unfollow.hidden = false
                     } else {
@@ -499,8 +509,8 @@
                     menuItems.items.unfollow.hidden = true
                 }
 
-                app.showMenuPanel(menuItems, event)
 
+                app.showMenuPanel(menuItems, event)
 
             },
             getItemParent: function (data) {

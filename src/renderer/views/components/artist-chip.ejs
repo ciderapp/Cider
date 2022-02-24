@@ -1,13 +1,13 @@
 <script type="text/x-template" id="artist-chip">
     <div class="artist-chip" @click.self="route">
         <div class="artist-chip__image">
-            <mediaitem-artwork v-if="artist != null" :url="artist.attributes.artwork.url" :size="32"></mediaitem-artwork>
+            <mediaitem-artwork v-if="artist.id != null" :url="artist.attributes.artwork.url" :size="32"></mediaitem-artwork>
         </div>
         <div class="artist-chip__name">
             <span>{{ item.attributes.name }}</span>
         </div>
-        <button @click="$root.followArtistById(item.id, true)" title="Follow" v-if="!$root.followingArtist(item.id)" class="artist-chip__follow codicon codicon-add"></button>
-        <button @click="$root.followArtistById(item.id, false)" title="Following" v-else class="artist-chip__follow codicon codicon-check"></button>
+        <button @click="$root.followArtistById(artist.id, true)" title="Follow" v-if="!$root.followingArtist(artist.id)" class="artist-chip__follow codicon codicon-add"></button>
+        <button @click="$root.followArtistById(artist.id, false)" title="Following" v-else class="artist-chip__follow codicon codicon-check"></button>
     </div>
 </script>
 
@@ -21,18 +21,24 @@
         },
         data: function() {
             return {
-                artist: null
+                artist: {
+                    id: null
+                }
             }
         },
         template: '#artist-chip',
         async mounted() {
-            app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/artists/${this.item.id}`).then(response => {
+            let artistId = this.item.id
+            if(typeof this.item.relationships.catalog == "object") {
+                artistId = this.item.relationships.catalog.data[0].id
+            }
+            app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/artists/${artistId}`).then(response => {
                 this.artist = response.data.data[0];
             });
         },
         methods: {
             route() {
-               app.appRoute(`artist/${this.item.id}`);
+               app.appRoute(`artist/${this.artist.id}`);
             }
         }
     });

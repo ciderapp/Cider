@@ -1585,6 +1585,7 @@ const app = new Vue({
             }
         },
         followingArtist(id) {
+            console.log(`check for ${id}`)
             return this.cfg.home.followedArtists.includes(id)
         },
         playMediaItem(item) {
