@@ -1,10 +1,10 @@
 {
   "i18n.languageName": "Svenska (SE)",
-  "i18n.languageNameEnglish": "English (US)",
+  "i18n.languageNameSwedish": "Swedish (SE)",
   "i18n.category": "main",
   "i18n.authors": "@maikirakiwi @kyw504100",
   "app.name": "Cider",
-  "date.format": "${m} ${d}, ${y}",
+  "date.format": "${d} ${m}, ${y}",
   "dialog.cancel": "Avbryt",
   "dialog.ok": "OK",
   "notification.updatingLibrarySongs": "Uppdaterar låt bibliotek...",
