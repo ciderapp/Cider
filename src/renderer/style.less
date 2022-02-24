@@ -2741,12 +2741,12 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
 .wpfade_transform-enter {
   opacity: 0;
-  transform: translateX(50%);
+  transform: translateX(50%) translate3d(0,0,0);
   will-change: opacity, transform;
 }
 .wpfade_transform-leave-to {
   opacity: 0;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translate3d(0,0,0);
   will-change: opacity, transform;
 }
 
@@ -2759,12 +2759,12 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
 .wpfade_transform_backwards-enter {
   opacity: 0;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translate3d(0,0,0);
   will-change: opacity, transform;
 }
 .wpfade_transform_backwards-leave-to {
   opacity: 0;
-  transform: translateX(50%);
+  transform: translateX(50%) translate3d(0,0,0);
   will-change: opacity, transform;
 }
 

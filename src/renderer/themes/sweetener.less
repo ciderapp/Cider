@@ -12,7 +12,7 @@
     @keyframes menuIn {
         0% {
             opacity   : 0;
-            transform : translateY(-10px);
+            transform : translateY(-10px) translate3d(0,0,0);
             background: @panelColorsFallback;
         }
 
@@ -47,7 +47,7 @@
 
     &:hover {
         .artwork-container {
-            transform       : scale(1.1) ;
+            transform       : scale(1.1) translate3d(0,0,0);
             transition      : transform .1s var(--appleEase);
             transition-delay: 0s;
             transform-origin: center;
@@ -58,7 +58,7 @@
             z-index         : 1;
             transition      : transform .1s var(--appleEase);
             transition-delay: 0s;
-            transform       : translateY(8px);
+            transform       : translateY(8px) translate3d(0,0,0);
         }
     }
 
