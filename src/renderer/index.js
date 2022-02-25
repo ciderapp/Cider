@@ -3911,6 +3911,21 @@ const app = new Vue({
         checkForUpdate() {
             ipcRenderer.send('check-for-update')
         },
+        async loadArtistImage(id){
+            try {
+                let u = await fetch(`https://music.apple.com/${app.mk.storefrontId}/artist/${id}`);
+                let html = await u.text();
+                function getStringBetween(str, start, end) {
+                    const result = str.match(new RegExp(start + "(.*)" + end));
+
+                    return result[1];
+                }
+                let string = getStringBetween(html, '<meta property="og:image:secure_url" content="', "cw.png").replace(`1200x630`, `300x300.png`);
+                return await string;
+            } catch (err) {
+                return await ''
+            }
+        }
     }
 })
 

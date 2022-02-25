@@ -12,7 +12,7 @@
                         <div class="artist-image" v-if="!(data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9))">
                             <mediaitem-artwork
                                     shadow="large"
-                                    :url="data.attributes?.artwork ? data.attributes.artwork?.url : ''"
+                                    :url="artistimage"
                                     size="190" type="artists"></mediaitem-artwork>
                             <button class="overlay-play"  @click="app.mk.setStationQueue({artist:'a-'+data.id}).then(()=>{
                             app.mk.play()
@@ -143,8 +143,17 @@
             return {
                 topSongsExpanded: false,
                 app: this.$root,
-                headerVisible: true
+                headerVisible: true,
+                artistimage : ''
             }
+        },
+        mounted: async function () {
+             this.artistimage = this.data.attributes?.artwork ? this.data.attributes.artwork?.url : ''
+
+            if (this.artistimage == '' && this.data.id != null){
+                 this.artistimage = await this.app.loadArtistImage(this.data.id)
+            }
+
         },
         methods: {
             isHeaderVisible(visible) {
