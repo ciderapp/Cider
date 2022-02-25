@@ -65,19 +65,19 @@
                         </mediaitem-square>
                     </div>
                 </div>
-                <div class="col-sm-9" v-if="data.views['top-songs']">
+                <div class="col-sm-12" v-if="data.views['top-songs']">
                     <div class="row">
                         <div class="col" style="padding:0;">
                             <h3>{{app.getLz('term.topSongs')}}</h3>
                         </div>
-                        <div class="col-auto flex-center" v-if="data.views['top-songs'].data.length >= 16" style="padding:0;">
+                        <div class="col-auto flex-center" v-if="data.views['top-songs'].data.length >= 20" style="padding:0;">
                             <button class="cd-btn-seeall" @click="app.showArtistView(data.id, data.attributes.name + ' - Top Songs', 'top-songs')">{{app.getLz('term.seeAll')}}</button>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col flex-center" style="padding:0;">
                             <div class="mediaitem-list-item__grid">
-                                <listitem-horizontal :items="data.views['top-songs'].data.limit(16)">
+                                <listitem-horizontal :items="data.views['top-songs'].data.limit(20)">
                                 </listitem-horizontal>
                             </div>                                
                         </div>
