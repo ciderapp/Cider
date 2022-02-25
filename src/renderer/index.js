@@ -211,6 +211,10 @@ const app = new Vue({
         tmpVar: [],
         notification: false,
         chrome: {
+            appliedTheme: {
+                location: "",
+                info: {}
+            },
             desiredPageTransition: "wpfade_transform",
             hideUserInfo: ipcRenderer.sendSync("is-dev") || false,
             artworkReady: false,
@@ -894,7 +898,7 @@ const app = new Vue({
             }, 500)
             ipcRenderer.invoke("renderer-ready", true)
         },
-        setTheme(theme = "") {
+        async setTheme(theme = "") {
             console.log(theme)
             if (this.cfg.visual.theme == "") {
                 this.cfg.visual.theme = "default.less"
@@ -904,11 +908,21 @@ const app = new Vue({
             } else {
                 this.cfg.visual.theme = theme
             }
+            this.chrome.appliedTheme.info = await fetch("themes/" + app.cfg.visual.theme.replace("index.less", "theme.json"))
+
+
             document.querySelector("#userTheme").href = `themes/${this.cfg.visual.theme}`
             document.querySelectorAll(`[id*='less']`).forEach(el => {
                 el.remove()
             });
             less.refresh()
+        },
+        getThemeDirective(directive = "") {
+            if(this.chrome.appliedTheme.info.directives[directive]) {
+                return this.chrome.appliedTheme.info.directives[directive]
+            } else {
+                return ""
+            }
         },
         unauthorize() {
             bootbox.confirm(app.getLz('term.confirmLogout'), function (result) {
