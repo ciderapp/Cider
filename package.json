@@ -30,6 +30,7 @@
     "dist:macarm": "yarn build && electron-builder --mac --arm64",
     "dist:universalNotWorking": "yarn build && electron-builder --mac --universal",
     "dist:all": "yarn build && electron-builder -mwl",
+    "winget": "yarn build && electron-builder --win -c winget.json",
     "msft": "yarn build && electron-builder -c msft-package.json",
     "postinstall": "electron-builder install-app-deps",
     "circle:append-bid": "node resources/appendCommitToVersion"
@@ -188,6 +189,7 @@
       ],
       "icon": "resources/icons/icon.ico"
     },
+    
     "directories": {
       "buildResources": ".",
       "output": "dist"
