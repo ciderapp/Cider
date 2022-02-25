@@ -21,7 +21,7 @@
             }
         },
         async mounted() {
-            app.mk.api.music("/v1/catalog/us/artists/669831761").then(response => {
+            app.mk.api.v3.music("/v1/catalog/us/artists/669831761").then(response => {
                 this.artist = response.data.data[0];
                 this.artistLoaded = true;
             });

@@ -13,7 +13,7 @@
         //  &fields[albums]=artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialVideo,name,playParams,releaseDate,url
         //  &fields[artists]=name,url&extend[stations]=airDate,supportsAirTimeUpdates&meta[stations]=inflectionPoints
         //  &types=artists,albums,editorial-items,library-albums,library-playlists,music-movies,music-videos,playlists,stations,uploaded-audios,uploaded-videos,activities,apple-curators,curators,tv-shows,social-profiles,social-upsells
-        //  &l=en-gb&platform=auto
+        //  &l=en-gb&platform=web
 
 await app.mk.api.personalRecommendations("",
         {
@@ -48,7 +48,7 @@ await app.mk.api.personalRecommendations("",
 // Browse page
 await app.mk.api.groupings("",
        {
-            platform: "auto",
+            platform: "web",
             name: "music",
             l: "en-gb",
             "omit[resource:artists]": "relationships",
@@ -63,12 +63,12 @@ await app.mk.api.groupings("",
 // Radio page
 await app.mk.api.recentRadioStations("",
             {l: "en-gb",
-                platform: "auto",
+                "platform": "web",
                 "art[url]": "f"});
 
 // Recently Added
 await app.mk.api.library.recentlyAdded({
-    platform: "auto",
+    "platform": "web",
     include: {
         "library-albums": ["artists"],
         "library-artists": ["catalog"]

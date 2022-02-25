@@ -165,7 +165,7 @@
             }
         },
         async mounted() {
-            let podcastShow = await app.mk.api.podcasts(`/v1/me/library/podcasts?include=episodes`)
+            let podcastShow = await app.mk.api.v3.podcasts(`/v1/me/library/podcasts?include=episodes`)
             this.podcasts = podcastShow.data.data
             if (podcastShow.data.next) {
                 await this.getNext(podcastShow.data.next)
@@ -190,7 +190,7 @@
                 if(this.search.term == "") {
                     return
                 }
-                app.mk.api.podcasts("/v1/catalog/us/search", {term: this.search.term, types: ["podcasts"], limit: 25}).then(response => {
+                app.mk.api.v3.podcasts("/v1/catalog/us/search", {term: this.search.term, types: ["podcasts"], limit: 25}).then(response => {
                     console.log(response)
                     self.search.results = response.data.results.podcasts.data
                 })
@@ -215,7 +215,7 @@
             },
             async getEpisodes(podcast) {
                 this.episodes = []
-                let eps = await app.mk.api.podcasts(`/v1/catalog/${app.mk.storefrontId}/podcasts/${podcast.id}?include=episodes`)
+                let eps = await app.mk.api.v3.podcasts(`/v1/catalog/${app.mk.storefrontId}/podcasts/${podcast.id}?include=episodes`)
 
                 eps.data.data[0].relationships.episodes.data.forEach(ep => {
                     this.episodes.push(ep)
@@ -226,7 +226,7 @@
             },
             async getNextEpisodes(next, podcastId) {
 
-                let podcastShow = await app.mk.api.podcasts(next)
+                let podcastShow = await app.mk.api.v3.podcasts(next)
                 if(podcastId != this.podcastSelected.id) {
                     return
                 }
@@ -238,7 +238,7 @@
                 }
             },
             async getNext(next) {
-                let podcastShow = await app.mk.api.podcasts(next)
+                let podcastShow = await app.mk.api.v3.podcasts(next)
                 this.podcasts = this.podcasts.concat(podcastShow.data.data)
                 if (podcastShow.data.next) {
                     await this.getNext(podcastShow.data.next)

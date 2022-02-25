@@ -1,8 +1,8 @@
 <script type="text/x-template" id="cider-listen-now">
     <div class="content-inner">
         <h1 class="header-text">{{app.getLz('term.listenNow')}}</h1>
-        <template v-for="(recom, index) in data.data">
-           <listennow-child :index="index" :recom="recom"></listennow-child>
+        <template v-for="recom in data.data">
+           <listennow-child :recom="recom"></listennow-child>
         </template>
     </div>
 </script>

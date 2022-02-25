@@ -283,7 +283,7 @@
                     let friends = badges[id]
                     if (friends) {
                         friends.forEach(function (friend) {
-                            self.app.mk.api.music(`/v1/social/${app.mk.storefrontId}/social-profiles/${friend}`).then(data => {
+                            self.app.mk.api.v3.music(`/v1/social/${app.mk.storefrontId}/social-profiles/${friend}`).then(data => {
                                 self.itemBadges.push(data.data.data[0])
                             })
                         })
@@ -347,7 +347,7 @@
                 }
                 let kind = this.data.attributes.playParams.kind ?? this.data.type ?? '';
                 const truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
-                app.mk.api.music(`v1/me/library/${truekind}/${id.toString()}`, {},
+                app.mk.api.v3.music(`v1/me/library/${truekind}/${id.toString()}`, {},
                     {
                         fetchOptions: {
                             method: "DELETE"
@@ -393,7 +393,7 @@
                     return
                 }
                 console.log('sds', this.convert())
-                await app.mk.api.music(
+                await app.mk.api.v3.music(
                     `/v1/me/library/playlists/${this.data.attributes.playParams.id}/tracks`,
                     {},
                     {
@@ -473,7 +473,7 @@
                                 if (route === '') {
                                     return
                                 }
-                                app.mk.api.music(route).then(res => {
+                                app.mk.api.v3.music(route).then(res => {
                                     console.log(res.data.data[0].attributes.url)
                                     app.copyToClipboard(res.data.data[0].attributes.url)
                                 })

@@ -84,7 +84,7 @@
                 }
                 this.loading = true
 
-                this.api.music(this.data.next, app.collectionList.requestBody).then((response) => {
+                this.api.v3.music(this.data.next, app.collectionList.requestBody).then((response) => {
                     console.log(response)
                     if (!app.collectionList.response.groups) {
                         this.data.data = this.data.data.concat(response.data.data);

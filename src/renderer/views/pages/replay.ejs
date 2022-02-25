@@ -97,12 +97,12 @@
         },
         async mounted() {
             // Get available years
-            let year = await app.mk.api.music("/v1/me/music-summaries/search?extend=inLibrary&period=year&fields[music-summaries]=period%2Cyear&include[music-summaries]=playlist")
+            let year = await app.mk.api.v3.music("/v1/me/music-summaries/search?extend=inLibrary&period=year&fields[music-summaries]=period%2Cyear&include[music-summaries]=playlist")
             this.years = year.data.data
             this.years.reverse()
             localStorage.setItem("seenReplay", true)
             this.getReplayYear();
-            const musicGenre = await app.mk.api.music(`/v1/catalog/${app.mk.storefrontId}/genres/34`)
+            const musicGenre = await app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/genres/34`)
             this.musicTypeGenre = musicGenre.data.data[0].attributes.name
         },
         methods: {
@@ -145,10 +145,10 @@
             },
             async getReplayYear(year = new Date().getFullYear()) {
                 this.loaded.id = -1
-                let response = await app.mk.api.music(`/v1/me/music-summaries/year-${year}?extend=inLibrary&views=top-artists%2Ctop-albums%2Ctop-songs&include[music-summaries]=playlist&include[playlists]=tracks&includeOnly=playlist%2Ctracks%2Csong%2Cartist%2Calbum`)
+                let response = await app.mk.api.v3.music(`/v1/me/music-summaries/year-${year}?extend=inLibrary&views=top-artists%2Ctop-albums%2Ctop-songs&include[music-summaries]=playlist&include[playlists]=tracks&includeOnly=playlist%2Ctracks%2Csong%2Cartist%2Calbum`)
                 let replayData = response.data.data[0]
                 // extended playlist
-                let playlist = await app.mk.api.music(replayData.relationships.playlist.data[0].href, {extend: "editorialArtwork,editorialVideo"})
+                let playlist = await app.mk.api.v3.music(replayData.relationships.playlist.data[0].href, {extend: "editorialArtwork,editorialVideo"})
                 replayData.playlist = playlist.data.data[0]
                 this.loaded = replayData
             }
