@@ -200,7 +200,7 @@
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "啟用 LastFM 目前聆聽", // Toggle
   "settings.header.visual.animatedArtwork.limited": "只在藝人頁面和專輯封面顯示",
   "action.love": "喜愛",
-  "action.tray.minimize": "最小化",
+  "action.moveToTop": "Move out of Folder",
   "action.copy": "複製",
   "action.rename": "重新命名",
   "action.import": "匯入",
@@ -339,7 +339,7 @@
   "settings.option.experimental.compactUI": "使用緊密的介面設計",
   "settings.header.experimental.description": "Adjust the experimental settings for Cider.",
   "settings.option.experimental.inline_playlists": "將播放列表做為行内元素顯示",
-  "settings.option.experimental.unknownPlugin.description": "Allow installion of plugins from repos other than the Cider Plugin Repository",
+  "settings.option.experimental.unknownPlugin.description": "Allow installation of plugins from repos other than the Cider Plugin Repository",
   "settings.option.experimental.compactUI": "Compact UI",
   "settings.option.experimental.close_button_hide": "Close Button Should Hide the Application",
   "settings.option.lyrics.enableYoutubeLyrics": "播放 MV 時使用 YouTube 歌詞",
