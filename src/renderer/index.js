@@ -1417,7 +1417,7 @@ const app = new Vue({
                 if (kind.includes("album")) {
                     params["include[albums]"] = "artists"
                     params["fields[artists]"] = "name,url"
-                    params["fields[albums]"] = "artistName,artistUrl,artwork,contentRating,editorialArtwork,name,playParams,releaseDate,url,copyright"
+                    params["fields[albums]"] = "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialVideo,name,playParams,releaseDate,url,copyright"
                 }
 
                 if (this.cfg.advanced.experiments.includes('inline-playlists')) {
@@ -3143,7 +3143,7 @@ const app = new Vue({
                 "include[music-videos]": "artists",
                 "extend": "artistUrl",
                 "fields[artists]": "url,name,artwork,hero",
-                "fields[albums]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,name,playParams,releaseDate,url",
+                "fields[albums]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialVideo,name,playParams,releaseDate,url",
                 "with": "serverBubbles,lyricHighlights",
                 "art[url]": "c,f",
                 "omit[resource]": "autos",
