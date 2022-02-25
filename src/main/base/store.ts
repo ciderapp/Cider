@@ -25,7 +25,12 @@ export class Store {
                 "sort": "name",
                 "sortOrder": "asc",
                 "size": "normal"
-            }
+            },
+            "albums": {
+                "sort": "name",
+                "sortOrder": "asc",
+                "viewAs": "covers"
+            },
         },
         "audio": {
             "volume": 1,

@@ -1,11 +1,11 @@
-<template v-if="page == 'library-albums'">
+<script type="text/x-template" id="cider-library-albums">
     <div class="content-inner">
         <div class="row">
             <div class="col" style="padding:0;">
                 <h1 class="header-text">{{$root.getLz('term.albums')}}</h1>
             </div>
             <div class="col-auto">
-                <button v-if="library.albums.downloadState == 2" @click="getLibraryAlbumsFull(true, 1)" class="reload-btn"><%- include('../svg/redo.svg') %></button>
+                <button v-if="library.albums.downloadState == 2" @click="$root.getLibraryAlbumsFull(true, 1)" class="reload-btn"><%- include('../svg/redo.svg') %></button>
             </div>
         </div>
         <div class="row">
@@ -16,21 +16,21 @@
                            style="width:100%;"
                            spellcheck="false"
                            :placeholder="$root.getLz('term.search') + '...'"
-                           @input="searchLibraryAlbums"
+                           @input="$root.searchLibraryAlbums"
                            v-model="library.albums.search" class="search-input">
                 </div>
             </div>
             <div class="col-auto flex-center">
                 <div class="row">
                     <div class="col">
-                        <select class="md-select" v-model="library.albums.sorting[1]" @change="searchLibraryAlbums(1)">
+                        <select class="md-select" v-model="prefs.sort" @change="library.albums.sorting[1] = prefs.sort; $root.searchLibraryAlbums(1)">
                             <optgroup :label="$root.getLz('term.sortBy')">
                                 <option v-for="(sort, index) in library.albums.sortingOptions" :value="index">{{ sort }}</option>
                             </optgroup>
                         </select>
                     </div>
                     <div class="col">
-                        <select class="md-select" v-model="library.albums.sortOrder[1]" @change="searchLibraryAlbums(1)">
+                        <select class="md-select" v-model="prefs.sortOrder" @change="library.albums.sortOrder[1] = prefs.sortOrder; $root.searchLibraryAlbums(1)">
                             <optgroup :label="$root.getLz('term.sortOrder')">
                                 <option value="asc">{{$root.getLz('term.sortOrder.ascending')}}</option>
                                 <option value="desc">{{$root.getLz('term.sortOrder.descending')}}</option>
@@ -38,7 +38,7 @@
                         </select>
                     </div>
                     <div class="col">
-                        <select class="md-select" v-model="library.albums.viewAs">
+                        <select class="md-select" v-model="prefs.viewAs">
                             <optgroup :label="$root.getLz('term.viewAs')">
                                 <option value="covers">{{$root.getLz('term.viewAs.coverArt')}}</option>
                                 <option value="list">{{$root.getLz('term.viewAs.list')}}</option>
@@ -51,12 +51,27 @@
         <div class="well">
             <div class="albums-square-container"> 
                 <div> 
-                    <mediaitem-square v-if="library.albums.viewAs == 'covers'" :size="'300'" :item="item" v-for="item in library.albums.displayListing">
+                    <mediaitem-square v-if="prefs.viewAs == 'covers'" :size="'300'" :item="item" v-for="item in library.albums.displayListing">
                     </mediaitem-square>
                 </div>   
             </div>
-            <mediaitem-list-item v-if="library.albums.viewAs == 'list'" :show-duration="false" :show-meta-data="true" :show-library-status="false" :item="item" v-for="item in library.albums.displayListing">
+            <mediaitem-list-item v-if="prefs.viewAs == 'list'" :show-duration="false" :show-meta-data="true" :show-library-status="false" :item="item" v-for="item in library.albums.displayListing">
             </mediaitem-list-item>
         </div>
     </div>
-</template>
+</script>
+<script>
+    Vue.component('cider-library-albums', {
+        template: '#cider-library-albums',
+        data: function () {
+            return {
+                library: this.$root.library,
+                mediaItemSize: "compact",
+                prefs: this.$root.cfg.libraryPrefs.albums,
+                app : this.$root
+            }
+        },
+        methods: {
+        }
+    });
+</script>

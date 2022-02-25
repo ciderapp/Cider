@@ -33,6 +33,7 @@ export class BrowserWindow {
                 "pages/podcasts",
                 "pages/apple-account-settings",
                 "pages/library-songs",
+                "pages/library-albums",
                 "pages/browse",
                 "pages/settings",
                 "pages/listen_now",
@@ -165,6 +166,11 @@ export class BrowserWindow {
                     component: `<cider-library-songs :data="library.songs"></cider-library-songs>`,
                     condition: `page == 'library-songs'`,
                     onEnter: `getLibrarySongsFull()`
+                }, {
+                    page: "library-albums",
+                    component: `<cider-library-albums :data="library.songs"></cider-library-albums>`,
+                    condition: `page == 'library-albums'`,
+                    onEnter: `getLibraryAlbumsFull(null, 1); getAlbumSort(); searchLibraryAlbums(1);`
                 }, {
                     page: "appleCurator",
                     component: `<cider-applecurator :data="appleCurator"></cider-applecurator>`,

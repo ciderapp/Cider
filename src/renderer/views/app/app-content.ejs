@@ -38,11 +38,6 @@
     <transition :name="chrome.desiredPageTransition" v-on:enter="getLibraryAlbumsFull(null, 0); searchLibraryAlbums(0);">
         <%- include('../pages/library-recentlyadded') %>');
     </transition>
-    <!-- Library - Albums -->
-    <transition :name="chrome.desiredPageTransition" v-on:enter="getLibraryAlbumsFull(null, 1); searchLibraryAlbums(1);">
-        <%- include('../pages/library-albums') %>');
-        %>
-    </transition>
     <!-- Library - Made For You -->
     <transition :name="chrome.desiredPageTransition" v-on:enter="getMadeForYou()">
         <template v-if="page == 'library-madeforyou'">

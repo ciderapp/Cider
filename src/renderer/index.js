@@ -1792,6 +1792,10 @@ const app = new Vue({
                 sortSongs()
             }
         },
+        getAlbumSort() { 
+             this.library.albums.sortOrder[1] = this.cfg.libraryPrefs.albums.sortOrder;
+             this.library.albums.sorting[1] = this.cfg.libraryPrefs.albums.sort; 
+        },
         // make a copy of searchLibrarySongs except use Albums instead of Songs
         searchLibraryAlbums(index) {
             let self = this
