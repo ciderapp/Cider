@@ -916,10 +916,14 @@ const app = new Vue({
             }
             const info = {}
             try {
-                info = await (await fetch("themes/" + app.cfg.visual.theme.replace("index.less", "theme.json"))).json()
-            }catch(e){e=null}
+                const infoResponse = await fetch("themes/" + app.cfg.visual.theme.replace("index.less", "theme.json"))
+                this.chrome.appliedTheme.info = await infoResponse.json()
+            }catch(e){
+                e=null
+                console.warn("failed to get theme.json")
+                this.chrome.appliedTheme.info = {}
+            }
 
-            this.chrome.appliedTheme.info = info
 
             if(!onlyPrefs) {
                 document.querySelector("#userTheme").href = `themes/${this.cfg.visual.theme}`
