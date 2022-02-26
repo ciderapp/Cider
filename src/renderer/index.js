@@ -908,7 +908,7 @@ const app = new Vue({
             } else {
                 this.cfg.visual.theme = theme
             }
-            this.chrome.appliedTheme.info = await fetch("themes/" + app.cfg.visual.theme.replace("index.less", "theme.json"))
+            this.chrome.appliedTheme.info = await (await fetch("themes/" + app.cfg.visual.theme.replace("index.less", "theme.json"))).json()
 
 
             document.querySelector("#userTheme").href = `themes/${this.cfg.visual.theme}`
@@ -918,8 +918,11 @@ const app = new Vue({
             less.refresh()
         },
         getThemeDirective(directive = "") {
+            if(typeof this.chrome.appliedTheme.info  != "object") {
+                return
+            }
             if(this.chrome.appliedTheme.info.directives[directive]) {
-                return this.chrome.appliedTheme.info.directives[directive]
+                return this.chrome.appliedTheme.info.directives[directive].value
             } else {
                 return ""
             }
