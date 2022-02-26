@@ -104,7 +104,7 @@
   "term.language": "Idioma",
   "term.funLanguages": "Fun",
   "term.noLyrics": "Carregando... / Letras não achadas./ Instrumental.",
-  "term.copyright": "Copyright",
+  Direitos de Uso
   "term.rightsReserved": "Todos direitos reservados.",
   "term.sponsor": "Patrocine esse projeto",
   "podcast.followedOnCider": "Seguindo no Cider",
@@ -118,9 +118,9 @@
   "term.musicVideos": "Vídeos",
   "term.menu": "Menu",
   "term.version": "Versão",
-  "term.aboutArtist": "About {{artistName}}",
-  "term.topResult": "Top Result",
-  "term.sharedPlaylists": "Shared Playlists",
+  "term.aboutArtist": "Sobre {{artistName}}", // e.g.
+  "term.topResult": "Sem resultados",
+  "term.sharedPlaylists": "Playlists compartilhadas",
   "term.people": "People",
   "term.newpreset.name": "New EQ Preset Name",
   "term.defaultPresets": "predefinições padrão",
