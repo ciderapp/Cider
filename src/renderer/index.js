@@ -781,6 +781,7 @@ const app = new Vue({
 
             ipcRenderer.on('theme-update', (event, arg) => {
                 less.refresh(true, true, true)
+                self.setTheme(self.cfg.visual.theme, true)
             })
 
             ipcRenderer.on('SoundCheckTag', (event, tag) => {
@@ -902,7 +903,7 @@ const app = new Vue({
             }, 500)
             ipcRenderer.invoke("renderer-ready", true)
         },
-        async setTheme(theme = "") {
+        async setTheme(theme = "", onlyPrefs = false) {
             console.log(theme)
             if (this.cfg.visual.theme == "") {
                 this.cfg.visual.theme = "default.less"
@@ -913,14 +914,20 @@ const app = new Vue({
                 this.cfg.visual.theme = ""
                 this.cfg.visual.theme = theme
             }
-            this.chrome.appliedTheme.info = await (await fetch("themes/" + app.cfg.visual.theme.replace("index.less", "theme.json"))).json()
+            const info = {}
+            try {
+                info = await (await fetch("themes/" + app.cfg.visual.theme.replace("index.less", "theme.json"))).json()
+            }catch(e){e=null}
 
+            this.chrome.appliedTheme.info = info
 
-            document.querySelector("#userTheme").href = `themes/${this.cfg.visual.theme}`
-            document.querySelectorAll(`[id*='less']`).forEach(el => {
-                el.remove()
-            });
-            less.refresh()
+            if(!onlyPrefs) {
+                document.querySelector("#userTheme").href = `themes/${this.cfg.visual.theme}`
+                document.querySelectorAll(`[id*='less']`).forEach(el => {
+                    el.remove()
+                });
+                less.refresh()
+            }
         },
         getThemeDirective(directive = "") {
             if(typeof this.chrome.appliedTheme.info  != "object") {
