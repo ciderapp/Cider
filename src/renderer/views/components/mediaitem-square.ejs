@@ -10,7 +10,7 @@
                 </div>
                 <div class="artwork" @click='app.routeView(item)'>
                     <mediaitem-artwork
-                            :url="getArtworkUrl()"
+                            :url="mainimageurl"
                             :video="(item.attributes != null && item.attributes.editorialVideo != null) ? (item.attributes.editorialVideo.motionDetailSquare ? item.attributes.editorialVideo.motionDetailSquare.video : (item.attributes.editorialVideo.motionSquareVideo1x1 ? item.attributes.editorialVideo.motionSquareVideo1x1.video : '')) : '' "
                             :size="size"
                             shadow="subtle"
@@ -77,7 +77,8 @@
                 app: this.$root,
                 badges: this.$root.socialBadges.badgeMap,
                 itemBadges: [],
-                unavailable: false
+                unavailable: false,
+                mainimageurl: '',
             }
         },
         async mounted() {
@@ -91,6 +92,7 @@
                     this.unavailable = true
                 }
             }
+            this.getMainImage()
         },
         methods: {
             getBgColor() {
@@ -150,7 +152,7 @@
                     let friends = this.badges[id]
                     if (friends) {
                         friends.forEach(function (friend) {
-                            self.app.mk.api.v3.music(`/v1/social/${app.mk.storefrontId}/social-profiles/${friend}`).then(data => {
+                            self.app.mk.api.music(`/v1/social/${app.mk.storefrontId}/social-profiles/${friend}`).then(data => {
                                 self.itemBadges.push(data.data.data[0])
                             })
                         })
@@ -170,7 +172,7 @@
                     let kind = this.item.type ?? this.item.attributes.playParams.kind
                     let truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
                     if (truekind == "musicVideos") {truekind = "music-videos"}
-                    let res = await app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/?ids[${truekind}]=${this.item.attributes.playParams.id ?? this.item.id}`,params);
+                    let res = await app.mk.api.music(`/v1/catalog/${app.mk.storefrontId}/?ids[${truekind}]=${this.item.attributes.playParams.id ?? this.item.id}`,params);
                     res = res.data.data[0]
                     this.addedToLibrary = (res && res.attributes && res.attributes.inLibrary) ? res.attributes.inLibrary : false
                 } else {
@@ -186,13 +188,13 @@
                     let kind = this.item.type ?? this.item.attributes.playParams.kind
                     let truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
                     if (truekind == "musicVideos") {truekind = "music-videos"}
-                    let res = await app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/?ids[${truekind}]=${this.item.attributes.playParams.id ?? this.item.id}`,params);
+                    let res = await app.mk.api.music(`/v1/catalog/${app.mk.storefrontId}/?ids[${truekind}]=${this.item.attributes.playParams.id ?? this.item.id}`,params);
                 res= res.data.data[0]
                 if (res && res.relationships && res.relationships.library && res.relationships.library.data && res.relationships.library.data.length > 0) {
                     id = res.relationships.library.data[0].id
                 }
 
-                app.mk.api.v3.music(`v1/me/library/${truekind}/${id.toString()}`,{},
+                app.mk.api.music(`v1/me/library/${truekind}/${id.toString()}`,{},
                     {
                     fetchOptions: {
                     method: "DELETE"
@@ -205,7 +207,10 @@
                 );
             },
             getArtworkUrl(size = -1, includeUrl = false) {
-                let artwork = this.item.attributes.artwork ? this.item.attributes.artwork.url : ''
+                let artwork = this.item.attributes?.artwork ? this.item.attributes.artwork?.url : ''
+                // if (artwork == '' && this.item.type == "artists" && this.item.id != null) {
+                //     artwork = (await app.loadArtistImage(this.item.id)).toString();
+                // }
                 if(size != -1) {
                     artwork = artwork.replace('{w}', size).replace('{h}', size).replace('{f}', "webp").replace('{c}', ((size === 900) ? "sr" : "cc"))
                 }
@@ -219,6 +224,12 @@
                 }else{
                     return `url("${artwork}")`
                 }
+            },
+            async getMainImage(){
+               this.mainimageurl = this.getArtworkUrl()
+               if (this.mainimageurl == '' && this.item.id != null && this.item.type == "artists") {
+                   this.mainimageurl = await this.app.loadArtistImage(this.item.id)
+               }
             },
             getClasses() {
                 let type = this.item.type

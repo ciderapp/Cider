@@ -88,7 +88,7 @@
                 console.log(sendTo)
                 let type = item.type.replace("library-", "")
                 let typeTo = sendTo.type
-                this.$root.mk.api.v3.music(`/v1/me/library/${type}/${item.id}/parent`, {}, {
+                this.$root.mk.api.music(`/v1/me/library/${type}/${item.id}/parent`, {}, {
                     fetchOptions: {
                         method: "PUT",
                         body: JSON.stringify({
@@ -197,7 +197,7 @@
                 this.getChildren()
                 this.toggleFolder()
                
-                this.$root.mk.api.v3.music(`v1/me/library/playlist-folders/${item.id}/children`).then(data => {
+                this.$root.mk.api.music(`v1/me/library/playlist-folders/${item.id}/children`).then(data => {
                     let children = data.data.data;
                     children.forEach(child => {
                         if(!self.$root.playlists.listing.find(listing => listing.id == child.id)) {

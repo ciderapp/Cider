@@ -1,7 +1,7 @@
 <script type="text/x-template" id="artist-chip">
     <div class="artist-chip" @click.self="route">
         <div class="artist-chip__image">
-            <mediaitem-artwork v-if="artist.id != null" :url="artist.attributes.artwork.url" :size="32"></mediaitem-artwork>
+            <mediaitem-artwork v-if="artist.id != null" :url="artistimage" :size="32"></mediaitem-artwork>
         </div>
         <div class="artist-chip__name">
             <span>{{ item.attributes.name }}</span>
@@ -16,24 +16,30 @@
         props: {
             item: {
                 type: Object,
-                required: true
+                required: true,
             }
         },
         data: function() {
             return {
                 artist: {
                     id: null
-                }
+                },
+                artistimage : ''
             }
         },
         template: '#artist-chip',
         async mounted() {
-            let artistId = this.item.id
+            let artistId = this.item.id           
+           
             if(typeof this.item.relationships.catalog == "object") {
                 artistId = this.item.relationships.catalog.data[0].id
             }
-            app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/artists/${artistId}`).then(response => {
+            app.mk.api.music(`/v1/catalog/${app.mk.storefrontId}/artists/${artistId}`).then(async (response) => {
                 this.artist = response.data.data[0];
+                if (this.artistimage == '' && artistId != null){
+                    this.artistimage = (await this.$root.loadArtistImage(artistId) ?? '').replace('300x300','50x50')
+                    
+                }
             });
         },
         methods: {

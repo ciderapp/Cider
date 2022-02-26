@@ -539,8 +539,8 @@
                                 var playlistId = id
                                 function getPlaylist(id, isLibrary) {
                                     if (isLibrary) {
-                                        return this.app.mk.api.v3.music(`/v1/me/library/playlists/${id}`)
-                                    } else { return this.app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/playlists/${id}`) }
+                                        return this.app.mk.api.music(`/v1/me/library/playlists/${id}`)
+                                    } else { return this.app.mk.api.music(`/v1/catalog/${app.mk.storefrontId}/playlists/${id}`) }
                                 }
                                 try {
                                     getPlaylist(id, isLibrary).then(res => {

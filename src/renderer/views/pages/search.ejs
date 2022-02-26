@@ -116,7 +116,7 @@
             },
             async getCategories() {
                 if (this.categoriesView != [] && this.categoriesView.length > 0) { this.categoriesReady = true; return await true; } else {
-                    let response = await this.app.mk.api.v3.music(`/v1/recommendations/${this.app.mk.storefrontId}?timezone=${encodeURIComponent(this.app.formatTimezoneOffset())}&name=search-landing&platform=web&extend=editorialArtwork&art%5Burl%5D=f%2Cc&types=editorial-items%2Capple-curators%2Cactivities&l=${this.$root.mklang}`);
+                    let response = await this.app.mk.api.music(`/v1/recommendations/${this.app.mk.storefrontId}?timezone=${encodeURIComponent(this.app.formatTimezoneOffset())}&name=search-landing&platform=auto&extend=editorialArtwork&art%5Burl%5D=f%2Cc&types=editorial-items%2Capple-curators%2Cactivities&l=${this.$root.mklang}`);
                     this.categoriesView = response.data.data;
                     console.log(this.categoriesView)
                     this.categoriesReady = true;
