@@ -1,7 +1,8 @@
 {
   "i18n.languageName": "Português (brasileiro)",
   "i18n.languageNameEnglish": "Portuguese (Brazil)",
-  "i18n.category": "main",
+  "i18n.category": "Principal",
+
   "i18n.authors": "@maikirakiwi @kyw504100",
   "app.name": "Cider",
   "date.format": "${d} ${m}, ${y}",
@@ -28,7 +29,8 @@
   "term.library": "Biblioteca",
   "term.listenNow": "Ouça Agora",
   "term.browse": "Explorar",
-  "term.radio": "Radio",
+  "term.radio": "Rádio",
+
   "term.recentlyAdded": "Adicionado Recentemente",
   "term.songs": "Músicas",
   "term.albums": "Albuns",
@@ -47,7 +49,7 @@
   "term.more": "Mais",
   "term.shuffle": "Aleatório",
   "term.repeat": "Repetir",
-  "term.volume": "Volume",
+  "term.playlists": "Playlists",
   "term.mute": "Mudo",
   "term.unmute": "Tirar o Mudo",
   "term.share": "Compartilhar",
@@ -55,7 +57,8 @@
   "term.settings": "Definições",
   "term.seeAll": "Ver Tudo",
   "term.sortBy": "Organizar Por",
-  "term.sortBy.album": "Album",
+  "term.sortBy.album": "Álbum",
+
   "term.sortBy.artist": "Artista",
   "term.sortBy.name": "Nome",
   "term.sortBy.genre": "Genero",
@@ -102,7 +105,8 @@
   "term.clearAll": "Limpar Tudo",
   "term.recentStations": "Estações Recentes",
   "term.language": "Idioma",
-  "term.funLanguages": "Fun",
+  "term.funLanguages": "Divertido",
+
   "term.noLyrics": "Carregando... / Letras não achadas./ Instrumental.",
   Direitos de Uso
   "term.rightsReserved": "Todos direitos reservados.",
@@ -114,23 +118,24 @@
   "term.contributors": "Contribuidores",
   "term.equalizer": "Equalizador",
   "term.deletedpreset": "Predefinição removida",
-  "term.tracks": "tracks",
+  "term.tracks": "músicas",
   "term.musicVideos": "Vídeos",
   "term.menu": "Menu",
+
   "term.version": "Versão",
   "term.aboutArtist": "Sobre {{artistName}}", // e.g.
   "term.topResult": "Sem resultados",
   "term.sharedPlaylists": "Playlists compartilhadas",
-  "term.people": "People",
-  "term.newpreset.name": "New EQ Preset Name",
+  Pessoas
+  Nome do Nova Predefinição de Equalização
   "term.defaultPresets": "predefinições padrão",
   "action.deletepreset": "Apagar predefinição",
   "settings.header.unfinished": "Inacabado",
   "term.userPresets": "Predefinições do usuário",
   "settings.header.general": "Principal",
-  "term.requestError": "There was a problem with the request.",
+  Houve um problema com a sua requisição.
   "term.song.link.generate": "Gerando URL do song.link...",
-  "term.musicVideos": "Music Videos",
+  "term.musicVideos": "Clipes de Música",
   "term.tracks": "músicas",
   "term.curators": "Curadores",
   "podcast.followOnCider": "Seguir no Cider",
@@ -141,8 +146,10 @@
   "action.copy": "Copiar",
   "term.noVideos": "Vídeos não encontrados.",
   "settings.header.connectivity": "Conectividade",
-  "term.pluginMenu": "Plug-in Menu",
-  "term.pluginMenu.none": "No interactive plugins.",
+  "term.pluginMenu": "Menu de Plug-ins",
+  "term.pluginMenu.none": "Nenhum plugin interativo.",
+
+
   "term.replay": "Replay",
   "action.goToAlbum": "Ir para o Album",
   "term.aboutArtist": "Sobre {{artistName}}",
@@ -153,7 +160,7 @@
   "action.showAlbum": "Mostrar album completo",
   "action.playLater": "Reproduzir por Ultimo",
   "term.topResult": "Melhor resultado",
-  "term.confirmLogout": "Are you sure you want to logout?",
+  "term.confirmLogout": "Você tem certeza que deseja sair?",
   "remote.web.title": "Cider Remoto",
   "home.recentlyPlayed": "Tocado Recentemente",
   "home.recentlyAdded": "Adicionado Recentemente",
@@ -171,7 +178,7 @@
   "podcast.subscribeOnItunes": "Inscrever-se no iTunes",
   "podcast.subscribedOnItunes": "Inscrito no iTunes",
   "podcast.itunesStore": "iTunes Store",
-  "podcast.episodes": "Episodios",
+  "podcast.episodes": "Episódios",
   "podcast.playEpisode": "Reproduzir episódio",
   "podcast.website": "Website do Podcast",
   "action.addToLibrary": "Adicionar à Biblioteca",
@@ -194,13 +201,13 @@
   "action.unfollow.error": "Erro ao Deixar de Seguir",
   "action.playNext": "Reproduzir a Seguir",
   "action.tray.quit": "Sair",
-  "action.unfollow.error": "Error Unfollowing",
+  "action.unfollow.error": "Erro ao deixar de seguir",
   "action.tray.show": "Mostrar",
   "action.open": "Abrir",
   "action.newpreset": "Nova predefinição...",
   "action.unlove": "Deixar de Gostar",
   "action.love": "Gostar",
-  "action.moveToTop": "Move out of Folder",
+  "action.moveToTop": "Retirar da Pasta",
   "action.share": "Compartilhar",
   "action.rename": "Renomear",
   "action.dislike": "Não Gostar",
@@ -210,17 +217,18 @@
   "action.showWebRemoteQR": "Mostrar o QR para Página Remota",
   "action.playTracksNext": "Reproduzir ${app.selectedMediaItems.length} músicas a seguir",
   "action.playTracksLater": "Reproduzir ${app.selectedMediaItems.length} músicas depois",
-  "action.removeTracks": "Remove ${self.selectedItems.length} tracks from queue",
+  "action.removeTracks": "Remover ${self.selectedItems.length} músicas da fila",
+
   "action.import": "Importar",
   "action.export": "Exportar",
-  "action.showAlbum": "Show Complete Album",
-  "action.tray.minimize": "Minimize to Tray",
+  "action.showAlbum": "Mostra álbum completo",
+  "action.tray.minimize": "Minimizar para a bandeja do Windows",
   "spatial.up": "Acima",
   "settings.option.visual.animatedArtwork": "Capa animada",
   "settings.option.general.updateCider": "Atualizar o Cider",
   "settings.notyf.visual.theme.install.error": "A instalação do tema falhou",
   "spatial.back": "Atrás",
-  "action.newpreset": "New Preset...",
+  "action.newpreset": "Nova predefinição...",
   "settings.header.visual.animatedArtwork.disable": "Desativar",
   "action.addToQueue.success": "Adicionado à Fila",
   "settings.header.audio.quality.standard": "Padrão",
@@ -235,8 +243,10 @@
   "settings.option.general.language.fun": "Idiomas divertidos",
   "settings.option.general.language.unsorted": "Sem categoria",
   "settings.option.lyrics.musixmatchPreferredLanguage": "Idioma Preferido para Tradução Musixmatch",
-  "settings.option.general.updateCider": "Update Cider",
-  "settings.option.general.updateCider.branch": "Cider Update Branch",
+  "settings.option.general.updateCider": "Atualizar o Cider",
+
+  "settings.option.general.updateCider.branch": "Ramificação de Atualização do Cider",
+
   "settings.header.connectivity.description": "Ajustar as definições de conectividade no Cider.",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "Padrão",
   "settings.option.audio.volumeStep": "Incrementos",
@@ -244,17 +254,20 @@
   "settings.header.audio.description": "Ajustar as configurações de áudio no Cider.",
   "settings.option.audio.maxVolume": "Volume máximo",
   "settings.option.audio.enableAdvancedFunctionality": "Ativar configurações avancadas",
-  "settings.option.audio.quality": "Audio Quality",
-  "settings.header.audio.quality.hireslossless": "Hi-Res Lossless",
+  "settings.option.audio.quality": "Qualidade de Áudio",
+
+  "settings.header.audio.quality.hireslossless": "Alta definição sem perdas",
+
   "settings.header.audio.quality.hireslossless.description": "até 24-bit/192 kHz",
-  "settings.header.audio.quality.lossless": "Lossless",
+  "settings.header.audio.quality.lossless": "Sem perda de qualidade",
+
   "settings.header.audio.quality.lossless.description": "até 24-bit/48 kHz",
   "settings.header.visual.animatedArtworkQuality.veryHigh": "Muito Alta",
   "settings.header.audio.quality.high.description": "256 kbps",
   "settings.option.audio.quality": "Qualidade de Áudio",
   "settings.header.audio.quality.standard.description": "64 kbps",
-  "settings.option.audio.seamlessTransition": "Seamless Audio Transition",
-  "settings.option.audio.enableAdvancedFunctionality": "Enable Advanced Functionality",
+  "settings.option.audio.seamlessTransition": "Transição de audio sutil...", // Toggle
+  "settings.option.audio.enableAdvancedFunctionality": "Ativar funcionalidades avançadas", // Toggle
   "settings.option.audio.enableAdvancedFunctionality.description": "Habilitar a funcionalidade AudioContext permitirá recursos de áudio estendidos, como Normalização de Áudio , Equalizadores e Visualizadores.
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Normalização de Áudio",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normaliza o volume alto para faixas individuais para criar uma experiência de audição mais uniforme.",
@@ -272,24 +285,26 @@
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Changes the strength of the processing done to the audio. (a função Agressiva pode levar a resultados não desejados.)",
   "settings.header.visual.animatedArtworkQuality.extreme": "Altissima",
   "settings.option.connectivity.lastfmScrobble": "LastFM Scrobbling",
-  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Audio Normalization",
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Normalização de Áudio",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizes peak volume for individual tracks to create a more uniform listening experience.",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Audio Spatialization",
+  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Espacialização de Áudio",
+
   "settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility": "Áudio Espacial não é compativel com o CAP.
   "spatial.audioSource": "Fonte de Audio",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.description": "Pre-tuned Spatializing Effect, disables the customizable settings of Audio Spatialization. Spatialization must be enabled as a prerequisite.",
   "settings.header.visual.description": "Ajustar as configurações visuais do Cider.",
-  "settings.header.lyrics.description": "Ajustar as definições das letras no Cider.", (Requires App Restart)",
+  "settings.header.lyrics.description": "Ajustar as definições das letras no Cider.", (Requer reinicialização do aplicativo)",
+
   "settings.header.visual.animatedArtworkQuality.medium": "Media",
   "settings.option.connectivity.lastfmScrobble.filterLoop": "Filtrar músicas repitidas (Last.fm)",
   "settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility": "Spatialization is not compatible with CAP. Please disable CAP to continue.",
   "settings.header.visual": "Visual",
   "settings.header.experimental.description": "Ajustar as definições experimental no Cider.",
-  "settings.option.visual.windowBackgroundStyle": "Window Background Style",
+  "settings.option.visual.windowBackgroundStyle": "Estilo do Fundo da Janela",
   "settings.header.visual.windowBackgroundStyle.none": "Nenhum",
   "settings.header.visual.windowBackgroundStyle.artwork": "Capa",
   "settings.header.visual.windowBackgroundStyle.image": "Imagem",
-  "settings.option.visual.animatedArtwork": "Animated Artwork",
+  "settings.option.visual.animatedArtwork": "Arte de Capa Animada",
   "settings.header.visual.animatedArtwork.always": "Sempre",
   "settings.header.visual.animatedArtwork.limited": "Limitado a páginas e entradas especiais",
   "settings.header.visual.animatedArtworkQuality.low": "Baixa",
@@ -300,7 +315,8 @@
   "settings.header.visual.theme": "Tema",
   "settings.option.visual.animatedWindowBackground": "Fundo animado",
   "settings.option.visual.animatedWindowBackground": "Animated Window Background",
-  "settings.option.visual.hardwareAcceleration": "Hardware Acceleration",
+  "settings.option.visual.hardwareAcceleration": "Aceleração por Hardware",
+
   "settings.option.visual.hardwareAcceleration.description": "Necessário reabrir o Cider",
   "settings.option.visual.hardwareAcceleration": "Aceleração de Hardware",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
@@ -309,18 +325,23 @@
   "settings.option.visual.theme.github.explore": "Explorar temas no GitHub",
   "settings.prompt.visual.theme.github.URL": "Insira o URL do tema que deseja instalar",
   "settings.option.visual.theme.github.install.confirm": "Tem certeza que quer instalar {{ repo }}?",
-  "settings.prompt.visual.theme.github.URL": "Enter the URL of the theme you want to install",
+  "settings.prompt.visual.theme.github.URL": "Digite a URL do tema que você deseja instalar",
+
   "settings.option.visual.windowBackgroundStyle": "Estilo do fundo da janela",
-  "settings.notyf.visual.theme.install.error": "Theme installation failed",
+  "settings.notyf.visual.theme.install.error": "A instalação do tema falhou",
   "settings.header.connectivity.discordRPC.cider": "Mostrar como 'Cider'",
   "settings.option.experimental.compactUI": "UI Compacto",
-  "settings.option.visual.showPersonalInfo": "Show Personal Info",
+  "settings.option.visual.showPersonalInfo": "Exibir Informações Pessoais",
+
   "settings.option.lyrics.enableMusixmatch": "Ativar Letras do Musixmatch",
   "settings.option.lyrics.enableYoutubeLyrics": "Ativar letras do Youtube para videos musicais",
-  "settings.option.lyrics.enableMusixmatch": "Enable Musixmatch Lyrics",
-  "settings.option.lyrics.enableMusixmatchKaraoke": "Enable Karaoke Mode (Musixmatch only)",
+  "settings.option.lyrics.enableMusixmatch": "Habilitar Letras do Musixmatch",
+
+  "settings.option.lyrics.enableMusixmatchKaraoke": "Habilitar Modo Karaokê (Apenas Musixmatch)",
+
   "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch Translation Preferred Language",
-  "settings.option.lyrics.enableYoutubeLyrics": "Enable Youtube Lyrics for Music Videos",
+  "settings.option.lyrics.enableYoutubeLyrics": "Habilitar Legendas do Youtube para Clipes",
+
   "settings.option.connectivity.lastfmScrobble.delay": "Atraso dos Scrobbles do LastFM (%)",
   "settings.option.debug.openAppData": "Abrir a pasta do Cider",
   "settings.option.connectivity.discordRPC": "Discord Rich Presence",
@@ -337,13 +358,17 @@
   "settings.option.debug.copy_log": "Copiar logs",
   "settings.option.experimental.close_button_hide": "Fechar apenas esconde o Cider",
   "settings.header.experimental": "Experimental",
-  "settings.header.experimental.description": "Adjust the experimental settings for Cider.",
-  "settings.option.experimental.unknownPlugin": "Unknown Sources",
+  "settings.header.experimental.description": "Ajustar as definições experimental no Cider.",
+  "settings.option.experimental.unknownPlugin": "Fontes Desconhecidas",
+
   "settings.option.experimental.unknownPlugin.description": "Allow installation of plugins from repos other than the Cider Plugin Repository",
-  "settings.option.experimental.compactUI": "Compact UI",
-  "settings.option.experimental.close_button_hide": "Close Button Should Hide the Application",
+  "settings.option.experimental.compactUI": "Interface Compacta",
+
+  "settings.option.experimental.close_button_hide": "Botão Fechar deve esconder o aplicativo",
   "settings.option.lyrics.enableMusixmatchKaraoke": "Ativar Modo Karaoke (só para Musixmatch)",
-  "spatial.notTurnedOn": "Audio Spatialization is disabled. To use, please enable it first.",
+  "spatial.notTurnedOn": "Espacialização de Áudio está desabilitada."
+ Para usar, por favor, habilite antes.",
+
   "spatial.spatialProperties": "Propriedades do Espacial",
   "spatial.width": "Largura",
   "spatial.height": "Altura",
@@ -357,13 +382,19 @@
   "spatial.down": "Abaixo",
   "spatial.front": "Frente",
   "spatial.left": "Esquerda",
-  "spatial.right": "Right",
-  "spatial.back": "Back",
-  "spatial.down": "Down",
+  "spatial.right": "Direita",
+
+  "spatial.back": "Voltar",
+
+  "spatial.down": "Abaixo",
+
   "i18n.authors": "",
-  "spatial.audioSource": "Audio Source",
-  "settings.header.unfinished": "Unfinished",
-  "remote.web.title": "Cider Remote",
-  "remote.web.description": "Digitalize o código QR para emparelhar seu telefone com esta instância Cider"
-  "about.thanks": "Major thanks to the Cider Collective Team and all of our contributors."
+  "spatial.audioSource": "Origem do Áudio",
+
+  "settings.header.unfinished": "Não concluído",
+  "remote.web.title": "Cider Remoto",
+
+  "remote.web.description": "Leia o QR Code para parear seu telefone com esta instância Cider"
+  "about.thanks": "Muito obrigado ao Time Cider Collective e todos os que contribuem."
+
 }
