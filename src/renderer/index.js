@@ -959,6 +959,10 @@ const app = new Vue({
             if (this.cfg.visual.window_background_style == "none") {
                 classes.simplebg = true
             }
+
+            if(this.getThemeDirective('windowLayout') == 'twopanel') {
+                classes.twopanel = true
+            }
             return classes
         },
         invokeDrawer(panel) {
