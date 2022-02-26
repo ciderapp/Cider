@@ -779,6 +779,10 @@ const app = new Vue({
 
             MusicKit.getInstance().videoContainerElement = document.getElementById("apple-music-video-player")
 
+            ipcRenderer.on('theme-update', (event, arg) => {
+                less.refresh(true, true, true)
+            })
+
             ipcRenderer.on('SoundCheckTag', (event, tag) => {
                 let replaygain = self.parseSCTagToRG(tag)
                 try {
@@ -906,6 +910,7 @@ const app = new Vue({
             if (theme == "") {
                 theme = this.cfg.visual.theme
             } else {
+                this.cfg.visual.theme = ""
                 this.cfg.visual.theme = theme
             }
             this.chrome.appliedTheme.info = await (await fetch("themes/" + app.cfg.visual.theme.replace("index.less", "theme.json"))).json()
