@@ -64,7 +64,7 @@ const store = new Vuex.Store({
         }
     }
 })
-
+ipcRenderer.send('check-for-update')
 const app = new Vue({
     el: "#app",
     store: store,
@@ -779,6 +779,11 @@ const app = new Vue({
 
             MusicKit.getInstance().videoContainerElement = document.getElementById("apple-music-video-player")
 
+            ipcRenderer.on('theme-update', (event, arg) => {
+                less.refresh(true, true, true)
+                self.setTheme(self.cfg.visual.theme, true)
+            })
+
             ipcRenderer.on('SoundCheckTag', (event, tag) => {
                 let replaygain = self.parseSCTagToRG(tag)
                 try {
@@ -898,7 +903,7 @@ const app = new Vue({
             }, 500)
             ipcRenderer.invoke("renderer-ready", true)
         },
-        async setTheme(theme = "") {
+        async setTheme(theme = "", onlyPrefs = false) {
             console.log(theme)
             if (this.cfg.visual.theme == "") {
                 this.cfg.visual.theme = "default.less"
@@ -906,20 +911,34 @@ const app = new Vue({
             if (theme == "") {
                 theme = this.cfg.visual.theme
             } else {
+                this.cfg.visual.theme = ""
                 this.cfg.visual.theme = theme
             }
-            this.chrome.appliedTheme.info = await fetch("themes/" + app.cfg.visual.theme.replace("index.less", "theme.json"))
+            const info = {}
+            try {
+                const infoResponse = await fetch("themes/" + app.cfg.visual.theme.replace("index.less", "theme.json"))
+                this.chrome.appliedTheme.info = await infoResponse.json()
+            }catch(e){
+                e=null
+                console.warn("failed to get theme.json")
+                this.chrome.appliedTheme.info = {}
+            }
 
 
-            document.querySelector("#userTheme").href = `themes/${this.cfg.visual.theme}`
-            document.querySelectorAll(`[id*='less']`).forEach(el => {
-                el.remove()
-            });
-            less.refresh()
+            if(!onlyPrefs) {
+                document.querySelector("#userTheme").href = `themes/${this.cfg.visual.theme}`
+                document.querySelectorAll(`[id*='less']`).forEach(el => {
+                    el.remove()
+                });
+                less.refresh()
+            }
         },
         getThemeDirective(directive = "") {
+            if(typeof this.chrome.appliedTheme.info.directives != "object") {
+                return ""
+            }
             if(this.chrome.appliedTheme.info.directives[directive]) {
-                return this.chrome.appliedTheme.info.directives[directive]
+                return this.chrome.appliedTheme.info.directives[directive].value
             } else {
                 return ""
             }
@@ -939,6 +958,10 @@ const app = new Vue({
             }
             if (this.cfg.visual.window_background_style == "none") {
                 classes.simplebg = true
+            }
+
+            if(this.getThemeDirective('windowLayout') == 'twopanel') {
+                classes.twopanel = true
             }
             return classes
         },

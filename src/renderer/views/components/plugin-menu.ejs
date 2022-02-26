@@ -12,7 +12,7 @@
             </span>
             <button class="playlist-item" @click="entry.onClick(); closeMenu();" v-for="entry in app.pluginMenuEntries">
                 <span class="icon"><%- include("../svg/grid.svg") %></span>
-                <span class="name" style="top: 1px;">{{ entry.name }}</span>
+                <span class="name" style="top: 0.5px;">{{ entry.name }}</span>
             </button>
             </div>
         </div>

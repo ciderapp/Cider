@@ -172,3 +172,7 @@ Update 19/2/2022 21:00 UTC
 * `settings.option.visual.theme.github.install.confirm`: Added for `en_US`
 * `settings.option.experimental.unknownPlugin`: Added for `en_US`
 * `settings.option.experimental.unknownPlugin.description`: Added for `en_US`
+
+Update 25/02/2022 15:30 UTC
+
+* `action.moveToTop`: Changed to `Move out of Folder` instead of `Move to top`

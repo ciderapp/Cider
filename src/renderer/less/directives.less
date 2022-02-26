@@ -1,0 +1,22 @@
+#app.twopanel {
+    --chromeHeight1: 42px;
+    --chromeHeight2: 55px;
+    --chromeHeight: calc(var(--chromeHeight1) + var(--chromeHeight2));
+    .app-chrome {
+        .app-mainmenu {
+            width: 88px;
+        }
+        height: var(--chromeHeight1);
+        &.chrome-bottom {
+            height: var(--chromeHeight2);
+            border-top: 1px solid rgba(0, 0, 0, 0.25);
+            .app-chrome--left {
+                padding-left: 32px;
+            }
+        }
+    }
+
+    .app-sidebar-footer--controls {
+        display: none!important;
+    }
+}

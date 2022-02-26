@@ -1,18 +1,18 @@
-import {join} from "path";
-import {app, BrowserWindow as bw, ipcMain, ShareMenu, shell} from "electron";
+import { join } from "path";
+import { app, BrowserWindow as bw, ipcMain, ShareMenu, shell } from "electron";
 import * as windowStateKeeper from "electron-window-state";
 import * as express from "express";
 import * as getPort from "get-port";
-import {search} from "youtube-search-without-api-key";
-import {existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync, statSync} from "fs";
-import {Stream} from "stream";
-import {networkInterfaces} from "os";
+import { search } from "youtube-search-without-api-key";
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync, statSync } from "fs";
+import { Stream } from "stream";
+import { networkInterfaces } from "os";
 import * as mm from 'music-metadata';
 import fetch from 'electron-fetch'
-import {wsapi} from "./wsapi";
-import {AppImageUpdater, NsisUpdater} from "electron-updater";
-import {utils} from './utils';
-
+import { wsapi } from "./wsapi";
+import { AppImageUpdater, NsisUpdater } from "electron-updater";
+import { utils } from './utils';
+const fileWatcher = require('chokidar');
 const AdmZip = require("adm-zip");
 
 
@@ -22,7 +22,7 @@ export class BrowserWindow {
 
     private audioStream: any = new Stream.PassThrough();
     private headerSent: any = false;
-    private chromecastIP : any = [];
+    private chromecastIP: any = [];
     private clientPort: number = 0;
     private remotePort: number = 6942;
     private EnvironmentVariables: object = {
@@ -179,7 +179,7 @@ export class BrowserWindow {
                     page: "themes-github",
                     component: `<themes-github></themes-github>`,
                     condition: `page == 'themes-github'`
-                },{
+                }, {
                     page: "plugins-github",
                     component: `<plugins-github></plugins-github>`,
                     condition: `page == 'plugins-github'`
@@ -219,7 +219,7 @@ export class BrowserWindow {
         show: false,
         // backgroundColor: "#1E1E1E",
         titleBarStyle: 'hidden',
-        trafficLightPosition: {x: 15, y: 20},
+        trafficLightPosition: { x: 15, y: 20 },
         webPreferences: {
             experimentalFeatures: true,
             nodeIntegration: true,
@@ -233,13 +233,52 @@ export class BrowserWindow {
             preload: join(utils.getPath('srcPath'), "./preload/cider-preload.js"),
         },
     };
+    StartWatcher(path: string) {
+        var chokidar = require("chokidar");
 
+        var watcher = chokidar.watch(path, {
+            ignored: /[\/\\]\./,
+            persistent: true
+        });
+
+        function onWatcherReady() {
+            console.info('From here can you check for real changes, the initial scan has been completed.');
+        }
+
+        // Declare the listeners of the watcher
+        watcher
+            .on('add', function (path: string) {
+                // console.log('File', path, 'has been added');
+            })
+            .on('addDir', function (path: string) {
+                // console.log('Directory', path, 'has been added');
+            })
+            .on('change', function (path: string) {
+                console.log('File', path, 'has been changed');
+                BrowserWindow.win.webContents.send("theme-update", "")
+            })
+            .on('unlink', function (path: string) {
+                // console.log('File', path, 'has been removed');
+            })
+            .on('unlinkDir', function (path: string) {
+                // console.log('Directory', path, 'has been removed');
+            })
+            .on('error', function (error: string) {
+                // console.log('Error happened', error);
+            })
+            .on('ready', onWatcherReady)
+            .on('raw', function (event: any, path: any, details: any) {
+                // This event should be triggered everytime something happens.
+                // console.log('Raw event info:', event, path, details);
+            });
+    }
     /**
      * Creates the browser window
      */
     async createWindow(): Promise<Electron.BrowserWindow> {
-        this.clientPort = await getPort({port: 9000});
+        this.clientPort = await getPort({ port: 9000 });
         BrowserWindow.verifyFiles();
+        this.StartWatcher(utils.getPath('themes'));
 
         // Load the previous state with fallback to defaults
         const windowState = windowStateKeeper({
@@ -419,18 +458,18 @@ export class BrowserWindow {
 
         app.get("/audio.wav", (req, res) => {
             try {
-                 const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-                 if (!this.chromecastIP.includes(ip)) {
-                     this.headerSent = false;
-                     this.chromecastIP.push(ip)
+                const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+                if (!this.chromecastIP.includes(ip)) {
+                    this.headerSent = false;
+                    this.chromecastIP.push(ip)
                 }
                 req.socket.setTimeout(Number.MAX_SAFE_INTEGER);
                 // CiderBase.requests.push({req: req, res: res});
                 // var pos = CiderBase.requests.length - 1;
-                 req.on("close", () => {
-                     console.log('disconnected')
-                     this.headerSent = false
-                     this.chromecastIP = this.chromecastIP.filter((item: any) => item !== ip);
+                req.on("close", () => {
+                    console.log('disconnected')
+                    this.headerSent = false
+                    this.chromecastIP = this.chromecastIP.filter((item: any) => item !== ip);
                 });
 
                 this.audioStream.on("data", (data: any) => {
@@ -458,7 +497,7 @@ export class BrowserWindow {
         remote.use(express.static(join(utils.getPath('srcPath'), "./web-remote/")))
         remote.set("views", join(utils.getPath('srcPath'), "./web-remote/views"));
         remote.set("view engine", "ejs");
-        getPort({port: 6942}).then((port) => {
+        getPort({ port: 6942 }).then((port) => {
             this.remotePort = port;
             // Start Remote Discovery
             this.broadcastRemote()
@@ -511,7 +550,7 @@ export class BrowserWindow {
                     if (itspod != null)
                         details.requestHeaders["Cookie"] = `itspod=${itspod}`;
                 }
-                callback({requestHeaders: details.requestHeaders});
+                callback({ requestHeaders: details.requestHeaders });
             }
         );
 
@@ -771,7 +810,7 @@ export class BrowserWindow {
         })
         //Fullscreen
         ipcMain.on('detachDT', (_event, _) => {
-            BrowserWindow.win.webContents.openDevTools({mode: 'detach'});
+            BrowserWindow.win.webContents.openDevTools({ mode: 'detach' });
         })
 
 
@@ -929,8 +968,8 @@ export class BrowserWindow {
                     console.log('sc', SoundCheckTag)
                     BrowserWindow.win.webContents.send('SoundCheckTag', SoundCheckTag)
                 }).catch(err => {
-                console.log(err)
-            });
+                    console.log(err)
+                });
         });
 
         ipcMain.on('check-for-update', async (_event) => {
@@ -947,15 +986,13 @@ export class BrowserWindow {
 
             const options: any = {
                 provider: 'generic',
-                url: `${base_url}`
+                url: `${base_url}`,
+                allowDowngrade: true,
             }
 
             //  Have to handle the auto updaters seperatly until we can support macOS. electron-builder limitation -q
-
-            const win_autoUpdater = new NsisUpdater(options) //Windows
-            const linux_autoUpdater = new AppImageUpdater(options) //Linux
-            await win_autoUpdater.checkForUpdatesAndNotify()
-            await linux_autoUpdater.checkForUpdatesAndNotify()
+            if (process.platform === 'win32') await new NsisUpdater(options).checkForUpdatesAndNotify() //Windows
+            if (process.platform === 'linux') await new AppImageUpdater(options).checkForUpdatesAndNotify() //Linux
         });
         ipcMain.on('disable-update', (event) => {
             // Check if using app store builds so people don't get pissy wen button go bonk
@@ -980,7 +1017,12 @@ export class BrowserWindow {
         })
 
         ipcMain.on('get-version', (_event) => {
-            _event.returnValue = app.getVersion()
+            if (app.isPackaged){
+                _event.returnValue = app.getVersion()
+            } else {
+                _event.returnValue = `Experimental running on Electron ${app.getVersion()}`
+            }
+
         });
         ipcMain.on('open-appdata', (_event) => {
             shell.openPath(app.getPath('userData'));
@@ -1044,10 +1086,10 @@ export class BrowserWindow {
         // Set window Handler
         BrowserWindow.win.webContents.setWindowOpenHandler((x: any) => {
             if (x.url.includes("apple") || x.url.includes("localhost")) {
-                return {action: "allow"};
+                return { action: "allow" };
             }
             shell.openExternal(x.url).catch(console.error);
-            return {action: "deny"};
+            return { action: "deny" };
         });
     }
 
@@ -1096,7 +1138,7 @@ export class BrowserWindow {
             "CtlN": "Cider",
             "iV": "196623"
         };
-        let server2 = mdns.createAdvertisement(x, `${await getPort({port: 3839})}`, {
+        let server2 = mdns.createAdvertisement(x, `${await getPort({ port: 3839 })}`, {
             name: encoded,
             txt: txt_record
         });

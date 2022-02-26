@@ -21,7 +21,9 @@
   --mediaItemRadius: 6px;
   --mediaItemRadiusRound: 100%;
   --contentInnerPadding: 16px;
-  --navbarHeight: 48px;
+  --navbarHeight1: 48px;
+  --navbarHeight2: 0px;
+  --navbarHeight: calc(var(--navbarHeight1) + var(--navbarHeight2));
   --selected: rgb(130 130 130 / 30%);
   --selected-click: rgb(80 80 80 / 30%);
   --hover: rgb(200 200 200 / 10%);
@@ -40,6 +42,10 @@
   --songProgressBackground: #333;
   --textColor: #eee;
   --replayGradient: linear-gradient(45deg, hsl(248deg 58% 29%), hsl(13deg 41% 42%));
+}
+
+*:focus-visible {
+  outline:2px solid var(--keyColor);
 }
 
 html,
@@ -140,7 +146,9 @@ body.notransparency::before {
   --bgColor: transparent;
   --bgWidth: 0px;
   --bgHeight: 0px;
-  --chromeHeight: 55px;
+  --chromeHeight1: 55px;
+  --chromeHeight2: 0px;
+  --chromeHeight: calc(var(--chromeHeight1) + var(--chromeHeight2));
   width: 100%;
   height: 100%;
   background: var(--color1);
@@ -818,7 +826,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 .app-chrome {
   background: var(--color1);
   width: 100%;
-  height: var(--chromeHeight);
+  height: var(--chromeHeight1);
   display: flex;
   flex-direction: row;
   -webkit-app-region: drag;
@@ -2812,7 +2820,6 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   --gfx-minBtn: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAACXBIWXMAAAsTAAALEwEAmpwYAAAGOmlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDUgNzkuMTYzNDk5LCAyMDE4LzA4LzEzLTE2OjQwOjIyICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdEV2dD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlRXZlbnQjIiB4bWxuczpwaG90b3Nob3A9Imh0dHA6Ly9ucy5hZG9iZS5jb20vcGhvdG9zaG9wLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOSAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDIwLTAyLTE3VDEzOjAwOjMyWiIgeG1wOk1ldGFkYXRhRGF0ZT0iMjAyMC0wMi0xN1QxMzowMDozMloiIHhtcDpNb2RpZnlEYXRlPSIyMDIwLTAyLTE3VDEzOjAwOjMyWiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo4NWQwZWRiMC1mZDAwLWI2NGYtOWVmYi1hMmI0NTg3MDVhOGEiIHhtcE1NOkRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDphMzAwMWUxYS0yOTE5LWU0NDktYjk0Yy1jMjEyMjQ4YTlmOGEiIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo3ODdmNzk5Yy00YjExLWU1NGEtYjIwZC02ODYxN2VkOWM1ZTIiIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiIGRjOmZvcm1hdD0iaW1hZ2UvcG5nIj4gPHhtcE1NOkhpc3Rvcnk+IDxyZGY6U2VxPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iY3JlYXRlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDo3ODdmNzk5Yy00YjExLWU1NGEtYjIwZC02ODYxN2VkOWM1ZTIiIHN0RXZ0OndoZW49IjIwMjAtMDItMTdUMTM6MDA6MzJaIiBzdEV2dDpzb2Z0d2FyZUFnZW50PSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOSAoV2luZG93cykiLz4gPHJkZjpsaSBzdEV2dDphY3Rpb249InNhdmVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOjg1ZDBlZGIwLWZkMDAtYjY0Zi05ZWZiLWEyYjQ1ODcwNWE4YSIgc3RFdnQ6d2hlbj0iMjAyMC0wMi0xN1QxMzowMDozMloiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE5IChXaW5kb3dzKSIgc3RFdnQ6Y2hhbmdlZD0iLyIvPiA8L3JkZjpTZXE+IDwveG1wTU06SGlzdG9yeT4gPHBob3Rvc2hvcDpUZXh0TGF5ZXJzPiA8cmRmOkJhZz4gPHJkZjpsaSBwaG90b3Nob3A6TGF5ZXJOYW1lPSLupKEiIHBob3Rvc2hvcDpMYXllclRleHQ9Iu6koSIvPiA8L3JkZjpCYWc+IDwvcGhvdG9zaG9wOlRleHRMYXllcnM+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+FwvRXAAAABdJREFUGNNj/P//PwMxgHGIKPw/XDwDAOr1HuzlELLnAAAAAElFTkSuQmCC');
 }
 
-
 #apple-music-video-container {
   background: black;
   position: absolute;
@@ -2824,12 +2831,19 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   z-index: 100000;
 }
 
+
+
 #apple-music-video-player {
   position: absolute;
   top: 50%;
   width: 100%;
   transform: translate(0, -50%);
   height: 100%;
+}
+
+#app.twopanel #apple-music-video-container {
+  top: var(--chromeHeight1);
+  bottom: unset;
 }
 
 #apple-music-video-player-controls {
@@ -3134,7 +3148,11 @@ body[platform='darwin'] {
   content: '%';
 }
 
+.spatialproperties-panel.modal-fullscreen{
+  flex-direction: column;
+} 
 
 @import url("less/macos.less");
 @import url("less/linux.less");
 @import url("less/compact.less");
+@import url("less/directives.less");
