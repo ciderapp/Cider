@@ -934,8 +934,8 @@ const app = new Vue({
             }
         },
         getThemeDirective(directive = "") {
-            if(typeof this.chrome.appliedTheme.info  != "object") {
-                return
+            if(typeof this.chrome.appliedTheme.info.directives != "object") {
+                return ""
             }
             if(this.chrome.appliedTheme.info.directives[directive]) {
                 return this.chrome.appliedTheme.info.directives[directive].value
