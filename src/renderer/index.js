@@ -64,7 +64,7 @@ const store = new Vuex.Store({
         }
     }
 })
-
+ipcRenderer.send('check-for-update')
 const app = new Vue({
     el: "#app",
     store: store,

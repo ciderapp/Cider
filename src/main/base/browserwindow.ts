@@ -986,15 +986,13 @@ export class BrowserWindow {
 
             const options: any = {
                 provider: 'generic',
-                url: `${base_url}`
+                url: `${base_url}`,
+                allowDowngrade: true,
             }
 
             //  Have to handle the auto updaters seperatly until we can support macOS. electron-builder limitation -q
-
-            const win_autoUpdater = new NsisUpdater(options) //Windows
-            const linux_autoUpdater = new AppImageUpdater(options) //Linux
-            await win_autoUpdater.checkForUpdatesAndNotify()
-            await linux_autoUpdater.checkForUpdatesAndNotify()
+            if (process.platform === 'win32') await new NsisUpdater(options).checkForUpdatesAndNotify() //Windows
+            if (process.platform === 'linux') await new AppImageUpdater(options).checkForUpdatesAndNotify() //Linux
         });
         ipcMain.on('disable-update', (event) => {
             // Check if using app store builds so people don't get pissy wen button go bonk
@@ -1019,7 +1017,12 @@ export class BrowserWindow {
         })
 
         ipcMain.on('get-version', (_event) => {
-            _event.returnValue = app.getVersion()
+            if (app.isPackaged){
+                _event.returnValue = app.getVersion()
+            } else {
+                _event.returnValue = `Experimental running on Electron ${app.getVersion()}`
+            }
+
         });
         ipcMain.on('open-appdata', (_event) => {
             shell.openPath(app.getPath('userData'));
