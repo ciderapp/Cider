@@ -57,6 +57,11 @@ jobs:
           post-steps:
             - jira/notify
       - run:
+          name: Generate Builds (Winget)
+          command: yarn winget -p never
+          post-steps:
+            - jira/notify
+      - run:
           name: Move Build Files
           command: |
               mkdir ~/Cider/dist/artifacts/
