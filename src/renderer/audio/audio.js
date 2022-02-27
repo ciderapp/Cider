@@ -344,7 +344,7 @@ var CiderAudio = {
             let LLPW_FREQUENCIES = [16.452, 24.636, 37.134, 74.483, 159.54, 308.18, 670.21, 915.81, 1200.7, 2766.4, 2930.6, 4050.6, 4409.1, 5395.2, 5901.6, 6455.5, 7164.1, 7724.1, 8449, 10573, 12368, 14198, 17910, 18916];
             CiderAudio.audioNodes.llpw = []
             
-            if (app.cfg.audio.maikiwiAudio.ciderPPE_value === 0.5)  { 
+            if (app.cfg.audio.maikiwiAudio.ciderPPE_value === 0.55)  { 
             for (i = 0; i < c_LLPW_FREQUENCIES.length; i++) {
                 CiderAudio.audioNodes.llpw[i] = CiderAudio.context.createBiquadFilter();
                 CiderAudio.audioNodes.llpw[i].type = 'peaking'; // 'peaking';
@@ -372,7 +372,7 @@ var CiderAudio = {
             console.log("[Cider][Audio] CAP - Clarity Mode");
         }
 
-            else if (app.cfg.audio.maikiwiAudio.ciderPPE_value === 0.55)  { 
+            else if (app.cfg.audio.maikiwiAudio.ciderPPE_value === 0.5)  { 
             for (i = 0; i < LLPW_FREQUENCIES.length; i++) {
                 CiderAudio.audioNodes.llpw[i] = CiderAudio.context.createBiquadFilter();
                 CiderAudio.audioNodes.llpw[i].type = 'peaking'; // 'peaking';
@@ -396,7 +396,7 @@ var CiderAudio = {
                     break;
     
             }
-            console.log("[Cider][Audio] CAP - Biased Mode");
+            console.log("[Cider][Audio] CAP - Classic Mode");
         }
         } 
 
