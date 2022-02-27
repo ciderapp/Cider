@@ -2,7 +2,7 @@
   "i18n.languageName": "English (UK)",
   "i18n.languageNameEnglish": "English (UK)",
   "i18n.category": "main",
-  "i18n.authors": "Core, inalone",
+  "i18n.authors": "Core, inalone, nosh118",
   "date.format": "${d} ${m}, ${y}",
   "term.equalizer": "Equaliser",
   "settings.option.audio.enableAdvancedFunctionality.description": "Enabling AudioContext functionality will allow for extended audio features like Audio Normalisation, Equalisers and Visualisers - however on some systems this may cause stuttering in audio tracks.",
@@ -11,4 +11,5 @@
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Audio Spatialisation",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Spatialise audio and make audio more 3-dimensional (note: This is not Dolby Atmos)",
   "spatial.notTurnedOn": "Audio Spatialisation is disabled. To use, please enable it first."
+  "action.tray.minimize": "Minimise to Tray",
 }
