@@ -3,6 +3,9 @@ import * as path from "path";
 import {Store} from "./store";
 import {BrowserWindow as bw} from "./browserwindow";
 import {app} from "electron";
+import fetch from "electron-fetch";
+import {AppImageUpdater, NsisUpdater} from "electron-updater";
+import * as log from "electron-log";
 
 export class utils {
 
@@ -106,5 +109,55 @@ export class utils {
         previous: () => {
             bw.win.webContents.executeJavaScript("MusicKitInterop.previous()")
         }
+    }
+
+    /**
+     * Checks the application for updates
+     */
+    static async checkForUpdate(): Promise<void> {
+
+        // Get the artifacts
+        const response = await fetch(`https://circleci.com/api/v1.1/project/gh/ciderapp/Cider/latest/artifacts?branch=${utils.getStoreValue('general.update_branch')}&filter=successful`)
+        if (response.status != 200) {
+            bw.win.webContents.send('update-response', 'update-timeout')
+            return;
+        }
+
+        // Get the urls
+        const jsonResponse = await response.json()
+        let base_url = jsonResponse[0].url
+        base_url = base_url.substring(0, base_url.lastIndexOf('/'))
+
+        const options: any = {
+            provider: 'generic',
+            url: base_url,
+            allowDowngrade: true,
+        }
+
+        let autoUpdater: any = null
+        if (process.platform === 'win32') { //Windows
+            autoUpdater = await new NsisUpdater(options)
+        } else {
+            autoUpdater = await new AppImageUpdater(options) //Linux and Mac (AppImages work on macOS btw)
+        }
+
+        autoUpdater.on('error', (error: any) => {
+            console.error(`[AutoUpdater] Error: ${error}`)
+            bw.win.webContents.send('update-response', "update-error")
+        })
+
+        autoUpdater.on('update-not-available', () => {
+            console.log('[AutoUpdater] Update not available.')
+            bw.win.webContents.send('update-response', "update-not-available");
+        })
+
+        autoUpdater.on('update-downloaded', () => {
+            console.log('[AutoUpdater] Update downloaded.')
+            bw.win.webContents.send('update-response', "update-downloaded");
+        })
+
+        log.transports.file.level = "debug"
+        autoUpdater.logger = log
+        await autoUpdater.checkForUpdate()
     }
 }

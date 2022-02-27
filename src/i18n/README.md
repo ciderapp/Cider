@@ -176,3 +176,10 @@ Update 19/2/2022 21:00 UTC
 Update 25/02/2022 15:30 UTC
 
 * `action.moveToTop`: Changed to `Move out of Folder` instead of `Move to top`
+
+Update 27/02/2022 18:30 UTC
+
+* `settings.notyf.updateCider.update-not-available`: Added for `en_US`
+* `settings.notyf.updateCider.update-timeout`: Added for `en_US`
+* `settings.notyf.updateCider.update-downloaded`: Added for `en_US`
+* `settings.notyf.updateCider.update-error`: Added for `en_US`

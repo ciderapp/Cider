@@ -156,5 +156,3 @@ process.once('loaded', () => {
 	console.log("Setting ipcRenderer")
 	global.MusicKitInterop = MusicKitInterop;
 });
-
-ipcRenderer.send('check-for-update')

@@ -64,7 +64,6 @@ const store = new Vuex.Store({
         }
     }
 })
-ipcRenderer.send('check-for-update')
 const app = new Vue({
     el: "#app",
     store: store,
@@ -3950,6 +3949,18 @@ const app = new Vue({
         },
         checkForUpdate() {
             ipcRenderer.send('check-for-update')
+            ipcRenderer.on('update-response', (event, res) => {
+                if (res === "update-not-available") {
+                    notyf.error(app.getLz(`settings.notyf.updateCider.${res}`))
+                } else if (res === "update-downloaded") {
+                    notyf.success(app.getLz(`settings.notyf.updateCider.${res}`))
+                } else if (res === "update-error") {
+                    notyf.error(app.getLz(`settings.notyf.updateCider.${res}`))
+                } else if (res === "update-timeout") {
+                    notyf.error(app.getLz(`settings.notyf.updateCider.${res}`))
+                }
+
+            })
         },
     }
 })
