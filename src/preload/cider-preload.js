@@ -82,7 +82,7 @@ const MusicKitInterop = {
 		attributes.playParams = attributes?.playParams ?? {id: 'no-id-found'};
 		attributes.playParams.id = attributes?.playParams?.id ?? 'no-id-found';
 		attributes.url = {
-			cider: `cider://play/s/${nowPlayingItem?._songId ?? (nowPlayingItem?.songId ??'no-id-found')}`,
+			cider: `https://cider.sh/link?play/s/${nowPlayingItem?._songId ?? (nowPlayingItem?.songId ??'no-id-found')}`,
 			appleMusic: attributes.websiteUrl ? attributes.websiteUrl : `https://music.apple.com/${mk.storefrontId}/song/${nowPlayingItem?._songId ?? (nowPlayingItem?.songId ??'no-id-found')}`  
 		}
 		if (attributes.playParams.id === 'no-id-found') {
@@ -156,5 +156,3 @@ process.once('loaded', () => {
 	console.log("Setting ipcRenderer")
 	global.MusicKitInterop = MusicKitInterop;
 });
-
-ipcRenderer.send('check-for-update')

@@ -155,7 +155,7 @@ export default class DiscordRichPresence {
             buttons: [
                 {label: "Listen on Cider", url: attributes.url.cider},
                 {label: "View on Apple Music", url: attributes.url.appleMusic},
-            ]
+            ] //To change attributes.url => preload/cider-preload.js
         };
 
 		this._activity = this.filterActivity(this._activity, attributes)

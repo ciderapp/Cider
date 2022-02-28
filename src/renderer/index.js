@@ -64,7 +64,6 @@ const store = new Vuex.Store({
         }
     }
 })
-ipcRenderer.send('check-for-update')
 const app = new Vue({
     el: "#app",
     store: store,
@@ -786,10 +785,12 @@ const app = new Vue({
 
             ipcRenderer.on('SoundCheckTag', (event, tag) => {
                 let replaygain = self.parseSCTagToRG(tag)
+                console.debug(`[Cider][MaikiwiSoundCheck] Replay Gain: ${JSON.stringify(replaygain)} | Attenuating '${Math.log10(replaygain.gain) * 20}' dB`)
                 try {
-                    CiderAudio.audioNodes.gainNode.gain.value = (Math.min(Math.pow(10, (replaygain.gain / 20)), (1 / replaygain.peak)))
+                    //CiderAudio.audioNodes.gainNode.gain.value = (Math.min(Math.pow(10, (replaygain.gain / 20)), (1 / replaygain.peak)))
+                    CiderAudio.audioNodes.gainNode.gain.value = replaygain.gain
                 } catch (e) {
-                }
+                }              
             })
 
             ipcRenderer.on('play', function (_event, mode, id) {
@@ -1333,24 +1334,67 @@ const app = new Vue({
                 return this.playerLCD.playbackDuration
             }
         },
-        convertTime(time) {
+        /**
+         * Converts seconds to dd:hh:mm:ss
+         * @param time (in seconds)
+         * @param format (short, long)
+         * @returns {string} 
+         */
+        convertTime(time, format = 'short') {
             if (typeof time !== "number") {
                 time = parseInt(time)
             }
 
             const timeGates = {
-                600: 15,
-                3600: 14,
-                36000: 12,
+                600: 15, // 10 Minutes
+                3600: 14, // Hour
+                36000: 12, // 10 Hours
             }
 
+            const datetime = new Date(time * 1000)
+
+            let returnTime = datetime.toISOString().substring(11, 19);
             for (let key in timeGates) {
                 if (time < key) {
-                    return new Date(time * 1000).toISOString().substring(timeGates[key], 19)
+                    returnTime = datetime.toISOString().substring(timeGates[key], 19)
+                    break
                 }
             }
 
-            return new Date(time * 1000).toISOString().substring(11, 19)
+            // Add the days on the front
+            let day;
+            if (time >= 86400) {
+                day = datetime.toISOString().substring(8, 10)
+                day = parseInt(day) - 1
+                returnTime = day + ":" + returnTime
+            }
+
+            if (format === 'long') {
+                const longFormat = []
+            
+                // Seconds
+                if (datetime.getSeconds() !== 0) {
+                    longFormat.push(`${datetime.getSeconds()} ${app.getLz('term.time.seconds')}`)
+                }
+
+                // Minutes
+                if (time >= 60) {
+                    longFormat.push(`${datetime.getMinutes()} ${app.getLz('term.time.minute', options = {count: datetime.getMinutes()})}`)
+                }
+
+                // Hours
+                if (time >= 3600) {
+                    longFormat.push(`${datetime.getHours()} ${app.getLz('term.time.hour', options = {count: datetime.getHours()})}`)
+                }
+
+                // Days
+                if (time >= 86400) {
+                    longFormat.push(`${day} ${app.getLz('term.time.day', options = {count: day})}`)
+                }
+                returnTime = longFormat.reverse().join(', ')
+            }
+
+            return returnTime
         },
         hashCode(str) {
             let hash = 0,
@@ -2313,14 +2357,8 @@ const app = new Vue({
         getTotalTime() {
             try {
                 if (app.showingPlaylist.relationships.tracks.data.length > 0) {
-                    let time = Math.round([].concat(...app.showingPlaylist.relationships.tracks.data).reduce((a, {attributes: {durationInMillis}}) => a + durationInMillis, 0) / 1000);
-                    let hours = Math.floor(time / 3600)
-                    let mins = Math.floor(time / 60) % 60
-                    let secs = time % 60
-                    return app.showingPlaylist.relationships.tracks.data.length + " " + app.getLz('term.tracks', options = {count: app.showingPlaylist.relationships.tracks.data.length}) + ", "
-                        + ((hours > 0) ? (hours + (" " + (app.getLz('term.time.hour', options = {count: hours}) + ", "))) : "") +
-                        ((mins > 0) ? (mins + (" " + app.getLz('term.time.minute', options = {count: mins}) + ", ")) : "") +
-                        secs + (" " + app.getLz('term.time.second', options = {count: secs}) + ".");
+                    const timeInSeconds = Math.round([].concat(...app.showingPlaylist.relationships.tracks.data).reduce((a, {attributes: {durationInMillis}}) => a + durationInMillis, 0) / 1000);
+                    return `${app.showingPlaylist.relationships.tracks.data.length} ${app.getLz('term.track', options = {count: app.showingPlaylist.relationships.tracks.data.length})}, ${this.convertTime(timeInSeconds, 'long')}`
                 } else return ""
             } catch (err) {
                 return ""
@@ -3768,8 +3806,9 @@ const app = new Vue({
 
             }
             numbers.shift()
-            let gain = Math.log10((Math.max(numbers[0], numbers[1]) ?? 1000) / 1000.0) * -10
+            //let gain = Math.log10((Math.max(numbers[0], numbers[1]) ?? 1000) / 1000.0) * -10
             let peak = Math.max(numbers[6], numbers[7]) / 32768.0
+            let gain = Math.pow(10, ((-7.63 - (Math.log10(peak) * 20)) / 20))// EBU R 128 Compliant
             return {
                 gain: gain,
                 peak: peak
@@ -3950,6 +3989,18 @@ const app = new Vue({
         },
         checkForUpdate() {
             ipcRenderer.send('check-for-update')
+            ipcRenderer.on('update-response', (event, res) => {
+                if (res === "update-not-available") {
+                    notyf.error(app.getLz(`settings.notyf.updateCider.${res}`))
+                } else if (res === "update-downloaded") {
+                    notyf.success(app.getLz(`settings.notyf.updateCider.${res}`))
+                } else if (res === "update-error") {
+                    notyf.error(app.getLz(`settings.notyf.updateCider.${res}`))
+                } else if (res === "update-timeout") {
+                    notyf.error(app.getLz(`settings.notyf.updateCider.${res}`))
+                }
+
+            })
         },
     }
 })

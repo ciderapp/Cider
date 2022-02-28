@@ -973,27 +973,9 @@ export class BrowserWindow {
         });
 
         ipcMain.on('check-for-update', async (_event) => {
-            const branch = utils.getStoreValue('general.update_branch')
-            let latestbranch = await fetch(`https://circleci.com/api/v1.1/project/gh/ciderapp/Cider/latest/artifacts?branch=${branch}&filter=successful`)
-            if (latestbranch.status != 200) {
-                console.log(`Error fetching latest artifact from the **${branch}** branch`)
-                return
-            }
-
-            let latestbranchjson = await latestbranch.json()
-            let base_url = latestbranchjson[0].url
-            base_url = base_url.substring(0, base_url.lastIndexOf('/'))
-
-            const options: any = {
-                provider: 'generic',
-                url: `${base_url}`,
-                allowDowngrade: true,
-            }
-
-            //  Have to handle the auto updaters seperatly until we can support macOS. electron-builder limitation -q
-            if (process.platform === 'win32') await new NsisUpdater(options).checkForUpdatesAndNotify() //Windows
-            if (process.platform === 'linux') await new AppImageUpdater(options).checkForUpdatesAndNotify() //Linux
+            await utils.checkForUpdate();
         });
+
         ipcMain.on('disable-update', (event) => {
             // Check if using app store builds so people don't get pissy wen button go bonk
             if (app.isPackaged && !process.mas || !process.windowsStore) {
