@@ -1373,7 +1373,9 @@ const app = new Vue({
                 const longFormat = []
             
                 // Seconds
-                longFormat.push(`${datetime.getSeconds()} ${app.getLz('term.time.second', options = {count: datetime.getSeconds()})}`)
+                if (datetime.getSeconds() !== 0) {
+                    longFormat.push(`${datetime.getSeconds()} ${app.getLz('term.time.seconds')}`)
+                }
 
                 // Minutes
                 if (time >= 60) {
@@ -2356,7 +2358,7 @@ const app = new Vue({
             try {
                 if (app.showingPlaylist.relationships.tracks.data.length > 0) {
                     const timeInSeconds = Math.round([].concat(...app.showingPlaylist.relationships.tracks.data).reduce((a, {attributes: {durationInMillis}}) => a + durationInMillis, 0) / 1000);
-                    return `${app.showingPlaylist.relationships.tracks.data.length} ${app.getLz('term.tracks', options = {count: app.showingPlaylist.relationships.tracks.data.length})}, ${this.convertTime(timeInSeconds, 'long')}`
+                    return `${app.showingPlaylist.relationships.tracks.data.length} ${app.getLz('term.track', options = {count: app.showingPlaylist.relationships.tracks.data.length})}, ${this.convertTime(timeInSeconds, 'long')}`
                 } else return ""
             } catch (err) {
                 return ""
