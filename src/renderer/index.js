@@ -785,10 +785,12 @@ const app = new Vue({
 
             ipcRenderer.on('SoundCheckTag', (event, tag) => {
                 let replaygain = self.parseSCTagToRG(tag)
+                console.debug(`[Cider][MaikiwiSoundCheck] Replay Gain: ${JSON.stringify(replaygain)} | Attenuating '${Math.log10(replaygain.gain) * 20}' dB`)
                 try {
-                    CiderAudio.audioNodes.gainNode.gain.value = (Math.min(Math.pow(10, (replaygain.gain / 20)), (1 / replaygain.peak)))
+                    //CiderAudio.audioNodes.gainNode.gain.value = (Math.min(Math.pow(10, (replaygain.gain / 20)), (1 / replaygain.peak)))
+                    CiderAudio.audioNodes.gainNode.gain.value = replaygain.gain
                 } catch (e) {
-                }
+                }              
             })
 
             ipcRenderer.on('play', function (_event, mode, id) {
@@ -3767,8 +3769,9 @@ const app = new Vue({
 
             }
             numbers.shift()
-            let gain = Math.log10((Math.max(numbers[0], numbers[1]) ?? 1000) / 1000.0) * -10
+            //let gain = Math.log10((Math.max(numbers[0], numbers[1]) ?? 1000) / 1000.0) * -10
             let peak = Math.max(numbers[6], numbers[7]) / 32768.0
+            let gain = Math.pow(10, ((-7.63 - (Math.log10(peak) * 20)) / 20))// EBU R 128 Compliant
             return {
                 gain: gain,
                 peak: peak
