@@ -183,3 +183,8 @@ Update 27/02/2022 18:30 UTC
 * `settings.notyf.updateCider.update-timeout`: Added for `en_US`
 * `settings.notyf.updateCider.update-downloaded`: Added for `en_US`
 * `settings.notyf.updateCider.update-error`: Added for `en_US`
+
+Update 28/02/2022 13:00 UTC
+
+* `term.time.days`: Added for `en_US`
+* `term.time.day`: Added for `en_US`
