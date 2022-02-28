@@ -178,6 +178,10 @@ export default class ChromecastPlugin {
                     client.stepInterval = status.volume.stepInterval;
                 }
             })
+            
+            // send websocket ip
+
+            player.sendIp("ws://"+this.getIp()+":26369");
 
         });
     }

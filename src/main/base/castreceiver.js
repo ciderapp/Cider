@@ -3,11 +3,13 @@ var util        = require('util');
 // var debug       = require('debug')('castv2-client');
 var Application = require('castv2-client').Application;
 var MediaController = require('castv2-client').MediaController;
+var CiderCastController = require('./castcontroller');
 
 function CiderReceiver(client, session) {
   Application.apply(this, arguments);
 
   this.media = this.createController(MediaController);
+  this.mediaReceiver = this.createController(CiderCastController);
 
   this.media.on('status', onstatus);
 
@@ -18,7 +20,7 @@ function CiderReceiver(client, session) {
   }
 
 }
-
+// FE96A351
 CiderReceiver.APP_ID = '27E1334F';
 
 util.inherits(CiderReceiver, Application);
@@ -65,6 +67,10 @@ CiderReceiver.prototype.queueReorder = function(itemIds, options, callback) {
 
 CiderReceiver.prototype.queueUpdate = function(items, callback) {
   this.media.queueUpdate.apply(this.media, arguments);
+};
+
+CiderReceiver.prototype.sendIp = function(opts){
+  this.mediaReceiver.sendIp.apply(this.mediaReceiver, arguments);
 };
 
 module.exports = CiderReceiver;
