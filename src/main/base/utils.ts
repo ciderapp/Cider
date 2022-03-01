@@ -158,6 +158,6 @@ export class utils {
 
         log.transports.file.level = "debug"
         autoUpdater.logger = log
-        await autoUpdater.checkForUpdate()
+        await autoUpdater.checkForUpdatesAndNotify()
     }
 }
