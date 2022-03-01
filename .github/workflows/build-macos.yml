@@ -92,6 +92,7 @@ jobs:
         rm cider-yarn.lock || true
         xcodebuild -version
         yarn install
+        cp resources/verror-types node_modules/@types/verror/index.d.ts
         cp resources/macPackager.js node_modules/app-builder-lib/out/macPackager.js 
         yarn dist:universalNotWorking -p never
 #     - name: Perform CodeQL Analysis

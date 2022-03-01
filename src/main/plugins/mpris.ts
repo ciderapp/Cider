@@ -174,7 +174,11 @@ export default class MPRIS {
      */
     onBeforeQuit(): void {
         console.debug(`[Plugin][${this.name}] Stopped.`);
-        this.clearState()
+        try {
+            this.clearState()
+        }catch(e) {
+            console.error(e)
+        }
     }
 
     /**
