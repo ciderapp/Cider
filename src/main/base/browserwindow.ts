@@ -657,7 +657,8 @@ export class BrowserWindow {
                             description: themeJson.description || themeDescription,
                             path: themePath,
                             file: theme,
-                            github_repo: themeJson.github_repo || ""
+                            github_repo: themeJson.github_repo || "",
+                            commit: themeJson.commit || ""
                         });
                     } else {
                         themeObjects.push({
@@ -665,7 +666,8 @@ export class BrowserWindow {
                             description: themeDescription,
                             path: themePath,
                             file: theme,
-                            github_repo: ""
+                            github_repo: "",
+                            commit: ""
                         });
                     }
                 }
