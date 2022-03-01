@@ -904,6 +904,7 @@ const app = new Vue({
                 this.$forceUpdate()
             }, 500)
             ipcRenderer.invoke("renderer-ready", true)
+            document.querySelector("#LOADER").remove()
         },
         async setTheme(theme = "", onlyPrefs = false) {
             console.log(theme)
