@@ -12,6 +12,11 @@
                         <option v-for="theme in themes" :value="theme.file">{{ theme.name }}</option>
                     </select>
                 </div>
+                <div class="col-auto flex-center">
+                    <button class="md-btn md-btn-small md-btn-block" @click="openThemesFolder()">
+                        Open Themes Folder
+                    </button>
+                </div>
                 <div class="col-auto nopadding flex-center">
                     <button class="md-btn md-btn-small md-btn-block" @click="installThemeURL()">
                         {{$root.getLz('settings.option.visual.theme.github.download')}}
@@ -99,6 +104,9 @@
             this.getInstalledThemes();
         },
         methods: {
+            openThemesFolder() {
+                ipcRenderer.invoke("open-path", "themes")
+            },
             getInstalledThemes() {
                 let self = this
                 const themes = ipcRenderer.sendSync("get-themes")

@@ -1,17 +1,18 @@
-import { join } from "path";
-import { app, BrowserWindow as bw, ipcMain, ShareMenu, shell } from "electron";
+import {join} from "path";
+import {app, BrowserWindow as bw, ipcMain, ShareMenu, shell} from "electron";
 import * as windowStateKeeper from "electron-window-state";
 import * as express from "express";
 import * as getPort from "get-port";
-import { search } from "youtube-search-without-api-key";
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync, statSync } from "fs";
-import { Stream } from "stream";
-import { networkInterfaces } from "os";
+import {search} from "youtube-search-without-api-key";
+import {existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync, statSync} from "fs";
+import {Stream} from "stream";
+import {networkInterfaces} from "os";
 import * as mm from 'music-metadata';
 import fetch from 'electron-fetch'
-import { wsapi } from "./wsapi";
-import { AppImageUpdater, NsisUpdater } from "electron-updater";
-import { utils } from './utils';
+import {wsapi} from "./wsapi";
+import {AppImageUpdater, NsisUpdater} from "electron-updater";
+import {utils} from './utils';
+
 const fileWatcher = require('chokidar');
 const AdmZip = require("adm-zip");
 
@@ -219,7 +220,7 @@ export class BrowserWindow {
         show: false,
         // backgroundColor: "#1E1E1E",
         titleBarStyle: 'hidden',
-        trafficLightPosition: { x: 15, y: 20 },
+        trafficLightPosition: {x: 15, y: 20},
         webPreferences: {
             experimentalFeatures: true,
             nodeIntegration: true,
@@ -233,6 +234,7 @@ export class BrowserWindow {
             preload: join(utils.getPath('srcPath'), "./preload/cider-preload.js"),
         },
     };
+
     StartWatcher(path: string) {
         var chokidar = require("chokidar");
 
@@ -272,11 +274,12 @@ export class BrowserWindow {
                 // console.log('Raw event info:', event, path, details);
             });
     }
+
     /**
      * Creates the browser window
      */
     async createWindow(): Promise<Electron.BrowserWindow> {
-        this.clientPort = await getPort({ port: 9000 });
+        this.clientPort = await getPort({port: 9000});
         BrowserWindow.verifyFiles();
         this.StartWatcher(utils.getPath('themes'));
 
@@ -497,7 +500,7 @@ export class BrowserWindow {
         remote.use(express.static(join(utils.getPath('srcPath'), "./web-remote/")))
         remote.set("views", join(utils.getPath('srcPath'), "./web-remote/views"));
         remote.set("view engine", "ejs");
-        getPort({ port: 6942 }).then((port) => {
+        getPort({port: 6942}).then((port) => {
             this.remotePort = port;
             // Start Remote Discovery
             this.broadcastRemote()
@@ -550,7 +553,7 @@ export class BrowserWindow {
                     if (itspod != null)
                         details.requestHeaders["Cookie"] = `itspod=${itspod}`;
                 }
-                callback({ requestHeaders: details.requestHeaders });
+                callback({requestHeaders: details.requestHeaders});
             }
         );
 
@@ -598,7 +601,7 @@ export class BrowserWindow {
                 // extract the files from the first folder in the zip response
                 let zip = new AdmZip(await response.buffer());
                 let entry = zip.getEntries()[0];
-                if(!existsSync(join(utils.getPath("themes"), "gh_" + apiRepo.id))) {
+                if (!existsSync(join(utils.getPath("themes"), "gh_" + apiRepo.id))) {
                     mkdirSync(join(utils.getPath("themes"), "gh_" + apiRepo.id));
                 }
                 console.log(join(utils.getPath("themes"), "gh_" + apiRepo.id))
@@ -675,6 +678,21 @@ export class BrowserWindow {
 
             } else {
                 event.returnValue = [];
+            }
+        });
+
+        ipcMain.handle("open-path", async (event, path) => {
+            switch(path) {
+                default:
+                case "plugins":
+                    shell.openPath(utils.getPath("plugins"));
+                    break;
+                case "userdata":
+                    shell.openPath(app.getPath("userData"));
+                    break;
+                case "themes":
+                    shell.openPath(utils.getPath("themes"));
+                    break;
             }
         });
 
@@ -834,7 +852,7 @@ export class BrowserWindow {
         })
         //Fullscreen
         ipcMain.on('detachDT', (_event, _) => {
-            BrowserWindow.win.webContents.openDevTools({ mode: 'detach' });
+            BrowserWindow.win.webContents.openDevTools({mode: 'detach'});
         })
 
 
@@ -992,8 +1010,8 @@ export class BrowserWindow {
                     console.log('sc', SoundCheckTag)
                     BrowserWindow.win.webContents.send('SoundCheckTag', SoundCheckTag)
                 }).catch(err => {
-                    console.log(err)
-                });
+                console.log(err)
+            });
         });
 
         ipcMain.on('check-for-update', async (_event) => {
@@ -1023,7 +1041,7 @@ export class BrowserWindow {
         })
 
         ipcMain.on('get-version', (_event) => {
-            if (app.isPackaged){
+            if (app.isPackaged) {
                 _event.returnValue = app.getVersion()
             } else {
                 _event.returnValue = `Experimental running on Electron ${app.getVersion()}`
@@ -1092,10 +1110,10 @@ export class BrowserWindow {
         // Set window Handler
         BrowserWindow.win.webContents.setWindowOpenHandler((x: any) => {
             if (x.url.includes("apple") || x.url.includes("localhost")) {
-                return { action: "allow" };
+                return {action: "allow"};
             }
             shell.openExternal(x.url).catch(console.error);
-            return { action: "deny" };
+            return {action: "deny"};
         });
     }
 
@@ -1144,7 +1162,7 @@ export class BrowserWindow {
             "CtlN": "Cider",
             "iV": "196623"
         };
-        let server2 = mdns.createAdvertisement(x, `${await getPort({ port: 3839 })}`, {
+        let server2 = mdns.createAdvertisement(x, `${await getPort({port: 3839})}`, {
             name: encoded,
             txt: txt_record
         });
