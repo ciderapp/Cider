@@ -219,6 +219,7 @@ export class AppEvents {
                         app.quit()
                     } else if (utils.getWindow()) {
                         if (utils.getWindow().isMinimized()) utils.getWindow().restore()
+                        utils.getWindow().show()
                         utils.getWindow().focus()
                     }
                 })
