@@ -21,7 +21,8 @@ function CiderReceiver(client, session) {
 
 }
 // FE96A351
-CiderReceiver.APP_ID = '27E1334F';
+// 27E1334F
+CiderReceiver.APP_ID = 'FE96A351';
 
 util.inherits(CiderReceiver, Application);
 
