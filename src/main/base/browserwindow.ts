@@ -613,6 +613,7 @@ export class BrowserWindow {
                 let theme = JSON.parse(
                     readFileSync(join(utils.getPath("themes"), "gh_" + apiRepo.id, "theme.json"), "utf8")
                 );
+                theme.id = apiRepo.id
                 theme.commit = commit[0].sha;
                 writeFileSync(
                     join(utils.getPath("themes"), "gh_" + apiRepo.id, "theme.json"),
