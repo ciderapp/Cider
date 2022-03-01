@@ -47,13 +47,13 @@
     </transition>
     <transition name="fsModeSwitch">
         <div class="fullscreen-view-container" v-if="appMode == 'fullscreen'">
-            <fullscreen-view :image="currentArtUrl.replace('50x50', '600x600')" :time="lyriccurrenttime"
+            <fullscreen-view :image="currentArtUrlRaw" :time="lyriccurrenttime"
                              :lyrics="lyrics" :richlyrics="richlyrics"></fullscreen-view>
         </div>
     </transition>
     <transition name="fsModeSwitch">
         <div class="fullscreen-view-container" v-if="appMode == 'mini'">
-            <mini-view :image="currentArtUrl.replace('50x50', '600x600')" :time="lyriccurrenttime"
+            <mini-view :image="currentArtUrlRaw" :time="lyriccurrenttime"
                        :lyrics="lyrics" :richlyrics="richlyrics"></mini-view>
         </div>
     </transition>

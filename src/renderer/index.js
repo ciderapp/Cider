@@ -187,6 +187,7 @@ const app = new Vue({
         playerReady: false,
         animateBackground: false,
         currentArtUrl: '',
+        currentArtUrlRaw: '',
         lyricon: false,
         currentTrackID: '',
         currentTrackIDBG: '',
@@ -3372,7 +3373,9 @@ const app = new Vue({
                     artworkSize = app.getThemeDirective("lcdArtworkSize")
                 }
                 this.currentArtUrl = '';
+                this.currentArtUrlRaw = '';
                 if (app.mk.nowPlayingItem != null && app.mk.nowPlayingItem.attributes != null && app.mk.nowPlayingItem.attributes.artwork != null && app.mk.nowPlayingItem.attributes.artwork.url != null && app.mk.nowPlayingItem.attributes.artwork.url != '') {
+                    this.currentArtUrlRaw = (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"] ?? '')
                     this.currentArtUrl = (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"] ?? '').replace('{w}', artworkSize).replace('{h}', artworkSize);
                     try {
                         document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
@@ -3382,6 +3385,7 @@ const app = new Vue({
                     let data = await this.mk.api.v3.music(`/v1/me/library/songs/${this.mk.nowPlayingItem.id}`);
                     data = data.data.data[0];
                     if (data != null && data !== "" && data.attributes != null && data.attributes.artwork != null) {
+                        this.currentArtUrlRaw = (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"] ?? '')
                         this.currentArtUrl = (data["attributes"]["artwork"]["url"] ?? '').replace('{w}', artworkSize).replace('{h}', artworkSize);
                         ipcRenderer.send('updateRPCImage', this.currentArtUrl ?? '');
                         try {
@@ -3389,6 +3393,7 @@ const app = new Vue({
                         } catch (e) {
                         }
                     } else {
+                        this.currentArtUrlRaw = ''
                         this.currentArtUrl = '';
                         try {
                             document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
