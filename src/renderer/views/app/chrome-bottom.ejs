@@ -112,6 +112,11 @@
                         :class="{'active': drawer.panel == 'lyrics'}"
                         @click="invokeDrawer('lyrics')"></button>
             </template>
+            <template v-else>
+                <button class="playback-button--small lyrics"
+                        :style="{'opacity': 0.5, 'pointer-events': 'none'}"
+                        @click="invokeDrawer('lyrics')"></button>
+            </template>
 
         </div>
     </div>
