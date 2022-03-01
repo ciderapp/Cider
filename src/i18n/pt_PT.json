@@ -2,7 +2,7 @@
   "i18n.languageName": "Inglês (Estados Unidos da América)",
   "i18n.languageNameEnglish": "Inglês (Estados Unidos da América)",
   "i18n.category": "principal",
-  "i18n.authors": "@maikirakiwi @kyw504100 nosh118",
+  "i18n.authors": "@lordgaelish190",
   "app.name": "Cider",
   "date.format": "${d} ${m}, ${y}",
   "dialog.cancel": "Cancelar",
@@ -89,8 +89,8 @@
   "term.time.added": "Adicionado",
   "term.time.released": "Lançado",
   "term.time.updated": "Atualizado",
-  "term.time.days": "days",
-  "term.time.day": "day",
+  "term.time.days": "dias",
+  "term.time.day": "dia",
   "term.time.hours": "horas",
   "term.time.hour": "hora",
   "term.time.minutes": "minutos",
@@ -118,7 +118,7 @@
   "term.reset": "Reiniciar",
   "term.tracks": "faixas",
   "term.track": {
-    "one" : "track",
+    "one" : "faixa",
     "other" : "tracks"
   },
   "term.videos": "Vídeos"
