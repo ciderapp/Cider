@@ -6,7 +6,8 @@
                     <h1 class="header-text">{{$root.getLz('settings.header.visual.theme.github.page')}}</h1>
                 </div>
                 <div class="col-auto flex-center">
-                    <select class="md-select" @change="$root.setTheme($root.cfg.visual.theme)" v-model="$root.cfg.visual.theme">
+                    <select class="md-select" @change="$root.setTheme($root.cfg.visual.theme)"
+                            v-model="$root.cfg.visual.theme">
                         <option value="default.less">{{$root.getLz('settings.option.visual.theme.default')}}</option>
                         <option value="dark.less">{{$root.getLz('settings.option.visual.theme.dark')}}</option>
                         <option v-for="theme in themes" :value="theme.file">{{ theme.name }}</option>
@@ -33,12 +34,14 @@
                         <div class="row">
                             <div class="col flex-center">
                                 <div>
-                                    <h4 class="repo-name">{{ (repo.description != null) ? repo.description : repo.full_name }}</h4>
+                                    <h4 class="repo-name">{{ (repo.description != null) ? repo.description :
+                                        repo.full_name }}</h4>
                                     <div>⭐ {{ repo.stargazers_count }}</div>
                                 </div>
                             </div>
                             <div class="col-auto">
-                                <span v-if="themesInstalled.includes(repo.full_name)" class="codicon codicon-cloud-download"></span>
+                                <span v-if="themesInstalled.includes(repo.full_name.toLowerCase())"
+                                      class="codicon codicon-cloud-download"></span>
                             </div>
                         </div>
                     </li>
@@ -52,7 +55,8 @@
                             <div>
                                 <h3 class="repo-preview-name">{{ openRepo.description }}</h3>
                                 <div>
-                                    <div class="svg-icon inline" :style="{'--url': 'url(\'./assets/github.svg\')'}"></div>
+                                    <div class="svg-icon inline"
+                                         :style="{'--url': 'url(\'./assets/github.svg\')'}"></div>
                                     <a class="repo-url" target="_blank" :href="openRepo.html_url">{{ openRepo.full_name
                                         }}</a></div>
                                 <div>⭐ {{ openRepo.stargazers_count }}</div>
@@ -60,7 +64,7 @@
                         </div>
                         <div class="col-auto nopadding flex-center">
                             <button class="md-btn md-btn-primary" @click="installThemeRepo(openRepo)">
-                                <span v-if="!themesInstalled.includes(openRepo.full_name)">{{$root.getLz('action.install')}}</span>
+                                <span v-if="!themesInstalled.includes(openRepo.full_name.toLowerCase())">{{$root.getLz('action.install')}}</span>
                                 <span v-else>{{$root.getLz('action.update')}}</span>
                             </button>
                         </div>
@@ -102,6 +106,7 @@
             this.themes = ipcRenderer.sendSync("get-themes")
             this.getRepos();
             this.getInstalledThemes();
+            app.checkForThemeUpdates()
         },
         methods: {
             openThemesFolder() {
@@ -113,7 +118,7 @@
                 // for each theme, get the github_repo property and push it to the themesInstalled array, if not blank
                 themes.forEach(theme => {
                     if (theme.github_repo !== "" && typeof theme.commit != "") {
-                        self.themesInstalled.push(theme.github_repo)
+                        self.themesInstalled.push(theme.github_repo.toLowerCase())
                     }
                 })
             },

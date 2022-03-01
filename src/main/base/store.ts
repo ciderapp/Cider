@@ -15,6 +15,7 @@ export class Store {
             "update_branch": "main",
             "resumeOnStartupBehavior": "local",
             "privateEnabled": false,
+            "themeUpdateNotification": true
         },
         "home": {
             "followedArtists": [],

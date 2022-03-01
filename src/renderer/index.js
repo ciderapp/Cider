@@ -905,6 +905,28 @@ const app = new Vue({
             }, 500)
             ipcRenderer.invoke("renderer-ready", true)
             document.querySelector("#LOADER").remove()
+            if(this.cfg.general.themeUpdateNotification) {
+                this.checkForThemeUpdates()
+            }
+        },
+        async checkForThemeUpdates() {
+            let self = this
+            const themes = ipcRenderer.sendSync("get-themes")
+            await asyncForEach(themes, async (theme) => {
+                if (theme.commit != "") {
+                    await fetch(`https://api.github.com/repos/${theme.github_repo}/commits`)
+                        .then(res => res.json())
+                        .then(res => {
+                            if (res[0].sha != theme.commit) {
+                                const notify = notyf.open({ className: "notyf-info", type: "info", message: `[Themes] ${theme.name} has an update available.` })
+                                notify.on("click", ()=>{
+                                    app.appRoute("themes-github")
+                                    notyf.dismiss(notify)
+                                })
+                            }
+                        })
+                }
+            })
         },
         async setTheme(theme = "", onlyPrefs = false) {
             console.log(theme)
