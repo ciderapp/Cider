@@ -303,7 +303,7 @@ const app = new Vue({
     },
     methods: {
         songLinkShare(amUrl) {
-            notyf.open({ type: "info", message: app.getLz('term.song.link.generate') })
+            notyf.open({ type: "info", className: "notyf-info", message: app.getLz('term.song.link.generate') })
             let self = this
             httpRequest = new XMLHttpRequest();
             httpRequest.open('GET', `https://api.song.link/v1-alpha.1/links?url=${amUrl}&userCountry=US`, true);
@@ -904,6 +904,29 @@ const app = new Vue({
                 this.$forceUpdate()
             }, 500)
             ipcRenderer.invoke("renderer-ready", true)
+            document.querySelector("#LOADER").remove()
+            if(this.cfg.general.themeUpdateNotification) {
+                this.checkForThemeUpdates()
+            }
+        },
+        async checkForThemeUpdates() {
+            let self = this
+            const themes = ipcRenderer.sendSync("get-themes")
+            await asyncForEach(themes, async (theme) => {
+                if (theme.commit != "") {
+                    await fetch(`https://api.github.com/repos/${theme.github_repo}/commits`)
+                        .then(res => res.json())
+                        .then(res => {
+                            if (res[0].sha != theme.commit) {
+                                const notify = notyf.open({ className: "notyf-info", type: "info", message: `[Themes] ${theme.name} has an update available.` })
+                                notify.on("click", ()=>{
+                                    app.appRoute("themes-github")
+                                    notyf.dismiss(notify)
+                                })
+                            }
+                        })
+                }
+            })
         },
         async setTheme(theme = "", onlyPrefs = false) {
             console.log(theme)
@@ -936,12 +959,15 @@ const app = new Vue({
             }
         },
         getThemeDirective(directive = "") {
-            if (typeof this.chrome.appliedTheme.info.directives != "object") {
-                return ""
+            let directives = {}
+            if (typeof this.chrome.appliedTheme.info.directives == "object") {
+                directives = this.chrome.appliedTheme.info.directives
             }
-            if (this.chrome.appliedTheme.info.directives[directive]) {
+            if (directives[directive]) {
                 return this.chrome.appliedTheme.info.directives[directive].value
-            } else {
+            } else if(this.cfg.visual.directives[directive]) {
+                return this.cfg.visual.directives.windowLayout
+            }else{
                 return ""
             }
         },
@@ -3371,6 +3397,8 @@ const app = new Vue({
                 let artworkSize = 50
                 if (app.getThemeDirective("lcdArtworkSize") != "") {
                     artworkSize = app.getThemeDirective("lcdArtworkSize")
+                }else if(this.cfg.visual.directives.windowLayout == "twopanel") {
+                    artworkSize = 70
                 }
                 this.currentArtUrl = '';
                 this.currentArtUrlRaw = '';

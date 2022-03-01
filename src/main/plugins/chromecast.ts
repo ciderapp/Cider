@@ -1,6 +1,7 @@
 import * as electron from 'electron';
 import * as os from 'os';
 import {resolve} from 'path';
+import * as CiderReceiver from '../base/castreceiver';
 
 export default class ChromecastPlugin {
 
@@ -133,9 +134,8 @@ export default class ChromecastPlugin {
 
     private loadMedia(client: any, song: any, artist: any, album: any, albumart: any, cb?: any) {
         // const u = 'http://' + this.getIp() + ':' + server.address().port + '/';
-        const DefaultMediaReceiver : any = require('castv2-client').DefaultMediaReceiver;
-      
-        client.launch(DefaultMediaReceiver, (err: any, player: any) => {
+      //  const DefaultMediaReceiver : any = require('castv2-client').DefaultMediaReceiver;
+        client.launch(CiderReceiver, (err: any, player: any) => {
             if (err) {
                 console.log(err);
                 return;
@@ -178,6 +178,10 @@ export default class ChromecastPlugin {
                     client.stepInterval = status.volume.stepInterval;
                 }
             })
+            
+            // send websocket ip
+
+            player.sendIp("ws://"+this.getIp()+":26369");
 
         });
     }
@@ -272,6 +276,7 @@ export default class ChromecastPlugin {
     private async setupGCServer(){
         return ''
     }
+
 
     /**
      * Base Plugin Details (Eventually implemented into a GUI in settings)
