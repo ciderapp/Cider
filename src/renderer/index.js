@@ -959,12 +959,15 @@ const app = new Vue({
             }
         },
         getThemeDirective(directive = "") {
-            if (typeof this.chrome.appliedTheme.info.directives != "object") {
-                return ""
+            let directives = {}
+            if (typeof this.chrome.appliedTheme.info.directives == "object") {
+                directives = this.chrome.appliedTheme.info.directives
             }
-            if (this.chrome.appliedTheme.info.directives[directive]) {
+            if (directives[directive]) {
                 return this.chrome.appliedTheme.info.directives[directive].value
-            } else {
+            } else if(this.cfg.visual.directives[directive]) {
+                return this.cfg.visual.directives.windowLayout
+            }else{
                 return ""
             }
         },
