@@ -3397,6 +3397,8 @@ const app = new Vue({
                 let artworkSize = 50
                 if (app.getThemeDirective("lcdArtworkSize") != "") {
                     artworkSize = app.getThemeDirective("lcdArtworkSize")
+                }else if(this.cfg.visual.directives.windowLayout == "twopanel") {
+                    artworkSize = 70
                 }
                 this.currentArtUrl = '';
                 this.currentArtUrlRaw = '';
