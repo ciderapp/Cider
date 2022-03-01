@@ -3,7 +3,7 @@
   "i18n.languageNameEnglish": "Portuguese (Brazil)",
   "i18n.category": "Principal",
 
-  "i18n.authors": "@maikirakiwi @kyw504100",
+  "i18n.authors": "@maikirakiwi @kyw504100 nosh118",
   "app.name": "Cider",
   "date.format": "${d} ${m}, ${y}",
   "dialog.cancel": "Cancelar",
@@ -92,6 +92,8 @@
   "term.time.added": "Adicionado",
   "term.time.updated": "Atualizado",
   "action.update": "Atualizar",
+  "term.time.days": "days",
+  "term.time.day": "day",
   "term.ciderTeam": "Time Cider",
   "term.socialTeam": "Time social",
   "term.stations": "Estações",
@@ -119,6 +121,10 @@
   "term.equalizer": "Equalizador",
   "term.deletedpreset": "Predefinição removida",
   "term.tracks": "músicas",
+  "term.track": {
+    "one" : "track",
+    "other" : "tracks"
+  },
   "term.musicVideos": "Vídeos",
   "term.menu": "Menu",
 
@@ -147,9 +153,6 @@
   "term.noVideos": "Vídeos não encontrados.",
   "settings.header.connectivity": "Conectividade",
   "term.pluginMenu": "Menu de Plug-ins",
-  "term.pluginMenu.none": "Nenhum plugin interativo.",
-
-
   "term.replay": "Replay",
   "action.goToAlbum": "Ir para o Album",
   "term.aboutArtist": "Sobre {{artistName}}",
@@ -165,7 +168,7 @@
   "home.recentlyPlayed": "Tocado Recentemente",
   "home.recentlyAdded": "Adicionado Recentemente",
   "home.artistsFeed": "Novidades dos seus Artistas",
-  "home.artistsFeed.noArtist": "Siga uns artistas e o seus ultimos lançamentos aparecerão aqui",
+  "home.artistsFeed.noArtist": "Follow some artists to see their latest releases",
   "home.madeForYou": "Feito para Você",
   "home.friendsListeningTo": "Amigos Ouvindo",
   "action.goToArtist": "Ir para o Artista",
@@ -250,6 +253,10 @@
   "settings.header.connectivity.description": "Ajustar as definições de conectividade no Cider.",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "Padrão",
   "settings.option.audio.volumeStep": "Incrementos",
+  "settings.notyf.updateCider.update-not-available": "No update available",
+  "settings.notyf.updateCider.update-downloaded": "Update has been downloaded, restart to apply",
+  "settings.notyf.updateCider.update-error": "Error updating Cider",
+  "settings.notyf.updateCider.update-timeout": "Update timed out",
   "settings.header.audio.quality.high": "Alta",
   "settings.header.audio.description": "Ajustar as configurações de áudio no Cider.",
   "settings.option.audio.maxVolume": "Volume máximo",
@@ -268,7 +275,7 @@
   "settings.header.audio.quality.standard.description": "64 kbps",
   "settings.option.audio.seamlessTransition": "Transição de audio sutil...", // Toggle
   "settings.option.audio.enableAdvancedFunctionality": "Ativar funcionalidades avançadas", // Toggle
-  "settings.option.audio.enableAdvancedFunctionality.description": "Habilitar a funcionalidade AudioContext permitirá recursos de áudio estendidos, como Normalização de Áudio , Equalizadores e Visualizadores.
+  "settings.option.audio.enableAdvancedFunctionality.description": "Enabling AudioContext functionality will allow for extended audio features like Audio Normalization, Equalizers and Visualizers - however on some systems this may cause stuttering in audio tracks.",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Normalização de Áudio",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normaliza o volume alto para faixas individuais para criar uma experiência de audição mais uniforme.",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Áudio Espacial",
