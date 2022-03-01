@@ -590,10 +590,32 @@ export class BrowserWindow {
                 let response = await fetch(
                     `${url}/archive/refs/heads/main.zip`
                 );
-                let zip = await response.buffer();
-                let zipFile = new AdmZip(zip);
-                zipFile.extractAllTo(utils.getPath("themes"), true);
-
+                let repo = url.split("/").slice(-2).join("/");
+                let apiRepo = await fetch(
+                    `https://api.github.com/repos/${repo}`
+                ).then((res) => res.json());
+                console.debug(`REPO ID: ${apiRepo.id}`);
+                // extract the files from the first folder in the zip response
+                let zip = new AdmZip(await response.buffer());
+                let entry = zip.getEntries()[0];
+                if(!existsSync(join(utils.getPath("themes"), "gh_" + apiRepo.id))) {
+                    mkdirSync(join(utils.getPath("themes"), "gh_" + apiRepo.id));
+                }
+                console.log(join(utils.getPath("themes"), "gh_" + apiRepo.id))
+                zip.extractEntryTo(entry, join(utils.getPath("themes"), "gh_" + apiRepo.id), false, true);
+                let commit = await fetch(
+                    `https://api.github.com/repos/${repo}/commits`
+                ).then((res) => res.json());
+                console.debug(`COMMIT SHA: ${commit[0].sha}`);
+                let theme = JSON.parse(
+                    readFileSync(join(utils.getPath("themes"), "gh_" + apiRepo.id, "theme.json"), "utf8")
+                );
+                theme.commit = commit[0].sha;
+                writeFileSync(
+                    join(utils.getPath("themes"), "gh_" + apiRepo.id, "theme.json"),
+                    JSON.stringify(theme, null, 4),
+                    "utf8"
+                );
             } catch (e) {
                 returnVal.success = false;
             }
