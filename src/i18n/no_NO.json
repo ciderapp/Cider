@@ -353,6 +353,8 @@
   "settings.option.experimental.compactUI": "Kompakt UI",
   "settings.option.experimental.close_button_hide": "Lukkeknappen Burde Skjule Applikasjonen",
   "settings.option.experimental.inline_playlists": "Innebygde Spillelister og Album",
+  "settings.option.advanced.playlistTrackMapping": "Playlist Track Mapping",
+  "settings.option.advanced.playlistTrackMapping.description": "Enables deep scanning of playlists to determine which tracks are in which playlists.",
   "spatial.notTurnedOn": "Lydspatialisering er deaktivert. For å bruke, vennligst aktiver den først.",
   "spatial.spatialProperties": "Romlige Egenskaper",
   "spatial.width": "Bredde",
