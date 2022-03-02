@@ -13,7 +13,7 @@
          @mouseover="showInLibrary = true"
          @mouseleave="showInLibrary = false"
          @dblclick="route()"
-         @controller-click.self="route()"
+         @controller-click="route()"
          tabindex="0"
          :class="[{'mediaitem-selected': app.select_hasMediaItem(guid)}, addClasses]">
         <template v-if="isVisible">
