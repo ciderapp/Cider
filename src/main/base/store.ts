@@ -118,7 +118,8 @@ export class Store {
         },
         "advanced": {
             "AudioContext": false,
-            "experiments": []
+            "experiments": [],
+            "playlistTrackMapping": true
         }
     }
     private migrations: any = {}

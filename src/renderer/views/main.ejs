@@ -80,6 +80,7 @@
         </div>
     </transition>
     <%- include('app/panels'); %>
+    <div class="cursor" v-if="chrome.showCursor"></div>
 </div>
 
 <% for(var i=0; i < Object.keys(env.components).length ; i++) {%>
