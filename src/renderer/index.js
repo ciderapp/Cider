@@ -6,10 +6,10 @@ const CiderCache = {
         let cache = await ipcRenderer.sendSync("get-cache", file)
         if (isJson(cache)) {
             cache = JSON.parse(cache)
-            if(Object.keys(cache).length === 0) {
+            if (Object.keys(cache).length === 0) {
                 cache = false
             }
-        }else{
+        } else {
             cache = false
         }
         return cache
@@ -331,12 +331,14 @@ const app = new Vue({
             let cursorPos = [0, 0];
             let intTabIndex = 0
             let self = this
-            const cursorSpeedPvt = 4
+            const cursorSpeedPvt = 8
+            const cursorSize = 16
             let scrollSpeed = 8
             let buttonPressDelay = 500
             let stickDeadZone = 0.2
             let scrollGroup = null
             let scrollGroupY = null
+            let elementFocusEnabled = true
 
             let cursorSpeed = cursorSpeedPvt
 
@@ -374,24 +376,44 @@ const app = new Vue({
                     cursorPos[1] += (gp.axes[1] * cursorSpeed)
                 }
 
-                // RIGHT STICK.
-                if(scrollGroupY) {
-                    if (gp.axes[3] > stickDeadZone) {
-                        $(scrollGroupY).scrollTop($(scrollGroupY).scrollTop() + (gp.axes[3] * scrollSpeed))
-                    } else if (gp.axes[3] < -stickDeadZone) {
-                        $(scrollGroupY).scrollTop($(scrollGroupY).scrollTop() + (gp.axes[3] * scrollSpeed))
-                    }
+                if (cursorPos[0] < cursorSize) {
+                    cursorPos[0] = cursorSize
+                }
+                if (cursorPos[1] < cursorSize) {
+                    cursorPos[1] = cursorSize
+                }
+                if (cursorPos[0] > window.innerWidth - cursorSize) {
+                    cursorPos[0] = window.innerWidth - cursorSize
+                }
+                if (cursorPos[1] > window.innerHeight - cursorSize) {
+                    cursorPos[1] = window.innerHeight - cursorSize
                 }
                 
+
+                // RIGHT STICK.
+                if (scrollGroupY) {
+                    if (gp.axes[3] > stickDeadZone) {
+                        $(scrollGroupY).scrollTop($(scrollGroupY).scrollTop() + (gp.axes[3] * scrollSpeed))
+                        elementFocusEnabled = false
+                    } else if (gp.axes[3] < -stickDeadZone) {
+                        $(scrollGroupY).scrollTop($(scrollGroupY).scrollTop() + (gp.axes[3] * scrollSpeed))
+                        elementFocusEnabled = false
+                    }else {
+                        elementFocusEnabled = true
+                    }
+                } 
+
 
 
                 if (scrollGroup) {
                     if (gp.axes[2] > stickDeadZone) {
-                        console.log('axis 2 up')
                         $(scrollGroup).scrollLeft($(scrollGroup).scrollLeft() + (gp.axes[2] * scrollSpeed))
+                        elementFocusEnabled = false
                     } else if (gp.axes[2] < -stickDeadZone) {
-                        console.log('axis 2 dn')
                         $(scrollGroup).scrollLeft($(scrollGroup).scrollLeft() + (gp.axes[2] * scrollSpeed))
+                        elementFocusEnabled = false
+                    } else {
+                        elementFocusEnabled = true
                     }
                 }
 
@@ -471,10 +493,12 @@ const app = new Vue({
 
 
                 // cursor hover
-
-                element = document.elementFromPoint(cursorPos[0], cursorPos[1])
+                if (elementFocusEnabled) {
+                    element = document.elementFromPoint(cursorPos[0], cursorPos[1])
+                }
 
                 if (element) {
+
                     let closest = element.closest("[tabindex], input, button, a")
 
                     // VERT SCROLL
@@ -482,7 +506,7 @@ const app = new Vue({
                     if (scrollGroupCloY) {
                         scrollGroupY = scrollGroupCloY
                     }
-                    
+
 
                     //  HOZ SCROLL
                     let scrollGroupClo = element.closest(".v-hl-container")
@@ -1223,7 +1247,7 @@ const app = new Vue({
                 this.cfg.audio.volume = this.mk.volume
             })
 
-            this.refreshPlaylists()
+            this.refreshPlaylists(this.isDev)
             document.body.removeAttribute("loading")
             if (window.location.hash != "") {
                 this.appRoute(window.location.hash)
@@ -1376,17 +1400,20 @@ const app = new Vue({
                 }
             })
         },
-        async refreshPlaylists() {
+        async refreshPlaylists(localOnly = false) {
             let self = this
             let newListing = []
             const cachedPlaylist = await CiderCache.getCache("library-playlists")
 
-            if(cachedPlaylist) {
+            if (cachedPlaylist) {
                 console.log("using cached playlists")
                 this.playlists.listing = cachedPlaylist
                 self.sortPlaylists()
-            }else{
+            } else {
                 console.log("playlist has no cache")
+            }
+            if(localOnly) {
+                return
             }
 
             this.library.backgroundNotification.message = "Building playlist cache..."
@@ -1405,20 +1432,20 @@ const app = new Vue({
                         })
                         playlist.tracks = tracks.data
                     } catch (e) { }
-    
+
                     if (playlist.type == "library-playlist-folders") {
                         try {
-                            await deepScan(playlist.id).catch(e => {})
+                            await deepScan(playlist.id).catch(e => { })
                         } catch (e) {
-    
+
                         }
                     }
                     newListing.push(playlist)
                 })
-            }          
+            }
 
             await deepScan()
-            
+
             this.library.backgroundNotification.show = false
             this.playlists.listing = newListing
             self.sortPlaylists()
