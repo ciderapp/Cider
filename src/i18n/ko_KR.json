@@ -352,6 +352,8 @@
   "settings.option.experimental.compactUI": "Compact UI",
   "settings.option.experimental.close_button_hide": "Close Button Should Hide the Application",
   "settings.option.experimental.inline_playlists": "Inline Playlists and Albums",
+  "settings.option.advanced.playlistTrackMapping": "Playlist Track Mapping",
+  "settings.option.advanced.playlistTrackMapping.description": "Enables deep scanning of playlists to determine which tracks are in which playlists.",
   "spatial.notTurnedOn": "오디오 공간화가 비활성화되어있습니다 사용하기 전에 먼저 활성화해주세요.",
   "spatial.roomPositions": "방 위치",
   "spatial.width": "길이",
