@@ -785,11 +785,20 @@ const app = new Vue({
             })
 
             ipcRenderer.on('SoundCheckTag', (event, tag) => {
-                let replaygain = self.parseSCTagToRG(tag)
-                console.debug(`[Cider][MaikiwiSoundCheck] Replay Gain: ${JSON.stringify(replaygain)} | Attenuating '${Math.log10(replaygain.gain) * 20}' dB`)
+                // let replaygain = self.parseSCTagToRG(tag)
+                let soundcheck = tag.split(" ")
+                let numbers = []
+                for (item of soundcheck) {
+                    numbers.push(parseInt(item, 16))
+    
+                }
+                numbers.shift()
+                let peak = Math.max(numbers[6], numbers[7]) / 32768.0
+                let gain = Math.pow(10, ((-7.63 - (Math.log10(peak) * 20)) / 20))// EBU R 128 Compliant
+                console.debug(`[Cider][MaikiwiSoundCheck] Peak Gain: ${Math.log10(peak) * 20} | Adjusting '${Math.log10(gain) * 20}' dB`)
                 try {
                     //CiderAudio.audioNodes.gainNode.gain.value = (Math.min(Math.pow(10, (replaygain.gain / 20)), (1 / replaygain.peak)))
-                    CiderAudio.audioNodes.gainNode.gain.value = replaygain.gain
+                    CiderAudio.audioNodes.gainNode.gain.value = gain
                 } catch (e) {
                 }
             })
@@ -3835,6 +3844,7 @@ const app = new Vue({
                 element.onclick = app.LastFMDeauthorize;
             });
         },
+        /**  
         parseSCTagToRG: function (tag) {
             let soundcheck = tag.split(" ")
             let numbers = []
@@ -3850,7 +3860,7 @@ const app = new Vue({
                 gain: gain,
                 peak: peak
             }
-        },
+        },*/
         fullscreen(flag) {
             if (flag) {
                 ipcRenderer.send('setFullScreen', true);
