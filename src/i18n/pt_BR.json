@@ -373,6 +373,8 @@
 
   "settings.option.experimental.close_button_hide": "Botão Fechar deve esconder o aplicativo",
   "settings.option.lyrics.enableMusixmatchKaraoke": "Ativar Modo Karaoke (só para Musixmatch)",
+  "settings.option.advanced.playlistTrackMapping": "Playlist Track Mapping",
+  "settings.option.advanced.playlistTrackMapping.description": "Enables deep scanning of playlists to determine which tracks are in which playlists.",
   "spatial.notTurnedOn": "Espacialização de Áudio está desabilitada."
  Para usar, por favor, habilite antes.",
 
