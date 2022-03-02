@@ -353,6 +353,8 @@
   "settings.option.experimental.compactUI": "Interface de utilizador compacta",
   "settings.option.experimental.close_button_hide": "O Botão Fechar deve esconder a aplicação",
   "settings.option.experimental.inline_playlists": "Listas de Reprodução e Albums na linha",
+  "settings.option.advanced.playlistTrackMapping": "Playlist Track Mapping",
+  "settings.option.advanced.playlistTrackMapping.description": "Enables deep scanning of playlists to determine which tracks are in which playlists.",
   "spatial.notTurnedOn": "A Virtualização Espacial de Áudio está desligada. Para a utilizar, ative-a primeiro.",
   "spatial.spatialProperties": "Propriedades da Virtualização Espacial",
   "spatial.width": "Largura",
