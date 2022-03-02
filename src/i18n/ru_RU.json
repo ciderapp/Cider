@@ -352,6 +352,8 @@
   "settings.option.experimental.compactUI": "Компактный интерфейс",
   "settings.option.experimental.close_button_hide": "Кнопка «Закрыть» скрывает приложение",
   "settings.option.lyrics.enableYoutubeLyrics": "Включить Youtube Lyrics для музыкальных клипов",
+  "settings.option.advanced.playlistTrackMapping": "Playlist Track Mapping",
+  "settings.option.advanced.playlistTrackMapping.description": "Enables deep scanning of playlists to determine which tracks are in which playlists.",
   "spatial.notTurnedOn": "Пространственное аудио отключено. Чтобы использовать, сначала включите его.",
   "spatial.gain": "Усиление",
   "spatial.width": "Ширина",
