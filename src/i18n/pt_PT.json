@@ -119,7 +119,7 @@
   "term.tracks": "faixas",
   "term.track": {
     "one" : "faixa",
-    "other" : "tracks"
+    "other" : "faixas"
   },
   "term.videos": "Vídeos"
   "term.menu": "Menu",
@@ -163,7 +163,7 @@
   "home.recentlyPlayed": "Ouvido Recentemente",
   "home.recentlyAdded": "Adicionado Recentemente",
   "home.artistsFeed": "Novidades dos seus Artistas",
-  "home.artistsFeed.noArtist": "Follow some artists to see their latest releases",
+  "home.artistsFeed.noArtist": "Siga algums artistas para ver os seus últimos lançamentos",
   "home.madeForYou": "Feito para Si",
   "home.friendsListeningTo": "Amigos a Ouvir",
   "home.followedArtists": "Artistas Seguidos",
@@ -245,10 +245,10 @@
   "settings.option.general.updateCider.branch.description": "Selecione o ramo de atualizações para o qual pretende atualizar o Cider",
   "settings.option.general.updateCider.branch.main": "Estável",
   "settings.option.general.updateCider.branch.develop": "Desenvolvimento",
-  "settings.notyf.updateCider.update-not-available": "No update available",
-  "settings.notyf.updateCider.update-downloaded": "Update has been downloaded, restart to apply",
-  "settings.notyf.updateCider.update-error": "Error updating Cider",
-  "settings.notyf.updateCider.update-timeout": "Update timed out",
+  "settings.notyf.updateCider.update-not-available": "Nenhuma atualização disponível",
+  "settings.notyf.updateCider.update-downloaded": "A atualização foi descarregada, reinicie a aplicação para aplicar",
+  "settings.notyf.updateCider.update-error": "Erro ao atualizar o Cider",
+  "settings.notyf.updateCider.update-timeout": "A atualização excedeu o tempo limite",
   "settings.header.audio": "Áudio",
   "settings.header.audio.description": "Ajuste as definições de áudio do Cider.",
   "settings.option.audio.volumeStep": "Grau de Volume",
@@ -264,7 +264,7 @@
   "settings.header.audio.quality.standard.description": "64 kbps",
   "settings.option.audio.seamlessTransition": "Transição Suave de Áudio",
   "settings.option.audio.enableAdvancedFunctionality": "Ativar Funcionalidades Avançadas",
-  "settings.option.audio.enableAdvancedFunctionality.description": "Enabling AudioContext functionality will allow for extended audio features like Audio Normalization, Equalizers and Visualizers - however on some systems this may cause stuttering in audio tracks.",
+  "settings.option.audio.enableAdvancedFunctionality.description": "Ativar a funcionalidade AudioContext permitirá ativar funções adicionais como a Normalização de Áudio, Equalizadores e Visualizadores - no entanto, em alguns sistemas, isto pode criar falhas na reprodução de faixas áudio.",
   "settings.option.audio.audioLab": "Laboratório Áudio Cider",
   "settings.option.audio.audioLab.description": "Uma seleção de efeitos áudio desenvolvidos internamente para o Cider.",
   "settings.warn.audioLab.withoutAF": "AudioContext (Funcionalidade Avançada) é requerida para ativar o Laboratório Áudio Cider.",
