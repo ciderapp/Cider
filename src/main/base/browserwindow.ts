@@ -185,10 +185,6 @@ export class BrowserWindow {
                     component: `<plugins-github></plugins-github>`,
                     condition: `page == 'plugins-github'`
                 }, {
-                    page: "podcasts",
-                    component: `<apple-podcasts></apple-podcasts>`,
-                    condition: `page == 'podcasts'`
-                }, {
                     page: "remote-pair",
                     component: `<remote-pair></remote-pair>`,
                     condition: `page == 'remote-pair'`

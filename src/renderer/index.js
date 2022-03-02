@@ -336,6 +336,7 @@ const app = new Vue({
             let buttonPressDelay = 500
             let stickDeadZone = 0.2
             let scrollGroup = null
+            let scrollGroupY = null
 
             let cursorSpeed = cursorSpeedPvt
 
@@ -374,11 +375,14 @@ const app = new Vue({
                 }
 
                 // RIGHT STICK.
-                if (gp.axes[3] > stickDeadZone) {
-                    $("#app-content").scrollTop($("#app-content").scrollTop() + (gp.axes[3] * scrollSpeed))
-                } else if (gp.axes[3] < -stickDeadZone) {
-                    $("#app-content").scrollTop($("#app-content").scrollTop() + (gp.axes[3] * scrollSpeed))
+                if(scrollGroupY) {
+                    if (gp.axes[3] > stickDeadZone) {
+                        $(scrollGroupY).scrollTop($(scrollGroupY).scrollTop() + (gp.axes[3] * scrollSpeed))
+                    } else if (gp.axes[3] < -stickDeadZone) {
+                        $(scrollGroupY).scrollTop($(scrollGroupY).scrollTop() + (gp.axes[3] * scrollSpeed))
+                    }
                 }
+                
 
 
                 if (scrollGroup) {
@@ -472,6 +476,15 @@ const app = new Vue({
 
                 if (element) {
                     let closest = element.closest("[tabindex], input, button, a")
+
+                    // VERT SCROLL
+                    let scrollGroupCloY = element.closest(`[scrollaxis="y"]`)
+                    if (scrollGroupCloY) {
+                        scrollGroupY = scrollGroupCloY
+                    }
+                    
+
+                    //  HOZ SCROLL
                     let scrollGroupClo = element.closest(".v-hl-container")
 
                     if (scrollGroupClo) {
