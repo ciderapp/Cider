@@ -352,6 +352,8 @@
   "settings.option.experimental.compactUI": "Compact UI",
   "settings.option.experimental.close_button_hide": "Close Button Should Hide the Application",
   "settings.option.experimental.inline_playlists": "Listeleri ve Albümleri Açılır Pencere İle göster",
+  "settings.option.advanced.playlistTrackMapping": "Playlist Track Mapping",
+  "settings.option.advanced.playlistTrackMapping.description": "Enables deep scanning of playlists to determine which tracks are in which playlists.",
   "spatial.notTurnedOn": "Uzamsal ses devre dışı. Kullanabilmek için lütfen önce etkinleştirin.",
   "spatial.spatialProperties": "Uzamsal Özellikler",
   "spatial.roomDimensions": "Oda Ölçüleri",
