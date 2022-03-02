@@ -6,6 +6,9 @@ const CiderCache = {
         let cache = await ipcRenderer.sendSync("get-cache", file)
         if (isJson(cache)) {
             cache = JSON.parse(cache)
+            if(Object.keys(cache).length === 0) {
+                cache = false
+            }
         }else{
             cache = false
         }
@@ -983,12 +986,14 @@ const app = new Vue({
             // })
 
             // load cached library
-            if (localStorage.getItem("librarySongs") != null) {
-                this.library.songs.listing = JSON.parse(localStorage.getItem("librarySongs"))
+            let librarySongs = await CiderCache.getCache("library-songs")
+            let libraryAlbums = await CiderCache.getCache("library-albums")
+            if (librarySongs) {
+                this.library.songs.listing = librarySongs
                 this.library.songs.displayListing = this.library.songs.listing
             }
-            if (localStorage.getItem("libraryAlbums") != null) {
-                this.library.albums.listing = JSON.parse(localStorage.getItem("libraryAlbums"))
+            if (libraryAlbums) {
+                this.library.albums.listing = libraryAlbums
                 this.library.albums.displayListing = this.library.albums.listing
             }
 
@@ -2418,6 +2423,7 @@ const app = new Vue({
         async getLibrarySongsFull(force = false) {
             let self = this
             let library = []
+            let cacheId = "library-songs"
             let downloaded = null;
             if ((this.library.songs.downloadState == 2) && !force) {
                 return
@@ -2425,8 +2431,9 @@ const app = new Vue({
             if (this.library.songs.downloadState == 1) {
                 return
             }
-            if (localStorage.getItem("librarySongs") != null) {
-                this.library.songs.listing = JSON.parse(localStorage.getItem("librarySongs"))
+            let librarySongs = await CiderCache.getCache(cacheId)
+            if (librarySongs) {
+                this.library.songs.listing = librarySongs
                 this.searchLibrarySongs()
             }
             if (this.songstest) {
@@ -2503,7 +2510,7 @@ const app = new Vue({
                     self.library.songs.downloadState = 2
                     self.library.backgroundNotification.show = false
                     self.searchLibrarySongs()
-                    localStorage.setItem("librarySongs", JSON.stringify(library))
+                    CiderCache.putCache(cacheId, library)
                 }
                 if (downloaded.meta.total > library.length || typeof downloaded.meta.next != "undefined") {
                     console.log(`downloading next chunk - ${library.length} songs so far`)
@@ -2513,7 +2520,7 @@ const app = new Vue({
                     self.library.songs.downloadState = 2
                     self.library.backgroundNotification.show = false
                     self.searchLibrarySongs()
-                    localStorage.setItem("librarySongs", JSON.stringify(library))
+                    CiderCache.putCache(cacheId, library)
                     // console.log(library)
                 }
             }
@@ -2524,12 +2531,14 @@ const app = new Vue({
         async getLibraryAlbumsFull(force = false, index) {
             let self = this
             let library = []
+            let cacheId = "library-albums"
             let downloaded = null;
             if ((this.library.albums.downloadState == 2 || this.library.albums.downloadState == 1) && !force) {
                 return
             }
-            if (localStorage.getItem("libraryAlbums") != null) {
-                this.library.albums.listing = JSON.parse(localStorage.getItem("libraryAlbums"))
+            let libraryAlbums = await CiderCache.getCache(cacheId)
+            if (libraryAlbums) {
+                this.library.albums.listing = libraryAlbums
                 this.searchLibraryAlbums(index)
             }
             if (this.songstest) {
@@ -2610,7 +2619,7 @@ const app = new Vue({
                     self.library.albums.listing = library
                     self.library.albums.downloadState = 2
                     self.library.backgroundNotification.show = false
-                    localStorage.setItem("libraryAlbums", JSON.stringify(library))
+                    CiderCache.putCache(cacheId, library)
                     self.searchLibraryAlbums(index)
                 }
                 if (downloaded.meta.total > library.length || typeof downloaded.meta.next != "undefined") {
@@ -2621,7 +2630,7 @@ const app = new Vue({
                     self.library.albums.listing = library
                     self.library.albums.downloadState = 2
                     self.library.backgroundNotification.show = false
-                    localStorage.setItem("libraryAlbums", JSON.stringify(library))
+                    CiderCache.putCache(cacheId, library)
                     self.searchLibraryAlbums(index)
                     // console.log(library)
                 }
@@ -2633,12 +2642,14 @@ const app = new Vue({
         async getLibraryArtistsFull(force = false, index) {
             let self = this
             let library = []
+            let cacheId = "library-artists"
             let downloaded = null;
             if ((this.library.artists.downloadState == 2 || this.library.artists.downloadState == 1) && !force) {
                 return
             }
-            if (localStorage.getItem("libraryArtists") != null) {
-                this.library.artists.listing = JSON.parse(localStorage.getItem("libraryArtists"))
+            let libraryArtists = await CiderCache.getCache(cacheId)
+            if (libraryArtists) {
+                this.library.artists.listing = libraryArtists
                 this.searchLibraryArtists(index)
             }
             if (this.songstest) {
@@ -2717,7 +2728,7 @@ const app = new Vue({
                     self.library.artists.listing = library
                     self.library.artists.downloadState = 2
                     self.library.artists.show = false
-                    localStorage.setItem("libraryArtists", JSON.stringify(library))
+                    CiderCache.putCache(cacheId, library)
                     self.searchLibraryArtists(index)
                 }
                 if (downloaded.meta.total > library.length || typeof downloaded.meta.next != "undefined") {
@@ -2728,7 +2739,7 @@ const app = new Vue({
                     self.library.artists.listing = library
                     self.library.artists.downloadState = 2
                     self.library.backgroundNotification.show = false
-                    localStorage.setItem("libraryArtists", JSON.stringify(library))
+                    CiderCache.putCache(cacheId, library)
                     self.searchLibraryArtists(index)
                     // console.log(library)
                 }
