@@ -15,6 +15,7 @@ const CiderCache = {
         return cache
     },
     async putCache(file, data) {
+        console.log(`Caching ${file}`)
         ipcRenderer.invoke("put-cache", {
             file: file,
             data: JSON.stringify(data)
@@ -201,7 +202,8 @@ const app = new Vue({
             listing: [],
             details: {},
             loadingState: 0, // 0 loading, 1 loaded, 2 error
-            id: ""
+            id: "",
+            trackMapping: {}
         },
         webremoteurl: "",
         webremoteqr: "",
@@ -388,7 +390,7 @@ const app = new Vue({
                 if (cursorPos[1] > window.innerHeight - cursorSize) {
                     cursorPos[1] = window.innerHeight - cursorSize
                 }
-                
+
 
                 // RIGHT STICK.
                 if (scrollGroupY) {
@@ -398,10 +400,10 @@ const app = new Vue({
                     } else if (gp.axes[3] < -stickDeadZone) {
                         $(scrollGroupY).scrollTop($(scrollGroupY).scrollTop() + (gp.axes[3] * scrollSpeed))
                         elementFocusEnabled = false
-                    }else {
+                    } else {
                         elementFocusEnabled = true
                     }
-                } 
+                }
 
 
 
@@ -1400,10 +1402,12 @@ const app = new Vue({
                 }
             })
         },
-        async refreshPlaylists(localOnly = false) {
+        async refreshPlaylists(localOnly = false, trackMap = true) {
             let self = this
             let newListing = []
+            let trackMapping = {}
             const cachedPlaylist = await CiderCache.getCache("library-playlists")
+            const cachedTrackMapping = await CiderCache.getCache("library-playlists-tracks")
 
             if (cachedPlaylist) {
                 console.log("using cached playlists")
@@ -1412,7 +1416,12 @@ const app = new Vue({
             } else {
                 console.log("playlist has no cache")
             }
-            if(localOnly) {
+
+            if(cachedTrackMapping) {
+                console.log("using cached track mapping")
+                this.playlists.trackMapping = cachedTrackMapping
+            }
+            if (localOnly) {
                 return
             }
 
@@ -1427,12 +1436,26 @@ const app = new Vue({
                     playlist.children = []
                     playlist.tracks = []
                     try {
-                        let tracks = await app.mk.api.v3.music(playlist.href + "/tracks").catch(e => {
-                            // no tracks
-                        })
-                        playlist.tracks = tracks.data
-                    } catch (e) { }
+                        if (trackMap) {
+                            let tracks = await app.mk.api.v3.music(playlist.href + "/tracks").catch(e => {
+                                // no tracks
+                                e = null
+                            })
+                            tracks.data.data.forEach(track => {
+                                if (!trackMapping[track.id]) {
+                                    trackMapping[track.id] = []
+                                }
+                                trackMapping[track.id].push(playlist.id)
 
+                                if (typeof track.attributes.playParams.catalogId == "string") {
+                                    if (!trackMapping[track.attributes.playParams.catalogId]) {
+                                        trackMapping[track.attributes.playParams.catalogId] = []
+                                    }
+                                    trackMapping[track.attributes.playParams.catalogId].push(playlist.id)
+                                }
+                            })
+                        }
+                    } catch (e) { }
                     if (playlist.type == "library-playlist-folders") {
                         try {
                             await deepScan(playlist.id).catch(e => { })
@@ -1449,6 +1472,10 @@ const app = new Vue({
             this.library.backgroundNotification.show = false
             this.playlists.listing = newListing
             self.sortPlaylists()
+            if (trackMap) {
+                CiderCache.putCache("library-playlists-tracks", trackMapping)
+                this.playlists.trackMapping = trackMapping
+            }
             CiderCache.putCache("library-playlists", newListing)
         },
         sortPlaylists() {
