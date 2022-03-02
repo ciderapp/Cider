@@ -352,6 +352,8 @@
   "settings.option.experimental.compactUI": "Compact UI",
   "settings.option.experimental.close_button_hide": "点击关闭按钮时仅隐藏窗口",
   "settings.option.lyrics.enableMusixmatch": "启用 Musixmatch 歌词",
+  "settings.option.advanced.playlistTrackMapping": "Playlist Track Mapping",
+  "settings.option.advanced.playlistTrackMapping.description": "Enables deep scanning of playlists to determine which tracks are in which playlists.",
   "spatial.notTurnedOn": "Audio Spatialization is disabled. To use, please enable it first.",
   "spatial.spatialProperties": "空间属性",
   "spatial.width": "宽度",
