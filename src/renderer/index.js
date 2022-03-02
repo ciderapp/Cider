@@ -1371,10 +1371,6 @@ const app = new Vue({
                 console.log("playlist has no cache")
             }
 
-            const playlistroot = await app.mk.api.v3.music("/v1/me/library/playlist-folders/p.playlistsroot/children/")
-
-            newListing = []
-
             this.library.backgroundNotification.message = "Building playlist cache..."
             this.library.backgroundNotification.show = true
 
