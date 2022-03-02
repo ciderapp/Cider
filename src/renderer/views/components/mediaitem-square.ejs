@@ -1,5 +1,9 @@
 <script type="text/x-template" id="mediaitem-square">
-    <div tabindex="0"
+    <div
+        tabindex="0"
+        @click.self="app.routeView(item)"
+        @controller-click.self="app.routeView(item)"
+        @contextmenu.self="contextMenu"
          class="cd-mediaitem-square" :class="getClasses()" @contextmenu="contextMenu"
          v-observe-visibility="{callback: visibilityChanged}"
          :style="{'--spcolor': getBgColor()}">

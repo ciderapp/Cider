@@ -302,6 +302,70 @@ const app = new Vue({
         }
     },
     methods: {
+        simulateController() {
+            let intTabIndex = 0
+
+            var sounds = {
+                Confirm: new Audio("./sounds/confirm.ogg"),
+                Menu: new Audio("./sounds/btn1.ogg"),
+                Hover: new Audio("./sounds/hover.ogg")
+            }
+
+            document.addEventListener("keydown", (e) => {
+                sounds.Confirm.currentTime = 0
+                sounds.Menu.currentTime = 0
+                sounds.Hover.currentTime = 0
+                let tabbable = $("[tabindex]")
+                console.log(e.key)
+                switch (e.key) {
+                    default:
+                    break;
+                    case "ArrowLeft":
+
+                        e.preventDefault()
+                        break;
+                    case "ArrowRight":
+                        e.preventDefault()
+                        break;
+                    case "ArrowUp":
+                        sounds.Hover.play()
+                        if(intTabIndex <= 0) {
+                            intTabIndex = 0
+                        }else{
+                            intTabIndex--
+                        }
+                        $(tabbable[intTabIndex]).focus()
+                        // $("#app-content").scrollTop($(document.activeElement).offset().top)
+                        e.preventDefault()
+                        break;
+                    case "ArrowDown":
+                        sounds.Hover.play()
+                        if(intTabIndex < tabbable.length) {
+                            intTabIndex++
+                        }else{
+                            intTabIndex = tabbable.length
+                        }
+                        $(tabbable[intTabIndex]).focus()
+                        // $("#app-content").scrollTop($(document.activeElement).offset().top)
+                        e.preventDefault()
+                        break;
+                    case "c":
+                        app.resetState()
+                    break;
+                    case "x": 
+                        sounds.Menu.play()
+                        document.activeElement.dispatchEvent(new Event("contextmenu"))
+                        e.preventDefault()
+                    break;
+                    case "z":
+                        sounds.Confirm.play()
+                        document.activeElement.dispatchEvent(new Event("click"))
+                        document.activeElement.dispatchEvent(new Event("controller-click"))
+                        e.preventDefault()
+                        break;
+                }
+            });
+        },
         songLinkShare(amUrl) {
             notyf.open({ type: "info", className: "notyf-info", message: app.getLz('term.song.link.generate') })
             let self = this

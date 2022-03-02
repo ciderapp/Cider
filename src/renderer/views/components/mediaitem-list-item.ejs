@@ -12,6 +12,9 @@
          @mouseenter="checkLibrary"
          @mouseover="showInLibrary = true"
          @mouseleave="showInLibrary = false"
+         @dblclick="route()"
+         @controller-click.self="route()"
+         tabindex="0"
          :class="[{'mediaitem-selected': app.select_hasMediaItem(guid)}, addClasses]">
         <template v-if="isVisible">
             <div class="isLibrary" v-if="showLibraryStatus == true">
