@@ -1,5 +1,25 @@
 Vue.use(VueHorizontal);
 Vue.use(VueObserveVisibility);
+
+const CiderCache = {
+    async getCache(file) {
+        let cache = await ipcRenderer.sendSync("get-cache", file)
+        if (isJson(cache)) {
+            cache = JSON.parse(cache)
+        }else{
+            cache = false
+        }
+        return cache
+    },
+    async putCache(file, data) {
+        ipcRenderer.invoke("put-cache", {
+            file: file,
+            data: JSON.stringify(data)
+        })
+        return true
+    }
+}
+
 var notyf = new Notyf();
 
 const MusicKitObjects = {
@@ -49,10 +69,10 @@ Array.prototype.limit = function (n) {
 const store = new Vuex.Store({
     state: {
         library: {
-            songs: ipcRenderer.sendSync("get-library-songs"),
-            albums: ipcRenderer.sendSync("get-library-albums"),
-            recentlyAdded: ipcRenderer.sendSync("get-library-recentlyAdded"),
-            playlists: ipcRenderer.sendSync("get-library-playlists")
+            // songs: ipcRenderer.sendSync("get-library-songs"),
+            // albums: ipcRenderer.sendSync("get-library-albums"),
+            // recentlyAdded: ipcRenderer.sendSync("get-library-recentlyAdded"),
+            // playlists: ipcRenderer.sendSync("get-library-playlists")
         },
         artwork: {
             playerLCD: ""
@@ -308,11 +328,13 @@ const app = new Vue({
             let cursorPos = [0, 0];
             let intTabIndex = 0
             let self = this
-            let cursorSpeed = 4
+            const cursorSpeedPvt = 4
             let scrollSpeed = 8
             let buttonPressDelay = 500
             let stickDeadZone = 0.2
             let scrollGroup = null
+
+            let cursorSpeed = cursorSpeedPvt
 
             let lastButtonPress = {
 
@@ -354,9 +376,9 @@ const app = new Vue({
                 } else if (gp.axes[3] < -stickDeadZone) {
                     $("#app-content").scrollTop($("#app-content").scrollTop() + (gp.axes[3] * scrollSpeed))
                 }
-                
 
-                if(scrollGroup) {
+
+                if (scrollGroup) {
                     if (gp.axes[2] > stickDeadZone) {
                         console.log('axis 2 up')
                         $(scrollGroup).scrollLeft($(scrollGroup).scrollLeft() + (gp.axes[2] * scrollSpeed))
@@ -369,7 +391,8 @@ const app = new Vue({
 
                 $(".cursor").css({
                     top: cursorPos[1] + "px",
-                    left: cursorPos[0] + "px"
+                    left: cursorPos[0] + "px",
+                    display: "block"
                 })
 
                 // A BUTTON
@@ -400,8 +423,8 @@ const app = new Vue({
                         lastButtonPress["B"] = Date.now()
                         if (elementType == 0) {
                             document.activeElement.dispatchEvent(new Event("contextmenu"))
-                            setTimeout(()=>{
-                                if($(".menu-option").length > 0) {
+                            setTimeout(() => {
+                                if ($(".menu-option").length > 0) {
                                     let bounds = $(".menu-option")[0].getBoundingClientRect()
                                     cursorPos[0] = bounds.left + (bounds.width / 2)
                                     cursorPos[1] = bounds.top + (bounds.height / 2)
@@ -411,7 +434,7 @@ const app = new Vue({
                             element.dispatchEvent(new Event("contextmenu"))
                         }
                     }
-                    
+
                 }
 
                 // right bumper
@@ -447,9 +470,9 @@ const app = new Vue({
                 if (element) {
                     let closest = element.closest("[tabindex], input, button, a")
                     let scrollGroupClo = element.closest(".v-hl-container")
-                    
-                    if(scrollGroupClo) {
-                        if(scrollGroupClo.classList.contains("v-hl-container")) {
+
+                    if (scrollGroupClo) {
+                        if (scrollGroupClo.classList.contains("v-hl-container")) {
                             scrollGroup = scrollGroupClo
                             scrollGroup.style["scroll-snap-type"] = "unset"
                         } else {
@@ -459,16 +482,23 @@ const app = new Vue({
                     }
 
                     if (closest) {
-                        
                         elementType = 0
                         closest.focus()
                     } else {
-                        if(closest) {
+                        if (closest) {
                             closest.blur()
                         }
                         elementType = 1
                         element.focus()
                     }
+                    cursorSpeed = cursorSpeedPvt
+                    if (!element.classList.contains("app-chrome")
+                        && !element.classList.contains("app-content")) {
+                        cursorSpeed = cursorSpeedPvt
+                    }
+                    // console.log($._data($(element), "events"))
+                } else {
+                    cursorSpeed = 12
                 }
                 // console.log(gp.axes[0], gp.axes[1])
                 start = requestAnimationFrame(appLoop);
@@ -1330,13 +1360,55 @@ const app = new Vue({
         },
         async refreshPlaylists() {
             let self = this
-            this.apiCall('https://api.music.apple.com/v1/me/library/playlist-folders/p.playlistsroot/children/', res => {
-                self.playlists.listing = res.data
-                self.playlists.listing.forEach(playlist => {
-                    playlist.parent = "p.playlistsroot"
-                })
+            let newListing = []
+            const cachedPlaylist = await CiderCache.getCache("library-playlists")
+
+            if(cachedPlaylist) {
+                console.log("using cached playlists")
+                this.playlists.listing = cachedPlaylist
                 self.sortPlaylists()
-            })
+            }else{
+                console.log("playlist has no cache")
+            }
+
+            const playlistroot = await app.mk.api.v3.music("/v1/me/library/playlist-folders/p.playlistsroot/children/")
+
+            newListing = []
+
+            this.library.backgroundNotification.message = "Building playlist cache..."
+            this.library.backgroundNotification.show = true
+
+            async function deepScan(parent = "p.playlistsroot") {
+                console.log(`scanning ${parent}`)
+                const playlistData = await app.mk.api.v3.music(`/v1/me/library/playlist-folders/${parent}/children/`)
+                await asyncForEach(playlistData.data.data, async (playlist) => {
+                    playlist.parent = parent
+                    playlist.children = []
+                    playlist.tracks = []
+                    try {
+                        let tracks = await app.mk.api.v3.music(playlist.href + "/tracks").catch(e => {
+                            // no tracks
+                        })
+                        playlist.tracks = tracks.data
+                    } catch (e) { }
+    
+                    if (playlist.type == "library-playlist-folders") {
+                        try {
+                            await deepScan(playlist.id).catch(e => {})
+                        } catch (e) {
+    
+                        }
+                    }
+                    newListing.push(playlist)
+                })
+            }          
+
+            await deepScan()
+            
+            this.library.backgroundNotification.show = false
+            this.playlists.listing = newListing
+            self.sortPlaylists()
+            CiderCache.putCache("library-playlists", newListing)
         },
         sortPlaylists() {
             this.playlists.listing.sort((a, b) => {
@@ -4592,6 +4664,24 @@ async function webGPU() {
     } catch (e) {
         console.log("WebGPU disabled / WebGPU initialization failed")
     }
+}
+
+function isJson(item) {
+    item = typeof item !== "string"
+        ? JSON.stringify(item)
+        : item;
+
+    try {
+        item = JSON.parse(item);
+    } catch (e) {
+        return false;
+    }
+
+    if (typeof item === "object" && item !== null) {
+        return true;
+    }
+
+    return false;
 }
 
 webGPU().then()
