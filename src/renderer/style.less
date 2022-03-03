@@ -4,6 +4,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@100;300;400;500;700;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap");
+@import url("less/bootstrap-vue.min.css");
 @import url("less/ameframework.less");
 @import url("less/codicon.css");
 @import url("less/bootstrap.less");
@@ -2669,22 +2670,15 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
       padding: 0px;
       margin: 0px;
       overflow: hidden;
+      filter: drop-shadow(0px 4px 6px rgb(0 0 0 / 70%));
 
       .lyric-line {
         pointer-events: none;
-        font-weight: 500;
+        font-weight: 600;
         font-size: 2em;
         transform-origin: center;
         animation: fsLyricIn var(--appleEase) .2s;
         opacity: 0.9;
-        text-shadow: -1px -1px 0 #000,
-          0   -1px 0 #000,
-          1px -1px 0 #000,
-        1px 0 0 #000,
-        1px 1px 0 #000,
-        0 1px 0 #000,
-        -1px 1px 0 #000,
-        -1px 0 0 #000;
 
         &:not(.active) {
           display: none;

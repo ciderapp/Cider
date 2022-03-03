@@ -2,6 +2,7 @@ import {store} from './vuex-store.js';
 
 Vue.use(VueHorizontal);
 Vue.use(VueObserveVisibility);
+Vue.use(BootstrapVue)
 
 const app = new Vue({
     store: store,
@@ -552,6 +553,7 @@ const app = new Vue({
             if (this.cfg.visual.theme != "default.less" && this.cfg.visual.theme != "") {
                 this.setTheme(this.cfg.visual.theme)
             }
+            
             this.setLz(this.cfg.general.language)
             this.setLzManual()
             clearTimeout(this.hangtimer)

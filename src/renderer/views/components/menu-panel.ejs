@@ -11,7 +11,7 @@
             </div>
             <div class="menu-header-body" v-if="Object.keys(content.headerItems).length != 0">
                 <template v-for="item in content.headerItems">
-                    <button class="menu-option-header" :class="getClasses(item)" :title="item.name"
+                    <button class="menu-option-header" :class="getClasses(item)" v-b-tooltip.hover :title="item.name"
                             v-if="canDisplay(item)" :style="getItemStyle(item)" @click="action(item)">
                         <div class="sidebar-icon" style="margin: 0;" v-if="item.icon">
                             <div class="svg-icon" :style="{'--url': 'url(' + item.icon + ')'}"></div>
