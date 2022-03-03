@@ -736,7 +736,7 @@ const app = new Vue({
                     numbers.push(parseInt(item, 16))
 
                 }
-                numbers.shift()
+                //numbers.shift()
                 let peak = Math.max(numbers[6], numbers[7]) / 32768.0
                 let gain = Math.pow(10, ((-7.63 - (Math.log10(peak) * 20)) / 20))// EBU R 128 Compliant
                 console.debug(`[Cider][MaikiwiSoundCheck] Peak Gain: ${Math.log10(peak) * 20} | Adjusting '${Math.log10(gain) * 20}' dB`)

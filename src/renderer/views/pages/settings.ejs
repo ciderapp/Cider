@@ -119,7 +119,7 @@
                         <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.audioNormalization.description')}}</small>
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <input type="checkbox" v-model="app.cfg.audio.normalization" v-on:change="toggleNormalization" :disabled="app.cfg.audio.equalizer.vibrantBass !== 0 || app.cfg.audio.maikiwiAudio.spatial === true" switch/>
+                        <input type="checkbox" v-model="app.cfg.audio.normalization" v-on:change="toggleNormalization" :disabled="app.cfg.audio.equalizer.vibrantBass !== 0 || app.cfg.audio.maikiwiAudio.spatial === true || app.cfg.audio.maikiwiAudio.ciderPPE === true" switch/>
                     </div>
                 </div>
             </div>
