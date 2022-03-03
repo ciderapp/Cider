@@ -141,7 +141,15 @@ document.addEventListener('musickitloaded', function () {
             sourceType: 24,
             suppressErrorDialog: true
         }).then(() => {
-            app.init()
+            function waitForApp() {
+                if (typeof app !== "undefined") {
+                    app.init()
+                }
+                else {
+                    setTimeout(waitForApp, 250);
+                }
+            }
+            waitForApp()
         })
     }
 
@@ -163,6 +171,8 @@ document.addEventListener('musickitloaded', function () {
         initMusicKit()
     });
 });
+
+
 
 
 if ('serviceWorker' in navigator) {
