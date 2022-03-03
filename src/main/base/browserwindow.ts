@@ -428,9 +428,8 @@ export class BrowserWindow {
             }
         });
 
-        app.get("/themes/:theme/*", (req, res) => {
+        app.get("/themes/:theme/*", (req: {params: {theme: string, 0: string}}, res) => {
             const theme = req.params.theme;
-            // @ts-ignore
             const file = req.params[0];
             const themePath = join(utils.getPath('srcPath'), "./renderer/themes/", theme);
             const userThemePath = join(utils.getPath('themes'), theme);
@@ -443,9 +442,8 @@ export class BrowserWindow {
             }
         });
 
-        app.get("/plugins/:plugin/*", (req, res) => {
+        app.get("/plugins/:plugin/*", (req: {params: {plugin: string, 0: string}}, res) => {
             const plugin = req.params.plugin;
-            // @ts-ignore
             const file = req.params[0];
             const pluginPath = join(utils.getPath('plugins'), plugin);
             console.log(pluginPath)
@@ -976,7 +974,6 @@ export class BrowserWindow {
                 title: 'Share',
                 urls: [url]
             };
-            // @ts-ignore
             const shareMenu = new ShareMenu(options);
             shareMenu.popup();
         })
