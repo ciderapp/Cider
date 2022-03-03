@@ -1,5 +1,29 @@
 Vue.use(VueHorizontal);
 Vue.use(VueObserveVisibility);
+
+const CiderCache = {
+    async getCache(file) {
+        let cache = await ipcRenderer.sendSync("get-cache", file)
+        if (isJson(cache)) {
+            cache = JSON.parse(cache)
+            if (Object.keys(cache).length === 0) {
+                cache = false
+            }
+        } else {
+            cache = false
+        }
+        return cache
+    },
+    async putCache(file, data) {
+        console.log(`Caching ${file}`)
+        ipcRenderer.invoke("put-cache", {
+            file: file,
+            data: JSON.stringify(data)
+        })
+        return true
+    }
+}
+
 var notyf = new Notyf();
 
 const MusicKitObjects = {
@@ -49,10 +73,10 @@ Array.prototype.limit = function (n) {
 const store = new Vuex.Store({
     state: {
         library: {
-            songs: ipcRenderer.sendSync("get-library-songs"),
-            albums: ipcRenderer.sendSync("get-library-albums"),
-            recentlyAdded: ipcRenderer.sendSync("get-library-recentlyAdded"),
-            playlists: ipcRenderer.sendSync("get-library-playlists")
+            // songs: ipcRenderer.sendSync("get-library-songs"),
+            // albums: ipcRenderer.sendSync("get-library-albums"),
+            // recentlyAdded: ipcRenderer.sendSync("get-library-recentlyAdded"),
+            // playlists: ipcRenderer.sendSync("get-library-playlists")
         },
         artwork: {
             playerLCD: ""
@@ -178,7 +202,8 @@ const app = new Vue({
             listing: [],
             details: {},
             loadingState: 0, // 0 loading, 1 loaded, 2 error
-            id: ""
+            id: "",
+            trackMapping: {}
         },
         webremoteurl: "",
         webremoteqr: "",
@@ -233,7 +258,8 @@ const app = new Vue({
             topChromeVisible: true,
             progresshover: false,
             windowControlPosition: "right",
-            contentAreaScrolling: true
+            contentAreaScrolling: true,
+            showCursor: false
         },
         collectionList: {
             response: {},
@@ -302,6 +328,330 @@ const app = new Vue({
         }
     },
     methods: {
+        simulateController() {
+            this.chrome.showCursor = true
+            let cursorPos = [0, 0];
+            let intTabIndex = 0
+            let self = this
+            const cursorSpeedPvt = 8
+            const cursorSize = 16
+            let scrollSpeed = 8
+            let buttonPressDelay = 500
+            let stickDeadZone = 0.2
+            let scrollGroup = null
+            let scrollGroupY = null
+            let elementFocusEnabled = true
+
+            let cursorSpeed = cursorSpeedPvt
+
+            let lastButtonPress = {
+
+            }
+
+            var sounds = {
+                Confirm: new Audio("./sounds/confirm.ogg"),
+                Menu: new Audio("./sounds/btn1.ogg"),
+                Hover: new Audio("./sounds/hover.ogg")
+            }
+
+            let element = document.elementFromPoint(0, 0)
+            let elementType = 0
+
+            function appLoop() {
+                var gamepads = navigator.getGamepads ? navigator.getGamepads() : (navigator.webkitGetGamepads ? navigator.webkitGetGamepads() : []);
+                if (!gamepads) {
+                    return;
+                }
+
+                var gp = gamepads[0];
+
+                //  LEFT STICK
+                if (gp.axes[0] > stickDeadZone) {
+                    cursorPos[0] += (gp.axes[0] * cursorSpeed)
+                } else if (gp.axes[0] < -stickDeadZone) {
+                    cursorPos[0] += (gp.axes[0] * cursorSpeed)
+                }
+
+                if (gp.axes[1] > stickDeadZone) {
+                    cursorPos[1] += (gp.axes[1] * cursorSpeed)
+                } else if (gp.axes[1] < -stickDeadZone) {
+                    cursorPos[1] += (gp.axes[1] * cursorSpeed)
+                }
+
+                if (cursorPos[0] < cursorSize) {
+                    cursorPos[0] = cursorSize
+                }
+                if (cursorPos[1] < cursorSize) {
+                    cursorPos[1] = cursorSize
+                }
+                if (cursorPos[0] > window.innerWidth - cursorSize) {
+                    cursorPos[0] = window.innerWidth - cursorSize
+                }
+                if (cursorPos[1] > window.innerHeight - cursorSize) {
+                    cursorPos[1] = window.innerHeight - cursorSize
+                }
+
+
+                // RIGHT STICK.
+                if (scrollGroupY) {
+                    if (gp.axes[3] > stickDeadZone) {
+                        $(scrollGroupY).scrollTop($(scrollGroupY).scrollTop() + (gp.axes[3] * scrollSpeed))
+                        elementFocusEnabled = false
+                    } else if (gp.axes[3] < -stickDeadZone) {
+                        $(scrollGroupY).scrollTop($(scrollGroupY).scrollTop() + (gp.axes[3] * scrollSpeed))
+                        elementFocusEnabled = false
+                    } else {
+                        elementFocusEnabled = true
+                    }
+                }
+
+
+
+                if (scrollGroup) {
+                    if (gp.axes[2] > stickDeadZone) {
+                        $(scrollGroup).scrollLeft($(scrollGroup).scrollLeft() + (gp.axes[2] * scrollSpeed))
+                        elementFocusEnabled = false
+                    } else if (gp.axes[2] < -stickDeadZone) {
+                        $(scrollGroup).scrollLeft($(scrollGroup).scrollLeft() + (gp.axes[2] * scrollSpeed))
+                        elementFocusEnabled = false
+                    } else {
+                        elementFocusEnabled = true
+                    }
+                }
+
+
+                $(".cursor").css({
+                    top: cursorPos[1] + "px",
+                    left: cursorPos[0] + "px",
+                    display: "block"
+                })
+
+                // A BUTTON
+                if (gp.buttons[0].pressed) {
+                    if (!lastButtonPress["A"]) {
+                        lastButtonPress["A"] = 0
+                    }
+                    if (Date.now() - lastButtonPress["A"] > buttonPressDelay) {
+                        lastButtonPress["A"] = Date.now()
+                        sounds.Confirm.play()
+                        if (elementType == 0) {
+                            document.activeElement.dispatchEvent(new Event("click"))
+                            document.activeElement.dispatchEvent(new Event("controller-click"))
+                        } else {
+                            element.dispatchEvent(new Event("click"))
+                            element.dispatchEvent(new Event("controller-click"))
+                        }
+                    }
+                }
+
+                // B BUTTON
+                if (gp.buttons[1].pressed) {
+
+                    if (!lastButtonPress["B"]) {
+                        lastButtonPress["B"] = 0
+                    }
+                    if (Date.now() - lastButtonPress["B"] > buttonPressDelay) {
+                        lastButtonPress["B"] = Date.now()
+                        if (elementType == 0) {
+                            document.activeElement.dispatchEvent(new Event("contextmenu"))
+                            setTimeout(() => {
+                                if ($(".menu-option").length > 0) {
+                                    let bounds = $(".menu-option")[0].getBoundingClientRect()
+                                    cursorPos[0] = bounds.left + (bounds.width / 2)
+                                    cursorPos[1] = bounds.top + (bounds.height / 2)
+                                }
+                            }, 100)
+                        } else {
+                            element.dispatchEvent(new Event("contextmenu"))
+                        }
+                    }
+
+                }
+
+                // right bumper
+                if (gp.buttons[5].pressed) {
+                    if (!lastButtonPress["RB"]) {
+                        lastButtonPress["RB"] = 0
+                    }
+                    if (Date.now() - lastButtonPress["RB"] > buttonPressDelay) {
+                        lastButtonPress["RB"] = Date.now()
+                        app.navigateForward()
+
+                    }
+                }
+
+                // left bumper
+                if (gp.buttons[4].pressed) {
+                    if (!lastButtonPress["LB"]) {
+                        lastButtonPress["LB"] = 0
+                    }
+                    if (Date.now() - lastButtonPress["LB"] > buttonPressDelay) {
+                        lastButtonPress["LB"] = Date.now()
+                        app.navigateBack()
+
+                    }
+                }
+
+
+
+                // cursor hover
+                if (elementFocusEnabled) {
+                    element = document.elementFromPoint(cursorPos[0], cursorPos[1])
+                }
+
+                if (element) {
+
+                    let closest = element.closest("[tabindex], input, button, a")
+
+                    // VERT SCROLL
+                    let scrollGroupCloY = element.closest(`[scrollaxis="y"]`)
+                    if (scrollGroupCloY) {
+                        scrollGroupY = scrollGroupCloY
+                    }
+
+
+                    //  HOZ SCROLL
+                    let scrollGroupClo = element.closest(".v-hl-container")
+
+                    if (scrollGroupClo) {
+                        if (scrollGroupClo.classList.contains("v-hl-container")) {
+                            scrollGroup = scrollGroupClo
+                            scrollGroup.style["scroll-snap-type"] = "unset"
+                        } else {
+                            scrollGroup.style["scroll-snap-type"] = ""
+                            scrollGroup = null
+                        }
+                    }
+
+                    if (closest) {
+                        elementType = 0
+                        closest.focus()
+                    } else {
+                        if (closest) {
+                            closest.blur()
+                        }
+                        elementType = 1
+                        element.focus()
+                    }
+                    cursorSpeed = cursorSpeedPvt
+                    if (!element.classList.contains("app-chrome")
+                        && !element.classList.contains("app-content")) {
+                        cursorSpeed = cursorSpeedPvt
+                    }
+                    // console.log($._data($(element), "events"))
+                } else {
+                    cursorSpeed = 12
+                }
+                // console.log(gp.axes[0], gp.axes[1])
+                start = requestAnimationFrame(appLoop);
+            }
+
+            // controller pairing
+            notyf.error("Press the button on your controller to pair it to Cider.")
+            window.addEventListener("gamepadconnected", function (e) {
+                console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
+                    e.gamepad.index, e.gamepad.id,
+                    e.gamepad.buttons.length, e.gamepad.axes.length);
+                notyf.success("Pairing successful!")
+                appLoop()
+            }, { once: true });
+
+            document.addEventListener("keydown", (e) => {
+                sounds.Confirm.currentTime = 0
+                sounds.Menu.currentTime = 0
+                sounds.Hover.currentTime = 0
+                let tabbable = $("[tabindex]")
+                console.log(e.key)
+                switch (e.key) {
+                    default:
+                        break;
+                    case "ArrowLeft":
+                        e.preventDefault()
+
+                        cursorPos[0] -= cursorSpeed
+                        break;
+                    case "ArrowRight":
+                        e.preventDefault()
+
+                        cursorPos[0] += cursorSpeed
+                        break;
+                    case "ArrowUp":
+                        e.preventDefault()
+
+                        cursorPos[1] -= cursorSpeed
+                        // sounds.Hover.play()
+                        // if(intTabIndex <= 0) {
+                        //     intTabIndex = 0
+                        // }else{
+                        //     intTabIndex--
+                        // }
+                        // $(tabbable[intTabIndex]).focus()
+                        // $("#app-content").scrollTop($(document.activeElement).offset().top)
+                        break;
+                    case "ArrowDown":
+                        e.preventDefault()
+
+                        cursorPos[1] += cursorSpeed
+                        // if(intTabIndex < tabbable.length) {
+                        //     intTabIndex++
+                        // }else{
+                        //     intTabIndex = tabbable.length
+                        // }
+                        // $(tabbable[intTabIndex]).focus()
+                        // $("#app-content").scrollTop($(document.activeElement).offset().top)
+                        break;
+                    case "c":
+                        app.resetState()
+                        break;
+                    case "x":
+                        // set cursorPos to the top right of the screen
+                        // sounds.Menu.play()
+                        if (elementType == 0) {
+                            document.activeElement.dispatchEvent(new Event("contextmenu"))
+                        } else {
+                            element.dispatchEvent(new Event("contextmenu"))
+                        }
+
+                        e.preventDefault()
+                        break;
+                    case "z":
+                        sounds.Confirm.play()
+                        if (elementType == 0) {
+                            document.activeElement.dispatchEvent(new Event("click"))
+                            document.activeElement.dispatchEvent(new Event("controller-click"))
+                        } else {
+                            element.dispatchEvent(new Event("click"))
+                            element.dispatchEvent(new Event("controller-click"))
+                        }
+
+                        e.preventDefault()
+                        break;
+                }
+
+                $(".cursor").css({
+                    top: cursorPos[1] + "px",
+                    left: cursorPos[0] + "px"
+                })
+                function lerp(a, b, n) {
+                    return (1 - n) * a + n * b
+                }
+
+
+                element = document.elementFromPoint(cursorPos[0], cursorPos[1])
+
+                if (element) {
+                    let closest = element.closest("[tabindex], input, button, a")
+                    if (closest) {
+                        elementType = 0
+                        closest.focus()
+                    } else {
+                        elementType = 1
+                        element.focus()
+                    }
+                }
+                console.log(element)
+            });
+        },
         songLinkShare(amUrl) {
             notyf.open({ type: "info", className: "notyf-info", message: app.getLz('term.song.link.generate') })
             let self = this
@@ -675,12 +1025,14 @@ const app = new Vue({
             // })
 
             // load cached library
-            if (localStorage.getItem("librarySongs") != null) {
-                this.library.songs.listing = JSON.parse(localStorage.getItem("librarySongs"))
+            let librarySongs = await CiderCache.getCache("library-songs")
+            let libraryAlbums = await CiderCache.getCache("library-albums")
+            if (librarySongs) {
+                this.library.songs.listing = librarySongs
                 this.library.songs.displayListing = this.library.songs.listing
             }
-            if (localStorage.getItem("libraryAlbums") != null) {
-                this.library.albums.listing = JSON.parse(localStorage.getItem("libraryAlbums"))
+            if (libraryAlbums) {
+                this.library.albums.listing = libraryAlbums
                 this.library.albums.displayListing = this.library.albums.listing
             }
 
@@ -785,11 +1137,20 @@ const app = new Vue({
             })
 
             ipcRenderer.on('SoundCheckTag', (event, tag) => {
-                let replaygain = self.parseSCTagToRG(tag)
-                console.debug(`[Cider][MaikiwiSoundCheck] Replay Gain: ${JSON.stringify(replaygain)} | Attenuating '${Math.log10(replaygain.gain) * 20}' dB`)
+                // let replaygain = self.parseSCTagToRG(tag)
+                let soundcheck = tag.split(" ")
+                let numbers = []
+                for (item of soundcheck) {
+                    numbers.push(parseInt(item, 16))
+
+                }
+                numbers.shift()
+                let peak = Math.max(numbers[6], numbers[7]) / 32768.0
+                let gain = Math.pow(10, ((-7.63 - (Math.log10(peak) * 20)) / 20))// EBU R 128 Compliant
+                console.debug(`[Cider][MaikiwiSoundCheck] Peak Gain: ${Math.log10(peak) * 20} | Adjusting '${Math.log10(gain) * 20}' dB`)
                 try {
                     //CiderAudio.audioNodes.gainNode.gain.value = (Math.min(Math.pow(10, (replaygain.gain / 20)), (1 / replaygain.peak)))
-                    CiderAudio.audioNodes.gainNode.gain.value = replaygain.gain
+                    CiderAudio.audioNodes.gainNode.gain.value = gain
                 } catch (e) {
                 }
             })
@@ -888,7 +1249,7 @@ const app = new Vue({
                 this.cfg.audio.volume = this.mk.volume
             })
 
-            this.refreshPlaylists()
+            this.refreshPlaylists(this.isDev)
             document.body.removeAttribute("loading")
             if (window.location.hash != "") {
                 this.appRoute(window.location.hash)
@@ -905,7 +1266,7 @@ const app = new Vue({
             }, 500)
             ipcRenderer.invoke("renderer-ready", true)
             document.querySelector("#LOADER").remove()
-            if(this.cfg.general.themeUpdateNotification) {
+            if (this.cfg.general.themeUpdateNotification) {
                 this.checkForThemeUpdates()
             }
         },
@@ -919,7 +1280,7 @@ const app = new Vue({
                         .then(res => {
                             if (res[0].sha != theme.commit) {
                                 const notify = notyf.open({ className: "notyf-info", type: "info", message: `[Themes] ${theme.name} has an update available.` })
-                                notify.on("click", ()=>{
+                                notify.on("click", () => {
                                     app.appRoute("themes-github")
                                     notyf.dismiss(notify)
                                 })
@@ -965,9 +1326,9 @@ const app = new Vue({
             }
             if (directives[directive]) {
                 return this.chrome.appliedTheme.info.directives[directive].value
-            } else if(this.cfg.visual.directives[directive]) {
+            } else if (this.cfg.visual.directives[directive]) {
                 return this.cfg.visual.directives.windowLayout
-            }else{
+            } else {
                 return ""
             }
         },
@@ -1041,15 +1402,81 @@ const app = new Vue({
                 }
             })
         },
-        async refreshPlaylists() {
+        async refreshPlaylists(localOnly = false, trackMap = true) {
             let self = this
-            this.apiCall('https://api.music.apple.com/v1/me/library/playlist-folders/p.playlistsroot/children/', res => {
-                self.playlists.listing = res.data
-                self.playlists.listing.forEach(playlist => {
-                    playlist.parent = "p.playlistsroot"
-                })
+            let newListing = []
+            let trackMapping = {}
+            const cachedPlaylist = await CiderCache.getCache("library-playlists")
+            const cachedTrackMapping = await CiderCache.getCache("library-playlists-tracks")
+
+            if (cachedPlaylist) {
+                console.log("using cached playlists")
+                this.playlists.listing = cachedPlaylist
                 self.sortPlaylists()
-            })
+            } else {
+                console.log("playlist has no cache")
+            }
+
+            if(cachedTrackMapping) {
+                console.log("using cached track mapping")
+                this.playlists.trackMapping = cachedTrackMapping
+            }
+            if (localOnly) {
+                return
+            }
+
+            this.library.backgroundNotification.message = "Building playlist cache..."
+            this.library.backgroundNotification.show = true
+
+            async function deepScan(parent = "p.playlistsroot") {
+                console.log(`scanning ${parent}`)
+                const playlistData = await app.mk.api.v3.music(`/v1/me/library/playlist-folders/${parent}/children/`)
+                await asyncForEach(playlistData.data.data, async (playlist) => {
+                    playlist.parent = parent
+                    playlist.children = []
+                    playlist.tracks = []
+                    try {
+                        if (trackMap) {
+                            let tracks = await app.mk.api.v3.music(playlist.href + "/tracks").catch(e => {
+                                // no tracks
+                                e = null
+                            })
+                            tracks.data.data.forEach(track => {
+                                if (!trackMapping[track.id]) {
+                                    trackMapping[track.id] = []
+                                }
+                                trackMapping[track.id].push(playlist.id)
+
+                                if (typeof track.attributes.playParams.catalogId == "string") {
+                                    if (!trackMapping[track.attributes.playParams.catalogId]) {
+                                        trackMapping[track.attributes.playParams.catalogId] = []
+                                    }
+                                    trackMapping[track.attributes.playParams.catalogId].push(playlist.id)
+                                }
+                            })
+                        }
+                    } catch (e) { }
+                    if (playlist.type == "library-playlist-folders") {
+                        try {
+                            await deepScan(playlist.id).catch(e => { })
+                        } catch (e) {
+
+                        }
+                    }
+                    newListing.push(playlist)
+                })
+            }
+
+            await deepScan()
+
+            this.library.backgroundNotification.show = false
+            this.playlists.listing = newListing
+            self.sortPlaylists()
+            if (trackMap) {
+                CiderCache.putCache("library-playlists-tracks", trackMapping)
+                this.playlists.trackMapping = trackMapping
+            }
+            CiderCache.putCache("library-playlists", newListing)
         },
         sortPlaylists() {
             this.playlists.listing.sort((a, b) => {
@@ -2063,6 +2490,7 @@ const app = new Vue({
         async getLibrarySongsFull(force = false) {
             let self = this
             let library = []
+            let cacheId = "library-songs"
             let downloaded = null;
             if ((this.library.songs.downloadState == 2) && !force) {
                 return
@@ -2070,8 +2498,9 @@ const app = new Vue({
             if (this.library.songs.downloadState == 1) {
                 return
             }
-            if (localStorage.getItem("librarySongs") != null) {
-                this.library.songs.listing = JSON.parse(localStorage.getItem("librarySongs"))
+            let librarySongs = await CiderCache.getCache(cacheId)
+            if (librarySongs) {
+                this.library.songs.listing = librarySongs
                 this.searchLibrarySongs()
             }
             if (this.songstest) {
@@ -2148,7 +2577,7 @@ const app = new Vue({
                     self.library.songs.downloadState = 2
                     self.library.backgroundNotification.show = false
                     self.searchLibrarySongs()
-                    localStorage.setItem("librarySongs", JSON.stringify(library))
+                    CiderCache.putCache(cacheId, library)
                 }
                 if (downloaded.meta.total > library.length || typeof downloaded.meta.next != "undefined") {
                     console.log(`downloading next chunk - ${library.length} songs so far`)
@@ -2158,7 +2587,7 @@ const app = new Vue({
                     self.library.songs.downloadState = 2
                     self.library.backgroundNotification.show = false
                     self.searchLibrarySongs()
-                    localStorage.setItem("librarySongs", JSON.stringify(library))
+                    CiderCache.putCache(cacheId, library)
                     // console.log(library)
                 }
             }
@@ -2169,12 +2598,14 @@ const app = new Vue({
         async getLibraryAlbumsFull(force = false, index) {
             let self = this
             let library = []
+            let cacheId = "library-albums"
             let downloaded = null;
             if ((this.library.albums.downloadState == 2 || this.library.albums.downloadState == 1) && !force) {
                 return
             }
-            if (localStorage.getItem("libraryAlbums") != null) {
-                this.library.albums.listing = JSON.parse(localStorage.getItem("libraryAlbums"))
+            let libraryAlbums = await CiderCache.getCache(cacheId)
+            if (libraryAlbums) {
+                this.library.albums.listing = libraryAlbums
                 this.searchLibraryAlbums(index)
             }
             if (this.songstest) {
@@ -2255,7 +2686,7 @@ const app = new Vue({
                     self.library.albums.listing = library
                     self.library.albums.downloadState = 2
                     self.library.backgroundNotification.show = false
-                    localStorage.setItem("libraryAlbums", JSON.stringify(library))
+                    CiderCache.putCache(cacheId, library)
                     self.searchLibraryAlbums(index)
                 }
                 if (downloaded.meta.total > library.length || typeof downloaded.meta.next != "undefined") {
@@ -2266,7 +2697,7 @@ const app = new Vue({
                     self.library.albums.listing = library
                     self.library.albums.downloadState = 2
                     self.library.backgroundNotification.show = false
-                    localStorage.setItem("libraryAlbums", JSON.stringify(library))
+                    CiderCache.putCache(cacheId, library)
                     self.searchLibraryAlbums(index)
                     // console.log(library)
                 }
@@ -2278,12 +2709,14 @@ const app = new Vue({
         async getLibraryArtistsFull(force = false, index) {
             let self = this
             let library = []
+            let cacheId = "library-artists"
             let downloaded = null;
             if ((this.library.artists.downloadState == 2 || this.library.artists.downloadState == 1) && !force) {
                 return
             }
-            if (localStorage.getItem("libraryArtists") != null) {
-                this.library.artists.listing = JSON.parse(localStorage.getItem("libraryArtists"))
+            let libraryArtists = await CiderCache.getCache(cacheId)
+            if (libraryArtists) {
+                this.library.artists.listing = libraryArtists
                 this.searchLibraryArtists(index)
             }
             if (this.songstest) {
@@ -2362,7 +2795,7 @@ const app = new Vue({
                     self.library.artists.listing = library
                     self.library.artists.downloadState = 2
                     self.library.artists.show = false
-                    localStorage.setItem("libraryArtists", JSON.stringify(library))
+                    CiderCache.putCache(cacheId, library)
                     self.searchLibraryArtists(index)
                 }
                 if (downloaded.meta.total > library.length || typeof downloaded.meta.next != "undefined") {
@@ -2373,7 +2806,7 @@ const app = new Vue({
                     self.library.artists.listing = library
                     self.library.artists.downloadState = 2
                     self.library.backgroundNotification.show = false
-                    localStorage.setItem("libraryArtists", JSON.stringify(library))
+                    CiderCache.putCache(cacheId, library)
                     self.searchLibraryArtists(index)
                     // console.log(library)
                 }
@@ -3397,7 +3830,7 @@ const app = new Vue({
                 let artworkSize = 50
                 if (app.getThemeDirective("lcdArtworkSize") != "") {
                     artworkSize = app.getThemeDirective("lcdArtworkSize")
-                }else if(this.cfg.visual.directives.windowLayout == "twopanel") {
+                } else if (this.cfg.visual.directives.windowLayout == "twopanel") {
                     artworkSize = 70
                 }
                 this.currentArtUrl = '';
@@ -3835,6 +4268,7 @@ const app = new Vue({
                 element.onclick = app.LastFMDeauthorize;
             });
         },
+        /**  
         parseSCTagToRG: function (tag) {
             let soundcheck = tag.split(" ")
             let numbers = []
@@ -3850,7 +4284,7 @@ const app = new Vue({
                 gain: gain,
                 peak: peak
             }
-        },
+        },*/
         fullscreen(flag) {
             if (flag) {
                 ipcRenderer.send('setFullScreen', true);
@@ -4304,6 +4738,24 @@ async function webGPU() {
     } catch (e) {
         console.log("WebGPU disabled / WebGPU initialization failed")
     }
+}
+
+function isJson(item) {
+    item = typeof item !== "string"
+        ? JSON.stringify(item)
+        : item;
+
+    try {
+        item = JSON.parse(item);
+    } catch (e) {
+        return false;
+    }
+
+    if (typeof item === "object" && item !== null) {
+        return true;
+    }
+
+    return false;
 }
 
 webGPU().then()

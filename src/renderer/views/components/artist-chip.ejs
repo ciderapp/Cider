@@ -1,5 +1,5 @@
 <script type="text/x-template" id="artist-chip">
-    <div class="artist-chip" @click.self="route">
+    <div class="artist-chip" @click.self="route" tabindex="0">
         <div class="artist-chip__image">
             <mediaitem-artwork v-if="artist.id != null" :url="artist.attributes.artwork.url" :size="32"></mediaitem-artwork>
         </div>
