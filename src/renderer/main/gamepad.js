@@ -11,6 +11,7 @@ function simulateGamepad () {
     let scrollGroup = null
     let scrollGroupY = null
     let elementFocusEnabled = true
+    let start;
 
     let cursorSpeed = cursorSpeedPvt
 
