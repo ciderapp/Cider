@@ -776,14 +776,19 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   padding: 8px 12px;
   font-weight: 400;
   font-family: inherit;
-  font-size: 14px;
-  margin: 3px 0px;
+  font-size: 13px;
+  margin: 2px 0px;
   border: 1px solid transparent;
   border-radius: 6px;
   background: transparent;
   color: #eee;
   transition: transform 0.1s;
   text-align: left;
+
+  >.sidebar-icon {
+    width: 16px;
+    height: 16px;
+  }
 
   &.app-sidebar-item-playlist {
     -webkit-user-drag: element;
