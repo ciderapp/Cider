@@ -210,6 +210,7 @@
   "action.newpreset": "Nova predefinição...",
   "action.unlove": "Deixar de Gostar",
   "action.love": "Gostar",
+  "action.showInPlaylist": "Show in Playlist",
   "action.moveToTop": "Retirar da Pasta",
   "action.share": "Compartilhar",
   "action.rename": "Renomear",
@@ -374,7 +375,7 @@
   "settings.option.experimental.close_button_hide": "Botão Fechar deve esconder o aplicativo",
   "settings.option.lyrics.enableMusixmatchKaraoke": "Ativar Modo Karaoke (só para Musixmatch)",
   "settings.option.advanced.playlistTrackMapping": "Playlist Track Mapping",
-  "settings.option.advanced.playlistTrackMapping.description": "Enables deep scanning of playlists to determine which tracks are in which playlists.",
+  "settings.option.advanced.playlistTrackMapping.description": "Enables deep scanning of playlists to determine which tracks are in which playlists.  Playlist cache build times can increase significantly.",
   "spatial.notTurnedOn": "Espacialização de Áudio está desabilitada."
  Para usar, por favor, habilite antes.",
 
