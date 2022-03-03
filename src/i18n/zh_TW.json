@@ -205,6 +205,7 @@
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "啟用 LastFM 目前聆聽", // Toggle
   "settings.header.visual.animatedArtwork.limited": "只在藝人頁面和專輯封面顯示",
   "action.love": "喜愛",
+  "action.showInPlaylist": "Show in Playlist",
   "action.moveToTop": "Move out of Folder",
   "action.copy": "複製",
   "action.rename": "重新命名",
@@ -353,7 +354,7 @@
   "settings.option.experimental.close_button_hide": "Close Button Should Hide the Application",
   "settings.option.lyrics.enableYoutubeLyrics": "播放 MV 時使用 YouTube 歌詞",
   "settings.option.advanced.playlistTrackMapping": "Playlist Track Mapping",
-  "settings.option.advanced.playlistTrackMapping.description": "Enables deep scanning of playlists to determine which tracks are in which playlists.",
+  "settings.option.advanced.playlistTrackMapping.description": "Enables deep scanning of playlists to determine which tracks are in which playlists.  Playlist cache build times can increase significantly.",
   "spatial.notTurnedOn": "Audio Spatialization is disabled. To use, please enable it first.",
   "spatial.roomDimensions" : "空間尺寸",
   "spatial.width" : "寬度",
