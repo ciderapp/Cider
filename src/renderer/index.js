@@ -142,7 +142,7 @@ document.addEventListener('musickitloaded', function () {
             suppressErrorDialog: true
         }).then(() => {
             function waitForApp() {
-                if (typeof app !== "undefined") {
+                if (typeof app.init !== "undefined") {
                     app.init()
                 }
                 else {
