@@ -283,6 +283,7 @@ export class BrowserWindow {
         const windowState = windowStateKeeper({
             defaultWidth: 1024,
             defaultHeight: 600,
+            fullScreen: false
         });
         this.options.width = windowState.width;
         this.options.height = windowState.height;
