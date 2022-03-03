@@ -12,7 +12,7 @@
                         <div class="icon"><%- include("../svg/plus.svg") %></div>
                         <div class="name">{{app.getLz('action.createPlaylist')}}</div>
                     </button>
-                    <sidebar-playlist :playlist-select="playlistSelect" v-for="item in $root.getPlaylistFolderChildren('p.playlistsroot')" :item="item">
+                    <sidebar-playlist :playlist-select="playlistSelect" :relate-media-items="relateItems" v-for="item in $root.getPlaylistFolderChildren('p.playlistsroot')" :item="item">
                     </sidebar-playlist>
                 </div>
                 <div class="modal-search">
@@ -42,6 +42,7 @@
                 searchQuery: "",
                 focused: "",
                 app: this.$root,
+                relateItems: []
             }
         },
         props: {
@@ -51,6 +52,7 @@
             }
         },
         mounted() {
+            this.relateItems = [this.$root.selectedMediaItems[0].id]
             this.search()
             this.$refs.searchInput.focus()
             this.$refs.searchInput.addEventListener('keydown', (e) => {

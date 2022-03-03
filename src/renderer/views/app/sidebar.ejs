@@ -55,6 +55,13 @@
         <sidebar-library-item :name="$root.getLz('term.podcasts')" svg-icon="./assets/feather/mic.svg"
                               page="podcasts">
         </sidebar-library-item>
+        <template v-if="getPlaylistFolderChildren('p.applemusic').length != 0">
+            <div class="app-sidebar-header-text" @contextmenu="playlistHeaderContextMenu">
+                {{ $root.getLz('term.appleMusic') }} {{ $root.getLz('term.playlists') }}
+            </div>
+            <sidebar-playlist v-for="item in getPlaylistFolderChildren('p.applemusic')" :item="item">
+            </sidebar-playlist>
+        </template>
         <div class="app-sidebar-header-text" @contextmenu="playlistHeaderContextMenu">
             {{ $root.getLz('term.playlists') }}
         </div>

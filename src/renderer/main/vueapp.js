@@ -992,8 +992,9 @@ const app = new Vue({
                 }
             })
         },
-        async refreshPlaylists(localOnly = false, trackMap = true) {
+        async refreshPlaylists(localOnly = false) {
             let self = this
+            let trackMap = this.cfg.advanced.playlistTrackMapping
             let newListing = []
             let trackMapping = {}
             const cachedPlaylist = await CiderCache.getCache("library-playlists")
@@ -1023,6 +1024,12 @@ const app = new Vue({
                 const playlistData = await app.mk.api.v3.music(`/v1/me/library/playlist-folders/${parent}/children/`)
                 await asyncForEach(playlistData.data.data, async (playlist) => {
                     playlist.parent = parent
+                    if(
+                        playlist.type != "library-playlist-folders" &&
+                        typeof playlist.attributes.playParams["versionHash"] != "undefined"
+                    ) {
+                        playlist.parent = "p.applemusic"
+                    }
                     playlist.children = []
                     playlist.tracks = []
                     try {
