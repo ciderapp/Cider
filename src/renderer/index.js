@@ -13,19 +13,6 @@ const MusicKitObjects = {
     }
 }
 
-
-
-const MusicKitTools = {
-    getHeader() {
-        return new Headers({
-            Authorization: 'Bearer ' + MusicKit.getInstance().developerToken,
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            'Music-User-Token': '' + MusicKit.getInstance().musicUserToken
-        });
-    }
-}
-
 // limit an array to a certain number of items
 Array.prototype.limit = function (n) {
     return this.slice(0, n);

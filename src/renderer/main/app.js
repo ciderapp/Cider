@@ -5,10 +5,12 @@ import {simulateGamepad} from './gamepad.js'
 import {CiderAudio} from '../audio/audio.js'
 import {Events} from './events.js'
 import { wsapi } from "./wsapi_interop.js"
+import { MusicKitTools } from "./musickittools.js"
 
 
 // Define window objects
 window.app = app
+window.MusicKitTools = MusicKitTools
 window.CiderAudio = CiderAudio
 window.CiderCache = CiderCache
 window.CiderFrontAPI = CiderFrontAPI
