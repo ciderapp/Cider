@@ -49,13 +49,13 @@ const wsapi = {
     },
     musickitApi(method, id, params, library = false) {
         if (library) {
-        MusicKit.getInstance().api.library[method](id, params).then((results)=>{
-            ipcRenderer.send('wsapi-returnMusicKitApi', JSON.stringify(results), method)
-        })
+            MusicKit.getInstance().api.library[method](id, params).then((results)=>{
+                ipcRenderer.send('wsapi-returnMusicKitApi', JSON.stringify(results), method)
+            })
         } else {
-        MusicKit.getInstance().api[method](id, params).then((results)=>{
-            ipcRenderer.send('wsapi-returnMusicKitApi', JSON.stringify(results), method)
-        }) 
+            MusicKit.getInstance().api[method](id, params).then((results)=>{
+                ipcRenderer.send('wsapi-returnMusicKitApi', JSON.stringify(results), method)
+            })
         }
     },
     getPlaybackState () {
@@ -112,3 +112,5 @@ const wsapi = {
         ipcRenderer.send('wsapi-returnvolumeMax',JSON.stringify(app.cfg.audio.maxVolume));
     }
 }
+
+export {wsapi}
