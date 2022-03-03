@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 import {Store} from "./store";
 import {BrowserWindow as bw} from "./browserwindow";
-import {app} from "electron";
+import {app, dialog} from "electron";
 import fetch from "electron-fetch";
 import {AppImageUpdater, NsisUpdater} from "electron-updater";
 import * as log from "electron-log";
@@ -151,9 +151,20 @@ export class utils {
             bw.win.webContents.send('update-response', "update-not-available");
         })
 
-        autoUpdater.on('update-downloaded', () => {
+        autoUpdater.on('update-downloaded', (info: any) => {
             console.log('[AutoUpdater] Update downloaded.')
             bw.win.webContents.send('update-response', "update-downloaded");
+            const dialogOpts = {
+                type: 'info',
+                buttons: ['Restart', 'Later'],
+                title: 'Application Update',
+                message: info,
+                detail: 'A new version has been downloaded. Restart the application to apply the updates.'
+              }
+            
+              dialog.showMessageBox(dialogOpts).then((returnValue) => {
+                if (returnValue.response === 0) autoUpdater.quitAndInstall()
+              })
         })
 
         log.transports.file.level = "debug"
