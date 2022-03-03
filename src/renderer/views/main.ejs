@@ -35,6 +35,13 @@
     <script src="./lib/notyf.min.js"></script>
     <script src="./lib/showdown.min.js"></script>
     <script src="./lib/velocity.min.js"></script>
+    <script async type="module" src="./main/app.js"></script>
+
+    <script async
+            src="index.js?v=1"></script>
+    <script src="./lib/fast-plural-rules.js"></script>
+    <script
+            src="./lib/resonance-audio.min.js"></script>
     <style>
         #LOADER {
             position: fixed;
@@ -103,21 +110,14 @@
     </button>
 </script>
 
-
-<script src="./lib/fast-plural-rules.js"></script>
-
-<script async type="module" src="./main/app.js"></script>
-
 <script>
     if (typeof MusicKit == 'undefined') {
         document.write(unescape("%3Cscript src='https://js-cdn.music.apple.com/musickit/v2/amp/musickit.js' type='text/javascript'%3E%3C/script%3E"));
     }
 </script>
 
-<script
-        src="index.js?v=1"></script>
-<script
-        src="./lib/resonance-audio.min.js"></script>
+
+
 </body>
 
 </html>
