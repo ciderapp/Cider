@@ -352,6 +352,8 @@
   "settings.option.experimental.compactUI": "Compact UI",
   "settings.option.experimental.close_button_hide": "Cwose Button Shouwd Hide the Appwication",
   "settings.option.experimental.inline_playlists": "Inwinye Pwaywists and Awbums",
+  "settings.option.advanced.playlistTrackMapping": "Pwaywist Twack Mapping",
+  "settings.option.advanced.playlistTrackMapping.description": "Enyabwes deep scannying of pwaywists to detewminye which twacks awe in which pwaywists.",
   "spatial.notTurnedOn": "Audio Spatiawization is disabwed. To use, pwease enyabwe it fiwst.",
   "spatial.spatialProperties": "Spatiaw Pwopewties",
   "spatial.width": "Width",
