@@ -2,7 +2,7 @@
   "i18n.languageNameEnglish": "Korean (KR)",
   "i18n.languageName": "한국어 (KR)",
   "i18n.category": "main",
-  "i18n.authors": "@maikirakiwi @kyw504100 nosh118",
+  "i18n.authors": "@maikirakiwi @kyw504100 @nosh118",
   "app.name": "Cider",
   "date.format": "${y}.
   "dialog.cancel": "취소",
@@ -148,6 +148,7 @@
   "term.musicVideos": "뮤직 비디오",
   "term.tracks": "곡",
   "settings.header.connectivity": "연동",
+  "term.pluginMenu.none": "No interactive plugins",
   "term.replay": "Replay",
   "action.showAlbum": "전체 앨범 보기",
   "term.aboutArtist": "{{artistName}}에 대하여",
