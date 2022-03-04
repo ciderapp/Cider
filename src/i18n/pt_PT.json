@@ -1,6 +1,6 @@
 {
   "i18n.languageName": "Português",
-  "i18n.languageNameEnglish": "Inglês (Estados Unidos da América)",
+  "i18n.languageNameEnglish": "Portuguese",
   "i18n.category": "principal",
   "i18n.authors": "@lordgaelish190",
   "app.name": "Cider",
@@ -354,8 +354,8 @@
   "settings.option.experimental.compactUI": "Interface de utilizador compacta",
   "settings.option.experimental.close_button_hide": "O Botão Fechar deve esconder a aplicação",
   "settings.option.experimental.inline_playlists": "Listas de Reprodução e Albums na linha",
-  "settings.option.advanced.playlistTrackMapping": "Playlist Track Mapping",
-  "settings.option.advanced.playlistTrackMapping.description": "Ativa uma análise profunda das listas de reprodução para determinar quais faixas estão em quais listas.  Playlist cache build times can increase significantly.",
+  "settings.option.advanced.playlistTrackMapping": " Mapeamento de Faixas nas Listas de Reprodução",
+  "settings.option.advanced.playlistTrackMapping.description": "Ativa uma análise profunda das listas de reprodução para determinar quais faixas estão em quais listas.  Os tempos de construção da cache das listas de reprodução pode aumentar significativamente.",
   "spatial.notTurnedOn": "A Virtualização Espacial de Áudio está desligada. Para a utilizar, ative-a primeiro.",
   "spatial.spatialProperties": "Propriedades da Virtualização Espacial",
   "spatial.width": "Largura",
