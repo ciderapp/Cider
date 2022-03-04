@@ -2,7 +2,7 @@
   "i18n.languageName": "繁體中文（台灣）",
   "i18n.languageNameEnglish": "Trad.
   "i18n.category": "main",
-  "i18n.authors": "@maikirakiwi @kyw504100 nosh118",
+  "i18n.authors": "@maikirakiwi @kyw504100 @nosh118",
   "app.name": "Cider",
   "date.format": "${y}年${m}月${d}日",
   "dialog.cancel": "取消",
@@ -148,6 +148,7 @@
   "error.noResults": "沒有結果",
   "action.addToLibrary": "加入資料庫",
   "term.pluginMenu": "Plug-in Menu",
+  "term.pluginMenu.none": "No interactive plugins",
   "term.replay": "Replay",
   "action.goToAlbum": "前往專輯",
   "action.goToArtist": "前往藝人",
