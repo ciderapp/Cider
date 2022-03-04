@@ -2,7 +2,7 @@
   "i18n.languageName": "Deutsch",
   "i18n.languageNameEnglish": "German",
   "i18n.category": "main",
-  "i18n.authors": "@maikirakiwi @kyw504100 nosh118",
+  "i18n.authors": "@maikirakiwi @kyw504100 @nosh118",
   Cider
   "date.format": "${d}.${m}.${y}",
   "dialog.cancel": "Abbrechen",
@@ -148,6 +148,7 @@
   "term.musicVideos": "Musikvideos",
   "term.tracks": "Lieder",
   "term.sharedPlaylists": "Geteilte Playlists",
+  "term.pluginMenu.none": "No interactive plugins",
   "term.replay": "Replay",
   "action.goToAlbum": "Gehe zu Album",
   "term.aboutArtist": "Über {{artistName}}",
