@@ -90,21 +90,21 @@
   "term.time.added": "Toegevoegd",
   "term.time.released": "Uitgebracht",
   "term.time.updated": "Bijgewerkt",
-  "term.time.days": "days",
-  "term.time.day": "day",
+  "term.time.days": "dagen",
+  "term.time.day": "dag",
   "term.time.hours": "uren",
   "term.time.hour": "uur",
   "term.time.minutes": "minuten",
   "term.time.minute": "minuut",
   "term.time.seconds": "seconden",
   "term.time.second": "seconde",
-  Volledige scherm
-  Standaard weergave
-  Geluid instellingen
-  Volumeregeling 
-  Wis alles
-  Recente stations
-  Taal
+  "term.fullscreenView": "Volledig Scherm",
+  "term.defaultView": "Standaard Weergave",
+  "term.audioSettings": "Geluidsinstellingen",
+  "term.audioControls": "Volumeregeling",
+  "term.clearAll": "Wis Alles",
+  "term.recentStations": "Recente Stations",
+  "term.language": "Taal",
   grappig
   Laden /Songtekst niet gevonden./ Instrumentaal.",
   Copyright
