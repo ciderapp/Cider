@@ -171,7 +171,8 @@
                     <input type="range" class="" @wheel="volumeWheel" :step="cfg.audio.volumeStep" min="0"
                            :max="cfg.audio.maxVolume"
                            v-model="mk.volume" v-if="typeof mk.volume != 'undefined'"
-                           @change="checkMuteChange()">
+                           @change="checkMuteChange()"
+                           v-b-tooltip.hover :title="`${(Math.log10(mk.volume) * 20).toFixed(2)} dB`">
                 </div>
             </div>
         </div>
