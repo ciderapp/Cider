@@ -1,7 +1,7 @@
 {
   "i18n.languageName": "Nederlands",
   "i18n.languageNameEnglish": "Nederlands (NL)",
-  Hoofd
+  "i18n.category": "main",
   "i18n.authors": "@Sjoerd69",
   "app.name": "Cider",
   "date.format": "${d}-${m}-${y}",
@@ -167,7 +167,7 @@
   "home.artistsFeed": "Je Artiesten Feed",
   "home.artistsFeed.noArtist": "Volg artiesten om hun nieuwste releases te zien",
   "home.madeForYou": "Gemaakt Voor Jou",
-  "home.friendsListeningTo": "Vrienden Luisteren Naar,
+  "home.friendsListeningTo": "Vrienden Luisteren Naar",
   "home.followedArtists": "Gevolgde Artiesten",
   "error.appleMusicSubRequired": "Apple Music vereist een abonnement.",
   "error.connectionError": "Er is een probleem opgetreden bij het verbinden met Apple Music.",
