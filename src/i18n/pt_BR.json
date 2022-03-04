@@ -3,7 +3,7 @@
   "i18n.languageNameEnglish": "Portuguese (Brazil)",
   "i18n.category": "Principal",
 
-  "i18n.authors": "@maikirakiwi @kyw504100 nosh118",
+  "i18n.authors": "@maikirakiwi @kyw504100 @nosh118",
   "app.name": "Cider",
   "date.format": "${d} ${m}, ${y}",
   "dialog.cancel": "Cancelar",
@@ -153,6 +153,7 @@
   "term.noVideos": "Vídeos não encontrados.",
   "settings.header.connectivity": "Conectividade",
   "term.pluginMenu": "Menu de Plug-ins",
+  "term.pluginMenu.none": "No interactive plugins",
   "term.replay": "Replay",
   "action.goToAlbum": "Ir para o Album",
   "term.aboutArtist": "Sobre {{artistName}}",
