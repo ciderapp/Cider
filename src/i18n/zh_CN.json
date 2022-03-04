@@ -2,7 +2,7 @@
   "i18n.languageName": "简体中文（中国）",
   "i18n.languageNameEnglish": "Simp.
   "i18n.category": "main",
-  "i18n.authors": "@maikirakiwi @kyw504100 nosh118",
+  "i18n.authors": "@maikirakiwi @kyw504100 @nosh118",
   "app.name": "Cider",
   "date.format": "${y}年${m}月${d}日",
   "dialog.cancel": "取消",
@@ -148,6 +148,7 @@
   "error.noResults": "没有结果",
   "term.updateCider": "更新 Cider",
   "term.sharedPlaylists": "分享播放列表",
+  "term.pluginMenu.none": "No interactive plugins",
   "term.replay": "Replay",
   "action.goToAlbum": "前往专辑",
   "action.goToArtist": "前往艺人",
