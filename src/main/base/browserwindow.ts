@@ -16,7 +16,12 @@ import {utils} from './utils';
 const fileWatcher = require('chokidar');
 const AdmZip = require("adm-zip");
 
+/**
+ * @file Creates the BrowserWindow
+ * @author CiderCollective
+ */
 
+/** @namespace */
 export class BrowserWindow {
     public static win: any | undefined = null;
     private devMode: boolean = !app.isPackaged;
@@ -273,6 +278,9 @@ export class BrowserWindow {
 
     /**
      * Creates the browser window
+     * @generator
+     * @function createWindow
+     * @yields {object} Electron browser window
      */
     async createWindow(): Promise<Electron.BrowserWindow> {
         this.clientPort = await getPort({port: 9000});
@@ -926,11 +934,11 @@ export class BrowserWindow {
 
         ipcMain.on('get-remote-pair-url', (_event, _) => {
             let url = `http://${BrowserWindow.getIP()}:${this.remotePort}`;
-            if (app.isPackaged) {
+            //if (app.isPackaged) {
                 BrowserWindow.win.webContents.send('send-remote-pair-url', (`https://cider.sh/pair-remote?url=${Buffer.from(encodeURI(url)).toString('base64')}`).toString());
-            } else {
-                BrowserWindow.win.webContents.send('send-remote-pair-url', (`http://127.0.0.1:5500/pair-remote.html?url=${Buffer.from(encodeURI(url)).toString('base64')}`).toString());
-            }
+            //} else {
+            //    BrowserWindow.win.webContents.send('send-remote-pair-url', (`http://127.0.0.1:5500/pair-remote.html?url=${Buffer.from(encodeURI(url)).toString('base64')}`).toString());
+            //}
 
         });
         if (process.platform === "darwin") {
@@ -957,6 +965,7 @@ export class BrowserWindow {
             await utils.checkForUpdate();
         });
 
+
         ipcMain.on('disable-update', (event) => {
             // Check if using app store builds so people don't get pissy wen button go bonk
             if (app.isPackaged && !process.mas || !process.windowsStore) {
@@ -965,6 +974,8 @@ export class BrowserWindow {
                 event.returnValue = true
             }
         })
+
+
 
         ipcMain.on('share-menu', async (_event, url) => {
             if (process.platform != 'darwin') return;

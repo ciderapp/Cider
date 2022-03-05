@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 import {Store} from "./store";
 import {BrowserWindow as bw} from "./browserwindow";
-import {app, dialog} from "electron";
+import {app, dialog, ipcMain, Notification, shell } from "electron";
 import fetch from "electron-fetch";
 import {AppImageUpdater, NsisUpdater} from "electron-updater";
 import * as log from "electron-log";
@@ -115,7 +115,13 @@ export class utils {
      * Checks the application for updates
      */
     static async checkForUpdate(): Promise<void> {
-
+        if (!app.isPackaged) {
+            new Notification({ title: "Application Update", body: "Can't update as app is in DEV mode. Please build or grab a copy by clicking me"})
+                .on('click', () => {shell.openExternal('https://download.cider.sh/?utm_source=app&utm_medium=dev-mode-warning')})
+                .show()
+            bw.win.webContents.send('update-response', "update-error")
+            return;
+        }
         // Get the artifacts
         const response = await fetch(`https://circleci.com/api/v1.1/project/gh/ciderapp/Cider/latest/artifacts?branch=${utils.getStoreValue('general.update_branch')}&filter=successful`)
         if (response.status != 200) {
@@ -141,6 +147,10 @@ export class utils {
             autoUpdater = await new AppImageUpdater(options) //Linux and Mac (AppImages work on macOS btw)
         }
 
+        autoUpdater.on('checking-for-update', () => {
+            new Notification({ title: "Cider Update", body: "Cider is currently checking for updates."}).show()
+        })
+
         autoUpdater.on('error', (error: any) => {
             console.error(`[AutoUpdater] Error: ${error}`)
             bw.win.webContents.send('update-response', "update-error")
@@ -149,6 +159,9 @@ export class utils {
         autoUpdater.on('update-not-available', () => {
             console.log('[AutoUpdater] Update not available.')
             bw.win.webContents.send('update-response', "update-not-available");
+        })
+        autoUpdater.on('download-progress', (event: any, progress: any) => {
+            bw.win.setProgressBar(progress.percent / 100)
         })
 
         autoUpdater.on('update-downloaded', (info: any) => {
@@ -165,6 +178,9 @@ export class utils {
               dialog.showMessageBox(dialogOpts).then((returnValue) => {
                 if (returnValue.response === 0) autoUpdater.quitAndInstall()
               })
+              new Notification({ title: "Application Update", body: info}).on('click', () => {
+                  bw.win.show()
+              }).show()
         })
 
         log.transports.file.level = "debug"
