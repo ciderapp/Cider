@@ -36,7 +36,7 @@
             </div>
             <div class="info-rect" :class="{'info-rect-card': kind == 'card'}" :style="{'--bgartwork': getArtworkUrl(size, true)}">
                 <div class="title" v-if="item.attributes.artistNames == null || kind!= 'card'" @click='app.routeView(item)'>
-                    <div class="item-navigate text-overflow-elipsis">{{ item.attributes.name }}</div>
+                    <div class="item-navigate text-overflow-elipsis">{{ item.attributes?.name ?? (item.relationships?.contents?.data[0]?.attributes?.name ?? '') }}</div>
                     <div class="explicit-icon" v-if="item.attributes && item.attributes.contentRating == 'explicit'" style= "background-image: url(./assets/explicit.svg);height: 12px;width: 12px;filter: contrast(0);background-repeat: no-repeat;margin-top: 2.63px;margin-left: 4px;"></div>
                 </div>       
                 <div class="subtitle item-navigate text-overflow-elipsis" @click="getSubtitleNavigation()"
@@ -77,7 +77,7 @@
                 addedToLibrary: false,
                 guid: this.uuidv4(),
                 noplay: ["apple-curators"],
-                nomenu: ["artists", "stations", "apple-curators"],
+                nomenu: ["artists", "stations", "apple-curators", "editorial-elements"],
                 app: this.$root,
                 badges: this.$root.socialBadges.badgeMap,
                 itemBadges: [],
@@ -149,7 +149,7 @@
             },
             async getBadges() {
                 const self = this
-                const id = (this.item.attributes.playParams ? this.item.attributes.playParams.id : null) || this.item.id
+                const id = ((this.item.attributes?.playParams ?? false) ? this.item.attributes?.playParams.id : null) || this.item.id
                 if (id && this.badges[id]) {
                     let friends = this.badges[id]
                     if (friends) {
@@ -215,7 +215,7 @@
                 }
                 switch (this.kind) {
                     case "385":
-                        artwork = this.item.attributes.editorialArtwork.subscriptionHero.url
+                        artwork = this.item.attributes.editorialArtwork?.subscriptionHero?.url ?? (this.item.attributes.artwork?.url ?? (this.item.relationships?.contents?.data[0]?.attributes?.editorialArtwork?.subscriptionHero?.url ?? ''))
                         break;
                 }
                 if(!includeUrl) {
@@ -225,7 +225,12 @@
                 }
             },
             getClasses() {
-                let type = this.item.type
+                let type = []
+                try{
+                type = this.item.type
+            
+             }catch(e) {console.log('sd',this.item)}
+                 
                 if (this.kind != "") {
                     type = this.kind
                 }
@@ -233,6 +238,7 @@
                     default:
                         return []
                         break;
+                    case "editorial-elements":    
                     case "card":
                         return ["mediaitem-card"]
                         break;

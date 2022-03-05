@@ -1507,6 +1507,14 @@ const app = new Vue({
                 });
                 window.location.hash = `${kind}/${id}`
                 document.querySelector("#app-content").scrollTop = 0
+            } else if (kind == "editorial-elements") {
+                console.log(item)
+                if (item.relationships?.contents?.data != null && item.relationships?.contents?.data.length > 0){
+                    this.routeView(item.relationships.contents.data[0])
+                } else if (item.attributes?.link?.url != null){
+                    window.open(item.attributes.link.url)  
+                }
+
             } else if (kind.toString().includes("artist")) {
                 app.getArtistInfo(id, isLibrary)
                 window.location.hash = `${kind}/${id}${isLibrary ? "/" + isLibrary : ''}`
