@@ -3533,7 +3533,7 @@ const app = new Vue({
             return event.deltaY < 0;
         },
         volumeUp() {
-            if ((app.mk.volume + app.cfg.audio.volumeStep) > 1) {
+            if ((app.mk.volume + app.cfg.audio.volumeStep) > app.cfg.audio.maxVolume) {
                 app.mk.volume = app.cfg.audio.maxVolume;
                 console.log('setting max volume')
             } else {
