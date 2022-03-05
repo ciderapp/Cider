@@ -301,8 +301,9 @@ export class BrowserWindow {
 
                 break;
             case "win32":
-                this.options.backgroundColor = "#1E1E1E";
-                this.options.transparent = false;
+                if (!(utils.getStoreValue('visual.transparent') ?? false)){
+                this.options.backgroundColor = "#1E1E1E";} else {
+                this.options.transparent = true;}
                 break;
             case "linux":
                 this.options.backgroundColor = "#1E1E1E";
@@ -321,6 +322,11 @@ export class BrowserWindow {
         this.startWebServer();
 
         BrowserWindow.win = new bw(this.options);
+        if (process.platform === "win32" && (utils.getStoreValue('visual.transparent') ?? false)) {
+            var electronVibrancy = require('electron-vibrancy-updated');
+            electronVibrancy.SetVibrancy(BrowserWindow.win, 0);
+
+        }
         const ws = new wsapi(BrowserWindow.win)
         ws.InitWebSockets()
         // and load the renderer.
@@ -797,9 +803,15 @@ export class BrowserWindow {
         ipcMain.on('setFullScreen', (_event, flag) => {
             BrowserWindow.win.setFullScreen(flag)
         })
+
         //Fullscreen
         ipcMain.on('detachDT', (_event, _) => {
             BrowserWindow.win.webContents.openDevTools({mode: 'detach'});
+        })  
+        
+        ipcMain.on('relaunchApp',(_event, _) => {
+            app.relaunch()
+            app.exit()
         })
 
 

@@ -752,6 +752,15 @@
                         </select>
                     </div>
                 </div>
+                <div class="md-option-line update-check" v-if="app.platform === 'win32'">
+                    <div class="md-option-segment">
+                        {{$root.getLz('settings.option.visual.transparent')}}<br>
+                        <small>({{$root.getLz('settings.option.visual.transparent.description')}})</small>
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <input type="checkbox" v-model="app.cfg.visual.transparent" switch @change="promptForRelaunch()"/>
+                    </div>
+                </div>
             </div>
             <div style="opacity: 0.5; pointer-events: none">
                 <div class="md-option-header">
@@ -909,6 +918,13 @@
                         updateFields[i].title = "Not available on this type of build";
                     }
                 }
+            },
+            promptForRelaunch(){
+                bootbox.confirm(app.getLz('action.relaunch.confirm'), function (result) {
+                if (result) {
+                    ipcRenderer.send('relaunchApp','');
+                }
+            });          
             }
         }
     })

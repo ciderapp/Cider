@@ -105,6 +105,7 @@ export class Store {
             "bg_artwork_rotation": false,
             "hw_acceleration": "default", // default, webgpu, disabled
             "showuserinfo": true,
+            "transparent": false,
             "miniplayer_top_toggle": true,
             "directives": {
                 "windowLayout": "default"
