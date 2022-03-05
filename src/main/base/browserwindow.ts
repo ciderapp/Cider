@@ -322,11 +322,12 @@ export class BrowserWindow {
         this.startWebServer();
 
         BrowserWindow.win = new bw(this.options);
-        if (process.platform === "win32" && (utils.getStoreValue('visual.transparent') ?? false)) {
-            var electronVibrancy = require('electron-vibrancy-updated');
-            electronVibrancy.SetVibrancy(BrowserWindow.win, 0);
+        // cant be built in CI 
+        // if (process.platform === "win32" && (utils.getStoreValue('visual.transparent') ?? false)) {
+        //     var electronVibrancy = require('electron-vibrancy-updated');
+        //     electronVibrancy.SetVibrancy(BrowserWindow.win, 0);
 
-        }
+        // }
         const ws = new wsapi(BrowserWindow.win)
         ws.InitWebSockets()
         // and load the renderer.
