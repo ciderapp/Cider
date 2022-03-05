@@ -3,7 +3,7 @@ import {store} from './vuex-store.js';
 Vue.use(VueHorizontal);
 Vue.use(VueObserveVisibility);
 Vue.use(BootstrapVue)
-
+/* @namespace */
 const app = new Vue({
     store: store,
     data: {
@@ -290,6 +290,13 @@ const app = new Vue({
             this.lz = ipcRenderer.sendSync("get-i18n", lang)
             this.mklang = await this.MKJSLang()
         },
+        /**
+         * Grabs translation for localization.
+         * @param {string} message - The key to grab the translated term
+         * @param {object} options - Optional options
+         * @author booploops#7139
+         * @memberOf app
+         */
         getLz(message, options = {}) {
             if (this.lz[message]) {
                 if (options["count"]) {
@@ -3993,6 +4000,8 @@ const app = new Vue({
         },
         checkForUpdate() {
             ipcRenderer.send('check-for-update')
+            document.getElementById('settings.option.general.updateCider.check').innerHTML = 'Checking...'
+            notyf.success('Checking for update in background...')
             ipcRenderer.on('update-response', (event, res) => {
                 if (res === "update-not-available") {
                     notyf.error(app.getLz(`settings.notyf.updateCider.${res}`))
@@ -4003,7 +4012,7 @@ const app = new Vue({
                 } else if (res === "update-timeout") {
                     notyf.error(app.getLz(`settings.notyf.updateCider.${res}`))
                 }
-
+                document.getElementById('settings.option.general.updateCider.check').innerHTML = app.getLz('term.check')
             })
         },
     }
