@@ -21,7 +21,7 @@
                                         :video-priority="true"
                                         :url="(data.attributes != null && data.attributes.artwork != null) ? data.attributes.artwork.url : ((data.relationships != null && data.relationships.tracks.data.length > 0 && data.relationships.tracks.data[0].attributes != null) ? ((data.relationships.tracks.data[0].attributes.artwork != null)? data.relationships.tracks.data[0].attributes.artwork.url : ''):'')"
                                         :video="(data.attributes != null && data.attributes.editorialVideo != null) ? (data.attributes.editorialVideo.motionDetailSquare ? data.attributes.editorialVideo.motionDetailSquare.video : (data.attributes.editorialVideo.motionSquareVideo1x1 ? data.attributes.editorialVideo.motionSquareVideo1x1.video : '')) : '' "
-                                        size="260"
+                                        size="500"
                                 ></mediaitem-artwork>
                             </div>
                         </div>

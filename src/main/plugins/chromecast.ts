@@ -41,7 +41,7 @@ export default class ChromecastPlugin {
             browser.on('ready', browser.discover);
 
             browser.on('update', (service :any) => {
-                if (service.addresses && service.fullname) {
+                if (service.addresses && service.fullname && service.fullname.includes('_googlecast._tcp')) {
                     this.ondeviceup(service.addresses[0], service.fullname.substring(0, service.fullname.indexOf("._googlecast")) + " " + (service.type[0].description ?? ""), '', 'googlecast');
                 }
             });
