@@ -4,6 +4,12 @@ import * as path from 'path';
 import * as log from 'electron-log';
 import {utils} from './utils';
 
+/**
+ * @file Creates App instance
+ * @author CiderCollective
+ */
+
+/** @namespace */
 export class AppEvents {
     private protocols: string[] = [
         "ame",
@@ -17,6 +23,7 @@ export class AppEvents {
     private tray: any = undefined;
     private i18n: any = undefined;
 
+    /** @constructor */
     constructor() {
         this.start();
     }
@@ -90,6 +97,7 @@ export class AppEvents {
         /***********************************************************************************************************************
          * Protocols
          **********************************************************************************************************************/
+        /**  */
         if (process.defaultApp) {
             if (process.argv.length >= 2) {
                 this.protocols.forEach((protocol: string) => {

@@ -59,7 +59,29 @@
                         }
                         this.hls.attachMedia(this.$refs.video);
                         this.hls.loadSource(this.video);
-                        this.hls.loadLevel = parseInt(app.cfg.visual.animated_artwork_qualityLevel || 1);
+                        let u = this.hls;
+                        var quality = app.cfg.visual.animated_artwork_qualityLevel;
+                        setTimeout(() => {                       
+                        let levelsnum = u.levels.map((level)=>{return level.width})
+                        if (levelsnum.length > 0) {
+                        let qualities = []
+                        let qualities2 = []
+                        for (let i = 0; i < levelsnum.length; i++) {
+                            if (qualities2.indexOf(levelsnum[i]) == -1) {
+                                qualities.push({level: i, quality: levelsnum[i]})
+                                qualities2.push(levelsnum[i])
+                            }
+                        }
+                        let actualnum = Math.floor(qualities[qualities.length -1 ].level * (quality / 4))
+                        if (quality != 0 ){
+                            quality = qualities[Math.min(actualnum,qualities.length -1 )].level
+                        }
+                        if (quality == 4 ){
+                            quality = qualities[qualities.length - 1].level
+                        }
+                        }
+                        
+                        this.hls.loadLevel = parseInt( quality || 1);},200)
                     }
                 })
             }

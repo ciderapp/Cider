@@ -155,6 +155,9 @@
         beforeDestroy() {
             window.removeEventListener('keyup', this.onEscapeKeyUp)
         },
+        mounted() {
+            app.pinMiniPlayer(true)
+        },
         methods: {
             onEscapeKeyUp(event) {
                 if (event.which === 27) {

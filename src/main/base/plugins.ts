@@ -3,6 +3,18 @@ import * as path from 'path';
 import * as electron from 'electron'
 import {utils} from './utils';
 
+//
+// Hello, this our loader for the various plugins that the Cider Development Team built for our
+// numerous plugins internally and ones made by the community
+//
+// To learn how to make your own, visit https://github.com/ciderapp/Cider/wiki/Plugins
+//
+/**
+ * @class
+ * Plugin Loading
+ * @author booploops#7139
+ * @see {@link https://github.com/ciderapp/Cider/wiki/Plugins|Documentation}
+ */
 export class Plugins {
     private basePluginsPath = path.join(__dirname, '../plugins');
     private userPluginsPath = path.join(electron.app.getPath('userData'), 'Plugins');

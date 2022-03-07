@@ -2,13 +2,13 @@
     <vue-horizontal>
         <template v-if="browsesp">
             <mediaitem-mvview-sp
-                    :item="item ? (item.attributes.kind ? item : ((item.relationships && item.relationships.contents ) ? item.relationships.contents.data[0] : item)) : []"
+                    :item="item ? ((item.attributes?.kind != null || item.attributes?.type == 'editorial-elements') ? item : ((item.relationships && item.relationships.contents ) ? item.relationships.contents.data[0] : item)) : []"
                     :imagesize="imagesize"
                     :badge="item.attributes" v-for="item in items"></mediaitem-mvview-sp>
         </template>
         <template v-else>
             <mediaitem-square :kind="kind" size="600"
-                              :item="item ? (item.attributes.kind ? item : ((item.relationships && item.relationships.contents ) ? item.relationships.contents.data[0] : item)) : []"
+                              :item="item ? ((item.attributes?.kind != null || item.type == 'editorial-elements') ? item : ((item.relationships && item.relationships.contents ) ? item.relationships.contents.data[0] : item)) : []"
                               :imagesize="imagesize"
                               v-for="item in items"></mediaitem-square>
         </template>
@@ -43,6 +43,8 @@
                 app: this.$root,
             }
         },
-        methods: {}
+        // mounted(){
+        //     console.log('hes',this.items)
+        // }
     });
 </script>
