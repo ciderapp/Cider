@@ -15,7 +15,15 @@ export class Store {
             "update_branch": "main",
             "resumeOnStartupBehavior": "local",
             "privateEnabled": false,
-            "themeUpdateNotification": true
+            "themeUpdateNotification": true,
+            "sidebarItems": {
+                "recentlyAdded": true,
+                "songs": true,
+                "albums": true,
+                "artists": true,
+                "videos": true,
+                "podcasts": true
+            }
         },
         "home": {
             "followedArtists": [],
@@ -97,6 +105,7 @@ export class Store {
             "bg_artwork_rotation": false,
             "hw_acceleration": "default", // default, webgpu, disabled
             "showuserinfo": true,
+            "transparent": false,
             "miniplayer_top_toggle": true,
             "directives": {
                 "windowLayout": "default"

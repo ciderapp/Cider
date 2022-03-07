@@ -1,4 +1,4 @@
-var CiderAudio = {
+const CiderAudio = {
     context : null,
     source : null,
     audioNodes : {
@@ -304,7 +304,7 @@ var CiderAudio = {
             CiderAudio.audioNodes.analogWarmth = []
             
             
-            for (i = 0; i < WARMTH_FREQUENCIES.length; i++) {
+            for (let i = 0; i < WARMTH_FREQUENCIES.length; i++) {
                 CiderAudio.audioNodes.analogWarmth[i] = CiderAudio.context.createBiquadFilter();
                 CiderAudio.audioNodes.analogWarmth[i].type = 'peaking'; // 'peaking';
                 CiderAudio.audioNodes.analogWarmth[i].frequency.value = WARMTH_FREQUENCIES[i];
@@ -312,7 +312,7 @@ var CiderAudio = {
                 CiderAudio.audioNodes.analogWarmth[i].gain.value = WARMTH_GAIN[i] * app.cfg.audio.maikiwiAudio.analogWarmth_value; 
             }
     
-            for (i = 1; i < WARMTH_FREQUENCIES.length; i ++) {
+            for (let i = 1; i < WARMTH_FREQUENCIES.length; i ++) {
                 CiderAudio.audioNodes.analogWarmth[i-1].connect(CiderAudio.audioNodes.analogWarmth[i]);
             }
 
@@ -345,7 +345,7 @@ var CiderAudio = {
             CiderAudio.audioNodes.llpw = []
             
             if (app.cfg.audio.maikiwiAudio.ciderPPE_value === 0.55)  { 
-            for (i = 0; i < c_LLPW_FREQUENCIES.length; i++) {
+            for (let i = 0; i < c_LLPW_FREQUENCIES.length; i++) {
                 CiderAudio.audioNodes.llpw[i] = CiderAudio.context.createBiquadFilter();
                 CiderAudio.audioNodes.llpw[i].type = 'peaking'; // 'peaking';
                 CiderAudio.audioNodes.llpw[i].frequency.value = c_LLPW_FREQUENCIES[i];
@@ -354,7 +354,7 @@ var CiderAudio = {
             }
             
 
-            for (i = 1; i < c_LLPW_FREQUENCIES.length; i ++) {
+            for (let i = 1; i < c_LLPW_FREQUENCIES.length; i ++) {
                 CiderAudio.audioNodes.llpw[i-1].connect(CiderAudio.audioNodes.llpw[i]);
             } 
 
@@ -373,7 +373,7 @@ var CiderAudio = {
         }
 
             else if (app.cfg.audio.maikiwiAudio.ciderPPE_value === 0.5)  { 
-            for (i = 0; i < LLPW_FREQUENCIES.length; i++) {
+            for (let i = 0; i < LLPW_FREQUENCIES.length; i++) {
                 CiderAudio.audioNodes.llpw[i] = CiderAudio.context.createBiquadFilter();
                 CiderAudio.audioNodes.llpw[i].type = 'peaking'; // 'peaking';
                 CiderAudio.audioNodes.llpw[i].frequency.value = LLPW_FREQUENCIES[i];
@@ -382,7 +382,7 @@ var CiderAudio = {
             }
            
 
-            for (i = 1; i < LLPW_FREQUENCIES.length; i ++) {
+            for (let i = 1; i < LLPW_FREQUENCIES.length; i ++) {
                 CiderAudio.audioNodes.llpw[i-1].connect(CiderAudio.audioNodes.llpw[i]);
             } 
 
@@ -408,7 +408,7 @@ var CiderAudio = {
         let VIBRANTBASSQ = app.cfg.audio.maikiwiAudio.vibrantBass.Q;
         CiderAudio.audioNodes.vibrantbassNode = []
         
-        for (i = 0; i < VIBRANTBASSBANDS.length; i++) {
+        for (let i = 0; i < VIBRANTBASSBANDS.length; i++) {
             CiderAudio.audioNodes.vibrantbassNode[i] = CiderAudio.context.createBiquadFilter();
             CiderAudio.audioNodes.vibrantbassNode[i].type = 'peaking'; // 'peaking';
             CiderAudio.audioNodes.vibrantbassNode[i].frequency.value = VIBRANTBASSBANDS[i];
@@ -416,7 +416,7 @@ var CiderAudio = {
             CiderAudio.audioNodes.vibrantbassNode[i].gain.value = VIBRANTBASSGAIN[i] * app.cfg.audio.maikiwiAudio.vibrantBass.multiplier;
         }
 
-        for (i = 1; i < VIBRANTBASSBANDS.length; i ++) {
+        for (let i = 1; i < VIBRANTBASSBANDS.length; i ++) {
             CiderAudio.audioNodes.vibrantbassNode[i-1].connect(CiderAudio.audioNodes.vibrantbassNode[i]);
         }
 
@@ -683,7 +683,7 @@ var CiderAudio = {
 
         CiderAudio.audioNodes.audioBands = []; 
 
-        for (i = 0; i < BANDS.length; i++) {
+        for (let i = 0; i < BANDS.length; i++) {
             CiderAudio.audioNodes.audioBands[i] = CiderAudio.context.createBiquadFilter();
             CiderAudio.audioNodes.audioBands[i].type = 'peaking'; // 'peaking';
             CiderAudio.audioNodes.audioBands[i].frequency.value = BANDS[i];
@@ -694,14 +694,11 @@ var CiderAudio = {
         // Dynamic-ish loading
         CiderAudio.hierarchical_loading();
 
-        for (i = 1; i < BANDS.length; i ++) {
+        for (let i = 1; i < BANDS.length; i ++) {
             CiderAudio.audioNodes.audioBands[i-1].connect(CiderAudio.audioNodes.audioBands[i]);
         }
         CiderAudio.audioNodes.audioBands[BANDS.length-1].connect(CiderAudio.context.destination);
     }
 
 }
-if (app.cfg.advanced.AudioContext){
-    CiderAudio.init()
-   
-}
+export {CiderAudio}

@@ -9,13 +9,14 @@
                 :href="item.href"
                 @click='clickEvent()'>
             <template v-if="!renaming">
-                <div class="sidebar-icon" v-html="icon"></div> {{ item.attributes.name }}
+                <div class="sidebar-icon" :key="item.id" v-html="icon"></div> {{ item.attributes.name }}
+                <small class="presentNotice" v-if="hasRelatedMediaItems">(Track present)</small>
             </template>
             <input type="text" v-model="item.attributes.name" class="pl-rename-field" @blur="rename()" @keydown.enter="rename()" v-else>
         </button>
         <div class="folder-body" v-if="item.type === 'library-playlist-folders' && folderOpened">
             <template v-if="children.length != 0">
-                <sidebar-playlist v-for="item in children" :playlist-select="playlistSelect" :item="item" :key="item.id"></sidebar-playlist>
+                <sidebar-playlist v-for="item in children" :relate-media-items="relateMediaItems" :playlist-select="playlistSelect" :item="item" :key="item.id"></sidebar-playlist>
             </template>
             <template v-else>
                 <div class="spinner"></div>
@@ -35,6 +36,13 @@
             playlistSelect: {
                 type: Function,
                 required: false
+            },
+            relateMediaItems: {
+                type: Array,
+                required: false,
+                default () {
+                    return []
+                }
             }
         },
         data: function () {
@@ -43,7 +51,8 @@
                 children: [],
                 playlistRoot: "p.playlistsroot",
                 renaming: false,
-                icon: ""
+                icon: "",
+                hasRelatedMediaItems: false
             }
         },
         async mounted() {
@@ -51,6 +60,12 @@
                 this.icon = await this.$root.getSvgIcon("./assets/feather/list.svg")
             } else {
                 this.icon = await this.$root.getSvgIcon("./assets/feather/folder.svg")
+            }
+            let playlistMap = this.$root.playlists.trackMapping
+            if(this.relateMediaItems.length != 0) {
+                if(playlistMap[this.relateMediaItems[0]].includes(this.item.id)) {
+                    this.hasRelatedMediaItems = true
+                }
             }
         },
         methods: {

@@ -16,7 +16,12 @@ import {utils} from './utils';
 const fileWatcher = require('chokidar');
 const AdmZip = require("adm-zip");
 
+/**
+ * @file Creates the BrowserWindow
+ * @author CiderCollective
+ */
 
+/** @namespace */
 export class BrowserWindow {
     public static win: any | undefined = null;
     private devMode: boolean = !app.isPackaged;
@@ -273,6 +278,9 @@ export class BrowserWindow {
 
     /**
      * Creates the browser window
+     * @generator
+     * @function createWindow
+     * @yields {object} Electron browser window
      */
     async createWindow(): Promise<Electron.BrowserWindow> {
         this.clientPort = await getPort({port: 9000});
@@ -283,6 +291,7 @@ export class BrowserWindow {
         const windowState = windowStateKeeper({
             defaultWidth: 1024,
             defaultHeight: 600,
+            fullScreen: false
         });
         this.options.width = windowState.width;
         this.options.height = windowState.height;
@@ -292,8 +301,9 @@ export class BrowserWindow {
 
                 break;
             case "win32":
-                this.options.backgroundColor = "#1E1E1E";
-                this.options.transparent = false;
+                if (!(utils.getStoreValue('visual.transparent') ?? false)){
+                this.options.backgroundColor = "#1E1E1E";} else {
+                this.options.transparent = true;}
                 break;
             case "linux":
                 this.options.backgroundColor = "#1E1E1E";
@@ -312,6 +322,12 @@ export class BrowserWindow {
         this.startWebServer();
 
         BrowserWindow.win = new bw(this.options);
+        // cant be built in CI 
+        // if (process.platform === "win32" && (utils.getStoreValue('visual.transparent') ?? false)) {
+        //     var electronVibrancy = require('electron-vibrancy-updated');
+        //     electronVibrancy.SetVibrancy(BrowserWindow.win, 0);
+
+        // }
         const ws = new wsapi(BrowserWindow.win)
         ws.InitWebSockets()
         // and load the renderer.
@@ -427,9 +443,8 @@ export class BrowserWindow {
             }
         });
 
-        app.get("/themes/:theme/*", (req, res) => {
+        app.get("/themes/:theme/*", (req: {params: {theme: string, 0: string}}, res) => {
             const theme = req.params.theme;
-            // @ts-ignore
             const file = req.params[0];
             const themePath = join(utils.getPath('srcPath'), "./renderer/themes/", theme);
             const userThemePath = join(utils.getPath('themes'), theme);
@@ -442,9 +457,8 @@ export class BrowserWindow {
             }
         });
 
-        app.get("/plugins/:plugin/*", (req, res) => {
+        app.get("/plugins/:plugin/*", (req: {params: {plugin: string, 0: string}}, res) => {
             const plugin = req.params.plugin;
-            // @ts-ignore
             const file = req.params[0];
             const pluginPath = join(utils.getPath('plugins'), plugin);
             console.log(pluginPath)
@@ -790,9 +804,15 @@ export class BrowserWindow {
         ipcMain.on('setFullScreen', (_event, flag) => {
             BrowserWindow.win.setFullScreen(flag)
         })
+
         //Fullscreen
         ipcMain.on('detachDT', (_event, _) => {
             BrowserWindow.win.webContents.openDevTools({mode: 'detach'});
+        })  
+        
+        ipcMain.on('relaunchApp',(_event, _) => {
+            app.relaunch()
+            app.exit()
         })
 
 
@@ -927,11 +947,11 @@ export class BrowserWindow {
 
         ipcMain.on('get-remote-pair-url', (_event, _) => {
             let url = `http://${BrowserWindow.getIP()}:${this.remotePort}`;
-            if (app.isPackaged) {
+            //if (app.isPackaged) {
                 BrowserWindow.win.webContents.send('send-remote-pair-url', (`https://cider.sh/pair-remote?url=${Buffer.from(encodeURI(url)).toString('base64')}`).toString());
-            } else {
-                BrowserWindow.win.webContents.send('send-remote-pair-url', (`http://127.0.0.1:5500/pair-remote.html?url=${Buffer.from(encodeURI(url)).toString('base64')}`).toString());
-            }
+            //} else {
+            //    BrowserWindow.win.webContents.send('send-remote-pair-url', (`http://127.0.0.1:5500/pair-remote.html?url=${Buffer.from(encodeURI(url)).toString('base64')}`).toString());
+            //}
 
         });
         if (process.platform === "darwin") {
@@ -958,6 +978,7 @@ export class BrowserWindow {
             await utils.checkForUpdate();
         });
 
+
         ipcMain.on('disable-update', (event) => {
             // Check if using app store builds so people don't get pissy wen button go bonk
             if (app.isPackaged && !process.mas || !process.windowsStore) {
@@ -967,6 +988,8 @@ export class BrowserWindow {
             }
         })
 
+
+
         ipcMain.on('share-menu', async (_event, url) => {
             if (process.platform != 'darwin') return;
             //https://www.electronjs.org/docs/latest/api/share-menu
@@ -975,7 +998,6 @@ export class BrowserWindow {
                 title: 'Share',
                 urls: [url]
             };
-            // @ts-ignore
             const shareMenu = new ShareMenu(options);
             shareMenu.popup();
         })

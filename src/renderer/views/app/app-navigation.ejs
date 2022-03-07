@@ -6,8 +6,9 @@
              v-if="drawer.open && drawer.panel == 'lyrics' && lyrics && lyrics != [] && lyrics.length > 0">
             <div class="bgArtworkMaterial">
                 <div class="bg-artwork-container">
-                    <img class="bg-artwork a" :src="$store.state.artwork.playerLCD">
-                    <img class="bg-artwork b" :src="$store.state.artwork.playerLCD">
+                    <img v-if="(cfg.visual.bg_artwork_rotation && animateBackground)" class="bg-artwork a" :src="$store.state.artwork.playerLCD">
+                    <img v-if="(cfg.visual.bg_artwork_rotation && animateBackground)" class="bg-artwork b" :src="$store.state.artwork.playerLCD">
+                    <img v-if="!(cfg.visual.bg_artwork_rotation && animateBackground)" class="bg-artwork no-animation" :src="$store.state.artwork.playerLCD">
                 </div>
             </div>
             <lyrics-view v-if="drawer.panel == 'lyrics'" :time="lyriccurrenttime" :lyrics="lyrics"
