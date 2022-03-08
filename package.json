@@ -49,7 +49,7 @@
     "electron-notarize": "^1.1.1",
     "electron-store": "^8.0.1",
     "electron-updater": "^4.6.5",
-    "electron-vibrancy-updated": "git+https://github.com/ciderapp/electron-vibrancy-updated",
+
     "electron-window-state": "^5.0.3",
     "express": "^4.17.3",
     "get-port": "^5.1.1",
