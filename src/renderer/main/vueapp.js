@@ -217,7 +217,11 @@ const app = new Vue({
             }
         },
         pauseButtonTimer: null,
-        activeCasts: []
+        activeCasts: [],
+        pluginPages: {
+            page: "hello-world",
+            pages: [],
+        }
     },
     watch: {
         cfg: {
@@ -1488,6 +1492,11 @@ const app = new Vue({
             let page = hash[0]
             let id = hash[1]
             let isLibrary = hash[2] ?? false
+            if(page == "plugin") {
+                this.pluginPages.page = "plugin." + id
+                this.page = "plugin-renderer"
+                return
+            }
             this.routeView({
                 kind: page,
                 id: id,
