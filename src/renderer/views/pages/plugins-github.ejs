@@ -133,7 +133,7 @@
                             if (arg.success) {
                                 self.themes = []
                                 notyf.success(app.getLz('settings.notyf.visual.plugin.install.success'));
-                                bootbox.confirm(app.getLz("settings.prompt.visual.plugin.github.success"), ()=>{
+                                bootbox.confirm(app.getLz("settings.prompt.visual.plugin.github.success"), (ok)=>{
                                     if(ok) {
                                         ipcRenderer.invoke("relaunchApp")
                                     }else{
@@ -155,7 +155,7 @@
                         ipcRenderer.once("plugin-installed", (event, arg) => {
                             if (arg.success) {
                                 self.themes = ipcRenderer.sendSync("get-themes")
-                                bootbox.confirm(app.getLz("settings.prompt.visual.plugin.github.success"), ()=>{
+                                bootbox.confirm(app.getLz("settings.prompt.visual.plugin.github.success"), (ok)=>{
                                     if(ok) {
                                         ipcRenderer.invoke("relaunchApp")
                                     }else{
