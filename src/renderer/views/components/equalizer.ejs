@@ -295,11 +295,19 @@
             },
             changeVibrantBass() {
                 app.cfg.audio.maikiwiAudio.vibrantBass.multiplier = app.cfg.audio.equalizer.vibrantBass / 10
-                CiderAudio.hierarchical_loading();
-                if (app.cfg.audio.equalizer.vibrantBass != 0) {
-                for (var i = 0; i < 21; i++) {
+                if (app.cfg.audio.equalizer.vibrantBass !== '0') {
+                    try {
+                    for (var i = 0; i < 21; i++) {
                     CiderAudio.audioNodes.vibrantbassNode[i].gain.value = app.cfg.audio.maikiwiAudio.vibrantBass.gain[i] * (app.cfg.audio.equalizer.vibrantBass / 10);
-                }} 
+                    }}
+                    catch(e) {
+                        CiderAudio.hierarchical_loading();
+                    }
+                }
+                
+                else {
+                    CiderAudio.hierarchical_loading();
+                }
             },
             changeMix() {
                 for (var i = 0; i < 10; i++) {

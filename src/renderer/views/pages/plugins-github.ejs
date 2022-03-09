@@ -3,11 +3,11 @@
         <div class="gh-header">
             <div class="row">
                 <div class="col nopadding">
-                    <h1 class="header-text">Plugins from GitHub</h1>
+                    <h1 class="header-text">{{$root.getLz('settings.header.visual.plugin.github.page')}}</h1>
                 </div>
                 <div class="col-auto nopadding flex-center">
                     <button class="md-btn md-btn-small md-btn-block" @click="installThemeURL()">
-                        {{$root.getLz('settings.option.visual.theme.github.download')}}
+                        {{$root.getLz('settings.option.visual.plugin.github.download')}}
                     </button>
                 </div>
             </div>
@@ -84,7 +84,7 @@
         },
         mounted() {
             this.getRepos();
-            this.getInstalledThemes();
+            // this.getInstalledThemes();
         },
         methods: {
             getInstalledThemes() {
@@ -124,36 +124,50 @@
             },
             installThemeRepo(repo) {
                 let self = this
-                let msg = app.stringTemplateParser(app.getLz('settings.option.visual.theme.github.install.confirm'), {
+                let msg = app.stringTemplateParser(app.getLz('settings.option.visual.plugin.github.install.confirm'), {
                     repo: repo.full_name
                 });
                 bootbox.confirm(msg, (res) => {
                     if (res) {
-                        ipcRenderer.once("theme-installed", (event, arg) => {
+                        ipcRenderer.once("plugin-installed", (event, arg) => {
                             if (arg.success) {
-                                self.themes = ipcRenderer.sendSync("get-themes")
-                                notyf.success(app.getLz('settings.notyf.visual.theme.install.success'));
+                                self.themes = []
+                                notyf.success(app.getLz('settings.notyf.visual.plugin.install.success'));
+                                bootbox.confirm(app.getLz("settings.prompt.visual.plugin.github.success"), (ok)=>{
+                                    if(ok) {
+                                        ipcRenderer.invoke("relaunchApp")
+                                    }else{
+                                        return
+                                    }
+                                })
                             } else {
-                                notyf.error(app.getLz('settings.notyf.visual.theme.install.error'));
+                                notyf.error(app.getLz('settings.notyf.visual.plugin.install.error'));
                             }
                         });
-                        ipcRenderer.invoke("get-github-theme", repo.html_url)
+                        ipcRenderer.invoke("get-github-plugin", repo.html_url)
                     }
                 })
             },
             installThemeURL() {
                 let self = this
-                bootbox.prompt(app.getLz('settings.prompt.visual.theme.github.URL'), (result) => {
+                bootbox.prompt(app.getLz('settings.prompt.visual.plugin.github.URL'), (result) => {
                     if (result) {
-                        ipcRenderer.once("theme-installed", (event, arg) => {
+                        ipcRenderer.once("plugin-installed", (event, arg) => {
                             if (arg.success) {
                                 self.themes = ipcRenderer.sendSync("get-themes")
-                                notyf.success(app.getLz('settings.notyf.visual.theme.install.success'));
+                                bootbox.confirm(app.getLz("settings.prompt.visual.plugin.github.success"), (ok)=>{
+                                    if(ok) {
+                                        ipcRenderer.invoke("relaunchApp")
+                                    }else{
+                                        return
+                                    }
+                                })
+                                notyf.success(app.getLz('settings.notyf.visual.plugin.install.success'));
                             } else {
-                                notyf.error(app.getLz('settings.notyf.visual.theme.install.error'));
+                                notyf.error(app.getLz('settings.notyf.visual.plugin.install.error'));
                             }
                         });
-                        ipcRenderer.invoke("get-github-theme", result)
+                        ipcRenderer.invoke("get-github-plugin", result)
                     }
                 });
             },
