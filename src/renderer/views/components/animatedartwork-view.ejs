@@ -57,6 +57,7 @@
                             platformInfo: {requiresCDMAttachOnStart: !0, maxSecurityLevel: d, keySystemConfig: h},
                             appData: {serviceName: "Apple Music"}
                         }
+                        
                         this.hls.attachMedia(this.$refs.video);
                         this.hls.loadSource(this.video);
                         let u = this.hls;
@@ -80,8 +81,8 @@
                             quality = qualities[qualities.length - 1].level
                         }
                         }
-                        
-                        this.hls.loadLevel = parseInt( quality || 1);},200)
+                        try{
+                        this.hls.loadLevel = parseInt( quality || 1);} catch(e){}},200)
                     }
                 })
             }

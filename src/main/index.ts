@@ -1,6 +1,6 @@
 require('v8-compile-cache');
 
-import {app, components, ipcMain} from 'electron';
+const {app, components, ipcMain} = require('electron');
 import {join} from 'path';
 
 if (!app.isPackaged) {
@@ -41,8 +41,7 @@ app.on('ready', () => {
         require('vue-devtools').install()
     }
 
-    app.whenReady().then(async () => {
-        await components.whenReady();
+    components.whenReady().then(async () => {
         const bw = new BrowserWindow()
         const win = await bw.createWindow()
 
@@ -51,11 +50,11 @@ app.on('ready', () => {
         })
 
         console.log('[Cider][Widevine] Status:', components.status());
+        win.show();
         
         win.on("ready-to-show", () => {
             Cider.bwCreated();
             CiderPlug.callPlugins('onReady', win);
-            win.show();
         });
     });
 

@@ -60,6 +60,7 @@ export class BrowserWindow {
                 "pages/replay",
                 "pages/audiolabs",
                 "pages/zoo",
+                "pages/plugin-renderer",
                 "components/mediaitem-artwork",
                 "components/artwork-material",
                 "components/menu-panel",
@@ -90,8 +91,14 @@ export class BrowserWindow {
                 "components/miniplayer",
                 "components/castmenu",
                 "components/artist-chip",
+                "components/hello-world",
             ],
             appRoutes: [
+                {
+                    page: "plugin-renderer",
+                    component: `<plugin-renderer></plugin-renderer>`,
+                    condition: "page == 'plugin-renderer'"
+                },
                 {
                     page: "zoo",
                     component: "<cider-zoo></cider-zoo>",

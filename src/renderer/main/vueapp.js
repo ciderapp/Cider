@@ -1,4 +1,4 @@
-import {store} from './vuex-store.js';
+import { store } from './vuex-store.js';
 
 Vue.use(VueHorizontal);
 Vue.use(VueObserveVisibility);
@@ -217,7 +217,11 @@ const app = new Vue({
             }
         },
         pauseButtonTimer: null,
-        activeCasts: []
+        activeCasts: [],
+        pluginPages: {
+            page: "hello-world",
+            pages: [],
+        }
     },
     watch: {
         cfg: {
@@ -542,13 +546,13 @@ const app = new Vue({
             this.modals.addToPlaylist = false
             await app.mk.api.v3.music(
                 `/v1/me/library/playlists/${playlist_id}/tracks`, {}, {
-                    fetchOptions: {
-                        method: "POST",
-                        body: JSON.stringify({
-                            data: pl_items
-                        })
-                    }
+                fetchOptions: {
+                    method: "POST",
+                    body: JSON.stringify({
+                        data: pl_items
+                    })
                 }
+            }
             ).then(() => {
                 if (this.page == 'playlist_' + this.showingPlaylist.id) {
                     this.getPlaylistFromID(this.showingPlaylist.id, true)
@@ -560,7 +564,7 @@ const app = new Vue({
             if (this.cfg.visual.theme != "default.less" && this.cfg.visual.theme != "") {
                 this.setTheme(this.cfg.visual.theme)
             }
-            
+
             this.setLz(this.cfg.general.language)
             this.setLzManual()
             clearTimeout(this.hangtimer)
@@ -1017,7 +1021,7 @@ const app = new Vue({
                 console.log("playlist has no cache")
             }
 
-            if(cachedTrackMapping) {
+            if (cachedTrackMapping) {
                 console.log("using cached track mapping")
                 this.playlists.trackMapping = cachedTrackMapping
             }
@@ -1033,7 +1037,7 @@ const app = new Vue({
                 const playlistData = await app.mk.api.v3.music(`/v1/me/library/playlist-folders/${parent}/children/`)
                 await asyncForEach(playlistData.data.data, async (playlist) => {
                     playlist.parent = parent
-                    if(
+                    if (
                         playlist.type != "library-playlist-folders" &&
                         typeof playlist.attributes.playParams["versionHash"] != "undefined"
                     ) {
@@ -1103,12 +1107,12 @@ const app = new Vue({
                         this.newPlaylist()
                     }
                 },
-                    {
-                        name: app.getLz('term.createNewPlaylistFolder'),
-                        action: () => {
-                            this.newPlaylistFolder()
-                        }
+                {
+                    name: app.getLz('term.createNewPlaylistFolder'),
+                    action: () => {
+                        this.newPlaylistFolder()
                     }
+                }
                 ]
             }
             this.showMenuPanel(menu, event)
@@ -1117,13 +1121,13 @@ const app = new Vue({
             let self = this
             this.mk.api.v3.music(
                 `/v1/me/library/playlist-folders/${id}`, {}, {
-                    fetchOptions: {
-                        method: "PATCH",
-                        body: JSON.stringify({
-                            attributes: { name: name }
-                        })
-                    }
+                fetchOptions: {
+                    method: "PATCH",
+                    body: JSON.stringify({
+                        attributes: { name: name }
+                    })
                 }
+            }
             ).then(res => {
                 self.refreshPlaylists()
             })
@@ -1132,13 +1136,13 @@ const app = new Vue({
             let self = this
             this.mk.api.v3.music(
                 `/v1/me/library/playlists/${id}`, {}, {
-                    fetchOptions: {
-                        method: "PATCH",
-                        body: JSON.stringify({
-                            attributes: { name: name }
-                        })
-                    }
+                fetchOptions: {
+                    method: "PATCH",
+                    body: JSON.stringify({
+                        attributes: { name: name }
+                    })
                 }
+            }
             ).then(res => {
                 self.refreshPlaylists()
             })
@@ -1401,7 +1405,7 @@ const app = new Vue({
          */
         convertTime(time = 0, format = 'short') {
 
-            if(isNaN(time)) {
+            if (isNaN(time)) {
                 time = 0
             }
             if (typeof time !== "number") {
@@ -1488,6 +1492,11 @@ const app = new Vue({
             let page = hash[0]
             let id = hash[1]
             let isLibrary = hash[2] ?? false
+            if(page == "plugin") {
+                this.pluginPages.page = "plugin." + id
+                this.page = "plugin-renderer"
+                return
+            }
             this.routeView({
                 kind: page,
                 id: id,
@@ -1516,10 +1525,10 @@ const app = new Vue({
                 document.querySelector("#app-content").scrollTop = 0
             } else if (kind == "editorial-elements") {
                 console.log(item)
-                if (item.relationships?.contents?.data != null && item.relationships?.contents?.data.length > 0){
+                if (item.relationships?.contents?.data != null && item.relationships?.contents?.data.length > 0) {
                     this.routeView(item.relationships.contents.data[0])
-                } else if (item.attributes?.link?.url != null){
-                    window.open(item.attributes.link.url)  
+                } else if (item.attributes?.link?.url != null) {
+                    window.open(item.attributes.link.url)
                 }
 
             } else if (kind.toString().includes("artist")) {
@@ -2048,7 +2057,7 @@ const app = new Vue({
             }
             let librarySongs = await CiderCache.getCache(cacheId)
             if (librarySongs) {
-                this.library.songs.listing = librarySongs
+                this.library.songs.listing.data = librarySongs
                 this.searchLibrarySongs()
             }
             if (this.songstest) {
@@ -2058,8 +2067,9 @@ const app = new Vue({
             this.library.backgroundNotification.show = true
             this.library.backgroundNotification.message = app.getLz('notification.updatingLibrarySongs')
 
-            function downloadChunk() {
-                const params = {
+            library = await MusicKitTools.v3Continuous({
+                href: `/v1/me/library/songs/`,
+                options: {
                     "include[library-songs]": "catalog,artists,albums",
                     "fields[artists]": "name,url,id",
                     "fields[albums]": "name,url,id",
@@ -2067,80 +2077,28 @@ const app = new Vue({
                     "fields[catalog]": "artistUrl,albumUrl",
                     "fields[songs]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,name,playParams,releaseDate,url",
                     limit: 100,
-                    l: self.mklang
-                }
-                const safeparams = {
-                    "platform": "web",
-                    "limit": 80
-                }
-                self.library.songs.downloadState = 1
-                if (downloaded == null) {
-                    app.mk.api.v3.music(`/v1/me/library/songs/`, params).then((response) => {
-                        processChunk(response.data)
-                    }).catch((error) => {
-                        console.log('safe loading');
-                        app.mk.api.v3.music(`/v1/me/library/songs/`, safeparams).then((response) => {
-                            processChunk(response.data)
-                        }).catch((error) => {
-                            console.log('safe loading failed', error)
-                            app.library.songs.downloadState = 2
-                            app.library.backgroundNotification.show = false
-                        })
-                    })
-                } else {
-                    if (downloaded.next != null) {
-                        app.mk.api.v3.music(downloaded.next, params).then((response) => {
-                            processChunk(response.data)
-                        }).catch((error) => {
-                            console.log('safe loading');
-                            app.mk.api.v3.music(downloaded.next, safeparams).then((response) => {
-                                processChunk(response.data)
-                            }).catch((error) => {
-                                console.log('safe loading failed', error)
-                                app.library.songs.downloadState = 2
-                                app.library.backgroundNotification.show = false
-                            })
-                        })
-                    } else {
-                        console.log("Download next", downloaded.next)
-                    }
-                }
-            }
+                    l: app.mklang,
+                },
+                onProgress: (data) => {
+                    console.log(`${data.total}/${data.response.data.meta.total}`)
+                    self.library.backgroundNotification.show = true
+                    self.library.backgroundNotification.message = app.getLz('notification.updatingLibrarySongs')
+                    self.library.backgroundNotification.total = data.response.data.meta.total
+                    self.library.backgroundNotification.progress = data.total
+                },
+                onSuccess: () => {
 
-            function processChunk(response) {
-                downloaded = response
-                library = library.concat(downloaded.data)
-                self.library.backgroundNotification.show = true
-                self.library.backgroundNotification.message = app.getLz('notification.updatingLibrarySongs')
-                self.library.backgroundNotification.total = downloaded.meta.total
-                self.library.backgroundNotification.progress = library.length
+                }
+            })
 
-                if (downloaded.meta.total == 0) {
-                    self.library.songs.downloadState = 3
-                    return
-                }
-                if (typeof downloaded.next == "undefined") {
-                    console.log("downloaded.next is undefined")
-                    self.library.songs.listing = library
-                    self.library.songs.downloadState = 2
-                    self.library.backgroundNotification.show = false
-                    self.searchLibrarySongs()
-                    CiderCache.putCache(cacheId, library)
-                }
-                if (downloaded.meta.total > library.length || typeof downloaded.meta.next != "undefined") {
-                    console.log(`downloading next chunk - ${library.length} songs so far`)
-                    downloadChunk()
-                } else {
-                    self.library.songs.listing = library
-                    self.library.songs.downloadState = 2
-                    self.library.backgroundNotification.show = false
-                    self.searchLibrarySongs()
-                    CiderCache.putCache(cacheId, library)
-                    // console.log(library)
-                }
-            }
+            self.library.songs.listing = library
+            self.library.songs.downloadState = 2
+            self.library.backgroundNotification.show = false
+            self.searchLibrarySongs()
+            CiderCache.putCache(cacheId, library)
+            console.log("Done!")
 
-            downloadChunk()
+            return
         },
         // copy the getLibrarySongsFull function except change Songs to Albums
         async getLibraryAlbumsFull(force = false, index) {
@@ -2239,7 +2197,7 @@ const app = new Vue({
                 }
                 if (downloaded.meta.total > library.length || typeof downloaded.meta.next != "undefined") {
                     console.log(`downloading next chunk - ${library.length
-                    } albums so far`)
+                        } albums so far`)
                     downloadChunk()
                 } else {
                     self.library.albums.listing = library
@@ -2348,7 +2306,7 @@ const app = new Vue({
                 }
                 if (downloaded.meta.total > library.length || typeof downloaded.meta.next != "undefined") {
                     console.log(`downloading next chunk - ${library.length
-                    } artists so far`)
+                        } artists so far`)
                     downloadChunk()
                 } else {
                     self.library.artists.listing = library
@@ -2484,13 +2442,13 @@ const app = new Vue({
             let self = this
             this.mk.api.v3.music(
                 "/v1/me/library/playlist-folders/", {}, {
-                    fetchOptions: {
-                        method: "POST",
-                        body: JSON.stringify({
-                            attributes: { name: name }
-                        })
-                    }
+                fetchOptions: {
+                    method: "POST",
+                    body: JSON.stringify({
+                        attributes: { name: name }
+                    })
                 }
+            }
             ).then((res) => {
                 let playlist = (res.data.data[0])
                 self.playlists.listing.push({
@@ -3055,21 +3013,21 @@ const app = new Vue({
                                 if (ids.length > 0) {
                                     if (app.mk.queue._itemIDs.length > 0) {
                                         app.mk.playLater({ [kind + "s"]: itemsToPlay[kind] }).then(function () {
-                                                ind += 1;
-                                                console.log(ind, Object.keys(itemsToPlay).length)
-                                                if (ind >= Object.keys(itemsToPlay).length) {
-                                                    app.mk.changeToMediaAtIndex(app.mk.queue._itemIDs.indexOf(item.attributes.playParams.id ?? item.id))
-                                                }
+                                            ind += 1;
+                                            console.log(ind, Object.keys(itemsToPlay).length)
+                                            if (ind >= Object.keys(itemsToPlay).length) {
+                                                app.mk.changeToMediaAtIndex(app.mk.queue._itemIDs.indexOf(item.attributes.playParams.id ?? item.id))
                                             }
+                                        }
                                         )
                                     } else {
                                         app.mk.setQueue({ [kind + "s"]: itemsToPlay[kind] }).then(function () {
-                                                ind += 1;
-                                                console.log(ind, Object.keys(itemsToPlay).length)
-                                                if (ind >= Object.keys(itemsToPlay).length) {
-                                                    app.mk.changeToMediaAtIndex(app.mk.queue._itemIDs.indexOf(item.attributes.playParams.id ?? item.id))
-                                                }
+                                            ind += 1;
+                                            console.log(ind, Object.keys(itemsToPlay).length)
+                                            if (ind >= Object.keys(itemsToPlay).length) {
+                                                app.mk.changeToMediaAtIndex(app.mk.queue._itemIDs.indexOf(item.attributes.playParams.id ?? item.id))
                                             }
+                                        }
                                         )
                                     }
                                 }
@@ -3379,7 +3337,7 @@ const app = new Vue({
                 if (app.getThemeDirective("lcdArtworkSize") != "") {
                     artworkSize = app.getThemeDirective("lcdArtworkSize")
                 } else if (this.cfg.visual.directives.windowLayout == "twopanel") {
-                    artworkSize = 70
+                    artworkSize = 80
                 }
                 this.currentArtUrl = '';
                 this.currentArtUrlRaw = '';
@@ -3648,36 +3606,36 @@ const app = new Vue({
                             app.love(app.mk.nowPlayingItem)
                         }
                     },
-                        {
-                            "icon": "./assets/feather/heart.svg",
-                            "id": "unlove",
-                            "active": true,
-                            "name": app.getLz('action.unlove'),
-                            "hidden": true,
-                            "action": function () {
-                                app.unlove(app.mk.nowPlayingItem)
-                            }
-                        },
-                        {
-                            "icon": "./assets/feather/thumbs-down.svg",
-                            "id": "dislike",
-                            "name": app.getLz('action.dislike'),
-                            "hidden": false,
-                            "disabled": true,
-                            "action": function () {
-                                app.dislike(app.mk.nowPlayingItem)
-                            }
-                        },
-                        {
-                            "icon": "./assets/feather/thumbs-down.svg",
-                            "id": "undo_dislike",
-                            "name": app.getLz('action.undoDislike'),
-                            "active": true,
-                            "hidden": true,
-                            "action": function () {
-                                app.unlove(app.mk.nowPlayingItem)
-                            }
-                        },
+                    {
+                        "icon": "./assets/feather/heart.svg",
+                        "id": "unlove",
+                        "active": true,
+                        "name": app.getLz('action.unlove'),
+                        "hidden": true,
+                        "action": function () {
+                            app.unlove(app.mk.nowPlayingItem)
+                        }
+                    },
+                    {
+                        "icon": "./assets/feather/thumbs-down.svg",
+                        "id": "dislike",
+                        "name": app.getLz('action.dislike'),
+                        "hidden": false,
+                        "disabled": true,
+                        "action": function () {
+                            app.dislike(app.mk.nowPlayingItem)
+                        }
+                    },
+                    {
+                        "icon": "./assets/feather/thumbs-down.svg",
+                        "id": "undo_dislike",
+                        "name": app.getLz('action.undoDislike'),
+                        "active": true,
+                        "hidden": true,
+                        "action": function () {
+                            app.unlove(app.mk.nowPlayingItem)
+                        }
+                    },
                     ],
                     items: [
                         {
@@ -3868,14 +3826,15 @@ const app = new Vue({
             }
         },
         pinMiniPlayer(status = false) {
-            if (!status){
-            if (!this.cfg.visual.miniplayer_top_toggle) {
-                ipcRenderer.send('windowontop', true)
-                this.cfg.visual.miniplayer_top_toggle = true;
+            if (!status) {
+                if (!this.cfg.visual.miniplayer_top_toggle) {
+                    ipcRenderer.send('windowontop', true)
+                    this.cfg.visual.miniplayer_top_toggle = true;
+                } else {
+                    ipcRenderer.send('windowontop', false)
+                    this.cfg.visual.miniplayer_top_toggle = false;
+                }
             } else {
-                ipcRenderer.send('windowontop', false)
-                this.cfg.visual.miniplayer_top_toggle = false;
-            }} else {
                 ipcRenderer.send('windowontop', this.cfg.visual.miniplayer_top_toggle ?? false)
             }
         },
