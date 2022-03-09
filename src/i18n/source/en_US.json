@@ -207,6 +207,7 @@
   "action.goToArtist": "Go to Artist",
   "action.goToAlbum": "Go to Album",
   "action.showInPlaylist": "Show in Playlist",
+  "action.showInAppleMusic": "Show in Apple Music",
   "action.moveToTop": "Move out of Folder",
   "action.share": "Share",
   "action.rename": "Rename",
