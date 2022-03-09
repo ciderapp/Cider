@@ -70,7 +70,7 @@
                     <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description')}}</small>
                 </div>
                 <div class="md-option-segment md-option-segment_auto">
-                    <input type="checkbox" v-model="app.cfg.audio.spatial" v-on:change="toggleSpatial" switch/>
+                    <input type="checkbox" v-model="app.cfg.audio.spatial" :disabled="app.cfg.audio.maikiwiAudio.spatial === true" v-on:change="toggleSpatial" switch/>
                 </div>
             </div>
             <div class="md-option-line" v-show="app.cfg.advanced.AudioContext === true">
@@ -80,7 +80,7 @@
                     <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.description')}}</small>
                 </div>
                 <div class="md-option-segment md-option-segment_auto">
-                    <input type="checkbox" v-model="app.cfg.audio.maikiwiAudio.spatial" :disabled="app.cfg.audio.spatial === false" v-on:change="toggleSpatial" switch/>
+                    <input type="checkbox" v-model="app.cfg.audio.maikiwiAudio.spatial" :disabled="app.cfg.audio.spatial === false" v-on:change="toggleMaikiwiSpatial" switch/>
                 </div>
             </div>
             <div class="md-option-line" v-show="app.cfg.audio.maikiwiAudio.spatial === true && app.cfg.audio.spatial === true">
@@ -169,26 +169,27 @@
         methods: {
             toggleSpatial: function () {
                 if (app.cfg.audio.spatial) {              
-                        if (app.cfg.audio.maikiwiAudio.spatial === false) {
-                            if (app.mk.volume - 0.2512 > 0) {app.mk.volume -= 0.2512}
-                            else {app.mk.volume = 0.0001}
-                        }
-                        CiderAudio.spatialOn()
-                        CiderAudio.hierarchical_loading();
-                        if (app.cfg.audio.maikiwiAudio.spatial === true) {
-                            if (app.mk.volume + 0.2512 < 1) {app.mk.volume += 0.2512}
-                            else {app.mk.volume = 1}
-                        }
+                    CiderAudio.spatialOn()
+                    CiderAudio.hierarchical_loading();
                     }
                 else {
-                    if (app.cfg.audio.maikiwiAudio.spatial === true) {
-                        if (app.mk.volume - 0.2512 > 0) {app.mk.volume -= 0.2512}
-                        else {app.mk.volume = 0.0001}
-                        }
-                    app.cfg.audio.maikiwiAudio.spatial = false;
                     CiderAudio.spatialOff()             
                 }
-
+            },
+            toggleMaikiwiSpatial: function () {
+                if (app.cfg.audio.maikiwiAudio.spatial === true) { 
+                    CiderAudio.spatialOn()
+                    CiderAudio.hierarchical_loading();
+                    let normalized = Math.pow(10, (((Math.log10(app.mk.volume) * 20) + 12) / 20)); 
+                    if (normalized > 1.0) {app.mk.volume = 1}
+                    else {app.mk.volume = normalized}    
+                }
+                else { 
+                    let normalized = Math.pow(10, (((Math.log10(app.mk.volume) * 20) - 12) / 20)); 
+                    app.mk.volume = normalized
+                    CiderAudio.spatialOn()
+                    CiderAudio.hierarchical_loading();
+                }
             },
             ciderPPEStandard: function () {
                 app.cfg.audio.maikiwiAudio.ciderPPE_value = 0.5;
