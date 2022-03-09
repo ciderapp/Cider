@@ -108,11 +108,11 @@ const CiderAudio = {
                     
                 });
                 app.cfg.audio.maikiwiAudio.spatialType = 0;
-                break;
-        }        
+                break;   
+            }    
         }
         else {
-                CiderAudio.audioNodes.spatialNode = new ResonanceAudio(CiderAudio.context);
+            CiderAudio.audioNodes.spatialNode = new ResonanceAudio(CiderAudio.context);
             let roomDimensions = {
                 width: 32,
                 height: 12,
@@ -130,7 +130,7 @@ const CiderAudio = {
             CiderAudio.audioNodes.spatialNode.setRoomProperties(roomDimensions, roomMaterials);
             CiderAudio.audioNodes.spatialInput = CiderAudio.audioNodes.spatialNode.createSource();
             CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialInput.input);}
-    },
+    }, 
     spatialOff: function (){
         CiderAudio.hierarchical_loading();
     },
