@@ -35,11 +35,11 @@
                 </div>
             </div>
             <div class="info-rect" :class="{'info-rect-card': kind == 'card'}" :style="{'--bgartwork': getArtworkUrl(size, true)}">
-                <div class="title" v-if="item.attributes.artistNames == null || kind!= 'card'" @click='app.routeView(item)'>
+                <div class="title" :title="item.attributes?.name ?? (item.relationships?.contents?.data[0]?.attributes?.name ?? '')" v-if="item.attributes.artistNames == null || kind!= 'card'" @click='app.routeView(item)'>
                     <div class="item-navigate text-overflow-elipsis">{{ item.attributes?.name ?? (item.relationships?.contents?.data[0]?.attributes?.name ?? '') }}</div>
                     <div class="explicit-icon" v-if="item.attributes && item.attributes.contentRating == 'explicit'" style= "background-image: url(./assets/explicit.svg);height: 12px;width: 12px;filter: contrast(0);background-repeat: no-repeat;margin-top: 2.63px;margin-left: 4px;"></div>
                 </div>       
-                <div class="subtitle item-navigate text-overflow-elipsis" @click="getSubtitleNavigation()"
+                <div :title="getSubtitle()" class="subtitle item-navigate text-overflow-elipsis" @click="getSubtitleNavigation()"
                      v-if="getSubtitle() != ''">
                     {{ getSubtitle() }}
                 </div>
