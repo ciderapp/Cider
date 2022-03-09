@@ -12,6 +12,7 @@ import fetch from 'electron-fetch'
 import {wsapi} from "./wsapi";
 import {AppImageUpdater, NsisUpdater} from "electron-updater";
 import {utils} from './utils';
+import {Plugins} from "./plugins";
 
 const fileWatcher = require('chokidar');
 const AdmZip = require("adm-zip");
@@ -465,7 +466,10 @@ export class BrowserWindow {
         });
 
         app.get("/plugins/:plugin/*", (req: {params: {plugin: string, 0: string}}, res) => {
-            const plugin = req.params.plugin;
+            let plugin = req.params.plugin;
+            if(Plugins.getPluginFromMap(plugin)) {
+                plugin = Plugins.getPluginFromMap(plugin)
+            }
             const file = req.params[0];
             const pluginPath = join(utils.getPath('plugins'), plugin);
             console.log(pluginPath)
@@ -594,6 +598,53 @@ export class BrowserWindow {
          ****************************************************************************************************************** */
         ipcMain.on("cider-platform", (event) => {
             event.returnValue = process.platform;
+        });
+
+        ipcMain.handle("get-github-plugin", async (event, url) => {
+            const returnVal = {
+                success: true,
+                theme: null,
+                message: ""
+            }
+            try {
+                if (!existsSync(utils.getPath("plugins"))) {
+                    mkdirSync(utils.getPath("plugins"));
+                }
+                if (url.endsWith("/")) url = url.slice(0, -1);
+                let response = await fetch(
+                    `${url}/archive/refs/heads/main.zip`
+                );
+                let repo = url.split("/").slice(-2).join("/");
+                let apiRepo = await fetch(
+                    `https://api.github.com/repos/${repo}`
+                ).then((res) => res.json());
+                console.debug(`REPO ID: ${apiRepo.id}`);
+                // extract the files from the first folder in the zip response
+                let zip = new AdmZip(await response.buffer());
+                let entry = zip.getEntries()[0];
+                if (!existsSync(join(utils.getPath("plugins"), "gh_" + apiRepo.id))) {
+                    mkdirSync(join(utils.getPath("plugins"), "gh_" + apiRepo.id));
+                }
+                console.log(join(utils.getPath("plugins"), "gh_" + apiRepo.id))
+                zip.extractEntryTo(entry, join(utils.getPath("plugins"), "gh_" + apiRepo.id), false, true);
+                let commit = await fetch(
+                    `https://api.github.com/repos/${repo}/commits`
+                ).then((res) => res.json());
+                console.debug(`COMMIT SHA: ${commit[0].sha}`);
+                let theme = JSON.parse(
+                    readFileSync(join(utils.getPath("plugins"), "gh_" + apiRepo.id, "package.json"), "utf8")
+                );
+                theme.id = apiRepo.id
+                theme.commit = commit[0].sha
+                writeFileSync(
+                    join(utils.getPath("plugins"), "gh_" + apiRepo.id, "package.json"),
+                    JSON.stringify(theme, null, 4),
+                    "utf8"
+                );
+            } catch (e) {
+                returnVal.success = false;
+            }
+            BrowserWindow.win.webContents.send("plugin-installed", returnVal);
         });
 
         ipcMain.handle("get-github-theme", async (event, url) => {
@@ -817,7 +868,7 @@ export class BrowserWindow {
             BrowserWindow.win.webContents.openDevTools({mode: 'detach'});
         })  
         
-        ipcMain.on('relaunchApp',(_event, _) => {
+        ipcMain.handle('relaunchApp',(_event, _) => {
             app.relaunch()
             app.exit()
         })
