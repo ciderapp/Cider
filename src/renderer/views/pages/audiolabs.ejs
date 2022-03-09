@@ -187,6 +187,7 @@
                 else { 
                     let normalized = Math.pow(10, (((Math.log10(app.mk.volume) * 20) - 12) / 20)); 
                     app.mk.volume = normalized
+                    CiderAudio.spatialOn()
                     CiderAudio.hierarchical_loading();
                 }
             },
