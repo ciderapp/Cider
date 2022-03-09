@@ -178,6 +178,8 @@
             },
             toggleMaikiwiSpatial: function () {
                 if (app.cfg.audio.maikiwiAudio.spatial === true) { 
+                    CiderAudio.spatialOn()
+                    CiderAudio.hierarchical_loading();
                     let normalized = Math.pow(10, (((Math.log10(app.mk.volume) * 20) + 12) / 20)); 
                     if (normalized > 1.0) {app.mk.volume = 1}
                     else {app.mk.volume = normalized}    
@@ -185,6 +187,7 @@
                 else { 
                     let normalized = Math.pow(10, (((Math.log10(app.mk.volume) * 20) - 12) / 20)); 
                     app.mk.volume = normalized
+                    CiderAudio.hierarchical_loading();
                 }
             },
             ciderPPEStandard: function () {
