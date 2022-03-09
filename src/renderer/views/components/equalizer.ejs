@@ -295,7 +295,7 @@
             },
             changeVibrantBass() {
                 app.cfg.audio.maikiwiAudio.vibrantBass.multiplier = app.cfg.audio.equalizer.vibrantBass / 10
-                if (app.cfg.audio.equalizer.vibrantBass !== 0) {
+                if (app.cfg.audio.equalizer.vibrantBass !== '0') {
                     try {
                     for (var i = 0; i < 21; i++) {
                     CiderAudio.audioNodes.vibrantbassNode[i].gain.value = app.cfg.audio.maikiwiAudio.vibrantBass.gain[i] * (app.cfg.audio.equalizer.vibrantBass / 10);
