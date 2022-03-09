@@ -109,9 +109,9 @@
     }
   ],
   "build": {
-    "electronVersion": "17.1.0",
+    "electronVersion": "16.0.7",
     "electronDownload": {
-      "version": "18.0.0-alpha.5+wvcus",
+      "version": "16.0.7+wvcus",
       "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
     },
     "appId": "cider",
