@@ -109,7 +109,7 @@
     }
   ],
   "build": {
-    "electronVersion": "17.1.0",
+    "electronVersion": "18.0.0-alpha.5",
     "electronDownload": {
       "version": "18.0.0-alpha.5+wvcus",
       "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
