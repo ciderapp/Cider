@@ -673,6 +673,15 @@
 
                 <div class="md-option-line">
                     <div class="md-option-segment">
+                        Reinstall WidevineCDM
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <button class="md-btn" @click="reinstallWidevineCDM">Reinstall WidevineCDM</button>
+                    </div>
+                </div>
+
+                <div class="md-option-line">
+                    <div class="md-option-segment">
                         {{$root.getLz('settings.option.experimental.unknownPlugin')}}
                         <br>
                         <small>{{$root.getLz('settings.option.experimental.unknownPlugin.description')}}</small>
@@ -852,6 +861,13 @@
             }
         },
         methods: {
+            reinstallWidevineCDM () {
+                bootbox.confirm("Are you sure you want to reinstall Widevine?", (ok)=>{
+                    if(ok) {
+                        ipcRenderer.invoke("reinstall-widevine-cdm");
+                    }
+                })
+            },
             gitHubExplore() {
                 app.appRoute("themes-github")
             },

@@ -4,7 +4,7 @@ import * as windowStateKeeper from "electron-window-state";
 import * as express from "express";
 import * as getPort from "get-port";
 import {search} from "youtube-search-without-api-key";
-import {existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync, statSync} from "fs";
+import {existsSync, rmSync, mkdirSync, readdirSync, readFileSync, writeFileSync, statSync} from "fs";
 import {Stream} from "stream";
 import {networkInterfaces} from "os";
 import * as mm from 'music-metadata';
@@ -599,6 +599,17 @@ export class BrowserWindow {
         ipcMain.on("cider-platform", (event) => {
             event.returnValue = process.platform;
         });
+
+        ipcMain.handle("reinstall-widevine-cdm", ()=>{
+            // remove WidevineCDM from appdata folder
+            const widevineCdmPath = join(app.getPath("userData"), "./WidevineCdm");
+            if(existsSync(widevineCdmPath)) {
+                rmSync(widevineCdmPath, { recursive: true, force: true })
+            }
+            // reinstall WidevineCDM
+            app.relaunch()
+            app.exit()
+        })
 
         ipcMain.handle("get-github-plugin", async (event, url) => {
             const returnVal = {
