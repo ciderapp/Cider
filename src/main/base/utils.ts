@@ -86,6 +86,10 @@ export class utils {
         return bw.win
     }
 
+    static loadPluginFrontend(path: string): void {
+
+    }
+
     static loadJSFrontend(path: string): void {
         bw.win.webContents.executeJavaScript(fs.readFileSync(path, "utf8"));
     }

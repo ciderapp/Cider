@@ -19,9 +19,18 @@ export class Plugins {
     private basePluginsPath = path.join(__dirname, '../plugins');
     private userPluginsPath = path.join(electron.app.getPath('userData'), 'Plugins');
     private readonly pluginsList: any = {};
+    private static PluginMap: any = {};
 
     constructor() {
         this.pluginsList = this.getPlugins();
+    }
+
+    public static getPluginFromMap(plugin: string): any {
+        if(Plugins.PluginMap[plugin]) {
+            return Plugins.PluginMap[plugin];
+        }else{
+            return plugin;
+        }
     }
 
     public getPlugins(): any {
@@ -68,10 +77,12 @@ export class Plugins {
                 else if (fs.lstatSync(path.join(this.userPluginsPath, file)).isDirectory()) {
                     const pluginPath = path.join(this.userPluginsPath, file);
                     if (fs.existsSync(path.join(pluginPath, 'package.json'))) {
-                        const plugin = require(path.join(pluginPath, "index.js"));
+                        const pluginPackage = require(path.join(pluginPath, "package.json"));
+                        const plugin = require(path.join(pluginPath, pluginPackage.main));
                         if (plugins[plugin.name] || plugin.name in plugins) {
                             console.log(`[${plugin.name}] Plugin already loaded / Duplicate Class Name`);
                         } else {
+                            Plugins.PluginMap[pluginPackage.name] = file;
                             const pluginEnv = {
                                 app: electron.app,
                                 store: utils.getStore(),
