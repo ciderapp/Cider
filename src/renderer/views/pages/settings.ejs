@@ -664,6 +664,15 @@
 
                 <div class="md-option-line">
                     <div class="md-option-segment">
+                        {{$root.getLz('settings.option.visual.plugin.github.explore')}}
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <button class="md-btn" @click="$root.appRoute('plugins-github')">{{ $root.getLz("settings.option.visual.plugin.github.explore") }}</button>
+                    </div>
+                </div>
+
+                <div class="md-option-line">
+                    <div class="md-option-segment">
                         {{$root.getLz('settings.option.experimental.unknownPlugin')}}
                         <br>
                         <small>{{$root.getLz('settings.option.experimental.unknownPlugin.description')}}</small>

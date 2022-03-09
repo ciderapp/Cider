@@ -3688,6 +3688,15 @@ const app = new Vue({
                             }
                         },
                         {
+                            "id": "showInMusic",
+                            "icon": "./assets/music.svg",
+                            "hidden": true,
+                            "name": app.getLz('action.showInAppleMusic'),
+                            "action": function () {
+                                app.routeView(app.mk.nowPlayingItem._container)
+                            }
+                        },
+                        {
                             "icon": "./assets/feather/share.svg",
                             "name": app.getLz('action.share'),
                             "action": function () {
@@ -3713,6 +3722,11 @@ const app = new Vue({
                     menus.normal.items = menus.normal.items.concat(this.contextExt.normal)
                 }
             }
+
+            if(app.mk.nowPlayingItem._container["attributes"] && app.mk.nowPlayingItem._container.name != "station") {
+                menus.normal.items.find(x => x.id == "showInMusic").hidden = false
+            }
+
             this.showMenuPanel(menus[useMenu], event)
 
             try {
