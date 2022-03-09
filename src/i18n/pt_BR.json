@@ -212,6 +212,7 @@
   "action.unlove": "Deixar de Gostar",
   "action.love": "Gostar",
   "action.showInPlaylist": "Show in Playlist",
+  "action.showInAppleMusic": "Show in Apple Music",
   "action.moveToTop": "Retirar da Pasta",
   "action.share": "Compartilhar",
   "action.rename": "Renomear",
@@ -236,6 +237,7 @@
   "action.newpreset": "Nova predefinição...",
   "settings.header.visual.animatedArtwork.disable": "Desativar",
   "action.addToQueue.success": "Adicionado à Fila",
+  "action.relaunch.confirm": "Do you want to relaunch Cider?",
   "settings.header.audio.quality.standard": "Padrão",
   "settings.header.general.description": "Ajustar as definiçoes principais no Cider.",
   "settings.option.general.language": "Idioma",
@@ -386,6 +388,8 @@
   "settings.option.lyrics.enableMusixmatchKaraoke": "Ativar Modo Karaoke (só para Musixmatch)",
   "settings.option.advanced.playlistTrackMapping": "Playlist Track Mapping",
   "settings.option.advanced.playlistTrackMapping.description": "Enables deep scanning of playlists to determine which tracks are in which playlists.  Playlist cache build times can increase significantly.",
+  "settings.option.visual.transparent": "Transparent frame",
+  "settings.option.visual.transparent.description": "Transparent frame (needs Theme Support , requires relaunch)",
   "spatial.notTurnedOn": "Espacialização de Áudio está desabilitada."
  Para usar, por favor, habilite antes.",
 
