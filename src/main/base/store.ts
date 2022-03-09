@@ -6,12 +6,24 @@ export class Store {
 
     private defaults: any = {
         "general": {
-            "close_button_hide": true,
+            "close_button_hide": false,
             "open_on_startup": false,
             "discord_rpc": 1, // 0 = disabled, 1 = enabled as Cider, 2 = enabled as Apple Music
             "discord_rpc_clear_on_pause": true,
             "language": "en_US", // electron.app.getLocale().replace('-', '_') this can be used in future
-            "playbackNotifications": true
+            "playbackNotifications": true,
+            "update_branch": "main",
+            "resumeOnStartupBehavior": "local",
+            "privateEnabled": false,
+            "themeUpdateNotification": true,
+            "sidebarItems": {
+                "recentlyAdded": true,
+                "songs": true,
+                "albums": true,
+                "artists": true,
+                "videos": true,
+                "podcasts": true
+            }
         },
         "home": {
             "followedArtists": [],
@@ -22,20 +34,37 @@ export class Store {
                 "sort": "name",
                 "sortOrder": "asc",
                 "size": "normal"
-            }
+            },
+            "albums": {
+                "sort": "name",
+                "sortOrder": "asc",
+                "viewAs": "covers"
+            },
         },
         "audio": {
             "volume": 1,
+            "volumeStep": 0.1,
+            "maxVolume": 1,
             "lastVolume": 1,
             "muted": false,
-            "quality": "256",
+            "quality": "HIGH",
             "seamless_audio": true,
             "normalization": false,
+            "maikiwiAudio": {
+                "ciderPPE": false,
+                "ciderPPE_value": 0.5,
+                "analogWarmth": false,
+                "analogWarmth_value": 1.25,
+                "spatial": false,
+                "spatialType": 0,
+                "vibrantBass": { // Hard coded into the app. Don't include any of this config into exporting presets in store.ts
+                    'multiplier': 0,
+                    'frequencies': [17.182, 42.169, 53.763, 112.69, 119.65, 264.59, 336.57, 400.65, 505.48, 612.7, 838.7, 1155.3, 1175.6, 3406.8, 5158.6, 5968.1, 6999.9, 7468.6, 8862.9, 9666, 10109],
+                    'Q': [2.5, 0.388, 5, 5, 2.5, 7.071, 14.14, 10, 7.071, 14.14, 8.409, 0.372, 7.071, 10, 16.82, 7.071, 28.28, 20, 8.409, 40, 40],
+                    'gain': [-0.34, 2.49, 0.23, -0.49, 0.23, -0.12, 0.32, -0.29, 0.33, 0.19, -0.18, -1.27, -0.11, 0.25, -0.18, -0.53, 0.34, 1.32, 1.78, 0.41, -0.28]
+                }
+            },         
             "spatial": false,
-            "maxVolume": 1,
-            "volumePrecision": 0.1,
-            "volumeRoundMax": 0.9,
-            "volumeRoundMin": 0.1,
             "spatial_properties": {
                 "presets": [],
                 "gain": 0.8,
@@ -59,19 +88,12 @@ export class Store {
                 'preset': "default",
                 'frequencies': [32, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000],
                 'gain': [0,0,0,0,0,0,0,0,0,0],
-                'Q' :   [1,1,1,1,1,1,1,1,1,1],
-                'preamp' : 0,
-                'mix' : 1,
-                'vibrantBass' : 0,
+                'Q': [1,1,1,1,1,1,1,1,1,1],
+                'mix': 1,
+                'vibrantBass': 0,
                 'presets': [],
                 'userGenerated': false
             },
-            "vibrantBass": { // Hard coded into the app. Don't include any of this config into exporting presets in store.ts
-                'multiplier': 0,
-                'frequencies': [17.182, 42.169, 53.763, 112.69, 119.65, 264.59, 336.57, 400.65, 505.48, 612.7, 838.7, 1155.3, 1175.6, 3406.8, 5158.6, 5968.1, 6999.9, 7468.6, 8862.9, 9666, 10109],
-                'Q': [2.5, 0.388, 5, 5, 2.5, 7.071, 14.14, 10, 7.071, 14.14, 8.409, 0.372, 7.071, 10, 16.82, 7.071, 28.28, 20, 8.409, 40, 40],
-                'gain': [-0.34, 2.49, 0.23, -0.49, 0.23, -0.12, 0.32, -0.29, 0.33, 0.19, -0.18, -1.27, -0.11, 0.25, -0.18, -0.53, 0.34, 1.32, 1.78, 0.41, -0.28]
-            }
         },
         "visual": {
             "theme": "",
@@ -83,7 +105,11 @@ export class Store {
             "bg_artwork_rotation": false,
             "hw_acceleration": "default", // default, webgpu, disabled
             "showuserinfo": true,
-            "miniplayer_top_toggle": true
+            "transparent": false,
+            "miniplayer_top_toggle": true,
+            "directives": {
+                "windowLayout": "default"
+            }
         },
         "lyrics": {
             "enable_mxm": false,
@@ -101,7 +127,8 @@ export class Store {
         },
         "advanced": {
             "AudioContext": false,
-            "experiments": []
+            "experiments": [],
+            "playlistTrackMapping": true
         }
     }
     private migrations: any = {}
@@ -142,11 +169,11 @@ export class Store {
      * IPC Handler
      */
     private ipcHandler(): void {
-        electron.ipcMain.handle('getStoreValue', (event, key, defaultValue) => {
+        electron.ipcMain.handle('getStoreValue', (_event, key, defaultValue) => {
             return (defaultValue ? Store.cfg.get(key, true) : Store.cfg.get(key));
         });
 
-        electron.ipcMain.handle('setStoreValue', (event, key, value) => {
+        electron.ipcMain.handle('setStoreValue', (_event, key, value) => {
             Store.cfg.set(key, value);
         });
 
@@ -154,7 +181,7 @@ export class Store {
             event.returnValue = Store.cfg.store
         })
 
-        electron.ipcMain.on('setStore', (event, store) => {
+        electron.ipcMain.on('setStore', (_event, store) => {
             Store.cfg.store = store
         })
     }

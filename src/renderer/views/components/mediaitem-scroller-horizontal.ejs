@@ -1,11 +1,8 @@
 <script type="text/x-template" id="mediaitem-scroller-horizontal">
-    <template>
-        <div class="cd-hmedia-scroller" :class="kind">
-            <slot></slot>
-            <mediaitem-square :kind="kind" :item="item"
-                              v-for="item in items"></mediaitem-square>
-        </div>
-    </template>
+    <vue-horizontal>
+        <slot></slot>
+        <mediaitem-square :kind="kind" :item="item" v-for="item in items"></mediaitem-square>
+    </vue-horizontal>
 </script>
 
 <script>
@@ -22,7 +19,7 @@
                 defualt: ""
             }
         },
-        data: function () {
+        data: function() {
             return {
                 app: this.$root,
             }

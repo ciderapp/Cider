@@ -1,5 +1,5 @@
 <script type="text/x-template" id="mediaitem-artwork">
-    <div class="mediaitem-artwork" :class="[{'rounded': (type == 'artists')}, classes]" :key="url">
+    <div class="mediaitem-artwork" @contextmenu="contextMenu" :class="[{'rounded': (type == 'artists')}, classes]" :key="url">
         <img :src="app.getMediaItemArtwork(url, size, width)"
              decoding="async"
              :style="{background: bgcolor}"
@@ -61,6 +61,19 @@
             this.getClasses()
         },
         methods: {
+            contextMenu(event) {
+                let self = this
+                app.showMenuPanel({
+                    items: {
+                        "save": {
+                            name: "Open artwork in browser",
+                            action: () => {
+                                window.open(app.getMediaItemArtwork(self.url, 1024, 1024))
+                            }
+                        }
+                    }
+                }, event)
+            },
             getVideoPriority() {
                 if(app.cfg.visual.animated_artwork == "always") {
                     return true;

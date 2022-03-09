@@ -3,6 +3,7 @@
     "experimentalDecorators": true,
     "target": "esnext",
     "module": "commonjs",
+    "allowJs": true,
     "noImplicitAny": true,
     "strict": true,
     "sourceMap": true,

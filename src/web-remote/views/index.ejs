@@ -172,7 +172,7 @@
                                     <div class="player-volume-glyph decrease"></div>
                                 </div>
                                 <div class="col">
-                                    <input type="range" class="web-slider volume-slider" max="1" min="0" step="0.01"
+                                    <input type="range" class="web-slider volume-slider" :max="player.maxVolume" min="0" step="0.01" :pseudo-value="getVolumeMax()"
                                         @input="setVolume($event.target.value)" :value="player.currentMediaItem.volume">
                                 </div>
                                 <div class="col-auto">

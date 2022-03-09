@@ -1,10 +1,17 @@
 <script type="text/x-template" id="mediaitem-square">
-    <div tabindex="0"
+    <div
+        tabindex="0"
+        @click.self="app.routeView(item)"
+        @controller-click="app.routeView(item)"
+        @contextmenu.self="contextMenu"
          class="cd-mediaitem-square" :class="getClasses()" @contextmenu="contextMenu"
          v-observe-visibility="{callback: visibilityChanged}"
          :style="{'--spcolor': getBgColor()}">
         <template v-if="isVisible">
             <div class="artwork-container">
+                <div class="unavailable-overlay" v-if="unavailable">
+                    <div class="codicon codicon-circle-slash"></div>
+                </div>
                 <div class="artwork" @click='app.routeView(item)'>
                     <mediaitem-artwork
                             :url="getArtworkUrl()"
@@ -12,6 +19,7 @@
                             :size="size"
                             shadow="subtle"
                             :bgcolor="getBgColor()"
+                            :video-priority="forceVideo"
                             :type="item.type"></mediaitem-artwork>
                 </div>
                 <button class="menu-btn" v-if="!nomenu.includes(item.type)"
@@ -28,7 +36,7 @@
             </div>
             <div class="info-rect" :class="{'info-rect-card': kind == 'card'}" :style="{'--bgartwork': getArtworkUrl(size, true)}">
                 <div class="title" v-if="item.attributes.artistNames == null || kind!= 'card'" @click='app.routeView(item)'>
-                    <div class="item-navigate text-overflow-elipsis">{{ item.attributes.name }}</div>
+                    <div class="item-navigate text-overflow-elipsis">{{ item.attributes?.name ?? (item.relationships?.contents?.data[0]?.attributes?.name ?? '') }}</div>
                     <div class="explicit-icon" v-if="item.attributes && item.attributes.contentRating == 'explicit'" style= "background-image: url(./assets/explicit.svg);height: 12px;width: 12px;filter: contrast(0);background-repeat: no-repeat;margin-top: 2.63px;margin-left: 4px;"></div>
                 </div>       
                 <div class="subtitle item-navigate text-overflow-elipsis" @click="getSubtitleNavigation()"
@@ -57,6 +65,10 @@
                 type: String,
                 default: '190'
             },
+            forceVideo: {
+                type: Boolean,
+                default: false
+            },
             'contextExt': {type: Object, required: false},
         },
         data: function () {
@@ -64,15 +76,25 @@
                 isVisible: false,
                 addedToLibrary: false,
                 guid: this.uuidv4(),
-                noplay: ["apple-curators"],
-                nomenu: ["artists", "stations", "apple-curators"],
+                noplay: ["apple-curators", "editorial-elements"],
+                nomenu: ["artists", "stations", "apple-curators", "editorial-elements"],
                 app: this.$root,
                 badges: this.$root.socialBadges.badgeMap,
-                itemBadges: []
+                itemBadges: [],
+                unavailable: false
             }
         },
         async mounted() {
             await this.getBadges()
+            if(typeof this.item.attributes.playParams == "object") {
+                if(this.item.attributes.playParams.kind.includes("radioStation") && (this.item.attributes.playParams.streamingKind == 1 || this.item.attributes.playParams.streamingKind == 2)) {
+                    this.unavailable = true
+                }
+            }else{
+                if(this.item.type == "music-movies" || this.item.type == "tv-episodes") {
+                    this.unavailable = true
+                }
+            }
         },
         methods: {
             getBgColor() {
@@ -127,7 +149,7 @@
             },
             async getBadges() {
                 const self = this
-                const id = (this.item.attributes.playParams ? this.item.attributes.playParams.id : null) || this.item.id
+                const id = ((this.item.attributes?.playParams ?? false) ? this.item.attributes?.playParams.id : null) || this.item.id
                 if (id && this.badges[id]) {
                     let friends = this.badges[id]
                     if (friends) {
@@ -140,17 +162,19 @@
                 }
             },
             revisedRandId() {
-                return Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10);
+                return Math.random().toString(36).replace(/[^a-z]+/g, '').slice(2, 10);
             },
             async isInLibrary() {
                 if (this.item.type && !this.item.type.includes("library")) {
-                    var params = {
-                        "fields[playlists]": "inLibrary",
-                        "fields[albums]": "inLibrary",
-                        "relate": "library",
+                    let params = {
+                        relate:"library",
+                        "fields":"inLibrary",
                         "extend": this.revisedRandId()
                     }
-                    var res = await app.mkapi(this.item.attributes.playParams.kind ?? this.item.type, this.item.attributes.playParams.isLibrary ?? false, this.item.attributes.playParams.id ?? this.item.id, params);
+                    let kind = this.item.type ?? this.item.attributes.playParams.kind
+                    let truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
+                    if (truekind == "musicVideos") {truekind = "music-videos"}
+                    let res = await app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/?ids[${truekind}]=${this.item.attributes.playParams.id ?? this.item.id}`,params);
                     res = res.data.data[0]
                     this.addedToLibrary = (res && res.attributes && res.attributes.inLibrary) ? res.attributes.inLibrary : false
                 } else {
@@ -158,21 +182,20 @@
                 }
             },
             async removeFromLibrary(id) {
-                var params = {
-                    "fields[playlists]": "inLibrary",
-                    "fields[songs]": "inLibrary",
-                    "fields[albums]": "inLibrary",
-                    "relate": "library",
-                    "extend": this.revisedRandId()
-                }
-                var id = this.item.id ?? this.item.attributes.playParams.id
-                var res = await app.mkapi(this.item.attributes.playParams.kind ?? this.item.type, this.item.attributes.playParams.isLibrary ?? false, this.item.attributes.playParams.id ?? this.item.id, params);
+                let params = {
+                        relate:"library",
+                        "fields":"inLibrary",
+                        "extend": this.revisedRandId()
+                    }
+                    let kind = this.item.type ?? this.item.attributes.playParams.kind
+                    let truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
+                    if (truekind == "musicVideos") {truekind = "music-videos"}
+                    let res = await app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/?ids[${truekind}]=${this.item.attributes.playParams.id ?? this.item.id}`,params);
                 res= res.data.data[0]
                 if (res && res.relationships && res.relationships.library && res.relationships.library.data && res.relationships.library.data.length > 0) {
                     id = res.relationships.library.data[0].id
                 }
-                let kind = this.item.attributes.playParams.kind ?? this.item.type ?? '';
-                var truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
+
                 app.mk.api.v3.music(`v1/me/library/${truekind}/${id.toString()}`,{},
                     {
                     fetchOptions: {
@@ -192,7 +215,7 @@
                 }
                 switch (this.kind) {
                     case "385":
-                        artwork = this.item.attributes.editorialArtwork.subscriptionHero.url
+                        artwork = this.item.attributes.editorialArtwork?.subscriptionHero?.url ?? (this.item.attributes.artwork?.url ?? (this.item.relationships?.contents?.data[0]?.attributes?.editorialArtwork?.subscriptionHero?.url ?? ''))
                         break;
                 }
                 if(!includeUrl) {
@@ -202,7 +225,12 @@
                 }
             },
             getClasses() {
-                let type = this.item.type
+                let type = []
+                try{
+                type = this.item.type
+            
+             }catch(e) {console.log('sd',this.item)}
+                 
                 if (this.kind != "") {
                     type = this.kind
                 }
@@ -210,6 +238,7 @@
                     default:
                         return []
                         break;
+                    case "editorial-elements":    
                     case "card":
                         return ["mediaitem-card"]
                         break;
@@ -401,6 +430,18 @@
                                         }
                                     }else {
                                     self.app.copyToClipboard(self.item.attributes.url)}
+                                }
+                            },
+                            {
+                                "icon": "./assets/feather/share.svg",
+                                "name": `${app.getLz('action.share')} (song.link)`,
+                                "action": function () {
+                                    if (!self.item.attributes.url && self.item.relationships){
+                                        if (self.item.relationships.catalog){
+                                            app.mkapi(self.item.attributes.playParams.kind, false, self.item.relationships.catalog.data[0].id).then(u => {self.app.songLinkShare((u.data.data.length && u.data.data.length > 0)? u.data.data[0].attributes.url : u.data.data.attributes.url)})
+                                        }
+                                    }else {
+                                    self.app.songLinkShare(self.item.attributes.url)}
                                 }
                             }
                         ]

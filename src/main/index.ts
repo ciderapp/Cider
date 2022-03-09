@@ -1,19 +1,28 @@
 require('v8-compile-cache');
 
-import {app, components, ipcMain} from 'electron';
+const {app, components, ipcMain} = require('electron');
 import {join} from 'path';
-app.setPath('userData', join(app.getPath('appData'), 'Cider'));
 
+if (!app.isPackaged) {
+    app.setPath('userData', join(app.getPath('appData'), 'Cider'));
+}
 
-// Analytics for debugging fun yeah.
-import {init as Sentry} from '@sentry/electron';
 import {Store} from "./base/store";
 import {AppEvents} from "./base/app";
 import {Plugins} from "./base/plugins";
-import {utils} from "./base/utils";
 import {BrowserWindow} from "./base/browserwindow";
+import {init as Sentry} from '@sentry/electron';
+import {RewriteFrames} from "@sentry/integrations";
 
-Sentry({dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.ingest.sentry.io/6112214"});
+// Analytics for debugging fun yeah.
+Sentry({
+    dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.ingest.sentry.io/6112214",
+    integrations: [
+        new RewriteFrames({
+            root: process.cwd(),
+        }),
+    ],
+});
 
 new Store();
 const Cider = new AppEvents();
@@ -36,10 +45,16 @@ app.on('ready', () => {
         const bw = new BrowserWindow()
         const win = await bw.createWindow()
 
+        app.getGPUInfo("complete").then(gpuInfo => {
+            console.log(gpuInfo)
+        })
+
+        console.log('[Cider][Widevine] Status:', components.status());
+        win.show();
+        
         win.on("ready-to-show", () => {
             Cider.bwCreated();
             CiderPlug.callPlugins('onReady', win);
-            win.show();
         });
     });
 
@@ -49,13 +64,21 @@ app.on('ready', () => {
  * Renderer Event Handlers
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-ipcMain.on('playbackStateDidChange', (event, attributes) => {
+ipcMain.handle("renderer-ready", (event) => {
+    CiderPlug.callPlugins("onRendererReady", event);
+})
+
+ipcMain.on('playbackStateDidChange', (_event, attributes) => {
     CiderPlug.callPlugins('onPlaybackStateDidChange', attributes);
 });
 
-ipcMain.on('nowPlayingItemDidChange', (event, attributes) => {
+ipcMain.on('nowPlayingItemDidChange', (_event, attributes) => {
     CiderPlug.callPlugins('onNowPlayingItemDidChange', attributes);
 });
+
+ipcMain.on('nowPlayingItemDidChangeLastFM', (_event, attributes) => {
+    CiderPlug.callPlugin('lastfm.js', 'nowPlayingItemDidChangeLastFM', attributes);
+})
 
 app.on('before-quit', () => {
     CiderPlug.callPlugins('onBeforeQuit');

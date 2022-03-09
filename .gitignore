@@ -1,6 +1,8 @@
 # Building
 dist
 build
+.flatpak*
+yarn-cache
 
 # Misc
 .idea
@@ -135,7 +137,6 @@ dist
 .vscode-test
 
 # yarn v2
-yarn.lock
 .pnp.*
 .yarn/*
 .yarn/cache
@@ -316,3 +317,11 @@ src/renderer/workbox-962786f2.js.map
 keys.sh
 
 package-lock.json
+yarn.lock
+resources/b64.txt
+
+
+savedconfig/cider-config.json
+savedconfig/config.json
+savedconfig/session.json
+savedconfig/window-state.json

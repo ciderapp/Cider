@@ -1,7 +1,15 @@
-import {app, Menu, nativeImage, Tray} from 'electron';
+import {app, Menu, nativeImage, Tray, ipcMain, clipboard, shell} from 'electron';
+import {readFileSync} from "fs";
 import * as path from 'path';
-import {utils} from './utils'
+import * as log from 'electron-log';
+import {utils} from './utils';
 
+/**
+ * @file Creates App instance
+ * @author CiderCollective
+ */
+
+/** @namespace */
 export class AppEvents {
     private protocols: string[] = [
         "ame",
@@ -15,6 +23,7 @@ export class AppEvents {
     private tray: any = undefined;
     private i18n: any = undefined;
 
+    /** @constructor */
     constructor() {
         this.start();
     }
@@ -24,6 +33,7 @@ export class AppEvents {
      * @returns {void}
      */
     private start(): void {
+        AppEvents.initLogging()
         console.info('[AppEvents] App started');
 
         /**********************************************************************************************************************
@@ -87,6 +97,7 @@ export class AppEvents {
         /***********************************************************************************************************************
          * Protocols
          **********************************************************************************************************************/
+        /**  */
         if (process.defaultApp) {
             if (process.argv.length >= 2) {
                 this.protocols.forEach((protocol: string) => {
@@ -119,6 +130,13 @@ export class AppEvents {
                 console.log(url)
             }
         })
+
+        if (process.platform === "darwin") {
+            app.setUserActivity('8R23J2835D.com.ciderapp.webremote.play', {
+                title: 'Web Remote',
+                description: 'Connect to your Web Remote',
+            }, "https://webremote.cider.sh")
+        }
 
         this.InstanceHandler()
         this.InitTray()
@@ -169,6 +187,18 @@ export class AppEvents {
             let url = arg.split('//')[1]
             console.warn(`[LinkHandler] Attempting to load url: ${url}`);
             utils.getWindow().webContents.send('play', 'url', url)
+        } else if (arg.includes('/debug/appdata')) {
+            shell.openPath(app.getPath('userData'))
+        }  else if (arg.includes('/debug/logs')) {
+            shell.openPath(app.getPath('logs'))
+        } else if (arg.includes('/discord')) {
+            shell.openExternal('https://discord.gg/applemusic')
+        } else if (arg.includes('/github')) {
+            shell.openExternal('https://github.com/ciderapp/cider')
+        } else if (arg.includes('/donate')) {
+            shell.openExternal('https://opencollective.com/ciderapp')
+        } else if (arg.includes('/beep')) {
+            shell.beep()
         }
     }
 
@@ -197,6 +227,7 @@ export class AppEvents {
                         app.quit()
                     } else if (utils.getWindow()) {
                         if (utils.getWindow().isMinimized()) utils.getWindow().restore()
+                        utils.getWindow().show()
                         utils.getWindow().focus()
                     }
                 })
@@ -264,7 +295,7 @@ export class AppEvents {
 
         const menu = Menu.buildFromTemplate([
             {
-                label: (visible ? this.i18n['action.tray.minimize'] : this.i18n['action.tray.show'].includes("{appName}") ? `${this.i18n['action.tray.show'].replace("{appName}", app.getName())}` : `${this.i18n['action.tray.show']} ${app.getName()}`),
+                label: (visible ? this.i18n['action.tray.minimize'] : `${this.i18n['action.tray.show']} ${app.getName()}`),
                 click: () => {
                     if (utils.getWindow()) {
                         if (visible) {
@@ -283,5 +314,19 @@ export class AppEvents {
             }
         ])
         this.tray.setContextMenu(menu)
+    }
+
+    /**
+     * Initializes logging in the application
+     * @private
+     */
+    private static initLogging() {
+        log.transports.console.format = '[{h}:{i}:{s}.{ms}] [{level}] {text}';
+        Object.assign(console, log.functions);
+
+        ipcMain.on('fetch-log', (_event) => {
+            const data = readFileSync(log.transports.file.getFile().path, {encoding: 'utf8', flag: 'r'});
+            clipboard.writeText(data)
+        })
     }
 }
