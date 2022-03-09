@@ -67,14 +67,14 @@ const CiderAudio = {
         } else {try{CiderAudio.source.disconnect(CiderAudio.context.destination)}catch(e){}}
         CiderAudio.audioNodes.gainNode = CiderAudio.context.createGain()
         CiderAudio.source.connect(CiderAudio.audioNodes.gainNode);
-        CiderAudio.audioNodes.gainNode.connect(CiderAudio.context.destination);
         if(app.cfg.audio.normalization){
             CiderAudio.normalizerOn()
         }
         if (app.cfg.audio.spatial){
             CiderAudio.spatialOn()
         }    
-        CiderAudio.equalizer()
+        CiderAudio.equalizer();
+        CiderAudio.hierarchical_loading();
     },
     normalizerOn: function (){
     },
@@ -110,13 +110,9 @@ const CiderAudio = {
                 app.cfg.audio.maikiwiAudio.spatialType = 0;
                 break;
         }        
-        CiderAudio.audioNodes.spatialNode.connect(CiderAudio.context.destination);
         }
         else {
-            try{
-                CiderAudio.audioNodes.gainNode.disconnect(CiderAudio.context.destination);} catch(e){}
                 CiderAudio.audioNodes.spatialNode = new ResonanceAudio(CiderAudio.context);
-                CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.context.destination);
             let roomDimensions = {
                 width: 32,
                 height: 12,
@@ -643,13 +639,11 @@ const CiderAudio = {
             CiderAudio.audioNodes.audioBands[i].gain.value = GAIN[i] * app.cfg.audio.equalizer.mix;
         }
 
-        // Dynamic-ish loading
-        CiderAudio.hierarchical_loading();
-
         for (let i = 1; i < BANDS.length; i ++) {
             CiderAudio.audioNodes.audioBands[i-1].connect(CiderAudio.audioNodes.audioBands[i]);
         }
         CiderAudio.audioNodes.audioBands[BANDS.length-1].connect(CiderAudio.context.destination);
+
     }
 
 }
