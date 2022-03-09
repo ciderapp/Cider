@@ -76,7 +76,8 @@ const CiderAudio = {
         }    
         CiderAudio.equalizer()
     },
-    normalizerOn: function (){},
+    normalizerOn: function (){
+    },
     normalizerOff: function (){
         CiderAudio.audioNodes.gainNode.gain.setTargetAtTime(1, CiderAudio.context.currentTime+ 1, 0.5);
     },
@@ -84,7 +85,7 @@ const CiderAudio = {
     spatialOn: function (){
         if (app.cfg.audio.maikiwiAudio.spatial === true) { 
         CiderAudio.audioNodes.spatialNode = CiderAudio.context.createConvolver();
-        
+        CiderAudio.audioNodes.spatialNode.normalize = true;
         switch (app.cfg.audio.maikiwiAudio.spatialType) {
             case 0:
                 fetch('./audio/impulses/CiderSpatial_Conv.wav').then(async (impulseData) => {
@@ -108,8 +109,7 @@ const CiderAudio = {
                 });
                 app.cfg.audio.maikiwiAudio.spatialType = 0;
                 break;
-        }
-        CiderAudio.audioNodes.spatialNode.normalize = true; 
+        }        
         CiderAudio.audioNodes.spatialNode.connect(CiderAudio.context.destination);
         }
         else {
