@@ -1399,9 +1399,11 @@ const app = new Vue({
         },
         /**
          * Converts seconds to dd:hh:mm:ss
-         * @param time (in seconds)
-         * @param format (short, long)
+         * @param {number} time (in seconds)
+         * @param {string} format (short, long)
          * @returns {string}
+         * @author Core#1034
+         * @memberOf app
          */
         convertTime(time = 0, format = 'short') {
 
@@ -1446,17 +1448,17 @@ const app = new Vue({
 
                 // Minutes
                 if (time >= 60) {
-                    longFormat.push(`${datetime.getMinutes()} ${app.getLz('term.time.minute', options = { count: datetime.getMinutes() })}`)
+                    longFormat.push(`${datetime.getMinutes()} ${app.getLz(`term.time.${datetime.getMinutes() === 1 ? 'minute' : 'minutes'}`)}`)
                 }
 
                 // Hours
                 if (time >= 3600) {
-                    longFormat.push(`${datetime.getHours()} ${app.getLz('term.time.hour', options = { count: datetime.getHours() })}`)
+                    longFormat.push(`${datetime.getHours()} ${app.getLz(`term.time.${datetime.getHours() === 1 ? 'hour' : 'hours'}`)}`)
                 }
 
                 // Days
                 if (time >= 86400) {
-                    longFormat.push(`${day} ${app.getLz('term.time.day', options = { count: day })}`)
+                    longFormat.push(`${day} ${app.getLz(`term.time.${day === 1 ? 'day' : 'days'}`)}`)
                 }
                 returnTime = longFormat.reverse().join(', ')
             }
@@ -2320,12 +2322,17 @@ const app = new Vue({
 
             downloadChunk()
         },
+        /**
+         * Gets the total duration in seconds of a playlist
+         * @returns {string} Total tracks, and duration
+         * @author Core#1034
+         * @memberOf app
+         */
         getTotalTime() {
             try {
-                if (app.showingPlaylist.relationships.tracks.data.length > 0) {
-                    const timeInSeconds = Math.round([].concat(...app.showingPlaylist.relationships.tracks.data).reduce((a, { attributes: { durationInMillis } }) => a + durationInMillis, 0) / 1000);
-                    return `${app.showingPlaylist.relationships.tracks.data.length} ${app.getLz('term.track', options = { count: app.showingPlaylist.relationships.tracks.data.length })}, ${this.convertTime(timeInSeconds, 'long')}`
-                } else return ""
+                if (app.showingPlaylist.relationships.tracks.data.length === 0) return ""
+                const timeInSeconds = Math.round([].concat(...app.showingPlaylist.relationships.tracks.data).reduce((a, {attributes: {durationInMillis}}) => a + durationInMillis, 0) / 1000);
+                return `${app.showingPlaylist.relationships.tracks.data.length} ${app.getLz(`term.${app.showingPlaylist.relationships.tracks.data.length === 1 ? "track" : "tracks"}`)}, ${app.convertTime(timeInSeconds, 'long')}`
             } catch (err) {
                 return ""
             }
