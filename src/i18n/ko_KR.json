@@ -23,6 +23,8 @@
   "term.about": "정보",
   "term.privateSession": "개인 세션",
   "term.queue": "대기열",
+  "term.lyrics": "Lyrics",
+  "term.miniplayer": "MiniPlayer",
   "term.history": "청취 기록",
   "term.search": "검색",
   "term.library": "보관함",
