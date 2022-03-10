@@ -370,7 +370,7 @@
   "settings.option.experimental.unknownPlugin": "Onbekende Bronnen",
   "settings.option.experimental.unknownPlugin.description": "Installatie van plug-ins van andere repo's dan de Cider Plugin Repository toestaan",
   "settings.option.experimental.compactUI": "Compacte UI",
-  "settings.option.widow.close_button_hide": "Close Button Should Hide the Application",
+  "settings.option.window.close_button_hide": "Close Button Should Hide the Application",
   "settings.option.experimental.inline_playlists": "Inline Afspeellijsten en Albums",
   "settings.option.advanced.playlistTrackMapping": "Afspeellijst Tracktoewijzing",
   "settings.option.advanced.playlistTrackMapping.description": "Maakt diep scannen van afspeellijsten mogelijk om te bepalen welke nummers in welke afspeellijsten staan.  De bouwtijden van de cache van afspeellijsten kunnen aanzienlijk toenemen.",
