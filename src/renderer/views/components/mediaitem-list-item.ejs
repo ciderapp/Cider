@@ -2,12 +2,12 @@
     <div v-observe-visibility="{callback: visibilityChanged}"
          @contextmenu="contextMenu"
          @click="select"
-         :data-id="item.attributes.playParams.id ?? item.id"
+         :data-id="itemId"
          :data-type="getDataType()"
          :data-index="index"
          :data-guid="guid"
-         :data-islibrary="this.item.attributes.playParams.isLibrary ?? false"
-         :key="item.attributes.playParams.id ?? item.id"
+         :data-islibrary="isLibrary"
+         :key="itemId"
          class="cd-mediaitem-list-item"
          @mouseenter="checkLibrary"
          @mouseover="showInLibrary = true"
@@ -26,12 +26,12 @@
                         <%- include("../svg/play.svg") %>
                     </button>
                 </div>
-                <div v-if="!(app.mk.isPlaying && (((app.mk.nowPlayingItem._songId ?? (app.mk.nowPlayingItem.songId ?? app.mk.nowPlayingItem.id ))  == item.attributes.playParams.id) || (app.mk.nowPlayingItem.id  == item.id ))) && showIndex" :style="{display: ((showIndex && !showInLibrary) ? 'block' : 'none'), 'margin-left':'11px'}">
+                <div v-if="!(app.mk.isPlaying && (((app.mk.nowPlayingItem._songId ?? (app.mk.nowPlayingItem.songId ?? app.mk.nowPlayingItem.id ))  == itemId) || (app.mk.nowPlayingItem.id  == item.id ))) && showIndex" :style="{display: ((showIndex && !showInLibrary) ? 'block' : 'none'), 'margin-left':'11px'}">
                     <div>
                         <div>{{ (item.attributes && !showIndexPlaylist) ? (item.attributes.trackNumber ?? '') : ((index * 1 + 1 ) ?? '')}}</div>
                     </div>
                 </div>
-                <div v-if="app.mk.isPlaying && (((app.mk.nowPlayingItem._songId ?? (app.mk.nowPlayingItem.songId ?? app.mk.nowPlayingItem.id ))  == item.attributes.playParams.id) || (app.mk.nowPlayingItem.id == item.id))" :style="{display: (showInLibrary ? 'none' : 'block')}">
+                <div v-if="app.mk.isPlaying && (((app.mk.nowPlayingItem._songId ?? (app.mk.nowPlayingItem.songId ?? app.mk.nowPlayingItem.id ))  == itemId) || (app.mk.nowPlayingItem.id == item.id))" :style="{display: (showInLibrary ? 'none' : 'block')}">
                     <div class="loadbar-sound"></div>
                 </div>
             </div>
@@ -95,7 +95,9 @@
                 guid: this.uuidv4(),
                 app: this.$root,
                 displayDuration: true,
-                addClasses: {}
+                addClasses: {},
+                itemId: 0,
+                isLibrary: false
             }
         },
         props: {
@@ -112,6 +114,12 @@
             'class-list': { type: String, required: false, default: "" },
         },
         mounted() {
+            if (this.item.attributes.playParams) {
+                this.itemId = this.item.attributes.playParams.id ?? this.item.id;
+                this.isLibrary = this.item.attributes.playParams.isLibrary ?? false;
+            } else {
+                this.itemId = this.item.id;
+            }
             let duration = this.item.attributes.durationInMillis ?? 0
             if (duration == 0 || !this.showDuration) {
                 this.displayDuration = false
@@ -135,8 +143,11 @@
                 return this.addedToLibrary
             },
             getClasses() {
+                this.addClasses = {}
+                if(typeof this.item.attributes.playParams == "undefined") {
+                    this.addClasses["disabled"] = true
+                }
                 if (this.classList) {
-                    this.addClasses = {}
                     let classList = this.classList.split(' ')
                     for (let i = 0; i < classList.length; i++) {
                         this.addClasses[classList[i]] = true
@@ -160,10 +171,14 @@
                 return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
             },
             getDataType() {
-                if (this.item.attributes.playParams.isLibrary) {
+                if (typeof this.item.attributes.playParams != "undefined") {
+                    if (this.item.attributes.playParams.isLibrary) {
+                        return this.item.type
+                    } else {
+                        return this.item.attributes.playParams.kind
+                    }
+                }else{
                     return this.item.type
-                } else {
-                    return this.item.attributes.playParams.kind
                 }
             },
             select(e) {
@@ -537,7 +552,7 @@
                                 array[j] = temp;
                             }
                         }
-                        app.mk.setQueue({ [truekind]: [item.attributes.playParams.id ?? item.id] , parameters : {l : this.app.mklang} }).then(function () {
+                        app.mk.setQueue({ [truekind]: [item.attributes.playParams.id ?? item.id], parameters: { l: this.app.mklang } }).then(function () {
                             app.mk.play().then(function () {
                                 var playlistId = id
                                 function getPlaylist(id, isLibrary) {
