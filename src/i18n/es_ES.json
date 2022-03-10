@@ -242,7 +242,7 @@
   "settings.header.experimental": "En pruebas",
   "settings.header.experimental.description": "Ajustes en pruebas para Cider.",
   "settings.option.experimental.compactUI": "Interfaz de usuario compacto",
-  "settings.option.experimental.close_button_hide": "El botón de cerrar minimizará la aplicación en la bandeja",
+  "settings.option.widow.close_button_hide": "El botón de cerrar minimizará la aplicación en la bandeja",
   "spatial.notTurnedOn": "La espacialización del audio esta desactivada. Para usarlo primero actívelo.",
   "spatial.spatialProperties": "Propiedades espaciales",
   "spatial.width": "Ancho",

@@ -280,7 +280,7 @@
   "settings.header.experimental": "Experimentální",
   "settings.header.experimental.description": "Upravte experimentální nastavení pro Cider.",
   "settings.option.experimental.compactUI": "Kompaktní uživatelské rozhraní",
-  "settings.option.experimental.close_button_hide": "Tlačítko Zavřít by mělo aplikaci skrýt",
+  "settings.option.widow.close_button_hide": "Tlačítko Zavřít by mělo aplikaci skrýt",
   "settings.option.experimental.copy_log": "Zkopírujte protokoly do clipboard",
   "settings.option.experimental.inline_playlists": "Vložené seznamy skladeb a alba",
   "spatial.notTurnedOn": "Prostorová funkce zvuku je zakázána. Chcete-li jej používat, nejprve jej povolte.",

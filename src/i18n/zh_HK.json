@@ -297,7 +297,7 @@
   "settings.header.experimental": "實驗性功能",
   "settings.header.experimental.description": "調整Cider的實驗性功能",
   "settings.option.experimental.compactUI": "緊凑型 UI",
-  "settings.option.experimental.close_button_hide": "以關閉按鈕來隱藏 Cider",
+  "settings.option.widow.close_button_hide": "以關閉按鈕來隱藏 Cider",
   "spatial.notTurnedOn": "請先在設定中啟用空間音訊。",
   "spatial.spatialProperties": "空間音訊屬性",
   "spatial.width": "闊度",

@@ -243,7 +243,7 @@
   "settings.header.experimental": "Experimental",
   "settings.header.experimental.description": "Ajustează setările experimentale pentru Cider.",
   "settings.option.experimental.compactUI": "UI Compact", 
-  "settings.option.experimental.close_button_hide": "Butonul de închidere ar trebui să ascundă aplicația",
+  "settings.option.widow.close_button_hide": "Butonul de închidere ar trebui să ascundă aplicația",
   "spatial.notTurnedOn": "Spațializarea Audio este dezactivată. Pentru a folosi opțiunea aceasta, activați-o mai întâi.",
   "spatial.spatialProperties": "Proprietăți Spațiale",
   "spatial.width": "Lățime",

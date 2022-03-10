@@ -188,3 +188,9 @@ Update 28/02/2022 13:00 UTC
 
 * `term.time.days`: Added for `en_US`
 * `term.time.day`: Added for `en_US`
+
+Update 10/3/2022 14:00 UTC
+* `settings.header.window`: Added for `en_US`
+* `settings.header.window.description`: Added for `en_US`
+* `settings.option.window.openOnStartup`: Added for `en_US`
+* `settings.option.window.openOnStartup.hidden`: Added for `en_US`

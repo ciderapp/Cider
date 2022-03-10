@@ -283,7 +283,7 @@
   "settings.header.experimental.description": "調整 Cider 的實驗性功能",
   "settings.option.experimental.compactUI": "使用緊密的介面設計",
   "settings.option.experimental.closeButtonBehaviour": "關閉按鈕操作",
-  "settings.option.experimental.close_button_hide": "關閉按鈕將 Cider 隱藏至系統列",
+  "settings.option.widow.close_button_hide": "關閉按鈕將 Cider 隱藏至系統列",
   "settings.option.experimental.inline_playlists": "將播放列表做為行内元素顯示",
   "spatial.notTurnedOn": "空間音訊目前是關閉狀態，請先啟用再使用。",
   "spatial.spatialProperties": "空間音訊屬性設定",
