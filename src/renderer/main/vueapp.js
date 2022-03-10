@@ -247,6 +247,9 @@ const app = new Vue({
         }
     },
     methods: {
+        setTimeout(func, time) {
+            return setTimeout(func, time);
+        },
         songLinkShare(amUrl) {
             notyf.open({ type: "info", className: "notyf-info", message: app.getLz('term.song.link.generate') })
             let self = this

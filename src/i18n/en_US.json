@@ -23,6 +23,8 @@
   "term.about": "About",
   "term.privateSession": "Private Session",
   "term.queue": "Queue",
+  "term.lyrics": "Lyrics",
+  "term.miniplayer": "MiniPlayer",
   "term.history": "History",
   "term.search": "Search",
   "term.library": "Library",
