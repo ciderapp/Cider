@@ -370,7 +370,7 @@
   "settings.option.experimental.unknownPlugin": "Ukjente Kilder",
   "settings.option.experimental.unknownPlugin.description": "Tillat installasjon fra andre repositories enn Cider Plugin Repository",
   "settings.option.experimental.compactUI": "Kompakt UI",
-  "settings.option.widow.close_button_hide": "Close Button Should Hide the Application",
+  "settings.option.window.close_button_hide": "Close Button Should Hide the Application",
   "settings.option.experimental.inline_playlists": "Innebygde Spillelister og Album",
   "settings.option.advanced.playlistTrackMapping": "Spillelistelåt Kartlegging",
   "settings.option.advanced.playlistTrackMapping.description": "Aktiverer grundig søk av spillistene for å finne ut hvilken spilleliste låten befinner seg i.  Playlist cache build times can increase significantly.",
