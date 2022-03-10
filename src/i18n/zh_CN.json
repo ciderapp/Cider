@@ -369,7 +369,7 @@
   "settings.option.experimental.unknownPlugin": "Unknown Sources",
   "settings.option.experimental.unknownPlugin.description": "Allow installation of plugins from repos other than the Cider Plugin Repository",
   "settings.option.experimental.compactUI": "Compact UI",
-  "settings.option.widow.close_button_hide": "Close Button Should Hide the Application",
+  "settings.option.window.close_button_hide": "Close Button Should Hide the Application",
   "settings.option.lyrics.enableMusixmatch": "启用 Musixmatch 歌词",
   "settings.option.advanced.playlistTrackMapping": "Playlist Track Mapping",
   "settings.option.advanced.playlistTrackMapping.description": "Enables deep scanning of playlists to determine which tracks are in which playlists.  Playlist cache build times can increase significantly.",
