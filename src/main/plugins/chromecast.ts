@@ -289,10 +289,9 @@ export default class ChromecastPlugin {
     /**
      * Runs on plugin load (Currently run on application start)
      */
-    constructor(app: any, store: any) {
-        this._app = app;
-        this._store = store
-
+    constructor(utils: { getApp: () => any; getStore: () => any; }) {
+        this._app = utils.getApp();
+        this._store = utils.getStore()
     }
 
     /**

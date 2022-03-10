@@ -34,6 +34,14 @@ export class utils {
     }
 
     /**
+     * Get the app
+     * @returns {Electron.App}
+     */
+    static getApp(): Electron.App {
+        return app;
+    }
+
+    /**
      * Fetches the i18n locale for the given language.
      * @param language {string} The language to fetch the locale for.
      * @param key {string} The key to search for.

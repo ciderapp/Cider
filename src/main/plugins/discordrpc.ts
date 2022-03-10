@@ -193,10 +193,10 @@ export default class DiscordRichPresence {
     /**
      * Runs on plugin load (Currently run on application start)
      */
-    constructor(app: any, store: any) {
-        DiscordRichPresence._store = store
+    constructor(utils: { getStore: () => any; getApp: () => any; }) {
+        DiscordRichPresence._store = utils.getStore();
         console.debug(`[Plugin][${this.name}] Loading Complete.`);
-        this._app = app;
+        this._app = utils.getApp();
     }
 
     /**

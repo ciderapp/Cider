@@ -7,6 +7,7 @@ export default class MPRIS {
      */
     private _win: any;
     private _app: any;
+    private static utils: any;
 
     /**
      * Base Plugin Details (Eventually implemented into a GUI in settings)
@@ -37,10 +38,8 @@ export default class MPRIS {
      * @param type - pausePlay, nextTrack, PreviousTrack
      * @private
      */
-    private runMediaEvent(type: string) {
-        if (this._win) {
-            this._win.webContents.executeJavaScript(`MusicKitInterop.${type}()`).catch(console.error)
-        }
+    private static runMediaEvent(type: string) {
+        MPRIS.utils.getWindow().webContents.executeJavaScript(`MusicKitInterop.${type}()`).catch(console.error)
     }
 
     /**
@@ -88,7 +87,7 @@ export default class MPRIS {
 
         for (const [key, value] of Object.entries(this.mprisEvents)) {
             this.mpris.on(key, () => {
-                this.runMediaEvent(value)
+                MPRIS.runMediaEvent(value)
             });
         }
     }
@@ -113,8 +112,7 @@ export default class MPRIS {
             return
         }
 
-        this.mpris.metadata = MetaData
-
+        this.mpris.metadata = MetaData;
     }
 
     /**
@@ -155,8 +153,9 @@ export default class MPRIS {
     /**
      * Runs on plugin load (Currently run on application start)
      */
-    constructor(app: any, _store: any) {
-        this._app = app;
+    constructor(utils: { getApp: () => any; }) {
+        MPRIS.utils = utils
+        this._app = utils.getApp();
         console.debug(`[Plugin][${this.name}] Loading Complete.`);
     }
 
@@ -176,7 +175,7 @@ export default class MPRIS {
         console.debug(`[Plugin][${this.name}] Stopped.`);
         try {
             this.clearState()
-        }catch(e) {
+        } catch (e) {
             console.error(e)
         }
     }

@@ -44,7 +44,7 @@ export class Plugins {
                     if (plugins[file] || plugin.name in plugins) {
                         console.log(`[${plugin.name}] Plugin already loaded / Duplicate Class Name`);
                     } else {
-                        plugins[file] = new plugin(electron.app, utils.getStore());
+                        plugins[file] = new plugin(utils);
                     }
                 }
             });
@@ -61,7 +61,7 @@ export class Plugins {
                         if (plugins[file] || plugin in plugins) {
                             console.log(`[${plugin.name}] Plugin already loaded / Duplicate Class Name`);
                         } else {
-                            plugins[file] = new plugin(electron.app, utils.getStore());
+                            plugins[file] = new plugin(utils);
                         }
                     } else {
                         const plugin = require(path.join(this.userPluginsPath, file));
@@ -69,7 +69,7 @@ export class Plugins {
                         if (plugins[file] || plugin in plugins) {
                             console.log(`[${plugin.name}] Plugin already loaded / Duplicate Class Name`);
                         } else {
-                            plugins[file] = new plugin(electron.app, utils.getStore());
+                            plugins[file] = new plugin(utils);
                         }
                     }
                 }
