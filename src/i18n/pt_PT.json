@@ -370,7 +370,7 @@
   "settings.option.experimental.unknownPlugin": "Fontes Desconhecidas",
   "settings.option.experimental.unknownPlugin.description": "Permitir instalação de plug-in's de outros repositórios para além do Cider Plugin Repository",
   "settings.option.experimental.compactUI": "Interface de utilizador compacta",
-  "settings.option.widow.close_button_hide": "Close Button Should Hide the Application",
+  "settings.option.window.close_button_hide": "Close Button Should Hide the Application",
   "settings.option.experimental.inline_playlists": "Listas de Reprodução e Albums na linha",
   "settings.option.advanced.playlistTrackMapping": " Mapeamento de Faixas nas Listas de Reprodução",
   "settings.option.advanced.playlistTrackMapping.description": "Ativa uma análise profunda das listas de reprodução para determinar quais faixas estão em quais listas.  Os tempos de construção da cache das listas de reprodução pode aumentar significativamente.",
