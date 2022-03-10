@@ -370,7 +370,7 @@
   "settings.option.experimental.unknownPlugin": "Sources inconnues",
   "settings.option.experimental.unknownPlugin.description": "Allow installation of plugins from repos other than the Cider Plugin Repository",
   "settings.option.experimental.compactUI": "Compact UI",
-  "settings.option.window.close_button_hide": "Close Button Should Hide the Application",
+  "settings.option.window.close_button_hide": "Le bouton Fermer devrait cacher l'application",
   "settings.option.experimental.inline_playlists": "Playlists et albums en ligne",
   "settings.option.advanced.playlistTrackMapping": "Playlist Track Mapping",
   "settings.option.advanced.playlistTrackMapping.description": "Activez l'analyse approfondie des playlists pour déterminer quelles pistes sont dans chaque playlist.  Les temps de construction du cache des playlists peuvent augmenter considérablement.",
