@@ -487,18 +487,18 @@ const CiderAudio = {
                                 CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialNode);
                                 CiderAudio.audioNodes.spatialNode.connect(CiderAudio.audioNodes.llpw[0]);
                                 app.cfg.audio.normalization = true
-                                console.debug('[Cider][Audio] Vibrant Bass, CAP, Maikiwi Spatial')
+                                console.debug('[Cider][Audio] Equalizer, Vibrant Bass, CAP, Maikiwi Spatial')
                             }
                             else {
                                 CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialInput.input);
                                 CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.audioNodes.llpw[0]);
-                                console.debug('[Cider][Audio] Vibrant Bass, CAP, Spatial')
+                                console.debug('[Cider][Audio] Equalizer, Vibrant Bass, CAP, Spatial')
                             }
                         }
                         else {
                             app.cfg.audio.normalization = true;
                             CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.llpw[0]);
-                            console.debug('[Cider][Audio] Vibrant Bass, CAP')
+                            console.debug('[Cider][Audio] Equalizer, Vibrant Bass, CAP')
                         }
                     }
                 }
@@ -511,18 +511,18 @@ const CiderAudio = {
                             if (app.cfg.audio.maikiwiAudio.spatial === true) {  
                                 CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialNode);
                                 CiderAudio.audioNodes.spatialNode.connect(CiderAudio.audioNodes.analogWarmth[0]);          
-                                console.debug('[Cider][Audio] Vibrant Bass, Analog Warmth, Maikiwi Spatial')
+                                console.debug('[Cider][Audio] Equalizer, Vibrant Bass, Analog Warmth, Maikiwi Spatial')
                             }
                             else {                                       
                                 CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialInput.input);
                                 CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.audioNodes.analogWarmth[0]);
-                                console.debug('[Cider][Audio] Vibrant Bass, Analog Warmth, Spatial')
+                                console.debug('[Cider][Audio] Equalizer, Vibrant Bass, Analog Warmth, Spatial')
                             }
                         }
                         else {
                             app.cfg.audio.normalization = true;
                             CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.analogWarmth[0]);
-                            console.debug('[Cider][Audio] Vibrant Bass, Analog Warmth')
+                            console.debug('[Cider][Audio] Equalizer, Vibrant Bass, Analog Warmth')
                         }
                     }
                     else {
@@ -531,18 +531,18 @@ const CiderAudio = {
                                 app.cfg.audio.normalization = true;
                                 CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialNode);
                                 CiderAudio.audioNodes.spatialNode.connect(CiderAudio.audioNodes.vibrantbassNode[0]);
-                                console.debug('[Cider][Audio] Vibrant Bass, Maikiwi Spatial')
+                                console.debug('[Cider][Audio] Equalizer, Vibrant Bass, Maikiwi Spatial')
                             }
                             else {
                                 CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialInput.input);
                                 CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.audioNodes.vibrantbassNode[0]);
-                                console.debug('[Cider][Audio] Vibrant Bass, Spatial')
+                                console.debug('[Cider][Audio] Equalizer, Vibrant Bass, Spatial')
                             }
                         }
                         else { 
                             app.cfg.audio.normalization = true;
                             CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.vibrantbassNode[0]);
-                            console.debug('[Cider][Audio] Vibrant Bass')
+                            console.debug('[Cider][Audio] Equalizer, Vibrant Bass')
                         }
                     }
                 }
@@ -560,17 +560,17 @@ const CiderAudio = {
                                 CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialNode);
                                 CiderAudio.audioNodes.spatialNode.connect(CiderAudio.audioNodes.analogWarmth[0]);
                                 app.cfg.audio.normalization = true; 
-                                console.debug('[Cider][Audio] CAP, Analog Warmth, Maikiwi Spatial')
+                                console.debug('[Cider][Audio] Equalizer, CAP, Analog Warmth, Maikiwi Spatial')
                             }
                             else {
                                 CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialInput.input);
                                 CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.audioNodes.analogWarmth[0]);
-                                console.debug('[Cider][Audio] CAP, Analog Warmth, Spatial')
+                                console.debug('[Cider][Audio] Equalizer, CAP, Analog Warmth, Spatial')
                             }
                         }
                         else {
                             CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.analogWarmth[0]);
-                            console.debug('[Cider][Audio] CAP and Analog Warmth')
+                            console.debug('[Cider][Audio] Equalizer, CAP and Analog Warmth')
                         }
                     }
                     else {
@@ -579,17 +579,17 @@ const CiderAudio = {
                                 CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialNode);
                                 CiderAudio.audioNodes.spatialNode.connect(CiderAudio.audioNodes.llpw[0]);
                                 app.cfg.audio.normalization = true;         
-                                console.debug('[Cider][Audio] CAP, Maikiwi Spatial')
+                                console.debug('[Cider][Audio] Equalizer, CAP, Maikiwi Spatial')
                             }
                             else {
                                 CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialInput.input);
                                 CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.audioNodes.llpw[0]);
-                                console.debug('[Cider][Audio] CAP, Spatial')
+                                console.debug('[Cider][Audio] Equalizer, CAP, Spatial')
                             }
                         }
                         else {
                             CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.llpw[0]);
-                            console.debug('[Cider][Audio] CAP')
+                            console.debug('[Cider][Audio] Equalizer, CAP')
                         }
                     }
                 } // CAP ends here
@@ -602,36 +602,36 @@ const CiderAudio = {
                                 CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialNode);
                                 CiderAudio.audioNodes.spatialNode.connect(CiderAudio.audioNodes.analogWarmth[0]);
                                 app.cfg.audio.normalization = true; 
-                                console.debug('[Cider][Audio] Analog Warmth, Maikiwi Spatial')
+                                console.debug('[Cider][Audio] Equalizer, Analog Warmth, Maikiwi Spatial')
                             }
                             else {
                                 CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialInput.input);
                                 CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.audioNodes.analogWarmth[0]);
-                                console.debug('[Cider][Audio] Analog Warmth, Spatial')
+                                console.debug('[Cider][Audio] Equalizer, Analog Warmth, Spatial')
                             }
                         }
                         else {
                             CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.analogWarmth[0]);
-                            console.debug('[Cider][Audio] Analog Warmth')
+                            console.debug('[Cider][Audio] Equalizer, Analog Warmth')
                         }
                     }
                     else {
                         if (app.cfg.audio.spatial === true) {
                             if (app.cfg.audio.maikiwiAudio.spatial === true) {  
                                 CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialNode);
-                                CiderAudio.audioNodes.spatialNode.connect(CiderAudio.context.destination);
+                                CiderAudio.audioNodes.spatialNode.connect(CiderAudio.context.audioBands[0]);
                                 app.cfg.audio.normalization = true;         
-                                console.debug('[Cider][Audio] Maikiwi Spatial')
+                                console.debug('[Cider][Audio] Equalizer, Maikiwi Spatial')
                             }
                             else {
                                 CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialInput.input);
-                                CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.context.destination);
-                                console.debug('[Cider][Audio] Spatial')
+                                CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.context.audioBands[0]);
+                                console.debug('[Cider][Audio] Equalizer, Spatial')
                             }
                         }
                         else {
-                            CiderAudio.audioNodes.gainNode.connect(CiderAudio.context.destination);    
-                            console.debug('[Cider][Audio] Nothing')
+                            CiderAudio.audioNodes.gainNode.connect(CiderAudio.context.audioBands[0]);    
+                            console.debug('[Cider][Audio] Equalizer')
                         }
                     }
                 }
