@@ -369,7 +369,7 @@
   "spatial.audioSource": "Источник звука",
   "settings.option.experimental.unknownPlugin.description": "Разрешить установку плагинов из репозиториев, отличных от репозитория плагинов Cider",
   "settings.option.experimental.compactUI": "Компактный интерфейс",
-  "settings.option.widow.close_button_hide": "Close Button Should Hide the Application",
+  "settings.option.window.close_button_hide": "Close Button Should Hide the Application",
   "settings.option.lyrics.enableYoutubeLyrics": "Включить Youtube Lyrics для музыкальных клипов",
   "settings.option.advanced.playlistTrackMapping": "Playlist Track Mapping",
   "settings.option.advanced.playlistTrackMapping.description": "Enables deep scanning of playlists to determine which tracks are in which playlists.  Playlist cache build times can increase significantly.",
