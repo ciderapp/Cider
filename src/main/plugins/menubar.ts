@@ -1,4 +1,5 @@
 import {app, Menu, shell} from "electron";
+import {utils} from "../base/utils";
 
 export default class Thumbar {
     /**
@@ -76,13 +77,19 @@ export default class Thumbar {
             label: 'Window',
             submenu: [
                 {role: 'minimize'},
+                {
+                    label: 'Show',
+                    click: () => utils.getWindow().show()
+                },
                 {role: 'zoom'},
                 ...(this.isMac ? [
                     {type: 'separator'},
                     {role: 'front'},
                 ] : [
-                    {role: 'close'}
+                    {}
                 ]),
+                {role: 'close'},
+                {type: 'separator'},
                 {
                     label: 'Edit',
                     submenu: [

@@ -10,7 +10,6 @@ import {networkInterfaces} from "os";
 import * as mm from 'music-metadata';
 import fetch from 'electron-fetch'
 import {wsapi} from "./wsapi";
-import {AppImageUpdater, NsisUpdater} from "electron-updater";
 import {utils} from './utils';
 import {Plugins} from "./plugins";
 
@@ -1130,8 +1129,18 @@ export class BrowserWindow {
             isQuiting = true
         });
 
+        app.on('activate', function(){
+            BrowserWindow.win.show()
+            BrowserWindow.win.focus()
+        });
+
+        // Quit when all windows are closed.
         app.on('window-all-closed', () => {
-            app.quit()
+            // On macOS it is common for applications and their menu bar
+            // to stay active until the user quits explicitly with Cmd + Q
+            if (process.platform !== 'darwin') {
+                app.quit()
+            }
         })
 
         BrowserWindow.win.on("closed", () => {
