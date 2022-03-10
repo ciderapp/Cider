@@ -363,7 +363,7 @@
   "settings.option.experimental.unknownPlugin": "Unknyown Souwces",
   "settings.option.experimental.unknownPlugin.description": "Awwow instawwation of pwugins fwom wepos othew than the Cidew Pwugin Wepositowy",
   "settings.option.experimental.compactUI": "Compact UI",
-  "settings.option.widow.close_button_hide": "Cwose Button Shouwd Hide the Appwication",
+  "settings.option.window.close_button_hide": "Cwose Button Shouwd Hide the Appwication",
   "settings.option.experimental.inline_playlists": "Inwinye Pwaywists and Awbums",
   "settings.option.advanced.playlistTrackMapping": "Pwaywist Twack Mapping",
   "settings.option.advanced.playlistTrackMapping.description": "Enyabwes deep scannying of pwaywists to detewminye which twacks awe in which pwaywists.  Pwaywist cache buiwd times can incwease signyificantwy.",

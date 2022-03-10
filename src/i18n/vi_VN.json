@@ -285,7 +285,7 @@
   "settings.header.experimental": "Thử nghiệm",
   "settings.header.experimental.description": "Thay đổi các cài đặt lời thử nghiệm của Cider.",
   "settings.option.experimental.compactUI": "UI thu gọn",
-  "settings.option.widow.close_button_hide": "Nút thoát cửa số sẽ ẩn Cider xuống khay hệ thống",
+  "settings.option.window.close_button_hide": "Nút thoát cửa số sẽ ẩn Cider xuống khay hệ thống",
   "settings.option.experimental.copy_log": "Sao chép logs ra bộ nhớ tạm",
   "settings.option.experimental.inline_playlists": "Playlists and Albums hiện nổi lên trên",
   "spatial.notTurnedOn": "Âm thanh đa chiều chưa được kích hoạt. Hãy kích hoạt nó trước",

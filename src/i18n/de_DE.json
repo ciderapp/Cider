@@ -291,7 +291,7 @@
   "settings.header.experimental": "Experimentell",
   "settings.header.experimental.description": "Passe die experimentellen Einstellungen für Cider an.",
   "settings.option.experimental.compactUI": "Kompaktes UI",
-  "settings.option.widow.close_button_hide": "Schließtaste soll die App verbergen",
+  "settings.option.window.close_button_hide": "Schließtaste soll die App verbergen",
   "settings.option.experimental.copy_log": "Kopiere Logs in die Zwischenablage",
   "settings.option.experimental.inline_playlists": "Inline Playlists und Alben",
   "spatial.notTurnedOn": "Die Audio-Spatialisierung ist deaktiviert. Um sie zu verwenden, musst du diese zuerst aktivieren.",

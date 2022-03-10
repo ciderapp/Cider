@@ -272,7 +272,7 @@
   "settings.header.experimental": "Expérimental",
   "settings.header.experimental.description": "Ajuster les paramètres expérimentaux de Cider.",
   "settings.option.experimental.compactUI": "Interface utilisateur compacte",
-  "settings.option.widow.close_button_hide": "Le bouton de fermeture doit masquer l'application",
+  "settings.option.window.close_button_hide": "Le bouton de fermeture doit masquer l'application",
   "settings.option.experimental.copy_log": "Copier les logs dans le presse-papier",
   "settings.option.experimental.inline_playlists": "Playlists et albums en ligne",
   "spatial.notTurnedOn": "La spatialisation audio est désactivée. Pour l'utiliser, vous devez d'abord l'activer.",

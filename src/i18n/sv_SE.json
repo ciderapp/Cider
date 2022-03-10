@@ -242,7 +242,7 @@
   "settings.header.experimental": "Experimentellt",
   "settings.header.experimental.description": "Ändra Ciders experimentella inställningar.",
   "settings.option.experimental.compactUI": "Kompakt gränssnitt",
-  "settings.option.widow.close_button_hide": "Stängknappen gömmer Cider istället",
+  "settings.option.window.close_button_hide": "Stängknappen gömmer Cider istället",
   "spatial.notTurnedOn": "Spiralljud är av. Akrtivera det först.",
   "spatial.spatialProperties": "Spiralljudsintällningar",
   "spatial.width": "Bredd",

@@ -282,7 +282,7 @@
   "settings.header.experimental": "Experimental",
   "settings.header.experimental.description": "Ajustar as definições experimental no Cider.",
   "settings.option.experimental.compactUI": "UI Compacto",
-  "settings.option.widow.close_button_hide": "Fechar apenas esconde o Cider",
+  "settings.option.window.close_button_hide": "Fechar apenas esconde o Cider",
   "spatial.spatialProperties": "Propriedades do Espacial",
   "spatial.width": "Largura",
   "spatial.height": "Altura",
