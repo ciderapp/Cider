@@ -128,8 +128,7 @@ const CiderAudio = {
                 up: 'acoustic-ceiling-tiles',
             };
             CiderAudio.audioNodes.spatialNode.setRoomProperties(roomDimensions, roomMaterials);
-            CiderAudio.audioNodes.spatialInput = CiderAudio.audioNodes.spatialNode.createSource();
-            CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialInput.input);}
+            CiderAudio.audioNodes.spatialInput = CiderAudio.audioNodes.spatialNode.createSource();}
     }, 
     spatialOff: function (){
         CiderAudio.hierarchical_loading();
