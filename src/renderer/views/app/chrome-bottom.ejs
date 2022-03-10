@@ -101,22 +101,27 @@
         </div>
         <div class="app-chrome-item generic">
             <button class="playback-button--small miniplayer"
+                    :title="$root.getLz('term.miniplayer')"
+                    v-b-tooltip.hover
                     @click="drawer.open = false; miniPlayer(true)"></button>
         </div>
         <div class="app-chrome-item generic">
             <button class="playback-button--small queue" :class="{'active': drawer.panel == 'queue'}"
+                    :title="$root.getLz('term.queue')"
+                    v-b-tooltip.hover
                     @click="invokeDrawer('queue')"></button>
         </div>
         <div class="app-chrome-item generic">
             <template v-if="lyrics && lyrics != [] && lyrics.length > 0">
                 <button class="playback-button--small lyrics"
+                        :title="$root.getLz('term.lyrics')"
+                        v-b-tooltip.hover
                         :class="{'active': drawer.panel == 'lyrics'}"
                         @click="invokeDrawer('lyrics')"></button>
             </template>
             <template v-else>
                 <button class="playback-button--small lyrics"
-                        :style="{'opacity': 0.3, 'pointer-events': 'none'}"
-                        @click="invokeDrawer('lyrics')"></button>
+                        :style="{'opacity': 0.3, 'pointer-events': 'none'}"></button>
             </template>
 
         </div>
