@@ -290,7 +290,7 @@
   "settings.header.experimental": "Experimental",
   "settings.header.experimental.description": "Adjust the experimental settings for Cider.",
   "settings.option.experimental.compactUI": "Compact UI",
-  "settings.option.experimental.close_button_hide": "Close Button Should Hide the Application",
+  "settings.option.window.close_button_hide": "Close Button Should Hide the Application",
   "settings.option.experimental.copy_log": "Copy logs to clipboard",
   "settings.option.experimental.inline_playlists": "Inline Playlists and Albums",
   "spatial.notTurnedOn": "Audio Spatialization is disabled. To use, please enable it first.",

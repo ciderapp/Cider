@@ -1,6 +1,7 @@
 <script type="text/x-template" id="cider-settings">
     <div class="content-inner settings-page">
-        <div class="md-option-container">  
+        <div class="md-option-container">
+            <!-- General Settings -->
             <div class="md-option-header">
                 <span>{{$root.getLz('settings.header.general')}}</span>
             </div>
@@ -43,6 +44,8 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Audio Settings -->
             <div class="md-option-header">
                 <span>{{$root.getLz('settings.header.audio')}}</span>
             </div>
@@ -123,6 +126,8 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Visual Settings -->
             <div class="md-option-header">
                 <span>{{$root.getLz('settings.header.visual')}}</span>
             </div>
@@ -244,6 +249,38 @@
                 </div>
             </div>
 
+            <!-- Window Settings -->
+            <div class="md-option-header">
+                <span>{{$root.getLz('settings.header.window')}}</span>
+            </div>
+            <div class="settings-option-body">
+                <div class="md-option-line">
+                    <div class="md-option-segment">
+                        {{$root.getLz('settings.option.window.openOnStartup')}}
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <input type="checkbox" v-model="app.cfg.general.onStartup.enabled" switch/>
+                    </div>
+                </div>
+                <div class="md-option-line" v-show="app.cfg.general.onStartup.enabled">
+                    <div class="md-option-segment">
+                        {{$root.getLz('settings.option.window.openOnStartup.hidden')}}
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <input type="checkbox" v-model="app.cfg.general.onStartup.hidden" switch/>
+                    </div>
+                </div>
+                <div class="md-option-line" v-show="app.platform !== 'darwin'">
+                    <div class="md-option-segment">
+                        {{$root.getLz("settings.option.window.close_button_hide")}}
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <input type="checkbox" v-model="app.cfg.general.close_button_hide" switch/>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lyric Settings -->
             <div class="md-option-header">
                 <span>{{$root.getLz('settings.header.lyrics')}}</span>
             </div>
@@ -548,6 +585,8 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Connectivity Settings -->
             <div class="md-option-header">
                 <span>{{$root.getLz('settings.header.connectivity')}}</span>
             </div>
@@ -628,8 +667,7 @@
                 </div>
             </div>
 
-
-
+            <!-- Debug Settings -->
             <div class="md-option-header">
                 <span>{{$root.getLz('settings.header.debug')}}</span>
             </div>
@@ -656,7 +694,7 @@
                 </div>
             </div>
 
-
+            <!-- Experimental Settings -->
             <div class="md-option-header">
                 <span>{{$root.getLz('settings.header.experimental')}}</span>
             </div>
@@ -736,14 +774,6 @@
                         </select>
                     </div>
                 </div>
-                <div class="md-option-line">
-                    <div class="md-option-segment">
-                        {{$root.getLz("settings.option.experimental.close_button_hide")}}
-                    </div>
-                    <div class="md-option-segment md-option-segment_auto">
-                        <input type="checkbox" v-model="app.cfg.general.close_button_hide" switch/>
-                    </div>
-                </div>
                 <div class="md-option-line update-check">
                     <div class="md-option-segment">
                         {{$root.getLz('settings.option.general.updateCider')}} 
@@ -780,11 +810,12 @@
                     </div>
                 </div>
             </div>
-            <div style="opacity: 0.5; pointer-events: none">
-                <div class="md-option-header">
-                    <span>{{$root.getLz('settings.header.unfinished')}}</span>
-                </div>
-                <div class="settings-option-body">
+
+            <!-- Unfinished Settings -->
+            <div class="md-option-header">
+                <span>{{$root.getLz('settings.header.unfinished')}}</span>
+            </div>
+            <div class="settings-option-body" style="opacity: 0.5; pointer-events: none">
 
                     <div class="md-option-line">
                         <div class="md-option-segment">
@@ -822,21 +853,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="md-option-line">
-                        <div class="md-option-segment">
-                            Open Cider on Startup
-                        </div>
-                        <div class="md-option-segment md-option-segment_auto">
-                            <select class="md-select">
-                                <option value='0'>Never</option>
-                                <option value='1'>Always</option>
-                                <option value='2'>Always, minimized</option>
-                                <option value='2'>Always, hidden in tray</option>
-                            </select>
-                        </div>
-                    </div>
                 </div>
-            </div>
         </div>
     </div>
 </script>

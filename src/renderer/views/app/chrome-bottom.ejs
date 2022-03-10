@@ -86,7 +86,7 @@
 
                 <input type="range" step="0.01" min="0" :style="progressBarStyle()"
                        @input="playerLCD.desiredDuration = $event.target.value;playerLCD.userInteraction = true"
-                       @mouseup="mk.seekToTime($event.target.value);playerLCD.desiredDuration = 0;playerLCD.userInteraction = false"
+                       @mouseup="mk.seekToTime($event.target.value);setTimeout(()=>{playerLCD.desiredDuration = 0;playerLCD.userInteraction = false}, 1000);"
                        :max="mk.currentPlaybackDuration" :value="getSongProgress()">
             </div>
         </div>
@@ -101,22 +101,27 @@
         </div>
         <div class="app-chrome-item generic">
             <button class="playback-button--small miniplayer"
+                    :title="$root.getLz('term.miniplayer')"
+                    v-b-tooltip.hover
                     @click="drawer.open = false; miniPlayer(true)"></button>
         </div>
         <div class="app-chrome-item generic">
             <button class="playback-button--small queue" :class="{'active': drawer.panel == 'queue'}"
+                    :title="$root.getLz('term.queue')"
+                    v-b-tooltip.hover
                     @click="invokeDrawer('queue')"></button>
         </div>
         <div class="app-chrome-item generic">
             <template v-if="lyrics && lyrics != [] && lyrics.length > 0">
                 <button class="playback-button--small lyrics"
+                        :title="$root.getLz('term.lyrics')"
+                        v-b-tooltip.hover
                         :class="{'active': drawer.panel == 'lyrics'}"
                         @click="invokeDrawer('lyrics')"></button>
             </template>
             <template v-else>
                 <button class="playback-button--small lyrics"
-                        :style="{'opacity': 0.3, 'pointer-events': 'none'}"
-                        @click="invokeDrawer('lyrics')"></button>
+                        :style="{'opacity': 0.3, 'pointer-events': 'none'}"></button>
             </template>
 
         </div>

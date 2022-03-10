@@ -280,7 +280,7 @@
   "settings.header.experimental": "Eksperimental",
   "settings.header.experimental.description": "Sesuaikan pengaturan eksperimental untuk Cider.",
   "settings.option.experimental.compactUI": "UI Kompak",
-  "settings.option.experimental.close_button_hide": "Tombol Tutup Menyembunyikan Aplikasi",
+  "settings.option.window.close_button_hide": "Tombol Tutup Menyembunyikan Aplikasi",
   "settings.option.experimental.copy_log": "Salin log ke clipboard",
   "settings.option.experimental.inline_playlists": "Playlist dan Album Sebaris",
   "spatial.notTurnedOn": "Spasialisasi Audio dinonaktifkan. Untuk menggunakan, aktifkan terlebih dahulu.",

@@ -262,7 +262,7 @@
   "settings.header.experimental": "實驗性功能",
   "settings.header.experimental.description": "調整Cider嘅實驗性功能",
   "settings.option.experimental.compactUI": "逼啲既 UI",
-  "settings.option.experimental.close_button_hide": "㩒交叉制嚟隱藏 Cider",
+  "settings.option.window.close_button_hide": "㩒交叉制嚟隱藏 Cider",
   "settings.option.experimental.copy_log": "將log複製喺剪貼簿",
   "spatial.notTurnedOn": "唔該喺設定入面啟用左空間音訊先。",
   "spatial.spatialProperties": "空間音訊屬性",

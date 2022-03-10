@@ -7,7 +7,6 @@ export class Store {
     private defaults: any = {
         "general": {
             "close_button_hide": false,
-            "open_on_startup": false,
             "discord_rpc": 1, // 0 = disabled, 1 = enabled as Cider, 2 = enabled as Apple Music
             "discord_rpc_clear_on_pause": true,
             "language": "en_US", // electron.app.getLocale().replace('-', '_') this can be used in future
@@ -23,6 +22,10 @@ export class Store {
                 "artists": true,
                 "videos": true,
                 "podcasts": true
+            },
+            "onStartup": {
+                "enabled": false,
+                "hidden": false,
             }
         },
         "home": {

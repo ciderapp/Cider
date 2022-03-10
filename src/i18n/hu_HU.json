@@ -340,7 +340,7 @@
   "settings.option.experimental.unknownPlugin": "Unknown Sources",
   "settings.option.experimental.unknownPlugin.description": "Allow installion of plugins from repos other than the Cider Plugin Repository",
   "settings.option.experimental.compactUI": "Kompakt felület",
-  "settings.option.experimental.close_button_hide": "A bezárás gomb rejtse el az alkalmazást",
+  "settings.option.window.close_button_hide": "A bezárás gomb rejtse el az alkalmazást",
   "settings.option.experimental.inline_playlists": "Inline Playlists and Albums",
   "spatial.notTurnedOn": "A térbeli hangzás ki van kapcsolva, használatához kapcsolja be.",
   "spatial.spatialProperties": "Térbeli hang",

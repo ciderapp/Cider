@@ -315,7 +315,7 @@
   "settings.header.experimental": "Экспериментальные",
   "settings.header.experimental.description": "Настройка экспериментальных функций Cider.",
   "settings.option.experimental.compactUI": "Компактный интерфейс",
-  "settings.option.experimental.close_button_hide": "Кнопка «Закрыть» скрывает приложение",
+  "settings.option.window.close_button_hide": "Кнопка «Закрыть» скрывает приложение",
   "settings.option.experimental.inline_playlists": "Встроенные плейлисты и альбомы",
   "spatial.notTurnedOn": "Пространственное аудио отключено. Чтобы использовать, сначала включите его.",
   "spatial.spatialProperties": "Настройка пространственного аудио",
