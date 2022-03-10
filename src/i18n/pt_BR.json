@@ -355,6 +355,10 @@
   "settings.option.experimental.compactUI": "UI Compacto",
   "settings.option.visual.showPersonalInfo": "Exibir Informações Pessoais",
 
+  "settings.header.window": "Window",
+  "settings.header.window.description": "Adjust the window settings for Cider.",
+  "settings.option.window.openOnStartup": "Open Cider on Startup",
+  "settings.option.window.openOnStartup.hidden": "Open Hidden",
   "settings.option.lyrics.enableMusixmatch": "Ativar Letras do Musixmatch",
   "settings.option.lyrics.enableYoutubeLyrics": "Ativar letras do Youtube para videos musicais",
   "settings.option.lyrics.enableMusixmatch": "Habilitar Letras do Musixmatch",
@@ -386,7 +390,7 @@
   "settings.option.experimental.unknownPlugin.description": "Allow installation of plugins from repos other than the Cider Plugin Repository",
   "settings.option.experimental.compactUI": "Interface Compacta",
 
-  "settings.option.experimental.close_button_hide": "Botão Fechar deve esconder o aplicativo",
+  "settings.option.widow.close_button_hide": "Close Button Should Hide the Application",
   "settings.option.lyrics.enableMusixmatchKaraoke": "Ativar Modo Karaoke (só para Musixmatch)",
   "settings.option.advanced.playlistTrackMapping": "Playlist Track Mapping",
   "settings.option.advanced.playlistTrackMapping.description": "Enables deep scanning of playlists to determine which tracks are in which playlists.  Playlist cache build times can increase significantly.",
