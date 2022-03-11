@@ -82,6 +82,7 @@ const CiderAudio = {
     },
 
     spatialOn: function (){
+        CiderAudio.audioNodes.spatialNode = null;
         if (app.cfg.audio.maikiwiAudio.spatial === true) { 
         CiderAudio.audioNodes.spatialNode = CiderAudio.context.createConvolver();
         CiderAudio.audioNodes.spatialNode.normalize = true;
