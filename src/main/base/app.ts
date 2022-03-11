@@ -327,6 +327,11 @@ export class AppEvents {
     private static initLogging() {
         log.transports.console.format = '[{h}:{i}:{s}.{ms}] [{level}] {text}';
         Object.assign(console, log.functions);
+        console.debug = function(...args: any[]) {
+            if (!app.isPackaged) {
+                log.debug(...args)
+            }
+        };
 
         ipcMain.on('fetch-log', (_event) => {
             const data = readFileSync(log.transports.file.getFile().path, {encoding: 'utf8', flag: 'r'});
