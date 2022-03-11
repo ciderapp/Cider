@@ -619,18 +619,18 @@ const CiderAudio = {
                         if (app.cfg.audio.spatial === true) {
                             if (app.cfg.audio.maikiwiAudio.spatial === true) {  
                                 CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialNode);
-                                CiderAudio.audioNodes.spatialNode.connect(CiderAudio.context.audioBands[0]);
+                                CiderAudio.audioNodes.spatialNode.connect(CiderAudio.audioNodes.audioBands[0]);
                                 app.cfg.audio.normalization = true;         
                                 console.debug('[Cider][Audio] Equalizer, Maikiwi Spatial')
                             }
                             else {
                                 CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialInput.input);
-                                CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.context.audioBands[0]);
+                                CiderAudio.audioNodes.spatialNode.output.connect(CiderAudio.audioNodes.audioBands[0]);
                                 console.debug('[Cider][Audio] Equalizer, Spatial')
                             }
                         }
                         else {
-                            CiderAudio.audioNodes.gainNode.connect(CiderAudio.context.audioBands[0]);    
+                            CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.audioBands[0]);    
                             console.debug('[Cider][Audio] Equalizer')
                         }
                     }
