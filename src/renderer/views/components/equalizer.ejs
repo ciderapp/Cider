@@ -310,12 +310,19 @@
                 }
             },
             changeMix() {
-                for (var i = 0; i < 10; i++) {
+                if (Math.max(...$root.cfg.audio.equalizer.gain) !== 0) {
+                    for (var i = 0; i < 10; i++) {
                     CiderAudio.audioNodes.audioBands[i].gain.value = app.cfg.audio.equalizer.gain[i] * app.cfg.audio.equalizer.mix
+                    }
                 }
             },
             changeGain(i) {
-                CiderAudio.audioNodes.audioBands[i].gain.value = app.cfg.audio.equalizer.gain[i] * app.cfg.audio.equalizer.mix
+                if (Math.max(...$root.cfg.audio.equalizer.gain) !== 0) {
+                    CiderAudio.audioNodes.audioBands[i].gain.value = app.cfg.audio.equalizer.gain[i] * app.cfg.audio.equalizer.mix
+                }
+                else {
+                    CiderAudio.hierarchical_loading();
+                }
             },
             changeFreq(i) {
                 CiderAudio.audioNodes.audioBands[i].frequency.value = app.cfg.audio.equalizer.frequencies[i]
