@@ -7,8 +7,6 @@ async function spawnMica() {
     micaDiv.style.left = "0"
     micaDiv.style.right = "0"
     micaDiv.style.bottom = "0"
-    micaDiv.style.width = window.innerWidth + 'px';
-    micaDiv.style.height = window.innerHeight + 'px';
     micaDiv.style.zIndex = -1
 
     let lastScreenX;
