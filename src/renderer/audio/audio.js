@@ -416,7 +416,7 @@ const CiderAudio = {
                 CiderAudio.audioNodes.vibrantbassNode[i].type = 'peaking'; // 'peaking';
                 CiderAudio.audioNodes.vibrantbassNode[i].frequency.value = VIBRANTBASSBANDS[i];
                 CiderAudio.audioNodes.vibrantbassNode[i].Q.value = VIBRANTBASSQ[i];
-                CiderAudio.audioNodes.vibrantbassNode[i].gain.value = VIBRANTBASSGAIN[i] * app.cfg.audio.maikiwiAudio.vibrantBass.multiplier;
+                CiderAudio.audioNodes.vibrantbassNode[i].gain.value = VIBRANTBASSGAIN[i] * (app.cfg.audio.equalizer.vibrantBass / 10);
             }
 
             for (let i = 1; i < VIBRANTBASSBANDS.length; i ++) {
@@ -453,7 +453,7 @@ const CiderAudio = {
         if (Math.max(...app.cfg.audio.equalizer.gain) !== 0) {
             CiderAudio.equalizer(true, 0);
 
-            if (app.cfg.audio.maikiwiAudio.vibrantBass.multiplier !== 0) { 
+            if (app.cfg.audio.equalizer.vibrantBass !== '0') { 
                 CiderAudio.vibrantbass_h2_1(true, 1);
     
                 if (app.cfg.audio.maikiwiAudio.ciderPPE === true) { // Vibrant Bass, CAP
@@ -639,7 +639,7 @@ const CiderAudio = {
             }
         }
         else { //if (Math.max(...app.cfg.audio.equalizer.gain) === 0)
-            if (app.cfg.audio.maikiwiAudio.vibrantBass.multiplier !== 0) { // Vibrant Bass
+            if (app.cfg.audio.equalizer.vibrantBass !== '0') { // Vibrant Bass
                 CiderAudio.vibrantbass_h2_1(true, 0)
     
                 if (app.cfg.audio.maikiwiAudio.ciderPPE === true) { // Vibrant Bass, CAP
