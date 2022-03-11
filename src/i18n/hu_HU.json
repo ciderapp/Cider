@@ -369,7 +369,7 @@
   "settings.option.experimental.unknownPlugin": "Ismeretlen források",
   "settings.option.experimental.unknownPlugin.description": "Engedélyezi azon pluginok telepítését is, amik nem tartoznak a Cider Plugin Gyűjteménybe, ezáltal lehetséges biztonsági kockázatot jelentenek",
   "settings.option.experimental.compactUI": "Kompakt felület",
-  "settings.option.window.close_button_hide": "Close Button Should Hide the Application",
+  "settings.option.window.close_button_hide": "A bezárás gomb rejtse el az alkalmazást",
   "settings.option.experimental.inline_playlists": "Inline Playlists and Albums",
   "settings.option.advanced.playlistTrackMapping": "Lejátszási lista feltérképezés",
   "settings.option.advanced.playlistTrackMapping.description": "Engedélyezi a lejátszási listák mély beolvasását, ami meg tudja határozni, hogy egy zeneszám melyik lejátszási listákba található.  A lejátszási lista gyorsítótár felépítésének időtartalma nagy mértékben megnőhet.",
