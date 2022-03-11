@@ -3366,7 +3366,7 @@ const app = new Vue({
                     let data = await this.mk.api.v3.music(`/v1/me/library/songs/${this.mk.nowPlayingItem.id}`);
                     data = data.data.data[0];
                     if (data != null && data !== "" && data.attributes != null && data.attributes.artwork != null) {
-                        this.currentArtUrlRaw = (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"] ?? '')
+                        this.currentArtUrlRaw = (data["attributes"]["artwork"]["url"] ?? '')
                         this.currentArtUrl = (data["attributes"]["artwork"]["url"] ?? '').replace('{w}', artworkSize).replace('{h}', artworkSize);
                         ipcRenderer.send('updateRPCImage', this.currentArtUrl ?? '');
                         try {
