@@ -55,10 +55,10 @@
                     <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.description')}}</small>
                 </div>
                 <div class="md-option-segment md-option-segment_auto">
-                    <button class="md-btn" :disabled="app.cfg.audio.maikiwiAudio.analogWarmth_value === 1.25" v-model="app.cfg.audio.maikiwiAudio.analogWarmth_value" v-on:click="analogWarmthSmooth">
+                    <button class="md-btn" :disabled="app.cfg.audio.maikiwiAudio.analogWarmth_value === 1.25" v-model="app.cfg.audio.maikiwiAudio.analogWarmth_value" v-on:click="ChangeanalogWarmth(1.25)">
                         {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.smooth')}}
                     </button>
-                    <button class="md-btn" :disabled="app.cfg.audio.maikiwiAudio.analogWarmth_value === 1.75" v-model="app.cfg.audio.maikiwiAudio.analogWarmth_value" v-on:click="analogWarmthWarm">
+                    <button class="md-btn" :disabled="app.cfg.audio.maikiwiAudio.analogWarmth_value === 1.75" v-model="app.cfg.audio.maikiwiAudio.analogWarmth_value" v-on:click="ChangeanalogWarmth(1.75)">
                         {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.warm')}}
                     </button>
                 </div>
@@ -202,22 +202,15 @@
                 app.cfg.audio.maikiwiAudio.ciderPPE_value = 0.55;
                 let c_LLPW_GAIN = [-0.11, 0.27, -0.8, 0.57, 1.84, -0.38, 0.47, -1.56, 0.83, 1.58, -1.79, -0.45, 0.48, 1.22, -1.58, -1.59, -2.03, 2.56, -2.2, -2.48, 4.75, 10.5, 1.43, 3.76];
                 for (let i = 0; i < 24; i++) {
-                    CiderAudio.audioNodes.llpw[i].gain.value = LLPW_GAIN[i]; 
+                    CiderAudio.audioNodes.llpw[i].gain.value = c_LLPW_GAIN[i]; 
                 }
             },
-            analogWarmthSmooth: function () {  
-                app.cfg.audio.maikiwiAudio.analogWarmth_value = 1.25
+            ChangeanalogWarmth: function (multiplier) {  
+                app.cfg.audio.maikiwiAudio.analogWarmth_value = multiplier
                 let WARMTH_GAIN = [-4.81, 0.74, 0.55, -0.84, -1.52, 0.84, 0.66, -0.29, 0.29, 0.94, 1.67, 1.62, -0.53, -0.81, -4.98, 1.43, 0.86, 1.13, -1.06, -0.95, -1.13, 1.78, -3.86];
                 for (let i = 0; i < 23; i++) {
-                    CiderAudio.audioNodes.analogWarmth[i].gain.value = WARMTH_GAIN[i] * 1.25;
+                    CiderAudio.audioNodes.analogWarmth[i].gain.value = WARMTH_GAIN[i] * multiplier;
                 } 
             },
-            analogWarmthWarm: function () {  
-                app.cfg.audio.maikiwiAudio.analogWarmth_value = 1.75
-                let WARMTH_GAIN = [-4.81, 0.74, 0.55, -0.84, -1.52, 0.84, 0.66, -0.29, 0.29, 0.94, 1.67, 1.62, -0.53, -0.81, -4.98, 1.43, 0.86, 1.13, -1.06, -0.95, -1.13, 1.78, -3.86];
-                for (let i = 0; i < 23; i++) {
-                    CiderAudio.audioNodes.analogWarmth[i].gain.value = WARMTH_GAIN[i] * 1.75;
-                } 
-            }
         }})
 </script>
