@@ -2,8 +2,8 @@ import * as WebSocket from 'ws';
 
 /**
  * 0-pad a number.
- * @param {Number} number 
- * @param {Number} length 
+ * @param {Number} number
+ * @param {Number} length
  * @returns String
  */
 const pad = (number: number, length: number) => String(number).padStart(length, '0');
@@ -11,7 +11,7 @@ const pad = (number: number, length: number) => String(number).padStart(length, 
 /**
  * Convert seconds to a time string acceptable to Rainmeter
  * https://github.com/tjhrulz/WebNowPlaying-BrowserExtension/blob/master/WebNowPlaying.js#L50-L59
- * @param {Number} timeInSeconds 
+ * @param {Number} timeInSeconds
  * @returns String
  */
 const convertTimeToString = (timeInSeconds: number) => {
@@ -29,7 +29,7 @@ export default class WebNowPlaying {
     public name: string = 'WebNowPlaying';
     public description: string = 'Song info and playback control for the Rainmeter WebNowPlaying plugin.';
     public version: string = '1.0.1';
-    public author: string = 'Zennn <me@jozen.blue>'; 
+    public author: string = 'Zennn <me@jozen.blue>';
 
     private _win: any;
     private ws?: WebSocket;
@@ -168,17 +168,17 @@ export default class WebNowPlaying {
                     console.info('[WebNowPlaying] Connected to Rainmeter');
                     this.ws?.send(`PLAYER:${this.playerName}`);
                 };
-        
+
                 this.ws.onclose = () => {
                     clearTimeout(retry);
                     retry = setTimeout(init, 2000);
                 };
-    
+
                 this.ws.onerror = () => {
                     clearTimeout(retry);
                     this.ws?.close();
                 };
-                
+
                 this.ws.onmessage = this.fireEvent?.bind(this);
             } catch (error) {
                 console.error(error);
@@ -190,7 +190,7 @@ export default class WebNowPlaying {
         // Connect to wsapi. Only used to update progress.
         try {
             this.wsapiConn = new WebSocket('ws://127.0.0.1:26369/');
-    
+
             this.wsapiConn.onopen = () => {
                 console.info('[WebNowPlaying] Connected to wsapi');
             };

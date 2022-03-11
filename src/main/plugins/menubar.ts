@@ -35,7 +35,7 @@ export default class Thumbar {
      * @private
      */
     private isMac: boolean = process.platform === 'darwin';
-    private menubarTemplate: any = [
+    private _menuTemplate: any = [
         {
             label: app.getName(),
             submenu: [
@@ -43,20 +43,20 @@ export default class Thumbar {
                     label: 'About',
                     click: () => this._win.webContents.executeJavaScript(`app.appRoute('about')`)
                 },
-                { type: 'separator' },
+                {type: 'separator'},
                 {
                     label: 'Settings',
                     accelerator: 'CommandOrControl+,',
                     click: () => this._win.webContents.executeJavaScript(`app.appRoute('settings')`)
                 },
-                { type: 'separator' },
-                { role: 'services' },
-                { type: 'separator' },
-                { role: 'hide' },
-                { role: 'hideOthers' },
-                { role: 'unhide' },
-                { type: 'separator' },
-                { role: 'quit' }
+                {type: 'separator'},
+                {role: 'services'},
+                {type: 'separator'},
+                {role: 'hide'},
+                {role: 'hideOthers'},
+                {role: 'unhide'},
+                {type: 'separator'},
+                {role: 'quit'}
             ]
         },
         {
@@ -85,20 +85,20 @@ export default class Thumbar {
                 ...(this.isMac ? [
                     {type: 'separator'},
                     {role: 'front'},
+                    {role: 'close'},
                 ] : [
-                    {}
+                    {role: 'close'},
                 ]),
-                {role: 'close'},
-                {type: 'separator'},
+
                 {
                     label: 'Edit',
                     submenu: [
-                        { role: 'undo' },
-                        { role: 'redo' },
-                        { type: 'separator' },
-                        { role: 'cut' },
-                        { role: 'copy' },
-                        { role: 'paste' },
+                        {role: 'undo'},
+                        {role: 'redo'},
+                        {type: 'separator'},
+                        {role: 'cut'},
+                        {role: 'copy'},
+                        {role: 'paste'},
                     ]
                 },
                 {type: 'separator'},
@@ -139,7 +139,7 @@ export default class Thumbar {
                     accelerator: 'CommandOrControl+Left',
                     click: () => this._win.webContents.executeJavaScript(`MusicKitInterop.previous()`)
                 },
-                { type: 'separator' },
+                {type: 'separator'},
                 {
                     label: 'Volume Up',
                     accelerator: 'CommandOrControl+Up',
@@ -232,7 +232,8 @@ export default class Thumbar {
      */
     onReady(win: Electron.BrowserWindow): void {
         this._win = win;
-        Menu.setApplicationMenu(Menu.buildFromTemplate(this.menubarTemplate))
+        const menu = Menu.buildFromTemplate(this._menuTemplate);
+        Menu.setApplicationMenu(menu)
     }
 
     /**

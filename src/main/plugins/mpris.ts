@@ -58,10 +58,9 @@ export default class mpris {
     /**
      * Connects to MPRIS Service
      */
-    @mpris.linuxOnly
     private static connect() {
 
-         const player = Player({
+        const player = Player({
             name: 'cider',
             identity: 'Cider',
             supportedUriSchemes: [],
@@ -94,7 +93,6 @@ export default class mpris {
     /**
      * Update M.P.R.I.S Player Attributes
      */
-    @mpris.linuxOnly
     private static updatePlayer(attributes: any) {
 
         const MetaData = {
@@ -119,7 +117,6 @@ export default class mpris {
      * @private
      * @param attributes
      */
-    @mpris.linuxOnly
     private static updatePlayerState(attributes: any) {
         switch (attributes.status) {
             case true: // Playing
@@ -139,6 +136,9 @@ export default class mpris {
      * @private
      */
     private static clearState() {
+        if (!mpris.player) {
+            return
+        }
         mpris.player.metadata = {'mpris:trackid': '/org/mpris/MediaPlayer2/TrackList/NoTrack'}
         mpris.player.playbackStatus = Player.PLAYBACK_STATUS_STOPPED;
     }
@@ -160,6 +160,7 @@ export default class mpris {
     /**
      * Runs on app ready
      */
+    @mpris.linuxOnly
     onReady(_: any): void {
         console.debug(`[Plugin][${mpris.name}] Ready.`);
     }
@@ -167,6 +168,7 @@ export default class mpris {
     /**
      * Renderer ready
      */
+    @mpris.linuxOnly
     onRendererReady(): void {
         mpris.connect()
     }
@@ -174,19 +176,17 @@ export default class mpris {
     /**
      * Runs on app stop
      */
+    @mpris.linuxOnly
     onBeforeQuit(): void {
         console.debug(`[Plugin][${mpris.name}] Stopped.`);
-        try {
-            mpris.clearState()
-        }catch(e) {
-            e = null
-        }
+        mpris.clearState()
     }
 
     /**
      * Runs on playback State Change
      * @param attributes Music Attributes (attributes.status = current state)
      */
+    @mpris.linuxOnly
     onPlaybackStateDidChange(attributes: object): void {
         console.debug(`[Plugin][${mpris.name}] onPlaybackStateDidChange.`);
         mpris.updatePlayerState(attributes)
@@ -196,6 +196,7 @@ export default class mpris {
      * Runs on song change
      * @param attributes Music Attributes
      */
+    @mpris.linuxOnly
     onNowPlayingItemDidChange(attributes: object): void {
         console.debug(`[Plugin][${mpris.name}] onMetadataDidChange.`);
         mpris.updatePlayer(attributes);
