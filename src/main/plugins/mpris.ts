@@ -176,7 +176,11 @@ export default class mpris {
      */
     onBeforeQuit(): void {
         console.debug(`[Plugin][${mpris.name}] Stopped.`);
-        mpris.clearState()
+        try {
+            mpris.clearState()
+        }catch(e) {
+            e = null
+        }
     }
 
     /**

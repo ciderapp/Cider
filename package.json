@@ -39,7 +39,6 @@
     "@sentry/electron": "^3.0.2",
     "@sentry/integrations": "^6.18.1",
     "adm-zip": "0.4.10",
-
     "castv2-client": "^1.2.0",
     "chokidar": "^3.5.3",
     "discord-rpc": "^4.0.1",
@@ -49,7 +48,6 @@
     "electron-notarize": "^1.1.1",
     "electron-store": "^8.0.1",
     "electron-updater": "^4.6.5",
-
     "electron-window-state": "^5.0.3",
     "express": "^4.17.3",
     "get-port": "^5.1.1",
@@ -67,6 +65,7 @@
     "source-map-support": "^0.5.21",
     "typescript": "^4.5.5",
     "v8-compile-cache": "^2.3.0",
+    "wallpaper": "5.0.1",
     "ws": "^8.5.0",
     "xml2js": "^0.4.23",
     "youtube-search-without-api-key": "^1.0.7"

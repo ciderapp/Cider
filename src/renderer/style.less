@@ -2614,6 +2614,23 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
 // Cider App
 
+#micaEffect {
+  opacity:1;
+  // animation: micaEnter 1s ease-in-out forwards;
+  filter: brightness(0.5);
+  @keyframes micaEnter {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+  }
+}
+
+
 @keyframes rotate {
   from {
     transform: rotate(0deg);

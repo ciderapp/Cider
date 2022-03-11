@@ -13,6 +13,8 @@ import {wsapi} from "./wsapi";
 import {utils} from './utils';
 import {Plugins} from "./plugins";
 import {watch} from "chokidar";
+const wallpaper = require('wallpaper');
+
 // @ts-ignore
 import * as AdmZip from "adm-zip";
 
@@ -593,6 +595,16 @@ export class BrowserWindow {
         /**********************************************************************************************************************
          * ipcMain Events
          ****************************************************************************************************************** */
+        
+        ipcMain.on("get-wallpaper", async (event) => {
+            const wpPath:string = await wallpaper.get();
+            // get the wallpaper and encode it to base64 then return
+            const wpBase64:string = await readFileSync(wpPath, 'base64')
+            // add the data:image properties
+            const wpData:string = `data:image/png;base64,${wpBase64}`
+            event.returnValue = wpData;
+        })
+
         ipcMain.on("cider-platform", (event) => {
             event.returnValue = process.platform;
         });

@@ -6,6 +6,7 @@ import {CiderAudio} from '../audio/audio.js'
 import {Events} from './events.js'
 import { wsapi } from "./wsapi_interop.js"
 import { MusicKitTools } from "./musickittools.js"
+import { spawnMica } from "./mica.js"
 
 
 // Define window objects
@@ -26,5 +27,6 @@ if (app.cfg.advanced.AudioContext){
 
 // Import gamepad support
 app.simulateGamepad = simulateGamepad
+app.spawnMica = spawnMica
 
 Events.InitEvents()
