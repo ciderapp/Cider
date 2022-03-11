@@ -28,23 +28,7 @@ const CiderAudio = {
     },
     off: function(){
         try{
-            try{
-        CiderAudio.audioNodes.gainNode.disconnect(); } catch(e){}
-        try{ CiderAudio.audioNodes.spatialNode.disconnect();} catch(e){}
-        try{
-            for (var i of CiderAudio.audioNodes.analogWarmth){
-                i.disconnect();
-            }
-            for (var i of CiderAudio.audioNodes.llpw){
-                i.disconnect();
-            }
-            for (var i of CiderAudio.audioNodes.vibrantbassNode){
-                i.disconnect();
-            }
-            for (var i of CiderAudio.audioNodes.audioBands){
-                i.disconnect();
-            }
-        } catch(e){}
+            CiderAudio.hierarchical_unloading();
         try{
             CiderAudio.audioNodes = {
                 gainNode : null,
