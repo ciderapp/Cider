@@ -151,6 +151,7 @@ const app = new Vue({
         tmpVar: [],
         notification: false,
         chrome: {
+            contentScrollPosY: 0,
             appliedTheme: {
                 location: "",
                 info: {}
@@ -875,6 +876,9 @@ const app = new Vue({
             if (this.cfg.general.themeUpdateNotification) {
                 this.checkForThemeUpdates()
             }
+        },
+        setContentScrollPos(scroll) {
+            this.chrome.contentScrollPosY = scroll.target.scrollTop
         },
         async checkForThemeUpdates() {
             let self = this
