@@ -104,7 +104,11 @@ export class Plugins {
     public callPlugins(event: string, ...args: any[]) {
         for (const plugin in this.pluginsList) {
             if (this.pluginsList[plugin][event]) {
-                this.pluginsList[plugin][event](...args);
+                try{
+                    this.pluginsList[plugin][event](...args);
+                }catch(e) {
+                    console.log(`[${plugin}] Plugin error: ${e}`);
+                }
             }
         }
     }
