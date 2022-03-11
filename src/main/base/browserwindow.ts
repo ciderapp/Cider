@@ -12,9 +12,9 @@ import fetch from 'electron-fetch'
 import {wsapi} from "./wsapi";
 import {utils} from './utils';
 import {Plugins} from "./plugins";
-
-const fileWatcher = require('chokidar');
-const AdmZip = require("adm-zip");
+import {watch} from "chokidar";
+// @ts-ignore
+import * as AdmZip from "adm-zip";
 
 /**
  * @file Creates the BrowserWindow
@@ -244,9 +244,7 @@ export class BrowserWindow {
     };
 
     StartWatcher(path: string) {
-        var chokidar = require("chokidar");
-
-        var watcher = chokidar.watch(path, {
+        const watcher = watch(path, {
             ignored: /[\/\\]\./,
             persistent: true
         });
@@ -1049,11 +1047,7 @@ export class BrowserWindow {
 
         ipcMain.on('disable-update', (event) => {
             // Check if using app store builds so people don't get pissy wen button go bonk
-            if (app.isPackaged && !process.mas || !process.windowsStore) {
-                event.returnValue = false
-            } else {
-                event.returnValue = true
-            }
+            event.returnValue = !(app.isPackaged && !process.mas || !process.windowsStore);
         })
 
 
@@ -1190,7 +1184,7 @@ export class BrowserWindow {
     private async broadcastRemote() {
         const myString = `http://${BrowserWindow.getIP()}:${this.remotePort}`;
         const mdns = require('mdns-js');
-        const encoded = new Buffer(myString).toString('base64');
+        const encoded = Buffer.from(myString).toString('base64');
         const x = mdns.tcp('cider-remote');
         const txt_record = {
             "Ver": "131077",

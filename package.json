@@ -138,9 +138,7 @@
     ],
     "linux": {
       "target": [
-        "AppImage",
-        "deb",
-        "snap"
+        "AppImage"
       ],
       "synopsis": "A new look into listening and enjoying music in style and performance. ",
       "category": "AudioVideo",
