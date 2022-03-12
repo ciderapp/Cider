@@ -248,7 +248,8 @@ const CiderAudio = {
                           case "data":
                               const audioData = data.audioBuffer;
                               const bufferSize = data.bufferSize;
-                                ipcRenderer.send('writeWAV', audioData[0], audioData[1], bufferSize);
+                              if((audioData[0]).some(item => item !== 0) || (audioData[0]).some(item => item !== 0)){
+                                ipcRenderer.send('writeWAV', audioData[0], audioData[1], bufferSize);}
                             break;
                           case "stop":
                             break;

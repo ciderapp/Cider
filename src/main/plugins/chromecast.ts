@@ -27,6 +27,7 @@ export default class ChromecastPlugin {
     // private requests = [];
     // private GCstream = new Stream.PassThrough(),
     private connectedHosts: any = {};
+    private connectedPlayer: any;
     // private port = false;
     // private server = false;
     // private  bufcount = 0;
@@ -185,23 +186,35 @@ export default class ChromecastPlugin {
             // send websocket ip
 
             player.sendIp("ws://" + this.getIp() + ":26369");
+            electron.ipcMain.on('stopGCast', (_event) => {
+                player.kill();
+            })
+            electron.app.on('before-quit', (_event) => {
+                player.kill();
+            })
+            
 
         });
     }
 
-    private getIp() {
-        let ip = false;
+    private getIp(){
+        let ip: string = '';
+        let ip2: any = [];
         let alias = 0;
-        let ifaces: any = os.networkInterfaces();
-        for (var dev in ifaces) {
+        const ifaces: any = os.networkInterfaces();
+        for (let dev in ifaces) {
             ifaces[dev].forEach((details: any) => {
-                if (details.family === 'IPv4') {
+                if (details.family === 'IPv4' && !details.internal) {
                     if (!/(loopback|vmware|internal|hamachi|vboxnet|virtualbox)/gi.test(dev + (alias ? ':' + alias : ''))) {
                         if (details.address.substring(0, 8) === '192.168.' ||
                             details.address.substring(0, 7) === '172.16.' ||
                             details.address.substring(0, 3) === '10.'
                         ) {
-                            ip = details.address;
+                            if (!ip.startsWith('192.168.') ||
+                                (ip2.startsWith('192.168.') && !ip.startsWith('192.168.')) &&
+                                (ip2.startsWith('172.16.') && !ip.startsWith('192.168.') && !ip.startsWith('172.16.')) ||
+                                (ip2.startsWith('10.') && !ip.startsWith('192.168.') && !ip.startsWith('172.16.') && !ip.startsWith('10.'))
+                            ){ip = details.address;}
                             ++alias;
                         }
                     }
@@ -320,6 +333,11 @@ export default class ChromecastPlugin {
 
         electron.ipcMain.on('stopGCast', (_event) => {
             this._win.webContents.setAudioMuted(false);
+            this.activeConnections.forEach((client: any) => {
+                try{
+                    client.stop();
+                } catch(e){}
+            })
             this.activeConnections = [];
             this.connectedHosts = {};
 

@@ -893,6 +893,14 @@ export class BrowserWindow {
             app.exit()
         })
 
+        app.on('before-quit', () => {
+            BrowserWindow.win.webContents.executeJavaScript(` 
+            window.localStorage.setItem("currentTrack", JSON.stringify(app.mk.nowPlayingItem));
+            window.localStorage.setItem("currentTime", JSON.stringify(app.mk.currentPlaybackTime));
+            window.localStorage.setItem("currentQueue", JSON.stringify(app.mk.queue.items));
+            ipcRenderer.send('stopGCast','');`)
+        })
+
 
         ipcMain.on('play', (_event, type, id) => {
             BrowserWindow.win.webContents.executeJavaScript(`
@@ -1169,17 +1177,22 @@ export class BrowserWindow {
      */
     private static getIP(): string {
         let ip: string = '';
+        let ip2: any = [];
         let alias = 0;
         const ifaces: any = networkInterfaces();
         for (let dev in ifaces) {
             ifaces[dev].forEach((details: any) => {
-                if (details.family === 'IPv4') {
+                if (details.family === 'IPv4' && !details.internal) {
                     if (!/(loopback|vmware|internal|hamachi|vboxnet|virtualbox)/gi.test(dev + (alias ? ':' + alias : ''))) {
                         if (details.address.substring(0, 8) === '192.168.' ||
                             details.address.substring(0, 7) === '172.16.' ||
                             details.address.substring(0, 3) === '10.'
                         ) {
-                            ip = details.address;
+                            if (!ip.startsWith('192.168.') ||
+                                (ip2.startsWith('192.168.') && !ip.startsWith('192.168.')) &&
+                                (ip2.startsWith('172.16.') && !ip.startsWith('192.168.') && !ip.startsWith('172.16.')) ||
+                                (ip2.startsWith('10.') && !ip.startsWith('192.168.') && !ip.startsWith('172.16.') && !ip.startsWith('10.'))
+                            ){ip = details.address;}
                             ++alias;
                         }
                     }
