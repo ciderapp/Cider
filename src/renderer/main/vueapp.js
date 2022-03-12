@@ -643,11 +643,6 @@ const app = new Vue({
                 this.library.albums.displayListing = this.library.albums.listing
             }
 
-            window.onbeforeunload = function (e) {
-                window.localStorage.setItem("currentTrack", JSON.stringify(app.mk.nowPlayingItem))
-                window.localStorage.setItem("currentTime", JSON.stringify(app.mk.currentPlaybackTime))
-                window.localStorage.setItem("currentQueue", JSON.stringify(app.mk.queue.items))
-            };
 
             if (typeof MusicKit.PlaybackBitrate[app.cfg.audio.quality] !== "string") {
                 app.mk.bitrate = MusicKit.PlaybackBitrate[app.cfg.audio.quality]
@@ -2613,6 +2608,7 @@ const app = new Vue({
                     req.open('GET', url, true);
                     req.setRequestHeader("authority", "apic-desktop.musixmatch.com");
                     req.onload = function () {
+                        try{
                         let jsonResponse = JSON.parse(this.responseText);
                         let status2 = jsonResponse["message"]["header"]["status_code"];
                         if (status2 == 200) {
@@ -2635,7 +2631,10 @@ const app = new Vue({
                             // console.log('token 4xx');
                             getToken(mode, track, artist, songid, lang, time)
                         }
-
+                    }catch(e){
+                        console.log('error');
+                        app.loadAMLyrics();
+                    }
                     };
                     req.onerror = function () {
                         console.log('error');
@@ -2656,6 +2655,7 @@ const app = new Vue({
                 req.open('GET', url, true);
                 req.setRequestHeader("authority", "apic-desktop.musixmatch.com");
                 req.onload = function () {
+                    try{
                     let jsonResponse = JSON.parse(this.responseText);
                     console.log(jsonResponse);
                     let status1 = jsonResponse["message"]["header"]["status_code"];
@@ -2733,6 +2733,9 @@ const app = new Vue({
                         }
                     } else { //4xx rejected
                         getToken(1, track, artist, '', lang, time);
+                    }}catch(e){
+                        console.log(e);
+                        app.loadAMLyrics()
                     }
                 }
                 req.onerror = function () {
@@ -2751,6 +2754,7 @@ const app = new Vue({
                     req2.open('GET', url2, true);
                     req2.setRequestHeader("authority", "apic-desktop.musixmatch.com");
                     req2.onload = function () {
+                        try{
                         let jsonResponse2 = JSON.parse(this.responseText);
                         console.log(jsonResponse2);
                         let status2 = jsonResponse2["message"]["header"]["status_code"];
@@ -2776,7 +2780,7 @@ const app = new Vue({
                             }
                         } else { //4xx rejected
                             getToken(2, '', '', id, lang, '');
-                        }
+                        }}catch(e){}
                     }
                     req2.send();
                 }
