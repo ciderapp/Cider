@@ -843,7 +843,7 @@ const app = new Vue({
                         this.notification.close()
                     }
                     this.notification = new Notification(a.name, {
-                        body: a.artistName,
+                        body: `${a.artistName} — ${a.albumName}`,
                         icon: a.artwork.url.replace('/{w}x{h}bb', '/512x512bb').replace('/2000x2000bb', '/35x35bb'),
                         silent: true,
                     });
