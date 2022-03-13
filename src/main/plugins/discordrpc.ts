@@ -74,6 +74,12 @@ export default class DiscordRichPresence {
             this.disconnect()
         });
 
+        // If Discord is closed, allow reconnecting
+        this._client.transport.once('close', () => {
+            console.info(`[DiscordRichPresence] Connection closed`);
+            this.disconnect()
+        });
+
         // Login to Discord
         this._client.login({clientId})
             .then(() => {
@@ -94,6 +100,9 @@ export default class DiscordRichPresence {
             DiscordRichPresence._connection = false;
             console.log('[DiscordRPC][disconnect] Disconnected from discord.')
         }).catch((e: any) => console.error(`[DiscordRPC][disconnect] ${e}`));
+
+        // Clean up, allow creating a new connection
+        this._client = null;
     }
 
     /**
