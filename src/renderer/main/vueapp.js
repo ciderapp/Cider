@@ -297,6 +297,10 @@ const app = new Vue({
             }
             this.lz = ipcRenderer.sendSync("get-i18n", lang)
             this.mklang = await this.MKJSLang()
+            try{
+                this.listennow.timestamp = 0;
+                this.browsepage.timestamp = 0;
+            }catch(e){}
         },
         /**
          * Grabs translation for localization.
