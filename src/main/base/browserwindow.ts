@@ -1127,15 +1127,15 @@ export class BrowserWindow {
         let isQuiting = false
 
         BrowserWindow.win.on("close", (event: Event) => {
-            BrowserWindow.win.webContents.executeJavaScript(` 
-            window.localStorage.setItem("currentTrack", JSON.stringify(app.mk.nowPlayingItem));
-            window.localStorage.setItem("currentTime", JSON.stringify(app.mk.currentPlaybackTime));
-            window.localStorage.setItem("currentQueue", JSON.stringify(app.mk.queue.items));
-            ipcRenderer.send('stopGCast','');`)
             if ((utils.getStoreValue('general.close_button_hide') || process.platform === "darwin") && !isQuiting) {
                 event.preventDefault();
                 BrowserWindow.win.hide();
             } else {
+                BrowserWindow.win.webContents.executeJavaScript(` 
+                window.localStorage.setItem("currentTrack", JSON.stringify(app.mk.nowPlayingItem));
+                window.localStorage.setItem("currentTime", JSON.stringify(app.mk.currentPlaybackTime));
+                window.localStorage.setItem("currentQueue", JSON.stringify(app.mk.queue.items));
+                ipcRenderer.send('stopGCast','');`)
                 BrowserWindow.win.destroy();
             }
         })
