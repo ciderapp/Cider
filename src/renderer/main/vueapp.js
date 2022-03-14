@@ -1400,72 +1400,58 @@ const app = new Vue({
             }
         },
         /**
-         * Converts seconds to dd:hh:mm:ss
-         * @param {number} time (in seconds)
+         * Converts seconds to dd:hh:mm:ss / Days:Hours:Minutes:Seconds
+         * @param {number} seconds
          * @param {string} format (short, long)
          * @returns {string}
          * @author Core#1034
          * @memberOf app
          */
-        convertTime(time = 0, format = 'short') {
+        convertTime(seconds, format = "short") {
 
-            if (isNaN(time)) {
-                time = 0
+            if (isNaN(seconds)) {
+                seconds = 0
             }
-            if (typeof time !== "number") {
-                time = parseInt(time)
+            seconds = parseInt(seconds);
+
+            const datetime = new Date(seconds * 1000)
+
+            if (format === "long") {
+                const d = Math.floor(seconds / (3600*24));
+                const h = Math.floor(seconds % (3600*24) / 3600);
+                const m = Math.floor(seconds % 3600 / 60);
+                const s = Math.floor(seconds % 60);
+
+                const dDisplay = d > 0 ? d + (d === 1 ? ` ${app.getLz("term.time.day")}, ` : ` ${app.getLz("term.time.days")}, `) : "";
+                const hDisplay = h > 0 ? h + (h === 1 ? ` ${app.getLz("term.time.hour")}, ` : ` ${app.getLz("term.time.hours")}, `) : "";
+                const mDisplay = m > 0 ? m + (m === 1 ? ` ${app.getLz("term.time.minute")}, ` : ` ${app.getLz("term.time.minutes")}, `) : "";
+                const sDisplay = s > 0 ? s + (s === 1 ? ` ${app.getLz("term.time.second")}` : ` ${app.getLz("term.time.seconds")}`) : "";
+
+                return dDisplay + hDisplay + mDisplay + sDisplay;
             }
+            else {
+                let returnTime = datetime.toISOString().substring(11, 19);
 
-            const timeGates = {
-                600: 15, // 10 Minutes
-                3600: 14, // Hour
-                36000: 12, // 10 Hours
-            }
-
-            const datetime = new Date(time * 1000)
-
-            let returnTime = datetime.toISOString().substring(11, 19);
-            for (let key in timeGates) {
-                if (time < key) {
-                    returnTime = datetime.toISOString().substring(timeGates[key], 19)
-                    break
-                }
-            }
-
-            // Add the days on the front
-            let day;
-            if (time >= 86400) {
-                day = datetime.toISOString().substring(8, 10)
-                day = parseInt(day) - 1
-                returnTime = day + ":" + returnTime
-            }
-
-            if (format === 'long') {
-                const longFormat = []
-
-                // Seconds
-                if (datetime.getSeconds() !== 0) {
-                    longFormat.push(`${datetime.getSeconds()} ${app.getLz('term.time.seconds')}`)
+                const timeGates = {
+                    600: 15, // 10 Minutes
+                    3600: 14, // Hour
+                    36000: 12, // 10 Hours
                 }
 
-                // Minutes
-                if (time >= 60) {
-                    longFormat.push(`${datetime.getMinutes()} ${app.getLz(`term.time.${datetime.getMinutes() === 1 ? 'minute' : 'minutes'}`)}`)
+                for (let key in timeGates) {
+                    if (seconds < key) {
+                        returnTime = datetime.toISOString().substring(timeGates[key], 19)
+                        break
+                    }
                 }
 
-                // Hours
-                if (time >= 3600) {
-                    longFormat.push(`${datetime.getHours()} ${app.getLz(`term.time.${datetime.getHours() === 1 ? 'hour' : 'hours'}`)}`)
+                // Add the days on the front
+                if (seconds >= 86400) {
+                    returnTime = parseInt(datetime.toISOString().substring(8, 10)) - 1 + ":" + returnTime
                 }
 
-                // Days
-                if (time >= 86400) {
-                    longFormat.push(`${day} ${app.getLz(`term.time.${day === 1 ? 'day' : 'days'}`)}`)
-                }
-                returnTime = longFormat.reverse().join(', ')
+                return returnTime
             }
-
-            return returnTime
         },
         hashCode(str) {
             let hash = 0,
