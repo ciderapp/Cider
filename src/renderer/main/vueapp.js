@@ -1426,10 +1426,10 @@ const app = new Vue({
                 const m = Math.floor(seconds % 3600 / 60);
                 const s = Math.floor(seconds % 60);
 
-                const dDisplay = d > 0 ? d + (d === 1 ? ` ${app.getLz("term.time.day")}, ` : ` ${app.getLz("term.time.days")}, `) : "";
-                const hDisplay = h > 0 ? h + (h === 1 ? ` ${app.getLz("term.time.hour")}, ` : ` ${app.getLz("term.time.hours")}, `) : "";
-                const mDisplay = m > 0 ? m + (m === 1 ? ` ${app.getLz("term.time.minute")}, ` : ` ${app.getLz("term.time.minutes")}, `) : "";
-                const sDisplay = s > 0 ? s + (s === 1 ? ` ${app.getLz("term.time.second")}` : ` ${app.getLz("term.time.seconds")}`) : "";
+                const dDisplay = d > 0 ? `${d} ${app.getLz("term.time.day", {"count": d})}, ` : "";
+                const hDisplay = h > 0 ? `${h} ${app.getLz("term.time.hour", {"count": h})}, ` : "";
+                const mDisplay = m > 0 ? `${m} ${app.getLz("term.time.minute", {"count": m})}, ` : "";
+                const sDisplay = s > 0 ? `${s} ${app.getLz("term.time.second", {"count": s})}` : "";
 
                 return dDisplay + hDisplay + mDisplay + sDisplay;
             }

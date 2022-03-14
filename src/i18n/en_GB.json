@@ -12,6 +12,9 @@
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Spatialise audio and make audio more 3-dimensional (note: This is not Dolby Atmos)",
   "spatial.notTurnedOn": "Audio Spatialisation is disabled. To use, please enable it first.",
   "action.tray.minimize": "Minimise to Tray",
-  "term.track": "song",
-  "term.tracks": "songs"
+  "term.tracks": "songs",
+  "term.track": {
+    "one" : "song",
+    "other" : "songs"
+  }
 }
