@@ -435,7 +435,7 @@ const CiderAudio = {
     hierarchical_loading: function (){ 
         CiderAudio.hierarchical_unloading();
         
-        if (Math.max(...app.cfg.audio.equalizer.gain) !== 0) {
+        if (Math.max(...app.cfg.audio.equalizer.gain) != 0) {
             CiderAudio.equalizer(true, 0);
 
             if (app.cfg.audio.equalizer.vibrantBass !== '0') { 
@@ -623,7 +623,7 @@ const CiderAudio = {
                 }
             }
         }
-        else { //if (Math.max(...app.cfg.audio.equalizer.gain) === 0)
+        else { //if (Math.max(...app.cfg.audio.equalizer.gain) == 0)
             if (app.cfg.audio.equalizer.vibrantBass !== '0') { // Vibrant Bass
                 CiderAudio.vibrantbass_h2_1(true, 0)
     

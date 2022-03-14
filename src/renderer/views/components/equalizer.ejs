@@ -309,7 +309,7 @@
                 }
             },
             changeMix() {
-                if (Math.max(...$root.cfg.audio.equalizer.gain) !== 0) {
+                if (Math.max(...app.cfg.audio.equalizer.gain) != 0) {
                     try {
                         for (var i = 0; i < 10; i++) {
                         CiderAudio.audioNodes.audioBands[i].gain.value = app.cfg.audio.equalizer.gain[i] * app.cfg.audio.equalizer.mix
@@ -318,7 +318,7 @@
                 }
             },
             changeGain(i) {
-                if (Math.max(...$root.cfg.audio.equalizer.gain) !== 0) {
+                if (Math.max(...app.cfg.audio.equalizer.gain) != 0) {
                     try {CiderAudio.audioNodes.audioBands[i].gain.value = app.cfg.audio.equalizer.gain[i] * app.cfg.audio.equalizer.mix}
                     catch(e){CiderAudio.hierarchical_loading();}
                 }
