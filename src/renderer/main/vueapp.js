@@ -1852,10 +1852,10 @@ const app = new Vue({
                     }
 
                     // remove any non-alphanumeric characters and spaces from search term and item name
-                    searchTerm = searchTerm.replace(/[^a-z0-9 ]/gi, "")
-                    itemName = itemName.replace(/[^a-z0-9 ]/gi, "")
-                    artistName = artistName.replace(/[^a-z0-9 ]/gi, "")
-                    albumName = albumName.replace(/[^a-z0-9 ]/gi, "")
+                    searchTerm = searchTerm.replace(/[^\p{L}\p{N} ]/gu, "")
+                    itemName = itemName.replace(/[^\p{L}\p{N} ]/gu, "")
+                    artistName = artistName.replace(/[^\p{L}\p{N} ]/gu, "")
+                    albumName = albumName.replace(/[^\p{L}\p{N} ]/gu, "")
 
                     if (itemName.includes(searchTerm) || artistName.includes(searchTerm) || albumName.includes(searchTerm)) {
                         return item
@@ -1921,10 +1921,10 @@ const app = new Vue({
                     }
 
                     // remove any non-alphanumeric characters and spaces from search term and item name
-                    searchTerm = searchTerm.replace(/[^a-z0-9 ]/gi, "")
-                    itemName = itemName.replace(/[^a-z0-9 ]/gi, "")
-                    artistName = artistName.replace(/[^a-z0-9 ]/gi, "")
-                    albumName = albumName.replace(/[^a-z0-9 ]/gi, "")
+                    searchTerm = searchTerm.replace(/[^\p{L}\p{N} ]/gu, "")
+                    itemName = itemName.replace(/[^\p{L}\p{N} ]/gu, "")
+                    artistName = artistName.replace(/[^\p{L}\p{N} ]/gu, "")
+                    albumName = albumName.replace(/[^\p{L}\p{N} ]/gu, "")
 
                     if (itemName.includes(searchTerm) || artistName.includes(searchTerm) || albumName.includes(searchTerm)) {
                         return item
@@ -1986,8 +1986,8 @@ const app = new Vue({
                     // }
 
                     // remove any non-alphanumeric characters and spaces from search term and item name
-                    searchTerm = searchTerm.replace(/[^a-z0-9 ]/gi, "")
-                    itemName = itemName.replace(/[^a-z0-9 ]/gi, "")
+                    searchTerm = searchTerm.replace(/[^\p{L}\p{N} ]/gu, "")
+                    itemName = itemName.replace(/[^\p{L}\p{N} ]/gu, "")
 
 
                     if (itemName.includes(searchTerm) || artistName.includes(searchTerm) || albumName.includes(searchTerm)) {
