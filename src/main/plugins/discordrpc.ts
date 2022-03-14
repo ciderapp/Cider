@@ -164,7 +164,7 @@ export default class DiscordRichPresence {
         this._activity = {
             details: attributes.name,
             state: `${attributes.artistName ? `by ${attributes.artistName}` : ''}`,
-            startTimestamp: attributes.startTime,
+            startTimestamp: Date.now() - (attributes?.durationInMillis - attributes?.remainingTime),
             endTimestamp: attributes.endTime,
             largeImageKey: attributes?.artwork?.url?.replace('{w}', '1024').replace('{h}', '1024'),
             largeImageText: attributes.albumName,
