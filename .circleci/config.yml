@@ -4,8 +4,7 @@ orbs: # adds orbs to your configuration
 jobs:
   build:
     branches:
-      ignore:
-        - i10n-develop
+      ignore: i10n-develop
     working_directory: ~/Cider
     docker:
       - image: circleci/node:16
