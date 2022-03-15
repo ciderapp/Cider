@@ -62,7 +62,6 @@
     "react-dom": "^17.0.2",
     "run-script-os": "^1.1.6",
     "source-map-support": "^0.5.21",
-    "typescript": "^4.5.5",
     "v8-compile-cache": "^2.3.0",
     "wallpaper": "5.0.1",
     "ws": "^8.5.0",
@@ -79,6 +78,7 @@
     "electron-builder-notarize-pkg": "^1.2.0",
     "electron-webpack": "^2.8.2",
     "musickit-typescript": "^1.2.4",
+    "typescript": "^4.6.2",
     "vue-devtools": "^5.1.4",
     "webpack": "~5.69.1"
   },
@@ -134,9 +134,7 @@
     ],
     "linux": {
       "target": [
-        "AppImage",
-        "deb",
-        "snap"
+        "AppImage"
       ],
       "synopsis": "A new look into listening and enjoying music in style and performance. ",
       "category": "AudioVideo",
