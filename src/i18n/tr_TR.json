@@ -92,13 +92,25 @@
   "term.time.released": "Şu tarihte yayınalndı: ",
   "term.time.updated": "Şu tarihte güncellendi: ",
   "term.time.days": "days",
-  "term.time.day": "day",
+  "term.time.day": {
+    "one": "day",
+    "other": "days"
+  },
   "term.time.hours": "saat",
-  "term.time.hour": "saat",
+  "term.time.hour": {
+    "one": "hour",
+    "other": "hours"
+  },
   "term.time.minutes": "dakika",
-  "term.time.minute": "dakika",
+  "term.time.minute": {
+    "one": "minute",
+    "other": "minutes"
+  },
   "term.time.seconds": "saniye",
-  "term.time.second": "saniye",
+  "term.time.second": {
+    "one": "second",
+    "other": "seconds"
+  },
   "term.fullscreenView": "Tam Ekrana Geç",
   "term.defaultView": "Normal Görünüme Dön",
   "term.audioSettings": "Ses Ayarları",
