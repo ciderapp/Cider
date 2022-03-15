@@ -92,13 +92,25 @@
   "term.time.released": "發行於",
   "term.time.updated": "更改於",
   "term.time.days": "days",
-  "term.time.day": "day",
+  "term.time.day": {
+    "one": "day",
+    "other": "days"
+  },
   "term.time.hours": "小時",
-  "term.time.hour": "小時",
+  "term.time.hour": {
+    "one": "hour",
+    "other": "hours"
+  },
   "term.time.minutes": "分鐘",
-  "term.time.minute": "分鐘",
+  "term.time.minute": {
+    "one": "minute",
+    "other": "minutes"
+  },
   "term.time.seconds": "秒",
-  "term.time.second": "秒",
+  "term.time.second": {
+    "one": "second",
+    "other": "seconds"
+  },
   "term.fullscreenView": "全螢幕顯示",
   "term.defaultView": "預設顯示",
   "term.audioSettings": "音訊設定",
