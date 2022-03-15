@@ -92,13 +92,25 @@
   "term.time.released": "Релиз: ",
   "term.time.updated": "Обновлено",
   "term.time.days": "days",
-  "term.time.day": "day",
+  "term.time.day": {
+    "one": "day",
+    "other": "days"
+  },
   "term.time.hour": {
-  "few": "часа",
+  "term.time.hour": {
+    "one": "hour",
+    "other": "hours"
+  },
   "term.time.minute": {
-  "few": "секунды",
+  "term.time.minute": {
+    "one": "minute",
+    "other": "minutes"
+  },
   "term.time.second": {
-  "other": "секунд"
+  "term.time.second": {
+    "one": "second",
+    "other": "seconds"
+  },
   "term.fullscreenView": "Полноэкранное отображение",
   "term.defaultView": "Стандартное отображение",
   "term.audioSettings": "Настройки звука",
