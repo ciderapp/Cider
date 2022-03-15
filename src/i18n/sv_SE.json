@@ -92,14 +92,26 @@
   "term.time.released": "Släppt",
   "term.time.updated": "Updaterad",
   "term.time.days": "dagar",
-  "term.time.day": "dag",
+  "term.time.day": {
+    "one": "day",
+    "other": "days"
+  },
   "term.time.hours": "timmar",
-  "term.time.hour": "timme",
+  "term.time.hour": {
+    "one": "hour",
+    "other": "hours"
+  },
   "term.time.minutes": "minuter",
 
-  "term.time.minute": "minut",
+  "term.time.minute": {
+    "one": "minute",
+    "other": "minutes"
+  },
   "term.time.seconds": "sekunder",
-  "term.time.second": "sekund",
+  "term.time.second": {
+    "one": "second",
+    "other": "seconds"
+  },
   "term.fullscreenView": "Fullskärm",
   "term.defaultView": "Default View",
   "term.audioSettings": "Ljudinställningar",
