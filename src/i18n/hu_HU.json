@@ -92,13 +92,25 @@
   "term.time.released": "Kiadva",
   "term.time.updated": "Frissítve",
   "term.time.days": "nap",
-  "term.time.day": "nap",
+  "term.time.day": {
+    "one": "day",
+    "other": "days"
+  },
   "term.time.hours": "óra",
-  "term.time.hour": "óra",
+  "term.time.hour": {
+    "one": "hour",
+    "other": "hours"
+  },
   "term.time.minutes": "perc",
-  "term.time.minute": "perc",
+  "term.time.minute": {
+    "one": "minute",
+    "other": "minutes"
+  },
   "term.time.seconds": "másodperc",
-  "term.time.second": "másodperc",
+  "term.time.second": {
+    "one": "second",
+    "other": "seconds"
+  },
   "term.fullscreenView": "Teljes képernyős mód",
   "term.defaultView": "Alapértelmezett nézet",
   "term.audioSettings": "Hangbeállítások",
