@@ -222,14 +222,14 @@
                     items: {
                         "new": {
                             "icon": "./assets/feather/plus.svg",
-                            "name": app.getLz('action.newpreset'),
+                            name: "New Preset...",
                             action: () => {
                                 this.addPreset()
                             }
                         },
                         "delete": {
                             "icon": "./assets/feather/x-circle.svg",
-                            "name": app.getLz('action.deletepreset'),
+                            name: "Delete Preset",
                             action: () => {
                                 this.deletePreset()
                             }
@@ -280,13 +280,13 @@
             },
             deletePreset() {
                 let presets = this.$root.cfg.audio.equalizer.presets
-                bootbox.confirm(app.getLz('term.deletepreset.warn'), (result) => {
+                bootbox.confirm("Are you sure you want to delete this preset?", (result) => {
                     if (result) {
                         this.changePreset("default")
                         // find the preset by id (preset) and remove it
                         let index = presets.findIndex(p => p.preset == this.preset)
                         presets.splice(index, 1)
-                        notyf.success(app.getLz('term.deletedpreset'))
+                        notyf.success("Removed preset")
                     }
                 })
             },
@@ -346,7 +346,7 @@
             },
             addPreset() {
                 let self = this
-                bootbox.prompt(app.getLz('term.newpreset.name'), (res) => {
+                bootbox.prompt("New EQ Preset Name", (res) => {
                     if (res) {
                         let eqSettings = Clone(app.cfg.audio.equalizer)
                         let newPreset = new self.eqPreset()
@@ -357,7 +357,7 @@
                         newPreset.mix = eqSettings.mix
                         newPreset.vibrantBass = eqSettings.vibrantBass
                         app.cfg.audio.equalizer.presets.push(newPreset)
-                        notyf.success(app.getLz('term.addedpreset'))
+                        notyf.success("Added Preset")
                         self.changePreset(newPreset.preset)
                     }
                 })

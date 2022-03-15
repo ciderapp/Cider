@@ -19,6 +19,8 @@
     ]
   },
   "include": [
-    "src/main/**/*",
+    "src/main/*",
+    "src/main/plugins/*",
+    "src/main/plugins/Extras/*"
   ]
 }
