@@ -93,13 +93,25 @@
   "term.time.released": "Uitgebracht",
   "term.time.updated": "Bijgewerkt",
   "term.time.days": "dagen",
-  "term.time.day": "dag",
+  "term.time.day": {
+    "one": "day",
+    "other": "days"
+  },
   "term.time.hours": "uren",
-  "term.time.hour": "uur",
+  "term.time.hour": {
+    "one": "hour",
+    "other": "hours"
+  },
   "term.time.minutes": "minuten",
-  "term.time.minute": "minuut",
+  "term.time.minute": {
+    "one": "minute",
+    "other": "minutes"
+  },
   "term.time.seconds": "seconden",
-  "term.time.second": "seconde",
+  "term.time.second": {
+    "one": "second",
+    "other": "seconds"
+  },
   "term.fullscreenView": "Volledig Scherm",
   "term.defaultView": "Standaard Weergave",
   "term.audioSettings": "Geluidsinstellingen",
