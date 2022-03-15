@@ -894,11 +894,7 @@ export class BrowserWindow {
         })
 
         app.on('before-quit', () => {
-            BrowserWindow.win.webContents.executeJavaScript(` 
-            window.localStorage.setItem("currentTrack", JSON.stringify(app.mk.nowPlayingItem));
-            window.localStorage.setItem("currentTime", JSON.stringify(app.mk.currentPlaybackTime));
-            window.localStorage.setItem("currentQueue", JSON.stringify(app.mk.queue.items));
-            ipcRenderer.send('stopGCast','');`)
+
         })
 
 
@@ -1135,6 +1131,11 @@ export class BrowserWindow {
                 event.preventDefault();
                 BrowserWindow.win.hide();
             } else {
+                BrowserWindow.win.webContents.executeJavaScript(` 
+                window.localStorage.setItem("currentTrack", JSON.stringify(app.mk.nowPlayingItem));
+                window.localStorage.setItem("currentTime", JSON.stringify(app.mk.currentPlaybackTime));
+                window.localStorage.setItem("currentQueue", JSON.stringify(app.mk.queue.items));
+                ipcRenderer.send('stopGCast','');`)
                 BrowserWindow.win.destroy();
             }
         })

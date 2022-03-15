@@ -297,6 +297,10 @@ const app = new Vue({
             }
             this.lz = ipcRenderer.sendSync("get-i18n", lang)
             this.mklang = await this.MKJSLang()
+            try{
+                this.listennow.timestamp = 0;
+                this.browsepage.timestamp = 0;
+            }catch(e){}
         },
         /**
          * Grabs translation for localization.
@@ -1400,72 +1404,58 @@ const app = new Vue({
             }
         },
         /**
-         * Converts seconds to dd:hh:mm:ss
-         * @param {number} time (in seconds)
+         * Converts seconds to dd:hh:mm:ss / Days:Hours:Minutes:Seconds
+         * @param {number} seconds
          * @param {string} format (short, long)
          * @returns {string}
          * @author Core#1034
          * @memberOf app
          */
-        convertTime(time = 0, format = 'short') {
+        convertTime(seconds, format = "short") {
 
-            if (isNaN(time)) {
-                time = 0
+            if (isNaN(seconds)) {
+                seconds = 0
             }
-            if (typeof time !== "number") {
-                time = parseInt(time)
+            seconds = parseInt(seconds);
+
+            const datetime = new Date(seconds * 1000)
+
+            if (format === "long") {
+                const d = Math.floor(seconds / (3600*24));
+                const h = Math.floor(seconds % (3600*24) / 3600);
+                const m = Math.floor(seconds % 3600 / 60);
+                const s = Math.floor(seconds % 60);
+
+                const dDisplay = d > 0 ? `${d} ${app.getLz("term.time.day", {"count": d})}, ` : "";
+                const hDisplay = h > 0 ? `${h} ${app.getLz("term.time.hour", {"count": h})}, ` : "";
+                const mDisplay = m > 0 ? `${m} ${app.getLz("term.time.minute", {"count": m})}, ` : "";
+                const sDisplay = s > 0 ? `${s} ${app.getLz("term.time.second", {"count": s})}` : "";
+
+                return dDisplay + hDisplay + mDisplay + sDisplay;
             }
+            else {
+                let returnTime = datetime.toISOString().substring(11, 19);
 
-            const timeGates = {
-                600: 15, // 10 Minutes
-                3600: 14, // Hour
-                36000: 12, // 10 Hours
-            }
-
-            const datetime = new Date(time * 1000)
-
-            let returnTime = datetime.toISOString().substring(11, 19);
-            for (let key in timeGates) {
-                if (time < key) {
-                    returnTime = datetime.toISOString().substring(timeGates[key], 19)
-                    break
-                }
-            }
-
-            // Add the days on the front
-            let day;
-            if (time >= 86400) {
-                day = datetime.toISOString().substring(8, 10)
-                day = parseInt(day) - 1
-                returnTime = day + ":" + returnTime
-            }
-
-            if (format === 'long') {
-                const longFormat = []
-
-                // Seconds
-                if (datetime.getSeconds() !== 0) {
-                    longFormat.push(`${datetime.getSeconds()} ${app.getLz('term.time.seconds')}`)
+                const timeGates = {
+                    600: 15, // 10 Minutes
+                    3600: 14, // Hour
+                    36000: 12, // 10 Hours
                 }
 
-                // Minutes
-                if (time >= 60) {
-                    longFormat.push(`${datetime.getMinutes()} ${app.getLz(`term.time.${datetime.getMinutes() === 1 ? 'minute' : 'minutes'}`)}`)
+                for (let key in timeGates) {
+                    if (seconds < key) {
+                        returnTime = datetime.toISOString().substring(timeGates[key], 19)
+                        break
+                    }
                 }
 
-                // Hours
-                if (time >= 3600) {
-                    longFormat.push(`${datetime.getHours()} ${app.getLz(`term.time.${datetime.getHours() === 1 ? 'hour' : 'hours'}`)}`)
+                // Add the days on the front
+                if (seconds >= 86400) {
+                    returnTime = parseInt(datetime.toISOString().substring(8, 10)) - 1 + ":" + returnTime
                 }
 
-                // Days
-                if (time >= 86400) {
-                    longFormat.push(`${day} ${app.getLz(`term.time.${day === 1 ? 'day' : 'days'}`)}`)
-                }
-                returnTime = longFormat.reverse().join(', ')
+                return returnTime
             }
-
-            return returnTime
         },
         hashCode(str) {
             let hash = 0,
@@ -1862,10 +1852,10 @@ const app = new Vue({
                     }
 
                     // remove any non-alphanumeric characters and spaces from search term and item name
-                    searchTerm = searchTerm.replace(/[^a-z0-9 ]/gi, "")
-                    itemName = itemName.replace(/[^a-z0-9 ]/gi, "")
-                    artistName = artistName.replace(/[^a-z0-9 ]/gi, "")
-                    albumName = albumName.replace(/[^a-z0-9 ]/gi, "")
+                    searchTerm = searchTerm.replace(/[^\p{L}\p{N} ]/gu, "")
+                    itemName = itemName.replace(/[^\p{L}\p{N} ]/gu, "")
+                    artistName = artistName.replace(/[^\p{L}\p{N} ]/gu, "")
+                    albumName = albumName.replace(/[^\p{L}\p{N} ]/gu, "")
 
                     if (itemName.includes(searchTerm) || artistName.includes(searchTerm) || albumName.includes(searchTerm)) {
                         return item
@@ -1931,10 +1921,10 @@ const app = new Vue({
                     }
 
                     // remove any non-alphanumeric characters and spaces from search term and item name
-                    searchTerm = searchTerm.replace(/[^a-z0-9 ]/gi, "")
-                    itemName = itemName.replace(/[^a-z0-9 ]/gi, "")
-                    artistName = artistName.replace(/[^a-z0-9 ]/gi, "")
-                    albumName = albumName.replace(/[^a-z0-9 ]/gi, "")
+                    searchTerm = searchTerm.replace(/[^\p{L}\p{N} ]/gu, "")
+                    itemName = itemName.replace(/[^\p{L}\p{N} ]/gu, "")
+                    artistName = artistName.replace(/[^\p{L}\p{N} ]/gu, "")
+                    albumName = albumName.replace(/[^\p{L}\p{N} ]/gu, "")
 
                     if (itemName.includes(searchTerm) || artistName.includes(searchTerm) || albumName.includes(searchTerm)) {
                         return item
@@ -1996,8 +1986,8 @@ const app = new Vue({
                     // }
 
                     // remove any non-alphanumeric characters and spaces from search term and item name
-                    searchTerm = searchTerm.replace(/[^a-z0-9 ]/gi, "")
-                    itemName = itemName.replace(/[^a-z0-9 ]/gi, "")
+                    searchTerm = searchTerm.replace(/[^\p{L}\p{N} ]/gu, "")
+                    itemName = itemName.replace(/[^\p{L}\p{N} ]/gu, "")
 
 
                     if (itemName.includes(searchTerm) || artistName.includes(searchTerm) || albumName.includes(searchTerm)) {
