@@ -92,13 +92,25 @@
   "term.time.released": "Rilasciato",
   "term.time.hour": "ora",
   "term.time.days": "giorni",
-  "term.time.day": "giorno",
+  "term.time.day": {
+    "one": "day",
+    "other": "days"
+  },
   "term.time.hours": "ore",
-  "term.time.minute": "minuto",
+  "term.time.hour": {
+    "one": "hour",
+    "other": "hours"
+  },
   "term.time.minutes": "minuti",
-  "term.time.seconds": "secondi",
+  "term.time.minute": {
+    "one": "minute",
+    "other": "minutes"
+  },
   "term.time.second": "secondo",
-  "term.videos": "Video",
+  "term.time.second": {
+    "one": "second",
+    "other": "seconds"
+  },
   "term.fullscreenView": "Vista schermo pieno",
   "term.defaultView": "Vista normale",
   "term.audioSettings": "Impostazioni Audio",
