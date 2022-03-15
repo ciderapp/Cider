@@ -93,13 +93,25 @@
   "term.time.released": "Publié",
   "action.update": "Mettre à jour",
   "term.time.days": "jours",
-  "term.time.day": "jour",
+  "term.time.day": {
+    "one": "day",
+    "other": "days"
+  },
   "term.time.hours": "heures",
-  "term.time.hour": "heure",
+  "term.time.hour": {
+    "one": "hour",
+    "other": "hours"
+  },
   "term.time.minutes": "minutes",
-  "term.time.minute": "minute",
+  "term.time.minute": {
+    "one": "minute",
+    "other": "minutes"
+  },
   "term.time.seconds": "secondes",
-  "term.time.second": "seconde",
+  "term.time.second": {
+    "one": "second",
+    "other": "seconds"
+  },
   "term.fullscreenView": "Vue plein écran",
   "term.defaultView": "Vue par défaut",
   "settings.option.audio.quality": "Qualité Audio",
