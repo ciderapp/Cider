@@ -94,23 +94,23 @@
   "term.time.updated": "Oppdatert",
   "term.time.days": "dager",
   "term.time.day": {
-    "one": "day",
-    "other": "days"
+    "one": "dag",
+    "other": "dager"
   },
   "term.time.hours": "timer",
   "term.time.hour": {
-    "one": "hour",
-    "other": "hours"
+    "one": "time",
+    "other": "timer"
   },
   "term.time.minutes": "minutter",
   "term.time.minute": {
-    "one": "minute",
-    "other": "minutes"
+    "one": "minutt",
+    "other": "minutter"
   },
   "term.time.seconds": "sekunder",
   "term.time.second": {
-    "one": "second",
-    "other": "seconds"
+    "one": "sekund",
+    "other": "sekunder"
   },
   "term.fullscreenView": "Fullskjermvisning",
   "term.defaultView": "Standardvisning",
