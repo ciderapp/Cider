@@ -90,10 +90,10 @@
                 <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.description')}}</small>
             </div>
             <div class="md-option-segment md-option-segment_auto">
-                <button class="md-btn" :disabled="app.cfg.audio.maikiwiAudio.spatialType === 0" v-model="app.cfg.audio.maikiwiAudio.spatialType" onclick="app.cfg.audio.maikiwiAudio.spatialType = 0; CiderAudio.hierarchical_loading();">
+                <button class="md-btn" :disabled="app.cfg.audio.maikiwiAudio.spatialType === 0" v-model="app.cfg.audio.maikiwiAudio.spatialType" onclick="app.cfg.audio.maikiwiAudio.spatialType = 0">
                     {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.standard')}}
                 </button>
-                <button class="md-btn" :disabled="app.cfg.audio.maikiwiAudio.spatialType === 1" v-model="app.cfg.audio.maikiwiAudio.spatialType" onclick="app.cfg.audio.maikiwiAudio.spatialType = 1; CiderAudio.hierarchical_loading();">
+                <button class="md-btn" :disabled="app.cfg.audio.maikiwiAudio.spatialType === 1" v-model="app.cfg.audio.maikiwiAudio.spatialType" onclick="app.cfg.audio.maikiwiAudio.spatialType = 1">
                     {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.audiophile')}}
                 </button>
             </div>
