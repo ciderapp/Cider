@@ -93,23 +93,23 @@
   "term.time.updated": "Frissítve",
   "term.time.days": "nap",
   "term.time.day": {
-    "one": "day",
-    "other": "days"
+    "one": "nap",
+    "other": "nap"
   },
   "term.time.hours": "óra",
   "term.time.hour": {
-    "one": "hour",
-    "other": "hours"
+    "one": "óra",
+    "other": "óra"
   },
   "term.time.minutes": "perc",
   "term.time.minute": {
-    "one": "minute",
-    "other": "minutes"
+    "one": "perc",
+    "other": "perc"
   },
   "term.time.seconds": "másodperc",
   "term.time.second": {
-    "one": "second",
-    "other": "seconds"
+    "one": "másodperc",
+    "other": "másodperc"
   },
   "term.fullscreenView": "Teljes képernyős mód",
   "term.defaultView": "Alapértelmezett nézet",
