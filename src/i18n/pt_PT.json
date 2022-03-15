@@ -92,13 +92,25 @@
   "term.time.released": "Lançado",
   "term.time.updated": "Atualizado",
   "term.time.days": "dias",
-  "term.time.day": "dia",
+  "term.time.day": {
+    "one": "day",
+    "other": "days"
+  },
   "term.time.hours": "horas",
-  "term.time.hour": "hora",
+  "term.time.hour": {
+    "one": "hour",
+    "other": "hours"
+  },
   "term.time.minutes": "minutos",
-  "term.time.minute": "minuto",
+  "term.time.minute": {
+    "one": "minute",
+    "other": "minutes"
+  },
   "term.time.seconds": "segundos"
-  "term.time.second": "segundo",
+  "term.time.second": {
+    "one": "second",
+    "other": "seconds"
+  },
   "term.fullscreenView": "Visualização em Ecrã Completo",
   "term.defaultView": "Visualização Normal",
   "term.audioSettings": "Definições de Áudio"
