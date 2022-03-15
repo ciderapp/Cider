@@ -92,13 +92,25 @@
   "term.time.released": "발매됨",
   "action.update": "업데이트",
   "term.time.days": "days",
-  "term.time.day": "day",
+  "term.time.day": {
+    "one": "day",
+    "other": "days"
+  },
   "term.time.hours": "시간",
-  "term.time.hour": "시간",
+  "term.time.hour": {
+    "one": "hour",
+    "other": "hours"
+  },
   "term.time.minutes": "분",
-  "term.time.minute": "분",
+  "term.time.minute": {
+    "one": "minute",
+    "other": "minutes"
+  },
   "term.time.seconds": "초",
-  "term.time.second": "초",
+  "term.time.second": {
+    "one": "second",
+    "other": "seconds"
+  },
   "term.fullscreenView": "전체 화면 보기",
   "term.defaultView": "윈도우 보기",
   "term.audioSettings": "오디오 설정",
