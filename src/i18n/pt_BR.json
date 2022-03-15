@@ -95,13 +95,25 @@
   "term.time.updated": "Atualizado",
   "action.update": "Atualizar",
   "term.time.days": "days",
-  "term.time.day": "day",
+  "term.time.day": {
+    "one": "day",
+    "other": "days"
+  },
   "term.ciderTeam": "Time Cider",
-  "term.socialTeam": "Time social",
+  "term.time.hour": {
+    "one": "hour",
+    "other": "hours"
+  },
   "term.stations": "Estações",
-  "term.videos": "Vídeos",
+  "term.time.minute": {
+    "one": "minute",
+    "other": "minutes"
+  },
   "term.reset": "Resetar",
-  "term.language": "Idioma",
+  "term.time.second": {
+    "one": "second",
+    "other": "seconds"
+  },
   "term.fullscreenView": "Visualização em Tela Cheia",
   "term.defaultView": "Visualização Normal",
   "settings.header.audio": "Áudio",
