@@ -92,13 +92,25 @@
   "term.time.released": "配信開始日",
   "term.time.updated": "最終更新日",
   "term.time.days": "days",
-  "term.time.day": "day",
+  "term.time.day": {
+    "one": "day",
+    "other": "days"
+  },
   "term.time.hours": "時間",
-  "term.time.hour": "時間",
+  "term.time.hour": {
+    "one": "hour",
+    "other": "hours"
+  },
   "term.time.minutes": "分",
-  "term.time.minute": "分",
+  "term.time.minute": {
+    "one": "minute",
+    "other": "minutes"
+  },
   "term.time.seconds": "秒",
-  "term.time.second": "秒",
+  "term.time.second": {
+    "one": "second",
+    "other": "seconds"
+  },
   "term.fullscreenView": "全画面表示",
   "term.defaultView": "ウィンドウ表示",
   "term.audioSettings": "オーディオ設定",
