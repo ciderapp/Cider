@@ -92,13 +92,25 @@
   "term.time.released": "发行于",
   "action.update": "更新",
   "term.time.days": "days",
-  "term.time.day": "day",
+  "term.time.day": {
+    "one": "day",
+    "other": "days"
+  },
   "term.time.hours": "小时",
-  "term.time.hour": "小时",
+  "term.time.hour": {
+    "one": "hour",
+    "other": "hours"
+  },
   "term.time.minutes": "分钟",
-  "term.time.minute": "分钟",
+  "term.time.minute": {
+    "one": "minute",
+    "other": "minutes"
+  },
   "term.time.seconds": "秒",
-  "term.time.second": "秒",
+  "term.time.second": {
+    "one": "second",
+    "other": "seconds"
+  },
   "term.fullscreenView": "全屏",
   "term.defaultView": "默认",
   "term.audioSettings": "音频设置",
