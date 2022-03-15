@@ -93,23 +93,23 @@
   "term.time.hour": "ora",
   "term.time.days": "giorni",
   "term.time.day": {
-    "one": "day",
-    "other": "days"
+    "one": "giorno",
+    "other": "giorni"
   },
   "term.time.hours": "ore",
   "term.time.hour": {
-    "one": "hour",
-    "other": "hours"
+    "one": "ora",
+    "other": "ore"
   },
   "term.time.minutes": "minuti",
   "term.time.minute": {
-    "one": "minute",
-    "other": "minutes"
+    "one": "minuto",
+    "other": "minuti"
   },
   "term.time.second": "secondo",
   "term.time.second": {
-    "one": "second",
-    "other": "seconds"
+    "one": "secondo",
+    "other": "secondi"
   },
   "term.fullscreenView": "Vista schermo pieno",
   "term.defaultView": "Vista normale",
@@ -162,7 +162,7 @@
   "error.noResults": "Nessun risultato.",
   "settings.header.connectivity": "Connectività",
   "term.pluginMenu": "Menu Plugin",
-  "term.pluginMenu.none": "No interactive plugins",
+  "term.pluginMenu.none": "Nessun plugin interattivo",
   "term.replay": "Riproduci",
   "action.goToAlbum": "Vai all'Album",
   "home.artistsFeed": "Feed di Artisti",
@@ -245,7 +245,7 @@
   "action.newpreset": "Nuovo Preset...",
   "settings.header.visual.animatedArtwork.disable": "Disattiva dappertutto",
   "settings.option.experimental.closeButtonBehaviour": "Comportamento Tasto Chiudi",
-  "action.relaunch.confirm": "Do you want to relaunch Cider?",
+  "action.relaunch.confirm": "Desideri riavviare Cider?",
   "settings.header.general.description": "Cambia le impostazioni generali di Cider.",
   "settings.header.visual.description": "Cambia le impostazioni visuali per Cider.",
   "settings.option.general.language": "Lingua",
@@ -340,11 +340,11 @@
   "settings.notyf.visual.theme.install.success": "Tema installato correttamente",
   "settings.notyf.visual.theme.install.error": "Installazione del tema fallita",
   "settings.header.visual.plugin": "Plugin",
-  "settings.option.visual.plugin.github.download": "Install from GitHub URL",
-  "settings.option.visual.plugin.github.explore": "Explore GitHub Plugins",
-  "settings.header.visual.plugin.github.page": "Plugins from GitHub",
-  "settings.option.visual.plugin.github.install.confirm": "Are you sure you want to install {{ repo }}?",
-  "settings.prompt.visual.plugin.github.URL": "Enter the URL of the plugin you want to install",
+  "settings.option.visual.plugin.github.download": "Installa dall'URL di GitHub",
+  "settings.option.visual.plugin.github.explore": "Esplora i Plugin di GitHub",
+  "settings.header.visual.plugin.github.page": "Plugin da GitHub",
+  "settings.option.visual.plugin.github.install.confirm": "Sei sicuro di voler installare {{ repo }}?",
+  "settings.prompt.visual.plugin.github.URL": "Inserisci l'URL del plugin che desideri installare",
   "settings.prompt.visual.plugin.github.success": "Plugin installed successfully, Press OK to relaunch Cider",
   "settings.notyf.visual.plugin.install.success": "Plugin installed successfully",
   "settings.notyf.visual.plugin.install.error": "Plugin installation failed",
