@@ -93,13 +93,25 @@
   "term.time.released": "Utgitt",
   "term.time.updated": "Oppdatert",
   "term.time.days": "dager",
-  "term.time.day": "dag",
+  "term.time.day": {
+    "one": "day",
+    "other": "days"
+  },
   "term.time.hours": "timer",
-  "term.time.hour": "time",
+  "term.time.hour": {
+    "one": "hour",
+    "other": "hours"
+  },
   "term.time.minutes": "minutter",
-  "term.time.minute": "minutt",
+  "term.time.minute": {
+    "one": "minute",
+    "other": "minutes"
+  },
   "term.time.seconds": "sekunder",
-  "term.time.second": "sekund",
+  "term.time.second": {
+    "one": "second",
+    "other": "seconds"
+  },
   "term.fullscreenView": "Fullskjermvisning",
   "term.defaultView": "Standardvisning",
   "term.audioSettings": "Lydinnstillinger",
