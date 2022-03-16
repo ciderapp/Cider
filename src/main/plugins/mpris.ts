@@ -184,7 +184,7 @@ export default class mpris {
 
     /**
      * Runs on playback State Change
-     * @param attributes Music Attributes (attributes.state = current state)
+     * @param attributes Music Attributes (attributes.status = current state)
      */
     @mpris.linuxOnly
     onPlaybackStateDidChange(attributes: object): void {

@@ -54,4 +54,3 @@ for any legal concerns contact me at <a href="mailto:cryptofyre@cryptofyre.org">
   <img href="https://www.jetbrains.com/" width="120px" height="125px" src="https://logonoid.com/images/jetbrains-logo.png" alt="JetBrains">
   <img href="https://www.macstadium.com/" width="300px" src="https://user-images.githubusercontent.com/33162551/124784795-df5d4c80-df0b-11eb-99a7-dc2b1cfb81bd.png" alt="MacStadium">
 </p>
-
