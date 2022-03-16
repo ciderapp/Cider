@@ -2,7 +2,7 @@ version: 2.1
 orbs: # adds orbs to your configuration
   jira: circleci/jira@1.0.5 # invokes the Jira orb, making its commands accessible
 jobs:
-  build:
+  - build:
     working_directory: ~/Cider
     docker:
       - image: circleci/node:16
@@ -61,8 +61,7 @@ jobs:
               mv ~/Cider/dist/*.blockmap ~/Cider/dist/artifacts
       - store_artifacts:
           path: ~/Cider/dist/artifacts
-  publish-github-release:
-    working_directory: ~/Cider
+  - publish-github-release:
     docker:
       - image: cibuilds/github:0.10
     steps:
@@ -72,5 +71,3 @@ jobs:
           name: "Publish Release on GitHub"
           command: |
             ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r "cider-releases" -c ${CIRCLE_SHA1} -n "${CIRCLE_BRANCH} build #${CIRCLE_BUILD_NUM}" -b "This release is made automatically from [this commit](https://github.com/ciderapp/Cider/commit/${CIRCLE_SHA1}) using [this CircleCI job.](${CIRCLE_BUILD_URL})" ~/Cider/dist/artifacts
-
-          
