@@ -40,7 +40,7 @@
                             <mediaitem-square :item="artistData.relationships.artist.data[0]"></mediaitem-square>
                         </div>
                         <div class="card-footer">
-                            {{ artistData.attributes.listenTimeInMinutes }} {{$root.getLz('term.time.minutes')}}<br>
+                            {{ artistData.attributes.listenTimeInMinutes }} {{$root.getLz('term.time.minutes', {'count': artistData.attributes.listenTimeInMinutes})}}<br>
                             {{$root.getLz('term.listenedTo')}} {{ artistData.attributes.playCount }} {{$root.getLz('term.times')}}
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                             <mediaitem-square :item="albumData.relationships.album.data[0]"></mediaitem-square>
                         </div>
                         <div class="card-footer">
-                            {{ albumData.attributes.listenTimeInMinutes }} {{$root.getLz('term.time.minutes')}}<br>
+                            {{ albumData.attributes.listenTimeInMinutes }} {{$root.getLz('term.time.minutes', {'count': albumData.attributes.listenTimeInMinutes})}}<br>
                             {{ albumData.attributes.playCount }} {{$root.getLz('term.plays')}}
                         </div>
                     </div>
