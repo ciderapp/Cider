@@ -26,9 +26,6 @@ jobs:
           paths:
             - ~/.cache/yarn
       - run:
-          name: Install Playwright
-          command: yarn playwright install --with-deps
-      - run:
           name: Install system build dependencies
           command: |
             sudo apt-get update -y
