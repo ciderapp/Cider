@@ -410,5 +410,15 @@
   "settings.header.unfinished": "Onvoltooid",
   "remote.web.title": "Cider Remote",
   "remote.web.description": "Scan de QR code om je telefoon te koppelen met deze Cider-instantie",
+  "share.platform.twitter.tweet": "Listen to {{song}} on Apple Music.\n\n{{url}}\n\n#AppleMusic #Cider",
+  "share.platform.twitter": "Twitter",
+  "share.platform.facebook": "Facebook",
+  "share.platform.reddit": "Reddit",
+  "share.platform.telegram": "Telegram",
+  "share.platform.whatsapp": "WhatsApp",
+  "share.platform.messenger": "Messenger",
+  "share.platform.email": "Email",
+  "share.platform.songLink": "Copy with song.link",
+  "share.platform.clipboard": "Copy Link",
   "about.thanks": "Grote dank aan het Cider Collective Team en alle bijdragers."
 }
