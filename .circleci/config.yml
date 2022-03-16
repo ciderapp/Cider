@@ -61,7 +61,7 @@ jobs:
               mv ~/Cider/dist/*.blockmap ~/Cider/dist/artifacts
       - store_artifacts:
           path: ~/Cider/dist/artifacts
-    publish-github-release:
+  publish-github-release:
       docker:
         - image: cibuilds/github:0.10
       steps:
