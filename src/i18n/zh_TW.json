@@ -409,5 +409,15 @@
   "settings.header.unfinished": "Unfinished",
   "remote.web.description": "掃描以下的行動條碼以操控 Cider",
   "remote.web.description": "Scan the QR code to pair your phone up with this Cider instance",
+  "share.platform.twitter.tweet": "Listen to {{song}} on Apple Music.\n\n{{url}}\n\n#AppleMusic #Cider",
+  "share.platform.twitter": "Twitter",
+  "share.platform.facebook": "Facebook",
+  "share.platform.reddit": "Reddit",
+  "share.platform.telegram": "Telegram",
+  "share.platform.whatsapp": "WhatsApp",
+  "share.platform.messenger": "Messenger",
+  "share.platform.email": "Email",
+  "share.platform.songLink": "Copy with song.link",
+  "share.platform.clipboard": "Copy Link",
   "about.thanks": "著重感謝 Cider Collective 的成員以及所有為項目付出的貢獻者。"
 }
