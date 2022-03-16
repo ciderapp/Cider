@@ -409,5 +409,15 @@
   "settings.header.unfinished": "Unfinished",
   "remote.web.description": "QR 코드를 스캔해서 Cider와 스마트폰을 연결하기",
   "remote.web.description": "핸드폰을 이 Cider 인스턴스에 연결하기 위해 QR 코드를 스캔해세요",
+  "share.platform.twitter.tweet": "Listen to {{song}} on Apple Music.\n\n{{url}}\n\n#AppleMusic #Cider",
+  "share.platform.twitter": "Twitter",
+  "share.platform.facebook": "Facebook",
+  "share.platform.reddit": "Reddit",
+  "share.platform.telegram": "Telegram",
+  "share.platform.whatsapp": "WhatsApp",
+  "share.platform.messenger": "Messenger",
+  "share.platform.email": "Email",
+  "share.platform.songLink": "Copy with song.link",
+  "share.platform.clipboard": "Copy Link",
   "about.thanks": "Cider Collective Team과 모든 기여자들에게 감사합니다."
 }
