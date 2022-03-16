@@ -56,7 +56,7 @@ const CiderAudio = {
         }
         if (app.cfg.audio.spatial){
             CiderAudio.spatialOn()
-        }
+        }    
         CiderAudio.hierarchical_loading();
     },
     normalizerOn: function (){
