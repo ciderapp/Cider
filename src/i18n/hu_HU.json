@@ -409,5 +409,15 @@
   "settings.header.unfinished": "Befejezetlen",
   "remote.web.title": "Távirányító",
   "remote.web.description": "Olvasd be ezt a QR-kódot a telefonoddal, hogy vezérelni tudd a lejátszót.",
+  "share.platform.twitter.tweet": "Listen to {{song}} on Apple Music.\n\n{{url}}\n\n#AppleMusic #Cider",
+  "share.platform.twitter": "Twitter",
+  "share.platform.facebook": "Facebook",
+  "share.platform.reddit": "Reddit",
+  "share.platform.telegram": "Telegram",
+  "share.platform.whatsapp": "WhatsApp",
+  "share.platform.messenger": "Messenger",
+  "share.platform.email": "Email",
+  "share.platform.songLink": "Copy with song.link",
+  "share.platform.clipboard": "Copy Link",
   "about.thanks": "Köszönet a Cider Collective csapatának és minden hozzájárulónak."
 }
