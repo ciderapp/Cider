@@ -409,5 +409,15 @@
   "settings.option.visual.animatedArtwork": "Animiertes Coverbild",
   "remote.web.title": "Cider Remote",
   "remote.web.description": "Scanne den QR-Code um dein Handy mit dieser Cider-Instanz zu verbinden",
+  "share.platform.twitter.tweet": "Listen to {{song}} on Apple Music.\n\n{{url}}\n\n#AppleMusic #Cider",
+  "share.platform.twitter": "Twitter",
+  "share.platform.facebook": "Facebook",
+  "share.platform.reddit": "Reddit",
+  "share.platform.telegram": "Telegram",
+  "share.platform.whatsapp": "WhatsApp",
+  "share.platform.messenger": "Messenger",
+  "share.platform.email": "Email",
+  "share.platform.songLink": "Copy with song.link",
+  "share.platform.clipboard": "Copy Link",
   "about.thanks": "Vielen lieben Dank an das Cider Collective Team und an alle Mithelfer."
 }
