@@ -410,5 +410,15 @@
   "settings.header.unfinished": "Não Terminado",
   "remote.web.title": "Telecomando Cider",
   "remote.web.description": "Faça scan ao código QR para emparelhar o seu telemóvel com esta instância do Cider",
+  "share.platform.twitter.tweet": "Listen to {{song}} on Apple Music.\n\n{{url}}\n\n#AppleMusic #Cider",
+  "share.platform.twitter": "Twitter",
+  "share.platform.facebook": "Facebook",
+  "share.platform.reddit": "Reddit",
+  "share.platform.telegram": "Telegram",
+  "share.platform.whatsapp": "WhatsApp",
+  "share.platform.messenger": "Messenger",
+  "share.platform.email": "Email",
+  "share.platform.songLink": "Copy with song.link",
+  "share.platform.clipboard": "Copy Link",
   "about.thanks": "Um enorme obrigado à Equipa Coletiva Cider e a todos os contribuidores."
 }
