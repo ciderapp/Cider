@@ -410,5 +410,15 @@
   "settings.header.unfinished": "Inachevé",
   "remote.web.description": "Scanner le QR code pour associer votre téléphone avec cette instance Cider",
   "remote.web.description": "Scanner le QR code pour appareiller votre smartphone à cette instance Cider",
+  "share.platform.twitter.tweet": "Listen to {{song}} on Apple Music.\n\n{{url}}\n\n#AppleMusic #Cider",
+  "share.platform.twitter": "Twitter",
+  "share.platform.facebook": "Facebook",
+  "share.platform.reddit": "Reddit",
+  "share.platform.telegram": "Telegram",
+  "share.platform.whatsapp": "WhatsApp",
+  "share.platform.messenger": "Messenger",
+  "share.platform.email": "Email",
+  "share.platform.songLink": "Copy with song.link",
+  "share.platform.clipboard": "Copy Link",
   "about.thanks": "Un grand merci à l'équipe de la Cider Collective et à tous nos contributeurs."
 }
