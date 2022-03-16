@@ -98,13 +98,13 @@
   },
   "term.time.hours": "houws",
   "term.time.hour": {
-    "one": "hour",
-    "other": "hours"
+    "one": "houw",
+    "other": "houws"
   },
   "term.time.minutes": "minyutes",
   "term.time.minute": {
-    "one": "minute",
-    "other": "minutes"
+    "one": "minyute",
+    "other": "minyutes"
   },
   "term.time.seconds": "seconds",
   "term.time.second": {
@@ -132,8 +132,8 @@
   "term.reset": "Weset",
   "term.tracks": "twacks",
   "term.track": {
-    "one": "track",
-    "other": "tracks"
+    "one": "twack",
+    "other": "twacks"
   },
   "term.videos": "Videos",
   "term.menu": "Menyu",
