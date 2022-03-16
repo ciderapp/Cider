@@ -410,5 +410,15 @@
   "settings.header.unfinished": "Uferdig",
   "remote.web.title": "Cider Fjernkontroll",
   "remote.web.description": "Skann QR koden for å koble mobilen til Cider",
+  "share.platform.twitter.tweet": "Listen to {{song}} on Apple Music.\n\n{{url}}\n\n#AppleMusic #Cider",
+  "share.platform.twitter": "Twitter",
+  "share.platform.facebook": "Facebook",
+  "share.platform.reddit": "Reddit",
+  "share.platform.telegram": "Telegram",
+  "share.platform.whatsapp": "WhatsApp",
+  "share.platform.messenger": "Messenger",
+  "share.platform.email": "Email",
+  "share.platform.songLink": "Copy with song.link",
+  "share.platform.clipboard": "Copy Link",
   "about.thanks": "Tusen takk til hele Cider Collective Team og alle alle bidragsytere."
 }
