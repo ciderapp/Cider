@@ -409,5 +409,15 @@
   "action.newpreset": "新建预设...",
   "remote.web.description": "扫描以下的二维码以控制 Cider",
   "remote.web.description": "Scan the QR code to pair your phone up with this Cider instance",
+  "share.platform.twitter.tweet": "Listen to {{song}} on Apple Music.\n\n{{url}}\n\n#AppleMusic #Cider",
+  "share.platform.twitter": "Twitter",
+  "share.platform.facebook": "Facebook",
+  "share.platform.reddit": "Reddit",
+  "share.platform.telegram": "Telegram",
+  "share.platform.whatsapp": "WhatsApp",
+  "share.platform.messenger": "Messenger",
+  "share.platform.email": "Email",
+  "share.platform.songLink": "Copy with song.link",
+  "share.platform.clipboard": "Copy Link",
   "about.thanks": "郑重感谢 Cider Collective 以及为这个项目提供支持的贡献者。"
 }
