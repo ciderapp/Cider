@@ -69,4 +69,4 @@ jobs:
       - run:
           name: Publish Release
           command: |
-            gh release create --target ${CIRCLE_SHA1} --title "${CIRCLE_BRANCH} build #${CIRCLE_BUILD_NUM}" --generate-notes -R ciderapp/cider-releases ~/Cider/dist/artifacts/*
+            gh release create --target ${CIRCLE_SHA1} --title "${CIRCLE_BRANCH} build #${CIRCLE_BUILD_NUM}" --generate-notes -R ciderapp/Cider ~/Cider/dist/artifacts/*
