@@ -29,7 +29,9 @@ jobs:
           name: Install system build dependencies
           command: |
             sudo apt-get update -y
-            sudo apt-get install -y dpkg fakeroot wine64
+            curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+            echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+            sudo apt-get install -y dpkg fakeroot wine64 gh
             sudo dpkg --add-architecture i386
             sudo apt-get update -y
             sudo apt-get install -y wine32
@@ -63,13 +65,7 @@ jobs:
               mv ~/Cider/dist/*.blockmap ~/Cider/dist/artifacts
       - store_artifacts:
           path: ~/Cider/dist/artifacts
-  publish-github-release:
-    docker:
-      - image: cibuilds/github:0.10
-    steps:
-      - attach_workspace:
-          at: ~/Cider/dist/artifacts
       - run:
-          name: "Publish Release on GitHub"
+          name: Publish Release
           command: |
-            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r "cider-releases" -c ${CIRCLE_SHA1} -n "${CIRCLE_BRANCH} build #${CIRCLE_BUILD_NUM}" -b "This release is made automatically from [this commit](https://github.com/ciderapp/Cider/commit/${CIRCLE_SHA1}) using [this CircleCI job.](${CIRCLE_BUILD_URL})" ~/Cider/dist/artifacts
+            gh release create --target ${CIRCLE_SHA1} --title "${CIRCLE_BRANCH} build #${CIRCLE_BUILD_NUM}" --generate-notes -R ciderapp/cider-releases ~/Cider/dist/artifacts/*
