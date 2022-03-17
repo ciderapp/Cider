@@ -76,4 +76,5 @@ jobs:
       - run:
           name: Publish Release
           command: |
-            gh release create "v${APP_VERSION}.${CIRCLE_BUILD_NUM}" --prerelease --target ${CIRCLE_SHA1} --title "${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}" --generate-notes -R ciderapp/Cider "~/Cider/dist/artifacts/*.exe#Executable (.exe) Windows Release" "~/Cider/dist/artifacts/*.deb#Debian (.deb) Linux Release" "~/Cider/dist/artifacts/*.AppImage#AppImage (.AppImage) Linux/OSX Release" "~/Cider/dist/artifacts/*.snap#Snapcraft (.snap) Linux Release" "~/Cider/dist/artifacts/*.yml#Update .yml Files" "~/Cider/dist/artifacts/*.blockmap#Blockmaps"
+            cd ~/Cider/dist/artifacts
+            gh release create "v${APP_VERSION}.${CIRCLE_BUILD_NUM}" --prerelease --target ${CIRCLE_SHA1} --title "${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}" --generate-notes -R ciderapp/Cider "Cider-Setup-*.*.*.exe#Executable (.exe) Windows Release" "Cider-Setup-winget-*.*.*.exe#Executable (.exe) Winget Release" "*.deb#Debian (.deb) Linux Release" "*.AppImage#AppImage (.AppImage) Linux/OSX Release" "*.snap#Snapcraft (.snap) Linux Release" "*.yml#Update .yml Files" "*.blockmap#Blockmaps"
