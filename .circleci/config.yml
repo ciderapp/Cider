@@ -78,4 +78,4 @@ jobs:
           command: |
             cd ~/Cider/dist/artifacts
             ls
-            gh release create "v${APP_VERSION}.${CIRCLE_BUILD_NUM}" --prerelease --target ${CIRCLE_SHA1} --title "${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}" --generate-notes -R ciderapp/Cider Cider-Setup-*.*.*.exe "Cider-Setup-winget-*.*.*.exe#Executable (.exe) Winget Release" "*.deb#Debian (.deb) Linux Release" "*.AppImage#AppImage (.AppImage) Linux/OSX Release" "*.snap#Snapcraft (.snap) Linux Release" "*.yml#Update .yml Files" "*.blockmap#Blockmaps"
+            gh release create "v${APP_VERSION}.${CIRCLE_BUILD_NUM}" --prerelease --target ${CIRCLE_SHA1} --title "${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}" --generate-notes -R ciderapp/Cider Cider-Setup-*.*.*.exe Cider-Setup-winget-*.*.*.exe *.deb *.AppImage *.snap *.yml#UpdateFiles *.blockmap#Blockmaps
