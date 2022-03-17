@@ -364,7 +364,6 @@
   "settings.option.experimental.unknownPlugin.description": "Cider 플러그인 저장소 이외의 저장소에서 플러그인 설치 허용",
   "settings.option.experimental.compactUI": "간결한 사용자 인터페이스",
   "settings.option.experimental.close_button_hide": "닫기 버튼으로 애플리케이션 숨기기",
-  "settings.option.experimental.copy_log": "로그를 클립보드에 복사하기",
   "settings.option.experimental.inline_playlists": "인라인 플레이리스트 및 앨범",
   "settings.option.advanced.playlistTrackMapping": "플레이리스트 트랙 매핑",
   "settings.option.advanced.playlistTrackMapping.description": "플레이리스트를 자세히 스캔하여 어떤 트랙이 어떤 플레이리스트에 있는지 확인합니다. 플레이리스트 캐시 빌드 시간이 크게 늘어날 수 있습니다.",
