@@ -8,11 +8,15 @@ jobs:
     working_directory: ~/Cider
     docker:
       - image: circleci/node:16
+      
     steps:
       - checkout
       - run:
           name: Set App Version
-          command: echo $(grep '"version":.*' package.json | cut -d '"' -f 4 | head -1)
+          command: echo "export APP_VERSION=$(grep '"version":.*' package.json | cut -d '"' -f 4 | head -1)" >> $BASH_ENV
+      - run:
+          name: Get App Version
+          command: echo $APP_VERSION
       - run:
           name: Update Package Managers
           command: sudo npm update -g npm yarn
@@ -28,9 +32,6 @@ jobs:
           key: yarn-packages-{{ checksum "cider-yarn.lock" }}
           paths:
             - ~/.cache/yarn
-      - run:
-          name: Get App Version
-          command: echo $APP_VERSION
       - run:
           name: Install system build dependencies
           command: |
