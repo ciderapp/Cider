@@ -9,6 +9,7 @@
                         </div>
                         <div class="col-auto nopadding flex-center">
                             <button class="cd-btn-seeall" @click="seeAllHistory()">{{app.getLz('term.history')}}</button>
+                            <button class="cd-btn-seeall" @click="seeAllRecentlyPlayed()">{{app.getLz('term.seeAll')}}</button>
                         </div>
                     </div>
                     <div class="well artistfeed-well">
@@ -127,6 +128,12 @@
             }
         },
         methods: {
+            async seeAllRecentlyPlayed() {
+                let hist = await app.mk.api.v3.music(`/v1/me/recent/played`, {
+                    l: this.$root.mklang
+                })
+                app.showCollection(hist.data, app.getLz('home.recentlyPlayed'))
+            },
             async seeAllHistory() {
                 let hist = await app.mk.api.v3.music(`/v1/me/recent/played/tracks`, {
                     l: this.$root.mklang
