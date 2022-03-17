@@ -27,6 +27,7 @@
 [![Get it from the Microsoft Store](https://img.shields.io/badge/Get_It_From_The_Microsoft_Store-100000?style=for-the-badge&logo=microsoft)](https://www.microsoft.com/store/apps/9P21XJ9D9G66)
 
 [![Get it from Windows Package Manager](https://custom-icon-badges.herokuapp.com/badge/Get_It_via_Winget-100000?style=for-the-badge&logo=winstall)](https://winstall.app/apps/CiderCollective.Cider.Nightly)
+
 [![Get it from Flathub](https://img.shields.io/badge/Get_It_From_Flathub-100000?style=for-the-badge&logo=flathub)](https://flathub.org/apps/details/sh.cider.Cider)
 
 <!--
