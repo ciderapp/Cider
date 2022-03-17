@@ -28,6 +28,9 @@ jobs:
           paths:
             - ~/.cache/yarn
       - run:
+          name: Get App Version
+          run: echo $APP_VERSION ${APP_VERSION}
+      - run:
           name: Install system build dependencies
           command: |
             sudo apt-get update -y
@@ -74,4 +77,4 @@ jobs:
       - run:
           name: Publish Release
           command: |
-            gh release create "v${APP_VERSION}.${CIRCLE_BUILD_NUM}" --prerelease --target ${CIRCLE_SHA1} --title "${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}" --generate-notes -R ciderapp/Cider ~/Cider/dist/artifacts/*.deb ~/Cider/dist/artifacts/*.AppImage ~/Cider/dist/artifacts/*.snap ~/Cider/dist/artifacts/*.exe ~/Cider/dist/artifacts/*.yml ~/Cider/dist/artifacts/*.blockmap
+            gh release create "v${APP_VERSION}.${CIRCLE_BUILD_NUM}" --prerelease --target ${CIRCLE_SHA1} --title "${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}" --generate-notes -R ciderapp/Cider '~/Cider/dist/artifacts/*.deb#Debian (.deb) Linux Release' '~/Cider/dist/artifacts/*.AppImage#AppImage (.AppImage) Linux/OSX Release' '~/Cider/dist/artifacts/*.snap#Snapcraft (.snap) Linux Release' '~/Cider/dist/artifacts/*.exe#Executable (.exe) Windows Release' ~/Cider/dist/artifacts/*.yml ~/Cider/dist/artifacts/*.blockmap
