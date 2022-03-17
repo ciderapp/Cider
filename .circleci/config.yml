@@ -74,6 +74,10 @@ jobs:
       - store_artifacts:
           path: ~/Cider/dist/artifacts
       - run:
+          name : Delete Old Release Tag
+          command: |
+              gh release delete "${CIRCLE_BRANCH}-build" -y || true    
+      - run:
           name: Publish Release
           command: |
               gh release create "${CIRCLE_BRANCH}-build" --prerelease --target ${CIRCLE_SHA1} --title "Cider Nightly Version ${APP_VERSION} - Build ${CIRCLE_BUILD_NUM} (${CIRCLE_BRANCH})" --generate-notes -R ciderapp/Cider ~/Cider/dist/artifacts/*.deb ~/Cider/dist/artifacts/*.AppImage ~/Cider/dist/artifacts/*.snap ~/Cider/dist/artifacts/*.exe ~/Cider/dist/artifacts/*.yml ~/Cider/dist/artifacts/*.blockmap
