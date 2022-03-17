@@ -92,13 +92,25 @@
   "term.time.released": "Weweased",
   "term.time.updated": "Updated",
   "term.time.days": "days",
-  "term.time.day": "day",
+  "term.time.day": {
+    "one": "day",
+    "other": "days"
+  },
   "term.time.hours": "houws",
-  "term.time.hour": "houw",
+  "term.time.hour": {
+    "one": "houw",
+    "other": "houws"
+  },
   "term.time.minutes": "minyutes",
-  "term.time.minute": "minyute",
+  "term.time.minute": {
+    "one": "minyute",
+    "other": "minyutes"
+  },
   "term.time.seconds": "seconds",
-  "term.time.second": "second",
+  "term.time.second": {
+    "one": "second",
+    "other": "seconds"
+  },
   "term.fullscreenView": "Fuwwscween View",
   "term.defaultView": "Defauwt View",
   "term.audioSettings": "Audio Settings",
@@ -120,8 +132,8 @@
   "term.reset": "Weset",
   "term.tracks": "twacks",
   "term.track": {
-    "one": "track",
-    "other": "tracks"
+    "one": "twack",
+    "other": "twacks"
   },
   "term.videos": "Videos",
   "term.menu": "Menyu",
