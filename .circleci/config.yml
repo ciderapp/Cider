@@ -69,4 +69,4 @@ jobs:
       - run:
           name: Publish Release
           command: |
-            gh release create ${CIRCLE_BRANCH} --prerelease --target ${CIRCLE_SHA1} --title "${APP_VERSION}-${CIRCLE_BRANCH}" --generate-notes -R ciderapp/Cider ~/Cider/dist/artifacts/*.deb ~/Cider/dist/artifacts/*.AppImage ~/Cider/dist/artifacts/*.snap ~/Cider/dist/artifacts/*.exe ~/Cider/dist/artifacts/*.yml ~/Cider/dist/artifacts/*.blockmap
+            gh release create "${CIRCLE_BRANCH}/${CIRCLE_SHA1}" --prerelease --target ${CIRCLE_SHA1} --title "${APP_VERSION}-${CIRCLE_BRANCH}" --generate-notes -R ciderapp/Cider ~/Cider/dist/artifacts/*.deb ~/Cider/dist/artifacts/*.AppImage ~/Cider/dist/artifacts/*.snap ~/Cider/dist/artifacts/*.exe ~/Cider/dist/artifacts/*.yml ~/Cider/dist/artifacts/*.blockmap
