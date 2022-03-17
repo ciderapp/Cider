@@ -29,7 +29,7 @@ jobs:
             - ~/.cache/yarn
       - run:
           name: Get App Version
-          run: echo $APP_VERSION ${APP_VERSION}
+          command: echo $APP_VERSION ${APP_VERSION}
       - run:
           name: Install system build dependencies
           command: |
