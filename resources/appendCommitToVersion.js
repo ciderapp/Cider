@@ -4,6 +4,7 @@ if (!process.env['CIRCLECI']) {
 }
 
 let fs = require('fs')
+const { exec } = require("child_process");
 
 var data = fs.readFileSync('package.json');
 var package = JSON.parse(data);
@@ -12,10 +13,10 @@ pvers = package.version.match(/\d+\./g)
 
 // https://circleci.com/docs/2.0/env-vars/#built-in-environment-variables
 package.version = `${pvers[0]}${pvers[1]}${process.env['CIRCLE_BUILD_NUM']}`
-
+exec(`export APP_VERSION=${package.version}`)
 
 fs.writeFile('package.json', JSON.stringify(package), err => {
     // error checking
     if(err) throw err;
-    console.log("VERSION CHANGED");
+    console.log(`VERSION CHANGED TO ${package.version}`);
 });   
