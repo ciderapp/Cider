@@ -8,6 +8,8 @@ jobs:
     working_directory: ~/Cider
     docker:
       - image: circleci/node:16
+        environment:
+          APP_VERSION: $(grep '"version":.*' package.json | cut -d '"' -f 4 | head -1)
     steps:
       - checkout
       - run:
@@ -40,18 +42,21 @@ jobs:
           name: Append Commit BuildID to Version
           command: yarn circle:append-bid
       - run:
+          name: TypeScript Build
+          command: yarn build
+      - run:
           name: Generate Builds (Linux)
-          command: yarn dist -l -p never
+          command: yarn electron-builder -l -p never
           post-steps:
             - jira/notify
       - run:
           name: Generate Builds (Windows)
-          command: yarn dist -w --x64 -p never
+          command: yarn electron-builder -w --x64 -p never
           post-steps:
             - jira/notify
       - run:
           name: Generate Builds (Winget)
-          command: yarn winget -p never
+          command: yarn electron-builder --win -c winget.json -p never
           post-steps:
             - jira/notify
       - run:
@@ -69,4 +74,4 @@ jobs:
       - run:
           name: Publish Release
           command: |
-            gh release create "${CIRCLE_BRANCH}/${CIRCLE_SHA1}" --prerelease --target ${CIRCLE_SHA1} --title "${APP_VERSION}-${CIRCLE_BRANCH}" --generate-notes -R ciderapp/Cider ~/Cider/dist/artifacts/*.deb ~/Cider/dist/artifacts/*.AppImage ~/Cider/dist/artifacts/*.snap ~/Cider/dist/artifacts/*.exe ~/Cider/dist/artifacts/*.yml ~/Cider/dist/artifacts/*.blockmap
+            gh release create "${CIRCLE_BRANCH}/${CIRCLE_BUILD_NUM}" --prerelease --target ${CIRCLE_SHA1} --title "${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}" --generate-notes -R ciderapp/Cider ~/Cider/dist/artifacts/*.deb ~/Cider/dist/artifacts/*.AppImage ~/Cider/dist/artifacts/*.snap ~/Cider/dist/artifacts/*.exe ~/Cider/dist/artifacts/*.yml ~/Cider/dist/artifacts/*.blockmap
