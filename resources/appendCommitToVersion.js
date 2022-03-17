@@ -13,7 +13,11 @@ pvers = package.version.match(/\d+\./g)
 
 // https://circleci.com/docs/2.0/env-vars/#built-in-environment-variables
 package.version = `${pvers[0]}${pvers[1]}${process.env['CIRCLE_BUILD_NUM']}`
-exec(`export APP_VERSION=${package.version}`)
+
+exec('echo $APP_VERSION', {env: {'APP_VERSION': package.version}}, function (error, stdout, stderr) 
+{
+    console.log(stdout, stderr, error);
+});
 
 fs.writeFile('package.json', JSON.stringify(package), err => {
     // error checking
