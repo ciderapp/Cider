@@ -70,6 +70,10 @@ const CiderAudio = {
             "file": './audio/impulses/CiderSpatial_v69.420_Audiophile.wav',
         },
         {
+            "id": "420signature-B",
+            "file": './audio/impulses/CiderSpatial_v69.420_Audiophile_B.wav',
+        },
+        {
             "id": "standard",
             "file": './audio/impulses/CiderSpatial_v69_Standard.wav',
         },
