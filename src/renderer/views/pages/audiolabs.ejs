@@ -90,12 +90,12 @@
                 <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.description')}}</small>
             </div>
             <div class="md-option-segment md-option-segment_auto">
-                <button class="md-btn" :disabled="app.cfg.audio.maikiwiAudio.spatialType === 0" v-model="app.cfg.audio.maikiwiAudio.spatialType" onclick="app.cfg.audio.maikiwiAudio.spatialType = 0">
-                    {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.standard')}}
-                </button>
-                <button class="md-btn" :disabled="app.cfg.audio.maikiwiAudio.spatialType === 1" v-model="app.cfg.audio.maikiwiAudio.spatialType" onclick="app.cfg.audio.maikiwiAudio.spatialType = 1">
-                    {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.audiophile')}}
-                </button>
+                <select class="md-select" style="width:180px;" v-model="app.cfg.audio.maikiwiAudio.spatialProfile"
+                        v-on:change="toggleMaikiwiSpatial">
+                    <option value="420signature">Signature</option>
+                    <option value="audiophile">Expansive</option>
+                    <option value="standard">Minimal</option>
+                </select>
             </div>
             </div>
             <div style="opacity: 0.5; pointer-events: none">
@@ -180,13 +180,13 @@
                 if (app.cfg.audio.maikiwiAudio.spatial === true) { 
                     CiderAudio.spatialOn()
                     CiderAudio.hierarchical_loading();
-                    let normalized = Math.pow(10, (((Math.log10(app.mk.volume) * 20) + 12) / 20)); 
-                    if (normalized > 1.0) {app.mk.volume = 1}
-                    else {app.mk.volume = normalized}    
+                   //let normalized = Math.pow(10, (((Math.log10(app.mk.volume) * 20) - 14) / 20)); 
+                   //app.mk.volume = normalized 
+                   // -13dBFS Target
                 }
                 else { 
-                    let normalized = Math.pow(10, (((Math.log10(app.mk.volume) * 20) - 12) / 20)); 
-                    app.mk.volume = normalized
+                    //let normalized = Math.pow(10, (((Math.log10(app.mk.volume) * 20) + 14) / 20)); 
+                    //app.mk.volume = normalized
                     CiderAudio.spatialOn()
                     CiderAudio.hierarchical_loading();
                 }

@@ -64,36 +64,37 @@ const CiderAudio = {
     normalizerOff: function (){
         CiderAudio.audioNodes.gainNode.gain.setTargetAtTime(1, CiderAudio.context.currentTime+ 1, 0.5);
     },
-
+    spatialProfiles: [
+        {
+            "id": "420signature",
+            "file": './audio/impulses/CiderSpatial_v69.420_Audiophile.wav',
+        },
+        {
+            "id": "standard",
+            "file": './audio/impulses/CiderSpatial_v69_Standard.wav',
+        },
+        {
+            "id": "audiophile",
+            "file": './audio/impulses/CiderSpatial_v69_Audiophile.wav'
+        }
+    ],
     spatialOn: function (){
         CiderAudio.audioNodes.spatialNode = null;
         if (app.cfg.audio.maikiwiAudio.spatial === true) { 
         CiderAudio.audioNodes.spatialNode = CiderAudio.context.createConvolver();
-        CiderAudio.audioNodes.spatialNode.normalize = true;
-        switch (app.cfg.audio.maikiwiAudio.spatialType) {
-            case 0:
-                fetch('./audio/impulses/CiderSpatial_v69_Standard.wav').then(async (impulseData) => {
-                    let bufferedImpulse = await impulseData.arrayBuffer();
-                    CiderAudio.audioNodes.spatialNode.buffer = await CiderAudio.context.decodeAudioData(bufferedImpulse);    
-                    
-                });
-                break;
-            case 1:
-                fetch('./audio/impulses/CiderSpatial_v69_Audiophile.wav').then(async (impulseData) => {
-                    let bufferedImpulse = await impulseData.arrayBuffer();
-                    CiderAudio.audioNodes.spatialNode.buffer = await CiderAudio.context.decodeAudioData(bufferedImpulse);    
-                    
-                });
-                break;
-            default:
-                fetch('./audio/impulses/CiderSpatial_v69_Standard.wav').then(async (impulseData) => {
-                    let bufferedImpulse = await impulseData.arrayBuffer();
-                    CiderAudio.audioNodes.spatialNode.buffer = await CiderAudio.context.decodeAudioData(bufferedImpulse);    
-                    
-                });
-                app.cfg.audio.maikiwiAudio.spatialType = 0;
-                break;   
-            }    
+        CiderAudio.audioNodes.spatialNode.normalize = false;
+
+        let spatialProfile = CiderAudio.spatialProfiles.find(function (profile) {
+            return profile.id === app.cfg.audio.maikiwiAudio.spatialProfile;
+        });
+
+        if (spatialProfile === undefined) { 
+            spatialProfile = CiderAudio.spatialProfiles[0];
+        }
+        fetch(spatialProfile.file).then(async (impulseData) => {
+        let bufferedImpulse = await impulseData.arrayBuffer();
+        CiderAudio.audioNodes.spatialNode.buffer = await CiderAudio.context.decodeAudioData(bufferedImpulse);});
+            
         }
         else {
             CiderAudio.audioNodes.spatialNode = new ResonanceAudio(CiderAudio.context);
