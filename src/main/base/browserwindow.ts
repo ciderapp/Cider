@@ -185,7 +185,7 @@ export class BrowserWindow {
                     page: "library-albums",
                     component: `<cider-library-albums :data="library.songs"></cider-library-albums>`,
                     condition: `page == 'library-albums'`,
-                    onEnter: `getLibraryAlbumsFull(null, 1); getAlbumSort(); searchLibraryAlbums(1);`
+                    onEnter: `getLibraryAlbumsFull(null, 1); getAlbumSort(); searchLibraryAlbums(1); getLibrarySongsFull() ;searchLibraryAlbums(1);`
                 }, {
                     page: "appleCurator",
                     component: `<cider-applecurator :data="appleCurator"></cider-applecurator>`,

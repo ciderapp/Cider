@@ -1535,6 +1535,14 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   filter: none !important;
 }
 
+
+.lyric-body:hover > .lyric-line:not(.active) {
+  filter: none !important;
+}
+.lyric-body > .lyric-line:not(.active) {
+  transition: filter var(--appleEase) 0.5s ease;
+}
+
 .lyricWaiting {
   margin-top: 8px;
   display: none;
