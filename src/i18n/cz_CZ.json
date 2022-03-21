@@ -225,7 +225,7 @@
   "settings.option.audio.enableAdvancedFunctionality": "Povolit pokročilé funkce",
   "settings.option.audio.enableAdvancedFunctionality.description": "Povolení funkce AudioContext umožní rozšířené zvukové funkce, jako je normalizace zvuku, ekvalizéry a vizualizéry, ale na některých systémech to může způsobit zadrhávání ve zvukových stopách.",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider Adrenaline Processor™️",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Psychoakustická vylepšení, díky nimž vše zní bohatěji a živěji | Navrhl Maikiwi.",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Psychoakustická vylepšení, díky nimž vše zní bohatěji a živěji.",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "Síla CAP",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Změní sílu zpracování zvuku. (Agresivita může vést k nežádoucím výsledkům)",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "Standard",

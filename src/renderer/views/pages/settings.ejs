@@ -26,6 +26,22 @@
                 </div>
                 <div class="md-option-line">
                     <div class="md-option-segment">
+                        {{$root.getLz('settings.option.window.openOnStartup')}}
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <input type="checkbox" v-model="app.cfg.general.onStartup.enabled" switch/>
+                    </div>
+                </div>
+                <div class="md-option-line" v-show="app.cfg.general.onStartup.enabled">
+                    <div class="md-option-segment">
+                        {{$root.getLz('settings.option.window.openOnStartup.hidden')}}
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <input type="checkbox" v-model="app.cfg.general.onStartup.hidden" switch/>
+                    </div>
+                </div>
+                <div class="md-option-line">
+                    <div class="md-option-segment">
                         {{$root.getLz('settings.option.general.resumebehavior')}}<br>
                         <small>
                             {{$root.getLz('settings.option.general.resumebehavior.description')}}<br>
@@ -121,8 +137,13 @@
                         <br>
                         <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.audioNormalization.description')}}</small>
                     </div>
+                    <div>
+                        <span v-if="app.cfg.audio.equalizer.vibrantBass != 0 || app.cfg.audio.maikiwiAudio.spatial === true || app.cfg.audio.maikiwiAudio.ciderPPE === true">
+                            <small style="font-weight: bold;">{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.audioNormalization.disabled')}}</small>
+                        </span>
+                    </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <input type="checkbox" v-model="app.cfg.audio.normalization" v-on:change="toggleNormalization" :disabled="app.cfg.audio.equalizer.vibrantBass !== '0' || app.cfg.audio.maikiwiAudio.spatial === true || app.cfg.audio.maikiwiAudio.ciderPPE === true" switch/>
+                        <input type="checkbox" v-model="app.cfg.audio.normalization" v-on:change="toggleNormalization" :disabled="app.cfg.audio.equalizer.vibrantBass != 0 || app.cfg.audio.maikiwiAudio.spatial === true || app.cfg.audio.maikiwiAudio.ciderPPE === true" switch/>
                     </div>
                 </div>
             </div>
@@ -164,7 +185,7 @@
                         {{$root.getLz('settings.option.visual.windowBackgroundStyle')}}
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <select class="md-select" @change="$root.getNowPlayingArtworkBG(undefined, true)"
+                        <select class="md-select" @change="windowBgStyleChange"
                                 v-model="app.cfg.visual.window_background_style">
                             <option value="none">{{$root.getLz('settings.header.visual.windowBackgroundStyle.none')}}
                             </option>
@@ -257,22 +278,6 @@
                 <span>{{$root.getLz('settings.header.window')}}</span>
             </div>
             <div class="settings-option-body">
-                <div class="md-option-line">
-                    <div class="md-option-segment">
-                        {{$root.getLz('settings.option.window.openOnStartup')}}
-                    </div>
-                    <div class="md-option-segment md-option-segment_auto">
-                        <input type="checkbox" v-model="app.cfg.general.onStartup.enabled" switch/>
-                    </div>
-                </div>
-                <div class="md-option-line" v-show="app.cfg.general.onStartup.enabled">
-                    <div class="md-option-segment">
-                        {{$root.getLz('settings.option.window.openOnStartup.hidden')}}
-                    </div>
-                    <div class="md-option-segment md-option-segment_auto">
-                        <input type="checkbox" v-model="app.cfg.general.onStartup.hidden" switch/>
-                    </div>
-                </div>
                 <div class="md-option-line" v-show="app.platform !== 'darwin'">
                     <div class="md-option-segment">
                         {{$root.getLz("settings.option.window.close_button_hide")}}
@@ -881,6 +886,12 @@
             }
         },
         methods: {
+            windowBgStyleChange() {
+                this.$root.getNowPlayingArtworkBG(undefined, true)
+                if(this.$root.cfg.visual.window_background_style == "mica") {
+                    this.$root.spawnMica()
+                }
+            },
             reinstallWidevineCDM () {
                 bootbox.confirm("Are you sure you want to reinstall Widevine?", (ok)=>{
                     if(ok) {

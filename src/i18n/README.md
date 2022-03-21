@@ -194,3 +194,6 @@ Update 10/3/2022 14:00 UTC
 * `settings.header.window.description`: Added for `en_US`
 * `settings.option.window.openOnStartup`: Added for `en_US`
 * `settings.option.window.openOnStartup.hidden`: Added for `en_US`
+
+Update 20/3/2022 00:01 UTC
+* `term.creditDesignedBy`: Added for `en_US`

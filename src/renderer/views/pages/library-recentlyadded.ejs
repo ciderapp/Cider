@@ -44,9 +44,11 @@
             </div>
         </div>
         <div class="well">
-            <mediaitem-square v-if="library.albums.viewAs == 'covers'" :item="item"
-                              v-for="item in library.albums.displayListing">
-            </mediaitem-square>
+            <div class="albums-square-container"> 
+                <mediaitem-square v-if="library.albums.viewAs == 'covers'" :item="item"
+                                v-for="item in library.albums.displayListing">
+                </mediaitem-square>
+            </div>
             <mediaitem-list-item v-if="library.albums.viewAs == 'list'" :show-duration="false" :show-meta-data="true"
                                  :show-library-status="false" :item="item"
                                  v-for="item in library.albums.displayListing">

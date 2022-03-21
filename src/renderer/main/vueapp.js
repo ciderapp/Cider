@@ -2324,7 +2324,7 @@ const app = new Vue({
             try {
                 if (app.showingPlaylist.relationships.tracks.data.length === 0) return ""
                 const timeInSeconds = Math.round([].concat(...app.showingPlaylist.relationships.tracks.data).reduce((a, {attributes: {durationInMillis}}) => a + durationInMillis, 0) / 1000);
-                return `${app.showingPlaylist.relationships.tracks.data.length} ${app.getLz(`term.${app.showingPlaylist.relationships.tracks.data.length === 1 ? "track" : "tracks"}`)}, ${app.convertTime(timeInSeconds, 'long')}`
+                return `${app.showingPlaylist.relationships.tracks.data.length} ${app.getLz("term.track", {"count": app.showingPlaylist.relationships.tracks.data.length})}, ${app.convertTime(timeInSeconds, 'long')}`
             } catch (err) {
                 return ""
             }

@@ -231,7 +231,7 @@
   "settings.option.audio.enableAdvancedFunctionality": "進階功能",
   "settings.option.audio.enableAdvancedFunctionality.description": "啟用 AudioContext 將解鎖類似音量平衡和均衡器的進階功能。但是會在一些電腦造成音樂卡頓。",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider 數碼音訊增強處理™️",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "能夠欺騙你的大腦讓你感受到近似無損壓縮的音質 | 由 Maikiwi 設計",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "能夠欺騙你的大腦讓你感受到近似無損壓縮的音質。",
   "settings.warn.audio.enableAdvancedFunctionality.ciderPPE.compatibility": "音訊增強處理不兼容於空間音訊，請先停用空間音訊。",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "數碼音訊增強處理設定",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "將更改音訊處理的激進程度（激進型選項有可能會引起雜訊）",

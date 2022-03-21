@@ -134,24 +134,13 @@ export class utils {
             bw.win.webContents.send('update-response', "update-error")
             return;
         }
-        // Get the artifacts
-        const response = await fetch(`https://circleci.com/api/v1.1/project/gh/ciderapp/Cider/latest/artifacts?branch=${utils.getStoreValue('general.update_branch')}&filter=successful`)
-        if (response.status != 200) {
-            bw.win.webContents.send('update-response', 'update-timeout')
-            return;
-        }
-
-        // Get the urls
-        const jsonResponse = await response.json()
-        let base_url = jsonResponse[0].url
-        base_url = base_url.substring(0, base_url.lastIndexOf('/'))
-
         const options: any = {
-            provider: 'generic',
-            url: base_url,
+            provider: 'github',
+            protocol: 'https',
+            owner: 'ciderapp',
+            repo: 'cider-releases',
             allowDowngrade: true,
         }
-
         let autoUpdater: any = null
         if (process.platform === 'win32') { //Windows
             autoUpdater = await new NsisUpdater(options)

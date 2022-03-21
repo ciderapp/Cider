@@ -265,7 +265,7 @@
   "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.smooth": "Smooth",
   "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.warm": "Warm",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider Adrenaline Processor™️",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Pszichoakusztikus Módosítások amik minden hangot felerősítenek és ütősebbé tesznek | Készítette Maikiwi",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Pszichoakusztikus Módosítások amik minden hangot felerősítenek és ütősebbé tesznek",
   "settings.warn.audio.enableAdvancedFunctionality.ciderPPE.compatibility": "A CAP nem kompatibilis a Térbeli Hanggal. Kapcsold ki a Térbeli Hangot a folytatáshoz.",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "CAP Erősség",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Megváltoztatja a hangra végzett feldolgozás erősségét. (Az Agresszív mód nemkívánatos eredményeket hozhat!)",
