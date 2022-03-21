@@ -1,5 +1,5 @@
 <script type="text/x-template" id="castmenu">
-<div class="spatialproperties-panel castmenu modal-fullscreen" >
+<div class="spatialproperties-panel castmenu modal-fullscreen" @click.self="close()" @contextmenu.self="close()">
     <div class="modal-window">
         <div class="modal-header">
             <div class="modal-title">Cast To Devices</div>
