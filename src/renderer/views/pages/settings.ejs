@@ -132,15 +132,9 @@
                     </div>
                 </div>
                 <div class="md-option-line" v-show="app.cfg.advanced.AudioContext">
-                    <div class="md-option-segment">
+                    <div class="md-option-segment" style="white-space: pre-line;">
                         {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.audioNormalization')}}
-                        <br>
-                        <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.audioNormalization.description')}}</small>
-                    </div>
-                    <div>
-                        <span v-if="app.cfg.audio.equalizer.vibrantBass != 0 || app.cfg.audio.maikiwiAudio.spatial === true || app.cfg.audio.maikiwiAudio.ciderPPE === true">
-                            <small style="font-weight: bold;">{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.audioNormalization.disabled')}}</small>
-                        </span>
+                        <small>{{app.cfg.audio.equalizer.vibrantBass != 0 || app.cfg.audio.maikiwiAudio.spatial === true || app.cfg.audio.maikiwiAudio.ciderPPE === true ? `${$root.getLz('settings.option.audio.enableAdvancedFunctionality.audioNormalization.description')}\n${$root.getLz('settings.option.audio.enableAdvancedFunctionality.audioNormalization.disabled')}` : $root.getLz('settings.option.audio.enableAdvancedFunctionality.audioNormalization.description')}}</small>
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
                         <input type="checkbox" v-model="app.cfg.audio.normalization" v-on:change="toggleNormalization" :disabled="app.cfg.audio.equalizer.vibrantBass != 0 || app.cfg.audio.maikiwiAudio.spatial === true || app.cfg.audio.maikiwiAudio.ciderPPE === true" switch/>
