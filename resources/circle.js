@@ -40,7 +40,7 @@ package.publish = {
     "releaseType": "release"
 }
 
-
+let {exec} = require('child_process')
 exec('echo $APP_VERSION', {env: {'APP_VERSION': package.version}}, function (error, stdout, stderr)
 {
     console.log(stdout, stderr, error);
