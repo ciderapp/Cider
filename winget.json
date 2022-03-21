@@ -1,5 +1,5 @@
 {
-    "electronVersion": "16.0.07,
+    "electronVersion": "16.0.07",
     "electronDownload": {
         "version": "16.0.7+wvcus",
         "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
