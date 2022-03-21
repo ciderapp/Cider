@@ -26,6 +26,22 @@
                 </div>
                 <div class="md-option-line">
                     <div class="md-option-segment">
+                        {{$root.getLz('settings.option.window.openOnStartup')}}
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <input type="checkbox" v-model="app.cfg.general.onStartup.enabled" switch/>
+                    </div>
+                </div>
+                <div class="md-option-line" v-show="app.cfg.general.onStartup.enabled">
+                    <div class="md-option-segment">
+                        {{$root.getLz('settings.option.window.openOnStartup.hidden')}}
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <input type="checkbox" v-model="app.cfg.general.onStartup.hidden" switch/>
+                    </div>
+                </div>
+                <div class="md-option-line">
+                    <div class="md-option-segment">
                         {{$root.getLz('settings.option.general.resumebehavior')}}<br>
                         <small>
                             {{$root.getLz('settings.option.general.resumebehavior.description')}}<br>
@@ -257,22 +273,6 @@
                 <span>{{$root.getLz('settings.header.window')}}</span>
             </div>
             <div class="settings-option-body">
-                <div class="md-option-line">
-                    <div class="md-option-segment">
-                        {{$root.getLz('settings.option.window.openOnStartup')}}
-                    </div>
-                    <div class="md-option-segment md-option-segment_auto">
-                        <input type="checkbox" v-model="app.cfg.general.onStartup.enabled" switch/>
-                    </div>
-                </div>
-                <div class="md-option-line" v-show="app.cfg.general.onStartup.enabled">
-                    <div class="md-option-segment">
-                        {{$root.getLz('settings.option.window.openOnStartup.hidden')}}
-                    </div>
-                    <div class="md-option-segment md-option-segment_auto">
-                        <input type="checkbox" v-model="app.cfg.general.onStartup.hidden" switch/>
-                    </div>
-                </div>
                 <div class="md-option-line" v-show="app.platform !== 'darwin'">
                     <div class="md-option-segment">
                         {{$root.getLz("settings.option.window.close_button_hide")}}
