@@ -1,9 +1,7 @@
 <script type="text/x-template" id="audiolabs-page">
     <div class="content-inner settings-page">
-        <div class="md-option-container">  
-            <div class="md-option-header">
-                <span>{{$root.getLz('settings.option.audio.audioLab')}}</span>
-            </div>
+        <div class="md-option-container">
+            <b-jumbotron :header="{{$root.getLz('settings.option.audio.audioLab')}}" lead="Designed by Maikiwi"> </b-jumbotron>
             <div class="settings-option-body">       
                 <div class="md-option-line" v-show="!app.cfg.advanced.AudioContext">
                     <div class="md-option-segment">
