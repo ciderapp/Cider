@@ -288,39 +288,14 @@ const CiderAudio = {
             let WARMTH_Q = [0.442, 3.536, 2.102, 8.409, 0.625, 16.82, 5, 2.973, 3.536, 2.5, 2.5, 11.89, 0.625, 1.487, 1.153, 5, 5.453, 5, 2.973, 3.386, 3.386, 14.14, 8.409];
             CiderAudio.audioNodes.analogWarmth = []
             
-            switch (app.cfg.audio.maikiwiAudio.analogWarmth_value) {       
-                case "SMOOTH":
-                    for (let i = 0; i < WARMTH_FREQUENCIES.length; i++) {
-                        CiderAudio.audioNodes.analogWarmth[i] = CiderAudio.context.createBiquadFilter();
-                        CiderAudio.audioNodes.analogWarmth[i].type = 'peaking'; // 'peaking';
-                        CiderAudio.audioNodes.analogWarmth[i].frequency.value = WARMTH_FREQUENCIES[i];
-                        CiderAudio.audioNodes.analogWarmth[i].Q.value = WARMTH_Q[i];
-                        CiderAudio.audioNodes.analogWarmth[i].gain.value = WARMTH_GAIN[i] * 1.25; 
-                    }
-                    break;
-
-                case "WARM":
-                    for (let i = 0; i < WARMTH_FREQUENCIES.length; i++) {
-                        CiderAudio.audioNodes.analogWarmth[i] = CiderAudio.context.createBiquadFilter();
-                        CiderAudio.audioNodes.analogWarmth[i].type = 'peaking'; // 'peaking';
-                        CiderAudio.audioNodes.analogWarmth[i].frequency.value = WARMTH_FREQUENCIES[i];
-                        CiderAudio.audioNodes.analogWarmth[i].Q.value = WARMTH_Q[i];
-                        CiderAudio.audioNodes.analogWarmth[i].gain.value = WARMTH_GAIN[i] * 1.75; 
-                    }
-                    break;
-
-                default:
-                    for (let i = 0; i < WARMTH_FREQUENCIES.length; i++) {
-                        CiderAudio.audioNodes.analogWarmth[i] = CiderAudio.context.createBiquadFilter();
-                        CiderAudio.audioNodes.analogWarmth[i].type = 'peaking'; // 'peaking';
-                        CiderAudio.audioNodes.analogWarmth[i].frequency.value = WARMTH_FREQUENCIES[i];
-                        CiderAudio.audioNodes.analogWarmth[i].Q.value = WARMTH_Q[i];
-                        CiderAudio.audioNodes.analogWarmth[i].gain.value = WARMTH_GAIN[i] * 1.25; 
-                    }
-                    app.cfg.audio.maikiwiAudio.analogWarmth_value = "SMOOTH";
-                    break;
-            }
             
+            for (let i = 0; i < WARMTH_FREQUENCIES.length; i++) {
+                CiderAudio.audioNodes.analogWarmth[i] = CiderAudio.context.createBiquadFilter();
+                CiderAudio.audioNodes.analogWarmth[i].type = 'peaking'; // 'peaking';
+                CiderAudio.audioNodes.analogWarmth[i].frequency.value = WARMTH_FREQUENCIES[i];
+                CiderAudio.audioNodes.analogWarmth[i].Q.value = WARMTH_Q[i];
+                CiderAudio.audioNodes.analogWarmth[i].gain.value = WARMTH_GAIN[i] * app.cfg.audio.maikiwiAudio.analogWarmth_value; 
+            }
     
             for (let i = 1; i < WARMTH_FREQUENCIES.length; i ++) {
                 CiderAudio.audioNodes.analogWarmth[i-1].connect(CiderAudio.audioNodes.analogWarmth[i]);

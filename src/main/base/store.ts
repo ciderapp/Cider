@@ -57,7 +57,7 @@ export class Store {
                 "ciderPPE": false,
                 "ciderPPE_value": "NATURAL",
                 "analogWarmth": false,
-                "analogWarmth_value": "SMOOTH",
+                "analogWarmth_value": 1.25,
                 "spatial": false,
                 "spatialProfile": "420signature-B",
                 "vibrantBass": { // Hard coded into the app. Don't include any of this config into exporting presets in store.ts
