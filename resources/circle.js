@@ -49,6 +49,5 @@ fs.writeFile('package.json', JSON.stringify(package), err => {
     // error checking
     if(err) throw err;
     console.log(`VERSION CHANGED TO ${package.version}`);
-    process.exit()
 });
 
