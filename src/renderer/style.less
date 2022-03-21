@@ -142,8 +142,8 @@ body.notransparency::before {
 }
 
 #app {
-  --color1: rgba(30, 30, 30, 30%);
-  --color2: rgba(15, 15, 15, 30%);
+  --color1: rgba(15, 15, 15, 30%);
+  --color2: rgba(30, 30, 30, 50%);
   --bgColor: transparent;
   --bgWidth: 0px;
   --bgHeight: 0px;
@@ -799,25 +799,28 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
       opacity: 0.6;
     }
   }
+
 }
 
 .app-sidebar-item:hover {
-  border: 1px solid rgb(200 200 200 / 5%);
-  background: rgb(200 200 200 / 15%);
+  border: 1px solid rgb(200 200 200 / 0%);
+  background: rgb(180 180 180 / 15%);
+  // cursor: pointer;
 }
 
 .app-sidebar-item:active {
-  border: 1px solid rgb(200 200 200 / 5%);
-  background: rgb(200 200 200 / 15%);
-  transform: scale(0.98);
+  border: 1px solid rgb(200 200 200 / 0%);
+  background: rgb(150 150 150 / 15%);
+  // transform: scale(0.98);
   transition: transform 0s;
 }
 
 .app-sidebar-item.active {
-  border: 1px solid rgb(200 200 200 / 5%);
+  border: 1px solid rgb(200 200 200 / 0%);
   background: rgb(200 200 200 / 15%);
   transform: scale(1);
   transition: transform 0s;
+  cursor: default;
 }
 
 .app-sidebar-item.active::after {
@@ -830,6 +833,17 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   border-radius: 10px;
   left: 0px;
   background: var(--keyColor);
+  animation: expandIndicator .2s cubic-bezier(0.25, 1, 0.5, 1);
+
+  @keyframes expandIndicator {
+    0% {
+      transform: scaleY(0);
+    }
+
+    100% {
+      transform: scaleY(1);
+    }
+  }
 }
 
 .app-chrome {
