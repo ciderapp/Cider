@@ -1,17 +1,11 @@
 <script type="text/x-template" id="audiolabs-page">
     <div class="content-inner settings-page">
         <div class="md-option-container">
-            <div>
-                <b-jumbotron :header="$root.getLz('settings.option.audio.audioLab')" v-show="app.cfg.advanced.AudioContext === false">
-                    <div class="md-option-segment md-option-segment_auto">
-                        <b-row>
-                            <h1>Designed By Maikiwi</h1>
-                        </b-row>
-                    </div>
-                </b-jumbotron>
-            </div>
-            <b-jumbotron :header="" lead="Designed by Maikiwi"> </b-jumbotron>
+            
             <div class="settings-option-body">       
+                <div class="md-option-line">
+                    <b-jumbotron :header="$root.getLz('settings.option.audio.audioLab')" :lead="$root.getLz('term.creditDesignedBy').replace('${authorUsername}', 'Maikiwi')"></b-jumbotron>
+                </div>
                 <div class="md-option-line" v-show="app.cfg.advanced.AudioContext === false">
                     <div class="md-option-segment">
                         {{$root.getLz('settings.warn.audioLab.withoutAF')}}
