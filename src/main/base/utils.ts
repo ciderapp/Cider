@@ -134,14 +134,13 @@ export class utils {
             bw.win.webContents.send('update-response', "update-error")
             return;
         }
-
         const options: any = {
             provider: 'github',
             protocol: 'https',
-            releaseType: utils.getStoreValue('general.update_branch') === "develop" ? "prerelease" : "release",
+            owner: 'ciderapp',
+            repo: 'cider-releases',
             allowDowngrade: true,
         }
-
         let autoUpdater: any = null
         if (process.platform === 'win32') { //Windows
             autoUpdater = await new NsisUpdater(options)

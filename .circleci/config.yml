@@ -41,8 +41,8 @@ jobs:
             sudo apt-get install -y wine32
             sudo apt install -y gh
       - run:
-          name: Append Commit BuildID to Version
-          command: yarn circle:append-bid
+          name: Fix Versioning and Add Channel
+          command: yarn circle:script
       - run:
           name: TypeScript Compile
           command: yarn build
@@ -72,12 +72,8 @@ jobs:
               mv ~/Cider/dist/*.yml ~/Cider/dist/artifacts
               mv ~/Cider/dist/*.blockmap ~/Cider/dist/artifacts
       - store_artifacts:
-          path: ~/Cider/dist/artifacts
-      - run:
-          name : Delete Old Release Tag
-          command: |
-              gh release delete "${CIRCLE_BRANCH}-build" -y || true    
+          path: ~/Cider/dist/artifacts 
       - run:
           name: Publish Release
           command: |
-              gh release create "${CIRCLE_BRANCH}-build" --prerelease --target ${CIRCLE_SHA1} --title "Cider Nightly Version ${APP_VERSION} - Build ${CIRCLE_BUILD_NUM} (${CIRCLE_BRANCH})" --generate-notes -R ciderapp/Cider ~/Cider/dist/artifacts/*.deb ~/Cider/dist/artifacts/*.AppImage ~/Cider/dist/artifacts/*.snap ~/Cider/dist/artifacts/*.exe ~/Cider/dist/artifacts/*.yml ~/Cider/dist/artifacts/*.blockmap
+              gh release create "v${APP_VERSION}" --target ${CIRCLE_SHA1} --title "Cider Version ${APP_VERSION} - Build ${CIRCLE_BUILD_NUM} (${CIRCLE_BRANCH})" --generate-notes -R ciderapp/cider-releases ~/Cider/dist/artifacts/*.deb ~/Cider/dist/artifacts/*.AppImage ~/Cider/dist/artifacts/*.snap ~/Cider/dist/artifacts/*.exe ~/Cider/dist/artifacts/*.yml ~/Cider/dist/artifacts/*.blockmap

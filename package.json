@@ -32,7 +32,7 @@
     "winget": "yarn build && electron-builder --win -c winget.json",
     "msft": "yarn build && electron-builder -c msft-package.json",
     "postinstall": "electron-builder install-app-deps",
-    "circle:append-bid": "node resources/appendCommitToVersion"
+    "circle:script": "node resources/circle"
   },
   "dependencies": {
     "@sentry/electron": "^3.0.2",
