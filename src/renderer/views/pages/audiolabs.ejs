@@ -220,6 +220,7 @@
                 } else {
                     this.$root.cfg.audio.maikiwiAudio.spatialProfile = this.spprofiles[0].id;
                 }
+                this.toggleMaikiwiSpatial()
             },
             profilePrev() {
                 // select the previous profile based on $root.cfg.audio.maikiwiAudio.spatialProfile
@@ -236,6 +237,7 @@
                 } else {
                     this.$root.cfg.audio.maikiwiAudio.spatialProfile = this.spprofiles[this.spprofiles.length - 1].id;
                 }
+                this.toggleMaikiwiSpatial()
             },
             toggleSpatial: function () {
                 if (app.cfg.audio.spatial) {
