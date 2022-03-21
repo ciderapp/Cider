@@ -120,8 +120,9 @@
                         <button class="spprev" @click="profilePrev"></button>
                         <button class="nextprev" @click="profileNext"></button>
                         <template v-for="profile in spprofiles" v-if="$root.cfg.audio.maikiwiAudio.spatialProfile == profile.id">
-                            <transition name="wpfade">
+                            <transition name="spfade">
                                 <div class="spslide" :key="profile.id">
+                                    <img v-if="profile.img" loading="eager" decoding="async" :src="profile.img" alt="">
                                     <h1 class="sptitle">{{ profile.name }}</h1>
                                 </div>
                             </transition>

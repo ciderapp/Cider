@@ -71,24 +71,28 @@ const CiderAudio = {
             "file": './audio/impulses/CiderSpatial_v69.420_Audiophile.wav',
             "name": "Signature (Classic)",
             "description": "",
+            "img": "./assets/audiolabs/classic.png",
         },
         {
             "id": "420signature-B",
             "file": './audio/impulses/CiderSpatial_v69.420_Audiophile_B.wav',
             "name": "Signature (Focused)",
             "description": "",
+            "img": "./assets/audiolabs/focused.png",
         },
         {
             "id": "standard",
             "file": './audio/impulses/CiderSpatial_v69_Standard.wav',
             "name": "Minimal",
             "description": "",
+            "img": "./assets/audiolabs/minimal.png",
         },
         {
             "id": "audiophile",
             "file": './audio/impulses/CiderSpatial_v69_Audiophile.wav',
             "name": "Expansive",
             "description": "",
+            "img": "./assets/audiolabs/expansive.png",
         }
     ],
     spatialOn: function () {
