@@ -841,6 +841,87 @@
   }
 }
 
+// AudioLabs page
+.audiolabs-page {
+  padding: 0px;
+
+  .md-option-header {
+    padding      : 1.25em 1.25em;
+    border-bottom: unset;
+    border-top   : unset;
+    font-weight  : 600;
+    font-size    : 1.0em;
+    background   : rgb(255 255 255 / 3%);
+  }
+
+  .carousel-item>img {
+    object-fit: cover;
+    width:100%;
+  }
+
+  .spprofile-line {
+    height: 300px;
+    width: 100%;
+    padding: 16px;
+
+    .spprofile-viewport {
+      height: 100%;
+      position: relative;
+      border-radius: var(--mediaItemRadius);
+      overflow: hidden;
+      box-shadow: var(--mediaItemShadow-Shadow);
+      background: black;
+
+      .spprev, .nextprev {
+        position: absolute;
+        height: 100%;
+        width: 64px;
+        top: 0;
+        background: #eee;
+        z-index: 1;
+        border: 0px;
+        -webkit-mask-position: center;
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-size: 1em;
+
+      }
+
+      .spprev {
+        left: 0;
+        -webkit-mask-image: url("./views/svg/chevron-left.svg");
+
+      }
+
+      .nextprev {
+        right: 0;
+        -webkit-mask-image: url("./views/svg/chevron-right.svg");
+
+      }
+
+      .spslide {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: black;
+
+        .sptitle {
+          position: absolute;
+          bottom: 32px;
+          left: 0;
+          width:100%;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .settings-option-body {
+    margin: 16px;
+  }
+}
+
+
 //Home
 .home-page {
   top        : 0;
