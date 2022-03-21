@@ -1,4 +1,9 @@
 async function spawnMica() {
+    if(typeof window.micaSpawned !== "undefined") {
+        return
+    }else{
+        window.micaSpawned = true
+    }
     const micaDiv = document.createElement('div');
     const blurIterations = 6
     micaDiv.id = 'micaEffect';

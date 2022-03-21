@@ -164,7 +164,7 @@
                         {{$root.getLz('settings.option.visual.windowBackgroundStyle')}}
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <select class="md-select" @change="$root.getNowPlayingArtworkBG(undefined, true)"
+                        <select class="md-select" @change="windowBgStyleChange"
                                 v-model="app.cfg.visual.window_background_style">
                             <option value="none">{{$root.getLz('settings.header.visual.windowBackgroundStyle.none')}}
                             </option>
@@ -881,6 +881,12 @@
             }
         },
         methods: {
+            windowBgStyleChange() {
+                this.$root.getNowPlayingArtworkBG(undefined, true)
+                if(this.$root.cfg.visual.window_background_style == "mica") {
+                    this.$root.spawnMica()
+                }
+            },
             reinstallWidevineCDM () {
                 bootbox.confirm("Are you sure you want to reinstall Widevine?", (ok)=>{
                     if(ok) {
