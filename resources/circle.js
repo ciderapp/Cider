@@ -11,7 +11,6 @@ let fs = require('fs')
 var data = fs.readFileSync('package.json');
 var package = JSON.parse(data);
 
-pvers = package.version.match(/\d+\./g)
 
 
 let channel;
@@ -28,7 +27,8 @@ if (process.env['CIRCLE_BRANCH'] === 'lts') {
 
 
 // https://circleci.com/docs/2.0/env-vars/#built-in-environment-variables
-package.version = `${pvers[0]}${pvers[1]}${pvers[2]}-${channel}.${process.env['CIRCLE_BUILD_NUM']}`
+var pvers = package.version.split('.')
+package.version = `${pvers[0]}.${pvers[1]}.${pvers[2]}-${channel}.${process.env['CIRCLE_BUILD_NUM']}`
 package.build.channel = channel
 package.publish = {
     "provider": "github",
