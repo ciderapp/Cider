@@ -58,9 +58,9 @@ const CiderAudio = {
         } catch (e) {}
         CiderAudio.source.connect(CiderAudio.context.destination);} catch(e){}
     },
-    connectContext: function (mediaElem){
-        if (!CiderAudio.context){
-        CiderAudio.context = new (window.AudioContext || window.webkitAudioContext);
+    connectContext: function (mediaElem) {
+        if (!CiderAudio.context) {
+            CiderAudio.context = new window.AudioContext({sampleRate: 96000}); // Don't ever remove the sample rate arg. Ask Maikiwi.
         }
         if (!CiderAudio.source){
         CiderAudio.source = CiderAudio.context.createMediaElementSource(mediaElem);
