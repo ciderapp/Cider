@@ -1555,7 +1555,8 @@ const app = new Vue({
                 if (kind.includes("album")) {
                     params["include[albums]"] = "artists"
                     params["fields[artists]"] = "name,url"
-                    params["fields[albums]"] = "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialVideo,name,playParams,releaseDate,url,copyright"
+                    params["omit[resource]"] = "autos"
+                    params["fields[albums]"] = "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialNotes,editorialVideo,name,playParams,releaseDate,url,copyright"
                 }
 
                 if (this.cfg.advanced.experiments.includes('inline-playlists')) {
