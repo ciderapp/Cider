@@ -992,10 +992,27 @@ export class BrowserWindow {
                 return Math.max(-32768, Math.min(32768, v)); // clamp
             }
 
+            function bitratechange(e: any){
+                var t = e.length;
+                let sampleRate = 96.0;
+                let outputSampleRate = 48.0;
+                var s = 0,
+                o = sampleRate / outputSampleRate,
+                u = Math.ceil(t * outputSampleRate / sampleRate),
+                a = new Int16Array(u);
+                for (let i = 0; i < u; i++) {
+                  a[i] = e[Math.floor(s)];
+                  s += o;
+                }
+          
+                return a;
+             }
+
             let newaudio = quantization(leftpcm, rightpcm);
             //let newaudio = [leftpcm, rightpcm];
             // console.log(newaudio.length);
-            let pcmData = Buffer.from(new Int8Array(interleave16(Int16Array.from(newaudio[0], x => convert(x)), Int16Array.from(newaudio[1], x => convert(x))).buffer));
+
+            let pcmData = Buffer.from(new Int8Array(interleave16(bitratechange(Int16Array.from(newaudio[0], x => convert(x))), bitratechange(Int16Array.from(newaudio[1], x => convert(x)))).buffer));
 
             if (!this.headerSent) {
                 console.log('new header')
