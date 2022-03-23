@@ -74,7 +74,7 @@
                         <select class="md-select" style="width:180px;" v-model="app.cfg.audio.quality"
                                 v-on:change="changeAudioQuality">
                             <!-- // <option value="">{{$root.getLz('settings.header.audio.quality.hireslossless')}}</option> -->
-                            <!-- <option value="">{{$root.getLz('settings.header.audio.quality.lossless')}}</option> -->
+                            <option value="LOSSLESS">{{$root.getLz('settings.header.audio.quality.lossless')}}</option>
                             <option value="HIGH">{{$root.getLz('settings.header.audio.quality.high')}} ({{$root.getLz('settings.header.audio.quality.high.description')}})</option>
                             <option value="STANDARD">{{$root.getLz('settings.header.audio.quality.standard')}} ({{$root.getLz('settings.header.audio.quality.standard.description')}})</option>
                         </select>
@@ -521,10 +521,7 @@
                             <option value='sk'>Slovak</option>
                             <option value='sl'>Slovenian</option>
                             <option value='so'>Somali</option>
-                            <option value='d2'>Sorbian, lower</option>
-                            <option value='h2'>Sorbian, upper</option>
-                            <option value='st'>Sotho, southern</option>
-                            <option value='a4'>South azerbaijani</option>
+                            <option value='d2'>Sorbian, lower</option>pp.cfg.audio.quality
                             <option value='es'>Spanish</option>
                             <option value='su'>Sundanese</option>
                             <option value='sw'>Swahili</option>
@@ -965,7 +962,13 @@
             },
             changeAudioQuality: function () {
                 1
-                app.mk.bitrate = MusicKit.PlaybackBitrate[app.cfg.audio.quality];
+                if(app.cfg.audio.quality == "LOSSLESS") {
+                    app.mk.bitrate = MusicKit.PlaybackBitrate['HIGH'];
+                    app.cfg.audio.maikiwiAudio.ciderPPE = true;
+                    CiderAudio.hierarchical_loading();
+                }
+                else
+                    app.mk.bitrate = MusicKit.PlaybackBitrate[app.cfg.audio.quality];
             },
             toggleUserInfo: function () {
                 app.chrome.hideUserInfo = !app.cfg.visual.showuserinfo

@@ -23,7 +23,7 @@
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
                         <input type="checkbox" v-model="app.cfg.audio.maikiwiAudio.ciderPPE"
-                               v-on:change="CiderAudio.hierarchical_loading();" switch/>
+                        :disabled="app.cfg.audio.quality === 'LOSSLESS'" v-on:change="CiderAudio.hierarchical_loading();" switch/>
                     </div>
                 </div>
                 <div class="md-option-line" v-show="app.cfg.audio.maikiwiAudio.ciderPPE === true">
