@@ -605,7 +605,7 @@ const app = new Vue({
                 // Set profile name
                 this.chrome.userinfo = (await app.mk.api.v3.music(`/v1/me/social-profile`)).data.data[0]
                 // check if this.chrome.userinfo.attributes.artwork exists
-                if (this.chrome.userinfo.attributes.artwork) {
+                if (this.chrome.userinfo.attributes.artwork && !this.chrome.hideUserInfo) {
                     document.documentElement.style
                         .setProperty('--cvar-userprofileimg', `url("${this.getMediaItemArtwork(this.chrome.userinfo.attributes.artwork.url)}")`);
                 }
