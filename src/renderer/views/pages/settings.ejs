@@ -73,7 +73,7 @@
                     <div class="md-option-segment md-option-segment_auto">
                         <select class="md-select" style="width:180px;" v-model="app.cfg.audio.quality"
                                 v-on:change="changeAudioQuality">
-                            <!-- // <option value="">{{$root.getLz('settings.header.audio.quality.hireslossless')}}</option> -->
+                            <!-- <option value="">{{$root.getLz('settings.header.audio.quality.hireslossless')}}</option> -->
                             <!-- <option value="">{{$root.getLz('settings.header.audio.quality.lossless')}}</option> -->
                             <option value="HIGH">{{$root.getLz('settings.header.audio.quality.high')}} ({{$root.getLz('settings.header.audio.quality.high.description')}})</option>
                             <option value="STANDARD">{{$root.getLz('settings.header.audio.quality.standard')}} ({{$root.getLz('settings.header.audio.quality.standard.description')}})</option>
@@ -183,11 +183,9 @@
                                 v-model="app.cfg.visual.window_background_style">
                             <option value="none">{{$root.getLz('settings.header.visual.windowBackgroundStyle.none')}}
                             </option>
-                            <option value="artwork">
-                                {{$root.getLz('settings.header.visual.windowBackgroundStyle.artwork')}}
+                            <option value="artwork">{{$root.getLz('settings.header.visual.windowBackgroundStyle.artwork')}}
                             </option>
-                            <option value="image">
-                                {{$root.getLz('settings.header.visual.windowBackgroundStyle.image')}}
+                            <option value="image">{{$root.getLz('settings.header.visual.windowBackgroundStyle.image')}}
                             </option>
                             <option value="mica">
                                 Mica (Beta)
@@ -223,8 +221,7 @@
                             </option>
                             <option value="2">{{$root.getLz('settings.header.visual.animatedArtworkQuality.high')}}
                             </option>
-                            <option value="3">
-                                {{$root.getLz('settings.header.visual.animatedArtworkQuality.veryHigh')}}
+                            <option value="3">{{$root.getLz('settings.header.visual.animatedArtworkQuality.veryHigh')}}
                             </option>
                             <option value="4">{{$root.getLz('settings.header.visual.animatedArtworkQuality.extreme')}}
                             </option>
@@ -713,10 +710,10 @@
 
                 <div class="md-option-line">
                     <div class="md-option-segment">
-                        Reinstall WidevineCDM
+                        {{$root.getLz('settings.option.experimental.reinstallwidevine')}}
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <button class="md-btn" @click="reinstallWidevineCDM">Reinstall WidevineCDM</button>
+                        <button class="md-btn" @click="reinstallWidevineCDM">{{$root.getLz('settings.option.experimental.reinstallwidevine')}}</button>
                     </div>
                 </div>
 
@@ -887,7 +884,7 @@
                 }
             },
             reinstallWidevineCDM () {
-                bootbox.confirm("Are you sure you want to reinstall Widevine?", (ok)=>{
+                bootbox.confirm(app.getLz("settings.option.experimental.reinstallwidevine.confirm"), (ok)=>{
                     if(ok) {
                         ipcRenderer.invoke("reinstall-widevine-cdm");
                     }
@@ -930,7 +927,7 @@
             toggleAudioContext: function () {
                 if (app.cfg.advanced.AudioContext === true) {
                     if (navigator.hardwareConcurrency < 6) {
-                        bootbox.confirm("Cider detects less than 6 logical processors, turning this on will most certainly lag. Are you sure you want to continue?", function (result) {
+                        bootbox.confirm(app.getLz("settings.warn.audio.enableAdvancedFunctionality.lowcores"), function (result) {
                         if (result) {
                             CiderAudio.init();
                             if (app.cfg.audio.normalization === true) {

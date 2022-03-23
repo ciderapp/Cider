@@ -132,8 +132,8 @@
   "term.reset": "Reset",
   "term.tracks": "tracks",
   "term.track": {
-    "one" : "track",
-    "other" : "tracks"
+    "one": "track",
+    "other": "tracks"
   },
   "term.videos": "Videos",
   "term.menu": "Menu",
@@ -284,6 +284,7 @@
   "settings.option.audio.seamlessTransition": "Seamless Audio Transition",
   "settings.option.audio.enableAdvancedFunctionality": "Enable Advanced Functionality",
   "settings.option.audio.enableAdvancedFunctionality.description": "Enabling AudioContext functionality will allow for extended audio features like Audio Normalization, Equalizers and Visualizers - however on some systems this may cause stuttering in audio tracks.",
+  "settings.warn.audio.enableAdvancedFunctionality.lowcores": "Cider thinks your PC cant handle these features. Are you sure you want to continue?",
   "settings.option.audio.audioLab": "Cider Audio Lab",
   "settings.option.audio.audioLab.description": "An assortment of in-house developed audio effects for Cider.",
   "settings.warn.audioLab.withoutAF": "AudioContext (Advanced Functionality) is required to enable Cider Audio Laboratory.",
@@ -380,6 +381,8 @@
   "settings.option.debug.openAppData": "Open Cider Folder",
   "settings.header.experimental": "Experimental",
   "settings.header.experimental.description": "Adjust the experimental settings for Cider.",
+  "settings.option.experimental.reinstallwidevine": "Reinstall WidevineCDM",
+  "settings.option.experimental.reinstallwidevine.confirm": "Are you sure you want to reinstall Widevine?",
   "settings.option.experimental.unknownPlugin": "Unknown Sources",
   "settings.option.experimental.unknownPlugin.description": "Allow installation of plugins from repos other than the Cider Plugin Repository",
   "settings.option.experimental.compactUI": "Compact UI",
