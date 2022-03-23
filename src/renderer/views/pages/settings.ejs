@@ -964,11 +964,20 @@
                 1
                 if(app.cfg.audio.quality == "LOSSLESS") {
                     app.mk.bitrate = MusicKit.PlaybackBitrate['HIGH'];
+                    app.cfg.losslessp = app.cfg.audio.maikiwiAudio.ciderPPE;
+                    app.cfg.lossless = true;
                     app.cfg.audio.maikiwiAudio.ciderPPE = true;
                     CiderAudio.hierarchical_loading();
                 }
-                else
+                else {
+                    if(app.cfg.lossless == true)
+                    {
+                        app.cfg.audio.maikiwiAudio.ciderPPE = app.cfg.losslessp;
+                        app.cfg.lossless = false;
+                        CiderAudio.hierarchical_loading();
+                    }
                     app.mk.bitrate = MusicKit.PlaybackBitrate[app.cfg.audio.quality];
+                }
             },
             toggleUserInfo: function () {
                 app.chrome.hideUserInfo = !app.cfg.visual.showuserinfo
