@@ -414,5 +414,15 @@
   "settings.header.unfinished": "Unfinyished",
   "remote.web.title": "Cidew Wemote",
   "remote.web.description": "Scan the QW code to paiw youw phonye up with this Cidew instance",
+  "share.platform.twitter.tweet": "Wisten to {{song}} on Appwe Music.\n\n{{song}}\n\n#AppweMusic #Cidew",
+  "share.platform.twitter": "Twittew",
+  "share.platform.facebook": "Facebook",
+  "share.platform.reddit": "Weddit",
+  "share.platform.telegram": "Tewegwam",
+  "share.platform.whatsapp": "WhatsApp",
+  "share.platform.messenger": "Messengew",
+  "share.platform.email": "Emaiw",
+  "share.platform.songLink": "Copy with song.wink",
+  "share.platform.clipboard": "Copy Wink",
   "about.thanks": "Majow thanks to the Cidew Cowwective Team and aww of ouw contwibutows."
 }
