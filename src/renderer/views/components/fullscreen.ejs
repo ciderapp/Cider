@@ -3,9 +3,9 @@
         <div class="background">
             <div class="bgArtworkMaterial">
                 <div class="bg-artwork-container">
-                    <img v-if="(app.cfg.visual.bg_artwork_rotation && app.animateBackground)" class="bg-artwork a" :src="image.replace('600x600','30x30') ?? ''">
-                    <img v-if="(app.cfg.visual.bg_artwork_rotation && app.animateBackground)" class="bg-artwork b" :src="image.replace('600x600','30x30') ?? ''">
-                    <img v-if="!(app.cfg.visual.bg_artwork_rotation && app.animateBackground)" class="bg-artwork no-animation" :src="image.replace('600x600','30x30') ?? ''">
+                    <img v-if="(app.cfg.visual.bg_artwork_rotation && app.animateBackground)" class="bg-artwork a" :src="(image ?? '').replace('{w}','30').replace('{h}','30')">
+                    <img v-if="(app.cfg.visual.bg_artwork_rotation && app.animateBackground)" class="bg-artwork b" :src="(image ?? '').replace('{w}','30').replace('{h}','30')">
+                    <img v-if="!(app.cfg.visual.bg_artwork_rotation && app.animateBackground)" class="bg-artwork no-animation" :src="(image ?? '').replace('{w}','30').replace('{h}','30')">
                 </div>
             </div>
         </div>
@@ -14,7 +14,7 @@
                 <div class="artwork"  @click="app.fullscreen(false)">
                     <mediaitem-artwork
                             :size="600"
-                            :url="image ?? ''"
+                            :url="(image ?? '').replace('{w}','600').replace('{h}','600') "
                     ></mediaitem-artwork>
                 </div>
                 <div class="controls-parents">
@@ -66,7 +66,7 @@
                             <button class="playback-button play" @click="app.mk.play()" v-else></button>
                         </div>
                         <div class="app-chrome-item">
-                            <button class="playback-button next" @click="app.mk.skipToNextItem()"></button>
+                            <button class="playback-button next" @click="app.skipToNextItem()"></button>
                         </div>
                         <div class="app-chrome-item">
                             <button class="playback-button--small repeat" v-if="app.mk.repeatMode == 0"
@@ -80,8 +80,9 @@
                     <div class="app-chrome-item volume display--large">
                         <div class="input-container">
                         <button class="volume-button--small volume" @click="app.muteButtonPressed()" :class="{'active': app.cfg.audio.volume == 0}"></button>
-                        <input type="range" class="slider" @wheel="app.volumeWheel" step="0.01" min="0" :max="$root.cfg.audio.maxVolume" v-model="app.mk.volume"
-                               v-if="typeof app.mk.volume != 'undefined'" @change="app.checkMuteChange()">
+                        <input type="range" class="slider" @wheel="app.volumeWheel" :step="app.cfg.audio.volumeStep" min="0" :max="app.cfg.audio.maxVolume" v-model="app.mk.volume"
+                               v-if="typeof app.mk.volume != 'undefined'" @change="app.checkMuteChange()"
+                               v-b-tooltip.hover :title="`${(Math.log10(app.mk.volume) * 20).toFixed(2)} dB`">
                         </div>       
                     </div>
                     </div>

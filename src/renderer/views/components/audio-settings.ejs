@@ -13,9 +13,19 @@
                         <div class="name">{{app.getLz('term.equalizer')}}</div>
                     </button>
                     <button class="playlist-item"
-                            @click="openSpacialAudio()" style="width:100%;">
+                            @click="openSpatialAudio()" style="width:100%;">
                         <div class="icon"><%- include("../svg/speaker.svg") %></div>
                         <div class="name">{{app.getLz('settings.option.audio.enableAdvancedFunctionality.audioSpatialization')}}</div>
+                    </button>
+                    <button class="playlist-item"
+                            @click="openAudioControls" style="width:100%;">
+                        <div class="icon"><%- include("../svg/speaker.svg") %></div>
+                        <div class="name">{{app.getLz('term.audioControls')}}</div>
+                    </button>
+                    <button class="playlist-item"
+                            @click="$root.appRoute('audiolabs')" style="width:100%;">
+                        <div class="icon"><%- include("../svg/speaker.svg") %></div>
+                        <div class="name">{{app.getLz('settings.option.audio.audioLab')}}</div>
                     </button>
                 </div>
             </div>
@@ -38,14 +48,19 @@
                 app.modals.equalizer = true
                 app.modals.audioSettings = false
             },
-            openSpacialAudio() {
-                if(app.cfg.audio.spatial) {
+            openSpatialAudio() {
+                if(app.cfg.audio.spatial === true && app.cfg.audio.maikiwiAudio.spatial === false) {
                     app.modals.spatialProperties = true
                     app.modals.audioSettings = false
                 } else {
                     notyf.error(app.getLz('spatial.notTurnedOn'))
                 }
             },
+            openAudioControls() {
+	            app.modals.audioControls = true
+	            app.modals.audioSettings = false
+            },
+            },
         }
-    });
+    );
 </script>

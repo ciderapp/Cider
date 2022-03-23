@@ -2,60 +2,107 @@
 <html lang="en">
 
 <head>
-    <link rel="preconnect" href="https://amp-api.music.apple.com/" crossorigin/>
-    <link rel="preconnect" href="https://api.music.apple.com/" crossorigin/>
-    <link rel="preconnect" href="https://is1-ssl.mzstatic.com/" crossorigin/>
-    <link rel="preconnect" href="https://is2-ssl.mzstatic.com/" crossorigin/>
-    <link rel="preconnect" href="https://is3-ssl.mzstatic.com/" crossorigin/>
-    <link rel="preconnect" href="https://is4-ssl.mzstatic.com/" crossorigin/>
-    <link rel="preconnect" href="https://is5-ssl.mzstatic.com/" crossorigin/>
-    <link rel="preconnect" href="https://play.itunes.apple.com/" crossorigin/>
-    <link rel="preconnect" href="https://aod-ssl.itunes.apple.com/" crossorigin/>
+    <link rel="preconnect" href="https://amp-api.music.apple.com/" crossorigin />
+    <link rel="preconnect" href="https://api.music.apple.com/" crossorigin />
+    <link rel="preconnect" href="https://is1-ssl.mzstatic.com/" crossorigin />
+    <link rel="preconnect" href="https://is2-ssl.mzstatic.com/" crossorigin />
+    <link rel="preconnect" href="https://is3-ssl.mzstatic.com/" crossorigin />
+    <link rel="preconnect" href="https://is4-ssl.mzstatic.com/" crossorigin />
+    <link rel="preconnect" href="https://is5-ssl.mzstatic.com/" crossorigin />
+    <link rel="preconnect" href="https://play.itunes.apple.com/" crossorigin />
+    <link rel="preconnect" href="https://aod-ssl.itunes.apple.com/" crossorigin />
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Cider</title>
-    <link rel="stylesheet/less" type="text/css" href="style.less"/>
-    <link rel="stylesheet/less" type="text/css" id="userTheme" href="themes/default.less"/>
-    <script src="./js/less.js"></script>
-    <script src="<%- (env.dev ? "./js/vue.js" : "./js/vue.dev.js") %>"></script>
-    <script src="./js/vuex.min.js"></script>
-    <script src="./js/sortable.min.js"></script>
-    <script src="./js/vue-observe-visibility.min.js"></script>
-    <script src="./js/vuedraggable.umd.min.js"></script>
+    <link rel="stylesheet/less" type="text/css" href="style.less" />
+    <link rel="stylesheet/less" type="text/css" id="userTheme" href="themes/default.less" />
+    <script src="./lib/less.js"></script>
+    <script src="<%- (env.dev ? " ./lib/vue.js" : "./lib/vue.dev.js" ) %>"></script>
+    <script src="./lib/vue-horizontal.js"></script>
+    <script src="./lib/smoothscroll.js"></script>
+    <script src="./lib/vuex.min.js"></script>
+    <script src="./lib/sortable.min.js"></script>
+    <script src="./lib/vue-observe-visibility.min.js"></script>
+    <script src="./lib/vuedraggable.umd.min.js"></script>
     <link rel="manifest" href="./manifest.json?v=2">
     <script src="https://js-cdn.music.apple.com/hls.js/2.141.0/hls.js/hls.js"></script>
     <script src="hlscider.js"></script>
-    <script src="./js/jquery-3.2.1.slim.min.js"></script>
-    <script src="./js/popper.min.js"></script>
-    <script src="./js/bootstrap.min.js"></script>
-    <script src="./js/bootbox.min.js"></script>
-    <script src="./js/notyf.min.js"></script>
+    <script src="./lib/jquery-3.2.1.slim.min.js"></script>
+    <script src="./lib/popper.min.js"></script>
+    <script src="./lib/bootstrap-vue.min.js"></script>
+    <script src="./lib/bootstrap.min.js"></script>
+    <script src="./lib/bootbox.min.js"></script>
+    <script src="./lib/notyf.min.js"></script>
+    <script src="./lib/showdown.min.js"></script>
+    <script src="./lib/velocity.min.js"></script>
+    <script src="./lib/fast-plural-rules.js"></script>
+    <script src="./lib/resonance-audio.min.js"></script>
+    <script src="./lib/stackblur.min.js"></script>
+    <script type="module" src="./main/app.js"></script>
+
+    <style>
+        #LOADER {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #1E1E1E;
+            z-index: 99999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #LOADER>svg {
+            width: 128px;
+        }
+    </style>
 </head>
 
 <body oncontextmenu="return false;" loading="1" platform="<%= env.platform %>">
-<div id="app" :class="getAppClasses()">
-    <transition name="fsModeSwitch">
-        <div id="app-main" v-show="appMode == 'player'">
-            <%- include('app/chrome-top'); %>
-            <%- include('app/app-navigation'); %>
-        </div>
-    </transition>
-    <%- include('app/panels'); %>
-</div>
+    <div id="LOADER">
+        <%- include("../assets/cider-round.svg") %>
+    </div>
+    <div id="app" :class="getAppClasses()">
+        <transition name="fsModeSwitch">
+            <div id="app-main" v-show="appMode == 'player'">
+                <%- include('app/chrome-top'); %>
+                    <%- include('app/app-navigation'); %>
+                        <%- include('app/chrome-bottom'); %>
+            </div>
+        </transition>
+        <transition name="fsModeSwitch">
+            <div class="fullscreen-view-container" v-if="appMode == 'fullscreen'">
+                <fullscreen-view :image="currentArtUrlRaw" :time="lyriccurrenttime" :lyrics="lyrics"
+                    :richlyrics="richlyrics"></fullscreen-view>
+            </div>
+        </transition>
+        <transition name="fsModeSwitch">
+            <div class="fullscreen-view-container" v-if="appMode == 'mini'">
+                <mini-view :image="currentArtUrlRaw" :time="lyriccurrenttime" :lyrics="lyrics" :richlyrics="richlyrics">
+                </mini-view>
+            </div>
+        </transition>
+        <%- include('app/panels'); %>
+            <div class="cursor" v-if="chrome.showCursor"></div>
+    </div>
 
-<% for(var i=0; i < Object.keys(env.components).length ; i++) {%>
-    <%- include(env.components[i]); %>
-<% } %>
+    <% for(var i=0; i < Object.keys(env.components).length ; i++) {%>
+        <%- include(env.components[i]); %>
+            <% } %>
 
-<script type="text/x-template"
-        id="am-musiccovershelf">
+
+                <script async src="https://js-cdn.music.apple.com/musickit/v2/amp/musickit.js"></script>
+                <script src="index.js?v=1"></script>
+
+                <script type="text/x-template" id="am-musiccovershelf">
     <h1>{{ component.attributes.title.stringForDisplay }}</h1>
 </script>
 
-<!-- Sidebar Item -->
-<script type="text/x-template"
-        id="sidebar-library-item">
+                <!-- Sidebar Item -->
+                <script type="text/x-template" id="sidebar-library-item">
     <button class="app-sidebar-item"
             :class="$parent.getSidebarItemClass(page)" @click="$root.appRoute(page)">
         <div class="sidebar-icon" v-html="svgIconData" v-if="svgIconData != ''"></div>
@@ -63,21 +110,6 @@
     </button>
 </script>
 
-<script
-        src="musickit.js?v=1"></script>
-<script>
-    if (typeof MusicKit == 'undefined') {
-        document.write(unescape("%3Cscript src='https://js-cdn.music.apple.com/musickit/v2/amp/musickit.js' type='text/javascript'%3E%3C/script%3E"));
-    }
-</script>
-<script
-        src="index.js?v=1"></script>
-<script
-        src="https://cdn.jsdelivr.net/npm/resonance-audio/build/resonance-audio.min.js"></script>
-<script
-        src="/audio/audio.js?v=1"></script>
-<script
-        src="./js/WSAPI_Interop.js"></script>
 </body>
 
 </html>

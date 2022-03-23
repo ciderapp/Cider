@@ -1,6 +1,6 @@
 require('v8-compile-cache');
 
-import {app, components, ipcMain} from 'electron';
+const {app, components, ipcMain} = require('electron');
 import {join} from 'path';
 
 if (!app.isPackaged) {
@@ -45,10 +45,17 @@ app.on('ready', () => {
         const bw = new BrowserWindow()
         const win = await bw.createWindow()
 
+        app.getGPUInfo("complete").then(gpuInfo => {
+            console.log(gpuInfo)
+        })
+
+        console.log('[Cider][Widevine] Status:', components.status());
+        win.show();
+        
         win.on("ready-to-show", () => {
             Cider.bwCreated();
+            console.debug('[Cider] Window is Ready.')
             CiderPlug.callPlugins('onReady', win);
-            win.show();
         });
     });
 
@@ -58,6 +65,10 @@ app.on('ready', () => {
  * Renderer Event Handlers
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
+ipcMain.handle("renderer-ready", (event) => {
+    CiderPlug.callPlugins("onRendererReady", event);
+})
+
 ipcMain.on('playbackStateDidChange', (_event, attributes) => {
     CiderPlug.callPlugins('onPlaybackStateDidChange', attributes);
 });
@@ -65,6 +76,10 @@ ipcMain.on('playbackStateDidChange', (_event, attributes) => {
 ipcMain.on('nowPlayingItemDidChange', (_event, attributes) => {
     CiderPlug.callPlugins('onNowPlayingItemDidChange', attributes);
 });
+
+ipcMain.on('nowPlayingItemDidChangeLastFM', (_event, attributes) => {
+    CiderPlug.callPlugin('lastfm.js', 'nowPlayingItemDidChangeLastFM', attributes);
+})
 
 app.on('before-quit', () => {
     CiderPlug.callPlugins('onBeforeQuit');

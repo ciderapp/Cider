@@ -7,9 +7,10 @@ let cache = {playParams: {id: 0}, status: null, remainingTime: 0},
 const MusicKitInterop = {
 	init: function () {
 		MusicKit.getInstance().addEventListener(MusicKit.Events.playbackStateDidChange, () => {
-			if (MusicKitInterop.filterTrack(MusicKitInterop.getAttributes(), true, false)) {
-				global.ipcRenderer.send('playbackStateDidChange', MusicKitInterop.getAttributes())
-				ipcRenderer.send('wsapi-updatePlaybackState', MusicKitInterop.getAttributes());
+			const attributes = MusicKitInterop.getAttributes()
+			if (MusicKitInterop.filterTrack(attributes, true, false)) {
+				global.ipcRenderer.send('playbackStateDidChange', attributes)
+				global.ipcRenderer.send('wsapi-updatePlaybackState', attributes);
 				// if (typeof _plugins != "undefined") {
 				//     _plugins.execute("OnPlaybackStateChanged", {Attributes: MusicKitInterop.getAttributes()})
 				// }
@@ -22,9 +23,19 @@ const MusicKitInterop = {
 		});
 		/** wsapi */
 
-		MusicKit.getInstance().addEventListener(MusicKit.Events.nowPlayingItemDidChange, () => {
-			if (MusicKitInterop.filterTrack(MusicKitInterop.getAttributes(), false, true) || !app.cfg.lastfm.filterLoop) {
-				global.ipcRenderer.send('nowPlayingItemDidChange', MusicKitInterop.getAttributes());
+		MusicKit.getInstance().addEventListener(MusicKit.Events.nowPlayingItemDidChange, async () => {
+			console.log('nowPlayingItemDidChange')
+			const attributes = MusicKitInterop.getAttributes()
+			const trackFilter = MusicKitInterop.filterTrack(attributes, false, true)
+
+			if (trackFilter) {
+				global.ipcRenderer.send('nowPlayingItemDidChange', attributes);
+			}
+
+			// LastFM's Custom Call
+			await MusicKitInterop.modifyNamesOnLocale();
+			if (trackFilter || !app.cfg.lastfm.filterLoop) {
+				global.ipcRenderer.send('nowPlayingItemDidChangeLastFM', attributes);
 			}
 		});
 
@@ -36,7 +47,28 @@ const MusicKitInterop = {
 			console.warn(`[mediaPlaybackError] ${e}`);
 		})
 	},
+	async modifyNamesOnLocale() {
+		if (app.mklang === '' || app.mklang == null) {
+			return;
+		} 
+		const mk = MusicKit.getInstance()
+		const nowPlayingItem = mk.nowPlayingItem;
+		if ((nowPlayingItem?._songId ?? nowPlayingItem?.songId) == null){
+			return;
+		} 
+		const id = nowPlayingItem?._songId ?? (nowPlayingItem?.songId ?? nowPlayingItem?.id)
+		if (id != null && id !== -1) {
+			try{
+			const query = await mk.api.v3.music(`/v1${(((nowPlayingItem?._songId ?? nowPlayingItem?.songId) != null) && ((nowPlayingItem?._songId ?? nowPlayingItem?.songId) !== -1)) ? `/catalog/${mk.storefrontId}/` : `/me/library/`}songs/${id}?l=${app.mklang}`);
+			if (query?.data?.data[0]){
+					let attrs = query?.data?.data[0]?.attributes;
+					if (attrs?.name) { nowPlayingItem.attributes.name = attrs?.name ?? ''}
+					if (attrs?.albumName) { nowPlayingItem.attributes.albumName = attrs?.albumName ?? ''}
+					if (attrs?.artistName) { nowPlayingItem.attributes.artistName = attrs?.artistName ?? ''}
 
+			}} catch (e) { }
+		} else {}
+	},
 	getAttributes: function () {
 		const mk = MusicKit.getInstance()
 		const nowPlayingItem = mk.nowPlayingItem;
@@ -44,15 +76,15 @@ const MusicKitInterop = {
 		const remainingTimeExport = mk.currentPlaybackTimeRemaining;
 		const attributes = (nowPlayingItem != null ? nowPlayingItem.attributes : {});
 
-		attributes.status = isPlayingExport ?? false;
-		attributes.name = attributes?.name ?? 'No Title Found';
+		attributes.status = isPlayingExport ?? null;
+		attributes.name = attributes?.name ?? 'no-title-found';
 		attributes.artwork = attributes?.artwork ?? {url: ''};
 		attributes.artwork.url = (attributes?.artwork?.url ?? '').replace(`{f}`, "png");
 		attributes.playParams = attributes?.playParams ?? {id: 'no-id-found'};
 		attributes.playParams.id = attributes?.playParams?.id ?? 'no-id-found';
 		attributes.url = {
-			cider: `cider://play/s/${nowPlayingItem?._songId ?? 'no-id-found'}`,
-			appleMusic: attributes.websiteUrl ? attributes.websiteUrl : `https://music.apple.com/${mk.storefrontId}/song/${nowPlayingItem?._songId ?? 'no-id-found'}`  
+			cider: `https://cider.sh/link?play/s/${nowPlayingItem?._songId ?? (nowPlayingItem?.songId ??'no-id-found')}`,
+			appleMusic: attributes.websiteUrl ? attributes.websiteUrl : `https://music.apple.com/${mk.storefrontId}/song/${nowPlayingItem?._songId ?? (nowPlayingItem?.songId ??'no-id-found')}`  
 		}
 		if (attributes.playParams.id === 'no-id-found') {
 			attributes.playParams.id = nowPlayingItem?.id ?? 'no-id-found';
@@ -69,12 +101,12 @@ const MusicKitInterop = {
 			attributes?.playParams?.id === cache.playParams.id
 				? Date.now() + attributes?.remainingTime
 				: attributes?.startTime + attributes?.durationInMillis
-		);
+		);	
 		return attributes;
 	},
 
 	filterTrack: function (a, playbackCheck, mediaCheck) {
-		if (a.title === "No Title Found" || a.playParams.id === "no-id-found") {
+		if (a.name === 'no-title-found' || a.playParams.id === "no-id-found") {
 			return;
 		} else if (mediaCheck && a.playParams.id === cache.playParams.id) {
 			return;
@@ -89,7 +121,7 @@ const MusicKitInterop = {
 	},
 
 	play: () => {
-		MusicKit.getInstance().play().then(r => console.log(`[MusicKitInterop.play] ${r}`));
+		MusicKit.getInstance().play().catch(console.error);
 	},
 
 	pause: () => {
@@ -100,15 +132,22 @@ const MusicKitInterop = {
 		if (MusicKit.getInstance().isPlaying) {
 			MusicKit.getInstance().pause();
 		} else if (MusicKit.getInstance().nowPlayingItem != null) {
-			MusicKit.getInstance().play().then(r => console.log(`[MusicKitInterop.playPause] Playing ${r}`));
+			MusicKit.getInstance().play().catch(console.error);
 		}
 	},
 
 	next: () => {
+		// try {
+		// 	app.prevButtonBackIndicator = false;
+		// } catch (e) { }
+		// if (MusicKit.getInstance().queue.nextPlayableItemIndex != -1 && MusicKit.getInstance().queue.nextPlayableItemIndex != null)
+		// MusicKit.getInstance().changeToMediaAtIndex(MusicKit.getInstance().queue.nextPlayableItemIndex);
 		MusicKit.getInstance().skipToNextItem().then(r => console.log(`[MusicKitInterop.next] Skipping to Next ${r}`));
 	},
 
 	previous: () => {
+		// if (MusicKit.getInstance().queue.previousPlayableItemIndex != -1 && MusicKit.getInstance().queue.previousPlayableItemIndex != null)
+		// MusicKit.getInstance().changeToMediaAtIndex(MusicKit.getInstance().queue.previousPlayableItemIndex);
 		MusicKit.getInstance().skipToPreviousItem().then(r => console.log(`[MusicKitInterop.previous] Skipping to Previous ${r}`));
 	}
 

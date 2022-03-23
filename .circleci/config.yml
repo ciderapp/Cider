@@ -1,11 +1,19 @@
 version: 2.1
+orbs: # adds orbs to your configuration
+  jira: circleci/jira@1.0.5 # invokes the Jira orb, making its commands accessible
+branches:
+      ignore: feature/i10n
 jobs:
   build:
     working_directory: ~/Cider
     docker:
-      - image: circleci/node:16-browsers
+      - image: circleci/node:16
+      
     steps:
       - checkout
+      - run:
+          name: Set App Version
+          command: echo "export APP_VERSION=$(grep '"version":.*' package.json | cut -d '"' -f 4 | head -1)" >> $BASH_ENV
       - run:
           name: Update Package Managers
           command: sudo npm update -g npm yarn
@@ -15,42 +23,44 @@ jobs:
             - yarn-packages-{{ checksum "cider-yarn.lock" }}
       - run:
           name: Install Dependencies
-          command: yarn install  --cache-folder ~/.cache/yarn
+          command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
       - save_cache:
           name: Save Yarn Package Cache
           key: yarn-packages-{{ checksum "cider-yarn.lock" }}
           paths:
             - ~/.cache/yarn
       - run:
-          name: Install Playwright
-          command: yarn playwright install --with-deps
-      - run:
           name: Install system build dependencies
           command: |
             sudo apt-get update -y
+            curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+            echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
             sudo apt-get install -y dpkg fakeroot wine64
             sudo dpkg --add-architecture i386
             sudo apt-get update -y
             sudo apt-get install -y wine32
-            sudo apt-get install -y x11vnc
+            sudo apt install -y gh
       - run:
-          name: Start X VNC Server
-          command: x11vnc -forever -nopw -create
-          background: true
-            #- run:
-            #name: Base Functionality Testing
-            #command: yarn test
-      - store_test_results:
-          path: test-results
+          name: Fix Versioning and Add Channel
+          command: yarn circle:script
       - run:
-          name: Append Commit BuildID to Version
-          command: yarn circle:append-bid
+          name: TypeScript Compile
+          command: yarn build
       - run:
           name: Generate Builds (Linux)
-          command: yarn dist -l -p never
+          command: yarn electron-builder -l -p never
+          post-steps:
+            - jira/notify
       - run:
           name: Generate Builds (Windows)
-          command: yarn dist -w --x64 -p never
+          command: yarn electron-builder -w --x64 -p never
+          post-steps:
+            - jira/notify
+      - run:
+          name: Generate Builds (Winget)
+          command: yarn electron-builder --win -c winget.json -p never
+          post-steps:
+            - jira/notify
       - run:
           name: Move Build Files
           command: |
@@ -60,7 +70,10 @@ jobs:
               mv ~/Cider/dist/*.AppImage ~/Cider/dist/artifacts
               mv ~/Cider/dist/*.snap ~/Cider/dist/artifacts
               mv ~/Cider/dist/*.yml ~/Cider/dist/artifacts
-
+              mv ~/Cider/dist/*.blockmap ~/Cider/dist/artifacts
       - store_artifacts:
-          path: ~/Cider/dist/artifacts
-          
+          path: ~/Cider/dist/artifacts 
+      - run:
+          name: Publish Release
+          command: |
+              gh release create "v${APP_VERSION}.${CIRCLE_BUILD_NUM}" --title "Cider Version ${APP_VERSION} - Build ${CIRCLE_BUILD_NUM} (${CIRCLE_BRANCH})" --generate-notes -R ciderapp/cider-releases ~/Cider/dist/artifacts/*.deb ~/Cider/dist/artifacts/*.AppImage ~/Cider/dist/artifacts/*.snap ~/Cider/dist/artifacts/*.exe ~/Cider/dist/artifacts/*.yml ~/Cider/dist/artifacts/*.blockmap

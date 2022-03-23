@@ -1,15 +1,15 @@
 <script type="text/x-template" id="eq-view">
-    <div class="modal-fullscreen equalizer-panel">
+    <div class="modal-fullscreen equalizer-panel" @click.self="close()" @contextmenu.self="close()">
         <div class="modal-window" >
             <div class="modal-header">
                 <div class="modal-title">{{$root.getLz('term.equalizer')}}</div>
                 <button class="close-btn" @click="close()"></button>
                 <div class="md-option-segment md-option-segment_auto">
-                    <select class="md-select" style="width:220px;text-align:center;margin-right:19.75em" v-model="$root.cfg.audio.equalizer.preset" v-on:change="changePreset($root.cfg.audio.equalizer.preset)">
-                        <optgroup label="User Presets">
+                    <select class="md-select" style="width:220px;text-align:center;margin-right:245px" v-model="$root.cfg.audio.equalizer.preset" v-on:change="changePreset($root.cfg.audio.equalizer.preset)">
+                        <optgroup :label="$root.getLz('term.userPresets')">
                             <option v-for="preset in $root.cfg.audio.equalizer.presets" :value="preset.preset">{{preset.name}}</option>
                         </optgroup>
-                        <optgroup label="Default Presets">
+                        <optgroup :label="$root.getLz('term.defaultPresets')">
                             <option v-for="preset in defaultPresets" :value="preset.preset">{{preset.name}}</option>
                         </optgroup>
                     </select>
@@ -137,21 +137,12 @@
                     'mix': 1,
                     'vibrantBass': 0,
                     'userGenerated': false
-                },{
-                    'preset': 'warmth',
-                    'name': 'Warmth',
-                    'frequencies': [32, 75, 125, 197, 500, 1000, 2000, 3040, 8000, 16000],
-                    'gain': [0, 2.1, 0, 0.8, 0, 0, 0, -1.5, 0, 0],
-                    'Q': [1, 0.7, 1, 1.5, 1, 1, 1, 2, 1, 1],
-                    'mix': 1,
-                    'vibrantBass': 0,
-                    'userGenerated': false
                 }, {
-                    'preset': 'boostBrightness',
-                    'name': 'Boost Brightness',
-                    'frequencies': [32, 63, 125, 250, 466, 1000, 2000, 4000, 8000, 20000],
-                    'gain': [0, 0, 0, 0, -2, 0, 0, 0, 0, 10],
-                    'Q': [1, 1, 1, 1, 0.6, 1, 1, 1, 1, 0.1],
+                    'preset': 'boostAiriness',
+                    'name': 'Boost Airiness',
+                    'frequencies': [1169, 1733, 5962, 8688, 14125, 18628, 18628, 19000, 19500, 20000],
+                    'gain': [-1.41, 0.25, 3.33, 0.22, -0.53, 0.2, 3.64, 0, 0, 0],
+                    'Q': [0.405, 2.102, 0.025, 2.5, 7.071, 1.768, 1.146, 1, 1, 1],
                     'mix': 1,
                     'vibrantBass': 0,
                     'userGenerated': false
@@ -202,16 +193,6 @@
                     'userGenerated': false
                 }, 
                 {
-                    'preset': 'bassBoostGentle',
-                    'name': 'Gentle Bass Boost',
-                    'frequencies': [45.53,88.06,116.18,161.3,247.05,295.6,365.79,495.13,716.85,960.76],
-                    'gain': [-0.36,4.07,-1.3,1.92,0.77,-0.53,-1.33,0.44,0.46,-0.5],
-                    'Q': [1.768,0.625,5,8.409,10,16.82,5.946,7.071,20,10],
-                    'mix': 1,
-                    'vibrantBass': 0,
-                    'userGenerated': false
-                },
-                {
                     'preset': 'bassBoostSurgical',
                     'name': 'Surgical Bass Boost',
                     'frequencies': [32, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000],
@@ -256,15 +237,15 @@
                         "import": {
                             "icon": "./assets/feather/share.svg",
                             "name": app.getLz('action.import'),
-                            "action": function () {
-                                this.importPreset()
+                            action: () => {
+                                notyf.error("Not implemented yet")
                             }
                         },
                         "export": {
                             "icon": "./assets/feather/share.svg",
                             "name": app.getLz('action.export'),
-                            "action": function () {
-                                this.exportPreset()
+                            action: () => {
+                                notyf.error("Not implemented yet")
                             }
                         },
                     }
@@ -313,23 +294,37 @@
                 app.resetState()
             },
             changeVibrantBass() {
-                app.cfg.audio.vibrantBass.multiplier = app.cfg.audio.equalizer.vibrantBass / 10
-                for (var i = 0; i < 21; i++) {
-                    CiderAudio.audioNodes.vibrantbassNode[i].gain.value = app.cfg.audio.vibrantBass.gain[i] * (app.cfg.audio.equalizer.vibrantBass / 10);
-                }           
-            },
-            changeMix() {
-                for (var i = 0; i < 10; i++) {
-                    CiderAudio.audioNodes.audioBands[i].gain.value = app.cfg.audio.equalizer.gain[i] * app.cfg.audio.equalizer.mix
+                if (app.cfg.audio.equalizer.vibrantBass !== '0') {
+                    try {
+                    for (var i = 0; i < 21; i++) {
+                    CiderAudio.audioNodes.vibrantbassNode[i].gain.value = app.cfg.audio.maikiwiAudio.vibrantBass.gain[i] * (app.cfg.audio.equalizer.vibrantBass / 10);
+                    }}
+                    catch(e) {
+                        CiderAudio.hierarchical_loading();
+                    }
+                }
+                
+                else {
+                    CiderAudio.hierarchical_loading();
                 }
             },
-            changePreamp() { 
-                if (CiderAudio.audioNodes.llpwEnabled === 1) {CiderAudio.audioNodes.preampNode.gain.value = (-Math.max(...app.cfg.audio.equalizer.gain.concat(CiderAudio.audioNodes.llpw[23].gain.value)));} 
-                else {CiderAudio.audioNodes.preampNode.gain.value = (-Math.max(...app.cfg.audio.equalizer.gain));}
+            changeMix() {
+                if (Math.max(...app.cfg.audio.equalizer.gain) != 0) {
+                    try {
+                        for (var i = 0; i < 10; i++) {
+                        CiderAudio.audioNodes.audioBands[i].gain.value = app.cfg.audio.equalizer.gain[i] * app.cfg.audio.equalizer.mix
+                        }
+                    } catch(e) {CiderAudio.hierarchical_loading();}
+                }
             },
             changeGain(i) {
-                CiderAudio.audioNodes.audioBands[i].gain.value = app.cfg.audio.equalizer.gain[i] * app.cfg.audio.equalizer.mix
-                this.changePreamp()
+                if (Math.max(...app.cfg.audio.equalizer.gain) != 0) {
+                    try {CiderAudio.audioNodes.audioBands[i].gain.value = app.cfg.audio.equalizer.gain[i] * app.cfg.audio.equalizer.mix}
+                    catch(e){CiderAudio.hierarchical_loading();}
+                }
+                else {
+                    CiderAudio.hierarchical_loading();
+                }
             },
             changeFreq(i) {
                 CiderAudio.audioNodes.audioBands[i].frequency.value = app.cfg.audio.equalizer.frequencies[i]
@@ -345,7 +340,6 @@
                     'mix': 1,
                     'vibrantBass': 0,
                 })
-                CiderAudio.audioNodes.preampNode.gain.value = 0;
                 if (app.cfg.audio.equalizer.userGenerated) {
                     this.saveSelectedPreset()
                 }

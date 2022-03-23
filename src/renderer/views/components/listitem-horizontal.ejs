@@ -1,0 +1,69 @@
+<script type="text/x-template" id="listitem-horizontal">
+     <div class="listitem-horizontal">
+    <vue-horizontal>
+        <div v-for="items in itemPages">
+            <mediaitem-list-item
+                v-for="(song, index) in items" :show-library-status="showLibraryStatus" :parent="'listitem-hr' + simplifiedParent"
+                :index="song.index"
+                :item="song"></mediaitem-list-item>
+        </div>
+    </vue-horizontal>
+</div>
+</script>
+
+<script>
+    Vue.component('listitem-horizontal', {
+        template: '#listitem-horizontal',
+        name: "listitem-horizontal",
+        props: {
+            items: {
+                type: Array,
+                required: true
+            },
+            showLibraryStatus: {
+                type: Boolean,
+                default: true
+            }
+        },
+        data: function () {
+            return {
+                itemPages: [],
+                simplifiedParent : []
+            }
+        },
+        mounted() {
+            // give every item an id    
+            this.items.forEach(function (item, index) {
+                item.id = index;
+            });
+            // split items into pages
+            this.itemPages = app.arrayToChunk(this.items, 4);
+            try{
+            this.simplifiedParent = JSON.stringify(this.items.map ( function(x){return x.attributes.playParams}));
+            console.log("simplifiedParent: " + this.simplifiedParent);
+            }
+            catch (e){}
+            
+        },
+        watch: {
+            items: function (items) {
+                    // give every item an id    
+                this.items.forEach(function (item, index) {
+                    item.id = index;
+                });
+                // split items into pages
+                this.itemPages = app.arrayToChunk(this.items, 4);
+                try{
+                this.simplifiedParent = JSON.stringify(this.items.map ( function(x){return x.attributes.playParams}));
+                console.log("simplifiedParent: " + this.simplifiedParent);
+                }
+                catch (e){}  
+            }
+        },
+        methods: {
+            sayHello: function () {
+                alert('Hello world!');
+            }
+        }
+    });
+</script>

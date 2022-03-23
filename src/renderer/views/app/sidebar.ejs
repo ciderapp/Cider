@@ -19,7 +19,7 @@
             </button>
         </div>
     </div>
-    <div class="app-sidebar-content">
+    <div class="app-sidebar-content" scrollaxis="y">
         <div class="app-sidebar-header-text">
             {{$root.getLz('app.name')}}
         </div>
@@ -55,6 +55,13 @@
         <sidebar-library-item :name="$root.getLz('term.podcasts')" svg-icon="./assets/feather/mic.svg"
                               page="podcasts">
         </sidebar-library-item>
+        <template v-if="getPlaylistFolderChildren('p.applemusic').length != 0">
+            <div class="app-sidebar-header-text" @contextmenu="playlistHeaderContextMenu">
+                {{ $root.getLz('term.appleMusic') }} {{ $root.getLz('term.playlists') }}
+            </div>
+            <sidebar-playlist v-for="item in getPlaylistFolderChildren('p.applemusic')" :item="item">
+            </sidebar-playlist>
+        </template>
         <div class="app-sidebar-header-text" @contextmenu="playlistHeaderContextMenu">
             {{ $root.getLz('term.playlists') }}
         </div>
@@ -93,17 +100,22 @@
                     </div>
                 </button>
                 <button class="usermenu-item" @click="appRoute('remote-pair')">
-                    <div class="row nopadding">
-                        <div class="col nopadding">
                             <span class="usermenu-item-icon"><%- include("../svg/smartphone.svg") %></span>
                             <span class="usermenu-item-name">{{$root.getLz('action.showWebRemoteQR')}}</span>
-                        </div>
-                    </div>
+                </button>
+                <button class="usermenu-item" v-if="cfg.advanced.AudioContext" @click="modals.castMenu = true">
+                    <span class="usermenu-item-icon"><%- include("../svg/cast.svg") %></span>
+                    <span class="usermenu-item-name">Cast</span>
                 </button>
                 <button class="usermenu-item" v-if="cfg.advanced.AudioContext"
                         @click="modals.audioSettings = true">
                     <span class="usermenu-item-icon"><%- include("../svg/headphones.svg") %></span>
                     <span class="usermenu-item-name">{{$root.getLz('term.audioSettings')}}</span>
+                </button>
+                <button class="usermenu-item" v-if="pluginInstalled" 
+                        @click="modals.pluginMenu = true">
+                    <span class="usermenu-item-icon"><%- include("../svg/grid.svg") %></span>
+                    <span class="usermenu-item-name">{{$root.getLz('term.plugin')}}</span>
                 </button>
                 <button class="usermenu-item" @click="appRoute('about')">
                     <span class="usermenu-item-icon"><%- include("../svg/info.svg") %></span>
@@ -115,13 +127,13 @@
                 </button>
                 <button class="usermenu-item" @click="unauthorize()">
                     <span class="usermenu-item-icon"
-                                style="right:2.5px;"><%- include("../svg/log-out.svg") %></span>
+                            style="right:2.5px;"><%- include("../svg/log-out.svg") %></span>
                     <span class="usermenu-item-name">{{$root.getLz('term.logout')}}</span>
                 </button>
             </div>
         </div>
     </transition>
-    <div class="app-sidebar-footer display--small">
+    <div class="app-sidebar-footer display--small app-sidebar-footer--controls">
 
         <div class="app-playback-controls " v-if="mkReady()"
              @contextmenu="nowPlayingContextMenu">
@@ -141,7 +153,7 @@
                     <button class="playback-button play" @click="mk.play()" v-else></button>
                 </div>
                 <div class="app-chrome-item">
-                    <button class="playback-button next" @click="mk.skipToNextItem()"></button>
+                    <button class="playback-button next" @click="skipToNextItem()"></button>
                 </div>
                 <div class="app-chrome-item">
                     <button class="playback-button--small repeat" v-if="mk.repeatMode == 0"
@@ -156,10 +168,11 @@
                 <div class="input-container">
                     <button class="volume-button--small volume" @click="muteButtonPressed()"
                             :class="{'active': this.cfg.audio.volume == 0}"></button>
-                    <input type="range" class="" @wheel="volumeWheel" step="0.01" min="0"
+                    <input type="range" class="" @wheel="volumeWheel" :step="cfg.audio.volumeStep" min="0"
                            :max="cfg.audio.maxVolume"
                            v-model="mk.volume" v-if="typeof mk.volume != 'undefined'"
-                           @change="checkMuteChange()">
+                           @change="checkMuteChange()"
+                           v-b-tooltip.hover :title="`${(Math.log10(mk.volume) * 20).toFixed(2)} dB`">
                 </div>
             </div>
         </div>

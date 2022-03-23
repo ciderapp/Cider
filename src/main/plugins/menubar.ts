@@ -1,4 +1,5 @@
 import {app, Menu, shell} from "electron";
+import {utils} from "../base/utils";
 
 export default class Thumbar {
     /**
@@ -14,7 +15,7 @@ export default class Thumbar {
     public name: string = 'Menubar Plugin';
     public description: string = 'Creates the menubar';
     public version: string = '1.0.0';
-    public author: string = 'Core / Quack';
+    public author: string = 'Core / Quacksire';
 
     /**
      * Thumbnail Toolbar Assets
@@ -34,19 +35,28 @@ export default class Thumbar {
      * @private
      */
     private isMac: boolean = process.platform === 'darwin';
-    private menubarTemplate: any = [
+    private _menuTemplate: any = [
         {
             label: app.getName(),
             submenu: [
-                { role: 'about' },
-                { type: 'separator' },
-                { role: 'services' },
-                { type: 'separator' },
-                { role: 'hide' },
-                { role: 'hideOthers' },
-                { role: 'unhide' },
-                { type: 'separator' },
-                { role: 'quit' }
+                {
+                    label: 'About',
+                    click: () => this._win.webContents.executeJavaScript(`app.appRoute('about')`)
+                },
+                {type: 'separator'},
+                {
+                    label: 'Settings',
+                    accelerator: 'CommandOrControl+,',
+                    click: () => this._win.webContents.executeJavaScript(`app.appRoute('settings')`)
+                },
+                {type: 'separator'},
+                {role: 'services'},
+                {type: 'separator'},
+                {role: 'hide'},
+                {role: 'hideOthers'},
+                {role: 'unhide'},
+                {type: 'separator'},
+                {role: 'quit'}
             ]
         },
         {
@@ -67,15 +77,30 @@ export default class Thumbar {
             label: 'Window',
             submenu: [
                 {role: 'minimize'},
+                {
+                    label: 'Show',
+                    click: () => utils.getWindow().show()
+                },
                 {role: 'zoom'},
                 ...(this.isMac ? [
                     {type: 'separator'},
                     {role: 'front'},
-                    {type: 'separator'},
-                    {role: 'window'}
+                    {role: 'close'},
                 ] : [
-                    {role: 'close'}
+                    {role: 'close'},
                 ]),
+
+                {
+                    label: 'Edit',
+                    submenu: [
+                        {role: 'undo'},
+                        {role: 'redo'},
+                        {type: 'separator'},
+                        {role: 'cut'},
+                        {role: 'copy'},
+                        {role: 'paste'},
+                    ]
+                },
                 {type: 'separator'},
                 {
                     label: 'Web Remote',
@@ -89,10 +114,11 @@ export default class Thumbar {
                     click: () => this._win.webContents.executeJavaScript(`app.modals.audioSettings = true`)
                 },
                 {
-                    label: 'Settings',
-                    accelerator: 'CommandOrControl+,',
-                    click: () => this._win.webContents.executeJavaScript(`app.appRoute('settings')`)
+                    label: 'Plug-in Menu',
+                    accelerator: 'CommandOrControl+Shift+P',
+                    click: () => this._win.webContents.executeJavaScript(`app.modals.pluginMenu = true`)
                 }
+
             ]
         },
         {
@@ -101,7 +127,7 @@ export default class Thumbar {
                 {
                     label: 'Pause / Play',
                     accelerator: 'Space',
-                    click: () => this._win.webContents.executeJavaScript(`MusicKitInterop.playPause()`)
+                    click: () => this._win.webContents.executeJavaScript(`app.SpacePause()`)
                 },
                 {
                     label: 'Next',
@@ -113,7 +139,7 @@ export default class Thumbar {
                     accelerator: 'CommandOrControl+Left',
                     click: () => this._win.webContents.executeJavaScript(`MusicKitInterop.previous()`)
                 },
-                { type: 'separator' },
+                {type: 'separator'},
                 {
                     label: 'Volume Up',
                     accelerator: 'CommandOrControl+Up',
@@ -123,6 +149,12 @@ export default class Thumbar {
                     label: 'Volume Down',
                     accelerator: 'CommandOrControl+Down',
                     click: () => this._win.webContents.executeJavaScript(`app.volumeDown()`)
+                },
+                {type: 'separator'},
+                {
+                    label: 'Cast To Devices',
+                    accelerator: 'CommandOrControl+Shift+C',
+                    click: () => this._win.webContents.executeJavaScript(`app.modals.castMenu = true`)
                 }
             ]
         },
@@ -150,10 +182,6 @@ export default class Thumbar {
                 {
                     label: 'GitHub Wiki',
                     click: () => shell.openExternal("https://github.com/ciderapp/Cider/wiki/Troubleshooting").catch(console.error)
-                },
-                {
-                    label: 'About',
-                    click: () => this._win.webContents.executeJavaScript(`app.appRoute('about')`)
                 },
                 {type: 'separator'},
                 {
@@ -199,9 +227,9 @@ export default class Thumbar {
     /**
      * Runs on plugin load (Currently run on application start)
      */
-    constructor(app: any, store: any) {
-        this._app = app;
-        this._store = store
+    constructor(utils: { getApp: () => any; getStore: () => any; }) {
+        this._app = utils.getApp();
+        this._store = utils.getStore();
         console.debug(`[Plugin][${this.name}] Loading Complete.`);
     }
 
@@ -210,7 +238,8 @@ export default class Thumbar {
      */
     onReady(win: Electron.BrowserWindow): void {
         this._win = win;
-        Menu.setApplicationMenu(Menu.buildFromTemplate(this.menubarTemplate))
+        const menu = Menu.buildFromTemplate(this._menuTemplate);
+        Menu.setApplicationMenu(menu)
     }
 
     /**

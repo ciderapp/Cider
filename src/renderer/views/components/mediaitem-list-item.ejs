@@ -2,30 +2,36 @@
     <div v-observe-visibility="{callback: visibilityChanged}"
          @contextmenu="contextMenu"
          @click="select"
-         :data-id="item.attributes.playParams.id ?? item.id"
+         :data-id="itemId"
          :data-type="getDataType()"
          :data-index="index"
          :data-guid="guid"
-         :data-islibrary="this.item.attributes.playParams.isLibrary ?? false"
-         :key="item.attributes.playParams.id ?? item.id"
+         :data-islibrary="isLibrary"
+         :key="itemId"
          class="cd-mediaitem-list-item"
          @mouseenter="checkLibrary"
          @mouseover="showInLibrary = true"
          @mouseleave="showInLibrary = false"
+         @dblclick="route()"
+         @controller-click="route()"
+         tabindex="0"
          :class="[{'mediaitem-selected': app.select_hasMediaItem(guid)}, addClasses]">
         <template v-if="isVisible">
             <div class="isLibrary" v-if="showLibraryStatus == true">
                 <div v-if="showInLibrary" :style="{display: (showInLibrary ? 'block' : 'none'), 'margin-left':'11px'}">
-                    <button @click="addToLibrary()" v-if="!addedToLibrary">
+                    <button @click="addToLibrary()" v-if="!addedToLibrary && (showIndex == false ||(showIndex == true && showIndexPlaylist != false))">
                         <div class="svg-icon" :style="{'--color': 'var(--keyColor)', '--url': 'url(./assets/feather/plus.svg)'}"></div>
                     </button>
+                    <button v-else-if='!(showArtwork == true && (showIndex == false ||(showIndex == true && showIndexPlaylist != false)))' @click="playTrack()" style="width: 44px;margin-left: -11px;">
+                        <%- include("../svg/play.svg") %>
+                    </button>
                 </div>
-                <div v-if="!(app.mk.isPlaying && (((app.mk.nowPlayingItem._songId ?? app.mk.nowPlayingItem.id )  == item.attributes.playParams.id) || (app.mk.nowPlayingItem.id  == item.id ))) && showIndex" :style="{display: ((showIndex && !showInLibrary) ? 'block' : 'none'), 'margin-left':'11px'}">
+                <div v-if="!(app.mk.isPlaying && (((app.mk.nowPlayingItem._songId ?? (app.mk.nowPlayingItem.songId ?? app.mk.nowPlayingItem.id ))  == itemId) || (app.mk.nowPlayingItem.id  == item.id ))) && showIndex" :style="{display: ((showIndex && !showInLibrary) ? 'block' : 'none'), 'margin-left':'11px'}">
                     <div>
                         <div>{{ (item.attributes && !showIndexPlaylist) ? (item.attributes.trackNumber ?? '') : ((index * 1 + 1 ) ?? '')}}</div>
                     </div>
                 </div>
-                <div v-if="app.mk.isPlaying && (((app.mk.nowPlayingItem._songId ?? app.mk.nowPlayingItem.id )  == item.attributes.playParams.id) || (app.mk.nowPlayingItem.id == item.id))" :style="{display: (showInLibrary ? 'none' : 'block')}">
+                <div v-if="app.mk.isPlaying && (((app.mk.nowPlayingItem._songId ?? (app.mk.nowPlayingItem.songId ?? app.mk.nowPlayingItem.id ))  == itemId) || (app.mk.nowPlayingItem.id == item.id))" :style="{display: (showInLibrary ? 'none' : 'block')}">
                     <div class="loadbar-sound"></div>
                 </div>
             </div>
@@ -37,12 +43,12 @@
                         :type="item.type"></mediaitem-artwork>
                 <button class="overlay-play" @click="playTrack()"><%- include("../svg/play.svg") %></button>
             </div>
-            <div class="info-rect text-overflow-elipsis" :style="{'padding-left': (showArtwork ? '' : '16px')}"
+            <div class="info-rect" :style="{'padding-left': (showArtwork ? '' : '16px')}"
                  @dblclick="route()">
-                <div class="title">
+                <div class="title text-overflow-elipsis" :title="item.attributes.name">
                     {{ item.attributes.name }}
                 </div>
-                <div class="subtitle text-overflow-elipsis" style="-webkit-box-orient: horizontal;">
+                <div class="subtitle text-overflow-elipsis" :title="item.attributes.artistName" style="-webkit-box-orient: horizontal;">
                     <template v-if="item.attributes.artistName">
                         <div class="artist item-navigate text-overflow-elipsis"
                              @click="app.searchAndNavigate(item,'artist')">
@@ -71,6 +77,9 @@
             <div class="duration" v-if="displayDuration" @dblclick="route()">
                 {{ msToMinSec(item.attributes.durationInMillis ?? 0) }}
             </div>
+            <div class="duration" v-if="item.attributes.playCount" @dblclick="route()">
+                {{ item.attributes.playCount }}
+            </div>
         </template>
     </div>
 </script>
@@ -86,7 +95,9 @@
                 guid: this.uuidv4(),
                 app: this.$root,
                 displayDuration: true,
-                addClasses: {}
+                addClasses: {},
+                itemId: 0,
+                isLibrary: false
             }
         },
         props: {
@@ -103,6 +114,12 @@
             'class-list': { type: String, required: false, default: "" },
         },
         mounted() {
+            if (this.item.attributes.playParams) {
+                this.itemId = this.item.attributes.playParams.id ?? this.item.id;
+                this.isLibrary = this.item.attributes.playParams.isLibrary ?? false;
+            } else {
+                this.itemId = this.item.id;
+            }
             let duration = this.item.attributes.durationInMillis ?? 0
             if (duration == 0 || !this.showDuration) {
                 this.displayDuration = false
@@ -121,13 +138,16 @@
                     return
                 }
                 this.$root.inLibrary([this.item]).then(res => {
-                    this.addedToLibrary = res[0].attributes.inLibrary
+                    this.addedToLibrary = res[0]?.attributes?.inLibrary ?? false
                 })
                 return this.addedToLibrary
             },
             getClasses() {
+                this.addClasses = {}
+                if(typeof this.item.attributes.playParams == "undefined") {
+                    this.addClasses["disabled"] = true
+                }
                 if (this.classList) {
-                    this.addClasses = {}
                     let classList = this.classList.split(' ')
                     for (let i = 0; i < classList.length; i++) {
                         this.addClasses[classList[i]] = true
@@ -151,10 +171,14 @@
                 return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
             },
             getDataType() {
-                if (this.item.attributes.playParams.isLibrary) {
+                if (typeof this.item.attributes.playParams != "undefined") {
+                    if (this.item.attributes.playParams.isLibrary) {
+                        return this.item.type
+                    } else {
+                        return this.item.attributes.playParams.kind
+                    }
+                }else{
                     return this.item.type
-                } else {
-                    return this.item.attributes.playParams.kind
                 }
             },
             select(e) {
@@ -468,7 +492,7 @@
                         menus.normal.headerItems.find(x => x.id == 'dislike').hidden = true
                     }
                 } catch (err) {
-
+                    console.log(err)
                 }
             },
             visibilityChanged: function (isVisible, entry) {
@@ -528,7 +552,7 @@
                                 array[j] = temp;
                             }
                         }
-                        app.mk.setQueue({ [truekind]: [item.attributes.playParams.id ?? item.id] }).then(function () {
+                        app.mk.setQueue({ [truekind]: [item.attributes.playParams.id ?? item.id], parameters: { l: this.app.mklang } }).then(function () {
                             app.mk.play().then(function () {
                                 var playlistId = id
                                 function getPlaylist(id, isLibrary) {

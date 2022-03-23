@@ -1,0 +1,107 @@
+<script type="text/x-template" id="castmenu">
+<div class="spatialproperties-panel castmenu modal-fullscreen" @click.self="close()" @contextmenu.self="close()">
+    <div class="modal-window">
+        <div class="modal-header">
+            <div class="modal-title">Cast To Devices</div>
+            <button class="close-btn" @click="close()"></button>
+        </div>
+    <div class="modal-content" style="overflow-y: overlay; padding: 3%">
+        <div class="md-labeltext">Chromecast</div>
+        <div class="md-option-container" style="margin-top: 12px;margin-bottom: 12px;">
+            <template v-if="!scanning">
+                <template v-for="(device) in devices.cast">
+                    <div class="md-option-line" style="cursor: pointer" @click="setCast(device)">
+                        <div class="md-option-segment">
+                            {{ device.name }}
+                            <br>
+                            <small>{{ device.host }}</small>
+                        </div>
+                        <div class="md-option-segment_auto" style="display: flex;justify-content: center;align-items: center" v-if="activeCasts.includes(device)">
+                            Connected
+                        </div>
+                        <div class="md-option-segment_auto" v-else style="display: flex;justify-content: center;align-items: center">
+                            <svg width="20" height="20" viewBox="0 0 34 34" fill="#fff" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" class="castPlayIndicator"><path d="M28.228,18.327l-16.023,8.983c-0.99,0.555 -2.205,-0.17 -2.205,-1.318l0,-17.984c0,-1.146 1.215,-1.873 2.205,-1.317l16.023,8.982c1.029,0.577 1.029,2.077 0,2.654Z" style="fill-rule:nonzero"></path></svg>
+                        </div>
+                    </div>
+                </template>
+            </template>
+            <template v-else>
+                <div class="md-option-line" style="cursor: pointer">
+                    <div class="md-option-segment">
+                        Scanning...
+                    </div>
+                </div>
+            </template>
+        </div>
+        <div class="md-labeltext" style="opacity:0.5;">AirPlay</div>
+        <div class="md-option-container" style="margin-top: 12px;margin-bottom: 12px;opacity:0.5;">
+            <div class="md-option-line">
+                <div class="md-option-segment">
+                    AirPlay is still under development
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="md-footer">
+        <div class="row">
+            <div class="col" v-if="activeCasts.length != 0">
+                <button style="width:100%" @click="stopCasting()" class="md-btn md-btn-block md-btn-primary">Stop casting to all devices</button>
+            </div>
+            <div class="col">
+                <button style="width:100%" class="md-btn md-btn-block" @click="scan()">Scan</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</script>
+<script>
+    Vue.component('castmenu', {
+        template: '#castmenu',
+        data: function () {
+            return {
+                devices: {
+                    cast: [],
+                    airplay: []
+                },
+                scanning: false,
+                activeCasts: this.$root.activeCasts,
+
+            }
+        },
+        mounted() {
+            this.scan();
+        },
+        watch:{
+            activeCasts: function (newVal, oldVal) {
+                this.$root.activeCasts = this.activeCasts;
+            }},
+        methods: {
+            close() {
+                this.$root.modals.castMenu = false
+            },
+            scan() {
+                let self = this;
+                this.scanning = true;
+                ipcRenderer.send('getChromeCastDevices', '');
+                setTimeout(() => {
+                  self.devices.cast = ipcRenderer.sendSync("getKnownCastDevices");
+                  self.scanning = false;
+                }, 2000);
+                console.log(this.devices);
+                // vm.$forceUpdate();
+            },
+            setCast(device) {
+                CiderAudio.sendAudio();
+                this.activeCasts.push(device); 
+                ipcRenderer.send('performGCCast', device, "Cider", "Playing ...", "Test build", '');
+            },
+            stopCasting() {
+                CiderAudio.stopAudio();
+                ipcRenderer.send('stopGCast', '');
+                this.activeCasts = [];
+                // vm.$forceUpdate();
+            },
+        }
+    });
+</script>

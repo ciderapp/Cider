@@ -16,33 +16,35 @@
                     @click="mainMenuVisibility(true)"
                     :class="{active: chrome.menuOpened}"></button>
         </div>
-        <div class="app-chrome-item display--large">
-            <button class="playback-button--small shuffle" v-if="mk.shuffleMode == 0"
-                    @click="mk.shuffleMode = 1"></button>
-            <button class="playback-button--small shuffle active" v-else
-                    @click="mk.shuffleMode = 0"></button>
-        </div>
-        <div class="app-chrome-item display--large">
-            <button class="playback-button previous" @click="prevButton()"></button>
-        </div>
-        <div class="app-chrome-item display--large">
-            <button class="playback-button pause" @click="mk.pause()" v-if="mk.isPlaying"></button>
-            <button class="playback-button play" @click="mk.play()" v-else></button>
-        </div>
-        <div class="app-chrome-item display--large">
-            <button class="playback-button next" @click="mk.skipToNextItem()"></button>
-        </div>
-        <div class="app-chrome-item display--large">
-            <button class="playback-button--small repeat" v-if="mk.repeatMode == 0"
-                    @click="mk.repeatMode = 1"></button>
-            <button class="playback-button--small repeat repeatOne" @click="mk.repeatMode = 2"
-                    v-else-if="mk.repeatMode == 1"></button>
-            <button class="playback-button--small repeat active" @click="mk.repeatMode = 0"
-                    v-else-if="mk.repeatMode == 2"></button>
-        </div>
+        <template v-if="getThemeDirective('windowLayout') != 'twopanel'">
+            <div class="app-chrome-item display--large">
+                <button class="playback-button--small shuffle" v-if="mk.shuffleMode == 0"
+                        @click="mk.shuffleMode = 1"></button>
+                <button class="playback-button--small shuffle active" v-else
+                        @click="mk.shuffleMode = 0"></button>
+            </div>
+            <div class="app-chrome-item display--large">
+                <button class="playback-button previous" @click="prevButton()"></button>
+            </div>
+            <div class="app-chrome-item display--large">
+                <button class="playback-button pause" @click="mk.pause()" v-if="mk.isPlaying"></button>
+                <button class="playback-button play" @click="mk.play()" v-else></button>
+            </div>
+            <div class="app-chrome-item display--large">
+                <button class="playback-button next" @click="skipToNextItem()"></button>
+            </div>
+            <div class="app-chrome-item display--large">
+                <button class="playback-button--small repeat" v-if="mk.repeatMode == 0"
+                        @click="mk.repeatMode = 1"></button>
+                <button class="playback-button--small repeat repeatOne" @click="mk.repeatMode = 2"
+                        v-else-if="mk.repeatMode == 1"></button>
+                <button class="playback-button--small repeat active" @click="mk.repeatMode = 0"
+                        v-else-if="mk.repeatMode == 2"></button>
+            </div>
+        </template>
     </div>
     <div class="app-chrome--center">
-        <div class="app-chrome-item playback-controls">
+        <div class="app-chrome-item playback-controls" v-if="getThemeDirective('windowLayout') != 'twopanel'">
             <template v-if="mkReady()">
                 <div class="app-playback-controls" @mouseover="chrome.progresshover = true"
                      @mouseleave="chrome.progresshover = false" @contextmenu="nowPlayingContextMenu">
@@ -57,7 +59,7 @@
                                  v-if="mk.nowPlayingItem['attributes']['contentRating'] == 'explicit'"
                                  style="display: inline-block"></div>
                         </div>
-                        <div class="audio-type ppe-icon" v-if="cfg.advanced.ciderPPE == true"></div>
+                        <div class="audio-type ppe-icon" v-if="cfg.audio.maikiwiAudio.ciderPPE === true"></div>
                         <div class="song-artist-album">
                             <div class="song-artist-album-content"
                                  :class="[isElementOverflowing('#app-main > .app-chrome .app-chrome-item > .app-playback-controls > div >.song-artist-album > .song-artist-album-content') ? 'marquee' : '']"
@@ -87,7 +89,7 @@
 
                             <input type="range" step="0.01" min="0" :style="progressBarStyle()"
                                    @input="playerLCD.desiredDuration = $event.target.value;playerLCD.userInteraction = true"
-                                   @mouseup="mk.seekToTime($event.target.value);playerLCD.desiredDuration = 0;playerLCD.userInteraction = false"
+                                   @mouseup="mk.seekToTime($event.target.value);setTimeout(()=>{playerLCD.desiredDuration = 0;playerLCD.userInteraction = false}, 1000);"
                                    :max="mk.currentPlaybackDuration" :value="getSongProgress()">
                         </div>
                     </div>
@@ -105,28 +107,41 @@
         </div>
     </div>
     <div class="app-chrome--right">
-        <div class="app-chrome-item volume display--large">
-            <button class="volume-button--small volume" @click="muteButtonPressed()"
-                    :class="{'active': this.cfg.audio.volume == 0}"></button>
-            <input type="range" @wheel="volumeWheel" :step="cfg.audio.volumeStep" min="0" max="cfg.audio.maxVolume"
-                   v-model="mk.volume" v-if="typeof mk.volume != 'undefined'" @change="checkMuteChange()">
-        </div>
-        <div class="app-chrome-item generic">
-            <button class="playback-button--small miniplayer"
-                    @click="drawer.open = false; miniPlayer(true)"></button>
-        </div>
-        <div class="app-chrome-item generic">
-            <button class="playback-button--small queue" :class="{'active': drawer.panel == 'queue'}"
-                    @click="invokeDrawer('queue')"></button>
-        </div>
-        <div class="app-chrome-item generic">
-            <template v-if="lyrics && lyrics != [] && lyrics.length > 0">
-                <button class="playback-button--small lyrics"
-                        :class="{'active': drawer.panel == 'lyrics'}"
-                        @click="invokeDrawer('lyrics')"></button>
-            </template>
-
-        </div>
+        <template v-if="getThemeDirective('windowLayout') != 'twopanel'">
+            <div class="app-chrome-item volume display--large">
+                <button class="volume-button--small volume" @click="muteButtonPressed()"
+                        :class="{'active': this.cfg.audio.volume == 0}"></button>
+                <input type="range" @wheel="volumeWheel" :step="cfg.audio.volumeStep" min="0" :max="cfg.audio.maxVolume"
+                       v-model="mk.volume" v-if="typeof mk.volume != 'undefined'" @change="checkMuteChange()"
+                       v-b-tooltip.hover :title="`${(Math.log10(mk.volume) * 20).toFixed(2)} dB`">
+            </div>
+            <div class="app-chrome-item generic">
+                <button class="playback-button--small miniplayer"
+                        :title="$root.getLz('term.miniplayer')"
+                        v-b-tooltip.hover
+                        @click="drawer.open = false; miniPlayer(true)"></button>
+            </div>
+            <div class="app-chrome-item generic">
+                <button class="playback-button--small queue"
+                        :title="$root.getLz('term.queue')"
+                        v-b-tooltip.hover
+                        :class="{'active': drawer.panel == 'queue'}"
+                        @click="invokeDrawer('queue')"></button>
+            </div>
+            <div class="app-chrome-item generic">
+                <template v-if="lyrics && lyrics != [] && lyrics.length > 0">
+                    <button class="playback-button--small lyrics"
+                            :title="$root.getLz('term.lyrics')"
+                            v-b-tooltip.hover
+                            :class="{'active': drawer.panel == 'lyrics'}"
+                            @click="invokeDrawer('lyrics')"></button>
+                </template>
+                <template v-else>
+                    <button class="playback-button--small lyrics"
+                            :style="{'opacity': 0.3, 'pointer-events': 'none'}"></button>
+                </template>
+            </div>
+        </template>
         <div class="app-chrome-item full-height" id="window-controls-container" v-if="chrome.windowControlPosition == 'right'">
             <div class="window-controls">
                 <div class="minimize" @click="ipcRenderer.send('minimize')"></div>

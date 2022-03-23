@@ -1,13 +1,10 @@
 <script type="text/x-template" id="cider-search">
     <div class="content-inner">
         <div v-if="search != null && search != [] && search.term != ''">
+            <h3>{{app.getLz('term.topResult')}}</h3>
+            <mediaitem-scroller-horizontal
+                                :items="search.results[search.results.meta.results.order[0]]['data']"></mediaitem-scroller-horizontal>
             <div class="row">
-                <div class="col-sm" style="width: auto;" v-if="getTopResult()">
-                    <template>
-                        <h3>{{app.getLz('term.topResult')}}</h3>
-                        <mediaitem-square :item="getTopResult()"></mediaitem-square>
-                    </template>
-                </div>
                 <div v-else style="text-align: center">
                     <h3>{{app.getLz('error.noResults')}}</h3>
                     <p>{{app.getLz('error.noResults.description')}}</p>
@@ -24,10 +21,8 @@
                         </div>
                     </div>
                     <div class="mediaitem-list-item__grid">
-                        <div class="grid-body">
-                        <mediaitem-list-item :item="item" :index="index"
-                            v-for="(item, index) in search.results.song.data.limit(12)"></mediaitem-list-item>
-                        </div>
+                        <listitem-horizontal :items="search.results.song.data.limit(12)">
+                        </listitem-horizontal>
                     </div>
                 </div>
             </div>
@@ -93,7 +88,7 @@
                     <mediaitem-square :kind="'385'" size="600"
                     :item="item ? (item.attributes.kind ? item : ((item.relationships && item.relationships.contents ) ? item.relationships.contents.data[0] : item)) : []"
                     :imagesize="800"
-                    v-for="item in categoriesView[1].relationships.contents.data.filter(item => item.type != 'editorial-items')">
+                    v-for="item of getFlattenedCategories()">
                 </div>
            </div>
         </div>    
@@ -121,11 +116,24 @@
             },
             async getCategories() {
                 if (this.categoriesView != [] && this.categoriesView.length > 0) { this.categoriesReady = true; return await true; } else {
-                    let response = await this.app.mk.api.v3.music(`/v1/recommendations/${this.app.mk.storefrontId}?timezone=${encodeURIComponent(this.app.formatTimezoneOffset())}&name=search-landing&platform=web&extend=editorialArtwork&art%5Burl%5D=f%2Cc&types=editorial-items%2Capple-curators%2Cactivities`);
+                    let response = await this.app.mk.api.v3.music(`/v1/recommendations/${this.app.mk.storefrontId}?timezone=${encodeURIComponent(this.app.formatTimezoneOffset())}&name=search-landing&platform=web&extend=editorialArtwork&art%5Burl%5D=f%2Cc&types=editorial-items%2Capple-curators%2Cactivities&l=${this.$root.mklang}`);
                     this.categoriesView = response.data.data;
+                    console.log(this.categoriesView)
                     this.categoriesReady = true;
                     return await true;
                 }
+            },
+            getFlattenedCategories() {
+                let flattened = [];
+                for (let i = 0; i < this.categoriesView.length; i++) {
+                    if (this.categoriesView[i].relationships && this.categoriesView[i].relationships.contents && this.categoriesView[i].relationships.contents.data) {
+                        for (let j = 0; j < this.categoriesView[i].relationships.contents.data.length; j++) {
+                            if (this.categoriesView[i].relationships.contents.data[j].type != 'editorial-items')
+                            flattened.push(this.categoriesView[i].relationships.contents.data[j])
+                        }
+                    }
+                }
+                return flattened;
             }
         }
     })

@@ -3,6 +3,7 @@
         <div class="row">
             <div class="col">
                 <img src="assets/banner.png" alt="Cider Logo" style="display:block;margin:0 auto;width: 500px;">
+                <p style="text-align: center" id="version">{{ $root.getLz("term.version") }} {{ $root.version }}</p>
                 <p style="text-align: center"> {{$root.getLz('about.thanks')}} </p>
 
                 <p style="text-align: center">"{{$root.getLz('term.appleMusic')}}" - {{$root.getLz('term.copyright')}} © 2022 <a href="https://www.apple.com/" class="dt-footer__link"
@@ -11,11 +12,13 @@
                                                                                   {{$root.getLz('term.rightsReserved')}}</p>
                 <hr>
                 <h3>{{$root.getLz('term.sponsor')}}</h3>
+                <button onclick="window.open('https://github.com/sponsors/ciderapp')" class="md-btn sponsorBtn"><img src="./assets/github.svg"/>GitHub Sponsors</button>
                 <button onclick="window.open('https://ko-fi.com/cryptofyre')" class="md-btn sponsorBtn"><img src="./assets/ko_fi.svg"/>Ko-fi</button>
                 <button onclick="window.open('https://opencollective.com/ciderapp')" class="md-btn sponsorBtn"><img src="./assets/open_collective.svg"/>Open Collective</button>
                 <h3>{{$root.getLz('term.socials')}}</h3>
-                <button onclick="window.open('https://discord.gg/applemusic')" class="md-btn sponsorBtn"><img src="./assets/discord.svg"/>{{$root.getLz('term.discord')}}</button>
-                <button onclick="window.open('https://twitter.com/UseCider')" class="md-btn sponsorBtn"><img style="width: 20.5px;" src="./assets/twitter.svg"/>Twitter</button>
+                <button onclick="window.open('https://github.com/ciderapp/Cider')" class="md-btn sponsorBtn"><img src="./assets/github.svg"/>{{$root.getLz('term.github')}}</button>
+                <button onclick="window.open('https://discord.gg/applemusic')" class="md-btn sponsorBtn"><img style="height: 26px;" src="./assets/discord.svg"/>{{$root.getLz('term.discord')}}</button>
+                <button onclick="window.open('https://twitter.com/UseCider')" class="md-btn sponsorBtn"><img src="./assets/twitter.svg"/>Twitter</button>
 
             </div>
             <div class="col">
@@ -56,6 +59,7 @@
         data: function () {
             return {
                 window: window,
+                version: app.version,
                 team: [
                     {
                         name: 'cryptofyre',
@@ -87,6 +91,18 @@
                         role: app.getLz('term.developer'),
                         avatar: 'https://avatars.githubusercontent.com/u/27716185?v=4'
                     },
+	                {
+						name: 'crypticplank',
+                        link: 'https://github.com/crypticplank',
+                        role: app.getLz('term.developer'),
+                        avatar: 'https://avatars.githubusercontent.com/u/52553007?v=4'
+                    },
+                    {
+                        name: 'Maikiwi',
+                        link: 'https://github.com/maikirakiwi',
+                        role: app.getLz('term.developer'),
+                        avatar: 'https://avatars.githubusercontent.com/u/74925636?v=4'
+                    },
                     {
                         name: 'Void',
                         link: 'https://twitter.com/MoonyVoid',
@@ -97,7 +113,7 @@
                         name: 'NoseySG',
                         link: 'https://twitter.com/noah_grose',
                         role: app.getLz('term.socialTeam'),
-                        avatar: 'https://pbs.twimg.com/profile_images/1422541289837535239/qg-aaoP9_400x400.jpg'
+                        avatar: 'https://pbs.twimg.com/profile_images/1496944907260420099/D5gl6H4J_400x400.jpg'
                     }
                 ]
             }

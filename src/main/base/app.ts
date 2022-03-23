@@ -4,6 +4,12 @@ import * as path from 'path';
 import * as log from 'electron-log';
 import {utils} from './utils';
 
+/**
+ * @file Creates App instance
+ * @author CiderCollective
+ */
+
+/** @namespace */
 export class AppEvents {
     private protocols: string[] = [
         "ame",
@@ -17,6 +23,7 @@ export class AppEvents {
     private tray: any = undefined;
     private i18n: any = undefined;
 
+    /** @constructor */
     constructor() {
         this.start();
     }
@@ -90,6 +97,7 @@ export class AppEvents {
         /***********************************************************************************************************************
          * Protocols
          **********************************************************************************************************************/
+        /**  */
         if (process.defaultApp) {
             if (process.argv.length >= 2) {
                 this.protocols.forEach((protocol: string) => {
@@ -112,6 +120,8 @@ export class AppEvents {
     public ready(plug: any) {
         this.plugin = plug
         console.log('[AppEvents] App ready');
+
+        AppEvents.setLoginSettings()
     }
 
     public bwCreated() {
@@ -123,8 +133,17 @@ export class AppEvents {
             }
         })
 
+        if (process.platform === "darwin") {
+            app.setUserActivity('8R23J2835D.com.ciderapp.webremote.play', {
+                title: 'Web Remote',
+                description: 'Connect to your Web Remote',
+            }, "https://webremote.cider.sh")
+        }
+
         this.InstanceHandler()
-        this.InitTray()
+        if (process.platform !== "darwin") {
+            this.InitTray()
+        }
     }
 
     /***********************************************************************************************************************
@@ -212,6 +231,7 @@ export class AppEvents {
                         app.quit()
                     } else if (utils.getWindow()) {
                         if (utils.getWindow().isMinimized()) utils.getWindow().restore()
+                        utils.getWindow().show()
                         utils.getWindow().focus()
                     }
                 })
@@ -307,10 +327,34 @@ export class AppEvents {
     private static initLogging() {
         log.transports.console.format = '[{h}:{i}:{s}.{ms}] [{level}] {text}';
         Object.assign(console, log.functions);
+        console.debug = function(...args: any[]) {
+            if (!app.isPackaged) {
+                log.debug(...args)
+            }
+        };
 
         ipcMain.on('fetch-log', (_event) => {
             const data = readFileSync(log.transports.file.getFile().path, {encoding: 'utf8', flag: 'r'});
             clipboard.writeText(data)
         })
+    }
+
+    /**
+     * Set login settings
+     * @private
+     */
+    private static setLoginSettings() {
+        if (utils.getStoreValue('general.onStartup.enabled')) {
+            app.setLoginItemSettings({
+                openAtLogin: true,
+                path: app.getPath('exe'),
+                args: [`${utils.getStoreValue('general.onStartup.hidden') ? '--hidden' : ''}`]
+            })
+        } else {
+            app.setLoginItemSettings({
+                openAtLogin: false,
+                path: app.getPath('exe')
+            })
+        }
     }
 }

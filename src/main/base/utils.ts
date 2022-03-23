@@ -1,9 +1,11 @@
 import * as fs from "fs";
 import * as path from "path";
-import {jsonc} from "jsonc";
 import {Store} from "./store";
 import {BrowserWindow as bw} from "./browserwindow";
-import {app} from "electron";
+import {app, dialog, ipcMain, Notification, shell } from "electron";
+import fetch from "electron-fetch";
+import {AppImageUpdater, NsisUpdater} from "electron-updater";
+import * as log from "electron-log";
 
 export class utils {
 
@@ -16,6 +18,7 @@ export class utils {
         mainPath: path.join(__dirname, "../../src/main"),
         resourcePath: path.join(__dirname, "../../resources"),
         i18nPath: path.join(__dirname, "../../src/i18n"),
+        i18nPathSrc: path.join(__dirname, "../../src/il8n/source"),
         ciderCache: path.resolve(app.getPath("userData"), "CiderCache"),
         themes: path.resolve(app.getPath("userData"), "Themes"),
         plugins: path.resolve(app.getPath("userData"), "Plugins"),
@@ -31,16 +34,24 @@ export class utils {
     }
 
     /**
+     * Get the app
+     * @returns {Electron.App}
+     */
+    static getApp(): Electron.App {
+        return app;
+    }
+
+    /**
      * Fetches the i18n locale for the given language.
      * @param language {string} The language to fetch the locale for.
      * @param key {string} The key to search for.
      * @returns {string | Object} The locale value.
      */
     static getLocale(language: string, key?: string): string | object {
-        let i18n: { [index: string]: Object } = jsonc.parse(fs.readFileSync(path.join(this.paths.i18nPath, "en_US.jsonc"), "utf8"));
+        let i18n: { [index: string]: Object } = JSON.parse(fs.readFileSync(path.join(this.paths.i18nPath, "en_US.json"), "utf8"));
 
-        if (language !== "en_US" && fs.existsSync(path.join(this.paths.i18nPath, `${language}.jsonc`))) {
-            i18n = Object.assign(i18n, jsonc.parse(fs.readFileSync(path.join(this.paths.i18nPath, `${language}.jsonc`), "utf8")));
+        if (language !== "en_US" && fs.existsSync(path.join(this.paths.i18nPath, `${language}.json`))) {
+            i18n = Object.assign(i18n, JSON.parse(fs.readFileSync(path.join(this.paths.i18nPath, `${language}.json`), "utf8")));
         }
 
         if (key) {
@@ -83,6 +94,14 @@ export class utils {
         return bw.win
     }
 
+    static loadPluginFrontend(path: string): void {
+
+    }
+
+    static loadJSFrontend(path: string): void {
+        bw.win.webContents.executeJavaScript(fs.readFileSync(path, "utf8"));
+    }
+
     /**
      * Playback Functions
      */
@@ -102,5 +121,71 @@ export class utils {
         previous: () => {
             bw.win.webContents.executeJavaScript("MusicKitInterop.previous()")
         }
+    }
+
+    /**
+     * Checks the application for updates
+     */
+    static async checkForUpdate(): Promise<void> {
+        if (!app.isPackaged) {
+            new Notification({ title: "Application Update", body: "Can't update as app is in DEV mode. Please build or grab a copy by clicking me"})
+                .on('click', () => {shell.openExternal('https://download.cider.sh/?utm_source=app&utm_medium=dev-mode-warning')})
+                .show()
+            bw.win.webContents.send('update-response', "update-error")
+            return;
+        }
+        const options: any = {
+            provider: 'github',
+            protocol: 'https',
+            owner: 'ciderapp',
+            repo: 'cider-releases',
+            allowDowngrade: true,
+        }
+        let autoUpdater: any = null
+        if (process.platform === 'win32') { //Windows
+            autoUpdater = await new NsisUpdater(options)
+        } else {
+            autoUpdater = await new AppImageUpdater(options) //Linux and Mac (AppImages work on macOS btw)
+        }
+
+        autoUpdater.on('checking-for-update', () => {
+            new Notification({ title: "Cider Update", body: "Cider is currently checking for updates."}).show()
+        })
+
+        autoUpdater.on('error', (error: any) => {
+            console.error(`[AutoUpdater] Error: ${error}`)
+            bw.win.webContents.send('update-response', "update-error")
+        })
+
+        autoUpdater.on('update-not-available', () => {
+            console.log('[AutoUpdater] Update not available.')
+            bw.win.webContents.send('update-response', "update-not-available");
+        })
+        autoUpdater.on('download-progress', (event: any, progress: any) => {
+            bw.win.setProgressBar(progress.percent / 100)
+        })
+
+        autoUpdater.on('update-downloaded', (info: any) => {
+            console.log('[AutoUpdater] Update downloaded.')
+            bw.win.webContents.send('update-response', "update-downloaded");
+            const dialogOpts = {
+                type: 'info',
+                buttons: ['Restart', 'Later'],
+                title: 'Application Update',
+                message: info,
+                detail: 'A new version has been downloaded. Restart the application to apply the updates.'
+              }
+            
+              dialog.showMessageBox(dialogOpts).then((returnValue) => {
+                if (returnValue.response === 0) autoUpdater.quitAndInstall()
+              })
+              new Notification({ title: "Application Update", body: info}).on('click', () => {
+                  bw.win.show()
+              }).show()
+        })
+
+        log.transports.file.level = "debug"
+        autoUpdater.logger = log
+        await autoUpdater.checkForUpdatesAndNotify()
     }
 }
