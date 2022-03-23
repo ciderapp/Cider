@@ -311,7 +311,7 @@ const CiderAudio = {
                     for (let i = 0; i < WARMTH_FREQUENCIES.length; i++) {
                         CiderAudio.audioNodes.analogWarmth[i] = CiderAudio.context.createBiquadFilter();
                         CiderAudio.audioNodes.analogWarmth[i].type = 'peaking'; // 'peaking';
-                        CiderAudio.audioNodes.analogWarmth[i].frequency.value = WARMTH_FREQUENCIES[i];
+                        CiderAudio.audioNodes.analogWarmth[i].frequency.value = WARMTH_FREQUENCIES[i] * 2; 
                         CiderAudio.audioNodes.analogWarmth[i].Q.value = WARMTH_Q[i];
                         CiderAudio.audioNodes.analogWarmth[i].gain.value = WARMTH_GAIN[i] * 1.25;
                     }
@@ -321,7 +321,7 @@ const CiderAudio = {
                     for (let i = 0; i < WARMTH_FREQUENCIES.length; i++) {
                         CiderAudio.audioNodes.analogWarmth[i] = CiderAudio.context.createBiquadFilter();
                         CiderAudio.audioNodes.analogWarmth[i].type = 'peaking'; // 'peaking';
-                        CiderAudio.audioNodes.analogWarmth[i].frequency.value = WARMTH_FREQUENCIES[i];
+                        CiderAudio.audioNodes.analogWarmth[i].frequency.value = WARMTH_FREQUENCIES[i] * 2;;
                         CiderAudio.audioNodes.analogWarmth[i].Q.value = WARMTH_Q[i];
                         CiderAudio.audioNodes.analogWarmth[i].gain.value = WARMTH_GAIN[i] * 1.75;
                     }
@@ -331,7 +331,7 @@ const CiderAudio = {
                     for (let i = 0; i < WARMTH_FREQUENCIES.length; i++) {
                         CiderAudio.audioNodes.analogWarmth[i] = CiderAudio.context.createBiquadFilter();
                         CiderAudio.audioNodes.analogWarmth[i].type = 'peaking'; // 'peaking';
-                        CiderAudio.audioNodes.analogWarmth[i].frequency.value = WARMTH_FREQUENCIES[i];
+                        CiderAudio.audioNodes.analogWarmth[i].frequency.value = WARMTH_FREQUENCIES[i] * 2;;
                         CiderAudio.audioNodes.analogWarmth[i].Q.value = WARMTH_Q[i];
                         CiderAudio.audioNodes.analogWarmth[i].gain.value = WARMTH_GAIN[i] * 1.25;
                     }
@@ -407,7 +407,7 @@ const CiderAudio = {
                     for (let i = 0; i < LLPW_FREQUENCIES.length; i++) {
                         CiderAudio.audioNodes.llpw[i] = CiderAudio.context.createBiquadFilter();
                         CiderAudio.audioNodes.llpw[i].type = 'peaking'; // 'peaking';
-                        CiderAudio.audioNodes.llpw[i].frequency.value = LLPW_FREQUENCIES[i];
+                        CiderAudio.audioNodes.llpw[i].frequency.value = LLPW_FREQUENCIES[i] * 2;
                         CiderAudio.audioNodes.llpw[i].Q.value = LLPW_Q[i];
                         CiderAudio.audioNodes.llpw[i].gain.value = LLPW_GAIN[i];
                     }
@@ -435,7 +435,7 @@ const CiderAudio = {
                     for (let i = 0; i < c_LLPW_FREQUENCIES.length; i++) {
                         CiderAudio.audioNodes.llpw[i] = CiderAudio.context.createBiquadFilter();
                         CiderAudio.audioNodes.llpw[i].type = 'peaking'; // 'peaking';
-                        CiderAudio.audioNodes.llpw[i].frequency.value = c_LLPW_FREQUENCIES[i];
+                        CiderAudio.audioNodes.llpw[i].frequency.value = c_LLPW_FREQUENCIES[i] * 2;
                         CiderAudio.audioNodes.llpw[i].Q.value = c_LLPW_Q[i];
                         CiderAudio.audioNodes.llpw[i].gain.value = c_LLPW_GAIN[i];
                     }
@@ -496,7 +496,7 @@ const CiderAudio = {
             for (let i = 0; i < VIBRANTBASSBANDS.length; i++) {
                 CiderAudio.audioNodes.vibrantbassNode[i] = CiderAudio.context.createBiquadFilter();
                 CiderAudio.audioNodes.vibrantbassNode[i].type = 'peaking'; // 'peaking';
-                CiderAudio.audioNodes.vibrantbassNode[i].frequency.value = VIBRANTBASSBANDS[i];
+                CiderAudio.audioNodes.vibrantbassNode[i].frequency.value = VIBRANTBASSBANDS[i] * 2;
                 CiderAudio.audioNodes.vibrantbassNode[i].Q.value = VIBRANTBASSQ[i];
                 CiderAudio.audioNodes.vibrantbassNode[i].gain.value = VIBRANTBASSGAIN[i] * (app.cfg.audio.equalizer.vibrantBass / 10);
             }
