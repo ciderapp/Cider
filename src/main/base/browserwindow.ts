@@ -900,7 +900,7 @@ export class BrowserWindow {
                 opt.execPath = process.env.APPIMAGE;
                 opt.args.unshift('--appimage-extract-and-run');
             } else if (app.isPackaged && process.env.CHROME_DESKTOP != undefined && process.env.PLATFORM == "Linux") {
-                opt.execPath = `gtk-launch cider`;
+                opt.execPath = "cider";
             }
             app.relaunch(opt);
             app.quit();
