@@ -29,7 +29,7 @@ if (process.env['CIRCLE_BRANCH'] === 'lts') {
 // https://circleci.com/docs/2.0/env-vars/#built-in-environment-variables
 var pvers = package.version.split('.')
 package.version = `${pvers[0]}.${pvers[1]}.${pvers[2]}-${channel}.${process.env['CIRCLE_BUILD_NUM']}`
-package.build.channel = channel
+// package.build.channel = channel
 package.publish = {
     "provider": "github",
     "repo": "cider-releases",

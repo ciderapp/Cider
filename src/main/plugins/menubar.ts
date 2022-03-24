@@ -149,6 +149,12 @@ export default class Thumbar {
                     label: 'Volume Down',
                     accelerator: 'CommandOrControl+Down',
                     click: () => this._win.webContents.executeJavaScript(`app.volumeDown()`)
+                },
+                {type: 'separator'},
+                {
+                    label: 'Cast To Devices',
+                    accelerator: 'CommandOrControl+Shift+C',
+                    click: () => this._win.webContents.executeJavaScript(`app.modals.castMenu = true`)
                 }
             ]
         },

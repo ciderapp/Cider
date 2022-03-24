@@ -1,6 +1,6 @@
 name: Feature Request
 description: Suggest an idea to improve Cider.
-title: "[Enhancement]: "
+title: "[Feature Request]: "
 labels: ["enhancement", "triage"]
 assignees: []
 body:

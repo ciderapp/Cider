@@ -49,13 +49,12 @@
                                         <artist-chip v-for="artist in data.relationships.artists.data"
                                                      :item="artist"></artist-chip>
                                     </template>
-                                    <div class="playlist-desc"
-                                         v-if="data.attributes.description && (data.attributes.description.standard || data.attributes.description.short)">
-                                        <div v-if="data.attributes.description.short" class="content"
-                                             v-html="data.attributes.description.short"></div>
-                                        <div v-else-if="data.attributes.description.standard" class="content"
-                                             v-html="data.attributes.description.standard"></div>
-                                        <button v-if="data.attributes.description.short" class="more-btn"
+                                    <div class="playlist-desc" v-if="(data.attributes.description && (data.attributes.description.standard || data.attributes.description.short)) || (data.attributes.editorialNotes && (data.attributes.editorialNotes.standard || data.attributes.editorialNotes.short))">
+                                        <div v-if="(data.attributes.description?.short ?? data.attributes.editorialNotes?.short) != null" class="content"
+                                                v-html="data.attributes.description?.short ?? data.attributes.editorialNotes?.short"></div>
+                                        <div v-else-if="(data.attributes.description?.standard ?? data.attributes.editorialNotes?.standard) != null" class="content"
+                                                v-html="data.attributes.description?.standard ?? data.attributes.editorialNotes?.standard"></div>
+                                        <button v-if="(data.attributes.description?.short ?? data.attributes.editorialNotes?.short ) != null" class="more-btn"
                                                 @click="editorialNotesExpanded = !editorialNotesExpanded">
                                             {{app.getLz('term.showMore')}}
                                         </button>

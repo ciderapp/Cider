@@ -2350,6 +2350,33 @@ fieldset:disabled .btn {
 
 // Tabs
 
+.nav {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.nav-link {
+  display: block;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+}
+
+.nav-link:hover, .nav-link:focus {
+  text-decoration: none;
+}
+
+.nav-link.disabled {
+  color: #6c757d;
+  pointer-events: none;
+  cursor: default;
+}
+
+
 .nav-tabs {
   border-bottom: 1px solid #dee2e6;
 }
@@ -2382,14 +2409,23 @@ fieldset:disabled .btn {
 }
 
 .nav-pills .nav-link {
-  background: none;
+  background-color: transparent;
   border: 0;
-  border-radius: 0.25rem;
+  border-radius: 50px;
+  color: #eee;
+  -webkit-user-drag: none;
+  // transition: transform .35s var(--appleEase), background-color .35s var(--appleEase);
+  font-weight: 500;
+  &:hover {
+    // transition: transform .35s var(--appleEase), background-color 0s var(--appleEase);
+    background-color: var(--hover);
+  }
 }
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
   color: #fff;
-  background-color: #0d6efd;
+  background-color: var(--selected);
+  outline:2px solid var(--keyColor);
 }
 
 .nav-fill > .nav-link,
