@@ -146,6 +146,9 @@ dist
 !.yarn/sdks
 !.yarn/versions
 
+# pnpm 
+pnpm-lock.yaml
+
 ## JetBrains GitIgnore ##
 
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider

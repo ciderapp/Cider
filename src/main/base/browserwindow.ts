@@ -308,9 +308,11 @@ export class BrowserWindow {
 
                 break;
             case "win32":
-                if (!(utils.getStoreValue('visual.transparent') ?? false)){
-                this.options.backgroundColor = "#1E1E1E";} else {
-                this.options.transparent = true;}
+                if (!(utils.getStoreValue('visual.transparent') ?? false)) {
+                    this.options.backgroundColor = "#1E1E1E";
+                } else {
+                    this.options.transparent = true;
+                }
                 break;
             case "linux":
                 this.options.backgroundColor = "#1E1E1E";
@@ -450,7 +452,7 @@ export class BrowserWindow {
             }
         });
 
-        app.get("/themes/:theme/*", (req: {params: {theme: string, 0: string}}, res) => {
+        app.get("/themes/:theme/*", (req: { params: { theme: string, 0: string } }, res) => {
             const theme = req.params.theme;
             const file = req.params[0];
             const themePath = join(utils.getPath('srcPath'), "./renderer/themes/", theme);
@@ -464,9 +466,9 @@ export class BrowserWindow {
             }
         });
 
-        app.get("/plugins/:plugin/*", (req: {params: {plugin: string, 0: string}}, res) => {
+        app.get("/plugins/:plugin/*", (req: { params: { plugin: string, 0: string } }, res) => {
             let plugin = req.params.plugin;
-            if(Plugins.getPluginFromMap(plugin)) {
+            if (Plugins.getPluginFromMap(plugin)) {
                 plugin = Plugins.getPluginFromMap(plugin)
             }
             const file = req.params[0];
@@ -595,13 +597,13 @@ export class BrowserWindow {
         /**********************************************************************************************************************
          * ipcMain Events
          ****************************************************************************************************************** */
-        
+
         ipcMain.on("get-wallpaper", async (event) => {
-            const wpPath:string = await wallpaper.get();
+            const wpPath: string = await wallpaper.get();
             // get the wallpaper and encode it to base64 then return
-            const wpBase64:string = await readFileSync(wpPath, 'base64')
+            const wpBase64: string = await readFileSync(wpPath, 'base64')
             // add the data:image properties
-            const wpData:string = `data:image/png;base64,${wpBase64}`
+            const wpData: string = `data:image/png;base64,${wpBase64}`
             event.returnValue = wpData;
         })
 
@@ -609,11 +611,11 @@ export class BrowserWindow {
             event.returnValue = process.platform;
         });
 
-        ipcMain.handle("reinstall-widevine-cdm", ()=>{
+        ipcMain.handle("reinstall-widevine-cdm", () => {
             // remove WidevineCDM from appdata folder
             const widevineCdmPath = join(app.getPath("userData"), "./WidevineCdm");
-            if(existsSync(widevineCdmPath)) {
-                rmSync(widevineCdmPath, { recursive: true, force: true })
+            if (existsSync(widevineCdmPath)) {
+                rmSync(widevineCdmPath, {recursive: true, force: true})
             }
             // reinstall WidevineCDM
             app.relaunch()
@@ -771,7 +773,7 @@ export class BrowserWindow {
         });
 
         ipcMain.handle("open-path", async (event, path) => {
-            switch(path) {
+            switch (path) {
                 default:
                 case "plugins":
                     shell.openPath(utils.getPath("plugins"));
@@ -886,11 +888,22 @@ export class BrowserWindow {
         //Fullscreen
         ipcMain.on('detachDT', (_event, _) => {
             BrowserWindow.win.webContents.openDevTools({mode: 'detach'});
-        })  
-        
-        ipcMain.handle('relaunchApp',(_event, _) => {
-            app.relaunch()
-            app.exit()
+        })
+
+        ipcMain.handle('relaunchApp', (_event, _) => {
+            const opt: Electron.RelaunchOptions = {};
+            opt.args = process.argv.slice(1).concat(['--relaunch']);
+            opt.execPath = process.execPath;
+            if (app.isPackaged && process.env.PORTABLE_EXECUTABLE_FILE != undefined) {
+                opt.execPath = process.env.PORTABLE_EXECUTABLE_FILE;
+            } else if (app.isPackaged && process.env.APPIMAGE != undefined) {
+                opt.execPath = process.env.APPIMAGE;
+                opt.args.unshift('--appimage-extract-and-run');
+            } else if (app.isPackaged && process.env.CHROME_DESKTOP != undefined && process.env.PLATFORM == "Linux") {
+                opt.execPath = `gtk-launch cider`;
+            }
+            app.relaunch(opt);
+            app.quit();
         })
 
         app.on('before-quit', () => {
@@ -1030,7 +1043,7 @@ export class BrowserWindow {
         ipcMain.on('get-remote-pair-url', (_event, _) => {
             let url = `http://${BrowserWindow.getIP()}:${this.remotePort}`;
             //if (app.isPackaged) {
-                BrowserWindow.win.webContents.send('send-remote-pair-url', (`https://cider.sh/pair-remote?url=${Buffer.from(encodeURI(url)).toString('base64')}`).toString());
+            BrowserWindow.win.webContents.send('send-remote-pair-url', (`https://cider.sh/pair-remote?url=${Buffer.from(encodeURI(url)).toString('base64')}`).toString());
             //} else {
             //    BrowserWindow.win.webContents.send('send-remote-pair-url', (`http://127.0.0.1:5500/pair-remote.html?url=${Buffer.from(encodeURI(url)).toString('base64')}`).toString());
             //}
@@ -1065,7 +1078,6 @@ export class BrowserWindow {
             // Check if using app store builds so people don't get pissy wen button go bonk
             event.returnValue = !(app.isPackaged && !process.mas || !process.windowsStore);
         })
-
 
 
         ipcMain.on('share-menu', async (_event, url) => {
@@ -1144,7 +1156,7 @@ export class BrowserWindow {
             isQuiting = true
         });
 
-        app.on('activate', function(){
+        app.on('activate', function () {
             BrowserWindow.win.show()
             BrowserWindow.win.focus()
         });
@@ -1193,7 +1205,9 @@ export class BrowserWindow {
                                 (ip2.startsWith('192.168.') && !ip.startsWith('192.168.')) &&
                                 (ip2.startsWith('172.16.') && !ip.startsWith('192.168.') && !ip.startsWith('172.16.')) ||
                                 (ip2.startsWith('10.') && !ip.startsWith('192.168.') && !ip.startsWith('172.16.') && !ip.startsWith('10.'))
-                            ){ip = details.address;}
+                            ) {
+                                ip = details.address;
+                            }
                             ++alias;
                         }
                     }
