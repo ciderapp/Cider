@@ -283,7 +283,7 @@
   "settings.header.audio.quality.standard.description": "64 kbps",
   "settings.option.audio.seamlessTransition": "Szünetmentes lejátszás",
   "settings.option.audio.enableAdvancedFunctionality": "Haladó funkcionalitás engedélyezése",
-  "settings.option.audio.enableAdvancedFunctionality.description": "Az AudioContext funkció engedélyezése lehetővé teszi a fejlettebb hangfunkciókat, például a Normalizásást, a Hangszínszabályzókat és a Visualizereket, azonban egyes eszközökön ez akadozást okozhat a hangsávokban.",
+  "settings.option.audio.enableAdvancedFunctionality.description": "Az AudioContext funkció engedélyezése lehetővé teszi a fejlettebb hangfunkciókat, mint például a Normalizásást, a Hangszínszabályzókat és a Vizualizálókat, azonban egyes eszközökön ez akadozást okozhat a hangsávokban.",
   "settings.option.audio.audioLab": "Cider Hangstúdió",
   "settings.option.audio.audioLab.description": "A Ciderhez fejlesztett hangeffektek gyűjteménye.",
   "settings.warn.audioLab.withoutAF": "Az AudioContext (Haladó funkcionalitás) szükséges a Cider Hangstúdió engedélyezéséhez.",
