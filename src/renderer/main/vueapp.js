@@ -3290,6 +3290,10 @@ const app = new Vue({
             if (typeof url == "undefined" || url == "") {
                 return "https://beta.music.apple.com/assets/product/MissingArtworkMusic.svg"
             }
+            height = parseInt(height * window.devicePixelRatio)
+            if(width) {
+                width = parseInt(width * window.devicePixelRatio)
+            }
             let newurl = `${url.replace('{w}', width ?? height).replace('{h}', height).replace('{f}', "webp").replace('{c}', ((width === 900) ? "sr" : "cc"))}`;
 
             if (newurl.includes("900x516")) {
