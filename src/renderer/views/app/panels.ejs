@@ -44,7 +44,7 @@
                         fill-rule="nonzero"/>
             </svg>
         </div>
-        <div id="captions" v-if="lyrics.length > 0">{{((lyricon) ? ((lyrics.length > 0 && lyrics[currentLyricsLine] &&
+        <div id="captions" v-if="lyricicon">{{((lyricon) ? ((lyrics.length > 0 && lyrics[currentLyricsLine] &&
             lyrics[currentLyricsLine].line ) ?
             lyrics[currentLyricsLine].line.replace('lrcInstrumental','') : "") : '') + ((lyricon) ?
             ((lyrics.length
