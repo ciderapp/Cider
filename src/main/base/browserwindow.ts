@@ -42,6 +42,7 @@ export class BrowserWindow {
                 "pages/apple-account-settings",
                 "pages/library-songs",
                 "pages/library-albums",
+                "pages/library-artists",
                 "pages/browse",
                 "pages/settings",
                 "pages/listen_now",
@@ -83,7 +84,7 @@ export class BrowserWindow {
                 "components/mediaitem-hrect",
                 "components/mediaitem-square",
                 "components/mediaitem-mvview",
-                "components/libraryartist-item",
+                // "components/libraryartist-item",
                 "components/listennow-child",
                 "components/mediaitem-mvview-sp",
                 "components/animatedartwork-view",
@@ -94,6 +95,7 @@ export class BrowserWindow {
                 "components/castmenu",
                 "components/artist-chip",
                 "components/hello-world",
+                "components/inline-collection-list",
             ],
             appRoutes: [
                 {
@@ -186,6 +188,11 @@ export class BrowserWindow {
                     component: `<cider-library-albums :data="library.songs"></cider-library-albums>`,
                     condition: `page == 'library-albums'`,
                     onEnter: `getLibraryAlbumsFull(null, 1); getAlbumSort(); searchLibraryAlbums(1); getLibrarySongsFull() ;searchLibraryAlbums(1);`
+                }, {
+                    page: "library-artists",
+                    component: `<cider-library-artists></cider-library-artists>`,
+                    condition: `page == 'library-artists'`,
+                    onEnter: `getLibraryArtistsFull(null, 0);`
                 }, {
                     page: "appleCurator",
                     component: `<cider-applecurator :data="appleCurator"></cider-applecurator>`,

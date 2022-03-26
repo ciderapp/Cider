@@ -278,6 +278,194 @@
 
 }
 
+// Podcast Page
+.content-inner.library-artists-page {
+  // top: 0;
+  height: calc(100% - var(--navigationBarHeight));
+  padding: 0px;
+  .inner-container {
+    display: flex;
+    height : calc(100% - var(--navigationBarHeight));
+    padding: 0px;
+    height: 100%;
+
+    .list-flat {
+      border-radius: 0px;
+    }
+
+    .podcast-artwork {
+      width : 200px;
+      margin: 16px auto;
+      height: 200px;
+    }
+
+    .podcasts-list {
+      height      : 100%;
+      width       : 280px;
+      background  : rgb(200 200 200 / 10%);
+      overflow-y  : overlay;
+      border-right: 1px solid var(--color2);
+      flex        : none;
+      overflow-x  : hidden;
+
+      .podcast-list-header {
+        border-bottom : 1px solid var(--color2);
+        font-size     : 0.7em;
+        padding       : 6px;
+        background    : #ffffff17;
+        text-transform: uppercase;
+        font-weight   : 600;
+        opacity       : 0.5;
+      }
+
+      .podcasts-search {
+        padding      : 10px;
+        position     : sticky;
+        top          : 0;
+        left         : 0;
+        width        : 100%;
+        border-bottom: 1px solid var(--color2);
+        z-index      : 2;
+        background   : #303030;
+      }
+    }
+
+    .episodes-list {
+      height    : 100%;
+      width     : 100%;
+      background: rgb(200 200 200 / 6%);
+      overflow-y: overlay;
+      overflow-x: hidden;
+
+      .episodes-inline-info {
+        padding: 14px 14px 0px 14px;
+
+        .podcast-show-info {
+          display        : flex;
+          justify-content: center;
+          flex-direction : column;
+        }
+
+        .podcast-show-description {
+          margin     : 32px 6px;
+          font-size  : 0.8rem;
+          white-space: pre-wrap;
+          display    : block;
+        }
+
+        .podcast-artwork {
+          width : 120px;
+          margin: 0px auto;
+          height: 120px;
+        }
+      }
+
+      .podcast-no-search-results {
+        text-align: center;
+        margin-top: 40px;
+      }
+    }
+
+    .podcasts-details {
+      width         : 300px;
+      flex          : none;
+      background    : rgb(255 255 255 / 5%);
+      overflow-y    : overlay;
+      overflow-x    : hidden;
+      top           : 2%;
+      z-index       : 2;
+      border-left   : 1px solid var(--color2);
+      padding-bottom: 1em;
+
+      .meta-btn {
+        font-size: 0.75em;
+      }
+
+      .podcasts-details-header {
+        display        : flex;
+        justify-content: end;
+        align-items    : center;
+        position       : sticky;
+        top            : 0;
+        z-index        : 2;
+      }
+
+      .close-btn {
+        width              : 50px;
+        height             : 42px;
+        background-image   : var(--gfx-closeBtn);
+        background-position: center;
+        background-repeat  : no-repeat;
+        -webkit-app-region : no-drag;
+        appearance         : none;
+        border             : 0;
+        background-color   : transparent;
+        position           : absolute;
+        top                : 0;
+        right              : 0;
+
+        &:hover {
+          background-color: rgb(196, 43, 28)
+        }
+      }
+
+      .podcast-genre {
+        text-align : center;
+        margin     : 6px;
+        font-size  : 0.8em;
+        font-weight: 500;
+        opacity    : 0.8;
+      }
+
+      .podcast-metainfo {
+        text-align: center;
+        font-size : 0.7em;
+        opacity   : 0.8;
+      }
+
+      .podcast-header {
+        text-align: center;
+      }
+
+      .podcast-play-btn {
+        width  : 50%;
+        display: block;
+        margin : 0 auto;
+      }
+
+      .podcast-description {
+        margin     : 12px;
+        font-size  : 0.75em;
+        white-space: pre-wrap;
+        display    : block;
+        line-break : anywhere;
+      }
+
+
+    }
+
+  }
+
+  @media only screen and (max-width: 1230px) {
+    .content-inner.podcasts-page {
+      .podcasts-details {
+        height       : 96%;
+        width        : 300px;
+        flex         : none;
+        background   : rgb(20 20 20 / 97%);
+        overflow-y   : overlay;
+        overflow-x   : hidden;
+        position     : absolute;
+        right        : 2%;
+        top          : 2%;
+        border-radius: 10px;
+        box-shadow   : var(--ciderShadow-Generic);
+        z-index      : 2;
+      }
+    }
+  }
+}
+
 @media only screen and (max-width: 1230px) {
   .content-inner.podcasts-page {
     .podcasts-details {

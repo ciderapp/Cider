@@ -222,7 +222,7 @@ const app = new Vue({
         pluginPages: {
             page: "hello-world",
             pages: [],
-        }
+        },
     },
     watch: {
         cfg: {
