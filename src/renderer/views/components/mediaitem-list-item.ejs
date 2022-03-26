@@ -20,10 +20,10 @@
             <div class="isLibrary" v-if="showLibraryStatus == true">
                 <div v-if="showInLibrary" :style="{display: (showInLibrary ? 'block' : 'none'), 'margin-left':'11px'}">
                     <button @click="addToLibrary()" v-if="!addedToLibrary && (showIndex == false ||(showIndex == true && showIndexPlaylist != false))">
-                        <div class="svg-icon" :style="{'--color': 'var(--keyColor)', '--url': 'url(./assets/feather/plus.svg)'}"></div>
+                        <div class="svg-icon addIcon" :style="{'--color': 'var(--keyColor)', '--url': 'url(./assets/feather/plus.svg)'}"></div>
                     </button>
                     <button v-else-if='!(showArtwork == true && (showIndex == false ||(showIndex == true && showIndexPlaylist != false)))' @click="playTrack()" style="width: 44px;margin-left: -11px;">
-                        <div class="svg-icon" :style="{'--color': 'var(--keyColor)', '--url': 'url(./assets/feather/play.svg)'}"></div>
+                        <div class="svg-icon playIcon" :style="{'--color': 'var(--keyColor)', '--url': 'url(./assets/feather/play.svg)'}"></div>
                     </button>
                 </div>
                 <div v-if="!(app.mk.isPlaying && (((app.mk.nowPlayingItem._songId ?? (app.mk.nowPlayingItem.songId ?? app.mk.nowPlayingItem.id ))  == itemId) || (app.mk.nowPlayingItem.id  == item.id ))) && showIndex" :style="{display: ((showIndex && !showInLibrary) ? 'block' : 'none'), 'margin-left':'11px'}">
