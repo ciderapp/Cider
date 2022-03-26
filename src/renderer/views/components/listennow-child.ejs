@@ -3,7 +3,7 @@
     <template v-if="isVisible && recom.attributes.display.kind != 'MusicSuperHeroShelf'">    
         <div class="row">
             <div class="col">
-                <h3>{{ recom.attributes.title ? recom.attributes.title.stringForDisplay : ""}}</h3>
+                <h3>{{ recom.attributes.title ? recom.attributes.title.stringForDisplay : "  "}}</h3>
             </div>
             <div class="col-auto flex-center" v-if="recom.relationships.contents.data.length >= 10">
                         <button class="cd-btn-seeall" @click="app.showCollection(recom.relationships.contents, recom.attributes.title ? recom.attributes.title.stringForDisplay : '', 'listen_now')" >{{app.getLz('term.seeAll')}}</button>
@@ -15,7 +15,8 @@
         </template>
         <template v-else>
             <mediaitem-scroller-horizontal-sp
-                            :items="recom.relationships.contents.data.limit(10)"></mediaitem-scroller-horizontal-sp>
+            :withReason="index==0"  
+            :items="recom.relationships.contents.data.limit(10)"></mediaitem-scroller-horizontal-sp>
         </template>
     </template> 
     <template v-else-if="recom.attributes.display.kind != 'MusicSuperHeroShelf'">
@@ -27,7 +28,7 @@
 <script>
     Vue.component('listennow-child', {
         template: "#listennow-child",
-        props: ["recom"],
+        props: ["recom","index"],
         data: function () {
             return {
                 isVisible: true,

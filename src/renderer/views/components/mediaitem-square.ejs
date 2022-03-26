@@ -1,13 +1,14 @@
 <script type="text/x-template" id="mediaitem-square">
-    <div
-        tabindex="0"
-        @click.self="app.routeView(item)"
-        @controller-click="app.routeView(item)"
-        @contextmenu.self="contextMenu"
-         class="cd-mediaitem-square" :class="getClasses()" @contextmenu="contextMenu"
-         v-observe-visibility="{callback: visibilityChanged}"
-         :style="{'--spcolor': getBgColor()}">
-        <template v-if="isVisible">
+    <div tabindex="0"
+    @click.self="app.routeView(item)"
+    @controller-click="app.routeView(item)"
+    @contextmenu.self="contextMenu"
+    v-observe-visibility="{callback: visibilityChanged}"
+   >
+    <div v-if="reasonShown && isVisible" class="reasonSP ">{{item?.meta?.reason?.stringForDisplay ?? ' '}}</div>
+    <div style="{'--spcolor': getBgColor()}"
+         class="cd-mediaitem-square" :class="getClasses()" @contextmenu="contextMenu">
+        <template v-if="isVisible">           
             <div class="artwork-container">
                 <div class="unavailable-overlay" v-if="unavailable">
                     <div class="codicon codicon-circle-slash"></div>
@@ -47,6 +48,7 @@
             </div>
         </template>
     </div>
+    </div>
 </script>
 
 <script>
@@ -68,6 +70,11 @@
             forceVideo: {
                 type: Boolean,
                 default: false
+            },
+            reasonShown: {
+                type: Boolean,
+                default: false,
+                required: false
             },
             'contextExt': {type: Object, required: false},
         },
