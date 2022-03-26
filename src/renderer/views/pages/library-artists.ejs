@@ -12,8 +12,8 @@
                 </libraryartist-item>
             </div>
             <div class="episodes-list" >   
-                <div class="episodes-inline-info">        
-                <inline-collection-list v-if="clresponse != []" :data="clresponse" :type="cltype" :title="cltitle"></inline-collection-list>
+                <div class="episodes-inline-info" v-if="clready">        
+                <inline-collection-list  :data="clresponse" :type="cltype" :title="cltitle"></inline-collection-list>
                 </div>    
             </div>
         </div>
@@ -47,6 +47,7 @@
                     response: null, title: null, type: null, requestBody: null
                 },
                 clresponse: [],
+                clready: false,
                 cltitle: '',
                 cltype: "artists",
 
@@ -56,6 +57,7 @@
             let self = this;
             this.$root.$on('ap-inlinecollection', function(e){
                 console.log("hey",e)
+                self.clready = true;
                 self.clresponse = e.response;
                 self.cltitle = e.title ?? '';
                 self.cltype = e.type ;
@@ -83,7 +85,7 @@
                         :type="item.type"></mediaitem-artwork>
             </div>
             <div class="info-rect" :style="{'padding-left': (showArtwork ? '' : '16px')}"
-                 @dblclick="app.routeView(item)">
+                 @dblclick="select">
                 <div class="title text-overflow-elipsis">
                     {{ item.attributes.name }}
                 </div>
@@ -140,7 +142,6 @@
                //app.select_selectMediaItem(u.id, this.getDataType(), this.index, this.guid, true)
             },
             showCollection(response, title, type, requestBody = {}){
-                console.log(response, title, type, requestBody);
                 this.$root.$emit('ap-inlinecollection', {
                     response: response, title: title, type: type, requestBody: {}}
                 );
