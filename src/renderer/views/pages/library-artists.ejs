@@ -7,13 +7,21 @@
     
         </div> -->
         <div class="inner-container">
-            <div class="podcasts-list">
-                <libraryartist-item :show-duration="false" :show-meta-data="true" :show-library-status="false" :item="item" v-for="item in library.artists.displayListing">
-                </libraryartist-item>
+            <div class="list-container">
+                <div class="col" style="padding:0;">
+                    <div class="search-input-container" style="width:calc(100%-20px);margin: 16px 10px 10px 10px;">
+                        <div class="search-input--icon"></div>
+                        <input type="search" style="width:100%;" spellcheck="false" :placeholder="$root.getLz('term.search') + '...'" @input="$root.searchLibraryArtists" v-model="library.artists.search" class="search-input">
+                    </div>
+                </div>
+                <div class="podcasts-list">
+                    <libraryartist-item :show-duration="false" :show-meta-data="true" :show-library-status="false" :item="item" v-for="item in library.artists.displayListing">
+                    </libraryartist-item>
+                </div>
             </div>
             <div class="episodes-list" >   
                 <div class="episodes-inline-info" v-if="clready">        
-                <inline-collection-list  :data="clresponse" :type="cltype" :title="cltitle"></inline-collection-list>
+                <inline-collection-list :parentSelector="'.episodes-list'" :data="clresponse" :type="cltype" :title="cltitle"></inline-collection-list>
                 </div>    
             </div>
         </div>

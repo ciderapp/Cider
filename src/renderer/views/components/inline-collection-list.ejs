@@ -42,7 +42,12 @@
                 type: String,
                 required: false,
                 default: "artists"
-            }
+            },
+            parentSelector: {
+                type: String,
+                required: false,
+                default: null
+            },
         },
         data: function() {
             return {
@@ -69,7 +74,7 @@
             },
             scrollToTop() {
                 let target = document.querySelector(".header-text")
-                document.querySelector("#app-content").scrollTo({
+                document.querySelector(this.parentSelector ?? ".collection-page").scrollTo({
                     top: 0,
                     left: 0,
                     behavior: 'smooth'
