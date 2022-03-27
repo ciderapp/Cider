@@ -613,7 +613,7 @@ const app = new Vue({
             }
 
             this.mk._bag.features['seamless-audio-transitions'] = this.cfg.audio.seamless_audio
-
+            this.mk._services.apiManager.store.storekit._restrictedEnabled = false
             // API Fallback
             if (!this.chrome.userinfo) {
                 this.chrome.userinfo = {
