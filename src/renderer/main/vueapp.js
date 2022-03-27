@@ -1418,7 +1418,7 @@ const app = new Vue({
          */
         convertTime(seconds, format = "short") {
 
-            if (isNaN(seconds)) {
+            if (isNaN(seconds) || seconds == Infinity) {
                 seconds = 0
             }
             seconds = parseInt(seconds);
