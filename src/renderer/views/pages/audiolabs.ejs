@@ -36,6 +36,7 @@
                         <select class="md-select" style="width:180px;"
                                 v-model="app.cfg.audio.maikiwiAudio.ciderPPE_value"
                                 v-on:change="CiderAudio.hierarchical_loading()">
+                            <option value="MAIKIWI">Maikiwi</option>
                             <option value="NATURAL">Natural</option>
                             <option value="STANDARD">
                                 {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard')}}
@@ -156,14 +157,7 @@
                             <small>Re-textures the vocals by carving out the frequencies and adjusts them to the
                                 selected profile.<br>
                                 <b>Modern:</b>
-                                Embracing 21st Century Equipment, this revives old recordings while preserving the
-                                Master's original intent.<br>
-                                <b>Intimate:</b>
-                                Bringing the vocals closer to your heart, communicating only the most personal
-                                connection between you and the artist.<br>
-                                <b>Breathy:</b>
-                                Giving the perfectionists a new voice, this adds naturality to the vocals by making them
-                                more breathy and more natural. <br>
+                                Modernizes vocals that was recorded on old microphones while preserving the artist's individualistic style.<br>
                                 <b>Articulate:</b>
                                 Wrapping every detail of the vocal to your ear, resulting in a more expressive voice.
                             </small>
@@ -179,14 +173,9 @@
                                 <option value="intimate">
                                     Intimate
                                 </option>
-                                <option value="breathy">
-                                    Breathy
-                                </option>
-                                <option value="articulate">
-                                    Articulate
-                                </option>
                             </select>
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>

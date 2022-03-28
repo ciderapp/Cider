@@ -379,6 +379,30 @@ const CiderAudio = {
             CiderAudio.audioNodes.llpw = []
 
             switch (app.cfg.audio.maikiwiAudio.ciderPPE_value) {
+                case "MAIKIWI":
+                    CiderAudio.audioNodes.llpw[0] = CiderAudio.context.createConvolver();
+                    CiderAudio.audioNodes.llpw[0].normalize = false;
+                    fetch('./audio/impulses/CAP_Maikiwi.wav').then(async (impulseData) => {
+                        let bufferedImpulse = await impulseData.arrayBuffer();
+                        CiderAudio.audioNodes.llpw[0].buffer = await CiderAudio.context.decodeAudioData(bufferedImpulse);
+                    });
+
+                    switch (hierarchy) {
+                        case 2:
+                            try { CiderAudio.audioNodes.llpw[0].connect(CiderAudio.audioNodes.vibrantbassNode[0]); } catch (e) { }
+                            break;
+                        case 1:
+                            try { CiderAudio.audioNodes.llpw[0].connect(CiderAudio.audioNodes.audioBands[0]); } catch (e) { }
+                            break;
+                        case 0:
+                            try { CiderAudio.audioNodes.llpw[0].connect(CiderAudio.context.destination); } catch (e) { }
+                            break;
+
+                    }
+
+                    console.debug("[Cider][Audio] CAP - MaikiwiSignature Mode");
+                    break;
+
                 case "NATURAL":
                     CiderAudio.audioNodes.llpw[0] = CiderAudio.context.createConvolver();
                     CiderAudio.audioNodes.llpw[0].normalize = false;
