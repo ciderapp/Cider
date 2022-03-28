@@ -427,34 +427,6 @@ const CiderAudio = {
                     console.debug("[Cider][Audio] CAP - Natural Mode");
                     break;
 
-                case "STANDARD": // Standard
-                    for (let i = 0; i < LLPW_FREQUENCIES.length; i++) {
-                        CiderAudio.audioNodes.llpw[i] = CiderAudio.context.createBiquadFilter();
-                        CiderAudio.audioNodes.llpw[i].type = 'peaking'; // 'peaking';
-                        CiderAudio.audioNodes.llpw[i].frequency.value = LLPW_FREQUENCIES[i] ;
-                        CiderAudio.audioNodes.llpw[i].Q.value = LLPW_Q[i];
-                        CiderAudio.audioNodes.llpw[i].gain.value = LLPW_GAIN[i];
-                    }
-                    for (let i = 1; i < LLPW_FREQUENCIES.length; i++) {
-                        CiderAudio.audioNodes.llpw[i - 1].connect(CiderAudio.audioNodes.llpw[i]);
-                    }
-
-                    switch (hierarchy) {
-                        case 2:
-                            try { CiderAudio.audioNodes.llpw[LLPW_FREQUENCIES.length - 1].connect(CiderAudio.audioNodes.vibrantbassNode[0]); } catch (e) { }
-                            break;
-                        case 1:
-                            try { CiderAudio.audioNodes.llpw[LLPW_FREQUENCIES.length - 1].connect(CiderAudio.audioNodes.audioBands[0]); } catch (e) { }
-                            break;
-                        case 0:
-                            try { CiderAudio.audioNodes.llpw[LLPW_FREQUENCIES.length - 1].connect(CiderAudio.context.destination); } catch (e) { }
-                            break;
-
-                    }
-
-                    console.debug("[Cider][Audio] CAP - Classic Mode");
-                    break;
-
                 case "AGGRESSIVE": // Aggressive
                     for (let i = 0; i < c_LLPW_FREQUENCIES.length; i++) {
                         CiderAudio.audioNodes.llpw[i] = CiderAudio.context.createBiquadFilter();
@@ -486,7 +458,7 @@ const CiderAudio = {
                 default:
                     CiderAudio.audioNodes.llpw[0] = CiderAudio.context.createConvolver();
                     CiderAudio.audioNodes.llpw[0].normalize = false;
-                    fetch('./audio/impulses/CAP_Natural.wav').then(async (impulseData) => {
+                    fetch('./audio/impulses/CAP_Maikiwi.wav').then(async (impulseData) => {
                         let bufferedImpulse = await impulseData.arrayBuffer();
                         CiderAudio.audioNodes.llpw[0].buffer = await CiderAudio.context.decodeAudioData(bufferedImpulse);
                     });
@@ -503,8 +475,8 @@ const CiderAudio = {
                             break;
 
                     }
-                    app.cfg.audio.maikiwiAudio.ciderPPE_value = "NATURAL";
-                    console.debug("[Cider][Audio] CAP - Natural Mode (Defaulted from broki config)");
+                    app.cfg.audio.maikiwiAudio.ciderPPE_value = "MAIKIWI";
+                    console.debug("[Cider][Audio] CAP - MaikiwiSignature Mode (Defaulted from broki config)");
                     break;
             }
         }
