@@ -33,12 +33,12 @@ body:
       description: |
         Examples:
           - **OS**: Ubuntu 20.04
-          - **App Version**: 1.0.0
-          - **Commit ID**: c9d43be
+          - **App Version** and/or **Commit ID**: 1.0.0 c9d43be
+        
+        To find app version, go to the About page.
       value: |
         - OS:
-        - App Version:
-        - Commit ID:
+        - App Version and/or Commit ID:
     validations:
       required: true
   - type: textarea
