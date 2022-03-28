@@ -2,7 +2,9 @@ version: 2.1
 orbs: # adds orbs to your configuration
   jira: circleci/jira@1.0.5 # invokes the Jira orb, making its commands accessible
 branches:
-      ignore: feature/i10n
+      ignore: 
+        - feature/i10n
+        - feature/electron18
 jobs:
   build:
     working_directory: ~/Cider
