@@ -55,7 +55,7 @@ export class Store {
             "normalization": false,
             "maikiwiAudio": {
                 "ciderPPE": false,
-                "ciderPPE_value": "NATURAL",
+                "ciderPPE_value": "MAIKIWI",
                 "analogWarmth": false,
                 "analogWarmth_value": "SMOOTH",
                 "spatial": false,
