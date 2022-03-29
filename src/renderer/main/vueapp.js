@@ -980,6 +980,9 @@ const app = new Vue({
             if (this.getThemeDirective('windowLayout') == 'twopanel') {
                 classes.twopanel = true
             }
+            if(this.getThemeDirective("appNavigation") == "seperate"){
+                classes.navbar = true
+            }
             if(this.getThemeDirective("macosemu") == true){
                 classes.macosemu = true
             }
