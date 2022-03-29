@@ -13,6 +13,7 @@ import {wsapi} from "./wsapi";
 import {utils} from './utils';
 import {Plugins} from "./plugins";
 import {watch} from "chokidar";
+import * as os from "os";
 const wallpaper = require('wallpaper');
 
 // @ts-ignore
@@ -37,6 +38,7 @@ export class BrowserWindow {
         env: {
             platform: process.platform,
             dev: app.isPackaged,
+            osRelease: os.release(),
             components: [
                 "pages/podcasts",
                 "pages/apple-account-settings",
