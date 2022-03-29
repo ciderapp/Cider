@@ -120,7 +120,7 @@ export default class LastFMPlugin {
             } else {
                 return console.log('[LastFM] Did not add ', attributes.name, '—', artist, 'because now playing a other song.');
             }
-        }, Math.round(attributes.durationInMillis * Math.min((self._store.lastfm.scrobble_after / 100),0.8)));
+        }, Math.round(attributes.durationInMillis * Math.min((self._store.lastfm.scrobble_after / 100), 0.8)));
     }
 
     private async updateNowPlayingSong(attributes: any) {
@@ -207,10 +207,10 @@ export default class LastFMPlugin {
     /**
      * Runs on plugin load (Currently run on application start)
      */
-    constructor(app: any, store: any) {
-        this._app = app;
-        this._store = store
-        electron.app.on('second-instance', (_e: any, argv: any) => {
+    constructor(utils: { getApp: () => any; getStore: () => any; }) {
+        this._app = utils.getApp();
+        this._store = utils.getStore()
+        utils.getApp().on('second-instance', (_e: any, argv: any) => {
             // Checks if first instance is authorized and if second instance has protocol args
             argv.forEach((value: any) => {
                 if (value.includes('auth')) {
@@ -264,14 +264,15 @@ export default class LastFMPlugin {
      * @param attributes Music Attributes
      */
     nowPlayingItemDidChangeLastFM(attributes: any): void {
-        if (!this._store.general.privateEnabled){
-        attributes.status = true
-        if (!this._store.lastfm.filterLoop) {
-            this._lastfm.cachedNowPlayingAttributes = false;
-            this._lastfm.cachedAttributes = false
+        if (!this._store.general.privateEnabled) {
+            attributes.status = true
+            if (!this._store.lastfm.filterLoop) {
+                this._lastfm.cachedNowPlayingAttributes = false;
+                this._lastfm.cachedAttributes = false
+            }
+            this.updateNowPlayingSong(attributes)
+            this.scrobbleSong(attributes)
         }
-        this.updateNowPlayingSong(attributes)
-        this.scrobbleSong(attributes)}
     }
 
 }

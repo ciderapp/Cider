@@ -9,6 +9,7 @@
                         </div>
                         <div class="col-auto nopadding flex-center">
                             <button class="cd-btn-seeall" @click="seeAllHistory()">{{app.getLz('term.history')}}</button>
+                            <button class="cd-btn-seeall" @click="seeAllRecentlyPlayed()">{{app.getLz('term.seeAll')}}</button>
                         </div>
                     </div>
                     <div class="well artistfeed-well">
@@ -120,12 +121,19 @@
             this.getListenNowData()
             await this.getArtistFeed()
             await this.getFavorites()
+            await this.getRecentlyPlayed()
             if (new Date().getMonth() == 11) {
                 this.seenReplay = false
                 localStorage.setItem('seenReplay', false)
             }
         },
         methods: {
+            async seeAllRecentlyPlayed() {
+                let hist = await app.mk.api.v3.music(`/v1/me/recent/played`, {
+                    l: this.$root.mklang
+                })
+                app.showCollection(hist.data, app.getLz('home.recentlyPlayed'))
+            },
             async seeAllHistory() {
                 let hist = await app.mk.api.v3.music(`/v1/me/recent/played/tracks`, {
                     l: this.$root.mklang
@@ -199,8 +207,11 @@
                     })
                 } catch (error) { }
             },
-            getRecentlyPlayed() {
-
+            async getRecentlyPlayed() {
+                let hist = await app.mk.api.v3.music(`/v1/me/recent/played`, {
+                    l: this.$root.mklang
+                })
+                this.recentlyPlayed = hist.data.data
             },
             async getListenNowData() {
                 let self = this
@@ -216,7 +227,6 @@
                     self.sectionsReady.push("madeForYou")
 
                     try {
-                        self.recentlyPlayed = data.data.data[1].relationships.contents.data
                         self.friendsListeningTo = data.data.data.filter(section => {
                             if (section.meta.metrics.moduleType == "11") {
                                 return section

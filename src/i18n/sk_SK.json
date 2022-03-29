@@ -196,7 +196,7 @@
   "settings.option.audio.enableAdvancedFunctionality": "Zapnút Pokročilé Nastavenia Zvuku",
   "settings.option.audio.enableAdvancedFunctionality.description": "Zapnutie AudioContext funkcionality dovolí rozšírené funkcie zvuku ako Zvuková Normalizávia , Equalizéry a Visualízery, ale na niektorých systémoch to može spôsobiť problémy so zvukom.",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider Adrenaline Processor™️",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Psychoakustické Vylepšenia ktoré urobia zvuk viac bohatý a živý | Urobil Maikiwi.",
+  
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "CAP Sila",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Zmení silu CAP (Agresívná môže spôsobiť nežiadané výsledky)",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "Štandardná",

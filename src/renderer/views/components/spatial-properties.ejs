@@ -1,5 +1,5 @@
 <script type="text/x-template" id="spatial-properties">
-    <div class="modal-fullscreen spatialproperties-panel">
+    <div class="modal-fullscreen spatialproperties-panel" @click.self="close()" @contextmenu.self="close()">
         <div class="modal-window" v-if="ready">
             <div class="modal-header">
                 <div class="modal-title">{{$root.getLz('spatial.spatialProperties')}}</div>

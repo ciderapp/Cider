@@ -54,6 +54,7 @@ app.on('ready', () => {
         
         win.on("ready-to-show", () => {
             Cider.bwCreated();
+            console.debug('[Cider] Window is Ready.')
             CiderPlug.callPlugins('onReady', win);
         });
     });

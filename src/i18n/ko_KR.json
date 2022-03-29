@@ -279,7 +279,7 @@
   "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.smooth": "부드러움",
   "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.warm": "따뜻함",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider Adrenaline Processor™️",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "모든 소리를 더욱 풍부하고 생생하게 만드는 음향 심리학적 향상입니다. | Designed by Maikiwi.",
+  
   "settings.warn.audio.enableAdvancedFunctionality.ciderPPE.compatibility": "CAP는 공간화와 호환되지 않습니다. 계속하려면 공간화를 비활성화하십시오.",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "CAP 강도",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "오디오 처리 강도를 변경합니다. (적극적으로 설정 시 바람직하지 않은 결과를 초래할 수 있습니다.)",

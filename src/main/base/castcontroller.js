@@ -21,4 +21,12 @@ CiderCastController.prototype.sendIp = function(ip) {
   this.request(data);
 };
 
+CiderCastController.prototype.kill = function() {
+  // TODO: Implement Callback
+  let data = {
+      action : "stop"
+  }
+  this.request(data);
+};
+
 module.exports = CiderCastController;

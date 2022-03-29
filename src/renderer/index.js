@@ -105,6 +105,9 @@ function fallbackinitMusicKit() {
         })
         setTimeout(() => {
             app.init()
+            if(app.cfg.visual.window_background_style == "mica" && !app.isDev) {
+                app.spawnMica()
+            }
         }, 1000)
     }
 
@@ -131,6 +134,9 @@ document.addEventListener('musickitloaded', function () {
             function waitForApp() {
                 if (typeof app.init !== "undefined") {
                     app.init()
+                    if(app.cfg.visual.window_background_style == "mica" && !app.isDev) {
+                        app.spawnMica()
+                    }
                 }
                 else {
                     setTimeout(waitForApp, 250);

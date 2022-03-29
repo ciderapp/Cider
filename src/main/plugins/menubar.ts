@@ -1,4 +1,5 @@
 import {app, Menu, shell} from "electron";
+import {utils} from "../base/utils";
 
 export default class Thumbar {
     /**
@@ -34,7 +35,7 @@ export default class Thumbar {
      * @private
      */
     private isMac: boolean = process.platform === 'darwin';
-    private menubarTemplate: any = [
+    private _menuTemplate: any = [
         {
             label: app.getName(),
             submenu: [
@@ -42,20 +43,20 @@ export default class Thumbar {
                     label: 'About',
                     click: () => this._win.webContents.executeJavaScript(`app.appRoute('about')`)
                 },
-                { type: 'separator' },
+                {type: 'separator'},
                 {
                     label: 'Settings',
                     accelerator: 'CommandOrControl+,',
                     click: () => this._win.webContents.executeJavaScript(`app.appRoute('settings')`)
                 },
-                { type: 'separator' },
-                { role: 'services' },
-                { type: 'separator' },
-                { role: 'hide' },
-                { role: 'hideOthers' },
-                { role: 'unhide' },
-                { type: 'separator' },
-                { role: 'quit' }
+                {type: 'separator'},
+                {role: 'services'},
+                {type: 'separator'},
+                {role: 'hide'},
+                {role: 'hideOthers'},
+                {role: 'unhide'},
+                {type: 'separator'},
+                {role: 'quit'}
             ]
         },
         {
@@ -76,22 +77,28 @@ export default class Thumbar {
             label: 'Window',
             submenu: [
                 {role: 'minimize'},
+                {
+                    label: 'Show',
+                    click: () => utils.getWindow().show()
+                },
                 {role: 'zoom'},
                 ...(this.isMac ? [
                     {type: 'separator'},
                     {role: 'front'},
+                    {role: 'close'},
                 ] : [
-                    {role: 'close'}
+                    {role: 'close'},
                 ]),
+
                 {
                     label: 'Edit',
                     submenu: [
-                        { role: 'undo' },
-                        { role: 'redo' },
-                        { type: 'separator' },
-                        { role: 'cut' },
-                        { role: 'copy' },
-                        { role: 'paste' },
+                        {role: 'undo'},
+                        {role: 'redo'},
+                        {type: 'separator'},
+                        {role: 'cut'},
+                        {role: 'copy'},
+                        {role: 'paste'},
                     ]
                 },
                 {type: 'separator'},
@@ -132,7 +139,7 @@ export default class Thumbar {
                     accelerator: 'CommandOrControl+Left',
                     click: () => this._win.webContents.executeJavaScript(`MusicKitInterop.previous()`)
                 },
-                { type: 'separator' },
+                {type: 'separator'},
                 {
                     label: 'Volume Up',
                     accelerator: 'CommandOrControl+Up',
@@ -142,6 +149,12 @@ export default class Thumbar {
                     label: 'Volume Down',
                     accelerator: 'CommandOrControl+Down',
                     click: () => this._win.webContents.executeJavaScript(`app.volumeDown()`)
+                },
+                {type: 'separator'},
+                {
+                    label: 'Cast To Devices',
+                    accelerator: 'CommandOrControl+Shift+C',
+                    click: () => this._win.webContents.executeJavaScript(`app.modals.castMenu = true`)
                 }
             ]
         },
@@ -214,9 +227,9 @@ export default class Thumbar {
     /**
      * Runs on plugin load (Currently run on application start)
      */
-    constructor(app: any, store: any) {
-        this._app = app;
-        this._store = store
+    constructor(utils: { getApp: () => any; getStore: () => any; }) {
+        this._app = utils.getApp();
+        this._store = utils.getStore();
         console.debug(`[Plugin][${this.name}] Loading Complete.`);
     }
 
@@ -225,7 +238,8 @@ export default class Thumbar {
      */
     onReady(win: Electron.BrowserWindow): void {
         this._win = win;
-        Menu.setApplicationMenu(Menu.buildFromTemplate(this.menubarTemplate))
+        const menu = Menu.buildFromTemplate(this._menuTemplate);
+        Menu.setApplicationMenu(menu)
     }
 
     /**

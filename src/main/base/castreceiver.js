@@ -74,4 +74,8 @@ CiderReceiver.prototype.sendIp = function(opts){
   this.mediaReceiver.sendIp.apply(this.mediaReceiver, arguments);
 };
 
+CiderReceiver.prototype.kill = function(opts){
+  this.mediaReceiver.kill.apply(this.mediaReceiver, arguments);
+};
+
 module.exports = CiderReceiver;

@@ -4,18 +4,19 @@ import * as windowStateKeeper from "electron-window-state";
 import * as express from "express";
 import * as getPort from "get-port";
 import {search} from "youtube-search-without-api-key";
-import {existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync, statSync} from "fs";
+import {existsSync, rmSync, mkdirSync, readdirSync, readFileSync, writeFileSync, statSync} from "fs";
 import {Stream} from "stream";
 import {networkInterfaces} from "os";
 import * as mm from 'music-metadata';
 import fetch from 'electron-fetch'
 import {wsapi} from "./wsapi";
-import {AppImageUpdater, NsisUpdater} from "electron-updater";
 import {utils} from './utils';
 import {Plugins} from "./plugins";
+import {watch} from "chokidar";
+const wallpaper = require('wallpaper');
 
-const fileWatcher = require('chokidar');
-const AdmZip = require("adm-zip");
+// @ts-ignore
+import * as AdmZip from "adm-zip";
 
 /**
  * @file Creates the BrowserWindow
@@ -41,6 +42,7 @@ export class BrowserWindow {
                 "pages/apple-account-settings",
                 "pages/library-songs",
                 "pages/library-albums",
+                "pages/library-artists",
                 "pages/browse",
                 "pages/settings",
                 "pages/listen_now",
@@ -82,7 +84,7 @@ export class BrowserWindow {
                 "components/mediaitem-hrect",
                 "components/mediaitem-square",
                 "components/mediaitem-mvview",
-                "components/libraryartist-item",
+                // "components/libraryartist-item",
                 "components/listennow-child",
                 "components/mediaitem-mvview-sp",
                 "components/animatedartwork-view",
@@ -93,6 +95,7 @@ export class BrowserWindow {
                 "components/castmenu",
                 "components/artist-chip",
                 "components/hello-world",
+                "components/inline-collection-list",
             ],
             appRoutes: [
                 {
@@ -184,7 +187,12 @@ export class BrowserWindow {
                     page: "library-albums",
                     component: `<cider-library-albums :data="library.songs"></cider-library-albums>`,
                     condition: `page == 'library-albums'`,
-                    onEnter: `getLibraryAlbumsFull(null, 1); getAlbumSort(); searchLibraryAlbums(1);`
+                    onEnter: `getLibraryAlbumsFull(null, 1); getAlbumSort(); searchLibraryAlbums(1); getLibrarySongsFull() ;searchLibraryAlbums(1);`
+                }, {
+                    page: "library-artists",
+                    component: `<cider-library-artists></cider-library-artists>`,
+                    condition: `page == 'library-artists'`,
+                    onEnter: `getLibraryArtistsFull(null, 0);`
                 }, {
                     page: "appleCurator",
                     component: `<cider-applecurator :data="appleCurator"></cider-applecurator>`,
@@ -245,9 +253,7 @@ export class BrowserWindow {
     };
 
     StartWatcher(path: string) {
-        var chokidar = require("chokidar");
-
-        var watcher = chokidar.watch(path, {
+        const watcher = watch(path, {
             ignored: /[\/\\]\./,
             persistent: true
         });
@@ -309,9 +315,11 @@ export class BrowserWindow {
 
                 break;
             case "win32":
-                if (!(utils.getStoreValue('visual.transparent') ?? false)){
-                this.options.backgroundColor = "#1E1E1E";} else {
-                this.options.transparent = true;}
+                if (!(utils.getStoreValue('visual.transparent') ?? false)) {
+                    this.options.backgroundColor = "#1E1E1E";
+                } else {
+                    this.options.transparent = true;
+                }
                 break;
             case "linux":
                 this.options.backgroundColor = "#1E1E1E";
@@ -451,7 +459,7 @@ export class BrowserWindow {
             }
         });
 
-        app.get("/themes/:theme/*", (req: {params: {theme: string, 0: string}}, res) => {
+        app.get("/themes/:theme/*", (req: { params: { theme: string, 0: string } }, res) => {
             const theme = req.params.theme;
             const file = req.params[0];
             const themePath = join(utils.getPath('srcPath'), "./renderer/themes/", theme);
@@ -465,9 +473,9 @@ export class BrowserWindow {
             }
         });
 
-        app.get("/plugins/:plugin/*", (req: {params: {plugin: string, 0: string}}, res) => {
+        app.get("/plugins/:plugin/*", (req: { params: { plugin: string, 0: string } }, res) => {
             let plugin = req.params.plugin;
-            if(Plugins.getPluginFromMap(plugin)) {
+            if (Plugins.getPluginFromMap(plugin)) {
                 plugin = Plugins.getPluginFromMap(plugin)
             }
             const file = req.params[0];
@@ -596,9 +604,30 @@ export class BrowserWindow {
         /**********************************************************************************************************************
          * ipcMain Events
          ****************************************************************************************************************** */
+
+        ipcMain.on("get-wallpaper", async (event) => {
+            const wpPath: string = await wallpaper.get();
+            // get the wallpaper and encode it to base64 then return
+            const wpBase64: string = await readFileSync(wpPath, 'base64')
+            // add the data:image properties
+            const wpData: string = `data:image/png;base64,${wpBase64}`
+            event.returnValue = wpData;
+        })
+
         ipcMain.on("cider-platform", (event) => {
             event.returnValue = process.platform;
         });
+
+        ipcMain.handle("reinstall-widevine-cdm", () => {
+            // remove WidevineCDM from appdata folder
+            const widevineCdmPath = join(app.getPath("userData"), "./WidevineCdm");
+            if (existsSync(widevineCdmPath)) {
+                rmSync(widevineCdmPath, {recursive: true, force: true})
+            }
+            // reinstall WidevineCDM
+            app.relaunch()
+            app.exit()
+        })
 
         ipcMain.handle("get-github-plugin", async (event, url) => {
             const returnVal = {
@@ -751,7 +780,7 @@ export class BrowserWindow {
         });
 
         ipcMain.handle("open-path", async (event, path) => {
-            switch(path) {
+            switch (path) {
                 default:
                 case "plugins":
                     shell.openPath(utils.getPath("plugins"));
@@ -866,11 +895,26 @@ export class BrowserWindow {
         //Fullscreen
         ipcMain.on('detachDT', (_event, _) => {
             BrowserWindow.win.webContents.openDevTools({mode: 'detach'});
-        })  
-        
-        ipcMain.handle('relaunchApp',(_event, _) => {
-            app.relaunch()
-            app.exit()
+        })
+
+        ipcMain.handle('relaunchApp', (_event, _) => {
+            const opt: Electron.RelaunchOptions = {};
+            opt.args = process.argv.slice(1).concat(['--relaunch']);
+            opt.execPath = process.execPath;
+            if (app.isPackaged && process.env.PORTABLE_EXECUTABLE_FILE != undefined) {
+                opt.execPath = process.env.PORTABLE_EXECUTABLE_FILE;
+            } else if (app.isPackaged && process.env.APPIMAGE != undefined) {
+                opt.execPath = process.env.APPIMAGE;
+                opt.args.unshift('--appimage-extract-and-run');
+            } else if (app.isPackaged && process.env.CHROME_DESKTOP != undefined && process.env.PLATFORM == "Linux") {
+                opt.execPath = "cider";
+            }
+            app.relaunch(opt);
+            app.quit();
+        })
+
+        app.on('before-quit', () => {
+
         })
 
 
@@ -968,10 +1012,27 @@ export class BrowserWindow {
                 return Math.max(-32768, Math.min(32768, v)); // clamp
             }
 
+            function bitratechange(e: any){
+                var t = e.length;
+                let sampleRate = 96.0;
+                let outputSampleRate = 48.0;
+                var s = 0,
+                o = sampleRate / outputSampleRate,
+                u = Math.ceil(t * outputSampleRate / sampleRate),
+                a = new Int16Array(u);
+                for (let i = 0; i < u; i++) {
+                  a[i] = e[Math.floor(s)];
+                  s += o;
+                }
+          
+                return a;
+             }
+
             let newaudio = quantization(leftpcm, rightpcm);
             //let newaudio = [leftpcm, rightpcm];
             // console.log(newaudio.length);
-            let pcmData = Buffer.from(new Int8Array(interleave16(Int16Array.from(newaudio[0], x => convert(x)), Int16Array.from(newaudio[1], x => convert(x))).buffer));
+
+            let pcmData = Buffer.from(new Int8Array(interleave16(bitratechange(Int16Array.from(newaudio[0], x => convert(x))), bitratechange(Int16Array.from(newaudio[1], x => convert(x)))).buffer));
 
             if (!this.headerSent) {
                 console.log('new header')
@@ -1006,7 +1067,7 @@ export class BrowserWindow {
         ipcMain.on('get-remote-pair-url', (_event, _) => {
             let url = `http://${BrowserWindow.getIP()}:${this.remotePort}`;
             //if (app.isPackaged) {
-                BrowserWindow.win.webContents.send('send-remote-pair-url', (`https://cider.sh/pair-remote?url=${Buffer.from(encodeURI(url)).toString('base64')}`).toString());
+            BrowserWindow.win.webContents.send('send-remote-pair-url', (`https://cider.sh/pair-remote?url=${Buffer.from(encodeURI(url)).toString('base64')}`).toString());
             //} else {
             //    BrowserWindow.win.webContents.send('send-remote-pair-url', (`http://127.0.0.1:5500/pair-remote.html?url=${Buffer.from(encodeURI(url)).toString('base64')}`).toString());
             //}
@@ -1039,13 +1100,8 @@ export class BrowserWindow {
 
         ipcMain.on('disable-update', (event) => {
             // Check if using app store builds so people don't get pissy wen button go bonk
-            if (app.isPackaged && !process.mas || !process.windowsStore) {
-                event.returnValue = false
-            } else {
-                event.returnValue = true
-            }
+            event.returnValue = !(app.isPackaged && !process.mas || !process.windowsStore);
         })
-
 
 
         ipcMain.on('share-menu', async (_event, url) => {
@@ -1111,6 +1167,11 @@ export class BrowserWindow {
                 event.preventDefault();
                 BrowserWindow.win.hide();
             } else {
+                BrowserWindow.win.webContents.executeJavaScript(` 
+                window.localStorage.setItem("currentTrack", JSON.stringify(app.mk.nowPlayingItem));
+                window.localStorage.setItem("currentTime", JSON.stringify(app.mk.currentPlaybackTime));
+                window.localStorage.setItem("currentQueue", JSON.stringify(app.mk.queue.items));
+                ipcRenderer.send('stopGCast','');`)
                 BrowserWindow.win.destroy();
             }
         })
@@ -1119,8 +1180,18 @@ export class BrowserWindow {
             isQuiting = true
         });
 
+        app.on('activate', function () {
+            BrowserWindow.win.show()
+            BrowserWindow.win.focus()
+        });
+
+        // Quit when all windows are closed.
         app.on('window-all-closed', () => {
-            app.quit()
+            // On macOS it is common for applications and their menu bar
+            // to stay active until the user quits explicitly with Cmd + Q
+            if (process.platform !== 'darwin') {
+                app.quit()
+            }
         })
 
         BrowserWindow.win.on("closed", () => {
@@ -1143,17 +1214,24 @@ export class BrowserWindow {
      */
     private static getIP(): string {
         let ip: string = '';
+        let ip2: any = [];
         let alias = 0;
         const ifaces: any = networkInterfaces();
         for (let dev in ifaces) {
             ifaces[dev].forEach((details: any) => {
-                if (details.family === 'IPv4') {
+                if (details.family === 'IPv4' && !details.internal) {
                     if (!/(loopback|vmware|internal|hamachi|vboxnet|virtualbox)/gi.test(dev + (alias ? ':' + alias : ''))) {
                         if (details.address.substring(0, 8) === '192.168.' ||
                             details.address.substring(0, 7) === '172.16.' ||
                             details.address.substring(0, 3) === '10.'
                         ) {
-                            ip = details.address;
+                            if (!ip.startsWith('192.168.') ||
+                                (ip2.startsWith('192.168.') && !ip.startsWith('192.168.')) &&
+                                (ip2.startsWith('172.16.') && !ip.startsWith('192.168.') && !ip.startsWith('172.16.')) ||
+                                (ip2.startsWith('10.') && !ip.startsWith('192.168.') && !ip.startsWith('172.16.') && !ip.startsWith('10.'))
+                            ) {
+                                ip = details.address;
+                            }
                             ++alias;
                         }
                     }
@@ -1170,7 +1248,7 @@ export class BrowserWindow {
     private async broadcastRemote() {
         const myString = `http://${BrowserWindow.getIP()}:${this.remotePort}`;
         const mdns = require('mdns-js');
-        const encoded = new Buffer(myString).toString('base64');
+        const encoded = Buffer.from(myString).toString('base64');
         const x = mdns.tcp('cider-remote');
         const txt_record = {
             "Ver": "131077",

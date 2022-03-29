@@ -144,9 +144,7 @@
                     });
             },
             convertReadMe(text) {
-                var converter = new showdown.Converter(),
-                    html = converter.makeHtml(text);
-                return html
+                return marked.parse(text)
             },
             installThemeRepo(repo) {
                 let self = this

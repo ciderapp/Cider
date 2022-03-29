@@ -151,6 +151,7 @@ const app = new Vue({
         tmpVar: [],
         notification: false,
         chrome: {
+            contentScrollPosY: 0,
             appliedTheme: {
                 location: "",
                 info: {}
@@ -221,7 +222,7 @@ const app = new Vue({
         pluginPages: {
             page: "hello-world",
             pages: [],
-        }
+        },
     },
     watch: {
         cfg: {
@@ -247,6 +248,9 @@ const app = new Vue({
         }
     },
     methods: {
+        setTimeout(func, time) {
+            return setTimeout(func, time);
+        },
         songLinkShare(amUrl) {
             notyf.open({ type: "info", className: "notyf-info", message: app.getLz('term.song.link.generate') })
             let self = this
@@ -293,6 +297,10 @@ const app = new Vue({
             }
             this.lz = ipcRenderer.sendSync("get-i18n", lang)
             this.mklang = await this.MKJSLang()
+            try {
+                this.listennow.timestamp = 0;
+                this.browsepage.timestamp = 0;
+            } catch (e) { }
         },
         /**
          * Grabs translation for localization.
@@ -596,11 +604,16 @@ const app = new Vue({
             try {
                 // Set profile name
                 this.chrome.userinfo = (await app.mk.api.v3.music(`/v1/me/social-profile`)).data.data[0]
+                // check if this.chrome.userinfo.attributes.artwork exists
+                if (this.chrome.userinfo.attributes.artwork && !this.chrome.hideUserInfo) {
+                    document.documentElement.style
+                        .setProperty('--cvar-userprofileimg', `url("${this.getMediaItemArtwork(this.chrome.userinfo.attributes.artwork.url)}")`);
+                }
             } catch (err) {
             }
 
             this.mk._bag.features['seamless-audio-transitions'] = this.cfg.audio.seamless_audio
-
+            this.mk._services.apiManager.store.storekit._restrictedEnabled = false
             // API Fallback
             if (!this.chrome.userinfo) {
                 this.chrome.userinfo = {
@@ -639,11 +652,6 @@ const app = new Vue({
                 this.library.albums.displayListing = this.library.albums.listing
             }
 
-            window.onbeforeunload = function (e) {
-                window.localStorage.setItem("currentTrack", JSON.stringify(app.mk.nowPlayingItem))
-                window.localStorage.setItem("currentTime", JSON.stringify(app.mk.currentPlaybackTime))
-                window.localStorage.setItem("currentQueue", JSON.stringify(app.mk.queue.items))
-            };
 
             if (typeof MusicKit.PlaybackBitrate[app.cfg.audio.quality] !== "string") {
                 app.mk.bitrate = MusicKit.PlaybackBitrate[app.cfg.audio.quality]
@@ -839,7 +847,7 @@ const app = new Vue({
                         this.notification.close()
                     }
                     this.notification = new Notification(a.name, {
-                        body: a.artistName,
+                        body: `${a.artistName} — ${a.albumName}`,
                         icon: a.artwork.url.replace('/{w}x{h}bb', '/512x512bb').replace('/2000x2000bb', '/35x35bb'),
                         silent: true,
                     });
@@ -872,6 +880,9 @@ const app = new Vue({
             if (this.cfg.general.themeUpdateNotification) {
                 this.checkForThemeUpdates()
             }
+        },
+        setContentScrollPos(scroll) {
+            this.chrome.contentScrollPosY = scroll.target.scrollTop
         },
         async checkForThemeUpdates() {
             let self = this
@@ -1398,70 +1409,58 @@ const app = new Vue({
             }
         },
         /**
-         * Converts seconds to dd:hh:mm:ss
-         * @param time (in seconds)
-         * @param format (short, long)
+         * Converts seconds to dd:hh:mm:ss / Days:Hours:Minutes:Seconds
+         * @param {number} seconds
+         * @param {string} format (short, long)
          * @returns {string}
+         * @author Core#1034
+         * @memberOf app
          */
-        convertTime(time = 0, format = 'short') {
+        convertTime(seconds, format = "short") {
 
-            if (isNaN(time)) {
-                time = 0
+            if (isNaN(seconds) || seconds == Infinity) {
+                seconds = 0
             }
-            if (typeof time !== "number") {
-                time = parseInt(time)
+            seconds = parseInt(seconds);
+
+            const datetime = new Date(seconds * 1000)
+
+            if (format === "long") {
+                const d = Math.floor(seconds / (3600 * 24));
+                const h = Math.floor(seconds % (3600 * 24) / 3600);
+                const m = Math.floor(seconds % 3600 / 60);
+                const s = Math.floor(seconds % 60);
+
+                const dDisplay = d > 0 ? `${d} ${app.getLz("term.time.day", { "count": d })}, ` : "";
+                const hDisplay = h > 0 ? `${h} ${app.getLz("term.time.hour", { "count": h })}, ` : "";
+                const mDisplay = m > 0 ? `${m} ${app.getLz("term.time.minute", { "count": m })}, ` : "";
+                const sDisplay = s > 0 ? `${s} ${app.getLz("term.time.second", { "count": s })}` : "";
+
+                return dDisplay + hDisplay + mDisplay + sDisplay;
             }
+            else {
+                let returnTime = datetime.toISOString().substring(11, 19);
 
-            const timeGates = {
-                600: 15, // 10 Minutes
-                3600: 14, // Hour
-                36000: 12, // 10 Hours
-            }
-
-            const datetime = new Date(time * 1000)
-
-            let returnTime = datetime.toISOString().substring(11, 19);
-            for (let key in timeGates) {
-                if (time < key) {
-                    returnTime = datetime.toISOString().substring(timeGates[key], 19)
-                    break
-                }
-            }
-
-            // Add the days on the front
-            let day;
-            if (time >= 86400) {
-                day = datetime.toISOString().substring(8, 10)
-                day = parseInt(day) - 1
-                returnTime = day + ":" + returnTime
-            }
-
-            if (format === 'long') {
-                const longFormat = []
-
-                // Seconds
-                if (datetime.getSeconds() !== 0) {
-                    longFormat.push(`${datetime.getSeconds()} ${app.getLz('term.time.seconds')}`)
+                const timeGates = {
+                    600: 15, // 10 Minutes
+                    3600: 14, // Hour
+                    36000: 12, // 10 Hours
                 }
 
-                // Minutes
-                if (time >= 60) {
-                    longFormat.push(`${datetime.getMinutes()} ${app.getLz('term.time.minute', options = { count: datetime.getMinutes() })}`)
+                for (let key in timeGates) {
+                    if (seconds < key) {
+                        returnTime = datetime.toISOString().substring(timeGates[key], 19)
+                        break
+                    }
                 }
 
-                // Hours
-                if (time >= 3600) {
-                    longFormat.push(`${datetime.getHours()} ${app.getLz('term.time.hour', options = { count: datetime.getHours() })}`)
+                // Add the days on the front
+                if (seconds >= 86400) {
+                    returnTime = parseInt(datetime.toISOString().substring(8, 10)) - 1 + ":" + returnTime
                 }
 
-                // Days
-                if (time >= 86400) {
-                    longFormat.push(`${day} ${app.getLz('term.time.day', options = { count: day })}`)
-                }
-                returnTime = longFormat.reverse().join(', ')
+                return returnTime
             }
-
-            return returnTime
         },
         hashCode(str) {
             let hash = 0,
@@ -1492,7 +1491,7 @@ const app = new Vue({
             let page = hash[0]
             let id = hash[1]
             let isLibrary = hash[2] ?? false
-            if(page == "plugin") {
+            if (page == "plugin") {
                 this.pluginPages.page = "plugin." + id
                 this.page = "plugin-renderer"
                 return
@@ -1561,7 +1560,9 @@ const app = new Vue({
                 if (kind.includes("album")) {
                     params["include[albums]"] = "artists"
                     params["fields[artists]"] = "name,url"
-                    params["fields[albums]"] = "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialVideo,name,playParams,releaseDate,url,copyright"
+                    params["omit[resource]"] = "autos"
+                    params["meta[albums:tracks]"] = 'popularity'
+                    params["fields[albums]"] = "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialNotes,editorialVideo,name,playParams,releaseDate,url,copyright"
                 }
 
                 if (this.cfg.advanced.experiments.includes('inline-playlists')) {
@@ -1858,10 +1859,10 @@ const app = new Vue({
                     }
 
                     // remove any non-alphanumeric characters and spaces from search term and item name
-                    searchTerm = searchTerm.replace(/[^a-z0-9 ]/gi, "")
-                    itemName = itemName.replace(/[^a-z0-9 ]/gi, "")
-                    artistName = artistName.replace(/[^a-z0-9 ]/gi, "")
-                    albumName = albumName.replace(/[^a-z0-9 ]/gi, "")
+                    searchTerm = searchTerm.replace(/[^\p{L}\p{N} ]/gu, "")
+                    itemName = itemName.replace(/[^\p{L}\p{N} ]/gu, "")
+                    artistName = artistName.replace(/[^\p{L}\p{N} ]/gu, "")
+                    albumName = albumName.replace(/[^\p{L}\p{N} ]/gu, "")
 
                     if (itemName.includes(searchTerm) || artistName.includes(searchTerm) || albumName.includes(searchTerm)) {
                         return item
@@ -1927,10 +1928,10 @@ const app = new Vue({
                     }
 
                     // remove any non-alphanumeric characters and spaces from search term and item name
-                    searchTerm = searchTerm.replace(/[^a-z0-9 ]/gi, "")
-                    itemName = itemName.replace(/[^a-z0-9 ]/gi, "")
-                    artistName = artistName.replace(/[^a-z0-9 ]/gi, "")
-                    albumName = albumName.replace(/[^a-z0-9 ]/gi, "")
+                    searchTerm = searchTerm.replace(/[^\p{L}\p{N} ]/gu, "")
+                    itemName = itemName.replace(/[^\p{L}\p{N} ]/gu, "")
+                    artistName = artistName.replace(/[^\p{L}\p{N} ]/gu, "")
+                    albumName = albumName.replace(/[^\p{L}\p{N} ]/gu, "")
 
                     if (itemName.includes(searchTerm) || artistName.includes(searchTerm) || albumName.includes(searchTerm)) {
                         return item
@@ -1992,8 +1993,8 @@ const app = new Vue({
                     // }
 
                     // remove any non-alphanumeric characters and spaces from search term and item name
-                    searchTerm = searchTerm.replace(/[^a-z0-9 ]/gi, "")
-                    itemName = itemName.replace(/[^a-z0-9 ]/gi, "")
+                    searchTerm = searchTerm.replace(/[^\p{L}\p{N} ]/gu, "")
+                    itemName = itemName.replace(/[^\p{L}\p{N} ]/gu, "")
 
 
                     if (itemName.includes(searchTerm) || artistName.includes(searchTerm) || albumName.includes(searchTerm)) {
@@ -2320,12 +2321,17 @@ const app = new Vue({
 
             downloadChunk()
         },
+        /**
+         * Gets the total duration in seconds of a playlist
+         * @returns {string} Total tracks, and duration
+         * @author Core#1034
+         * @memberOf app
+         */
         getTotalTime() {
             try {
-                if (app.showingPlaylist.relationships.tracks.data.length > 0) {
-                    const timeInSeconds = Math.round([].concat(...app.showingPlaylist.relationships.tracks.data).reduce((a, { attributes: { durationInMillis } }) => a + durationInMillis, 0) / 1000);
-                    return `${app.showingPlaylist.relationships.tracks.data.length} ${app.getLz('term.track', options = { count: app.showingPlaylist.relationships.tracks.data.length })}, ${this.convertTime(timeInSeconds, 'long')}`
-                } else return ""
+                if (app.showingPlaylist.relationships.tracks.data.length === 0) return ""
+                const timeInSeconds = Math.round([].concat(...app.showingPlaylist.relationships.tracks.data).reduce((a, { attributes: { durationInMillis } }) => a + durationInMillis, 0) / 1000);
+                return `${app.showingPlaylist.relationships.tracks.data.length} ${app.getLz("term.track", { "count": app.showingPlaylist.relationships.tracks.data.length })}, ${app.convertTime(timeInSeconds, 'long')}`
             } catch (err) {
                 return ""
             }
@@ -2599,29 +2605,33 @@ const app = new Vue({
                     req.open('GET', url, true);
                     req.setRequestHeader("authority", "apic-desktop.musixmatch.com");
                     req.onload = function () {
-                        let jsonResponse = JSON.parse(this.responseText);
-                        let status2 = jsonResponse["message"]["header"]["status_code"];
-                        if (status2 == 200) {
-                            let token = jsonResponse["message"]["body"]["user_token"] ?? '';
-                            if (token != "" && token != "UpgradeOnlyUpgradeOnlyUpgradeOnlyUpgradeOnly") {
-                                console.log('200 token', mode);
-                                // token good
-                                app.mxmtoken = token;
+                        try {
+                            let jsonResponse = JSON.parse(this.responseText);
+                            let status2 = jsonResponse["message"]["header"]["status_code"];
+                            if (status2 == 200) {
+                                let token = jsonResponse["message"]["body"]["user_token"] ?? '';
+                                if (token != "" && token != "UpgradeOnlyUpgradeOnlyUpgradeOnlyUpgradeOnly") {
+                                    console.log('200 token', mode);
+                                    // token good
+                                    app.mxmtoken = token;
 
-                                if (mode == 1) {
-                                    getMXMSubs(track, artist, app.mxmtoken, lang, time, id);
+                                    if (mode == 1) {
+                                        getMXMSubs(track, artist, app.mxmtoken, lang, time, id);
+                                    } else {
+                                        getMXMTrans(songid, lang, app.mxmtoken);
+                                    }
                                 } else {
-                                    getMXMTrans(songid, lang, app.mxmtoken);
+                                    console.log('fake 200 token');
+                                    getToken(mode, track, artist, songid, lang, time)
                                 }
                             } else {
-                                console.log('fake 200 token');
+                                // console.log('token 4xx');
                                 getToken(mode, track, artist, songid, lang, time)
                             }
-                        } else {
-                            // console.log('token 4xx');
-                            getToken(mode, track, artist, songid, lang, time)
+                        } catch (e) {
+                            console.log('error');
+                            app.loadAMLyrics();
                         }
-
                     };
                     req.onerror = function () {
                         console.log('error');
@@ -2642,83 +2652,88 @@ const app = new Vue({
                 req.open('GET', url, true);
                 req.setRequestHeader("authority", "apic-desktop.musixmatch.com");
                 req.onload = function () {
-                    let jsonResponse = JSON.parse(this.responseText);
-                    console.log(jsonResponse);
-                    let status1 = jsonResponse["message"]["header"]["status_code"];
+                    try {
+                        let jsonResponse = JSON.parse(this.responseText);
+                        console.log(jsonResponse);
+                        let status1 = jsonResponse["message"]["header"]["status_code"];
 
-                    if (status1 == 200) {
-                        let id = '';
-                        try {
-                            if (jsonResponse["message"]["body"]["macro_calls"]["matcher.track.get"]["message"]["header"]["status_code"] == 200 && jsonResponse["message"]["body"]["macro_calls"]["track.subtitles.get"]["message"]["header"]["status_code"] == 200) {
-                                id = jsonResponse["message"]["body"]["macro_calls"]["matcher.track.get"]["message"]["body"]["track"]["track_id"] ?? '';
-                                lrcfile = jsonResponse["message"]["body"]["macro_calls"]["track.subtitles.get"]["message"]["body"]["subtitle_list"][0]["subtitle"]["subtitle_body"];
+                        if (status1 == 200) {
+                            let id = '';
+                            try {
+                                if (jsonResponse["message"]["body"]["macro_calls"]["matcher.track.get"]["message"]["header"]["status_code"] == 200 && jsonResponse["message"]["body"]["macro_calls"]["track.subtitles.get"]["message"]["header"]["status_code"] == 200) {
+                                    id = jsonResponse["message"]["body"]["macro_calls"]["matcher.track.get"]["message"]["body"]["track"]["track_id"] ?? '';
+                                    lrcfile = jsonResponse["message"]["body"]["macro_calls"]["track.subtitles.get"]["message"]["body"]["subtitle_list"][0]["subtitle"]["subtitle_body"];
 
-                                try {
-                                    let lrcrich = jsonResponse["message"]["body"]["macro_calls"]["track.richsync.get"]["message"]["body"]["richsync"]["richsync_body"];
-                                    richsync = JSON.parse(lrcrich);
-                                    app.richlyrics = richsync;
-                                } catch (_) {
-                                }
-                            }
-
-                            if (lrcfile == "") {
-                                app.loadAMLyrics()
-                            } else {
-                                if (richsync == [] || richsync.length == 0) {
-                                    console.log("ok");
-                                    // process lrcfile to json here
-                                    app.lyricsMediaItem = lrcfile
-                                    let u = app.lyricsMediaItem.split(/[\r\n]/);
-                                    let preLrc = []
-                                    for (var i = u.length - 1; i >= 0; i--) {
-                                        let xline = (/(\[[0-9.:\[\]]*\])+(.*)/).exec(u[i])
-                                        let end = (preLrc.length > 0) ? ((preLrc[preLrc.length - 1].startTime) ?? 99999) : 99999
-                                        preLrc.push({
-                                            startTime: app.toMS(xline[1].substring(1, xline[1].length - 2)) ?? 0,
-                                            endTime: end,
-                                            line: xline[2],
-                                            translation: ''
-                                        })
+                                    try {
+                                        let lrcrich = jsonResponse["message"]["body"]["macro_calls"]["track.richsync.get"]["message"]["body"]["richsync"]["richsync_body"];
+                                        richsync = JSON.parse(lrcrich);
+                                        app.richlyrics = richsync;
+                                    } catch (_) {
                                     }
-                                    if (preLrc.length > 0)
-                                        preLrc.push({
-                                            startTime: 0,
-                                            endTime: preLrc[preLrc.length - 1].startTime,
-                                            line: "lrcInstrumental",
-                                            translation: ''
-                                        });
-                                    app.lyrics = preLrc.reverse();
-                                } else {
-                                    let preLrc = richsync.map(function (item) {
-                                        return {
-                                            startTime: item.ts,
-                                            endTime: item.te,
-                                            line: item.x,
-                                            translation: ''
-                                        }
-                                    })
-                                    if (preLrc.length > 0)
-                                        preLrc.unshift({
-                                            startTime: 0,
-                                            endTime: preLrc[0].startTime,
-                                            line: "lrcInstrumental",
-                                            translation: ''
-                                        });
-                                    app.lyrics = preLrc;
                                 }
-                                if (lrcfile != null && lrcfile != '' && lang != "disabled") {
-                                    // load translation
-                                    getMXMTrans(id, lang, token);
-                                } else {
+
+                                if (lrcfile == "") {
                                     app.loadAMLyrics()
+                                } else {
+                                    if (richsync == [] || richsync.length == 0) {
+                                        console.log("ok");
+                                        // process lrcfile to json here
+                                        app.lyricsMediaItem = lrcfile
+                                        let u = app.lyricsMediaItem.split(/[\r\n]/);
+                                        let preLrc = []
+                                        for (var i = u.length - 1; i >= 0; i--) {
+                                            let xline = (/(\[[0-9.:\[\]]*\])+(.*)/).exec(u[i])
+                                            let end = (preLrc.length > 0) ? ((preLrc[preLrc.length - 1].startTime) ?? 99999) : 99999
+                                            preLrc.push({
+                                                startTime: app.toMS(xline[1].substring(1, xline[1].length - 2)) ?? 0,
+                                                endTime: end,
+                                                line: xline[2],
+                                                translation: ''
+                                            })
+                                        }
+                                        if (preLrc.length > 0)
+                                            preLrc.push({
+                                                startTime: 0,
+                                                endTime: preLrc[preLrc.length - 1].startTime,
+                                                line: "lrcInstrumental",
+                                                translation: ''
+                                            });
+                                        app.lyrics = preLrc.reverse();
+                                    } else {
+                                        let preLrc = richsync.map(function (item) {
+                                            return {
+                                                startTime: item.ts,
+                                                endTime: item.te,
+                                                line: item.x,
+                                                translation: ''
+                                            }
+                                        })
+                                        if (preLrc.length > 0)
+                                            preLrc.unshift({
+                                                startTime: 0,
+                                                endTime: preLrc[0].startTime,
+                                                line: "lrcInstrumental",
+                                                translation: ''
+                                            });
+                                        app.lyrics = preLrc;
+                                    }
+                                    if (lrcfile != null && lrcfile != '' && lang != "disabled") {
+                                        // load translation
+                                        getMXMTrans(id, lang, token);
+                                    } else {
+                                        app.loadAMLyrics()
+                                    }
                                 }
+                            } catch (e) {
+                                console.log(e);
+                                app.loadAMLyrics()
                             }
-                        } catch (e) {
-                            console.log(e);
-                            app.loadAMLyrics()
+                        } else { //4xx rejected
+                            getToken(1, track, artist, '', lang, time);
                         }
-                    } else { //4xx rejected
-                        getToken(1, track, artist, '', lang, time);
+                    } catch (e) {
+                        console.log(e);
+                        app.loadAMLyrics()
                     }
                 }
                 req.onerror = function () {
@@ -2737,32 +2752,34 @@ const app = new Vue({
                     req2.open('GET', url2, true);
                     req2.setRequestHeader("authority", "apic-desktop.musixmatch.com");
                     req2.onload = function () {
-                        let jsonResponse2 = JSON.parse(this.responseText);
-                        console.log(jsonResponse2);
-                        let status2 = jsonResponse2["message"]["header"]["status_code"];
-                        if (status2 == 200) {
-                            try {
-                                let preTrans = []
-                                let u = app.lyrics;
-                                let translation_list = jsonResponse2["message"]["body"]["translations_list"];
-                                if (translation_list.length > 0) {
-                                    for (var i = 0; i < u.length - 1; i++) {
-                                        preTrans[i] = ""
-                                        for (var trans_line of translation_list) {
-                                            if (u[i].line == " " + trans_line["translation"]["matched_line"] || u[i].line == trans_line["translation"]["matched_line"]) {
-                                                u[i].translation = trans_line["translation"]["description"];
-                                                break;
+                        try {
+                            let jsonResponse2 = JSON.parse(this.responseText);
+                            console.log(jsonResponse2);
+                            let status2 = jsonResponse2["message"]["header"]["status_code"];
+                            if (status2 == 200) {
+                                try {
+                                    let preTrans = []
+                                    let u = app.lyrics;
+                                    let translation_list = jsonResponse2["message"]["body"]["translations_list"];
+                                    if (translation_list.length > 0) {
+                                        for (var i = 0; i < u.length - 1; i++) {
+                                            preTrans[i] = ""
+                                            for (var trans_line of translation_list) {
+                                                if (u[i].line == " " + trans_line["translation"]["matched_line"] || u[i].line == trans_line["translation"]["matched_line"]) {
+                                                    u[i].translation = trans_line["translation"]["description"];
+                                                    break;
+                                                }
                                             }
                                         }
+                                        app.lyrics = u;
                                     }
-                                    app.lyrics = u;
+                                } catch (e) {
+                                    /// not found trans -> ignore
                                 }
-                            } catch (e) {
-                                /// not found trans -> ignore
+                            } else { //4xx rejected
+                                getToken(2, '', '', id, lang, '');
                             }
-                        } else { //4xx rejected
-                            getToken(2, '', '', id, lang, '');
-                        }
+                        } catch (e) { }
                     }
                     req2.send();
                 }
@@ -3274,6 +3291,10 @@ const app = new Vue({
             if (typeof url == "undefined" || url == "") {
                 return "https://beta.music.apple.com/assets/product/MissingArtworkMusic.svg"
             }
+            height = parseInt(height * window.devicePixelRatio)
+            if(width) {
+                width = parseInt(width * window.devicePixelRatio)
+            }
             let newurl = `${url.replace('{w}', width ?? height).replace('{h}', height).replace('{f}', "webp").replace('{c}', ((width === 900) ? "sr" : "cc"))}`;
 
             if (newurl.includes("900x516")) {
@@ -3352,7 +3373,7 @@ const app = new Vue({
                     let data = await this.mk.api.v3.music(`/v1/me/library/songs/${this.mk.nowPlayingItem.id}`);
                     data = data.data.data[0];
                     if (data != null && data !== "" && data.attributes != null && data.attributes.artwork != null) {
-                        this.currentArtUrlRaw = (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"] ?? '')
+                        this.currentArtUrlRaw = (data["attributes"]["artwork"]["url"] ?? '')
                         this.currentArtUrl = (data["attributes"]["artwork"]["url"] ?? '').replace('{w}', artworkSize).replace('{h}', artworkSize);
                         ipcRenderer.send('updateRPCImage', this.currentArtUrl ?? '');
                         try {
@@ -3723,7 +3744,7 @@ const app = new Vue({
                 }
             }
 
-            if(app.mk.nowPlayingItem._container["attributes"] && app.mk.nowPlayingItem._container.name != "station") {
+            if (app.mk.nowPlayingItem._container["attributes"] && app.mk.nowPlayingItem._container.name != "station") {
                 menus.normal.items.find(x => x.id == "showInMusic").hidden = false
             }
 

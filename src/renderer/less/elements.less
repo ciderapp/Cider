@@ -357,6 +357,17 @@
   justify-content: center-between;
   align-items: center;
   border-radius: var(--mediaItemRadius);
+  position: relative;
+
+  .popular {
+    background-image: url(assets/star.svg);
+    background-repeat: no-repeat;
+    background-size: 10px;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    left: 3px;
+  }
 
   .artwork {
     height: 42px;
@@ -545,6 +556,11 @@
     background: var(--selected-click);
     box-shadow: var(--mediaItemShadow);
     color: #eee;
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
   }
 
   //  list item compact

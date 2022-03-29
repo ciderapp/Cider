@@ -1,12 +1,11 @@
 // @ts-ignore
 import * as Player from 'mpris-service';
 
-export default class MPRIS {
+export default class mpris {
     /**
      * Private variables for interaction in plugins
      */
-    private _win: any;
-    private _app: any;
+    private static utils: any;
 
     /**
      * Base Plugin Details (Eventually implemented into a GUI in settings)
@@ -19,13 +18,13 @@ export default class MPRIS {
     /**
      * MPRIS Service
      */
-    private mpris: any;
-    private mprisEvents: Object = {
-        "playpause": "pausePlay",
-        "play": "pausePlay",
-        "pause": "pausePlay",
-        "next": "nextTrack",
-        "previous": "previousTrack",
+    private static player: Player.Player;
+    private static mprisEvents: Object = {
+        "playpause": "playPause",
+        "play": "play",
+        "pause": "pause",
+        "next": "next",
+        "previous": "previous",
     }
 
     /*******************************************************************************************
@@ -34,13 +33,12 @@ export default class MPRIS {
 
     /**
      * Runs a media event
-     * @param type - pausePlay, nextTrack, PreviousTrack
+     * @param type - pausePlay, next, previous
      * @private
      */
-    private runMediaEvent(type: string) {
-        if (this._win) {
-            this._win.webContents.executeJavaScript(`MusicKitInterop.${type}()`).catch(console.error)
-        }
+    private static runMediaEvent(type: string) {
+        console.debug(`[Plugin][${this.name}] ${type}.`);
+        mpris.utils.getWindow().webContents.executeJavaScript(`MusicKitInterop.${type}()`).catch(console.error)
     }
 
     /**
@@ -60,91 +58,89 @@ export default class MPRIS {
     /**
      * Connects to MPRIS Service
      */
-    @MPRIS.linuxOnly
-    private connect() {
-        this.mpris = Player({
-            name: 'Cider',
+    private static connect() {
+
+        const player = Player({
+            name: 'cider',
             identity: 'Cider',
             supportedUriSchemes: [],
             supportedMimeTypes: [],
             supportedInterfaces: ['player']
         });
-        this.mpris = Object.assign(this.mpris, {
-            canQuit: true,
-            canControl: true,
-            canPause: true,
-            canPlay: true,
-            canGoNext: true,
-            active: true
-        })
 
+        console.debug(`[Plugin][${mpris.name}] Successfully connected.`);
 
         const pos_atr = {durationInMillis: 0};
-        this.mpris.getPosition = function () {
+        player.getPosition = function () {
             const durationInMicro = pos_atr.durationInMillis * 1000;
             const percentage = parseFloat("0") || 0;
             return durationInMicro * percentage;
         }
 
-        for (const [key, value] of Object.entries(this.mprisEvents)) {
-            this.mpris.on(key, () => {
-                this.runMediaEvent(value)
+        for (const [key, value] of Object.entries(mpris.mprisEvents)) {
+            player.on(key, function () {
+                mpris.runMediaEvent(value)
             });
         }
+
+        player.on('quit', function () {
+            process.exit();
+        });
+
+        mpris.player = player;
     }
 
     /**
-     * Update MPRIS Player Attributes
+     * Update M.P.R.I.S Player Attributes
      */
-    @MPRIS.linuxOnly
-    private updatePlayer(attributes: any) {
+    private static updatePlayer(attributes: any) {
 
         const MetaData = {
-            'mpris:trackid': this.mpris.objectPath(`track/${attributes.playParams.id.replace(/[.]+/g, "")}`),
+            'mpris:trackid': mpris.player.objectPath(`track/${attributes.playParams.id.replace(/[.]+/g, "")}`),
             'mpris:length': attributes.durationInMillis * 1000, // In microseconds
             'mpris:artUrl': (attributes.artwork.url.replace('/{w}x{h}bb', '/512x512bb')).replace('/2000x2000bb', '/35x35bb'),
             'xesam:title': `${attributes.name}`,
             'xesam:album': `${attributes.albumName}`,
-            'xesam:artist': [`${attributes.artistName}`,],
+            'xesam:artist': [`${attributes.artistName}`],
             'xesam:genre': attributes.genreNames
         }
 
-        if (this.mpris.metadata["mpris:trackid"] === MetaData["mpris:trackid"]) {
+        if (mpris.player.metadata["mpris:trackid"] === MetaData["mpris:trackid"]) {
             return
         }
 
-        this.mpris.metadata = MetaData
-
+        mpris.player.metadata = MetaData;
     }
 
     /**
-     * Update MPRIS Player State
+     * Update M.P.R.I.S Player State
      * @private
      * @param attributes
      */
-    @MPRIS.linuxOnly
-    private updatePlayerState(attributes: any) {
-
-        let status = 'Stopped';
-        if (attributes.status) {
-            status = 'Playing';
-        } else if (attributes.status === false) {
-            status = 'Paused';
+    private static updatePlayerState(attributes: any) {
+        switch (attributes.status) {
+            case true: // Playing
+                mpris.player.playbackStatus = Player.PLAYBACK_STATUS_PLAYING;
+                break;
+            case false: // Paused
+                mpris.player.playbackStatus = Player.PLAYBACK_STATUS_PAUSED;
+                break;
+            default:
+                mpris.player.playbackStatus = Player.PLAYBACK_STATUS_STOPPED;
+                break
         }
-
-        if (this.mpris.playbackStatus === status) {
-            return
-        }
-        this.mpris.playbackStatus = status;
     }
 
     /**
      * Clear state
      * @private
      */
-    private clearState() {
-        this.mpris.metadata = {'mpris:trackid': '/org/mpris/MediaPlayer2/TrackList/NoTrack'}
-        this.mpris.playbackStatus = 'Stopped';
+    private static clearState() {
+        if (!mpris.player) {
+            return
+        }
+        mpris.player.metadata = {'mpris:trackid': '/org/mpris/MediaPlayer2/TrackList/NoTrack'}
+        mpris.player.playbackStatus = Player.PLAYBACK_STATUS_STOPPED;
     }
 
 
@@ -155,46 +151,55 @@ export default class MPRIS {
     /**
      * Runs on plugin load (Currently run on application start)
      */
-    constructor(app: any, _store: any) {
-        this._app = app;
-        console.debug(`[Plugin][${this.name}] Loading Complete.`);
+    constructor(utils: any) {
+        mpris.utils = utils
+
+        console.debug(`[Plugin][${mpris.name}] Loading Complete.`);
     }
 
     /**
      * Runs on app ready
      */
-    onReady(win: any): void {
-        this._win = win;
-        console.debug(`[Plugin][${this.name}] Ready.`);
-        this.connect()
+    @mpris.linuxOnly
+    onReady(_: any): void {
+        console.debug(`[Plugin][${mpris.name}] Ready.`);
+    }
+
+    /**
+     * Renderer ready
+     */
+    @mpris.linuxOnly
+    onRendererReady(): void {
+        mpris.connect()
     }
 
     /**
      * Runs on app stop
      */
+    @mpris.linuxOnly
     onBeforeQuit(): void {
-        console.debug(`[Plugin][${this.name}] Stopped.`);
-        try {
-            this.clearState()
-        }catch(e) {
-            console.error(e)
-        }
+        console.debug(`[Plugin][${mpris.name}] Stopped.`);
+        mpris.clearState()
     }
 
     /**
      * Runs on playback State Change
-     * @param attributes Music Attributes (attributes.state = current state)
+     * @param attributes Music Attributes (attributes.status = current state)
      */
+    @mpris.linuxOnly
     onPlaybackStateDidChange(attributes: object): void {
-        this.updatePlayerState(attributes)
+        console.debug(`[Plugin][${mpris.name}] onPlaybackStateDidChange.`);
+        mpris.updatePlayerState(attributes)
     }
 
     /**
      * Runs on song change
      * @param attributes Music Attributes
      */
+    @mpris.linuxOnly
     onNowPlayingItemDidChange(attributes: object): void {
-        this.updatePlayer(attributes);
+        console.debug(`[Plugin][${mpris.name}] onMetadataDidChange.`);
+        mpris.updatePlayer(attributes);
     }
 
 }

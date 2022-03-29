@@ -47,7 +47,6 @@ export default class Thumbar {
     /**
      * Update the thumbnail toolbar
      */
-    @Thumbar.windowsOnly
     private updateButtons(attributes: any) {
 
         console.log(attributes)
@@ -94,14 +93,15 @@ export default class Thumbar {
     /**
      * Runs on plugin load (Currently run on application start)
      */
-    constructor(app: any, _store: any) {
-        this._app = app;
+    constructor(utils: { getApp: () => any; }) {
+        this._app = utils.getApp();
         console.debug(`[Plugin][${this.name}] Loading Complete.`);
     }
 
     /**
      * Runs on app ready
      */
+    @Thumbar.windowsOnly
     onReady(win: Electron.BrowserWindow): void {
         this._win = win;
         console.debug(`[Plugin][${this.name}] Ready.`);
@@ -110,6 +110,7 @@ export default class Thumbar {
     /**
      * Runs on app stop
      */
+    @Thumbar.windowsOnly
     onBeforeQuit(): void {
         console.debug(`[Plugin][${this.name}] Stopped.`);
     }
@@ -118,6 +119,7 @@ export default class Thumbar {
      * Runs on playback State Change
      * @param attributes Music Attributes (attributes.status = current state)
      */
+    @Thumbar.windowsOnly
     onPlaybackStateDidChange(attributes: object): void {
         this.updateButtons(attributes)
     }
@@ -126,6 +128,7 @@ export default class Thumbar {
      * Runs on song change
      * @param attributes Music Attributes
      */
+    @Thumbar.windowsOnly
     onNowPlayingItemDidChange(attributes: object): void {
         this.updateButtons(attributes)
     }

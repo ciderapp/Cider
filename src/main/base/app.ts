@@ -120,6 +120,8 @@ export class AppEvents {
     public ready(plug: any) {
         this.plugin = plug
         console.log('[AppEvents] App ready');
+
+        AppEvents.setLoginSettings()
     }
 
     public bwCreated() {
@@ -139,7 +141,9 @@ export class AppEvents {
         }
 
         this.InstanceHandler()
-        this.InitTray()
+        if (process.platform !== "darwin") {
+            this.InitTray()
+        }
     }
 
     /***********************************************************************************************************************
@@ -323,10 +327,34 @@ export class AppEvents {
     private static initLogging() {
         log.transports.console.format = '[{h}:{i}:{s}.{ms}] [{level}] {text}';
         Object.assign(console, log.functions);
+        console.debug = function(...args: any[]) {
+            if (!app.isPackaged) {
+                log.debug(...args)
+            }
+        };
 
         ipcMain.on('fetch-log', (_event) => {
             const data = readFileSync(log.transports.file.getFile().path, {encoding: 'utf8', flag: 'r'});
             clipboard.writeText(data)
         })
+    }
+
+    /**
+     * Set login settings
+     * @private
+     */
+    private static setLoginSettings() {
+        if (utils.getStoreValue('general.onStartup.enabled')) {
+            app.setLoginItemSettings({
+                openAtLogin: true,
+                path: app.getPath('exe'),
+                args: [`${utils.getStoreValue('general.onStartup.hidden') ? '--hidden' : ''}`]
+            })
+        } else {
+            app.setLoginItemSettings({
+                openAtLogin: false,
+                path: app.getPath('exe')
+            })
+        }
     }
 }

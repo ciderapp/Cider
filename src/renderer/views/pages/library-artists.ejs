@@ -1,49 +1,280 @@
-<div class="content-inner">
-    <div class="row">
-        <div class="col" style="padding:0;">
-            <h1 class="header-text">{{$root.getLz('term.artists')}}</h1>
+<script type="text/x-template" id="cider-library-artists">
+    <div class="content-inner library-artists-page">
+        <!-- <div class="row">
+            <div class="col" style="padding:0;">
+                <h1 class="header-text">{{$root.getLz('term.artists')}}</h1>
+            </div>
+    
+        </div> -->
+        <div class="inner-container">
+            <div class="list-container">
+                <div class="col" style="padding:0;">
+                    <div class="search-input-container" style="width:calc(100%-20px);margin: 16px 10px 10px 10px;">
+                        <div class="search-input--icon"></div>
+                        <input type="search" style="width:100%;" spellcheck="false" :placeholder="$root.getLz('term.search') + '...'" @input="$root.searchLibraryArtists" v-model="library.artists.search" class="search-input">
+                    </div>
+                </div>
+                <div class="podcasts-list">
+                    <libraryartist-item :show-duration="false" :show-meta-data="true" :show-library-status="false" :item="item" v-for="item in library.artists.displayListing">
+                    </libraryartist-item>
+                </div>
+            </div>
+            <div class="episodes-list" >   
+                <div class="episodes-inline-info" v-if="clready">        
+                <inline-collection-list :parentSelector="'.episodes-list'" :data="clresponse" :type="cltype" :title="cltitle"></inline-collection-list>
+                </div>    
+            </div>
         </div>
 
     </div>
-    <div class="row">
-        <div class="col" style="padding:0;">
-            <div class="search-input-container" style="width:100%;margin: 16px 0;">
-                <div class="search-input--icon"></div>
-                <input type="search" style="width:100%;" spellcheck="false" :placeholder="$root.getLz('term.search') + '...'" @input="searchLibraryArtists" v-model="library.artists.search" class="search-input">
+</script>
+<script>
+    Vue.component('cider-library-artists', {
+        template: '#cider-library-artists',
+        data: function () {
+            return {
+                library: this.$root.library,
+                app: this.$root,
+                ciderPodcasts: [],
+                podcasts: [],
+                episodes: [],
+                search: {
+                    term: "",
+                    loading: false,
+                    results: [],
+                    resultsLibrary: [],
+                    next: ""
+                },
+                podcastSelected: {
+                    id: -1
+                },
+                selected: {
+                    id: -1
+                },
+                collectionList: {
+                    response: null, title: null, type: null, requestBody: null
+                },
+                clresponse: [],
+                clready: false,
+                cltitle: '',
+                cltype: "artists",
+
+            }
+        },
+        mounted() {
+            let self = this;
+            this.$root.$on('ap-inlinecollection', function(e){
+                console.log("hey",e)
+                self.clready = true;
+                self.clresponse = e.response;
+                self.cltitle = e.title ?? '';
+                self.cltype = e.type ;
+                
+            })
+        },
+        methods: {
+            getInlineCollection(e){
+                console.log("hey",e);
+            }
+        }
+    });
+</script>
+<script type="text/x-template" id="libraryartist-item">
+    <div v-observe-visibility="{callback: visibilityChanged}"      
+         @click="select"
+         class="cd-mediaitem-list-item"
+         :class="{'mediaitem-selected': app.select_hasMediaItem(guid)}"
+         @contextmenu="contextMenu">
+        <template v-if="isVisible">
+            <div class="artwork" v-if="showArtwork == true">
+                <mediaitem-artwork
+                        :url="getArtwork()"
+                        size="50"
+                        :type="item.type"></mediaitem-artwork>
             </div>
-        </div>
-        <div class="col-auto flex-center">
-            <div class="row">
-                <!-- <div class="col">
-                        <select class="md-select" v-model="library.artists.sorting[1]" @change="searchLibraryArtists(1)">
-                            <optgroup label="Sort By">
-                                <option v-for="(sort, index) in library.artists.sortingOptions" :value="index">{{ sort }}</option>
-                            </optgroup>
-                        </select>
-                    </div> -->
-                <div class="col">
-                    <select class="md-select" v-model="library.artists.sortOrder[1]" @change="searchLibraryArtists(1)">
-                            <optgroup :label="$root.getLz('term.sortOrder')">
-                                <option value="asc">{{$root.getLz('term.sortOrder.ascending')}}</option>
-                                <option value="desc">{{$root.getLz('term.sortOrder.descending')}}</option>
-                            </optgroup>
-                        </select>
+            <div class="info-rect" :style="{'padding-left': (showArtwork ? '' : '16px')}"
+                 @dblclick="select">
+                <div class="title text-overflow-elipsis">
+                    {{ item.attributes.name }}
                 </div>
-                <!-- <div class="col">
-                        <select class="md-select" v-model="library.artists.viewAs">
-                            <optgroup label="View As">
-                                <option value="covers">Cover Art</option>
-                                <option value="list">List</option>
-                            </optgroup>
-                        </select>
-                    </div> -->
             </div>
-        </div>
+        </template>
     </div>
-    <div class="well">
-        <!-- <mediaitem-square v-if="library.artists.viewAs == 'covers'" :item="item" v-for="item in library.artists.displayListing">
-            </mediaitem-square> -->
-        <libraryartist-item :show-duration="false" :show-meta-data="true" :show-library-status="false" :item="item" v-for="item in library.artists.displayListing">
-        </libraryartist-item>
-    </div>
-</div>
+</script>
+
+<script>
+    Vue.component('libraryartist-item', {
+        template: '#libraryartist-item',
+        data: function () {
+            return {
+                isVisible: false,
+                addedToLibrary: false,
+                guid: this.uuidv4(),
+                app: this.$root,
+            }
+        },
+        props: {
+            'item': {type: Object, required: true},
+            'parent': {type: String, required: false},
+            'index': {type: Number, required: false, default: -1},
+            'show-artwork': {type: Boolean, default: true},
+            'show-library-status': {type: Boolean, default: true},
+            'show-meta-data': {type: Boolean, default: false},
+            'show-duration': {type: Boolean, default: true},
+            'contextExt': {type: Object, required: false},
+        },
+        methods: {
+            uuidv4() {
+                return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+                    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+                );
+            },
+            msToMinSec(ms) {
+                var minutes = Math.floor(ms / 60000);
+                var seconds = ((ms % 60000) / 1000).toFixed(0);
+                return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+            },
+            getDataType() {
+                return this.item.type
+            },
+            async select(e)  {
+               let u = this.item
+               let u1 = await app.mk.api.v3.music(`/v1/me/library/artists/${u.id}/albums`, {
+                    "platform": "web",
+                    "include[library-albums]": "artists,tracks",
+                    "include[library-artists]": "catalog",
+                    "fields[artists]": "url",
+                    "includeOnly": "catalog,artists"
+                })
+                this.showCollection({data : Object.assign({},u1.data.data)}, u.attributes.name?? '', '');
+               //app.select_selectMediaItem(u.id, this.getDataType(), this.index, this.guid, true)
+            },
+            showCollection(response, title, type, requestBody = {}){
+                this.$root.$emit('ap-inlinecollection', {
+                    response: response, title: title, type: type, requestBody: {}}
+                );
+            },
+            getArtwork(){
+                let u = ""
+                try{
+                u = this.item.relationships.catalog.data[0].attributes.artwork.url}
+                catch (e){};
+                return u;
+            },
+            contextMenu(event) {
+
+                let self = this
+                let data_type = this.getDataType()
+               
+                let item = self.item
+                item.attributes.artistName = item.attributes.name;
+
+                let useMenu = "normal"
+                if (app.selectedMediaItems.length <= 1) {
+                    app.selectedMediaItems = []
+                    app.select_selectMediaItem(this.item.id, data_type, this.index, this.guid, true)
+                } else {
+                    useMenu = "multiple"
+                }
+
+                let menus = {
+                    multiple: {
+                        items: [] //
+                    },
+                    normal: {
+                        items: [
+                            {
+                                "name": app.getLz('action.goToArtist'),
+                                "icon": "./assets/feather/user.svg",
+                                "action": function () {
+                                    app.searchAndNavigate(self.item, 'artist')
+                                    console.log(self.item)
+                                }
+                            },
+                            {
+                                "icon": "./assets/feather/radio.svg",
+                                "name": app.getLz('action.startRadio'),
+                                "action": function () {
+                                    app.mk.setStationQueue({song: self.item.attributes.playParams.id ?? self.item.id}).then(() => {
+                                        app.mk.play()
+                                        app.selectedMediaItems = []
+                                    })
+                                }
+                            },
+                            {
+                                "icon": "./assets/feather/share.svg",
+                                "name": app.getLz('action.share'),
+                                "action": function () {
+                                    if (!self.item.attributes.url && self.item.relationships){
+                                        if (self.item.relationships.catalog){
+                                            app.mkapi(self.item.attributes.playParams.kind, false, self.item.relationships.catalog.data[0].id).then(u => {self.app.copyToClipboard((u.data.data.length && u.data.data.length > 0)? u.data.data[0].attributes.url : u.data.data.attributes.url)})
+                                        }
+                                    } else {
+                                    self.app.copyToClipboard(self.item.attributes.url)}
+                                }
+                            },
+                        ]
+                    }
+                }
+                if (this.contextExt) {
+                    // if this.context-ext.normal is true append all options to the 'normal' menu which is a kvp of arrays
+                    if (this.contextExt.normal) {
+                        menus.normal.items = menus.normal.items.concat(this.contextExt.normal)
+                    }
+                    if (this.contextExt.multiple) {
+                        menus.multiple.items = menus.multiple.items.concat(this.contextExt.multiple)
+                    }
+                }
+                //CiderContextMenu.Create(event, menus[useMenu]); // Depreciated Context Menu
+                app.showMenuPanel(menus[useMenu], event);
+
+            },
+            visibilityChanged: function (isVisible, entry) {
+                this.isVisible = isVisible
+            },
+            addToLibrary() {
+                let item = this.item
+                if (item.attributes.playParams.id) {
+                    console.log('adding to library', item.attributes.playParams.id)
+                    app.addToLibrary(item.attributes.playParams.id.toString())
+                    this.addedToLibrary = true
+                } else if (item.id) {
+                    console.log('adding to library', item.id)
+                    app.addToLibrary(item.id.toString())
+                    this.addedToLibrary = true
+                }
+            },
+            async removeFromLibrary() {
+                let item = this.item
+                let params = {"fields[songs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library"}
+                let id = item.id ?? item.attributes.playParams.id
+                let res = await app.mkapi(item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.playParams.id ?? item.id, params);
+                if (res && res.relationships && res.relationships.library && res.relationships.library.data && res.relationships.library.data.length > 0) {
+                    id = res.relationships.library.data[0].id
+                }
+                let kind = this.item.attributes.playParams.kind ?? this.data.item ?? '';
+                let truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
+                if (item.attributes.playParams.id) {
+                    console.log('remove from library', id)
+                    app.removeFromLibrary(truekind, id)
+                    this.addedToLibrary = false
+                } else if (item.id) {
+                    console.log('remove from library', id)
+                    app.removeFromLibrary(truekind, id)
+                    this.addedToLibrary = false
+                }
+            },
+            playTrack() {
+                let item = this.item
+                let parent = this.parent
+                let childIndex = this.index
+                console.log(item, parent, childIndex)
+                if (parent != null && childIndex != null) {
+                    app.queueParentandplayChild(parent, childIndex, item);
+                } else {
+                    app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)
+                }
+            }
+        }
+    });
+</script>

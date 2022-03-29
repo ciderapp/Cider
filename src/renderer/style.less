@@ -142,8 +142,8 @@ body.notransparency::before {
 }
 
 #app {
-  --color1: rgba(30, 30, 30, 30%);
-  --color2: rgba(15, 15, 15, 30%);
+  --color1: rgba(15, 15, 15, 30%);
+  --color2: rgba(30, 30, 30, 50%);
   --bgColor: transparent;
   --bgWidth: 0px;
   --bgHeight: 0px;
@@ -799,25 +799,28 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
       opacity: 0.6;
     }
   }
+
 }
 
 .app-sidebar-item:hover {
-  border: 1px solid rgb(200 200 200 / 5%);
-  background: rgb(200 200 200 / 15%);
+  border: 1px solid rgb(200 200 200 / 0%);
+  background: rgb(180 180 180 / 15%);
+  // cursor: pointer;
 }
 
 .app-sidebar-item:active {
-  border: 1px solid rgb(200 200 200 / 5%);
-  background: rgb(200 200 200 / 15%);
-  transform: scale(0.98);
+  border: 1px solid rgb(200 200 200 / 0%);
+  background: rgb(150 150 150 / 15%);
+  // transform: scale(0.98);
   transition: transform 0s;
 }
 
 .app-sidebar-item.active {
-  border: 1px solid rgb(200 200 200 / 5%);
+  border: 1px solid rgb(200 200 200 / 0%);
   background: rgb(200 200 200 / 15%);
   transform: scale(1);
   transition: transform 0s;
+  cursor: default;
 }
 
 .app-sidebar-item.active::after {
@@ -830,6 +833,17 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   border-radius: 10px;
   left: 0px;
   background: var(--keyColor);
+  animation: expandIndicator .2s cubic-bezier(0.25, 1, 0.5, 1);
+
+  @keyframes expandIndicator {
+    0% {
+      transform: scaleY(0);
+    }
+
+    100% {
+      transform: scaleY(1);
+    }
+  }
 }
 
 .app-chrome {
@@ -867,7 +881,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 }
 
 .app-chrome .app-chrome--center {
-  width: 40%;
+  //width: 40%;
 }
 
 .app-chrome .app-chrome--right {
@@ -1060,41 +1074,19 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 }
 
 body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls > div.minimize {
-  height: 12px;
-  width: 12px;
-  background-color: rgb(255, 92, 92);
-  border-radius: 50%;
-  display: inline-block;
-  margin: auto 4px;
-  color: rgb(130, 0, 5);
-  -webkit-app-region: no-drag;
-  background-image: unset;
+  display: none;
 }
 
 body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls {
-  width: 67px;
+  display: none;
 }
 
 body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls > div.minmax {
-  height: 12px;
-  width: 12px;
-  background-color: rgb(255, 189, 76);
-  border-radius: 50%;
-  display: inline-block;
-  margin: auto 4px;
-  -webkit-app-region: no-drag;
-  background-image: unset;
+  display: none;
 }
 
 body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls > div.close {
-  height: 12px;
-  width: 12px;
-  background-color: rgb(0, 202, 86);
-  border-radius: 50%;
-  display: inline-block;
-  margin: auto 4px auto 4px;
-  -webkit-app-region: no-drag;
-  background-image: unset;
+  display: none;
 }
 
 .app-chrome .app-chrome-item.playback-controls {
@@ -1557,6 +1549,14 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   filter: none !important;
 }
 
+
+.lyric-body:hover > .lyric-line:not(.active) {
+  filter: none !important;
+}
+.lyric-body > .lyric-line:not(.active) {
+  transition: filter var(--appleEase) 0.5s ease;
+}
+
 .lyricWaiting {
   margin-top: 8px;
   display: none;
@@ -1827,6 +1827,18 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
       flex-grow: 1;
     }
   }
+}
+
+.cd-mediaitem-square-container{
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.reasonSP{
+  // margin-left: 15px;
+  color: rgb(167 163 163);
+  font-weight: 500;
+  margin-left: 15px;
 }
 
 .text-overflow-elipsis {
@@ -2635,6 +2647,23 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 }
 
 // Cider App
+
+#micaEffect {
+  opacity:1;
+  // animation: micaEnter 1s ease-in-out forwards;
+  filter: brightness(0.5);
+  @keyframes micaEnter {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+  }
+}
+
 
 @keyframes rotate {
   from {

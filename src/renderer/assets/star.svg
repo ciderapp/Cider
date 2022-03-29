@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300">
+ <title>dark blue star</title>
+
+ <g display="inline">
+  <title>Layer 1</title>
+  <g id="layer1">
+   <path fill="#edf2f7" stroke="#ebeff4" stroke-width="0" stroke-linejoin="round" stroke-miterlimit="4" id="path4968" d="m239.381653,284.769073l-88.929474,-65.136902l-88.903381,65.236145l34.561218,-104.601654l-89.610046,-64.294891l110.283875,0.496246l33.537506,-104.96814l33.60675,104.913116l110.317139,-0.588898l-89.513672,64.339386l34.650085,104.605591z"/>
+   <path fill="#edf2f7" stroke="#ebeff4" stroke-width="0" stroke-linejoin="round" stroke-miterlimit="4" id="path4960" d="m150.317963,11.500015l-33.534088,104.967941l-110.283875,-0.489197l89.606323,64.291809l-34.555267,104.604431l88.8927,-65.241547l0.671539,0.489166l0,-206.135345l-0.797333,-2.487259l0,0z"/>
+  </g>
+ </g>
+ <g>
+  <title>spear</title>
+ </g>
+</svg>

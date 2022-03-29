@@ -16,23 +16,24 @@ export default class ChromecastPlugin {
     private audioClient = require('castv2-client').Client;
     private mdns = require('mdns-js');
 
-    private devices : any = [];
-    private castDevices : any = [];
+    private devices: any = [];
+    private castDevices: any = [];
 
     // private GCRunning = false;
     // private GCBuffer: any;
     // private expectedConnections = 0;
     // private currentConnections = 0;
-    private activeConnections : any = [];
+    private activeConnections: any = [];
     // private requests = [];
     // private GCstream = new Stream.PassThrough(),
-    private connectedHosts : any = {};
+    private connectedHosts: any = {};
+    private connectedPlayer: any;
     // private port = false;
     // private server = false;
     // private  bufcount = 0;
     // private bufcount2 = 0;
     // private headerSent = false;
-    
+
 
     private searchForGCDevices() {
         try {
@@ -40,7 +41,7 @@ export default class ChromecastPlugin {
             let browser = this.mdns.createBrowser(this.mdns.tcp('googlecast'));
             browser.on('ready', browser.discover);
 
-            browser.on('update', (service :any) => {
+            browser.on('update', (service: any) => {
                 if (service.addresses && service.fullname && service.fullname.includes('_googlecast._tcp')) {
                     this.ondeviceup(service.addresses[0], service.fullname.substring(0, service.fullname.indexOf("._googlecast")) + " " + (service.type[0].description ?? ""), '', 'googlecast');
                 }
@@ -48,18 +49,21 @@ export default class ChromecastPlugin {
             const Client = require('node-ssdp').Client;
             // also do a SSDP/UPnP search
             let ssdpBrowser = new Client();
-            ssdpBrowser.on('response',  (headers :any , statusCode : any, rinfo: any) => {
-                 var location = getLocation(headers);
-                 if (location != null) {
+            ssdpBrowser.on('response', (headers: any, statusCode: any, rinfo: any) => {
+                var location = getLocation(headers);
+                if (location != null) {
                     this.getServiceDescription(location, rinfo.address);
-                 }
+                }
 
             });
 
             function getLocation(headers: any) {
                 let location = null;
-                if (headers["LOCATION"] != null ){location = headers["LOCATION"]}
-                else if (headers["Location"] != null ){location = headers["Location"]}
+                if (headers["LOCATION"] != null) {
+                    location = headers["LOCATION"]
+                } else if (headers["Location"] != null) {
+                    location = headers["Location"]
+                }
                 return location;
             }
 
@@ -85,7 +89,7 @@ export default class ChromecastPlugin {
         }
     }
 
-    private getServiceDescription(url:any, address:any) {
+    private getServiceDescription(url: any, address: any) {
         const request = require('request');
         request.get(url, (error: any, response: any, body: any) => {
             if (!error && response.statusCode === 200) {
@@ -95,7 +99,7 @@ export default class ChromecastPlugin {
     }
 
     private ondeviceup(host: any, name: any, location: any, type: any) {
-        if (this.castDevices.findIndex((item:any) => item.host === host && item.name === name && item.location === location && item.type === type) === -1) {
+        if (this.castDevices.findIndex((item: any) => item.host === host && item.name === name && item.location === location && item.type === type) === -1) {
             this.castDevices.push({
                 name: name,
                 host: host,
@@ -106,7 +110,7 @@ export default class ChromecastPlugin {
                 this.devices.push(host);
             }
             if (name) {
-              this._win.webContents.executeJavaScript(`console.log('deviceFound','ip: ${host} name:${name}')`).catch((err: any) => console.error(err));
+                this._win.webContents.executeJavaScript(`console.log('deviceFound','ip: ${host} name:${name}')`).catch((err: any) => console.error(err));
                 console.log("deviceFound", host, name);
             }
         } else {
@@ -134,7 +138,7 @@ export default class ChromecastPlugin {
 
     private loadMedia(client: any, song: any, artist: any, album: any, albumart: any, cb?: any) {
         // const u = 'http://' + this.getIp() + ':' + server.address().port + '/';
-      //  const DefaultMediaReceiver : any = require('castv2-client').DefaultMediaReceiver;
+        //  const DefaultMediaReceiver : any = require('castv2-client').DefaultMediaReceiver;
         client.launch(CiderReceiver, (err: any, player: any) => {
             if (err) {
                 console.log(err);
@@ -178,27 +182,39 @@ export default class ChromecastPlugin {
                     client.stepInterval = status.volume.stepInterval;
                 }
             })
-            
+
             // send websocket ip
 
-            player.sendIp("ws://"+this.getIp()+":26369");
+            player.sendIp("ws://" + this.getIp() + ":26369");
+            electron.ipcMain.on('stopGCast', (_event) => {
+                player.kill();
+            })
+            electron.app.on('before-quit', (_event) => {
+                player.kill();
+            })
+            
 
         });
     }
 
-    private getIp() {
-        let ip = false;
+    private getIp(){
+        let ip: string = '';
+        let ip2: any = [];
         let alias = 0;
-        let ifaces: any = os.networkInterfaces();
-        for (var dev in ifaces) {
-            ifaces[dev].forEach((details:any) => {
-                if (details.family === 'IPv4') {
+        const ifaces: any = os.networkInterfaces();
+        for (let dev in ifaces) {
+            ifaces[dev].forEach((details: any) => {
+                if (details.family === 'IPv4' && !details.internal) {
                     if (!/(loopback|vmware|internal|hamachi|vboxnet|virtualbox)/gi.test(dev + (alias ? ':' + alias : ''))) {
                         if (details.address.substring(0, 8) === '192.168.' ||
                             details.address.substring(0, 7) === '172.16.' ||
                             details.address.substring(0, 3) === '10.'
                         ) {
-                            ip = details.address;
+                            if (!ip.startsWith('192.168.') ||
+                                (ip2.startsWith('192.168.') && !ip.startsWith('192.168.')) &&
+                                (ip2.startsWith('172.16.') && !ip.startsWith('192.168.') && !ip.startsWith('172.16.')) ||
+                                (ip2.startsWith('10.') && !ip.startsWith('192.168.') && !ip.startsWith('172.16.') && !ip.startsWith('10.'))
+                            ){ip = details.address;}
                             ++alias;
                         }
                     }
@@ -222,7 +238,7 @@ export default class ChromecastPlugin {
             client.muted = false;
 
             client.connect(device.host, () => {
-               // console.log('connected, launching app ...', 'http://' + this.getIp() + ':' + server.address().port + '/');
+                // console.log('connected, launching app ...', 'http://' + this.getIp() + ':' + server.address().port + '/');
                 if (!this.connectedHosts[device.host]) {
                     this.connectedHosts[device.host] = client;
                     this.activeConnections.push(client);
@@ -272,8 +288,8 @@ export default class ChromecastPlugin {
             // }
         }
     }
-    
-    private async setupGCServer(){
+
+    private async setupGCServer() {
         return ''
     }
 
@@ -289,10 +305,9 @@ export default class ChromecastPlugin {
     /**
      * Runs on plugin load (Currently run on application start)
      */
-    constructor(app: any, store: any) {
-        this._app = app;
-        this._store = store
-
+    constructor(utils: { getApp: () => any; getStore: () => any; }) {
+        this._app = utils.getApp();
+        this._store = utils.getStore()
     }
 
     /**
@@ -304,21 +319,26 @@ export default class ChromecastPlugin {
             event.returnValue = this.castDevices
         });
 
-        electron.ipcMain.on('performGCCast',  (event, device, song, artist, album, albumart) => {
+        electron.ipcMain.on('performGCCast', (event, device, song, artist, album, albumart) => {
             // this.setupGCServer().then( () => {
-                this._win.webContents.setAudioMuted(true);
-                console.log(device);
-                this.stream(device, song, artist, album, albumart);
+            this._win.webContents.setAudioMuted(true);
+            console.log(device);
+            this.stream(device, song, artist, album, albumart);
             // })
         });
 
-        electron.ipcMain.on('getChromeCastDevices',  (_event, _data) => {
+        electron.ipcMain.on('getChromeCastDevices', (_event, _data) => {
             this.searchForGCDevices();
         });
 
-        electron.ipcMain.on('stopGCast',  (_event) => {
+        electron.ipcMain.on('stopGCast', (_event) => {
             this._win.webContents.setAudioMuted(false);
-            this.activeConnections = [];    
+            this.activeConnections.forEach((client: any) => {
+                try{
+                    client.stop();
+                } catch(e){}
+            })
+            this.activeConnections = [];
             this.connectedHosts = {};
 
         })

@@ -7,7 +7,6 @@ export class Store {
     private defaults: any = {
         "general": {
             "close_button_hide": false,
-            "open_on_startup": false,
             "discord_rpc": 1, // 0 = disabled, 1 = enabled as Cider, 2 = enabled as Apple Music
             "discord_rpc_clear_on_pause": true,
             "language": "en_US", // electron.app.getLocale().replace('-', '_') this can be used in future
@@ -23,6 +22,10 @@ export class Store {
                 "artists": true,
                 "videos": true,
                 "podcasts": true
+            },
+            "onStartup": {
+                "enabled": false,
+                "hidden": false,
             }
         },
         "home": {
@@ -52,13 +55,12 @@ export class Store {
             "normalization": false,
             "maikiwiAudio": {
                 "ciderPPE": false,
-                "ciderPPE_value": 0.5,
+                "ciderPPE_value": "MAIKIWI",
                 "analogWarmth": false,
-                "analogWarmth_value": 1.25,
+                "analogWarmth_value": "SMOOTH",
                 "spatial": false,
-                "spatialType": 0,
+                "spatialProfile": "420signature-B",
                 "vibrantBass": { // Hard coded into the app. Don't include any of this config into exporting presets in store.ts
-                    'multiplier': 0,
                     'frequencies': [17.182, 42.169, 53.763, 112.69, 119.65, 264.59, 336.57, 400.65, 505.48, 612.7, 838.7, 1155.3, 1175.6, 3406.8, 5158.6, 5968.1, 6999.9, 7468.6, 8862.9, 9666, 10109],
                     'Q': [2.5, 0.388, 5, 5, 2.5, 7.071, 14.14, 10, 7.071, 14.14, 8.409, 0.372, 7.071, 10, 16.82, 7.071, 28.28, 20, 8.409, 40, 40],
                     'gain': [-0.34, 2.49, 0.23, -0.49, 0.23, -0.12, 0.32, -0.29, 0.33, 0.19, -0.18, -1.27, -0.11, 0.25, -0.18, -0.53, 0.34, 1.32, 1.78, 0.41, -0.28]
