@@ -241,7 +241,7 @@
   "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.smooth": "溫和",
   "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.warm": "溫暖",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider 數位增強音訊處理™️",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "將欺騙您的大腦讓您感受到近似保真壓縮的音質。",
+  
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "數位增強音訊處理設定",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "將更改音訊處理的激進/振奮程度（增強選項有可能會引起雜訊）。",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "標準",

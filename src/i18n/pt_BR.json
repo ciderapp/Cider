@@ -219,7 +219,7 @@
   "settings.option.audio.enableAdvancedFunctionality": "Ativar configurações avancadas",
   "settings.option.audio.enableAdvancedFunctionality.description": "Habilitar a funcionalidade AudioContext permitirá recursos de áudio estendidos, como Normalização de Áudio , Equalizadores e Visualizadores. No entanto, em alguns sistemas, isso pode causar travamentos nas faixas de áudio.",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider Adrenaline Processor™️",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Melhoras psicoacusticas que fazem com que tudo soe mais vivo.",
+  
   "settings.warn.audio.enableAdvancedFunctionality.ciderPPE.compatibility": "CAP não é compativel com Áudio Espacial. Por favor, desative-o para continuar.",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "Potência do CAP",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Muda a potência do processamento feito no áudio. (a função Agressiva pode levar a resultados não desejados.)",

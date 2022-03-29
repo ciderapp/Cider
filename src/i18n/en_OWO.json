@@ -295,7 +295,7 @@
   "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.smooth": "Smooth",
   "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.warm": "Wawm",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cidew Adwenyawinye Pwocessow\u2122\ufe0f",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Psychoacoustic Enhancements that makes evewything sound both wichew and mowe wivewy.",
+  
   "settings.warn.audio.enableAdvancedFunctionality.ciderPPE.compatibility": "CAP is nyot compatibwe with Spatiawization. Pwease disabwe Spatiawization to continyue.",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "CAP Stwength",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Changes the stwength of the pwocessing donye to the audio. (Aggwessive may yiewd undesiwabwe wesuwts)",

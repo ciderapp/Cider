@@ -224,7 +224,7 @@
   "settings.option.audio.enableAdvancedFunctionality": "ᒷリᖋᕊ|:ᒷ ᖋ↸⍊ᖋリᔮᒷ↸ ⎓⚍リᔮᒣ╎ᒍリᖋ|:╎ᒣ॥",
   "settings.option.audio.enableAdvancedFunctionality.description": "ᒷリᖋᕊ|:╎リ┤ ᖋ⚍↸╎ᒍᔮᒍリᒣᒷ/ᒣ ⎓⚍リᔮᒣ╎ᒍリᖋ|:╎ᒣ॥ ∴╎|:|: ᖋ|:|:ᒍ∴ ⎓ᒍ∷ ᒷ/ᒣᒷリ↸ᒷ↸ ᖋ⚍↸╎ᒍ ⎓ᒷᖋᒣ⚍∷ᒷϟ |:╎·ǀ·ᒷ ᖋ⚍↸╎ᒍ リᒍ∷ᒲᖋ|:╎∩ᖋᒣ╎ᒍリ , ᒷᑑ⚍ᖋ|:╎∩ᒷ∷ϟ ᖋリ↸ ⍊╎ϟ⚍ᖋ|:╎∩ᒷ∷ϟ, ⍑ᒍ∴ᒷ⍊ᒷ∷ ᒍリ ϟᒍᒲᒷ ϟ॥ϟᒣᒷᒲϟ ᒣ⍑╎ϟ ᒲᖋ॥ ᔮᖋ⚍ϟᒷ ϟᒣ⚍ᒣᒣᒷ∷╎リ┤ ╎リ ᖋ⚍↸╎ᒍ ᒣ∷ᖋᔮ·ǀ·ϟ.",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "ᔮ╎↸ᒷ∷ ᖋ↸∷ᒷリᖋ|:╎リᒷ i!∷ᒍᔮᒷϟϟᒍ∷™️",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "i!ϟ॥ᔮ⍑ᒍᖋᔮᒍ⚍ϟᒣ╎ᔮ ᒷリ⍑ᖋリᔮᒷᒲᒷリᒣϟ ᒣ⍑ᖋᒣ ᒲᖋ·ǀ·ᒷϟ ᒷ⍊ᒷ∷॥ᒣ⍑╎リ┤ ϟᒍ⚍リ↸ ᕊᒍᒣ⍑ ∷╎ᔮ⍑ᒷ∷ ᖋリ↸ ᒲᒍ∷ᒷ |:╎⍊ᒷ|:॥ | ↸ᒷϟ╎┤リᒷ↸ ᕊ॥ ᒲᖋ╎·ǀ·╎∴╎.",
+  
   "settings.warn.audio.enableAdvancedFunctionality.ciderPPE.compatibility": "ᔮᖋi! ╎ϟ リᒍᒣ ᔮᒍᒲi!ᖋᒣ╎ᕊ|:ᒷ ∴╎ᒣ⍑ ϟi!ᖋᒣ╎ᖋ|:╎∩ᖋᒣ╎ᒍリ. i!|:ᒷᖋϟᒷ ↸╎ϟᖋᕊ|:ᒷ ϟi!ᖋᒣ╎ᖋ|:╎∩ᖋᒣ╎ᒍリ ᒣᒍ ᔮᒍリᒣ╎リ⚍ᒷ.",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "ᔮᖋi! ϟᒣ∷ᒷリ┤ᒣ⍑",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "ᔮ⍑ᖋリ┤ᒷϟ ᒣ⍑ᒷ ϟᒣ∷ᒷリ┤ᒣ⍑ ᒍ⎓ ᒣ⍑ᒷ i!∷ᒍᔮᒷϟϟ╎リ┤ ↸ᒍリᒷ ᒣᒍ ᒣ⍑ᒷ ᖋ⚍↸╎ᒍ. (ᖋ┤┤∷ᒷϟϟ╎⍊ᒷ ᒲᖋ॥ ॥╎ᒷ|:↸ ⚍リ↸ᒷϟ╎∷ᖋᕊ|:ᒷ ∷ᒷϟ⚍|:ᒣϟ)",

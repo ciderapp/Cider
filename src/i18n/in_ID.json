@@ -294,7 +294,7 @@
   "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.smooth": "Halus",
   "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.warm": "Hangat",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider Adrenaline Processor™️",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Peningkatan Psikoakustik yang membuat semuanya terdengar lebih jelas dan lebih hidup.",
+  
   "settings.warn.audio.enableAdvancedFunctionality.ciderPPE.compatibility": "CAP tidak cocok dengan Spatialisasi. Matikan Spasialisasi untuk menggunakan.",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "Kekuatan CAP",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Mengubah kekuatan pemrosesan yang dilakukan pada audio. (Agresif dapat menghasilkan hasil yang tidak diinginkan)",
