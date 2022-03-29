@@ -167,6 +167,9 @@ const app = new Vue({
                     "artwork": { "url": "./assets/logocut.png" }
                 }
             },
+            forceDirectives: {
+
+            },
             menuOpened: false,
             maximized: false,
             drawerOpened: false,
@@ -573,6 +576,10 @@ const app = new Vue({
                 this.setTheme(this.cfg.visual.theme)
             }
 
+            if(this.platform == "darwin") {
+                this.chrome.windowControlPosition = "left"
+            }
+
             this.setLz(this.cfg.general.language)
             this.setLzManual()
             clearTimeout(this.hangtimer)
@@ -933,13 +940,20 @@ const app = new Vue({
                 less.refresh()
             }
         },
+        macOSEmu () {
+            this.chrome.forceDirectives["macosemu"] = {
+                value: true
+            }
+            this.chrome.windowControlPosition = "left"
+        },
         getThemeDirective(directive = "") {
             let directives = {}
             if (typeof this.chrome.appliedTheme.info.directives == "object") {
                 directives = this.chrome.appliedTheme.info.directives
             }
+            directives = Object.assign(directives, this.chrome.forceDirectives)
             if (directives[directive]) {
-                return this.chrome.appliedTheme.info.directives[directive].value
+                return directives[directive].value
             } else if (this.cfg.visual.directives[directive]) {
                 return this.cfg.visual.directives.windowLayout
             } else {
@@ -965,6 +979,9 @@ const app = new Vue({
 
             if (this.getThemeDirective('windowLayout') == 'twopanel') {
                 classes.twopanel = true
+            }
+            if(this.getThemeDirective("macosemu") == true){
+                classes.macosemu = true
             }
             return classes
         },

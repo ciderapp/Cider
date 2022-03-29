@@ -1563,6 +1563,20 @@ input[type=checkbox][switch]:checked:active::before {
   background-image: url('./assets/backward.svg');
 }
 
+.playback-button {
+  &.navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    >svg {
+      height:16px;
+    width:16px;
+    pointer-events: none;
+    }
+  }
+}
+
 .playback-buttons {
   display: flex;
   align-items: center;

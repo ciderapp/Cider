@@ -37,7 +37,7 @@
   --keyColor-deepPressed: #ff8a9c;
   --keyColor-deepPressed-rgb: 255, 138, 156;
   --keyColor-disabled: rgba(250, 88, 106, 0.35);
-  --navigationBarHeight: 38px;
+  --navigationBarHeight: 0px;
   --modalBackground: #262626;
   --songProgressColor: var(--keyColor);
   --songProgressBackground: #333;
@@ -853,6 +853,14 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   display: flex;
   flex-direction: row;
   -webkit-app-region: drag;
+
+  .vdiv {
+    width: 1px;
+    background: white;
+    opacity: 0.25;
+    height: 50%;
+    margin: 6px;
+  }
 }
 
 .mv-chrome {
@@ -996,13 +1004,13 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 }
 
 .app-chrome .app-chrome-item > .app-mainmenu {
-  width: 110px;
+  width: 34px;
   font-size: 13px;
-  background: url("./assets/AppChromeBtn.svg");
-  background-size: contain;
+  background: url("./assets/CiderMenu.svg");
+  background-size: auto;
   background-repeat: no-repeat;
   background-position: center;
-  height: 70%;
+  height: 34px;
   margin-right: 16px;
   margin-left: 16px;
   margin-top: 1.5px;
@@ -1016,10 +1024,6 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   &:active, &.active {
     background-color: var(--selected-click);
   }
-
-  &.active {
-    background-image: url("./assets/AppChromeBtn-Open.svg");
-  }
 }
 
 .app-chrome .app-chrome-item > .window-controls {
@@ -1027,6 +1031,10 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   font-size: 13px;
   height: 100%;
   display: flex;
+
+  &-macos {
+    width: 96px;
+  }
 }
 
 .app-chrome .app-chrome-item > .window-controls > div {
@@ -1077,9 +1085,9 @@ body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls > div.mi
   display: none;
 }
 
-body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls {
-  display: none;
-}
+//body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls {
+//  display: none;
+//}
 
 body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls > div.minmax {
   display: none;
@@ -3217,3 +3225,4 @@ body[platform='darwin'] {
 @import url("less/linux.less");
 @import url("less/compact.less");
 @import url("less/directives.less");
+@import url("less/macosemu.less");
