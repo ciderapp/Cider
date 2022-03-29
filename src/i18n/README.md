@@ -197,3 +197,6 @@ Update 10/3/2022 14:00 UTC
 
 Update 20/3/2022 00:01 UTC
 * `term.creditDesignedBy`: Added for `en_US`
+
+Update 29/3/2022 04:00 UTC
+* `settings.option.audio.enableAdvancedFunctionality.ciderPPE.description`: Changed for `en_US` (Deleted for all language files)

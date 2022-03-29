@@ -230,7 +230,7 @@
   "settings.option.audio.enableAdvancedFunctionality": "Akiviere erweiterte Funktionalität",
   "settings.option.audio.enableAdvancedFunctionality.description": "Das Aktivieren der erweiterten Funktionalität ermöglicht spezielle Features wie Audio-Normalisierung, Equalizer und Visualizer, jedoch könnte dies auf einigen Systemen zu Aussetzern in der Musik führen.",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider Adrenaline Processor™️",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Psychoakustische Verbesserungen die die Musik lebensechter erscheinen lassen.",
+ 
   "settings.warn.audio.enableAdvancedFunctionality.ciderPPE.compatibility": "CAP ist nicht mit räumlichem Audio kompatibel. Bitte deaktiviere räumliches Audio zuerst.",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "CAP-Stärke",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Ändert die Stärke der Nachbearbeitung. (Aggressiv könnte zu ungewünschten Änderungen führen)",

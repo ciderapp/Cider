@@ -357,6 +357,17 @@
   justify-content: center-between;
   align-items: center;
   border-radius: var(--mediaItemRadius);
+  position: relative;
+
+  .popular {
+    background-image: url(assets/star.svg);
+    background-repeat: no-repeat;
+    background-size: 10px;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    left: 3px;
+  }
 
   .artwork {
     height: 42px;
@@ -1550,6 +1561,20 @@ input[type=checkbox][switch]:checked:active::before {
 
 .playback-button.previous {
   background-image: url('./assets/backward.svg');
+}
+
+.playback-button {
+  &.navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    >svg {
+      height:16px;
+    width:16px;
+    pointer-events: none;
+    }
+  }
 }
 
 .playback-buttons {

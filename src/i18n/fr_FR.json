@@ -221,7 +221,7 @@
   "settings.option.audio.enableAdvancedFunctionality": "Activer les fonctions avancées",
   "settings.option.audio.enableAdvancedFunctionality.description": "L'activation de la fonctionnalité AudioContext permet d'utiliser des fonctions audio étendues telles que la normalisation du son, les égaliseurs et les visualiseurs. Toutefois, sur certains systèmes, cela peut provoquer des bégaiements dans les pistes audio.",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Moteur de traitement psycho-acoustique Cider",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Un processus de traitement qui fait croire à votre cerveau que les fichiers sont de meilleure qualité.",
+  
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Normalisation du son",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalise le volume maximal des pistes individuelles pour créer une expérience d'écoute plus uniforme.",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Spatialisation audio",

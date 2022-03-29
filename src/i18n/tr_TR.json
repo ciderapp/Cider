@@ -295,7 +295,7 @@
   "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.smooth": "Yumuşak",
   "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.warm": "Hararetli",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider Adrenalin Prosesörü™️",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Müziğin hem daha zengin hem de daha canlı duyulmasını sağlayan Psikoakustik Geliştirme Sistemi.",
+  
   "settings.warn.audio.enableAdvancedFunctionality.ciderPPE.compatibility": "CAP, Uzamsal Ses ile uyumlu değildir. Devam etmek için lütfen Uzamsallaştırmayı devre dışı bırakın.",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "CAP Kuvveti",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Sese yapılan işlemin gücünü değiştirir. (Agresif istenmeyen sonuçlar doğurabilir)",
