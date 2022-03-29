@@ -1,10 +1,16 @@
 import * as ElectronStore from 'electron-store';
 import * as electron from "electron";
+import {app} from "electron";
 
 export class Store {
     static cfg: ElectronStore;
 
     private defaults: any = {
+        "main": {
+            "PLATFORM": process.platform,
+            "ENV": process.env,
+            "UPDATABLE": app.isPackaged && (!process.mas || !process.windowsStore || !process.env.FLATPAK_ID)
+        },
         "general": {
             "close_button_hide": false,
             "discord_rpc": 1, // 0 = disabled, 1 = enabled as Cider, 2 = enabled as Apple Music

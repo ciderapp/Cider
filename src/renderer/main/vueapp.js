@@ -604,7 +604,7 @@ const app = new Vue({
                 document.body.classList.add("no-gpu")
             }
             this.mk._services.timing.mode = 0
-            this.platform = ipcRenderer.sendSync('cider-platform');
+            this.platform = this.cfg.main.PLATFORM
 
             this.mklang = await this.MKJSLang()
 

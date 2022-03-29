@@ -925,7 +925,7 @@
                             CiderAudio.spatialOn()
                             CiderAudio.hierarchical_loading();
                         }
-                    }   
+                    }
                 } else {
                     CiderAudio.off();
                 }
@@ -950,20 +950,21 @@
                 ipcRenderer.invoke('update-store-mtt', app.cfg.general.close_behavior);
             },
             checkIfUpdateDisabled() {
-                if (ipcRenderer.sendSync('disable-update')) {
-                    let updateFields = document.getElementsByClassName('update-check');
-                    for (var i=0; i < updateFields.length; i++) {
-                        updateFields[i].style = "opacity: 0.5; pointer-events: none;";
-                        updateFields[i].title = "Not available on this type of build";
-                    }
+				if (app.cfg.main.UPDATABLE) return;
+
+                let updateFields = document.getElementsByClassName('update-check');
+                for (let i=0; i < updateFields.length; i++) {
+                    updateFields[i].style = "opacity: 0.5; pointer-events: none;";
+                    updateFields[i].title = "Not available on this type of build";
                 }
+
             },
             promptForRelaunch(){
                 bootbox.confirm(app.getLz('action.relaunch.confirm'), function (result) {
                 if (result) {
                     ipcRenderer.send('relaunchApp','');
                 }
-            });          
+            });
             }
         }
     })

@@ -616,10 +616,6 @@ export class BrowserWindow {
             event.returnValue = wpData;
         })
 
-        ipcMain.on("cider-platform", (event) => {
-            event.returnValue = process.platform;
-        });
-
         ipcMain.handle("reinstall-widevine-cdm", () => {
             // remove WidevineCDM from appdata folder
             const widevineCdmPath = join(app.getPath("userData"), "./WidevineCdm");
