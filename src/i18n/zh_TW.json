@@ -237,11 +237,12 @@
   "settings.warn.audioLab.withoutAF": "使用 Cider 音訊實驗室需要開啟進階音訊功能才能使用。" ,
   "settings.option.audio.enableAdvancedFunctionality.analogWarmth": "模擬溫暖",
   "settings.option.audio.enableAdvancedFunctionality.analogWarmth.description": "以 Korg Nutube 6P1 為設計的模擬溫暖。",
+  "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity": "模擬溫暖強度",
   "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.description": "改變模擬溫暖模組處理的強度。",
   "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.smooth": "溫和",
   "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.warm": "溫暖",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider 數位增強音訊處理™️",
-  
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "透過人類的聽力心理學模型和 AAC 編碼特色的即時算法，強化 256 kbps AAC 音訊的感知音訊品質。",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "數位增強音訊處理設定",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "將更改音訊處理的激進/振奮程度（增強選項有可能會引起雜訊）。",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "標準",
