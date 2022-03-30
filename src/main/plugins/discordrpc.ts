@@ -163,15 +163,14 @@ export default class DiscordRichPresence {
             endTimestamp: attributes.endTime,
             largeImageKey: attributes?.artwork?.url?.replace('{w}', '1024').replace('{h}', '1024'),
             largeImageText: attributes.albumName,
-            instance: false, // Whether the activity is in a game session
-            buttons: [
+            instance: false // Whether the activity is in a game session
+        }
+
+        if (!DiscordRichPresence._store.general.discord_rpc_hide_buttons) {
+            this._activity.buttons = [
                 {label: 'Listen on Cider', url: attributes.url.cider},
                 {label: 'View on Apple Music', url: attributes.url.appleMusic}
             ] //To change attributes.url => preload/cider-preload.js
-        }
-
-        if (DiscordRichPresence._store.general.discord_rpc_hide_buttons) {
-            this._activity.buttons = [];
         }
 
 
