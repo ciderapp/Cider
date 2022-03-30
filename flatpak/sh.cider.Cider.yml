@@ -1,0 +1,75 @@
+app-id: sh.cider.Cider
+runtime: org.freedesktop.Platform
+runtime-version: '21.08'
+sdk: org.freedesktop.Sdk
+base: org.electronjs.Electron2.BaseApp
+base-version: '21.08'
+command: cider-wrapper
+rename-desktop-file: cider.desktop
+rename-icon: cider
+finish-args:
+  - --device=dri
+  - --filesystem=xdg-music
+  - --filesystem=xdg-run/app/com.discordapp.Discord:create
+  - --own-name=org.mpris.MediaPlayer2.cider
+  - --share=ipc
+  - --share=network
+  - --socket=pulseaudio
+  # needs electron v11 (chromium v87) or newer with ozone enabled
+  # https://github.com/electron/electron/issues/10915
+  #- --socket=wayland
+  - --socket=x11
+  - --system-talk-name=org.freedesktop.UPower
+  - --talk-name=com.canonical.AppMenu.Registrar
+  - --talk-name=com.canonical.dbusmenu
+  - --talk-name=org.freedesktop.Notifications
+  - --talk-name=org.kde.StatusNotifierWatcher
+modules:
+  - name: cider
+    buildsystem: simple
+    build-commands:
+      - install -dm755 ${FLATPAK_DEST}/cider
+      - |
+        bsdtar -Oxf cider.deb 'data.tar*' |
+        bsdtar -xf - \
+        -C ${FLATPAK_DEST}/cider \
+        --strip-components=3 \
+        ./opt/Cider
+      - |
+        bsdtar -Oxf cider.deb 'data.tar*' |
+        bsdtar -xf - \
+        -C ${FLATPAK_DEST} \
+        --strip-components=2 \
+        --exclude=./usr/share/doc \
+        ./usr/share
+      - install -Dm755 cider-wrapper /app/bin/cider-wrapper
+      - desktop-file-edit --set-key=Exec --set-value=cider-wrapper ${FLATPAK_DEST}/share/applications/cider.desktop
+      - install -Dm755 stub_sandbox ${FLATPAK_DEST}/cider/chrome-sandbox
+      - install -Dm755 cider -t ${FLATPAK_DEST}/bin/
+      - install -Dm644 -t /app/share/metainfo ${FLATPAK_ID}.metainfo.xml
+    sources:
+      - type: file
+        dest-filename: cider.deb
+        url: https://github.com/ciderapp/cider-releases/releases/download/v1.3.0.1555/cider_1.3.0-alpha.1555_amd64.deb
+        sha256: 8a582ca2758d556cc2d5fad73e05ed3e2f27076e13bf377d1d83d9494aaef9c2
+        x-checker-data:
+          type: json
+          url: https://api.github.com/repos/ciderapp/cider-releases/releases/latest
+          version-query: .tag_name
+          url-query: .assets[] | select(.name | match("(amd64.deb)")) | .browser_download_url
+      - type: script
+        dest-filename: cider
+        commands:
+          # share chromium singleton between multiple session, needed for flatpak<1.11.1
+          - export TMPDIR=$XDG_RUNTIME_DIR/app/$FLATPAK_ID
+          - exec zypak-wrapper /app/cider/cider "$@"
+      - type: script
+        dest-filename: stub_sandbox
+        commands:
+          - |
+            echo Stub sandbox ignoring command: $@
+            exit 1
+      - type: file
+        path: cider-wrapper
+      - type: file
+        path: sh.cider.Cider.metainfo.xml

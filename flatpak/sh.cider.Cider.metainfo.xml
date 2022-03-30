@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <content_rating type="oars-1.0"/>
+  <id>sh.cider.Cider</id>
+  
+  <name>Cider</name>
+  <summary>An open source and community oriented Apple Music client</summary>
+  
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>AGPL-1.0-or-later</project_license>
+  <developer_name>Cider Collective</developer_name>
+
+  <url type="homepage">https://cider.sh/?utm_source=flathub%26utm_medium=link%26utm_campaign=product-page</url>
+  <url type="bugtracker">https://github.com/ciderapp/Cider/issues</url>
+  <url type="donation">https://ko-fi.com/cryptofyre</url>
+  
+  <description>
+    <p>
+      Project Cider. A new look into listening and enjoying Apple Music in style and performance with Features such as Discord and Last.fm integration, spatial audio support, equalizers, and remote controllable using companion app
+    </p>
+  </description>
+  
+  <launchable type="desktop-id">cider.desktop</launchable>
+
+  <screenshots>
+    <screenshot type="default">
+      <image>https://github.com/ciderapp/cider.sh/blob/main/assets/img/frontpage-scn.png?raw=true</image>
+    </screenshot>
+  </screenshots>
+
+  <releases>
+    <release version="v1.3.0.1555" date="2022-03-24"/>
+    <release version="v1.3.0.1548" date="2022-03-24"/>
+    <release version="v1.3.0.1541" date="2022-03-23"/>
+    <release version="v1.3.0.1540" date="2022-03-23"/>
+    <release version="v1.3.0.1531" date="2022-03-22"/>
+  </releases>
+</component>
