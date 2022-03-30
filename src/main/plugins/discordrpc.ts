@@ -135,11 +135,13 @@ export default class DiscordRichPresence {
             delete activity.largeImageText
         }
 
-        activity.buttons.forEach((key: { label: string, url: string }, _v: Number) => {
-            if (key.url.includes('undefined') || key.url.includes('no-id-found')) {
-                activity.buttons.splice(key, 1);
-            }
-        })
+        if (!DiscordRichPresence._store.general.discord_rpc_hide_buttons) {
+			activity.buttons.forEach((key: { label: string; url: string }, _v: Number) => {
+				if (key.url.includes('undefined') || key.url.includes('no-id-found')) {
+					activity.buttons.splice(key, 1);
+				}
+			});
+		}
         return activity
     }
 
@@ -161,19 +163,32 @@ export default class DiscordRichPresence {
             return;
         }
 
-        this._activity = {
-            details: attributes.name,
-            state: `${attributes.artistName ? `by ${attributes.artistName}` : ''}`,
-            startTimestamp: Date.now() - (attributes?.durationInMillis - attributes?.remainingTime),
-            endTimestamp: attributes.endTime,
-            largeImageKey: attributes?.artwork?.url?.replace('{w}', '1024').replace('{h}', '1024'),
-            largeImageText: attributes.albumName,
-            instance: false, // Whether the activity is in a game session
-            buttons: [
-                {label: "Listen on Cider", url: attributes.url.cider},
-                {label: "View on Apple Music", url: attributes.url.appleMusic},
-            ] //To change attributes.url => preload/cider-preload.js
-        };
+        // Check if show buttons is (true) or (false)
+		if (DiscordRichPresence._store.general.discord_rpc_hide_buttons) {
+			this._activity = {
+				details: attributes.name,
+				state: `${attributes.artistName ? `by ${attributes.artistName}` : ''}`,
+				startTimestamp: Date.now() - (attributes?.durationInMillis - attributes?.remainingTime),
+				endTimestamp: attributes.endTime,
+				largeImageKey: attributes?.artwork?.url?.replace('{w}', '1024').replace('{h}', '1024'),
+				largeImageText: attributes.albumName,
+				instance: false
+			};
+		} else {
+			this._activity = {
+				details: attributes.name,
+				state: `${attributes.artistName ? `by ${attributes.artistName}` : ''}`,
+				startTimestamp: Date.now() - (attributes?.durationInMillis - attributes?.remainingTime),
+				endTimestamp: attributes.endTime,
+				largeImageKey: attributes?.artwork?.url?.replace('{w}', '1024').replace('{h}', '1024'),
+				largeImageText: attributes.albumName,
+				instance: false, // Whether the activity is in a game session
+				buttons: [
+					{ label: 'Listen on Cider', url: attributes.url.cider },
+					{ label: 'View on Apple Music', url: attributes.url.appleMusic }
+				] //To change attributes.url => preload/cider-preload.js
+			};
+		}
 
         this._activity = this.filterActivity(this._activity, attributes)
 

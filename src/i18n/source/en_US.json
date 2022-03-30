@@ -371,6 +371,7 @@
   "settings.header.connectivity.discordRPC.cider": "Display as 'Cider'",
   "settings.header.connectivity.discordRPC.appleMusic": "Display as 'Apple Music'",
   "settings.option.connectivity.discordRPC.clearOnPause": "Clear Discord Rich Presence on Pause",
+  "settings.option.connectivity.discordRPC.hideButtons": "Hide buttons on Discord Rich Presence",
   "settings.option.connectivity.lastfmScrobble": "Last.fm Scrobbling",
   "settings.option.connectivity.lastfmScrobble.delay": "Last.fm Scrobble Delay (%)",
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "Enable Last.fm Now Playing",
