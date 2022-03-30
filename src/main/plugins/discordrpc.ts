@@ -33,6 +33,7 @@ export default class DiscordRichPresence {
         smallImageText: '',
         instance: false
     };
+    private _clientId: number = 0;
 
     private _activityCache: RPC.Presence = {
         details: '',
@@ -54,6 +55,7 @@ export default class DiscordRichPresence {
      * @private
      */
     private connect(clientId: any) {
+        this._clientId = clientId;
         if (DiscordRichPresence._store.general.discord_rpc == 0) {
             return
         }
@@ -108,7 +110,7 @@ export default class DiscordRichPresence {
     /**
      * Filter the Discord activity object
      */
-    private filterActivity(activity: any, attributes: any): Object {
+    private static filterActivity(activity: any, attributes: any): Object {
 
         // Checks if the name is greater than 128 because some songs can be that long
         if (activity.details && activity.details.length > 128) {
@@ -134,14 +136,6 @@ export default class DiscordRichPresence {
         if (!activity.largeImageText || activity.largeImageText.length < 2) {
             delete activity.largeImageText
         }
-
-        if (!DiscordRichPresence._store.general.discord_rpc_hide_buttons) {
-			activity.buttons.forEach((key: { label: string; url: string }, _v: Number) => {
-				if (key.url.includes('undefined') || key.url.includes('no-id-found')) {
-					activity.buttons.splice(key, 1);
-				}
-			});
-		}
         return activity
     }
 
@@ -152,10 +146,8 @@ export default class DiscordRichPresence {
     private updateActivity(attributes: any) {
         if (DiscordRichPresence._store.general.discord_rpc == 0) {
             return
-        }
-
-        if (!this._client) {
-            this.connect(DiscordRichPresence._store.general.discord_rpc == 1 ? '911790844204437504' : '886578863147192350')
+        } else if (!DiscordRichPresence._connection || !this._client) {
+            this.connect(this._clientId)
         }
 
         if (!DiscordRichPresence._connection) {
@@ -164,33 +156,26 @@ export default class DiscordRichPresence {
         }
 
         // Check if show buttons is (true) or (false)
-		if (DiscordRichPresence._store.general.discord_rpc_hide_buttons) {
-			this._activity = {
-				details: attributes.name,
-				state: `${attributes.artistName ? `by ${attributes.artistName}` : ''}`,
-				startTimestamp: Date.now() - (attributes?.durationInMillis - attributes?.remainingTime),
-				endTimestamp: attributes.endTime,
-				largeImageKey: attributes?.artwork?.url?.replace('{w}', '1024').replace('{h}', '1024'),
-				largeImageText: attributes.albumName,
-				instance: false
-			};
-		} else {
-			this._activity = {
-				details: attributes.name,
-				state: `${attributes.artistName ? `by ${attributes.artistName}` : ''}`,
-				startTimestamp: Date.now() - (attributes?.durationInMillis - attributes?.remainingTime),
-				endTimestamp: attributes.endTime,
-				largeImageKey: attributes?.artwork?.url?.replace('{w}', '1024').replace('{h}', '1024'),
-				largeImageText: attributes.albumName,
-				instance: false, // Whether the activity is in a game session
-				buttons: [
-					{ label: 'Listen on Cider', url: attributes.url.cider },
-					{ label: 'View on Apple Music', url: attributes.url.appleMusic }
-				] //To change attributes.url => preload/cider-preload.js
-			};
-		}
+        this._activity = {
+            details: attributes.name,
+            state: `${attributes.artistName ? `by ${attributes.artistName}` : ''}`,
+            startTimestamp: Date.now() - (attributes?.durationInMillis - attributes?.remainingTime),
+            endTimestamp: attributes.endTime,
+            largeImageKey: attributes?.artwork?.url?.replace('{w}', '1024').replace('{h}', '1024'),
+            largeImageText: attributes.albumName,
+            instance: false, // Whether the activity is in a game session
+            buttons: [
+                {label: 'Listen on Cider', url: attributes.url.cider},
+                {label: 'View on Apple Music', url: attributes.url.appleMusic}
+            ] //To change attributes.url => preload/cider-preload.js
+        }
 
-        this._activity = this.filterActivity(this._activity, attributes)
+        if (DiscordRichPresence._store.general.discord_rpc_hide_buttons) {
+            this._activity.buttons = [];
+        }
+
+
+        this._activity = DiscordRichPresence.filterActivity(this._activity, attributes)
 
         // Check if its pausing (false) or playing (true)
         if (!attributes.status) {

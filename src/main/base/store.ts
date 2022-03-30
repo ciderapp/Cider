@@ -15,6 +15,7 @@ export class Store {
             "close_button_hide": false,
             "discord_rpc": 1, // 0 = disabled, 1 = enabled as Cider, 2 = enabled as Apple Music
             "discord_rpc_clear_on_pause": true,
+            "discord_rpc_hide_buttons": false,
             "language": "en_US", // electron.app.getLocale().replace('-', '_') this can be used in future
             "playbackNotifications": true,
             "update_branch": "main",
