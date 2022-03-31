@@ -43,16 +43,22 @@
         </div>
         <sidebar-library-item :name="$root.getLz('term.recentlyAdded')"
                               svg-icon="./assets/feather/plus-circle.svg"
+                              v-if="cfg.general.sidebarItems.recentlyAdded"
                               page="library-recentlyadded"></sidebar-library-item>
         <sidebar-library-item :name="$root.getLz('term.songs')" svg-icon="./assets/feather/music.svg"
+                              v-if="cfg.general.sidebarItems.songs"
                               page="library-songs"></sidebar-library-item>
         <sidebar-library-item :name="$root.getLz('term.albums')" svg-icon="./assets/feather/disc.svg"
+                              v-if="cfg.general.sidebarItems.albums"
                               page="library-albums"></sidebar-library-item>
         <sidebar-library-item :name="$root.getLz('term.artists')" svg-icon="./assets/feather/user.svg"
+                              v-if="cfg.general.sidebarItems.artists"
                               page="library-artists"></sidebar-library-item>
         <sidebar-library-item :name="$root.getLz('term.videos')" svg-icon="./assets/feather/video.svg"
+                              v-if="cfg.general.sidebarItems.videos"
                               page="library-videos"></sidebar-library-item>
         <sidebar-library-item :name="$root.getLz('term.podcasts')" svg-icon="./assets/feather/mic.svg"
+                              v-if="cfg.general.sidebarItems.podcasts"
                               page="podcasts">
         </sidebar-library-item>
         <template v-if="getPlaylistFolderChildren('p.applemusic').length != 0">

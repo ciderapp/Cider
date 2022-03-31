@@ -1074,13 +1074,14 @@
 .modal-title {
   line-height: 1.5;
   margin     : 0;
+  font-size: 1em;
 }
 
 .modal-body {
   position : relative;
   flex     : 1 1 auto;
   padding  : 3rem 1rem 1rem 1rem;
-  font-size: 0.9em
+  //font-size: 0.9em
 }
 
 .modal-footer {
@@ -1311,6 +1312,10 @@
   border-radius      : 0.25rem;
   font-family        : inherit;
   transition         : color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  border: 1px solid rgba(100, 100, 100, 0.35);
+  border-top: 1px solid rgba(100, 100, 100, 0.5);
+  border-radius: 6px;
+  font-size: 14px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1338,22 +1343,22 @@ fieldset:disabled .btn {
 
 .btn-primary {
   color           : #fff;
-  background-color: #0d6efd;
-  border-color    : #0d6efd;
+  background-color: var(--keyColor-primary);
+  //border-color    : #0d6efd;
 }
 
 .btn-primary:hover {
   color           : #fff;
-  background-color: #0b5ed7;
-  border-color    : #0a58ca;
+  //background-color: #0b5ed7;
+  //border-color    : #0a58ca;
 }
 
 .btn-check:focus+.btn-primary,
 .btn-primary:focus {
   color           : #fff;
-  background-color: #0b5ed7;
-  border-color    : #0a58ca;
-  box-shadow      : 0 0 0 0.25rem rgba(49, 132, 253, 0.5);
+  //background-color: #0b5ed7;
+  //border-color    : #0a58ca;
+  //box-shadow      : 0 0 0 0.25rem rgba(49, 132, 253, 0.5);
 }
 
 .btn-check:checked+.btn-primary,
@@ -1362,8 +1367,8 @@ fieldset:disabled .btn {
 .btn-primary.active,
 .show>.btn-primary.dropdown-toggle {
   color           : #fff;
-  background-color: #0a58ca;
-  border-color    : #0a53be;
+  //background-color: #0a58ca;
+  //border-color    : #0a53be;
 }
 
 .btn-check:checked+.btn-primary:focus,
@@ -1371,7 +1376,7 @@ fieldset:disabled .btn {
 .btn-primary:active:focus,
 .btn-primary.active:focus,
 .show>.btn-primary.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.25rem rgba(49, 132, 253, 0.5);
+  //box-shadow: 0 0 0 0.25rem rgba(49, 132, 253, 0.5);
 }
 
 .btn-primary:disabled,
