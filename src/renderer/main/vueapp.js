@@ -756,20 +756,23 @@ const app = new Vue({
 
             ipcRenderer.on('SoundCheckTag', (event, tag) => {
                 // let replaygain = self.parseSCTagToRG(tag)
-                let soundcheck = tag.split(" ")
-                let numbers = []
-                for (let item of soundcheck) {
-                    numbers.push(parseInt(item, 16))
+                if (app.mk.nowPlayingItem.type !== 'song') { 
+                    CiderAudio.audioNodes.gainNode.gain.value = 0.70794578438;}
+                else {
+                    let soundcheck = tag.split(" ")
+                    let numbers = []
+                    for (let item of soundcheck) {
+                        numbers.push(parseInt(item, 16))
 
-                }
-                numbers.shift()
-                let peak = Math.max(numbers[6], numbers[7]) / 32768.0
-                let gain = Math.pow(10, ((-7.63 - (Math.log10(peak) * 20)) / 20))// EBU R 128 Compliant
-                console.debug(`[Cider][MaikiwiSoundCheck] Peak Gain: '${Math.log10(peak) * 20}' dB | Adjusting '${Math.log10(gain) * 20}' dB`)
-                try {
-                    //CiderAudio.audioNodes.gainNode.gain.value = (Math.min(Math.pow(10, (replaygain.gain / 20)), (1 / replaygain.peak)))
-                    CiderAudio.audioNodes.gainNode.gain.value = gain
-                } catch (e) {
+                    }
+                    numbers.shift()
+                    let peak = Math.max(numbers[6], numbers[7]) / 32768.0
+                    let gain = Math.pow(10, ((-7.63 - (Math.log10(peak) * 20)) / 20))// EBU R 128 Compliant
+                    console.debug(`[Cider][MaikiwiSoundCheck] Peak Gain: '${Math.log10(peak) * 20}' dB | Adjusting '${Math.log10(gain) * 20}' dB`)
+                    try {
+                        //CiderAudio.audioNodes.gainNode.gain.value = (Math.min(Math.pow(10, (replaygain.gain / 20)), (1 / replaygain.peak)))
+                        CiderAudio.audioNodes.gainNode.gain.value = gain
+                    } catch (e) {}
                 }
             })
 
