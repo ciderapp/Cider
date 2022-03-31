@@ -1016,13 +1016,32 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   margin-top: 1.5px;
   border: 0px;
   border-radius: 6px;
+  transition: transform .1s var(--appleEase);
+  position: relative;
+
+  // &:after {
+  //   content: "";
+  //   background-image: var(--cvar-userprofileimg);
+  //   height:100%;
+  //   width:100%;
+  //   top:0;
+  //   left: 0;
+  //   display:block;
+  //   position: absolute;
+  //   background-size: cover;
+  //   border-radius: 100%;
+  //   border: 0px solid rgb(50 50 50);
+  //   box-shadow: 0px 0px 0px 1px rgb(80 80 80);
+  // }
 
   &:hover {
-    background-color: var(--selected);
+    transform: scale(1.1);
   }
 
   &:active, &.active {
-    background-color: var(--selected-click);
+    border-radius: 100%;
+    transform: scale(1.1);
+    outline: 2px solid var(--keyColor);
   }
 }
 
