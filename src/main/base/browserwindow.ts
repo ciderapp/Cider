@@ -1224,9 +1224,9 @@ export class BrowserWindow {
                             details.address.substring(0, 3) === '10.'
                         ) {
                             if (!ip.startsWith('192.168.') ||
-                                (ip2.startsWith('192.168.') && !ip.startsWith('192.168.')) &&
-                                (ip2.startsWith('172.16.') && !ip.startsWith('192.168.') && !ip.startsWith('172.16.')) ||
-                                (ip2.startsWith('10.') && !ip.startsWith('192.168.') && !ip.startsWith('172.16.') && !ip.startsWith('10.'))
+                                (String(ip2).startsWith('192.168.') && !ip.startsWith('192.168.')) &&
+                                (String(ip2).startsWith('172.16.') && !ip.startsWith('192.168.') && !ip.startsWith('172.16.')) ||
+                                (String(ip2).startsWith('10.') && !ip.startsWith('192.168.') && !ip.startsWith('172.16.') && !ip.startsWith('10.'))
                             ) {
                                 ip = details.address;
                             }
