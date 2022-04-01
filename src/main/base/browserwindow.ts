@@ -412,7 +412,7 @@ export class BrowserWindow {
                 console.error('Req not defined')
                 return
             }
-            if (req.url.includes("audio.wav") || (req.headers.host.includes("localhost") && (this.devMode || req.headers["user-agent"].includes("Electron")))) {
+            if (req.url.includes("api") || req.url.includes("audio.wav") || (req.headers.host.includes("localhost") && (this.devMode || req.headers["user-agent"].includes("Electron")))) {
                 next();
             } else {
                 res.redirect("https://discord.gg/applemusic");
