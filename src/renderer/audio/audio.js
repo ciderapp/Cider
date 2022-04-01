@@ -67,9 +67,9 @@ const CiderAudio = {
     },
     spatialProfiles: [
         {
-            "id": "420signature",
-            "file": './audio/impulses/CiderSpatial_v69.420_Audiophile.wav',
-            "name": "Signature (Classic)",
+            "id": "70_420signature",
+            "file": './audio/impulses/CiderSpatial_v70.420_Maikiwi.wav',
+            "name": "Maikiwi",
             "description": "",
             "img": "./assets/audiolabs/classic.png",
         },
