@@ -118,7 +118,9 @@ export class Store {
             "miniplayer_top_toggle": true,
             "directives": {
                 "windowLayout": "default"
-            }
+            },
+            "windowControlPosition": 0, // 0 default right
+            "nativeTitleBar": false
         },
         "lyrics": {
             "enable_mxm": false,

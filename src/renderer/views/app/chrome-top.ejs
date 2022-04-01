@@ -1,6 +1,6 @@
 <div class="app-chrome" :style="{'display': chrome.topChromeVisible ? '' : 'none'}">
     <div class="app-chrome--left">
-        <div class="app-chrome-item full-height" v-if="chrome.windowControlPosition == 'left'">
+        <div class="app-chrome-item full-height" v-if="chrome.windowControlPosition == 'left' && !chrome.nativeControls">
             <div class="window-controls-macos">
                 <div class="close" @click="ipcRenderer.send('close')"></div>
                 <div class="minimize" @click="ipcRenderer.send('minimize')"></div>
@@ -160,7 +160,7 @@
             </div>
         </template>
         <div class="app-chrome-item full-height" id="window-controls-container"
-             v-if="chrome.windowControlPosition == 'right'">
+             v-if="chrome.windowControlPosition == 'right' && !chrome.nativeControls">
             <div class="window-controls">
                 <div class="minimize" @click="ipcRenderer.send('minimize')"></div>
                 <div class="minmax restore" v-if="chrome.maximized"
@@ -170,7 +170,7 @@
                 <div class="close" @click="ipcRenderer.send('close')"></div>
             </div>
         </div>
-        <div class="app-chrome-item full-height" v-else-if="platform != 'darwin'">
+        <div class="app-chrome-item full-height" v-else-if="platform != 'darwin' && !chrome.nativeControls">
             <button class="app-mainmenu"
                     @blur="mainMenuVisibility(false)"
                     @click="mainMenuVisibility(true)"

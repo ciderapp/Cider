@@ -322,11 +322,19 @@ export class BrowserWindow {
                 } else {
                     this.options.transparent = true;
                 }
+                this.options.autoHideMenuBar = true
+                if(utils.getStoreValue("visual.nativeTitleBar")) {
+                    this.options.titleBarStyle = "visible";
+                    this.options.frame = true
+                }
                 break;
             case "linux":
                 this.options.backgroundColor = "#1E1E1E";
                 this.options.autoHideMenuBar = true
-                this.options.frame = true
+                if(utils.getStoreValue("visual.nativeTitleBar")) {
+                    this.options.titleBarStyle = "visible";
+                    this.options.frame = true
+                }
                 break;
             case "darwin":
                 this.options.transparent = true;

@@ -151,6 +151,7 @@ const app = new Vue({
         tmpVar: [],
         notification: false,
         chrome: {
+            nativeControls: false,
             contentScrollPosY: 0,
             appliedTheme: {
                 location: "",
@@ -580,6 +581,10 @@ const app = new Vue({
                 this.chrome.windowControlPosition = "left"
             }
 
+            if(this.cfg.visual.nativeTitleBar) {
+                this.chrome.nativeControls = true
+            }
+
             this.setLz(this.cfg.general.language)
             this.setLzManual()
             clearTimeout(this.hangtimer)
@@ -960,7 +965,7 @@ const app = new Vue({
             if (directives[directive]) {
                 return directives[directive].value
             } else if (this.cfg.visual.directives[directive]) {
-                return this.cfg.visual.directives.windowLayout
+                return this.cfg.visual.directives[directive]
             } else {
                 return ""
             }
@@ -980,6 +985,24 @@ const app = new Vue({
             }
             if (this.cfg.visual.window_background_style == "none") {
                 classes.simplebg = true
+            }
+
+            if(this.platform !== "darwin") {
+                switch(parseInt(this.cfg.visual.windowControlPosition)) {
+                    default:
+                    case 0:
+                        this.chrome.windowControlPosition = "right"
+                        this.chrome.forceDirectives["macosemu"] = {
+                            value: false
+                        }
+                        break;
+                    case 1:
+                        this.chrome.windowControlPosition = "left"
+                        this.chrome.forceDirectives["macosemu"] = {
+                            value: true
+                        }
+                        break;
+                }
             }
 
             if (this.getThemeDirective('windowLayout') == 'twopanel') {
