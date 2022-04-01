@@ -1167,6 +1167,17 @@
   }
 }
 
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 0%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
 
 //Home
 .home-page {
@@ -1174,7 +1185,9 @@
   //padding-top: var(--navbarHeight);
 
   .md-btn-replay {
-    background    : var(--replayGradient);
+    background-image: linear-gradient(-45deg, #2e2173, #925042);
+    animation: gradient-animation 5s ease-in-out infinite;
+    background-size: 400% 400%;
     border        : 0px;
     box-shadow    : inset 0px 0px 0px 1px rgba(200, 200, 200, 0.2);
     text-transform: uppercase;
@@ -1184,7 +1197,9 @@
   .md-btn-replay--hero {
     font-size     : 1em;
     padding       : 16px;
-    background    : var(--replayGradient);
+    background-image: linear-gradient(-45deg, #2e2173, #925042);
+    animation: gradient-animation 5s ease-in-out infinite;
+    background-size: 400% 400%;
     border        : 0px;
     box-shadow    : inset 0px 0px 0px 1px rgb(200 200 200 / 20%);
     margin-top    : 1em;
