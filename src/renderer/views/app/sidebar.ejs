@@ -77,7 +77,7 @@
     <transition name="wpfade">
         <div class="usermenu-container" v-if="chrome.menuOpened">
             <div class="usermenu-body">
-                <button class="app-sidebar-button" style="width:100%">
+                <button class="app-sidebar-button" style="width:100%" @click="appRoute('apple-account-settings')">
 
                     <img class="sidebar-user-icon" loading="lazy"
                          :src="getMediaItemArtwork(chrome.hideUserInfo ? 'http://localhost:9000/assets/logocut.png' : (chrome.userinfo.attributes['artwork'] ? chrome.userinfo.attributes['artwork']['url'] : ''), 26)"/>
