@@ -1,5 +1,8 @@
 blank_issues_enabled: false
 contact_links:
+  - name: Feature Request
+    url: https://github.com/ciderapp/Cider/discussions/new?category=feature-request
+    about: Have a feature you would like to have in the app? Make a request.
   - name: Discord Support
     url: https://discord.com/invite/AppleMusic
     about: For quick support, make a ticket or ask for community support here.
