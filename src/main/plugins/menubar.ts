@@ -193,7 +193,7 @@ export default class Thumbar {
                         },
                         {
                             label: 'Feature Request',
-                            click: () => shell.openExternal("https://github.com/ciderapp/Cider/issues/new?assignees=&labels=enhancement%2Ctriage&template=feature_request.yaml&title=%5BEnhancement%5D%3A+").catch(console.error)
+                            click: () => shell.openExternal("https://github.com/ciderapp/Cider/discussions/new?category=feature-request").catch(console.error)
                         },
                         {
                             label: 'Translation Report/Request',
