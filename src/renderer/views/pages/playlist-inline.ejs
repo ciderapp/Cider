@@ -48,6 +48,7 @@
                                                                                                @change="editPlaylist"
                                                                                                @keydown.enter="editPlaylist"/>
                                         </div>
+                                        <div class="playlist-time genre" style="margin: 1px;">{{this.data.relationships.tracks.data[0].attributes.genreNames[0]}}</div>
                                         <div class="playlist-artist item-navigate"
                                              v-if="getArtistName(data) != '' && !useArtistChip"
                                              @click="data.attributes && data.attributes.artistName ? app.searchAndNavigate(data,'artist') : ''">
