@@ -298,7 +298,7 @@
                     try {
                     for (var i = 0; i < 21; i++) {
                     CiderAudio.audioNodes.vibrantbassNode[i].gain.value = app.cfg.audio.maikiwiAudio.vibrantBass.gain[i] * (app.cfg.audio.equalizer.vibrantBass / 10);
-                    CiderAudio.intelliGainComp_h0_0();}}                   
+                    } CiderAudio.intelliGainComp_h0_0();}                   
                     catch(e) {
                         CiderAudio.hierarchical_loading();
                     }
