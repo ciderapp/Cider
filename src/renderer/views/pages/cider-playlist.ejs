@@ -40,6 +40,7 @@
                                                                                            @change="editPlaylist"
                                                                                            @keydown.enter="editPlaylist"/>
                                     </div>
+                                    <div class="playlist-time genre" style="margin: 1px;">{{getAlbumGenre()}}</div>
                                     <div class="playlist-artist item-navigate"
                                          v-if="getArtistName(data) != '' && !useArtistChip"
                                          @click="data.attributes && data.attributes.artistName ? app.searchAndNavigate(data,'artist') : ''">
@@ -168,7 +169,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="playlist-time genre">{{this.data.relationships.tracks.data[0].attributes.genreNames[0]}}</div>
                 <div class="playlist-time">
                     {{getFormattedDate()}}
                 </div>
@@ -283,6 +283,14 @@
                     return data.attributes.curatorName
                 } else {
                     return ""
+                }
+            },
+            getAlbumGenre: function () {
+                if (this.data.type.includes('albums')) {
+                    let date = this.data.attributes.releaseDate;
+                if (date == null || date === "") return "";
+                const releaseDate = new Date(date);
+                return `${this.data.relationships.tracks.data[0].attributes.genreNames[0]} · ${releaseDate.getFullYear()}` 
                 }
             },
             async isInLibrary() {
