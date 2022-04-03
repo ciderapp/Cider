@@ -178,8 +178,8 @@ const CiderAudio = {
                 maxGain = gain;
         }
         if (maxGain == -120) {maxGain = 1}
-        if (CiderAudio.audioNodes.llpw !== null && CiderAudio.audioNodes.llpw[0].buffer !== null) {maxGain = maxGain * 0.9440608762859234}
-        if (app.cfg.audio.maikiwiAudio.spatial === true) {maxGain = maxGain * 0.5956621435290105}
+        if (CiderAudio.audioNodes.llpw !== null && CiderAudio.audioNodes.llpw[0].buffer !== null) {maxGain = maxGain * 1.0592537251772889}
+        if (app.cfg.audio.maikiwiAudio.spatial === true) {maxGain = maxGain * 1.6788040181225603}
         maxGain = Math.pow(10, (-1 * (20 * Math.log10(maxGain))) / 20).toFixed(4);
         maxGain > 1.0 ? CiderAudio.audioNodes.intelliGainComp.gain.value = 1 : CiderAudio.audioNodes.intelliGainComp.gain.value = maxGain;
         console.debug(`[Cider][Audio] IntelliGainComp: ${maxGain > 1.0 ? 0 : (20 * Math.log10(maxGain)).toFixed(2)} dB (${maxGain > 1.0 ? 1 : maxGain})`);
