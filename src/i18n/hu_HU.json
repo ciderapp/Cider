@@ -301,7 +301,7 @@
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "Szokásos",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive": "Agresszív",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Normalizálás",
-  "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizálja az egyes zeneszámok hangosabb részeit, hogy egységesebb hallgatási élményt hozzon létre.",
+  "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizálja az egyes zeneszámok hangosabb részeit, hogy egységesebb hallgatási élményt hozzon létre. (Nem működik a felhasználó által feltöltött zenéken)",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Térbeli Hang",
   "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "A hangzás háromdimenziósabbá tétele. (Ez nem összekeverendő a Dolby Atmos-szal!)",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization": "Cider Előbeállított Térbeli Hang",
