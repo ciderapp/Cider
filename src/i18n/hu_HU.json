@@ -369,6 +369,7 @@
   "settings.header.connectivity.discordRPC.cider": "Megjelenítés 'Cider'-ként",
   "settings.header.connectivity.discordRPC.appleMusic": "Megjelenítés 'Apple Music'-ként",
   "settings.option.connectivity.discordRPC.clearOnPause": "Rich Presence törlése megállításnál",
+  "settings.option.connectivity.discordRPC.hideButtons": "Rich Presence gombok elrejtése",
   "settings.option.connectivity.lastfmScrobble": "Last.fm Scrobbling",
   "settings.option.connectivity.lastfmScrobble.delay": "Last.fm Scrobble késleltetés (%)",
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "Last.fm Now Playing engedélyezése",
