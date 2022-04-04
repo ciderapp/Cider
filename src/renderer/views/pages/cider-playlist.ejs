@@ -147,11 +147,24 @@
                     <div style="width:100%">
                         <draggable :sort="data.attributes.canEdit && data.type == 'library-playlists'"
                                    v-model="data.relationships.tracks.data" @start="drag=true" @end="drag=false;put()">
-                            <mediaitem-list-item :item="item" :parent="getItemParent(data)" :index="index"
-                                                 :showIndex="true"
-                                                 :showIndexPlaylist="(data.attributes.playParams.kind ?? data.type ?? '').includes('playlist')"
-                                                 :context-ext="buildContextMenu()"
-                                                 v-for="(item,index) in data.relationships.tracks.data"></mediaitem-list-item>
+                                   <template v-if="nestedPlaylist == [] || nestedPlaylist.length <= 1">      
+                                    <mediaitem-list-item :item="item" :parent="getItemParent(data)" :index="index"
+                                                         :showIndex="true"
+                                                         :showIndexPlaylist="(data.attributes.playParams.kind ?? data.type ?? '').includes('playlist')"
+                                                         :context-ext="buildContextMenu()"
+                                                         v-for="(item,index) in data.relationships.tracks.data"></mediaitem-list-item>
+                                    </template>
+                                    <template v-else>
+                                        <div v-for="disc in nestedPlaylist">
+                                            <div class="playlist-time">Disc {{disc.disc}}</div>
+                                            <mediaitem-list-item :item="item" :parent="getItemParent(data)" :index="index"
+                                                :showIndex="true"
+                                                :showIndexPlaylist="(data.attributes.playParams.kind ?? data.type ?? '').includes('playlist')"
+                                                :context-ext="buildContextMenu()"
+                                                v-for="(item,index) in disc.tracks"></mediaitem-list-item>   
+                                        </div>    
+    
+                                    </template>    
                         </draggable>
 
                     </div>
@@ -224,6 +237,7 @@
                 badgesRequested: false,
                 headerVisible: true,
                 useArtistChip: false,
+                nestedPlaylist: [],
             }
         },
         mounted: function () {
@@ -233,11 +247,28 @@
         },
         watch: {
             data: function () {
+                this.nestedPlaylist = [];
                 this.isInLibrary()
                 this.getBadges()
+                this.generateNestedPlaylist()
             }
         },
         methods: {
+            generateNestedPlaylist(){
+                this.nestedPlaylist = [];
+                if (this.data?.type?.includes("album")){
+                console.log(this.data.relationships.tracks.data)
+                let songlists = this.data.relationships.tracks.data;
+                let discs = songlists.map(x => {return x.attributes.discNumber}).filter((item, i, ar) => ar.indexOf(item) === i);
+                if (discs && discs.length > 1){
+                    for (disc of discs){
+                        let songs = songlists.filter(x => x.attributes.discNumber == disc);
+                        this.nestedPlaylist.push({disc: disc, tracks: songs})
+                    }
+                }
+                console.log(this.nestedPlaylist)
+
+            }},
             isHeaderVisible(visible) {
                 this.headerVisible = visible
             },
