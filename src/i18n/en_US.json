@@ -175,6 +175,7 @@
   "term.topGenres": "Top Genres",
   "term.confirmLogout": "Are you sure you want to logout?",
   "term.creditDesignedBy": "Designed by ${authorUsername}",
+  "term.discNumber": "Disc ${discNumber}",
   "home.title": "Home",
   "home.recentlyPlayed": "Recently Played",
   "home.recentlyAdded": "Recently Added",

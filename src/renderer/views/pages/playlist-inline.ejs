@@ -166,7 +166,7 @@
                                 </template>
                                 <template v-else>
                                     <div v-for="disc in nestedPlaylist">
-                                        <div class="playlist-time">Disc {{disc.disc}}</div>
+                                        <div class="playlist-time">{{($root.getLz("term.discNumber") ?? "").replace("${discNumber}",disc.disc)}}</div>
                                         <mediaitem-list-item :item="item" :parent="getItemParent(data)" :index="index"
                                             :showIndex="true"
                                             :showIndexPlaylist="(data.attributes.playParams.kind ?? data.type ?? '').includes('playlist')"
