@@ -132,8 +132,8 @@
   "term.reset": "Visszaállítás",
   "term.tracks": "zeneszám",
   "term.track": {
-    "one" : "zeneszám",
-    "other" : "zeneszám"
+    "one": "zeneszám",
+    "other": "zeneszám"
   },
   "term.videos": "Videók",
   "term.menu": "Menü",
@@ -284,9 +284,10 @@
   "settings.option.audio.seamlessTransition": "Szünetmentes lejátszás",
   "settings.option.audio.enableAdvancedFunctionality": "Haladó funkcionalitás engedélyezése",
   "settings.option.audio.enableAdvancedFunctionality.description": "Az AudioContext funkció engedélyezése lehetővé teszi a fejlettebb hangfunkciókat, mint például a Normalizásást, a Hangszínszabályzókat és a Vizualizálókat, azonban egyes eszközökön ez akadozást okozhat a hangsávokban.",
+  "settings.warn.audio.enableAdvancedFunctionality.lowcores": "A Cider azt érzékelte, hogy ez a számítógép nem tudja kezelni ezeket a funkciókat. Biztos, hogy folytatni szeretné?",
   "settings.option.audio.audioLab": "Cider Hangstúdió",
   "settings.option.audio.audioLab.description": "A Ciderhez fejlesztett hangeffektek gyűjteménye.",
-  "settings.warn.audioLab.withoutAF": "Az AudioContext (Haladó funkcionalitás) szükséges a Cider Hangstúdió engedélyezéséhez.",
+  "settings.warn.audioLab.withoutAF": "A Haladó funkcionalitás (AudioContext) szükséges a Cider Hangstúdió engedélyezéséhez.",
   "settings.option.audio.enableAdvancedFunctionality.analogWarmth": "Analóg Érzet",
   "settings.option.audio.enableAdvancedFunctionality.analogWarmth.description": "A Korg Nutube 6P1 analóg érzetét szimulálja.",
   "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity": "Analóg Érzet erősség",
@@ -380,6 +381,8 @@
   "settings.option.debug.openAppData": "Cider mappa megnyitása",
   "settings.header.experimental": "Kísérleti",
   "settings.header.experimental.description": "A Cider kísérleti beállításainak módosítása.",
+  "settings.option.experimental.reinstallwidevine": "WidevineCDM újratelepítése",
+  "settings.option.experimental.reinstallwidevine.confirm": "Biztos, hogy újra szeretné telepíteni a Widevine-t?",
   "settings.option.experimental.unknownPlugin": "Ismeretlen források",
   "settings.option.experimental.unknownPlugin.description": "Engedélyezi azon pluginok telepítését is, amik nem tartoznak a Cider Plugin Gyűjteménybe, ezáltal lehetséges biztonsági kockázatot jelentenek",
   "settings.option.experimental.compactUI": "Kompakt felület",
