@@ -294,7 +294,7 @@
   "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.smooth": "Szokásos",
   "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.warm": "Nagyobb",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider Adrenaline Processor™️",
-  
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Feljavítja a 256 kbps-es AAC hang minőségét egy valós idejű algoritmus segítségével, ami kihasználja az emberi hallás pszichoakusztikus modelljeit és az AAC hang kódolási jellemzőit.",
   "settings.warn.audio.enableAdvancedFunctionality.ciderPPE.compatibility": "A CAP nem kompatibilis a Térbeli Hanggal. Kapcsold ki a Térbeli Hangot a folytatáshoz.",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "CAP Erősség",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Megváltoztatja a hangra végzett feldolgozás erősségét. (Az Agresszív mód nemkívánatos eredményeket hozhat!)",
