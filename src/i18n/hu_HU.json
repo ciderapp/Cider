@@ -389,6 +389,7 @@
   "settings.option.advanced.playlistTrackMapping.description": "Engedélyezi a lejátszási listák mély feltérképezését, ami meg tudja határozni, hogy egy zeneszám mely lejátszási listákba található. A lejátszási lista gyorsítótár felépítésének időtartalma nagy mértékben megnőhet.",
   "settings.option.visual.transparent": "Átlátszó keret",
   "settings.option.visual.transparent.description": "Átlátszó ablakkeret (a Témák támogatása és újraindítás szükséges)",
+  "settings.header.advanced": "Haladó",
   "spatial.notTurnedOn": "A Térbeli Hang ki van kapcsolva, használatához kapcsolja be.",
   "spatial.spatialProperties": "Térbeli Hang",
   "spatial.width": "Szélesség",
