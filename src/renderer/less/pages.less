@@ -1374,7 +1374,9 @@
   }
 
   .replay-viewport {
-    background   : var(--replayGradient);
+    background-image: linear-gradient(-45deg, #2e2173, #925042);
+    animation: gradient-animation 5s ease-in-out infinite;
+    background-size: 400% 400%;
     padding      : 16px 40px;
     border-radius: 10px;
     box-shadow   : var(--mediaItemShadow), var(--mediaItemShadow-Shadow);
