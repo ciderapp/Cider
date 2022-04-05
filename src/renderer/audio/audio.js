@@ -72,18 +72,25 @@ const CiderAudio = {
     },
     spatialProfiles: [
         {
-            "id": "70_421signature",
-            "file": './audio/impulses/CiderSpatial_v70.421_Maikiwi.wav',
+            "id": "71_420maikiwi",
+            "file": './audio/impulses/CiderSpatial_v71.420_Maikiwi.wav',
             "name": "Maikiwi",
+            "description": "",
+            "img": "./assets/audiolabs/focused.png",
+        },
+        {
+            "id": "70_421maikiwi",
+            "file": './audio/impulses/CiderSpatial_v70.421_Maikiwi.wav',
+            "name": "Aggressive",
             "description": "",
             "img": "./assets/audiolabs/classic.png",
         },
         {
-            "id": "420signature-B",
-            "file": './audio/impulses/CiderSpatial_v69.420_Audiophile_B.wav',
-            "name": "Signature (Focused)",
+            "id": "70_422maikiwi",
+            "file": './audio/impulses/CiderSpatial_v70.422_Maikiwi.wav',
+            "name": "Relaxed",
             "description": "",
-            "img": "./assets/audiolabs/focused.png",
+            "img": "./assets/audiolabs/classic.png",
         },
         {
             "id": "standard",
@@ -91,13 +98,6 @@ const CiderAudio = {
             "name": "Minimal",
             "description": "",
             "img": "./assets/audiolabs/minimal.png",
-        },
-        {
-            "id": "audiophile",
-            "file": './audio/impulses/CiderSpatial_v69_Audiophile.wav',
-            "name": "Expansive",
-            "description": "",
-            "img": "./assets/audiolabs/expansive.png",
         }
     ],
     spatialOn: function () {
@@ -179,7 +179,7 @@ const CiderAudio = {
         }
         if (maxGain == -120) {maxGain = 1}
         if (CiderAudio.audioNodes.llpw !== null && CiderAudio.audioNodes.llpw[0].buffer !== null) {maxGain = maxGain * 1.0592537251772889}
-        if (app.cfg.audio.maikiwiAudio.spatial === true && app.cfg.audio.maikiwiAudio.spatialProfile !== '70_421signature') {maxGain = maxGain * 1.3756248102753075}
+        if (app.cfg.audio.maikiwiAudio.spatial === true && app.cfg.audio.maikiwiAudio.spatialProfile === 'standard' || app.cfg.audio.maikiwiAudio.spatial === true && app.cfg.audio.maikiwiAudio.spatialProfile === '71_420maikiwi') {maxGain = maxGain * 1.1885022274370185}
         maxGain = Math.pow(10, (-1 * (20 * Math.log10(maxGain))) / 20).toFixed(4);
         maxGain > 1.0 ? CiderAudio.audioNodes.intelliGainComp.gain.value = 1 : CiderAudio.audioNodes.intelliGainComp.gain.value = maxGain;
         console.debug(`[Cider][Audio] IntelliGainComp: ${maxGain > 1.0 ? 0 : (20 * Math.log10(maxGain)).toFixed(2)} dB (${maxGain > 1.0 ? 1 : maxGain})`);
