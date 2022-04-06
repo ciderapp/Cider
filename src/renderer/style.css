@@ -8988,16 +8988,16 @@ input[type=checkbox][switch]:checked:active::before {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin: 12px 0px;
+  margin: 4px 0px;
   border-radius: 4px;
   color: white;
   font-size: 1em;
   font-weight: 500;
   cursor: pointer;
-  padding: 0px;
+  padding: 8px;
 }
 .artist-chip:hover {
-  background: unset;
+  background: var(--selected);
 }
 .artist-chip .artist-chip__follow {
   appearance: none;

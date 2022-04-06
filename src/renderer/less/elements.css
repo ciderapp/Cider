@@ -1430,9 +1430,7 @@ input[type=checkbox][switch]:checked:active::before {
   font-weight: 500;
   cursor: pointer;
 }
-.artist-chip:hover {
-  background: unset;
-}
+
 .artist-chip .artist-chip__follow {
   appearance: none;
   border: 0;
