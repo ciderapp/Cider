@@ -75,6 +75,7 @@ export class BrowserWindow {
                 "components/plugin-menu",
                 "components/audio-controls",
                 "components/qrcode-modal",
+                "components/moreinfo-modal",
                 "components/equalizer",
                 "components/add-to-playlist",
                 "components/queue",

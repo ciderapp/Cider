@@ -204,7 +204,8 @@ const app = new Vue({
             pluginMenu: false,
             audioControls: false,
             showPlaylist: false,
-            castMenu: false
+            castMenu: false,
+            moreInfo: false,
         },
         socialBadges: {
             badgeMap: {},
@@ -227,6 +228,7 @@ const app = new Vue({
             page: "hello-world",
             pages: [],
         },
+        moreinfodata: [],
     },
     watch: {
         cfg: {

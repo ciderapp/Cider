@@ -52,13 +52,13 @@
                                     </template>
                                     <div class="playlist-desc" v-if="(data.attributes.description && (data.attributes.description.standard || data.attributes.description.short)) || (data.attributes.editorialNotes && (data.attributes.editorialNotes.standard || data.attributes.editorialNotes.short))">
                                         <div v-if="(data.attributes.description?.short ?? data.attributes.editorialNotes?.short) != null" class="content"
-                                                v-html="data.attributes.description?.short ?? data.attributes.editorialNotes?.short"></div>
+                                                v-html="data.attributes.description?.short ?? data.attributes.editorialNotes?.short" @click="openInfoModal()"></div>
                                         <div v-else-if="(data.attributes.description?.standard ?? data.attributes.editorialNotes?.standard) != null" class="content"
                                                 v-html="data.attributes.description?.standard ?? data.attributes.editorialNotes?.standard"></div>
-                                        <button v-if="(data.attributes.description?.short ?? data.attributes.editorialNotes?.short ) != null" class="more-btn"
+                                        <!-- <button v-if="(data.attributes.description?.short ?? data.attributes.editorialNotes?.short ) != null" class="more-btn"
                                                 @click="editorialNotesExpanded = !editorialNotesExpanded">
                                             {{app.getLz('term.showMore')}}
-                                        </button>
+                                        </button> -->
                                     </div>
                                 </div>
                             </template>
@@ -254,6 +254,16 @@
             }
         },
         methods: {
+            openInfoModal(){
+                app.moreinfodata = [];
+                app.moreinfodata = {
+                    title : this.data?.attributes ? (this.data?.attributes?.name ??
+                                            (this.data?.attributes?.title ?? '') ?? '') : '',
+                    subtitle: this.data?.attributes?.artistName ?? '',
+                    content: ((this.data?.attributes?.editorialNotes != null ) ? (this.data?.attributes?.editorialNotes?.standard ?? (this.data?.attributes?.editorialNotes?.short ?? '') ) : (data.attributes?.description ? (this.data.attributes?.description?.standard ?? (this.data?.attributes?.description?.short ?? '')) : ''))
+                }
+                app.modals.moreInfo = true;
+            },
             generateNestedPlaylist(){
                 this.nestedPlaylist = [];
                 if (this.data?.type?.includes("album")){
