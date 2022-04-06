@@ -235,7 +235,7 @@
                         </div>
                         <div class="md-option-line">
                             <div class="md-option-segment">
-                                Window Style
+                                {{$root.getLz("settings.option.visual.windowStyle")}}
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
                                 <select class="md-select" v-model="$root.cfg.visual.directives.windowLayout">
@@ -352,7 +352,7 @@
                         <div class="md-option-line" v-show="app.platform !== 'darwin'">
                             <div class="md-option-segment">
                                 {{$root.getLz("settings.option.window.useNativeTitleBar")}}<br>
-                                <small>{{$root.getLz("settings.option.visual.hardwareAcceleration.description")}}</small>
+                                <small>({{$root.getLz("settings.option.visual.hardwareAcceleration.description")}})</small>
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
                                 <input type="checkbox" v-model="app.cfg.visual.nativeTitleBar" switch/>

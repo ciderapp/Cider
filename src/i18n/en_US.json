@@ -318,6 +318,7 @@
   "settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility": "Spatialization is not compatible with CAP. Please disable CAP to continue.",
   "settings.header.visual": "Visual",
   "settings.header.visual.description": "Adjust the visual settings for Cider.",
+  "settings.option.visual.windowStyle": "Window Style",
   "settings.option.visual.windowBackgroundStyle": "Window Background Style",
   "settings.header.visual.windowBackgroundStyle.none": "None",
   "settings.header.visual.windowBackgroundStyle.artwork": "Artwork",
