@@ -212,7 +212,7 @@ Update 04/06/2022 16:45 UTC
 
 * `settings.option.visual.windowStyle`: Added for `en_US`
 
-Update 04/06/2022 18:15 UTC
+Update 04/06/2022 18:45 UTC
 
 * `action.cast.chromecast`: Added for `en_US`
 * `action.cast.todevices`: Added for `en_US`
