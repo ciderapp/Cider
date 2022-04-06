@@ -208,3 +208,7 @@ Update 04/06/2022 0830 UTC
 * `settings.option.window.windowControlStyle.right`: Added for `en_US`
 * `settings.option.window.windowControlStyle.left`: Added for `en_US`
 
+Update 04/06/2022 16:45 UTC
+
+* `settings.option.visual.windowStyle`: Added for `en_US`
+

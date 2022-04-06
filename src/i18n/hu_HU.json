@@ -318,6 +318,7 @@
   "settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility": "A Térbeli Hang nem kompatibilis a CAP-pal. Kapcsold ki a CAP-ot a folytatáshoz.",
   "settings.header.visual": "Vizuális",
   "settings.header.visual.description": "A Cider vizuális beállításainak módosítása.",
+  "settings.option.visual.windowStyle": "Ablakelrendezés",
   "settings.option.visual.windowBackgroundStyle": "Ablakháttér stílusa",
   "settings.header.visual.windowBackgroundStyle.none": "Sehol",
   "settings.header.visual.windowBackgroundStyle.artwork": "Borító",
