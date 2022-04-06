@@ -200,3 +200,11 @@ Update 20/3/2022 00:01 UTC
 
 Update 29/3/2022 04:00 UTC
 * `settings.option.audio.enableAdvancedFunctionality.ciderPPE.description`: Changed for `en_US` (Deleted for all language files)
+
+Update 04/06/2022 0830 UTC 
+* `settings.option.general.customizeSidebar`: Added for `en_US`
+* `settings.option.general.customizeSidebar.customize`: Added for `en_US`
+* `settings.option.window.useNativeTitleBar`: Added for `en_US`
+* `settings.option.window.windowControlStyle.right`: Added for `en_US`
+* `settings.option.window.windowControlStyle.left`: Added for `en_US`
+
