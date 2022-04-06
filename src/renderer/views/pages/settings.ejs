@@ -63,14 +63,14 @@
                         </div>
                         <div class="md-option-line">
                             <div class="md-option-segment">
-                                Customize Sidebar Items
+                                {{$root.getLz('settings.option.general.customizeSidebar')}}
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
                                 <button class="md-btn" v-b-modal.modal-1>
-                                    Customize
+                                    {{$root.getLz('settings.option.general.customizeSidebar.customize')}}
                                 </button>
                             </div>
-                            <b-modal id="modal-1" centered  size="lg" title="Customize Sidebar Items">
+                            <b-modal id="modal-1" centered  size="lg" title="$root.getLz('settings.option.general.customizeSidebar')">
                                 <div class="settings-option-body">
                                     <div class="md-option-line">
                                         <div class="md-option-segment">
@@ -351,8 +351,8 @@
                         </div>
                         <div class="md-option-line" v-show="app.platform !== 'darwin'">
                             <div class="md-option-segment">
-                                Use Native Title Bar<br>
-                                <small>Requires relaunch</small>
+                                {{$root.getLz("settings.option.window.useNativeTitleBar")}}<br>
+                                <small>{{$root.getLz("settings.option.visual.hardwareAcceleration.description")}}</small>
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
                                 <input type="checkbox" v-model="app.cfg.visual.nativeTitleBar" switch/>
@@ -360,12 +360,12 @@
                         </div>
                         <div class="md-option-line" v-show="app.platform !== 'darwin'">
                             <div class="md-option-segment">
-                                Window Control Style
+                                {{$root.getLz("settings.option.window.windowControlStyle")}}
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
                                 <select class="md-select" v-model="app.cfg.visual.windowControlPosition">
-                                    <option value="0">Right</option>
-                                    <option value="1">Left</option>
+                                    <option value="0">{{$root.getLz("settings.option.window.windowControlStyle.right")}}</option>
+                                    <option value="1">{{$root.getLz("settings.option.window.windowControlStyle.left")}}</option>
                                 </select>
                             </div>
                         </div>
