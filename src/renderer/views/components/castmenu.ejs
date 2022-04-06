@@ -2,11 +2,11 @@
 <div class="spatialproperties-panel castmenu modal-fullscreen" @click.self="close()" @contextmenu.self="close()">
     <div class="modal-window">
         <div class="modal-header">
-            <div class="modal-title">Cast To Devices</div>
+            <div class="modal-title">{{$root.getLz('action.cast.todevices')}}</div>
             <button class="close-btn" @click="close()"></button>
         </div>
     <div class="modal-content" style="overflow-y: overlay; padding: 3%">
-        <div class="md-labeltext">Chromecast</div>
+        <div class="md-labeltext">{{$root.getLz('action.cast.chromecast')}}</div>
         <div class="md-option-container" style="margin-top: 12px;margin-bottom: 12px;">
             <template v-if="!scanning">
                 <template v-for="(device) in devices.cast">
@@ -28,16 +28,16 @@
             <template v-else>
                 <div class="md-option-line" style="cursor: pointer">
                     <div class="md-option-segment">
-                        Scanning...
+                        {{$root.getLz('action.cast.scanning')}}
                     </div>
                 </div>
             </template>
         </div>
-        <div class="md-labeltext" style="opacity:0.5;">AirPlay</div>
+        <div class="md-labeltext" style="opacity:0.5;">{{$root.getLz('action.cast.airplay')}}</div>
         <div class="md-option-container" style="margin-top: 12px;margin-bottom: 12px;opacity:0.5;">
             <div class="md-option-line">
                 <div class="md-option-segment">
-                    AirPlay is still under development
+                    {{$root.getLz('action.cast.airplay.underdevelopment')}}
                 </div>
             </div>
         </div>
@@ -45,10 +45,10 @@
     <div class="md-footer">
         <div class="row">
             <div class="col" v-if="activeCasts.length != 0">
-                <button style="width:100%" @click="stopCasting()" class="md-btn md-btn-block md-btn-primary">Stop casting to all devices</button>
+                <button style="width:100%" @click="stopCasting()" class="md-btn md-btn-block md-btn-primary">{{$root.getLz('action.cast.stop')}}</button>
             </div>
             <div class="col">
-                <button style="width:100%" class="md-btn md-btn-block" @click="scan()">Scan</button>
+                <button style="width:100%" class="md-btn md-btn-block" @click="scan()">{{$root.getLz('action.cast.scan')}}</button>
             </div>
         </div>
     </div>
