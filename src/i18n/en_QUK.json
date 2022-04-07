@@ -20,6 +20,7 @@
   "term.accountSettings": "Account Settings",
   "term.logout": "Quackout",
   "term.login": "Quack In",
+  "term.cast": "Cast Quack",
   "term.about": "About",
   "term.privateSession": "Private Session",
   "term.queue": "Queue",
