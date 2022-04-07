@@ -426,7 +426,7 @@ const CiderAudio = {
             let LLPW_FREQUENCIES = [16.452, 24.636, 37.134, 74.483, 159.54, 308.18, 670.21, 915.81, 1200.7, 2766.4, 2930.6, 4050.6, 4409.1, 5395.2, 5901.6, 6455.5, 7164.1, 7724.1, 8449, 10573, 12368, 14198, 17910, 18916];
             CiderAudio.audioNodes.llpw = []
 
-            switch (app.cfg.audio.maikiwiAudio.ciderPPE_value) {
+            switch (app.cfg.audio.maikiwiAudio.CAP_value) {
                 case "MAIKIWI":
                     CiderAudio.audioNodes.llpw[0] = CiderAudio.context.createConvolver();
                     CiderAudio.audioNodes.llpw[0].normalize = false;
@@ -523,7 +523,7 @@ const CiderAudio = {
                             break;
 
                     }
-                    app.cfg.audio.maikiwiAudio.ciderPPE_value = "MAIKIWI";
+                    app.cfg.audio.maikiwiAudio.CAP_value = "MAIKIWI";
                     console.debug("[Cider][Audio] CAP - MaikiwiSignature Mode (Defaulted from broki config)");
                     break;
             }
@@ -585,7 +585,7 @@ const CiderAudio = {
             if (app.cfg.audio.equalizer.vibrantBass !== '0') {
                 CiderAudio.vibrantbass_h2_1(true, 1);
 
-                if (app.cfg.audio.maikiwiAudio.ciderPPE === true) { // Vibrant Bass, CAP
+                if (app.cfg.audio.maikiwiAudio.CAP === true) { // Vibrant Bass, CAP
                     CiderAudio.llpw_h2_2(true, 2);
 
                     if (app.cfg.audio.maikiwiAudio.analogWarmth === true) { // Vibrant Bass, CAP, Analog Warmth
@@ -679,7 +679,7 @@ const CiderAudio = {
             }
             // Vibrant Bass ends here
             else { // if (app.cfg.audio.maikiwiAudio.vibrantBass.multiplier) === 0
-                if (app.cfg.audio.maikiwiAudio.ciderPPE === true) {
+                if (app.cfg.audio.maikiwiAudio.CAP === true) {
                     CiderAudio.llpw_h2_2(true, 1);
 
                     if (app.cfg.audio.maikiwiAudio.analogWarmth === true) {
@@ -771,7 +771,7 @@ const CiderAudio = {
             if (app.cfg.audio.equalizer.vibrantBass !== '0') { // Vibrant Bass
                 CiderAudio.vibrantbass_h2_1(true, 0)
 
-                if (app.cfg.audio.maikiwiAudio.ciderPPE === true) { // Vibrant Bass, CAP
+                if (app.cfg.audio.maikiwiAudio.CAP === true) { // Vibrant Bass, CAP
                     CiderAudio.llpw_h2_2(true, 2);
 
                     if (app.cfg.audio.maikiwiAudio.analogWarmth === true) { // Vibrant Bass, CAP, Analog Warmth
@@ -865,7 +865,7 @@ const CiderAudio = {
             }
             // Vibrant Bass ends here
             else {
-                if (app.cfg.audio.maikiwiAudio.ciderPPE === true) {
+                if (app.cfg.audio.maikiwiAudio.CAP === true) {
                     CiderAudio.llpw_h2_2(true, 0);
 
                     if (app.cfg.audio.maikiwiAudio.analogWarmth === true) {

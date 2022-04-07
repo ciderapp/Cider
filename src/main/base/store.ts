@@ -61,8 +61,8 @@ export class Store {
             "seamless_audio": true,
             "normalization": false,
             "maikiwiAudio": {
-                "ciderPPE": false,
-                "ciderPPE_value": "MAIKIWI",
+                "CAP": false,
+                "CAP_value": "MAIKIWI",
                 "analogWarmth": false,
                 "analogWarmth_value": "SMOOTH",
                 "spatial": false,

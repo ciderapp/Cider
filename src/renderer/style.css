@@ -11280,8 +11280,8 @@ body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls > div.cl
 .app-chrome .app-chrome-item > .app-playback-controls .lossless-icon {
   background-image: url("assets/lossless.svg") !important;
 }
-.app-chrome .app-chrome-item > .app-playback-controls .ppe-icon {
-  background-image: url("assets/ppe.svg") !important;
+.app-chrome .app-chrome-item > .app-playback-controls .cap-icon {
+  background-image: url("assets/cap.svg") !important;
 }
 .app-chrome .app-chrome-item > .app-playback-controls .audio-type {
   filter: contrast(0);
