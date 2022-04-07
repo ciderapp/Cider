@@ -226,7 +226,7 @@ Update 04/07/2022 14:30 UTC
 
 * `term.cast`: Added for `en_US`
 
-Update 04/07/2022 17:45 UTC
+Update 04/07/2022 18:00 UTC
 
 * `settings.option.audio.enableAdvancedFunctionality.ciderPPE`: String name changed to `settings.option.audio.enableAdvancedFunctionality.CAP` in `cz_CZ`, `de_DE`, `en_GR`, `en_OWO`, `en_PISS`, `en_QUK`, `en_SGA`, `en_US`, `fr_FR`, `hi_IN`, `hu_HU`, `in_ID`, `ja_JP`, `ko_KR`, `nl_NL`, `pt_BR`, `ru_RU`, `sk_SK`, `tr_TR`, `vi_VN`, `zh_CN`, `zh_HK` and `zh_TW`
 * `settings.option.audio.enableAdvancedFunctionality.ciderPPE.description`: String name changed to `settings.option.audio.enableAdvancedFunctionality.CAP.description` in `cz_CZ`, `de_DE`, `en_GR`, `en_OWO`, `en_PISS`, `en_QUK`, `en_SGA`, `en_US`, `fr_FR`, `hi_IN`, `hu_HU`, `in_ID`, `ja_JP`, `ko_KR`, `nl_NL`, `pt_BR`, `ru_RU`, `sk_SK`, `tr_TR`, `vi_VN`, `zh_CN`, `zh_HK` and `zh_TW`
