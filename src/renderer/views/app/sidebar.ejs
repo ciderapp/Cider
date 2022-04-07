@@ -111,7 +111,7 @@
                 </button>
                 <button class="usermenu-item" v-if="cfg.advanced.AudioContext" @click="modals.castMenu = true">
                     <span class="usermenu-item-icon"><%- include("../svg/cast.svg") %></span>
-                    <span class="usermenu-item-name">Cast</span>
+                    <span class="usermenu-item-name">{{$root.getLz('term.cast')}}</span>
                 </button>
                 <button class="usermenu-item" v-if="cfg.advanced.AudioContext"
                         @click="modals.audioSettings = true">
