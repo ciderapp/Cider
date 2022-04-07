@@ -305,7 +305,7 @@
   "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.description": "Changes the intensity of the Anyawog Wawmth Moduwe pwocessing.",
   "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.smooth": "Smooth",
   "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.warm": "Wawm",
-  "settings.option.audio.enableAdvancedFunctionality.CAP": "Cidew Adwenyawinye Pwocessow\u00e2\u201e\u02d8\u010f\u00b8\u0179",
+  "settings.option.audio.enableAdvancedFunctionality.CAP": "Cidew Adwenyawinye Pwocessow™️",
   "settings.option.audio.enableAdvancedFunctionality.CAP.description": "Enhances the pewceived audio quawity of 256 kbps AAC audio by using a weaw-time awgowithm that takes advantage of both psychoacoustic modews of human heawing and AAC encoding chawactewistics.",
   "settings.warn.audio.enableAdvancedFunctionality.CAP.compatibility": "CAP is nyot compatibwe with Spatiawization. Pwease disabwe Spatiawization to continyue.",
   "settings.option.audio.enableAdvancedFunctionality.CAPStrength": "CAP Stwength",
