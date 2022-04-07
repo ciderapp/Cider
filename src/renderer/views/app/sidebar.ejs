@@ -13,7 +13,7 @@
     </div>
     <div class="search-hints-container" v-if="search.showHints && search.hints.length != 0">
         <div class="search-hints">
-            <button class="search-hint" v-for="hint in search.hints"
+            <button class="search-hint text-overflow-elipsis" v-for="hint in search.hints"
                     @click="search.term = hint;search.showHints = false;searchQuery(hint)">
                 {{ hint }}
             </button>
