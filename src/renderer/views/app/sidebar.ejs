@@ -105,6 +105,11 @@
                         {{$root.getLz('app.name')}}
                     </div>
                 </button>
+                <button class="usermenu-item" v-if="cfg.general.privateEnabled"
+                        @click="cfg.general.privateEnabled = false">
+                    <span class="usermenu-item-icon"><%- include("../svg/x.svg") %></span>
+                    <span class="usermenu-item-name">{{$root.getLz('term.disable')}} {{$root.getLz('term.privateSession')}}</span>
+                </button>
                 <button class="usermenu-item" @click="appRoute('remote-pair')">
                             <span class="usermenu-item-icon"><%- include("../svg/smartphone.svg") %></span>
                             <span class="usermenu-item-name">{{$root.getLz('action.showWebRemoteQR')}}</span>
