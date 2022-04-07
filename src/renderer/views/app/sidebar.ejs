@@ -13,7 +13,7 @@
     </div>
     <div class="search-hints-container" v-if="search.showHints && search.hints.length != 0">
         <div class="search-hints">
-            <button class="search-hint" v-for="hint in search.hints"
+            <button class="search-hint text-overflow-elipsis" v-for="hint in search.hints"
                     @click="search.term = hint;search.showHints = false;searchQuery(hint)">
                 {{ hint }}
             </button>
@@ -111,7 +111,7 @@
                 </button>
                 <button class="usermenu-item" v-if="cfg.advanced.AudioContext" @click="modals.castMenu = true">
                     <span class="usermenu-item-icon"><%- include("../svg/cast.svg") %></span>
-                    <span class="usermenu-item-name">Cast</span>
+                    <span class="usermenu-item-name">{{$root.getLz('term.cast')}}</span>
                 </button>
                 <button class="usermenu-item" v-if="cfg.advanced.AudioContext"
                         @click="modals.audioSettings = true">

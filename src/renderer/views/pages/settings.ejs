@@ -26,7 +26,7 @@
                                 <input type="checkbox" v-model="$root.cfg.general.privateEnabled" v-on:change="$root.mk.privateEnabled = $root.cfg.general.privateEnabled" switch/>
                             </div>
                         </div>
-                        <div class="md-option-line">
+                        <div class="md-option-line" v-show="app.platform !== 'linux'">
                             <div class="md-option-segment">
                                 {{$root.getLz('settings.option.window.openOnStartup')}}
                             </div>

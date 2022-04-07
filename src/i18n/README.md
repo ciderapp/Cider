@@ -222,3 +222,7 @@ Update 04/06/2022 18:45 UTC
 * `action.cast.scan`: Added for `en_US`
 * `action.cast.scanning`: Added for `en_US`
 
+Update 04/07/2022 14:30 UTC
+
+* `term.cast`: Added for `en_US`
+
