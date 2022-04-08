@@ -189,30 +189,30 @@ Update 28/02/2022 13:00 UTC
 * `term.time.days`: Added for `en_US`
 * `term.time.day`: Added for `en_US`
 
-Update 10/3/2022 14:00 UTC
+Update 10/03/2022 14:00 UTC
 * `settings.header.window`: Added for `en_US`
 * `settings.header.window.description`: Added for `en_US`
 * `settings.option.window.openOnStartup`: Added for `en_US`
 * `settings.option.window.openOnStartup.hidden`: Added for `en_US`
 
-Update 20/3/2022 00:01 UTC
+Update 20/03/2022 00:01 UTC
 * `term.creditDesignedBy`: Added for `en_US`
 
-Update 29/3/2022 04:00 UTC
+Update 29/03/2022 04:00 UTC
 * `settings.option.audio.enableAdvancedFunctionality.ciderPPE.description`: Changed for `en_US` (Deleted for all language files)
 
-Update 04/06/2022 0830 UTC 
+Update 06/04/2022 08:30 UTC 
 * `settings.option.general.customizeSidebar`: Added for `en_US`
 * `settings.option.general.customizeSidebar.customize`: Added for `en_US`
 * `settings.option.window.useNativeTitleBar`: Added for `en_US`
 * `settings.option.window.windowControlStyle.right`: Added for `en_US`
 * `settings.option.window.windowControlStyle.left`: Added for `en_US`
 
-Update 04/06/2022 16:45 UTC
+Update 06/04/2022 16:45 UTC
 
 * `settings.option.visual.windowStyle`: Added for `en_US`
 
-Update 04/06/2022 18:45 UTC
+Update 06/04/2022 18:45 UTC
 
 * `action.cast.chromecast`: Added for `en_US`
 * `action.cast.todevices`: Added for `en_US`
@@ -222,11 +222,11 @@ Update 04/06/2022 18:45 UTC
 * `action.cast.scan`: Added for `en_US`
 * `action.cast.scanning`: Added for `en_US`
 
-Update 04/07/2022 14:30 UTC
+Update 07/04/2022 14:30 UTC
 
 * `term.cast`: Added for `en_US`
 
-Update 04/08/2022 22:00 UTC
+Update 08/04/2022 22:00 UTC
 
-* `term.disablePrivateSession`: Added for `en_US`
+* `term.disablePrivateSession`: Added for `en_US`	
 
