@@ -226,3 +226,7 @@ Update 04/07/2022 14:30 UTC
 
 * `term.cast`: Added for `en_US`
 
+Update 04/08/2022 22:00 UTC
+
+* `term.disablePrivateSession`: Added for `en_US`
+
