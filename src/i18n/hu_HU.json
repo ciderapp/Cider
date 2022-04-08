@@ -257,6 +257,7 @@
   "action.cast.airplay.underdevelopment": "Az AirPlay jelenleg fejlesztés alatt áll",
   "action.cast.scan": "Keresés",
   "action.cast.scanning": "Keresés folyamatban...",
+  "action.createNew": "Új létrehozása...",
   "settings.header.general": "Általános",
   "settings.header.general.description": "A Cider általános beállításainak módosítása.",
   "settings.option.general.language": "Nyelv",
