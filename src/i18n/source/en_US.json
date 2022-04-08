@@ -321,7 +321,7 @@
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization": "Cider Tuned Spatialization",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.description": "Pre-tuned Spatializing Effect, disables the customizable settings of Audio Spatialization. Spatialization must be enabled as a prerequisite.",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile": "Cider Spatialization Profile",
-  "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.description": "Changes the Tuning Profile of the Spatialization. (Requires App Restart)",
+  "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.description": "Changes the Tuning Profile of the Spatialization.",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.standard": "Standard",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.audiophile": "Audiophile",
   "settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility": "Spatialization is not compatible with CAP. Please disable CAP to continue.",
