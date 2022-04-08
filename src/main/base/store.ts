@@ -72,6 +72,8 @@ export class Store {
                 "ciderPPE_value": "MAIKIWI",
                 "analogWarmth": false,
                 "analogWarmth_value": "SMOOTH",
+                "atmosphereRealizer": false,
+                "atmosphereRealizer_value": "NATURAL_STANDARD",
                 "spatial": false,
                 "spatialProfile": "71_420maikiwi",
                 "vibrantBass": { // Hard coded into the app. Don't include any of this config into exporting presets in store.ts
