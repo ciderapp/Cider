@@ -185,6 +185,7 @@ const CiderAudio = {
         }
         if (maxGain == -120) {maxGain = 1}
         if (CiderAudio.audioNodes.llpw !== null && CiderAudio.audioNodes.llpw.length == 1) {maxGain = maxGain * 1.109174815262401}
+        if (CiderAudio.audioNodes.atmosphereRealizer !== null) {maxGain = maxGain * 1.17489755493953}
         if (app.cfg.audio.maikiwiAudio.spatial === true) {
             let spatialProfile = CiderAudio.spatialProfiles.find(function (profile) {
                 return profile.id === app.cfg.audio.maikiwiAudio.spatialProfile;
