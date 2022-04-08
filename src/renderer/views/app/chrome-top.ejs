@@ -73,6 +73,7 @@
                                  v-if="mk.nowPlayingItem['attributes']['contentRating'] == 'explicit'"
                                  style="display: inline-block"></div>
                         </div>
+                        <div class="audio-type private-icon" v-if="cfg.general.privateEnabled === true"></div>
                         <div class="audio-type ppe-icon" v-if="cfg.audio.maikiwiAudio.ciderPPE === true"></div>
                         <div class="song-artist-album">
                             <div class="song-artist-album-content"
