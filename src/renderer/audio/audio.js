@@ -153,7 +153,21 @@ const CiderAudio = {
         if (CiderAudio.audioNodes.audioBands !== null) {filters = filters.concat(CiderAudio.audioNodes.audioBands)}
         if (CiderAudio.audioNodes.vibrantbassNode !== null) {filters = filters.concat(CiderAudio.audioNodes.vibrantbassNode)}
         if (CiderAudio.audioNodes.llpw !== null && CiderAudio.audioNodes.llpw.length > 1) {filters = filters.concat(CiderAudio.audioNodes.llpw);}
-        if (!filters || filters.length === 0) {CiderAudio.audioNodes.intelliGainComp.gain.value = 1; return}     
+
+        if (!filters || filters.length === 0) {
+            if (CiderAudio.audioNodes.llpw !== null && CiderAudio.audioNodes.llpw.length == 1) {maxGain = maxGain * 1.109174815262401}
+            if (app.cfg.audio.maikiwiAudio.atmosphereRealizer == true) {maxGain = maxGain * 1.096478196143185}
+            if (app.cfg.audio.maikiwiAudio.spatial == true) {
+                let spatialProfile = CiderAudio.spatialProfiles.find(function (profile) {
+                    return profile.id === app.cfg.audio.maikiwiAudio.spatialProfile;
+                });
+                maxGain = maxGain * spatialProfile.gainComp}
+            maxGain = Math.pow(10, (-1 * (20 * Math.log10(maxGain))) / 20).toFixed(4);
+            maxGain > 1.0 ? CiderAudio.audioNodes.intelliGainComp.gain.value = 1 : CiderAudio.audioNodes.intelliGainComp.gain.value = maxGain;
+            console.debug(`[Cider][Audio] IntelliGainComp: ${maxGain > 1.0 ? 0 : (20 * Math.log10(maxGain)).toFixed(2)} dB (${maxGain > 1.0 ? 1 : maxGain})`)
+            return;
+        }     
+
         filters.shift();
         let steps = Math.ceil(96000 / precisionHz);
         // Generate input array for getFrequencyResponse method
@@ -183,7 +197,6 @@ const CiderAudio = {
             if (gain > maxGain)
                 maxGain = gain;
         }
-        if (maxGain == -120) {maxGain = 1}
         if (CiderAudio.audioNodes.llpw !== null && CiderAudio.audioNodes.llpw.length == 1) {maxGain = maxGain * 1.109174815262401}
         if (app.cfg.audio.maikiwiAudio.atmosphereRealizer == true) {maxGain = maxGain * 1.096478196143185}
         if (app.cfg.audio.maikiwiAudio.spatial == true) {
