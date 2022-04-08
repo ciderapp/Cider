@@ -775,7 +775,7 @@ const app = new Vue({
                         }
                         numbers.shift()
                         let peak = Math.max(numbers[6], numbers[7]) / 32768.0
-                        let gain = Math.pow(10, ((0.95 - (Math.log10(peak) * 20)) / 20))// EBU R 128 Compliant
+                        let gain = Math.pow(10, ((-0.95 - (Math.log10(peak) * 20)) / 20))// EBU R 128 Compliant
                         console.debug(`[Cider][MaikiwiSoundCheck] Peak Gain: '${(Math.log10(peak) * 20).toFixed(2)}' dB | Adjusting '${((Math.log10(gain) * 20) - 0.05).toFixed(2)}' dB`)
                         try {
                             //CiderAudio.audioNodes.gainNode.gain.value = (Math.min(Math.pow(10, (replaygain.gain / 20)), (1 / replaygain.peak)))
