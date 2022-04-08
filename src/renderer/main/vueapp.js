@@ -579,11 +579,11 @@ const app = new Vue({
                 this.setTheme(this.cfg.visual.theme)
             }
 
-            if(this.platform == "darwin") {
+            if (this.platform == "darwin") {
                 this.chrome.windowControlPosition = "left"
             }
 
-            if(this.cfg.visual.nativeTitleBar) {
+            if (this.cfg.visual.nativeTitleBar) {
                 this.chrome.nativeControls = true
             }
 
@@ -763,9 +763,10 @@ const app = new Vue({
 
             ipcRenderer.on('SoundCheckTag', (event, tag) => {
                 // let replaygain = self.parseSCTagToRG(tag)
-                try { 
-                    if (app.mk.nowPlayingItem.type !== 'song') { 
-                        CiderAudio.audioNodes.gainNode.gain.value = 0.70794578438;}
+                try {
+                    if (app.mk.nowPlayingItem.type !== 'song') {
+                        CiderAudio.audioNodes.gainNode.gain.value = 0.70794578438;
+                    }
                     else {
                         let soundcheck = tag.split(" ")
                         let numbers = []
@@ -780,9 +781,9 @@ const app = new Vue({
                         try {
                             //CiderAudio.audioNodes.gainNode.gain.value = (Math.min(Math.pow(10, (replaygain.gain / 20)), (1 / replaygain.peak)))
                             CiderAudio.audioNodes.gainNode.gain.value = gain
-                        } catch (e) {}
+                        } catch (e) { }
                     }
-                } catch (e) {ipcRenderer.send('SoundCheckTag', event, tag);} // brute force until it works
+                } catch (e) { ipcRenderer.send('SoundCheckTag', event, tag); } // brute force until it works
             })
 
             ipcRenderer.on('play', function (_event, mode, id) {
@@ -952,7 +953,7 @@ const app = new Vue({
                 less.refresh()
             }
         },
-        macOSEmu () {
+        macOSEmu() {
             this.chrome.forceDirectives["macosemu"] = {
                 value: true
             }
@@ -989,8 +990,8 @@ const app = new Vue({
                 classes.simplebg = true
             }
 
-            if(this.platform !== "darwin") {
-                switch(parseInt(this.cfg.visual.windowControlPosition)) {
+            if (this.platform !== "darwin") {
+                switch (parseInt(this.cfg.visual.windowControlPosition)) {
                     default:
                     case 0:
                         this.chrome.windowControlPosition = "right"
@@ -1010,10 +1011,10 @@ const app = new Vue({
             if (this.getThemeDirective('windowLayout') == 'twopanel') {
                 classes.twopanel = true
             }
-            if(this.getThemeDirective("appNavigation") == "seperate"){
+            if (this.getThemeDirective("appNavigation") == "seperate") {
                 classes.navbar = true
             }
-            if(this.getThemeDirective("macosemu") == true){
+            if (this.getThemeDirective("macosemu") == true) {
                 classes.macosemu = true
             }
             return classes
@@ -2531,7 +2532,7 @@ const app = new Vue({
                 this.loadYTLyrics();
             } else {
                 // if (app.cfg.lyrics.enable_mxm) {
-                    this.loadMXM();
+                this.loadMXM();
                 // } else {
                 //     this.loadAMLyrics();
                 // }
@@ -3342,7 +3343,7 @@ const app = new Vue({
                 return "https://beta.music.apple.com/assets/product/MissingArtworkMusic.svg"
             }
             height = parseInt(height * window.devicePixelRatio)
-            if(width) {
+            if (width) {
                 width = parseInt(width * window.devicePixelRatio)
             }
             let newurl = `${url.replace('{w}', width ?? height).replace('{h}', height).replace('{f}', "webp").replace('{c}', ((width === 900) ? "sr" : "cc"))}`;
@@ -3784,9 +3785,32 @@ const app = new Vue({
                                     app.songLinkShare((u.data.data.length && u.data.data.length > 0) ? u.data.data[0].attributes.url : u.data.data.attributes.url)
                                 })
                             }
-                        }
+                        },
+                        {
+                            "id": "equalizer",
+                            "icon": "../views/svg/speaker.svg",
+                            "name": app.getLz('term.equalizer'),
+                            "hidden": true,
+                            "action": function () {
+                                app.modals.equalizer = true
+                                app.modals.audioSettings = false
+                            }
+                        },
+                        {
+                            "id": "audioLab",
+                            "icon": "../views/svg/speaker.svg",
+                            "name": app.getLz('settings.option.audio.audioLab'),
+                            "hidden": true,
+                            "action": function () {
+                                app.appRoute('audiolabs')
+                            }
+                        },
                     ]
                 }
+            }
+            if(this.cfg.advanced.AudioContext) {
+                menus.normal.items.find(i => i.id === 'audioLab').hidden = false
+                menus.normal.items.find(i => i.id === 'equalizer').hidden = false
             }
             if (this.contextExt) {
                 if (this.contextExt.normal) {
