@@ -155,16 +155,17 @@ const CiderAudio = {
         if (CiderAudio.audioNodes.llpw !== null && CiderAudio.audioNodes.llpw.length > 1) {filters = filters.concat(CiderAudio.audioNodes.llpw);}
 
         if (!filters || filters.length === 0) {
-            if (CiderAudio.audioNodes.llpw !== null && CiderAudio.audioNodes.llpw.length == 1) {maxGain = maxGain * 1.109174815262401}
-            if (app.cfg.audio.maikiwiAudio.atmosphereRealizer == true) {maxGain = maxGain * 1.096478196143185}
+            let filterlessGain = 1;
+            if (CiderAudio.audioNodes.llpw !== null && CiderAudio.audioNodes.llpw.length == 1) {filterlessGain = filterlessGain * 1.109174815262401}
+            if (app.cfg.audio.maikiwiAudio.atmosphereRealizer == true) {filterlessGain = filterlessGain * 1.096478196143185}
             if (app.cfg.audio.maikiwiAudio.spatial == true) {
                 let spatialProfile = CiderAudio.spatialProfiles.find(function (profile) {
                     return profile.id === app.cfg.audio.maikiwiAudio.spatialProfile;
                 });
-                maxGain = maxGain * spatialProfile.gainComp}
-            maxGain = Math.pow(10, (-1 * (20 * Math.log10(maxGain))) / 20).toFixed(4);
-            maxGain > 1.0 ? CiderAudio.audioNodes.intelliGainComp.gain.value = 1 : CiderAudio.audioNodes.intelliGainComp.gain.value = maxGain;
-            console.debug(`[Cider][Audio] IntelliGainComp: ${maxGain > 1.0 ? 0 : (20 * Math.log10(maxGain)).toFixed(2)} dB (${maxGain > 1.0 ? 1 : maxGain})`)
+                filterlessGain = filterlessGain * spatialProfile.gainComp}
+                filterlessGain = Math.pow(10, (-1 * (20 * Math.log10(filterlessGain))) / 20).toFixed(4);
+                filterlessGain > 1.0 ? CiderAudio.audioNodes.intelliGainComp.gain.value = 1 : CiderAudio.audioNodes.intelliGainComp.gain.value = filterlessGain;
+            console.debug(`[Cider][Audio] IntelliGainComp: ${filterlessGain > 1.0 ? 0 : (20 * Math.log10(filterlessGain)).toFixed(2)} dB (${filterlessGain > 1.0 ? 1 : filterlessGain})`)
             return;
         }     
 
@@ -191,7 +192,6 @@ const CiderAudio = {
             }
         }
         // Find max gain
-        let maxGain = -120;
         for (let i = 0; i < steps; i++) {
             let gain = totalAmplitudeResp[i];
             if (gain > maxGain)
