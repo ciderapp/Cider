@@ -256,6 +256,7 @@
   "action.cast.airplay.underdevelopment": "AirPlay is still under development",
   "action.cast.scan": "Scan",
   "action.cast.scanning": "Scanning...",
+  "action.createNew": "Create New...",
   "settings.header.general": "General",
   "settings.header.general.description": "Adjust the general settings for Cider.",
   "settings.option.general.language": "Language",

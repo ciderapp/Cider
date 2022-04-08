@@ -30,6 +30,13 @@ export class Store {
                 "videos": true,
                 "podcasts": true
             },
+            "sidebarCollapsed": {
+                "cider": false,
+                "applemusic": false,
+                "library": false,
+                "amplaylists": false,
+                "playlists": false
+            },
             "onStartup": {
                 "enabled": false,
                 "hidden": false,
