@@ -192,6 +192,7 @@ const CiderAudio = {
             }
         }
         // Find max gain
+        let maxGain = -120
         for (let i = 0; i < steps; i++) {
             let gain = totalAmplitudeResp[i];
             if (gain > maxGain)
