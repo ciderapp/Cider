@@ -2530,11 +2530,11 @@ const app = new Vue({
             if (musicType === "musicVideo") {
                 this.loadYTLyrics();
             } else {
-                if (app.cfg.lyrics.enable_mxm) {
+                // if (app.cfg.lyrics.enable_mxm) {
                     this.loadMXM();
-                } else {
-                    this.loadAMLyrics();
-                }
+                // } else {
+                //     this.loadAMLyrics();
+                // }
             }
         },
         loadAMLyrics() {
