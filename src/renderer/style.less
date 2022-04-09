@@ -1187,17 +1187,24 @@ body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls > div.cl
 
   .lossless-icon {
     background-image: url("./assets/lossless.svg") !important;
-    right: 0px;
   }
 
   .ppe-icon {
     background-image: url("./assets/ppe.svg") !important;
-    right: 0px;
+    margin-left: 0.5em !important;
+    flex: 1;
   }
 
   .private-icon {
     background-image: url("./assets/private.svg") !important;
-    left: 3px;
+    margin-left: 0.5em !important;
+    flex: 1;
+  }
+
+  .chrome-icon-container {
+    display: flex;
+    position: absolute;
+    right: 0px;
   }
 
   .audio-type {
@@ -1206,7 +1213,6 @@ body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls > div.cl
     background-size: contain;
     height: 15px;
     width: 15px;
-    position: absolute;
     margin-bottom: 15px;
   }
 }
