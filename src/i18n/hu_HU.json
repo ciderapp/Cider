@@ -403,7 +403,7 @@
   "settings.option.experimental.reinstallwidevine": "WidevineCDM újratelepítése",
   "settings.option.experimental.reinstallwidevine.confirm": "Biztos, hogy újra szeretné telepíteni a Widevine-t?",
   "settings.option.experimental.unknownPlugin": "Ismeretlen források",
-  "settings.option.experimental.unknownPlugin.description": "Engedélyezi azon pluginok telepítését is, amik nem tartoznak a Cider Plugin Gyűjteménybe, ezáltal lehetséges biztonsági kockázatot jelentenek",
+  "settings.option.experimental.unknownPlugin.description": "Engedélyezi azon pluginok telepítését is, amik nem tartoznak a Cider Plugin Gyűjteménybe, ezáltal lehetséges biztonsági kockázatot jelenthetnek.",
   "settings.option.experimental.compactUI": "Kompakt felület",
   "settings.option.window.close_button_hide": "A bezárás gomb rejtse el az alkalmazást",
   "settings.option.experimental.inline_playlists": "Ablakon belüli lejátszási listák és albumok",
