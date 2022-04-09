@@ -177,7 +177,7 @@
   "action.showAlbum": "Mostrar álbum completo",
   "action.tray.minimize": "Mover a la bandeja",
   "action.tray.quit": "Salir",
-  "action.tray.show": "Abrir",
+
   "action.update": "Actualizar",
   "settings.header.general": "General",
   "settings.header.general.description": "Ajustes generales de Cider.",
