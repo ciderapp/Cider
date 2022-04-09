@@ -230,7 +230,7 @@ Update 08/04/2022 08:00 UTC
 
 * `action.createNew`: Added for `en_US`
 
-Update 08/04/2022 22:00 UTC
+Update 09/04/2022 11:00 UTC
 
 * `term.disablePrivateSession`: Added for `en_US`	
 
