@@ -11282,6 +11282,18 @@ body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls > div.cl
 }
 .app-chrome .app-chrome-item > .app-playback-controls .ppe-icon {
   background-image: url("assets/ppe.svg") !important;
+  margin-left: 0.5em !important;
+  flex: 1;
+}
+.app-chrome .app-chrome-item > .app-playback-controls .private-icon {
+  background-image: url("assets/private.svg") !important;
+  margin-left: 0.5em !important;
+  flex: 1;
+}
+.chrome-icon-container {
+  display: flex;
+  position: absolute;
+  right: 0px;
 }
 .app-chrome .app-chrome-item > .app-playback-controls .audio-type {
   filter: contrast(0);
@@ -11289,8 +11301,6 @@ body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls > div.cl
   background-size: contain;
   height: 15px;
   width: 15px;
-  position: absolute;
-  right: 0;
   margin-bottom: 15px;
 }
 .app-chrome .app-chrome-item > .app-playback-controls .song-duration p {

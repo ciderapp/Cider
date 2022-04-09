@@ -23,6 +23,7 @@
   "term.cast": "Cast",
   "term.about": "About",
   "term.privateSession": "Private Session",
+  "term.disablePrivateSession": "Disable Private Session",
   "term.queue": "Queue",
   "term.lyrics": "Lyrics",
   "term.miniplayer": "MiniPlayer",
