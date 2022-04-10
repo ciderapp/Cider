@@ -204,7 +204,8 @@
                                 <small>{{app.cfg.audio.equalizer.vibrantBass != 0 || app.cfg.audio.maikiwiAudio.spatial === true || app.cfg.audio.maikiwiAudio.ciderPPE === true ? `${$root.getLz('settings.option.audio.enableAdvancedFunctionality.audioNormalization.description')}\n${$root.getLz('settings.option.audio.enableAdvancedFunctionality.audioNormalization.disabled')}` : $root.getLz('settings.option.audio.enableAdvancedFunctionality.audioNormalization.description')}}</small>
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
-                                <input type="checkbox" v-model="app.cfg.audio.normalization" v-on:change="toggleNormalization" :disabled="app.cfg.audio.equalizer.vibrantBass != 0 || app.cfg.audio.maikiwiAudio.spatial === true || app.cfg.audio.maikiwiAudio.ciderPPE === true" switch/>
+                                <input type="checkbox" v-model="app.cfg.audio.normalization" v-on:change="toggleNormalization" 
+                                :disabled="app.cfg.audio.spatial === true || app.cfg.audio.maikiwiAudio.spatial === true || app.cfg.audio.maikiwiAudio.ciderPPE === true || app.cfg.audio.maikiwiAudio.atmosphereRealizer === true" switch/>
                             </div>
                         </div>
                     </div>
@@ -307,6 +308,14 @@
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
                                 <input type="checkbox" switch v-model="app.cfg.visual.bg_artwork_rotation"/>
+                            </div>
+                        </div>
+                        <div class="md-option-line">
+                            <div class="md-option-segment">
+                                {{$root.getLz('settings.option.visual.uiscale')}}
+                            </div>
+                            <div class="md-option-segment md-option-segment_auto">
+                                <input type="number" min="0.5" max="4.0" step="0.25" @change="$root.getHTMLStyle()" v-model="app.cfg.visual.uiScale"/>
                             </div>
                         </div>
                         <div class="md-option-line">

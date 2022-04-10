@@ -622,7 +622,10 @@ export class BrowserWindow {
             const wpBase64: string = await readFileSync(wpPath, 'base64')
             // add the data:image properties
             const wpData: string = `data:image/png;base64,${wpBase64}`
-            event.returnValue = wpData;
+            event.returnValue = {
+                path: wpPath,
+                data: wpData
+            };
         })
 
         ipcMain.handle("reinstall-widevine-cdm", () => {

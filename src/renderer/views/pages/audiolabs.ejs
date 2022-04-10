@@ -268,17 +268,20 @@
                         for (let i = 0; i < 23; i++) {
                             CiderAudio.audioNodes.analogWarmth[i].gain.value = WARMTH_GAIN[i] * 1.25;
                         }
+                        CiderAudio.intelliGainComp_h0_0();
                         break;
                     case "WARM":
                         for (let i = 0; i < 23; i++) {
                             CiderAudio.audioNodes.analogWarmth[i].gain.value = WARMTH_GAIN[i] * 1.75;
                         }
+                        CiderAudio.intelliGainComp_h0_0();
                         break;
                     default:
                         app.cfg.audio.maikiwiAudio.analogWarmth_value = "SMOOTH";
                         for (let i = 0; i < 23; i++) {
                                 CiderAudio.audioNodes.analogWarmth[i].gain.value = WARMTH_GAIN[i] * 1.25;
                             }
+                        CiderAudio.intelliGainComp_h0_0();
                         break;
                 }
 

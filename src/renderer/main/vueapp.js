@@ -465,8 +465,11 @@ const app = new Vue({
             history.forward()
         },
         getHTMLStyle() {
-            // document.querySelector("html").style.background = "#222";
-            document.querySelector("body").classList.add("notransparency")
+            if(app.cfg.visual.uiScale != 1) {
+                document.querySelector("#app").style.zoom = app.cfg.visual.uiScale
+            }else{
+                document.querySelector("#app").style.zoom = ""
+            }
         },
         resetState() {
             this.menuPanel.visible = false;

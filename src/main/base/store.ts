@@ -128,7 +128,8 @@ export class Store {
                 "windowLayout": "default"
             },
             "windowControlPosition": 0, // 0 default right
-            "nativeTitleBar": false
+            "nativeTitleBar": false,
+            "uiScale": 1.0
         },
         "lyrics": {
             "enable_mxm": false,
