@@ -348,6 +348,7 @@
   "settings.option.visual.hardwareAcceleration.description": "Újraindítás szükséges",
   "settings.header.visual.hardwareAcceleration.default": "Alap",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
+  "settings.option.visual.uiscale": "Nagyítás mértéke",
   "settings.header.visual.theme": "Téma",
   "settings.option.visual.theme.github.download": "Telepítés GitHub URL-ről",
   "settings.option.visual.theme.github.explore": "Témák felfedezése",
