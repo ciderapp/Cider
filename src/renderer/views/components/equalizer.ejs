@@ -403,10 +403,16 @@
                 Object.assign(this.$root.cfg.audio.equalizer, preset)
                 this.changeVibrantBass()
                 for (var i = 0; i < 10; i++) {
-                    this.changeGain(i)
-                    this.changeFreq(i)
-                    this.changeQ(i)
+                    try {CiderAudio.audioNodes.audioBands[i].gain.value = app.cfg.audio.equalizer.gain[i] * app.cfg.audio.equalizer.mix}
+                    catch(e){
+                        CiderAudio.hierarchical_loading();
+                        CiderAudio.audioNodes.audioBands[i].gain.value = app.cfg.audio.equalizer.gain[i] * app.cfg.audio.equalizer.mix
+                    }
+                    
+                    CiderAudio.audioNodes.audioBands[i].frequency.value = app.cfg.audio.equalizer.frequencies[i]
+                    CiderAudio.audioNodes.audioBands[i].Q.value = app.cfg.audio.equalizer.Q[i]
                 }
+                CiderAudio.intelliGainComp_h0_0();
             },
             changePreset(id) {
                 let userPresets = app.cfg.audio.equalizer.presets
