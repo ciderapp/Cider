@@ -89,7 +89,7 @@ const CiderAudio = {
         }
     },
     normalizerOff: function () {
-        CiderAudio.audioNodes.gainNode.gain.setTargetAtTime(1, CiderAudio.context.currentTime + 1, 0.5);
+        CiderAudio.audioNodes.gainNode.gain.exponentialRampToValueAtTime(1.0, CiderAudio.context.currentTime + 0.5);
     },
     spatialProfiles: [
         {
@@ -187,7 +187,7 @@ const CiderAudio = {
                 }
                 filterlessGain = filterlessGain * spatialProfile.gainComp}
                 filterlessGain = Math.pow(10, (-1 * (20 * Math.log10(filterlessGain))) / 20).toFixed(4);
-                filterlessGain > 1.0 ? CiderAudio.audioNodes.intelliGainComp.gain.value = 1 : CiderAudio.audioNodes.intelliGainComp.gain.value = filterlessGain;
+                filterlessGain > 1.0 ? CiderAudio.audioNodes.intelliGainComp.gain.exponentialRampToValueAtTime(1.0, CiderAudio.context.currentTime + 0.3) : CiderAudio.audioNodes.intelliGainComp.gain.exponentialRampToValueAtTime(filterlessGain, CiderAudio.context.currentTime + 0.3);
             console.debug(`[Cider][Audio] IntelliGainComp: ${filterlessGain > 1.0 ? 0 : (20 * Math.log10(filterlessGain)).toFixed(2)} dB (${filterlessGain > 1.0 ? 1 : filterlessGain})`)
             return;
         }     
@@ -232,7 +232,7 @@ const CiderAudio = {
             }
             maxGain = maxGain * spatialProfile.gainComp}
         maxGain = Math.pow(10, (-1 * (20 * Math.log10(maxGain))) / 20).toFixed(4);
-        maxGain > 1.0 ? CiderAudio.audioNodes.intelliGainComp.gain.value = 1 : CiderAudio.audioNodes.intelliGainComp.gain.value = maxGain;
+        maxGain > 1.0 ? CiderAudio.audioNodes.intelliGainComp.gain.exponentialRampToValueAtTime(1.0, CiderAudio.context.currentTime + 0.3) : CiderAudio.audioNodes.intelliGainComp.gain.exponentialRampToValueAtTime(maxGain, CiderAudio.context.currentTime + 0.3);
         console.debug(`[Cider][Audio] IntelliGainComp: ${maxGain > 1.0 ? 0 : (20 * Math.log10(maxGain)).toFixed(2)} dB (${maxGain > 1.0 ? 1 : maxGain})`);
     },
     sendAudio: function () {
@@ -691,7 +691,6 @@ const CiderAudio = {
     hierarchical_unloading: function () {
         try { CiderAudio.audioNodes.spatialNode.output.disconnect(); } catch (e) { }
         try { CiderAudio.audioNodes.spatialNode.disconnect(); } catch (e) { }
-        try {CiderAudio.audioNodes.intelliGainComp.disconnect();} catch (e) { }
         try { CiderAudio.audioNodes.gainNode.disconnect(); } catch (e) { }
         try { CiderAudio.audioNodes.atmosphereRealizer.disconnect(); CiderAudio.audioNodes.atmosphereRealizer = null } catch (e) { }
         try { for (var i of CiderAudio.audioNodes.analogWarmth) { i.disconnect(); } CiderAudio.audioNodes.analogWarmth = null } catch (e) { }
@@ -1513,7 +1512,6 @@ const CiderAudio = {
             }
         }
         CiderAudio.intelliGainComp_h0_0();
-        CiderAudio.audioNodes.intelliGainComp.connect(CiderAudio.audioNodes.gainNode);
         console.debug("[Cider][Audio] Finished hierarchical loading");
 
     },
