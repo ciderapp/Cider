@@ -234,3 +234,7 @@ Update 09/04/2022 11:00 UTC
 
 * `term.disablePrivateSession`: Added for `en_US`	
 
+Update 10/04/2022 07:30 UTC
+
+* `settings.option.visual.uiscale`: Added for `en_US`
+
