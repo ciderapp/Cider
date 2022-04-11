@@ -899,6 +899,9 @@ const app = new Vue({
                 this.$forceUpdate()
             }, 500)
             ipcRenderer.invoke("renderer-ready", true)
+            if (this.cfg.visual.styles.length != 0) {
+                this.reloadStyles()
+            }
             document.querySelector("#LOADER").remove()
             if (this.cfg.general.themeUpdateNotification) {
                 this.checkForThemeUpdates()
