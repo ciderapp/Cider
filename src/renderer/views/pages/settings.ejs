@@ -841,6 +841,17 @@
                         </div>
 
                         <div class="md-option-line">
+                            <!-- Do not translate -->
+                            <div class="md-option-segment">
+                                Style Stack Editor
+                            </div>
+                        </div>
+
+                        <div class="md-option-line">
+                            <stylestack-editor :themes="themes"/>
+                        </div>
+
+                        <div class="md-option-line">
                             <div class="md-option-segment">
                                 {{$root.getLz('settings.option.experimental.unknownPlugin')}}
                                 <br>
@@ -939,6 +950,77 @@
 </script>
 
 <script>
+    // do not translate
+    Vue.component('stylestack-editor', {
+        /*html*/
+        template: `
+            <b-row>
+                <b-col>
+                    <select size="6" v-model="selected" style="width:100%;">
+                        <option v-for="theme in $root.cfg.visual.styles" :value="theme">{{theme}}</option>
+                    </select>    
+                    <div class="btn-group" style="width: 100%">
+                        <button @click="moveUp" class="md-btn md-btn-small">Up</button>
+                        <button @click="remove" class="md-btn md-btn-small">Remove</button>
+                        <button @click="moveDown" class="md-btn md-btn-small">Down</button>
+                    </div>
+                </b-col>    
+                <b-col>
+                    <select class="md-select" style="width:100%;" v-model="newTheme">
+                        <option v-for="theme in themes" :value="theme.file">{{theme.name}}</option>
+                    </select>    
+                    <button class="md-btn" @click="addStyle()">Add</button>
+                </b-col>    
+            </b-row>
+        `,
+        props: {
+            themes: {
+                type: Array,
+                default: []
+            }
+        },
+        data: function () {
+            return {
+                selected: null,
+                newTheme: null
+            }
+        },
+        methods: {
+            moveUp() {
+                const styles = this.$root.cfg.visual.styles
+                const index = styles.indexOf(this.selected)
+                if (index > 0) {
+                    styles.splice(index, 1)
+                    styles.splice(index - 1, 0, this.selected)
+                }
+                this.$root.reloadStyles()
+            },
+            moveDown() {
+                const styles = this.$root.cfg.visual.styles
+                const index = styles.indexOf(this.selected)
+                if (index < styles.length - 1) {
+                    styles.splice(index, 1)
+                    styles.splice(index + 1, 0, this.selected)
+                }
+                this.$root.reloadStyles()
+            },
+            remove() {
+                const styles = this.$root.cfg.visual.styles
+                const index = styles.indexOf(this.selected)
+                styles.splice(index, 1)
+                this.$root.reloadStyles()
+            },
+            addStyle() {
+                const styles = this.$root.cfg.visual.styles
+                styles.push(this.newTheme)
+                this.newTheme = null
+                this.$root.reloadStyles()
+            }
+        }
+    })
+</script>
+
+<script>
     Vue.component('cider-settings', {
         template: "#cider-settings",
         props: [],
@@ -960,13 +1042,13 @@
         methods: {
             windowBgStyleChange() {
                 this.$root.getNowPlayingArtworkBG(undefined, true)
-                if(this.$root.cfg.visual.window_background_style == "mica") {
+                if (this.$root.cfg.visual.window_background_style == "mica") {
                     this.$root.spawnMica()
                 }
             },
-            reinstallWidevineCDM () {
-                bootbox.confirm(app.getLz("settings.option.experimental.reinstallwidevine.confirm"), (ok)=>{
-                    if(ok) {
+            reinstallWidevineCDM() {
+                bootbox.confirm(app.getLz("settings.option.experimental.reinstallwidevine.confirm"), (ok) => {
+                    if (ok) {
                         ipcRenderer.invoke("reinstall-widevine-cdm");
                     }
                 })
@@ -1009,16 +1091,17 @@
                 if (app.cfg.advanced.AudioContext === true) {
                     if (navigator.hardwareConcurrency < 6) {
                         bootbox.confirm(app.getLz("settings.warn.audio.enableAdvancedFunctionality.lowcores"), function (result) {
-                        if (result) {
-                            CiderAudio.init();
-                            if (app.cfg.audio.normalization === true) {
-                                CiderAudio.normalizerOn()
+                            if (result) {
+                                CiderAudio.init();
+                                if (app.cfg.audio.normalization === true) {
+                                    CiderAudio.normalizerOn()
+                                }
+                                if (app.cfg.audio.spatial === true) {
+                                    CiderAudio.spatialOn()
+                                    CiderAudio.hierarchical_loading();
+                                }
                             }
-                            if (app.cfg.audio.spatial === true) {
-                                CiderAudio.spatialOn()
-                                CiderAudio.hierarchical_loading();
-                            }
-                        }})
+                        })
                     }
                     else {
                         CiderAudio.init();
@@ -1054,21 +1137,21 @@
                 ipcRenderer.invoke('update-store-mtt', app.cfg.general.close_behavior);
             },
             checkIfUpdateDisabled() {
-				if (app.cfg.main.UPDATABLE) return;
+                if (app.cfg.main.UPDATABLE) return;
 
                 let updateFields = document.getElementsByClassName('update-check');
-                for (let i=0; i < updateFields.length; i++) {
+                for (let i = 0; i < updateFields.length; i++) {
                     updateFields[i].style = "opacity: 0.5; pointer-events: none;";
                     updateFields[i].title = "Not available on this type of build";
                 }
 
             },
-            promptForRelaunch(){
+            promptForRelaunch() {
                 bootbox.confirm(app.getLz('action.relaunch.confirm'), function (result) {
-                if (result) {
-                    ipcRenderer.send('relaunchApp','');
-                }
-            });
+                    if (result) {
+                        ipcRenderer.send('relaunchApp', '');
+                    }
+                });
             }
         }
     })

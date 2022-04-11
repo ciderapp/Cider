@@ -115,6 +115,7 @@ export class Store {
         },
         "visual": {
             "theme": "",
+            "styles": [],
             "scrollbars": 0, // 0 = show on hover, 2 = always hide, 3 = always show
             "refresh_rate": 0,
             "window_background_style": "artwork", // "none", "artwork", "color"
