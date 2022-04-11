@@ -167,12 +167,12 @@ export class BrowserWindow {
                     page: "browsepage",
                     component: `<cider-browse :data="browsepage"></cider-browse>`,
                     condition: `page == 'browse'`,
-                    onEnter: `getBrowsePage();`
+                    onEnter: ``
                 }, {
                     page: "listen_now",
                     component: `<cider-listen-now :data="listennow"></cider-listen-now>`,
                     condition: `page == 'listen_now'`,
-                    onEnter: `getListenNow()`
+                    onEnter: ``
                 }, {
                     page: "settings",
                     component: `<cider-settings></cider-settings>`,
@@ -185,17 +185,17 @@ export class BrowserWindow {
                     page: "library-songs",
                     component: `<cider-library-songs :data="library.songs"></cider-library-songs>`,
                     condition: `page == 'library-songs'`,
-                    onEnter: `getLibrarySongsFull()`
+                    onEnter: ``
                 }, {
                     page: "library-albums",
                     component: `<cider-library-albums :data="library.songs"></cider-library-albums>`,
                     condition: `page == 'library-albums'`,
-                    onEnter: `getLibraryAlbumsFull(null, 1); getAlbumSort(); searchLibraryAlbums(1); getLibrarySongsFull() ;searchLibraryAlbums(1);`
+                    onEnter: ``
                 }, {
                     page: "library-artists",
                     component: `<cider-library-artists></cider-library-artists>`,
                     condition: `page == 'library-artists'`,
-                    onEnter: `getLibraryArtistsFull(null, 0);`
+                    onEnter: ``
                 }, {
                     page: "appleCurator",
                     component: `<cider-applecurator :data="appleCurator"></cider-applecurator>`,

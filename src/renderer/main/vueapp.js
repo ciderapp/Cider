@@ -465,9 +465,9 @@ const app = new Vue({
             history.forward()
         },
         getHTMLStyle() {
-            if(app.cfg.visual.uiScale != 1) {
+            if (app.cfg.visual.uiScale != 1) {
                 document.querySelector("#app").style.zoom = app.cfg.visual.uiScale
-            }else{
+            } else {
                 document.querySelector("#app").style.zoom = ""
             }
         },
@@ -899,6 +899,9 @@ const app = new Vue({
                 this.$forceUpdate()
             }, 500)
             ipcRenderer.invoke("renderer-ready", true)
+            if (this.cfg.visual.styles.length != 0) {
+                this.reloadStyles()
+            }
             document.querySelector("#LOADER").remove()
             if (this.cfg.general.themeUpdateNotification) {
                 this.checkForThemeUpdates()
@@ -955,6 +958,37 @@ const app = new Vue({
                 });
                 less.refresh()
             }
+        },
+        async reloadStyles() {
+            document.querySelector("body").style.opacity = 0
+            document.querySelector("body").style.overflow = "hidden"
+            const styles = this.cfg.visual.styles
+            document.querySelectorAll(`[id*='less']`).forEach(el => {
+                el.remove()
+            });
+            this.chrome.appliedTheme.info = {}
+            await asyncForEach(styles, async (style) => {
+                let styleEl = document.createElement("link")
+                styleEl.id = `less-${style.replace(".less", "")}`
+                styleEl.rel = "stylesheet/less"
+                styleEl.href = `themes/${style}`
+                styleEl.type = "text/css"
+                document.head.appendChild(styleEl)
+                try {
+                    let infoResponse = await fetch("themes/" + style.replace("index.less", "theme.json"))
+                    this.chrome.appliedTheme.info = Object.assign(this.chrome.appliedTheme.info, await infoResponse.json())
+                } catch (e) {
+                    e = null
+                    console.warn("failed to get theme.json")
+                }
+            })
+            less.registerStylesheetsImmediately()
+            less.refresh(true, true, true)
+            this.$forceUpdate()
+            setTimeout(() => {
+                document.querySelector("body").style.opacity = ""
+                document.querySelector("body").style.overflow = ""
+            }, 500)
         },
         macOSEmu() {
             this.chrome.forceDirectives["macosemu"] = {
@@ -3811,7 +3845,7 @@ const app = new Vue({
                     ]
                 }
             }
-            if(this.cfg.advanced.AudioContext) {
+            if (this.cfg.advanced.AudioContext) {
                 menus.normal.items.find(i => i.id === 'audioLab').hidden = false
                 menus.normal.items.find(i => i.id === 'equalizer').hidden = false
             }
