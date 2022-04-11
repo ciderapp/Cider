@@ -234,7 +234,7 @@ Update 09/04/2022 11:00 UTC
 
 * `term.disablePrivateSession`: Added for `en_US`	
 
-Update 10/04/2022 22:30 UTC
+Update 11/04/2022 13:45 UTC
 
 * `action.openArtworkInBrowser`: Added for `en_US`
 
