@@ -957,6 +957,8 @@ const app = new Vue({
             }
         },
         async reloadStyles() {
+            document.querySelector("body").style.opacity = 0
+            document.querySelector("body").style.overflow = "hidden"
             const styles = this.cfg.visual.styles
             document.querySelectorAll(`[id*='less']`).forEach(el => {
                 el.remove()
@@ -980,6 +982,10 @@ const app = new Vue({
             less.registerStylesheetsImmediately()
             less.refresh(true, true, true)
             this.$forceUpdate()
+            setTimeout(() => {
+                document.querySelector("body").style.opacity = ""
+                document.querySelector("body").style.overflow = ""
+            }, 500)
         },
         macOSEmu() {
             this.chrome.forceDirectives["macosemu"] = {
