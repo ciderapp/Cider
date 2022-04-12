@@ -1,0 +1,41 @@
+&:not(.modular-fs) {
+    .app-drawer {
+        border-radius: 0px;
+        top          : 0;
+        right        : 0;
+        height       : 100%;
+        box-shadow   : unset;
+        border-left  : 1px solid var(--color2);
+        background   : var(--color1);
+        margin-right : 0px;
+        position     : relative;
+    }
+
+    .drawertransition-enter-active,
+    .drawertransition-leave-active {
+        transition: margin .25s var(--appleEase), opacity .25s var(--appleEase);
+    }
+
+    .drawertransition-enter,
+    .drawertransition-leave-to {
+        margin-right: -300px;
+    }
+    
+    @media screen and (max-width: 1120px) {
+        .app-drawer {
+            margin-right: 0px;
+            position    : absolute;
+        }
+
+        .drawertransition-enter-active,
+        .drawertransition-leave-active {
+            transition: right .25s var(--appleEase), opacity .25s var(--appleEase);
+        }
+
+        .drawertransition-enter,
+        .drawertransition-leave-to {
+            right: -300px;
+        }
+    }
+
+}

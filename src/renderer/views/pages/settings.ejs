@@ -991,6 +991,16 @@
                 newTheme: null
             }
         },
+        mounted() {
+            this.themes.unshift({
+                name: "Reduce Visuals",
+                file: "reduce_visuals.less"
+            })
+            this.themes.unshift({
+                name: "Inline Drawer",
+                file: "inline_drawer.less"
+            })
+        },
         methods: {
             gitHubExplore() {
                 this.$root.appRoute("themes-github")
