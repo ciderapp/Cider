@@ -15,6 +15,9 @@ Vue.component('cider-listen-now', {
         return {
             app : this.$root
         }
+    },
+    mounted() {
+        this.$root.getListenNow()
     }
 })    
 </script>

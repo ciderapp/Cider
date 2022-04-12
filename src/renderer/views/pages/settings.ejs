@@ -226,7 +226,6 @@
                                 <select class="md-select" @change="$root.setTheme($root.cfg.visual.theme)" v-model="$root.cfg.visual.theme">
                                     <option value="default.less">{{$root.getLz('settings.option.visual.theme.default')}}</option>
                                     <option value="dark.less">{{$root.getLz('settings.option.visual.theme.dark')}}</option>
-                                    <option value="sweetener.less">Sweetener</option>
                                     <option v-for="theme in themes" :value="theme.file">{{ theme.name }}</option>
                                 </select>
                                 <button class="md-btn md-btn-small md-btn-block" @click="gitHubExplore()" style="margin-top: 8px">
@@ -841,6 +840,17 @@
                         </div>
 
                         <div class="md-option-line">
+                            <!-- Do not translate -->
+                            <div class="md-option-segment">
+                                Style Editor<br>
+                                <small>Mix and match various theme components to get Cider looking exactly how you want.</small>
+                            </div>
+                            <div class="md-option-segment">
+                                <stylestack-editor :themes="themes"/>
+                            </div>
+                        </div>
+
+                        <div class="md-option-line">
                             <div class="md-option-segment">
                                 {{$root.getLz('settings.option.experimental.unknownPlugin')}}
                                 <br>
@@ -939,6 +949,106 @@
 </script>
 
 <script>
+    // do not translate
+    Vue.component('stylestack-editor', {
+        /*html*/
+        template: `
+            <div class="stylestack-editor">
+                <draggable class="list-group" v-model="$root.cfg.visual.styles" @end="$root.reloadStyles()">
+                    <b-list-group-item variant="dark" v-for="theme in $root.cfg.visual.styles" :key="theme">
+                        <b-row>
+                            <b-col class="themeLabel">{{getThemeName(theme)}}</b-col>
+                            <b-col sm="auto">
+                                <button class="removeItem codicon codicon-close" @click="remove(theme)"></button>
+                            </b-col>
+                        </b-row>
+                        </b-list-group-item>
+                        <b-list-group-item slot="footer" style="-webkit-user-drag: none" variant="dark">
+                            <b-row>
+                                <b-col>
+                                    <b-dropdown class="stylesDropdown" variant="primary" text="Add Style...">
+                                        <b-dropdown-item v-for="theme in themes" @click="addStyle(theme.file)">{{theme.name}}</b-dropdown-item>
+                                    </b-dropdown>
+                                </b-col>
+                                <b-col>
+                                    <b-btn @click="gitHubExplore()">{{$root.getLz('settings.option.visual.theme.github.explore')}}</b-btn>    
+                                </b-col>
+                            </b-row>
+                        </b-list-group-item>
+                </draggable>    
+            </div>
+        `,
+        props: {
+            themes: {
+                type: Array,
+                default: []
+            }
+        },
+        data: function () {
+            return {
+                selected: null,
+                newTheme: null
+            }
+        },
+        mounted() {
+            this.themes.unshift({
+                name: "Sweetener",
+                file: "sweetener.less"
+            })
+            this.themes.unshift({
+                name: "Reduce Visuals",
+                file: "reduce_visuals.less"
+            })
+            this.themes.unshift({
+                name: "Inline Drawer",
+                file: "inline_drawer.less"
+            })
+        },
+        methods: {
+            gitHubExplore() {
+                this.$root.appRoute("themes-github")
+            },
+            getThemeName(filename) {
+                try {
+                    return this.themes.find(theme => theme.file === filename).name;                    
+                }catch(e) {
+                    return filename;
+                }
+            },
+            moveUp() {
+                const styles = this.$root.cfg.visual.styles
+                const index = styles.indexOf(this.selected)
+                if (index > 0) {
+                    styles.splice(index, 1)
+                    styles.splice(index - 1, 0, this.selected)
+                }
+                this.$root.reloadStyles()
+            },
+            moveDown() {
+                const styles = this.$root.cfg.visual.styles
+                const index = styles.indexOf(this.selected)
+                if (index < styles.length - 1) {
+                    styles.splice(index, 1)
+                    styles.splice(index + 1, 0, this.selected)
+                }
+                this.$root.reloadStyles()
+            },
+            remove(style) {
+                const styles = this.$root.cfg.visual.styles
+                const index = styles.indexOf(style)
+                styles.splice(index, 1)
+                this.$root.reloadStyles()
+            },
+            addStyle(style) {
+                const styles = this.$root.cfg.visual.styles
+                styles.push(style)
+                this.$root.reloadStyles()
+            }
+        }
+    })
+</script>
+
+<script>
     Vue.component('cider-settings', {
         template: "#cider-settings",
         props: [],
@@ -960,13 +1070,13 @@
         methods: {
             windowBgStyleChange() {
                 this.$root.getNowPlayingArtworkBG(undefined, true)
-                if(this.$root.cfg.visual.window_background_style == "mica") {
+                if (this.$root.cfg.visual.window_background_style == "mica") {
                     this.$root.spawnMica()
                 }
             },
-            reinstallWidevineCDM () {
-                bootbox.confirm(app.getLz("settings.option.experimental.reinstallwidevine.confirm"), (ok)=>{
-                    if(ok) {
+            reinstallWidevineCDM() {
+                bootbox.confirm(app.getLz("settings.option.experimental.reinstallwidevine.confirm"), (ok) => {
+                    if (ok) {
                         ipcRenderer.invoke("reinstall-widevine-cdm");
                     }
                 })
@@ -1009,16 +1119,17 @@
                 if (app.cfg.advanced.AudioContext === true) {
                     if (navigator.hardwareConcurrency < 6) {
                         bootbox.confirm(app.getLz("settings.warn.audio.enableAdvancedFunctionality.lowcores"), function (result) {
-                        if (result) {
-                            CiderAudio.init();
-                            if (app.cfg.audio.normalization === true) {
-                                CiderAudio.normalizerOn()
+                            if (result) {
+                                CiderAudio.init();
+                                if (app.cfg.audio.normalization === true) {
+                                    CiderAudio.normalizerOn()
+                                }
+                                if (app.cfg.audio.spatial === true) {
+                                    CiderAudio.spatialOn()
+                                    CiderAudio.hierarchical_loading();
+                                }
                             }
-                            if (app.cfg.audio.spatial === true) {
-                                CiderAudio.spatialOn()
-                                CiderAudio.hierarchical_loading();
-                            }
-                        }})
+                        })
                     }
                     else {
                         CiderAudio.init();
@@ -1054,21 +1165,21 @@
                 ipcRenderer.invoke('update-store-mtt', app.cfg.general.close_behavior);
             },
             checkIfUpdateDisabled() {
-				if (app.cfg.main.UPDATABLE) return;
+                if (app.cfg.main.UPDATABLE) return;
 
                 let updateFields = document.getElementsByClassName('update-check');
-                for (let i=0; i < updateFields.length; i++) {
+                for (let i = 0; i < updateFields.length; i++) {
                     updateFields[i].style = "opacity: 0.5; pointer-events: none;";
                     updateFields[i].title = "Not available on this type of build";
                 }
 
             },
-            promptForRelaunch(){
+            promptForRelaunch() {
                 bootbox.confirm(app.getLz('action.relaunch.confirm'), function (result) {
-                if (result) {
-                    ipcRenderer.send('relaunchApp','');
-                }
-            });
+                    if (result) {
+                        ipcRenderer.send('relaunchApp', '');
+                    }
+                });
             }
         }
     })

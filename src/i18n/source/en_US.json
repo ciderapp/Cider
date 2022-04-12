@@ -258,6 +258,7 @@
   "action.cast.scan": "Scan",
   "action.cast.scanning": "Scanning...",
   "action.createNew": "Create New...",
+  "action.openArtworkInBrowser": "Open artwork in browser",
   "settings.header.general": "General",
   "settings.header.general.description": "Adjust the general settings for Cider.",
   "settings.option.general.language": "Language",

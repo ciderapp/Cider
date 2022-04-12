@@ -281,13 +281,14 @@
 // Podcast Page
 .content-inner.library-artists-page {
   // top: 0;
-  height: calc(100% - 60px - var(--navigationBarHeight));
+  height : calc(100% - 60px - var(--navigationBarHeight));
   padding: 0px;
+
   .inner-container {
     display: flex;
     height : calc(100% - var(--navigationBarHeight));
     padding: 0px;
-    height: 100%;
+    height : 100%;
 
     .list-flat {
       border-radius: 0px;
@@ -331,7 +332,7 @@
     }
 
     .episodes-list {
-      height: calc(100% + 60px);
+      height    : calc(100% + 60px);
       width     : 100%;
       background: rgb(200 200 200 / 6%);
       overflow-y: overlay;
@@ -568,7 +569,7 @@
           font-size      : 1.6rem;
           //margin-bottom: 6px;
           margin-right   : 6px;
-          margin-bottom: 6px;
+          margin-bottom  : 6px;
           flex-shrink    : unset;
         }
 
@@ -972,9 +973,11 @@
       display : flex;
       overflow: hidden;
       padding : 16px 32px;
+
       >.latestRelease {
         width: 250px;
       }
+
       >.topSongs {
         width: calc(100% - 250px);
       }
@@ -1016,18 +1019,49 @@
 .settings-page {
   padding: 0px;
 
+  .stylestack-editor {
+    width: 100%;
+
+    .btn,
+    .btn-group {
+      width: 100%;
+    }
+
+    .themeLabel {
+      display:flex;
+      align-items: center;
+    }
+
+    .removeItem {
+      border: 0px;
+      background: transparent;
+      height: 32px;
+      font-weight: bold;
+      color: var(--textColor);
+      cursor: pointer;
+    }
+
+    .stylesDropdown {
+      >.dropdown-menu {
+        height    : 300px;
+        overflow-y: overlay;
+      }
+    }
+  }
+
+
   .nav {
-    width: 90%;
+    width : 90%;
     margin: 16px auto 0px;
   }
 
   .md-option-header {
-    padding: 0px 26px;
+    padding      : 0px 26px;
     border-bottom: unset;
-    border-top: unset;
-    font-weight: 600;
-    background: rgb(255 255 255 / 0%);
-    font-size: 2em;
+    border-top   : unset;
+    font-weight  : 600;
+    background   : rgb(255 255 255 / 0%);
+    font-size    : 2em;
   }
 
   .settings-option-body {
@@ -1050,36 +1084,38 @@
 
   .carousel-item>img {
     object-fit: cover;
-    width:100%;
+    width     : 100%;
   }
 
   .spprofile-line {
-    height: 300px;
-    width: 100%;
+    height   : 300px;
+    width    : 100%;
     max-width: 1024px;
-    padding: 16px;
-    margin: 0 auto;
+    padding  : 16px;
+    margin   : 0 auto;
 
     .spprofile-viewport {
-      height: 100%;
-      position: relative;
+      height       : 100%;
+      position     : relative;
       border-radius: var(--mediaItemRadius);
-      overflow: hidden;
-      box-shadow: var(--mediaItemShadow-Shadow);
-      background: black;
+      overflow     : hidden;
+      box-shadow   : var(--mediaItemShadow-Shadow);
+      background   : black;
 
-      .spprev, .nextprev {
-        position: absolute;
-        height: 100%;
-        width: 64px;
-        top: 0;
+      .spprev,
+      .nextprev {
+        position  : absolute;
+        height    : 100%;
+        width     : 64px;
+        top       : 0;
         background: rgb(0 0 0 / 20%);
-        z-index: 1;
-        border: 0px;
+        z-index   : 1;
+        border    : 0px;
         transition: background 0.2s var(--appleEase), transform 0.2s var(--appleEase);
+
         &:hover {
           background: var(--selected);
-          transform: scale(1.1);
+          transform : scale(1.1);
         }
 
         &:active {
@@ -1088,22 +1124,23 @@
         }
 
         &:before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: #eee;
-          opacity: 1;
+          content              : '';
+          position             : absolute;
+          top                  : 0;
+          left                 : 0;
+          width                : 100%;
+          height               : 100%;
+          background           : #eee;
+          opacity              : 1;
           -webkit-mask-position: center;
-          -webkit-mask-repeat: no-repeat;
-          -webkit-mask-size: 1em;
+          -webkit-mask-repeat  : no-repeat;
+          -webkit-mask-size    : 1em;
         }
       }
 
       .spprev {
         left: 0;
+
         &:before {
           -webkit-mask-image: url("./views/svg/chevron-left.svg");
         }
@@ -1112,6 +1149,7 @@
 
       .nextprev {
         right: 0;
+
         &:before {
           -webkit-mask-image: url("./views/svg/chevron-right.svg");
         }
@@ -1119,25 +1157,25 @@
       }
 
       .spslide {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
+        position  : absolute;
+        width     : 100%;
+        height    : 100%;
+        overflow  : hidden;
         background: black;
 
         >img {
-          WIDTH: 100%;
-          height: 100%;
+          WIDTH     : 100%;
+          height    : 100%;
           object-fit: cover;
         }
 
         .sptitle {
-          position: absolute;
-          bottom: 0px;
-          left: 0;
-          width: 100%;
-          text-align: center;
-          font-size: 18px;
+          position   : absolute;
+          bottom     : 0px;
+          left       : 0;
+          width      : 100%;
+          text-align : center;
+          font-size  : 18px;
           text-shadow: 0px 2px 4px #00000033;
         }
       }
@@ -1145,18 +1183,19 @@
       .spfade-enter-active,
       .spfade-leave-active {
         --transitionTime: 0.2s;
-        transition: opacity var(--transitionTime) var(--appleEase), transform var(--transitionTime) var(--appleEase);
-        will-change: opacity, transform;
+        transition      : opacity var(--transitionTime) var(--appleEase), transform var(--transitionTime) var(--appleEase);
+        will-change     : opacity, transform;
       }
 
       .spfade-enter {
-        opacity: 0;
-        transform: scale(1.2) translate3d(0,0,0);
+        opacity    : 0;
+        transform  : scale(1.2) translate3d(0, 0, 0);
         will-change: opacity, transform;
       }
+
       .spfade-leave-to {
-        opacity: 1;
-        transform: scale(1) translate3d(0,0,0);
+        opacity    : 1;
+        transform  : scale(1) translate3d(0, 0, 0);
         will-change: opacity, transform;
       }
     }
@@ -1171,9 +1210,11 @@
   0% {
     background-position: 0% 0%;
   }
+
   50% {
     background-position: 100% 0%;
   }
+
   100% {
     background-position: 0% 0%;
   }
@@ -1181,31 +1222,31 @@
 
 //Home
 .home-page {
-  top        : 0;
+  top          : 0;
   //padding-top: var(--navbarHeight);
 
   .md-btn-replay {
     background-image: linear-gradient(-45deg, #2e2173, #925042);
-    animation: gradient-animation 5s ease-in-out infinite;
-    background-size: 400% 400%;
-    border        : 0px;
-    box-shadow    : inset 0px 0px 0px 1px rgba(200, 200, 200, 0.2);
-    text-transform: uppercase;
-    font-weight   : bold;
+    animation       : gradient-animation 5s ease-in-out infinite;
+    background-size : 400% 400%;
+    border          : 0px;
+    box-shadow      : inset 0px 0px 0px 1px rgba(200, 200, 200, 0.2);
+    text-transform  : uppercase;
+    font-weight     : bold;
   }
 
   .md-btn-replay--hero {
-    font-size     : 1em;
-    padding       : 16px;
+    font-size       : 1em;
+    padding         : 16px;
     background-image: linear-gradient(-45deg, #2e2173, #925042);
-    animation: gradient-animation 5s ease-in-out infinite;
-    background-size: 400% 400%;
-    border        : 0px;
-    box-shadow    : inset 0px 0px 0px 1px rgb(200 200 200 / 20%);
-    margin-top    : 1em;
-    font-size     : 0.9em;
-    text-transform: uppercase;
-    font-weight   : bold;
+    animation       : gradient-animation 5s ease-in-out infinite;
+    background-size : 400% 400%;
+    border          : 0px;
+    box-shadow      : inset 0px 0px 0px 1px rgb(200 200 200 / 20%);
+    margin-top      : 1em;
+    font-size       : 0.9em;
+    text-transform  : uppercase;
+    font-weight     : bold;
   }
 
   .artist-feed-card {
@@ -1375,12 +1416,12 @@
 
   .replay-viewport {
     background-image: linear-gradient(-45deg, #2e2173, #925042);
-    animation: gradient-animation 5s ease-in-out infinite;
-    background-size: 400% 400%;
-    padding      : 16px 40px;
-    border-radius: 10px;
-    box-shadow   : var(--mediaItemShadow), var(--mediaItemShadow-Shadow);
-    color        : rgb(238 238 238 / 86%);
+    animation       : gradient-animation 5s ease-in-out infinite;
+    background-size : 400% 400%;
+    padding         : 16px 40px;
+    border-radius   : 10px;
+    box-shadow      : var(--mediaItemShadow), var(--mediaItemShadow-Shadow);
+    color           : rgb(238 238 238 / 86%);
 
     .replay-header {
       text-align : center;

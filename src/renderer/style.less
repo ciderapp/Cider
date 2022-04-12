@@ -44,6 +44,7 @@
   --songProgressBackground: #333;
   --textColor: #eee;
   --replayGradient: linear-gradient(45deg, hsl(248deg 58% 29%), hsl(13deg 41% 42%));
+  --glassFilter: blur(16px) saturate(180%); 
 }
 
 *:focus-visible {
@@ -238,6 +239,17 @@ input[type="text"], input[type="number"] {
   opacity: 0.70;
 }
 
+a.dropdown-item {
+  color: var(--textColor);
+
+  &:hover {
+    background-color: var(--selected);
+    color: var(--textColor);
+  }
+  &:active {
+    background-color: var(--selected-click);
+  }
+}
 
 .bg-artwork {
   position: absolute;
@@ -1554,7 +1566,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   font-size: 26px;
   transform: scale(0.8);
   transform-origin: left center;
-  transition: transform 0.2s var(--appleEase);
+  transition: transform 0.5s var(--appleEase);
   opacity: 0.75;
   width: auto;
   display: inline-block;
@@ -1614,7 +1626,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   filter: none !important;
 }
 .lyric-body > .lyric-line:not(.active) {
-  transition: filter var(--appleEase) 0.5s ease;
+  // transition: filter var(--appleEase) 0.5s ease;
 }
 
 .lyricWaiting {

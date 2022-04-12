@@ -238,3 +238,6 @@ Update 10/04/2022 07:30 UTC
 
 * `settings.option.visual.uiscale`: Added for `en_US`
 
+Update 11/04/2022 13:45 UTC
+
+* `action.openArtworkInBrowser`: Added for `en_US`

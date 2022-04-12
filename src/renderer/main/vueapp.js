@@ -465,9 +465,9 @@ const app = new Vue({
             history.forward()
         },
         getHTMLStyle() {
-            if(app.cfg.visual.uiScale != 1) {
+            if (app.cfg.visual.uiScale != 1) {
                 document.querySelector("#app").style.zoom = app.cfg.visual.uiScale
-            }else{
+            } else {
                 document.querySelector("#app").style.zoom = ""
             }
         },
@@ -580,6 +580,9 @@ const app = new Vue({
             let self = this
             if (this.cfg.visual.theme != "default.less" && this.cfg.visual.theme != "") {
                 this.setTheme(this.cfg.visual.theme)
+            }
+            if (this.cfg.visual.styles.length != 0) {
+                await this.reloadStyles()
             }
 
             if (this.platform == "darwin") {
@@ -762,6 +765,9 @@ const app = new Vue({
             ipcRenderer.on('theme-update', (event, arg) => {
                 less.refresh(true, true, true)
                 self.setTheme(self.cfg.visual.theme, true)
+                if (app.cfg.visual.styles.length != 0) {
+                    app.reloadStyles()
+                }
             })
 
             ipcRenderer.on('SoundCheckTag', (event, tag) => {
@@ -955,6 +961,35 @@ const app = new Vue({
                 });
                 less.refresh()
             }
+        },
+        async reloadStyles() {
+            const styles = this.cfg.visual.styles
+            document.querySelectorAll(`[id*='less']`).forEach(el => {
+                if(el.id != "less:style") {
+                    el.remove()
+                }
+            });
+
+            this.chrome.appliedTheme.info = {}
+            await asyncForEach(styles, async (style) => {
+                let styleEl = document.createElement("link")
+                styleEl.id = `less-${style.replace(".less", "")}`
+                styleEl.rel = "stylesheet/less"
+                styleEl.href = `themes/${style}`
+                styleEl.type = "text/css"
+                document.head.appendChild(styleEl)
+                try {
+                    let infoResponse = await fetch("themes/" + style.replace("index.less", "theme.json"))
+                    this.chrome.appliedTheme.info = Object.assign(this.chrome.appliedTheme.info, await infoResponse.json())
+                } catch (e) {
+                    e = null
+                    console.warn("failed to get theme.json")
+                }
+            })
+            less.registerStylesheetsImmediately()
+            less.refresh(true, true, true)
+            this.$forceUpdate()
+            return
         },
         macOSEmu() {
             this.chrome.forceDirectives["macosemu"] = {
@@ -3811,7 +3846,7 @@ const app = new Vue({
                     ]
                 }
             }
-            if(this.cfg.advanced.AudioContext) {
+            if (this.cfg.advanced.AudioContext) {
                 menus.normal.items.find(i => i.id === 'audioLab').hidden = false
                 menus.normal.items.find(i => i.id === 'equalizer').hidden = false
             }
