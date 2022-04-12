@@ -47,7 +47,7 @@
                                         {{getArtistName(data)}}
                                     </div>
                                     <template v-if="useArtistChip">
-                                        <artist-chip v-for="artist in data.relationships.artists.data"
+                                        <artist-chip v-for="artist in data.relationships.artists?.data"
                                                      :item="artist"></artist-chip>
                                     </template>
                                     <div class="playlist-desc" v-if="(data.attributes.description && (data.attributes.description.standard || data.attributes.description.short)) || (data.attributes.editorialNotes && (data.attributes.editorialNotes.standard || data.attributes.editorialNotes.short))">

@@ -2685,7 +2685,8 @@ const app = new Vue({
             /* get token */
             function getToken(mode, track, artist, songid, lang, time, id) {
                 if (attempt > 2) {
-                    app.loadAMLyrics();
+                    app.loadNeteaseLyrics();
+                   // app.loadAMLyrics();
                 } else {
                     attempt = attempt + 1;
                     let url = "https://apic-desktop.musixmatch.com/ws/1.1/token.get?app_id=web-desktop-app-v1.0&t=" + revisedRandId();
@@ -2719,12 +2720,14 @@ const app = new Vue({
                             }
                         } catch (e) {
                             console.log('error');
-                            app.loadAMLyrics();
+                            app.loadNeteaseLyrics();
+                            //app.loadAMLyrics();
                         }
                     };
                     req.onerror = function () {
                         console.log('error');
-                        app.loadAMLyrics();
+                        app.loadNeteaseLyrics();
+                       // app.loadAMLyrics();
                     };
                     req.send();
                 }
@@ -2762,7 +2765,8 @@ const app = new Vue({
                                 }
 
                                 if (lrcfile == "") {
-                                    app.loadAMLyrics()
+                                    app.loadNeteaseLyrics();
+                                   // app.loadAMLyrics()
                                 } else {
                                     if (richsync == [] || richsync.length == 0) {
                                         console.log("ok");
@@ -2810,24 +2814,28 @@ const app = new Vue({
                                         // load translation
                                         getMXMTrans(id, lang, token);
                                     } else {
-                                        app.loadAMLyrics()
+                                       // app.loadAMLyrics()
+                                       app.loadNeteaseLyrics();
                                     }
                                 }
                             } catch (e) {
                                 console.log(e);
-                                app.loadAMLyrics()
+                                app.loadNeteaseLyrics();
+                              //  app.loadAMLyrics()
                             }
                         } else { //4xx rejected
                             getToken(1, track, artist, '', lang, time);
                         }
                     } catch (e) {
                         console.log(e);
-                        app.loadAMLyrics()
+                        app.loadNeteaseLyrics();
+                        //app.loadAMLyrics()
                     }
                 }
                 req.onerror = function () {
+                    app.loadNeteaseLyrics();
                     console.log('error');
-                    app.loadAMLyrics();
+                    // app.loadAMLyrics();
                 };
                 req.send();
             }
@@ -2881,6 +2889,66 @@ const app = new Vue({
                 } else {
                     getToken(1, track, artist, '', lang, time);
                 }
+            }
+        },
+        loadNeteaseLyrics() {
+            const track = encodeURIComponent((this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.title ?? '' : '');
+            const artist = encodeURIComponent((this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.artistName ?? '' : '');
+            const time = encodeURIComponent((this.mk.nowPlayingItem != null) ? (Math.round((this.mk.nowPlayingItem.attributes["durationInMillis"] ?? -1000) / 1000) ?? -1) : -1);
+            var url  = `http://music.163.com/api/search/get/?csrf_token=hlpretag=&hlposttag=&s=${track+" "+artist}&type=1&offset=0&total=true&limit=6`;
+            var req = new XMLHttpRequest();
+            req.overrideMimeType("application/json");
+            req.open('GET', url, true);
+            req.onload = function () {
+                try {
+                    var jsonResponse = JSON.parse(req.responseText);
+                    var id = jsonResponse["result"]["songs"][0]["id"];
+                    var url2 = "https://music.163.com/api/song/lyric?os=pc&id=" + id + "&lv=-1&kv=-1&tv=-1";
+                    var req2 = new XMLHttpRequest();
+                    req2.overrideMimeType("application/json");
+                    req2.open('GET', url2, true);
+                    req2.onload = function () {
+                        try {
+                            var jsonResponse2 = JSON.parse(req2.responseText);
+                            var lrcfile = jsonResponse2["lrc"]["lyric"];
+                            app.lyricsMediaItem = lrcfile
+                            let u = app.lyricsMediaItem.split(/[\n]/);
+                            let preLrc = []
+                            for (var i = u.length - 1; i >= 0; i--) {
+                                let xline = (/(\[[0-9.:\[\]]*\])+(.*)/).exec(u[i])
+                                if (xline != null) { 
+                                let end = (preLrc.length > 0) ? ((preLrc[preLrc.length - 1].startTime) ?? 99999) : 99999
+                                preLrc.push({
+                                    startTime: app.toMS(xline[1].substring(1, xline[1].length - 2)) ?? 0,
+                                    endTime: end,
+                                    line: xline[2],
+                                    translation: ''
+                                })}
+                            }
+                            if (preLrc.length > 0)
+                                preLrc.push({
+                                    startTime: 0,
+                                    endTime: preLrc[preLrc.length - 1].startTime,
+                                    line: "lrcInstrumental",
+                                    translation: ''
+                                });
+                            app.lyrics = preLrc.reverse();
+                        }
+                        catch (e) {
+                            app.lyrics = "";
+                        }
+                    };
+                    req2.onerror = function(){
+                
+                    }
+                    req2.send();
+                } catch (e) {
+                    app.lyrics = "";
+                }
+            };
+            req.send();
+            req.onerror = function(){
+
             }
         },
         toMS(str) {
