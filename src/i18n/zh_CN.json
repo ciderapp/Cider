@@ -358,7 +358,6 @@
   "settings.option.visual.transparent": "透明窗口框架",
   "settings.option.visual.transparent.description": "需主题有支持透明框架，且须重新启动才会生效。",
   "settings.header.advanced": "高级",
-  "settings.header.experimental.description": "调整 Cider 的实验性功能",
   "spatial.notTurnedOn": "请在设置中开启空间音频。",
   "spatial.spatialProperties": "空间属性",
   "spatial.width": "宽度",
