@@ -67,7 +67,7 @@
                 app.showMenuPanel({
                     items: {
                         "save": {
-                            name: "Open artwork in browser",
+                            name: app.getLz('action.openArtworkInBrowser'),
                             action: () => {
                                 window.open(app.getMediaItemArtwork(self.url, 1024, 1024))
                             }

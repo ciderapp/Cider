@@ -8,7 +8,6 @@ export class Store {
     private defaults: any = {
         "main": {
             "PLATFORM": process.platform,
-            "ENV": process.env,
             "UPDATABLE": app.isPackaged && (!process.mas || !process.windowsStore || !process.env.FLATPAK_ID)
         },
         "general": {
