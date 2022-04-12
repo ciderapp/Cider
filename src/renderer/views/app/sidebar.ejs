@@ -129,6 +129,7 @@
                         {{$root.getLz('app.name')}}
                     </div>
                 </button>
+                <!-- Use 20px SVG for usermenu icon -->
                 <button class="usermenu-item" v-if="cfg.general.privateEnabled" @click="cfg.general.privateEnabled = false">
                     <span class="usermenu-item-icon">
                         <%- include("../svg/x.svg") %>
