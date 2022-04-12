@@ -226,7 +226,6 @@
                                 <select class="md-select" @change="$root.setTheme($root.cfg.visual.theme)" v-model="$root.cfg.visual.theme">
                                     <option value="default.less">{{$root.getLz('settings.option.visual.theme.default')}}</option>
                                     <option value="dark.less">{{$root.getLz('settings.option.visual.theme.dark')}}</option>
-                                    <option value="sweetener.less">Sweetener</option>
                                     <option v-for="theme in themes" :value="theme.file">{{ theme.name }}</option>
                                 </select>
                                 <button class="md-btn md-btn-small md-btn-block" @click="gitHubExplore()" style="margin-top: 8px">
@@ -992,6 +991,10 @@
             }
         },
         mounted() {
+            this.themes.unshift({
+                name: "Sweetener",
+                file: "sweetener.less"
+            })
             this.themes.unshift({
                 name: "Reduce Visuals",
                 file: "reduce_visuals.less"
