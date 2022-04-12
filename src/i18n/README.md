@@ -234,7 +234,15 @@ Update 09/04/2022 11:00 UTC
 
 * `term.disablePrivateSession`: Added for `en_US`	
 
-Update 09/04/2022 16:15 UTC
+Update 10/04/2022 07:30 UTC
+
+* `settings.option.visual.uiscale`: Added for `en_US`
+
+Update 11/04/2022 13:45 UTC
+
+* `action.openArtworkInBrowser`: Added for `en_US`
+
+Update 12/04/2022 19:30 UTC
 
 * `action.tray.show`: Changed for `en_US` (Deleted for all language files)
 
