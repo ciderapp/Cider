@@ -964,11 +964,18 @@
                             </b-col>
                         </b-row>
                         </b-list-group-item>
-                        <b-list-group-item variant="dark">
-                            <b-dropdown class="stylesDropdown" variant="primary" text="Add Style...">
-                            <b-dropdown-item v-for="theme in themes" @click="addStyle(theme.file)">{{theme.name}}</b-dropdown-item>
-                        </b-dropdown>
-                    </b-list-group-item>
+                        <b-list-group-item slot="footer" style="-webkit-user-drag: none" variant="dark">
+                            <b-row>
+                                <b-col>
+                                    <b-dropdown class="stylesDropdown" variant="primary" text="Add Style...">
+                                        <b-dropdown-item v-for="theme in themes" @click="addStyle(theme.file)">{{theme.name}}</b-dropdown-item>
+                                    </b-dropdown>
+                                </b-col>
+                                <b-col>
+                                    <b-btn @click="gitHubExplore()">{{$root.getLz('settings.option.visual.theme.github.explore')}}</b-btn>    
+                                </b-col>
+                            </b-row>
+                        </b-list-group-item>
                 </draggable>    
             </div>
         `,
@@ -985,8 +992,15 @@
             }
         },
         methods: {
+            gitHubExplore() {
+                this.$root.appRoute("themes-github")
+            },
             getThemeName(filename) {
-                return this.themes.find(theme => theme.file === filename).name;
+                try {
+                    return this.themes.find(theme => theme.file === filename).name;                    
+                }catch(e) {
+                    return filename;
+                }
             },
             moveUp() {
                 const styles = this.$root.cfg.visual.styles
