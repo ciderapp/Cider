@@ -258,6 +258,7 @@
   "action.cast.scan": "Keresés",
   "action.cast.scanning": "Keresés folyamatban...",
   "action.createNew": "Új létrehozása...",
+  "action.openArtworkInBrowser": "Borító megnyitása a böngészőben",
   "settings.header.general": "Általános",
   "settings.header.general.description": "A Cider általános beállításainak módosítása.",
   "settings.option.general.language": "Nyelv",
