@@ -581,6 +581,9 @@ const app = new Vue({
             if (this.cfg.visual.theme != "default.less" && this.cfg.visual.theme != "") {
                 this.setTheme(this.cfg.visual.theme)
             }
+            if (this.cfg.visual.styles.length != 0) {
+                await this.reloadStyles()
+            }
 
             if (this.platform == "darwin") {
                 this.chrome.windowControlPosition = "left"
@@ -762,6 +765,9 @@ const app = new Vue({
             ipcRenderer.on('theme-update', (event, arg) => {
                 less.refresh(true, true, true)
                 self.setTheme(self.cfg.visual.theme, true)
+                if (app.cfg.visual.styles.length != 0) {
+                    app.reloadStyles()
+                }
             })
 
             ipcRenderer.on('SoundCheckTag', (event, tag) => {
@@ -899,9 +905,6 @@ const app = new Vue({
                 this.$forceUpdate()
             }, 500)
             ipcRenderer.invoke("renderer-ready", true)
-            if (this.cfg.visual.styles.length != 0) {
-                this.reloadStyles()
-            }
             document.querySelector("#LOADER").remove()
             if (this.cfg.general.themeUpdateNotification) {
                 this.checkForThemeUpdates()
@@ -986,6 +989,7 @@ const app = new Vue({
             less.registerStylesheetsImmediately()
             less.refresh(true, true, true)
             this.$forceUpdate()
+            return
         },
         macOSEmu() {
             this.chrome.forceDirectives["macosemu"] = {
