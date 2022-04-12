@@ -84,9 +84,13 @@
                 <div>
                     <div class="col" v-if="categoriesView != null && categoriesView != [] && categoriesView[0].attributes != null && categoriesView[0].attributes.title != null">
                         <h3>{{$root.getLz('home.recentlyPlayed')}}</h3>
-                    <mediaitem-square :kind="'385'" size="600" v-for="item in recentlyPlayed.limit(10)" :item="item" :imagesize="800"></mediaitem-square>
+                        <div class="mediaitem-list-item__grid">
+                                <listitem-horizontal :items="recentlyPlayed.limit(10)">
+                                </listitem-horizontal>
+                        </div>    
+                    <!-- <mediaitem-square :kind="'385'" size="600" v-for="item in recentlyPlayed.limit(10)" :item="item" :imagesize="800"></mediaitem-square>-->
                         <h3>{{categoriesView[0].attributes.title.stringForDisplay ?? ""}}</h3>
-                    </div>  
+                    </div>   
                     <mediaitem-square :kind="'385'" size="600"
                     :item="item ? (item.attributes.kind ? item : ((item.relationships && item.relationships.contents ) ? item.relationships.contents.data[0] : item)) : []"
                     :imagesize="800"
