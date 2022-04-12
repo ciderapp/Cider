@@ -35,10 +35,12 @@
   color: #212529;
   text-align: left;
   list-style: none;
-  background-color: #fff;
+  background-color: var(--color1);
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0.25rem;
+  box-shadow: var(--mediaItemShadow), var(--mediaItemShadow-ShadowSubtle);
+  backdrop-filter: var(--glassFilter);
 }
 .dropdown-menu[data-bs-popper] {
   top: 100%;

@@ -44,6 +44,7 @@
   --songProgressBackground: #333;
   --textColor: #eee;
   --replayGradient: linear-gradient(45deg, hsl(248deg 58% 29%), hsl(13deg 41% 42%));
+  --glassFilter: blur(16px) saturate(180%); 
 }
 
 *:focus-visible {
@@ -238,6 +239,17 @@ input[type="text"], input[type="number"] {
   opacity: 0.70;
 }
 
+a.dropdown-item {
+  color: var(--textColor);
+
+  &:hover {
+    background-color: var(--selected);
+    color: var(--textColor);
+  }
+  &:active {
+    background-color: var(--selected-click);
+  }
+}
 
 .bg-artwork {
   position: absolute;

@@ -582,7 +582,7 @@ const app = new Vue({
                 this.setTheme(this.cfg.visual.theme)
             }
             if (this.cfg.visual.styles.length != 0) {
-                this.reloadStyles()
+                await this.reloadStyles()
             }
 
             if (this.platform == "darwin") {
@@ -765,6 +765,9 @@ const app = new Vue({
             ipcRenderer.on('theme-update', (event, arg) => {
                 less.refresh(true, true, true)
                 self.setTheme(self.cfg.visual.theme, true)
+                if (app.cfg.visual.styles.length != 0) {
+                    app.reloadStyles()
+                }
             })
 
             ipcRenderer.on('SoundCheckTag', (event, tag) => {
@@ -986,6 +989,7 @@ const app = new Vue({
             less.registerStylesheetsImmediately()
             less.refresh(true, true, true)
             this.$forceUpdate()
+            return
         },
         macOSEmu() {
             this.chrome.forceDirectives["macosemu"] = {
