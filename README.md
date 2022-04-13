@@ -18,7 +18,7 @@
 </p>
 
 #### Links
-* [Wiki](https://github.com/ciderapp/Cider/wiki)
+* [Wiki](https://docs.cider.sh)
 * [Request Feature](https://github.com/ciderapp/Cider/discussions/new?category=feature-request)
 * [Report Bug](https://github.com/ciderapp/Cider/issues/new?assignees=&labels=bug&template=bug_report.md&title=%5BBUG%5D+)
 * [**View The Releases**](https://github.com/ciderapp/Cider/releases/latest)
