@@ -191,9 +191,9 @@
   "action.import": "輸入",
   "action.export": "輸出",
   "action.showAlbum": "顯示專輯",
+  "action.tray.show": "顯示 Cider",
   "action.tray.minimize": "最小化",
   "action.tray.quit": "結束",
-
   "action.update": "更新",
   "action.copy": "複製",
   "action.newpreset": "新增預設",
@@ -272,6 +272,7 @@
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.standard": "標準",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.audiophile": "發燒友",
   "settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility": "空間音訊無法與 CAP 相容，請關閉 CAP 在進行操作。",
+  "settings.option.visual.uiscale": "介面顯示大小",
   "settings.header.visual": "外觀",
   "settings.header.visual.description": "調整 Cider 的外觀",
   "settings.option.visual.windowBackgroundStyle": "視窗背景樣式",
