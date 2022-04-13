@@ -597,6 +597,21 @@ export class BrowserWindow {
                     details.requestHeaders["Referer"] = "https://music.163.com/";
                     details.requestHeaders["user-agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Cider/1.0.0 Chrome/96.0.4664.45 Electron/16.0.0 Safari/537.36";
                 }
+                if (details.url.includes("https://qq.com")) {
+                    details.requestHeaders['Accept'] = '*/*',
+                    details.requestHeaders['Accept-Encoding'] = 'gzip, deflate, br',
+                    details.requestHeaders['Accept-Language'] = 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6',
+                    details.requestHeaders['Referer'] = 'https://y.qq.com/',
+                    details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_3_1 like Mac OS X; zh-CN) AppleWebKit/537.51.1 ('
+                              'KHTML, like Gecko) Mobile/17D50 UCBrowser/12.8.2.1268 Mobile AliApp(TUnionSDK/0.1.20.3) '}
+                if (details.url.includes("https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg")) { 
+                    details.requestHeaders['Accept'] = '*/*',
+                    details.requestHeaders['Accept-Encoding'] = 'gzip, deflate, br',
+                    details.requestHeaders['Accept-Language'] = 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6',
+                    details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_3_1 like Mac OS X; zh-CN) AppleWebKit/537.51.1 ('
+                              'KHTML, like Gecko) Mobile/17D50 UCBrowser/12.8.2.1268 Mobile AliApp(TUnionSDK/0.1.20.3) '             
+                    details.requestHeaders['Referer'] =  "https://y.qq.com/portal/player.html"
+                }              
                 callback({requestHeaders: details.requestHeaders});
             }
         );
