@@ -246,3 +246,10 @@ Update 09/04/2022 13:45 UTC
 
 * `action.tray.show`: Changed for `en_US` (Deleted for all language files)
 
+Update 14/04/2022 14:30 UTC
+* `term.variables`: Added for `en_US`
+* `settings.option.connectivity.discordRPC.clientName`: Added for `en_US`
+* `settings.option.connectivity.discordRPC.detailsFormat`: Added for `en_US`
+* `settings.option.connectivity.discordRPC.stateFormat`: Added for `en_US`
+* `settings.header.connectivity.discordRPC.cider`: Removed from `en_US`
+* `settings.header.connectivity.discordRPC.appleMusic`: Removed from `en_US`
