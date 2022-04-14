@@ -1507,10 +1507,9 @@ const app = new Vue({
          */
         convertTime(seconds, format = "short") {
 
-            if (isNaN(seconds) || seconds == Infinity) {
+            if (isNaN(seconds) || seconds === Infinity) {
                 seconds = 0
             }
-            seconds = parseInt(seconds);
 
             const datetime = new Date(seconds * 1000)
 
@@ -1520,12 +1519,11 @@ const app = new Vue({
                 const m = Math.floor(seconds % 3600 / 60);
                 const s = Math.floor(seconds % 60);
 
-                const dDisplay = d > 0 ? `${d} ${app.getLz("term.time.day", { "count": d })}, ` : "";
-                const hDisplay = h > 0 ? `${h} ${app.getLz("term.time.hour", { "count": h })}, ` : "";
-                const mDisplay = m > 0 ? `${m} ${app.getLz("term.time.minute", { "count": m })}, ` : "";
-                const sDisplay = s > 0 ? `${s} ${app.getLz("term.time.second", { "count": s })}` : "";
+                const dDisplay = d > 0 ? `${d} ${app.getLz("term.time.day", { "count": d })}` : "";
+                const hDisplay = h > 0 ? `${h} ${app.getLz("term.time.hour", { "count": h })}` : "";
+                const mDisplay = m > 0 ? `${m} ${app.getLz("term.time.minute", { "count": m })}` : "";
 
-                return dDisplay + hDisplay + mDisplay + sDisplay;
+                return dDisplay + (dDisplay && hDisplay ? ", " : "") + hDisplay + (hDisplay && mDisplay ? ", " : "") + mDisplay;
             }
             else {
                 let returnTime = datetime.toISOString().substring(11, 19);
