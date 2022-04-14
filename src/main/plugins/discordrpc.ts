@@ -221,8 +221,8 @@ export default class DiscordRPC {
 
         // If the user wants to keep the activity when paused
         if (!this._utils.getStoreValue("general.discord_rpc.clear_on_pause")) {
-            this._activity.smallImageKey = attributes.status ? 'pause' : 'play';
-            this._activity.smallImageText = attributes.status ? 'Paused' : 'Playing';
+            this._activity.smallImageKey = attributes.status ? 'play' : 'pause';
+            this._activity.smallImageText = attributes.status ? 'Playing' : 'Paused';
         }
 
         this.setActivity(this._activity)

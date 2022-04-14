@@ -157,13 +157,7 @@ export class Store {
             "playlistTrackMapping": true
         }
     }
-    private migrations: any = {
-        '1.4.3': (store: ElectronStore) => {
-            if (typeof(store.get('general.discord_rpc')) == 'number') {
-                store.set('general.discord_rpc', this.defaults.general.discord_rpc)
-            }
-        },
-    }
+    private migrations: any = {}
 
     constructor() {
         Store.cfg = new ElectronStore({
@@ -175,6 +169,16 @@ export class Store {
 
         Store.cfg.set(this.mergeStore(this.defaults, Store.cfg.store))
         this.ipcHandler();
+
+        if (typeof(Store.cfg.get('general.discord_rpc')) != 'object') {
+            Store.cfg.set('general.discord_rpc', this.defaults.general.discord_rpc)
+            Store.cfg.set('general.discord_rpc.enabled', this.defaults.general.discord_rpc.enabled)
+            Store.cfg.set('general.discord_rpc.client', this.defaults.general.discord_rpc.client)
+            Store.cfg.set('general.discord_rpc.clear_on_pause', this.defaults.general.discord_rpc.clear_on_pause)
+            Store.cfg.set('general.discord_rpc.hide_buttons', this.defaults.general.discord_rpc.hide_buttons)
+            Store.cfg.set('general.discord_rpc.state_format', this.defaults.general.discord_rpc.state_format)
+            Store.cfg.set('general.discord_rpc.details_format', this.defaults.general.discord_rpc.details_format)
+        }
     }
 
     /**
