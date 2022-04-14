@@ -171,6 +171,7 @@ export class Store {
         this.ipcHandler();
 
         if (typeof(Store.cfg.get('general.discord_rpc')) != 'object') {
+            Store.cfg.delete('general.discord_rpc')
             Store.cfg.set('general.discord_rpc', this.defaults.general.discord_rpc)
             Store.cfg.set('general.discord_rpc.enabled', this.defaults.general.discord_rpc.enabled)
             Store.cfg.set('general.discord_rpc.client', this.defaults.general.discord_rpc.client)
