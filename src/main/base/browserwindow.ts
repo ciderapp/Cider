@@ -413,7 +413,7 @@ export class BrowserWindow {
                 console.error('Req not defined')
                 return
             }
-            if (req.url.includes("api") || req.url.includes("audio.wav") || (req.headers.host.includes("localhost") && (this.devMode || req.headers["user-agent"].includes("Electron")))) {
+            if (req.url.includes("api") || req.url.includes("audio.wav") || (req.headers.host.includes("localhost") && (this.devMode || req.headers["user-agent"].includes("Electron")) || req.url.includes("/connect"))) {
                 next();
             } else {
                 res.redirect("https://discord.gg/applemusic");
@@ -525,6 +525,10 @@ export class BrowserWindow {
             } catch (ex) {
                 console.log(ex);
             }
+        });
+        
+        app.get("/connect/get-user", (req, res) => {
+            res.send(utils.getStoreValue('connectUser')); // [Connect] Session redirect for webview
         });
         //app.use(express.static())
 
@@ -1088,12 +1092,13 @@ export class BrowserWindow {
         });
 
         //QR Code
-        ipcMain.handle('showQR', async (_event, _) => {
+        ipcMain.handle('showQR', async (_event, _) => { //macOS
             let url = `http://${BrowserWindow.getIP()}:${this.remotePort}`;
-            shell.openExternal(`https://cider.sh/remote/pair?url=${Buffer.from(encodeURI(url)).toString('base64')}`).catch(console.error);
+            BrowserWindow.win.webContents.send('send-remote-pair-url', (`https://cider.sh/remote/pair?url=${Buffer.from(encodeURI(url)).toString('base64')}`).toString());
+
         });
 
-        ipcMain.on('get-remote-pair-url', (_event, _) => {
+        ipcMain.on('get-remote-pair-url', (_event, _) => { // Linux and Windows
             let url = `http://${BrowserWindow.getIP()}:${this.remotePort}`;
             //if (app.isPackaged) {
             BrowserWindow.win.webContents.send('send-remote-pair-url', (`https://cider.sh/remote/pair?url=${Buffer.from(encodeURI(url)).toString('base64')}`).toString());
@@ -1102,7 +1107,7 @@ export class BrowserWindow {
             //}
 
         });
-        if (process.platform === "darwin") {
+        if (process.platform === "darwin") { //macOS
             app.setUserActivity('com.CiderCollective.remote.pair', {
                 ip: `${BrowserWindow.getIP()}`
             }, `http://${BrowserWindow.getIP()}:${this.remotePort}`);

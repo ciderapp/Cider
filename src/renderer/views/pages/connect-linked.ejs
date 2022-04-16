@@ -1,0 +1,18 @@
+<template v-if="page == 'connect-linked'">
+    <div style="display:flex;width:100%;height:100%">
+        <webview id="foo" :src="https://connect.cidercollective.dev/linked.html" nodeintegration="true" style="display:inline-flex; width:100%;"></webview>
+    </div>
+</template>
+<script>
+    Vue.component('connect-linked', {
+        template: '#connect-linked',
+        mounted() {
+            document.querySelector("#foo").addEventListener("dom-ready", ()=>{
+
+            })
+        },
+        methods: {
+
+        }
+    });
+</script>

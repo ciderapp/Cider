@@ -167,6 +167,9 @@ export class AppEvents {
                 utils.getWindow().webContents.send('LastfmAuthenticated', authKey);
                 this.plugin.callPlugin('lastfm', 'authenticate', authKey);
             }
+        } else if (arg.includes("callback/discord?oauth=")){ // Discord OAuth [Connect]
+            utils.setStoreValue('connectUser', JSON.parse(arg.split("callback/discord?oauth=")[1]));
+            utils.getWindow().webContents.executeJavaScript("$root.appRoute('connect-linked')")
         }
         // Play
         else if (arg.includes('/play/')) { //Steer away from protocol:// specific conditionals

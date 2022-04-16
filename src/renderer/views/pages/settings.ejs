@@ -976,6 +976,18 @@
                     </div>
                 </div>
             </b-tab>
+            <b-tab :title="$root.getLz('settings.header.lyrics')">
+                <div class="md-option-container">
+                    <!-- Lyric Settings -->
+                    <div class="md-option-header">
+                        <span>{{$root.getLz('settings.header.connect')}}</span>
+                    </div>
+                    <div class="settings-option-body">
+                        <webview url="https://connect.cidercollective.dev/callback/app"></webview>
+                        </div>
+                    </div>
+                </div>
+            </b-tab>
         </b-tabs>
     </div>
 </script>
