@@ -253,3 +253,8 @@ Update 14/04/2022 14:30 UTC
 * `settings.option.connectivity.discordRPC.stateFormat`: Added for `en_US`
 * `settings.header.connectivity.discordRPC.cider`: Removed from `en_US`
 * `settings.header.connectivity.discordRPC.appleMusic`: Removed from `en_US`
+
+Update 16/04/2022 9:30 UTC
+
+* `settings.header.connect`: Added for `en_US`
+
