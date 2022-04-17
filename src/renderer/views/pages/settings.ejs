@@ -982,9 +982,17 @@
                     <div class="md-option-header">
                         <span>{{$root.getLz('settings.header.connect')}}</span>
                     </div>
-                    <div class="settings-option-body">
-                        <webview url="https://connect.cidercollective.dev/app-redirect.html"></webview>
+                    <div class="md-option-line update-check">
+                        <div class="md-option-segment">
+                            {{$root.getLz('settings.option.connect.link_account')}}
                         </div>
+                        <div class="md-option-segment md-option-segment_auto">
+                            <button class="md-btn" id='settings.option.general.updateCider.check' @click="authCC()">
+                                {{$root.getLz('term.connect')}}
+                            </button>
+                        </div>
+                        {{ app.cfg.connectUser}}
+                    </div>
                     </div>
                 </div>
             </b-tab>
@@ -1224,7 +1232,10 @@
                         ipcRenderer.send('relaunchApp', '');
                     }
                 });
-            }
+            },
+            authCC() {
+                ipcRenderer.send('cc-auth')
+            },
         }
     })
 </script>

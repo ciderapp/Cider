@@ -4,7 +4,7 @@ import * as electron from 'electron'
 import {utils} from './utils';
 
 //
-// Hello, this our loader for the various plugins that the Cider Development Team built for our
+// Hello, this is our loader for the various plugins that the Cider Development Team built for our
 // numerous plugins internally and ones made by the community
 //
 // To learn how to make your own, visit https://github.com/ciderapp/Cider/wiki/Plugins

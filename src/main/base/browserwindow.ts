@@ -18,6 +18,7 @@ const wallpaper = require('wallpaper');
 
 // @ts-ignore
 import * as AdmZip from "adm-zip";
+import * as util from "util";
 
 /**
  * @file Creates the BrowserWindow
@@ -526,15 +527,22 @@ export class BrowserWindow {
                 console.log(ex);
             }
         });
-        
-        app.get("/connect/get-user", (req, res) => {
-            res.send(utils.getStoreValue('connectUser')); // [Connect] Session redirect for webview
+        //region Connect Integration
+        app.get("/connect/set-cc-user/:data", (req, res) => {
+            //utils.getStoreValue('connectUser', JSON.parse()) // [Connect] Save user in store
+            utils.setStoreValue('connectUser', JSON.parse(req.params.data))
+            res.redirect(`https://connect.cidercollective.dev/linked.html`)
         });
-        //app.use(express.static())
+        // [Connect] Set auth URL in store for `shell.openExternal`
+        utils.setStoreValue('cc_authURL', `https://connect.cidercollective.dev/callback/discord?app=cider&appPort=${this.clientPort}`)
+        console.log(`[Connect] Auth URL: ${utils.getStoreValue('cc_authURL')}`)
+        //endregion
+
 
         app.listen(this.clientPort, () => {
             console.log(`Cider client port: ${this.clientPort}`);
         });
+
 
         /*
          * Remote Client -@quacksire
@@ -1107,6 +1115,8 @@ export class BrowserWindow {
             //}
 
         });
+
+
         if (process.platform === "darwin") { //macOS
             app.setUserActivity('com.CiderCollective.remote.pair', {
                 ip: `${BrowserWindow.getIP()}`
@@ -1160,6 +1170,10 @@ export class BrowserWindow {
         });
         ipcMain.on('open-appdata', (_event) => {
             shell.openPath(app.getPath('userData'));
+        });
+
+        ipcMain.on('cc-auth', (_event) => {
+            shell.openExternal(String(utils.getStoreValue('cc_authURL')));
         });
         /* *********************************************************************************************
          * Window Events

@@ -4256,6 +4256,9 @@ const app = new Vue({
                 document.getElementById('settings.option.general.updateCider.check').innerHTML = app.getLz('term.check')
             })
         },
+        authCC(){
+            ipcRenderer.send('cc-auth')
+        }
     }
 })
 
