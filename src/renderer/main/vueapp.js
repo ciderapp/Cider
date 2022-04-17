@@ -82,7 +82,6 @@ const app = new Vue({
             },
             albums: {
                 sortingOptions: {
-                    "albumName": "0",
                     "artistName": "0",
                     "name": "0",
                     "genre": "0",
