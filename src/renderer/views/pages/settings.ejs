@@ -976,25 +976,29 @@
                     </div>
                 </div>
             </b-tab>
-            <b-tab :title="$root.getLz('settings.header.lyrics')">
+            <b-tab :title="$root.getLz('settings.header.connect')">
                 <div class="md-option-container">
-                    <!-- Lyric Settings -->
+                    <!-- Cider Connect / Linking Settings -->
                     <div class="md-option-header">
                         <span>{{$root.getLz('settings.header.connect')}}</span>
                     </div>
-                    <div class="md-option-line update-check">
-                        <div class="md-option-segment">
-                            {{$root.getLz('settings.option.connect.link_account')}}
+                    <div class="settings-option-body">
+                        <div class="md-option-line update-check">
+                            <div class="md-option-segment">
+                                {{$root.getLz('settings.option.connect.link_account')}}
+                                <small>{{$root.getLz('settings.option.connect.link_account.description')}}</small>
+                                <br>
+                                <small>Debug Status: {{ app.cfg.connectUser }}</small>
+                            </div>
+                            <div class="md-option-segment md-option-segment_auto">
+                                <button class="md-btn" id='settings.option.general.updateCider.check' @click="authCC()">
+                                    {{$root.getLz('term.connect')}}
+                                </button>
+                            </div>
                         </div>
-                        <div class="md-option-segment md-option-segment_auto">
-                            <button class="md-btn" id='settings.option.general.updateCider.check' @click="authCC()">
-                                {{$root.getLz('term.connect')}}
-                            </button>
-                        </div>
-                        {{ app.cfg.connectUser}}
-                    </div>
                     </div>
                 </div>
+            </div>
             </b-tab>
         </b-tabs>
     </div>
