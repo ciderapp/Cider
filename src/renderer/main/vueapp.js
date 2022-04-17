@@ -85,7 +85,8 @@ const app = new Vue({
                     "albumName": "0",
                     "artistName": "0",
                     "name": "0",
-                    "genre": "0"
+                    "genre": "0",
+                    "releaseDate": "0"
                 },
                 viewAs: 'covers',
                 sorting: ["dateAdded", "name"], // [0] = recentlyadded page, [1] = albums page
@@ -349,10 +350,10 @@ const app = new Vue({
             }
 
             app.$data.library.albums.sortingOptions = {
-                "albumName": app.getLz('term.sortBy.album'),
                 "artistName": app.getLz('term.sortBy.artist'),
                 "name": app.getLz('term.sortBy.name'),
-                "genre": app.getLz('term.sortBy.genre')
+                "genre": app.getLz('term.sortBy.genre'),
+                "releaseDate": app.getLz('term.sortBy.releaseDate')
             }
 
             app.$data.library.artists.sortingOptions = {
