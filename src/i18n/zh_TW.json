@@ -329,7 +329,6 @@
   "settings.header.connectivity": "外部連接",
   "settings.header.connectivity.description": "調整 Cider 與外部的連接",
   "settings.option.connectivity.playbackNotifications": "歌曲播放通知",
-  "settings.option.connectivity.discordRPC.clientName": "應用程式名稱",
   "settings.option.connectivity.discordRPC": "Discord 動態",
   "settings.option.connectivity.discordRPC.clientName": "應用程式名稱",
   "settings.option.connectivity.discordRPC.clearOnPause": "暫停時清除 Discord 動態",
