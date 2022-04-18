@@ -1,6 +1,14 @@
 const wsapi = {
     cache: {playParams: {id: 0}, status: null, remainingTime: 0},
     playbackCache: {status: null, time: Date.now()},
+    async v3(encoded = "") {
+        let decoded = atob(encoded);
+        let json = JSON.parse(decoded);
+        console.log(json)
+        let response = await (await MusicKit.getInstance().api.v3.music(json.route, json.body, json.options))
+        let ret = response.data
+        return JSON.stringify(ret)
+    },
     search(term, limit) {
         MusicKit.getInstance().api.search(term, {limit: limit, types: 'songs,artists,albums,playlists'}).then((results)=>{
             ipcRenderer.send('wsapi-returnSearch', JSON.stringify(results))
