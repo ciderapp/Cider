@@ -5,7 +5,7 @@
             <div class="settings-option-body">
                 <div class="md-option-line">
                     <b-jumbotron :header="$root.getLz('settings.option.audio.audioLab')"
-                                 lead="Designed by Cider Acoustic Technologies in California"></b-jumbotron>
+                                 lead="$root.getLz('settings.option.audio.audioLab.subheader')"></b-jumbotron>
                 </div>
                 <div class="md-option-line" v-show="app.cfg.advanced.AudioContext === false">
                     <div class="md-option-segment">
@@ -79,9 +79,9 @@
                 </div>
                 <div class="md-option-line" v-show="app.cfg.advanced.AudioContext === true">
                     <div class="md-option-segment">
-                        Cider Atmosphere Realizer™️
+                        {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizer')}}
                         <br>
-                        <small>Realizes a different musical atmosphere modelled after the state of the art audio setups.</small>
+                        <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizer.description')}}</small>
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
                         <input type="checkbox" v-model="app.cfg.audio.maikiwiAudio.atmosphereRealizer"
@@ -90,17 +90,17 @@
                 </div>
                 <div class="md-option-line" v-show="app.cfg.audio.maikiwiAudio.atmosphereRealizer === true">
                     <div class="md-option-segment">
-                        Cider Atmosphere Realizer™️ Mode
+                        {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode')}}
                         <br>
-                        <small>Changes the mode of operation of the Atmosphere Realizer module.</small>
+                        <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.description')}}</small>
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
                         <select class="md-select" style="width:180px;"
                                 v-model="app.cfg.audio.maikiwiAudio.atmosphereRealizer_value"
                                 v-on:change="CiderAudio.hierarchical_loading()">
-                            <option value="NATURAL_STANDARD">Natural (Standard)</option>
-                            <option value="NATURAL_HIGH">Natural (High)</option>
-                            <option value="NATURAL_PLUS">Natural (Plus)</option>
+                            <option value="NATURAL_STANDARD">{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.natural1')}}</option>
+                            <option value="NATURAL_HIGH">{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.natural2')}}</option>
+                            <option value="NATURAL_PLUS">{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.natural3')}}</option>
                         </select>
                     </div>
                 </div>
