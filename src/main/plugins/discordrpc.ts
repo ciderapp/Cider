@@ -179,7 +179,7 @@ export default class DiscordRPC {
         // Set the activity
         if (!this._attributes.status && this._utils.getStoreValue("general.discord_rpc.clear_on_pause")) {
             this._client.clearActivity()
-        } else {
+        } else if (this._activity && this._activityCache !== this._activity && this._activity.details) {
             this._client.setActivity(activity)
             this._activityCache = this._activity;
         }
