@@ -159,9 +159,8 @@ export class Store {
     }
     private migrations: any = {
         '>=1.4.3': (store: ElectronStore) => {
-            if (typeof(store.get('general.discord_rpc')) == 'number' || typeof(store.get('general.discord_rpc')) == 'string') {
+            if (typeof store.get('general.discord_rpc') == 'number' || typeof store.get('general.discord_rpc') == 'string') {
                 store.delete('general.discord_rpc');
-                store.set('general.discord_rpc', this.defaults.general.discord_rpc)
             }
         },
     }
