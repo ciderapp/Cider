@@ -389,7 +389,7 @@
   "settings.header.connectivity.description": "A Cider csatlakozás beállításainak módosítása.",
   "settings.option.connectivity.playbackNotifications": "Lejátszási értesítések",
   "settings.option.connectivity.discordRPC": "Discord Rich Presence",
-    "settings.option.connectivity.discordRPC.clientName": "Kliensnév",
+  "settings.option.connectivity.discordRPC.clientName": "Kliensnév",
   "settings.option.connectivity.discordRPC.clearOnPause": "Rich Presence törlése megállításnál",
   "settings.option.connectivity.discordRPC.hideButtons": "Rich Presence gombok elrejtése",
   "settings.option.connectivity.discordRPC.detailsFormat": "Részletek formátuma",
