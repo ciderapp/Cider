@@ -11626,6 +11626,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   filter: none !important;
 }
 .lyricWaiting {
+  margin-bottom: 10px;
   display: none;
 }
 .lyric-line.active .lyricWaiting {
