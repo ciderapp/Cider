@@ -66,6 +66,10 @@
                         <mediaitem-artwork :url="currentArtUrl"></mediaitem-artwork>
                     </div>
                     <div class="playback-info">
+                        <div class="chrome-icon-container">
+                            <div class="audio-type private-icon" v-if="cfg.general.privateEnabled === true"></div>
+                            <div class="audio-type ppe-icon" v-if="cfg.audio.maikiwiAudio.ciderPPE === true"></div>
+                        </div>
                         <div class="song-name"
                              :class="[isElementOverflowing('#app-main > div.app-chrome > div.app-chrome--center > div > div > div.playback-info > div.song-name') ? 'marquee' : '']">
                             {{ mk.nowPlayingItem["attributes"]["name"] }}
@@ -73,7 +77,6 @@
                                  v-if="mk.nowPlayingItem['attributes']['contentRating'] == 'explicit'"
                                  style="display: inline-block"></div>
                         </div>
-                        <div class="audio-type ppe-icon" v-if="cfg.audio.maikiwiAudio.ciderPPE === true"></div>
                         <div class="song-artist-album">
                             <div class="song-artist-album-content"
                                  :class="[isElementOverflowing('#app-main > .app-chrome .app-chrome-item > .app-playback-controls > div >.song-artist-album > .song-artist-album-content') ? 'marquee' : '']"

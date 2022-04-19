@@ -8,14 +8,18 @@ export class Store {
     private defaults: any = {
         "main": {
             "PLATFORM": process.platform,
-            "ENV": process.env,
             "UPDATABLE": app.isPackaged && (!process.mas || !process.windowsStore || !process.env.FLATPAK_ID)
         },
         "general": {
             "close_button_hide": false,
-            "discord_rpc": 1, // 0 = disabled, 1 = enabled as Cider, 2 = enabled as Apple Music
-            "discord_rpc_clear_on_pause": true,
-            "discord_rpc_hide_buttons": false,
+            "discord_rpc": {
+                "enabled": false,
+                "client": "Cider",
+                "clear_on_pause": true,
+                "hide_buttons": false,
+                "state_format": "by {artist}",
+                "details_format": "{title}",
+            },
             "language": "en_US", // electron.app.getLocale().replace('-', '_') this can be used in future
             "playbackNotifications": true,
             "update_branch": "main",
@@ -29,6 +33,13 @@ export class Store {
                 "artists": true,
                 "videos": true,
                 "podcasts": true
+            },
+            "sidebarCollapsed": {
+                "cider": false,
+                "applemusic": false,
+                "library": false,
+                "amplaylists": false,
+                "playlists": false
             },
             "onStartup": {
                 "enabled": false,
@@ -53,7 +64,7 @@ export class Store {
         },
         "audio": {
             "volume": 1,
-            "volumeStep": 0.1,
+            "volumeStep": 0.05,
             "maxVolume": 1,
             "lastVolume": 1,
             "muted": false,
@@ -65,6 +76,8 @@ export class Store {
                 "ciderPPE_value": "MAIKIWI",
                 "analogWarmth": false,
                 "analogWarmth_value": "SMOOTH",
+                "atmosphereRealizer": false,
+                "atmosphereRealizer_value": "NATURAL_STANDARD",
                 "spatial": false,
                 "spatialProfile": "71_420maikiwi",
                 "vibrantBass": { // Hard coded into the app. Don't include any of this config into exporting presets in store.ts
@@ -106,6 +119,7 @@ export class Store {
         },
         "visual": {
             "theme": "",
+            "styles": [],
             "scrollbars": 0, // 0 = show on hover, 2 = always hide, 3 = always show
             "refresh_rate": 0,
             "window_background_style": "artwork", // "none", "artwork", "color"
@@ -120,7 +134,8 @@ export class Store {
                 "windowLayout": "default"
             },
             "windowControlPosition": 0, // 0 default right
-            "nativeTitleBar": false
+            "nativeTitleBar": false,
+            "uiScale": 1.0
         },
         "lyrics": {
             "enable_mxm": false,
@@ -142,13 +157,21 @@ export class Store {
             "playlistTrackMapping": true
         }
     }
-    private migrations: any = {}
+    private migrations: any = {
+        '>=1.4.3': (store: ElectronStore) => {
+            if (typeof(store.get('general.discord_rpc')) == 'number' || typeof(store.get('general.discord_rpc')) == 'string') {
+                store.delete('general.discord_rpc');
+                store.set('general.discord_rpc', this.defaults.general.discord_rpc)
+            }
+        },
+    }
 
     constructor() {
         Store.cfg = new ElectronStore({
             name: 'cider-config',
             defaults: this.defaults,
             migrations: this.migrations,
+            clearInvalidConfig: true
         });
 
         Store.cfg.set(this.mergeStore(this.defaults, Store.cfg.store))
