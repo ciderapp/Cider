@@ -18,6 +18,7 @@ const wallpaper = require('wallpaper');
 
 // @ts-ignore
 import * as AdmZip from "adm-zip";
+import * as util from "util";
 
 /**
  * @file Creates the BrowserWindow
@@ -413,7 +414,7 @@ export class BrowserWindow {
                 console.error('Req not defined')
                 return
             }
-            if (req.url.includes("api") || req.url.includes("audio.wav") || (req.headers.host.includes("localhost") && (this.devMode || req.headers["user-agent"].includes("Electron")))) {
+            if (req.url.includes("api") || req.url.includes("audio.wav") || (req.headers.host.includes("localhost") && (this.devMode || req.headers["user-agent"].includes("Electron")) || req.url.includes("/connect"))) {
                 next();
             } else {
                 res.redirect("https://discord.gg/applemusic");
@@ -526,11 +527,22 @@ export class BrowserWindow {
                 console.log(ex);
             }
         });
-        //app.use(express.static())
+        //region Connect Integration
+        app.get("/connect/set-cc-user/:data", (req, res) => {
+            //utils.getStoreValue('connectUser', JSON.parse()) // [Connect] Save user in store
+            utils.setStoreValue('connectUser', JSON.parse(req.params.data))
+            res.redirect(`https://connect.cidercollective.dev/linked.html`)
+        });
+        // [Connect] Set auth URL in store for `shell.openExternal`
+        utils.setStoreValue('cc_authURL', `https://connect.cidercollective.dev/callback/discord?app=cider&appPort=${this.clientPort}`)
+        console.log(`[Connect] Auth URL: ${utils.getStoreValue('cc_authURL')}`)
+        //endregion
+
 
         app.listen(this.clientPort, () => {
             console.log(`Cider client port: ${this.clientPort}`);
         });
+
 
         /*
          * Remote Client -@quacksire
@@ -1088,12 +1100,13 @@ export class BrowserWindow {
         });
 
         //QR Code
-        ipcMain.handle('showQR', async (_event, _) => {
+        ipcMain.handle('showQR', async (_event, _) => { //macOS
             let url = `http://${BrowserWindow.getIP()}:${this.remotePort}`;
-            shell.openExternal(`https://cider.sh/remote/pair?url=${Buffer.from(encodeURI(url)).toString('base64')}`).catch(console.error);
+            BrowserWindow.win.webContents.send('send-remote-pair-url', (`https://cider.sh/remote/pair?url=${Buffer.from(encodeURI(url)).toString('base64')}`).toString());
+
         });
 
-        ipcMain.on('get-remote-pair-url', (_event, _) => {
+        ipcMain.on('get-remote-pair-url', (_event, _) => { // Linux and Windows
             let url = `http://${BrowserWindow.getIP()}:${this.remotePort}`;
             //if (app.isPackaged) {
             BrowserWindow.win.webContents.send('send-remote-pair-url', (`https://cider.sh/remote/pair?url=${Buffer.from(encodeURI(url)).toString('base64')}`).toString());
@@ -1102,7 +1115,9 @@ export class BrowserWindow {
             //}
 
         });
-        if (process.platform === "darwin") {
+
+
+        if (process.platform === "darwin") { //macOS
             app.setUserActivity('com.CiderCollective.remote.pair', {
                 ip: `${BrowserWindow.getIP()}`
             }, `http://${BrowserWindow.getIP()}:${this.remotePort}`);
@@ -1155,6 +1170,10 @@ export class BrowserWindow {
         });
         ipcMain.on('open-appdata', (_event) => {
             shell.openPath(app.getPath('userData'));
+        });
+
+        ipcMain.on('cc-auth', (_event) => {
+            shell.openExternal(String(utils.getStoreValue('cc_authURL')));
         });
         /* *********************************************************************************************
          * Window Events

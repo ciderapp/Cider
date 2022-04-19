@@ -82,10 +82,10 @@ const app = new Vue({
             },
             albums: {
                 sortingOptions: {
-                    "albumName": "0",
                     "artistName": "0",
                     "name": "0",
-                    "genre": "0"
+                    "genre": "0",
+                    "releaseDate": "0"
                 },
                 viewAs: 'covers',
                 sorting: ["dateAdded", "name"], // [0] = recentlyadded page, [1] = albums page
@@ -349,10 +349,10 @@ const app = new Vue({
             }
 
             app.$data.library.albums.sortingOptions = {
-                "albumName": app.getLz('term.sortBy.album'),
                 "artistName": app.getLz('term.sortBy.artist'),
                 "name": app.getLz('term.sortBy.name'),
-                "genre": app.getLz('term.sortBy.genre')
+                "genre": app.getLz('term.sortBy.genre'),
+                "releaseDate": app.getLz('term.sortBy.releaseDate')
             }
 
             app.$data.library.artists.sortingOptions = {
@@ -1507,10 +1507,9 @@ const app = new Vue({
          */
         convertTime(seconds, format = "short") {
 
-            if (isNaN(seconds) || seconds == Infinity) {
+            if (isNaN(seconds) || seconds === Infinity) {
                 seconds = 0
             }
-            seconds = parseInt(seconds);
 
             const datetime = new Date(seconds * 1000)
 
@@ -1520,12 +1519,11 @@ const app = new Vue({
                 const m = Math.floor(seconds % 3600 / 60);
                 const s = Math.floor(seconds % 60);
 
-                const dDisplay = d > 0 ? `${d} ${app.getLz("term.time.day", { "count": d })}, ` : "";
-                const hDisplay = h > 0 ? `${h} ${app.getLz("term.time.hour", { "count": h })}, ` : "";
-                const mDisplay = m > 0 ? `${m} ${app.getLz("term.time.minute", { "count": m })}, ` : "";
-                const sDisplay = s > 0 ? `${s} ${app.getLz("term.time.second", { "count": s })}` : "";
+                const dDisplay = d > 0 ? `${d} ${app.getLz("term.time.day", { "count": d })}` : "";
+                const hDisplay = h > 0 ? `${h} ${app.getLz("term.time.hour", { "count": h })}` : "";
+                const mDisplay = m > 0 ? `${m} ${app.getLz("term.time.minute", { "count": m })}` : "";
 
-                return dDisplay + hDisplay + mDisplay + sDisplay;
+                return dDisplay + (dDisplay && hDisplay ? ", " : "") + hDisplay + (hDisplay && mDisplay ? ", " : "") + mDisplay;
             }
             else {
                 let returnTime = datetime.toISOString().substring(11, 19);
@@ -4258,6 +4256,9 @@ const app = new Vue({
                 document.getElementById('settings.option.general.updateCider.check').innerHTML = app.getLz('term.check')
             })
         },
+        authCC(){
+            ipcRenderer.send('cc-auth')
+        }
     }
 })
 

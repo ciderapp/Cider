@@ -203,6 +203,8 @@ export class AppEvents {
             shell.openExternal('https://opencollective.com/ciderapp')
         } else if (arg.includes('/beep')) {
             shell.beep()
+        } else {
+            utils.getWindow().webContents.executeJavaScript(`app.appRoute('${arg.split('//')[1]}')`)
         }
     }
 
