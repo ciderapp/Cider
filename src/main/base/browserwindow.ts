@@ -1,20 +1,21 @@
-import {join} from "path";
-import {app, BrowserWindow as bw, ipcMain, ShareMenu, shell} from "electron";
+import { join } from "path";
+import { app, BrowserWindow as bw, ipcMain, ShareMenu, shell } from "electron";
 import * as windowStateKeeper from "electron-window-state";
 import * as express from "express";
 import * as getPort from "get-port";
-import {search} from "youtube-search-without-api-key";
-import {existsSync, rmSync, mkdirSync, readdirSync, readFileSync, writeFileSync, statSync} from "fs";
-import {Stream} from "stream";
-import {networkInterfaces} from "os";
+import { search } from "youtube-search-without-api-key";
+import { existsSync, rmSync, mkdirSync, readdirSync, readFileSync, writeFileSync, statSync } from "fs";
+import { Stream } from "stream";
+import { networkInterfaces } from "os";
 import * as mm from 'music-metadata';
 import fetch from 'electron-fetch'
-import {wsapi} from "./wsapi";
-import {utils} from './utils';
-import {Plugins} from "./plugins";
-import {watch} from "chokidar";
+import { wsapi } from "./wsapi";
+import { utils } from './utils';
+import { Plugins } from "./plugins";
+import { watch } from "chokidar";
 import * as os from "os";
 const wallpaper = require('wallpaper');
+const bodyParser = require('body-parser');
 
 // @ts-ignore
 import * as AdmZip from "adm-zip";
@@ -241,7 +242,7 @@ export class BrowserWindow {
         show: false,
         // backgroundColor: "#1E1E1E",
         titleBarStyle: 'hidden',
-        trafficLightPosition: {x: 15, y: 20},
+        trafficLightPosition: { x: 15, y: 20 },
         webPreferences: {
             experimentalFeatures: true,
             nodeIntegration: true,
@@ -301,7 +302,7 @@ export class BrowserWindow {
      * @yields {object} Electron browser window
      */
     async createWindow(): Promise<Electron.BrowserWindow> {
-        this.clientPort = await getPort({port: 9000});
+        this.clientPort = await getPort({ port: 9000 });
         BrowserWindow.verifyFiles();
         this.StartWatcher(utils.getPath('themes'));
 
@@ -325,7 +326,7 @@ export class BrowserWindow {
                     this.options.transparent = true;
                 }
                 this.options.autoHideMenuBar = true
-                if(utils.getStoreValue("visual.nativeTitleBar")) {
+                if (utils.getStoreValue("visual.nativeTitleBar")) {
                     this.options.titleBarStyle = "visible";
                     this.options.frame = true
                 }
@@ -333,7 +334,7 @@ export class BrowserWindow {
             case "linux":
                 this.options.backgroundColor = "#1E1E1E";
                 this.options.autoHideMenuBar = true
-                if(utils.getStoreValue("visual.nativeTitleBar")) {
+                if (utils.getStoreValue("visual.nativeTitleBar")) {
                     this.options.titleBarStyle = "visible";
                     this.options.frame = true
                 }
@@ -405,7 +406,14 @@ export class BrowserWindow {
     private startWebServer(): void {
         const app = express();
 
+        app.use(function (req, res, next) {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+            next();
+        });
         app.use(express.static(join(utils.getPath('srcPath'), "./renderer/")));
+        app.use(bodyParser.urlencoded({ extended: true }))
+        app.use(bodyParser.json())
         app.set("views", join(utils.getPath('srcPath'), "./renderer/views"));
         app.set("view engine", "ejs");
         let firstRequest = true;
@@ -424,6 +432,35 @@ export class BrowserWindow {
         app.get("/", (_req, res) => {
             res.render("main", this.EnvironmentVariables);
         });
+
+        app.get("/api/ciderkit.js", (req, res) =>{
+            res.sendFile(join(utils.getPath('srcPath'), "./ciderkit/public.js"));
+        })
+
+        app.post("/api/musickit/:action", async (req, res) => {
+            const action = req.params.action
+            switch (action) {
+                case "v3":
+                    try {
+                        const encoded = btoa(JSON.stringify(req.body))
+                        console.log(encoded)
+
+                        const result = await BrowserWindow.win.webContents.executeJavaScript(`
+                        wsapi.v3("${encoded}")
+                        `)
+                        res.header("Content-Type", "application/json");
+                        res.send(result)
+                        break;
+                    } catch (e) {
+                        console.error(e)
+                        res.send("error")
+                    }
+
+                default:
+                    res.send("null")
+                    break;
+            }
+        })
 
         app.get("/api/playback/:action", (req, res) => {
             const action = req.params.action;
@@ -552,7 +589,7 @@ export class BrowserWindow {
         remote.use(express.static(join(utils.getPath('srcPath'), "./web-remote/")))
         remote.set("views", join(utils.getPath('srcPath'), "./web-remote/views"));
         remote.set("view engine", "ejs");
-        getPort({port: 6942}).then((port) => {
+        getPort({ port: 6942 }).then((port) => {
             this.remotePort = port;
             // Start Remote Discovery
             this.broadcastRemote()
@@ -611,20 +648,21 @@ export class BrowserWindow {
                 }
                 if (details.url.includes("https://qq.com")) {
                     details.requestHeaders['Accept'] = '*/*',
-                    details.requestHeaders['Accept-Encoding'] = 'gzip, deflate, br',
-                    details.requestHeaders['Accept-Language'] = 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6',
-                    details.requestHeaders['Referer'] = 'https://y.qq.com/',
-                    details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_3_1 like Mac OS X; zh-CN) AppleWebKit/537.51.1 ('
-                              'KHTML, like Gecko) Mobile/17D50 UCBrowser/12.8.2.1268 Mobile AliApp(TUnionSDK/0.1.20.3) '}
-                if (details.url.includes("https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg")) { 
+                        details.requestHeaders['Accept-Encoding'] = 'gzip, deflate, br',
+                        details.requestHeaders['Accept-Language'] = 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6',
+                        details.requestHeaders['Referer'] = 'https://y.qq.com/',
+                        details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_3_1 like Mac OS X; zh-CN) AppleWebKit/537.51.1 ('
+                    'KHTML, like Gecko) Mobile/17D50 UCBrowser/12.8.2.1268 Mobile AliApp(TUnionSDK/0.1.20.3) '
+                }
+                if (details.url.includes("https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg")) {
                     details.requestHeaders['Accept'] = '*/*',
-                    details.requestHeaders['Accept-Encoding'] = 'gzip, deflate, br',
-                    details.requestHeaders['Accept-Language'] = 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6',
-                    details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_3_1 like Mac OS X; zh-CN) AppleWebKit/537.51.1 ('
-                              'KHTML, like Gecko) Mobile/17D50 UCBrowser/12.8.2.1268 Mobile AliApp(TUnionSDK/0.1.20.3) '             
-                    details.requestHeaders['Referer'] =  "https://y.qq.com/portal/player.html"
-                }              
-                callback({requestHeaders: details.requestHeaders});
+                        details.requestHeaders['Accept-Encoding'] = 'gzip, deflate, br',
+                        details.requestHeaders['Accept-Language'] = 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6',
+                        details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_3_1 like Mac OS X; zh-CN) AppleWebKit/537.51.1 ('
+                    'KHTML, like Gecko) Mobile/17D50 UCBrowser/12.8.2.1268 Mobile AliApp(TUnionSDK/0.1.20.3) '
+                    details.requestHeaders['Referer'] = "https://y.qq.com/portal/player.html"
+                }
+                callback({ requestHeaders: details.requestHeaders });
             }
         );
 
@@ -663,7 +701,7 @@ export class BrowserWindow {
             // remove WidevineCDM from appdata folder
             const widevineCdmPath = join(app.getPath("userData"), "./WidevineCdm");
             if (existsSync(widevineCdmPath)) {
-                rmSync(widevineCdmPath, {recursive: true, force: true})
+                rmSync(widevineCdmPath, { recursive: true, force: true })
             }
             // reinstall WidevineCDM
             app.relaunch()
@@ -935,7 +973,7 @@ export class BrowserWindow {
 
         //Fullscreen
         ipcMain.on('detachDT', (_event, _) => {
-            BrowserWindow.win.webContents.openDevTools({mode: 'detach'});
+            BrowserWindow.win.webContents.openDevTools({ mode: 'detach' });
         })
 
         ipcMain.handle('relaunchApp', (_event, _) => {
@@ -1053,21 +1091,21 @@ export class BrowserWindow {
                 return Math.max(-32768, Math.min(32768, v)); // clamp
             }
 
-            function bitratechange(e: any){
+            function bitratechange(e: any) {
                 var t = e.length;
                 let sampleRate = 96.0;
                 let outputSampleRate = 48.0;
                 var s = 0,
-                o = sampleRate / outputSampleRate,
-                u = Math.ceil(t * outputSampleRate / sampleRate),
-                a = new Int16Array(u);
+                    o = sampleRate / outputSampleRate,
+                    u = Math.ceil(t * outputSampleRate / sampleRate),
+                    a = new Int16Array(u);
                 for (let i = 0; i < u; i++) {
-                  a[i] = e[Math.floor(s)];
-                  s += o;
+                    a[i] = e[Math.floor(s)];
+                    s += o;
                 }
-          
+
                 return a;
-             }
+            }
 
             let newaudio = quantization(leftpcm, rightpcm);
             //let newaudio = [leftpcm, rightpcm];
@@ -1133,8 +1171,8 @@ export class BrowserWindow {
                     console.log('sc', SoundCheckTag)
                     BrowserWindow.win.webContents.send('SoundCheckTag', SoundCheckTag)
                 }).catch(err => {
-                console.log(err)
-            });
+                    console.log(err)
+                });
         });
 
         ipcMain.on('check-for-update', async (_event) => {
@@ -1249,10 +1287,10 @@ export class BrowserWindow {
         // Set window Handler
         BrowserWindow.win.webContents.setWindowOpenHandler((x: any) => {
             if (x.url.includes("apple") || x.url.includes("localhost")) {
-                return {action: "allow"};
+                return { action: "allow" };
             }
             shell.openExternal(x.url).catch(console.error);
-            return {action: "deny"};
+            return { action: "deny" };
         });
     }
 
@@ -1308,7 +1346,7 @@ export class BrowserWindow {
             "CtlN": "Cider",
             "iV": "196623"
         };
-        let server2 = mdns.createAdvertisement(x, `${await getPort({port: 3839})}`, {
+        let server2 = mdns.createAdvertisement(x, `${await getPort({ port: 3839 })}`, {
             name: encoded,
             txt: txt_record
         });
