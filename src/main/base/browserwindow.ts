@@ -645,6 +645,35 @@ export class BrowserWindow {
          * ipcMain Events
          ****************************************************************************************************************** */
 
+        ipcMain.handle("mkv3", async (event, args) => {
+            const options = {
+                route: "",
+                token: "",
+                mediaToken: "",
+                GETBody: {}
+            }
+            Object.assign(options, args);
+
+            let res = await fetch(
+                `https://amp-api.music.apple.com/${options.route}?${new URLSearchParams({
+                    ...options.GETBody
+                }).toString()}`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        authorization: `Bearer ${options.token}`,
+                        path: options.route,
+                        authority: "amp-api.music.apple.com",
+                        "media-user-token": options.mediaToken,
+                        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Cider/1.4.2 Chrome/100.0.4896.75 Electron/18.0.3 Safari/537.36"
+                    },
+                }
+            );
+            let json = await res.json();
+            return json;
+        })
+
         ipcMain.on("get-wallpaper", async (event) => {
             const wpPath: string = await wallpaper.get();
             // get the wallpaper and encode it to base64 then return
