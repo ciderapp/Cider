@@ -1629,10 +1629,10 @@ acorn@^8.4.1, acorn@^8.5.0:
   resolved "https://registry.npmjs.org/acorn/-/acorn-8.7.0.tgz"
   integrity sha512-V/LGr1APy+PXIwKebEWrkZPwoeoF+w1jiOBUmuxuiUIaOHtob8Qc9BTrYo7VuI5fR8tqsy+buA2WFooR5olqvQ==
 
-adm-zip@0.5.9:
-  version "0.5.9"
-  resolved "https://registry.npmjs.org/adm-zip/-/adm-zip-0.5.9.tgz"
-  integrity sha512-s+3fXLkeeLjZ2kLjCBwQufpI5fuN+kIGBxu6530nVQZGVol0d7Y/M88/xw9HGGUcJjKf8LutN3VPRUBq6N7Ajg==
+adm-zip@0.4.10:
+  version "0.4.10"
+  resolved "https://registry.yarnpkg.com/adm-zip/-/adm-zip-0.4.10.tgz#6efb1090e78a12db377f3ba5f27b363f21988ac1"
+  integrity sha512-075E4f1zFxHbsnn6C4OI4jVzUT1zV+M68QdBxcVxmO/Yqk35CFnFFYLaepvth68gzlIlyQ/hkaI2JY99Nh3C5Q==
 
 agent-base@6, agent-base@^6.0.2:
   version "6.0.2"
