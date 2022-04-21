@@ -3096,9 +3096,9 @@ dns-equal@^1.0.0:
   resolved "https://registry.npmjs.org/dns-equal/-/dns-equal-1.0.0.tgz"
   integrity sha1-s55/HabrCnW6nBcySzR1PEfgZU0=
 
-"dns-js@github:bitfocus/node-dns-js#v0.2.2":
-  version "0.2.2"
-  resolved "git+ssh://git@github.com/bitfocus/node-dns-js.git#e5f0c3da63653398005bf36f66ad0b77770dcad6"
+"dns-js@git+https://github.com/ciderapp/node-dns-js.git":
+    version "0.2.1"
+  resolved "git+https://github.com/ciderapp/node-dns-js.git#212b6c903db40bcd501af741e51cd20d676acbc9"
   dependencies:
     debug "^2.1.0"
     qap "^3.1.2"
