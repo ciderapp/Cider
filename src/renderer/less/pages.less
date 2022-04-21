@@ -493,10 +493,41 @@
   //background: linear-gradient(180deg, var(--bgColor) 32px, var(--bgColor) 18px, transparent 60px, transparent 100%);
   top         : 0;
   padding-top : var(--navigationBarHeight);
+  display:flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
 
   .playlist-body {
-    padding   : var(--contentInnerPadding) 2em;
-    margin-top: -75px;
+    padding   : 32px;
+    // margin-top: -75px;
+    overflow-y:overlay;
+    height:100%;
+    padding:0px;
+    background-color: var(--color1);
+
+    &.scrollbody {
+      .tabs {
+        display: flex;
+        flex-flow: column;
+        height: 100%;
+
+        .tab-content {
+          height: 100%;
+          overflow: hidden;
+          margin:0px;
+          .tab-pane {
+            height: 100%;
+            overflow-y: overlay;
+            overflow-x:hidden;
+            padding: var(--contentInnerPadding);
+            .well {
+              margin:0px;
+            }
+          }
+        }
+      }
+    }
   }
 
   .floating-header {
@@ -510,6 +541,7 @@
     background     : rgba(0, 0, 0, 0.25);
     top            : var(--navigationBarHeight);
     transition     : opacity 0.1s var(--appleEase);
+    display: none;
   }
 
   .playlist-display {

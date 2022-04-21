@@ -919,7 +919,7 @@
                                 {{$root.getLz('settings.option.experimental.inline_playlists')}}
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
-                                <input type="checkbox" v-model="app.cfg.advanced.experiments.includes('inline-playlists')" @click="app.cfg.advanced.experiments.includes('inline-playlists') ? removeExperiment('inline-playlists') : addExperiment('inline-playlists')" switch/>
+                                <input type="checkbox" disabled v-model="app.cfg.advanced.experiments.includes('inline-playlists')" @click="app.cfg.advanced.experiments.includes('inline-playlists') ? removeExperiment('inline-playlists') : addExperiment('inline-playlists')" switch/>
                             </div>
                         </div>
 
