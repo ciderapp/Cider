@@ -470,7 +470,7 @@
                     }
                 })
             },
-            menu(event) {
+            async menu(event) {
                 let self = this
                 let artistId = null
 
@@ -482,6 +482,48 @@
                 }
 
                 let menuItems = {
+                    headerItems: [
+                        {
+                            "icon": "./assets/feather/heart.svg",
+                            "id": "love",
+                            "name": app.getLz('action.love'),
+                            "hidden": false,
+                            "disabled": true,
+                            "action": function () {
+                                app.love(self.data)
+                            }
+                        },
+                        {
+                            "icon": "./assets/feather/heart.svg",
+                            "id": "unlove",
+                            "active": true,
+                            "name": app.getLz('action.unlove'),
+                            "hidden": true,
+                            "action": function () {
+                                app.unlove(self.data)
+                            }
+                        },
+                        {
+                            "icon": "./assets/feather/thumbs-down.svg",
+                            "id": "dislike",
+                            "name": app.getLz('action.dislike'),
+                            "hidden": false,
+                            "disabled": true,
+                            "action": function () {
+                                app.dislike(self.data)
+                            }
+                        },
+                        {
+                            "icon": "./assets/feather/thumbs-down.svg",
+                            "id": "undo_dislike",
+                            "name": app.getLz('action.undoDislike'),
+                            "active": true,
+                            "hidden": true,
+                            "action": function () {
+                                app.unlove(self.data)
+                            }
+                        },
+                    ],
                     items: {
                         "addToPlaylist": {
                             name: app.getLz('action.addToPlaylist'),
@@ -538,6 +580,7 @@
                         },
                     }
                 }
+                app.showMenuPanel(menuItems, event)
 
                 if (artistId != null) {
                     if (app.followingArtist(artistId)) {
@@ -551,9 +594,22 @@
                     menuItems.items.follow.hidden = true
                     menuItems.items.unfollow.hidden = true
                 }
+                try{
+                    let rating = await app.getRating(self.data)
+                    if (rating == 0) {
+                        menuItems.headerItems.find(x => x.id == 'love').disabled = false
+                        menuItems.headerItems.find(x => x.id == 'dislike').disabled = false
+                    } else if (rating == 1) {
+                        menuItems.headerItems.find(x => x.id == 'unlove').hidden = false
+                        menuItems.headerItems.find(x => x.id == 'love').hidden = true
+                    } else if (rating == -1) {
+                        menuItems.headerItems.find(x => x.id == 'undo_dislike').hidden = false
+                        menuItems.headerItems.find(x => x.id == 'dislike').hidden = true
+                    }
+                } catch(err) {
+                }
 
 
-                app.showMenuPanel(menuItems, event)
 
             },
             getItemParent: function (data) {
