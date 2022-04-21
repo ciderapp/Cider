@@ -2,7 +2,7 @@
 
 Some notes about Cider's i18n support.
 
-- Localization files are stored in jsonc format aka "JSON with Comments"
+- Localization files are stored in `json` format aka "JavaScript Object Notation".
 - The default language is English.
 - The default language is used for messages that are not translated.
 - Try when possible to keep the messages the similar in length to the English ones.
