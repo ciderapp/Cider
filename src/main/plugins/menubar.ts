@@ -104,8 +104,10 @@ export default class Thumbar {
                 {type: 'separator'},
                 {
                     label: 'Toggle Private Session',
+                    accelerator: 'CommandOrControl+Shift+I',
                     click: () => this._win.webContents.executeJavaScript(`app.cfg.general.privateEnabled = !app.cfg.general.privateEnabled`)
                 },
+                {type: 'separator'},
                 {
                     label: 'Web Remote',
                     accelerator: 'CommandOrControl+Shift+W',
