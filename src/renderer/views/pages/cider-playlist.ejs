@@ -145,7 +145,7 @@
             <div class="playlist-body scrollbody">
 
                 <b-tabs pills align="center" content-class="mt-3">
-                    <b-tab title="Tracks">
+                    <b-tab :title="$root.getLz('term.tracks')">
                         <div class="">
                             <div style="width:100%">
                                 <draggable :sort="data.attributes.canEdit && data.type == 'library-playlists'"
