@@ -483,6 +483,15 @@
 
                 let menuItems = {
                     items: {
+                        "addToPlaylist": {
+                            name: app.getLz('action.addToPlaylist'),
+                            "icon": "./assets/feather/list.svg",
+                            action: () => {
+                                app.selectedMediaItems = []
+                                app.select_selectMediaItem(this.data.attributes.playParams.id ?? this.data.id, this.data.attributes.playParams.kind ?? this.data.type, 0, 0, this.data.attributes.playParams.isLibrary ?? false)
+                                app.promptAddToPlaylist()
+                            }
+                        },
                         "share": {
                             name: app.getLz('term.share'),
                             icon: "./assets/feather/share.svg",
