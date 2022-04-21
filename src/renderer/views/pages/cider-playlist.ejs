@@ -9,14 +9,13 @@
         </template>
         <template v-if="app.playlists.loadingState == 1">
             <div class="playlist-display"
-                 @mouseover="minClass(false)"
                  :style="{
                 '--bgColor': (data.attributes.artwork != null && data.attributes.artwork['bgColor'] != null) ? ('#' + data.attributes.artwork.bgColor) : '',
                 '--textColor': (data.attributes.artwork != null && data.attributes.artwork['textColor1'] != null) ? ('#' + data.attributes.artwork.textColor1) : ''
             }">
                 <div class="playlistInfo">
                     <div class="row">
-                        <div class="col-auto flex-center">
+                        <div class="col-auto flex-center" @mouseover="minClass(false)">
                             <div class="mediaContainer">
                                 <mediaitem-artwork
                                         shadow="large"
@@ -29,7 +28,7 @@
                         </div>
                         <div class="col playlist-info">
                             <template v-if="!editorialNotesExpanded">
-                                <div>
+                                <div @mouseover="minClass(false)">
                                     <div class="playlist-name" @click="editPlaylistName()" v-show="!nameEditing">
                                         {{data.attributes ? (data.attributes.name ??
                                         (data.attributes.title ?? '') ?? '') : ''}}
