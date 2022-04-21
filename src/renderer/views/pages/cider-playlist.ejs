@@ -1,5 +1,6 @@
 <script type="text/x-template" id="cider-playlist">
     <div class="content-inner playlist-page" :class="classes" v-if="data != [] && data.attributes != null"
+
          :style="{'--bgColor': (data.attributes.artwork != null && data.attributes.artwork['bgColor'] != null) ? ('#' + data.attributes.artwork.bgColor) : ''}">
         <template v-if="app.playlists.loadingState == 0">
             <div class="content-inner centered">
@@ -151,9 +152,9 @@
 
                 <b-tabs pills class="track-pills pilldim" align="center" content-class="mt-3">
                     <b-tab :title="$root.getLz('term.tracks')">
-                        <div @mouseover="minClass(true)">
+                        <div @wheel="minClass(true)" @scroll="minClass(true)">
                         <div class="">
-                            <div style="width:100%">
+                            <div style="width:100%" @click="minClass(true)">
                                 <draggable :sort="data.attributes.canEdit && data.type == 'library-playlists'"
                                            v-model="data.relationships.tracks.data" @start="drag=true"
                                            @end="drag=false;put()">
@@ -217,7 +218,7 @@
                     <template v-if="typeof data.views != 'undefined'">
                         <b-tab lazy :title="data.views[view].attributes.title" v-for="view in data.meta.views.order"
                                v-if="data.views[view].data.length != 0">
-                            <div>
+                            <div >
                                 <div class="row">
                                     <div class="col">
                                         <h3>{{ data.views[view].attributes.title }}</h3>
