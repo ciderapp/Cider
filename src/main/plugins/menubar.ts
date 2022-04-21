@@ -49,6 +49,10 @@ export default class Thumbar {
                     accelerator: 'CommandOrControl+,',
                     click: () => this._win.webContents.executeJavaScript(`app.appRoute('settings')`)
                 },
+                {
+                    label: 'Disable Private Session',
+                    click: () => this._win.webContents.executeJavaScript(`app.cfg.general.privateEnabled = false`)
+                },
                 {type: 'separator'},
                 {role: 'services'},
                 {type: 'separator'},
