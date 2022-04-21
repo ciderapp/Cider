@@ -498,6 +498,11 @@
   height: 100%;
   overflow: hidden;
 
+  .mediaContainer {
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+    width: 260px;height:260px;
+  }
+
   .playlist-body {
     padding   : 32px;
     // margin-top: -75px;
@@ -553,6 +558,7 @@
     min-height: 300px;
     position  : relative;
     box-shadow: 0px 4px 6px 3px rgb(0 0 0 / 10%);
+    transition: min-height 0.5s ease-in-out;
 
     .artworkContainer {
       position          : absolute;
@@ -630,12 +636,14 @@
         }
 
         .playlist-desc {
+          transition: height .2s ease-in-out, opacity .2s ease-in-out;
           box-sizing  : border-box;
           font-size   : 14px;
           flex-shrink : unset;
           margin-right: 5px;
           max-height  : 100px;
           position    : relative;
+          height            : 4vh;
 
           .content {
             height            : 4vh;
@@ -732,6 +740,8 @@
     font-size: 0.9em;
     margin   : 6px;
     opacity  : 0.7;
+    transition: height .2s ease-in-out, opacity .2s ease-in-out;
+    height: 0.9em;
   }
 
   &.inline-playlist {
@@ -773,6 +783,35 @@
         left       : 16px;
         margin-left: 16px;
         z-index    : 7;
+      }
+    }
+  }
+
+  &.plmin {
+    .playlist-display {
+      transition: min-height 0.5s ease-in-out;
+      min-height: 200px;
+
+      .playlistInfo {
+
+      }
+
+      .mediaContainer {
+        transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+        width: 128px!important;
+        height: 128px!important;
+      }
+
+      .playlist-time {
+        transition: height .2s ease-in-out, opacity .2s ease-in-out;
+        height: 0px;
+        opacity: 0;
+      }
+
+      .playlist-desc {
+        transition: height .2s ease-in-out, opacity .2s ease-in-out;
+        height: 0px!important;
+        opacity: 0;
       }
     }
   }

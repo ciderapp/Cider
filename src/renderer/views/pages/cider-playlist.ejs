@@ -1,5 +1,6 @@
 <script type="text/x-template" id="cider-playlist">
-    <div class="content-inner playlist-page" v-if="data != [] && data.attributes != null"
+    <div class="content-inner playlist-page" :class="classes" v-if="data != [] && data.attributes != null"
+         @mouseleave="minClass(false)"
          :style="{'--bgColor': (data.attributes.artwork != null && data.attributes.artwork['bgColor'] != null) ? ('#' + data.attributes.artwork.bgColor) : ''}">
         <template v-if="app.playlists.loadingState == 0">
             <div class="content-inner centered">
@@ -8,6 +9,7 @@
         </template>
         <template v-if="app.playlists.loadingState == 1">
             <div class="playlist-display"
+                 @mouseover="minClass(false)"
                  :style="{
                 '--bgColor': (data.attributes.artwork != null && data.attributes.artwork['bgColor'] != null) ? ('#' + data.attributes.artwork.bgColor) : '',
                 '--textColor': (data.attributes.artwork != null && data.attributes.artwork['textColor1'] != null) ? ('#' + data.attributes.artwork.textColor1) : ''
@@ -15,7 +17,7 @@
                 <div class="playlistInfo">
                     <div class="row">
                         <div class="col-auto flex-center">
-                            <div style="width: 260px;height:260px;">
+                            <div class="mediaContainer">
                                 <mediaitem-artwork
                                         shadow="large"
                                         :video-priority="true"
@@ -50,11 +52,15 @@
                                         <artist-chip v-for="artist in data.relationships.artists?.data"
                                                      :item="artist"></artist-chip>
                                     </template>
-                                    <div class="playlist-desc" v-if="(data.attributes.description && (data.attributes.description.standard || data.attributes.description.short)) || (data.attributes.editorialNotes && (data.attributes.editorialNotes.standard || data.attributes.editorialNotes.short))">
-                                        <div v-if="(data.attributes.description?.short ?? data.attributes.editorialNotes?.short) != null" class="content"
-                                                v-html="data.attributes.description?.short ?? data.attributes.editorialNotes?.short" @click="openInfoModal()"></div>
-                                        <div v-else-if="(data.attributes.description?.standard ?? data.attributes.editorialNotes?.standard) != null" class="content"
-                                                v-html="data.attributes.description?.standard ?? data.attributes.editorialNotes?.standard"></div>
+                                    <div class="playlist-desc"
+                                         v-if="(data.attributes.description && (data.attributes.description.standard || data.attributes.description.short)) || (data.attributes.editorialNotes && (data.attributes.editorialNotes.standard || data.attributes.editorialNotes.short))">
+                                        <div v-if="(data.attributes.description?.short ?? data.attributes.editorialNotes?.short) != null"
+                                             class="content"
+                                             v-html="data.attributes.description?.short ?? data.attributes.editorialNotes?.short"
+                                             @click="openInfoModal()"></div>
+                                        <div v-else-if="(data.attributes.description?.standard ?? data.attributes.editorialNotes?.standard) != null"
+                                             class="content"
+                                             v-html="data.attributes.description?.standard ?? data.attributes.editorialNotes?.standard"></div>
                                         <!-- <button v-if="(data.attributes.description?.short ?? data.attributes.editorialNotes?.short ) != null" class="more-btn"
                                                 @click="editorialNotesExpanded = !editorialNotesExpanded">
                                             {{app.getLz('term.showMore')}}
@@ -146,37 +152,43 @@
 
                 <b-tabs pills align="center" content-class="mt-3">
                     <b-tab :title="$root.getLz('term.tracks')">
+                        <div @mouseover="minClass(true)">
                         <div class="">
                             <div style="width:100%">
                                 <draggable :sort="data.attributes.canEdit && data.type == 'library-playlists'"
-                                           v-model="data.relationships.tracks.data" @start="drag=true" @end="drag=false;put()">
-                                           <template v-if="nestedPlaylist == [] || nestedPlaylist.length <= 1">      
-                                            <mediaitem-list-item :item="item" :parent="getItemParent(data)" :index="index"
+                                           v-model="data.relationships.tracks.data" @start="drag=true"
+                                           @end="drag=false;put()">
+                                    <template v-if="nestedPlaylist == [] || nestedPlaylist.length <= 1">
+                                        <mediaitem-list-item :item="item" :parent="getItemParent(data)" :index="index"
+                                                             :showIndex="true"
+                                                             :showIndexPlaylist="(data.attributes.playParams.kind ?? data.type ?? '').includes('playlist')"
+                                                             :context-ext="buildContextMenu()"
+                                                             v-for="(item,index) in data.relationships.tracks.data"></mediaitem-list-item>
+                                    </template>
+                                    <template v-else>
+                                        <div v-for="disc in nestedPlaylist">
+                                            <div class="playlist-time">{{($root.getLz("term.discNumber") ??
+                                                "").replace("${discNumber}",disc.disc)}}
+                                            </div>
+                                            <mediaitem-list-item :item="item" :parent="getItemParent(data)"
+                                                                 :index="index"
                                                                  :showIndex="true"
                                                                  :showIndexPlaylist="(data.attributes.playParams.kind ?? data.type ?? '').includes('playlist')"
                                                                  :context-ext="buildContextMenu()"
-                                                                 v-for="(item,index) in data.relationships.tracks.data"></mediaitem-list-item>
-                                            </template>
-                                            <template v-else>
-                                                <div v-for="disc in nestedPlaylist">
-                                                    <div class="playlist-time">{{($root.getLz("term.discNumber") ?? "").replace("${discNumber}",disc.disc)}}</div>
-                                                    <mediaitem-list-item :item="item" :parent="getItemParent(data)" :index="index"
-                                                        :showIndex="true"
-                                                        :showIndexPlaylist="(data.attributes.playParams.kind ?? data.type ?? '').includes('playlist')"
-                                                        :context-ext="buildContextMenu()"
-                                                        v-for="(item,index) in disc.tracks"></mediaitem-list-item>   
-                                                </div>    
-            
-                                            </template>    
+                                                                 v-for="(item,index) in disc.tracks"></mediaitem-list-item>
+                                        </div>
+
+                                    </template>
                                 </draggable>
-        
+
                             </div>
-        
+
                         </div>
                         <div class="friends-info" v-if="itemBadges.length != 0">
                             <div class="well">
                                 <div class="badge-container">
-                                    <div class="socialBadge" :title="`${badge.attributes.name} - @${badge.attributes.handle}`"
+                                    <div class="socialBadge"
+                                         :title="`${badge.attributes.name} - @${badge.attributes.handle}`"
                                          v-for="badge in itemBadges">
                                         <mediaitem-artwork
                                                 :url="badge.attributes.artwork.url"
@@ -195,29 +207,31 @@
                         </div>
                         <template
                                 v-if="(data.attributes?.playParams?.kind ?? data.type ?? '').includes('album') &&  data.relationships.catalog != null && data.relationships.catalog != null && data.relationships.catalog.data.length > 0">
-                            <div class="playlist-time showExtended item-navigate" style="color:#fa586a; font-weight: bold"
+                            <div class="playlist-time showExtended item-navigate"
+                                 style="color:#fa586a; font-weight: bold"
                                  @click="app.routeView(data.relationships.catalog.data[0])">
                                 {{$root.getLz("action.showAlbum")}}
                             </div>
                         </template>
-                        <hr>
+                        </div>
                     </b-tab>
                     <template v-if="typeof data.views != 'undefined'">
-                    <b-tab lazy :title="data.views[view].attributes.title" v-for="view in data.meta.views.order" v-if="data.views[view].data.length != 0">
-                        <div>
-                            <div class="row">
-                            <div class="col">
-                                <h3>{{ data.views[view].attributes.title }}</h3>
+                        <b-tab lazy :title="data.views[view].attributes.title" v-for="view in data.meta.views.order"
+                               v-if="data.views[view].data.length != 0">
+                            <div>
+                                <div class="row">
+                                    <div class="col">
+                                        <h3>{{ data.views[view].attributes.title }}</h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <mediaitem-scroller-horizontal
+                                                :items="data.views[view].data"></mediaitem-scroller-horizontal>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <mediaitem-scroller-horizontal
-                                        :items="data.views[view].data"></mediaitem-scroller-horizontal>
-                            </div>
-                        </div>
-                            </div>
-                    </b-tab>
+                        </b-tab>
                     </template>
 
                 </b-tabs>
@@ -245,6 +259,7 @@
                 headerVisible: true,
                 useArtistChip: false,
                 nestedPlaylist: [],
+                classes: [],
             }
         },
         mounted: function () {
@@ -261,6 +276,13 @@
             }
         },
         methods: {
+            minClass(val) {
+                if (val) {
+                    this.classes = ["plmin"]
+                } else {
+                    this.classes = []
+                }
+            },
             openInfoModal() {
                 app.moreinfodata = [];
                 app.moreinfodata = {
@@ -276,11 +298,13 @@
                 if (this.data?.type?.includes("album")) {
                     console.log(this.data.relationships.tracks.data)
                     let songlists = this.data.relationships.tracks.data;
-                    let discs = songlists.map(x => { return x.attributes.discNumber }).filter((item, i, ar) => ar.indexOf(item) === i);
+                    let discs = songlists.map(x => {
+                        return x.attributes.discNumber
+                    }).filter((item, i, ar) => ar.indexOf(item) === i);
                     if (discs && discs.length > 1) {
                         for (disc of discs) {
                             let songs = songlists.filter(x => x.attributes.discNumber == disc);
-                            this.nestedPlaylist.push({ disc: disc, tracks: songs })
+                            this.nestedPlaylist.push({disc: disc, tracks: songs})
                         }
                     }
                     console.log(this.nestedPlaylist)
@@ -371,7 +395,7 @@
                 this.confirm = false
             },
             async removeFromLibrary(id) {
-                const params = { "fields[songs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library" };
+                const params = {"fields[songs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library"};
                 var id = this.data.id ?? this.data.attributes.playParams.id
                 const res = await app.mkapi(this.data.attributes.playParams.kind ?? this.data.type, this.data.attributes.playParams.isLibrary ?? false, this.data.attributes.playParams.id ?? this.data.id, params);
                 if (res.data.data[0] && res.data.data[0].relationships && res.data.data[0].relationships.library && res.data.data[0].relationships.library.data && res.data.data[0].relationships.library.data.length > 0) {
@@ -594,7 +618,7 @@
                     menuItems.items.follow.hidden = true
                     menuItems.items.unfollow.hidden = true
                 }
-                try{
+                try {
                     let rating = await app.getRating(self.data)
                     if (rating == 0) {
                         menuItems.headerItems.find(x => x.id == 'love').disabled = false
@@ -606,9 +630,8 @@
                         menuItems.headerItems.find(x => x.id == 'undo_dislike').hidden = false
                         menuItems.headerItems.find(x => x.id == 'dislike').hidden = true
                     }
-                } catch(err) {
+                } catch (err) {
                 }
-
 
 
             },
@@ -680,7 +703,7 @@
 
                 let query = (this.data ?? app.showingPlaylist).relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
                 app.mk.stop().then(function () {
-                    app.mk.setQueue({ [truekind]: [id], parameters: { l: app.mklang } }).then(function () {
+                    app.mk.setQueue({[truekind]: [id], parameters: {l: app.mklang}}).then(function () {
                         app.mk.play().then(function () {
                             if (query.length > 100) {
                                 let u = query.slice(100);
