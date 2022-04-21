@@ -29,7 +29,6 @@ How it is implemented for English:
 ```
 
 
-
 ## Localization Notices
 
 Several changes have been made to configuration options and will be listed below with the relevant locales that have
@@ -190,18 +189,22 @@ Update 28/02/2022 13:00 UTC
 * `term.time.day`: Added for `en_US`
 
 Update 10/03/2022 14:00 UTC
+
 * `settings.header.window`: Added for `en_US`
 * `settings.header.window.description`: Added for `en_US`
 * `settings.option.window.openOnStartup`: Added for `en_US`
 * `settings.option.window.openOnStartup.hidden`: Added for `en_US`
 
 Update 20/03/2022 00:01 UTC
+
 * `term.creditDesignedBy`: Added for `en_US`
 
 Update 29/03/2022 04:00 UTC
+
 * `settings.option.audio.enableAdvancedFunctionality.ciderPPE.description`: Changed for `en_US` (Deleted for all language files)
 
-Update 06/04/2022 08:30 UTC 
+Update 06/04/2022 08:30 UTC
+
 * `settings.option.general.customizeSidebar`: Added for `en_US`
 * `settings.option.general.customizeSidebar.customize`: Added for `en_US`
 * `settings.option.window.useNativeTitleBar`: Added for `en_US`
@@ -247,6 +250,7 @@ Update 09/04/2022 13:45 UTC
 * `action.tray.show`: Changed for `en_US` (Deleted for all language files)
 
 Update 14/04/2022 14:30 UTC
+
 * `term.variables`: Added for `en_US`
 * `settings.option.connectivity.discordRPC.clientName`: Added for `en_US`
 * `settings.option.connectivity.discordRPC.detailsFormat`: Added for `en_US`
