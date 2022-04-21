@@ -1,6 +1,5 @@
 <script type="text/x-template" id="cider-playlist">
     <div class="content-inner playlist-page" :class="classes" v-if="data != [] && data.attributes != null"
-         @mouseleave="minClass(false)"
          :style="{'--bgColor': (data.attributes.artwork != null && data.attributes.artwork['bgColor'] != null) ? ('#' + data.attributes.artwork.bgColor) : ''}">
         <template v-if="app.playlists.loadingState == 0">
             <div class="content-inner centered">
@@ -9,6 +8,7 @@
         </template>
         <template v-if="app.playlists.loadingState == 1">
             <div class="playlist-display"
+                 @mouseover.self="minClass(false)"
                  :style="{
                 '--bgColor': (data.attributes.artwork != null && data.attributes.artwork['bgColor'] != null) ? ('#' + data.attributes.artwork.bgColor) : '',
                 '--textColor': (data.attributes.artwork != null && data.attributes.artwork['textColor1'] != null) ? ('#' + data.attributes.artwork.textColor1) : ''
@@ -28,12 +28,12 @@
                         </div>
                         <div class="col playlist-info">
                             <template v-if="!editorialNotesExpanded">
-                                <div @mouseover="minClass(false)">
-                                    <div class="playlist-name" @click="editPlaylistName()" v-show="!nameEditing">
+                                <div>
+                                    <div class="playlist-name" @mouseover="minClass(false)" @click="editPlaylistName()" v-show="!nameEditing">
                                         {{data.attributes ? (data.attributes.name ??
                                         (data.attributes.title ?? '') ?? '') : ''}}
                                     </div>
-                                    <div class="playlist-name" v-show="nameEditing"><input type="text"
+                                    <div class="playlist-name" @mouseover="minClass(false)" v-show="nameEditing"><input type="text"
                                                                                            spellcheck="false"
                                                                                            class="nameEdit"
                                                                                            v-model="data.attributes.name"
