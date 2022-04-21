@@ -134,6 +134,7 @@
                             </div>
                             <b-modal id="modal-2" centered  size="lg" v-title="$root.getLz('settings.option.general.keybindings')">
                                 <div class="settings-option-body">
+                                    <!-- TODO: Use getCommandOrControl function result -->
                                     <div class="md-option-line">
                                         <div class="md-option-segment">
                                             Web Remote
@@ -1178,6 +1179,9 @@
             }
         },
         methods: {
+            getCommandOrControl() {
+                return app.cfg.os == "darwin" ? "⌘" : "Ctrl";
+            },
             windowBgStyleChange() {
                 this.$root.getNowPlayingArtworkBG(undefined, true)
                 if (this.$root.cfg.visual.window_background_style == "mica") {
