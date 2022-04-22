@@ -85,7 +85,7 @@ export class Store {
                     'Q': [2.5, 0.388, 5, 5, 2.5, 7.071, 14.14, 10, 7.071, 14.14, 8.409, 0.372, 7.071, 10, 16.82, 7.071, 28.28, 20, 8.409, 40, 40],
                     'gain': [-0.34, 2.49, 0.23, -0.49, 0.23, -0.12, 0.32, -0.29, 0.33, 0.19, -0.18, -1.27, -0.11, 0.25, -0.18, -0.53, 0.34, 1.32, 1.78, 0.41, -0.28]
                 }
-            },         
+            },
             "spatial": false,
             "spatial_properties": {
                 "presets": [],
@@ -109,8 +109,8 @@ export class Store {
             "equalizer": {
                 'preset': "default",
                 'frequencies': [32, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000],
-                'gain': [0,0,0,0,0,0,0,0,0,0],
-                'Q': [1,1,1,1,1,1,1,1,1,1],
+                'gain': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                'Q': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
                 'mix': 1,
                 'vibrantBass': 0,
                 'presets': [],
@@ -155,14 +155,21 @@ export class Store {
             "AudioContext": false,
             "experiments": [],
             "playlistTrackMapping": true
-        }
+        },
+        "connectUser": {
+            "auth": null,
+        },
     }
     private migrations: any = {
         '>=1.4.3': (store: ElectronStore) => {
-            if (typeof(store.get('general.discord_rpc')) == 'number' || typeof(store.get('general.discord_rpc')) == 'string') {
+            if (typeof store.get('general.discord_rpc') == 'number' || typeof store.get('general.discord_rpc') == 'string') {
                 store.delete('general.discord_rpc');
-                store.set('general.discord_rpc', this.defaults.general.discord_rpc)
             }
+        },
+    }
+    private schema: ElectronStore.Schema<any> = {
+        "general.discord_rpc": {
+            type: 'object'
         },
     }
 
@@ -170,6 +177,7 @@ export class Store {
         Store.cfg = new ElectronStore({
             name: 'cider-config',
             defaults: this.defaults,
+            schema: this.schema,
             migrations: this.migrations,
             clearInvalidConfig: true
         });

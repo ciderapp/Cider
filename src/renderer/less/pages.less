@@ -493,10 +493,51 @@
   //background: linear-gradient(180deg, var(--bgColor) 32px, var(--bgColor) 18px, transparent 60px, transparent 100%);
   top         : 0;
   padding-top : var(--navigationBarHeight);
+  display:flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+
+  .mediaContainer {
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+    width: 260px;height:260px;
+  }
 
   .playlist-body {
-    padding   : var(--contentInnerPadding) 2em;
-    margin-top: -75px;
+    padding   : 32px;
+    // margin-top: -75px;
+    overflow-y:overlay;
+    height:100%;
+    padding:0px;
+    background-color: var(--color1);
+
+    &.scrollbody {
+      .tabs {
+        display: flex;
+        flex-flow: column;
+        height: 100%;
+
+        .nav-link {
+          text-transform:capitalize;
+        }
+
+        .tab-content {
+          height: 100%;
+          overflow: hidden;
+          margin:0px;
+          .tab-pane {
+            height: 100%;
+            overflow-y: overlay;
+            overflow-x:hidden;
+            padding: var(--contentInnerPadding);
+            -webkit-mask-image: linear-gradient(180deg, transparent, white 20px);
+            .well {
+              margin:0px;
+            }
+          }
+        }
+      }
+    }
   }
 
   .floating-header {
@@ -510,12 +551,15 @@
     background     : rgba(0, 0, 0, 0.25);
     top            : var(--navigationBarHeight);
     transition     : opacity 0.1s var(--appleEase);
+    display: none;
   }
 
   .playlist-display {
     padding   : var(--contentInnerPadding);
     min-height: 300px;
     position  : relative;
+    box-shadow: 0px 4px 6px 3px rgb(0 0 0 / 10%);
+    transition: min-height 0.5s ease-in-out;
 
     .artworkContainer {
       position          : absolute;
@@ -593,12 +637,14 @@
         }
 
         .playlist-desc {
+          transition: height .2s ease-in-out, opacity .2s ease-in-out;
           box-sizing  : border-box;
           font-size   : 14px;
           flex-shrink : unset;
           margin-right: 5px;
           max-height  : 100px;
           position    : relative;
+          height            : 4vh;
 
           .content {
             height            : 4vh;
@@ -695,6 +741,8 @@
     font-size: 0.9em;
     margin   : 6px;
     opacity  : 0.7;
+    transition: height .2s ease-in-out, opacity .2s ease-in-out;
+    height: 0.9em;
   }
 
   &.inline-playlist {
@@ -736,6 +784,43 @@
         left       : 16px;
         margin-left: 16px;
         z-index    : 7;
+      }
+    }
+  }
+
+  .pilldim {
+    .nav-pills {
+      width: max-content;
+      margin: 0 auto;
+      margin-top: 16px;
+    }
+  }
+
+  &.plmin {
+    .playlist-display {
+      transition: min-height 0.5s ease-in-out;
+      min-height: 200px;
+
+      .playlistInfo {
+
+      }
+
+      .mediaContainer {
+        transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+        width: 128px!important;
+        height: 128px!important;
+      }
+
+      .playlist-time {
+        transition: height .2s ease-in-out, opacity .2s ease-in-out;
+        height: 0px;
+        opacity: 0;
+      }
+
+      .playlist-desc {
+        transition: height .2s ease-in-out, opacity .2s ease-in-out;
+        height: 0px!important;
+        opacity: 0;
       }
     }
   }
@@ -1064,6 +1149,10 @@
     font-size    : 2em;
   }
 
+  .settings-option-body-webview {
+    height: 100%;
+    width: 100%;
+  }
   .settings-option-body {
     margin: 16px;
   }
