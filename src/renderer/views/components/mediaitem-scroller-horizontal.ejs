@@ -1,5 +1,5 @@
 <script type="text/x-template" id="mediaitem-scroller-horizontal">
-    <vue-horizontal>
+    <vue-horizontal ref="horizontal">
         <slot></slot>
         <mediaitem-square :key="item?.id ?? ''" :kind="kind" :item="item" v-for="item in items"></mediaitem-square>
     </vue-horizontal>
@@ -23,6 +23,9 @@
             return {
                 app: this.$root,
             }
+        },
+        mounted() {
+            // this.$refs.horizontal.refresh()
         },
         methods: {}
     });

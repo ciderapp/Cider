@@ -137,9 +137,19 @@ export default class DiscordRPC {
             }
         })
 
-        // Checks if the name is greater than 128 because some songs can be that long
-        if (activity.details && activity.details.length > 128) {
+        // Checks if the details is greater than 128 because some songs can be that long
+        if (activity.details && activity.details.length >= 128) {
             activity.details = activity.details.substring(0, 125) + '...'
+        }
+
+        // Checks if the state is greater than 128 because some songs can be that long
+        if (activity.state && activity.state.length >= 128) {
+            activity.state = activity.state.substring(0, 125) + '...'
+        }
+
+        // Checks if the state is greater than 128 because some songs can be that long
+        if (activity.largeImageText && activity.largeImageText.length >= 128) {
+            activity.largeImageText = activity.largeImageText.substring(0, 125) + '...'
         }
 
         // Check large image
@@ -179,7 +189,7 @@ export default class DiscordRPC {
         // Set the activity
         if (!this._attributes.status && this._utils.getStoreValue("general.discord_rpc.clear_on_pause")) {
             this._client.clearActivity()
-        } else {
+        } else if (this._activity && this._activityCache !== this._activity && this._activity.details) {
             this._client.setActivity(activity)
             this._activityCache = this._activity;
         }

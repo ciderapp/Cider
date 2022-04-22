@@ -981,7 +981,7 @@
                                 {{$root.getLz('settings.option.experimental.inline_playlists')}}
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
-                                <input type="checkbox" v-model="app.cfg.advanced.experiments.includes('inline-playlists')" @click="app.cfg.advanced.experiments.includes('inline-playlists') ? removeExperiment('inline-playlists') : addExperiment('inline-playlists')" switch/>
+                                <input type="checkbox" disabled v-model="app.cfg.advanced.experiments.includes('inline-playlists')" @click="app.cfg.advanced.experiments.includes('inline-playlists') ? removeExperiment('inline-playlists') : addExperiment('inline-playlists')" switch/>
                             </div>
                         </div>
 
@@ -1044,8 +1044,8 @@
                     <div class="md-option-header">
                         <span>{{$root.getLz('settings.header.connect')}}</span>
                     </div>
-                    <div class="settings-option-body">
-                        <div class="md-option-line update-check">
+                    <div class="settings-option-body-webview">
+                        <div class="md-option-line update-check" v-if="app.cfg.connectUser == null">
                             <div class="md-option-segment">
                                 {{$root.getLz('settings.option.connect.link_account')}}
                                 <small>{{$root.getLz('settings.option.connect.link_account.description')}}</small>
@@ -1058,9 +1058,11 @@
                                 </button>
                             </div>
                         </div>
+                        <div v-if="app.cfg.connectUser != null" style="display:inline-flex; width:100%;height: 100%">
+                                <iframe :src="`https://connect.cidercollective.dev/setSession/` + encodeURI(JSON.stringify(app.cfg.connectUser))" sandbox="allow-scripts allow-top-navigation allow-same-origin" width="100%" height="100%" frameborder="0"></iframe>
+                        </div>
                     </div>
                 </div>
-            </div>
             </b-tab>
         </b-tabs>
     </div>

@@ -50,12 +50,13 @@ app.on('ready', () => {
         })
 
         console.log('[Cider][Widevine] Status:', components.status());
-        win.show();
+        
         
         win.on("ready-to-show", () => {
             Cider.bwCreated();
             console.debug('[Cider] Window is Ready.')
             CiderPlug.callPlugins('onReady', win);
+            win.show();
         });
     });
 
