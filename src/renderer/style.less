@@ -1228,6 +1228,18 @@ body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls > div.cl
     margin-bottom: 15px;
   }
 }
+// Add Music Video Icons to Songs that are Music Videos
+div[data-type="library-music-videos"] .info-rect .title::before,
+div[data-type="musicVideo"] .info-rect .title::before {
+    content: "";
+    background-image: url(./assets/feather/video.svg);
+    background-size: contain;
+    filter:invert(0.6);
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-bottom: -4px;
+}
 
 .app-chrome .app-chrome-item > .app-playback-controls .song-duration p {
   font-weight: 400;
