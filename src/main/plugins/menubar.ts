@@ -215,7 +215,7 @@ export default class Thumbar {
                 {type: 'separator'},
                 {
                     label: 'Toggle Developer Tools',
-                    accelerator: 'Option+CommandOrControl+Shift+P',
+                    accelerator: 'Option+CommandOrControl+Shift+I',
                     click: () => this._win.webContents.openDevTools()
                 },
                 {
