@@ -137,10 +137,18 @@
                                     <!-- TODO: Use getCommandOrControl function result -->
                                     <div class="md-option-line">
                                         <div class="md-option-segment">
+                                            Toggle Private Session
+                                        </div>
+                                        <div class="md-option-segment md-option-segment_auto keybindings-border">
+                                            <p class="keybinding-text">{{ getCommandOrControl() }} + P</p>
+                                        </div>
+                                    </div>
+                                    <div class="md-option-line">
+                                        <div class="md-option-segment">
                                             Web Remote
                                         </div>
                                         <div class="md-option-segment md-option-segment_auto keybindings-border">
-                                            <p class="keybinding-text">CTRL + Shift + W</p>
+                                            <p class="keybinding-text">{{ getCommandOrControl() }} + Shift + W</p>
                                         </div>
                                     </div>
                                     <div class="md-option-line">
@@ -148,7 +156,7 @@
                                             Audio Settings
                                         </div>
                                         <div class="md-option-segment md-option-segment_auto keybindings-border">
-                                            <p class="keybinding-text">CTRL + Shift + A</p>
+                                            <p class="keybinding-text">{{ getCommandOrControl() }} + Shift + A</p>
                                         </div>
                                     </div>
                                     <div class="md-option-line">
@@ -156,7 +164,7 @@
                                             Plugin Menu
                                         </div>
                                         <div class="md-option-segment md-option-segment_auto keybindings-border">
-                                            <p class="keybinding-text">CTRL + Shift + P</p>
+                                            <p class="keybinding-text">{{ getCommandOrControl() }} + Shift + P</p>
                                         </div>
                                     </div>
                                     <div class="md-option-line">
@@ -164,7 +172,7 @@
                                             Cast to Devices
                                         </div>
                                         <div class="md-option-segment md-option-segment_auto keybindings-border">
-                                            <p class="keybinding-text">CTRL + Shift + C</p>
+                                            <p class="keybinding-text">{{ getCommandOrControl() }} + Shift + C</p>
                                         </div>
                                     </div>
                                     <div class="md-option-line">
@@ -172,7 +180,7 @@
                                             Open Developer Tools
                                         </div>
                                         <div class="md-option-segment md-option-segment_auto keybindings-border">
-                                            <p class="keybinding-text">CTRL + Shift + I</p>
+                                            <p class="keybinding-text">{{ getCommandOrControl() }} + Shift + I</p>
                                         </div>
                                     </div>
                                 </div>
@@ -1180,7 +1188,7 @@
         },
         methods: {
             getCommandOrControl() {
-                return app.cfg.os == "darwin" ? "⌘" : "Ctrl";
+                return app.platform == "darwin" ? "⌘" : "Ctrl";
             },
             windowBgStyleChange() {
                 this.$root.getNowPlayingArtworkBG(undefined, true)
