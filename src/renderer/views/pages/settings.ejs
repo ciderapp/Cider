@@ -132,9 +132,8 @@
                                     {{$root.getLz('settings.option.general.keybindings.open')}}
                                 </button>
                             </div>
-                            <b-modal id="modal-2" centered  size="lg" v-title="$root.getLz('settings.option.general.keybindings')">
+                            <b-modal id="modal-2" centered  size="lg" v-title="$root.getLz('settings.option.general.keybindings')" ok-only>
                                 <div class="settings-option-body">
-                                    <!-- TODO: Use getCommandOrControl function result -->
                                     <div class="md-option-line">
                                         <div class="md-option-segment">
                                             Toggle Private Session
