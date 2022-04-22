@@ -37,7 +37,7 @@
         <div class="md-option-container" style="margin-top: 12px;margin-bottom: 12px;">
             <div class="md-option-line">
                 <div class="md-option-segment">
-                    {{$root.cfg.advanced.ffmpegLocation != "" ? 'Homepods only for now!' : 'Please add FFmpeg location in Settings -> Advanced'}}
+                    {{$root.cfg.advanced.ffmpegLocation != "" ? 'Homepods only for now! (NO PASSWORD PLEASE!)' : 'Please add FFmpeg location in Settings -> Advanced'}}
                     <!-- {{$root.getLz('action.cast.airplay.underdevelopment')}} -->
                     <template v-if="$root.cfg.advanced.ffmpegLocation != ''" v-for="(device) in devices.airplay">
                         <div class="md-option-line" style="cursor: pointer" @click="setAirPlayCast(device)">
