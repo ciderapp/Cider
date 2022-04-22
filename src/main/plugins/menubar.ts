@@ -121,7 +121,7 @@ export default class Thumbar {
                 },
                 {
                     label: 'Plug-in Menu',
-                    accelerator: 'CommandOrControl+Shift+P',
+                    accelerator: 'CommandOrControl+P',
                     click: () => this._win.webContents.executeJavaScript(`app.modals.pluginMenu = true`)
                 }
 
@@ -215,7 +215,7 @@ export default class Thumbar {
                 {type: 'separator'},
                 {
                     label: 'Toggle Developer Tools',
-                    accelerator: 'Option+CommandOrControl+I',
+                    accelerator: 'Option+CommandOrControl+Shift+P',
                     click: () => this._win.webContents.openDevTools()
                 },
                 {
