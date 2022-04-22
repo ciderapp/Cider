@@ -258,3 +258,7 @@ Update 16/04/2022 9:30 UTC
 
 * `settings.header.connect`: Added for `en_US`
 
+Update 22/04/2022 14:30 UTC
+
+* `settings.option.visual.theme.github.openfolder`: Added for `en_US`
+
