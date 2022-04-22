@@ -179,7 +179,7 @@
                                             Open Developer Tools
                                         </div>
                                         <div class="md-option-segment md-option-segment_auto keybindings-border">
-                                            <p class="keybinding-text">{{ getCommandOrControl() }} + Shift + I</p>
+                                            <p class="keybinding-text">{{ getCommandOrControl() }} + {{ getOptionOrShift() }} + I</p>
                                         </div>
                                     </div>
                                 </div>
@@ -1190,6 +1190,9 @@
         methods: {
             getCommandOrControl() {
                 return app.platform == "darwin" ? "⌘" : "Ctrl";
+            },
+            getOptionOrShift() {
+                return app.platform == "darwin" ? "⌥" : "Shift";
             },
             windowBgStyleChange() {
                 this.$root.getNowPlayingArtworkBG(undefined, true)
