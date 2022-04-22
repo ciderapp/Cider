@@ -279,6 +279,8 @@
   "settings.option.general.updateCider.branch.develop": "Development",
   "settings.option.general.customizeSidebar": "Customize Sidebar Items",
   "settings.option.general.customizeSidebar.customize": "Customize",
+  "settings.option.general.keybindings": "Keybindings",
+  "settings.option.general.keybindings.open": "Open",
   "settings.notyf.updateCider.update-not-available": "No update available",
   "settings.notyf.updateCider.update-downloaded": "Update has been downloaded, restart to apply",
   "settings.notyf.updateCider.update-error": "Error updating Cider",

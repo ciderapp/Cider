@@ -279,6 +279,8 @@
   "settings.option.general.updateCider.branch.develop": "Fejlesztői",
   "settings.option.general.customizeSidebar": "Oldalsáv elemeinek testreszabása",
   "settings.option.general.customizeSidebar.customize": "Testreszabás",
+  "settings.option.general.keybindings": "Billentyűparancsok",
+  "settings.option.general.keybindings.open": "Megnyitás",
   "settings.notyf.updateCider.update-not-available": "Nem található frissítés",
   "settings.notyf.updateCider.update-downloaded": "A frissítés le lett töltve, a telepítéshez indítsa újra az alkalmazást",
   "settings.notyf.updateCider.update-error": "Hiba történt a frissítés közben",

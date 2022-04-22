@@ -262,3 +262,8 @@ Update 16/04/2022 9:30 UTC
 
 * `settings.header.connect`: Added for `en_US`
 
+Update 22/04/2022 13:00 UTC
+
+* `settings.option.general.keybindings`: Added for `en_US`
+* `settings.option.general.keybindings.open`: Added for `en_US`
+
