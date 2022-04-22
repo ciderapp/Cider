@@ -155,7 +155,10 @@ export class Store {
             "AudioContext": false,
             "experiments": [],
             "playlistTrackMapping": true
-        }
+        },
+        "connectUser": {
+            "auth": null,
+        },
     }
     private migrations: any = {
         '>=1.4.3': (store: ElectronStore) => {
