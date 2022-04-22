@@ -49,6 +49,10 @@ const Events = {
             // CTRL + B
             if (event.keyCode === 66 && event.ctrlKey) {
                 app.appRoute("browse")
+            }
+            // CTRL + D
+            if (event.keyCode === 68 && event.ctrlKey) {
+                app.appRoute("library-artists")
             }            
             // CTRL + E
             if (event.keyCode === 69 && event.ctrlKey) {
