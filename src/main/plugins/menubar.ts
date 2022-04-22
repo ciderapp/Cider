@@ -121,7 +121,7 @@ export default class Thumbar {
                 },
                 {
                     label: 'Plug-in Menu',
-                    accelerator: 'CommandOrControl++Shift+P',
+                    accelerator: 'CommandOrControl+Shift+P',
                     click: () => this._win.webContents.executeJavaScript(`app.modals.pluginMenu = true`)
                 }
 
