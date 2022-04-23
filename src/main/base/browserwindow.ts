@@ -1203,6 +1203,13 @@ export class BrowserWindow {
         ipcMain.on('cc-auth', (_event) => {
             shell.openExternal(String(utils.getStoreValue('cc_authURL')));
         });
+
+        ipcMain.on('cc-logout', (_event) => {
+            utils.setStoreValue('connectUser', {
+                auth: null
+            });
+            utils.getWindow().reload();
+        });
         /* *********************************************************************************************
          * Window Events
          * **********************************************************************************************/
