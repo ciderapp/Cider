@@ -290,5 +290,5 @@ let screenHeight = screen.height;
 
 window.onerror = function (error) {
     console.log(error)
-    bootbox.alert("Error occured: " + error)
+    bootbox.alert("Error occurred: " + error)
 };
