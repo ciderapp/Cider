@@ -154,7 +154,8 @@ export class Store {
         "advanced": {
             "AudioContext": false,
             "experiments": [],
-            "playlistTrackMapping": true
+            "playlistTrackMapping": true,
+            "ffmpegLocation": ""
         },
         "connectUser": {
             "auth": null,
