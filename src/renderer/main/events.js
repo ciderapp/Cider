@@ -67,6 +67,12 @@ const Events = {
                 } catch (e) {
                 }
             }
+            // Prevent Scrolling on spacebar
+            if (event.keyCode === 32 && event.target === document.body) {
+                event.preventDefault()
+                app.SpacePause()  
+                
+            }
         });
 
         // Hang Timer
