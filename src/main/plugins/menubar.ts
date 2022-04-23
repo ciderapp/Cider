@@ -112,7 +112,7 @@ export default class Thumbar {
                     label: 'Web Remote',
                     accelerator: 'CommandOrControl+Shift+W',
                     sublabel: 'Opens in external window',
-                    click: () => this._win.webContents.executeJavaScript(`ipcRenderer.invoke('showQR')`)
+                    click: () => this._win.webContents.executeJavaScript(`app.appRoute('remote-pair')`)
                 },
                 {
                     label: 'Audio Settings',
