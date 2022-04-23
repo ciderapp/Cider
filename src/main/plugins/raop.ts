@@ -170,6 +170,7 @@ export default class RAOP {
                 this.device.on('status', (status: any) => {
                     console.log('device status', status);
                     if (status == "ready"){
+                        this._win.webContents.setAudioMuted(true);
                         this._win.webContents.executeJavaScript(`CiderAudio.sendAudio()`).catch((err: any) => console.error(err));
                     }
                     if (status == 'stopped') {
@@ -256,6 +257,7 @@ export default class RAOP {
 
 
         electron.ipcMain.on('disconnectAirplay', (event) => {
+            this._win.webContents.setAudioMuted(false);
             this.airtunes.stopAll(function () {
                 console.log('end');
             });
