@@ -6,6 +6,8 @@ import * as CiderReceiver from '../base/castreceiver';
 import fetch from 'electron-fetch';
 import {Stream} from "stream";
 import {spawn} from 'child_process';
+import {Worker} from 'worker_threads';
+import { Blob } from 'buffer'; 
 
 
 export default class RAOP {
@@ -31,6 +33,60 @@ export default class RAOP {
     private i: any = false;
     private audioStream: any = new Stream.PassThrough();
     private ffmpeg: any = null;
+    private worker: any = null;
+    
+
+    private processNode = `
+    import {parentPort, workerData} from "worker_threads";
+    function getAudioConv (buffers) {
+        
+        function interleave16(leftChannel, rightChannel) {
+            var length = leftChannel.length + rightChannel.length;
+            var result = new Int16Array(length);
+
+            var inputIndex = 0;
+
+            for (var index = 0; index < length;) {
+                result[index++] = leftChannel[inputIndex];
+                result[index++] = rightChannel[inputIndex];
+                inputIndex++;
+            }
+            return result;
+        }
+
+
+
+        function convert(n) {
+            var v = n < 0 ? n * 32768 : n * 32767;       // convert in range [-32768, 32767]
+            return Math.max(-32768, Math.min(32768, v)); // clamp
+        }
+
+        function bitratechange(e) {
+            var t = e.length;
+            let sampleRate = 96.0;
+            let outputSampleRate = 44.1;
+            var s = 0,
+                o = sampleRate / outputSampleRate,
+                u = Math.ceil(t * outputSampleRate / sampleRate),
+                a = new Int16Array(u);
+            for (let i = 0; i < u; i++) {
+                a[i] = e[Math.floor(s)];
+                s += o;
+            }
+
+            return a;
+        }
+
+        let newaudio = buffers;
+
+        let pcmData = new Int8Array(interleave16(bitratechange(Int16Array.from(newaudio[0], x => convert(x))), bitratechange(Int16Array.from(newaudio[1], x => convert(x)))).buffer);
+        return pcmData;
+    }
+    parentPort.on("message", data => {
+        parentPort.postMessage({buffer: data.buffer, outbuffer: getAudioConv(data.buffer)});
+    });
+
+`;
 
     private ondeviceup(name: any, host: any, port: any, addresses: any) {
         if (this.castDevices.findIndex((item: any) => item.name === host && item.port === port && item.addresses === addresses) === -1) {
@@ -148,25 +204,52 @@ export default class RAOP {
 
         });
 
-        electron.ipcMain.on('writeWAV', (event) => {
+        electron.ipcMain.on('writeWAV', (event, leftbuffer, rightbuffer) => {
             if (this.airtunes != null) {
-                if (!this.i){
-                this.ffmpeg != null ? this.ffmpeg.kill() : null;
-                this.ffmpeg = spawn(this._utils.getStoreValue("advanced.ffmpegLocation"), [
-                    '-f', 's16le',        // PCM 16bits, little-endian
-                    '-ar', '48000', 
-                    '-ac', "2",  
-                    '-i', "http://localhost:9000/audio.wav",
-                    '-acodec', 'pcm_s16le',
-                    '-f', 's16le',        // PCM 16bits, little-endian
-                    '-ar', '44100',       // Sampling rate
-                    '-ac', "2",             // Stereo
-                    'pipe:1'              // Output on stdout
-                  ]);
+                if (this.worker == null) {
+                try{
+                const toDataUrl = (js: any) => new URL(`data:text/javascript,${encodeURIComponent(js)}`);
+                // let blob = new Blob([this.processNode], { type: 'application/javascript' });
+                //Create new worker
+                this.worker = new Worker(toDataUrl(this.processNode));
+
+                //Listen for a message from worker
+                this.worker.on("message", (result: any) => {
+                // fs.writeFile(join(electron.app.getPath('userData'), 'buffer.raw'), Buffer.from(Int8Array.from(result.outbuffer)),{flag: 'a+'}, function (err) {
+                //     if (err) throw err;
+                //     console.log('It\'s saved!');
+                // });
+                this.airtunes.circularBuffer.write(Buffer.from(Int8Array.from(result.outbuffer)));
+                });
+
+                this.worker.on("error", (error: any) => {
+                    console.log("bruh",error); 
+                });
+                this.worker.postMessage({buffer: [leftbuffer, rightbuffer]});   
+                } catch (e){console.log(e)}
                 
-                  // pipe data to AirTunes
-                this.ffmpeg.stdout.pipe(this.airtunes);
-                this.i = true;}}
+
+                // this.ffmpeg != null ? this.ffmpeg.kill() : null;
+                // this.ffmpeg = spawn(this._utils.getStoreValue("advanced.ffmpegLocation"), [
+                //     '-f', 's16le',        // PCM 16bits, little-endian
+                //     '-ar', '48000', 
+                //     '-ac', "2",  
+                //     '-err_detect','ignore_err',
+                //     '-i', "http://localhost:9000/audio.wav",
+                //     '-acodec', 'pcm_s16le',
+                //     '-f', 's16le',        // PCM 16bits, little-endian
+                //     '-ar', '44100',       // Sampling rate
+                //     '-ac', "2",             // Stereo
+                //     'pipe:1'              // Output on stdout
+                //   ]);
+                
+                //   // pipe data to AirTunes
+                // this.ffmpeg.stdout.pipe(this.airtunes);
+                // this.i = true;
+                } else {
+                 this.worker.postMessage({buffer: [leftbuffer, rightbuffer]});
+                }
+            }
 
         });
         
