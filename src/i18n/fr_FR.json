@@ -194,7 +194,7 @@
   "action.showAlbum": "Afficher l'album complet",
   "action.tray.minimize": "Réduire dans la barre d'outils",
   "action.tray.quit": "Quitter",
-
+  "action.tray.show": "Afficher",
   "action.update": "Mettre à jour",
   "action.copy": "Copier",
   "action.newpreset": "Nouveau préréglage...",

@@ -43,9 +43,7 @@ export default class ChromecastPlugin {
 
             browser.on('update', (service: any) => {
                 if (service.addresses && service.fullname && service.fullname.includes('_googlecast._tcp')) {
-                    let a = service.txt.filter((u: any) => String(u).startsWith('fn='))
-                    let name = (((a[0] ?? "").substring(3)) != "") ? ((a[0] ?? "").substring(3)) : (service.fullname.substring(0, service.fullname.indexOf("._googlecast")) )
-                    this.ondeviceup(service.addresses[0], name+ " (" + (service.type[0]?.description ?? "") + ")" , '', 'googlecast');
+                    this.ondeviceup(service.addresses[0], service.fullname.substring(0, service.fullname.indexOf("._googlecast")) + " " + (service.type[0].description ?? ""), '', 'googlecast');
                 }
             });
             const Client = require('node-ssdp').Client;

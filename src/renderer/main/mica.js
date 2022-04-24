@@ -1,9 +1,7 @@
-import { CiderCache } from "./cidercache.js"
-
 async function spawnMica() {
-    if (typeof window.micaSpawned !== "undefined") {
+    if(typeof window.micaSpawned !== "undefined") {
         return
-    } else {
+    }else{
         window.micaSpawned = true
     }
     const micaDiv = document.createElement('div');
@@ -21,38 +19,20 @@ async function spawnMica() {
     let lastScreenWidth;
     let lastScreenHeight;
 
-    let regen = true
     let imgSrc = await ipcRenderer.sendSync("get-wallpaper")
-
-    let micaCache = await CiderCache.getCache("mica-cache")
-    if (!micaCache) {
-        micaCache = {
-            path: "",
-            data: ""
-        }
-    }
-    if (micaCache.path == imgSrc.path) {
-        regen = false
-        imgSrc = micaCache
-    }
     let canvas = document.createElement('canvas');
     let ctx = canvas.getContext('2d');
     let img = new Image();
-    img.src = imgSrc.data;
+    img.src = imgSrc;
     img.onload = function () {
         canvas.width = img.width;
         canvas.height = img.height;
         ctx.drawImage(img, 0, 0);
-        if (regen) {
-            for (let i = 0; i < blurIterations; i++) {
-                StackBlur.canvasRGB(canvas, 0, 0, img.width, img.height, 128);
-            }
-            micaCache.path = imgSrc.path
-            micaCache.data = canvas.toDataURL()
-            CiderCache.putCache("mica-cache", micaCache)
+        for (let i = 0; i < blurIterations; i++) {
+            StackBlur.canvasRGB(canvas, 0, 0, img.width, img.height, 128);
         }
         let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        micaDiv.style.backgroundImage = `url(${micaCache.data})`;
+        micaDiv.style.backgroundImage = `url(${canvas.toDataURL()})`;
         document.body.appendChild(micaDiv);
         // on animation finished set animation to unset
         micaDiv.addEventListener('animationend', function () {
@@ -104,4 +84,4 @@ async function spawnMica() {
     return true
 }
 
-export { spawnMica }
+export {spawnMica}

@@ -34,9 +34,6 @@
 <transition name="modal">
     <qrcode-modal v-if="modals.qrcode" :src="webremoteqr" :url="webremoteurl"></qrcode-modal>
 </transition>
-<transition name="modal">
-    <moreinfo-modal v-if="modals.moreInfo" :data="moreinfodata"></moreinfo-modal>
-</transition>
 <div id="apple-music-video-container">
     <div id="apple-music-video-player-controls">
         <div id="player-exit" title="Close" @click="exitMV()">

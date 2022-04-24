@@ -13,8 +13,9 @@ import {wsapi} from "./wsapi";
 import {utils} from './utils';
 import {Plugins} from "./plugins";
 import {watch} from "chokidar";
-import * as os from "os";
-import wallpaper from "wallpaper";
+const wallpaper = require('wallpaper');
+
+// @ts-ignore
 import * as AdmZip from "adm-zip";
 
 /**
@@ -36,7 +37,6 @@ export class BrowserWindow {
         env: {
             platform: process.platform,
             dev: app.isPackaged,
-            osRelease: os.release(),
             components: [
                 "pages/podcasts",
                 "pages/apple-account-settings",
@@ -73,7 +73,6 @@ export class BrowserWindow {
                 "components/plugin-menu",
                 "components/audio-controls",
                 "components/qrcode-modal",
-                "components/moreinfo-modal",
                 "components/equalizer",
                 "components/add-to-playlist",
                 "components/queue",
@@ -165,12 +164,12 @@ export class BrowserWindow {
                     page: "browsepage",
                     component: `<cider-browse :data="browsepage"></cider-browse>`,
                     condition: `page == 'browse'`,
-                    onEnter: ``
+                    onEnter: `getBrowsePage();`
                 }, {
                     page: "listen_now",
                     component: `<cider-listen-now :data="listennow"></cider-listen-now>`,
                     condition: `page == 'listen_now'`,
-                    onEnter: ``
+                    onEnter: `getListenNow()`
                 }, {
                     page: "settings",
                     component: `<cider-settings></cider-settings>`,
@@ -183,17 +182,17 @@ export class BrowserWindow {
                     page: "library-songs",
                     component: `<cider-library-songs :data="library.songs"></cider-library-songs>`,
                     condition: `page == 'library-songs'`,
-                    onEnter: ``
+                    onEnter: `getLibrarySongsFull()`
                 }, {
                     page: "library-albums",
                     component: `<cider-library-albums :data="library.songs"></cider-library-albums>`,
                     condition: `page == 'library-albums'`,
-                    onEnter: ``
+                    onEnter: `getLibraryAlbumsFull(null, 1); getAlbumSort(); searchLibraryAlbums(1); getLibrarySongsFull() ;searchLibraryAlbums(1);`
                 }, {
                     page: "library-artists",
                     component: `<cider-library-artists></cider-library-artists>`,
                     condition: `page == 'library-artists'`,
-                    onEnter: ``
+                    onEnter: `getLibraryArtistsFull(null, 0);`
                 }, {
                     page: "appleCurator",
                     component: `<cider-applecurator :data="appleCurator"></cider-applecurator>`,
@@ -321,19 +320,11 @@ export class BrowserWindow {
                 } else {
                     this.options.transparent = true;
                 }
-                this.options.autoHideMenuBar = true
-                if (utils.getStoreValue("visual.nativeTitleBar")) {
-                    this.options.titleBarStyle = "visible";
-                    this.options.frame = true
-                }
                 break;
             case "linux":
                 this.options.backgroundColor = "#1E1E1E";
                 this.options.autoHideMenuBar = true
-                if (utils.getStoreValue("visual.nativeTitleBar")) {
-                    this.options.titleBarStyle = "visible";
-                    this.options.frame = true
-                }
+                this.options.frame = true
                 break;
             case "darwin":
                 this.options.transparent = true;
@@ -411,7 +402,7 @@ export class BrowserWindow {
                 console.error('Req not defined')
                 return
             }
-            if (req.url.includes("api") || req.url.includes("audio.wav") || (req.headers.host.includes("localhost") && (this.devMode || req.headers["user-agent"].includes("Electron")) || req.url.includes("/connect"))) {
+            if (req.url.includes("audio.wav") || (req.headers.host.includes("localhost") && (this.devMode || req.headers["user-agent"].includes("Electron")))) {
                 next();
             } else {
                 res.redirect("https://discord.gg/applemusic");
@@ -524,23 +515,11 @@ export class BrowserWindow {
                 console.log(ex);
             }
         });
-        //region Connect Integration
-        app.get("/connect/set-cc-user/:data", (req, res) => {
-            //utils.getStoreValue('connectUser', JSON.parse()) // [Connect] Save user in store
-            utils.setStoreValue('connectUser', JSON.parse(req.params.data))
-            utils.getWindow().reload()
-            res.redirect(`https://connect.cidercollective.dev/linked.html`)
-        });
-        // [Connect] Set auth URL in store for `shell.openExternal`
-        utils.setStoreValue('cc_authURL', `https://connect.cidercollective.dev/callback/discord?app=cider&appPort=${this.clientPort}`)
-        console.log(`[Connect] Auth URL: ${utils.getStoreValue('cc_authURL')}`)
-        //endregion
-
+        //app.use(express.static())
 
         app.listen(this.clientPort, () => {
             console.log(`Cider client port: ${this.clientPort}`);
         });
-
 
         /*
          * Remote Client -@quacksire
@@ -550,7 +529,7 @@ export class BrowserWindow {
         remote.use(express.static(join(utils.getPath('srcPath'), "./web-remote/")))
         remote.set("views", join(utils.getPath('srcPath'), "./web-remote/views"));
         remote.set("view engine", "ejs");
-        getPort({port: 6942}).then((port: number) => {
+        getPort({port: 6942}).then((port) => {
             this.remotePort = port;
             // Start Remote Discovery
             this.broadcastRemote()
@@ -603,26 +582,6 @@ export class BrowserWindow {
                     if (itspod != null)
                         details.requestHeaders["Cookie"] = `itspod=${itspod}`;
                 }
-                if (details.url.startsWith("https://music.163.com")) {
-                    details.requestHeaders["Referer"] = "https://music.163.com/";
-                    details.requestHeaders["user-agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Cider/1.0.0 Chrome/96.0.4664.45 Electron/16.0.0 Safari/537.36";
-                }
-                if (details.url.includes("https://qq.com")) {
-                    details.requestHeaders['Accept'] = '*/*',
-                        details.requestHeaders['Accept-Encoding'] = 'gzip, deflate, br',
-                        details.requestHeaders['Accept-Language'] = 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6',
-                        details.requestHeaders['Referer'] = 'https://y.qq.com/',
-                        details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_3_1 like Mac OS X; zh-CN) AppleWebKit/537.51.1 ('
-                    'KHTML, like Gecko) Mobile/17D50 UCBrowser/12.8.2.1268 Mobile AliApp(TUnionSDK/0.1.20.3) '
-                }
-                if (details.url.includes("https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg")) {
-                    details.requestHeaders['Accept'] = '*/*',
-                        details.requestHeaders['Accept-Encoding'] = 'gzip, deflate, br',
-                        details.requestHeaders['Accept-Language'] = 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6',
-                        details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_3_1 like Mac OS X; zh-CN) AppleWebKit/537.51.1 ('
-                    'KHTML, like Gecko) Mobile/17D50 UCBrowser/12.8.2.1268 Mobile AliApp(TUnionSDK/0.1.20.3) '
-                    details.requestHeaders['Referer'] = "https://y.qq.com/portal/player.html"
-                }
                 callback({requestHeaders: details.requestHeaders});
             }
         );
@@ -646,46 +605,18 @@ export class BrowserWindow {
          * ipcMain Events
          ****************************************************************************************************************** */
 
-        ipcMain.handle("mkv3", async (event, args) => {
-            const options = {
-                route: "",
-                token: "",
-                mediaToken: "",
-                GETBody: {}
-            }
-            Object.assign(options, args);
-
-            let res = await fetch(
-                `https://amp-api.music.apple.com/${options.route}?${new URLSearchParams({
-                    ...options.GETBody
-                }).toString()}`,
-                {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        authorization: `Bearer ${options.token}`,
-                        path: options.route,
-                        authority: "amp-api.music.apple.com",
-                        "media-user-token": options.mediaToken,
-                        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Cider/1.4.2 Chrome/100.0.4896.75 Electron/18.0.3 Safari/537.36"
-                    },
-                }
-            );
-            let json = await res.json();
-            return json;
-        })
-
         ipcMain.on("get-wallpaper", async (event) => {
             const wpPath: string = await wallpaper.get();
             // get the wallpaper and encode it to base64 then return
             const wpBase64: string = await readFileSync(wpPath, 'base64')
             // add the data:image properties
             const wpData: string = `data:image/png;base64,${wpBase64}`
-            event.returnValue = {
-                path: wpPath,
-                data: wpData
-            };
+            event.returnValue = wpData;
         })
+
+        ipcMain.on("cider-platform", (event) => {
+            event.returnValue = process.platform;
+        });
 
         ipcMain.handle("reinstall-widevine-cdm", () => {
             // remove WidevineCDM from appdata folder
@@ -1081,21 +1012,21 @@ export class BrowserWindow {
                 return Math.max(-32768, Math.min(32768, v)); // clamp
             }
 
-            function bitratechange(e: any) {
+            function bitratechange(e: any){
                 var t = e.length;
                 let sampleRate = 96.0;
                 let outputSampleRate = 48.0;
                 var s = 0,
-                    o = sampleRate / outputSampleRate,
-                    u = Math.ceil(t * outputSampleRate / sampleRate),
-                    a = new Int16Array(u);
+                o = sampleRate / outputSampleRate,
+                u = Math.ceil(t * outputSampleRate / sampleRate),
+                a = new Int16Array(u);
                 for (let i = 0; i < u; i++) {
-                    a[i] = e[Math.floor(s)];
-                    s += o;
+                  a[i] = e[Math.floor(s)];
+                  s += o;
                 }
-
+          
                 return a;
-            }
+             }
 
             let newaudio = quantization(leftpcm, rightpcm);
             //let newaudio = [leftpcm, rightpcm];
@@ -1128,24 +1059,21 @@ export class BrowserWindow {
         });
 
         //QR Code
-        ipcMain.handle('showQR', async (_event, _) => { //macOS
+        ipcMain.handle('showQR', async (_event, _) => {
             let url = `http://${BrowserWindow.getIP()}:${this.remotePort}`;
-            BrowserWindow.win.webContents.send('send-remote-pair-url', (`https://cider.sh/remote/pair?url=${Buffer.from(encodeURI(url)).toString('base64')}`).toString());
-
+            shell.openExternal(`https://cider.sh/pair-remote?url=${Buffer.from(encodeURI(url)).toString('base64')}`).catch(console.error);
         });
 
-        ipcMain.on('get-remote-pair-url', (_event, _) => { // Linux and Windows
+        ipcMain.on('get-remote-pair-url', (_event, _) => {
             let url = `http://${BrowserWindow.getIP()}:${this.remotePort}`;
             //if (app.isPackaged) {
-            BrowserWindow.win.webContents.send('send-remote-pair-url', (`https://cider.sh/remote/pair?url=${Buffer.from(encodeURI(url)).toString('base64')}`).toString());
+            BrowserWindow.win.webContents.send('send-remote-pair-url', (`https://cider.sh/pair-remote?url=${Buffer.from(encodeURI(url)).toString('base64')}`).toString());
             //} else {
             //    BrowserWindow.win.webContents.send('send-remote-pair-url', (`http://127.0.0.1:5500/pair-remote.html?url=${Buffer.from(encodeURI(url)).toString('base64')}`).toString());
             //}
 
         });
-
-
-        if (process.platform === "darwin") { //macOS
+        if (process.platform === "darwin") {
             app.setUserActivity('com.CiderCollective.remote.pair', {
                 ip: `${BrowserWindow.getIP()}`
             }, `http://${BrowserWindow.getIP()}:${this.remotePort}`);
@@ -1198,17 +1126,6 @@ export class BrowserWindow {
         });
         ipcMain.on('open-appdata', (_event) => {
             shell.openPath(app.getPath('userData'));
-        });
-
-        ipcMain.on('cc-auth', (_event) => {
-            shell.openExternal(String(utils.getStoreValue('cc_authURL')));
-        });
-
-        ipcMain.on('cc-logout', (_event) => {
-            utils.setStoreValue('connectUser', {
-                auth: null
-            });
-            utils.getWindow().reload();
         });
         /* *********************************************************************************************
          * Window Events
@@ -1309,9 +1226,9 @@ export class BrowserWindow {
                             details.address.substring(0, 3) === '10.'
                         ) {
                             if (!ip.startsWith('192.168.') ||
-                                (String(ip2).startsWith('192.168.') && !ip.startsWith('192.168.')) &&
-                                (String(ip2).startsWith('172.16.') && !ip.startsWith('192.168.') && !ip.startsWith('172.16.')) ||
-                                (String(ip2).startsWith('10.') && !ip.startsWith('192.168.') && !ip.startsWith('172.16.') && !ip.startsWith('10.'))
+                                (ip2.startsWith('192.168.') && !ip.startsWith('192.168.')) &&
+                                (ip2.startsWith('172.16.') && !ip.startsWith('192.168.') && !ip.startsWith('172.16.')) ||
+                                (ip2.startsWith('10.') && !ip.startsWith('192.168.') && !ip.startsWith('172.16.') && !ip.startsWith('10.'))
                             ) {
                                 ip = details.address;
                             }

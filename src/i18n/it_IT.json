@@ -176,7 +176,7 @@
   "action.showAlbum": "Mostra Album Intero",
   "action.tray.minimize": "Minimizza nel tray",
   "action.tray.quit": "Chiudi",
-
+  "action.tray.show": "Mostra",
   "settings.header.general": "Generale",
   "settings.header.general.description": "Cambia le impostazioni generali di Cider.",
   "settings.option.general.language": "Lingua",

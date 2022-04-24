@@ -35,12 +35,10 @@
   color: #212529;
   text-align: left;
   list-style: none;
-  background-color: var(--color1);
+  background-color: #fff;
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0.25rem;
-  box-shadow: var(--mediaItemShadow), var(--mediaItemShadow-ShadowSubtle);
-  backdrop-filter: var(--glassFilter);
 }
 .dropdown-menu[data-bs-popper] {
   top: 100%;
@@ -991,18 +989,6 @@
   opacity   : 0;
 }
 
-.fade {
-  transition: opacity 0.15s var(--appleEase);
-}
-@media (prefers-reduced-motion: reduce) {
-  .fade {
-    transition: none;
-  }
-}
-.fade:not(.show) {
-  opacity: 0;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .modal.fade .modal-dialog {
     transition: none;
@@ -1088,14 +1074,13 @@
 .modal-title {
   line-height: 1.5;
   margin     : 0;
-  font-size: 1em;
 }
 
 .modal-body {
   position : relative;
   flex     : 1 1 auto;
   padding  : 3rem 1rem 1rem 1rem;
-  //font-size: 0.9em
+  font-size: 0.9em
 }
 
 .modal-footer {
@@ -1326,10 +1311,6 @@
   border-radius      : 0.25rem;
   font-family        : inherit;
   transition         : color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  border: 1px solid rgba(100, 100, 100, 0.35);
-  border-top: 1px solid rgba(100, 100, 100, 0.5);
-  border-radius: 6px;
-  font-size: 14px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1357,22 +1338,22 @@ fieldset:disabled .btn {
 
 .btn-primary {
   color           : #fff;
-  background-color: var(--keyColor-primary);
-  //border-color    : #0d6efd;
+  background-color: #0d6efd;
+  border-color    : #0d6efd;
 }
 
 .btn-primary:hover {
   color           : #fff;
-  //background-color: #0b5ed7;
-  //border-color    : #0a58ca;
+  background-color: #0b5ed7;
+  border-color    : #0a58ca;
 }
 
 .btn-check:focus+.btn-primary,
 .btn-primary:focus {
   color           : #fff;
-  //background-color: #0b5ed7;
-  //border-color    : #0a58ca;
-  //box-shadow      : 0 0 0 0.25rem rgba(49, 132, 253, 0.5);
+  background-color: #0b5ed7;
+  border-color    : #0a58ca;
+  box-shadow      : 0 0 0 0.25rem rgba(49, 132, 253, 0.5);
 }
 
 .btn-check:checked+.btn-primary,
@@ -1381,8 +1362,8 @@ fieldset:disabled .btn {
 .btn-primary.active,
 .show>.btn-primary.dropdown-toggle {
   color           : #fff;
-  //background-color: #0a58ca;
-  //border-color    : #0a53be;
+  background-color: #0a58ca;
+  border-color    : #0a53be;
 }
 
 .btn-check:checked+.btn-primary:focus,
@@ -1390,7 +1371,7 @@ fieldset:disabled .btn {
 .btn-primary:active:focus,
 .btn-primary.active:focus,
 .show>.btn-primary.dropdown-toggle:focus {
-  //box-shadow: 0 0 0 0.25rem rgba(49, 132, 253, 0.5);
+  box-shadow: 0 0 0 0.25rem rgba(49, 132, 253, 0.5);
 }
 
 .btn-primary:disabled,
@@ -1402,24 +1383,23 @@ fieldset:disabled .btn {
 
 .btn-secondary {
   color           : #fff;
-  border-color    : 1px solid rgba(100, 100, 100, 0.35);
-  background-color: rgba(100, 100, 100, 0.25);
-  border-top-color: 1px solid rgba(100, 100, 100, 0.5);
+  background-color: #6c757d;
+  border-color    : #6c757d;
 }
 
 .btn-secondary:hover {
   color           : #fff;
-  // background-color: #5c636a;
-  // border-color    : #565e64;
+  background-color: #5c636a;
+  border-color    : #565e64;
 }
 
-// .btn-check:focus+.btn-secondary,
-// .btn-secondary:focus {
-//   color           : #fff;
-//   background-color: #5c636a;
-//   border-color    : #565e64;
-//   box-shadow      : 0 0 0 0.25rem rgba(130, 138, 145, 0.5);
-// }
+.btn-check:focus+.btn-secondary,
+.btn-secondary:focus {
+  color           : #fff;
+  background-color: #5c636a;
+  border-color    : #565e64;
+  box-shadow      : 0 0 0 0.25rem rgba(130, 138, 145, 0.5);
+}
 
 .btn-check:checked+.btn-secondary,
 .btn-check:active+.btn-secondary,
@@ -2436,7 +2416,6 @@ fieldset:disabled .btn {
   -webkit-user-drag: none;
   // transition: transform .35s var(--appleEase), background-color .35s var(--appleEase);
   font-weight: 500;
-  margin: 0px 4px;
   &:hover {
     // transition: transform .35s var(--appleEase), background-color 0s var(--appleEase);
     background-color: var(--hover);

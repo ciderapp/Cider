@@ -2,7 +2,6 @@
     <div class="mediaitem-artwork" @contextmenu="contextMenu" :class="[{'rounded': (type == 'artists')}, classes]" :key="url">
         <img :src="app.getMediaItemArtwork(url, size, width)"
              decoding="async"
-             loading="lazy"
              :style="{background: bgcolor}"
              class="mediaitem-artwork--img">
         <div v-if="video && getVideoPriority()" class="animatedartwork-view-box">
@@ -67,7 +66,7 @@
                 app.showMenuPanel({
                     items: {
                         "save": {
-                            name: app.getLz('action.openArtworkInBrowser'),
+                            name: "Open artwork in browser",
                             action: () => {
                                 window.open(app.getMediaItemArtwork(self.url, 1024, 1024))
                             }

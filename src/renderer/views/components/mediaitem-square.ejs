@@ -5,7 +5,7 @@
     @contextmenu.self="contextMenu"
     v-observe-visibility="{callback: visibilityChanged}"
    >
-    <div v-if="reasonShown" class="reasonSP ">{{item?.meta?.reason?.stringForDisplay ?? ''}}</div>
+    <div v-if="reasonShown && isVisible" class="reasonSP ">{{item?.meta?.reason?.stringForDisplay ?? ' '}}</div>
     <div style="{'--spcolor': getBgColor()}"
          class="cd-mediaitem-square" :class="getClasses()" @contextmenu="contextMenu">
         <template>           

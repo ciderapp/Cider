@@ -1,7 +1,7 @@
 <div class="app-chrome" :style="{'display': chrome.topChromeVisible ? '' : 'none'}">
     <div class="app-chrome--left">
-        <div class="app-chrome-item full-height" v-if="chrome.windowControlPosition == 'left' && !chrome.nativeControls">
-            <div class="window-controls-macos">
+        <div class="app-chrome-item full-height" v-if="chrome.windowControlPosition == 'left'">
+            <div class="window-controls">
                 <div class="close" @click="ipcRenderer.send('close')"></div>
                 <div class="minimize" @click="ipcRenderer.send('minimize')"></div>
                 <div class="minmax restore" v-if="chrome.maximized"
@@ -16,20 +16,6 @@
                     @click="mainMenuVisibility(true)"
                     :class="{active: chrome.menuOpened}"></button>
         </div>
-        <template v-if="getThemeDirective('appNavigation') != 'seperate'">
-            <div class="vdiv display--large" v-if="getThemeDirective('windowLayout') == 'twopanel'"></div>
-            <div class="app-chrome-item">
-                <button class="playback-button navigation" @click="navigateBack()">
-                    <%- include('../svg/chevron-left.svg') %>
-                </button>
-            </div>
-            <div class="app-chrome-item">
-                <button class="playback-button navigation" @click="navigateForward()">
-                    <%- include('../svg/chevron-right.svg') %>
-                </button>
-            </div>
-            <div class="vdiv display--large" v-if="getThemeDirective('windowLayout') != 'twopanel'"></div>
-        </template>
         <template v-if="getThemeDirective('windowLayout') != 'twopanel'">
             <div class="app-chrome-item display--large">
                 <button class="playback-button--small shuffle" v-if="mk.shuffleMode == 0"
@@ -66,10 +52,6 @@
                         <mediaitem-artwork :url="currentArtUrl"></mediaitem-artwork>
                     </div>
                     <div class="playback-info">
-                        <div class="chrome-icon-container">
-                            <div class="audio-type private-icon" v-if="cfg.general.privateEnabled === true"></div>
-                            <div class="audio-type ppe-icon" v-if="cfg.audio.maikiwiAudio.ciderPPE === true"></div>
-                        </div>
                         <div class="song-name"
                              :class="[isElementOverflowing('#app-main > div.app-chrome > div.app-chrome--center > div > div > div.playback-info > div.song-name') ? 'marquee' : '']">
                             {{ mk.nowPlayingItem["attributes"]["name"] }}
@@ -77,6 +59,7 @@
                                  v-if="mk.nowPlayingItem['attributes']['contentRating'] == 'explicit'"
                                  style="display: inline-block"></div>
                         </div>
+                        <div class="audio-type ppe-icon" v-if="cfg.audio.maikiwiAudio.ciderPPE === true"></div>
                         <div class="song-artist-album">
                             <div class="song-artist-album-content"
                                  :class="[isElementOverflowing('#app-main > .app-chrome .app-chrome-item > .app-playback-controls > div >.song-artist-album > .song-artist-album-content') ? 'marquee' : '']"
@@ -122,9 +105,6 @@
             </template>
 
         </div>
-        <div class="app-title-text" v-if="false">
-            Cider
-        </div>
     </div>
     <div class="app-chrome--right">
         <template v-if="getThemeDirective('windowLayout') != 'twopanel'">
@@ -162,8 +142,7 @@
                 </template>
             </div>
         </template>
-        <div class="app-chrome-item full-height" id="window-controls-container"
-             v-if="chrome.windowControlPosition == 'right' && !chrome.nativeControls">
+        <div class="app-chrome-item full-height" id="window-controls-container" v-if="chrome.windowControlPosition == 'right'">
             <div class="window-controls">
                 <div class="minimize" @click="ipcRenderer.send('minimize')"></div>
                 <div class="minmax restore" v-if="chrome.maximized"
@@ -172,12 +151,6 @@
                 <div class="minmax" v-else @click="ipcRenderer.send('maximize')"></div>
                 <div class="close" @click="ipcRenderer.send('close')"></div>
             </div>
-        </div>
-        <div class="app-chrome-item full-height" v-else-if="platform != 'darwin' && !chrome.nativeControls">
-            <button class="app-mainmenu"
-                    @blur="mainMenuVisibility(false)"
-                    @click="mainMenuVisibility(true)"
-                    :class="{active: chrome.menuOpened}"></button>
         </div>
     </div>
 </div>

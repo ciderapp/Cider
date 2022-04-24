@@ -130,10 +130,7 @@
         methods: {
             async seeAllRecentlyPlayed() {
                 let hist = await app.mk.api.v3.music(`/v1/me/recent/played`, {
-                    l: this.$root.mklang,
-                    include: 'tracks',
-                    'include[albums]': 'catalog,tracks,artists',
-                    'include[songs]': 'catalog,artists',
+                    l: this.$root.mklang
                 })
                 app.showCollection(hist.data, app.getLz('home.recentlyPlayed'))
             },
@@ -212,10 +209,7 @@
             },
             async getRecentlyPlayed() {
                 let hist = await app.mk.api.v3.music(`/v1/me/recent/played`, {
-                    l: this.$root.mklang,
-                    include: 'tracks',
-                    'include[albums]': 'catalog,tracks,artists',
-                    'include[songs]': 'catalog,artists',
+                    l: this.$root.mklang
                 })
                 this.recentlyPlayed = hist.data.data
             },

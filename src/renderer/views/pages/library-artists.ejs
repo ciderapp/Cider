@@ -63,7 +63,6 @@
         },
         mounted() {
             let self = this;
-            this.$root.getLibraryArtistsFull(null, 0);
             this.$root.$on('ap-inlinecollection', function(e){
                 console.log("hey",e)
                 self.clready = true;
@@ -202,8 +201,7 @@
                                     })
                                 }
                             },
-                            // Hidden for now, as it's not implemented yet
-                            /*{
+                            {
                                 "icon": "./assets/feather/share.svg",
                                 "name": app.getLz('action.share'),
                                 "action": function () {
@@ -214,7 +212,7 @@
                                     } else {
                                     self.app.copyToClipboard(self.item.attributes.url)}
                                 }
-                            },*/
+                            },
                         ]
                     }
                 }

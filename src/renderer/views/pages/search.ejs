@@ -83,14 +83,8 @@
            <div v-if="categoriesReady || getCategories()">
                 <div>
                     <div class="col" v-if="categoriesView != null && categoriesView != [] && categoriesView[0].attributes != null && categoriesView[0].attributes.title != null">
-                        <h3>{{$root.getLz('home.recentlyPlayed')}}</h3>
-                        <div class="mediaitem-list-item__grid">
-                                <listitem-horizontal :items="recentlyPlayed.limit(10)">
-                                </listitem-horizontal>
-                        </div>    
-                    <!-- <mediaitem-square :kind="'385'" size="600" v-for="item in recentlyPlayed.limit(10)" :item="item" :imagesize="800"></mediaitem-square>-->
                         <h3>{{categoriesView[0].attributes.title.stringForDisplay ?? ""}}</h3>
-                    </div>   
+                    </div>  
                     <mediaitem-square :kind="'385'" size="600"
                     :item="item ? (item.attributes.kind ? item : ((item.relationships && item.relationships.contents ) ? item.relationships.contents.data[0] : item)) : []"
                     :imagesize="800"
@@ -108,7 +102,6 @@
         data: function () {
             return {
                 app: this.$root,
-                recentlyPlayed: [],
                 categoriesView: [],
                 categoriesReady: false,
             }
@@ -121,15 +114,8 @@
                     return false
                 }
             },
-            async seeAllHistory() {
-                let hist = await app.mk.api.v3.music(`/v1/me/recent/played/tracks`, {
-                    l: this.$root.mklang
-                })
-                this.recentlyPlayed = hist.data.data
-            },
             async getCategories() {
                 if (this.categoriesView != [] && this.categoriesView.length > 0) { this.categoriesReady = true; return await true; } else {
-                    await this.seeAllHistory()
                     let response = await this.app.mk.api.v3.music(`/v1/recommendations/${this.app.mk.storefrontId}?timezone=${encodeURIComponent(this.app.formatTimezoneOffset())}&name=search-landing&platform=web&extend=editorialArtwork&art%5Burl%5D=f%2Cc&types=editorial-items%2Capple-curators%2Cactivities&l=${this.$root.mklang}`);
                     this.categoriesView = response.data.data;
                     console.log(this.categoriesView)

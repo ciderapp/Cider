@@ -82,10 +82,10 @@ const app = new Vue({
             },
             albums: {
                 sortingOptions: {
+                    "albumName": "0",
                     "artistName": "0",
                     "name": "0",
-                    "genre": "0",
-                    "releaseDate": "0"
+                    "genre": "0"
                 },
                 viewAs: 'covers',
                 sorting: ["dateAdded", "name"], // [0] = recentlyadded page, [1] = albums page
@@ -151,7 +151,6 @@ const app = new Vue({
         tmpVar: [],
         notification: false,
         chrome: {
-            nativeControls: false,
             contentScrollPosY: 0,
             appliedTheme: {
                 location: "",
@@ -167,9 +166,6 @@ const app = new Vue({
                     "handle": "CiderUser",
                     "artwork": { "url": "./assets/logocut.png" }
                 }
-            },
-            forceDirectives: {
-
             },
             menuOpened: false,
             maximized: false,
@@ -204,8 +200,7 @@ const app = new Vue({
             pluginMenu: false,
             audioControls: false,
             showPlaylist: false,
-            castMenu: false,
-            moreInfo: false,
+            castMenu: false
         },
         socialBadges: {
             badgeMap: {},
@@ -228,7 +223,6 @@ const app = new Vue({
             page: "hello-world",
             pages: [],
         },
-        moreinfodata: [],
     },
     watch: {
         cfg: {
@@ -349,10 +343,10 @@ const app = new Vue({
             }
 
             app.$data.library.albums.sortingOptions = {
+                "albumName": app.getLz('term.sortBy.album'),
                 "artistName": app.getLz('term.sortBy.artist'),
                 "name": app.getLz('term.sortBy.name'),
-                "genre": app.getLz('term.sortBy.genre'),
-                "releaseDate": app.getLz('term.sortBy.releaseDate')
+                "genre": app.getLz('term.sortBy.genre')
             }
 
             app.$data.library.artists.sortingOptions = {
@@ -465,11 +459,8 @@ const app = new Vue({
             history.forward()
         },
         getHTMLStyle() {
-            if (app.cfg.visual.uiScale != 1) {
-                document.querySelector("#app").style.zoom = app.cfg.visual.uiScale
-            } else {
-                document.querySelector("#app").style.zoom = ""
-            }
+            // document.querySelector("html").style.background = "#222";
+            document.querySelector("body").classList.add("notransparency")
         },
         resetState() {
             this.menuPanel.visible = false;
@@ -581,17 +572,6 @@ const app = new Vue({
             if (this.cfg.visual.theme != "default.less" && this.cfg.visual.theme != "") {
                 this.setTheme(this.cfg.visual.theme)
             }
-            if (this.cfg.visual.styles.length != 0) {
-                await this.reloadStyles()
-            }
-
-            if (this.platform == "darwin") {
-                this.chrome.windowControlPosition = "left"
-            }
-
-            if (this.cfg.visual.nativeTitleBar) {
-                this.chrome.nativeControls = true
-            }
 
             this.setLz(this.cfg.general.language)
             this.setLzManual()
@@ -617,7 +597,7 @@ const app = new Vue({
                 document.body.classList.add("no-gpu")
             }
             this.mk._services.timing.mode = 0
-            this.platform = this.cfg.main.PLATFORM
+            this.platform = ipcRenderer.sendSync('cider-platform');
 
             this.mklang = await this.MKJSLang()
 
@@ -765,34 +745,25 @@ const app = new Vue({
             ipcRenderer.on('theme-update', (event, arg) => {
                 less.refresh(true, true, true)
                 self.setTheme(self.cfg.visual.theme, true)
-                if (app.cfg.visual.styles.length != 0) {
-                    app.reloadStyles()
-                }
             })
 
             ipcRenderer.on('SoundCheckTag', (event, tag) => {
                 // let replaygain = self.parseSCTagToRG(tag)
-                try {
-                    if (app.mk.nowPlayingItem.type !== 'song') {
-                        CiderAudio.audioNodes.gainNode.gain.value = 0.70794578438;
-                    }
-                    else {
-                        let soundcheck = tag.split(" ")
-                        let numbers = []
-                        for (let item of soundcheck) {
-                            numbers.push(parseInt(item, 16))
+                let soundcheck = tag.split(" ")
+                let numbers = []
+                for (let item of soundcheck) {
+                    numbers.push(parseInt(item, 16))
 
-                        }
-                        numbers.shift()
-                        let peak = Math.max(numbers[6], numbers[7]) / 32768.0
-                        let gain = Math.pow(10, ((-1 - (Math.log10(peak) * 20)) / 20))// EBU R 128 Compliant
-                        console.debug(`[Cider][MaikiwiSoundCheck] Peak Gain: '${(Math.log10(peak) * 20).toFixed(2)}' dB | Adjusting '${(Math.log10(gain) * 20).toFixed(2)}' dB`)
-                        try {
-                            //CiderAudio.audioNodes.gainNode.gain.value = (Math.min(Math.pow(10, (replaygain.gain / 20)), (1 / replaygain.peak)))
-                            CiderAudio.audioNodes.gainNode.gain.value = gain
-                        } catch (e) { }
-                    }
-                } catch (e) { ipcRenderer.send('SoundCheckTag', event, tag); } // brute force until it works
+                }
+                numbers.shift()
+                let peak = Math.max(numbers[6], numbers[7]) / 32768.0
+                let gain = Math.pow(10, ((-7.63 - (Math.log10(peak) * 20)) / 20))// EBU R 128 Compliant
+                console.debug(`[Cider][MaikiwiSoundCheck] Peak Gain: '${Math.log10(peak) * 20}' dB | Adjusting '${Math.log10(gain) * 20}' dB`)
+                try {
+                    //CiderAudio.audioNodes.gainNode.gain.value = (Math.min(Math.pow(10, (replaygain.gain / 20)), (1 / replaygain.peak)))
+                    CiderAudio.audioNodes.gainNode.gain.value = gain
+                } catch (e) {
+                }
             })
 
             ipcRenderer.on('play', function (_event, mode, id) {
@@ -962,51 +933,15 @@ const app = new Vue({
                 less.refresh()
             }
         },
-        async reloadStyles() {
-            const styles = this.cfg.visual.styles
-            document.querySelectorAll(`[id*='less']`).forEach(el => {
-                if(el.id != "less:style") {
-                    el.remove()
-                }
-            });
-
-            this.chrome.appliedTheme.info = {}
-            await asyncForEach(styles, async (style) => {
-                let styleEl = document.createElement("link")
-                styleEl.id = `less-${style.replace(".less", "")}`
-                styleEl.rel = "stylesheet/less"
-                styleEl.href = `themes/${style}`
-                styleEl.type = "text/css"
-                document.head.appendChild(styleEl)
-                try {
-                    let infoResponse = await fetch("themes/" + style.replace("index.less", "theme.json"))
-                    this.chrome.appliedTheme.info = Object.assign(this.chrome.appliedTheme.info, await infoResponse.json())
-                } catch (e) {
-                    e = null
-                    console.warn("failed to get theme.json")
-                }
-            })
-            less.registerStylesheetsImmediately()
-            less.refresh(true, true, true)
-            this.$forceUpdate()
-            return
-        },
-        macOSEmu() {
-            this.chrome.forceDirectives["macosemu"] = {
-                value: true
-            }
-            this.chrome.windowControlPosition = "left"
-        },
         getThemeDirective(directive = "") {
             let directives = {}
             if (typeof this.chrome.appliedTheme.info.directives == "object") {
                 directives = this.chrome.appliedTheme.info.directives
             }
-            directives = Object.assign(directives, this.chrome.forceDirectives)
             if (directives[directive]) {
-                return directives[directive].value
+                return this.chrome.appliedTheme.info.directives[directive].value
             } else if (this.cfg.visual.directives[directive]) {
-                return this.cfg.visual.directives[directive]
+                return this.cfg.visual.directives.windowLayout
             } else {
                 return ""
             }
@@ -1028,32 +963,8 @@ const app = new Vue({
                 classes.simplebg = true
             }
 
-            if (this.platform !== "darwin") {
-                switch (parseInt(this.cfg.visual.windowControlPosition)) {
-                    default:
-                    case 0:
-                        this.chrome.windowControlPosition = "right"
-                        this.chrome.forceDirectives["macosemu"] = {
-                            value: false
-                        }
-                        break;
-                    case 1:
-                        this.chrome.windowControlPosition = "left"
-                        this.chrome.forceDirectives["macosemu"] = {
-                            value: true
-                        }
-                        break;
-                }
-            }
-
             if (this.getThemeDirective('windowLayout') == 'twopanel') {
                 classes.twopanel = true
-            }
-            if (this.getThemeDirective("appNavigation") == "seperate") {
-                classes.navbar = true
-            }
-            if (this.getThemeDirective("macosemu") == true) {
-                classes.macosemu = true
             }
             return classes
         },
@@ -1507,9 +1418,10 @@ const app = new Vue({
          */
         convertTime(seconds, format = "short") {
 
-            if (isNaN(seconds) || seconds === Infinity) {
+            if (isNaN(seconds) || seconds == Infinity) {
                 seconds = 0
             }
+            seconds = parseInt(seconds);
 
             const datetime = new Date(seconds * 1000)
 
@@ -1519,11 +1431,12 @@ const app = new Vue({
                 const m = Math.floor(seconds % 3600 / 60);
                 const s = Math.floor(seconds % 60);
 
-                const dDisplay = d > 0 ? `${d} ${app.getLz("term.time.day", { "count": d })}` : "";
-                const hDisplay = h > 0 ? `${h} ${app.getLz("term.time.hour", { "count": h })}` : "";
-                const mDisplay = m > 0 ? `${m} ${app.getLz("term.time.minute", { "count": m })}` : "";
+                const dDisplay = d > 0 ? `${d} ${app.getLz("term.time.day", { "count": d })}, ` : "";
+                const hDisplay = h > 0 ? `${h} ${app.getLz("term.time.hour", { "count": h })}, ` : "";
+                const mDisplay = m > 0 ? `${m} ${app.getLz("term.time.minute", { "count": m })}, ` : "";
+                const sDisplay = s > 0 ? `${s} ${app.getLz("term.time.second", { "count": s })}` : "";
 
-                return dDisplay + (dDisplay && hDisplay ? ", " : "") + hDisplay + (hDisplay && mDisplay ? ", " : "") + mDisplay;
+                return dDisplay + hDisplay + mDisplay + sDisplay;
             }
             else {
                 let returnTime = datetime.toISOString().substring(11, 19);
@@ -1652,8 +1565,7 @@ const app = new Vue({
                     params["fields[albums]"] = "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialNotes,editorialVideo,name,playParams,releaseDate,url,copyright"
                 }
 
-                // if (this.cfg.advanced.experiments.includes('inline-playlists')) {
-                if(false) {
+                if (this.cfg.advanced.experiments.includes('inline-playlists')) {
                     let showModal = kind.toString().includes("album") || kind.toString().includes("playlist")
                     if (app.page.includes("playlist") || app.page.includes("album")) {
                         showModal = false
@@ -2568,11 +2480,11 @@ const app = new Vue({
             if (musicType === "musicVideo") {
                 this.loadYTLyrics();
             } else {
-                // if (app.cfg.lyrics.enable_mxm) {
-                this.loadMXM();
-                // } else {
-                //     this.loadAMLyrics();
-                // }
+                if (app.cfg.lyrics.enable_mxm) {
+                    this.loadMXM();
+                } else {
+                    this.loadAMLyrics();
+                }
             }
         },
         loadAMLyrics() {
@@ -2684,8 +2596,7 @@ const app = new Vue({
             /* get token */
             function getToken(mode, track, artist, songid, lang, time, id) {
                 if (attempt > 2) {
-                    app.loadNeteaseLyrics();
-                   // app.loadAMLyrics();
+                    app.loadAMLyrics();
                 } else {
                     attempt = attempt + 1;
                     let url = "https://apic-desktop.musixmatch.com/ws/1.1/token.get?app_id=web-desktop-app-v1.0&t=" + revisedRandId();
@@ -2719,14 +2630,12 @@ const app = new Vue({
                             }
                         } catch (e) {
                             console.log('error');
-                            app.loadQQLyrics();
-                            //app.loadAMLyrics();
+                            app.loadAMLyrics();
                         }
                     };
                     req.onerror = function () {
                         console.log('error');
-                        app.loadQQLyrics();
-                       // app.loadAMLyrics();
+                        app.loadAMLyrics();
                     };
                     req.send();
                 }
@@ -2764,8 +2673,7 @@ const app = new Vue({
                                 }
 
                                 if (lrcfile == "") {
-                                    app.loadQQLyrics();
-                                   // app.loadAMLyrics()
+                                    app.loadAMLyrics()
                                 } else {
                                     if (richsync == [] || richsync.length == 0) {
                                         console.log("ok");
@@ -2813,28 +2721,24 @@ const app = new Vue({
                                         // load translation
                                         getMXMTrans(id, lang, token);
                                     } else {
-                                       // app.loadAMLyrics()
-                                       app.loadQQLyrics();
+                                        app.loadAMLyrics()
                                     }
                                 }
                             } catch (e) {
                                 console.log(e);
-                                app.loadQQLyrics();
-                              //  app.loadAMLyrics()
+                                app.loadAMLyrics()
                             }
                         } else { //4xx rejected
                             getToken(1, track, artist, '', lang, time);
                         }
                     } catch (e) {
                         console.log(e);
-                        app.loadQQLyrics();
-                        //app.loadAMLyrics()
+                        app.loadAMLyrics()
                     }
                 }
                 req.onerror = function () {
-                    app.loadQQLyrics();
                     console.log('error');
-                    // app.loadAMLyrics();
+                    app.loadAMLyrics();
                 };
                 req.send();
             }
@@ -2889,141 +2793,6 @@ const app = new Vue({
                     getToken(1, track, artist, '', lang, time);
                 }
             }
-        },
-        loadNeteaseLyrics() {
-            const track = encodeURIComponent((this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.title ?? '' : '');
-            const artist = encodeURIComponent((this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.artistName ?? '' : '');
-            const time = encodeURIComponent((this.mk.nowPlayingItem != null) ? (Math.round((this.mk.nowPlayingItem.attributes["durationInMillis"] ?? -1000) / 1000) ?? -1) : -1);
-            var url  = `http://music.163.com/api/search/get/?csrf_token=hlpretag=&hlposttag=&s=${track+" "+artist}&type=1&offset=0&total=true&limit=6`;
-            var req = new XMLHttpRequest();
-            req.overrideMimeType("application/json");
-            req.open('GET', url, true);
-            req.onload = function () {
-                try {
-                    var jsonResponse = JSON.parse(req.responseText);
-                    var id = jsonResponse["result"]["songs"][0]["id"];
-                    var url2 = "https://music.163.com/api/song/lyric?os=pc&id=" + id + "&lv=-1&kv=-1&tv=-1";
-                    var req2 = new XMLHttpRequest();
-                    req2.overrideMimeType("application/json");
-                    req2.open('GET', url2, true);
-                    req2.onload = function () {
-                        try {
-                            var jsonResponse2 = JSON.parse(req2.responseText);
-                            var lrcfile = jsonResponse2["lrc"]["lyric"];
-                            app.lyricsMediaItem = lrcfile
-                            let u = app.lyricsMediaItem.split(/[\n]/);
-                            let preLrc = []
-                            for (var i = u.length - 1; i >= 0; i--) {
-                                let xline = (/(\[[0-9.:\[\]]*\])+(.*)/).exec(u[i])
-                                if (xline != null) { 
-                                let end = (preLrc.length > 0) ? ((preLrc[preLrc.length - 1].startTime) ?? 99999) : 99999
-                                preLrc.push({
-                                    startTime: app.toMS(xline[1].substring(1, xline[1].length - 2)) ?? 0,
-                                    endTime: end,
-                                    line: xline[2],
-                                    translation: ''
-                                })}
-                            }
-                            if (preLrc.length > 0)
-                                preLrc.push({
-                                    startTime: 0,
-                                    endTime: preLrc[preLrc.length - 1].startTime,
-                                    line: "lrcInstrumental",
-                                    translation: ''
-                                });
-                            app.lyrics = preLrc.reverse();
-                        }
-                        catch (e) {
-                            app.lyrics = "";
-                        }
-                    };
-                    req2.onerror = function(){
-                
-                    }
-                    req2.send();
-                } catch (e) {
-                    app.lyrics = "";
-                }
-            };
-            req.send();
-            req.onerror = function(){
-
-            }
-        },
-        loadQQLyrics() {
-            const track = encodeURIComponent((this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.title ?? '' : '');
-            const artist = encodeURIComponent((this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.artistName ?? '' : '');
-            const time = encodeURIComponent((this.mk.nowPlayingItem != null) ? (Math.round((this.mk.nowPlayingItem.attributes["durationInMillis"] ?? -1000) / 1000) ?? -1) : -1);
-            var url  = `https://c.y.qq.com/soso/fcgi-bin/client_search_cp?w=${track+" "+artist}&t=0&n=1&page=1&cr=1&new_json=1&format=json&platform=yqq.json`;
-          
-            var req = new XMLHttpRequest();
-            req.overrideMimeType("application/json");
-            req.open('GET', url, true);
-            req.onload = function () {
-                try {
-                    var jsonResponse = JSON.parse(req.responseText);
-                    let id = jsonResponse?.data?.song?.list[0]?.mid;
-                    console.log(jsonResponse)
-                    let usz = new Date().getTime()
-                    var url2 = `https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg?-=MusicJsonCallback_lrc&songmid=${id}&pcachetime=${usz}&g_tk=5381&loginUin=3003436226&hostUin=0&inCharset=utf-8&outCharset=utf-8&notice=0&platform=yqq.json&needNewCode=0`;
-                    var req2 = new XMLHttpRequest();
-                    req2.overrideMimeType("application/json");
-                    req2.open('GET', url2, true);
-                    req2.onload = function () {
-                        try {
-                            function b64_to_utf8( str ) {
-                                return decodeURIComponent(escape(window.atob( str )));
-                            }
-                            const htmlDecode = (input) => {
-                                const doc = new DOMParser().parseFromString(input, "text/html");
-                                return doc.documentElement.textContent;
-                            }
-                            var jsonResponse2 = JSON.parse(req2.responseText.replace("MusicJsonCallback(","").replace("})","}"));
-                            var lrcfile = htmlDecode(b64_to_utf8(jsonResponse2["lyric"]));
-                            app.lyricsMediaItem = lrcfile
-                            let u = app.lyricsMediaItem.split(/[\n]/);
-
-                            let preLrc = []
-                            for (var i = u.length - 1; i >= 0; i--) {
-                                let xline = (/(\[[0-9.:\[\]]*\])+(.*)/).exec(u[i])
-                                if (xline != null) { 
-                                let end = (preLrc.length > 0) ? ((preLrc[preLrc.length - 1].startTime) ?? 99999) : 99999
-                                preLrc.push({
-                                    startTime: app.toMS(xline[1].substring(1, xline[1].length - 2)) ?? 0,
-                                    endTime: end,
-                                    line: xline[2],
-                                    translation: ''
-                                })}
-                            }
-                            if (preLrc.length > 0)
-                                preLrc.push({
-                                    startTime: 0,
-                                    endTime: preLrc[preLrc.length - 1].startTime,
-                                    line: "lrcInstrumental",
-                                    translation: ''
-                                });
-                            app.lyrics = preLrc.reverse();
-                        }
-                        catch (e) {
-                            console.log(e)
-                            app.loadNeteaseLyrics();
-                            app.lyrics = "";
-                        }
-                    };
-                    req2.onerror = function(){
-                        app.loadNeteaseLyrics();
-                    }
-                    req2.send();
-                } catch (e) {
-                    console.log(e)
-                    app.loadNeteaseLyrics();
-                    app.lyrics = "";
-                }
-            }
-            req.onerror = function(){
-                app.loadNeteaseLyrics();
-            }
-            req.send();
         },
         toMS(str) {
             let rawTime = str.match(/(\d+:)?(\d+:)?(\d+)(\.\d+)?/);
@@ -3523,7 +3292,7 @@ const app = new Vue({
                 return "https://beta.music.apple.com/assets/product/MissingArtworkMusic.svg"
             }
             height = parseInt(height * window.devicePixelRatio)
-            if (width) {
+            if(width) {
                 width = parseInt(width * window.devicePixelRatio)
             }
             let newurl = `${url.replace('{w}', width ?? height).replace('{h}', height).replace('{f}', "webp").replace('{c}', ((width === 900) ? "sr" : "cc"))}`;
@@ -3965,32 +3734,9 @@ const app = new Vue({
                                     app.songLinkShare((u.data.data.length && u.data.data.length > 0) ? u.data.data[0].attributes.url : u.data.data.attributes.url)
                                 })
                             }
-                        },
-                        {
-                            "id": "equalizer",
-                            "icon": "../views/svg/speaker.svg",
-                            "name": app.getLz('term.equalizer'),
-                            "hidden": true,
-                            "action": function () {
-                                app.modals.equalizer = true
-                                app.modals.audioSettings = false
-                            }
-                        },
-                        {
-                            "id": "audioLab",
-                            "icon": "../views/svg/speaker.svg",
-                            "name": app.getLz('settings.option.audio.audioLab'),
-                            "hidden": true,
-                            "action": function () {
-                                app.appRoute('audiolabs')
-                            }
-                        },
+                        }
                     ]
                 }
-            }
-            if (this.cfg.advanced.AudioContext) {
-                menus.normal.items.find(i => i.id === 'audioLab').hidden = false
-                menus.normal.items.find(i => i.id === 'equalizer').hidden = false
             }
             if (this.contextExt) {
                 if (this.contextExt.normal) {
@@ -4063,6 +3809,23 @@ const app = new Vue({
                 element.onclick = app.LastFMDeauthorize;
             });
         },
+        /**
+         parseSCTagToRG: function (tag) {
+            let soundcheck = tag.split(" ")
+            let numbers = []
+            for (item of soundcheck) {
+                numbers.push(parseInt(item, 16))
+
+            }
+            numbers.shift()
+            //let gain = Math.log10((Math.max(numbers[0], numbers[1]) ?? 1000) / 1000.0) * -10
+            let peak = Math.max(numbers[6], numbers[7]) / 32768.0
+            let gain = Math.pow(10, ((-7.63 - (Math.log10(peak) * 20)) / 20))// EBU R 128 Compliant
+            return {
+                gain: gain,
+                peak: peak
+            }
+        },*/
         fullscreen(flag) {
             if (flag) {
                 ipcRenderer.send('setFullScreen', true);
@@ -4257,9 +4020,6 @@ const app = new Vue({
                 document.getElementById('settings.option.general.updateCider.check').innerHTML = app.getLz('term.check')
             })
         },
-        authCC(){
-            ipcRenderer.send('cc-auth')
-        }
     }
 })
 

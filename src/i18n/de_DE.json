@@ -201,7 +201,7 @@
   "action.showAlbum": "Ganzes Album anzeigen",
   "action.tray.minimize": "Zu Tray minimieren",
   "action.tray.quit": "Beenden",
-
+  "action.tray.show": "{appName} anzeigen",
   "action.update": "Update",
   "action.copy": "Kopieren",
   "action.newpreset": "Neues Preset",
