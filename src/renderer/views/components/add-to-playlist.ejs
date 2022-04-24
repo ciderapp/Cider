@@ -1,5 +1,4 @@
 <script type="text/x-template" id="add-to-playlist">
-    <template>
         <div class="modal-fullscreen addtoplaylist-panel" @click.self="app.resetState()" @contextmenu.self="app.resetState()">
             <div class="modal-window">
                 <div class="modal-header">
@@ -30,7 +29,6 @@
                 </div>
             </div>
         </div>
-    </template>
 </script>
 
 <script>
@@ -65,7 +63,7 @@
         },
         methods: {
             playlistSelect(playlist) {
-                if(playlist.type != "library-playlist-folders") {
+                if (playlist.type != "library-playlist-folders") {
                     this.addToPlaylist(playlist.id)
                 }
             },

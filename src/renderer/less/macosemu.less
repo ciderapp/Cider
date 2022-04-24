@@ -1,0 +1,49 @@
+#app.macosemu {
+
+
+
+  .app-chrome .app-chrome-item > .window-controls-macos {
+    @controlSize: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 96px;
+    @closeClr: rgb(255, 92, 92);
+    @minmaxClr: rgb(77, 202, 77);
+    @minClr: rgb(255, 189, 76);
+    @borderDarken: 55%;
+
+    div {
+      margin: 4px;
+      background-color: red;
+      border-radius: 100%;
+      flex: 0 0 auto;
+      background-image: unset !important;
+      //border: 1px solid white;
+      &.close {
+        box-shadow: 0px 0px 0px 1px darken(@closeClr, @borderDarken);
+        background-color: @closeClr;
+        width: @controlSize;
+        height: @controlSize;
+      }
+
+      &.minimize {
+        box-shadow: 0px 0px 0px 1px darken(@minClr, @borderDarken);
+        background-color: @minClr;
+        width: @controlSize;
+        height: @controlSize;
+      }
+
+      &.minmax {
+        box-shadow: 0px 0px 0px 1px darken(@minmaxClr, 45%);
+        background-color: @minmaxClr;
+        width: @controlSize;
+        height: @controlSize;
+      }
+    }
+  }
+  .usermenu-body{
+    left: calc(100vw - 260px);
+    position: relative;
+  }
+}

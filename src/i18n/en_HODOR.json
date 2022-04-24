@@ -20,6 +20,7 @@
   "term.accountSettings": "HODOR SETTINGS",
   "term.logout": "HODOR OUT",
   "term.login": "HODOR IN",
+  "term.cast": "CAHODOR",
   "term.about": "WHAT'S HODOR",
   "term.privateSession": "HODOR SESSION",
   "term.queue": "HODORUEUE",
@@ -175,7 +176,7 @@
   "action.showAlbum": "SHOW HODOR HODOR",
   "action.tray.minimize": "HODOR TO TRAY",
   "action.tray.quit": "HODOR",
-  "action.tray.show": "SEE",
+
   "settings.header.general": "HODORAL",
   "settings.header.general.description": "HODOR HODORAL HODOR FOR HODOR.",
   "settings.option.general.language": "HODOR SPEAKS",

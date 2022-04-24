@@ -203,6 +203,8 @@ export class AppEvents {
             shell.openExternal('https://opencollective.com/ciderapp')
         } else if (arg.includes('/beep')) {
             shell.beep()
+        } else {
+            utils.getWindow().webContents.executeJavaScript(`app.appRoute('${arg.split('//')[1]}')`)
         }
     }
 
@@ -299,7 +301,7 @@ export class AppEvents {
 
         const menu = Menu.buildFromTemplate([
             {
-                label: (visible ? this.i18n['action.tray.minimize'] : `${this.i18n['action.tray.show']} ${app.getName()}`),
+                label: (visible ? this.i18n['action.tray.minimize'] : `${this.i18n['action.tray.show']}`),
                 click: () => {
                     if (utils.getWindow()) {
                         if (visible) {

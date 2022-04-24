@@ -103,10 +103,16 @@ export default class Thumbar {
                 },
                 {type: 'separator'},
                 {
+                    label: 'Toggle Private Session',
+                    accelerator: 'CommandOrControl+P',
+                    click: () => this._win.webContents.executeJavaScript(`app.cfg.general.privateEnabled = !app.cfg.general.privateEnabled`)
+                },
+                {type: 'separator'},
+                {
                     label: 'Web Remote',
                     accelerator: 'CommandOrControl+Shift+W',
                     sublabel: 'Opens in external window',
-                    click: () => this._win.webContents.executeJavaScript(`ipcRenderer.invoke('showQR')`)
+                    click: () => this._win.webContents.executeJavaScript(`app.appRoute('remote-pair')`)
                 },
                 {
                     label: 'Audio Settings',
@@ -209,7 +215,7 @@ export default class Thumbar {
                 {type: 'separator'},
                 {
                     label: 'Toggle Developer Tools',
-                    accelerator: 'Option+CommandOrControl+I',
+                    accelerator: 'Option+CommandOrControl+Shift+I',
                     click: () => this._win.webContents.openDevTools()
                 },
                 {

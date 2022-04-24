@@ -10,13 +10,12 @@
                             v-model="$root.cfg.visual.theme">
                         <option value="default.less">{{$root.getLz('settings.option.visual.theme.default')}}</option>
                         <option value="dark.less">{{$root.getLz('settings.option.visual.theme.dark')}}</option>
-                        <option value="sweetener.less">Sweetener</option>
                         <option v-for="theme in themes" :value="theme.file">{{ theme.name }}</option>
                     </select>
                 </div>
                 <div class="col-auto flex-center">
                     <button class="md-btn md-btn-small md-btn-block" @click="openThemesFolder()">
-                        Open Themes Folder
+                        {{$root.getLz('settings.option.visual.theme.github.openfolder')}}
                     </button>
                 </div>
                 <div class="col-auto nopadding flex-center">

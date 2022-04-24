@@ -122,7 +122,7 @@
                     },
                     multiple: {
                         items: [{
-                            "name": app.getLz('action.removeTracks'),
+                            "name": app.getLz('action.removeTracks').replace('${self.selectedItems.length}', self.selectedItems.length.toString()),
                             "action": function () {
                                 // add property to items to be removed
                                 self.selectedItems.forEach(function (item) {

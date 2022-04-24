@@ -37,12 +37,14 @@
   --keyColor-deepPressed: #ff8a9c;
   --keyColor-deepPressed-rgb: 255, 138, 156;
   --keyColor-disabled: rgba(250, 88, 106, 0.35);
-  --navigationBarHeight: 38px;
+  --keyColor-primary: #ff2b52a6;
+  --navigationBarHeight: 0px;
   --modalBackground: #262626;
   --songProgressColor: var(--keyColor);
   --songProgressBackground: #333;
   --textColor: #eee;
   --replayGradient: linear-gradient(45deg, hsl(248deg 58% 29%), hsl(13deg 41% 42%));
+  --glassFilter: blur(16px) saturate(180%); 
 }
 
 *:focus-visible {
@@ -237,6 +239,17 @@ input[type="text"], input[type="number"] {
   opacity: 0.70;
 }
 
+a.dropdown-item {
+  color: var(--textColor);
+
+  &:hover {
+    background-color: var(--selected);
+    color: var(--textColor);
+  }
+  &:active {
+    background-color: var(--selected-click);
+  }
+}
 
 .bg-artwork {
   position: absolute;
@@ -404,7 +417,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   top: 3%;
   background: #1c1c1c8f;
   border-radius: 12px;
-  z-index: 9;
+  z-index: 10;
   height: 94%;
   backdrop-filter: blur(40px) saturate(180%);
   box-shadow: var(--ciderShadow-Generic);
@@ -470,9 +483,26 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 
 .app-sidebar-header-text {
   font-size: 11px;
-  margin: 6px 3px;
+  padding: 6px 6px;
   font-weight: 600;
-  opacity: 0.50;
+  opacity: 0.5;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDYiIGhlaWdodD0iNDYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjIiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJtNiA5IDYgNiA2LTYiPjwvcGF0aD4KPC9zdmc+");
+  background-size: 16px;
+  background-repeat: no-repeat;
+  background-position: 98%;
+  border-radius: 3px;
+
+  &.collapsed {
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDYiIGhlaWdodD0iNDYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjIiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJtOSAxOCA2LTYtNi02Ij48L3BhdGg+Cjwvc3ZnPg==");
+  }
+
+  &:hover {
+    background-color: var(--selected);
+  }
+
+  &:active {
+    background-color: var(--selected-click);
+  }
 }
 
 .app-sidebar-footer {
@@ -853,6 +883,14 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   display: flex;
   flex-direction: row;
   -webkit-app-region: drag;
+
+  .vdiv {
+    width: 1px;
+    background: white;
+    opacity: 0.25;
+    height: 50%;
+    margin: 6px;
+  }
 }
 
 .mv-chrome {
@@ -882,6 +920,9 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 
 .app-chrome .app-chrome--center {
   //width: 40%;
+  .app-title-text {
+    font-size: 0.8em;
+  }
 }
 
 .app-chrome .app-chrome--right {
@@ -996,29 +1037,44 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 }
 
 .app-chrome .app-chrome-item > .app-mainmenu {
-  width: 110px;
+  width: 34px;
   font-size: 13px;
-  background: url("./assets/AppChromeBtn.svg");
-  background-size: contain;
+  background: url("./assets/CiderMenu.svg");
+  background-size: auto;
   background-repeat: no-repeat;
   background-position: center;
-  height: 70%;
+  height: 34px;
   margin-right: 16px;
   margin-left: 16px;
   margin-top: 1.5px;
   border: 0px;
   border-radius: 6px;
+  transition: transform .1s var(--appleEase);
+  position: relative;
+
+  // &:after {
+  //   content: "";
+  //   background-image: var(--cvar-userprofileimg);
+  //   height:100%;
+  //   width:100%;
+  //   top:0;
+  //   left: 0;
+  //   display:block;
+  //   position: absolute;
+  //   background-size: cover;
+  //   border-radius: 100%;
+  //   border: 0px solid rgb(50 50 50);
+  //   box-shadow: 0px 0px 0px 1px rgb(80 80 80);
+  // }
 
   &:hover {
-    background-color: var(--selected);
+    transform: scale(1.1);
   }
 
   &:active, &.active {
-    background-color: var(--selected-click);
-  }
-
-  &.active {
-    background-image: url("./assets/AppChromeBtn-Open.svg");
+    border-radius: 100%;
+    transform: scale(1.1);
+    outline: 2px solid var(--keyColor);
   }
 }
 
@@ -1027,6 +1083,10 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   font-size: 13px;
   height: 100%;
   display: flex;
+
+  &-macos {
+    width: 96px;
+  }
 }
 
 .app-chrome .app-chrome-item > .window-controls > div {
@@ -1077,9 +1137,9 @@ body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls > div.mi
   display: none;
 }
 
-body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls {
-  display: none;
-}
+//body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls {
+//  display: none;
+//}
 
 body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls > div.minmax {
   display: none;
@@ -1143,6 +1203,20 @@ body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls > div.cl
 
   .ppe-icon {
     background-image: url("./assets/ppe.svg") !important;
+    margin-left: 0.5em !important;
+    flex: 1;
+  }
+
+  .private-icon {
+    background-image: url("./assets/private.svg") !important;
+    margin-left: 0.5em !important;
+    flex: 1;
+  }
+
+  .chrome-icon-container {
+    display: flex;
+    position: absolute;
+    right: 0px;
   }
 
   .audio-type {
@@ -1151,10 +1225,20 @@ body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls > div.cl
     background-size: contain;
     height: 15px;
     width: 15px;
-    position: absolute;
-    right: 0;
     margin-bottom: 15px;
   }
+}
+// Add Music Video Icons to Songs that are Music Videos
+div[data-type="library-music-videos"] .info-rect .title::before,
+div[data-type="musicVideo"] .info-rect .title::before {
+    content: "";
+    background-image: url(./assets/feather/video.svg);
+    background-size: contain;
+    filter:invert(0.6);
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-bottom: -4px;
 }
 
 .app-chrome .app-chrome-item > .app-playback-controls .song-duration p {
@@ -1189,7 +1273,7 @@ body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls > div.cl
 
 
 .marquee {
-  animation: marquee 15s linear infinite;
+  animation: marquee 15s linear  2s infinite;
 
   &.song-artist {
     overflow: unset;
@@ -1494,7 +1578,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   font-size: 26px;
   transform: scale(0.8);
   transform-origin: left center;
-  transition: transform 0.2s var(--appleEase);
+  transition: transform 0.5s var(--appleEase);
   opacity: 0.75;
   width: auto;
   display: inline-block;
@@ -1554,11 +1638,11 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   filter: none !important;
 }
 .lyric-body > .lyric-line:not(.active) {
-  transition: filter var(--appleEase) 0.5s ease;
+  // transition: filter var(--appleEase) 0.5s ease;
 }
 
 .lyricWaiting {
-  margin-top: 8px;
+  margin-bottom:10px;
   display: none;
 }
 
@@ -3051,6 +3135,21 @@ body.no-gpu {
   }
 }
 
+.keybindings-border {
+  padding-left: 15px;
+  padding-right: 15px;
+  border-style: solid;
+  border-radius: 5px;
+  border-color: #CBCBCB;
+}
+
+.keybinding-text {
+  width: 95px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .qrimg {
   width: -webkit-fill-available;
   max-block-size: -webkit-fill-available;
@@ -3195,6 +3294,10 @@ body[platform='darwin'] {
   content: '%';
 }
 
+.modal .close {
+  color: transparent;
+}
+
 .spatialproperties-panel.modal-fullscreen{
   flex-direction: column;
 } 
@@ -3217,3 +3320,4 @@ body[platform='darwin'] {
 @import url("less/linux.less");
 @import url("less/compact.less");
 @import url("less/directives.less");
+@import url("less/macosemu.less");
