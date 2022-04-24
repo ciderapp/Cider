@@ -20,6 +20,9 @@
     <audio-controls v-if="modals.audioControls"></audio-controls>
 </transition>
 <transition name="modal">
+    <audio-playbackrate v-if="modals.audioPlaybackRate"></audio-playbackrate>
+</transition>
+<transition name="modal">
     <audio-settings v-if="modals.audioSettings"></audio-settings>
 </transition>
 <transition name="modal">
