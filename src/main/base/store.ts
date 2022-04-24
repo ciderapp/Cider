@@ -154,8 +154,12 @@ export class Store {
         "advanced": {
             "AudioContext": false,
             "experiments": [],
-            "playlistTrackMapping": true
-        }
+            "playlistTrackMapping": true,
+            "ffmpegLocation": ""
+        },
+        "connectUser": {
+            "auth": null,
+        },
     }
     private migrations: any = {
         '>=1.4.3': (store: ElectronStore) => {

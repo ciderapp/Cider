@@ -528,6 +528,7 @@ export class BrowserWindow {
         app.get("/connect/set-cc-user/:data", (req, res) => {
             //utils.getStoreValue('connectUser', JSON.parse()) // [Connect] Save user in store
             utils.setStoreValue('connectUser', JSON.parse(req.params.data))
+            utils.getWindow().reload()
             res.redirect(`https://connect.cidercollective.dev/linked.html`)
         });
         // [Connect] Set auth URL in store for `shell.openExternal`
@@ -1201,6 +1202,13 @@ export class BrowserWindow {
 
         ipcMain.on('cc-auth', (_event) => {
             shell.openExternal(String(utils.getStoreValue('cc_authURL')));
+        });
+
+        ipcMain.on('cc-logout', (_event) => {
+            utils.setStoreValue('connectUser', {
+                auth: null
+            });
+            utils.getWindow().reload();
         });
         /* *********************************************************************************************
          * Window Events
