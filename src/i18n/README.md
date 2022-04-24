@@ -271,3 +271,8 @@ Update 22/04/2022 16:00 UTC
 
 * `settings.option.visual.theme.github.openfolder`: Added for `en_US`
 
+Update 24/04/2022 19:00 UTC
+
+* `settings.option.audio.playbackRate`: Added for `en_US`
+* `settings.option.audio.changePlaybackRate`: Added for `en_US`
+
