@@ -39,8 +39,9 @@ const MusicKitInterop = {
 			}
 
 			if (MusicKit.getInstance().nowPlayingItem) {
+				await this.sleep(1000);
+				console.log("Auto-updating Playback Rate from " + MusicKit.getInstance().playbackRate + " x to " + app.cfg.audio.playbackRate + " x");
 				MusicKit.getInstance().playbackRate = app.cfg.audio.playbackRate;
-				console.log("Playback Rate auto-set to: " + app.cfg.audio.playbackRate + " - now it is: " + MusicKit.getInstance().playbackRate + " by MusicKit")
 			}
 		});
 
@@ -52,6 +53,13 @@ const MusicKitInterop = {
 			console.warn(`[mediaPlaybackError] ${e}`);
 		})
 	},
+
+	sleep(ms) {
+		return new Promise((resolve) => {
+		  setTimeout(resolve, ms);
+		});
+	},
+
 	async modifyNamesOnLocale() {
 		if (app.mklang === '' || app.mklang == null) {
 			return;
