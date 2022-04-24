@@ -203,6 +203,7 @@ const app = new Vue({
             audioSettings: false,
             pluginMenu: false,
             audioControls: false,
+            audioPlaybackRate: false,
             showPlaylist: false,
             castMenu: false,
             moreInfo: false,
