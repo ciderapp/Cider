@@ -12954,6 +12954,10 @@ body[platform='darwin'] .app-chrome .app-chrome-item > .app-mainmenu {
 .percent::after {
   content: '%';
 }
+.playbackrate-text {
+  align-items: end;
+  margin-right: 5px;
+}
 .spatialproperties-panel.modal-fullscreen {
   flex-direction: column;
 }

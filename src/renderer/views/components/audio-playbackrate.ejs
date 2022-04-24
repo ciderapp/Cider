@@ -11,10 +11,11 @@
                     <div class="md-option-segment">
                         {{app.getLz('term.playbackRate')}}
                     </div>
-                    <div class="md-option-segment md-option-segment_auto percent">
-                        <input type="number"
-                               style="width: 100%; text-align: center; margin-right: 5px;" min="0.25" max="2"
-                               step="0.25" v-model="playbackRate"/>
+                    <div class="md-option-segment playbackrate-text" v-if="this.playbackRate">
+                        {{this.playbackRate}} ×
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <input type="range" :step="0.05" min="0.25" :max="2" v-model="playbackRate">
                     </div>
                 </div>
             </div>
