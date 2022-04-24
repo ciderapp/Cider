@@ -37,6 +37,11 @@ const MusicKitInterop = {
 			if (trackFilter || !app.cfg.lastfm.filterLoop) {
 				global.ipcRenderer.send('nowPlayingItemDidChangeLastFM', attributes);
 			}
+
+			if (MusicKit.getInstance().nowPlayingItem) {
+				MusicKit.getInstance().playbackRate = app.cfg.audio.playbackRate;
+				console.log("Playback Rate auto-set to: " + app.cfg.audio.playbackRate + " - now it is: " + MusicKit.getInstance().playbackRate + " by MusicKit")
+			}
 		});
 
 		MusicKit.getInstance().addEventListener(MusicKit.Events.authorizationStatusDidChange, () => {
