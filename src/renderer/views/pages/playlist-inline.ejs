@@ -151,78 +151,85 @@
                         </div>
                     </div>
                 </div>
-                <div class="playlist-body">
-                    <div class="well">
-                        <div style="width:100%">
-                            <draggable :sort="data.attributes.canEdit && data.type == 'library-playlists'"
-                                       v-model="data.relationships.tracks.data" @start="drag=true"
-                                       @end="drag=false;put()">
-                                <template v-if="nestedPlaylist == [] || nestedPlaylist.length <= 1">      
-                                <mediaitem-list-item :item="item" :parent="getItemParent(data)" :index="index"
-                                                     :showIndex="true"
-                                                     :showIndexPlaylist="(data.attributes.playParams.kind ?? data.type ?? '').includes('playlist')"
-                                                     :context-ext="buildContextMenu()"
-                                                     v-for="(item,index) in data.relationships.tracks.data"></mediaitem-list-item>
-                                </template>
-                                <template v-else>
-                                    <div v-for="disc in nestedPlaylist">
-                                        <div class="playlist-time">{{($root.getLz("term.discNumber") ?? "").replace("${discNumber}",disc.disc)}}</div>
-                                        <mediaitem-list-item :item="item" :parent="getItemParent(data)" :index="index"
-                                            :showIndex="true"
-                                            :showIndexPlaylist="(data.attributes.playParams.kind ?? data.type ?? '').includes('playlist')"
-                                            :context-ext="buildContextMenu()"
-                                            v-for="(item,index) in disc.tracks"></mediaitem-list-item>   
-                                    </div>    
+                <div class="playlist-body scrollbody">
 
-                                </template>                         
-                            </draggable>
-
-                        </div>
-
-                    </div>
-                    <div class="friends-info" v-if="itemBadges.length != 0">
-                        <div class="well">
-                            <div class="badge-container">
-                                <div class="socialBadge"
-                                     :title="`${badge.attributes.name} - @${badge.attributes.handle}`"
-                                     v-for="badge in itemBadges">
-                                    <mediaitem-artwork
-                                            :url="badge.attributes.artwork.url"
-                                            :size="60"></mediaitem-artwork>
+                    <b-tabs pills align="center" content-class="mt-3">
+                        <b-tab title="Tracks">
+                            <div class="">
+                                <div style="width:100%">
+                                    <draggable :sort="data.attributes.canEdit && data.type == 'library-playlists'"
+                                               v-model="data.relationships.tracks.data" @start="drag=true" @end="drag=false;put()">
+                                               <template v-if="nestedPlaylist == [] || nestedPlaylist.length <= 1">      
+                                                <mediaitem-list-item :item="item" :parent="getItemParent(data)" :index="index"
+                                                                     :showIndex="true"
+                                                                     :showIndexPlaylist="(data.attributes.playParams.kind ?? data.type ?? '').includes('playlist')"
+                                                                     :context-ext="buildContextMenu()"
+                                                                     v-for="(item,index) in data.relationships.tracks.data"></mediaitem-list-item>
+                                                </template>
+                                                <template v-else>
+                                                    <div v-for="disc in nestedPlaylist">
+                                                        <div class="playlist-time">{{($root.getLz("term.discNumber") ?? "").replace("${discNumber}",disc.disc)}}</div>
+                                                        <mediaitem-list-item :item="item" :parent="getItemParent(data)" :index="index"
+                                                            :showIndex="true"
+                                                            :showIndexPlaylist="(data.attributes.playParams.kind ?? data.type ?? '').includes('playlist')"
+                                                            :context-ext="buildContextMenu()"
+                                                            v-for="(item,index) in disc.tracks"></mediaitem-list-item>   
+                                                    </div>    
+                
+                                                </template>    
+                                    </draggable>
+            
+                                </div>
+            
+                            </div>
+                            <div class="friends-info" v-if="itemBadges.length != 0">
+                                <div class="well">
+                                    <div class="badge-container">
+                                        <div class="socialBadge" :title="`${badge.attributes.name} - @${badge.attributes.handle}`"
+                                             v-for="badge in itemBadges">
+                                            <mediaitem-artwork
+                                                    :url="badge.attributes.artwork.url"
+                                                    :size="60"></mediaitem-artwork>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="playlist-time">
-                        {{getFormattedDate()}}
-                    </div>
-                    <div class="playlist-time total">{{app.getTotalTime()}}</div>
-                    <div class="playlist-time item-navigate" @click="app.searchAndNavigate(data,'recordLabel') "
-                         style="width: 50%;">
-                        {{data.attributes.copyright}}
-                    </div>
-                    <template
-                            v-if="(data.attributes?.playParams?.kind ?? data.type ?? '').includes('album') &&  data.relationships.catalog != null && data.relationships.catalog != null && data.relationships.catalog.data.length > 0">
-                        <div class="playlist-time showExtended item-navigate" style="color:#fa586a; font-weight: bold"
-                             @click="app.routeView(data.relationships.catalog.data[0])">
-                            {{$root.getLz("action.showAlbum")}}
-                        </div>
-                    </template>
-                    <hr>
-                    <template v-if="typeof data.meta != 'undefined'">
-                        <div v-for="view in data.meta.views.order" v-if="data.views[view].data.length != 0">
-                            <div class="row">
+                            <div class="playlist-time">
+                                {{getFormattedDate()}}
+                            </div>
+                            <div class="playlist-time total">{{app.getTotalTime()}}</div>
+                            <div class="playlist-time item-navigate" @click="app.searchAndNavigate(data,'recordLabel') "
+                                 style="width: 50%;">
+                                {{data.attributes.copyright}}
+                            </div>
+                            <template
+                                    v-if="(data.attributes?.playParams?.kind ?? data.type ?? '').includes('album') &&  data.relationships.catalog != null && data.relationships.catalog != null && data.relationships.catalog.data.length > 0">
+                                <div class="playlist-time showExtended item-navigate" style="color:#fa586a; font-weight: bold"
+                                     @click="app.routeView(data.relationships.catalog.data[0])">
+                                    {{$root.getLz("action.showAlbum")}}
+                                </div>
+                            </template>
+                            <hr>
+                        </b-tab>
+                        <template v-if="typeof data.views != 'undefined'">
+                        <b-tab lazy :title="data.views[view].attributes.title" v-for="view in data.meta.views.order" v-if="data.views[view].data.length != 0">
+                            <div>
+                                <div class="row">
                                 <div class="col">
                                     <h3>{{ data.views[view].attributes.title }}</h3>
                                 </div>
                             </div>
-                            <div>
-                                <mediaitem-scroller-horizontal
-                                        :items="data.views[view].data"></mediaitem-scroller-horizontal>
+                            <div class="row">
+                                <div class="col">
+                                    <mediaitem-scroller-horizontal
+                                            :items="data.views[view].data"></mediaitem-scroller-horizontal>
+                                </div>
                             </div>
-                        </div>
-                    </template>
-
+                                </div>
+                        </b-tab>
+                        </template>
+    
+                    </b-tabs>
                 </div>
             </template>
         </div>

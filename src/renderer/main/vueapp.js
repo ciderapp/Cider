@@ -1652,7 +1652,8 @@ const app = new Vue({
                     params["fields[albums]"] = "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialNotes,editorialVideo,name,playParams,releaseDate,url,copyright"
                 }
 
-                if (this.cfg.advanced.experiments.includes('inline-playlists')) {
+                // if (this.cfg.advanced.experiments.includes('inline-playlists')) {
+                if(false) {
                     let showModal = kind.toString().includes("album") || kind.toString().includes("playlist")
                     if (app.page.includes("playlist") || app.page.includes("album")) {
                         showModal = false

@@ -12826,6 +12826,19 @@ body.no-gpu .drawertransition-leave-to {
 body.no-gpu .lyric-line:hover::after {
   display: none;
 }
+.keybindings-border {
+  padding-left: 15px;
+  padding-right: 15px;
+  border-style: solid;
+  border-radius: 5px;
+  border-color: #CBCBCB;
+}
+.keybinding-text {
+  width: 95px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .qrimg {
   width: -webkit-fill-available;
   max-block-size: -webkit-fill-available;

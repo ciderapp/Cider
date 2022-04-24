@@ -33,11 +33,27 @@
                 </div>
             </template>
         </div>
-        <div class="md-labeltext" style="opacity:0.5;">{{$root.getLz('action.cast.airplay')}}</div>
-        <div class="md-option-container" style="margin-top: 12px;margin-bottom: 12px;opacity:0.5;">
+        <div class="md-labeltext" >{{$root.getLz('action.cast.airplay')}}</div>
+        <div class="md-option-container" style="margin-top: 12px;margin-bottom: 12px;">
             <div class="md-option-line">
                 <div class="md-option-segment">
-                    {{$root.getLz('action.cast.airplay.underdevelopment')}}
+                    {{true ? 'Homepods only for now! (NO PASSWORD PLEASE!)' : 'Please add FFmpeg location in Settings -> Advanced'}}
+                    <!-- {{$root.getLz('action.cast.airplay.underdevelopment')}} -->
+                    <template v-if="true" v-for="(device) in devices.airplay">
+                        <div class="md-option-line" style="cursor: pointer" @click="setAirPlayCast(device)">
+                            <div class="md-option-segment">
+                                {{ device.name }}
+                                <br>
+                                <small>{{ device.host }}</small>
+                            </div>
+                            <div class="md-option-segment_auto" style="display: flex;justify-content: center;align-items: center" v-if="activeCasts.includes(device)">
+                                Connected
+                            </div>
+                            <div class="md-option-segment_auto" v-else style="display: flex;justify-content: center;align-items: center">
+                                <svg width="20" height="20" viewBox="0 0 34 34" fill="#fff" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" class="castPlayIndicator"><path d="M28.228,18.327l-16.023,8.983c-0.99,0.555 -2.205,-0.17 -2.205,-1.318l0,-17.984c0,-1.146 1.215,-1.873 2.205,-1.317l16.023,8.982c1.029,0.577 1.029,2.077 0,2.654Z" style="fill-rule:nonzero"></path></svg>
+                            </div>
+                        </div>
+                    </template>
                 </div>
             </div>
         </div>
@@ -84,8 +100,10 @@
                 let self = this;
                 this.scanning = true;
                 ipcRenderer.send('getChromeCastDevices', '');
+                ipcRenderer.send("getAirplayDevice","")
                 setTimeout(() => {
                   self.devices.cast = ipcRenderer.sendSync("getKnownCastDevices");
+                  self.devices.airplay = ipcRenderer.sendSync("getKnownAirplayDevices");
                   self.scanning = false;
                 }, 2000);
                 console.log(this.devices);
@@ -96,8 +114,13 @@
                 this.activeCasts.push(device); 
                 ipcRenderer.send('performGCCast', device, "Cider", "Playing ...", "Test build", '');
             },
+            setAirPlayCast(device) {
+                this.activeCasts.push(device); 
+                ipcRenderer.send("performAirplayPCM",device.host,device.port,null,"","","","")
+            },
             stopCasting() {
                 CiderAudio.stopAudio();
+                ipcRenderer.send('disconnectAirplay', '');
                 ipcRenderer.send('stopGCast', '');
                 this.activeCasts = [];
                 // vm.$forceUpdate();

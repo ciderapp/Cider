@@ -991,6 +991,18 @@
   opacity   : 0;
 }
 
+.fade {
+  transition: opacity 0.15s var(--appleEase);
+}
+@media (prefers-reduced-motion: reduce) {
+  .fade {
+    transition: none;
+  }
+}
+.fade:not(.show) {
+  opacity: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .modal.fade .modal-dialog {
     transition: none;
@@ -2424,6 +2436,7 @@ fieldset:disabled .btn {
   -webkit-user-drag: none;
   // transition: transform .35s var(--appleEase), background-color .35s var(--appleEase);
   font-weight: 500;
+  margin: 0px 4px;
   &:hover {
     // transition: transform .35s var(--appleEase), background-color 0s var(--appleEase);
     background-color: var(--hover);

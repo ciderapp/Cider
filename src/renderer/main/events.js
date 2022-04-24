@@ -1,32 +1,10 @@
 const Events = {
     InitEvents() {
         const app = window.app
-        // Key binds
-        document.addEventListener('keydown', function (e) {
-            if (e.keyCode === 70 && e.ctrlKey) {
-                app.$refs.searchInput.focus()
-                app.$refs.searchInput.select()
-            }
-        });
 
 // add event listener for when window.location.hash changes
         window.addEventListener("hashchange", function () {
             app.appRoute(window.location.hash)
-        });
-
-        // Key bind to unjam MusicKit in case it fails: CTRL+F10
-
-        document.addEventListener('keydown', function (event) {
-            if (event.ctrlKey && event.keyCode == 121) {
-                try {
-                    app.mk._services.mediaItemPlayback._currentPlayer.stop()
-                } catch (e) {
-                }
-                try {
-                    app.mk._services.mediaItemPlayback._currentPlayer.destroy()
-                } catch (e) {
-                }
-            }
         });
 
         window.addEventListener("mouseup", (e) => {
@@ -39,12 +17,61 @@ const Events = {
             }
         });
 
-        document.addEventListener('keydown', function (event) {
+        document.addEventListener('keydown', async function (event) {
+            if (event.keyCode === 70 && event.ctrlKey) {
+                app.$refs.searchInput.focus()
+                app.$refs.searchInput.select()
+            }
+            // CTRL + R
+            if (event.keyCode === 82 && event.ctrlKey) {
+                event.preventDefault()
+                bootbox.confirm("Reload Cider?", (res)=>{
+                    if(res) {
+                        window.location.reload()
+                    }
+                })
+            }
+            // CTRL + SHIFT + R
+            if (event.keyCode === 82 && event.ctrlKey && event.shiftKey) {
+                event.preventDefault()
+                window.location.reload()
+            }                
+            // CTRL + E
+            if (event.keyCode === 69 && event.ctrlKey) {
+                app.invokeDrawer('queue')
+            }
+            // CTRL+H
+            if (event.keyCode === 72 && event.ctrlKey) {
+                app.appRoute("home")
+            }
+            // CTRL+SHIFT+H
+            if (event.ctrlKey && event.shiftKey && event.keyCode == 72) {
+                let hist = await app.mk.api.v3.music(`/v1/me/recent/played/tracks`, {
+                    l: app.mklang
+                })
+                app.showCollection(hist.data, app.getLz('term.history'))
+            }
+            if (event.ctrlKey && event.keyCode == 121) {
+                try {
+                    app.mk._services.mediaItemPlayback._currentPlayer.stop()
+                } catch (e) {
+                }
+                try {
+                    app.mk._services.mediaItemPlayback._currentPlayer.destroy()
+                } catch (e) {
+                }
+            }
             if (event.ctrlKey && event.keyCode == 122) {
                 try {
                     ipcRenderer.send('detachDT', '')
                 } catch (e) {
                 }
+            }
+            // Prevent Scrolling on spacebar
+            if (event.keyCode === 32 && event.target === document.body) {
+                event.preventDefault()
+                app.SpacePause()  
+                
             }
         });
 
