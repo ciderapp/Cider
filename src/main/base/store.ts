@@ -44,6 +44,14 @@ export class Store {
             "onStartup": {
                 "enabled": false,
                 "hidden": false,
+            },
+            "keybind": {
+                "togglePrivateSession": "",
+                "webRemote": "",
+                "audioSettings": "",
+                "pluginMenu": "",
+                "castToDevices": "",
+                "openDeveloperTools": "",
             }
         },
         "home": {

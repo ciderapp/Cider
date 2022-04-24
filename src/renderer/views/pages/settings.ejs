@@ -138,50 +138,65 @@
                                         <div class="md-option-segment">
                                             Toggle Private Session
                                         </div>
-                                        <div class="md-option-segment md-option-segment_auto keybindings-border">
-                                            <p class="keybinding-text">{{ getCommandOrControl() }} + P</p>
+                                        <div class="md-option-segment md-option-segment_auto">
+                                            <button class="md-btn md-btn-small md-btn-block" @click="keyBindUpdate('togglePrivateSession')">
+                                                {{app.cfg.general.keybind.togglePrivateSession[0]}} + {{app.cfg.general.keybind.togglePrivateSession[1]}} + {{app.cfg.general.keybind.togglePrivateSession[2]}}
+                                            </button>
                                         </div>
                                     </div>
                                     <div class="md-option-line">
                                         <div class="md-option-segment">
                                             Web Remote
                                         </div>
-                                        <div class="md-option-segment md-option-segment_auto keybindings-border">
-                                            <p class="keybinding-text">{{ getCommandOrControl() }} + Shift + W</p>
+                                        <div class="md-option-segment md-option-segment_auto">
+                                            <button class="md-btn md-btn-small md-btn-block" @click="keyBindUpdate('webRemote')">
+                                                {{app.cfg.general.keybind.webRemote[0]}} + {{app.cfg.general.keybind.webRemote[1]}} + {{app.cfg.general.keybind.webRemote[2]}}
+                                            </button>
                                         </div>
                                     </div>
                                     <div class="md-option-line">
                                         <div class="md-option-segment">
                                             Audio Settings
                                         </div>
-                                        <div class="md-option-segment md-option-segment_auto keybindings-border">
-                                            <p class="keybinding-text">{{ getCommandOrControl() }} + Shift + A</p>
+                                        <div class="md-option-segment md-option-segment_auto">
+                                            <button class="md-btn md-btn-small md-btn-block" @click="keyBindUpdate('audioSettings')">
+                                                {{app.cfg.general.keybind.audioSettings[0]}} + {{app.cfg.general.keybind.audioSettings[1]}} + {{app.cfg.general.keybind.audioSettings[2]}}
+                                            </button>
                                         </div>
                                     </div>
                                     <div class="md-option-line">
                                         <div class="md-option-segment">
                                             Plugin Menu
                                         </div>
-                                        <div class="md-option-segment md-option-segment_auto keybindings-border">
-                                            <p class="keybinding-text">{{ getCommandOrControl() }} + Shift + P</p>
+                                        <div class="md-option-segment md-option-segment_auto">
+                                            <button class="md-btn md-btn-small md-btn-block" @click="keyBindUpdate('pluginMenu')">
+                                                {{app.cfg.general.keybind.pluginMenu[0]}} + {{app.cfg.general.keybind.pluginMenu[1]}} + {{app.cfg.general.keybind.pluginMenu[2]}}
+                                            </button>
                                         </div>
                                     </div>
                                     <div class="md-option-line">
                                         <div class="md-option-segment">
                                             Cast to Devices
                                         </div>
-                                        <div class="md-option-segment md-option-segment_auto keybindings-border">
-                                            <p class="keybinding-text">{{ getCommandOrControl() }} + Shift + C</p>
+                                        <div class="md-option-segment md-option-segment_auto">
+                                            <button class="md-btn md-btn-small md-btn-block" @click="keyBindUpdate('castToDevices')">
+                                                {{app.cfg.general.keybind.castToDevices[0]}} + {{app.cfg.general.keybind.castToDevices[1]}} + {{app.cfg.general.keybind.castToDevices[2]}}
+                                            </button>
                                         </div>
                                     </div>
                                     <div class="md-option-line">
                                         <div class="md-option-segment">
                                             Open Developer Tools
                                         </div>
-                                        <div class="md-option-segment md-option-segment_auto keybindings-border">
-                                            <p class="keybinding-text">{{ getCommandOrControl() }} + {{ getOptionOrShift() }} + I</p>
+                                        <div class="md-option-segment md-option-segment_auto">
+                                            <button class="md-btn md-btn-small md-btn-block" @click="keyBindUpdate('openDeveloperTools')">
+                                                {{app.cfg.general.keybind.openDeveloperTools[0]}} + {{app.cfg.general.keybind.openDeveloperTools[1]}} + {{app.cfg.general.keybind.openDeveloperTools[2]}}
+                                            </button>
                                         </div>
                                     </div>
+                                    <button class="md-btn md-btn-large md-btn-block" @click="keyBindReset()">
+                                        Reset
+                                    </button>
                                 </div>
                             </b-modal>
                         </div>
@@ -1262,6 +1277,63 @@
                         ipcRenderer.invoke("reinstall-widevine-cdm");
                     }
                 })
+            },
+            keyBindUpdate: function (action) {
+                var blur = document.createElement('div');
+                blur.className = 'blur';
+                blur.style.backgroundColor = 'rgba(0,0,0,0.25)';
+                blur.style.position = 'fixed';
+                blur.style.top = '0';
+                blur.style.left = '0';
+                blur.style.width = '100%';
+                blur.style.height = '100%';
+                blur.style.zIndex = '9999';
+                blur.style.display = 'flex';
+                blur.style.alignItems = 'center';
+                blur.style.justifyContent = 'center';
+                blur.style.fontSize = '2em';
+                blur.style.color = 'white';
+                blur.innerHTML = 'Press a combination of three keys to update keybind.\nPress Escape key to go back.'
+                document.body.appendChild(blur);
+                var keyBind = [];
+                var keyBindTimeout = setTimeout(function () {
+                    keyBind = [];
+                    document.body.removeChild(blur);
+                }, 30000);
+                var keyBindUpdate = function (e) {
+                    if (document.body.contains(blur)) {
+                    if (e.key == 'Escape') {
+                        document.body.removeChild(blur);
+                        clearTimeout(keyBindTimeout);
+                        return;
+                    } else {
+                        if (e.keyCode >= 65 && e.keyCode <= 90 && e.keyCode <= 97 && e.keyCode <= 122) {
+                            keyBind.push(e.key.toUpperCase());
+                        } else {
+                            keyBind.push(e.key);
+                        }
+                        if (keyBind.length == 3) {
+                            if (keyBind[0] != keyBind[1] && keyBind[0] != keyBind[2] && keyBind[1] != keyBind[2]) {
+                                app.cfg.general.keybind[action] = keyBind
+                                document.body.removeChild(blur);
+                                clearTimeout(keyBindTimeout);
+                            } else {
+                                keyBind = [];
+                            }
+                        }
+                    }
+                } else return;
+            }
+            document.addEventListener('keydown', keyBindUpdate);
+            },
+            keyBindReset: function () {
+                app.cfg.general.keybind.togglePrivateSession = ["Control","Alt","P"];
+                app.cfg.general.keybind.webRemote = ["Control","Shift","W"];
+                app.cfg.general.keybind.audioSettings = ["Control","Shift","A"];
+                app.cfg.general.keybind.pluginMenu = ["Control","Shift","P"];
+                app.cfg.general.keybind.castToDevices = ["Control","Shift","C"];
+                app.cfg.general.keybind.openDeveloperTools = ["Control","Shift","I"];
+                return;
             },
             gitHubExplore() {
                 app.appRoute("themes-github")

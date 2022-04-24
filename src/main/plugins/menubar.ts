@@ -104,24 +104,24 @@ export default class Thumbar {
                 {type: 'separator'},
                 {
                     label: 'Toggle Private Session',
-                    accelerator: 'CommandOrControl+P',
+                    accelerator: this._store.get('general.keybind.togglePrivateSession[0]') + '+' + this._store.get('general.keybind.togglePrivateSession[1]') + '+' + this._store.get('general.keybind.togglePrivateSession[2]'),
                     click: () => this._win.webContents.executeJavaScript(`app.cfg.general.privateEnabled = !app.cfg.general.privateEnabled`)
                 },
                 {type: 'separator'},
                 {
                     label: 'Web Remote',
-                    accelerator: 'CommandOrControl+Shift+W',
+                    accelerator: this._store.get('general.keybind.webRemote[0]') + '+' + this._store.get('general.keybind.webRemote[1]') + '+' + this._store.get('general.keybind.webRemote[2]'),
                     sublabel: 'Opens in external window',
                     click: () => this._win.webContents.executeJavaScript(`app.appRoute('remote-pair')`)
                 },
                 {
                     label: 'Audio Settings',
-                    accelerator: 'CommandOrControl+Shift+A',
+                    accelerator: this._store.get('general.keybind.audioSettings[0]') + '+' + this._store.get('general.keybind.audioSettings[1]') + '+' + this._store.get('general.keybind.audioSettings[2]'),
                     click: () => this._win.webContents.executeJavaScript(`app.modals.audioSettings = true`)
                 },
                 {
                     label: 'Plug-in Menu',
-                    accelerator: 'CommandOrControl+Shift+P',
+                    accelerator: this._store.get('general.keybind.pluginMenu[0]') + '+' + this._store.get('general.keybind.pluginMenu[1]') + '+' + this._store.get('general.keybind.pluginMenu[2]'),
                     click: () => this._win.webContents.executeJavaScript(`app.modals.pluginMenu = true`)
                 }
 
@@ -159,7 +159,7 @@ export default class Thumbar {
                 {type: 'separator'},
                 {
                     label: 'Cast To Devices',
-                    accelerator: 'CommandOrControl+Shift+C',
+                    accelerator: this._store.get('general.keybind.castToDevices[0]') + '+' + this._store.get('general.keybind.castToDevices[1]') + '+' + this._store.get('general.keybind.castToDevices[2]'),
                     click: () => this._win.webContents.executeJavaScript(`app.modals.castMenu = true`)
                 }
             ]
@@ -215,7 +215,7 @@ export default class Thumbar {
                 {type: 'separator'},
                 {
                     label: 'Toggle Developer Tools',
-                    accelerator: 'Option+CommandOrControl+Shift+I',
+                    accelerator: this._store.get('general.keybind.openDeveloperTools[0]') + '+' + this._store.get('general.keybind.openDeveloperTools[1]') + '+' + this._store.get('general.keybind.openDeveloperTools[2]'),
                     click: () => this._win.webContents.openDevTools()
                 },
                 {
