@@ -425,7 +425,7 @@
   "settings.option.advanced.playlistTrackMapping": "Playlist Track Mapping",
   "settings.option.advanced.playlistTrackMapping.description": "Enables deep scanning of playlists to determine which tracks are in which playlists.  Playlist cache build times can increase significantly.",
   "settings.option.visual.transparent": "Transparent frame",
-  "settings.option.visual.transparent.description": "Transparent frame (needs Theme Support, requires relaunch)",
+  "settings.option.visual.transparent.description": "(needs Theme Support, requires relaunch)",
   "settings.header.advanced": "Advanced",
   "settings.header.connect": "Connect",
   "spatial.notTurnedOn": "Audio Spatialization is disabled. To use, please enable it first.",
