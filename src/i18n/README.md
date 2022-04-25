@@ -276,3 +276,17 @@ Update 24/04/2022 19:00 UTC
 * `settings.option.audio.changePlaybackRate`: Added for `en_US`
 * `settings.option.audio.playbackRate`: Added for `en_US`
 * `settings.option.audio.playbackRate.change`: Added for `en_US`
+
+Update 25/04/2022 00:21 UTC
+
+*  `settings.description.search`: Added for `en_US`
+*  `settings.description.albums`: Added for `en_US`
+*  `settings.description.artists`: Added for `en_US`
+*  `settings.description.browse`: Added for `en_US`
+*  `settings.description.private`: Added for `en_US`
+*  `settings.description.remote`: Added for `en_US`
+*  `settings.description.audio`: Added for `en_US`
+*  `settings.description.plugins`: Added for `en_US`
+*  `settings.description.cast`: Added for `en_US`
+*  `settings.description.settings`: Added for `en_US`
+*  `settings.description.developer`: Added for `en_US`
