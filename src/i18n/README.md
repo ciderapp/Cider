@@ -267,6 +267,10 @@ Update 22/04/2022 13:00 UTC
 * `settings.option.general.keybindings`: Added for `en_US`
 * `settings.option.general.keybindings.open`: Added for `en_US`
 
+Update 22/04/2022 16:00 UTC
+
+* `settings.option.visual.theme.github.openfolder`: Added for `en_US`
+
 Update 25/04/2022 00:21 UTC
 
 *  `settings.description.search`: Added for `en_US`

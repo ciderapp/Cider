@@ -9,11 +9,7 @@
         </template>
         <template v-if="app.playlists.loadingState == 1">
             <div class="playlist-display"
-                 @mouseover.self="minClass(false)"
-                 :style="{
-                '--bgColor': (data.attributes.artwork != null && data.attributes.artwork['bgColor'] != null) ? ('#' + data.attributes.artwork.bgColor) : '',
-                '--textColor': (data.attributes.artwork != null && data.attributes.artwork['textColor1'] != null) ? ('#' + data.attributes.artwork.textColor1) : ''
-            }">
+                 @mouseover.self="minClass(false)">
                 <div class="playlistInfo">
                     <div class="row">
                         <div class="col-auto flex-center" @mouseover="minClass(false)">

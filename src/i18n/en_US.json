@@ -374,6 +374,7 @@
   "settings.option.visual.uiscale": "UI Scale",
   "settings.header.visual.theme": "Theme",
   "settings.option.visual.theme.github.download": "Install from GitHub URL",
+  "settings.option.visual.theme.github.openfolder": "Open Themes Folder",
   "settings.option.visual.theme.github.explore": "Explore GitHub Themes",
   "settings.header.visual.theme.github.page": "Themes from GitHub",
   "settings.option.visual.theme.github.install.confirm": "Are you sure you want to install {{ repo }}?",
