@@ -267,3 +267,17 @@ Update 22/04/2022 13:00 UTC
 * `settings.option.general.keybindings`: Added for `en_US`
 * `settings.option.general.keybindings.open`: Added for `en_US`
 
+Update 25/04/2022 00:21 UTC
+
+*  `settings.description.search`: Added for `en_US`
+*  `settings.description.albums`: Added for `en_US`
+*  `settings.description.artists`: Added for `en_US`
+*  `settings.description.browse`: Added for `en_US`
+*  `settings.description.private`: Added for `en_US`
+*  `settings.description.remote`: Added for `en_US`
+*  `settings.description.audio`: Added for `en_US`
+*  `settings.description.plugins`: Added for `en_US`
+*  `settings.description.cast`: Added for `en_US`
+*  `settings.description.settings`: Added for `en_US`
+*  `settings.description.developer`: Added for `en_US`
+
