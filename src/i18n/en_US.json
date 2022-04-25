@@ -281,6 +281,8 @@
   "settings.option.general.customizeSidebar.customize": "Customize",
   "settings.option.general.keybindings": "Keybindings",
   "settings.option.general.keybindings.open": "Open",
+  "settings.notyf.general.keybindings.update.success": "Keybind updated successfully",
+  "settings.prompt.general.keybindings.update.success": "Keybind updated successfully. Press OK to relaunch Cider",
   "settings.notyf.updateCider.update-not-available": "No update available",
   "settings.notyf.updateCider.update-downloaded": "Update has been downloaded, restart to apply",
   "settings.notyf.updateCider.update-error": "Error updating Cider",

@@ -35,196 +35,7 @@ export default class Thumbar {
      * @private
      */
     private isMac: boolean = process.platform === 'darwin';
-    private _menuTemplate: any = [
-        {
-            label: app.getName(),
-            submenu: [
-                {
-                    label: 'About',
-                    click: () => this._win.webContents.executeJavaScript(`app.appRoute('about')`)
-                },
-                {type: 'separator'},
-                {
-                    label: 'Settings',
-                    accelerator: 'CommandOrControl+,',
-                    click: () => this._win.webContents.executeJavaScript(`app.appRoute('settings')`)
-                },
-                {type: 'separator'},
-                {role: 'services'},
-                {type: 'separator'},
-                {role: 'hide'},
-                {role: 'hideOthers'},
-                {role: 'unhide'},
-                {type: 'separator'},
-                {role: 'quit'}
-            ]
-        },
-        {
-            label: 'View',
-            submenu: [
-                {role: 'reload'},
-                {role: 'forceReload'},
-                {role: 'toggleDevTools'},
-                {type: 'separator'},
-                {role: 'resetZoom'},
-                {role: 'zoomIn'},
-                {role: 'zoomOut'},
-                {type: 'separator'},
-                {role: 'togglefullscreen'},
-            ]
-        },
-        {
-            label: 'Window',
-            submenu: [
-                {role: 'minimize'},
-                {
-                    label: 'Show',
-                    click: () => utils.getWindow().show()
-                },
-                {role: 'zoom'},
-                ...(this.isMac ? [
-                    {type: 'separator'},
-                    {role: 'front'},
-                    {role: 'close'},
-                ] : [
-                    {role: 'close'},
-                ]),
-
-                {
-                    label: 'Edit',
-                    submenu: [
-                        {role: 'undo'},
-                        {role: 'redo'},
-                        {type: 'separator'},
-                        {role: 'cut'},
-                        {role: 'copy'},
-                        {role: 'paste'},
-                    ]
-                },
-                {type: 'separator'},
-                {
-                    label: 'Toggle Private Session',
-                    accelerator: this._store.get('general.keybind.togglePrivateSession[0]') + '+' + this._store.get('general.keybind.togglePrivateSession[1]') + '+' + this._store.get('general.keybind.togglePrivateSession[2]'),
-                    click: () => this._win.webContents.executeJavaScript(`app.cfg.general.privateEnabled = !app.cfg.general.privateEnabled`)
-                },
-                {type: 'separator'},
-                {
-                    label: 'Web Remote',
-                    accelerator: this._store.get('general.keybind.webRemote[0]') + '+' + this._store.get('general.keybind.webRemote[1]') + '+' + this._store.get('general.keybind.webRemote[2]'),
-                    sublabel: 'Opens in external window',
-                    click: () => this._win.webContents.executeJavaScript(`app.appRoute('remote-pair')`)
-                },
-                {
-                    label: 'Audio Settings',
-                    accelerator: this._store.get('general.keybind.audioSettings[0]') + '+' + this._store.get('general.keybind.audioSettings[1]') + '+' + this._store.get('general.keybind.audioSettings[2]'),
-                    click: () => this._win.webContents.executeJavaScript(`app.modals.audioSettings = true`)
-                },
-                {
-                    label: 'Plug-in Menu',
-                    accelerator: this._store.get('general.keybind.pluginMenu[0]') + '+' + this._store.get('general.keybind.pluginMenu[1]') + '+' + this._store.get('general.keybind.pluginMenu[2]'),
-                    click: () => this._win.webContents.executeJavaScript(`app.modals.pluginMenu = true`)
-                }
-
-            ]
-        },
-        {
-            label: 'Controls',
-            submenu: [
-                {
-                    label: 'Pause / Play',
-                    accelerator: 'Space',
-                    click: () => this._win.webContents.executeJavaScript(`app.SpacePause()`)
-                },
-                {
-                    label: 'Next',
-                    accelerator: 'CommandOrControl+Right',
-                    click: () => this._win.webContents.executeJavaScript(`MusicKitInterop.next()`)
-                },
-                {
-                    label: 'Previous',
-                    accelerator: 'CommandOrControl+Left',
-                    click: () => this._win.webContents.executeJavaScript(`MusicKitInterop.previous()`)
-                },
-                {type: 'separator'},
-                {
-                    label: 'Volume Up',
-                    accelerator: 'CommandOrControl+Up',
-                    click: () => this._win.webContents.executeJavaScript(`app.volumeUp()`)
-                },
-                {
-                    label: 'Volume Down',
-                    accelerator: 'CommandOrControl+Down',
-                    click: () => this._win.webContents.executeJavaScript(`app.volumeDown()`)
-                },
-                {type: 'separator'},
-                {
-                    label: 'Cast To Devices',
-                    accelerator: this._store.get('general.keybind.castToDevices[0]') + '+' + this._store.get('general.keybind.castToDevices[1]') + '+' + this._store.get('general.keybind.castToDevices[2]'),
-                    click: () => this._win.webContents.executeJavaScript(`app.modals.castMenu = true`)
-                }
-            ]
-        },
-        {
-            label: 'Account',
-            submenu: [
-                {
-                    label: 'Account Settings',
-                    click: () => this._win.webContents.executeJavaScript(`app.appRoute('apple-account-settings')`)
-                },
-                {
-                    label: 'Sign Out',
-                    click: () => this._win.webContents.executeJavaScript(`app.unauthorize()`)
-                }
-            ]
-        },
-        {
-            label: 'Support',
-            role: 'help',
-            submenu: [
-                {
-                    label: 'Discord',
-                    click: () => shell.openExternal("https://discord.gg/AppleMusic").catch(console.error)
-                },
-                {
-                    label: 'GitHub Wiki',
-                    click: () => shell.openExternal("https://github.com/ciderapp/Cider/wiki/Troubleshooting").catch(console.error)
-                },
-                {type: 'separator'},
-                {
-                    label: 'Report a...',
-                    submenu: [
-                        {
-                            label: 'Bug',
-                            click: () => shell.openExternal("https://github.com/ciderapp/Cider/issues/new?assignees=&labels=bug%2Ctriage&template=bug_report.yaml&title=%5BBug%5D%3A+").catch(console.error)
-                        },
-                        {
-                            label: 'Feature Request',
-                            click: () => shell.openExternal("https://github.com/ciderapp/Cider/discussions/new?category=feature-request").catch(console.error)
-                        },
-                        {
-                            label: 'Translation Report/Request',
-                            click: () => shell.openExternal("https://github.com/ciderapp/Cider/issues/new?assignees=&labels=%F0%9F%8C%90+Translations&template=translation.yaml&title=%5BTranslation%5D%3A+").catch(console.error)
-                        },
-                    ]
-                },
-                {type: 'separator'},
-                {
-                    label: 'View License',
-                    click: () => shell.openExternal("https://github.com/ciderapp/Cider/blob/main/LICENSE").catch(console.error)
-                },
-                {type: 'separator'},
-                {
-                    label: 'Toggle Developer Tools',
-                    accelerator: this._store.get('general.keybind.openDeveloperTools[0]') + '+' + this._store.get('general.keybind.openDeveloperTools[1]') + '+' + this._store.get('general.keybind.openDeveloperTools[2]'),
-                    click: () => this._win.webContents.openDevTools()
-                },
-                {
-                    label: 'Open Configuration File in Editor',
-                    click: () => this._store.openInEditor()
-                }
-            ]
-        }
-    ]
+    private _menuTemplate: any;
 
     /*******************************************************************************************
      * Public Methods
@@ -233,9 +44,201 @@ export default class Thumbar {
     /**
      * Runs on plugin load (Currently run on application start)
      */
-    constructor(utils: { getApp: () => any; getStore: () => any; }) {
+    constructor(utils: { getApp: () => any; getStore: () => any; getWindow: () => any; }) {
         this._app = utils.getApp();
         this._store = utils.getStore();
+
+        this._menuTemplate = [
+            {
+                label: app.getName(),
+                submenu: [
+                    {
+                        label: 'About',
+                        click: () => this._win.webContents.executeJavaScript(`app.appRoute('about')`)
+                    },
+                    {type: 'separator'},
+                    {
+                        label: 'Settings',
+                        accelerator: 'CommandOrControl+,',
+                        click: () => this._win.webContents.executeJavaScript(`app.appRoute('settings')`)
+                    },
+                    {type: 'separator'},
+                    {role: 'services'},
+                    {type: 'separator'},
+                    {role: 'hide'},
+                    {role: 'hideOthers'},
+                    {role: 'unhide'},
+                    {type: 'separator'},
+                    {role: 'quit'}
+                ]
+            },
+            {
+                label: 'View',
+                submenu: [
+                    {role: 'reload'},
+                    {role: 'forceReload'},
+                    {role: 'toggleDevTools'},
+                    {type: 'separator'},
+                    {role: 'resetZoom'},
+                    {role: 'zoomIn'},
+                    {role: 'zoomOut'},
+                    {type: 'separator'},
+                    {role: 'togglefullscreen'},
+                ]
+            },
+            {
+                label: 'Window',
+                submenu: [
+                    {role: 'minimize'},
+                    {
+                        label: 'Show',
+                        click: () => utils.getWindow().show()
+                    },
+                    {role: 'zoom'},
+                    ...(this.isMac ? [
+                        {type: 'separator'},
+                        {role: 'front'},
+                        {role: 'close'},
+                    ] : [
+                        {role: 'close'},
+                    ]),
+    
+                    {
+                        label: 'Edit',
+                        submenu: [
+                            {role: 'undo'},
+                            {role: 'redo'},
+                            {type: 'separator'},
+                            {role: 'cut'},
+                            {role: 'copy'},
+                            {role: 'paste'},
+                        ]
+                    },
+                    {type: 'separator'},
+                    {
+                        label: 'Toggle Private Session',
+                        accelerator: this._store.general.keybind.togglePrivateSession[0] + '+' + this._store.general.keybind.togglePrivateSession[1] + '+' + this._store.general.keybind.togglePrivateSession[2],
+                        click: () => this._win.webContents.executeJavaScript(`app.cfg.general.privateEnabled = !app.cfg.general.privateEnabled`)
+                    },
+                    {type: 'separator'},
+                    {
+                        label: 'Web Remote',
+                        accelerator: this._store.general.keybind.webRemote[0] + '+' + this._store.general.keybind.webRemote[1] + '+' + this._store.general.keybind.webRemote[2],
+                        sublabel: 'Opens in external window',
+                        click: () => this._win.webContents.executeJavaScript(`app.appRoute('remote-pair')`)
+                    },
+                    {
+                        label: 'Audio Settings',
+                        accelerator: this._store.general.keybind.audioSettings[0] + '+' + this._store.general.keybind.audioSettings[1] + '+' + this._store.general.keybind.audioSettings[2],
+                        click: () => this._win.webContents.executeJavaScript(`app.modals.audioSettings = true`)
+                    },
+                    {
+                        label: 'Plug-in Menu',
+                        accelerator: this._store.general.keybind.pluginMenu[0] + '+' + this._store.general.keybind.pluginMenu[1] + '+' + this._store.general.keybind.pluginMenu[2],
+                        click: () => this._win.webContents.executeJavaScript(`app.modals.pluginMenu = true`)
+                    }
+    
+                ]
+            },
+            {
+                label: 'Controls',
+                submenu: [
+                    {
+                        label: 'Pause / Play',
+                        accelerator: 'Space',
+                        click: () => this._win.webContents.executeJavaScript(`app.SpacePause()`)
+                    },
+                    {
+                        label: 'Next',
+                        accelerator: 'CommandOrControl+Right',
+                        click: () => this._win.webContents.executeJavaScript(`MusicKitInterop.next()`)
+                    },
+                    {
+                        label: 'Previous',
+                        accelerator: 'CommandOrControl+Left',
+                        click: () => this._win.webContents.executeJavaScript(`MusicKitInterop.previous()`)
+                    },
+                    {type: 'separator'},
+                    {
+                        label: 'Volume Up',
+                        accelerator: 'CommandOrControl+Up',
+                        click: () => this._win.webContents.executeJavaScript(`app.volumeUp()`)
+                    },
+                    {
+                        label: 'Volume Down',
+                        accelerator: 'CommandOrControl+Down',
+                        click: () => this._win.webContents.executeJavaScript(`app.volumeDown()`)
+                    },
+                    {type: 'separator'},
+                    {
+                        label: 'Cast To Devices',
+                        accelerator: this._store.general.keybind.castToDevices[0] + '+' + this._store.general.keybind.castToDevices[1] + '+' + this._store.general.keybind.castToDevices[2],
+                        click: () => this._win.webContents.executeJavaScript(`app.modals.castMenu = true`)
+                    }
+                ]
+            },
+            {
+                label: 'Account',
+                submenu: [
+                    {
+                        label: 'Account Settings',
+                        click: () => this._win.webContents.executeJavaScript(`app.appRoute('apple-account-settings')`)
+                    },
+                    {
+                        label: 'Sign Out',
+                        click: () => this._win.webContents.executeJavaScript(`app.unauthorize()`)
+                    }
+                ]
+            },
+            {
+                label: 'Support',
+                role: 'help',
+                submenu: [
+                    {
+                        label: 'Discord',
+                        click: () => shell.openExternal("https://discord.gg/AppleMusic").catch(console.error)
+                    },
+                    {
+                        label: 'GitHub Wiki',
+                        click: () => shell.openExternal("https://github.com/ciderapp/Cider/wiki/Troubleshooting").catch(console.error)
+                    },
+                    {type: 'separator'},
+                    {
+                        label: 'Report a...',
+                        submenu: [
+                            {
+                                label: 'Bug',
+                                click: () => shell.openExternal("https://github.com/ciderapp/Cider/issues/new?assignees=&labels=bug%2Ctriage&template=bug_report.yaml&title=%5BBug%5D%3A+").catch(console.error)
+                            },
+                            {
+                                label: 'Feature Request',
+                                click: () => shell.openExternal("https://github.com/ciderapp/Cider/discussions/new?category=feature-request").catch(console.error)
+                            },
+                            {
+                                label: 'Translation Report/Request',
+                                click: () => shell.openExternal("https://github.com/ciderapp/Cider/issues/new?assignees=&labels=%F0%9F%8C%90+Translations&template=translation.yaml&title=%5BTranslation%5D%3A+").catch(console.error)
+                            },
+                        ]
+                    },
+                    {type: 'separator'},
+                    {
+                        label: 'View License',
+                        click: () => shell.openExternal("https://github.com/ciderapp/Cider/blob/main/LICENSE").catch(console.error)
+                    },
+                    {type: 'separator'},
+                    {
+                        label: 'Toggle Developer Tools',
+                        accelerator: this._store.general.keybind.openDeveloperTools[0] + '+' + this._store.general.keybind.openDeveloperTools[1] + '+' + this._store.general.keybind.openDeveloperTools[2],
+                        click: () => this._win.webContents.openDevTools()
+                    },
+                    {
+                        label: 'Open Configuration File in Editor',
+                        click: () => this._store.openInEditor()
+                    }
+                ]
+            }
+        ];
+
         console.debug(`[Plugin][${this.name}] Loading Complete.`);
     }
 

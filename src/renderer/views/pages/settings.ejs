@@ -1317,6 +1317,10 @@
                                 app.cfg.general.keybind[action] = keyBind
                                 document.body.removeChild(blur);
                                 clearTimeout(keyBindTimeout);
+                                notyf.success(app.getLz('settings.notyf.general.keybindings.update.success'));
+                                bootbox.confirm(app.getLz("settings.prompt.general.keybindings.update.success"), (ok)=>{
+                                    if(ok) ipcRenderer.invoke("relaunchApp")
+                                })
                             } else {
                                 keyBind = [];
                             }
