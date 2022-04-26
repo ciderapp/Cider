@@ -31,6 +31,7 @@
     "dist:all": "yarn build && electron-builder -mwl",
     "winget": "yarn build && electron-builder --win -c winget.json",
     "msft": "yarn build && electron-builder -c msft-package.json",
+    "mstest": "yarn build && electron-builder -c msft-test.json",
     "postinstall": "electron-builder install-app-deps",
     "circle:script": "node resources/circle"
   },
