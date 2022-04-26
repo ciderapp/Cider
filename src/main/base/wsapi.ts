@@ -157,6 +157,10 @@ export class wsapi {
                         this._win.webContents.executeJavaScript(`MusicKit.getInstance().pause()`);
                         response.message = "Paused";
                         break;
+                    case "playpause":
+                        this._win.webContents.executeJavaScript(`MusicKitInterop.playPause()`);
+                        response.message = "Play/Pause";
+                        break
                     case "play":
                         this._win.webContents.executeJavaScript(`MusicKit.getInstance().play()`);
                         response.message = "Playing";
