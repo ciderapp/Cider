@@ -142,6 +142,7 @@ export class Store {
             "enable_mxm": false,
             "mxm_karaoke": false,
             "mxm_language": "en",
+            "enable_qq": false,
             "enable_yt": false,
         },
         "lastfm": {
