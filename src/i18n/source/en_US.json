@@ -410,6 +410,7 @@
   "settings.option.lyrics.enableMusixmatchKaraoke": "Enable Karaoke Mode (Musixmatch only)",
   "settings.option.lyrics.musixmatchPreferredLanguage": "Musixmatch Translation Preferred Language",
   "settings.option.lyrics.enableYoutubeLyrics": "Enable Youtube Lyrics for Music Videos",
+  "settings.option.lyrics.enableQQLyrics": "Enable QQ Lyrics",
   "settings.header.connectivity": "Connectivity",
   "settings.header.connectivity.description": "Adjust the connectivity settings for Cider.",
   "settings.option.connectivity.playbackNotifications": "Playback Notifications",
