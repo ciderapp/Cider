@@ -280,6 +280,8 @@
   "settings.option.general.customizeSidebar": "Customize Sidebar Items",
   "settings.option.general.customizeSidebar.customize": "Customize",
   "settings.option.general.keybindings": "Keybindings",
+  "settings.notyf.general.keybindings.update.success": "Keybind updated successfully",
+  "settings.prompt.general.keybindings.update.success": "Keybind updated successfully. Press OK to relaunch Cider",
   "settings.option.general.keybindings.open": "Open",
   "settings.description.search": "Search",
   "settings.description.albums": "Library Albums",
