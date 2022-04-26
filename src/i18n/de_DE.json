@@ -276,6 +276,7 @@
   "settings.option.lyrics.enableMusixmatchKaraoke": "Aktiviere Karaoke-Modus (nur mit Musixmatch)",
   "settings.option.lyrics.musixmatchPreferredLanguage": "Bevorzugte Sprache für Musixmatch-Übersetzung",
   "settings.option.lyrics.enableYoutubeLyrics": "Aktiviere YouTube-Liedtexte für Musikvideos",
+  "settings.option.lyrics.enableQQLyrics": "Aktiviere QQ Liedtexte",
   "settings.header.connectivity": "Konnektivität",
   "settings.header.connectivity.description": "Passe die Konnektivitäts-Einstellungen für Cider an.",
   "settings.option.connectivity.discordRPC": "Discord Rich Presence",
