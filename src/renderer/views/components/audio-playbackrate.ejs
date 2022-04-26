@@ -1,0 +1,43 @@
+<script type="text/x-template" id="audio-playbackrate">
+    <div class="modal-fullscreen addtoplaylist-panel" @click.self="app.resetState()"
+         @contextmenu.self="app.resetState()">
+        <div class="modal-window">
+            <div class="modal-header">
+                <div class="modal-title">{{app.getLz('settings.option.audio.changePlaybackRate')}}</div>
+                <button class="close-btn" @click="app.resetState()"></button>
+            </div>
+            <div class="modal-content">
+                <div class="md-option-line">
+                    <div class="md-option-segment">
+                        {{app.getLz('settings.option.audio.playbackRate')}}
+                    </div>
+                    <div class="md-option-segment playbackrate-text" v-if="this.playbackRate">
+                        {{playbackRate}} ×
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <input type="range" :step="0.05" min="0.25" :max="2" v-model="playbackRate">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script>
+	Vue.component('audio-playbackrate', {
+		template: '#audio-playbackrate',
+		data: function () {
+			return {
+				app: this.$root,
+				playbackRate: this.$root.cfg.audio.playbackRate
+			}
+		},
+		watch: {
+			playbackRate: function (newValue, _oldValue) {
+				this.$root.mk.playbackRate = newValue
+                this.$root.cfg.audio.playbackRate = newValue
+				this.playbackRate = newValue
+			}
+		}
+	});
+</script>

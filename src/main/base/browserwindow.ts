@@ -72,6 +72,7 @@ export class BrowserWindow {
                 "components/audio-settings",
                 "components/plugin-menu",
                 "components/audio-controls",
+                "components/audio-playbackrate",
                 "components/qrcode-modal",
                 "components/moreinfo-modal",
                 "components/equalizer",

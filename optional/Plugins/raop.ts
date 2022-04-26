@@ -88,13 +88,14 @@ export default class RAOP {
 
 `;
 
-    private ondeviceup(name: any, host: any, port: any, addresses: any) {
+    private ondeviceup(name: any, host: any, port: any, addresses: any, text: any) {
         if (this.castDevices.findIndex((item: any) => item.name === host && item.port === port && item.addresses === addresses) === -1) {
             this.castDevices.push({
                 name: host,
                 host: addresses ? addresses[0] : '',
                 port: port,
-                addresses: addresses
+                addresses: addresses,
+                txt: text
             });
             if (this.devices.indexOf(host) === -1) {
                 this.devices.push(host);
@@ -146,10 +147,11 @@ export default class RAOP {
 
             browser.on('update', (service: any) => {
                 if (service.addresses && service.fullname && service.fullname.includes('_raop._tcp')) {
+                    console.log(service.txt)
                 this._win.webContents.executeJavaScript(`console.log(
                     "${service.name} ${service.host}:${service.port} ${service.addresses}"
-                )`);}
-                this.ondeviceup(service.name, service.host, service.port, service.addresses);
+                )`);
+                this.ondeviceup(service.name, service.host, service.port, service.addresses, service.txt);}
             });
 
         });

@@ -18,9 +18,14 @@
                         <div class="name">{{app.getLz('settings.option.audio.enableAdvancedFunctionality.audioSpatialization')}}</div>
                     </button>
                     <button class="playlist-item"
-                            @click="openAudioControls" style="width:100%;">
+                            @click="openAudioControls()" style="width:100%;">
                         <div class="icon"><%- include("../svg/speaker.svg") %></div>
                         <div class="name">{{app.getLz('term.audioControls')}}</div>
+                    </button>
+                    <button class="playlist-item"
+                            @click="openAudioPlaybackRate()" style="width:100%;">
+                        <div class="icon"><%- include("../svg/speaker.svg") %></div>
+                        <div class="name">{{app.getLz('settings.option.audio.changePlaybackRate')}}</div>
                     </button>
                     <button class="playlist-item"
                             @click="$root.appRoute('audiolabs')" style="width:100%;">
@@ -59,6 +64,10 @@
             openAudioControls() {
 	            app.modals.audioControls = true
 	            app.modals.audioSettings = false
+            },
+            openAudioPlaybackRate() {
+                app.modals.audioPlaybackRate = true
+                app.modals.audioSettings = false
             },
             },
         }
