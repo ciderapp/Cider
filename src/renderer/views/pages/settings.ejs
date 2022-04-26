@@ -70,9 +70,9 @@
                                     {{$root.getLz('settings.option.general.customizeSidebar.customize')}}
                                 </button>
                             </div>
-                            <b-modal id="modal-1" centered  size="lg" v-title="$root.getLz('settings.option.general.customizeSidebar')">
+                            <b-modal id="modal-1" centered  size="lg" :title="$root.getLz('settings.option.general.customizeSidebar')">
                                 <div class="settings-option-body">
-                                    <div class="md-option-line">
+                                    <div class="md-option-line">w
                                         <div class="md-option-segment">
                                             {{ $root.getLz('term.recentlyAdded') }}
                                         </div>
@@ -132,7 +132,7 @@
                                     {{$root.getLz('settings.option.general.keybindings.open')}}
                                 </button>
                             </div>
-                            <b-modal id="modal-2" centered  size="lg" v-title="$root.getLz('settings.option.general.keybindings')" ok-only>
+                            <b-modal id="modal-2" centered  size="lg" :title="$root.getLz('settings.option.general.keybindings')" ok-only>
                                 <div class="settings-option-body">
                                     <div class="md-option-line">
                                         <div class="md-option-segment">
