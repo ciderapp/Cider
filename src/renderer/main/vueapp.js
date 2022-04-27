@@ -2810,7 +2810,7 @@ const app = new Vue({
                                             });
                                         app.lyrics = preLrc;
                                     }
-                                    if (lrcfile != null && lrcfile != '' && lang != "disabled") {
+                                    if (lrcfile != null && lrcfile != '') {
                                         // load translation
                                         getMXMTrans(id, lang, token);
                                     } else {
