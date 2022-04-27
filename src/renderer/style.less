@@ -630,11 +630,21 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   }
 
   .body {
-    background: #242424;
+    background: rgb(30 30 30 / 45%);
     padding: 6px;
-    border-radius: 6px;
+    border-radius: var(--panelRadius);
     width: 100%;
     box-shadow: var(--ciderShadow-Generic);
+    backdrop-filter: var(--glassFilter);
+    animation: cmenuBodyIn .5s var(--appleEase);
+    @keyframes cmenuBodyIn {
+      0% {
+        background: rgb(30 30 30);
+      }
+      100% {
+        background: rgb(30 30 30 / 45%);
+      }
+    }
   }
 
   .item {
@@ -652,7 +662,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     margin: 2px 0px;
 
     &:hover {
-      background: var(--keyColor);
+      background: var(--selected);
     }
   }
 }
