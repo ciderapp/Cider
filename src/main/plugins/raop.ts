@@ -148,7 +148,7 @@ export default class RAOP {
 
             browser.on('update', (service: any) => {
                 if (service.addresses && service.fullname && (service.fullname.includes('_raop._tcp') ||  service.fullname.includes('_airplay._tcp'))) {
-                    console.log(service.txt)
+                    // console.log(service.txt)
                 this._win.webContents.executeJavaScript(`console.log(
                     "${service.name} ${service.host}:${service.port} ${service.addresses}"
                 )`);
@@ -159,7 +159,7 @@ export default class RAOP {
 
 
 
-        electron.ipcMain.on("performAirplayPCM", (event, ipv4, ipport, sepassword, title, artist, album, artworkURL) => {
+        electron.ipcMain.on("performAirplayPCM", (event, ipv4, ipport, sepassword, title, artist, album, artworkURL,txt) => {
 
             if (ipv4 != this.ipairplay || ipport != this.portairplay) {
                 if (this.airtunes == null) { this.airtunes = new this.u()}
@@ -169,7 +169,9 @@ export default class RAOP {
                     port: ipport,
                     volume: 60,
                     password: sepassword,
+                    txt: txt
                 });
+                // console.log('lol',txt)
                 this.device.on('status', (status: any) => {
                     console.log('device status', status);
                     if (status == "ready"){
