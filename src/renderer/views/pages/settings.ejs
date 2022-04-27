@@ -1215,7 +1215,7 @@
                             <b-row>
                                 <b-col>
                                     <b-dropdown class="stylesDropdown" variant="primary" text="Add Style...">
-                                        <b-dropdown-item v-for="theme in themes" @click="addStyle(theme.file)">{{theme.name}}</b-dropdown-item>
+                                        <b-dropdown-item v-for="theme in themeList" @click="addStyle(theme.file)">{{theme.name}}</b-dropdown-item>
                                     </b-dropdown>
                                 </b-col>
                                 <b-col>
@@ -1235,19 +1235,25 @@
         data: function () {
             return {
                 selected: null,
-                newTheme: null
+                newTheme: null,
+                themeList: []
             }
         },
         mounted() {
-            this.themes.unshift({
+            this.themeList = [...this.themes]
+            this.themeList.unshift({
+                name: "Acrylic Grain",
+                file: "grain.less"
+            })
+            this.themeList.unshift({
                 name: "Sweetener",
                 file: "sweetener.less"
             })
-            this.themes.unshift({
+            this.themeList.unshift({
                 name: "Reduce Visuals",
                 file: "reduce_visuals.less"
             })
-            this.themes.unshift({
+            this.themeList.unshift({
                 name: "Inline Drawer",
                 file: "inline_drawer.less"
             })
@@ -1258,7 +1264,7 @@
             },
             getThemeName(filename) {
                 try {
-                    return this.themes.find(theme => theme.file === filename).name;
+                    return this.themeList.find(theme => theme.file === filename).name;
                 }catch(e) {
                     return filename;
                 }
