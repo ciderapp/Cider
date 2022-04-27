@@ -170,7 +170,7 @@ export class Store {
             "styles": [],
             "scrollbars": 0, // 0 = show on hover, 2 = always hide, 3 = always show
             "refresh_rate": 0,
-            "window_background_style": "artwork", // "none", "artwork", "color"
+            "window_background_style": "none", // "none", "artwork", "color"
             "animated_artwork": "limited", // 0 = always, 1 = limited, 2 = never
             "animated_artwork_qualityLevel": 1,
             "bg_artwork_rotation": false,
