@@ -2,12 +2,12 @@
     <div tabindex="0" class="cd-mediaitem-square-container"
     @click.self="app.routeView(item)"
     @controller-click="app.routeView(item)"
-    @contextmenu.self="contextMenu"
+    @contextmenu.self="getContextMenu(item)"
     v-observe-visibility="{callback: visibilityChanged}"
    >
     <div v-if="reasonShown" class="reasonSP ">{{item?.meta?.reason?.stringForDisplay ?? ''}}</div>
     <div style="{'--spcolor': getBgColor()}"
-         class="cd-mediaitem-square" :class="getClasses()" @contextmenu="contextMenu">
+         class="cd-mediaitem-square" :class="getClasses()" @contextmenu="getContextMenu(item)">
         <template>           
             <div class="artwork-container">
                 <div class="unavailable-overlay" v-if="unavailable">
@@ -24,7 +24,7 @@
                             :type="item.type"></mediaitem-artwork>
                 </div>
                 <button class="menu-btn" v-if="!nomenu.includes(item.type)"
-                        @click="contextMenu"><%- include("../svg/more.svg") %></button>
+                        @click="getContextMenu(item)"><%- include("../svg/more.svg") %></button>
                 <button class="play-btn" v-if="!noplay.includes(item.type)"
                         @click="app.playMediaItem(item)"><%- include("../svg/play.svg") %></button>
                 <div class="badge-container" v-if="itemBadges.length != 0">
@@ -84,7 +84,7 @@
                 addedToLibrary: false,
                 guid: this.uuidv4(),
                 noplay: ["apple-curators", "editorial-elements"],
-                nomenu: ["artists", "stations", "apple-curators", "editorial-elements"],
+                nomenu: ["stations", "apple-curators", "editorial-elements"],
                 app: this.$root,
                 badges: this.$root.socialBadges.badgeMap,
                 itemBadges: [],
@@ -107,6 +107,14 @@
             getBgColor() {
                 let color = `#${(this.item.attributes.artwork != null && this.item.attributes.artwork.bgColor != null) ? (this.item.attributes.artwork.bgColor) : ``}`
                 return color
+            },
+            getContextMenu(item) {
+                console.log(item)
+                if (item.type == "artists") {
+                    return this.artistMenu(item)
+                } else {
+                    return this.contextMenu(item)
+                }
             },
             getSubtitle() {
                 if(this.kind == 'card') {
@@ -499,6 +507,60 @@
                         menus.multiple.items = menus.multiple.items.concat(this.contextExt.multiple)
                     }
                 }
+            },
+            async artistMenu (event) {
+                let self = this
+                let followAction = "follow"
+                let followActions = {
+                    follow: {
+                        icon: "./assets/feather/plus-circle.svg",
+                        name: app.getLz('action.follow'),
+                        action: ()=>{
+                            self.app.cfg.home.followedArtists.push(event.id)
+                        }
+                    },
+                    unfollow: {
+                        icon: "./assets/feather/x-circle.svg",
+                        name: app.getLz('action.unfollow'),
+                        action: ()=>{
+                            let index = self.app.cfg.home.followedArtists.indexOf(event.id)
+                            if (index > -1) {
+                                self.app.cfg.home.followedArtists.splice(index, 1)
+                            }
+                        }
+                    }
+                }
+                if(self.app.cfg.home.followedArtists.includes(event.id)) {
+                    followAction = "unfollow"
+                }
+                app.showMenuPanel({
+                    items: [
+                        {
+                            icon: "./assets/feather/play.svg",
+                            name: app.getLz('action.startRadio'),
+                            action: ()=>{
+                                app.mk.setStationQueue({artist:event.id}).then(()=>{
+                                    app.mk.play()
+                                })
+                            }
+                        },
+                        followActions[followAction],
+                        {
+                            icon: "./assets/feather/share.svg",
+                            name: app.getLz('term.share'),
+                            action: ()=>{
+                                self.app.copyToClipboard(event.attributes.url)
+                            }
+                        },
+                        {
+                            icon: "./assets/feather/external-link.svg",
+                            name: app.getLz('action.openArtworkInBrowser'),
+                            action: ()=>{
+                                window.open(app.getMediaItemArtwork(this.getArtworkUrl(), 1024, 1024))
+                            }
+                        }
+                    ]
+                }, event)
             },
         },
         beforeDestroy: function () {
