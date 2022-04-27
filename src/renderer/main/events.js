@@ -18,12 +18,6 @@ const Events = {
         });
 
         document.addEventListener('keydown', async function (event) {
-            // CTRL + F
-            if (event.keyCode === 70 && event.ctrlKey) {
-                app.appRoute('search')
-                app.$refs.searchInput.focus()
-                app.$refs.searchInput.select()
-            }
             // CTRL + R
             if (event.keyCode === 82 && event.ctrlKey) {
                 event.preventDefault()
@@ -38,22 +32,6 @@ const Events = {
                 event.preventDefault()
                 window.location.reload()
             }
-            // CTRL + S
-            if (event.keyCode === 83 && event.ctrlKey) {
-                app.appRoute("settings")
-            }
-            // CTRL + A
-            if (event.keyCode === 65 && event.ctrlKey) {    
-                app.appRoute("library-albums")
-            }
-            // CTRL + B
-            if (event.keyCode === 66 && event.ctrlKey) {
-                app.appRoute("browse")
-            }
-            // CTRL + D
-            if (event.keyCode === 68 && event.ctrlKey) {
-                app.appRoute("library-artists")
-            }            
             // CTRL + E
             if (event.keyCode === 69 && event.ctrlKey) {
                 app.invokeDrawer('queue')

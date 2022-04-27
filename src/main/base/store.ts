@@ -44,6 +44,53 @@ export class Store {
             "onStartup": {
                 "enabled": false,
                 "hidden": false,
+            },
+            "keybind": {
+                "search": [
+                    process.platform == "darwin" ? "Command" : "Control",
+                    "S"
+                ],
+                "albums": [
+                    process.platform == "darwin" ? "Command" : "Control",
+                    "F"
+                ],
+                "artists": [
+                    process.platform == "darwin" ? "Command" : "Control",
+                    "D"
+                ],
+                "browse": [
+                    process.platform == "darwin" ? "Command" : "Control",
+                    "B"
+                ],
+                "togglePrivateSession": [
+                    process.platform == "darwin" ? "Command" : "Control",
+                    "P"
+                ],
+                "webRemote": [
+                    process.platform == "darwin" ? "Command" : "Control",
+                    "W"
+                ],
+                "audioSettings": [
+                    process.platform == "darwin" ? "Option" : "Shift",
+                    "A"
+                ],
+                "pluginMenu": [
+                    process.platform == "darwin" ? "Option" : "Shift",
+                    "P"
+                ],
+                "castToDevices": [
+                    process.platform == "darwin" ? "Option" : "Shift",
+                    "C"
+                ],
+                "settings": [
+                    process.platform == "darwin" ? "Option" : "Shift",
+                    "S"
+                ],
+                "openDeveloperTools": [
+                    process.platform == "darwin" ? "Command" : "Control",
+                    process.platform == "darwin" ? "Option" : "Shift",
+                    "I"
+                ]
             }
         },
         "home": {

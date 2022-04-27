@@ -311,24 +311,27 @@
   .menu-panel-body {
     display: flex;
     flex-flow: column;
-    background: #262626;
+    background: rgb(30 30 30 / 45%);
+    backdrop-filter : blur(32px) saturate(180%);
     position: relative;
     min-width: 200px;
     box-shadow: var(--ciderShadow-Generic);
-    border-radius: var(--mediaItemRadius);
+    border-radius: var(--panelRadius);
     overflow: hidden;
     font-size: 13px;
 
     .menu-option {
       text-align: left;
       display: flex;
-      width: 100%;
-      padding: 9px 16px;
+      width: calc(100% - 4px);
+      padding: 8px 10px;
       appearance: none;
       border: 0px;
       font: inherit;
       background: transparent;
       color: inherit;
+      margin: 0 auto;
+      border-radius: 5px;
 
       &:hover {
         background: var(--selected);
@@ -367,6 +370,10 @@
   .menu-body {
     overflow: overlay;
     height: 100%;
+    display: flex;
+    flex-flow: column;
+    gap: 4px;
+    padding: 6px 4px;
   }
 
   .menu-footer {
