@@ -45,7 +45,7 @@ export class Store {
                 "enabled": false,
                 "hidden": false,
             },
-            "resumeWindow": {
+            "resumeTabs": {
                 "tab": "home",
                 "dynamicData": ""
             },

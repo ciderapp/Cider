@@ -480,11 +480,11 @@ const app = new Vue({
                 app.modals[key] = false;
             }
         },
-        restoreTabs() {
-            if (app.cfg.general.resumeWindow.tab == "dynamic") {
-                this.appRoute(app.cfg.general.resumeWindow.dynamicData)
+        resumeTabs() {
+            if (app.cfg.general.resumeTabs.tab == "dynamic") {
+                this.appRoute(app.cfg.general.resumeTabs.dynamicData)
             } else {
-                this.appRoute(app.cfg.general.resumeWindow.tab)
+                this.appRoute(app.cfg.general.resumeTabs.tab)
             }
         },
         promptAddToPlaylist() {
@@ -903,7 +903,7 @@ const app = new Vue({
                 this.appRoute(window.location.hash)
             }
 
-            this.restoreTabs()
+            this.resumeTabs()
             this.mediaKeyFixes()
 
             setTimeout(() => {
@@ -1572,11 +1572,11 @@ const app = new Vue({
                 return;
             }
             route = route.replace(/#/g, "")
-            if (app.cfg.general.resumeWindow.tab == "dynamic") { 
+            if (app.cfg.general.resumeTabs.tab == "dynamic") { 
                 if (route == "home" || route == "library-songs" || route == "library-albums" || route == "library-artists" || route == "library-videos" || route == "podcasts") {
-                    app.cfg.general.resumeWindow.dynamicData = route 
+                    app.cfg.general.resumeTabs.dynamicData = route 
                 } else {
-                    app.cfg.general.resumeWindow.dynamicData = "home"
+                    app.cfg.general.resumeTabs.dynamicData = "home"
                 }
             }
             // if the route contains does not include a / then route to the page directly

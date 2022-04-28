@@ -63,13 +63,15 @@
                         </div>
                         <div class="md-option-line">
                             <div class="md-option-segment">
-                                Open Tab on Launch<br>
+                                {{$root.getLz('settings.option.general.resumetabs')}}<br>
                                 <small>
-                                    ({{$root.getLz('settings.option.visual.hardwareAcceleration.description')}})
+                                    {{$root.getLz('settings.option.general.resumetabs.description')}}<br>
+                                    <b>{{$root.getLz('settings.option.general.resumetabs.dynamic')}}: </b>
+                                    {{$root.getLz('settings.option.general.resumetabs.dynamic.description')}}
                                 </small>
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
-                                <select class="md-select" style="width:180px;" v-model="$root.cfg.general.resumeWindow.tab">
+                                <select class="md-select" style="width:180px;" v-model="$root.cfg.general.resumeTabs.tab">
                                     <option value="home">{{$root.getLz('home.title')}}</option>
                                     <option value="library-recentlyadded">{{$root.getLz('term.recentlyAdded')}}</option>
                                     <option value="library-songs">{{$root.getLz('term.songs')}}</option>
@@ -77,7 +79,7 @@
                                     <option value="library-artists">{{$root.getLz('term.artists')}}</option>
                                     <option value="library-videos">{{$root.getLz('term.videos')}}</option>
                                     <option value="podcasts">{{$root.getLz('term.podcasts')}}</option>
-                                    <option value="dynamic">{{$root.getLz('term.dynamic')}}</option>
+                                    <option value="dynamic">{{$root.getLz('settings.option.general.resumetabs.dynamic')}}</option>
                                 </select>
                             </div>
                         </div>
