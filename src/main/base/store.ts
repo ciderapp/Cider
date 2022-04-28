@@ -45,6 +45,10 @@ export class Store {
                 "enabled": false,
                 "hidden": false,
             },
+            "resumeWindow": {
+                "tab": "home",
+                "dynamicData": ""
+            },
             "keybind": {
                 "search": [
                     process.platform == "darwin" ? "Command" : "Control",

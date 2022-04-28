@@ -480,6 +480,13 @@ const app = new Vue({
                 app.modals[key] = false;
             }
         },
+        restoreTabs() {
+            if (app.cfg.general.resumeWindow.tab == "dynamic") {
+                this.appRoute(app.cfg.general.resumeWindow.dynamicData)
+            } else {
+                this.appRoute(app.cfg.general.resumeWindow.tab)
+            }
+        },
         promptAddToPlaylist() {
             app.modals.addToPlaylist = true;
         },
@@ -894,10 +901,9 @@ const app = new Vue({
             document.body.removeAttribute("loading")
             if (window.location.hash != "") {
                 this.appRoute(window.location.hash)
-            } else {
-                this.page = "home"
             }
 
+            this.restoreTabs()
             this.mediaKeyFixes()
 
             setTimeout(() => {
@@ -1566,6 +1572,13 @@ const app = new Vue({
                 return;
             }
             route = route.replace(/#/g, "")
+            if (app.cfg.general.resumeWindow.tab == "dynamic") { 
+                if (route == "home" || route == "library-songs" || route == "library-albums" || route == "library-artists" || route == "library-videos" || route == "podcasts") {
+                    app.cfg.general.resumeWindow.dynamicData = route 
+                } else {
+                    app.cfg.general.resumeWindow.dynamicData = "home"
+                }
+            }
             // if the route contains does not include a / then route to the page directly
             if (route.indexOf("/") == -1) {
                 this.page = route
