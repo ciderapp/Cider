@@ -907,7 +907,7 @@ const app = new Vue({
             }, 500)
             ipcRenderer.invoke("renderer-ready", true)
             document.querySelector("#LOADER").remove()
-            if (this.cfg.general.themeUpdateNotification) {
+            if (this.cfg.general.themeUpdateNotification && !this.isDev) {
                 this.checkForThemeUpdates()
             }
         },

@@ -22,6 +22,7 @@ export class utils {
         ciderCache: path.resolve(app.getPath("userData"), "CiderCache"),
         themes: path.resolve(app.getPath("userData"), "Themes"),
         plugins: path.resolve(app.getPath("userData"), "Plugins"),
+        externals: path.resolve(app.getPath("userData"), "externals"),
     };
 
     /**
