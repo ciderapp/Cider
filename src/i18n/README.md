@@ -290,3 +290,8 @@ Update 25/04/2022 00:21 UTC
 *  `settings.description.cast`: Added for `en_US`
 *  `settings.description.settings`: Added for `en_US`
 *  `settings.description.developer`: Added for `en_US`
+
+Update 28/04/2022 21:30 UTC
+
+* `term.dynamic`: Added for `en_US`
+
