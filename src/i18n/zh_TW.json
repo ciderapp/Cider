@@ -344,7 +344,7 @@
   "settings.option.connectivity.discordRPC.clearOnPause": "暫停時清除 Discord 動態",
   "settings.option.connectivity.discordRPC.hideButtons": "隱藏 Discord 動態上的按鈕",
   "settings.option.connectivity.discordRPC.detailsFormat": "詳細資訊格式",
-  "settings.option.connectivity.discordRPC.stateFormat": "狀態格式"
+  "settings.option.connectivity.discordRPC.stateFormat": "狀態格式",
   "settings.option.connectivity.lastfmScrobble": "Last.FM Scrobbling 記錄",
   "settings.option.connectivity.lastfmScrobble.delay": "Last.FM Scrobble 延遲 (%)",
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "開啟 Last.FM 正在聆聽",
