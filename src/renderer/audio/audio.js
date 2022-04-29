@@ -431,6 +431,15 @@ const CiderAudio = {
                         CiderAudio.audioNodes.atmosphereRealizer.buffer = await CiderAudio.context.decodeAudioData(bufferedImpulse);
                     });      
                     break;
+                case "CRYPTO":            
+                    CiderAudio.audioNodes.atmosphereRealizer = CiderAudio.context.createConvolver();
+                    CiderAudio.audioNodes.atmosphereRealizer.normalize = false;
+
+                    fetch('./audio/impulses/AtmosphereRealizer_Cryptofyre.wav').then(async (impulseData) => {
+                        let bufferedImpulse = await impulseData.arrayBuffer();
+                        CiderAudio.audioNodes.atmosphereRealizer.buffer = await CiderAudio.context.decodeAudioData(bufferedImpulse);
+                    });      
+                    break;
 
                 default:
                     CiderAudio.audioNodes.atmosphereRealizer = CiderAudio.context.createConvolver();
