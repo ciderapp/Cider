@@ -67,6 +67,9 @@
             </div>
             <div class="explicit-icon" v-if="item.attributes && item.attributes.contentRating == 'explicit'"></div>
             <template v-if="showMetaData == true" @dblclick="route()">
+                <div class="metainfo" style="min-width: 70px;" v-if="getHeartStatus(item)">
+                    <div class="svg-icon" :style="{'--url': 'url(./assets/feather/heart-fill.svg)'}"></div>
+                </div>
                 <div class="metainfo">
                     {{ item.attributes.releaseDate ? new Date(item.attributes.releaseDate).toLocaleDateString()
                     : "" }}
@@ -498,6 +501,20 @@
             },
             visibilityChanged: function (isVisible, entry) {
                 this.isVisible = isVisible
+            },
+            async getHeartStatus(item) {
+                try {
+                    let rating = await app.getRating(item)
+                    if (rating == 1) {
+                        console.log(item.attributes.name + " checked for heart status! Response: true")
+                        return true;
+                    } else {
+                        console.log(item.attributes.name + " checked for heart status! Response: false")
+                        return false;
+                    } 
+                } catch (err) {
+                    console.log(err)
+                }
             },
             addToLibrary() {
                 let item = this.item
