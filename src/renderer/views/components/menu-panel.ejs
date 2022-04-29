@@ -48,7 +48,9 @@
                 size: [0, 0],
                 event: this.$root.menuPanel.event,
                 direction: "down",
-                elStyle: {}
+                elStyle: {
+                    opacity: 0
+                }
             }
         },
         mounted() {
@@ -106,6 +108,7 @@
                         style["top"] = (this.event.clientY - this.size[1]) + "px";
                     }
                 }
+                style["opacity"] = 1
                 this.elStyle = style;
             },
             getItemStyle(item) {
