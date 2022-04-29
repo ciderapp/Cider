@@ -23,7 +23,7 @@
                     <button @click="addToLibrary()" v-if="!addedToLibrary && (showIndex == false ||(showIndex == true && showIndexPlaylist != false))">
                         <div class="svg-icon addIcon" :style="{'--color': 'var(--keyColor)', '--url': 'url(./assets/feather/plus.svg)'}"></div>
                     </button>
-                    <button v-else-if='!(showArtwork == true && (showIndex == false ||(showIndex == true && showIndexPlaylist != false)))' @click="playTrack()" style="width: 44px;margin-left: -11px;">
+                    <button v-else-if='!(showArtwork == true && (showIndex == false ||(showIndex == true && showIndexPlaylist != false)))' @click="playTrack()" style="width: 44px;margin-left: -5px;">
                         <div class="svg-icon playIcon" :style="{'--color': 'var(--keyColor)', '--url': 'url(./assets/feather/play.svg)'}"></div>
                     </button>
                 </div>
