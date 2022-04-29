@@ -2,12 +2,12 @@
     <div tabindex="0" class="cd-mediaitem-square-container"
     @click.self="app.routeView(item)"
     @controller-click="app.routeView(item)"
-    @contextmenu.self="getContextMenu(item)"
+    @contextmenu.self="getContextMenu"
     v-observe-visibility="{callback: visibilityChanged}"
    >
     <div v-if="reasonShown" class="reasonSP ">{{item?.meta?.reason?.stringForDisplay ?? ''}}</div>
     <div style="{'--spcolor': getBgColor()}"
-         class="cd-mediaitem-square" :class="getClasses()" @contextmenu="getContextMenu(item)">
+         class="cd-mediaitem-square" :class="getClasses()" @contextmenu="getContextMenu">
         <template>           
             <div class="artwork-container">
                 <div class="unavailable-overlay" v-if="unavailable">
@@ -24,7 +24,7 @@
                             :type="item.type"></mediaitem-artwork>
                 </div>
                 <button class="menu-btn" v-if="!nomenu.includes(item.type)"
-                        @click="getContextMenu(item)"><%- include("../svg/more.svg") %></button>
+                        @click="getContextMenu"><%- include("../svg/more.svg") %></button>
                 <button class="play-btn" v-if="!noplay.includes(item.type)"
                         @click="app.playMediaItem(item)"><%- include("../svg/play.svg") %></button>
                 <div class="badge-container" v-if="itemBadges.length != 0">
@@ -108,12 +108,11 @@
                 let color = `#${(this.item.attributes.artwork != null && this.item.attributes.artwork.bgColor != null) ? (this.item.attributes.artwork.bgColor) : ``}`
                 return color
             },
-            getContextMenu(item) {
-                console.log(item)
-                if (item.type == "artists") {
-                    return this.artistMenu(item)
+            getContextMenu(event) {
+                if (this.item.type == "artists") {
+                    return this.artistMenu(event)
                 } else {
-                    return this.contextMenu(item)
+                    return this.contextMenu(event)
                 }
             },
             getSubtitle() {
@@ -509,6 +508,7 @@
                 }
             },
             async artistMenu (event) {
+                console.debug(this.item)
                 let self = this
                 let followAction = "follow"
                 let followActions = {
@@ -516,21 +516,21 @@
                         icon: "./assets/feather/plus-circle.svg",
                         name: app.getLz('action.follow'),
                         action: ()=>{
-                            self.app.cfg.home.followedArtists.push(event.id)
+                            self.app.cfg.home.followedArtists.push(this.item.id)
                         }
                     },
                     unfollow: {
                         icon: "./assets/feather/x-circle.svg",
                         name: app.getLz('action.unfollow'),
                         action: ()=>{
-                            let index = self.app.cfg.home.followedArtists.indexOf(event.id)
+                            let index = self.app.cfg.home.followedArtists.indexOf(this.item.id)
                             if (index > -1) {
                                 self.app.cfg.home.followedArtists.splice(index, 1)
                             }
                         }
                     }
                 }
-                if(self.app.cfg.home.followedArtists.includes(event.id)) {
+                if(self.app.cfg.home.followedArtists.includes(this.item.id)) {
                     followAction = "unfollow"
                 }
                 app.showMenuPanel({
@@ -539,7 +539,7 @@
                             icon: "./assets/feather/play.svg",
                             name: app.getLz('action.startRadio'),
                             action: ()=>{
-                                app.mk.setStationQueue({artist:event.id}).then(()=>{
+                                app.mk.setStationQueue({artist:this.item.id}).then(()=>{
                                     app.mk.play()
                                 })
                             }
@@ -549,7 +549,7 @@
                             icon: "./assets/feather/share.svg",
                             name: app.getLz('term.share'),
                             action: ()=>{
-                                self.app.copyToClipboard(event.attributes.url)
+                                self.app.copyToClipboard(this.item.id.attributes.url)
                             }
                         },
                         {

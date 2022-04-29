@@ -5,14 +5,35 @@
     .menu-panel-body {
         background-color: @panelColors;
         backdrop-filter : blur(32px) saturate(180%);
-        animation: menuIn .10s var(--appleEase);
+
+        &.menu-panel-body-down {
+            animation: menuInDown .10s var(--appleEase);
+        }
+
+        &.menu-panel-body-up {
+            animation: menuInUp .10s var(--appleEase);
+        }
+        
     }
 
-
-    @keyframes menuIn {
+    @keyframes menuInUp {
         0% {
             opacity   : 0;
             transform : translateY(-10px) translate3d(0,0,0);
+            background: @panelColorsFallback;
+        }
+
+        100% {
+            opacity   : 1;
+            transform : translateY(0);
+            background: @panelColors;
+        }
+    }
+
+    @keyframes menuInDown {
+        0% {
+            opacity   : 0;
+            transform : translateY(10px) translate3d(0,0,0);
             background: @panelColorsFallback;
         }
 
