@@ -1372,7 +1372,7 @@
                 blur.style.justifyContent = 'center';
                 blur.style.fontSize = '2em';
                 blur.style.color = 'white';
-                blur.innerHTML = 'Press a combination of two keys to update keybind. Press Escape key to go back.'
+                blur.innerHTML = `<center>${app.getLz('settings.option.general.keybindings.pressCombination')}<br />${app.getLz('settings.option.general.keybindings.pressEscape')}</center>`
                 document.body.appendChild(blur);
 
                 var keyBind = [];
@@ -1411,17 +1411,53 @@
             document.addEventListener('keydown', keyBindUpdate);
             },
             keyBindReset: function () {
-                app.cfg.general.keybind.search = [app.platform == "darwin" ? "Command" : "Control","S"];
-                app.cfg.general.keybind.albums = [app.platform == "darwin" ? "Command" : "Control","F"];
-                app.cfg.general.keybind.artists = [app.platform == "darwin" ? "Command" : "Control","D"];
-                app.cfg.general.keybind.browse = [app.platform == "darwin" ? "Command" : "Control","B"];
-                app.cfg.general.keybind.togglePrivateSession = [app.platform == "darwin" ? "Command" : "Control","P"];
-                app.cfg.general.keybind.webRemote = [app.platform == "darwin" ? "Command" : "Control","W"];
-                app.cfg.general.keybind.audioSettings = [app.platform == "darwin" ? "Option" : "Shift","A"];
-                app.cfg.general.keybind.pluginMenu = [app.platform == "darwin" ? "Option" : "Shift","P"];
-                app.cfg.general.keybind.castToDevices = [app.platform == "darwin" ? "Option" : "Shift","C"];
-                app.cfg.general.keybind.settings = [app.platform == "darwin" ? "Option" : "Shift","S"];
-                app.cfg.general.keybind.openDeveloperTools = [app.platform == "darwin" ? "Command" : "Control",app.platform == "darwin" ? "Option" : "Shift","I"];
+                app.cfg.general.keybind = {
+                    "search": [
+                        app.platform == "darwin" ? "Command" : "Control",
+                        "S"
+                    ],
+                    "albums": [
+                        app.platform == "darwin" ? "Command" : "Control",
+                        "F"
+                    ],
+                    "artists": [
+                        app.platform == "darwin" ? "Command" : "Control",
+                        "D"
+                    ],
+                    "browse": [
+                        app.platform == "darwin" ? "Command" : "Control",
+                        "B"
+                    ],
+                    "togglePrivateSession": [
+                        app.platform == "darwin" ? "Command" : "Control",
+                        "P"
+                    ],
+                    "webRemote": [
+                        app.platform == "darwin" ? "Command" : "Control",
+                        "W"
+                    ],
+                    "audioSettings": [
+                        app.platform == "darwin" ? "Option" : "Shift",
+                        "A"
+                    ],
+                    "pluginMenu": [
+                        app.platform == "darwin" ? "Option" : "Shift",
+                        "P"
+                    ],
+                    "castToDevices": [
+                        app.platform == "darwin" ? "Option" : "Shift",
+                        "C"
+                    ],
+                    "settings": [
+                        app.platform == "darwin" ? "Option" : "Shift",
+                        "S"
+                    ],
+                    "openDeveloperTools": [
+                        app.platform == "darwin" ? "Command" : "Control",
+                        app.platform == "darwin" ? "Option" : "Shift",
+                        "I"
+                    ]
+                }
                 notyf.success(app.getLz('settings.notyf.general.keybindings.update.success'));
                 bootbox.confirm(app.getLz("settings.prompt.general.keybindings.update.success"), (ok)=>{
                     if(ok) ipcRenderer.invoke("relaunchApp")
