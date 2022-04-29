@@ -178,6 +178,12 @@ export default class RAOP {
                         this._win.webContents.setAudioMuted(true);
                         this._win.webContents.executeJavaScript(`CiderAudio.sendAudio()`).catch((err: any) => console.error(err));
                     }
+                    if (status == "need_password"){
+                        this._win.webContents.executeJavaScript(`app.setAirPlayCodeUI()`)
+                    }
+                    if (status == "pair_success"){
+                        this._win.webContents.executeJavaScript(`app.sendAirPlaySuccess()`)
+                    }
                     if (status == 'stopped') {
                         this.airtunes.stopAll(() => {
                             console.log('end');
@@ -209,6 +215,12 @@ export default class RAOP {
 
 
         });
+
+        electron.ipcMain.on('setAirPlayPasscode', (event, passcode) => {
+            if (this.device){
+                this.device.setPasscode(passcode)
+            }
+        })
 
         electron.ipcMain.on('writeWAV', (event, leftbuffer, rightbuffer) => {
             if (this.airtunes != null) {

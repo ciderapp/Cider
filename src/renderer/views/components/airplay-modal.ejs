@@ -1,0 +1,42 @@
+<script type="text/x-template" id="airplay-modal">
+<div class="spatialproperties-panel castmenu modal-fullscreen airplay-modal" @click.self="close()" @contextmenu.self="close()">
+    <div class="modal-window airplay-modal">
+        <div class="modal-header">
+            <div class="modal-title">{{'Enter password'}}</div>
+            <button class="close-btn" @click="close()"></button>
+        </div>
+    <div class="modal-content" style="overflow-y: overlay; padding: 3%">
+        <input type="text" v-model="passcode"/>
+    </div>
+    <div class="md-footer">
+        <div class="row">
+            <div class="col" >
+                <button style="width:100%" @click="enterPassword()" class="md-btn md-btn-block md-btn-primary">{{'OK'}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</script>
+<script>
+    Vue.component('airplay-modal', {
+        template: '#airplay-modal',
+        data: function () {
+            return {
+                passcode: '',
+            }
+        },
+        mounted() {
+        },
+        methods: {
+            close() {
+                this.$root.modals.airplayPW = false
+            },
+            enterPassword() {
+                console.log('Entered passCode: ', this.passcode)
+                ipcRenderer.send("setAirPlayPasscode",this.passcode)
+                this.close()
+            }
+        }
+    });
+</script>

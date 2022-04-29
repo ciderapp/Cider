@@ -95,6 +95,7 @@ export class BrowserWindow {
                 "components/fullscreen",
                 "components/miniplayer",
                 "components/castmenu",
+                "components/airplay-modal",
                 "components/artist-chip",
                 "components/hello-world",
                 "components/inline-collection-list",
