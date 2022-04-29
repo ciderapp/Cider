@@ -972,7 +972,7 @@ const app = new Vue({
         async reloadStyles() {
             const styles = this.cfg.visual.styles
             document.querySelectorAll(`[id*='less']`).forEach(el => {
-                if(el.id != "less:style") {
+                if (el.id != "less:style") {
                     el.remove()
                 }
             });
@@ -1255,12 +1255,12 @@ const app = new Vue({
             })
         },
         copyToClipboard(str) {
-            if (navigator.userAgent.includes('Darwin') || navigator.appVersion.indexOf("Mac") != -1) {
-                this.darwinShare(str)
-            } else {
-                notyf.success(app.getLz('term.share.success'))
-                navigator.clipboard.writeText(str).then(r => console.log("Copied to clipboard."))
-            }
+            // if (navigator.userAgent.includes('Darwin') || navigator.appVersion.indexOf("Mac") != -1) {
+            // this.darwinShare(str)
+            // } else {
+            notyf.success(app.getLz('term.share.success'))
+            navigator.clipboard.writeText(str).then(r => console.log("Copied to clipboard."))
+            // }
         },
         newPlaylist(name = app.getLz('term.newPlaylist'), tracks = []) {
             let self = this
@@ -1572,9 +1572,9 @@ const app = new Vue({
                 return;
             }
             route = route.replace(/#/g, "")
-            if (app.cfg.general.resumeTabs.tab == "dynamic") { 
+            if (app.cfg.general.resumeTabs.tab == "dynamic") {
                 if (route == "home" || route == "library-songs" || route == "library-albums" || route == "library-artists" || route == "library-videos" || route == "podcasts") {
-                    app.cfg.general.resumeTabs.dynamicData = route 
+                    app.cfg.general.resumeTabs.dynamicData = route
                 } else {
                     app.cfg.general.resumeTabs.dynamicData = "home"
                 }
@@ -1667,7 +1667,7 @@ const app = new Vue({
                 }
 
                 // if (this.cfg.advanced.experiments.includes('inline-playlists')) {
-                if(false) {
+                if (false) {
                     let showModal = kind.toString().includes("album") || kind.toString().includes("playlist")
                     if (app.page.includes("playlist") || app.page.includes("album")) {
                         showModal = false
@@ -2699,7 +2699,7 @@ const app = new Vue({
             function getToken(mode, track, artist, songid, lang, time, id) {
                 if (attempt > 2) {
                     app.loadNeteaseLyrics();
-                   // app.loadAMLyrics();
+                    // app.loadAMLyrics();
                 } else {
                     attempt = attempt + 1;
                     let url = "https://apic-desktop.musixmatch.com/ws/1.1/token.get?app_id=web-desktop-app-v1.0&t=" + revisedRandId();
@@ -2740,7 +2740,7 @@ const app = new Vue({
                     req.onerror = function () {
                         console.log('error');
                         app.loadQQLyrics();
-                       // app.loadAMLyrics();
+                        // app.loadAMLyrics();
                     };
                     req.send();
                 }
@@ -2779,7 +2779,7 @@ const app = new Vue({
 
                                 if (lrcfile == "") {
                                     app.loadQQLyrics();
-                                   // app.loadAMLyrics()
+                                    // app.loadAMLyrics()
                                 } else {
                                     if (richsync == [] || richsync.length == 0) {
                                         console.log("ok");
@@ -2827,14 +2827,14 @@ const app = new Vue({
                                         // load translation
                                         getMXMTrans(id, lang, token);
                                     } else {
-                                       // app.loadAMLyrics()
-                                       app.loadQQLyrics();
+                                        // app.loadAMLyrics()
+                                        app.loadQQLyrics();
                                     }
                                 }
                             } catch (e) {
                                 console.log(e);
                                 app.loadQQLyrics();
-                              //  app.loadAMLyrics()
+                                //  app.loadAMLyrics()
                             }
                         } else { //4xx rejected
                             getToken(1, track, artist, '', lang, time);
@@ -2908,7 +2908,7 @@ const app = new Vue({
             const track = encodeURIComponent((this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.title ?? '' : '');
             const artist = encodeURIComponent((this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.artistName ?? '' : '');
             const time = encodeURIComponent((this.mk.nowPlayingItem != null) ? (Math.round((this.mk.nowPlayingItem.attributes["durationInMillis"] ?? -1000) / 1000) ?? -1) : -1);
-            var url  = `http://music.163.com/api/search/get/?csrf_token=hlpretag=&hlposttag=&s=${track+" "+artist}&type=1&offset=0&total=true&limit=6`;
+            var url = `http://music.163.com/api/search/get/?csrf_token=hlpretag=&hlposttag=&s=${track + " " + artist}&type=1&offset=0&total=true&limit=6`;
             var req = new XMLHttpRequest();
             req.overrideMimeType("application/json");
             req.open('GET', url, true);
@@ -2929,14 +2929,15 @@ const app = new Vue({
                             let preLrc = []
                             for (var i = u.length - 1; i >= 0; i--) {
                                 let xline = (/(\[[0-9.:\[\]]*\])+(.*)/).exec(u[i])
-                                if (xline != null) { 
-                                let end = (preLrc.length > 0) ? ((preLrc[preLrc.length - 1].startTime) ?? 99999) : 99999
-                                preLrc.push({
-                                    startTime: app.toMS(xline[1].substring(1, xline[1].length - 2)) ?? 0,
-                                    endTime: end,
-                                    line: xline[2],
-                                    translation: ''
-                                })}
+                                if (xline != null) {
+                                    let end = (preLrc.length > 0) ? ((preLrc[preLrc.length - 1].startTime) ?? 99999) : 99999
+                                    preLrc.push({
+                                        startTime: app.toMS(xline[1].substring(1, xline[1].length - 2)) ?? 0,
+                                        endTime: end,
+                                        line: xline[2],
+                                        translation: ''
+                                    })
+                                }
                             }
                             if (preLrc.length > 0)
                                 preLrc.push({
@@ -2951,8 +2952,8 @@ const app = new Vue({
                             app.lyrics = "";
                         }
                     };
-                    req2.onerror = function(){
-                
+                    req2.onerror = function () {
+
                     }
                     req2.send();
                 } catch (e) {
@@ -2960,7 +2961,7 @@ const app = new Vue({
                 }
             };
             req.send();
-            req.onerror = function(){
+            req.onerror = function () {
 
             }
         },
@@ -2969,8 +2970,8 @@ const app = new Vue({
             const track = encodeURIComponent((this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.title ?? '' : '');
             const artist = encodeURIComponent((this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.artistName ?? '' : '');
             const time = encodeURIComponent((this.mk.nowPlayingItem != null) ? (Math.round((this.mk.nowPlayingItem.attributes["durationInMillis"] ?? -1000) / 1000) ?? -1) : -1);
-            var url  = `https://c.y.qq.com/soso/fcgi-bin/client_search_cp?w=${track+" "+artist}&t=0&n=1&page=1&cr=1&new_json=1&format=json&platform=yqq.json`;
-          
+            var url = `https://c.y.qq.com/soso/fcgi-bin/client_search_cp?w=${track + " " + artist}&t=0&n=1&page=1&cr=1&new_json=1&format=json&platform=yqq.json`;
+
             var req = new XMLHttpRequest();
             req.overrideMimeType("application/json");
             req.open('GET', url, true);
@@ -2986,14 +2987,14 @@ const app = new Vue({
                     req2.open('GET', url2, true);
                     req2.onload = function () {
                         try {
-                            function b64_to_utf8( str ) {
-                                return decodeURIComponent(escape(window.atob( str )));
+                            function b64_to_utf8(str) {
+                                return decodeURIComponent(escape(window.atob(str)));
                             }
                             const htmlDecode = (input) => {
                                 const doc = new DOMParser().parseFromString(input, "text/html");
                                 return doc.documentElement.textContent;
                             }
-                            var jsonResponse2 = JSON.parse(req2.responseText.replace("MusicJsonCallback(","").replace("})","}"));
+                            var jsonResponse2 = JSON.parse(req2.responseText.replace("MusicJsonCallback(", "").replace("})", "}"));
                             var lrcfile = htmlDecode(b64_to_utf8(jsonResponse2["lyric"]));
                             app.lyricsMediaItem = lrcfile
                             let u = app.lyricsMediaItem.split(/[\n]/);
@@ -3001,14 +3002,15 @@ const app = new Vue({
                             let preLrc = []
                             for (var i = u.length - 1; i >= 0; i--) {
                                 let xline = (/(\[[0-9.:\[\]]*\])+(.*)/).exec(u[i])
-                                if (xline != null) { 
-                                let end = (preLrc.length > 0) ? ((preLrc[preLrc.length - 1].startTime) ?? 99999) : 99999
-                                preLrc.push({
-                                    startTime: app.toMS(xline[1].substring(1, xline[1].length - 2)) ?? 0,
-                                    endTime: end,
-                                    line: xline[2],
-                                    translation: ''
-                                })}
+                                if (xline != null) {
+                                    let end = (preLrc.length > 0) ? ((preLrc[preLrc.length - 1].startTime) ?? 99999) : 99999
+                                    preLrc.push({
+                                        startTime: app.toMS(xline[1].substring(1, xline[1].length - 2)) ?? 0,
+                                        endTime: end,
+                                        line: xline[2],
+                                        translation: ''
+                                    })
+                                }
                             }
                             if (preLrc.length > 0)
                                 preLrc.push({
@@ -3025,7 +3027,7 @@ const app = new Vue({
                             app.lyrics = "";
                         }
                     };
-                    req2.onerror = function(){
+                    req2.onerror = function () {
                         app.loadNeteaseLyrics();
                     }
                     req2.send();
@@ -3035,7 +3037,7 @@ const app = new Vue({
                     app.lyrics = "";
                 }
             }
-            req.onerror = function(){
+            req.onerror = function () {
                 app.loadNeteaseLyrics();
             }
             req.send();
@@ -4272,7 +4274,7 @@ const app = new Vue({
                 document.getElementById('settings.option.general.updateCider.check').innerHTML = app.getLz('term.check')
             })
         },
-        authCC(){
+        authCC() {
             ipcRenderer.send('cc-auth')
         }
     }
