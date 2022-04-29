@@ -49,7 +49,7 @@ export class Store {
                 "tab": "home",
                 "dynamicData": ""
             },
-            "keybind": {
+            "keybindings": {
                 "search": [
                     process.platform == "darwin" ? "Command" : "Control",
                     "S"
