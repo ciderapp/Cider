@@ -1,6 +1,6 @@
 <script type="text/x-template" id="cider-settings">
     <div class="content-inner settings-page">
-        <b-tabs pills fill content-class="mt-3">
+        <b-tabs pills fill content-class="mt-3" v-model="tabIndex">
             <b-tab :title="$root.getLz('settings.header.general')" active>
                 <div class="md-option-container">
                     <!-- General Settings -->
@@ -90,6 +90,9 @@
                                     <select class="md-select" style="width:180px;"
                                             v-model="$root.cfg.general.resumeTabs.tab">
                                         <option value="home">{{$root.getLz('home.title')}}</option>
+                                        <option value="listen_now">{{$root.getLz('term.listenNow')}}</option>
+                                        <option value="browse">{{$root.getLz('term.browse')}}</option>
+                                        <option value="radio">{{$root.getLz('term.radio')}}</option>
                                         <option value="library-recentlyadded">{{$root.getLz('term.recentlyAdded')}}</option>
                                         <option value="library-songs">{{$root.getLz('term.songs')}}</option>
                                         <option value="library-albums">{{$root.getLz('term.albums')}}</option>
@@ -1410,10 +1413,10 @@
 </script>
 
 <script>
-	// do not translate
-	Vue.component('stylestack-editor', {
-		/*html*/
-		template: `
+    // do not translate
+    Vue.component('stylestack-editor', {
+        /*html*/
+        template: `
             <div class="stylestack-editor">
                 <draggable class="list-group" v-model="$root.cfg.visual.styles" @end="$root.reloadStyles()">
                     <b-list-group-item variant="dark" v-for="theme in $root.cfg.visual.styles" :key="theme">
@@ -1439,80 +1442,80 @@
                 </draggable>    
             </div>
         `,
-		props: {
-			themes: {
-				type: Array,
-				default: []
-			}
-		},
-		data: function () {
-			return {
-				selected: null,
-				newTheme: null,
-				themeList: []
-			}
-		},
-		mounted() {
-			this.themeList = [...this.themes]
-			this.themeList.unshift({
-				name: "Acrylic Grain",
-				file: "grain.less"
-			})
-			this.themeList.unshift({
-				name: "Sweetener",
-				file: "sweetener.less"
-			})
-			this.themeList.unshift({
-				name: "Reduce Visuals",
-				file: "reduce_visuals.less"
-			})
-			this.themeList.unshift({
-				name: "Inline Drawer",
-				file: "inline_drawer.less"
-			})
-		},
-		methods: {
-			gitHubExplore() {
-				this.$root.appRoute("themes-github")
-			},
-			getThemeName(filename) {
-				try {
-					return this.themeList.find(theme => theme.file === filename).name;
-				} catch (e) {
-					return filename;
-				}
-			},
-			moveUp() {
-				const styles = this.$root.cfg.visual.styles
-				const index = styles.indexOf(this.selected)
-				if (index > 0) {
-					styles.splice(index, 1)
-					styles.splice(index - 1, 0, this.selected)
-				}
-				this.$root.reloadStyles()
-			},
-			moveDown() {
-				const styles = this.$root.cfg.visual.styles
-				const index = styles.indexOf(this.selected)
-				if (index < styles.length - 1) {
-					styles.splice(index, 1)
-					styles.splice(index + 1, 0, this.selected)
-				}
-				this.$root.reloadStyles()
-			},
-			remove(style) {
-				const styles = this.$root.cfg.visual.styles
-				const index = styles.indexOf(style)
-				styles.splice(index, 1)
-				this.$root.reloadStyles()
-			},
-			addStyle(style) {
-				const styles = this.$root.cfg.visual.styles
-				styles.push(style)
-				this.$root.reloadStyles()
-			}
-		}
-	})
+        props: {
+            themes: {
+                type: Array,
+                default: []
+            }
+        },
+        data: function () {
+            return {
+                selected: null,
+                newTheme: null,
+                themeList: []
+            }
+        },
+        mounted() {
+            this.themeList = [...this.themes]
+            this.themeList.unshift({
+                name: "Acrylic Grain",
+                file: "grain.less"
+            })
+            this.themeList.unshift({
+                name: "Sweetener",
+                file: "sweetener.less"
+            })
+            this.themeList.unshift({
+                name: "Reduce Visuals",
+                file: "reduce_visuals.less"
+            })
+            this.themeList.unshift({
+                name: "Inline Drawer",
+                file: "inline_drawer.less"
+            })
+        },
+        methods: {
+            gitHubExplore() {
+                this.$root.appRoute("themes-github")
+            },
+            getThemeName(filename) {
+                try {
+                    return this.themeList.find(theme => theme.file === filename).name;
+                } catch (e) {
+                    return filename;
+                }
+            },
+            moveUp() {
+                const styles = this.$root.cfg.visual.styles
+                const index = styles.indexOf(this.selected)
+                if (index > 0) {
+                    styles.splice(index, 1)
+                    styles.splice(index - 1, 0, this.selected)
+                }
+                this.$root.reloadStyles()
+            },
+            moveDown() {
+                const styles = this.$root.cfg.visual.styles
+                const index = styles.indexOf(this.selected)
+                if (index < styles.length - 1) {
+                    styles.splice(index, 1)
+                    styles.splice(index + 1, 0, this.selected)
+                }
+                this.$root.reloadStyles()
+            },
+            remove(style) {
+                const styles = this.$root.cfg.visual.styles
+                const index = styles.indexOf(style)
+                styles.splice(index, 1)
+                this.$root.reloadStyles()
+            },
+            addStyle(style) {
+                const styles = this.$root.cfg.visual.styles
+                styles.push(style)
+                this.$root.reloadStyles()
+            }
+        }
+    })
 </script>
 
 <script>
@@ -1739,27 +1742,225 @@
             },
             checkIfUpdateDisabled() {
                 if (app.cfg.main.UPDATABLE) return;
+                themes: ipcRenderer.sendSync("get-themes"),
+                tabIndex: 0,
+                canChangeHash: false
+            }
+        }, watch: {
+            tabIndex: function (val) {
+                if (this.canChangeHash) {
+                    window.location.hash = `#settings/${val}`
+                }
+            }
+        },
+        mounted: function () {
+            this.$nextTick(function () {
+                if (window.location.hash.split("/").length > 1) {
+                    this.tabIndex = parseInt(window.location.hash.split("/")[1])
+                    console.debug("tabIndex", this.tabIndex)
+                    this.canChangeHash = true
+                }else{
+                    this.canChangeHash = true
+                }
+            })
 
-				let updateFields = document.getElementsByClassName('update-check');
-				for (let i = 0; i < updateFields.length; i++) {
-					updateFields[i].style = "opacity: 0.5; pointer-events: none;";
-					updateFields[i].title = "Not available on this type of build";
-				}
+            if (app.cfg.lastfm.enabled) {
+                const element = document.getElementById('lfmConnect');
+                if (element) {
+                    element.innerHTML = `Disconnect\n<p style="font-size: 8px"><i>(Authed: ${app.cfg.lastfm.auth_token})</i></p>`;
+                    element.onclick = app.LastFMDeauthorize;
+                }
+            }
+        },
+        methods: {
+            windowBgStyleChange() {
+                this.$root.getNowPlayingArtworkBG(undefined, true)
+                if (this.$root.cfg.visual.window_background_style === "mica") {
+                    this.$root.spawnMica()
+                }
+            },
+            reinstallWidevineCDM() {
+                bootbox.confirm(app.getLz("settings.option.experimental.reinstallwidevine.confirm"), (ok) => {
+                    if (ok) {
+                        ipcRenderer.invoke("reinstall-widevine-cdm");
+                    }
+                })
+            },
+            keyBindUpdate: function (action) {
+                const blur = document.createElement('div');
+                blur.className = 'blur';
+                blur.style.backgroundColor = 'rgba(0,0,0,0.25)';
+                blur.style.position = 'fixed';
+                blur.style.top = '0';
+                blur.style.left = '0';
+                blur.style.width = '100%';
+                blur.style.height = '100%';
+                blur.style.zIndex = '9999';
+                blur.style.display = 'flex';
+                blur.style.alignItems = 'center';
+                blur.style.justifyContent = 'center';
+                blur.style.fontSize = '2em';
+                blur.style.color = 'white';
+                blur.innerHTML = 'Press a combination of two keys to update keybinding. Press Escape key to go back.'
+                document.body.appendChild(blur);
 
-			},
-			promptForRelaunch() {
-				bootbox.confirm(app.getLz('action.relaunch.confirm'), function (result) {
-					if (result) {
-						ipcRenderer.send('relaunchApp', '');
-					}
-				});
-			},
-			authCC() {
-				ipcRenderer.send('cc-auth')
-			},
-			logoutCC() {
-				ipcRenderer.send('cc-logout')
-			},
-		}
-	})
+                let keyBind = [];
+                const keyBindTimeout = setTimeout(function () {
+                    keyBind = [];
+                    document.body.removeChild(blur);
+                }, 30000);
+                const keyBindUpdate = function (e) {
+                    if (document.body.contains(blur)) {
+                        if (e.key == 'Escape') {
+                            document.body.removeChild(blur);
+                            clearTimeout(keyBindTimeout);
+                            return;
+                        } else {
+                            if (e.keyCode >= 65 && e.keyCode <= 90 && e.keyCode <= 97 && e.keyCode <= 122) {
+                                keyBind.push(e.key.toUpperCase());
+                            } else {
+                                keyBind.push(e.key);
+                            }
+                            if (keyBind.length === 2) {
+                                if (keyBind[0] !== keyBind[1]) {
+                                    app.cfg.general.keybindings[action] = keyBind
+                                    document.body.removeChild(blur);
+                                    clearTimeout(keyBindTimeout);
+                                    notyf.success(app.getLz('settings.notyf.general.keybindings.update.success'));
+                                    bootbox.confirm(app.getLz("settings.prompt.general.keybindings.update.success"), (ok) => {
+                                        if (ok) ipcRenderer.invoke("relaunchApp")
+                                    })
+                                } else {
+                                    keyBind = [];
+                                }
+                            }
+                        }
+                    }
+                };
+                document.addEventListener('keydown', keyBindUpdate);
+            },
+            keyBindReset: function () {
+                app.cfg.general.keybindings.search = [app.platform == "darwin" ? "Command" : "Control", "S"];
+                app.cfg.general.keybindings.albums = [app.platform == "darwin" ? "Command" : "Control", "F"];
+                app.cfg.general.keybindings.artists = [app.platform == "darwin" ? "Command" : "Control", "D"];
+                app.cfg.general.keybindings.browse = [app.platform == "darwin" ? "Command" : "Control", "B"];
+                app.cfg.general.keybindings.togglePrivateSession = [app.platform == "darwin" ? "Command" : "Control", "P"];
+                app.cfg.general.keybindings.webRemote = [app.platform == "darwin" ? "Command" : "Control", "W"];
+                app.cfg.general.keybindings.audioSettings = [app.platform == "darwin" ? "Option" : "Shift", "A"];
+                app.cfg.general.keybindings.pluginMenu = [app.platform == "darwin" ? "Option" : "Shift", "P"];
+                app.cfg.general.keybindings.castToDevices = [app.platform == "darwin" ? "Option" : "Shift", "C"];
+                app.cfg.general.keybindings.settings = [app.platform == "darwin" ? "Option" : "Shift", "S"];
+                app.cfg.general.keybindings.openDeveloperTools = [app.platform == "darwin" ? "Command" : "Control", app.platform == "darwin" ? "Option" : "Shift", "I"];
+                notyf.success(app.getLz('settings.notyf.general.keybindings.update.success'));
+                bootbox.confirm(app.getLz("settings.prompt.general.keybindings.update.success"), (ok) => {
+                    if (ok) ipcRenderer.invoke("relaunchApp")
+                })
+            },
+            gitHubExplore() {
+                app.appRoute("themes-github")
+            },
+            copyLogs() {
+                ipcRenderer.send('fetch-log')
+                notyf.success(app.getLz('term.share.success'));
+            },
+            openAppData() {
+                ipcRenderer.send('open-appdata')
+            },
+            getLanguages: function () {
+                let langs = this.$root.lzListing
+                let categories = {
+                    "main": [],
+                    "fun": [],
+                    "unsorted": []
+                }
+                // sort by category if category is undefined or empty put it in "unsorted"
+                for (let i = 0; i < langs.length; i++) {
+                    if (langs[i].category === undefined || langs[i].category === "") {
+                        categories.unsorted.push(langs[i])
+                    } else {
+                        categories[langs[i].category].push(langs[i])
+                    }
+                }
+                // return
+                return categories
+            },
+            addExperiment(flag) {
+                app.cfg.advanced.experiments.push(flag);
+            },
+            removeExperiment(flag) {
+                app.cfg.advanced.experiments.splice(app.cfg.advanced.experiments.indexOf(flag), 1);
+            },
+            toggleAudioContext: function () {
+                if (app.cfg.advanced.AudioContext === true) {
+                    if (navigator.hardwareConcurrency < 6) {
+                        bootbox.confirm(app.getLz("settings.warn.audio.enableAdvancedFunctionality.lowcores"), function (result) {
+                            if (result) {
+                                CiderAudio.init();
+                                if (app.cfg.audio.normalization === true) {
+                                    CiderAudio.normalizerOn()
+                                }
+                                if (app.cfg.audio.spatial === true) {
+                                    CiderAudio.spatialOn()
+                                    CiderAudio.hierarchical_loading();
+                                }
+                            }
+                        })
+                    } else {
+                        CiderAudio.init();
+                        if (app.cfg.audio.normalization === true) {
+                            CiderAudio.normalizerOn()
+                        }
+                        if (app.cfg.audio.spatial === true) {
+                            CiderAudio.spatialOn()
+                            CiderAudio.hierarchical_loading();
+                        }
+                    }
+                } else {
+                    CiderAudio.off();
+                }
+            },
+            toggleNormalization: function () {
+                if (app.cfg.audio.normalization) {
+                    CiderAudio.normalizerOn()
+                } else {
+                    CiderAudio.normalizerOff()
+                }
+            },
+            changeAudioQuality: function () {
+                1
+                app.mk.bitrate = MusicKit.PlaybackBitrate[app.cfg.audio.quality];
+            },
+            toggleUserInfo: function () {
+                app.chrome.hideUserInfo = !app.cfg.visual.showuserinfo
+            },
+            sendDataToMTT: function () {
+                ipcRenderer.invoke('setStoreValue', 'general.close_behavior', app.cfg.general.close_behavior);
+                //  setStoreValue does not change plugin store values somehow
+                ipcRenderer.invoke('update-store-mtt', app.cfg.general.close_behavior);
+            },
+            checkIfUpdateDisabled() {
+                if (app.cfg.main.UPDATABLE) return;
+
+                let updateFields = document.getElementsByClassName('update-check');
+                for (let i = 0; i < updateFields.length; i++) {
+                    updateFields[i].style = "opacity: 0.5; pointer-events: none;";
+                    updateFields[i].title = "Not available on this type of build";
+                }
+
+            },
+            promptForRelaunch() {
+                bootbox.confirm(app.getLz('action.relaunch.confirm'), function (result) {
+                    if (result) {
+                        ipcRenderer.send('relaunchApp', '');
+                    }
+                });
+            },
+            authCC() {
+                ipcRenderer.send('cc-auth')
+            },
+            logoutCC() {
+                ipcRenderer.send('cc-logout')
+            },
+        }
+    })
 </script>
