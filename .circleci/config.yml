@@ -102,7 +102,10 @@ jobs:
           name: Install Windows System Build Dependencies
           command: |
             sudo apt-get update -y
-            sudo apt-get install -y wine
+            sudo apt-get install -y dpkg fakeroot wine64
+            sudo dpkg --add-architecture i386
+            sudo apt-get update -y
+            sudo apt-get install -y wine32
       - run:
           name: Fix Versioning and Add Channel
           command: yarn circle:script
