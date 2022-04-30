@@ -16,41 +16,41 @@ jobs:
     steps:
       - checkout
       - run: ls -la
-      # - run:
-      #     name: Set App Version
-      #     command: echo "export APP_VERSION=$(grep '"version":.*' package.json | cut -d '"' -f 4 | head -1)" >> $BASH_ENV
-      # - run:
-      #     name: Update Package Managers
-      #     command: sudo npm update -g npm yarn
-      # - restore_cache:
-      #     name: Restore Yarn Package Cache
-      #     keys:
-      #       - yarn-packages-{{ checksum "cider.lock" }}
-      # - run:
-      #     name: Install Dependencies
-      #     command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
-      # - save_cache:
-      #     name: Save Yarn Package Cache
-      #     key: yarn-packages-{{ checksum "cider.lock" }}
-      #     paths:
-      #       - ~/.cache/yarn
-      # - run:
-      #     name: Install system build dependencies
-      #     command: |
-      #       sudo apt-get update -y
-      #       curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
-      #       echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-      #       sudo apt-get install -y dpkg fakeroot wine64
-      #       sudo dpkg --add-architecture i386
-      #       sudo apt-get update -y
-      #       sudo apt-get install -y wine32
-      #       sudo apt install -y gh
-      # - run:
-      #     name: Fix Versioning and Add Channel
-      #     command: yarn circle:script
-      # - run:
-      #     name: TypeScript Compile
-      #     command: yarn build
+      - run:
+          name: Set App Version
+          command: echo "export APP_VERSION=$(grep '"version":.*' package.json | cut -d '"' -f 4 | head -1)" >> $BASH_ENV
+      - run:
+          name: Update Package Managers
+          command: sudo npm update -g npm yarn
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - yarn-packages-{{ checksum "cider.lock" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "cider.lock" }}
+          paths:
+            - ~/.cache/yarn
+      - run:
+          name: Install system build dependencies
+          command: |
+            sudo apt-get update -y
+            curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+            echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+            sudo apt-get install -y dpkg fakeroot wine64
+            sudo dpkg --add-architecture i386
+            sudo apt-get update -y
+            sudo apt-get install -y wine32
+            sudo apt install -y gh
+      - run:
+          name: Fix Versioning and Add Channel
+          command: yarn circle:script
+      - run:
+          name: TypeScript Compile
+          command: yarn build
       # Persist the specified paths (workspace/echo-output) into the workspace for use in downstream job.
       - persist_to_workspace:
           # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
