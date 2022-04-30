@@ -16,6 +16,7 @@
     height: var(--chromeHeight1);
 
     &.chrome-bottom {
+      -webkit-app-region: no-drag;
       height    : var(--chromeHeight2);
       box-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
       z-index   : 1;
@@ -30,6 +31,7 @@
     .app-playback-controls .actions {
       align-self: center;
     }
+    -webkit-app-region: no-drag;
 
     .playback-button.play,
     .playback-button.pause {
@@ -120,8 +122,9 @@
       width          : 30%;
       justify-content: flex-start;
       align-items    : flex-start;
-
+      -webkit-app-region: no-drag!important;
       .playback-controls {
+        -webkit-app-region: no-drag!important;
         .artwork {
           width     : var(--chromeHeight2);
           height    : var(--chromeHeight2);
