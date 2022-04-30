@@ -65,10 +65,10 @@
                     </template>
                 </div>
             </div>
-            <div class="explicit-icon" v-if="item.attributes && item.attributes.contentRating == 'explicit'"></div>
             <div class="heart-icon" v-if="isLoved">
                 <div class="svg-icon" :style="{'--url': 'url(./assets/feather/heart-fill.svg)'}"></div>
             </div>
+            <div class="explicit-icon" v-if="item.attributes && item.attributes.contentRating == 'explicit'"></div>
             <template v-if="showMetaData == true" @dblclick="route()">
                 <div class="metainfo">
                     {{ item.attributes.releaseDate ? new Date(item.attributes.releaseDate).toLocaleDateString()
