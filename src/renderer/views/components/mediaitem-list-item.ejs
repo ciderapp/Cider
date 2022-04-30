@@ -330,8 +330,8 @@
                                 "hidden": false,
                                 "disabled": true,
                                 "action": function () {
+                                    self.isLoved = true
                                     app.love(self.item)
-                                    self.getHeartStatus()
                                 }
                             },
                             {
@@ -341,8 +341,8 @@
                                 "name": this.app.getLz('action.unlove'),
                                 "hidden": true,
                                 "action": function () {
+                                    self.isLoved = false
                                     app.unlove(self.item)
-                                    self.getHeartStatus()
                                 }
                             },
                             {
