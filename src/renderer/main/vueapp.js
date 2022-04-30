@@ -255,10 +255,10 @@ const app = new Vue({
         }
     },
     mounted() {
-        window.addEventListener("hashchange", function(event) {
+        window.addEventListener("hashchange", function (event) {
             let currentPath = window.location.hash.slice(1);
             console.debug("hashchange", currentPath);
-          }, false)
+        }, false)
     },
     methods: {
         setTimeout(func, time) {
@@ -1671,28 +1671,16 @@ const app = new Vue({
                     params["meta[albums:tracks]"] = 'popularity'
                     params["fields[albums]"] = "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialNotes,editorialVideo,name,playParams,releaseDate,url,copyright"
                 }
-
-                // if (this.cfg.advanced.experiments.includes('inline-playlists')) {
-                if (false) {
-                    let showModal = kind.toString().includes("album") || kind.toString().includes("playlist")
-                    if (app.page.includes("playlist") || app.page.includes("album")) {
-                        showModal = false
-                    }
-                    if (showModal) {
-                        app.modals.showPlaylist = true
-                        app.chrome.contentAreaScrolling = false
-                    } else {
-                        app.page = (kind) + "_" + (id);
-                        window.location.hash = `${kind}/${id}${isLibrary ? "/" + isLibrary : ''}`
-                    }
-                } else {
+                if(kind.includes("playlist") || kind.includes("album")){
                     app.page = (kind) + "_" + (id);
+                    window.location.hash = `${kind}/${id}${isLibrary ? "/" + isLibrary : ''}`
+                    app.getTypeFromID((kind), (id), (isLibrary), params);
+                }else{
+                    app.page = (kind)
                     window.location.hash = `${kind}/${id}${isLibrary ? "/" + isLibrary : ''}`
                 }
 
-
-                app.getTypeFromID((kind), (id), (isLibrary), params);
-                // document.querySelector("#app-content").scrollTop = 0
+                // app.getTypeFromID((kind), (id), (isLibrary), params);
             } else {
                 app.playMediaItemById((id), (kind), (isLibrary), item.attributes.url ?? '')
             }
