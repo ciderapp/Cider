@@ -4009,7 +4009,8 @@ const app = new Vue({
                 }
             }
 
-            if (app.mk.nowPlayingItem._container["attributes"] && app.mk.nowPlayingItem._container.name != "station") {
+            const nowPlayingContainer = app.mk.nowPlayingItem._container;
+            if (nowPlayingContainer && nowPlayingContainer["attributes"] && nowPlayingContainer.name != "station") {
                 menus.normal.items.find(x => x.id == "showInMusic").hidden = false
             }
 
