@@ -1,16 +1,15 @@
 version: 2.1
 orbs: # adds orbs to your configuration
   jira: circleci/jira@1.0.5 # invokes the Jira orb, making its commands accessible
-branches:
-      only:
-        - main
-        - develop
 jobs:
   build:
     working_directory: ~/Cider
     docker:
       - image: circleci/node:16
-      
+    filters:
+      branches:
+        only:
+          - main
     steps:
       - checkout
       - run:
