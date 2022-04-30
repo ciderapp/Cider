@@ -73,6 +73,7 @@
   "term.viewAs": "View As",
   "term.viewAs.coverArt": "Cover Art",
   "term.viewAs.list": "List",
+  "term.dynamic": "Dynamic",
   "term.size": "Size",
   "term.size.normal": "Normal",
   "term.size.compact": "Compact",
@@ -318,11 +319,6 @@
   "menubar.options.trans": "Translation Report/Request",
   "menubar.options.license": "View License",
   "menubar.options.conf": "Open Configuration File in Editor",
-
-
-
-
-
   "settings.header.general": "General",
   "settings.header.general.description": "Adjust the general settings for Cider.",
   "settings.option.general.language": "Language",

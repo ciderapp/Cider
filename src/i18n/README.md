@@ -297,5 +297,63 @@ Update 28/04/2022 21:45 UTC
 * `settings.option.general.resumetabs.description`: Added for `en_US`
 * `settings.option.general.resumetabs.dynamic`: Added for `en_US`
 * `settings.option.general.resumetabs.dynamic.description`: Added for `en_US`
+* `term.dynamic`: Added for `en_US`
+
+Update 29/04/2022 00:00 UTC
+
+ * `menubar.options.about`: Added for `en_US`
+ * `menubar.options.settings`: Added for `en_US`
+ * `menubar.options.services`: Added for `en_US`
+ * `menubar.options.hide`: Added for `en_US`
+ * `menubar.options.hideothers`: Added for `en_US`
+ * `menubar.options.unhide`: Added for `en_US`
+ * `menubar.options.quit`: Added for `en_US`
+ * `menubar.options.view`: Added for `en_US`
+ * `menubar.options.reload`: Added for `en_US`
+ * `menubar.options.forcereload`: Added for `en_US`
+ * `menubar.options.toggledevtools`: Added for `en_US`
+ * `menubar.options.resetzoom`: Added for `en_US`
+ * `menubar.options.zoomin`: Added for `en_US`
+ * `menubar.options.zoomout`: Added for `en_US`
+ * `menubar.options.togglefullscreen`: Added for `en_US`
+ * `menubar.options.window`: Added for `en_US`
+ * `menubar.options.minimize`: Added for `en_US`
+ * `menubar.options.show`: Added for `en_US`
+ * `menubar.options.zoom`: Added for `en_US`
+ * `menubar.options.front`: Added for `en_US`
+ * `menubar.options.close`: Added for `en_US`
+ * `menubar.options.edit`: Added for `en_US`
+ * `menubar.options.update`: Added for `en_US`
+ * `menubar.options.redo`: Added for `en_US`
+ * `menubar.options.cut`: Added for `en_US`
+ * `menubar.options.copy`: Added for `en_US`
+ * `menubar.options.paste`: Added for `en_US`
+ * `menubar.options.toggleprivate`: Added for `en_US`
+ * `menubar.options.webremote`: Added for `en_US`
+ * `menubar.options.audio`: Added for `en_US`
+ * `menubar.options.plugins`: Added for `en_US`
+ * `menubar.options.control`: Added for `en_US`
+ * `menubar.options.next`: "Added for `en_US`
+ * `menubar.options.previous`: Added for `en_US`
+ * `menubar.options.volumeup`: Added for `en_US`
+ * `menubar.options.volumedown`: Added for `en_US`
+ * `menubar.options.browse`: Added for `en_US`
+ * `menubar.options.artists`: Added for `en_US`
+ * `menubar.options.search`: Added for `en_US`
+ * `menubar.options.albums`: Added for `en_US`
+ * `menubar.options.cast`: Added for `en_US`
+ * `menubar.options.account`: Added for `en_US`
+ * `menubar.options.accountsettings`: Added for `en_US`
+ * `menubar.options.signout`: Added for `en_US`
+ * `menubar.options.support`: Added for `en_US`
+ * `menubar.options.help`: Added for `en_US`
+ * `menubar.options.discord`: Added for `en_US`
+ * `menubar.options.gihu`: Added for `en_US`
+ * `menubar.options.report`: Added for `en_US`
+ * `menubar.options.bug`: Added for `en_US`
+ * `menubar.options.feature`: Added for `en_US`
+ * `menubar.options.trans`: Added for `en_US`
+ * `menubar.options.license`: Added for `en_US`
+ * `menubar.options.conf`: Added for `en_US` 
 
 
