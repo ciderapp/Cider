@@ -3,6 +3,7 @@ import {utils} from "../base/utils";
 
 export default class Thumbar {
 
+    private i18n: any = undefined;
     /**
      * Base Plugin Details (Eventually implemented into a GUI in settings)
      */
@@ -22,23 +23,23 @@ export default class Thumbar {
             label: app.getName(),
             submenu: [
                 {
-                    label: 'About',
+                    label: utils.getLocale('About', 'menubar.options.about'),
                     click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('about')`)
                 },
                 {type: 'separator'},
                 {
-                    label: 'Settings',
+                    label: utils.getLocale('Settings', 'menubar.options.settings'),
                     accelerator: utils.getStoreValue("general.keybindings.settings").join('+'),
                     click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('settings')`)
                 },
                 {type: 'separator'},
-                {role: 'services'},
+                {role: 'services', label: utils.getLocale('services', 'menubar.options.services')},
                 {type: 'separator'},
-                {role: 'hide'},
-                {role: 'hideOthers'},
-                {role: 'unhide'},
+                {role: 'hide', label: utils.getLocale('hide', 'menubar.options.hide')},
+                {role: 'hideOthers', label: utils.getLocale('hideOthers', 'menubar.options.hideothers')},
+                {role: 'unhide', label: utils.getLocale('unhide', 'menubar.options.unhide')},
                 {type: 'separator'},
-                {role: 'quit'}
+                {role: 'quit', label: utils.getLocale('quit', 'menubar.options.quit')}
             ]
         },
         {
