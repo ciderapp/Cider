@@ -218,7 +218,7 @@ export default class Thumbar {
                 },
                 {type: 'separator'},
                 {
-                    label: utils.getLocale('Toggle Developer Tools', 'menubar.options.devtools'),
+                    label: utils.getLocale('Toggle Developer Tools', 'menubar.options.toggledevtools'),
                     accelerator: utils.getStoreValue("general.keybindings.openDeveloperTools").join('+'),
                     click: () => utils.getWindow().webContents.openDevTools()
                 },
