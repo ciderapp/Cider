@@ -95,7 +95,7 @@ jobs:
           root: .
           paths:
             - dist/*.deb
-            - dist/*.appimage
+            - dist/*.AppImage
             - dist/*.snap
 
   build-winget:
