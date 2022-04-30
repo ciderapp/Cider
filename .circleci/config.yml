@@ -128,7 +128,7 @@ jobs:
     executor: cider-ci
     steps:
       - attach_workspace:
-          at: ~/Cider/dist
+          at: ~/Cider/
       - run:
           name: Installing GitHub Command Line Interface
           command: |
