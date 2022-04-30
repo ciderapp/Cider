@@ -1671,7 +1671,7 @@ const app = new Vue({
                     params["meta[albums:tracks]"] = 'popularity'
                     params["fields[albums]"] = "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialNotes,editorialVideo,name,playParams,releaseDate,url,copyright"
                 }
-                if(kind.includes("playlist") || kind.includes("album")){
+                if (kind.includes("playlist") || kind.includes("album")){
                     app.page = (kind) + "_" + (id);
                     window.location.hash = `${kind}/${id}${isLibrary ? "/" + isLibrary : ''}`
                     app.getTypeFromID((kind), (id), (isLibrary), params);

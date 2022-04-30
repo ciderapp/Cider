@@ -133,7 +133,7 @@ app.mkapi("artists", false, "412778295", {
 var library = []
 var downloaded = null;
 function downloadChunk () {
-    if(downloaded == null) {
+    if (downloaded == null) {
         app.mk.api.library.songs("", {limit: 100}, {includeResponseMeta: !0}).then((response)=>{
             processChunk(response)
         })

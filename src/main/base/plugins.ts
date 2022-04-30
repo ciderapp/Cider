@@ -26,7 +26,7 @@ export class Plugins {
     }
 
     public static getPluginFromMap(plugin: string): any {
-        if(Plugins.PluginMap[plugin]) {
+        if (Plugins.PluginMap[plugin]) {
             return Plugins.PluginMap[plugin];
         }else{
             return plugin;

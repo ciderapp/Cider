@@ -93,12 +93,12 @@
         },
         async mounted() {
             await this.getBadges()
-            if(typeof this.item.attributes.playParams == "object") {
-                if(this.item.attributes.playParams.kind.includes("radioStation") && (this.item.attributes.playParams.streamingKind == 1 || this.item.attributes.playParams.streamingKind == 2)) {
+            if (typeof this.item.attributes.playParams == "object") {
+                if (this.item.attributes.playParams.kind.includes("radioStation") && (this.item.attributes.playParams.streamingKind == 1 || this.item.attributes.playParams.streamingKind == 2)) {
                     this.unavailable = true
                 }
             }else{
-                if(this.item.type == "music-movies" || this.item.type == "tv-episodes") {
+                if (this.item.type == "music-movies" || this.item.type == "tv-episodes") {
                     this.unavailable = true
                 }
             }
@@ -116,7 +116,7 @@
                 }
             },
             getSubtitle() {
-                if(this.kind == 'card') {
+                if (this.kind == 'card') {
                     try {
                         if (typeof this.item.attributes.artistNames != "undefined") {
                             return this.item.attributes.artistNames
@@ -139,7 +139,7 @@
                 }
             },
             getSubtitleNavigation() {
-                if(this.kind == 'card') {
+                if (this.kind == 'card') {
                     try {
                         if (typeof this.item.attributes.artistNames != "undefined") {
                             return app.routeView(this.item)
@@ -224,7 +224,7 @@
             },
             getArtworkUrl(size = -1, includeUrl = false) {
                 let artwork = this.item.attributes.artwork ? this.item.attributes.artwork.url : ''
-                if(size != -1) {
+                if (size != -1) {
                     artwork = artwork.replace('{w}', size).replace('{h}', size).replace('{f}', "webp").replace('{c}', ((size === 900) ? "sr" : "cc"))
                 }
                 switch (this.kind) {
@@ -232,7 +232,7 @@
                         artwork = this.item.attributes.editorialArtwork?.subscriptionHero?.url ?? (this.item.attributes.artwork?.url ?? (this.item.relationships?.contents?.data[0]?.attributes?.editorialArtwork?.subscriptionHero?.url ?? ''))
                         break;
                 }
-                if(!includeUrl) {
+                if (!includeUrl) {
                     return artwork
                 }else{
                     return `url("${artwork}")`
@@ -471,7 +471,7 @@
 
                 try {
                     await this.isInLibrary().then((_) => {
-                        if(self.addedToLibrary) {
+                        if (self.addedToLibrary) {
                             menus.normal.items.find(x => x.id == 'addToLibrary').hidden = true
                             menus.normal.items.find(x => x.id == 'removeFromLibrary').hidden = false
                         }else{
@@ -530,7 +530,7 @@
                         }
                     }
                 }
-                if(self.app.cfg.home.followedArtists.includes(this.item.id)) {
+                if (self.app.cfg.home.followedArtists.includes(this.item.id)) {
                     followAction = "unfollow"
                 }
                 app.showMenuPanel({

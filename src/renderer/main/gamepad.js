@@ -251,7 +251,7 @@ function simulateGamepad () {
 
                 cursorPos[1] -= cursorSpeed
                 // sounds.Hover.play()
-                // if(intTabIndex <= 0) {
+                // if (intTabIndex <= 0) {
                 //     intTabIndex = 0
                 // }else{
                 //     intTabIndex--
@@ -263,7 +263,7 @@ function simulateGamepad () {
                 e.preventDefault()
 
                 cursorPos[1] += cursorSpeed
-                // if(intTabIndex < tabbable.length) {
+                // if (intTabIndex < tabbable.length) {
                 //     intTabIndex++
                 // }else{
                 //     intTabIndex = tabbable.length
