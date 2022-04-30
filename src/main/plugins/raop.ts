@@ -157,7 +157,7 @@ export default class RAOP {
             });
             
             const browser2 = this.mdns.createBrowser(this.mdns.tcp('airplay'));
-            browser2.on('ready', browser.discover);
+            browser2.on('ready', browser2.discover);
 
             browser2.on('update', (service: any) => {
                  if (service.addresses && service.fullname && (service.fullname.includes('_raop._tcp') ||  service.fullname.includes('_airplay._tcp'))) {
