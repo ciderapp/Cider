@@ -331,6 +331,7 @@
                                 "disabled": true,
                                 "action": function () {
                                     app.love(self.item)
+                                    self.getHeartStatus()
                                 }
                             },
                             {
@@ -341,6 +342,7 @@
                                 "hidden": true,
                                 "action": function () {
                                     app.unlove(self.item)
+                                    self.getHeartStatus()
                                 }
                             },
                             {
