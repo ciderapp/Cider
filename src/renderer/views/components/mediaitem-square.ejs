@@ -97,7 +97,7 @@
                 if (this.item.attributes.playParams.kind.includes("radioStation") && (this.item.attributes.playParams.streamingKind == 1 || this.item.attributes.playParams.streamingKind == 2)) {
                     this.unavailable = true
                 }
-            }else{
+            } else{
                 if (this.item.type == "music-movies" || this.item.type == "tv-episodes") {
                     this.unavailable = true
                 }
@@ -130,7 +130,7 @@
                     }catch(e) {
                         return ''
                     }
-                }else {
+                } else {
                     if (typeof this.item.attributes.artistName != "undefined") {
                         return this.item.attributes.artistName
                     } else {
@@ -153,7 +153,7 @@
                     }catch(e) {
                         return app.routeView(this.item)
                     }
-                }else {
+                } else {
                     if (typeof this.item.attributes.artistName != "undefined") {
                         return app.searchAndNavigate(this.item,'artist')
                     } else {
@@ -234,7 +234,7 @@
                 }
                 if (!includeUrl) {
                     return artwork
-                }else{
+                } else{
                     return `url("${artwork}")`
                 }
             },
@@ -442,7 +442,7 @@
                                         if (self.item.relationships.catalog){
                                             app.mkapi(self.item.attributes.playParams.kind, false, self.item.relationships.catalog.data[0].id).then(u => {self.app.copyToClipboard((u.data.data.length && u.data.data.length > 0)? u.data.data[0].attributes.url : u.data.data.attributes.url)})
                                         }
-                                    }else {
+                                    } else {
                                     self.app.copyToClipboard(self.item.attributes.url)}
                                 }
                             },
@@ -454,7 +454,7 @@
                                         if (self.item.relationships.catalog){
                                             app.mkapi(self.item.attributes.playParams.kind, false, self.item.relationships.catalog.data[0].id).then(u => {self.app.songLinkShare((u.data.data.length && u.data.data.length > 0)? u.data.data[0].attributes.url : u.data.data.attributes.url)})
                                         }
-                                    }else {
+                                    } else {
                                     self.app.songLinkShare(self.item.attributes.url)}
                                 }
                             }
@@ -474,7 +474,7 @@
                         if (self.addedToLibrary) {
                             menus.normal.items.find(x => x.id == 'addToLibrary').hidden = true
                             menus.normal.items.find(x => x.id == 'removeFromLibrary').hidden = false
-                        }else{
+                        } else{
                             menus.normal.items.find(x => x.id == 'addToLibrary').disabled = false
                         }
                     })

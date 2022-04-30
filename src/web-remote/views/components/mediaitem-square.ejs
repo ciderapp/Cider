@@ -86,7 +86,7 @@
 
                 if (luma > 140) {
                     return "#aaaaaa"
-                }else{
+                } else{
                     return color
                 }
 
@@ -107,7 +107,7 @@
                     }catch(e) {
                         return ''
                     }
-                }else {
+                } else {
                     if (typeof this.item.attributes.artistName != "undefined") {
                         return this.item.attributes.artistName
                     } else {
@@ -130,7 +130,7 @@
                     }catch(e) {
                         return app.routeView(this.item)
                     }
-                }else {
+                } else {
                     if (typeof this.item.attributes.artistName != "undefined") {
                         return app.searchAndNavigate(this.item,'artist')
                     } else {
@@ -210,7 +210,7 @@
                 }
                 if (!includeUrl) {
                     return artwork
-                }else{
+                } else{
                     return `url("${artwork}")`
                 }
             },
@@ -426,7 +426,7 @@
                         if (self.addedToLibrary) {
                             menus.normal.items.find(x => x.id == 'addToLibrary').hidden = true
                             menus.normal.items.find(x => x.id == 'removeFromLibrary').hidden = false
-                        }else{
+                        } else{
                             menus.normal.items.find(x => x.id == 'addToLibrary').disabled = false
                         }
                     })

@@ -137,7 +137,7 @@ function downloadChunk () {
         app.mk.api.library.songs("", {limit: 100}, {includeResponseMeta: !0}).then((response)=>{
             processChunk(response)
         })
-    }else{
+    } else{
         downloaded.next("", {limit: 100}, {includeResponseMeta: !0}).then((response)=>{
             processChunk(response)
         })
