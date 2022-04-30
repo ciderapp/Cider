@@ -286,7 +286,7 @@
   "menubar.options.front": "Front",
   "menubar.options.close": "Close",
   "menubar.options.edit": "Edit",
-  "menubar.options.update": "Undo",
+  "menubar.options.undo": "Undo",
   "menubar.options.redo": "Redo",
   "menubar.options.cut": "Cut",
   "menubar.options.copy": "Copy",

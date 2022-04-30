@@ -323,7 +323,7 @@ Update 29/04/2022 00:00 UTC
  * `menubar.options.front`: Added for `en_US`
  * `menubar.options.close`: Added for `en_US`
  * `menubar.options.edit`: Added for `en_US`
- * `menubar.options.update`: Added for `en_US`
+ * `menubar.options.undo`: Added for `en_US`
  * `menubar.options.redo`: Added for `en_US`
  * `menubar.options.cut`: Added for `en_US`
  * `menubar.options.copy`: Added for `en_US`
