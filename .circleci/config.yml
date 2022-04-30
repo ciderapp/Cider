@@ -77,6 +77,7 @@ jobs:
           root: .
           paths:
             - dist/*.exe
+            - dist/*.yml
 
   build-linux:
     executor: cider-ci
@@ -97,6 +98,7 @@ jobs:
             - dist/*.deb
             - dist/*.AppImage
             - dist/*.snap
+            - dist/*.yml
 
   build-winget:
     executor: cider-ci
@@ -123,6 +125,7 @@ jobs:
           root: .
           paths:
             - dist/*.exe
+            - dist/*.yml
 
   release:
     executor: cider-ci
