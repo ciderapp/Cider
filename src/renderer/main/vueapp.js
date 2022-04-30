@@ -1579,7 +1579,7 @@ const app = new Vue({
             }
             route = route.replace(/#/g, "")
             if (app.cfg.general.resumeTabs.tab == "dynamic") {
-                if (route == "home" || route == "library-songs" || route == "library-albums" || route == "library-artists" || route == "library-videos" || route == "podcasts") {
+                if (route == "home" || route == "listen_now" || route == "browse" || route == "radio" || route == "library-songs" || route == "library-albums" || route == "library-artists" || route == "library-videos" || route == "podcasts") {
                     app.cfg.general.resumeTabs.dynamicData = route
                 } else {
                     app.cfg.general.resumeTabs.dynamicData = "home"
