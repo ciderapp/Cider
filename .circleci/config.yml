@@ -4,7 +4,7 @@ executors:
   cider-ci:
     docker:
       - image: circleci/node:16
-    working_directory: ~/Cider
+    working_directory: /tmp
 
 orbs: # adds orbs to your configuration
   jira: circleci/jira@1.0.5 # invokes the Jira orb, making its commands accessible
@@ -14,47 +14,48 @@ jobs:
   prepare-build:
     executor: cider-ci
     steps:
-      - checkout
-      - run:
-          name: Set App Version
-          command: echo "export APP_VERSION=$(grep '"version":.*' package.json | cut -d '"' -f 4 | head -1)" >> $BASH_ENV
-      - run:
-          name: Update Package Managers
-          command: sudo npm update -g npm yarn
-      - restore_cache:
-          name: Restore Yarn Package Cache
-          keys:
-            - yarn-packages-{{ checksum "cider.lock" }}
-      - run:
-          name: Install Dependencies
-          command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
-      - save_cache:
-          name: Save Yarn Package Cache
-          key: yarn-packages-{{ checksum "cider.lock" }}
-          paths:
-            - ~/.cache/yarn
-      - run:
-          name: Install system build dependencies
-          command: |
-            sudo apt-get update -y
-            curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
-            echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-            sudo apt-get install -y dpkg fakeroot wine64
-            sudo dpkg --add-architecture i386
-            sudo apt-get update -y
-            sudo apt-get install -y wine32
-            sudo apt install -y gh
-      - run:
-          name: Fix Versioning and Add Channel
-          command: yarn circle:script
-      - run:
-          name: TypeScript Compile
-          command: yarn build
+      - run: ls -la
+      # - checkout
+      # - run:
+      #     name: Set App Version
+      #     command: echo "export APP_VERSION=$(grep '"version":.*' package.json | cut -d '"' -f 4 | head -1)" >> $BASH_ENV
+      # - run:
+      #     name: Update Package Managers
+      #     command: sudo npm update -g npm yarn
+      # - restore_cache:
+      #     name: Restore Yarn Package Cache
+      #     keys:
+      #       - yarn-packages-{{ checksum "cider.lock" }}
+      # - run:
+      #     name: Install Dependencies
+      #     command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
+      # - save_cache:
+      #     name: Save Yarn Package Cache
+      #     key: yarn-packages-{{ checksum "cider.lock" }}
+      #     paths:
+      #       - ~/.cache/yarn
+      # - run:
+      #     name: Install system build dependencies
+      #     command: |
+      #       sudo apt-get update -y
+      #       curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+      #       echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+      #       sudo apt-get install -y dpkg fakeroot wine64
+      #       sudo dpkg --add-architecture i386
+      #       sudo apt-get update -y
+      #       sudo apt-get install -y wine32
+      #       sudo apt install -y gh
+      # - run:
+      #     name: Fix Versioning and Add Channel
+      #     command: yarn circle:script
+      # - run:
+      #     name: TypeScript Compile
+      #     command: yarn build
       # Persist the specified paths (workspace/echo-output) into the workspace for use in downstream job.
       - persist_to_workspace:
           # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
           # taken to be the root directory of the workspace.
-          root: .
+          root: /tmp
           # Must be relative path from root
           paths:
             - Cider
@@ -63,7 +64,7 @@ jobs:
     executor: cider-ci
     steps:
       - attach_workspace:
-          at: ~/Cider
+          at: /tmp/Cider
       - run:
           name: Generate Builds (Windows)
           command: yarn electron-builder -w --x64 -p never
@@ -74,7 +75,7 @@ jobs:
     executor: cider-ci
     steps:
       - attach_workspace:
-          at: ~/Cider
+          at: /tmp/Cider
       - run:
           name: Generate Builds (Linux)
           command: yarn electron-builder -l -p never
@@ -85,7 +86,7 @@ jobs:
     executor: cider-ci
     steps:
       - attach_workspace:
-          at: ~/Cider
+          at: /tmp/Cider
       - run:
           name: Generate Builds (Winget)
           command: yarn electron-builder --win -c winget.json -p never
@@ -96,23 +97,23 @@ jobs:
     executor: cider-ci
     steps:
       - attach_workspace:
-          at: ~/Cider
+          at: /tmp/Cider
       - run:
           name: Move Build Files
           command: |
-            mkdir ~/Cider/dist/artifacts/
-            mv ~/Cider/dist/*.exe ~/Cider/dist/artifacts
-            mv ~/Cider/dist/*.deb ~/Cider/dist/artifacts
-            mv ~/Cider/dist/*.AppImage ~/Cider/dist/artifacts
-            mv ~/Cider/dist/*.snap ~/Cider/dist/artifacts
-            mv ~/Cider/dist/*.yml ~/Cider/dist/artifacts
-            mv ~/Cider/dist/*.blockmap ~/Cider/dist/artifacts
+            mkdir /tmp/Cider/dist/artifacts/
+            mv /tmp/Cider/dist/*.exe /tmp/Cider/dist/artifacts
+            mv /tmp/Cider/dist/*.deb /tmp/Cider/dist/artifacts
+            mv /tmp/Cider/dist/*.AppImage /tmp/Cider/dist/artifacts
+            mv /tmp/Cider/dist/*.snap /tmp/Cider/dist/artifacts
+            mv /tmp/Cider/dist/*.yml /tmp/Cider/dist/artifacts
+            mv /tmp/Cider/dist/*.blockmap /tmp/Cider/dist/artifacts
       - store_artifacts:
-          path: ~/Cider/dist/artifacts
+          path: /tmp/Cider/dist/artifacts
       - run:
           name: Publish Release
           command: |
-            gh release create "v${APP_VERSION}.${CIRCLE_BUILD_NUM}" --title "Cider Version ${APP_VERSION} - Build ${CIRCLE_BUILD_NUM} (${CIRCLE_BRANCH})" --generate-notes -R ciderapp/cider-releases ~/Cider/dist/artifacts/*.deb ~/Cider/dist/artifacts/*.AppImage ~/Cider/dist/artifacts/*.snap ~/Cider/dist/artifacts/*.exe ~/Cider/dist/artifacts/*.yml ~/Cider/dist/artifacts/*.blockmap
+            gh release create "v${APP_VERSION}.${CIRCLE_BUILD_NUM}" --title "Cider Version ${APP_VERSION} - Build ${CIRCLE_BUILD_NUM} (${CIRCLE_BRANCH})" --generate-notes -R ciderapp/cider-releases /tmp/Cider/dist/artifacts/*.deb /tmp/Cider/dist/artifacts/*.AppImage /tmp/Cider/dist/artifacts/*.snap /tmp/Cider/dist/artifacts/*.exe /tmp/Cider/dist/artifacts/*.yml /tmp/Cider/dist/artifacts/*.blockmap
 
 # Orchestrate our job run sequence
 workflows:
