@@ -168,7 +168,7 @@ export default class RAOP {
                 this.ondeviceup(service.name, service.host, service.port, service.addresses, service.txt);
              }
             });
-
+    
         });
 
 
