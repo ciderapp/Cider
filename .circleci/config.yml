@@ -65,6 +65,7 @@ jobs:
   build-windows:
     executor: cider-ci
     steps:
+      - checkout
       - attach_workspace:
           at: ~/Cider
       - run:
@@ -76,6 +77,7 @@ jobs:
   build-linux:
     executor: cider-ci
     steps:
+      - checkout
       - attach_workspace:
           at: ~/Cider
       - run:
@@ -87,6 +89,7 @@ jobs:
   build-winget:
     executor: cider-ci
     steps:
+      - checkout
       - attach_workspace:
           at: ~/Cider
       - run:
@@ -98,6 +101,7 @@ jobs:
   release:
     executor: cider-ci
     steps:
+      - checkout
       - attach_workspace:
           at: ~/Cider
       - run:
