@@ -43,9 +43,9 @@ export default class Thumbar {
             ]
         },
         {
-            label: 'View',
+            label: utils.getLocale('View', 'menubar.options.view'),
             submenu: [
-                {role: 'reload'},
+                {role: 'reload', label: utils.getLocale('reload', 'menubar.view.reload')},
                 {role: 'forceReload'},
                 {role: 'toggleDevTools'},
                 {type: 'separator'},
