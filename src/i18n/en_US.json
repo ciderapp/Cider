@@ -294,8 +294,9 @@
   "menubar.options.webremote": "Web Remote",
   "menubar.options.audio": "Audio Settings",
   "menubar.options.plugins": "Plu-gins Menu",
-  "menubar.options.control": "Controls",
+  "menubar.options.controls": "Controls",
   "menubar.options.next": "Next",
+  "menubar.options.playpause": "Play/Pause",
   "menubar.options.previous ": "Previous",
   "menubar.options.volumeup": "Volume Up",
   "menubar.options.volumedown": "Volume Down",
@@ -310,14 +311,14 @@
   "menubar.options.support": "Support",
   "menubar.options.help": "Help",
   "menubar.options.discord": "Discord",
-  "menubar.options.gihu": "GitHub Wiki",
+  "menubar.options.github": "GitHub Wiki",
   "menubar.options.report": "Report a...",
   "menubar.options.bug": "Bug",
   "menubar.options.feature": "Feature Request",
   "menubar.options.trans": "Translation Report/Request",
   "menubar.options.license": "View License",
   "menubar.options.conf": "Open Configuration File in Editor",
-  
+
 
 
 

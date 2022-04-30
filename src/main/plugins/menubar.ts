@@ -45,185 +45,185 @@ export default class Thumbar {
         {
             label: utils.getLocale('View', 'menubar.options.view'),
             submenu: [
-                {role: 'reload', label: utils.getLocale('reload', 'menubar.view.reload')},
-                {role: 'forceReload'},
-                {role: 'toggleDevTools'},
+                {role: 'reload', label: utils.getLocale('reload', 'menubar.options.reloads')},
+                {role: 'forceReload', label: utils.getLocale('forceReload', 'menubar.options.forcereload')},
+                {role: 'toggleDevTools', label: utils.getLocale('toggleDevTools', 'menubar.options.toggledevtools')},
                 {type: 'separator'},
-                {role: 'resetZoom'},
-                {role: 'zoomIn'},
-                {role: 'zoomOut'},
+                {role: 'resetZoom', label: utils.getLocale('resetZoom', 'menubar.options.resetzoom')},
+                {role: 'zoomIn', label: utils.getLocale('zoomIn', 'menubar.options.zoomin')},
+                {role: 'zoomOut', label: utils.getLocale('zoomOut', 'menubar.options.zoomout')},
                 {type: 'separator'},
-                {role: 'togglefullscreen'},
+                {role: 'togglefullscreen', label: utils.getLocale('togglefullscreen', 'menubar.options.togglefullscreen')},
             ]
         },
         {
-            label: 'Window',
+            label: utils.getLocale('Window', 'menubar.options.window'),
             submenu: [
-                {role: 'minimize'},
+                {role: 'minimize', label: utils.getLocale('minimize', 'menubar.options.minimize')},
                 {
-                    label: 'Show',
+                    label: utils.getLocale('Show', 'menubar.options.show'),
                     click: () => utils.getWindow().show()
                 },
-                {role: 'zoom'},
+                {role: 'zoom', label: utils.getLocale('zoom', 'menubar.options.zoom')},
                 ...(this.isMac ? [
                     {type: 'separator'},
-                    {role: 'front'},
-                    {role: 'close'},
+                    {role: 'front', label: utils.getLocale('front', 'menubar.options.front')},
+                    {role: 'close', label: utils.getLocale('close', 'menubar.options.close')},
                 ] : [
-                    {role: 'close'},
+                    {role: 'close', label: utils.getLocale('close', 'menubar.options.close')},
                 ]),
 
                 {
-                    label: 'Edit',
+                    label: utils.getLocale('Edit', 'menubar.options.edit'),
                     submenu: [
-                        {role: 'undo'},
-                        {role: 'redo'},
+                        {role: 'undo', label: utils.getLocale('undo', 'menubar.options.undo')},
+                        {role: 'redo', label: utils.getLocale('redo', 'menubar.options.redo')},
                         {type: 'separator'},
-                        {role: 'cut'},
-                        {role: 'copy'},
-                        {role: 'paste'},
+                        {role: 'cut', label: utils.getLocale('cut', 'menubar.options.cut')},
+                        {role: 'copy', label: utils.getLocale('copy', 'menubar.options.copy')},
+                        {role: 'paste', label: utils.getLocale('paste', 'menubar.options.paste')},
                     ]
                 },
                 {type: 'separator'},
                 {
-                    label: 'Toggle Private Session',
+                    label: utils.getLocale('Toggle Private Session', 'menubar.options.toggleprivate'),
                     accelerator: utils.getStoreValue("general.keybindings.togglePrivateSession").join('+'),
                     click: () => utils.getWindow().webContents.executeJavaScript(`app.cfg.general.privateEnabled = !app.cfg.general.privateEnabled`)
                 },
                 {type: 'separator'},
                 {
-                    label: 'Web Remote',
+                    label: utils.getLocale('Web Remote', 'menubar.options.webremote'),
                     accelerator: utils.getStoreValue("general.keybindings.webRemote").join('+'),
                     sublabel: 'Opens in external window',
                     click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('remote-pair')`)
                 },
                 {
-                    label: 'Audio Settings',
+                    label: utils.getLocale('Audio Settings', 'menubar.options.audio'),
                     accelerator: utils.getStoreValue("general.keybindings.audioSettings").join('+'),
                     click: () => utils.getWindow().webContents.executeJavaScript(`app.modals.audioSettings = true`)
                 },
                 {
-                    label: 'Plug-in Menu',
+                    label: utils.getLocale('Plug-in Menu', 'menubar.options.plugins'),
                     accelerator: utils.getStoreValue("general.keybindings.pluginMenu").join('+'),
                     click: () => utils.getWindow().webContents.executeJavaScript(`app.modals.pluginMenu = true`)
                 }
             ]
         },
         {
-            label: 'Controls',
+            label: utils.getLocale('Controls', 'menubar.options.controls'),
             submenu: [
                 {
-                    label: 'Pause / Play',
+                    label:  utils.getLocale('Pause / Play', 'menubar.options.playpause'),
                     accelerator: 'Space',
                     click: () => utils.getWindow().webContents.executeJavaScript(`app.SpacePause()`)
                 },
                 {
-                    label: 'Next',
+                    label: utils.getLocale('Next', 'menubar.options.next'),
                     accelerator: 'CommandOrControl+Right',
                     click: () => utils.getWindow().webContents.executeJavaScript(`MusicKitInterop.next()`)
                 },
                 {
-                    label: 'Previous',
+                    label: utils.getLocale('Previous', 'menubar.options.previous'),
                     accelerator: 'CommandOrControl+Left',
                     click: () => utils.getWindow().webContents.executeJavaScript(`MusicKitInterop.previous()`)
                 },
                 {type: 'separator'},
                 {
-                    label: 'Volume Up',
+                    label: utils.getLocale('Volume Up', 'menubar.options.volumeup'),
                     accelerator: 'CommandOrControl+Up',
                     click: () => utils.getWindow().webContents.executeJavaScript(`app.volumeUp()`)
                 },
                 {
-                    label: 'Volume Down',
+                    label: utils.getLocale('Volume Down', 'menubar.options.volumedown'),
                     accelerator: 'CommandOrControl+Down',
                     click: () => utils.getWindow().webContents.executeJavaScript(`app.volumeDown()`)
                 },
                 {
-                    label: 'Browse',
+                    label: utils.getLocale('Browse', 'menubar.options.browse'),
                     accelerator: utils.getStoreValue("general.keybindings.browse").join('+'),
                     click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('browse')`)
                 },
                 {type: 'separator'},
                 {
-                    label: 'Artists',
+                    label: utils.getLocale('Artists', 'menubar.options.artists'),
                     accelerator: utils.getStoreValue("general.keybindings.artists").join('+'),
                     click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('library-artists')`)
                 },
                 {
-                    label: 'Search',
+                    label: utils.getLocale('Search', 'menubar.options.search'),
                     accelerator: utils.getStoreValue("general.keybindings.search").join('+'),
                     click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('search')`)
                 },
                 {type: 'separator'},
                 {
-                    label: 'Album',
+                    label: utils.getLocale('Album', 'menubar.options.albums'),
                     accelerator: utils.getStoreValue("general.keybindings.albums").join('+'),
                     click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('library-albums')`)
                 },
                 {type: 'separator'},
                 {
-                    label: 'Cast To Devices',
+                    label: utils.getLocale('Cast To Devices', 'menubar.options.cast'),
                     accelerator: utils.getStoreValue("general.keybindings.castToDevices").join('+'),
                     click: () => utils.getWindow().webContents.executeJavaScript(`app.modals.castMenu = true`)
                 }
             ]
         },
         {
-            label: 'Account',
+            label: utils.getLocale('Account', 'menubar.options.account'),
             submenu: [
                 {
-                    label: 'Account Settings',
+                    label: utils.getLocale('Account Settings', 'menubar.options.accountsettings'),
                     click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('apple-account-settings')`)
                 },
                 {
-                    label: 'Sign Out',
+                    label: utils.getLocale('Sign Out', 'menubar.options.signout'),
                     click: () => utils.getWindow().webContents.executeJavaScript(`app.unauthorize()`)
                 }
             ]
         },
         {
-            label: 'Support',
-            role: 'help',
+            label: utils.getLocale('Support', 'menubar.options.support'),
+            role: utils.getLocale('help', 'menubar.options.help'),
             submenu: [
                 {
-                    label: 'Discord',
+                    label: utils.getLocale('Discord', 'menubar.options.discord'),
                     click: () => shell.openExternal("https://discord.gg/AppleMusic").catch(console.error)
                 },
                 {
-                    label: 'GitHub Wiki',
+                    label: utils.getLocale('GitHub Wiki', 'menubar.options.github'),
                     click: () => shell.openExternal("https://github.com/ciderapp/Cider/wiki/Troubleshooting").catch(console.error)
                 },
                 {type: 'separator'},
                 {
-                    label: 'Report a...',
+                    label: utils.getLocale('Report a...', 'menubar.options.report'),
                     submenu: [
                         {
-                            label: 'Bug',
+                            label: utils.getLocale('Bug', 'menubar.options.bug'),
                             click: () => shell.openExternal("https://github.com/ciderapp/Cider/issues/new?assignees=&labels=bug%2Ctriage&template=bug_report.yaml&title=%5BBug%5D%3A+").catch(console.error)
                         },
                         {
-                            label: 'Feature Request',
+                            label: utils.getLocale('Feature Request', 'menubar.options.feature'),
                             click: () => shell.openExternal("https://github.com/ciderapp/Cider/discussions/new?category=feature-request").catch(console.error)
                         },
                         {
-                            label: 'Translation Report/Request',
+                            label: utils.getLocale('Translation Report/Request', 'menubar.options.trans'),
                             click: () => shell.openExternal("https://github.com/ciderapp/Cider/issues/new?assignees=&labels=%F0%9F%8C%90+Translations&template=translation.yaml&title=%5BTranslation%5D%3A+").catch(console.error)
                         },
                     ]
                 },
                 {type: 'separator'},
                 {
-                    label: 'View License',
+                    label: utils.getLocale('View License', 'menubar.options.license'),
                     click: () => shell.openExternal("https://github.com/ciderapp/Cider/blob/main/LICENSE").catch(console.error)
                 },
                 {type: 'separator'},
                 {
-                    label: 'Toggle Developer Tools',
+                    label: utils.getLocale('Toggle Developer Tools', 'menubar.options.devtools'),
                     accelerator: utils.getStoreValue("general.keybindings.openDeveloperTools").join('+'),
                     click: () => utils.getWindow().webContents.openDevTools()
                 },
                 {
-                    label: 'Open Configuration File in Editor',
+                    label: utils.getLocale('Open Configuration File in Editor', 'menubar.options.conf'),
                     click: () => utils.getStoreInstance().openInEditor()
                 }
             ]
