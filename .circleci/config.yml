@@ -15,7 +15,6 @@ jobs:
     executor: cider-ci
     steps:
       - checkout
-      - run: mkdir -p Cider
       - run:
           name: Set App Version
           command: echo "export APP_VERSION=$(grep '"version":.*' package.json | cut -d '"' -f 4 | head -1)" >> $BASH_ENV
@@ -55,10 +54,10 @@ jobs:
       - persist_to_workspace:
           # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
           # taken to be the root directory of the workspace.
-          root: workspace
+          root: .
           # Must be relative path from root
           paths:
-            - echo-output
+            - Cider
 
   build-windows:
     executor: cider-ci
