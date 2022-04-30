@@ -27,7 +27,7 @@
                 <div class="title text-overflow-elipsis" @click='app.routeView(item)'>
                     {{ item.attributes.name ?? '' }}
                 </div>
-                <div class="subtitle text-overflow-elipsis item-navigate" v-if="item.attributes.artistName" :style = "{'z-index': ((item.attributes.editorialNotes == null) && item.attributes.artistName) ? '4' : ''}" @click="if(item.attributes.artistName)app.searchAndNavigate(item,'artist')">
+                <div class="subtitle text-overflow-elipsis item-navigate" v-if="item.attributes.artistName" :style = "{'z-index': ((item.attributes.editorialNotes == null) && item.attributes.artistName) ? '4' : ''}" @click="if (item.attributes.artistName)app.searchAndNavigate(item,'artist')">
                     {{ item.attributes.artistName ?? '' }}
                 </div>
 

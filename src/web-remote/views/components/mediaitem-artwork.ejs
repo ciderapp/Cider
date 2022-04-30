@@ -90,7 +90,7 @@
                 return "https://beta.music.apple.com/assets/product/MissingArtworkMusic.svg"
             }
             height = parseInt(height * window.devicePixelRatio)
-            if(width) {
+            if (width) {
                 width = parseInt(width * window.devicePixelRatio)
             }
             let newurl = `${url.replace('{w}', width ?? height).replace('{h}', height).replace('{f}', "webp").replace('{c}', ((width === 900) ? "sr" : "cc"))}`;

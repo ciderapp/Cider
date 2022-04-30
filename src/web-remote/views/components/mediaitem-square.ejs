@@ -86,14 +86,14 @@
 
                 if (luma > 140) {
                     return "#aaaaaa"
-                }else{
+                } else {
                     return color
                 }
 
 
             },
             getSubtitle() {
-                if(this.kind == 'card') {
+                if (this.kind == 'card') {
                     try {
                         if (typeof this.item.attributes.artistNames != "undefined") {
                             return this.item.attributes.artistNames
@@ -107,7 +107,7 @@
                     }catch(e) {
                         return ''
                     }
-                }else {
+                } else {
                     if (typeof this.item.attributes.artistName != "undefined") {
                         return this.item.attributes.artistName
                     } else {
@@ -116,7 +116,7 @@
                 }
             },
             getSubtitleNavigation() {
-                if(this.kind == 'card') {
+                if (this.kind == 'card') {
                     try {
                         if (typeof this.item.attributes.artistNames != "undefined") {
                             return app.routeView(this.item)
@@ -130,7 +130,7 @@
                     }catch(e) {
                         return app.routeView(this.item)
                     }
-                }else {
+                } else {
                     if (typeof this.item.attributes.artistName != "undefined") {
                         return app.searchAndNavigate(this.item,'artist')
                     } else {
@@ -200,7 +200,7 @@
             },
             getArtworkUrl(size = -1, includeUrl = false) {
                 let artwork = this.item.attributes.artwork ? this.item.attributes.artwork.url : ''
-                if(size != -1) {
+                if (size != -1) {
                     artwork = artwork.replace('{w}', size).replace('{h}', size).replace('{f}', "webp").replace('{c}', ((size === 900) ? "sr" : "cc"))
                 }
                 switch (this.kind) {
@@ -208,9 +208,9 @@
                         artwork = this.item.attributes.editorialArtwork.subscriptionHero.url
                         break;
                 }
-                if(!includeUrl) {
+                if (!includeUrl) {
                     return artwork
-                }else{
+                } else {
                     return `url("${artwork}")`
                 }
             },
@@ -423,10 +423,10 @@
 
                 try {
                     await this.isInLibrary().then((_) => {
-                        if(self.addedToLibrary) {
+                        if (self.addedToLibrary) {
                             menus.normal.items.find(x => x.id == 'addToLibrary').hidden = true
                             menus.normal.items.find(x => x.id == 'removeFromLibrary').hidden = false
-                        }else{
+                        } else {
                             menus.normal.items.find(x => x.id == 'addToLibrary').disabled = false
                         }
                     })

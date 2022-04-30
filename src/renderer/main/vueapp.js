@@ -1579,7 +1579,7 @@ const app = new Vue({
             }
             route = route.replace(/#/g, "")
             if (app.cfg.general.resumeTabs.tab == "dynamic") {
-                if (route == "home" || route == "library-songs" || route == "library-albums" || route == "library-artists" || route == "library-videos" || route == "podcasts") {
+                if (route == "home" || route == "listen_now" || route == "browse" || route == "radio" || route == "library-songs" || route == "library-albums" || route == "library-artists" || route == "library-videos" || route == "podcasts") {
                     app.cfg.general.resumeTabs.dynamicData = route
                 } else {
                     app.cfg.general.resumeTabs.dynamicData = "home"
@@ -1671,11 +1671,11 @@ const app = new Vue({
                     params["meta[albums:tracks]"] = 'popularity'
                     params["fields[albums]"] = "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialNotes,editorialVideo,name,playParams,releaseDate,url,copyright"
                 }
-                if(kind.includes("playlist") || kind.includes("album")){
+                if (kind.includes("playlist") || kind.includes("album")){
                     app.page = (kind) + "_" + (id);
                     window.location.hash = `${kind}/${id}${isLibrary ? "/" + isLibrary : ''}`
                     app.getTypeFromID((kind), (id), (isLibrary), params);
-                }else{
+                } else {
                     app.page = (kind)
                     window.location.hash = `${kind}/${id}${isLibrary ? "/" + isLibrary : ''}`
                 }
@@ -2817,7 +2817,7 @@ const app = new Vue({
                                             });
                                         app.lyrics = preLrc;
                                     }
-                                    if (lrcfile != null && lrcfile != '' && lang != "disabled") {
+                                    if (lrcfile != null && lrcfile != '') {
                                         // load translation
                                         getMXMTrans(id, lang, token);
                                     } else {

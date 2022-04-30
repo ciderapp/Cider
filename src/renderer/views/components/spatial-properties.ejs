@@ -294,7 +294,7 @@
             this.room_materials = JSON.parse(JSON.stringify(this.$root.cfg.audio.spatial_properties.room_materials))
             this.audio_position = JSON.parse(JSON.stringify(this.$root.cfg.audio.spatial_properties.audio_position))
             this.listener_position = JSON.parse(JSON.stringify(this.$root.cfg.audio.spatial_properties.listener_position))
-            if(typeof this.app.mk.nowPlayingItem != "undefined") {
+            if (typeof this.app.mk.nowPlayingItem != "undefined") {
                 this.setRoom()
             }
             this.ready = true
@@ -320,7 +320,7 @@
             },
             objectContainerStyle() {
                 let scale = 1
-                if(this.room_dimensions.width * this.visualMultiplier > 300) {
+                if (this.room_dimensions.width * this.visualMultiplier > 300) {
                     scale = 300 / (this.room_dimensions.width * this.visualMultiplier)
                 }
                 let style = {
@@ -346,7 +346,7 @@
                 window.CiderAudio.audioNodes.spatialNode.setRoomProperties(this.room_dimensions, this.room_materials);
                 CiderAudio.audioNodes.spatialInput.setPosition(...this.audio_position)
                 CiderAudio.audioNodes.spatialNode.setListenerPosition(...this.listener_position)
-                if(!this.app.cfg.audio.normalization) {
+                if (!this.app.cfg.audio.normalization) {
                     window.CiderAudio.audioNodes.gainNode.gain.value = app.cfg.audio.spatial_properties.gain
                 }
             }
