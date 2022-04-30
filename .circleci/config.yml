@@ -1,10 +1,11 @@
 version: 2.1
+
 orbs: # adds orbs to your configuration
   jira: circleci/jira@1.0.5 # invokes the Jira orb, making its commands accessible
-branches:
-  only: main
+
+# The jobs for this project
 jobs:
-  build:
+  prepare-build:
     working_directory: ~/Cider
     docker:
       - image: circleci/node:16
@@ -45,21 +46,45 @@ jobs:
       - run:
           name: TypeScript Compile
           command: yarn build
-      - run:
-          name: Generate Builds (Linux)
-          command: yarn electron-builder -l -p never
-          post-steps:
-            - jira/notify
+  
+  build-windows:
+    working_directory: ~/Cider
+    docker:
+      - image: circleci/node:16
+    steps:
       - run:
           name: Generate Builds (Windows)
           command: yarn electron-builder -w --x64 -p never
           post-steps:
             - jira/notify
+
+  build-linux:
+    working_directory: ~/Cider
+    docker:
+      - image: circleci/node:16
+    steps:
+      - run:
+          name: Generate Builds (Linux)
+          command: yarn electron-builder -l -p never
+          post-steps:
+            - jira/notify
+
+  build-winget:
+    working_directory: ~/Cider
+    docker:
+      - image: circleci/node:16
+    steps:
       - run:
           name: Generate Builds (Winget)
           command: yarn electron-builder --win -c winget.json -p never
           post-steps:
             - jira/notify
+
+  release:
+    working_directory: ~/Cider
+    docker:
+      - image: circleci/node:16
+    steps:
       - run:
           name: Move Build Files
           command: |
@@ -76,3 +101,23 @@ jobs:
           name: Publish Release
           command: |
               gh release create "v${APP_VERSION}.${CIRCLE_BUILD_NUM}" --title "Cider Version ${APP_VERSION} - Build ${CIRCLE_BUILD_NUM} (${CIRCLE_BRANCH})" --generate-notes -R ciderapp/cider-releases ~/Cider/dist/artifacts/*.deb ~/Cider/dist/artifacts/*.AppImage ~/Cider/dist/artifacts/*.snap ~/Cider/dist/artifacts/*.exe ~/Cider/dist/artifacts/*.yml ~/Cider/dist/artifacts/*.blockmap
+
+# Orchestrate our job run sequence
+workflows:
+  build_and_test:
+    jobs:
+      - prepare-build
+      - build-windows:
+          requires:
+            - prepare-build
+      - build-linux:
+          requires:
+            - prepare-build
+      - build-winget:
+          requires:
+            - prepare-build
+      - release:
+          requires:
+            - build-windows
+            - build-linux
+            - build-winget
