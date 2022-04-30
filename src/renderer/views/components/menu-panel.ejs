@@ -54,7 +54,6 @@
             }
         },
         mounted() {
-            console.log("MOUNTED")
             if (this.event) {
                 this.position = [this.event.clientX, this.event.clientY];
             }
@@ -81,7 +80,6 @@
             },
             getStyle() {
                 let style = {}
-                console.debug(this.$refs.menubody)
                 this.size = [this.$refs.menubody.offsetWidth, this.$refs.menubody.offsetHeight];
                 if (this.event) {
                     style["position"] = "absolute";
