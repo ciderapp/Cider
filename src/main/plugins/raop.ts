@@ -143,7 +143,7 @@ export default class RAOP {
             this.castDevices = [];
             console.log("scan for airplay devices");
             
-            const browser = this.mdns.createBrowser(this.mdns.tcp('raop');
+            const browser = this.mdns.createBrowser(this.mdns.tcp('raop'));
             browser.on('ready', browser.discover);
 
             browser.on('update', (service: any) => {
@@ -156,7 +156,7 @@ export default class RAOP {
              }
             });
             
-            const browser2 = this.mdns.createBrowser(this.mdns.tcp('airplay');
+            const browser2 = this.mdns.createBrowser(this.mdns.tcp('airplay'));
             browser2.on('ready', browser.discover);
 
             browser2.on('update', (service: any) => {
