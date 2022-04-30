@@ -40,7 +40,7 @@
             this.itemPages = app.arrayToChunk(this.items, 4);
             try{
             this.simplifiedParent = JSON.stringify(this.items.map ( function(x){return x.attributes.playParams}));
-            console.log("simplifiedParent: " + this.simplifiedParent);
+            console.debug("simplifiedParent: " + this.simplifiedParent);
             }
             catch (e){}
             
