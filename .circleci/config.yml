@@ -57,7 +57,7 @@ jobs:
           name: Install Windows System Build Dependencies
           command: |
             sudo apt-get update -y
-            sudo apt-get install -y wine32
+            sudo apt-get install -y wine
       - run:
           name: Fix Versioning and Add Channel
           command: yarn circle:script
@@ -102,7 +102,7 @@ jobs:
           name: Install Windows System Build Dependencies
           command: |
             sudo apt-get update -y
-            sudo apt-get install -y wine32
+            sudo apt-get install -y wine
       - run:
           name: Fix Versioning and Add Channel
           command: yarn circle:script
