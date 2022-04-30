@@ -1,50 +1,20 @@
 version: 2.1
 
 executors:
-  my-executor:
+  cider-ci:
     docker:
       - image: circleci/node:16
-    working_directory: ~/Cider
+    working_directory: /tmp/cider
 
 orbs: # adds orbs to your configuration
   jira: circleci/jira@1.0.5 # invokes the Jira orb, making its commands accessible
 
 # The jobs for this project
 jobs:
-  flow:
-    executor: my-executor
-    steps:
-      - run: mkdir -p workspace
-      - run: echo "Hello, world!" > workspace/echo-output
-
-      # Persist the specified paths (workspace/echo-output) into the workspace for use in downstream job.
-      - persist_to_workspace:
-          # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
-          # taken to be the root directory of the workspace.
-          root: workspace
-          # Must be relative path from root
-          paths:
-            - echo-output
-
-  downstream:
-    executor: my-executor
-    steps:
-      - attach_workspace:
-          # Must be absolute path or relative path from working_directory
-          at: /tmp/workspace
-
-      - run: |
-          if [[ `cat /tmp/workspace/echo-output` == "Hello, world!" ]]; then
-            echo "It worked!";
-          else
-            echo "Nope!"; exit 1
-          fi
-
   prepare-build:
-    working_directory: ~/Cider
-    docker:
-      - image: circleci/node:16
+    executor: cider-ci
     steps:
+      - run: mkdir -p Cider
       - checkout
       - run:
           name: Set App Version
@@ -81,12 +51,20 @@ jobs:
       - run:
           name: TypeScript Compile
           command: yarn build
+      # Persist the specified paths (workspace/echo-output) into the workspace for use in downstream job.
+      - persist_to_workspace:
+          # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
+          # taken to be the root directory of the workspace.
+          root: workspace
+          # Must be relative path from root
+          paths:
+            - echo-output
 
   build-windows:
-    working_directory: ~/Cider
-    docker:
-      - image: circleci/node:16
+    executor: cider-ci
     steps:
+      - attach_workspace:
+          at: /tmp/cider
       - run:
           name: Generate Builds (Windows)
           command: yarn electron-builder -w --x64 -p never
@@ -94,10 +72,10 @@ jobs:
             - jira/notify
 
   build-linux:
-    working_directory: ~/Cider
-    docker:
-      - image: circleci/node:16
+    executor: cider-ci
     steps:
+      - attach_workspace:
+          at: /tmp/cider
       - run:
           name: Generate Builds (Linux)
           command: yarn electron-builder -l -p never
@@ -105,10 +83,10 @@ jobs:
             - jira/notify
 
   build-winget:
-    working_directory: ~/Cider
-    docker:
-      - image: circleci/node:16
+    executor: cider-ci
     steps:
+      - attach_workspace:
+          at: /tmp/cider
       - run:
           name: Generate Builds (Winget)
           command: yarn electron-builder --win -c winget.json -p never
@@ -116,36 +94,30 @@ jobs:
             - jira/notify
 
   release:
-    working_directory: ~/Cider
-    docker:
-      - image: circleci/node:16
+    executor: cider-ci
     steps:
+      - attach_workspace:
+          at: /tmp/cider
       - run:
           name: Move Build Files
           command: |
-            mkdir ~/Cider/dist/artifacts/
-            mv ~/Cider/dist/*.exe ~/Cider/dist/artifacts
-            mv ~/Cider/dist/*.deb ~/Cider/dist/artifacts
-            mv ~/Cider/dist/*.AppImage ~/Cider/dist/artifacts
-            mv ~/Cider/dist/*.snap ~/Cider/dist/artifacts
-            mv ~/Cider/dist/*.yml ~/Cider/dist/artifacts
-            mv ~/Cider/dist/*.blockmap ~/Cider/dist/artifacts
+            mkdir /tmp/cider/dist/artifacts/
+            mv /tmp/cider/dist/*.exe /tmp/cider/dist/artifacts
+            mv /tmp/cider/dist/*.deb /tmp/cider/dist/artifacts
+            mv /tmp/cider/dist/*.AppImage /tmp/cider/dist/artifacts
+            mv /tmp/cider/dist/*.snap /tmp/cider/dist/artifacts
+            mv /tmp/cider/dist/*.yml /tmp/cider/dist/artifacts
+            mv /tmp/cider/dist/*.blockmap /tmp/cider/dist/artifacts
       - store_artifacts:
-          path: ~/Cider/dist/artifacts
+          path: /tmp/cider/dist/artifacts
       - run:
           name: Publish Release
           command: |
-            gh release create "v${APP_VERSION}.${CIRCLE_BUILD_NUM}" --title "Cider Version ${APP_VERSION} - Build ${CIRCLE_BUILD_NUM} (${CIRCLE_BRANCH})" --generate-notes -R ciderapp/cider-releases ~/Cider/dist/artifacts/*.deb ~/Cider/dist/artifacts/*.AppImage ~/Cider/dist/artifacts/*.snap ~/Cider/dist/artifacts/*.exe ~/Cider/dist/artifacts/*.yml ~/Cider/dist/artifacts/*.blockmap
+            gh release create "v${APP_VERSION}.${CIRCLE_BUILD_NUM}" --title "Cider Version ${APP_VERSION} - Build ${CIRCLE_BUILD_NUM} (${CIRCLE_BRANCH})" --generate-notes -R ciderapp/cider-releases /tmp/cider/dist/artifacts/*.deb /tmp/cider/dist/artifacts/*.AppImage /tmp/cider/dist/artifacts/*.snap /tmp/cider/dist/artifacts/*.exe /tmp/cider/dist/artifacts/*.yml /tmp/cider/dist/artifacts/*.blockmap
 
 # Orchestrate our job run sequence
 workflows:
-  btd:
-    jobs:
-      - flow
-      - downstream:
-          requires:
-            - flow
-  build_and_test:
+  build_and_release:
     jobs:
       - prepare-build
       - build-windows:
