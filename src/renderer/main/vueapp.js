@@ -1675,7 +1675,7 @@ const app = new Vue({
                     app.page = (kind) + "_" + (id);
                     window.location.hash = `${kind}/${id}${isLibrary ? "/" + isLibrary : ''}`
                     app.getTypeFromID((kind), (id), (isLibrary), params);
-                } else{
+                } else {
                     app.page = (kind)
                     window.location.hash = `${kind}/${id}${isLibrary ? "/" + isLibrary : ''}`
                 }

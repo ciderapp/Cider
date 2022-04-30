@@ -253,7 +253,7 @@ function simulateGamepad () {
                 // sounds.Hover.play()
                 // if (intTabIndex <= 0) {
                 //     intTabIndex = 0
-                // } else{
+                // } else {
                 //     intTabIndex--
                 // }
                 // $(tabbable[intTabIndex]).focus()
@@ -265,7 +265,7 @@ function simulateGamepad () {
                 cursorPos[1] += cursorSpeed
                 // if (intTabIndex < tabbable.length) {
                 //     intTabIndex++
-                // } else{
+                // } else {
                 //     intTabIndex = tabbable.length
                 // }
                 // $(tabbable[intTabIndex]).focus()

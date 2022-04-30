@@ -112,7 +112,7 @@ const wsapi = {
             MusicKit.getInstance().repeatMode = 1
         } else if (MusicKit.getInstance().repeatMode == 1){
             MusicKit.getInstance().repeatMode = 2
-        } else{
+        } else {
             MusicKit.getInstance().repeatMode = 0
         }
     },

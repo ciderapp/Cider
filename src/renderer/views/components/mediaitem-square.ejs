@@ -97,7 +97,7 @@
                 if (this.item.attributes.playParams.kind.includes("radioStation") && (this.item.attributes.playParams.streamingKind == 1 || this.item.attributes.playParams.streamingKind == 2)) {
                     this.unavailable = true
                 }
-            } else{
+            } else {
                 if (this.item.type == "music-movies" || this.item.type == "tv-episodes") {
                     this.unavailable = true
                 }
@@ -234,7 +234,7 @@
                 }
                 if (!includeUrl) {
                     return artwork
-                } else{
+                } else {
                     return `url("${artwork}")`
                 }
             },
@@ -474,7 +474,7 @@
                         if (self.addedToLibrary) {
                             menus.normal.items.find(x => x.id == 'addToLibrary').hidden = true
                             menus.normal.items.find(x => x.id == 'removeFromLibrary').hidden = false
-                        } else{
+                        } else {
                             menus.normal.items.find(x => x.id == 'addToLibrary').disabled = false
                         }
                     })
