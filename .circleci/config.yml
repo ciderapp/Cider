@@ -35,23 +35,8 @@ jobs:
           paths:
             - ~/.cache/yarn
       - run:
-          name: Install system build dependencies
-          command: |
-            sudo apt-get update -y
-            curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
-            echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-            sudo apt-get install -y dpkg fakeroot wine64
-            sudo dpkg --add-architecture i386
-            sudo apt-get update -y
-            sudo apt-get install -y wine32
-            sudo apt install -y gh
-      - run:
-          name: Fix Versioning and Add Channel
-          command: yarn circle:script
-      - run:
           name: TypeScript Compile
           command: yarn build
-      # Persist the specified paths (workspace/echo-output) into the workspace for use in downstream job.
       - persist_to_workspace:
           # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
           # taken to be the root directory of the workspace.
@@ -69,10 +54,28 @@ jobs:
       - attach_workspace:
           at: ~/Cider
       - run:
+          name: Install system build dependencies
+          command: |
+            sudo apt-get update -y
+            curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+            echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+            sudo apt-get install -y dpkg fakeroot wine64
+            sudo dpkg --add-architecture i386
+            sudo apt-get update -y
+            sudo apt-get install -y wine32
+            sudo apt install -y gh
+      - run:
+          name: Fix Versioning and Add Channel
+          command: yarn circle:script
+      - run:
           name: Generate Builds (Windows)
           command: yarn electron-builder -w --x64 -p never
           post-steps:
             - jira/notify
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dist
 
   build-linux:
     executor: cider-ci
@@ -81,10 +84,28 @@ jobs:
       - attach_workspace:
           at: ~/Cider
       - run:
+          name: Install system build dependencies
+          command: |
+            sudo apt-get update -y
+            curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+            echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+            sudo apt-get install -y dpkg fakeroot wine64
+            sudo dpkg --add-architecture i386
+            sudo apt-get update -y
+            sudo apt-get install -y wine32
+            sudo apt install -y gh
+      - run:
+          name: Fix Versioning and Add Channel
+          command: yarn circle:script
+      - run:
           name: Generate Builds (Linux)
           command: yarn electron-builder -l -p never
           post-steps:
             - jira/notify
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dist
 
   build-winget:
     executor: cider-ci
@@ -93,10 +114,28 @@ jobs:
       - attach_workspace:
           at: ~/Cider
       - run:
+          name: Install system build dependencies
+          command: |
+            sudo apt-get update -y
+            curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+            echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+            sudo apt-get install -y dpkg fakeroot wine64
+            sudo dpkg --add-architecture i386
+            sudo apt-get update -y
+            sudo apt-get install -y wine32
+            sudo apt install -y gh
+      - run:
+          name: Fix Versioning and Add Channel
+          command: yarn circle:script
+      - run:
           name: Generate Builds (Winget)
           command: yarn electron-builder --win -c winget.json -p never
           post-steps:
             - jira/notify
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dist
 
   release:
     executor: cider-ci
