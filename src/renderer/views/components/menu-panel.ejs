@@ -1,7 +1,7 @@
 <script type="text/x-template" id="cider-menu-panel">
     <div class="menu-panel" @click.self="menuPanel.visible = false" @contextmenu.self="menuPanel.visible = false">
 
-        <div class="menu-panel-body" :style="getStyle()">
+        <div class="menu-panel-body" ref="menubody" :style="elStyle" :class="getBodyClasses()">
             <div class="menu-header-text" v-if="content.name != ''">
                 <div class="row">
                     <div class="col">
@@ -46,7 +46,11 @@
                 getSvgIcon: this.$root.getSvgIcon,
                 position: [0, 0],
                 size: [0, 0],
-                event: this.$root.menuPanel.event
+                event: this.$root.menuPanel.event,
+                direction: "down",
+                elStyle: {
+                    opacity: 0
+                }
             }
         },
         mounted() {
@@ -54,10 +58,21 @@
                 this.position = [this.event.clientX, this.event.clientY];
             }
             this.$nextTick(() => {
-                this.size = [document.querySelector(".menu-panel-body").offsetWidth, document.querySelector(".menu-panel-body").offsetHeight];
+                // this.size = [document.querySelector(".menu-panel-body").offsetWidth, document.querySelector(".menu-panel-body").offsetHeight];
+                // ugly hack
+                setTimeout(this.getStyle, 1)
             });
         },
         methods: {
+            getBodyClasses() {
+                if (this.direction == "down") {
+                    return ["menu-panel-body-down"]
+                } else if (this.direction == "up") {
+                    return ["menu-panel-body-up"]
+                } else {
+                    return ["foo"]
+                }
+            },
             getClasses(item) {
                 if (item["active"]) {
                     return "active";
@@ -65,7 +80,7 @@
             },
             getStyle() {
                 let style = {}
-
+                this.size = [this.$refs.menubody.offsetWidth, this.$refs.menubody.offsetHeight];
                 if (this.event) {
                     style["position"] = "absolute";
                     style["left"] = this.event.clientX + "px";
@@ -77,8 +92,22 @@
                     if (this.event.clientY + this.size[1] > window.innerHeight) {
                         style["top"] = (this.event.clientY - this.size[1]) + "px";
                     }
+
+
+                    // if the panel is above the mouse, set the direction to up
+                    if (this.event.clientY < this.size[1]) {
+                        this.direction = "up";
+                    } else {
+                        this.direction = "down";
+                    }
+                    // check if the panel is too long and goes off the screen vertically,
+                    // if so move it upwards
+                    if (this.event.clientY + this.size[1] > window.innerHeight) {
+                        style["top"] = (this.event.clientY - this.size[1]) + "px";
+                    }
                 }
-                return style
+                style["opacity"] = 1
+                this.elStyle = style;
             },
             getItemStyle(item) {
                 let style = {}

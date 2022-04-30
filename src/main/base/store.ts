@@ -44,6 +44,57 @@ export class Store {
             "onStartup": {
                 "enabled": false,
                 "hidden": false,
+            },
+            "resumeTabs": {
+                "tab": "home",
+                "dynamicData": ""
+            },
+            "keybindings": {
+                "search": [
+                    process.platform == "darwin" ? "Command" : "Control",
+                    "S"
+                ],
+                "albums": [
+                    process.platform == "darwin" ? "Command" : "Control",
+                    "F"
+                ],
+                "artists": [
+                    process.platform == "darwin" ? "Command" : "Control",
+                    "D"
+                ],
+                "browse": [
+                    process.platform == "darwin" ? "Command" : "Control",
+                    "B"
+                ],
+                "togglePrivateSession": [
+                    process.platform == "darwin" ? "Command" : "Control",
+                    "P"
+                ],
+                "webRemote": [
+                    process.platform == "darwin" ? "Command" : "Control",
+                    "W"
+                ],
+                "audioSettings": [
+                    process.platform == "darwin" ? "Option" : "Shift",
+                    "A"
+                ],
+                "pluginMenu": [
+                    process.platform == "darwin" ? "Option" : "Shift",
+                    "P"
+                ],
+                "castToDevices": [
+                    process.platform == "darwin" ? "Option" : "Shift",
+                    "C"
+                ],
+                "settings": [
+                    process.platform == "darwin" ? "Option" : "Shift",
+                    "S"
+                ],
+                "openDeveloperTools": [
+                    process.platform == "darwin" ? "Command" : "Control",
+                    process.platform == "darwin" ? "Option" : "Shift",
+                    "I"
+                ]
             }
         },
         "home": {
@@ -123,7 +174,7 @@ export class Store {
             "styles": [],
             "scrollbars": 0, // 0 = show on hover, 2 = always hide, 3 = always show
             "refresh_rate": 0,
-            "window_background_style": "artwork", // "none", "artwork", "color"
+            "window_background_style": "none", // "none", "artwork", "color"
             "animated_artwork": "limited", // 0 = always, 1 = limited, 2 = never
             "animated_artwork_qualityLevel": 1,
             "bg_artwork_rotation": false,
@@ -142,6 +193,7 @@ export class Store {
             "enable_mxm": false,
             "mxm_karaoke": false,
             "mxm_language": "en",
+            "enable_qq": false,
             "enable_yt": false,
         },
         "lastfm": {

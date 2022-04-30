@@ -2,7 +2,7 @@ import { app } from "./vueapp.js"
 import {CiderCache} from './cidercache.js'
 import {CiderFrontAPI} from './ciderfrontapi.js'
 import {simulateGamepad} from './gamepad.js'
-import {CiderAudio} from '../audio/audio.js'
+import {CiderAudio} from '../audio/cideraudio.js'
 import {Events} from './events.js'
 import { wsapi } from "./wsapi_interop.js"
 import { MusicKitTools } from "./musickittools.js"

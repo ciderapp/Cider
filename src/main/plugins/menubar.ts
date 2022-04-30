@@ -2,12 +2,6 @@ import {app, Menu, shell} from "electron";
 import {utils} from "../base/utils";
 
 export default class Thumbar {
-    /**
-     * Private variables for interaction in plugins
-     */
-    private _win: any;
-    private _app: any;
-    private _store: any;
 
     /**
      * Base Plugin Details (Eventually implemented into a GUI in settings)
@@ -15,20 +9,8 @@ export default class Thumbar {
     public name: string = 'Menubar Plugin';
     public description: string = 'Creates the menubar';
     public version: string = '1.0.0';
-    public author: string = 'Core / Quacksire';
-
-    /**
-     * Thumbnail Toolbar Assets
-     * NATIVE-IMAGE DOESN'T SUPPORT SVG
-     private icons: { [key: string]: Electron.NativeImage } = {
-        remoteIcon: nativeImage.createFromPath(join(utils.getPath('rendererPath'), 'views/svg/smartphone.svg')).toPNG(),
-        soundIcon: nativeImage.createFromPath(join(utils.getPath('rendererPath'), 'views/svg/headphones.svg')).toPNG(),
-        aboutIcon: nativeImage.createFromPath(join(utils.getPath('rendererPath'), 'views/svg/info.svg')).toPNG(),
-        settingsIcon: nativeImage.createFromPath(join(utils.getPath('rendererPath'), 'views/svg/settings.svg')).toPNG(),
-        logoutIcon: nativeImage.createFromPath(join(utils.getPath('rendererPath'), 'views/svg/log-out.svg')).toPNG(),
-        ciderIcon: nativeImage.createFromPath(join(utils.getPath('rendererPath'), 'assets/logocute.png')).toPNG(),
-    }
-     */
+    public author: string = 'Core';
+    public contributors: string[] = ['Core', 'Qwack', 'Monochromish'];
 
     /**
      * Menubar Assets
@@ -41,13 +23,13 @@ export default class Thumbar {
             submenu: [
                 {
                     label: 'About',
-                    click: () => this._win.webContents.executeJavaScript(`app.appRoute('about')`)
+                    click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('about')`)
                 },
                 {type: 'separator'},
                 {
                     label: 'Settings',
-                    accelerator: 'CommandOrControl+,',
-                    click: () => this._win.webContents.executeJavaScript(`app.appRoute('settings')`)
+                    accelerator: utils.getStoreValue("general.keybindings.settings").join('+'),
+                    click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('settings')`)
                 },
                 {type: 'separator'},
                 {role: 'services'},
@@ -104,27 +86,26 @@ export default class Thumbar {
                 {type: 'separator'},
                 {
                     label: 'Toggle Private Session',
-                    accelerator: 'CommandOrControl+P',
-                    click: () => this._win.webContents.executeJavaScript(`app.cfg.general.privateEnabled = !app.cfg.general.privateEnabled`)
+                    accelerator: utils.getStoreValue("general.keybindings.togglePrivateSession").join('+'),
+                    click: () => utils.getWindow().webContents.executeJavaScript(`app.cfg.general.privateEnabled = !app.cfg.general.privateEnabled`)
                 },
                 {type: 'separator'},
                 {
                     label: 'Web Remote',
-                    accelerator: 'CommandOrControl+Shift+W',
+                    accelerator: utils.getStoreValue("general.keybindings.webRemote").join('+'),
                     sublabel: 'Opens in external window',
-                    click: () => this._win.webContents.executeJavaScript(`app.appRoute('remote-pair')`)
+                    click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('remote-pair')`)
                 },
                 {
                     label: 'Audio Settings',
-                    accelerator: 'CommandOrControl+Shift+A',
-                    click: () => this._win.webContents.executeJavaScript(`app.modals.audioSettings = true`)
+                    accelerator: utils.getStoreValue("general.keybindings.audioSettings").join('+'),
+                    click: () => utils.getWindow().webContents.executeJavaScript(`app.modals.audioSettings = true`)
                 },
                 {
                     label: 'Plug-in Menu',
-                    accelerator: 'CommandOrControl+Shift+P',
-                    click: () => this._win.webContents.executeJavaScript(`app.modals.pluginMenu = true`)
+                    accelerator: utils.getStoreValue("general.keybindings.pluginMenu").join('+'),
+                    click: () => utils.getWindow().webContents.executeJavaScript(`app.modals.pluginMenu = true`)
                 }
-
             ]
         },
         {
@@ -133,34 +114,56 @@ export default class Thumbar {
                 {
                     label: 'Pause / Play',
                     accelerator: 'Space',
-                    click: () => this._win.webContents.executeJavaScript(`app.SpacePause()`)
+                    click: () => utils.getWindow().webContents.executeJavaScript(`app.SpacePause()`)
                 },
                 {
                     label: 'Next',
                     accelerator: 'CommandOrControl+Right',
-                    click: () => this._win.webContents.executeJavaScript(`MusicKitInterop.next()`)
+                    click: () => utils.getWindow().webContents.executeJavaScript(`MusicKitInterop.next()`)
                 },
                 {
                     label: 'Previous',
                     accelerator: 'CommandOrControl+Left',
-                    click: () => this._win.webContents.executeJavaScript(`MusicKitInterop.previous()`)
+                    click: () => utils.getWindow().webContents.executeJavaScript(`MusicKitInterop.previous()`)
                 },
                 {type: 'separator'},
                 {
                     label: 'Volume Up',
                     accelerator: 'CommandOrControl+Up',
-                    click: () => this._win.webContents.executeJavaScript(`app.volumeUp()`)
+                    click: () => utils.getWindow().webContents.executeJavaScript(`app.volumeUp()`)
                 },
                 {
                     label: 'Volume Down',
                     accelerator: 'CommandOrControl+Down',
-                    click: () => this._win.webContents.executeJavaScript(`app.volumeDown()`)
+                    click: () => utils.getWindow().webContents.executeJavaScript(`app.volumeDown()`)
+                },
+                {
+                    label: 'Browse',
+                    accelerator: utils.getStoreValue("general.keybindings.browse").join('+'),
+                    click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('browse')`)
+                },
+                {type: 'separator'},
+                {
+                    label: 'Artists',
+                    accelerator: utils.getStoreValue("general.keybindings.artists").join('+'),
+                    click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('library-artists')`)
+                },
+                {
+                    label: 'Search',
+                    accelerator: utils.getStoreValue("general.keybindings.search").join('+'),
+                    click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('search')`)
+                },
+                {type: 'separator'},
+                {
+                    label: 'Album',
+                    accelerator: utils.getStoreValue("general.keybindings.albums").join('+'),
+                    click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('library-albums')`)
                 },
                 {type: 'separator'},
                 {
                     label: 'Cast To Devices',
-                    accelerator: 'CommandOrControl+Shift+C',
-                    click: () => this._win.webContents.executeJavaScript(`app.modals.castMenu = true`)
+                    accelerator: utils.getStoreValue("general.keybindings.castToDevices").join('+'),
+                    click: () => utils.getWindow().webContents.executeJavaScript(`app.modals.castMenu = true`)
                 }
             ]
         },
@@ -169,11 +172,11 @@ export default class Thumbar {
             submenu: [
                 {
                     label: 'Account Settings',
-                    click: () => this._win.webContents.executeJavaScript(`app.appRoute('apple-account-settings')`)
+                    click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('apple-account-settings')`)
                 },
                 {
                     label: 'Sign Out',
-                    click: () => this._win.webContents.executeJavaScript(`app.unauthorize()`)
+                    click: () => utils.getWindow().webContents.executeJavaScript(`app.unauthorize()`)
                 }
             ]
         },
@@ -215,16 +218,16 @@ export default class Thumbar {
                 {type: 'separator'},
                 {
                     label: 'Toggle Developer Tools',
-                    accelerator: 'Option+CommandOrControl+Shift+I',
-                    click: () => this._win.webContents.openDevTools()
+                    accelerator: utils.getStoreValue("general.keybindings.openDeveloperTools").join('+'),
+                    click: () => utils.getWindow().webContents.openDevTools()
                 },
                 {
                     label: 'Open Configuration File in Editor',
-                    click: () => this._store.openInEditor()
+                    click: () => utils.getStoreInstance().openInEditor()
                 }
             ]
         }
-    ]
+    ];
 
     /*******************************************************************************************
      * Public Methods
@@ -233,17 +236,14 @@ export default class Thumbar {
     /**
      * Runs on plugin load (Currently run on application start)
      */
-    constructor(utils: { getApp: () => any; getStore: () => any; }) {
-        this._app = utils.getApp();
-        this._store = utils.getStore();
+    constructor(_utils: utils) {
         console.debug(`[Plugin][${this.name}] Loading Complete.`);
     }
 
     /**
      * Runs on app ready
      */
-    onReady(win: Electron.BrowserWindow): void {
-        this._win = win;
+    onReady(_win: Electron.BrowserWindow): void {
         const menu = Menu.buildFromTemplate(this._menuTemplate);
         Menu.setApplicationMenu(menu)
     }

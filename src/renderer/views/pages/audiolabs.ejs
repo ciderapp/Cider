@@ -1,11 +1,10 @@
 <script type="text/x-template" id="audiolabs-page">
     <div class="content-inner audiolabs-page ">
         <div class="md-option-container">
-
             <div class="settings-option-body">
                 <div class="md-option-line">
                     <b-jumbotron :header="$root.getLz('settings.option.audio.audioLab')"
-                                 :lead="$root.getLz('settings.option.audio.audioLab.subheader')"></b-jumbotron>
+                                 lead="Designed by Cider Acoustic Technologies in California"></b-jumbotron>
                 </div>
                 <div class="md-option-line" v-show="app.cfg.advanced.AudioContext === false">
                     <div class="md-option-segment">
@@ -101,19 +100,8 @@
                             <option value="NATURAL_STANDARD">{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.natural1')}}</option>
                             <option value="NATURAL_HIGH">{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.natural2')}}</option>
                             <option value="NATURAL_PLUS">{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.natural3')}}</option>
+                            <option value="CRYPTO">Cryptofyre</option>
                         </select>
-                    </div>
-                </div>
-                <div class="md-option-line" v-show="app.cfg.advanced.AudioContext === true">
-                    <div class="md-option-segment">
-                        {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.audioSpatialization')}}
-                        <br>
-                        <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description')}}</small>
-                    </div>
-                    <div class="md-option-segment md-option-segment_auto">
-                        <input type="checkbox" v-model="app.cfg.audio.spatial"
-                               :disabled="app.cfg.audio.maikiwiAudio.spatial === true" v-on:change="toggleSpatial"
-                               switch/>
                     </div>
                 </div>
                 <div class="md-option-line" v-show="app.cfg.advanced.AudioContext === true">
@@ -124,11 +112,11 @@
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
                         <input type="checkbox" v-model="app.cfg.audio.maikiwiAudio.spatial"
-                               :disabled="app.cfg.audio.spatial === false" v-on:change="toggleMaikiwiSpatial" switch/>
+                               v-on:change="toggleMaikiwiSpatial" switch/>
                     </div>
                 </div>
                 <div class="md-option-line"
-                     v-show="app.cfg.audio.maikiwiAudio.spatial === true && app.cfg.audio.spatial === true">
+                     v-show="app.cfg.audio.maikiwiAudio.spatial === true">
                     <div class="md-option-segment">
                         {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile')}}
                         <br>
@@ -142,7 +130,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="spprofile-line" v-show="app.cfg.audio.maikiwiAudio.spatial === true && app.cfg.audio.spatial === true">
+                <div class="spprofile-line" v-show="app.cfg.audio.maikiwiAudio.spatial === true">
                     <div class="spprofile-viewport">
                         <button class="spprev" @click="profilePrev"></button>
                         <button class="nextprev" @click="profileNext"></button>
@@ -186,9 +174,10 @@
                             </select>
                         </div>
                     </div>
-                    </div>
                 </div>
             </div>
+        </div>
+    </div>
 </script>
 
 <script>
@@ -239,7 +228,7 @@
                 this.toggleMaikiwiSpatial()
             },
             toggleSpatial: function () {
-                if (app.cfg.audio.spatial) {
+                if (app.cfg.audio.maikiwiAudio.spatial) {
                     CiderAudio.spatialOn()
                     CiderAudio.hierarchical_loading();
                 } else {

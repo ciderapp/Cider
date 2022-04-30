@@ -139,8 +139,8 @@ jobs:
           dist/Cider.pkg
         body: signed Develop MacOS Builds
         name: macOS builds  
-        tag_name: macos-beta  
-        prerelease : true
+        tag_name: macos-beta
+        target_commitish: ${{ env.GITHUB_SHA }}
+        prerelease: true
         generate_release_notes: true
-        append_body : false
         fail_on_unmatched_files: false

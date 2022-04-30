@@ -6,6 +6,7 @@ import {app, dialog, ipcMain, Notification, shell } from "electron";
 import fetch from "electron-fetch";
 import {AppImageUpdater, NsisUpdater} from "electron-updater";
 import * as log from "electron-log";
+import ElectronStore from "electron-store";
 
 export class utils {
 
@@ -22,6 +23,7 @@ export class utils {
         ciderCache: path.resolve(app.getPath("userData"), "CiderCache"),
         themes: path.resolve(app.getPath("userData"), "Themes"),
         plugins: path.resolve(app.getPath("userData"), "Plugins"),
+        externals: path.resolve(app.getPath("userData"), "externals"),
     };
 
     /**
@@ -76,6 +78,14 @@ export class utils {
      */
     static getStore(): Object {
         return Store.cfg.store
+    }
+
+    /**
+     * Get the store instance
+     * @returns {Store}
+     */
+    static getStoreInstance(): ElectronStore {
+        return Store.cfg
     }
 
     /**

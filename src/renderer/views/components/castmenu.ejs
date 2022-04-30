@@ -116,7 +116,7 @@
             },
             setAirPlayCast(device) {
                 this.activeCasts.push(device); 
-                ipcRenderer.send("performAirplayPCM",device.host,device.port,null,"","","","")
+                ipcRenderer.send("performAirplayPCM",device.host,device.port,null,"","","","",device.txt)
             },
             stopCasting() {
                 CiderAudio.stopAudio();

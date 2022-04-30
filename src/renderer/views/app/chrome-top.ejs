@@ -107,6 +107,7 @@
                             <input type="range" step="0.01" min="0" :style="progressBarStyle()"
                                    @input="playerLCD.desiredDuration = $event.target.value;playerLCD.userInteraction = true"
                                    @mouseup="mk.seekToTime($event.target.value);setTimeout(()=>{playerLCD.desiredDuration = 0;playerLCD.userInteraction = false}, 1000);"
+                                   @touchend="mk.seekToTime($event.target.value);setTimeout(()=>{playerLCD.desiredDuration = 0;playerLCD.userInteraction = false}, 1000);"
                                    :max="mk.currentPlaybackDuration" :value="getSongProgress()">
                         </div>
                     </div>

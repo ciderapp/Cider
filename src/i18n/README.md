@@ -290,3 +290,12 @@ Update 25/04/2022 00:21 UTC
 *  `settings.description.cast`: Added for `en_US`
 *  `settings.description.settings`: Added for `en_US`
 *  `settings.description.developer`: Added for `en_US`
+
+Update 28/04/2022 21:45 UTC
+
+* `settings.option.general.resumetabs`: Added for `en_US`
+* `settings.option.general.resumetabs.description`: Added for `en_US`
+* `settings.option.general.resumetabs.dynamic`: Added for `en_US`
+* `settings.option.general.resumetabs.dynamic.description`: Added for `en_US`
+
+

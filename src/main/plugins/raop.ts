@@ -20,10 +20,10 @@ export default class RAOP {
     private _app: any;
     private _store: any;
     private _cacheAttr: any;
-
+    private u: any;
     private ipairplay: any = "";
     private portairplay: any = "";
-    private u = require('airtunes2');
+    
     private airtunes: any;
     private device: any;
     private mdns = require('mdns-js');
@@ -132,6 +132,7 @@ export default class RAOP {
      * Runs on app ready
      */
     onReady(win: any): void {
+        this.u = require('airtunes2');
         this._win = win;
 
         electron.ipcMain.on('getKnownAirplayDevices', (event) => {
@@ -146,8 +147,8 @@ export default class RAOP {
             browser.on('ready', browser.discover);
 
             browser.on('update', (service: any) => {
-                if (service.addresses && service.fullname && service.fullname.includes('_raop._tcp')) {
-                    console.log(service.txt)
+                if (service.addresses && service.fullname && (service.fullname.includes('_raop._tcp') ||  service.fullname.includes('_airplay._tcp'))) {
+                    // console.log(service.txt)
                 this._win.webContents.executeJavaScript(`console.log(
                     "${service.name} ${service.host}:${service.port} ${service.addresses}"
                 )`);
@@ -158,7 +159,7 @@ export default class RAOP {
 
 
 
-        electron.ipcMain.on("performAirplayPCM", (event, ipv4, ipport, sepassword, title, artist, album, artworkURL) => {
+        electron.ipcMain.on("performAirplayPCM", (event, ipv4, ipport, sepassword, title, artist, album, artworkURL,txt) => {
 
             if (ipv4 != this.ipairplay || ipport != this.portairplay) {
                 if (this.airtunes == null) { this.airtunes = new this.u()}
@@ -168,7 +169,9 @@ export default class RAOP {
                     port: ipport,
                     volume: 60,
                     password: sepassword,
+                    txt: txt
                 });
+                // console.log('lol',txt)
                 this.device.on('status', (status: any) => {
                     console.log('device status', status);
                     if (status == "ready"){

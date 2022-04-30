@@ -498,6 +498,18 @@
   height: 100%;
   overflow: hidden;
 
+  .editTracksBtn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1;
+
+    >span {
+      display: flex;
+      gap: 8px;
+    }
+  }
+
   .mediaContainer {
     transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
     width: 260px;height:260px;
@@ -909,7 +921,7 @@
 
     .header-content {
       z-index   : 1;
-      margin-top: -16px;
+      // margin-top: -16px;
     }
 
 
@@ -1052,7 +1064,7 @@
 
   .artist-body {
     padding: 0px var(--contentInnerPadding) 0px var(--contentInnerPadding);
-    margin : -140px 20px;
+    margin : -64px 20px;
 
     .arow {
       display : flex;

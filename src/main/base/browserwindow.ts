@@ -423,6 +423,14 @@ export class BrowserWindow {
             res.render("main", this.EnvironmentVariables);
         });
 
+        app.get("/audio/cideraudio.js", (_req, res) => {
+            if (existsSync(join(utils.getPath("externals"), "/audio.js"))) {
+                res.sendFile(join(utils.getPath("externals"), "/audio.js"));
+            } else {
+                res.sendFile(join(utils.getPath('srcPath'), "./renderer/audio/audio.js"));
+            }
+        })
+
         app.get("/api/playback/:action", (req, res) => {
             const action = req.params.action;
             switch (action) {

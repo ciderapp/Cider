@@ -1,0 +1,63 @@
+{
+  "electronVersion": "16.0.7",
+  "electronDownload": {
+    "version": "16.0.7+wvcus",
+    "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
+  },
+  "appId": "cider",
+  "protocols": [
+  {
+  "name": "Cider",
+  "schemes": [
+        "ame",
+        "cider",
+        "itms",
+        "itmss",
+        "musics",
+        "music"
+      ]
+    }
+  ],
+  "extends": null,
+  "files": [
+    "**/*",
+    "./src/**/*",
+    "./resources/icons/icon.*"
+  ],
+  "linux": {
+    "target": [
+      "AppImage",
+      "deb",
+      "snap",
+      "rpm"
+    ],
+    "synopsis": "A new look into listening and enjoying music in style and performance. ",
+    "category": "AudioVideo",
+    "icon": "cider",
+    "executableName": "cider"
+  },
+  "appx": {
+    "applicationId": "CiderAlpha",
+    "publisher": "CN=CiderCollective, OID.2.25.311729368913984317654407730594956997722=1",
+    "displayName": "Cider (Alpha)",
+    "identityName": "CiderCollective.CiderAlpha",
+    "backgroundColor": "transparent",
+    "setBuildNumber": true
+  },
+  "win": {
+    "target": [
+      "appx"
+    ],
+    "icon": "resources/icons/icon.ico"
+  },
+  "directories": {
+    "buildResources": ".",
+    "output": "dist"
+  },
+  "mac": {
+    "icon": "./resources/icons/icon.icns",
+    "category": "public.app-category.music",
+    "entitlements": "resources/entitlements.mac.plist",
+    "darkModeSupport": true
+  }
+}

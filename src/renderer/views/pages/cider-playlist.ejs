@@ -104,7 +104,14 @@
                 <div class="artworkContainer" v-if="data.attributes.artwork != null">
                     <artwork-material :url="data.attributes.artwork.url" size="260" images="1"></artwork-material>
                 </div>
-
+                <button class="md-btn md-btn-small editTracksBtn" v-if="(data.attributes.canEdit && data.type == 'library-playlists')" @click="editing = !editing">
+                    <span v-if="!editing">
+                        <div class='codicon codicon-edit'></div> {{$root.getLz("action.editTracklist")}}
+                    </span>
+                    <span v-else>
+                        <div class='codicon codicon-check'></div> {{$root.getLz("action.done")}}
+                    </span>
+                </button>
             </div>
             <div class="floating-header"
                  :style="{opacity: (headerVisible ? 0 : 1),'pointer-events': (headerVisible ? 'none' : '')}">
@@ -145,13 +152,12 @@
                 </div>
             </div>
             <div class="playlist-body scrollbody">
-
                 <b-tabs pills class="track-pills pilldim" align="center" content-class="mt-3" :nav-wrapper-class="navClass(data)">
                     <b-tab :title="$root.getLz('term.tracks')">
                         <div @wheel="minClass(true)" @scroll="minClass(true)">
                         <div class="">
                             <div style="width:100%" @click="minClass(true)">
-                                <draggable :sort="data.attributes.canEdit && data.type == 'library-playlists'"
+                                <draggable :options="{disabled: !editing}"
                                            v-model="data.relationships.tracks.data" @start="drag=true"
                                            @end="drag=false;put()">
                                     <template v-if="nestedPlaylist == [] || nestedPlaylist.length <= 1">
@@ -256,6 +262,7 @@
                 useArtistChip: false,
                 nestedPlaylist: [],
                 classes: [],
+                editing: false
             }
         },
         mounted: function () {
