@@ -147,12 +147,13 @@ export default class RAOP {
             browser.on('ready', browser.discover);
 
             browser.on('update', (service: any) => {
-                if (service.addresses && service.fullname && (service.fullname.includes('_raop._tcp') ||  service.fullname.includes('_airplay._tcp'))) {
+//                 if (service.addresses && service.fullname && (service.fullname.includes('_raop._tcp') ||  service.fullname.includes('_airplay._tcp'))) {
                     // console.log(service.txt)
                 this._win.webContents.executeJavaScript(`console.log(
                     "${service.name} ${service.host}:${service.port} ${service.addresses}"
                 )`);
-                this.ondeviceup(service.name, service.host, service.port, service.addresses, service.txt);}
+                this.ondeviceup(service.name, service.host, service.port, service.addresses, service.txt);
+//             }
             });
 
         });
