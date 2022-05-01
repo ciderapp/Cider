@@ -194,7 +194,7 @@ export default class Thumbar {
         },
         {
             label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.support'),
-            role: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.help'),
+            role: 'help',
             submenu: [
                 {
                     label: utils.getLocale('Discord', 'menubar.options.discord'),
