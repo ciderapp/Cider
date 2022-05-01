@@ -198,6 +198,9 @@ export default class RAOP {
                     if (status == "pair_success"){
                         this._win.webContents.executeJavaScript(`app.sendAirPlaySuccess()`)
                     }
+                    if (status == "pair_failed"){
+                        this._win.webContents.executeJavaScript(`app.sendAirPlayFailed()`)
+                    }
                     if (status == 'stopped') {
                         this.airtunes.stopAll(() => {
                             console.log('end');
