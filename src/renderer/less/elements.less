@@ -448,6 +448,22 @@
     justify-content: center;
   }
 
+  .heart-unfilled {
+    background-image: url("assets/feather/heart.svg");
+    height: 12px;
+    width: 36px;
+    filter: contrast(0);
+    background-repeat: no-repeat;
+  }
+
+  .heart-filled {
+    background-image: url("assets/feather/heart-fill.svg");
+    height: 12px;
+    width: 36px;
+    filter: contrast(0);
+    background-repeat: no-repeat;
+  }
+
   .explicit-icon {
     background-image: url("./assets/explicit.svg");
     height: 12px;
@@ -457,10 +473,7 @@
   }
 
   .heart-icon {
-    position: absolute;
-    right:0;
-    filter: contrast(0);
-    background-repeat: no-repeat;
+    display: flex
   }
 
   /* CSS.gg
