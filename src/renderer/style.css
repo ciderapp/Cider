@@ -7937,8 +7937,8 @@ fieldset:disabled .btn {
   background-repeat: no-repeat;
 }
 .cd-mediaitem-list-item .heart-icon {
-  height: 18px;
-  width: 39px;
+  position: absolute;
+  right: 30em;
   filter: contrast(0);
   background-repeat: no-repeat;
 }
