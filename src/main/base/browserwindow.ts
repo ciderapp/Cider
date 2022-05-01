@@ -898,6 +898,10 @@ export class BrowserWindow {
             event.returnValue = process.platform;
         });
 
+        ipcMain.on("get-port", (event) => {
+            event.returnValue = this.clientPort;
+        });
+
         ipcMain.on("is-dev", (event) => {
             event.returnValue = this.devMode;
         });
