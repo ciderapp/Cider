@@ -30,22 +30,27 @@ export default class Thumbar {
                 {
                     label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.settings'),
                     accelerator: utils.getStoreValue("general.keybindings.settings").join('+'),
-                    click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('settings')`)
+                    click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('settings')`),
                 },
+                ...(this.isMac ? [
                 {type: 'separator'},
-                {role: 'services', label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.services')},
+                {role: 'services'},
                 {type: 'separator'},
-                {role: 'hide', label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.hide')},
-                {role: 'hideOthers', label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.hideothers')},
-                {role: 'unhide', label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.unhide')},
+                {role: 'hide'},
+                {role: 'hideOthers'},
+                {role: 'unhide'},
+            ]: [
                 {type: 'separator'},
-                {role: 'quit', label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.quit')}
-            ]
+                {role: 'quit', label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.quit')},
+            ]),
+            ],  
         },
+
+
         {
             label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.view'),
             submenu: [
-                {role: 'reload', label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.reloads')},
+                {role: 'reload', label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.reload')},
                 {role: 'forceReload', label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.forcereload')},
                 {role: 'toggleDevTools', label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.toggledevtools')},
                 {type: 'separator'},
@@ -60,30 +65,33 @@ export default class Thumbar {
             label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.window'),
             submenu: [
                 {role: 'minimize', label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.minimize')},
+                ...(this.isMac ? [
                 {
-                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.show'),
+                    label: 'Show',
                     click: () => utils.getWindow().show()
                 },
-                {role: 'zoom', label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.zoom')},
-                ...(this.isMac ? [
+                {role: 'zoom'},
+                
                     {type: 'separator'},
-                    {role: 'front', label: utils.getLocale('front', 'menubar.options.front')},
-                    {role: 'close', label: utils.getLocale('close', 'menubar.options.close')},
-                ] : [
-                    {role: 'close', label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.close')},
-                ]),
+                    {role: 'front'},
+                    {role: 'close'},
+                 
+                    {role: 'close'},
 
+                
                 {
-                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.edit'),
+                    label: 'Edit',
                     submenu: [
-                        {role: 'undo', label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.undo')},
-                        {role: 'redo', label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.redo')},
+                        {role: 'undo'},
+                        {role: 'redo'},
                         {type: 'separator'},
-                        {role: 'cut', label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.cut')},
-                        {role: 'copy', label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.copy')},
-                        {role: 'paste', label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.paste')},
+                        {role: 'cut'},
+                        {role: 'copy'},
+                        {role: 'paste'},
                     ]
                 },
+            ] : []
+            ),               
                 {type: 'separator'},
                 {
                     label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.toggleprivate'),
