@@ -89,9 +89,9 @@ export default class RAOP {
 `;
 
     private ondeviceup(name: any, host: any, port: any, addresses: any, text: any) {
-        if (this.castDevices.findIndex((item: any) => item.name === host && item.port === port && item.addresses === addresses) === -1) {
+        if (this.castDevices.findIndex((item: any) => item.name == host.replace(".local","") && item.port == port && item.addresses == addresses) === -1) {
             this.castDevices.push({
-                name: host,
+                name: host.replace(".local",""),
                 host: addresses ? addresses[0] : '',
                 port: port,
                 addresses: addresses,
