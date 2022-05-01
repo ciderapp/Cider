@@ -28,7 +28,7 @@ export default class ChromecastPlugin {
     // private GCstream = new Stream.PassThrough(),
     private connectedHosts: any = {};
     private connectedPlayer: any;
-    // private port = false;
+    private ciderPort :any = 9000;
     // private server = false;
     // private  bufcount = 0;
     // private bufcount2 = 0;
@@ -148,7 +148,7 @@ export default class ChromecastPlugin {
             }
             let media = {
                 // Here you can plug an URL to any mp4, webm, mp3 or jpg file with the proper contentType.
-                contentId: 'http://' + this.getIp() + ':9000/audio.wav',
+                contentId: 'http://' + this.getIp() + ':'+ this.ciderPort +'/audio.wav',
                 contentType: 'audio/wav',
                 streamType: 'LIVE', // or LIVE
 
@@ -359,6 +359,14 @@ export default class ChromecastPlugin {
      */
     onNowPlayingItemDidChange(attributes: any): void {
 
+    }
+
+    onRendererReady(): void {
+        this._win.webContents.executeJavaScript(
+            `ipcRenderer.sendSync('get-port')`
+        ).then((result: any) => { 
+            this.ciderPort = result;       
+        });
     }
 
 }

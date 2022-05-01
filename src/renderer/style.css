@@ -7936,9 +7936,12 @@ fieldset:disabled .btn {
   filter: contrast(0);
   background-repeat: no-repeat;
 }
+.cd-mediaitem-list-item .playIcon{
+  width: 44px;
+  margin-left: 11px;
+}
 .cd-mediaitem-list-item .heart-icon {
-  height: 18px;
-  width: 39px;
+  position: absolute;
   filter: contrast(0);
   background-repeat: no-repeat;
 }

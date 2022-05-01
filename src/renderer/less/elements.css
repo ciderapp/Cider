@@ -372,8 +372,7 @@
   background-repeat: no-repeat;
 }
 .heart-icon {
-  height: 18px;
-  width: 39px;
+  position: absolute;
   filter: contrast(0);
   background-repeat: no-repeat;
 }

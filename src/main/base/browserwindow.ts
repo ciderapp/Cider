@@ -95,6 +95,7 @@ export class BrowserWindow {
                 "components/fullscreen",
                 "components/miniplayer",
                 "components/castmenu",
+                "components/airplay-modal",
                 "components/artist-chip",
                 "components/hello-world",
                 "components/inline-collection-list",
@@ -895,6 +896,10 @@ export class BrowserWindow {
 
         ipcMain.on("get-gpu-mode", (event) => {
             event.returnValue = process.platform;
+        });
+
+        ipcMain.on("get-port", (event) => {
+            event.returnValue = this.clientPort;
         });
 
         ipcMain.on("is-dev", (event) => {

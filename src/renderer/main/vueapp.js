@@ -207,6 +207,7 @@ const app = new Vue({
             showPlaylist: false,
             castMenu: false,
             moreInfo: false,
+            airplayPW: false,
         },
         socialBadges: {
             badgeMap: {},
@@ -3830,6 +3831,15 @@ const app = new Vue({
 
             // tracks are found in relationship.data
         },
+        setAirPlayCodeUI() {
+            this.modals.airplayPW = true
+        },
+        sendAirPlaySuccess(){
+            notyf.success('Device paired successfully!');
+        },
+        sendAirPlayFailed(){
+            notyf.error('Device paring failed!');
+        },
         windowFocus(val) {
             if (val) {
                 document.querySelectorAll(".animated-artwork-video").forEach(el => {
@@ -4009,7 +4019,8 @@ const app = new Vue({
                 }
             }
 
-            if (app.mk.nowPlayingItem._container["attributes"] && app.mk.nowPlayingItem._container.name != "station") {
+            const nowPlayingContainer = app.mk.nowPlayingItem._container;
+            if (nowPlayingContainer && nowPlayingContainer["attributes"] && nowPlayingContainer.name != "station") {
                 menus.normal.items.find(x => x.id == "showInMusic").hidden = false
             }
 
