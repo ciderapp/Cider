@@ -329,7 +329,7 @@ Update 29/04/2022 00:00 UTC
  * `menubar.options.signout`: Added for `en_US`
  * `menubar.options.support`: Added for `en_US`
  * `menubar.options.discord`: Added for `en_US`
- * `menubar.options.gihu`: Added for `en_US`
+ * `menubar.options.github`: Added for `en_US`
  * `menubar.options.report`: Added for `en_US`
  * `menubar.options.bug`: Added for `en_US`
  * `menubar.options.feature`: Added for `en_US`
