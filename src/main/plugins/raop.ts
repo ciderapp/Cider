@@ -147,14 +147,28 @@ export default class RAOP {
             browser.on('ready', browser.discover);
 
             browser.on('update', (service: any) => {
-                if (service.addresses && service.fullname && (service.fullname.includes('_raop._tcp') ||  service.fullname.includes('_airplay._tcp'))) {
+                 if (service.addresses && service.fullname && (service.fullname.includes('_raop._tcp') ||  service.fullname.includes('_airplay._tcp'))) {
                     // console.log(service.txt)
                 this._win.webContents.executeJavaScript(`console.log(
                     "${service.name} ${service.host}:${service.port} ${service.addresses}"
                 )`);
-                this.ondeviceup(service.name, service.host, service.port, service.addresses, service.txt);}
+                this.ondeviceup(service.name, service.host, service.port, service.addresses, service.txt);
+             }
             });
+            
+            // const browser2 = this.mdns.createBrowser(this.mdns.tcp('airplay'));
+            // browser2.on('ready', browser2.discover);
 
+            // browser2.on('update', (service: any) => {
+            //      if (service.addresses && service.fullname && (service.fullname.includes('_raop._tcp') ||  service.fullname.includes('_airplay._tcp'))) {
+            //         // console.log(service.txt)
+            //     this._win.webContents.executeJavaScript(`console.log(
+            //         "${service.name} ${service.host}:${service.port} ${service.addresses}"
+            //     )`);
+            //     this.ondeviceup(service.name, service.host, service.port, service.addresses, service.txt);
+            //  }
+            // });
+    
         });
 
 
@@ -177,6 +191,12 @@ export default class RAOP {
                     if (status == "ready"){
                         this._win.webContents.setAudioMuted(true);
                         this._win.webContents.executeJavaScript(`CiderAudio.sendAudio()`).catch((err: any) => console.error(err));
+                    }
+                    if (status == "need_password"){
+                        this._win.webContents.executeJavaScript(`app.setAirPlayCodeUI()`)
+                    }
+                    if (status == "pair_success"){
+                        this._win.webContents.executeJavaScript(`app.sendAirPlaySuccess()`)
                     }
                     if (status == 'stopped') {
                         this.airtunes.stopAll(() => {
@@ -209,6 +229,12 @@ export default class RAOP {
 
 
         });
+
+        electron.ipcMain.on('setAirPlayPasscode', (event, passcode) => {
+            if (this.device){
+                this.device.setPasscode(passcode)
+            }
+        })
 
         electron.ipcMain.on('writeWAV', (event, leftbuffer, rightbuffer) => {
             if (this.airtunes != null) {

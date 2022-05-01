@@ -207,6 +207,7 @@ const app = new Vue({
             showPlaylist: false,
             castMenu: false,
             moreInfo: false,
+            airplayPW: false,
         },
         socialBadges: {
             badgeMap: {},
@@ -3829,6 +3830,12 @@ const app = new Vue({
             })
 
             // tracks are found in relationship.data
+        },
+        setAirPlayCodeUI() {
+            this.modals.airplayPW = true
+        },
+        sendAirPlaySuccess(){
+            notyf.success('Device paired successfully!');
         },
         windowFocus(val) {
             if (val) {
