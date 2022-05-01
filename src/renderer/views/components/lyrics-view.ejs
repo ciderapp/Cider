@@ -115,7 +115,7 @@
         },
         methods: {
             seekTo(startTime) {
-                if(startTime != 9999999) this.app.seekTo(startTime, false);
+                if (startTime != 9999999) this.app.seekTo(startTime, false);
             },
             getActiveLyric() {
                 const delayfix = 0.1
@@ -125,7 +125,7 @@
                         if (app.currentLyricsLine != i) {
                             app.currentLyricsLine = i;
                             if (((app.lyricon && app.drawer.open) || app.appMode == 'fullscreen') && this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${i}"]`)) {
-                               if(this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${prevLine}"]`)) {this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${prevLine}"]`).classList.remove("active");}
+                               if (this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${prevLine}"]`)) {this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${prevLine}"]`).classList.remove("active");}
                                 this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${i}"]`).classList.add("active")
                                 if (this.checkIfScrollIsStatic) {
                                     let lyricElement = this.$refs.lyricsview.querySelector(`.lyric-line[line-index="${i}"]`)

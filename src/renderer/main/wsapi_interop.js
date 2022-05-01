@@ -108,11 +108,11 @@ const wsapi = {
         app.mk.isPlaying ? app.mk.pause() : app.mk.play()
     },
     toggleRepeat() {
-        if(MusicKit.getInstance().repeatMode == 0) {
+        if (MusicKit.getInstance().repeatMode == 0) {
             MusicKit.getInstance().repeatMode = 1
-        }else if(MusicKit.getInstance().repeatMode == 1){
+        } else if (MusicKit.getInstance().repeatMode == 1){
             MusicKit.getInstance().repeatMode = 2
-        }else{
+        } else {
             MusicKit.getInstance().repeatMode = 0
         }
     },
