@@ -3837,6 +3837,9 @@ const app = new Vue({
         sendAirPlaySuccess(){
             notyf.success('Device paired successfully!');
         },
+        sendAirPlayFailed(){
+            notyf.error('Device paring failed!');
+        },
         windowFocus(val) {
             if (val) {
                 document.querySelectorAll(".animated-artwork-video").forEach(el => {
