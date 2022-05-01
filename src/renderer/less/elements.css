@@ -373,7 +373,6 @@
 }
 .heart-icon {
   position: absolute;
-  right: 30em;
   filter: contrast(0);
   background-repeat: no-repeat;
 }

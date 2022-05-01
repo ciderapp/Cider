@@ -7942,7 +7942,6 @@ fieldset:disabled .btn {
 }
 .cd-mediaitem-list-item .heart-icon {
   position: absolute;
-  right: 30em;
   filter: contrast(0);
   background-repeat: no-repeat;
 }
