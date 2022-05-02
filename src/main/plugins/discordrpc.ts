@@ -223,10 +223,12 @@ export default class DiscordRPC {
             ] //To change attributes.url => preload/cider-preload.js
         }
 
-        // Add the timestamp if its playing
-        if (attributes.status) {
-            this._activity.startTimestamp = Date.now() - (attributes?.durationInMillis - attributes?.remainingTime)
-            this._activity.endTimestamp = attributes.endTime
+        // Add the timestamp if its playing and people want them
+        if (!this._utils.getStoreValue("general.discordrpc.hide_timestamp")) {
+            if (attributes.status) {
+                this._activity.startTimestamp = Date.now() - (attributes?.durationInMillis - attributes?.remainingTime)
+                this._activity.endTimestamp = attributes.endTime
+            }
         }
 
         // If the user wants to keep the activity when paused
