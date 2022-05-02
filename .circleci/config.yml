@@ -62,8 +62,9 @@ jobs:
       - run:
           name: Install Snap
           command: |
-            sudo apt update
-            sudo apt install snapd
+            sudo apt update && sudo apt install -y snapd
+            sudo snap install snapcraft --edge --classic
+            /snap/bin/snapcraft
       - run:
           name: Fix Versioning and Add Channel
           command: yarn circle:script
