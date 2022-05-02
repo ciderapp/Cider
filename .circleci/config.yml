@@ -61,7 +61,9 @@ jobs:
           at: ~/Cider
       - run:
           name: Install Snap
-          command: sudo snap install snapcraft --classic
+          command: |
+          sudo apt update
+          sudo apt install snapd
       - run:
           name: Fix Versioning and Add Channel
           command: yarn circle:script
