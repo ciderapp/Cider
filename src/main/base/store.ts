@@ -12,7 +12,7 @@ export class Store {
         },
         "general": {
             "close_button_hide": false,
-            "discord_rpc": {
+            "discordrpc": {
                 "enabled": false,
                 "client": "Cider",
                 "clear_on_pause": true,
@@ -221,13 +221,13 @@ export class Store {
     }
     private migrations: any = {
         '>=1.4.3': (store: ElectronStore) => {
-            if (typeof store.get('general.discord_rpc') == 'number' || typeof store.get('general.discord_rpc') == 'string') {
-                store.delete('general.discord_rpc');
+            if (typeof store.get('general.discordrpc') == 'number' || typeof store.get('general.discordrpc') == 'string') {
+                store.delete('general.discordrpc');
             }
         },
     }
     private schema: ElectronStore.Schema<any> = {
-        "general.discord_rpc": {
+        "general.discordrpc": {
             type: 'object'
         },
     }

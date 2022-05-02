@@ -53,10 +53,10 @@ export default class DiscordRPC {
      * @private
      */
     private connect() {
-        if (!this._utils.getStoreValue("general.discord_rpc.enabled")) {
+        if (!this._utils.getStoreValue("general.discordrpc.enabled")) {
             return;
         }
-        const clientId = this._utils.getStoreValue("general.discord_rpc.client") === "Cider" ? '911790844204437504' : '886578863147192350';
+        const clientId = this._utils.getStoreValue("general.discordrpc.client") === "Cider" ? '911790844204437504' : '886578863147192350';
 
         // Apparently needed for ask to join, join, spectate etc.
         RPC.register(clientId)
@@ -187,7 +187,7 @@ export default class DiscordRPC {
         activity = DiscordRPC.filterActivity(activity, this._attributes)
 
         // Set the activity
-        if (!this._attributes.status && this._utils.getStoreValue("general.discord_rpc.clear_on_pause")) {
+        if (!this._attributes.status && this._utils.getStoreValue("general.discordrpc.clear_on_pause")) {
             this._client.clearActivity()
         } else if (this._activity && this._activityCache !== this._activity && this._activity.details) {
             this._client.setActivity(activity)
@@ -200,7 +200,7 @@ export default class DiscordRPC {
      * @param {object} attributes
      */
     private updateActivity(attributes: any) {
-        if (!this._utils.getStoreValue("general.discord_rpc.enabled") || this._utils.getStoreValue("general.privateEnabled")) {
+        if (!this._utils.getStoreValue("general.discordrpc.enabled") || this._utils.getStoreValue("general.privateEnabled")) {
             return
         } else if (!this._client || !this._connection) {
             this.connect()
@@ -208,15 +208,15 @@ export default class DiscordRPC {
 
         // Check if show buttons is (true) or (false)
         this._activity = {
-            details: this._utils.getStoreValue("general.discord_rpc.details_format"),
-            state: this._utils.getStoreValue("general.discord_rpc.state_format"),
+            details: this._utils.getStoreValue("general.discordrpc.details_format"),
+            state: this._utils.getStoreValue("general.discordrpc.state_format"),
             largeImageKey: attributes?.artwork?.url?.replace('{w}', '1024').replace('{h}', '1024'),
             largeImageText: attributes.albumName,
             instance: false // Whether the activity is in a game session
         }
 
         // Add the buttons if people want them
-        if (!this._utils.getStoreValue("general.discord_rpc.hide_buttons")) {
+        if (!this._utils.getStoreValue("general.discordrpc.hide_buttons")) {
             this._activity.buttons = [
                 {label: 'Listen on Cider', url: attributes.url.cider},
                 {label: 'View on Apple Music', url: attributes.url.appleMusic}
@@ -230,7 +230,7 @@ export default class DiscordRPC {
         }
 
         // If the user wants to keep the activity when paused
-        if (!this._utils.getStoreValue("general.discord_rpc.clear_on_pause")) {
+        if (!this._utils.getStoreValue("general.discordrpc.clear_on_pause")) {
             this._activity.smallImageKey = attributes.status ? 'play' : 'pause';
             this._activity.smallImageText = attributes.status ? 'Playing' : 'Paused';
         }
