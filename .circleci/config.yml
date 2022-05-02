@@ -164,7 +164,7 @@ jobs:
 workflows:
   build_and_release:
     jobs:
-      - prepare-build:
+      - prepare-build
 #          filters:
 #            branches:
 #              only: main
