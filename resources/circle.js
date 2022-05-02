@@ -20,10 +20,7 @@ if (process.env['CIRCLE_BRANCH'] === 'lts') {
 	channel = process.env['CIRCLE_BRANCH'] // It won't have auto update support
 }
 
-
-if (channel.includes('/')) {
-	channel.replace('/', '-')
-}
+channel.split('/').join('-')
 
 // https://circleci.com/docs/2.0/env-vars/#built-in-environment-variables
 const version = pkg.version.split('.');
