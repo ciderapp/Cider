@@ -18,9 +18,9 @@ jobs:
       - run:
           name: Set App Version
           command: echo "export APP_VERSION=$(grep '"version":.*' package.json | cut -d '"' -f 4 | head -1)" >> $BASH_ENV
-      - run:
-          name: Rename Repository
-          command: sed -i 's/github:ciderapp\/Cider/github:ciderapp\/cider-releases/' package.json
+      #      - run:
+      #          name: Rename Repository
+      #          command: sed -i 's/github:ciderapp\/Cider/github:ciderapp\/cider-releases/' package.json
       - run:
           name: Update Package Managers
           command: sudo npm update -g npm yarn
@@ -55,25 +55,16 @@ jobs:
             - license.txt
 
   build-linux:
-    working_directory: ~/Cider
-    machine: true
+    executor: cider-ci
     steps:
       - attach_workspace:
           at: ~/Cider
-      - run:
-          name: Setup Snapcraft
-          command: |
-            sudo apt update && sudo apt install -y snapd
-            sudo snap install core
-            sudo snap install snapcraft --edge --classic
-            sudo snap refresh core
-            /snap/bin/snapcraft
       - run:
           name: Fix Versioning and Add Channel
           command: yarn circle:script
       - run:
           name: Generate Builds (Linux)
-          command: yarn electron-builder -l -p always
+          command: yarn electron-builder -l -p never
           post-steps:
             - jira/notify
       - persist_to_workspace:
@@ -102,7 +93,7 @@ jobs:
           command: yarn circle:script
       - run:
           name: Generate Builds (Windows)
-          command: yarn electron-builder -w --x64 -p always
+          command: yarn electron-builder -w --x64 -p never
           post-steps:
             - jira/notify
       - persist_to_workspace:
@@ -130,7 +121,7 @@ jobs:
           command: yarn circle:script
       - run:
           name: Generate Builds (Winget)
-          command: yarn electron-builder --win -c winget.json -p always
+          command: yarn electron-builder --win -c winget.json -p never
           post-steps:
             - jira/notify
       - persist_to_workspace:
@@ -173,28 +164,28 @@ jobs:
 workflows:
   build_and_release:
     jobs:
-      - prepare-build
-      #          filters:
-      #            branches:
-      #              only: main
+      - prepare-build:
+          filters:
+            branches:
+              only: main
       - build-windows:
           requires:
             - prepare-build
-      #          filters:
-      #            branches:
-      #              only: main
+          filters:
+            branches:
+              only: main
       - build-linux:
           requires:
             - prepare-build
-      #          filters:
-      #            branches:
-      #              only: main
+          filters:
+            branches:
+              only: main
       - build-winget:
           requires:
             - prepare-build
-      #          filters:
-      #            branches:
-      #              only: main
+          filters:
+            branches:
+              only: main
       - release:
           requires:
             - build-windows
