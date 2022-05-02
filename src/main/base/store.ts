@@ -289,7 +289,7 @@ export class Store {
     }
     
     
-    pushToCloud(): void {
+    static pushToCloud(): void {
         if (Store.cfg.get('connectUser.auth') === null) return;
         var syncData = Object();
         if (Store.cfg.get('connectUser.sync.themes')) {
