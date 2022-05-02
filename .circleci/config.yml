@@ -60,6 +60,9 @@ jobs:
       - attach_workspace:
           at: ~/Cider
       - run:
+          name: Install Snap
+          command: sudo snap install snapcraft --classic
+      - run:
           name: Fix Versioning and Add Channel
           command: yarn circle:script
       - run:
