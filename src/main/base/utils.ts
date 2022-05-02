@@ -80,6 +80,7 @@ export class utils {
         return Store.cfg.store
     }
 
+
     /**
      * Get the store instance
      * @returns {Store}
@@ -96,6 +97,18 @@ export class utils {
     static setStoreValue(key: string, value: any): void {
         Store.cfg.set(key, value)
     }
+
+    /**
+     * Pushes Store to Connect
+     * @return Function
+     */
+    static pushStoreToConnect(): Function {
+        return Store.pushToCloud
+    }
+
+
+
+
 
     /**
      * Gets the browser window
@@ -198,4 +211,6 @@ export class utils {
         autoUpdater.logger = log
         await autoUpdater.checkForUpdatesAndNotify()
     }
+
+
 }

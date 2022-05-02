@@ -37,6 +37,7 @@ export class BrowserWindow {
             platform: process.platform,
             dev: app.isPackaged,
             osRelease: os.release(),
+            updatable: !process.windowsStore || !process.mas,
             components: [
                 "pages/podcasts",
                 "pages/apple-account-settings",
@@ -1214,16 +1215,27 @@ export class BrowserWindow {
             shell.openPath(app.getPath('userData'));
         });
 
+        
+        //#region Cider Connect
         ipcMain.on('cc-auth', (_event) => {
             shell.openExternal(String(utils.getStoreValue('cc_authURL')));
         });
 
-        ipcMain.on('cc-logout', (_event) => {
+        ipcMain.on('cc-logout', (_event) => { //Make sure to update the default store
             utils.setStoreValue('connectUser', {
-                auth: null
+                "auth": null,
+                "sync": {
+                    themes: false,
+                    plugins: false,
+                    settings: false,
+                }
             });
             utils.getWindow().reload();
         });
+
+        ipcMain.on('cc-push', (_event) => {
+            utils.pushStoreToConnect();
+        })
         /* *********************************************************************************************
          * Window Events
          * **********************************************************************************************/

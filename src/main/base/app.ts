@@ -212,7 +212,6 @@ export class AppEvents {
      * Handles the creation of a new instance of the app
      */
     private InstanceHandler() {
-
         // Detects of an existing instance is running (So if the lock has been achieved, no existing instance has been found)
         const gotTheLock = app.requestSingleInstanceLock()
 
