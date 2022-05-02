@@ -207,6 +207,7 @@ const app = new Vue({
             showPlaylist: false,
             castMenu: false,
             moreInfo: false,
+            airplayPW: false,
         },
         socialBadges: {
             badgeMap: {},
@@ -1671,11 +1672,11 @@ const app = new Vue({
                     params["meta[albums:tracks]"] = 'popularity'
                     params["fields[albums]"] = "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialNotes,editorialVideo,name,playParams,releaseDate,url,copyright"
                 }
-                if(kind.includes("playlist") || kind.includes("album")){
+                if (kind.includes("playlist") || kind.includes("album")){
                     app.page = (kind) + "_" + (id);
                     window.location.hash = `${kind}/${id}${isLibrary ? "/" + isLibrary : ''}`
                     app.getTypeFromID((kind), (id), (isLibrary), params);
-                }else{
+                } else {
                     app.page = (kind)
                     window.location.hash = `${kind}/${id}${isLibrary ? "/" + isLibrary : ''}`
                 }
@@ -3830,6 +3831,15 @@ const app = new Vue({
 
             // tracks are found in relationship.data
         },
+        setAirPlayCodeUI() {
+            this.modals.airplayPW = true
+        },
+        sendAirPlaySuccess(){
+            notyf.success('Device paired successfully!');
+        },
+        sendAirPlayFailed(){
+            notyf.error('Device paring failed!');
+        },
         windowFocus(val) {
             if (val) {
                 document.querySelectorAll(".animated-artwork-video").forEach(el => {
@@ -4009,7 +4019,8 @@ const app = new Vue({
                 }
             }
 
-            if (app.mk.nowPlayingItem._container["attributes"] && app.mk.nowPlayingItem._container.name != "station") {
+            const nowPlayingContainer = app.mk.nowPlayingItem._container;
+            if (nowPlayingContainer && nowPlayingContainer["attributes"] && nowPlayingContainer.name != "station") {
                 menus.normal.items.find(x => x.id == "showInMusic").hidden = false
             }
 

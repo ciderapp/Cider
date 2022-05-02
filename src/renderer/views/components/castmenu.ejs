@@ -37,7 +37,7 @@
         <div class="md-option-container" style="margin-top: 12px;margin-bottom: 12px;">
             <div class="md-option-line">
                 <div class="md-option-segment">
-                    {{true ? 'Homepods only for now! (NO PASSWORD PLEASE!)' : 'Please add FFmpeg location in Settings -> Advanced'}}
+                    {{'EXPERIMENTAL!!! Supports Homepods / Apple TVs / Shairport for now, AirPlay on Samsung/LG/Sony devices will be added later'}}
                     <!-- {{$root.getLz('action.cast.airplay.underdevelopment')}} -->
                     <template v-if="true" v-for="(device) in devices.airplay">
                         <div class="md-option-line" style="cursor: pointer" @click="setAirPlayCast(device)">

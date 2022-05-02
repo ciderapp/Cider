@@ -13,12 +13,11 @@
         </div>
         <div class="queue-body" v-if="page == 'queue'">
             <draggable v-model="queueItems" @start="drag=true" @end="drag=false;move()">
-                <template v-for="(queueItem, position) in queueItems">
-                    <div v-if="position <= queuePosition" style="display: none;">{{ position }}</div>
+                <template v-for="(queueItem, position) in displayQueueItems">
                     <div class="cd-queue-item"
                          :class="{selected: selectedItems.includes(position)}"
                          @click="select($event, position)"
-                         @dblclick="playQueueItem(position)" v-else :key="position"
+                         @dblclick="playQueueItem(position)" :key="position"
                          @contextmenu="selected = position;queueContext($event, queueItem.item, position)">
                         <div class="row">
                             <div class="col-auto flex-center">
@@ -61,6 +60,13 @@
                 app: this.$root
             }
         },
+        computed: {
+            displayQueueItems() {
+                const displayLimit = 50;
+                const lastDisplayPosition = Math.min(displayLimit + this.queuePosition, this.queueItems.length);
+                return this.queueItems.slice(this.queuePosition, lastDisplayPosition);
+            }
+        },
         mounted() {
             this.updateQueue()
         },
@@ -70,8 +76,8 @@
                 this.history = history.data.data
             },
             select(e, position) {
-                if(e.ctrlKey || e.shiftKey) {
-                    if(this.selectedItems.indexOf(position) == -1) {
+                if (e.ctrlKey || e.shiftKey) {
+                    if (this.selectedItems.indexOf(position) == -1) {
                         this.selectedItems.push(position)
                     } else {
                         this.selectedItems.splice(this.selectedItems.indexOf(position), 1)
@@ -83,7 +89,7 @@
             queueContext(event, item, position) {
                 let self = this
                 let useMenu = "single"
-                if(this.selectedItems.length > 1) {
+                if (this.selectedItems.length > 1) {
                     useMenu = "multiple"
                 }
                 let menus = {

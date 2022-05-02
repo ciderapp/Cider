@@ -39,7 +39,7 @@
     "@sentry/electron": "^3.0.7",
     "@sentry/integrations": "^6.19.6",
     "adm-zip": "0.4.10",
-    "airtunes2": "git+https://github.com/vapormusic/node_airtunes2.git",
+    "airtunes2": "git+https://github.com/vapormusic/node_airtunes2.git#hap",
     "castv2-client": "^1.2.0",
     "chokidar": "^3.5.3",
     "discord-rpc": "^4.0.1",
@@ -109,9 +109,9 @@
     }
   ],
   "build": {
-    "electronVersion": "18.1.0",
+    "electronVersion": "18.2.0",
     "electronDownload": {
-      "version": "18.1.0+wvcus",
+      "version": "18.2.0+wvcus",
       "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
     },
     "appId": "cider",

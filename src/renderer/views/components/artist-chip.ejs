@@ -29,7 +29,7 @@
         template: '#artist-chip',
         async mounted() {
             let artistId = this.item.id
-            if(typeof this.item.relationships == "object") {
+            if (typeof this.item.relationships == "object") {
                 artistId = this.item.relationships.catalog.data[0].id
             }
             app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/artists/${artistId}`).then(response => {
