@@ -63,9 +63,7 @@ jobs:
           name: Install Snap
           command: |
             sudo apt update && sudo apt install -y snapd
-            service snapd start
-            sudo snap install snapcraft --edge --classic
-            /snap/bin/snapcraft
+            docker run -v $(pwd):$(pwd) -t ubuntu:xenial sh -c "apt update -qq && apt install snapcraft -y && cd $(pwd) && snapcraft"
       - run:
           name: Fix Versioning and Add Channel
           command: yarn circle:script
