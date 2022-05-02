@@ -55,15 +55,17 @@ jobs:
             - license.txt
 
   build-linux:
-    executor: cider-ci
+    working_directory: ~/Cider
+    machine: true
     steps:
       - attach_workspace:
           at: ~/Cider
       - run:
-          name: Install Snap
+          name: Setup Snapcraft
           command: |
             sudo apt update && sudo apt install -y snapd
-            docker run -v $(pwd):$(pwd) -t ubuntu:xenial sh -c "apt update -qq && apt install snapcraft -y && cd $(pwd) && snapcraft"
+            sudo snap install snapcraft --edge --classic
+            /snap/bin/snapcraft
       - run:
           name: Fix Versioning and Add Channel
           command: yarn circle:script
