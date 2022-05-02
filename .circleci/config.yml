@@ -64,9 +64,9 @@ jobs:
           name: Setup Snapcraft
           command: |
             sudo apt update && sudo apt install -y snapd
+            sudo snap install core
             sudo snap install snapcraft --edge --classic
-            sudo snap install core snapd
-            snap refresh core
+            sudo snap refresh core
             /snap/bin/snapcraft
       - run:
           name: Fix Versioning and Add Channel
