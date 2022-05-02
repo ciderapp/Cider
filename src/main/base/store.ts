@@ -17,6 +17,7 @@ export class Store {
                 "client": "Cider",
                 "clear_on_pause": true,
                 "hide_buttons": false,
+                "hide_timestamp": false,
                 "state_format": "by {artist}",
                 "details_format": "{title}",
             },
