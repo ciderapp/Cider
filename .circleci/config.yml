@@ -64,7 +64,7 @@ jobs:
           command: yarn circle:script
       - run:
           name: Generate Builds (Linux)
-          command: yarn electron-builder -l -p onTagOrDraft
+          command: yarn electron-builder -l -p always
           post-steps:
             - jira/notify
       - persist_to_workspace:
@@ -93,7 +93,7 @@ jobs:
           command: yarn circle:script
       - run:
           name: Generate Builds (Windows)
-          command: yarn electron-builder -w --x64 -p onTagOrDraft
+          command: yarn electron-builder -w --x64 -p always
           post-steps:
             - jira/notify
       - persist_to_workspace:
@@ -121,7 +121,7 @@ jobs:
           command: yarn circle:script
       - run:
           name: Generate Builds (Winget)
-          command: yarn electron-builder --win -c winget.json -p onTagOrDraft
+          command: yarn electron-builder --win -c winget.json -p always
           post-steps:
             - jira/notify
       - persist_to_workspace:
