@@ -21,7 +21,7 @@ if (process.env['CIRCLE_BRANCH'] === 'lts') {
 }
 
 
-if (channel.concat('/')) {
+if (channel.includes('/')) {
 	channel.replace('/', '-')
 }
 

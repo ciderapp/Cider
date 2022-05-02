@@ -15,7 +15,6 @@ jobs:
     executor: cider-ci
     steps:
       - checkout
-      - run: ls -la
       - run:
           name: Set App Version
           command: echo "export APP_VERSION=$(grep '"version":.*' package.json | cut -d '"' -f 4 | head -1)" >> $BASH_ENV
@@ -27,7 +26,7 @@ jobs:
           keys:
             - yarn-packages-{{ checksum "cider.lock" }}
       - run:
-          name: Install Dependencies
+          name: Install Node Dependencies
           command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
       - save_cache:
           name: Save Yarn Package Cache
