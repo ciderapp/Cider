@@ -6,7 +6,7 @@ executors:
       - image: circleci/node:16
     working_directory: ~/Cider
 
-orbs: # adds orbs to your configuration
+orbs: # Add orbs to your configuration
   jira: circleci/jira@1.0.5 # invokes the Jira orb, making its commands accessible
 
 # The jobs for this project
