@@ -161,18 +161,33 @@ jobs:
 workflows:
   build_and_release:
     jobs:
-      - prepare-build
+      - prepare-build:
+          filters:
+            branches:
+              only: main
       - build-windows:
           requires:
             - prepare-build
+          filters:
+            branches:
+              only: main
       - build-linux:
           requires:
             - prepare-build
+          filters:
+            branches:
+              only: main
       - build-winget:
           requires:
             - prepare-build
+          filters:
+            branches:
+              only: main
       - release:
           requires:
             - build-windows
             - build-linux
             - build-winget
+          filters:
+            branches:
+              only: main
