@@ -1,7 +1,7 @@
 import * as ElectronStore from 'electron-store';
 import * as electron from "electron";
 import {app} from "electron";
-
+import fetch from "electron-fetch";
 export class Store {
     static cfg: ElectronStore;
 
@@ -212,6 +212,11 @@ export class Store {
         },
         "connectUser": {
             "auth": null,
+            "sync": {
+                themes: false,
+                plugins: false,
+                settings: false,
+            }
         },
     }
     private migrations: any = {
@@ -261,6 +266,7 @@ export class Store {
         return target
     }
 
+    
     /**
      * IPC Handler
      */
@@ -281,5 +287,43 @@ export class Store {
             Store.cfg.store = store
         })
     }
+    
+    
+    pushToCloud(): void {
+        if (Store.cfg.get('connectUser.auth') === null) return;
+        var syncData = Object();
+        if (Store.cfg.get('connectUser.sync.themes')) {
+            syncData.push({
+                themes: Store.cfg.store.themes
+            })
+        }
+        if (Store.cfg.get('connectUser.sync.plugins')) {
+            syncData.push({
+                plugins: Store.cfg.store.plugins
+            })
+        }
+    
+        if (Store.cfg.get('connectUser.sync.settings')) {
+            syncData.push({
+                general: Store.cfg.get('general'),
+                home: Store.cfg.get('home'),
+                libraryPrefs: Store.cfg.get('libraryPrefs'),
+                advanced: Store.cfg.get('advanced'),
+            })
+        }
+        let postBody = {
+            id: Store.cfg.get('connectUser.id'),
+            app: electron.app.getName(),
+            version: electron.app.isPackaged ? electron.app.getVersion() : 'dev',
+            syncData: syncData
+        }
 
+        fetch('https://connect.cidercollective.dev/api/v1/setttings/set', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(postBody)
+        })
+    }
 }
