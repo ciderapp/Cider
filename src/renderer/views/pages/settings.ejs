@@ -441,6 +441,30 @@
                                 </label>
                             </div>
                         </div>
+                        <div class="md-option-line" v-show="app.cfg.advanced.AudioContext && app.cfg.audio.normalization">
+                            <div class="md-option-segment">
+                                dB SPL Display
+                                <br>
+                                <small>(Advanced users only) Display dB SPL instead of dBFS on the volume slider.</small>
+                            </div>
+                            <div class="md-option-segment md-option-segment_auto">
+                                <label>
+                                    <input type="checkbox" v-model="app.cfg.audio.dBSPL" switch/>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="md-option-line" v-show="app.cfg.audio.dBSPL">
+                            <div class="md-option-segment">
+                                0 dBFS Calibration
+                                <br>
+                                <small>Enter the peak Z-weighted dB SPL when Cider is at 0 dBFS.</small>
+                            </div>
+                            <div class="md-option-segment md-option-segment_auto">
+                                <label>
+                                    <input type="number" v-model="app.cfg.audio.dBSPLcalibration"/>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </b-tab>

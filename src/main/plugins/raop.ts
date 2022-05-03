@@ -181,7 +181,7 @@ export default class RAOP {
                 this.portairplay = ipport;
                 this.device = this.airtunes.add(ipv4, {
                     port: ipport,
-                    volume: 60,
+                    volume: 50,
                     password: sepassword,
                     txt: txt
                 });

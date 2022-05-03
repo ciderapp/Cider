@@ -123,6 +123,8 @@ export class Store {
             "quality": "HIGH",
             "seamless_audio": true,
             "normalization": false,
+            "dBSPL": false,
+            "dBSPLcalibration": 90,
             "maikiwiAudio": {
                 "ciderPPE": false,
                 "ciderPPE_value": "MAIKIWI",
