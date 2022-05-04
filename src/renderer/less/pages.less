@@ -497,7 +497,17 @@
   flex-direction: column;
   height: 100%;
   overflow: hidden;
-
+  .cd-mediaitem-list-item{
+    &:hover{
+      .heart-icon{
+        display:flex;
+      }
+    }
+    .heart-icon{
+      left: -25px;
+    }
+  }
+  
   .editTracksBtn {
     position: absolute;
     top: 20px;

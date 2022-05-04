@@ -359,7 +359,11 @@
   align-items: center;
   border-radius: var(--mediaItemRadius);
   position: relative;
-
+  &:hover{
+    .heart-icon{
+      display: none;
+    }
+  }
   .popular {
     background-image: url(assets/star.svg);
     background-repeat: no-repeat;
@@ -475,7 +479,7 @@
   .heart-icon {
     display: flex;
     position: absolute;
-    left: -25px;
+    left: 20px;
   }
 
   /* CSS.gg
