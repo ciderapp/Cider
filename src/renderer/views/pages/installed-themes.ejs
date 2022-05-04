@@ -26,7 +26,7 @@
                 </div>
                 <ul class="list-group list-group-flush">
                     <li @click="addStyle(theme.file)" 
-                    @contextmenu="contextMenu"
+                    @contextmenu="contextMenu($event, theme)"
                     class="list-group-item list-group-item-dark"
                         v-for="theme in themes" :value="theme.file"
                         v-if="!$root.cfg.visual.styles.includes(theme.file)">
@@ -34,7 +34,7 @@
                         <b-row>
                             <b-col class="themeLabel">{{theme.name}}</b-col>
                             <b-col sm="auto">
-                                <button @click.stop="contextMenu" class="themeContextMenu codicon codicon-list-unordered"></button>
+                                <button @click.stop="contextMenu($event, theme)" class="themeContextMenu codicon codicon-list-unordered"></button>
                             </b-col>
                         </b-row>
                     </li>
@@ -87,25 +87,24 @@
         mounted() {
             console.log(this.themes)
             this.themeList = [...this.themes]
-            this.themeList.unshift({
-                name: "Acrylic Grain",
-                file: "grain.less"
-            })
-            this.themeList.unshift({
-                name: "Sweetener",
-                file: "sweetener.less"
-            })
-            this.themeList.unshift({
-                name: "Reduce Visuals",
-                file: "reduce_visuals.less"
-            })
-            this.themeList.unshift({
-                name: "Inline Drawer",
-                file: "inline_drawer.less"
-            })
+            // this.themeList.unshift({
+            //     name: "Acrylic Grain",
+            //     file: "grain.less"
+            // })
+            // this.themeList.unshift({
+            //     name: "Sweetener",
+            //     file: "sweetener.less"
+            // })
+            // this.themeList.unshift({
+            //     name: "Reduce Visuals",
+            //     file: "reduce_visuals.less"
+            // })
+            // this.themeList.unshift({
+            //     name: "Inline Drawer",
+            //     file: "inline_drawer.less"
+            // })
         },
         methods: {
-
             gitHubExplore() {
                 this.$root.appRoute("themes-github")
             },
@@ -174,25 +173,56 @@
         mounted() {
             this.themes = ipcRenderer.sendSync("get-themes")
             // this.getRepos();
-            this.getInstalledThemes();
+            this.getThemesList();
             // app.checkForThemeUpdates()
         },
         methods: {
-            contextMenu(event) {
+            getThemesList() {
+                let themes = ipcRenderer.sendSync("get-themes")
+                themes.unshift({
+                    name: "Acrylic Grain",
+                    file: "grain.less"
+                })
+                themes.unshift({
+                    name: "Sweetener",
+                    file: "sweetener.less"
+                })
+                themes.unshift({
+                    name: "Reduce Visuals",
+                    file: "reduce_visuals.less"
+                })
+                themes.unshift({
+                    name: "Inline Drawer",
+                    file: "inline_drawer.less"
+                })
+                this.themes = themes
+            },
+            contextMenu(event, theme) {
+                let self = this
                 let menu = {
-                    items: [{
-                        name: "Uninstall",
-                        action: () => {
-                            
-                        }
-                    },
-                    {
-                        name: "View Info",
-                        action: () => {
-                            
+                    items: {
+                        "uninstall": {
+                            name: "Uninstall",
+                            disabled: true,
+                            action: () => {
+                                console.debug(theme)
+                                ipcRenderer.once("theme-uninstalled", (event, args) => {
+                                    console.debug(event, args)
+                                    self.getThemesList()
+                                })
+                                ipcRenderer.invoke("uninstall-theme", theme.path)
+                            }
+                        },
+                        "viewInfo": {
+                            name: "View Info",
+                            action: () => {
+
+                            }
                         }
                     }
-                    ]
+                }
+                if (theme.path) {
+                    menu.items.uninstall.disabled = false
                 }
                 this.$root.showMenuPanel(menu, event)
             },

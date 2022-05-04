@@ -4,7 +4,7 @@ import * as windowStateKeeper from "electron-window-state";
 import * as express from "express";
 import * as getPort from "get-port";
 import { search } from "youtube-search-without-api-key";
-import { existsSync, rmSync, mkdirSync, readdirSync, readFileSync, writeFileSync, statSync } from "fs";
+import { existsSync, rmSync, mkdirSync, readdirSync, readFileSync, writeFileSync, statSync, unlinkSync, rmdirSync, lstatSync } from "fs";
 import { Stream } from "stream";
 import { networkInterfaces } from "os";
 import * as mm from 'music-metadata';
@@ -261,8 +261,10 @@ export class BrowserWindow {
         },
     };
 
+    public static watcher: any;
+
     StartWatcher(path: string) {
-        const watcher = watch(path, {
+        BrowserWindow.watcher = watch(path, {
             ignored: /[\/\\]\./,
             persistent: true
         });
@@ -272,7 +274,7 @@ export class BrowserWindow {
         }
 
         // Declare the listeners of the watcher
-        watcher
+        BrowserWindow.watcher
             .on('add', function (path: string) {
                 // console.log('File', path, 'has been added');
             })
@@ -297,6 +299,10 @@ export class BrowserWindow {
                 // This event should be triggered everytime something happens.
                 // console.log('Raw event info:', event, path, details);
             });
+    }
+
+    async StopWatcher() {
+        await BrowserWindow.watcher.close();
     }
 
     /**
@@ -701,6 +707,41 @@ export class BrowserWindow {
                 path: wpPath,
                 data: wpData
             };
+        })
+
+        ipcMain.handle("uninstall-theme", async (event, path) => {
+            await this.StopWatcher()
+            const themesDir = utils.getPath("themes")
+            // validate the path is in the themes directory
+            try {
+                if (path.startsWith(themesDir)) {
+                    // if path is directory, delete it
+                    if (lstatSync(path).isDirectory()) {
+                        await rmdirSync(path, { recursive: true });
+                    }else{
+                        // if path is file, delete it
+                        await unlinkSync(path);
+                    }
+                    // return the path
+                    BrowserWindow.win.webContents.send("theme-uninstalled", {
+                        path: path,
+                        status: 0
+                    });
+                }else{
+                    BrowserWindow.win.webContents.send("theme-uninstalled", {
+                        path: path,
+                        status: 1
+                    });
+                }
+            }catch(e: any) {
+                BrowserWindow.win.webContents.send("theme-uninstalled", {
+                    path: path,
+                    message: e.message,
+                    status: 2
+                });
+            }
+
+            this.StartWatcher(utils.getPath('themes'))
         })
 
         ipcMain.handle("reinstall-widevine-cdm", () => {
