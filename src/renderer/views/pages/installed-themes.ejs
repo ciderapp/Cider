@@ -31,19 +31,52 @@
                     <h4>Available</h4>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li @click="addStyle(theme.file)" 
-                    @contextmenu="contextMenu($event, theme)"
-                    class="list-group-item list-group-item-dark"
-                        v-for="theme in themes" :value="theme.file"
-                        v-if="!$root.cfg.visual.styles.includes(theme.file)">
+                    <template v-for="theme in themes">
+                        <li @click="addStyle(theme.file)" 
+                        @contextmenu="contextMenu($event, theme)"
+                        class="list-group-item list-group-item-dark"
+                        :class="{'applied': $root.cfg.visual.styles.includes(theme.file)}">
+                            
+                            <b-row>
+                                <b-col class="themeLabel">{{theme.name}}</b-col>
+                                <template v-if="$root.cfg.visual.styles.includes(theme.file)">
+                                    <b-col sm="auto">
+                                        <button class="themeContextMenu codicon codicon-check"></button>
+                                    </b-col>
+                                </template>
+                                <template v-else>
+                                    <b-col sm="auto" v-if="theme.pack">
+                                        <button class="themeContextMenu codicon codicon-package"></button>
+                                    </b-col>
+                                    <b-col sm="auto">
+                                        <button @click.stop="contextMenu($event, theme)" class="themeContextMenu codicon codicon-list-unordered"></button>
+                                    </b-col>
+                                </template>
+
+                            </b-row>
+                        </li>
+                        <li @click="addStyle(packEntry.file)" 
+                        @contextmenu="contextMenu($event, theme)"
+                        class="list-group-item list-group-item-dark addon"
+                        v-for="packEntry in theme.pack"
+                        :class="{'applied': $root.cfg.visual.styles.includes(packEntry.file)}"
+                        v-if="theme.pack">
                         
                         <b-row>
-                            <b-col class="themeLabel">{{theme.name}}</b-col>
-                            <b-col sm="auto">
-                                <button @click.stop="contextMenu($event, theme)" class="themeContextMenu codicon codicon-list-unordered"></button>
-                            </b-col>
+                            <b-col class="themeLabel">{{packEntry.name}}</b-col>
+                            <template v-if="$root.cfg.visual.styles.includes(packEntry.file)">
+                                <b-col sm="auto">
+                                    <button class="themeContextMenu codicon codicon-check"></button>
+                                </b-col>
+                            </template>
+                            <template v-else>
+                                <b-col sm="auto">
+                                    <button class="themeContextMenu codicon codicon-diff-added"></button>
+                                </b-col>
+                            </template>
                         </b-row>
                     </li>
+                    </template>
                 </ul>
             </div>
 
@@ -53,7 +86,6 @@
                 </div>
                 <stylestack-editor ref="stackEditor"  v-if="themes.length != 0" :themes="themes"/>
             </div>
-            </transition>
         </div>
     </div>
 </script>
@@ -96,22 +128,15 @@
         mounted() {
             console.log(this.themes)
             this.themeList = [...this.themes]
-            // this.themeList.unshift({
-            //     name: "Acrylic Grain",
-            //     file: "grain.less"
-            // })
-            // this.themeList.unshift({
-            //     name: "Sweetener",
-            //     file: "sweetener.less"
-            // })
-            // this.themeList.unshift({
-            //     name: "Reduce Visuals",
-            //     file: "reduce_visuals.less"
-            // })
-            // this.themeList.unshift({
-            //     name: "Inline Drawer",
-            //     file: "inline_drawer.less"
-            // })
+
+            this.themeList.forEach(theme => {
+                if (theme.pack) {
+                    theme.pack.forEach(packEntry => {
+                        packEntry.file = theme.file.replace('index.less', '') + packEntry.file
+                        this.themeList.push(packEntry)
+                    })
+                }
+            })
         },
         methods: {
             gitHubExplore() {
@@ -180,13 +205,11 @@
             }
         },
         mounted() {
-            this.themes = ipcRenderer.sendSync("get-themes")
-            // this.getRepos();
             this.getThemesList();
-            // app.checkForThemeUpdates()
         },
         methods: {
             getThemesList() {
+                let self = this
                 let themes = ipcRenderer.sendSync("get-themes")
                 themes.unshift({
                     name: "Acrylic Grain",

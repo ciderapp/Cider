@@ -868,7 +868,7 @@ export class BrowserWindow {
                     } else if (statSync(join(utils.getPath("themes"), file)).isDirectory()) {
                         let subFiles = readdirSync(join(utils.getPath("themes"), file));
                         for (let subFile of subFiles) {
-                            if (subFile.endsWith(".less")) {
+                            if (subFile.endsWith("index.less")) {
                                 themes.push(join(file, subFile));
                             }
                         }
@@ -894,7 +894,8 @@ export class BrowserWindow {
                             path: themePath,
                             file: theme,
                             github_repo: themeJson.github_repo || "",
-                            commit: themeJson.commit || ""
+                            commit: themeJson.commit || "",
+                            pack: themeJson.pack || false,
                         });
                     } else {
                         themeObjects.push({
@@ -903,7 +904,8 @@ export class BrowserWindow {
                             path: themePath,
                             file: theme,
                             github_repo: "",
-                            commit: ""
+                            commit: "",
+                            pack: false
                         });
                     }
                 }

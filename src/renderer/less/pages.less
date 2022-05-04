@@ -1135,6 +1135,16 @@
     border    : 0px;
   }
 
+  .list-group-item {
+    &.addon {
+      background: rgb(86 86 86 / 20%);
+    }
+    &.applied {
+      background: var(--keyColor-disabled);
+      pointer-events: none;
+    }
+  }
+
   .repo-header {
     font-size      : 16px;
     position       : sticky;
