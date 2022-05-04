@@ -480,20 +480,8 @@
                                 {{$root.getLz('settings.header.visual.theme')}}
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
-                                <label>
-                                    <select class="md-select" @change="$root.setTheme($root.cfg.visual.theme)"
-                                            v-model="$root.cfg.visual.theme">
-                                        <option value="default.less">
-                                            {{$root.getLz('settings.option.visual.theme.default')}}
-                                        </option>
-                                        <option value="dark.less">{{$root.getLz('settings.option.visual.theme.dark')}}
-                                        </option>
-                                        <option v-for="theme in themes" :value="theme.file">{{ theme.name }}</option>
-                                    </select>
-                                </label>
-                                <button class="md-btn md-btn-small md-btn-block" @click="gitHubExplore()"
-                                        style="margin-top: 8px">
-                                    {{$root.getLz('settings.option.visual.theme.github.explore')}}
+                                <button class="md-btn md-btn-block" @click="$root.appRoute('installed-themes')">
+                                    {{$root.getLz('settings.option.visual.theme.manageStyles')}}
                                 </button>
                             </div>
                         </div>
@@ -1216,19 +1204,6 @@
                                 </button>
                             </div>
                         </div>
-
-                        <div class="md-option-line">
-                            <!-- Do not translate -->
-                            <div class="md-option-segment">
-                                Style Editor<br>
-                                <small>Mix and match various theme components to get Cider looking exactly how you
-                                    want.</small>
-                            </div>
-                            <div class="md-option-segment md-option-segment_auto">
-                                <button class="md-btn" @click="app.appRoute('installed-themes')">Manage Styles</button>
-                            </div>
-                        </div>
-
                         <div class="md-option-line">
                             <div class="md-option-segment">
                                 {{$root.getLz('settings.option.experimental.unknownPlugin')}}

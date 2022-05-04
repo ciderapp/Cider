@@ -715,6 +715,15 @@ export class BrowserWindow {
             // validate the path is in the themes directory
             try {
                 if (path.startsWith(themesDir)) {
+                    // get last dir in path, can be either / or \ and may have a trailing slash
+                    const themeName = path.split(/[\\\/]/).pop()
+                    if(themeName == "Themes" || themeName == "themes") {
+                        BrowserWindow.win.webContents.send("theme-uninstalled", {
+                            path: path,
+                            status: 3
+                        });
+                        return
+                    }
                     // if path is directory, delete it
                     if (lstatSync(path).isDirectory()) {
                         await rmdirSync(path, { recursive: true });

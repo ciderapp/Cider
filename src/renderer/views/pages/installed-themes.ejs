@@ -4,19 +4,25 @@
             <div class="row">
                 <div class="col nopadding">
                     <h1 class="header-text">
-                        Manage Styles    
+                        {{ $root.getLz("settings.option.visual.theme.manageStyles") }}    
                     </h1>
                 </div>
-                <div class="col-auto flex-center">
+                <div class="col-auto nopadding flex-center">
+                    <button class="md-btn md-btn-small md-btn-block" @click="$root.appRoute('themes-github')">
+                        {{$root.getLz('settings.option.visual.theme.github.explore')}}
+                    </button>
+                </div>
+                <div class="col-auto  flex-center">
+                    <button class="md-btn md-btn-small md-btn-block" @click="$root.checkForThemeUpdates()">
+                        {{ $root.getLz('settings.option.visual.theme.checkForUpdates') }}
+                    </button>
+                </div>
+                <div class="col-auto nopadding flex-center">
                     <button class="md-btn md-btn-small md-btn-block" @click="openThemesFolder()">
                         {{$root.getLz('settings.option.visual.theme.github.openfolder')}}
                     </button>
                 </div>
-                <div class="col-auto nopadding flex-center">
-                    <button class="md-btn md-btn-small md-btn-block" @click="installThemeURL()">
-                        {{$root.getLz('settings.option.visual.theme.github.download')}}
-                    </button>
-                </div>
+
             </div>
         </div>
         <div class="gh-content">
@@ -61,6 +67,9 @@
                 <draggable class="list-group" v-model="$root.cfg.visual.styles" @end="$root.reloadStyles()">
                     <b-list-group-item variant="dark" v-for="theme in $root.cfg.visual.styles" :key="theme">
                         <b-row>
+                            <b-col sm="auto">
+                                <div class="handle codicon codicon-grabber"></div>
+                            </b-col>
                             <b-col class="themeLabel">{{getThemeName(theme)}}</b-col>
                             <b-col sm="auto">
                                 <button class="removeItem codicon codicon-close" @click="remove(theme)"></button>
@@ -202,19 +211,27 @@
                 let menu = {
                     items: {
                         "uninstall": {
-                            name: "Uninstall",
+                            name: app.getLz("settings.option.visual.theme.uninstall"),
                             disabled: true,
                             action: () => {
-                                console.debug(theme)
-                                ipcRenderer.once("theme-uninstalled", (event, args) => {
-                                    console.debug(event, args)
-                                    self.getThemesList()
+                                bootbox.confirm(app.stringTemplateParser(app.getLz("settings.prompt.visual.theme.uninstallTheme"), {
+                                    theme: theme.name ?? theme.file
+                                }), (res) => {
+                                    if (res) {
+                                        console.debug(theme)
+                                        ipcRenderer.once("theme-uninstalled", (event, args) => {
+                                            console.debug(event, args)
+                                            self.getThemesList()
+                                        })
+                                        ipcRenderer.invoke("uninstall-theme", theme.path)
+                                    }
                                 })
-                                ipcRenderer.invoke("uninstall-theme", theme.path)
+
                             }
                         },
                         "viewInfo": {
-                            name: "View Info",
+                            name: app.getLz("settings.option.visual.theme.viewInfo"),
+                            disabled: true,
                             action: () => {
 
                             }

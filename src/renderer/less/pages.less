@@ -1180,6 +1180,23 @@
       align-items: center;
     }
 
+    .handle {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .list-group-item {
+
+      &:hover {
+        cursor: grab;
+      }
+      &:active {
+        cursor: grabbing;
+      }
+    }
+
     .removeItem {
       border     : 0px;
       background : transparent;

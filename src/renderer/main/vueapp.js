@@ -596,9 +596,7 @@ const app = new Vue({
         },
         async init() {
             let self = this
-            if (this.cfg.visual.theme != "default.less" && this.cfg.visual.theme != "") {
-                this.setTheme(this.cfg.visual.theme)
-            }
+
             if (this.cfg.visual.styles.length != 0) {
                 await this.reloadStyles()
             }
