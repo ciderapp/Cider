@@ -449,19 +449,19 @@
   }
 
   .heart-unfilled {
-    background-image: url("assets/feather/heart.svg");
+    -webkit-mask-image: url("assets/feather/heart.svg");
     height: 12px;
-    width: 36px;
-    filter: contrast(0);
+    width: 12px;
     background-repeat: no-repeat;
+    background-color: #999;
   }
 
   .heart-filled {
-    background-image: url("assets/feather/heart-fill.svg");
+    -webkit-mask-image: url("assets/feather/heart-fill.svg");
     height: 12px;
-    width: 36px;
-    filter: contrast(0);
+    width: 12px;
     background-repeat: no-repeat;
+    background-color: #999;
   }
 
   .explicit-icon {
@@ -473,7 +473,9 @@
   }
 
   .heart-icon {
-    display: flex
+    display: flex;
+    position: absolute;
+    left: -25px;
   }
 
   /* CSS.gg
