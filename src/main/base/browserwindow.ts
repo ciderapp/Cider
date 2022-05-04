@@ -1279,7 +1279,7 @@ export class BrowserWindow {
                 BrowserWindow.win.webContents.executeJavaScript(` 
                 window.localStorage.setItem("currentTrack", JSON.stringify(app.mk.nowPlayingItem));
                 window.localStorage.setItem("currentTime", JSON.stringify(app.mk.currentPlaybackTime));
-                window.localStorage.setItem("currentQueue", JSON.stringify(app.mk.queue.items));
+                window.localStorage.setItem("currentQueue", JSON.stringify(app.mk.queue._unplayedQueueItems));
                 ipcRenderer.send('stopGCast','');`)
                 BrowserWindow.win.destroy();
             }

@@ -706,6 +706,7 @@ const app = new Vue({
                         let lastItem = window.localStorage.getItem("currentTrack")
                         let time = window.localStorage.getItem("currentTime")
                         let queue = window.localStorage.getItem("currentQueue")
+                        app.mk.queue.position = 0; // Reset queue position.
                         if (lastItem != null) {
                             lastItem = JSON.parse(lastItem)
                             let kind = lastItem.attributes.playParams.kind;
@@ -725,7 +726,7 @@ const app = new Vue({
                                         if (queue != null) {
                                             queue = JSON.parse(queue)
                                             if (queue && queue.length > 0) {
-                                                let ids = queue.map(e => (e.playParams ? e.playParams.id : (e.attributes.playParams ? e.attributes.playParams.id : '')))
+                                                let ids = queue.map(e => (e.playParams ? e.playParams.id : (e.item.attributes.playParams ? e.item.attributes.playParams.id : '')))
                                                 let i = 0;
                                                 if (ids.length > 0) {
                                                     for (let id of ids) {
