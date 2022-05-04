@@ -1224,8 +1224,8 @@
                                 <small>Mix and match various theme components to get Cider looking exactly how you
                                     want.</small>
                             </div>
-                            <div class="md-option-segment">
-                                <stylestack-editor :themes="themes"/>
+                            <div class="md-option-segment md-option-segment_auto">
+                                <button class="md-btn" @click="app.appRoute('installed-themes')">Manage Styles</button>
                             </div>
                         </div>
 
@@ -1434,112 +1434,6 @@
             </b-tab>
         </b-tabs>
     </div>
-</script>
-
-<script>
-    // do not translate
-    Vue.component('stylestack-editor', {
-        /*html*/
-        template: `
-            <div class="stylestack-editor">
-                <draggable class="list-group" v-model="$root.cfg.visual.styles" @end="$root.reloadStyles()">
-                    <b-list-group-item variant="dark" v-for="theme in $root.cfg.visual.styles" :key="theme">
-                        <b-row>
-                            <b-col class="themeLabel">{{getThemeName(theme)}}</b-col>
-                            <b-col sm="auto">
-                                <button class="removeItem codicon codicon-close" @click="remove(theme)"></button>
-                            </b-col>
-                        </b-row>
-                        </b-list-group-item>
-                        <b-list-group-item slot="footer" style="-webkit-user-drag: none" variant="dark">
-                            <b-row>
-                                <b-col>
-                                    <b-dropdown class="stylesDropdown" variant="primary" text="Add Style...">
-                                        <b-dropdown-item v-for="theme in themeList" @click="addStyle(theme.file)">{{theme.name}}</b-dropdown-item>
-                                    </b-dropdown>
-                                </b-col>
-                                <b-col>
-                                    <b-btn @click="gitHubExplore()">{{$root.getLz('settings.option.visual.theme.github.explore')}}</b-btn>    
-                                </b-col>
-                            </b-row>
-                        </b-list-group-item>
-                </draggable>    
-            </div>
-        `,
-        props: {
-            themes: {
-                type: Array,
-                default: []
-            }
-        },
-        data: function () {
-            return {
-                selected: null,
-                newTheme: null,
-                themeList: []
-            }
-        },
-        mounted() {
-            this.themeList = [...this.themes]
-            this.themeList.unshift({
-                name: "Acrylic Grain",
-                file: "grain.less"
-            })
-            this.themeList.unshift({
-                name: "Sweetener",
-                file: "sweetener.less"
-            })
-            this.themeList.unshift({
-                name: "Reduce Visuals",
-                file: "reduce_visuals.less"
-            })
-            this.themeList.unshift({
-                name: "Inline Drawer",
-                file: "inline_drawer.less"
-            })
-        },
-        methods: {
-            gitHubExplore() {
-                this.$root.appRoute("themes-github")
-            },
-            getThemeName(filename) {
-                try {
-                    return this.themeList.find(theme => theme.file === filename).name;
-                } catch (e) {
-                    return filename;
-                }
-            },
-            moveUp() {
-                const styles = this.$root.cfg.visual.styles
-                const index = styles.indexOf(this.selected)
-                if (index > 0) {
-                    styles.splice(index, 1)
-                    styles.splice(index - 1, 0, this.selected)
-                }
-                this.$root.reloadStyles()
-            },
-            moveDown() {
-                const styles = this.$root.cfg.visual.styles
-                const index = styles.indexOf(this.selected)
-                if (index < styles.length - 1) {
-                    styles.splice(index, 1)
-                    styles.splice(index + 1, 0, this.selected)
-                }
-                this.$root.reloadStyles()
-            },
-            remove(style) {
-                const styles = this.$root.cfg.visual.styles
-                const index = styles.indexOf(style)
-                styles.splice(index, 1)
-                this.$root.reloadStyles()
-            },
-            addStyle(style) {
-                const styles = this.$root.cfg.visual.styles
-                styles.push(style)
-                this.$root.reloadStyles()
-            }
-        }
-    })
 </script>
 
 <script>

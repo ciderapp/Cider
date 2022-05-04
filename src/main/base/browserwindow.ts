@@ -1,18 +1,18 @@
-import {join} from "path";
-import {app, BrowserWindow as bw, ipcMain, ShareMenu, shell} from "electron";
+import { join } from "path";
+import { app, BrowserWindow as bw, ipcMain, ShareMenu, shell } from "electron";
 import * as windowStateKeeper from "electron-window-state";
 import * as express from "express";
 import * as getPort from "get-port";
-import {search} from "youtube-search-without-api-key";
-import {existsSync, rmSync, mkdirSync, readdirSync, readFileSync, writeFileSync, statSync} from "fs";
-import {Stream} from "stream";
-import {networkInterfaces} from "os";
+import { search } from "youtube-search-without-api-key";
+import { existsSync, rmSync, mkdirSync, readdirSync, readFileSync, writeFileSync, statSync } from "fs";
+import { Stream } from "stream";
+import { networkInterfaces } from "os";
 import * as mm from 'music-metadata';
 import fetch from 'electron-fetch'
-import {wsapi} from "./wsapi";
-import {utils} from './utils';
-import {Plugins} from "./plugins";
-import {watch} from "chokidar";
+import { wsapi } from "./wsapi";
+import { utils } from './utils';
+import { Plugins } from "./plugins";
+import { watch } from "chokidar";
 import * as os from "os";
 import wallpaper from "wallpaper";
 import * as AdmZip from "adm-zip";
@@ -46,6 +46,7 @@ export class BrowserWindow {
                 "pages/library-artists",
                 "pages/browse",
                 "pages/settings",
+                "pages/installed-themes",
                 "pages/listen_now",
                 "pages/home",
                 "pages/artist-feed",
@@ -179,6 +180,10 @@ export class BrowserWindow {
                     component: `<cider-settings></cider-settings>`,
                     condition: `page == 'settings'`
                 }, {
+                    page: "installed-themes",
+                    component: `<installed-themes></installed-themes>`,
+                    condition: `page == 'installed-themes'`
+                }, {
                     page: "search",
                     component: `<cider-search :search="search"></cider-search>`,
                     condition: `page == 'search'`
@@ -241,7 +246,7 @@ export class BrowserWindow {
         show: false,
         // backgroundColor: "#1E1E1E",
         titleBarStyle: 'hidden',
-        trafficLightPosition: {x: 15, y: 20},
+        trafficLightPosition: { x: 15, y: 20 },
         webPreferences: {
             experimentalFeatures: true,
             nodeIntegration: true,
@@ -301,7 +306,7 @@ export class BrowserWindow {
      * @yields {object} Electron browser window
      */
     async createWindow(): Promise<Electron.BrowserWindow> {
-        this.clientPort = await getPort({port: 9000});
+        this.clientPort = await getPort({ port: 9000 });
         BrowserWindow.verifyFiles();
         this.StartWatcher(utils.getPath('themes'));
 
@@ -561,7 +566,7 @@ export class BrowserWindow {
         remote.use(express.static(join(utils.getPath('srcPath'), "./web-remote/")))
         remote.set("views", join(utils.getPath('srcPath'), "./web-remote/views"));
         remote.set("view engine", "ejs");
-        getPort({port: 6942}).then((port: number) => {
+        getPort({ port: 6942 }).then((port: number) => {
             this.remotePort = port;
             // Start Remote Discovery
             this.broadcastRemote()
@@ -634,7 +639,7 @@ export class BrowserWindow {
                     'KHTML, like Gecko) Mobile/17D50 UCBrowser/12.8.2.1268 Mobile AliApp(TUnionSDK/0.1.20.3) '
                     details.requestHeaders['Referer'] = "https://y.qq.com/portal/player.html"
                 }
-                callback({requestHeaders: details.requestHeaders});
+                callback({ requestHeaders: details.requestHeaders });
             }
         );
 
@@ -702,7 +707,7 @@ export class BrowserWindow {
             // remove WidevineCDM from appdata folder
             const widevineCdmPath = join(app.getPath("userData"), "./WidevineCdm");
             if (existsSync(widevineCdmPath)) {
-                rmSync(widevineCdmPath, {recursive: true, force: true})
+                rmSync(widevineCdmPath, { recursive: true, force: true })
             }
             // reinstall WidevineCDM
             app.relaunch()
@@ -978,7 +983,7 @@ export class BrowserWindow {
 
         //Fullscreen
         ipcMain.on('detachDT', (_event, _) => {
-            BrowserWindow.win.webContents.openDevTools({mode: 'detach'});
+            BrowserWindow.win.webContents.openDevTools({ mode: 'detach' });
         })
 
         ipcMain.handle('relaunchApp', (_event, _) => {
@@ -1176,8 +1181,8 @@ export class BrowserWindow {
                     console.log('sc', SoundCheckTag)
                     BrowserWindow.win.webContents.send('SoundCheckTag', SoundCheckTag)
                 }).catch(err => {
-                console.log(err)
-            });
+                    console.log(err)
+                });
         });
 
         ipcMain.on('check-for-update', async (_event) => {
@@ -1215,7 +1220,7 @@ export class BrowserWindow {
             shell.openPath(app.getPath('userData'));
         });
 
-        
+
         //#region Cider Connect
         ipcMain.on('cc-auth', (_event) => {
             shell.openExternal(String(utils.getStoreValue('cc_authURL')));
@@ -1310,10 +1315,10 @@ export class BrowserWindow {
         // Set window Handler
         BrowserWindow.win.webContents.setWindowOpenHandler((x: any) => {
             if (x.url.includes("apple") || x.url.includes("localhost")) {
-                return {action: "allow"};
+                return { action: "allow" };
             }
             shell.openExternal(x.url).catch(console.error);
-            return {action: "deny"};
+            return { action: "deny" };
         });
     }
 
@@ -1369,7 +1374,7 @@ export class BrowserWindow {
             "CtlN": "Cider",
             "iV": "196623"
         };
-        let server2 = mdns.createAdvertisement(x, `${await getPort({port: 3839})}`, {
+        let server2 = mdns.createAdvertisement(x, `${await getPort({ port: 3839 })}`, {
             name: encoded,
             txt: txt_record
         });
