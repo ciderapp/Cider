@@ -1,18 +1,29 @@
-import { join } from "path";
-import { app, BrowserWindow as bw, ipcMain, ShareMenu, shell } from "electron";
+import {join} from "path";
+import {app, BrowserWindow as bw, ipcMain, ShareMenu, shell} from "electron";
 import * as windowStateKeeper from "electron-window-state";
 import * as express from "express";
 import * as getPort from "get-port";
-import { search } from "youtube-search-without-api-key";
-import { existsSync, rmSync, mkdirSync, readdirSync, readFileSync, writeFileSync, statSync, unlinkSync, rmdirSync, lstatSync } from "fs";
-import { Stream } from "stream";
-import { networkInterfaces } from "os";
+import {search} from "youtube-search-without-api-key";
+import {
+    existsSync,
+    rmSync,
+    mkdirSync,
+    readdirSync,
+    readFileSync,
+    writeFileSync,
+    statSync,
+    unlinkSync,
+    rmdirSync,
+    lstatSync
+} from "fs";
+import {Stream} from "stream";
+import {networkInterfaces} from "os";
 import * as mm from 'music-metadata';
 import fetch from 'electron-fetch'
-import { wsapi } from "./wsapi";
-import { utils } from './utils';
-import { Plugins } from "./plugins";
-import { watch } from "chokidar";
+import {wsapi} from "./wsapi";
+import {utils} from './utils';
+import {Plugins} from "./plugins";
+import {watch} from "chokidar";
 import * as os from "os";
 import wallpaper from "wallpaper";
 import * as AdmZip from "adm-zip";
@@ -246,7 +257,7 @@ export class BrowserWindow {
         show: false,
         // backgroundColor: "#1E1E1E",
         titleBarStyle: 'hidden',
-        trafficLightPosition: { x: 15, y: 20 },
+        trafficLightPosition: {x: 15, y: 20},
         webPreferences: {
             experimentalFeatures: true,
             nodeIntegration: true,
@@ -312,7 +323,7 @@ export class BrowserWindow {
      * @yields {object} Electron browser window
      */
     async createWindow(): Promise<Electron.BrowserWindow> {
-        this.clientPort = await getPort({ port: 9000 });
+        this.clientPort = await getPort({port: 9000});
         BrowserWindow.verifyFiles();
         this.StartWatcher(utils.getPath('themes'));
 
@@ -572,7 +583,7 @@ export class BrowserWindow {
         remote.use(express.static(join(utils.getPath('srcPath'), "./web-remote/")))
         remote.set("views", join(utils.getPath('srcPath'), "./web-remote/views"));
         remote.set("view engine", "ejs");
-        getPort({ port: 6942 }).then((port: number) => {
+        getPort({port: 6942}).then((port: number) => {
             this.remotePort = port;
             // Start Remote Discovery
             this.broadcastRemote()
@@ -645,7 +656,7 @@ export class BrowserWindow {
                     'KHTML, like Gecko) Mobile/17D50 UCBrowser/12.8.2.1268 Mobile AliApp(TUnionSDK/0.1.20.3) '
                     details.requestHeaders['Referer'] = "https://y.qq.com/portal/player.html"
                 }
-                callback({ requestHeaders: details.requestHeaders });
+                callback({requestHeaders: details.requestHeaders});
             }
         );
 
@@ -717,7 +728,7 @@ export class BrowserWindow {
                 if (path.startsWith(themesDir)) {
                     // get last dir in path, can be either / or \ and may have a trailing slash
                     const themeName = path.split(/[\\\/]/).pop()
-                    if(themeName == "Themes" || themeName == "themes") {
+                    if (themeName == "Themes" || themeName == "themes") {
                         BrowserWindow.win.webContents.send("theme-uninstalled", {
                             path: path,
                             status: 3
@@ -726,8 +737,8 @@ export class BrowserWindow {
                     }
                     // if path is directory, delete it
                     if (lstatSync(path).isDirectory()) {
-                        await rmdirSync(path, { recursive: true });
-                    }else{
+                        await rmdirSync(path, {recursive: true});
+                    } else {
                         // if path is file, delete it
                         await unlinkSync(path);
                     }
@@ -736,13 +747,13 @@ export class BrowserWindow {
                         path: path,
                         status: 0
                     });
-                }else{
+                } else {
                     BrowserWindow.win.webContents.send("theme-uninstalled", {
                         path: path,
                         status: 1
                     });
                 }
-            }catch(e: any) {
+            } catch (e: any) {
                 BrowserWindow.win.webContents.send("theme-uninstalled", {
                     path: path,
                     message: e.message,
@@ -757,7 +768,7 @@ export class BrowserWindow {
             // remove WidevineCDM from appdata folder
             const widevineCdmPath = join(app.getPath("userData"), "./WidevineCdm");
             if (existsSync(widevineCdmPath)) {
-                rmSync(widevineCdmPath, { recursive: true, force: true })
+                rmSync(widevineCdmPath, {recursive: true, force: true})
             }
             // reinstall WidevineCDM
             app.relaunch()
@@ -887,16 +898,20 @@ export class BrowserWindow {
                         themePath = themePath.slice(0, -10);
                     }
                     if (existsSync(join(themePath, "theme.json"))) {
-                        let themeJson = JSON.parse(readFileSync(join(themePath, "theme.json"), "utf8"));
-                        themeObjects.push({
-                            name: themeJson.name || themeName,
-                            description: themeJson.description || themeDescription,
-                            path: themePath,
-                            file: theme,
-                            github_repo: themeJson.github_repo || "",
-                            commit: themeJson.commit || "",
-                            pack: themeJson.pack || false,
-                        });
+                        try {
+                            let themeJson = JSON.parse(readFileSync(join(themePath, "theme.json"), "utf8"));
+                            themeObjects.push({
+                                name: themeJson.name || themeName,
+                                description: themeJson.description || themeDescription,
+                                path: themePath,
+                                file: theme,
+                                github_repo: themeJson.github_repo || "",
+                                commit: themeJson.commit || "",
+                                pack: themeJson.pack || false,
+                            });
+                        } catch (e) {
+                            console.error(e);
+                        }
                     } else {
                         themeObjects.push({
                             name: themeName,
@@ -1035,7 +1050,7 @@ export class BrowserWindow {
 
         //Fullscreen
         ipcMain.on('detachDT', (_event, _) => {
-            BrowserWindow.win.webContents.openDevTools({ mode: 'detach' });
+            BrowserWindow.win.webContents.openDevTools({mode: 'detach'});
         })
 
         ipcMain.handle('relaunchApp', (_event, _) => {
@@ -1233,8 +1248,8 @@ export class BrowserWindow {
                     console.log('sc', SoundCheckTag)
                     BrowserWindow.win.webContents.send('SoundCheckTag', SoundCheckTag)
                 }).catch(err => {
-                    console.log(err)
-                });
+                console.log(err)
+            });
         });
 
         ipcMain.on('check-for-update', async (_event) => {
@@ -1367,10 +1382,10 @@ export class BrowserWindow {
         // Set window Handler
         BrowserWindow.win.webContents.setWindowOpenHandler((x: any) => {
             if (x.url.includes("apple") || x.url.includes("localhost")) {
-                return { action: "allow" };
+                return {action: "allow"};
             }
             shell.openExternal(x.url).catch(console.error);
-            return { action: "deny" };
+            return {action: "deny"};
         });
     }
 
@@ -1426,7 +1441,7 @@ export class BrowserWindow {
             "CtlN": "Cider",
             "iV": "196623"
         };
-        let server2 = mdns.createAdvertisement(x, `${await getPort({ port: 3839 })}`, {
+        let server2 = mdns.createAdvertisement(x, `${await getPort({port: 3839})}`, {
             name: encoded,
             txt: txt_record
         });
