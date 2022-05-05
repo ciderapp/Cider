@@ -40,6 +40,9 @@
                             <b-row>
                                 <b-col class="themeLabel">{{theme.name}}</b-col>
                                 <template v-if="$root.cfg.visual.styles.includes(theme.file)">
+                                    <b-col sm="auto" v-if="theme.pack">
+                                        <button class="themeContextMenu codicon codicon-package"></button>
+                                    </b-col>
                                     <b-col sm="auto">
                                         <button class="themeContextMenu codicon codicon-check"></button>
                                     </b-col>
