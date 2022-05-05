@@ -52,11 +52,11 @@ export class Store {
             "keybindings": {
                 "search": [
                     process.platform == "darwin" ? "Command" : "Control",
-                    "S"
+                    "F"
                 ],
                 "albums": [
                     process.platform == "darwin" ? "Command" : "Control",
-                    "F"
+                    "S"
                 ],
                 "artists": [
                     process.platform == "darwin" ? "Command" : "Control",
