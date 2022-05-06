@@ -150,6 +150,8 @@ const app = new Vue({
         tmpWidth: '',
         tmpX: '',
         tmpY: '',
+        miniTmpX: '',
+        miniTmpY: '',
         tmpVar: [],
         notification: false,
         chrome: {
@@ -4115,9 +4117,12 @@ const app = new Vue({
                 this.tmpY = window.screenY;
                 ipcRenderer.send('unmaximize');
                 ipcRenderer.send('windowmin', 250, 250)
+                ipcRenderer.send('windowmove', this.miniTmpX, this.miniTmpY)
                 ipcRenderer.send('windowresize', 300, 300, false)
                 app.appMode = 'mini';
             } else {
+                this.miniTmpX = window.screenX;
+                this.miniTmpY = window.screenY;
                 ipcRenderer.send('windowmin', 844, 410)
                 ipcRenderer.send('windowresize', this.tmpWidth, this.tmpHeight, false)
                 ipcRenderer.send('windowmove', this.tmpX, this.tmpY)
