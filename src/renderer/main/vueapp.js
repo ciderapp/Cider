@@ -4117,7 +4117,7 @@ const app = new Vue({
                 this.tmpY = window.screenY;
                 ipcRenderer.send('unmaximize');
                 ipcRenderer.send('windowmin', 250, 250)
-                ipcRenderer.send('windowmove', this.miniTmpX, this.miniTmpY)
+                if (this.miniTmpX !== '' && this.miniTmpY !== '') ipcRenderer.send('windowmove', this.miniTmpX, this.miniTmpY)
                 ipcRenderer.send('windowresize', 300, 300, false)
                 app.appMode = 'mini';
             } else {
