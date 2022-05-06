@@ -148,6 +148,10 @@ const app = new Vue({
         },
         tmpHeight: '',
         tmpWidth: '',
+        tmpX: '',
+        tmpY: '',
+        miniTmpX: '',
+        miniTmpY: '',
         tmpVar: [],
         notification: false,
         chrome: {
@@ -4109,13 +4113,19 @@ const app = new Vue({
             if (flag) {
                 this.tmpWidth = window.innerWidth;
                 this.tmpHeight = window.innerHeight;
+                this.tmpX = window.screenX;
+                this.tmpY = window.screenY;
                 ipcRenderer.send('unmaximize');
                 ipcRenderer.send('windowmin', 250, 250)
+                if (this.miniTmpX !== '' && this.miniTmpY !== '') ipcRenderer.send('windowmove', this.miniTmpX, this.miniTmpY)
                 ipcRenderer.send('windowresize', 300, 300, false)
                 app.appMode = 'mini';
             } else {
+                this.miniTmpX = window.screenX;
+                this.miniTmpY = window.screenY;
                 ipcRenderer.send('windowmin', 844, 410)
                 ipcRenderer.send('windowresize', this.tmpWidth, this.tmpHeight, false)
+                ipcRenderer.send('windowmove', this.tmpX, this.tmpY)
                 ipcRenderer.send('windowontop', false)
                 //this.cfg.visual.miniplayer_top_toggle = true;
                 app.appMode = 'player';
