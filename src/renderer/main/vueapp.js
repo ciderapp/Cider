@@ -1162,8 +1162,10 @@ const app = new Vue({
 
             async function deepScan(parent = "p.playlistsroot") {
                 console.debug(`scanning ${parent}`)
-                const playlistData = await app.mk.api.v3.music(`/v1/me/library/playlist-folders/${parent}/children/`)
-                await asyncForEach(playlistData.data.data, async (playlist) => {
+                // const playlistData = await app.mk.api.v3.music(`/v1/me/library/playlist-folders/${parent}/children/`)
+                const playlistData = await MusicKitTools.v3Continuous({href: `/v1/me/library/playlist-folders/${parent}/children/`})
+                console.log(playlistData)
+                await asyncForEach(playlistData, async (playlist) => {
                     playlist.parent = parent
                     if (
                         playlist.type != "library-playlist-folders" &&
