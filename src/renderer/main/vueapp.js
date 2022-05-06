@@ -839,6 +839,14 @@ const app = new Vue({
                 ipcRenderer.send('wsapi-updatePlaybackState', wsapi.getAttributes());
             })
 
+            this.mk.addEventListener(MusicKit.Events.queueItemsDidChange, ()=>{
+                if (self.$refs.queue) {
+                    setTimeout(()=>{
+                        self.$refs.queue.updateQueue();
+                    }, 100)
+                }
+            })
+
             this.mk.addEventListener(MusicKit.Events.nowPlayingItemDidChange, (a) => {
                 if (self.$refs.queue) {
                     self.$refs.queue.updateQueue();
