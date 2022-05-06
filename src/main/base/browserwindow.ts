@@ -1043,6 +1043,11 @@ export class BrowserWindow {
             BrowserWindow.win.setResizable(!lock);
         });
 
+        // Move window
+        ipcMain.on("windowmove", (_event, x, y) => {
+            BrowserWindow.win.setBounds({x, y});
+        });
+
         //Fullscreen
         ipcMain.on('setFullScreen', (_event, flag) => {
             BrowserWindow.win.setFullScreen(flag)
