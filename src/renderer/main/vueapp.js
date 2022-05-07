@@ -2542,7 +2542,7 @@ const app = new Vue({
                 return
             }
             try {
-                this.radio.personal.title = app.getLz('term.personal')
+                this.radio.personal.title = app.getLz('term.personalStations')
                 this.radio.recent.title = app.getLz('term.recentStations')
                 this.radio.amlive.title = app.getLz('term.amLive')
 
