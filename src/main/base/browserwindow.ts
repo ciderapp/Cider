@@ -342,6 +342,8 @@ export class BrowserWindow {
         });
         this.options.width = windowState.width;
         this.options.height = windowState.height;
+        this.options.x = windowState.x;
+        this.options.y = windowState.y;
 
         switch (process.platform) {
             default:
