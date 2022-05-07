@@ -4,7 +4,18 @@ import * as windowStateKeeper from "electron-window-state";
 import * as express from "express";
 import * as getPort from "get-port";
 import {search} from "youtube-search-without-api-key";
-import {existsSync, rmSync, mkdirSync, readdirSync, readFileSync, writeFileSync, statSync} from "fs";
+import {
+    existsSync,
+    rmSync,
+    mkdirSync,
+    readdirSync,
+    readFileSync,
+    writeFileSync,
+    statSync,
+    unlinkSync,
+    rmdirSync,
+    lstatSync
+} from "fs";
 import {Stream} from "stream";
 import {networkInterfaces} from "os";
 import * as mm from 'music-metadata';
@@ -46,6 +57,7 @@ export class BrowserWindow {
                 "pages/library-artists",
                 "pages/browse",
                 "pages/settings",
+                "pages/installed-themes",
                 "pages/listen_now",
                 "pages/home",
                 "pages/artist-feed",
@@ -179,6 +191,10 @@ export class BrowserWindow {
                     component: `<cider-settings></cider-settings>`,
                     condition: `page == 'settings'`
                 }, {
+                    page: "installed-themes",
+                    component: `<installed-themes></installed-themes>`,
+                    condition: `page == 'installed-themes'`
+                }, {
                     page: "search",
                     component: `<cider-search :search="search"></cider-search>`,
                     condition: `page == 'search'`
@@ -256,8 +272,10 @@ export class BrowserWindow {
         },
     };
 
+    public static watcher: any;
+
     StartWatcher(path: string) {
-        const watcher = watch(path, {
+        BrowserWindow.watcher = watch(path, {
             ignored: /[\/\\]\./,
             persistent: true
         });
@@ -267,7 +285,7 @@ export class BrowserWindow {
         }
 
         // Declare the listeners of the watcher
-        watcher
+        BrowserWindow.watcher
             .on('add', function (path: string) {
                 // console.log('File', path, 'has been added');
             })
@@ -294,6 +312,10 @@ export class BrowserWindow {
             });
     }
 
+    async StopWatcher() {
+        await BrowserWindow.watcher.close();
+    }
+
     /**
      * Creates the browser window
      * @generator
@@ -313,6 +335,8 @@ export class BrowserWindow {
         });
         this.options.width = windowState.width;
         this.options.height = windowState.height;
+        this.options.x = windowState.x;
+        this.options.y = windowState.y;
 
         switch (process.platform) {
             default:
@@ -698,6 +722,50 @@ export class BrowserWindow {
             };
         })
 
+        ipcMain.handle("uninstall-theme", async (event, path) => {
+            await this.StopWatcher()
+            const themesDir = utils.getPath("themes")
+            // validate the path is in the themes directory
+            try {
+                if (path.startsWith(themesDir)) {
+                    // get last dir in path, can be either / or \ and may have a trailing slash
+                    const themeName = path.split(/[\\\/]/).pop()
+                    if (themeName == "Themes" || themeName == "themes") {
+                        BrowserWindow.win.webContents.send("theme-uninstalled", {
+                            path: path,
+                            status: 3
+                        });
+                        return
+                    }
+                    // if path is directory, delete it
+                    if (lstatSync(path).isDirectory()) {
+                        await rmdirSync(path, {recursive: true});
+                    } else {
+                        // if path is file, delete it
+                        await unlinkSync(path);
+                    }
+                    // return the path
+                    BrowserWindow.win.webContents.send("theme-uninstalled", {
+                        path: path,
+                        status: 0
+                    });
+                } else {
+                    BrowserWindow.win.webContents.send("theme-uninstalled", {
+                        path: path,
+                        status: 1
+                    });
+                }
+            } catch (e: any) {
+                BrowserWindow.win.webContents.send("theme-uninstalled", {
+                    path: path,
+                    message: e.message,
+                    status: 2
+                });
+            }
+
+            this.StartWatcher(utils.getPath('themes'))
+        })
+
         ipcMain.handle("reinstall-widevine-cdm", () => {
             // remove WidevineCDM from appdata folder
             const widevineCdmPath = join(app.getPath("userData"), "./WidevineCdm");
@@ -813,7 +881,7 @@ export class BrowserWindow {
                     } else if (statSync(join(utils.getPath("themes"), file)).isDirectory()) {
                         let subFiles = readdirSync(join(utils.getPath("themes"), file));
                         for (let subFile of subFiles) {
-                            if (subFile.endsWith(".less")) {
+                            if (subFile.endsWith("index.less")) {
                                 themes.push(join(file, subFile));
                             }
                         }
@@ -832,15 +900,20 @@ export class BrowserWindow {
                         themePath = themePath.slice(0, -10);
                     }
                     if (existsSync(join(themePath, "theme.json"))) {
-                        let themeJson = JSON.parse(readFileSync(join(themePath, "theme.json"), "utf8"));
-                        themeObjects.push({
-                            name: themeJson.name || themeName,
-                            description: themeJson.description || themeDescription,
-                            path: themePath,
-                            file: theme,
-                            github_repo: themeJson.github_repo || "",
-                            commit: themeJson.commit || ""
-                        });
+                        try {
+                            let themeJson = JSON.parse(readFileSync(join(themePath, "theme.json"), "utf8"));
+                            themeObjects.push({
+                                name: themeJson.name || themeName,
+                                description: themeJson.description || themeDescription,
+                                path: themePath,
+                                file: theme,
+                                github_repo: themeJson.github_repo || "",
+                                commit: themeJson.commit || "",
+                                pack: themeJson.pack || false,
+                            });
+                        } catch (e) {
+                            console.error(e);
+                        }
                     } else {
                         themeObjects.push({
                             name: themeName,
@@ -848,7 +921,8 @@ export class BrowserWindow {
                             path: themePath,
                             file: theme,
                             github_repo: "",
-                            commit: ""
+                            commit: "",
+                            pack: false
                         });
                     }
                 }
@@ -969,6 +1043,11 @@ export class BrowserWindow {
         ipcMain.on("windowresize", (_event, width, height, lock = false) => {
             BrowserWindow.win.setContentSize(width, height);
             BrowserWindow.win.setResizable(!lock);
+        });
+
+        // Move window
+        ipcMain.on("windowmove", (_event, x, y) => {
+            BrowserWindow.win.setBounds({x, y});
         });
 
         //Fullscreen
@@ -1215,7 +1294,7 @@ export class BrowserWindow {
             shell.openPath(app.getPath('userData'));
         });
 
-        
+
         //#region Cider Connect
         ipcMain.on('cc-auth', (_event) => {
             shell.openExternal(String(utils.getStoreValue('cc_authURL')));
@@ -1279,7 +1358,7 @@ export class BrowserWindow {
                 BrowserWindow.win.webContents.executeJavaScript(` 
                 window.localStorage.setItem("currentTrack", JSON.stringify(app.mk.nowPlayingItem));
                 window.localStorage.setItem("currentTime", JSON.stringify(app.mk.currentPlaybackTime));
-                window.localStorage.setItem("currentQueue", JSON.stringify(app.mk.queue.items));
+                window.localStorage.setItem("currentQueue", JSON.stringify(app.mk.queue._unplayedQueueItems));
                 ipcRenderer.send('stopGCast','');`)
                 BrowserWindow.win.destroy();
             }

@@ -82,7 +82,7 @@
                         <button class="volume-button--small volume" @click="app.muteButtonPressed()" :class="{'active': app.cfg.audio.volume == 0}"></button>
                         <input type="range" class="slider" @wheel="app.volumeWheel" :step="app.cfg.audio.volumeStep" min="0" :max="app.cfg.audio.maxVolume" v-model="app.mk.volume"
                                v-if="typeof app.mk.volume != 'undefined'" @change="app.checkMuteChange()"
-                               v-b-tooltip.hover :title="`${(Math.log10(app.mk.volume) * 20).toFixed(2)} dB`">
+                               v-b-tooltip.hover :title="$root.formatVolumeTooltip()">
                         </div>       
                     </div>
                     </div>
