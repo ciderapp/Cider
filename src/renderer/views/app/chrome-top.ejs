@@ -134,7 +134,7 @@
                         :class="{'active': this.cfg.audio.volume == 0}"></button>
                 <input type="range" @wheel="volumeWheel" :step="cfg.audio.volumeStep" min="0" :max="cfg.audio.maxVolume"
                        v-model="mk.volume" v-if="typeof mk.volume != 'undefined'" @change="checkMuteChange()"
-                       v-b-tooltip.hover :title="`${(Math.log10(mk.volume) * 20).toFixed(2)} dB`">
+                       v-b-tooltip.hover :title="formatVolumeTooltip()">
             </div>
             <div class="app-chrome-item generic">
                 <button class="playback-button--small miniplayer"

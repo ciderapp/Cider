@@ -42,7 +42,7 @@
     "airtunes2": "git+https://github.com/vapormusic/node_airtunes2.git#hap",
     "castv2-client": "^1.2.0",
     "chokidar": "^3.5.3",
-    "discord-rpc": "^4.0.1",
+    "discord-auto-rpc": "^1.0.16",
     "dns-js": "git+https://github.com/ciderapp/node-dns-js.git",
     "ejs": "^3.1.6",
     "electron-fetch": "^1.7.4",
@@ -82,7 +82,7 @@
     "electron-builder-notarize-pkg": "^1.2.0",
     "electron-webpack": "^2.8.2",
     "musickit-typescript": "^1.2.4",
-    "typescript": "^4.6.3",
+    "typescript": "^4.6.4",
     "vue-devtools": "^5.1.4",
     "webpack": "~5.72.0"
   },
@@ -109,9 +109,9 @@
     }
   ],
   "build": {
-    "electronVersion": "18.2.0",
+    "electronVersion": "18.2.1",
     "electronDownload": {
-      "version": "18.2.0+wvcus",
+      "version": "18.2.1+wvcus",
       "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
     },
     "appId": "cider",

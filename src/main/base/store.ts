@@ -52,11 +52,11 @@ export class Store {
             "keybindings": {
                 "search": [
                     process.platform == "darwin" ? "Command" : "Control",
-                    "S"
+                    "F"
                 ],
                 "albums": [
                     process.platform == "darwin" ? "Command" : "Control",
-                    "F"
+                    "S"
                 ],
                 "artists": [
                     process.platform == "darwin" ? "Command" : "Control",
@@ -123,6 +123,8 @@ export class Store {
             "quality": "HIGH",
             "seamless_audio": true,
             "normalization": false,
+            "dBSPL": false,
+            "dBSPLcalibration": 90,
             "maikiwiAudio": {
                 "ciderPPE": false,
                 "ciderPPE_value": "MAIKIWI",

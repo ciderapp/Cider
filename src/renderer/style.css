@@ -12944,6 +12944,7 @@ body[platform='darwin'] #window-controls-container {
 }
 body[platform='darwin'] .app-chrome .app-chrome-item > .app-mainmenu {
   opacity: 0;
+  width: 52px;
   pointer-events: none;
   -webkit-app-region: drag;
 }

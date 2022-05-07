@@ -148,6 +148,10 @@ const app = new Vue({
         },
         tmpHeight: '',
         tmpWidth: '',
+        tmpX: '',
+        tmpY: '',
+        miniTmpX: '',
+        miniTmpY: '',
         tmpVar: [],
         notification: false,
         chrome: {
@@ -283,6 +287,9 @@ const app = new Vue({
                     }
                 }
             }
+        },
+        formatVolumeTooltip() {
+            return this.cfg.audio.dBSPL ? (Number(this.cfg.audio.dBSPLcalibration) + (Math.log10(this.mk.volume) * 20)).toFixed(2) + ' dB SPL' : (Math.log10(this.mk.volume) * 20).toFixed(2) + ' dBFS'
         },
         mainMenuVisibility(val) {
             if (val) {
@@ -593,9 +600,7 @@ const app = new Vue({
         },
         async init() {
             let self = this
-            if (this.cfg.visual.theme != "default.less" && this.cfg.visual.theme != "") {
-                this.setTheme(this.cfg.visual.theme)
-            }
+
             if (this.cfg.visual.styles.length != 0) {
                 await this.reloadStyles()
             }
@@ -703,6 +708,7 @@ const app = new Vue({
                         let lastItem = window.localStorage.getItem("currentTrack")
                         let time = window.localStorage.getItem("currentTime")
                         let queue = window.localStorage.getItem("currentQueue")
+                        app.mk.queue.position = 0; // Reset queue position.
                         if (lastItem != null) {
                             lastItem = JSON.parse(lastItem)
                             let kind = lastItem.attributes.playParams.kind;
@@ -722,7 +728,7 @@ const app = new Vue({
                                         if (queue != null) {
                                             queue = JSON.parse(queue)
                                             if (queue && queue.length > 0) {
-                                                let ids = queue.map(e => (e.playParams ? e.playParams.id : (e.attributes.playParams ? e.attributes.playParams.id : '')))
+                                                let ids = queue.map(e => (e.playParams ? e.playParams.id : (e.item.attributes.playParams ? e.item.attributes.playParams.id : '')))
                                                 let i = 0;
                                                 if (ids.length > 0) {
                                                     for (let id of ids) {
@@ -831,6 +837,14 @@ const app = new Vue({
                 self.playerLCD.playbackDuration = (self.mk.currentPlaybackTime)
                 // wsapi
                 ipcRenderer.send('wsapi-updatePlaybackState', wsapi.getAttributes());
+            })
+
+            this.mk.addEventListener(MusicKit.Events.queueItemsDidChange, ()=>{
+                if (self.$refs.queue) {
+                    setTimeout(()=>{
+                        self.$refs.queue.updateQueue();
+                    }, 100)
+                }
             })
 
             this.mk.addEventListener(MusicKit.Events.nowPlayingItemDidChange, (a) => {
@@ -1148,8 +1162,10 @@ const app = new Vue({
 
             async function deepScan(parent = "p.playlistsroot") {
                 console.debug(`scanning ${parent}`)
-                const playlistData = await app.mk.api.v3.music(`/v1/me/library/playlist-folders/${parent}/children/`)
-                await asyncForEach(playlistData.data.data, async (playlist) => {
+                // const playlistData = await app.mk.api.v3.music(`/v1/me/library/playlist-folders/${parent}/children/`)
+                const playlistData = await MusicKitTools.v3Continuous({href: `/v1/me/library/playlist-folders/${parent}/children/`})
+                console.log(playlistData)
+                await asyncForEach(playlistData, async (playlist) => {
                     playlist.parent = parent
                     if (
                         playlist.type != "library-playlist-folders" &&
@@ -4107,13 +4123,19 @@ const app = new Vue({
             if (flag) {
                 this.tmpWidth = window.innerWidth;
                 this.tmpHeight = window.innerHeight;
+                this.tmpX = window.screenX;
+                this.tmpY = window.screenY;
                 ipcRenderer.send('unmaximize');
                 ipcRenderer.send('windowmin', 250, 250)
+                if (this.miniTmpX !== '' && this.miniTmpY !== '') ipcRenderer.send('windowmove', this.miniTmpX, this.miniTmpY)
                 ipcRenderer.send('windowresize', 300, 300, false)
                 app.appMode = 'mini';
             } else {
+                this.miniTmpX = window.screenX;
+                this.miniTmpY = window.screenY;
                 ipcRenderer.send('windowmin', 844, 410)
                 ipcRenderer.send('windowresize', this.tmpWidth, this.tmpHeight, false)
+                ipcRenderer.send('windowmove', this.tmpX, this.tmpY)
                 ipcRenderer.send('windowontop', false)
                 //this.cfg.visual.miniplayer_top_toggle = true;
                 app.appMode = 'player';
