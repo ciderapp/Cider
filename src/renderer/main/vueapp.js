@@ -42,7 +42,9 @@ const app = new Vue({
         listennow: [],
         madeforyou: [],
         radio: {
-            personal: []
+            personal: {},
+            recent: {},
+            amlive: {},
         },
         mklang: 'en',
         webview: {
@@ -322,6 +324,7 @@ const app = new Vue({
             try {
                 this.listennow.timestamp = 0;
                 this.browsepage.timestamp = 0;
+                this.radio.timestamp = 0;
             } catch (e) { }
         },
         /**
@@ -2532,15 +2535,39 @@ const app = new Vue({
             }
         },
         async getRadioStations(attempt = 0) {
+            if (this.radio.timestamp > Date.now() - 120000) {
+                return
+            }
             if (attempt > 3) {
                 return
             }
             try {
-                this.radio.personal = (await app.mk.api.v3.music(`/v1/me/recent/radio-stations`, {
+                this.radio.personal.title = app.getLz('term.personalStations')
+                this.radio.recent.title = app.getLz('term.recentStations')
+                this.radio.amlive.title = app.getLz('term.amLive')
+
+                app.mk.api.v3.music(`/v1/catalog/${app.mk.api.v3.storefrontId}/stations`, {
+                    "filter[identity]": "personal",
+                }).then(res => {
+                     this.radio.personal.data = res.data.data
+                })
+
+                app.mk.api.v3.music(`/v1/me/recent/radio-stations`, {
                     "platform": "web",
                     "art[url]": "f",
                     l: this.mklang
-                })).data.data;
+                }).then(res => {
+                    this.radio.recent.data = res.data.data
+                })
+
+                app.mk.api.v3.music(`/v1/catalog/${app.mk.api.v3.storefrontId}/stations`, {
+                    "filter[featured]": "apple-music-live-radio",
+                }).then(res => {
+                    this.radio.amlive.data = res.data.data
+                })
+
+                this.radio.timestamp = Date.now()
+                console.debug(this.radio)
             } catch (e) {
                 console.log(e)
                 this.getRadioStations(attempt + 1)

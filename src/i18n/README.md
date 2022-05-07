@@ -337,4 +337,6 @@ Update 29/04/2022 00:00 UTC
  * `menubar.options.license`: Added for `en_US`
  * `menubar.options.conf`: Added for `en_US` 
 
-
+Update 07/05/2022 04:00 UTC
+* `term.personalStations`: Added for `en_US`
+  `term.amLive`: Added for `en_US`
