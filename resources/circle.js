@@ -1,53 +1,46 @@
-
-
 if (!process.env['CIRCLECI']) {
-    console.log(`[CIRCLECI SCRIPT] CircleCI not found... Aborting script`)
-    return
+	console.log(`[CIRCLECI SCRIPT] CircleCI not found... Aborting script`)
+	return
 }
 
-let fs = require('fs')
+const {readFileSync, writeFile} = require('fs')
+const pkg = JSON.parse(readFileSync('package.json').toString());
 
+let channel = process.env['CIRCLE_BRANCH'];
 
-var data = fs.readFileSync('package.json');
-var package = JSON.parse(data);
-
-
-
-let channel;
 if (process.env['CIRCLE_BRANCH'] === 'lts') {
-    channel = 'latest'
+	channel = 'latest'
 } else if (process.env['CIRCLE_BRANCH'] === 'main') {
-    channel = 'beta'
+	channel = 'beta'
 } else if (process.env['CIRCLE_BRANCH'] === 'develop') {
-    channel = 'alpha'
-} else {
-    channel = process.env['CIRCLE_BRANCH'] // It won't have auto update support
+	channel = 'alpha'
 }
 
-
+channel = channel.split('/').join('-')
 
 // https://circleci.com/docs/2.0/env-vars/#built-in-environment-variables
-var pvers = package.version.split('.')
-package.version = `${pvers[0]}.${pvers[1]}.${pvers[2]}-${channel}.${process.env['CIRCLE_BUILD_NUM']}`
+const version = pkg.version.split('.');
+pkg.version = `${version[0]}.${version[1]}.${version[2]}-${channel}`
 // package.build.channel = channel
-package.publish = {
-    "provider": "github",
-    "repo": "cider-releases",
-    "owner": "ciderapp",
-    "vPrefixedTagName": true,
-    "tag": `v${package.version}`,
-    "channel": channel,
-    "releaseType": "release"
+pkg.publish = {
+	"provider": "github",
+	"repo": "cider-releases",
+	"owner": "ciderapp",
+	"vPrefixedTagName": true,
+	"tag": `v${pkg.version}`,
+	"channel": channel,
+	"releaseType": "release"
 }
 
-let {exec} = require('child_process')
-exec('echo $APP_VERSION', {env: {'APP_VERSION': package.version}}, function (error, stdout, stderr)
-{
-    console.log(stdout, stderr, error);
+const {exec} = require('child_process')
+
+exec('echo $APP_VERSION', {env: {'APP_VERSION': pkg.version}}, function (error, stdout, stderr) {
+	console.log(stdout, stderr, error);
 });
-fs.writeFile('package.json', JSON.stringify(package), err => {
-    // error checking
-    if(err) throw err;
-    console.log(`VERSION CHANGED TO ${package.version}`);
+
+writeFile('package.json', JSON.stringify(pkg), err => {
+	// error checking
+	if (err) throw err;
+	console.log(`VERSION CHANGED TO ${pkg.version}`);
 });
 
