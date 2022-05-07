@@ -298,4 +298,6 @@ Update 28/04/2022 21:45 UTC
 * `settings.option.general.resumetabs.dynamic`: Added for `en_US`
 * `settings.option.general.resumetabs.dynamic.description`: Added for `en_US`
 
-
+Update 07/05/2022 04:00 UTC
+* `term.personalStations`: Added for `en_US`
+  `term.amLive`: Added for `en_US`
