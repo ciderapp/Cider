@@ -235,6 +235,7 @@ const app = new Vue({
             pages: [],
         },
         moreinfodata: [],
+        notyf: notyf
     },
     watch: {
         cfg: {

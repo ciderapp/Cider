@@ -330,6 +330,7 @@
   "settings.option.audio.audioLab.description": "An assortment of in-house developed audio effects for Cider.",
   "settings.option.audio.audioLab.subheader":  "Designed by Cider Acoustic Technologies in California",
   "settings.warn.audioLab.withoutAF": "AudioContext (Advanced Functionality) is required to enable Cider Audio Laboratory.",
+  "settings.warn.enableAdvancedFunctionality": "AudioContext (Advanced Functionality) is required to enable this feature.",
   "settings.option.audio.enableAdvancedFunctionality.analogWarmth": "Analog Warmth",
   "settings.option.audio.enableAdvancedFunctionality.analogWarmth.description": "Simulates the analog warmth modelled after the Korg Nutube 6P1",
   "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity": "Analog Warmth intensity",
