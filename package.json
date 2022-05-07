@@ -29,6 +29,7 @@
     "dist:macarm": "yarn build && electron-builder --mac --arm64",
     "dist:universalNotWorking": "yarn build && electron-builder --mac --universal",
     "dist:all": "yarn build && electron-builder -mwl",
+    "testdist": "yarn build && electron-builder --dir",
     "winget": "yarn build && electron-builder --win -c winget.json",
     "msft": "yarn build && electron-builder -c msft-package.json",
     "mstest": "yarn build && electron-builder -c msft-test.json",
