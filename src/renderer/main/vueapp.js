@@ -1134,28 +1134,31 @@ const app = new Vue({
                 }
             })
         },
-        async refreshPlaylists(localOnly = false) {
+        async refreshPlaylists(localOnly = false, useCachedPlaylists = true) {
             let self = this
             let trackMap = this.cfg.advanced.playlistTrackMapping
             let newListing = []
             let trackMapping = {}
-            const cachedPlaylist = await CiderCache.getCache("library-playlists")
-            const cachedTrackMapping = await CiderCache.getCache("library-playlists-tracks")
+            
+            if (useCachedPlaylists) {
+                const cachedPlaylist = await CiderCache.getCache("library-playlists")
+                const cachedTrackMapping = await CiderCache.getCache("library-playlists-tracks")
 
-            if (cachedPlaylist) {
-                console.debug("using cached playlists")
-                this.playlists.listing = cachedPlaylist
-                self.sortPlaylists()
-            } else {
-                console.debug("playlist has no cache")
-            }
+                if (cachedPlaylist) {
+                    console.debug("using cached playlists")
+                    this.playlists.listing = cachedPlaylist
+                    self.sortPlaylists()
+                } else {
+                    console.debug("playlist has no cache")
+                }
 
-            if (cachedTrackMapping) {
-                console.debug("using cached track mapping")
-                this.playlists.trackMapping = cachedTrackMapping
-            }
-            if (localOnly) {
-                return
+                if (cachedTrackMapping) {
+                    console.debug("using cached track mapping")
+                    this.playlists.trackMapping = cachedTrackMapping
+                }
+                if (localOnly) {
+                    return
+                }
             }
 
             this.library.backgroundNotification.message = "Building playlist cache..."
@@ -1260,7 +1263,7 @@ const app = new Vue({
                 }
             }
             ).then(res => {
-                self.refreshPlaylists()
+                self.refreshPlaylists(false, false)
             })
         },
         async editPlaylist(id, name = app.getLz('term.newPlaylist')) {
@@ -1275,7 +1278,7 @@ const app = new Vue({
                 }
             }
             ).then(res => {
-                self.refreshPlaylists()
+                self.refreshPlaylists(false, false)
             })
         },
         copyToClipboard(str) {
@@ -1319,7 +1322,7 @@ const app = new Vue({
                 })
                 self.sortPlaylists()
                 setTimeout(() => {
-                    app.refreshPlaylists()
+                    app.refreshPlaylists(false, false)
                 }, 8000)
             })
         },
@@ -1336,6 +1339,9 @@ const app = new Vue({
                     if (found) {
                         self.playlists.listing.splice(self.playlists.listing.indexOf(found), 1)
                     }
+                    setTimeout(() => {
+                        app.refreshPlaylists(false, false);
+                    }, 8000);
                 })
             }
         },
@@ -2581,7 +2587,7 @@ const app = new Vue({
                 })
                 self.sortPlaylists()
                 setTimeout(() => {
-                    app.refreshPlaylists()
+                    app.refreshPlaylists(false, false)
                 }, 13000)
             })
         },
