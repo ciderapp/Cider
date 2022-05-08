@@ -359,7 +359,11 @@
   align-items: center;
   border-radius: var(--mediaItemRadius);
   position: relative;
-
+  &:hover{
+    .heart-icon{
+      display: none;
+    }
+  }
   .popular {
     background-image: url(assets/star.svg);
     background-repeat: no-repeat;
@@ -448,12 +452,34 @@
     justify-content: center;
   }
 
+  .heart-unfilled {
+    -webkit-mask-image: url("assets/feather/heart.svg");
+    height: 12px;
+    width: 12px;
+    background-repeat: no-repeat;
+    background-color: #999;
+  }
+
+  .heart-filled {
+    -webkit-mask-image: url("assets/feather/heart-fill.svg");
+    height: 12px;
+    width: 12px;
+    background-repeat: no-repeat;
+    background-color: #999;
+  }
+
   .explicit-icon {
     background-image: url("./assets/explicit.svg");
     height: 12px;
     width: 36px;
     filter: contrast(0);
     background-repeat: no-repeat;
+  }
+
+  .heart-icon {
+    display: flex;
+    position: absolute;
+    left: 20px;
   }
 
   /* CSS.gg

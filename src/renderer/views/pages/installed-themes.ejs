@@ -1,0 +1,368 @@
+<script type="text/x-template" id="installed-themes">
+    <div class="content-inner github-themes-page installed-themes-page">
+        <div class="gh-header">
+            <div class="row">
+                <div class="col nopadding">
+                    <h1 class="header-text">
+                        {{ $root.getLz("settings.option.visual.theme.manageStyles") }}    
+                    </h1>
+                </div>
+                <div class="col-auto nopadding flex-center">
+                    <button class="md-btn md-btn-small md-btn-block" @click="$root.appRoute('themes-github')">
+                        {{$root.getLz('settings.option.visual.theme.github.explore')}}
+                    </button>
+                </div>
+                <div class="col-auto  flex-center">
+                    <button class="md-btn md-btn-small md-btn-block" @click="$root.checkForThemeUpdates()">
+                        {{ $root.getLz('settings.option.visual.theme.checkForUpdates') }}
+                    </button>
+                </div>
+                <div class="col-auto nopadding flex-center">
+                    <button class="md-btn md-btn-small md-btn-block" @click="openThemesFolder()">
+                        {{$root.getLz('settings.option.visual.theme.github.openfolder')}}
+                    </button>
+                </div>
+
+            </div>
+        </div>
+        <div class="gh-content">
+            <div class="repos-list">
+                <div class="repo-header">
+                    <h4>{{$root.getLz('settings.option.visual.theme.github.available')}}</h4>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <template v-for="theme in themes">
+                        <li @click="addStyle(theme.file)" 
+                        @contextmenu="contextMenu($event, theme)"
+                        class="list-group-item list-group-item-dark"
+                        :class="{'applied': $root.cfg.visual.styles.includes(theme.file)}">
+                            
+                            <b-row>
+                                <b-col class="themeLabel">{{theme.name}}</b-col>
+                                <template v-if="$root.cfg.visual.styles.includes(theme.file)">
+                                    <b-col sm="auto" v-if="theme.pack">
+                                        <button class="themeContextMenu codicon codicon-package"></button>
+                                    </b-col>
+                                    <b-col sm="auto">
+                                        <button class="themeContextMenu codicon codicon-check"></button>
+                                    </b-col>
+                                </template>
+                                <template v-else>
+                                    <b-col sm="auto" v-if="theme.pack">
+                                        <button class="themeContextMenu codicon codicon-package"></button>
+                                    </b-col>
+                                    <b-col sm="auto">
+                                        <button @click.stop="contextMenu($event, theme)" class="themeContextMenu codicon codicon-list-unordered"></button>
+                                    </b-col>
+                                </template>
+
+                            </b-row>
+                        </li>
+                        <li @click="addStyle(packEntry.file)" 
+                        @contextmenu="contextMenu($event, theme)"
+                        class="list-group-item list-group-item-dark addon"
+                        v-for="packEntry in theme.pack"
+                        :class="{'applied': $root.cfg.visual.styles.includes(packEntry.file)}"
+                        v-if="theme.pack">
+                        
+                        <b-row>
+                            <b-col class="themeLabel">{{packEntry.name}}</b-col>
+                            <template v-if="$root.cfg.visual.styles.includes(packEntry.file)">
+                                <b-col sm="auto">
+                                    <button class="themeContextMenu codicon codicon-check"></button>
+                                </b-col>
+                            </template>
+                            <template v-else>
+                                <b-col sm="auto">
+                                    <button class="themeContextMenu codicon codicon-diff-added"></button>
+                                </b-col>
+                            </template>
+                        </b-row>
+                    </li>
+                    </template>
+                </ul>
+            </div>
+
+            <div class="style-editor-container">
+                <div class="repo-header">
+                    <h4>{{ $root.getLz("settings.option.visual.theme.github.applied") }} </h4>
+                </div>
+                <stylestack-editor ref="stackEditor"  v-if="themes.length != 0" :themes="themes"/>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script>
+    // do not translate
+    Vue.component('stylestack-editor', {
+        /*html*/
+        template: `
+            <div class="stylestack-editor" >
+                <draggable class="list-group" v-model="$root.cfg.visual.styles" @end="$root.reloadStyles()">
+                    <b-list-group-item variant="dark" v-for="theme in $root.cfg.visual.styles" :key="theme">
+                        <b-row>
+                            <b-col sm="auto">
+                                <div class="handle codicon codicon-grabber"></div>
+                            </b-col>
+                            <b-col class="themeLabel">{{getThemeName(theme)}}</b-col>
+                            <b-col sm="auto">
+                                <button class="removeItem codicon codicon-close" @click="remove(theme)"></button>
+                            </b-col>
+                        </b-row>
+                        </b-list-group-item>
+                </draggable>    
+            </div>
+        `,
+        props: {
+            themes: {
+                type: Array,
+                default: [],
+                required: true
+            }
+        },
+        data: function () {
+            return {
+                selected: null,
+                newTheme: null,
+                themeList: []
+            }
+        },
+        mounted() {
+            console.log(this.themes)
+            this.themeList = [...this.themes]
+
+            this.themeList.forEach(theme => {
+                if (theme.pack) {
+                    theme.pack.forEach(packEntry => {
+                        packEntry.file = theme.file.replace('index.less', '') + packEntry.file
+                        this.themeList.push(packEntry)
+                    })
+                }
+            })
+        },
+        methods: {
+            gitHubExplore() {
+                this.$root.appRoute("themes-github")
+            },
+            getThemeName(filename) {
+                try {
+                    return this.themeList.find(theme => theme.file === filename).name;
+                } catch (e) {
+                    return filename;
+                }
+            },
+            moveUp() {
+                const styles = this.$root.cfg.visual.styles
+                const index = styles.indexOf(this.selected)
+                if (index > 0) {
+                    styles.splice(index, 1)
+                    styles.splice(index - 1, 0, this.selected)
+                }
+                this.$root.reloadStyles()
+            },
+            moveDown() {
+                const styles = this.$root.cfg.visual.styles
+                const index = styles.indexOf(this.selected)
+                if (index < styles.length - 1) {
+                    styles.splice(index, 1)
+                    styles.splice(index + 1, 0, this.selected)
+                }
+                this.$root.reloadStyles()
+            },
+            remove(style) {
+                const styles = this.$root.cfg.visual.styles
+                const index = styles.indexOf(style)
+                styles.splice(index, 1)
+                this.$root.reloadStyles()
+            },
+            addStyle(style) {
+                const styles = this.$root.cfg.visual.styles
+                styles.push(style)
+                this.$root.reloadStyles()
+            }
+        }
+    })
+</script>
+
+<script>
+    Vue.component('installed-themes', {
+        template: "#installed-themes",
+        props: [],
+        data: function () {
+            return {
+                repos: [],
+                openRepo: {
+                    id: -1,
+                    name: '',
+                    description: '',
+                    html_url: '',
+                    stargazers_count: 0,
+                    owner: {
+                        avatar_url: ''
+                    },
+                    readme: ""
+                },
+                themesInstalled: [],
+                themes: []
+            }
+        },
+        mounted() {
+            this.getThemesList();
+        },
+        methods: {
+            getThemesList() {
+                let self = this
+                let themes = ipcRenderer.sendSync("get-themes")
+                themes.unshift({
+                    name: "Acrylic Grain",
+                    file: "grain.less"
+                })
+                themes.unshift({
+                    name: "Sweetener",
+                    file: "sweetener.less"
+                })
+                themes.unshift({
+                    name: "Reduce Visuals",
+                    file: "reduce_visuals.less"
+                })
+                themes.unshift({
+                    name: "Inline Drawer",
+                    file: "inline_drawer.less"
+                })
+                themes.unshift({
+                    name: "Dark",
+                    file: "dark.less"
+                })
+                this.themes = themes
+            },
+            contextMenu(event, theme) {
+                let self = this
+                let menu = {
+                    items: {
+                        "uninstall": {
+                            name: app.getLz("settings.option.visual.theme.uninstall"),
+                            disabled: true,
+                            action: () => {
+                                bootbox.confirm(app.stringTemplateParser(app.getLz("settings.prompt.visual.theme.uninstallTheme"), {
+                                    theme: theme.name ?? theme.file
+                                }), (res) => {
+                                    if (res) {
+                                        console.debug(theme)
+                                        ipcRenderer.once("theme-uninstalled", (event, args) => {
+                                            console.debug(event, args)
+                                            self.getThemesList()
+                                        })
+                                        ipcRenderer.invoke("uninstall-theme", theme.path)
+                                    }
+                                })
+
+                            }
+                        },
+                        "viewInfo": {
+                            name: app.getLz("settings.option.visual.theme.viewInfo"),
+                            disabled: true,
+                            action: () => {
+
+                            }
+                        }
+                    }
+                }
+                if (theme.path) {
+                    menu.items.uninstall.disabled = false
+                }
+                this.$root.showMenuPanel(menu, event)
+            },
+            openThemesFolder() {
+                ipcRenderer.invoke("open-path", "themes")
+            },
+            getInstalledThemes() {
+                let self = this
+                const themes = ipcRenderer.sendSync("get-themes")
+                // for each theme, get the github_repo property and push it to the themesInstalled array, if not blank
+                themes.forEach(theme => {
+                    if (theme.github_repo !== "" && typeof theme.commit != "") {
+                        self.themesInstalled.push(theme.github_repo.toLowerCase())
+                    }
+                })
+            },
+            addStyle(filename) {
+                this.$refs.stackEditor.addStyle(filename)
+            },
+            showRepo(repo) {
+                const self = this
+                const readmeUrl = `https://raw.githubusercontent.com/${repo.full_name}/main/README.md`;
+                var requestOptions = {
+                    method: 'GET',
+                    redirect: 'follow'
+                };
+
+                fetch(readmeUrl, requestOptions)
+                    .then(response => response.text())
+                    .then(result => {
+                        self.openRepo = repo
+                        self.openRepo.readme = self.convertReadMe(result);
+                    })
+                    .catch(error => {
+                        self.openRepo = repo
+                        self.openRepo.readme = `This repository doesn't have a README.md file.`;
+                        console.log('error', error)
+                    });
+            },
+            convertReadMe(text) {
+                return marked.parse(text)
+            },
+            installThemeRepo(repo) {
+                let self = this
+                let msg = app.stringTemplateParser(app.getLz('settings.option.visual.theme.github.install.confirm'), {
+                    repo: repo.full_name
+                });
+                bootbox.confirm(msg, (res) => {
+                    if (res) {
+                        ipcRenderer.once("theme-installed", (event, arg) => {
+                            if (arg.success) {
+                                self.themes = ipcRenderer.sendSync("get-themes")
+                                self.getInstalledThemes()
+                                notyf.success(app.getLz('settings.notyf.visual.theme.install.success'));
+                            } else {
+                                notyf.error(app.getLz('settings.notyf.visual.theme.install.error'));
+                            }
+                        });
+                        ipcRenderer.invoke("get-github-theme", repo.html_url)
+                    }
+                })
+            },
+            installThemeURL() {
+                let self = this
+                bootbox.prompt(app.getLz('settings.prompt.visual.theme.github.URL'), (result) => {
+                    if (result) {
+                        ipcRenderer.once("theme-installed", (event, arg) => {
+                            if (arg.success) {
+                                self.themes = ipcRenderer.sendSync("get-themes")
+                                notyf.success(app.getLz('settings.notyf.visual.theme.install.success'));
+                            } else {
+                                notyf.error(app.getLz('settings.notyf.visual.theme.install.error'));
+                            }
+                        });
+                        ipcRenderer.invoke("get-github-theme", result)
+                    }
+                });
+            },
+            getRepos() {
+                let self = this
+                var requestOptions = {
+                    method: 'GET',
+                    redirect: 'follow'
+                };
+
+                fetch("https://api.github.com/search/repositories?q=topic:cidermusictheme fork:true", requestOptions)
+                    .then(response => response.text())
+                    .then(result => {
+                        let items = JSON.parse(result).items
+                        self.repos = items
+                    })
+                    .catch(error => console.log('error', error));
+            }
+        }
+    })
+</script>

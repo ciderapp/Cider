@@ -142,13 +142,13 @@
                     </span>
                     <span class="usermenu-item-name">{{$root.getLz('action.showWebRemoteQR')}}</span>
                 </button>
-                <button class="usermenu-item" v-if="cfg.advanced.AudioContext" @click="modals.castMenu = true">
+                <button class="usermenu-item" @click="cfg.advanced.AudioContext ? modals.castMenu = true : $root.notyf.error($root.getLz('settings.warn.enableAdvancedFunctionality'))">
                     <span class="usermenu-item-icon">
                         <%- include("../svg/cast.svg") %>
                     </span>
                     <span class="usermenu-item-name">{{$root.getLz('term.cast')}}</span>
                 </button>
-                <button class="usermenu-item" v-if="cfg.advanced.AudioContext" @click="modals.audioSettings = true">
+                <button class="usermenu-item" @click="cfg.advanced.AudioContext ? modals.audioSettings = true : $root.notyf.error($root.getLz('settings.warn.enableAdvancedFunctionality'))">
                     <span class="usermenu-item-icon">
                         <%- include("../svg/headphones.svg") %>
                     </span>
@@ -216,7 +216,7 @@
                     <input type="range" class="" @wheel="volumeWheel" :step="cfg.audio.volumeStep" min="0"
                         :max="cfg.audio.maxVolume" v-model="mk.volume" v-if="typeof mk.volume != 'undefined'"
                         @change="checkMuteChange()" v-b-tooltip.hover
-                        :title="`${(Math.log10(mk.volume) * 20).toFixed(2)} dB`">
+                        :title="formatVolumeTooltip()">
                 </div>
             </div>
         </div>

@@ -23,7 +23,7 @@
                     <button @click="addToLibrary()" v-if="!addedToLibrary && (showIndex == false ||(showIndex == true && showIndexPlaylist != false))">
                         <div class="svg-icon addIcon" :style="{'--color': 'var(--keyColor)', '--url': 'url(./assets/feather/plus.svg)'}"></div>
                     </button>
-                    <button v-else-if='!(showArtwork == true && (showIndex == false ||(showIndex == true && showIndexPlaylist != false)))' @click="playTrack()" style="width: 44px;margin-left: -5px;">
+                    <button v-else-if='!(showArtwork == true && (showIndex == false ||(showIndex == true && showIndexPlaylist != false)))' @click="playTrack()">
                         <div class="svg-icon playIcon" :style="{'--color': 'var(--keyColor)', '--url': 'url(./assets/feather/play.svg)'}"></div>
                     </button>
                 </div>
@@ -65,6 +65,10 @@
                     </template>
                 </div>
             </div>
+            <div class="heart-icon" v-if="!(app.mk.isPlaying && (((app.mk.nowPlayingItem._songId ?? (app.mk.nowPlayingItem.songId ?? app.mk.nowPlayingItem.id ))  == itemId) || (app.mk.nowPlayingItem.id == item.id)))">
+                <!-- <div class="heart-unfilled" v-if="isLoved == false" :style="{'--url': 'url(./assets/feather/heart.svg)'}" /> -->
+                <div class="heart-filled" v-if="isLoved == true" :style="{'--url': 'url(./assets/feather/heart-fill.svg)'}" />
+            </div>
             <div class="explicit-icon" v-if="item.attributes && item.attributes.contentRating == 'explicit'"></div>
             <template v-if="showMetaData == true" @dblclick="route()">
                 <div class="metainfo">
@@ -98,7 +102,8 @@
                 displayDuration: true,
                 addClasses: {},
                 itemId: 0,
-                isLibrary: false
+                isLibrary: false,
+                isLoved: null
             }
         },
         props: {
@@ -120,6 +125,9 @@
                 this.isLibrary = this.item.attributes.playParams.isLibrary ?? false;
             } else {
                 this.itemId = this.item.id;
+            }
+            if (this.item.attributes.playParams) {
+                this.getHeartStatus();
             }
             let duration = this.item.attributes.durationInMillis ?? 0
             if (duration == 0 || !this.showDuration) {
@@ -145,7 +153,7 @@
             },
             getClasses() {
                 this.addClasses = {}
-                if(typeof this.item.attributes.playParams == "undefined") {
+                if (typeof this.item.attributes.playParams == "undefined") {
                     this.addClasses["disabled"] = true
                 }
                 if (this.classList) {
@@ -178,7 +186,7 @@
                     } else {
                         return this.item.attributes.playParams.kind
                     }
-                }else{
+                } else {
                     return this.item.type
                 }
             },
@@ -323,6 +331,7 @@
                                 "hidden": false,
                                 "disabled": true,
                                 "action": function () {
+                                    self.isLoved = true
                                     app.love(self.item)
                                 }
                             },
@@ -333,6 +342,7 @@
                                 "name": this.app.getLz('action.unlove'),
                                 "hidden": true,
                                 "action": function () {
+                                    self.isLoved = false
                                     app.unlove(self.item)
                                 }
                             },
@@ -498,6 +508,19 @@
             },
             visibilityChanged: function (isVisible, entry) {
                 this.isVisible = isVisible
+            },
+            async getHeartStatus() {
+                try {
+                    await app.getRating(this.item).then(res => {
+                        if (res == 1) {
+                            this.isLoved = true
+                        } else {
+                            this.isLoved = false
+                        }
+                    })
+                } catch (err) {
+                    console.log(err)
+                }
             },
             addToLibrary() {
                 let item = this.item

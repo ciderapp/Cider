@@ -1,40 +1,29 @@
-import * as RPC from 'discord-rpc'
+import {AutoClient} from 'discord-auto-rpc'
 import {ipcMain} from "electron";
 import fetch from 'electron-fetch'
 
 export default class DiscordRPC {
 
     /**
-     * Private variables for interaction in plugins
-     */
-    private _utils: any;
-    private _app: any;
-    private _attributes: any;
-    private _connection: boolean = false;
-
-    /**
      * Base Plugin Details (Eventually implemented into a GUI in settings)
      */
     public name: string = 'Discord Rich Presence';
     public description: string = 'Discord RPC plugin for Cider';
-    public version: string = '1.0.0';
+    public version: string = '1.1.0';
     public author: string = 'vapormusic/Core (Cider Collective)';
+
+    /**
+     * Private variables for interaction in plugins
+     */
+    private _utils: any;
+    private _attributes: any;
+    private ready: boolean = false;
 
     /**
      * Plugin Initialization
      */
     private _client: any = null;
-    private _activity: RPC.Presence = {
-        details: '',
-        state: '',
-        largeImageKey: '',
-        largeImageText: '',
-        smallImageKey: '',
-        smallImageText: '',
-        instance: false
-    };
-
-    private _activityCache: RPC.Presence = {
+    private _activityCache: any = {
         details: '',
         state: '',
         largeImageKey: '',
@@ -45,6 +34,73 @@ export default class DiscordRPC {
     };
 
     /*******************************************************************************************
+     * Public Methods
+     * ****************************************************************************************/
+
+    /**
+     * Runs on plugin load (Currently run on application start)
+     */
+    constructor(utils: any) {
+        this._utils = utils;
+        console.debug(`[Plugin][${this.name}] Loading Complete.`);
+    }
+
+    /**
+     * Runs on app ready
+     */
+    onReady(_win: any): void {
+        const self = this
+        this.connect();
+        console.debug(`[Plugin][${this.name}] Ready.`);
+        ipcMain.on('updateRPCImage', (_event, imageurl) => {
+            if (!this._utils.getStoreValue("general.privateEnabled")) {
+                fetch('https://api.cider.sh/v1/images', {
+
+                    method: 'POST',
+                    body: JSON.stringify({url: imageurl}),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'User-Agent': _win.webContents.getUserAgent()
+                    },
+                })
+                    .then(res => res.json())
+                    .then(function (json) {
+                        self._attributes["artwork"]["url"] = json.url
+                        self.setActivity(self._attributes)
+                    })
+            }
+        })
+    }
+
+    /**
+     * Runs on app stop
+     */
+    onBeforeQuit(): void {
+        console.debug(`[Plugin][${this.name}] Stopped.`);
+    }
+
+    /**
+     * Runs on playback State Change
+     * @param attributes Music Attributes (attributes.status = current state)
+     */
+    onPlaybackStateDidChange(attributes: object): void {
+        this._attributes = attributes
+        this.setActivity(attributes)
+
+    }
+
+    /**
+     * Runs on song change
+     * @param attributes Music Attributes
+     */
+    onNowPlayingItemDidChange(attributes: object): void {
+        this._attributes = attributes
+        this.setActivity(attributes)
+
+    }
+
+
+    /*******************************************************************************************
      * Private Methods
      * ****************************************************************************************/
 
@@ -53,63 +109,91 @@ export default class DiscordRPC {
      * @private
      */
     private connect() {
-        if (!this._utils.getStoreValue("general.discord_rpc.enabled")) {
+        if (!this._utils.getStoreValue("general.discordrpc.enabled")) {
             return;
         }
-        const clientId = this._utils.getStoreValue("general.discord_rpc.client") === "Cider" ? '911790844204437504' : '886578863147192350';
-
-        // Apparently needed for ask to join, join, spectate etc.
-        RPC.register(clientId)
+        const clientId = this._utils.getStoreValue("general.discordrpc.client") === "Cider" ? '911790844204437504' : '886578863147192350';
 
         // Create the client
-        this._client = new RPC.Client({transport: "ipc"});
+        this._client = new AutoClient({transport: "ipc"});
 
         // Runs on Ready
-        this._client.on('ready', () => {
+        this._client.once('ready', () => {
             console.info(`[DiscordRPC][connect] Successfully Connected to Discord. Authed for user: ${this._client.user.id}.`);
+
+            if (this._activityCache && this._activityCache.details && this._activityCache.state) {
+                console.info(`[DiscordRPC][connect] Restoring activity cache.`);
+                this._client.setActivity(this._activityCache)
+            }
         })
 
-        // Handles Errors
-        this._client.on('error', (err: any) => {
-            console.error(`[DiscordRPC] ${err}`);
-            this.disconnect()
-        });
-
-        // If Discord is closed, allow reconnecting
-        this._client.transport.once('close', () => {
-            console.info(`[DiscordRPC] Connection closed`);
-            this.disconnect()
-        });
-
         // Login to Discord
-        this._client.login({clientId})
+        this._client.endlessLogin({clientId: clientId})
             .then(() => {
-                this._connection = true;
+                this.ready = true
             })
             .catch((e: any) => console.error(`[DiscordRPC][connect] ${e}`));
     }
 
     /**
-     * Disconnects from Discord RPC
+     * Sets the activity
+     * @param attributes Music Attributes
      */
-    private disconnect() {
+    private setActivity(attributes: any) {
         if (!this._client) {
             return
         }
 
-        this._client.destroy().then(() => {
-            this._connection = false;
-            console.log('[DiscordRPC][disconnect] Disconnected from discord.')
-        }).catch((e: any) => console.error(`[DiscordRPC][disconnect] ${e}`));
+        // Check if show buttons is (true) or (false)
+        let activity: Object = {
+            details: this._utils.getStoreValue("general.discordrpc.details_format"),
+            state: this._utils.getStoreValue("general.discordrpc.state_format"),
+            largeImageKey: attributes?.artwork?.url?.replace('{w}', '1024').replace('{h}', '1024'),
+            largeImageText: attributes.albumName,
+            instance: false // Whether the activity is in a game session
+        }
 
-        // Clean up, allow creating a new connection
-        this._client = null;
+        // Filter the activity
+        activity = this.filterActivity(activity, attributes)
+
+        if (!this.ready) {
+            this._activityCache = activity
+            return
+        }
+
+        // Set the activity
+        if (!attributes.status && this._utils.getStoreValue("general.discordrpc.clear_on_pause")) {
+            this._client.clearActivity()
+        } else if (activity && this._activityCache !== activity) {
+            this._client.setActivity(activity)
+        }
+        this._activityCache = activity;
     }
 
     /**
      * Filter the Discord activity object
      */
-    private static filterActivity(activity: any, attributes: any): Object {
+    private filterActivity(activity: any, attributes: any): Object {
+
+        // Add the buttons if people want them
+        if (!this._utils.getStoreValue("general.discordrpc.hide_buttons")) {
+            activity.buttons = [
+                {label: 'Listen on Cider', url: attributes.url.cider},
+                {label: 'View on Apple Music', url: attributes.url.appleMusic}
+            ] //To change attributes.url => preload/cider-preload.js
+        }
+
+        // Add the timestamp if its playing
+        if (attributes.status) {
+            activity.startTimestamp = Date.now() - (attributes?.durationInMillis - attributes?.remainingTime)
+            activity.endTimestamp = attributes.endTime
+        }
+
+        // If the user wants to keep the activity when paused
+        if (!this._utils.getStoreValue("general.discordrpc.clear_on_pause")) {
+            activity.smallImageKey = attributes.status ? 'play' : 'pause';
+            activity.smallImageText = attributes.status ? 'Playing' : 'Paused';
+        }
 
         /**
          * Works with:
@@ -172,139 +256,5 @@ export default class DiscordRPC {
             delete activity.largeImageText
         }
         return activity
-    }
-
-    /**
-     * Sets the activity
-     * @param {activity} activity
-     */
-    private setActivity(activity: any) {
-        if (!this._connection || !this._client || !activity) {
-            return
-        }
-
-        // Filter the activity
-        activity = DiscordRPC.filterActivity(activity, this._attributes)
-
-        // Set the activity
-        if (!this._attributes.status && this._utils.getStoreValue("general.discord_rpc.clear_on_pause")) {
-            this._client.clearActivity()
-        } else if (this._activity && this._activityCache !== this._activity && this._activity.details) {
-            this._client.setActivity(activity)
-            this._activityCache = this._activity;
-        }
-    }
-
-    /**
-     * Sets the activity of the client
-     * @param {object} attributes
-     */
-    private updateActivity(attributes: any) {
-        if (!this._utils.getStoreValue("general.discord_rpc.enabled") || this._utils.getStoreValue("general.privateEnabled")) {
-            return
-        } else if (!this._client || !this._connection) {
-            this.connect()
-        }
-
-        // Check if show buttons is (true) or (false)
-        this._activity = {
-            details: this._utils.getStoreValue("general.discord_rpc.details_format"),
-            state: this._utils.getStoreValue("general.discord_rpc.state_format"),
-            largeImageKey: attributes?.artwork?.url?.replace('{w}', '1024').replace('{h}', '1024'),
-            largeImageText: attributes.albumName,
-            instance: false // Whether the activity is in a game session
-        }
-
-        // Add the buttons if people want them
-        if (!this._utils.getStoreValue("general.discord_rpc.hide_buttons")) {
-            this._activity.buttons = [
-                {label: 'Listen on Cider', url: attributes.url.cider},
-                {label: 'View on Apple Music', url: attributes.url.appleMusic}
-            ] //To change attributes.url => preload/cider-preload.js
-        }
-
-        // Add the timestamp if its playing
-        if (attributes.status) {
-            this._activity.startTimestamp = Date.now() - (attributes?.durationInMillis - attributes?.remainingTime)
-            this._activity.endTimestamp = attributes.endTime
-        }
-
-        // If the user wants to keep the activity when paused
-        if (!this._utils.getStoreValue("general.discord_rpc.clear_on_pause")) {
-            this._activity.smallImageKey = attributes.status ? 'play' : 'pause';
-            this._activity.smallImageText = attributes.status ? 'Playing' : 'Paused';
-        }
-
-        this.setActivity(this._activity)
-    }
-
-    /*******************************************************************************************
-     * Public Methods
-     * ****************************************************************************************/
-
-    /**
-     * Runs on plugin load (Currently run on application start)
-     */
-    constructor(utils: { getStore: () => any; getApp: () => any; }) {
-        this._utils = utils;
-        console.debug(`[Plugin][${this.name}] Loading Complete.`);
-        this._app = utils.getApp();
-    }
-
-    /**
-     * Runs on app ready
-     */
-    onReady(_win: any): void {
-        let self = this
-        this.connect();
-        console.debug(`[Plugin][${this.name}] Ready.`);
-        ipcMain.on('updateRPCImage', (_event, imageurl) => {
-            if (!this._utils.getStoreValue("general.privateEnabled")) {
-                fetch('https://api.cider.sh/v1/images', {
-
-                    method: 'POST',
-                    body: JSON.stringify({url: imageurl}),
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'User-Agent': _win.webContents.getUserAgent()
-                    },
-                })
-                    .then(res => res.json())
-                    .then(function (json) {
-                        self._attributes["artwork"]["url"] = json.url
-                        self.updateActivity(self._attributes)
-                    })
-            }
-        })
-    }
-
-    /**
-     * Runs on app stop
-     */
-    onBeforeQuit(): void {
-        if (this._client) {
-            this.disconnect()
-        }
-        console.debug(`[Plugin][${this.name}] Stopped.`);
-    }
-
-    /**
-     * Runs on playback State Change
-     * @param attributes Music Attributes (attributes.status = current state)
-     */
-    onPlaybackStateDidChange(attributes: object): void {
-        this._attributes = attributes
-        this.updateActivity(attributes)
-
-    }
-
-    /**
-     * Runs on song change
-     * @param attributes Music Attributes
-     */
-    onNowPlayingItemDidChange(attributes: object): void {
-        this._attributes = attributes
-        this.updateActivity(attributes)
-
     }
 }

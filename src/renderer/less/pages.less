@@ -488,63 +488,79 @@
 
 /* Album / Playlist Page */
 .playlist-page {
-  --bgColor   : transparent;
-  padding     : 0px;
+  --bgColor     : transparent;
+  padding       : 0px;
   //background: linear-gradient(180deg, var(--bgColor) 32px, var(--bgColor) 18px, transparent 60px, transparent 100%);
-  top         : 0;
-  padding-top : var(--navigationBarHeight);
-  display:flex;
+  top           : 0;
+  padding-top   : var(--navigationBarHeight);
+  display       : flex;
   flex-direction: column;
-  height: 100%;
-  overflow: hidden;
+  height        : 100%;
+  overflow      : hidden;
+
+  .cd-mediaitem-list-item {
+    &:hover {
+      .heart-icon {
+        display: flex;
+      }
+    }
+
+    .heart-icon {
+      left: -25px;
+    }
+  }
 
   .editTracksBtn {
     position: absolute;
-    top: 20px;
-    right: 20px;
-    z-index: 1;
+    top     : 20px;
+    right   : 20px;
+    z-index : 1;
 
     >span {
       display: flex;
-      gap: 8px;
+      gap    : 8px;
     }
   }
 
   .mediaContainer {
     transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
-    width: 260px;height:260px;
+    width     : 260px;
+    height    : 260px;
   }
 
   .playlist-body {
-    padding   : 32px;
+    padding         : 32px;
     // margin-top: -75px;
-    overflow-y:overlay;
-    height:100%;
-    padding:0px;
+    overflow-y      : overlay;
+    height          : 100%;
+    padding         : 0px;
     background-color: var(--color1);
 
     &.scrollbody {
       .tabs {
-        display: flex;
+        display  : flex;
         flex-flow: column;
-        height: 100%;
+        height   : 100%;
 
         .nav-link {
-          text-transform:capitalize;
+          text-transform: capitalize;
         }
 
         .tab-content {
-          height: 100%;
+          height  : 100%;
           overflow: hidden;
-          margin:0px;
+          margin  : 0px;
+
           .tab-pane {
-            height: 100%;
-            overflow-y: overlay;
-            overflow-x:hidden;
-            padding: var(--contentInnerPadding);
+            height            : 100%;
+            overflow-y        : overlay;
+            overflow-x        : hidden;
+            padding           : var(--contentInnerPadding);
+            padding-inline    : 40px;
             -webkit-mask-image: linear-gradient(180deg, transparent, white 20px);
+
             .well {
-              margin:0px;
+              margin: 0px;
             }
           }
         }
@@ -563,7 +579,7 @@
     background     : rgba(0, 0, 0, 0.25);
     top            : var(--navigationBarHeight);
     transition     : opacity 0.1s var(--appleEase);
-    display: none;
+    display        : none;
   }
 
   .playlist-display {
@@ -649,14 +665,14 @@
         }
 
         .playlist-desc {
-          transition: height .2s ease-in-out, opacity .2s ease-in-out;
+          transition  : height .2s ease-in-out, opacity .2s ease-in-out;
           box-sizing  : border-box;
           font-size   : 14px;
           flex-shrink : unset;
           margin-right: 5px;
           max-height  : 100px;
           position    : relative;
-          height            : 4vh;
+          height      : 4vh;
 
           .content {
             height            : 4vh;
@@ -750,11 +766,11 @@
   }
 
   .playlist-time {
-    font-size: 0.9em;
-    margin   : 6px;
-    opacity  : 0.7;
+    font-size : 0.9em;
+    margin    : 6px;
+    opacity   : 0.7;
     transition: height .2s ease-in-out, opacity .2s ease-in-out;
-    height: 0.9em;
+    height    : 0.9em;
   }
 
   &.inline-playlist {
@@ -802,8 +818,8 @@
 
   .pilldim {
     .nav-pills {
-      width: max-content;
-      margin: 0 auto;
+      width     : max-content;
+      margin    : 0 auto;
       margin-top: 16px;
     }
   }
@@ -813,26 +829,24 @@
       transition: min-height 0.5s ease-in-out;
       min-height: 200px;
 
-      .playlistInfo {
-
-      }
+      .playlistInfo {}
 
       .mediaContainer {
         transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
-        width: 128px!important;
-        height: 128px!important;
+        width     : 128px !important;
+        height    : 128px !important;
       }
 
       .playlist-time {
         transition: height .2s ease-in-out, opacity .2s ease-in-out;
-        height: 0px;
-        opacity: 0;
+        height    : 0px;
+        opacity   : 0;
       }
 
       .playlist-desc {
         transition: height .2s ease-in-out, opacity .2s ease-in-out;
-        height: 0px!important;
-        opacity: 0;
+        height    : 0px !important;
+        opacity   : 0;
       }
     }
   }
@@ -920,7 +934,7 @@
     pointer-events : none;
 
     .header-content {
-      z-index   : 1;
+      z-index      : 1;
       // margin-top: -16px;
     }
 
@@ -1112,9 +1126,56 @@
 
 /* Artist Page End */
 
-// Settings page
-.settings-page {
-  padding: 0px;
+
+.installed-themes-page {
+
+  .themeContextMenu {
+    background: transparent;
+    color     : var(--keyColor);
+    border    : 0px;
+  }
+
+  .list-group-item {
+    &.addon {
+      background: rgb(86 86 86 / 20%);
+    }
+    &.applied {
+      background: var(--keyColor-disabled);
+      pointer-events: none;
+    }
+  }
+
+  .repo-header {
+    font-size      : 16px;
+    position       : sticky;
+    top            : 0;
+    left           : 0;
+    right          : 0;
+    width          : 100%;
+    height         : 50px;
+    z-index        : 1;
+    background     : rgba(36, 36, 36, 0.5);
+    display        : flex;
+    justify-content: center;
+    align-items    : center;
+    backdrop-filter: var(--glassFilter);
+    overflow       : hidden;
+    border-bottom  : 1px solid rgb(0 0 0 / 18%);
+    border-top     : 1px solid rgb(135 135 135 / 18%);
+  }
+
+  .style-editor-container {
+    height    : 100%;
+    flex      : 1;
+    background: var(--color2);
+    padding   : 0px;
+    overflow-y: overlay;
+
+    .list-group-item {
+      border-radius: 0px;
+    }
+  }
+
 
   .stylestack-editor {
     width: 100%;
@@ -1125,17 +1186,34 @@
     }
 
     .themeLabel {
-      display:flex;
+      display    : flex;
       align-items: center;
     }
 
+    .handle {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .list-group-item {
+
+      &:hover {
+        cursor: grab;
+      }
+      &:active {
+        cursor: grabbing;
+      }
+    }
+
     .removeItem {
-      border: 0px;
-      background: transparent;
-      height: 32px;
+      border     : 0px;
+      background : transparent;
+      height     : 32px;
       font-weight: bold;
-      color: var(--textColor);
-      cursor: pointer;
+      color      : var(--textColor);
+      cursor     : pointer;
     }
 
     .stylesDropdown {
@@ -1145,7 +1223,11 @@
       }
     }
   }
+}
 
+// Settings page
+.settings-page {
+  padding: 0px;
 
   .nav {
     width : 90%;
@@ -1163,8 +1245,9 @@
 
   .settings-option-body-webview {
     height: 100%;
-    width: 100%;
+    width : 100%;
   }
+
   .settings-option-body {
     margin: 16px;
   }

@@ -22,7 +22,7 @@
             <hr>
             <div class="row">
                 <div class="col">
-                    <h4>{{ loaded.attributes.listenTimeInMinutes }} {{$root.getLz('term.time.minutes')}}</h4>
+                    <h4>{{ convertToHours(loaded.attributes.listenTimeInMinutes) }} {{$root.getLz('term.time.hours')}}</h4>
                     <h4>{{ loaded.attributes.uniqueAlbumCount }} {{$root.getLz('term.uniqueAlbums')}}</h4>
                     <h4>{{ loaded.attributes.uniqueArtistCount }} {{$root.getLz('term.uniqueArtists')}}</h4>
                     <h4>{{ loaded.attributes.uniqueSongCount }} {{$root.getLz('term.uniqueSongs')}}</h4>
@@ -40,7 +40,7 @@
                             <mediaitem-square :item="artistData.relationships.artist.data[0]"></mediaitem-square>
                         </div>
                         <div class="card-footer">
-                            {{ artistData.attributes.listenTimeInMinutes }} {{$root.getLz('term.time.minutes', {'count': artistData.attributes.listenTimeInMinutes})}}<br>
+                            {{ convertToHours(artistData.attributes.listenTimeInMinutes) }} {{$root.getLz('term.time.hours', {'count': convertToHours(artistData.attributes.listenTimeInMinutes) })}}<br>
                             {{$root.getLz('term.listenedTo')}} {{ artistData.attributes.playCount }} {{$root.getLz('term.times')}}
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                             <mediaitem-square :item="albumData.relationships.album.data[0]"></mediaitem-square>
                         </div>
                         <div class="card-footer">
-                            {{ albumData.attributes.listenTimeInMinutes }} {{$root.getLz('term.time.minutes', {'count': albumData.attributes.listenTimeInMinutes})}}<br>
+                            {{ convertToHours(albumData.attributes.listenTimeInMinutes) }} {{$root.getLz('term.time.hours', {'count': convertToHours(albumData.attributes.listenTimeInMinutes)})}}<br>
                             {{ albumData.attributes.playCount }} {{$root.getLz('term.plays')}}
                         </div>
                     </div>
@@ -151,6 +151,9 @@
                 let playlist = await app.mk.api.v3.music(replayData.relationships.playlist.data[0].href, {extend: "editorialArtwork,editorialVideo"})
                 replayData.playlist = playlist.data.data[0]
                 this.loaded = replayData
+            },
+            convertToHours(minutes) {
+                return Math.floor(minutes / 60)
             }
         }
     });

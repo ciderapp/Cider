@@ -364,12 +364,30 @@
   align-items: center;
   justify-content: center;
 }
+.cd-mediaitem-list-item .heart-unfilled {
+  background-image: url("assets/feather/heart.svg");
+  height: 12px;
+  width: 36px;
+  filter: contrast(0);
+  background-repeat: no-repeat;
+}
+
+.cd-mediaitem-list-item .heart-filled {
+  background-image: url("assets/feather/heart-fill.svg");
+  height: 12px;
+  width: 36px;
+  filter: contrast(0);
+  background-repeat: no-repeat;
+}
 .cd-mediaitem-list-item .explicit-icon {
   background-image: url("assets/explicit.svg");
   height: 12px;
   width: 36px;
   filter: contrast(0);
   background-repeat: no-repeat;
+}
+.heart-icon {
+  display: flex
 }
 @keyframes load-bar {
   10% {

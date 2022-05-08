@@ -70,10 +70,11 @@
 
 .spatialproperties-panel {
   .modal-window {
+    &:not(.airplay-modal){
     height    : 700px;
     max-height: 700px;
     width     : 800px;
-    max-width : 800px;
+    max-width : 800px;}
     overflow  : hidden;
 
     .info-header {
@@ -352,7 +353,7 @@
 
       &:hover {
         &::before {
-          transition: transform .1s ease-in, opacity .1s ease-in;
+          transition: transform 0s ease-in, opacity 0s ease-in;
           opacity   : 1;
           transform : scale(1);
         }

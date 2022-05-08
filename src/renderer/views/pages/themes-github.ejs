@@ -5,17 +5,14 @@
                 <div class="col nopadding">
                     <h1 class="header-text">{{$root.getLz('settings.header.visual.theme.github.page')}}</h1>
                 </div>
-                <div class="col-auto flex-center">
-                    <select class="md-select" @change="$root.setTheme($root.cfg.visual.theme)"
-                            v-model="$root.cfg.visual.theme">
-                        <option value="default.less">{{$root.getLz('settings.option.visual.theme.default')}}</option>
-                        <option value="dark.less">{{$root.getLz('settings.option.visual.theme.dark')}}</option>
-                        <option v-for="theme in themes" :value="theme.file">{{ theme.name }}</option>
-                    </select>
+                <div class="col-auto nopadding flex-center">
+                    <button class="md-btn md-btn-small md-btn-block" @click="$root.appRoute('installed-themes')">
+                        {{$root.getLz('settings.option.visual.theme.manageStyles')}}
+                    </button>
                 </div>
                 <div class="col-auto flex-center">
-                    <button class="md-btn md-btn-small md-btn-block" @click="openThemesFolder()">
-                        {{$root.getLz('settings.option.visual.theme.github.openfolder')}}
+                    <button class="md-btn md-btn-small md-btn-block" @click="$root.checkForThemeUpdates()">
+                        {{ $root.getLz('settings.option.visual.theme.checkForUpdates') }}
                     </button>
                 </div>
                 <div class="col-auto nopadding flex-center">
@@ -106,7 +103,6 @@
             this.themes = ipcRenderer.sendSync("get-themes")
             this.getRepos();
             this.getInstalledThemes();
-            app.checkForThemeUpdates()
         },
         methods: {
             openThemesFolder() {

@@ -148,6 +148,10 @@ const app = new Vue({
         },
         tmpHeight: '',
         tmpWidth: '',
+        tmpX: '',
+        tmpY: '',
+        miniTmpX: '',
+        miniTmpY: '',
         tmpVar: [],
         notification: false,
         chrome: {
@@ -207,6 +211,7 @@ const app = new Vue({
             showPlaylist: false,
             castMenu: false,
             moreInfo: false,
+            airplayPW: false,
         },
         socialBadges: {
             badgeMap: {},
@@ -230,6 +235,7 @@ const app = new Vue({
             pages: [],
         },
         moreinfodata: [],
+        notyf: notyf
     },
     watch: {
         cfg: {
@@ -282,6 +288,9 @@ const app = new Vue({
                     }
                 }
             }
+        },
+        formatVolumeTooltip() {
+            return this.cfg.audio.dBSPL ? (Number(this.cfg.audio.dBSPLcalibration) + (Math.log10(this.mk.volume) * 20)).toFixed(2) + ' dB SPL' : (Math.log10(this.mk.volume) * 20).toFixed(2) + ' dBFS'
         },
         mainMenuVisibility(val) {
             if (val) {
@@ -592,9 +601,7 @@ const app = new Vue({
         },
         async init() {
             let self = this
-            if (this.cfg.visual.theme != "default.less" && this.cfg.visual.theme != "") {
-                this.setTheme(this.cfg.visual.theme)
-            }
+
             if (this.cfg.visual.styles.length != 0) {
                 await this.reloadStyles()
             }
@@ -702,6 +709,7 @@ const app = new Vue({
                         let lastItem = window.localStorage.getItem("currentTrack")
                         let time = window.localStorage.getItem("currentTime")
                         let queue = window.localStorage.getItem("currentQueue")
+                        app.mk.queue.position = 0; // Reset queue position.
                         if (lastItem != null) {
                             lastItem = JSON.parse(lastItem)
                             let kind = lastItem.attributes.playParams.kind;
@@ -721,7 +729,7 @@ const app = new Vue({
                                         if (queue != null) {
                                             queue = JSON.parse(queue)
                                             if (queue && queue.length > 0) {
-                                                let ids = queue.map(e => (e.playParams ? e.playParams.id : (e.attributes.playParams ? e.attributes.playParams.id : '')))
+                                                let ids = queue.map(e => (e.playParams ? e.playParams.id : (e.item.attributes.playParams ? e.item.attributes.playParams.id : '')))
                                                 let i = 0;
                                                 if (ids.length > 0) {
                                                     for (let id of ids) {
@@ -830,6 +838,14 @@ const app = new Vue({
                 self.playerLCD.playbackDuration = (self.mk.currentPlaybackTime)
                 // wsapi
                 ipcRenderer.send('wsapi-updatePlaybackState', wsapi.getAttributes());
+            })
+
+            this.mk.addEventListener(MusicKit.Events.queueItemsDidChange, ()=>{
+                if (self.$refs.queue) {
+                    setTimeout(()=>{
+                        self.$refs.queue.updateQueue();
+                    }, 100)
+                }
             })
 
             this.mk.addEventListener(MusicKit.Events.nowPlayingItemDidChange, (a) => {
@@ -1118,28 +1134,31 @@ const app = new Vue({
                 }
             })
         },
-        async refreshPlaylists(localOnly = false) {
+        async refreshPlaylists(localOnly = false, useCachedPlaylists = true) {
             let self = this
             let trackMap = this.cfg.advanced.playlistTrackMapping
             let newListing = []
             let trackMapping = {}
-            const cachedPlaylist = await CiderCache.getCache("library-playlists")
-            const cachedTrackMapping = await CiderCache.getCache("library-playlists-tracks")
+            
+            if (useCachedPlaylists) {
+                const cachedPlaylist = await CiderCache.getCache("library-playlists")
+                const cachedTrackMapping = await CiderCache.getCache("library-playlists-tracks")
 
-            if (cachedPlaylist) {
-                console.debug("using cached playlists")
-                this.playlists.listing = cachedPlaylist
-                self.sortPlaylists()
-            } else {
-                console.debug("playlist has no cache")
-            }
+                if (cachedPlaylist) {
+                    console.debug("using cached playlists")
+                    this.playlists.listing = cachedPlaylist
+                    self.sortPlaylists()
+                } else {
+                    console.debug("playlist has no cache")
+                }
 
-            if (cachedTrackMapping) {
-                console.debug("using cached track mapping")
-                this.playlists.trackMapping = cachedTrackMapping
-            }
-            if (localOnly) {
-                return
+                if (cachedTrackMapping) {
+                    console.debug("using cached track mapping")
+                    this.playlists.trackMapping = cachedTrackMapping
+                }
+                if (localOnly) {
+                    return
+                }
             }
 
             this.library.backgroundNotification.message = "Building playlist cache..."
@@ -1147,8 +1166,10 @@ const app = new Vue({
 
             async function deepScan(parent = "p.playlistsroot") {
                 console.debug(`scanning ${parent}`)
-                const playlistData = await app.mk.api.v3.music(`/v1/me/library/playlist-folders/${parent}/children/`)
-                await asyncForEach(playlistData.data.data, async (playlist) => {
+                // const playlistData = await app.mk.api.v3.music(`/v1/me/library/playlist-folders/${parent}/children/`)
+                const playlistData = await MusicKitTools.v3Continuous({href: `/v1/me/library/playlist-folders/${parent}/children/`})
+                console.log(playlistData)
+                await asyncForEach(playlistData, async (playlist) => {
                     playlist.parent = parent
                     if (
                         playlist.type != "library-playlist-folders" &&
@@ -1242,7 +1263,7 @@ const app = new Vue({
                 }
             }
             ).then(res => {
-                self.refreshPlaylists()
+                self.refreshPlaylists(false, false)
             })
         },
         async editPlaylist(id, name = app.getLz('term.newPlaylist')) {
@@ -1257,7 +1278,7 @@ const app = new Vue({
                 }
             }
             ).then(res => {
-                self.refreshPlaylists()
+                self.refreshPlaylists(false, false)
             })
         },
         copyToClipboard(str) {
@@ -1301,7 +1322,7 @@ const app = new Vue({
                 })
                 self.sortPlaylists()
                 setTimeout(() => {
-                    app.refreshPlaylists()
+                    app.refreshPlaylists(false, false)
                 }, 8000)
             })
         },
@@ -1318,6 +1339,9 @@ const app = new Vue({
                     if (found) {
                         self.playlists.listing.splice(self.playlists.listing.indexOf(found), 1)
                     }
+                    setTimeout(() => {
+                        app.refreshPlaylists(false, false);
+                    }, 8000);
                 })
             }
         },
@@ -1671,11 +1695,11 @@ const app = new Vue({
                     params["meta[albums:tracks]"] = 'popularity'
                     params["fields[albums]"] = "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialNotes,editorialVideo,name,playParams,releaseDate,url,copyright"
                 }
-                if(kind.includes("playlist") || kind.includes("album")){
+                if (kind.includes("playlist") || kind.includes("album")){
                     app.page = (kind) + "_" + (id);
                     window.location.hash = `${kind}/${id}${isLibrary ? "/" + isLibrary : ''}`
                     app.getTypeFromID((kind), (id), (isLibrary), params);
-                }else{
+                } else {
                     app.page = (kind)
                     window.location.hash = `${kind}/${id}${isLibrary ? "/" + isLibrary : ''}`
                 }
@@ -2563,7 +2587,7 @@ const app = new Vue({
                 })
                 self.sortPlaylists()
                 setTimeout(() => {
-                    app.refreshPlaylists()
+                    app.refreshPlaylists(false, false)
                 }, 13000)
             })
         },
@@ -3830,6 +3854,15 @@ const app = new Vue({
 
             // tracks are found in relationship.data
         },
+        setAirPlayCodeUI() {
+            this.modals.airplayPW = true
+        },
+        sendAirPlaySuccess(){
+            notyf.success('Device paired successfully!');
+        },
+        sendAirPlayFailed(){
+            notyf.error('Device paring failed!');
+        },
         windowFocus(val) {
             if (val) {
                 document.querySelectorAll(".animated-artwork-video").forEach(el => {
@@ -4009,7 +4042,8 @@ const app = new Vue({
                 }
             }
 
-            if (app.mk.nowPlayingItem._container["attributes"] && app.mk.nowPlayingItem._container.name != "station") {
+            const nowPlayingContainer = app.mk.nowPlayingItem._container;
+            if (nowPlayingContainer && nowPlayingContainer["attributes"] && nowPlayingContainer.name != "station") {
                 menus.normal.items.find(x => x.id == "showInMusic").hidden = false
             }
 
@@ -4096,13 +4130,19 @@ const app = new Vue({
             if (flag) {
                 this.tmpWidth = window.innerWidth;
                 this.tmpHeight = window.innerHeight;
+                this.tmpX = window.screenX;
+                this.tmpY = window.screenY;
                 ipcRenderer.send('unmaximize');
                 ipcRenderer.send('windowmin', 250, 250)
+                if (this.miniTmpX !== '' && this.miniTmpY !== '') ipcRenderer.send('windowmove', this.miniTmpX, this.miniTmpY)
                 ipcRenderer.send('windowresize', 300, 300, false)
                 app.appMode = 'mini';
             } else {
+                this.miniTmpX = window.screenX;
+                this.miniTmpY = window.screenY;
                 ipcRenderer.send('windowmin', 844, 410)
                 ipcRenderer.send('windowresize', this.tmpWidth, this.tmpHeight, false)
+                ipcRenderer.send('windowmove', this.tmpX, this.tmpY)
                 ipcRenderer.send('windowontop', false)
                 //this.cfg.visual.miniplayer_top_toggle = true;
                 app.appMode = 'player';

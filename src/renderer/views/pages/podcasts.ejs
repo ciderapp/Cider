@@ -187,7 +187,7 @@
             },
             searchPodcasts() {
                 let self = this
-                if(this.search.term == "") {
+                if (this.search.term == "") {
                     return
                 }
                 app.mk.api.v3.podcasts("/v1/catalog/us/search", {term: this.search.term, types: ["podcasts"], limit: 25}).then(response => {
@@ -227,7 +227,7 @@
             async getNextEpisodes(next, podcastId) {
 
                 let podcastShow = await app.mk.api.v3.podcasts(next)
-                if(podcastId != this.podcastSelected.id) {
+                if (podcastId != this.podcastSelected.id) {
                     return
                 }
                 podcastShow.data.data.forEach(ep => {

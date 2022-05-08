@@ -1,7 +1,7 @@
 import * as ElectronStore from 'electron-store';
 import * as electron from "electron";
 import {app} from "electron";
-
+import fetch from "electron-fetch";
 export class Store {
     static cfg: ElectronStore;
 
@@ -12,7 +12,7 @@ export class Store {
         },
         "general": {
             "close_button_hide": false,
-            "discord_rpc": {
+            "discordrpc": {
                 "enabled": false,
                 "client": "Cider",
                 "clear_on_pause": true,
@@ -52,11 +52,11 @@ export class Store {
             "keybindings": {
                 "search": [
                     process.platform == "darwin" ? "Command" : "Control",
-                    "S"
+                    "F"
                 ],
                 "albums": [
                     process.platform == "darwin" ? "Command" : "Control",
-                    "F"
+                    "S"
                 ],
                 "artists": [
                     process.platform == "darwin" ? "Command" : "Control",
@@ -123,6 +123,8 @@ export class Store {
             "quality": "HIGH",
             "seamless_audio": true,
             "normalization": false,
+            "dBSPL": false,
+            "dBSPLcalibration": 90,
             "maikiwiAudio": {
                 "ciderPPE": false,
                 "ciderPPE_value": "MAIKIWI",
@@ -212,17 +214,22 @@ export class Store {
         },
         "connectUser": {
             "auth": null,
+            "sync": {
+                themes: false,
+                plugins: false,
+                settings: false,
+            }
         },
     }
     private migrations: any = {
         '>=1.4.3': (store: ElectronStore) => {
-            if (typeof store.get('general.discord_rpc') == 'number' || typeof store.get('general.discord_rpc') == 'string') {
-                store.delete('general.discord_rpc');
+            if (typeof store.get('general.discordrpc') == 'number' || typeof store.get('general.discordrpc') == 'string') {
+                store.delete('general.discordrpc');
             }
         },
     }
     private schema: ElectronStore.Schema<any> = {
-        "general.discord_rpc": {
+        "general.discordrpc": {
             type: 'object'
         },
     }
@@ -261,6 +268,7 @@ export class Store {
         return target
     }
 
+    
     /**
      * IPC Handler
      */
@@ -281,5 +289,43 @@ export class Store {
             Store.cfg.store = store
         })
     }
+    
+    
+    static pushToCloud(): void {
+        if (Store.cfg.get('connectUser.auth') === null) return;
+        var syncData = Object();
+        if (Store.cfg.get('connectUser.sync.themes')) {
+            syncData.push({
+                themes: Store.cfg.store.themes
+            })
+        }
+        if (Store.cfg.get('connectUser.sync.plugins')) {
+            syncData.push({
+                plugins: Store.cfg.store.plugins
+            })
+        }
+    
+        if (Store.cfg.get('connectUser.sync.settings')) {
+            syncData.push({
+                general: Store.cfg.get('general'),
+                home: Store.cfg.get('home'),
+                libraryPrefs: Store.cfg.get('libraryPrefs'),
+                advanced: Store.cfg.get('advanced'),
+            })
+        }
+        let postBody = {
+            id: Store.cfg.get('connectUser.id'),
+            app: electron.app.getName(),
+            version: electron.app.isPackaged ? electron.app.getVersion() : 'dev',
+            syncData: syncData
+        }
 
+        fetch('https://connect.cidercollective.dev/api/v1/setttings/set', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(postBody)
+        })
+    }
 }

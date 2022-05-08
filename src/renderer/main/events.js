@@ -22,7 +22,7 @@ const Events = {
             if (event.keyCode === 82 && event.ctrlKey) {
                 event.preventDefault()
                 bootbox.confirm("Reload Cider?", (res)=>{
-                    if(res) {
+                    if (res) {
                         window.location.reload()
                     }
                 })

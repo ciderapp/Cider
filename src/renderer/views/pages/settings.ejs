@@ -441,6 +441,30 @@
                                 </label>
                             </div>
                         </div>
+                        <div class="md-option-line" v-show="app.cfg.advanced.AudioContext && app.cfg.audio.normalization">
+                            <div class="md-option-segment">
+                                dB SPL Display
+                                <br>
+                                <small>(Advanced users only) Display dB SPL instead of dBFS on the volume slider.</small>
+                            </div>
+                            <div class="md-option-segment md-option-segment_auto">
+                                <label>
+                                    <input type="checkbox" v-model="app.cfg.audio.dBSPL" switch/>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="md-option-line" v-show="app.cfg.audio.dBSPL">
+                            <div class="md-option-segment">
+                                0 dBFS Calibration
+                                <br>
+                                <small>Enter the peak Z-weighted dB SPL when Cider is at 0 dBFS.</small>
+                            </div>
+                            <div class="md-option-segment md-option-segment_auto">
+                                <label>
+                                    <input type="number" v-model="app.cfg.audio.dBSPLcalibration"/>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </b-tab>
@@ -456,20 +480,8 @@
                                 {{$root.getLz('settings.header.visual.theme')}}
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
-                                <label>
-                                    <select class="md-select" @change="$root.setTheme($root.cfg.visual.theme)"
-                                            v-model="$root.cfg.visual.theme">
-                                        <option value="default.less">
-                                            {{$root.getLz('settings.option.visual.theme.default')}}
-                                        </option>
-                                        <option value="dark.less">{{$root.getLz('settings.option.visual.theme.dark')}}
-                                        </option>
-                                        <option v-for="theme in themes" :value="theme.file">{{ theme.name }}</option>
-                                    </select>
-                                </label>
-                                <button class="md-btn md-btn-small md-btn-block" @click="gitHubExplore()"
-                                        style="margin-top: 8px">
-                                    {{$root.getLz('settings.option.visual.theme.github.explore')}}
+                                <button class="md-btn md-btn-block" @click="$root.appRoute('installed-themes')">
+                                    {{$root.getLz('settings.option.visual.theme.manageStyles')}}
                                 </button>
                             </div>
                         </div>
@@ -1013,18 +1025,18 @@
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
                                 <label>
-                                    <input type="checkbox" v-model="app.cfg.general.discord_rpc.enabled" switch/>
+                                    <input type="checkbox" v-model="app.cfg.general.discordrpc.enabled" switch/>
                                 </label>
                             </div>
                         </div>
 
-                        <div class="md-option-line" v-show="app.cfg.general.discord_rpc.enabled != false">
+                        <div class="md-option-line" v-show="app.cfg.general.discordrpc.enabled != false">
                             <div class="md-option-segment">
                                 {{$root.getLz('settings.option.connectivity.discordRPC.clientName')}}
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
                                 <label>
-                                    <select class="md-select" v-model="app.cfg.general.discord_rpc.client">
+                                    <select class="md-select" v-model="app.cfg.general.discordrpc.client">
                                         <option value="Cider">{{$root.getLz('app.name')}}</option>
                                         <option value="AppleMusic">{{$root.getLz('term.appleMusic')}}
                                         </option>
@@ -1033,29 +1045,29 @@
                             </div>
                         </div>
 
-                        <div class="md-option-line" v-show="app.cfg.general.discord_rpc.enabled != false">
+                        <div class="md-option-line" v-show="app.cfg.general.discordrpc.enabled != false">
                             <div class="md-option-segment">
                                 {{$root.getLz('settings.option.connectivity.discordRPC.clearOnPause')}}
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
                                 <label>
-                                    <input type="checkbox" v-model="app.cfg.general.discord_rpc.clear_on_pause" switch/>
+                                    <input type="checkbox" v-model="app.cfg.general.discordrpc.clear_on_pause" switch/>
                                 </label>
                             </div>
                         </div>
 
-                        <div class="md-option-line" v-show="app.cfg.general.discord_rpc.enabled != false">
+                        <div class="md-option-line" v-show="app.cfg.general.discordrpc.enabled != false">
                             <div class="md-option-segment">
                                 {{$root.getLz('settings.option.connectivity.discordRPC.hideButtons')}}
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
                                 <label>
-                                    <input type="checkbox" v-model="app.cfg.general.discord_rpc.hide_buttons" switch/>
+                                    <input type="checkbox" v-model="app.cfg.general.discordrpc.hide_buttons" switch/>
                                 </label>
                             </div>
                         </div>
 
-                        <div class="md-option-line" v-show="app.cfg.general.discord_rpc.enabled != false">
+                        <div class="md-option-line" v-show="app.cfg.general.discordrpc.enabled != false">
                             <div class="md-option-segment">
                                 {{$root.getLz('settings.option.connectivity.discordRPC.detailsFormat')}}<br/>
                                 <small>{{$root.getLz('term.variables')}}: {artist}, {composer}, {title}, {album},
@@ -1063,12 +1075,12 @@
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
                                 <label>
-                                    <input type="text" v-model="app.cfg.general.discord_rpc.details_format"/>
+                                    <input type="text" v-model="app.cfg.general.discordrpc.details_format"/>
                                 </label>
                             </div>
                         </div>
 
-                        <div class="md-option-line" v-show="app.cfg.general.discord_rpc.enabled != false">
+                        <div class="md-option-line" v-show="app.cfg.general.discordrpc.enabled != false">
                             <div class="md-option-segment">
                                 {{$root.getLz('settings.option.connectivity.discordRPC.stateFormat')}}
                                 <small>{{$root.getLz('term.variables')}}: {artist}, {composer}, {title}, {album},
@@ -1076,7 +1088,7 @@
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
                                 <label>
-                                    <input type="text" v-model="app.cfg.general.discord_rpc.state_format"/>
+                                    <input type="text" v-model="app.cfg.general.discordrpc.state_format"/>
                                 </label>
                             </div>
                         </div>
@@ -1192,19 +1204,6 @@
                                 </button>
                             </div>
                         </div>
-
-                        <div class="md-option-line">
-                            <!-- Do not translate -->
-                            <div class="md-option-segment">
-                                Style Editor<br>
-                                <small>Mix and match various theme components to get Cider looking exactly how you
-                                    want.</small>
-                            </div>
-                            <div class="md-option-segment">
-                                <stylestack-editor :themes="themes"/>
-                            </div>
-                        </div>
-
                         <div class="md-option-line">
                             <div class="md-option-segment">
                                 {{$root.getLz('settings.option.experimental.unknownPlugin')}}
@@ -1413,112 +1412,6 @@
 </script>
 
 <script>
-    // do not translate
-    Vue.component('stylestack-editor', {
-        /*html*/
-        template: `
-            <div class="stylestack-editor">
-                <draggable class="list-group" v-model="$root.cfg.visual.styles" @end="$root.reloadStyles()">
-                    <b-list-group-item variant="dark" v-for="theme in $root.cfg.visual.styles" :key="theme">
-                        <b-row>
-                            <b-col class="themeLabel">{{getThemeName(theme)}}</b-col>
-                            <b-col sm="auto">
-                                <button class="removeItem codicon codicon-close" @click="remove(theme)"></button>
-                            </b-col>
-                        </b-row>
-                        </b-list-group-item>
-                        <b-list-group-item slot="footer" style="-webkit-user-drag: none" variant="dark">
-                            <b-row>
-                                <b-col>
-                                    <b-dropdown class="stylesDropdown" variant="primary" text="Add Style...">
-                                        <b-dropdown-item v-for="theme in themeList" @click="addStyle(theme.file)">{{theme.name}}</b-dropdown-item>
-                                    </b-dropdown>
-                                </b-col>
-                                <b-col>
-                                    <b-btn @click="gitHubExplore()">{{$root.getLz('settings.option.visual.theme.github.explore')}}</b-btn>    
-                                </b-col>
-                            </b-row>
-                        </b-list-group-item>
-                </draggable>    
-            </div>
-        `,
-        props: {
-            themes: {
-                type: Array,
-                default: []
-            }
-        },
-        data: function () {
-            return {
-                selected: null,
-                newTheme: null,
-                themeList: []
-            }
-        },
-        mounted() {
-            this.themeList = [...this.themes]
-            this.themeList.unshift({
-                name: "Acrylic Grain",
-                file: "grain.less"
-            })
-            this.themeList.unshift({
-                name: "Sweetener",
-                file: "sweetener.less"
-            })
-            this.themeList.unshift({
-                name: "Reduce Visuals",
-                file: "reduce_visuals.less"
-            })
-            this.themeList.unshift({
-                name: "Inline Drawer",
-                file: "inline_drawer.less"
-            })
-        },
-        methods: {
-            gitHubExplore() {
-                this.$root.appRoute("themes-github")
-            },
-            getThemeName(filename) {
-                try {
-                    return this.themeList.find(theme => theme.file === filename).name;
-                } catch (e) {
-                    return filename;
-                }
-            },
-            moveUp() {
-                const styles = this.$root.cfg.visual.styles
-                const index = styles.indexOf(this.selected)
-                if (index > 0) {
-                    styles.splice(index, 1)
-                    styles.splice(index - 1, 0, this.selected)
-                }
-                this.$root.reloadStyles()
-            },
-            moveDown() {
-                const styles = this.$root.cfg.visual.styles
-                const index = styles.indexOf(this.selected)
-                if (index < styles.length - 1) {
-                    styles.splice(index, 1)
-                    styles.splice(index + 1, 0, this.selected)
-                }
-                this.$root.reloadStyles()
-            },
-            remove(style) {
-                const styles = this.$root.cfg.visual.styles
-                const index = styles.indexOf(style)
-                styles.splice(index, 1)
-                this.$root.reloadStyles()
-            },
-            addStyle(style) {
-                const styles = this.$root.cfg.visual.styles
-                styles.push(style)
-                this.$root.reloadStyles()
-            }
-        }
-    })
-</script>
-
-<script>
     Vue.component('cider-settings', {
         template: "#cider-settings",
         props: [],
@@ -1542,7 +1435,7 @@
                     this.tabIndex = parseInt(window.location.hash.split("/")[1])
                     console.debug("tabIndex", this.tabIndex)
                     this.canChangeHash = true
-                }else{
+                } else {
                     this.canChangeHash = true
                 }
             })
@@ -1629,10 +1522,10 @@
                 app.cfg.general.keybindings.browse = [app.platform == "darwin" ? "Command" : "Control", "B"];
                 app.cfg.general.keybindings.togglePrivateSession = [app.platform == "darwin" ? "Command" : "Control", "P"];
                 app.cfg.general.keybindings.webRemote = [app.platform == "darwin" ? "Command" : "Control", "W"];
-                app.cfg.general.keybindings.audioSettings = [app.platform == "darwin" ? "Option" : "Shift", "A"];
-                app.cfg.general.keybindings.pluginMenu = [app.platform == "darwin" ? "Option" : "Shift", "P"];
-                app.cfg.general.keybindings.castToDevices = [app.platform == "darwin" ? "Option" : "Shift", "C"];
-                app.cfg.general.keybindings.settings = [app.platform == "darwin" ? "Option" : "Shift", "S"];
+                app.cfg.general.keybindings.audioSettings = [app.platform == "darwin" ? "Option" : "Alt", "A"];
+                app.cfg.general.keybindings.pluginMenu = [app.platform == "darwin" ? "Option" : "Alt", "P"];
+                app.cfg.general.keybindings.castToDevices = [app.platform == "darwin" ? "Option" : "Alt", "C"];
+                app.cfg.general.keybindings.settings = [app.platform == "darwin" ? "Option" : "Alt", "S"];
                 app.cfg.general.keybindings.openDeveloperTools = [app.platform == "darwin" ? "Command" : "Control", app.platform == "darwin" ? "Option" : "Shift", "I"];
                 notyf.success(app.getLz('settings.notyf.general.keybindings.update.success'));
                 bootbox.confirm(app.getLz("settings.prompt.general.keybindings.update.success"), (ok) => {

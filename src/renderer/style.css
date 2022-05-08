@@ -7936,6 +7936,15 @@ fieldset:disabled .btn {
   filter: contrast(0);
   background-repeat: no-repeat;
 }
+.cd-mediaitem-list-item .playIcon{
+  width: 44px;
+  margin-left: 11px;
+}
+.cd-mediaitem-list-item .heart-icon {
+  position: absolute;
+  filter: contrast(0);
+  background-repeat: no-repeat;
+}
 @keyframes load-bar {
   10% {
     box-shadow: inset 0 -4px 0;
@@ -12935,6 +12944,7 @@ body[platform='darwin'] #window-controls-container {
 }
 body[platform='darwin'] .app-chrome .app-chrome-item > .app-mainmenu {
   opacity: 0;
+  width: 52px;
   pointer-events: none;
   -webkit-app-region: drag;
 }

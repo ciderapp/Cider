@@ -89,9 +89,9 @@ export default class RAOP {
 `;
 
     private ondeviceup(name: any, host: any, port: any, addresses: any, text: any) {
-        if (this.castDevices.findIndex((item: any) => item.name === host && item.port === port && item.addresses === addresses) === -1) {
+        if (this.castDevices.findIndex((item: any) => item.name == host.replace(".local","") && item.port == port && item.addresses == addresses) === -1) {
             this.castDevices.push({
-                name: host,
+                name: host.replace(".local",""),
                 host: addresses ? addresses[0] : '',
                 port: port,
                 addresses: addresses,
@@ -147,14 +147,28 @@ export default class RAOP {
             browser.on('ready', browser.discover);
 
             browser.on('update', (service: any) => {
-                if (service.addresses && service.fullname && (service.fullname.includes('_raop._tcp') ||  service.fullname.includes('_airplay._tcp'))) {
+                 if (service.addresses && service.fullname && (service.fullname.includes('_raop._tcp') ||  service.fullname.includes('_airplay._tcp'))) {
                     // console.log(service.txt)
                 this._win.webContents.executeJavaScript(`console.log(
                     "${service.name} ${service.host}:${service.port} ${service.addresses}"
                 )`);
-                this.ondeviceup(service.name, service.host, service.port, service.addresses, service.txt);}
+                this.ondeviceup(service.name, service.host, service.port, service.addresses, service.txt);
+             }
             });
+            
+            // const browser2 = this.mdns.createBrowser(this.mdns.tcp('airplay'));
+            // browser2.on('ready', browser2.discover);
 
+            // browser2.on('update', (service: any) => {
+            //      if (service.addresses && service.fullname && (service.fullname.includes('_raop._tcp') ||  service.fullname.includes('_airplay._tcp'))) {
+            //         // console.log(service.txt)
+            //     this._win.webContents.executeJavaScript(`console.log(
+            //         "${service.name} ${service.host}:${service.port} ${service.addresses}"
+            //     )`);
+            //     this.ondeviceup(service.name, service.host, service.port, service.addresses, service.txt);
+            //  }
+            // });
+    
         });
 
 
@@ -167,7 +181,7 @@ export default class RAOP {
                 this.portairplay = ipport;
                 this.device = this.airtunes.add(ipv4, {
                     port: ipport,
-                    volume: 60,
+                    volume: 50,
                     password: sepassword,
                     txt: txt
                 });
@@ -177,6 +191,15 @@ export default class RAOP {
                     if (status == "ready"){
                         this._win.webContents.setAudioMuted(true);
                         this._win.webContents.executeJavaScript(`CiderAudio.sendAudio()`).catch((err: any) => console.error(err));
+                    }
+                    if (status == "need_password"){
+                        this._win.webContents.executeJavaScript(`app.setAirPlayCodeUI()`)
+                    }
+                    if (status == "pair_success"){
+                        this._win.webContents.executeJavaScript(`app.sendAirPlaySuccess()`)
+                    }
+                    if (status == "pair_failed"){
+                        this._win.webContents.executeJavaScript(`app.sendAirPlayFailed()`)
                     }
                     if (status == 'stopped') {
                         this.airtunes.stopAll(() => {
@@ -209,6 +232,12 @@ export default class RAOP {
 
 
         });
+
+        electron.ipcMain.on('setAirPlayPasscode', (event, passcode) => {
+            if (this.device){
+                this.device.setPasscode(passcode)
+            }
+        })
 
         electron.ipcMain.on('writeWAV', (event, leftbuffer, rightbuffer) => {
             if (this.airtunes != null) {
