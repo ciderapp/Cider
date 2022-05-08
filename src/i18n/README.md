@@ -338,3 +338,7 @@ Update 29/04/2022 00:00 UTC
  * `menubar.options.conf`: Added for `en_US` 
 
 
+Update 08/05/2022 00:29 UTC
+
+* `settings.option.visual.theme.github.available`: Added for `en_US`,
+* `settings.option.visual.theme.github.applied`: Added for `en_US`,
