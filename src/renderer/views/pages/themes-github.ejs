@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-auto flex-center">
                     <button class="md-btn md-btn-small md-btn-block" @click="$root.checkForThemeUpdates()">
-                        Check for updates
+                        {{ $root.getLz('settings.option.visual.theme.checkForUpdates') }}
                     </button>
                 </div>
                 <div class="col-auto nopadding flex-center">
