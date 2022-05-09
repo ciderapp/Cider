@@ -1069,17 +1069,6 @@
 
                         <div class="md-option-line" v-show="app.cfg.general.discordrpc.enabled != false">
                             <div class="md-option-segment">
-                                {{$root.getLz('settings.option.connectivity.discordRPC.hideTimestamp')}}
-                            </div>
-                            <div class="md-option-segment md-option-segment_auto">
-                                <label>
-                                    <input type="checkbox" v-model="app.cfg.general.discordrpc.hide_timestamp" switch/>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="md-option-line" v-show="app.cfg.general.discordrpc.enabled != false">
-                            <div class="md-option-segment">
                                 {{$root.getLz('settings.option.connectivity.discordRPC.detailsFormat')}}<br/>
                                 <small>{{$root.getLz('term.variables')}}: {artist}, {composer}, {title}, {album},
                                     {trackNumber}</small>

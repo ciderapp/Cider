@@ -472,7 +472,6 @@
   "settings.option.connectivity.discordRPC.clientName": "Client Name",
   "settings.option.connectivity.discordRPC.clearOnPause": "Clear Discord Rich Presence on Pause",
   "settings.option.connectivity.discordRPC.hideButtons": "Hide buttons on Discord Rich Presence",
-  "settings.option.connectivity.discordRPC.hideTimestamp": "Hide timestamp on Discord Rich Presence",
   "settings.option.connectivity.discordRPC.detailsFormat": "Details Format",
   "settings.option.connectivity.discordRPC.stateFormat": "State Format",
   "settings.option.connectivity.lastfmScrobble": "Last.fm Scrobbling",
