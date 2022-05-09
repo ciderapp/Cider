@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/add-to-project@main
         with:
-          project-url: https://github.com/orgs/<orgName>/projects/<projectNumber>
+          project-url: https://github.com/orgs/ciderapp/projects/5
           github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
           labeled: bug, needs-triage
           label-operator: OR
