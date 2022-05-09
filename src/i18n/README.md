@@ -279,17 +279,17 @@ Update 24/04/2022 19:00 UTC
 
 Update 25/04/2022 00:21 UTC
 
-*  `settings.description.search`: Added for `en_US`
-*  `settings.description.albums`: Added for `en_US`
-*  `settings.description.artists`: Added for `en_US`
-*  `settings.description.browse`: Added for `en_US`
-*  `settings.description.private`: Added for `en_US`
-*  `settings.description.remote`: Added for `en_US`
-*  `settings.description.audio`: Added for `en_US`
-*  `settings.description.plugins`: Added for `en_US`
-*  `settings.description.cast`: Added for `en_US`
-*  `settings.description.settings`: Added for `en_US`
-*  `settings.description.developer`: Added for `en_US`
+* `settings.description.search`: Added for `en_US`
+* `settings.description.albums`: Added for `en_US`
+* `settings.description.artists`: Added for `en_US`
+* `settings.description.browse`: Added for `en_US`
+* `settings.description.private`: Added for `en_US`
+* `settings.description.remote`: Added for `en_US`
+* `settings.description.audio`: Added for `en_US`
+* `settings.description.plugins`: Added for `en_US`
+* `settings.description.cast`: Added for `en_US`
+* `settings.description.settings`: Added for `en_US`
+* `settings.description.developer`: Added for `en_US`
 
 Update 28/04/2022 21:45 UTC
 
@@ -301,47 +301,46 @@ Update 28/04/2022 21:45 UTC
 
 Update 29/04/2022 00:00 UTC
 
- * `menubar.options.about`: Added for `en_US`
- * `menubar.options.settings`: Added for `en_US`
- * `menubar.options.quit`: Added for `en_US`
- * `menubar.options.view`: Added for `en_US`
- * `menubar.options.reload`: Added for `en_US`
- * `menubar.options.forcereload`: Added for `en_US`
- * `menubar.options.toggledevtools`: Added for `en_US`
- * `menubar.options.window`: Added for `en_US`
- * `menubar.options.minimize`: Added for `en_US`
- * `menubar.options.toggleprivate`: Added for `en_US`
- * `menubar.options.webremote`: Added for `en_US`
- * `menubar.options.audio`: Added for `en_US`
- * `menubar.options.plugins`: Added for `en_US`
- * `menubar.options.control`: Added for `en_US`
- * `menubar.options.next`: "Added for `en_US`
- * `menubar.options.previous`: Added for `en_US`
- * `menubar.options.volumeup`: Added for `en_US`
- * `menubar.options.volumedown`: Added for `en_US`
- * `menubar.options.browse`: Added for `en_US`
- * `menubar.options.artists`: Added for `en_US`
- * `menubar.options.search`: Added for `en_US`
- * `menubar.options.albums`: Added for `en_US`
- * `menubar.options.cast`: Added for `en_US`
- * `menubar.options.account`: Added for `en_US`
- * `menubar.options.accountsettings`: Added for `en_US`
- * `menubar.options.signout`: Added for `en_US`
- * `menubar.options.support`: Added for `en_US`
- * `menubar.options.discord`: Added for `en_US`
- * `menubar.options.github`: Added for `en_US`
- * `menubar.options.report`: Added for `en_US`
- * `menubar.options.bug`: Added for `en_US`
- * `menubar.options.feature`: Added for `en_US`
- * `menubar.options.trans`: Added for `en_US`
- * `menubar.options.license`: Added for `en_US`
- * `menubar.options.conf`: Added for `en_US` 
-
+* `menubar.options.about`: Added for `en_US`
+* `menubar.options.settings`: Added for `en_US`
+* `menubar.options.quit`: Added for `en_US`
+* `menubar.options.view`: Added for `en_US`
+* `menubar.options.reload`: Added for `en_US`
+* `menubar.options.forcereload`: Added for `en_US`
+* `menubar.options.toggledevtools`: Added for `en_US`
+* `menubar.options.window`: Added for `en_US`
+* `menubar.options.minimize`: Added for `en_US`
+* `menubar.options.toggleprivate`: Added for `en_US`
+* `menubar.options.webremote`: Added for `en_US`
+* `menubar.options.audio`: Added for `en_US`
+* `menubar.options.plugins`: Added for `en_US`
+* `menubar.options.control`: Added for `en_US`
+* `menubar.options.next`: "Added for `en_US`
+* `menubar.options.previous`: Added for `en_US`
+* `menubar.options.volumeup`: Added for `en_US`
+* `menubar.options.volumedown`: Added for `en_US`
+* `menubar.options.browse`: Added for `en_US`
+* `menubar.options.artists`: Added for `en_US`
+* `menubar.options.search`: Added for `en_US`
+* `menubar.options.albums`: Added for `en_US`
+* `menubar.options.cast`: Added for `en_US`
+* `menubar.options.account`: Added for `en_US`
+* `menubar.options.accountsettings`: Added for `en_US`
+* `menubar.options.signout`: Added for `en_US`
+* `menubar.options.support`: Added for `en_US`
+* `menubar.options.discord`: Added for `en_US`
+* `menubar.options.github`: Added for `en_US`
+* `menubar.options.report`: Added for `en_US`
+* `menubar.options.bug`: Added for `en_US`
+* `menubar.options.feature`: Added for `en_US`
+* `menubar.options.trans`: Added for `en_US`
+* `menubar.options.license`: Added for `en_US`
+* `menubar.options.conf`: Added for `en_US` 
 
 Update 08/05/2022 00:29 UTC
 
-* `settings.option.visual.theme.github.available`: Added for `en_US`,
-* `settings.option.visual.theme.github.applied`: Added for `en_US`,
+* `settings.option.visual.theme.github.available`: Added for `en_US`
+* `settings.option.visual.theme.github.applied`: Added for `en_US`
 
 Update 09/05/2022 19:30 UTC
 
