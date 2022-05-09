@@ -186,7 +186,7 @@
                 blur.style.justifyContent = 'center';
                 blur.style.fontSize = '2em';
                 blur.style.color = 'white';
-                blur.innerHTML = 'Press a combination of two keys to update keybinding. Press Escape key to go back.'
+                blur.innerHTML = `<center>${app.getLz('settings.option.general.keybindings.pressCombination')}<br />${app.getLz('settings.option.general.keybindings.pressEscape')}</center>`
                 document.body.appendChild(blur);
 
                 let keyBind = [];
