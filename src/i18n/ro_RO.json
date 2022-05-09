@@ -198,8 +198,6 @@
   "settings.option.audio.enableAdvancedFunctionality.description": "Pornirea funcționalității AudioContext va permite folosirea funcțiilor audio avansate precum Normalizare Volum , Egalizator și Vizualizator, dar pe unele sisteme poate cauza probleme precum întreruperi în redare.",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Normalizare Volum",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizează volumul maxim al melodiilor pentru a genera o experiență audio optimă.",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Spațializare Audio",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Spațializează sunetul și face sunetul 3-dimensional (notă: Nu este Dolby Atmos)",
   "settings.header.visual": "Vizual", 
   "settings.header.visual.description": "Ajustează setările vizuale pentru Cider.",
   "settings.option.visual.windowBackgroundStyle": "Stil Fundal Fereastră", 
