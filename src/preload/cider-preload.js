@@ -87,6 +87,7 @@ const MusicKitInterop = {
 		const nowPlayingItem = mk.nowPlayingItem;
 		const isPlayingExport = mk.isPlaying;
 		const remainingTimeExport = mk.currentPlaybackTimeRemaining;
+		const currentPlaybackProgress = mk.currentPlaybackProgress;
 		const attributes = (nowPlayingItem != null ? nowPlayingItem.attributes : {});
 
 		attributes.status = isPlayingExport ?? null;
@@ -109,6 +110,7 @@ const MusicKitInterop = {
 			? remainingTimeExport * 1000
 			: 0;
 		attributes.durationInMillis = attributes?.durationInMillis ?? 0;
+		attributes.currentPlaybackProgress = currentPlaybackProgress ?? 0;
 		attributes.startTime = Date.now();
 		attributes.endTime = Math.round(
 			attributes?.playParams?.id === cache.playParams.id
