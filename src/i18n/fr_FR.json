@@ -224,8 +224,6 @@
   
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Normalisation du son",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalise le volume maximal des pistes individuelles pour créer une expérience d'écoute plus uniforme.",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Spatialisation audio",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Spatialiser l'audio et rendre l'audio plus tridimensionnel (note: Ce n'est pas Dolby Atmos)",
   "settings.header.visual": "Visuel",
   "settings.header.visual.description": "Ajuster les paramètres visuels de Cider.",
   "settings.option.visual.windowBackgroundStyle": "Style d'arrière-plan de la fenêtre",

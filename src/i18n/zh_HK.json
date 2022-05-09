@@ -278,8 +278,6 @@
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive": "激進型",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "音量平衡",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "自動將歌曲播放音量調整至相同水平，建立更統一的聆聽體驗。",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "空間音訊",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "將音訊進行空間化處理來製造一個更立體的聆聽體驗（註：此功能不是官方的杜比全景聲）。",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization": "Cider 空間音訊效果",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.description": "預先調整空間音訊效果，關閉空間音訊可自訂設定。但必須先開啟空間音訊才可以做設定。",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile": "Cider 空間音訊配置檔案",

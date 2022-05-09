@@ -194,8 +194,6 @@
   "settings.option.audio.enableAdvancedFunctionality.description": "Attiva AudioContext per funzionalià audio avanzata Normalizzazione Audio, Equalizzatori and Visualizzatori, però su alcuni sistemi potrebbero causare lag nei brani.",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Normalizzazione Audio",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizza il volume massimo nei brani per un'esperienza d'ascolto più uniforme.",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Spazializzazione Audio",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Spazializza l'audio per dare un effetto più tridimensionale (nota: questo non è Dolby Atmos)",
   "settings.header.visual": "Visuale",
   "settings.header.visual.description": "Cambia le impostazioni visuali per Cider.",
   "settings.option.visual.windowBackgroundStyle": "Stile Sfondo Finestra",

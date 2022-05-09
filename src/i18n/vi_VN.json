@@ -236,8 +236,6 @@
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive": "Mạnh",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Chuẩn hoá âm lượng",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Đặt cùng mức âm lượng cho mọi bài hát",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Tạo Âm thanh đa chiều ",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Làm cho âm thanh trở nên nhiều chiều hơn (Ghi chú: Đây không phải là Dolby Atmos)",
   "settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility": "Âm thanh đa chiều không tương thích với CAP. Hãy tắt CAP để kích hoạt.",
   "settings.header.visual": "Hiển thị",
   "settings.header.visual.description": "Thay đổi các cài đặt hiển thị của Cider.",
