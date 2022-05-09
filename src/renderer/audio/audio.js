@@ -423,26 +423,26 @@ const CiderAudio = {
             switch (hierarchy) {
                 case 4:
                     try {
-                        CiderAudio.audioNodes.atmosphererealizer2.connect(CiderAudio.audioNodes.atmosphereRealizer1);
+                        CiderAudio.audioNodes.atmosphereRealizer2.connect(CiderAudio.audioNodes.atmosphereRealizer1);
                     } catch (e) { }
                     break;
                 case 3:
                     try {
-                        CiderAudio.audioNodes.atmosphererealizer2.connect(CiderAudio.audioNodes.llpw[0]);
+                        CiderAudio.audioNodes.atmosphereRealizer2.connect(CiderAudio.audioNodes.llpw[0]);
                     } catch (e) { }
                     break;
                 case 2:
                     try {
-                        CiderAudio.audioNodes.atmosphererealizer2.connect(CiderAudio.audioNodes.vibrantbassNode[0]);
+                        CiderAudio.audioNodes.atmosphereRealizer2.connect(CiderAudio.audioNodes.vibrantbassNode[0]);
                     } catch (e) { }
                     break;
                 case 1:
                     try {
-                        CiderAudio.audioNodes.atmosphererealizer2.connect(CiderAudio.audioNodes.audioBands[0]);
+                        CiderAudio.audioNodes.atmosphereRealizer2.connect(CiderAudio.audioNodes.audioBands[0]);
                     } catch (e) { }
                     break;
                 case 0:
-                    try { CiderAudio.audioNodes.atmosphererealizer2.connect(CiderAudio.context.destination); } catch (e) { }
+                    try { CiderAudio.audioNodes.atmosphereRealizer2.connect(CiderAudio.context.destination); } catch (e) { }
                     break;
             }
 
@@ -468,21 +468,21 @@ const CiderAudio = {
             switch (hierarchy) {
                 case 3:
                     try {
-                        CiderAudio.audioNodes.atmosphererealizer1.connect(CiderAudio.audioNodes.llpw[0]);
+                        CiderAudio.audioNodes.atmosphereRealizer1.connect(CiderAudio.audioNodes.llpw[0]);
                     } catch (e) { }
                     break;
                 case 2:
                     try {
-                        CiderAudio.audioNodes.atmosphererealizer1.connect(CiderAudio.audioNodes.vibrantbassNode[0]);
+                        CiderAudio.audioNodes.atmosphereRealizer1.connect(CiderAudio.audioNodes.vibrantbassNode[0]);
                     } catch (e) { }
                     break;
                 case 1:
                     try {
-                        CiderAudio.audioNodes.atmosphererealizer1.connect(CiderAudio.audioNodes.audioBands[0]);
+                        CiderAudio.audioNodes.atmosphereRealizer1.connect(CiderAudio.audioNodes.audioBands[0]);
                     } catch (e) { }
                     break;
                 case 0:
-                    try { CiderAudio.audioNodes.atmosphererealizer1.connect(CiderAudio.context.destination); } catch (e) { }
+                    try { CiderAudio.audioNodes.atmosphereRealizer1.connect(CiderAudio.context.destination); } catch (e) { }
                     break;
             }
 
