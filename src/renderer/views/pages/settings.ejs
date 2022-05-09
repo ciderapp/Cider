@@ -185,146 +185,17 @@
                                     </div>
                                 </div>
                             </b-modal>
-                        </div>
+                        </div> 
                         <div class="md-option-line">
                             <div class="md-option-segment">
                                 {{$root.getLz('settings.option.general.keybindings')}}
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
-                                <button class="md-btn" v-b-modal.modal-2>
+                                <button class="md-btn" @click="app.appRoute('keybinds-settings')" >
                                     {{$root.getLz('settings.option.general.keybindings.open')}}
                                 </button>
                             </div>
-                            <b-modal id="modal-2" centered size="lg"
-                                     :title="$root.getLz('settings.option.general.keybindings')" ok-only>
-                                <div class="settings-option-body">
-                                    <div class="md-option-line">
-                                        <div class="md-option-segment">
-                                            {{$root.getLz('settings.description.search')}}
-                                        </div>
-                                        <div class="md-option-segment md-option-segment_auto">
-                                            <button class="md-btn md-btn-small md-btn-block"
-                                                    @click="keyBindUpdate('search')">
-                                                {{app.cfg.general.keybindings.search.join(' + ')}}
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="md-option-line">
-                                        <div class="md-option-segment">
-                                            {{$root.getLz('settings.description.albums')}}
-                                        </div>
-                                        <div class="md-option-segment md-option-segment_auto">
-                                            <button class="md-btn md-btn-small md-btn-block"
-                                                    @click="keyBindUpdate('albums')">
-                                                {{app.cfg.general.keybindings.albums.join(' + ')}}
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="md-option-line">
-                                        <div class="md-option-segment">
-                                            {{$root.getLz('settings.description.artists')}}
-                                        </div>
-                                        <div class="md-option-segment md-option-segment_auto">
-                                            <button class="md-btn md-btn-small md-btn-block"
-                                                    @click="keyBindUpdate('artists')">
-                                                {{app.cfg.general.keybindings.artists.join(' + ')}}
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="md-option-line">
-                                        <div class="md-option-segment">
-                                            {{$root.getLz('settings.description.browse')}}
-                                        </div>
-                                        <div class="md-option-segment md-option-segment_auto">
-                                            <button class="md-btn md-btn-small md-btn-block"
-                                                    @click="keyBindUpdate('browse')">
-                                                {{app.cfg.general.keybindings.browse.join(' + ')}}
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="md-option-line">
-                                        <div class="md-option-segment">
-                                            {{$root.getLz('settings.description.private')}}
-                                        </div>
-                                        <div class="md-option-segment md-option-segment_auto">
-                                            <button class="md-btn md-btn-small md-btn-block"
-                                                    @click="keyBindUpdate('togglePrivateSession')">
-                                                {{app.cfg.general.keybindings.togglePrivateSession.join(' + ')}}
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="md-option-line">
-                                        <div class="md-option-segment">
-                                            {{$root.getLz('settings.description.remote')}}
-                                        </div>
-                                        <div class="md-option-segment md-option-segment_auto">
-                                            <button class="md-btn md-btn-small md-btn-block"
-                                                    @click="keyBindUpdate('webRemote')">
-                                                {{app.cfg.general.keybindings.webRemote.join(' + ')}}
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="md-option-line">
-                                        <div class="md-option-segment">
-                                            {{$root.getLz('settings.description.audio')}}
-                                        </div>
-                                        <div class="md-option-segment md-option-segment_auto">
-                                            <button class="md-btn md-btn-small md-btn-block"
-                                                    @click="keyBindUpdate('audioSettings')">
-                                                {{app.cfg.general.keybindings.audioSettings.join(' + ')}}
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="md-option-line">
-                                        <div class="md-option-segment">
-                                            {{$root.getLz('settings.description.plugins')}}
-                                        </div>
-                                        <div class="md-option-segment md-option-segment_auto">
-                                            <button class="md-btn md-btn-small md-btn-block"
-                                                    @click="keyBindUpdate('pluginMenu')">
-                                                {{app.cfg.general.keybindings.pluginMenu.join(' + ')}}
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="md-option-line">
-                                        <div class="md-option-segment">
-                                            {{$root.getLz('settings.description.cast')}}
-                                        </div>
-                                        <div class="md-option-segment md-option-segment_auto">
-                                            <button class="md-btn md-btn-small md-btn-block"
-                                                    @click="keyBindUpdate('castToDevices')">
-                                                {{app.cfg.general.keybindings.castToDevices.join(' + ')}}
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="md-option-line">
-                                        <div class="md-option-segment">
-                                            {{$root.getLz('settings.description.settings')}}
-                                        </div>
-                                        <div class="md-option-segment md-option-segment_auto">
-                                            <button class="md-btn md-btn-small md-btn-block"
-                                                    @click="keyBindUpdate('settings')">
-                                                {{app.cfg.general.keybindings.settings.join(' + ')}}
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="md-option-line">
-                                        <div class="md-option-segment">
-                                            {{$root.getLz('settings.description.developer')}}
-                                        </div>
-                                        <div class="md-option-segment md-option-segment_auto">
-                                            <button class="md-btn md-btn-small md-btn-block"
-                                                    @click="keyBindUpdate('openDeveloperTools')">
-                                                {{app.cfg.general.keybindings.openDeveloperTools.join(' + ')}}
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <button class="md-btn md-btn-large md-btn-block" @click="keyBindReset()">
-                                        {{$root.getLz('term.reset')}}
-                                    </button>
-                                </div>
-                            </b-modal>
-                        </div>
+                        </div>                      
                     </div>
                 </div>
             </b-tab>
@@ -1517,9 +1388,11 @@
             },
             keyBindReset: function () {
                 app.cfg.general.keybindings.search = [app.platform == "darwin" ? "Command" : "Control", "S"];
+                app.cfg.general.keybindings.listennow = [app.platform == "darwin" ? "Command" : "Control", "L"];
+                app.cfg.general.keybindings.browse = [app.platform == "darwin" ? "Command" : "Control", "B"];
+                app.cfg.general.keybindings.recentAdded = [app.platform == "darwin" ? "Command" : "Control", "G"];
                 app.cfg.general.keybindings.albums = [app.platform == "darwin" ? "Command" : "Control", "F"];
                 app.cfg.general.keybindings.artists = [app.platform == "darwin" ? "Command" : "Control", "D"];
-                app.cfg.general.keybindings.browse = [app.platform == "darwin" ? "Command" : "Control", "B"];
                 app.cfg.general.keybindings.togglePrivateSession = [app.platform == "darwin" ? "Command" : "Control", "P"];
                 app.cfg.general.keybindings.webRemote = [app.platform == "darwin" ? "Command" : "Control", "W"];
                 app.cfg.general.keybindings.audioSettings = [app.platform == "darwin" ? "Option" : "Alt", "A"];

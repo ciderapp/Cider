@@ -54,6 +54,22 @@ export class Store {
                     process.platform == "darwin" ? "Command" : "Control",
                     "F"
                 ],
+                "listnow": [
+                    process.platform == "darwin" ? "Command" : "Control",
+                    "L"
+                ],
+                "browse": [
+                    process.platform == "darwin" ? "Command" : "Control",
+                    "B"
+                ],
+                "recentAdd": [
+                    process.platform == "darwin" ? "Command" : "Control",
+                    "G"
+                ],
+                "songs" : [
+                    process.platform == "darwin" ? "Command" : "Control",
+                    "J"
+                ],
                 "albums": [
                     process.platform == "darwin" ? "Command" : "Control",
                     "S"
@@ -61,10 +77,6 @@ export class Store {
                 "artists": [
                     process.platform == "darwin" ? "Command" : "Control",
                     "D"
-                ],
-                "browse": [
-                    process.platform == "darwin" ? "Command" : "Control",
-                    "B"
                 ],
                 "togglePrivateSession": [
                     process.platform == "darwin" ? "Command" : "Control",
