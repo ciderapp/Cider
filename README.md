@@ -6,7 +6,7 @@
   <img src="https://img.shields.io/github/forks/ciderapp/Cider?label=Forks" alt="GitHub Forks"/>
   <a title="Crowdin" target="_blank" href="https://crowdin.com/project/cider-music"><img src="https://badges.crowdin.net/cider-music/localized.svg"></a>
   <br>
-  <a target="_blank" href="https://ko-fi.com/cryptofyre"><img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-donate-B48C69?logo=Ko-fi&logoColor=FFFFFF" alt="Buy Me A Coffee"/></a>
+  <a target="_blank" href="https://ko-fi.com/cryptofyre"><img src="https://img.shields.io/badge/Buy%20Us%20a%20Coffee-donate-B48C69?logo=Ko-fi&logoColor=FFFFFF" alt="Buy Me A Coffee"/></a>
   <a target="_blank" href="https://opencollective.com/ciderapp"><img src="https://img.shields.io/opencollective/all/ciderapp?color=%237FADF2&label=Backers%20and%20Sponsors&logo=opencollective" alt="Open Collective"/></a>
     <a target="_blank" href="https://github.com/sponsors/ciderapp"><img src="https://img.shields.io/github/sponsors/ciderapp?color=C96198&label=GitHub%20Sponsors&logo=GitHub" alt="GitHub Sponsor"/></a>
   <br>
