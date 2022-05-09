@@ -416,6 +416,7 @@
   "settings.option.connectivity.discordRPC.clientName": "Kliensnév",
   "settings.option.connectivity.discordRPC.clearOnPause": "Rich Presence törlése megállításnál",
   "settings.option.connectivity.discordRPC.hideButtons": "Rich Presence gombok elrejtése",
+  "settings.option.connectivity.discordRPC.hideTimestamp": "Rich Presence visszaszámláló elrejtése",
   "settings.option.connectivity.discordRPC.detailsFormat": "Részletek formátuma",
   "settings.option.connectivity.discordRPC.stateFormat": "Állapot formátuma",
   "settings.option.connectivity.lastfmScrobble": "Last.fm Scrobbling",
