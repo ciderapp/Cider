@@ -180,8 +180,8 @@ const CiderAudio = {
         if (!filters || filters.length === 0) {
             let filterlessGain = 1;
             if (CiderAudio.audioNodes.llpw !== null && CiderAudio.audioNodes.llpw.length == 1) { filterlessGain = filterlessGain * 1.109174815262401 }
-            if (app.cfg.audio.maikiwiAudio.atmosphereRealizer1 == true) { filterlessGain = filterlessGain * 1.096478196143185 }
-            if (app.cfg.audio.maikiwiAudio.atmosphereRealizer2 == true) { filterlessGain = filterlessGain * 1.096478196143185 }
+            if (app.cfg.audio.maikiwiAudio.atmosphereRealizer1 === true) { filterlessGain = filterlessGain * 1.096478196143185 }
+            if (app.cfg.audio.maikiwiAudio.atmosphereRealizer2 === true) { filterlessGain = filterlessGain * 1.096478196143185 }
             if (app.cfg.audio.maikiwiAudio.spatial == true) {
                 let spatialProfile = CiderAudio.spatialProfiles.find(function (profile) {
                     return profile.id === app.cfg.audio.maikiwiAudio.spatialProfile;
@@ -227,7 +227,8 @@ const CiderAudio = {
                 maxGain = gain;
         }
         if (CiderAudio.audioNodes.llpw !== null && CiderAudio.audioNodes.llpw.length == 1) { maxGain = maxGain * 1.109174815262401 }
-        if (app.cfg.audio.maikiwiAudio.atmosphereRealizer == true) { maxGain = maxGain * 1.096478196143185 }
+        if (app.cfg.audio.maikiwiAudio.atmosphereRealizer1 === true) { maxGain = maxGain * 1.096478196143185 }
+        if (app.cfg.audio.maikiwiAudio.atmosphereRealizer2 === true) { maxGain = maxGain * 1.096478196143185 }
         if (app.cfg.audio.maikiwiAudio.spatial == true) {
             let spatialProfile = CiderAudio.spatialProfiles.find(function (profile) {
                 return profile.id === app.cfg.audio.maikiwiAudio.spatialProfile;
