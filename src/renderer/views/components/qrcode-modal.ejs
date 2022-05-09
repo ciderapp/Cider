@@ -3,11 +3,11 @@
         <div class="modal-window" >
             <div class="modal-header">
                 <div class="modal-title">{{`Web Remote QR : ` + url }}</div>
-                <button class="close-btn" @click="close()"></button>
+                <button class="close-btn" @click="close()" :aria-label="app.getLz('action.close')"></button>
             </div>
             <div class="modal-content">
-                <img class="qrimg" :src="src"/> 
-            </div>    
+                <img class="qrimg" :src="src"/>
+            </div>
         </div>
     </div>
 </script>
@@ -18,12 +18,12 @@
         data: function () {
             return {
                 app: this.$root,
-              
+
             }
         },
         props: ["src","url"],
         mounted() {
-         
+
         },
         methods: {
             close() {

@@ -16,7 +16,7 @@
                                     size="190" type="artists"></mediaitem-artwork>
                             <button class="overlay-play"  @click="app.mk.setStationQueue({artist:'a-'+data.id}).then(()=>{
                             app.mk.play()
-                        })">
+                        })" :aria-label="app.getLz('term.play')">
                                 <%- include("../svg/play.svg") %>
                             </button>
                         </div>
@@ -26,11 +26,11 @@
                     >
                         <button class="artist-play" @click="app.mk.setStationQueue({artist:'a-'+data.id}).then(()=>{
                         app.mk.play()
-                    })"><%- include("../svg/play.svg") %></button>
+                    })" :aria-label="app.getLz('term.play')"><%- include("../svg/play.svg") %></button>
                         <h1>{{ data.attributes.name }}</h1>
                     </div>
                 </div>
-                <button class="more-btn-round" @click="artistMenu" style="pointer-events: all;">
+                <button class="more-btn-round" @click="artistMenu" style="pointer-events: all;" :aria-label="app.getLz('term.more')">
                     <div class="svg-icon"></div>
                 </button>
             </div>
@@ -43,13 +43,13 @@
                 <div class="col-auto flex-center">
                     <button class="artist-play" style="display:block;" @click="app.mk.setStationQueue({artist:'a-'+data.id}).then(()=>{
                         app.mk.play()
-                    })"><%- include("../svg/play.svg") %></button>
+                    })" :aria-label="app.getLz('term.play')"><%- include("../svg/play.svg") %></button>
                 </div>
                 <div class="col">
                     <h3>{{ data.attributes.name }}</h3>
                 </div>
                 <div class="col-auto flex-center">
-                    <button class="more-btn-round" @click="artistMenu">
+                    <button class="more-btn-round" @click="artistMenu" :aria-label="app.getLz('term.more')">
                         <div class="svg-icon"></div>
                     </button>
                 </div>
@@ -79,10 +79,10 @@
                             <div class="mediaitem-list-item__grid">
                                 <listitem-horizontal :items="data.views['top-songs'].data.limit(20)">
                                 </listitem-horizontal>
-                            </div>                                
+                            </div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
             <div class="row well">
@@ -112,7 +112,7 @@
                     </template>
                     <div class="row">
                         <div class="col" v-if="data.attributes.artistBio">
-                            <h3>{{ $root.stringTemplateParser($root.getLz('term.aboutArtist'), {"artistName": data.attributes.name}) }}</h3> 
+                            <h3>{{ $root.stringTemplateParser($root.getLz('term.aboutArtist'), {"artistName": data.attributes.name}) }}</h3>
                             <p v-html="data.attributes.artistBio"></p>
                         </div>
                         <div class="col">
