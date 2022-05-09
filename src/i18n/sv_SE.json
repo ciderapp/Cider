@@ -197,8 +197,6 @@
   "settings.option.audio.enableAdvancedFunctionality.description": "Om du aktiverar avancerade ljudfunktioner kommer funktioner som ljudnormalisering, EQ och virtualisering aktiveras, men på några system kan detta orsaka ljudproblem.",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Ljudnormalisering",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normaliserar höga ljudnivåer för att förbättra ljudkvaliteten.",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Spiralljud",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Gör ljudet mer 3D (Ej Dolby Atmos)",
   "settings.header.visual": "Visuellt",
   "settings.header.visual.description": "Ändra Ciders visuella inställningar.",
   "settings.option.visual.windowBackgroundStyle": "Stil för bakgrunden",
