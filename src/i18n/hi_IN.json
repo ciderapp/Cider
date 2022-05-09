@@ -232,8 +232,6 @@
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive": "Aggressive",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Audio Normalization",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizes peak volume for individual tracks to create a more uniform listening experience.",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Audio Spatialization",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Spatialize audio and make audio more 3-dimensional (note: This is not Dolby Atmos)",
   "settings.header.visual": "Visual",
   "settings.header.visual.description": "Adjust the visual settings for Cider.",
   "settings.option.visual.windowBackgroundStyle": "Window Background Style",

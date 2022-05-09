@@ -194,8 +194,6 @@
   "settings.option.audio.enableAdvancedFunctionality.description": "ENABLING HODOR FUNCTIONALITY WILL HODOR FOR EXTENDED HODOR FEATURES LIKE HODOR NORMALIZATION , HODORIZERS AND HODORS, BUT ON SOME HODOR SYSTEMS THIS HODOR CAUSE HODOR IN HODOR.",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "HODOR NORMALIZATION",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "NORMALIZES HODOR VOLUME FOR INDIVIDUAL HODORS TO HODOR A MORE HODOR LISTENING HODOR.",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "HODOR SPATIALIZATION",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "SPATIALIZE HODOR AND MAKE HODOR MORE 3-HODOR (HODOR: THIS IS NOT HODOR ATMOS)",
   "settings.header.visual": "HODOR SEES",
   "settings.header.visual.description": "ADJUST HODOR EYES FOR HODOR.",
   "settings.option.visual.windowBackgroundStyle": "BACK HODOR STYLE",

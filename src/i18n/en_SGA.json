@@ -316,8 +316,6 @@
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "ᖋ⚍↸╎ᒍ リᒍ∷ᒲᖋ|:╎∩ᖋᒣ╎ᒍリ",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "リᒍ∷ᒲᖋ|:╎∩ᒷϟ i!ᒷᖋ·ǀ· ⍊ᒍ|:⚍ᒲᒷ ⎓ᒍ∷ ╎リ↸╎⍊╎↸⚍ᖋ|: ᒣ∷ᖋᔮ·ǀ·ϟ ᒣᒍ ᔮ∷ᒷᖋᒣᒷ ᖋ ᒲᒍ∷ᒷ ⚍リ╎⎓ᒍ∷ᒲ |:╎ϟᒣᒷリ╎リ┤ ᒷ/i!ᒷ∷╎ᒷリᔮᒷ.",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.disabled": "ᒲᖋリᖋ┤ᒷ↸ ᕊ॥ ᖋ⚍↸╎ᒍ |:ᖋᕊ",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "ᖋ⚍↸╎ᒍ ϟi!ᖋᒣ╎ᖋ|:╎∩ᖋᒣ╎ᒍリ",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "ϟi!ᖋᒣ╎ᖋ|:╎∩ᒷ ᖋ⚍↸╎ᒍ ᖋリ↸ ᒲᖋ·ǀ·ᒷ ᖋ⚍↸╎ᒍ ᒲᒍ∷ᒷ 3-↸╎ᒲᒷリϟ╎ᒍリᖋ|: (リᒍᒣᒷ: ᒣ⍑╎ϟ ╎ϟ リᒍᒣ ↸ᒍ|:ᕊ॥ ᖋᒣᒲᒍϟ)",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization": "ᔮ╎↸ᒷ∷ ᒣ⚍リᒷ↸ ϟi!ᖋᒣ╎ᖋ|:╎∩ᖋᒣ╎ᒍリ",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.description": "i!∷ᒷ-ᒣ⚍リᒷ↸ ϟi!ᖋᒣ╎ᖋ|:╎∩╎リ┤ ᒷ⎓⎓ᒷᔮᒣ, ↸╎ϟᖋᕊ|:ᒷϟ ᒣ⍑ᒷ ᔮ⚍ϟᒣᒍᒲ╎∩ᖋᕊ|:ᒷ ϟᒷᒣᒣ╎リ┤ϟ ᒍ⎓ ᖋ⚍↸╎ᒍ ϟi!ᖋᒣ╎ᖋ|:╎∩ᖋᒣ╎ᒍリ. ϟi!ᖋᒣ╎ᖋ|:╎∩ᖋᒣ╎ᒍリ ᒲ⚍ϟᒣ ᕊᒷ ᒷリᖋᕊ|:ᒷ↸ ᖋϟ ᖋ i!∷ᒷ∷ᒷᑑ⚍╎ϟ╎ᒣᒷ.",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile": "ᔮ╎↸ᒷ∷ ϟi!ᖋᒣ╎ᖋ|:╎∩ᖋᒣ╎ᒍリ i!∷ᒍ⎓╎|:ᒷ",

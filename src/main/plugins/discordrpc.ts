@@ -183,8 +183,8 @@ export default class DiscordRPC {
             ] //To change attributes.url => preload/cider-preload.js
         }
 
-        // Add the timestamp if its playing
-        if (attributes.status) {
+        // Add the timestamp if its playing and people want them
+        if (!this._utils.getStoreValue("general.discordrpc.hide_timestamp") && attributes.status) {
             activity.startTimestamp = Date.now() - (attributes?.durationInMillis - attributes?.remainingTime)
             activity.endTimestamp = attributes.endTime
         }

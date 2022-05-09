@@ -238,8 +238,6 @@
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive": "Aggressiv",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Audio-Normalisierung",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalisiert die Lautstärke aller Lieder, um die Hörerfahrung einheitlicher zu machen.",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Räumliches Audio",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Macht die Musik räumlicher (3D-Effekt) (Beachte: Dies ist kein Dolby Atmos)",
   "settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility": "Räumliches Audio ist nicht mit CAP kompatibel. Bitte deaktiviere CAP zuerst.",
   "settings.header.visual": "Visuell",
   "settings.header.visual.description": "Passe die visuellen Einstellungen für Cider an.",
