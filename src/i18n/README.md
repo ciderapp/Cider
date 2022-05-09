@@ -342,3 +342,9 @@ Update 08/05/2022 00:29 UTC
 
 * `settings.option.visual.theme.github.available`: Added for `en_US`,
 * `settings.option.visual.theme.github.applied`: Added for `en_US`,
+
+Update 09/05/2022 19:30 UTC
+
+* `settings.option.audio.enableAdvancedFunctionality.audioSpatialization`: Deleted for all language files
+* `settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description`: Deleted for all language files
+
