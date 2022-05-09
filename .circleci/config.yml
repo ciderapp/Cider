@@ -15,9 +15,6 @@ jobs:
     executor: cider-ci
     steps:
       - checkout
-      - run:
-          name: Set App Version
-          command: echo "export APP_VERSION=$(grep '"version":.*' package.json | cut -d '"' -f 4 | head -1)" >> $BASH_ENV
       #      - run:
       #          name: Rename Repository
       #          command: sed -i 's/github:ciderapp\/Cider/github:ciderapp\/cider-releases/' package.json
@@ -45,6 +42,7 @@ jobs:
           root: .
           # Must be relative path from root
           paths:
+            - src
             - node_modules
             - build
             - resources
@@ -155,6 +153,9 @@ jobs:
             mv ~/Cider/dist/*.blockmap ~/Cider/dist/artifacts
       - store_artifacts:
           path: ~/Cider/dist/artifacts
+      - run:
+          name: Set App Version
+          command: echo "export APP_VERSION=$(grep '"version":.*' package.json | cut -d '"' -f 4 | head -1)" >> $BASH_ENV
       - run:
           name: Publish Release
           command: |

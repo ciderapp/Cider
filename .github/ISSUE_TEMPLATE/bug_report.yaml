@@ -1,7 +1,7 @@
 name: Bug Report
 description: If you encounter an issue whilst using our app, please use this template to help improve the app.
 title: "[Bug]: "
-labels: ["bug", "triage"]
+labels: ["bug", "needs-triage"]
 assignees: []
 body:
   - type: markdown

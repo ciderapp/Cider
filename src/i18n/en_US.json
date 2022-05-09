@@ -434,6 +434,8 @@
   "settings.option.visual.theme.manageStyles": "Manage Styles",
   "settings.option.visual.theme.uninstall": "Uninstall",
   "settings.option.visual.theme.viewInfo": "View Info",
+  "settings.option.visual.theme.github.available": "Available",
+  "settings.option.visual.theme.github.applied": "Applied",
   "settings.notyf.visual.theme.install.success": "Theme installed successfully",
   "settings.notyf.visual.theme.install.error": "Theme installation failed",
   "settings.header.visual.plugin": "Plugin",

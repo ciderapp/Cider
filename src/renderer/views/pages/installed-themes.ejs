@@ -28,7 +28,7 @@
         <div class="gh-content">
             <div class="repos-list">
                 <div class="repo-header">
-                    <h4>Available</h4>
+                    <h4>{{$root.getLz('settings.option.visual.theme.github.available')}}</h4>
                 </div>
                 <ul class="list-group list-group-flush">
                     <template v-for="theme in themes">
@@ -85,7 +85,7 @@
 
             <div class="style-editor-container">
                 <div class="repo-header">
-                    <h4>Applied</h4>
+                    <h4>{{ $root.getLz("settings.option.visual.theme.github.applied") }} </h4>
                 </div>
                 <stylestack-editor ref="stackEditor"  v-if="themes.length != 0" :themes="themes"/>
             </div>
