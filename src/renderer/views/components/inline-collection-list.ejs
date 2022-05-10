@@ -18,7 +18,7 @@
             </button>
         </div>
         <transition name="fabfade">
-            <button class="top-fab" v-show="showFab" @click="scrollToTop()">
+            <button class="top-fab" v-show="showFab" @click="scrollToTop()" :aria-label="app.getLz('action.scrollToTop')">
                 <%- include("../svg/arrow-up.svg") %>
             </button>
         </transition>

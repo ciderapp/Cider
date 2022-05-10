@@ -4,7 +4,7 @@
             <div class="modal-window">
                 <div class="modal-header">
                     <div class="modal-title">{{app.getLz('action.addToPlaylist')}}</div>
-                    <button class="close-btn" @click="app.resetState()"></button>
+                    <button class="close-btn" @click="app.resetState()" :aria-label="app.getLz('action.close')"></button>
                 </div>
                 <div class="modal-content">
                     <button class="playlist-item"
@@ -26,7 +26,7 @@
                                v-model="searchQuery"
                                @input="search()"
                                class="search-input">
-                    </div>                
+                    </div>
                 </div>
             </div>
         </div>

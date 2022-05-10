@@ -6,7 +6,7 @@
             </div>
             <div class="col-auto">
                 <button v-if="library.albums.downloadState == 2" @click="getLibraryAlbumsFull(true, 0)"
-                        class="reload-btn"><%- include('../svg/redo.svg') %></button>
+                        class="reload-btn" :aria-label="app.getLz('menubar.options.reload')"><%- include('../svg/redo.svg') %></button>
             </div>
         </div>
         <div class="row">
@@ -44,7 +44,7 @@
             </div>
         </div>
         <div class="well">
-            <div class="albums-square-container"> 
+            <div class="albums-square-container">
                 <mediaitem-square v-if="library.albums.viewAs == 'covers'" :item="item"
                                 v-for="item in library.albums.displayListing">
                 </mediaitem-square>

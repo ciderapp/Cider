@@ -8,7 +8,7 @@
     <div v-if="reasonShown" class="reasonSP ">{{item?.meta?.reason?.stringForDisplay ?? ''}}</div>
     <div style="{'--spcolor': getBgColor()}"
          class="cd-mediaitem-square" :class="getClasses()" @contextmenu="getContextMenu">
-        <template>           
+        <template>
             <div class="artwork-container">
                 <div class="unavailable-overlay" v-if="unavailable">
                     <div class="codicon codicon-circle-slash"></div>
@@ -24,9 +24,13 @@
                             :type="item.type"></mediaitem-artwork>
                 </div>
                 <button class="menu-btn" v-if="!nomenu.includes(item.type)"
-                        @click="getContextMenu"><%- include("../svg/more.svg") %></button>
+                        @click="getContextMenu" :aria-label="$root.getLz('term.more')">
+                    <%- include("../svg/more.svg") %>
+                </button>
                 <button class="play-btn" v-if="!noplay.includes(item.type)"
-                        @click="app.playMediaItem(item)"><%- include("../svg/play.svg") %></button>
+                        @click="app.playMediaItem(item)" :aria-label="$root.getLz('term.play')">
+                    <%- include("../svg/play.svg") %>
+                </button>
                 <div class="badge-container" v-if="itemBadges.length != 0">
                     <div class="socialBadge" v-for="badge in itemBadges.limit(1)">
                         <mediaitem-artwork
@@ -39,7 +43,7 @@
                 <div class="title" :title="item.attributes?.name ?? (item.relationships?.contents?.data[0]?.attributes?.name ?? '')" v-if="item.attributes.artistNames == null || kind!= 'card'" @click='app.routeView(item)'>
                     <div class="item-navigate text-overflow-elipsis">{{ item.attributes?.name ?? (item.relationships?.contents?.data[0]?.attributes?.name ?? '') }}</div>
                     <div class="explicit-icon" v-if="item.attributes && item.attributes.contentRating == 'explicit'" style= "background-image: url(./assets/explicit.svg);height: 12px;width: 12px;filter: contrast(0);background-repeat: no-repeat;margin-top: 2.63px;margin-left: 4px;"></div>
-                </div>       
+                </div>
                 <div :title="getSubtitle()" class="subtitle item-navigate text-overflow-elipsis" @click="getSubtitleNavigation()"
                      v-if="getSubtitle() != ''">
                     {{ getSubtitle() }}
@@ -242,9 +246,9 @@
                 let type = []
                 try{
                 type = this.item.type
-            
+
              }catch(e) {console.log('sd',this.item)}
-                 
+
                 if (this.kind != "") {
                     type = this.kind
                 }
@@ -252,7 +256,7 @@
                     default:
                         return []
                         break;
-                    case "editorial-elements":    
+                    case "editorial-elements":
                     case "card":
                         return ["mediaitem-card"]
                         break;
@@ -265,7 +269,7 @@
                     case "music-videos":
                     case "uploadedVideo":
                     case "uploaded-videos":
-                    case "library-music-videos":    
+                    case "library-music-videos":
                         return "mediaitem-video";
                         break;
                 }

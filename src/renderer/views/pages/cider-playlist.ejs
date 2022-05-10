@@ -94,7 +94,7 @@
                                     <img :class="(!inLibrary) ? 'md-ico-add' : 'md-ico-remove'">
                                     {{app.getLz('term.confirm')}}
                                 </button>
-                                <button class="more-btn-round" style="float:right;" @click="menu">
+                                <button class="more-btn-round" style="float:right;" @click="menu" :aria-label="app.getLz('term.more')">
                                     <div class="svg-icon"></div>
                                 </button>
                             </div>
@@ -145,7 +145,7 @@
                         </div>
                     </div>
                     <div class="col-auto flex-center">
-                        <button class="more-btn-round" style="float:right;" @click="menu">
+                        <button class="more-btn-round" style="float:right;" @click="menu" :aria-label="app.getLz('term.more')">
                             <div class="svg-icon"></div>
                         </button>
                     </div>
