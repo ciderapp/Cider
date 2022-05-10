@@ -304,8 +304,6 @@
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Ses Normalleştirme",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Ses normalleştirme alçak ve yüksek sesli şarkıları dengeler ve daha düzgün bir dinleme deneyimi sağlar.",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.disabled": "Laboratuvar tarafından kontrol ediliyor",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Uzamsal Ses",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Sesi uzamsallaştırın ve sesi daha 3 boyutlu hale getirin (not: Bu Dolby Atmos değildir)",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization": "Özel Ayarlanmış Uzamsallaştırma",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.description": "Önceden ayarlanmış Uzamsallaştırma Etkisi, Ses Uzamsallaştırmanın özelleştirilebilir ayarlarını devre dışı bırakır. Uzamsallaştırma bir ön koşul olarak etkinleştirilmelidir.",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile": "Mekan Profili",

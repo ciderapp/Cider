@@ -227,8 +227,6 @@
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive": "Agressiva",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Normalização de Áudio",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normaliza o volume alto para faixas individuais para criar uma experiência de audição mais uniforme.",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Áudio Espacial",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Espacialize o áudio e torne o áudio mais tridimensional (nota: isto não é Dolby Atmos)",
   "settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility": "Áudio Espacial não é compativel com o CAP. Por favor desative-o.",
   "settings.header.visual": "Visual",
   "settings.header.visual.description": "Ajustar as configurações visuais do Cider.",

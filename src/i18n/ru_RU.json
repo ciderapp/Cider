@@ -330,8 +330,6 @@
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Нормализация звука",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Нормализует пиковую громкость для отдельных треков, чтобы создать более однородное впечатление от прослушивания.",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.disabled": "Управляется Audio Lab",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Пространственное звучание",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Пространственное аудио; делает звук более трехмерным (примечание: это не Dolby Atmos)",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization": "Пространственное звучание, настроенное Cider",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.description": "Предварительно настроенная пространственная обработка; отключает параметр Пространственного звучания. Пространственное звучание должно быть включено.",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile": "Профиль пространственного звучания Cider",

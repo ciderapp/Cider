@@ -287,8 +287,6 @@
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive": "적극적",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "오디오 노멀라이즈",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "개별 트랙의 최대 볼륨을 노멀라이즈하여 보다 균일한 청취 경험을 제공합니다.",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "오디오 공간화",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "오디오를 공간화하고 더욱 삼차원적으로 만들어줍니다. (참고: 이 기능은 Dolby Atmos가 아닙니다.)",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization": "Cider 튜닝된 공간화",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.description": "사전 조정된 공간화 효과는 오디오 공간화의 사용자 정의 설정을 비활성화합니다. 사용하기 위해서는 오디오 공간화가 필요합니다.",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile": "Cider 공간화 프로필",

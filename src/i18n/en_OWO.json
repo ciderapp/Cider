@@ -353,8 +353,6 @@
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Audio Nyowmawization",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Nyowmawizes peak vowume fow individuaw twacks to cweate a mowe unyifowm wistenying expewience. (Does nyot wowk on usew upwoaded twacks)",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.disabled": "Manyaged by Audio Wab",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Audio Spatiawization",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Spatiawize audio and make audio mowe 3-dimensionyaw (nyote: This is nyot Dowby Atmos)",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization": "Cidew Tunyed Spatiawization",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.description": "Pwe-tunyed Spatiawizing Effect, disabwes the customizabwe settings of Audio Spatiawization. Spatiawization must be enyabwed as a pwewequisite.",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile": "Cidew Spatiawization Pwofiwe",

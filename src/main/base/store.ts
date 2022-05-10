@@ -17,6 +17,7 @@ export class Store {
                 "client": "Cider",
                 "clear_on_pause": true,
                 "hide_buttons": false,
+                "hide_timestamp": false,
                 "state_format": "by {artist}",
                 "details_format": "{title}",
             },
@@ -140,10 +141,10 @@ export class Store {
             "maikiwiAudio": {
                 "ciderPPE": false,
                 "ciderPPE_value": "MAIKIWI",
-                "analogWarmth": false,
-                "analogWarmth_value": "SMOOTH",
-                "atmosphereRealizer": false,
-                "atmosphereRealizer_value": "NATURAL_STANDARD",
+                "atmosphereRealizer1": false,
+                "atmosphereRealizer1_value": "NATURAL_STANDARD",
+                "atmosphereRealizer2": false,
+                "atmosphereRealizer2_value": "NATURAL_STANDARD",
                 "spatial": false,
                 "spatialProfile": "71_420maikiwi",
                 "vibrantBass": { // Hard coded into the app. Don't include any of this config into exporting presets in store.ts

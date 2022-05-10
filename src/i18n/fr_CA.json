@@ -183,8 +183,6 @@
   "settings.option.audio.enableAdvancedFunctionality.description": "L'activation de la fonctionnalité AudioContext permettra des fonctionnalités audio étendues telles que la normalisation audio, les égaliseurs et les visualiseurs, mais sur certains systèmes, cela peut provoquer des saccades dans les chansons audio.",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Normalisation audio",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalise le volume maximal des pistes individuelles pour créer une expérience d'écoute plus uniforme.",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Audio Spatialization",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Spatialisez l'audio et rendez l'audio plus tridimensionnel (remarque: il ne s'agit pas de Dolby Atmos)",
   "settings.header.visual": "Visuel",
   "settings.header.visual.description": "Ajustez les réglages visuels de Cider.",
   "settings.option.visual.windowBackgroundStyle": "Style d'arrière-plan de la window",
