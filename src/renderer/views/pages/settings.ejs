@@ -307,7 +307,7 @@
                                 <label>
                                     <input type="checkbox" v-model="app.cfg.audio.normalization"
                                            v-on:change="toggleNormalization"
-                                           :disabled="app.cfg.audio.spatial === true || app.cfg.audio.maikiwiAudio.spatial === true || app.cfg.audio.maikiwiAudio.ciderPPE === true || app.cfg.audio.maikiwiAudio.atmosphereRealizer === true"
+                                           :disabled="app.cfg.audio.spatial === true || app.cfg.audio.maikiwiAudio.spatial === true || app.cfg.audio.maikiwiAudio.ciderPPE === true || app.cfg.audio.maikiwiAudio.atmosphereRealizer1 === true || app.cfg.audio.maikiwiAudio.atmosphereRealizer2 === true"
                                            switch/>
                                 </label>
                             </div>
@@ -934,6 +934,17 @@
                             <div class="md-option-segment md-option-segment_auto">
                                 <label>
                                     <input type="checkbox" v-model="app.cfg.general.discordrpc.hide_buttons" switch/>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="md-option-line" v-show="app.cfg.general.discordrpc.enabled != false">
+                            <div class="md-option-segment">
+                                {{$root.getLz('settings.option.connectivity.discordRPC.hideTimestamp')}}
+                            </div>
+                            <div class="md-option-segment md-option-segment_auto">
+                                <label>
+                                    <input type="checkbox" v-model="app.cfg.general.discordrpc.hide_timestamp" switch/>
                                 </label>
                             </div>
                         </div>

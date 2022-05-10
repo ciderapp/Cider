@@ -303,8 +303,6 @@
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Normalisasi Audio",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Menormalkan puncak volume untuk masing-masing lagu demi menciptakan pengalaman mendengarkan yang lebih seragam.",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.disabled": "Diatar oleh Lab Audio",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Spasialisasi Audio",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Atur ruang audio dan buat audio lebih 3 dimensi (NB: Bukan Dolby Atmos)",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization": "Spasialisasi oleh Cider",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.description": "Efek Spasialisasi yang sudah diatur. Untuk menggunakannya, matikan pengaturan custom Spasialisasi Audio dan pastikan Spasialisasi Audio sudah aktif.",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile": "Profil Spasialisasi Cider",

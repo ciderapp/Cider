@@ -214,8 +214,6 @@
   "settings.option.audio.enableAdvancedFunctionality.description": "啟用AudioContext，解鎖類似音量平衡和均衡器嘅進階功能，但係會喺部分電腦造成音樂Lag機。",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "音量平衡",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "平衡輕柔同響亮嘅歌曲，令你有統一嘅聆聽體驗。",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "空間音訊",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "空間化音訊，製造一個更立體嘅聆聽體驗（注意：呢個功能唔係官方嘅杜比全景聲）",
   "settings.header.visual": "外觀",
   "settings.header.visual.description": "調整Cider嘅外觀",
   "settings.option.visual.windowBackgroundStyle": "視窗背景樣式",

@@ -203,8 +203,6 @@
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive": "Agresívná",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Normalízacia Zvuku",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizuje silu zvuku v pesničkách pre hľadší počúvací zážitok",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Priestorový Zvuk",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Priestorový zvuk urobí zvuk 3-dimenzionálny (poznámka: Toto nie je Dolby Atmos)",
   "settings.header.visual": "Visuálne",
   "settings.header.visual.description": "Zmenit Visuálne nastavenia pre Cider.",
   "settings.option.visual.windowBackgroundStyle": "Štýl pozadia okna",
