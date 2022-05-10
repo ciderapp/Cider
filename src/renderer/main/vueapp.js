@@ -3770,7 +3770,7 @@ const app = new Vue({
         unlove(item) {
             let type = item.type.slice(-1) === "s" ? item.type : item.type + "s"
             let id = item.attributes.playParams.catalogId ? item.attributes.playParams.catalogId : item.id
-            if (item.id != null && (item.id.toString()).startsWith("i.")) {
+            if (item.id.startsWith("i.")) {
                 if (!type.startsWith("library-")) {
                     type = "library-" + type
                 }
