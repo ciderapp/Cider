@@ -77,6 +77,7 @@ export class BrowserWindow {
                 "pages/audiolabs",
                 "pages/zoo",
                 "pages/plugin-renderer",
+                "pages/keybinds",
                 "components/mediaitem-artwork",
                 "components/artwork-material",
                 "components/menu-panel",

@@ -339,6 +339,19 @@ Update 29/04/2022 00:00 UTC
 
 Update 08/05/2022 00:29 UTC
 
+* `settings.option.visual.theme.github.available`: Added for `en_US`,
+* `settings.option.visual.theme.github.applied`: Added for `en_US`,
+
+Update 09/05/2022 01:50 UTC
+
+* `menubar.options.listennow`: Added for `en_US`,
+* `menubar.options.recentlyAdded`: Added for `en_US`,
+* `menubar.options.songs`: Added for `en_US`,
+* `settings.description.listnow`: Added for `en_US`,
+* `settings.description.recentAdd`: Added for `en_US`,
+* `settings.description.songs`: Added for `en_US`,
+* `settings.option.general.keybindings.pressCombination`: Added for `en_US`,
+* `settings.option.general.keybindings.pressEscape`: Added for `en_US`,
 * `settings.option.visual.theme.github.available`: Added for `en_US`
 * `settings.option.visual.theme.github.applied`: Added for `en_US`
 
