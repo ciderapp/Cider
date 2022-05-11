@@ -3,7 +3,7 @@
     <div class="modal-window">
         <div class="modal-header">
             <div class="modal-title">{{$root.getLz('action.cast.todevices')}}</div>
-            <button class="close-btn" @click="close()"></button>
+            <button class="close-btn" @click="close()" :aria-label="app.getLz('action.close')"></button>
         </div>
     <div class="modal-content" style="overflow-y: overlay; padding: 3%">
         <div class="md-labeltext">{{$root.getLz('action.cast.chromecast')}}</div>
@@ -111,11 +111,11 @@
             },
             setCast(device) {
                 CiderAudio.sendAudio();
-                this.activeCasts.push(device); 
+                this.activeCasts.push(device);
                 ipcRenderer.send('performGCCast', device, "Cider", "Playing ...", "Test build", '');
             },
             setAirPlayCast(device) {
-                this.activeCasts.push(device); 
+                this.activeCasts.push(device);
                 ipcRenderer.send("performAirplayPCM",device.host,device.port,null,"","","","",device.txt)
             },
             stopCasting() {

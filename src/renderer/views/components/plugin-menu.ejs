@@ -3,7 +3,7 @@
         <div class="modal-window">
             <div class="modal-header">
                 <div class="modal-title">{{$root.getLz('term.pluginMenu')}}</div>
-                <button class="close-btn" @click="app.resetState()"></button>
+                <button class="close-btn" @click="app.resetState()" :aria-label="app.getLz('action.close')"></button>
             </div>
             <div class="modal-content">
             <span class="playlist-item" v-if="!app.pluginInstalled">

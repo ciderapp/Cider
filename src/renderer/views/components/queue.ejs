@@ -5,7 +5,11 @@
                 <h3 class="queue-header-text">{{app.getLz('term.queue')}}</h3>
             </div>
             <div class="col-auto flex-center">
-                <button class="autoplay" :style="{'background': app.mk.autoplayEnabled ? 'var(--keyColor)' : ''}" @click="app.mk.autoplayEnabled = !app.mk.autoplayEnabled"> <img class="infinity"></button>
+                <button class="autoplay" :style="{'background': app.mk.autoplayEnabled ? 'var(--keyColor)' : ''}"
+                        @click="app.mk.autoplayEnabled = !app.mk.autoplayEnabled"
+                        :title="app.getLz('term.autoplay')" v-b-tooltip.hover>
+                    <img class="infinity">
+                </button>
             </div>
         </div>
         <div class="queue-body" v-if="page == 'history'">

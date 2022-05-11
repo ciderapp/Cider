@@ -468,7 +468,7 @@
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
                                 <label>
-                                    <select class="md-select" style="width:180px;" v-model="app.cfg.visual.hw_acceleration">
+                                    <select class="md-select" style="width:180px;" v-model="app.cfg.visual.hw_acceleration" @change="promptForRelaunch()">
                                         <option value="default">
                                             {{$root.getLz('settings.header.visual.hardwareAcceleration.default')}}
                                         </option>
@@ -515,7 +515,8 @@
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
                                 <label>
-                                    <input type="checkbox" v-model="app.cfg.visual.nativeTitleBar" switch/>
+                                    <input type="checkbox" v-model="app.cfg.visual.nativeTitleBar" switch
+                                    @change="promptForRelaunch()"/>
                                 </label>
                             </div>
                         </div>

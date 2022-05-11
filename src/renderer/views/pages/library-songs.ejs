@@ -15,7 +15,7 @@
                                v-model="library.songs.search" class="search-input">
                     </div>
                 </div>
-                <div class="col-auto flex-center">             
+                <div class="col-auto flex-center">
                     <div class="row">
                         <button class="col md-btn md-btn-primary  md-btn-icon" style="min-width: 100px;margin-right: 3px;"
                         @click="app.mk.shuffleMode = 0; play()"> <img class="md-ico-play">
@@ -24,7 +24,7 @@
                         <button class="col md-btn md-btn-primary  md-btn-icon" style="min-width: 100px;margin-right: 3px;"
                         @click="app.mk.shuffleMode = 1;play()"> <img class="md-ico-shuffle">
                             {{app.getLz('term.shuffle')}}
-                         </button>   
+                         </button>
                         <div class="col">
                             <select class="md-select" v-model="prefs.sort" @change="$root.searchLibrarySongs()">
                                 <optgroup :label="app.getLz('term.sortBy')">
@@ -51,8 +51,9 @@
                     </div>
                 </div>
                 <div class="col-auto flex-center">
-                    <button v-if="library.songs.downloadState == 2" @click="$root.getLibrarySongsFull(true)" class="reload-btn"><%- include('../svg/redo.svg') %></button>
-                    <button v-else class="reload-btn" style="opacity: 0.8;pointer-events: none">
+                    <button v-if="library.songs.downloadState == 2" @click="$root.getLibrarySongsFull(true)"
+                            class="reload-btn" :aria-label="app.getLz('menubar.options.reload')"><%- include('../svg/redo.svg') %></button>
+                    <button v-else class="reload-btn" style="opacity: 0.8;pointer-events: none" :aria-label="app.getLz('menubar.options.reload')">
                         <div class="spinner"></div>
                     </button>
                 </div>
