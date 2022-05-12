@@ -2534,38 +2534,6 @@ const app = new Vue({
                 this.getBrowsePage(attempt + 1)
             }
         },
-        async getRadioStations(attempt = 0) {
-            if (this.radio.timestamp > Date.now() - 120000) {
-                return
-            }
-            if (attempt > 3) {
-                return
-            }
-            try {
-                this.radio.personal.title = app.getLz('term.personalStations')
-                this.radio.personal.data = (await app.mk.api.v3.music(`/v1/catalog/${app.mk.api.v3.storefrontId}/stations`, {
-                    "filter[identity]": "personal",
-                })).data.data
-
-                this.radio.recent.title = app.getLz('term.recentStations')
-                this.radio.recent.data = (await app.mk.api.v3.music(`/v1/me/recent/radio-stations`, {
-                    "platform": "web",
-                    "art[url]": "f",
-                    l: this.mklang
-                })).data.data
-
-                this.radio.amlive.title = app.getLz('term.amLive')
-                this.radio.amlive.data = (await app.mk.api.v3.music(`/v1/catalog/${app.mk.api.v3.storefrontId}/stations`, {
-                    "filter[featured]": "apple-music-live-radio",
-                })).data.data
-
-                this.radio.timestamp = Date.now()
-                console.debug(this.radio)
-            } catch (e) {
-                console.log(e)
-                this.getRadioStations(attempt + 1)
-            }
-        },
         async getMadeForYou(attempt = 0) {
             if (attempt > 3) {
                 return
