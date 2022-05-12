@@ -2,7 +2,7 @@
 
 Some notes about Cider's i18n support.
 
-- Localization files are stored in `json` format aka "JavaScript Object Notation".
+- Localization files are stored in `json` format aka `JavaScript Object Notation`.
 - The default language is English.
 - The default language is used for messages that are not translated.
 - Try when possible to keep the messages the similar in length to the English ones.
@@ -22,9 +22,9 @@ Russian is in Plural rule #7 (3 forms) : ```one```, ```few``` and ```other```
 How it is implemented for English:
 
 ```
- "term.track": {
-    "one" : "track",
-    "other" : "tracks"
+ `term.track`: {
+    `one` : `track`,
+    `other` : `tracks`
   },
 ```
 
@@ -34,11 +34,11 @@ How it is implemented for English:
 Several changes have been made to configuration options and will be listed below with the relevant locales that have
 been modified, the ones not mentioned in the list need modifying.
 
-* `settings.option.experimental.closeButtonBehaviour`: Changed to `close_button_hide` - Should be "Close Button Should Hide the Application". `.quit`, `.minimizeTaskbar` and `.minimizeTray` have been removed. Translations done for en_US.
+* `settings.option.experimental.closeButtonBehaviour`: Changed to `close_button_hide` - Should be `Close Button Should Hide the Application`. `.quit`, `.minimizeTaskbar` and `.minimizeTray` have been removed. Translations done for en_US.
 * `action.update`: Added for `en_US`.
-* `term.topResult`: "Top Result" - Added for `en_US`.
-* `term.sharedPlaylists`: "Shared Playlists" - Added for `en_US`.
-* `term.people`: "People" - Added for `en_US`.
+* `term.topResult`: `Top Result` - Added for `en_US`.
+* `term.sharedPlaylists`: `Shared Playlists` - Added for `en_US`.
+* `term.people`: `People` - Added for `en_US`.
 
 Update 02/02/2022 17:16 UTC
 
@@ -315,7 +315,7 @@ Update 29/04/2022 00:00 UTC
 * `menubar.options.audio`: Added for `en_US`
 * `menubar.options.plugins`: Added for `en_US`
 * `menubar.options.control`: Added for `en_US`
-* `menubar.options.next`: "Added for `en_US`
+* `menubar.options.next`: `Added for `en_US`
 * `menubar.options.previous`: Added for `en_US`
 * `menubar.options.volumeup`: Added for `en_US`
 * `menubar.options.volumedown`: Added for `en_US`
@@ -359,4 +359,13 @@ Update 09/05/2022 19:30 UTC
 
 * `settings.option.audio.enableAdvancedFunctionality.audioSpatialization`: Deleted for all language files
 * `settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description`: Deleted for all language files
+
+Update 12/05/2022 19:00 UTC
+
+* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_STANDARD`: Added for `en_US`,
+* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_HIGH`: Added for `en_US`,
+* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_PLUS`: Added for `en_US`,
+* `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.standard`: Added for `en_US`,
+  `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.soundstage`: Added for `en_US`,
+  `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.separation`: Added for `en_US`,
 
