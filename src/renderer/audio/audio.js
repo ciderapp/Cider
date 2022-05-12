@@ -653,10 +653,10 @@ const CiderAudio = {
         return new Promise(resolve => {
             const map = new Map([
                 ['h1', Math.max(...app.cfg.audio.equalizer.gain) != 0],
-                ['h2_1', app.cfg.audio.equalizer.vibrantBass !== '0'],
+                ['h2_1', app.cfg.audio.equalizer.vibrantBass != 0],
                 ['h2_2', app.cfg.audio.maikiwiAudio.ciderPPE === true],
                 ['h2_3', app.cfg.audio.maikiwiAudio.atmosphereRealizer1 === true],
-                ['h2_4', app.cfg.audio.maikiwiAudio.atmosphereRealizer === true],
+                ['h2_4', app.cfg.audio.maikiwiAudio.atmosphereRealizer2 === true],
                 ['spatial', app.cfg.audio.maikiwiAudio.spatial === true]
             ]);
 
@@ -674,72 +674,92 @@ const CiderAudio = {
                 switch (tier) {
                     case 'h1':
                         CiderAudio.equalizer(true, nextTier);
-                        lastNode = 'h1';
+                        lastNode = 'h1'; nextTier = 1;
                         break;
                     case 'h2_1':
                         CiderAudio.vibrantbass_h2_1(true, nextTier);
-                        lastNode = 'h2_1';
+                        lastNode = 'h2_1'; nextTier = 2;
                         break;
                     case 'h2_2':
                         app.cfg.audio.normalization = true;
                         CiderAudio.llpw_h2_2(true, nextTier);
-                        lastNode = 'h2_2';
+                        lastNode = 'h2_2'; nextTier = 3;
                         break;
                     case 'h2_3':
                         app.cfg.audio.normalization = true;
                         CiderAudio.atmosphereRealizer1_h2_3(true, nextTier);
-                        lastNode = 'h2_3';
+                        lastNode = 'h2_3'; nextTier = 4;
                         break;
                     case 'h2_4':
                         app.cfg.audio.normalization = true;
                         CiderAudio.atmosphereRealizer2_h2_4(true, nextTier);
-                        lastNode = 'h2_4';
+                        lastNode = 'h2_4'; nextTier = 5;
                         break;
                     case 'spatial':
                         if (app.cfg.audio.maikiwiAudio.spatial === true) {  // Vibrant Bass, CAP, Atmosphere Realizer 1, Maikiwi Spatial
                             app.cfg.audio.normalization = true
-                            CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialNode);
-                            switch (lastNode) {
-                                case 'h2_4':
-                                    try {
-                                        CiderAudio.audioNodes.spatialNode.connect(CiderAudio.audioNodes.atmosphereRealizer2);
-                                    } catch (e) { }
-                                    break;
-                                case 'h2_3':
-                                    try {
-                                        CiderAudio.audioNodes.spatialNode.connect(CiderAudio.audioNodes.atmosphereRealizer1);
-                                    } catch (e) { }
-                                    break;
-                                case 'h2_2':
-                                    try {
-                                        CiderAudio.audioNodes.spatialNode.connect(CiderAudio.audioNodes.llpw[0]);
-                                    } catch (e) { }
-                                    break;
-                                case 'h2_1':
-                                    try {
-                                        CiderAudio.audioNodes.spatialNode.connect(CiderAudio.audioNodes.vibrantbassNode[0]);
-                                    } catch (e) { }
-                                    break;
-                                case 'h1':
-                                    try {
-                                        CiderAudio.audioNodes.spatialNode.connect(CiderAudio.audioNodes.audioBands[0]);
-                                    } catch (e) { }
-                                    break;
-                                case 'h0':
-                                    try { CiderAudio.audioNodes.spatialNode.connect(CiderAudio.context.destination); } catch (e) { }
-                                    break;
-                            }
+                            CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialNode);                           
                         }                      
                         break;
                 }
-                console.debug('nextTier: ' + nextTier + ' | tier: ' + tier);
-                nextTier += 1;
+                console.debug("nextTier: " + nextTier)
             }
-            else {
-                nextTier += 2;
+            else { 
             }
         }
-        console.debug('[Cider][Audio]\n' + configMap.entries());
+
+        switch (lastNode) {
+            case 'h2_4':
+                if (app.cfg.audio.maikiwiAudio.spatial === true) {
+                    CiderAudio.audioNodes.spatialNode.connect(CiderAudio.audioNodes.atmosphereRealizer2);
+                }
+                else {
+                    CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.atmosphereRealizer2);
+                }
+                break;
+            case 'h2_3':
+                if (app.cfg.audio.maikiwiAudio.spatial === true) {
+                    CiderAudio.audioNodes.spatialNode.connect(CiderAudio.audioNodes.atmosphereRealizer1);
+                }
+                else {
+                    CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.atmosphereRealizer1);
+                }      
+                break;
+            case 'h2_2':
+                if (app.cfg.audio.maikiwiAudio.spatial === true) {
+                    CiderAudio.audioNodes.spatialNode.connect(CiderAudio.audioNodes.llpw[0]);
+                }
+                else {
+                    CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.llpw[0]);
+                }     
+                break;
+            case 'h2_1':
+                if (app.cfg.audio.maikiwiAudio.spatial === true) {
+                    CiderAudio.audioNodes.spatialNode.connect(CiderAudio.audioNodes.vibrantbassNode[0]);
+                }
+                else {
+                    CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.vibrantbassNode[0]);
+                }              
+                break;
+            case 'h1':
+                if (app.cfg.audio.maikiwiAudio.spatial === true) {
+                    CiderAudio.audioNodes.spatialNode.connect(CiderAudio.audioNodes.audioBands[0]);
+                }
+                else {
+                    CiderAudio.audioNodes.spatialgainNodeNode.connect(CiderAudio.audioNodes.audioBands[0]);
+                }             
+                break;
+            case 'h0':
+                if (app.cfg.audio.maikiwiAudio.spatial === true) {
+                    CiderAudio.audioNodes.spatialNode.connect(CiderAudio.context.destination)
+                }
+                else {
+                    CiderAudio.audioNodes.gainNode.connect(CiderAudio.context.destination);
+                }                 
+                break;
+        }
+
+        console.debug('[Cider][Audio]\n' + [...configMap.entries()] + '\n lastNode: ' + lastNode);
 
         CiderAudio.intelliGainComp_h0_0();
         console.debug("[Cider][Audio] Finished hierarchical loading");
