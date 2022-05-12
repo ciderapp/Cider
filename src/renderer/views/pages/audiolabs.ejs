@@ -187,11 +187,14 @@
         },
         methods: {
             getProfileLz(type, name) {
-                switch (true) {
-                    case ((type === "CAR" && name !== "Maikiwi") || (type === "CAR" && name !== "Cryptofyre")):
+                if (name === "Cryptofyre" || name === "Maikiwi") {
+                    return name;
+                }
+                switch (type) {
+                    case "CAR":
                         return this.$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.' + name);
                         break;
-                    case ((type === "CTS" && name !== "Maikiwi" ) || (type === "CTS" && name !== "Cryptofyre")):
+                    case "CTS":
                         return this.$root.getLz('settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.' + name);
                         break;
                     default:
