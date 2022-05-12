@@ -702,7 +702,6 @@ const CiderAudio = {
                         }                      
                         break;
                 }
-                console.debug("nextTier: " + nextTier)
             }
             else { 
             }
