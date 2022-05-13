@@ -66,7 +66,7 @@
                         <select class="md-select" style="width:180px;"
                                 v-model="$root.cfg.audio.maikiwiAudio.atmosphereRealizer1_value"
                                 v-on:change="CiderAudio.hierarchical_loading();">
-                            <option v-for="profile in arprofiles" :value="profile.id">{{ getProfileLz("CTS", profile.name) }}</option>
+                            <option v-for="profile in arprofiles" :value="profile.id">{{ getProfileLz("CAR", profile.id) }}</option>
                         </select>
                     </div>
                 </div>
@@ -91,7 +91,7 @@
                         <select class="md-select" style="width:180px;"
                                 v-model="$root.cfg.audio.maikiwiAudio.atmosphereRealizer2_value"
                                 v-on:change="CiderAudio.hierarchical_loading();">
-                            <option v-for="profile in arprofiles" :value="profile.id">{{ getProfileLz("CTS", profile.name) }}</option>
+                            <option v-for="profile in arprofiles" :value="profile.id">{{ getProfileLz("CAR", profile.id) }}</option>
                         </select>
                     </div>
                 </div>
@@ -117,7 +117,7 @@
                         <select class="md-select" style="width:180px;"
                                 v-model="$root.cfg.audio.maikiwiAudio.spatialProfile"
                                 v-on:change="toggleMaikiwiSpatial">
-                            <option v-for="profile in spprofiles" :value="profile.id">{{ getProfileLz("CAR", profile.id) }}</option>
+                            <option v-for="profile in spprofiles" :value="profile.id">{{ getProfileLz("CTS", profile.name) }}</option>
                         </select>
                     </div>
                 </div>
