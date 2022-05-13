@@ -948,13 +948,23 @@ export class BrowserWindow {
             switch (path) {
                 default:
                 case "plugins":
-                    shell.openPath(utils.getPath("plugins"));
+                    if (existsSync(utils.getPath("plugins"))) {
+                        shell.openPath(utils.getPath("plugins"));
+                    } else {
+                        mkdirSync(utils.getPath("plugins"));
+                        shell.openPath(utils.getPath("plugins"));
+                    }
                     break;
                 case "userdata":
                     shell.openPath(app.getPath("userData"));
                     break;
                 case "themes":
-                    shell.openPath(utils.getPath("themes"));
+                    if (existsSync(utils.getPath("themes"))) {
+                        shell.openPath(utils.getPath("themes"));
+                    } else {
+                        mkdirSync(utils.getPath("themes"));
+                        shell.openPath(utils.getPath("themes"));
+                    }
                     break;
             }
         });
