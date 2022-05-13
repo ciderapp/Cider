@@ -187,15 +187,21 @@
         },
         methods: {
             getProfileLz(type, name) {
-                if (name === "Cryptofyre" || name === "Maikiwi") {
-                    return name;
+                switch (name) {
+                    case "CRYPTO":
+                        return "Cryptofyre";
+                        break;
+
+                    case "Maikiwi":
+                        return "Maikiwi";
+                        break;
                 }
                 switch (type) {
                     case "CAR":
-                        return this.$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.' + name);
+                        return this.$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.' + name.toLowerCase());
                         break;
                     case "CTS":
-                        return this.$root.getLz('settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.' + name);
+                        return this.$root.getLz('settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.' + name.toLowerCase());
                         break;
                     default:
                         return name;
