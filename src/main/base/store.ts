@@ -108,7 +108,8 @@ export class Store {
                     process.platform == "darwin" ? "Option" : "Shift",
                     "I"
                 ]
-            }
+            },
+            "showLovedTracksInline": true
         },
         "home": {
             "followedArtists": [],

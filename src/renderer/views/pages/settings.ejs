@@ -195,7 +195,29 @@
                                     {{$root.getLz('settings.option.general.keybindings.open')}}
                                 </button>
                             </div>
-                        </div>                      
+                        </div>        
+                        <div class="md-option-line">
+                            <div class="md-option-segment">
+                                {{$root.getLz('settings.option.general.themeUpdateNotification')}}
+                            </div>
+                            <div class="md-option-segment md-option-segment_auto">
+                                <label>
+                                    <input type="checkbox" v-model="app.cfg.general.themeUpdateNotification"
+                                           switch/>
+                                </label>
+                            </div>
+                        </div>            
+                        <div class="md-option-line">
+                            <div class="md-option-segment">
+                                {{$root.getLz('settings.option.general.showLovedTracksInline')}}
+                            </div>
+                            <div class="md-option-segment md-option-segment_auto">
+                                <label>
+                                    <input type="checkbox" v-model="app.cfg.general.showLovedTracksInline"
+                                           switch/>
+                                </label>
+                            </div>
+                        </div>         
                     </div>
                 </div>
             </b-tab>

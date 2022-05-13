@@ -784,8 +784,8 @@ const app = new Vue({
 
             MusicKit.getInstance().videoContainerElement = document.getElementById("apple-music-video-player")
 
-            ipcRenderer.on('theme-update', (event, arg) => {
-                less.refresh(true, true, true)
+            ipcRenderer.on('theme-update', async (event, arg) => {
+                await less.refresh(true, true, true)
                 self.setTheme(self.cfg.visual.theme, true)
                 if (app.cfg.visual.styles.length != 0) {
                     app.reloadStyles()
@@ -991,7 +991,7 @@ const app = new Vue({
                 document.querySelectorAll(`[id*='less']`).forEach(el => {
                     el.remove()
                 });
-                less.refresh()
+                await less.refresh()
             }
         },
         async reloadStyles() {
@@ -1019,7 +1019,7 @@ const app = new Vue({
                 }
             })
             less.registerStylesheetsImmediately()
-            less.refresh(true, true, true)
+            await less.refresh(true, true, true)
             this.$forceUpdate()
             return
         },
