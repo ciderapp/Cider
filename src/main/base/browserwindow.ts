@@ -458,6 +458,16 @@ export class BrowserWindow {
             }
         })
 
+        app.get("/cideraudio/impulses/:file", (req, res) => {
+            const impulseExternals = join(utils.getPath("externals"), "/impulses/")
+            const impulseFile = join(impulseExternals, req.params.file)
+            if(existsSync(impulseFile)) {
+                res.sendFile(impulseFile)                
+            }else{
+                res.sendFile(join(utils.getPath('srcPath'), "./renderer/audio/impulses/" + req.params.file))
+            }
+        })
+
         app.get("/api/playback/:action", (req, res) => {
             const action = req.params.action;
             switch (action) {
