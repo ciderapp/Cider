@@ -366,6 +366,13 @@ Update 12/05/2022 19:00 UTC
 * `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_HIGH`: Added for `en_US`,
 * `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_PLUS`: Added for `en_US`,
 * `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.standard`: Added for `en_US`,
-  `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.soundstage`: Added for `en_US`,
-  `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.separation`: Added for `en_US`,
+* `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.soundstage`: Added for `en_US`,
+* `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.separation`: Added for `en_US`,
 
+
+Update 12/05/2022 22:50 UTC
+
+*  `settings.option.audio.dbspl.display`: Added for `en_US`,
+*  `settings.option.audio.dbspl.description`: Added for `en_US`,
+*  `settings.option.audio.dbfs.calibration`: Added for `en_US`,
+*  `settings.option.audio.dbfs.description`: Added for `en_US`,
