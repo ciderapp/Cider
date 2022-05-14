@@ -133,12 +133,6 @@ const CiderAudio = {
             "description": "",
         },
         {
-            "id": "NATURAL_HIGH",
-            "file": './cideraudio/impulses/AtmosphereRealizer_NaturalHigh.wav',
-            "name": "Natural (High)",
-            "description": "",
-        },
-        {
             "id": "NATURAL_PLUS",
             "file": './cideraudio/impulses/AtmosphereRealizer_Natural+.wav',
             "name": "Natural (Plus)",
