@@ -2990,13 +2990,70 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   top: var(--chromeHeight1);
   bottom: unset;
 }
-
+.inactive {
+  opacity: 0;
+}
 #apple-music-video-player-controls {
   position: absolute;
   z-index: 100001;
   float: left;
   width: 100%;
   height: 100%;
+  .playback-info{
+    position: absolute;
+    bottom: 2vw;
+    left: 2vw;
+    width: 97%;
+    .song-progress {
+      display: flex;
+    }
+    .app-chrome-item.display--large{
+      position: relative;
+      display: flex;  
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: center;
+      .playback-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 3px;
+      }
+    }
+    .song-artist-album {
+      font-weight: 400;
+      font-size: 12px;
+      text-align: center;
+      /*height: 1.2em;
+      line-height: 1.2em;*/
+      z-index: 1;
+      align-items: center;
+      justify-content: center;
+      width: 80%;
+      max-width: 340px;
+      overflow: hidden;
+    
+      .song-artist-album-content {
+        font-weight: 400;
+        font-size: 12px;
+        text-align: center;
+        width: 100%;
+    
+        &.song-artist-normal {
+          height: inherit;
+        }
+      }
+    
+    
+      &.song-artist-marquee {
+        > marquee {
+          margin-bottom: -3px;
+        }
+      }
+    }
+    
+  }
 }
 
 #apple-music-video-player-controls #player-exit {

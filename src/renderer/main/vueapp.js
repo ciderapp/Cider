@@ -235,7 +235,9 @@ const app = new Vue({
             pages: [],
         },
         moreinfodata: [],
-        notyf: notyf
+        notyf: notyf,
+        idleTimer : null,
+        idleState : false,
     },
     watch: {
         cfg: {
@@ -936,11 +938,25 @@ const app = new Vue({
                 this.getBrowsePage();
                 this.$forceUpdate()
             }, 500)
+            document.querySelector('#apple-music-video-player-controls').addEventListener('mousemove', () => {
+                    this.showFoo('.music-player-info',2000);
+            })
             ipcRenderer.invoke("renderer-ready", true)
             document.querySelector("#LOADER").remove()
             if (this.cfg.general.themeUpdateNotification && !this.isDev) {
                 this.checkForThemeUpdates()
             }
+        },
+        showFoo(querySelector,time) {
+            clearTimeout(this.idleTimer);
+            if (this.idleState == true) {
+                document.querySelector(querySelector).classList.remove("inactive");
+            }
+            this.idleState = false;
+            this.idleTimer = setTimeout(() => {
+                document.querySelector(querySelector).classList.add("inactive");
+                this.idleState = true;
+            }, time);
         },
         setContentScrollPos(scroll) {
             this.chrome.contentScrollPosY = scroll.target.scrollTop
