@@ -63,7 +63,7 @@
                         <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.description')}}</small>
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <select class="md-select" style="width:180px;"
+                        <select class="md-select" style="width:230px;"
                                 v-model="$root.cfg.audio.maikiwiAudio.atmosphereRealizer1_value"
                                 v-on:change="CiderAudio.hierarchical_loading();">
                             <option v-for="profile in arprofiles" :value="profile.id">{{ getProfileLz("CAR", profile.id) }}</option>
@@ -88,7 +88,7 @@
                         <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.description')}}</small>
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <select class="md-select" style="width:180px;"
+                        <select class="md-select" style="width:230px;"
                                 v-model="$root.cfg.audio.maikiwiAudio.atmosphereRealizer2_value"
                                 v-on:change="CiderAudio.hierarchical_loading();">
                             <option v-for="profile in arprofiles" :value="profile.id">{{ getProfileLz("CAR", profile.id) }}</option>
