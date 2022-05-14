@@ -63,10 +63,10 @@
                         <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.description')}}</small>
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <select class="md-select" style="width:180px;"
+                        <select class="md-select" style="width:230px;"
                                 v-model="$root.cfg.audio.maikiwiAudio.atmosphereRealizer1_value"
                                 v-on:change="CiderAudio.hierarchical_loading();">
-                            <option v-for="profile in arprofiles" :value="profile.id">{{ getProfileLz("CTS", profile.name) }}</option>
+                            <option v-for="profile in arprofiles" :value="profile.id">{{ getProfileLz("CAR", profile.id) }}</option>
                         </select>
                     </div>
                 </div>
@@ -88,10 +88,10 @@
                         <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.description')}}</small>
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <select class="md-select" style="width:180px;"
+                        <select class="md-select" style="width:230px;"
                                 v-model="$root.cfg.audio.maikiwiAudio.atmosphereRealizer2_value"
                                 v-on:change="CiderAudio.hierarchical_loading();">
-                            <option v-for="profile in arprofiles" :value="profile.id">{{ getProfileLz("CTS", profile.name) }}</option>
+                            <option v-for="profile in arprofiles" :value="profile.id">{{ getProfileLz("CAR", profile.id) }}</option>
                         </select>
                     </div>
                 </div>
@@ -117,7 +117,7 @@
                         <select class="md-select" style="width:180px;"
                                 v-model="$root.cfg.audio.maikiwiAudio.spatialProfile"
                                 v-on:change="toggleMaikiwiSpatial">
-                            <option v-for="profile in spprofiles" :value="profile.id">{{ getProfileLz("CAR", profile.id) }}</option>
+                            <option v-for="profile in spprofiles" :value="profile.id">{{ getProfileLz("CTS", profile.name) }}</option>
                         </select>
                     </div>
                 </div>
@@ -187,15 +187,21 @@
         },
         methods: {
             getProfileLz(type, name) {
-                if (name === "Cryptofyre" || name === "Maikiwi") {
-                    return name;
+                switch (name) {
+                    case "CRYPTO":
+                        return "Cryptofyre";
+                        break;
+
+                    case "Maikiwi":
+                        return "Maikiwi";
+                        break;
                 }
                 switch (type) {
                     case "CAR":
                         return this.$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.' + name);
                         break;
                     case "CTS":
-                        return this.$root.getLz('settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.' + name);
+                        return this.$root.getLz('settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.' + name.toLowerCase());
                         break;
                     default:
                         return name;

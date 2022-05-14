@@ -458,6 +458,16 @@ export class BrowserWindow {
             }
         })
 
+        app.get("/cideraudio/impulses/:file", (req, res) => {
+            const impulseExternals = join(utils.getPath("externals"), "/impulses/")
+            const impulseFile = join(impulseExternals, req.params.file)
+            if(existsSync(impulseFile)) {
+                res.sendFile(impulseFile)                
+            }else{
+                res.sendFile(join(utils.getPath('srcPath'), "./renderer/audio/impulses/" + req.params.file))
+            }
+        })
+
         app.get("/api/playback/:action", (req, res) => {
             const action = req.params.action;
             switch (action) {
@@ -938,13 +948,23 @@ export class BrowserWindow {
             switch (path) {
                 default:
                 case "plugins":
-                    shell.openPath(utils.getPath("plugins"));
+                    if (existsSync(utils.getPath("plugins"))) {
+                        shell.openPath(utils.getPath("plugins"));
+                    } else {
+                        mkdirSync(utils.getPath("plugins"));
+                        shell.openPath(utils.getPath("plugins"));
+                    }
                     break;
                 case "userdata":
                     shell.openPath(app.getPath("userData"));
                     break;
                 case "themes":
-                    shell.openPath(utils.getPath("themes"));
+                    if (existsSync(utils.getPath("themes"))) {
+                        shell.openPath(utils.getPath("themes"));
+                    } else {
+                        mkdirSync(utils.getPath("themes"));
+                        shell.openPath(utils.getPath("themes"));
+                    }
                     break;
             }
         });

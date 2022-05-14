@@ -87,3 +87,39 @@
 
     }
 }
+
+.wpfade_transform-enter-active,
+.wpfade_transform-leave-active {
+  --transitionTime: 0.2s;
+  transition: opacity var(--transitionTime) var(--appleEase), transform var(--transitionTime) var(--appleEase);
+  will-change: opacity, transform;
+}
+
+.wpfade_transform-enter {
+  opacity: 0;
+  transform: translateX(50%) translate3d(0,0,0);
+  will-change: opacity, transform;
+}
+.wpfade_transform-leave-to {
+  opacity: 0;
+  transform: translateX(-50%) translate3d(0,0,0);
+  will-change: opacity, transform;
+}
+
+
+.wpfade_transform_backwards-enter-active,
+.wpfade_transform_backwards-leave-active {
+  --transitionTime: 0.2s;
+  transition: opacity var(--transitionTime) var(--appleEase), transform var(--transitionTime) var(--appleEase);
+}
+
+.wpfade_transform_backwards-enter {
+  opacity: 0;
+  transform: translateX(-50%) translate3d(0,0,0);
+  will-change: opacity, transform;
+}
+.wpfade_transform_backwards-leave-to {
+  opacity: 0;
+  transform: translateX(50%) translate3d(0,0,0);
+  will-change: opacity, transform;
+}

@@ -94,7 +94,7 @@ const CiderAudio = {
     spatialProfiles: [
         {
             "id": "72_420maikiwi",
-            "file": './audio/impulses/CiderSpatial_v72.420_Maikiwi.wav',
+            "file": './cideraudio/impulses/CiderSpatial_v72.420_Maikiwi.wav',
             "name": "Maikiwi",
             "description": "",
             "gainComp": "1.3381352151540196",
@@ -102,7 +102,7 @@ const CiderAudio = {
         },
         {
             "id": "71_420maikiwi",
-            "file": './audio/impulses/CiderSpatial_v71.420_Maikiwi.wav',
+            "file": './cideraudio/impulses/CiderSpatial_v71.420_Maikiwi.wav',
             "name": "Soundstage",
             "description": "",
             "gainComp": "1.3963683610559376",
@@ -110,7 +110,7 @@ const CiderAudio = {
         },
         {
             "id": "70_422maikiwi",
-            "file": './audio/impulses/CiderSpatial_v70.422_Maikiwi.wav',
+            "file": './cideraudio/impulses/CiderSpatial_v70.422_Maikiwi.wav',
             "name": "Separation",
             "description": "",
             "gainComp": "1.30767553892022",
@@ -118,7 +118,7 @@ const CiderAudio = {
         },
         {
             "id": "standard",
-            "file": './audio/impulses/CiderSpatial_v69_Standard.wav',
+            "file": './cideraudio/impulses/CiderSpatial_v69_Standard.wav',
             "name": "Minimal",
             "description": "",
             "gainComp": "1.2647363474711515",
@@ -128,25 +128,19 @@ const CiderAudio = {
     atmosphereRealizerProfiles: [
         {
             "id": "NATURAL_STANDARD",
-            "file": './audio/impulses/AtmosphereRealizer_NaturalStandard.wav',
+            "file": './cideraudio/impulses/AtmosphereRealizer_NaturalStandard.wav',
             "name": "Natural (Standard)",
             "description": "",
         },
         {
-            "id": "NATURAL_HIGH",
-            "file": './audio/impulses/AtmosphereRealizer_NaturalHigh.wav',
-            "name": "Natural (High)",
-            "description": "",
-        },
-        {
             "id": "NATURAL_PLUS",
-            "file": './audio/impulses/AtmosphereRealizer_Natural+.wav',
+            "file": './cideraudio/impulses/AtmosphereRealizer_Natural+.wav',
             "name": "Natural (Plus)",
             "description": "",
         },
         {
             "id": "CRYPTO",
-            "file": './audio/impulses/AtmosphereRealizer_Cryptofyre.wav',
+            "file": './cideraudio/impulses/AtmosphereRealizer_Cryptofyre.wav',
             "name": "Cryptofyre",
             "description": "",
         }
@@ -504,7 +498,7 @@ const CiderAudio = {
                 case "MAIKIWI":
                     CiderAudio.audioNodes.llpw[0] = CiderAudio.context.createConvolver();
                     CiderAudio.audioNodes.llpw[0].normalize = false;
-                    fetch('./audio/impulses/CAP_Maikiwi.wav').then(async (impulseData) => {
+                    fetch('./cideraudio/impulses/CAP_Maikiwi.wav').then(async (impulseData) => {
                         let bufferedImpulse = await impulseData.arrayBuffer();
                         CiderAudio.audioNodes.llpw[0].buffer = await CiderAudio.context.decodeAudioData(bufferedImpulse);
                     });
@@ -528,7 +522,7 @@ const CiderAudio = {
                 case "NATURAL":
                     CiderAudio.audioNodes.llpw[0] = CiderAudio.context.createConvolver();
                     CiderAudio.audioNodes.llpw[0].normalize = false;
-                    fetch('./audio/impulses/CAP_Natural.wav').then(async (impulseData) => {
+                    fetch('./cideraudio/impulses/CAP_Natural.wav').then(async (impulseData) => {
                         let bufferedImpulse = await impulseData.arrayBuffer();
                         CiderAudio.audioNodes.llpw[0].buffer = await CiderAudio.context.decodeAudioData(bufferedImpulse);
                     });
@@ -580,7 +574,7 @@ const CiderAudio = {
                 default:
                     CiderAudio.audioNodes.llpw[0] = CiderAudio.context.createConvolver();
                     CiderAudio.audioNodes.llpw[0].normalize = false;
-                    fetch('./audio/impulses/CAP_Maikiwi.wav').then(async (impulseData) => {
+                    fetch('./cideraudio/impulses/CAP_Maikiwi.wav').then(async (impulseData) => {
                         let bufferedImpulse = await impulseData.arrayBuffer();
                         CiderAudio.audioNodes.llpw[0].buffer = await CiderAudio.context.decodeAudioData(bufferedImpulse);
                     });
@@ -740,7 +734,7 @@ const CiderAudio = {
                     CiderAudio.audioNodes.spatialNode.connect(CiderAudio.audioNodes.audioBands[0]);
                 }
                 else {
-                    CiderAudio.audioNodes.spatialgainNodeNode.connect(CiderAudio.audioNodes.audioBands[0]);
+                    CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.audioBands[0]);
                 }             
                 break;
             case 'h0':

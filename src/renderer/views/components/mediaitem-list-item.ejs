@@ -128,7 +128,7 @@
             } else {
                 this.itemId = this.item.id;
             }
-            if (this.item.attributes.playParams) {
+            if (this.item.attributes.playParams && this.$root.cfg.general.showLovedTracksInline) {
                 this.getHeartStatus();
             }
             let duration = this.item.attributes.durationInMillis ?? 0

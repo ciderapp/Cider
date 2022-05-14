@@ -235,7 +235,9 @@ const app = new Vue({
             pages: [],
         },
         moreinfodata: [],
-        notyf: notyf
+        notyf: notyf,
+        idleTimer : null,
+        idleState : false,
     },
     watch: {
         cfg: {
@@ -784,8 +786,8 @@ const app = new Vue({
 
             MusicKit.getInstance().videoContainerElement = document.getElementById("apple-music-video-player")
 
-            ipcRenderer.on('theme-update', (event, arg) => {
-                less.refresh(true, true, true)
+            ipcRenderer.on('theme-update', async (event, arg) => {
+                await less.refresh(true, true, true)
                 self.setTheme(self.cfg.visual.theme, true)
                 if (app.cfg.visual.styles.length != 0) {
                     app.reloadStyles()
@@ -936,11 +938,25 @@ const app = new Vue({
                 this.getBrowsePage();
                 this.$forceUpdate()
             }, 500)
+            document.querySelector('#apple-music-video-player-controls').addEventListener('mousemove', () => {
+                    this.showFoo('.music-player-info',2000);
+            })
             ipcRenderer.invoke("renderer-ready", true)
             document.querySelector("#LOADER").remove()
             if (this.cfg.general.themeUpdateNotification && !this.isDev) {
                 this.checkForThemeUpdates()
             }
+        },
+        showFoo(querySelector,time) {
+            clearTimeout(this.idleTimer);
+            if (this.idleState == true) {
+                document.querySelector(querySelector).classList.remove("inactive");
+            }
+            this.idleState = false;
+            this.idleTimer = setTimeout(() => {
+                document.querySelector(querySelector).classList.add("inactive");
+                this.idleState = true;
+            }, time);
         },
         setContentScrollPos(scroll) {
             this.chrome.contentScrollPosY = scroll.target.scrollTop
@@ -991,7 +1007,7 @@ const app = new Vue({
                 document.querySelectorAll(`[id*='less']`).forEach(el => {
                     el.remove()
                 });
-                less.refresh()
+                await less.refresh()
             }
         },
         async reloadStyles() {
@@ -1019,7 +1035,7 @@ const app = new Vue({
                 }
             })
             less.registerStylesheetsImmediately()
-            less.refresh(true, true, true)
+            await less.refresh(true, true, true)
             this.$forceUpdate()
             return
         },

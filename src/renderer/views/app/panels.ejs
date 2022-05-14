@@ -72,6 +72,57 @@
              title="Fullscreen">
             <%- include("../svg/fullscreen.svg") %>
         </div>
+        <div class="playback-info music-player-info">
+            <div class="song-artist-album-content"
+            style="display: inline-block; -webkit-box-orient: horizontal; white-space: nowrap;">
+                <div class="song-artist" style="display: inline-block">
+                    {{ mk.nowPlayingItem?.attributes?.artistName ?? '' }}
+                </div>
+            </div>
+            <div class="song-name">
+                {{ mk.nowPlayingItem?.attributes?.name ?? '' }}
+                <div class="explicit-icon"
+                     v-if="mk.nowPlayingItem?.attributes?.contentRating == 'explicit'"
+                     style="display: inline-block"></div>
+            </div>
+            <div class="song-progress">
+                <p style="width: auto">{{ convertTime(getSongProgress()) }}</p>
+                <input type="range" step="0.01" min="0" :style="progressBarStyle()" style="width: 95%"
+                       @input="playerLCD.desiredDuration = $event.target.value;playerLCD.userInteraction = true"
+                       @mouseup="mk.seekToTime($event.target.value);setTimeout(()=>{playerLCD.desiredDuration = 0;playerLCD.userInteraction = false}, 1000);"
+                       @touchend="mk.seekToTime($event.target.value);setTimeout(()=>{playerLCD.desiredDuration = 0;playerLCD.userInteraction = false}, 1000);"
+                       :max="mk.currentPlaybackDuration" :value="getSongProgress()">
+                <p style="width: auto">{{ convertTime(mk.currentPlaybackDuration) }}       
+            </div>
+            <div class="app-chrome-item display--large">
+                <div class="app-chrome-item volume display--large">
+                    <button class="volume-button--small volume" @click="muteButtonPressed()"
+                            :class="{'active': this.cfg.audio.volume == 0}"
+                            :title="cfg.audio.muted ? $root.getLz('term.unmute') : $root.getLz('term.mute')"
+                            v-b-tooltip.hover></button>
+                    <input type="range" @wheel="volumeWheel" :step="cfg.audio.volumeStep" min="0" :max="cfg.audio.maxVolume"
+                           v-model="mk.volume" v-if="typeof mk.volume != 'undefined'" @change="checkMuteChange()"
+                           v-b-tooltip.hover :title="formatVolumeTooltip()">
+                </div>
+                <button class="playback-button pause" @click="mk.pause()" v-if="mk.isPlaying"
+                        :title="$root.getLz('term.pause')" v-b-tooltip.hover></button>
+                <button class="playback-button play" @click="mk.play()" v-else
+                        :title="$root.getLz('term.play')" v-b-tooltip.hover></button>
+                <div class="app-chrome-item generic">
+                            <template v-if="lyrics && lyrics != [] && lyrics.length > 0">
+                                <button class="playback-button--small lyrics"
+                                        :title="$root.getLz('term.lyrics')"
+                                        v-b-tooltip.hover
+                                        :class="{'active': drawer.panel == 'lyrics'}"
+                                        @click="invokeDrawer('lyrics')"></button>
+                            </template>
+                            <template v-else>
+                                <button class="playback-button--small lyrics"
+                                        :style="{'opacity': 0.3, 'pointer-events': 'none'}"></button>
+                            </template>
+                </div>        
+            </div>
+        </div>
     </div>
     <div id="apple-music-video-player"></div>
 </div>

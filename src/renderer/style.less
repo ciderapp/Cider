@@ -417,7 +417,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   position: absolute;
   right: 16px;
   top: 3%;
-  background: #1c1c1c8f;
+  background: var(--color2);
   border-radius: 12px;
   z-index: 10;
   height: 94%;
@@ -875,17 +875,17 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   border-radius: 10px;
   left: 0px;
   background: var(--keyColor);
-  animation: expandIndicator .2s cubic-bezier(0.25, 1, 0.5, 1);
+  // animation: expandIndicator .2s cubic-bezier(0.25, 1, 0.5, 1);
 
-  @keyframes expandIndicator {
-    0% {
-      transform: scaleY(0);
-    }
+  // @keyframes expandIndicator {
+  //   0% {
+  //     transform: scaleY(0);
+  //   }
 
-    100% {
-      transform: scaleY(1);
-    }
-  }
+  //   100% {
+  //     transform: scaleY(1);
+  //   }
+  // }
 }
 
 .app-chrome {
@@ -2885,38 +2885,40 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
 .wpfade_transform-enter-active,
 .wpfade_transform-leave-active {
-  --transitionTime: 0.2s;
-  transition: opacity var(--transitionTime) var(--appleEase), transform var(--transitionTime) var(--appleEase);
-  will-change: opacity, transform;
+    --transitionTime: 0.2s;
+    transition      : opacity var(--transitionTime) var(--appleEase);
+    will-change     : opacity, transform;
 }
 
 .wpfade_transform-enter {
-  opacity: 0;
-  transform: translateX(50%) translate3d(0,0,0);
-  will-change: opacity, transform;
+    opacity    : 0;
+    transform  : unset;
+    will-change: opacity;
 }
+
 .wpfade_transform-leave-to {
-  opacity: 0;
-  transform: translateX(-50%) translate3d(0,0,0);
-  will-change: opacity, transform;
+    opacity    : 0;
+    transform  : unset;
+    will-change: opacity;
 }
 
 
 .wpfade_transform_backwards-enter-active,
 .wpfade_transform_backwards-leave-active {
-  --transitionTime: 0.2s;
-  transition: opacity var(--transitionTime) var(--appleEase), transform var(--transitionTime) var(--appleEase);
+    --transitionTime: 0.2s;
+    transition      : opacity var(--transitionTime) var(--appleEase);
 }
 
 .wpfade_transform_backwards-enter {
-  opacity: 0;
-  transform: translateX(-50%) translate3d(0,0,0);
-  will-change: opacity, transform;
+    opacity    : 0;
+    transform  : unset;
+    will-change: opacity;
 }
+
 .wpfade_transform_backwards-leave-to {
-  opacity: 0;
-  transform: translateX(50%) translate3d(0,0,0);
-  will-change: opacity, transform;
+    opacity    : 0;
+    transform  : unset;
+    will-change: opacity;
 }
 
 .fabfade-enter-active,
@@ -2944,12 +2946,12 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
 .drawertransition-enter-active,
 .drawertransition-leave-active {
-  transition: right .25s var(--appleEase);
+  transition: transform .25s var(--appleEase);
 }
 
 .drawertransition-enter,
 .drawertransition-leave-to {
-  right: -300px;
+  transform: translateX(400px);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -2988,13 +2990,70 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   top: var(--chromeHeight1);
   bottom: unset;
 }
-
+.inactive {
+  opacity: 0;
+}
 #apple-music-video-player-controls {
   position: absolute;
   z-index: 100001;
   float: left;
   width: 100%;
   height: 100%;
+  .playback-info{
+    position: absolute;
+    bottom: 2vw;
+    left: 2vw;
+    width: 97%;
+    .song-progress {
+      display: flex;
+    }
+    .app-chrome-item.display--large{
+      position: relative;
+      display: flex;  
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: center;
+      .playback-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 3px;
+      }
+    }
+    .song-artist-album {
+      font-weight: 400;
+      font-size: 12px;
+      text-align: center;
+      /*height: 1.2em;
+      line-height: 1.2em;*/
+      z-index: 1;
+      align-items: center;
+      justify-content: center;
+      width: 80%;
+      max-width: 340px;
+      overflow: hidden;
+    
+      .song-artist-album-content {
+        font-weight: 400;
+        font-size: 12px;
+        text-align: center;
+        width: 100%;
+    
+        &.song-artist-normal {
+          height: inherit;
+        }
+      }
+    
+    
+      &.song-artist-marquee {
+        > marquee {
+          margin-bottom: -3px;
+        }
+      }
+    }
+    
+  }
 }
 
 #apple-music-video-player-controls #player-exit {
@@ -3109,6 +3168,27 @@ body.no-gpu {
     .bg-artwork{
       animation: none !important;
     }
+  }
+
+  .floating-header {
+    background: black;
+    backdrop-filter: unset;
+  }
+
+  .artworkContainer {
+    animation: unset!important;
+    opacity: 0.7;
+  }
+
+  .info-rect-card {
+    &:before {
+      display: none;
+    }
+  }
+
+  .menu-panel .menu-panel-body {
+    background: rgb(30 30 30);
+    backdrop-filter: unset;
   }
 
   #navigation-bar {
