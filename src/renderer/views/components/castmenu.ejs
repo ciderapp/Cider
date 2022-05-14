@@ -3,11 +3,11 @@
     <div class="modal-window">
         <div class="modal-header">
             <div class="modal-title">{{$root.getLz('action.cast.todevices')}}</div>
-            <button class="close-btn" @click="close()"></button>
+            <button class="close-btn" @click="close()" :aria-label="app.getLz('action.close')"></button>
         </div>
     <div class="modal-content" style="overflow-y: overlay; padding: 3%">
         <div class="md-labeltext">{{$root.getLz('action.cast.chromecast')}}</div>
-        <div class="md-option-container" style="margin-top: 12px;margin-bottom: 12px;">
+        <div class="md-option-container" style="margin-top: 12px;margin-bottom: 12px;overflow-y: scroll;">
             <template v-if="!scanning">
                 <template v-for="(device) in devices.cast">
                     <div class="md-option-line" style="cursor: pointer" @click="setCast(device)">
@@ -34,7 +34,7 @@
             </template>
         </div>
         <div class="md-labeltext" >{{$root.getLz('action.cast.airplay')}}</div>
-        <div class="md-option-container" style="margin-top: 12px;margin-bottom: 12px;">
+        <div class="md-option-container" style="margin-top: 12px;margin-bottom: 12px;overflow-y: scroll;">
             <div class="md-option-line">
                 <div class="md-option-segment">
                     {{'EXPERIMENTAL!!! Supports Homepods / Apple TVs / Shairport for now, AirPlay on Samsung/LG/Sony devices will be added later'}}
@@ -111,11 +111,11 @@
             },
             setCast(device) {
                 CiderAudio.sendAudio();
-                this.activeCasts.push(device); 
+                this.activeCasts.push(device);
                 ipcRenderer.send('performGCCast', device, "Cider", "Playing ...", "Test build", '');
             },
             setAirPlayCast(device) {
-                this.activeCasts.push(device); 
+                this.activeCasts.push(device);
                 ipcRenderer.send("performAirplayPCM",device.host,device.port,null,"","","","",device.txt)
             },
             stopCasting() {

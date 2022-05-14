@@ -2,7 +2,7 @@
 
 Some notes about Cider's i18n support.
 
-- Localization files are stored in `json` format aka "JavaScript Object Notation".
+- Localization files are stored in `json` format aka `JavaScript Object Notation`.
 - The default language is English.
 - The default language is used for messages that are not translated.
 - Try when possible to keep the messages the similar in length to the English ones.
@@ -23,7 +23,7 @@ How it is implemented for English:
 
 ```
  "term.track": {
-    "one" : "track",
+    "one` : "track",
     "other" : "tracks"
   },
 ```
@@ -34,11 +34,11 @@ How it is implemented for English:
 Several changes have been made to configuration options and will be listed below with the relevant locales that have
 been modified, the ones not mentioned in the list need modifying.
 
-* `settings.option.experimental.closeButtonBehaviour`: Changed to `close_button_hide` - Should be "Close Button Should Hide the Application". `.quit`, `.minimizeTaskbar` and `.minimizeTray` have been removed. Translations done for en_US.
+* `settings.option.experimental.closeButtonBehaviour`: Changed to `close_button_hide` - Should be `Close Button Should Hide the Application`. `.quit`, `.minimizeTaskbar` and `.minimizeTray` have been removed. Translations done for en_US.
 * `action.update`: Added for `en_US`.
-* `term.topResult`: "Top Result" - Added for `en_US`.
-* `term.sharedPlaylists`: "Shared Playlists" - Added for `en_US`.
-* `term.people`: "People" - Added for `en_US`.
+* `term.topResult`: `Top Result` - Added for `en_US`.
+* `term.sharedPlaylists`: `Shared Playlists` - Added for `en_US`.
+* `term.people`: `People` - Added for `en_US`.
 
 Update 02/02/2022 17:16 UTC
 
@@ -279,17 +279,17 @@ Update 24/04/2022 19:00 UTC
 
 Update 25/04/2022 00:21 UTC
 
-*  `settings.description.search`: Added for `en_US`
-*  `settings.description.albums`: Added for `en_US`
-*  `settings.description.artists`: Added for `en_US`
-*  `settings.description.browse`: Added for `en_US`
-*  `settings.description.private`: Added for `en_US`
-*  `settings.description.remote`: Added for `en_US`
-*  `settings.description.audio`: Added for `en_US`
-*  `settings.description.plugins`: Added for `en_US`
-*  `settings.description.cast`: Added for `en_US`
-*  `settings.description.settings`: Added for `en_US`
-*  `settings.description.developer`: Added for `en_US`
+* `settings.description.search`: Added for `en_US`
+* `settings.description.albums`: Added for `en_US`
+* `settings.description.artists`: Added for `en_US`
+* `settings.description.browse`: Added for `en_US`
+* `settings.description.private`: Added for `en_US`
+* `settings.description.remote`: Added for `en_US`
+* `settings.description.audio`: Added for `en_US`
+* `settings.description.plugins`: Added for `en_US`
+* `settings.description.cast`: Added for `en_US`
+* `settings.description.settings`: Added for `en_US`
+* `settings.description.developer`: Added for `en_US`
 
 Update 28/04/2022 21:45 UTC
 
@@ -301,44 +301,89 @@ Update 28/04/2022 21:45 UTC
 
 Update 29/04/2022 00:00 UTC
 
- * `menubar.options.about`: Added for `en_US`
- * `menubar.options.settings`: Added for `en_US`
- * `menubar.options.quit`: Added for `en_US`
- * `menubar.options.view`: Added for `en_US`
- * `menubar.options.reload`: Added for `en_US`
- * `menubar.options.forcereload`: Added for `en_US`
- * `menubar.options.toggledevtools`: Added for `en_US`
- * `menubar.options.window`: Added for `en_US`
- * `menubar.options.minimize`: Added for `en_US`
- * `menubar.options.toggleprivate`: Added for `en_US`
- * `menubar.options.webremote`: Added for `en_US`
- * `menubar.options.audio`: Added for `en_US`
- * `menubar.options.plugins`: Added for `en_US`
- * `menubar.options.control`: Added for `en_US`
- * `menubar.options.next`: "Added for `en_US`
- * `menubar.options.previous`: Added for `en_US`
- * `menubar.options.volumeup`: Added for `en_US`
- * `menubar.options.volumedown`: Added for `en_US`
- * `menubar.options.browse`: Added for `en_US`
- * `menubar.options.artists`: Added for `en_US`
- * `menubar.options.search`: Added for `en_US`
- * `menubar.options.albums`: Added for `en_US`
- * `menubar.options.cast`: Added for `en_US`
- * `menubar.options.account`: Added for `en_US`
- * `menubar.options.accountsettings`: Added for `en_US`
- * `menubar.options.signout`: Added for `en_US`
- * `menubar.options.support`: Added for `en_US`
- * `menubar.options.discord`: Added for `en_US`
- * `menubar.options.github`: Added for `en_US`
- * `menubar.options.report`: Added for `en_US`
- * `menubar.options.bug`: Added for `en_US`
- * `menubar.options.feature`: Added for `en_US`
- * `menubar.options.trans`: Added for `en_US`
- * `menubar.options.license`: Added for `en_US`
- * `menubar.options.conf`: Added for `en_US` 
-
+* `menubar.options.about`: Added for `en_US`
+* `menubar.options.settings`: Added for `en_US`
+* `menubar.options.quit`: Added for `en_US`
+* `menubar.options.view`: Added for `en_US`
+* `menubar.options.reload`: Added for `en_US`
+* `menubar.options.forcereload`: Added for `en_US`
+* `menubar.options.toggledevtools`: Added for `en_US`
+* `menubar.options.window`: Added for `en_US`
+* `menubar.options.minimize`: Added for `en_US`
+* `menubar.options.toggleprivate`: Added for `en_US`
+* `menubar.options.webremote`: Added for `en_US`
+* `menubar.options.audio`: Added for `en_US`
+* `menubar.options.plugins`: Added for `en_US`
+* `menubar.options.control`: Added for `en_US`
+* `menubar.options.next`: `Added for `en_US`
+* `menubar.options.previous`: Added for `en_US`
+* `menubar.options.volumeup`: Added for `en_US`
+* `menubar.options.volumedown`: Added for `en_US`
+* `menubar.options.browse`: Added for `en_US`
+* `menubar.options.artists`: Added for `en_US`
+* `menubar.options.search`: Added for `en_US`
+* `menubar.options.albums`: Added for `en_US`
+* `menubar.options.cast`: Added for `en_US`
+* `menubar.options.account`: Added for `en_US`
+* `menubar.options.accountsettings`: Added for `en_US`
+* `menubar.options.signout`: Added for `en_US`
+* `menubar.options.support`: Added for `en_US`
+* `menubar.options.discord`: Added for `en_US`
+* `menubar.options.github`: Added for `en_US`
+* `menubar.options.report`: Added for `en_US`
+* `menubar.options.bug`: Added for `en_US`
+* `menubar.options.feature`: Added for `en_US`
+* `menubar.options.trans`: Added for `en_US`
+* `menubar.options.license`: Added for `en_US`
+* `menubar.options.conf`: Added for `en_US` 
 
 Update 08/05/2022 00:29 UTC
 
 * `settings.option.visual.theme.github.available`: Added for `en_US`,
 * `settings.option.visual.theme.github.applied`: Added for `en_US`,
+
+Update 09/05/2022 01:50 UTC
+
+* `menubar.options.listennow`: Added for `en_US`,
+* `menubar.options.recentlyAdded`: Added for `en_US`,
+* `menubar.options.songs`: Added for `en_US`,
+* `settings.description.listnow`: Added for `en_US`,
+* `settings.description.recentAdd`: Added for `en_US`,
+* `settings.description.songs`: Added for `en_US`,
+* `settings.option.general.keybindings.pressCombination`: Added for `en_US`,
+* `settings.option.general.keybindings.pressEscape`: Added for `en_US`,
+* `settings.option.visual.theme.github.available`: Added for `en_US`
+* `settings.option.visual.theme.github.applied`: Added for `en_US`
+
+Update 09/05/2022 19:30 UTC
+
+* `settings.option.audio.enableAdvancedFunctionality.audioSpatialization`: Deleted for all language files
+* `settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description`: Deleted for all language files
+
+Update 12/05/2022 19:00 UTC
+
+* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_STANDARD`: Added for `en_US`,
+* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_HIGH`: Added for `en_US`,
+* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_PLUS`: Added for `en_US`,
+* `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.standard`: Added for `en_US`,
+* `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.soundstage`: Added for `en_US`,
+* `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.separation`: Added for `en_US`,
+
+
+Update 12/05/2022 22:50 UTC
+
+*  `settings.option.audio.dbspl.display`: Added for `en_US`,
+*  `settings.option.audio.dbspl.description`: Added for `en_US`,
+*  `settings.option.audio.dbfs.calibration`: Added for `en_US`,
+*  `settings.option.audio.dbfs.description`: Added for `en_US`
+
+Update 14/05/2022 02:00 UTC
+
+*  `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_HIGH`: Deleted for all language files
+*  `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_STANDARD`: Renamed for `en_US`,
+*  `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_PLUS`: Renamed for `en_US`,
+*  `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.E68_1`: Added for `en_US`,
+*  `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.E68_2`: Added for `en_US`,
+*  `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.E168_1`: Added for `en_US`,
+*  `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.Z3600`: Added for `en_US`,
+*  `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.Z8500`: Added for `en_US`

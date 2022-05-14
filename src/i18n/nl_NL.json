@@ -302,8 +302,6 @@
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive": "Agressief",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Audio Normalisatie",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normaliseert het piekvolume voor afzonderlijke nummers om een meer uniforme luisterervaring te creëren.",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Audio Verruimtelijking",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Verruimtelijke audio en maak audio driedimensionaal (let op: dit is geen Dolby Atmos)",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization": "Cider Afgestemde Verruimtelijking",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.description": "Vooraf afgestemde Verruimtelijking Effect, schakelt de aanpasbare instellingen van Audio Verruimtelijking uit. Verruimtelijking moet ingeschakeld zijn.",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile": "Cider Verruimtelijking Profiel",

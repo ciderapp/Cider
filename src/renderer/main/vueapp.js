@@ -784,8 +784,8 @@ const app = new Vue({
 
             MusicKit.getInstance().videoContainerElement = document.getElementById("apple-music-video-player")
 
-            ipcRenderer.on('theme-update', (event, arg) => {
-                less.refresh(true, true, true)
+            ipcRenderer.on('theme-update', async (event, arg) => {
+                await less.refresh(true, true, true)
                 self.setTheme(self.cfg.visual.theme, true)
                 if (app.cfg.visual.styles.length != 0) {
                     app.reloadStyles()
@@ -828,8 +828,9 @@ const app = new Vue({
                 }
             });
 
-            this.mk.addEventListener(MusicKit.Events.playbackStateDidChange, () => {
+            this.mk.addEventListener(MusicKit.Events.playbackStateDidChange, (event) => {
                 ipcRenderer.send('wsapi-updatePlaybackState', wsapi.getAttributes());
+                document.body.setAttribute("playback-state", event.state == 2 ? "playing" : "paused")
             })
 
             this.mk.addEventListener(MusicKit.Events.playbackTimeDidChange, (a) => {
@@ -887,8 +888,10 @@ const app = new Vue({
 
                 if (type.includes("musicVideo") || type.includes("uploadedVideo") || type.includes("music-movie")) {
                     document.getElementById("apple-music-video-container").style.display = "block";
+                    document.body.setAttribute("video-playing", "true")
                     // app.chrome.topChromeVisible = false
                 } else {
+                    document.body.removeAttribute("video-playing")
                     document.getElementById("apple-music-video-container").style.display = "none";
                     // app.chrome.topChromeVisible = true
                 }
@@ -988,7 +991,7 @@ const app = new Vue({
                 document.querySelectorAll(`[id*='less']`).forEach(el => {
                     el.remove()
                 });
-                less.refresh()
+                await less.refresh()
             }
         },
         async reloadStyles() {
@@ -1016,7 +1019,7 @@ const app = new Vue({
                 }
             })
             less.registerStylesheetsImmediately()
-            less.refresh(true, true, true)
+            await less.refresh(true, true, true)
             this.$forceUpdate()
             return
         },
@@ -3869,12 +3872,14 @@ const app = new Vue({
                     el.play()
                 })
                 document.querySelector("body").classList.remove("stopanimation")
+                document.body.setAttribute("focus-state", "focused")
                 this.animateBackground = true
             } else {
                 document.querySelectorAll(".animated-artwork-video").forEach(el => {
                     el.pause()
                 })
                 document.querySelector("body").classList.add("stopanimation")
+                document.body.setAttribute("focus-state", "blurred")
                 this.animateBackground = false
             }
         },
