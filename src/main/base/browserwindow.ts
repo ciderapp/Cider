@@ -1227,7 +1227,7 @@ export class BrowserWindow {
                                             //     "reporting": false },
                                             "trackNumber": metadata.common.track?.no ?? 0, 
                                             "discNumber": metadata.common.disk?.no ?? 0, 
-                                            "name": metadata.common.title,
+                                            "name": metadata.common.title ?? audio.substring(audio.lastIndexOf('\\') + 1),
                                             "albumName": metadata.common.album,
                                             "artistName": metadata.common.artist,
                                             "copyright": metadata.common.copyright ?? "",
