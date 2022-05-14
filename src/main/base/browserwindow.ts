@@ -547,7 +547,8 @@ export class BrowserWindow {
             }
         });
         app.get("/ciderlocal/:songs", (req, res) => {
-            const audio = atob(req.params.songs);
+            const audio = atob(req.params.songs.replace(/_/g, '/').replace(/-/g, '+'));
+            console.log('auss', audio)
             let data = {data: 
              this.localSongs.filter((f: any) => audio.split(',').includes(f.id))};
             res.send(data);
@@ -671,7 +672,7 @@ export class BrowserWindow {
                     let text = details.url.toString().includes('ids=') ? decodeURIComponent(details.url.toString()).split("?ids=")[1] : decodeURIComponent(details.url.toString().substring(details.url.toString().lastIndexOf('/') + 1));
                     console.log('localurl',text)
                     callback({
-                        redirectURL: `http://localhost:${this.clientPort}/ciderlocal/${btoa(text)}`,
+                        redirectURL: `http://localhost:${this.clientPort}/ciderlocal/${Buffer.from(text).toString('base64url')}`,
                     });
                 }else {
                     callback({
@@ -1221,8 +1222,8 @@ export class BrowserWindow {
                                             ],
                                             // "playParams": { 
                                             //     "id": "ciderlocal" + numid, 
-                                            //     "kind": "episode", 
-                                            //     "isLibrary": false, 
+                                            //     "kind": "podcast", 
+                                            //     "isLibrary": true, 
                                             //     "reporting": false },
                                             "trackNumber": metadata.common.track?.no ?? 0, 
                                             "discNumber": metadata.common.disk?.no ?? 0, 
