@@ -21,7 +21,7 @@
                     <div class="cd-queue-item"
                          :class="{selected: selectedItems.includes(position)}"
                          @click="select($event, position)"
-                         @dblclick="playQueueItem(position)" :key="position"
+                         @dblclick="playQueueItem(queueItem.item.id)" :key="position"
                          @contextmenu="selected = position;queueContext($event, queueItem.item, position)">
                         <div class="row">
                             <div class="col-auto flex-center">
@@ -150,8 +150,8 @@
                 }
                 app.showMenuPanel(menus[useMenu], event);
             },
-            playQueueItem(index) {
-                app.mk.changeToMediaAtIndex(index)
+            playQueueItem(id) {
+                app.mk.changeToMediaAtIndex(app.mk.queue._itemIDs.indexOf(id))
             },
             updateQueue() {
                 this.selected = -1
