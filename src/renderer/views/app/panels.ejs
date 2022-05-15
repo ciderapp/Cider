@@ -62,16 +62,6 @@
             :
             '')}}
         </div>
-        <div id="player-pip"
-             @click="document.querySelector('video#apple-music-video-player').requestPictureInPicture()"
-             title="Picture-in-Picture">
-            <%- include("../svg/pip.svg") %>
-        </div>
-        <div id="player-fullscreen"
-             @click="document.querySelector('video#apple-music-video-player').requestFullscreen()"
-             title="Fullscreen">
-            <%- include("../svg/fullscreen.svg") %>
-        </div>
         <div class="playback-info music-player-info">
             <div class="song-artist-album-content"
             style="display: inline-block; -webkit-box-orient: horizontal; white-space: nowrap;">
@@ -120,7 +110,17 @@
                                 <button class="playback-button--small lyrics"
                                         :style="{'opacity': 0.3, 'pointer-events': 'none'}"></button>
                             </template>
-                </div>        
+                </div> 
+                <div id="player-pip"
+                    @click="document.querySelector('video#apple-music-video-player').requestPictureInPicture()"
+                    title="Picture-in-Picture">
+                    <%- include("../svg/pip.svg") %>
+                </div>
+                <div id="player-fullscreen"
+                    @click="document.querySelector('video#apple-music-video-player').requestFullscreen()"
+                    title="Fullscreen">
+                    <%- include("../svg/fullscreen.svg") %>
+                </div>       
             </div>
         </div>
     </div>
