@@ -29,6 +29,7 @@ const app = new Vue({
             limit: 10
         },
         fullscreenLyrics: false,
+        fullscreenState: ipcRenderer.sendSync("getFullScreen"),
         playerLCD: {
             playbackDuration: 0,
             desiredDuration: 0,
@@ -4130,10 +4131,11 @@ const app = new Vue({
             });
         },
         fullscreen(flag) {
+            this.fullscreenState = flag; 
             if (flag) {
                 ipcRenderer.send('setFullScreen', true);
                 if (app.mk.nowPlayingItem.type && app.mk.nowPlayingItem.type.toLowerCase().includes("video")) {
-                    document.querySelector('video#apple-music-video-player').requestFullscreen()
+                   // document.querySelector('video#apple-music-video-player').requestFullscreen()
                 } else {
                     app.appMode = 'fullscreen';
                 }
@@ -4144,8 +4146,20 @@ const app = new Vue({
                 });
             } else {
                 ipcRenderer.send('setFullScreen', false);
-                app.appMode = 'player';
+                if (app.mk.nowPlayingItem.type && app.mk.nowPlayingItem.type.toLowerCase().includes("video")) {
+
+                } else {
+                    app.appMode = 'player';
+                }
             }
+        },
+        pip(){
+            document.querySelector('video#apple-music-video-player').requestPictureInPicture()
+            // .then(pictureInPictureWindow => {
+            //     pictureInPictureWindow.addEventListener("resize", () => {
+            //         console.log("[PIP] Resized")
+            //     }, false);
+            //   })
         },
         miniPlayer(flag) {
             if (flag) {
