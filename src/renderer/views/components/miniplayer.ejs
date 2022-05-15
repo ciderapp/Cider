@@ -2,8 +2,15 @@
     <div class="mini-view" tabindex="0">
         <div class="background">
         </div>
-        <div class="player-pin" title="Pin to Top" @click="app.pinMiniPlayer()">
-            <span id="mini-pin">📌</span>
+        <div class="player-pin" title="Pin to Top" v-if="app.cfg.visual.miniplayer_top_toggle === false" @click="app.pinMiniPlayer()">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" fill="none" class="feather feather-pin">
+                <path d="M7.05664 16.3613C7.05664 17.1523 7.59277 17.6797 8.42773 17.6797H13.1299V21.8369C13.1299 23.0762 13.7539 24.3242 14 24.3242C14.2373 24.3242 14.8613 23.0762 14.8613 21.8369V17.6797H19.5635C20.3984 17.6797 20.9346 17.1523 20.9346 16.3613C20.9346 14.4717 19.4316 12.5293 16.9531 11.6152L16.6631 7.52832C17.9727 6.78125 19.0098 5.96387 19.4668 5.38379C19.7041 5.06738 19.8271 4.75098 19.8271 4.46973C19.8271 3.88965 19.3789 3.45898 18.7197 3.45898H9.27148C8.6123 3.45898 8.16406 3.88965 8.16406 4.46973C8.16406 4.75098 8.28711 5.06738 8.52441 5.38379C8.98145 5.96387 10.0186 6.78125 11.3281 7.52832L11.0469 11.6152C8.55957 12.5293 7.05664 14.4717 7.05664 16.3613Z" fill="#ff2654"/>
+            </svg>
+        </div>
+        <div class="player-pin" title="Unpin to Top" v-if="app.cfg.visual.miniplayer_top_toggle === true" @click="app.pinMiniPlayer(false)">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" fill="none" class="feather feather-pin-slashed">
+                <path d="M9.271 3.459c-.659 0-1.107.43-1.107 1.01 0 .282.114.59.352.897.448.59 1.494 1.415 2.777 2.162l-.07 1.02 8.99 8.991c.458-.202.722-.615.722-1.178 0-1.89-1.503-3.832-3.947-4.746l-.29-4.087c1.275-.747 2.312-1.555 2.76-2.144.246-.308.37-.633.37-.914 0-.58-.45-1.011-1.108-1.011H9.27ZM5.15 6.061l16.076 16.057c.272.281.73.273.993 0a.703.703 0 0 0 0-.984L6.15 5.076a.716.716 0 0 0-1.002 0 .711.711 0 0 0 0 .985Zm1.908 10.3c0 .791.536 1.319 1.37 1.319h4.703v4.157c0 1.24.624 2.487.861 2.487.246 0 .87-1.248.87-2.487V17.81h.413l-5.537-5.545c-1.678 1.002-2.68 2.557-2.68 4.095Z" fill="#ff2654"/>
+            </svg>
         </div>
         <div class="player-exit" title="Close" @click="app.miniPlayer(false)">
             <svg fill="#323232e3" width="21" height="21" viewBox="0 0 21 21" aria-role="presentation" focusable="false" xmlns="http://www.w3.org/2000/svg">

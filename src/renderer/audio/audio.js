@@ -706,7 +706,7 @@ const CiderAudio = {
                     CiderAudio.audioNodes.spatialNode.connect(CiderAudio.audioNodes.audioBands[0]);
                 }
                 else {
-                    CiderAudio.audioNodes.spatialgainNodeNode.connect(CiderAudio.audioNodes.audioBands[0]);
+                    CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.audioBands[0]);
                 }             
                 break;
             case 'h0':

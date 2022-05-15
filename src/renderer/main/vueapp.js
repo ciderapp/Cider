@@ -29,6 +29,7 @@ const app = new Vue({
             limit: 10
         },
         fullscreenLyrics: false,
+        fullscreenState: ipcRenderer.sendSync("getFullScreen"),
         playerLCD: {
             playbackDuration: 0,
             desiredDuration: 0,
@@ -235,7 +236,9 @@ const app = new Vue({
             pages: [],
         },
         moreinfodata: [],
-        notyf: notyf
+        notyf: notyf,
+        idleTimer : null,
+        idleState : false,
     },
     watch: {
         cfg: {
@@ -957,11 +960,25 @@ const app = new Vue({
                 this.getBrowsePage();
                 this.$forceUpdate()
             }, 500)
+            document.querySelector('#apple-music-video-player-controls').addEventListener('mousemove', () => {
+                    this.showFoo('.music-player-info',2000);
+            })
             ipcRenderer.invoke("renderer-ready", true)
             document.querySelector("#LOADER").remove()
             if (this.cfg.general.themeUpdateNotification && !this.isDev) {
                 this.checkForThemeUpdates()
             }
+        },
+        showFoo(querySelector,time) {
+            clearTimeout(this.idleTimer);
+            if (this.idleState == true) {
+                document.querySelector(querySelector).classList.remove("inactive");
+            }
+            this.idleState = false;
+            this.idleTimer = setTimeout(() => {
+                document.querySelector(querySelector).classList.add("inactive");
+                this.idleState = true;
+            }, time);
         },
         setContentScrollPos(scroll) {
             this.chrome.contentScrollPosY = scroll.target.scrollTop
@@ -4135,10 +4152,11 @@ const app = new Vue({
             });
         },
         fullscreen(flag) {
+            this.fullscreenState = flag; 
             if (flag) {
                 ipcRenderer.send('setFullScreen', true);
                 if (app.mk.nowPlayingItem.type && app.mk.nowPlayingItem.type.toLowerCase().includes("video")) {
-                    document.querySelector('video#apple-music-video-player').requestFullscreen()
+                   // document.querySelector('video#apple-music-video-player').requestFullscreen()
                 } else {
                     app.appMode = 'fullscreen';
                 }
@@ -4149,8 +4167,20 @@ const app = new Vue({
                 });
             } else {
                 ipcRenderer.send('setFullScreen', false);
-                app.appMode = 'player';
+                if (app.mk.nowPlayingItem.type && app.mk.nowPlayingItem.type.toLowerCase().includes("video")) {
+
+                } else {
+                    app.appMode = 'player';
+                }
             }
+        },
+        pip(){
+            document.querySelector('video#apple-music-video-player').requestPictureInPicture()
+            // .then(pictureInPictureWindow => {
+            //     pictureInPictureWindow.addEventListener("resize", () => {
+            //         console.log("[PIP] Resized")
+            //     }, false);
+            //   })
         },
         miniPlayer(flag) {
             if (flag) {
