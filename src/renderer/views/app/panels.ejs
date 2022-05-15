@@ -112,13 +112,15 @@
                             </template>
                 </div> 
                 <div id="player-pip"
-                    @click="document.querySelector('video#apple-music-video-player').requestPictureInPicture()"
-                    title="Picture-in-Picture">
+                    @click="pip()"
+                    title="Picture-in-Picture"
+                    v-b-tooltip.hover>
                     <%- include("../svg/pip.svg") %>
                 </div>
                 <div id="player-fullscreen"
-                    @click="document.querySelector('video#apple-music-video-player').requestFullscreen()"
-                    title="Fullscreen">
+                    @click="fullscreen(!fullscreenState)"
+                    title="Fullscreen"
+                    v-b-tooltip.hover>
                     <%- include("../svg/fullscreen.svg") %>
                 </div>       
             </div>

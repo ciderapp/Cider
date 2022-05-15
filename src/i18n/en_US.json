@@ -409,7 +409,7 @@
   "settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.Z3600": "Hokkaido Milk Tea",
   "settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.Z8500": "Moonlight Softcake",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider Adrenaline Processor™️",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Enhances the perceived audio quality of 256 kbps AAC audio by using a real-time algorithm that takes advantage of both psychoacoustic models of human hearing and AAC encoding characteristics.",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Enhances the perceived audio quality of AAC encoded audio by using a real-time algorithm that takes advantage of both psychoacoustic models of human hearing and AAC encoding characteristics.",
   "settings.warn.audio.enableAdvancedFunctionality.ciderPPE.compatibility": "CAP is not compatible with Spatialization. Please disable Spatialization to continue.",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "CAP Strength",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Changes the strength of the processing done to the audio. (Aggressive may yield undesirable results)",

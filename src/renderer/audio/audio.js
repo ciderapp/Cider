@@ -270,7 +270,7 @@ const CiderAudio = {
                       
                         constructor() {
                           super();
-                          this._bufferSize = 1024;
+                          this._bufferSize = 2048;
                           this._buffers = null;
                           this._initBuffer();
                         }
@@ -296,6 +296,7 @@ const CiderAudio = {
                           if (this._isBufferFull()) {
                               this._flush();
                           }
+                          try{
                           let dataLength = audioRawData[0].length;
                           for (let idx=0; idx<dataLength; idx++) {
                             for (let channel=0; channel < numberOfChannels; channel++) {
@@ -303,6 +304,8 @@ const CiderAudio = {
                               this._buffers[channel][this._bytesWritten] = value;
                             }
                             this._bytesWritten += 1;
+                          }} catch (e){
+                             // console.log(e)
                           }
                         }
                       
@@ -377,7 +380,7 @@ const CiderAudio = {
                                 }
                             }
                             CiderAudio.audioNodes.recorderNode.parameters.get('isRecording').setValueAtTime(1, CiderAudio.context.currentTime);
-                            CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.recorderNode);
+                            CiderAudio.audioNodes.intelliGainComp.connect(CiderAudio.audioNodes.recorderNode);
 
                         });
                     clearInterval(searchInt);
@@ -541,34 +544,6 @@ const CiderAudio = {
                     }
 
                     console.debug("[Cider][Audio] CAP - Natural Mode");
-                    break;
-
-                case "AGGRESSIVE": // Aggressive
-                    for (let i = 0; i < c_LLPW_FREQUENCIES.length; i++) {
-                        CiderAudio.audioNodes.llpw[i] = CiderAudio.context.createBiquadFilter();
-                        CiderAudio.audioNodes.llpw[i].type = 'peaking'; // 'peaking';
-                        CiderAudio.audioNodes.llpw[i].frequency.value = c_LLPW_FREQUENCIES[i];
-                        CiderAudio.audioNodes.llpw[i].Q.value = c_LLPW_Q[i];
-                        CiderAudio.audioNodes.llpw[i].gain.value = c_LLPW_GAIN[i];
-                    }
-                    for (let i = 1; i < c_LLPW_FREQUENCIES.length; i++) {
-                        CiderAudio.audioNodes.llpw[i - 1].connect(CiderAudio.audioNodes.llpw[i]);
-                    }
-
-                    switch (hierarchy) {
-                        case 'h2_1':
-                            try { CiderAudio.audioNodes.llpw[c_LLPW_FREQUENCIES.length - 1].connect(CiderAudio.audioNodes.vibrantbassNode[0]); } catch (e) { }
-                            break;
-                        case 'h1':
-                            try { CiderAudio.audioNodes.llpw[c_LLPW_FREQUENCIES.length - 1].connect(CiderAudio.audioNodes.audioBands[0]); } catch (e) { }
-                            break;
-                        case 'h0':
-                            try { CiderAudio.audioNodes.llpw[c_LLPW_FREQUENCIES.length - 1].connect(CiderAudio.context.destination); } catch (e) { }
-                            break;
-
-                    }
-
-                    console.debug("[Cider][Audio] CAP - Clarity Mode");
                     break;
 
                 default:

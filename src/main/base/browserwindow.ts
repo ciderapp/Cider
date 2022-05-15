@@ -1077,6 +1077,11 @@ export class BrowserWindow {
         })
 
         //Fullscreen
+        ipcMain.on('getFullScreen', (event, flag) => {
+            event.returnValue = BrowserWindow.win.isFullScreen()
+        })
+
+        //Fullscreen
         ipcMain.on('detachDT', (_event, _) => {
             BrowserWindow.win.webContents.openDevTools({mode: 'detach'});
         })

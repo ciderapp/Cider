@@ -29,6 +29,7 @@ const app = new Vue({
             limit: 10
         },
         fullscreenLyrics: false,
+        fullscreenState: ipcRenderer.sendSync("getFullScreen"),
         playerLCD: {
             playbackDuration: 0,
             desiredDuration: 0,
@@ -809,7 +810,7 @@ const app = new Vue({
                         }
                         numbers.shift()
                         let peak = Math.max(numbers[6], numbers[7]) / 32768.0
-                        let gain = Math.pow(10, ((-1 - (Math.log10(peak) * 20)) / 20))// EBU R 128 Compliant
+                        let gain = Math.pow(10, ((-1.3 - (Math.log10(peak) * 20)) / 20))// EBU R 128 Compliant
                         console.debug(`[Cider][MaikiwiSoundCheck] Peak Gain: '${(Math.log10(peak) * 20).toFixed(2)}' dB | Adjusting '${(Math.log10(gain) * 20).toFixed(2)}' dB`)
                         try {
                             //CiderAudio.audioNodes.gainNode.gain.value = (Math.min(Math.pow(10, (replaygain.gain / 20)), (1 / replaygain.peak)))
@@ -856,8 +857,29 @@ const app = new Vue({
                     self.$refs.queue.updateQueue();
                 }
                 this.currentSongInfo = a
-
-
+                
+                try { 
+                    if (app.mk.nowPlayingItem.flavor.includes("64")) {
+                        if (localStorage.getItem("playingBitrate") !== "64") {
+                            localStorage.setItem("playingBitrate", "64")
+                            CiderAudio.hierarchical_loading();
+                        }
+                    }
+                    else if (app.mk.nowPlayingItem.flavor.includes("256")) { 
+                        if (localStorage.getItem("playingBitrate") !== "256") {
+                            localStorage.setItem("playingBitrate", "256")
+                            CiderAudio.hierarchical_loading();
+                        }
+                    }
+                    else {
+                        localStorage.setItem("playingBitrate", "256")
+                        CiderAudio.hierarchical_loading();
+                    }
+                } catch(e) {
+                    localStorage.setItem("playingBitrate", "256")
+                    CiderAudio.hierarchical_loading();
+                }
+                
                 if (app.cfg.audio.normalization) {
                     // get unencrypted audio previews to get SoundCheck's normalization tag
                     try {
@@ -4130,10 +4152,11 @@ const app = new Vue({
             });
         },
         fullscreen(flag) {
+            this.fullscreenState = flag; 
             if (flag) {
                 ipcRenderer.send('setFullScreen', true);
                 if (app.mk.nowPlayingItem.type && app.mk.nowPlayingItem.type.toLowerCase().includes("video")) {
-                    document.querySelector('video#apple-music-video-player').requestFullscreen()
+                   // document.querySelector('video#apple-music-video-player').requestFullscreen()
                 } else {
                     app.appMode = 'fullscreen';
                 }
@@ -4144,8 +4167,20 @@ const app = new Vue({
                 });
             } else {
                 ipcRenderer.send('setFullScreen', false);
-                app.appMode = 'player';
+                if (app.mk.nowPlayingItem.type && app.mk.nowPlayingItem.type.toLowerCase().includes("video")) {
+
+                } else {
+                    app.appMode = 'player';
+                }
             }
+        },
+        pip(){
+            document.querySelector('video#apple-music-video-player').requestPictureInPicture()
+            // .then(pictureInPictureWindow => {
+            //     pictureInPictureWindow.addEventListener("resize", () => {
+            //         console.log("[PIP] Resized")
+            //     }, false);
+            //   })
         },
         miniPlayer(flag) {
             if (flag) {
