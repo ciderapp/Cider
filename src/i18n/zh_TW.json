@@ -271,7 +271,7 @@
   "settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_HIGH": "自然（高）",
   "settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_PLUS": "自然（增強）",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider 數位增強音訊處理™️",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "透過人類的聽力心理學模型和 AAC 編碼特色的即時算法，強化 256 kbps AAC 音訊的感知音訊品質。",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "透過人類的聽力心理學模型和 AAC 編碼特色的即時算法，強化 AAC 音訊的感知音訊品質。",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "數位增強音訊處理設定",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "將更改音訊處理的激進/振奮程度（增強選項有可能會引起雜訊）。",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "標準",
