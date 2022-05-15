@@ -854,8 +854,28 @@ const app = new Vue({
                     self.$refs.queue.updateQueue();
                 }
                 this.currentSongInfo = a
-
-
+                
+                try { 
+                    if (app.mk.nowPlayingItem.flavor.includes("64")) {
+                        if (localStorage.getItem("playingBitrate") != 64) {
+                            localStorage.setItem("playingBitrate", 64)
+                            CiderAudio.hierarchical_loading();
+                        }
+                    }
+                    else if (app.mk.nowPlayingItem.flavor.includes("256")) { 
+                        if (localStorage.getItem("playingBitrate") != 256) {
+                            localStorage.setItem("playingBitrate", 256)
+                            CiderAudio.hierarchical_loading();
+                        }
+                    }
+                    else {
+                        localStorage.setItem("playingBitrate", 256)
+                        CiderAudio.hierarchical_loading();
+                    }
+                } catch(e) {
+                    localStorage.setItem("playingBitrate", 256)
+                }
+                
                 if (app.cfg.audio.normalization) {
                     // get unencrypted audio previews to get SoundCheck's normalization tag
                     try {
