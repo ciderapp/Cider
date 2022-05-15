@@ -296,6 +296,7 @@ const CiderAudio = {
                           if (this._isBufferFull()) {
                               this._flush();
                           }
+                          try{
                           let dataLength = audioRawData[0].length;
                           for (let idx=0; idx<dataLength; idx++) {
                             for (let channel=0; channel < numberOfChannels; channel++) {
@@ -303,6 +304,8 @@ const CiderAudio = {
                               this._buffers[channel][this._bytesWritten] = value;
                             }
                             this._bytesWritten += 1;
+                          }} catch (e){
+                             // console.log(e)
                           }
                         }
                       
@@ -377,7 +380,7 @@ const CiderAudio = {
                                 }
                             }
                             CiderAudio.audioNodes.recorderNode.parameters.get('isRecording').setValueAtTime(1, CiderAudio.context.currentTime);
-                            CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.recorderNode);
+                            CiderAudio.source.connect(CiderAudio.audioNodes.recorderNode);
 
                         });
                     clearInterval(searchInt);
