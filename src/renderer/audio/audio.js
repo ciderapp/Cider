@@ -270,7 +270,7 @@ const CiderAudio = {
                       
                         constructor() {
                           super();
-                          this._bufferSize = 1024;
+                          this._bufferSize = 2048;
                           this._buffers = null;
                           this._initBuffer();
                         }
@@ -380,7 +380,7 @@ const CiderAudio = {
                                 }
                             }
                             CiderAudio.audioNodes.recorderNode.parameters.get('isRecording').setValueAtTime(1, CiderAudio.context.currentTime);
-                            CiderAudio.source.connect(CiderAudio.audioNodes.recorderNode);
+                            CiderAudio.audioNodes.intelliGainComp.connect(CiderAudio.audioNodes.recorderNode);
 
                         });
                     clearInterval(searchInt);
