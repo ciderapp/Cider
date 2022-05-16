@@ -52,39 +52,39 @@ export class Store {
             },
             "keybindings": {
                 "search": [
-                    process.platform == "darwin" ? "Command" : "Control",
+                    "CommandOrControl",
                     "F"
                 ],
                 "listnow": [
-                    process.platform == "darwin" ? "Command" : "Control",
+                    "CommandOrControl",
                     "L"
                 ],
                 "browse": [
-                    process.platform == "darwin" ? "Command" : "Control",
+                    "CommandOrControl",
                     "B"
                 ],
                 "recentAdd": [
-                    process.platform == "darwin" ? "Command" : "Control",
+                    "CommandOrControl",
                     "G"
                 ],
                 "songs" : [
-                    process.platform == "darwin" ? "Command" : "Control",
+                    "CommandOrControl",
                     "J"
                 ],
                 "albums": [
-                    process.platform == "darwin" ? "Command" : "Control",
+                    "CommandOrControl",
                     "S"
                 ],
                 "artists": [
-                    process.platform == "darwin" ? "Command" : "Control",
+                    "CommandOrControl",
                     "D"
                 ],
                 "togglePrivateSession": [
-                    process.platform == "darwin" ? "Command" : "Control",
+                    "CommandOrControl",
                     "P"
                 ],
                 "webRemote": [
-                    process.platform == "darwin" ? "Command" : "Control",
+                    "CommandOrControl",
                     "W"
                 ],
                 "audioSettings": [
@@ -100,12 +100,12 @@ export class Store {
                     "C"
                 ],
                 "settings": [
-                    process.platform == "darwin" ? "Option" : "Shift",
+                    "CommandOrControl", // Who the hell uses a different key for this? Fucking Option?
                     "S"
                 ],
                 "openDeveloperTools": [
-                    process.platform == "darwin" ? "Command" : "Control",
-                    process.platform == "darwin" ? "Option" : "Shift",
+                    "CommandOrControl",
+                    "Shift",
                     "I"
                 ]
             },
