@@ -73,7 +73,7 @@ export class Store {
                 ],
                 "albums": [
                     "CommandOrControl",
-                    "S"
+                    "A"
                 ],
                 "artists": [
                     "CommandOrControl",
