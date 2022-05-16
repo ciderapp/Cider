@@ -168,25 +168,33 @@ workflows:
       - prepare-build:
           filters:
             branches:
-              only: develop
+              only: 
+              - main
+              - stable
       - build-windows:
           requires:
             - prepare-build
           filters:
             branches:
-              only: develop
+              only: 
+              - main
+              - stable
       - build-linux:
           requires:
             - prepare-build
           filters:
             branches:
-              only: develop
+              only: 
+              - main
+              - stable
       - build-winget:
           requires:
             - prepare-build
           filters:
             branches:
-              only: develop
+              only: 
+              - main
+              - stable
       - release:
           requires:
             - build-windows
@@ -194,4 +202,6 @@ workflows:
             - build-winget
           filters:
             branches:
-              only: develop
+              only: 
+              - main
+              - stable
