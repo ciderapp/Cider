@@ -270,7 +270,7 @@
   "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.smooth": "溫和",
   "settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.warm": "溫暖",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider 數碼音訊增強處理™️",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "透過人類的聽力心理學模型和 AAC 編碼特色的即時算法，強化 256 kbps AAC 音訊的感知音訊質素。",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "透過人類的聽力心理學模型和 AAC 編碼特色的即時算法，強化 AAC 音訊的感知音訊質素。",
   "settings.warn.audio.enableAdvancedFunctionality.ciderPPE.compatibility": "音訊增強處理不相容於空間音訊，請先停用空間音訊。",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "數碼音訊增強處理設定",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "將更改音訊處理的激進程度（激進型選項有可能會引起雜訊）",

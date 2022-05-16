@@ -291,7 +291,7 @@
   "settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.Z3600": "北海道奶茶",
   "settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.Z8500": "月光软饼干",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider 数码增强音频处理™️",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "通过人类的听力心理学模型和 AAC 编码特色的即时算法，强化 256 kbps AAC 音频的感知音频质量。",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "通过人类的听力心理学模型和 AAC 编码特色的即时算法，强化 AAC 音频的感知音频质量。",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "数码增强音频处理设置",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "将更改音频处理的激进/振奋程度（增强选项有可能会引起杂讯）。",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "标准",
