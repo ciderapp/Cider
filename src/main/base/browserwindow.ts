@@ -78,6 +78,7 @@ export class BrowserWindow {
                 "pages/audiolabs",
                 "pages/zoo",
                 "pages/plugin-renderer",
+                "pages/keybinds",
                 "components/mediaitem-artwork",
                 "components/artwork-material",
                 "components/menu-panel",
@@ -342,6 +343,8 @@ export class BrowserWindow {
         });
         this.options.width = windowState.width;
         this.options.height = windowState.height;
+        this.options.x = windowState.x;
+        this.options.y = windowState.y;
 
         switch (process.platform) {
             default:
@@ -459,6 +462,16 @@ export class BrowserWindow {
                 res.sendFile(join(utils.getPath("externals"), "/audio.js"));
             } else {
                 res.sendFile(join(utils.getPath('srcPath'), "./renderer/audio/audio.js"));
+            }
+        })
+
+        app.get("/cideraudio/impulses/:file", (req, res) => {
+            const impulseExternals = join(utils.getPath("externals"), "/impulses/")
+            const impulseFile = join(impulseExternals, req.params.file)
+            if(existsSync(impulseFile)) {
+                res.sendFile(impulseFile)                
+            }else{
+                res.sendFile(join(utils.getPath('srcPath'), "./renderer/audio/impulses/" + req.params.file))
             }
         })
 
@@ -942,13 +955,23 @@ export class BrowserWindow {
             switch (path) {
                 default:
                 case "plugins":
-                    shell.openPath(utils.getPath("plugins"));
+                    if (existsSync(utils.getPath("plugins"))) {
+                        shell.openPath(utils.getPath("plugins"));
+                    } else {
+                        mkdirSync(utils.getPath("plugins"));
+                        shell.openPath(utils.getPath("plugins"));
+                    }
                     break;
                 case "userdata":
                     shell.openPath(app.getPath("userData"));
                     break;
                 case "themes":
-                    shell.openPath(utils.getPath("themes"));
+                    if (existsSync(utils.getPath("themes"))) {
+                        shell.openPath(utils.getPath("themes"));
+                    } else {
+                        mkdirSync(utils.getPath("themes"));
+                        shell.openPath(utils.getPath("themes"));
+                    }
                     break;
             }
         });
@@ -1058,6 +1081,11 @@ export class BrowserWindow {
         //Fullscreen
         ipcMain.on('setFullScreen', (_event, flag) => {
             BrowserWindow.win.setFullScreen(flag)
+        })
+
+        //Fullscreen
+        ipcMain.on('getFullScreen', (event, flag) => {
+            event.returnValue = BrowserWindow.win.isFullScreen()
         })
 
         //Fullscreen

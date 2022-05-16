@@ -20,10 +20,10 @@
             <div class="popular" v-if="!showInLibrary && item?.meta?.popularity != null && item?.meta?.popularity > 0.7"></div>
             <div class="isLibrary" v-if="showLibraryStatus == true">
                 <div v-if="showInLibrary" :style="{display: (showInLibrary ? 'block' : 'none'), 'margin-left':'11px'}">
-                    <button @click="addToLibrary()" v-if="!addedToLibrary && (showIndex == false ||(showIndex == true && showIndexPlaylist != false))">
+                    <button @click="addToLibrary()" v-if="!addedToLibrary && (showIndex == false ||(showIndex == true && showIndexPlaylist != false))" :aria-label="$root.getLz('action.addToLibrary')">
                         <div class="svg-icon addIcon" :style="{'--color': 'var(--keyColor)', '--url': 'url(./assets/feather/plus.svg)'}"></div>
                     </button>
-                    <button v-else-if='!(showArtwork == true && (showIndex == false ||(showIndex == true && showIndexPlaylist != false)))' @click="playTrack()">
+                    <button v-else-if='!(showArtwork == true && (showIndex == false ||(showIndex == true && showIndexPlaylist != false)))' @click="playTrack()" :aria-label="$root.getLz('term.play')">
                         <div class="svg-icon playIcon" :style="{'--color': 'var(--keyColor)', '--url': 'url(./assets/feather/play.svg)'}"></div>
                     </button>
                 </div>
@@ -42,7 +42,9 @@
                         :size="48"
                         :bgcolor="getBgColor()"
                         :type="item.type"></mediaitem-artwork>
-                <button class="overlay-play" @click="playTrack()"><%- include("../svg/play.svg") %></button>
+                <button class="overlay-play" @click="playTrack()" :aria-label="$root.getLz('term.play')">
+                    <%- include("../svg/play.svg") %>
+                </button>
             </div>
             <div class="info-rect" :style="{'padding-left': (showArtwork ? '' : '16px')}"
                  @dblclick="route()">
@@ -126,7 +128,7 @@
             } else {
                 this.itemId = this.item.id;
             }
-            if (this.item.attributes.playParams) {
+            if (this.item.attributes.playParams && this.$root.cfg.general.showLovedTracksInline) {
                 this.getHeartStatus();
             }
             let duration = this.item.attributes.durationInMillis ?? 0

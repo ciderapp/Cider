@@ -3,7 +3,7 @@
         <div class="modal-window" >
             <div class="modal-header">
                 <div class="modal-title">{{$root.getLz('term.equalizer')}}</div>
-                <button class="close-btn" @click="close()"></button>
+                <button class="close-btn" @click="close()" :aria-label="$root.getLz('action.close')"></button>
                 <div class="md-option-segment md-option-segment_auto">
                     <select class="md-select" style="width:220px;text-align:center;margin-right:245px" v-model="$root.cfg.audio.equalizer.preset" v-on:change="changePreset($root.cfg.audio.equalizer.preset)">
                         <optgroup :label="$root.getLz('term.userPresets')">
@@ -50,7 +50,7 @@
                         <input tabindex="0" type="number" class="eq-freq" orient="vertical" min="-12" max="12" step="0.1" v-model="$root.cfg.audio.equalizer.gain[2]" @change="changeGain(2)">
                         <input tabindex="0" type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" v-model="$root.cfg.audio.equalizer.gain[2]" @change="changeGain(2)">
                         <input type="number" class="eq-freq" orient="vertical" min="88" max="177" step="8" v-model="$root.cfg.audio.equalizer.frequencies[2]" @change="changeFreq(2)">
-                        <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1" v-model="$root.cfg.audio.equalizer.Q[2]" @change="changeQ(2)">    
+                        <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1" v-model="$root.cfg.audio.equalizer.Q[2]" @change="changeQ(2)">
                     </div>
                     <div class="input-container">
                         <input tabindex="0" type="number" class="eq-freq" orient="vertical" min="-12" max="12" step="0.1" v-model="$root.cfg.audio.equalizer.gain[3]" @change="changeGain(3)">
@@ -95,8 +95,8 @@
                         <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1" v-model="$root.cfg.audio.equalizer.Q[9]" @change="changeQ(9)">
                     </div>
                 </div>
-                
-            </div>    
+
+            </div>
             <div class="modal-lowercontent">
                 <div class="row">
                     <div class="col">

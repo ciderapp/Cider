@@ -5,7 +5,8 @@
                 <h1 class="header-text">{{$root.getLz('term.albums')}}</h1>
             </div>
             <div class="col-auto">
-                <button v-if="library.albums.downloadState == 2" @click="$root.getLibraryAlbumsFull(true, 1)" class="reload-btn"><%- include('../svg/redo.svg') %></button>
+                <button v-if="library.albums.downloadState == 2" @click="$root.getLibraryAlbumsFull(true, 1)"
+                        class="reload-btn" :aria-label="app.getLz('menubar.options.reload')"><%- include('../svg/redo.svg') %></button>
             </div>
         </div>
         <div class="row">
@@ -49,11 +50,11 @@
             </div>
         </div>
         <div class="well">
-            <div class="albums-square-container"> 
-                <div> 
+            <div class="albums-square-container">
+                <div>
                     <mediaitem-square v-if="prefs.viewAs == 'covers'" :size="'300'" :item="item" v-for="item in library.albums.displayListing">
                     </mediaitem-square>
-                </div>   
+                </div>
             </div>
             <mediaitem-list-item v-if="prefs.viewAs == 'list'" :show-duration="false" :show-meta-data="true" :show-library-status="false" :item="item" v-for="item in library.albums.displayListing">
             </mediaitem-list-item>
@@ -72,9 +73,9 @@
             }
         },
         mounted() {
-            this.$root.getLibraryAlbumsFull(null, 1); 
-            this.$root.getAlbumSort(); 
-            this.$root.searchLibraryAlbums(1); 
+            this.$root.getLibraryAlbumsFull(null, 1);
+            this.$root.getAlbumSort();
+            this.$root.searchLibraryAlbums(1);
             this.$root.getLibrarySongsFull() ;
             this.$root.searchLibraryAlbums(1);
         },

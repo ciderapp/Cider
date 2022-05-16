@@ -15,9 +15,6 @@ jobs:
     executor: cider-ci
     steps:
       - checkout
-      - run:
-          name: Set App Version
-          command: echo "export APP_VERSION=$(grep '"version":.*' package.json | cut -d '"' -f 4 | head -1)" >> $BASH_ENV
       #      - run:
       #          name: Rename Repository
       #          command: sed -i 's/github:ciderapp\/Cider/github:ciderapp\/cider-releases/' package.json
@@ -45,6 +42,7 @@ jobs:
           root: .
           # Must be relative path from root
           paths:
+            - src
             - node_modules
             - build
             - resources
@@ -156,6 +154,9 @@ jobs:
       - store_artifacts:
           path: ~/Cider/dist/artifacts
       - run:
+          name: Set App Version
+          command: echo "export APP_VERSION=$(grep '"version":.*' package.json | cut -d '"' -f 4 | head -1)" >> $BASH_ENV
+      - run:
           name: Publish Release
           command: |
             gh release create "v${APP_VERSION}.${CIRCLE_BUILD_NUM}" --title "Cider Version ${APP_VERSION} - Build ${CIRCLE_BUILD_NUM} (${CIRCLE_BRANCH})" --generate-notes -R ciderapp/cider-releases ~/Cider/dist/artifacts/*.deb ~/Cider/dist/artifacts/*.AppImage ~/Cider/dist/artifacts/*.snap ~/Cider/dist/artifacts/*.exe ~/Cider/dist/artifacts/*.yml ~/Cider/dist/artifacts/*.blockmap
@@ -167,25 +168,25 @@ workflows:
       - prepare-build:
           filters:
             branches:
-              only: main
+              only: develop
       - build-windows:
           requires:
             - prepare-build
           filters:
             branches:
-              only: main
+              only: develop
       - build-linux:
           requires:
             - prepare-build
           filters:
             branches:
-              only: main
+              only: develop
       - build-winget:
           requires:
             - prepare-build
           filters:
             branches:
-              only: main
+              only: develop
       - release:
           requires:
             - build-windows
@@ -193,4 +194,4 @@ workflows:
             - build-winget
           filters:
             branches:
-              only: main
+              only: develop

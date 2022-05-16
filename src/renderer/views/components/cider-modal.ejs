@@ -4,10 +4,10 @@
             <div class="modal-window">
                 <div class="modal-header">
                     <div class="modal-title">{{app.getLz('action.addToLibrary')}}</div>
-                    <button class="close-btn" @click="app.resetState()"></button>
+                    <button class="close-btn" @click="app.resetState()" :aria-label="app.getLz('action.close')"></button>
                 </div>
                 <div class="modal-content">
-                    <button class="playlist-item" 
+                    <button class="playlist-item"
                     :class="{ focused: playlist.id == focused }"
                     @click="addToPlaylist(playlist.id)" style="width:100%;" v-for="playlist in playlistSorted" v-if="playlist.attributes.canEdit && playlist.type != 'library-playlist-folders'">
                     <div class="icon"><%- include("../svg/playlist.svg") %></div>
@@ -25,7 +25,7 @@
                                v-model="searchQuery"
                                @input="search()"
                                class="search-input">
-                    </div>                
+                    </div>
                 </div>
             </div>
         </div>

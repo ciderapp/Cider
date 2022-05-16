@@ -29,6 +29,7 @@ const app = new Vue({
             limit: 10
         },
         fullscreenLyrics: false,
+        fullscreenState: ipcRenderer.sendSync("getFullScreen"),
         playerLCD: {
             playbackDuration: 0,
             desiredDuration: 0,
@@ -237,7 +238,9 @@ const app = new Vue({
             pages: [],
         },
         moreinfodata: [],
-        notyf: notyf
+        notyf: notyf,
+        idleTimer : null,
+        idleState : false,
     },
     watch: {
         cfg: {
@@ -787,8 +790,8 @@ const app = new Vue({
 
             MusicKit.getInstance().videoContainerElement = document.getElementById("apple-music-video-player")
 
-            ipcRenderer.on('theme-update', (event, arg) => {
-                less.refresh(true, true, true)
+            ipcRenderer.on('theme-update', async (event, arg) => {
+                await less.refresh(true, true, true)
                 self.setTheme(self.cfg.visual.theme, true)
                 if (app.cfg.visual.styles.length != 0) {
                     app.reloadStyles()
@@ -810,7 +813,7 @@ const app = new Vue({
                         }
                         numbers.shift()
                         let peak = Math.max(numbers[6], numbers[7]) / 32768.0
-                        let gain = Math.pow(10, ((-1 - (Math.log10(peak) * 20)) / 20))// EBU R 128 Compliant
+                        let gain = Math.pow(10, ((-1.3 - (Math.log10(peak) * 20)) / 20))// EBU R 128 Compliant
                         console.debug(`[Cider][MaikiwiSoundCheck] Peak Gain: '${(Math.log10(peak) * 20).toFixed(2)}' dB | Adjusting '${(Math.log10(gain) * 20).toFixed(2)}' dB`)
                         try {
                             //CiderAudio.audioNodes.gainNode.gain.value = (Math.min(Math.pow(10, (replaygain.gain / 20)), (1 / replaygain.peak)))
@@ -831,8 +834,9 @@ const app = new Vue({
                 }
             });
 
-            this.mk.addEventListener(MusicKit.Events.playbackStateDidChange, () => {
+            this.mk.addEventListener(MusicKit.Events.playbackStateDidChange, (event) => {
                 ipcRenderer.send('wsapi-updatePlaybackState', wsapi.getAttributes());
+                document.body.setAttribute("playback-state", event.state == 2 ? "playing" : "paused")
             })
 
             this.mk.addEventListener(MusicKit.Events.playbackTimeDidChange, (a) => {
@@ -856,8 +860,29 @@ const app = new Vue({
                     self.$refs.queue.updateQueue();
                 }
                 this.currentSongInfo = a
-
-
+                
+                try { 
+                    if (app.mk.nowPlayingItem.flavor.includes("64")) {
+                        if (localStorage.getItem("playingBitrate") !== "64") {
+                            localStorage.setItem("playingBitrate", "64")
+                            CiderAudio.hierarchical_loading();
+                        }
+                    }
+                    else if (app.mk.nowPlayingItem.flavor.includes("256")) { 
+                        if (localStorage.getItem("playingBitrate") !== "256") {
+                            localStorage.setItem("playingBitrate", "256")
+                            CiderAudio.hierarchical_loading();
+                        }
+                    }
+                    else {
+                        localStorage.setItem("playingBitrate", "256")
+                        CiderAudio.hierarchical_loading();
+                    }
+                } catch(e) {
+                    localStorage.setItem("playingBitrate", "256")
+                    CiderAudio.hierarchical_loading();
+                }
+                
                 if (app.cfg.audio.normalization) {
                     // get unencrypted audio previews to get SoundCheck's normalization tag
                     try {
@@ -890,8 +915,10 @@ const app = new Vue({
 
                 if (type.includes("musicVideo") || type.includes("uploadedVideo") || type.includes("music-movie")) {
                     document.getElementById("apple-music-video-container").style.display = "block";
+                    document.body.setAttribute("video-playing", "true")
                     // app.chrome.topChromeVisible = false
                 } else {
+                    document.body.removeAttribute("video-playing")
                     document.getElementById("apple-music-video-container").style.display = "none";
                     // app.chrome.topChromeVisible = true
                 }
@@ -936,11 +963,25 @@ const app = new Vue({
                 this.getBrowsePage();
                 this.$forceUpdate()
             }, 500)
+            document.querySelector('#apple-music-video-player-controls').addEventListener('mousemove', () => {
+                    this.showFoo('.music-player-info',2000);
+            })
             ipcRenderer.invoke("renderer-ready", true)
             document.querySelector("#LOADER").remove()
             if (this.cfg.general.themeUpdateNotification && !this.isDev) {
                 this.checkForThemeUpdates()
             }
+        },
+        showFoo(querySelector,time) {
+            clearTimeout(this.idleTimer);
+            if (this.idleState == true) {
+                document.querySelector(querySelector).classList.remove("inactive");
+            }
+            this.idleState = false;
+            this.idleTimer = setTimeout(() => {
+                document.querySelector(querySelector).classList.add("inactive");
+                this.idleState = true;
+            }, time);
         },
         setContentScrollPos(scroll) {
             this.chrome.contentScrollPosY = scroll.target.scrollTop
@@ -991,7 +1032,7 @@ const app = new Vue({
                 document.querySelectorAll(`[id*='less']`).forEach(el => {
                     el.remove()
                 });
-                less.refresh()
+                await less.refresh()
             }
         },
         async reloadStyles() {
@@ -1019,7 +1060,7 @@ const app = new Vue({
                 }
             })
             less.registerStylesheetsImmediately()
-            less.refresh(true, true, true)
+            await less.refresh(true, true, true)
             this.$forceUpdate()
             return
         },
@@ -1137,28 +1178,31 @@ const app = new Vue({
                 }
             })
         },
-        async refreshPlaylists(localOnly = false) {
+        async refreshPlaylists(localOnly = false, useCachedPlaylists = true) {
             let self = this
             let trackMap = this.cfg.advanced.playlistTrackMapping
             let newListing = []
             let trackMapping = {}
-            const cachedPlaylist = await CiderCache.getCache("library-playlists")
-            const cachedTrackMapping = await CiderCache.getCache("library-playlists-tracks")
+            
+            if (useCachedPlaylists) {
+                const cachedPlaylist = await CiderCache.getCache("library-playlists")
+                const cachedTrackMapping = await CiderCache.getCache("library-playlists-tracks")
 
-            if (cachedPlaylist) {
-                console.debug("using cached playlists")
-                this.playlists.listing = cachedPlaylist
-                self.sortPlaylists()
-            } else {
-                console.debug("playlist has no cache")
-            }
+                if (cachedPlaylist) {
+                    console.debug("using cached playlists")
+                    this.playlists.listing = cachedPlaylist
+                    self.sortPlaylists()
+                } else {
+                    console.debug("playlist has no cache")
+                }
 
-            if (cachedTrackMapping) {
-                console.debug("using cached track mapping")
-                this.playlists.trackMapping = cachedTrackMapping
-            }
-            if (localOnly) {
-                return
+                if (cachedTrackMapping) {
+                    console.debug("using cached track mapping")
+                    this.playlists.trackMapping = cachedTrackMapping
+                }
+                if (localOnly) {
+                    return
+                }
             }
 
             this.library.backgroundNotification.message = "Building playlist cache..."
@@ -1263,7 +1307,7 @@ const app = new Vue({
                 }
             }
             ).then(res => {
-                self.refreshPlaylists()
+                self.refreshPlaylists(false, false)
             })
         },
         async editPlaylist(id, name = app.getLz('term.newPlaylist')) {
@@ -1278,7 +1322,7 @@ const app = new Vue({
                 }
             }
             ).then(res => {
-                self.refreshPlaylists()
+                self.refreshPlaylists(false, false)
             })
         },
         copyToClipboard(str) {
@@ -1322,7 +1366,7 @@ const app = new Vue({
                 })
                 self.sortPlaylists()
                 setTimeout(() => {
-                    app.refreshPlaylists()
+                    app.refreshPlaylists(false, false)
                 }, 8000)
             })
         },
@@ -1339,6 +1383,9 @@ const app = new Vue({
                     if (found) {
                         self.playlists.listing.splice(self.playlists.listing.indexOf(found), 1)
                     }
+                    setTimeout(() => {
+                        app.refreshPlaylists(false, false);
+                    }, 8000);
                 })
             }
         },
@@ -2569,7 +2616,7 @@ const app = new Vue({
                 })
                 self.sortPlaylists()
                 setTimeout(() => {
-                    app.refreshPlaylists()
+                    app.refreshPlaylists(false, false)
                 }, 13000)
             })
         },
@@ -3851,12 +3898,14 @@ const app = new Vue({
                     el.play()
                 })
                 document.querySelector("body").classList.remove("stopanimation")
+                document.body.setAttribute("focus-state", "focused")
                 this.animateBackground = true
             } else {
                 document.querySelectorAll(".animated-artwork-video").forEach(el => {
                     el.pause()
                 })
                 document.querySelector("body").classList.add("stopanimation")
+                document.body.setAttribute("focus-state", "blurred")
                 this.animateBackground = false
             }
         },
@@ -4091,10 +4140,11 @@ const app = new Vue({
             });
         },
         fullscreen(flag) {
+            this.fullscreenState = flag; 
             if (flag) {
                 ipcRenderer.send('setFullScreen', true);
                 if (app.mk.nowPlayingItem.type && app.mk.nowPlayingItem.type.toLowerCase().includes("video")) {
-                    document.querySelector('video#apple-music-video-player').requestFullscreen()
+                   // document.querySelector('video#apple-music-video-player').requestFullscreen()
                 } else {
                     app.appMode = 'fullscreen';
                 }
@@ -4105,8 +4155,20 @@ const app = new Vue({
                 });
             } else {
                 ipcRenderer.send('setFullScreen', false);
-                app.appMode = 'player';
+                if (app.mk.nowPlayingItem.type && app.mk.nowPlayingItem.type.toLowerCase().includes("video")) {
+
+                } else {
+                    app.appMode = 'player';
+                }
             }
+        },
+        pip(){
+            document.querySelector('video#apple-music-video-player').requestPictureInPicture()
+            // .then(pictureInPictureWindow => {
+            //     pictureInPictureWindow.addEventListener("resize", () => {
+            //         console.log("[PIP] Resized")
+            //     }, false);
+            //   })
         },
         miniPlayer(flag) {
             if (flag) {

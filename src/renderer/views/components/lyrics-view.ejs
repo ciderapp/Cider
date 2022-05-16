@@ -1,6 +1,6 @@
 <script type="text/x-template" id="lyrics-view">
     <div ref="lyricsview" class="md-body lyric-body">
-        <template v-if="lyrics && lyrics != [] && lyrics.length > 0">
+        <template v-if="lyrics && lyrics != [] && lyrics.length > 0 && !qqInstrumental(lyrics)">
             <template v-for="(lyric, index) in lyrics" v-if="lyric && lyric.line && lyric.line != 'lrcInstrumental'">
                 <h3 class="lyric-line" @click="seekTo(lyric.startTime)" :class="{unsynced : lyric.startTime == 9999999}"
                     v-bind:line-index="index.toString()">
@@ -182,6 +182,14 @@
                     return this.richlyrics[index].l
                 }
                 else return []
+            },
+            qqInstrumental(lyrics) {
+                for(lyric of lyrics){
+                    if (lyric.line.includes("纯音乐") && lyric.line.includes("欣赏")){
+                        return true
+                    }
+                }
+                return false
             },
             checkIfScrollIsStatic : setInterval(() => {
             try {

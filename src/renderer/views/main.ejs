@@ -65,7 +65,7 @@
     <div id="LOADER">
         <%- include("../assets/cider-round.svg") %>
     </div>
-    <div id="app" :class="getAppClasses()">
+    <div id="app" :class="getAppClasses()" :window-style="cfg.visual.directives.windowLayout">
         <transition name="fsModeSwitch">
             <div id="app-main" v-show="appMode == 'player'">
                 <%- include('app/chrome-top'); %>

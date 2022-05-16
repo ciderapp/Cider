@@ -8,8 +8,6 @@
   "settings.option.audio.enableAdvancedFunctionality.description": "Enabling AudioContext functionality will allow for extended audio features like Audio Normalisation, Equalisers and Visualisers - however on some systems this may cause stuttering in audio tracks.",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Audio Normalisation",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalises peak volume for individual tracks to create a more uniform listening experience.",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Audio Spatialisation",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Spatialise audio and make audio more 3-dimensional (note: This is not Dolby Atmos)",
   "spatial.notTurnedOn": "Audio Spatialisation is disabled. To use, please enable it first.",
   "action.tray.minimize": "Minimise to Tray",
   "term.tracks": "songs",

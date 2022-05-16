@@ -317,8 +317,6 @@
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Normalización de audio",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normaliza el volumen máximo de pistas individuales para crear una experiencia auditiva más uniforme. (No funciona en las pistas cargadas por el usuario)",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.disabled": "Gestionado por AudioLab",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization": "Espacialización de audio",
-  "settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description": "Espacialice el audio y haga que el audio sea más tridimensional (Nota: esto NO es Dolby Atmos)",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization": "Cider Tuned Spatialization",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.description": "Efecto de preajuste de espacialización, deshabilita la configuración personalizable de la espacialización de audio. La espacialización debe estar habilitada como requisito previo.",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile": "Perfil de espacialización de Cider",
