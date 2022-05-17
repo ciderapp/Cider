@@ -23,24 +23,20 @@ export default class Thumbar {
             label: app.getName(),
             submenu: [
                 {
+                    label: `${utils.getLocale(utils.getStoreValue('general.language'), 'term.about')} ${app.getName()}`,
+                    click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('about')`)
+                },
+                {type: 'separator'},
+                {
                     label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.toggleprivate'),
                     accelerator: utils.getStoreValue("general.keybindings.togglePrivateSession").join('+'),
                     click: () => utils.getWindow().webContents.executeJavaScript(`app.cfg.general.privateEnabled = !app.cfg.general.privateEnabled`)
                 },
-                {type: 'separator'},
                 {
                     label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.settings'),
                     accelerator: utils.getStoreValue("general.keybindings.settings").join('+'),
                     click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('settings')`),
                 },
-                ...(this.isMac ? [
-                {type: 'separator'},
-                {role: 'services'},
-                {type: 'separator'},
-                {role: 'hide'},
-                {role: 'hideOthers'},
-                {role: 'unhide'},
-            ]: [
                 {type: 'separator'},
                 {
                     label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.about'),
@@ -48,10 +44,8 @@ export default class Thumbar {
                 },
                 {type: 'separator'},
                 {role: 'quit', label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.quit')},
-            ]),
-            ],  
+            ]
         },
-
         {
             label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.view'),
             submenu: [

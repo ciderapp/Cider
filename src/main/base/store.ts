@@ -101,7 +101,7 @@ export class Store {
                 ],
                 "settings": [
                     "CommandOrControl", // Who the hell uses a different key for this? Fucking Option?
-                    "S"
+                    ","
                 ],
                 "openDeveloperTools": [
                     "CommandOrControl",
