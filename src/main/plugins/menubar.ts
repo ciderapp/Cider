@@ -38,11 +38,6 @@ export default class Thumbar {
                     click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('settings')`),
                 },
                 {type: 'separator'},
-                {
-                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.about'),
-                    click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('about')`)
-                },
-                {type: 'separator'},
                 {role: 'quit', label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.quit')},
             ]
         },
