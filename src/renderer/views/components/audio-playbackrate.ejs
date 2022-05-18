@@ -45,7 +45,7 @@
                     this.saveValue(this.$root.cfg.audio.playbackRate - 5);
                 }
             },
-            saveValue(newValue) { 
+            saveValue(newValue) {
                 newValue = Number(newValue);
                 if (this.isAllowedRate(newValue)) {
                     if (newValue > 2) {
