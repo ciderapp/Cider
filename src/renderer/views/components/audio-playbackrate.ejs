@@ -15,7 +15,7 @@
                         {{playbackRate}} ×
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <input type="range" :step="0.05" min="0.25" :max="2" v-model="playbackRate">
+                        <input type="range" :step="0.05" min="0.25" :max="2" @wheel="playbackRateWheel" v-model="playbackRate">
                     </div>
                 </div>
             </div>
@@ -29,15 +29,43 @@
 		data: function () {
 			return {
 				app: this.$root,
-				playbackRate: this.$root.cfg.audio.playbackRate
+				playbackRate: this.$root.cfg.audio.playbackRate / 100
 			}
 		},
 		watch: {
 			playbackRate: function (newValue, _oldValue) {
-				this.$root.mk.playbackRate = newValue
-                this.$root.cfg.audio.playbackRate = newValue
-				this.playbackRate = newValue
+                this.saveValue(newValue);
 			}
-		}
+		},
+        methods: {
+            playbackRateWheel(event) {
+                if (app.checkScrollDirectionIsUp(event)) {
+                    this.saveValue(this.$root.cfg.audio.playbackRate + 5);
+                } else {
+                    this.saveValue(this.$root.cfg.audio.playbackRate - 5);
+                }
+            },
+            saveValue(newValue) { 
+                newValue = Number(newValue);
+                if (this.isAllowedRate(newValue)) {
+                    if (newValue > 2) {
+                        newValue = String(newValue).length > 4 ? newValue.toFixed(2) : newValue;
+                        this.$root.mk.playbackRate = newValue / 100;
+                        this.$root.cfg.audio.playbackRate = newValue;
+                        this.playbackRate = newValue / 100;
+                    } else {
+                        newValue = String(newValue).length > 6 ? newValue.toFixed(2) : newValue;
+                        this.$root.mk.playbackRate = newValue;
+                        this.$root.cfg.audio.playbackRate = newValue * 100;
+                        this.playbackRate = newValue;
+                    }
+                }
+            },
+            isAllowedRate(input) {
+                if (input >= 25 && input <= 200) { return true }
+                if (input >= 0.25 && input <= 2) { return true }
+                return false;
+            }
+        }
 	});
 </script>
