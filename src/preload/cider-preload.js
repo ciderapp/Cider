@@ -40,7 +40,7 @@ const MusicKitInterop = {
 
 			if (MusicKit.getInstance().nowPlayingItem) {
 				await this.sleep(750);
-				MusicKit.getInstance().playbackRate = app.cfg.audio.playbackRate / 100;
+				MusicKit.getInstance().playbackRate = app.cfg.audio.playbackRate;
 			}
 		});
 
