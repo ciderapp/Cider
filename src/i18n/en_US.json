@@ -260,6 +260,7 @@
   "action.tray.playpause": "Play/Pause",
   "action.tray.next": "Next",
   "action.tray.previous": "Previous",
+  "action.tray.listento": "Listen To:",
   "action.update": "Update",
   "action.install": "Install",
   "action.copy": "Copy",

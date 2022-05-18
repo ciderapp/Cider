@@ -299,6 +299,56 @@ export class AppEvents {
         this.i18n = utils.getLocale(utils.getStoreValue('general.language'))
 
         const menu = Menu.buildFromTemplate([
+
+            {
+                label: app.getName(),
+                enabled: false,
+                icon: path.join(__dirname, `../../resources/icons/icon.png`),
+            },
+            
+            {type: 'separator'},
+
+            /* For now only idea i dont know if posible to implement
+            {
+                label: this.i18n['action.tray.listento'],
+                enabled: false,
+            },
+
+            {
+                visible: visible,
+                label: 'track info',  
+                enabled: false,          
+            },
+            
+            {type: 'separator'},
+            */
+           
+            {
+                visible: (visible === false),
+                label: this.i18n['action.tray.playpause'],
+                click: () => {
+                    utils.getWindow().webContents.executeJavaScript('MusicKitInterop.playPause()')
+                }   
+            },
+            
+            {
+                visible: (visible === false),
+                label: this.i18n['action.tray.next'],
+                click: () => {
+                    utils.getWindow().webContents.executeJavaScript(`MusicKitInterop.next()`)
+                }
+            },
+            
+            {
+                visible: (visible === false),
+                label: this.i18n['action.tray.previous'],
+                click: () => {
+                    utils.getWindow().webContents.executeJavaScript(`MusicKitInterop.previous()`)
+                }
+            },
+            
+            {type: 'separator'},
+
             {
                 label: (visible ? this.i18n['action.tray.minimize'] : `${this.i18n['action.tray.show']}`),
                 click: () => {
