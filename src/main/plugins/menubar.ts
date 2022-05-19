@@ -63,9 +63,9 @@ export default class Thumbar {
                 {role: 'togglefullscreen'},
                 {type: 'separator'},
                 {
-                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.search'),
+                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.search'), 
                     accelerator: utils.getStoreValue("general.keybindings.search").join('+'),
-                    click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('search')`)
+                    click: () => utils.getWindow().webContents.executeJavaScript('app.focusSearch()')
                 },
                 {type:'separator'},
                 {

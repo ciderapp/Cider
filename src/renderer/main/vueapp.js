@@ -2165,6 +2165,13 @@ const app = new Vue({
                 sortArtists()
             }
         },
+        focusSearch() {
+            app.appRoute('search')
+            const search = document.getElementsByClassName("search-input")
+            if (search.length > 0) {
+                search[0].focus()
+            }
+        },
         getSidebarItemClass(page) {
             if (this.page == page) {
                 return ["active"]
