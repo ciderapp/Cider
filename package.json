@@ -178,6 +178,15 @@
       "isRelocatable": false,
       "overwriteAction": "upgrade"
     },
+    "snap": {
+      "slots": [
+        {
+          "mpris": {
+            "interface": "mpris"
+          }
+        }
+      ]
+    },
     "dmg": {
       "background": "./resources/bg.png",
       "icon": "resources/icons/icon.ico"
