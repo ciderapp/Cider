@@ -298,8 +298,8 @@ export class AppEvents {
         this.i18n = utils.getLocale(utils.getStoreValue('general.language'))
 
         const ciderIcon = nativeImage.createFromPath(path.join(__dirname, `../../resources/icons/icon.png`)).resize({
-            width: 20,
-            height: 20
+            width: 24,
+            height: 24
         })
 
         const menu = Menu.buildFromTemplate([
@@ -308,6 +308,7 @@ export class AppEvents {
                 label: app.getName(),
                 enabled: false,
                 icon: ciderIcon,
+
             },
             
             {type: 'separator'},
