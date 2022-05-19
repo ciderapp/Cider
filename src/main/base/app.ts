@@ -303,7 +303,10 @@ export class AppEvents {
             {
                 label: app.getName(),
                 enabled: false,
-                icon: path.join(__dirname, `../../resources/icons/icon.png`),
+                icon: nativeImage.createFromPath(path.join(__dirname, `../../resources/icons/icon.png`)).resize({
+                    width: 24,
+                    height: 24
+                }),
             },
             
             {type: 'separator'},
