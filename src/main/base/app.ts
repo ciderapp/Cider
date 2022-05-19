@@ -259,7 +259,6 @@ export class AppEvents {
                 height: 20
             }),
         }
-
         this.tray = new Tray(process.platform === 'win32' ? icons.win32 : (process.platform === 'darwin' ? icons.darwin : icons.linux))
         this.tray.setToolTip(app.getName())
         this.setTray(false)
@@ -298,15 +297,18 @@ export class AppEvents {
     private setTray(visible: boolean = utils.getWindow().isVisible()) {
         this.i18n = utils.getLocale(utils.getStoreValue('general.language'))
 
+        const ciderIcon = nativeImage.createFromPath(path.join(__dirname, `../../resources/icons/icon.png`)).resize({
+            width: 24,
+            height: 24
+        })
+
         const menu = Menu.buildFromTemplate([
 
             {
                 label: app.getName(),
                 enabled: false,
-                icon: nativeImage.createFromPath(path.join(__dirname, `../../resources/icons/icon.png`)).resize({
-                    width: 24,
-                    height: 24
-                }),
+                icon: ciderIcon,
+
             },
             
             {type: 'separator'},

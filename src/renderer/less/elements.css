@@ -254,6 +254,9 @@
   height: 32px;
   flex: 0 0 auto;
 }
+.cd-queue-item:hover {
+  background: var(--selected);
+}
 .cd-queue-item.selected {
   background: var(--selected);
 }
