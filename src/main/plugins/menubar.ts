@@ -35,24 +35,37 @@ export default class Thumbar {
                 {
                     label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.settings'),
                     accelerator: utils.getStoreValue("general.keybindings.settings").join('+'),
-                    click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('settings')`),
+                    click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('settings')`)
                 },
-                {type: 'separator'},
-                {
-                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.about'),
-                    click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('about')`)
-                },
-                {type: 'separator'},
-                {role: 'quit', label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.quit')},
+                ...(this.isMac ? [
+                    {type: 'separator'},
+                    {role: 'services'},
+                    {type: 'separator'},
+                    {role: 'hide'},
+                    {role: 'hideOthers'},
+                    {role: 'unhide'},
+                    {type: 'separator'},
+                    {role: 'quit'}
+                ] : []),
             ]
         },
         {
             label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.view'),
             submenu: [
+                {role: 'reload'},
+                {role: 'forceReload'},
+                {role: 'toggleDevTools'},
+                {type: 'separator'},
+                {role: 'resetZoom'},
+                {role: 'zoomIn'},
+                {role: 'zoomOut'},
+                {type: 'separator'},
+                {role: 'togglefullscreen'},
+                {type: 'separator'},
                 {
-                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.search'),
+                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.search'), 
                     accelerator: utils.getStoreValue("general.keybindings.search").join('+'),
-                    click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('search')`)
+                    click: () => utils.getWindow().webContents.executeJavaScript('app.focusSearch()')
                 },
                 {type:'separator'},
                 {
@@ -85,13 +98,9 @@ export default class Thumbar {
                     label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.artists'),
                     accelerator: utils.getStoreValue("general.keybindings.artists").join('+'),
                     click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('library-artists')`)
-                },                
-                {type: 'separator'},
-                ...(this.isMac ? [            
-        ]: []),
-        ],
+                },
+            ]
         },
-
         {
             label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.window'),
             submenu: [

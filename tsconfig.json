@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "experimentalDecorators": true,
-    "target": "esnext",
+    "target": "es6",
     "module": "commonjs",
     "allowJs": true,
     "noImplicitAny": true,
