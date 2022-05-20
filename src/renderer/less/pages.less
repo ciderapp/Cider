@@ -1638,3 +1638,28 @@
     border    : 0px;
   }
 }
+
+.content-inner.cider-multiroom{
+  padding: 0px;
+  .detail{
+    padding: 32px;
+  }
+  .header-desc{
+    font-size: 1em;
+    font-weight: 400;
+  }
+  .artworkContainer{
+    height: 300px;
+    width : 100%;
+    img{
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      object-fit: cover;
+      filter: unset;
+      &:last-child{
+      transform: unset;
+      }
+    }
+  }
+}
