@@ -17,6 +17,7 @@ export default class Thumbar {
      * Menubar Assets
      * @private
      */
+    private isLinux: boolean = process.platform === 'linux';
     private isMac: boolean = process.platform === 'darwin';    
     private _menuTemplate: any = [
         {
@@ -47,11 +48,21 @@ export default class Thumbar {
                     {type: 'separator'},
                     {role: 'quit'}
                 ] : []),
+                ...(this.isLinux ? [
+                    {type: 'separator'},
+                {
+                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.quit'),
+                    accelerator: 'CommandOrControl+Q',
+                    click: () => app.quit()
+                     
+                }
+                ] : [])
             ]
         },
         {
             label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.view'),
             submenu: [
+                ...(this.isMac ? [
                 {role: 'reload'},
                 {role: 'forceReload'},
                 {role: 'toggleDevTools'},
@@ -62,6 +73,7 @@ export default class Thumbar {
                 {type: 'separator'},
                 {role: 'togglefullscreen'},
                 {type: 'separator'},
+                ] : []),
                 {
                     label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.search'), 
                     accelerator: utils.getStoreValue("general.keybindings.search").join('+'),
@@ -110,24 +122,10 @@ export default class Thumbar {
                     label: 'Show',
                     click: () => utils.getWindow().show()
                 },
-                {role: 'toggleDevTools'},
+                {role: 'zoom'},
                 {type: 'separator'},
-                {
-                    label:'Zoom',
-                    submenu: [
-                        {role: 'zoom'},
-                        {role: 'resetZoom'},
-                        {role: 'zoomIn'},
-                        {role: 'zoomOut'},                       
-                    ]
-                },
-                {type: 'separator'},
-                {role: 'togglefullscreen'},
-
-                
-                    {type: 'separator'},
-                    {role: 'front'},
-                    {role: 'close'},                
+                {role: 'front'},
+                {role: 'close'},
                 {
                     label: 'Edit',
                     submenu: [
@@ -139,12 +137,23 @@ export default class Thumbar {
                         {role: 'paste'},
                     ]
                 },
-            ] : [
+            ] : [ ]),
+            ...(this.isLinux ? [
+                {
+                    label: utils.getLocale('close', 'menubar.options.close'),
+                    click: () => utils.getWindow().close()
+                },                     
                 {type:'separator'},
-                {role: 'reload', label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.reload')},
-                {role: 'forceReload', label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.forcereload')},
-            ]),
-            ]
+                {
+                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.reload'),
+                    click: () => utils.getWindow().webContents.reload()
+                },
+                {
+                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.forcereload'),
+                    click: () => utils.getWindow().webContents.reloadIgnoringCache()
+                },             
+            ] : []),
+            ],
         },
 
         {
