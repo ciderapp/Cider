@@ -34,13 +34,13 @@ pkg.publish = {
 
 const {exec} = require('child_process')
 
-exec(`echo "export APP_VERSION=${pkg.version}" >> $BASH_ENV && echo $APP_VERSION`, {env: {'APP_VERSION': pkg.version}}, function (error, stdout, stderr) {
+exec(`echo $APP_VERSION`, {env: {'APP_VERSION': pkg.version}}, function (error, stdout, stderr) {
 	console.log(stdout, stderr, error);
 });
 
 writeFile('package.json', JSON.stringify(pkg), err => {
 	// error checking
 	if (err) throw err;
-	console.log(`VERSION CHANGED TO ${pkg.version}`);
+	console.log(`VERSION CHANGED TO ${pkg.version}`, pkg);
 });
 
