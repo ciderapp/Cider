@@ -818,7 +818,13 @@ const app = new Vue({
                             CiderAudio.audioNodes.gainNode.gain.value = gain
                         } catch (e) { }
                     }
-                } catch (e) { ipcRenderer.send('SoundCheckTag', event, tag); } // brute force until it works
+                } catch (e) { 
+                    try { ipcRenderer.send('SoundCheckTag', event, tag); } 
+                    catch (e) { 
+                        try {ipcRenderer.send('SoundCheckTag', event, tag);} 
+                        catch (e) {console.log("[Cider][MaikiwiSoundCheck] Error [Gave up after 3 consecutive attempts]: " + e)}
+                    }
+                } // brute force until it works
             })
 
             ipcRenderer.on('play', function (_event, mode, id) {
@@ -1678,10 +1684,9 @@ const app = new Vue({
             })
         },
         routeView(item) {
-            let kind = (item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')) : (item.type ?? ''));
-            let id = (item.attributes.playParams ? (item.attributes.playParams.id ?? (item.id ?? '')) : (item.id ?? ''));
-            ;
-            let isLibrary = item.attributes.playParams ? (item.attributes.playParams.isLibrary ?? false) : false;
+            let kind = (item.attributes?.playParams ? (item.attributes?.playParams?.kind ?? (item.type ?? '')) : (item.type ?? ''));
+            let id = (item.attributes?.playParams ? (item.attributes?.playParams?.id ?? (item.id ?? '')) : (item.id ?? ''));
+            let isLibrary = item.attributes?.playParams ? (item.attributes?.playParams?.isLibrary ?? false) : false;
             if (kind.includes("playlist") || kind.includes("album")) {
                 app.showingPlaylist = [];
             }
@@ -1695,14 +1700,16 @@ const app = new Vue({
                 });
                 window.location.hash = `${kind}/${id}`
                 document.querySelector("#app-content").scrollTop = 0
-            } else if (kind == "editorial-elements") {
+            } else if (kind == "editorial-elements" || kind == "editorial-items") {
                 console.debug(item)
                 if (item.relationships?.contents?.data != null && item.relationships?.contents?.data.length > 0) {
                     this.routeView(item.relationships.contents.data[0])
                 } else if (item.attributes?.link?.url != null) {
                     if (item.attributes.link.url.includes("viewMultiRoom")) {
-                        
-                        id = item.attributes.link.url.substring(item.attributes.link.url.lastIndexOf("=") + 1)
+                        const params = new Proxy(new URLSearchParams(item.attributes.link.url), {
+                            get: (searchParams, prop) => searchParams.get(prop),
+                          });
+                        id = params.fcId
                         app.getTypeFromID("multiroom", id, false, {
                             platform: "web",
                             extend: "editorialArtwork,uber,lockupStyle"
@@ -1717,6 +1724,15 @@ const app = new Vue({
                     window.open(item.attributes.link.url)}
                 }
 
+            } else if (kind == "multirooms"){
+                app.getTypeFromID("multiroom", id, false, {
+                    platform: "web",
+                    extend: "editorialArtwork,uber,lockupStyle"
+                }).then(()=> {
+                    kind = "multiroom"
+                    window.location.hash = `${kind}/${id}`
+                    document.querySelector("#app-content").scrollTop = 0
+                })
             } else if (kind.toString().includes("artist")) {
                 app.getArtistInfo(id, isLibrary)
                 window.location.hash = `${kind}/${id}${isLibrary ? "/" + isLibrary : ''}`
@@ -4184,11 +4200,8 @@ const app = new Vue({
             this.fullscreenState = flag; 
             if (flag) {
                 ipcRenderer.send('setFullScreen', true);
-                if (app.mk.nowPlayingItem.type && app.mk.nowPlayingItem.type.toLowerCase().includes("video")) {
-                   // document.querySelector('video#apple-music-video-player').requestFullscreen()
-                } else {
-                    app.appMode = 'fullscreen';
-                }
+                app.appMode = 'fullscreen';
+
                 document.addEventListener('keydown', event => {
                     if (event.key === 'Escape' && app.appMode === 'fullscreen') {
                         this.fullscreen(false);
@@ -4196,11 +4209,7 @@ const app = new Vue({
                 });
             } else {
                 ipcRenderer.send('setFullScreen', false);
-                if (app.mk.nowPlayingItem.type && app.mk.nowPlayingItem.type.toLowerCase().includes("video")) {
-
-                } else {
-                    app.appMode = 'player';
-                }
+                app.appMode = 'player';
             }
         },
         pip(){
