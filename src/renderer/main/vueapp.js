@@ -818,7 +818,13 @@ const app = new Vue({
                             CiderAudio.audioNodes.gainNode.gain.value = gain
                         } catch (e) { }
                     }
-                } catch (e) { ipcRenderer.send('SoundCheckTag', event, tag); } // brute force until it works
+                } catch (e) { 
+                    try { ipcRenderer.send('SoundCheckTag', event, tag); } 
+                    catch (e) { 
+                        try {ipcRenderer.send('SoundCheckTag', event, tag);} 
+                        catch (e) {console.log("[Cider][MaikiwiSoundCheck] Error [Gave up after 3 consecutive attempts]: " + e)}
+                    }
+                } // brute force until it works
             })
 
             ipcRenderer.on('play', function (_event, mode, id) {
