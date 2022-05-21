@@ -156,9 +156,9 @@ jobs:
             mv ~/Cider/dist/*.blockmap ~/Cider/dist/artifacts
       - store_artifacts:
           path: ~/Cider/dist/artifacts
-      # - run:
-      #     name: Set App Version
-      #     command: echo "export APP_VERSION=$(grep '"version":.*' package.json | cut -d '"' -f 4 | head -1)" >> $BASH_ENV
+      - run:
+          name: Fix Versioning and Add Channel
+          command: yarn circle:script
       - run:
           name: Publish Release
           command: |
