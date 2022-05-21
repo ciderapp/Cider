@@ -53,6 +53,7 @@ const app = new Vue({
         },
         showingPlaylist: [],
         appleCurator: [],
+        multiroom: [],
         artistPage: {
             data: {},
         },
@@ -910,7 +911,7 @@ const app = new Vue({
                 }
                 let type = (self.mk.nowPlayingItem != null) ? self.mk.nowPlayingItem["type"] ?? '' : '';
 
-                if (type.includes("musicVideo") || type.includes("uploadedVideo") || type.includes("music-movie")) {
+                if (type.includes("musicVideo") || type.includes("uploadedVideo") || type.includes("music-movie") || (self.mk.nowPlayingItem?.type == "radioStation" & self.mk.nowPlayingItem?.attributes?.mediaKind == "video")) {
                     document.getElementById("apple-music-video-container").style.display = "block";
                     document.body.setAttribute("video-playing", "true")
                     // app.chrome.topChromeVisible = false
@@ -1699,7 +1700,21 @@ const app = new Vue({
                 if (item.relationships?.contents?.data != null && item.relationships?.contents?.data.length > 0) {
                     this.routeView(item.relationships.contents.data[0])
                 } else if (item.attributes?.link?.url != null) {
-                    window.open(item.attributes.link.url)
+                    if (item.attributes.link.url.includes("viewMultiRoom")) {
+                        
+                        id = item.attributes.link.url.substring(item.attributes.link.url.lastIndexOf("=") + 1)
+                        app.getTypeFromID("multiroom", id, false, {
+                            platform: "web",
+                            extend: "editorialArtwork,uber,lockupStyle"
+                        }).then(()=> {
+                            kind = "multiroom"
+                            window.location.hash = `${kind}/${id}`
+                            document.querySelector("#app-content").scrollTop = 0
+                        })
+                        
+                        return;
+                    } else {
+                    window.open(item.attributes.link.url)}
                 }
 
             } else if (kind.toString().includes("artist")) {
@@ -1944,6 +1959,8 @@ const app = new Vue({
                 } finally {
                     if (kind == "appleCurator") {
                         app.appleCurator = a.data.data[0]
+                    } else if (kind == "multiroom"){
+                        app.multiroom = a.data.data[0]
                     } else {
                         this.getPlaylistContinuous(a, true)
                     }
@@ -1951,6 +1968,8 @@ const app = new Vue({
             } finally {
                 if (kind == "appleCurator") {
                     app.appleCurator = a.data.data[0]
+                } else if (kind == "multiroom"){
+                    app.multiroom = a.data.data[0]
                 } else {
                     this.getPlaylistContinuous(a, true)
                 }
@@ -2191,7 +2210,10 @@ const app = new Vue({
             }
             let truemethod = (!method.endsWith("s")) ? (method + "s") : method;
             try {
-                if (library) {
+                if (method.includes(`multiroom`)) {
+                    return await this.mk.api.v3.music(`v1/editorial/${app.mk.storefrontId}/${truemethod}/${term.toString()}`, params, params2)
+                }
+                else if (library) {
                     return await this.mk.api.v3.music(`v1/me/library/${truemethod}/${term.toString()}`, params, params2)
                 } else {
                     return await this.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/${truemethod}/${term.toString()}`, params, params2)

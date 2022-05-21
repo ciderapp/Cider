@@ -78,7 +78,7 @@
         },
         methods: {
             getArtistPalette(artist) {
-                if (artist["attributes"]["artwork"]) {
+                if (artist?.attributes?.artwork != null) {
                     return {
                         "background": "#" + artist["attributes"]["artwork"]["bgColor"],
                         "color": "#" + artist["attributes"]["artwork"]["textColor1"],
