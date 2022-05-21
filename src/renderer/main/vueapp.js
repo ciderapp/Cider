@@ -1678,10 +1678,10 @@ const app = new Vue({
             })
         },
         routeView(item) {
-            let kind = (item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')) : (item.type ?? ''));
-            let id = (item.attributes.playParams ? (item.attributes.playParams.id ?? (item.id ?? '')) : (item.id ?? ''));
-            ;
-            let isLibrary = item.attributes.playParams ? (item.attributes.playParams.isLibrary ?? false) : false;
+            let kind = (item.attributes?.playParams ? (item.attributes?.playParams?.kind ?? (item.type ?? '')) : (item.type ?? ''));
+            let id = (item.attributes?.playParams ? (item.attributes?.playParams?.id ?? (item.id ?? '')) : (item.id ?? ''));
+            console.log(item);
+            let isLibrary = item.attributes?.playParams ? (item.attributes?.playParams?.isLibrary ?? false) : false;
             if (kind.includes("playlist") || kind.includes("album")) {
                 app.showingPlaylist = [];
             }
@@ -1701,8 +1701,10 @@ const app = new Vue({
                     this.routeView(item.relationships.contents.data[0])
                 } else if (item.attributes?.link?.url != null) {
                     if (item.attributes.link.url.includes("viewMultiRoom")) {
-                        
-                        id = item.attributes.link.url.substring(item.attributes.link.url.lastIndexOf("=") + 1)
+                        const params = new Proxy(new URLSearchParams(item.attributes.link.url), {
+                            get: (searchParams, prop) => searchParams.get(prop),
+                          });
+                        id = params.fcId
                         app.getTypeFromID("multiroom", id, false, {
                             platform: "web",
                             extend: "editorialArtwork,uber,lockupStyle"
