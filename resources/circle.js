@@ -5,7 +5,6 @@ if (!process.env['CIRCLECI']) {
 
 const {readFileSync, writeFile} = require('fs')
 const pkg = JSON.parse(readFileSync('package.json').toString());
-
 let channel = process.env['CIRCLE_BRANCH'];
 
 if (process.env['CIRCLE_BRANCH'] === 'lts') {
@@ -20,7 +19,8 @@ channel = channel.split('/').join('-')
 
 // https://circleci.com/docs/2.0/env-vars/#built-in-environment-variables
 const version = pkg.version.split('.');
-pkg.version = `${version[0]}.${version[1]}.${version[2]}-${channel}.${version[3]}`
+const patch = version[2].split('-');
+pkg.version = `${version[0]}.${version[1]}.${patch[0]}-${channel}.${patch[1]}`
 // package.build.channel = channel
 pkg.publish = {
 	"provider": "github",
@@ -34,7 +34,7 @@ pkg.publish = {
 
 const {exec} = require('child_process')
 
-exec('echo $APP_VERSION', {env: {'APP_VERSION': pkg.version}}, function (error, stdout, stderr) {
+exec(`export APP_VERSION=${pkg.version} && echo $APP_VERSION`, {env: {'APP_VERSION': pkg.version}}, function (error, stdout, stderr) {
 	console.log(stdout, stderr, error);
 });
 
