@@ -52,7 +52,7 @@ export default class Thumbar {
                     {type: 'separator'},
                 {
                     label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.quit'),
-                    accelerator: 'CommandOrControl+Q',
+                    accelerator: 'Control+Q',
                     click: () => app.quit()
                      
                 }
@@ -141,15 +141,18 @@ export default class Thumbar {
             ...(this.isLinux ? [
                 {
                     label: utils.getLocale('close', 'menubar.options.close'),
+                    accelerator: 'Control+W',
                     click: () => utils.getWindow().close()
                 },                     
                 {type:'separator'},
                 {
                     label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.reload'),
+                    accelerator: 'Control+R',
                     click: () => utils.getWindow().webContents.reload()
                 },
                 {
                     label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.forcereload'),
+                    accelerator: 'Control+Shift+R',
                     click: () => utils.getWindow().webContents.reloadIgnoringCache()
                 },             
             ] : []),

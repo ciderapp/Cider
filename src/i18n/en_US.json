@@ -283,6 +283,7 @@
   "menubar.options.settings": "Settings",
   "menubar.options.quit": "Quit Cider",
   "menubar.options.view": "View ",
+  "menubar.options.close": "Close",
   "menubar.options.reload": "Reload",
   "menubar.options.forcereload": "Force Reload",
   "menubar.options.toggledevtools": "Toggle Developer Tools",
