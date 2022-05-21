@@ -4,5 +4,5 @@ LATESTSHA=$(curl -s https://api.github.com/repos/ciderapp/Cider/branches/stable 
 COMMITSINCESTABLE=$(git rev-list $LATESTSHA..HEAD --count)
 VERSION=$(grep '"version":.*' package.json | cut -d '"' -f 4 | head -1)
 echo 
-NEWVERSION=${VERSION/-/.}-$COMMITSINCESTABLE
+NEWVERSION=${VERSION/-/.}.$COMMITSINCESTABLE
 npm version $NEWVERSION
