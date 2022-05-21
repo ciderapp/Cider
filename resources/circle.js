@@ -34,7 +34,7 @@ pkg.publish = {
 
 const {exec} = require('child_process')
 
-exec('echo $APP_VERSION', {env: {'APP_VERSION': pkg.version}}, function (error, stdout, stderr) {
+exec(`export APP_VERSION=${pkg.version} && echo $APP_VERSION`, {env: {'APP_VERSION': pkg.version}}, function (error, stdout, stderr) {
 	console.log(stdout, stderr, error);
 });
 
