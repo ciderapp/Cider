@@ -375,18 +375,25 @@ Update 12/05/2022 19:00 UTC
 
 Update 12/05/2022 22:50 UTC
 
-*  `settings.option.audio.dbspl.display`: Added for `en_US`
-*  `settings.option.audio.dbspl.description`: Added for `en_US`
-*  `settings.option.audio.dbfs.calibration`: Added for `en_US`
-*  `settings.option.audio.dbfs.description`: Added for `en_US`
+*  `settings.option.audio.dbspl.display`: Added for `en_US`,
+*  `settings.option.audio.dbspl.description`: Added for `en_US`,
+*  `settings.option.audio.dbfs.calibration`: Added for `en_US`,
+*  `settings.option.audio.dbfs.description`: Added for `en_US`,
 
 Update 14/05/2022 02:00 UTC
 
 *  `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_HIGH`: Deleted for all language files
-*  `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_STANDARD`: Renamed for `en_US`
-*  `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_PLUS`: Renamed for `en_US`
-*  `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.E68_1`: Added for `en_US`
-*  `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.E68_2`: Added for `en_US`
-*  `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.E168_1`: Added for `en_US`
-*  `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.Z3600`: Added for `en_US`
-*  `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.Z8500`: Added for `en_US`
+*  `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_STANDARD`: Renamed for `en_US`,
+*  `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_PLUS`: Renamed for `en_US`,
+*  `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.E68_1`: Added for `en_US`,
+*  `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.E68_2`: Added for `en_US`,
+*  `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.E168_1`: Added for `en_US`,
+*  `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.Z3600`: Added for `en_US`,
+*  `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.Z8500`: Added for `en_US`,
+
+
+Update 18/05/2022 14:20 UTC
+
+*  `action.tray.playpause`: Added for `en_US`,
+*  `action.tray.next`: Added for `en_US`,
+*  `action.tray.previous`: Added for `en_US`,

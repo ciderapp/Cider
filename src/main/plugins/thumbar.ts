@@ -93,7 +93,7 @@ export default class Thumbar {
     /**
      * Runs on plugin load (Currently run on application start)
      */
-    constructor(utils: { getApp: () => any; }) {
+    constructor(a: { getApp: () => any; }) {
         this._app = utils.getApp();
         console.debug(`[Plugin][${this.name}] Loading Complete.`);
     }

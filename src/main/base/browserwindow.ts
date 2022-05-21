@@ -65,6 +65,7 @@ export class BrowserWindow {
                 "pages/cider-playlist",
                 "pages/playlist-inline",
                 "pages/recordLabel",
+                "pages/cider-multiroom",
                 "pages/collection-list",
                 "pages/apple-curator",
                 "pages/artist",
@@ -175,6 +176,10 @@ export class BrowserWindow {
                     page: "recordLabel_",
                     component: `<cider-recordlabel :data="showingPlaylist"></cider-recordlabel>`,
                     condition: `page.includes('recordLabel_')`
+                }, {
+                    page: "multiroom",
+                    component: `<cider-multiroom :data="multiroom"></cider-multiroom>`,
+                    condition: `page.includes('multiroom')`
                 }, {
                     page: "curator_",
                     component: `<cider-recordlabel :data="showingPlaylist"></cider-recordlabel>`,

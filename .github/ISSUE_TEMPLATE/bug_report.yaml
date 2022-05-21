@@ -35,7 +35,7 @@ body:
           - **OS**: Ubuntu 20.04
           - **App Version** and/or **Commit ID**: 1.0.0 c9d43be
         
-        To find app version, go to the About page.
+        To find app version, Cider Menu -> About
       value: |
         - OS:
         - App Version and/or Commit ID:

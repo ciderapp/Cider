@@ -40,8 +40,8 @@
                 </div>
             </div>
             <div class="info-rect" :class="{'info-rect-card': kind == 'card'}" :style="{'--bgartwork': getArtworkUrl(size, true)}">
-                <div class="title" :title="item.attributes?.name ?? (item.relationships?.contents?.data[0]?.attributes?.name ?? '')" v-if="item.attributes.artistNames == null || kind!= 'card'" @click='app.routeView(item)'>
-                    <div class="item-navigate text-overflow-elipsis">{{ item.attributes?.name ?? (item.relationships?.contents?.data[0]?.attributes?.name ?? '') }}</div>
+                <div class="title" :title="item.attributes?.name ?? (item.relationships?.contents?.data[0]?.attributes?.name ?? (item.attributes?.editorialNotes?.name ?? ''))" v-if="item.attributes.artistNames == null || kind != 'card'" @click='app.routeView(item)'>
+                    <div class="item-navigate text-overflow-elipsis">{{ item.attributes?.name ?? (item.relationships?.contents?.data[0]?.attributes?.name ?? (item.attributes?.editorialNotes?.name ?? '')) }}</div>
                     <div class="explicit-icon" v-if="item.attributes && item.attributes.contentRating == 'explicit'" style= "background-image: url(./assets/explicit.svg);height: 12px;width: 12px;filter: contrast(0);background-repeat: no-repeat;margin-top: 2.63px;margin-left: 4px;"></div>
                 </div>
                 <div :title="getSubtitle()" class="subtitle item-navigate text-overflow-elipsis" @click="getSubtitleNavigation()"
@@ -87,8 +87,8 @@
                 isVisible: false,
                 addedToLibrary: false,
                 guid: this.uuidv4(),
-                noplay: ["apple-curators", "editorial-elements"],
-                nomenu: ["stations", "apple-curators", "editorial-elements"],
+                noplay: ["apple-curators", "editorial-elements", "editorial-items"],
+                nomenu: ["stations", "apple-curators", "editorial-elements", "editorial-items"],
                 app: this.$root,
                 badges: this.$root.socialBadges.badgeMap,
                 itemBadges: [],
@@ -125,7 +125,7 @@
                         if (typeof this.item.attributes.artistNames != "undefined") {
                             return this.item.attributes.artistNames
                         } else if (typeof this.item.attributes.editorialNotes != "undefined") {
-                            return this.item.attributes.editorialNotes.short
+                            return this.item?.attributes?.editorialNotes?.short ?? (this.item.attributes?.editorialNotes?.name ?? '')
                         } else if (typeof this.item.attributes.artistName != "undefined") {
                             return this.item.attributes.artistName
                         } else {
@@ -227,7 +227,7 @@
                 );
             },
             getArtworkUrl(size = -1, includeUrl = false) {
-                let artwork = this.item.attributes.artwork ? this.item.attributes.artwork.url : ''
+                let artwork = this.item?.attributes?.artwork ? this.item?.attributes?.artwork?.url : (this.item?.attributes?.editorialArtwork?.subscriptionCover?.url ?? '')
                 if (size != -1) {
                     artwork = artwork.replace('{w}', size).replace('{h}', size).replace('{f}', "webp").replace('{c}', ((size === 900) ? "sr" : "cc"))
                 }

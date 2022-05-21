@@ -55,6 +55,7 @@ const app = new Vue({
         },
         showingPlaylist: [],
         appleCurator: [],
+        multiroom: [],
         artistPage: {
             data: {},
         },
@@ -820,7 +821,13 @@ const app = new Vue({
                             CiderAudio.audioNodes.gainNode.gain.value = gain
                         } catch (e) { }
                     }
-                } catch (e) { ipcRenderer.send('SoundCheckTag', event, tag); } // brute force until it works
+                } catch (e) { 
+                    try { ipcRenderer.send('SoundCheckTag', event, tag); } 
+                    catch (e) { 
+                        try {ipcRenderer.send('SoundCheckTag', event, tag);} 
+                        catch (e) {console.log("[Cider][MaikiwiSoundCheck] Error [Gave up after 3 consecutive attempts]: " + e)}
+                    }
+                } // brute force until it works
             })
 
             ipcRenderer.on('play', function (_event, mode, id) {
@@ -913,7 +920,7 @@ const app = new Vue({
                 }
                 let type = (self.mk.nowPlayingItem != null) ? self.mk.nowPlayingItem["type"] ?? '' : '';
 
-                if (type.includes("musicVideo") || type.includes("uploadedVideo") || type.includes("music-movie")) {
+                if (type.includes("musicVideo") || type.includes("uploadedVideo") || type.includes("music-movie") || (self.mk.nowPlayingItem?.type == "radioStation" & self.mk.nowPlayingItem?.attributes?.mediaKind == "video")) {
                     document.getElementById("apple-music-video-container").style.display = "block";
                     document.body.setAttribute("video-playing", "true")
                     // app.chrome.topChromeVisible = false
@@ -1680,10 +1687,9 @@ const app = new Vue({
             })
         },
         routeView(item) {
-            let kind = (item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')) : (item.type ?? ''));
-            let id = (item.attributes.playParams ? (item.attributes.playParams.id ?? (item.id ?? '')) : (item.id ?? ''));
-            ;
-            let isLibrary = item.attributes.playParams ? (item.attributes.playParams.isLibrary ?? false) : false;
+            let kind = (item.attributes?.playParams ? (item.attributes?.playParams?.kind ?? (item.type ?? '')) : (item.type ?? ''));
+            let id = (item.attributes?.playParams ? (item.attributes?.playParams?.id ?? (item.id ?? '')) : (item.id ?? ''));
+            let isLibrary = item.attributes?.playParams ? (item.attributes?.playParams?.isLibrary ?? false) : false;
             if (kind.includes("playlist") || kind.includes("album")) {
                 app.showingPlaylist = [];
             }
@@ -1697,14 +1703,39 @@ const app = new Vue({
                 });
                 window.location.hash = `${kind}/${id}`
                 document.querySelector("#app-content").scrollTop = 0
-            } else if (kind == "editorial-elements") {
+            } else if (kind == "editorial-elements" || kind == "editorial-items") {
                 console.debug(item)
                 if (item.relationships?.contents?.data != null && item.relationships?.contents?.data.length > 0) {
                     this.routeView(item.relationships.contents.data[0])
                 } else if (item.attributes?.link?.url != null) {
-                    window.open(item.attributes.link.url)
+                    if (item.attributes.link.url.includes("viewMultiRoom")) {
+                        const params = new Proxy(new URLSearchParams(item.attributes.link.url), {
+                            get: (searchParams, prop) => searchParams.get(prop),
+                          });
+                        id = params.fcId
+                        app.getTypeFromID("multiroom", id, false, {
+                            platform: "web",
+                            extend: "editorialArtwork,uber,lockupStyle"
+                        }).then(()=> {
+                            kind = "multiroom"
+                            window.location.hash = `${kind}/${id}`
+                            document.querySelector("#app-content").scrollTop = 0
+                        })
+                        
+                        return;
+                    } else {
+                    window.open(item.attributes.link.url)}
                 }
 
+            } else if (kind == "multirooms"){
+                app.getTypeFromID("multiroom", id, false, {
+                    platform: "web",
+                    extend: "editorialArtwork,uber,lockupStyle"
+                }).then(()=> {
+                    kind = "multiroom"
+                    window.location.hash = `${kind}/${id}`
+                    document.querySelector("#app-content").scrollTop = 0
+                })
             } else if (kind.toString().includes("artist")) {
                 app.getArtistInfo(id, isLibrary)
                 window.location.hash = `${kind}/${id}${isLibrary ? "/" + isLibrary : ''}`
@@ -1947,6 +1978,8 @@ const app = new Vue({
                 } finally {
                     if (kind == "appleCurator") {
                         app.appleCurator = a.data.data[0]
+                    } else if (kind == "multiroom"){
+                        app.multiroom = a.data.data[0]
                     } else {
                         this.getPlaylistContinuous(a, true)
                     }
@@ -1954,6 +1987,8 @@ const app = new Vue({
             } finally {
                 if (kind == "appleCurator") {
                     app.appleCurator = a.data.data[0]
+                } else if (kind == "multiroom"){
+                    app.multiroom = a.data.data[0]
                 } else {
                     this.getPlaylistContinuous(a, true)
                 }
@@ -2168,6 +2203,13 @@ const app = new Vue({
                 sortArtists()
             }
         },
+        focusSearch() {
+            app.appRoute('search')
+            const search = document.getElementsByClassName("search-input")
+            if (search.length > 0) {
+                search[0].focus()
+            }
+        },
         getSidebarItemClass(page) {
             if (this.page == page) {
                 return ["active"]
@@ -2187,7 +2229,10 @@ const app = new Vue({
             }
             let truemethod = (!method.endsWith("s")) ? (method + "s") : method;
             try {
-                if (library) {
+                if (method.includes(`multiroom`)) {
+                    return await this.mk.api.v3.music(`v1/editorial/${app.mk.storefrontId}/${truemethod}/${term.toString()}`, params, params2)
+                }
+                else if (library) {
                     return await this.mk.api.v3.music(`v1/me/library/${truemethod}/${term.toString()}`, params, params2)
                 } else {
                     return await this.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/${truemethod}/${term.toString()}`, params, params2)

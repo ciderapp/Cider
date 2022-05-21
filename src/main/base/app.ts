@@ -259,7 +259,6 @@ export class AppEvents {
                 height: 20
             }),
         }
-
         this.tray = new Tray(process.platform === 'win32' ? icons.win32 : (process.platform === 'darwin' ? icons.darwin : icons.linux))
         this.tray.setToolTip(app.getName())
         this.setTray(false)
@@ -298,7 +297,63 @@ export class AppEvents {
     private setTray(visible: boolean = utils.getWindow().isVisible()) {
         this.i18n = utils.getLocale(utils.getStoreValue('general.language'))
 
+        const ciderIcon = nativeImage.createFromPath(path.join(__dirname, `../../resources/icons/icon.png`)).resize({
+            width: 24,
+            height: 24
+        })
+
         const menu = Menu.buildFromTemplate([
+
+            {
+                label: app.getName(),
+                enabled: false,
+                icon: ciderIcon,
+
+            },
+            
+            {type: 'separator'},
+
+            /* For now only idea i dont know if posible to implement
+            {
+                label: this.i18n['action.tray.listento'],
+                enabled: false,
+            },
+
+            {
+                visible: visible,
+                label: 'track info',  
+                enabled: false,          
+            },
+            
+            {type: 'separator'},
+            */
+           
+            {
+                visible: (visible === false),
+                label: this.i18n['action.tray.playpause'],
+                click: () => {
+                    utils.getWindow().webContents.executeJavaScript('MusicKitInterop.playPause()')
+                }   
+            },
+            
+            {
+                visible: (visible === false),
+                label: this.i18n['action.tray.next'],
+                click: () => {
+                    utils.getWindow().webContents.executeJavaScript(`MusicKitInterop.next()`)
+                }
+            },
+            
+            {
+                visible: (visible === false),
+                label: this.i18n['action.tray.previous'],
+                click: () => {
+                    utils.getWindow().webContents.executeJavaScript(`MusicKitInterop.previous()`)
+                }
+            },
+            
+            {type: 'separator'},
+
             {
                 label: (visible ? this.i18n['action.tray.minimize'] : `${this.i18n['action.tray.show']}`),
                 click: () => {
