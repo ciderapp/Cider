@@ -4200,11 +4200,8 @@ const app = new Vue({
             this.fullscreenState = flag; 
             if (flag) {
                 ipcRenderer.send('setFullScreen', true);
-                if (app.mk.nowPlayingItem.type && app.mk.nowPlayingItem.type.toLowerCase().includes("video")) {
-                   // document.querySelector('video#apple-music-video-player').requestFullscreen()
-                } else {
-                    app.appMode = 'fullscreen';
-                }
+                app.appMode = 'fullscreen';
+
                 document.addEventListener('keydown', event => {
                     if (event.key === 'Escape' && app.appMode === 'fullscreen') {
                         this.fullscreen(false);
@@ -4212,11 +4209,7 @@ const app = new Vue({
                 });
             } else {
                 ipcRenderer.send('setFullScreen', false);
-                if (app.mk.nowPlayingItem.type && app.mk.nowPlayingItem.type.toLowerCase().includes("video")) {
-
-                } else {
-                    app.appMode = 'player';
-                }
+                app.appMode = 'player';
             }
         },
         pip(){
