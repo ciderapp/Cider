@@ -911,7 +911,7 @@ const app = new Vue({
                 }
                 let type = (self.mk.nowPlayingItem != null) ? self.mk.nowPlayingItem["type"] ?? '' : '';
 
-                if (type.includes("musicVideo") || type.includes("uploadedVideo") || type.includes("music-movie")) {
+                if (type.includes("musicVideo") || type.includes("uploadedVideo") || type.includes("music-movie") || (self.mk.nowPlayingItem?.type == "radioStation" & self.mk.nowPlayingItem?.attributes?.mediaKind == "video")) {
                     document.getElementById("apple-music-video-container").style.display = "block";
                     document.body.setAttribute("video-playing", "true")
                     // app.chrome.topChromeVisible = false
