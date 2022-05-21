@@ -1695,7 +1695,7 @@ const app = new Vue({
                 });
                 window.location.hash = `${kind}/${id}`
                 document.querySelector("#app-content").scrollTop = 0
-            } else if (kind == "editorial-elements") {
+            } else if (kind == "editorial-elements" || kind == "editorial-items") {
                 console.debug(item)
                 if (item.relationships?.contents?.data != null && item.relationships?.contents?.data.length > 0) {
                     this.routeView(item.relationships.contents.data[0])
@@ -1717,6 +1717,15 @@ const app = new Vue({
                     window.open(item.attributes.link.url)}
                 }
 
+            } else if (kind == "multirooms"){
+                app.getTypeFromID("multiroom", id, false, {
+                    platform: "web",
+                    extend: "editorialArtwork,uber,lockupStyle"
+                }).then(()=> {
+                    kind = "multiroom"
+                    window.location.hash = `${kind}/${id}`
+                    document.querySelector("#app-content").scrollTop = 0
+                })
             } else if (kind.toString().includes("artist")) {
                 app.getArtistInfo(id, isLibrary)
                 window.location.hash = `${kind}/${id}${isLibrary ? "/" + isLibrary : ''}`
