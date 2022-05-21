@@ -83,7 +83,7 @@ export class Store {
                     "P"
                 ],
                 "webRemote": [
-                    "CommandOrControl",
+                    process.platform == "darwin" ? "Option" : "Shift",
                     "W"
                 ],
                 "audioSettings": [
