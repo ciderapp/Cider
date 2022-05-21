@@ -278,7 +278,7 @@
                 inPlaylist: false,
                 searchQuery: "",
                 displayListing: [],
-                hasNestedPlaylist: null,
+                hasNestedPlaylist: false,
             }
         },
         mounted: function () {
@@ -329,7 +329,7 @@
                         return x.attributes.discNumber
                     }).filter((item, i, ar) => ar.indexOf(item) === i);
 
-                    if ((discs && discs.length > 1) || (discs && this.hasNestedPlaylist == true)) {
+                    if ((discs && discs.length > 1) || (discs && this.hasNestedPlaylist)) {
                         for (disc of discs) {
                             let songs = songlists.filter(x => x.attributes.discNumber == disc);
                             this.nestedPlaylist.push({ disc: disc, tracks: songs })
