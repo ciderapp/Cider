@@ -1686,7 +1686,6 @@ const app = new Vue({
         routeView(item) {
             let kind = (item.attributes?.playParams ? (item.attributes?.playParams?.kind ?? (item.type ?? '')) : (item.type ?? ''));
             let id = (item.attributes?.playParams ? (item.attributes?.playParams?.id ?? (item.id ?? '')) : (item.id ?? ''));
-            console.log(item);
             let isLibrary = item.attributes?.playParams ? (item.attributes?.playParams?.isLibrary ?? false) : false;
             if (kind.includes("playlist") || kind.includes("album")) {
                 app.showingPlaylist = [];
