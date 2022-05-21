@@ -20,7 +20,7 @@ channel = channel.split('/').join('-')
 
 // https://circleci.com/docs/2.0/env-vars/#built-in-environment-variables
 const version = pkg.version.split('.');
-pkg.version = `${version[0]}.${version[1]}.${version[2]}-${channel}`
+pkg.version = `${version[0]}.${version[1]}.${version[2]}-${channel}.${version[3]}`
 // package.build.channel = channel
 pkg.publish = {
 	"provider": "github",

@@ -19,6 +19,9 @@ jobs:
       #          name: Rename Repository
       #          command: sed -i 's/github:ciderapp\/Cider/github:ciderapp\/cider-releases/' package.json
       - run:
+          name: Update Version Number of App
+          command: chmod +x resources/version.sh && ./resources/version.sh
+      - run:
           name: Update Package Managers
           command: sudo npm update -g npm yarn
       - restore_cache:
