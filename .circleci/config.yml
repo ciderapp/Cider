@@ -160,7 +160,7 @@ jobs:
           name: Fix Versioning and Add Channel
           command: yarn circle:script
       - run:
-          name: Show Environment Variable: APP_VERSION
+          name: Show Environment Variable APP_VERSION
           command: echo $APP_VERSION
       - run:
           name: Publish Release
