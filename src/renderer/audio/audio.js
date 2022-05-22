@@ -403,7 +403,7 @@ const CiderAudio = {
             CiderAudio.audioNodes.atmosphereRealizer2 = CiderAudio.context.createConvolver();
             CiderAudio.audioNodes.atmosphereRealizer2.normalize = false;
             let atmosphereRealizerProfile = CiderAudio.atmosphereRealizerProfiles.find(function (profile) {
-                return profile.id === app.cfg.audio.maikiwiAudio.spatialProfile;
+                return profile.id === app.cfg.audio.maikiwiAudio.atmosphereRealizer2_value;
             });
     
             if (atmosphereRealizerProfile === undefined) {
@@ -448,7 +448,7 @@ const CiderAudio = {
             CiderAudio.audioNodes.atmosphereRealizer1 = CiderAudio.context.createConvolver();
             CiderAudio.audioNodes.atmosphereRealizer1.normalize = false;
             let atmosphereRealizerProfile = CiderAudio.atmosphereRealizerProfiles.find(function (profile) {
-                return profile.id === app.cfg.audio.maikiwiAudio.spatialProfile;
+                return profile.id === app.cfg.audio.maikiwiAudio.atmosphereRealizer1_value;
             });
     
             if (atmosphereRealizerProfile === undefined) {
