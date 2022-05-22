@@ -98,7 +98,6 @@ const CiderAudio = {
             "name": "Maikiwi",
             "description": "",
             "gainComp": "1.3381352151540196",
-            "img": "./assets/audiolabs/focused.png",
         },
         {
             "id": "71_420maikiwi",
@@ -106,7 +105,6 @@ const CiderAudio = {
             "name": "Soundstage",
             "description": "",
             "gainComp": "1.3963683610559376",
-            "img": "./assets/audiolabs/expansive.png",
         },
         {
             "id": "70_422maikiwi",
@@ -114,7 +112,6 @@ const CiderAudio = {
             "name": "Separation",
             "description": "",
             "gainComp": "1.30767553892022",
-            "img": "./assets/audiolabs/classic.png",
         },
         {
             "id": "standard",
@@ -122,7 +119,6 @@ const CiderAudio = {
             "name": "Minimal",
             "description": "",
             "gainComp": "1.2647363474711515",
-            "img": "./assets/audiolabs/minimal.png",
         }
     ],
     atmosphereRealizerProfiles: [
