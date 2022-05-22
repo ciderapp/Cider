@@ -94,9 +94,21 @@
                                     <img :class="(!inLibrary) ? 'md-ico-add' : 'md-ico-remove'">
                                     {{app.getLz('term.confirm')}}
                                 </button>
-                                <button class="more-btn-round" style="float:right;" @click="menu" :aria-label="app.getLz('term.more')">
-                                    <div class="svg-icon"></div>
-                                </button>
+                                <div style="display: flex; float: right;">
+                                    <div class="search-input-container" style="margin-right: 8px;">
+                                        <div class="search-input--icon"></div>
+                                        <input type="search"
+                                            style="width:100%;"
+                                            spellcheck="false"
+                                            :placeholder="$root.getLz('term.search') + '...'"
+                                            @input="search()"
+                                            v-model="searchQuery"
+                                            class="search-input">
+                                    </div>
+                                    <button class="more-btn-round" @click="menu" :aria-label="app.getLz('term.more')">
+                                        <div class="svg-icon"></div>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -160,12 +172,12 @@
                                 <draggable :options="{disabled: !editing}"
                                            v-model="data.relationships.tracks.data" @start="drag=true"
                                            @end="drag=false;put()">
-                                    <template v-if="nestedPlaylist == [] || nestedPlaylist.length <= 1">
+                                    <template v-if="!hasNestedPlaylist">
                                         <mediaitem-list-item :item="item" :parent="getItemParent(data)" :index="index"
                                                              :showIndex="true"
                                                              :showIndexPlaylist="(data.attributes.playParams.kind ?? data.type ?? '').includes('playlist')"
                                                              :context-ext="buildContextMenu()"
-                                                             v-for="(item,index) in data.relationships.tracks.data"></mediaitem-list-item>
+                                                             v-for="(item,index) in displayListing"></mediaitem-list-item>
                                     </template>
                                     <template v-else>
                                         <div v-for="disc in nestedPlaylist">
@@ -262,7 +274,11 @@
                 useArtistChip: false,
                 nestedPlaylist: [],
                 classes: [],
-                editing: false
+                editing: false,
+                inPlaylist: false,
+                searchQuery: "",
+                displayListing: [],
+                hasNestedPlaylist: false,
             }
         },
         mounted: function () {
@@ -271,11 +287,21 @@
             })
         },
         watch: {
-            data: function () {
-                this.nestedPlaylist = [];
-                this.isInLibrary()
-                this.getBadges()
-                this.generateNestedPlaylist()
+            data: {
+                handler: function () {
+                    this.isInLibrary()
+                    this.getBadges()
+
+                    if (this.data.relationships) {
+                        this.generateNestedPlaylist(this.data.relationships.tracks.data)
+                        if (!this.hasNestedPlaylist) {
+                            this.displayListing = this.data.relationships.tracks.data
+                        }
+                    }
+
+                    this.inPlaylist = this.data.type == "library-playlists";
+                },
+                deep: true
             }
         },
         methods: {
@@ -296,23 +322,24 @@
                 }
                 app.modals.moreInfo = true;
             },
-            generateNestedPlaylist() {
+            generateNestedPlaylist(songlists) {
                 this.nestedPlaylist = [];
                 if (this.data?.type?.includes("album")) {
-                    console.log(this.data.relationships.tracks.data)
-                    let songlists = this.data.relationships.tracks.data;
                     let discs = songlists.map(x => {
                         return x.attributes.discNumber
                     }).filter((item, i, ar) => ar.indexOf(item) === i);
-                    if (discs && discs.length > 1) {
+
+                    if ((discs && discs.length > 1) || (discs && this.hasNestedPlaylist)) {
                         for (disc of discs) {
                             let songs = songlists.filter(x => x.attributes.discNumber == disc);
-                            this.nestedPlaylist.push({disc: disc, tracks: songs})
+                            this.nestedPlaylist.push({ disc: disc, tracks: songs })
                         }
                     }
                     console.log(this.nestedPlaylist)
-
                 }
+
+                if (!this.hasNestedPlaylist)
+                    this.hasNestedPlaylist = this.nestedPlaylist != [] && this.nestedPlaylist.length > 1;
             },
             isHeaderVisible(visible) {
                 this.headerVisible = visible
@@ -398,7 +425,7 @@
                 this.confirm = false
             },
             async removeFromLibrary(id) {
-                const params = {"fields[songs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library"};
+                const params = { "fields[songs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library" };
                 var id = this.data.id ?? this.data.attributes.playParams.id
                 const res = await app.mkapi(this.data.attributes.playParams.kind ?? this.data.type, this.data.attributes.playParams.isLibrary ?? false, this.data.attributes.playParams.id ?? this.data.id, params);
                 if (res.data.data[0] && res.data.data[0].relationships && res.data.data[0].relationships.library && res.data.data[0].relationships.library.data && res.data.data[0].relationships.library.data.length > 0) {
@@ -706,7 +733,7 @@
 
                 let query = (this.data ?? app.showingPlaylist).relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
                 app.mk.stop().then(function () {
-                    app.mk.setQueue({[truekind]: [id], parameters: {l: app.mklang}}).then(function () {
+                    app.mk.setQueue({ [truekind]: [id], parameters: { l: app.mklang } }).then(function () {
                         app.mk.play().then(function () {
                             if (query.length > 100) {
                                 let u = query.slice(100);
@@ -724,8 +751,48 @@
             navClass(data) {
                 if (data && typeof data.views != "undefined") return "";
                 return "d-none";
-            }
+            },
+            search() {
+                let filtered = [];
 
+                if (this.searchQuery == "") {
+                    filtered = this.data.relationships.tracks.data;
+                } else {
+                    filtered = this.data.relationships.tracks.data.filter((item) => {
+                        let itemName = item.attributes.name.toLowerCase();
+                        let searchTerm = this.searchQuery.toLowerCase();
+                        let artistName = "";
+                        let albumName = "";
+                        if (item.attributes.artistName != null) {
+                            artistName = item.attributes.artistName.toLowerCase();
+                        }
+                        if (item.attributes.albumName != null) {
+                            albumName = item.attributes.albumName.toLowerCase();
+                        }
+
+                        // remove any non-alphanumeric characters and spaces from search term and item name
+                        searchTerm = searchTerm.replace(/[^\p{L}\p{N} ]/gu, "");
+                        itemName = itemName.replace(/[^\p{L}\p{N} ]/gu, "");
+                        artistName = artistName.replace(/[^\p{L}\p{N} ]/gu, "");
+                        albumName = albumName.replace(/[^\p{L}\p{N} ]/gu, "");
+
+                        let match = itemName.includes(searchTerm) || artistName.includes(searchTerm);
+                        // only include album name in playlists
+                        // this allows to search for the title track (itemName == albumName)
+                        if (this.inPlaylist) match = match || albumName.includes(searchTerm)
+
+                        if (match) return item;
+                    });
+                }
+
+                if (!this.hasNestedPlaylist) {
+                    // Regular album/playlist
+                    this.displayListing = filtered;
+                } else {
+                    // Album with multiple discs
+                    this.generateNestedPlaylist(filtered);
+                }
+            }
         }
     })
 </script>
