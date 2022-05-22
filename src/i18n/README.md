@@ -394,3 +394,6 @@ Update 18/05/2022 14:20 UTC
 *  `action.tray.playpause`: Added for `en_US`,
 *  `action.tray.next`: Added for `en_US`,
 *  `action.tray.previous`: Added for `en_US`,
+
+Update 22/05/2022 03:53 UTC
+* `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.diffused`: Added for `en_US`
