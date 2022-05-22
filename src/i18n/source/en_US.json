@@ -402,7 +402,6 @@
   "settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode": "Cider Atmosphere Realizer™️ Mode",
   "settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.description": "Changes the mode of operation of the Atmosphere Realizer module.",
   "settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_STANDARD": "Natural (Standard)",
-  "settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_HIGH": "Natural (High)",
   "settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_PLUS": "Natural (Plus)",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider Adrenaline Processor™️",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Enhances the perceived audio quality of 256 kbps AAC audio by using a real-time algorithm that takes advantage of both psychoacoustic models of human hearing and AAC encoding characteristics.",
