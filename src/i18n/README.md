@@ -11,7 +11,7 @@ Some notes about Cider's i18n support.
 
 # Multiple Plural Forms
 
-Multiple plural forms can be supported as below: 
+Multiple plural forms can be supported as below:
 
 The keys and its meanings are here : https://github.com/prantlf/fast-plural-rules/blob/master/docs/languages.md#supported-languages
 
@@ -235,7 +235,7 @@ Update 08/04/2022 08:00 UTC
 
 Update 09/04/2022 11:00 UTC
 
-* `term.disablePrivateSession`: Added for `en_US`	
+* `term.disablePrivateSession`: Added for `en_US`
 
 Update 10/04/2022 07:30 UTC
 
@@ -335,7 +335,7 @@ Update 29/04/2022 00:00 UTC
 * `menubar.options.feature`: Added for `en_US`
 * `menubar.options.trans`: Added for `en_US`
 * `menubar.options.license`: Added for `en_US`
-* `menubar.options.conf`: Added for `en_US` 
+* `menubar.options.conf`: Added for `en_US`
 
 Update 08/05/2022 00:29 UTC
 
@@ -397,3 +397,23 @@ Update 18/05/2022 14:20 UTC
 
 Update 22/05/2022 03:53 UTC
 * `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.diffused`: Added for `en_US`
+
+Update 22/05/2022 14:32 UTC
+* `notification.connectionError`: Deleted for all language files
+* `settings.button.visual.theme.github.openfolder`: Deleted for all language files
+* `settings.header.audio.quality.auto`: Deleted for all language files
+* `settings.header.audio.quality.enhanced`: Deleted for all language files
+* `settings.header.audio.quality.low`: Deleted for all language files
+* `settings.header.connectivity.discordRPC.appleMusic`: Deleted for all language files
+* `settings.header.connectivity.discordRPC.cider`: Deleted for all language files
+* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_HIGH`: Deleted for all language files
+* `settings.option.audio.enableAdvancedFunctionality.audioSpatialization`: Deleted for all language files
+* `settings.option.audio.enableAdvancedFunctionality.audioSpatialization.description`: Deleted for all language files
+* `settings.option.experimental.closeButtonBehaviour`: Deleted for all language files
+* `settings.option.experimental.closeButtonBehaviour.minimizeTaskbar`: Deleted for all language files
+* `settings.option.experimental.closeButtonBehaviour.minimizeTray`: Deleted for all language files
+* `settings.option.experimental.closeButtonBehaviour.quit`: Deleted for all language files
+* `settings.option.experimental.close_button_hide`: Deleted for all language files
+* `settings.option.experimental.copy_log`: Deleted for all language files
+* `term.spacializedAudioSetting`: Deleted for all language files
+* `term.updateCider`: Deleted for all language files

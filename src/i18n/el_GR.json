@@ -341,7 +341,6 @@
   "settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode": "Λειτουργία ατμόσφαιρας ήχου",
   "settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.description": "Αλλάζει τη λειτουργία ατμόσφαιρας ήχου.",
   "settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_STANDARD": "Φυσική (Κανονικό)",
-  "settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_HIGH": "Φυσική (Υψηλό)",
   "settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_PLUS": "Φυσική (Υψηλότερο)",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Επεξεργαστής ήχου Cider (CAP)",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Βελτιώνει την αντιληπτή ποιότητα ήχου χρησιμοποιώντας αλγορίθμους.",

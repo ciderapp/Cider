@@ -241,7 +241,6 @@
   "action.showAlbum": "ϟ⍑ᒍ∴ ᔮᒍᒲi!|:ᒷᒣᒷ ᖋ|:ᕊ⚍ᒲ",
   "action.tray.minimize": "ᒲ╎リ╎ᒲ╎∩ᒷ ᒣᒍ ᒣ∷ᖋ॥",
   "action.tray.quit": "ᑑ⚍╎ᒣ",
-
   "action.update": "⚍i!↸ᖋᒣᒷ",
   "action.install": "╎リϟᒣᖋ|:|:",
   "action.copy": "ᔮᒍi!॥",
@@ -383,8 +382,6 @@
   "settings.header.connectivity.description": "ᖋ↸⋮⚍ϟᒣ ᒣ⍑ᒷ ᔮᒍリリᒷᔮᒣ╎⍊╎ᒣ॥ ϟᒷᒣᒣ╎リ┤ϟ ⎓ᒍ∷ ᔮ╎↸ᒷ∷.",
   "settings.option.connectivity.discordRPC": "↸╎ϟᔮᒍ∷↸ ∷╎ᔮ⍑ i!∷ᒷϟᒷリᔮᒷ",
   "settings.option.connectivity.playbackNotifications": "i!|:ᖋ॥ᕊᖋᔮ·ǀ· リᒍᒣ╎⎓╎ᔮᖋᒣ╎ᒍリϟ",
-  "settings.header.connectivity.discordRPC.cider": "↸╎ϟi!|:ᖋ॥ ᖋϟ 'ᔮ╎↸ᒷ∷'",
-  "settings.header.connectivity.discordRPC.appleMusic": "↸╎ϟi!|:ᖋ॥ ᖋϟ 'ᖋi!i!|:ᒷ ᒲ⚍ϟ╎ᔮ'",
   "settings.option.connectivity.discordRPC.clearOnPause": "ᔮ|:ᒷᖋ∷ ↸╎ϟᔮᒍ∷↸ ∷╎ᔮ⍑ i!∷ᒷϟᒷリᔮᒷ ᒍリ i!ᖋ⚍ϟᒷ",
   "settings.option.connectivity.discordRPC.hideButtons": "⍑╎↸ᒷ ᕊ⚍ᒣᒣᒍリϟ ᒍリ ↸╎ϟᔮᒍ∷↸ ∷╎ᔮ⍑ i!∷ᒷϟᒷリᔮᒷ",
   "settings.option.connectivity.lastfmScrobble": "|:ᖋϟᒣ.⎓ᒲ ϟᔮ∷ᒍᕊᕊ|:╎リ┤",
