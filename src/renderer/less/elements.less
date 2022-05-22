@@ -1126,6 +1126,10 @@
       font-size: 0.9em;
       font-weight: 500;
       z-index: 1;
+      &+ .subtitle {
+        max-height: none !important;
+        margin-top: -0.5em;
+      }
     }
 
     .subtitle {
@@ -1134,7 +1138,11 @@
       align-items: center;
       font-size: 0.75em;
       width: 100%;
-      display: flex;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
+      max-height: 3.8em;
       z-index: 1;
     }
 
