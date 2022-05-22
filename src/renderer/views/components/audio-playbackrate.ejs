@@ -47,15 +47,12 @@
             },
             saveValue(newValue) {
                 newValue = Number(newValue);
-                if (this.isAllowedRate(newValue)) {
+                if (newValue >= 0.25 && newValue <= 2) {
                     newValue = String(newValue).length > 6 ? newValue.toFixed(2) : newValue;
                     this.$root.mk.playbackRate = newValue;
                     this.$root.cfg.audio.playbackRate = newValue;
                     this.playbackRate = newValue;
                 }
-            },
-            isAllowedRate(input) {
-                return input >= 0.25 && input <= 2 ? true : false;
             }
         }
 	});
