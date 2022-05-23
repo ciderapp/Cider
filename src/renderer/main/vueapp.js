@@ -946,7 +946,12 @@ const app = new Vue({
                         silent: true,
                     });
                 }
-
+                setTimeout(() => {
+                    let i = (document.querySelector('#apple-music-player').src ?? "")
+                    if (i.endsWith(".m3u8") || i.endsWith(".m3u")){
+                        this._playRadioStream(i)
+                    }
+                }, 1500)
             })
 
 
@@ -4424,6 +4429,21 @@ const app = new Vue({
         },
         authCC() {
             ipcRenderer.send('cc-auth')
+        },
+        _playRadioStream(e) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = process;
+            xhr.open("GET", e , true);
+            xhr.send();
+            let self = this
+            function process() {
+              if (xhr.readyState == 4) {
+                let sources = xhr.responseText.match(/^(?!#)(?!\s).*$/mg).filter(function(element){return (element);});
+                // Load first source
+                let src = sources[0];
+                app.mk._services.mediaItemPlayback._currentPlayer._playAssetURL(src, false)
+              }
+            }
         }
     }
 })
