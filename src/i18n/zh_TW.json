@@ -175,6 +175,7 @@
   "action.unfollow.success": "已取消追蹤",
   "action.unfollow.error": "取消追蹤時，發生錯誤",
   "action.playNext": "插播",
+  "action.playLater": "待播",
   "action.startRadio": "建立電台",
   "action.goToArtist": "前往藝人",
   "action.goToAlbum": "前往專輯",
