@@ -39,8 +39,7 @@ const MusicKitInterop = {
 			}
 
 			if (MusicKit.getInstance().nowPlayingItem) {
-				await this.sleep(1000);
-				console.log("Auto-updating Playback Rate from " + MusicKit.getInstance().playbackRate + " x to " + app.cfg.audio.playbackRate + " x");
+				await this.sleep(750);
 				MusicKit.getInstance().playbackRate = app.cfg.audio.playbackRate;
 			}
 		});

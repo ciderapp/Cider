@@ -133,7 +133,7 @@ export class Store {
             "maxVolume": 1,
             "lastVolume": 1,
             "muted": false,
-            "playbackRate": '1',
+            "playbackRate": 1,
             "quality": "HIGH",
             "seamless_audio": true,
             "normalization": false,
