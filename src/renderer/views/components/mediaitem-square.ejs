@@ -98,7 +98,7 @@
         async mounted() {
             await this.getBadges()
             if (typeof this.item.attributes.playParams == "object") {
-                if (this.item.attributes.playParams.kind.includes("radioStation") && (this.item.attributes.playParams.streamingKind == 1 || this.item.attributes.playParams.streamingKind == 2)) {
+                if (this.item.attributes.playParams.kind.includes("radioStation") && (this.item.attributes.playParams.streamingKind == 1)) {
                     this.unavailable = true
                 }
             } else {

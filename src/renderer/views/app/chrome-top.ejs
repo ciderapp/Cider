@@ -47,13 +47,15 @@
                         :title="$root.getLz('term.previous')" v-b-tooltip.hover></button>
             </div>
             <div class="app-chrome-item display--large">
-                <button class="playback-button pause" @click="mk.pause()" v-if="mk.isPlaying"
+                <button class="playback-button stop" @click="mk.stop()" v-if="mk.isPlaying && mk.nowPlayingItem.attributes.playParams.kind == 'radioStation'"
+                        :title="$root.getLz('term.stop')" v-b-tooltip.hover></button>
+                <button class="playback-button pause" @click="mk.pause()" v-else-if="mk.isPlaying"
                         :title="$root.getLz('term.pause')" v-b-tooltip.hover></button>
                 <button class="playback-button play" @click="mk.play()" v-else
                         :title="$root.getLz('term.play')" v-b-tooltip.hover></button>
             </div>
             <div class="app-chrome-item display--large">
-                <button class="playback-button next" @click="skipToNextItem()"
+                <button class="playback-button next" @click="skipToNextItem()" :class="isDisabled() && 'disabled'"
                         :title="$root.getLz('term.next')" v-b-tooltip.hover></button>
             </div>
             <div class="app-chrome-item display--large">
