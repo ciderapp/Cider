@@ -140,7 +140,7 @@ export default class Thumbar {
             ] : [ ]),
             ...(this.isLinux ? [
                 {
-                    label: utils.getLocale('close', 'menubar.options.close'),
+                    label: utils.getLocale('general.language', 'menubar.options.close'),
                     accelerator: 'Control+W',
                     click: () => utils.getWindow().close()
                 },                     
