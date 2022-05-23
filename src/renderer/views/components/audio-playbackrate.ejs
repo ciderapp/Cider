@@ -48,7 +48,7 @@
             saveValue(newValue) {
                 newValue = Number(newValue);
                 if (newValue >= 0.25 && newValue <= 2) {
-                    newValue = String(newValue).length > 6 ? newValue.toFixed(2) : newValue;
+                    newValue = String(newValue).length > 4 ? newValue.toFixed(2) : newValue;
                     this.$root.mk.playbackRate = newValue;
                     this.$root.cfg.audio.playbackRate = newValue;
                     this.playbackRate = newValue;
