@@ -1590,6 +1590,12 @@ input[type=checkbox][switch]:checked:active::before {
   background-image: url("./assets/repeatOne.svg");
 }
 
+.playback-button.stop {
+  background-image: url('./assets/cider-icons/stop.svg');
+  background-size: 38px;
+  background-position: center;
+}
+
 .playback-button.pause {
   background-image: url('./assets/cider-icons/pause.svg');
   background-size: 38px;
@@ -1612,6 +1618,15 @@ input[type=checkbox][switch]:checked:active::before {
   background-image: url('./assets/cider-icons/backward.svg');
   background-size: 60%;
   background-position: center;
+}
+.playback-button.disabled {
+  opacity: 0.25 !important;
+  pointer-events: none;
+  transform: none !important;
+  &:hover{
+    background-color: transparent !important;
+    transform: none !important;
+  }
 }
 
 .playback-button {

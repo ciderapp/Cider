@@ -658,6 +658,7 @@ const app = new Vue({
             }
 
             this.mk._bag.features['seamless-audio-transitions'] = this.cfg.audio.seamless_audio
+            this.mk._bag.features["broadcast-radio"] = true
             this.mk._services.apiManager.store.storekit._restrictedEnabled = false
             // API Fallback
             if (!this.chrome.userinfo) {
@@ -1800,6 +1801,12 @@ const app = new Vue({
                 app.prevButtonBackIndicator = false;
                 app.skipToPreviousItem()
             }
+        },
+        isDisabled() {
+            if(!app.mk.nowPlayingItem || app.mk.nowPlayingItem.attributes.playParams.kind == 'radioStation' || app.mk.queue._position + 1 == app.mk.queue.length) {
+                return true;
+            }
+            return false;
         },
         async getNowPlayingItemDetailed(target) {
             try {
