@@ -184,7 +184,6 @@
   "settings.option.general.language.main": "Jazyky",
   "settings.option.general.language.fun": "Zábanve Jazyky",
   "settings.option.general.language.unsorted": "Nepotriedené",
-  "settings.option.general.updateCider": "Aktualizovať Cider",
   "settings.header.audio": "Zvuk",
   "settings.header.audio.description": "Zmeniť nastavenia zvuku pre Cider.",
   "settings.option.audio.quality": "Kvalita zvuku",

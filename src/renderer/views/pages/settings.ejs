@@ -1183,35 +1183,6 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="md-option-line update-check">
-                            <div class="md-option-segment">
-                                {{$root.getLz('settings.option.general.updateCider')}}
-                            </div>
-                            <div class="md-option-segment md-option-segment_auto">
-                                <button class="md-btn" id='settings.option.general.updateCider.check'
-                                        @click="app.checkForUpdate()">
-                                    {{$root.getLz('term.check')}}
-                                </button>
-                            </div>
-                        </div>
-                        <div class="md-option-line update-check">
-                            <div class="md-option-segment">
-                                {{$root.getLz('settings.option.general.updateCider.branch')}}<br>
-                                <small>({{$root.getLz('settings.option.general.updateCider.branch.description')}})</small>
-                            </div>
-                            <div class="md-option-segment md-option-segment_auto">
-                                <label>
-                                    <select class="md-select" style="width:180px;" v-model="app.cfg.general.update_branch">
-                                        <option value="main">
-                                            {{$root.getLz('settings.option.general.updateCider.branch.main')}}
-                                        </option>
-                                        <option value="develop">
-                                            {{$root.getLz('settings.option.general.updateCider.branch.develop')}}
-                                        </option>
-                                    </select>
-                                </label>
-                            </div>
-                        </div>
                         <div class="md-option-line update-check" v-if="app.platform === 'win32'">
                             <div class="md-option-segment">
                                 {{$root.getLz('settings.option.visual.transparent')}}<br>

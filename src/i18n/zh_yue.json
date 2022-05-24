@@ -201,7 +201,6 @@
   "settings.option.general.language.main": "語言",
   "settings.option.general.language.fun": "惡搞語言",
   "settings.option.general.language.unsorted": "未分類",
-  "settings.option.general.updateCider": "更新 Cider",
   "settings.header.audio": "音訊",
   "settings.header.audio.description": "調整Cider嘅音訊設定",
   "settings.option.audio.quality": "音質",

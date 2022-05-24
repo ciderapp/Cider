@@ -185,7 +185,6 @@
   "settings.option.general.language.main": "Språk",
   "settings.option.general.language.fun": "Roliga språk",
   "settings.option.general.language.unsorted": "Osorterade",
-  "settings.option.general.updateCider": "Uppdatera Cider",
   "settings.header.audio": "Ljud",
   "settings.header.audio.description": "Ändra Ciders ljudinställningar.",
   "settings.option.audio.quality": "Ljudkvalitet",

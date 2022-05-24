@@ -4410,23 +4410,6 @@ const app = new Vue({
                 app.skipToNextItem()
             });
         },
-        checkForUpdate() {
-            ipcRenderer.send('check-for-update')
-            document.getElementById('settings.option.general.updateCider.check').innerHTML = 'Checking...'
-            notyf.success('Checking for update in background...')
-            ipcRenderer.on('update-response', (event, res) => {
-                if (res === "update-not-available") {
-                    notyf.error(app.getLz(`settings.notyf.updateCider.${res}`))
-                } else if (res === "update-downloaded") {
-                    notyf.success(app.getLz(`settings.notyf.updateCider.${res}`))
-                } else if (res === "update-error") {
-                    notyf.error(app.getLz(`settings.notyf.updateCider.${res}`))
-                } else if (res === "update-timeout") {
-                    notyf.error(app.getLz(`settings.notyf.updateCider.${res}`))
-                }
-                document.getElementById('settings.option.general.updateCider.check').innerHTML = app.getLz('term.check')
-            })
-        },
         authCC() {
             ipcRenderer.send('cc-auth')
         },
