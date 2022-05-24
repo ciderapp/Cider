@@ -132,8 +132,8 @@
   "term.reset": "Resetten",
   "term.tracks": "nummers",
   "term.track": {
-    "one" : "nummer",
-    "other" : "nummers"
+    "one": "nummer",
+    "other": "nummers"
   },
   "term.videos": "Video's",
   "term.menu": "Menu",
@@ -239,7 +239,6 @@
   "action.showAlbum": "Volledige Album Bekijken",
   "action.tray.minimize": "Verkleinen naar Systeemvak",
   "action.tray.quit": "Sluiten",
-
   "action.update": "Updaten",
   "action.install": "Installeren",
   "action.copy": "Kopiëren",
@@ -364,8 +363,6 @@
   "settings.header.connectivity.description": "Pas de verbindingsinstellingen voor Cider aan.",
   "settings.option.connectivity.discordRPC": "Discord Rich Presence",
   "settings.option.connectivity.playbackNotifications": "Afspeelmeldingen",
-  "settings.header.connectivity.discordRPC.cider": "Weergeven als 'Cider'",
-  "settings.header.connectivity.discordRPC.appleMusic": "Weergeven als 'Apple Music'",
   "settings.option.connectivity.discordRPC.clearOnPause": "Discord Rich Presence bij pauze wissen",
   "settings.option.connectivity.lastfmScrobble": "Last.fm Scrobbling",
   "settings.option.connectivity.lastfmScrobble.delay": "Last.fm Scrobble Vertraging (%)",

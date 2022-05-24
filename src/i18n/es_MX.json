@@ -242,7 +242,6 @@
   "action.showAlbum": "Mostrar Album Completo",
   "action.tray.minimize": "Minimizar a la bandeja",
   "action.tray.quit": "Abandonar",
-
   "action.update": "Actualizar",
   "action.install": "Instalar",
   "action.copy": "Copiar",
@@ -384,8 +383,6 @@
   "settings.header.connectivity.description": "Ajuste la configuración de conectividad para Cider.",
   "settings.option.connectivity.discordRPC": "Discord Rich Presence",
   "settings.option.connectivity.playbackNotifications": "Notificaciones de reproducción",
-  "settings.header.connectivity.discordRPC.cider": "Mostrar como 'Cider'",
-  "settings.header.connectivity.discordRPC.appleMusic": "Mostrar como 'Apple Music'",
   "settings.option.connectivity.discordRPC.clearOnPause": "Borrar Discord Rich Presence en Pausa",
   "settings.option.connectivity.discordRPC.hideButtons": "Ocultar botones en Discord Rich Presence",
   "settings.option.connectivity.lastfmScrobble": "Last.fm Scrobbling",
