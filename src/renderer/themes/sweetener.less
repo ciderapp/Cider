@@ -46,6 +46,13 @@
 
 }
 
+.cd-mediaitem-square {
+  --transition: width 1s, height 1s;
+  transition: var(--transition);
+  .artwork {
+    transition: var(--transition);
+  }
+}
 
 .cd-mediaitem-square:not(.mediaitem-card) {
     transition      : transform .2s var(--appleEase);
@@ -53,7 +60,7 @@
     padding         : 12px;
 
     // background-color: red;
-    height: 250px;
+    height: 220px;
 
 
     .artwork-container {}

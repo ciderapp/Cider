@@ -15,26 +15,16 @@
                                  v-if="mk.nowPlayingItem['attributes']['contentRating'] == 'explicit'"
                                  style="display: inline-block"></div>
                         </div>
+                        <div class="song-artist" @click="getNowPlayingItemDetailed(`artist`)">
+                            {{ mk.nowPlayingItem["attributes"]["artistName"] }}
+                        </div>
+                        <div class="song-album" @click="getNowPlayingItemDetailed('album')" v-if='mk.nowPlayingItem["attributes"]["albumName"]'>
+                            {{(mk.nowPlayingItem["attributes"]["albumName"]) ?
+                            (mk.nowPlayingItem["attributes"]["albumName"]) : "" }}
+                        </div>
                         <div class="chrome-icon-container">
                             <div class="audio-type private-icon" v-if="cfg.general.privateEnabled === true"></div>
                             <div class="audio-type ppe-icon" v-if="cfg.audio.maikiwiAudio.ciderPPE === true"></div>
-                        </div>
-                        <div class="song-artist-album">
-                            <div class="song-artist-album-content"
-                                 :class="[isElementOverflowing('#app-main > .app-chrome .app-chrome-item > .app-playback-controls > div >.song-artist-album > .song-artist-album-content') ? 'marquee' : '']"
-                                 style="display: inline-block; -webkit-box-orient: horizontal; white-space: nowrap;">
-                                <div class="item-navigate song-artist" style="display: inline-block"
-                                     @click="getNowPlayingItemDetailed(`artist`)">
-                                    {{ mk.nowPlayingItem["attributes"]["artistName"] }}
-                                </div>
-                                <div class="song-artist item-navigate" style="display: inline-block"
-                                     @click="getNowPlayingItemDetailed('album')"
-                                     v-if="mk.nowPlayingItem['attributes']['albumName'] != ''">
-                                    <div class="separator" style="display: inline-block;">{{"—"}}</div>
-                                    {{(mk.nowPlayingItem["attributes"]["albumName"]) ?
-                                    (mk.nowPlayingItem["attributes"]["albumName"]) : "" }}
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <template v-if="mk.nowPlayingItem['attributes']['playParams']">
@@ -53,6 +43,19 @@
 
     </div>
     <div class="app-chrome--center">
+        <div class="app-chrome-playback-duration-bottom">
+            <b-row>
+                <b-col sm="auto">{{ convertTime(getSongProgress()) }}</b-col>
+                <b-col>
+                    <input type="range" step="0.01" min="0" :style="progressBarStyle()"
+                           @input="playerLCD.desiredDuration = $event.target.value;playerLCD.userInteraction = true"
+                           @mouseup="mk.seekToTime($event.target.value);setTimeout(()=>{playerLCD.desiredDuration = 0;playerLCD.userInteraction = false}, 1000);"
+                           @touchend="mk.seekToTime($event.target.value);setTimeout(()=>{playerLCD.desiredDuration = 0;playerLCD.userInteraction = false}, 1000);"
+                           :max="mk.currentPlaybackDuration" :value="getSongProgress()">
+                </b-col>
+                <b-col sm="auto">{{ convertTime(mk.currentPlaybackDuration) }}</b-col>
+            </b-row>
+        </div>
         <div class="app-chrome-playback-controls">
             <div class="app-chrome-item">
                 <button class="playback-button--small shuffle" v-if="mk.shuffleMode == 0" :class="isDisabled() && 'disabled'"
@@ -90,22 +93,6 @@
                         v-b-tooltip.hover></button>
             </div>
         </div>
-        <div class="app-chrome-playback-duration">
-            <div class="song-progress">
-                <div class="song-duration"
-                     style="justify-content: space-between; height: 1px;">
-                    <p style="width: auto">{{ convertTime(getSongProgress()) }}</p>
-                    <p style="width: auto">{{ convertTime(mk.currentPlaybackDuration) }}
-                    </p>
-                </div>
-
-                <input type="range" step="0.01" min="0" :style="progressBarStyle()"
-                       @input="playerLCD.desiredDuration = $event.target.value;playerLCD.userInteraction = true"
-                       @mouseup="mk.seekToTime($event.target.value);setTimeout(()=>{playerLCD.desiredDuration = 0;playerLCD.userInteraction = false}, 1000);"
-                       @touchend="mk.seekToTime($event.target.value);setTimeout(()=>{playerLCD.desiredDuration = 0;playerLCD.userInteraction = false}, 1000);"
-                       :max="mk.currentPlaybackDuration" :value="getSongProgress()">
-            </div>
-        </div>
     </div>
     <div class="app-chrome--right">
         <div class="app-chrome-item volume">
@@ -118,10 +105,10 @@
                    v-b-tooltip.hover :title="formatVolumeTooltip()">
         </div>
         <div class="app-chrome-item generic">
-            <button class="playback-button--small miniplayer"
-                    :title="$root.getLz('term.miniplayer')"
+            <button class="playback-button--small cast"
+                    :title="$root.getLz('term.cast')"
                     v-b-tooltip.hover
-                    @click="drawer.open = false; miniPlayer(true)"></button>
+                    @click="cfg.advanced.AudioContext ? modals.castMenu = true : $root.notyf.error($root.getLz('settings.warn.enableAdvancedFunctionality'))"></button>
         </div>
         <div class="app-chrome-item generic">
             <button class="playback-button--small queue" :class="{'active': drawer.panel == 'queue'}"

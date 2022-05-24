@@ -138,8 +138,24 @@
             </template>
 
         </div>
-        <div class="app-title-text" v-if="false">
-            Cider
+        <div class="app-chrome-item" v-else>
+            <div class="search-input-container">
+                <div class="search-input--icon"></div>
+                <input type="search" spellcheck="false" @click="showSearch()" @focus="search.showHints = true"
+                       @blur="setTimeout(()=>{search.showHints = false}, 300)"
+                       v-on:keyup.enter="searchQuery();search.showHints = false" @change="showSearch();"
+                       @input="getSearchHints()" :placeholder="$root.getLz('term.search') + '...'" v-model="search.term"
+                       ref="searchInput" class="search-input">
+
+                <div class="search-hints-container" v-if="search.showHints && search.hints.length != 0">
+                    <div class="search-hints">
+                        <button class="search-hint text-overflow-elipsis" v-for="hint in search.hints"
+                                @click="search.term = hint;search.showHints = false;searchQuery(hint)">
+                            {{ hint }}
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="app-chrome--right">
@@ -178,6 +194,14 @@
                     <button class="playback-button--small lyrics"
                             :style="{'opacity': 0.3, 'pointer-events': 'none'}"></button>
                 </template>
+            </div>
+        </template>
+        <template v-else>
+            <div class="app-chrome-item generic">
+                <button class="playback-button--small miniplayer"
+                        :title="$root.getLz('term.miniplayer')"
+                        v-b-tooltip.hover
+                        @click="drawer.open = false; miniPlayer(true)"></button>
             </div>
         </template>
         <div class="app-chrome-item full-height" id="window-controls-container"
