@@ -52,6 +52,7 @@
   "term.navigateForward": "Navigate forward",
   "term.play": "Play",
   "term.pause": "Pause",
+  "term.stop": "Stop",
   "term.previous": "Previous",
   "term.next": "Next",
   "term.shuffle": "Shuffle",
