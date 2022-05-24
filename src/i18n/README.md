@@ -13,11 +13,11 @@ Some notes about Cider's i18n support.
 
 Multiple plural forms can be supported as below:
 
-The keys and its meanings are here : https://github.com/prantlf/fast-plural-rules/blob/master/docs/languages.md#supported-languages
+The keys and its meanings are here: https://github.com/prantlf/fast-plural-rules/blob/master/docs/languages.md#supported-languages
 
-For example , English is in Plural rule #1 and has 2 keys ```one``` and ```other```
+For example, English is in Plural rule #1 and has 2 keys ```one``` and ```other```
 
-Russian is in Plural rule #7 (3 forms) : ```one```, ```few``` and ```other```
+Russian is in Plural rule #7 (3 forms): ```one```, ```few``` and ```other```
 
 How it is implemented for English:
 
@@ -31,105 +31,104 @@ How it is implemented for English:
 
 ## Localization Notices
 
-Several changes have been made to configuration options and will be listed below with the relevant locales that have
-been modified, the ones not mentioned in the list need modifying.
+Several changes have been made to configuration options and will be listed below with the relevant locales that have been modified, the ones not mentioned in the list need modifying.
 
 * `settings.option.experimental.closeButtonBehaviour`: Changed to `close_button_hide` - Should be `Close Button Should Hide the Application`. `.quit`, `.minimizeTaskbar` and `.minimizeTray` have been removed. Translations done for en_US.
-* `action.update`: Added for `en_US`.
-* `term.topResult`: `Top Result` - Added for `en_US`.
-* `term.sharedPlaylists`: `Shared Playlists` - Added for `en_US`.
-* `term.people`: `People` - Added for `en_US`.
+* `action.update`: Added for `en_US`
+* `term.topResult`: `Top Result` - Added for `en_US`
+* `term.sharedPlaylists`: `Shared Playlists` - Added for `en_US`
+* `term.people`: `People` - Added for `en_US`
 
 Update 02/02/2022 17:16 UTC
 
-* `term.newpreset.name`: Added for `en_US`.
-* `term.addedpreset`: Added for `en_US`.
-* `term.deletepreset.warn`: Added for `en_US`.
-* `term.deletedpreset`: Added for `en_US`.
-* `term.musicVideos`: Added for `en_US`.
-* `term.stations`: Added for `en_US`.
-* `term.curators`: Added for `en_US`.
-* `term.appleCurators`: Added for `en_US`.
-* `term.radioShows`: Added for `en_US`.
-* `term.recordLabels`: Added for `en_US`.
-* `term.videoExtras`: Added for `en_US`.
-* `term.top`: Added for `en_US`.
-* `action.newpreset`: Added for `en_US`.
-* `action.deletepreset`: Added for `en_US`.
+* `term.newpreset.name`: Added for `en_US`
+* `term.addedpreset`: Added for `en_US`
+* `term.deletepreset.warn`: Added for `en_US`
+* `term.deletedpreset`: Added for `en_US`
+* `term.musicVideos`: Added for `en_US`
+* `term.stations`: Added for `en_US`
+* `term.curators`: Added for `en_US`
+* `term.appleCurators`: Added for `en_US`
+* `term.radioShows`: Added for `en_US`
+* `term.recordLabels`: Added for `en_US`
+* `term.videoExtras`: Added for `en_US`
+* `term.top`: Added for `en_US`
+* `action.newpreset`: Added for `en_US`
+* `action.deletepreset`: Added for `en_US`
 
 Update 04/02/2022 10:00 UTC
 
-* `term.history`: Added for `en_US`.
-* `action.copy`: Added for `en_US`.
-* `settings.header.visual.theme`: Added for `en_US`.
-* `settings.option.visual.theme.default`: Added for `en_US`.
-* `settings.option.visual.theme.dark`: Added for `en_US`.
-* `settings.option.experimental.copy_log`: Added for `en_US`.
-* `settings.option.experimental.inline_playlists`: Added for `en_US`.
+* `term.history`: Added for `en_US`
+* `action.copy`: Added for `en_US`
+* `settings.header.visual.theme`: Added for `en_US`
+* `settings.option.visual.theme.default`: Added for `en_US`
+* `settings.option.visual.theme.dark`: Added for `en_US`
+* `settings.option.experimental.copy_log`: Added for `en_US`
+* `settings.option.experimental.inline_playlists`: Added for `en_US`
 
 Update 05/02/2022 09:00 UTC
 
-* `settings.header.audio.quality.hireslossless`: Added for `en_US`.
-* `settings.header.audio.quality.hireslossless.description`: Added for `en_US`.
-* `settings.header.audio.quality.lossless`: Added for `en_US`.
-* `settings.header.audio.quality.lossless.description`: Added for `en_US`.
-* `settings.option.audio.enableAdvancedFunctionality.ciderPPE`: Added for `en_US`.
-* `settings.option.audio.enableAdvancedFunctionality.ciderPPE.description`: Added for `en_US`.
+* `settings.header.audio.quality.hireslossless`: Added for `en_US`
+* `settings.header.audio.quality.hireslossless.description`: Added for `en_US`
+* `settings.header.audio.quality.lossless`: Added for `en_US`
+* `settings.header.audio.quality.lossless.description`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.ciderPPE`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.ciderPPE.description`: Added for `en_US`
 
 Update 06/02/2022 10:35 UTC
 
-* `settings.header.audio.quality.hireslossless.description`: Brackets removed, handled in renderer.
-* `settings.header.audio.quality.lossless.description`: Brackets removed, handled in renderer.
-* `settings.header.audio.quality.high.description`: Added for `en_US`.
-* `settings.header.audio.quality.auto`: Removed as default for MusicKit is 256.
-* `settings.header.audio.quality.standard`: Replaced `settings.header.audio.quality.low` to match MusicKit naming.
-* `settings.header.audio.quality.standard.description`: Added for `en_US`.
+* `settings.header.audio.quality.hireslossless.description`: Brackets removed, handled in renderer
+* `settings.header.audio.quality.lossless.description`: Brackets removed, handled in renderer
+* `settings.header.audio.quality.high.description`: Added for `en_US`
+* `settings.header.audio.quality.auto`: Removed as default for MusicKit is 256
+* `settings.header.audio.quality.standard`: Replaced `settings.header.audio.quality.low` to match MusicKit naming
+* `settings.header.audio.quality.standard.description`: Added for `en_US`
 
 Update 08/02/2022 10:20 UTC
 
-* `settings.option.general.updateCider`: Added for `en_US`.
-* `settings.option.general.updateCider.branch`: Added for `en_US`.
-* `settings.option.general.updateCider.branch.description`: Added for `en_US`.
-* `settings.option.general.updateCider.branch.main`: Added for `en_US`.
-* `settings.option.general.updateCider.branch.develop`: Added for `en_US`.
-* `settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength`: Added for `en_US`.
-* `settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description`: Added for `en_US`.
-* `settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard`: Added for `en_US`.
-* `settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive`: Added for `en_US`.
-* `settings.warn.audio.enableAdvancedFunctionality.ciderPPE.compatibility`: Added for `en_US`.
-* `settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility`: Added for `en_US`.
-* `term.requestError`: Added for `en_US`.
-* `term.song.link.generate`: Added for `en_US`.
+* `settings.option.general.updateCider`: Added for `en_US`
+* `settings.option.general.updateCider.branch`: Added for `en_US`
+* `settings.option.general.updateCider.branch.description`: Added for `en_US`
+* `settings.option.general.updateCider.branch.main`: Added for `en_US`
+* `settings.option.general.updateCider.branch.develop`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive`: Added for `en_US`
+* `settings.warn.audio.enableAdvancedFunctionality.ciderPPE.compatibility`: Added for `en_US`
+* `settings.warn.audio.enableAdvancedFunctionality.audioSpatialization.compatibility`: Added for `en_US`
+* `term.requestError`: Added for `en_US`
+* `term.song.link.generate`: Added for `en_US`
 
 Update 10/02/2022 05:58 UTC
 
-* `term.sortBy.dateAdded`: Added for `en_US`.
+* `term.sortBy.dateAdded`: Added for `en_US`
 
 Update 12/02/2022 12:00 UTC
 
 * Added support for multiple plural forms. [Details](#multiple-plural-forms)
-* `term.version`: Added for `en_US`.
-* `settings.option.visual.theme.github.download`: Added for `en_US`.
-* `settings.prompt.visual.theme.github.URL`: Added for `en_US`.
-* `settings.notyf.visual.theme.install.success`: Added for `en_US`.
-* `settings.notyf.visual.theme.install.error`: Added for `en_US`.
-* `term.defaultPresets`: Added for `en_US`.
-* `term.userPresets`: Added for `en_US`.
+* `term.version`: Added for `en_US`
+* `settings.option.visual.theme.github.download`: Added for `en_US`
+* `settings.prompt.visual.theme.github.URL`: Added for `en_US`
+* `settings.notyf.visual.theme.install.success`: Added for `en_US`
+* `settings.notyf.visual.theme.install.error`: Added for `en_US`
+* `term.defaultPresets`: Added for `en_US`
+* `term.userPresets`: Added for `en_US`
 
 Update 16/02/2022 21:45 UTC
 
-* `term.audioControls`: Added for `en_US`.
-* `settings.option.audio.volumeStep`: Added for `en_US`.
-* `settings.option.audio.maxVolume`: Added for `en_US`.`
+* `term.audioControls`: Added for `en_US`
+* `settings.option.audio.volumeStep`: Added for `en_US`
+* `settings.option.audio.maxVolume`: Added for `en_US`
 
 Update 17/02/2022 10:00 UTC
 
-+ `settings.header.debug`: Added for `en_US`.
-+ `settings.option.debug.copy_log`: Replaces `settings.option.experimental.copy_log`.
++ `settings.header.debug`: Added for `en_US`
++ `settings.option.debug.copy_log`: Replaces `settings.option.experimental.copy_log`
 + `settings.option.debug.openAppData`: Added for `en_US`
 + `action.open`: Added for `en_US`
 
-Update 19/2/2022 21:00 UTC
+Update 19/02/2022 21:00 UTC
 
 * `term.noVideos`: Added for `en_US`
 * `term.plugin`: Added for `en_US`
@@ -339,19 +338,19 @@ Update 29/04/2022 00:00 UTC
 
 Update 08/05/2022 00:29 UTC
 
-* `settings.option.visual.theme.github.available`: Added for `en_US`,
-* `settings.option.visual.theme.github.applied`: Added for `en_US`,
+* `settings.option.visual.theme.github.available`: Added for `en_US`
+* `settings.option.visual.theme.github.applied`: Added for `en_US`
 
 Update 09/05/2022 01:50 UTC
 
-* `menubar.options.listennow`: Added for `en_US`,
-* `menubar.options.recentlyAdded`: Added for `en_US`,
-* `menubar.options.songs`: Added for `en_US`,
-* `settings.description.listnow`: Added for `en_US`,
-* `settings.description.recentAdd`: Added for `en_US`,
-* `settings.description.songs`: Added for `en_US`,
-* `settings.option.general.keybindings.pressCombination`: Added for `en_US`,
-* `settings.option.general.keybindings.pressEscape`: Added for `en_US`,
+* `menubar.options.listennow`: Added for `en_US`
+* `menubar.options.recentlyAdded`: Added for `en_US`
+* `menubar.options.songs`: Added for `en_US`
+* `settings.description.listnow`: Added for `en_US`
+* `settings.description.recentAdd`: Added for `en_US`
+* `settings.description.songs`: Added for `en_US`
+* `settings.option.general.keybindings.pressCombination`: Added for `en_US`
+* `settings.option.general.keybindings.pressEscape`: Added for `en_US`
 * `settings.option.visual.theme.github.available`: Added for `en_US`
 * `settings.option.visual.theme.github.applied`: Added for `en_US`
 
@@ -362,43 +361,43 @@ Update 09/05/2022 19:30 UTC
 
 Update 12/05/2022 19:00 UTC
 
-* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_STANDARD`: Added for `en_US`,
-* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_HIGH`: Added for `en_US`,
-* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_PLUS`: Added for `en_US`,
-* `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.standard`: Added for `en_US`,
-* `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.soundstage`: Added for `en_US`,
-* `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.separation`: Added for `en_US`,
-
+* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_STANDARD`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_HIGH`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_PLUS`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.standard`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.soundstage`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.separation`: Added for `en_US`
 
 Update 12/05/2022 22:50 UTC
 
-*  `settings.option.audio.dbspl.display`: Added for `en_US`,
-*  `settings.option.audio.dbspl.description`: Added for `en_US`,
-*  `settings.option.audio.dbfs.calibration`: Added for `en_US`,
-*  `settings.option.audio.dbfs.description`: Added for `en_US`,
+* `settings.option.audio.dbspl.display`: Added for `en_US`
+* `settings.option.audio.dbspl.description`: Added for `en_US`
+* `settings.option.audio.dbfs.calibration`: Added for `en_US`
+* `settings.option.audio.dbfs.description`: Added for `en_US`
 
 Update 14/05/2022 02:00 UTC
 
-*  `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_HIGH`: Deleted for all language files
-*  `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_STANDARD`: Renamed for `en_US`,
-*  `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_PLUS`: Renamed for `en_US`,
-*  `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.E68_1`: Added for `en_US`,
-*  `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.E68_2`: Added for `en_US`,
-*  `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.E168_1`: Added for `en_US`,
-*  `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.Z3600`: Added for `en_US`,
-*  `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.Z8500`: Added for `en_US`,
-
+* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_HIGH`: Deleted for all language files
+* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_STANDARD`: Renamed for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_PLUS`: Renamed for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.E68_1`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.E68_2`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.E168_1`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.Z3600`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.Z8500`: Added for `en_US`
 
 Update 18/05/2022 14:20 UTC
 
-*  `action.tray.playpause`: Added for `en_US`,
-*  `action.tray.next`: Added for `en_US`,
-*  `action.tray.previous`: Added for `en_US`,
+* `action.tray.playpause`: Added for `en_US`,
+* `action.tray.next`: Added for `en_US`,
+* `action.tray.previous`: Added for `en_US`,
 
 Update 22/05/2022 03:53 UTC
+
 * `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.diffused`: Added for `en_US`
 
 Update 22/05/2022 14:32 UTC
+
 * `notification.connectionError`: Deleted for all language files
 * `settings.button.visual.theme.github.openfolder`: Deleted for all language files
 * `settings.header.audio.quality.auto`: Deleted for all language files
