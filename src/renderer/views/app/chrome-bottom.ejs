@@ -66,7 +66,7 @@
                 <button class="playback-button previous" @click="prevButton()"
                         :title="$root.getLz('term.previous')" v-b-tooltip.hover></button>
             </div>
-            <<div class="app-chrome-item display--large">
+            <div class="app-chrome-item display--large">
                 <button class="playback-button stop" @click="mk.stop()" v-if="mk.isPlaying && mk.nowPlayingItem.attributes.playParams.kind == 'radioStation'"
                         :title="$root.getLz('term.stop')" v-b-tooltip.hover></button>
                 <button class="playback-button pause" @click="mk.pause()" v-else-if="mk.isPlaying"
