@@ -76,9 +76,25 @@
             <template v-if="mkReady()">
                 <div class="app-playback-controls" @mouseover="chrome.progresshover = true"
                      @mouseleave="chrome.progresshover = false" @contextmenu="nowPlayingContextMenu">
-                    <div class="artwork" @click="drawer.open = false; fullscreen(true)">
+                    <div class="artwork" id="artworkLCD">
                         <mediaitem-artwork :url="currentArtUrl"></mediaitem-artwork>
                     </div>
+                    <b-popover custom-class="mediainfo-popover" target="artworkLCD" triggers="hover" placement="bottom">
+                        <div class="popover-artwork">
+                            <mediaitem-artwork :size="210" :url="currentArtUrlRaw"></mediaitem-artwork>
+                        </div>
+                        <div class="song-name">{{ mk.nowPlayingItem["attributes"]["name"] }}</div>
+                        <div class="song-artist" @click="getNowPlayingItemDetailed(`artist`)">{{ mk.nowPlayingItem["attributes"]["artistName"] }}</div>
+                        <div class="song-album" @click="getNowPlayingItemDetailed(`album`)">
+                            {{(mk.nowPlayingItem["attributes"]["albumName"]) ?
+                            (mk.nowPlayingItem["attributes"]["albumName"]) : "" }}
+                        </div>
+                        <hr>
+                        <div class="btn-group" style="width:100%;">
+                            <button class="md-btn md-btn-small" style="width: 100%;" @click="drawer.open = false; miniPlayer(true)">{{ $root.getLz("term.miniplayer") }}</button>
+                            <button class="md-btn md-btn-small" style="width: 100%;" @click="drawer.open = false; fullscreen(true)">{{ $root.getLz("term.fullscreenView") }}</button>
+                        </div>
+                    </b-popover>
                     <div class="playback-info">
                         <div class="chrome-icon-container">
                             <div class="audio-type private-icon" v-if="cfg.general.privateEnabled === true"></div>
@@ -170,10 +186,11 @@
                        v-b-tooltip.hover :title="formatVolumeTooltip()">
             </div>
             <div class="app-chrome-item generic">
-                <button class="playback-button--small miniplayer"
-                        :title="$root.getLz('term.miniplayer')"
+                <button class="playback-button--small cast"
+                        :title="$root.getLz('term.cast')"
+                        @click="cfg.advanced.AudioContext ? modals.castMenu = true : $root.notyf.error($root.getLz('settings.warn.enableAdvancedFunctionality'))"
                         v-b-tooltip.hover
-                        @click="drawer.open = false; miniPlayer(true)"></button>
+                        ></button>
             </div>
             <div class="app-chrome-item generic">
                 <button class="playback-button--small queue"
@@ -194,14 +211,6 @@
                     <button class="playback-button--small lyrics"
                             :style="{'opacity': 0.3, 'pointer-events': 'none'}"></button>
                 </template>
-            </div>
-        </template>
-        <template v-else>
-            <div class="app-chrome-item generic">
-                <button class="playback-button--small miniplayer"
-                        :title="$root.getLz('term.miniplayer')"
-                        v-b-tooltip.hover
-                        @click="drawer.open = false; miniPlayer(true)"></button>
             </div>
         </template>
         <div class="app-chrome-item full-height" id="window-controls-container"

@@ -486,3 +486,24 @@
     }
   }
 }
+
+.mediainfo-popover {
+  user-select: none;
+  .popover-artwork {
+    width: 200px;
+    height: 200px;
+    margin: 0 0 20px 0;
+  }
+
+  .song-name {
+    font-weight: 600;
+  }
+  .song-artist,.song-album {
+    opacity: 0.75;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
