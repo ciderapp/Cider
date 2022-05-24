@@ -1803,11 +1803,24 @@ const app = new Vue({
             }
         },
         isDisabled() {
-            if(!app.mk.nowPlayingItem || app.mk.nowPlayingItem.attributes.playParams.kind == 'radioStation' || app.mk.queue._position + 1 == app.mk.queue.length) {
+            if(!app.mk.nowPlayingItem || app.mk.nowPlayingItem.attributes.playParams.kind == 'radioStation') {
                 return true;
             }
             return false;
         },
+        isPrevDisabled() {
+            if(this.isDisabled()  || (app.mk.queue._position == 0 && app.mk.currentPlaybackTime <= 2)) {
+                return true;
+            }
+            return false;
+        },
+        isNextDisabled() {
+            if(this.isDisabled()  || app.mk.queue._position + 1 == app.mk.queue.length) {
+                return true;
+            }
+            return false;
+        },
+        
         async getNowPlayingItemDetailed(target) {
             try {
                 let u = await app.mkapi(app.mk.nowPlayingItem.playParams.kind,
