@@ -382,7 +382,7 @@
   "settings.option.advanced.playlistTrackMapping": "Afspeellijst Tracktoewijzing",
   "settings.option.advanced.playlistTrackMapping.description": "Maakt diep scannen van afspeellijsten mogelijk om te bepalen welke nummers in welke afspeellijsten staan.  De bouwtijden van de cache van afspeellijsten kunnen aanzienlijk toenemen.",
   "settings.option.visual.transparent": "Transparante kader",
-  "settings.option.visual.transparent.description": "Transparante kader (heeft thema-ondersteuning nodig, moet opnieuw worden gestart)",
+  "settings.option.visual.transparent.description": "Heeft thema-ondersteuning nodig, moet opnieuw worden gestart",
   "spatial.notTurnedOn": "Audio Verruimtelijking is uitgeschakeld. Schakel het eerst in om het te gebruiken.",
   "spatial.spatialProperties": "Ruimtelijke Eigenschappen",
   "spatial.width": "Breedte",

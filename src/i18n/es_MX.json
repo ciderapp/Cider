@@ -405,7 +405,7 @@
   "settings.option.advanced.playlistTrackMapping": "Mapeo de pistas de listas de reproducción",
   "settings.option.advanced.playlistTrackMapping.description": "Habilita el escaneo profundo de las listas de reproducción para determinar qué pistas están en qué listas de reproducción. Los tiempos de creación de la caché de la lista de reproducción pueden aumentar significativamente.",
   "settings.option.visual.transparent": "Marco transparente",
-  "settings.option.visual.transparent.description": "Marco transparente (necesita compatibilidad con temas, requiere reiniciar)",
+  "settings.option.visual.transparent.description": "Necesita compatibilidad con temas, requiere reiniciar",
   "settings.header.advanced": "Avanzado",
   "spatial.notTurnedOn": "La espacialización de audio está deshabilitada. Para usar, habilítelo primero.",
   "spatial.spatialProperties": "Propiedades de Espacializacion",

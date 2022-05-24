@@ -519,7 +519,7 @@
   "settings.option.advanced.playlistTrackMapping": "Lejátszási lista feltérképezés",
   "settings.option.advanced.playlistTrackMapping.description": "Engedélyezi a lejátszási listák mély feltérképezését, ami meg tudja határozni, hogy egy zeneszám mely lejátszási listákba található. A lejátszási lista gyorsítótár felépítésének időtartalma nagy mértékben megnőhet.",
   "settings.option.visual.transparent": "Átlátszó keret",
-  "settings.option.visual.transparent.description": "Átlátszó ablakkeret (a Témák támogatása és újraindítás szükséges)",
+  "settings.option.visual.transparent.description": "a Témák támogatása és újraindítás szükséges",
   "settings.header.advanced": "Haladó",
   "settings.header.connect": "Sync",
   "settings.option.connect.link_account": "Enable Sync with Cider Connect",

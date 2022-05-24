@@ -445,7 +445,7 @@
   "settings.option.advanced.playlistTrackMapping": "プレイリストをマッピング",
   "settings.option.advanced.playlistTrackMapping.description": "プレイリストをスキャンすることで含まれる曲をより識別しやすくなります",
   "settings.option.visual.transparent": "背景の透過",
-  "settings.option.visual.transparent.description": "(テーマがこの機能をサポートしている必要があります)",
+  "settings.option.visual.transparent.description": "テーマがこの機能をサポートしている必要があります",
   "settings.header.advanced": "アドバンス",
   "settings.header.connect": "リンク",
   "settings.option.connect.link_account": "Ciderと他のアプリをリンクさせることができます",

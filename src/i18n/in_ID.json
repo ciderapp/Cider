@@ -382,7 +382,7 @@
   "settings.option.advanced.playlistTrackMapping": "Pemetaan Lagu Playlist",
   "settings.option.advanced.playlistTrackMapping.description": "Mengaktifkan pemindaian daftar putar yang mendalam untuk menentukan trek mana yang ada di daftar putar. Waktu pembuatan cache daftar putar dapat meningkat secara signifikan.",
   "settings.option.visual.transparent": "Frame transparan",
-  "settings.option.visual.transparent.description": "Frame transparan (membutuhkan tema yang mendukung, membutuhkan dibuka ulang)",
+  "settings.option.visual.transparent.description": "membutuhkan tema yang mendukung, membutuhkan dibuka ulang",
   "spatial.notTurnedOn": "Spasialisasi Audio dinonaktifkan. Untuk menggunakan, aktifkan terlebih dahulu.",
   "spatial.spatialProperties": "Spatial Properties",
   "spatial.width": "Lebar",

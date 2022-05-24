@@ -531,7 +531,7 @@
   "settings.option.advanced.playlistTrackMapping": "Playlist Track Mapping",
   "settings.option.advanced.playlistTrackMapping.description": "Enables deep scanning of playlists to determine which tracks are in which playlists.  Playlist cache build times can increase significantly.",
   "settings.option.visual.transparent": "Transparent frame",
-  "settings.option.visual.transparent.description": "(needs Theme Support, requires relaunch)",
+  "settings.option.visual.transparent.description": "needs Theme Support, requires relaunch",
   "settings.header.advanced": "Advanced",
   "settings.header.connect": "Sync",
   "settings.option.connect.link_account": "Enable Sync with Cider Connect",

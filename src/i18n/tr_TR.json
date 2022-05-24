@@ -384,7 +384,7 @@
   "settings.option.advanced.playlistTrackMapping": "Şarkı Dizini Oluşturma",
   "settings.option.advanced.playlistTrackMapping.description": "Hangi parçaların hangi çalma listelerinde olduğunu belirlemek için çalma listelerinin derinlemesine taranmasını sağlar. Oynatma listesi önbelleği oluşturma süreleri önemli ölçüde artabilir.",
   "settings.option.visual.transparent": "Şeffaf çerçeve",
-  "settings.option.visual.transparent.description": "Şeffaf çerçeve (Tema Desteğine ihtiyaç duyar, yeniden başlatma gerektirir)",
+  "settings.option.visual.transparent.description": "Tema Desteğine ihtiyaç duyar, yeniden başlatma gerektirir",
   "settings.header.advanced": "Gelişmiş",
   "spatial.notTurnedOn": "Uzamsal ses devre dışı. Kullanabilmek için lütfen önce etkinleştirin.",
   "spatial.spatialProperties": "Uzamsal Özellikler",

@@ -447,7 +447,7 @@
   "settings.option.advanced.playlistTrackMapping": "Χαρτογράφηση κομματιών λίστών αναπαραγωγής",
   "settings.option.advanced.playlistTrackMapping.description": "Ενεργοποιεί τη βαθιά σάρωση των λιστών αναπαραγωγής για να προσδιορίσει ποια κομμάτια βρίσκονται σε ποιες λίστες αναπαραγωγής. Οι χρόνοι δημιουργίας της προσωρινής μνήμης των λιστών αναπαραγωγής μπορεί να αυξηθούν σημαντικά.",
   "settings.option.visual.transparent": "Διαφανές πλαίσιο",
-  "settings.option.visual.transparent.description": "(χρειάζεται υποστήριξη θέματος, απαιτεί επανεκκίνηση)",
+  "settings.option.visual.transparent.description": "χρειάζεται υποστήριξη θέματος, απαιτεί επανεκκίνηση",
   "settings.header.advanced": "Για προχωρημένους",
   "settings.header.connect": "Συγχρονισμός",
   "settings.option.connect.link_account": "Ενεργοποίηση συγχρονισμού με Cider Connect",

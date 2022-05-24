@@ -361,7 +361,7 @@
   "settings.option.advanced.playlistTrackMapping": "플레이리스트 트랙 매핑",
   "settings.option.advanced.playlistTrackMapping.description": "플레이리스트를 자세히 스캔하여 어떤 트랙이 어떤 플레이리스트에 있는지 확인합니다. 플레이리스트 캐시 빌드 시간이 크게 늘어날 수 있습니다.",
   "settings.option.visual.transparent": "투명 프레임",
-  "settings.option.visual.transparent.description": "투명 프레임 (테마 지원 필요, 재실행 필요)",
+  "settings.option.visual.transparent.description": "테마 지원 필요, 재실행 필요",
   "spatial.notTurnedOn": "오디오 공간화가 비활성화되었습니다. 사용하려면 먼저 활성화하십시오.",
   "spatial.spatialProperties": "공간 설정",
   "spatial.width": "길이",

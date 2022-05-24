@@ -417,3 +417,7 @@ Update 22/05/2022 14:32 UTC
 * `settings.option.experimental.copy_log`: Deleted for all language files
 * `term.spacializedAudioSetting`: Deleted for all language files
 * `term.updateCider`: Deleted for all language files
+
+Update 24/05/2022 20:30 UTC
+
+* `settings.option.visual.transparent.description`: Updated in `el_GR`, `en_OWO`, `en_US`, `es_ES`, `es_MX`, `hu_HU`, `in_ID`, `ja_JP`, `ko_KR`, `nl_NL`, `tr_TR`, please verify if it is correct
