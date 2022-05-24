@@ -1290,16 +1290,6 @@ export class BrowserWindow {
             });
         });
 
-        ipcMain.on('check-for-update', async (_event) => {
-            await utils.checkForUpdate();
-        });
-
-
-        ipcMain.on('disable-update', (event) => {
-            // Check if using app store builds so people don't get pissy wen button go bonk
-            event.returnValue = !(app.isPackaged && !process.mas || !process.windowsStore);
-        })
-
 
         ipcMain.on('share-menu', async (_event, url) => {
             if (process.platform != 'darwin') return;
