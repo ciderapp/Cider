@@ -94,9 +94,9 @@
   "term.time.released": "Релиз: ",
   "term.time.updated": "Обновлено",
   "term.time.day": {
-	"one": "день",
+    "one": "день",
     "few": "дня",
-	"other": "дней"
+    "other": "дней"
   },
   "term.time.hour": {
     "one": "час",
@@ -104,19 +104,15 @@
     "other": "часов"
   },
   "term.time.minute": {
-    "one" : "минута",
-    "few" : "минуты",
-    "other" : "минут"
+    "one": "минута",
+    "few": "минуты",
+    "other": "минут"
   },
   "term.time.second": {
-    "one" : "секунд",
-    "few" : "секунды",
-    "other" : "секунд"
+    "one": "секунд",
+    "few": "секунды",
+    "other": "секунд"
   },
-  
-  
-  
-  
   "term.fullscreenView": "Полноэкранное отображение",
   "term.defaultView": "Стандартное отображение",
   "term.audioSettings": "Настройки звука",
@@ -137,9 +133,9 @@
   "term.equalizer": "Эквалайзер",
   "term.reset": "Сбросить",
   "term.track": {
-    "one" : "песня",
-	"few" : "песни",
-    "other" : "песен"
+    "one": "песня",
+    "few": "песни",
+    "other": "песен"
   },
   "term.videos": "Видео",
   "term.menu": "Меню",
@@ -176,20 +172,20 @@
   "term.topArtists": "Топ артистов",
   "term.listenedTo": "Прослушано:",
   "term.times": {
-	"one": "раз",
+    "one": "раз",
     "few": "раза",
-    "other": "раз"  
+    "other": "раз"
   },
   "term.topAlbums": "Топ альбомов",
   "term.plays": {
-	"one": "прослушивание",
+    "one": "прослушивание",
     "few": "прослушивания",
     "other": "прослушиваний"
   },
   "term.topGenres": "Топ жанров",
   "term.confirmLogout": "Вы уверены, что хотите выйти?",
   "term.creditDesignedBy": "Разработано ${authorUsername}",
-  "term.discNumber": "Диск ${discNumber}",										  
+  "term.discNumber": "Диск ${discNumber}",
   "home.title": "Главная",
   "home.recentlyPlayed": "Недавно прослушанные",
   "home.recentlyAdded": "Недавно добавленные",
@@ -254,7 +250,6 @@
   "action.showAlbum": "Показать весь альбом",
   "action.tray.minimize": "Свернуть в трей",
   "action.tray.quit": "Выйти",
-
   "action.update": "Обновить",
   "action.install": "Установить",
   "action.copy": "Скопировать",
@@ -283,16 +278,10 @@
   "settings.option.general.language.main": "Языки",
   "settings.option.general.language.fun": "Забавные языки",
   "settings.option.general.language.unsorted": "Неотсортированные",
-  "settings.option.general.updateCider": "Обновить Cider",
-  "settings.option.general.updateCider.branch": "Ветка обновления Cider",
-  "settings.option.general.updateCider.branch.description": "Выберите ветку обновления Cider",
-  "settings.option.general.updateCider.branch.main": "Стабильная",
-  "settings.option.general.updateCider.branch.develop": "Нестабильная",
   "settings.option.general.customizeSidebar": "Настроить элементы боковой панели",
   "settings.option.general.customizeSidebar.customize": "Настроить",
   "settings.notyf.updateCider.update-not-available": "Нет доступных обновлений",
   "settings.notyf.updateCider.update-downloaded": "Обновление загружено, перезапустите, чтобы обновить",
-  "settings.notyf.updateCider.update-error": "Ошибка при обновлении Cider",
   "settings.notyf.updateCider.update-timeout": "Время ожидания обновления истекло",
   "settings.header.audio": "Звук",
   "settings.header.audio.description": "Настройка звука Cider.",
@@ -310,7 +299,7 @@
   "settings.option.audio.seamlessTransition": "Плавный переход между песнями",
   "settings.option.audio.enableAdvancedFunctionality": "Включить расширенный функционал",
   "settings.option.audio.enableAdvancedFunctionality.description": "Включение функции AudioContext позволит использовать расширенные функции звука, такие как нормализация звука, эквалайзеры и визуализаторы, однако в некоторых системах это может вызвать заикание звука.",
-  "settings.warn.audio.enableAdvancedFunctionality.lowcores": "Cider считает, что ваш компьютер не справится с этими функциями. Вы уверены что хотите продолжить?",																																					
+  "settings.warn.audio.enableAdvancedFunctionality.lowcores": "Cider считает, что ваш компьютер не справится с этими функциями. Вы уверены что хотите продолжить?",
   "settings.option.audio.audioLab": "Cider Audio Lab",
   "settings.option.audio.audioLab.description": "Ассортимент звуковых обработок собственной разработки для Cider.",
   "settings.warn.audioLab.withoutAF": "AudioContext (Расширенный функционал) требуется для включения Cider Audio Laboratory.",
@@ -398,8 +387,6 @@
   "settings.header.connectivity.description": "Настройка прочих параметров Cider.",
   "settings.option.connectivity.discordRPC": "Discord Rich Presence",
   "settings.option.connectivity.playbackNotifications": "Уведомления о воспроизведении",
-  "settings.header.connectivity.discordRPC.cider": "Отображать как 'Cider'",
-  "settings.header.connectivity.discordRPC.appleMusic": "Отображать как 'Apple Music'",
   "settings.option.connectivity.discordRPC.clearOnPause": "Отключать Discord Rich Presence на паузе",
   "settings.option.connectivity.discordRPC.hideButtons": "Скрыть кнопки в Discord Rich Presence",
   "settings.option.connectivity.lastfmScrobble": "Last.fm cкробблинг",
@@ -415,7 +402,7 @@
   "settings.option.experimental.reinstallwidevine": "Переустановить WidevineCDM",
   "settings.option.experimental.reinstallwidevine.confirm": "Вы уверены, что хотите переустановить Widevine?",
   "settings.option.experimental.unknownPlugin": "Неизвестные источники",
-  "settings.option.experimental.unknownPlugin.description": "Разрешить установку плагинов из репозиториев, отличных от репозитория плагинов Cider", 
+  "settings.option.experimental.unknownPlugin.description": "Разрешить установку плагинов из репозиториев, отличных от репозитория плагинов Cider",
   "settings.option.experimental.compactUI": "Компактный интерфейс",
   "settings.option.window.close_button_hide": "Кнопка «Закрыть» скрывает приложение",
   "settings.option.experimental.inline_playlists": "Встроенные плейлисты и альбомы",
@@ -456,5 +443,5 @@
   "share.platform.email": "Email",
   "share.platform.songLink": "Скопировать с song.link",
   "share.platform.clipboard": "Скопировать ссылку",
-  "about.thanks": "Большое спасибо команде Cider Collective и всем нашим вкладчикам."																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					 
+  "about.thanks": "Большое спасибо команде Cider Collective и всем нашим вкладчикам."
 }
