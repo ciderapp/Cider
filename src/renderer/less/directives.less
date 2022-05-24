@@ -4,22 +4,72 @@
 
 #app.twopanel {
   --chromeHeight1: 46px;
-  --chromeHeight2: 76px;
-  --chromeHeight : calc(var(--chromeHeight1) + var(--chromeHeight2));
+  --chromeHeight2: 90px;
+  --chromeHeight: calc(var(--chromeHeight1) + var(--chromeHeight2));
 
   .app-chrome {
     .app-mainmenu {
-      width : 30px;
+      width: 30px;
       height: 30px;
+    }
+
+    .search-input {
+      width: 300px;
     }
 
     height: var(--chromeHeight1);
 
     &.chrome-bottom {
+      background: var(--color2);
       -webkit-app-region: no-drag;
-      height    : var(--chromeHeight2);
+      height: var(--chromeHeight2);
       box-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
-      z-index   : 1;
+      z-index: 1;
+
+      .app-chrome-playback-duration-bottom {
+        width: 100%;
+
+        .col {
+          display: flex;
+        }
+
+        .col-sm-auto {
+          width: 4em;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 0.8em;
+        }
+
+        input[type=range] {
+          appearance: none;
+          width: 100%;
+          height: 5px;
+          background-color: rgb(200 200 200 / 10%);
+          border-radius: 6px;
+          box-shadow: 0px 0px 0px 1px rgba(0 0 0 / 10%);
+          align-self: center;
+
+          &::-webkit-slider-thumb {
+            opacity: 0;
+            transform: scale(1);
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 100%;
+            background: var(--keyColor);
+            cursor: default;
+            transition: opacity .10s var(--appleEase), transform .10s var(--appleEase);
+          }
+
+          &:hover {
+            &::-webkit-slider-thumb {
+              opacity: 1;
+            }
+          }
+        }
+      }
     }
   }
 
@@ -31,43 +81,43 @@
     .app-playback-controls .actions {
       align-self: center;
     }
+
     -webkit-app-region: no-drag;
 
     .playback-button.play,
-    .playback-button.pause {
-      width           : 42px;
-      height          : 42px;
-      background-color: rgb(200 200 200 / 20%);
-      border-radius   : 50%;
-      margin          : 6px;
-      box-shadow      : 0px 0px 0px 2px var(--keyColor);
+    .playback-button.pause,
+    .playback-button.stop{
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      margin: 6px;
     }
 
     .app-chrome--center {
-      display       : flex;
+      display: flex;
       flex-direction: column;
 
       .app-chrome-playback-controls {
-        display         : flex;
-        z-index         : 1;
+        display: flex;
+        z-index: 1;
         // margin-bottom: 12px;
       }
 
       .app-chrome-playback-duration {
-        position          : relative;
-        width             : 80%;
+        position: relative;
+        width: 80%;
         -webkit-app-region: no-drag;
-        height            : 16px;
+        height: 16px;
 
         .song-progress {
-          @bgColor  : transparent;
-          height    : 16px;
-          position  : absolute;
-          bottom    : 4px;
-          left      : 0px;
-          right     : 4px;
+          @bgColor: transparent;
+          height: 16px;
+          position: absolute;
+          bottom: 4px;
+          left: 0px;
+          right: 4px;
           background: @bgColor;
-          z-index   : 0;
+          z-index: 0;
 
 
           .song-duration {
@@ -76,41 +126,41 @@
 
           .song-duration p {
             font-weight: 400;
-            font-size  : 10px;
-            height     : 1.2em;
+            font-size: 10px;
+            height: 1.2em;
             line-height: 1.3em;
-            overflow   : hidden;
-            margin     : 0 0 0 0.25em;
+            overflow: hidden;
+            margin: 0 0 0 0.25em;
           }
 
           &:hover {
-            >input[type=range] {
+            > input[type=range] {
               &::-webkit-slider-thumb {
-                opacity  : 1;
+                opacity: 1;
                 transform: scale(1);
-                z-index  : 1;
+                z-index: 1;
               }
             }
           }
 
           input[type=range] {
-            appearance      : none;
-            width           : 100%;
-            height          : 4px;
+            appearance: none;
+            width: 100%;
+            height: 4px;
             background-color: rgb(200 200 200 / 10%);
-            border-radius   : 2px;
+            border-radius: 2px;
 
             &::-webkit-slider-thumb {
-              opacity           : 0;
-              transform         : scale(0.5);
+              opacity: 0;
+              transform: scale(0.5);
               -webkit-appearance: none;
-              appearance        : none;
-              width             : 12px;
-              height            : 12px;
-              border-radius     : 100%;
-              background        : var(--keyColor);
-              cursor            : default;
-              transition        : opacity .10s var(--appleEase), transform .10s var(--appleEase);
+              appearance: none;
+              width: 12px;
+              height: 12px;
+              border-radius: 100%;
+              background: var(--keyColor);
+              cursor: default;
+              transition: opacity .10s var(--appleEase), transform .10s var(--appleEase);
             }
           }
         }
@@ -119,42 +169,48 @@
     }
 
     .app-chrome--left {
-      width          : 30%;
+      width: 30%;
       justify-content: flex-start;
-      align-items    : flex-start;
-      -webkit-app-region: no-drag!important;
+      align-items: flex-start;
+      -webkit-app-region: no-drag !important;
+
       .playback-controls {
-        -webkit-app-region: no-drag!important;
+        -webkit-app-region: no-drag !important;
+
         .artwork {
-          width     : var(--chromeHeight2);
-          height    : var(--chromeHeight2);
-          margin    : 0px 6px 0px 0px;
-          box-shadow: unset;
-          border    : 0px;
+          --offset: 20px;
+          --marginOffset: 2;
+          --size: calc(var(--chromeHeight2) - var(--offset));
+          width: var(--size);
+          height: var(--size);
+          margin: 0 calc(var(--offset) / var(--marginOffset)) 0 calc(var(--offset) / var(--marginOffset));
 
           .mediaitem-artwork,
           img {
-            border-radius: 0px;
-            box-shadow   : unset;
-            border       : 0px;
+            border-radius: calc(var(--mediaItemRadius) / 2);
           }
         }
 
         .playback-info {
           align-items: flex-start;
-          margin     : 6px;
+          margin: 6px;
 
           .song-name {
-            text-align        : left;
-            font-size         : 15px;
-            font-weight       : initial;
-            width             : 100%;
+            text-align: left;
+            font-size: 0.98em;
+            font-weight: 500;
+            width: 100%;
             -webkit-mask-image: linear-gradient(-90deg, transparent 0%, transparent 10%, black 20%);
           }
 
-          .song-artist-album {
-            width             : 100%;
-            -webkit-mask-image: linear-gradient(-90deg, transparent 0%, transparent 10%, black 20%);
+          .song-artist, .song-album {
+            font-size: 0.75em;
+            opacity: 0.8;
+            cursor: pointer;
+
+            &:hover {
+              text-decoration: underline;
+            }
           }
 
           .audio-type {
@@ -163,23 +219,23 @@
 
           .song-artist-album-content {
             text-align: left;
-            font-size : 12px;
+            font-size: 12px;
           }
         }
 
 
-        width    : 100%;
-        height   : 100%;
+        width: 100%;
+        height: 100%;
         max-width: 100%;
-        border   : 0px;
+        border: 0px;
       }
 
       flex: 0 0 auto;
     }
 
     .app-chrome--right {
-      width        : 30%;
-      flex         : 0 0 auto;
+      width: 30%;
+      flex: 0 0 auto;
       padding-right: 8px;
     }
   }

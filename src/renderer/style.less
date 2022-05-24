@@ -1,10 +1,10 @@
-@import url("assets/fonts/Inter/inter.css");
+@import url("assets/fonts/Pretendard/pretendardvariable.css");
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap');
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;300;400;500;700;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@100;300;400;500;700;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap");
-@import url("less/bootstrap-vue.min.css");
+@import url("less/bootstrap-vue.min.less");
 @import url("less/ameframework.less");
 @import url("less/codicon.css");
 @import url("less/bootstrap.less");
@@ -63,7 +63,7 @@ body {
   background-size: cover;
   background-position: center;
   background: #0000;
-  font-family: "Inter var experimental", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: "Pretendard Variable", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   transition: opacity .10s var(--appleEase);
 }
 
@@ -146,8 +146,16 @@ body.notransparency::before {
 }
 
 #app {
-  --color1: rgba(15, 15, 15, 30%);
-  --color2: rgba(30, 30, 30, 50%);
+  @panelBrightness  : 0%;
+  @panelTransparency: 50%;
+  @msColor1           : #202020;
+  @msColor2           : #272727;
+  @msColor3           : #2b2b2b;
+  --panelColor1     : darken(mix(@msColor1, transparent, @panelTransparency), @panelBrightness);
+  --panelColor2     : darken(mix(@msColor2, transparent, @panelTransparency), @panelBrightness);
+  --color1  : var(--panelColor2);
+  --color2  : var(--panelColor1);
+  --color3  : rgb(0 0 0 / 20%);
   --bgColor: transparent;
   --bgWidth: 0px;
   --bgHeight: 0px;
@@ -399,7 +407,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 }
 
 #app-content {
-  background-color: var(--color2);
+  background-color: var(--color3);
   height: 100%;
   width: 100%;
   overflow-y: scroll;
@@ -827,6 +835,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   color: #eee;
   transition: transform 0.1s;
   text-align: left;
+  align-items: center;
 
   &.app-sidebar-item-playlist {
     -webkit-user-drag: element;
@@ -1006,20 +1015,10 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   height: 14px;
   width: 14px;
   border-radius: 50%;
-  background: rgb(50 50 50);
+  background: #A5A8BA;
+  box-shadow: 0px 0px 0px 1px rgba(0 0 0 / 10%);
   cursor: default;
-  box-shadow: inset 0px 0px 0px 1px rgba(255, 255, 255, 0.4);
   transition: all var(--appleTransition);
-}
-
-.app-chrome .app-chrome-item.volume > input[type=range]::-webkit-slider-thumb:hover {
-  background-image: radial-gradient(var(--keyColor) 2px, transparent 3px, transparent 10px);
-  transform: scale(1.2);
-}
-
-.app-chrome .app-chrome-item.volume > input[type=range]::-webkit-slider-thumb:active {
-  background-image: radial-gradient(var(--keyColor) 3px, transparent 4px, transparent 10px);
-  transform: scale(1);
 }
 
 .app-chrome .app-chrome-item.volume > input[type=range] {

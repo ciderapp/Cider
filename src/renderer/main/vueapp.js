@@ -661,6 +661,7 @@ const app = new Vue({
             }
 
             this.mk._bag.features['seamless-audio-transitions'] = this.cfg.audio.seamless_audio
+            this.mk._bag.features["broadcast-radio"] = true
             this.mk._services.apiManager.store.storekit._restrictedEnabled = false
             // API Fallback
             if (!this.chrome.userinfo) {
@@ -1804,6 +1805,25 @@ const app = new Vue({
                 app.skipToPreviousItem()
             }
         },
+        isDisabled() {
+            if(!app.mk.nowPlayingItem || app.mk.nowPlayingItem.attributes.playParams.kind == 'radioStation') {
+                return true;
+            }
+            return false;
+        },
+        isPrevDisabled() {
+            if(this.isDisabled()  || (app.mk.queue._position == 0 && app.mk.currentPlaybackTime <= 2)) {
+                return true;
+            }
+            return false;
+        },
+        isNextDisabled() {
+            if(this.isDisabled()  || app.mk.queue._position + 1 == app.mk.queue.length) {
+                return true;
+            }
+            return false;
+        },
+        
         async getNowPlayingItemDetailed(target) {
             try {
                 let u = await app.mkapi(app.mk.nowPlayingItem.playParams.kind,
@@ -3698,7 +3718,7 @@ const app = new Vue({
                 if (app.getThemeDirective("lcdArtworkSize") != "") {
                     artworkSize = app.getThemeDirective("lcdArtworkSize")
                 } else if (this.cfg.visual.directives.windowLayout == "twopanel") {
-                    artworkSize = 80
+                    artworkSize = 110
                 }
                 this.currentArtUrl = '';
                 this.currentArtUrlRaw = '';
@@ -4188,11 +4208,8 @@ const app = new Vue({
             this.fullscreenState = flag; 
             if (flag) {
                 ipcRenderer.send('setFullScreen', true);
-                if (app.mk.nowPlayingItem.type && app.mk.nowPlayingItem.type.toLowerCase().includes("video")) {
-                   // document.querySelector('video#apple-music-video-player').requestFullscreen()
-                } else {
-                    app.appMode = 'fullscreen';
-                }
+                app.appMode = 'fullscreen';
+
                 document.addEventListener('keydown', event => {
                     if (event.key === 'Escape' && app.appMode === 'fullscreen') {
                         this.fullscreen(false);
@@ -4200,11 +4217,7 @@ const app = new Vue({
                 });
             } else {
                 ipcRenderer.send('setFullScreen', false);
-                if (app.mk.nowPlayingItem.type && app.mk.nowPlayingItem.type.toLowerCase().includes("video")) {
-
-                } else {
-                    app.appMode = 'player';
-                }
+                app.appMode = 'player';
             }
         },
         pip(){

@@ -161,7 +161,7 @@ jobs:
           command: yarn circle:script
       - run:
           name: Set App Version
-          command: echo "export APP_VERSION=$(grep '"version":.*' package.json | cut -d '"' -f 4 | head -1)" >> $BASH_ENV
+          command: echo "export APP_VERSION=$(grep '"version":.*' package.json | cut -d '"' -f 16 | head -1)" >> $BASH_ENV
       - run:
           name: Publish Release
           command: |

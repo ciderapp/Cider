@@ -35,35 +35,37 @@
         </template>
         <template v-if="getThemeDirective('windowLayout') != 'twopanel'">
             <div class="app-chrome-item display--large">
-                <button class="playback-button--small shuffle" v-if="mk.shuffleMode == 0"
+                <button class="playback-button--small shuffle" v-if="mk.shuffleMode == 0" :class="isDisabled() && 'disabled'"
                         @click="mk.shuffleMode = 1" :title="$root.getLz('term.enableShuffle')"
                         v-b-tooltip.hover></button>
-                <button class="playback-button--small shuffle active" v-else
+                <button class="playback-button--small shuffle active" v-else :class="isDisabled() && 'disabled'"
                         @click="mk.shuffleMode = 0" :title="$root.getLz('term.disableShuffle')"
                         v-b-tooltip.hover></button>
             </div>
             <div class="app-chrome-item display--large">
-                <button class="playback-button previous" @click="prevButton()"
+                <button class="playback-button previous" @click="prevButton()" :class="isPrevDisabled() && 'disabled'"
                         :title="$root.getLz('term.previous')" v-b-tooltip.hover></button>
             </div>
             <div class="app-chrome-item display--large">
-                <button class="playback-button pause" @click="mk.pause()" v-if="mk.isPlaying"
+                <button class="playback-button stop" @click="mk.stop()" v-if="mk.isPlaying && mk.nowPlayingItem.attributes.playParams.kind == 'radioStation'"
+                        :title="$root.getLz('term.stop')" v-b-tooltip.hover></button>
+                <button class="playback-button pause" @click="mk.pause()" v-else-if="mk.isPlaying"
                         :title="$root.getLz('term.pause')" v-b-tooltip.hover></button>
                 <button class="playback-button play" @click="mk.play()" v-else
                         :title="$root.getLz('term.play')" v-b-tooltip.hover></button>
             </div>
             <div class="app-chrome-item display--large">
-                <button class="playback-button next" @click="skipToNextItem()"
+                <button class="playback-button next" @click="skipToNextItem()" :class="isNextDisabled() && 'disabled'"
                         :title="$root.getLz('term.next')" v-b-tooltip.hover></button>
             </div>
             <div class="app-chrome-item display--large">
-                <button class="playback-button--small repeat" v-if="mk.repeatMode == 0"
+                <button class="playback-button--small repeat" v-if="mk.repeatMode == 0" :class="isDisabled() && 'disabled'"
                         @click="mk.repeatMode = 1" :title="$root.getLz('term.enableRepeatOne')"
                         v-b-tooltip.hover></button>
-                <button class="playback-button--small repeat repeatOne" @click="mk.repeatMode = 2"
+                <button class="playback-button--small repeat repeatOne" @click="mk.repeatMode = 2" :class="isDisabled() && 'disabled'"
                         v-else-if="mk.repeatMode == 1" :title="$root.getLz('term.disableRepeatOne')"
                         v-b-tooltip.hover></button>
-                <button class="playback-button--small repeat active" @click="mk.repeatMode = 0"
+                <button class="playback-button--small repeat active" @click="mk.repeatMode = 0" :class="isDisabled() && 'disabled'"
                         v-else-if="mk.repeatMode == 2" :title="$root.getLz('term.disableRepeat')"
                         v-b-tooltip.hover></button>
             </div>
@@ -74,9 +76,30 @@
             <template v-if="mkReady()">
                 <div class="app-playback-controls" @mouseover="chrome.progresshover = true"
                      @mouseleave="chrome.progresshover = false" @contextmenu="nowPlayingContextMenu">
-                    <div class="artwork" @click="drawer.open = false; fullscreen(true)">
+                    <div class="artwork" id="artworkLCD">
                         <mediaitem-artwork :url="currentArtUrl"></mediaitem-artwork>
                     </div>
+                    <b-popover custom-class="mediainfo-popover" target="artworkLCD" triggers="hover" placement="bottom">
+                        <div class="content">
+                            <div class="shadow-artwork">
+                                <mediaitem-artwork :url="currentArtUrl" :url="currentArtUrlRaw"></mediaitem-artwork>
+                            </div>
+                            <div class="popover-artwork">
+                                <mediaitem-artwork :size="210" :url="currentArtUrlRaw"></mediaitem-artwork>
+                            </div>
+                            <div class="song-name">{{ mk.nowPlayingItem["attributes"]["name"] }}</div>
+                            <div class="song-artist" @click="getNowPlayingItemDetailed(`artist`)">{{ mk.nowPlayingItem["attributes"]["artistName"] }}</div>
+                            <div class="song-album" @click="getNowPlayingItemDetailed(`album`)">
+                                {{(mk.nowPlayingItem["attributes"]["albumName"]) ?
+                                (mk.nowPlayingItem["attributes"]["albumName"]) : "" }}
+                            </div>
+                            <hr>
+                            <div class="btn-group" style="width:100%;">
+                                <button class="md-btn md-btn-small" style="width: 100%;" @click="drawer.open = false; miniPlayer(true)">{{ $root.getLz("term.miniplayer") }}</button>
+                                <button class="md-btn md-btn-small" style="width: 100%;" @click="drawer.open = false; fullscreen(true)">{{ $root.getLz("term.fullscreenView") }}</button>
+                            </div>
+                        </div>
+                    </b-popover>
                     <div class="playback-info">
                         <div class="chrome-icon-container">
                             <div class="audio-type private-icon" v-if="cfg.general.privateEnabled === true"></div>
@@ -136,8 +159,24 @@
             </template>
 
         </div>
-        <div class="app-title-text" v-if="false">
-            Cider
+        <div class="app-chrome-item" v-else>
+            <div class="search-input-container">
+                <div class="search-input--icon"></div>
+                <input type="search" spellcheck="false" @click="showSearch()" @focus="search.showHints = true"
+                       @blur="setTimeout(()=>{search.showHints = false}, 300)"
+                       v-on:keyup.enter="searchQuery();search.showHints = false" @change="showSearch();"
+                       @input="getSearchHints()" :placeholder="$root.getLz('term.search') + '...'" v-model="search.term"
+                       ref="searchInput" class="search-input">
+
+                <div class="search-hints-container" v-if="search.showHints && search.hints.length != 0">
+                    <div class="search-hints">
+                        <button class="search-hint text-overflow-elipsis" v-for="hint in search.hints"
+                                @click="search.term = hint;search.showHints = false;searchQuery(hint)">
+                            {{ hint }}
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="app-chrome--right">
@@ -152,10 +191,11 @@
                        v-b-tooltip.hover :title="formatVolumeTooltip()">
             </div>
             <div class="app-chrome-item generic">
-                <button class="playback-button--small miniplayer"
-                        :title="$root.getLz('term.miniplayer')"
+                <button class="playback-button--small cast"
+                        :title="$root.getLz('term.cast')"
+                        @click="cfg.advanced.AudioContext ? modals.castMenu = true : $root.notyf.error($root.getLz('settings.warn.enableAdvancedFunctionality'))"
                         v-b-tooltip.hover
-                        @click="drawer.open = false; miniPlayer(true)"></button>
+                        ></button>
             </div>
             <div class="app-chrome-item generic">
                 <button class="playback-button--small queue"

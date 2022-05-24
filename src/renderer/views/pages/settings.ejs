@@ -89,6 +89,9 @@
                                 <label>
                                     <select class="md-select" style="width:180px;"
                                             v-model="$root.cfg.general.resumeTabs.tab">
+                                        <option value="dynamic">
+                                            {{$root.getLz('settings.option.general.resumetabs.dynamic')}}
+                                        </option>
                                         <option value="home">{{$root.getLz('home.title')}}</option>
                                         <option value="listen_now">{{$root.getLz('term.listenNow')}}</option>
                                         <option value="browse">{{$root.getLz('term.browse')}}</option>
@@ -99,9 +102,6 @@
                                         <option value="library-artists">{{$root.getLz('term.artists')}}</option>
                                         <option value="library-videos">{{$root.getLz('term.videos')}}</option>
                                         <option value="podcasts">{{$root.getLz('term.podcasts')}}</option>
-                                        <option value="dynamic">
-                                            {{$root.getLz('settings.option.general.resumetabs.dynamic')}}
-                                        </option>
                                     </select>
                                 </label>
                             </div>

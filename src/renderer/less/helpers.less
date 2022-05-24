@@ -333,6 +333,7 @@
       position  : relative;
       width     : 100%;
       padding   : 9px 14px;
+      align-items: center;
 
       &::before {
         background   : var(--hover);
@@ -481,6 +482,41 @@
 
       &:not(.modal-subtitle) {
         font-size: 25px;
+      }
+    }
+  }
+}
+
+.mediainfo-popover {
+  user-select: none;
+  background-color: rgb(0 0 0 / 100%);
+  overflow: hidden;
+
+  .content {
+    .shadow-artwork {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      filter:blur(32px) brightness(50%) saturate(280%);
+    }
+    .popover-artwork {
+      width: 200px;
+      height: 200px;
+      margin: 0 0 20px 0;
+    }
+
+    .song-name {
+      font-weight: 600;
+    }
+    .song-artist,.song-album {
+      opacity: 0.75;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
       }
     }
   }

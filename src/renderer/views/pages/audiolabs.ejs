@@ -118,20 +118,6 @@
                         </select>
                     </div>
                 </div>
-                <div class="spprofile-line" v-show="app.cfg.audio.maikiwiAudio.spatial === true">
-                    <div class="spprofile-viewport">
-                        <button class="spprev" @click="profilePrev"></button>
-                        <button class="nextprev" @click="profileNext"></button>
-                        <template v-for="profile in spprofiles" v-if="$root.cfg.audio.maikiwiAudio.spatialProfile == profile.id">
-                            <transition name="spfade">
-                                <div class="spslide" :key="profile.id">
-                                    <img v-if="profile.img" loading="eager" decoding="async" :src="profile.img" alt="">
-                                    <h1 class="sptitle">{{ profile.name }}</h1>
-                                </div>
-                            </transition>
-                        </template>
-                    </div>
-                </div>
                 <div style="opacity: 0.5; pointer-events: none">
                     <div class="md-option-header">
                         <span>{{$root.getLz('settings.header.unfinished')}}</span>
@@ -192,6 +178,14 @@
                     case "Maikiwi":
                         return "Maikiwi";
                         break;
+
+                    case "Maikiwi+":
+                    return "Maikiwi+";
+                        break;
+
+                    case "live":
+                    return "LIVE";
+                        break;
                 }
                 switch (type) {
                     case "CAR":
@@ -203,39 +197,6 @@
                     default:
                         return name;
                 }
-            },
-            profileNext() {
-                var next = this.spprofiles.find(function (profile) {
-                    return profile.id === this.$root.cfg.audio.maikiwiAudio.spatialProfile;
-                }.bind(this));
-                if (next) {
-                    next = this.spprofiles[this.spprofiles.indexOf(next) + 1];
-                    if (next) {
-                        this.$root.cfg.audio.maikiwiAudio.spatialProfile = next.id;
-                    } else {
-                        this.$root.cfg.audio.maikiwiAudio.spatialProfile = this.spprofiles[0].id;
-                    }
-                } else {
-                    this.$root.cfg.audio.maikiwiAudio.spatialProfile = this.spprofiles[0].id;
-                }
-                this.toggleMaikiwiSpatial()
-            },
-            profilePrev() {
-                // select the previous profile based on $root.cfg.audio.maikiwiAudio.spatialProfile
-                var prev = this.spprofiles.find(function (profile) {
-                    return profile.id === this.$root.cfg.audio.maikiwiAudio.spatialProfile;
-                }.bind(this));
-                if (prev) {
-                    prev = this.spprofiles[this.spprofiles.indexOf(prev) - 1];
-                    if (prev) {
-                        this.$root.cfg.audio.maikiwiAudio.spatialProfile = prev.id;
-                    } else {
-                        this.$root.cfg.audio.maikiwiAudio.spatialProfile = this.spprofiles[this.spprofiles.length - 1].id;
-                    }
-                } else {
-                    this.$root.cfg.audio.maikiwiAudio.spatialProfile = this.spprofiles[this.spprofiles.length - 1].id;
-                }
-                this.toggleMaikiwiSpatial()
             },
             toggleSpatial: function () {
                 if (app.cfg.audio.maikiwiAudio.spatial) {
