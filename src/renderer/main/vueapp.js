@@ -246,7 +246,7 @@ const app = new Vue({
     watch: {
         cfg: {
             handler: function (val, oldVal) {
-                console.debug(`cfg changed from ${oldVal} to ${val}`);
+                console.debug(`Config changed: ${JSON.stringify(val)}`);
                 ipcRenderer.send("setStore", val);
             },
             deep: true
@@ -3903,19 +3903,15 @@ const app = new Vue({
         volumeUp() {
             if ((app.mk.volume + app.cfg.audio.volumeStep) > app.cfg.audio.maxVolume) {
                 app.mk.volume = app.cfg.audio.maxVolume;
-                console.debug('setting max volume')
             } else {
-                console.log('volume up')
-                app.mk.volume = ((app.mk.volume * 100) + (app.cfg.audio.volumeStep * 100)) / 100
+                app.mk.volume = (Math.floor((app.mk.volume * 100)) + (app.cfg.audio.volumeStep * 100)) / 100
             }
         },
         volumeDown() {
             if ((app.mk.volume - app.cfg.audio.volumeStep) < 0) {
                 app.mk.volume = 0;
-                console.debug('setting volume to 0')
             } else {
-                console.log('volume down')
-                app.mk.volume = ((app.mk.volume * 100) - (app.cfg.audio.volumeStep * 100)) / 100
+                app.mk.volume = (Math.floor((app.mk.volume * 100)) - (app.cfg.audio.volumeStep * 100)) / 100
             }
         },
         volumeWheel(event) {

@@ -1,5 +1,5 @@
 global.ipcRenderer = require('electron').ipcRenderer;
-console.log('Loaded Preload')
+console.info('Loaded Preload')
 
 let cache = {playParams: {id: 0}, status: null, remainingTime: 0},
 	playbackCache = {status: null, time: Date.now()};
@@ -24,7 +24,7 @@ const MusicKitInterop = {
 		/** wsapi */
 
 		MusicKit.getInstance().addEventListener(MusicKit.Events.nowPlayingItemDidChange, async () => {
-			console.log('nowPlayingItemDidChange')
+			console.debug('nowPlayingItemDidChange')
 			const attributes = MusicKitInterop.getAttributes()
 			const trackFilter = MusicKitInterop.filterTrack(attributes, false, true)
 
@@ -156,19 +156,19 @@ const MusicKitInterop = {
 		// } catch (e) { }
 		// if (MusicKit.getInstance().queue.nextPlayableItemIndex != -1 && MusicKit.getInstance().queue.nextPlayableItemIndex != null)
 		// MusicKit.getInstance().changeToMediaAtIndex(MusicKit.getInstance().queue.nextPlayableItemIndex);
-		MusicKit.getInstance().skipToNextItem().then(r => console.log(`[MusicKitInterop.next] Skipping to Next ${r}`));
+		MusicKit.getInstance().skipToNextItem().then(r => console.debug(`[MusicKitInterop.next] Skipping to Next ${r}`));
 	},
 
 	previous: () => {
 		// if (MusicKit.getInstance().queue.previousPlayableItemIndex != -1 && MusicKit.getInstance().queue.previousPlayableItemIndex != null)
 		// MusicKit.getInstance().changeToMediaAtIndex(MusicKit.getInstance().queue.previousPlayableItemIndex);
-		MusicKit.getInstance().skipToPreviousItem().then(r => console.log(`[MusicKitInterop.previous] Skipping to Previous ${r}`));
+		MusicKit.getInstance().skipToPreviousItem().then(r => console.debug(`[MusicKitInterop.previous] Skipping to Previous ${r}`));
 	}
 
 }
 
 
 process.once('loaded', () => {
-	console.log("Setting ipcRenderer")
+	console.debug("Setting ipcRenderer")
 	global.MusicKitInterop = MusicKitInterop;
 });
