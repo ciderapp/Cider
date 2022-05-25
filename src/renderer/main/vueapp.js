@@ -4339,8 +4339,10 @@ const app = new Vue({
                     return;
                 }
             }
-            if (!this.isDev) // disable in dev mode to keep my sanity
+            if (!this.isDev) {
+                // disable in dev mode to keep my sanity
                 MusicKitInterop.playPause();
+            }
         },
         async MKJSLang() {
             let u = this.cfg.general.language;
