@@ -4,7 +4,10 @@ const Events = {
 
 // add event listener for when window.location.hash changes
         window.addEventListener("hashchange", function () {
-            app.appRoute(window.location.hash)
+            app.page = "blank"
+            setTimeout(()=>{
+                app.appRoute(window.location.hash)
+            }, 100)
         });
 
         window.addEventListener("mouseup", (e) => {

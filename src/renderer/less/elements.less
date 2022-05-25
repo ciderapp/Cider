@@ -2049,3 +2049,38 @@ input[type=checkbox][switch]:checked:active::before {
     pointer-events: none;
   }
 }
+
+.grouping-container {
+  display: flex;
+  flex-flow: wrap;
+  gap: 16px;
+  .grouping-btn {
+    padding: 16px;
+    appearance: none;
+    border: 0px;
+    border-radius: 10px;
+    background: var(--color1);
+    color: var(--keyColor);
+    width: 100%;
+    text-align: left;
+    font-family: inherit;
+    cursor: pointer;
+    flex: 1 0 21%;
+    position: relative;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      font-family: "codicon";
+      display: flex;
+      align-items: center;
+      width: 28px;
+      font-weight: bold;
+      font-size: 1.2em;
+      pointer-events: none;
+    }
+  }
+}

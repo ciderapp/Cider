@@ -484,6 +484,10 @@ const app = new Vue({
                 }, 100)
             })
         },
+        goToGrouping(url = "https://music.apple.com/WebObjects/MZStore.woa/wa/viewGrouping?cc=us&id=34") {
+            const id = url.split("id=")[1];
+            window.location.hash = `#groupings/${id}`
+        },
         navigateForward() {
             history.forward()
         },

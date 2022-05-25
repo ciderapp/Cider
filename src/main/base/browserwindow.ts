@@ -56,6 +56,7 @@ export class BrowserWindow {
                 "pages/library-albums",
                 "pages/library-artists",
                 "pages/browse",
+                "pages/groupings",
                 "pages/settings",
                 "pages/installed-themes",
                 "pages/listen_now",
@@ -187,6 +188,11 @@ export class BrowserWindow {
                     page: "browsepage",
                     component: `<cider-browse :data="browsepage"></cider-browse>`,
                     condition: `page == 'browse'`,
+                    onEnter: ``
+                },{
+                    page: "groupings",
+                    component: `<cider-groupings :data="browsepage"></cider-groupings>`,
+                    condition: `page == 'groupings'`,
                     onEnter: ``
                 }, {
                     page: "listen_now",
