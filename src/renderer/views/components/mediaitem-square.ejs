@@ -109,20 +109,21 @@
         },
         methods: {
             getBgColor() {
-                let color = `#${(this.item.attributes.artwork != null && this.item.attributes.artwork.bgColor != null) ? (this.item.attributes.artwork.bgColor) : ``}`
-                return color
+                return `#${(this.item.attributes.artwork != null && this.item.attributes.artwork.bgColor != null) ? (this.item.attributes.artwork.bgColor) : ``}`
             },
             getContextMenu(event) {
-                if (this.item.type == "artists") {
+                if (this.item.type === "artists") {
                     return this.artistMenu(event)
                 } else {
                     return this.contextMenu(event)
                 }
             },
             getSubtitle() {
-                if (this.kind == 'card' || this.item.type == "playlists") {
+                if (this.kind === 'card' || this.item.type === "playlists") {
                     try {
-                        if (typeof this.item.attributes.artistNames != "undefined") {
+						if (typeof this.item.attributes.description.standard != "undefined") {
+							return this.item.attributes.description.standard
+						} else if (typeof this.item.attributes.artistNames != "undefined") {
                             return this.item.attributes.artistNames
                         } else if (typeof this.item.attributes.editorialNotes != "undefined") {
                             return this.item?.attributes?.editorialNotes?.short ?? (this.item.attributes?.editorialNotes?.name ?? '')
@@ -143,16 +144,12 @@
                 }
             },
             getSubtitleNavigation() {
-                if (this.kind == 'card' || this.item.type == "playlists") {
+                if (this.kind === 'card' || this.item.type === "playlists") {
                     try {
-                        if (typeof this.item.attributes.artistNames != "undefined") {
-                            return app.routeView(this.item)
-                        } else if (typeof this.item.attributes.editorialNotes != "undefined") {
-                            return app.routeView(this.item)
-                        } else if (typeof this.item.attributes.artistName != "undefined") {
-                            return app.searchAndNavigate(this.item,'artist')
+						if (typeof this.item.attributes.artistName != "undefined") {
+							return app.searchAndNavigate(this.item,'artist')
                         } else {
-                            return app.routeView(this.item)
+							return app.routeView(this.item)
                         }
                     }catch(e) {
                         return app.routeView(this.item)
