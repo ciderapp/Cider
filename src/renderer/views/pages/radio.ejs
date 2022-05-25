@@ -1,0 +1,91 @@
+<script type="text/x-template" id="cider-radio">
+    <div class="content-inner">
+        <h1 class="header-text">{{ app.getLz('term.radio') }}</h1>
+        <div class="row">
+            <div class="col">
+                <h3>{{ app.getLz('term.personalStations') }}</h3>
+            </div>
+        </div>
+<!--        <mediaitem-square :kind="'385'" size="600"-->
+<!--                          :item="item ? (item.attributes.kind ? item : ((item.relationships && item.relationships.contents ) ? item.relationships.contents.data[0] : item)) : []"-->
+<!--                          :imagesize="800"-->
+<!--                          v-for="item of getFlattenedCategories()">-->
+        <mediaitem-square :item="item" v-for="item in radio.personal"></mediaitem-square>
+        <div class="row">
+            <div class="col">
+                <h3>{{ app.getLz('term.recentStations') }}</h3>
+            </div>
+        </div>
+        <mediaitem-square :item="station" v-for="station in radio.recent"></mediaitem-square>
+        <div class="row">
+            <div class="col">
+                <h3>{{ app.getLz('term.amLive') }}</h3>
+            </div>
+        </div>
+        <mediaitem-square :item="station" v-for="station in radio.am"></mediaitem-square>
+    </div>
+</script>
+
+<script>
+	Vue.component('cider-radio', {
+		template: "#cider-radio",
+		props: ["data"],
+		data: function () {
+			return {
+				app: this.$root,
+                radio: {personal: [], recent: [], am: []}
+			}
+		},
+        async mounted() {
+	        this.radio.personal = await this.getPersonalStations()
+            this.radio.recent = await this.getRecentStations()
+            this.radio.am = await this.getAmStations()
+            console.log(this.radio)
+	        // this.getPersonalStations();
+	        // this.getAmStations();
+        },
+		methods: {
+			async getPersonalStations(attempts = 0) {
+				if (attempts > 3) {
+					return []
+				}
+				try {
+					return (await app.mk.api.v3.music(`/v1/catalog/${app.mk.api.v3.storefrontId}/stations`, {
+						"filter[identity]": "personal",
+					})).data.data
+				} catch (e) {
+					console.error(`Failed to get personal stations: ${e}`)
+					await this.getPersonalStations(attempts + 1)
+				}
+			},
+			async getRecentStations(attempts = 0) {
+				if (attempts > 3) {
+					return []
+				}
+				try {
+					return (await app.mk.api.v3.music(`/v1/me/recent/radio-stations`, {
+						"platform": "web",
+						"art[url]": "f",
+						l: app.mklang
+					})).data.data
+				} catch (e) {
+					console.error(`Failed to get recent stations: ${e}`)
+					await this.getRecentStations(attempts + 1)
+				}
+			},
+			async getAmStations(attempt = 0) {
+				if (attempt > 3) {
+					return []
+				}
+				try {
+					return (await app.mk.api.v3.music(`/v1/catalog/${app.mk.api.v3.storefrontId}/stations`, {
+						"filter[featured]": "apple-music-live-radio",
+					})).data.data
+				} catch (e) {
+					console.error(`Failed to get AM stations: ${e}`)
+					await this.getAmStations(attempt + 1)
+				}
+			},
+		}
+	})
+</script>

@@ -299,7 +299,6 @@ Update 28/04/2022 21:45 UTC
 * `term.dynamic`: Added for `en_US`
 
 Update 29/04/2022 00:00 UTC
-
 * `menubar.options.about`: Added for `en_US`
 * `menubar.options.settings`: Added for `en_US`
 * `menubar.options.quit`: Added for `en_US`
@@ -393,7 +392,6 @@ Update 18/05/2022 14:20 UTC
 * `action.tray.previous`: Added for `en_US`,
 
 Update 22/05/2022 03:53 UTC
-
 * `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.diffused`: Added for `en_US`
 
 Update 22/05/2022 14:32 UTC

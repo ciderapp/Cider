@@ -59,6 +59,7 @@ export class BrowserWindow {
                 "pages/settings",
                 "pages/installed-themes",
                 "pages/listen_now",
+                "pages/radio",
                 "pages/home",
                 "pages/artist-feed",
                 "pages/cider-playlist",
@@ -191,6 +192,11 @@ export class BrowserWindow {
                     page: "listen_now",
                     component: `<cider-listen-now :data="listennow"></cider-listen-now>`,
                     condition: `page == 'listen_now'`,
+                    onEnter: ``
+                }, {
+                    page: "radio",
+                    component: `<cider-radio :data="radio"></cider-radio>`,
+                    condition: `page == 'radio'`,
                     onEnter: ``
                 }, {
                     page: "settings",

@@ -43,7 +43,9 @@ const app = new Vue({
         listennow: [],
         madeforyou: [],
         radio: {
-            personal: []
+            personal: {},
+            recent: {},
+            amlive: {},
         },
         mklang: 'en',
         webview: {
@@ -326,6 +328,7 @@ const app = new Vue({
             try {
                 this.listennow.timestamp = 0;
                 this.browsepage.timestamp = 0;
+                this.radio.timestamp = 0;
             } catch (e) { }
         },
         /**
@@ -2646,21 +2649,6 @@ const app = new Vue({
             } catch (e) {
                 console.log(e)
                 this.getBrowsePage(attempt + 1)
-            }
-        },
-        async getRadioStations(attempt = 0) {
-            if (attempt > 3) {
-                return
-            }
-            try {
-                this.radio.personal = (await app.mk.api.v3.music(`/v1/me/recent/radio-stations`, {
-                    "platform": "web",
-                    "art[url]": "f",
-                    l: this.mklang
-                })).data.data;
-            } catch (e) {
-                console.log(e)
-                this.getRadioStations(attempt + 1)
             }
         },
         async getMadeForYou(attempt = 0) {

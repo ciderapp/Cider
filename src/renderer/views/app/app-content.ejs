@@ -25,15 +25,6 @@
         </transition>
     <% } %>
 
-    <transition v-on:enter="getRadioStations()" :name="chrome.desiredPageTransition">
-        <template v-if="page == 'radio'" @created="console.log('radio')">
-            <div class="content-inner">
-                <h1 class="header-text">{{$root.getLz('term.radio')}}</h1>
-                <h3>{{$root.getLz('term.recentStations')}}</h3>
-                <mediaitem-square :item="item" v-for="item in radio.personal"></mediaitem-square>
-            </div>
-        </template>
-    </transition>
     <!-- Library - Recently Added -->
     <transition :name="chrome.desiredPageTransition" v-on:enter="getLibraryAlbumsFull(null, 0); searchLibraryAlbums(0);">
         <%- include('../pages/library-recentlyadded') %>');
