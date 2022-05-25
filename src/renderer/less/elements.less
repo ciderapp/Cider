@@ -2051,8 +2051,8 @@ input[type=checkbox][switch]:checked:active::before {
 }
 
 .grouping-container {
-  display: flex;
-  flex-flow: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   .grouping-btn {
     padding: 16px;
