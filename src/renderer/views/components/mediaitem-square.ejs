@@ -120,7 +120,7 @@
                 }
             },
             getSubtitle() {
-                if (this.kind == 'card') {
+                if (this.kind == 'card' || this.item.type == "playlists") {
                     try {
                         if (typeof this.item.attributes.artistNames != "undefined") {
                             return this.item.attributes.artistNames
@@ -143,7 +143,7 @@
                 }
             },
             getSubtitleNavigation() {
-                if (this.kind == 'card') {
+                if (this.kind == 'card' || this.item.type == "playlists") {
                     try {
                         if (typeof this.item.attributes.artistNames != "undefined") {
                             return app.routeView(this.item)
