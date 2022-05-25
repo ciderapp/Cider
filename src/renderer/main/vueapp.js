@@ -972,7 +972,9 @@ const app = new Vue({
                 this.appRoute(window.location.hash)
             }
 
-            this.resumeTabs()
+            if(this.page != "home") {
+                this.resumeTabs()
+            }
             this.mediaKeyFixes()
 
             setTimeout(() => {
