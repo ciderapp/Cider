@@ -88,7 +88,7 @@
 				default: false,
 				required: false
 			},
-			'contextExt': {type: Object, required: false},
+			'contextExt': { type: Object, required: false },
 		},
 		data: function () {
 			return {
@@ -127,25 +127,23 @@
 				}
 			},
 			getSubtitle() {
-				if (this.kind === 'card' || this.item.type === "playlists") {
-					try {
-						if (typeof this.item.attributes.description.standard != "undefined") {
-							return this.item.attributes.description.standard
-						} else if (typeof this.item.attributes.artistNames != "undefined") {
-							return this.item.attributes.artistNames
-						} else if (typeof this.item.attributes.editorialNotes != "undefined") {
-							return this.item?.attributes?.editorialNotes?.short ?? (this.item.attributes?.editorialNotes?.name ?? '')
-						} else if (typeof this.item.attributes.artistName != "undefined") {
-							return this.item.attributes.artistName
-						} else {
-							return ''
-						}
-					} catch (e) {
+				if (this.kind == "card") {
+					if (typeof this.item.attributes.artistNames != "undefined") {
+						return this.item.attributes.artistNames
+					} else if (typeof this.item.attributes.editorialNotes != "undefined") {
+						return this.item?.attributes?.editorialNotes?.short ?? (this.item.attributes?.editorialNotes?.name ?? '')
+					} else if (typeof this.item.attributes.artistName != "undefined") {
+						return this.item.attributes.artistName
+					} else {
 						return ''
 					}
 				} else {
 					if (typeof this.item.attributes.artistName != "undefined") {
 						return this.item.attributes.artistName
+					} else if (typeof this.item.attributes.artist != "undefined") {
+						return this.item.attributes.artist.attributes.name
+					} else if (typeof this.item.attributes.curatorName != "undefined") {
+						return this.item.attributes.curatorName
 					} else {
 						return ''
 					}
@@ -324,7 +322,7 @@
 									for (let kind in itemsToPlay) {
 										let ids = itemsToPlay[kind]
 										if (ids.length > 0) {
-											app.mk.playNext({[kind + "s"]: itemsToPlay[kind]})
+											app.mk.playNext({ [kind + "s"]: itemsToPlay[kind] })
 										}
 									}
 									console.log(itemsToPlay)
@@ -346,7 +344,7 @@
 									for (let kind in itemsToPlay) {
 										let ids = itemsToPlay[kind]
 										if (ids.length > 0) {
-											app.mk.playLater({[kind + "s"]: itemsToPlay[kind]})
+											app.mk.playLater({ [kind + "s"]: itemsToPlay[kind] })
 										}
 									}
 									app.selectedMediaItems = []
@@ -436,7 +434,7 @@
 								"name": app.getLz('action.playNext'),
 								"icon": "./assets/arrow-bend-up.svg",
 								"action": function () {
-									app.mk.playNext({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
+									app.mk.playNext({ [self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id })
 									app.mk.queue._reindex()
 									app.selectedMediaItems = []
 								}
@@ -445,7 +443,7 @@
 								"name": app.getLz('action.playLater'),
 								"icon": "./assets/arrow-bend-down.svg",
 								"action": function () {
-									app.mk.playLater({[self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id})
+									app.mk.playLater({ [self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id })
 									app.mk.queue._reindex()
 									app.selectedMediaItems = []
 								}
@@ -561,7 +559,7 @@
 							icon: "./assets/feather/play.svg",
 							name: app.getLz('action.startRadio'),
 							action: () => {
-								app.mk.setStationQueue({artist: this.item.id}).then(() => {
+								app.mk.setStationQueue({ artist: this.item.id }).then(() => {
 									app.mk.play()
 								})
 							}
