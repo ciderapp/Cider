@@ -954,7 +954,7 @@ const app = new Vue({
                     });
                 }
                 setTimeout(() => {
-                    let i = (document.querySelector('#apple-music-player').src ?? "")
+                    let i = (document.querySelector('#apple-music-player')?.src ?? "")
                     if (i.endsWith(".m3u8") || i.endsWith(".m3u")){
                         this._playRadioStream(i)
                     }
