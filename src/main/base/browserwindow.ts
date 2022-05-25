@@ -115,7 +115,6 @@ export class BrowserWindow {
                 "components/artist-chip",
                 "components/hello-world",
                 "components/inline-collection-list",
-                "components/radio-child",
             ],
             appRoutes: [
                 {
