@@ -1406,6 +1406,16 @@ const app = new Vue({
                 })
             }
         },
+        /** 
+         * @param {string} url, href for the initial request
+         * @memberof app
+        */
+        async showRoom(url) {
+            let self = this
+            const response = await this.mk.api.v3.music(url)
+            let room = response.data.data[0]
+            this.showCollection(room.relationships.contents, room.attributes.title)
+        },
         async showCollection(response, title, type, requestBody = {}) {
             let self = this
             console.debug(response)
