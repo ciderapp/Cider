@@ -570,7 +570,6 @@
 
   &:hover {
     background: rgb(200 200 200 / 10%);
-    box-shadow: var(--mediaItemShadow);
 
     .overlay-play {
       opacity: 1;
@@ -579,13 +578,10 @@
 
   &.mediaitem-selected {
     background: var(--selected);
-    box-shadow: var(--mediaItemShadow);
   }
 
 
   &:active {
-    background: var(--selected-click);
-    box-shadow: var(--mediaItemShadow);
     color: #eee;
   }
 
@@ -1093,12 +1089,11 @@
   &.mediaitem-card {
     background: #ccc;
     background: var(--spcolor);
-    height: 298px;
+    height: 272px;
     width: 230px;
     overflow: hidden;
     position: relative;
     border-radius: calc(var(--mediaItemRadius) * 2);
-    box-shadow: var(--mediaItemShadow-ShadowSubtle);
 
     .artwork {
       width: 230px;
@@ -1163,10 +1158,10 @@
       overflow: hidden;
       max-height: 3.8em;
       z-index: 1;
+      padding-top: 6px;
     }
 
     &::after {
-      box-shadow: var(--mediaItemShadow);
       content: "";
       width: 100%;
       height: 100%;
