@@ -1930,12 +1930,28 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
       max-width: 240px;
       flex-grow: 1;
     }
+
+    &.collection-list-square {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(200px, 1fr));
+
+      // screen size > 1200px
+      @media screen and (min-width: 1500px) {
+        grid-template-columns: repeat(6, minmax(200px, 1fr));
+      }
+      // less than 1100px
+      @media screen and (max-width: 1150px) {
+        grid-template-columns: repeat(3, minmax(200px, 1fr));
+      }
+    }
   }
 }
 
 .cd-mediaitem-square-container{
   display: inline-flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .reasonSP{
