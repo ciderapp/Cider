@@ -13,7 +13,7 @@ export class Store {
         "general": {
             "close_button_hide": false,
             "discordrpc": {
-                "enabled": false,
+                "enabled": true,
                 "client": "Cider",
                 "clear_on_pause": true,
                 "hide_buttons": false,
