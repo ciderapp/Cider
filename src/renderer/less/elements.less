@@ -1046,12 +1046,23 @@
   }
 
   &.mediaitem-video {
+    --scaleRate: 1.25;
+    --scaleRateArtwork: 1.25;
     height: 200px;
     width: 240px;
 
     .artwork {
       height: 120px;
       width: 212px;
+    }
+
+    @media (min-width: 1600px) {
+      width: calc(240px * var(--scaleRate));
+      height: calc(200px * var(--scaleRate));
+      .artwork-container>.artwork {
+        width: calc(212px * var(--scaleRateArtwork));
+        height: calc(120px * var(--scaleRateArtwork));
+      }
     }
   }
 
