@@ -1089,11 +1089,12 @@
   &.mediaitem-card {
     background: #ccc;
     background: var(--spcolor);
-    height: 272px;
+    height: 298px;
     width: 230px;
     overflow: hidden;
     position: relative;
-    border-radius: calc(var(--mediaItemRadius) * 2);
+    border-radius: calc(var(--mediaItemRadius) * 3);
+    box-shadow: var(--mediaItemShadow);
 
     .artwork {
       width: 230px;
@@ -2090,6 +2091,17 @@ input[type=checkbox][switch]:checked:active::before {
     }
   }
 }
+
+.latestRelease {
+  .subtitle {
+    padding-top: 6px;
+  }
+  .mediaitem-card {
+    height: 272px;
+    box-shadow: unset;  
+  }
+}
+
 
 .content-inner {
   &.library-page {
