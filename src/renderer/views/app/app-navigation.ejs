@@ -1,5 +1,7 @@
 <div class="app-navigation" v-cloak>
-    <%- include("sidebar") %>
+    <transition name="sidebartransition">
+        <%- include("sidebar") %>
+    </transition>
     <%- include("app-content") %>
     <transition name="drawertransition">
         <div class="app-drawer"

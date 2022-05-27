@@ -48,6 +48,7 @@
   --textColor: #eee;
   --replayGradient: linear-gradient(45deg, hsl(248deg 58% 29%), hsl(13deg 41% 42%));
   --glassFilter: blur(16px) saturate(180%); 
+  --sidebarWidth: 260px;
 }
 
 *:focus-visible {
@@ -375,13 +376,13 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 #app-sidebar {
   /* background-color: var(--color1); */
   height: 100%;
-  width: 260px;
+  width: var(--sidebarWidth);
   display: flex;
   flex-direction: column;
   flex: 0 0 auto;
   position: relative;
   background    : var(--sidebarColorMix);
-  max-width     : 260px;
+  max-width     : var(--sidebarWidth);
   padding-top: var(--chromeHeight1);
 }
 
@@ -3035,6 +3036,15 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   opacity: 0;
 }
 
+.sidebartransition-enter-active,
+.sidebartransition-leave-active {
+  transition: margin-left .35s var(--appleEase);
+}
+
+.sidebartransition-enter,
+.sidebartransition-leave-to {
+  margin-left: calc(var(--sidebarWidth) * -1);
+}
 
 .drawertransition-enter-active,
 .drawertransition-leave-active {
