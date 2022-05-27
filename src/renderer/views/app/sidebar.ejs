@@ -22,30 +22,34 @@
     </template>
 
     <div class="app-sidebar-content" scrollaxis="y">
-        <div class="app-sidebar-header-text"
-        @click="cfg.general.sidebarCollapsed.cider = !cfg.general.sidebarCollapsed.cider"
-        :class="{collapsed: cfg.general.sidebarCollapsed.cider}">
-            {{$root.getLz('app.name')}}
-        </div>
-        <template v-if="!cfg.general.sidebarCollapsed.cider">
-            <sidebar-library-item :name="$root.getLz('home.title')" svg-icon="./assets/feather/home.svg" page="home">
-            </sidebar-library-item>
+        <!-- AM Navigation -->
+        <template v-if="getThemeDirective('windowLayout') != 'twopanel'">
+            <div class="app-sidebar-header-text"
+            @click="cfg.general.sidebarCollapsed.cider = !cfg.general.sidebarCollapsed.cider"
+            :class="{collapsed: cfg.general.sidebarCollapsed.cider}">
+                {{$root.getLz('app.name')}}
+            </div>
+            <template v-if="!cfg.general.sidebarCollapsed.cider">
+                <sidebar-library-item :name="$root.getLz('home.title')" svg-icon="./assets/feather/home.svg" page="home">
+                </sidebar-library-item>
+            </template>
+    
+            <div class="app-sidebar-header-text"
+            @click="cfg.general.sidebarCollapsed.applemusic = !cfg.general.sidebarCollapsed.applemusic"
+            :class="{collapsed: cfg.general.sidebarCollapsed.applemusic}">
+                {{$root.getLz('term.appleMusic')}}
+            </div>
+            <template v-if="!cfg.general.sidebarCollapsed.applemusic">
+                <sidebar-library-item :name="$root.getLz('term.listenNow')" svg-icon="./assets/feather/play-circle.svg"
+                    page="listen_now"></sidebar-library-item>
+                <sidebar-library-item :name="$root.getLz('term.browse')" svg-icon="./assets/feather/globe.svg"
+                    page="browse">
+                </sidebar-library-item>
+                <sidebar-library-item :name="$root.getLz('term.radio')" svg-icon="./assets/feather/radio.svg"
+                    page="radio"></sidebar-library-item>
+            </template>
         </template>
 
-        <div class="app-sidebar-header-text"
-        @click="cfg.general.sidebarCollapsed.applemusic = !cfg.general.sidebarCollapsed.applemusic"
-        :class="{collapsed: cfg.general.sidebarCollapsed.applemusic}">
-            {{$root.getLz('term.appleMusic')}}
-        </div>
-        <template v-if="!cfg.general.sidebarCollapsed.applemusic">
-            <sidebar-library-item :name="$root.getLz('term.listenNow')" svg-icon="./assets/feather/play-circle.svg"
-                page="listen_now"></sidebar-library-item>
-            <sidebar-library-item :name="$root.getLz('term.browse')" svg-icon="./assets/feather/globe.svg"
-                page="browse">
-            </sidebar-library-item>
-            <sidebar-library-item :name="$root.getLz('term.radio')" svg-icon="./assets/feather/radio.svg"
-                page="radio"></sidebar-library-item>
-        </template>
 
         <div class="app-sidebar-header-text"
         @click="cfg.general.sidebarCollapsed.library = !cfg.general.sidebarCollapsed.library"
