@@ -159,6 +159,7 @@ const app = new Vue({
         tmpVar: [],
         notification: false,
         chrome: {
+            sidebarCollapsed: false,
             nativeControls: false,
             contentScrollPosY: 0,
             appliedTheme: {
@@ -299,6 +300,10 @@ const app = new Vue({
             return this.cfg.audio.dBSPL ? (Number(this.cfg.audio.dBSPLcalibration) + (Math.log10(this.mk.volume) * 20)).toFixed(2) + ' dB SPL' : (Math.log10(this.mk.volume) * 20).toFixed(2) + ' dBFS'
         },
         mainMenuVisibility(val) {
+            if(this.chrome.sidebarCollapsed) {
+                this.chrome.sidebarCollapsed = false
+                return
+            }
             if (val) {
                 (this.mk.isAuthorized) ? this.chrome.menuOpened = !this.chrome.menuOpened : false;
                 if (!this.mk.isAuthorized) {

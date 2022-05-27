@@ -527,6 +527,43 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
       display: flex;
     }
   }
+
+  &.collapseTab {
+    display:flex;
+    padding:0px;
+    >button {
+      appearance: none;
+      border:0px;
+      width: 100%;
+      position: relative;
+      padding: 12px;
+      padding-left: 32px;
+      text-align: left;
+      font-family: inherit;
+      background-color: var(--color2);
+      color: var(--textColor);
+      &:hover {
+        background-color: var(--selected);
+      }
+      &:active {
+        background-color: var(--selected-click);
+      }
+      &:after {
+        content: '';
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 32px;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-weight: bold;
+        font-size: 1.2em;
+        font-family: "codicon";
+      }
+    }
+  }
 }
 
 .app-sidebar-button {
