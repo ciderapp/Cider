@@ -2,7 +2,8 @@
     <div class="queue-panel">
         <div class="row">
             <div class="col">
-                <h3 class="queue-header-text">{{app.getLz('term.queue')}}</h3>
+                <h3 class="queue-header-text" v-if="page == 'queue'">{{app.getLz('term.queue')}}</h3>
+                <h3 class="queue-header-text" v-if="page == 'history'">{{app.getLz('term.history')}}</h3>
             </div>
             <div class="col-auto flex-center">
                 <button class="autoplay" :style="{'background': app.mk.autoplayEnabled ? 'var(--keyColor)' : ''}"
