@@ -153,26 +153,6 @@ export class Store {
                     'gain': [-0.34, 2.49, 0.23, -0.49, 0.23, -0.12, 0.32, -0.29, 0.33, 0.19, -0.18, -1.27, -0.11, 0.25, -0.18, -0.53, 0.34, 1.32, 1.78, 0.41, -0.28]
                 }
             },
-            "spatial": false,
-            "spatial_properties": {
-                "presets": [],
-                "gain": 0.8,
-                "listener_position": [0, 0, 0],
-                "audio_position": [0, 0, 0],
-                "room_dimensions": {
-                    "width": 32,
-                    "height": 12,
-                    "depth": 32
-                },
-                "room_materials": {
-                    "left": 'metal',
-                    "right": 'metal',
-                    "front": 'brick-bare',
-                    "back": 'brick-bare',
-                    "down": 'acoustic-ceiling-tiles',
-                    "up": 'acoustic-ceiling-tiles',
-                }
-            },
             "equalizer": {
                 'preset': "default",
                 'frequencies': [32, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000],

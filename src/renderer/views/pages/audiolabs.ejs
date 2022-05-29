@@ -198,14 +198,6 @@
                         return name;
                 }
             },
-            toggleSpatial: function () {
-                if (app.cfg.audio.maikiwiAudio.spatial) {
-                    CiderAudio.spatialOn()
-                    CiderAudio.hierarchical_loading();
-                } else {
-                    CiderAudio.spatialOff()
-                }
-            },
             toggleMaikiwiSpatial: function () {
                 if (app.cfg.audio.maikiwiAudio.spatial === true) {
                     CiderAudio.spatialOn()
