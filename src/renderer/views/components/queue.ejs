@@ -33,6 +33,12 @@
                                 <div class="queue-title text-overflow-elipsis">{{ queueItem.item.attributes.name }}</div>
                                 <div class="queue-subtitle text-overflow-elipsis">{{ queueItem.item.attributes.artistName }} — {{ queueItem.item.attributes.albumName }}</div>
                             </div>
+                            <div class="queue-explicit-icon flex-center" v-if="queueItem.item.attributes.contentRating == 'explicit'">
+                                <div class="explicit-icon"></div>
+                            </div>
+                            <div class="col queue-duration-info">
+                                <div class="queue-duration flex-center">{{convertTimeToString(queueItem.item.attributes.durationInMillis)}}</div>
+                            </div>
                         </div>
                     </div>
                 </template>
@@ -167,6 +173,10 @@
                 this.selected = -1
                 app.mk.queue._queueItems = this.queueItems;
                 app.mk.queue._reindex()
+            },
+            convertTimeToString(timeInMilliseconds) {
+                var seconds = ((timeInMilliseconds % 60000) / 1000).toFixed(0);
+                return Math.floor(timeInMilliseconds/60000) + ":" + (seconds < 10 ? '0' : '') + seconds;
             }
         }
     });
