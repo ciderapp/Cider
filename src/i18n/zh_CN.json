@@ -2,7 +2,7 @@
   "i18n.languageName": "简体中文（中国）",
   "i18n.languageNameEnglish": "Simp. Chinese (China)",
   "i18n.category": "main",
-  "i18n.authors": "@maikirakiwi @BillKerman @jay900604",
+  "i18n.authors": "@notmaikiwi @BillKerman @jay900604",
   "app.name": "Cider",
   "date.format": "${y}年${m}月${d}日",
   "dialog.cancel": "取消",
