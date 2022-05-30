@@ -434,3 +434,5 @@ Update 30/5/2022 05:35 UTC
 * `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.CUDDLE`: Added to `en_US`
 * `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.BPLK`: Added to `en_US`
 * `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.HW2K`: Added to `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.adaptive`: Added to `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.legacy`: Added to `en_US`

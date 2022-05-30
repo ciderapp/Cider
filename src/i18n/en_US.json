@@ -414,6 +414,8 @@
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "CAP Strength",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Changes the strength of the processing done to the audio. (Aggressive may yield undesirable results)",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "Standard",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.adaptive": "Adaptive",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.legacy": "Legacy",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive": "Aggressive",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Audio Normalization",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizes peak volume for individual tracks to create a more uniform listening experience. (Does not work on user uploaded tracks)",
