@@ -87,14 +87,17 @@ export class Store {
                     "W"
                 ],
                 "audioSettings": [
+                    "CommandOrControl",
                     process.platform == "darwin" ? "Option" : "Shift",
                     "A"
                 ],
                 "pluginMenu": [
+                    "CommandOrControl",
                     process.platform == "darwin" ? "Option" : "Shift",
                     "P"
                 ],
                 "castToDevices": [
+                    "CommandOrControl",
                     process.platform == "darwin" ? "Option" : "Shift",
                     "C"
                 ],
