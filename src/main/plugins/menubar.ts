@@ -46,7 +46,7 @@ export default class Thumbar {
                     {role: 'hideOthers'},
                     {role: 'unhide'},
                     {type: 'separator'},
-                    {role: 'quit'}
+                    {role: 'quit', accelerator: 'Command+Q'}
                 ] : []),
                 ...(this.isLinux ? [
                     {type: 'separator'},
@@ -67,11 +67,11 @@ export default class Thumbar {
                 {role: 'forceReload'},
                 {role: 'toggleDevTools'},
                 {type: 'separator'},
-                {role: 'resetZoom'},
-                {role: 'zoomIn'},
-                {role: 'zoomOut'},
+                {role: 'resetZoom', accelerator: 'Command+num0'},
+                {role: 'zoomIn', accelerator: 'Command+numadd'},
+                {role: 'zoomOut', accelerator: 'Command+numsub'},
                 {type: 'separator'},
-                {role: 'togglefullscreen'},
+                {role: 'togglefullscreen', accelerator: 'F11'},
                 {type: 'separator'},
                 ] : []),
                 {
@@ -117,6 +117,7 @@ export default class Thumbar {
             label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.window'),
             submenu: [
                 {role: 'minimize', label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.minimize')},
+                {type: 'separator'},
                 ...(this.isMac ? [
                 {
                     label: 'Show',
@@ -137,8 +138,39 @@ export default class Thumbar {
                         {role: 'paste'},
                     ]
                 },
+                {type: 'separator'},
             ] : [ ]),
             ...(this.isLinux ? [
+
+                {
+                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.zoom'),
+                    submenu: [
+                        {
+                            label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.zoomin'),
+                            role: 'zoomIn',
+                            accelerator: 'Control+numadd'
+
+                        },
+                        {
+                            label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.zoomout'),
+                            role: 'zoomOut',
+                            accelerator: 'Control+numsub'
+
+                        },
+                        {
+                            label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.zoomreset'),
+                            role: 'resetZoom',
+                            accelerator: 'Control+num0'                            
+                        }
+                    ]
+                },
+                {type: 'separator'},
+                {
+                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.fullscreen'),
+                    accelerator: 'F11',
+                    click: () => utils.getWindow().setFullScreen(!utils.getWindow().isFullScreen())
+                },
+                {type: 'separator'},
                 {
                     label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.close'),
                     accelerator: 'Control+W',
