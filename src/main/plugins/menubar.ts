@@ -71,7 +71,7 @@ export default class Thumbar {
                 {role: 'zoomIn', accelerator: 'Command+numadd'},
                 {role: 'zoomOut', accelerator: 'Command+numsub'},
                 {type: 'separator'},
-                {role: 'togglefullscreen', accelerator: 'F11'},
+                {role: 'togglefullscreen', accelerator: 'Control+Command+F'},
                 {type: 'separator'},
                 ] : []),
                 {
@@ -167,7 +167,7 @@ export default class Thumbar {
                 {type: 'separator'},
                 {
                     label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.fullscreen'),
-                    accelerator: 'F11',
+                    accelerator: 'Control+Enter',
                     click: () => utils.getWindow().setFullScreen(!utils.getWindow().isFullScreen())
                 },
                 {type: 'separator'},
