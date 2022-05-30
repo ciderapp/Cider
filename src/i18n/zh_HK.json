@@ -399,7 +399,7 @@
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "自動將歌曲播放音量調整至相同水平，建立更統一的聆聽體驗。",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.disabled": "由音訊實驗室管理",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization": "Cider 空間音訊效果",
-  "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.description": "預先調整空間音訊效果，關閉空間音訊可自訂設定。但必須先開啟空間音訊才可以做設定。",
+  "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.description": "預先調整空間音訊效果，關閉空間音訊可自訂設定。",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile": "Cider 空間音訊配置檔案",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.description": "變更空間音訊的配置檔案，需要重新啟動應用程式。",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.minimal": "Minimal",

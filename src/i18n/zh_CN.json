@@ -290,7 +290,7 @@
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "自动将歌曲播放音量调整到相同水平，享受更舒适的聆听体验。",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.disabled": "此功能由音频实验室管理",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization": "Cider 空间音频效果",
-  "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.description": "预先调整音频空间效果，关闭空间音讯可自订设置。但必须先打开音频空间才可以做设置。",
+  "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.description": "预先调整音频空间效果，关闭空间音讯可自订设置。",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile": "Cider 音频空间配置档",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.description": "变更音频空间的配置档，需重新启动应用程序。",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.standard": "标准",

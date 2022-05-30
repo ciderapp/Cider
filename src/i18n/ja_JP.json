@@ -349,7 +349,7 @@
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "さまざまな曲の音量を均一にし、より整った音を楽しめるようにする機能です。",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.disabled": "Audio Labの設定",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization": "Cider Tuned Spatialization",
-  "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.description": "開発チームがチューニングした設定を使用することができます。(オーディオ空間化を有効にする必要があります)",
+  "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.description": "開発チームがチューニングした設定を使用することができます。",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile": "Cider Spatialization Profile",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.description": "プロファイルをSpatializationに変更します",
   "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.standard": "スタンダード",
