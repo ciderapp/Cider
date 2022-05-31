@@ -83,25 +83,46 @@ export class Store {
                     "P"
                 ],
                 "webRemote": [
-                    process.platform == "darwin" ? "Option" : "Alt",
+                    "CommandOrControl",
+                    process.platform == "darwin" ? "Option" : "Shift",
                     "W"
                 ],
                 "audioSettings": [
-                    process.platform == "darwin" ? "Option" : "Alt",
+                    "CommandOrControl",
+                    process.platform == "darwin" ? "Option" : "Shift",
                     "A"
                 ],
                 "pluginMenu": [
-                    process.platform == "darwin" ? "Option" : "Alt",
+                    "CommandOrControl",
+                    process.platform == "darwin" ? "Option" : "Shift",
                     "P"
                 ],
                 "castToDevices": [
-                    process.platform == "darwin" ? "Option" : "Alt",
+                    "CommandOrControl",
+                    process.platform == "darwin" ? "Option" : "Shift",
                     "C"
                 ],
                 "settings": [
                     "CommandOrControl", // Who the hell uses a different key for this? Fucking Option?
                     ","
                 ],
+                "zoomin": [
+                    "CommandOrControl",
+                    process.platform == "darwin" ? "+" : "numadd",
+                ],
+                "zoomout": [
+                    "CommandOrControl",
+                    process.platform == "darwin" ? "-" : "numsub",
+                ],
+                "zoomreset": [
+                    "CommandOrControl",
+                    process.platform == "darwin" ? "0" : "num0",
+                ],
+            /*  "toggleSidebar": [
+                    "CommandOrControl",
+                    process.platform == "darwin" ? "Option" : "Alt",
+                    "S"
+                ], */
                 "openDeveloperTools": [
                     "CommandOrControl",
                     "Shift",

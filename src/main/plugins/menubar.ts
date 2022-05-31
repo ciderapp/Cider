@@ -67,9 +67,9 @@ export default class Thumbar {
                 {role: 'forceReload'},
                 {role: 'toggleDevTools'},
                 {type: 'separator'},
-                {role: 'resetZoom', accelerator: 'Command+num0'},
-                {role: 'zoomIn', accelerator: 'Command+numadd'},
-                {role: 'zoomOut', accelerator: 'Command+numsub'},
+                {role: 'resetZoom', accelerator: utils.getStoreValue("general.keybindings.zoomreset").join('+')},
+                {role: 'zoomIn', accelerator: utils.getStoreValue("general.keybindings.zoomin").join('+')},
+                {role: 'zoomOut', accelerator: utils.getStoreValue("general.keybindings.zoomout").join('+')},
                 {type: 'separator'},
                 {role: 'togglefullscreen', accelerator: 'Control+Command+F'},
                 {type: 'separator'},
@@ -148,19 +148,19 @@ export default class Thumbar {
                         {
                             label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.zoomin'),
                             role: 'zoomIn',
-                            accelerator: 'Control+numadd'
+                            accelerator: utils.getStoreValue("general.keybindings.zoomin").join('+')
 
                         },
                         {
                             label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.zoomout'),
                             role: 'zoomOut',
-                            accelerator: 'Control+numsub'
+                            accelerator: utils.getStoreValue("general.keybindings.zoomout").join('+')
 
                         },
                         {
                             label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.zoomreset'),
                             role: 'resetZoom',
-                            accelerator: 'Control+num0'                            
+                            accelerator: utils.getStoreValue("general.keybindings.zoomreset").join('+')                           
                         }
                     ]
                 },

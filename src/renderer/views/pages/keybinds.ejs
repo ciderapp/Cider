@@ -149,6 +149,39 @@
             </div>
             <div class="md-option-line">
                 <div class="md-option-segment">
+                    {{$root.getLz('settings.description.zoomin')}}
+                </div>
+                <div class="md-option-segment md-option-segment_auto">
+                    <button class="md-btn md-btn-small md-btn-block"
+                            @click="keyBindUpdate('zoomin')">
+                        {{app.cfg.general.keybindings.zoomin.join(' + ')}}
+                    </button>
+                </div>
+            </div>
+            <div class="md-option-line">
+                <div class="md-option-segment">
+                    {{$root.getLz('settings.description.zoomout')}}
+                </div>
+                <div class="md-option-segment md-option-segment_auto">
+                    <button class="md-btn md-btn-small md-btn-block"
+                            @click="keyBindUpdate('zoomout')">
+                        {{app.cfg.general.keybindings.zoomout.join(' + ')}}
+                    </button>
+                </div>
+            </div>
+            <div class="md-option-line">
+                <div class="md-option-segment">
+                    {{$root.getLz('settings.description.zoomreset')}}
+                </div>
+                <div class="md-option-segment md-option-segment_auto">
+                    <button class="md-btn md-btn-small md-btn-block"
+                            @click="keyBindUpdate('zoomreset')">
+                        {{app.cfg.general.keybindings.zoomreset.join(' + ')}}
+                    </button>
+                </div>
+            </div>
+            <div class="md-option-line">
+                <div class="md-option-segment">
                     {{$root.getLz('settings.description.developer')}}
                 </div>
                 <div class="md-option-segment md-option-segment_auto">
@@ -233,11 +266,14 @@
                 app.cfg.general.keybindings.albums = [app.platform == "darwin" ? "Command" : "Control", "S"];
                 app.cfg.general.keybindings.artists = [app.platform == "darwin" ? "Command" : "Control", "D"];
                 app.cfg.general.keybindings.togglePrivateSession = [app.platform == "darwin" ? "Command" : "Control", "P"];
-                app.cfg.general.keybindings.webRemote = [app.platform == "darwin" ? "Option" : "Alt", "W"];
-                app.cfg.general.keybindings.audioSettings = [app.platform == "darwin" ? "Option" : "Alt", "A"];
-                app.cfg.general.keybindings.pluginMenu = [app.platform == "darwin" ? "Option" : "Alt", "P"];
-                app.cfg.general.keybindings.castToDevices = [app.platform == "darwin" ? "Option" : "Alt", "C"];
+                app.cfg.general.keybindings.webRemote = [app.platform == "darwin" ? "Command" : "Control", app.platform == "darwin" ? "Option" : "Shift", "W"];
+                app.cfg.general.keybindings.audioSettings = [app.platform == "darwin" ? "Command" : "Control", app.platform == "darwin" ? "Option" : "Shift", "A"];
+                app.cfg.general.keybindings.pluginMenu = [app.platform == "darwin" ? "Command" : "Control", app.platform == "darwin" ? "Option" : "Shift", "P"];
+                app.cfg.general.keybindings.castToDevices = [app.platform == "darwin" ? "Command" : "Control", app.platform == "darwin" ? "Option" : "Shift", "C"];
                 app.cfg.general.keybindings.settings = [app.platform == "darwin" ?"Command" : "Control", ","];
+                app.cfg.general.keybindings.zoomin = [app.platform == "darwin" ? "Command" : "Control", app.platform == "darwin" ? "+" : "numadd"];
+                app.cfg.general.keybindings.zoomout = [app.platform == "darwin" ? "Command" : "Control", app.platform == "darwin" ? "-" : "numsub"];
+                app.cfg.general.keybindings.zoomreset = [app.platform == "darwin" ? "Command" : "Control", app.platform == "darwin" ? "0" : "num0"];
                 app.cfg.general.keybindings.openDeveloperTools = [app.platform == "darwin" ? "Command" : "Control", app.platform == "darwin" ? "Option" : "Shift", "I"];
                 notyf.success(app.getLz('settings.notyf.general.keybindings.update.success'));
                 bootbox.confirm(app.getLz("settings.prompt.general.keybindings.update.success"), (ok) => {
