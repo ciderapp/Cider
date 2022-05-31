@@ -367,6 +367,7 @@
   "settings.header.audio": "Audio",
   "settings.header.audio.description": "Adjust the audio settings for Cider.",
   "settings.option.audio.volumeStep": "Volume Step",
+  "settings.option.audio.advanced": "Advanced Volume Control",
   "settings.option.audio.maxVolume": "Max Volume",
   "settings.option.audio.changePlaybackRate": "Change Playback Rate",
   "settings.option.audio.playbackRate": "Playback Rate",
