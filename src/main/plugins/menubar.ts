@@ -17,7 +17,8 @@ export default class Thumbar {
      * Menubar Assets
      * @private
      */
-    private isLinux: boolean = process.platform === 'linux';
+
+    private isNotMac: boolean = process.platform !== 'darwin';
     private isMac: boolean = process.platform === 'darwin';    
     private _menuTemplate: any = [
         {
@@ -48,7 +49,7 @@ export default class Thumbar {
                     {type: 'separator'},
                     {role: 'quit', accelerator: 'Command+Q'}
                 ] : []),
-                ...(this.isLinux ? [
+                ...(this.isNotMac ? [
                     {type: 'separator'},
                 {
                     label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.quit'),
@@ -140,7 +141,7 @@ export default class Thumbar {
                 },
                 {type: 'separator'},
             ] : [ ]),
-            ...(this.isLinux ? [
+            ...(this.isNotMac ? [
 
                 {
                     label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.zoom'),
