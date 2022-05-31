@@ -362,5 +362,9 @@
   "about.thanks": "Vielen lieben Dank an das Cider Collective Team und an alle Mithelfer.",
   "term.navigateBack": "Zurück",
   "term.navigateForward": "Weiter",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Verbessert die wahrgenommene Audioqualität von AAC-kodierten Audiodaten durch die Verwendung eines Echtzeit-Algorithmus, der sowohl psychoakustische Modelle des menschlichen Gehörs als auch AAC-Kodierungsmerkmale nutzt.",
+  "settings.option.audio.enableAdvancedFunctionality.atmosphereRealizer.description": "Verwirklicht eine andere musikalische Atmosphäre, die nach dem Stand der Technik von Audio-Setups modelliert ist.",
+  "settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.description": "Ändert die Betriebsart des Atmosphere Realizer-Moduls.",
+  "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.description": "Vorabgestimmter Spatialisierungseffekt, deaktiviert die anpassbaren Einstellungen der Audio-Spatialisierung.",
   "action.open": "Öffnen"
 }
