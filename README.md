@@ -1,6 +1,6 @@
 <p align="center">
   <img src="./resources/banner.png" width="80%" height="60%" alt="Banner"><br>
-  <b>A new cross-platform Apple Music experience based on Electron and Vue.js written from scratch with performance in mind. 🚀</b>
+  <b>A new cross-platform Apple Music experience based on Electron and Vue.js written from scratch with performance & visuals in mind. 🚀</b>
   <br><br>
   <img src="https://img.shields.io/github/stars/ciderapp/Cider?label=Stars" alt="GitHub Stars"/>
   <img src="https://img.shields.io/github/forks/ciderapp/Cider?label=Forks" alt="GitHub Forks"/>

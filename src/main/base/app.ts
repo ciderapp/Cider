@@ -55,6 +55,9 @@ export class AppEvents {
             app.exit()
         }
 
+        // Try limiting JS memory to 350MB.
+        app.commandLine.appendSwitch('js-flags', '--max-old-space-size=350');
+
         // Expose GC
         app.commandLine.appendSwitch('js-flags', '--expose_gc')
 

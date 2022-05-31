@@ -329,7 +329,7 @@
                                 <label>
                                     <input type="checkbox" v-model="app.cfg.audio.normalization"
                                            v-on:change="toggleNormalization"
-                                           :disabled="app.cfg.audio.spatial === true || app.cfg.audio.maikiwiAudio.spatial === true || app.cfg.audio.maikiwiAudio.ciderPPE === true || app.cfg.audio.maikiwiAudio.atmosphereRealizer1 === true || app.cfg.audio.maikiwiAudio.atmosphereRealizer2 === true"
+                                           :disabled="app.cfg.audio.maikiwiAudio.spatial === true || app.cfg.audio.maikiwiAudio.ciderPPE === true || app.cfg.audio.maikiwiAudio.atmosphereRealizer1 === true || app.cfg.audio.maikiwiAudio.atmosphereRealizer2 === true"
                                            switch/>
                                 </label>
                             </div>
@@ -1393,7 +1393,7 @@
                                 if (app.cfg.audio.normalization === true) {
                                     CiderAudio.normalizerOn()
                                 }
-                                if (app.cfg.audio.spatial === true) {
+                                if (app.cfg.audio.maikiwiAudio.spatial === true) {
                                     CiderAudio.spatialOn()
                                     CiderAudio.hierarchical_loading();
                                 }
@@ -1404,7 +1404,7 @@
                         if (app.cfg.audio.normalization === true) {
                             CiderAudio.normalizerOn()
                         }
-                        if (app.cfg.audio.spatial === true) {
+                        if (app.cfg.audio.maikiwiAudio.spatial === true) {
                             CiderAudio.spatialOn()
                             CiderAudio.hierarchical_loading();
                         }

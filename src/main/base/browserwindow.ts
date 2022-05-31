@@ -85,7 +85,6 @@ export class BrowserWindow {
                 "components/artwork-material",
                 "components/menu-panel",
                 "components/sidebar-playlist",
-                "components/spatial-properties",
                 "components/audio-settings",
                 "components/plugin-menu",
                 "components/audio-controls",

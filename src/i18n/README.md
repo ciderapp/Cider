@@ -427,3 +427,12 @@ Update 24/05/2022 21:15 UTC
 * `settings.option.general.updateCider.branch.main`: Deleted for all language files 
 * `settings.option.general.updateCider.branch.develop`: Deleted for all language files
 * `settings.notyf.updateCider.update-error`: Deleted for all language files
+
+Update 30/5/2022 05:35 UTC
+
+* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.BSCBM`: Added to `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.CUDDLE`: Added to `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.bplk`: Added to `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.hw2k`: Added to `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.adaptive`: Added to `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.legacy`: Added to `en_US`

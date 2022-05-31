@@ -40,7 +40,7 @@
     "@sentry/electron": "^3.0.7",
     "@sentry/integrations": "^6.19.6",
     "adm-zip": "0.4.10",
-    "airtunes2": "git+https://github.com/vapormusic/node_airtunes2.git#hap",
+    "airtunes2": "git+https://github.com/ciderapp/node_airtunes2",
     "castv2-client": "^1.2.0",
     "chokidar": "^3.5.3",
     "discord-auto-rpc": "^1.0.16",
