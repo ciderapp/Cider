@@ -310,7 +310,7 @@
     </transition>
     <div class="app-sidebar-footer collapseTab" v-if="cfg.advanced.experiments.includes('collapseSidebar')">
       <button @click="chrome.sidebarCollapsed = !chrome.sidebarCollapsed">
-        Collapse
+        {{$root.getLz("term.collapse")}}
       </button>
     </div>
     <div class="app-sidebar-footer display--small app-sidebar-footer--controls">
