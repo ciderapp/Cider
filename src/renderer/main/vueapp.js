@@ -1350,6 +1350,21 @@ const app = new Vue({
                 self.refreshPlaylists(false, false)
             })
         },
+        async editPlaylistDescription(id, name = app.getLz('term.newPlaylist')) {
+            let self = this
+            this.mk.api.v3.music(
+                `/v1/me/library/playlists/${id}`, {}, {
+                fetchOptions: {
+                    method: "PATCH",
+                    body: JSON.stringify({
+                        attributes: { description: name }
+                    })
+                }
+            }
+            ).then(res => {
+                self.refreshPlaylists(false, false)
+            })
+        },
         copyToClipboard(str) {
             // if (navigator.userAgent.includes('Darwin') || navigator.appVersion.indexOf("Mac") != -1) {
             // this.darwinShare(str)

@@ -54,9 +54,16 @@
                                              class="content"
                                              v-html="data.attributes.description?.short ?? data.attributes.editorialNotes?.short"
                                              @click="openInfoModal()"></div>
-                                        <div v-else-if="(data.attributes.description?.standard ?? data.attributes.editorialNotes?.standard) != null"
-                                             class="content"
-                                             v-html="data.attributes.description?.standard ?? data.attributes.editorialNotes?.standard"></div>
+                                        <div v-else-if="((data.attributes.description?.standard ?? data.attributes.editorialNotes?.standard) != null) && (descriptionEditing == false)"
+                                             @mouseover="minClass(false)" @click="editPlaylistDescription()">{{data.attributes.description?.standard ?? data.attributes.editorialNotes?.standard}}</div>
+                                        <div v-else-if="((data.attributes.description?.standard ?? data.attributes.editorialNotes?.standard) != null) && (descriptionEditing)"
+                                             @mouseover="minClass(false)"><input type="text"
+                                             spellcheck="false"
+                                             class="descriptionEdit"
+                                             v-model="data.attributes.description.standard"
+                                             @blur="editPlaylist"
+                                             @change="editPlaylist"
+                                             @keydown.enter="editPlaylist"/></div>
                                         <!-- <button v-if="(data.attributes.description?.short ?? data.attributes.editorialNotes?.short ) != null" class="more-btn"
                                                 @click="editorialNotesExpanded = !editorialNotesExpanded">
                                             {{app.getLz('term.showMore')}}
@@ -265,6 +272,7 @@
                 editorialNotesExpanded: false,
                 drag: false,
                 nameEditing: false,
+                descriptionEditing: false,
                 inLibrary: null,
                 confirm: false,
                 app: this.$root,
@@ -412,12 +420,24 @@
             },
             editPlaylist() {
                 this.app.editPlaylist(this.data.id, this.data.attributes.name);
+                this.app.editPlaylistDescription(this.data.id, this.data.attributes.description.standard);
                 this.app.playlists.listing.forEach(playlist => {
                     if (playlist.id === this.data.id) {
                         playlist.attributes.name = this.data.attributes.name
+                        playlist.attributes.description = this.data.attributes.description.standard
                     }
                 })
                 this.nameEditing = false
+                this.descriptionEditing = false
+            },
+            editPlaylistDescription() {
+                this.app.editPlaylistDescription(this.data.id, this.data.attributes.description.standard);
+                this.app.playlists.listing.forEach(playlist => {
+                    if (playlist.id === this.data.id) {
+                        playlist.attributes.description = this.data.attributes.description.standard
+                    }
+                })
+                this.descriptionEditing = false
             },
             addToLibrary(id) {
                 app.mk.addToLibrary(id)
@@ -447,6 +467,14 @@
                     this.nameEditing = true
                     setTimeout(() => {
                         document.querySelector(".nameEdit").focus()
+                    }, 100)
+                }
+            },
+            editPlaylistDescription() {
+                if (this.data.attributes.canEdit && this.data.type === "library-playlists") {
+                    this.descriptionEditing = true
+                    setTimeout(() => {
+                        document.querySelector(".descriptionEdit").focus()
                     }, 100)
                 }
             },

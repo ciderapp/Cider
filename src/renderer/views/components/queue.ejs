@@ -2,7 +2,8 @@
     <div class="queue-panel">
         <div class="row">
             <div class="col">
-                <h3 class="queue-header-text">{{app.getLz('term.queue')}}</h3>
+                <h3 class="queue-header-text" v-if="page == 'queue'">{{app.getLz('term.queue')}}</h3>
+                <h3 class="queue-header-text" v-if="page == 'history'">{{app.getLz('term.history')}}</h3>
             </div>
             <div class="col-auto flex-center">
                 <button class="autoplay" :style="{'background': app.mk.autoplayEnabled ? 'var(--keyColor)' : ''}"
@@ -32,6 +33,12 @@
                             <div class="col queue-info">
                                 <div class="queue-title text-overflow-elipsis">{{ queueItem.item.attributes.name }}</div>
                                 <div class="queue-subtitle text-overflow-elipsis">{{ queueItem.item.attributes.artistName }} — {{ queueItem.item.attributes.albumName }}</div>
+                            </div>
+                            <div class="queue-explicit-icon flex-center" v-if="queueItem.item.attributes.contentRating == 'explicit'">
+                                <div class="explicit-icon"></div>
+                            </div>
+                            <div class="col queue-duration-info">
+                                <div class="queue-duration flex-center">{{convertTimeToString(queueItem.item.attributes.durationInMillis)}}</div>
                             </div>
                         </div>
                     </div>
@@ -167,6 +174,10 @@
                 this.selected = -1
                 app.mk.queue._queueItems = this.queueItems;
                 app.mk.queue._reindex()
+            },
+            convertTimeToString(timeInMilliseconds) {
+                var seconds = ((timeInMilliseconds % 60000) / 1000).toFixed(0);
+                return Math.floor(timeInMilliseconds/60000) + ":" + (seconds < 10 ? '0' : '') + seconds;
             }
         }
     });
