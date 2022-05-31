@@ -1680,7 +1680,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 }
 
 .lyric-line.active .verse.verse-active {
-  opacity: 1;
+  animation: lyricVerseAnimation 0.75s ease-in-out forwards;
 }
 
 .lyric-line:hover {
@@ -1703,10 +1703,10 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
 .lyric-line.active {
   --bgSpeed: 1s;
-  opacity: 1;
   transform: scale(1);
   /*background: var(--keyColor);*/
   transition: transform 0.2s var(--appleEase);
+  animation: lyricVerseAnimation 1s ease-in-out forwards;
 }
 
 .lyric-line:not(.active) {
@@ -1786,6 +1786,16 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 .modular-fs .app-drawer .lyric-body .no-lyrics {
   height: 100%;
   display: flex;
+}
+
+@keyframes lyricVerseAnimation {
+  0% {
+    opacity: 0.6;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 @keyframes lyricWaitingLine {
