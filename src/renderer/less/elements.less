@@ -291,8 +291,10 @@
 
 /* queue item */
 .cd-queue-item {
-  border-bottom: 1px solid rgb(200 200 200 / 10%);
-  padding: 8px;
+  border-bottom: 0px solid rgb(200 200 200 / 10%);
+  padding: 1px;
+  padding-bottom: 9px;
+  padding-top: 9px;
 
   .row,
   .col {
@@ -301,8 +303,8 @@
   }
 
   .artwork {
-    width: 32px;
-    height: 32px;
+    width: 42px;
+    height: 42px;
     flex: 0 0 auto;
   }
 
@@ -320,17 +322,45 @@
   }
 
   .queue-info {
+    justify-content: center;
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
 
     .queue-title {
       font-size: 14px;
     }
 
     .queue-subtitle {
-      font-size: 13px;
-      opacity: 0.85;
+      font-size: 0.7em;
+      opacity: 0.7;
     }
+  }
+
+  .queue-duration-info {
+    display: flex;
+    flex-grow: 0;
+  }
+
+  .queue-duration {
+    font-size: 14px;
+    justify-content: center;
+    min-width: 60px;
+    height: 100%;
+  }
+
+  .queue-explicit-icon {
+    display: flex;
+    width: 24px;
+    padding: 0px;
+  }
+
+  .explicit-icon {
+    background-image: url("./assets/explicit.svg");
+    height: 12px;
+    width: 36px;
+    filter: contrast(0);
+    background-repeat: no-repeat;
   }
 }
 
