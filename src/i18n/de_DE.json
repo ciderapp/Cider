@@ -356,6 +356,7 @@
   "settings.option.connectivity.discordRPC.hideButtons": "Buttons im Discord Rich Presence ausblenden",
   "settings.option.connectivity.discordRPC.hideTimestamp": "Zeitstempel im Discord Rich Presence ausblenden",
   "settings.option.general.showLovedTracksInline": "Zeige geliebte Titel inline",
+  "settings.option.audio.advanced": "Erweiterte Lautstärkeregelung",
   "remote.web.title": "Cider Remote",
   "remote.web.description": "Scanne den QR-Code um dein Handy mit dieser Cider-Instanz zu verbinden",
   "about.thanks": "Vielen lieben Dank an das Cider Collective Team und an alle Mithelfer.",
