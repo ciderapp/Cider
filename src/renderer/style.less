@@ -1680,7 +1680,8 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 }
 
 .lyric-line.active .verse.verse-active {
-  animation: lyricVerseAnimation 0.75s ease-in-out forwards;
+  opacity: 1;
+  transition: opacity 0.35s var(--appleEase);
 }
 
 .lyric-line:hover {
@@ -1703,10 +1704,10 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
 .lyric-line.active {
   --bgSpeed: 1s;
+  opacity: 1;
   transform: scale(1);
   /*background: var(--keyColor);*/
-  transition: transform 0.2s var(--appleEase);
-  animation: lyricVerseAnimation 1s ease-in-out forwards;
+  transition: transform 0.2s var(--appleEase), opacity 0.35s var(--appleEase);
 }
 
 .lyric-line:not(.active) {
@@ -1786,16 +1787,6 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 .modular-fs .app-drawer .lyric-body .no-lyrics {
   height: 100%;
   display: flex;
-}
-
-@keyframes lyricVerseAnimation {
-  0% {
-    opacity: 0.6;
-  }
-
-  100% {
-    opacity: 1;
-  }
 }
 
 @keyframes lyricWaitingLine {
