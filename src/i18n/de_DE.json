@@ -315,7 +315,7 @@
   "settings.option.general.keybindings.open": "Öffnen",
   "settings.option.general.themeUpdateNotification": "Automatisch nach Theme-Updates suchen",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.disabled": "Verwaltet vom Audio Lab",
-  "settings.option.advanced.playlistTrackMapping.description": "Enables deep scanning of playlists to determine which tracks are in which playlists.  Playlist cache build times can increase significantly.",
+  "settings.option.advanced.playlistTrackMapping.description": "Ermöglicht tiefes Scannen von Wiedergabelisten, um festzustellen, welche Titel sich in welchen Wiedergabelisten befinden.  Die Erstellungszeiten für den Wiedergabelisten-Cache können sich erheblich verlängern.",
   "settings.option.visual.transparent": "Transparentes Fenster",
   "settings.option.visual.transparent.description": "Benötigt Theme Support, Neustart erforderlich",
   "action.cast.todevices": "An Geräte streamen",
