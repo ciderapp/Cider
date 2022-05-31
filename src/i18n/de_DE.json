@@ -341,7 +341,7 @@
   "spatial.audioSource": "Audioquelle",
   "settings.header.unfinished": "Unvollendet",
   "settings.option.window.openOnStartup": "Öffne Cider beim Start",
-  "settings.option.window.openOnStartup.hidden": "Öffne minimiert",
+  "settings.option.window.openOnStartup.hidden": "Öffne Cider minimiert",
   "term.audioControls": "Lautstärkeregelung",
   "term.variables": "Variablen",
   "settings.option.audio.volumeStep": "Lautstärke-Schritt",
@@ -369,5 +369,7 @@
   "settings.option.audio.audioLab.description": "Eine Auswahl an selbst entwickelten Audioeffekten für Cider.",
   "action.open": "Öffnen",
   "settings.option.visual.theme.github.openfolder": "Öffne Themes Ordner",
-  "settings.option.debug.copy_log": "Logs in die Zwischenablage kopieren"
+  "settings.option.debug.copy_log": "Logs in die Zwischenablage kopieren",
+  "settings.header.visual.theme.github.page": "Themes von GitHub",
+  "settings.header.visual.plugin.github.page": "Plugins von GitHub"
 }
