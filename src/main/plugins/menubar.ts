@@ -47,7 +47,7 @@ export default class Thumbar {
                     {role: 'hideOthers'},
                     {role: 'unhide'},
                     {type: 'separator'},
-                    {role: 'quit', accelerator: 'Command+Q'}
+                    {role: 'quit'}
                 ] : []),
                 ...(this.isNotMac ? [
                     {type: 'separator'},
@@ -68,11 +68,11 @@ export default class Thumbar {
                 {role: 'forceReload'},
                 {role: 'toggleDevTools'},
                 {type: 'separator'},
-                {role: 'resetZoom', accelerator: utils.getStoreValue("general.keybindings.zoomrst").join('+')},
+                {role: 'resetZoom'},
                 {role: 'zoomIn'},
-                {role: 'zoomOut', accelerator: utils.getStoreValue("general.keybindings.zoomt").join('+')},
+                {role: 'zoomOut'},
                 {type: 'separator'},
-                {role: 'togglefullscreen', accelerator: 'Control+Command+F'},
+                {role: 'togglefullscreen'},
                 {type: 'separator'},
                 ] : []),
                 {
