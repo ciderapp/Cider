@@ -449,13 +449,13 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   width: 100%;
   padding: 6px;
   border-radius: 6px;
-  border       : 1px solid rgba(100, 100, 100, 0.35);
-  border-top   : 1px solid rgba(100, 100, 100, 0.5);
-  border-bottom: 1px solid rgb(60 60 60 / 12%);
+  border: 1px solid rgba(100, 100, 100, 0.35);
+  border-top: 1px solid rgba(100, 100, 100, 0.5);
+  border-bottom: 1px solid rgb(60 60 60 / 62%);
   font-family: inherit;
   font-size: 14px;
-  background: rgba(100, 100, 100, 0.25);;
-  color: rgb(200 200 200);
+  background: #1e1e1e99;
+  color: #c8c8c8;
   font-weight: 500;
   padding-left: 32px;
   position: relative;
@@ -667,7 +667,9 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 #cmenu() {
   .container {
     position: absolute;
-    width: 100%;
+    left: 0px;
+    width: var(--sidebarWidth);
+    max-width: var(--sidebarWidth);
     padding: 10px;
     z-index: 1;
   }
@@ -1645,7 +1647,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   overflow-x: hidden;
   display: flex;
   flex-flow: column;
-  font-family: 'Inter', 'Noto Sans JP', 'Source Han Sans SC', 'Source Han Sans HK', 'Noto Sans SC', 'Noto Sans TC', 'Noto Sans HK', 'Noto Sans KR', sans-serif;
+  font-family: "Pretendard Variable", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .lyric-body .no-lyrics {
@@ -1679,6 +1681,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
 .lyric-line.active .verse.verse-active {
   opacity: 1;
+  transition: opacity 0.35s var(--appleEase);
 }
 
 .lyric-line:hover {
@@ -1704,7 +1707,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   opacity: 1;
   transform: scale(1);
   /*background: var(--keyColor);*/
-  transition: transform 0.2s var(--appleEase);
+  transition: transform 0.2s var(--appleEase), opacity 0.35s var(--appleEase);
 }
 
 .lyric-line:not(.active) {

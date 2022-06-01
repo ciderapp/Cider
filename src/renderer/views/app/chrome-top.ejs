@@ -21,8 +21,9 @@
     <div class="app-chrome-item full-height" v-else>
       <button
         class="app-mainmenu"
-        @blur="mainMenuVisibility(false)"
-        @click="mainMenuVisibility(true)"
+        @blur="mainMenuVisibility(false, true)"
+        @click="mainMenuVisibility(true, false)"
+        @contextmenu="mainMenuVisibility(true, true)"
         :class="{active: chrome.menuOpened}"
         :aria-label="$root.getLz('term.quickNav')"
       ></button>
@@ -457,8 +458,9 @@
     >
       <button
         class="app-mainmenu"
-        @blur="mainMenuVisibility(false)"
-        @click="mainMenuVisibility(true)"
+        @blur="mainMenuVisibility(false, true)"
+        @click="mainMenuVisibility(true, false)"
+        @contextmenu="mainMenuVisibility(true, true)"
         :class="{active: chrome.menuOpened}"
       ></button>
     </div>

@@ -297,10 +297,11 @@ const app = new Vue({
             }
         },
         formatVolumeTooltip() {
-            return this.cfg.audio.dBSPL ? (Number(this.cfg.audio.dBSPLcalibration) + (Math.log10(this.mk.volume) * 20)).toFixed(2) + ' dB SPL' : (Math.log10(this.mk.volume) * 20).toFixed(2) + ' dBFS'
+            let advancedTooltip = this.cfg.audio.dBSPL ? (Number(this.cfg.audio.dBSPLcalibration) + (Math.log10(this.mk.volume) * 20)).toFixed(2) + ' dB SPL' : (Math.log10(this.mk.volume) * 20).toFixed(2) + ' dBFS'
+			return this.cfg.audio.advanced ? advancedTooltip : (this.mk.volume * 100).toFixed(0) + '%'
         },
-        mainMenuVisibility(val) {
-            if(this.chrome.sidebarCollapsed) {
+        mainMenuVisibility(val, isContextMenu) {
+            if(this.chrome.sidebarCollapsed && !isContextMenu) {
                 this.chrome.sidebarCollapsed = false
                 return
             }
@@ -1342,6 +1343,21 @@ const app = new Vue({
                     method: "PATCH",
                     body: JSON.stringify({
                         attributes: { name: name }
+                    })
+                }
+            }
+            ).then(res => {
+                self.refreshPlaylists(false, false)
+            })
+        },
+        async editPlaylistDescription(id, name = app.getLz('term.newPlaylist')) {
+            let self = this
+            this.mk.api.v3.music(
+                `/v1/me/library/playlists/${id}`, {}, {
+                fetchOptions: {
+                    method: "PATCH",
+                    body: JSON.stringify({
+                        attributes: { description: name }
                     })
                 }
             }
