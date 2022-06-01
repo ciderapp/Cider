@@ -68,9 +68,9 @@ export default class Thumbar {
                 {role: 'forceReload'},
                 {role: 'toggleDevTools'},
                 {type: 'separator'},
-                {role: 'resetZoom', accelerator: utils.getStoreValue("general.keybindings.zoomreset").join('+')},
-                {role: 'zoomIn', accelerator: utils.getStoreValue("general.keybindings.zoomin").join('+')},
-                {role: 'zoomOut', accelerator: utils.getStoreValue("general.keybindings.zoomout").join('+')},
+                {role: 'resetZoom', accelerator: utils.getStoreValue("general.keybindings.zoomrst").join('+')},
+                {role: 'zoomIn', accelerator: utils.getStoreValue("general.keybindings.zoomn").join('+')},
+                {role: 'zoomOut', accelerator: utils.getStoreValue("general.keybindings.zoomt").join('+')},
                 {type: 'separator'},
                 {role: 'togglefullscreen', accelerator: 'Control+Command+F'},
                 {type: 'separator'},
@@ -149,19 +149,19 @@ export default class Thumbar {
                         {
                             label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.zoomin'),
                             role: 'zoomIn',
-                            accelerator: utils.getStoreValue("general.keybindings.zoomin").join('+')
+                            accelerator: utils.getStoreValue("general.keybindings.zoomn").join('+')
 
                         },
                         {
                             label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.zoomout'),
                             role: 'zoomOut',
-                            accelerator: utils.getStoreValue("general.keybindings.zoomout").join('+')
+                            accelerator: utils.getStoreValue("general.keybindings.zoomt").join('+')
 
                         },
                         {
                             label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.zoomreset'),
                             role: 'resetZoom',
-                            accelerator: utils.getStoreValue("general.keybindings.zoomreset").join('+')                           
+                            accelerator: utils.getStoreValue("general.keybindings.zoomrst").join('+')                           
                         }
                     ]
                 },

@@ -106,15 +106,15 @@ export class Store {
                     "CommandOrControl", // Who the hell uses a different key for this? Fucking Option?
                     ","
                 ],
-                "zoomin": [
+                "zoomn": [
                     "CommandOrControl",
                     process.platform == "darwin" ? "+" : "numadd",
                 ],
-                "zoomout": [
+                "zoomt": [
                     "CommandOrControl",
                     process.platform == "darwin" ? "-" : "numsub",
                 ],
-                "zoomreset": [
+                "zoomrst": [
                     "CommandOrControl",
                     process.platform == "darwin" ? "0" : "num0",
                 ],

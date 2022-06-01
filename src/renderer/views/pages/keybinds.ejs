@@ -271,9 +271,9 @@
                 app.cfg.general.keybindings.pluginMenu = [app.platform == "darwin" ? "Command" : "Control", app.platform == "darwin" ? "Option" : "Shift", "P"];
                 app.cfg.general.keybindings.castToDevices = [app.platform == "darwin" ? "Command" : "Control", app.platform == "darwin" ? "Option" : "Shift", "C"];
                 app.cfg.general.keybindings.settings = [app.platform == "darwin" ?"Command" : "Control", ","];
-                app.cfg.general.keybindings.zoomin = [app.platform == "darwin" ? "Command" : "Control", app.platform == "darwin" ? "+" : "numadd"];
-                app.cfg.general.keybindings.zoomout = [app.platform == "darwin" ? "Command" : "Control", app.platform == "darwin" ? "-" : "numsub"];
-                app.cfg.general.keybindings.zoomreset = [app.platform == "darwin" ? "Command" : "Control", app.platform == "darwin" ? "0" : "num0"];
+                app.cfg.general.keybindings.zoomn = [app.platform == "darwin" ? "Command" : "Control", app.platform == "darwin" ? "+" : "numadd"];
+                app.cfg.general.keybindings.zoomt = [app.platform == "darwin" ? "Command" : "Control", app.platform == "darwin" ? "-" : "numsub"];
+                app.cfg.general.keybindings.zoomrst = [app.platform == "darwin" ? "Command" : "Control", app.platform == "darwin" ? "0" : "num0"];
                 app.cfg.general.keybindings.openDeveloperTools = [app.platform == "darwin" ? "Command" : "Control", app.platform == "darwin" ? "Option" : "Shift", "I"];
                 notyf.success(app.getLz('settings.notyf.general.keybindings.update.success'));
                 bootbox.confirm(app.getLz("settings.prompt.general.keybindings.update.success"), (ok) => {
