@@ -107,15 +107,15 @@ export class Store {
                     ","
                 ],
                 "zoomn": [
-                    "CommandOrControl",
+                    "Control",
                     "numadd",
                 ],
                 "zoomt": [
-                    "CommandOrControl",
+                    "Control",
                     "numsub",
                 ],
                 "zoomrst": [
-                    "CommandOrControl",
+                    "Control",
                     "num0",
                 ],
             /*  "toggleSidebar": [
