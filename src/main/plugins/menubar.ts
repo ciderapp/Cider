@@ -169,24 +169,24 @@ export default class Thumbar {
                 {
                     label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.fullscreen'),
                     accelerator: 'Control+Enter',
-                    click: () => utils.getWindow().setFullScreen(!utils.getWindow().isFullScreen())
+                    role: 'togglefullscreen'
                 },
                 {type: 'separator'},
                 {
                     label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.close'),
                     accelerator: 'Control+W',
-                    click: () => utils.getWindow().close()
+                    role: 'close'
                 },                     
                 {type:'separator'},
                 {
                     label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.reload'),
                     accelerator: 'Control+R',
-                    click: () => utils.getWindow().webContents.reload()
+                    role: 'reload'
                 },
                 {
                     label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.forcereload'),
                     accelerator: 'Control+Shift+R',
-                    click: () => utils.getWindow().webContents.reloadIgnoringCache()
+                    role: 'forceReload'
                 },             
             ] : []),
             ],
