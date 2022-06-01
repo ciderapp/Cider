@@ -499,9 +499,9 @@ const app = new Vue({
         },
         getHTMLStyle() {
             if (app.cfg.visual.uiScale != 1) {
-                document.querySelector("#app").style.zoom = app.cfg.visual.uiScale
+                document.querySelector("body").style.zoom = app.cfg.visual.uiScale
             } else {
-                document.querySelector("#app").style.zoom = ""
+                document.querySelector("body").style.zoom = ""
             }
         },
         resetState() {
