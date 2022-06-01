@@ -108,15 +108,15 @@ export class Store {
                 ],
                 "zoomn": [
                     "CommandOrControl",
-                    process.platform == "darwin" ? "+" : "numadd",
+                    "numadd",
                 ],
                 "zoomt": [
                     "CommandOrControl",
-                    process.platform == "darwin" ? "-" : "numsub",
+                    "numsub",
                 ],
                 "zoomrst": [
                     "CommandOrControl",
-                    process.platform == "darwin" ? "0" : "num0",
+                    "num0",
                 ],
             /*  "toggleSidebar": [
                     "CommandOrControl",
