@@ -69,7 +69,7 @@ export default class Thumbar {
                 {role: 'toggleDevTools'},
                 {type: 'separator'},
                 {role: 'resetZoom', accelerator: utils.getStoreValue("general.keybindings.zoomrst").join('+')},
-                {role: 'zoomIn', accelerator: utils.getStoreValue("general.keybindings.zoomn").join('+')},
+                {role: 'zoomIn'},
                 {role: 'zoomOut', accelerator: utils.getStoreValue("general.keybindings.zoomt").join('+')},
                 {type: 'separator'},
                 {role: 'togglefullscreen', accelerator: 'Control+Command+F'},
