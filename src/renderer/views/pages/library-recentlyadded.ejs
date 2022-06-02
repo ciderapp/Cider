@@ -1,18 +1,6 @@
 <script type="text/x-template" id="cider-recentlyadded">
     <div class="content-inner">
-        <b-row no-gutters>
-            <b-col>
-                <h1 class="header-text">{{$root.getLz('term.recentlyAdded')}}</h1>
-            </b-col>
-<!--            <b-col sm="auto">-->
-<!--                <select class="md-select" v-model="$store.state.pageState['recentlyAdded'].size" @change="$root.searchLibrarySongs()">-->
-<!--                    <optgroup :label="$root.getLz('term.size')">-->
-<!--                        <option value="normal">{{$root.getLz('term.size.normal')}}</option>-->
-<!--                        <option value="compact">{{$root.getLz('term.size.compact')}}</option>-->
-<!--                    </optgroup>-->
-<!--                </select>-->
-<!--            </b-col>-->
-        </b-row>
+        <h1 class="header-text">{{$root.getLz('term.recentlyAdded')}}</h1>
         <div class="well itemContainer" v-if="itemSize == 'normal'">
             <mediaitem-square v-for="item in items" :item="item"></mediaitem-square>
         </div>
