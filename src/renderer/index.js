@@ -288,7 +288,7 @@ webGPU().then()
 let screenWidth = screen.width;
 let screenHeight = screen.height;
 
-window.onerror = function (error) {
-    console.log(error)
-    bootbox.alert("Error occurred: " + error)
-};
+// window.onerror = function (error) {
+//     console.log(error)
+//     bootbox.alert("Error occurred: " + error)
+// };

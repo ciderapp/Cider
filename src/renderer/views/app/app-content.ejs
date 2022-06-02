@@ -24,11 +24,6 @@
             </template>
         </transition>
     <% } %>
-
-    <!-- Library - Recently Added -->
-    <transition :name="chrome.desiredPageTransition" v-on:enter="getLibraryAlbumsFull(null, 0); searchLibraryAlbums(0);">
-        <%- include('../pages/library-recentlyadded') %>');
-    </transition>
     <!-- Library - Made For You -->
     <transition :name="chrome.desiredPageTransition" v-on:enter="getMadeForYou()">
         <template v-if="page == 'library-madeforyou'">
