@@ -498,11 +498,9 @@ const app = new Vue({
             history.forward()
         },
         getHTMLStyle() {
-            if (app.cfg.visual.uiScale != 1) {
-                document.querySelector("body").style.zoom = app.cfg.visual.uiScale
-            } else {
-                document.querySelector("body").style.zoom = ""
-            }
+			
+			ipcRenderer.send("setScreenScale", app.cfg.visual.uiScale);
+            
         },
         resetState() {
             this.menuPanel.visible = false;
