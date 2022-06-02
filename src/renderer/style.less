@@ -3410,20 +3410,7 @@ body.no-gpu {
   }
 }
 
-.keybindings-border {
-  padding-left: 15px;
-  padding-right: 15px;
-  border-style: solid;
-  border-radius: 5px;
-  border-color: #CBCBCB;
-}
 
-.keybinding-text {
-  width: 95px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 .qrimg {
   width: -webkit-fill-available;
@@ -3597,14 +3584,31 @@ body[platform='darwin'] {
   display: none;
 }
 
-.keybinds-page .md-option-header {
-  padding: 0px 0px;
+.keybinds-page{ 
+  
+    .md-option-header {
+        padding: 10px 0px;
+        border-bottom: unset;
+        border-top: unset;
+        font-weight: 600;
+        background: rgba(255, 255, 255, 0);
+        font-size: 2em;
+    }
+
+    .md-option-header-sub {
+      padding: 15px 10px;
       border-bottom: unset;
       border-top: unset;
-      font-weight: 600;
       background: rgba(255, 255, 255, 0);
-      font-size: 2em;
-  }
+      font-weight: 600;
+      font-size: 1.7em;
+    }
+
+    .md-option-line{
+      padding: 15px 20px;
+      font-size: 0.90em;
+    }
+}
 
 .content-inner.keybinds-page {
   top: var(--navigationBarHeight);
