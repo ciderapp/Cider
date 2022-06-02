@@ -1,7 +1,7 @@
 <script type="text/x-template" id="cider-oobe">
     <div class="content-inner oobe">
 <!--        before_we_start-->
-        <transition name="fade">
+        <transition name="wpfade">
             <div class="oobe-view" v-if="screen == 'before_we_start'">
                 <div class="oobe-header">
                     {{ getLz("oobe.amupsell.title") }}
@@ -16,7 +16,7 @@
         </transition>
 
         <!--     Welcome   -->
-        <transition name="fade">
+        <transition name="wpfade">
             <div class="oobe-view" v-if="screen == 'welcome'">
                 <div class="oobe-header">
                     {{ getLz("oobe.intro.title") }}
@@ -32,7 +32,7 @@
         </transition>
 
         <!--     General   -->
-        <transition name="fade">
+        <transition name="wpfade">
             <div class="oobe-view" v-if="screen == 'general'">
                 <div class="oobe-header">
                     {{ getLz("oobe.general.title") }}
@@ -48,7 +48,7 @@
         </transition>
 
         <!--     Visual   -->
-        <transition name="fade">
+        <transition name="wpfade">
             <div class="oobe-view" v-if="screen == 'visual'">
                 <div class="oobe-header">
                     {{ getLz("oobe.visual.title") }}
@@ -88,7 +88,7 @@
         </transition>
 
         <!--     Audio   -->
-        <transition name="fade">
+        <transition name="wpfade">
             <div class="oobe-view" v-if="screen == 'audio'">
                 <div class="oobe-header">
                     {{ getLz("oobe.audio.title") }}
