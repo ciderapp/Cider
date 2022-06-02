@@ -26,6 +26,7 @@ const app = new Vue({
             showHints: false,
             results: {},
             resultsSocial: {},
+            resultsLibrary: {},
             limit: 10
         },
         fullscreenLyrics: false,
@@ -3533,6 +3534,18 @@ const app = new Vue({
         friendlyTypes(type) {
             // use switch statement to return friendly name for media types "songs,artists,albums,playlists,music-videos,stations,apple-curators,curators"
             switch (type) {
+                case "library-songs":
+                    return app.getLz('term.songs')
+                    break;
+                case "library-artists":
+                    return app.getLz('term.artists')
+                    break;
+                case "library-albums":
+                    return app.getLz('term.albums')
+                    break;
+                case "library-playlists":
+                    return app.getLz('term.playlists')
+                    break;
                 case "song":
                     return app.getLz('term.songs')
                     break;
@@ -3615,6 +3628,9 @@ const app = new Vue({
                 results.data.results["meta"] = results.data.meta
                 self.search.resultsSocial = results.data.results
             })
+
+            this.search.resultsLibrary = await app.mk.api.library.search(app.search.term, { types: 'library-songs,library-albums,library-playlists,library-artists', limit: 25, offset: 0 })
+
         },
         async inLibrary(items = []) {
             let types = []
