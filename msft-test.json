@@ -39,7 +39,7 @@
   "appx": {
     "applicationId": "CiderAlpha",
     "publisher": "CN=CiderCollective, OID.2.25.311729368913984317654407730594956997722=1",
-    "displayName": "Cider (Alpha)",
+    "displayName": "Cider",
     "identityName": "CiderCollective.CiderAlpha",
     "backgroundColor": "transparent",
     "setBuildNumber": true
