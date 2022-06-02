@@ -374,15 +374,14 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 }
 
 #app-sidebar {
-  /* background-color: var(--color1); */
   height: 100%;
   width: var(--sidebarWidth);
   display: flex;
   flex-direction: column;
   flex: 0 0 auto;
   position: relative;
-  background    : var(--sidebarColorMix);
-  max-width     : var(--sidebarWidth);
+  background: linear-gradient(180deg, var(--baseColorMix) calc(var(--chromeHeight1) + 1px), var(--sidebarColorMix) calc(var(--chromeHeight1) + 1px));
+  max-width: var(--sidebarWidth);
   padding-top: var(--chromeHeight1);
 }
 
