@@ -83,6 +83,7 @@ export class BrowserWindow {
                 "pages/zoo",
                 "pages/plugin-renderer",
                 "pages/keybinds",
+                "pages/oobe",
                 "components/mediaitem-artwork",
                 "components/artwork-material",
                 "components/menu-panel",

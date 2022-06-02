@@ -119,11 +119,13 @@
 &.search-page {
 
   .searchToggle {
-    float:right;
-    >button {
+    float: right;
+
+    > button {
       min-width: 120px;
     }
   }
+
   .cd-mediaitem-square.mediaitem-brick {
     width: 530px !important;
 
@@ -1661,31 +1663,87 @@
 .content-inner.oobe {
   position: absolute;
   overflow: hidden;
+  top: 0;
   left: 0;
   bottom: 0;
   right: 0;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  background: #1e1e1e;
+
   .oobe-view {
     display: flex;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 32px;
     gap: 32px;
+    max-width: 1280px;
+    max-height: 720px;
+    align-self: center;
+    justify-self: center;
+    height: 100%;
+    width: 100%;
 
 
     .oobe-header {
       font-size: 3em;
       text-shadow: var(--replayTextShadow);
+      font-weight: 600;
     }
 
     .oobe-body {
       flex: 1;
       width: 100%;
+      background: #ffffff0d;
+      border-radius: 20px;
+      padding: 3em;
+
+      &.text {
+        white-space: pre-wrap;
+      }
+
+      .blurb {
+        white-space: pre-wrap;
+        margin: 16px;
+        line-height: 1.5em;
+      }
+
+      &.visual {
+        padding: 1em;
+
+        .stylePicker {
+          border-radius: 10px;
+          overflow: hidden;
+          cursor: pointer;
+          transition: .25s all;
+          box-shadow: 0px 2px 6px rgb(0 0 0 / 25%);
+
+          .visualPreview {
+            pointer-events: none;
+            transition: .25s all;
+            width: 100%;
+            filter: drop-shadow(0px 8px 6px rgb(0 0 0 / 30%));
+          }
+
+          .card-footer {
+            font-size: 1.25em;
+            font-weight: 500;
+          }
+
+
+
+          &:hover {
+            transform: scale(1.10) translateZ(-1px);
+            z-index: 1;
+            box-shadow: 0px 12px 16px rgb(0 0 0 / 25%);
+
+            .visualPreview {
+              transform: scale(1.5) translateZ(-1px);
+            }
+          }
+        }
+      }
     }
 
     .oobe-footer {
@@ -1694,6 +1752,12 @@
       justify-content: center;
       align-items: center;
       padding: 16px;
+
+      .md-btn {
+        font-size: 18px;
+        min-width: 128px;
+        text-align: center;
+      }
     }
   }
 }
