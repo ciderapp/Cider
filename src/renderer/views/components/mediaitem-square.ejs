@@ -8,7 +8,7 @@
         <div v-if="reasonShown" class="reasonSP ">{{item?.meta?.reason?.stringForDisplay ?? ''}}</div>
         <div style="{'--spcolor': getBgColor()}"
              class="cd-mediaitem-square" :class="getClasses()" @contextmenu="getContextMenu">
-            <template>
+            <template v-if="isVisible">
                 <div class="artwork-container">
                     <div class="unavailable-overlay" v-if="unavailable">
                         <div class="codicon codicon-circle-slash"></div>
