@@ -70,7 +70,14 @@ export default class DiscordRPC {
                     })
             }
         })
-        ipcMain.on("reloadRPC", () => this.reload())
+        ipcMain.handle("reloadRPC", (e) => {
+            console.log(`[DiscordRPC][reload] Reloading DiscordRPC.`);
+            if (this._client) {
+                this._client.destroy()
+                this._client = null
+            }
+            this.connect(true)
+        })
     }
 
     /**
@@ -109,7 +116,7 @@ export default class DiscordRPC {
      * Connect to Discord RPC
      * @private
      */
-    private connect() {
+    private connect(reload = false) {
         if (!this._utils.getStoreValue("general.discordrpc.enabled")) {
             return;
         }
@@ -125,6 +132,10 @@ export default class DiscordRPC {
             if (this._activityCache && this._activityCache.details && this._activityCache.state) {
                 console.info(`[DiscordRPC][connect] Restoring activity cache.`);
                 this._client.setActivity(this._activityCache)
+            }
+
+            if (reload) {
+                this._utils.getWindow().webContents.send("rpcReloaded", this._client.user)
             }
         })
 
@@ -257,15 +268,5 @@ export default class DiscordRPC {
             delete activity.largeImageText
         }
         return activity
-    }
-
-    /**
-     * Reloads DiscordRPC
-     */
-    private reload() {
-        if (this._client) {
-            this._client.destroy()
-        }
-        this.connect()
     }
 }
