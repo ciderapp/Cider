@@ -70,6 +70,7 @@ export default class DiscordRPC {
                     })
             }
         })
+        ipcMain.on("reloadRPC", () => this.reload())
     }
 
     /**
@@ -256,5 +257,15 @@ export default class DiscordRPC {
             delete activity.largeImageText
         }
         return activity
+    }
+
+    /**
+     * Reloads DiscordRPC
+     */
+    private reload() {
+        if (this._client) {
+            this._client.destroy()
+        }
+        this.connect()
     }
 }
