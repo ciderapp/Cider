@@ -998,6 +998,17 @@
                             </div>
                         </div>
 
+                        <div class="md-option-line" v-show="app.cfg.general.discordrpc.enabled != false">
+                            <div class="md-option-segment">
+                                {{$root.getLz('settings.option.connectivity.discordRPC.reload')}}
+                            </div>
+                            <div class="md-option-segment md-option-segment_auto">
+                                <button class="md-btn" @click="reloadDiscordRPC()">
+                                    {{$root.getLz('menubar.options.reload')}}
+                                </button>
+                            </div>
+                        </div>
+
                         <!-- LastFM -->
                         <div class="md-option-line">
                             <div class="md-option-segment">
@@ -1005,7 +1016,7 @@
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
                                 <button class="md-btn" id="lfmConnect" ref="lfmConnect"
-                                        onclick="app.LastFMAuthenticate()">
+                                        @click="app.LastFMAuthenticate()">
                                     {{$root.getLz('term.connect')}}
                                 </button>
                             </div>
@@ -1421,7 +1432,6 @@
                 }
             },
             changeAudioQuality: function () {
-                1
                 app.mk.bitrate = MusicKit.PlaybackBitrate[app.cfg.audio.quality];
             },
             toggleUserInfo: function () {
@@ -1455,6 +1465,20 @@
             logoutCC() {
                 ipcRenderer.send('cc-logout')
             },
+            reloadDiscordRPC() {
+	            ipcRenderer.invoke('reloadRPC').catch((err) => {
+		            console.error(err)
+                })
+
+                ipcRenderer.on('rpcReloaded', (e, user) => {
+					if (user.username) {
+						app.notyf.success(app.stringTemplateParser(app.getLz("settings.option.connectivity.discordRPC.reconnectedToUser"), {
+							user: `${user.username}#${user.discriminator}`,
+							userid: user.id
+						}));
+                    }
+                })
+            }
         }
     })
 </script>
