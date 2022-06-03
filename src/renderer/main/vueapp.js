@@ -817,6 +817,19 @@ const app = new Vue({
                 }
             })
 
+            /**
+             * DiscordRPC Reload Return Event
+             * @author @coredev-uk
+             */
+            ipcRenderer.on('rpcReloaded', (e, user) => {
+                if (user.username) {
+                    app.notyf.success(app.stringTemplateParser(app.getLz("settings.option.connectivity.discordRPC.reconnectedToUser"), {
+                        user: `${user.username}#${user.discriminator}`,
+                        userid: user.id
+                    }));
+                }
+            })
+
             ipcRenderer.on('SoundCheckTag', (event, tag) => {
                 // let replaygain = self.parseSCTagToRG(tag)
                 try {
