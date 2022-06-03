@@ -133,7 +133,7 @@ document.addEventListener('musickitloaded', function () {
             function waitForApp() {
                 if (typeof app.init !== "undefined") {
                     app.init()
-                    if (app.cfg.visual.window_background_style == "mica" && !app.isDev) {
+                    if (app.cfg.visual.window_background_style == "mica") {
                         app.spawnMica()
                     }
                 }
