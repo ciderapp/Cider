@@ -436,3 +436,8 @@ Update 30/5/2022 05:35 UTC
 * `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.hw2k`: Added to `en_US`
 * `settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.adaptive`: Added to `en_US`
 * `settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.legacy`: Added to `en_US`
+
+Update 03/06/2022 11:40 UTC
+
+* `settings.option.connectivity.discordRPC.reload`: Added to `en_US`
+* `settings.option.connectivity.discordRPC.reconnectedToUser`: Added to `en_US`
