@@ -158,9 +158,6 @@ const CiderAudio = {
             CiderAudio.audioNodes.spatialNode.buffer = await CiderAudio.context.decodeAudioData(bufferedImpulse);
         });
     },
-    spatialOff: function () {
-        CiderAudio.hierarchical_loading();
-    },
     intelliGainComp_h0_0: function () {
         let filters = []; const precisionHz = 12;
         if (CiderAudio.audioNodes.audioBands !== null) { filters = filters.concat(CiderAudio.audioNodes.audioBands) }

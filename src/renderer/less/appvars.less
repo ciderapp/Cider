@@ -1,0 +1,20 @@
+@colorMixRate: 1%;
+@transparencyRate: 50%;
+
+@keyColor  : #fc3c44;
+@ciderColor: #ff2654;
+@baseColor: #1e1e1e;
+@baseColorMix: mix(@baseColor, transparent, @transparencyRate);
+@sidebarColor: #2e2e2e;
+@sidebarColorMix: mix(@sidebarColor, transparent, @transparencyRate);
+@appOpacity: 0.15;
+
+:root {
+    --baseColor: @baseColor;
+    --baseColorMix: @baseColorMix;
+    --sidebarColor: @sidebarColor;
+    --sidebarColorMix: @sidebarColorMix;
+    --ciderColor: @ciderColor;
+    --appOpacity: @appOpacity;
+    --transparencyRate: @transparencyRate;
+}

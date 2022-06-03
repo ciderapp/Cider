@@ -13,7 +13,7 @@ export class Store {
         "general": {
             "close_button_hide": false,
             "discordrpc": {
-                "enabled": false,
+                "enabled": true,
                 "client": "Cider",
                 "clear_on_pause": true,
                 "hide_buttons": false,
@@ -87,14 +87,17 @@ export class Store {
                     "W"
                 ],
                 "audioSettings": [
+                    "CommandOrControl",
                     process.platform == "darwin" ? "Option" : "Shift",
                     "A"
                 ],
                 "pluginMenu": [
+                    "CommandOrControl",
                     process.platform == "darwin" ? "Option" : "Shift",
                     "P"
                 ],
                 "castToDevices": [
+                    "CommandOrControl",
                     process.platform == "darwin" ? "Option" : "Shift",
                     "C"
                 ],
