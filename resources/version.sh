@@ -12,4 +12,4 @@ else
   echo "Version unchanged, commits since stable is 0"
 fi
 
-
+echo "export APP_VERSION=$(node -p -e 'require("./package.json").version')" >> $BASH_ENV
