@@ -1711,6 +1711,11 @@ input[type=checkbox][switch]:checked:active::before {
   font-family: "codicon";
   font-size  : 1em;
   color: var(--textColor);
+  display: grid;
+  place-items: center;
+  span {
+    position: absolute;
+  }
 }
 
 .playback-button.pause {

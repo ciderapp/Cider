@@ -2955,6 +2955,16 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   transform: translateY(20px);
 }
 
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity .15s var(--appleEase);
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
 .modal-enter-active,
 .modal-leave-active {
   transition: opacity .1s var(--appleEase), transform .1s var(--appleEase);

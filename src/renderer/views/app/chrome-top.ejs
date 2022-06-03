@@ -59,8 +59,13 @@
         v-b-tooltip.hover
         :title="chrome.sidebarCollapsed ? getLz('action.showLibrary') : getLz('action.hideLibrary')"
         @click="chrome.sidebarCollapsed = !chrome.sidebarCollapsed">
-          <span v-if="chrome.sidebarCollapsed"></span>
-          <span v-else></span>
+          <transition name="fade">
+            <span v-if="chrome.sidebarCollapsed"></span>
+          </transition>
+          <transition name="fade">
+            <span v-if="!chrome.sidebarCollapsed"></span>
+          </transition>
+
         </button>
       </div>
       <div
