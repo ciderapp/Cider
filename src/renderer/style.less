@@ -530,18 +530,15 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 
   &.collapseTab {
     display:flex;
-    padding:0px;
+    padding:6px;
+    border:0;
     >button {
       appearance: none;
-      border:0px;
       width: 100%;
       position: relative;
-      padding: 12px;
-      padding-left: 32px;
+      padding-left: 40px;
       text-align: left;
       font-family: inherit;
-      background-color: var(--color2);
-      color: var(--textColor);
       &:hover {
         background-color: var(--selected);
       }
@@ -549,17 +546,17 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
         background-color: var(--selected-click);
       }
       &:after {
-        content: '';
+        content: '';
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 32px;
+        width: 46px;
         height: 100%;
         position: absolute;
         top: 0;
         left: 0;
         font-weight: bold;
-        font-size: 1.2em;
+        font-size: 1em;
         font-family: "codicon";
       }
     }
@@ -1019,20 +1016,30 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   align-items: center;
   -webkit-app-region: no-drag;
   height: auto;
-}
 
-.app-chrome .app-chrome-item.generic {
-  width: 50px;
-  opacity: 0.70;
-}
+  &.collapseLibrary {
+    .md-btn {
+      font-family: "codicon";
+      font-size: 1em;
+      padding: 5px 12px;
+      background: transparent;
+      border: 0;
+    }
+  }
 
-.app-chrome .app-chrome-item.volume {
-  width: 100px;
-  margin-right: 6px;
-}
+  &.generic {
+    width: 50px;
+    opacity: 0.70;
+  }
 
-.app-chrome .app-chrome-item.search {
-  margin-right: 6px;
+  &.volume {
+    width: 100px;
+    margin-right: 6px;
+  }
+
+  &.search {
+    margin-right: 6px;
+  }
 }
 
 .volume-button {

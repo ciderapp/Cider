@@ -212,6 +212,8 @@
   "podcast.episodes": "Episodes",
   "podcast.playEpisode": "Play Episode",
   "podcast.website": "Podcast Website",
+  "action.hideLibrary": "Hide Library",
+  "action.showLibrary": "Show Library",
   "action.cut": "Cut",
   "action.paste": "Paste",
   "action.selectAll": "Select All",
