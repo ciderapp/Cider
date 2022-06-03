@@ -215,6 +215,7 @@
   "action.cut": "Cut",
   "action.paste": "Paste",
   "action.selectAll": "Select All",
+  "action.delete": "Delete",
   "action.edit": "Edit",
   "action.done": "Done",
   "action.editTracklist": "Edit Tracklist",

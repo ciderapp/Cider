@@ -325,6 +325,12 @@ document.addEventListener(
               document.execCommand("paste");
             },
           },
+          delete: {
+            name: app.getLz("action.delete"),
+            action: function () {
+              document.execCommand("delete");
+            },
+          },
           selectAll: {
             name: app.getLz("action.selectAll"),
             action: function () {
@@ -332,8 +338,8 @@ document.addEventListener(
             },
           },
         },
-      }
-      app.showMenuPanel(menuPanel, e)
+      };
+      app.showMenuPanel(menuPanel, e);
     }
   },
   false
