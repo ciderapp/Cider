@@ -53,6 +53,21 @@
           <%- include('../svg/chevron-right.svg') %>
         </button>
       </div>
+      <div class="app-chrome-item" v-if="cfg.advanced.experiments.includes('collapseSidebar')">
+        <button 
+        class="playback-button collapseLibrary" 
+        v-b-tooltip.hover
+        :title="chrome.sidebarCollapsed ? getLz('action.showLibrary') : getLz('action.hideLibrary')"
+        @click="chrome.sidebarCollapsed = !chrome.sidebarCollapsed">
+          <transition name="fade">
+            <span v-if="chrome.sidebarCollapsed"></span>
+          </transition>
+          <transition name="fade">
+            <span v-if="!chrome.sidebarCollapsed"></span>
+          </transition>
+
+        </button>
+      </div>
       <div
         class="vdiv display--large"
         v-if="getThemeDirective('windowLayout') != 'twopanel'"

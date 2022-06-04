@@ -374,15 +374,14 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 }
 
 #app-sidebar {
-  /* background-color: var(--color1); */
   height: 100%;
   width: var(--sidebarWidth);
   display: flex;
   flex-direction: column;
   flex: 0 0 auto;
   position: relative;
-  background    : var(--sidebarColorMix);
-  max-width     : var(--sidebarWidth);
+  background: linear-gradient(180deg, var(--baseColorMix) calc(var(--chromeHeight1) + 1px), var(--sidebarColorMix) calc(var(--chromeHeight1) + 1px));
+  max-width: var(--sidebarWidth);
   padding-top: var(--chromeHeight1);
 }
 
@@ -531,18 +530,15 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 
   &.collapseTab {
     display:flex;
-    padding:0px;
+    padding:6px;
+    border:0;
     >button {
       appearance: none;
-      border:0px;
       width: 100%;
       position: relative;
-      padding: 12px;
-      padding-left: 32px;
+      padding-left: 40px;
       text-align: left;
       font-family: inherit;
-      background-color: var(--color2);
-      color: var(--textColor);
       &:hover {
         background-color: var(--selected);
       }
@@ -550,17 +546,17 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
         background-color: var(--selected-click);
       }
       &:after {
-        content: '';
+        content: '';
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 32px;
+        width: 46px;
         height: 100%;
         position: absolute;
         top: 0;
         left: 0;
         font-weight: bold;
-        font-size: 1.2em;
+        font-size: 1em;
         font-family: "codicon";
       }
     }
@@ -1020,20 +1016,21 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   align-items: center;
   -webkit-app-region: no-drag;
   height: auto;
-}
 
-.app-chrome .app-chrome-item.generic {
-  width: 50px;
-  opacity: 0.70;
-}
 
-.app-chrome .app-chrome-item.volume {
-  width: 100px;
-  margin-right: 6px;
-}
+  &.generic {
+    width: 50px;
+    opacity: 0.70;
+  }
 
-.app-chrome .app-chrome-item.search {
-  margin-right: 6px;
+  &.volume {
+    width: 100px;
+    margin-right: 6px;
+  }
+
+  &.search {
+    margin-right: 6px;
+  }
 }
 
 .volume-button {
@@ -1752,7 +1749,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 .lyrics-translation {
   font-size: 1.6rem;
   font-weight: 450;
-  font-family: 'Inter', 'Noto Sans JP', 'Noto Sans SC', 'Noto Sans TC', 'Noto Sans HK', 'Noto Sans KR', sans-serif;
+  font-family: "Pretendard Variable", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   filter: contrast(0.5);
 }
 
@@ -2956,6 +2953,16 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 .replaycard-leave-to {
   opacity: 0;
   transform: translateY(20px);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity .15s var(--appleEase);
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 
 .modal-enter-active,

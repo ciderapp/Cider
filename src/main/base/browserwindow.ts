@@ -1,5 +1,5 @@
 import {join} from "path";
-import {app, BrowserWindow as bw, ipcMain, ShareMenu, shell} from "electron";
+import {app, BrowserWindow as bw, ipcMain, ShareMenu, shell, screen} from "electron";
 import * as windowStateKeeper from "electron-window-state";
 import * as express from "express";
 import * as getPort from "get-port";
@@ -28,6 +28,7 @@ import * as os from "os";
 import wallpaper from "wallpaper";
 import * as AdmZip from "adm-zip";
 
+
 /**
  * @file Creates the BrowserWindow
  * @author CiderCollective
@@ -55,8 +56,10 @@ export class BrowserWindow {
                 "pages/library-songs",
                 "pages/library-albums",
                 "pages/library-artists",
+                "pages/library-recentlyadded",
                 "pages/browse",
                 "pages/groupings",
+                "pages/charts",
                 "pages/settings",
                 "pages/installed-themes",
                 "pages/listen_now",
@@ -81,6 +84,7 @@ export class BrowserWindow {
                 "pages/zoo",
                 "pages/plugin-renderer",
                 "pages/keybinds",
+                "pages/oobe",
                 "components/mediaitem-artwork",
                 "components/artwork-material",
                 "components/menu-panel",
@@ -117,6 +121,11 @@ export class BrowserWindow {
                 "components/inline-collection-list",
             ],
             appRoutes: [
+                {
+                    page: "library-recentlyadded",
+                    component: `<cider-recentlyadded></cider-recentlyadded>`,
+                    condition: "page == 'library-recentlyadded'"
+                },
                 {
                     page: "plugin-renderer",
                     component: `<plugin-renderer></plugin-renderer>`,
@@ -192,6 +201,11 @@ export class BrowserWindow {
                     page: "groupings",
                     component: `<cider-groupings :data="browsepage"></cider-groupings>`,
                     condition: `page == 'groupings'`,
+                    onEnter: ``
+                },{
+                    page: "charts",
+                    component: `<cider-charts :data="browsepage"></cider-charts>`,
+                    condition: `page == 'charts'`,
                     onEnter: ``
                 }, {
                     page: "listen_now",
@@ -478,7 +492,7 @@ export class BrowserWindow {
             const impulseExternals = join(utils.getPath("externals"), "/impulses/")
             const impulseFile = join(impulseExternals, req.params.file)
             if(existsSync(impulseFile)) {
-                res.sendFile(impulseFile)                
+                res.sendFile(impulseFile)
             }else{
                 res.sendFile(join(utils.getPath('srcPath'), "./renderer/audio/impulses/" + req.params.file))
             }
@@ -737,15 +751,28 @@ export class BrowserWindow {
             return json;
         })
 
-        ipcMain.on("get-wallpaper", async (event) => {
+        ipcMain.on("get-wallpaper", async (event, args) => {
             const wpPath: string = await wallpaper.get();
-            // get the wallpaper and encode it to base64 then return
-            const wpBase64: string = await readFileSync(wpPath, 'base64')
-            // add the data:image properties
-            const wpData: string = `data:image/png;base64,${wpBase64}`
+            const Jimp = require("jimp")
+            const img = await Jimp.read(wpPath)
+            const blurAmount = args.blurAmount ?? 256
+            if(blurAmount) {
+                img.blur(blurAmount)
+            }
+            const screens = await screen.getAllDisplays()
+            const width = screens.reduce((a, b) => a + b.size.width, 0)
+            const height = screens.reduce((a, b) => a + b.size.height, 0)
+
+            img.cover(width, height, Jimp.HORIZONTAL_ALIGN_LEFT | Jimp.VERTICAL_ALIGN_MIDDLE)
+            const result = await img.getBase64Async(Jimp.MIME_PNG)
+
             event.returnValue = {
                 path: wpPath,
-                data: wpData
+                data: result,
+                res: {
+                    width: width,
+                    height: height
+                }
             };
         })
 
@@ -1488,4 +1515,3 @@ export class BrowserWindow {
         console.log('remote broadcasted')
     }
 }
-

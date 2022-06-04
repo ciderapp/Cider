@@ -60,9 +60,9 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/Cider
-      - run:
-          name: Fix Versioning and Add Channel
-          command: yarn circle:script
+#      - run:
+#          name: Fix Versioning and Add Channel
+#          command: yarn circle:script
       - run:
           name: Generate Builds (Linux)
           command: yarn electron-builder -l -p never
@@ -89,9 +89,9 @@ jobs:
             sudo dpkg --add-architecture i386
             sudo apt-get update -y
             sudo apt-get install -y wine32
-      - run:
-          name: Fix Versioning and Add Channel
-          command: yarn circle:script
+#      - run:
+#          name: Fix Versioning and Add Channel
+#          command: yarn circle:script
       - run:
           name: Generate Builds (Windows)
           command: yarn electron-builder -w --x64 -p never
@@ -117,9 +117,9 @@ jobs:
             sudo dpkg --add-architecture i386
             sudo apt-get update -y
             sudo apt-get install -y wine32
-      - run:
-          name: Fix Versioning and Add Channel
-          command: yarn circle:script
+#      - run:
+#          name: Fix Versioning and Add Channel
+#          command: yarn circle:script
       - run:
           name: Generate Builds (Winget)
           command: yarn electron-builder --win -c winget.json -p never
@@ -156,12 +156,12 @@ jobs:
             mv ~/Cider/dist/*.blockmap ~/Cider/dist/artifacts
       - store_artifacts:
           path: ~/Cider/dist/artifacts
+#      - run:
+#          name: Fix Versioning and Add Channel
+#          command: yarn circle:script
       - run:
-          name: Fix Versioning and Add Channel
-          command: yarn circle:script
-      - run:
-          name: Set App Version
-          command: echo "export APP_VERSION=$(grep '"version":.*' package.json | cut -d '"' -f 16 | head -1)" >> $BASH_ENV
+          name: Update Version Number of App
+          command: sudo chmod +x resources/version.sh && ./resources/version.sh || true
       - run:
           name: Publish Release
           command: |

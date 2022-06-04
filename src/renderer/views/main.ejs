@@ -58,6 +58,12 @@
         #LOADER>svg {
             width: 128px;
         }
+
+        @media (prefers-color-scheme: light) {
+            #LOADER {
+                background-color: #eee;
+            }
+        }
     </style>
 </head>
 
@@ -83,6 +89,11 @@
             <div class="fullscreen-view-container" v-if="appMode == 'mini'">
                 <mini-view :image="currentArtUrlRaw" :time="lyriccurrenttime" :lyrics="lyrics" :richlyrics="richlyrics">
                 </mini-view>
+            </div>
+        </transition>
+        <transition name="fsModeSwitch">
+            <div class="fullscreen-view-container oobe" v-if="appMode == 'oobe'">
+                <cider-oobe></cider-oobe>
             </div>
         </transition>
         <%- include('app/panels'); %>

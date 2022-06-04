@@ -1,0 +1,179 @@
+[
+  {
+    "page": "plugin-renderer",
+    "component": "<plugin-renderer></plugin-renderer>",
+    "condition": "page == 'plugin-renderer'"
+  },
+  {
+    "page": "zoo",
+    "component": "<cider-zoo></cider-zoo>",
+    "condition": "page == 'zoo'"
+  },
+  {
+    "page": "podcasts",
+    "component": "<apple-podcasts></apple-podcasts>",
+    "condition": "page == 'podcasts'"
+  },
+  {
+    "page": "library-videos",
+    "component": "<cider-library-videos></cider-library-videos>",
+    "condition": "page == 'library-videos'"
+  },
+  {
+    "page": "apple-account-settings",
+    "component": "<apple-account-settings></apple-account-settings>",
+    "condition": "page == 'apple-account-settings'"
+  },
+  {
+    "page": "about",
+    "component": "<about-page></about-page>",
+    "condition": "page == 'about'"
+  },
+  {
+    "page": "cider-artist",
+    "component": "<cider-artist :data=\"artistPage.data\"></cider-artist>",
+    "condition": "page == 'artist-page' && artistPage.data.attributes"
+  },
+  {
+    "page": "collection-list",
+    "component": "<cider-collection-list :data=\"collectionList.response\" :type=\"collectionList.type\" :title=\"collectionList.title\"></cider-collection-list>",
+    "condition": "page == 'collection-list'"
+  },
+  {
+    "page": "home",
+    "component": "<cider-home></cider-home>",
+    "condition": "page == 'home'"
+  },
+  {
+    "page": "artist-feed",
+    "component": "<cider-artist-feed></cider-artist-feed>",
+    "condition": "page == 'artist-feed'"
+  },
+  {
+    "page": "playlist-inline",
+    "component": "<playlist-inline :data=\"showingPlaylist\"></playlist-inline>",
+    "condition": "modals.showPlaylist"
+  },
+  {
+    "page": "playlist_",
+    "component": "<cider-playlist :data=\"showingPlaylist\"></cider-playlist>",
+    "condition": "page.includes('playlist_')"
+  },
+  {
+    "page": "oobe",
+    "component": "<cider-oobe/>",
+    "condition": "page == 'oobe'"
+  },
+  {
+    "page": "album_",
+    "component": "<cider-playlist :data=\"showingPlaylist\"></cider-playlist>",
+    "condition": "page.includes('album_')"
+  },
+  {
+    "page": "recordLabel_",
+    "component": "<cider-recordlabel :data=\"showingPlaylist\"></cider-recordlabel>",
+    "condition": "page.includes('recordLabel_')"
+  },
+  {
+    "page": "multiroom",
+    "component": "<cider-multiroom :data=\"multiroom\"></cider-multiroom>",
+    "condition": "page.includes('multiroom')"
+  },
+  {
+    "page": "curator_",
+    "component": "<cider-recordlabel :data=\"showingPlaylist\"></cider-recordlabel>",
+    "condition": "page.includes('curator_')"
+  },
+  {
+    "page": "browsepage",
+    "component": "<cider-browse :data=\"browsepage\"></cider-browse>",
+    "condition": "page == 'browse'",
+    "onEnter": ""
+  },
+  {
+    "page": "groupings",
+    "component": "<cider-groupings :data=\"browsepage\"></cider-groupings>",
+    "condition": "page == 'groupings'",
+    "onEnter": ""
+  },{
+    "page": "charts",
+    "component": "<cider-charts :data=\"browsepage\"></cider-charts>",
+    "condition": "page == 'charts'",
+    "onEnter": ""
+  },
+  {
+    "page": "listen_now",
+    "component": "<cider-listen-now :data=\"listennow\"></cider-listen-now>",
+    "condition": "page == 'listen_now'",
+    "onEnter": ""
+  },
+  {
+    "page": "radio",
+    "component": "<cider-radio :data=\"radio\"></cider-radio>",
+    "condition": "page == 'radio'",
+    "onEnter": ""
+  },
+  {
+    "page": "settings",
+    "component": "<cider-settings></cider-settings>",
+    "condition": "page == 'settings'"
+  },
+  {
+    "page": "installed-themes",
+    "component": "<installed-themes></installed-themes>",
+    "condition": "page == 'installed-themes'"
+  },
+  {
+    "page": "search",
+    "component": "<cider-search :search=\"search\"></cider-search>",
+    "condition": "page == 'search'"
+  },
+  {
+    "page": "library-songs",
+    "component": "<cider-library-songs :data=\"library.songs\"></cider-library-songs>",
+    "condition": "page == 'library-songs'",
+    "onEnter": ""
+  },
+  {
+    "page": "library-albums",
+    "component": "<cider-library-albums :data=\"library.songs\"></cider-library-albums>",
+    "condition": "page == 'library-albums'",
+    "onEnter": ""
+  },
+  {
+    "page": "library-artists",
+    "component": "<cider-library-artists></cider-library-artists>",
+    "condition": "page == 'library-artists'",
+    "onEnter": ""
+  },
+  {
+    "page": "appleCurator",
+    "component": "<cider-applecurator :data=\"appleCurator\"></cider-applecurator>",
+    "condition": "page.includes('appleCurator')"
+  },
+  {
+    "page": "themes-github",
+    "component": "<themes-github></themes-github>",
+    "condition": "page == 'themes-github'"
+  },
+  {
+    "page": "plugins-github",
+    "component": "<plugins-github></plugins-github>",
+    "condition": "page == 'plugins-github'"
+  },
+  {
+    "page": "remote-pair",
+    "component": "<remote-pair></remote-pair>",
+    "condition": "page == 'remote-pair'"
+  },
+  {
+    "page": "audiolabs",
+    "component": "<audiolabs-page></audiolabs-page>",
+    "condition": "page == 'audiolabs'"
+  },
+  {
+    "page": "replay",
+    "component": "<replay-page></replay-page>",
+    "condition": "page == 'replay'"
+  }
+]
