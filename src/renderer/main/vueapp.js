@@ -500,8 +500,11 @@ const app = new Vue({
             })
         },
         goToGrouping(url = "https://music.apple.com/WebObjects/MZStore.woa/wa/viewGrouping?cc=us&id=34") {
+            if (url.includes('viewTop')){
+            window.location.hash = `#charts/top`
+            } else {
             const id = url.split("id=")[1];
-            window.location.hash = `#groupings/${id}`
+            window.location.hash = `#groupings/${id}`}
         },
         navigateForward() {
             history.forward()
