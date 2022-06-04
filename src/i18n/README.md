@@ -441,3 +441,49 @@ Update 03/06/2022 11:40 UTC
 
 * `settings.option.connectivity.discordRPC.reload`: Added to `en_US`
 * `settings.option.connectivity.discordRPC.reconnectedToUser`: Added to `en_US`
+
+Update 04/06/2022 03:00 UTC
+
+* `term.cast`: Added to `en_US`
+*  `term.playpause`: Added to `en_US`
+*  `term.reload`: Added to `en_US`
+*  `term.toggleprivate`: Added to `en_US`
+*  `term.webremote`: Added to `en_US`
+*  `term.cast2`: Added to `en_US`
+*  `term.quit`: Added to `en_US`
+*  `menubar.options.zoom`: Added to `en_US`
+*  `term.zoomin`: Added to `en_US`
+*  `term.zoomout`: Added to `en_US`
+*  `term.zoomreset`: Added to `en_US`
+*  `term.fullscreen`: Added to `en_US`
+*  `settings.option.general.keybindings.library`: Added to `en_US`
+*  `settings.option.general.keybindings.session`: Added to `en_US`
+*  `settings.option.general.keybindings.control`: Added to `en_US`
+*  `settings.option.general.keybindings.interface`: Added to `en_US`
+*  `settings.option.general.keybindings.advanced`: Added to `en_US`
+
+*  `action.tray.quit`: Deleted for all language files
+*  `action.tray.playpause`: Deleted for all language files
+*  `action.tray.next`: Deleted for all language files
+*  `action.tray.previous`: Deleted for all language files
+*  `menubar.options.about`: Deleted for all language files
+*  `menubar.options.settings`: Deleted for all language files
+*  `menubar.options.quit`: Deleted for all language files
+*  `menubar.options.toggleprivate`: Deleted for all language files
+*  `menubar.options.webremote`: Deleted for all language files
+*  `menubar.options.audio`: Deleted for all language files
+*  `menubar.options.next`: Deleted for all language files
+*  `menubar.options.previous`: Deleted for all language files
+*  `menubar.options.browse`: Deleted for all language files
+*  `menubar.options.artists`: Deleted for all language files
+*  `menubar.options.search`: Deleted for all language files
+*  `menubar.options.albums`: Deleted for all language files
+*  `menubar.options.cast`: Deleted for all language files
+*  `menubar.options.accountsettings`: Deleted for all language files
+*  `menubar.options.discord`: Deleted for all language files
+*  `menubar.options.github`: Deleted for all language files,
+*  `menubar.options.listennow`: Deleted for all language files
+*  `menubar.options.recentlyAdded`: Deleted for all language files
+*  `menubar.options.songs`: Deleted for all language files
+*  `settings.option.general.keybindings.open`: Deleted for all language files
+*  `menubar.options.playpause`: Deleted for all language files

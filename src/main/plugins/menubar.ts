@@ -147,19 +147,19 @@ export default class Thumbar {
                     label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.zoom'),
                     submenu: [
                         {
-                            label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.zoomin'),
+                            label: utils.getLocale(utils.getStoreValue('general.language'), 'term.zoomin'),
                             role: 'zoomIn',
                             accelerator: utils.getStoreValue("general.keybindings.zoomn").join('+')
 
                         },
                         {
-                            label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.zoomout'),
+                            label: utils.getLocale(utils.getStoreValue('general.language'), 'term.zoomout'),
                             role: 'zoomOut',
                             accelerator: utils.getStoreValue("general.keybindings.zoomt").join('+')
 
                         },
                         {
-                            label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.zoomreset'),
+                            label: utils.getLocale(utils.getStoreValue('general.language'), 'term.zoomreset'),
                             role: 'resetZoom',
                             accelerator: utils.getStoreValue("general.keybindings.zoomrst").join('+')                           
                         }
@@ -167,7 +167,7 @@ export default class Thumbar {
                 },
                 {type: 'separator'},
                 {
-                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.fullscreen'),
+                    label: utils.getLocale(utils.getStoreValue('general.language'), 'term.fullscreen'),
                     accelerator: 'Control+Enter',
                     role: 'togglefullscreen'
                 },
