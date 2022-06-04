@@ -52,7 +52,7 @@ export default class Thumbar {
                 ...(this.isNotMac ? [
                     {type: 'separator'},
                 {
-                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.quit'),
+                    label: utils.getLocale(utils.getStoreValue('general.language'), 'term.quit'),
                     accelerator: 'Control+Q',
                     click: () => app.quit()
                      
@@ -196,7 +196,7 @@ export default class Thumbar {
             label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.controls'),
             submenu: [
                 {
-                    label:  utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.playpause'),
+                    label:  utils.getLocale(utils.getStoreValue('general.language'), 'term.playpause'),
                     accelerator: 'Space',
                     click: () => utils.getWindow().webContents.executeJavaScript(`app.SpacePause()`)
                 },
@@ -223,7 +223,7 @@ export default class Thumbar {
                 },                
                 {type: 'separator'},
                 {
-                    label: utils.getLocale(utils.getStoreValue('general.language'), 'term.cast'),
+                    label: utils.getLocale(utils.getStoreValue('general.language'), 'term.cast2'),
                     accelerator: utils.getStoreValue("general.keybindings.castToDevices").join('+'),
                     click: () => utils.getWindow().webContents.executeJavaScript(`app.modals.castMenu = true`)
                 },

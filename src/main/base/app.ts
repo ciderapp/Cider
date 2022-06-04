@@ -333,7 +333,7 @@ export class AppEvents {
            
             {
                 visible: (visible === false),
-                label: this.i18n['action.tray.playpause'],
+                label: this.i18n['term.playpause'],
                 click: () => {
                     utils.getWindow().webContents.executeJavaScript('MusicKitInterop.playPause()')
                 }   
@@ -341,7 +341,7 @@ export class AppEvents {
             
             {
                 visible: (visible === false),
-                label: this.i18n['action.tray.next'],
+                label: this.i18n['term.next'],
                 click: () => {
                     utils.getWindow().webContents.executeJavaScript(`MusicKitInterop.next()`)
                 }
@@ -349,7 +349,7 @@ export class AppEvents {
             
             {
                 visible: (visible === false),
-                label: this.i18n['action.tray.previous'],
+                label: this.i18n['term.previous'],
                 click: () => {
                     utils.getWindow().webContents.executeJavaScript(`MusicKitInterop.previous()`)
                 }
@@ -370,7 +370,7 @@ export class AppEvents {
                 }
             },
             {
-                label: this.i18n['action.tray.quit'],
+                label: this.i18n['term.quit'],
                 click: () => {
                     app.quit()
                 }
