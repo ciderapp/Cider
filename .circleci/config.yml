@@ -160,8 +160,8 @@ jobs:
 #          name: Fix Versioning and Add Channel
 #          command: yarn circle:script
       - run:
-          name: Set App Version
-          command: echo "export APP_VERSION=$(grep '"version":.*' package.json | cut -d '"' -f 16 | head -1)" >> $BASH_ENV
+          name: Update Version Number of App
+          command: sudo chmod +x resources/version.sh && ./resources/version.sh || true
       - run:
           name: Publish Release
           command: |
