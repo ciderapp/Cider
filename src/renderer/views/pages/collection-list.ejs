@@ -1,7 +1,8 @@
 <script type="text/x-template" id="cider-collection-list">
     <div class="content-inner collection-page">
         <h3 class="header-text" v-observe-visibility="{callback: headerVisibility}">{{ title }}</h3>
-        <div v-if="data['data'] != 'null'" class="well itemContainer" :class="getClasses()">
+        <div v-if="data['data'] != 'null'" class="well itemContainer" >
+            <!-- :class="getClasses()"> -->
             <template v-for="(item, key) in data.data">
                 <template v-if="item.type == 'artists'">
                     <mediaitem-square :item="item"></mediaitem-square>
