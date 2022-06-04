@@ -461,7 +461,7 @@
   "settings.header.unfinished": "尚未完成開發的功能",
   "remote.web.title": "Cider 遙控器",
   "remote.web.description": "掃描以下 QR Code 即可遙控 Cider",
-  "about.thanks": "著重感謝 Cider Collective 的成員以及所有為項目付出的貢獻者。"
+  "about.thanks": "著重感謝 Cider Collective 的成員以及所有為項目付出的貢獻者。",
   "oobe.yes": "是",
   "oobe.no": "否",
   "oobe.next": "下一步",
@@ -500,5 +500,4 @@
   "oobe.visual.suggestingThemes.community2.text": "經典的水果設計。",
   "oobe.visual.suggestingThemes.community3": "Dracula",
   "oobe.visual.suggestingThemes.community3.text": "標誌性的德古拉配色。",
-  "oobe.amsignin.title": ""
 }
