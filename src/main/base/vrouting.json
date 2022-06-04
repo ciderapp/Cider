@@ -95,6 +95,11 @@
     "component": "<cider-groupings :data=\"browsepage\"></cider-groupings>",
     "condition": "page == 'groupings'",
     "onEnter": ""
+  },{
+    "page": "charts",
+    "component": "<cider-charts :data=\"browsepage\"></cider-charts>",
+    "condition": "page == 'charts'",
+    "onEnter": ""
   },
   {
     "page": "listen_now",

@@ -59,6 +59,7 @@ export class BrowserWindow {
                 "pages/library-recentlyadded",
                 "pages/browse",
                 "pages/groupings",
+                "pages/charts",
                 "pages/settings",
                 "pages/installed-themes",
                 "pages/listen_now",
@@ -200,6 +201,11 @@ export class BrowserWindow {
                     page: "groupings",
                     component: `<cider-groupings :data="browsepage"></cider-groupings>`,
                     condition: `page == 'groupings'`,
+                    onEnter: ``
+                },{
+                    page: "charts",
+                    component: `<cider-charts :data="browsepage"></cider-charts>`,
+                    condition: `page == 'charts'`,
                     onEnter: ``
                 }, {
                     page: "listen_now",
