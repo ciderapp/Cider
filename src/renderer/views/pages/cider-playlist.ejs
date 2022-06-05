@@ -80,7 +80,7 @@
                                     </button>
                                 </div>
                             </template>
-                            <div class="playlist-controls" v-observe-visibility="{callback: isHeaderVisible}">
+                            <div class="playlist-controls" v-observe-visibility="{callback: isHeaderVisible}" style="z-index: 20;">
                                 <button class="md-btn md-btn-primary md-btn-icon" style="min-width: 100px;"
                                         @click="app.mk.shuffleMode = 0; play()"><img class="md-ico-play">
                                     {{app.getLz('term.play')}}

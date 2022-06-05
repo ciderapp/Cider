@@ -828,7 +828,8 @@ const app = new Vue({
                         user: `${user.username}#${user.discriminator}`,
                         userid: user.id
                     }));
-                }
+                }})
+
             ipcRenderer.on('getUpdatedLocalList', (event,data) => {
                 console.log("cider-local",data);
                 this.library.localsongs = data;
