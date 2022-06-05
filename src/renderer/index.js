@@ -292,7 +292,7 @@ function isJson(item) {
 webGPU().then();
 
 function showOobe() {
-  if (localStorage.getItem("mk-player-tsid") && localStorage.getItem("seenOOBE")) {
+  if (localStorage.getItem("music.ampwebplay.media-user-token") && localStorage.getItem("seenOOBE")) {
     return false
   } else {
     function waitForApp() {

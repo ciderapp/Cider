@@ -158,7 +158,7 @@
         },
         methods: {
             signIn() {
-                if(localStorage.getItem("mk-player-tsid")) {
+                if(localStorage.getItem("music.ampwebplay.media-user-token")) {
                     localStorage.setItem("seenOOBE", 1)
                     window.location.reload()
                 }
