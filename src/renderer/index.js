@@ -117,35 +117,35 @@ function fallbackinitMusicKit() {
   );
   request.send();
 }
-document.addEventListener("musickitloaded", function () {
-  console.log("MusicKit loaded");
-  // MusicKit global is now defined
-  function initMusicKit() {
-    let parsedJson = JSON.parse(this.responseText);
-    MusicKit.configure({
-      developerToken: parsedJson.token,
-      app: {
-        name: "Apple Music",
-        build: "1978.4.1",
-        version: "1.0",
-      },
-      sourceType: 24,
-      suppressErrorDialog: true,
-    }).then(() => {
-      function waitForApp() {
-        if (typeof app.init !== "undefined") {
-          app.init();
-          if (app.cfg.visual.window_background_style == "mica" && !app.isDev) {
-            app.spawnMica();
-          }
-        } else {
-          setTimeout(waitForApp, 250);
-        }
-      }
-      waitForApp();
-    });
-  }
 
+function initMusicKit() {
+
+  let parsedJson = JSON.parse(this.responseText);
+  MusicKit.configure({
+    developerToken: parsedJson.token,
+    app: {
+      name: "Apple Music",
+      build: "1978.4.1",
+      version: "1.0",
+    },
+    sourceType: 24,
+    suppressErrorDialog: true,
+  }).then(() => {
+    function waitForApp() {
+      if (typeof app.init !== "undefined") {
+        app.init();
+        if (app.cfg.visual.window_background_style == "mica" && !app.isDev) {
+          app.spawnMica();
+        }
+      } else {
+        setTimeout(waitForApp, 250);
+      }
+    }
+    waitForApp();
+  });
+}
+
+function capiInit() {
   const request = new XMLHttpRequest();
   request.timeout = 5000;
   request.addEventListener("load", initMusicKit);
@@ -156,13 +156,17 @@ document.addEventListener("musickitloaded", function () {
   };
   request.open("GET", "https://api.cider.sh/v1/");
   request.send();
+}
 
-  // check for widevine failure and reconfigure the instance.
-  window.addEventListener("drmUnsupported", function () {
-    initMusicKit();
-  });
+document.addEventListener("musickitloaded", function () {
+  if (showOobe()) return;
+  console.log("MusicKit loaded");
+  // MusicKit global is now defined
+  capiInit()
 });
-
+window.addEventListener("drmUnsupported", function () {
+  initMusicKit();
+});
 if ("serviceWorker" in navigator) {
   // Use the window load event to keep the page load performant
   window.addEventListener("load", () => {
@@ -251,7 +255,7 @@ var checkIfScrollIsStatic = setInterval(() => {
       // do something
     }
     position = document.getElementsByClassName("lyric-body")[0].scrollTop;
-  } catch (e) {}
+  } catch (e) { }
 }, 50);
 
 // WebGPU Console Notification
@@ -286,6 +290,22 @@ function isJson(item) {
 }
 
 webGPU().then();
+
+function showOobe() {
+  if (localStorage.getItem("music.ampwebplay.media-user-token") && localStorage.getItem("seenOOBE")) {
+    return false
+  } else {
+    function waitForApp() {
+      if (typeof app.init !== "undefined") {
+        app.oobeInit();
+      } else {
+        setTimeout(waitForApp, 250);
+      }
+    }
+    waitForApp();
+    return true
+  }
+}
 
 let screenWidth = screen.width;
 let screenHeight = screen.height;

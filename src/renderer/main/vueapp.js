@@ -629,7 +629,9 @@ const app = new Vue({
         },
         async init() {
             let self = this
-
+            if(!localStorage.getItem("seenOOBE")) {
+                localStorage.setItem("seenOOBE", 1)
+            }
             if (this.cfg.visual.styles.length != 0) {
                 await this.reloadStyles()
             }
