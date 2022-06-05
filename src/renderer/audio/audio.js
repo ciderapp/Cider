@@ -906,7 +906,7 @@ const CiderAudio = {
         try { for (var i of CiderAudio.audioNodes.audioBands) { i.disconnect(); } CiderAudio.audioNodes.vibrantbassNode = null} catch (e) { };
         console.debug("[Cider][Audio] Finished hierarchical unloading")
     },
-    hierarchical_loading: function () {
+    hierarchical_loading: async function () {
         const configMap = new Map([
             ['spatial', app.cfg.audio.maikiwiAudio.spatial === true],
             ['n5', app.cfg.audio.maikiwiAudio.atmosphereRealizer2 === true],   
