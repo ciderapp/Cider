@@ -1151,19 +1151,6 @@
 
                         <div class="md-option-line">
                             <div class="md-option-segment">
-                                Collapsable Sidebar
-                            </div>
-                            <div class="md-option-segment md-option-segment_auto">
-                                <label>
-                                    <input type="checkbox" v-model="app.cfg.advanced.experiments.includes('collapseSidebar')"
-                                           @click="app.cfg.advanced.experiments.includes('collapseSidebar') ? removeExperiment('collapseSidebar') : addExperiment('collapseSidebar')"
-                                           switch/>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="md-option-line">
-                            <div class="md-option-segment">
                                 {{$root.getLz('settings.option.experimental.compactUI')}}
                             </div>
                             <div class="md-option-segment md-option-segment_auto">

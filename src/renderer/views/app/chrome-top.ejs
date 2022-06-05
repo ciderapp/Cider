@@ -53,7 +53,7 @@
           <%- include('../svg/chevron-right.svg') %>
         </button>
       </div>
-      <div class="app-chrome-item" v-if="cfg.advanced.experiments.includes('collapseSidebar')">
+      <div class="app-chrome-item" v-if="getThemeDirective('windowLayout') == 'twopanel'">
         <button 
         class="playback-button collapseLibrary" 
         v-b-tooltip.hover
