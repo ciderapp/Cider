@@ -283,6 +283,17 @@ const app = new Vue({
             ipcRenderer.invoke("renderer-ready", true)
             document.querySelector("#LOADER").remove()
         },
+        getAppStyle() {
+            let finalStyle = {}
+            if(this.cfg.visual.window_background_style === "color") {
+                finalStyle["background-color"] = this.cfg.visual.windowColor
+            }
+            if(this.cfg.visual.customAccentColor) {
+                finalStyle["--keyColor"] = this.cfg.visual.accentColor
+                finalStyle["--songProgressColor"] = this.cfg.visual.accentColor
+            }
+            return finalStyle
+        },
         setTimeout(func, time) {
             return setTimeout(func, time);
         },

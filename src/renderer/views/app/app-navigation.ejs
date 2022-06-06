@@ -10,7 +10,7 @@
             <img
               class="sidebar-user-icon"
               loading="lazy"
-              :src="getMediaItemArtwork(chrome.hideUserInfo ? 'http://localhost:9000/assets/logocut.png' : (chrome.userinfo.attributes['artwork'] ? chrome.userinfo.attributes['artwork']['url'] : ''), 26)"
+              :src="getMediaItemArtwork(chrome.hideUserInfo ? './assets/logocut.png' : (chrome.userinfo.attributes['artwork'] ? chrome.userinfo.attributes['artwork']['url'] : ''), 26)"
             />
 
             <div class="sidebar-user-text" v-if="!chrome.hideUserInfo">

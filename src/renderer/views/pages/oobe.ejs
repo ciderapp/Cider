@@ -143,6 +143,12 @@
 
             </div>
         </div>
+        <div class="oobe-titlebar">
+            <div class="button-group" v-if="$root.platform !== 'darwin'">
+                <button class="min" @click="$root.ipcRenderer.send('minimize')"></button>
+                <button class="close" @click="$root.ipcRenderer.send('close')"></button>
+            </div>
+        </div>
     </div>
 </script>
 <script>
@@ -158,7 +164,7 @@
         },
         methods: {
             signIn() {
-                if(localStorage.getItem("music.ampwebplay.media-user-token")) {
+                if (localStorage.getItem("music.ampwebplay.media-user-token")) {
                     localStorage.setItem("seenOOBE", 1)
                     window.location.reload()
                 }

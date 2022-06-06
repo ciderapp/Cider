@@ -96,7 +96,8 @@
                                         <option value="listen_now">{{$root.getLz('term.listenNow')}}</option>
                                         <option value="browse">{{$root.getLz('term.browse')}}</option>
                                         <option value="radio">{{$root.getLz('term.radio')}}</option>
-                                        <option value="library-recentlyadded">{{$root.getLz('term.recentlyAdded')}}</option>
+                                        <option value="library-recentlyadded">{{$root.getLz('term.recentlyAdded')}}
+                                        </option>
                                         <option value="library-songs">{{$root.getLz('term.songs')}}</option>
                                         <option value="library-albums">{{$root.getLz('term.albums')}}</option>
                                         <option value="library-artists">{{$root.getLz('term.artists')}}</option>
@@ -124,7 +125,8 @@
                                         </div>
                                         <div class="md-option-segment md-option-segment_auto">
                                             <label>
-                                                <input type="checkbox" v-model="app.cfg.general.sidebarItems.recentlyAdded"
+                                                <input type="checkbox"
+                                                       v-model="app.cfg.general.sidebarItems.recentlyAdded"
                                                        switch/>
                                             </label>
                                         </div>
@@ -135,7 +137,8 @@
                                         </div>
                                         <div class="md-option-segment md-option-segment_auto">
                                             <label>
-                                                <input type="checkbox" v-model="app.cfg.general.sidebarItems.songs" switch/>
+                                                <input type="checkbox" v-model="app.cfg.general.sidebarItems.songs"
+                                                       switch/>
                                             </label>
                                         </div>
                                     </div>
@@ -185,7 +188,7 @@
                                     </div>
                                 </div>
                             </b-modal>
-                        </div> 
+                        </div>
                         <div class="md-option-line">
                             <div class="md-option-segment">
                                 {{$root.getLz('settings.option.general.keybindings')}}
@@ -195,7 +198,7 @@
                                     {{$root.getLz('action.open')}}
                                 </button>
                             </div>
-                        </div>        
+                        </div>
                         <div class="md-option-line">
                             <div class="md-option-segment">
                                 {{$root.getLz('settings.option.general.themeUpdateNotification')}}
@@ -206,7 +209,7 @@
                                            switch/>
                                 </label>
                             </div>
-                        </div>            
+                        </div>
                         <div class="md-option-line">
                             <div class="md-option-segment">
                                 {{$root.getLz('settings.option.general.showLovedTracksInline')}}
@@ -217,7 +220,7 @@
                                            switch/>
                                 </label>
                             </div>
-                        </div>         
+                        </div>
                     </div>
                 </div>
             </b-tab>
@@ -241,7 +244,8 @@
                                         <option value="HIGH">{{$root.getLz('settings.header.audio.quality.high')}}
                                             ({{$root.getLz('settings.header.audio.quality.high.description')}})
                                         </option>
-                                        <option value="STANDARD">{{$root.getLz('settings.header.audio.quality.standard')}}
+                                        <option value="STANDARD">
+                                            {{$root.getLz('settings.header.audio.quality.standard')}}
                                             ({{$root.getLz('settings.header.audio.quality.standard.description')}})
                                         </option>
                                     </select>
@@ -334,7 +338,8 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="md-option-line" v-show="app.cfg.advanced.AudioContext && app.cfg.audio.normalization">
+                        <div class="md-option-line"
+                             v-show="app.cfg.advanced.AudioContext && app.cfg.audio.normalization">
                             <div class="md-option-segment">
                                 {{$root.getLz('settings.option.audio.dbspl.display')}}
                                 <br>
@@ -408,6 +413,9 @@
                                         <option value="image">
                                             {{$root.getLz('settings.header.visual.windowBackgroundStyle.image')}}
                                         </option>
+                                        <option value="color">
+                                            {{$root.getLz('settings.header.visual.windowBackgroundStyle.color')}}
+                                        </option>
                                         <option value="mica">
                                             Mica (Beta)
                                         </option>
@@ -415,6 +423,113 @@
                                 </label>
                             </div>
                         </div>
+                        <div class="md-option-line child" v-if="app.cfg.visual.window_background_style == 'color'">
+                            <div class="md-option-segment">
+                                {{$root.getLz('settings.option.visual.windowColor')}}
+                            </div>
+                            <div class="md-option-segment_auto">
+                                <input type="color" v-model="app.cfg.visual.windowColor"/>
+                            </div>
+                        </div>
+                        <div class="md-option-line">
+                            <div class="md-option-segment">
+                                {{$root.getLz('settings.option.visual.customAccentColor')}}
+                            </div>
+                            <div class="md-option-segment_auto">
+                                <input type="checkbox" v-model="app.cfg.visual.customAccentColor" switch/>
+                            </div>
+                        </div>
+                        <div class="md-option-line child" v-if="app.cfg.visual.customAccentColor">
+                            <div class="md-option-segment">
+                                {{$root.getLz('settings.option.visual.accentColor')}}
+                            </div>
+                            <div class="md-option-segment_auto">
+                                <input type="color" v-model="app.cfg.visual.accentColor"/>
+                            </div>
+                        </div>
+                        <div class="md-option-line">
+                            <div class="md-option-segment">
+                                {{$root.getLz('settings.option.visual.hardwareAcceleration')}}<br>
+                                <small>({{$root.getLz('settings.option.visual.hardwareAcceleration.description')}})</small>
+                            </div>
+                            <div class="md-option-segment md-option-segment_auto">
+                                <label>
+                                    <select class="md-select" style="width:180px;"
+                                            v-model="app.cfg.visual.hw_acceleration" @change="promptForRelaunch()">
+                                        <option value="default">
+                                            {{$root.getLz('settings.header.visual.hardwareAcceleration.default')}}
+                                        </option>
+                                        <option value="webgpu">
+                                            {{$root.getLz('settings.header.visual.hardwareAcceleration.webGPU')}}
+                                        </option>
+                                        <option value="disabled">{{$root.getLz('term.disabled')}}</option>
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="md-option-line">
+                            <div class="md-option-segment">
+                                {{$root.getLz('settings.option.visual.showPersonalInfo')}}
+                            </div>
+                            <div class="md-option-segment md-option-segment_auto">
+                                <label>
+                                    <input type="checkbox" v-model="app.cfg.visual.showuserinfo"
+                                           v-on:change="toggleUserInfo"
+                                           switch/>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Window Settings -->
+                    <div class="md-option-header">
+                        <span>{{$root.getLz('settings.header.window')}}</span>
+                    </div>
+                    <div class="settings-option-body">
+                        <div class="md-option-line" v-show="app.platform !== 'darwin'">
+                            <div class="md-option-segment">
+                                {{$root.getLz("settings.option.window.close_button_hide")}}
+                            </div>
+                            <div class="md-option-segment md-option-segment_auto">
+                                <label>
+                                    <input type="checkbox" v-model="app.cfg.general.close_button_hide" switch/>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="md-option-line" v-show="app.platform !== 'darwin'">
+                            <div class="md-option-segment">
+                                {{$root.getLz("settings.option.window.useNativeTitleBar")}}<br>
+                                <small>({{$root.getLz("settings.option.visual.hardwareAcceleration.description")}})</small>
+                            </div>
+                            <div class="md-option-segment md-option-segment_auto">
+                                <label>
+                                    <input type="checkbox" v-model="app.cfg.visual.nativeTitleBar" switch
+                                           @change="promptForRelaunch()"/>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="md-option-line" v-show="app.platform !== 'darwin'">
+                            <div class="md-option-segment">
+                                {{$root.getLz("settings.option.window.windowControlStyle")}}
+                            </div>
+                            <div class="md-option-segment md-option-segment_auto">
+                                <label>
+                                    <select class="md-select" v-model="app.cfg.visual.windowControlPosition">
+                                        <option value="0">
+                                            {{$root.getLz("settings.option.window.windowControlStyle.right")}}
+                                        </option>
+                                        <option value="1">
+                                            {{$root.getLz("settings.option.window.windowControlStyle.left")}}
+                                        </option>
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Advanced Visual -->
+                    <div class="md-option-header">
+                        <span>{{$root.getLz('settings.header.advanced')}}</span>
+                    </div>
+                    <div class="settings-option-body">
                         <div class="md-option-line">
                             <div class="md-option-segment">
                                 {{$root.getLz('settings.option.visual.animatedArtwork')}}
@@ -469,82 +584,6 @@
                             <div class="md-option-segment md-option-segment_auto">
                                 <label>
                                     <input type="checkbox" switch v-model="app.cfg.visual.bg_artwork_rotation"/>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="md-option-line">
-                            <div class="md-option-segment">
-                                {{$root.getLz('settings.option.visual.hardwareAcceleration')}}<br>
-                                <small>({{$root.getLz('settings.option.visual.hardwareAcceleration.description')}})</small>
-                            </div>
-                            <div class="md-option-segment md-option-segment_auto">
-                                <label>
-                                    <select class="md-select" style="width:180px;" v-model="app.cfg.visual.hw_acceleration" @change="promptForRelaunch()">
-                                        <option value="default">
-                                            {{$root.getLz('settings.header.visual.hardwareAcceleration.default')}}
-                                        </option>
-                                        <option value="webgpu">
-                                            {{$root.getLz('settings.header.visual.hardwareAcceleration.webGPU')}}
-                                        </option>
-                                        <option value="disabled">{{$root.getLz('term.disabled')}}</option>
-                                    </select>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="md-option-line">
-                            <div class="md-option-segment">
-                                {{$root.getLz('settings.option.visual.showPersonalInfo')}}
-                            </div>
-                            <div class="md-option-segment md-option-segment_auto">
-                                <label>
-                                    <input type="checkbox" v-model="app.cfg.visual.showuserinfo"
-                                           v-on:change="toggleUserInfo"
-                                           switch/>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Window Settings -->
-                    <div class="md-option-header">
-                        <span>{{$root.getLz('settings.header.window')}}</span>
-                    </div>
-                    <div class="settings-option-body">
-                        <div class="md-option-line" v-show="app.platform !== 'darwin'">
-                            <div class="md-option-segment">
-                                {{$root.getLz("settings.option.window.close_button_hide")}}
-                            </div>
-                            <div class="md-option-segment md-option-segment_auto">
-                                <label>
-                                    <input type="checkbox" v-model="app.cfg.general.close_button_hide" switch/>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="md-option-line" v-show="app.platform !== 'darwin'">
-                            <div class="md-option-segment">
-                                {{$root.getLz("settings.option.window.useNativeTitleBar")}}<br>
-                                <small>({{$root.getLz("settings.option.visual.hardwareAcceleration.description")}})</small>
-                            </div>
-                            <div class="md-option-segment md-option-segment_auto">
-                                <label>
-                                    <input type="checkbox" v-model="app.cfg.visual.nativeTitleBar" switch
-                                    @change="promptForRelaunch()"/>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="md-option-line" v-show="app.platform !== 'darwin'">
-                            <div class="md-option-segment">
-                                {{$root.getLz("settings.option.window.windowControlStyle")}}
-                            </div>
-                            <div class="md-option-segment md-option-segment_auto">
-                                <label>
-                                    <select class="md-select" v-model="app.cfg.visual.windowControlPosition">
-                                        <option value="0">
-                                            {{$root.getLz("settings.option.window.windowControlStyle.right")}}
-                                        </option>
-                                        <option value="1">
-                                            {{$root.getLz("settings.option.window.windowControlStyle.left")}}
-                                        </option>
-                                    </select>
                                 </label>
                             </div>
                         </div>
@@ -1036,7 +1075,8 @@
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
                                 <label>
-                                    <input type="checkbox" v-model="app.cfg.lastfm.enabledRemoveFeaturingArtists" switch/>
+                                    <input type="checkbox" v-model="app.cfg.lastfm.enabledRemoveFeaturingArtists"
+                                           switch/>
                                 </label>
                             </div>
                         </div>
@@ -1174,7 +1214,8 @@
                                     <select class="md-select" @change="$root.setLz('');$root.setLzManual()"
                                             v-model="app.cfg.general.language">
                                         <optgroup :label="index" v-for="(categories, index) in getLanguages()">
-                                            <option v-for="lang in categories" :value="lang.code">{{lang.nameNative}} ({{
+                                            <option v-for="lang in categories" :value="lang.code">{{lang.nameNative}}
+                                                ({{
                                                 lang.nameEnglish }})
                                             </option>
                                         </optgroup>
@@ -1440,7 +1481,7 @@
                 ipcRenderer.send('cc-logout')
             },
             reloadDiscordRPC() {
-	            ipcRenderer.send('reloadRPC')
+                ipcRenderer.send('reloadRPC')
             }
         }
     })
