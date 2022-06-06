@@ -117,6 +117,7 @@ const app = new Vue({
                 displayListing: [],
                 downloadState: 0 // 0 = not started, 1 = in progress, 2 = complete, 3 = empty library
             },
+            localsongs : []
         },
         playlists: {
             listing: [],
@@ -623,7 +624,9 @@ const app = new Vue({
         },
         async init() {
             let self = this
-
+            if(!localStorage.getItem("seenOOBE")) {
+                localStorage.setItem("seenOOBE", 1)
+            }
             if (this.cfg.visual.styles.length != 0) {
                 await this.reloadStyles()
             }
@@ -700,9 +703,6 @@ const app = new Vue({
                 // Set mk.volume to -1 (setting to 0 wont work, so temp solution setting to -1)
                 this.mk.volume = -1;
             }
-            // ipcRenderer.invoke('getStoreValue', 'audio.volume').then((value) => {
-            //     self.mk.volume = value
-            // })
 
             // load cached library
             let librarySongs = await CiderCache.getCache("library-songs")
@@ -825,7 +825,11 @@ const app = new Vue({
                         user: `${user.username}#${user.discriminator}`,
                         userid: user.id
                     }));
-                }
+                }})
+
+            ipcRenderer.on('getUpdatedLocalList', (event,data) => {
+                console.log("cider-local",data);
+                this.library.localsongs = data;
             })
 
             ipcRenderer.on('SoundCheckTag', (event, tag) => {

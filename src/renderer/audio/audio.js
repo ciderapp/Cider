@@ -169,6 +169,60 @@ const CiderAudio = {
             "file": './cideraudio/impulses/AtmosphereRealizer_Natural+.wav',
             "name": "玄米茶タピオカミルクティー",
             "description": "",
+        },
+        {
+            "id": "E68_1",
+            "file": './cideraudio/impulses/AtmosphereRealizer_E68_1.5.wav',
+            "name": "岩塩クリームチーズティー",
+            "description": "Light",
+        },
+        {
+            "id": "E68_2",
+            "file": './cideraudio/impulses/AtmosphereRealizer_E68_2.2.wav',
+            "name": "抹茶ミルクティー",
+            "description": "Dark",
+        },
+        {
+            "id": "BSCBM",
+            "file": './cideraudio/impulses/AtmosphereRealizer_BSCBM.wav',
+            "name": "BSCBM",
+            "description": "BSCBM",
+        },
+        {
+            "id": "CUDDLE",
+            "file": './cideraudio/impulses/AtmosphereRealizer_Cuddle.wav',
+            "name": "CUDDLE",
+            "description": "CUDDLE",
+        },
+        {
+            "id": "E168_1",
+            "file": './cideraudio/impulses/AtmosphereRealizer_E168_1.2.wav',
+            "name": "春毫ジャスミンマキアート",
+            "description": "Natural Air",
+        },
+        {
+            "id": "Z3600",
+            "file": './cideraudio/impulses/AtmosphereRealizer_Z3600.wav',
+            "name": "ロイヤルミルクティー",
+            "description": "3600",
+        },
+        {
+            "id": "Z8500A",
+            "file": './cideraudio/impulses/AtmosphereRealizer_Z8500_A.wav',
+            "name": "ムーンライトソフトケーキ",
+            "description": "8500",
+        },
+        {
+            "id": "Z8500B",
+            "file": './cideraudio/impulses/AtmosphereRealizer_Z8500_B.wav',
+            "name": "Clafoutis aux Cerises",
+            "description": "8500",
+        },
+        {
+            "id": "Z8500C",
+            "file": './cideraudio/impulses/AtmosphereRealizer_Z8500_C.wav',
+            "name": "宇治抹茶だいふく",
+            "description": "8500",
         }
     ],
     spatial_ninf: function () {
@@ -906,7 +960,7 @@ const CiderAudio = {
         try { for (var i of CiderAudio.audioNodes.audioBands) { i.disconnect(); } CiderAudio.audioNodes.vibrantbassNode = null} catch (e) { };
         console.debug("[Cider][Audio] Finished hierarchical unloading")
     },
-    hierarchical_loading: function () {
+    hierarchical_loading: async function () {
         const configMap = new Map([
             ['spatial', app.cfg.audio.maikiwiAudio.spatial === true],
             ['n5', app.cfg.audio.maikiwiAudio.atmosphereRealizer2 === true],   
