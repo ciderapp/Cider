@@ -118,11 +118,6 @@ export class Store {
                     "Control",
                     "num0",
                 ],
-            /*  "toggleSidebar": [
-                    "CommandOrControl",
-                    process.platform == "darwin" ? "Option" : "Alt",
-                    "S"
-                ], */
                 "openDeveloperTools": [
                     "CommandOrControl",
                     "Shift",
@@ -222,8 +217,7 @@ export class Store {
                 "windowLayout": "default"
             },
             "windowControlPosition": 0, // 0 default right
-            "nativeTitleBar": false,
-            "uiScale": 1.0
+            "nativeTitleBar": false
         },
         "lyrics": {
             "enable_mxm": false,

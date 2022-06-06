@@ -474,17 +474,6 @@
                         </div>
                         <div class="md-option-line">
                             <div class="md-option-segment">
-                                {{$root.getLz('settings.option.visual.uiscale')}}
-                            </div>
-                            <div class="md-option-segment md-option-segment_auto">
-                                <label>
-                                    <input type="number" min="0.5" max="4.0" step="0.25" @change="$root.getHTMLStyle()"
-                                           v-model="app.cfg.visual.uiScale"/>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="md-option-line">
-                            <div class="md-option-segment">
                                 {{$root.getLz('settings.option.visual.hardwareAcceleration')}}<br>
                                 <small>({{$root.getLz('settings.option.visual.hardwareAcceleration.description')}})</small>
                             </div>
