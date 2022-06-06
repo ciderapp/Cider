@@ -205,7 +205,10 @@ export class Store {
             },
             "windowControlPosition": 0, // 0 default right
             "nativeTitleBar": false,
-            "uiScale": 1.0
+            "uiScale": 1.0,
+            "windowColor": "#000000",
+            "customAccentColor": false,
+            "accentColor": "#fc3c44"
         },
         "lyrics": {
             "enable_mxm": false,
