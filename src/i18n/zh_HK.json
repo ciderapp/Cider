@@ -387,7 +387,7 @@
   "settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_PLUS": "Genmaicha Tapioca Milk Tea",
   "settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.NATURAL_STANDARD": "Hōjicha Cheese Foam Tea",
   "settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.Z3600": "Hokkaido Milk Tea",
-  "settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.Z8500": "Moonlight Softcake",
+  "settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.Z8500A": "Moonlight Softcake",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider 數碼音訊增強處理™️",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "透過人類的聽力心理學模型和 AAC 編碼特色的即時算法，強化 AAC 音訊的感知音訊質素。",
   "settings.warn.audio.enableAdvancedFunctionality.ciderPPE.compatibility": "音訊增強處理不相容於空間音訊，請先停用空間音訊。",

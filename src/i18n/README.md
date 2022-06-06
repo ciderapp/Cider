@@ -383,7 +383,9 @@ Update 14/05/2022 02:00 UTC
 * `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.E68_2`: Added for `en_US`
 * `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.E168_1`: Added for `en_US`
 * `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.Z3600`: Added for `en_US`
-* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.Z8500`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.Z8500A`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.Z8500B`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.Z8500C`: Added for `en_US`
 
 Update 18/05/2022 14:20 UTC
 

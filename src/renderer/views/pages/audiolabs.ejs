@@ -172,11 +172,10 @@
         },
         methods: {
             getProfileLz(type, name) {
+                let result = "";
+                
+                // Hard-coded shiz
                 switch (name) {
-                    case "CRYPTO":
-                        return "Cryptofyre";
-                        break;
-
                     case "Maikiwi":
                         return "Maikiwi";
                         break;
@@ -192,13 +191,21 @@
                     case "live":
                     return "LIVE";
                         break;
-                }
+                }          
                 switch (type) {
                     case "CAR":
-                        return this.$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.' + name);
+                        result = this.$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.' + name);
+                        if (result === "settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode." + name) {
+                            return name;
+                        }
+                        else {return result;}
                         break;
                     case "CTS":
-                        return this.$root.getLz('settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.' + name.toLowerCase());
+                        result = this.$root.getLz('settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.' + name.toLowerCase());
+                        if (result === "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile." + name.toLowerCase()) {
+                            return name;
+                        }
+                        else {return result;}
                         break;
                     default:
                         return name;
