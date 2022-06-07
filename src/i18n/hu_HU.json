@@ -417,7 +417,7 @@
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "Szokásos",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.adaptive": "Adaptív",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.legacy": "Régi",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive": "Aggresszív",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive": "Agresszív",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization": "Normalizálás",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.description": "Normalizálja az egyes zeneszámok hangosabb részeit, hogy egységesebb hallgatási élményt hozzon létre. (Nem működik a felhasználó által feltöltött zenéken)",
   "settings.option.audio.enableAdvancedFunctionality.audioNormalization.disabled": "A Cider Hangstúdió kezeli a beállítást",
