@@ -79,7 +79,7 @@
     "@types/express": "^4.17.13",
     "@types/qrcode-terminal": "^0.12.0",
     "@types/ws": "^8.5.3",
-    "electron": "git+https://github.com/castlabs/electron-releases.git#18-x-y",
+    "electron": "git+https://github.com/castlabs/electron-releases.git#19-x-y",
     "electron-builder": "^23.0.3",
     "electron-builder-notarize-pkg": "^1.2.0",
     "electron-webpack": "^2.8.2",
@@ -111,9 +111,9 @@
     }
   ],
   "build": {
-    "electronVersion": "19.0.2",
+    "electronVersion": "19.0.3",
     "electronDownload": {
-      "version": "19.0.2+wvcus",
+      "version": "19.0.3+wvcus",
       "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
     },
     "appId": "cider",

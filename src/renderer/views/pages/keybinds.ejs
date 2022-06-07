@@ -278,17 +278,17 @@
                 app.cfg.general.keybindings.browse = [app.platform == "darwin" ? "Command" : "Control", "B"];
                 app.cfg.general.keybindings.recentAdd = [app.platform == "darwin" ? "Command" : "Control", "G"];
                 app.cfg.general.keybindings.songs = [app.platform == "darwin" ? "Command" : "Control", "J"];
-                app.cfg.general.keybindings.albums = [app.platform == "darwin" ? "Command" : "Control", "S"];
+                app.cfg.general.keybindings.albums = [app.platform == "darwin" ? "Command" : "Control", "A"];
                 app.cfg.general.keybindings.artists = [app.platform == "darwin" ? "Command" : "Control", "D"];
                 app.cfg.general.keybindings.togglePrivateSession = [app.platform == "darwin" ? "Command" : "Control", "P"];
-                app.cfg.general.keybindings.webRemote = [app.platform == "darwin" ? "Command" : "Control", app.platform == "darwin" ? "Option" : "Shift", "W"];
-                app.cfg.general.keybindings.audioSettings = [app.platform == "darwin" ? "Command" : "Control", app.platform == "darwin" ? "Option" : "Shift", "A"];
-                app.cfg.general.keybindings.pluginMenu = [app.platform == "darwin" ? "Command" : "Control", app.platform == "darwin" ? "Option" : "Shift", "P"];
-                app.cfg.general.keybindings.castToDevices = [app.platform == "darwin" ? "Command" : "Control", app.platform == "darwin" ? "Option" : "Shift", "C"];
-                app.cfg.general.keybindings.settings = [app.platform == "darwin" ?"Command" : "Control", ","];
-                app.cfg.general.keybindings.zoomn = ["Control", "numadd"];
-                app.cfg.general.keybindings.zoomt = ["Control", "numsub"];
-                app.cfg.general.keybindings.zoomrst = ["Control", "num0"];
+                app.cfg.general.keybindings.webRemote = [app.platform == "darwin" ? "Option" : "Alt", "W"];
+                app.cfg.general.keybindings.audioSettings = [app.platform == "darwin" ? "Option" : "Alt", "A"];
+                app.cfg.general.keybindings.pluginMenu = [app.platform == "darwin" ? "Option" : "Alt", "P"];
+                app.cfg.general.keybindings.castToDevices = [app.platform == "darwin" ? "Option" : "Alt", "C"];
+                app.cfg.general.keybindings.settings = [app.platform == "darwin" ? "Command" : "Control", ","];
+                app.cfg.general.keybindings.zoomn = [app.platform == "darwin" ? "Command" : "Control", "numadd"];
+                app.cfg.general.keybindings.zoomt = [app.platform == "darwin" ? "Command" : "Control", "numsub"];
+                app.cfg.general.keybindings.zoomrst = [app.platform == "darwin" ? "Command" : "Control", "num0"];
                 app.cfg.general.keybindings.openDeveloperTools = [app.platform == "darwin" ? "Command" : "Control", app.platform == "darwin" ? "Option" : "Shift", "I"];
                 notyf.success(app.getLz('settings.notyf.general.keybindings.update.success'));
                 bootbox.confirm(app.getLz("settings.prompt.general.keybindings.update.success"), (ok) => {

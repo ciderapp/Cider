@@ -89,17 +89,17 @@ export class Store {
                 ],
                 "audioSettings": [
                     "CommandOrControl",
-                    process.platform == "darwin" ? "Option" : "Shift",
+                    process.platform == "darwin" ? "Option" : "Alt",
                     "A"
                 ],
                 "pluginMenu": [
                     "CommandOrControl",
-                    process.platform == "darwin" ? "Option" : "Shift",
+                    process.platform == "darwin" ? "Option" : "Alt",
                     "P"
                 ],
                 "castToDevices": [
                     "CommandOrControl",
-                    process.platform == "darwin" ? "Option" : "Shift",
+                    process.platform == "darwin" ? "Option" : "Alt",
                     "C"
                 ],
                 "settings": [
