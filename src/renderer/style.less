@@ -1242,6 +1242,15 @@ body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls > div.cl
 }
 
 .app-chrome .app-chrome-item > .app-playback-controls {
+  .info-rect{
+    mask-image: linear-gradient(-90deg, transparent 0%, black 10%, black 90%, transparent 100%);
+    -webkit-mask-image: linear-gradient(-90deg, transparent 3%, black 10%, black 90%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+  }
   .song-name {
     font-weight: 600;
     text-align: center;
@@ -1515,7 +1524,7 @@ div[data-type="musicVideo"] .info-rect .title::before {
   position: relative;
 }
 
-.app-chrome .app-chrome-item > .app-playback-controls > div > .song-artist-album {
+.app-chrome .app-chrome-item > .app-playback-controls .song-artist-album {
   font-weight: 400;
   font-size: 12px;
   text-align: center;
