@@ -54,6 +54,9 @@
             <span class="usermenu-item-name">{{
               $root.getLz("term.disablePrivateSession")
             }}</span>
+            <span class="usermenu-item-keybind">{{
+              cfg.general.keybindings.togglePrivateSession.join(' + ')
+            }}</span>
           </button>
           <button class="usermenu-item" @click="appRoute('remote-pair')">
             <span class="usermenu-item-icon">
@@ -61,6 +64,9 @@
             </span>
             <span class="usermenu-item-name">{{
               $root.getLz("action.showWebRemoteQR")
+            }}</span>
+            <span class="usermenu-item-keybind">{{
+              cfg.general.keybindings.webRemote.join(' + ')
             }}</span>
           </button>
           <button
@@ -73,6 +79,9 @@
             <span class="usermenu-item-name">{{
               $root.getLz("term.cast")
             }}</span>
+            <span class="usermenu-item-keybind">{{
+              cfg.general.keybindings.castToDevices.join(' + ')
+            }}</span>
           </button>
           <button
             class="usermenu-item"
@@ -83,6 +92,9 @@
             </span>
             <span class="usermenu-item-name">{{
               $root.getLz("term.audioSettings")
+            }}</span>
+            <span class="usermenu-item-keybind">{{
+              cfg.general.keybindings.audioSettings.join(' + ')
             }}</span>
           </button>
           <button
@@ -95,6 +107,9 @@
             </span>
             <span class="usermenu-item-name">{{
               $root.getLz("term.plugin")
+            }}</span>
+            <span class="usermenu-item-keybind">{{
+              cfg.general.keybindings.pluginMenu.join(' + ')
             }}</span>
           </button>
           <button class="usermenu-item" @click="appRoute('about')">
@@ -111,6 +126,9 @@
             </span>
             <span class="usermenu-item-name">{{
               $root.getLz("term.settings")
+            }}</span>
+            <span class="usermenu-item-keybind">{{
+              cfg.general.keybindings.settings.join(' + ')
             }}</span>
           </button>
           <button class="usermenu-item" @click="unauthorize()">

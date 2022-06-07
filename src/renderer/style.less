@@ -731,6 +731,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     #cmenu.body();
 
     .usermenu-item {
+      position: relative;
       #cmenu.item();
 
       .usermenu-item-icon {
@@ -745,6 +746,14 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
         bottom: 2px;
         padding-left: 5px;
         display: table-cell;
+      }
+
+      .usermenu-item-keybind {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        display: table-cell;
+        font-size: 10px;
       }
     }
   }
