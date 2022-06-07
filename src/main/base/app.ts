@@ -317,6 +317,8 @@ export class AppEvents {
             {type: 'separator'},
 
             /* For now only idea i dont know if posible to implement
+
+            this could be implemented in a plugin if you would like track info, it would be impractical to put listeners in this file. -Core
             {
                 label: this.i18n['action.tray.listento'],
                 enabled: false,
@@ -332,7 +334,7 @@ export class AppEvents {
             */
            
             {
-                visible: (visible === false),
+                visible: !visible,
                 label: this.i18n['term.playpause'],
                 click: () => {
                     utils.getWindow().webContents.executeJavaScript('MusicKitInterop.playPause()')
@@ -340,7 +342,7 @@ export class AppEvents {
             },
             
             {
-                visible: (visible === false),
+                visible: !visible,
                 label: this.i18n['term.next'],
                 click: () => {
                     utils.getWindow().webContents.executeJavaScript(`MusicKitInterop.next()`)
@@ -348,14 +350,14 @@ export class AppEvents {
             },
             
             {
-                visible: (visible === false),
+                visible: !visible,
                 label: this.i18n['term.previous'],
                 click: () => {
                     utils.getWindow().webContents.executeJavaScript(`MusicKitInterop.previous()`)
                 }
             },
-            
-            {type: 'separator'},
+
+            {type: 'separator', visible: !visible},
 
             {
                 label: (visible ? this.i18n['action.tray.minimize'] : `${this.i18n['action.tray.show']}`),
