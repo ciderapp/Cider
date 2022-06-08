@@ -213,6 +213,8 @@
   "podcast.episodes": "Episodes",
   "podcast.playEpisode": "Play Episode",
   "podcast.website": "Podcast Website",
+  "action.favorite": "Favorite",
+  "action.removeFavorite": "Remove Favorite",
   "action.hideLibrary": "Hide Library",
   "action.showLibrary": "Show Library",
   "action.cut": "Cut",
