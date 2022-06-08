@@ -87,7 +87,7 @@
             },
             getMediaItemArtwork(url, height = 64, width) {
             if (typeof url == "undefined" || url == "") {
-                return "https://beta.music.apple.com/assets/product/MissingArtworkMusic.svg"
+                return "./assets/MissingArtwork.svg"
             }
             height = parseInt(height * window.devicePixelRatio)
             if (width) {
