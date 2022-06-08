@@ -84,22 +84,22 @@ export class Store {
                 ],
                 "webRemote": [
                     "CommandOrControl",
-                    process.platform == "darwin" ? "Option" : "Shift",
+                    process.platform == "darwin" ? "Option" : (process.platform == "linux" ? "Shift" : "Alt"),
                     "W"
                 ],
                 "audioSettings": [
                     "CommandOrControl",
-                    process.platform == "darwin" ? "Option" : "Alt",
+                    process.platform == "darwin" ? "Option" : (process.platform == "linux" ? "Shift": "Alt"),
                     "A"
                 ],
                 "pluginMenu": [
                     "CommandOrControl",
-                    process.platform == "darwin" ? "Option" : "Alt",
+                    process.platform == "darwin" ? "Option" : (process.platform == "linux" ? "Shift": "Alt"),
                     "P"
                 ],
                 "castToDevices": [
                     "CommandOrControl",
-                    process.platform == "darwin" ? "Option" : "Alt",
+                    process.platform == "darwin" ? "Option" : (process.platform == "linux" ? "Shift": "Alt"),
                     "C"
                 ],
                 "settings": [
