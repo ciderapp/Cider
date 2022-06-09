@@ -211,7 +211,6 @@
   }
 }
 
-
 // Media Item Elements
 
 .mediaitem-artwork {
@@ -221,9 +220,6 @@
   position: relative;
   width: 100%;
   height: 100%;
-  background-image: url("./assets/MissingArtwork.svg");
-  background-size: cover;
-  background-position: center;
 
   .animatedartwork-view-box {
     position: absolute;
@@ -270,6 +266,9 @@
     object-fit: cover;
     image-rendering: -webkit-optimize-contrast;
     pointer-events: none;
+    background-image: url("./assets/MissingArtwork.svg");
+    background-size: cover;
+    background-position: center;
   }
 
   &.no-shadow {
@@ -287,6 +286,11 @@
   &.shadow {
     box-shadow: var(--mediaItemShadow-Shadow);
   }
+}
+
+
+#artworkLCD img {
+  image-rendering: auto;
 }
 
 /* queue item */
