@@ -292,6 +292,7 @@ function isJson(item) {
 webGPU().then();
 
 function showOobe() {
+  return false
   if (localStorage.getItem("music.ampwebplay.media-user-token") && localStorage.getItem("seenOOBE")) {
     return false
   } else {
