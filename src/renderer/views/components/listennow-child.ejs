@@ -9,7 +9,7 @@
                         <button class="cd-btn-seeall" @click="showCollection(recom)" >{{app.getLz('term.seeAll')}}</button>
             </div>
         </div>
-        <template v-if="recom.attributes.display.kind == 'MusicCoverShelf'">
+        <template v-if="recom.attributes.display.kind == 'MusicCoverShelf' || recom.attributes.display.kind == 'MusicCircleCoverShelf'">
             <mediaitem-scroller-horizontal-large
                             :items="recom.relationships.contents.data.limit(10)"></mediaitem-scroller-horizontal-large>
         </template>
