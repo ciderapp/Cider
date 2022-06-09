@@ -416,7 +416,7 @@
                                         <option value="color">
                                             {{$root.getLz('settings.header.visual.windowBackgroundStyle.color')}}
                                         </option>
-                                        <option value="mica">
+                                        <option v-if="$root.platform == 'win32'" value="mica">
                                             Mica (Beta)
                                         </option>
                                     </select>
