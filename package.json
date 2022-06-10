@@ -2,7 +2,7 @@
   "name": "cider",
   "applicationId": "Cider",
   "productName": "Cider",
-  "version": "1.4.6",
+  "version": "1.5.0",
   "description": "A new cross-platform Apple Music experience based on Electron and Vue.js written from scratch with performance in mind.",
   "license": "AGPL-3.0",
   "main": "./build/index.js",
@@ -29,6 +29,7 @@
     "dist:macarm": "yarn build && electron-builder --mac --arm64",
     "dist:universalNotWorking": "yarn build && electron-builder --mac --universal",
     "dist:all": "yarn build && electron-builder -mwl",
+    "testdist": "yarn build && electron-builder --dir",
     "winget": "yarn build && electron-builder --win -c winget.json",
     "msft": "yarn build && electron-builder -c msft-package.json",
     "mstest": "yarn build && electron-builder -c msft-test.json",
@@ -39,7 +40,7 @@
     "@sentry/electron": "^3.0.7",
     "@sentry/integrations": "^6.19.6",
     "adm-zip": "0.4.10",
-    "airtunes2": "git+https://github.com/vapormusic/node_airtunes2.git#hap",
+    "airtunes2": "git+https://github.com/ciderapp/node_airtunes2",
     "castv2-client": "^1.2.0",
     "chokidar": "^3.5.3",
     "discord-auto-rpc": "^1.0.16",
@@ -53,6 +54,7 @@
     "electron-window-state": "^5.0.3",
     "express": "^4.17.3",
     "get-port": "^5.1.1",
+    "jimp": "^0.16.1",
     "jsonc": "^2.0.0",
     "lastfmapi": "^0.1.1",
     "mdns-js": "git+https://github.com/ciderapp/node-mdns-js.git",
@@ -73,11 +75,11 @@
   },
   "devDependencies": {
     "@types/adm-zip": "^0.5.0",
-    "@types/discord-rpc": "4.0.2",
+    "@types/discord-rpc": "4.0.3",
     "@types/express": "^4.17.13",
     "@types/qrcode-terminal": "^0.12.0",
     "@types/ws": "^8.5.3",
-    "electron": "git+https://github.com/castlabs/electron-releases.git#18-x-y",
+    "electron": "git+https://github.com/castlabs/electron-releases.git#19-x-y",
     "electron-builder": "^23.0.3",
     "electron-builder-notarize-pkg": "^1.2.0",
     "electron-webpack": "^2.8.2",
@@ -109,9 +111,9 @@
     }
   ],
   "build": {
-    "electronVersion": "18.2.1",
+    "electronVersion": "19.0.3",
     "electronDownload": {
-      "version": "18.2.1+wvcus",
+      "version": "19.0.3+wvcus",
       "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
     },
     "appId": "cider",
@@ -177,6 +179,15 @@
       "isVersionChecked": false,
       "isRelocatable": false,
       "overwriteAction": "upgrade"
+    },
+    "snap": {
+      "slots": [
+        {
+          "mpris": {
+            "interface": "mpris"
+          }
+        }
+      ]
     },
     "dmg": {
       "background": "./resources/bg.png",

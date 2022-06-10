@@ -101,7 +101,7 @@
                                         <img :class="(!inLibrary) ? 'md-ico-add' : 'md-ico-remove'">
                                         {{app.getLz('term.confirm')}}
                                     </button>
-                                    <button class="more-btn-round" style="float:right;" @click="menu">
+                                    <button class="more-btn-round" style="float:right;" @click="menu" :aria-label="app.getLz('term.more')">
                                         <div class="svg-icon"></div>
                                     </button>
                                 </div>
@@ -145,7 +145,7 @@
                             </div>
                         </div>
                         <div class="col-auto flex-center">
-                            <button class="more-btn-round" style="float:right;" @click="menu">
+                            <button class="more-btn-round" style="float:right;" @click="menu" :aria-label="term.more">
                                 <div class="svg-icon"></div>
                             </button>
                         </div>
@@ -159,7 +159,7 @@
                                 <div style="width:100%">
                                     <draggable :sort="data.attributes.canEdit && data.type == 'library-playlists'"
                                                v-model="data.relationships.tracks.data" @start="drag=true" @end="drag=false;put()">
-                                               <template v-if="nestedPlaylist == [] || nestedPlaylist.length <= 1">      
+                                               <template v-if="nestedPlaylist == [] || nestedPlaylist.length <= 1">
                                                 <mediaitem-list-item :item="item" :parent="getItemParent(data)" :index="index"
                                                                      :showIndex="true"
                                                                      :showIndexPlaylist="(data.attributes.playParams.kind ?? data.type ?? '').includes('playlist')"
@@ -173,14 +173,14 @@
                                                             :showIndex="true"
                                                             :showIndexPlaylist="(data.attributes.playParams.kind ?? data.type ?? '').includes('playlist')"
                                                             :context-ext="buildContextMenu()"
-                                                            v-for="(item,index) in disc.tracks"></mediaitem-list-item>   
-                                                    </div>    
-                
-                                                </template>    
+                                                            v-for="(item,index) in disc.tracks"></mediaitem-list-item>
+                                                    </div>
+
+                                                </template>
                                     </draggable>
-            
+
                                 </div>
-            
+
                             </div>
                             <div class="friends-info" v-if="itemBadges.length != 0">
                                 <div class="well">
@@ -228,7 +228,7 @@
                                 </div>
                         </b-tab>
                         </template>
-    
+
                     </b-tabs>
                 </div>
             </template>
@@ -361,7 +361,7 @@
                 if (this.data.type.includes('albums')) {
                     let date = this.data.attributes.releaseDate;
                     if (date == null || date === "") return "";
-                    return `${this.data.relationships.tracks.data[0].attributes.genreNames[0]} · ${new Date(date).getFullYear()}` 
+                    return `${this.data.relationships.tracks.data[0].attributes.genreNames[0]} · ${new Date(date).getFullYear()}`
                 }
             },
             async isInLibrary() {

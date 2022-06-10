@@ -4,12 +4,12 @@
             <div class="modal-header">
                 <div class="modal-title">{{data.title}}</div>
                 <div class="modal-subtitle modal-title">{{data.subtitle ?? ""}}</div>
-                <button class="close-btn" @click="close()"></button>
+                <button class="close-btn" @click="close()" :aria-label="app.getLz('action.close')"></button>
             </div>
             <div class="modal-content">
                 <div class="content" v-html="data.content">
                 </div>
-            </div>    
+            </div>
         </div>
     </div>
 </script>
@@ -31,7 +31,7 @@
                     self.timedelay = true
                 }, 1000);
             })
-          
+
         },
         methods: {
             close() {

@@ -13,16 +13,16 @@ export class Store {
         "general": {
             "close_button_hide": false,
             "discordrpc": {
-                "enabled": false,
+                "enabled": true,
                 "client": "Cider",
                 "clear_on_pause": true,
                 "hide_buttons": false,
+                "hide_timestamp": false,
                 "state_format": "by {artist}",
                 "details_format": "{title}",
             },
             "language": "en_US", // electron.app.getLocale().replace('-', '_') this can be used in future
             "playbackNotifications": true,
-            "update_branch": "main",
             "resumeOnStartupBehavior": "local",
             "privateEnabled": false,
             "themeUpdateNotification": true,
@@ -51,51 +51,68 @@ export class Store {
             },
             "keybindings": {
                 "search": [
-                    process.platform == "darwin" ? "Command" : "Control",
+                    "CommandOrControl",
                     "F"
                 ],
-                "albums": [
-                    process.platform == "darwin" ? "Command" : "Control",
-                    "S"
-                ],
-                "artists": [
-                    process.platform == "darwin" ? "Command" : "Control",
-                    "D"
+                "listnow": [
+                    "CommandOrControl",
+                    "L"
                 ],
                 "browse": [
-                    process.platform == "darwin" ? "Command" : "Control",
+                    "CommandOrControl",
                     "B"
                 ],
+                "recentAdd": [
+                    "CommandOrControl",
+                    "G"
+                ],
+                "songs" : [
+                    "CommandOrControl",
+                    "J"
+                ],
+                "albums": [
+                    "CommandOrControl",
+                    "A"
+                ],
+                "artists": [
+                    "CommandOrControl",
+                    "D"
+                ],
                 "togglePrivateSession": [
-                    process.platform == "darwin" ? "Command" : "Control",
+                    "CommandOrControl",
                     "P"
                 ],
                 "webRemote": [
-                    process.platform == "darwin" ? "Command" : "Control",
+                    "CommandOrControl",
+                    process.platform == "darwin" ? "Option" : (process.platform == "linux" ? "Shift" : "Alt"),
                     "W"
                 ],
                 "audioSettings": [
-                    process.platform == "darwin" ? "Option" : "Shift",
+                    "CommandOrControl",
+                    process.platform == "darwin" ? "Option" : (process.platform == "linux" ? "Shift": "Alt"),
                     "A"
                 ],
                 "pluginMenu": [
-                    process.platform == "darwin" ? "Option" : "Shift",
+                    "CommandOrControl",
+                    process.platform == "darwin" ? "Option" : (process.platform == "linux" ? "Shift": "Alt"),
                     "P"
                 ],
                 "castToDevices": [
-                    process.platform == "darwin" ? "Option" : "Shift",
+                    "CommandOrControl",
+                    process.platform == "darwin" ? "Option" : (process.platform == "linux" ? "Shift": "Alt"),
                     "C"
                 ],
                 "settings": [
-                    process.platform == "darwin" ? "Option" : "Shift",
-                    "S"
+                    "CommandOrControl", // Who the hell uses a different key for this? Fucking Option?
+                    ","
                 ],
                 "openDeveloperTools": [
-                    process.platform == "darwin" ? "Command" : "Control",
-                    process.platform == "darwin" ? "Option" : "Shift",
+                    "CommandOrControl",
+                    "Shift",
                     "I"
                 ]
-            }
+            },
+            "showLovedTracksInline": true
         },
         "home": {
             "followedArtists": [],
@@ -119,7 +136,7 @@ export class Store {
             "maxVolume": 1,
             "lastVolume": 1,
             "muted": false,
-            "playbackRate": '1',
+            "playbackRate": 1,
             "quality": "HIGH",
             "seamless_audio": true,
             "normalization": false,
@@ -128,10 +145,10 @@ export class Store {
             "maikiwiAudio": {
                 "ciderPPE": false,
                 "ciderPPE_value": "MAIKIWI",
-                "analogWarmth": false,
-                "analogWarmth_value": "SMOOTH",
-                "atmosphereRealizer": false,
-                "atmosphereRealizer_value": "NATURAL_STANDARD",
+                "atmosphereRealizer1": false,
+                "atmosphereRealizer1_value": "NATURAL_STANDARD",
+                "atmosphereRealizer2": false,
+                "atmosphereRealizer2_value": "NATURAL_STANDARD",
                 "spatial": false,
                 "spatialProfile": "71_420maikiwi",
                 "vibrantBass": { // Hard coded into the app. Don't include any of this config into exporting presets in store.ts
@@ -189,7 +206,10 @@ export class Store {
             },
             "windowControlPosition": 0, // 0 default right
             "nativeTitleBar": false,
-            "uiScale": 1.0
+            "uiScale": 1.0,
+            "windowColor": "#000000",
+            "customAccentColor": false,
+            "accentColor": "#fc3c44"
         },
         "lyrics": {
             "enable_mxm": false,

@@ -54,8 +54,18 @@ export class utils {
 
         if (language !== "en_US" && fs.existsSync(path.join(this.paths.i18nPath, `${language}.json`))) {
             i18n = Object.assign(i18n, JSON.parse(fs.readFileSync(path.join(this.paths.i18nPath, `${language}.json`), "utf8")));
+        } else if (!fs.existsSync(path.join(this.paths.i18nPath, `${language}.json`))) {
+            fetch(`https://raw.githubusercontent.com/ciderapp/Cider/main/src/i18n/${language}.json`)
+                .then(res => res.json())
+                .then(res => {
+                    if (res) {
+                        i18n = Object.assign(i18n, res);
+                        fs.writeFileSync(path.join(this.paths.i18nPath, `${language}.json`), JSON.stringify(res));
+                    } else {
+                        i18n = Object.assign(i18n, JSON.parse(fs.readFileSync(path.join(this.paths.i18nPath, `en_US.json`), "utf8")));
+                    }
+            })
         }
-
         if (key) {
             return i18n[key]
         } else {
@@ -145,72 +155,4 @@ export class utils {
             bw.win.webContents.executeJavaScript("MusicKitInterop.previous()")
         }
     }
-
-    /**
-     * Checks the application for updates
-     */
-    static async checkForUpdate(): Promise<void> {
-        if (!app.isPackaged) {
-            new Notification({ title: "Application Update", body: "Can't update as app is in DEV mode. Please build or grab a copy by clicking me"})
-                .on('click', () => {shell.openExternal('https://download.cider.sh/?utm_source=app&utm_medium=dev-mode-warning')})
-                .show()
-            bw.win.webContents.send('update-response', "update-error")
-            return;
-        }
-        const options: any = {
-            provider: 'github',
-            protocol: 'https',
-            owner: 'ciderapp',
-            repo: 'cider-releases',
-            allowDowngrade: true,
-        }
-        let autoUpdater: any = null
-        if (process.platform === 'win32') { //Windows
-            autoUpdater = await new NsisUpdater(options)
-        } else {
-            autoUpdater = await new AppImageUpdater(options) //Linux and Mac (AppImages work on macOS btw)
-        }
-
-        autoUpdater.on('checking-for-update', () => {
-            new Notification({ title: "Cider Update", body: "Cider is currently checking for updates."}).show()
-        })
-
-        autoUpdater.on('error', (error: any) => {
-            console.error(`[AutoUpdater] Error: ${error}`)
-            bw.win.webContents.send('update-response', "update-error")
-        })
-
-        autoUpdater.on('update-not-available', () => {
-            console.log('[AutoUpdater] Update not available.')
-            bw.win.webContents.send('update-response', "update-not-available");
-        })
-        autoUpdater.on('download-progress', (event: any, progress: any) => {
-            bw.win.setProgressBar(progress.percent / 100)
-        })
-
-        autoUpdater.on('update-downloaded', (info: any) => {
-            console.log('[AutoUpdater] Update downloaded.')
-            bw.win.webContents.send('update-response', "update-downloaded");
-            const dialogOpts = {
-                type: 'info',
-                buttons: ['Restart', 'Later'],
-                title: 'Application Update',
-                message: info,
-                detail: 'A new version has been downloaded. Restart the application to apply the updates.'
-              }
-            
-              dialog.showMessageBox(dialogOpts).then((returnValue) => {
-                if (returnValue.response === 0) autoUpdater.quitAndInstall()
-              })
-              new Notification({ title: "Application Update", body: info}).on('click', () => {
-                  bw.win.show()
-              }).show()
-        })
-
-        log.transports.file.level = "debug"
-        autoUpdater.logger = log
-        await autoUpdater.checkForUpdatesAndNotify()
-    }
-
-
 }

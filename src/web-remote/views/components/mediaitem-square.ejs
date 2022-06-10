@@ -14,9 +14,13 @@
                             :type="item.type"></mediaitem-artwork>
                 </div>
                 <button class="menu-btn" v-if="!nomenu.includes(item.type)"
-                        @click="contextMenu"><%- include("../svg/more.svg") %></button>
+                        @click="contextMenu" :aria-label="$root.getLz('term.more')">
+                    <%- include("../svg/more.svg") %>
+                </button>
                 <button class="play-btn" v-if="!noplay.includes(item.type)"
-                        @click="app.playMediaItem(item)"><%- include("../svg/play.svg") %></button>
+                        @click="app.playMediaItem(item)" :aria-label="$root.getLz('term.play')">
+                    <%- include("../svg/play.svg") %>
+                </button>
                 <div class="badge-container" v-if="itemBadges.length != 0">
                     <div class="socialBadge" v-for="badge in itemBadges.limit(1)">
                         <mediaitem-artwork
@@ -29,7 +33,7 @@
                 <div class="title" v-if="item.attributes.artistNames == null || kind!= 'card'" @click='app.routeView(item)'>
                     <div class="item-navigate text-overflow-elipsis">{{ item.attributes.name }}</div>
                     <div class="explicit-icon" v-if="item.attributes && item.attributes.contentRating == 'explicit'" style= "background-image: url(./assets/explicit.svg);height: 12px;width: 12px;filter: contrast(0);background-repeat: no-repeat;margin-top: 2.63px;margin-left: 4px;"></div>
-                </div>       
+                </div>
                 <div class="subtitle item-navigate text-overflow-elipsis" @click="getSubtitleNavigation()"
                      v-if="getSubtitle() != ''">
                     {{ getSubtitle() }}

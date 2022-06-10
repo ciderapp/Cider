@@ -1,5 +1,5 @@
 import {join} from "path";
-import {app, BrowserWindow as bw, ipcMain, ShareMenu, shell} from "electron";
+import {app, BrowserWindow as bw, ipcMain, ShareMenu, shell, screen} from "electron";
 import * as windowStateKeeper from "electron-window-state";
 import * as express from "express";
 import * as getPort from "get-port";
@@ -14,7 +14,7 @@ import {
     statSync,
     unlinkSync,
     rmdirSync,
-    lstatSync
+    lstatSync,
 } from "fs";
 import {Stream} from "stream";
 import {networkInterfaces} from "os";
@@ -27,6 +27,9 @@ import {watch} from "chokidar";
 import * as os from "os";
 import wallpaper from "wallpaper";
 import * as AdmZip from "adm-zip";
+import * as path from 'path';
+const { readdir } = require('fs').promises;
+
 
 /**
  * @file Creates the BrowserWindow
@@ -41,6 +44,7 @@ export class BrowserWindow {
     private audioStream: any = new Stream.PassThrough();
     private headerSent: any = false;
     private chromecastIP: any = [];
+    private localSongs: any = [];
     private clientPort: number = 0;
     private remotePort: number = 6942;
     private EnvironmentVariables: object = {
@@ -55,15 +59,20 @@ export class BrowserWindow {
                 "pages/library-songs",
                 "pages/library-albums",
                 "pages/library-artists",
+                "pages/library-recentlyadded",
                 "pages/browse",
+                "pages/groupings",
+                "pages/charts",
                 "pages/settings",
                 "pages/installed-themes",
                 "pages/listen_now",
+                "pages/radio",
                 "pages/home",
                 "pages/artist-feed",
                 "pages/cider-playlist",
                 "pages/playlist-inline",
                 "pages/recordLabel",
+                "pages/cider-multiroom",
                 "pages/collection-list",
                 "pages/apple-curator",
                 "pages/artist",
@@ -77,11 +86,12 @@ export class BrowserWindow {
                 "pages/audiolabs",
                 "pages/zoo",
                 "pages/plugin-renderer",
+                "pages/keybinds",
+                "pages/oobe",
                 "components/mediaitem-artwork",
                 "components/artwork-material",
                 "components/menu-panel",
                 "components/sidebar-playlist",
-                "components/spatial-properties",
                 "components/audio-settings",
                 "components/plugin-menu",
                 "components/audio-controls",
@@ -114,6 +124,11 @@ export class BrowserWindow {
                 "components/inline-collection-list",
             ],
             appRoutes: [
+                {
+                    page: "library-recentlyadded",
+                    component: `<cider-recentlyadded></cider-recentlyadded>`,
+                    condition: "page == 'library-recentlyadded'"
+                },
                 {
                     page: "plugin-renderer",
                     component: `<plugin-renderer></plugin-renderer>`,
@@ -173,6 +188,10 @@ export class BrowserWindow {
                     component: `<cider-recordlabel :data="showingPlaylist"></cider-recordlabel>`,
                     condition: `page.includes('recordLabel_')`
                 }, {
+                    page: "multiroom",
+                    component: `<cider-multiroom :data="multiroom"></cider-multiroom>`,
+                    condition: `page.includes('multiroom')`
+                }, {
                     page: "curator_",
                     component: `<cider-recordlabel :data="showingPlaylist"></cider-recordlabel>`,
                     condition: `page.includes('curator_')`
@@ -181,10 +200,25 @@ export class BrowserWindow {
                     component: `<cider-browse :data="browsepage"></cider-browse>`,
                     condition: `page == 'browse'`,
                     onEnter: ``
+                },{
+                    page: "groupings",
+                    component: `<cider-groupings :data="browsepage"></cider-groupings>`,
+                    condition: `page == 'groupings'`,
+                    onEnter: ``
+                },{
+                    page: "charts",
+                    component: `<cider-charts :data="browsepage"></cider-charts>`,
+                    condition: `page == 'charts'`,
+                    onEnter: ``
                 }, {
                     page: "listen_now",
                     component: `<cider-listen-now :data="listennow"></cider-listen-now>`,
                     condition: `page == 'listen_now'`,
+                    onEnter: ``
+                }, {
+                    page: "radio",
+                    component: `<cider-radio :data="radio"></cider-radio>`,
+                    condition: `page == 'radio'`,
                     onEnter: ``
                 }, {
                     page: "settings",
@@ -457,6 +491,16 @@ export class BrowserWindow {
             }
         })
 
+        app.get("/cideraudio/impulses/:file", (req, res) => {
+            const impulseExternals = join(utils.getPath("externals"), "/impulses/")
+            const impulseFile = join(impulseExternals, req.params.file)
+            if(existsSync(impulseFile)) {
+                res.sendFile(impulseFile)
+            }else{
+                res.sendFile(join(utils.getPath('srcPath'), "./renderer/audio/impulses/" + req.params.file))
+            }
+        })
+
         app.get("/api/playback/:action", (req, res) => {
             const action = req.params.action;
             switch (action) {
@@ -502,6 +546,14 @@ export class BrowserWindow {
                 res.send(`// Theme not found - ${userThemePath}`);
             }
         });
+        app.get("/ciderlocal/:songs", (req, res) => {
+            const audio = atob(req.params.songs.replace(/_/g, '/').replace(/-/g, '+'));
+            console.log('auss', audio)
+            let data = {data: 
+             this.localSongs.filter((f: any) => audio.split(',').includes(f.id))};
+            res.send(data);
+        });
+        
 
         app.get("/themes/:theme/*", (req: { params: { theme: string, 0: string } }, res) => {
             const theme = req.params.theme;
@@ -606,7 +658,7 @@ export class BrowserWindow {
         // intercept "https://js-cdn.music.apple.com/hls.js/2.141.1/hls.js/hls.js" and redirect to local file "./apple-hls.js" instead
         BrowserWindow.win.webContents.session.webRequest.onBeforeRequest(
             {
-                urls: ["https://*/*.js"],
+                urls: ["https://*/*"],
             },
             (
                 details: { url: string | string[] },
@@ -616,7 +668,13 @@ export class BrowserWindow {
                     callback({
                         redirectURL: `http://localhost:${this.clientPort}/apple-hls.js`,
                     });
-                } else {
+                } else if (details.url.includes("ciderlocal")) {
+                    let text = details.url.toString().includes('ids=') ? decodeURIComponent(details.url.toString()).split("?ids=")[1] : decodeURIComponent(details.url.toString().substring(details.url.toString().lastIndexOf('/') + 1));
+                    console.log('localurl',text)
+                    callback({
+                        redirectURL: `http://localhost:${this.clientPort}/ciderlocal/${Buffer.from(text).toString('base64url')}`,
+                    });
+                }else {
                     callback({
                         cancel: false,
                     });
@@ -710,15 +768,28 @@ export class BrowserWindow {
             return json;
         })
 
-        ipcMain.on("get-wallpaper", async (event) => {
+        ipcMain.on("get-wallpaper", async (event, args) => {
             const wpPath: string = await wallpaper.get();
-            // get the wallpaper and encode it to base64 then return
-            const wpBase64: string = await readFileSync(wpPath, 'base64')
-            // add the data:image properties
-            const wpData: string = `data:image/png;base64,${wpBase64}`
+            const Jimp = require("jimp")
+            const img = await Jimp.read(wpPath)
+            const blurAmount = args.blurAmount ?? 256
+            if(blurAmount) {
+                img.blur(blurAmount)
+            }
+            const screens = await screen.getAllDisplays()
+            const width = screens.reduce((a, b) => a + b.size.width, 0)
+            const height = screens.reduce((a, b) => a + b.size.height, 0)
+
+            img.cover(width, height, Jimp.HORIZONTAL_ALIGN_LEFT | Jimp.VERTICAL_ALIGN_MIDDLE)
+            const result = await img.getBase64Async(Jimp.MIME_PNG)
+
             event.returnValue = {
                 path: wpPath,
-                data: wpData
+                data: result,
+                res: {
+                    width: width,
+                    height: height
+                }
             };
         })
 
@@ -937,13 +1008,23 @@ export class BrowserWindow {
             switch (path) {
                 default:
                 case "plugins":
-                    shell.openPath(utils.getPath("plugins"));
+                    if (existsSync(utils.getPath("plugins"))) {
+                        shell.openPath(utils.getPath("plugins"));
+                    } else {
+                        mkdirSync(utils.getPath("plugins"));
+                        shell.openPath(utils.getPath("plugins"));
+                    }
                     break;
                 case "userdata":
                     shell.openPath(app.getPath("userData"));
                     break;
                 case "themes":
-                    shell.openPath(utils.getPath("themes"));
+                    if (existsSync(utils.getPath("themes"))) {
+                        shell.openPath(utils.getPath("themes"));
+                    } else {
+                        mkdirSync(utils.getPath("themes"));
+                        shell.openPath(utils.getPath("themes"));
+                    }
                     break;
             }
         });
@@ -1056,6 +1137,11 @@ export class BrowserWindow {
         })
 
         //Fullscreen
+        ipcMain.on('getFullScreen', (event, flag) => {
+            event.returnValue = BrowserWindow.win.isFullScreen()
+        })
+
+        //Fullscreen
         ipcMain.on('detachDT', (_event, _) => {
             BrowserWindow.win.webContents.openDevTools({mode: 'detach'});
         })
@@ -1088,6 +1174,104 @@ export class BrowserWindow {
 			    });
 		    `)
         });
+
+
+        ipcMain.on("scanLibrary", async (event, folders) => {
+            async function getFiles(dir : any) {
+                const dirents = await readdir(dir, { withFileTypes: true });
+                const files = await Promise.all(dirents.map((dirent: any) => {
+                  const res = path.resolve(dir, dirent.name);
+                  return dirent.isDirectory() ? getFiles(res) : res;
+                }));
+                return Array.prototype.concat(...files);
+              }
+                if (folders == null || folders.length == null || folders.length == 0) folders = ["D:\\Music"]
+                console.log('folders', folders)
+                let files: any[] = []
+                for (var folder of folders){  
+                    // get files from the Music folder
+                    files = files.concat(await getFiles(folder))
+                }
+           
+                //console.log("cider.files", files2);
+                let supporttedformats = ["mp3", "aac", "webm", "flac", "m4a", "ogg", "wav", "opus"]
+                let audiofiles = files.filter(f => supporttedformats.includes(f.substring(f.lastIndexOf('.') + 1)));
+                // console.log("cider.files2", audiofiles, audiofiles.length);
+                let metadatalist = []
+                let numid = 0;
+                for (var audio of audiofiles) {
+                    try{
+                        const metadata = await mm.parseFile(audio);
+                        if (metadata != null){ 
+                            let form = {
+                                        "id": "ciderlocal" + numid,
+                                        "type": "podcast-episodes",
+                                        "href": audio,
+                                        "attributes": {
+                                            "artwork": {
+                                                "width": 3000,
+                                                "height": 3000,
+                                                "url": metadata.common.picture != undefined ? "data:image/png;base64,"+metadata.common.picture[0].data.toString('base64')+"" : "",
+                                            },
+                                            "topics": [],
+                                            "url": "",
+                                            "subscribable": true,
+                                            "mediaKind": "audio",
+                                            "genreNames": [
+                                                ""
+                                            ],
+                                            // "playParams": { 
+                                            //     "id": "ciderlocal" + numid, 
+                                            //     "kind": "podcast", 
+                                            //     "isLibrary": true, 
+                                            //     "reporting": false },
+                                            "trackNumber": metadata.common.track?.no ?? 0, 
+                                            "discNumber": metadata.common.disk?.no ?? 0, 
+                                            "name": metadata.common.title ?? audio.substring(audio.lastIndexOf('\\') + 1),
+                                            "albumName": metadata.common.album,
+                                            "artistName": metadata.common.artist,
+                                            "copyright": metadata.common.copyright ?? "",
+                                            "assetUrl":  "file:///" +audio,
+                                            "contentAdvisory": "",
+                                            "releaseDateTime": "2022-05-13T00:23:00Z",
+                                            "durationInMilliseconds": Math.floor((metadata.format.duration?? 0) * 1000),
+                                            
+                                            "offers": [
+                                                {
+                                                    "kind": "get",
+                                                    "type": "STDQ"
+                                                }
+                                            ],
+                                            "contentRating": "clean"
+                                        }
+                            };
+                            numid += 1;
+                            
+                        // let form = {"id": "/ciderlocal?" + audio, 
+                        // "type": "library-songs", 
+                        // "href": "/ciderlocal?" + audio, 
+                        // "artwork": {
+                        //     "url": metadata.common.picture != undefined ? "data:image/png;base64,"+metadata.common.picture[0].data.toString('base64')+"" : "", 
+                        // },
+                        // "attributes": 
+                        // { "durationInMillis": Math.floor((metadata.format.duration?? 0) * 1000), 
+                        // "hasLyrics": false, 
+                        // "playParams": { "id": "/ciderlocal?" + audio, "kind": "song", "isLibrary": true, "reporting": false }, 
+                        // "trackNumber": 0, 
+                        // "discNumber": 0, 
+                        // "genreNames": [""], 
+                        // "name": metadata.common.title,
+                        // "albumName": metadata.common.album,
+                        // "artistName": metadata.common.artist}}
+                        metadatalist.push(form)}
+                    } catch (e){}    
+                } 
+                // console.log('metadatalist', metadatalist);
+                this.localSongs = metadatalist;
+                BrowserWindow.win.webContents.send('getUpdatedLocalList', metadatalist);
+            }
+
+            )
 
         ipcMain.on('writeWAV', (event, leftpcm, rightpcm, bufferlength) => {
 
@@ -1258,16 +1442,6 @@ export class BrowserWindow {
                 console.log(err)
             });
         });
-
-        ipcMain.on('check-for-update', async (_event) => {
-            await utils.checkForUpdate();
-        });
-
-
-        ipcMain.on('disable-update', (event) => {
-            // Check if using app store builds so people don't get pissy wen button go bonk
-            event.returnValue = !(app.isPackaged && !process.mas || !process.windowsStore);
-        })
 
 
         ipcMain.on('share-menu', async (_event, url) => {
@@ -1456,4 +1630,3 @@ export class BrowserWindow {
         console.log('remote broadcasted')
     }
 }
-

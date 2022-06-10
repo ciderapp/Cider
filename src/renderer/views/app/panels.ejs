@@ -14,9 +14,6 @@
     <add-to-playlist :playlists="playlists.listing" v-if="modals.addToPlaylist"></add-to-playlist>
 </transition>
 <transition name="modal">
-    <spatial-properties v-if="modals.spatialProperties"></spatial-properties>
-</transition>
-<transition name="modal">
     <audio-controls v-if="modals.audioControls"></audio-controls>
 </transition>
 <transition name="modal">
@@ -45,9 +42,9 @@
 </transition>
 <div id="apple-music-video-container">
     <div id="apple-music-video-player-controls">
-        <div id="player-exit" title="Close" @click="exitMV()">
+        <div id="player-exit" title="Close" @click="exitMV();fullscreen(false);">
             <svg fill="white" xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21"
-                 aria-role="presentation" focusable="false">
+                 aria-role="presentation" focusable="false"  @click="exitMV();fullscreen(false);">
                 <path
                         d="M10.5 21C4.724 21 0 16.275 0 10.5S4.724 0 10.5 0 21 4.725 21 10.5 16.276 21 10.5 21zm-3.543-5.967a.96.96 0 00.693-.295l2.837-2.842 2.85 2.842c.167.167.41.295.693.295.552 0 1.001-.461 1.001-1.012 0-.281-.115-.512-.295-.704L11.899 10.5l2.85-2.855a.875.875 0 00.295-.68c0-.55-.45-.998-1.001-.998a.871.871 0 00-.668.295l-2.888 2.855-2.862-2.843a.891.891 0 00-.668-.281.99.99 0 00-1.001.986c0 .269.116.512.295.678L9.088 10.5l-2.837 2.843a.926.926 0 00-.295.678c0 .551.45 1.012 1.001 1.012z"
                         fill-rule="nonzero"/>
@@ -62,15 +59,68 @@
             :
             '')}}
         </div>
-        <div id="player-pip"
-             @click="document.querySelector('video#apple-music-video-player').requestPictureInPicture()"
-             title="Picture-in-Picture">
-            <%- include("../svg/pip.svg") %>
-        </div>
-        <div id="player-fullscreen"
-             @click="document.querySelector('video#apple-music-video-player').requestFullscreen()"
-             title="Fullscreen">
-            <%- include("../svg/fullscreen.svg") %>
+        <div class="playback-info music-player-info">
+            <div class="song-artist-album-content"
+            style="display: inline-block; -webkit-box-orient: horizontal; white-space: nowrap;">
+                <div class="song-artist" style="display: inline-block">
+                    {{ mk.nowPlayingItem?.attributes?.artistName ?? '' }}
+                </div>
+            </div>
+            <div class="song-name">
+                {{ mk.nowPlayingItem?.attributes?.name ?? '' }}
+                <div class="explicit-icon"
+                     v-if="mk.nowPlayingItem?.attributes?.contentRating == 'explicit'"
+                     style="display: inline-block"></div>
+            </div>
+            <div class="song-progress">
+                <p style="width: auto">{{ convertTime(getSongProgress()) }}</p>
+                <input type="range" step="0.01" min="0" :style="progressBarStyle()" style="width: 95%"
+                       @input="playerLCD.desiredDuration = $event.target.value;playerLCD.userInteraction = true"
+                       @mouseup="mk.seekToTime($event.target.value);setTimeout(()=>{playerLCD.desiredDuration = 0;playerLCD.userInteraction = false}, 1000);"
+                       @touchend="mk.seekToTime($event.target.value);setTimeout(()=>{playerLCD.desiredDuration = 0;playerLCD.userInteraction = false}, 1000);"
+                       :max="mk.currentPlaybackDuration" :value="getSongProgress()">
+                <p style="width: auto">{{ convertTime(mk.currentPlaybackDuration) }}       
+            </div>
+            <div class="app-chrome-item display--large">
+                <div class="app-chrome-item volume display--large">
+                    <button class="volume-button--small volume" @click="muteButtonPressed()"
+                            :class="{'active': this.cfg.audio.volume == 0}"
+                            :title="cfg.audio.muted ? $root.getLz('term.unmute') : $root.getLz('term.mute')"
+                            v-b-tooltip.hover></button>
+                    <input type="range" @wheel="volumeWheel" :step="cfg.audio.volumeStep" min="0" :max="cfg.audio.maxVolume"
+                           v-model="mk.volume" v-if="typeof mk.volume != 'undefined'" @change="checkMuteChange()"
+                           v-b-tooltip.hover :title="formatVolumeTooltip()">
+                </div>
+                <button class="playback-button pause" @click="mk.pause()" v-if="mk.isPlaying"
+                        :title="$root.getLz('term.pause')" v-b-tooltip.hover></button>
+                <button class="playback-button play" @click="mk.play()" v-else
+                        :title="$root.getLz('term.play')" v-b-tooltip.hover></button>
+                <div class="app-chrome-item generic">
+                            <template v-if="lyrics && lyrics != [] && lyrics.length > 0">
+                                <button class="playback-button--small lyrics"
+                                        :title="$root.getLz('term.lyrics')"
+                                        v-b-tooltip.hover
+                                        :class="{'active': drawer.panel == 'lyrics'}"
+                                        @click="invokeDrawer('lyrics')"></button>
+                            </template>
+                            <template v-else>
+                                <button class="playback-button--small lyrics"
+                                        :style="{'opacity': 0.3, 'pointer-events': 'none'}"></button>
+                            </template>
+                </div> 
+                <div id="player-pip"
+                    @click="pip()"
+                    title="Picture-in-Picture"
+                    v-b-tooltip.hover>
+                    <%- include("../svg/pip.svg") %>
+                </div>
+                <div id="player-fullscreen"
+                    @click="fullscreen(!fullscreenState)"
+                    title="Fullscreen"
+                    v-b-tooltip.hover>
+                    <%- include("../svg/fullscreen.svg") %>
+                </div>       
+            </div>
         </div>
     </div>
     <div id="apple-music-video-player"></div>

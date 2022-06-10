@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "experimentalDecorators": true,
-    "target": "esnext",
+    "target": "es6",
     "module": "commonjs",
     "allowJs": true,
     "noImplicitAny": true,
@@ -9,6 +9,7 @@
     "sourceMap": true,
     "outDir": "./build",
     "baseUrl": ".",
+    "resolveJsonModule": true,
     "paths": {
       "*": ["node_modules/*"]
     },

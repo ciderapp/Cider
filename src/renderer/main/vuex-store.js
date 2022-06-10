@@ -6,6 +6,14 @@ const store = new Vuex.Store({
             // recentlyAdded: ipcRenderer.sendSync("get-library-recentlyAdded"),
             // playlists: ipcRenderer.sendSync("get-library-playlists")
         },
+        pageState: {
+            recentlyAdded: {
+                loaded: false,
+                nextUrl: null,
+                items: [],
+                size: "normal"
+            }
+        },
         artwork: {
             playerLCD: ""
         }

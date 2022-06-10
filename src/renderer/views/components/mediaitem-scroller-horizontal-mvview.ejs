@@ -2,9 +2,12 @@
     <vue-horizontal>
         <template v-if="browsesp">
             <mediaitem-mvview-sp
-                    :item="item ? ((item.attributes?.kind != null || item.attributes?.type == 'editorial-elements') ? item : ((item.relationships && item.relationships.contents ) ? item.relationships.contents.data[0] : item)) : []"
+                    :item=" 
+                    ((item?.attributes?.kind != null || item?.attributes?.type == 'editorial-elements')
+                     ? item : 
+                     ((item.relationships && item.relationships.contents ) ? item.relationships.contents.data[0] : item)) ?? (item)"
                     :imagesize="imagesize"
-                    :badge="item.attributes" v-for="item in items"></mediaitem-mvview-sp>
+                    :badge="item.attributes ?? [] " v-for="item in items"></mediaitem-mvview-sp>
         </template>
         <template v-else>
             <mediaitem-square :kind="kind" size="600" :key="item?.id ?? ''" 

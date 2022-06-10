@@ -18,7 +18,7 @@ const CiderKit = {
                     body: body,
                     options: options
                 })
-                let response = await fetch("http://localhost:9000/api/musickit/v3", opts);
+                let response = await fetch("./api/musickit/v3", opts);
                 return response.json()
             }
         }

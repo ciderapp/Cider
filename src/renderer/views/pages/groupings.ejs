@@ -1,0 +1,93 @@
+<script type="text/x-template" id="cider-groupings">
+  <div class="content-inner">
+       <template v-if="data != null">
+          <h1 class="header-text">{{data.attributes?.name}}</h1>
+
+          <template v-if="data.relationships && data.relationships.tabs">
+              <template v-for="(recom,index) in data.relationships.tabs.data[0].relationships.children.data">
+              <div class="row">
+                  <div class="col" v-if="recom.attributes.name != 'Chart Set'">
+                      <h3>{{ recom.attributes.name ?? ""}}</h3>
+                  </div>
+                  <div class="col-auto flex-center" v-if="index != 0 && recom.relationships && ((recom.relationships.children &&  recom.relationships.children.data.length > 10) || (recom.relationships.contents && recom.relationships.contents.data.length > 10))">
+                      <button class="cd-btn-seeall" v-if="recom.relationships.room" @click="app.showRoom(recom.relationships.room?.data[0].href)" >{{app.getLz('term.seeAll')}}</button>
+                      <button class="cd-btn-seeall" v-else @click="app.showCollection(recom.relationships.children ? recom.relationships.children : recom.relationships.contents, recom.attributes.name ?? '', 'listen_now')" >{{app.getLz('term.seeAll')}}</button>
+                  </div>
+              </div>
+              <template v-if="(recom.relationships != null && ((recom.relationships.children && recom.relationships.children.data) || (recom.relationships.contents && recom.relationships.contents.data)))">
+                  <template v-if="index === 0|| (data.relationships.tabs.data[0].relationships.children.data[0].relationships == null && index === 1)">
+                      <mediaitem-scroller-horizontal-mvview :imagesize="800" :browsesp="index == 0|| (data.relationships.tabs.data[0].relationships.children.data[0].relationships == null && index === 1)" :kind="recom.attributes.editorialElementKind"
+                              :items="recom.relationships.children ? recom.relationships.children.data.limit(10) : recom.relationships.contents.data.limit(10)"></mediaitem-scroller-horizontal-mvview>
+                  </template>
+                  <template v-else-if="(['327']).includes(recom.attributes.editorialElementKind)">
+                    <div class="mediaitem-list-item__grid">
+                        <listitem-horizontal :items="recom.relationships.contents.data.limit(20)">
+                        </listitem-horizontal>
+                    </div>                
+                </template>
+                  <template v-else-if="(['385']).includes(recom.attributes.editorialElementKind)">
+                      <mediaitem-scroller-horizontal-mvview :imagesize="800" :kind="recom.attributes.editorialElementKind"
+                              :items="recom.relationships.children ? recom.relationships.children.data.limit(10) : recom.relationships.contents.data.limit(10)"></mediaitem-scroller-horizontal-mvview>
+                  </template>
+                  <template v-else-if="recom.attributes.name == 'Chart Set'">
+                     <!-- ignored -->
+                  </template>
+                  <template v-else>
+                      <mediaitem-scroller-horizontal-large
+                              :items="recom.relationships.children ? recom.relationships.children.data.limit(10) : recom.relationships.contents.data.limit(10)"></mediaitem-scroller-horizontal-large>
+                  </template>
+              </template>
+              <template v-else>
+                <template v-if="recom.attributes.links && recom.attributes.editorialElementKind.includes('391')">
+                    <div class="grouping-container">
+                        <button class="grouping-btn" @click="$root.goToGrouping(link.url)" v-for="link in recom.attributes.links">{{ link.label }}</button>
+                    </div>
+                </template>
+              </template>
+              </template>
+          </template>
+      </template>
+  </div>
+</script>
+
+<script>
+  Vue.component("cider-groupings", {
+    template: "#cider-groupings",
+    data: function () {
+      return {
+        data: null,
+        app: this.$root,
+        query: "",
+      };
+    },
+    async mounted() {   
+      const queryDefaults = {
+        "platform": "web",
+        "l" : this.$root.mklang,
+        "extend": "editorialArtwork,artistUrl",
+        "omit[resource:artists]": "relationships",
+        "include[groupings]": "curator",
+        "include[albums]": "artists",
+        "include[songs]": "artists",
+        "include[music-videos]": "artists",
+        "fields[artists]": "name,url,artwork,editorialArtwork,genreNames,editorialNotes",
+      }
+      const hash = window.location.hash;
+      // get everything after the first / character but keep everything afterwards
+      const query = hash.substring(hash.indexOf("/") + 1, hash.indexOf("&") > 0 ? hash.indexOf("&") : hash.length);
+      this.query = query;
+      // if(!this.query.includes("?")) {
+      //   this.query += queryDefaults;
+      // }
+      console.debug(query);
+      const result = await this.$root.mk.api.v3.music(
+        `/v1/editorial/${this.$root.mk.storefrontId}/groupings/${this.query}`
+      ,!this.query.includes("&") ? queryDefaults : {"platform": "web"});
+      this.data = result.data.data[0];
+
+      console.log(this.data);
+
+      //this.$root.getBrowsePage();
+    },
+  });
+</script>

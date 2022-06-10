@@ -89,19 +89,20 @@
                                 <label>
                                     <select class="md-select" style="width:180px;"
                                             v-model="$root.cfg.general.resumeTabs.tab">
+                                        <option value="dynamic">
+                                            {{$root.getLz('settings.option.general.resumetabs.dynamic')}}
+                                        </option>
                                         <option value="home">{{$root.getLz('home.title')}}</option>
                                         <option value="listen_now">{{$root.getLz('term.listenNow')}}</option>
                                         <option value="browse">{{$root.getLz('term.browse')}}</option>
                                         <option value="radio">{{$root.getLz('term.radio')}}</option>
-                                        <option value="library-recentlyadded">{{$root.getLz('term.recentlyAdded')}}</option>
+                                        <option value="library-recentlyadded">{{$root.getLz('term.recentlyAdded')}}
+                                        </option>
                                         <option value="library-songs">{{$root.getLz('term.songs')}}</option>
                                         <option value="library-albums">{{$root.getLz('term.albums')}}</option>
                                         <option value="library-artists">{{$root.getLz('term.artists')}}</option>
                                         <option value="library-videos">{{$root.getLz('term.videos')}}</option>
                                         <option value="podcasts">{{$root.getLz('term.podcasts')}}</option>
-                                        <option value="dynamic">
-                                            {{$root.getLz('settings.option.general.resumetabs.dynamic')}}
-                                        </option>
                                     </select>
                                 </label>
                             </div>
@@ -124,7 +125,8 @@
                                         </div>
                                         <div class="md-option-segment md-option-segment_auto">
                                             <label>
-                                                <input type="checkbox" v-model="app.cfg.general.sidebarItems.recentlyAdded"
+                                                <input type="checkbox"
+                                                       v-model="app.cfg.general.sidebarItems.recentlyAdded"
                                                        switch/>
                                             </label>
                                         </div>
@@ -135,7 +137,8 @@
                                         </div>
                                         <div class="md-option-segment md-option-segment_auto">
                                             <label>
-                                                <input type="checkbox" v-model="app.cfg.general.sidebarItems.songs" switch/>
+                                                <input type="checkbox" v-model="app.cfg.general.sidebarItems.songs"
+                                                       switch/>
                                             </label>
                                         </div>
                                     </div>
@@ -191,139 +194,32 @@
                                 {{$root.getLz('settings.option.general.keybindings')}}
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
-                                <button class="md-btn" v-b-modal.modal-2>
+                                <button class="md-btn" @click="app.appRoute('keybinds-settings')">
                                     {{$root.getLz('settings.option.general.keybindings.open')}}
                                 </button>
                             </div>
-                            <b-modal id="modal-2" centered size="lg"
-                                     :title="$root.getLz('settings.option.general.keybindings')" ok-only>
-                                <div class="settings-option-body">
-                                    <div class="md-option-line">
-                                        <div class="md-option-segment">
-                                            {{$root.getLz('settings.description.search')}}
-                                        </div>
-                                        <div class="md-option-segment md-option-segment_auto">
-                                            <button class="md-btn md-btn-small md-btn-block"
-                                                    @click="keyBindUpdate('search')">
-                                                {{app.cfg.general.keybindings.search.join(' + ')}}
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="md-option-line">
-                                        <div class="md-option-segment">
-                                            {{$root.getLz('settings.description.albums')}}
-                                        </div>
-                                        <div class="md-option-segment md-option-segment_auto">
-                                            <button class="md-btn md-btn-small md-btn-block"
-                                                    @click="keyBindUpdate('albums')">
-                                                {{app.cfg.general.keybindings.albums.join(' + ')}}
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="md-option-line">
-                                        <div class="md-option-segment">
-                                            {{$root.getLz('settings.description.artists')}}
-                                        </div>
-                                        <div class="md-option-segment md-option-segment_auto">
-                                            <button class="md-btn md-btn-small md-btn-block"
-                                                    @click="keyBindUpdate('artists')">
-                                                {{app.cfg.general.keybindings.artists.join(' + ')}}
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="md-option-line">
-                                        <div class="md-option-segment">
-                                            {{$root.getLz('settings.description.browse')}}
-                                        </div>
-                                        <div class="md-option-segment md-option-segment_auto">
-                                            <button class="md-btn md-btn-small md-btn-block"
-                                                    @click="keyBindUpdate('browse')">
-                                                {{app.cfg.general.keybindings.browse.join(' + ')}}
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="md-option-line">
-                                        <div class="md-option-segment">
-                                            {{$root.getLz('settings.description.private')}}
-                                        </div>
-                                        <div class="md-option-segment md-option-segment_auto">
-                                            <button class="md-btn md-btn-small md-btn-block"
-                                                    @click="keyBindUpdate('togglePrivateSession')">
-                                                {{app.cfg.general.keybindings.togglePrivateSession.join(' + ')}}
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="md-option-line">
-                                        <div class="md-option-segment">
-                                            {{$root.getLz('settings.description.remote')}}
-                                        </div>
-                                        <div class="md-option-segment md-option-segment_auto">
-                                            <button class="md-btn md-btn-small md-btn-block"
-                                                    @click="keyBindUpdate('webRemote')">
-                                                {{app.cfg.general.keybindings.webRemote.join(' + ')}}
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="md-option-line">
-                                        <div class="md-option-segment">
-                                            {{$root.getLz('settings.description.audio')}}
-                                        </div>
-                                        <div class="md-option-segment md-option-segment_auto">
-                                            <button class="md-btn md-btn-small md-btn-block"
-                                                    @click="keyBindUpdate('audioSettings')">
-                                                {{app.cfg.general.keybindings.audioSettings.join(' + ')}}
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="md-option-line">
-                                        <div class="md-option-segment">
-                                            {{$root.getLz('settings.description.plugins')}}
-                                        </div>
-                                        <div class="md-option-segment md-option-segment_auto">
-                                            <button class="md-btn md-btn-small md-btn-block"
-                                                    @click="keyBindUpdate('pluginMenu')">
-                                                {{app.cfg.general.keybindings.pluginMenu.join(' + ')}}
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="md-option-line">
-                                        <div class="md-option-segment">
-                                            {{$root.getLz('settings.description.cast')}}
-                                        </div>
-                                        <div class="md-option-segment md-option-segment_auto">
-                                            <button class="md-btn md-btn-small md-btn-block"
-                                                    @click="keyBindUpdate('castToDevices')">
-                                                {{app.cfg.general.keybindings.castToDevices.join(' + ')}}
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="md-option-line">
-                                        <div class="md-option-segment">
-                                            {{$root.getLz('settings.description.settings')}}
-                                        </div>
-                                        <div class="md-option-segment md-option-segment_auto">
-                                            <button class="md-btn md-btn-small md-btn-block"
-                                                    @click="keyBindUpdate('settings')">
-                                                {{app.cfg.general.keybindings.settings.join(' + ')}}
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="md-option-line">
-                                        <div class="md-option-segment">
-                                            {{$root.getLz('settings.description.developer')}}
-                                        </div>
-                                        <div class="md-option-segment md-option-segment_auto">
-                                            <button class="md-btn md-btn-small md-btn-block"
-                                                    @click="keyBindUpdate('openDeveloperTools')">
-                                                {{app.cfg.general.keybindings.openDeveloperTools.join(' + ')}}
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <button class="md-btn md-btn-large md-btn-block" @click="keyBindReset()">
-                                        {{$root.getLz('term.reset')}}
-                                    </button>
-                                </div>
-                            </b-modal>
+                        </div>
+                        <div class="md-option-line">
+                            <div class="md-option-segment">
+                                {{$root.getLz('settings.option.general.themeUpdateNotification')}}
+                            </div>
+                            <div class="md-option-segment md-option-segment_auto">
+                                <label>
+                                    <input type="checkbox" v-model="app.cfg.general.themeUpdateNotification"
+                                           switch/>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="md-option-line">
+                            <div class="md-option-segment">
+                                {{$root.getLz('settings.option.general.showLovedTracksInline')}}
+                            </div>
+                            <div class="md-option-segment md-option-segment_auto">
+                                <label>
+                                    <input type="checkbox" v-model="app.cfg.general.showLovedTracksInline"
+                                           switch/>
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -348,7 +244,8 @@
                                         <option value="HIGH">{{$root.getLz('settings.header.audio.quality.high')}}
                                             ({{$root.getLz('settings.header.audio.quality.high.description')}})
                                         </option>
-                                        <option value="STANDARD">{{$root.getLz('settings.header.audio.quality.standard')}}
+                                        <option value="STANDARD">
+                                            {{$root.getLz('settings.header.audio.quality.standard')}}
                                             ({{$root.getLz('settings.header.audio.quality.standard.description')}})
                                         </option>
                                     </select>
@@ -436,16 +333,17 @@
                                 <label>
                                     <input type="checkbox" v-model="app.cfg.audio.normalization"
                                            v-on:change="toggleNormalization"
-                                           :disabled="app.cfg.audio.spatial === true || app.cfg.audio.maikiwiAudio.spatial === true || app.cfg.audio.maikiwiAudio.ciderPPE === true || app.cfg.audio.maikiwiAudio.atmosphereRealizer === true"
+                                           :disabled="app.cfg.audio.maikiwiAudio.spatial === true || app.cfg.audio.maikiwiAudio.ciderPPE === true || app.cfg.audio.maikiwiAudio.atmosphereRealizer1 === true || app.cfg.audio.maikiwiAudio.atmosphereRealizer2 === true"
                                            switch/>
                                 </label>
                             </div>
                         </div>
-                        <div class="md-option-line" v-show="app.cfg.advanced.AudioContext && app.cfg.audio.normalization">
+                        <div class="md-option-line"
+                             v-show="app.cfg.advanced.AudioContext && app.cfg.audio.normalization">
                             <div class="md-option-segment">
-                                dB SPL Display
+                                {{$root.getLz('settings.option.audio.dbspl.display')}}
                                 <br>
-                                <small>(Advanced users only) Display dB SPL instead of dBFS on the volume slider.</small>
+                                <small>{{$root.getLz('settings.option.audio.dbspl.description')}}</small>
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
                                 <label>
@@ -455,9 +353,9 @@
                         </div>
                         <div class="md-option-line" v-show="app.cfg.audio.dBSPL">
                             <div class="md-option-segment">
-                                0 dBFS Calibration
+                                {{$root.getLz('settings.option.audio.dbfs.calibration')}}
                                 <br>
-                                <small>Enter the peak Z-weighted dB SPL when Cider is at 0 dBFS.</small>
+                                <small>{{$root.getLz('settings.option.audio.dbfs.description')}}</small>
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
                                 <label>
@@ -492,8 +390,8 @@
                             <div class="md-option-segment md-option-segment_auto">
                                 <label>
                                     <select class="md-select" v-model="$root.cfg.visual.directives.windowLayout">
-                                        <option value="default">Cupertino</option>
-                                        <option value="twopanel">Redmond</option>
+                                        <option value="default">Maverick</option>
+                                        <option value="twopanel">Mojave</option>
                                     </select>
                                 </label>
                             </div>
@@ -515,13 +413,123 @@
                                         <option value="image">
                                             {{$root.getLz('settings.header.visual.windowBackgroundStyle.image')}}
                                         </option>
-                                        <option value="mica">
+                                        <option value="color">
+                                            {{$root.getLz('settings.header.visual.windowBackgroundStyle.color')}}
+                                        </option>
+                                        <option v-if="$root.platform == 'win32'" value="mica">
                                             Mica (Beta)
                                         </option>
                                     </select>
                                 </label>
                             </div>
                         </div>
+                        <div class="md-option-line child" v-if="app.cfg.visual.window_background_style == 'color'">
+                            <div class="md-option-segment">
+                                {{$root.getLz('settings.option.visual.windowColor')}}
+                            </div>
+                            <div class="md-option-segment_auto">
+                                <input type="color" v-model="app.cfg.visual.windowColor"/>
+                            </div>
+                        </div>
+                        <div class="md-option-line">
+                            <div class="md-option-segment">
+                                {{$root.getLz('settings.option.visual.customAccentColor')}}
+                            </div>
+                            <div class="md-option-segment_auto">
+                                <input type="checkbox" v-model="app.cfg.visual.customAccentColor" switch/>
+                            </div>
+                        </div>
+                        <div class="md-option-line child" v-if="app.cfg.visual.customAccentColor">
+                            <div class="md-option-segment">
+                                {{$root.getLz('settings.option.visual.accentColor')}}
+                            </div>
+                            <div class="md-option-segment_auto">
+                                <input type="color" v-model="app.cfg.visual.accentColor"/>
+                            </div>
+                        </div>
+                        <div class="md-option-line">
+                            <div class="md-option-segment">
+                                {{$root.getLz('settings.option.visual.hardwareAcceleration')}}<br>
+                                <small>({{$root.getLz('settings.option.visual.hardwareAcceleration.description')}})</small>
+                            </div>
+                            <div class="md-option-segment md-option-segment_auto">
+                                <label>
+                                    <select class="md-select" style="width:180px;"
+                                            v-model="app.cfg.visual.hw_acceleration" @change="promptForRelaunch()">
+                                        <option value="default">
+                                            {{$root.getLz('settings.header.visual.hardwareAcceleration.default')}}
+                                        </option>
+                                        <option value="webgpu">
+                                            {{$root.getLz('settings.header.visual.hardwareAcceleration.webGPU')}}
+                                        </option>
+                                        <option value="disabled">{{$root.getLz('term.disabled')}}</option>
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="md-option-line">
+                            <div class="md-option-segment">
+                                {{$root.getLz('settings.option.visual.showPersonalInfo')}}
+                            </div>
+                            <div class="md-option-segment md-option-segment_auto">
+                                <label>
+                                    <input type="checkbox" v-model="app.cfg.visual.showuserinfo"
+                                           v-on:change="toggleUserInfo"
+                                           switch/>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Window Settings -->
+                    <div class="md-option-header">
+                        <span>{{$root.getLz('settings.header.window')}}</span>
+                    </div>
+                    <div class="settings-option-body">
+                        <div class="md-option-line" v-show="app.platform !== 'darwin'">
+                            <div class="md-option-segment">
+                                {{$root.getLz("settings.option.window.close_button_hide")}}
+                            </div>
+                            <div class="md-option-segment md-option-segment_auto">
+                                <label>
+                                    <input type="checkbox" v-model="app.cfg.general.close_button_hide" switch/>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="md-option-line" v-show="app.platform !== 'darwin'">
+                            <div class="md-option-segment">
+                                {{$root.getLz("settings.option.window.useNativeTitleBar")}}<br>
+                                <small>({{$root.getLz("settings.option.visual.hardwareAcceleration.description")}})</small>
+                            </div>
+                            <div class="md-option-segment md-option-segment_auto">
+                                <label>
+                                    <input type="checkbox" v-model="app.cfg.visual.nativeTitleBar" switch
+                                           @change="promptForRelaunch()"/>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="md-option-line" v-show="app.platform !== 'darwin'">
+                            <div class="md-option-segment">
+                                {{$root.getLz("settings.option.window.windowControlStyle")}}
+                            </div>
+                            <div class="md-option-segment md-option-segment_auto">
+                                <label>
+                                    <select class="md-select" v-model="app.cfg.visual.windowControlPosition">
+                                        <option value="0">
+                                            {{$root.getLz("settings.option.window.windowControlStyle.right")}}
+                                        </option>
+                                        <option value="1">
+                                            {{$root.getLz("settings.option.window.windowControlStyle.left")}}
+                                        </option>
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Advanced Visual -->
+                    <div class="md-option-header">
+                        <span>{{$root.getLz('settings.header.advanced')}}</span>
+                    </div>
+                    <div class="settings-option-body">
                         <div class="md-option-line">
                             <div class="md-option-segment">
                                 {{$root.getLz('settings.option.visual.animatedArtwork')}}
@@ -590,82 +598,8 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="md-option-line">
-                            <div class="md-option-segment">
-                                {{$root.getLz('settings.option.visual.hardwareAcceleration')}}<br>
-                                <small>({{$root.getLz('settings.option.visual.hardwareAcceleration.description')}})</small>
-                            </div>
-                            <div class="md-option-segment md-option-segment_auto">
-                                <label>
-                                    <select class="md-select" style="width:180px;" v-model="app.cfg.visual.hw_acceleration">
-                                        <option value="default">
-                                            {{$root.getLz('settings.header.visual.hardwareAcceleration.default')}}
-                                        </option>
-                                        <option value="webgpu">
-                                            {{$root.getLz('settings.header.visual.hardwareAcceleration.webGPU')}}
-                                        </option>
-                                        <option value="disabled">{{$root.getLz('term.disabled')}}</option>
-                                    </select>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="md-option-line">
-                            <div class="md-option-segment">
-                                {{$root.getLz('settings.option.visual.showPersonalInfo')}}
-                            </div>
-                            <div class="md-option-segment md-option-segment_auto">
-                                <label>
-                                    <input type="checkbox" v-model="app.cfg.visual.showuserinfo"
-                                           v-on:change="toggleUserInfo"
-                                           switch/>
-                                </label>
-                            </div>
-                        </div>
                     </div>
-                    <!-- Window Settings -->
-                    <div class="md-option-header">
-                        <span>{{$root.getLz('settings.header.window')}}</span>
-                    </div>
-                    <div class="settings-option-body">
-                        <div class="md-option-line" v-show="app.platform !== 'darwin'">
-                            <div class="md-option-segment">
-                                {{$root.getLz("settings.option.window.close_button_hide")}}
-                            </div>
-                            <div class="md-option-segment md-option-segment_auto">
-                                <label>
-                                    <input type="checkbox" v-model="app.cfg.general.close_button_hide" switch/>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="md-option-line" v-show="app.platform !== 'darwin'">
-                            <div class="md-option-segment">
-                                {{$root.getLz("settings.option.window.useNativeTitleBar")}}<br>
-                                <small>({{$root.getLz("settings.option.visual.hardwareAcceleration.description")}})</small>
-                            </div>
-                            <div class="md-option-segment md-option-segment_auto">
-                                <label>
-                                    <input type="checkbox" v-model="app.cfg.visual.nativeTitleBar" switch/>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="md-option-line" v-show="app.platform !== 'darwin'">
-                            <div class="md-option-segment">
-                                {{$root.getLz("settings.option.window.windowControlStyle")}}
-                            </div>
-                            <div class="md-option-segment md-option-segment_auto">
-                                <label>
-                                    <select class="md-select" v-model="app.cfg.visual.windowControlPosition">
-                                        <option value="0">
-                                            {{$root.getLz("settings.option.window.windowControlStyle.right")}}
-                                        </option>
-                                        <option value="1">
-                                            {{$root.getLz("settings.option.window.windowControlStyle.left")}}
-                                        </option>
-                                    </select>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </b-tab>
             <b-tab :title="$root.getLz('settings.header.lyrics')">
@@ -1069,6 +1003,17 @@
 
                         <div class="md-option-line" v-show="app.cfg.general.discordrpc.enabled != false">
                             <div class="md-option-segment">
+                                {{$root.getLz('settings.option.connectivity.discordRPC.hideTimestamp')}}
+                            </div>
+                            <div class="md-option-segment md-option-segment_auto">
+                                <label>
+                                    <input type="checkbox" v-model="app.cfg.general.discordrpc.hide_timestamp" switch/>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="md-option-line" v-show="app.cfg.general.discordrpc.enabled != false">
+                            <div class="md-option-segment">
                                 {{$root.getLz('settings.option.connectivity.discordRPC.detailsFormat')}}<br/>
                                 <small>{{$root.getLz('term.variables')}}: {artist}, {composer}, {title}, {album},
                                     {trackNumber}</small>
@@ -1093,6 +1038,17 @@
                             </div>
                         </div>
 
+                        <div class="md-option-line" v-show="app.cfg.general.discordrpc.enabled != false">
+                            <div class="md-option-segment">
+                                {{$root.getLz('settings.option.connectivity.discordRPC.reload')}}
+                            </div>
+                            <div class="md-option-segment md-option-segment_auto">
+                                <button class="md-btn" @click="reloadDiscordRPC()">
+                                    {{$root.getLz('menubar.options.reload')}}
+                                </button>
+                            </div>
+                        </div>
+
                         <!-- LastFM -->
                         <div class="md-option-line">
                             <div class="md-option-segment">
@@ -1100,7 +1056,7 @@
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
                                 <button class="md-btn" id="lfmConnect" ref="lfmConnect"
-                                        onclick="app.LastFMAuthenticate()">
+                                        @click="app.LastFMAuthenticate()">
                                     {{$root.getLz('term.connect')}}
                                 </button>
                             </div>
@@ -1131,7 +1087,8 @@
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
                                 <label>
-                                    <input type="checkbox" v-model="app.cfg.lastfm.enabledRemoveFeaturingArtists" switch/>
+                                    <input type="checkbox" v-model="app.cfg.lastfm.enabledRemoveFeaturingArtists"
+                                           switch/>
                                 </label>
                             </div>
                         </div>
@@ -1233,7 +1190,6 @@
                             </div>
                         </div>
 
-
                         <div class="md-option-line">
                             <div class="md-option-segment">
                                 {{$root.getLz('settings.option.experimental.compactUI')}}
@@ -1270,39 +1226,11 @@
                                     <select class="md-select" @change="$root.setLz('');$root.setLzManual()"
                                             v-model="app.cfg.general.language">
                                         <optgroup :label="index" v-for="(categories, index) in getLanguages()">
-                                            <option v-for="lang in categories" :value="lang.code">{{lang.nameNative}} ({{
+                                            <option v-for="lang in categories" :value="lang.code">{{lang.nameNative}}
+                                                ({{
                                                 lang.nameEnglish }})
                                             </option>
                                         </optgroup>
-                                    </select>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="md-option-line update-check">
-                            <div class="md-option-segment">
-                                {{$root.getLz('settings.option.general.updateCider')}}
-                            </div>
-                            <div class="md-option-segment md-option-segment_auto">
-                                <button class="md-btn" id='settings.option.general.updateCider.check'
-                                        @click="app.checkForUpdate()">
-                                    {{$root.getLz('term.check')}}
-                                </button>
-                            </div>
-                        </div>
-                        <div class="md-option-line update-check">
-                            <div class="md-option-segment">
-                                {{$root.getLz('settings.option.general.updateCider.branch')}}<br>
-                                <small>({{$root.getLz('settings.option.general.updateCider.branch.description')}})</small>
-                            </div>
-                            <div class="md-option-segment md-option-segment_auto">
-                                <label>
-                                    <select class="md-select" style="width:180px;" v-model="app.cfg.general.update_branch">
-                                        <option value="main">
-                                            {{$root.getLz('settings.option.general.updateCider.branch.main')}}
-                                        </option>
-                                        <option value="develop">
-                                            {{$root.getLz('settings.option.general.updateCider.branch.develop')}}
-                                        </option>
                                     </select>
                                 </label>
                             </div>
@@ -1323,9 +1251,10 @@
                 </div>
             </b-tab>
             <!-- Connect Settings -->
+            <!-- Not Prod Ready
             <b-tab :title="$root.getLz('settings.header.connect')">
                 <div class="md-option-container">
-                    <!-- Cider Connect / Linking Settings -->
+                    <!!!!!-- Cider Connect / Linking Settings -!->
                     <div class="md-option-header">
                         <span>{{$root.getLz('settings.header.connect')}}</span>
                     </div>
@@ -1370,7 +1299,7 @@
                                 </div>
                                 <div class="md-option-segment md-option-segment_auto">
                                     <label>
-                                        <input type="checkbox" disabled a-v-model="app.cfg.connectUser.sync.settings"
+                                        <input type="checkbox" a-v-model="app.cfg.connectUser.sync.settings"
                                                @click="app.cfg.connectUser.sync.settings = !app.cfg.connectUser.sync.settings"
                                                switch/>
                                     </label>
@@ -1407,6 +1336,7 @@
                     </div>
                 </div>
             </b-tab>
+            -->
         </b-tabs>
     </div>
 </script>
@@ -1425,7 +1355,7 @@
         }, watch: {
             tabIndex: function (val) {
                 if (this.canChangeHash) {
-                    window.location.hash = `#settings/${val}`
+                    // window.location.hash = `#settings/${val}`
                 }
             }
         },
@@ -1460,76 +1390,6 @@
                     if (ok) {
                         ipcRenderer.invoke("reinstall-widevine-cdm");
                     }
-                })
-            },
-            keyBindUpdate: function (action) {
-                const blur = document.createElement('div');
-                blur.className = 'blur';
-                blur.style.backgroundColor = 'rgba(0,0,0,0.25)';
-                blur.style.position = 'fixed';
-                blur.style.top = '0';
-                blur.style.left = '0';
-                blur.style.width = '100%';
-                blur.style.height = '100%';
-                blur.style.zIndex = '9999';
-                blur.style.display = 'flex';
-                blur.style.alignItems = 'center';
-                blur.style.justifyContent = 'center';
-                blur.style.fontSize = '2em';
-                blur.style.color = 'white';
-                blur.innerHTML = 'Press a combination of two keys to update keybinding. Press Escape key to go back.'
-                document.body.appendChild(blur);
-
-                let keyBind = [];
-                const keyBindTimeout = setTimeout(function () {
-                    keyBind = [];
-                    document.body.removeChild(blur);
-                }, 30000);
-                const keyBindUpdate = function (e) {
-                    if (document.body.contains(blur)) {
-                        if (e.key == 'Escape') {
-                            document.body.removeChild(blur);
-                            clearTimeout(keyBindTimeout);
-                            return;
-                        } else {
-                            if (e.keyCode >= 65 && e.keyCode <= 90 && e.keyCode <= 97 && e.keyCode <= 122) {
-                                keyBind.push(e.key.toUpperCase());
-                            } else {
-                                keyBind.push(e.key);
-                            }
-                            if (keyBind.length === 2) {
-                                if (keyBind[0] !== keyBind[1]) {
-                                    app.cfg.general.keybindings[action] = keyBind
-                                    document.body.removeChild(blur);
-                                    clearTimeout(keyBindTimeout);
-                                    notyf.success(app.getLz('settings.notyf.general.keybindings.update.success'));
-                                    bootbox.confirm(app.getLz("settings.prompt.general.keybindings.update.success"), (ok) => {
-                                        if (ok) ipcRenderer.invoke("relaunchApp")
-                                    })
-                                } else {
-                                    keyBind = [];
-                                }
-                            }
-                        }
-                    }
-                };
-                document.addEventListener('keydown', keyBindUpdate);
-            },
-            keyBindReset: function () {
-                app.cfg.general.keybindings.search = [app.platform == "darwin" ? "Command" : "Control", "S"];
-                app.cfg.general.keybindings.albums = [app.platform == "darwin" ? "Command" : "Control", "F"];
-                app.cfg.general.keybindings.artists = [app.platform == "darwin" ? "Command" : "Control", "D"];
-                app.cfg.general.keybindings.browse = [app.platform == "darwin" ? "Command" : "Control", "B"];
-                app.cfg.general.keybindings.togglePrivateSession = [app.platform == "darwin" ? "Command" : "Control", "P"];
-                app.cfg.general.keybindings.webRemote = [app.platform == "darwin" ? "Command" : "Control", "W"];
-                app.cfg.general.keybindings.audioSettings = [app.platform == "darwin" ? "Option" : "Alt", "A"];
-                app.cfg.general.keybindings.pluginMenu = [app.platform == "darwin" ? "Option" : "Alt", "P"];
-                app.cfg.general.keybindings.castToDevices = [app.platform == "darwin" ? "Option" : "Alt", "C"];
-                app.cfg.general.keybindings.settings = [app.platform == "darwin" ? "Option" : "Alt", "S"];
-                app.cfg.general.keybindings.openDeveloperTools = [app.platform == "darwin" ? "Command" : "Control", app.platform == "darwin" ? "Option" : "Shift", "I"];
-                notyf.success(app.getLz('settings.notyf.general.keybindings.update.success'));
-                bootbox.confirm(app.getLz("settings.prompt.general.keybindings.update.success"), (ok) => {
-                    if (ok) ipcRenderer.invoke("relaunchApp")
                 })
             },
             gitHubExplore() {
@@ -1575,8 +1435,7 @@
                                 if (app.cfg.audio.normalization === true) {
                                     CiderAudio.normalizerOn()
                                 }
-                                if (app.cfg.audio.spatial === true) {
-                                    CiderAudio.spatialOn()
+                                if (app.cfg.audio.maikiwiAudio.spatial === true) {
                                     CiderAudio.hierarchical_loading();
                                 }
                             }
@@ -1586,8 +1445,7 @@
                         if (app.cfg.audio.normalization === true) {
                             CiderAudio.normalizerOn()
                         }
-                        if (app.cfg.audio.spatial === true) {
-                            CiderAudio.spatialOn()
+                        if (app.cfg.audio.maikiwiAudio.spatial === true) {
                             CiderAudio.hierarchical_loading();
                         }
                     }
@@ -1603,7 +1461,6 @@
                 }
             },
             changeAudioQuality: function () {
-                1
                 app.mk.bitrate = MusicKit.PlaybackBitrate[app.cfg.audio.quality];
             },
             toggleUserInfo: function () {
@@ -1637,6 +1494,9 @@
             logoutCC() {
                 ipcRenderer.send('cc-logout')
             },
+            reloadDiscordRPC() {
+                ipcRenderer.send('reloadRPC')
+            }
         }
     })
 </script>

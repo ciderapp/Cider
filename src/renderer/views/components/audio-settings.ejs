@@ -4,18 +4,13 @@
             <div class="modal-window">
                 <div class="modal-header">
                     <div class="modal-title">{{app.getLz('term.audioSettings')}}</div>
-                    <button class="close-btn" @click="app.resetState()"></button>
+                    <button class="close-btn" @click="app.resetState()" :aria-label="app.getLz('action.close')"></button>
                 </div>
                 <div class="modal-content">
                     <button class="playlist-item"
                             @click="openEqualizer()" style="width:100%;">
                         <div class="icon"><%- include("../svg/speaker.svg") %></div>
                         <div class="name">{{app.getLz('term.equalizer')}}</div>
-                    </button>
-                    <button class="playlist-item"
-                            @click="openSpatialAudio()" style="width:100%;">
-                        <div class="icon"><%- include("../svg/speaker.svg") %></div>
-                        <div class="name">{{app.getLz('settings.option.audio.enableAdvancedFunctionality.audioSpatialization')}}</div>
                     </button>
                     <button class="playlist-item"
                             @click="openAudioControls()" style="width:100%;">
@@ -52,14 +47,6 @@
             openEqualizer() {
                 app.modals.equalizer = true
                 app.modals.audioSettings = false
-            },
-            openSpatialAudio() {
-                if (app.cfg.audio.spatial === true && app.cfg.audio.maikiwiAudio.spatial === false) {
-                    app.modals.spatialProperties = true
-                    app.modals.audioSettings = false
-                } else {
-                    notyf.error(app.getLz('spatial.notTurnedOn'))
-                }
             },
             openAudioControls() {
 	            app.modals.audioControls = true

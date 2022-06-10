@@ -35,72 +35,62 @@
                         <select class="md-select" style="width:180px;"
                                 v-model="app.cfg.audio.maikiwiAudio.ciderPPE_value"
                                 v-on:change="CiderAudio.hierarchical_loading()">
-                            <option value="MAIKIWI">Maikiwi</option>
+                            <option value="MAIKIWI">Maikiwi ({{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.adaptive')}})</option>
+                            <option value="MAIKIWI_LEGACY">Maikiwi ({{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.legacy')}})</option>
                             <option value="NATURAL">
                                 {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard')}}
                             </option>
-                            <option value="AGGRESSIVE">
-                                {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.aggressive')}}
-                            </option>
-                        </select>
-                    </div>
-                </div>
-                <div class="md-option-line" v-show="app.cfg.advanced.AudioContext">
-                    <div class="md-option-segment">
-                        {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.analogWarmth')}}
-                        <br>
-                        <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.analogWarmth.description')}}</small>
-                    </div>
-                    <div class="md-option-segment md-option-segment_auto">
-                        <input type="checkbox" v-model="app.cfg.audio.maikiwiAudio.analogWarmth"
-                               v-on:change="CiderAudio.hierarchical_loading();" switch/>
-                    </div>
-                </div>
-                <div class="md-option-line"
-                     v-show="app.cfg.advanced.AudioContext === true && app.cfg.audio.maikiwiAudio.analogWarmth === true">
-                    <div class="md-option-segment">
-                        {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity')}}
-                        <br>
-                        <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.description')}}</small>
-                    </div>
-                    <div class="md-option-segment md-option-segment_auto">
-                        <select class="md-select" style="width:180px;"
-                                v-model="app.cfg.audio.maikiwiAudio.analogWarmth_value"
-                                v-on:change="ChangeanalogWarmth()">
-                            <option value="SMOOTH">
-                                {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.smooth')}}
-                            </option>
-                            <option value="WARM">
-                                {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.analogWarmthIntensity.warm')}}
-                            </option>
+                            <option value="LEGACY">{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.legacy')}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="md-option-line" v-show="app.cfg.advanced.AudioContext === true">
                     <div class="md-option-segment">
-                        {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizer')}}
+                        {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizer')}} [1]
                         <br>
                         <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizer.description')}}</small>
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <input type="checkbox" v-model="app.cfg.audio.maikiwiAudio.atmosphereRealizer"
+                        <input type="checkbox" v-model="app.cfg.audio.maikiwiAudio.atmosphereRealizer1"
                                v-on:change="CiderAudio.hierarchical_loading();" switch/>
                     </div>
                 </div>
-                <div class="md-option-line" v-show="app.cfg.audio.maikiwiAudio.atmosphereRealizer === true">
+                <div class="md-option-line" v-show="app.cfg.audio.maikiwiAudio.atmosphereRealizer1 === true">
                     <div class="md-option-segment">
-                        {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode')}}
+                        {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode')}} [1]
                         <br>
                         <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.description')}}</small>
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
-                        <select class="md-select" style="width:180px;"
-                                v-model="app.cfg.audio.maikiwiAudio.atmosphereRealizer_value"
-                                v-on:change="CiderAudio.hierarchical_loading()">
-                            <option value="NATURAL_STANDARD">{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.natural1')}}</option>
-                            <option value="NATURAL_HIGH">{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.natural2')}}</option>
-                            <option value="NATURAL_PLUS">{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.natural3')}}</option>
-                            <option value="CRYPTO">Cryptofyre</option>
+                        <select class="md-select" style="width:230px;"
+                                v-model="$root.cfg.audio.maikiwiAudio.atmosphereRealizer1_value"
+                                v-on:change="CiderAudio.hierarchical_loading();">
+                            <option v-for="profile in arprofiles" :value="profile.id">{{ getProfileLz("CAR", profile.id) }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="md-option-line" v-show="app.cfg.advanced.AudioContext === true">
+                    <div class="md-option-segment">
+                        {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizer')}} [2]
+                        <br>
+                        <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizer.description')}}</small>
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <input type="checkbox" v-model="app.cfg.audio.maikiwiAudio.atmosphereRealizer2"
+                               v-on:change="CiderAudio.hierarchical_loading();" switch/>
+                    </div>
+                </div>
+                <div class="md-option-line" v-show="app.cfg.audio.maikiwiAudio.atmosphereRealizer2 === true">
+                    <div class="md-option-segment">
+                        {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode')}} [2]
+                        <br>
+                        <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.description')}}</small>
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <select class="md-select" style="width:230px;"
+                                v-model="$root.cfg.audio.maikiwiAudio.atmosphereRealizer2_value"
+                                v-on:change="CiderAudio.hierarchical_loading();">
+                            <option v-for="profile in arprofiles" :value="profile.id">{{ getProfileLz("CAR", profile.id) }}</option>
                         </select>
                     </div>
                 </div>
@@ -112,7 +102,7 @@
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
                         <input type="checkbox" v-model="app.cfg.audio.maikiwiAudio.spatial"
-                               v-on:change="toggleMaikiwiSpatial" switch/>
+                               v-on:change="CiderAudio.hierarchical_loading();" switch/>
                     </div>
                 </div>
                 <div class="md-option-line"
@@ -125,23 +115,9 @@
                     <div class="md-option-segment md-option-segment_auto">
                         <select class="md-select" style="width:180px;"
                                 v-model="$root.cfg.audio.maikiwiAudio.spatialProfile"
-                                v-on:change="toggleMaikiwiSpatial">
-                            <option v-for="profile in spprofiles" :value="profile.id">{{ profile.name }}</option>
+                                v-on:change="CiderAudio.hierarchical_loading();">
+                            <option v-for="profile in spprofiles" :value="profile.id">{{ getProfileLz("CTS", profile.name) }}</option>
                         </select>
-                    </div>
-                </div>
-                <div class="spprofile-line" v-show="app.cfg.audio.maikiwiAudio.spatial === true">
-                    <div class="spprofile-viewport">
-                        <button class="spprev" @click="profilePrev"></button>
-                        <button class="nextprev" @click="profileNext"></button>
-                        <template v-for="profile in spprofiles" v-if="$root.cfg.audio.maikiwiAudio.spatialProfile == profile.id">
-                            <transition name="spfade">
-                                <div class="spslide" :key="profile.id">
-                                    <img v-if="profile.img" loading="eager" decoding="async" :src="profile.img" alt="">
-                                    <h1 class="sptitle">{{ profile.name }}</h1>
-                                </div>
-                            </transition>
-                        </template>
                     </div>
                 </div>
                 <div style="opacity: 0.5; pointer-events: none">
@@ -187,6 +163,7 @@
         data: function () {
             return {
                 app: this.$root,
+                arprofiles: CiderAudio.atmosphereRealizerProfiles,
                 spprofiles: CiderAudio.spatialProfiles
             }
         },
@@ -194,87 +171,46 @@
 
         },
         methods: {
-            profileNext() {
-                var next = this.spprofiles.find(function (profile) {
-                    return profile.id === this.$root.cfg.audio.maikiwiAudio.spatialProfile;
-                }.bind(this));
-                if (next) {
-                    next = this.spprofiles[this.spprofiles.indexOf(next) + 1];
-                    if (next) {
-                        this.$root.cfg.audio.maikiwiAudio.spatialProfile = next.id;
-                    } else {
-                        this.$root.cfg.audio.maikiwiAudio.spatialProfile = this.spprofiles[0].id;
-                    }
-                } else {
-                    this.$root.cfg.audio.maikiwiAudio.spatialProfile = this.spprofiles[0].id;
-                }
-                this.toggleMaikiwiSpatial()
-            },
-            profilePrev() {
-                // select the previous profile based on $root.cfg.audio.maikiwiAudio.spatialProfile
-                var prev = this.spprofiles.find(function (profile) {
-                    return profile.id === this.$root.cfg.audio.maikiwiAudio.spatialProfile;
-                }.bind(this));
-                if (prev) {
-                    prev = this.spprofiles[this.spprofiles.indexOf(prev) - 1];
-                    if (prev) {
-                        this.$root.cfg.audio.maikiwiAudio.spatialProfile = prev.id;
-                    } else {
-                        this.$root.cfg.audio.maikiwiAudio.spatialProfile = this.spprofiles[this.spprofiles.length - 1].id;
-                    }
-                } else {
-                    this.$root.cfg.audio.maikiwiAudio.spatialProfile = this.spprofiles[this.spprofiles.length - 1].id;
-                }
-                this.toggleMaikiwiSpatial()
-            },
-            toggleSpatial: function () {
-                if (app.cfg.audio.maikiwiAudio.spatial) {
-                    CiderAudio.spatialOn()
-                    CiderAudio.hierarchical_loading();
-                } else {
-                    CiderAudio.spatialOff()
-                }
-            },
-            toggleMaikiwiSpatial: function () {
-                if (app.cfg.audio.maikiwiAudio.spatial === true) {
-                    CiderAudio.spatialOn()
-                    CiderAudio.hierarchical_loading();
-                    //let normalized = Math.pow(10, (((Math.log10(app.mk.volume) * 20) - 14) / 20)); 
-                    //app.mk.volume = normalized 
-                    // -13dBFS Target
-                } else {
-                    //let normalized = Math.pow(10, (((Math.log10(app.mk.volume) * 20) + 14) / 20)); 
-                    //app.mk.volume = normalized
-                    CiderAudio.spatialOn()
-                    CiderAudio.hierarchical_loading();
-                }
-            },
-            ChangeanalogWarmth: function () {
-                let WARMTH_GAIN = [-4.81, 0.74, 0.55, -0.84, -1.52, 0.84, 0.66, -0.29, 0.29, 0.94, 1.67, 1.62, -0.53, -0.81, -4.98, 1.43, 0.86, 1.13, -1.06, -0.95, -1.13, 1.78, -3.86];
-
-                switch (app.cfg.audio.maikiwiAudio.analogWarmth_value) {
-                    case "SMOOTH":
-                        for (let i = 0; i < 23; i++) {
-                            CiderAudio.audioNodes.analogWarmth[i].gain.value = WARMTH_GAIN[i] * 1.25;
-                        }
-                        CiderAudio.intelliGainComp_h0_0();
+            getProfileLz(type, name) {
+                let result = "";
+                
+                // Hard-coded shiz
+                switch (name) {
+                    case "Maikiwi":
+                        return "Maikiwi";
                         break;
-                    case "WARM":
-                        for (let i = 0; i < 23; i++) {
-                            CiderAudio.audioNodes.analogWarmth[i].gain.value = WARMTH_GAIN[i] * 1.75;
+
+                    case "Maikiwi+":
+                    return "Maikiwi+";
+                        break;
+
+                    case "Minimal+":
+                    return this.$root.getLz('settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.minimal') + "+";
+                        break;
+
+                    case "live":
+                    return "LIVE";
+                        break;
+                }          
+                switch (type) {
+                    case "CAR":
+                        result = this.$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.' + name);
+                        if (result === "settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode." + name) {
+                            return name;
                         }
-                        CiderAudio.intelliGainComp_h0_0();
+                        else {return result;}
+                        break;
+                    case "CTS":
+                        result = this.$root.getLz('settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.' + name.toLowerCase());
+                        if (result === "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile." + name.toLowerCase()) {
+                            return name;
+                        }
+                        else {return result;}
                         break;
                     default:
-                        app.cfg.audio.maikiwiAudio.analogWarmth_value = "SMOOTH";
-                        for (let i = 0; i < 23; i++) {
-                                CiderAudio.audioNodes.analogWarmth[i].gain.value = WARMTH_GAIN[i] * 1.25;
-                            }
-                        CiderAudio.intelliGainComp_h0_0();
-                        break;
+                        return name;
                 }
-
-            },
+            }
         }
     })
 </script>

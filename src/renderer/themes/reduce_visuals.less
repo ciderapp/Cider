@@ -13,6 +13,32 @@ body {
     }
 }
 
+
+.app-chrome:not(.chrome-bottom) {
+    backdrop-filter: unset;
+    background-color: var(--baseColor);
+}
+
+.menu-panel .menu-panel-body {
+    background: rgb(30 30 30);
+}
+.menu-panel .menu-panel-body .menu-option::before {
+    transition: unset!important;
+}
+
+#app.twopanel .app-chrome:not(.chrome-bottom) .app-chrome--center .top-nav-group .app-sidebar-item:before {
+    transition: unset!important;
+}
+
+.playback-button:before, .playback-button--small:before {
+    transition: unset!important;
+}
+
+.floating-header {
+    backdrop-filter: unset!important;
+    background: rgb(0 0 0 / 80%)!important;
+}
+
 .replaycard-enter-active,
 .replaycard-leave-active {
     transition: unset;

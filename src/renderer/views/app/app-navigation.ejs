@@ -1,5 +1,132 @@
 <div class="app-navigation" v-cloak>
-    <%- include("sidebar") %>
+    <transition name="wpfade">
+      <div class="usermenu-container" v-if="chrome.menuOpened">
+        <div class="usermenu-body">
+          <button
+            class="app-sidebar-button"
+            style="width: 100%"
+            @click="appRoute('apple-account-settings')"
+          >
+            <img
+              class="sidebar-user-icon"
+              loading="lazy"
+              :src="getMediaItemArtwork(chrome.hideUserInfo ? './assets/logocut.png' : (chrome.userinfo.attributes['artwork'] ? chrome.userinfo.attributes['artwork']['url'] : ''), 26)"
+            />
+
+            <div class="sidebar-user-text" v-if="!chrome.hideUserInfo">
+              <template v-if="chrome.userinfo.id || mk.isAuthorized">
+                <div class="fullname text-overflow-elipsis">
+                  {{
+                    chrome.userinfo != null &&
+                    chrome.userinfo.attributes != null
+                      ? chrome.userinfo.attributes.name ?? ""
+                      : ""
+                  }}
+                </div>
+                <div class="handle-text text-overflow-elipsis">
+                  {{
+                    chrome.userinfo != null &&
+                    chrome.userinfo.attributes != null
+                      ? chrome.userinfo.attributes.handle ?? ""
+                      : ""
+                  }}
+                </div>
+              </template>
+              <template v-else>
+                <div @click="mk.authorize()">
+                  {{ $root.getLz("term.login") }}
+                </div>
+              </template>
+            </div>
+            <div class="sidebar-user-text" v-else>
+              {{ $root.getLz("app.name") }}
+            </div>
+          </button>
+          <!-- Use 20px SVG for usermenu icon -->
+          <button
+            class="usermenu-item"
+            v-if="cfg.general.privateEnabled"
+            @click="cfg.general.privateEnabled = false"
+          >
+            <span class="usermenu-item-icon">
+              <%- include("../svg/x.svg") %>
+            </span>
+            <span class="usermenu-item-name">{{
+              $root.getLz("term.disablePrivateSession")
+            }}</span>
+          </button>
+          <button class="usermenu-item" @click="appRoute('remote-pair')">
+            <span class="usermenu-item-icon">
+              <%- include("../svg/smartphone.svg") %>
+            </span>
+            <span class="usermenu-item-name">{{
+              $root.getLz("action.showWebRemoteQR")
+            }}</span>
+          </button>
+          <button
+            class="usermenu-item"
+            @click="cfg.advanced.AudioContext ? modals.castMenu = true : $root.notyf.error($root.getLz('settings.warn.enableAdvancedFunctionality'))"
+          >
+            <span class="usermenu-item-icon">
+              <%- include("../svg/cast.svg") %>
+            </span>
+            <span class="usermenu-item-name">{{
+              $root.getLz("term.cast")
+            }}</span>
+          </button>
+          <button
+            class="usermenu-item"
+            @click="cfg.advanced.AudioContext ? modals.audioSettings = true : $root.notyf.error($root.getLz('settings.warn.enableAdvancedFunctionality'))"
+          >
+            <span class="usermenu-item-icon">
+              <%- include("../svg/headphones.svg") %>
+            </span>
+            <span class="usermenu-item-name">{{
+              $root.getLz("term.audioSettings")
+            }}</span>
+          </button>
+          <button
+            class="usermenu-item"
+            v-if="pluginInstalled"
+            @click="modals.pluginMenu = true"
+          >
+            <span class="usermenu-item-icon">
+              <%- include("../svg/grid.svg") %>
+            </span>
+            <span class="usermenu-item-name">{{
+              $root.getLz("term.plugin")
+            }}</span>
+          </button>
+          <button class="usermenu-item" @click="appRoute('about')">
+            <span class="usermenu-item-icon">
+              <%- include("../svg/info.svg") %>
+            </span>
+            <span class="usermenu-item-name">{{
+              $root.getLz("term.about")
+            }}</span>
+          </button>
+          <button class="usermenu-item" @click="appRoute('settings')">
+            <span class="usermenu-item-icon">
+              <%- include("../svg/settings.svg") %>
+            </span>
+            <span class="usermenu-item-name">{{
+              $root.getLz("term.settings")
+            }}</span>
+          </button>
+          <button class="usermenu-item" @click="unauthorize()">
+            <span class="usermenu-item-icon" style="right: 2.5px">
+              <%- include("../svg/log-out.svg") %>
+            </span>
+            <span class="usermenu-item-name">{{
+              $root.getLz("term.logout")
+            }}</span>
+          </button>
+        </div>
+      </div>
+    </transition>
+    <transition name="sidebartransition">
+        <%- include("sidebar") %>
+    </transition>
     <%- include("app-content") %>
     <transition name="drawertransition">
         <div class="app-drawer"

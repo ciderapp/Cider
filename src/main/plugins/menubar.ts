@@ -23,36 +23,37 @@ export default class Thumbar {
             label: app.getName(),
             submenu: [
                 {
-                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.about'),
+                    label: `${utils.getLocale(utils.getStoreValue('general.language'), 'term.about')} ${app.getName()}`,
                     click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('about')`)
                 },
                 {type: 'separator'},
                 {
+                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.toggleprivate'),
+                    accelerator: utils.getStoreValue("general.keybindings.togglePrivateSession").join('+'),
+                    click: () => utils.getWindow().webContents.executeJavaScript(`app.cfg.general.privateEnabled = !app.cfg.general.privateEnabled`)
+                },
+                {
                     label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.settings'),
                     accelerator: utils.getStoreValue("general.keybindings.settings").join('+'),
-                    click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('settings')`),
+                    click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('settings')`)
                 },
                 ...(this.isMac ? [
-                {type: 'separator'},
-                {role: 'services'},
-                {type: 'separator'},
-                {role: 'hide'},
-                {role: 'hideOthers'},
-                {role: 'unhide'},
-            ]: [
-                {type: 'separator'},
-                {role: 'quit', label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.quit')},
-            ]),
-            ],  
+                    {type: 'separator'},
+                    {role: 'services'},
+                    {type: 'separator'},
+                    {role: 'hide'},
+                    {role: 'hideOthers'},
+                    {role: 'unhide'},
+                    {type: 'separator'},
+                    {role: 'quit'}
+                ] : []),
+            ]
         },
-
-
         {
             label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.view'),
             submenu: [
-                {role: 'reload', label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.reload')},
-                {role: 'forceReload', label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.forcereload')},
-                ...(this.isMac ? [
+                {role: 'reload'},
+                {role: 'forceReload'},
                 {role: 'toggleDevTools'},
                 {type: 'separator'},
                 {role: 'resetZoom'},
@@ -60,9 +61,45 @@ export default class Thumbar {
                 {role: 'zoomOut'},
                 {type: 'separator'},
                 {role: 'togglefullscreen'},
-            
-        ]: []),
-        ],
+                {type: 'separator'},
+                {
+                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.search'), 
+                    accelerator: utils.getStoreValue("general.keybindings.search").join('+'),
+                    click: () => utils.getWindow().webContents.executeJavaScript('app.focusSearch()')
+                },
+                {type:'separator'},
+                {
+                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.listennow'),
+                    accelerator: utils.getStoreValue('general.keybindings.listnow').join('+'),
+                    click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('listen_now')`)
+                },
+                {
+                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.browse'),
+                    accelerator: utils.getStoreValue("general.keybindings.browse").join('+'),
+                    click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('browse')`)
+                },
+                {type: 'separator'},
+                {
+                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.recentlyAdded')
+                    ,accelerator: utils.getStoreValue("general.keybindings.recentAdd").join('+'),
+                    click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('library-recentlyadded')`)
+                },
+                {
+                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.songs'),
+                    accelerator: utils.getStoreValue("general.keybindings.songs").join('+'),
+                    click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('library-songs')`)
+                },
+                {
+                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.albums'),
+                    accelerator: utils.getStoreValue("general.keybindings.albums").join('+'),
+                    click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('library-albums')`)
+                },
+                {
+                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.artists'),
+                    accelerator: utils.getStoreValue("general.keybindings.artists").join('+'),
+                    click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('library-artists')`)
+                },
+            ]
         },
         {
             label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.window'),
@@ -73,15 +110,24 @@ export default class Thumbar {
                     label: 'Show',
                     click: () => utils.getWindow().show()
                 },
-                {role: 'zoom'},
+                {role: 'toggleDevTools'},
+                {type: 'separator'},
+                {
+                    label:'Zoom',
+                    submenu: [
+                        {role: 'zoom'},
+                        {role: 'resetZoom'},
+                        {role: 'zoomIn'},
+                        {role: 'zoomOut'},                       
+                    ]
+                },
+                {type: 'separator'},
+                {role: 'togglefullscreen'},
+
                 
                     {type: 'separator'},
                     {role: 'front'},
-                    {role: 'close'},
-                 
-                    {role: 'close'},
-
-                
+                    {role: 'close'},                
                 {
                     label: 'Edit',
                     submenu: [
@@ -93,33 +139,14 @@ export default class Thumbar {
                         {role: 'paste'},
                     ]
                 },
-            ] : []
-            ),               
-                {type: 'separator'},
-                {
-                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.toggleprivate'),
-                    accelerator: utils.getStoreValue("general.keybindings.togglePrivateSession").join('+'),
-                    click: () => utils.getWindow().webContents.executeJavaScript(`app.cfg.general.privateEnabled = !app.cfg.general.privateEnabled`)
-                },
-                {type: 'separator'},
-                {
-                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.webremote'),
-                    accelerator: utils.getStoreValue("general.keybindings.webRemote").join('+'),
-                    sublabel: 'Opens in external window',
-                    click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('remote-pair')`)
-                },
-                {
-                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.audio'),
-                    accelerator: utils.getStoreValue("general.keybindings.audioSettings").join('+'),
-                    click: () => utils.getWindow().webContents.executeJavaScript(`app.modals.audioSettings = true`)
-                },
-                {
-                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.plugins'),
-                    accelerator: utils.getStoreValue("general.keybindings.pluginMenu").join('+'),
-                    click: () => utils.getWindow().webContents.executeJavaScript(`app.modals.pluginMenu = true`)
-                }
+            ] : [
+                {type:'separator'},
+                {role: 'reload', label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.reload')},
+                {role: 'forceReload', label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.forcereload')},
+            ]),
             ]
         },
+
         {
             label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.controls'),
             submenu: [
@@ -148,35 +175,32 @@ export default class Thumbar {
                     label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.volumedown'),
                     accelerator: 'CommandOrControl+Down',
                     click: () => utils.getWindow().webContents.executeJavaScript(`app.volumeDown()`)
-                },
-                {
-                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.browse'),
-                    accelerator: utils.getStoreValue("general.keybindings.browse").join('+'),
-                    click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('browse')`)
-                },
-                {type: 'separator'},
-                {
-                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.artists'),
-                    accelerator: utils.getStoreValue("general.keybindings.artists").join('+'),
-                    click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('library-artists')`)
-                },
-                {
-                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.search'),
-                    accelerator: utils.getStoreValue("general.keybindings.search").join('+'),
-                    click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('search')`)
-                },
-                {type: 'separator'},
-                {
-                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.albums'),
-                    accelerator: utils.getStoreValue("general.keybindings.albums").join('+'),
-                    click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('library-albums')`)
-                },
+                },                
                 {type: 'separator'},
                 {
                     label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.cast'),
                     accelerator: utils.getStoreValue("general.keybindings.castToDevices").join('+'),
                     click: () => utils.getWindow().webContents.executeJavaScript(`app.modals.castMenu = true`)
+                },
+                {
+                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.webremote'),
+                    accelerator: utils.getStoreValue("general.keybindings.webRemote").join('+'),
+                    sublabel: 'Opens in external window',
+                    click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('remote-pair')`)
+                },
+                {type: 'separator'},
+                {
+                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.audio'),
+                    accelerator: utils.getStoreValue("general.keybindings.audioSettings").join('+'),
+                    click: () => utils.getWindow().webContents.executeJavaScript(`app.modals.audioSettings = true`)
+                },
+                {type: 'separator'},
+                {
+                    label: utils.getLocale(utils.getStoreValue('general.language'), 'menubar.options.plugins'),
+                    accelerator: utils.getStoreValue("general.keybindings.pluginMenu").join('+'),
+                    click: () => utils.getWindow().webContents.executeJavaScript(`app.modals.pluginMenu = true`)
                 }
+
             ]
         },
         {

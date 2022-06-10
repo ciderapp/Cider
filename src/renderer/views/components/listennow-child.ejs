@@ -6,10 +6,10 @@
                 <h3>{{ recom.attributes.title ? recom.attributes.title.stringForDisplay : "  "}}</h3>
             </div>
             <div class="col-auto flex-center" v-if="recom.relationships.contents.data.length >= 10">
-                        <button class="cd-btn-seeall" @click="app.showCollection(recom.relationships.contents, recom.attributes.title ? recom.attributes.title.stringForDisplay : '', 'listen_now')" >{{app.getLz('term.seeAll')}}</button>
+                        <button class="cd-btn-seeall" @click="showCollection(recom)" >{{app.getLz('term.seeAll')}}</button>
             </div>
         </div>
-        <template v-if="recom.attributes.display.kind == 'MusicCoverShelf'">
+        <template v-if="recom.attributes.display.kind == 'MusicCoverShelf' || recom.attributes.display.kind == 'MusicCircleCoverShelf'">
             <mediaitem-scroller-horizontal-large
                             :items="recom.relationships.contents.data.limit(10)"></mediaitem-scroller-horizontal-large>
         </template>
@@ -39,6 +39,10 @@
             visibilityChanged: function (isVisible, entry) {
                 // this.isVisible = isVisible
             },
+            showCollection: function (recom) {
+				console.debug(recom)
+	            app.showCollection(recom.relationships.contents, recom.attributes.title ? recom.attributes.title.stringForDisplay : '', 'listen_now')
+            }
         }
     })    
 </script>
