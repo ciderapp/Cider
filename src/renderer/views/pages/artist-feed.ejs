@@ -7,6 +7,10 @@
                         <div class="col nopadding">
                             <h3>{{app.getLz('home.followedArtists')}}</h3>
                         </div>
+                        <div class="col-auto nopadding flex-center">
+                            <button class="cd-btn-seeall" @click="syncFavorites()" v-if="!syncingFavs">{{app.getLz('home.syncFavorites')}}</button>
+                            <div class="spinner" style="height: 26px;" v-else></div>
+                        </div>
                     </div>
                     <vue-horizontal>
                         <div v-for="artist in artists" style="margin: 6px;">
@@ -14,7 +18,7 @@
                             <button @click="unfollow(artist.id)" class="md-btn md-btn-glyph" style="display:flex;">
                                 <div class="sidebar-icon">
                                     <div class="svg-icon" :style="{'--url': 'url(./assets/feather/x-circle.svg)'}"></div>
-                                </div> {{app.getLz('action.unfollow')}}
+                                </div> {{app.getLz('action.removeFavorite')}}
                             </button>
                         </div>
                     </vue-horizontal>
@@ -53,7 +57,8 @@
                 app: this.$root,
                 followedArtists: this.$root.cfg.home.followedArtists,
                 artistFeed: [],
-                artists: []
+                artists: [],
+                syncingFavs: false
             }
         },
         async mounted() {
@@ -61,7 +66,13 @@
             await this.getArtistFeed()
         },
         methods: {
-            unfollow(id) {
+            async syncFavorites() {
+                this.syncingFavs = true
+                await app.syncFavorites()
+                await this.getArtistFeed()
+                this.syncingFavs = false
+            },
+            async unfollow(id) {
                 let index = this.followedArtists.indexOf(id)
                 if (index > -1) {
                     this.followedArtists.splice(index, 1)
@@ -71,6 +82,16 @@
                 if (index2 > -1) {
                     this.artists.splice(index2, 1)
                 }
+                await app.mk.api.v3.music(`/v1/me/favorites`, {
+                    "art[url]": "f",
+                    "ids[artists]": id,
+                    "l": app.mklang,
+                    "platform": "web"
+                }, {
+                    fetchOptions: {
+                        method: "DELETE"
+                    }
+                })
                 this.getArtistFeed()
             },
             async getArtistFeed() {
@@ -78,7 +99,7 @@
                 let self = this
                 this.artists = []
                 this.artistFeed = []
-                
+
                 // Apple limits the number of IDs we can provide in a single API call to 50.
                 // Divide it into groups of 50 and send parallel requests
                 let chunks = []

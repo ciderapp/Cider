@@ -539,7 +539,7 @@
                             icon: "./assets/feather/plus-circle.svg",
                             hidden: false,
                             action: () => {
-                                app.followArtistById(artistId, true)
+                                app.setArtistFavorite(artistId, true)
                             }
                         },
                         "unfollow": {
@@ -547,7 +547,7 @@
                             icon: "./assets/feather/x-circle.svg",
                             hidden: true,
                             action: () => {
-                                app.followArtistById(artistId, false)
+                                app.setArtistFavorite(artistId, false)
                             }
                         },
                     }

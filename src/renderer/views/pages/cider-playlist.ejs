@@ -643,39 +643,11 @@
                                     app.copyToClipboard(res.data.data[0].attributes.url)
                                 })
                             }
-                        },
-                        "follow": {
-                            name: app.getLz('action.follow'),
-                            icon: "./assets/feather/plus-circle.svg",
-                            hidden: false,
-                            action: () => {
-                                app.followArtistById(artistId, true)
-                            }
-                        },
-                        "unfollow": {
-                            name: app.getLz('action.unfollow'),
-                            icon: "./assets/feather/x-circle.svg",
-                            hidden: true,
-                            action: () => {
-                                app.followArtistById(artistId, false)
-                            }
-                        },
+                        }
                     }
                 }
                 app.showMenuPanel(menuItems, event)
 
-                if (artistId != null) {
-                    if (app.followingArtist(artistId)) {
-                        menuItems.items.follow.hidden = true
-                        menuItems.items.unfollow.hidden = false
-                    } else {
-                        menuItems.items.follow.hidden = false
-                        menuItems.items.unfollow.hidden = true
-                    }
-                } else {
-                    menuItems.items.follow.hidden = true
-                    menuItems.items.unfollow.hidden = true
-                }
                 try {
                     let rating = await app.getRating(self.data)
                     if (rating == 0) {

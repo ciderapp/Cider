@@ -534,19 +534,16 @@
 				let followActions = {
 					follow: {
 						icon: "./assets/feather/plus-circle.svg",
-						name: app.getLz('action.follow'),
+						name: app.getLz('action.favorite'),
 						action: () => {
-							self.app.cfg.home.followedArtists.push(this.item.id)
+							self.$root.setArtistFavorite(this.item.id, true)
 						}
 					},
 					unfollow: {
 						icon: "./assets/feather/x-circle.svg",
-						name: app.getLz('action.unfollow'),
+						name: app.getLz('action.removeFavorite'),
 						action: () => {
-							let index = self.app.cfg.home.followedArtists.indexOf(this.item.id)
-							if (index > -1) {
-								self.app.cfg.home.followedArtists.splice(index, 1)
-							}
+							self.$root.setArtistFavorite(this.item.id, false)
 						}
 					}
 				}

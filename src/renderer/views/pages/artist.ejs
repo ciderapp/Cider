@@ -194,32 +194,14 @@
                         icon: "./assets/star.svg",
                         name: app.getLz('action.favorite'),
                         action: () => {
-                            app.mk.api.v3.music(`/v1/me/favorites`, {
-                                "art[url]": "f",
-                                "ids[artists]": app.artistPage.data.id,
-                                "l": app.mklang,
-                                "platform": "web"
-                            }, {
-                                fetchOptions: {
-                                    method: "POST"
-                                }
-                            })
+                            app.setArtistFavorite(app.artistPage.data.id, true)
                         }
                     },
                     removeFavorite: {
                         icon: "./assets/star.svg",
                         name: app.getLz('action.removeFavorite'),
                         action: () => {
-                            app.mk.api.v3.music(`/v1/me/favorites`, {
-                                "art[url]": "f",
-                                "ids[artists]": app.artistPage.data.id,
-                                "l": app.mklang,
-                                "platform": "web"
-                            }, {
-                                fetchOptions: {
-                                    method: "DELETE"
-                                }
-                            })
+                            app.setArtistFavorite(app.artistPage.data.id, false)
                         }
                     }
                 }
@@ -241,7 +223,7 @@
                             }
                         },
                         favoriteActions[inFavorites ? "removeFavorite" : "favorite"],
-                        followActions[followAction],
+                        // followActions[followAction],
                         {
                             icon: "./assets/feather/share.svg",
                             name: app.getLz('term.share'),
