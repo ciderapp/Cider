@@ -97,7 +97,7 @@
         data: function () {
             return {
                 showInLibrary: false,
-                isVisible: true,
+                isVisible: false,
                 addedToLibrary: false,
                 guid: this.uuidv4(),
                 app: this.$root,
@@ -509,8 +509,7 @@
                 }
             },
             visibilityChanged: function (isVisible, entry) {
-                return
-                // this.isVisible = isVisible
+                this.isVisible = isVisible
             },
             async getHeartStatus() {
                 try {
