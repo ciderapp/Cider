@@ -91,7 +91,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="md-body lyric-body" style="width:100%;">
+                        <div class="md-body lyric-body" style="width:100%;" @scroll.passive="blockLyricsScrolling()">
                             <template v-if="player.lyrics">
                                 <template v-for="lyric in player.lyrics" v-if="lyric.line != 'lrcInstrumental'">
                                     <h3 class="lyric-line" @click="seekTo(lyric.startTime, false)"
@@ -723,7 +723,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="md-body lyric-body">
+                    <div class="md-body lyric-body" @scroll.passive="blockLyricsScrolling()">
                         <template v-if="player.lyrics">
                             <template v-for="lyric in player.lyrics" v-if="lyric.line != 'lrcInstrumental'">
                                 <h3 class="lyric-line" @click="seekTo(lyric.startTime, false)"
