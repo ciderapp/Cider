@@ -115,7 +115,7 @@
                 <!-- Sidebar Item -->
                 <script type="text/x-template" id="sidebar-library-item">
     <button class="app-sidebar-item"
-            :class="$parent.getSidebarItemClass(page)" @click="$root.appRoute(page)">
+            :class="$parent.getSidebarItemClass(page)" @click="$root.setWindowHash(page)">
         <div class="sidebar-icon" v-html="svgIconData" v-if="svgIconData != ''"></div>
         {{ name }}
     </button>

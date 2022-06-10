@@ -91,7 +91,7 @@
 		},
 		data: function () {
 			return {
-				isVisible: false,
+				isVisible: true,
 				addedToLibrary: false,
 				guid: this.uuidv4(),
 				noplay: ["apple-curators", "editorial-elements", "editorial-items"],
@@ -284,7 +284,8 @@
 				}
 			},
 			visibilityChanged: function (isVisible, entry) {
-				this.isVisible = isVisible
+				//this.isVisible = isVisible
+                return
 			},
 			async contextMenu(event) {
 				if (this.nomenu.includes(this.item.type)) {

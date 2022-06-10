@@ -274,6 +274,9 @@ const app = new Vue({
         }, false)
     },
     methods: {
+        setWindowHash(route = "") {
+            window.location.hash = `#${route}`;
+        },
         async oobeInit() {
             this.appMode = "oobe"
             this.setLz(this.cfg.general.language)
