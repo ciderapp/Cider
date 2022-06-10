@@ -1,9 +1,10 @@
 <script type="text/x-template" id="mediaitem-artwork">
-    <div class="mediaitem-artwork" @contextmenu="contextMenu" :class="[{'rounded': (type == 'artists')}, classes]" :key="url">
+    <div class="mediaitem-artwork" :style="awStyle" @contextmenu="contextMenu" :class="[{'rounded': (type == 'artists')}, classes]" :key="url">
         <img :src="app.getMediaItemArtwork(url, size, width)"
              decoding="async"
              loading="lazy"
-             :style="{background: bgcolor}"
+             :style="imgStyle"
+             @load="imgLoaded()"
              class="mediaitem-artwork--img">
         <div v-if="video && getVideoPriority()" class="animatedartwork-view-box">
             <animatedartwork-view :priority="getVideoPriority()" :video="video"></animatedartwork-view>
@@ -50,10 +51,17 @@
         },
         data: function () {
             return {
-                app:this.$root,
+                app: this.$root,
                 isVisible: false,
                 style: {
                     "box-shadow": ""
+                },
+                awStyle: {
+                    background: this.bgcolor
+                },
+                imgStyle: {
+                    opacity: 0,
+                    transition: "opacity .25s linear"
                 },
                 classes: []
             }
@@ -62,6 +70,10 @@
             this.getClasses()
         },
         methods: {
+            imgLoaded() {
+                this.imgStyle.opacity = 1
+                // this.awStyle.background = ""
+            },
             contextMenu(event) {
                 let self = this
                 app.showMenuPanel({
