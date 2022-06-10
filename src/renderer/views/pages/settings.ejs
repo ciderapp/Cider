@@ -436,7 +436,7 @@
                                 {{$root.getLz('settings.option.visual.customAccentColor')}}
                             </div>
                             <div class="md-option-segment_auto">
-                                <input type="checkbox" v-model="app.cfg.visual.customAccentColor" switch/>
+                                <input type="checkbox" v-model="app.cfg.visual.customAccentColor" :disabled="app.cfg.visual.purplePodcastPlaybackBar" switch/>
                             </div>
                         </div>
                         <div class="md-option-line child" v-if="app.cfg.visual.customAccentColor">
@@ -445,6 +445,14 @@
                             </div>
                             <div class="md-option-segment_auto">
                                 <input type="color" v-model="app.cfg.visual.accentColor"/>
+                            </div>
+                        </div>
+                        <div class="md-option-line">
+                            <div class="md-option-segment">
+                                {{$root.getLz('settings.option.visual.purplePodcastPlaybackBar')}}
+                            </div>
+                            <div class="md-option-segment_auto">
+                                <input type="checkbox" v-model="app.cfg.visual.purplePodcastPlaybackBar" :disabled="app.cfg.visual.customAccentColor" switch/>
                             </div>
                         </div>
                         <div class="md-option-line">

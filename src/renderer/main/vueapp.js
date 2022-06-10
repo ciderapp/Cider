@@ -294,6 +294,8 @@ const app = new Vue({
             if (this.cfg.visual.customAccentColor) {
                 finalStyle["--keyColor"] = this.cfg.visual.accentColor
                 finalStyle["--songProgressColor"] = this.cfg.visual.accentColor
+            } else if (this.cfg.visual.purplePodcastPlaybackBar && MusicKit.getInstance().nowPlayingItem?.type == "podcast-episodes") {
+                finalStyle["--songProgressColor"] = '#6929D0'
             }
             return finalStyle
         },
