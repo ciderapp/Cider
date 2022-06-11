@@ -21,6 +21,7 @@ var app = new Vue({
                 start: 0,
                 end: 0
             },
+            lyricsScrollingBlocked: false,
             queue: {},
             lowerPanelState: "controls",
             userInteraction: false
@@ -318,12 +319,18 @@ var app = new Vue({
                 return {}
             }
         },
+        blockLyricsScrolling() {
+            this.lyricsScrollingBlocked = true;
+            setTimeout(() => {
+                this.lyricsScrollingBlocked = false;
+            }, 100);
+        },
         getLyricClass(start, end) {
             var currentTime = this.getCurrentTime();
             // check if currenttime is between start and end
             if (currentTime >= start && currentTime <= end) {
                 setTimeout(() => {
-                    if (document.querySelector(".lyric-line.active")) {
+                    if (document.querySelector(".lyric-line.active") && !this.lyricsScrollingBlocked) {
                         document.querySelector(".lyric-line.active").scrollIntoView({
                             behavior: "smooth",
                             block: "center"

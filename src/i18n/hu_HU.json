@@ -441,6 +441,7 @@
   "settings.header.visual": "Vizuális",
   "settings.header.visual.description": "A Cider vizuális beállításainak módosítása.",
   "settings.option.visual.windowStyle": "Ablakelrendezés",
+  "settings.option.visual.purplePodcastPlaybackBar": "Lila lejátszási sáv a Podcastoknál",
   "settings.option.visual.windowBackgroundStyle": "Ablakháttér stílusa",
   "settings.header.visual.windowBackgroundStyle.none": "Sehol",
   "settings.header.visual.windowBackgroundStyle.artwork": "Borító",
