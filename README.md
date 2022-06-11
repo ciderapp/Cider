@@ -47,9 +47,6 @@
 ### Insights Snapshot
 [![CircleCI](https://dl.circleci.com/insights-snapshot/gh/ciderapp/Cider/main/build_and_release/badge.svg?window=30d)](https://app.circleci.com/insights/github/ciderapp/Cider/workflows/build_and_release/overview?branch=main&reporting-window=last-30-days&insights-snapshot=true)
 
-### Compiling and Configuration
-For more information surrounding configuration, compiling and other developer documentation, see the [compilation docs](https://cider.sh/compile.html).
-
 ### Credits
 ![Contributors](https://contrib.rocks/image?repo=ciderapp/Cider)
 
