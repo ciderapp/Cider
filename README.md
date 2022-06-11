@@ -15,6 +15,7 @@
   <a target="_blank" href="https://reddit.com/r/applemusicelectron"><img src="https://custom-icon-badges.herokuapp.com/reddit/subreddit-subscribers/applemusicelectron?label=Reddit&color=FF5700&logo=redditnew" alt="Reddit"/></a>
   <br><br>
   <a href="https://circleci.com/gh/ciderapp/Cider/tree/main"><img src="https://circleci.com/gh/ciderapp/Cider/tree/main.svg?style=svg" alt="CircleCI Status"/></a>
+  <a href="https://app.circleci.com/insights/github/ciderapp/Cider/workflows/build_and_release/overview?branch=main&reporting-window=last-30-days&insights-snapshot=true"><img src="https://dl.circleci.com/insights-snapshot/gh/ciderapp/Cider/main/build_and_release/badge.svg?window=30d" alt="CircleCI"></a>
 </p>
 
 #### Links
