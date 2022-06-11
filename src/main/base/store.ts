@@ -220,7 +220,8 @@ export class Store {
             "nativeTitleBar": false,
             "windowColor": "#000000",
             "customAccentColor": false,
-            "accentColor": "#fc3c44"
+            "accentColor": "#fc3c44",
+            "purplePodcastPlaybackBar": false
         },
         "lyrics": {
             "enable_mxm": false,

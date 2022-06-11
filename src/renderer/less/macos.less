@@ -13,5 +13,37 @@ body[platform="darwin"] {
         &::before {
             display: none;
         }
+
+        .app-chrome {
+            background-color: var(--macOSChromeColor);
+        }
+
+        &.twopanel {
+            --chromeHeight1: 55px;
+            --chromeHeight: calc(var(--chromeHeight1) + var(--chromeHeight2));
+
+            .app-chrome .app-chrome-item.search {
+                margin-right: 12px;
+            }
+            .app-chrome .app-mainmenu {
+                width: 46px;
+            }
+
+            .app-chrome.chrome-bottom {
+                background-color: var(--macOSChromeColor);
+            }
+        }
+    }
+
+    #app-main {
+        background-color: transparent;
+
+        .app-navigation {
+            background: transparent;
+        }
+
+        #app-content {
+            background-color: var(--baseColor);
+        }
     }
 }

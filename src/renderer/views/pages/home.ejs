@@ -26,6 +26,8 @@
                             <h3>{{app.getLz('home.artistsFeed')}}</h3>
                         </div>
                         <div class="col-auto nopadding flex-center">
+                            <button class="cd-btn-seeall" @click="syncFavorites()" v-if="!syncingFavs">{{app.getLz('home.syncFavorites')}}</button>
+                            <div class="spinner" style="height: 26px;" v-else></div>
                             <button class="cd-btn-seeall" @click="app.appRoute('artist-feed')">{{app.getLz('term.seeAll')}}</button>
                         </div>
                     </div>
@@ -113,7 +115,8 @@
                 page: "main",
                 sectionsReady: [],
                 year: new Date().getFullYear(),
-                seenReplay: localStorage.getItem('seenReplay')
+                seenReplay: localStorage.getItem('seenReplay'),
+                syncingFavs: false
             }
         },
         async mounted() {
@@ -128,6 +131,12 @@
             }
         },
         methods: {
+            async syncFavorites() {
+                this.syncingFavs = true
+                await app.syncFavorites()
+                await this.getArtistFeed()
+                this.syncingFavs = false
+            },
             async seeAllRecentlyPlayed() {
                 let hist = await app.mk.api.v3.music(`/v1/me/recent/played`, {
                     l: this.$root.mklang,
@@ -188,7 +197,7 @@
             async getArtistFeed() {
                 let artists = this.followedArtists
                 let self = this
-
+                this.artistFeed = []
                 let chunks = []
                 for (let artistIdx = 0; artistIdx < artists.length; artistIdx += 50) {
                     chunks.push(artists.slice(artistIdx, artistIdx + 50));

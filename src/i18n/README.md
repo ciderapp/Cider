@@ -489,3 +489,7 @@ Update 04/06/2022 03:00 UTC
 *  `menubar.options.songs`: Deleted for all language files
 *  `settings.option.general.keybindings.open`: Deleted for all language files
 *  `menubar.options.playpause`: Deleted for all language files
+Update 10/06/2022 20:00 UTC
+
+* `settings.option.visual.purplePodcastPlaybackBar`: Added to `en_US`
+

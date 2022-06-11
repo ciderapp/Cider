@@ -218,6 +218,11 @@
     Vue.component('keybinds-settings', {
         template: "#keybinds-settings",
         props: [],
+        data: function () {
+            return {
+                app: this.$root
+            }
+        },
         methods: {
             keyBindUpdate: function (action) {
                 const blur = document.createElement('div');

@@ -8,8 +8,7 @@
         <div v-if="reasonShown" class="reasonSP ">{{item?.meta?.reason?.stringForDisplay ?? ''}}</div>
         <div style="{'--spcolor': getBgColor()}"
              class="cd-mediaitem-square" :class="getClasses()" @contextmenu="getContextMenu">
-            <template v-if="isVisible">
-                <div class="artwork-container">
+                <div class="artwork-container" v-show="isVisible">
                     <div class="unavailable-overlay" v-if="unavailable">
                         <div class="codicon codicon-circle-slash"></div>
                     </div>
@@ -40,6 +39,7 @@
                     </div>
                 </div>
                 <div class="info-rect" :class="{'info-rect-card': kind == 'card'}"
+					v-show="isVisible"
                      :style="{'--bgartwork': getArtworkUrl(size, true)}">
                     <div class="title"
                          :title="item.attributes?.name ?? (item.relationships?.contents?.data[0]?.attributes?.name ?? (item.attributes?.editorialNotes?.name ?? ''))"
@@ -58,7 +58,6 @@
                     </div>
                     <div class="subtitle" v-if="getSubtitle() == '' && kind != 'card'">&nbsp;</div>
                 </div>
-            </template>
         </div>
     </div>
 </script>
@@ -534,19 +533,16 @@
 				let followActions = {
 					follow: {
 						icon: "./assets/feather/plus-circle.svg",
-						name: app.getLz('action.follow'),
+						name: app.getLz('action.favorite'),
 						action: () => {
-							self.app.cfg.home.followedArtists.push(this.item.id)
+							self.$root.setArtistFavorite(this.item.id, true)
 						}
 					},
 					unfollow: {
 						icon: "./assets/feather/x-circle.svg",
-						name: app.getLz('action.unfollow'),
+						name: app.getLz('action.removeFavorite'),
 						action: () => {
-							let index = self.app.cfg.home.followedArtists.indexOf(this.item.id)
-							if (index > -1) {
-								self.app.cfg.home.followedArtists.splice(index, 1)
-							}
+							self.$root.setArtistFavorite(this.item.id, false)
 						}
 					}
 				}
