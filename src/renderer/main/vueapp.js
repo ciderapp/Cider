@@ -325,11 +325,7 @@ const app = new Vue({
             let advancedTooltip = this.cfg.audio.dBSPL ? (Number(this.cfg.audio.dBSPLcalibration) + (Math.log10(this.mk.volume) * 20)).toFixed(2) + ' dB SPL' : (Math.log10(this.mk.volume) * 20).toFixed(2) + ' dBFS'
             return this.cfg.audio.advanced ? advancedTooltip : (this.mk.volume * 100).toFixed(0) + '%'
         },
-        mainMenuVisibility(val, isContextMenu) {
-            if (this.chrome.sidebarCollapsed && !isContextMenu) {
-                this.chrome.sidebarCollapsed = false
-                return
-            }
+        mainMenuVisibility(val) {
             if (val) {
                 (this.mk.isAuthorized) ? this.chrome.menuOpened = !this.chrome.menuOpened : false;
                 if (!this.mk.isAuthorized) {

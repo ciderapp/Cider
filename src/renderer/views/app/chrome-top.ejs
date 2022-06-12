@@ -9,8 +9,8 @@
       </div>
     </div>
     <div class="app-chrome-item full-height" v-else>
-      <button class="app-mainmenu" @blur="mainMenuVisibility(false, true)" @click="mainMenuVisibility(true, false)"
-        @contextmenu="mainMenuVisibility(true, true)" :class="{active: chrome.menuOpened}"
+      <button class="app-mainmenu" @blur="mainMenuVisibility(false)" @click="mainMenuVisibility(true)"
+        @contextmenu="mainMenuVisibility(true)" :class="{active: chrome.menuOpened}"
         :aria-label="$root.getLz('term.quickNav')"></button>
     </div>
     <template v-if="getThemeDirective('appNavigation') != 'seperate'">
@@ -269,8 +269,8 @@
       </div>
     </div>
     <div class="app-chrome-item full-height" v-else-if="platform != 'darwin' && !chrome.nativeControls">
-      <button class="app-mainmenu" @blur="mainMenuVisibility(false, true)" @click="mainMenuVisibility(true, false)"
-        @contextmenu="mainMenuVisibility(true, true)" :class="{active: chrome.menuOpened}"></button>
+      <button class="app-mainmenu" @blur="mainMenuVisibility(false)" @click="mainMenuVisibility(true)"
+        @contextmenu="mainMenuVisibility(true)" :class="{active: chrome.menuOpened}"></button>
     </div>
   </div>
 </div>
