@@ -362,7 +362,7 @@
   "settings.option.audio.advanced":"高级功能",
   "settings.option.audio.changePlaybackRate":"修改播放速度",
   "settings.option.audio.playbackRate":"播放速度",
-  "settings.option.audio.playbackRate.change":"播放速度已修改",
+  "settings.option.audio.playbackRate.change":"修改",
   "settings.option.audio.quality": "音质",
   "settings.header.audio.quality.hireslossless": "高解析度无损",
   "settings.header.audio.quality.hireslossless.description": "(最高 24 位/192 kHz)",
