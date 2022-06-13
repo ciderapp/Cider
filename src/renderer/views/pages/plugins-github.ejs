@@ -176,7 +176,7 @@
                     redirect: 'follow'
                 };
 
-                fetch("https://api.github.com/search/repositories?q=topic:cidermusicplugin fork:true", requestOptions)
+                fetch("https://api.github.com/search/repositories?q=topic:cidermusicplugin fork:true&per_page=100", requestOptions)
                     .then(response => response.text())
                     .then(result => {
                         self.repos = JSON.parse(result).items
