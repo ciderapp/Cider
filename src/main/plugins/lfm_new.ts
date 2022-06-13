@@ -5,6 +5,9 @@ import LastfmAPI from 'lastfmapi';
 
 // https://github.com/maxkueng/node-lastfmapi
 // https://github.com/maxkueng/lastfm-autocorrect
+// @todo: add autocorrect
+// @todo: add scrobble and filter to prevent no-title-found being scrobbled
+// @todo: handle session keys through config to stop aids session.json
 
 export default class lfm_new {
 
