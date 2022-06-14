@@ -154,6 +154,7 @@
   },
   "term.videos": "Videók",
   "term.menu": "Menü",
+  "term.themeManaged": "Egy téma kezeli a beállítást",
   "term.check": "Ellenőrzés",
   "term.aboutArtist": "{{artistName}}-ról/ről",
   "term.topResult": "Legjobb találatok",
