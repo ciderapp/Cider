@@ -3,7 +3,7 @@ version: 2.1
 executors:
   cider-ci:
     docker:
-      - image: cimg/node:18.3.0
+      - image: cimg/node:17.9.1
     working_directory: ~/Cider
 
 orbs: # Add orbs to your configuration
