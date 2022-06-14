@@ -1059,7 +1059,7 @@
     }
   }
 
-  &:not(.noscale) {
+  &:not(.mediaitem-brick):not(.mediaitem-video):not(.noscale) {
     @media (min-width: 1460px) {
       --scaleRate: 1.1;
       --scaleRateArtwork: 0.9;
@@ -1133,8 +1133,6 @@
   }
 
   &.mediaitem-video {
-    --scaleRate: 1.25;
-    --scaleRateArtwork: 1.25;
     height: 200px;
     width: 240px;
 
@@ -1144,13 +1142,27 @@
     }
 
     &:not(.noscale) {
-      @media (min-width: 1600px) {
+      @media (min-width: 1460px) {
+        --scaleRate: 1.1;
+        --scaleRateArtwork: 1.1;
         width: calc(240px * var(--scaleRate));
         height: calc(200px * var(--scaleRate));
-
+  
         .artwork-container > .artwork {
-          width: calc(212px * var(--scaleRateArtwork));
-          height: calc(120px * var(--scaleRateArtwork));
+          width: calc(220px * var(--scaleRateArtwork));
+          height: calc(123px * var(--scaleRateArtwork));
+        }
+      }
+  
+      @media (min-width: 1550px) {
+        --scaleRate: 1.25;
+        --scaleRateArtwork: 1.25;
+        width: calc(240px * var(--scaleRate));
+        height: calc(200px * var(--scaleRate));
+  
+        .artwork-container > .artwork {
+          width: calc(220px * var(--scaleRateArtwork));
+          height: calc(123px * var(--scaleRateArtwork));
         }
       }
     }
@@ -1163,6 +1175,32 @@
     .artwork {
       height: 123px;
       width: 220px;
+    }
+
+    &:not(.noscale) {
+      @media (min-width: 1460px) {
+        --scaleRate: 1.1;
+        --scaleRateArtwork: 1.1;
+        width: calc(240px * var(--scaleRate));
+        height: calc(200px * var(--scaleRate));
+  
+        .artwork-container > .artwork {
+          width: calc(220px * var(--scaleRateArtwork));
+          height: calc(123px * var(--scaleRateArtwork));
+        }
+      }
+  
+      @media (min-width: 1550px) {
+        --scaleRate: 1.25;
+        --scaleRateArtwork: 1.25;
+        width: calc(240px * var(--scaleRate));
+        height: calc(200px * var(--scaleRate));
+  
+        .artwork-container > .artwork {
+          width: calc(220px * var(--scaleRateArtwork));
+          height: calc(123px * var(--scaleRateArtwork));
+        }
+      }
     }
   }
 
