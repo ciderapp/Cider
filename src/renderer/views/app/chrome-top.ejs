@@ -183,6 +183,18 @@
           </template>
         </div>
       </template>
+      <template v-else>
+        <div class="app-playback-controls">
+          <div class="artwork" id="artworkLCD" style="pointer-events: none;">
+            <mediaitem-artwork :url="currentArtUrl"></mediaitem-artwork>
+          </div>
+          <div class="playback-info">
+            <div class="info-rect">
+
+            </div>
+          </div>
+        </div>
+      </template>
     </div>
     <div class="app-chrome-item" v-else>
       <div class="top-nav-group">

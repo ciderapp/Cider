@@ -1452,10 +1452,13 @@ div[data-type="musicVideo"] .info-rect .title::before {
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
-  border-radius: 4px;
+  border-radius: var(--mediaItemRadiusSmall);
   flex: 0 0 auto;
   margin: 6px;
   image-rendering: -webkit-optimize-contrast;
+  .mediaitem-artwork {
+    border-radius: var(--mediaItemRadiusSmall);
+  }
 }
 
 .app-chrome .app-chrome-item > .app-playback-controls .actions {
