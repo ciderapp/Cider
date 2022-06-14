@@ -44,6 +44,13 @@ export class utils {
     }
 
     /**
+     * Get the IPCMain
+     */
+    static getIPCMain(): Electron.IpcMain {
+        return ipcMain
+    }
+
+    /**
      * Fetches the i18n locale for the given language.
      * @param language {string} The language to fetch the locale for.
      * @param key {string} The key to search for.

@@ -1,7 +1,4 @@
-import * as utils from '../base/utils';
 import {app} from 'electron';
-// @ts-ignore
-import LastfmAPI from 'lastfmapi';
 
 // https://github.com/maxkueng/node-lastfmapi
 // https://github.com/maxkueng/lastfm-autocorrect
@@ -30,8 +27,9 @@ export default class lfm_new {
     /**
      * Plugin Initialization
      */
-    private _client: any = null;
-    private _lastfm: any = null;
+    private _lfm: any = null;
+    private _authenticated: boolean = false;
+    private _utils: any = null;
     private _activityCache: any = {
         details: '',
         state: '',
@@ -42,15 +40,67 @@ export default class lfm_new {
         instance: false
     };
 
-    constructor() {
+    /**
+     * Initialize LastFM
+     * @param token
+     * @param api
+     * @private
+     */
+    private initializeLastFM(token:  string, api: {key: string, secret: string}): void {
+        const LastfmAPI = require("lastfmapi")
+        this._lfm = new LastfmAPI({
+            'api_key' : api.key,
+            'secret' : api.secret,
+        });
+
+        if (this._utils.getStoreValue("lastfm.secrets.session")) {
+            this._lfm.setSessionCredentials(this._utils.getStoreValue("lastfm.secrets.session"));
+            this._authenticated = true;
+        } else {
+            this.authenticateLastFM(token)
+        }
     }
 
     /**
-     * Private Methods
+     * Authenticate the user with the given token
+     * @param token
+     * @private
      */
-    private initializeLastFM(clientSession:  string): void {
-        
+    private authenticateLastFM(token: string): void {
+        if (!token) return;
+        this._lfm.authenticate(token, (err: any, session: any) => {
+            if (err) { console.error(err); return; }
+            console.log(session); // {"name": "LASTFM_USERNAME", "key": "THE_USER_SESSION_KEY"}
+            this._utils.setStoreValue('lastfm.secrets.session', session);
+            this._authenticated = true;
+        });
     }
+
+    /**
+     * Public Methods
+     */
+    public authenticateUser(token: string): void {
+        this.initializeLastFM(token, this._apiCredentials)
+    }
+
+    constructor(utils: any) {
+        this._utils = utils;
+        this.authenticateUser("")
+    }
+
+    public onReady(win: Electron.BrowserWindow): void {
+
+        this._utils.getIPCMain().handle('lfm_new:url', (event: any) => {
+            console.debug('lfm_new:url', event)
+            return this._lfm.getAuthenticationUrl({"cb": "cider://auth/lastfm"})
+        })
+
+        this._utils.getIPCMain().on('lfm_new:auth', (event: any, token: string) => {
+            console.debug('lfm_new:auth', event, token)
+            this.authenticateUser(token)
+        })
+    }
+
 
 
 }
