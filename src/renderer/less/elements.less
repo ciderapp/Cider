@@ -1059,7 +1059,7 @@
     }
   }
 
-  &:not(.mediaitem-brick):not(.mediaitem-video):not(.noscale) {
+  &:not(.mediaitem-card):not(.mediaitem-brick):not(.mediaitem-video):not(.noscale) {
     @media (min-width: 1460px) {
       --scaleRate: 1.1;
       --scaleRateArtwork: 0.9;
@@ -1244,6 +1244,8 @@
       padding: 10px 10px 14px;
       position: relative;
       width: 100%;
+      display: grid;
+      align-content: center;
 
       &::before {
         background: var(--bgartwork);
@@ -1272,7 +1274,7 @@
 
       & + .subtitle {
         max-height: none !important;
-        margin-top: -0.5em;
+        // margin-top: -0.5em;
       }
     }
 
