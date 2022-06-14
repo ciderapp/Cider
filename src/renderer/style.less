@@ -1163,50 +1163,45 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   &-macos {
     width: 100px;
   }
-}
 
-.app-chrome .app-chrome-item > .window-controls > div {
-  height: 100%;
-  width: 32px;
-}
-
-.app-chrome .app-chrome-item > .window-controls > div:hover {
-  background: rgb(200 200 200 / 10%);
-}
-
-.app-chrome .app-chrome-item > .window-controls > div.close {
-  width: 100%;
-  height: 100%;
-  background-image: var(--gfx-closeBtn);
-  background-position: center;
-  background-repeat: no-repeat;
-  -webkit-app-region: no-drag;
-
-  &:hover {
-    background-color: rgb(196, 43, 28)
+  > div {
+    height: 100%;
+    width: 32px;
+    &:hover {
+      background: rgb(200 200 200 / 10%);
+    }
+    &.close {
+      width: 100%;
+      height: 100%;
+      background-image: var(--gfx-closeBtn);
+      background-position: center;
+      background-repeat: no-repeat;
+      -webkit-app-region: no-drag;
+    
+      &:hover {
+        background-color: rgb(196, 43, 28)
+      }
+    }
+    &.minmax {
+      background-image: var(--gfx-maxBtn);
+      background-position: center;
+      background-repeat: no-repeat;
+      -webkit-app-region: no-drag;
+      width: 100%;
+      height: 100%;
+    }
+    &.minmax.restore {
+      background-image: var(--gfx-restoreBtn);
+    }
+    &.minimize {
+      background-image: var(--gfx-minBtn);
+      background-position: center;
+      background-repeat: no-repeat;
+      -webkit-app-region: no-drag;
+      width: 100%;
+      height: 100%;
+    }
   }
-}
-
-.app-chrome .app-chrome-item > .window-controls > div.minmax {
-  background-image: var(--gfx-maxBtn);
-  background-position: center;
-  background-repeat: no-repeat;
-  -webkit-app-region: no-drag;
-  width: 100%;
-  height: 100%;
-}
-
-.app-chrome .app-chrome-item > .window-controls > div.minmax.restore {
-  background-image: var(--gfx-restoreBtn);
-}
-
-.app-chrome .app-chrome-item > .window-controls > div.minimize {
-  background-image: var(--gfx-minBtn);
-  background-position: center;
-  background-repeat: no-repeat;
-  -webkit-app-region: no-drag;
-  width: 100%;
-  height: 100%;
 }
 
 body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls > div.minimize {
@@ -3478,22 +3473,7 @@ body.no-gpu {
       }
 
       .close-btn {
-        width: 50px;
-        height: 100%;
-        background-image: var(--gfx-closeBtn);
-        background-position: center;
-        background-repeat: no-repeat;
-        -webkit-app-region: no-drag;
-        appearance: none;
-        border: 0;
-        background-color: transparent;
-        position: absolute;
-        top: 0;
-        right: 0;
-
-        &:hover {
-          background-color: rgb(196, 43, 28)
-        }
+        .menu-panel.menu-header-text.close-btn
       }
     }
 

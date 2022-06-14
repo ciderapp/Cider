@@ -3,4 +3,57 @@ body[platform="linux"] {
     #window-controls-container {
         //display: none;
     }
+
+    .window-controls {
+        justify-content: flex-end;
+        align-items    : center;
+        padding-right  : 6px;
+
+        >div {
+            --iconSize: 16px;
+
+            &.close,
+            &.minmax,
+            &.minimize,
+            &.minmax.restore {
+                background-image: unset!important;
+                position        : relative;
+                display         : grid;
+                align-content   : center;
+                text-align      : center;
+                height          : 36px!important;
+                width           : 36px!important;
+                border-radius   : 50px;
+                transition: background-color .1s ease-in-out;
+
+                &:hover {
+                    background: rgb(200 200 200 / 10%)!important;
+                  }
+            }
+
+            &.close::before {
+                font-family: "codicon";
+                font-size  : var(--iconSize);
+                content    : "";
+            }
+
+            &.minmax::before {
+                font-family: "codicon";
+                font-size  : var(--iconSize);
+                content    : "";
+            }
+
+            &.minimize::before {
+                font-family: "codicon";
+                font-size  : var(--iconSize);
+                content    : "";
+            }
+
+            &.restore::before {
+                font-family: "codicon";
+                font-size  : var(--iconSize);
+                content    : "";
+            }
+        }
+    }
 }
