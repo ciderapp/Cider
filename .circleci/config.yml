@@ -23,7 +23,7 @@ jobs:
           command: sudo chmod +x resources/version.sh && ./resources/version.sh || true
       - run:
           name: Update Package Managers
-          command: sudo npm update -g npm yarn
+          command: npm update -g npm yarn
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
