@@ -386,7 +386,7 @@
                         <div class="md-option-line">
                             <div class="md-option-segment">
                                 {{$root.getLz("settings.option.visual.windowStyle")}}
-                                <small v-if="app.getThemeDirective('windowLayout')">Managed by a theme</small>
+                                <small v-if="app.getThemeDirective('windowLayout')">{{$root.getLz('term.themeManaged')}}</small>
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
                                 <label>
@@ -1216,7 +1216,7 @@
                         <div class="md-option-line">
                             <div class="md-option-segment">
                                 {{$root.getLz('settings.option.experimental.compactUI')}}
-                                <small v-if="app.getThemeDirective('forceUI')">Managed by a theme</small>
+                                <small v-if="app.getThemeDirective('forceUI')">{{$root.getLz('term.themeManaged')}}</small>
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
                                 <label>
