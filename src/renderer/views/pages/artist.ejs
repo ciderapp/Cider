@@ -69,7 +69,7 @@
                 <div class="latestRelease" v-if="data.views['latest-release'].data.length != 0">
                     <h3>{{app.getLz('term.latestReleases')}}</h3>
                     <div style="width: auto;margin: 0 auto;">
-                        <mediaitem-square kind="card" v-for="song in data.views['latest-release'].data"
+                        <mediaitem-square kind="card" :no-scale="true" v-for="song in data.views['latest-release'].data"
                                           :item="song">
                         </mediaitem-square>
                     </div>
