@@ -386,11 +386,10 @@
                         <div class="md-option-line">
                             <div class="md-option-segment">
                                 {{$root.getLz("settings.option.visual.windowStyle")}}
-                                <small v-if="app.getThemeDirective('windowLayout')">{{$root.getLz('term.themeManaged')}}</small>
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
                                 <label>
-                                    <select class="md-select" v-model="$root.cfg.visual.directives.windowLayout" :disabled="app.getThemeDirective('windowLayout')">
+                                    <select class="md-select" v-model="$root.cfg.visual.directives.windowLayout">
                                         <option value="default">Maverick</option>
                                         <option value="twopanel">Mojave</option>
                                     </select>
@@ -1216,13 +1215,12 @@
                         <div class="md-option-line">
                             <div class="md-option-segment">
                                 {{$root.getLz('settings.option.experimental.compactUI')}}
-                                <small v-if="app.getThemeDirective('forceUI')">{{$root.getLz('term.themeManaged')}}</small>
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
                                 <label>
                                     <input type="checkbox" v-model="app.cfg.advanced.experiments.includes('compactui')"
                                            @click="app.cfg.advanced.experiments.includes('compactui') ? removeExperiment('compactui') : addExperiment('compactui')"
-                                           switch :disabled="app.getThemeDirective('forceUI')"/>
+                                           switch/>
                                 </label>
                             </div>
                         </div>
