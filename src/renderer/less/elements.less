@@ -1230,7 +1230,7 @@
       overflow: hidden;
       border-radius: 0px;
       margin: 0;
-
+      transition: filter 0.2s ease-in-out;
       .mediaitem-artwork {
         border-radius: 0px;
 
@@ -1260,6 +1260,7 @@
         z-index: 0;
         opacity: 1;
         filter: brightness(0.5) blur(50px) saturate(180%);
+        transition: filter 0.2s ease-in-out;
       }
     }
 
@@ -1302,6 +1303,15 @@
       left: 0;
       pointer-events: none;
       border-radius: inherit;
+    }
+
+    &:hover {
+      .artwork{
+        filter: brightness(0.8);
+      }
+      .info-rect-card::before {
+        filter: brightness(0.3) blur(50px) saturate(180%);
+      }
     }
 
     &:not(.noscale) {
