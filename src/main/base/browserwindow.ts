@@ -53,6 +53,7 @@ export class BrowserWindow {
             dev: app.isPackaged,
             osRelease: os.release(),
             updatable: !process.windowsStore || !process.mas,
+            useV3: utils.getStoreValue('advanced.experiments').includes("ampv3"),
             components: [
                 "pages/podcasts",
                 "pages/apple-account-settings",

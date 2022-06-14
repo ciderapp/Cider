@@ -1187,6 +1187,20 @@
 
                         <div class="md-option-line">
                             <div class="md-option-segment">
+                                Use MusicKit V3
+                                <small>Requires relaunch</small>
+                            </div>
+                            <div class="md-option-segment md-option-segment_auto">
+                                <label>
+                                    <input type="checkbox" v-model="app.cfg.advanced.experiments.includes('ampv3')"
+                                           @click="app.cfg.advanced.experiments.includes('ampv3') ? removeExperiment('ampv3') : addExperiment('ampv3')"
+                                           switch/>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="md-option-line">
+                            <div class="md-option-segment">
                                 {{$root.getLz('settings.option.advanced.playlistTrackMapping')}}
                                 <br>
                                 <small>{{$root.getLz('settings.option.advanced.playlistTrackMapping.description')}}</small>
