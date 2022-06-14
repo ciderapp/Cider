@@ -89,10 +89,10 @@
           <b-popover custom-class="mediainfo-popover" target="artworkLCD" triggers="hover" placement="bottom">
             <div class="content">
               <div class="shadow-artwork">
-                <mediaitem-artwork :url="currentArtUrl" :url="currentArtUrlRaw"></mediaitem-artwork>
+                <mediaitem-artwork :url="currentArtUrl"></mediaitem-artwork>
               </div>
               <div class="popover-artwork">
-                <mediaitem-artwork :size="210" :url="currentArtUrlRaw"></mediaitem-artwork>
+                <mediaitem-artwork :size="210" :url="currentArtUrl"></mediaitem-artwork>
               </div>
               <div class="song-name">
                 {{ mk.nowPlayingItem["attributes"]["name"] }}
@@ -181,6 +181,18 @@
               </button>
             </div>
           </template>
+        </div>
+      </template>
+      <template v-else>
+        <div class="app-playback-controls">
+          <div class="artwork" id="artworkLCD" style="pointer-events: none;">
+            <mediaitem-artwork :url="currentArtUrl"></mediaitem-artwork>
+          </div>
+          <div class="playback-info">
+            <div class="info-rect">
+
+            </div>
+          </div>
         </div>
       </template>
     </div>

@@ -400,15 +400,15 @@
 
   .listitem-content {
     width: 100%;
-  height: 60px;
-  display: flex;
-  flex: 0 0 auto;
-  flex-direction: row;
-  font-size: 14px;
-  justify-content: center-between;
-  align-items: center;
-  border-radius: var(--mediaItemRadius);
-  position: relative;
+    height: 60px;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    font-size: 14px;
+    justify-content: center-between;
+    align-items: center;
+    border-radius: var(--mediaItemRadius);
+    position: relative;
   }
 
   &:hover {
@@ -444,6 +444,7 @@
     .mediaitem-artwork {
       border-radius: var(--mediaItemRadiusSmall);
     }
+
     .overlay-play {
       background: rgba(0, 0, 0, 0.5);
       opacity: 0;
@@ -957,6 +958,7 @@
 
 /* mediaitem-square */
 .cd-mediaitem-square {
+  --transitionDuration: .25s;
   --scaleRate: 1.25;
   --scaleRateArtwork: 1;
   width: 200px;
@@ -968,6 +970,7 @@
   justify-content: center;
   align-items: center;
   border-radius: 6px;
+  transition: width var(--transitionDuration) linear, height var(--transitionDuration) linear;
 
   .artwork-container {
     position: relative;
@@ -982,6 +985,7 @@
       flex: 0 0 auto;
       margin: 6px;
       cursor: pointer;
+      transition: width var(--transitionDuration) linear, height var(--transitionDuration) linear;
 
       .mediaitem-artwork {
         box-shadow: unset;
@@ -1055,15 +1059,32 @@
     }
   }
 
-  @media (min-width: 1600px) {
-    width: calc(200px * var(--scaleRate));
-    height: calc(200px * var(--scaleRate));
+  &:not(.mediaitem-card):not(.mediaitem-brick):not(.mediaitem-video):not(.noscale) {
+    @media (min-width: 1460px) {
+      --scaleRate: 1.1;
+      --scaleRateArtwork: 0.9;
+      width: calc(200px * var(--scaleRate));
+      height: calc(200px * var(--scaleRate));
 
-    .artwork-container > .artwork {
-      width: calc(190px * var(--scaleRateArtwork));
-      height: calc(190px * var(--scaleRateArtwork));
+      .artwork-container > .artwork {
+        width: calc(190px * var(--scaleRateArtwork));
+        height: calc(190px * var(--scaleRateArtwork));
+      }
+    }
+
+    @media (min-width: 1550px) {
+      --scaleRate: 1.25;
+      --scaleRateArtwork: 1;
+      width: calc(200px * var(--scaleRate));
+      height: calc(200px * var(--scaleRate));
+
+      .artwork-container > .artwork {
+        width: calc(190px * var(--scaleRateArtwork));
+        height: calc(190px * var(--scaleRateArtwork));
+      }
     }
   }
+
 
   .info-rect {
     width: 90%;
@@ -1112,8 +1133,6 @@
   }
 
   &.mediaitem-video {
-    --scaleRate: 1.25;
-    --scaleRateArtwork: 1.25;
     height: 200px;
     width: 240px;
 
@@ -1122,13 +1141,29 @@
       width: 212px;
     }
 
-    @media (min-width: 1600px) {
-      width: calc(240px * var(--scaleRate));
-      height: calc(200px * var(--scaleRate));
-
-      .artwork-container > .artwork {
-        width: calc(212px * var(--scaleRateArtwork));
-        height: calc(120px * var(--scaleRateArtwork));
+    &:not(.noscale) {
+      @media (min-width: 1460px) {
+        --scaleRate: 1.1;
+        --scaleRateArtwork: 1.1;
+        width: calc(240px * var(--scaleRate));
+        height: calc(200px * var(--scaleRate));
+  
+        .artwork-container > .artwork {
+          width: calc(220px * var(--scaleRateArtwork));
+          height: calc(123px * var(--scaleRateArtwork));
+        }
+      }
+  
+      @media (min-width: 1550px) {
+        --scaleRate: 1.25;
+        --scaleRateArtwork: 1.25;
+        width: calc(240px * var(--scaleRate));
+        height: calc(200px * var(--scaleRate));
+  
+        .artwork-container > .artwork {
+          width: calc(220px * var(--scaleRateArtwork));
+          height: calc(123px * var(--scaleRateArtwork));
+        }
       }
     }
   }
@@ -1140,6 +1175,32 @@
     .artwork {
       height: 123px;
       width: 220px;
+    }
+
+    &:not(.noscale) {
+      @media (min-width: 1460px) {
+        --scaleRate: 1.1;
+        --scaleRateArtwork: 1.1;
+        width: calc(240px * var(--scaleRate));
+        height: calc(200px * var(--scaleRate));
+  
+        .artwork-container > .artwork {
+          width: calc(220px * var(--scaleRateArtwork));
+          height: calc(123px * var(--scaleRateArtwork));
+        }
+      }
+  
+      @media (min-width: 1550px) {
+        --scaleRate: 1.25;
+        --scaleRateArtwork: 1.25;
+        width: calc(240px * var(--scaleRate));
+        height: calc(200px * var(--scaleRate));
+  
+        .artwork-container > .artwork {
+          width: calc(220px * var(--scaleRateArtwork));
+          height: calc(123px * var(--scaleRateArtwork));
+        }
+      }
     }
   }
 
@@ -1169,7 +1230,7 @@
       overflow: hidden;
       border-radius: 0px;
       margin: 0;
-
+      transition: width var(--transitionDuration) linear, height var(--transitionDuration) linear, filter 0.2s ease-in-out;
       .mediaitem-artwork {
         border-radius: 0px;
 
@@ -1183,6 +1244,8 @@
       padding: 10px 10px 14px;
       position: relative;
       width: 100%;
+      display: grid;
+      align-content: center;
 
       &::before {
         background: var(--bgartwork);
@@ -1197,6 +1260,7 @@
         z-index: 0;
         opacity: 1;
         filter: brightness(0.5) blur(50px) saturate(180%);
+        transition: filter 0.2s ease-in-out;
       }
     }
 
@@ -1211,7 +1275,7 @@
 
       & + .subtitle {
         max-height: none !important;
-        margin-top: -0.5em;
+        // margin-top: -0.5em;
       }
     }
 
@@ -1241,14 +1305,34 @@
       border-radius: inherit;
     }
 
-    //@media (min-width: 1600px) {
-    //  width: calc(230px * 1.25);
-    //  height: calc(298px * 1.25);
-    //  .artwork-container>.artwork {
-    //    width: calc(230px * 1.25);
-    //    height: calc(230px * 1.25);
-    //  }
-    //}
+    &:hover {
+      .artwork{
+        filter: brightness(0.8);
+      }
+      .info-rect-card::before {
+        filter: brightness(0.3) blur(50px) saturate(180%);
+      }
+    }
+
+    &:not(.noscale) {
+      @media (min-width: 1460px) {
+        width: calc(230px * 1.1);
+        height: calc(298px * 1.1);
+        .artwork-container > .artwork {
+          width: calc(230px * 1.1);
+          height: calc(230px * 1.1);
+        }
+      }
+
+      @media (min-width: 1550px) {
+        width: calc(230px * 1.25);
+        height: calc(298px * 1.25);
+        .artwork-container > .artwork {
+          width: calc(230px * 1.25);
+          height: calc(230px * 1.25);
+        }
+      }
+    }
   }
 }
 
