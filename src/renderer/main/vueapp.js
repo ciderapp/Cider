@@ -1172,9 +1172,20 @@ const app = new Vue({
         },
         getAppClasses() {
             let classes = {}
-            if (this.cfg.advanced.experiments.includes('compactui')) {
-                classes.compact = true
+            switch (this.getThemeDirective('forceUI') ?? "none") {
+                case "compact":
+                    classes.compact = true;
+                    break;
+                case "default":
+                    classes.compact = false;
+                    break;
+                case "none":
+                    if (this.cfg.advanced.experiments.includes('compactui')) {
+                        classes.compact = true;
+                    }
+                    break;
             }
+
             if (this.cfg.visual.window_background_style == "none") {
                 classes.simplebg = true
             }
