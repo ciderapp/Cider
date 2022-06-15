@@ -26,17 +26,10 @@ export default class lastfm {
      */
     private _lfm: any = null;
     private _authenticated: boolean = false;
+    private _scrobbleDelay: any = null;
     private _utils: any = null;
-    private _activityCache: any = {
-        details: '',
-        state: '',
-        largeImageKey: '',
-        largeImageText: '',
-        smallImageKey: '',
-        smallImageText: '',
-        instance: false
-    };
-
+    private _scrobbleCache: any = {};
+    private _nowPlayingCache: any = {};
 
     /**
      * Public Methods
@@ -74,9 +67,14 @@ export default class lastfm {
      * Runs on song change
      * @param attributes Music Attributes
      */
-    onNowPlayingItemDidChange(attributes: object): void {
+    onNowPlayingItemDidChange(attributes: any): void {
         this._attributes = attributes
+        if (!attributes?.lfmTrack || !attributes?.lfmAlbum) {
+            this.verifyTrack(attributes)
+            return
+        }
         this.scrobbleTrack(attributes)
+        this.updateNowPlayingTrack(attributes)
     }
 
     /**
@@ -139,7 +137,7 @@ export default class lastfm {
                 if (data) {
                     attributes.lfmAlbum = data
                 }
-                this.scrobbleTrack(attributes)
+                this.onNowPlayingItemDidChange(attributes)
             })
         } else {
             return this._lfm.track.getCorrection(attributes.artistName, attributes.name, (err: any, data: any) => {
@@ -151,7 +149,7 @@ export default class lastfm {
                 if (data) {
                     attributes.lfmTrack = data.correction.track
                 }
-                this.scrobbleTrack(attributes)
+                this.onNowPlayingItemDidChange(attributes)
             })
         }
 
@@ -164,51 +162,63 @@ export default class lastfm {
      * @private
      */
     private scrobbleTrack(attributes: any): void {
-        if (!attributes?.lfmTrack || !attributes?.lfmAlbum) {
-            this.verifyTrack(attributes)
-            return
+        if (!this._authenticated || !attributes || (this._scrobbleCache.track === attributes.lfmTrack.name)) return;
+
+        if (this._scrobbleDelay) {
+            clearTimeout(this._scrobbleDelay);
         }
 
-        if (!this._authenticated || !attributes) return;
-        // Scrobble
+        // Scrobble delay
+        this._scrobbleDelay = setTimeout(() => {
 
-        const scrobble = {
+            // Scrobble
+            const scrobble = {
+                'artist': attributes.lfmTrack.artist.name,
+                'track': attributes.lfmTrack.name,
+                'album': attributes.lfmAlbum.name,
+                'albumArtist': attributes.lfmAlbum.artist,
+                'timestamp': new Date().getTime() / 1000,
+                'trackNumber': attributes.trackNumber,
+                'duration': attributes.durationInMillis / 1000,
+            }
+
+            // Easy Debugging
+            if (!this._utils.getApp().isPackaged) {
+                console.debug(scrobble)
+            }
+
+            // Scrobble the track
+            this._lfm.track.scrobble(scrobble, (err: any, _res: any) => {
+                if (err) {
+                    console.error(`[${lastfm.name}] [lastfm:scrobble] Scrobble failed: ${err.message}`);
+                } else {
+                    console.debug(`[${lastfm.name}] [lastfm:scrobble] Track scrobbled: ${scrobble.artist} - ${scrobble.track}`);
+                    this._scrobbleCache = scrobble
+                }
+            });
+        }, Math.round(attributes.durationInMillis * Math.min((this._utils.getStoreValue("lastfm.scrobble_after") / 100), 0.8)))
+    }
+
+    private updateNowPlayingTrack(attributes: any): void {
+        if (!this._authenticated || !attributes || (this._nowPlayingCache.track === attributes.lfmTrack.name)) return;
+
+        const nowPlaying = {
             'artist': attributes.lfmTrack.artist.name,
             'track': attributes.lfmTrack.name,
             'album': attributes.lfmAlbum.name,
-            'albumArtist': attributes.lfmAlbum.artist,
-            'timestamp': new Date().getTime() / 1000,
             'trackNumber': attributes.trackNumber,
             'duration': attributes.durationInMillis / 1000,
+            'albumArtist': attributes.lfmAlbum.artist,
         }
-        if (!this._utils.getApp().isPackaged) {
-            console.debug(scrobble)
-        }
-        this._lfm.track.scrobble(scrobble, (err: any, res: any) => {
+
+        this._lfm.track.updateNowPlaying(nowPlaying, (err: any, res: any) => {
             if (err) {
-                console.error(`[${lastfm.name}] [lastfm:scrobble] Scrobble failed: ${err.message}`);
+                console.error(`[${lastfm.name}] [lastfm:updateNowPlaying] Now Playing Update failed: ${err.message}`);
             } else {
-                console.debug(`[${lastfm.name}] [lastfm:scrobble] Track scrobbled: ${res}`);
+                console.log(res)
+                console.debug(`[${lastfm.name}] [lastfm:updateNowPlaying] Now Playing Updated: ${nowPlaying.artist} - ${nowPlaying.track}`);
+                this._nowPlayingCache = nowPlaying
             }
-        });
-        this._activityCache = attributes
-    }
-
-    private updateNowPlaying(attributes: any): void {
-        if (!this._authenticated) return;
-        this._lfm.track.updateNowPlaying({
-            'artist': attributes.artistName,
-            'track': attributes.name,
-            'album': attributes.albumName,
-            'albumArtist': attributes.albumName,
-            'trackNumber': attributes.trackNumber,
-            'duration': attributes.duration / 1000,
-        }, function (err: any, scrobbled: any) {
-            if (err) {
-                return console.error('[LastFM] An error occurred while updating now playing', err);
-            }
-
-            console.log('[LastFM] Successfully updated now playing: ', scrobbled);
         });
     }
 

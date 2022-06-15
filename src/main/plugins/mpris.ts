@@ -37,7 +37,7 @@ export default class mpris {
      * @private
      */
     private static runMediaEvent(type: string) {
-        console.debug(`[Plugin][${this.name}] ${type}.`);
+        // console.debug(`[Plugin][${this.name}] ${type}.`);
         mpris.utils.getWindow().webContents.executeJavaScript(`MusicKitInterop.${type}()`).catch(console.error)
     }
 
@@ -188,7 +188,7 @@ export default class mpris {
      */
     @mpris.linuxOnly
     onPlaybackStateDidChange(attributes: object): void {
-        console.debug(`[Plugin][${mpris.name}] onPlaybackStateDidChange.`);
+        // console.debug(`[Plugin][${mpris.name}] onPlaybackStateDidChange.`);
         mpris.updatePlayerState(attributes)
     }
 
@@ -198,7 +198,7 @@ export default class mpris {
      */
     @mpris.linuxOnly
     onNowPlayingItemDidChange(attributes: object): void {
-        console.debug(`[Plugin][${mpris.name}] onMetadataDidChange.`);
+        // console.debug(`[Plugin][${mpris.name}] onMetadataDidChange.`);
         mpris.updatePlayer(attributes);
     }
 
