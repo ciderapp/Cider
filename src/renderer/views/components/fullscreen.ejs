@@ -169,6 +169,19 @@
                     this.video = null
                     e = null
                 }
+            } else if (app.mk.nowPlayingItem._container.type == "library-albums") {
+                try {
+                    const result = (await app.mk.api.v3.music(`/v1/me/library/albums/${app.mk.nowPlayingItem._container.id}/catalog`
+                        , { "fields": "editorialArtwork,editorialVideo" })).data.data[0].attributes?.editorialVideo?.motionDetailSquare?.video
+                    if (result) {
+                        this.video = result
+                    } else {
+                        this.video = null
+                    }
+                } catch (e) {
+                    e = null
+                    this.video = null
+                }
             }
         },
         beforeMount() {
