@@ -46,7 +46,7 @@
                     <artwork-material :url="data.attributes.artwork.url" size="190" images="1"></artwork-material>
                 </div>
             <div class="artist-hero" v-if="hasHero() && !hasAnimated()">
-                <mediaitem-artwork shadow="none" :url="data.attributes.editorialArtwork.bannerUber.url" size="2048" />
+                <mediaitem-artwork shadow="none" :url="hasHero()" size="2048" />
             </div>
         </div>
         <div class="floating-header"
@@ -175,10 +175,11 @@
             },
             hasHero() {
                 if(this.data.attributes?.editorialArtwork?.bannerUber) {
-                    return true;
-                }else{
-                    return false;
+                    return this.data.attributes?.editorialArtwork?.bannerUber.url
+                }else if(this.data.attributes?.editorialArtwork?.subscriptionHero){
+                    return this.data.attributes?.editorialArtwork?.subscriptionHero.url
                 }
+                return false;
             },
             isHeaderVisible(visible) {
                 this.headerVisible = visible
