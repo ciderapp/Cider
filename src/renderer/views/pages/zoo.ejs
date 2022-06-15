@@ -9,6 +9,16 @@
         v-if="artistLoaded"
         :item="artist"
         ></artist-chip>
+
+        <amp-chrome-player/>
+        <!-- <amp-footer-player/> -->
+        <hr>
+        <amp-lcd-progress/>
+        <hr>
+        <amp-playback-controls-shuffle/>
+        <apple-music-playback-controls theme="dark" />
+        <apple-music-progress theme="dark"></apple-music-progress>
+        <apple-music-volume theme="dark"></apple-music-volume>
     </div>
 </script>
 <script>
