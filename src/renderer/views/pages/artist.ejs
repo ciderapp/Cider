@@ -4,7 +4,7 @@
         <div class="artist-header" :key="data.id" v-observe-visibility="{callback: isHeaderVisible}">
             <animatedartwork-view
                     :priority="true"
-                    v-if="data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9)"
+                    v-if="hasAnimated()"
                     :video="data.attributes.editorialVideo.motionArtistWide16x9.video ?? (data.attributes.editorialVideo.motionArtistFullscreen16x9.video ?? '')">
             </animatedartwork-view>
             <div class="header-content" style="pointer-events: all;">
@@ -41,9 +41,12 @@
                     <div class="svg-icon"></div>
                 </button>
             </div>
-            <div class="artworkContainer"
+                <div class="artworkContainer"
                  v-if="!(data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9))">
-                <artwork-material :url="data.attributes.artwork.url" size="190" images="1"></artwork-material>
+                    <artwork-material :url="data.attributes.artwork.url" size="190" images="1"></artwork-material>
+                </div>
+            <div class="artist-hero" v-if="hasHero() && !hasAnimated()">
+                <mediaitem-artwork shadow="none" :url="data.attributes.editorialArtwork.bannerUber.url" size="2048" />
             </div>
         </div>
         <div class="floating-header"
@@ -164,6 +167,19 @@
             }
         },
         methods: {
+            hasAnimated() {
+                if(this.data.attributes?.editorialVideo && (this.data.attributes?.editorialVideo?.motionArtistWide16x9 || this.data.attributes?.editorialVideo?.motionArtistFullscreen16x9)) {
+                    return true;
+                }
+                return false;
+            },
+            hasHero() {
+                if(this.data.attributes?.editorialArtwork?.bannerUber) {
+                    return true;
+                }else{
+                    return false;
+                }
+            },
             isHeaderVisible(visible) {
                 this.headerVisible = visible
             },
