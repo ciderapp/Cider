@@ -1470,6 +1470,9 @@
                 ipcRenderer.send('reloadRPC')
             },
 	        lfmDisconnect() {
+				app.cfg.lastfm.enabled = false;
+				app.cfg.lastfm.username = "";
+				app.cfg.lastfm.key = "";
 				ipcRenderer.send('lastfm:disconnect');
 	        },
 	        async lfmAuthorize(event) {

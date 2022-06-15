@@ -56,9 +56,6 @@ export default class lastfm {
         this._utils.getIPCMain().on('lastfm:disconnect', (event: any) => {
             this._lfm.setSessionCredentials(null, null);
             this._authenticated = false;
-            this._utils.setStoreValue('lastfm.enabled', false)
-            this._utils.setStoreValue('lastfm.secrets.username', "")
-            this._utils.setStoreValue('lastfm.secrets.key', "")
             console.debug('[lastfm] [disconnect] Disconnected')
         })
     }
@@ -119,9 +116,7 @@ export default class lastfm {
                 console.error(err);
                 return;
             }
-            this._utils.setStoreValue('lastfm.secrets.username', session.username);
-            this._utils.setStoreValue('lastfm.secrets.key', session.key);
-            this._utils.setStoreValue('lastfm.enabled', true)
+            this._utils.getWindow().webContents.send('lastfm:authenticated', session)
             this._authenticated = true;
             console.debug(`[${lastfm.name}] [authenticate] Authenticated as ${session.username}`)
         });
