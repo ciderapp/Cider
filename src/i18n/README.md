@@ -448,6 +448,11 @@ Update 10/06/2022 20:00 UTC
 
 * `settings.option.visual.purplePodcastPlaybackBar`: Added to `en_US`
 
+Update 14/06/2022 14:10 UTC
+
+* `term.themeManaged`: Added to `en_US`
+
+
 Update 15/06/2022 20:00 UTC
 
 * `settings.notyf.connectivity.lastfmScrobble.connectError`: Added to `en_US`

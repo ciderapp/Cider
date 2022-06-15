@@ -926,6 +926,15 @@ const app = new Vue({
                 }
             })
 
+            this.mk.addEventListener(MusicKit.Events.timedMetadataDidChange, (e) => {
+                app.mk.nowPlayingItem.attributes.name = e.title
+                app.mk.nowPlayingItem.attributes.artistName = e.performer
+                app.mk.nowPlayingItem.attributes.albumName = e.album
+                app.currentArtUrl = e.links[0].url
+                app.mk.nowPlayingItem._songId = e._adamId ? e._adamId : -1
+                app.mk.nowPlayingItem.id = e._adamId ? e._adamId : -1
+            })
+
             this.mk.addEventListener(MusicKit.Events.nowPlayingItemDidChange, (a) => {
                 if (self.$refs.queue) {
                     self.$refs.queue.updateQueue();
@@ -1176,9 +1185,20 @@ const app = new Vue({
         },
         getAppClasses() {
             let classes = {}
-            if (this.cfg.advanced.experiments.includes('compactui')) {
-                classes.compact = true
+            switch (this.getThemeDirective('forceUI') ?? "none") {
+                case "compact":
+                    classes.compact = true;
+                    break;
+                case "standard":
+                    classes.compact = false;
+                    break;
+                default:
+                    if (this.cfg.advanced.experiments.includes('compactui')) {
+                        classes.compact = true;
+                    }
+                    break;
             }
+
             if (this.cfg.visual.window_background_style == "none") {
                 classes.simplebg = true
             }
@@ -1986,14 +2006,21 @@ const app = new Vue({
         },
 
         async getNowPlayingItemDetailed(target) {
+            let nowPlayingItem = JSON.parse(JSON.stringify(this.mk.nowPlayingItem))
+            if(nowPlayingItem.type === "radioStation" && app.mk.nowPlayingItem.id !== -1) {
+                nowPlayingItem.playParams = {kind: "songs"}
+                nowPlayingItem.attributes.playParams.catalogId = app.mk.nowPlayingItem.id
+                nowPlayingItem.attributes.playParams.id = app.mk.nowPlayingItem.id
+                nowPlayingItem.id = app.mk.nowPlayingItem.id
+            }
             try {
-                let u = await app.mkapi(app.mk.nowPlayingItem.playParams.kind,
-                    (app.mk.nowPlayingItem.songId == -1),
-                    (app.mk.nowPlayingItem.songId != -1) ? app.mk.nowPlayingItem.songId : app.mk.nowPlayingItem["id"],
+                let u = await app.mkapi(nowPlayingItem.playParams.kind,
+                    (nowPlayingItem.songId == -1),
+                    (nowPlayingItem.songId != -1) ? nowPlayingItem.songId : nowPlayingItem["id"],
                     { "include[songs]": "albums,artists", l: app.mklang });
                 app.searchAndNavigate(u.data.data[0], target)
             } catch (e) {
-                app.searchAndNavigate(app.mk.nowPlayingItem, target)
+                app.searchAndNavigate(nowPlayingItem, target)
             }
         },
         async searchAndNavigate(item, target) {
@@ -4316,7 +4343,15 @@ const app = new Vue({
             this.showMenuPanel(menus[useMenu], event)
 
             try {
-                let result = await this.inLibrary([this.mk.nowPlayingItem])
+                // if its a radio station, then change the attributes to match a song
+                const nowPlayingItem = JSON.parse(JSON.stringify(this.mk.nowPlayingItem))
+                if(nowPlayingItem.type == "radioStation" && app.mk.nowPlayingItem.id != -1) {
+                    nowPlayingItem.type = "song"
+                    nowPlayingItem.attributes.playParams.catalogId = app.mk.nowPlayingItem.id
+                    nowPlayingItem.attributes.playParams.id = app.mk.nowPlayingItem.id
+                    nowPlayingItem.id = app.mk.nowPlayingItem.id
+                }
+                let result = await this.inLibrary([nowPlayingItem])
                 if (result[0].attributes.inLibrary) {
                     menus.normal.items.find(x => x.id == 'addToLibrary').hidden = true
                     menus.normal.items.find(x => x.id == 'removeFromLibrary').hidden = false

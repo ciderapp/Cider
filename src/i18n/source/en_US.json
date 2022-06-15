@@ -153,6 +153,7 @@
   },
   "term.videos": "Videos",
   "term.menu": "Menu",
+  "term.themeManaged": "Managed by a theme",
   "term.check": "Check",
   "term.aboutArtist": "About {{artistName}}",
   "term.topResult": "Top Result",
