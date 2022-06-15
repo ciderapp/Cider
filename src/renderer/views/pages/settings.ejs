@@ -1063,12 +1063,9 @@
                                 {{$root.getLz('settings.option.connectivity.lastfmScrobble')}}
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
-                                <button v-if="app.cfg.lastfm.secrets.username" class="md-btn" @click="lfmDisconnect">
-                                    {{$root.getLz('term.disconnect')}}<br>
-                                    <small>{{$root.getLz('term.authed')}}: {{app.cfg.lastfm.secrets.username}}</small>
-                                </button>
-                                <button v-else class="md-btn" @click="lfmAuthorize">
-                                    {{$root.getLz('term.connect')}}
+                                <button class="md-btn" id="lfmConnect" @click="app.cfg.lastfm.enabled ? lfmDisconnect() : lfmAuthorize()">
+                                    {{$root.getLz(`term.${$root.cfg.lastfm.enabled ? "disconnect" : "connect"}`)}}<br>
+                                    <small>{{app.cfg.lastfm.enabled ? `${$root.getLz('term.authed')}: ${$root.cfg.lastfm.secrets.username}` : '' }}</small>
                                 </button>
                             </div>
                         </div>
@@ -1471,22 +1468,28 @@
             },
 	        lfmDisconnect() {
 				app.cfg.lastfm.enabled = false;
-				app.cfg.lastfm.username = "";
-				app.cfg.lastfm.key = "";
+				app.cfg.lastfm.secrets.username = "";
+				app.cfg.lastfm.secrets.key = "";
 				ipcRenderer.send('lastfm:disconnect');
 	        },
-	        async lfmAuthorize(event) {
+	        async lfmAuthorize() {
 		        window.open(await ipcRenderer.invoke('lastfm:url'));
-		        event.target.innerText = app.getLz('term.connecting') + '...';
+		        app.notyf.success(app.getLz('settings.notyf.connectivity.lastfmScrobble.connecting'));
 
 		        /* Just a timeout for the button */
 		        setTimeout(() => {
-			        if (event.target.innerText === app.getLz('term.connecting') + '...') {
-				        event.target.innerText = app.getLz('term.connect');
+			        if (document.getElementById('lfmConnect').innerText === app.getLz('term.connecting') + '...') {
 						app.notyf.error(app.getLz('settings.notyf.connectivity.lastfmScrobble.connectError'));
 				        console.warn('[lastfm:authorize] Last.fm authorization timed out.');
 			        }
 		        }, 20000);
+
+		        ipcRenderer.once('lastfm:authenticated', (_e, session) => {
+			        app.cfg.lastfm.secrets.username = session.username
+			        app.cfg.lastfm.secrets.key = session.key
+			        app.cfg.lastfm.enabled = true
+			        app.notyf.success(app.getLz('settings.notyf.connectivity.lastfmScrobble.connectSuccess'));
+		        })
 
 	        },
         }

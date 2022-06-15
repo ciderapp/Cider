@@ -540,6 +540,8 @@
   "settings.option.connectivity.lastfmScrobble.removeFeatured": "Remove featuring artists from song title (Last.fm)",
   "settings.option.connectivity.lastfmScrobble.filterLoop": "Filter looped track (Last.fm)",
   "settings.notyf.connectivity.lastfmScrobble.connectError": "Last.fm Connection Timed Out",
+  "settings.notyf.connectivity.lastfmScrobble.connectSuccess": "Last.fm Connection Successful",
+  "settings.notyf.connectivity.lastfmScrobble.connecting": "Connecting to Last.fm...",
   "settings.header.debug": "Debug",
   "settings.option.debug.copy_log": "Copy logs to clipboard",
   "settings.option.debug.openAppData": "Open Cider Folder",

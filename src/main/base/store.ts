@@ -224,8 +224,7 @@ export class Store {
             "scrobble_after": 50,
             "secrets": {
                 "username": "",
-                "key": "",
-                "token": ""
+                "key": ""
             }
 
         },

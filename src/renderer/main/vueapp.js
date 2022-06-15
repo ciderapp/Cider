@@ -829,12 +829,6 @@ const app = new Vue({
 
             MusicKit.getInstance().videoContainerElement = document.getElementById("apple-music-video-player")
 
-            ipcRenderer.on('lastfm:authenticated', (_e, session) => {
-                app.cfg.lastfm.username = session.username
-                app.cfg.lastfm.key = session.key
-                app.cfg.lastfm.enabled = true
-            })
-
             ipcRenderer.on('setStoreValue', (e, key, value) => {
                 app.cfg[key] = value
             })
