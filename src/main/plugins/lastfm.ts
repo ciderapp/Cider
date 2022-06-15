@@ -93,7 +93,7 @@ export default class lastfm {
         });
 
         if (this._utils.getStoreValue("lastfm.secrets.username") && this._utils.getStoreValue("lastfm.secrets.key")) {
-            this._lfm.setSessionCredentials(this._utils.getStoreValue("lastfm.secrets.session.username"), this._utils.getStoreValue("lastfm.secrets.session.key"));
+            this._lfm.setSessionCredentials(this._utils.getStoreValue("lastfm.secrets.username"), this._utils.getStoreValue("lastfm.secrets.key"));
             this._authenticated = true;
         } else {
             this.authenticateLastFM(token)
@@ -112,7 +112,6 @@ export default class lastfm {
                 console.error(err);
                 return;
             }
-            console.log(session); // {"name": "LASTFM_USERNAME", "key": "THE_USER_SESSION_KEY"}
             this._utils.setStoreValue("lastfm.secrets.token", token)
             this._utils.setStoreValue('lastfm.secrets.username', session.username);
             this._utils.setStoreValue('lastfm.secrets.key', session.key);
