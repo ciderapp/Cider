@@ -1185,10 +1185,10 @@ const app = new Vue({
                 case "compact":
                     classes.compact = true;
                     break;
-                case "default":
+                case "standard":
                     classes.compact = false;
                     break;
-                case "none":
+                default:
                     if (this.cfg.advanced.experiments.includes('compactui')) {
                         classes.compact = true;
                     }
