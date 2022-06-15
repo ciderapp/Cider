@@ -56,7 +56,6 @@
     "get-port": "^5.1.1",
     "jimp": "^0.16.1",
     "jsonc": "^2.0.0",
-    "lastfm-autocorrect": "^1.0.0",
     "lastfmapi": "^0.1.1",
     "mdns-js": "git+https://github.com/ciderapp/node-mdns-js.git",
     "mpris-service": "^2.1.2",

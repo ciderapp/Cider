@@ -1064,7 +1064,7 @@
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
                                 <button class="md-btn" id="lfmConnect" ref="lfmConnect"
-                                        @click="app.LastFMAuthenticate()">
+                                        @click="lfmAuthorize">
                                     {{$root.getLz('term.connect')}}
                                 </button>
                             </div>
@@ -1076,37 +1076,6 @@
                             <div class="md-option-segment md-option-segment_auto">
                                 <label>
                                     <input type="number" min="50" max="100" v-model="app.cfg.lastfm.scrobble_after"/>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="md-option-line" v-show="app.cfg.lastfm.enabled">
-                            <div class="md-option-segment">
-                                {{$root.getLz('settings.option.connectivity.lastfmScrobble.nowPlaying')}}
-                            </div>
-                            <div class="md-option-segment md-option-segment_auto">
-                                <label>
-                                    <input type="checkbox" v-model="app.cfg.lastfm.NowPlaying" switch/>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="md-option-line" v-show="app.cfg.lastfm.enabled">
-                            <div class="md-option-segment">
-                                {{$root.getLz('settings.option.connectivity.lastfmScrobble.removeFeatured')}}
-                            </div>
-                            <div class="md-option-segment md-option-segment_auto">
-                                <label>
-                                    <input type="checkbox" v-model="app.cfg.lastfm.enabledRemoveFeaturingArtists"
-                                           switch/>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="md-option-line" v-show="app.cfg.lastfm.enabled">
-                            <div class="md-option-segment">
-                                {{$root.getLz('settings.option.connectivity.lastfmScrobble.filterLoop')}}
-                            </div>
-                            <div class="md-option-segment md-option-segment_auto">
-                                <label>
-                                    <input type="checkbox" v-model="app.cfg.lastfm.filterLoop" switch/>
                                 </label>
                             </div>
                         </div>
@@ -1504,7 +1473,32 @@
             },
             reloadDiscordRPC() {
                 ipcRenderer.send('reloadRPC')
-            }
+            },
+	        lfmDisconnect(event) {
+		        ipcRenderer.invoke('setStoreValue', 'lastfm.enabled', false).catch((e) => console.error(e));
+		        ipcRenderer.invoke('setStoreValue', 'lastfm.secrets.session', {}).catch((e) => console.error(e));
+		        event.target.innerHTML = app.getLz('term.connect');
+		        event.target.onclick = this.lfmAuthorize;
+	        },
+	        async lfmAuthorize(event) {
+		        console.debug("[lastfm:authorize] Token received.")
+		        window.open(await ipcRenderer.invoke('lastfm:url'));
+		        event.target.innerText = app.getLz('term.connecting') + '...';
+
+		        /* Just a timeout for the button */
+		        setTimeout(() => {
+			        if (event.target.innerText === app.getLz('term.connecting') + '...') {
+				        event.target.innerText = app.getLz('term.connect');
+				        console.warn('[lastfm:authorize] Last.fm authorization timed out.');
+			        }
+		        }, 20000);
+
+		        ipcRenderer.on('lastfm:renderer-auth', function (event, session) {
+			        element.innerHTML = `${app.getLz('term.disconnect')}\n<p style="font-size: 8px"><i>(${app.getLz('term.authed')}: ${session.username})</i></p>`;
+			        element.onclick = this.lfmDisconnect;
+		        });
+
+	        },
         }
     })
 </script>

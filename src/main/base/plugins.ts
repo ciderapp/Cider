@@ -107,7 +107,8 @@ export class Plugins {
                 try{
                     this.pluginsList[plugin][event](...args);
                 }catch(e) {
-                    console.log(`[${plugin}] Plugin error: ${e}`);
+                    console.error(`[${plugin}] An error was encountered: ${e}`);
+                    console.error(e)
                 }
             }
         }

@@ -164,11 +164,8 @@ export class AppEvents {
         if (arg.includes('auth')) {
             const authURI = arg.split('/auth/')[1]
             if (authURI.startsWith('lastfm')) { // If we wanted more auth options
-                // const authKey = authURI.split('lastfm?token=')[1];
-                // utils.setStoreValue('lastfm.enabled', true);
-                // utils.setStoreValue('lastfm.auth_token', authKey);
-                // utils.getWindow().webContents.send('LastfmAuthenticated', authKey);
-                this.plugin.callPlugin('lastfm', 'authenticateUser', authURI.split('lastfm?token=')[1]);
+                console.log('token: ', authURI.split('lastfm?token=')[1])
+                utils.getWindow().webContents.executeJavaScript(`ipcRenderer.send('lastfm:auth', "${authURI.split('lastfm?token=')[1]}")`).catch(console.error)
             }
         }
         // Play

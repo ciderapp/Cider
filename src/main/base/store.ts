@@ -222,12 +222,10 @@ export class Store {
         "lastfm": {
             "enabled": false,
             "scrobble_after": 30,
-            "enabledRemoveFeaturingArtists": true,
-            "filterLoop": true,
-            "NowPlaying": "true",
             "secrets": {
-                "auth_token": "",
-                "session": {},
+                "username": "",
+                "key": "",
+                "token": ""
             }
 
         },
