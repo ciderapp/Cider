@@ -1063,8 +1063,11 @@
                                 {{$root.getLz('settings.option.connectivity.lastfmScrobble')}}
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
-                                <button class="md-btn" id="lfmConnect" ref="lfmConnect"
-                                        @click="lfmAuthorize">
+                                <button v-if="app.cfg.lastfm.secrets.username" class="md-btn" @click="lfmDisconnect">
+                                    {{$root.getLz('term.disconnect')}}<br>
+                                    <small>{{$root.getLz('term.authed')}}: {{app.cfg.lastfm.secrets.username}}</small>
+                                </button>
+                                <button v-else class="md-btn" @click="lfmAuthorize">
                                     {{$root.getLz('term.connect')}}
                                 </button>
                             </div>
@@ -1346,14 +1349,6 @@
                     this.canChangeHash = true
                 }
             })
-
-            if (app.cfg.lastfm.enabled) {
-                const element = document.getElementById('lfmConnect');
-                if (element) {
-                    element.innerHTML = `Disconnect\n<p style="font-size: 8px"><i>(Authed: ${app.cfg.lastfm.auth_token})</i></p>`;
-                    element.onclick = app.LastFMDeauthorize;
-                }
-            }
         },
         methods: {
             windowBgStyleChange() {
@@ -1474,14 +1469,10 @@
             reloadDiscordRPC() {
                 ipcRenderer.send('reloadRPC')
             },
-	        lfmDisconnect(event) {
-		        ipcRenderer.invoke('setStoreValue', 'lastfm.enabled', false).catch((e) => console.error(e));
-		        ipcRenderer.invoke('setStoreValue', 'lastfm.secrets.session', {}).catch((e) => console.error(e));
-		        event.target.innerHTML = app.getLz('term.connect');
-		        event.target.onclick = this.lfmAuthorize;
+	        lfmDisconnect() {
+				ipcRenderer.send('lastfm:disconnect');
 	        },
 	        async lfmAuthorize(event) {
-		        console.debug("[lastfm:authorize] Token received.")
 		        window.open(await ipcRenderer.invoke('lastfm:url'));
 		        event.target.innerText = app.getLz('term.connecting') + '...';
 
@@ -1489,14 +1480,10 @@
 		        setTimeout(() => {
 			        if (event.target.innerText === app.getLz('term.connecting') + '...') {
 				        event.target.innerText = app.getLz('term.connect');
+						app.notyf.error(app.getLz('settings.notyf.connectivity.lastfmScrobble.connectError'));
 				        console.warn('[lastfm:authorize] Last.fm authorization timed out.');
 			        }
 		        }, 20000);
-
-		        ipcRenderer.on('lastfm:renderer-auth', function (event, session) {
-			        element.innerHTML = `${app.getLz('term.disconnect')}\n<p style="font-size: 8px"><i>(${app.getLz('term.authed')}: ${session.username})</i></p>`;
-			        element.onclick = this.lfmDisconnect;
-		        });
 
 	        },
         }
