@@ -835,6 +835,10 @@ const app = new Vue({
                 app.cfg.lastfm.enabled = true
             })
 
+            ipcRenderer.on('setStoreValue', (e, key, value) => {
+                app.cfg[key] = value
+            })
+
             ipcRenderer.on('theme-update', async (event, arg) => {
                 await less.refresh(true, true, true)
                 self.setTheme(self.cfg.visual.theme, true)
