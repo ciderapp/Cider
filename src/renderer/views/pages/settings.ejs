@@ -1079,6 +1079,16 @@
                                 </label>
                             </div>
                         </div>
+                        <div class="md-option-line" v-show="app.cfg.lastfm.enabled">
+                            <div class="md-option-segment">
+                                {{$root.getLz('settings.option.connectivity.filterLoop')}}
+                            </div>
+                            <div class="md-option-segment md-option-segment_auto">
+                                <label>
+                                    <input type="checkbox" v-model="app.cfg.lastfm.filter_loop" switch/>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </b-tab>

@@ -222,6 +222,7 @@ export class Store {
         "lastfm": {
             "enabled": false,
             "scrobble_after": 50,
+            "filter_loop": false,
             "secrets": {
                 "username": "",
                 "key": ""

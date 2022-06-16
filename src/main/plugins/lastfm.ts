@@ -162,7 +162,7 @@ export default class lastfm {
      * @private
      */
     private scrobbleTrack(attributes: any): void {
-        if (!this._authenticated || !attributes || (this._scrobbleCache.track === attributes.lfmTrack.name)) return;
+        if (!this._authenticated || !attributes || (this._utils.getStoreValue("lastfm.filter_loop") && this._scrobbleCache.track === attributes.lfmTrack.name)) return;
 
         if (this._scrobbleDelay) {
             clearTimeout(this._scrobbleDelay);
@@ -200,7 +200,7 @@ export default class lastfm {
     }
 
     private updateNowPlayingTrack(attributes: any): void {
-        if (!this._authenticated || !attributes || (this._nowPlayingCache.track === attributes.lfmTrack.name)) return;
+        if (!this._authenticated || !attributes || (this._utils.getStoreValue("lastfm.filter_loop") && this._nowPlayingCache.track === attributes.lfmTrack.name)) return;
 
         const nowPlaying = {
             'artist': attributes.lfmTrack.artist.name,
