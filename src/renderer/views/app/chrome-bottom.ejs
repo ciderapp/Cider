@@ -78,8 +78,9 @@
     </div>
     <div class="app-chrome--center">
         <div class="app-chrome-playback-duration-bottom">
-            <b-row>
-                <b-col sm="auto">{{ convertTime(getSongProgress()) }}</b-col>
+            <b-row  v-if="mkReady()">
+                <b-col sm="auto" v-if="!mk.nowPlayingItem?.isLiveRadioStation">{{ convertTime(getSongProgress()) }}</b-col>
+                <b-col sm="auto" v-else>--:--</b-col>
                 <b-col>
                     <input type="range" step="0.01" min="0" :style="progressBarStyle()"
                            @input="playerLCD.desiredDuration = $event.target.value;playerLCD.userInteraction = true"
@@ -87,7 +88,8 @@
                            @touchend="mk.seekToTime($event.target.value);setTimeout(()=>{playerLCD.desiredDuration = 0;playerLCD.userInteraction = false}, 1000);"
                            :max="mk.currentPlaybackDuration" :value="getSongProgress()">
                 </b-col>
-                <b-col sm="auto">{{ convertTime(mk.currentPlaybackDuration) }}</b-col>
+                <b-col sm="auto" v-if="!mk.nowPlayingItem?.isLiveRadioStation">{{ convertTime(mk.currentPlaybackDuration) }}</b-col>
+                <b-col sm="auto" v-else>{{ getLz("term.live") }}</b-col>
             </b-row>
         </div>
         <div class="app-chrome-playback-controls">
