@@ -121,7 +121,7 @@
                     </div>
                 </div>
                 <div class="artworkContainer" v-if="data.attributes.artwork != null">
-                    <artwork-material :url="data.attributes.artwork.url" size="260" images="1"></artwork-material>
+                    <artwork-material :url="data.attributes.artwork.url" size="500" images="1"></artwork-material>
                 </div>
                 <button class="md-btn md-btn-small editTracksBtn" v-if="(data.attributes.canEdit && data.type == 'library-playlists')" @click="editing = !editing">
                     <span v-if="!editing">

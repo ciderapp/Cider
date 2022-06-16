@@ -1,9 +1,8 @@
 @import url("assets/fonts/Pretendard/pretendardvariable.css");
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap');
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;300;400;500;700;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@100;300;400;500;700;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;300;400;500;700;900&display=swap");
 @import url("less/appvars.less");
 @import url("less/bootstrap-vue.min.less");
 @import url("less/ameframework.less");
@@ -69,7 +68,7 @@ body {
   background-size: cover;
   background-position: center;
   background: #0000;
-  font-family: "Pretendard Variable", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: "Pretendard Variable", "Noto Sans JP", "Noto Sans KR", "Noto Sans TC", "Noto Sans SC", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   transition: opacity .10s var(--appleEase);
 }
 
@@ -311,19 +310,19 @@ a.dropdown-item {
   overflow: hidden;
   pointer-events: none;
 
-  > img {
+  img {
     position: absolute;
     width: 200%;
     opacity: 0.5;
     filter: brightness(200%) blur(180px) saturate(280%) contrast(2);
   }
 
-  > img:first-child {
+  img:first-child {
     top: 0;
     left: 0;
   }
 
-  > img:last-child {
+  img:last-child {
     bottom: 0;
     right: 0;
     transform: rotate(180deg);
@@ -1163,50 +1162,45 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   &-macos {
     width: 100px;
   }
-}
 
-.app-chrome .app-chrome-item > .window-controls > div {
-  height: 100%;
-  width: 32px;
-}
-
-.app-chrome .app-chrome-item > .window-controls > div:hover {
-  background: rgb(200 200 200 / 10%);
-}
-
-.app-chrome .app-chrome-item > .window-controls > div.close {
-  width: 100%;
-  height: 100%;
-  background-image: var(--gfx-closeBtn);
-  background-position: center;
-  background-repeat: no-repeat;
-  -webkit-app-region: no-drag;
-
-  &:hover {
-    background-color: rgb(196, 43, 28)
+  > div {
+    height: 100%;
+    width: 32px;
+    &:hover {
+      background: rgb(200 200 200 / 10%);
+    }
+    &.close {
+      width: 100%;
+      height: 100%;
+      background-image: var(--gfx-closeBtn);
+      background-position: center;
+      background-repeat: no-repeat;
+      -webkit-app-region: no-drag;
+    
+      &:hover {
+        background-color: rgb(196, 43, 28)
+      }
+    }
+    &.minmax {
+      background-image: var(--gfx-maxBtn);
+      background-position: center;
+      background-repeat: no-repeat;
+      -webkit-app-region: no-drag;
+      width: 100%;
+      height: 100%;
+    }
+    &.minmax.restore {
+      background-image: var(--gfx-restoreBtn);
+    }
+    &.minimize {
+      background-image: var(--gfx-minBtn);
+      background-position: center;
+      background-repeat: no-repeat;
+      -webkit-app-region: no-drag;
+      width: 100%;
+      height: 100%;
+    }
   }
-}
-
-.app-chrome .app-chrome-item > .window-controls > div.minmax {
-  background-image: var(--gfx-maxBtn);
-  background-position: center;
-  background-repeat: no-repeat;
-  -webkit-app-region: no-drag;
-  width: 100%;
-  height: 100%;
-}
-
-.app-chrome .app-chrome-item > .window-controls > div.minmax.restore {
-  background-image: var(--gfx-restoreBtn);
-}
-
-.app-chrome .app-chrome-item > .window-controls > div.minimize {
-  background-image: var(--gfx-minBtn);
-  background-position: center;
-  background-repeat: no-repeat;
-  -webkit-app-region: no-drag;
-  width: 100%;
-  height: 100%;
 }
 
 body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls > div.minimize {
@@ -1452,10 +1446,13 @@ div[data-type="musicVideo"] .info-rect .title::before {
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
-  border-radius: 4px;
+  border-radius: var(--mediaItemRadiusSmall);
   flex: 0 0 auto;
   margin: 6px;
   image-rendering: -webkit-optimize-contrast;
+  .mediaitem-artwork {
+    border-radius: var(--mediaItemRadiusSmall);
+  }
 }
 
 .app-chrome .app-chrome-item > .app-playback-controls .actions {
@@ -1656,7 +1653,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   overflow-x: hidden;
   display: flex;
   flex-flow: column;
-  font-family: "Pretendard Variable", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: "Pretendard Variable", "Noto Sans JP", "Noto Sans KR", "Noto Sans TC", "Noto Sans SC", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .lyric-body .no-lyrics {
@@ -1761,7 +1758,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 .lyrics-translation {
   font-size: 1.6rem;
   font-weight: 450;
-  font-family: "Pretendard Variable", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: "Pretendard Variable", "Noto Sans JP", "Noto Sans KR", "Noto Sans TC", "Noto Sans SC", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   filter: contrast(0.5);
 }
 
@@ -3462,22 +3459,7 @@ body.no-gpu {
       }
 
       .close-btn {
-        width: 50px;
-        height: 100%;
-        background-image: var(--gfx-closeBtn);
-        background-position: center;
-        background-repeat: no-repeat;
-        -webkit-app-region: no-drag;
-        appearance: none;
-        border: 0;
-        background-color: transparent;
-        position: absolute;
-        top: 0;
-        right: 0;
-
-        &:hover {
-          background-color: rgb(196, 43, 28)
-        }
+        .menu-panel.menu-header-text.close-btn
       }
     }
 

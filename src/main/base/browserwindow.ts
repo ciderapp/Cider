@@ -53,6 +53,7 @@ export class BrowserWindow {
             dev: app.isPackaged,
             osRelease: os.release(),
             updatable: !process.windowsStore || !process.mas,
+            useV3: utils.getStoreValue('advanced.experiments').includes("ampv3"),
             components: [
                 "pages/podcasts",
                 "pages/apple-account-settings",
@@ -849,6 +850,7 @@ export class BrowserWindow {
         })
 
         ipcMain.handle("get-github-plugin", async (event, url) => {
+            await this.StopWatcher()
             const returnVal = {
                 success: true,
                 theme: null,
@@ -893,9 +895,11 @@ export class BrowserWindow {
                 returnVal.success = false;
             }
             BrowserWindow.win.webContents.send("plugin-installed", returnVal);
+            this.StartWatcher(utils.getPath('themes'));
         });
 
         ipcMain.handle("get-github-theme", async (event, url) => {
+            await this.StopWatcher()
             const returnVal = {
                 success: true,
                 theme: null,
@@ -940,6 +944,8 @@ export class BrowserWindow {
                 returnVal.success = false;
             }
             BrowserWindow.win.webContents.send("theme-installed", returnVal);
+            this.StartWatcher(utils.getPath('themes'));
+            BrowserWindow.win.webContents.send("theme-update", "")
         });
 
         ipcMain.on("get-themes", (event, _key) => {

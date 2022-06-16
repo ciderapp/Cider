@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 import {Store} from "./store";
 import {BrowserWindow as bw} from "./browserwindow";
-import {app, dialog, ipcMain, Notification, shell } from "electron";
+import {app, dialog, ipcMain, Notification, shell, BrowserWindow} from "electron";
 import fetch from "electron-fetch";
 import {AppImageUpdater, NsisUpdater} from "electron-updater";
 import * as log from "electron-log";
@@ -124,7 +124,11 @@ export class utils {
      * Gets the browser window
      */
     static getWindow(): Electron.BrowserWindow {
-        return bw.win
+        if (bw.win) {
+            return bw.win
+        } else {
+            return BrowserWindow.getAllWindows()[0]
+        }
     }
 
     static loadPluginFrontend(path: string): void {

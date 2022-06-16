@@ -14,7 +14,9 @@
                 <div class="artwork"  @click="app.fullscreen(false)">
                     <mediaitem-artwork
                             :size="600"
-                            :url="(image ?? '').replace('{w}','600').replace('{h}','600') "
+                            :video="video"
+                            :videoPriority="true"
+                            :url="(image ?? '').replace('{w}','600').replace('{h}','600')"
                     ></mediaitem-artwork>
                 </div>
                 <div class="controls-parents">
@@ -149,6 +151,37 @@
             return {
                 app: this.$root,
                 tabMode: "lyrics",
+                video: null
+            }
+        },
+        async mounted() {
+            if (app.mk.nowPlayingItem._container.type == "albums") {
+                try {
+                    const result = (await app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/${app.mk.nowPlayingItem._container.type}/${app.mk.nowPlayingItem._container.id}`, {
+                        "fields": "editorialArtwork,editorialVideo",
+                    })).data.data[0].attributes?.editorialVideo?.motionDetailSquare?.video
+                    if (result) {
+                        this.video = result
+                    } else {
+                        this.video = null
+                    }
+                } catch (e) {
+                    this.video = null
+                    e = null
+                }
+            } else if (app.mk.nowPlayingItem._container.type == "library-albums") {
+                try {
+                    const result = (await app.mk.api.v3.music(`/v1/me/library/albums/${app.mk.nowPlayingItem._container.id}/catalog`
+                        , { "fields": "editorialArtwork,editorialVideo" })).data.data[0].attributes?.editorialVideo?.motionDetailSquare?.video
+                    if (result) {
+                        this.video = result
+                    } else {
+                        this.video = null
+                    }
+                } catch (e) {
+                    e = null
+                    this.video = null
+                }
             }
         },
         beforeMount() {

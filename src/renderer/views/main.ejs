@@ -71,7 +71,7 @@
     <div id="LOADER">
         <%- include("../assets/cider-round.svg") %>
     </div>
-    <div id="app" :class="getAppClasses()" :style="getAppStyle()" :window-style="cfg.visual.directives.windowLayout">
+    <div id="app" :class="getAppClasses()" :style="getAppStyle()" :library-visbile="(chrome.sidebarCollapsed ? 0 : 1)" :window-style="cfg.visual.directives.windowLayout">
         <transition name="fsModeSwitch">
             <div id="app-main" v-show="appMode == 'player'">
                 <%- include('app/chrome-top'); %>
@@ -105,7 +105,8 @@
             <% } %>
 
 
-                <script async src="https://js-cdn.music.apple.com/musickit/v3/amp/musickit.js" data-web-components></script>
+                <script async src="<%- (env.useV3 ? "https://js-cdn.music.apple.com/musickit/v3/amp/musickit.js" : "https://js-cdn.music.apple.com/musickit/v2/amp/musickit.js" ) %>" data-web-components>
+                </script>
                 <script src="index.js?v=1"></script>
 
                 <script type="text/x-template" id="am-musiccovershelf">

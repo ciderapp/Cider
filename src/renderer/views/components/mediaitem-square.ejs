@@ -87,6 +87,11 @@
 				default: false,
 				required: false
 			},
+            noScale: {
+                type: Boolean,
+                default: false,
+                required: false
+            },
 			'contextExt': { type: Object, required: false },
 		},
 		data: function () {
@@ -251,6 +256,10 @@
 			},
 			getClasses() {
 				let type = []
+                let classes = []
+                if(this.noScale) {
+                    classes.push("noscale")
+                }
 				try {
 					type = this.item.type
 
@@ -263,25 +272,26 @@
 				}
 				switch (type) {
 					default:
-						return []
+
 						break;
 					case "editorial-elements":
 					case "card":
-						return ["mediaitem-card"]
+						classes.push("mediaitem-card")
 						break;
 					case "385": // editorial
-						return ["mediaitem-brick"]
+                        classes.push("mediaitem-brick")
 						break;
 					case "small":
-						return ["mediaitem-small"]
+						classes.push("mediaitem-small")
 						break;
 					case "music-videos":
 					case "uploadedVideo":
 					case "uploaded-videos":
 					case "library-music-videos":
-						return "mediaitem-video";
+						classes.push("mediaitem-video")
 						break;
 				}
+                return classes
 			},
 			visibilityChanged: function (isVisible, entry) {
 				this.isVisible = isVisible

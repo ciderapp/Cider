@@ -2,7 +2,7 @@
   "i18n.languageName": "English (UK)",
   "i18n.languageNameEnglish": "English (UK)",
   "i18n.category": "main",
-  "i18n.authors": "Core, inalone, nosh118",
+  "i18n.authors": "Core, inalone, nosh118, booploops",
   "date.format": "${d} ${m}, ${y}",
   "term.equalizer": "Equaliser",
   "settings.option.audio.enableAdvancedFunctionality.description": "Enabling AudioContext functionality will allow for extended audio features like Audio Normalisation, Equalisers and Visualisers - however on some systems this may cause stuttering in audio tracks.",
@@ -14,5 +14,14 @@
   "term.track": {
     "one" : "song",
     "other" : "songs"
-  }
+  },
+  "home.syncFavorites": "Sync Favourites",
+  "home.syncFavorites.gettingArtists": "Getting Favourited Artists...",
+  "action.addToFavorites": "Add to Favourites",
+  "action.favorite": "Favourite",
+  "action.removeFavorite": "Remove Favourite",
+  "settings.option.visual.customAccentColor": "Custom Accent Colour",
+  "settings.option.visual.accentColor": "Accent Colour",
+  "settings.option.visual.windowColor": "Window Tint Colour",
+  "settings.header.visual.windowBackgroundStyle.color": "Colour Tint"
 }
