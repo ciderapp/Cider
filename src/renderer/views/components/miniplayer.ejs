@@ -66,30 +66,40 @@
                         </div>
                     </div>
                 <div class="control-buttons">    
-                    <div class="app-chrome-item">
-                        <button class="playback-button--small shuffle" v-if="app.mk.shuffleMode == 0"
-                                @click="app.mk.shuffleMode = 1"></button>
-                        <button class="playback-button--small shuffle active" v-else
-                                @click="app.mk.shuffleMode = 0"></button>
-                    </div>
-                    <div class="app-chrome-item">
-                        <button class="playback-button previous" @click="app.prevButton()"></button>
-                    </div>
-                    <div class="app-chrome-item">
-                        <button class="playback-button pause" @click="app.mk.pause()" v-if="app.mk.isPlaying"></button>
-                        <button class="playback-button play" @click="app.mk.play()" v-else></button>
-                    </div>
-                    <div class="app-chrome-item">
-                        <button class="playback-button next" @click="app.skipToNextItem()"></button>
-                    </div>
-                    <div class="app-chrome-item">
-                        <button class="playback-button--small repeat" v-if="app.mk.repeatMode == 0"
-                                @click="app.mk.repeatMode = 1"></button>
-                        <button class="playback-button--small repeat repeatOne" @click="app.mk.repeatMode = 2"
-                                v-else-if="app.mk.repeatMode == 1"></button>
-                        <button class="playback-button--small repeat active" @click="app.mk.repeatMode = 0"
-                                v-else-if="app.mk.repeatMode == 2"></button>
-                    </div>
+                    <div class="app-chrome-item display--large">
+                        <button class="playback-button--small shuffle" v-if="$root.mk.shuffleMode == 0" :class="$root.isDisabled() && 'disabled'"
+                          @click="$root.mk.shuffleMode = 1" :title="$root.getLz('term.enableShuffle')" v-b-tooltip.hover></button>
+                        <button class="playback-button--small shuffle active" v-else :class="$root.isDisabled() && 'disabled'"
+                          @click="$root.mk.shuffleMode = 0" :title="$root.getLz('term.disableShuffle')" v-b-tooltip.hover></button>
+                      </div>
+                      <div class="app-chrome-item display--large">
+                        <button class="playback-button previous" @click="$root.prevButton()" :class="$root.isPrevDisabled() && 'disabled'"
+                          :title="$root.getLz('term.previous')" v-b-tooltip.hover></button>
+                      </div>
+                      <div class="app-chrome-item display--large">
+                        <button class="playback-button stop" @click="$root.mk.stop()"
+                          v-if="$root.mk.isPlaying && $root.mk.nowPlayingItem.attributes.playParams.kind == 'radioStation'"
+                          :title="$root.getLz('term.stop')" v-b-tooltip.hover></button>
+                        <button class="playback-button pause" @click="$root.mk.pause()" v-else-if="$root.mk.isPlaying"
+                          :title="$root.getLz('term.pause')" v-b-tooltip.hover></button>
+                        <button class="playback-button play" @click="$root.mk.play()" v-else :title="$root.getLz('term.play')"
+                          v-b-tooltip.hover></button>
+                      </div>
+                      <div class="app-chrome-item display--large">
+                        <button class="playback-button next" @click="$root.skipToNextItem()" :class="$root.isNextDisabled() && 'disabled'"
+                          :title="$root.getLz('term.next')" v-b-tooltip.hover></button>
+                      </div>
+                      <div class="app-chrome-item display--large">
+                        <button class="playback-button--small repeat" v-if="$root.mk.repeatMode == 0" :class="$root.isDisabled() && 'disabled'"
+                          @click="$root.mk.repeatMode = 1" :title="$root.getLz('term.enableRepeatOne')" v-b-tooltip.hover></button>
+                        <button class="playback-button--small repeat repeatOne" @click="mk.repeatMode = 2"
+                          :class="$root.isDisabled() && 'disabled'" v-else-if="$root.mk.repeatMode == 1"
+                          :title="$root.getLz('term.disableRepeatOne')" v-b-tooltip.hover></button>
+                        <button class="playback-button--small repeat active" @click="$root.mk.repeatMode = 0"
+                          :class="$root.isDisabled() && 'disabled'" v-else-if="$root.mk.repeatMode == 2" :title="$root.getLz('term.disableRepeat')"
+                          v-b-tooltip.hover></button>
+                      </div>
+                    </div>     
                 </div>
                 <div class="app-chrome-item volume display--large">
                     <div class="input-container">
