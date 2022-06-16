@@ -927,8 +927,13 @@ const app = new Vue({
                 app.mk.nowPlayingItem.attributes.name = e.title
                 app.mk.nowPlayingItem.attributes.artistName = e.performer
                 app.mk.nowPlayingItem.attributes.albumName = e.album
-                app.currentArtUrl = e.links[0].url
-                app.currentArtUrlRaw = e.links[0].url
+                if(e.links[1]) {
+                    app.currentArtUrl = e.links[1].url
+                    app.currentArtUrlRaw = e.links[1].url
+                }else{
+                    app.currentArtUrl = e.links[0].url
+                    app.currentArtUrlRaw = e.links[0].url
+                }
                 app.mk.nowPlayingItem._songId = e._adamId ? e._adamId : -1
                 app.mk.nowPlayingItem.id = e._adamId ? e._adamId : -1
             })
