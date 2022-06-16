@@ -23,13 +23,12 @@ const MusicKitInterop = {
 		MusicKit.getInstance().addEventListener(MusicKit.Events.nowPlayingItemDidChange, async () => {
 			console.debug('[cider:preload] nowPlayingItemDidChange')
 			const attributes = MusicKitInterop.getAttributes()
-			const trackFilter = MusicKitInterop.filterTrack(attributes, false, true)
 
-			if (trackFilter) {
+			if (MusicKitInterop.filterTrack(attributes, false, true)) {
 				global.ipcRenderer.send('nowPlayingItemDidChange', attributes);
+			} else if (attributes.name !== 'no-title-found' && attributes.playParams.id !== "no-id-found") {
+				global.ipcRenderer.send('lastfm:nowPlayingChange', attributes);
 			}
-
-			global.ipcRenderer.send('lastfm:nowPlayingChange', attributes);
 
 			if (MusicKit.getInstance().nowPlayingItem) {
 				await this.sleep(750);
