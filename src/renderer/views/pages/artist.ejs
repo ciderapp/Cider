@@ -174,7 +174,9 @@
                 return false;
             },
             hasHero() {
-                if(this.data.attributes?.editorialArtwork?.bannerUber) {
+                if(this.data.attributes?.editorialArtwork?.centeredFullscreenBackground){
+                    return this.data.attributes?.editorialArtwork?.centeredFullscreenBackground.url
+                } else if(this.data.attributes?.editorialArtwork?.bannerUber) {
                     return this.data.attributes?.editorialArtwork?.bannerUber.url
                 }else if(this.data.attributes?.editorialArtwork?.subscriptionHero){
                     return this.data.attributes?.editorialArtwork?.subscriptionHero.url
