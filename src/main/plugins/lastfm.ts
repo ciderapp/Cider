@@ -1,9 +1,3 @@
-// https://github.com/maxkueng/node-lastfmapi
-// https://github.com/maxkueng/lastfm-autocorrect
-// @todo: add autocorrect
-// @todo: add scrobble and filter to prevent no-title-found being scrobbled
-// @todo: handle session keys through config to stop aids session.json
-
 export default class lastfm {
 
     /**
@@ -74,6 +68,7 @@ export default class lastfm {
      * @param attributes Music Attributes
      */
     onNowPlayingItemDidChange(attributes: any): void {
+        if (this._utils.getStoreValue("general.privateEnabled")) return;
         this._attributes = attributes
         if (!attributes?.lfmTrack || !attributes?.lfmAlbum) {
             this.verifyTrack(attributes)
