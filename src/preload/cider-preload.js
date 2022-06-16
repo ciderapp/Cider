@@ -29,6 +29,8 @@ const MusicKitInterop = {
 				global.ipcRenderer.send('nowPlayingItemDidChange', attributes);
 			}
 
+			global.ipcRenderer.send('lastfm:nowPlayingChange', attributes);
+
 			if (MusicKit.getInstance().nowPlayingItem) {
 				await this.sleep(750);
 				MusicKit.getInstance().playbackRate = app.cfg.audio.playbackRate;

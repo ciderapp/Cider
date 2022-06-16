@@ -52,6 +52,11 @@ export default class lastfm {
             this._authenticated = false;
             console.debug('[lastfm] [disconnect] Disconnected')
         })
+
+        this._utils.getIPCMain().on('lastfm:nowPlayingChange', (event: any, attributes: any) => {
+            if (this._utils.getStoreValue("lastfm.filter_loop")) return;
+            this.onNowPlayingItemDidChange(attributes)
+        })
     }
 
     /**
@@ -123,15 +128,18 @@ export default class lastfm {
      * @private
      */
     private verifyTrack(attributes: any): object {
-        if (!attributes) return {};
+        if (!attributes) return attributes;
 
         if (!attributes.lfmAlbum) {
+            console.log(attributes.artistName)
+            console.log(attributes.albumName)
             return this._lfm.album.getInfo({
                 "artist": attributes.artistName,
                 "album": attributes.albumName
             }, (err: any, data: any) => {
                 if (err) {
-                    console.error(`[${lastfm.name}] [album.getInfo] Error: ${err}`)
+                    console.error(`[${lastfm.name}] [album.getInfo] Error: ${typeof err === "string" ? err : err.message}`)
+                    console.error(err)
                     return {};
                 }
                 if (data) {
@@ -142,7 +150,7 @@ export default class lastfm {
         } else {
             return this._lfm.track.getCorrection(attributes.artistName, attributes.name, (err: any, data: any) => {
                 if (err) {
-                    console.error(`[${lastfm.name}] [track.getCorrection] Error: ${err}`)
+                    console.error(`[${lastfm.name}] [track.getCorrection] Error: ${typeof err === "string" ? err : err.message}`)
                     console.error(err)
                     return {};
                 }
