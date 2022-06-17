@@ -294,6 +294,11 @@
                 this.isInLibrary()
             })
         },
+        beforeMount() {
+            if( window.location.hash.includes("playlist") ) {
+                window.addEventListener('keydown', this.getCopiedPlayListSongs);
+            }
+        },
         watch: {
             data: {
                 handler: function () {
@@ -779,6 +784,20 @@
             navClass(data) {
                 if (data && typeof data.views != "undefined") return "";
                 return "d-none";
+            },
+            async getCopiedPlayListSongs(event) {
+                if( event.ctrlKey && event.keyCode === 67 ) {
+                    let urls = [];
+                    app.selectedMediaItems.forEach(item => {
+                        this.app.mk.api.v3.music(`/v1/me/library/songs/${item.id}`).then((response) => {
+                            this.app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/songs/${response.data.data[0].attributes.playParams.catalogId}`).then((response1) => {
+                                urls.push(response1.data.data[0].attributes.url)
+                                navigator.clipboard.writeText(urls)
+                            })
+                        })
+                    })
+                    notyf.success(app.getLz('term.share.success'))
+                }
             },
             search() {
                 let filtered = [];
