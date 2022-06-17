@@ -61,18 +61,28 @@
       };
     },
     async mounted() {   
-      const queryDefaults = `?platform=web&l=en-us&extend=editorialArtwork%2CartistUrl&omit%5Bresource%3Aartists%5D=relationships&include[groupings]=curator&include[albums]=artists&include[songs]=artists&include[music-videos]=artists&fields%5Bartists%5D=name%2Curl%2Cartwork%2CeditorialArtwork%2CgenreNames%2CeditorialNotes`
+      const queryDefaults = {
+        "platform": "web",
+        "l" : this.$root.mklang,
+        "extend": "editorialArtwork,artistUrl",
+        "omit[resource:artists]": "relationships",
+        "include[groupings]": "curator",
+        "include[albums]": "artists",
+        "include[songs]": "artists",
+        "include[music-videos]": "artists",
+        "fields[artists]": "name,url,artwork,editorialArtwork,genreNames,editorialNotes",
+      }
       const hash = window.location.hash;
       // get everything after the first / character but keep everything afterwards
-      const query = hash.substring(hash.indexOf("/") + 1);
+      const query = hash.substring(hash.indexOf("/") + 1, hash.indexOf("&") > 0 ? hash.indexOf("&") : hash.length);
       this.query = query;
-      if(!this.query.includes("?")) {
-        this.query += queryDefaults;
-      }
+      // if(!this.query.includes("?")) {
+      //   this.query += queryDefaults;
+      // }
       console.debug(query);
       const result = await this.$root.mk.api.v3.music(
         `/v1/editorial/${this.$root.mk.storefrontId}/groupings/${this.query}`
-      );
+      ,!this.query.includes("&") ? queryDefaults : {"platform": "web"});
       this.data = result.data.data[0];
 
       console.log(this.data);

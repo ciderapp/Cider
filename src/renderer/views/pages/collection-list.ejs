@@ -58,19 +58,33 @@
         },
         methods: {
             getClasses() {
-                if(this.commonKind != "song") {
-                    return "collection-list-square";
-                }else{
+                if ((this.data?.data?.length ?? 0) > 0) {
+                    let item = this.data.data[0]
+                    if (typeof item.kind != "undefined") {
+                        this.commonKind = item.kind;
+                        return item.kind
+                    }
+                    if (typeof item.attributes.playParams != "undefined") {
+                        this.commonKind = item.attributes.playParams.kind
+                        return item.attributes.playParams.kind
+                    }
+                    if (this.commonKind != "song") {
+                        return "collection-list-square";
+                    } else {
+                        return "";
+                    }
+                } else {
                     return "";
                 }
+
             },
             getKind(item) {
                 if (typeof item.kind != "undefined") {
-                    this.commonKind = item.kind;
+                  //  this.commonKind = item.kind;
                     return item.kind
                 }
                 if (typeof item.attributes.playParams != "undefined") {
-                    this.commonKind = item.attributes.playParams.kind
+                  //  this.commonKind = item.attributes.playParams.kind
                     return item.attributes.playParams.kind
                 }
                 return this.commonKind

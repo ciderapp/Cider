@@ -14,9 +14,6 @@
     <add-to-playlist :playlists="playlists.listing" v-if="modals.addToPlaylist"></add-to-playlist>
 </transition>
 <transition name="modal">
-    <spatial-properties v-if="modals.spatialProperties"></spatial-properties>
-</transition>
-<transition name="modal">
     <audio-controls v-if="modals.audioControls"></audio-controls>
 </transition>
 <transition name="modal">

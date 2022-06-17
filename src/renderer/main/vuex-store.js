@@ -6,11 +6,24 @@ const store = new Vuex.Store({
             // recentlyAdded: ipcRenderer.sendSync("get-library-recentlyAdded"),
             // playlists: ipcRenderer.sendSync("get-library-playlists")
         },
+        pageState: {
+            recentlyAdded: {
+                loaded: false,
+                nextUrl: null,
+                items: [],
+                size: "normal"
+            }
+        },
         artwork: {
             playerLCD: ""
         }
     },
     mutations: {
+        resetRecentlyAdded(state) {
+            state.pageState.recentlyAdded.loaded = false;
+            state.pageState.recentlyAdded.nextUrl = null;
+            state.pageState.recentlyAdded.items = [];
+        },
         setLCDArtwork(state, artwork) {
             state.artwork.playerLCD = artwork
         }

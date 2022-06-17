@@ -8,8 +8,7 @@
         <div v-if="reasonShown" class="reasonSP ">{{item?.meta?.reason?.stringForDisplay ?? ''}}</div>
         <div style="{'--spcolor': getBgColor()}"
              class="cd-mediaitem-square" :class="getClasses()" @contextmenu="getContextMenu">
-            <template>
-                <div class="artwork-container">
+                <div class="artwork-container" v-show="isVisible">
                     <div class="unavailable-overlay" v-if="unavailable">
                         <div class="codicon codicon-circle-slash"></div>
                     </div>
@@ -40,6 +39,7 @@
                     </div>
                 </div>
                 <div class="info-rect" :class="{'info-rect-card': kind == 'card'}"
+					v-show="isVisible"
                      :style="{'--bgartwork': getArtworkUrl(size, true)}">
                     <div class="title"
                          :title="item.attributes?.name ?? (item.relationships?.contents?.data[0]?.attributes?.name ?? (item.attributes?.editorialNotes?.name ?? ''))"
@@ -58,7 +58,6 @@
                     </div>
                     <div class="subtitle" v-if="getSubtitle() == '' && kind != 'card'">&nbsp;</div>
                 </div>
-            </template>
         </div>
     </div>
 </script>
@@ -88,6 +87,11 @@
 				default: false,
 				required: false
 			},
+            noScale: {
+                type: Boolean,
+                default: false,
+                required: false
+            },
 			'contextExt': { type: Object, required: false },
 		},
 		data: function () {
@@ -252,6 +256,10 @@
 			},
 			getClasses() {
 				let type = []
+                let classes = []
+                if(this.noScale) {
+                    classes.push("noscale")
+                }
 				try {
 					type = this.item.type
 
@@ -264,25 +272,26 @@
 				}
 				switch (type) {
 					default:
-						return []
+
 						break;
 					case "editorial-elements":
 					case "card":
-						return ["mediaitem-card"]
+						classes.push("mediaitem-card")
 						break;
 					case "385": // editorial
-						return ["mediaitem-brick"]
+                        classes.push("mediaitem-brick")
 						break;
 					case "small":
-						return ["mediaitem-small"]
+						classes.push("mediaitem-small")
 						break;
 					case "music-videos":
 					case "uploadedVideo":
 					case "uploaded-videos":
 					case "library-music-videos":
-						return "mediaitem-video";
+						classes.push("mediaitem-video")
 						break;
 				}
+                return classes
 			},
 			visibilityChanged: function (isVisible, entry) {
 				this.isVisible = isVisible
@@ -534,19 +543,16 @@
 				let followActions = {
 					follow: {
 						icon: "./assets/feather/plus-circle.svg",
-						name: app.getLz('action.follow'),
+						name: app.getLz('action.favorite'),
 						action: () => {
-							self.app.cfg.home.followedArtists.push(this.item.id)
+							self.$root.setArtistFavorite(this.item.id, true)
 						}
 					},
 					unfollow: {
 						icon: "./assets/feather/x-circle.svg",
-						name: app.getLz('action.unfollow'),
+						name: app.getLz('action.removeFavorite'),
 						action: () => {
-							let index = self.app.cfg.home.followedArtists.indexOf(this.item.id)
-							if (index > -1) {
-								self.app.cfg.home.followedArtists.splice(index, 1)
-							}
+							self.$root.setArtistFavorite(this.item.id, false)
 						}
 					}
 				}

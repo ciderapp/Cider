@@ -383,7 +383,9 @@ Update 14/05/2022 02:00 UTC
 * `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.E68_2`: Added for `en_US`
 * `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.E168_1`: Added for `en_US`
 * `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.Z3600`: Added for `en_US`
-* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.Z8500`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.Z8500A`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.Z8500B`: Added for `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.Z8500C`: Added for `en_US`
 
 Update 18/05/2022 14:20 UTC
 
@@ -427,3 +429,26 @@ Update 24/05/2022 21:15 UTC
 * `settings.option.general.updateCider.branch.main`: Deleted for all language files 
 * `settings.option.general.updateCider.branch.develop`: Deleted for all language files
 * `settings.notyf.updateCider.update-error`: Deleted for all language files
+
+Update 30/5/2022 05:35 UTC
+
+* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.BSCBM`: Added to `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.CUDDLE`: Added to `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.bplk`: Added to `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.hw2k`: Added to `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.adaptive`: Added to `en_US`
+* `settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.legacy`: Added to `en_US`
+
+Update 03/06/2022 11:40 UTC
+
+* `settings.option.connectivity.discordRPC.reload`: Added to `en_US`
+* `settings.option.connectivity.discordRPC.reconnectedToUser`: Added to `en_US`
+
+Update 10/06/2022 20:00 UTC
+
+* `settings.option.visual.purplePodcastPlaybackBar`: Added to `en_US`
+
+Update 14/06/2022 14:10 UTC
+
+* `term.themeManaged`: Added to `en_US`
+

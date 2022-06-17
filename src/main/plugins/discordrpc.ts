@@ -70,6 +70,22 @@ export default class DiscordRPC {
                     })
             }
         })
+        ipcMain.on("reloadRPC", () => {
+            console.log(`[DiscordRPC][reload] Reloading DiscordRPC.`);
+            this._client.destroy()
+
+            this._client.endlessLogin({clientId: this._utils.getStoreValue("general.discordrpc.client") === "Cider" ? '911790844204437504' : '886578863147192350'})
+                .then(() => {
+                    this.ready = true
+                    this._utils.getWindow().webContents.send("rpcReloaded", this._client.user)
+                    if (this._activityCache && this._activityCache.details && this._activityCache.state) {
+                        console.info(`[DiscordRPC][reload] Restoring activity cache.`);
+                        this._client.setActivity(this._activityCache)
+                    }
+                })
+                .catch((e: any) => console.error(`[DiscordRPC][reload] ${e}`));
+            // this.connect(true)
+        })
     }
 
     /**
@@ -112,7 +128,6 @@ export default class DiscordRPC {
         if (!this._utils.getStoreValue("general.discordrpc.enabled")) {
             return;
         }
-        const clientId = this._utils.getStoreValue("general.discordrpc.client") === "Cider" ? '911790844204437504' : '886578863147192350';
 
         // Create the client
         this._client = new AutoClient({transport: "ipc"});
@@ -128,7 +143,7 @@ export default class DiscordRPC {
         })
 
         // Login to Discord
-        this._client.endlessLogin({clientId: clientId})
+        this._client.endlessLogin({clientId: this._utils.getStoreValue("general.discordrpc.client") === "Cider" ? '911790844204437504' : '886578863147192350'})
             .then(() => {
                 this.ready = true
             })

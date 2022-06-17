@@ -9,6 +9,7 @@
     "sourceMap": true,
     "outDir": "./build",
     "baseUrl": ".",
+    "resolveJsonModule": true,
     "paths": {
       "*": ["node_modules/*"]
     },

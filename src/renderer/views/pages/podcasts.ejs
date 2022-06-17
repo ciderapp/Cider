@@ -68,7 +68,7 @@
         <transition name="wpfade">
             <div class="podcasts-details" v-if="selected.id != -1">
                 <div class="podcasts-details-header">
-                    <button class="close-btn" @click="selected.id = -1" :aria-label="app.getLz('action.close')"></button>
+                    <button class="close-btn" @click="selected.id = -1" :aria-label="$root.getLz('action.close')"></button>
                 </div>
                 <div class="podcast-artwork">
                     <mediaitem-artwork shadow="large" :url="selected.attributes.artwork.url" size="300"></mediaitem-artwork>

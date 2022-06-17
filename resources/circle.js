@@ -15,7 +15,7 @@ const patch = version[2].split('-');
 if (process.env['CIRCLE_BRANCH'] === 'release') {
 	pkg.version = `${version[0]}.${version[1]}.${patch[0]}`
 } else if (process.env['CIRCLE_BRANCH'] === 'main') {
-	pkg.version = `${version[0]}.${version[1]}.${patch[0]}-beta.${patch[1]}`
+	pkg.version = `${version[0]}.${version[1]}.${patch[0]}.beta.${patch[1]}`
 } else {
 	pkg.version = `${version[0]}.${version[1]}.${patch[0]}-${channel}.${process.env['CIRCLE_BUILD_NUM']}`
 }

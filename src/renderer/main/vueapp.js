@@ -26,6 +26,7 @@ const app = new Vue({
             showHints: false,
             results: {},
             resultsSocial: {},
+            resultsLibrary: {},
             limit: 10
         },
         fullscreenLyrics: false,
@@ -116,6 +117,7 @@ const app = new Vue({
                 displayListing: [],
                 downloadState: 0 // 0 = not started, 1 = in progress, 2 = complete, 3 = empty library
             },
+            localsongs: []
         },
         playlists: {
             listing: [],
@@ -177,9 +179,7 @@ const app = new Vue({
                     "artwork": { "url": "./assets/logocut.png" }
                 }
             },
-            forceDirectives: {
-
-            },
+            forceDirectives: {},
             menuOpened: false,
             maximized: false,
             drawerOpened: false,
@@ -241,8 +241,8 @@ const app = new Vue({
         },
         moreinfodata: [],
         notyf: notyf,
-        idleTimer : null,
-        idleState : false,
+        idleTimer: null,
+        idleState: false,
     },
     watch: {
         cfg: {
@@ -274,6 +274,31 @@ const app = new Vue({
         }, false)
     },
     methods: {
+        setWindowHash(route = "") {
+            window.location.hash = `#${route}`;
+        },
+        async oobeInit() {
+            this.appMode = "oobe"
+            this.setLz(this.cfg.general.language)
+            this.setLzManual()
+            clearTimeout(this.hangtimer)
+            document.body.removeAttribute("loading")
+            ipcRenderer.invoke("renderer-ready", true)
+            document.querySelector("#LOADER").remove()
+        },
+        getAppStyle() {
+            let finalStyle = {}
+            if (this.cfg.visual.window_background_style === "color") {
+                finalStyle["background-color"] = this.cfg.visual.windowColor
+            }
+            if (this.cfg.visual.customAccentColor) {
+                finalStyle["--keyColor"] = this.cfg.visual.accentColor
+                finalStyle["--songProgressColor"] = this.cfg.visual.accentColor
+            } else if (this.cfg.visual.purplePodcastPlaybackBar && MusicKit.getInstance().nowPlayingItem?.type == "podcast-episodes") {
+                finalStyle["--songProgressColor"] = '#6929D0'
+            }
+            return finalStyle
+        },
         setTimeout(func, time) {
             return setTimeout(func, time);
         },
@@ -297,10 +322,11 @@ const app = new Vue({
             }
         },
         formatVolumeTooltip() {
-            return this.cfg.audio.dBSPL ? (Number(this.cfg.audio.dBSPLcalibration) + (Math.log10(this.mk.volume) * 20)).toFixed(2) + ' dB SPL' : (Math.log10(this.mk.volume) * 20).toFixed(2) + ' dBFS'
+            let advancedTooltip = this.cfg.audio.dBSPL ? (Number(this.cfg.audio.dBSPLcalibration) + (Math.log10(this.mk.volume) * 20)).toFixed(2) + ' dB SPL' : (Math.log10(this.mk.volume) * 20).toFixed(2) + ' dBFS'
+            return this.cfg.audio.advanced ? advancedTooltip : (this.mk.volume * 100).toFixed(0) + '%'
         },
-        mainMenuVisibility(val) {
-            if(this.chrome.sidebarCollapsed) {
+        mainMenuVisibility(val, isContextMenu) {
+            if (this.chrome.sidebarCollapsed && !isContextMenu) {
                 this.chrome.sidebarCollapsed = false
                 return
             }
@@ -334,7 +360,8 @@ const app = new Vue({
                 this.listennow.timestamp = 0;
                 this.browsepage.timestamp = 0;
                 this.radio.timestamp = 0;
-            } catch (e) { }
+            } catch (e) {
+            }
         },
         /**
          * Grabs translation for localization.
@@ -490,18 +517,20 @@ const app = new Vue({
             })
         },
         goToGrouping(url = "https://music.apple.com/WebObjects/MZStore.woa/wa/viewGrouping?cc=us&id=34") {
-            const id = url.split("id=")[1];
-            window.location.hash = `#groupings/${id}`
+            if (url.includes('viewTop')) {
+                window.location.hash = `#charts/top`
+            } else {
+                const id = url.split("id=")[1];
+                window.location.hash = `#groupings/${id}`
+            }
         },
         navigateForward() {
             history.forward()
         },
         getHTMLStyle() {
-            if (app.cfg.visual.uiScale != 1) {
-                document.querySelector("#app").style.zoom = app.cfg.visual.uiScale
-            } else {
-                document.querySelector("#app").style.zoom = ""
-            }
+
+            ipcRenderer.send("setScreenScale", app.cfg.visual.uiScale);
+
         },
         resetState() {
             this.menuPanel.visible = false;
@@ -617,7 +646,9 @@ const app = new Vue({
         },
         async init() {
             let self = this
-
+            if (!localStorage.getItem("seenOOBE")) {
+                localStorage.setItem("seenOOBE", 1)
+            }
             if (this.cfg.visual.styles.length != 0) {
                 await this.reloadStyles()
             }
@@ -694,9 +725,6 @@ const app = new Vue({
                 // Set mk.volume to -1 (setting to 0 wont work, so temp solution setting to -1)
                 this.mk.volume = -1;
             }
-            // ipcRenderer.invoke('getStoreValue', 'audio.volume').then((value) => {
-            //     self.mk.volume = value
-            // })
 
             // load cached library
             let librarySongs = await CiderCache.getCache("library-songs")
@@ -809,13 +837,30 @@ const app = new Vue({
                 }
             })
 
+            /**
+             * DiscordRPC Reload Return Event
+             * @author @coredev-uk
+             */
+            ipcRenderer.on('rpcReloaded', (e, user) => {
+                if (user.username) {
+                    app.notyf.success(app.stringTemplateParser(app.getLz("settings.option.connectivity.discordRPC.reconnectedToUser"), {
+                        user: `${user.username}#${user.discriminator}`,
+                        userid: user.id
+                    }));
+                }
+            })
+
+            ipcRenderer.on('getUpdatedLocalList', (event, data) => {
+                console.log("cider-local", data);
+                this.library.localsongs = data;
+            })
+
             ipcRenderer.on('SoundCheckTag', (event, tag) => {
                 // let replaygain = self.parseSCTagToRG(tag)
                 try {
                     if (app.mk.nowPlayingItem.type !== 'song') {
                         CiderAudio.audioNodes.gainNode.gain.value = 0.70794578438;
-                    }
-                    else {
+                    } else {
                         let soundcheck = tag.split(" ")
                         let numbers = []
                         for (let item of soundcheck) {
@@ -824,18 +869,23 @@ const app = new Vue({
                         }
                         numbers.shift()
                         let peak = Math.max(numbers[6], numbers[7]) / 32768.0
-                        let gain = Math.pow(10, ((-1.3 - (Math.log10(peak) * 20)) / 20))// EBU R 128 Compliant
+                        let gain = Math.pow(10, ((-1.7 - (Math.log10(peak) * 20)) / 20))// EBU R 128 Compliant
                         console.debug(`[Cider][MaikiwiSoundCheck] Peak Gain: '${(Math.log10(peak) * 20).toFixed(2)}' dB | Adjusting '${(Math.log10(gain) * 20).toFixed(2)}' dB`)
                         try {
                             //CiderAudio.audioNodes.gainNode.gain.value = (Math.min(Math.pow(10, (replaygain.gain / 20)), (1 / replaygain.peak)))
                             CiderAudio.audioNodes.gainNode.gain.value = gain
-                        } catch (e) { }
+                        } catch (e) {
+                        }
                     }
-                } catch (e) { 
-                    try { ipcRenderer.send('SoundCheckTag', event, tag); } 
-                    catch (e) { 
-                        try {ipcRenderer.send('SoundCheckTag', event, tag);} 
-                        catch (e) {console.log("[Cider][MaikiwiSoundCheck] Error [Gave up after 3 consecutive attempts]: " + e)}
+                } catch (e) {
+                    try {
+                        ipcRenderer.send('SoundCheckTag', event, tag);
+                    } catch (e) {
+                        try {
+                            ipcRenderer.send('SoundCheckTag', event, tag);
+                        } catch (e) {
+                            console.log("[Cider][MaikiwiSoundCheck] Error [Gave up after 3 consecutive attempts]: " + e)
+                        }
                     }
                 } // brute force until it works
             })
@@ -864,12 +914,28 @@ const app = new Vue({
                 ipcRenderer.send('wsapi-updatePlaybackState', wsapi.getAttributes());
             })
 
-            this.mk.addEventListener(MusicKit.Events.queueItemsDidChange, ()=>{
+            this.mk.addEventListener(MusicKit.Events.queueItemsDidChange, () => {
                 if (self.$refs.queue) {
-                    setTimeout(()=>{
+                    setTimeout(() => {
                         self.$refs.queue.updateQueue();
                     }, 100)
                 }
+            })
+
+            // Used for Live Radio stations to set Metadata
+            this.mk.addEventListener(MusicKit.Events.timedMetadataDidChange, (e) => {
+                app.mk.nowPlayingItem.attributes.name = e.title
+                app.mk.nowPlayingItem.attributes.artistName = e.performer
+                app.mk.nowPlayingItem.attributes.albumName = e.album
+                if(e.links[1]) {
+                    app.currentArtUrl = e.links[1].url
+                    app.currentArtUrlRaw = e.links[1].url
+                }else{
+                    app.currentArtUrl = e.links[0].url
+                    app.currentArtUrlRaw = e.links[0].url
+                }
+                app.mk.nowPlayingItem._songId = e._adamId ? e._adamId : -1
+                app.mk.nowPlayingItem.id = e._adamId ? e._adamId : -1
             })
 
             this.mk.addEventListener(MusicKit.Events.nowPlayingItemDidChange, (a) => {
@@ -877,29 +943,29 @@ const app = new Vue({
                     self.$refs.queue.updateQueue();
                 }
                 this.currentSongInfo = a
-                
-                try { 
-                    if (app.mk.nowPlayingItem.flavor.includes("64")) {
-                        if (localStorage.getItem("playingBitrate") !== "64") {
-                            localStorage.setItem("playingBitrate", "64")
-                            CiderAudio.hierarchical_loading();
-                        }
-                    }
-                    else if (app.mk.nowPlayingItem.flavor.includes("256")) { 
-                        if (localStorage.getItem("playingBitrate") !== "256") {
+
+                if (app.cfg.advanced.AudioContext) {
+                    try {
+                        if (app.mk.nowPlayingItem.flavor.includes("64")) {
+                            if (localStorage.getItem("playingBitrate") !== "64") {
+                                localStorage.setItem("playingBitrate", "64")
+                                CiderAudio.hierarchical_loading();
+                            }
+                        } else if (app.mk.nowPlayingItem.flavor.includes("256")) {
+                            if (localStorage.getItem("playingBitrate") !== "256") {
+                                localStorage.setItem("playingBitrate", "256")
+                                CiderAudio.hierarchical_loading();
+                            }
+                        } else {
                             localStorage.setItem("playingBitrate", "256")
                             CiderAudio.hierarchical_loading();
                         }
-                    }
-                    else {
+                    } catch (e) {
                         localStorage.setItem("playingBitrate", "256")
                         CiderAudio.hierarchical_loading();
                     }
-                } catch(e) {
-                    localStorage.setItem("playingBitrate", "256")
-                    CiderAudio.hierarchical_loading();
                 }
-                
+
                 if (app.cfg.audio.normalization) {
                     // get unencrypted audio previews to get SoundCheck's normalization tag
                     try {
@@ -960,7 +1026,7 @@ const app = new Vue({
                 }
                 setTimeout(() => {
                     let i = (document.querySelector('#apple-music-player')?.src ?? "")
-                    if (i.endsWith(".m3u8") || i.endsWith(".m3u")){
+                    if (i.endsWith(".m3u8") || i.endsWith(".m3u")) {
                         this._playRadioStream(i)
                     }
                 }, 1500)
@@ -977,7 +1043,7 @@ const app = new Vue({
                 this.appRoute(window.location.hash)
             }
 
-            if(this.page != "home") {
+            if (this.page != "home") {
                 this.resumeTabs()
             }
             this.mediaKeyFixes()
@@ -988,7 +1054,7 @@ const app = new Vue({
                 this.$forceUpdate()
             }, 500)
             document.querySelector('#apple-music-video-player-controls').addEventListener('mousemove', () => {
-                    this.showFoo('.music-player-info',2000);
+                this.showFoo('.music-player-info', 2000);
             })
             ipcRenderer.invoke("renderer-ready", true)
             document.querySelector("#LOADER").remove()
@@ -996,7 +1062,7 @@ const app = new Vue({
                 this.checkForThemeUpdates()
             }
         },
-        showFoo(querySelector,time) {
+        showFoo(querySelector, time) {
             clearTimeout(this.idleTimer);
             if (this.idleState == true) {
                 document.querySelector(querySelector).classList.remove("inactive");
@@ -1019,7 +1085,11 @@ const app = new Vue({
                         .then(res => res.json())
                         .then(res => {
                             if (res[0].sha != theme.commit) {
-                                const notify = notyf.open({ className: "notyf-info", type: "info", message: `[Themes] ${theme.name} has an update available.` })
+                                const notify = notyf.open({
+                                    className: "notyf-info",
+                                    type: "info",
+                                    message: `[Themes] ${theme.name} has an update available.`
+                                })
                                 notify.on("click", () => {
                                     app.appRoute("themes-github")
                                     notyf.dismiss(notify)
@@ -1118,9 +1188,20 @@ const app = new Vue({
         },
         getAppClasses() {
             let classes = {}
-            if (this.cfg.advanced.experiments.includes('compactui')) {
-                classes.compact = true
+            switch (this.getThemeDirective('forceUI') ?? "none") {
+                case "compact":
+                    classes.compact = true;
+                    break;
+                case "standard":
+                    classes.compact = false;
+                    break;
+                default:
+                    if (this.cfg.advanced.experiments.includes('compactui')) {
+                        classes.compact = true;
+                    }
+                    break;
             }
+
             if (this.cfg.visual.window_background_style == "none") {
                 classes.simplebg = true
             }
@@ -1202,12 +1283,72 @@ const app = new Vue({
                 }
             })
         },
+        async syncFavorites() {
+            const notify = notyf.open({
+                className: "notyf-info",
+                type: "info",
+                message: `[${app.getLz('home.syncFavorites')}] ${app.getLz('home.syncFavorites.gettingArtists')}`
+            })
+            const results = await MusicKitTools.v3Continuous({
+                href: "/v1/me/library/artists", options: {
+                    "include": ["catalog"],
+                    "fields[artists]": ["inFavorites"]
+                }
+            })
+            let favs = []
+            // for each result
+            results.forEach(result => {
+                try {
+                    if (result.relationships?.catalog?.data[0]?.attributes?.inFavorites) {
+                        if(!favs.includes(result.relationships?.catalog?.data[0].id)) {
+                            favs.push(result.relationships?.catalog?.data[0].id)
+                        }
+                    }
+                } catch (e) {
+                    e = null
+                }
+            })
+            notyf.success(`[${app.getLz('home.syncFavorites')}] ${app.getLz('action.done')}`)
+            app.cfg.home.followedArtists = favs
+            return favs
+        },
+        async setArtistFavorite(id, val = true) {
+            if(val) {
+                if(!app.cfg.home.followedArtists.includes(id)) {
+                    app.cfg.home.followedArtists.push(id)
+                }
+                await app.mk.api.v3.music(`/v1/me/favorites`, {
+                    "art[url]": "f",
+                    "ids[artists]": app.artistPage.data.id,
+                    "l": app.mklang,
+                    "platform": "web"
+                }, {
+                    fetchOptions: {
+                        method: "POST"
+                    }
+                })
+            }else{
+                if(app.cfg.home.followedArtists.includes(id)) {
+                    app.cfg.home.followedArtists.splice(app.cfg.home.followedArtists.indexOf(id), 1)
+                }
+                await app.mk.api.v3.music(`/v1/me/favorites`, {
+                    "art[url]": "f",
+                    "ids[artists]": app.artistPage.data.id,
+                    "l": app.mklang,
+                    "platform": "web"
+                }, {
+                    fetchOptions: {
+                        method: "DELETE"
+                    }
+                })
+            }
+        },
         async refreshPlaylists(localOnly = false, useCachedPlaylists = true) {
             let self = this
             let trackMap = this.cfg.advanced.playlistTrackMapping
             let newListing = []
             let trackMapping = {}
-            
+
             if (useCachedPlaylists) {
                 const cachedPlaylist = await CiderCache.getCache("library-playlists")
                 const cachedTrackMapping = await CiderCache.getCache("library-playlists-tracks")
@@ -1235,7 +1376,7 @@ const app = new Vue({
             async function deepScan(parent = "p.playlistsroot") {
                 console.debug(`scanning ${parent}`)
                 // const playlistData = await app.mk.api.v3.music(`/v1/me/library/playlist-folders/${parent}/children/`)
-                const playlistData = await MusicKitTools.v3Continuous({href: `/v1/me/library/playlist-folders/${parent}/children/`})
+                const playlistData = await MusicKitTools.v3Continuous({ href: `/v1/me/library/playlist-folders/${parent}/children/` })
                 console.log(playlistData)
                 await asyncForEach(playlistData, async (playlist) => {
                     playlist.parent = parent
@@ -1267,10 +1408,12 @@ const app = new Vue({
                                 }
                             })
                         }
-                    } catch (e) { }
+                    } catch (e) {
+                    }
                     if (playlist.type == "library-playlist-folders") {
                         try {
-                            await deepScan(playlist.id).catch(e => { })
+                            await deepScan(playlist.id).catch(e => {
+                            })
                         } catch (e) {
 
                         }
@@ -1428,10 +1571,10 @@ const app = new Vue({
                 })
             }
         },
-        /** 
+        /**
          * @param {string} url, href for the initial request
          * @memberof app
-        */
+         */
         async showRoom(url) {
             let self = this
             const response = await this.mk.api.v3.music(url)
@@ -1559,7 +1702,7 @@ const app = new Vue({
             this.page = ""
             const artistData = await this.mkapi("artists", false, id, {
                 "views": "featured-release,full-albums,appears-on-albums,featured-albums,featured-on-albums,singles,compilation-albums,live-albums,latest-release,top-music-videos,similar-artists,top-songs,playlists,more-to-hear,more-to-see",
-                "extend": "artistBio,bornOrFormed,editorialArtwork,editorialVideo,isGroup,origin,hero",
+                "extend": "centeredFullscreenBackground,artistBio,bornOrFormed,editorialArtwork,editorialVideo,isGroup,origin,hero",
                 "extend[playlists]": "trackCount",
                 "include[songs]": "albums",
                 "fields[albums]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialVideo,name,playParams,releaseDate,url,trackCount",
@@ -1654,8 +1797,7 @@ const app = new Vue({
                 const mDisplay = m > 0 ? `${m} ${app.getLz("term.time.minute", { "count": m })}` : "";
 
                 return dDisplay + (dDisplay && hDisplay ? ", " : "") + hDisplay + (hDisplay && mDisplay ? ", " : "") + mDisplay;
-            }
-            else {
+            } else {
                 let returnTime = datetime.toISOString().substring(11, 19);
 
                 const timeGates = {
@@ -1753,27 +1895,28 @@ const app = new Vue({
                     if (item.attributes.link.url.includes("viewMultiRoom")) {
                         const params = new Proxy(new URLSearchParams(item.attributes.link.url), {
                             get: (searchParams, prop) => searchParams.get(prop),
-                          });
+                        });
                         id = params.fcId
                         app.getTypeFromID("multiroom", id, false, {
                             platform: "web",
                             extend: "editorialArtwork,uber,lockupStyle"
-                        }).then(()=> {
+                        }).then(() => {
                             kind = "multiroom"
                             window.location.hash = `${kind}/${id}`
                             document.querySelector("#app-content").scrollTop = 0
                         })
-                        
+
                         return;
                     } else {
-                    window.open(item.attributes.link.url)}
+                        window.open(item.attributes.link.url)
+                    }
                 }
 
-            } else if (kind == "multirooms"){
+            } else if (kind == "multirooms") {
                 app.getTypeFromID("multiroom", id, false, {
                     platform: "web",
                     extend: "editorialArtwork,uber,lockupStyle"
-                }).then(()=> {
+                }).then(() => {
                     kind = "multiroom"
                     window.location.hash = `${kind}/${id}`
                     document.querySelector("#app-content").scrollTop = 0
@@ -1812,7 +1955,7 @@ const app = new Vue({
                     params["meta[albums:tracks]"] = 'popularity'
                     params["fields[albums]"] = "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialNotes,editorialVideo,name,playParams,releaseDate,url,copyright"
                 }
-                if (kind.includes("playlist") || kind.includes("album")){
+                if (kind.includes("playlist") || kind.includes("album")) {
                     app.page = (kind) + "_" + (id);
                     window.location.hash = `${kind}/${id}${isLibrary ? "/" + isLibrary : ''}`
                     app.getTypeFromID((kind), (id), (isLibrary), params);
@@ -1847,33 +1990,40 @@ const app = new Vue({
             }
         },
         isDisabled() {
-            if(!app.mk.nowPlayingItem || app.mk.nowPlayingItem.attributes.playParams.kind == 'radioStation') {
+            if (!app.mk.nowPlayingItem || app.mk.nowPlayingItem.attributes.playParams.kind == 'radioStation') {
                 return true;
             }
             return false;
         },
         isPrevDisabled() {
-            if(this.isDisabled()  || (app.mk.queue._position == 0 && app.mk.currentPlaybackTime <= 2)) {
+            if (this.isDisabled() || (app.mk.queue._position == 0 && app.mk.currentPlaybackTime <= 2)) {
                 return true;
             }
             return false;
         },
         isNextDisabled() {
-            if(this.isDisabled()  || app.mk.queue._position + 1 == app.mk.queue.length) {
+            if (this.isDisabled() || app.mk.queue._position + 1 == app.mk.queue.length) {
                 return true;
             }
             return false;
         },
-        
+
         async getNowPlayingItemDetailed(target) {
+            let nowPlayingItem = JSON.parse(JSON.stringify(this.mk.nowPlayingItem))
+            if(nowPlayingItem.type === "radioStation" && app.mk.nowPlayingItem.id !== -1) {
+                nowPlayingItem.playParams = {kind: "songs"}
+                nowPlayingItem.attributes.playParams.catalogId = app.mk.nowPlayingItem.id
+                nowPlayingItem.attributes.playParams.id = app.mk.nowPlayingItem.id
+                nowPlayingItem.id = app.mk.nowPlayingItem.id
+            }
             try {
-                let u = await app.mkapi(app.mk.nowPlayingItem.playParams.kind,
-                    (app.mk.nowPlayingItem.songId == -1),
-                    (app.mk.nowPlayingItem.songId != -1) ? app.mk.nowPlayingItem.songId : app.mk.nowPlayingItem["id"],
+                let u = await app.mkapi(nowPlayingItem.playParams.kind,
+                    (nowPlayingItem.songId == -1),
+                    (nowPlayingItem.songId != -1) ? nowPlayingItem.songId : nowPlayingItem["id"],
                     { "include[songs]": "albums,artists", l: app.mklang });
                 app.searchAndNavigate(u.data.data[0], target)
             } catch (e) {
-                app.searchAndNavigate(app.mk.nowPlayingItem, target)
+                app.searchAndNavigate(nowPlayingItem, target)
             }
         },
         async searchAndNavigate(item, target) {
@@ -1989,16 +2139,6 @@ const app = new Vue({
             this.getArtistFromID(id)
             //this.getTypeFromID("artist",id,isLibrary,query)
         },
-        followArtistById(id, follow) {
-            if (follow && !this.followingArtist(id)) {
-                this.cfg.home.followedArtists.push(id)
-            } else {
-                let index = this.cfg.home.followedArtists.indexOf(id)
-                if (index > -1) {
-                    this.cfg.home.followedArtists.splice(index, 1)
-                }
-            }
-        },
         followingArtist(id) {
             console.debug(`check for ${id}`)
             return this.cfg.home.followedArtists.includes(id)
@@ -2015,8 +2155,7 @@ const app = new Vue({
                     app.mk.setStationQueue({ artist: 'a-' + id }).then(() => {
                         app.mk.play()
                     })
-                }
-                else {
+                } else {
                     app.playMediaItemById((id), (kind), (isLibrary), item.attributes.url ?? '')
                 }
             })
@@ -2039,7 +2178,7 @@ const app = new Vue({
                 } finally {
                     if (kind == "appleCurator") {
                         app.appleCurator = a.data.data[0]
-                    } else if (kind == "multiroom"){
+                    } else if (kind == "multiroom") {
                         app.multiroom = a.data.data[0]
                     } else {
                         this.getPlaylistContinuous(a, true)
@@ -2048,7 +2187,7 @@ const app = new Vue({
             } finally {
                 if (kind == "appleCurator") {
                     app.appleCurator = a.data.data[0]
-                } else if (kind == "multiroom"){
+                } else if (kind == "multiroom") {
                     app.multiroom = a.data.data[0]
                 } else {
                     this.getPlaylistContinuous(a, true)
@@ -2292,8 +2431,7 @@ const app = new Vue({
             try {
                 if (method.includes(`multiroom`)) {
                     return await this.mk.api.v3.music(`v1/editorial/${app.mk.storefrontId}/${truemethod}/${term.toString()}`, params, params2)
-                }
-                else if (library) {
+                } else if (library) {
                     return await this.mk.api.v3.music(`v1/me/library/${truemethod}/${term.toString()}`, params, params2)
                 } else {
                     return await this.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/${truemethod}/${term.toString()}`, params, params2)
@@ -2320,6 +2458,7 @@ const app = new Vue({
             let library = []
             let cacheId = "library-songs"
             let downloaded = null;
+            this.$store.commit("resetRecentlyAdded")
             if ((this.library.songs.downloadState == 2) && !force) {
                 return
             }
@@ -2642,7 +2781,7 @@ const app = new Vue({
                     "include[songs]": "artists",
                     "include[music-videos]": "artists",
                     "fields[albums]": ["artistName", "artistUrl", "artwork", "contentRating", "editorialArtwork", "editorialVideo", "name", "playParams", "releaseDate", "url"],
-                    "fields[artists]": ["name", "url"],
+                    "fields[artists]": ["name", "url", "artwork"],
                     "extend[stations]": ["airDate", "supportsAirTimeUpdates"],
                     "meta[stations]": "inflectionPoints",
                     types: "artists,albums,editorial-items,library-albums,library-playlists,music-movies,music-videos,playlists,stations,uploaded-audios,uploaded-videos,activities,apple-curators,curators,tv-shows,social-upsells",
@@ -3042,7 +3181,8 @@ const app = new Vue({
                             } else { //4xx rejected
                                 getToken(2, '', '', id, lang, '');
                             }
-                        } catch (e) { }
+                        } catch (e) {
+                        }
                     }
                     req2.send();
                 }
@@ -3100,8 +3240,7 @@ const app = new Vue({
                                     translation: ''
                                 });
                             app.lyrics = preLrc.reverse();
-                        }
-                        catch (e) {
+                        } catch (e) {
                             app.lyrics = "";
                         }
                     };
@@ -3143,6 +3282,7 @@ const app = new Vue({
                             function b64_to_utf8(str) {
                                 return decodeURIComponent(escape(window.atob(str)));
                             }
+
                             const htmlDecode = (input) => {
                                 const doc = new DOMParser().parseFromString(input, "text/html");
                                 return doc.documentElement.textContent;
@@ -3173,8 +3313,7 @@ const app = new Vue({
                                     translation: ''
                                 });
                             app.lyrics = preLrc.reverse();
-                        }
-                        catch (e) {
+                        } catch (e) {
                             console.log(e)
                             app.loadNeteaseLyrics();
                             app.lyrics = "";
@@ -3532,6 +3671,18 @@ const app = new Vue({
         friendlyTypes(type) {
             // use switch statement to return friendly name for media types "songs,artists,albums,playlists,music-videos,stations,apple-curators,curators"
             switch (type) {
+                case "library-songs":
+                    return app.getLz('term.songs')
+                    break;
+                case "library-artists":
+                    return app.getLz('term.artists')
+                    break;
+                case "library-albums":
+                    return app.getLz('term.albums')
+                    break;
+                case "library-playlists":
+                    return app.getLz('term.playlists')
+                    break;
                 case "song":
                     return app.getLz('term.songs')
                     break;
@@ -3614,6 +3765,13 @@ const app = new Vue({
                 results.data.results["meta"] = results.data.meta
                 self.search.resultsSocial = results.data.results
             })
+
+            this.search.resultsLibrary = await app.mk.api.library.search(app.search.term, {
+                types: 'library-songs,library-albums,library-playlists,library-artists',
+                limit: 25,
+                offset: 0
+            })
+
         },
         async inLibrary(items = []) {
             let types = []
@@ -3690,7 +3848,7 @@ const app = new Vue({
         },
         getMediaItemArtwork(url, height = 64, width) {
             if (typeof url == "undefined" || url == "") {
-                return "https://beta.music.apple.com/assets/product/MissingArtworkMusic.svg"
+                return "./assets/MissingArtwork.svg"
             }
             height = parseInt(height * window.devicePixelRatio)
             if (width) {
@@ -3766,6 +3924,9 @@ const app = new Vue({
                 if (app.mk.nowPlayingItem != null && app.mk.nowPlayingItem.attributes != null && app.mk.nowPlayingItem.attributes.artwork != null && app.mk.nowPlayingItem.attributes.artwork.url != null && app.mk.nowPlayingItem.attributes.artwork.url != '') {
                     this.currentArtUrlRaw = (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"] ?? '')
                     this.currentArtUrl = (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"] ?? '').replace('{w}', artworkSize).replace('{h}', artworkSize);
+                    if (this.mk.nowPlayingItem._assets[0].artworkURL) {
+                        this.currentArtUrl = this.mk.nowPlayingItem._assets[0].artworkURL
+                    }
                     try {
                         document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
                     } catch (e) {
@@ -3776,6 +3937,9 @@ const app = new Vue({
                     if (data != null && data !== "" && data.attributes != null && data.attributes.artwork != null) {
                         this.currentArtUrlRaw = (data["attributes"]["artwork"]["url"] ?? '')
                         this.currentArtUrl = (data["attributes"]["artwork"]["url"] ?? '').replace('{w}', artworkSize).replace('{h}', artworkSize);
+                        if (this.mk.nowPlayingItem._assets[0].artworkURL) {
+                            this.currentArtUrl = this.mk.nowPlayingItem._assets[0].artworkURL
+                        }
                         ipcRenderer.send('updateRPCImage', this.currentArtUrl ?? '');
                         try {
                             document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
@@ -3988,10 +4152,10 @@ const app = new Vue({
         setAirPlayCodeUI() {
             this.modals.airplayPW = true
         },
-        sendAirPlaySuccess(){
+        sendAirPlaySuccess() {
             notyf.success('Device paired successfully!');
         },
-        sendAirPlayFailed(){
+        sendAirPlayFailed() {
             notyf.error('Device paring failed!');
         },
         windowFocus(val) {
@@ -4183,7 +4347,15 @@ const app = new Vue({
             this.showMenuPanel(menus[useMenu], event)
 
             try {
-                let result = await this.inLibrary([this.mk.nowPlayingItem])
+                // if its a radio station, then change the attributes to match a song
+                const nowPlayingItem = JSON.parse(JSON.stringify(this.mk.nowPlayingItem))
+                if(nowPlayingItem.type == "radioStation" && app.mk.nowPlayingItem.id != -1) {
+                    nowPlayingItem.type = "song"
+                    nowPlayingItem.attributes.playParams.catalogId = app.mk.nowPlayingItem.id
+                    nowPlayingItem.attributes.playParams.id = app.mk.nowPlayingItem.id
+                    nowPlayingItem.id = app.mk.nowPlayingItem.id
+                }
+                let result = await this.inLibrary([nowPlayingItem])
                 if (result[0].attributes.inLibrary) {
                     menus.normal.items.find(x => x.id == 'addToLibrary').hidden = true
                     menus.normal.items.find(x => x.id == 'removeFromLibrary').hidden = false
@@ -4242,7 +4414,7 @@ const app = new Vue({
             });
         },
         fullscreen(flag) {
-            this.fullscreenState = flag; 
+            this.fullscreenState = flag;
             if (flag) {
                 ipcRenderer.send('setFullScreen', true);
                 app.appMode = 'fullscreen';
@@ -4257,7 +4429,7 @@ const app = new Vue({
                 app.appMode = 'player';
             }
         },
-        pip(){
+        pip() {
             document.querySelector('video#apple-music-video-player').requestPictureInPicture()
             // .then(pictureInPictureWindow => {
             //     pictureInPictureWindow.addEventListener("resize", () => {
@@ -4438,16 +4610,19 @@ const app = new Vue({
         _playRadioStream(e) {
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = process;
-            xhr.open("GET", e , true);
+            xhr.open("GET", e, true);
             xhr.send();
             let self = this
+
             function process() {
-              if (xhr.readyState == 4) {
-                let sources = xhr.responseText.match(/^(?!#)(?!\s).*$/mg).filter(function(element){return (element);});
-                // Load first source
-                let src = sources[0];
-                app.mk._services.mediaItemPlayback._currentPlayer._playAssetURL(src, false)
-              }
+                if (xhr.readyState == 4) {
+                    let sources = xhr.responseText.match(/^(?!#)(?!\s).*$/mg).filter(function (element) {
+                        return (element);
+                    });
+                    // Load first source
+                    let src = sources[0];
+                    app.mk._services.mediaItemPlayback._currentPlayer._playAssetURL(src, false)
+                }
             }
         }
     }

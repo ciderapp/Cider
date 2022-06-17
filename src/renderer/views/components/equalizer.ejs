@@ -298,7 +298,7 @@
                     try {
                         for (var i = 0; i < 21; i++) {
                             CiderAudio.audioNodes.vibrantbassNode[i].gain.value = app.cfg.audio.maikiwiAudio.vibrantBass.gain[i] * (app.cfg.audio.equalizer.vibrantBass / 10);
-                        } CiderAudio.intelliGainComp_h0_0();
+                        } CiderAudio.intelliGainComp_n0_0();
                     }
                     catch (e) {
                         CiderAudio.hierarchical_loading();
@@ -315,7 +315,7 @@
                         for (var i = 0; i < 10; i++) {
                             CiderAudio.audioNodes.audioBands[i].gain.value = app.cfg.audio.equalizer.gain[i] * app.cfg.audio.equalizer.mix
                         }
-                        CiderAudio.intelliGainComp_h0_0();
+                        CiderAudio.intelliGainComp_n0_0();
                     } catch (e) { CiderAudio.hierarchical_loading(); }
                 }
             },
@@ -323,7 +323,7 @@
                 if (Math.max(...app.cfg.audio.equalizer.gain) != 0) {
                     try {
                         CiderAudio.audioNodes.audioBands[i].gain.value = app.cfg.audio.equalizer.gain[i] * app.cfg.audio.equalizer.mix
-                        CiderAudio.intelliGainComp_h0_0();
+                        CiderAudio.intelliGainComp_n0_0();
                     }
                     catch (e) { CiderAudio.hierarchical_loading(); }
                 }
@@ -413,7 +413,7 @@
                     CiderAudio.audioNodes.audioBands[i].frequency.value = app.cfg.audio.equalizer.frequencies[i]
                     CiderAudio.audioNodes.audioBands[i].Q.value = app.cfg.audio.equalizer.Q[i]
                 }
-                CiderAudio.intelliGainComp_h0_0();
+                CiderAudio.intelliGainComp_n0_0();
             },
             changePreset(id) {
                 let userPresets = app.cfg.audio.equalizer.presets

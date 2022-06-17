@@ -58,6 +58,12 @@
         #LOADER>svg {
             width: 128px;
         }
+
+        @media (prefers-color-scheme: light) {
+            #LOADER {
+                background-color: #eee;
+            }
+        }
     </style>
 </head>
 
@@ -65,7 +71,7 @@
     <div id="LOADER">
         <%- include("../assets/cider-round.svg") %>
     </div>
-    <div id="app" :class="getAppClasses()" :window-style="cfg.visual.directives.windowLayout">
+    <div id="app" :class="getAppClasses()" :style="getAppStyle()" :library-visbile="(chrome.sidebarCollapsed ? 0 : 1)" :window-style="cfg.visual.directives.windowLayout">
         <transition name="fsModeSwitch">
             <div id="app-main" v-show="appMode == 'player'">
                 <%- include('app/chrome-top'); %>
@@ -85,6 +91,11 @@
                 </mini-view>
             </div>
         </transition>
+        <transition name="fsModeSwitch">
+            <div class="fullscreen-view-container oobe" v-if="appMode == 'oobe'">
+                <cider-oobe></cider-oobe>
+            </div>
+        </transition>
         <%- include('app/panels'); %>
             <div class="cursor" v-if="chrome.showCursor"></div>
     </div>
@@ -94,7 +105,8 @@
             <% } %>
 
 
-                <script async src="https://js-cdn.music.apple.com/musickit/v2/amp/musickit.js"></script>
+                <script async src="<%- (env.useV3 ? "https://js-cdn.music.apple.com/musickit/v3/amp/musickit.js" : "https://js-cdn.music.apple.com/musickit/v2/amp/musickit.js" ) %>" data-web-components>
+                </script>
                 <script src="index.js?v=1"></script>
 
                 <script type="text/x-template" id="am-musiccovershelf">
@@ -104,7 +116,7 @@
                 <!-- Sidebar Item -->
                 <script type="text/x-template" id="sidebar-library-item">
     <button class="app-sidebar-item"
-            :class="$parent.getSidebarItemClass(page)" @click="$root.appRoute(page)">
+            :class="$parent.getSidebarItemClass(page)" @click="$root.setWindowHash(page)">
         <div class="sidebar-icon" v-html="svgIconData" v-if="svgIconData != ''"></div>
         {{ name }}
     </button>

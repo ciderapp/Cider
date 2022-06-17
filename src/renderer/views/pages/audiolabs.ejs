@@ -35,10 +35,12 @@
                         <select class="md-select" style="width:180px;"
                                 v-model="app.cfg.audio.maikiwiAudio.ciderPPE_value"
                                 v-on:change="CiderAudio.hierarchical_loading()">
-                            <option value="MAIKIWI">Maikiwi</option>
+                            <option value="MAIKIWI">Maikiwi ({{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.adaptive')}})</option>
+                            <option value="MAIKIWI_LEGACY">Maikiwi ({{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.legacy')}})</option>
                             <option value="NATURAL">
                                 {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard')}}
                             </option>
+                            <option value="LEGACY">{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.legacy')}}</option>
                         </select>
                     </div>
                 </div>
@@ -100,7 +102,7 @@
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
                         <input type="checkbox" v-model="app.cfg.audio.maikiwiAudio.spatial"
-                               v-on:change="toggleMaikiwiSpatial" switch/>
+                               v-on:change="CiderAudio.hierarchical_loading();" switch/>
                     </div>
                 </div>
                 <div class="md-option-line"
@@ -113,7 +115,7 @@
                     <div class="md-option-segment md-option-segment_auto">
                         <select class="md-select" style="width:180px;"
                                 v-model="$root.cfg.audio.maikiwiAudio.spatialProfile"
-                                v-on:change="toggleMaikiwiSpatial">
+                                v-on:change="CiderAudio.hierarchical_loading();">
                             <option v-for="profile in spprofiles" :value="profile.id">{{ getProfileLz("CTS", profile.name) }}</option>
                         </select>
                     </div>
@@ -170,11 +172,10 @@
         },
         methods: {
             getProfileLz(type, name) {
+                let result = "";
+                
+                // Hard-coded shiz
                 switch (name) {
-                    case "CRYPTO":
-                        return "Cryptofyre";
-                        break;
-
                     case "Maikiwi":
                         return "Maikiwi";
                         break;
@@ -183,43 +184,33 @@
                     return "Maikiwi+";
                         break;
 
+                    case "Minimal+":
+                    return this.$root.getLz('settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.minimal') + "+";
+                        break;
+
                     case "live":
                     return "LIVE";
                         break;
-                }
+                }          
                 switch (type) {
                     case "CAR":
-                        return this.$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.' + name);
+                        result = this.$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.' + name);
+                        if (result === "settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode." + name) {
+                            return name;
+                        }
+                        else {return result;}
                         break;
                     case "CTS":
-                        return this.$root.getLz('settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.' + name.toLowerCase());
+                        result = this.$root.getLz('settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.' + name.toLowerCase());
+                        if (result === "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile." + name.toLowerCase()) {
+                            return name;
+                        }
+                        else {return result;}
                         break;
                     default:
                         return name;
                 }
-            },
-            toggleSpatial: function () {
-                if (app.cfg.audio.maikiwiAudio.spatial) {
-                    CiderAudio.spatialOn()
-                    CiderAudio.hierarchical_loading();
-                } else {
-                    CiderAudio.spatialOff()
-                }
-            },
-            toggleMaikiwiSpatial: function () {
-                if (app.cfg.audio.maikiwiAudio.spatial === true) {
-                    CiderAudio.spatialOn()
-                    CiderAudio.hierarchical_loading();
-                    //let normalized = Math.pow(10, (((Math.log10(app.mk.volume) * 20) - 14) / 20)); 
-                    //app.mk.volume = normalized 
-                    // -13dBFS Target
-                } else {
-                    //let normalized = Math.pow(10, (((Math.log10(app.mk.volume) * 20) + 14) / 20)); 
-                    //app.mk.volume = normalized
-                    CiderAudio.spatialOn()
-                    CiderAudio.hierarchical_loading();
-                }
-            },
+            }
         }
     })
 </script>

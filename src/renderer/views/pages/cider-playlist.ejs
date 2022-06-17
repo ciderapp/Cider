@@ -80,7 +80,7 @@
                                     </button>
                                 </div>
                             </template>
-                            <div class="playlist-controls" v-observe-visibility="{callback: isHeaderVisible}">
+                            <div class="playlist-controls" v-observe-visibility="{callback: isHeaderVisible}" style="z-index: 20;">
                                 <button class="md-btn md-btn-primary md-btn-icon" style="min-width: 100px;"
                                         @click="app.mk.shuffleMode = 0; play()"><img class="md-ico-play">
                                     {{app.getLz('term.play')}}
@@ -121,7 +121,7 @@
                     </div>
                 </div>
                 <div class="artworkContainer" v-if="data.attributes.artwork != null">
-                    <artwork-material :url="data.attributes.artwork.url" size="260" images="1"></artwork-material>
+                    <artwork-material :url="data.attributes.artwork.url" size="500" images="1"></artwork-material>
                 </div>
                 <button class="md-btn md-btn-small editTracksBtn" v-if="(data.attributes.canEdit && data.type == 'library-playlists')" @click="editing = !editing">
                     <span v-if="!editing">
@@ -648,39 +648,11 @@
                                     app.copyToClipboard(res.data.data[0].attributes.url)
                                 })
                             }
-                        },
-                        "follow": {
-                            name: app.getLz('action.follow'),
-                            icon: "./assets/feather/plus-circle.svg",
-                            hidden: false,
-                            action: () => {
-                                app.followArtistById(artistId, true)
-                            }
-                        },
-                        "unfollow": {
-                            name: app.getLz('action.unfollow'),
-                            icon: "./assets/feather/x-circle.svg",
-                            hidden: true,
-                            action: () => {
-                                app.followArtistById(artistId, false)
-                            }
-                        },
+                        }
                     }
                 }
                 app.showMenuPanel(menuItems, event)
 
-                if (artistId != null) {
-                    if (app.followingArtist(artistId)) {
-                        menuItems.items.follow.hidden = true
-                        menuItems.items.unfollow.hidden = false
-                    } else {
-                        menuItems.items.follow.hidden = false
-                        menuItems.items.unfollow.hidden = true
-                    }
-                } else {
-                    menuItems.items.follow.hidden = true
-                    menuItems.items.unfollow.hidden = true
-                }
                 try {
                     let rating = await app.getRating(self.data)
                     if (rating == 0) {

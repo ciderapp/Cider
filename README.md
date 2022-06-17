@@ -1,6 +1,6 @@
 <p align="center">
   <img src="./resources/banner.png" width="80%" height="60%" alt="Banner"><br>
-  <b>A new cross-platform Apple Music experience based on Electron and Vue.js written from scratch with performance in mind. 🚀</b>
+  <b>A new cross-platform Apple Music experience based on Electron and Vue.js written from scratch with performance & visuals in mind. 🚀</b>
   <br><br>
   <img src="https://img.shields.io/github/stars/ciderapp/Cider?label=Stars" alt="GitHub Stars"/>
   <img src="https://img.shields.io/github/forks/ciderapp/Cider?label=Forks" alt="GitHub Forks"/>
@@ -18,7 +18,7 @@
 </p>
 
 #### Links
-* [Wiki](https://docs.cider.sh)
+* [Documentation](https://docs.cider.sh)
 * [Request Feature](https://github.com/ciderapp/Cider/discussions/new?category=feature-request)
 * [Report Bug](https://github.com/ciderapp/Cider/issues/new?assignees=&labels=bug&template=bug_report.md&title=%5BBUG%5D+)
 * [**View The Releases**](https://github.com/ciderapp/Cider/releases/latest)
@@ -44,8 +44,8 @@
 -->
 [![Get it from the AUR](https://img.shields.io/badge/Get_It_From_The_AUR-100000?style=for-the-badge&logo=archlinux)](https://aur.archlinux.org/packages/cider)
 
-### Compiling and Configuration
-For more information surrounding configuration, compiling and other developer documentation, see the [compilation docs](https://cider.sh/compile.html).
+### Insights Snapshot
+[![CircleCI](https://dl.circleci.com/insights-snapshot/gh/ciderapp/Cider/main/build_and_release/badge.svg?window=30d)](https://app.circleci.com/insights/github/ciderapp/Cider/workflows/build_and_release/overview?branch=main&reporting-window=last-30-days&insights-snapshot=true)
 
 ### Credits
 ![Contributors](https://contrib.rocks/image?repo=ciderapp/Cider)

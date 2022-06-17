@@ -55,6 +55,9 @@ export class AppEvents {
             app.exit()
         }
 
+        // Try limiting JS memory to 350MB.
+        app.commandLine.appendSwitch('js-flags', '--max-old-space-size=350');
+
         // Expose GC
         app.commandLine.appendSwitch('js-flags', '--expose_gc')
 
@@ -314,6 +317,8 @@ export class AppEvents {
             {type: 'separator'},
 
             /* For now only idea i dont know if posible to implement
+
+            this could be implemented in a plugin if you would like track info, it would be impractical to put listeners in this file. -Core
             {
                 label: this.i18n['action.tray.listento'],
                 enabled: false,
@@ -329,7 +334,7 @@ export class AppEvents {
             */
            
             {
-                visible: (visible === false),
+                visible: !visible,
                 label: this.i18n['action.tray.playpause'],
                 click: () => {
                     utils.getWindow().webContents.executeJavaScript('MusicKitInterop.playPause()')
@@ -337,7 +342,7 @@ export class AppEvents {
             },
             
             {
-                visible: (visible === false),
+                visible: !visible,
                 label: this.i18n['action.tray.next'],
                 click: () => {
                     utils.getWindow().webContents.executeJavaScript(`MusicKitInterop.next()`)
@@ -345,14 +350,14 @@ export class AppEvents {
             },
             
             {
-                visible: (visible === false),
+                visible: !visible,
                 label: this.i18n['action.tray.previous'],
                 click: () => {
                     utils.getWindow().webContents.executeJavaScript(`MusicKitInterop.previous()`)
                 }
             },
-            
-            {type: 'separator'},
+
+            {type: 'separator', visible: !visible},
 
             {
                 label: (visible ? this.i18n['action.tray.minimize'] : `${this.i18n['action.tray.show']}`),

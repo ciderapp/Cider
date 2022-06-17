@@ -1,0 +1,179 @@
+<script type="text/x-template" id="cider-oobe">
+    <div class="content-inner oobe">
+<!--        before_we_start-->
+        <!-- <transition name=""> -->
+            <div class="oobe-view" v-if="screen == 'before_we_start'">
+                <div class="oobe-header">
+                    {{ getLz("oobe.amupsell.title") }}
+                </div>
+                <div class="oobe-body text">{{ getLz("oobe.amupsell.text") }}</div>
+                <div class="oobe-footer">
+                    <div class="btn-group">
+                        <div class="md-btn" @click="screen = 'welcome'">{{ getLz("oobe.next") }}</div>
+                    </div>
+                </div>
+            </div>
+        <!-- </transition> -->
+
+        <!--     Welcome   -->
+        <!-- <transition name=""> -->
+            <div class="oobe-view" v-if="screen == 'welcome'">
+                <div class="oobe-header">
+                    {{ getLz("oobe.intro.title") }}
+                </div>
+                <div class="oobe-body text">{{ getLz("oobe.intro.text") }}</div>
+                <div class="oobe-footer">
+                    <div class="btn-group">
+                        <div class="md-btn" @click="screen = 'before_we_start'">{{ getLz("oobe.previous") }}</div>
+                        <div class="md-btn" @click="screen = 'general'">{{ getLz("oobe.next") }}</div>
+                    </div>
+                </div>
+            </div>
+        <!-- </transition> -->
+
+        <!--     General   -->
+        <!-- <transition name=""> -->
+            <div class="oobe-view" v-if="screen == 'general'">
+                <div class="oobe-header">
+                    {{ getLz("oobe.general.title") }}
+                </div>
+                <div class="oobe-body text">{{ getLz("oobe.general.text") }}</div>
+                <div class="oobe-footer">
+                    <div class="btn-group">
+                        <div class="md-btn" @click="screen = 'welcome'">{{ getLz("oobe.previous") }}</div>
+                        <div class="md-btn" @click="screen = 'visual'">{{ getLz("oobe.next") }}</div>
+                    </div>
+                </div>
+            </div>
+        <!-- </transition> -->
+
+        <!--     Visual   -->
+        <!-- <transition name=""> -->
+            <div class="oobe-view" v-if="screen == 'visual'">
+                <div class="oobe-header">
+                    {{ getLz("oobe.visual.title") }}
+                </div>
+                <div class="oobe-body visual">
+                    <b-row>
+                        <b-col>
+                            <div class="card bg-dark text-white stylePicker" @click="$root.cfg.visual.directives.windowLayout = 'twopanel'" :class="{'style-active': ($root.cfg.visual.directives.windowLayout == 'twopanel')}">
+                                <div class="card-body">
+                                    <img class="visualPreview" src="./assets/oobe/mojave.png" alt="TEMP">
+                                </div>
+                                <div class="card-footer">
+                                    Mojave
+                                </div>
+                            </div>
+                        </b-col>
+                        <b-col>
+                            <div class="card bg-dark text-white stylePicker" @click="$root.cfg.visual.directives.windowLayout = 'default'" :class="{'style-active': ($root.cfg.visual.directives.windowLayout == 'default')}">
+                                <div class="card-body">
+                                    <img class="visualPreview" src="./assets/oobe/maverick.png" alt="TEMP">
+                                </div>
+                                <div class="card-footer">
+                                    Maverick
+                                </div>
+                            </div>
+                        </b-col>
+                    </b-row>
+                    <div class="blurb">{{getLz("oobe.visual.layout.text")}}</div>
+                </div>
+                <div class="oobe-footer">
+                    <div class="btn-group">
+                        <div class="md-btn" @click="screen = 'general'">{{ getLz("oobe.previous") }}</div>
+                        <div class="md-btn" @click="screen = 'audio'">{{ getLz("oobe.next") }}</div>
+                    </div>
+                </div>
+            </div>
+        <!-- </transition> -->
+
+        <!--     Audio   -->
+        <!-- <transition name=""> -->
+            <div class="oobe-view" v-if="screen == 'audio'">
+                <div class="oobe-header">
+                    {{ getLz("oobe.audio.title") }}
+                </div>
+                <div class="oobe-body">
+                    <div class="blurb">{{ getLz("oobe.audio.text") }}</div>
+                    <div class="md-option-container">
+                        <div class="settings-option-body">
+                            <div class="md-option-line">
+                                <div class="md-option-segment">
+                                    {{getLz('settings.option.audio.enableAdvancedFunctionality')}}
+                                    <br>
+                                    <small>{{getLz('settings.option.audio.enableAdvancedFunctionality.description')}}</small>
+                                </div>
+                                <div class="md-option-segment md-option-segment_auto">
+                                    <label>
+                                        <input type="checkbox" v-model="$root.cfg.advanced.AudioContext"
+                                               switch/>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="md-option-line" v-show="$root.cfg.advanced.AudioContext === true">
+                                <div class="md-option-segment">
+                                    {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPE')}}
+                                    <br>
+                                    <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPE.description')}}</small>
+                                </div>
+                                <div class="md-option-segment md-option-segment_auto">
+                                    <input type="checkbox" v-model="$root.cfg.audio.maikiwiAudio.ciderPPE"
+                                           switch/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="oobe-footer">
+                    <div class="btn-group">
+                        <div class="md-btn" @click="screen = 'visual'">{{ getLz("oobe.previous") }}</div>
+                        <div class="md-btn" @click="signIn()">{{ getLz("oobe.next") }}</div>
+                    </div>
+                </div>
+            </div>
+        <!-- </transition> -->
+        <div class="oobe-view" v-if="screen == 'signin'">
+            <div class="oobe-header">
+                Sign in with Apple Music
+            </div>
+            <div class="oobe-body">
+                <div class="blurb"></div>
+            </div>
+            <div class="oobe-footer">
+
+            </div>
+        </div>
+        <div class="oobe-titlebar">
+            <div class="button-group" v-if="$root.platform !== 'darwin'">
+                <button class="min" @click="$root.ipcRenderer.send('minimize')"></button>
+                <button class="close" @click="$root.ipcRenderer.send('close')"></button>
+            </div>
+        </div>
+    </div>
+</script>
+<script>
+    Vue.component('cider-oobe', {
+        template: '#cider-oobe',
+        data: function () {
+            return {
+                screen: "before_we_start"
+            }
+        },
+        async mounted() {
+
+        },
+        methods: {
+            signIn() {
+                if (localStorage.getItem("music.ampwebplay.media-user-token")) {
+                    localStorage.setItem("seenOOBE", 1)
+                    window.location.reload()
+                }
+                this.screen = "signin"
+                capiInit()
+            },
+            getLz() {
+                return this.$root.getLz.apply(this.$root, arguments);
+            }
+        }
+    });
+</script>

@@ -10,10 +10,10 @@
                     <b-popover custom-class="mediainfo-popover" target="artworkLCD" triggers="hover" placement="right">
                         <div class="content">
                             <div class="shadow-artwork">
-                                <mediaitem-artwork :url="currentArtUrl" :url="currentArtUrlRaw"></mediaitem-artwork>
+                                <mediaitem-artwork :url="currentArtUrl"></mediaitem-artwork>
                             </div>
                             <div class="popover-artwork">
-                                <mediaitem-artwork :size="210" :url="currentArtUrlRaw"></mediaitem-artwork>
+                                <mediaitem-artwork :url="currentArtUrl"></mediaitem-artwork>
                             </div>
                             <div class="song-name">{{ mk.nowPlayingItem["attributes"]["name"] }}</div>
                             <div class="song-artist" @click="getNowPlayingItemDetailed(`artist`)">{{ mk.nowPlayingItem["attributes"]["artistName"] }}</div>
@@ -60,13 +60,27 @@
                 </div>
             </template>
 
+            <template v-else>
+                <div class="app-playback-controls">
+                    <div class="artwork" id="artworkLCD" style="pointer-events: none;">
+                        <mediaitem-artwork :url="currentArtUrl"></mediaitem-artwork>
+                    </div>
+                    <div class="playback-info">
+                        <div class="song-name">
+                            
+                        </div>
+                    </div>
+
+                </div>
+            </template>
         </div>
 
     </div>
     <div class="app-chrome--center">
         <div class="app-chrome-playback-duration-bottom">
-            <b-row>
-                <b-col sm="auto">{{ convertTime(getSongProgress()) }}</b-col>
+            <b-row  v-if="mkReady()">
+                <b-col sm="auto" v-if="!mk.nowPlayingItem?.isLiveRadioStation">{{ convertTime(getSongProgress()) }}</b-col>
+                <b-col sm="auto" v-else>--:--</b-col>
                 <b-col>
                     <input type="range" step="0.01" min="0" :style="progressBarStyle()"
                            @input="playerLCD.desiredDuration = $event.target.value;playerLCD.userInteraction = true"
@@ -74,7 +88,8 @@
                            @touchend="mk.seekToTime($event.target.value);setTimeout(()=>{playerLCD.desiredDuration = 0;playerLCD.userInteraction = false}, 1000);"
                            :max="mk.currentPlaybackDuration" :value="getSongProgress()">
                 </b-col>
-                <b-col sm="auto">{{ convertTime(mk.currentPlaybackDuration) }}</b-col>
+                <b-col sm="auto" v-if="!mk.nowPlayingItem?.isLiveRadioStation">{{ convertTime(mk.currentPlaybackDuration) }}</b-col>
+                <b-col sm="auto" v-else>{{ getLz("term.live") }}</b-col>
             </b-row>
         </div>
         <div class="app-chrome-playback-controls">

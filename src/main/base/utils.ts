@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 import {Store} from "./store";
 import {BrowserWindow as bw} from "./browserwindow";
-import {app, dialog, ipcMain, Notification, shell } from "electron";
+import {app, dialog, ipcMain, Notification, shell, BrowserWindow} from "electron";
 import fetch from "electron-fetch";
 import {AppImageUpdater, NsisUpdater} from "electron-updater";
 import * as log from "electron-log";
@@ -54,8 +54,18 @@ export class utils {
 
         if (language !== "en_US" && fs.existsSync(path.join(this.paths.i18nPath, `${language}.json`))) {
             i18n = Object.assign(i18n, JSON.parse(fs.readFileSync(path.join(this.paths.i18nPath, `${language}.json`), "utf8")));
+        } else if (!fs.existsSync(path.join(this.paths.i18nPath, `${language}.json`))) {
+            fetch(`https://raw.githubusercontent.com/ciderapp/Cider/main/src/i18n/${language}.json`)
+                .then(res => res.json())
+                .then(res => {
+                    if (res) {
+                        i18n = Object.assign(i18n, res);
+                        fs.writeFileSync(path.join(this.paths.i18nPath, `${language}.json`), JSON.stringify(res));
+                    } else {
+                        i18n = Object.assign(i18n, JSON.parse(fs.readFileSync(path.join(this.paths.i18nPath, `en_US.json`), "utf8")));
+                    }
+            })
         }
-
         if (key) {
             return i18n[key]
         } else {
@@ -114,7 +124,11 @@ export class utils {
      * Gets the browser window
      */
     static getWindow(): Electron.BrowserWindow {
-        return bw.win
+        if (bw.win) {
+            return bw.win
+        } else {
+            return BrowserWindow.getAllWindows()[0]
+        }
     }
 
     static loadPluginFrontend(path: string): void {

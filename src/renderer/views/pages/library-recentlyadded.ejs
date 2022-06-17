@@ -1,58 +1,70 @@
-<template v-if="page == 'library-recentlyadded'">
+<script type="text/x-template" id="cider-recentlyadded">
     <div class="content-inner">
-        <div class="row">
-            <div class="col" style="padding:0;">
-                <h1 class="header-text">{{$root.getLz('term.recentlyAdded')}}</h1>
-            </div>
-            <div class="col-auto">
-                <button v-if="library.albums.downloadState == 2" @click="getLibraryAlbumsFull(true, 0)"
-                        class="reload-btn" :aria-label="app.getLz('menubar.options.reload')"><%- include('../svg/redo.svg') %></button>
-            </div>
+        <h1 class="header-text">{{$root.getLz('term.recentlyAdded')}}</h1>
+        <div class="well itemContainer" v-if="itemSize == 'normal'">
+            <mediaitem-square v-for="item in items" :item="item"></mediaitem-square>
         </div>
-        <div class="row">
-            <div class="col" style="padding:0;">
-                <div class="search-input-container" style="width:100%;margin: 16px 0;">
-                    <div class="search-input--icon"></div>
-                    <input type="search"
-                           style="width:100%;"
-                           spellcheck="false"
-                           :placeholder="$root.getLz('term.search') + '...'"
-                           @input="searchLibraryAlbums"
-                           v-model="library.albums.search" class="search-input">
-                </div>
-            </div>
-            <div class="col-auto flex-center">
-                <div class="row">
-                    <div class="col">
-                        <select class="md-select" v-model="library.albums.sortOrder[0]"
-                                @change="searchLibraryAlbums(0)">
-                            <optgroup :label="$root.getLz('term.sortOrder')">
-                                <option value="asc">{{$root.getLz('term.sortOrder.ascending')}}</option>
-                                <option value="desc">{{$root.getLz('term.sortOrder.descending')}}</option>
-                            </optgroup>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <select class="md-select" v-model="library.albums.viewAs">
-                            <optgroup :label="$root.getLz('term.viewAs')">
-                                <option value="covers">{{$root.getLz('term.viewAs.coverArt')}}</option>
-                                <option value="list">{{$root.getLz('term.viewAs.list')}}</option>
-                            </optgroup>
-                        </select>
-                    </div>
-                </div>
-            </div>
+        <div class="well itemContainer" v-else="itemSize == 'compact'">
+            <mediaitem-list-item :show-meta-data="true" :show-library-status="false" v-for="item in items" :item="item"></mediaitem-list-item>
         </div>
-        <div class="well">
-            <div class="albums-square-container">
-                <mediaitem-square v-if="library.albums.viewAs == 'covers'" :item="item"
-                                v-for="item in library.albums.displayListing">
-                </mediaitem-square>
-            </div>
-            <mediaitem-list-item v-if="library.albums.viewAs == 'list'" :show-duration="false" :show-meta-data="true"
-                                 :show-library-status="false" :item="item"
-                                 v-for="item in library.albums.displayListing">
-            </mediaitem-list-item>
+        <div class="well itemContainer" v-show="loading">
+            <div class="spinner"></div>
         </div>
+        <button v-if="nextUrl && !loading" style="opacity:0;height: 32px;" v-observe-visibility="{callback: visibilityChanged}">{{$root.getLz('term.showMore')}}
+        </button>
     </div>
-</template>
+</script>
+
+<script>
+    Vue.component("cider-recentlyadded", {
+        template: "#cider-recentlyadded",
+        computed: {
+            items() {
+                return this.$store.state.pageState['recentlyAdded'].items;
+            },
+            nextUrl() {
+                return this.$store.state.pageState['recentlyAdded'].nextUrl;
+            },
+            itemSize() {
+                return this.$store.state.pageState['recentlyAdded'].size
+            }
+        },
+        data: function () {
+            return {
+                loading: false,
+                firstRoute: `/v1/me/library/recently-added?l=${app.mklang}&platform=web&include[library-albums]=artists&include[library-artists]=catalog&fields[artists]=url&fields%5Balbums%5D=artistName%2CartistUrl%2Cartwork%2CcontentRating%2CeditorialArtwork%2Cname%2CplayParams%2CreleaseDate%2Curl&includeOnly=catalog%2Cartists&limit=25`
+            }
+        },
+        async mounted() {
+            if(this.$store.state.pageState['recentlyAdded'].items.length !== 0) return
+
+            const firstResult = await app.mk.api.v3.music(this.firstRoute)
+            this.$store.state.pageState["recentlyAdded"].items = firstResult.data.data
+            this.$store.state.pageState["recentlyAdded"].nextUrl = firstResult.data.next
+        },
+        beforeDestroy() {
+            // this.$store.state.pageState["recently-added"].scrollPosY = $("#app-content").scrollTop()
+        },
+        methods: {
+            visibilityChanged: function(isVisible, entry) {
+                if (isVisible && !this.loading) {
+                    this.getNextData();
+                }
+            },
+            async getNextData() {
+                if (this.$store.state.pageState["recentlyAdded"].nextUrl) {
+                    this.loading = true;
+                    const nextResult = await app.mk.api.v3.music(this.$store.state.pageState["recentlyAdded"].nextUrl)
+                    this.$store.state.pageState["recentlyAdded"].items = this.$store.state.pageState["recentlyAdded"].items.concat(nextResult.data.data)
+                    if (nextResult.data.next) {
+                        this.$store.state.pageState["recentlyAdded"].nextUrl = nextResult.data.next
+                    } else {
+                        this.$store.state.pageState["recentlyAdded"].nextUrl = null
+                    }
+                    this.loading = false;
+                }
+                return
+            }
+        }
+    });
+</script>

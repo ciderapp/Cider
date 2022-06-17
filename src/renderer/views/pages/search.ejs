@@ -1,82 +1,105 @@
 <script type="text/x-template" id="cider-search">
     <div class="content-inner search-page">
+        <div class="btn-group searchToggle">
+            <button
+                    @click="searchType = 'catalog'"
+                    class="md-btn md-btn-small" :class="{'md-btn-primary': searchType == 'catalog'}">{{ $root.getLz("term.appleMusic") }}</button>
+            <button
+                    @click="searchType = 'library';"
+                    class="md-btn md-btn-small" :class="{'md-btn-primary': searchType == 'library'}">{{ $root.getLz("term.library") }}</button>
+        </div>
         <div v-if="search != null && search != [] && search.term != ''">
-            <h3>{{app.getLz('term.topResult')}}</h3>
-            <mediaitem-scroller-horizontal
-                                :items="search.results[search.results.meta.results.order[0]]['data']"></mediaitem-scroller-horizontal>
-            <div class="row">
-                <div v-else style="text-align: center">
-                    <h3>{{app.getLz('error.noResults')}}</h3>
-                    <p>{{app.getLz('error.noResults.description')}}</p>
-                </div>
-                <div class="col" v-if="search.results.song">
-                    <div class="row">
-                        <div class="col">
-                            <h3>{{app.getLz('term.songs')}}</h3>
+            <template v-if="searchType == 'catalog'">
+                <h3>{{app.getLz('term.topResult')}}</h3>
+                <mediaitem-scroller-horizontal
+                        :items="search.results[search.results.meta.results.order[0]]['data']"></mediaitem-scroller-horizontal>
+                <div class="row">
+                    <div v-else style="text-align: center">
+                        <h3>{{app.getLz('error.noResults')}}</h3>
+                        <p>{{app.getLz('error.noResults.description')}}</p>
+                    </div>
+                    <div class="col" v-if="search.results.song">
+                        <div class="row">
+                            <div class="col">
+                                <h3>{{app.getLz('term.songs')}}</h3>
+                            </div>
+                            <div class="col-auto flex-center"
+                                 @click="app.showSearchView(app.search.term, 'song', app.friendlyTypes('song'))"
+                                 v-if="search.results.song.data.length >= 12">
+                                <button class="cd-btn-seeall">{{app.getLz('term.seeAll')}}</button>
+                            </div>
                         </div>
-                        <div class="col-auto flex-center"
-                            @click="app.showSearchView(app.search.term, 'song', app.friendlyTypes('song'))"
-                            v-if="search.results.song.data.length >= 12">
-                            <button class="cd-btn-seeall">{{app.getLz('term.seeAll')}}</button>
+                        <div class="mediaitem-list-item__grid">
+                            <listitem-horizontal :items="search.results.song.data.limit(12)">
+                            </listitem-horizontal>
                         </div>
                     </div>
-                    <div class="mediaitem-list-item__grid">
-                        <listitem-horizontal :items="search.results.song.data.limit(12)">
-                        </listitem-horizontal>
-                    </div>
                 </div>
-            </div>
 
-            <template v-if="search.results['meta'] != null">
-                <template
-                        v-for="section in search.results.meta.results.order" v-if="section != 'song' && section != 'top'">
+                <template v-if="search.results['meta'] != null">
+                    <template
+                            v-for="section in search.results.meta.results.order" v-if="section != 'song' && section != 'top'">
+                        <div class="row">
+                            <div class="col">
+                                <h3>{{ app.friendlyTypes(section) }}</h3>
+                            </div>
+                            <div class="col-auto flex-center" v-if="search.results[section].data.length >= 10">
+                                <button class="cd-btn-seeall"
+                                        @click="app.showSearchView(app.search.term, section, app.friendlyTypes(section))">{{app.getLz('term.seeAll')}}
+                                </button>
+                            </div>
+                        </div>
+                        <template v-if="!app.friendlyTypes(section).includes('Video')">
+                            <mediaitem-scroller-horizontal-large
+                                    :items="search.results[section].data.limit(10)"></mediaitem-scroller-horizontal-large>
+                        </template>
+                        <template v-else>
+                            <mediaitem-scroller-horizontal-mvview
+                                    :items="search.results[section].data.limit(10)"></mediaitem-scroller-horizontal-mvview>
+                        </template>
+                    </template>
+                </template>
+                <template v-if="search.resultsSocial.playlist">
                     <div class="row">
                         <div class="col">
-                            <h3>{{ app.friendlyTypes(section) }}</h3>
+                            <h3>{{app.getLz('term.sharedPlaylists')}}</h3>
                         </div>
-                        <div class="col-auto flex-center" v-if="search.results[section].data.length >= 10">
+                        <div class="col-auto flex-center" v-if="search.resultsSocial.playlist.data.length >= 10">
                             <button class="cd-btn-seeall"
-                                    @click="app.showSearchView(app.search.term, section, app.friendlyTypes(section))">{{app.getLz('term.seeAll')}}
+                                    @click="app.showCollection(search.resultsSocial.playlist, 'Shared Playlists', 'default')">{{app.getLz('term.seeAll')}}
                             </button>
                         </div>
                     </div>
-                    <template v-if="!app.friendlyTypes(section).includes('Video')">
-                        <mediaitem-scroller-horizontal-large
-                                :items="search.results[section].data.limit(10)"></mediaitem-scroller-horizontal-large>
-                    </template>
-                    <template v-else>
-                        <mediaitem-scroller-horizontal-mvview
-                                :items="search.results[section].data.limit(10)"></mediaitem-scroller-horizontal-mvview>
-                    </template>
+                    <mediaitem-scroller-horizontal-large
+                            :items="search.resultsSocial.playlist.data.limit(10)"></mediaitem-scroller-horizontal-large>
+                </template>
+                <template v-if="search.resultsSocial.profile">
+                    <div class="row">
+                        <div class="col">
+                            <h3>{{app.getLz('term.people')}}</h3>
+                        </div>
+                        <div class="col-auto flex-center" v-if="search.resultsSocial.profile.data.length >= 10">
+                            <button class="cd-btn-seeall"
+                                    @click="app.showCollection(search.resultsSocial.profile, 'People', 'default')">{{app.getLz('term.seeAll')}}
+                            </button>
+                        </div>
+                    </div>
+                    <mediaitem-scroller-horizontal-large
+                            :items="search.resultsSocial.profile.data.limit(10)"></mediaitem-scroller-horizontal-large>
                 </template>
             </template>
-            <template v-if="search.resultsSocial.playlist">
-                <div class="row">
-                    <div class="col">
-                        <h3>{{app.getLz('term.sharedPlaylists')}}</h3>
+            <template v-else>
+                <h1>{{ $root.getLz("term.library") }}</h1>
+                <div v-for="(section, key) in $root.search.resultsLibrary">
+                    <h3>{{app.friendlyTypes(key)}}</h3>
+                    <div class="mediaitem-list-item__grid" v-if="key.includes('songs')">
+                        <listitem-horizontal :items="section.data"></listitem-horizontal>
                     </div>
-                    <div class="col-auto flex-center" v-if="search.resultsSocial.playlist.data.length >= 10">
-                        <button class="cd-btn-seeall"
-                                @click="app.showCollection(search.resultsSocial.playlist, 'Shared Playlists', 'default')">{{app.getLz('term.seeAll')}}
-                        </button>
-                    </div>
-                </div>
-                <mediaitem-scroller-horizontal-large
-                        :items="search.resultsSocial.playlist.data.limit(10)"></mediaitem-scroller-horizontal-large>
-            </template>
-            <template v-if="search.resultsSocial.profile">
-                <div class="row">
-                    <div class="col">
-                        <h3>{{app.getLz('term.people')}}</h3>
-                    </div>
-                    <div class="col-auto flex-center" v-if="search.resultsSocial.profile.data.length >= 10">
-                        <button class="cd-btn-seeall"
-                                @click="app.showCollection(search.resultsSocial.profile, 'People', 'default')">{{app.getLz('term.seeAll')}}
-                        </button>
+                    <div class="well" v-else>
+                        <mediaitem-scroller-horizontal-large
+                                :items="section.data"></mediaitem-scroller-horizontal-large>
                     </div>
                 </div>
-                <mediaitem-scroller-horizontal-large
-                        :items="search.resultsSocial.profile.data.limit(10)"></mediaitem-scroller-horizontal-large>
             </template>
         </div>
         <div v-else>
@@ -111,6 +134,7 @@
                 recentlyPlayed: [],
                 categoriesView: [],
                 categoriesReady: false,
+                searchType: "catalog",
             }
         },
         methods: {
