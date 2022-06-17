@@ -2458,6 +2458,7 @@ const app = new Vue({
             let library = []
             let cacheId = "library-songs"
             let downloaded = null;
+            this.$store.commit("resetRecentlyAdded")
             if ((this.library.songs.downloadState == 2) && !force) {
                 return
             }
