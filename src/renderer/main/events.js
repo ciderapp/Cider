@@ -91,8 +91,6 @@ const Events = {
             setTimeout(refreshFocus, 200);
         }
 
-        app.getHTMLStyle()
-
         refreshFocus();
     }
 }
