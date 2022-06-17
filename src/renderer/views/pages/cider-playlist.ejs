@@ -779,7 +779,7 @@
                 }
             },
             async pasteSongs(event) {
-                if( event.ctrlKey && event.keyCode === 86 ) {
+                if( event.ctrlKey && event.keyCode === 86 && this.data.attributes.canEdit ) {
                     let clipboard = await navigator.clipboard.readText()
                     let songs = []
 
