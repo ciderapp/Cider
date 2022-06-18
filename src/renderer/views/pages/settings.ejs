@@ -96,8 +96,7 @@
                                         <option value="listen_now">{{$root.getLz('term.listenNow')}}</option>
                                         <option value="browse">{{$root.getLz('term.browse')}}</option>
                                         <option value="radio">{{$root.getLz('term.radio')}}</option>
-                                        <option value="library-recentlyadded">{{$root.getLz('term.recentlyAdded')}}
-                                        </option>
+                                        <option value="library-recentlyadded">{{$root.getLz('term.recentlyAdded')}}</option>
                                         <option value="library-songs">{{$root.getLz('term.songs')}}</option>
                                         <option value="library-albums">{{$root.getLz('term.albums')}}</option>
                                         <option value="library-artists">{{$root.getLz('term.artists')}}</option>
@@ -194,8 +193,8 @@
                                 {{$root.getLz('settings.option.general.keybindings')}}
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
-                                <button class="md-btn" @click="app.appRoute('keybinds-settings')">
-                                    {{$root.getLz('settings.option.general.keybindings.open')}}
+                                <button class="md-btn" @click="app.appRoute('keybinds-settings')" >
+                                    {{$root.getLz('action.open')}}
                                 </button>
                             </div>
                         </div>
@@ -595,19 +594,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="md-option-line">
-                            <div class="md-option-segment">
-                                {{$root.getLz('settings.option.visual.uiscale')}}
-                            </div>
-                            <div class="md-option-segment md-option-segment_auto">
-                                <label>
-                                    <input type="number" min="0.5" max="4.0" step="0.25" @change="$root.getHTMLStyle()"
-                                           v-model="app.cfg.visual.uiScale"/>
-                                </label>
-                            </div>
-                        </div>
                     </div>
-
                 </div>
             </b-tab>
             <b-tab :title="$root.getLz('settings.header.lyrics')">
