@@ -458,3 +458,7 @@ Update 15/06/2022 20:00 UTC
 * `settings.notyf.connectivity.lastfmScrobble.connectError`: Added to `en_US`
 * `settings.notyf.connectivity.lastfmScrobble.connectSuccess`: Added to `en_US`
 * `settings.notyf.connectivity.lastfmScrobble.connecting`: Added to `en_US`
+
+Update 19/06/2022 12:00 UTC
+
+* `settings.option.connectivity.lastfmScrobble.filterLoop.description`: Added to `en_US`

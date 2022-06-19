@@ -541,6 +541,7 @@
   "settings.option.connectivity.lastfmScrobble.nowPlaying": "Enable Last.fm Now Playing",
   "settings.option.connectivity.lastfmScrobble.removeFeatured": "Remove featuring artists from song title (Last.fm)",
   "settings.option.connectivity.lastfmScrobble.filterLoop": "Filter looped track (Last.fm)",
+  "settings.option.connectivity.lastfmScrobble.filterLoop.description": "Prevent looped tracks from being scrobbled or displayed in the Now Playing list on Last.fm.",
   "settings.notyf.connectivity.lastfmScrobble.connectError": "Last.fm Connection Timed Out",
   "settings.notyf.connectivity.lastfmScrobble.connectSuccess": "Last.fm Connection Successful",
   "settings.notyf.connectivity.lastfmScrobble.connecting": "Connecting to Last.fm...",
