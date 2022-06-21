@@ -868,6 +868,7 @@ const app = new Vue({
                         try {
                             //CiderAudio.audioNodes.gainNode.gain.value = (Math.min(Math.pow(10, (replaygain.gain / 20)), (1 / replaygain.peak)))
                             CiderAudio.audioNodes.gainNode.gain.value = gain
+                            CiderAudio.hierarchical_loading();
                         } catch (e) {
                         }
                     }
@@ -937,49 +938,48 @@ const app = new Vue({
                     self.$refs.queue.updateQueue();
                 }
                 this.currentSongInfo = a
+                if (a === null) {return;} // EVIL EMPTY OBJECTS BE GONE
 
+                console.debug("songinfo: " + JSON.stringify(a))
                 if (app.cfg.advanced.AudioContext) {
                     try {
                         if (app.mk.nowPlayingItem.flavor.includes("64")) {
-                            if (localStorage.getItem("playingBitrate") !== "64") {
-                                localStorage.setItem("playingBitrate", "64")
-                                CiderAudio.hierarchical_loading();
-                            }
+                            localStorage.setItem("playingBitrate", "64")
                         } else if (app.mk.nowPlayingItem.flavor.includes("256")) {
-                            if (localStorage.getItem("playingBitrate") !== "256") {
-                                localStorage.setItem("playingBitrate", "256")
-                                CiderAudio.hierarchical_loading();
-                            }
+                            localStorage.setItem("playingBitrate", "256")
                         } else {
                             localStorage.setItem("playingBitrate", "256")
-                            CiderAudio.hierarchical_loading();
                         }
                     } catch (e) {
                         localStorage.setItem("playingBitrate", "256")
-                        CiderAudio.hierarchical_loading();
-                    }
+                    } 
+                    if (!app.cfg.audio.normalization) {CiderAudio.hierarchical_loading();}
+                             
                 }
-
+                
                 if (app.cfg.audio.normalization) {
                     // get unencrypted audio previews to get SoundCheck's normalization tag
                     try {
                         let previewURL = null
                         try {
-                            previewURL = app.mk.nowPlayingItem.previewURL
+                            previewURL = app.mk.nowPlayingItem.previewURL          
                         } catch (e) {
                         }
                         if (previewURL == null && ((app.mk.nowPlayingItem?._songId ?? (app.mk.nowPlayingItem["songId"] ?? app.mk.nowPlayingItem.relationships.catalog.data[0].id)) != -1)) {
                             app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/songs/${app.mk.nowPlayingItem?._songId ?? (app.mk.nowPlayingItem["songId"] ?? app.mk.nowPlayingItem.relationships.catalog.data[0].id)}`).then((response) => {
-                                previewURL = response.data.data[0].attributes.previews[0].url
+                                previewURL = response.data.data[0].attributes.previews[0].url                     
                                 if (previewURL)
+                                    console.debug("[Cider][MaikiwiSoundCheck] previewURL response.data.data[0].attributes.previews[0].url: " + previewURL)
                                     ipcRenderer.send('getPreviewURL', previewURL)
                             })
                         } else {
                             if (previewURL)
+                                console.debug("[Cider][MaikiwiSoundCheck] previewURL in app.mk.nowPlayingItem.previewURL: " + previewURL)
                                 ipcRenderer.send('getPreviewURL', previewURL)
                         }
 
                     } catch (e) {
+                        if (e instanceof TypeError === false) {console.debug("[Cider][MaikiwiSoundCheck] normalizer function err: " + e)}
                     }
                 }
 
