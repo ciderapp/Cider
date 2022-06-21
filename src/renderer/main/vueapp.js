@@ -938,7 +938,7 @@ const app = new Vue({
                     self.$refs.queue.updateQueue();
                 }
                 this.currentSongInfo = a
-                if (a === null) {return;} // EVIL EMPTY OBJECTS BE GONE
+                if (a === null || a === undefined) {return;} // EVIL EMPTY OBJECTS BE GONE
 
                 console.debug("songinfo: " + JSON.stringify(a))
                 if (app.cfg.advanced.AudioContext) {
