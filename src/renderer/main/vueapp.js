@@ -440,6 +440,9 @@ const app = new Vue({
                 }
             })
         },
+        quit() {
+            ipcRenderer.invoke("quit-app")
+        },
         async openAppleMusicURL(url) {
             let properties = MusicKit.formattedMediaURL(url)
             let item = {
@@ -1451,6 +1454,12 @@ const app = new Vue({
                     name: app.getLz('term.createNewPlaylistFolder'),
                     action: () => {
                         this.newPlaylistFolder()
+                    }
+                },
+                {
+                    name: app.getLz("action.refresh"),
+                    action: ()=>{
+                        this.refreshPlaylists()
                     }
                 }
                 ]

@@ -1168,6 +1168,10 @@ export class BrowserWindow {
             app.quit();
         })
 
+        ipcMain.handle("quit-app", (_event, _) => {
+            app.quit();
+        })
+
         app.on('before-quit', () => {
 
         })

@@ -21,6 +21,7 @@ export class Store {
                 "state_format": "by {artist}",
                 "details_format": "{title}",
             },
+            "refreshInterval": 120000,
             "language": "en_US", // electron.app.getLocale().replace('-', '_') this can be used in future
             "playbackNotifications": true,
             "resumeOnStartupBehavior": "local",

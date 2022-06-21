@@ -301,6 +301,7 @@
   "action.createNew": "Create New...",
   "action.openArtworkInBrowser": "Open artwork in browser",
   "action.scrollToTop": "Scroll to top",
+  "action.refresh": "Refresh",
   "menubar.options.view": "View",
   "menubar.options.reload": "Reload",
   "menubar.options.forcereload": "Force Reload",
