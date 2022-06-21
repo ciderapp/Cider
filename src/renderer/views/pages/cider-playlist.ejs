@@ -102,16 +102,11 @@
                                     {{app.getLz('term.confirm')}}
                                 </button>
                                 <div style="display: flex; float: right;">
-                                    <div class="search-input-container" style="margin-right: 8px;">
-                                        <div class="search-input--icon"></div>
-                                        <input type="search"
-                                            style="width:100%;"
-                                            spellcheck="false"
-                                            :placeholder="$root.getLz('term.search') + '...'"
-                                            @input="search()"
-                                            v-model="searchQuery"
-                                            class="search-input">
-                                    </div>
+                                    <button :class="['search-btn', showSearch ? 'active' : '']"
+                                            @click="toggleSearch()"
+                                            :aria-label="showSearch ? app.getLz('term.hideSearch') : app.getLz('term.showSearch')">
+                                        <img :src="showSearch ? './assets/search-alt.svg' : './assets/search.svg'">
+                                    </button>
                                     <button class="more-btn-round" @click="menu" :aria-label="app.getLz('term.more')">
                                         <div class="svg-icon"></div>
                                     </button>
@@ -176,6 +171,15 @@
                         <div @wheel="minClass(true)" @scroll="minClass(true)">
                         <div class="">
                             <div style="width:100%" @click="minClass(true)">
+                                <div v-if="showSearch" class="search-input-container" ref="playlist-search">
+                                    <div class="search-input--icon"></div>
+                                    <input type="search"
+                                        spellcheck="false"
+                                        :placeholder="$root.getLz('term.search') + '...'"
+                                        @input="search()"
+                                        v-model="searchQuery"
+                                        class="search-input">
+                                </div>
                                 <draggable :options="{disabled: !editing}"
                                            v-model="data.relationships.tracks.data" @start="drag=true"
                                            @end="drag=false;put()">
@@ -287,6 +291,7 @@
                 searchQuery: "",
                 displayListing: [],
                 hasNestedPlaylist: false,
+                showSearch: false,
             }
         },
         mounted: function () {
@@ -790,7 +795,7 @@
                             type: "songs",
                         })
                     })
-                    
+
                     this.app.mk.api.v3.music(`/v1/me/library/playlists/${this.data.id}/tracks`, {}, {
                         fetchOptions: {
                             method: "POST",
@@ -804,6 +809,19 @@
                                 this.displayListing.push(response1.data.data[0])
                             })
                         })
+                    })
+                }
+            },
+            toggleSearch() {
+                this.showSearch = !this.showSearch;
+                if (!this.showSearch && this.searchQuery != "") {
+                    // Clear search query if the search bar becomes hidden
+                    this.searchQuery = "";
+                    this.search();
+                } else if (this.showSearch) {
+                    this.$nextTick(() => {
+                        // Ensure search bar is visible
+                        this.$refs["playlist-search"].scrollIntoView({ behavior: 'smooth' });
                     })
                 }
             },

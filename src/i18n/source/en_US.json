@@ -31,6 +31,8 @@
   "term.miniplayer": "MiniPlayer",
   "term.history": "History",
   "term.search": "Search",
+  "term.showSearch": "Show search bar",
+  "term.hideSearch": "Hide search bar",
   "term.library": "Library",
   "term.listenNow": "Listen Now",
   "term.browse": "Browse",

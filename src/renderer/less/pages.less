@@ -598,6 +598,18 @@
         }
       }
     }
+
+    .search-input-container {
+      height: 2.5rem;
+      margin: 1rem;
+      margin-top: 0;
+      scroll-margin-top: 1rem;
+
+      .search-input {
+        width: 100%;
+        height: 100%;
+      }
+    }
   }
 
   .floating-header {
@@ -777,6 +789,29 @@
             font-weight     : 600;
             font-family     : inherit;
             text-transform  : uppercase;
+          }
+        }
+
+        .search-btn {
+          display: flex;
+          width: 32px;
+          align-items: center;
+          margin-right: 1rem;
+          background: transparent;
+          border: none;
+          cursor: pointer;
+
+          > img {
+            width: 18px;
+            height: 18px;
+            margin: auto;
+            opacity: 0.5
+          }
+        }
+
+        .search-btn.active {
+          > img {
+            opacity: 0.85
           }
         }
       }
