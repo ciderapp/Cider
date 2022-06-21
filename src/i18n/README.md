@@ -423,10 +423,10 @@ Update 24/05/2022 20:30 UTC
 
 Update 24/05/2022 21:15 UTC
 
-* `settings.option.general.updateCider`: Deleted for all language files 
-* `settings.option.general.updateCider.branch`: Deleted for all language files 
+* `settings.option.general.updateCider`: Deleted for all language files
+* `settings.option.general.updateCider.branch`: Deleted for all language files
 * `settings.option.general.updateCider.branch.description`: Deleted for all language files
-* `settings.option.general.updateCider.branch.main`: Deleted for all language files 
+* `settings.option.general.updateCider.branch.main`: Deleted for all language files
 * `settings.option.general.updateCider.branch.develop`: Deleted for all language files
 * `settings.notyf.updateCider.update-error`: Deleted for all language files
 
