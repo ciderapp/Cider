@@ -292,7 +292,7 @@
                             <div class="md-option-segment md-option-segment_auto">
                                 <label>
                                     <input type="checkbox" v-model="app.cfg.advanced.AudioContext"
-                                           v-on:change="toggleAudioContext"
+                                           v-on:change="toggleAudioContext" :disabled="app.cfg.advanced.AudioContext === true"
                                            switch/>
                                 </label>
                             </div>
@@ -1445,18 +1445,12 @@
                                 if (app.cfg.audio.normalization === true) {
                                     CiderAudio.normalizerOn()
                                 }
-                                if (app.cfg.audio.maikiwiAudio.spatial === true) {
-                                    CiderAudio.hierarchical_loading();
-                                }
                             }
                         })
                     } else {
                         CiderAudio.init();
                         if (app.cfg.audio.normalization === true) {
                             CiderAudio.normalizerOn()
-                        }
-                        if (app.cfg.audio.maikiwiAudio.spatial === true) {
-                            CiderAudio.hierarchical_loading();
                         }
                     }
                 } else {

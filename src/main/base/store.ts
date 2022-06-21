@@ -240,7 +240,7 @@ export class Store {
             "NowPlaying": "true"
         },
         "advanced": {
-            "AudioContext": false,
+            "AudioContext": true,
             "experiments": [],
             "playlistTrackMapping": true,
             "ffmpegLocation": ""
