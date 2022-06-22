@@ -243,7 +243,8 @@ export class Store {
             "AudioContext": true,
             "experiments": [],
             "playlistTrackMapping": true,
-            "ffmpegLocation": ""
+            "ffmpegLocation": "",
+            "disableLogging": false
         },
         "connectUser": {
             "auth": null,
