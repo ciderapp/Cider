@@ -121,6 +121,14 @@
               $root.getLz("term.logout")
             }}</span>
           </button>
+          <button class="usermenu-item" @click="quit()">
+            <span class="usermenu-item-icon" style="right: 2.5px">
+              <%- include("../svg/x.svg") %>
+            </span>
+            <span class="usermenu-item-name">{{
+              $root.getLz("term.quit")
+            }}</span>
+          </button>
         </div>
       </div>
     </transition>

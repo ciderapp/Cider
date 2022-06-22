@@ -325,11 +325,7 @@ const app = new Vue({
             let advancedTooltip = this.cfg.audio.dBSPL ? (Number(this.cfg.audio.dBSPLcalibration) + (Math.log10(this.mk.volume) * 20)).toFixed(2) + ' dB SPL' : (Math.log10(this.mk.volume) * 20).toFixed(2) + ' dBFS'
             return this.cfg.audio.advanced ? advancedTooltip : (this.mk.volume * 100).toFixed(0) + '%'
         },
-        mainMenuVisibility(val, isContextMenu) {
-            if (this.chrome.sidebarCollapsed && !isContextMenu) {
-                this.chrome.sidebarCollapsed = false
-                return
-            }
+        mainMenuVisibility(val) {
             if (val) {
                 (this.mk.isAuthorized) ? this.chrome.menuOpened = !this.chrome.menuOpened : false;
                 if (!this.mk.isAuthorized) {
@@ -440,6 +436,9 @@ const app = new Vue({
                 }
             })
         },
+        quit() {
+            ipcRenderer.invoke("quit-app")
+        },
         async openAppleMusicURL(url) {
             let properties = MusicKit.formattedMediaURL(url)
             let item = {
@@ -526,11 +525,6 @@ const app = new Vue({
         },
         navigateForward() {
             history.forward()
-        },
-        getHTMLStyle() {
-
-            ipcRenderer.send("setScreenScale", app.cfg.visual.uiScale);
-
         },
         resetState() {
             this.menuPanel.visible = false;
@@ -878,6 +872,7 @@ const app = new Vue({
                         try {
                             //CiderAudio.audioNodes.gainNode.gain.value = (Math.min(Math.pow(10, (replaygain.gain / 20)), (1 / replaygain.peak)))
                             CiderAudio.audioNodes.gainNode.gain.value = gain
+                            CiderAudio.hierarchical_loading();
                         } catch (e) {
                         }
                     }
@@ -947,49 +942,48 @@ const app = new Vue({
                     self.$refs.queue.updateQueue();
                 }
                 this.currentSongInfo = a
+                if (this.currentSongInfo === null || this.currentSongInfo === undefined) {return;} // EVIL EMPTY OBJECTS BE GONE
 
+                console.debug("songinfo: " + JSON.stringify(a))
                 if (app.cfg.advanced.AudioContext) {
                     try {
                         if (app.mk.nowPlayingItem.flavor.includes("64")) {
-                            if (localStorage.getItem("playingBitrate") !== "64") {
-                                localStorage.setItem("playingBitrate", "64")
-                                CiderAudio.hierarchical_loading();
-                            }
+                            localStorage.setItem("playingBitrate", "64")
                         } else if (app.mk.nowPlayingItem.flavor.includes("256")) {
-                            if (localStorage.getItem("playingBitrate") !== "256") {
-                                localStorage.setItem("playingBitrate", "256")
-                                CiderAudio.hierarchical_loading();
-                            }
+                            localStorage.setItem("playingBitrate", "256")
                         } else {
                             localStorage.setItem("playingBitrate", "256")
-                            CiderAudio.hierarchical_loading();
                         }
                     } catch (e) {
                         localStorage.setItem("playingBitrate", "256")
-                        CiderAudio.hierarchical_loading();
-                    }
+                    } 
+                    if (!app.cfg.audio.normalization) {CiderAudio.hierarchical_loading();}
+                             
                 }
-
+                
                 if (app.cfg.audio.normalization) {
                     // get unencrypted audio previews to get SoundCheck's normalization tag
                     try {
                         let previewURL = null
                         try {
-                            previewURL = app.mk.nowPlayingItem.previewURL
+                            previewURL = app.mk.nowPlayingItem.previewURL          
                         } catch (e) {
                         }
                         if (previewURL == null && ((app.mk.nowPlayingItem?._songId ?? (app.mk.nowPlayingItem["songId"] ?? app.mk.nowPlayingItem.relationships.catalog.data[0].id)) != -1)) {
                             app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/songs/${app.mk.nowPlayingItem?._songId ?? (app.mk.nowPlayingItem["songId"] ?? app.mk.nowPlayingItem.relationships.catalog.data[0].id)}`).then((response) => {
-                                previewURL = response.data.data[0].attributes.previews[0].url
+                                previewURL = response.data.data[0].attributes.previews[0].url                     
                                 if (previewURL)
+                                    console.debug("[Cider][MaikiwiSoundCheck] previewURL response.data.data[0].attributes.previews[0].url: " + previewURL)
                                     ipcRenderer.send('getPreviewURL', previewURL)
                             })
                         } else {
                             if (previewURL)
+                                console.debug("[Cider][MaikiwiSoundCheck] previewURL in app.mk.nowPlayingItem.previewURL: " + previewURL)
                                 ipcRenderer.send('getPreviewURL', previewURL)
                         }
 
                     } catch (e) {
+                        if (e instanceof TypeError === false) {console.debug("[Cider][MaikiwiSoundCheck] normalizer function err: " + e)}
                     }
                 }
 
@@ -1461,6 +1455,12 @@ const app = new Vue({
                     action: () => {
                         this.newPlaylistFolder()
                     }
+                },
+                {
+                    name: app.getLz("action.refresh"),
+                    action: ()=>{
+                        this.refreshPlaylists()
+                    }
                 }
                 ]
             }
@@ -1706,7 +1706,7 @@ const app = new Vue({
             this.page = ""
             const artistData = await this.mkapi("artists", false, id, {
                 "views": "featured-release,full-albums,appears-on-albums,featured-albums,featured-on-albums,singles,compilation-albums,live-albums,latest-release,top-music-videos,similar-artists,top-songs,playlists,more-to-hear,more-to-see",
-                "extend": "artistBio,bornOrFormed,editorialArtwork,editorialVideo,isGroup,origin,hero",
+                "extend": "centeredFullscreenBackground,artistBio,bornOrFormed,editorialArtwork,editorialVideo,isGroup,origin,hero",
                 "extend[playlists]": "trackCount",
                 "include[songs]": "albums",
                 "fields[albums]": "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialVideo,name,playParams,releaseDate,url,trackCount",
@@ -2462,6 +2462,7 @@ const app = new Vue({
             let library = []
             let cacheId = "library-songs"
             let downloaded = null;
+            this.$store.commit("resetRecentlyAdded")
             if ((this.library.songs.downloadState == 2) && !force) {
                 return
             }

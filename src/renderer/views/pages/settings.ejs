@@ -96,8 +96,7 @@
                                         <option value="listen_now">{{$root.getLz('term.listenNow')}}</option>
                                         <option value="browse">{{$root.getLz('term.browse')}}</option>
                                         <option value="radio">{{$root.getLz('term.radio')}}</option>
-                                        <option value="library-recentlyadded">{{$root.getLz('term.recentlyAdded')}}
-                                        </option>
+                                        <option value="library-recentlyadded">{{$root.getLz('term.recentlyAdded')}}</option>
                                         <option value="library-songs">{{$root.getLz('term.songs')}}</option>
                                         <option value="library-albums">{{$root.getLz('term.albums')}}</option>
                                         <option value="library-artists">{{$root.getLz('term.artists')}}</option>
@@ -194,8 +193,8 @@
                                 {{$root.getLz('settings.option.general.keybindings')}}
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
-                                <button class="md-btn" @click="app.appRoute('keybinds-settings')">
-                                    {{$root.getLz('settings.option.general.keybindings.open')}}
+                                <button class="md-btn" @click="app.appRoute('keybinds-settings')" >
+                                    {{$root.getLz('action.open')}}
                                 </button>
                             </div>
                         </div>
@@ -293,7 +292,7 @@
                             <div class="md-option-segment md-option-segment_auto">
                                 <label>
                                     <input type="checkbox" v-model="app.cfg.advanced.AudioContext"
-                                           v-on:change="toggleAudioContext"
+                                           v-on:change="toggleAudioContext" :disabled="app.cfg.advanced.AudioContext === true"
                                            switch/>
                                 </label>
                             </div>
@@ -339,7 +338,7 @@
                             </div>
                         </div>
                         <div class="md-option-line"
-                             v-show="app.cfg.advanced.AudioContext && app.cfg.audio.normalization">
+                             v-show="app.cfg.advanced.AudioContext && app.cfg.audio.normalization && app.cfg.audio.advanced">
                             <div class="md-option-segment">
                                 {{$root.getLz('settings.option.audio.dbspl.display')}}
                                 <br>
@@ -595,19 +594,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="md-option-line">
-                            <div class="md-option-segment">
-                                {{$root.getLz('settings.option.visual.uiscale')}}
-                            </div>
-                            <div class="md-option-segment md-option-segment_auto">
-                                <label>
-                                    <input type="number" min="0.5" max="4.0" step="0.25" @change="$root.getHTMLStyle()"
-                                           v-model="app.cfg.visual.uiScale"/>
-                                </label>
-                            </div>
-                        </div>
                     </div>
-
                 </div>
             </b-tab>
             <b-tab :title="$root.getLz('settings.header.lyrics')">
@@ -1120,6 +1107,17 @@
                                 </button>
                             </div>
                         </div>
+                        <div class="md-option-line">
+                            <div class="md-option-segment">
+                                Performant Logging
+                                <small>Disables debug logging, resulting in a slightly faster Cider. (Requires relaunch)</small>
+                            </div>
+                            <div class="md-option-segment md-option-segment_auto">
+                                <label>
+                                    <input type="checkbox" v-model="app.cfg.advanced.disableLogging" switch/>
+                                </label>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Experimental Settings -->
@@ -1430,18 +1428,12 @@
                                 if (app.cfg.audio.normalization === true) {
                                     CiderAudio.normalizerOn()
                                 }
-                                if (app.cfg.audio.maikiwiAudio.spatial === true) {
-                                    CiderAudio.hierarchical_loading();
-                                }
                             }
                         })
                     } else {
                         CiderAudio.init();
                         if (app.cfg.audio.normalization === true) {
                             CiderAudio.normalizerOn()
-                        }
-                        if (app.cfg.audio.maikiwiAudio.spatial === true) {
-                            CiderAudio.hierarchical_loading();
                         }
                     }
                 } else {

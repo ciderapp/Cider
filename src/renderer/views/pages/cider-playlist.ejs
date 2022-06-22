@@ -294,6 +294,18 @@
                 this.isInLibrary()
             })
         },
+        beforeMount() {
+            if( window.location.hash.includes("playlist") ) {
+                window.addEventListener('keydown', this.getCopiedPlayListSongs);
+                window.addEventListener('keydown', this.pasteSongs);
+            }
+        },
+        beforeDestroy() {
+            if( window.location.hash.includes("playlist") ) {
+                window.removeEventListener('keydown', this.getCopiedPlayListSongs);
+                window.removeEventListener('keydown', this.pasteSongs);
+            }
+        },
         watch: {
             data: {
                 handler: function () {
@@ -751,6 +763,49 @@
             navClass(data) {
                 if (data && typeof data.views != "undefined") return "";
                 return "d-none";
+            },
+            async getCopiedPlayListSongs(event) {
+                if( event.ctrlKey && event.keyCode === 67 ) {
+                    let urls = [];
+                    app.selectedMediaItems.forEach(item => {
+                        this.app.mk.api.v3.music(`/v1/me/library/songs/${item.id}`).then((response) => {
+                            this.app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/songs/${response.data.data[0].attributes.playParams.catalogId}`).then((response1) => {
+                                urls.push(response1.data.data[0].attributes.url)
+                                navigator.clipboard.writeText(urls)
+                            })
+                        })
+                    })
+                    notyf.success(app.getLz('term.share.success'))
+                }
+            },
+            async pasteSongs(event) {
+                if( event.ctrlKey && event.keyCode === 86 && this.data.attributes.canEdit ) {
+                    let clipboard = await navigator.clipboard.readText()
+                    let songs = []
+
+                    clipboard = clipboard.split(",")
+                    clipboard.forEach(item => {
+                        songs.push({
+                            id: item.substring(item.indexOf("i=")+2, item.length),
+                            type: "songs",
+                        })
+                    })
+                    
+                    this.app.mk.api.v3.music(`/v1/me/library/playlists/${this.data.id}/tracks`, {}, {
+                        fetchOptions: {
+                            method: "POST",
+                            body: JSON.stringify({
+                                data: songs
+                            })
+                        }
+                    }).then((response) => {
+                        songs.forEach(item => {
+                            this.app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/songs/${item.id}`).then((response1) => {
+                                this.displayListing.push(response1.data.data[0])
+                            })
+                        })
+                    })
+                }
             },
             search() {
                 let filtered = [];

@@ -19,6 +19,11 @@ const store = new Vuex.Store({
         }
     },
     mutations: {
+        resetRecentlyAdded(state) {
+            state.pageState.recentlyAdded.loaded = false;
+            state.pageState.recentlyAdded.nextUrl = null;
+            state.pageState.recentlyAdded.items = [];
+        },
         setLCDArtwork(state, artwork) {
             state.artwork.playerLCD = artwork
         }
