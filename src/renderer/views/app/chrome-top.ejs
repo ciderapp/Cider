@@ -9,8 +9,8 @@
       </div>
     </div>
     <div class="app-chrome-item full-height" v-else>
-      <button class="app-mainmenu" @blur="mainMenuVisibility(false, true)" @click="mainMenuVisibility(true, false)"
-        @contextmenu="mainMenuVisibility(true, true)" :class="{active: chrome.menuOpened}"
+      <button class="app-mainmenu" @blur="mainMenuVisibility(false)" @click="mainMenuVisibility(true)"
+        @contextmenu="mainMenuVisibility(true)" :class="{active: chrome.menuOpened}"
         :aria-label="$root.getLz('term.quickNav')"></button>
     </div>
     <template v-if="getThemeDirective('appNavigation') != 'seperate'">
@@ -89,10 +89,10 @@
           <b-popover custom-class="mediainfo-popover" target="artworkLCD" triggers="hover" placement="bottom">
             <div class="content">
               <div class="shadow-artwork">
-                <mediaitem-artwork :url="currentArtUrl" :url="currentArtUrlRaw"></mediaitem-artwork>
+                <mediaitem-artwork :url="currentArtUrl"></mediaitem-artwork>
               </div>
               <div class="popover-artwork">
-                <mediaitem-artwork :size="210" :url="currentArtUrlRaw"></mediaitem-artwork>
+                <mediaitem-artwork :size="210" :url="currentArtUrl"></mediaitem-artwork>
               </div>
               <div class="song-name">
                 {{ mk.nowPlayingItem["attributes"]["name"] }}
@@ -183,6 +183,18 @@
           </template>
         </div>
       </template>
+      <template v-else>
+        <div class="app-playback-controls">
+          <div class="artwork" id="artworkLCD" style="pointer-events: none;">
+            <mediaitem-artwork :url="currentArtUrl"></mediaitem-artwork>
+          </div>
+          <div class="playback-info">
+            <div class="info-rect">
+
+            </div>
+          </div>
+        </div>
+      </template>
     </div>
     <div class="app-chrome-item" v-else>
       <div class="top-nav-group">
@@ -257,8 +269,8 @@
       </div>
     </div>
     <div class="app-chrome-item full-height" v-else-if="platform != 'darwin' && !chrome.nativeControls">
-      <button class="app-mainmenu" @blur="mainMenuVisibility(false, true)" @click="mainMenuVisibility(true, false)"
-        @contextmenu="mainMenuVisibility(true, true)" :class="{active: chrome.menuOpened}"></button>
+      <button class="app-mainmenu" @blur="mainMenuVisibility(false)" @click="mainMenuVisibility(true)"
+        @contextmenu="mainMenuVisibility(true)" :class="{active: chrome.menuOpened}"></button>
     </div>
   </div>
 </div>

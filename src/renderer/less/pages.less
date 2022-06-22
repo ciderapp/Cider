@@ -288,6 +288,7 @@
 
     .podcast-header {
       text-align: center;
+      padding: 0 1rem;
     }
 
     .podcast-play-btn {
@@ -634,7 +635,7 @@
       opacity           : .7;
       animation         : playlistArtworkFadeIn 1s var(--appleEase);
 
-      .artworkMaterial>img {
+      .artworkMaterial img {
         filter         : brightness(100%) blur(80px) saturate(100%) contrast(1);
         object-position: center;
         object-fit     : cover;
@@ -694,6 +695,16 @@
           color      : inherit;
           font-family: inherit;
           width      : 60vw;
+        }
+
+        .descriptionEdit {
+          font-size    : 14px;
+          flex-shrink  : unset;
+          background   : transparent;
+          border       : 0px;
+          color        : inherit;
+          font-family  : inherit;
+          width        : 60vw;
         }
 
         .playlist-artist {
@@ -962,6 +973,10 @@
     right   : 28px;
   }
 
+  &.animated .artist-header {
+    min-height: 500px;
+  }
+
   .artist-header {
     //background: linear-gradient(45deg, var(--keyColor), #0e0e0e);
     color          : white;
@@ -977,6 +992,19 @@
       // margin-top: -16px;
     }
 
+    .artist-hero {
+      height:100%;
+      position: absolute;
+      top:0;
+      left:0;
+      right:0;
+      bottom:0;
+
+      .mediaitem-artwork {
+        border-radius: 0px;
+      }
+    }
+
 
     .artworkContainer {
       position          : absolute;
@@ -990,7 +1018,7 @@
       opacity           : .7;
       animation         : playlistArtworkFadeIn 1s var(--appleEase);
 
-      .artworkMaterial>img {
+      .artworkMaterial img {
         filter         : brightness(100%) blur(80px) saturate(100%) contrast(1);
         object-position: center;
         object-fit     : cover;
@@ -1013,6 +1041,7 @@
       position  : absolute;
       overflow  : hidden;
       box-shadow: rgb(0 0 0 / 50%) 0 0 0 1000000px inset;
+      z-index: 1;
 
       video {
         overflow  : hidden;

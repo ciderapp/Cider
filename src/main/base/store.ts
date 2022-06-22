@@ -21,6 +21,7 @@ export class Store {
                 "state_format": "by {artist}",
                 "details_format": "{title}",
             },
+            "refreshInterval": 120000,
             "language": "en_US", // electron.app.getLocale().replace('-', '_') this can be used in future
             "playbackNotifications": true,
             "resumeOnStartupBehavior": "local",
@@ -105,6 +106,18 @@ export class Store {
                 "settings": [
                     "CommandOrControl", // Who the hell uses a different key for this? Fucking Option?
                     ","
+                ],
+                "zoomn": [
+                    "Control",
+                    "numadd",
+                ],
+                "zoomt": [
+                    "Control",
+                    "numsub",
+                ],
+                "zoomrst": [
+                    "Control",
+                    "num0",
                 ],
                 "openDeveloperTools": [
                     "CommandOrControl",
@@ -206,7 +219,6 @@ export class Store {
             },
             "windowControlPosition": 0, // 0 default right
             "nativeTitleBar": false,
-            "uiScale": 1.0,
             "windowColor": "#000000",
             "customAccentColor": false,
             "accentColor": "#fc3c44",
@@ -228,10 +240,11 @@ export class Store {
             "NowPlaying": "true"
         },
         "advanced": {
-            "AudioContext": false,
+            "AudioContext": true,
             "experiments": [],
             "playlistTrackMapping": true,
-            "ffmpegLocation": ""
+            "ffmpegLocation": "",
+            "disableLogging": false
         },
         "connectUser": {
             "auth": null,

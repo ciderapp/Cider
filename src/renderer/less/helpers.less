@@ -153,22 +153,8 @@
       }
 
       .close-btn {
-        width              : 50px;
-        height             : 100%;
-        background-image   : var(--gfx-closeBtn);
-        background-position: center;
-        background-repeat  : no-repeat;
-        -webkit-app-region : no-drag;
-        appearance         : none;
-        border             : 0;
-        background-color   : transparent;
-        position           : absolute;
-        top                : 0;
-        right              : 0;
+        .menu-panel.menu-header-text.close-btn
 
-        &:hover {
-          background-color: rgb(196, 43, 28)
-        }
       }
     }
   }
@@ -191,22 +177,7 @@
       }
 
       .close-btn {
-        width              : 50px;
-        height             : 100%;
-        background-image   : var(--gfx-closeBtn);
-        background-position: center;
-        background-repeat  : no-repeat;
-        -webkit-app-region : no-drag;
-        appearance         : none;
-        border             : 0;
-        background-color   : transparent;
-        position           : absolute;
-        top                : 0;
-        right              : 0;
-
-        &:hover {
-          background-color: rgb(196, 43, 28)
-        }
+        .menu-panel.menu-header-text.close-btn
       }
     }
 
@@ -371,23 +342,31 @@
     }
   }
 
-
   .menu-header-text {
     margin: 18px 6px;
 
     .close-btn {
-      width              : 50px;
-      height             : 42px;
-      background-image   : var(--gfx-closeBtn);
+      width: 36px;
+      height: 36px;
       background-position: center;
-      background-repeat  : no-repeat;
-      -webkit-app-region : no-drag;
-      appearance         : none;
-      border             : 0;
-      background-color   : transparent;
-      position           : absolute;
-      top                : 0;
-      right              : 0;
+      background-repeat: no-repeat;
+      -webkit-app-region: no-drag;
+      appearance: none;
+      border: 0;
+      background-color: transparent;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      border-radius: 50px;
+      display: grid;
+      align-content: center;
+
+      &:before {
+        content: "";
+        font-family: "codicon";
+        color: var(--textColor);
+        font-size: 20px;
+      }
 
       &:hover {
         background-color: rgb(196, 43, 28)
@@ -505,7 +484,8 @@
     .popover-artwork {
       width: 200px;
       height: 200px;
-      margin: 0 0 20px 0;
+      margin: 0 auto;
+      margin-bottom: 20px;
     }
 
     .song-name {
