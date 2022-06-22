@@ -54,7 +54,7 @@ export default class lastfm {
         })
 
         this._utils.getIPCMain().on('lastfm:nowPlayingChange', (event: any, attributes: any) => {
-            if (this._utils.getStoreValue("lastfm.filter_loop")) return;
+            if (this._utils.getStoreValue("connectivity.lastfm.filter_loop")) return;
             this.onNowPlayingItemDidChange(attributes)
         })
     }
@@ -96,8 +96,8 @@ export default class lastfm {
             'secret': api.secret,
         });
 
-        if (this._utils.getStoreValue("lastfm.secrets.username") && this._utils.getStoreValue("lastfm.secrets.key")) {
-            this._lfm.setSessionCredentials(this._utils.getStoreValue("lastfm.secrets.username"), this._utils.getStoreValue("lastfm.secrets.key"));
+        if (this._utils.getStoreValue("connectivity.lastfm.secrets.username") && this._utils.getStoreValue("connectivity.lastfm.secrets.key")) {
+            this._lfm.setSessionCredentials(this._utils.getStoreValue("connectivity.lastfm.secrets.username"), this._utils.getStoreValue("connectivity.lastfm.secrets.key"));
             this._authenticated = true;
         } else {
             this.authenticateLastFM(token)
@@ -170,7 +170,7 @@ export default class lastfm {
      * @private
      */
     private scrobbleTrack(attributes: any): void {
-        if (!this._authenticated || !attributes || (this._utils.getStoreValue("lastfm.filter_loop") && this._scrobbleCache.track === attributes.lfmTrack.name)) return;
+        if (!this._authenticated || !attributes || (this._utils.getStoreValue("connectivity.lastfm.filter_loop") && this._scrobbleCache.track === attributes.lfmTrack.name)) return;
 
         if (this._scrobbleDelay) {
             clearTimeout(this._scrobbleDelay);
@@ -204,11 +204,11 @@ export default class lastfm {
                     this._scrobbleCache = scrobble
                 }
             });
-        }, Math.round(attributes.durationInMillis * Math.min((this._utils.getStoreValue("lastfm.scrobble_after") / 100), 0.8)))
+        }, Math.round(attributes.durationInMillis * Math.min((this._utils.getStoreValue("connectivity.lastfm.scrobble_after") / 100), 0.8)))
     }
 
     private updateNowPlayingTrack(attributes: any): void {
-        if (!this._authenticated || !attributes || (this._utils.getStoreValue("lastfm.filter_loop") && this._nowPlayingCache.track === attributes.lfmTrack.name)) return;
+        if (!this._authenticated || !attributes || (this._utils.getStoreValue("connectivity.lastfm.filter_loop") && this._nowPlayingCache.track === attributes.lfmTrack.name)) return;
 
         const nowPlaying = {
             'artist': attributes.lfmTrack.artist.name,

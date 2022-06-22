@@ -12,15 +12,6 @@ export class Store {
         },
         "general": {
             "close_button_hide": false,
-            "discordrpc": {
-                "enabled": true,
-                "client": "Cider",
-                "clear_on_pause": true,
-                "hide_buttons": false,
-                "hide_timestamp": false,
-                "state_format": "by {artist}",
-                "details_format": "{title}",
-            },
             "language": "en_US", // electron.app.getLocale().replace('-', '_') this can be used in future
             "playbackNotifications": true,
             "resumeOnStartupBehavior": "local",
@@ -113,6 +104,27 @@ export class Store {
                 ]
             },
             "showLovedTracksInline": true
+        },
+        "connectivity": {
+            "discord_rpc": {
+                "enabled": true,
+                "client": "Cider",
+                "clear_on_pause": true,
+                "hide_buttons": false,
+                "hide_timestamp": false,
+                "state_format": "by {artist}",
+                "details_format": "{title}",
+            },
+            "lastfm": {
+                "enabled": false,
+                "scrobble_after": 50,
+                "filter_loop": false,
+                "secrets": {
+                    "username": "",
+                    "key": ""
+                }
+
+            },
         },
         "home": {
             "followedArtists": [],
@@ -219,16 +231,6 @@ export class Store {
             "enable_qq": false,
             "enable_yt": false,
         },
-        "lastfm": {
-            "enabled": false,
-            "scrobble_after": 50,
-            "filter_loop": false,
-            "secrets": {
-                "username": "",
-                "key": ""
-            }
-
-        },
         "advanced": {
             "AudioContext": false,
             "experiments": [],
@@ -246,13 +248,13 @@ export class Store {
     }
     private migrations: any = {
         '>=1.4.3': (store: ElectronStore) => {
-            if (typeof store.get('general.discordrpc') == 'number' || typeof store.get('general.discordrpc') == 'string') {
-                store.delete('general.discordrpc');
+            if (typeof store.get('connectivity.discord_rpc') == 'number' || typeof store.get('connectivity.discord_rpc') == 'string') {
+                store.delete('connectivity.discord_rpc');
             }
         },
     }
     private schema: ElectronStore.Schema<any> = {
-        "general.discordrpc": {
+        "connectivity.discord_rpc": {
             type: 'object'
         },
     }
