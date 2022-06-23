@@ -1407,7 +1407,7 @@
                 }
             },
             reinstallWidevineCDM() {
-                bootbox.confirm(app.getLz("settings.option.experimental.reinstallwidevine.confirm"), (ok) => {
+                app.confirm(app.getLz("settings.option.experimental.reinstallwidevine.confirm"), (ok) => {
                     if (ok) {
                         ipcRenderer.invoke("reinstall-widevine-cdm");
                     }
@@ -1450,7 +1450,7 @@
             toggleAudioContext: function () {
                 if (app.cfg.advanced.AudioContext === true) {
                     if (navigator.hardwareConcurrency < 6) {
-                        bootbox.confirm(app.getLz("settings.warn.audio.enableAdvancedFunctionality.lowcores"), function (result) {
+                        app.confirm(app.getLz("settings.warn.audio.enableAdvancedFunctionality.lowcores"), function (result) {
                             if (result) {
                                 CiderAudio.init();
                                 if (app.cfg.audio.normalization === true) {
@@ -1497,7 +1497,7 @@
 
             },
             promptForRelaunch() {
-                bootbox.confirm(app.getLz('action.relaunch.confirm'), function (result) {
+                app.confirm(app.getLz('action.relaunch.confirm'), function (result) {
                     if (result) {
                         ipcRenderer.send('relaunchApp', '');
                     }

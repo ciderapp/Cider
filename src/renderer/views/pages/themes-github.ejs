@@ -146,7 +146,7 @@
                 let msg = app.stringTemplateParser(app.getLz('settings.option.visual.theme.github.install.confirm'), {
                     repo: repo.full_name
                 });
-                bootbox.confirm(msg, (res) => {
+                app.confirm(msg, (res) => {
                     if (res) {
                         ipcRenderer.once("theme-installed", (event, arg) => {
                             if (arg.success) {
@@ -163,7 +163,7 @@
             },
             installThemeURL() {
                 let self = this
-                bootbox.prompt(app.getLz('settings.prompt.visual.theme.github.URL'), (result) => {
+                app.prompt(app.getLz('settings.prompt.visual.theme.github.URL'), (result) => {
                     if (result) {
                         ipcRenderer.once("theme-installed", (event, arg) => {
                             if (arg.success) {
