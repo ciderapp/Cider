@@ -2,7 +2,6 @@ import * as ElectronStore from 'electron-store';
 import * as electron from "electron";
 import {app} from "electron";
 import fetch from "electron-fetch";
-
 export class Store {
     static cfg: ElectronStore;
 
@@ -58,7 +57,7 @@ export class Store {
                     "CommandOrControl",
                     "G"
                 ],
-                "songs": [
+                "songs" : [
                     "CommandOrControl",
                     "J"
                 ],
@@ -81,17 +80,17 @@ export class Store {
                 ],
                 "audioSettings": [
                     "CommandOrControl",
-                    process.platform == "darwin" ? "Option" : (process.platform == "linux" ? "Shift" : "Alt"),
+                    process.platform == "darwin" ? "Option" : (process.platform == "linux" ? "Shift": "Alt"),
                     "A"
                 ],
                 "pluginMenu": [
                     "CommandOrControl",
-                    process.platform == "darwin" ? "Option" : (process.platform == "linux" ? "Shift" : "Alt"),
+                    process.platform == "darwin" ? "Option" : (process.platform == "linux" ? "Shift": "Alt"),
                     "P"
                 ],
                 "castToDevices": [
                     "CommandOrControl",
-                    process.platform == "darwin" ? "Option" : (process.platform == "linux" ? "Shift" : "Alt"),
+                    process.platform == "darwin" ? "Option" : (process.platform == "linux" ? "Shift": "Alt"),
                     "C"
                 ],
                 "settings": [
@@ -260,7 +259,13 @@ export class Store {
             }
         },
     }
-    private migrations: any = {}
+    private migrations: any = {
+        '>=1.4.3': (store: ElectronStore) => {
+            if (typeof store.get('connectivity.discord_rpc') == 'number' || typeof store.get('connectivity.discord_rpc') == 'string') {
+                store.delete('connectivity.discord_rpc');
+            }
+        },
+    }
     private schema: ElectronStore.Schema<any> = {
         "connectivity.discord_rpc": {
             type: 'object'
@@ -273,49 +278,11 @@ export class Store {
             defaults: this.defaults,
             schema: this.schema,
             migrations: this.migrations,
-            clearInvalidConfig: false //disabled for now
+            clearInvalidConfig: true
         });
 
         Store.cfg.set(this.mergeStore(this.defaults, Store.cfg.store))
         this.ipcHandler();
-    }
-
-    static pushToCloud(): void {
-        if (Store.cfg.get('connectUser.auth') === null) return;
-        var syncData = Object();
-        if (Store.cfg.get('connectUser.sync.themes')) {
-            syncData.push({
-                themes: Store.cfg.store.themes
-            })
-        }
-        if (Store.cfg.get('connectUser.sync.plugins')) {
-            syncData.push({
-                plugins: Store.cfg.store.plugins
-            })
-        }
-
-        if (Store.cfg.get('connectUser.sync.settings')) {
-            syncData.push({
-                general: Store.cfg.get('general'),
-                home: Store.cfg.get('home'),
-                libraryPrefs: Store.cfg.get('libraryPrefs'),
-                advanced: Store.cfg.get('advanced'),
-            })
-        }
-        let postBody = {
-            id: Store.cfg.get('connectUser.id'),
-            app: electron.app.getName(),
-            version: electron.app.isPackaged ? electron.app.getVersion() : 'dev',
-            syncData: syncData
-        }
-
-        fetch('https://connect.cidercollective.dev/api/v1/setttings/set', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(postBody)
-        })
     }
 
     /**
@@ -339,6 +306,7 @@ export class Store {
         return target
     }
 
+    
     /**
      * IPC Handler
      */
@@ -357,6 +325,45 @@ export class Store {
 
         electron.ipcMain.on('setStore', (_event, store) => {
             Store.cfg.store = store
+        })
+    }
+    
+    
+    static pushToCloud(): void {
+        if (Store.cfg.get('connectUser.auth') === null) return;
+        var syncData = Object();
+        if (Store.cfg.get('connectUser.sync.themes')) {
+            syncData.push({
+                themes: Store.cfg.store.themes
+            })
+        }
+        if (Store.cfg.get('connectUser.sync.plugins')) {
+            syncData.push({
+                plugins: Store.cfg.store.plugins
+            })
+        }
+    
+        if (Store.cfg.get('connectUser.sync.settings')) {
+            syncData.push({
+                general: Store.cfg.get('general'),
+                home: Store.cfg.get('home'),
+                libraryPrefs: Store.cfg.get('libraryPrefs'),
+                advanced: Store.cfg.get('advanced'),
+            })
+        }
+        let postBody = {
+            id: Store.cfg.get('connectUser.id'),
+            app: electron.app.getName(),
+            version: electron.app.isPackaged ? electron.app.getVersion() : 'dev',
+            syncData: syncData
+        }
+
+        fetch('https://connect.cidercollective.dev/api/v1/setttings/set', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(postBody)
         })
     }
 }
