@@ -132,7 +132,7 @@ export class Store {
                 "enabled": false,
                 "scrobble_after": 50,
                 "filter_loop": false,
-                "filter_types": [],
+                "filter_types": {},
                 "secrets": {
                     "username": "",
                     "key": ""

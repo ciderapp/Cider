@@ -1077,6 +1077,18 @@
                                 </label>
                             </div>
                         </div>
+                        <div class="md-option-line" v-show="app.cfg.connectivity.lastfm.enabled">
+                            <div class="md-option-segment">
+                                {{$root.getLz('settings.option.connectivity.lastfmScrobble.filterTypes')}}
+                                <small>{{$root.getLz('settings.option.connectivity.lastfmScrobble.filterTypes.description')}}</small>
+                            </div>
+                            <div class="md-option-segment md-option-segment_auto">
+                                <label>
+                                    <input type="checkbox" @change="filterChange" value="song">{{$root.getLz('term.songs')}}<br>
+                                    <input type="checkbox" @change="filterChange" value="musicVideo">{{$root.getLz('term.musicVideos')}}<br>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </b-tab>
@@ -1485,9 +1497,9 @@
                 ipcRenderer.send('reloadRPC')
             },
 	        lfmDisconnect() {
-				app.cfg.connectivity.lastfm.enabled = false;
-				app.cfg.connectivity.lastfm.secrets.username = "";
-				app.cfg.connectivity.lastfm.secrets.key = "";
+				this.$root.cfg.connectivity.lastfm.enabled = false;
+				this.$root.cfg.connectivity.lastfm.secrets.username = "";
+				this.$root.cfg.connectivity.lastfm.secrets.key = "";
 				ipcRenderer.send('lastfm:disconnect');
 	        },
 	        async lfmAuthorize() {
@@ -1503,13 +1515,16 @@
 		        }, 20000);
 
 		        ipcRenderer.once('lastfm:authenticated', (_e, session) => {
-			        app.cfg.connectivity.lastfm.secrets.username = session.username
-			        app.cfg.connectivity.lastfm.secrets.key = session.key
-			        app.cfg.connectivity.lastfm.enabled = true
+			        this.$root.cfg.connectivity.lastfm.secrets.username = session.username
+			        this.$root.cfg.connectivity.lastfm.secrets.key = session.key
+			        this.$root.cfg.connectivity.lastfm.enabled = true
 			        app.notyf.success(app.getLz('settings.notyf.connectivity.lastfmScrobble.connectSuccess'));
 		        })
 
 	        },
+	        filterChange(e) {
+                this.$root.cfg.connectivity.lastfm.filter_types[e.target.value] = e.target.checked;
+            }
         }
     })
 </script>
