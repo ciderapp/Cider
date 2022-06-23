@@ -1173,7 +1173,7 @@ const app = new Vue({
             }
         },
         unauthorize() {
-            app.confirm(app.getLz('term.confirmLogout'), function (result) {
+            this.confirm(app.getLz('term.confirmLogout'), function (result) {
                 if (result) {
                     app.mk.unauthorize()
                     document.location.reload()
@@ -1554,22 +1554,24 @@ const app = new Vue({
         },
         deletePlaylist(id) {
             let self = this
-            if (confirm(app.getLz('term.deletePlaylist'))) {
-                app.mk.api.v3.music(`/v1/me/library/playlists/${id}`, {}, {
-                    fetchOptions: {
-                        method: "DELETE"
-                    }
-                }).then(res => {
-                    // remove this playlist from playlists.listing if it exists
-                    let found = self.playlists.listing.find(item => item.id == id)
-                    if (found) {
-                        self.playlists.listing.splice(self.playlists.listing.indexOf(found), 1)
-                    }
-                    setTimeout(() => {
-                        app.refreshPlaylists(false, false);
-                    }, 8000);
-                })
-            }
+            this.confirm(app.getLz('term.deletePlaylist'), (ok) => {
+                if (ok) {
+                    app.mk.api.v3.music(`/v1/me/library/playlists/${id}`, {}, {
+                        fetchOptions: {
+                            method: "DELETE"
+                        }
+                    }).then(res => {
+                        // remove this playlist from playlists.listing if it exists
+                        let found = self.playlists.listing.find(item => item.id == id)
+                        if (found) {
+                            self.playlists.listing.splice(self.playlists.listing.indexOf(found), 1)
+                        }
+                        setTimeout(() => {
+                            app.refreshPlaylists(false, false);
+                        }, 8000);
+                    })
+                }
+            });
         },
         /**
          * @param {string} url, href for the initial request
