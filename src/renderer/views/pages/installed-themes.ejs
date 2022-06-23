@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col nopadding">
                     <h1 class="header-text">
-                        {{ $root.getLz("settings.option.visual.theme.manageStyles") }}    
+                        {{ $root.getLz("settings.option.visual.theme.manageStyles") }}
                     </h1>
                 </div>
                 <div class="col-auto nopadding flex-center">
@@ -32,11 +32,11 @@
                 </div>
                 <ul class="list-group list-group-flush">
                     <template v-for="theme in themes">
-                        <li @click="addStyle(theme.file)" 
+                        <li @click="addStyle(theme.file)"
                         @contextmenu="contextMenu($event, theme)"
                         class="list-group-item list-group-item-dark"
                         :class="{'applied': $root.cfg.visual.styles.includes(theme.file)}">
-                            
+
                             <b-row>
                                 <b-col class="themeLabel">{{theme.name}}</b-col>
                                 <template v-if="$root.cfg.visual.styles.includes(theme.file)">
@@ -58,13 +58,13 @@
 
                             </b-row>
                         </li>
-                        <li @click="addStyle(packEntry.file)" 
+                        <li @click="addStyle(packEntry.file)"
                         @contextmenu="contextMenu($event, theme)"
                         class="list-group-item list-group-item-dark addon"
                         v-for="packEntry in theme.pack"
                         :class="{'applied': $root.cfg.visual.styles.includes(packEntry.file)}"
                         v-if="theme.pack">
-                        
+
                         <b-row>
                             <b-col class="themeLabel">{{packEntry.name}}</b-col>
                             <template v-if="$root.cfg.visual.styles.includes(packEntry.file)">
@@ -111,7 +111,7 @@
                             </b-col>
                         </b-row>
                         </b-list-group-item>
-                </draggable>    
+                </draggable>
             </div>
         `,
         props: {
@@ -244,7 +244,7 @@
                             name: app.getLz("settings.option.visual.theme.uninstall"),
                             disabled: true,
                             action: () => {
-                                bootbox.confirm(app.stringTemplateParser(app.getLz("settings.prompt.visual.theme.uninstallTheme"), {
+                                app.confirm(app.stringTemplateParser(app.getLz("settings.prompt.visual.theme.uninstallTheme"), {
                                     theme: theme.name ?? theme.file
                                 }), (res) => {
                                     if (res) {
@@ -317,7 +317,7 @@
                 let msg = app.stringTemplateParser(app.getLz('settings.option.visual.theme.github.install.confirm'), {
                     repo: repo.full_name
                 });
-                bootbox.confirm(msg, (res) => {
+                app.confirm(msg, (res) => {
                     if (res) {
                         ipcRenderer.once("theme-installed", (event, arg) => {
                             if (arg.success) {
@@ -334,7 +334,7 @@
             },
             installThemeURL() {
                 let self = this
-                bootbox.prompt(app.getLz('settings.prompt.visual.theme.github.URL'), (result) => {
+                app.prompt(app.getLz('settings.prompt.visual.theme.github.URL'), (result) => {
                     if (result) {
                         ipcRenderer.once("theme-installed", (event, arg) => {
                             if (arg.success) {
