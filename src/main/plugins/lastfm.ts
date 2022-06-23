@@ -34,10 +34,10 @@ export default class lastfm {
         this.initializeLastFM("", this._apiCredentials)
     }
 
-    onReady(win: Electron.BrowserWindow): void {
+    onReady(_win: Electron.BrowserWindow): void {
 
         // Register the ipcMain handlers
-        this._utils.getIPCMain().handle('lastfm:url', (event: any) => {
+        this._utils.getIPCMain().handle('lastfm:url', (_event: any) => {
             // console.debug('lastfm:url', event)
             return this._lfm.getAuthenticationUrl({"cb": "cider://auth/lastfm"})
         })
@@ -47,7 +47,7 @@ export default class lastfm {
             this.authenticateLastFM(token)
         })
 
-        this._utils.getIPCMain().on('lastfm:disconnect', (event: any) => {
+        this._utils.getIPCMain().on('lastfm:disconnect', (_event: any) => {
             this._lfm.setSessionCredentials(null, null);
             this._authenticated = false;
             console.debug('[lastfm] [disconnect] Disconnected')
@@ -170,7 +170,7 @@ export default class lastfm {
      * @private
      */
     private scrobbleTrack(attributes: any): void {
-        if (!this._authenticated || !attributes || (this._utils.getStoreValue("connectivity.lastfm.filter_loop") && this._scrobbleCache.track === attributes.lfmTrack.name)) return;
+        if (!this._authenticated || !attributes || this._utils.getStoreValue("connectivity.lastfm.filter_types")[attributes.playParams.kind] || (this._utils.getStoreValue("connectivity.lastfm.filter_loop") && this._scrobbleCache.track === attributes.lfmTrack.name)) return;
 
         if (this._scrobbleDelay) {
             clearTimeout(this._scrobbleDelay);
@@ -208,7 +208,7 @@ export default class lastfm {
     }
 
     private updateNowPlayingTrack(attributes: any): void {
-        if (!this._authenticated || !attributes || (this._utils.getStoreValue("connectivity.lastfm.filter_loop") && this._nowPlayingCache.track === attributes.lfmTrack.name)) return;
+        if (!this._authenticated || !attributes || this._utils.getStoreValue("connectivity.lastfm.filter_types")[attributes.playParams.kind] || (this._utils.getStoreValue("connectivity.lastfm.filter_loop") && this._nowPlayingCache.track === attributes.lfmTrack.name)) return;
 
         const nowPlaying = {
             'artist': attributes.lfmTrack.artist.name,
