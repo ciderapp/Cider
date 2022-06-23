@@ -24,7 +24,7 @@ const Events = {
             // CTRL + R
             if (event.keyCode === 82 && event.ctrlKey) {
                 event.preventDefault()
-                bootbox.confirm(app.getLz('term.reload'), (res)=>{
+                app.confirm(app.getLz('term.reload'), (res)=>{
                     if (res) {
                         window.location.reload()
                     }
@@ -69,8 +69,8 @@ const Events = {
             // Prevent Scrolling on spacebar
             if (event.keyCode === 32 && event.target === document.body) {
                 event.preventDefault()
-                app.SpacePause()  
-                
+                app.SpacePause()
+
             }
         });
 

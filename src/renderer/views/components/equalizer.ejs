@@ -280,7 +280,7 @@
             },
             deletePreset() {
                 let presets = this.$root.cfg.audio.equalizer.presets
-                bootbox.confirm(app.getLz('term.deletepreset.warn'), (result) => {
+                app.confirm(app.getLz('term.deletepreset.warn'), (result) => {
                     if (result) {
                         this.changePreset("default")
                         // find the preset by id (preset) and remove it
@@ -351,7 +351,7 @@
             },
             addPreset() {
                 let self = this
-                bootbox.prompt(app.getLz('term.newpreset.name'), (res) => {
+                app.prompt(app.getLz('term.newpreset.name'), (res) => {
                     if (res) {
                         let eqSettings = Clone(app.cfg.audio.equalizer)
                         let newPreset = new self.eqPreset()
@@ -386,7 +386,7 @@
             },
             importPreset() {
                 let self = this
-                bootbox.prompt("Enter preset share code", (res) => {
+                app.prompt("Enter preset share code", (res) => {
                     if (res) {
                         let preset = JSON.parse(atob(res))
                         if (preset.frequencies && preset.gain && preset.Q && preset.mix && preset.vibrantBass) {
