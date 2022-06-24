@@ -8,11 +8,15 @@
             </div>
         </template>
         <template v-if="app.playlists.loadingState == 1">
-            <div class="playlist-display"
+            <div class="playlist-display" :style="{ 'background-color': '#' +hasHeroObject()?.bgColor ?? '' }"
                  @mouseover.self="minClass(false)">
                 <div class="playlistInfo">
                     <div class="playlist-hero" v-if="hasHero()">
                         <mediaitem-artwork shadow="none" :url="hasHero()" size="2160" />
+                        <div class="hero-tint" :style="{ 'position':'absolute', 'top' : '0',
+                        'background-color': '#' + hasHeroObject()?.bgColor ?? '' , // 50%
+                        'opacity': '0.6',
+                        'width':'100%', 'height':'100%'}"></div> 
                     </div>
                     <div class="row">
                         <div class="col-auto flex-center" @mouseover="minClass(false)">
@@ -29,7 +33,7 @@
                         <div class="col playlist-info">
                             <template v-if="!editorialNotesExpanded">
                                 <div>
-                                    <div class="playlist-name" @mouseover="minClass(false)" @click="editPlaylistName()" v-show="!nameEditing">
+                                    <div class="playlist-name" @mouseover="minClass(false)" @click="editPlaylistName()" v-show="!nameEditing" :style="{ 'color': '#' +hasHeroObject()?.textColor1 ?? '', 'filter' : 'drop-shadow(1px 3px 8px #' + hasHeroObject()?.textColor4 ?? '' +')' }">
                                         {{data.attributes ? (data.attributes.name ??
                                         (data.attributes.title ?? '') ?? '') : ''}}
                                     </div>
@@ -41,17 +45,18 @@
                                                                                            @change="editPlaylist"
                                                                                            @keydown.enter="editPlaylist"/>
                                     </div>
-                                    <div class="playlist-time genre" style="margin: 0px;">{{getAlbumGenre()}}</div>
+                                    <div class="playlist-time genre" style="margin: 0px;" :style="{ 'color': '#' + hasHeroObject()?.textColor2 ?? '' }">{{getAlbumGenre()}}</div>
                                     <div class="playlist-artist item-navigate"
                                          v-if="getArtistName(data) != '' && !useArtistChip"
                                          @click="data.attributes && data.attributes.artistName ? app.searchAndNavigate(data,'artist') : ''">
                                         {{getArtistName(data)}}
                                     </div>
                                     <template v-if="useArtistChip">
-                                        <artist-chip v-for="artist in data.relationships.artists?.data"
+                                        <artist-chip v-for="artist in data.relationships.artists?.data"  :style="{ 'color': '#' +hasHeroObject()?.textColor3 ?? '' }"
                                                      :item="artist"></artist-chip>
                                     </template>
                                     <div class="playlist-desc"
+                                        :style="{ 'color': '#' +hasHeroObject()?.textColor3 ?? '' }"
                                          v-if="(data.attributes.description && (data.attributes.description.standard || data.attributes.description.short)) || (data.attributes.editorialNotes && (data.attributes.editorialNotes.standard || data.attributes.editorialNotes.short))">
                                         <div v-if="(data.attributes.description?.short ?? data.attributes.editorialNotes?.short) != null"
                                              class="content"
@@ -123,7 +128,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="artworkContainer" v-if="data.attributes.artwork != null">
+                <div class="artworkContainer" v-if="data.attributes.artwork != null && !hasHero()">
                     <artwork-material :url="data.attributes.artwork.url" size="500" images="1"></artwork-material>
                 </div>
                 <button class="md-btn md-btn-small editTracksBtn" v-if="(data.attributes.canEdit && data.type == 'library-playlists')" @click="editing = !editing">
@@ -376,6 +381,16 @@
                     return this.data.attributes?.editorialArtwork?.storeFlowcase.url
                 }
                 return false;
+            },
+            hasHeroObject() {
+                if(this.data.attributes?.editorialArtwork?.bannerUber){
+                    return this.data.attributes?.editorialArtwork?.bannerUber
+                } else if(this.data.attributes?.editorialArtwork?.subscriptionHero) {
+                    return this.data.attributes?.editorialArtwork?.subscriptionHero
+                } else if(this.data.attributes?.editorialArtwork?.storeFlowcase){
+                    return this.data.attributes?.editorialArtwork?.storeFlowcase
+                }
+                return [];
             },
             getBadges() {
                 return
