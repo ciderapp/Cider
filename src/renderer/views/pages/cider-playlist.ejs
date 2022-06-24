@@ -13,10 +13,7 @@
                 <div class="playlistInfo">
                     <div class="playlist-hero" v-if="hasHero()">
                         <mediaitem-artwork shadow="none" :url="hasHero()" size="2160" />
-                        <div class="hero-tint" :style="{ 'position':'absolute', 'top' : '0',
-                        'background-color': '#' + hasHeroObject()?.bgColor ?? '' , // 50%
-                        'opacity': '0.6',
-                        'width':'100%', 'height':'100%'}"></div> 
+                        <div class="hero-tint" :style="{'background-color': '#' + hasHeroObject()?.bgColor ?? ''}"></div> 
                     </div>
                     <div class="row">
                         <div class="col-auto flex-center" @mouseover="minClass(false)">
@@ -117,6 +114,7 @@
                                             spellcheck="false"
                                             :placeholder="$root.getLz('term.search') + '...'"
                                             @input="search()"
+                                            :style="{ '--heroplaceholdercolor': '#' +hasHeroObject()?.textColor4 ?? ''}"
                                             v-model="searchQuery"
                                             class="search-input">
                                     </div>
