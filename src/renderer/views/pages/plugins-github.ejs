@@ -125,13 +125,13 @@
                 let msg = app.stringTemplateParser(app.getLz('settings.option.visual.plugin.github.install.confirm'), {
                     repo: repo.full_name
                 });
-                bootbox.confirm(msg, (res) => {
+                app.confirm(msg, (res) => {
                     if (res) {
                         ipcRenderer.once("plugin-installed", (event, arg) => {
                             if (arg.success) {
                                 self.themes = []
                                 notyf.success(app.getLz('settings.notyf.visual.plugin.install.success'));
-                                bootbox.confirm(app.getLz("settings.prompt.visual.plugin.github.success"), (ok)=>{
+                                app.confirm(app.getLz("settings.prompt.visual.plugin.github.success"), (ok)=>{
                                     if (ok) {
                                         ipcRenderer.invoke("relaunchApp")
                                     } else {
@@ -148,12 +148,12 @@
             },
             installThemeURL() {
                 let self = this
-                bootbox.prompt(app.getLz('settings.prompt.visual.plugin.github.URL'), (result) => {
+                app.prompt(app.getLz('settings.prompt.visual.plugin.github.URL'), (result) => {
                     if (result) {
                         ipcRenderer.once("plugin-installed", (event, arg) => {
                             if (arg.success) {
                                 self.themes = ipcRenderer.sendSync("get-themes")
-                                bootbox.confirm(app.getLz("settings.prompt.visual.plugin.github.success"), (ok)=>{
+                                app.confirm(app.getLz("settings.prompt.visual.plugin.github.success"), (ok)=>{
                                     if (ok) {
                                         ipcRenderer.invoke("relaunchApp")
                                     } else {

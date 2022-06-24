@@ -952,22 +952,22 @@ const app = new Vue({
                         }
                     } catch (e) {
                         localStorage.setItem("playingBitrate", "256")
-                    } 
+                    }
                     if (!app.cfg.audio.normalization) {CiderAudio.hierarchical_loading();}
-                             
+
                 }
-                
+
                 if (app.cfg.audio.normalization) {
                     // get unencrypted audio previews to get SoundCheck's normalization tag
                     try {
                         let previewURL = null
                         try {
-                            previewURL = app.mk.nowPlayingItem.previewURL          
+                            previewURL = app.mk.nowPlayingItem.previewURL
                         } catch (e) {
                         }
                         if (previewURL == null && ((app.mk.nowPlayingItem?._songId ?? (app.mk.nowPlayingItem["songId"] ?? app.mk.nowPlayingItem.relationships.catalog.data[0].id)) != -1)) {
                             app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/songs/${app.mk.nowPlayingItem?._songId ?? (app.mk.nowPlayingItem["songId"] ?? app.mk.nowPlayingItem.relationships.catalog.data[0].id)}`).then((response) => {
-                                previewURL = response.data.data[0].attributes.previews[0].url                     
+                                previewURL = response.data.data[0].attributes.previews[0].url
                                 if (previewURL)
                                     console.debug("[Cider][MaikiwiSoundCheck] previewURL response.data.data[0].attributes.previews[0].url: " + previewURL)
                                     ipcRenderer.send('getPreviewURL', previewURL)
@@ -1173,7 +1173,7 @@ const app = new Vue({
             }
         },
         unauthorize() {
-            bootbox.confirm(app.getLz('term.confirmLogout'), function (result) {
+            this.confirm(app.getLz('term.confirmLogout'), function (result) {
                 if (result) {
                     app.mk.unauthorize()
                     document.location.reload()
@@ -1554,22 +1554,24 @@ const app = new Vue({
         },
         deletePlaylist(id) {
             let self = this
-            if (confirm(app.getLz('term.deletePlaylist'))) {
-                app.mk.api.v3.music(`/v1/me/library/playlists/${id}`, {}, {
-                    fetchOptions: {
-                        method: "DELETE"
-                    }
-                }).then(res => {
-                    // remove this playlist from playlists.listing if it exists
-                    let found = self.playlists.listing.find(item => item.id == id)
-                    if (found) {
-                        self.playlists.listing.splice(self.playlists.listing.indexOf(found), 1)
-                    }
-                    setTimeout(() => {
-                        app.refreshPlaylists(false, false);
-                    }, 8000);
-                })
-            }
+            this.confirm(app.getLz('term.deletePlaylist'), (ok) => {
+                if (ok) {
+                    app.mk.api.v3.music(`/v1/me/library/playlists/${id}`, {}, {
+                        fetchOptions: {
+                            method: "DELETE"
+                        }
+                    }).then(res => {
+                        // remove this playlist from playlists.listing if it exists
+                        let found = self.playlists.listing.find(item => item.id == id)
+                        if (found) {
+                            self.playlists.listing.splice(self.playlists.listing.indexOf(found), 1)
+                        }
+                        setTimeout(() => {
+                            app.refreshPlaylists(false, false);
+                        }, 8000);
+                    })
+                }
+            });
         },
         /**
          * @param {string} url, href for the initial request
@@ -4623,6 +4625,29 @@ const app = new Vue({
                     let src = sources[0];
                     app.mk._services.mediaItemPlayback._currentPlayer._playAssetURL(src, false)
                 }
+            }
+        },
+        confirm(message, callback) {
+            bootbox.confirm(this.getBootboxParams(null, message, callback));
+        },
+        prompt(title, callback) {
+            bootbox.prompt(this.getBootboxParams(title, null, callback));
+        },
+        getBootboxParams(title, message, callback) {
+            return {
+                title: title,
+                message: message,
+                buttons: {
+                    confirm: {
+                        label: app.getLz('dialog.ok'),
+                    },
+                    cancel: {
+                        label:  app.getLz('dialog.cancel'),
+                    },
+                },
+                callback: function (result) {
+                    if (callback) callback(result);
+                },
             }
         }
     }
