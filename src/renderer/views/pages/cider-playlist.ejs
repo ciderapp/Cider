@@ -11,6 +11,9 @@
             <div class="playlist-display"
                  @mouseover.self="minClass(false)">
                 <div class="playlistInfo">
+                    <div class="playlist-hero" v-if="hasHero()">
+                        <mediaitem-artwork shadow="none" :url="hasHero()" size="2048" />
+                    </div>
                     <div class="row">
                         <div class="col-auto flex-center" @mouseover="minClass(false)">
                             <div class="mediaContainer">
@@ -363,6 +366,16 @@
             },
             isHeaderVisible(visible) {
                 this.headerVisible = visible
+            },
+            hasHero() {
+                if(this.data.attributes?.editorialArtwork?.bannerUber){
+                    return this.data.attributes?.editorialArtwork?.bannerUber.url
+                } else if(this.data.attributes?.editorialArtwork?.subscriptionHero) {
+                    return this.data.attributes?.editorialArtwork?.subscriptionHero.url
+                } else if(this.data.attributes?.editorialArtwork?.storeFlowcase){
+                    return this.data.attributes?.editorialArtwork?.storeFlowcase.url
+                }
+                return false;
             },
             getBadges() {
                 return
