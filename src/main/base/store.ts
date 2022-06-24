@@ -2,9 +2,13 @@ import * as ElectronStore from 'electron-store';
 import * as electron from "electron";
 import {app} from "electron";
 import fetch from "electron-fetch";
+import * as PouchDB from 'pouchdb';
+import * as PouchDBUpsert from 'pouchdb-upsert';
+PouchDB.plugin(PouchDBUpsert)
 export class Store {
-    static cfg: ElectronStore;
-
+    static cfg: any;
+    static db: any;
+    static cfg_doc_name: string;
     private defaults: any = {
         "main": {
             "PLATFORM": process.platform,
@@ -267,6 +271,7 @@ export class Store {
             type: 'object'
         },
     }
+    static Store: () => void;
 
     constructor() {
         Store.cfg = new ElectronStore({
@@ -276,6 +281,37 @@ export class Store {
             migrations: this.migrations,
             clearInvalidConfig: true
         });
+
+
+        Store.cfg_doc_name = 'store'
+        Store.db = new PouchDB(Store.cfg_doc_name)
+        Store.db.upsert({
+            _id: Store.cfg_doc_name,
+            ...this.defaults
+        }, function (err: any, response: any) {
+            if (err) { return console.log(err); }
+            console.log(response)
+        });
+        Store.db.get(Store.cfg_doc_name, function(err: any, doc: any) {
+            if (err) { return console.log(err); }
+            // handle doc
+            console.log(doc)
+        });
+
+
+        Store.db.info(function(err: any, info: any) {
+            if (err) { return console.log(err); }
+            console.log(info)
+        });
+
+        Store.cfg = () => {
+            Store.db.get(Store.cfg_doc_name, function(err: any, doc: any) {
+                if (err) { return console.log(err); }
+                // handle doc
+                return doc
+            });
+        }
+
 
         Store.cfg.set(this.mergeStore(this.defaults, Store.cfg.store))
         this.ipcHandler();
@@ -308,23 +344,56 @@ export class Store {
      */
     private ipcHandler(): void {
         electron.ipcMain.handle('getStoreValue', (_event, key, defaultValue) => {
-            return (defaultValue ? Store.cfg.get(key, true) : Store.cfg.get(key));
+            return Store.db.get(Store.cfg_doc_name).then(function (doc: any) {
+                // get the key
+                return doc[key]
+            })
+
+            //return (defaultValue ? Store.cfg.get(key, true) : Store.cfg.get(key));
         });
 
         electron.ipcMain.handle('setStoreValue', (_event, key, value) => {
-            Store.cfg.set(key, value);
+            Store.db.get(Store.cfg_doc_name).then(function (doc: any) {
+                // update the key
+                doc[key] = value;
+                // put it back
+                return Store.db.upsert(doc); // doing this, we can use PouchDB's revision API as a "undo"
+            })
+            //Store.cfg.set(key, value);
         });
 
         electron.ipcMain.on('getStore', (event) => {
-            event.returnValue = Store.cfg.store
+            Store.db.get(Store.cfg_doc_name).catch(function (err: any) {
+                if (err.name === 'not_found') {
+                    return Store.cfg.defaults
+                } else { // hm, some other error
+                    throw err;
+                }
+            }).then(function (store: any) {
+                // sweet, here is our doc
+                event.returnValue = store
+            }).catch(function (err: any) {
+                // handle any errors
+                console.error(err)
+            });
         })
 
         electron.ipcMain.on('setStore', (_event, store) => {
-            Store.cfg.store = store
+            Store.db.get(Store.cfg_doc_name).then(function (doc: any) {
+                // update the store
+                doc = store;
+                // put it back
+                return Store.db.put(doc); // doing this, we can use PouchDB's revision API as a "undo"
+            })
         })
     }
     
-    
+
+
+
+
+
+
     static pushToCloud(): void {
         if (Store.cfg.get('connectUser.auth') === null) return;
         var syncData = Object();

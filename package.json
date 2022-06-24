@@ -39,6 +39,8 @@
   "dependencies": {
     "@sentry/electron": "^3.0.7",
     "@sentry/integrations": "^6.19.6",
+    "@types/pouchdb": "^6.4.0",
+    "@types/pouchdb-upsert": "^2.2.6",
     "adm-zip": "0.4.10",
     "airtunes2": "git+https://github.com/ciderapp/node_airtunes2",
     "castv2-client": "^1.2.0",
@@ -62,6 +64,8 @@
     "music-metadata": "^7.12.3",
     "node-gyp": "^9.0.0",
     "node-ssdp": "^4.0.1",
+    "pouchdb": "^7.3.0",
+    "pouchdb-upsert": "^2.2.0",
     "qrcode": "^1.5.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
