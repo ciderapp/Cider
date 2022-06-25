@@ -17,6 +17,17 @@ window.CiderCache = CiderCache
 window.CiderFrontAPI = CiderFrontAPI
 window.wsapi = wsapi
 
+if (app.cfg.advanced.disableLogging === true) {
+    window.console = {
+        log: function() {},
+        error: function() {},
+        warn: function() {},
+        assert: function() {},
+        debug: function() {}
+    }
+}
+
+
 // Mount Vue to #app
 app.$mount("#app")
 
