@@ -108,25 +108,11 @@
                                     {{app.getLz('term.confirm')}}
                                 </button>
                                 <div style="display: flex; float: right;">
-<<<<<<< HEAD
                                     <button :class="['search-btn', showSearch ? 'active' : '']"
                                             @click="toggleSearch()"
                                             :aria-label="showSearch ? app.getLz('term.hideSearch') : app.getLz('term.showSearch')">
                                         <img :src="showSearch ? './assets/search-alt.svg' : './assets/search.svg'">
                                     </button>
-=======
-                                    <div class="search-input-container" style="margin-right: 8px;">
-                                        <div class="search-input--icon"></div>
-                                        <input type="search"
-                                            style="width:100%;"
-                                            spellcheck="false"
-                                            :placeholder="$root.getLz('term.search') + '...'"
-                                            @input="search()"
-                                            :style="{ '--heroplaceholdercolor': '#' +hasHeroObject()?.textColor4 ?? ''}"
-                                            v-model="searchQuery"
-                                            class="search-input">
-                                    </div>
->>>>>>> main
                                     <button class="more-btn-round" @click="menu" :aria-label="app.getLz('term.more')">
                                         <div class="svg-icon"></div>
                                     </button>
