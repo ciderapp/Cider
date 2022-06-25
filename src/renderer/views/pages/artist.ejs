@@ -25,7 +25,8 @@
                     </div>
                     <div class="col flex-center artist-title"
                          :class="{'artist-animation-on': (data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9)) || hasHero() }"
-                    >
+                         :style="{ 'color': '#' +hasHeroObject()?.textColor1 ?? ''}"
+                         >
                         <button class="artist-play" @click="app.mk.setStationQueue({artist:'a-'+data.id}).then(()=>{
                         app.mk.play()
                     })" :aria-label="app.getLz('term.play')"><%- include("../svg/play.svg") %></button>
@@ -178,10 +179,20 @@
                     return this.data.attributes?.editorialArtwork?.centeredFullscreenBackground.url
                 } else if(this.data.attributes?.editorialArtwork?.bannerUber) {
                     return this.data.attributes?.editorialArtwork?.bannerUber.url
-                }else if(this.data.attributes?.editorialArtwork?.subscriptionHero){
+                } else if(this.data.attributes?.editorialArtwork?.subscriptionHero){
                     return this.data.attributes?.editorialArtwork?.subscriptionHero.url
                 }
                 return false;
+            },
+            hasHeroObject() {
+                if(this.data.attributes?.editorialArtwork?.centeredFullscreenBackground){
+                    return this.data.attributes?.editorialArtwork?.centeredFullscreenBackground
+                } else if(this.data.attributes?.editorialArtwork?.bannerUber) {
+                    return this.data.attributes?.editorialArtwork?.bannerUber
+                } else if(this.data.attributes?.editorialArtwork?.subscriptionHero){
+                    return this.data.attributes?.editorialArtwork?.subscriptionHero
+                }
+                return [];
             },
             isHeaderVisible(visible) {
                 this.headerVisible = visible
