@@ -60,7 +60,8 @@
                                              v-html="data.attributes.description?.short ?? data.attributes.editorialNotes?.short"
                                              @click="openInfoModal()"></div>
                                         <div v-else-if="((data.attributes.description?.standard ?? data.attributes.editorialNotes?.standard) != null) && (descriptionEditing == false)"
-                                             @mouseover="minClass(false)" @click="editPlaylistDescription()">{{data.attributes.description?.standard ?? data.attributes.editorialNotes?.standard}}</div>
+                                             @mouseover="minClass(false)" @click="editPlaylistDescription()" v-html="(data.attributes.description?.standard ?? (data.attributes.editorialNotes?.standard ?? '')).substring(0, 255) +'...'"
+                                             @click="if((data.attributes.description?.standard ?? (data.attributes.editorialNotes?.standard ?? '')).length > 255) {openInfoModal()}"></div>
                                         <div v-else-if="((data.attributes.description?.standard ?? data.attributes.editorialNotes?.standard) != null) && (descriptionEditing)"
                                              @mouseover="minClass(false)"><input type="text"
                                              spellcheck="false"
