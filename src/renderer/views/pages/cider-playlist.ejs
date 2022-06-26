@@ -177,7 +177,7 @@
                         <div @wheel="minClass(true)" @scroll="minClass(true)">
                         <div class="">
                             <div style="width:100%" @click="minClass(true)">
-                                <div v-if="showSearch" class="search-input-container" ref="playlist-search">
+                                <div v-if="showSearch" class="search-input-container">
                                     <div class="search-input--icon"></div>
                                     <input type="search"
                                         spellcheck="false"
@@ -845,9 +845,11 @@
                     this.searchQuery = "";
                     this.search();
                 } else if (this.showSearch) {
-                    this.$nextTick(() => {
-                        // Ensure search bar is visible
-                        this.$refs["playlist-search"].scrollIntoView({ behavior: 'smooth' });
+                    // Ensure search bar is visible
+                    document.querySelector(".tab-pane.active").scrollTo({
+                        top: 0,
+                        left: 0,
+                        behavior: 'smooth'
                     })
                 }
             },
