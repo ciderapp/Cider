@@ -67,7 +67,7 @@
                     </template>
                 </div>
             </div>
-            <div class="heart-icon" v-if="!(app.mk.isPlaying && (((app.mk.nowPlayingItem._songId ?? (app.mk.nowPlayingItem.songId ?? app.mk.nowPlayingItem.id ))  == itemId) || (app.mk.nowPlayingItem.id == item.id)))">
+            <div class="heart-icon">
                 <!-- <div class="heart-unfilled" v-if="isLoved == false" :style="{'--url': 'url(./assets/feather/heart.svg)'}" /> -->
                 <div class="heart-filled" v-if="isLoved == true" :style="{'--url': 'url(./assets/feather/heart-fill.svg)'}" />
             </div>
