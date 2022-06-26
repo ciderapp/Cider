@@ -185,15 +185,18 @@
                 return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
             },
             getDataType() {
+                let type = ''
                 if (typeof this.item.attributes.playParams != "undefined") {
                     if (this.item.attributes.playParams?.isLibrary) {
-                        return this.item.type
+                        type = this.item.type
                     } else {
-                        return this.item.attributes.playParams?.kind
+                        type = this.item.attributes.playParams?.kind
                     }
                 } else {
-                    return this.item.type
+                    type = this.item.type
                 }
+                if (type == 'podcast-episodes') type = 'episode';
+                return type;
             },
             select(e) {
                 let data_type = this.getDataType()
