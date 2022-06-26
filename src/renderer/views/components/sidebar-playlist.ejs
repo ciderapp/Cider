@@ -207,7 +207,44 @@
             openPlaylist(item) {
                 this.$root.appRoute(`playlist_` + item.id);
                 this.$root.showingPlaylist = [];
-                this.$root.getPlaylistFromID(this.$root.page.substring(9), true)
+                if (item.id == 'ciderlocal') {
+                    this.$root.showingPlaylist = {
+                        "id": "ciderlocal",
+                        "type": "library-playlists",
+                        "href": "",
+                        "attributes": {
+                            "artwork": {
+                                "width": null,
+                                "height": null,
+                                "url": "",
+                                "hasP3": false
+                            },
+                            "dateAdded": "2021-02-16T03:39:47Z",
+                            "name": "Local Songs",
+                            "canDelete": true,
+                            "hasCatalog": true,
+                            "canEdit": true,
+                            "playParams": {
+                                "id": "ciderlocal",
+                                "kind": "playlist",
+                                "isLibrary": true,
+                            },
+                            "isPublic": true,
+                            "description": {
+                                "standard": "LocalSongs"
+                            }
+                        },
+                        "relationships": {
+                            "tracks": {
+                                "href": "",
+                                "data": this.$root.library.localsongs
+                            }
+                        }
+                    }
+                    this.$root.playlists.loadingState = 1;
+                } else {
+                    this.$root.getPlaylistFromID(this.$root.page.substring(9), true)
+                }
             },
             getPlaylistChildren(item) {
                 let self = this
