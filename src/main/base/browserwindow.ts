@@ -1,5 +1,5 @@
-import { join } from "path";
-import { app, BrowserWindow as bw, ipcMain, ShareMenu, shell, screen } from "electron";
+import {join} from "path";
+import {app, BrowserWindow as bw, ipcMain, ShareMenu, shell, screen, dialog} from "electron";
 import * as windowStateKeeper from "electron-window-state";
 import * as express from "express";
 import * as getPort from "get-port";
@@ -122,6 +122,7 @@ export class BrowserWindow {
                 "components/fullscreen",
                 "components/miniplayer",
                 "components/castmenu",
+                "components/pathmenu",
                 "components/airplay-modal",
                 "components/artist-chip",
                 "components/hello-world",
@@ -1256,7 +1257,7 @@ export class BrowserWindow {
                                             "copyright": metadata.common.copyright ?? "",
                                             "assetUrl":  "file:///" +audio,
                                             "contentAdvisory": "",
-                                            "releaseDateTime": "2022-05-13T00:23:00Z",
+                                            "releaseDateTime": `${metadata?.common?.year ?? '2022'}-05-13T00:23:00Z`,
                                             "durationInMillis": Math.floor((metadata.format.duration?? 0) * 1000),
                                             
                                             "offers": [
@@ -1268,24 +1269,6 @@ export class BrowserWindow {
                                             "contentRating": "clean"
                                         }
                             };
-                            
-                            
-                        // let form = {"id": "/ciderlocal?" + audio, 
-                        // "type": "library-songs", 
-                        // "href": "/ciderlocal?" + audio, 
-                        // "artwork": {
-                        //     "url": metadata.common.picture != undefined ? "data:image/png;base64,"+metadata.common.picture[0].data.toString('base64')+"" : "", 
-                        // },
-                        // "attributes": 
-                        // { "durationInMillis": Math.floor((metadata.format.duration?? 0) * 1000), 
-                        // "hasLyrics": false, 
-                        // "playParams": { "id": "/ciderlocal?" + audio, "kind": "song", "isLibrary": true, "reporting": false }, 
-                        // "trackNumber": 0, 
-                        // "discNumber": 0, 
-                        // "genreNames": [""], 
-                        // "name": metadata.common.title,
-                        // "albumName": metadata.common.album,
-                        // "artistName": metadata.common.artist}}
                         metadatalistart.push({
                             id : "ciderlocal" + numid,
                             url: metadata.common.picture != undefined ? metadata.common.picture[0].data.toString('base64') : "",
@@ -1497,10 +1480,17 @@ export class BrowserWindow {
             }
 
         });
+
         ipcMain.on('open-appdata', (_event) => {
             shell.openPath(app.getPath('userData'));
         });
 
+        ipcMain.handle('folderSelector', async (_event) => {
+            let u = await dialog.showOpenDialog({
+                properties: ['openDirectory','multiSelections']
+            });
+            return u.filePaths
+        });
 
         //#region Cider Connect
         ipcMain.on('cc-auth', (_event) => {

@@ -1,0 +1,65 @@
+<script type="text/x-template" id="pathmenu">
+<div class="spatialproperties-panel castmenu pathmenu modal-fullscreen" @click.self="close()" @contextmenu.self="close()">
+    <div class="modal-window">
+        <div class="modal-header">
+            <div class="modal-title">{{'Edit Paths'}}</div>
+            <button class="close-btn" @click="close()" :aria-label="$root.getLz('action.close')"></button>
+        </div>
+        <div class="modal-content">
+            <template v-for="folder of folders">
+                <div class="md-option-line">
+                    <div class="md-option-segment">
+                        {{folder}}
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <button class="md-btn" @click="remove(folder)">
+                            {{'Remove'}}
+                        </button>
+                    </div>
+                </div>  
+            </template>  
+            <div class="md-option-line">
+                <div class="md-option-segment md-option-segment_auto">
+                    <button class="md-btn" @click="add()">
+                        {{'Add Path'}}
+                    </button>
+                </div>
+            </div>   
+        </div>    
+    </div>
+</div>
+</script>
+<script>
+    Vue.component('pathmenu', {
+        template: '#pathmenu',
+        data: function () {
+            return {
+                folders: [],
+            }
+        },
+        mounted() {
+            this.folders = this.$root.cfg.libraryPrefs.localPaths;
+        },
+        watch:{},
+        methods: {
+            close() {
+                this.$root.modals.pathMenu = false
+            },
+            async add(){
+                const result = await ipcRenderer.invoke('folderSelector')
+                for (i of result){
+                    if (this.folders.findIndex(x => x.startsWith(i)) == -1){
+                        this.folders.push(i)
+                    }
+                }
+                this.$root.cfg.libraryPrefs.localPaths = this.folders;
+                ipcRenderer.send("scanLibrary",app.cfg.libraryPrefs.localPaths)
+            },
+            remove(dir){
+                this.folders = this.folders.filter(item => item !== dir)
+                this.$root.cfg.libraryPrefs.localPaths = this.folders;
+                ipcRenderer.send("scanLibrary",app.cfg.libraryPrefs.localPaths)
+            }
+        }
+    });
+</script>

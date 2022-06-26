@@ -216,6 +216,7 @@ const app = new Vue({
             audioPlaybackRate: false,
             showPlaylist: false,
             castMenu: false,
+            pathMenu: false,
             moreInfo: false,
             airplayPW: false,
             settings: false
@@ -858,7 +859,7 @@ const app = new Vue({
             })
 
             ipcRenderer.on('getUpdatedLocalList', (event, data) => {
-                console.log("cider-local", data);
+                // console.log("cider-local", data);
                 this.library.localsongs = data;
             })
 
@@ -1072,6 +1073,8 @@ const app = new Vue({
             if (this.cfg.general.themeUpdateNotification && !this.isDev) {
                 this.checkForThemeUpdates()
             }
+
+            ipcRenderer.send("scanLibrary",app.cfg.libraryPrefs.localPaths)
         },
         showFoo(querySelector, time) {
             clearTimeout(this.idleTimer);

@@ -155,6 +155,7 @@ export class Store {
                 "sortOrder": "asc",
                 "viewAs": "covers"
             },
+            "localPaths": []
         },
         "audio": {
             "volume": 1,
