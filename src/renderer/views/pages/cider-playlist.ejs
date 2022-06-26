@@ -87,11 +87,11 @@
                                 </div>
                             </template>
                             <div class="playlist-controls" v-observe-visibility="{callback: isHeaderVisible}" style="z-index: 20;">
-                                <button class="md-btn md-btn-primary md-btn-icon" style="min-width: 100px;"
+                                <button class="md-btn md-btn-primary md-btn-icon" style="min-width: 100px;" :style="{'background': '#' +hasHeroObject()?.textColor4 ?? '','border-top': '#' +hasHeroObject()?.textColor3 ?? '','border': '#' +hasHeroObject()?.textColor2 ?? ''}"
                                         @click="app.mk.shuffleMode = 0; play()"><img class="md-ico-play">
                                     {{app.getLz('term.play')}}
                                 </button>
-                                <button class="md-btn md-btn-primary md-btn-icon" style="min-width: 100px;"
+                                <button class="md-btn md-btn-primary md-btn-icon" style="min-width: 100px;" :style="{'background': '#' +hasHeroObject()?.textColor4 ?? '','border-top': '#' +hasHeroObject()?.textColor3 ?? '','border': '#' +hasHeroObject()?.textColor2 ?? ''}"
                                         @click="app.mk.shuffleMode = 1;play()"><img class="md-ico-shuffle">
                                     {{app.getLz('term.shuffle')}}
                                 </button>
