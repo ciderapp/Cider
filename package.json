@@ -39,8 +39,6 @@
   "dependencies": {
     "@sentry/electron": "^3.0.7",
     "@sentry/integrations": "^6.19.6",
-    "@types/pouchdb": "^6.4.0",
-    "@types/pouchdb-upsert": "^2.2.6",
     "adm-zip": "0.4.10",
     "airtunes2": "git+https://github.com/ciderapp/node_airtunes2",
     "castv2-client": "^1.2.0",
