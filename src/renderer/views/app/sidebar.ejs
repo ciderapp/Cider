@@ -176,6 +176,10 @@
           </div>
           {{ getLz("action.createNew") }}
         </button>
+      <sidebar-playlist
+        :item="{attributes: { name:'Local Songs'} , id:'ciderlocal'}"
+      >
+      </sidebar-playlist>       
         <sidebar-playlist
           v-for="item in getPlaylistFolderChildren('p.playlistsroot')"
           :item="item"

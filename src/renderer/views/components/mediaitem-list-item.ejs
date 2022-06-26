@@ -123,8 +123,8 @@
         },
         mounted() {
             if (this.item.attributes.playParams) {
-                this.itemId = this.item.attributes.playParams.id ?? this.item.id;
-                this.isLibrary = this.item.attributes.playParams.isLibrary ?? false;
+                this.itemId = this.item.attributes.playParams?.id ?? this.item.id;
+                this.isLibrary = this.item.attributes.playParams?.isLibrary ?? false;
             } else {
                 this.itemId = this.item.id;
             }
@@ -143,6 +143,9 @@
                 return color
             },
             async checkLibrary() {
+                if (this.item.id.startsWith('ciderlocal')){
+                    return true
+                }
                 if (this.addedToLibrary) { return this.addedToLibrary }
                 if (this.item.type.includes("library-playlists") || this.item.type.includes("station")) {
                     this.addedToLibrary = true
@@ -155,7 +158,7 @@
             },
             getClasses() {
                 this.addClasses = {}
-                if (typeof this.item.attributes.playParams == "undefined") {
+                if (typeof this.item.attributes.playParams == "undefined" && this.item.type != "podcast-episodes") {
                     this.addClasses["disabled"] = true
                 }
                 if (this.classList) {
@@ -167,7 +170,7 @@
             },
             dragStart(evt) {
                 evt.dataTransfer.setData('text/plain', JSON.stringify({
-                    type: this.item.attributes.playParams.kind ?? this.item.type,
+                    type: this.item.attributes.playParams?.kind ?? this.item.type,
                     id: this.item.id
                 }))
             },
@@ -183,10 +186,10 @@
             },
             getDataType() {
                 if (typeof this.item.attributes.playParams != "undefined") {
-                    if (this.item.attributes.playParams.isLibrary) {
+                    if (this.item.attributes.playParams?.isLibrary) {
                         return this.item.type
                     } else {
-                        return this.item.attributes.playParams.kind
+                        return this.item.attributes.playParams?.kind
                     }
                 } else {
                     return this.item.type
@@ -194,8 +197,8 @@
             },
             select(e) {
                 let data_type = this.getDataType()
-                let item_id = this.item.attributes.playParams.id ?? this.item.id
-                let isLibrary = this.item.attributes.playParams.isLibrary ?? false
+                let item_id = this.item.attributes.playParams?.id ?? this.item.id
+                let isLibrary = this.item.attributes.playParams?.isLibrary ?? false
 
                 if (e.shiftKey) {
                     if (this.index != -1) {
@@ -259,8 +262,8 @@
             async contextMenu(event) {
                 let self = this
                 let data_type = this.getDataType()
-                let item_id = this.item.attributes.playParams.id ?? this.item.id
-                let isLibrary = this.item.attributes.playParams.isLibrary ?? false
+                let item_id = this.item.attributes.playParams?.id ?? this.item.id
+                let isLibrary = this.item.attributes.playParams?.isLibrary ?? false
 
                 let useMenu = "normal"
                 if (app.selectedMediaItems.length <= 1) {
@@ -319,6 +322,7 @@
                                             app.mk.playLater({ [kind + "s"]: itemsToPlay[kind] })
                                         }
                                     }
+                                    console.log(itemsToPlay)
                                     app.selectedMediaItems = []
                                 }
                             },
@@ -400,7 +404,9 @@
                                 "name": app.getLz('action.playNext'),
                                 "icon": "./assets/arrow-bend-up.svg",
                                 "action": function () {
-                                    app.mk.playNext({ [self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id })
+                                    let type = self.item.attributes.playParams?.kind ?? self.item.type
+                                    if (type == "podcast-episodes") {type = "episode"}
+                                    app.mk.playNext({ [type]: self.item.attributes.playParams?.id ?? self.item.id })
                                     app.mk.queue._reindex()
                                     app.selectedMediaItems = []
                                 }
@@ -409,7 +415,9 @@
                                 "name": app.getLz('action.playLater'),
                                 "icon": "./assets/arrow-bend-down.svg",
                                 "action": function () {
-                                    app.mk.playLater({ [self.item.attributes.playParams.kind ?? self.item.type]: self.item.attributes.playParams.id ?? self.item.id })
+                                    let type = self.item.attributes.playParams?.kind ?? self.item.type
+                                    if (type == "podcast-episodes") {type = "episode"}
+                                    app.mk.playLater({ [type]: self.item.attributes.playParams?.id ?? self.item.id })
                                     app.mk.queue._reindex()
                                     app.selectedMediaItems = []
                                 }
@@ -418,7 +426,7 @@
                                 "icon": "./assets/feather/radio.svg",
                                 "name": app.getLz('action.startRadio'),
                                 "action": function () {
-                                    app.mk.setStationQueue({ song: self.item.attributes.playParams.id ?? self.item.id }).then(() => {
+                                    app.mk.setStationQueue({ song: self.item.attributes.playParams?.id ?? self.item.id }).then(() => {
                                         app.mk.play()
                                         app.selectedMediaItems = []
                                     })
@@ -444,7 +452,7 @@
                                 "action": function () {
                                     if (!self.item.attributes.url && self.item.relationships) {
                                         if (self.item.relationships.catalog) {
-                                            app.mkapi(self.item.attributes.playParams.kind, false, self.item.relationships.catalog.data[0].id).then(u => { self.app.copyToClipboard((u.data.data.length && u.data.data.length > 0) ? u.data.data[0].attributes.url : u.data.data.attributes.url) })
+                                            app.mkapi(self.item.attributes.playParams?.kind, false, self.item.relationships.catalog.data[0].id).then(u => { self.app.copyToClipboard((u.data.data.length && u.data.data.length > 0) ? u.data.data[0].attributes.url : u.data.data.attributes.url) })
                                         }
                                     } else {
                                         self.app.copyToClipboard(self.item.attributes.url)
@@ -457,7 +465,7 @@
                                 "action": function () {
                                     if (!self.item.attributes.url && self.item.relationships) {
                                         if (self.item.relationships.catalog) {
-                                            app.mkapi(self.item.attributes.playParams.kind, false, self.item.relationships.catalog.data[0].id).then(u => { self.app.songLinkShare((u.data.data.length && u.data.data.length > 0) ? u.data.data[0].attributes.url : u.data.data.attributes.url) })
+                                            app.mkapi(self.item.attributes.playParams?.kind, false, self.item.relationships.catalog.data[0].id).then(u => { self.app.songLinkShare((u.data.data.length && u.data.data.length > 0) ? u.data.data[0].attributes.url : u.data.data.attributes.url) })
                                         }
                                     } else {
                                         self.app.songLinkShare(self.item.attributes.url)
@@ -526,9 +534,9 @@
             },
             addToLibrary() {
                 let item = this.item
-                if (item.attributes.playParams.id) {
-                    console.log('adding to library', item.attributes.playParams.id)
-                    app.addToLibrary(item.attributes.playParams.id.toString())
+                if (item.attributes.playParams?.id) {
+                    console.log('adding to library', item.attributes.playParams?.id)
+                    app.addToLibrary(item.attributes.playParams?.id.toString())
                     this.addedToLibrary = true
                 } else if (item.id) {
                     console.log('adding to library', item.id)
@@ -539,14 +547,14 @@
             async removeFromLibrary() {
                 let item = this.item
                 let params = { "fields[songs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library" }
-                let id = item.id ?? item.attributes.playParams.id
-                let res = await app.mkapi(item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.playParams.id ?? item.id, params);
+                let id = item.id ?? item.attributes.playParams?.id
+                let res = await app.mkapi(item.attributes.playParams?.kind ?? item.type, item.attributes.playParams?.isLibrary ?? false, item.attributes.playParams?.id ?? item.id, params);
                 if (res && res.relationships && res.relationships.library && res.relationships.library.data && res.relationships.library.data.length > 0) {
                     id = res.relationships.library.data[0].id
                 }
-                let kind = this.item.attributes.playParams.kind ?? this.data.item ?? '';
+                let kind = this.item.attributes.playParams?.kind ?? this.data.item ?? '';
                 let truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
-                if (item.attributes.playParams.id) {
+                if (item.attributes.playParams?.id) {
                     console.log('remove from library', id)
                     app.removeFromLibrary(truekind, id)
                     this.addedToLibrary = false
@@ -560,9 +568,9 @@
                 let item = this.item
                 let parent = this.parent
                 let childIndex = this.index
-                let kind = (item.attributes.playParams ? (item.attributes.playParams.kind ?? (item.type ?? '')) : (item.type ?? ''));
-                let id = (item.attributes.playParams ? (item.attributes.playParams.id ?? (item.id ?? '')) : (item.id ?? ''));;
-                let isLibrary = item.attributes.playParams ? (item.attributes.playParams.isLibrary ?? false) : false;
+                let kind = (item.attributes.playParams ? (item.attributes.playParams?.kind ?? (item.type ?? '')) : (item.type ?? ''));
+                let id = (item.attributes.playParams ? (item.attributes.playParams?.id ?? (item.id ?? '')) : (item.id ?? ''));;
+                let isLibrary = item.attributes.playParams ? (item.attributes.playParams?.isLibrary ?? false) : false;
                 let truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
                 console.log(item, parent, childIndex, kind, id, isLibrary, kind == "playlists", id.startsWith("p.") || id.startsWith("pl.u"))
                 app.mk.stop().then(() => {
@@ -578,7 +586,7 @@
                                 array[j] = temp;
                             }
                         }
-                        app.mk.setQueue({ [truekind]: [item.attributes.playParams.id ?? item.id], parameters: { l: this.app.mklang } }).then(function () {
+                        app.mk.setQueue({ [truekind]: [item.attributes.playParams?.id ?? item.id], parameters: { l: this.app.mklang } }).then(function () {
                             app.mk.play().then(function () {
                                 var playlistId = id
                                 function getPlaylist(id, isLibrary) {
@@ -624,12 +632,12 @@
 
                     }
                     else {
-                        app.playMediaItemById(item.attributes.playParams.id ?? item.id, item.attributes.playParams.kind ?? item.type, item.attributes.playParams.isLibrary ?? false, item.attributes.url)
+                        app.playMediaItemById(item.attributes.playParams?.id ?? item.id, item.attributes.playParams?.kind ?? item.type, item.attributes.playParams?.isLibrary ?? false, item.attributes.url)
                     }
                 })
             },
             route() {
-                let kind = (this.item.attributes.playParams ? (this.item.attributes.playParams.kind ?? (this.item.type ?? '')) : (this.item.type ?? ''));
+                let kind = (this.item.attributes.playParams ? (this.item.attributes.playParams?.kind ?? (this.item.type ?? '')) : (this.item.type ?? ''));
                 if (kind.toLowerCase().includes('album') || kind.toLowerCase().includes('playlist')) {
                     app.routeView(this.item)
                 } else {

@@ -45,6 +45,7 @@ export class BrowserWindow {
     private headerSent: any = false;
     private chromecastIP: any = [];
     private localSongs: any = [];
+    private localSongsArts: any = [];
     private clientPort: number = 0;
     private remotePort: number = 6942;
     private EnvironmentVariables: object = {
@@ -547,12 +548,21 @@ export class BrowserWindow {
                 res.send(`// Theme not found - ${userThemePath}`);
             }
         });
+
         app.get("/ciderlocal/:songs", (req, res) => {
             const audio = atob(req.params.songs.replace(/_/g, '/').replace(/-/g, '+'));
-            console.log('auss', audio)
+            //console.log('auss', audio)
             let data = {data: 
              this.localSongs.filter((f: any) => audio.split(',').includes(f.id))};
             res.send(data);
+        });
+
+        app.get("/ciderlocalart/:songs", (req, res) => {
+            const audio = req.params.songs;
+            // metadata.common.picture[0].data.toString('base64')
+            let data = 
+             this.localSongsArts.filter((f: any) => f.id == audio);
+            res.status(200).send(Buffer.from(data[0]?.url, 'base64'));
         });
         
 
@@ -671,7 +681,7 @@ export class BrowserWindow {
                     });
                 } else if (details.url.includes("ciderlocal")) {
                     let text = details.url.toString().includes('ids=') ? decodeURIComponent(details.url.toString()).split("?ids=")[1] : decodeURIComponent(details.url.toString().substring(details.url.toString().lastIndexOf('/') + 1));
-                    console.log('localurl',text)
+                    //console.log('localurl',text)
                     callback({
                         redirectURL: `http://localhost:${this.clientPort}/ciderlocal/${Buffer.from(text).toString('base64url')}`,
                     });
@@ -1208,6 +1218,7 @@ export class BrowserWindow {
                 let audiofiles = files.filter(f => supporttedformats.includes(f.substring(f.lastIndexOf('.') + 1)));
                 // console.log("cider.files2", audiofiles, audiofiles.length);
                 let metadatalist = []
+                let metadatalistart = []
                 let numid = 0;
                 for (var audio of audiofiles) {
                     try{
@@ -1221,7 +1232,7 @@ export class BrowserWindow {
                                             "artwork": {
                                                 "width": 3000,
                                                 "height": 3000,
-                                                "url": metadata.common.picture != undefined ? "data:image/png;base64,"+metadata.common.picture[0].data.toString('base64')+"" : "",
+                                                "url": "/ciderlocalart/" + "ciderlocal" + numid,
                                             },
                                             "topics": [],
                                             "url": "",
@@ -1255,7 +1266,7 @@ export class BrowserWindow {
                                             "contentRating": "clean"
                                         }
                             };
-                            numid += 1;
+                            
                             
                         // let form = {"id": "/ciderlocal?" + audio, 
                         // "type": "library-songs", 
@@ -1273,11 +1284,17 @@ export class BrowserWindow {
                         // "name": metadata.common.title,
                         // "albumName": metadata.common.album,
                         // "artistName": metadata.common.artist}}
+                        metadatalistart.push({
+                            id : "ciderlocal" + numid,
+                            url: metadata.common.picture != undefined ? metadata.common.picture[0].data.toString('base64') : "",
+                        })
+                        numid += 1;
                         metadatalist.push(form)}
                     } catch (e){}    
                 } 
                 // console.log('metadatalist', metadatalist);
                 this.localSongs = metadatalist;
+                this.localSongsArts = metadatalistart;
                 BrowserWindow.win.webContents.send('getUpdatedLocalList', metadatalist);
             }
 

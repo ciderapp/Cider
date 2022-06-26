@@ -60,7 +60,8 @@
                                              v-html="data.attributes.description?.short ?? data.attributes.editorialNotes?.short"
                                              @click="openInfoModal()"></div>
                                         <div v-else-if="((data.attributes.description?.standard ?? data.attributes.editorialNotes?.standard) != null) && (descriptionEditing == false)"
-                                             @mouseover="minClass(false)" @click="editPlaylistDescription()">{{data.attributes.description?.standard ?? data.attributes.editorialNotes?.standard}}</div>
+                                             @mouseover="minClass(false)" @click="editPlaylistDescription()" v-html="(data.attributes.description?.standard ?? (data.attributes.editorialNotes?.standard ?? '')).substring(0, 255) +'...'"
+                                          ></div>
                                         <div v-else-if="((data.attributes.description?.standard ?? data.attributes.editorialNotes?.standard) != null) && (descriptionEditing)"
                                              @mouseover="minClass(false)"><input type="text"
                                              spellcheck="false"
@@ -188,7 +189,7 @@
                                     <template v-if="!hasNestedPlaylist">
                                         <mediaitem-list-item :item="item" :parent="getItemParent(data)" :index="index"
                                                              :showIndex="true"
-                                                             :showIndexPlaylist="(data.attributes.playParams.kind ?? data.type ?? '').includes('playlist')"
+                                                             :showIndexPlaylist="(data.attributes.playParams?.kind ?? data.type ?? '').includes('playlist')"
                                                              :context-ext="buildContextMenu()"
                                                              v-for="(item,index) in displayListing"></mediaitem-list-item>
                                     </template>
@@ -200,7 +201,7 @@
                                             <mediaitem-list-item :item="item" :parent="getItemParent(data)"
                                                                  :index="index"
                                                                  :showIndex="true"
-                                                                 :showIndexPlaylist="(data.attributes.playParams.kind ?? data.type ?? '').includes('playlist')"
+                                                                 :showIndexPlaylist="(data.attributes.playParams?.kind ?? data.type ?? '').includes('playlist')"
                                                                  :context-ext="buildContextMenu()"
                                                                  v-for="(item,index) in disc.tracks"></mediaitem-list-item>
                                         </div>
@@ -297,17 +298,24 @@
         },
         mounted: function () {
             this.$nextTick(function () {
-                this.isInLibrary()
-            })
+                if (this.data.id != "ciderlocal") {
+                    this.isInLibrary()
+                } else {
+                        if (this.data.relationships != null && this.data.id == "ciderlocal") {
+                            this.displayListing = this.data.relationships.tracks.data                          
+                        }
+
+                        this.inPlaylist = this.data.type == "library-playlists";
+                }})
         },
         beforeMount() {
-            if( window.location.hash.includes("playlist") ) {
+            if (window.location.hash.includes("playlist")) {
                 window.addEventListener('keydown', this.getCopiedPlayListSongs);
                 window.addEventListener('keydown', this.pasteSongs);
             }
         },
         beforeDestroy() {
-            if( window.location.hash.includes("playlist") ) {
+            if (window.location.hash.includes("playlist")) {
                 window.removeEventListener('keydown', this.getCopiedPlayListSongs);
                 window.removeEventListener('keydown', this.pasteSongs);
             }
@@ -318,10 +326,14 @@
                     this.isInLibrary()
                     this.getBadges()
 
-                    if (this.data.relationships) {
-                        this.generateNestedPlaylist(this.data.relationships.tracks.data)
-                        if (!this.hasNestedPlaylist) {
+                    if (this.data.relationships != null) {
+                        if (this.data.id == "ciderlocal") {
                             this.displayListing = this.data.relationships.tracks.data
+                        } else {
+                            this.generateNestedPlaylist(this.data.relationships.tracks.data)
+                            if (!this.hasNestedPlaylist) {
+                                this.displayListing = this.data.relationships.tracks.data
+                            }
                         }
                     }
 
@@ -371,21 +383,21 @@
                 this.headerVisible = visible
             },
             hasHero() {
-                if(this.data.attributes?.editorialArtwork?.bannerUber){
+                if (this.data.attributes?.editorialArtwork?.bannerUber) {
                     return this.data.attributes?.editorialArtwork?.bannerUber.url
-                } else if(this.data.attributes?.editorialArtwork?.subscriptionHero) {
+                } else if (this.data.attributes?.editorialArtwork?.subscriptionHero) {
                     return this.data.attributes?.editorialArtwork?.subscriptionHero.url
-                } else if(this.data.attributes?.editorialArtwork?.storeFlowcase){
+                } else if (this.data.attributes?.editorialArtwork?.storeFlowcase) {
                     return this.data.attributes?.editorialArtwork?.storeFlowcase.url
                 }
                 return false;
             },
             hasHeroObject() {
-                if(this.data.attributes?.editorialArtwork?.bannerUber){
+                if (this.data.attributes?.editorialArtwork?.bannerUber) {
                     return this.data.attributes?.editorialArtwork?.bannerUber
-                } else if(this.data.attributes?.editorialArtwork?.subscriptionHero) {
+                } else if (this.data.attributes?.editorialArtwork?.subscriptionHero) {
                     return this.data.attributes?.editorialArtwork?.subscriptionHero
-                } else if(this.data.attributes?.editorialArtwork?.storeFlowcase){
+                } else if (this.data.attributes?.editorialArtwork?.storeFlowcase) {
                     return this.data.attributes?.editorialArtwork?.storeFlowcase
                 }
                 return [];
@@ -763,14 +775,17 @@
                     }
                 }
 
-                const id = this.data.attributes.playParams.id ?? this.data.id;
+                const id = this.data.attributes.playParams?.id ?? this.data.id;
                 //console.log("1")
-                const kind = this.data.attributes.playParams.kind ?? this.data.type ?? '';
+                const kind = this.data.attributes.playParams?.kind ?? this.data.type ?? '';
                 //console.log("1")
+                if (kind == "podcast-episodes") {kind = "episode"}
                 const truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
 
                 let query = (this.data ?? app.showingPlaylist).relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
-                app.mk.stop().then(function () {
+
+                app.mk.stop().then(() => {
+                    if (id != 'ciderlocal'){
                     app.mk.setQueue({ [truekind]: [id], parameters: { l: app.mklang } }).then(function () {
                         app.mk.play().then(function () {
                             if (query.length > 100) {
@@ -781,7 +796,12 @@
                                 app.mk.queue.append(u)
                             }
                         })
-                    })
+                    })} else {
+                        let u = app.library.localsongs.map(i => {return i.id})
+                        app.mk.setQueue({"episodes" : u}).then(()=>{
+                            app.mk.play()
+                        })
+                    }
                 })
 
 
@@ -791,7 +811,7 @@
                 return "d-none";
             },
             async getCopiedPlayListSongs(event) {
-                if( event.ctrlKey && event.keyCode === 67 ) {
+                if (event.ctrlKey && event.keyCode === 67) {
                     let urls = [];
                     app.selectedMediaItems.forEach(item => {
                         this.app.mk.api.v3.music(`/v1/me/library/songs/${item.id}`).then((response) => {
@@ -805,18 +825,18 @@
                 }
             },
             async pasteSongs(event) {
-                if( event.ctrlKey && event.keyCode === 86 && this.data.attributes.canEdit ) {
+                if (event.ctrlKey && event.keyCode === 86 && this.data.attributes.canEdit) {
                     let clipboard = await navigator.clipboard.readText()
                     let songs = []
 
                     clipboard = clipboard.split(",")
                     clipboard.forEach(item => {
                         songs.push({
-                            id: item.substring(item.indexOf("i=")+2, item.length),
+                            id: item.substring(item.indexOf("i=") + 2, item.length),
                             type: "songs",
                         })
                     })
-                    
+
                     this.app.mk.api.v3.music(`/v1/me/library/playlists/${this.data.id}/tracks`, {}, {
                         fetchOptions: {
                             method: "POST",
