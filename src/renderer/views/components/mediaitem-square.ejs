@@ -542,14 +542,14 @@
 				let followAction = "follow"
 				let followActions = {
 					follow: {
-						icon: "./assets/feather/plus-circle.svg",
+						icon: "./assets/star.svg",
 						name: app.getLz('action.favorite'),
 						action: () => {
 							self.$root.setArtistFavorite(this.item.id, true)
 						}
 					},
 					unfollow: {
-						icon: "./assets/feather/x-circle.svg",
+						icon: "./assets/star.svg",
 						name: app.getLz('action.removeFavorite'),
 						action: () => {
 							self.$root.setArtistFavorite(this.item.id, false)

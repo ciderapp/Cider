@@ -658,6 +658,29 @@
       width          : 100%;
       height         : 100%;
 
+      .playlist-hero {
+        width     : 100%;
+        transform : translateX(+25%);
+        position  : absolute;
+        z-index   : -1;
+        top       : 0;
+        left      : 0;
+        right     : 0;
+        bottom    : 0;
+    
+        .mediaitem-artwork {
+          -webkit-mask-image: -webkit-radial-gradient(center, circle cover, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 75%);
+          border-radius     : 0px;
+        }
+        .hero-tint {
+          position: absolute; 
+          top : 0;
+          opacity: 0.6;
+          width: 100%; 
+          height: 100%;
+        }
+      }
+
       >.row {
         width: calc(100% - 32px);
       }
@@ -675,6 +698,10 @@
           margin-right   : 6px;
           margin-bottom  : 6px;
           flex-shrink    : unset;
+        }
+
+        .search-input::placeholder {
+          color: var(--heroplaceholdercolor)
         }
 
         .nameEdit {

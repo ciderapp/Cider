@@ -8,9 +8,13 @@
             </div>
         </template>
         <template v-if="app.playlists.loadingState == 1">
-            <div class="playlist-display"
+            <div class="playlist-display" :style="{ 'background-color': '#' +hasHeroObject()?.bgColor ?? '' }"
                  @mouseover.self="minClass(false)">
                 <div class="playlistInfo">
+                    <div class="playlist-hero" v-if="hasHero()">
+                        <mediaitem-artwork shadow="none" :url="hasHero()" size="2160" />
+                        <div class="hero-tint" :style="{'background-color': '#' + hasHeroObject()?.bgColor ?? ''}"></div> 
+                    </div>
                     <div class="row">
                         <div class="col-auto flex-center" @mouseover="minClass(false)">
                             <div class="mediaContainer">
@@ -26,7 +30,7 @@
                         <div class="col playlist-info">
                             <template v-if="!editorialNotesExpanded">
                                 <div>
-                                    <div class="playlist-name" @mouseover="minClass(false)" @click="editPlaylistName()" v-show="!nameEditing">
+                                    <div class="playlist-name" @mouseover="minClass(false)" @click="editPlaylistName()" v-show="!nameEditing" :style="{ 'color': '#' +hasHeroObject()?.textColor1 ?? '', 'filter' : 'drop-shadow(1px 3px 8px #' + hasHeroObject()?.textColor4 ?? '' +')' }">
                                         {{data.attributes ? (data.attributes.name ??
                                         (data.attributes.title ?? '') ?? '') : ''}}
                                     </div>
@@ -38,24 +42,26 @@
                                                                                            @change="editPlaylist"
                                                                                            @keydown.enter="editPlaylist"/>
                                     </div>
-                                    <div class="playlist-time genre" style="margin: 0px;">{{getAlbumGenre()}}</div>
+                                    <div class="playlist-time genre" style="margin: 0px;" :style="{ 'color': '#' + hasHeroObject()?.textColor2 ?? '' }">{{getAlbumGenre()}}</div>
                                     <div class="playlist-artist item-navigate"
                                          v-if="getArtistName(data) != '' && !useArtistChip"
                                          @click="data.attributes && data.attributes.artistName ? app.searchAndNavigate(data,'artist') : ''">
                                         {{getArtistName(data)}}
                                     </div>
                                     <template v-if="useArtistChip">
-                                        <artist-chip v-for="artist in data.relationships.artists?.data"
+                                        <artist-chip v-for="artist in data.relationships.artists?.data"  :style="{ 'color': '#' +hasHeroObject()?.textColor3 ?? '' }"
                                                      :item="artist"></artist-chip>
                                     </template>
                                     <div class="playlist-desc"
+                                        :style="{ 'color': '#' +hasHeroObject()?.textColor3 ?? '' }"
                                          v-if="(data.attributes.description && (data.attributes.description.standard || data.attributes.description.short)) || (data.attributes.editorialNotes && (data.attributes.editorialNotes.standard || data.attributes.editorialNotes.short))">
                                         <div v-if="(data.attributes.description?.short ?? data.attributes.editorialNotes?.short) != null"
                                              class="content"
                                              v-html="data.attributes.description?.short ?? data.attributes.editorialNotes?.short"
                                              @click="openInfoModal()"></div>
                                         <div v-else-if="((data.attributes.description?.standard ?? data.attributes.editorialNotes?.standard) != null) && (descriptionEditing == false)"
-                                             @mouseover="minClass(false)" @click="editPlaylistDescription()">{{data.attributes.description?.standard ?? data.attributes.editorialNotes?.standard}}</div>
+                                             @mouseover="minClass(false)" @click="editPlaylistDescription()" v-html="(data.attributes.description?.standard ?? (data.attributes.editorialNotes?.standard ?? '')).substring(0, 255) +'...'"
+                                             @click="if((data.attributes.description?.standard ?? (data.attributes.editorialNotes?.standard ?? '')).length > 255) {openInfoModal()}"></div>
                                         <div v-else-if="((data.attributes.description?.standard ?? data.attributes.editorialNotes?.standard) != null) && (descriptionEditing)"
                                              @mouseover="minClass(false)"><input type="text"
                                              spellcheck="false"
@@ -81,11 +87,11 @@
                                 </div>
                             </template>
                             <div class="playlist-controls" v-observe-visibility="{callback: isHeaderVisible}" style="z-index: 20;">
-                                <button class="md-btn md-btn-primary md-btn-icon" style="min-width: 100px;"
+                                <button class="md-btn md-btn-primary md-btn-icon" style="min-width: 100px;" :style="{'background': '#' +hasHeroObject()?.textColor4 ?? '','border-top': '#' +hasHeroObject()?.textColor3 ?? '','border': '#' +hasHeroObject()?.textColor2 ?? ''}"
                                         @click="app.mk.shuffleMode = 0; play()"><img class="md-ico-play">
                                     {{app.getLz('term.play')}}
                                 </button>
-                                <button class="md-btn md-btn-primary md-btn-icon" style="min-width: 100px;"
+                                <button class="md-btn md-btn-primary md-btn-icon" style="min-width: 100px;" :style="{'background': '#' +hasHeroObject()?.textColor4 ?? '','border-top': '#' +hasHeroObject()?.textColor3 ?? '','border': '#' +hasHeroObject()?.textColor2 ?? ''}"
                                         @click="app.mk.shuffleMode = 1;play()"><img class="md-ico-shuffle">
                                     {{app.getLz('term.shuffle')}}
                                 </button>
@@ -109,6 +115,7 @@
                                             spellcheck="false"
                                             :placeholder="$root.getLz('term.search') + '...'"
                                             @input="search()"
+                                            :style="{ '--heroplaceholdercolor': '#' +hasHeroObject()?.textColor4 ?? ''}"
                                             v-model="searchQuery"
                                             class="search-input">
                                     </div>
@@ -120,7 +127,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="artworkContainer" v-if="data.attributes.artwork != null">
+                <div class="artworkContainer" v-if="data.attributes.artwork != null && !hasHero()">
                     <artwork-material :url="data.attributes.artwork.url" size="500" images="1"></artwork-material>
                 </div>
                 <button class="md-btn md-btn-small editTracksBtn" v-if="(data.attributes.canEdit && data.type == 'library-playlists')" @click="editing = !editing">
@@ -363,6 +370,26 @@
             },
             isHeaderVisible(visible) {
                 this.headerVisible = visible
+            },
+            hasHero() {
+                if(this.data.attributes?.editorialArtwork?.bannerUber){
+                    return this.data.attributes?.editorialArtwork?.bannerUber.url
+                } else if(this.data.attributes?.editorialArtwork?.subscriptionHero) {
+                    return this.data.attributes?.editorialArtwork?.subscriptionHero.url
+                } else if(this.data.attributes?.editorialArtwork?.storeFlowcase){
+                    return this.data.attributes?.editorialArtwork?.storeFlowcase.url
+                }
+                return false;
+            },
+            hasHeroObject() {
+                if(this.data.attributes?.editorialArtwork?.bannerUber){
+                    return this.data.attributes?.editorialArtwork?.bannerUber
+                } else if(this.data.attributes?.editorialArtwork?.subscriptionHero) {
+                    return this.data.attributes?.editorialArtwork?.subscriptionHero
+                } else if(this.data.attributes?.editorialArtwork?.storeFlowcase){
+                    return this.data.attributes?.editorialArtwork?.storeFlowcase
+                }
+                return [];
             },
             getBadges() {
                 return

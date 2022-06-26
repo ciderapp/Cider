@@ -386,5 +386,13 @@
   "term.track": {
     "one": "Titel",
     "other": "Titel"
-  }
+  },
+  "settings.option.visual.customAccentColor": "Benutzerdefinierte Akzentfarbe",
+  "settings.option.visual.accentColor": "Akzentfarbe",
+  "settings.option.visual.purplePodcastPlaybackBar": "Lila Wiedergabeleiste für Podcasts",
+  "settings.option.visual.windowColor": "Fenstertönung Farbe",
+  "action.cut": "Ausschneiden",
+  "action.paste": "Einfügen",
+  "action.selectAll": "Alles auswählen",
+  "action.delete": "Löschen"
 }
