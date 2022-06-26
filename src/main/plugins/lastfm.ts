@@ -37,20 +37,20 @@ export default class lastfm {
     onReady(_win: Electron.BrowserWindow): void {
 
         // Register the ipcMain handlers
-        this._utils.getIPCMain().handle('lastfm:url', (_event: any) => {
-            // console.debug('lastfm:url', event)
+        this._utils.getIPCMain().handle('lastfm:url', (event: any) => {
+            console.debug('lastfm:url', event)
             return this._lfm.getAuthenticationUrl({"cb": "cider://auth/lastfm"})
         })
 
         this._utils.getIPCMain().on('lastfm:auth', (event: any, token: string) => {
-            // console.debug('lastfm:auth', event, token)
+            console.debug('lastfm:auth', event, token)
             this.authenticateLastFM(token)
         })
 
         this._utils.getIPCMain().on('lastfm:disconnect', (_event: any) => {
             this._lfm.setSessionCredentials(null, null);
             this._authenticated = false;
-            console.debug('[lastfm] [disconnect] Disconnected')
+            console.debug('lastfm:disconnect')
         })
 
         this._utils.getIPCMain().on('lastfm:nowPlayingChange', (event: any, attributes: any) => {
