@@ -112,6 +112,11 @@ export class LocalFiles {
         app.get("/ciderlocalart/:songs", (req: any, res: any) => {
             const audio = req.params.songs;
             // metadata.common.picture[0].data.toString('base64')
+
+            res.setHeader('Cache-Control', 'public, max-age=31536000');
+            res.setHeader('Expires', new Date(Date.now() + 31536000).toUTCString());
+            res.setHeader('Content-Type', 'image/jpeg');
+
             let data =
                 LocalFiles.localSongsArts.filter((f: any) => f.id == audio);
             res.status(200).send(Buffer.from(data[0]?.url, 'base64'));
