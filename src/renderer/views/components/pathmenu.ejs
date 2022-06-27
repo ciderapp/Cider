@@ -53,12 +53,12 @@
                     }
                 }
                 this.$root.cfg.libraryPrefs.localPaths = this.folders;
-                ipcRenderer.send("scanLibrary",app.cfg.libraryPrefs.localPaths)
+                ipcRenderer.invoke("scanLibrary")
             },
             remove(dir){
                 this.folders = this.folders.filter(item => item !== dir)
                 this.$root.cfg.libraryPrefs.localPaths = this.folders;
-                ipcRenderer.send("scanLibrary",app.cfg.libraryPrefs.localPaths)
+                ipcRenderer.invoke("scanLibrary")
             }
         }
     });

@@ -31,7 +31,8 @@ export class Store {
                 "applemusic": false,
                 "library": false,
                 "amplaylists": false,
-                "playlists": false
+                "playlists": false,
+                "localLibrary": false
             },
             "onStartup": {
                 "enabled": false,
