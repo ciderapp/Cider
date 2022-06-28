@@ -832,6 +832,10 @@ const app = new Vue({
 
             MusicKit.getInstance().videoContainerElement = document.getElementById("apple-music-video-player")
 
+            ipcRenderer.on('setStoreValue', (e, key, value) => {
+                app.cfg[key] = value
+            })
+
             ipcRenderer.on('theme-update', async (event, arg) => {
                 await less.refresh(true, true, true)
                 self.setTheme(self.cfg.visual.theme, true)
@@ -4422,37 +4426,6 @@ const app = new Vue({
                     break;
             }
             app.modals.settings = true
-        },
-        LastFMDeauthorize() {
-            ipcRenderer.invoke('setStoreValue', 'lastfm.enabled', false).catch((e) => console.error(e));
-            ipcRenderer.invoke('setStoreValue', 'lastfm.auth_token', '').catch((e) => console.error(e));
-            app.cfg.lastfm.auth_token = "";
-            app.cfg.lastfm.enabled = false;
-            const element = document.getElementById('lfmConnect');
-            element.innerHTML = app.getLz('term.connect');
-            element.onclick = app.LastFMAuthenticate;
-        },
-        LastFMAuthenticate() {
-            console.log("[LastFM] Received LastFM authentication callback")
-            const element = document.getElementById('lfmConnect');
-            // new key : f9986d12aab5a0fe66193c559435ede3
-            window.open('https://www.last.fm/api/auth?api_key=f9986d12aab5a0fe66193c559435ede3&cb=cider://auth/lastfm');
-            element.innerText = app.getLz('term.connecting') + '...';
-
-            /* Just a timeout for the button */
-            setTimeout(() => {
-                if (element.innerText === app.getLz('term.connecting') + '...') {
-                    element.innerText = app.getLz('term.connect');
-                    console.warn('[LastFM] Attempted connection timed out.');
-                }
-            }, 20000);
-
-            ipcRenderer.on('LastfmAuthenticated', function (_event, lfmAuthKey) {
-                app.cfg.lastfm.auth_token = lfmAuthKey;
-                app.cfg.lastfm.enabled = true;
-                element.innerHTML = `${app.getLz('term.disconnect')}\n<p style="font-size: 8px"><i>(${app.getLz('term.authed')}: ${lfmAuthKey})</i></p>`;
-                element.onclick = app.LastFMDeauthorize;
-            });
         },
         fullscreen(flag) {
             this.fullscreenState = flag;

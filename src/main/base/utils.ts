@@ -2,18 +2,36 @@ import * as fs from "fs";
 import * as path from "path";
 import {Store} from "./store";
 import {BrowserWindow as bw} from "./browserwindow";
-import {app, dialog, ipcMain, Notification, shell, BrowserWindow} from "electron";
+import {app, BrowserWindow, ipcMain} from "electron";
 import fetch from "electron-fetch";
-import {AppImageUpdater, NsisUpdater} from "electron-updater";
-import * as log from "electron-log";
 import ElectronStore from "electron-store";
 
 export class utils {
 
     /**
+     * Playback Functions
+     */
+    static playback = {
+        pause: () => {
+            bw.win.webContents.executeJavaScript("MusicKitInterop.pause()")
+        },
+        play: () => {
+            bw.win.webContents.executeJavaScript("MusicKitInterop.play()")
+        },
+        playPause: () => {
+            bw.win.webContents.executeJavaScript("MusicKitInterop.playPause()")
+        },
+        next: () => {
+            bw.win.webContents.executeJavaScript("MusicKitInterop.next()")
+        },
+        previous: () => {
+            bw.win.webContents.executeJavaScript("MusicKitInterop.previous()")
+        }
+    }
+    /**
      * Paths for the application to use
      */
-    private static paths: any = {
+    static paths: any = {
         srcPath: path.join(__dirname, "../../src"),
         rendererPath: path.join(__dirname, "../../src/renderer"),
         mainPath: path.join(__dirname, "../../src/main"),
@@ -44,6 +62,13 @@ export class utils {
     }
 
     /**
+     * Get the IPCMain
+     */
+    static getIPCMain(): Electron.IpcMain {
+        return ipcMain
+    }
+
+    /**
      * Fetches the i18n locale for the given language.
      * @param language {string} The language to fetch the locale for.
      * @param key {string} The key to search for.
@@ -64,7 +89,7 @@ export class utils {
                     } else {
                         i18n = Object.assign(i18n, JSON.parse(fs.readFileSync(path.join(this.paths.i18nPath, `en_US.json`), "utf8")));
                     }
-            })
+                })
         }
         if (key) {
             return i18n[key]
@@ -89,7 +114,6 @@ export class utils {
     static getStore(): Object {
         return Store.cfg.store
     }
-
 
     /**
      * Get the store instance
@@ -116,10 +140,6 @@ export class utils {
         return Store.pushToCloud
     }
 
-
-
-
-
     /**
      * Gets the browser window
      */
@@ -137,26 +157,5 @@ export class utils {
 
     static loadJSFrontend(path: string): void {
         bw.win.webContents.executeJavaScript(fs.readFileSync(path, "utf8"));
-    }
-
-    /**
-     * Playback Functions
-     */
-    static playback = {
-        pause: () => {
-            bw.win.webContents.executeJavaScript("MusicKitInterop.pause()")
-        },
-        play: () => {
-            bw.win.webContents.executeJavaScript("MusicKitInterop.play()")
-        },
-        playPause: () => {
-            bw.win.webContents.executeJavaScript("MusicKitInterop.playPause()")
-        },
-        next: () => {
-            bw.win.webContents.executeJavaScript("MusicKitInterop.next()")
-        },
-        previous: () => {
-            bw.win.webContents.executeJavaScript("MusicKitInterop.previous()")
-        }
     }
 }
