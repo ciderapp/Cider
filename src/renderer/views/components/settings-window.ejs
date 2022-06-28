@@ -1096,17 +1096,20 @@
                                     </button>
                                 </div>
                             </div>
-                            <div class="md-option-line" v-show="app.cfg.lastfm.enabled">
+                            <div class="md-option-line" v-show="lastfmConnecting">
                                 <div class="md-option-segment">
-                                    {{$root.getLz('settings.option.connectivity.lastfmScrobble.delay')}}
+                                    {{$root.getLz('settings.option.connectivity.lastfmScrobble.manualToken')}}
                                 </div>
                                 <div class="md-option-segment md-option-segment_auto">
                                     <label>
-                                        <input type="number" min="50" max="100" v-model="app.cfg.lastfm.scrobble_after" />
+                                        <form @submit.prevent="submitToken">
+                                            <input type="text" autofocus id="lfmToken" />
+                                            <input type="submit" class="md-btn" @value="$root.getLz('action.submit')" />
+                                        </form>
                                     </label>
                                 </div>
                             </div>
-                            <div class="md-option-line" v-show="app.cfg.lastfm.enabled">
+                            <div class="md-option-line" v-show="app.cfg.connectivity.lastfm.enabled">
                                 <div class="md-option-segment">
                                     {{$root.getLz('settings.option.connectivity.lastfmScrobble.delay')}}
                                 </div>

@@ -38,7 +38,7 @@ export default class lastfm {
 
         // Register the ipcMain handlers
         this._utils.getIPCMain().handle('lastfm:url', (event: any) => {
-            console.debug(`${lastfm.name}:url`, event)
+            console.debug(`${lastfm.name}:url`)
             return this._lfm.getAuthenticationUrl({"cb": "cider://auth/lastfm"})
         })
 
@@ -114,6 +114,8 @@ export default class lastfm {
         this._lfm.authenticate(token, (err: any, session: any) => {
             if (err) {
                 console.error(err);
+
+                this._utils.getWindow().webContents.executeJavaScript(`app.notyf.error("${err.message}");`)
                 return;
             }
             this._utils.getWindow().webContents.send('lastfm:authenticated', session)
