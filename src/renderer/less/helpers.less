@@ -1,6 +1,6 @@
 .notyf__toast {
   -webkit-app-region: no-drag;
-  cursor            : pointer;
+  cursor: pointer;
 }
 
 .notyf-info {
@@ -9,142 +9,145 @@
 
 .tooltip-inner {
   background: #2f2f2f;
-  opacity   : 1;
-  border    : 1px solid rgb(0 0 0 / 35%);
+  opacity: 1;
+  border: 1px solid rgb(0 0 0 / 35%);
   transition: all 0.3s ease-in-out;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.25);
 }
 
 .modal-fullscreen {
-  display        : flex;
+  display: flex;
   justify-content: center;
-  align-items    : center;
-  position       : fixed;
-  top            : 0;
-  left           : 0;
-  width          : 100%;
-  height         : 100%;
-  background     : rgba(0, 0, 0, 0.3);
-  z-index        : 1000;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1000;
 
   .modal-window {
-    background   : #333;
+    background: #333;
     border-radius: 10px;
-    box-shadow   : var(--mediaItemShadow-Shadow);
-    display      : flex;
-    flex-flow    : column;
-    max-height   : 500px;
-    max-width    : 360px;
-    background   : #121212;
-    width        : 100%;
-    position     : relative;
+    box-shadow: var(--mediaItemShadow-Shadow);
+    display: flex;
+    flex-flow: column;
+    max-height: 500px;
+    max-width: 360px;
+    background: #121212;
+    width: 100%;
+    position: relative;
 
     &:after {
-      content       : "";
-      position      : absolute;
-      top           : 0;
-      left          : 0;
-      width         : 100%;
-      height        : 100%;
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       pointer-events: none;
-      box-shadow    : var(--mediaItemShadow);
-      z-index       : 1;
-      border-radius : inherit;
+      box-shadow: var(--mediaItemShadow);
+      z-index: 1;
+      border-radius: inherit;
     }
 
     .modal-header {
-      width  : 100%;
+      width: 100%;
       padding: 6px;
     }
 
     .modal-content {
-      width     : 100%;
-      height    : 100%;
-      overflow  : hidden;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
       overflow-y: overlay;
     }
 
-    .modal-footer {}
+    .modal-footer {
+    }
   }
 }
 
 .spatialproperties-panel {
   .modal-window {
-    &:not(.airplay-modal){
-    height    : 700px;
-    max-height: 700px;
-    width     : 800px;
-    max-width : 800px;}
-    overflow  : hidden;
+    &:not(.airplay-modal) {
+      height: 700px;
+      max-height: 700px;
+      width: 800px;
+      max-width: 800px;
+    }
+
+    overflow: hidden;
 
     .info-header {
       padding-left: 12px;
     }
 
     .visual-container {
-      display        : flex;
+      display: flex;
       justify-content: center;
-      align-items    : center;
-      overflow       : hidden;
+      align-items: center;
+      overflow: hidden;
     }
 
     .visual {
-      position       : relative;
-      height         : 250px;
-      width          : 300px;
-      display        : inline-flex;
-      align-items    : flex-end;
+      position: relative;
+      height: 250px;
+      width: 300px;
+      display: inline-flex;
+      align-items: flex-end;
       justify-content: center;
-      filter         : drop-shadow(2px 12px 6px rgb(0 0 0 / 25%));
-      margin         : 0 auto;
+      filter: drop-shadow(2px 12px 6px rgb(0 0 0 / 25%));
+      margin: 0 auto;
 
       .face {
-        position     : absolute;
-        width        : calc(12px * 6);
-        height       : calc(12px * 6);
+        position: absolute;
+        width: calc(12px * 6);
+        height: calc(12px * 6);
         border-radius: 6px;
-        transform    : rotateX(60deg) rotateZ(-45deg);
-        transition   : transform 0.2s linear, width 0.2s linear, height 0.2s linear;
+        transform: rotateX(60deg) rotateZ(-45deg);
+        transition: transform 0.2s linear, width 0.2s linear, height 0.2s linear;
       }
 
       .listener {
-        position     : absolute;
-        width        : 32px;
-        height       : 32px;
+        position: absolute;
+        width: 32px;
+        height: 32px;
         border-radius: 6px;
-        transform    : rotateX(60deg) rotateZ(-45deg);
-        transition   : transform 0.2s linear, width 0.2s linear, height 0.2s linear;
-        background   : white;
-        color        : black;
-        z-index      : 2;
+        transform: rotateX(60deg) rotateZ(-45deg);
+        transition: transform 0.2s linear, width 0.2s linear, height 0.2s linear;
+        background: white;
+        color: black;
+        z-index: 2;
       }
 
       .audiosource {
-        position     : absolute;
-        width        : 32px;
-        height       : 32px;
+        position: absolute;
+        width: 32px;
+        height: 32px;
         border-radius: 6px;
-        transform    : rotateX(60deg) rotateZ(-45deg);
-        transition   : transform 0.2s linear, width 0.2s linear, height 0.2s linear;
-        background   : yellow;
-        z-index      : 2;
+        transform: rotateX(60deg) rotateZ(-45deg);
+        transition: transform 0.2s linear, width 0.2s linear, height 0.2s linear;
+        background: yellow;
+        z-index: 2;
       }
 
       .face:nth-of-type(1) {
         background: linear-gradient(45deg, #28223a, #1f2038);
-        z-index   : 1;
+        z-index: 1;
       }
 
       .face:nth-of-type(2) {
         background: linear-gradient(45deg, #7d53ad, #5763ff);
-        transform : rotateX(60deg) rotateZ(-45deg) translateZ(30px);
-        opacity   : 0.7;
-        z-index   : 3;
+        transform: rotateX(60deg) rotateZ(-45deg) translateZ(30px);
+        opacity: 0.7;
+        z-index: 3;
       }
     }
 
     .modal-header {
-      padding : 16px;
+      padding: 16px;
       position: relative;
       overflow: hidden;
 
@@ -162,14 +165,14 @@
 
 .addtoplaylist-panel {
   .modal-window {
-    max-height     : 600px;
-    max-width      : 400px;
-    background     : rgb(18 18 18 / 90%);
-    overflow       : hidden;
+    max-height: 600px;
+    max-width: 400px;
+    background: rgb(18 18 18 / 90%);
+    overflow: hidden;
     backdrop-filter: blur(16px) saturate(180%);
 
     .modal-header {
-      padding : 16px;
+      padding: 16px;
       position: relative;
 
       .modal-title {
@@ -182,34 +185,34 @@
     }
 
     .modal-search {
-      width   : 100%;
-      padding : 0px 16px;
+      width: 100%;
+      padding: 0px 16px;
       position: relative;
     }
 
     .playlist-item {
-      appearance : none;
-      border     : 0px;
-      text-align : left;
-      width      : 100%;
-      margin     : 0;
-      display    : flex;
-      background : rgba(32, 32, 32, 0.46);
-      color      : #eee;
+      appearance: none;
+      border: 0px;
+      text-align: left;
+      width: 100%;
+      margin: 0;
+      display: flex;
+      background: rgba(32, 32, 32, 0.46);
+      color: #eee;
       font-family: inherit;
-      font-size  : 0.98em;
-      padding    : 6px 12px;
+      font-size: 0.98em;
+      padding: 6px 12px;
       align-items: center;
-      flex-flow  : row;
+      flex-flow: row;
 
       .icon {
-        pointer-events : none;
-        width          : 32px;
-        height         : 32px;
-        display        : flex;
+        pointer-events: none;
+        width: 32px;
+        height: 32px;
+        display: flex;
         justify-content: center;
-        align-items    : center;
-        margin-right   : 6px;
+        align-items: center;
+        margin-right: 6px;
       }
 
       .name {
@@ -236,35 +239,35 @@
 }
 
 .menu-panel {
-  width             : 100%;
-  height            : 100%;
-  position          : fixed;
-  top               : 0;
-  left              : 0;
-  z-index           : 100001;
-  display           : flex;
-  justify-content   : center;
-  align-items       : center;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100001;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   -webkit-app-region: no-drag;
 
   .menu-header-body {
-    padding   : 6px;
-    display   : flex;
+    padding: 6px;
+    display: flex;
     background: rgb(200 200 200 / 10%);
 
     .menu-option-header {
-      width          : 40px;
-      height         : 40px;
-      display        : flex;
+      width: 40px;
+      height: 40px;
+      display: flex;
       justify-content: center;
-      align-items    : center;
-      border-radius  : var(--mediaItemRadius);
-      appearance     : none;
-      border         : 0;
-      background     : transparent;
+      align-items: center;
+      border-radius: var(--mediaItemRadius);
+      appearance: none;
+      border: 0;
+      background: transparent;
 
       &.active {
-        .sidebar-icon>.svg-icon {
+        .sidebar-icon > .svg-icon {
           --color: var(--keyColor);
         }
       }
@@ -280,62 +283,62 @@
   }
 
   .menu-panel-body {
-    display        : flex;
-    flex-flow      : column;
-    background     : rgb(30 30 30 / 45%);
+    display: flex;
+    flex-flow: column;
+    background: rgb(30 30 30 / 45%);
     backdrop-filter: blur(32px) saturate(180%);
-    position       : relative;
-    min-width      : 200px;
-    box-shadow     : var(--ciderShadow-Generic);
-    border-radius  : var(--panelRadius);
-    overflow       : hidden;
-    font-size      : 13px;
+    position: relative;
+    min-width: 200px;
+    box-shadow: var(--ciderShadow-Generic);
+    border-radius: var(--panelRadius);
+    overflow: hidden;
+    font-size: 13px;
 
 
     .menu-option {
       text-align: left;
-      display   : flex;
+      display: flex;
       appearance: none;
-      border    : 0px;
-      font      : inherit;
+      border: 0px;
+      font: inherit;
       background: transparent;
-      color     : inherit;
-      margin    : 0 auto;
-      position  : relative;
-      width     : 100%;
-      padding   : 9px 14px;
+      color: inherit;
+      margin: 0 auto;
+      position: relative;
+      width: 100%;
+      padding: 9px 14px;
       align-items: center;
 
       &::before {
-        background   : var(--hover);
+        background: var(--hover);
         border-radius: 6px;
-        content      : "";
-        --sizeY      : 3px;
-        --sizeX      : 4px;
-        top          : var(--sizeY);
-        left         : var(--sizeX);
-        bottom       : var(--sizeY);
-        right        : var(--sizeX);
-        position     : absolute;
-        opacity      : 0;
-        transform    : scale(0.98);
-        z-index      : -1;
-        transition   : transform .25s ease-out, opacity .25s ease-out;
+        content: "";
+        --sizeY: 3px;
+        --sizeX: 4px;
+        top: var(--sizeY);
+        left: var(--sizeX);
+        bottom: var(--sizeY);
+        right: var(--sizeX);
+        position: absolute;
+        opacity: 0;
+        transform: scale(0.98);
+        z-index: -1;
+        transition: transform .25s ease-out, opacity .25s ease-out;
       }
 
       &:hover {
         &::before {
           transition: transform 0s ease-in, opacity 0s ease-in;
-          opacity   : 1;
-          transform : scale(1);
+          opacity: 1;
+          transform: scale(1);
         }
       }
 
       &:active {
         &::before {
           transition: transform .1s ease-in-out, opacity .1s ease-in-out;
-          opacity   : 1;
-          transform : scale(0.98);
+          opacity: 1;
+          transform: scale(0.98);
           background: var(--selected-click);
         }
       }
@@ -375,25 +378,25 @@
   }
 
   .menu-body {
-    overflow : overlay;
-    height   : 100%;
-    display  : flex;
+    overflow: overlay;
+    height: 100%;
+    display: flex;
     flex-flow: column;
-    gap      : 0px;
-    padding  : 0px;
-    position : relative;
+    gap: 0px;
+    padding: 0px;
+    position: relative;
   }
 
   .menu-footer {
-    width  : 100%;
+    width: 100%;
     padding: 12px;
   }
 }
 
 .queue-panel {
-  height   : 100%;
-  width    : 100%;
-  display  : flex;
+  height: 100%;
+  width: 100%;
+  display: flex;
   flex-flow: column;
 
   .queue-header-text {
@@ -402,52 +405,52 @@
 
   .queue-body {
     overflow: overlay;
-    height  : 100%;
+    height: 100%;
   }
 
   .queue-footer {
-    width  : 100%;
+    width: 100%;
     padding: 12px;
   }
 
   .autoplay {
-    background     : rgb(200 200 200 / 15%);
-    display        : flex;
+    background: rgb(200 200 200 / 15%);
+    display: flex;
     justify-content: center;
-    appearance     : none;
-    border         : 0;
-    border-radius  : 6px;
-    height         : 32px;
-    width          : 32px;
+    appearance: none;
+    border: 0;
+    border-radius: 6px;
+    height: 32px;
+    width: 32px;
   }
 
   .infinity {
     content: url("./assets/infinity.svg");
-    margin : auto;
+    margin: auto;
   }
 }
 
 
 .moreinfo-modal {
   .modal-window {
-    height     : 70%;
-    max-height : 100%;
-    width      : 45%;
-    max-width  : 100%;
-    overflow   : hidden;
+    height: 70%;
+    max-height: 100%;
+    width: 45%;
+    max-width: 100%;
+    overflow: hidden;
     line-height: 1.25;
   }
 
   .modal-content {
-    padding  : 1em;
+    padding: 1em;
     font-size: 0.8rem;
 
     br {
-      display      : block;
+      display: block;
       /* makes it have a width */
-      content      : "";
+      content: "";
       /* clears default height */
-      margin       : 2em;
+      margin: 2em;
       margin-bottom: -0.6rem;
     }
   }
@@ -457,7 +460,7 @@
 
     .modal-title {
       text-align: unset !important;
-      width     : 100%;
+      width: 100%;
 
       &:not(.modal-subtitle) {
         font-size: 25px;
@@ -479,8 +482,9 @@
       top: 0;
       left: 0;
       z-index: -1;
-      filter:blur(32px) brightness(50%) saturate(280%);
+      filter: blur(32px) brightness(50%) saturate(280%);
     }
+
     .popover-artwork {
       width: 200px;
       height: 200px;
@@ -491,7 +495,8 @@
     .song-name {
       font-weight: 600;
     }
-    .song-artist,.song-album {
+
+    .song-artist, .song-album {
       opacity: 0.75;
       cursor: pointer;
 
@@ -500,4 +505,14 @@
       }
     }
   }
+}
+
+._svg-icon {
+  --icon: url("./assets/chevron-left.svg");
+  width: 1em;
+  height: 1em;
+  -webkit-mask-image: var(--icon);
+  -webkit-mask-position: center;
+  background: white;
+  -webkit-mask-repeat: no-repeat;
 }

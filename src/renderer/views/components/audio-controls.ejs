@@ -1,10 +1,10 @@
 <script type="text/x-template" id="audio-controls">
-    <div class="modal-fullscreen addtoplaylist-panel" @click.self="app.resetState()"
-         @contextmenu.self="app.resetState()">
+    <div class="modal-fullscreen addtoplaylist-panel" @click.self="app.modals.audioControls = false"
+         @contextmenu.self="app.modals.audioControls = false">
         <div class="modal-window">
             <div class="modal-header">
                 <div class="modal-title">{{app.getLz('term.audioControls')}}</div>
-                <button class="close-btn" @click="app.resetState()" :aria-label="app.getLz('action.close')"></button>
+                <button class="close-btn" @click="app.modals.audioControls = false" :aria-label="app.getLz('action.close')"></button>
             </div>
             <div class="modal-content">
                 <div class="md-option-line">

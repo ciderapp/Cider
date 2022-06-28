@@ -7,6 +7,7 @@ import {Events} from './events.js'
 import { wsapi } from "./wsapi_interop.js"
 import { MusicKitTools } from "./musickittools.js"
 import { spawnMica } from "./mica.js"
+import { svgIcon } from './components/svg-icon.js'
 
 
 // Define window objects

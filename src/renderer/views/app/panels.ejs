@@ -32,6 +32,9 @@
     <plugin-menu v-if="modals.pluginMenu"></plugin-menu>
 </transition>
 <transition name="modal">
+    <settings-window v-if="modals.settings"></settings-window>
+</transition>
+<transition name="modal">
     <eq-view v-if="modals.equalizer"></eq-view>
 </transition>
 <transition name="modal">
