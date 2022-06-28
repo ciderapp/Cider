@@ -6,6 +6,7 @@ body[platform="darwin"] {
     &.notransparency::before {
         display: none;
     }
+
     #app {
         &.simplebg {
             background: transparent;
@@ -33,6 +34,16 @@ body[platform="darwin"] {
                 background-color: var(--macOSChromeColor);
             }
         }
+
+        // &::after {
+        //     position: fixed;
+        //     top:0;left:0;right:0;bottom:0;
+        //     box-shadow: inset 0px 0px .5px 1px rgb(200 200 200 / 40%);
+        //     border-radius: 10px;
+        //     content: " ";
+        //     z-index: 999999;
+        //     pointer-events: none;
+        // }
     }
 
     #app-main {

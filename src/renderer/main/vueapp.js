@@ -168,6 +168,7 @@ const app = new Vue({
                 location: "",
                 info: {}
             },
+            windowState: "normal",
             desiredPageTransition: "wpfade_transform",
             hideUserInfo: ipcRenderer.sendSync("is-dev") || false,
             artworkReady: false,
@@ -217,6 +218,7 @@ const app = new Vue({
             castMenu: false,
             moreInfo: false,
             airplayPW: false,
+            settings: false
         },
         socialBadges: {
             badgeMap: {},
@@ -847,6 +849,10 @@ const app = new Vue({
             ipcRenderer.on('getUpdatedLocalList', (event, data) => {
                 console.log("cider-local", data);
                 this.library.localsongs = data;
+            })
+
+            ipcRenderer.on('window-state-changed', (event, data) => {
+                this.chrome.windowState = data
             })
 
             ipcRenderer.on('SoundCheckTag', (event, tag) => {
@@ -4325,7 +4331,8 @@ const app = new Vue({
                             "name": app.getLz('settings.option.audio.audioLab'),
                             "hidden": true,
                             "action": function () {
-                                app.appRoute('audiolabs')
+                                app.$store.state.pageState.settings.currentTabIndex = 2
+                                app.modals.settings = true
                             }
                         },
                     ]
