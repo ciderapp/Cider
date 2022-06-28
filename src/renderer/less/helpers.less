@@ -509,10 +509,16 @@
 
 ._svg-icon {
   --icon: url("./assets/chevron-left.svg");
-  width: 1em;
-  height: 1em;
+  --size: 1em;
+  width: var(--size);
+  height: var(--size);
   -webkit-mask-image: var(--icon);
   -webkit-mask-position: center;
-  background: white;
+  -webkit-mask-size: contain;
+  background: rgb(255 255 255 / 76%);
   -webkit-mask-repeat: no-repeat;
+
+  &.md {
+    --size: 1.2em;
+  }
 }
