@@ -2,23 +2,23 @@
 <html lang="en">
 
 <head>
-    <link rel="preconnect" href="https://amp-api.music.apple.com/" crossorigin />
-    <link rel="preconnect" href="https://api.music.apple.com/" crossorigin />
-    <link rel="preconnect" href="https://is1-ssl.mzstatic.com/" crossorigin />
-    <link rel="preconnect" href="https://is2-ssl.mzstatic.com/" crossorigin />
-    <link rel="preconnect" href="https://is3-ssl.mzstatic.com/" crossorigin />
-    <link rel="preconnect" href="https://is4-ssl.mzstatic.com/" crossorigin />
-    <link rel="preconnect" href="https://is5-ssl.mzstatic.com/" crossorigin />
-    <link rel="preconnect" href="https://play.itunes.apple.com/" crossorigin />
-    <link rel="preconnect" href="https://aod-ssl.itunes.apple.com/" crossorigin />
+    <link rel="preconnect" href="https://amp-api.music.apple.com/" crossorigin/>
+    <link rel="preconnect" href="https://api.music.apple.com/" crossorigin/>
+    <link rel="preconnect" href="https://is1-ssl.mzstatic.com/" crossorigin/>
+    <link rel="preconnect" href="https://is2-ssl.mzstatic.com/" crossorigin/>
+    <link rel="preconnect" href="https://is3-ssl.mzstatic.com/" crossorigin/>
+    <link rel="preconnect" href="https://is4-ssl.mzstatic.com/" crossorigin/>
+    <link rel="preconnect" href="https://is5-ssl.mzstatic.com/" crossorigin/>
+    <link rel="preconnect" href="https://play.itunes.apple.com/" crossorigin/>
+    <link rel="preconnect" href="https://aod-ssl.itunes.apple.com/" crossorigin/>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Cider</title>
-    <link rel="stylesheet/less" type="text/css" href="style.less" />
-    <link rel="stylesheet/less" type="text/css" id="userTheme" href="themes/default.less" />
+    <link rel="stylesheet/less" type="text/css" href="style.less"/>
+    <link rel="stylesheet/less" type="text/css" id="userTheme" href="themes/default.less"/>
     <script src="./lib/less.js"></script>
-    <script src="<%- (env.dev ? " ./lib/vue.js" : "./lib/vue.dev.js" ) %>"></script>
+    <script src="<%- (env.dev ? " ./lib/vue.js" : "./lib/vue.dev.js") %>"></script>
     <script src="./lib/vue-horizontal.js"></script>
     <script src="./lib/smoothscroll.js"></script>
     <script src="./lib/vuex.min.js"></script>
@@ -55,7 +55,7 @@
             align-items: center;
         }
 
-        #LOADER>svg {
+        #LOADER > svg {
             width: 128px;
         }
 
@@ -67,56 +67,60 @@
     </style>
 </head>
 
-<body class="notransparency" oncontextmenu="return false;" loading="1" os-release="<%= parseInt(env.osRelease) %>" platform="<%= env.platform %>">
-    <div id="LOADER">
-        <%- include("../assets/cider-round.svg") %>
-    </div>
-    <div id="app" :class="getAppClasses()"
-    :window-state="chrome.windowState"
-    :style="getAppStyle()" :library-visible="(chrome.sidebarCollapsed ? 0 : 1)" :window-style="cfg.visual.directives.windowLayout">
-        <transition name="fsModeSwitch">
-            <div id="app-main" v-show="appMode == 'player'">
-                <%- include('app/chrome-top'); %>
-                    <%- include('app/app-navigation'); %>
-                        <%- include('app/chrome-bottom'); %>
-            </div>
-        </transition>
-        <transition name="fsModeSwitch">
-            <div class="fullscreen-view-container" v-if="appMode == 'fullscreen'">
-                <fullscreen-view :image="currentArtUrlRaw" :time="lyriccurrenttime" :lyrics="lyrics"
-                    :richlyrics="richlyrics"></fullscreen-view>
-            </div>
-        </transition>
-        <transition name="fsModeSwitch">
-            <div class="fullscreen-view-container" v-if="appMode == 'mini'">
-                <mini-view :image="currentArtUrlRaw" :time="lyriccurrenttime" :lyrics="lyrics" :richlyrics="richlyrics">
-                </mini-view>
-            </div>
-        </transition>
-        <transition name="fsModeSwitch">
-            <div class="fullscreen-view-container oobe" v-if="appMode == 'oobe'">
-                <cider-oobe></cider-oobe>
-            </div>
-        </transition>
-        <%- include('app/panels'); %>
-            <div class="cursor" v-if="chrome.showCursor"></div>
-    </div>
+<body class="notransparency" oncontextmenu="return false;" loading="1" os-release="<%= parseInt(env.osRelease) %>"
+      platform="<%= env.platform %>">
+<div id="LOADER">
+    <%- include("../assets/cider-round.svg") %>
+</div>
+<div id="app" :class="getAppClasses()"
+     v-if="appVisible"
+     :window-state="chrome.windowState"
+     :style="getAppStyle()" :library-visible="(chrome.sidebarCollapsed ? 0 : 1)"
+     :window-style="cfg.visual.directives.windowLayout">
+    <transition name="fsModeSwitch">
+        <div id="app-main" v-show="appMode == 'player'">
+            <%- include('app/chrome-top'); %>
+            <%- include('app/app-navigation'); %>
+            <%- include('app/chrome-bottom'); %>
+        </div>
+    </transition>
+    <transition name="fsModeSwitch">
+        <div class="fullscreen-view-container" v-if="appMode == 'fullscreen'">
+            <fullscreen-view :image="currentArtUrlRaw" :time="lyriccurrenttime" :lyrics="lyrics"
+                             :richlyrics="richlyrics"></fullscreen-view>
+        </div>
+    </transition>
+    <transition name="fsModeSwitch">
+        <div class="fullscreen-view-container" v-if="appMode == 'mini'">
+            <mini-view :image="currentArtUrlRaw" :time="lyriccurrenttime" :lyrics="lyrics" :richlyrics="richlyrics">
+            </mini-view>
+        </div>
+    </transition>
+    <transition name="fsModeSwitch">
+        <div class="fullscreen-view-container oobe" v-if="appMode == 'oobe'">
+            <cider-oobe></cider-oobe>
+        </div>
+    </transition>
+    <%- include('app/panels'); %>
+    <div class="cursor" v-if="chrome.showCursor"></div>
+</div>
 
-    <% for(var i=0; i < Object.keys(env.components).length ; i++) {%>
-        <%- include(env.components[i]); %>
-            <% } %>
+<% for(var i = 0; i < Object.keys(env.components).length ; i++) { %>
+    <%- include(env.components[i]); %>
+<% } %>
 
+<script async
+        src="<%- (env.useV3 ? "https://js-cdn.music.apple.com/musickit/v3/amp/musickit.js" : "https://js-cdn.music.apple.com/musickit/v2/amp/musickit.js") %>"
+        data-web-components>
+</script>
+<script src="index.js?v=1"></script>
 
-                <script async src="<%- (env.useV3 ? "https://js-cdn.music.apple.com/musickit/v3/amp/musickit.js" : "https://js-cdn.music.apple.com/musickit/v2/amp/musickit.js" ) %>" data-web-components>
-                </script>
-                <script src="index.js?v=1"></script>
-
-                <script type="text/x-template" id="am-musiccovershelf">
+<script type="text/x-template" id="am-musiccovershelf">
     <h1>{{ component.attributes.title.stringForDisplay }}</h1>
 </script>
 
-                <!-- Sidebar Item -->
-                <script type="text/x-template" id="sidebar-library-item">
+<!-- Sidebar Item -->
+<script type="text/x-template" id="sidebar-library-item">
     <button class="app-sidebar-item"
             :class="$parent.getSidebarItemClass(page)" @click="$root.setWindowHash(page)">
         <div class="sidebar-icon" v-html="svgIconData" v-if="svgIconData != ''"></div>
