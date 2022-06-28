@@ -3,7 +3,7 @@ export default class lastfm {
     /**
      * Base Plugin Information
      */
-    public name: string = 'LastFM Plugin for Cider';
+    public name: string = 'LastFM Plugin';
     public version: string = '2.0.0';
     public author: string = 'Core (Cider Collective)';
 
@@ -38,19 +38,19 @@ export default class lastfm {
 
         // Register the ipcMain handlers
         this._utils.getIPCMain().handle('lastfm:url', (event: any) => {
-            console.debug('lastfm:url', event)
+            console.debug(`${lastfm.name}:url`, event)
             return this._lfm.getAuthenticationUrl({"cb": "cider://auth/lastfm"})
         })
 
         this._utils.getIPCMain().on('lastfm:auth', (event: any, token: string) => {
-            console.debug('lastfm:auth', event, token)
+            console.debug(`${lastfm.name}:auth`, event, token)
             this.authenticateLastFM(token)
         })
 
         this._utils.getIPCMain().on('lastfm:disconnect', (_event: any) => {
             this._lfm.setSessionCredentials(null, null);
             this._authenticated = false;
-            console.debug('lastfm:disconnect')
+            console.debug(`${lastfm.name}:disconnect`)
         })
 
         this._utils.getIPCMain().on('lastfm:nowPlayingChange', (event: any, attributes: any) => {
@@ -118,7 +118,7 @@ export default class lastfm {
             }
             this._utils.getWindow().webContents.send('lastfm:authenticated', session)
             this._authenticated = true;
-            console.debug(`[${lastfm.name}] [authenticate] Authenticated as ${session.username}`)
+            console.debug(`[${lastfm.name}:authenticate] Authenticated as ${session.username}`)
         });
     }
 
@@ -131,8 +131,6 @@ export default class lastfm {
         if (!attributes) return attributes;
 
         if (!attributes.lfmAlbum) {
-            console.log(attributes.artistName)
-            console.log(attributes.albumName)
             return this._lfm.album.getInfo({
                 "artist": attributes.artistName,
                 "album": attributes.albumName
@@ -198,9 +196,9 @@ export default class lastfm {
             // Scrobble the track
             this._lfm.track.scrobble(scrobble, (err: any, _res: any) => {
                 if (err) {
-                    console.error(`[${lastfm.name}] [lastfm:scrobble] Scrobble failed: ${err.message}`);
+                    console.error(`[${lastfm.name}:scrobble] Scrobble failed: ${err.message}`);
                 } else {
-                    console.debug(`[${lastfm.name}] [lastfm:scrobble] Track scrobbled: ${scrobble.artist} - ${scrobble.track}`);
+                    console.debug(`[${lastfm.name}:scrobble] Track scrobbled: ${scrobble.artist} - ${scrobble.track}`);
                     this._scrobbleCache = scrobble
                 }
             });
@@ -221,10 +219,10 @@ export default class lastfm {
 
         this._lfm.track.updateNowPlaying(nowPlaying, (err: any, res: any) => {
             if (err) {
-                console.error(`[${lastfm.name}] [lastfm:updateNowPlaying] Now Playing Update failed: ${err.message}`);
+                console.error(`[${lastfm.name}:updateNowPlaying] Now Playing Update failed: ${err.message}`);
             } else {
                 console.log(res)
-                console.debug(`[${lastfm.name}] [lastfm:updateNowPlaying] Now Playing Updated: ${nowPlaying.artist} - ${nowPlaying.track}`);
+                console.debug(`[${lastfm.name}:updateNowPlaying] Now Playing Updated: ${nowPlaying.artist} - ${nowPlaying.track}`);
                 this._nowPlayingCache = nowPlaying
             }
         });
