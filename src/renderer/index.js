@@ -81,7 +81,7 @@ Vue.component("sidebar-library-item", {
   },
   async mounted() {
     if (this.svgIcon) {
-      this.svgIconData = await this.app.getSvgIcon(this.svgIcon);
+      this.svgIconData = this.svgIcon;
     }
   },
   methods: {},
