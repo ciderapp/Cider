@@ -9,7 +9,7 @@
                 :href="item.href"
                 @click='clickEvent()'>
             <template v-if="!renaming">
-                <div class="sidebar-icon" :key="item.id" v-html="icon"></div> {{ item.attributes.name }}
+                <svg-icon :url="icon"/> {{ item.attributes.name }}
                 <small class="presentNotice" v-if="hasRelatedMediaItems">(Track present)</small>
             </template>
             <input type="text" v-model="item.attributes.name" class="pl-rename-field" @blur="rename()" @keydown.enter="rename()" v-else>
@@ -57,9 +57,9 @@
         },
         async mounted() {
             if (this.item.type !== "library-playlist-folders") {
-                this.icon = await this.$root.getSvgIcon("./assets/feather/list.svg")
+                this.icon = ("./assets/feather/list.svg")
             } else {
-                this.icon = await this.$root.getSvgIcon("./assets/feather/folder.svg")
+                this.icon = ("./assets/feather/folder.svg")
             }
             let playlistMap = this.$root.playlists.trackMapping
             if (this.relateMediaItems.length != 0) {

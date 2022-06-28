@@ -158,23 +158,10 @@
       </div>
       <template v-if="!cfg.general.sidebarCollapsed.playlists">
         <button class="app-sidebar-item" @click="playlistHeaderContextMenu">
-          <div class="sidebar-icon">
-            <svg
-              width="46"
-              height="46"
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M12 5v14"></path>
-              <path d="M5 12h14"></path>
-            </svg>
+          <svg-icon url="./assets/feather/plus.svg"></svg-icon>
+          <div class="sidebar-item-text">
+            {{ getLz("action.createNew") }}
           </div>
-          {{ getLz("action.createNew") }}
         </button>
         <sidebar-playlist
           v-for="item in getPlaylistFolderChildren('p.playlistsroot')"

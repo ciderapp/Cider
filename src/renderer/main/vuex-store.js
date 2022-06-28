@@ -12,6 +12,10 @@ const store = new Vuex.Store({
                 nextUrl: null,
                 items: [],
                 size: "normal"
+            },
+            settings: {
+                currentTabIndex: 0,
+                fullscreen: false
             }
         },
         artwork: {
