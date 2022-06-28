@@ -37,7 +37,7 @@ export default class Thumbar {
                 {
                     label: utils.getLocale(utils.getStoreValue('general.language'), 'term.settings'),
                     accelerator: utils.getStoreValue("general.keybindings.settings").join('+'),
-                    click: () => utils.getWindow().webContents.executeJavaScript(`app.appRoute('settings')`)
+                    click: () => utils.getWindow().webContents.executeJavaScript(`app.openSettingsPage()`)
                 },
                 ...(this.isMac ? [
                     {type: 'separator'},

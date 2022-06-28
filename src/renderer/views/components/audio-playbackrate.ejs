@@ -1,10 +1,10 @@
 <script type="text/x-template" id="audio-playbackrate">
-    <div class="modal-fullscreen addtoplaylist-panel" @click.self="app.resetState()"
-         @contextmenu.self="app.resetState()">
+    <div class="modal-fullscreen addtoplaylist-panel" @click.self="app.modals.audioPlaybackRate = false"
+         @contextmenu.self="app.modals.audioPlaybackRate = false">
         <div class="modal-window">
             <div class="modal-header">
                 <div class="modal-title">{{app.getLz('settings.option.audio.changePlaybackRate')}}</div>
-                <button class="close-btn" @click="app.resetState()" :aria-label="app.getLz('action.close')"></button>
+                <button class="close-btn" @click="app.modals.audioPlaybackRate = false" :aria-label="app.getLz('action.close')"></button>
             </div>
             <div class="modal-content">
                 <div class="md-option-line">

@@ -71,7 +71,9 @@
     <div id="LOADER">
         <%- include("../assets/cider-round.svg") %>
     </div>
-    <div id="app" :class="getAppClasses()" :style="getAppStyle()" :library-visible="(chrome.sidebarCollapsed ? 0 : 1)" :window-style="cfg.visual.directives.windowLayout">
+    <div id="app" :class="getAppClasses()"
+    :window-state="chrome.windowState"
+    :style="getAppStyle()" :library-visible="(chrome.sidebarCollapsed ? 0 : 1)" :window-style="cfg.visual.directives.windowLayout">
         <transition name="fsModeSwitch">
             <div id="app-main" v-show="appMode == 'player'">
                 <%- include('app/chrome-top'); %>
