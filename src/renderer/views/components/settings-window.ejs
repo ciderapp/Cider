@@ -228,6 +228,16 @@
                                     </label>
                                 </div>
                             </div>
+                            <div class="md-option-line">
+                                <div class="md-option-segment">
+                                    {{'Local files path'}}
+                                </div>
+                                <div class="md-option-segment md-option-segment_auto">
+                                    <button class="md-btn" @click="openLocalSongsPathMenu">
+                                        {{'Edit Paths'}}
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1893,8 +1903,11 @@
                 app.confirm(app.getLz("settings.prompt.general.keybindings.update.success"), (ok) => {
                     if (ok) ipcRenderer.invoke("relaunchApp")
                 })
-            }            
+            },            
             /* keybindings */
+            openLocalSongsPathMenu() {
+                app.modals.pathMenu = true
+            }
         }
     })
 </script>
