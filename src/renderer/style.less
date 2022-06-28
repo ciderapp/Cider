@@ -858,6 +858,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
 }
 
 .app-sidebar-item {
+  --iconSize: 18px;
   display: flex;
   width: 100%;
   padding: 8px 12px;
@@ -872,6 +873,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   transition: transform 0.1s;
   text-align: left;
   align-items: center;
+  gap: 12px;
 
   &.app-sidebar-item-playlist {
     -webkit-user-drag: element;
@@ -885,6 +887,10 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
       font-size: 0.7em;
       opacity: 0.6;
     }
+  }
+
+  >._svg-icon {
+    --size: var(--iconSize);
   }
 
 }
