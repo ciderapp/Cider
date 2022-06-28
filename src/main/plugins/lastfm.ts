@@ -43,7 +43,7 @@ export default class lastfm {
         })
 
         this._utils.getIPCMain().on('lastfm:auth', (event: any, token: string) => {
-            console.debug(`${lastfm.name}:auth`, event, token)
+            console.debug(`${lastfm.name}:auth`, token)
             this.authenticateLastFM(token)
         })
 
