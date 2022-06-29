@@ -68,6 +68,10 @@ Vue.component("sidebar-library-item", {
       required: false,
       default: "",
     },
+    svgIconName: {
+        type: String,
+        required: false
+    },
     cdClick: {
       type: Function,
       required: false,

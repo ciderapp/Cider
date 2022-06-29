@@ -9,7 +9,7 @@
                 :href="item.href"
                 @click='clickEvent()'>
             <template v-if="!renaming">
-                <svg-icon :url="icon"/> {{ item.attributes.name }}
+                <svg-icon :url="icon" name="sidebar-playlist"/> {{ item.attributes.name }}
                 <small class="presentNotice" v-if="hasRelatedMediaItems">(Track present)</small>
             </template>
             <input type="text" v-model="item.attributes.name" class="pl-rename-field" @blur="rename()" @keydown.enter="rename()" v-else>
