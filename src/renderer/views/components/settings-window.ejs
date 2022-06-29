@@ -994,18 +994,18 @@
                                 </div>
                                 <div class="md-option-segment md-option-segment_auto">
                                     <label>
-                                        <input type="checkbox" v-model="app.cfg.general.discordrpc.enabled" switch />
+                                        <input type="checkbox" v-model="app.cfg.connectivity.discord_rpc.enabled" switch />
                                     </label>
                                 </div>
                             </div>
 
-                            <div class="md-option-line" v-show="app.cfg.general.discordrpc.enabled != false">
+                            <div class="md-option-line" v-show="app.cfg.connectivity.discord_rpc.enabled != false">
                                 <div class="md-option-segment">
                                     {{$root.getLz('settings.option.connectivity.discordRPC.clientName')}}
                                 </div>
                                 <div class="md-option-segment md-option-segment_auto">
                                     <label>
-                                        <select class="md-select" v-model="app.cfg.general.discordrpc.client">
+                                        <select class="md-select" v-model="app.cfg.connectivity.discord_rpc.client">
                                             <option value="Cider">{{$root.getLz('app.name')}}</option>
                                             <option value="AppleMusic">{{$root.getLz('term.appleMusic')}}
                                             </option>
@@ -1014,40 +1014,40 @@
                                 </div>
                             </div>
 
-                            <div class="md-option-line" v-show="app.cfg.general.discordrpc.enabled != false">
+                            <div class="md-option-line" v-show="app.cfg.connectivity.discord_rpc.enabled != false">
                                 <div class="md-option-segment">
                                     {{$root.getLz('settings.option.connectivity.discordRPC.clearOnPause')}}
                                 </div>
                                 <div class="md-option-segment md-option-segment_auto">
                                     <label>
-                                        <input type="checkbox" v-model="app.cfg.general.discordrpc.clear_on_pause" switch />
+                                        <input type="checkbox" v-model="app.cfg.connectivity.discord_rpc.clear_on_pause" switch />
                                     </label>
                                 </div>
                             </div>
 
-                            <div class="md-option-line" v-show="app.cfg.general.discordrpc.enabled != false">
+                            <div class="md-option-line" v-show="app.cfg.connectivity.discord_rpc.enabled != false">
                                 <div class="md-option-segment">
                                     {{$root.getLz('settings.option.connectivity.discordRPC.hideButtons')}}
                                 </div>
                                 <div class="md-option-segment md-option-segment_auto">
                                     <label>
-                                        <input type="checkbox" v-model="app.cfg.general.discordrpc.hide_buttons" switch />
+                                        <input type="checkbox" v-model="app.cfg.connectivity.discord_rpc.hide_buttons" switch />
                                     </label>
                                 </div>
                             </div>
 
-                            <div class="md-option-line" v-show="app.cfg.general.discordrpc.enabled != false">
+                            <div class="md-option-line" v-show="app.cfg.connectivity.discord_rpc.enabled != false">
                                 <div class="md-option-segment">
                                     {{$root.getLz('settings.option.connectivity.discordRPC.hideTimestamp')}}
                                 </div>
                                 <div class="md-option-segment md-option-segment_auto">
                                     <label>
-                                        <input type="checkbox" v-model="app.cfg.general.discordrpc.hide_timestamp" switch />
+                                        <input type="checkbox" v-model="app.cfg.connectivity.discord_rpc.hide_timestamp" switch />
                                     </label>
                                 </div>
                             </div>
 
-                            <div class="md-option-line" v-show="app.cfg.general.discordrpc.enabled != false">
+                            <div class="md-option-line" v-show="app.cfg.connectivity.discord_rpc.enabled != false">
                                 <div class="md-option-segment">
                                     {{$root.getLz('settings.option.connectivity.discordRPC.detailsFormat')}}<br />
                                     <small>{{$root.getLz('term.variables')}}: {artist}, {composer}, {title}, {album},
@@ -1055,12 +1055,12 @@
                                 </div>
                                 <div class="md-option-segment md-option-segment_auto">
                                     <label>
-                                        <input type="text" v-model="app.cfg.general.discordrpc.details_format" />
+                                        <input type="text" v-model="app.cfg.connectivity.discord_rpc.details_format" />
                                     </label>
                                 </div>
                             </div>
 
-                            <div class="md-option-line" v-show="app.cfg.general.discordrpc.enabled != false">
+                            <div class="md-option-line" v-show="app.cfg.connectivity.discord_rpc.enabled != false">
                                 <div class="md-option-segment">
                                     {{$root.getLz('settings.option.connectivity.discordRPC.stateFormat')}}
                                     <small>{{$root.getLz('term.variables')}}: {artist}, {composer}, {title}, {album},
@@ -1068,12 +1068,12 @@
                                 </div>
                                 <div class="md-option-segment md-option-segment_auto">
                                     <label>
-                                        <input type="text" v-model="app.cfg.general.discordrpc.state_format" />
+                                        <input type="text" v-model="app.cfg.connectivity.discord_rpc.state_format" />
                                     </label>
                                 </div>
                             </div>
 
-                            <div class="md-option-line" v-show="app.cfg.general.discordrpc.enabled != false">
+                            <div class="md-option-line" v-show="app.cfg.connectivity.discord_rpc.enabled != false">
                                 <div class="md-option-segment">
                                     {{$root.getLz('settings.option.connectivity.discordRPC.reload')}}
                                 </div>
@@ -1089,51 +1089,55 @@
                                 <div class="md-option-segment">
                                     {{$root.getLz('settings.option.connectivity.lastfmScrobble')}}
                                 </div>
-                                <div class="md-option-segment md-option-segment_auto">
-                                    <button class="md-btn" id="lfmConnect" ref="lfmConnect"
-                                            @click="app.LastFMAuthenticate()">
-                                        {{$root.getLz('term.connect')}}
+                                <div class="md-option-segment md-option-segment_auto" >
+                                    <button class="md-btn" id="lfmConnect" @click="app.cfg.connectivity.lastfm.enabled ? lfmDisconnect() : lfmAuthorize()">
+                                        {{$root.getLz(`term.${$root.cfg.connectivity.lastfm.enabled ? "disconnect" : "connect"}`)}}<br>
+                                        <small>{{app.cfg.connectivity.lastfm.enabled ? `${$root.getLz('term.authed')}: ${$root.cfg.connectivity.lastfm.secrets.username}` : '' }}</small>
                                     </button>
                                 </div>
                             </div>
-                            <div class="md-option-line" v-show="app.cfg.lastfm.enabled">
+                            <div class="md-option-line" v-show="lastfmConnecting">
+                                <div class="md-option-segment">
+                                    {{$root.getLz('settings.option.connectivity.lastfmScrobble.manualToken')}}
+                                </div>
+                                <div class="md-option-segment md-option-segment_auto">
+                                    <label>
+                                        <form @submit.prevent="submitToken">
+                                            <input type="text" autofocus id="lfmToken" />
+                                            <input type="submit" class="md-btn" @value="$root.getLz('action.submit')" />
+                                        </form>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="md-option-line" v-show="app.cfg.connectivity.lastfm.enabled">
                                 <div class="md-option-segment">
                                     {{$root.getLz('settings.option.connectivity.lastfmScrobble.delay')}}
                                 </div>
                                 <div class="md-option-segment md-option-segment_auto">
                                     <label>
-                                        <input type="number" min="50" max="100" v-model="app.cfg.lastfm.scrobble_after" />
+                                        <input type="number" min="50" max="100" v-model="app.cfg.connectivity.lastfm.scrobble_after"/>
                                     </label>
                                 </div>
                             </div>
-                            <div class="md-option-line" v-show="app.cfg.lastfm.enabled">
-                                <div class="md-option-segment">
-                                    {{$root.getLz('settings.option.connectivity.lastfmScrobble.nowPlaying')}}
-                                </div>
-                                <div class="md-option-segment md-option-segment_auto">
-                                    <label>
-                                        <input type="checkbox" v-model="app.cfg.lastfm.NowPlaying" switch />
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="md-option-line" v-show="app.cfg.lastfm.enabled">
-                                <div class="md-option-segment">
-                                    {{$root.getLz('settings.option.connectivity.lastfmScrobble.removeFeatured')}}
-                                </div>
-                                <div class="md-option-segment md-option-segment_auto">
-                                    <label>
-                                        <input type="checkbox" v-model="app.cfg.lastfm.enabledRemoveFeaturingArtists"
-                                               switch />
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="md-option-line" v-show="app.cfg.lastfm.enabled">
+                            <div class="md-option-line" v-show="app.cfg.connectivity.lastfm.enabled">
                                 <div class="md-option-segment">
                                     {{$root.getLz('settings.option.connectivity.lastfmScrobble.filterLoop')}}
+                                    <small>{{$root.getLz('settings.option.connectivity.lastfmScrobble.filterLoop.description')}}</small>
                                 </div>
                                 <div class="md-option-segment md-option-segment_auto">
                                     <label>
-                                        <input type="checkbox" v-model="app.cfg.lastfm.filterLoop" switch />
+                                        <input type="checkbox" v-model="app.cfg.connectivity.lastfm.filter_loop" switch/>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="md-option-line" v-show="app.cfg.connectivity.lastfm.enabled">
+                                <div class="md-option-segment">
+                                    {{$root.getLz('settings.option.connectivity.lastfmScrobble.filterTypes')}}
+                                </div>
+                                <div class="md-option-segment md-option-segment_auto">
+                                    <label>
+                                        <input type="checkbox" @change="filterChange" value="song">{{$root.getLz('term.songs')}}<br>
+                                        <input type="checkbox" @change="filterChange" value="musicVideo">{{$root.getLz('term.musicVideos')}}<br>
                                     </label>
                                 </div>
                             </div>
@@ -1421,21 +1425,13 @@
                 app: this.$root,
                 themes: ipcRenderer.sendSync("get-themes"),
                 tabIndex: 0,
-                canChangeHash: false
+                canChangeHash: false,
+                lastfmConnecting: false
             }
         }, watch: {
             tabIndex: function (val) {
                 if (this.canChangeHash) {
                     // window.location.hash = `#settings/${val}`
-                }
-            }
-        },
-        mounted: function () {
-            if (app.cfg.lastfm.enabled) {
-                const element = document.getElementById('lfmConnect');
-                if (element) {
-                    element.innerHTML = `Disconnect\n<p style="font-size: 8px"><i>(Authed: ${app.cfg.lastfm.auth_token})</i></p>`;
-                    element.onclick = app.LastFMDeauthorize;
                 }
             }
         },
@@ -1554,6 +1550,41 @@
             },
             reloadDiscordRPC() {
                 ipcRenderer.send('reloadRPC')
+            },
+	        lfmDisconnect() {
+		        this.$root.cfg.connectivity.lastfm.enabled = false;
+		        this.$root.cfg.connectivity.lastfm.secrets.username = "";
+		        this.$root.cfg.connectivity.lastfm.secrets.key = "";
+		        ipcRenderer.send('lastfm:disconnect');
+	        },
+	        async lfmAuthorize() {
+				this.lastfmConnecting = true;
+		        window.open(await ipcRenderer.invoke('lastfm:url'));
+		        app.notyf.success(app.getLz('settings.notyf.connectivity.lastfmScrobble.connecting'));
+
+		        /* Just a timeout for the button */
+		        setTimeout(() => {
+			        if (!this.$root.cfg.connectivity.lastfm.enabled) {
+				        app.notyf.error(app.getLz('settings.notyf.connectivity.lastfmScrobble.connectError'));
+				        console.warn('[lastfm:authorize] Last.fm authorization timed out.');
+				        this.lastfmConnecting = false;
+			        }
+		        }, 20000);
+
+		        ipcRenderer.once('lastfm:authenticated', (_e, session) => {
+			        this.$root.cfg.connectivity.lastfm.secrets.username = session.username
+			        this.$root.cfg.connectivity.lastfm.secrets.key = session.key
+			        this.$root.cfg.connectivity.lastfm.enabled = true
+                    this.lastfmConnecting = false;
+			        app.notyf.success(app.getLz('settings.notyf.connectivity.lastfmScrobble.connectSuccess'));
+		        })
+	        },
+	        filterChange(e) {
+		        this.$root.cfg.connectivity.lastfm.filter_types[e.target.value] = e.target.checked;
+	        },
+	        submitToken() {
+                const token = document.getElementById('lfmToken').value;
+                ipcRenderer.send('lastfm:auth', token);
             }
         }
     })

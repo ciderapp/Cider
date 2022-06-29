@@ -11,9 +11,6 @@ const MusicKitInterop = {
 			if (MusicKitInterop.filterTrack(attributes, true, false)) {
 				global.ipcRenderer.send('playbackStateDidChange', attributes)
 				global.ipcRenderer.send('wsapi-updatePlaybackState', attributes);
-				// if (typeof _plugins != "undefined") {
-				//     _plugins.execute("OnPlaybackStateChanged", {Attributes: MusicKitInterop.getAttributes()})
-				// }
 			}
 		});
 
@@ -24,18 +21,13 @@ const MusicKitInterop = {
 		/** wsapi */
 
 		MusicKit.getInstance().addEventListener(MusicKit.Events.nowPlayingItemDidChange, async () => {
-			console.debug('nowPlayingItemDidChange')
+			console.debug('[cider:preload] nowPlayingItemDidChange')
 			const attributes = MusicKitInterop.getAttributes()
-			const trackFilter = MusicKitInterop.filterTrack(attributes, false, true)
 
-			if (trackFilter) {
+			if (MusicKitInterop.filterTrack(attributes, false, true)) {
 				global.ipcRenderer.send('nowPlayingItemDidChange', attributes);
-			}
-
-			// LastFM's Custom Call
-			await MusicKitInterop.modifyNamesOnLocale();
-			if (trackFilter || !app.cfg.lastfm.filterLoop) {
-				global.ipcRenderer.send('nowPlayingItemDidChangeLastFM', attributes);
+			} else if (attributes.name !== 'no-title-found' && attributes.playParams.id !== "no-id-found") {
+				global.ipcRenderer.send('lastfm:nowPlayingChange', attributes);
 			}
 
 			if (MusicKit.getInstance().nowPlayingItem) {
@@ -49,38 +41,16 @@ const MusicKitInterop = {
 		})
 
 		MusicKit.getInstance().addEventListener(MusicKit.Events.mediaPlaybackError, (e) => {
-			console.warn(`[mediaPlaybackError] ${e}`);
+			console.warn(`[cider:preload] mediaPlaybackError] ${e}`);
 		})
 	},
 
 	sleep(ms) {
 		return new Promise((resolve) => {
-		  setTimeout(resolve, ms);
+			setTimeout(resolve, ms);
 		});
 	},
 
-	async modifyNamesOnLocale() {
-		if (app.mklang === '' || app.mklang == null) {
-			return;
-		} 
-		const mk = MusicKit.getInstance()
-		const nowPlayingItem = mk.nowPlayingItem;
-		if ((nowPlayingItem?._songId ?? nowPlayingItem?.songId) == null){
-			return;
-		} 
-		const id = nowPlayingItem?._songId ?? (nowPlayingItem?.songId ?? nowPlayingItem?.id)
-		if (id != null && id !== -1) {
-			try{
-			const query = await mk.api.v3.music(`/v1${(((nowPlayingItem?._songId ?? nowPlayingItem?.songId) != null) && ((nowPlayingItem?._songId ?? nowPlayingItem?.songId) !== -1)) ? `/catalog/${mk.storefrontId}/` : `/me/library/`}songs/${id}?l=${app.mklang}`);
-			if (query?.data?.data[0]){
-					let attrs = query?.data?.data[0]?.attributes;
-					if (attrs?.name) { nowPlayingItem.attributes.name = attrs?.name ?? ''}
-					if (attrs?.albumName) { nowPlayingItem.attributes.albumName = attrs?.albumName ?? ''}
-					if (attrs?.artistName) { nowPlayingItem.attributes.artistName = attrs?.artistName ?? ''}
-
-			}} catch (e) { }
-		} else {}
-	},
 	getAttributes: function () {
 		const mk = MusicKit.getInstance()
 		const nowPlayingItem = mk.nowPlayingItem;
@@ -96,8 +66,8 @@ const MusicKitInterop = {
 		attributes.playParams = attributes?.playParams ?? {id: 'no-id-found'};
 		attributes.playParams.id = attributes?.playParams?.id ?? 'no-id-found';
 		attributes.url = {
-			cider: `https://cider.sh/link?play/s/${nowPlayingItem?._songId ?? (nowPlayingItem?.songId ??'no-id-found')}`,
-			appleMusic: attributes.websiteUrl ? attributes.websiteUrl : `https://music.apple.com/${mk.storefrontId}/song/${nowPlayingItem?._songId ?? (nowPlayingItem?.songId ??'no-id-found')}`  
+			cider: `https://cider.sh/link?play/s/${nowPlayingItem?._songId ?? (nowPlayingItem?.songId ?? 'no-id-found')}`,
+			appleMusic: attributes.websiteUrl ? attributes.websiteUrl : `https://music.apple.com/${mk.storefrontId}/song/${nowPlayingItem?._songId ?? (nowPlayingItem?.songId ?? 'no-id-found')}`
 		}
 		if (attributes.playParams.id === 'no-id-found') {
 			attributes.playParams.id = nowPlayingItem?.id ?? 'no-id-found';
@@ -115,7 +85,7 @@ const MusicKitInterop = {
 			attributes?.playParams?.id === cache.playParams.id
 				? Date.now() + attributes?.remainingTime
 				: attributes?.startTime + attributes?.durationInMillis
-		);	
+		);
 		return attributes;
 	},
 
@@ -156,19 +126,19 @@ const MusicKitInterop = {
 		// } catch (e) { }
 		// if (MusicKit.getInstance().queue.nextPlayableItemIndex != -1 && MusicKit.getInstance().queue.nextPlayableItemIndex != null)
 		// MusicKit.getInstance().changeToMediaAtIndex(MusicKit.getInstance().queue.nextPlayableItemIndex);
-		MusicKit.getInstance().skipToNextItem().then(r => console.debug(`[MusicKitInterop.next] Skipping to Next ${r}`));
+		MusicKit.getInstance().skipToNextItem().then(r => console.debug(`[cider:preload] [next] Skipping to Next ${r}`));
 	},
 
 	previous: () => {
 		// if (MusicKit.getInstance().queue.previousPlayableItemIndex != -1 && MusicKit.getInstance().queue.previousPlayableItemIndex != null)
 		// MusicKit.getInstance().changeToMediaAtIndex(MusicKit.getInstance().queue.previousPlayableItemIndex);
-		MusicKit.getInstance().skipToPreviousItem().then(r => console.debug(`[MusicKitInterop.previous] Skipping to Previous ${r}`));
+		MusicKit.getInstance().skipToPreviousItem().then(r => console.debug(`[cider:preload] [previous] Skipping to Previous ${r}`));
 	}
 
 }
 
 
 process.once('loaded', () => {
-	console.debug("Setting ipcRenderer")
+	console.debug("[cider:preload] IPC Listeners Created!")
 	global.MusicKitInterop = MusicKitInterop;
 });

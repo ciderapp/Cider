@@ -51,6 +51,7 @@
           <sidebar-library-item
             :name="$root.getLz('home.title')"
             svg-icon="./assets/feather/home.svg"
+            svg-icon-name="home"
             page="home"
           >
           </sidebar-library-item>
@@ -67,17 +68,20 @@
           <sidebar-library-item
             :name="$root.getLz('term.listenNow')"
             svg-icon="./assets/feather/play-circle.svg"
+            svg-icon-name="listenNow"
             page="listen_now"
           ></sidebar-library-item>
           <sidebar-library-item
             :name="$root.getLz('term.browse')"
             svg-icon="./assets/feather/globe.svg"
+            svg-icon-name="browse"
             page="browse"
           >
           </sidebar-library-item>
           <sidebar-library-item
             :name="$root.getLz('term.radio')"
             svg-icon="./assets/feather/radio.svg"
+            svg-icon-name="radio"
             page="radio"
           ></sidebar-library-item>
         </template>
@@ -94,36 +98,42 @@
         <sidebar-library-item
           :name="$root.getLz('term.recentlyAdded')"
           svg-icon="./assets/feather/plus-circle.svg"
+          svg-icon-name="recentlyAdded"
           v-if="cfg.general.sidebarItems.recentlyAdded"
           page="library-recentlyadded"
         ></sidebar-library-item>
         <sidebar-library-item
           :name="$root.getLz('term.songs')"
           svg-icon="./assets/feather/music.svg"
+          svg-icon-name="songs"
           v-if="cfg.general.sidebarItems.songs"
           page="library-songs"
         ></sidebar-library-item>
         <sidebar-library-item
           :name="$root.getLz('term.albums')"
           svg-icon="./assets/feather/disc.svg"
+          svg-icon-name="albums"
           v-if="cfg.general.sidebarItems.albums"
           page="library-albums"
         ></sidebar-library-item>
         <sidebar-library-item
           :name="$root.getLz('term.artists')"
           svg-icon="./assets/feather/user.svg"
+          svg-icon-name="artists"
           v-if="cfg.general.sidebarItems.artists"
           page="library-artists"
         ></sidebar-library-item>
         <sidebar-library-item
           :name="$root.getLz('term.videos')"
           svg-icon="./assets/feather/video.svg"
+          svg-icon-name="videos"
           v-if="cfg.general.sidebarItems.videos"
           page="library-videos"
         ></sidebar-library-item>
         <sidebar-library-item
           :name="$root.getLz('term.podcasts')"
           svg-icon="./assets/feather/mic.svg"
+          svg-icon-name="podcasts"
           v-if="cfg.general.sidebarItems.podcasts"
           page="podcasts"
         >

@@ -74,7 +74,7 @@ export default class DiscordRPC {
             console.log(`[DiscordRPC][reload] Reloading DiscordRPC.`);
             this._client.destroy()
 
-            this._client.endlessLogin({clientId: this._utils.getStoreValue("general.discordrpc.client") === "Cider" ? '911790844204437504' : '886578863147192350'})
+            this._client.endlessLogin({clientId: this._utils.getStoreValue("connectivity.discord_rpc.client") === "Cider" ? '911790844204437504' : '886578863147192350'})
                 .then(() => {
                     this.ready = true
                     this._utils.getWindow().webContents.send("rpcReloaded", this._client.user)
@@ -125,7 +125,7 @@ export default class DiscordRPC {
      * @private
      */
     private connect() {
-        if (!this._utils.getStoreValue("general.discordrpc.enabled")) {
+        if (!this._utils.getStoreValue("connectivity.discord_rpc.enabled")) {
             return;
         }
 
@@ -143,7 +143,7 @@ export default class DiscordRPC {
         })
 
         // Login to Discord
-        this._client.endlessLogin({clientId: this._utils.getStoreValue("general.discordrpc.client") === "Cider" ? '911790844204437504' : '886578863147192350'})
+        this._client.endlessLogin({clientId: this._utils.getStoreValue("connectivity.discord_rpc.client") === "Cider" ? '911790844204437504' : '886578863147192350'})
             .then(() => {
                 this.ready = true
             })
@@ -161,8 +161,8 @@ export default class DiscordRPC {
 
         // Check if show buttons is (true) or (false)
         let activity: Object = {
-            details: this._utils.getStoreValue("general.discordrpc.details_format"),
-            state: this._utils.getStoreValue("general.discordrpc.state_format"),
+            details: this._utils.getStoreValue("connectivity.discord_rpc.details_format"),
+            state: this._utils.getStoreValue("connectivity.discord_rpc.state_format"),
             largeImageKey: attributes?.artwork?.url?.replace('{w}', '1024').replace('{h}', '1024'),
             largeImageText: attributes.albumName,
             instance: false // Whether the activity is in a game session
@@ -177,7 +177,7 @@ export default class DiscordRPC {
         }
 
         // Set the activity
-        if (!attributes.status && this._utils.getStoreValue("general.discordrpc.clear_on_pause")) {
+        if (!attributes.status && this._utils.getStoreValue("connectivity.discord_rpc.clear_on_pause")) {
             this._client.clearActivity()
         } else if (activity && this._activityCache !== activity) {
             this._client.setActivity(activity)
@@ -191,7 +191,7 @@ export default class DiscordRPC {
     private filterActivity(activity: any, attributes: any): Object {
 
         // Add the buttons if people want them
-        if (!this._utils.getStoreValue("general.discordrpc.hide_buttons")) {
+        if (!this._utils.getStoreValue("connectivity.discord_rpc.hide_buttons")) {
             activity.buttons = [
                 {label: 'Listen on Cider', url: attributes.url.cider},
                 {label: 'View on Apple Music', url: attributes.url.appleMusic}
@@ -199,13 +199,13 @@ export default class DiscordRPC {
         }
 
         // Add the timestamp if its playing and people want them
-        if (!this._utils.getStoreValue("general.discordrpc.hide_timestamp") && attributes.status) {
+        if (!this._utils.getStoreValue("connectivity.discord_rpc.hide_timestamp") && attributes.status) {
             activity.startTimestamp = Date.now() - (attributes?.durationInMillis - attributes?.remainingTime)
             activity.endTimestamp = attributes.endTime
         }
 
         // If the user wants to keep the activity when paused
-        if (!this._utils.getStoreValue("general.discordrpc.clear_on_pause")) {
+        if (!this._utils.getStoreValue("connectivity.discord_rpc.clear_on_pause")) {
             activity.smallImageKey = attributes.status ? 'play' : 'pause';
             activity.smallImageText = attributes.status ? 'Playing' : 'Paused';
         }
