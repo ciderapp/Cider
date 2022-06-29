@@ -135,7 +135,7 @@
     <transition name="sidebartransition">
         <%- include("sidebar") %>
     </transition>
-    <%- include("app-content") %>
+    <app-content-area></app-content-area>
     <transition name="drawertransition">
         <div class="app-drawer"
              v-if="drawer.open && drawer.panel == 'lyrics' && lyrics && lyrics != [] && lyrics.length > 0">

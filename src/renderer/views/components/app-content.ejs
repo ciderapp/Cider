@@ -1,0 +1,57 @@
+<script type="text/x-template" id="app-content-area">
+    <div id="app-content" :scrollpos="$root.chrome.contentScrollPosY" scrollaxis="y"
+         :style="{'overflow': ($root.chrome.contentAreaScrolling ? '' : 'hidden')}">
+        <div id="navigation-bar" v-if="$root.getThemeDirective('appNavigation') == 'seperate'">
+            <button class="nav-item" @click="$root.navigateBack()">
+                <%- include('../svg/chevron-left.svg') %>
+            </button>
+            <button class="nav-item" @click="$root.navigateForward()">
+                <%- include('../svg/chevron-right.svg') %>
+            </button>
+        </div>
+
+        <!-- Include App Routes -->
+        <% for(var i = 0; i < Object.keys(env.appRoutes).length ; i++) { %>
+            <transition
+            <% if(env.appRoutes[i].onEnter) {
+            %>
+                v-on:enter="<%- env.appRoutes[i].onEnter %>"
+                    <%
+                    }
+                    %>
+                :name="$root.chrome.desiredPageTransition">
+                <template
+                        v-if="<%- env.appRoutes[i].condition %>">
+                    <%- env.appRoutes[i].component %>
+                </template>
+            </transition>
+        <% } %>
+        <!-- Library - Made For You -->
+        <transition :name="$root.chrome.desiredPageTransition" v-on:enter="$root.getMadeForYou()">
+            <template v-if="$root.page == 'library-madeforyou'">
+                <%- include('../pages/madeforyou') %>');
+                %>
+            </template>
+        </transition>
+        <!-- Library - Artists-->
+        <!-- Keybinds -->
+        <transition name="wpfade">
+            <template v-if="$root.page == 'keybinds-settings'">
+                <keybinds-settings></keybinds-settings>
+            </template>
+        </transition>
+    </div>
+</script>
+
+<script>
+    Vue.component('app-content-area', {
+        template: '#app-content-area',
+        data: function () {
+            return {
+                scrollPos: 0
+            }
+        },
+        methods: {
+        }
+    });
+</script>
