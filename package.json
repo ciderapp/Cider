@@ -14,7 +14,8 @@
   "homepage": "https://cider.sh/",
   "buildResources": "resources",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && yarn compile-less",
+    "compile-less": "lessc ./src/renderer/style.less ./src/renderer/style.css",
     "watch": "tsc --watch",
     "start": "run-script-os",
     "start:win32": "yarn build && set ELECTRON_ENABLE_LOGGING=true && electron ./build/index.js --enable-accelerated-mjpeg-decode --enable-accelerated-video --disable-gpu-driver-bug-workarounds --ignore-gpu-blacklist --enable-native-gpu-memory-buffers",
@@ -83,6 +84,7 @@
     "electron-builder": "^23.0.3",
     "electron-builder-notarize-pkg": "^1.2.0",
     "electron-webpack": "^2.8.2",
+    "less": "^4.1.3",
     "musickit-typescript": "^1.2.4",
     "typescript": "^4.6.4",
     "vue-devtools": "^5.1.4",

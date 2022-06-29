@@ -15,8 +15,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Cider</title>
-    <link rel="stylesheet/less" type="text/css" href="style.less"/>
-    <link rel="stylesheet/less" type="text/css" id="userTheme" href="themes/default.less"/>
+    <link rel="<%- (env.dev ? "stylesheet" : "stylesheet/less") %>" type="text/css" href="style.<%- (env.dev ? "css" : "less") %>"/>
+<!--    <link rel="stylesheet/less" type="text/css" id="userTheme" href="themes/default.less"/>-->
     <script src="./lib/less.js"></script>
     <script src="<%- (env.dev ? " ./lib/vue.js" : "./lib/vue.dev.js") %>"></script>
     <script src="./lib/vue-horizontal.js"></script>

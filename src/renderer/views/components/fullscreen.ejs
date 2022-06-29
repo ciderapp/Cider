@@ -12,7 +12,7 @@
                 </div>
             </div>
         </div>
-        <div class="row fs-row">
+        <div class="row fs-row" v-if="tabMode != 'catalog'">
             <div class="col artwork-col">
                 <div class="artwork" @click="app.fullscreen(false)">
                     <mediaitem-artwork
@@ -119,7 +119,7 @@
                                        v-b-tooltip.hover :title="$root.formatVolumeTooltip()">
                             </div>
                         </div>
-                
+
                     </template>
                 </div>
             </div>
@@ -138,11 +138,17 @@
                 </div>
             </div>
         </div>
+        <div class="app-content-container" v-else>
+            <app-content-area></app-content-area>
+        </div>
         <div class="tab-toggles">
             <div class="lyrics" :class="{active: tabMode == 'lyrics'}"
                  @click="tabMode = (tabMode == 'lyrics') ? '' : 'lyrics'"></div>
             <div class="queue" :class="{active: tabMode == 'queue'}"
                  @click="tabMode =  (tabMode == 'queue') ? '' :'queue'"></div>
+            <div class="queue" :class="{active: tabMode == 'catalog'}"
+                 v-if="false"
+                 @click="tabMode =  (tabMode == 'catalog') ? '' :'catalog'"></div>
         </div>
     </div>
 
