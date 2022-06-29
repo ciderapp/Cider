@@ -126,9 +126,9 @@
 
                     }
                 })
-                if (typeof this.$parent.getChildren == "function") {
-                    this.$parent.getChildren()
-                    console.log(this.$parent.children)
+                if (typeof this.$root.getChildren == "function") {
+                    this.$root.getChildren()
+                    console.log(this.$root.children)
                 }
                 await this.getChildren()
                 this.$root.sortPlaylists()

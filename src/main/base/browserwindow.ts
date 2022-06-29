@@ -89,6 +89,7 @@ export class BrowserWindow {
                 "pages/plugin-renderer",
                 "pages/keybinds",
                 "pages/oobe",
+                "components/app-content",
                 "components/mediaitem-artwork",
                 "components/artwork-material",
                 "components/menu-panel",
@@ -129,150 +130,150 @@ export class BrowserWindow {
                 {
                     page: "library-recentlyadded",
                     component: `<cider-recentlyadded></cider-recentlyadded>`,
-                    condition: "page == 'library-recentlyadded'"
+                    condition: "$root.page == 'library-recentlyadded'"
                 },
                 {
                     page: "plugin-renderer",
                     component: `<plugin-renderer></plugin-renderer>`,
-                    condition: "page == 'plugin-renderer'"
+                    condition: "$root.page == 'plugin-renderer'"
                 },
                 {
                     page: "zoo",
                     component: "<cider-zoo></cider-zoo>",
-                    condition: "page == 'zoo'"
+                    condition: "$root.page == 'zoo'"
                 },
                 {
                     page: "podcasts",
                     component: `<apple-podcasts></apple-podcasts>`,
-                    condition: `page == 'podcasts'`
+                    condition: `$root.page == 'podcasts'`
                 }, {
                     page: "library-videos",
                     component: `<cider-library-videos></cider-library-videos>`,
-                    condition: `page == 'library-videos'`
+                    condition: `$root.page == 'library-videos'`
                 }, {
                     page: "apple-account-settings",
                     component: `<apple-account-settings></apple-account-settings>`,
-                    condition: `page == 'apple-account-settings'`
+                    condition: `$root.page == 'apple-account-settings'`
                 }, {
                     page: "about",
                     component: `<about-page></about-page>`,
-                    condition: `page == 'about'`
+                    condition: `$root.page == 'about'`
                 }, {
                     page: "cider-artist",
-                    component: `<cider-artist :data="artistPage.data"></cider-artist>`,
-                    condition: `page == 'artist-page' && artistPage.data.attributes`
+                    component: `<cider-artist :data="$root.artistPage.data"></cider-artist>`,
+                    condition: `$root.page == 'artist-page' && $root.artistPage.data.attributes`
                 }, {
                     page: "collection-list",
-                    component: `<cider-collection-list :data="collectionList.response" :type="collectionList.type" :title="collectionList.title"></cider-collection-list>`,
-                    condition: `page == 'collection-list'`
+                    component: `<cider-collection-list :data="$root.collectionList.response" :type="$root.collectionList.type" :title="$root.collectionList.title"></cider-collection-list>`,
+                    condition: `$root.page == 'collection-list'`
                 }, {
                     page: "home",
                     component: `<cider-home></cider-home>`,
-                    condition: `page == 'home'`
+                    condition: `$root.page == 'home'`
                 }, {
                     page: "artist-feed",
                     component: `<cider-artist-feed></cider-artist-feed>`,
-                    condition: `page == 'artist-feed'`
+                    condition: `$root.page == 'artist-feed'`
                 }, {
                     page: "playlist-inline",
-                    component: `<playlist-inline :data="showingPlaylist"></playlist-inline>`,
-                    condition: `modals.showPlaylist`
+                    component: `<playlist-inline :data="$root.showingPlaylist"></playlist-inline>`,
+                    condition: `$root.modals.showPlaylist`
                 }, {
                     page: "playlist_",
-                    component: `<cider-playlist :data="showingPlaylist"></cider-playlist>`,
-                    condition: `page.includes('playlist_')`
+                    component: `<cider-playlist :data="$root.showingPlaylist"></cider-playlist>`,
+                    condition: `$root.page.includes('playlist_')`
                 }, {
                     page: "album_",
-                    component: `<cider-playlist :data="showingPlaylist"></cider-playlist>`,
-                    condition: `page.includes('album_')`
+                    component: `<cider-playlist :data="$root.showingPlaylist"></cider-playlist>`,
+                    condition: `$root.page.includes('album_')`
                 }, {
                     page: "recordLabel_",
-                    component: `<cider-recordlabel :data="showingPlaylist"></cider-recordlabel>`,
-                    condition: `page.includes('recordLabel_')`
+                    component: `<cider-recordlabel :data="$root.showingPlaylist"></cider-recordlabel>`,
+                    condition: `$root.page.includes('recordLabel_')`
                 }, {
                     page: "multiroom",
-                    component: `<cider-multiroom :data="multiroom"></cider-multiroom>`,
-                    condition: `page.includes('multiroom')`
+                    component: `<cider-multiroom :data="$root.multiroom"></cider-multiroom>`,
+                    condition: `$root.page.includes('multiroom')`
                 }, {
                     page: "curator_",
-                    component: `<cider-recordlabel :data="showingPlaylist"></cider-recordlabel>`,
-                    condition: `page.includes('curator_')`
+                    component: `<cider-recordlabel :data="$root.showingPlaylist"></cider-recordlabel>`,
+                    condition: `$root.page.includes('curator_')`
                 }, {
                     page: "browsepage",
-                    component: `<cider-browse :data="browsepage"></cider-browse>`,
-                    condition: `page == 'browse'`,
+                    component: `<cider-browse :data="$root.browsepage"></cider-browse>`,
+                    condition: `$root.page == 'browse'`,
                     onEnter: ``
                 }, {
                     page: "groupings",
-                    component: `<cider-groupings :data="browsepage"></cider-groupings>`,
-                    condition: `page == 'groupings'`,
+                    component: `<cider-groupings :data="$root.browsepage"></cider-groupings>`,
+                    condition: `$root.page == 'groupings'`,
                     onEnter: ``
                 }, {
                     page: "charts",
-                    component: `<cider-charts :data="browsepage"></cider-charts>`,
-                    condition: `page == 'charts'`,
+                    component: `<cider-charts :data="$root.browsepage"></cider-charts>`,
+                    condition: `$root.page == 'charts'`,
                     onEnter: ``
                 }, {
                     page: "listen_now",
-                    component: `<cider-listen-now :data="listennow"></cider-listen-now>`,
-                    condition: `page == 'listen_now'`,
+                    component: `<cider-listen-now :data="$root.listennow"></cider-listen-now>`,
+                    condition: `$root.page == 'listen_now'`,
                     onEnter: ``
                 }, {
                     page: "radio",
-                    component: `<cider-radio :data="radio"></cider-radio>`,
-                    condition: `page == 'radio'`,
+                    component: `<cider-radio :data="$root.radio"></cider-radio>`,
+                    condition: `$root.page == 'radio'`,
                     onEnter: ``
                 }, {
                     page: "settings",
                     component: `<cider-settings></cider-settings>`,
-                    condition: `page == 'settings'`
+                    condition: `$root.page == 'settings'`
                 }, {
                     page: "installed-themes",
                     component: `<installed-themes></installed-themes>`,
-                    condition: `page == 'installed-themes'`
+                    condition: `$root.page == 'installed-themes'`
                 }, {
                     page: "search",
-                    component: `<cider-search :search="search"></cider-search>`,
-                    condition: `page == 'search'`
+                    component: `<cider-search :search="$root.search"></cider-search>`,
+                    condition: `$root.page == 'search'`
                 }, {
                     page: "library-songs",
-                    component: `<cider-library-songs :data="library.songs"></cider-library-songs>`,
-                    condition: `page == 'library-songs'`,
+                    component: `<cider-library-songs :data="$root.library.songs"></cider-library-songs>`,
+                    condition: `$root.page == 'library-songs'`,
                     onEnter: ``
                 }, {
                     page: "library-albums",
-                    component: `<cider-library-albums :data="library.songs"></cider-library-albums>`,
-                    condition: `page == 'library-albums'`,
+                    component: `<cider-library-albums :data="$root.library.songs"></cider-library-albums>`,
+                    condition: `$root.page == 'library-albums'`,
                     onEnter: ``
                 }, {
                     page: "library-artists",
                     component: `<cider-library-artists></cider-library-artists>`,
-                    condition: `page == 'library-artists'`,
+                    condition: `$root.page == 'library-artists'`,
                     onEnter: ``
                 }, {
                     page: "appleCurator",
-                    component: `<cider-applecurator :data="appleCurator"></cider-applecurator>`,
-                    condition: `page.includes('appleCurator')`
+                    component: `<cider-applecurator :data="$root.appleCurator"></cider-applecurator>`,
+                    condition: `$root.page.includes('appleCurator')`
                 }, {
                     page: "themes-github",
                     component: `<themes-github></themes-github>`,
-                    condition: `page == 'themes-github'`
+                    condition: `$root.page == 'themes-github'`
                 }, {
                     page: "plugins-github",
                     component: `<plugins-github></plugins-github>`,
-                    condition: `page == 'plugins-github'`
+                    condition: `$root.page == 'plugins-github'`
                 }, {
                     page: "remote-pair",
                     component: `<remote-pair></remote-pair>`,
-                    condition: `page == 'remote-pair'`
+                    condition: `$root.page == 'remote-pair'`
                 }, {
                     page: "audiolabs",
                     component: `<audiolabs-page></audiolabs-page>`,
-                    condition: `page == 'audiolabs'`
+                    condition: `$root.page == 'audiolabs'`
                 }, {
                     page: "replay",
                     component: `<replay-page></replay-page>`,
-                    condition: `page == 'replay'`
+                    condition: `$root.page == 'replay'`
                 }
             ]
         },

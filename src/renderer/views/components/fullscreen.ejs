@@ -3,15 +3,18 @@
         <div class="background">
             <div class="bgArtworkMaterial">
                 <div class="bg-artwork-container">
-                    <img v-if="(app.cfg.visual.bg_artwork_rotation && app.animateBackground)" class="bg-artwork a" :src="(image ?? '').replace('{w}','30').replace('{h}','30')">
-                    <img v-if="(app.cfg.visual.bg_artwork_rotation && app.animateBackground)" class="bg-artwork b" :src="(image ?? '').replace('{w}','30').replace('{h}','30')">
-                    <img v-if="!(app.cfg.visual.bg_artwork_rotation && app.animateBackground)" class="bg-artwork no-animation" :src="(image ?? '').replace('{w}','30').replace('{h}','30')">
+                    <img v-if="(app.cfg.visual.bg_artwork_rotation && app.animateBackground)" class="bg-artwork a"
+                         :src="(image ?? '').replace('{w}','30').replace('{h}','30')">
+                    <img v-if="(app.cfg.visual.bg_artwork_rotation && app.animateBackground)" class="bg-artwork b"
+                         :src="(image ?? '').replace('{w}','30').replace('{h}','30')">
+                    <img v-if="!(app.cfg.visual.bg_artwork_rotation && app.animateBackground)"
+                         class="bg-artwork no-animation" :src="(image ?? '').replace('{w}','30').replace('{h}','30')">
                 </div>
             </div>
         </div>
-        <div class="row fs-row">
+        <div class="row fs-row" v-if="tabMode != 'catalog'">
             <div class="col artwork-col">
-                <div class="artwork"  @click="app.fullscreen(false)">
+                <div class="artwork" @click="app.fullscreen(false)">
                     <mediaitem-artwork
                             :size="600"
                             :video="video"
@@ -20,86 +23,104 @@
                     ></mediaitem-artwork>
                 </div>
                 <div class="controls-parents">
-                <template v-if="app.mkReady()">
-                    <div class="app-playback-controls" @mouseover="app.chrome.progresshover = true"
-                         @mouseleave="app.chrome.progresshover = false" @contextmenu="app.nowPlayingContextMenu">
-                        <div class="playback-info">
-                            <div class="song-name">
-                                {{ app.mk.nowPlayingItem["attributes"]["name"] }}
-                            </div>
-                            <div
-                                 style="display: inline-block; -webkit-box-orient: horizontal; white-space: nowrap; margin-top: 0.25vh; overflow: hidden;">
-                                <div class="item-navigate song-artist" style="display: inline-block;"
-                                     @click="app.getNowPlayingItemDetailed(`artist`)">
-                                    {{ app.mk.nowPlayingItem["attributes"]["artistName"] }}
+                    <template v-if="app.mkReady()">
+                        <div class="app-playback-controls" @mouseover="app.chrome.progresshover = true"
+                             @mouseleave="app.chrome.progresshover = false" @contextmenu="app.nowPlayingContextMenu">
+                            <div class="playback-info">
+                                <div class="song-name">
+                                    {{ app.mk.nowPlayingItem["attributes"]["name"] }}
                                 </div>
-                                <div class="song-artist item-navigate" style="display: inline-block;"
-                                     @click="app.getNowPlayingItemDetailed('album')">
-                                    {{ (app.mk.nowPlayingItem["attributes"]["albumName"]) ? (" — " +
-                                    app.mk.nowPlayingItem["attributes"]["albumName"]) : "" }}
-                                </div>
-                            </div>
-
-                            <div class="song-progress">
-                                <div class="song-duration" style="justify-content: space-between; height: 1px;"
-                                     :style="[app.chrome.progresshover ? {'display': 'flex'} : {'display' : 'none'} ]">
-                                    <p style="width: auto">{{ app.convertTime(app.getSongProgress()) }}</p>
-                                    <p style="width: auto">{{ app.convertTime(app.mk.currentPlaybackDuration) }}</p>
+                                <div
+                                        style="display: inline-block; -webkit-box-orient: horizontal; white-space: nowrap; margin-top: 0.25vh; overflow: hidden;">
+                                    <div class="item-navigate song-artist" style="display: inline-block;"
+                                         @click="app.getNowPlayingItemDetailed(`artist`)">
+                                        {{ app.mk.nowPlayingItem["attributes"]["artistName"] }}
+                                    </div>
+                                    <div class="song-artist item-navigate" style="display: inline-block;"
+                                         @click="app.getNowPlayingItemDetailed('album')">
+                                        {{ (app.mk.nowPlayingItem["attributes"]["albumName"]) ? (" — " +
+                                        app.mk.nowPlayingItem["attributes"]["albumName"]) : "" }}
+                                    </div>
                                 </div>
 
-                                <input type="range" step="0.01" min="0" :style="app.progressBarStyle()"
-                                       @input="app.playerLCD.desiredDuration = $event.target.value;app.playerLCD.userInteraction = true"
-                                       @mouseup="app.mk.seekToTime($event.target.value);app.playerLCD.desiredDuration = 0;app.playerLCD.userInteraction = false"
-                                       :max="app.mk.currentPlaybackDuration" :value="app.getSongProgress()">
+                                <div class="song-progress">
+                                    <div class="song-duration" style="justify-content: space-between; height: 1px;"
+                                         :style="[app.chrome.progresshover ? {'display': 'flex'} : {'display' : 'none'} ]">
+                                        <p style="width: auto">{{ app.convertTime(app.getSongProgress()) }}</p>
+                                        <p style="width: auto">{{ app.convertTime(app.mk.currentPlaybackDuration) }}</p>
+                                    </div>
+
+                                    <input type="range" step="0.01" min="0" :style="app.progressBarStyle()"
+                                           @input="app.playerLCD.desiredDuration = $event.target.value;app.playerLCD.userInteraction = true"
+                                           @mouseup="app.mk.seekToTime($event.target.value);app.playerLCD.desiredDuration = 0;app.playerLCD.userInteraction = false"
+                                           :max="app.mk.currentPlaybackDuration" :value="app.getSongProgress()">
+                                </div>
+                            </div>
+                            <div class="control-buttons">
+                                <div class="app-chrome-item display--large">
+                                    <button class="playback-button--small shuffle" v-if="$root.mk.shuffleMode == 0"
+                                            :class="$root.isDisabled() && 'disabled'"
+                                            @click="$root.mk.shuffleMode = 1" :title="$root.getLz('term.enableShuffle')"
+                                            v-b-tooltip.hover></button>
+                                    <button class="playback-button--small shuffle active" v-else
+                                            :class="$root.isDisabled() && 'disabled'"
+                                            @click="$root.mk.shuffleMode = 0"
+                                            :title="$root.getLz('term.disableShuffle')" v-b-tooltip.hover></button>
+                                </div>
+                                <div class="app-chrome-item display--large">
+                                    <button class="playback-button previous" @click="$root.prevButton()"
+                                            :class="$root.isPrevDisabled() && 'disabled'"
+                                            :title="$root.getLz('term.previous')" v-b-tooltip.hover></button>
+                                </div>
+                                <div class="app-chrome-item display--large">
+                                    <button class="playback-button stop" @click="$root.mk.stop()"
+                                            v-if="$root.mk.isPlaying && $root.mk.nowPlayingItem.attributes.playParams.kind == 'radioStation'"
+                                            :title="$root.getLz('term.stop')" v-b-tooltip.hover></button>
+                                    <button class="playback-button pause" @click="$root.mk.pause()"
+                                            v-else-if="$root.mk.isPlaying"
+                                            :title="$root.getLz('term.pause')" v-b-tooltip.hover></button>
+                                    <button class="playback-button play" @click="$root.mk.play()" v-else
+                                            :title="$root.getLz('term.play')"
+                                            v-b-tooltip.hover></button>
+                                </div>
+                                <div class="app-chrome-item display--large">
+                                    <button class="playback-button next" @click="$root.skipToNextItem()"
+                                            :class="$root.isNextDisabled() && 'disabled'"
+                                            :title="$root.getLz('term.next')" v-b-tooltip.hover></button>
+                                </div>
+                                <div class="app-chrome-item display--large">
+                                    <button class="playback-button--small repeat" v-if="$root.mk.repeatMode == 0"
+                                            :class="$root.isDisabled() && 'disabled'"
+                                            @click="$root.mk.repeatMode = 1"
+                                            :title="$root.getLz('term.enableRepeatOne')" v-b-tooltip.hover></button>
+                                    <button class="playback-button--small repeat repeatOne" @click="mk.repeatMode = 2"
+                                            :class="$root.isDisabled() && 'disabled'"
+                                            v-else-if="$root.mk.repeatMode == 1"
+                                            :title="$root.getLz('term.disableRepeatOne')" v-b-tooltip.hover></button>
+                                    <button class="playback-button--small repeat active"
+                                            @click="$root.mk.repeatMode = 0"
+                                            :class="$root.isDisabled() && 'disabled'"
+                                            v-else-if="$root.mk.repeatMode == 2"
+                                            :title="$root.getLz('term.disableRepeat')"
+                                            v-b-tooltip.hover></button>
+                                </div>
                             </div>
                         </div>
-                    <div class="control-buttons">
-                        <div class="app-chrome-item display--large">
-                            <button class="playback-button--small shuffle" v-if="$root.mk.shuffleMode == 0" :class="$root.isDisabled() && 'disabled'"
-                              @click="$root.mk.shuffleMode = 1" :title="$root.getLz('term.enableShuffle')" v-b-tooltip.hover></button>
-                            <button class="playback-button--small shuffle active" v-else :class="$root.isDisabled() && 'disabled'"
-                              @click="$root.mk.shuffleMode = 0" :title="$root.getLz('term.disableShuffle')" v-b-tooltip.hover></button>
-                          </div>
-                          <div class="app-chrome-item display--large">
-                            <button class="playback-button previous" @click="$root.prevButton()" :class="$root.isPrevDisabled() && 'disabled'"
-                              :title="$root.getLz('term.previous')" v-b-tooltip.hover></button>
-                          </div>
-                          <div class="app-chrome-item display--large">
-                            <button class="playback-button stop" @click="$root.mk.stop()"
-                              v-if="$root.mk.isPlaying && $root.mk.nowPlayingItem.attributes.playParams.kind == 'radioStation'"
-                              :title="$root.getLz('term.stop')" v-b-tooltip.hover></button>
-                            <button class="playback-button pause" @click="$root.mk.pause()" v-else-if="$root.mk.isPlaying"
-                              :title="$root.getLz('term.pause')" v-b-tooltip.hover></button>
-                            <button class="playback-button play" @click="$root.mk.play()" v-else :title="$root.getLz('term.play')"
-                              v-b-tooltip.hover></button>
-                          </div>
-                          <div class="app-chrome-item display--large">
-                            <button class="playback-button next" @click="$root.skipToNextItem()" :class="$root.isNextDisabled() && 'disabled'"
-                              :title="$root.getLz('term.next')" v-b-tooltip.hover></button>
-                          </div>
-                          <div class="app-chrome-item display--large">
-                            <button class="playback-button--small repeat" v-if="$root.mk.repeatMode == 0" :class="$root.isDisabled() && 'disabled'"
-                              @click="$root.mk.repeatMode = 1" :title="$root.getLz('term.enableRepeatOne')" v-b-tooltip.hover></button>
-                            <button class="playback-button--small repeat repeatOne" @click="mk.repeatMode = 2"
-                              :class="$root.isDisabled() && 'disabled'" v-else-if="$root.mk.repeatMode == 1"
-                              :title="$root.getLz('term.disableRepeatOne')" v-b-tooltip.hover></button>
-                            <button class="playback-button--small repeat active" @click="$root.mk.repeatMode = 0"
-                              :class="$root.isDisabled() && 'disabled'" v-else-if="$root.mk.repeatMode == 2" :title="$root.getLz('term.disableRepeat')"
-                              v-b-tooltip.hover></button>
-                          </div>
-                        </div>     
-                    </div>
-                    <div class="app-chrome-item volume display--large">
-                        <div class="input-container">
-                        <button class="volume-button--small volume" @click="app.muteButtonPressed()" :class="{'active': app.cfg.audio.volume == 0}"
-                                :title="app.cfg.audio.muted ? $root.getLz('term.unmute') : $root.getLz('term.mute')" v-b-tooltip.hover></button>
-                        <input type="range" class="slider" @wheel="app.volumeWheel" :step="app.cfg.audio.volumeStep" min="0" :max="app.cfg.audio.maxVolume" v-model="app.mk.volume"
-                               v-if="typeof app.mk.volume != 'undefined'" @change="app.checkMuteChange()"
-                               v-b-tooltip.hover :title="$root.formatVolumeTooltip()">
+                        <div class="app-chrome-item volume display--large">
+                            <div class="input-container">
+                                <button class="volume-button--small volume" @click="app.muteButtonPressed()"
+                                        :class="{'active': app.cfg.audio.volume == 0}"
+                                        :title="app.cfg.audio.muted ? $root.getLz('term.unmute') : $root.getLz('term.mute')"
+                                        v-b-tooltip.hover></button>
+                                <input type="range" class="slider" @wheel="app.volumeWheel"
+                                       :step="app.cfg.audio.volumeStep" min="0" :max="app.cfg.audio.maxVolume"
+                                       v-model="app.mk.volume"
+                                       v-if="typeof app.mk.volume != 'undefined'" @change="app.checkMuteChange()"
+                                       v-b-tooltip.hover :title="$root.formatVolumeTooltip()">
+                            </div>
                         </div>
-                    </div>
-                    </div>
-                </template>
+
+                    </template>
                 </div>
             </div>
             <div class="col right-col" v-if="tabMode != ''">
@@ -110,19 +131,26 @@
                 </div> -->
                 <div class="lyrics-col" v-if="tabMode == 'lyrics'">
                     <lyrics-view :yoffset="120" :time="time" :lyrics="lyrics"
-                    :richlyrics="richlyrics"></lyrics-view>
+                                 :richlyrics="richlyrics"></lyrics-view>
                 </div>
                 <div class="queue-col" v-if="tabMode == 'queue'">
-                    <cider-queue v-if="tabMode == 'queue'" ref="queue" ></cider-queue>
+                    <cider-queue v-if="tabMode == 'queue'" ref="queue"></cider-queue>
                 </div>
             </div>
         </div>
+        <div class="app-content-container" v-else>
+            <app-content-area></app-content-area>
+        </div>
         <div class="tab-toggles">
-            <div class="lyrics" :class="{active: tabMode == 'lyrics'}" @click="tabMode = (tabMode == 'lyrics') ? '' : 'lyrics'"></div>
-            <div class="queue"  :class="{active: tabMode == 'queue'}" @click="tabMode =  (tabMode == 'queue') ? '' :'queue'"></div>
+            <div class="lyrics" :class="{active: tabMode == 'lyrics'}"
+                 @click="tabMode = (tabMode == 'lyrics') ? '' : 'lyrics'"></div>
+            <div class="queue" :class="{active: tabMode == 'queue'}"
+                 @click="tabMode =  (tabMode == 'queue') ? '' :'queue'"></div>
+            <div class="queue" :class="{active: tabMode == 'catalog'}"
+                 v-if="false"
+                 @click="tabMode =  (tabMode == 'catalog') ? '' :'catalog'"></div>
         </div>
     </div>
-
 
 
 </script>
@@ -173,7 +201,7 @@
             } else if (app.mk.nowPlayingItem._container.type == "library-albums") {
                 try {
                     const result = (await app.mk.api.v3.music(`/v1/me/library/albums/${app.mk.nowPlayingItem._container.id}/catalog`
-                        , { "fields": "editorialArtwork,editorialVideo" })).data.data[0].attributes?.editorialVideo?.motionDetailSquare?.video
+                        , {"fields": "editorialArtwork,editorialVideo"})).data.data[0].attributes?.editorialVideo?.motionDetailSquare?.video
                     if (result) {
                         this.video = result
                     } else {

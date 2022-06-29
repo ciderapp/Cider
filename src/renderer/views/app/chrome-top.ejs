@@ -18,13 +18,13 @@
       <div class="app-chrome-item">
         <button class="playback-button navigation" @click="navigateBack()" :title="$root.getLz('term.navigateBack')"
           v-b-tooltip.hover>
-          <%- include('../svg/chevron-left.svg') %>
+          <svg-icon url="./views/svg/chevron-left.svg"></svg-icon>
         </button>
       </div>
       <div class="app-chrome-item">
         <button class="playback-button navigation" @click="navigateForward()"
           :title="$root.getLz('term.navigateForward')" v-b-tooltip.hover>
-          <%- include('../svg/chevron-right.svg') %>
+          <svg-icon url="./views/svg/chevron-right.svg"></svg-icon>
         </button>
       </div>
       <div class="app-chrome-item" v-if="getThemeDirective('windowLayout') == 'twopanel'">
