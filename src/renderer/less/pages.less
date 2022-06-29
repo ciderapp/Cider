@@ -829,17 +829,31 @@
           border: none;
           cursor: pointer;
 
-          > img {
+          > ._svg-icon {
             width: 18px;
             height: 18px;
             margin: auto;
-            opacity: 0.5
+            opacity: 0.5;
           }
         }
 
         .search-btn.active {
-          > img {
-            opacity: 0.85
+          animation: enlarge 0.5s ease-in-out;
+
+          > ._svg-icon {
+            opacity: 1;
+          }
+        }
+
+        @keyframes enlarge {
+          0% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(1.2);
+          }
+          100% {
+            transform: scale(1);
           }
         }
       }

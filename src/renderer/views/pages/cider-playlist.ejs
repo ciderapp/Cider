@@ -13,7 +13,7 @@
                 <div class="playlistInfo">
                     <div class="playlist-hero" v-if="hasHero()">
                         <mediaitem-artwork shadow="none" :url="hasHero()" size="2160" />
-                        <div class="hero-tint" :style="{'background-color': '#' + hasHeroObject()?.bgColor ?? ''}"></div> 
+                        <div class="hero-tint" :style="{'background-color': '#' + hasHeroObject()?.bgColor ?? ''}"></div>
                     </div>
                     <div class="row">
                         <div class="col-auto flex-center" @mouseover="minClass(false)">
@@ -111,7 +111,7 @@
                                     <button :class="['search-btn', showSearch ? 'active' : '']"
                                             @click="toggleSearch()"
                                             :aria-label="showSearch ? app.getLz('term.hideSearch') : app.getLz('term.showSearch')">
-                                        <img :src="showSearch ? './assets/search-alt.svg' : './assets/search.svg'">
+                                        <svg-icon :url="showSearch ? './assets/search-alt.svg' : './assets/search.svg'"></svg-icon>
                                     </button>
                                     <button class="more-btn-round" @click="menu" :aria-label="app.getLz('term.more')">
                                         <div class="svg-icon"></div>
