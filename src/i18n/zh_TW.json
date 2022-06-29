@@ -136,6 +136,7 @@
   "term.aboutArtist": "關於{{artistName}}",
   "term.requestError": "請求發生錯誤。",
   "term.song.link.generate": "正在取得 song.link 的分享網址...",
+  "term.musicVideos": "音樂錄影帶",
   "term.version": "版本",
   "term.creditDesignedBy": "由 ${authorUsername} 設計",
   "term.plugin": "模組",
