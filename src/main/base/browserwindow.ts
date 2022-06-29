@@ -667,7 +667,7 @@ export class BrowserWindow {
                     callback({
                         redirectURL: `http://localhost:${this.clientPort}/apple-hls.js`,
                     });
-                } else if (details.url.includes("ciderlocal")) {
+                } else if (details.url.includes("ciderlocal") && !details.url.includes("https://apic-desktop.musixmatch.com") ) {
                     let text = details.url.toString().includes('ids=') ? decodeURIComponent(details.url.toString()).split("?ids=")[1] : decodeURIComponent(details.url.toString().substring(details.url.toString().lastIndexOf('/') + 1));
                     //console.log('localurl',text)
                     callback({
