@@ -119,15 +119,6 @@
     <h1>{{ component.attributes.title.stringForDisplay }}</h1>
 </script>
 
-<!-- Sidebar Item -->
-<script type="text/x-template" id="sidebar-library-item">
-    <button class="app-sidebar-item"
-            :class="$root.getSidebarItemClass(page)" @click="$root.setWindowHash(page)">
-        <svg-icon :url="svgIconData" :name="'sidebar-' + svgIconName" v-if="svgIconData != ''" />
-        <span class="sidebar-item-text">{{ name }}</span>
-    </button>
-</script>
-
 </body>
 
 </html>

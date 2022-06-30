@@ -8,6 +8,7 @@ import { wsapi } from "./wsapi_interop.js"
 import { MusicKitTools } from "./musickittools.js"
 import { spawnMica } from "./mica.js"
 import { svgIcon } from './components/svg-icon.js'
+import { sidebarLibraryItem } from './components/sidebar-library-item.js'
 
 
 // Define window objects
