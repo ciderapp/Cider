@@ -16458,7 +16458,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   display: flex;
   justify-content: center;
   align-items: center;
-  --chromeHeight1: 60px;
+  --chromeHeight1: 70px;
 }
 .fullscreen-view .app-content-container {
   width: 100%;
@@ -16484,8 +16484,6 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   left: 0;
   right: 0;
   height: var(--chromeHeight1);
-  background: var(--color1);
-  backdrop-filter: var(--glassFilter);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16496,8 +16494,9 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   border: 1px solid #323232;
   border-radius: 12px;
   display: flex;
-  height: 42px;
+  height: 55px;
   width: 90%;
+  backdrop-filter: var(--glassFilter);
 }
 .fullscreen-view .fs-header .top-nav-group .app-sidebar-item {
   background-color: #1e1e1e00;
@@ -16510,6 +16509,8 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   margin: 0px;
   height: 100%;
   position: relative;
+  font-size: 1.1em;
+  font-weight: 500;
 }
 .fullscreen-view .fs-header .top-nav-group .app-sidebar-item:before {
   --dist: 1px;
@@ -16850,9 +16851,24 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   font-size: 1.1em;
   font-weight: 380;
 }
+.fullscreen-view .cd-mediaitem-list-item .duration {
+  font-size: 1.2em;
+}
 .fullscreen-view .cd-mediaitem-list-item .artwork {
   width: 50px;
   height: 50px;
+}
+.fullscreen-view .cd-btn-seeall {
+  font-size: 1.2em;
+}
+.fullscreen-view h1 {
+  font-size: 3em;
+}
+.fullscreen-view h3 {
+  font-size: 1.5rem;
+}
+.fullscreen-view .home-page .well.artistfeed-well {
+  height: 512px;
 }
 .fullscreen-view .header-text {
   font-size: 3em;
@@ -16890,6 +16906,20 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 .fullscreen-view .playlist-page .playlist-display .playlistInfo .playlist-info {
   gap: 16px;
   margin-top: 40px;
+}
+.fullscreen-view .playlist-page .playlist-display .playlistInfo .playlist-hero {
+  transform: unset;
+}
+.fullscreen-view .artist-page .artist-header {
+  min-height: 60vh;
+}
+.fullscreen-view .artist-page .artist-image {
+  width: 20vh;
+  height: 20vh;
+  aspect-ratio: 1;
+}
+.fullscreen-view .artist-page.animated .artist-header {
+  min-height: 80vh;
 }
 .fullscreen-view .playlist-page .playlist-body {
   flex: 1;
