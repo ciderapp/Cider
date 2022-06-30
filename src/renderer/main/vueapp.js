@@ -2217,9 +2217,13 @@ const app = new Vue({
         searchLibrarySongs() {
             let self = this
             let prefs = this.cfg.libraryPrefs.songs
-            let albumAdded = self.library?.albums?.listing?.map(function (i) {
-                return { [i.id]: i.attributes?.dateAdded }
-            })
+
+            const albumAdded = {}
+
+            for (const listing of self.library?.albums?.listing ?? []) {
+                albumAdded[listing.id] = listing.attributes?.dateAdded
+            }
+
             let startTime = new Date().getTime()
 
             function sortSongs() {
@@ -2231,12 +2235,11 @@ const app = new Vue({
                     if (prefs.sort == "genre") {
                         aa = a.attributes.genreNames[0]
                         bb = b.attributes.genreNames[0]
-                    }
-                    if (prefs.sort == "dateAdded") {
-                        let albumida = a.relationships?.albums?.data[0]?.id ?? '1970-01-01T00:01:01Z'
-                        let albumidb = b.relationships?.albums?.data[0]?.id ?? '1970-01-01T00:01:01Z'
-                        aa = startTime - new Date(((albumAdded.find(i => i[albumida])) ?? [])[albumida] ?? '1970-01-01T00:01:01Z').getTime()
-                        bb = startTime - new Date(((albumAdded.find(i => i[albumidb])) ?? [])[albumidb] ?? '1970-01-01T00:01:01Z').getTime()
+                    } else if (prefs.sort == "dateAdded") {
+                        let albumida = a.relationships?.albums?.data[0]?.id
+                        let albumidb = b.relationships?.albums?.data[0]?.id
+                        aa = startTime - new Date(albumAdded[albumida] ?? '1970-01-01T00:01:01Z').getTime()
+                        bb = startTime - new Date(albumAdded[albumidb] ?? '1970-01-01T00:01:01Z').getTime()
                     }
                     if (aa == null) {
                         aa = ""
@@ -4424,7 +4427,7 @@ const app = new Vue({
                 case "advanced":
                     this.$store.state.pageState.settings.currentTabIndex = 6
                     break;
-                case "keybindings" :
+                case "keybindings":
                     this.$store.state.pageState.settings.currentTabIndex = 7
                     break;
             }
