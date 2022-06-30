@@ -1,7 +1,7 @@
 <script type="text/x-template" id="sidebar-playlist">
     <div class="sidebar-playlist" :key="item.id">
         <button class="app-sidebar-item app-sidebar-item-playlist" :key="item.id"
-                :class="item.type != 'library-playlist-folders' ? {'active': $root.page.includes(item.id)} : [{'folder-button-active': folderOpened}, isPlaylistSelected]"
+                :class="item.type != 'library-playlist-folders' ? {'active': $root.page.includes(item.id)} : ['playlist-folder', {'folder-button-active': folderOpened}, isPlaylistSelected]"
                 @contextmenu="playlistContextMenu($event, item.id)"
                 @dragstart="startDrag($event, item)"
                 @dragover="dragOver"
