@@ -10,13 +10,22 @@ export class LocalFiles {
     static localSongsArts: any = [];
     public static DB = ProviderDB.db;
 
+    static getDataType(item_id : String | any){
+        if (item_id.startsWith('ciderlocalart'))
+            return 'artwork'
+        else if (item_id.startsWith('ciderlocal'))
+        return 'track'   
+    }
+
     static async sendOldLibrary() {
         ProviderDB.init()
-        let u = (await ProviderDB.db.allDocs({include_docs: true,
+        let rows = (await ProviderDB.db.allDocs({include_docs: true,
             attachments: true})).rows.map((item: any)=>{return item.doc})
-        this.localSongs = u; 
-        console.log('sdadad', u.length)  
-        return u;
+        let tracks = rows.filter((item: any) => {return this.getDataType(item._id) == "track"})
+        let arts = rows.filter((item: any) => {return this.getDataType(item._id) == "artwork"})
+        this.localSongs = tracks; 
+        this.localSongsArts = arts; 
+        return tracks;
     }
     
     static async scanLibrary() {
@@ -85,12 +94,15 @@ export class LocalFiles {
                             "contentRating": "clean"
                         }
                     };
-                    metadatalistart.push({
+                    let art = {
                         id: "ciderlocal" + lochash,
+                        _id: "ciderlocalart" + lochash,
                         url: metadata.common.picture != undefined ? metadata.common.picture[0].data.toString('base64') : "",
-                    })
+                    }
+                    metadatalistart.push(art)
                     numid += 1;
                     ProviderDB.db.putIfNotExists(form)
+                    ProviderDB.db.putIfNotExists(art)
                     metadatalist.push(form)
                 }
             } catch (e) { }
