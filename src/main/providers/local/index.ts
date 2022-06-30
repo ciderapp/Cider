@@ -4,6 +4,7 @@ const { readdir } = require('fs').promises;
 import { utils } from '../../base/utils';
 import * as mm from 'music-metadata';
 import {Md5} from 'ts-md5/dist/md5';
+import e from "express";
 
 export class LocalFiles {
     static localSongs: any = [];
@@ -11,9 +12,9 @@ export class LocalFiles {
     public static DB = ProviderDB.db;
 
     static getDataType(item_id : String | any){
-        if (item_id.startsWith('ciderlocalart'))
+        if ((item_id ?? ('')).startsWith('ciderlocalart'))
             return 'artwork'
-        else if (item_id.startsWith('ciderlocal'))
+        else if ((item_id ?? ('')).startsWith('ciderlocal'))
         return 'track'   
     }
 
@@ -105,13 +106,33 @@ export class LocalFiles {
                     ProviderDB.db.putIfNotExists(art)
                     metadatalist.push(form)
                 }
+                //delete removed tracks
             } catch (e) { }
         }
-        // console.log('metadatalist', metadatalist);
         this.localSongs = metadatalist;
         this.localSongsArts = metadatalistart;
         return metadatalist;
     }
+
+    static async cleanUpDB(){
+        let folders = utils.getStoreValue("libraryPrefs.localPaths")
+        let rows = (await ProviderDB.db.allDocs({include_docs: true,
+            attachments: true})).rows.map((item: any)=>{return item.doc})
+        let tracks = rows.filter((item: any) => {return this.getDataType(item._id) == "track" && !folders.some((i: String) => {return item["attributes"]["assetUrl"].startsWith("file:///" + i)})})
+        let hashs = tracks.map((i: any) => {return i._id})
+        console.log(hashs)
+        for (let hash of hashs){
+            try{
+            ProviderDB.db.get(hash).then(function (doc: any) {
+                return ProviderDB.db.remove(doc);
+            });} catch(e){}
+            try{
+            ProviderDB.db.get(hash.replace('ciderlocal','ciderlocalart')).then(function (doc: any) {
+                return ProviderDB.db.remove(doc);
+            });} catch(e){}
+        }
+    }
+
     static async getFiles(dir: any) {
         const dirents = await readdir(dir, { withFileTypes: true });
         const files = await Promise.all(dirents.map((dirent: any) => {

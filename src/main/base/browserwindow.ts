@@ -1189,6 +1189,7 @@ export class BrowserWindow {
             BrowserWindow.win.webContents.send('getUpdatedLocalList', oldmetadatalist);
             const metadatalist = await LocalFiles.scanLibrary()
             BrowserWindow.win.webContents.send('getUpdatedLocalList', metadatalist);
+            LocalFiles.cleanUpDB()
         })
 
         ipcMain.on('writeWAV', (event, leftpcm, rightpcm, bufferlength) => {
