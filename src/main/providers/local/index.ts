@@ -120,7 +120,6 @@ export class LocalFiles {
             attachments: true})).rows.map((item: any)=>{return item.doc})
         let tracks = rows.filter((item: any) => {return this.getDataType(item._id) == "track" && !folders.some((i: String) => {return item["attributes"]["assetUrl"].startsWith("file:///" + i)})})
         let hashs = tracks.map((i: any) => {return i._id})
-        console.log(hashs)
         for (let hash of hashs){
             try{
             ProviderDB.db.get(hash).then(function (doc: any) {
