@@ -22,7 +22,7 @@ export class LocalFiles {
     static async scanLibrary() {
         ProviderDB.init()
         let folders = utils.getStoreValue("libraryPrefs.localPaths")
-        if (folders == null || folders.length == null || folders.length == 0) folders = ["D:\\Music"]
+        if (folders == null || folders.length == null || folders.length == 0) folders = []
         console.log('folders', folders)
         let files: any[] = []
         for (var folder of folders) {
