@@ -333,6 +333,9 @@
         },
         methods: {
             minClass(val) {
+                if(app.appMode == 'fullscreen') {
+                    return
+                }
                 if (val) {
                     this.classes = ["plmin"]
                 } else {

@@ -1,5 +1,22 @@
 <script type="text/x-template" id="cider-search">
     <div class="content-inner search-page">
+        <div class="search-input-container fs-search" v-if="$root.appMode == 'fullscreen'" >
+            <div class="search-input--icon"></div>
+            <input type="search" spellcheck="false" @focus="$root.search.showHints = true"
+                   @blur="$root.setTimeout(()=>{$root.search.showHints = false}, 300)"
+                   v-on:keyup.enter="$root.searchQuery();$root.search.showHints = false" @input="$root.getSearchHints()"
+                   :placeholder="$root.getLz('term.search') + '...'" v-model="$root.search.term"
+                   class="search-input" />
+
+            <div class="search-hints-container" v-if="$root.search.showHints && $root.search.hints.length != 0">
+                <div class="search-hints">
+                    <button class="search-hint text-overflow-elipsis" v-for="hint in $root.search.hints"
+                            @click="$root.search.term = hint;$root.search.showHints = false;$root.searchQuery(hint)">
+                        {{ hint }}
+                    </button>
+                </div>
+            </div>
+        </div>
         <div class="btn-group searchToggle">
             <button
                     @click="searchType = 'catalog'"

@@ -12,6 +12,24 @@
                 </div>
             </div>
         </div>
+        <div class="fs-header" v-if="immersiveEnabled">
+            <div class="top-nav-group">
+                <sidebar-library-item @click.native="tabMode = 'catalog'" :name="$root.getLz('home.title')" svg-icon="./assets/feather/home.svg" svg-icon-name="home" page="home">
+                </sidebar-library-item>
+                <sidebar-library-item @click.native="tabMode = 'catalog'" :name="$root.getLz('term.listenNow')" svg-icon="./assets/feather/play-circle.svg" svg-icon-name="listenNow"
+                                      page="listen_now"></sidebar-library-item>
+                <sidebar-library-item @click.native="tabMode = 'catalog'" :name="$root.getLz('term.browse')" svg-icon="./assets/feather/globe.svg" svg-icon-name="browse" page="browse">
+                </sidebar-library-item>
+                <sidebar-library-item @click.native="tabMode = 'catalog'" :name="$root.getLz('term.radio')" svg-icon="./assets/feather/radio.svg" svg-icon-name="radio" page="radio">
+                </sidebar-library-item>
+                <sidebar-library-item @click.native="tabMode = 'catalog'" :name="$root.getLz('term.library')" svg-icon="./assets/feather/radio.svg" svg-icon-name="library" page="library">
+                </sidebar-library-item>
+                <sidebar-library-item @click.native="tabMode = ''" :name="$root.getLz('term.nowPlaying')" svg-icon="./assets/play.svg" svg-icon-name="nowPlaying" page="nowPlaying">
+                </sidebar-library-item>
+                <sidebar-library-item @click.native="tabMode = 'catalog'" :name="$root.getLz('term.search')" svg-icon="./assets/search.svg" svg-icon-name="search" page="search">
+                </sidebar-library-item>
+            </div>
+        </div>
         <div class="row fs-row" v-if="tabMode != 'catalog'">
             <div class="col artwork-col">
                 <div class="artwork" @click="app.fullscreen(false)">
@@ -180,7 +198,8 @@
             return {
                 app: this.$root,
                 tabMode: "lyrics",
-                video: null
+                video: null,
+                immersiveEnabled: app.cfg.advanced.experiments.includes("immersive-preview")
             }
         },
         async mounted() {

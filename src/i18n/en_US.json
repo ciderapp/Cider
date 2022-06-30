@@ -205,6 +205,7 @@
   "term.zoomout" : "Zoom Out",
   "term.zoomreset" : "Reset Zoom",
   "term.fullscreen" : "Fullscreen",
+  "term.nowPlaying": "Now Playing",
   "home.syncFavorites": "Sync Favorites",
   "home.syncFavorites.gettingArtists": "Getting Favorited Artists...",
   "home.title": "Home",

@@ -12074,7 +12074,7 @@ input[type=checkbox][switch]:checked:active::before {
   align-items: center;
   color: white;
 }
-.playback-button.navigation > svg {
+.playback-button.navigation > ._svg-icon {
   height: 16px;
   width: 16px;
   pointer-events: none;
@@ -14662,6 +14662,9 @@ input[type=checkbox][switch]:checked:active::before {
   background-color: var(--panelColor2);
   padding-top: 48px;
   border-left: 1px solid var(--borderColor);
+}
+#hid___BV_tab_button__ {
+  display: none;
 }
 :root {
   --appleEase: cubic-bezier(0.42, 0, 0.58, 1);
