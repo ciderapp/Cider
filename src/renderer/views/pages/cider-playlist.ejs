@@ -184,7 +184,8 @@
                                         :placeholder="$root.getLz('term.search') + '...'"
                                         @input="search()"
                                         v-model="searchQuery"
-                                        class="search-input">
+                                        class="search-input"
+                                        ref="search-bar">
                                 </div>
                                 <draggable :options="{disabled: !editing}"
                                            v-model="data.relationships.tracks.data" @start="drag=true"
@@ -849,8 +850,13 @@
                     document.querySelector(".tab-pane.active").scrollTo({
                         top: 0,
                         left: 0,
-                        behavior: 'smooth'
-                    })
+                        behavior: "smooth"
+                    });
+
+                    // Focus search bar
+                    this.$nextTick(() => {
+                        this.$refs["search-bar"].focus();
+                    });
                 }
             },
             search() {
