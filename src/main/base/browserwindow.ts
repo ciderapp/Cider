@@ -90,6 +90,7 @@ export class BrowserWindow {
                 "pages/keybinds",
                 "pages/oobe",
                 "components/app-content",
+                "components/sidebar",
                 "components/mediaitem-artwork",
                 "components/artwork-material",
                 "components/menu-panel",

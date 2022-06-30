@@ -16420,6 +16420,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   display: flex;
   justify-content: center;
   align-items: center;
+  --chromeHeight1: 60px;
 }
 .fullscreen-view .app-content-container {
   width: 100%;
@@ -16428,6 +16429,86 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 .fullscreen-view .app-content-container #app-content {
   width: 100%;
   height: 100%;
+}
+.fullscreen-view .app-content-container #app-content .fs-search .search-input--icon {
+  width: 4em;
+  background-size: 40%;
+  background-position: center;
+}
+.fullscreen-view .app-content-container #app-content .fs-search input {
+  padding-left: 2em;
+  font-size: 2em;
+  border-radius: var(--mediaItemRadius);
+}
+.fullscreen-view .fs-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--chromeHeight1);
+  background: var(--color1);
+  backdrop-filter: var(--glassFilter);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.fullscreen-view .fs-header .top-nav-group {
+  background: #1e1e1e99;
+  border: 1px solid #323232;
+  border-radius: 12px;
+  display: flex;
+  height: 42px;
+  width: 90%;
+}
+.fullscreen-view .fs-header .top-nav-group .app-sidebar-item {
+  background-color: #1e1e1e00;
+  border-radius: 10px !important;
+  border: 0px;
+  min-width: 120px;
+  padding: 6px;
+  justify-content: center;
+  align-items: center;
+  margin: 0px;
+  height: 100%;
+  position: relative;
+}
+.fullscreen-view .fs-header .top-nav-group .app-sidebar-item:before {
+  --dist: 1px;
+  content: '';
+  position: absolute;
+  top: var(--dist);
+  left: var(--dist);
+  right: var(--dist);
+  bottom: var(--dist);
+  background-color: #fff;
+  opacity: 0;
+  border-radius: 10px;
+  transform: scale(0.5);
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+.fullscreen-view .fs-header .top-nav-group .app-sidebar-item:after {
+  display: none;
+}
+.fullscreen-view .fs-header .top-nav-group .app-sidebar-item:hover {
+  background-color: transparent;
+}
+.fullscreen-view .fs-header .top-nav-group .app-sidebar-item:hover:before {
+  transition: transform 0.1s ease-in-out, opacity 0.1s ease-in-out;
+  opacity: 0.1;
+  transform: scale(1);
+}
+.fullscreen-view .fs-header .top-nav-group .app-sidebar-item.active {
+  background-color: transparent;
+}
+.fullscreen-view .fs-header .top-nav-group .app-sidebar-item.active:before {
+  opacity: 0.2;
+  transform: scale(1);
+}
+.fullscreen-view .fs-header .top-nav-group .app-sidebar-item.md-btn-primary {
+  box-shadow: 0px 0px 0px 1px #323232;
+  background-color: #2b2b2b;
+  z-index: 1;
 }
 .fullscreen-view .fs-row {
   flex-grow: 0.5;
@@ -16712,6 +16793,68 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   display: inline-flex;
   width: 100%;
   justify-content: center;
+}
+.fullscreen-view .cd-mediaitem-square {
+  font-size: 17px;
+  font-weight: 500;
+}
+.fullscreen-view .cd-mediaitem-square .artwork-container .artwork {
+  box-shadow: var(--mediaItemShadow-Shadow);
+}
+.fullscreen-view .cd-mediaitem-list-item {
+  height: 80px;
+}
+.fullscreen-view .cd-mediaitem-list-item .title {
+  font-size: 1.2em;
+  font-weight: 450;
+}
+.fullscreen-view .cd-mediaitem-list-item .subtitle {
+  font-size: 1.1em;
+  font-weight: 380;
+}
+.fullscreen-view .cd-mediaitem-list-item .artwork {
+  width: 50px;
+  height: 50px;
+}
+.fullscreen-view .header-text {
+  font-size: 3em;
+  height: 3em;
+  padding-left: 0.2em;
+}
+.fullscreen-view .grouping-container .grouping-btn {
+  font-size: 1.3em;
+  color: var(--textColor);
+  background-color: var(--sidebarColor);
+  font-weight: 600;
+  padding: 32px;
+}
+.fullscreen-view .content-inner.playlist-page {
+  display: flex;
+  flex-direction: row;
+}
+.fullscreen-view .playlist-page .playlist-display {
+  width: 100%;
+  max-width: 500px;
+  flex: 1;
+  text-align: center;
+}
+.fullscreen-view .playlist-page .playlist-display .playlistInfo > .row {
+  justify-content: center;
+}
+.fullscreen-view .playlist-page .playlist-display .playlist-controls div {
+  width: 100%;
+}
+.fullscreen-view .playlist-page .mediaContainer {
+  width: 30vh;
+  height: 30vh;
+  aspect-ratio: 1;
+}
+.fullscreen-view .playlist-page .playlist-display .playlistInfo .playlist-info {
+  gap: 16px;
+  margin-top: 40px;
+}
+.fullscreen-view .playlist-page .playlist-body {
+  flex: 1;
 }
 .mini-view {
   width: 100%;

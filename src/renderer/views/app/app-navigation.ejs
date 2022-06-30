@@ -133,7 +133,7 @@
       </div>
     </transition>
     <transition name="sidebartransition">
-        <%- include("sidebar") %>
+        <cider-app-sidebar v-if="!chrome.sidebarCollapsed"></cider-app-sidebar>
     </transition>
     <app-content-area></app-content-area>
     <transition name="drawertransition">
