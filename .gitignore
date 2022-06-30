@@ -3,6 +3,7 @@ dist
 build
 .flatpak*
 yarn-cache
+src/renderer/style.css
 
 # Misc
 .idea
