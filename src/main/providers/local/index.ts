@@ -1,16 +1,26 @@
-// import { ProviderDB } from "./db";
+import { ProviderDB } from "./db";
 import * as path from 'path';
 const { readdir } = require('fs').promises;
 import { utils } from '../../base/utils';
 import * as mm from 'music-metadata';
+import {Md5} from 'ts-md5/dist/md5';
 
 export class LocalFiles {
     static localSongs: any = [];
     static localSongsArts: any = [];
-    // public static DB = ProviderDB.db;
+    public static DB = ProviderDB.db;
 
-
+    static async sendOldLibrary() {
+        ProviderDB.init()
+        let u = (await ProviderDB.db.allDocs({include_docs: true,
+            attachments: true})).rows.map((item: any)=>{return item.doc})
+        this.localSongs = u; 
+        console.log('sdadad', u.length)  
+        return u;
+    }
+    
     static async scanLibrary() {
+        ProviderDB.init()
         let folders = utils.getStoreValue("libraryPrefs.localPaths")
         if (folders == null || folders.length == null || folders.length == 0) folders = ["D:\\Music"]
         console.log('folders', folders)
@@ -30,16 +40,18 @@ export class LocalFiles {
         for (var audio of audiofiles) {
             try {
                 const metadata = await mm.parseFile(audio);
+                let lochash = Md5.hashStr(audio) ?? numid;
                 if (metadata != null) {
                     let form = {
-                        "id": "ciderlocal" + numid,
+                        "id": "ciderlocal" + lochash,
+                        "_id": "ciderlocal" + lochash,
                         "type": "podcast-episodes",
                         "href": audio,
                         "attributes": {
                             "artwork": {
                                 "width": 3000,
                                 "height": 3000,
-                                "url": "/ciderlocalart/" + "ciderlocal" + numid,
+                                "url": "/ciderlocalart/" + "ciderlocal" + lochash,
                             },
                             "topics": [],
                             "url": "",
@@ -74,10 +86,11 @@ export class LocalFiles {
                         }
                     };
                     metadatalistart.push({
-                        id: "ciderlocal" + numid,
+                        id: "ciderlocal" + lochash,
                         url: metadata.common.picture != undefined ? metadata.common.picture[0].data.toString('base64') : "",
                     })
                     numid += 1;
+                    ProviderDB.db.putIfNotExists(form)
                     metadatalist.push(form)
                 }
             } catch (e) { }
