@@ -14,7 +14,6 @@ import {init as Sentry} from "@sentry/electron";
 import {RewriteFrames} from "@sentry/integrations";
 import {components, ipcMain} from "electron"
 
-
 // Analytics for debugging fun yeah.
 Sentry({
     dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.ingest.sentry.io/6112214",

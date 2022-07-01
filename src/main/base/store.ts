@@ -31,7 +31,8 @@ export class Store {
                 "applemusic": false,
                 "library": false,
                 "amplaylists": false,
-                "playlists": false
+                "playlists": false,
+                "localLibrary": false
             },
             "onStartup": {
                 "enabled": false,
@@ -155,6 +156,7 @@ export class Store {
                 "sortOrder": "asc",
                 "viewAs": "covers"
             },
+            "localPaths": []
         },
         "audio": {
             "volume": 1,

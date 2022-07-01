@@ -1,5 +1,5 @@
 import { join } from "path";
-import { app, BrowserWindow as bw, ipcMain, ShareMenu, shell, screen } from "electron";
+import { app, BrowserWindow as bw, ipcMain, ShareMenu, shell, screen, dialog } from "electron";
 import * as windowStateKeeper from "electron-window-state";
 import * as express from "express";
 import * as getPort from "get-port";
@@ -27,8 +27,7 @@ import { watch } from "chokidar";
 import * as os from "os";
 import wallpaper from "wallpaper";
 import * as AdmZip from "adm-zip";
-import * as path from 'path';
-const { readdir } = require('fs').promises;
+import { LocalFiles } from "../providers/local/";
 
 
 /**
@@ -40,11 +39,11 @@ const { readdir } = require('fs').promises;
 export class BrowserWindow {
     public static win: any | undefined = null;
     private devMode: boolean = !app.isPackaged;
+    public static express: any | undefined = null;
 
     private audioStream: any = new Stream.PassThrough();
     private headerSent: any = false;
     private chromecastIP: any = [];
-    private localSongs: any = [];
     private clientPort: number = 0;
     private remotePort: number = 6942;
     private EnvironmentVariables: object = {
@@ -121,6 +120,7 @@ export class BrowserWindow {
                 "components/fullscreen",
                 "components/miniplayer",
                 "components/castmenu",
+                "components/pathmenu",
                 "components/airplay-modal",
                 "components/artist-chip",
                 "components/hello-world",
@@ -408,8 +408,9 @@ export class BrowserWindow {
         }
 
         // Start the webserver for the browser window to load
-
+        // LocalFiles.DB.init()
         this.startWebServer();
+
 
         BrowserWindow.win = new bw(this.options);
         // cant be built in CI 
@@ -466,7 +467,7 @@ export class BrowserWindow {
      */
     private startWebServer(): void {
         const app = express();
-
+        BrowserWindow.express = app;
         app.use(express.static(join(utils.getPath('srcPath'), "./renderer/")));
         app.set("views", join(utils.getPath('srcPath'), "./renderer/views"));
         app.set("view engine", "ejs");
@@ -550,16 +551,6 @@ export class BrowserWindow {
                 res.send(`// Theme not found - ${userThemePath}`);
             }
         });
-        app.get("/ciderlocal/:songs", (req, res) => {
-            const audio = atob(req.params.songs.replace(/_/g, '/').replace(/-/g, '+'));
-            console.log('auss', audio)
-            let data = {
-                data:
-                    this.localSongs.filter((f: any) => audio.split(',').includes(f.id))
-            };
-            res.send(data);
-        });
-
 
         app.get("/themes/:theme/*", (req: { params: { theme: string, 0: string } }, res) => {
             const theme = req.params.theme;
@@ -623,6 +614,9 @@ export class BrowserWindow {
             utils.getWindow().webContents.send('setStoreValue', 'connectUser', JSON.parse(req.params.data))
             res.redirect(`https://connect.cidercollective.dev/linked.html`)
         });
+
+        LocalFiles.setupHandlers()
+
         // [Connect] Set auth URL in store for `shell.openExternal`
         utils.setStoreValue('cc_authURL', `https://connect.cidercollective.dev/callback/discord?app=cider&appPort=${this.clientPort}`)
         console.log(`[Connect] Auth URL: ${utils.getStoreValue('cc_authURL')}`)
@@ -673,9 +667,9 @@ export class BrowserWindow {
                     callback({
                         redirectURL: `http://localhost:${this.clientPort}/apple-hls.js`,
                     });
-                } else if (details.url.includes("ciderlocal")) {
+                } else if (details.url.includes("ciderlocal") && !details.url.includes("https://apic-desktop.musixmatch.com") ) {
                     let text = details.url.toString().includes('ids=') ? decodeURIComponent(details.url.toString()).split("?ids=")[1] : decodeURIComponent(details.url.toString().substring(details.url.toString().lastIndexOf('/') + 1));
-                    console.log('localurl', text)
+                    //console.log('localurl',text)
                     callback({
                         redirectURL: `http://localhost:${this.clientPort}/ciderlocal/${Buffer.from(text).toString('base64url')}`,
                     });
@@ -1190,103 +1184,13 @@ export class BrowserWindow {
         });
 
 
-        ipcMain.on("scanLibrary", async (event, folders) => {
-            async function getFiles(dir: any) {
-                const dirents = await readdir(dir, { withFileTypes: true });
-                const files = await Promise.all(dirents.map((dirent: any) => {
-                    const res = path.resolve(dir, dirent.name);
-                    return dirent.isDirectory() ? getFiles(res) : res;
-                }));
-                return Array.prototype.concat(...files);
-            }
-            if (folders == null || folders.length == null || folders.length == 0) folders = ["D:\\Music"]
-            console.log('folders', folders)
-            let files: any[] = []
-            for (var folder of folders) {
-                // get files from the Music folder
-                files = files.concat(await getFiles(folder))
-            }
-
-            //console.log("cider.files", files2);
-            let supporttedformats = ["mp3", "aac", "webm", "flac", "m4a", "ogg", "wav", "opus"]
-            let audiofiles = files.filter(f => supporttedformats.includes(f.substring(f.lastIndexOf('.') + 1)));
-            // console.log("cider.files2", audiofiles, audiofiles.length);
-            let metadatalist = []
-            let numid = 0;
-            for (var audio of audiofiles) {
-                try {
-                    const metadata = await mm.parseFile(audio);
-                    if (metadata != null) {
-                        let form = {
-                            "id": "ciderlocal" + numid,
-                            "type": "podcast-episodes",
-                            "href": audio,
-                            "attributes": {
-                                "artwork": {
-                                    "width": 3000,
-                                    "height": 3000,
-                                    "url": metadata.common.picture != undefined ? "data:image/png;base64," + metadata.common.picture[0].data.toString('base64') + "" : "",
-                                },
-                                "topics": [],
-                                "url": "",
-                                "subscribable": true,
-                                "mediaKind": "audio",
-                                "genreNames": [
-                                    ""
-                                ],
-                                // "playParams": { 
-                                //     "id": "ciderlocal" + numid, 
-                                //     "kind": "podcast", 
-                                //     "isLibrary": true, 
-                                //     "reporting": false },
-                                "trackNumber": metadata.common.track?.no ?? 0,
-                                "discNumber": metadata.common.disk?.no ?? 0,
-                                "name": metadata.common.title ?? audio.substring(audio.lastIndexOf('\\') + 1),
-                                "albumName": metadata.common.album,
-                                "artistName": metadata.common.artist,
-                                "copyright": metadata.common.copyright ?? "",
-                                "assetUrl": "file:///" + audio,
-                                "contentAdvisory": "",
-                                "releaseDateTime": "2022-05-13T00:23:00Z",
-                                "durationInMilliseconds": Math.floor((metadata.format.duration ?? 0) * 1000),
-
-                                "offers": [
-                                    {
-                                        "kind": "get",
-                                        "type": "STDQ"
-                                    }
-                                ],
-                                "contentRating": "clean"
-                            }
-                        };
-                        numid += 1;
-
-                        // let form = {"id": "/ciderlocal?" + audio, 
-                        // "type": "library-songs", 
-                        // "href": "/ciderlocal?" + audio, 
-                        // "artwork": {
-                        //     "url": metadata.common.picture != undefined ? "data:image/png;base64,"+metadata.common.picture[0].data.toString('base64')+"" : "", 
-                        // },
-                        // "attributes": 
-                        // { "durationInMillis": Math.floor((metadata.format.duration?? 0) * 1000), 
-                        // "hasLyrics": false, 
-                        // "playParams": { "id": "/ciderlocal?" + audio, "kind": "song", "isLibrary": true, "reporting": false }, 
-                        // "trackNumber": 0, 
-                        // "discNumber": 0, 
-                        // "genreNames": [""], 
-                        // "name": metadata.common.title,
-                        // "albumName": metadata.common.album,
-                        // "artistName": metadata.common.artist}}
-                        metadatalist.push(form)
-                    }
-                } catch (e) { }
-            }
-            // console.log('metadatalist', metadatalist);
-            this.localSongs = metadatalist;
+        ipcMain.handle("scanLibrary", async (event, folders) => {
+            const oldmetadatalist = await LocalFiles.sendOldLibrary()
+            BrowserWindow.win.webContents.send('getUpdatedLocalList', oldmetadatalist);
+            const metadatalist = await LocalFiles.scanLibrary()
             BrowserWindow.win.webContents.send('getUpdatedLocalList', metadatalist);
-        }
-
-        )
+            LocalFiles.cleanUpDB()
+        })
 
         ipcMain.on('writeWAV', (event, leftpcm, rightpcm, bufferlength) => {
 
@@ -1479,10 +1383,17 @@ export class BrowserWindow {
             }
 
         });
+
         ipcMain.on('open-appdata', (_event) => {
             shell.openPath(app.getPath('userData'));
         });
 
+        ipcMain.handle('folderSelector', async (_event) => {
+            let u = await dialog.showOpenDialog({
+                properties: ['openDirectory', 'multiSelections']
+            });
+            return u.filePaths
+        });
 
         //#region Cider Connect
         ipcMain.on('cc-auth', (_event) => {
