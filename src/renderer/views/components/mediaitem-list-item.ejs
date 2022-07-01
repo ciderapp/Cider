@@ -16,7 +16,7 @@
          @controller-click="route()"
          tabindex="0"
          :class="[{'mediaitem-selected': app.select_hasMediaItem(guid)}, addClasses]">
-        <div v-show="isVisible" class="listitem-content">
+        <div v-if="isVisible" class="listitem-content">
             <div class="popular" v-if="!showInLibrary && item?.meta?.popularity != null && item?.meta?.popularity > 0.7"></div>
             <div class="isLibrary" v-if="showLibraryStatus == true">
                 <div v-if="showInLibrary" :style="{display: (showInLibrary ? 'block' : 'none'), 'margin-left':'11px'}">
