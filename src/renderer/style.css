@@ -13436,6 +13436,16 @@ input[type=checkbox][switch]:checked:active::before {
 .playlist-page .playlist-body.scrollbody .tabs .tab-content .tab-pane .well {
   margin: 0px;
 }
+.playlist-page .playlist-body .search-input-container {
+  height: 2.5rem;
+  margin: 1rem;
+  margin-top: 0;
+  scroll-margin-top: 1rem;
+}
+.playlist-page .playlist-body .search-input-container .search-input {
+  width: 100%;
+  height: 100%;
+}
 .playlist-page .floating-header {
   position: sticky;
   top: 0;
@@ -13624,6 +13634,34 @@ input[type=checkbox][switch]:checked:active::before {
   font-weight: 600;
   font-family: inherit;
   text-transform: uppercase;
+}
+.playlist-page .playlist-display .playlistInfo .playlist-info .search-btn {
+  display: flex;
+  width: 32px;
+  align-items: center;
+  margin-right: 1rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.playlist-page .playlist-display .playlistInfo .playlist-info .search-btn > ._svg-icon {
+  width: 18px;
+  height: 18px;
+  margin: auto;
+}
+.playlist-page .playlist-display .playlistInfo .playlist-info .search-btn.active {
+  animation: enlarge 0.5s ease-in-out;
+}
+@keyframes enlarge {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 .playlist-page .friends-info {
   display: flex;

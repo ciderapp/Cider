@@ -31,6 +31,8 @@
   "term.miniplayer": "Mini-leitor",
   "term.history": "Histórico",
   "term.search": "Pesquisa",
+  "term.showSearch": "Mostrar a barra de pesquisa",
+  "term.hideSearch": "Esconder a barar de pesquisa",
   "term.library": "Biblioteca",
   "term.listenNow": "Ouvir agora",
   "term.browse": "Explorar",
