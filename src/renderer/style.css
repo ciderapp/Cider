@@ -13648,13 +13648,9 @@ input[type=checkbox][switch]:checked:active::before {
   width: 18px;
   height: 18px;
   margin: auto;
-  opacity: 0.5;
 }
 .playlist-page .playlist-display .playlistInfo .playlist-info .search-btn.active {
   animation: enlarge 0.5s ease-in-out;
-}
-.playlist-page .playlist-display .playlistInfo .playlist-info .search-btn.active > ._svg-icon {
-  opacity: 1;
 }
 @keyframes enlarge {
   0% {
