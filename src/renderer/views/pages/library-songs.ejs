@@ -74,9 +74,8 @@
                 <button
                     :class="`col md-btn page-btn${ isCurrentPage(page) ? ' md-btn-primary': ''}`"
                     @click="goToPage(page)"
-                    v-for="page in pagesToShow">
-                    {{ page }}
-                </button>
+                    v-for="page in pagesToShow"
+                >{{ page }}</button>
                 <button
                     class="col md-btn page-btn next"
                     :disabled="currentPage === numPages"
@@ -91,6 +90,10 @@
                 >
                     <img class="md-ico-last"/>
                 </button>
+                <div class="col page-btn" style="min-width: 12em;">
+                    <input type="number" min="1" :max="numPages" :value="currentPage" @change="changePage" />
+                    <span>/ {{ numPages }}</span>
+                </div>
             </div>
         </div>
 
@@ -163,6 +166,13 @@
             isCurrentPage: function (idx) {
                 return idx === this.currentPage ||
                     idx === this.numPages && this.currentPage > this.numPages;
+            },
+            changePage: function (event) {
+                const value = event.target.valueAsNumber;
+
+                if (!isNaN(value) && value >= 1 && value <= this.numPages) {
+                    this.currentPage = value;
+                }
             },
             goToPage: function (page) {
                 this.currentPage = page;
