@@ -143,7 +143,7 @@
                 return color
             },
             async checkLibrary() {
-                if (this.item.id.startsWith('ciderlocal')){
+                if ((this.item?.id ?? '').toString().startsWith('ciderlocal')){
                     return true
                 }
                 if (this.addedToLibrary) { return this.addedToLibrary }
