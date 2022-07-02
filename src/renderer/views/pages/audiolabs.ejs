@@ -46,6 +46,21 @@
                 </div>
                 <div class="md-option-line" v-show="app.cfg.advanced.AudioContext === true">
                     <div class="md-option-segment">
+                        Cider Opportunistic Correction System
+                        <br>
+                        <small>Takes advantage of the sonic characteristics of a specific equipment and adapts it to be more 'Cider' oriented.</small>
+                    </div>
+                    <div class="md-option-segment md-option-segment_auto">
+                        <select class="md-select" style="width:180px;"
+                                v-model="app.cfg.audio.maikiwiAudio.opportunisticCorrection_state"
+                                v-on:change="CiderAudio.hierarchical_loading()">
+                            <option value="OFF">OFF</option>
+                            <option value="CHU">Moondrop Chu</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="md-option-line" v-show="app.cfg.advanced.AudioContext === true">
+                    <div class="md-option-segment">
                         {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizer')}} [1]
                         <br>
                         <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizer.description')}}</small>
