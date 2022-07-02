@@ -5,11 +5,15 @@ import { utils } from '../../base/utils';
 import * as mm from 'music-metadata';
 import {Md5} from 'ts-md5/dist/md5';
 import e from "express";
+import { EventEmitter } from 'events';
+
+
 
 export class LocalFiles {
     static localSongs: any = [];
     static localSongsArts: any = [];
     public static DB = ProviderDB.db;
+    static eventEmitter = new EventEmitter();
 
     static getDataType(item_id : String | any){
         if ((item_id ?? ('')).startsWith('ciderlocalart'))
@@ -105,8 +109,10 @@ export class LocalFiles {
                     ProviderDB.db.putIfNotExists(form)
                     ProviderDB.db.putIfNotExists(art)
                     metadatalist.push(form)
-                }
-                //delete removed tracks
+
+                    if (this.localSongs.length === 0 && numid  % 10 === 0) { // send updated chunks only if there is no previous database
+                        this.eventEmitter.emit('newtracks', metadatalist)}
+                    }
             } catch (e) { }
         }
         this.localSongs = metadatalist;

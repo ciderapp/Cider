@@ -1192,6 +1192,10 @@ export class BrowserWindow {
             LocalFiles.cleanUpDB()
         })
 
+        LocalFiles.eventEmitter.on('newtracks', (data) => {
+            BrowserWindow.win.webContents.send('getUpdatedLocalList', data);
+        });
+
         ipcMain.on('writeWAV', (event, leftpcm, rightpcm, bufferlength) => {
 
             function interleave16(leftChannel: any, rightChannel: any) {
