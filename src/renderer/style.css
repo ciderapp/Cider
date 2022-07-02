@@ -13655,6 +13655,9 @@ input[type=checkbox][switch]:checked:active::before {
 .playlist-page .playlist-display .playlistInfo .playlist-info .search-btn.active {
   animation: enlarge 0.5s ease-in-out;
 }
+.playlist-page .playlist-display .playlistInfo .playlist-info .search-btn:hover {
+  filter: brightness(125%);
+}
 @keyframes enlarge {
   0% {
     transform: scale(1);
