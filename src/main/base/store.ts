@@ -147,6 +147,7 @@ export class Store {
         },
         "libraryPrefs": {
             "songs": {
+                "scroll": "infinite",
                 "sort": "name",
                 "sortOrder": "asc",
                 "size": "normal"

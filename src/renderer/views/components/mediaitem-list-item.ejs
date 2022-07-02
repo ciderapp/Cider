@@ -1,5 +1,5 @@
 <script type="text/x-template" id="mediaitem-list-item">
-    <div v-observe-visibility="{callback: visibilityChanged}"
+    <div v-observe-visibility="{callback: visibilityChanged, throttle: 100}"
          @contextmenu="contextMenu"
          @click="select"
          :data-id="itemId"
