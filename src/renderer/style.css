@@ -13640,9 +13640,11 @@ input[type=checkbox][switch]:checked:active::before {
   width: 32px;
   align-items: center;
   margin-right: 1rem;
-  background: transparent;
+  background: rgba(100, 100, 100, 0.5);
   border: none;
   cursor: pointer;
+  border-radius: 100vmax;
+  box-shadow: var(--ciderShadow-Generic);
 }
 .playlist-page .playlist-display .playlistInfo .playlist-info .search-btn > ._svg-icon {
   width: 18px;

@@ -108,15 +108,12 @@
                                     {{app.getLz('term.confirm')}}
                                 </button>
                                 <div style="display: flex; float: right;">
-                                    <button :class="['search-btn', showSearch ? 'active' : '']"
-                                            @click="toggleSearch()"
-                                            :aria-label="showSearch ? app.getLz('term.hideSearch') : app.getLz('term.showSearch')">
-                                        <svg-icon :style="{ 'background': '#' + hasHeroObject()?.textColor4 ?? '' }"
-                                                  :url="showSearch ? './assets/search-alt.svg' : './assets/search.svg'">
+                                    <button :style="{ 'background': '#' + hasHeroObject()?.textColor4 ?? '' }" :class="['search-btn', showSearch ? 'active' : '']" @click="toggleSearch()" :aria-label="showSearch ? app.getLz('term.hideSearch') : app.getLz('term.showSearch')">
+                                        <svg-icon :style="{ 'width': '15px', 'background-color': '#' + hasHeroObject()?.bgColor ?? '' }" :url="showSearch ? './assets/search-alt.svg' : './assets/search.svg'">
                                         </svg-icon>
                                     </button>
-                                    <button class="more-btn-round" @click="menu" :aria-label="app.getLz('term.more')">
-                                        <div class="svg-icon"></div>
+                                    <button :style="{ 'background': '#' + hasHeroObject()?.textColor4 ?? '' }" class="more-btn-round" @click="menu" :aria-label="app.getLz('term.more')">
+                                        <div :style="{ 'background-color': '#' + hasHeroObject()?.bgColor ?? '' }" class="svg-icon"></div>
                                     </button>
                                 </div>
                             </div>
