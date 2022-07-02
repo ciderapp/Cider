@@ -12260,6 +12260,7 @@ input[type=checkbox][switch]:checked:active::before {
   font-size: 12px;
   cursor: pointer;
   flex: 0 0 32px;
+  box-shadow: var(--ciderShadow-Generic);
 }
 .artist-chip .artist-chip__follow:hover {
   background: var(--selected);
@@ -13660,9 +13661,11 @@ input[type=checkbox][switch]:checked:active::before {
   width: 32px;
   align-items: center;
   margin-right: 1rem;
-  background: transparent;
+  background: rgba(100, 100, 100, 0.5);
   border: none;
   cursor: pointer;
+  border-radius: 100vmax;
+  box-shadow: var(--ciderShadow-Generic);
 }
 .playlist-page .playlist-display .playlistInfo .playlist-info .search-btn > ._svg-icon {
   width: 18px;
@@ -13671,6 +13674,9 @@ input[type=checkbox][switch]:checked:active::before {
 }
 .playlist-page .playlist-display .playlistInfo .playlist-info .search-btn.active {
   animation: enlarge 0.5s ease-in-out;
+}
+.playlist-page .playlist-display .playlistInfo .playlist-info .search-btn:hover {
+  filter: brightness(125%);
 }
 @keyframes enlarge {
   0% {
