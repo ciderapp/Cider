@@ -989,7 +989,7 @@ const app = new Vue({
                         }
                         if (previewURL == null && ((app.mk.nowPlayingItem?._songId ?? (app.mk.nowPlayingItem["songId"] ?? app.mk.nowPlayingItem.relationships.catalog.data[0].id)) != -1)) {
                             app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/songs/${app.mk.nowPlayingItem?._songId ?? (app.mk.nowPlayingItem["songId"] ?? app.mk.nowPlayingItem.relationships.catalog.data[0].id)}`).then((response) => {
-                                previewURL = response.data.data[0].attributes.previews[0].url ?? false;
+                                try {previewURL = response.data.data[0].attributes.previews[0].url;} catch(e) {}
                                 if (previewURL) {
                                     console.debug("[Cider][MaikiwiSoundCheck] previewURL response.data.data[0].attributes.previews[0].url: " + previewURL)
                                     ipcRenderer.send('getPreviewURL', previewURL)
