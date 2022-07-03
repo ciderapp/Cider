@@ -35,7 +35,7 @@ app.$mount("#app")
 
 // Init CiderAudio
 if (app.cfg.advanced.AudioContext === false){
-    app.cfg.advanced.AudioContext === true; 
+    app.cfg.advanced.AudioContext = true; 
 }
 
 CiderAudio.init()
