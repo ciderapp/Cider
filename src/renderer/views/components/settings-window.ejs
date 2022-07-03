@@ -221,7 +221,7 @@
                                     {{$root.getLz('settings.option.general.keybindings')}}
                                 </div>
                                 <div class="md-option-segment md-option-segment_auto">
-                                    <button class="md-btn" @click="app.$store.state.pageState.settings.currentTabIndex = 7">
+                                    <button class="md-btn" @click="$root.openSettingsPage('keybindings')">
                                         {{$root.getLz('action.open')}}
                                     </button>
                                 </div>
@@ -1243,7 +1243,7 @@
                                     {{$root.getLz('settings.option.visual.plugin.github.explore')}}
                                 </div>
                                 <div class="md-option-segment md-option-segment_auto">
-                                    <button class="md-btn" @click="$root.appRoute('plugins-github')">{{
+                                    <button class="md-btn" @click="$root.openSettingsPage('github-plugins')">{{
                                         $root.getLz("settings.option.visual.plugin.github.explore") }}
                                     </button>
                                 </div>
@@ -1369,6 +1369,20 @@
                 </template>
             </b-tab>
             <!--keybinds-settings -->
+            <!--Github-theme-settings -->
+            <b-tab id="hid">
+                <template>
+                    <themes-github/>
+                </template>
+            </b-tab>
+            <!--Github-theme-settings -->
+            <!--Github-Plugins -->
+            <b-tab id="hid">
+                <template>
+                    <plugins-github/>
+                </template>
+            </b-tab>
+            <!--Github-Plugins -->
             <!-- Connect Settings -->
             <!-- Not Prod Ready
             <b-tab :title="$root.getLz('settings.header.connect')">
@@ -1496,7 +1510,7 @@
                 })
             },
             gitHubExplore() {
-                app.appRoute("themes-github")
+                app.openSettingsPage("github-themes")
             },
             copyLogs() {
                 ipcRenderer.send('fetch-log')

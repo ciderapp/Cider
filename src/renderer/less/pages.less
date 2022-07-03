@@ -23,7 +23,6 @@
 .github-themes-page {
   display: flex;
   flex-direction: column;
-  padding-top: var(--chromeHeight1);
   height: 100%;
 
   .github-avatar {
@@ -51,10 +50,12 @@
   }
 
   .repos-list {
-    height: 100%;
-    overflow-y: overlay;
+    height: 85%;
     width: 320px;
     font-size: 14px;
+    position: absolute;
+    overflow: auto;
+    padding-bottom: 16px;
 
     > .list-group {
       margin: 0px;
@@ -74,11 +75,14 @@
   }
 
   .github-preview {
-    height: 100%;
+    height: 85%;
     flex: 1;
-    background: var(--color2);
     padding: 16px 32px;
-    overflow-y: overlay;
+    overflow: auto;
+    position: fixed;
+    width: calc(100% - 574px);
+    margin-left: 320px;
+    padding-bottom: 16px;
   }
 
   .gh-content {
@@ -90,6 +94,11 @@
 
   .gh-header {
     padding: 16px;
+
+    .header-text {
+      position: initial !important;
+      justify-content: left !important;
+    }
   }
 
   .installed-themes-page {

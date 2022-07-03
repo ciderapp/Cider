@@ -278,6 +278,10 @@ export class BrowserWindow {
                     page: "replay",
                     component: `<replay-page></replay-page>`,
                     condition: `$root.page == 'replay'`
+                }, {
+                    page: "keydinds",
+                    component: `<keybinds-settings></keybinds-settings>`,
+                    condition: `$root.page == 'keybinds-settings'`
                 }
             ]
         },

@@ -8,7 +8,7 @@
                     </h1>
                 </div>
                 <div class="col-auto nopadding flex-center">
-                    <button class="md-btn md-btn-small md-btn-block" @click="$root.appRoute('themes-github')">
+                    <button class="md-btn md-btn-small md-btn-block" @click="$root.openSettingsPage('github-themes')">
                         {{$root.getLz('settings.option.visual.theme.github.explore')}}
                     </button>
                 </div>
@@ -142,7 +142,7 @@
         },
         methods: {
             gitHubExplore() {
-                this.$root.appRoute("themes-github")
+                this.$root.openSettingsPage("github-themes")
             },
             getThemeName(filename) {
                 try {
