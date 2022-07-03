@@ -13893,6 +13893,18 @@ input[type=checkbox][switch]:checked:active::before {
   bottom: 82px;
   right: 28px;
 }
+.artist-page .artist-header .social-btn {
+  border-radius: 100%;
+  background: transparent;
+  height: 17px;
+  border: 0px;
+  cursor: pointer;
+  z-index: 69;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 100px;
+}
 .artist-page .artist-header .animated {
   width: 100%;
   height: 100%;
@@ -16318,6 +16330,18 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   background: #eee;
   --url: url("./views/svg/more.svg");
 }
+.social-btn {
+  border-radius: 100%;
+  background: transparent;
+  height: 17px;
+  border: 0px;
+  cursor: pointer;
+  z-index: 69;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 100px;
+}
 .about-page .teamBtn {
   display: flex;
   align-items: center;
@@ -17782,6 +17806,7 @@ body.no-gpu .lyric-line:hover::after {
 }
 .moreinfo-modal .modal-window .modal-content {
   height: max-content !important;
+  padding-block: 25px;
 }
 .equalizer-panel .modal-window {
   height: 330px;
