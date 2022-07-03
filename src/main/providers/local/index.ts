@@ -51,7 +51,7 @@ export class LocalFiles {
         let metadatalist = []
         let metadatalistart = []
         let numid = 0;
-        
+
         for (var audio of audiofiles) {
             try {
                 const metadata = await mm.parseFile(audio);
@@ -89,7 +89,7 @@ export class LocalFiles {
                             "assetUrl": "file:///" + audio,
                             "contentAdvisory": "",
                             "releaseDateTime": `${metadata?.common?.year ?? '2022'}-05-13T00:23:00Z`,
-                            "durationInMillis": Math.floor((metadata.format.duration ?? 0) * 1000),
+                            "durationInMillis": Math.floor((metadata.format.duration ?? 0) * 1000),       
                             "bitrate": Math.floor((metadata.format?.bitrate ?? 0) / 1000),
                             "offers": [
                                 {
@@ -100,6 +100,12 @@ export class LocalFiles {
                             "contentRating": "clean"
                         },
                         flavor: Math.floor((metadata.format?.bitrate ?? 0) / 1000),
+                        localFilesMetadata: {
+                            lossless: metadata.format?.lossless,
+                            container: metadata.format?.container,
+                            bitDepth: metadata.format?.bitsPerSample ?? 0,
+                            sampleRate: metadata.format?.sampleRate ?? 0,         
+                        },                    
                     };
                     let art = {
                         id: "ciderlocal" + lochash,
