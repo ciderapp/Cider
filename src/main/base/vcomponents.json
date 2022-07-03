@@ -60,6 +60,7 @@
   "components/fullscreen",
   "components/miniplayer",
   "components/castmenu",
+  "components/pathmenu",
   "components/airplay-modal",
   "components/artist-chip",
   "components/hello-world",

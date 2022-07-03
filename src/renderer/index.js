@@ -52,45 +52,6 @@ Vue.component("animated-number", {
   },
 });
 
-Vue.component("sidebar-library-item", {
-  template: "#sidebar-library-item",
-  props: {
-    name: {
-      type: String,
-      required: true,
-    },
-    page: {
-      type: String,
-      required: true,
-    },
-    svgIcon: {
-      type: String,
-      required: false,
-      default: "",
-    },
-    svgIconName: {
-        type: String,
-        required: false
-    },
-    cdClick: {
-      type: Function,
-      required: false,
-    },
-  },
-  data: function () {
-    return {
-      app: app,
-      svgIconData: "",
-    };
-  },
-  async mounted() {
-    if (this.svgIcon) {
-      this.svgIconData = this.svgIcon;
-    }
-  },
-  methods: {},
-});
-
 function fallbackinitMusicKit() {
   const request = new XMLHttpRequest();
 

@@ -67,6 +67,14 @@ export class utils {
     static getIPCMain(): Electron.IpcMain {
         return ipcMain
     }
+    
+    /*
+     * Get the Express instance
+     * @returns {any}
+     */
+    static getExpress(): any {
+        return bw.express
+    }
 
     /**
      * Fetches the i18n locale for the given language.

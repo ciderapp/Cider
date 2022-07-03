@@ -21,22 +21,22 @@ async function spawnMica() {
   let lastScreenWidth;
   let lastScreenHeight;
 
-  let regen = true;
-  let imgSrc = await ipcRenderer.sendSync("get-wallpaper", {
+  let imgSrc = "";
+  let micaCache = await CiderCache.getCache("mica-cache");
+  if (!micaCache) {
+    micaCache = {
+      path: "",
+      data: "",
+    };
+  }
+  if (micaCache.path == imgSrc.path) {
+    imgSrc = micaCache;
+  }else{
+    imgSrc = await ipcRenderer.sendSync("get-wallpaper", {
       blurAmount: 256
-  });
-
-//   let micaCache = await CiderCache.getCache("mica-cache");
-//   if (!micaCache) {
-//     micaCache = {
-//       path: "",
-//       data: "",
-//     };
-//   }
-//   if (micaCache.path == imgSrc.path) {
-//     regen = false;
-//     imgSrc = micaCache;
-//   }
+    });
+    CiderCache.putCache("mica-cache", imgSrc);
+  }
   let canvas = document.createElement("canvas");
   let ctx = canvas.getContext("2d");
   let img = new Image();

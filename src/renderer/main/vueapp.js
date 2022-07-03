@@ -147,6 +147,7 @@ const app = new Vue({
             start: 0,
             end: 0
         },
+        lyricOffset: 0,
         v3: {
             requestBody: {
                 platform: "web"
@@ -216,6 +217,7 @@ const app = new Vue({
             audioPlaybackRate: false,
             showPlaylist: false,
             castMenu: false,
+            pathMenu: false,
             moreInfo: false,
             airplayPW: false,
             settings: false
@@ -858,7 +860,7 @@ const app = new Vue({
             })
 
             ipcRenderer.on('getUpdatedLocalList', (event, data) => {
-                console.log("cider-local", data);
+                // console.log("cider-local", data);
                 this.library.localsongs = data;
             })
 
@@ -919,7 +921,7 @@ const app = new Vue({
             })
 
             this.mk.addEventListener(MusicKit.Events.playbackTimeDidChange, (a) => {
-                self.lyriccurrenttime = self.mk.currentPlaybackTime
+                self.lyriccurrenttime = self.mk.currentPlaybackTime + app.lyricOffset
                 this.currentSongInfo = a
                 self.playerLCD.playbackDuration = (self.mk.currentPlaybackTime)
                 // wsapi
@@ -954,49 +956,63 @@ const app = new Vue({
                 if (self.$refs.queue) {
                     self.$refs.queue.updateQueue();
                 }
-                this.currentSongInfo = a
+                this.currentSongInfo = a; 
                 if (this.currentSongInfo === null || this.currentSongInfo === undefined) { return; } // EVIL EMPTY OBJECTS BE GONE
-
-                console.debug("songinfo: " + JSON.stringify(a))
-                if (app.cfg.advanced.AudioContext) {
-                    try {
-                        if (app.mk.nowPlayingItem.flavor.includes("64")) {
-                            localStorage.setItem("playingBitrate", "64")
-                        } else if (app.mk.nowPlayingItem.flavor.includes("256")) {
-                            localStorage.setItem("playingBitrate", "256")
-                        } else {
-                            localStorage.setItem("playingBitrate", "256")
-                        }
-                    } catch (e) {
+                let localFiles = false;
+                try {
+                    if (app.mk.nowPlayingItem.flavor.includes("64") && app.mk.nowPlayingItem.flavor.includes(":")) {
+                        localStorage.setItem("playingBitrate", "64")
+                    } else if (app.mk.nowPlayingItem.flavor.includes("256") && app.mk.nowPlayingItem.flavor.includes(":")) {
                         localStorage.setItem("playingBitrate", "256")
+                    } else {
+                        localFiles = true;
+                        localStorage.setItem("playingBitrate", app.mk.nowPlayingItem.flavor)
                     }
-                    if (!app.cfg.audio.normalization) { CiderAudio.hierarchical_loading(); }
-
+                } catch (e) {
+                    localFiles = true;
+                    try {localStorage.setItem("playingBitrate", app.mk.nowPlayingItem.flavor)}
+                    catch(e) {}
                 }
-
-                if (app.cfg.audio.normalization) {
+                if (!app.cfg.audio.normalization) { CiderAudio.hierarchical_loading(); }
+   
+                else {
                     // get unencrypted audio previews to get SoundCheck's normalization tag
                     try {
                         let previewURL = null
                         try {
                             previewURL = app.mk.nowPlayingItem.previewURL
                         } catch (e) {
+                            if (e instanceof TypeError === false) { console.debug("[Cider][MaikiwiSoundCheck] normalizer function err: " + e) }
+                            else {
+                                if (localFiles === true) {CiderAudio.audioNodes.gainNode.gain.value = 0.8222426499470}
+                        }
                         }
                         if (previewURL == null && ((app.mk.nowPlayingItem?._songId ?? (app.mk.nowPlayingItem["songId"] ?? app.mk.nowPlayingItem.relationships.catalog.data[0].id)) != -1)) {
                             app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/songs/${app.mk.nowPlayingItem?._songId ?? (app.mk.nowPlayingItem["songId"] ?? app.mk.nowPlayingItem.relationships.catalog.data[0].id)}`).then((response) => {
-                                previewURL = response.data.data[0].attributes.previews[0].url
-                                if (previewURL)
+                                try {previewURL = response.data.data[0].attributes.previews[0].url;} catch(e) {
+                                    if (e instanceof TypeError === false) { console.debug("[Cider][MaikiwiSoundCheck] normalizer function err: " + e) }
+                                    else {
+                                        if (localFiles === true) {CiderAudio.audioNodes.gainNode.gain.value = 0.8222426499470}}
+                                }
+                                if (previewURL) {
                                     console.debug("[Cider][MaikiwiSoundCheck] previewURL response.data.data[0].attributes.previews[0].url: " + previewURL)
-                                ipcRenderer.send('getPreviewURL', previewURL)
+                                    ipcRenderer.send('getPreviewURL', previewURL)
+                                }
+                                else { 
+                                    if (localFiles === true) {CiderAudio.audioNodes.gainNode.gain.value = 0.8222426499470}
+                                }
                             })
                         } else {
-                            if (previewURL)
+                            if (previewURL) {
                                 console.debug("[Cider][MaikiwiSoundCheck] previewURL in app.mk.nowPlayingItem.previewURL: " + previewURL)
-                            ipcRenderer.send('getPreviewURL', previewURL)
-                        }
+                                ipcRenderer.send('getPreviewURL', previewURL)}
+                         }
 
                     } catch (e) {
                         if (e instanceof TypeError === false) { console.debug("[Cider][MaikiwiSoundCheck] normalizer function err: " + e) }
+                        else {
+                            if (localFiles === true) {CiderAudio.audioNodes.gainNode.gain.value = 0.8222426499470}
+                        }
                     }
                 }
 
@@ -1072,6 +1088,8 @@ const app = new Vue({
             if (this.cfg.general.themeUpdateNotification && !this.isDev) {
                 this.checkForThemeUpdates()
             }
+
+            ipcRenderer.invoke("scanLibrary")
         },
         showFoo(querySelector, time) {
             clearTimeout(this.idleTimer);
@@ -1912,7 +1930,7 @@ const app = new Vue({
                     this.routeView(item.relationships.contents.data[0])
                 } else if (item.attributes?.link?.url != null) {
                     if (item.attributes.link.url.includes("viewMultiRoom")) {
-                        const params = new Proxy(new URLSearchParams(item.attributes.link.url), {
+                        const params = new Proxy(new URLSearchParams(new URL(item.attributes.link.url).search), {
                             get: (searchParams, prop) => searchParams.get(prop),
                         });
                         id = params.fcId
@@ -2217,9 +2235,13 @@ const app = new Vue({
         searchLibrarySongs() {
             let self = this
             let prefs = this.cfg.libraryPrefs.songs
-            let albumAdded = self.library?.albums?.listing?.map(function (i) {
-                return { [i.id]: i.attributes?.dateAdded }
-            })
+
+            const albumAdded = {}
+
+            for (const listing of self.library?.albums?.listing ?? []) {
+                albumAdded[listing.id] = listing.attributes?.dateAdded
+            }
+
             let startTime = new Date().getTime()
 
             function sortSongs() {
@@ -2231,12 +2253,11 @@ const app = new Vue({
                     if (prefs.sort == "genre") {
                         aa = a.attributes.genreNames[0]
                         bb = b.attributes.genreNames[0]
-                    }
-                    if (prefs.sort == "dateAdded") {
-                        let albumida = a.relationships?.albums?.data[0]?.id ?? '1970-01-01T00:01:01Z'
-                        let albumidb = b.relationships?.albums?.data[0]?.id ?? '1970-01-01T00:01:01Z'
-                        aa = startTime - new Date(((albumAdded.find(i => i[albumida])) ?? [])[albumida] ?? '1970-01-01T00:01:01Z').getTime()
-                        bb = startTime - new Date(((albumAdded.find(i => i[albumidb])) ?? [])[albumidb] ?? '1970-01-01T00:01:01Z').getTime()
+                    } else if (prefs.sort == "dateAdded") {
+                        let albumida = a.relationships?.albums?.data[0]?.id
+                        let albumidb = b.relationships?.albums?.data[0]?.id
+                        aa = startTime - new Date(albumAdded[albumida] ?? '1970-01-01T00:01:01Z').getTime()
+                        bb = startTime - new Date(albumAdded[albumidb] ?? '1970-01-01T00:01:01Z').getTime()
                     }
                     if (aa == null) {
                         aa = ""
@@ -3497,7 +3518,15 @@ const app = new Vue({
             console.log(truekind, id)
 
             try {
-                if (app.library.songs.displayListing.length > childIndex && parent == "librarysongs") {
+                if (parent == 'playlist:ciderlocal'){
+                    let u = app.library.localsongs.map(i => {return i.id})
+                    app.mk.setQueue({"episodes" : u}).then(()=>{
+                        let id = app.mk.queue._itemIDs.findIndex(element => element == item.id);
+                        app.mk.changeToMediaAtIndex(id)
+                    })
+                   
+                }
+                else if (app.library.songs.displayListing.length > childIndex && parent == "librarysongs") {
                     console.log(item)
                     if (item && ((app.library.songs.displayListing[childIndex].id != item.id))) {
                         childIndex = app.library.songs.displayListing.indexOf(item)
@@ -3801,7 +3830,7 @@ const app = new Vue({
                     type += "s"
                 }
                 type = type.replace("library-", "")
-                let id = item.attributes.playParams.catalogId ?? item.attributes.playParams.id ?? item.id
+                let id = item.attributes.playParams?.catalogId ?? item.attributes.playParams.id ?? item.id
 
                 let index = types.findIndex(function (type) {
                     return type.type == this
@@ -4423,6 +4452,9 @@ const app = new Vue({
                     break;
                 case "advanced":
                     this.$store.state.pageState.settings.currentTabIndex = 6
+                    break;
+                case "keybindings":
+                    this.$store.state.pageState.settings.currentTabIndex = 7
                     break;
             }
             app.modals.settings = true

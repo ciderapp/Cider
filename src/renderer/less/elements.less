@@ -162,6 +162,32 @@
   align-self: center;
 }
 
+.page-btn {
+  align-self: center;
+  height: 32px;
+}
+
+.page-btn img {
+  height: 100%;
+  align-self: center;
+}
+
+.md-ico-first {
+  content: url('./assets/angles-left.svg');
+}
+
+.md-ico-prev {
+  content: url('./assets/chevron-left.svg');
+}
+
+.md-ico-next {
+  content: url('./assets/chevron-right.svg');
+}
+
+.md-ico-last {
+  content: url('./assets/angles-right.svg');
+}
+
 .reload-btn {
   background: rgb(86 86 86 / 52%);
   border-radius: 100%;
@@ -1873,7 +1899,7 @@ input[type=checkbox][switch]:checked:active::before {
     align-items: center;
     color: white;
 
-    > svg {
+    > ._svg-icon {
       height: 16px;
       width: 16px;
       pointer-events: none;
@@ -2064,6 +2090,7 @@ input[type=checkbox][switch]:checked:active::before {
     font-size: 12px;
     cursor: pointer;
     flex: 0 0 32px;
+    box-shadow: var(--ciderShadow-Generic);
 
     &:hover {
       background: var(--selected);

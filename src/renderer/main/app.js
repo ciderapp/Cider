@@ -8,6 +8,7 @@ import { wsapi } from "./wsapi_interop.js"
 import { MusicKitTools } from "./musickittools.js"
 import { spawnMica } from "./mica.js"
 import { svgIcon } from './components/svg-icon.js'
+import { sidebarLibraryItem } from './components/sidebar-library-item.js'
 
 
 // Define window objects
@@ -33,11 +34,10 @@ if (app.cfg.advanced.disableLogging === true) {
 app.$mount("#app")
 
 // Init CiderAudio
-if (app.cfg.advanced.AudioContext === false){
-    app.cfg.advanced.AudioContext === true; 
+if (app.cfg.advanced.AudioContext === true) {
+    CiderAudio.init()
 }
 
-CiderAudio.init()
 // Import gamepad support
 app.simulateGamepad = simulateGamepad
 app.spawnMica = spawnMica

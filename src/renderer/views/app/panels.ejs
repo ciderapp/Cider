@@ -26,6 +26,9 @@
     <castmenu v-if="modals.castMenu"></castmenu>
 </transition>
 <transition name="modal">
+    <pathmenu v-if="modals.pathMenu"></pathmenu>
+</transition>
+<transition name="modal">
     <airplay-modal v-if="modals.airplayPW"></airplay-modal>
 </transition>
 <transition name="modal">
