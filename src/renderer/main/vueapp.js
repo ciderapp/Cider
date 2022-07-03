@@ -147,6 +147,7 @@ const app = new Vue({
             start: 0,
             end: 0
         },
+        lyricOffset: 0.02,
         v3: {
             requestBody: {
                 platform: "web"
@@ -920,7 +921,7 @@ const app = new Vue({
             })
 
             this.mk.addEventListener(MusicKit.Events.playbackTimeDidChange, (a) => {
-                self.lyriccurrenttime = self.mk.currentPlaybackTime
+                self.lyriccurrenttime = self.mk.currentPlaybackTime + app.lyricOffset
                 this.currentSongInfo = a
                 self.playerLCD.playbackDuration = (self.mk.currentPlaybackTime)
                 // wsapi
@@ -957,24 +958,19 @@ const app = new Vue({
                 }
                 this.currentSongInfo = a
                 if (this.currentSongInfo === null || this.currentSongInfo === undefined) { return; } // EVIL EMPTY OBJECTS BE GONE
-
-                console.debug("songinfo: " + JSON.stringify(a))
-                if (app.cfg.advanced.AudioContext) {
-                    try {
-                        if (app.mk.nowPlayingItem.flavor.includes("64")) {
-                            localStorage.setItem("playingBitrate", "64")
-                        } else if (app.mk.nowPlayingItem.flavor.includes("256")) {
-                            localStorage.setItem("playingBitrate", "256")
-                        } else {
-                            localStorage.setItem("playingBitrate", "256")
-                        }
-                    } catch (e) {
+                try {
+                    if (app.mk.nowPlayingItem.flavor.includes("64")) {
+                        localStorage.setItem("playingBitrate", "64")
+                    } else if (app.mk.nowPlayingItem.flavor.includes("256")) {
+                        localStorage.setItem("playingBitrate", "256")
+                    } else {
                         localStorage.setItem("playingBitrate", "256")
                     }
-                    if (!app.cfg.audio.normalization) { CiderAudio.hierarchical_loading(); }
-
+                } catch (e) {
+                    localStorage.setItem("playingBitrate", "256")
                 }
-
+                if (!app.cfg.audio.normalization) { CiderAudio.hierarchical_loading(); }
+   
                 if (app.cfg.audio.normalization) {
                     // get unencrypted audio previews to get SoundCheck's normalization tag
                     try {

@@ -24,7 +24,7 @@ const CiderAudio = {
                 CiderAudio.connectContext(document.getElementById("apple-music-player"), 0);
 
                 cb();
-                clearInterval(searchInt);
+                clearInterval(searchInt);                
             }
         }, 1000);
     },
@@ -49,7 +49,8 @@ const CiderAudio = {
     },
     connectContext: function (mediaElem) {
         if (!CiderAudio.context) {
-            CiderAudio.context = new window.AudioContext({ sampleRate: 96000 }); // Don't ever remove the sample rate arg. Ask Maikiwi.
+            CiderAudio.context = new window.AudioContext({ sampleRate: 96000, latencyHint: "playback"}); // Don't ever remove the sample rate arg. Ask Maikiwi.
+            app.lyricOffset = CiderAudio.context.baseLatency
         }
         if (!CiderAudio.source) {
             CiderAudio.source = CiderAudio.context.createMediaElementSource(mediaElem);
