@@ -34,11 +34,10 @@ if (app.cfg.advanced.disableLogging === true) {
 app.$mount("#app")
 
 // Init CiderAudio
-if (app.cfg.advanced.AudioContext === false){
-    app.cfg.advanced.AudioContext = true; 
+if (app.cfg.advanced.AudioContext === true) {
+    CiderAudio.init()
 }
 
-CiderAudio.init()
 // Import gamepad support
 app.simulateGamepad = simulateGamepad
 app.spawnMica = spawnMica
