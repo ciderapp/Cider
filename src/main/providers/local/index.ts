@@ -51,15 +51,7 @@ export class LocalFiles {
         let metadatalist = []
         let metadatalistart = []
         let numid = 0;
-
-        function flavorconverter(metadata : mm.IAudioMetadata){
-            if (metadata.format?.lossless) {
-               return Math.floor((metadata.format?.bitrate ?? 0) * (metadata.format?.bitsPerSample ?? 0) * 2)
-            } else {
-               return Math.floor((metadata.format?.bitrate ?? 0) / 1000)
-            }
-        }
-
+        
         for (var audio of audiofiles) {
             try {
                 const metadata = await mm.parseFile(audio);
@@ -98,7 +90,7 @@ export class LocalFiles {
                             "contentAdvisory": "",
                             "releaseDateTime": `${metadata?.common?.year ?? '2022'}-05-13T00:23:00Z`,
                             "durationInMillis": Math.floor((metadata.format.duration ?? 0) * 1000),
-                            "bitrate": flavorconverter(metadata),
+                            "bitrate": Math.floor((metadata.format?.bitrate ?? 0) / 1000),
                             "offers": [
                                 {
                                     "kind": "get",
@@ -107,7 +99,7 @@ export class LocalFiles {
                             ],
                             "contentRating": "clean"
                         },
-                        flavor: flavorconverter(metadata),
+                        flavor: Math.floor((metadata.format?.bitrate ?? 0) / 1000),
                     };
                     let art = {
                         id: "ciderlocal" + lochash,
