@@ -16339,6 +16339,27 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   justify-content: center;
   align-items: center;
 }
+
+.about-page .sponsorBtn .githubBtnBg {
+  background: #171515;
+}
+
+.about-page .sponsorBtn .kofiBtnBg {
+  background: #13C3FF;
+}
+
+.about-page .sponsorBtn .opencollectiveBtnBg {
+  background: #80afef;
+}
+
+.about-page .sponsorBtn .discordBtnBg {
+  background: #5865F2;
+}
+
+.about-page .sponsorBtn .twitterBtnBg {
+  background: #0fa1f3;
+}
+
 .about-page .sponsorBtn > img {
   width: 26px;
   margin: 0px 16px 0px 0px;
