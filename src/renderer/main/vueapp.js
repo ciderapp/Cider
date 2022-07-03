@@ -989,7 +989,11 @@ const app = new Vue({
                         }
                         if (previewURL == null && ((app.mk.nowPlayingItem?._songId ?? (app.mk.nowPlayingItem["songId"] ?? app.mk.nowPlayingItem.relationships.catalog.data[0].id)) != -1)) {
                             app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/songs/${app.mk.nowPlayingItem?._songId ?? (app.mk.nowPlayingItem["songId"] ?? app.mk.nowPlayingItem.relationships.catalog.data[0].id)}`).then((response) => {
-                                try {previewURL = response.data.data[0].attributes.previews[0].url;} catch(e) {}
+                                try {previewURL = response.data.data[0].attributes.previews[0].url;} catch(e) {
+                                    if (e instanceof TypeError === false) { console.debug("[Cider][MaikiwiSoundCheck] normalizer function err: " + e) }
+                                    else {
+                                        if (localFiles === true) {CiderAudio.audioNodes.gainNode.gain.value = 0.8222426499470}}
+                                }
                                 if (previewURL) {
                                     console.debug("[Cider][MaikiwiSoundCheck] previewURL response.data.data[0].attributes.previews[0].url: " + previewURL)
                                     ipcRenderer.send('getPreviewURL', previewURL)
