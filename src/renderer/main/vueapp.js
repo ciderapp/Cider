@@ -147,7 +147,7 @@ const app = new Vue({
             start: 0,
             end: 0
         },
-        lyricOffset: 0.02,
+        lyricOffset: 0,
         v3: {
             requestBody: {
                 platform: "web"
