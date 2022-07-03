@@ -1885,6 +1885,19 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   }
 }
 
+.social-btn {
+  border-radius: 100%;
+  background: transparent;
+  height: 17px;
+  border: 0px;
+  cursor: pointer;
+  z-index: 69;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 100px;
+}
+
 .about-page {
   .teamBtn {
     display: flex;
@@ -1913,6 +1926,21 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
       width: 26px;
       margin: 0px 16px 0px 0px;
       pointer-events: none;
+    }
+    &.githubBtn {
+      background-color: #211F1F;
+    }
+    &.kofiBtn {
+      background-color: #FBAA19;
+    }
+    &.opencollectiveBtn {
+      background-color: #7fadf2;
+    }
+    &.discordBtn {
+      background-color: #5865F2;
+    }
+    &.twitterBtn {
+      background-color: #1D9BF0;
     }
   }
 }
@@ -2649,6 +2677,17 @@ body.no-gpu {
   object-fit: contain;
   overflow-x: hidden;
   overflow-y: hidden;
+}
+
+.moreinfo-modal {
+  .modal-window{
+    height: max-content !important;
+    .modal-content{
+      height: max-content !important;
+      padding-block: 25px;
+    }
+  }
+  
 }
 
 .equalizer-panel {

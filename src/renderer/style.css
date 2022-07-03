@@ -14016,6 +14016,18 @@ input[type=checkbox][switch]:checked:active::before {
   bottom: 82px;
   right: 28px;
 }
+.artist-page .artist-header .social-btn {
+  border-radius: 100%;
+  background: transparent;
+  height: 17px;
+  border: 0px;
+  cursor: pointer;
+  z-index: 69;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 100px;
+}
 .artist-page .artist-header .animated {
   width: 100%;
   height: 100%;
@@ -16366,6 +16378,18 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   background: #eee;
   --url: url("./views/svg/more.svg");
 }
+.social-btn {
+  border-radius: 100%;
+  background: transparent;
+  height: 17px;
+  border: 0px;
+  cursor: pointer;
+  z-index: 69;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 100px;
+}
 .about-page .teamBtn {
   display: flex;
   align-items: center;
@@ -16391,6 +16415,21 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   width: 26px;
   margin: 0px 16px 0px 0px;
   pointer-events: none;
+}
+.about-page .sponsorBtn.githubBtn {
+  background-color: #211F1F;
+}
+.about-page .sponsorBtn.kofiBtn {
+  background-color: #FBAA19;
+}
+.about-page .sponsorBtn.opencollectiveBtn {
+  background-color: #7fadf2;
+}
+.about-page .sponsorBtn.discordBtn {
+  background-color: #5865F2;
+}
+.about-page .sponsorBtn.twitterBtn {
+  background-color: #1D9BF0;
 }
 .sidebar-playlist .folder-button-active {
   background: rgba(255, 255, 255, 0.12);
@@ -17809,6 +17848,13 @@ body.no-gpu .lyric-line:hover::after {
   object-fit: contain;
   overflow-x: hidden;
   overflow-y: hidden;
+}
+.moreinfo-modal .modal-window {
+  height: max-content !important;
+}
+.moreinfo-modal .modal-window .modal-content {
+  height: max-content !important;
+  padding-block: 25px;
 }
 .equalizer-panel .modal-window {
   height: 330px;
