@@ -17777,6 +17777,12 @@ body.no-gpu .lyric-line:hover::after {
   overflow-x: hidden;
   overflow-y: hidden;
 }
+.moreinfo-modal .modal-window {
+  height: max-content !important;
+}
+.moreinfo-modal .modal-window .modal-content {
+  height: max-content !important;
+}
 .equalizer-panel .modal-window {
   height: 330px;
   max-height: 330px;
