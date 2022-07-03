@@ -956,17 +956,20 @@ const app = new Vue({
                 if (self.$refs.queue) {
                     self.$refs.queue.updateQueue();
                 }
-                this.currentSongInfo = a
+                this.currentSongInfo = a; 
                 if (this.currentSongInfo === null || this.currentSongInfo === undefined) { return; } // EVIL EMPTY OBJECTS BE GONE
+                let localFiles = false;
                 try {
-                    if (app.mk.nowPlayingItem.flavor.includes("64")) {
+                    if (app.mk.nowPlayingItem.flavor.includes("64") && app.mk.nowPlayingItem.flavor.includes(":")) {
                         localStorage.setItem("playingBitrate", "64")
-                    } else if (app.mk.nowPlayingItem.flavor.includes("256")) {
+                    } else if (app.mk.nowPlayingItem.flavor.includes("256") && app.mk.nowPlayingItem.flavor.includes(":")) {
                         localStorage.setItem("playingBitrate", "256")
                     } else {
-                        localStorage.setItem("playingBitrate", "256")
+                        localFiles = true;
+                        localStorage.setItem("playingBitrate", app.mk.nowPlayingItem.flavor)
                     }
                 } catch (e) {
+                    console.error(e)
                     localStorage.setItem("playingBitrate", "256")
                 }
                 if (!app.cfg.audio.normalization) { CiderAudio.hierarchical_loading(); }
@@ -978,22 +981,30 @@ const app = new Vue({
                         try {
                             previewURL = app.mk.nowPlayingItem.previewURL
                         } catch (e) {
+                            if (e instanceof TypeError === false) { console.debug("[Cider][MaikiwiSoundCheck] normalizer function err: " + e) }
+                            else {
+                                if (localFiles === true) {CiderAudio.audioNodes.gainNode.gain = 0.8222426499470}
+                        }
                         }
                         if (previewURL == null && ((app.mk.nowPlayingItem?._songId ?? (app.mk.nowPlayingItem["songId"] ?? app.mk.nowPlayingItem.relationships.catalog.data[0].id)) != -1)) {
                             app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/songs/${app.mk.nowPlayingItem?._songId ?? (app.mk.nowPlayingItem["songId"] ?? app.mk.nowPlayingItem.relationships.catalog.data[0].id)}`).then((response) => {
                                 previewURL = response.data.data[0].attributes.previews[0].url
-                                if (previewURL)
+                                if (previewURL) {
                                     console.debug("[Cider][MaikiwiSoundCheck] previewURL response.data.data[0].attributes.previews[0].url: " + previewURL)
-                                ipcRenderer.send('getPreviewURL', previewURL)
+                                    ipcRenderer.send('getPreviewURL', previewURL)
+                                }
                             })
                         } else {
-                            if (previewURL)
+                            if (previewURL) {
                                 console.debug("[Cider][MaikiwiSoundCheck] previewURL in app.mk.nowPlayingItem.previewURL: " + previewURL)
-                            ipcRenderer.send('getPreviewURL', previewURL)
-                        }
+                                ipcRenderer.send('getPreviewURL', previewURL)}
+                         }
 
                     } catch (e) {
                         if (e instanceof TypeError === false) { console.debug("[Cider][MaikiwiSoundCheck] normalizer function err: " + e) }
+                        else {
+                            if (localFiles === true) {CiderAudio.audioNodes.gainNode.gain = 0.8222426499470}
+                        }
                     }
                 }
 
