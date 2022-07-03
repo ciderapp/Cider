@@ -970,7 +970,8 @@ const app = new Vue({
                     }
                 } catch (e) {
                     localFiles = true;
-                    localStorage.setItem("playingBitrate", app.mk.nowPlayingItem.flavor)
+                    try {localStorage.setItem("playingBitrate", app.mk.nowPlayingItem.flavor)}
+                    catch(e) {}
                 }
                 if (!app.cfg.audio.normalization) { CiderAudio.hierarchical_loading(); }
    
