@@ -123,15 +123,6 @@
                                     </button>
                                 </div>
                             </div>
-                            <pagination
-                                v-if="shouldPaginate"
-                                style="margin-top: 10px"
-                                :length="hasNestedPlaylist ? nestedDisplayLength: displayListing.length"
-                                :pageSize="pageSize"
-                                :scroll="prefs.scroll"
-                                scrollSelector="#songList"
-                                @onRangeChange="onRangeChange"
-                            />
                         </div>
                     </div>
                 </div>
@@ -207,6 +198,15 @@
                                         class="search-input"
                                         ref="search-bar">
                                 </div>
+                                <pagination
+                                    v-if="shouldPaginate"
+                                    style="margin-top: 10px"
+                                    :length="hasNestedPlaylist ? nestedDisplayLength: displayListing.length"
+                                    :pageSize="pageSize"
+                                    :scroll="prefs.scroll"
+                                    scrollSelector="#songList"
+                                    @onRangeChange="onRangeChange"
+                                />
                                 <draggable :options="{disabled: !editing}"
                                            v-model="data.relationships.tracks.data" @start="drag=true"
                                            @end="drag=false;put()">
