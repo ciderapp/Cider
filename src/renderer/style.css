@@ -12985,8 +12985,7 @@ input[type=checkbox][switch]:checked:active::before {
 .github-themes-page {
   display: flex;
   flex-direction: column;
-  padding: 0px;
-  height: calc(100% - var(--navigationBarHeight));
+  height: 100%;
 }
 .github-themes-page .github-avatar {
   height: 42px;
@@ -13009,10 +13008,12 @@ input[type=checkbox][switch]:checked:active::before {
   margin: 0px;
 }
 .github-themes-page .repos-list {
-  height: 100%;
-  overflow-y: overlay;
+  height: 85%;
   width: 320px;
   font-size: 14px;
+  position: absolute;
+  overflow: overlay;
+  padding-bottom: 16px;
 }
 .github-themes-page .repos-list > .list-group {
   margin: 0px;
@@ -13027,11 +13028,13 @@ input[type=checkbox][switch]:checked:active::before {
   filter: brightness(0.8);
 }
 .github-themes-page .github-preview {
-  height: 100%;
+  height: 85%;
   flex: 1;
-  background: var(--color2);
   padding: 16px 32px;
-  overflow-y: overlay;
+  overflow: auto;
+  position: fixed;
+  margin-left: 320px;
+  padding-bottom: 16px;
 }
 .github-themes-page .gh-content {
   display: flex;
@@ -13041,6 +13044,143 @@ input[type=checkbox][switch]:checked:active::before {
 }
 .github-themes-page .gh-header {
   padding: 16px;
+}
+.github-themes-page .gh-header .header-text {
+  position: initial !important;
+  justify-content: left !important;
+}
+.github-themes-page .installed-themes-page .style-editor-container {
+  height: 100%;
+  flex: 1;
+  background: var(--color2);
+  padding: 0px;
+  overflow-y: overlay;
+}
+.github-themes-page .installed-themes-page .style-editor-container .list-group-item {
+  border-radius: 0px;
+}
+.installed-themes-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+.installed-themes-page .themeContextMenu {
+  background: transparent;
+  color: var(--keyColor);
+  border: 0px;
+}
+.installed-themes-page .list-group-item.addon {
+  background: rgba(86, 86, 86, 0.2);
+}
+.installed-themes-page .list-group-item.applied {
+  background: var(--keyColor-disabled);
+  pointer-events: none;
+}
+.installed-themes-page .repo-header {
+  font-size: 16px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 50px;
+  z-index: 1;
+  background: rgba(36, 36, 36, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: var(--glassFilter);
+  overflow: hidden;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+  border-top: 1px solid rgba(135, 135, 135, 0.18);
+}
+.installed-themes-page .gh-header {
+  z-index: 5;
+  padding: 16px;
+  flex: 0 0 auto;
+  height: 64px;
+  display: grid;
+  align-content: center;
+}
+.installed-themes-page .gh-header .header-text {
+  position: initial !important;
+  justify-content: left !important;
+}
+.installed-themes-page .gh-content {
+  display: flex;
+  flex-direction: row;
+  padding: 0px;
+  height: 100%;
+  flex: 0 0 auto;
+}
+.installed-themes-page .gh-content .repos-list {
+  width: 320px;
+  overflow: overlay;
+  height: 90%;
+  font-size: 14px;
+  white-space: nowrap;
+}
+.installed-themes-page .gh-content .repos-list > .list-group {
+  margin: 0px;
+  padding-bottom: 16px;
+}
+.installed-themes-page .gh-content .repos-list .list-group-item {
+  padding: 12px 6px;
+}
+.installed-themes-page .gh-content .repos-list .list-group-item:hover {
+  filter: brightness(1.2);
+}
+.installed-themes-page .gh-content .repos-list .list-group-item:active {
+  filter: brightness(0.8);
+}
+.installed-themes-page .gh-content .style-editor-container {
+  height: 100%;
+  flex: 1;
+  padding: 0px;
+  width: 100%;
+  overflow: hidden;
+}
+.installed-themes-page .gh-content .style-editor-container .stylestack-editor {
+  padding-bottom: 16px;
+}
+.installed-themes-page .gh-content .style-editor-container .list-group-item {
+  border-radius: 0px;
+}
+.installed-themes-page .stylestack-editor {
+  width: 100%;
+}
+.installed-themes-page .stylestack-editor .btn,
+.installed-themes-page .stylestack-editor .btn-group {
+  width: 100%;
+}
+.installed-themes-page .stylestack-editor .themeLabel {
+  display: flex;
+  align-items: center;
+}
+.installed-themes-page .stylestack-editor .handle {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.installed-themes-page .stylestack-editor .list-group-item:hover {
+  cursor: grab;
+}
+.installed-themes-page .stylestack-editor .list-group-item:active {
+  cursor: grabbing;
+}
+.installed-themes-page .stylestack-editor .removeItem {
+  border: 0px;
+  background: transparent;
+  height: 32px;
+  font-weight: bold;
+  color: var(--textColor);
+  cursor: pointer;
+}
+.installed-themes-page .stylestack-editor .stylesDropdown > .dropdown-menu {
+  height: 300px;
+  overflow-y: overlay;
 }
 .library-page {
   padding: 0px;
@@ -14037,81 +14177,6 @@ input[type=checkbox][switch]:checked:active::before {
   background: rgba(200, 200, 200, 0.1);
 }
 /* Artist Page End */
-.installed-themes-page .themeContextMenu {
-  background: transparent;
-  color: var(--keyColor);
-  border: 0px;
-}
-.installed-themes-page .list-group-item.addon {
-  background: rgba(86, 86, 86, 0.2);
-}
-.installed-themes-page .list-group-item.applied {
-  background: var(--keyColor-disabled);
-  pointer-events: none;
-}
-.installed-themes-page .repo-header {
-  font-size: 16px;
-  position: sticky;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 50px;
-  z-index: 1;
-  background: rgba(36, 36, 36, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  backdrop-filter: var(--glassFilter);
-  overflow: hidden;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.18);
-  border-top: 1px solid rgba(135, 135, 135, 0.18);
-}
-.installed-themes-page .style-editor-container {
-  height: 100%;
-  flex: 1;
-  background: var(--color2);
-  padding: 0px;
-  overflow-y: overlay;
-}
-.installed-themes-page .style-editor-container .list-group-item {
-  border-radius: 0px;
-}
-.installed-themes-page .stylestack-editor {
-  width: 100%;
-}
-.installed-themes-page .stylestack-editor .btn,
-.installed-themes-page .stylestack-editor .btn-group {
-  width: 100%;
-}
-.installed-themes-page .stylestack-editor .themeLabel {
-  display: flex;
-  align-items: center;
-}
-.installed-themes-page .stylestack-editor .handle {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.installed-themes-page .stylestack-editor .list-group-item:hover {
-  cursor: grab;
-}
-.installed-themes-page .stylestack-editor .list-group-item:active {
-  cursor: grabbing;
-}
-.installed-themes-page .stylestack-editor .removeItem {
-  border: 0px;
-  background: transparent;
-  height: 32px;
-  font-weight: bold;
-  color: var(--textColor);
-  cursor: pointer;
-}
-.installed-themes-page .stylestack-editor .stylesDropdown > .dropdown-menu {
-  height: 300px;
-  overflow-y: overlay;
-}
 .settings-page {
   padding: 0px;
 }
@@ -14624,7 +14689,7 @@ input[type=checkbox][switch]:checked:active::before {
 }
 .settings-panel .settings-window {
   background: var(--baseColorMix);
-  max-width: 80%;
+  max-width: 90%;
   max-height: 90%;
   width: 100%;
   height: 100%;
@@ -14708,6 +14773,10 @@ input[type=checkbox][switch]:checked:active::before {
 .settings-panel .settings-window .close-btn:hover {
   background-color: #c42b1c;
 }
+.settings-panel .settings-window .close-btn.back-btn {
+  left: 10px;
+  right: unset;
+}
 .settings-panel .settings-window .close-btn.minmax-btn {
   right: 52px;
 }
@@ -14728,6 +14797,9 @@ input[type=checkbox][switch]:checked:active::before {
 }
 .settings-panel .settings-window .tabs > .col-auto {
   width: 230px;
+  overflow-x: hidden;
+  overflow-y: overlay;
+  transition: width 0.25s ease-in-out;
 }
 .settings-panel .settings-window .tabs .tab-content {
   margin: 0 !important;
@@ -14736,8 +14808,31 @@ input[type=checkbox][switch]:checked:active::before {
   overflow-y: overlay;
   height: 100%;
   background-color: var(--panelColor2);
+  padding: 0px;
   padding-top: 48px;
   border-left: 1px solid var(--borderColor);
+}
+.settings-panel .settings-window .github-themes-page .header-text,
+.settings-panel .settings-window .installed-themes-page .header-text {
+  font-size: 1.25em;
+}
+.settings-panel .settings-window .tab-pane {
+  height: 100%;
+}
+.settings-panel .settings-window .settings-tab-content {
+  height: 100%;
+}
+.settings-panel .settings-window.no-sidebar .gh-header > .row:last-child {
+  padding-right: 90px;
+}
+.settings-panel .settings-window.no-sidebar .tab-content {
+  padding-top: 0px;
+}
+.settings-panel .settings-window.no-sidebar .tabs .nav-pills .nav-link :nth-child(2) {
+  display: none;
+}
+.settings-panel .settings-window.no-sidebar .tabs > .col-auto {
+  width: 80px;
 }
 #hid___BV_tab_button__ {
   display: none;
@@ -17973,7 +18068,7 @@ body[platform='darwin'] .app-chrome .app-chrome-item > .app-mainmenu {
   padding: 15px;
 }
 body[platform="darwin"] html {
-  background: transparent!important;
+  background: transparent !important;
 }
 body[platform="darwin"].notransparency::before {
   display: none;
@@ -18000,6 +18095,18 @@ body[platform="darwin"] #app.twopanel .app-chrome .app-mainmenu {
 body[platform="darwin"] #app.twopanel .app-chrome.chrome-bottom {
   background-color: var(--macOSChromeColor);
 }
+body[platform="darwin"] #app[window-state="normal"]::after {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-shadow: inset 0px 0px 0.5px 1px rgba(200, 200, 200, 0.4);
+  border-radius: 10px;
+  content: " ";
+  z-index: 999999;
+  pointer-events: none;
+}
 body[platform="darwin"] #app-main {
   background-color: transparent;
 }
@@ -18008,6 +18115,10 @@ body[platform="darwin"] #app-main .app-navigation {
 }
 body[platform="darwin"] #app-main #app-content {
   background-color: #1e1e1e6b;
+}
+body[platform="darwin"] .settings-window.maxed .tabs > .col-auto {
+  transition: padding-top 0.3s linear;
+  padding-top: var(--chromeHeight1);
 }
 body[platform="darwin"] #apple-music-video-player-controls #player-exit {
   margin-top: 18px;
