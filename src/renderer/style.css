@@ -12985,7 +12985,6 @@ input[type=checkbox][switch]:checked:active::before {
 .github-themes-page {
   display: flex;
   flex-direction: column;
-  padding-top: var(--chromeHeight1);
   height: 100%;
 }
 .github-themes-page .github-avatar {
@@ -13009,10 +13008,12 @@ input[type=checkbox][switch]:checked:active::before {
   margin: 0px;
 }
 .github-themes-page .repos-list {
-  height: 100%;
-  overflow-y: overlay;
+  height: 85%;
   width: 320px;
   font-size: 14px;
+  position: absolute;
+  overflow: auto;
+  padding-bottom: 16px;
 }
 .github-themes-page .repos-list > .list-group {
   margin: 0px;
@@ -13027,11 +13028,14 @@ input[type=checkbox][switch]:checked:active::before {
   filter: brightness(0.8);
 }
 .github-themes-page .github-preview {
-  height: 100%;
+  height: 85%;
   flex: 1;
-  background: var(--color2);
   padding: 16px 32px;
-  overflow-y: overlay;
+  overflow: auto;
+  position: fixed;
+  width: calc(100% - 574px);
+  margin-left: 320px;
+  padding-bottom: 16px;
 }
 .github-themes-page .gh-content {
   display: flex;
@@ -13041,6 +13045,10 @@ input[type=checkbox][switch]:checked:active::before {
 }
 .github-themes-page .gh-header {
   padding: 16px;
+}
+.github-themes-page .gh-header .header-text {
+  position: initial !important;
+  justify-content: left !important;
 }
 .github-themes-page .installed-themes-page .style-editor-container {
   height: 100%;
@@ -13086,8 +13094,8 @@ input[type=checkbox][switch]:checked:active::before {
   z-index: 5;
 }
 .installed-themes-page .gh-header .header-text {
-  position: initial;
-  justify-content: left;
+  position: initial !important;
+  justify-content: left !important;
 }
 .installed-themes-page .gh-content {
   display: contents;
@@ -13096,10 +13104,12 @@ input[type=checkbox][switch]:checked:active::before {
 }
 .installed-themes-page .gh-content .repos-list {
   width: 320px;
-  position: absolute;
+  position: fixed;
   overflow: auto;
   height: 90%;
   font-size: 14px;
+  margin: 0 auto;
+  white-space: nowrap;
 }
 .installed-themes-page .gh-content .repos-list > .list-group {
   margin: 0px;
@@ -13117,12 +13127,11 @@ input[type=checkbox][switch]:checked:active::before {
 .installed-themes-page .gh-content .style-editor-container {
   height: 90%;
   flex: 1;
-  /* background: var(--color2); */
   padding: 0px;
   margin-left: 320px;
-  position: absolute;
+  position: fixed;
   overflow: auto;
-  width: calc(-webkit-fill-available - 320px);
+  width: calc(100% - 574px);
 }
 .installed-themes-page .gh-content .style-editor-container .stylestack-editor {
   padding-bottom: 16px;

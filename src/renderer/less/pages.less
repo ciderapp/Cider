@@ -54,7 +54,7 @@
     width: 320px;
     font-size: 14px;
     position: absolute;
-    overflow: auto;
+    overflow: overlay;
     padding-bottom: 16px;
 
     > .list-group {
@@ -80,7 +80,7 @@
     padding: 16px 32px;
     overflow: auto;
     position: fixed;
-    width: calc(100% - 574px);
+    // width: calc(100% - 574px);
     margin-left: 320px;
     padding-bottom: 16px;
   }
@@ -118,7 +118,10 @@
 
 //Styles Page
 .installed-themes-page {
-
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
   .themeContextMenu {
     background: transparent;
     color: var(--keyColor);
@@ -157,7 +160,11 @@
 
   .gh-header {
     z-index: 5;
-
+    padding: 16px;
+    flex: 0 0 auto;
+    height: 64px;
+    display: grid;
+    align-content: center;
     .header-text {
       position: initial !important;
       justify-content: left !important;
@@ -165,17 +172,17 @@
   }
 
   .gh-content {
-    display: contents;
-    flex-direction: column;
+    display: flex;
+    flex-direction: row;
     padding: 0px;
+    height: 100%;
+    flex: 0 0 auto;
 
     .repos-list {
       width: 320px;
-      position: fixed;
-      overflow: auto;
+      overflow: overlay;
       height: 90%;
       font-size: 14px;
-      margin: 0 auto;
       white-space: nowrap;
 
       > .list-group {
@@ -197,13 +204,11 @@
     }
 
     .style-editor-container {
-      height: 90%;
+      height: 100%;
       flex: 1;
       padding: 0px;
-      margin-left: 320px;
-      position: fixed;
-      overflow: auto;
-      width: calc(100% - 574px);
+      width: 100%;
+      overflow: hidden;
       
       .stylestack-editor {
         padding-bottom: 16px;
@@ -2070,7 +2075,7 @@
 
   .settings-window {
     background: var(--baseColorMix);
-    max-width: 80%;
+    max-width: 90%;
     max-height: 90%;
     width: 100%;
     height: 100%;
@@ -2107,6 +2112,9 @@
       display: flex;
       gap: 10px;
       align-items: center;
+
+      :nth-child(2) {
+      }
     }
 
 
@@ -2165,6 +2173,11 @@
         background-color: rgb(196, 43, 28)
       }
 
+      &.back-btn {
+        left: 10px;
+        right: unset;
+      }
+
       &.minmax-btn {
         right: 52px;
 
@@ -2192,6 +2205,9 @@
 
       > .col-auto {
         width: 230px;
+        overflow-x: hidden;
+        overflow-y: overlay;
+        transition: width 0.25s ease-in-out;
       }
 
       .tab-content {
@@ -2203,8 +2219,47 @@
       overflow-y: overlay;
       height: 100%;
       background-color: var(--panelColor2);
+      padding:0px;
       padding-top: 48px;
       border-left: 1px solid var(--borderColor);
+    }
+
+    .github-themes-page, .installed-themes-page {
+      .header-text {
+        font-size: 1.25em;
+      }
+    }
+
+    .tab-pane {
+      height:100%;
+    }
+
+    .settings-tab-content {
+      height:100%;
+    }
+    
+    &.no-sidebar {
+      .gh-header {
+        >.row {
+          &:last-child {
+            padding-right: 90px;
+          }
+        }
+      }
+      .tab-content {
+        padding-top:0px;
+      }
+
+      .tabs {
+        .nav-pills .nav-link {
+          :nth-child(2) {
+            display: none;
+          }
+        }
+        >.col-auto {
+          width: 80px;
+        }
+      }
     }
   }
 }

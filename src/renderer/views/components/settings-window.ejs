@@ -1,7 +1,7 @@
 <script type="text/x-template" id="settings-window">
-<div class="settings-panel" @click.self="close()">
-    <div class="settings-window" :class="{'maxed': $store.state.pageState['settings'].fullscreen}">
-        <button class="close-btn minmax-btn" @click="$store.state.pageState['settings'].fullscreen = !$store.state.pageState['settings'].fullscreen" :class="{'min': $store.state.pageState['settings'].fullscreen}" @click="minmax()"></button>
+  <div class="settings-panel" @click.self="close()">
+    <div class="settings-window" :class="{'maxed': $store.state.pageState['settings'].fullscreen, 'no-sidebar': sidebarVis()}">
+        <button class="close-btn minmax-btn" @click="$store.state.pageState['settings'].fullscreen = !$store.state.pageState['settings'].fullscreen" :class="{'min': $store.state.pageState['settings'].fullscreen}"></button>
         <button class="close-btn" @click="close()"></button>
         <b-tabs class="no-style" pills vertical content-class="mt-3" v-model="$store.state.pageState['settings'].currentTabIndex">
             <b-tab>
@@ -1486,177 +1486,185 @@
 </div>
 </script>
 <script>
-    Vue.component("settings-window", {
-        template: "#settings-window",
-        data: function () {
-            return {
-                app: this.$root,
-                themes: ipcRenderer.sendSync("get-themes"),
-                tabIndex: 0,
-                canChangeHash: false,
-                lastfmConnecting: false
-            }
-        }, watch: {
-            tabIndex: function (val) {
-                if (this.canChangeHash) {
-                    // window.location.hash = `#settings/${val}`
-                }
-            }
-        },
-        methods: {
-            close() {
-                this.$root.modals.settings = false
-            },
-            windowBgStyleChange() {
-                this.$root.getNowPlayingArtworkBG(undefined, true)
-                if (this.$root.cfg.visual.window_background_style === "mica") {
-                    this.$root.spawnMica()
-                }
-            },
-            reinstallWidevineCDM() {
-                app.confirm(app.getLz("settings.option.experimental.reinstallwidevine.confirm"), (ok) => {
-                    if (ok) {
-                        ipcRenderer.invoke("reinstall-widevine-cdm");
-                    }
-                })
-            },
-            gitHubExplore() {
-                app.openSettingsPage("github-themes")
-            },
-            copyLogs() {
-                ipcRenderer.send('fetch-log')
-                notyf.success(app.getLz('term.share.success'));
-            },
-            openAppData() {
-                ipcRenderer.send('open-appdata')
-            },
-            getLanguages: function () {
-                let langs = this.$root.lzListing
-                let categories = {
-                    "main": [],
-                    "fun": [],
-                    "unsorted": []
-                }
-                // sort by category if category is undefined or empty put it in "unsorted"
-                for (let i = 0; i < langs.length; i++) {
-                    if (langs[i].category === undefined || langs[i].category === "") {
-                        categories.unsorted.push(langs[i])
-                    } else {
-                        categories[langs[i].category].push(langs[i])
-                    }
-                }
-                // return
-                return categories
-            },
-            addExperiment(flag) {
-                app.cfg.advanced.experiments.push(flag);
-            },
-            removeExperiment(flag) {
-                app.cfg.advanced.experiments.splice(app.cfg.advanced.experiments.indexOf(flag), 1);
-            },
-            toggleAudioContext: function () {
-                if (app.cfg.advanced.AudioContext === true) {
-                    if (navigator.hardwareConcurrency < 6) {
-                        app.confirm(app.getLz("settings.warn.audio.enableAdvancedFunctionality.lowcores"), function (result) {
-                            if (result) {
-                                CiderAudio.init();
-                                if (app.cfg.audio.normalization === true) {
-                                    CiderAudio.normalizerOn()
-                                }
-                            }
-                        })
-                    } else {
-                        CiderAudio.init();
-                        if (app.cfg.audio.normalization === true) {
-                            CiderAudio.normalizerOn()
-                        }
-                    }
-                } else {
-                    CiderAudio.off();
-                }
-            },
-            toggleNormalization: function () {
-                if (app.cfg.audio.normalization) {
-                    CiderAudio.normalizerOn()
-                } else {
-                    CiderAudio.normalizerOff()
-                }
-            },
-            changeAudioQuality: function () {
-                app.mk.bitrate = MusicKit.PlaybackBitrate[app.cfg.audio.quality];
-            },
-            toggleUserInfo: function () {
-                app.chrome.hideUserInfo = !app.cfg.visual.showuserinfo
-            },
-            sendDataToMTT: function () {
-                ipcRenderer.invoke('setStoreValue', 'general.close_behavior', app.cfg.general.close_behavior);
-                //  setStoreValue does not change plugin store values somehow
-                ipcRenderer.invoke('update-store-mtt', app.cfg.general.close_behavior);
-            },
-            checkIfUpdateDisabled() {
-                if (app.cfg.main.UPDATABLE) return;
-
-                let updateFields = document.getElementsByClassName('update-check');
-                for (let i = 0; i < updateFields.length; i++) {
-                    updateFields[i].style = "opacity: 0.5; pointer-events: none;";
-                    updateFields[i].title = "Not available on this type of build";
-                }
-
-            },
-            promptForRelaunch() {
-                app.confirm(app.getLz('action.relaunch.confirm'), function (result) {
-                    if (result) {
-                        ipcRenderer.send('relaunchApp', '');
-                    }
-                });
-            },
-            authCC() {
-                ipcRenderer.send('cc-auth')
-            },
-            logoutCC() {
-                ipcRenderer.send('cc-logout')
-            },
-            reloadDiscordRPC() {
-                ipcRenderer.send('reloadRPC')
-            },
-	        lfmDisconnect() {
-		        this.$root.cfg.connectivity.lastfm.enabled = false;
-		        this.$root.cfg.connectivity.lastfm.secrets.username = "";
-		        this.$root.cfg.connectivity.lastfm.secrets.key = "";
-		        ipcRenderer.send('lastfm:disconnect');
-	        },
-	        async lfmAuthorize() {
-				this.lastfmConnecting = true;
-		        window.open(await ipcRenderer.invoke('lastfm:url'));
-		        app.notyf.success(app.getLz('settings.notyf.connectivity.lastfmScrobble.connecting'));
-
-		        /* Just a timeout for the button */
-		        setTimeout(() => {
-			        if (!this.$root.cfg.connectivity.lastfm.enabled) {
-				        app.notyf.error(app.getLz('settings.notyf.connectivity.lastfmScrobble.connectError'));
-				        console.warn('[lastfm:authorize] Last.fm authorization timed out.');
-				        this.lastfmConnecting = false;
-			        }
-		        }, 20000);
-
-		        ipcRenderer.once('lastfm:authenticated', (_e, session) => {
-			        this.$root.cfg.connectivity.lastfm.secrets.username = session.username
-			        this.$root.cfg.connectivity.lastfm.secrets.key = session.key
-			        this.$root.cfg.connectivity.lastfm.enabled = true
-                    this.lastfmConnecting = false;
-			        app.notyf.success(app.getLz('settings.notyf.connectivity.lastfmScrobble.connectSuccess'));
-		        })
-	        },
-	        filterChange(e) {
-		        this.$root.cfg.connectivity.lastfm.filter_types[e.target.value] = e.target.checked;
-	        },
-	        submitToken() {
-                const token = document.getElementById('lfmToken').value;
-                ipcRenderer.send('lastfm:auth', token);
-            },
-            openLocalSongsPathMenu() {
-                app.modals.pathMenu = true
-            }
+  Vue.component("settings-window", {
+    template: "#settings-window",
+    data: function() {
+      return {
+        app: this.$root,
+        themes: ipcRenderer.sendSync("get-themes"),
+        tabIndex: 0,
+        canChangeHash: false,
+        lastfmConnecting: false
+      }
+    },
+    watch: {
+      tabIndex: function(val) {
+        if (this.canChangeHash) {
+          // window.location.hash = `#settings/${val}`
         }
-    })
+      }
+    },
+    methods: {
+      sidebarVis() {
+        const tabIndex = app.$store.state.pageState['settings'].currentTabIndex
+        if(tabIndex == 3 || tabIndex == 5 || tabIndex == 10 || tabIndex == 11) {
+            return true;
+        }
+        return false
+      },
+      close() {
+        this.$root.modals.settings = false
+      },
+      windowBgStyleChange() {
+        this.$root.getNowPlayingArtworkBG(undefined, true)
+        if (this.$root.cfg.visual.window_background_style === "mica") {
+          this.$root.spawnMica()
+        }
+      },
+      reinstallWidevineCDM() {
+        app.confirm(app.getLz("settings.option.experimental.reinstallwidevine.confirm"), (ok) => {
+          if (ok) {
+            ipcRenderer.invoke("reinstall-widevine-cdm");
+          }
+        })
+      },
+      gitHubExplore() {
+        app.openSettingsPage("github-themes")
+      },
+      copyLogs() {
+        ipcRenderer.send('fetch-log')
+        notyf.success(app.getLz('term.share.success'));
+      },
+      openAppData() {
+        ipcRenderer.send('open-appdata')
+      },
+      getLanguages: function() {
+        let langs = this.$root.lzListing
+        let categories = {
+          "main": [],
+          "fun": [],
+          "unsorted": []
+        }
+        // sort by category if category is undefined or empty put it in "unsorted"
+        for (let i = 0; i < langs.length; i++) {
+          if (langs[i].category === undefined || langs[i].category === "") {
+            categories.unsorted.push(langs[i])
+          } else {
+            categories[langs[i].category].push(langs[i])
+          }
+        }
+        // return
+        return categories
+      },
+      addExperiment(flag) {
+        app.cfg.advanced.experiments.push(flag);
+      },
+      removeExperiment(flag) {
+        app.cfg.advanced.experiments.splice(app.cfg.advanced.experiments.indexOf(flag), 1);
+      },
+      toggleAudioContext: function() {
+        if (app.cfg.advanced.AudioContext === true) {
+          if (navigator.hardwareConcurrency < 6) {
+            app.confirm(app.getLz("settings.warn.audio.enableAdvancedFunctionality.lowcores"), function(result) {
+              if (result) {
+                CiderAudio.init();
+                if (app.cfg.audio.normalization === true) {
+                  CiderAudio.normalizerOn()
+                }
+              }
+            })
+          } else {
+            CiderAudio.init();
+            if (app.cfg.audio.normalization === true) {
+              CiderAudio.normalizerOn()
+            }
+          }
+        } else {
+          CiderAudio.off();
+        }
+      },
+      toggleNormalization: function() {
+        if (app.cfg.audio.normalization) {
+          CiderAudio.normalizerOn()
+        } else {
+          CiderAudio.normalizerOff()
+        }
+      },
+      changeAudioQuality: function() {
+        app.mk.bitrate = MusicKit.PlaybackBitrate[app.cfg.audio.quality];
+      },
+      toggleUserInfo: function() {
+        app.chrome.hideUserInfo = !app.cfg.visual.showuserinfo
+      },
+      sendDataToMTT: function() {
+        ipcRenderer.invoke('setStoreValue', 'general.close_behavior', app.cfg.general.close_behavior);
+        //  setStoreValue does not change plugin store values somehow
+        ipcRenderer.invoke('update-store-mtt', app.cfg.general.close_behavior);
+      },
+      checkIfUpdateDisabled() {
+        if (app.cfg.main.UPDATABLE) return;
+
+        let updateFields = document.getElementsByClassName('update-check');
+        for (let i = 0; i < updateFields.length; i++) {
+          updateFields[i].style = "opacity: 0.5; pointer-events: none;";
+          updateFields[i].title = "Not available on this type of build";
+        }
+
+      },
+      promptForRelaunch() {
+        app.confirm(app.getLz('action.relaunch.confirm'), function(result) {
+          if (result) {
+            ipcRenderer.send('relaunchApp', '');
+          }
+        });
+      },
+      authCC() {
+        ipcRenderer.send('cc-auth')
+      },
+      logoutCC() {
+        ipcRenderer.send('cc-logout')
+      },
+      reloadDiscordRPC() {
+        ipcRenderer.send('reloadRPC')
+      },
+      lfmDisconnect() {
+        this.$root.cfg.connectivity.lastfm.enabled = false;
+        this.$root.cfg.connectivity.lastfm.secrets.username = "";
+        this.$root.cfg.connectivity.lastfm.secrets.key = "";
+        ipcRenderer.send('lastfm:disconnect');
+      },
+      async lfmAuthorize() {
+        this.lastfmConnecting = true;
+        window.open(await ipcRenderer.invoke('lastfm:url'));
+        app.notyf.success(app.getLz('settings.notyf.connectivity.lastfmScrobble.connecting'));
+
+        /* Just a timeout for the button */
+        setTimeout(() => {
+          if (!this.$root.cfg.connectivity.lastfm.enabled) {
+            app.notyf.error(app.getLz('settings.notyf.connectivity.lastfmScrobble.connectError'));
+            console.warn('[lastfm:authorize] Last.fm authorization timed out.');
+            this.lastfmConnecting = false;
+          }
+        }, 20000);
+
+        ipcRenderer.once('lastfm:authenticated', (_e, session) => {
+          this.$root.cfg.connectivity.lastfm.secrets.username = session.username
+          this.$root.cfg.connectivity.lastfm.secrets.key = session.key
+          this.$root.cfg.connectivity.lastfm.enabled = true
+          this.lastfmConnecting = false;
+          app.notyf.success(app.getLz('settings.notyf.connectivity.lastfmScrobble.connectSuccess'));
+        })
+      },
+      filterChange(e) {
+        this.$root.cfg.connectivity.lastfm.filter_types[e.target.value] = e.target.checked;
+      },
+      submitToken() {
+        const token = document.getElementById('lfmToken').value;
+        ipcRenderer.send('lastfm:auth', token);
+      },
+      openLocalSongsPathMenu() {
+        app.modals.pathMenu = true
+      }
+    }
+  })
 </script>

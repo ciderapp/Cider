@@ -147,6 +147,7 @@ jobs:
       - run:
           name: Publish Release
           command: |
+            echo "Creating release for Cider v${APP_VERSION} on the ${CIRCLE_BRANCH} branch."
             gh release create "v${APP_VERSION}" --title "Cider Version ${APP_VERSION} (${CIRCLE_BRANCH})" --generate-notes -R ciderapp/cider-releases ~/Cider/dist/artifacts/*.deb ~/Cider/dist/artifacts/*.AppImage ~/Cider/dist/artifacts/*.snap ~/Cider/dist/artifacts/*.exe ~/Cider/dist/artifacts/*.yml ~/Cider/dist/artifacts/*.blockmap
 
 # Orchestrate our job run sequence
