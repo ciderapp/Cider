@@ -64,7 +64,7 @@ export class BrowserWindow {
                 "pages/groupings",
                 "pages/charts",
                 "pages/settings",
-                //"pages/installed-themes",
+                "pages/installed-themes",
                 "pages/listen_now",
                 "pages/radio",
                 "pages/home",
@@ -80,12 +80,13 @@ export class BrowserWindow {
                 "pages/about",
                 "pages/library-videos",
                 "pages/remote-pair",
-                //"pages/themes-github",
-                //"pages/plugins-github",
+                "pages/themes-github",
+                "pages/plugins-github",
                 "pages/replay",
                 "pages/audiolabs",
                 "pages/zoo",
                 "pages/plugin-renderer",
+                "pages/keybinds",
                 "pages/oobe",
                 "components/app-content",
                 "components/sidebar",
@@ -125,10 +126,6 @@ export class BrowserWindow {
                 "components/hello-world",
                 "components/inline-collection-list",
                 "components/settings-window",
-                "components/settings-keybinds",
-                "components/settings-themes",
-                "components/settings-themes-github",
-                "components/settings-plugins-github",
             ],
             appRoutes: [
                 {
@@ -278,10 +275,6 @@ export class BrowserWindow {
                     page: "replay",
                     component: `<replay-page></replay-page>`,
                     condition: `$root.page == 'replay'`
-                }, {
-                    page: "keydinds",
-                    component: `<keybinds-settings></keybinds-settings>`,
-                    condition: `$root.page == 'keybinds-settings'`
                 }
             ]
         },
