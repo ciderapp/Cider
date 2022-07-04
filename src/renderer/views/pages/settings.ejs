@@ -1268,6 +1268,26 @@
                                 </label>
                             </div>
                         </div>
+                        <div class="md-option-line">
+                            <div class="md-option-segment">
+                                {{$root.getLz('settings.option.general.pagination')}}<br>
+                                <small>
+                                    {{$root.getLz('settings.options.general.pagination.description')}}<br>
+                                </small>
+                            </div>
+                            <div class="md-option-segment md-option-segment_auto">
+                                <label>
+                                    <select class="md-select" style="width:180px;"
+                                            v-model.number="$root.cfg.libraryPrefs.pageSize" type="number">
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                        <option value="250">250</option>
+                                        <option value="500">500</option>
+                                        <option value="1000">1000</option>
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </b-tab>

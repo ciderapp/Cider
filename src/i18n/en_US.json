@@ -359,6 +359,8 @@
   "settings.prompt.general.keybindings.update.success": "Keybind updated successfully. Press OK to relaunch Cider",
   "settings.option.general.themeUpdateNotification": "Automatically check for theme updates",
   "settings.option.general.showLovedTracksInline": "Show loved tracks inline",
+  "settings.option.general.pagination": "Items to show per page",
+  "settings.options.general.pagination.description": "This determines how many songs/albums to show initially for infinite scrolling, or how many songs/albums to show for a single page",
   "settings.description.search": "Search",
   "settings.description.albums": "Library Albums",
   "settings.description.artists": "Library Artists",

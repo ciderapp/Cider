@@ -87,7 +87,7 @@
     Vue.component('cider-library-songs', {
         template: '#cider-library-songs',
         data: function () {
-            const pageSize = 250;
+            const pageSize = this.$root.cfg.libraryPrefs.pageSize;
             return {
                 // currentPage is oneIndexed
                 library: this.$root.library,

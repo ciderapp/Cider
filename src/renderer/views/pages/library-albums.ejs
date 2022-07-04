@@ -81,7 +81,7 @@
     Vue.component('cider-library-albums', {
         template: '#cider-library-albums',
         data: function () {
-            const pageSize = 250;
+            const pageSize = this.$root.cfg.libraryPrefs.pageSize;
             return {
                 library: this.$root.library,
                 mediaItemSize: "compact",

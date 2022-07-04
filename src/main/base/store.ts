@@ -161,7 +161,8 @@ export class Store {
             "playlists": {
                 "scroll": "infinite"
             },
-            "localPaths": []
+            "localPaths": [],
+            "pageSize": 250
         },
         "audio": {
             "volume": 1,
