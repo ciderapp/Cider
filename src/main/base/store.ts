@@ -153,9 +153,13 @@ export class Store {
                 "size": "normal"
             },
             "albums": {
+                "scroll": "infinite",
                 "sort": "name",
                 "sortOrder": "asc",
                 "viewAs": "covers"
+            },
+            "playlists": {
+                "scroll": "infinite"
             },
             "localPaths": []
         },

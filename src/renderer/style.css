@@ -17782,6 +17782,7 @@ body.no-gpu .lyric-line:hover::after {
 }
 .moreinfo-modal .modal-window .modal-content {
   height: max-content !important;
+  padding-block: 25px;
 }
 .equalizer-panel .modal-window {
   height: 330px;
