@@ -1120,7 +1120,7 @@ const app = new Vue({
                                     message: `[Themes] ${theme.name} has an update available.`
                                 })
                                 notify.on("click", () => {
-                                    app.openSettingsPage("github-themes")
+                                    app.appRoute("themes-github")
                                     notyf.dismiss(notify)
                                 })
                             }
@@ -4441,32 +4441,20 @@ const app = new Vue({
                 case "audiolabs":
                     this.$store.state.pageState.settings.currentTabIndex = 2
                     break;
-                case "styles":
+                case "visual":
                     this.$store.state.pageState.settings.currentTabIndex = 3
                     break;
-                case "visual":
+                case "lyrics":
                     this.$store.state.pageState.settings.currentTabIndex = 4
                     break;
-                case "plugins":
+                case "connectivity":
                     this.$store.state.pageState.settings.currentTabIndex = 5
                     break;
-                case "lyrics":
+                case "advanced":
                     this.$store.state.pageState.settings.currentTabIndex = 6
                     break;
-                case "connectivity":
-                    this.$store.state.pageState.settings.currentTabIndex = 7
-                    break;
-                case "advanced":
-                    this.$store.state.pageState.settings.currentTabIndex = 8
-                    break;
                 case "keybindings":
-                    this.$store.state.pageState.settings.currentTabIndex = 9
-                    break;
-                case "github-themes":
-                    this.$store.state.pageState.settings.currentTabIndex = 10
-                    break;
-                case "github-plugins":
-                    this.$store.state.pageState.settings.currentTabIndex = 11
+                    this.$store.state.pageState.settings.currentTabIndex = 7
                     break;
             }
             app.modals.settings = true
