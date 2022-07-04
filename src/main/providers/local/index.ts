@@ -173,7 +173,7 @@ export class LocalFiles {
             // metadata.common.picture[0].data.toString('base64')
 
             res.setHeader('Cache-Control', 'public, max-age=31536000');
-            res.setHeader('Expires', new Date(Date.now() + 31536000).toUTCString());
+            res.setHeader('Expires', new Date(Date.now() + 31536000000).toUTCString());
             res.setHeader('Content-Type', 'image/jpeg');
 
             let data =

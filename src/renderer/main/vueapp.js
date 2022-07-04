@@ -1944,12 +1944,31 @@ const app = new Vue({
                         })
 
                         return;
+                    } else if(item.attributes.link.url.includes("viewFeature")) {
+                        const params = new Proxy(new URLSearchParams(new URL(item.attributes.link.url).search), {
+                            get: (searchParams, prop) => searchParams.get(prop),
+                        });
+                        id = params.id
+                        app.mk.api.v3.music(`/v1/editorial/vn/multiplex/${id}?art%5Burl%5D=f&format%5Bresources%5D=map&platform=web`).then(
+                            (data) => {
+                                let item = data.data.results?.target ?? []
+                                app.routeView(item)
+                            }
+                        )
+
                     } else {
                         window.open(item.attributes.link.url)
                     }
                 }
 
-            } else if (kind == "multirooms") {
+            } else if (kind == "multiplex") {
+                app.mk.api.v3.music(`/v1/editorial/vn/multiplex/${id}?art%5Burl%5D=f&format%5Bresources%5D=map&platform=web`).then(
+                    (data) => {
+                        let item = data.data.results?.target ?? []
+                        app.routeView(item)
+                    }
+                )
+            }if (kind == "multirooms") {
                 app.getTypeFromID("multiroom", id, false, {
                     platform: "web",
                     extend: "editorialArtwork,uber,lockupStyle"
