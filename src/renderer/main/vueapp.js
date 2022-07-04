@@ -4466,7 +4466,7 @@ const app = new Vue({
                 case "visual":
                     this.$store.state.pageState.settings.currentTabIndex = 4
                     break;
-                case "plugins":
+                case "github-plugins":
                     this.$store.state.pageState.settings.currentTabIndex = 5
                     break;
                 case "lyrics":
@@ -4483,9 +4483,6 @@ const app = new Vue({
                     break;
                 case "github-themes":
                     this.$store.state.pageState.settings.currentTabIndex = 10
-                    break;
-                case "github-plugins":
-                    this.$store.state.pageState.settings.currentTabIndex = 11
                     break;
             }
             app.modals.settings = true

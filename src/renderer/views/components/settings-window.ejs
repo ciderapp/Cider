@@ -1387,13 +1387,6 @@
                 </template>
             </b-tab>
             <!--Github-theme-settings -->
-            <!--Github-Plugins -->
-            <b-tab id="hid">
-                <template>
-                    <plugins-github/>
-                </template>
-            </b-tab>
-            <!--Github-Plugins -->
             <!-- Connect Settings -->
             <!-- Not Prod Ready
             <b-tab :title="$root.getLz('settings.header.connect')">
@@ -1507,7 +1500,7 @@
     methods: {
       sidebarVis() {
         const tabIndex = app.$store.state.pageState['settings'].currentTabIndex
-        if(tabIndex == 3 || tabIndex == 5 || tabIndex == 10 || tabIndex == 11) {
+        if(tabIndex == 3 || tabIndex == 5 || tabIndex == 10) {
             return true;
         }
         return false
