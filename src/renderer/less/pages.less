@@ -50,12 +50,12 @@
   }
 
   .repos-list {
-    height: 85%;
+    height: 100%;
     width: 320px;
     font-size: 14px;
-    position: absolute;
     overflow: overlay;
     padding-bottom: 16px;
+    flex: 0 0 auto;
 
     > .list-group {
       margin: 0px;
@@ -75,13 +75,10 @@
   }
 
   .github-preview {
-    height: 85%;
+    height: 100%;
     flex: 1;
     padding: 16px 32px;
     overflow: auto;
-    position: fixed;
-    // width: calc(100% - 574px);
-    margin-left: 320px;
     padding-bottom: 16px;
   }
 
@@ -94,6 +91,10 @@
 
   .gh-header {
     padding: 16px;
+    height: 64px;
+    display: grid;
+    align-content: center;
+    flex: 0 0 auto;
 
     .header-text {
       position: initial !important;
@@ -2112,8 +2113,10 @@
       display: flex;
       gap: 10px;
       align-items: center;
+      height: 35px;
 
       :nth-child(2) {
+        white-space: nowrap;
       }
     }
 
@@ -2252,8 +2255,10 @@
 
       .tabs {
         .nav-pills .nav-link {
+          width: 50px;
           :nth-child(2) {
-            display: none;
+            // font-size: 0px;
+            opacity:0;
           }
         }
         >.col-auto {
