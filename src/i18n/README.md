@@ -515,3 +515,9 @@ Update 21/06/2022 20:39 UTC
 Update 23/06/2022 04:00 UTC
 
 * `settings.option.connectivity.lastfmScrobble.filterTypes`: Added to `en_US`
+
+
+Update 03/07/2022 20:00 UTC
+
+* `term.plugins`: Added to `en_US`
+* `settings.header.visual.styles`: Added to `en_US`
