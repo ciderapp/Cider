@@ -16,7 +16,7 @@
             <div class="repos-list">
                 <ul class="list-group list-group-flush">
                     <li @click="showRepo(repo)" class="list-group-item list-group-item-dark"
-                        :style="{'background': (repo.id == openRepo.id) ? 'var(--keyColor)' : ''}"
+                        :style="{'background': (repo.id == openRepo.id) ? 'var(--keyColor)' : '', 'border-radius': '5px'}"
                         v-for="repo in repos">
                         <div class="row">
                             <div class="col flex-center">
