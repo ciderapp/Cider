@@ -12985,8 +12985,8 @@ input[type=checkbox][switch]:checked:active::before {
 .github-themes-page {
   display: flex;
   flex-direction: column;
-  padding: 0px;
-  height: calc(100% - var(--navigationBarHeight));
+  padding-top: var(--chromeHeight1);
+  height: 100%;
 }
 .github-themes-page .github-avatar {
   height: 42px;
@@ -13041,6 +13041,129 @@ input[type=checkbox][switch]:checked:active::before {
 }
 .github-themes-page .gh-header {
   padding: 16px;
+}
+.github-themes-page .installed-themes-page .style-editor-container {
+  height: 100%;
+  flex: 1;
+  background: var(--color2);
+  padding: 0px;
+  overflow-y: overlay;
+}
+.github-themes-page .installed-themes-page .style-editor-container .list-group-item {
+  border-radius: 0px;
+}
+.installed-themes-page .themeContextMenu {
+  background: transparent;
+  color: var(--keyColor);
+  border: 0px;
+}
+.installed-themes-page .list-group-item.addon {
+  background: rgba(86, 86, 86, 0.2);
+}
+.installed-themes-page .list-group-item.applied {
+  background: var(--keyColor-disabled);
+  pointer-events: none;
+}
+.installed-themes-page .repo-header {
+  font-size: 16px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 50px;
+  z-index: 1;
+  background: rgba(36, 36, 36, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: var(--glassFilter);
+  overflow: hidden;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+  border-top: 1px solid rgba(135, 135, 135, 0.18);
+}
+.installed-themes-page .gh-header {
+  z-index: 5;
+}
+.installed-themes-page .gh-header .header-text {
+  position: initial;
+  justify-content: left;
+}
+.installed-themes-page .gh-content {
+  display: contents;
+  flex-direction: column;
+  padding: 0px;
+}
+.installed-themes-page .gh-content .repos-list {
+  width: 320px;
+  position: absolute;
+  overflow: auto;
+  height: 90%;
+  font-size: 14px;
+}
+.installed-themes-page .gh-content .repos-list > .list-group {
+  margin: 0px;
+  padding-bottom: 16px;
+}
+.installed-themes-page .gh-content .repos-list .list-group-item {
+  padding: 12px 6px;
+}
+.installed-themes-page .gh-content .repos-list .list-group-item:hover {
+  filter: brightness(1.2);
+}
+.installed-themes-page .gh-content .repos-list .list-group-item:active {
+  filter: brightness(0.8);
+}
+.installed-themes-page .gh-content .style-editor-container {
+  height: 90%;
+  flex: 1;
+  /* background: var(--color2); */
+  padding: 0px;
+  margin-left: 320px;
+  position: absolute;
+  overflow: auto;
+  width: calc(-webkit-fill-available - 320px);
+}
+.installed-themes-page .gh-content .style-editor-container .stylestack-editor {
+  padding-bottom: 16px;
+}
+.installed-themes-page .gh-content .style-editor-container .list-group-item {
+  border-radius: 0px;
+}
+.installed-themes-page .stylestack-editor {
+  width: 100%;
+}
+.installed-themes-page .stylestack-editor .btn,
+.installed-themes-page .stylestack-editor .btn-group {
+  width: 100%;
+}
+.installed-themes-page .stylestack-editor .themeLabel {
+  display: flex;
+  align-items: center;
+}
+.installed-themes-page .stylestack-editor .handle {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.installed-themes-page .stylestack-editor .list-group-item:hover {
+  cursor: grab;
+}
+.installed-themes-page .stylestack-editor .list-group-item:active {
+  cursor: grabbing;
+}
+.installed-themes-page .stylestack-editor .removeItem {
+  border: 0px;
+  background: transparent;
+  height: 32px;
+  font-weight: bold;
+  color: var(--textColor);
+  cursor: pointer;
+}
+.installed-themes-page .stylestack-editor .stylesDropdown > .dropdown-menu {
+  height: 300px;
+  overflow-y: overlay;
 }
 .library-page {
   padding: 0px;
@@ -14037,81 +14160,6 @@ input[type=checkbox][switch]:checked:active::before {
   background: rgba(200, 200, 200, 0.1);
 }
 /* Artist Page End */
-.installed-themes-page .themeContextMenu {
-  background: transparent;
-  color: var(--keyColor);
-  border: 0px;
-}
-.installed-themes-page .list-group-item.addon {
-  background: rgba(86, 86, 86, 0.2);
-}
-.installed-themes-page .list-group-item.applied {
-  background: var(--keyColor-disabled);
-  pointer-events: none;
-}
-.installed-themes-page .repo-header {
-  font-size: 16px;
-  position: sticky;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 50px;
-  z-index: 1;
-  background: rgba(36, 36, 36, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  backdrop-filter: var(--glassFilter);
-  overflow: hidden;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.18);
-  border-top: 1px solid rgba(135, 135, 135, 0.18);
-}
-.installed-themes-page .style-editor-container {
-  height: 100%;
-  flex: 1;
-  background: var(--color2);
-  padding: 0px;
-  overflow-y: overlay;
-}
-.installed-themes-page .style-editor-container .list-group-item {
-  border-radius: 0px;
-}
-.installed-themes-page .stylestack-editor {
-  width: 100%;
-}
-.installed-themes-page .stylestack-editor .btn,
-.installed-themes-page .stylestack-editor .btn-group {
-  width: 100%;
-}
-.installed-themes-page .stylestack-editor .themeLabel {
-  display: flex;
-  align-items: center;
-}
-.installed-themes-page .stylestack-editor .handle {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.installed-themes-page .stylestack-editor .list-group-item:hover {
-  cursor: grab;
-}
-.installed-themes-page .stylestack-editor .list-group-item:active {
-  cursor: grabbing;
-}
-.installed-themes-page .stylestack-editor .removeItem {
-  border: 0px;
-  background: transparent;
-  height: 32px;
-  font-weight: bold;
-  color: var(--textColor);
-  cursor: pointer;
-}
-.installed-themes-page .stylestack-editor .stylesDropdown > .dropdown-menu {
-  height: 300px;
-  overflow-y: overlay;
-}
 .settings-page {
   padding: 0px;
 }
