@@ -4360,7 +4360,7 @@ input[type=range].md-slider::-webkit-slider-runnable-track {
 }
 .list-group-item-dark {
   color: var(--textColor);
-  background-color: #3333338a;
+  background-color: #333;
 }
 .list-group-item-dark.list-group-item-action:hover,
 .list-group-item-dark.list-group-item-action:focus {
@@ -13008,12 +13008,12 @@ input[type=checkbox][switch]:checked:active::before {
   margin: 0px;
 }
 .github-themes-page .repos-list {
-  height: 85%;
+  height: 100%;
   width: 320px;
   font-size: 14px;
-  position: absolute;
   overflow: overlay;
   padding-bottom: 16px;
+  flex: 0 0 auto;
 }
 .github-themes-page .repos-list > .list-group {
   margin: 0px;
@@ -13028,12 +13028,10 @@ input[type=checkbox][switch]:checked:active::before {
   filter: brightness(0.8);
 }
 .github-themes-page .github-preview {
-  height: 85%;
+  height: 100%;
   flex: 1;
   padding: 16px 32px;
   overflow: auto;
-  position: fixed;
-  margin-left: 320px;
   padding-bottom: 16px;
 }
 .github-themes-page .gh-content {
@@ -13044,6 +13042,10 @@ input[type=checkbox][switch]:checked:active::before {
 }
 .github-themes-page .gh-header {
   padding: 16px;
+  height: 64px;
+  display: grid;
+  align-content: center;
+  flex: 0 0 auto;
 }
 .github-themes-page .gh-header .header-text {
   position: initial !important;
@@ -14723,6 +14725,10 @@ input[type=checkbox][switch]:checked:active::before {
   display: flex;
   gap: 10px;
   align-items: center;
+  height: 35px;
+}
+.settings-panel .settings-window .nav-pills .nav-link :nth-child(2) {
+  white-space: nowrap;
 }
 .settings-panel .settings-window .md-option-header {
   padding: 0px 26px;
@@ -14828,8 +14834,11 @@ input[type=checkbox][switch]:checked:active::before {
 .settings-panel .settings-window.no-sidebar .tab-content {
   padding-top: 0px;
 }
+.settings-panel .settings-window.no-sidebar .tabs .nav-pills .nav-link {
+  width: 50px;
+}
 .settings-panel .settings-window.no-sidebar .tabs .nav-pills .nav-link :nth-child(2) {
-  display: none;
+  opacity: 0;
 }
 .settings-panel .settings-window.no-sidebar .tabs > .col-auto {
   width: 80px;
