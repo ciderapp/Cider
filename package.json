@@ -64,7 +64,7 @@
     "leveldown": "^6.1.1",
     "mdns-js": "git+https://github.com/ciderapp/node-mdns-js.git",
     "mpris-service": "^2.1.2",
-    "music-metadata": "^7.12.3",
+    "music-metadata": "^7.12.4",
     "node-gyp": "^9.0.0",
     "node-ssdp": "^4.0.1",
     "pouchdb-adapter-leveldb": "^7.3.0",
