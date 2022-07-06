@@ -43,11 +43,8 @@ export class LocalFiles {
             // get files from the Music folder
             files = files.concat(await LocalFiles.getFiles(folder))
         }
-
-        //console.log("cider.files", files2);
         let supporttedformats = ["mp3", "aac", "webm", "flac", "m4a", "ogg", "wav", "opus"]
         let audiofiles = files.filter(f => supporttedformats.includes(f.substring(f.lastIndexOf('.') + 1)));
-        // console.log("cider.files2", audiofiles, audiofiles.length);
         let metadatalist = []
         let metadatalistart = []
         let numid = 0;
@@ -101,8 +98,8 @@ export class LocalFiles {
                         },
                         flavor: metadata.bitrate,
                         localFilesMetadata: {
-                            lossless: true,
-                            container: audio.substring(audio.lastIndexOf('.') + 1),
+                            lossless: metadata.lossless,
+                            container: metadata.container,
                             bitDepth: metadata.bit_depth,
                             sampleRate: metadata.sample_rate ?? 0,         
                         },                    
@@ -121,7 +118,7 @@ export class LocalFiles {
                     if (this.localSongs.length === 0 && numid  % 10 === 0) { // send updated chunks only if there is no previous database
                         this.eventEmitter.emit('newtracks', metadatalist)}
                     }
-            } catch (e) { }
+            } catch (e) {console.error("error:", e)}
         }
         this.localSongs = metadatalist;
         this.localSongsArts = metadatalistart;

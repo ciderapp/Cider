@@ -81,7 +81,7 @@
     "ws": "^8.5.0",
     "xml2js": "^0.4.23",
     "youtube-search-without-api-key": "^1.0.7",
-    "cider_utils": "git+https://github.com/ciderapp/cider_utils.git"
+    "cider_utils": "git+https://github.com/ciderapp/cider_utils"
   },
   "devDependencies": {
     "@types/adm-zip": "^0.5.0",
