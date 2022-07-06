@@ -12,6 +12,7 @@ const app = new Vue({
         ipcRenderer: ipcRenderer,
         cfg: ipcRenderer.sendSync("getStore"),
         isDev: ipcRenderer.sendSync("is-dev"),
+        clientPort: ipcRenderer.sendSync("get-port"),
         drawertest: false,
         platform: "",
         mk: {},
