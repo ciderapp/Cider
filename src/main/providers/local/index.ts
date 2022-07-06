@@ -34,7 +34,6 @@ export class LocalFiles {
     
     static async scanLibrary() {
         ProviderDB.init()
-        console.time('scanLibrary')
         let folders = utils.getStoreValue("libraryPrefs.localPaths")
         if (folders == null || folders.length == null || folders.length == 0) folders = []
         console.log('folders', folders)
@@ -122,7 +121,6 @@ export class LocalFiles {
         }
         this.localSongs = metadatalist;
         this.localSongsArts = metadatalistart;
-        console.timeEnd('scanLibrary')
         return metadatalist;
     }
 
