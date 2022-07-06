@@ -201,7 +201,7 @@
   "term.confirmLogout": "Are you sure you want to logout?",
   "term.creditDesignedBy": "Designed by ${authorUsername}",
   "term.discNumber": "Disc ${discNumber}",
-  "term.reload" : "Reload Cider ?",
+  "term.reload" : "Reload Cider?",
   "term.toggleprivate" : "Toggle Private Session",
   "term.webremote" : "Web Remote",
   "term.cast" : "Cast",
