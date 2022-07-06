@@ -80,7 +80,8 @@
     "wallpaper": "5.0.1",
     "ws": "^8.5.0",
     "xml2js": "^0.4.23",
-    "youtube-search-without-api-key": "^1.0.7"
+    "youtube-search-without-api-key": "^1.0.7",
+    "cider_utils": "git+https://github.com/ciderapp/cider_utils.git"
   },
   "devDependencies": {
     "@types/adm-zip": "^0.5.0",

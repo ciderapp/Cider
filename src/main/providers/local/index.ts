@@ -6,8 +6,7 @@ import * as mm from 'music-metadata';
 import {Md5} from 'ts-md5/dist/md5';
 import e from "express";
 import { EventEmitter } from 'events';
-
-
+import { parseFile } from 'cider_utils';
 
 export class LocalFiles {
     static localSongs: any = [];
@@ -35,6 +34,7 @@ export class LocalFiles {
     
     static async scanLibrary() {
         ProviderDB.init()
+        console.time('scanLibrary')
         let folders = utils.getStoreValue("libraryPrefs.localPaths")
         if (folders == null || folders.length == null || folders.length == 0) folders = []
         console.log('folders', folders)
@@ -54,7 +54,7 @@ export class LocalFiles {
 
         for (var audio of audiofiles) {
             try {
-                const metadata = await mm.parseFile(audio);
+                const metadata = await parseFile(audio);
                 let lochash = Md5.hashStr(audio) ?? numid;
                 if (metadata != null) {
                     let form = {
@@ -80,17 +80,17 @@ export class LocalFiles {
                             //     "kind": "podcast", 
                             //     "isLibrary": true, 
                             //     "reporting": false },
-                            "trackNumber": metadata.common.track?.no ?? 0,
-                            "discNumber": metadata.common.disk?.no ?? 0,
-                            "name": metadata.common.title ?? audio.substring(audio.lastIndexOf('\\') + 1),
-                            "albumName": metadata.common.album,
-                            "artistName": metadata.common.artist,
-                            "copyright": metadata.common.copyright ?? "",
+                            "trackNumber": metadata.track_number ?? 0,
+                            "discNumber": metadata.disc_number ?? 0,
+                            "name": metadata.title ?? audio.substring(audio.lastIndexOf('\\') + 1),
+                            "albumName": metadata.album,
+                            "artistName": metadata.artist,
+                            "copyright": metadata.copyright ?? "",
                             "assetUrl": "file:///" + audio,
                             "contentAdvisory": "",
-                            "releaseDateTime": `${metadata?.common?.year ?? '2022'}-05-13T00:23:00Z`,
-                            "durationInMillis": Math.floor((metadata.format.duration ?? 0) * 1000),       
-                            "bitrate": Math.floor((metadata.format?.bitrate ?? 0) / 1000),
+                            "releaseDateTime": `${metadata.year ?? '2022'}-05-13T00:23:00Z`,
+                            "durationInMillis": metadata.duration_in_ms ?? 0,       
+                            "bitrate": metadata.bitrate ?? 0,
                             "offers": [
                                 {
                                     "kind": "get",
@@ -99,18 +99,18 @@ export class LocalFiles {
                             ],
                             "contentRating": "clean"
                         },
-                        flavor: Math.floor((metadata.format?.bitrate ?? 0) / 1000),
+                        flavor: metadata.bitrate,
                         localFilesMetadata: {
-                            lossless: metadata.format?.lossless,
-                            container: metadata.format?.container,
-                            bitDepth: metadata.format?.bitsPerSample ?? 0,
-                            sampleRate: metadata.format?.sampleRate ?? 0,         
+                            lossless: true,
+                            container: audio.substring(audio.lastIndexOf('.') + 1),
+                            bitDepth: metadata.bit_depth,
+                            sampleRate: metadata.sample_rate ?? 0,         
                         },                    
                     };
                     let art = {
                         id: "ciderlocal" + lochash,
                         _id: "ciderlocalart" + lochash,
-                        url: metadata.common.picture != undefined ? metadata.common.picture[0].data.toString('base64') : "",
+                        url: metadata.artwork != undefined ? metadata.artwork : "",
                     }
                     metadatalistart.push(art)
                     numid += 1;
@@ -125,6 +125,7 @@ export class LocalFiles {
         }
         this.localSongs = metadatalist;
         this.localSongsArts = metadatalistart;
+        console.timeEnd('scanLibrary')
         return metadatalist;
     }
 
