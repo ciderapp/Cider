@@ -80,6 +80,9 @@
         watch: {
             windowRelativeScale: function (newValue, oldValue) {
                 this.swapImage(newValue)
+            },
+            url: function (newValue, oldValue) {
+                this.imgSrc = app.getMediaItemArtwork(this.url, this.size, this.width)
             }
         },
         mounted() {

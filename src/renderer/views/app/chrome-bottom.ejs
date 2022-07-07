@@ -5,7 +5,7 @@
                 <div class="app-playback-controls" @mouseover="chrome.progresshover = true"
                      @mouseleave="chrome.progresshover = false" @contextmenu="nowPlayingContextMenu">
                     <div class="artwork" id="artworkLCD">
-                        <mediaitem-artwork :url="currentArtUrl"></mediaitem-artwork>
+                        <mediaitem-artwork :url="$root.currentArtUrl"></mediaitem-artwork>
                     </div>
                     <b-popover custom-class="mediainfo-popover" target="artworkLCD" triggers="hover" placement="right">
                         <div class="content">

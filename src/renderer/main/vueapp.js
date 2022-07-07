@@ -3953,7 +3953,7 @@ const app = new Vue({
                         this.currentArtUrl = this.mk.nowPlayingItem._assets[0].artworkURL
                     }
                     try {
-                        document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
+                        // document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
                     } catch (e) {
                     }
                 } else {
@@ -3967,14 +3967,14 @@ const app = new Vue({
                         }
                         ipcRenderer.send('updateRPCImage', this.currentArtUrl ?? '');
                         try {
-                            document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
+                            // document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
                         } catch (e) {
                         }
                     } else {
                         this.currentArtUrlRaw = ''
                         this.currentArtUrl = '';
                         try {
-                            document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
+                            // document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
                         } catch (e) {
                         }
                     }
