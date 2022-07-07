@@ -116,6 +116,7 @@ export default class DiscordRPC {
         })
     }
 
+    
     /**
      * Runs on app stop
      */
