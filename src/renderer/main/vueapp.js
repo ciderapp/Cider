@@ -2025,7 +2025,7 @@ const app = new Vue({
                     params["fields[artists]"] = "name,url"
                     params["omit[resource]"] = "autos"
                     params["meta[albums:tracks]"] = 'popularity'
-                    params["fields[albums]"] = "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialNotes,editorialVideo,name,playParams,releaseDate,url,copyright"
+                    params["fields[albums]"] = "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialNotes,editorialVideo,name,playParams,releaseDate,url,copyright,genreNames"
                 }
                 if (kind.includes("playlist") || kind.includes("album")) {
                     app.page = (kind) + "_" + (id);

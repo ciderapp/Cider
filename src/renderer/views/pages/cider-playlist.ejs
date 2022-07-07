@@ -457,7 +457,7 @@
                 if (this.data.type.includes('albums')) {
                     let date = this.data.attributes.releaseDate;
                     if (date == null || date === "") return "";
-                    return `${this.data.relationships.tracks.data[0].attributes.genreNames[0]} · ${new Date(date).getFullYear()}`
+                    return `${this.data.attributes.genreNames[0]} · ${new Date(date).getFullYear()}`
                 }
             },
             async isInLibrary() {
