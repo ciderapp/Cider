@@ -81,6 +81,12 @@ jobs:
             sudo apt-get update -y
             sudo apt-get install -y wine32
       - run:
+          name: Reinstall proper rust node module
+          command: |
+            cd ./node_modules/cider_utils
+            yarn run prebuild-downloads --platform=win32 --verbose
+            cd ../..     
+      - run:
           name: Generate Builds (Windows)
           command: yarn electron-builder -w --x64 -p never
           post-steps:
@@ -105,6 +111,12 @@ jobs:
             sudo dpkg --add-architecture i386
             sudo apt-get update -y
             sudo apt-get install -y wine32
+      - run:
+          name: Reinstall proper rust node module
+          command: |
+            cd ./node_modules/cider_utils
+            yarn run prebuild-downloads --platform=win32 --verbose
+            cd ../..
       - run:
           name: Generate Builds (Winget)
           command: yarn electron-builder --win -c winget.json -p never
