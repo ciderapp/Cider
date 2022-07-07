@@ -79,7 +79,7 @@
         },
         watch: {
             windowRelativeScale: function (newValue, oldValue) {
-                this.swapImage(newScale)
+                this.swapImage(newValue)
             }
         },
         mounted() {
@@ -88,7 +88,7 @@
         },
         methods: {
             swapImage(newValue) {
-                if(!this.upscaling) return
+                if(!this.upscaling || window.devicePixelRatio !== 1) return
                 if (newValue > 1.5) {
                     this.imgSrc = app.getMediaItemArtwork(this.url, parseInt(this.size * 2.0), parseInt(this.size * 2.0));
                 }
