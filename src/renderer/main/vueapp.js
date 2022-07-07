@@ -706,6 +706,9 @@ const app = new Vue({
             } catch (err) {
             }
 
+            // Used to get a scale factor for the window for CSS scaling
+            window.addEventListener("resize", e =>  this.setWindowScaleFactor())
+            this.setWindowScaleFactor()
             this.mk._bag.features['seamless-audio-transitions'] = this.cfg.audio.seamless_audio
             this.mk._bag.features["broadcast-radio"] = true
             this.mk._services.apiManager.store.storekit._restrictedEnabled = false
@@ -1091,6 +1094,17 @@ const app = new Vue({
             }
 
             ipcRenderer.invoke("scanLibrary")
+        },
+        setWindowScaleFactor() {
+            let scale = window.devicePixelRatio * window.innerWidth / 1280 * window.innerHeight / 720
+
+            if(scale <= 1) {
+                scale = 1
+            }else if(scale >= 1.4) {
+                scale = 1.4
+            }
+            document.documentElement.style
+                    .setProperty('--windowRelativeScale', scale);
         },
         showFoo(querySelector, time) {
             clearTimeout(this.idleTimer);
