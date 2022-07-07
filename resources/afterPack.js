@@ -25,7 +25,7 @@ exports.default = function(context) {
     // if (fs.existsSync('dist/mac-arm64'))
     // execSync('python3 -m castlabs_evs.vmp -n sign-pkg dist/mac-arm64 -z',{stdio: 'inherit'})
     if (fs.existsSync('dist/mac-x64') || fs.existsSync('dist/mac-universal--x64') )
-       execSync('cd ./node_modules/cider_utils; yarn run prebuild-downloads --platform=win32 --verbose; cd ../..',{stdio: 'inherit'})
+       execSync('cd ./node_modules/cider_utils; yarn run prebuild-downloads --platform=darwin --arch=arm64 --verbose; cd ../..',{stdio: 'inherit'})
     
     // console.log('VMP signing complete')
 
