@@ -64,7 +64,7 @@ export default class DiscordRPC {
                     const response = await fetch("http://localhost:"+port+imageurl)
                     b64data = (await response.buffer()).toString('base64');
                     postbody = JSON.stringify({data: b64data})
-                    fetch('https://cider-api-development.up.railway.app/v1/images', {
+                    fetch('https://api.cider.sh/v1/images', {
 
                         method: 'POST',
                         body: postbody,
