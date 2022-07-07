@@ -3054,7 +3054,6 @@ const app = new Vue({
                 let url = "https://api.cider.sh/v1/lyrics?" + "mode=1" + "&richsyncQuery=" + richsyncQuery + "&track=" + track + "&artist=" + artist + "&songID=" + itunesid + "&source=mxm" + "&lang=" + lang + "&time=" + time;
                 let req = new XMLHttpRequest();
                 req.overrideMimeType("application/json");
-                req.open('POST', url, true);
                 req.onload = function () {
                     try {
                         let jsonResponse = JSON.parse(this.responseText);
@@ -3147,6 +3146,7 @@ const app = new Vue({
                     console.log('error');
                     // app.loadAMLyrics();
                 };
+                req.open('POST', url, true);
             }
 
             function getMXMTrans(id, lang) {
