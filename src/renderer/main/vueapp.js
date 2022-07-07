@@ -3136,7 +3136,7 @@ const app = new Vue({
                             }
                         } 
                     } catch (e) {
-                        console.log(e);
+                        console.error(e);
                         app.loadQQLyrics();
                         //app.loadAMLyrics()
                     }
@@ -3147,6 +3147,7 @@ const app = new Vue({
                     // app.loadAMLyrics();
                 };
                 req.open('POST', url, true);
+                req.send();
             }
 
             function getMXMTrans(id, lang) {
