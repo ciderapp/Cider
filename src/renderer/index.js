@@ -1,5 +1,9 @@
 var notyf = new Notyf();
 
+function clamp(num, min, max) {
+  return Math.min(Math.max(num, min), max);
+}
+
 const MusicKitObjects = {
   LibraryPlaylist: function () {
     this.id = "";
