@@ -14045,7 +14045,7 @@ input[type=checkbox][switch]:checked:active::before {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-left: 100px;
+  float: right;
 }
 .artist-page .artist-header .animated {
   width: 100%;
@@ -16444,7 +16444,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-left: 100px;
+  float: right;
 }
 .about-page .teamBtn {
   display: flex;
