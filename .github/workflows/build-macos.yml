@@ -96,6 +96,7 @@ jobs:
         cp resources/macPackager.js node_modules/app-builder-lib/out/macPackager.js 
         rm -r node_modules/pouchdb-node/node_modules/leveldown
         rm -r node_modules/pouchdb-adapter-leveldb/node_modules/leveldown
+        rm -r /node_modules/leveldown/node_modules/node-gyp-build || true
         yarn dist:universalNotWorking -p never
 #     - name: Perform CodeQL Analysis
 #       uses: github/codeql-action/analyze@v1
