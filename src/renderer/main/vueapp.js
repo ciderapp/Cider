@@ -3039,7 +3039,9 @@ const app = new Vue({
             const track = encodeURIComponent((this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.title ?? '' : '');
             const artist = encodeURIComponent((this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.artistName ?? '' : '');
             const time = encodeURIComponent((this.mk.nowPlayingItem != null) ? (Math.round((this.mk.nowPlayingItem.attributes["durationInMillis"] ?? -1000) / 1000) ?? -1) : -1);
-            const id = encodeURIComponent((this.mk.nowPlayingItem != null) ? app.mk.nowPlayingItem._songId ?? (app.mk.nowPlayingItem["songId"] ?? '') : '');
+            if (this.mk.nowPlayingItem != null && app.mk.nowPlayingItem.localFilesMetadata != null) {const id = encodeURIComponent('')}
+            else {const id = encodeURIComponent((this.mk.nowPlayingItem != null) ? (app.mk.nowPlayingItem._songId) ?? (app.mk.nowPlayingItem["songId"] ?? '') : '');}
+            
             let lrcfile = "";
             let richsync = [];
             const lang = app.cfg.lyrics.mxm_language //  translation language
