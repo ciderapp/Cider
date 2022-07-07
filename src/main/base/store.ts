@@ -239,7 +239,8 @@ export class Store {
             "windowColor": "#000000",
             "customAccentColor": false,
             "accentColor": "#fc3c44",
-            "purplePodcastPlaybackBar": false
+            "purplePodcastPlaybackBar": false,
+            "maxContentScale": -1 // -1 default, anything else is a custom scale
         },
         "lyrics": {
             "enable_mxm": false,
