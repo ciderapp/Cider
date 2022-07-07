@@ -1098,6 +1098,7 @@ const app = new Vue({
         setWindowScaleFactor() {
             let scale = window.devicePixelRatio * window.innerWidth / 1280 * window.innerHeight / 720
             let desiredScale = parseFloat(app.cfg.visual.maxElementScale == -1 ? 1.6 : app.cfg.visual.maxElementScale)
+            app.$store.state.windowRelativeScale = scale
             if(scale <= 1) {
                 scale = 1
             }else if(scale >= desiredScale) {

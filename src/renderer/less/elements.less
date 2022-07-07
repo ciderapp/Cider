@@ -1195,41 +1195,41 @@
   }
 
   &.mediaitem-brick {
-    height: calc(200px, var(--windowRelativeScale));
-    width: calc(240px, var(--windowRelativeScale));
+    height: 200px;
+    width: 240px;
     transition: width var(--transitionDuration) linear, height var(--transitionDuration) linear;
 
     .artwork {
-      height: calc(123px, var(--windowRelativeScale));
-      width: calc(220px, var(--windowRelativeScale));
+      height: 123px;
+      width: 220px;
       transition: width var(--transitionDuration) linear, height var(--transitionDuration) linear;
     }
 
-    // &:not(.noscale) {
-    //   @media (min-width: 1460px) {
-    //     --scaleRate: 1.1;
-    //     --scaleRateArtwork: 1.1;
-    //     width: calc(240px * var(--scaleRate));
-    //     height: calc(200px * var(--scaleRate));
+    &:not(.noscale) {
+      @media (min-width: 1460px) {
+        --scaleRate: 1.1;
+        --scaleRateArtwork: 1.1;
+        width: calc(240px * var(--scaleRate));
+        height: calc(200px * var(--scaleRate));
   
-    //     .artwork-container > .artwork {
-    //       width: calc(220px * var(--scaleRateArtwork));
-    //       height: calc(123px * var(--scaleRateArtwork));
-    //     }
-    //   }
+        .artwork-container > .artwork {
+          width: calc(220px * var(--scaleRateArtwork));
+          height: calc(123px * var(--scaleRateArtwork));
+        }
+      }
   
-    //   @media (min-width: 1550px) {
-    //     --scaleRate: 1.25;
-    //     --scaleRateArtwork: 1.25;
-    //     width: calc(240px * var(--scaleRate));
-    //     height: calc(200px * var(--scaleRate));
+      @media (min-width: 1550px) {
+        --scaleRate: 1.25;
+        --scaleRateArtwork: 1.25;
+        width: calc(240px * var(--scaleRate));
+        height: calc(200px * var(--scaleRate));
   
-    //     .artwork-container > .artwork {
-    //       width: calc(220px * var(--scaleRateArtwork));
-    //       height: calc(123px * var(--scaleRateArtwork));
-    //     }
-    //   }
-    // }
+        .artwork-container > .artwork {
+          width: calc(220px * var(--scaleRateArtwork));
+          height: calc(123px * var(--scaleRateArtwork));
+        }
+      }
+    }
   }
 
   &.mediaitem-small {
