@@ -3173,7 +3173,6 @@ const app = new Vue({
                     let url2 = "https://api.cider.sh/v1/lyrics?" + "mode=2" + "&richsyncQuery=" + richsyncQuery + "&track=" + track + "&artist=" + artist + "&songID=" + itunesid + "&source=mxm" + "&lang=" + lang + "&time=" + time;
                     let req2 = new XMLHttpRequest();
                     req2.overrideMimeType("application/json");
-                    req2.open('POST', url2, true);
                     req2.onload = function () {
                         try {
                             let jsonResponse2 = JSON.parse(this.responseText);
@@ -3205,6 +3204,7 @@ const app = new Vue({
                         } catch (e) {
                         }
                     }
+                    req2.open('POST', url2, true);
                     req2.send();
                 }
 
