@@ -88,8 +88,14 @@ function fallbackinitMusicKit() {
 }
 
 function initMusicKit() {
-
+  if(!this.responseText) {
+    console.log("Using stored token")
+    this.responseText = JSON.stringify({
+      token: localStorage.getItem("lastToken")
+    })
+  }
   let parsedJson = JSON.parse(this.responseText);
+  localStorage.setItem("lastToken", parsedJson.token);
   MusicKit.configure({
     developerToken: parsedJson.token,
     app: {
@@ -120,7 +126,13 @@ function capiInit() {
   request.addEventListener("load", initMusicKit);
   request.onreadystatechange = function (aEvt) {
     if (request.readyState == 4) {
-      if (request.status != 200) fallbackinitMusicKit();
+      if (request.status != 200) {
+        if(localStorage.getItem("lastToken") != null) {
+          initMusicKit()
+        }else{
+          fallbackinitMusicKit()
+        }
+      };
     }
   };
   request.open("GET", "https://api.cider.sh/v1/");
