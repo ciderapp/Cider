@@ -613,29 +613,27 @@
                     <div class="md-option-header">
                         <span>{{$root.getLz('settings.header.lyrics')}}</span>
                     </div>
-                    <div class="settings-option-body">
-                        <div style="opacity: 0.5; pointer-events: none;">
-                            <div class="md-option-line">
-                                <div class="md-option-segment">
-                                    {{$root.getLz('settings.option.lyrics.enableMusixmatch')}}
-                                </div>
-                                <div class="md-option-segment md-option-segment_auto">
-                                    <label>
-                                        <input type="checkbox" switch checked/>
-                                    </label>
-                                    <!-- <input type="checkbox" v-model="app.cfg.lyrics.enable_mxm" switch /> -->
-                                </div>
-                            </div>
-                        </div>
+                    <div class="settings-option-body">              
                         <div class="md-option-line">
-                            <!-- <div class="md-option-line" v-if="app.cfg.lyrics.enable_mxm"> -->
                             <div class="md-option-segment">
-                                {{$root.getLz('settings.option.lyrics.enableMusixmatchKaraoke')}}
+                                {{$root.getLz('settings.option.lyrics.enableMusixmatch')}}
                             </div>
                             <div class="md-option-segment md-option-segment_auto">
                                 <label>
-                                    <input type="checkbox" v-model="app.cfg.lyrics.mxm_karaoke" switch/>
-                                </label>
+                                    <input type="checkbox" v-model="app.cfg.lyrics.enable_mxm" switch />
+                                </label>              
+                            </div>
+                        </div>
+                        <div class="md-option-line">
+                            <div class="md-option-line" v-if="app.cfg.lyrics.enable_mxm">
+                                <div class="md-option-segment">
+                                    {{$root.getLz('settings.option.lyrics.enableMusixmatchKaraoke')}}
+                                </div>
+                                <div class="md-option-segment md-option-segment_auto">
+                                    <label>
+                                        <input type="checkbox" v-model="app.cfg.lyrics.mxm_karaoke" switch/>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                         <div class="md-option-line">
