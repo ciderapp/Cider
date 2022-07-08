@@ -3190,7 +3190,7 @@ const app = new Vue({
                                         app.lyrics[applied+1].translation = raw_lines[i].childNodes[0].childNodes[0].textContent.replace(/\s+/g,' ');  
                                         applied +=2;
                                     }
-                                    else if (app.lyrics[applied].translation == raw_lines[i].childNodes[0].childNodes[0].textContent.replace(/\s+/g,' ')) {                           
+                                    else if (app.lyrics[applied].translation === raw_lines[i].childNodes[0].childNodes[0].textContent.replace(/\s+/g,' ')) {                           
                                         // Do nothing
                                     }
                                     else {
