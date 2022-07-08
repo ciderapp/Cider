@@ -3167,9 +3167,9 @@ const app = new Vue({
             }
 
             function getMXMTrans(lang, vanity_id) {
-                lang = 'english';
                 try { 
                     if (lang != "disabled" && vanity_id != '') { // Mode 2 -> Trans
+                        lang = "english"
                         fetch('https://www.musixmatch.com/lyrics/' + vanity_id +'/translation/' + lang, {
                             method: 'GET',
                             headers: {
