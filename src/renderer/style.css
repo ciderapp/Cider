@@ -3160,6 +3160,11 @@ input[type=range].md-slider::-webkit-slider-runnable-track {
   flex: 0 0 auto;
   width: auto;
 }
+@media only screen and (min-width: 1133px) and (max-width: 1233px) {
+  .row .col-auto {
+    display: none !important;
+  }
+}
 .col-1 {
   flex: 0 0 auto;
   width: 8.33333333%;
@@ -6006,6 +6011,11 @@ fieldset:disabled .btn {
 .col-auto {
   flex: 0 0 auto;
   width: auto;
+}
+@media only screen and (min-width: 1133px) and (max-width: 1241px) {
+  .row .col-auto {
+    display: none !important;
+  }
 }
 .col-1 {
   flex: 0 0 auto;
@@ -14047,6 +14057,11 @@ input[type=checkbox][switch]:checked:active::before {
   align-items: center;
   float: right;
 }
+@media only screen and (min-width: 1133px) and (max-width: 1277px) {
+  .artist-page .artist-header .social-btn {
+    display: none !important;
+  }
+}
 .artist-page .artist-header .animated {
   width: 100%;
   height: 100%;
@@ -16445,6 +16460,11 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   justify-content: center;
   align-items: center;
   float: right;
+}
+@media only screen and (min-width: 1133px) and (max-width: 1277px) {
+  .social-btn {
+    display: none !important;
+  }
 }
 .about-page .teamBtn {
   display: flex;
