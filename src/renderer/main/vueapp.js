@@ -3168,9 +3168,9 @@ const app = new Vue({
                 req.send();
             }
 
-            function getMXMTrans(id, lang) {
+            function getMXMTrans(lang, id) {
                 if (lang != "disabled" && id != '') { // Mode 2 -> Trans
-                    let url2 = "https://api.cider.sh/v1/lyrics?" + "mode=2" + "&richsyncQuery=" + richsyncQuery + "&track=" + track + "&artist=" + artist + "&songID=" + itunesid + "&source=mxm" + "&lang=" + lang + "&time=" + time;
+                    let url2 = "https://api.cider.sh/v1/lyrics?" + "mode=2" + "&richsyncQuery=false" + "&songID=" + id + "&source=mxm" + "&lang=" + lang + "&time=" + time;
                     let req2 = new XMLHttpRequest();
                     req2.overrideMimeType("application/json");
                     req2.onload = function () {
@@ -3198,9 +3198,7 @@ const app = new Vue({
                                 } catch (e) {
                                     /// not found trans -> ignore
                                 }
-                            } else { //4xx rejected
-                                getToken(2, '', '', id, lang, '');
-                            }
+                            } 
                         } catch (e) {
                         }
                     }
@@ -3212,6 +3210,7 @@ const app = new Vue({
 
             if (track != "" & track != "No Title Found") {
                 getMXMSubs(track, artist, lang, time, id)
+                getMXMTrans(track, artist, lang, time, id)
             }
         },
         loadNeteaseLyrics() {
@@ -3954,8 +3953,7 @@ const app = new Vue({
                     }
                     try {
                         // document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
-                    } catch (e) {
-                    }
+                    } catch (e) {}                               
                 } else {
                     let data = await this.mk.api.v3.music(`/v1/me/library/songs/${this.mk.nowPlayingItem.id}`);
                     data = data.data.data[0];
