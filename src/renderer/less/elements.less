@@ -984,11 +984,11 @@
 
 /* mediaitem-square */
 .cd-mediaitem-square {
-  --transitionDuration: .25s;
+  --transitionDuration: .5s;
   --scaleRate: 1.25;
   --scaleRateArtwork: 1;
-  width: 200px;
-  height: 200px;
+  width: calc(160px * var(--windowRelativeScale));
+  height: calc(200px * var(--windowRelativeScale));
   display: inline-flex;
   flex: 0 0 auto;
   flex-direction: column;
@@ -996,14 +996,13 @@
   justify-content: center;
   align-items: center;
   border-radius: 6px;
-  transition: width var(--transitionDuration) linear, height var(--transitionDuration) linear;
 
   .artwork-container {
     position: relative;
 
     .artwork {
-      height: 150px;
-      width: 150px;
+      height: calc(140px * var(--windowRelativeScale));
+      width: calc(140px * var(--windowRelativeScale));
       background: blue;
       border-radius: var(--mediaItemRadius);
       background: var(--artwork);
@@ -1011,7 +1010,6 @@
       flex: 0 0 auto;
       margin: 6px;
       cursor: pointer;
-      transition: width var(--transitionDuration) linear, height var(--transitionDuration) linear;
 
       .mediaitem-artwork {
         box-shadow: unset;
@@ -1085,31 +1083,31 @@
     }
   }
 
-  &:not(.mediaitem-card):not(.mediaitem-brick):not(.mediaitem-video):not(.noscale) {
-    @media (min-width: 1460px) {
-      --scaleRate: 1.1;
-      --scaleRateArtwork: 0.9;
-      width: calc(200px * var(--scaleRate));
-      height: calc(200px * var(--scaleRate));
+  // &:not(.mediaitem-card):not(.mediaitem-brick):not(.mediaitem-video):not(.noscale) {
+  //   @media (min-width: 1460px) {
+  //     --scaleRate: 1.1;
+  //     --scaleRateArtwork: 0.9;
+  //     width: calc(200px * var(--scaleRate));
+  //     height: calc(200px * var(--scaleRate));
 
-      .artwork-container > .artwork {
-        width: calc(190px * var(--scaleRateArtwork));
-        height: calc(190px * var(--scaleRateArtwork));
-      }
-    }
+  //     .artwork-container > .artwork {
+  //       width: calc(190px * var(--scaleRateArtwork));
+  //       height: calc(190px * var(--scaleRateArtwork));
+  //     }
+  //   }
 
-    @media (min-width: 1550px) {
-      --scaleRate: 1.25;
-      --scaleRateArtwork: 1;
-      width: calc(200px * var(--scaleRate));
-      height: calc(200px * var(--scaleRate));
+  //   @media (min-width: 1550px) {
+  //     --scaleRate: 1.25;
+  //     --scaleRateArtwork: 1;
+  //     width: calc(200px * var(--scaleRate));
+  //     height: calc(200px * var(--scaleRate));
 
-      .artwork-container > .artwork {
-        width: calc(190px * var(--scaleRateArtwork));
-        height: calc(190px * var(--scaleRateArtwork));
-      }
-    }
-  }
+  //     .artwork-container > .artwork {
+  //       width: calc(190px * var(--scaleRateArtwork));
+  //       height: calc(190px * var(--scaleRateArtwork));
+  //     }
+  //   }
+  // }
 
 
   .info-rect {
@@ -1161,10 +1159,12 @@
   &.mediaitem-video {
     height: 200px;
     width: 240px;
+    transition: width var(--transitionDuration) linear, height var(--transitionDuration) linear;
 
     .artwork {
       height: 120px;
       width: 212px;
+      transition: width var(--transitionDuration) linear, height var(--transitionDuration) linear;
     }
 
     &:not(.noscale) {
@@ -1197,10 +1197,12 @@
   &.mediaitem-brick {
     height: 200px;
     width: 240px;
+    transition: width var(--transitionDuration) linear, height var(--transitionDuration) linear;
 
     .artwork {
       height: 123px;
       width: 220px;
+      transition: width var(--transitionDuration) linear, height var(--transitionDuration) linear;
     }
 
     &:not(.noscale) {
@@ -1231,12 +1233,14 @@
   }
 
   &.mediaitem-small {
-    width: 140px;
-    height: 180px;
+    width: calc(140px, var(--windowRelativeScale));
+    height: calc(180px, var(--windowRelativeScale));
+    transition: width var(--transitionDuration) linear, height var(--transitionDuration) linear;
 
     .artwork {
-      height: 128px;
-      width: 128px;
+      height: calc(128px, var(--windowRelativeScale));
+      width: calc(128px, var(--windowRelativeScale));
+      transition: width var(--transitionDuration) linear, height var(--transitionDuration) linear;
     }
   }
 
@@ -1249,6 +1253,7 @@
     position: relative;
     border-radius: calc(var(--mediaItemRadius) * 2);
     box-shadow: var(--mediaItemShadow-ShadowSubtle);
+    transition: width var(--transitionDuration) linear, height var(--transitionDuration) linear;
 
     .artwork {
       width: 230px;
@@ -1341,7 +1346,7 @@
     }
 
     &:not(.noscale) {
-      @media (min-width: 1460px) {
+      @media (min-width: 1200px) {
         width: calc(230px * 1.1);
         height: calc(298px * 1.1);
         .artwork-container > .artwork {
@@ -1350,7 +1355,7 @@
         }
       }
 
-      @media (min-width: 1550px) {
+      @media (min-width: 1400px) {
         width: calc(230px * 1.25);
         height: calc(298px * 1.25);
         .artwork-container > .artwork {

@@ -706,6 +706,9 @@ const app = new Vue({
             } catch (err) {
             }
 
+            // Used to get a scale factor for the window for CSS scaling
+            window.addEventListener("resize", e =>  this.setWindowScaleFactor())
+            this.setWindowScaleFactor()
             this.mk._bag.features['seamless-audio-transitions'] = this.cfg.audio.seamless_audio
             this.mk._bag.features["broadcast-radio"] = true
             this.mk._services.apiManager.store.storekit._restrictedEnabled = false
@@ -1091,6 +1094,18 @@ const app = new Vue({
             }
 
             ipcRenderer.invoke("scanLibrary")
+        },
+        setWindowScaleFactor() {
+            let scale = window.devicePixelRatio * window.innerWidth / 1280 * window.innerHeight / 720
+            let desiredScale = clamp(parseFloat(app.cfg.visual.maxElementScale == -1 ? 1.5 : app.cfg.visual.maxElementScale), 1, 1.5)
+            app.$store.state.windowRelativeScale = scale
+            if(scale <= 1) {
+                scale = 1
+            }else if(scale >= desiredScale) {
+                scale = desiredScale
+            }
+            document.documentElement.style
+                    .setProperty('--windowRelativeScale', scale);
         },
         showFoo(querySelector, time) {
             clearTimeout(this.idleTimer);
@@ -2010,7 +2025,7 @@ const app = new Vue({
                     params["fields[artists]"] = "name,url"
                     params["omit[resource]"] = "autos"
                     params["meta[albums:tracks]"] = 'popularity'
-                    params["fields[albums]"] = "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialNotes,editorialVideo,name,playParams,releaseDate,url,copyright"
+                    params["fields[albums]"] = "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialNotes,editorialVideo,name,playParams,releaseDate,url,copyright,genreNames"
                 }
                 if (kind.includes("playlist") || kind.includes("album")) {
                     app.page = (kind) + "_" + (id);
@@ -3153,12 +3168,11 @@ const app = new Vue({
                 req.send();
             }
 
-            function getMXMTrans(id, lang) {
+            function getMXMTrans(lang, id) {
                 if (lang != "disabled" && id != '') { // Mode 2 -> Trans
-                    let url2 = "https://api.cider.sh/v1/lyrics?" + "mode=2" + "&richsyncQuery=" + richsyncQuery + "&track=" + track + "&artist=" + artist + "&songID=" + itunesid + "&source=mxm" + "&lang=" + lang + "&time=" + time;
+                    let url2 = "https://api.cider.sh/v1/lyrics?" + "mode=2" + "&richsyncQuery=false" + "&songID=" + id + "&source=mxm" + "&lang=" + lang + "&time=" + time;
                     let req2 = new XMLHttpRequest();
                     req2.overrideMimeType("application/json");
-                    req2.open('POST', url2, true);
                     req2.onload = function () {
                         try {
                             let jsonResponse2 = JSON.parse(this.responseText);
@@ -3184,12 +3198,11 @@ const app = new Vue({
                                 } catch (e) {
                                     /// not found trans -> ignore
                                 }
-                            } else { //4xx rejected
-                                getToken(2, '', '', id, lang, '');
-                            }
+                            } 
                         } catch (e) {
                         }
                     }
+                    req2.open('POST', url2, true);
                     req2.send();
                 }
 
@@ -3197,6 +3210,7 @@ const app = new Vue({
 
             if (track != "" & track != "No Title Found") {
                 getMXMSubs(track, artist, lang, time, id)
+                getMXMTrans(track, artist, lang, time, id)
             }
         },
         loadNeteaseLyrics() {
@@ -3938,9 +3952,8 @@ const app = new Vue({
                         this.currentArtUrl = this.mk.nowPlayingItem._assets[0].artworkURL
                     }
                     try {
-                        document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
-                    } catch (e) {
-                    }
+                        // document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
+                    } catch (e) {}                               
                 } else {
                     let data = await this.mk.api.v3.music(`/v1/me/library/songs/${this.mk.nowPlayingItem.id}`);
                     data = data.data.data[0];
@@ -3952,14 +3965,14 @@ const app = new Vue({
                         }
                         ipcRenderer.send('updateRPCImage', this.currentArtUrl ?? '');
                         try {
-                            document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
+                            // document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
                         } catch (e) {
                         }
                     } else {
                         this.currentArtUrlRaw = ''
                         this.currentArtUrl = '';
                         try {
-                            document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
+                            // document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
                         } catch (e) {
                         }
                     }
