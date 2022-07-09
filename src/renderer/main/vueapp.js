@@ -3181,11 +3181,11 @@ const app = new Vue({
                             },
                         })
                             .then(async (res) => {
+                                if (res.status != 200) {return}
                                 let html = document.createElement('html'); html.innerHTML = await res.text()
                                 let lyric_isolated = html.querySelector("#site > div > div > div > main > div > div > div.mxm-track-lyrics-container > div.container > div > div > div > div.col-sm-12.col-md-10.col-ml-9.col-lg-9 > div.mxm-lyrics.translated > div.row > div.col-xs-12.col-sm-12.col-md-12.col-ml-12.col-lg-12")
                                 let raw_lines = lyric_isolated.getElementsByClassName("col-xs-6 col-sm-6 col-md-6 col-ml-6 col-lg-6")
                                 let applied = 0; 
-                                
                                 for (let i = 1; applied < app.lyrics.length; i+=2) { // Start on odd elements because even ones are original.
                                     if (raw_lines[i].childNodes[0].childNodes[0].textContent.trim() == "") {i+=2;}
                                     if (app.lyrics[applied].line.trim() == "") {applied+=1;}
@@ -3202,8 +3202,7 @@ const app = new Vue({
                                             else {
                                                 app.lyrics[applied+1].translation = raw_lines[i].childNodes[0].childNodes[0].textContent.trim();  
                                                 applied +=2;
-                                                }
-                                            
+                                                }                      
                                         }      
                                         else {
                                             app.lyrics[applied].translation = raw_lines[i].childNodes[0].childNodes[0].textContent.trim();       
