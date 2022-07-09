@@ -3191,7 +3191,7 @@ const app = new Vue({
                                         app.lyrics[applied+1].translation = raw_lines[i].childNodes[0].childNodes[0].textContent;  
                                         applied +=2;
                                     }
-                                    else if (app.lyrics[applied].translation === raw_lines[i].childNodes[0].childNodes[0].textContent) {                           
+                                    else if (app.lyrics[applied].line === raw_lines[i].childNodes[0].childNodes[0].textContent) {                           
                                         // Do nothing
                                     }
                                     else {
