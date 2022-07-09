@@ -3079,12 +3079,13 @@ const app = new Vue({
                         let status1 = jsonResponse["message"]["header"]["status_code"];
 
                         if (status1 == 200) {
-                            let id = '';
+                            let id, songLang = '';
                             try {
                                 if (jsonResponse["message"]["body"]["macro_calls"]["matcher.track.get"]["message"]["header"]["status_code"] == 200 && jsonResponse["message"]["body"]["macro_calls"]["track.subtitles.get"]["message"]["header"]["status_code"] == 200) {
                                     id = jsonResponse["message"]["body"]["macro_calls"]["matcher.track.get"]["message"]["body"]["track"]["track_id"] ?? '';
                                     lrcfile = jsonResponse["message"]["body"]["macro_calls"]["track.subtitles.get"]["message"]["body"]["subtitle_list"][0]["subtitle"]["subtitle_body"];
                                     vanity_id = jsonResponse["message"]["body"]["macro_calls"]["matcher.track.get"]["message"]["body"]["track"]["commontrack_vanity_id"];
+                                    songLang = jsonResponse["message"]["body"]["macro_calls"]["track.lyrics.get"]["message"]["body"]["lyrics"]["lyrics_language_description"];
 
                                     try {
                                         let lrcrich = jsonResponse["message"]["body"]["macro_calls"]["track.richsync.get"]["message"]["body"]["richsync"]["richsync_body"];
@@ -3142,7 +3143,9 @@ const app = new Vue({
                                     }
                                   
                                     // Load translation
-                                    getMXMTrans(lang, vanity_id);
+                                    if (songLang.toLowerCase() !== lang){
+                                        getMXMTrans(lang, vanity_id);
+                                    }
 
                                 }
                             } catch (e) {
@@ -3169,7 +3172,6 @@ const app = new Vue({
             function getMXMTrans(lang, vanity_id) {
                 try { 
                     if (lang != "disabled" && vanity_id != '') { // Mode 2 -> Trans
-                        lang = "english"
                         fetch('https://www.musixmatch.com/lyrics/' + vanity_id +'/translation/' + lang, {
                             method: 'GET',
                             headers: {
