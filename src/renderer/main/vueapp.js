@@ -3187,20 +3187,30 @@ const app = new Vue({
                                 let applied = 0; 
 
                                 for (let i = 1; applied < app.lyrics.length; i+=2) { // Start on odd elements because even ones are original.
-                                    if (app.lyrics[applied].line === raw_lines[i].childNodes[0].childNodes[0].textContent) {                           
-                                        // Do Nothing
-                                        applied +=1;
-                                    }
-                                    else  {                
-                                        if (app.lyrics[applied].line === "lrcInstrumental") { 
-                                            app.lyrics[applied+1].translation = raw_lines[i].childNodes[0].childNodes[0].textContent;  
-                                            applied +=2;
-                                        }      
-                                        else {
-                                            app.lyrics[applied].translation = raw_lines[i].childNodes[0].childNodes[0].textContent;       
-                                            applied +=1;
+                                    try { 
+                                        if (app.lyrics[applied].line.trim() != "" && raw_lines[i].childNodes[0].childNodes[0].textContent.trim() != ""){ 
+                                            if (app.lyrics[applied].line.trim() === raw_lines[i].childNodes[0].childNodes[0].textContent.trim()) {                           
+                                                // Do Nothing and skip to next raw lyric.
+                                                applied +=1;
+                                            }
+                                            else {                
+                                                if (app.lyrics[applied].line === "lrcInstrumental") {  
+                                                    if (app.lyrics[applied+1].line.trim() === raw_lines[i].childNodes[0].childNodes[0].textContent.trim()) {                                               
+                                                        // Do Nothing and skip to next raw lyric.
+                                                        applied +=2;
+                                                    }
+                                                    else {
+                                                        app.lyrics[applied+1].translation = raw_lines[i].childNodes[0].childNodes[0].textContent;                           
+                                                        applied +=2;
+                                                    }    
+                                                }      
+                                                else {
+                                                    app.lyrics[applied].translation = raw_lines[i].childNodes[0].childNodes[0].textContent;       
+                                                    applied +=1;
+                                                }
+                                            }
                                         }
-                                    } 
+                                    } catch(e) {} 
                                 }
                             })
                     }
