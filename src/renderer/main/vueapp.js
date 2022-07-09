@@ -925,7 +925,7 @@ const app = new Vue({
             })
 
             this.mk.addEventListener(MusicKit.Events.playbackTimeDidChange, (a) => {
-                self.lyriccurrenttime = self.mk.currentPlaybackTime + (app.lyricOffset / 2)
+                self.lyriccurrenttime = self.mk.currentPlaybackTime - app.lyricOffset
                 this.currentSongInfo = a
                 self.playerLCD.playbackDuration = (self.mk.currentPlaybackTime)
                 // wsapi
@@ -3186,19 +3186,21 @@ const app = new Vue({
                                 let raw_lines = lyric_isolated.getElementsByClassName("col-xs-6 col-sm-6 col-md-6 col-ml-6 col-lg-6")
                                 let applied = 0; 
 
-                                for (let i = 1; applied < app.lyrics.length; i+=2) {                    
-                                    if (app.lyrics[applied].line === "lrcInstrumental") { 
-                                        app.lyrics[applied+1].translation = raw_lines[i].childNodes[0].childNodes[0].textContent;  
-                                        applied +=2;
-                                    }
-                                    else if (app.lyrics[applied].line === raw_lines[i].childNodes[0].childNodes[0].textContent) {                           
-                                        // Skip this line
+                                for (let i = 1; applied < app.lyrics.length; i+=2) { // Start on odd elements because even ones are original.
+                                    if (app.lyrics[applied].line === raw_lines[i].childNodes[0].childNodes[0].textContent) {                           
+                                        // Do Nothing
                                         applied +=1;
                                     }
-                                    else {
-                                        app.lyrics[applied].translation = raw_lines[i].childNodes[0].childNodes[0].textContent;       
-                                        applied +=1;
-                                    }
+                                    else  {                
+                                        if (app.lyrics[applied].line === "lrcInstrumental") { 
+                                            app.lyrics[applied+1].translation = raw_lines[i].childNodes[0].childNodes[0].textContent;  
+                                            applied +=2;
+                                        }      
+                                        else {
+                                            app.lyrics[applied].translation = raw_lines[i].childNodes[0].childNodes[0].textContent;       
+                                            applied +=1;
+                                        }
+                                    } 
                                 }
                             })
                     }
