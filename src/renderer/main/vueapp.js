@@ -925,7 +925,7 @@ const app = new Vue({
             })
 
             this.mk.addEventListener(MusicKit.Events.playbackTimeDidChange, (a) => {
-                self.lyriccurrenttime = self.mk.currentPlaybackTime + app.lyricOffset
+                self.lyriccurrenttime = self.mk.currentPlaybackTime + (app.lyricOffset / 2)
                 this.currentSongInfo = a
                 self.playerLCD.playbackDuration = (self.mk.currentPlaybackTime)
                 // wsapi
@@ -3192,7 +3192,8 @@ const app = new Vue({
                                         applied +=2;
                                     }
                                     else if (app.lyrics[applied].line === raw_lines[i].childNodes[0].childNodes[0].textContent) {                           
-                                        // Do nothing
+                                        // Skip this line
+                                        applied +=1;
                                     }
                                     else {
                                         app.lyrics[applied].translation = raw_lines[i].childNodes[0].childNodes[0].textContent;       

@@ -11334,11 +11334,11 @@ fieldset:disabled .btn {
 }
 /* mediaitem-square */
 .cd-mediaitem-square {
-  --transitionDuration: 0.25s;
+  --transitionDuration: 0.5s;
   --scaleRate: 1.25;
   --scaleRateArtwork: 1;
-  width: 200px;
-  height: 200px;
+  width: calc(160px * var(--windowRelativeScale));
+  height: calc(200px * var(--windowRelativeScale));
   display: inline-flex;
   flex: 0 0 auto;
   flex-direction: column;
@@ -11346,14 +11346,13 @@ fieldset:disabled .btn {
   justify-content: center;
   align-items: center;
   border-radius: 6px;
-  transition: width var(--transitionDuration) linear, height var(--transitionDuration) linear;
 }
 .cd-mediaitem-square .artwork-container {
   position: relative;
 }
 .cd-mediaitem-square .artwork-container .artwork {
-  height: 150px;
-  width: 150px;
+  height: calc(140px * var(--windowRelativeScale));
+  width: calc(140px * var(--windowRelativeScale));
   background: blue;
   border-radius: var(--mediaItemRadius);
   background: var(--artwork);
@@ -11361,7 +11360,6 @@ fieldset:disabled .btn {
   flex: 0 0 auto;
   margin: 6px;
   cursor: pointer;
-  transition: width var(--transitionDuration) linear, height var(--transitionDuration) linear;
 }
 .cd-mediaitem-square .artwork-container .artwork .mediaitem-artwork {
   box-shadow: unset;
@@ -11421,30 +11419,6 @@ fieldset:disabled .btn {
 .cd-mediaitem-square .artwork-container:hover > .menu-btn {
   opacity: 1;
 }
-@media (min-width: 1460px) {
-  .cd-mediaitem-square:not(.mediaitem-card):not(.mediaitem-brick):not(.mediaitem-video):not(.noscale) {
-    --scaleRate: 1.1;
-    --scaleRateArtwork: 0.9;
-    width: calc(200px * var(--scaleRate));
-    height: calc(200px * var(--scaleRate));
-  }
-  .cd-mediaitem-square:not(.mediaitem-card):not(.mediaitem-brick):not(.mediaitem-video):not(.noscale) .artwork-container > .artwork {
-    width: calc(190px * var(--scaleRateArtwork));
-    height: calc(190px * var(--scaleRateArtwork));
-  }
-}
-@media (min-width: 1550px) {
-  .cd-mediaitem-square:not(.mediaitem-card):not(.mediaitem-brick):not(.mediaitem-video):not(.noscale) {
-    --scaleRate: 1.25;
-    --scaleRateArtwork: 1;
-    width: calc(200px * var(--scaleRate));
-    height: calc(200px * var(--scaleRate));
-  }
-  .cd-mediaitem-square:not(.mediaitem-card):not(.mediaitem-brick):not(.mediaitem-video):not(.noscale) .artwork-container > .artwork {
-    width: calc(190px * var(--scaleRateArtwork));
-    height: calc(190px * var(--scaleRateArtwork));
-  }
-}
 .cd-mediaitem-square .info-rect {
   width: 90%;
   height: 100%;
@@ -11488,10 +11462,12 @@ fieldset:disabled .btn {
 .cd-mediaitem-square.mediaitem-video {
   height: 200px;
   width: 240px;
+  transition: width var(--transitionDuration) linear, height var(--transitionDuration) linear;
 }
 .cd-mediaitem-square.mediaitem-video .artwork {
   height: 120px;
   width: 212px;
+  transition: width var(--transitionDuration) linear, height var(--transitionDuration) linear;
 }
 @media (min-width: 1460px) {
   .cd-mediaitem-square.mediaitem-video:not(.noscale) {
@@ -11520,10 +11496,12 @@ fieldset:disabled .btn {
 .cd-mediaitem-square.mediaitem-brick {
   height: 200px;
   width: 240px;
+  transition: width var(--transitionDuration) linear, height var(--transitionDuration) linear;
 }
 .cd-mediaitem-square.mediaitem-brick .artwork {
   height: 123px;
   width: 220px;
+  transition: width var(--transitionDuration) linear, height var(--transitionDuration) linear;
 }
 @media (min-width: 1460px) {
   .cd-mediaitem-square.mediaitem-brick:not(.noscale) {
@@ -11550,12 +11528,14 @@ fieldset:disabled .btn {
   }
 }
 .cd-mediaitem-square.mediaitem-small {
-  width: 140px;
-  height: 180px;
+  width: calc(140px, var(--windowRelativeScale));
+  height: calc(180px, var(--windowRelativeScale));
+  transition: width var(--transitionDuration) linear, height var(--transitionDuration) linear;
 }
 .cd-mediaitem-square.mediaitem-small .artwork {
-  height: 128px;
-  width: 128px;
+  height: calc(128px, var(--windowRelativeScale));
+  width: calc(128px, var(--windowRelativeScale));
+  transition: width var(--transitionDuration) linear, height var(--transitionDuration) linear;
 }
 .cd-mediaitem-square.mediaitem-card {
   background: #ccc;
@@ -11566,6 +11546,7 @@ fieldset:disabled .btn {
   position: relative;
   border-radius: calc(var(--mediaItemRadius) * 2);
   box-shadow: var(--mediaItemShadow-ShadowSubtle);
+  transition: width var(--transitionDuration) linear, height var(--transitionDuration) linear;
 }
 .cd-mediaitem-square.mediaitem-card .artwork {
   width: 230px;
@@ -11645,7 +11626,7 @@ fieldset:disabled .btn {
 .cd-mediaitem-square.mediaitem-card:hover .info-rect-card::before {
   filter: brightness(0.3) blur(50px) saturate(180%);
 }
-@media (min-width: 1460px) {
+@media (min-width: 1200px) {
   .cd-mediaitem-square.mediaitem-card:not(.noscale) {
     width: calc(230px * 1.1);
     height: calc(298px * 1.1);
@@ -11655,7 +11636,7 @@ fieldset:disabled .btn {
     height: calc(230px * 1.1);
   }
 }
-@media (min-width: 1550px) {
+@media (min-width: 1400px) {
   .cd-mediaitem-square.mediaitem-card:not(.noscale) {
     width: calc(230px * 1.25);
     height: calc(298px * 1.25);
@@ -13995,7 +13976,7 @@ input[type=checkbox][switch]:checked:active::before {
   right: 28px;
 }
 .artist-page.animated .artist-header {
-  min-height: 500px;
+  min-height: 80vh;
 }
 .artist-page .artist-header {
   color: white;
@@ -14080,6 +14061,7 @@ input[type=checkbox][switch]:checked:active::before {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  object-fit: cover;
 }
 .artist-page .artist-header .row .col.flex-center {
   z-index: 4;
@@ -14862,6 +14844,7 @@ input[type=checkbox][switch]:checked:active::before {
   display: none;
 }
 :root {
+  --windowRelativeScale: 1;
   --appleEase: cubic-bezier(0.42, 0, 0.58, 1);
   --borderColor: rgba(200, 200, 200, 0.16);
   --mediaItemShadow: inset 0px 0px 0px 1px rgba(200, 200, 200, 0.16);
@@ -16598,7 +16581,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 }
 @media screen and (min-width: 1500px) {
   .well.itemContainer.collection-list-square {
-    grid-template-columns: repeat(6, minmax(200px, 1fr));
+    grid-template-columns: repeat(5, minmax(200px, 1fr));
   }
 }
 @media screen and (max-width: 1150px) {
