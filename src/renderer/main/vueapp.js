@@ -3187,16 +3187,15 @@ const app = new Vue({
                                 let applied = 0; 
 
                                 for (let i = 1; applied < app.lyrics.length; i+=2) {                    
-                                    console.log("i = " + i + '\n' + raw_lines[i].childNodes[0].childNodes[0])
                                     if (app.lyrics[applied].line === "lrcInstrumental") { 
-                                        app.lyrics[applied+1].translation = raw_lines[i].childNodes[0].childNodes[0].textContent.replace(/\s+/g,' ');  
+                                        app.lyrics[applied+1].translation = raw_lines[i].childNodes[0].childNodes[0].textContent;  
                                         applied +=2;
                                     }
-                                    else if (app.lyrics[applied].translation === raw_lines[i].childNodes[0].childNodes[0].textContent.replace(/\s+/g,' ')) {                           
+                                    else if (app.lyrics[applied].translation === raw_lines[i].childNodes[0].childNodes[0].textContent) {                           
                                         // Do nothing
                                     }
                                     else {
-                                        app.lyrics[applied].translation = raw_lines[i].childNodes[0].childNodes[0].textContent.replace(/\s+/g,' ');       
+                                        app.lyrics[applied].translation = raw_lines[i].childNodes[0].childNodes[0].textContent;       
                                         applied +=1;
                                     }
                                 }

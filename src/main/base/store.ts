@@ -245,7 +245,7 @@ export class Store {
         "lyrics": {
             "enable_mxm": true,
             "mxm_karaoke": false,
-            "mxm_language": "en",
+            "mxm_language": "disabled",
             "enable_qq": false,
             "enable_yt": false,
         },
