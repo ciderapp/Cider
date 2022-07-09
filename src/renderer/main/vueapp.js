@@ -3189,7 +3189,7 @@ const app = new Vue({
                                 for (let i = 1; applied < app.lyrics.length; i+=2) { // Start on odd elements because even ones are original.
                                     if (raw_lines[i].childNodes[0].childNodes[0].textContent.trim() == "") {i+=2;}
                                     if (app.lyrics[applied].line.trim() == "") {applied+=1;}
-                                    if (app.lyrics[applied].line.trim() === raw_lines[i].childNodes[0].childNodes[0].textContent.trim()) {                           
+                                    if (app.lyrics[applied].line.trim() === raw_lines[i].childNodes[0].childNodes[0].textContent.trim().replace('′', "'")) {                           
                                         // Do Nothing
                                         applied +=1;
                                     }
