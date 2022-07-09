@@ -3187,22 +3187,30 @@ const app = new Vue({
                                 let applied = 0; 
 
                                 for (let i = 1; applied < app.lyrics.length; i+=2) { // Start on odd elements because even ones are original.
-                                    try { 
+                                    if (raw_lines[i].childNodes[0].childNodes[0].textContent.trim() != "") {
                                         if (app.lyrics[applied].line.trim() === raw_lines[i].childNodes[0].childNodes[0].textContent.trim()) {                           
                                             // Do Nothing
                                             applied +=1;
                                         }
                                         else  {                
                                             if (app.lyrics[applied].line === "lrcInstrumental") { 
-                                                app.lyrics[applied+1].translation = raw_lines[i].childNodes[0].childNodes[0].textContent.trim();  
-                                                applied +=2;
+                                                if (app.lyrics[applied+1].line.trim() === raw_lines[i].childNodes[0].childNodes[0].textContent.trim()) {                           
+                                                    // Do Nothing
+                                                    applied +=2;
+                                                }
+                                                else {
+                                                    app.lyrics[applied+1].translation = raw_lines[i].childNodes[0].childNodes[0].textContent.trim();  
+                                                    applied +=2;
+                                                 }
+                                                
                                             }      
                                             else {
                                                 app.lyrics[applied].translation = raw_lines[i].childNodes[0].childNodes[0].textContent.trim();       
                                                 applied +=1;
                                             }
                                         } 
-                                    } catch(e) {}
+                                    }
+
                                 }
                             })
                     }
