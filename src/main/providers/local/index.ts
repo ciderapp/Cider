@@ -44,7 +44,7 @@ export class LocalFiles {
             parseFileQueue.concat(result.parseFile)
             mmQueue.concat(result.musicMetadata)
         }
-        if (parseFileQueue.length !== 0 && mmQueue.length !== 0) {console.log('Recursive Folder Search in Cider Utils worki')}
+        if (parseFileQueue.length !== 0 || mmQueue.length !== 0) {console.log('Recursive Folder Search in Cider Utils worki')}
         let metadatalist = []
         let metadatalistart = []
         let numid = 0;
