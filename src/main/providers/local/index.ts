@@ -40,7 +40,7 @@ export class LocalFiles {
         let parseFileQueue: any[] = []; let mmQueue: any[] = []
         for (var folder of folders) {
             // Recursively search and add 
-            let result = await recursiveFolderSearch()
+            let result = await recursiveFolderSearch(folder)
             parseFileQueue.concat(result.parseFile)
             mmQueue.concat(result.musicMetadata)
         }
