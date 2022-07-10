@@ -6,7 +6,7 @@ import * as mm from 'music-metadata';
 import {Md5} from 'ts-md5/dist/md5';
 import e from "express";
 import { EventEmitter } from 'events';
-import { parseFile } from 'cider_utils';
+import { parseFile, recursiveFolderSearch} from 'cider_utils';
 
 export class LocalFiles {
     static localSongs: any = [];
@@ -37,18 +37,93 @@ export class LocalFiles {
         let folders = utils.getStoreValue("libraryPrefs.localPaths")
         if (folders == null || folders.length == null || folders.length == 0) folders = []
         console.log('folders', folders)
-        let files: any[] = []
+        let parseFileQueue: any[] = []; let mmQueue: any[] = []
         for (var folder of folders) {
-            // get files from the Music folder
-            files = files.concat(await LocalFiles.getFiles(folder))
+            // Recursively search and add 
+            let result = await recursiveFolderSearch()
+            parseFileQueue.concat(result.parseFile)
+            mmQueue.concat(result.musicMetadata)
         }
-        let supporttedformats = ["mp3", "aac", "webm", "flac", "m4a", "ogg", "wav", "opus"]
-        let audiofiles = files.filter(f => supporttedformats.includes(f.substring(f.lastIndexOf('.') + 1)));
+        if (parseFileQueue.length !== 0 && mmQueue.length !== 0) {console.log('Recursive Folder Search in Cider Utils worki')}
         let metadatalist = []
         let metadatalistart = []
         let numid = 0;
 
-        for (var audio of audiofiles) {
+        // Music Metadata fallback
+        for (var audio of mmQueue) {
+            try {
+                const metadata = await mm.parseFile(audio);
+                let lochash = Md5.hashStr(audio) ?? numid;
+                if (metadata != null) {
+                    let form = {
+                        "id": "ciderlocal" + lochash,
+                        "_id": "ciderlocal" + lochash,
+                        "type": "podcast-episodes",
+                        "href": audio,
+                        "attributes": {
+                            "artwork": {
+                                "width": 3000,
+                                "height": 3000,
+                                "url": "/ciderlocalart/" + "ciderlocal" + lochash,
+                            },
+                            "topics": [],
+                            "url": "",
+                            "subscribable": true,
+                            "mediaKind": "audio",
+                            "genreNames": [
+                                ""
+                            ],
+                            // "playParams": { 
+                            //     "id": "ciderlocal" + numid, 
+                            //     "kind": "podcast", 
+                            //     "isLibrary": true, 
+                            //     "reporting": false },
+                            "trackNumber": metadata.common.track?.no ?? 0,
+                            "discNumber": metadata.common.disk?.no ?? 0,
+                            "name": metadata.common.title ?? audio.substring(audio.lastIndexOf('\\') + 1),
+                            "albumName": metadata.common.album,
+                            "artistName": metadata.common.artist,
+                            "copyright": metadata.common.copyright ?? "",
+                            "assetUrl": "file:///" + audio,
+                            "contentAdvisory": "",
+                            "releaseDateTime": `${metadata?.common?.year ?? '2022'}-05-13T00:23:00Z`,
+                            "durationInMillis": Math.floor((metadata.format.duration ?? 0) * 1000),       
+                            "bitrate": Math.floor((metadata.format?.bitrate ?? 0) / 1000),
+                            "offers": [
+                                {
+                                    "kind": "get",
+                                    "type": "STDQ"
+                                }
+                            ],
+                            "contentRating": "clean"
+                        },
+                        flavor: Math.floor((metadata.format?.bitrate ?? 0) / 1000),
+                        localFilesMetadata: {
+                            lossless: metadata.format?.lossless,
+                            container: metadata.format?.container,
+                            bitDepth: metadata.format?.bitsPerSample ?? 0,
+                            sampleRate: metadata.format?.sampleRate ?? 0,    
+                        },                    
+                    };
+                    let art = {
+                        id: "ciderlocal" + lochash,
+                        _id: "ciderlocalart" + lochash,
+                        url: metadata.common.picture != undefined ? metadata.common.picture[0].data.toString('base64') : "",
+                    }
+                    metadatalistart.push(art)
+                    numid += 1;
+                    ProviderDB.db.putIfNotExists(form)
+                    ProviderDB.db.putIfNotExists(art)
+                    metadatalist.push(form)
+
+                    if (this.localSongs.length === 0 && numid  % 10 === 0) { // send updated chunks only if there is no previous database
+                        this.eventEmitter.emit('newtracks', metadatalist)}
+                    }
+            } catch (e) {console.error("error:", e)}
+        }
+
+        // Cider-Utils supported formats.
+        for (var audio of parseFileQueue) {
             try {
                 const metadata = await parseFile(audio);
                 let lochash = Md5.hashStr(audio) ?? numid;
