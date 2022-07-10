@@ -6,7 +6,7 @@ import * as mm from 'music-metadata';
 import {Md5} from 'ts-md5/dist/md5';
 import e from "express";
 import { EventEmitter } from 'events';
-import { parseFile, recursiveFolderSearch} from 'cider_utils';
+import { parseFile, recursiveFolderSearch } from 'cider_utils';
 
 export class LocalFiles {
     static localSongs: any = [];
