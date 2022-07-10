@@ -41,8 +41,8 @@ export class LocalFiles {
         for (var folder of folders) {
             // Recursively search and add 
             let result = await recursiveFolderSearch(folder)
-            parseFileQueue.concat(result.parseFile)
-            mmQueue.concat(result.musicMetadata)
+            parseFileQueue = parseFileQueue.concat(result.parseFile)
+            mmQueue = mmQueue.concat(result.musicMetadata)
         }
         if (parseFileQueue.length !== 0 || mmQueue.length !== 0) {console.log('Recursive Folder Search in Cider Utils worki')}
         let metadatalist = []
