@@ -2017,7 +2017,7 @@ const app = new Vue({
                 });
                 window.location.hash = `${kind}/${id}`
                 document.querySelector("#app-content").scrollTop = 0
-            } else if (kind = "social-profiles") {
+            } else if (kind.toString().includes("social-profiles")) {
                 app.page = (kind) + "_" + (id);
                 app.mk.api.v3.music(
                     `/v1/social/${app.mk.storefrontId}/social-profiles/${id}`,
