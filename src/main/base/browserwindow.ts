@@ -63,7 +63,6 @@ export class BrowserWindow {
                 "pages/browse",
                 "pages/groupings",
                 "pages/charts",
-                "pages/settings",
                 //"pages/installed-themes",
                 "pages/listen_now",
                 "pages/radio",
