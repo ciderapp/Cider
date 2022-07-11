@@ -3342,6 +3342,7 @@ const app = new Vue({
                                     translation: ''
                                 });
                             app.lyrics = preLrc.reverse();
+                            if (app.lyrics[5].line == "") {app.loadNeteaseLyrics();} // Detect incomplete QQ lyrics.
                         } catch (e) {
                             console.log(e)
                             app.loadNeteaseLyrics();
