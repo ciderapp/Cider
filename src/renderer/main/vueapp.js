@@ -1966,7 +1966,7 @@ const app = new Vue({
                         })
 
                         return;
-                    } else if(item.attributes.link.url.includes("viewFeature")) {
+                    } else if (item.attributes.link.url.includes("viewFeature")) {
                         const params = new Proxy(new URLSearchParams(new URL(item.attributes.link.url).search), {
                             get: (searchParams, prop) => searchParams.get(prop),
                         });
@@ -1977,7 +1977,6 @@ const app = new Vue({
                                 app.routeView(item)
                             }
                         )
-
                     } else {
                         window.open(item.attributes.link.url)
                     }
@@ -2018,7 +2017,26 @@ const app = new Vue({
                 });
                 window.location.hash = `${kind}/${id}`
                 document.querySelector("#app-content").scrollTop = 0
-            } else if (!kind.toString().includes("radioStation") && !kind.toString().includes("song") && !kind.toString().includes("musicVideo") && !kind.toString().includes("uploadedVideo") && !kind.toString().includes("music-movie")) {
+            } else if (kind = "social-profiles") {
+                app.page = (kind) + "_" + (id);
+                app.mk.api.v3.music(
+                    `/v1/social/${app.mk.storefrontId}/social-profiles/${id}`,
+                    {include:"shared-playlists"}).then(
+                        (data) => {
+                            console.log(data)
+                            app.showingPlaylist = data.data?.data[0]
+                            window.location.hash = `${kind}/${id}`
+                            document.querySelector("#app-content").scrollTop = 0
+                        }
+                    )
+                // app.getTypeFromID((kind), (id), (isLibrary), {
+                //     extend: "editorialVideo",
+                //     include: 'grouping,playlists',
+                //     views: 'top-releases,latest-releases,top-artists'
+                // });
+
+            }
+            else if (!kind.toString().includes("radioStation") && !kind.toString().includes("song") && !kind.toString().includes("musicVideo") && !kind.toString().includes("uploadedVideo") && !kind.toString().includes("music-movie")) {
                 let params = {
                     extend: "offers,editorialVideo",
                     "views": "appears-on,more-by-artist,related-videos,other-versions,you-might-also-like,video-extras,audio-extras",
@@ -3342,6 +3360,7 @@ const app = new Vue({
                                     translation: ''
                                 });
                             app.lyrics = preLrc.reverse();
+                            if (app.lyrics[5].line == "") {app.loadNeteaseLyrics();} // Detect incomplete QQ lyrics.
                         } catch (e) {
                             console.log(e)
                             app.loadNeteaseLyrics();

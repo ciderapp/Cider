@@ -1322,6 +1322,7 @@ body[platform="darwin"] .app-chrome .app-chrome-item > .window-controls > div.cl
     height: 15px;
     width: 15px;
     margin-bottom: 15px;
+    z-index: 1;
   }
 }
 // Add Music Video Icons to Songs that are Music Videos
@@ -1900,8 +1901,10 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 }
 
 @media only screen and (min-width: 1133px) and (max-width: 1277px) {
-  .social-btn {
-    display: none !important;
+  .about-page {
+    .social-btn {
+      display: none !important;
+    }
   }
 }
 
