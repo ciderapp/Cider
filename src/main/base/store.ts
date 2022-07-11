@@ -240,7 +240,7 @@ export class Store {
             "customAccentColor": false,
             "accentColor": "#fc3c44",
             "purplePodcastPlaybackBar": false,
-            "maxContentScale": -1 // -1 default, anything else is a custom scale
+            "maxElementScale": -1 // -1 default, anything else is a custom scale
         },
         "lyrics": {
             "enable_mxm": true,
