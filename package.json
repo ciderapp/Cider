@@ -64,7 +64,7 @@
     "leveldown": "^6.1.1",
     "mdns-js": "git+https://github.com/ciderapp/node-mdns-js.git",
     "mpris-service": "^2.1.2",
-    "music-metadata": "^7.12.3",
+    "music-metadata": "^7.12.4",
     "node-gyp": "^9.0.0",
     "node-ssdp": "^4.0.1",
     "pouchdb-adapter-leveldb": "^7.3.0",
@@ -80,7 +80,8 @@
     "wallpaper": "5.0.1",
     "ws": "^8.5.0",
     "xml2js": "^0.4.23",
-    "youtube-search-without-api-key": "^1.0.7"
+    "youtube-search-without-api-key": "^1.0.7",
+    "cider_utils": "git+https://github.com/ciderapp/cider_utils"
   },
   "devDependencies": {
     "@types/adm-zip": "^0.5.0",
@@ -121,9 +122,9 @@
     }
   ],
   "build": {
-    "electronVersion": "18.3.3",
+    "electronVersion": "18.3.5",
     "electronDownload": {
-      "version": "18.3.3+wvcus",
+      "version": "18.3.5+wvcus",
       "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
     },
     "appId": "cider",

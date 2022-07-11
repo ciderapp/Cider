@@ -394,5 +394,10 @@
   "action.cut": "Ausschneiden",
   "action.paste": "Einfügen",
   "action.selectAll": "Alles auswählen",
-  "action.delete": "Löschen"
+  "action.delete": "Löschen",
+  "home.syncFavorites": "Sync Favoriten",
+  "term.quit" : "Beenden",
+  "settings.option.connectivity.lastfmScrobble.filterLoop.description": "Verhindert, dass geloopte Titel gescrobbelt oder in der (Hört Gerade)-Liste auf Last.fm angezeigt werden",
+  "settings.option.connectivity.lastfmScrobble.filterTypes": "Medientypen filtern (Last.fm)",
+  "settings.option.connectivity.lastfmScrobble.manualToken": "Last.fm-Token manuell eingeben"
 }

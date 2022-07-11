@@ -146,7 +146,7 @@
                     <img v-if="!(cfg.visual.bg_artwork_rotation && animateBackground)" class="bg-artwork no-animation" :src="$store.state.artwork.playerLCD">
                 </div>
             </div>
-            <lyrics-view v-if="drawer.panel == 'lyrics'" :time="lyriccurrenttime" :lyrics="lyrics"
+            <lyrics-view v-if="drawer.panel == 'lyrics'" :time="mk.currentPlaybackTime - lyricOffset" :lyrics="lyrics"
                          :richlyrics="richlyrics"></lyrics-view>
             <div v-if="drawer.panel == 'lyrics'" class="lyric-footer">
                 <button class="md-btn" @click="modularUITest(!fullscreenLyrics)">{{fullscreenLyrics ?

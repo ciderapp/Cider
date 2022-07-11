@@ -1,5 +1,6 @@
 const store = new Vuex.Store({
     state: {
+        windowRelativeScale: 1,
         library: {
             // songs: ipcRenderer.sendSync("get-library-songs"),
             // albums: ipcRenderer.sendSync("get-library-albums"),

@@ -145,7 +145,7 @@
                   Local Library
                 </div>
                 <template v-if="!$root.cfg.general.sidebarCollapsed.localLibrary">
-                  <sidebar-playlist :item="{attributes: { name:'Songs'} , id:'ciderlocal'}">
+                  <sidebar-playlist :item="{attributes: { name:'Songs'} , id:'ciderlocal'}"></sidebar-playlist>
                 </template>
             </template>
             <template v-if="$root.getPlaylistFolderChildren('p.applemusic').length != 0">

@@ -23,8 +23,7 @@
 .github-themes-page {
   display: flex;
   flex-direction: column;
-  padding: 0px;
-  height: calc(100% - var(--navigationBarHeight));
+  height: 100%;
 
   .github-avatar {
     height: 42px;
@@ -52,9 +51,11 @@
 
   .repos-list {
     height: 100%;
-    overflow-y: overlay;
     width: 320px;
     font-size: 14px;
+    overflow: overlay;
+    padding-bottom: 16px;
+    flex: 0 0 auto;
 
     > .list-group {
       margin: 0px;
@@ -76,9 +77,9 @@
   .github-preview {
     height: 100%;
     flex: 1;
-    background: var(--color2);
     padding: 16px 32px;
-    overflow-y: overlay;
+    overflow: auto;
+    padding-bottom: 16px;
   }
 
   .gh-content {
@@ -90,6 +91,182 @@
 
   .gh-header {
     padding: 16px;
+    height: 64px;
+    display: grid;
+    align-content: center;
+    flex: 0 0 auto;
+
+    .header-text {
+      position: initial !important;
+      justify-content: left !important;
+    }
+  }
+
+  .installed-themes-page {
+    .style-editor-container {
+      height: 100%;
+      flex: 1;
+      background: var(--color2);
+      padding: 0px;
+      overflow-y: overlay;
+  
+      .list-group-item {
+        border-radius: 0px;
+      }
+    }
+  }
+}
+
+//Styles Page
+.installed-themes-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  .themeContextMenu {
+    background: transparent;
+    color: var(--keyColor);
+    border: 0px;
+  }
+
+  .list-group-item {
+    &.addon {
+      background: rgb(86 86 86 / 20%);
+    }
+
+    &.applied {
+      background: var(--keyColor-disabled);
+      pointer-events: none;
+    }
+  }
+
+  .repo-header {
+    font-size: 16px;
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 50px;
+    z-index: 1;
+    background: rgba(36, 36, 36, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: var(--glassFilter);
+    overflow: hidden;
+    border-bottom: 1px solid rgb(0 0 0 / 18%);
+    border-top: 1px solid rgb(135 135 135 / 18%);
+  }
+
+  .gh-header {
+    z-index: 5;
+    padding: 16px;
+    flex: 0 0 auto;
+    height: 64px;
+    display: grid;
+    align-content: center;
+    .header-text {
+      position: initial !important;
+      justify-content: left !important;
+    }
+  }
+
+  .gh-content {
+    display: flex;
+    flex-direction: row;
+    padding: 0px;
+    height: 100%;
+    flex: 0 0 auto;
+
+    .repos-list {
+      width: 320px;
+      overflow: overlay;
+      height: 90%;
+      font-size: 14px;
+      white-space: nowrap;
+
+      > .list-group {
+        margin: 0px;
+        padding-bottom: 16px;
+      }
+
+      .list-group-item {
+        padding: 12px 6px;
+  
+        &:hover {
+          filter: brightness(1.2);
+        }
+  
+        &:active {
+          filter: brightness(0.8);
+        }
+      }
+    }
+
+    .style-editor-container {
+      height: 100%;
+      flex: 1;
+      padding: 0px;
+      width: 100%;
+      overflow: hidden;
+      
+      .stylestack-editor {
+        padding-bottom: 16px;
+      }
+
+      .list-group-item {
+        border-radius: 0px;
+      }
+    }
+  }
+
+  .stylestack-editor {
+    width: 100%;
+
+    .btn,
+    .btn-group {
+      width: 100%;
+    }
+
+    .themeLabel {
+      display: flex;
+      align-items: center;
+    }
+
+    .handle {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .list-group-item {
+
+      &:hover {
+        cursor: grab;
+      }
+
+      &:active {
+        cursor: grabbing;
+      }
+    }
+
+    .removeItem {
+      border: 0px;
+      background: transparent;
+      height: 32px;
+      font-weight: bold;
+      color: var(--textColor);
+      cursor: pointer;
+    }
+
+    .stylesDropdown {
+      > .dropdown-menu {
+        height: 300px;
+        overflow-y: overlay;
+      }
+    }
   }
 }
 
@@ -1053,7 +1230,7 @@
   }
 
   &.animated .artist-header {
-    min-height: 500px;
+    min-height: 80vh;
   }
 
   .artist-header {
@@ -1113,6 +1290,24 @@
       right: 28px;
     }
 
+    .social-btn {
+      border-radius: 100%;
+      background: transparent;
+      height: 17px;
+      border: 0px;
+      cursor: pointer;
+      z-index: 69;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      float: right;
+    }
+    @media only screen and (min-width: 1133px) and (max-width: 1277px) {
+      .social-btn {
+        display: none !important;
+      }
+    }
+
     .animated {
       width: 100%;
       height: 100%;
@@ -1131,6 +1326,7 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        object-fit: cover;
       }
     }
 
@@ -1272,107 +1468,6 @@
 }
 
 /* Artist Page End */
-
-
-.installed-themes-page {
-
-  .themeContextMenu {
-    background: transparent;
-    color: var(--keyColor);
-    border: 0px;
-  }
-
-  .list-group-item {
-    &.addon {
-      background: rgb(86 86 86 / 20%);
-    }
-
-    &.applied {
-      background: var(--keyColor-disabled);
-      pointer-events: none;
-    }
-  }
-
-  .repo-header {
-    font-size: 16px;
-    position: sticky;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 50px;
-    z-index: 1;
-    background: rgba(36, 36, 36, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    backdrop-filter: var(--glassFilter);
-    overflow: hidden;
-    border-bottom: 1px solid rgb(0 0 0 / 18%);
-    border-top: 1px solid rgb(135 135 135 / 18%);
-  }
-
-  .style-editor-container {
-    height: 100%;
-    flex: 1;
-    background: var(--color2);
-    padding: 0px;
-    overflow-y: overlay;
-
-    .list-group-item {
-      border-radius: 0px;
-    }
-  }
-
-
-  .stylestack-editor {
-    width: 100%;
-
-    .btn,
-    .btn-group {
-      width: 100%;
-    }
-
-    .themeLabel {
-      display: flex;
-      align-items: center;
-    }
-
-    .handle {
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .list-group-item {
-
-      &:hover {
-        cursor: grab;
-      }
-
-      &:active {
-        cursor: grabbing;
-      }
-    }
-
-    .removeItem {
-      border: 0px;
-      background: transparent;
-      height: 32px;
-      font-weight: bold;
-      color: var(--textColor);
-      cursor: pointer;
-    }
-
-    .stylesDropdown {
-      > .dropdown-menu {
-        height: 300px;
-        overflow-y: overlay;
-      }
-    }
-  }
-}
 
 // Settings page
 .settings-page {
@@ -1987,7 +2082,7 @@
 
   .settings-window {
     background: var(--baseColorMix);
-    max-width: 80%;
+    max-width: 90%;
     max-height: 90%;
     width: 100%;
     height: 100%;
@@ -2024,6 +2119,11 @@
       display: flex;
       gap: 10px;
       align-items: center;
+      height: 35px;
+
+      :nth-child(2) {
+        white-space: nowrap;
+      }
     }
 
 
@@ -2082,6 +2182,11 @@
         background-color: rgb(196, 43, 28)
       }
 
+      &.back-btn {
+        left: 10px;
+        right: unset;
+      }
+
       &.minmax-btn {
         right: 52px;
 
@@ -2109,6 +2214,9 @@
 
       > .col-auto {
         width: 230px;
+        overflow-x: hidden;
+        overflow-y: overlay;
+        transition: width 0.25s ease-in-out;
       }
 
       .tab-content {
@@ -2120,8 +2228,49 @@
       overflow-y: overlay;
       height: 100%;
       background-color: var(--panelColor2);
+      padding:0px;
       padding-top: 48px;
       border-left: 1px solid var(--borderColor);
+    }
+
+    .github-themes-page, .installed-themes-page {
+      .header-text {
+        font-size: 1.25em;
+      }
+    }
+
+    .tab-pane {
+      height:100%;
+    }
+
+    .settings-tab-content {
+      height:100%;
+    }
+    
+    &.no-sidebar {
+      .gh-header {
+        >.row {
+          &:last-child {
+            padding-right: 90px;
+          }
+        }
+      }
+      .tab-content {
+        padding-top:0px;
+      }
+
+      .tabs {
+        .nav-pills .nav-link {
+          width: 50px;
+          :nth-child(2) {
+            // font-size: 0px;
+            opacity:0;
+          }
+        }
+        >.col-auto {
+          width: 80px;
+        }
+      }
     }
   }
 }

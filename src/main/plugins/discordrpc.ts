@@ -52,22 +52,50 @@ export default class DiscordRPC {
         const self = this
         this.connect();
         console.debug(`[Plugin][${this.name}] Ready.`);
-        ipcMain.on('updateRPCImage', (_event, imageurl) => {
+        ipcMain.on('updateRPCImage', async (_event, imageurl) => {
             if (!this._utils.getStoreValue("general.privateEnabled")) {
-                fetch('https://api.cider.sh/v1/images', {
+                let b64data = ""
+                let postbody = ""
+                if (imageurl.startsWith("/ciderlocalart")){
+                    let port = await _win.webContents.executeJavaScript(
+                        `app.clientPort`
+                    );
+                    console.log("http://localhost:"+port+imageurl)
+                    const response = await fetch("http://localhost:"+port+imageurl)
+                    b64data = (await response.buffer()).toString('base64');
+                    postbody = JSON.stringify({data: b64data})
+                    fetch('https://api.cider.sh/v1/images', {
 
-                    method: 'POST',
-                    body: JSON.stringify({url: imageurl}),
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'User-Agent': _win.webContents.getUserAgent()
-                    },
-                })
-                    .then(res => res.json())
-                    .then(function (json) {
-                        self._attributes["artwork"]["url"] = json.url
-                        self.setActivity(self._attributes)
+                        method: 'POST',
+                        body: postbody,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'User-Agent': _win.webContents.getUserAgent()
+                        },
                     })
+                        .then(res => res.json())
+                        .then(function (json) {
+                            self._attributes["artwork"]["url"] = json.url
+                            self.setActivity(self._attributes)
+                        })
+                } else {
+                    postbody = JSON.stringify({url: imageurl})
+                    fetch('https://api.cider.sh/v1/images', {
+
+                        method: 'POST',
+                        body: postbody,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'User-Agent': _win.webContents.getUserAgent()
+                        },
+                    })
+                        .then(res => res.json())
+                        .then(function (json) {
+                            self._attributes["artwork"]["url"] = json.url
+                            self.setActivity(self._attributes)
+                    })
+                }
+
             }
         })
         ipcMain.on("reloadRPC", () => {
@@ -88,6 +116,7 @@ export default class DiscordRPC {
         })
     }
 
+    
     /**
      * Runs on app stop
      */

@@ -12,6 +12,7 @@ const app = new Vue({
         ipcRenderer: ipcRenderer,
         cfg: ipcRenderer.sendSync("getStore"),
         isDev: ipcRenderer.sendSync("is-dev"),
+        clientPort: ipcRenderer.sendSync("get-port"),
         drawertest: false,
         platform: "",
         mk: {},
@@ -705,6 +706,9 @@ const app = new Vue({
             } catch (err) {
             }
 
+            // Used to get a scale factor for the window for CSS scaling
+            window.addEventListener("resize", e =>  this.setWindowScaleFactor())
+            this.setWindowScaleFactor()
             this.mk._bag.features['seamless-audio-transitions'] = this.cfg.audio.seamless_audio
             this.mk._bag.features["broadcast-radio"] = true
             this.mk._services.apiManager.store.storekit._restrictedEnabled = false
@@ -915,13 +919,19 @@ const app = new Vue({
                 }
             });
 
+            this.mk.addEventListener(MusicKit.Events.playbackProgressDidChange, () => {
+                if (self.mk.currentPlaybackProgress === (app.cfg.connectivity.lastfm.scrobble_after / 100)) {
+                    ipcRenderer.send('lastfm:scrobbleTrack', MusicKitInterop.getAttributes());
+                }
+            })
+
             this.mk.addEventListener(MusicKit.Events.playbackStateDidChange, (event) => {
                 ipcRenderer.send('wsapi-updatePlaybackState', wsapi.getAttributes());
                 document.body.setAttribute("playback-state", event.state == 2 ? "playing" : "paused")
             })
 
             this.mk.addEventListener(MusicKit.Events.playbackTimeDidChange, (a) => {
-                self.lyriccurrenttime = self.mk.currentPlaybackTime + app.lyricOffset
+                // self.lyriccurrenttime = self.mk.currentPlaybackTime - app.lyricOffset
                 this.currentSongInfo = a
                 self.playerLCD.playbackDuration = (self.mk.currentPlaybackTime)
                 // wsapi
@@ -1091,6 +1101,18 @@ const app = new Vue({
 
             ipcRenderer.invoke("scanLibrary")
         },
+        setWindowScaleFactor() {
+            let scale = window.devicePixelRatio * window.innerWidth / 1280 * window.innerHeight / 720
+            let desiredScale = clamp(parseFloat(app.cfg.visual.maxElementScale == -1 ? 1.5 : app.cfg.visual.maxElementScale), 1, 1.5)
+            app.$store.state.windowRelativeScale = scale
+            if(scale <= 1) {
+                scale = 1
+            }else if(scale >= desiredScale) {
+                scale = desiredScale
+            }
+            document.documentElement.style
+                    .setProperty('--windowRelativeScale', scale);
+        },
         showFoo(querySelector, time) {
             clearTimeout(this.idleTimer);
             if (this.idleState == true) {
@@ -1120,7 +1142,7 @@ const app = new Vue({
                                     message: `[Themes] ${theme.name} has an update available.`
                                 })
                                 notify.on("click", () => {
-                                    app.appRoute("themes-github")
+                                    app.openSettingsPage("github-themes")
                                     notyf.dismiss(notify)
                                 })
                             }
@@ -1944,12 +1966,31 @@ const app = new Vue({
                         })
 
                         return;
+                    } else if(item.attributes.link.url.includes("viewFeature")) {
+                        const params = new Proxy(new URLSearchParams(new URL(item.attributes.link.url).search), {
+                            get: (searchParams, prop) => searchParams.get(prop),
+                        });
+                        id = params.id
+                        app.mk.api.v3.music(`/v1/editorial/vn/multiplex/${id}?art%5Burl%5D=f&format%5Bresources%5D=map&platform=web`).then(
+                            (data) => {
+                                let item = data.data.results?.target ?? []
+                                app.routeView(item)
+                            }
+                        )
+
                     } else {
                         window.open(item.attributes.link.url)
                     }
                 }
 
-            } else if (kind == "multirooms") {
+            } else if (kind == "multiplex") {
+                app.mk.api.v3.music(`/v1/editorial/vn/multiplex/${id}?art%5Burl%5D=f&format%5Bresources%5D=map&platform=web`).then(
+                    (data) => {
+                        let item = data.data.results?.target ?? []
+                        app.routeView(item)
+                    }
+                )
+            }if (kind == "multirooms") {
                 app.getTypeFromID("multiroom", id, false, {
                     platform: "web",
                     extend: "editorialArtwork,uber,lockupStyle"
@@ -1990,7 +2031,7 @@ const app = new Vue({
                     params["fields[artists]"] = "name,url"
                     params["omit[resource]"] = "autos"
                     params["meta[albums:tracks]"] = 'popularity'
-                    params["fields[albums]"] = "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialNotes,editorialVideo,name,playParams,releaseDate,url,copyright"
+                    params["fields[albums]"] = "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialNotes,editorialVideo,name,playParams,releaseDate,url,copyright,genreNames"
                 }
                 if (kind.includes("playlist") || kind.includes("album")) {
                     app.page = (kind) + "_" + (id);
@@ -3019,7 +3060,10 @@ const app = new Vue({
             const track = encodeURIComponent((this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.title ?? '' : '');
             const artist = encodeURIComponent((this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.artistName ?? '' : '');
             const time = encodeURIComponent((this.mk.nowPlayingItem != null) ? (Math.round((this.mk.nowPlayingItem.attributes["durationInMillis"] ?? -1000) / 1000) ?? -1) : -1);
-            const id = encodeURIComponent((this.mk.nowPlayingItem != null) ? app.mk.nowPlayingItem._songId ?? (app.mk.nowPlayingItem["songId"] ?? '') : '');
+            let id = null; let vanity_id = null;
+            if (this.mk.nowPlayingItem != null && app.mk.nowPlayingItem.localFilesMetadata != null) {const id = encodeURIComponent('')}
+            else {id = encodeURIComponent((this.mk.nowPlayingItem != null) ? (app.mk.nowPlayingItem._songId) ?? (app.mk.nowPlayingItem["songId"] ?? '') : '');}
+            
             let lrcfile = "";
             let richsync = [];
             const lang = app.cfg.lyrics.mxm_language //  translation language
@@ -3027,67 +3071,13 @@ const app = new Vue({
                 return Math.random().toString(36).replace(/[^a-z]+/g, '').slice(2, 10);
             }
 
-            /* get token */
-            function getToken(mode, track, artist, songid, lang, time, id) {
-                if (attempt > 2) {
-                    app.loadNeteaseLyrics();
-                    // app.loadAMLyrics();
-                } else {
-                    attempt = attempt + 1;
-                    let url = "https://apic-desktop.musixmatch.com/ws/1.1/token.get?app_id=web-desktop-app-v1.0&t=" + revisedRandId();
-                    let req = new XMLHttpRequest();
-                    req.overrideMimeType("application/json");
-                    req.open('GET', url, true);
-                    req.setRequestHeader("authority", "apic-desktop.musixmatch.com");
-                    req.onload = function () {
-                        try {
-                            let jsonResponse = JSON.parse(this.responseText);
-                            let status2 = jsonResponse["message"]["header"]["status_code"];
-                            if (status2 == 200) {
-                                let token = jsonResponse["message"]["body"]["user_token"] ?? '';
-                                if (token != "" && token != "UpgradeOnlyUpgradeOnlyUpgradeOnlyUpgradeOnly") {
-                                    console.debug('200 token', mode);
-                                    // token good
-                                    app.mxmtoken = token;
 
-                                    if (mode == 1) {
-                                        getMXMSubs(track, artist, app.mxmtoken, lang, time, id);
-                                    } else {
-                                        getMXMTrans(songid, lang, app.mxmtoken);
-                                    }
-                                } else {
-                                    console.debug('fake 200 token');
-                                    getToken(mode, track, artist, songid, lang, time)
-                                }
-                            } else {
-                                // console.log('token 4xx');
-                                getToken(mode, track, artist, songid, lang, time)
-                            }
-                        } catch (e) {
-                            console.log('error');
-                            app.loadQQLyrics();
-                            //app.loadAMLyrics();
-                        }
-                    };
-                    req.onerror = function () {
-                        console.log('error');
-                        app.loadQQLyrics();
-                        // app.loadAMLyrics();
-                    };
-                    req.send();
-                }
-            }
-
-            function getMXMSubs(track, artist, token, lang, time, id) {
-                let usertoken = encodeURIComponent(token);
-                let richsyncQuery = (app.cfg.lyrics.mxm_karaoke) ? "&optional_calls=track.richsync" : ""
-                let timecustom = (!time || (time && time < 0)) ? '' : `&f_subtitle_length=${time}&q_duration=${time}&f_subtitle_length_max_deviation=40`;
-                let itunesid = (id && id != "") ? `&track_itunes_id=${id}` : '';
-                let url = "https://apic-desktop.musixmatch.com/ws/1.1/macro.subtitles.get?format=json&namespace=lyrics_richsynched" + richsyncQuery + "&subtitle_format=lrc&q_artist=" + artist + "&q_track=" + track + itunesid + "&usertoken=" + usertoken + timecustom + "&app_id=web-desktop-app-v1.0&t=" + revisedRandId();
+            function getMXMSubs(track, artist, lang, time, id) {
+                let richsyncQuery = app.cfg.lyrics.mxm_karaoke
+                let itunesid = (id && id != "") ? id : ''; // Mode 1 -> Subs
+                let url = "https://api.cider.sh/v1/lyrics?" + "mode=1" + "&richsyncQuery=" + richsyncQuery + "&track=" + track + "&artist=" + artist + "&songID=" + itunesid + "&source=mxm" + "&lang=" + lang + "&time=" + time;
                 let req = new XMLHttpRequest();
                 req.overrideMimeType("application/json");
-                req.open('GET', url, true);
-                req.setRequestHeader("authority", "apic-desktop.musixmatch.com");
                 req.onload = function () {
                     try {
                         let jsonResponse = JSON.parse(this.responseText);
@@ -3095,11 +3085,13 @@ const app = new Vue({
                         let status1 = jsonResponse["message"]["header"]["status_code"];
 
                         if (status1 == 200) {
-                            let id = '';
+                            let id, songLang = '';
                             try {
                                 if (jsonResponse["message"]["body"]["macro_calls"]["matcher.track.get"]["message"]["header"]["status_code"] == 200 && jsonResponse["message"]["body"]["macro_calls"]["track.subtitles.get"]["message"]["header"]["status_code"] == 200) {
                                     id = jsonResponse["message"]["body"]["macro_calls"]["matcher.track.get"]["message"]["body"]["track"]["track_id"] ?? '';
                                     lrcfile = jsonResponse["message"]["body"]["macro_calls"]["track.subtitles.get"]["message"]["body"]["subtitle_list"][0]["subtitle"]["subtitle_body"];
+                                    vanity_id = jsonResponse["message"]["body"]["macro_calls"]["matcher.track.get"]["message"]["body"]["track"]["commontrack_vanity_id"];
+                                    songLang = jsonResponse["message"]["body"]["macro_calls"]["track.lyrics.get"]["message"]["body"]["lyrics"]["lyrics_language_description"];
 
                                     try {
                                         let lrcrich = jsonResponse["message"]["body"]["macro_calls"]["track.richsync.get"]["message"]["body"]["richsync"]["richsync_body"];
@@ -3114,7 +3106,7 @@ const app = new Vue({
                                     // app.loadAMLyrics()
                                 } else {
                                     if (richsync == [] || richsync.length == 0) {
-                                        console.log("ok");
+                                        console.log("musixmatch worki");
                                         // process lrcfile to json here
                                         app.lyricsMediaItem = lrcfile
                                         let u = app.lyricsMediaItem.split(/[\r\n]/);
@@ -3155,24 +3147,21 @@ const app = new Vue({
                                             });
                                         app.lyrics = preLrc;
                                     }
-                                    if (lrcfile != null && lrcfile != '') {
-                                        // load translation
-                                        getMXMTrans(id, lang, token);
-                                    } else {
-                                        // app.loadAMLyrics()
-                                        app.loadQQLyrics();
+                                  
+                                    // Load translation
+                                    if (songLang.toLowerCase() !== lang){
+                                        getMXMTrans(lang, vanity_id);
                                     }
+
                                 }
                             } catch (e) {
                                 console.log(e);
                                 app.loadQQLyrics();
                                 //  app.loadAMLyrics()
                             }
-                        } else { //4xx rejected
-                            getToken(1, track, artist, '', lang, time);
-                        }
+                        } 
                     } catch (e) {
-                        console.log(e);
+                        console.error(e);
                         app.loadQQLyrics();
                         //app.loadAMLyrics()
                     }
@@ -3182,59 +3171,59 @@ const app = new Vue({
                     console.log('error');
                     // app.loadAMLyrics();
                 };
+                req.open('POST', url, true);
                 req.send();
             }
 
-            function getMXMTrans(id, lang, token) {
-                if (lang != "disabled" && id != '') {
-                    let usertoken = encodeURIComponent(token);
-                    let url2 = "https://apic-desktop.musixmatch.com/ws/1.1/crowd.track.translations.get?translation_fields_set=minimal&selected_language=" + lang + "&track_id=" + id + "&comment_format=text&part=user&format=json&usertoken=" + usertoken + "&app_id=web-desktop-app-v1.0&t=" + revisedRandId();
-                    let req2 = new XMLHttpRequest();
-                    req2.overrideMimeType("application/json");
-                    req2.open('GET', url2, true);
-                    req2.setRequestHeader("authority", "apic-desktop.musixmatch.com");
-                    req2.onload = function () {
-                        try {
-                            let jsonResponse2 = JSON.parse(this.responseText);
-                            console.log(jsonResponse2);
-                            let status2 = jsonResponse2["message"]["header"]["status_code"];
-                            if (status2 == 200) {
-                                try {
-                                    let preTrans = []
-                                    let u = app.lyrics;
-                                    let translation_list = jsonResponse2["message"]["body"]["translations_list"];
-                                    if (translation_list.length > 0) {
-                                        for (var i = 0; i < u.length - 1; i++) {
-                                            preTrans[i] = ""
-                                            for (var trans_line of translation_list) {
-                                                if (u[i].line == " " + trans_line["translation"]["matched_line"] || u[i].line == trans_line["translation"]["matched_line"]) {
-                                                    u[i].translation = trans_line["translation"]["description"];
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                        app.lyrics = u;
+            function getMXMTrans(lang, vanity_id) {
+                try { 
+                    if (lang != "disabled" && vanity_id != '') { // Mode 2 -> Trans
+                        fetch('https://www.musixmatch.com/lyrics/' + vanity_id +'/translation/' + lang, {
+                            method: 'GET',
+                            headers: {
+                                'Host': 'musixmatch.com',
+                                'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
+                                'authority': "www.musixmatch.com"
+                            },
+                        })
+                            .then(async (res) => {
+                                if (res.status != 200) {return}
+                                let html = document.createElement('html'); html.innerHTML = await res.text()
+                                let lyric_isolated = html.querySelector("#site > div > div > div > main > div > div > div.mxm-track-lyrics-container > div.container > div > div > div > div.col-sm-12.col-md-10.col-ml-9.col-lg-9 > div.mxm-lyrics.translated > div.row > div.col-xs-12.col-sm-12.col-md-12.col-ml-12.col-lg-12")
+                                let raw_lines = lyric_isolated.getElementsByClassName("col-xs-6 col-sm-6 col-md-6 col-ml-6 col-lg-6")
+                                let applied = 0; 
+                                for (let i = 1; applied < app.lyrics.length; i+=2) { // Start on odd elements because even ones are original.
+                                    if (raw_lines[i].childNodes[0].childNodes[0].textContent.trim() == "") {i+=2;}
+                                    if (app.lyrics[applied].line.trim() == "") {applied+=1;}
+                                    if (app.lyrics[applied].line.trim() === raw_lines[i].childNodes[0].childNodes[0].textContent.trim().replace('′', "'")) {                           
+                                        // Do Nothing
+                                        applied +=1;
                                     }
-                                } catch (e) {
-                                    /// not found trans -> ignore
+                                    else  {                
+                                        if (app.lyrics[applied].line === "lrcInstrumental") { 
+                                            if (app.lyrics[applied+1].line.trim() === raw_lines[i].childNodes[0].childNodes[0].textContent.trim()) {                           
+                                                // Do Nothing
+                                                applied +=2;
+                                            }
+                                            else {
+                                                app.lyrics[applied+1].translation = raw_lines[i].childNodes[0].childNodes[0].textContent.trim();  
+                                                applied +=2;
+                                                }                      
+                                        }      
+                                        else {
+                                            app.lyrics[applied].translation = raw_lines[i].childNodes[0].childNodes[0].textContent.trim();       
+                                            applied +=1;
+                                        }
+                                    } 
                                 }
-                            } else { //4xx rejected
-                                getToken(2, '', '', id, lang, '');
-                            }
-                        } catch (e) {
-                        }
+                            })
                     }
-                    req2.send();
-                }
+                } catch (e) {console.debug("Error while parsing MXM Trans: " + e)}
 
             }
 
             if (track != "" & track != "No Title Found") {
-                if (app.mxmtoken != null && app.mxmtoken != '') {
-                    getMXMSubs(track, artist, app.mxmtoken, lang, time, id)
-                } else {
-                    getToken(1, track, artist, '', lang, time);
-                }
+                getMXMSubs(track, artist, lang, time, id);    
             }
         },
         loadNeteaseLyrics() {
@@ -3976,9 +3965,8 @@ const app = new Vue({
                         this.currentArtUrl = this.mk.nowPlayingItem._assets[0].artworkURL
                     }
                     try {
-                        document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
-                    } catch (e) {
-                    }
+                        // document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
+                    } catch (e) {}                               
                 } else {
                     let data = await this.mk.api.v3.music(`/v1/me/library/songs/${this.mk.nowPlayingItem.id}`);
                     data = data.data.data[0];
@@ -3990,14 +3978,14 @@ const app = new Vue({
                         }
                         ipcRenderer.send('updateRPCImage', this.currentArtUrl ?? '');
                         try {
-                            document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
+                            // document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
                         } catch (e) {
                         }
                     } else {
                         this.currentArtUrlRaw = ''
                         this.currentArtUrl = '';
                         try {
-                            document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
+                            // document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
                         } catch (e) {
                         }
                     }
@@ -4441,20 +4429,29 @@ const app = new Vue({
                 case "audiolabs":
                     this.$store.state.pageState.settings.currentTabIndex = 2
                     break;
-                case "visual":
+                case "styles":
                     this.$store.state.pageState.settings.currentTabIndex = 3
                     break;
-                case "lyrics":
+                case "visual":
                     this.$store.state.pageState.settings.currentTabIndex = 4
                     break;
-                case "connectivity":
+                case "github-plugins":
                     this.$store.state.pageState.settings.currentTabIndex = 5
                     break;
-                case "advanced":
+                case "lyrics":
                     this.$store.state.pageState.settings.currentTabIndex = 6
                     break;
-                case "keybindings":
+                case "connectivity":
                     this.$store.state.pageState.settings.currentTabIndex = 7
+                    break;
+                case "advanced":
+                    this.$store.state.pageState.settings.currentTabIndex = 8
+                    break;
+                case "keybindings":
+                    this.$store.state.pageState.settings.currentTabIndex = 9
+                    break;
+                case "github-themes":
+                    this.$store.state.pageState.settings.currentTabIndex = 10
                     break;
             }
             app.modals.settings = true

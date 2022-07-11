@@ -14,6 +14,7 @@
 @import url("less/pages.less");
 
 :root {
+  --windowRelativeScale: 1;
   --appleEase: cubic-bezier(0.42, 0, 0.58, 1);
   --borderColor: rgb(200 200 200 / 16%);
   --mediaItemShadow: inset 0px 0px 0px 1px rgb(200 200 200 / 16%);
@@ -1885,6 +1886,25 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   }
 }
 
+.social-btn {
+  border-radius: 100%;
+  background: transparent;
+  height: 17px;
+  border: 0px;
+  cursor: pointer;
+  z-index: 69;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  float: right;
+}
+
+@media only screen and (min-width: 1133px) and (max-width: 1277px) {
+  .social-btn {
+    display: none !important;
+  }
+}
+
 .about-page {
   .teamBtn {
     display: flex;
@@ -2037,7 +2057,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
 
       // screen size > 1200px
       @media screen and (min-width: 1500px) {
-        grid-template-columns: repeat(6, minmax(200px, 1fr));
+        grid-template-columns: repeat(5, minmax(200px, 1fr));
       }
       // less than 1100px
       @media screen and (max-width: 1150px) {
