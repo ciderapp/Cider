@@ -46,6 +46,7 @@
     "airtunes2": "git+https://github.com/ciderapp/node_airtunes2",
     "castv2-client": "^1.2.0",
     "chokidar": "^3.5.3",
+    "cider_utils": "git+https://github.com/ciderapp/cider_utils",
     "discord-auto-rpc": "^1.0.16",
     "dns-js": "git+https://github.com/ciderapp/node-dns-js.git",
     "ejs": "^3.1.6",
@@ -80,8 +81,7 @@
     "wallpaper": "5.0.1",
     "ws": "^8.5.0",
     "xml2js": "^0.4.23",
-    "youtube-search-without-api-key": "^1.0.7",
-    "cider_utils": "git+https://github.com/ciderapp/cider_utils"
+    "youtube-search-without-api-key": "^1.0.7"
   },
   "devDependencies": {
     "@types/adm-zip": "^0.5.0",
