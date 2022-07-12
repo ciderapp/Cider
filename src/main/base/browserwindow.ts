@@ -86,6 +86,7 @@ export class BrowserWindow {
                 "pages/zoo",
                 "pages/plugin-renderer",
                 "pages/oobe",
+                "pages/cider-profile",
                 "components/app-content",
                 "components/sidebar",
                 "components/mediaitem-artwork",
@@ -193,6 +194,10 @@ export class BrowserWindow {
                     page: "recordLabel_",
                     component: `<cider-recordlabel :data="$root.showingPlaylist"></cider-recordlabel>`,
                     condition: `$root.page.includes('recordLabel_')`
+                }, {
+                    page: "social-profiles_",
+                    component: `<cider-socialprofile :data="$root.showingPlaylist"></cider-socialprofile>`,
+                    condition: `$root.page.includes('social-profiles_')`
                 }, {
                     page: "multiroom",
                     component: `<cider-multiroom :data="$root.multiroom"></cider-multiroom>`,
