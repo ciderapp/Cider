@@ -16,10 +16,10 @@ import {utils} from './utils';
  * @see {@link https://github.com/ciderapp/Cider/wiki/Plugins|Documentation}
  */
 export class Plugins {
+    private static PluginMap: any = {};
     private basePluginsPath = path.join(__dirname, '../plugins');
     private userPluginsPath = path.join(electron.app.getPath('userData'), 'Plugins');
     private readonly pluginsList: any = {};
-    private static PluginMap: any = {};
 
     constructor() {
         this.pluginsList = this.getPlugins();
@@ -35,8 +35,8 @@ export class Plugins {
 
     public getPlugins(): any {
         let plugins: any = {};
-        
-        
+
+
         if (fs.existsSync(this.basePluginsPath)) {
             fs.readdirSync(this.basePluginsPath).forEach(file => {
                 if (file.endsWith('.ts') || file.endsWith('.js')) {
@@ -49,8 +49,8 @@ export class Plugins {
                 }
             });
         }
-        
-        
+
+
         if (fs.existsSync(this.userPluginsPath)) {
             fs.readdirSync(this.userPluginsPath).forEach(file => {
                 // Plugins V1
@@ -104,9 +104,9 @@ export class Plugins {
     public callPlugins(event: string, ...args: any[]) {
         for (const plugin in this.pluginsList) {
             if (this.pluginsList[plugin][event]) {
-                try{
+                try {
                     this.pluginsList[plugin][event](...args);
-                }catch(e) {
+                } catch (e) {
                     console.error(`[${plugin}] An error was encountered: ${e}`);
                     console.error(e)
                 }
