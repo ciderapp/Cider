@@ -72,7 +72,7 @@ export default class mpris {
         player.on('play', () => mpris.utils.playback.play())
         player.on('pause', () => mpris.utils.playback.pause())
         player.on('quit', () => mpris.utils.getApp().exit())
-        player.on('position', (args: { position: any; }) => mpris.utils.playback.seek(args.position))
+        player.on('position', (args: { position: any; }) => mpris.utils.playback.seek(args.position / 1000 / 1000))
         player.on('loopStatus', (status: string) => renderer.executeJavaScript(`app.mk.repeatMode = ${loopType[status.toLowerCase()]}`))
         player.on('shuffle', () => renderer.executeJavaScript('app.mk.shuffleMode = (app.mk.shuffleMode === 0) ? 1 : 0'))
 
