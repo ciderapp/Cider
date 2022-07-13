@@ -1,0 +1,184 @@
+<script type="text/x-template" id="cider-queue">
+    <div class="queue-panel">
+        <div class="row">
+            <div class="col">
+                <h3 class="queue-header-text" v-if="page == 'queue'">{{app.getLz('term.queue')}}</h3>
+                <h3 class="queue-header-text" v-if="page == 'history'">{{app.getLz('term.history')}}</h3>
+            </div>
+            <div class="col-auto flex-center">
+                <button class="autoplay" :style="{'background': app.mk.autoplayEnabled ? 'var(--keyColor)' : ''}"
+                        @click="app.mk.autoplayEnabled = !app.mk.autoplayEnabled"
+                        :title="app.getLz('term.autoplay')" v-b-tooltip.hover>
+                    <img class="infinity">
+                </button>
+            </div>
+        </div>
+        <div class="queue-body" v-if="page == 'history'">
+            <mediaitem-list-item :show-library-status="false" v-for="item in history" :item="item"></mediaitem-list-item>
+        </div>
+        <div class="queue-body" v-if="page == 'queue'">
+            <draggable v-model="queueItems" @start="drag=true" @end="drag=false;move()">
+                <template v-for="(queueItem, position) in displayQueueItems">
+                    <div class="cd-queue-item"
+                         :class="{selected: selectedItems.includes(position)}"
+                         @click="select($event, position)"
+                         @dblclick="playQueueItem(queueItem.item.id)" :key="position"
+                         @contextmenu="selected = position;queueContext($event, queueItem.item, position)">
+                        <div class="row">
+                            <div class="col-auto flex-center">
+                                <div class="artwork">
+                                    <mediaitem-artwork :url="queueItem.item.attributes.artwork ? queueItem.item.attributes.artwork.url : ''" :size="32"></mediaitem-artwork>
+                                </div>
+                            </div>
+                            <div class="col queue-info">
+                                <div class="queue-title text-overflow-elipsis">{{ queueItem.item.attributes.name }}</div>
+                                <div class="queue-subtitle text-overflow-elipsis">{{ queueItem.item.attributes.artistName }} — {{ queueItem.item.attributes.albumName }}</div>
+                            </div>
+                            <div class="queue-explicit-icon flex-center" v-if="queueItem.item.attributes.contentRating == 'explicit'">
+                                <div class="explicit-icon"></div>
+                            </div>
+                            <div class="col queue-duration-info">
+                                <div class="queue-duration flex-center">{{convertTimeToString(queueItem.item.attributes.durationInMillis)}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </draggable>
+        </div>
+        <div class="queue-footer">
+            <div class="btn-group" style="width:100%;">
+                <button class="md-btn md-btn-small" :class="{'md-btn-primary': (page == 'queue')}" @click="page = 'queue'">{{app.getLz('term.queue')}}</button>
+                <button class="md-btn md-btn-small" :class="{'md-btn-primary': (page == 'history')}" @click="getHistory();page = 'history'">{{app.getLz('term.history')}}</button>
+            </div>
+            <button class="md-btn md-btn-small" style="width:100%;margin-top:6px;" v-if="queueItems.length > 1" @click="app.mk.clearQueue();updateQueue()">{{app.getLz('term.clearAll')}}</button>
+        </div>
+    </div>
+</script>
+
+
+<script>
+    Vue.component('cider-queue', {
+        template: '#cider-queue',
+        data: function () {
+            return {
+                drag: false,
+                queuePosition: 0,
+                queueItems: [],
+                selected: -1,
+                selectedItems: [],
+                history: [],
+                page: "queue",
+                app: this.$root
+            }
+        },
+        computed: {
+            displayQueueItems() {
+                const displayLimit = 50;
+                const lastDisplayPosition = Math.min(displayLimit + this.queuePosition, this.queueItems.length);
+                return this.queueItems.slice(this.queuePosition, lastDisplayPosition);
+            }
+        },
+        mounted() {
+            this.updateQueue()
+        },
+        methods: {
+            async getHistory() {
+                let history = await app.mk.api.v3.music(`/v1/me/recent/played/tracks`, { l : this.$root.mklang})
+                this.history = history.data.data
+            },
+            select(e, position) {
+                if (e.ctrlKey || e.shiftKey) {
+                    if (this.selectedItems.indexOf(position) == -1) {
+                        this.selectedItems.push(position)
+                    } else {
+                        this.selectedItems.splice(this.selectedItems.indexOf(position), 1)
+                    }
+                } else {
+                    this.selectedItems = [position]
+                }
+            },
+            queueContext(event, item, position) {
+                let self = this
+                let useMenu = "single"
+                if (this.selectedItems.length > 1) {
+                    useMenu = "multiple"
+                }
+                let menus = {
+                    single: {
+                        items: [{
+                            "name": app.getLz('action.removeFromQueue'),
+                            "action": function () {
+                                self.queueItems.splice(position, 1)
+                                app.mk.queue._queueItems = self.queueItems;
+                                app.mk.queue._reindex()
+                                }
+                            },
+                            {
+                                "name": app.getLz('action.startRadio'),
+                                "action": function () {
+                                    app.mk.setStationQueue({
+                                        song: item.attributes.playParams.id ?? item.id
+                                    }).then(() => {
+                                        app.mk.play()
+                                    })
+                                }
+                            },
+                            {
+                                "name": app.getLz('action.goToArtist'),
+                                "action": function () {
+                                    app.searchAndNavigate(item,'artist')
+                                }
+                            },
+                            {
+                                "name": app.getLz('action.goToAlbum'),
+                                "action": function () {
+                                    app.searchAndNavigate(item,'album')
+                                }
+                            },
+                        ]
+                    },
+                    multiple: {
+                        items: [{
+                            "name": app.getLz('action.removeTracks').replace('${self.selectedItems.length}', self.selectedItems.length.toString()),
+                            "action": function () {
+                                // add property to items to be removed
+                                self.selectedItems.forEach(function (item) {
+                                    self.queueItems[item].remove = true
+                                })
+                                // remove items
+                                self.queueItems = self.queueItems.filter(function (item) {
+                                    return !item.remove
+                                })
+                                app.mk.queue._reindex()
+                                self.selectedItems = []
+                            }
+                        }]
+                    }
+                }
+                app.showMenuPanel(menus[useMenu], event);
+            },
+            playQueueItem(id) {
+                app.mk.changeToMediaAtIndex(app.mk.queue._itemIDs.indexOf(id))
+            },
+            updateQueue() {
+                this.selected = -1
+                if (app.mk.queue) {
+                    this.queuePosition = app.mk.queue.position;
+                    this.queueItems = app.mk.queue._queueItems;
+                } else {
+                    this.queuePosition = 0;
+                    this.queueItems = [];
+                }
+            },
+            move() {
+                this.selected = -1
+                app.mk.queue._queueItems = this.queueItems;
+                app.mk.queue._reindex()
+            },
+            convertTimeToString(timeInMilliseconds) {
+                var seconds = ((timeInMilliseconds % 60000) / 1000).toFixed(0);
+                return Math.floor(timeInMilliseconds/60000) + ":" + (seconds < 10 ? '0' : '') + seconds;
+            }
+        }
+    });
+</script>
