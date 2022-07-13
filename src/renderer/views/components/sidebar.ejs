@@ -38,7 +38,7 @@
         </template>
         <div class="app-sidebar-content" scrollaxis="y">
             <!-- AM Navigation -->
-            <div v-show="$root.getThemeDirective('windowLayout') != 'twopanel'">
+            <div v-show="$root.getThemeDirective('windowLayout') != 'twopanel'" class="sidebarCatalogSection">
                 <div
                         class="app-sidebar-header-text"
                         @click="$root.cfg.general.sidebarCollapsed.cider = !$root.cfg.general.sidebarCollapsed.cider"
