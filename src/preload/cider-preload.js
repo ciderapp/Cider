@@ -17,9 +17,12 @@ const MusicKitInterop = {
 		/** wsapi */
 		MusicKit.getInstance().addEventListener(MusicKit.Events.playbackProgressDidChange, () => {
 			ipcRenderer.send('wsapi-updatePlaybackState', MusicKitInterop.getAttributes());
-			ipcRenderer.send('updatePlaybackProgress', MusicKitInterop.getAttributes());
 		});
 		/** wsapi */
+
+		MusicKit.getInstance().addEventListener(MusicKit.Events.playbackTimeDidChange, () => {
+			ipcRenderer.send('mpris:playbackTimeDidChange', (MusicKit.getInstance()?.currentPlaybackTime * 1000 * 1000 ) ?? 0);
+		})
 
 		MusicKit.getInstance().addEventListener(MusicKit.Events.nowPlayingItemDidChange, async () => {
 			console.debug('[cider:preload] nowPlayingItemDidChange')

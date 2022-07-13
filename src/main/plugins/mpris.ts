@@ -10,8 +10,6 @@ export default class mpris {
      * MPRIS Service
      */
     private static player: Player.Player;
-    private static globalAttributes: any = {}
-
     /**
      * Base Plugin Details (Eventually implemented into a GUI in settings)
      */
@@ -75,6 +73,10 @@ export default class mpris {
         player.on('position', (args: { position: any; }) => mpris.utils.playback.seek(args.position / 1000 / 1000))
         player.on('loopStatus', (status: string) => renderer.executeJavaScript(`app.mk.repeatMode = ${loopType[status.toLowerCase()]}`))
         player.on('shuffle', () => renderer.executeJavaScript('app.mk.shuffleMode = (app.mk.shuffleMode === 0) ? 1 : 0'))
+
+        mpris.utils.getIPCMain().on('mpris:playbackTimeDidChange', (event: any, time: number) => {
+            player.getPosition = () => time;
+        })
 
         mpris.utils.getIPCMain().on('repeatModeDidChange', (_e: any, mode: number) => {
             switch (mode) {
@@ -160,7 +162,6 @@ export default class mpris {
      */
     @mpris.linuxOnly
     onPlaybackStateDidChange(attributes: any): void {
-        mpris.globalAttributes = attributes
         mpris.player.playbackStatus = attributes?.status ? Player.PLAYBACK_STATUS_PLAYING : Player.PLAYBACK_STATUS_PAUSED
     }
 
@@ -170,14 +171,7 @@ export default class mpris {
      */
     @mpris.linuxOnly
     onNowPlayingItemDidChange(attributes: object): void {
-        mpris.globalAttributes = attributes
         mpris.updateMetaData(attributes);
-    }
-
-    @mpris.linuxOnly
-    updatePlaybackProgress(attributes: any): void {
-        mpris.globalAttributes = attributes
-        mpris.player.getPosition = () => attributes.currentPlaybackTime * 1000 * 1000;
     }
 
 }
