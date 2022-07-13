@@ -1226,7 +1226,7 @@ const app = new Vue({
             } else if (this.cfg.visual.directives[directive]) {
                 return this.cfg.visual.directives[directive]
             } else {
-                return ""
+                return false
             }
         },
         unauthorize() {
