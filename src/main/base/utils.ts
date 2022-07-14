@@ -26,6 +26,9 @@ export class utils {
         },
         previous: () => {
             bw.win.webContents.executeJavaScript("MusicKitInterop.previous()")
+        },
+        seek: (seconds: number) => {
+            bw.win.webContents.executeJavaScript(`MusicKit.getInstance().seekToTime(${seconds})`)
         }
     }
     /**

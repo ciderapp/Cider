@@ -46,9 +46,9 @@
                         <div class="chrome-icon-container">
                             <div class="audio-type private-icon" v-if="cfg.general.privateEnabled === true"></div>
                             <div class="audio-type lossless-icon" v-if="(mk.nowPlayingItem?.localFilesMetadata?.lossless ?? false) === true" 
-                                :title="mk.nowPlayingItem?.localFilesMetadata?.bitDepth +'bit / '+ mk.nowPlayingItem?.localFilesMetadata?.sampleRate + 'khz ' + mk.nowPlayingItem.localFilesMetadata.container" v-b-tooltip.hover
+                                :title="mk.nowPlayingItem?.localFilesMetadata?.bitDepth +'-bit / '+ mk.nowPlayingItem?.localFilesMetadata?.sampleRate/1000 + ' kHz ' + mk.nowPlayingItem.localFilesMetadata.container" v-b-tooltip.hover
                             ></div>          
-                            <div class="audio-type ppe-icon" v-if="(mk.nowPlayingItem?.localFilesMetadata?.lossless ?? false) === false && cfg.audio.maikiwiAudio.ciderPPE === true"
+                            <div class="audio-type ppe-icon" v-if="mk.nowPlayingItem.localFilesMetadata == null && cfg.audio.maikiwiAudio.ciderPPE === true"
                                 :title="$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPE')" v-b-tooltip.hover
                             ></div>
                         </div>

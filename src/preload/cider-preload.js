@@ -20,6 +20,10 @@ const MusicKitInterop = {
 		});
 		/** wsapi */
 
+		MusicKit.getInstance().addEventListener(MusicKit.Events.playbackTimeDidChange, () => {
+			ipcRenderer.send('mpris:playbackTimeDidChange', (MusicKit.getInstance()?.currentPlaybackTime * 1000 * 1000 ) ?? 0);
+		})
+
 		MusicKit.getInstance().addEventListener(MusicKit.Events.nowPlayingItemDidChange, async () => {
 			console.debug('[cider:preload] nowPlayingItemDidChange')
 			const attributes = MusicKitInterop.getAttributes()
@@ -38,11 +42,19 @@ const MusicKitInterop = {
 
 		MusicKit.getInstance().addEventListener(MusicKit.Events.authorizationStatusDidChange, () => {
 			global.ipcRenderer.send('authorizationStatusDidChange', MusicKit.getInstance().authorizationStatus)
-		})
+		});
 
 		MusicKit.getInstance().addEventListener(MusicKit.Events.mediaPlaybackError, (e) => {
 			console.warn(`[cider:preload] mediaPlaybackError] ${e}`);
-		})
+		});
+
+		MusicKit.getInstance().addEventListener(MusicKit.Events.shuffleModeDidChange, () => {
+			global.ipcRenderer.send('shuffleModeDidChange', MusicKit.getInstance().shuffleMode)
+		});
+
+		MusicKit.getInstance().addEventListener(MusicKit.Events.repeatModeDidChange, () => {
+			global.ipcRenderer.send('repeatModeDidChange', MusicKit.getInstance().repeatMode)
+		});
 	},
 
 	sleep(ms) {
@@ -79,6 +91,7 @@ const MusicKitInterop = {
 			? remainingTimeExport * 1000
 			: 0;
 		attributes.durationInMillis = attributes?.durationInMillis ?? 0;
+		attributes.currentPlaybackTime = mk?.currentPlaybackTime ?? 0;
 		attributes.currentPlaybackProgress = currentPlaybackProgress ?? 0;
 		attributes.startTime = Date.now();
 		attributes.endTime = Math.round(
