@@ -372,7 +372,8 @@ export class BrowserWindow {
      * @yields {object} Electron browser window
      */
     async createWindow(): Promise<Electron.BrowserWindow> {
-        this.clientPort = await getPort({ port: 9000 });
+        const envPort = process.env?.CIDER_PORT || '9000'
+        this.clientPort = await getPort({ port: parseInt(envPort, 10) || 9000 });
         BrowserWindow.verifyFiles();
         this.StartWatcher(utils.getPath('themes'));
 
