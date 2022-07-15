@@ -4491,6 +4491,23 @@ const app = new Vue({
                 app.appMode = 'player';
             }
         },
+        // TODO: Fix multiple modes. Currently both buttons open party mode.
+        partyFullscreen(flag) {
+            this.fullscreenState = flag;
+            if (flag) {
+                ipcRenderer.send('setFullScreen', true);
+                app.appMode = 'fullscreen';
+
+                document.addEventListener('keydown', event => {
+                    if (event.key === 'Escape' && app.appMode === 'fullscreen') {
+                        this.partyFullscreen(false);
+                    }
+                });
+            } else {
+                ipcRenderer.send('setFullScreen', false);
+                app.appMode = 'player';
+            }
+        },
         pip() {
             document.querySelector('video#apple-music-video-player').requestPictureInPicture()
             // .then(pictureInPictureWindow => {

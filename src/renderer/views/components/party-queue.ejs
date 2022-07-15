@@ -1,9 +1,8 @@
-<script type="text/x-template" id="cider-queue">
+<script type="text/x-template" id="cider-party-queue">
     <div class="queue-panel">
         <div class="row">
             <div class="col">
-                <h3 class="queue-header-text" v-if="page == 'queue'">{{app.getLz('term.queue')}}</h3>
-                <h3 class="queue-header-text" v-if="page == 'history'">{{app.getLz('term.history')}}</h3>
+                <h3 class="queue-header-text">{{app.getLz('term.queue')}}</h3>
             </div>
             <div class="col-auto flex-center">
                 <button class="autoplay" :style="{'background': app.mk.autoplayEnabled ? 'var(--keyColor)' : ''}"
@@ -13,10 +12,7 @@
                 </button>
             </div>
         </div>
-        <div class="queue-body" v-if="page == 'history'">
-            <mediaitem-list-item :show-library-status="false" v-for="item in history" :item="item"></mediaitem-list-item>
-        </div>
-        <div class="queue-body" v-if="page == 'queue'">
+        <div class="party-queue-body">
             <draggable v-model="queueItems" @start="drag=true" @end="drag=false;move()">
                 <template v-for="(queueItem, position) in displayQueueItems">
                     <div class="cd-queue-item"
@@ -32,7 +28,7 @@
                             </div>
                             <div class="col queue-info">
                                 <div class="queue-title text-overflow-elipsis">{{ queueItem.item.attributes.name }}</div>
-                                <div class="queue-subtitle text-overflow-elipsis">{{ queueItem.item.attributes.artistName }} — {{ queueItem.item.attributes.albumName }}</div>
+                                <div class="party-queue-subtitle text-overflow-elipsis">{{ queueItem.item.attributes.artistName }} — {{ queueItem.item.attributes.albumName }}</div>
                             </div>
                             <div class="queue-explicit-icon flex-center" v-if="queueItem.item.attributes.contentRating == 'explicit'">
                                 <div class="explicit-icon"></div>
@@ -46,10 +42,6 @@
             </draggable>
         </div>
         <div class="queue-footer">
-            <div class="btn-group" style="width:100%;">
-                <button class="md-btn md-btn-small" :class="{'md-btn-primary': (page == 'queue')}" @click="page = 'queue'">{{app.getLz('term.queue')}}</button>
-                <button class="md-btn md-btn-small" :class="{'md-btn-primary': (page == 'history')}" @click="getHistory();page = 'history'">{{app.getLz('term.history')}}</button>
-            </div>
             <button class="md-btn md-btn-small" style="width:100%;margin-top:6px;" v-if="queueItems.length > 1" @click="app.mk.clearQueue();updateQueue()">{{app.getLz('term.clearAll')}}</button>
         </div>
     </div>
@@ -57,8 +49,8 @@
 
 
 <script>
-    Vue.component('cider-queue', {
-        template: '#cider-queue',
+    Vue.component('cider-party-queue', {
+        template: '#cider-party-queue',
         data: function () {
             return {
                 drag: false,
@@ -82,10 +74,6 @@
             this.updateQueue()
         },
         methods: {
-            async getHistory() {
-                let history = await app.mk.api.v3.music(`/v1/me/recent/played/tracks`, { l : this.$root.mklang})
-                this.history = history.data.data
-            },
             select(e, position) {
                 if (e.ctrlKey || e.shiftKey) {
                     if (this.selectedItems.indexOf(position) == -1) {

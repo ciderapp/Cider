@@ -91,6 +91,12 @@
         </div>
     </transition>
     <transition name="fsModeSwitch">
+        <div class="party-fullscreen-view-container" v-if="appMode == 'fullscreen'">
+            <party-fullscreen-view :image="currentArtUrlRaw" :time="mk.currentPlaybackTime - lyricOffset" :lyrics="lyrics"
+                             :richlyrics="richlyrics"></party-fullscreen-view>
+        </div>
+    </transition>
+    <transition name="fsModeSwitch">
         <div class="fullscreen-view-container" v-if="appMode == 'mini'">
             <mini-view :image="currentArtUrlRaw" :time="mk.currentPlaybackTime - lyricOffset" :lyrics="lyrics" :richlyrics="richlyrics">
             </mini-view>

@@ -1,6 +1,12 @@
-<script type="text/x-template" id="fullscreen-view">
-    <div class="fullscreen-view" tabindex="0">
+<script type="text/x-template" id="party-fullscreen-view">
+    <div class="party-fullscreen-view" tabindex="0">
         <div class="background">
+            <div style="margin-top: 10px; display: flex; justify-content: right;">
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                    Scan to add Music
+                    <img id="qr" class="party-qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https%3A%2F%2Fcider.sh%2F&bgcolor=250-35-59&color=235-235-235&margin=10">
+                </div>
+            </div>
             <div class="bgArtworkMaterial">
                 <div class="bg-artwork-container">
                     <img v-if="(app.cfg.visual.bg_artwork_rotation && app.animateBackground)" class="bg-artwork a"
@@ -32,7 +38,7 @@
         </div>
         <div class="row fs-row" v-if="tabMode != 'catalog'">
             <div class="col artwork-col">
-                <div class="artwork" @click="app.fullscreen(false)">
+                <div class="artwork" @click="app.partyFullscreen(false)">
                     <mediaitem-artwork
                             :size="600"
                             :video="video"
@@ -138,7 +144,7 @@
                             </div>
                         </div>
                         <div class="queue-col">
-                            <cider-queue ref="queue"></cider-queue>
+                            <cider-party-queue ref="queue"></cider-party-queue>
                         </div>
                     </div>
                 </template>
@@ -164,8 +170,8 @@
 </script>
 
 <script>
-    Vue.component('fullscreen-view', {
-        template: '#fullscreen-view',
+    Vue.component('party-fullscreen-view', {
+        template: '#party-fullscreen-view',
         props: {
             time: {
                 type: Number,
@@ -221,6 +227,10 @@
                     this.video = null
                 }
             }
+            ipcRenderer.send('get-remote-pair-ip-address')
+            ipcRenderer.on('send-remote-pair-ip-address', (event, url) => {
+                document.getElementById('qr').src = url;
+            })
         },
         beforeMount() {
             window.addEventListener('keyup', this.onEscapeKeyUp);
@@ -231,7 +241,7 @@
         methods: {
             onEscapeKeyUp(event) {
                 if (event.which === 27) {
-                    app.fullscreen(false);
+                    app.partyFullscreen(false);
                     console.log('js')
                 }
             },
