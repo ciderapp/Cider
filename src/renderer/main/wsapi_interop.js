@@ -118,6 +118,76 @@ const wsapi = {
     },
     getmaxVolume() {
         ipcRenderer.send('wsapi-returnvolumeMax',JSON.stringify(app.cfg.audio.maxVolume));
+    },
+    getLibraryStatus(kind, id) {
+        if (kind === undefined || id === "no-id-found") return;
+
+        let truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
+        app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/?ids[${truekind}]=${id}`, {
+            relate: "library",
+            fields: "inLibrary"
+        }).then(data => {
+            const res = data.data.data[0];
+            const inLibrary = res && res.attributes && res.attributes.inLibrary;
+
+            app.getRating({ type: truekind, id: id }).then(rating => {
+                ipcRenderer.send('wsapi-libraryStatus', inLibrary, rating);
+            })
+        })
+    },
+    rate(kind, id, rating) {
+        if (kind === undefined || id === "no-id-found") return;
+
+        let truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
+
+        if (rating === 0) {
+            app.mk.api.v3.music(`/v1/me/ratings/${truekind}/${id}`, {}, {
+                fetchOptions: {
+                    method: "DELETE",
+                }
+            }).then(function () {
+                ipcRenderer.send('wsapi-rate', kind, id, rating);
+            })
+        } else {
+            app.mk.api.v3.music(`/v1/me/ratings/${truekind}/${id}`, {}, {
+                fetchOptions: {
+                    method: "PUT",
+                    body: JSON.stringify({
+                        "type": "rating",
+                        "attributes": {
+                            "value": rating
+                        }
+                    })
+                }
+            }).then(function () {
+                ipcRenderer.send('wsapi-rate', kind, id, rating);
+            })
+        }
+    },
+    changeLibrary(kind, id, shouldAdd) {
+        if (shouldAdd) {
+            app.addToLibrary(id);
+            ipcRenderer.send('wsapi-change-library', kind, id, shouldAdd);
+        } else {
+            let truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
+
+            app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/?ids[${truekind}]=${id}`, {
+                relate: "library",
+                fields: "inLibrary"
+            })
+                .then(res => {
+                    res = res.data.data[0]
+                    if (res && res.relationships && res.relationships.library && res.relationships.library.data) {
+                        const item = res.relationships.library.data[0];
+
+                        if (item) {
+                            app.removeFromLibrary(kind, item.id)
+                        }
+
+                        ipcRenderer.send('wsapi-change-library', kind, id, shouldAdd);
+                    }
+                });
+        }
     }
 }
 
