@@ -1226,7 +1226,7 @@ const app = new Vue({
             } else if (this.cfg.visual.directives[directive]) {
                 return this.cfg.visual.directives[directive]
             } else {
-                return ""
+                return false
             }
         },
         unauthorize() {
@@ -3196,45 +3196,40 @@ const app = new Vue({
             function getMXMTrans(lang, vanity_id) {
                 try { 
                     if (lang != "disabled" && vanity_id != '') { // Mode 2 -> Trans
-                        fetch('https://www.musixmatch.com/lyrics/' + vanity_id +'/translation/' + lang, {
-                            method: 'GET',
-                            headers: {
-                                'Host': 'musixmatch.com',
-                                'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
-                                'authority': "www.musixmatch.com"
-                            },
-                        })
-                            .then(async (res) => {
-                                if (res.status != 200) {return}
-                                let html = document.createElement('html'); html.innerHTML = await res.text()
-                                let lyric_isolated = html.querySelector("#site > div > div > div > main > div > div > div.mxm-track-lyrics-container > div.container > div > div > div > div.col-sm-12.col-md-10.col-ml-9.col-lg-9 > div.mxm-lyrics.translated > div.row > div.col-xs-12.col-sm-12.col-md-12.col-ml-12.col-lg-12")
-                                let raw_lines = lyric_isolated.getElementsByClassName("col-xs-6 col-sm-6 col-md-6 col-ml-6 col-lg-6")
-                                let applied = 0; 
-                                for (let i = 1; applied < app.lyrics.length; i+=2) { // Start on odd elements because even ones are original.
-                                    if (raw_lines[i].childNodes[0].childNodes[0].textContent.trim() == "") {i+=2;}
-                                    if (app.lyrics[applied].line.trim() == "") {applied+=1;}
-                                    if (app.lyrics[applied].line.trim() === raw_lines[i].childNodes[0].childNodes[0].textContent.trim().replace('′', "'")) {                           
+                        let url = "https://api.cider.sh/v1/lyrics?vanityID=" + vanity_id +'&source=mxm&lang=' + lang;
+                        let req = new XMLHttpRequest();
+                        req.overrideMimeType("application/json");
+                        req.onload = function () { 
+                            if (req.status == 200) { // If it's not 200, 237890127389012 things could go wrong and I don't really care what those things are.
+                                let jsonResponse = JSON.parse(this.responseText);     
+                                let applied = 0;
+                                for (let i = 0; applied < app.lyrics.length; i++) { 
+                                    if (app.lyrics[applied].line.trim() === "") {applied+=1;}
+                                    if (app.lyrics[applied].line.trim() === jsonResponse[i]) {                           
                                         // Do Nothing
                                         applied +=1;
                                     }
                                     else  {                
                                         if (app.lyrics[applied].line === "lrcInstrumental") { 
-                                            if (app.lyrics[applied+1].line.trim() === raw_lines[i].childNodes[0].childNodes[0].textContent.trim()) {                           
+                                            if (app.lyrics[applied+1].line.trim() === jsonResponse[i]) {                           
                                                 // Do Nothing
                                                 applied +=2;
                                             }
                                             else {
-                                                app.lyrics[applied+1].translation = raw_lines[i].childNodes[0].childNodes[0].textContent.trim();  
+                                                app.lyrics[applied+1].translation = jsonResponse[i];  
                                                 applied +=2;
                                                 }                      
                                         }      
                                         else {
-                                            app.lyrics[applied].translation = raw_lines[i].childNodes[0].childNodes[0].textContent.trim();       
+                                            app.lyrics[applied].translation = jsonResponse[i];       
                                             applied +=1;
                                         }
                                     } 
                                 }
-                            })
+                            }
+                        }
+                        req.open('POST', url, true);
+                        req.send();
                     }
                 } catch (e) {console.debug("Error while parsing MXM Trans: " + e)}
 

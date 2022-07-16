@@ -38,7 +38,7 @@
         </template>
         <div class="app-sidebar-content" scrollaxis="y">
             <!-- AM Navigation -->
-            <template v-if="$root.getThemeDirective('windowLayout') != 'twopanel'">
+            <div v-show="$root.getThemeDirective('windowLayout') != 'twopanel'" class="sidebarCatalogSection">
                 <div
                         class="app-sidebar-header-text"
                         @click="$root.cfg.general.sidebarCollapsed.cider = !$root.cfg.general.sidebarCollapsed.cider"
@@ -84,7 +84,7 @@
                             page="radio"
                     ></sidebar-library-item>
                 </template>
-            </template>
+            </div>
 
             <div
                     class="app-sidebar-header-text"

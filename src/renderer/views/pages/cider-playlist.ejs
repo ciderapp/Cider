@@ -1,5 +1,5 @@
 <script type="text/x-template" id="cider-playlist">
-    <div class="content-inner playlist-page" :class="classes" v-if="data != [] && data.attributes != null"
+    <div class="content-inner playlist-page" :class="classes" :is-album="isAlbum()" v-if="data != [] && data.attributes != null"
 
          :style="{'--bgColor': (data.attributes.artwork != null && data.attributes.artwork['bgColor'] != null) ? ('#' + data.attributes.artwork.bgColor) : ''}">
         <template v-if="app.playlists.loadingState == 0">
@@ -347,6 +347,9 @@
             }
         },
         methods: {
+            isAlbum() {
+                return (this.data.attributes?.playParams?.kind ?? this.data.type ?? '').includes('album')
+            },
             minClass(val) {
                 if(app.appMode == 'fullscreen') {
                     return
