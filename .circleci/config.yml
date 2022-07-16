@@ -31,6 +31,9 @@ jobs:
           paths:
             - ~/.cache/yarn
       - run:
+          name: Clear Yarn Cache
+          command: yarn cache clean
+      - run:
           name: TypeScript Compile
           command: yarn build
       - persist_to_workspace:
