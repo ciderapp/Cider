@@ -142,6 +142,10 @@ var app = new Vue({
                 }
             }
         },
+        checkMode() {
+            urlParams = new URLSearchParams(window.location.search);
+            return urlParams.has('mode') ? urlParams.get('mode') : "default";
+        },
         artworkPlaying() {
             if (this.player.currentMediaItem.status) {
                 return
