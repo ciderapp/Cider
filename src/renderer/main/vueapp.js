@@ -400,6 +400,46 @@ const app = new Vue({
                 return message
             }
         },
+        getProfileLz(type, name) { // For Spatial and CAR.
+            let result = "";
+            
+            // Hard-coded shiz
+            switch (name) {
+                case "Maikiwi":
+                    return "Maikiwi";
+                    break;
+
+                case "Maikiwi+":
+                return "Maikiwi+";
+                    break;
+
+                case "Minimal+":
+                return this.getLz('settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.minimal') + "+";
+                    break;
+
+                case "live":
+                return "LIVE";
+                    break;
+            }          
+            switch (type) {
+                case "CAR":
+                    result = this.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.' + name);
+                    if (result === "settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode." + name) {
+                        return name;
+                    }
+                    else {return result;}
+                    break;
+                case "CTS":
+                    result = this.getLz('settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.' + name.toLowerCase());
+                    if (result === "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile." + name.toLowerCase()) {
+                        return name;
+                    }
+                    else {return result;}
+                    break;
+                default:
+                    return name;
+            }
+        },
         setLzManual() {
             app.$data.library.songs.sortingOptions = {
                 "albumName": app.getLz('term.sortBy.album'),
