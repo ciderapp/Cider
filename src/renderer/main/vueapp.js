@@ -3196,7 +3196,7 @@ const app = new Vue({
             function getMXMTrans(lang, vanity_id) {
                 try { 
                     if (lang !== "disabled" && vanity_id !== '') { // Mode 2 -> Trans
-                        let url = "https://api.cider.sh/v1/lyrics?vanityID=" + vanity_id +'&source=mxm&lang=' + lang;
+                        let url = "https://api.cider.sh/v1/lyrics?mode=2&vanityID=" + vanity_id +'&source=mxm&lang=' + lang;
                         let req = new XMLHttpRequest();
                         req.overrideMimeType("application/json");
                         req.onload = function () { 
