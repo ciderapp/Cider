@@ -168,7 +168,7 @@ export class Store {
             "playbackRate": 1,
             "quality": "HIGH",
             "seamless_audio": true,
-            "normalization": false,
+            "normalization": true,
             "dBSPL": false,
             "dBSPLcalibration": 90,
             "maikiwiAudio": {
