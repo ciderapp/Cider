@@ -1453,20 +1453,14 @@
                     if (navigator.hardwareConcurrency < 6) {
                         app.confirm(app.getLz("settings.warn.audio.enableAdvancedFunctionality.lowcores"), function (result) {
                             if (result) {
-                                CiderAudio.init();
-                                if (app.cfg.audio.normalization === true) {
-                                    CiderAudio.normalizerOn()
-                                }
+                                window.location.reload();
                             }
                         })
                     } else {
-                        CiderAudio.init();
-                        if (app.cfg.audio.normalization === true) {
-                            CiderAudio.normalizerOn()
-                        }
+                        window.location.reload()
                     }
                 } else {
-                    CiderAudio.off();
+                    window.location.reload()
                 }
             },
             toggleNormalization: function () {
