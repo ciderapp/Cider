@@ -45,6 +45,9 @@
                         </div>
                         <div class="chrome-icon-container">
                             <div class="audio-type private-icon" v-if="cfg.general.privateEnabled === true"></div>
+                            <div class="audio-type spatial-icon" v-if="cfg.audio.maikiwiAudio.spatial === true" 
+                                :title="$root.getLz('settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization') + ' (' + cfg.audio.maikiwiAudio.spatialProfile.charAt(0).toUpperCase() + cfg.audio.maikiwiAudio.spatialProfile.substr(1).toLowerCase() + ')'" v-b-tooltip.hover
+                            ></div>
                             <div class="audio-type lossless-icon" v-if="(mk.nowPlayingItem?.localFilesMetadata?.lossless ?? false) === true" 
                                 :title="mk.nowPlayingItem?.localFilesMetadata?.bitDepth +'-bit / '+ mk.nowPlayingItem?.localFilesMetadata?.sampleRate/1000 + ' kHz ' + mk.nowPlayingItem.localFilesMetadata.container" v-b-tooltip.hover
                             ></div>          
