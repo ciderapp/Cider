@@ -983,7 +983,7 @@ const app = new Vue({
                     try {localStorage.setItem("playingBitrate", app.mk.nowPlayingItem.flavor)}
                     catch(e) {}
                 }
-                if (!app.cfg.audio.normalization) { CiderAudio.hierarchical_loading(); }
+                if (!app.cfg.audio.normalization || app.cfg.advanced.AudioContext === true) { CiderAudio.hierarchical_loading(); }
    
                 else {
                     // get unencrypted audio previews to get SoundCheck's normalization tag
