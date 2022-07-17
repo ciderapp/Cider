@@ -3268,6 +3268,9 @@ const app = new Vue({
                                 }
                             }
                         }
+                        req.onerror = function () {
+                            console.log("MXM Translation somehow died. Don't need to know why.")
+                        };
                         req.open('POST', url, true);
                         req.send();
                     }
