@@ -1380,7 +1380,7 @@ export class BrowserWindow {
 
 
         ipcMain.on('share-menu', async (_event, url) => {
-            if (process.platform != 'darwin') return;
+            if (process.platform !== 'darwin') return;
             //https://www.electronjs.org/docs/latest/api/share-menu
             console.log('[Share Sheet - App.ts]', url)
             const options = {
