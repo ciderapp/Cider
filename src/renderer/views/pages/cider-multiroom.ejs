@@ -1,13 +1,14 @@
 <script type="text/x-template" id="cider-multiroom">
     <div class="content-inner cider-multiroom">
-        <div class="artworkContainer">
-            <artwork-material :url="data.attributes.uber.masterArt.url" size="800" images="1"></artwork-material>
+        <div class="artworkContainer" v-if ="data.attributes?.uber?.masterArt?.url">
+            <artwork-material :url="data.attributes?.uber?.masterArt?.url ?? ''" size="800" images="1"></artwork-material>
         </div>
         <div class="detail">
             <h1 class="header-text">{{data.attributes?.title ?? ""}}</h1>
             <h2 class="header-desc" v-html='data.relationships?.children?.data[0]?.attributes?.description ?? ""'></h2>
             <template v-if="data.relationships">
                 <template v-for="(recom,index) in data.relationships.children.data">
+                    <template v-if="(recom.relationships?.contents?.data ?? []).length > 0">    
                         <div class="row">
                             <div class="col" v-if="recom.attributes.name != 'Chart Set'">
                                 <h3>{{ recom.attributes?.title ?? ""}}</h3>
@@ -29,6 +30,7 @@
                                         :items="recom.relationships.children ? recom.relationships.children.data.limit(10) : recom.relationships.contents.data.limit(10)"></mediaitem-scroller-horizontal-large>
                             </template>
                         </template>
+                    </template>    
                 </template>
             </template> 
         </div>    

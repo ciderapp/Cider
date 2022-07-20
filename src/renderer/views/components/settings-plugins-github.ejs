@@ -1,5 +1,5 @@
 <script type="text/x-template" id="plugins-github">
-    <div class="content-inner github-themes-page">
+    <div class="github-themes-page">
         <div class="gh-header">
             <div class="row">
                 <div class="col nopadding">
@@ -16,7 +16,7 @@
             <div class="repos-list">
                 <ul class="list-group list-group-flush">
                     <li @click="showRepo(repo)" class="list-group-item list-group-item-dark"
-                        :style="{'background': (repo.id == openRepo.id) ? 'var(--keyColor)' : ''}"
+                        :style="{'background': (repo.id == openRepo.id) ? 'var(--keyColor)' : '', 'border-radius': '5px'}"
                         v-for="repo in repos">
                         <div class="row">
                             <div class="col flex-center">
@@ -125,13 +125,13 @@
                 let msg = app.stringTemplateParser(app.getLz('settings.option.visual.plugin.github.install.confirm'), {
                     repo: repo.full_name
                 });
-                bootbox.confirm(msg, (res) => {
+                app.confirm(msg, (res) => {
                     if (res) {
                         ipcRenderer.once("plugin-installed", (event, arg) => {
                             if (arg.success) {
                                 self.themes = []
                                 notyf.success(app.getLz('settings.notyf.visual.plugin.install.success'));
-                                bootbox.confirm(app.getLz("settings.prompt.visual.plugin.github.success"), (ok)=>{
+                                app.confirm(app.getLz("settings.prompt.visual.plugin.github.success"), (ok)=>{
                                     if (ok) {
                                         ipcRenderer.invoke("relaunchApp")
                                     } else {
@@ -148,12 +148,12 @@
             },
             installThemeURL() {
                 let self = this
-                bootbox.prompt(app.getLz('settings.prompt.visual.plugin.github.URL'), (result) => {
+                app.prompt(app.getLz('settings.prompt.visual.plugin.github.URL'), (result) => {
                     if (result) {
                         ipcRenderer.once("plugin-installed", (event, arg) => {
                             if (arg.success) {
                                 self.themes = ipcRenderer.sendSync("get-themes")
-                                bootbox.confirm(app.getLz("settings.prompt.visual.plugin.github.success"), (ok)=>{
+                                app.confirm(app.getLz("settings.prompt.visual.plugin.github.success"), (ok)=>{
                                     if (ok) {
                                         ipcRenderer.invoke("relaunchApp")
                                     } else {

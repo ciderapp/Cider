@@ -1,6 +1,7 @@
 <script type="text/x-template" id="mediaitem-artwork">
     <div class="mediaitem-artwork" :style="awStyle" @contextmenu="contextMenu" :class="[{'rounded': (type == 'artists')}, classes]" :key="url">
-        <img :src="app.getMediaItemArtwork(url, size, width)"
+        <img :src="imgSrc"
+             ref="image"
              decoding="async"
              loading="lazy"
              :style="imgStyle"
@@ -47,6 +48,10 @@
             shadow: {
                 type: String,
                 default: ''
+            },
+            upscaling: {
+                type: Boolean,
+                default: false
             }
         },
         data: function () {
@@ -63,15 +68,37 @@
                     opacity: 0,
                     transition: "opacity .25s linear"
                 },
-                classes: []
+                classes: [],
+                imgSrc: ""
+            }
+        },
+        computed: {
+            windowRelativeScale: function () {
+                return app.$store.state.windowRelativeScale;
+            }
+        },
+        watch: {
+            windowRelativeScale: function (newValue, oldValue) {
+                this.swapImage(newValue)
+            },
+            url: function (newValue, oldValue) {
+                this.imgSrc = app.getMediaItemArtwork(this.url, this.size, this.width)
             }
         },
         mounted() {
             this.getClasses()
+            this.imgSrc = app.getMediaItemArtwork(this.url, this.size, this.width)
         },
         methods: {
+            swapImage(newValue) {
+                if(!this.upscaling || window.devicePixelRatio !== 1) return
+                if (newValue > 1.5) {
+                    this.imgSrc = app.getMediaItemArtwork(this.url, parseInt(this.size * 2.0), parseInt(this.size * 2.0));
+                }
+            },
             imgLoaded() {
                 this.imgStyle.opacity = 1
+                this.swapImage(app.$store.state.windowRelativeScale)
                 // this.awStyle.background = ""
             },
             contextMenu(event) {

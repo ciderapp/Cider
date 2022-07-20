@@ -12,6 +12,7 @@ const app = new Vue({
         ipcRenderer: ipcRenderer,
         cfg: ipcRenderer.sendSync("getStore"),
         isDev: ipcRenderer.sendSync("is-dev"),
+        clientPort: ipcRenderer.sendSync("get-port"),
         drawertest: false,
         platform: "",
         mk: {},
@@ -147,6 +148,7 @@ const app = new Vue({
             start: 0,
             end: 0
         },
+        lyricOffset: 0,
         v3: {
             requestBody: {
                 platform: "web"
@@ -168,6 +170,7 @@ const app = new Vue({
                 location: "",
                 info: {}
             },
+            windowState: "normal",
             desiredPageTransition: "wpfade_transform",
             hideUserInfo: ipcRenderer.sendSync("is-dev") || false,
             artworkReady: false,
@@ -215,8 +218,10 @@ const app = new Vue({
             audioPlaybackRate: false,
             showPlaylist: false,
             castMenu: false,
+            pathMenu: false,
             moreInfo: false,
             airplayPW: false,
+            settings: false
         },
         socialBadges: {
             badgeMap: {},
@@ -243,6 +248,7 @@ const app = new Vue({
         notyf: notyf,
         idleTimer: null,
         idleState: false,
+        appVisible: true
     },
     watch: {
         cfg: {
@@ -274,6 +280,12 @@ const app = new Vue({
         }, false)
     },
     methods: {
+        hotReload() {
+            this.appVisible = false
+            setTimeout(() => {
+                this.appVisible = true
+            }, 1000)
+        },
         setWindowHash(route = "") {
             window.location.hash = `#${route}`;
         },
@@ -325,11 +337,7 @@ const app = new Vue({
             let advancedTooltip = this.cfg.audio.dBSPL ? (Number(this.cfg.audio.dBSPLcalibration) + (Math.log10(this.mk.volume) * 20)).toFixed(2) + ' dB SPL' : (Math.log10(this.mk.volume) * 20).toFixed(2) + ' dBFS'
             return this.cfg.audio.advanced ? advancedTooltip : (this.mk.volume * 100).toFixed(0) + '%'
         },
-        mainMenuVisibility(val, isContextMenu) {
-            if (this.chrome.sidebarCollapsed && !isContextMenu) {
-                this.chrome.sidebarCollapsed = false
-                return
-            }
+        mainMenuVisibility(val) {
             if (val) {
                 (this.mk.isAuthorized) ? this.chrome.menuOpened = !this.chrome.menuOpened : false;
                 if (!this.mk.isAuthorized) {
@@ -392,6 +400,46 @@ const app = new Vue({
                 return message
             }
         },
+        getProfileLz(type, name) { // For Spatial and CAR.
+            let result = "";
+            
+            // Hard-coded shiz
+            switch (name) {
+                case "Maikiwi":
+                    return "Maikiwi";
+                    break;
+
+                case "Maikiwi+":
+                return "Maikiwi+";
+                    break;
+
+                case "Minimal+":
+                return this.getLz('settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.minimal') + "+";
+                    break;
+
+                case "live":
+                return "LIVE";
+                    break;
+            }          
+            switch (type) {
+                case "CAR":
+                    result = this.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.' + name);
+                    if (result === "settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode." + name) {
+                        return name;
+                    }
+                    else {return result;}
+                    break;
+                case "CTS":
+                    result = this.getLz('settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.' + name.toLowerCase());
+                    if (result === "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile." + name.toLowerCase()) {
+                        return name;
+                    }
+                    else {return result;}
+                    break;
+                default:
+                    return name;
+            }
+        },
         setLzManual() {
             app.$data.library.songs.sortingOptions = {
                 "albumName": app.getLz('term.sortBy.album'),
@@ -439,6 +487,9 @@ const app = new Vue({
 
                 }
             })
+        },
+        quit() {
+            ipcRenderer.invoke("quit-app")
         },
         async openAppleMusicURL(url) {
             let properties = MusicKit.formattedMediaURL(url)
@@ -695,6 +746,9 @@ const app = new Vue({
             } catch (err) {
             }
 
+            // Used to get a scale factor for the window for CSS scaling
+            window.addEventListener("resize", e =>  this.setWindowScaleFactor())
+            this.setWindowScaleFactor()
             this.mk._bag.features['seamless-audio-transitions'] = this.cfg.audio.seamless_audio
             this.mk._bag.features["broadcast-radio"] = true
             this.mk._services.apiManager.store.storekit._restrictedEnabled = false
@@ -824,6 +878,10 @@ const app = new Vue({
 
             MusicKit.getInstance().videoContainerElement = document.getElementById("apple-music-video-player")
 
+            ipcRenderer.on('setStoreValue', (e, key, value) => {
+                app.cfg[key] = value
+            })
+
             ipcRenderer.on('theme-update', async (event, arg) => {
                 await less.refresh(true, true, true)
                 self.setTheme(self.cfg.visual.theme, true)
@@ -846,8 +904,12 @@ const app = new Vue({
             })
 
             ipcRenderer.on('getUpdatedLocalList', (event, data) => {
-                console.log("cider-local", data);
+                // console.log("cider-local", data);
                 this.library.localsongs = data;
+            })
+
+            ipcRenderer.on('window-state-changed', (event, data) => {
+                this.chrome.windowState = data
             })
 
             ipcRenderer.on('SoundCheckTag', (event, tag) => {
@@ -869,6 +931,7 @@ const app = new Vue({
                         try {
                             //CiderAudio.audioNodes.gainNode.gain.value = (Math.min(Math.pow(10, (replaygain.gain / 20)), (1 / replaygain.peak)))
                             CiderAudio.audioNodes.gainNode.gain.value = gain
+                            CiderAudio.hierarchical_loading();
                         } catch (e) {
                         }
                     }
@@ -896,13 +959,19 @@ const app = new Vue({
                 }
             });
 
+            this.mk.addEventListener(MusicKit.Events.playbackProgressDidChange, () => {
+                if (self.mk.currentPlaybackProgress === (app.cfg.connectivity.lastfm.scrobble_after / 100)) {
+                    ipcRenderer.send('lastfm:scrobbleTrack', MusicKitInterop.getAttributes());
+                }
+            })
+
             this.mk.addEventListener(MusicKit.Events.playbackStateDidChange, (event) => {
                 ipcRenderer.send('wsapi-updatePlaybackState', wsapi.getAttributes());
                 document.body.setAttribute("playback-state", event.state == 2 ? "playing" : "paused")
             })
 
             this.mk.addEventListener(MusicKit.Events.playbackTimeDidChange, (a) => {
-                self.lyriccurrenttime = self.mk.currentPlaybackTime
+                // self.lyriccurrenttime = self.mk.currentPlaybackTime - app.lyricOffset
                 this.currentSongInfo = a
                 self.playerLCD.playbackDuration = (self.mk.currentPlaybackTime)
                 // wsapi
@@ -922,10 +991,10 @@ const app = new Vue({
                 app.mk.nowPlayingItem.attributes.name = e.title
                 app.mk.nowPlayingItem.attributes.artistName = e.performer
                 app.mk.nowPlayingItem.attributes.albumName = e.album
-                if(e.links[1]) {
+                if (e.links[1]) {
                     app.currentArtUrl = e.links[1].url
                     app.currentArtUrlRaw = e.links[1].url
-                }else{
+                } else {
                     app.currentArtUrl = e.links[0].url
                     app.currentArtUrlRaw = e.links[0].url
                 }
@@ -937,50 +1006,63 @@ const app = new Vue({
                 if (self.$refs.queue) {
                     self.$refs.queue.updateQueue();
                 }
-                this.currentSongInfo = a
-
-                if (app.cfg.advanced.AudioContext) {
-                    try {
-                        if (app.mk.nowPlayingItem.flavor.includes("64")) {
-                            if (localStorage.getItem("playingBitrate") !== "64") {
-                                localStorage.setItem("playingBitrate", "64")
-                                CiderAudio.hierarchical_loading();
-                            }
-                        } else if (app.mk.nowPlayingItem.flavor.includes("256")) {
-                            if (localStorage.getItem("playingBitrate") !== "256") {
-                                localStorage.setItem("playingBitrate", "256")
-                                CiderAudio.hierarchical_loading();
-                            }
-                        } else {
-                            localStorage.setItem("playingBitrate", "256")
-                            CiderAudio.hierarchical_loading();
-                        }
-                    } catch (e) {
+                this.currentSongInfo = a; 
+                if (this.currentSongInfo === null || this.currentSongInfo === undefined) { return; } // EVIL EMPTY OBJECTS BE GONE
+                let localFiles = false;
+                try {
+                    if (app.mk.nowPlayingItem.flavor.includes("64") && app.mk.nowPlayingItem.flavor.includes(":")) {
+                        localStorage.setItem("playingBitrate", "64")
+                    } else if (app.mk.nowPlayingItem.flavor.includes("256") && app.mk.nowPlayingItem.flavor.includes(":")) {
                         localStorage.setItem("playingBitrate", "256")
-                        CiderAudio.hierarchical_loading();
+                    } else {
+                        localFiles = true;
+                        localStorage.setItem("playingBitrate", app.mk.nowPlayingItem.flavor)
                     }
+                } catch (e) {
+                    localFiles = true;
+                    try {localStorage.setItem("playingBitrate", app.mk.nowPlayingItem.flavor)}
+                    catch(e) {}
                 }
-
-                if (app.cfg.audio.normalization) {
+                if (!app.cfg.audio.normalization || app.cfg.advanced.AudioContext === true) { CiderAudio.hierarchical_loading(); }
+   
+                else {
                     // get unencrypted audio previews to get SoundCheck's normalization tag
                     try {
                         let previewURL = null
                         try {
                             previewURL = app.mk.nowPlayingItem.previewURL
                         } catch (e) {
+                            if (e instanceof TypeError === false) { console.debug("[Cider][MaikiwiSoundCheck] normalizer function err: " + e) }
+                            else {
+                                if (localFiles === true) {CiderAudio.audioNodes.gainNode.gain.value = 0.8222426499470}
+                        }
                         }
                         if (previewURL == null && ((app.mk.nowPlayingItem?._songId ?? (app.mk.nowPlayingItem["songId"] ?? app.mk.nowPlayingItem.relationships.catalog.data[0].id)) != -1)) {
                             app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/songs/${app.mk.nowPlayingItem?._songId ?? (app.mk.nowPlayingItem["songId"] ?? app.mk.nowPlayingItem.relationships.catalog.data[0].id)}`).then((response) => {
-                                previewURL = response.data.data[0].attributes.previews[0].url
-                                if (previewURL)
+                                try {previewURL = response.data.data[0].attributes.previews[0].url;} catch(e) {
+                                    if (e instanceof TypeError === false) { console.debug("[Cider][MaikiwiSoundCheck] normalizer function err: " + e) }
+                                    else {
+                                        if (localFiles === true) {CiderAudio.audioNodes.gainNode.gain.value = 0.8222426499470}}
+                                }
+                                if (previewURL) {
+                                    console.debug("[Cider][MaikiwiSoundCheck] previewURL response.data.data[0].attributes.previews[0].url: " + previewURL)
                                     ipcRenderer.send('getPreviewURL', previewURL)
+                                }
+                                else { 
+                                    if (localFiles === true) {CiderAudio.audioNodes.gainNode.gain.value = 0.8222426499470}
+                                }
                             })
                         } else {
-                            if (previewURL)
-                                ipcRenderer.send('getPreviewURL', previewURL)
-                        }
+                            if (previewURL) {
+                                console.debug("[Cider][MaikiwiSoundCheck] previewURL in app.mk.nowPlayingItem.previewURL: " + previewURL)
+                                ipcRenderer.send('getPreviewURL', previewURL)}
+                         }
 
                     } catch (e) {
+                        if (e instanceof TypeError === false) { console.debug("[Cider][MaikiwiSoundCheck] normalizer function err: " + e) }
+                        else {
+                            if (localFiles === true) {CiderAudio.audioNodes.gainNode.gain.value = 0.8222426499470}
+                        }
                     }
                 }
 
@@ -1056,6 +1138,20 @@ const app = new Vue({
             if (this.cfg.general.themeUpdateNotification && !this.isDev) {
                 this.checkForThemeUpdates()
             }
+
+            ipcRenderer.invoke("scanLibrary")
+        },
+        setWindowScaleFactor() {
+            let scale = window.devicePixelRatio * window.innerWidth / 1280 * window.innerHeight / 720
+            let desiredScale = clamp(parseFloat(app.cfg.visual.maxElementScale == -1 ? 1.5 : app.cfg.visual.maxElementScale), 1, 1.5)
+            app.$store.state.windowRelativeScale = scale
+            if(scale <= 1) {
+                scale = 1
+            }else if(scale >= desiredScale) {
+                scale = desiredScale
+            }
+            document.documentElement.style
+                    .setProperty('--windowRelativeScale', scale);
         },
         showFoo(querySelector, time) {
             clearTimeout(this.idleTimer);
@@ -1086,7 +1182,7 @@ const app = new Vue({
                                     message: `[Themes] ${theme.name} has an update available.`
                                 })
                                 notify.on("click", () => {
-                                    app.appRoute("themes-github")
+                                    app.openSettingsPage("github-themes")
                                     notyf.dismiss(notify)
                                 })
                             }
@@ -1170,11 +1266,11 @@ const app = new Vue({
             } else if (this.cfg.visual.directives[directive]) {
                 return this.cfg.visual.directives[directive]
             } else {
-                return ""
+                return false
             }
         },
         unauthorize() {
-            bootbox.confirm(app.getLz('term.confirmLogout'), function (result) {
+            this.confirm(app.getLz('term.confirmLogout'), function (result) {
                 if (result) {
                     app.mk.unauthorize()
                     document.location.reload()
@@ -1295,7 +1391,7 @@ const app = new Vue({
             results.forEach(result => {
                 try {
                     if (result.relationships?.catalog?.data[0]?.attributes?.inFavorites) {
-                        if(!favs.includes(result.relationships?.catalog?.data[0].id)) {
+                        if (!favs.includes(result.relationships?.catalog?.data[0].id)) {
                             favs.push(result.relationships?.catalog?.data[0].id)
                         }
                     }
@@ -1308,8 +1404,8 @@ const app = new Vue({
             return favs
         },
         async setArtistFavorite(id, val = true) {
-            if(val) {
-                if(!app.cfg.home.followedArtists.includes(id)) {
+            if (val) {
+                if (!app.cfg.home.followedArtists.includes(id)) {
                     app.cfg.home.followedArtists.push(id)
                 }
                 await app.mk.api.v3.music(`/v1/me/favorites`, {
@@ -1322,8 +1418,8 @@ const app = new Vue({
                         method: "POST"
                     }
                 })
-            }else{
-                if(app.cfg.home.followedArtists.includes(id)) {
+            } else {
+                if (app.cfg.home.followedArtists.includes(id)) {
                     app.cfg.home.followedArtists.splice(app.cfg.home.followedArtists.indexOf(id), 1)
                 }
                 await app.mk.api.v3.music(`/v1/me/favorites`, {
@@ -1452,6 +1548,12 @@ const app = new Vue({
                     action: () => {
                         this.newPlaylistFolder()
                     }
+                },
+                {
+                    name: app.getLz("action.refresh"),
+                    action: () => {
+                        this.refreshPlaylists()
+                    }
                 }
                 ]
             }
@@ -1549,22 +1651,24 @@ const app = new Vue({
         },
         deletePlaylist(id) {
             let self = this
-            if (confirm(app.getLz('term.deletePlaylist'))) {
-                app.mk.api.v3.music(`/v1/me/library/playlists/${id}`, {}, {
-                    fetchOptions: {
-                        method: "DELETE"
-                    }
-                }).then(res => {
-                    // remove this playlist from playlists.listing if it exists
-                    let found = self.playlists.listing.find(item => item.id == id)
-                    if (found) {
-                        self.playlists.listing.splice(self.playlists.listing.indexOf(found), 1)
-                    }
-                    setTimeout(() => {
-                        app.refreshPlaylists(false, false);
-                    }, 8000);
-                })
-            }
+            this.confirm(app.getLz('term.deletePlaylist'), (ok) => {
+                if (ok) {
+                    app.mk.api.v3.music(`/v1/me/library/playlists/${id}`, {}, {
+                        fetchOptions: {
+                            method: "DELETE"
+                        }
+                    }).then(res => {
+                        // remove this playlist from playlists.listing if it exists
+                        let found = self.playlists.listing.find(item => item.id == id)
+                        if (found) {
+                            self.playlists.listing.splice(self.playlists.listing.indexOf(found), 1)
+                        }
+                        setTimeout(() => {
+                            app.refreshPlaylists(false, false);
+                        }, 8000);
+                    })
+                }
+            });
         },
         /**
          * @param {string} url, href for the initial request
@@ -1888,7 +1992,7 @@ const app = new Vue({
                     this.routeView(item.relationships.contents.data[0])
                 } else if (item.attributes?.link?.url != null) {
                     if (item.attributes.link.url.includes("viewMultiRoom")) {
-                        const params = new Proxy(new URLSearchParams(item.attributes.link.url), {
+                        const params = new Proxy(new URLSearchParams(new URL(item.attributes.link.url).search), {
                             get: (searchParams, prop) => searchParams.get(prop),
                         });
                         id = params.fcId
@@ -1902,12 +2006,30 @@ const app = new Vue({
                         })
 
                         return;
+                    } else if (item.attributes.link.url.includes("viewFeature")) {
+                        const params = new Proxy(new URLSearchParams(new URL(item.attributes.link.url).search), {
+                            get: (searchParams, prop) => searchParams.get(prop),
+                        });
+                        id = params.id
+                        app.mk.api.v3.music(`/v1/editorial/vn/multiplex/${id}?art%5Burl%5D=f&format%5Bresources%5D=map&platform=web`).then(
+                            (data) => {
+                                let item = data.data.results?.target ?? []
+                                app.routeView(item)
+                            }
+                        )
                     } else {
                         window.open(item.attributes.link.url)
                     }
                 }
 
-            } else if (kind == "multirooms") {
+            } else if (kind == "multiplex") {
+                app.mk.api.v3.music(`/v1/editorial/vn/multiplex/${id}?art%5Burl%5D=f&format%5Bresources%5D=map&platform=web`).then(
+                    (data) => {
+                        let item = data.data.results?.target ?? []
+                        app.routeView(item)
+                    }
+                )
+            }if (kind == "multirooms") {
                 app.getTypeFromID("multiroom", id, false, {
                     platform: "web",
                     extend: "editorialArtwork,uber,lockupStyle"
@@ -1935,7 +2057,26 @@ const app = new Vue({
                 });
                 window.location.hash = `${kind}/${id}`
                 document.querySelector("#app-content").scrollTop = 0
-            } else if (!kind.toString().includes("radioStation") && !kind.toString().includes("song") && !kind.toString().includes("musicVideo") && !kind.toString().includes("uploadedVideo") && !kind.toString().includes("music-movie")) {
+            } else if (kind.toString().includes("social-profiles")) {
+                app.page = (kind) + "_" + (id);
+                app.mk.api.v3.music(
+                    `/v1/social/${app.mk.storefrontId}/social-profiles/${id}`,
+                    {include:"shared-playlists"}).then(
+                        (data) => {
+                            console.log(data)
+                            app.showingPlaylist = data.data?.data[0]
+                            window.location.hash = `${kind}/${id}`
+                            document.querySelector("#app-content").scrollTop = 0
+                        }
+                    )
+                // app.getTypeFromID((kind), (id), (isLibrary), {
+                //     extend: "editorialVideo",
+                //     include: 'grouping,playlists',
+                //     views: 'top-releases,latest-releases,top-artists'
+                // });
+
+            }
+            else if (!kind.toString().includes("radioStation") && !kind.toString().includes("song") && !kind.toString().includes("musicVideo") && !kind.toString().includes("uploadedVideo") && !kind.toString().includes("music-movie")) {
                 let params = {
                     extend: "offers,editorialVideo",
                     "views": "appears-on,more-by-artist,related-videos,other-versions,you-might-also-like,video-extras,audio-extras",
@@ -1948,7 +2089,7 @@ const app = new Vue({
                     params["fields[artists]"] = "name,url"
                     params["omit[resource]"] = "autos"
                     params["meta[albums:tracks]"] = 'popularity'
-                    params["fields[albums]"] = "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialNotes,editorialVideo,name,playParams,releaseDate,url,copyright"
+                    params["fields[albums]"] = "artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialNotes,editorialVideo,name,playParams,releaseDate,url,copyright,genreNames"
                 }
                 if (kind.includes("playlist") || kind.includes("album")) {
                     app.page = (kind) + "_" + (id);
@@ -2005,8 +2146,8 @@ const app = new Vue({
 
         async getNowPlayingItemDetailed(target) {
             let nowPlayingItem = JSON.parse(JSON.stringify(this.mk.nowPlayingItem))
-            if(nowPlayingItem.type === "radioStation" && app.mk.nowPlayingItem.id !== -1) {
-                nowPlayingItem.playParams = {kind: "songs"}
+            if (nowPlayingItem.type === "radioStation" && app.mk.nowPlayingItem.id !== -1) {
+                nowPlayingItem.playParams = { kind: "songs" }
                 nowPlayingItem.attributes.playParams.catalogId = app.mk.nowPlayingItem.id
                 nowPlayingItem.attributes.playParams.id = app.mk.nowPlayingItem.id
                 nowPlayingItem.id = app.mk.nowPlayingItem.id
@@ -2193,9 +2334,13 @@ const app = new Vue({
         searchLibrarySongs() {
             let self = this
             let prefs = this.cfg.libraryPrefs.songs
-            let albumAdded = self.library?.albums?.listing?.map(function (i) {
-                return { [i.id]: i.attributes?.dateAdded }
-            })
+
+            const albumAdded = {}
+
+            for (const listing of self.library?.albums?.listing ?? []) {
+                albumAdded[listing.id] = listing.attributes?.dateAdded
+            }
+
             let startTime = new Date().getTime()
 
             function sortSongs() {
@@ -2207,12 +2352,11 @@ const app = new Vue({
                     if (prefs.sort == "genre") {
                         aa = a.attributes.genreNames[0]
                         bb = b.attributes.genreNames[0]
-                    }
-                    if (prefs.sort == "dateAdded") {
-                        let albumida = a.relationships?.albums?.data[0]?.id ?? '1970-01-01T00:01:01Z'
-                        let albumidb = b.relationships?.albums?.data[0]?.id ?? '1970-01-01T00:01:01Z'
-                        aa = startTime - new Date(((albumAdded.find(i => i[albumida])) ?? [])[albumida] ?? '1970-01-01T00:01:01Z').getTime()
-                        bb = startTime - new Date(((albumAdded.find(i => i[albumidb])) ?? [])[albumidb] ?? '1970-01-01T00:01:01Z').getTime()
+                    } else if (prefs.sort == "dateAdded") {
+                        let albumida = a.relationships?.albums?.data[0]?.id
+                        let albumidb = b.relationships?.albums?.data[0]?.id
+                        aa = startTime - new Date(albumAdded[albumida] ?? '1970-01-01T00:01:01Z').getTime()
+                        bb = startTime - new Date(albumAdded[albumidb] ?? '1970-01-01T00:01:01Z').getTime()
                     }
                     if (aa == null) {
                         aa = ""
@@ -2974,7 +3118,10 @@ const app = new Vue({
             const track = encodeURIComponent((this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.title ?? '' : '');
             const artist = encodeURIComponent((this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.artistName ?? '' : '');
             const time = encodeURIComponent((this.mk.nowPlayingItem != null) ? (Math.round((this.mk.nowPlayingItem.attributes["durationInMillis"] ?? -1000) / 1000) ?? -1) : -1);
-            const id = encodeURIComponent((this.mk.nowPlayingItem != null) ? app.mk.nowPlayingItem._songId ?? (app.mk.nowPlayingItem["songId"] ?? '') : '');
+            let id = null; let vanity_id = null;
+            if (this.mk.nowPlayingItem != null && app.mk.nowPlayingItem.localFilesMetadata != null) {const id = encodeURIComponent('')}
+            else {id = encodeURIComponent((this.mk.nowPlayingItem != null) ? (app.mk.nowPlayingItem._songId) ?? (app.mk.nowPlayingItem["songId"] ?? '') : '');}
+            
             let lrcfile = "";
             let richsync = [];
             const lang = app.cfg.lyrics.mxm_language //  translation language
@@ -2982,67 +3129,13 @@ const app = new Vue({
                 return Math.random().toString(36).replace(/[^a-z]+/g, '').slice(2, 10);
             }
 
-            /* get token */
-            function getToken(mode, track, artist, songid, lang, time, id) {
-                if (attempt > 2) {
-                    app.loadNeteaseLyrics();
-                    // app.loadAMLyrics();
-                } else {
-                    attempt = attempt + 1;
-                    let url = "https://apic-desktop.musixmatch.com/ws/1.1/token.get?app_id=web-desktop-app-v1.0&t=" + revisedRandId();
-                    let req = new XMLHttpRequest();
-                    req.overrideMimeType("application/json");
-                    req.open('GET', url, true);
-                    req.setRequestHeader("authority", "apic-desktop.musixmatch.com");
-                    req.onload = function () {
-                        try {
-                            let jsonResponse = JSON.parse(this.responseText);
-                            let status2 = jsonResponse["message"]["header"]["status_code"];
-                            if (status2 == 200) {
-                                let token = jsonResponse["message"]["body"]["user_token"] ?? '';
-                                if (token != "" && token != "UpgradeOnlyUpgradeOnlyUpgradeOnlyUpgradeOnly") {
-                                    console.debug('200 token', mode);
-                                    // token good
-                                    app.mxmtoken = token;
 
-                                    if (mode == 1) {
-                                        getMXMSubs(track, artist, app.mxmtoken, lang, time, id);
-                                    } else {
-                                        getMXMTrans(songid, lang, app.mxmtoken);
-                                    }
-                                } else {
-                                    console.debug('fake 200 token');
-                                    getToken(mode, track, artist, songid, lang, time)
-                                }
-                            } else {
-                                // console.log('token 4xx');
-                                getToken(mode, track, artist, songid, lang, time)
-                            }
-                        } catch (e) {
-                            console.log('error');
-                            app.loadQQLyrics();
-                            //app.loadAMLyrics();
-                        }
-                    };
-                    req.onerror = function () {
-                        console.log('error');
-                        app.loadQQLyrics();
-                        // app.loadAMLyrics();
-                    };
-                    req.send();
-                }
-            }
-
-            function getMXMSubs(track, artist, token, lang, time, id) {
-                let usertoken = encodeURIComponent(token);
-                let richsyncQuery = (app.cfg.lyrics.mxm_karaoke) ? "&optional_calls=track.richsync" : ""
-                let timecustom = (!time || (time && time < 0)) ? '' : `&f_subtitle_length=${time}&q_duration=${time}&f_subtitle_length_max_deviation=40`;
-                let itunesid = (id && id != "") ? `&track_itunes_id=${id}` : '';
-                let url = "https://apic-desktop.musixmatch.com/ws/1.1/macro.subtitles.get?format=json&namespace=lyrics_richsynched" + richsyncQuery + "&subtitle_format=lrc&q_artist=" + artist + "&q_track=" + track + itunesid + "&usertoken=" + usertoken + timecustom + "&app_id=web-desktop-app-v1.0&t=" + revisedRandId();
+            function getMXMSubs(track, artist, lang, time, id) {
+                let richsyncQuery = app.cfg.lyrics.mxm_karaoke
+                let itunesid = (id && id != "") ? id : ''; // Mode 1 -> Subs
+                let url = "https://api.cider.sh/v1/lyrics?" + "mode=1" + "&richsyncQuery=" + richsyncQuery + "&track=" + track + "&artist=" + artist + "&songID=" + itunesid + "&source=mxm" + "&lang=" + lang + "&time=" + time;
                 let req = new XMLHttpRequest();
                 req.overrideMimeType("application/json");
-                req.open('GET', url, true);
-                req.setRequestHeader("authority", "apic-desktop.musixmatch.com");
                 req.onload = function () {
                     try {
                         let jsonResponse = JSON.parse(this.responseText);
@@ -3050,11 +3143,13 @@ const app = new Vue({
                         let status1 = jsonResponse["message"]["header"]["status_code"];
 
                         if (status1 == 200) {
-                            let id = '';
+                            let id, songLang = '';
                             try {
                                 if (jsonResponse["message"]["body"]["macro_calls"]["matcher.track.get"]["message"]["header"]["status_code"] == 200 && jsonResponse["message"]["body"]["macro_calls"]["track.subtitles.get"]["message"]["header"]["status_code"] == 200) {
                                     id = jsonResponse["message"]["body"]["macro_calls"]["matcher.track.get"]["message"]["body"]["track"]["track_id"] ?? '';
                                     lrcfile = jsonResponse["message"]["body"]["macro_calls"]["track.subtitles.get"]["message"]["body"]["subtitle_list"][0]["subtitle"]["subtitle_body"];
+                                    vanity_id = jsonResponse["message"]["body"]["macro_calls"]["matcher.track.get"]["message"]["body"]["track"]["commontrack_vanity_id"];
+                                    songLang = jsonResponse["message"]["body"]["macro_calls"]["track.lyrics.get"]["message"]["body"]["lyrics"]["lyrics_language_description"];
 
                                     try {
                                         let lrcrich = jsonResponse["message"]["body"]["macro_calls"]["track.richsync.get"]["message"]["body"]["richsync"]["richsync_body"];
@@ -3069,7 +3164,7 @@ const app = new Vue({
                                     // app.loadAMLyrics()
                                 } else {
                                     if (richsync == [] || richsync.length == 0) {
-                                        console.log("ok");
+                                        console.log("musixmatch worki");
                                         // process lrcfile to json here
                                         app.lyricsMediaItem = lrcfile
                                         let u = app.lyricsMediaItem.split(/[\r\n]/);
@@ -3110,24 +3205,21 @@ const app = new Vue({
                                             });
                                         app.lyrics = preLrc;
                                     }
-                                    if (lrcfile != null && lrcfile != '') {
-                                        // load translation
-                                        getMXMTrans(id, lang, token);
-                                    } else {
-                                        // app.loadAMLyrics()
-                                        app.loadQQLyrics();
+                                  
+                                    // Load translation
+                                    if (songLang.toLowerCase() !== lang){
+                                        getMXMTrans(lang, vanity_id);
                                     }
+
                                 }
                             } catch (e) {
                                 console.log(e);
                                 app.loadQQLyrics();
                                 //  app.loadAMLyrics()
                             }
-                        } else { //4xx rejected
-                            getToken(1, track, artist, '', lang, time);
-                        }
+                        } 
                     } catch (e) {
-                        console.log(e);
+                        console.error(e);
                         app.loadQQLyrics();
                         //app.loadAMLyrics()
                     }
@@ -3137,59 +3229,57 @@ const app = new Vue({
                     console.log('error');
                     // app.loadAMLyrics();
                 };
+                req.open('POST', url, true);
                 req.send();
             }
 
-            function getMXMTrans(id, lang, token) {
-                if (lang != "disabled" && id != '') {
-                    let usertoken = encodeURIComponent(token);
-                    let url2 = "https://apic-desktop.musixmatch.com/ws/1.1/crowd.track.translations.get?translation_fields_set=minimal&selected_language=" + lang + "&track_id=" + id + "&comment_format=text&part=user&format=json&usertoken=" + usertoken + "&app_id=web-desktop-app-v1.0&t=" + revisedRandId();
-                    let req2 = new XMLHttpRequest();
-                    req2.overrideMimeType("application/json");
-                    req2.open('GET', url2, true);
-                    req2.setRequestHeader("authority", "apic-desktop.musixmatch.com");
-                    req2.onload = function () {
-                        try {
-                            let jsonResponse2 = JSON.parse(this.responseText);
-                            console.log(jsonResponse2);
-                            let status2 = jsonResponse2["message"]["header"]["status_code"];
-                            if (status2 == 200) {
-                                try {
-                                    let preTrans = []
-                                    let u = app.lyrics;
-                                    let translation_list = jsonResponse2["message"]["body"]["translations_list"];
-                                    if (translation_list.length > 0) {
-                                        for (var i = 0; i < u.length - 1; i++) {
-                                            preTrans[i] = ""
-                                            for (var trans_line of translation_list) {
-                                                if (u[i].line == " " + trans_line["translation"]["matched_line"] || u[i].line == trans_line["translation"]["matched_line"]) {
-                                                    u[i].translation = trans_line["translation"]["description"];
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                        app.lyrics = u;
+            function getMXMTrans(lang, vanity_id) {
+                try { 
+                    if (lang !== "disabled" && vanity_id !== '') { // Mode 2 -> Trans
+                        let url = "https://api.cider.sh/v1/lyrics?mode=2&vanityID=" + vanity_id +'&source=mxm&lang=' + lang;
+                        let req = new XMLHttpRequest();
+                        req.overrideMimeType("application/json");
+                        req.onload = function () { 
+                            if (req.status == 200) { // If it's not 200, 237890127389012 things could go wrong and I don't really care what those things are.
+                                let jsonResponse = JSON.parse(this.responseText);     
+                                let applied = 0;
+                                for (let i = 0; applied < app.lyrics.length; i++) { 
+                                    if (app.lyrics[applied].line.trim() === "") {applied+=1;}
+                                    if (app.lyrics[applied].line.trim() === jsonResponse[i]) {                           
+                                        // Do Nothing
+                                        applied +=1;
                                     }
-                                } catch (e) {
-                                    /// not found trans -> ignore
+                                    else  {                
+                                        if (app.lyrics[applied].line === "lrcInstrumental") { 
+                                            if (app.lyrics[applied+1].line.trim() === jsonResponse[i]) {                           
+                                                // Do Nothing
+                                                applied +=2;
+                                            }
+                                            else {
+                                                app.lyrics[applied+1].translation = jsonResponse[i];  
+                                                applied +=2;
+                                                }                      
+                                        }      
+                                        else {
+                                            app.lyrics[applied].translation = jsonResponse[i];       
+                                            applied +=1;
+                                        }
+                                    } 
                                 }
-                            } else { //4xx rejected
-                                getToken(2, '', '', id, lang, '');
                             }
-                        } catch (e) {
                         }
+                        req.onerror = function () {
+                            console.log("MXM Translation somehow died. Don't need to know why.")
+                        };
+                        req.open('POST', url, true);
+                        req.send();
                     }
-                    req2.send();
-                }
+                } catch (e) {console.debug("Error while parsing MXM Trans: " + e)}
 
             }
 
             if (track != "" & track != "No Title Found") {
-                if (app.mxmtoken != null && app.mxmtoken != '') {
-                    getMXMSubs(track, artist, app.mxmtoken, lang, time, id)
-                } else {
-                    getToken(1, track, artist, '', lang, time);
-                }
+                getMXMSubs(track, artist, lang, time, id);    
             }
         },
         loadNeteaseLyrics() {
@@ -3308,6 +3398,7 @@ const app = new Vue({
                                     translation: ''
                                 });
                             app.lyrics = preLrc.reverse();
+                            if (app.lyrics[5].line == "") {app.loadNeteaseLyrics();} // Detect incomplete QQ lyrics.
                         } catch (e) {
                             console.log(e)
                             app.loadNeteaseLyrics();
@@ -3473,7 +3564,15 @@ const app = new Vue({
             console.log(truekind, id)
 
             try {
-                if (app.library.songs.displayListing.length > childIndex && parent == "librarysongs") {
+                if (parent == 'playlist:ciderlocal'){
+                    let u = app.library.localsongs.map(i => {return i.id})
+                    app.mk.setQueue({"episodes" : u}).then(()=>{
+                        let id = app.mk.queue._itemIDs.findIndex(element => element == item.id);
+                        app.mk.changeToMediaAtIndex(id)
+                    })
+                   
+                }
+                else if (app.library.songs.displayListing.length > childIndex && parent == "librarysongs") {
                     console.log(item)
                     if (item && ((app.library.songs.displayListing[childIndex].id != item.id))) {
                         childIndex = app.library.songs.displayListing.indexOf(item)
@@ -3777,7 +3876,7 @@ const app = new Vue({
                     type += "s"
                 }
                 type = type.replace("library-", "")
-                let id = item.attributes.playParams.catalogId ?? item.attributes.playParams.id ?? item.id
+                let id = item.attributes.playParams?.catalogId ?? item.attributes.playParams.id ?? item.id
 
                 let index = types.findIndex(function (type) {
                     return type.type == this
@@ -3923,9 +4022,8 @@ const app = new Vue({
                         this.currentArtUrl = this.mk.nowPlayingItem._assets[0].artworkURL
                     }
                     try {
-                        document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
-                    } catch (e) {
-                    }
+                        // document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
+                    } catch (e) {}                               
                 } else {
                     let data = await this.mk.api.v3.music(`/v1/me/library/songs/${this.mk.nowPlayingItem.id}`);
                     data = data.data.data[0];
@@ -3937,14 +4035,14 @@ const app = new Vue({
                         }
                         ipcRenderer.send('updateRPCImage', this.currentArtUrl ?? '');
                         try {
-                            document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
+                            // document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
                         } catch (e) {
                         }
                     } else {
                         this.currentArtUrlRaw = ''
                         this.currentArtUrl = '';
                         try {
-                            document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
+                            // document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
                         } catch (e) {
                         }
                     }
@@ -4318,7 +4416,7 @@ const app = new Vue({
                             "name": app.getLz('settings.option.audio.audioLab'),
                             "hidden": true,
                             "action": function () {
-                                app.appRoute('audiolabs')
+                                app.openSettingsPage('audiolabs')
                             }
                         },
                     ]
@@ -4344,7 +4442,7 @@ const app = new Vue({
             try {
                 // if its a radio station, then change the attributes to match a song
                 const nowPlayingItem = JSON.parse(JSON.stringify(this.mk.nowPlayingItem))
-                if(nowPlayingItem.type == "radioStation" && app.mk.nowPlayingItem.id != -1) {
+                if (nowPlayingItem.type == "radioStation" && app.mk.nowPlayingItem.id != -1) {
                     nowPlayingItem.type = "song"
                     nowPlayingItem.attributes.playParams.catalogId = app.mk.nowPlayingItem.id
                     nowPlayingItem.attributes.playParams.id = app.mk.nowPlayingItem.id
@@ -4377,36 +4475,43 @@ const app = new Vue({
 
             }
         },
-        LastFMDeauthorize() {
-            ipcRenderer.invoke('setStoreValue', 'lastfm.enabled', false).catch((e) => console.error(e));
-            ipcRenderer.invoke('setStoreValue', 'lastfm.auth_token', '').catch((e) => console.error(e));
-            app.cfg.lastfm.auth_token = "";
-            app.cfg.lastfm.enabled = false;
-            const element = document.getElementById('lfmConnect');
-            element.innerHTML = app.getLz('term.connect');
-            element.onclick = app.LastFMAuthenticate;
-        },
-        LastFMAuthenticate() {
-            console.log("[LastFM] Received LastFM authentication callback")
-            const element = document.getElementById('lfmConnect');
-            // new key : f9986d12aab5a0fe66193c559435ede3
-            window.open('https://www.last.fm/api/auth?api_key=f9986d12aab5a0fe66193c559435ede3&cb=cider://auth/lastfm');
-            element.innerText = app.getLz('term.connecting') + '...';
-
-            /* Just a timeout for the button */
-            setTimeout(() => {
-                if (element.innerText === app.getLz('term.connecting') + '...') {
-                    element.innerText = app.getLz('term.connect');
-                    console.warn('[LastFM] Attempted connection timed out.');
-                }
-            }, 20000);
-
-            ipcRenderer.on('LastfmAuthenticated', function (_event, lfmAuthKey) {
-                app.cfg.lastfm.auth_token = lfmAuthKey;
-                app.cfg.lastfm.enabled = true;
-                element.innerHTML = `${app.getLz('term.disconnect')}\n<p style="font-size: 8px"><i>(${app.getLz('term.authed')}: ${lfmAuthKey})</i></p>`;
-                element.onclick = app.LastFMDeauthorize;
-            });
+        openSettingsPage(page) {
+            switch (page) {
+                case "general":
+                    this.$store.state.pageState.settings.currentTabIndex = 0
+                    break;
+                case "audio":
+                    this.$store.state.pageState.settings.currentTabIndex = 1
+                    break;
+                case "audiolabs":
+                    this.$store.state.pageState.settings.currentTabIndex = 2
+                    break;
+                case "styles":
+                    this.$store.state.pageState.settings.currentTabIndex = 3
+                    break;
+                case "visual":
+                    this.$store.state.pageState.settings.currentTabIndex = 4
+                    break;
+                case "github-plugins":
+                    this.$store.state.pageState.settings.currentTabIndex = 5
+                    break;
+                case "lyrics":
+                    this.$store.state.pageState.settings.currentTabIndex = 6
+                    break;
+                case "connectivity":
+                    this.$store.state.pageState.settings.currentTabIndex = 7
+                    break;
+                case "advanced":
+                    this.$store.state.pageState.settings.currentTabIndex = 8
+                    break;
+                case "keybindings":
+                    this.$store.state.pageState.settings.currentTabIndex = 9
+                    break;
+                case "github-themes":
+                    this.$store.state.pageState.settings.currentTabIndex = 10
+                    break;
+            }
+            app.modals.settings = true
         },
         fullscreen(flag) {
             this.fullscreenState = flag;
@@ -4618,6 +4723,29 @@ const app = new Vue({
                     let src = sources[0];
                     app.mk._services.mediaItemPlayback._currentPlayer._playAssetURL(src, false)
                 }
+            }
+        },
+        confirm(message, callback) {
+            bootbox.confirm(this.getBootboxParams(null, message, callback));
+        },
+        prompt(title, callback) {
+            bootbox.prompt(this.getBootboxParams(title, null, callback));
+        },
+        getBootboxParams(title, message, callback) {
+            return {
+                title: title,
+                message: message,
+                buttons: {
+                    confirm: {
+                        label: app.getLz('dialog.ok'),
+                    },
+                    cancel: {
+                        label: app.getLz('dialog.cancel'),
+                    },
+                },
+                callback: function (result) {
+                    if (callback) callback(result);
+                },
             }
         }
     }

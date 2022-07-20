@@ -1,0 +1,67 @@
+<script type="text/x-template" id="cider-socialprofile">
+    <div class="content-inner artist-page profile-page">
+        <div class="artist-header" :style="getArtistPalette(data)">
+            <div class="row">
+                <div class="col-sm" style="width: auto;">
+                    <div class="artist-image">
+                        <mediaitem-artwork
+                                shadow="large"
+                                :url="data.attributes.artwork ? data.attributes.artwork.url : ''"
+                                size="220" type="artists"></mediaitem-artwork>
+                    </div>
+                </div>
+                <div class="col flex-center">
+                    <h1>{{ data.attributes.name }}</h1>
+                </div>
+            </div>
+        </div>
+        <div class="artist-body">
+            <template v-if="data.relationships && data.relationships['shared-playlists']"> 
+            <div class="row">
+                <div class="col">
+                    <h3>{{ 'Shared Playlists' ?? ""}}</h3>
+                </div>
+                <div class="col-auto flex-center" v-if="data.relationships['shared-playlists'].data.length >= 10">
+                    <button class="cd-btn-seeall" @click="app.showCollection(data.relationships['shared-playlists'],'Shared Playlists' ?? '', 'default')">{{app.getLz('term.seeAll')}}</button>
+                </div>
+            </div>
+            <mediaitem-square :item="item" v-for="item in data.relationships['shared-playlists'].data.limit(10)">
+            </mediaitem-square>
+            </template>
+        </div>
+    </div>
+</script>
+<script>
+    Vue.component('cider-socialprofile', {
+        template: "#cider-socialprofile",
+        props: ['data'],
+        data: function () {
+            return {
+                topSongsExpanded: false,
+                app: this.$root
+            }
+        },
+        methods: {
+            getArtistPalette(artist) {
+                if (artist?.attributes?.artwork != null) {
+                    return {
+                        "background": "#" + artist["attributes"]["artwork"]["bgColor"],
+                        "color": "#" + artist["attributes"]["artwork"]["textColor1"],
+                    }
+                } else {
+                    return {
+                        "background": "#000000",
+                        "color": "#ffffff",
+                    }
+                }
+            },
+            getTopResult() {
+                if (this.search.results["meta"]) {
+                    return this.search.results[this.search.results.meta.results.order[0]]["data"][0]
+                } else {
+                    return false;
+                }
+            }
+        }
+    })
+</script>

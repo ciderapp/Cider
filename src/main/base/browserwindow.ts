@@ -1,9 +1,9 @@
-import {join} from "path";
-import {app, BrowserWindow as bw, ipcMain, ShareMenu, shell, screen} from "electron";
+import { join } from "path";
+import { app, BrowserWindow as bw, ipcMain, ShareMenu, shell, screen, dialog } from "electron";
 import * as windowStateKeeper from "electron-window-state";
 import * as express from "express";
 import * as getPort from "get-port";
-import {search} from "youtube-search-without-api-key";
+import { search } from "youtube-search-without-api-key";
 import {
     existsSync,
     rmSync,
@@ -16,19 +16,18 @@ import {
     rmdirSync,
     lstatSync,
 } from "fs";
-import {Stream} from "stream";
-import {networkInterfaces} from "os";
+import { Stream } from "stream";
+import { networkInterfaces } from "os";
 import * as mm from 'music-metadata';
 import fetch from 'electron-fetch'
-import {wsapi} from "./wsapi";
-import {utils} from './utils';
-import {Plugins} from "./plugins";
-import {watch} from "chokidar";
+import { wsapi } from "./wsapi";
+import { utils } from './utils';
+import { Plugins } from "./plugins";
+import { watch } from "chokidar";
 import * as os from "os";
 import wallpaper from "wallpaper";
 import * as AdmZip from "adm-zip";
-import * as path from 'path';
-const { readdir } = require('fs').promises;
+import { LocalFiles } from "../providers/local/";
 
 
 /**
@@ -40,11 +39,11 @@ const { readdir } = require('fs').promises;
 export class BrowserWindow {
     public static win: any | undefined = null;
     private devMode: boolean = !app.isPackaged;
+    public static express: any | undefined = null;
 
     private audioStream: any = new Stream.PassThrough();
     private headerSent: any = false;
     private chromecastIP: any = [];
-    private localSongs: any = [];
     private clientPort: number = 0;
     private remotePort: number = 6942;
     private EnvironmentVariables: object = {
@@ -64,8 +63,7 @@ export class BrowserWindow {
                 "pages/browse",
                 "pages/groupings",
                 "pages/charts",
-                "pages/settings",
-                "pages/installed-themes",
+                //"pages/installed-themes",
                 "pages/listen_now",
                 "pages/radio",
                 "pages/home",
@@ -81,14 +79,16 @@ export class BrowserWindow {
                 "pages/about",
                 "pages/library-videos",
                 "pages/remote-pair",
-                "pages/themes-github",
-                "pages/plugins-github",
+                //"pages/themes-github",
+                //"pages/plugins-github",
                 "pages/replay",
                 "pages/audiolabs",
                 "pages/zoo",
                 "pages/plugin-renderer",
-                "pages/keybinds",
                 "pages/oobe",
+                "pages/cider-profile",
+                "components/app-content",
+                "components/sidebar",
                 "components/mediaitem-artwork",
                 "components/artwork-material",
                 "components/menu-panel",
@@ -119,159 +119,173 @@ export class BrowserWindow {
                 "components/fullscreen",
                 "components/miniplayer",
                 "components/castmenu",
+                "components/pathmenu",
                 "components/airplay-modal",
                 "components/artist-chip",
                 "components/hello-world",
                 "components/inline-collection-list",
+                "components/settings-window",
+                "components/settings-keybinds",
+                "components/settings-themes",
+                "components/settings-themes-github",
+                "components/settings-plugins-github",
             ],
             appRoutes: [
                 {
                     page: "library-recentlyadded",
                     component: `<cider-recentlyadded></cider-recentlyadded>`,
-                    condition: "page == 'library-recentlyadded'"
+                    condition: "$root.page == 'library-recentlyadded'"
                 },
                 {
                     page: "plugin-renderer",
                     component: `<plugin-renderer></plugin-renderer>`,
-                    condition: "page == 'plugin-renderer'"
+                    condition: "$root.page == 'plugin-renderer'"
                 },
                 {
                     page: "zoo",
                     component: "<cider-zoo></cider-zoo>",
-                    condition: "page == 'zoo'"
+                    condition: "$root.page == 'zoo'"
                 },
                 {
                     page: "podcasts",
                     component: `<apple-podcasts></apple-podcasts>`,
-                    condition: `page == 'podcasts'`
+                    condition: `$root.page == 'podcasts'`
                 }, {
                     page: "library-videos",
                     component: `<cider-library-videos></cider-library-videos>`,
-                    condition: `page == 'library-videos'`
+                    condition: `$root.page == 'library-videos'`
                 }, {
                     page: "apple-account-settings",
                     component: `<apple-account-settings></apple-account-settings>`,
-                    condition: `page == 'apple-account-settings'`
+                    condition: `$root.page == 'apple-account-settings'`
                 }, {
                     page: "about",
                     component: `<about-page></about-page>`,
-                    condition: `page == 'about'`
+                    condition: `$root.page == 'about'`
                 }, {
                     page: "cider-artist",
-                    component: `<cider-artist :data="artistPage.data"></cider-artist>`,
-                    condition: `page == 'artist-page' && artistPage.data.attributes`
+                    component: `<cider-artist :data="$root.artistPage.data"></cider-artist>`,
+                    condition: `$root.page == 'artist-page' && $root.artistPage.data.attributes`
                 }, {
                     page: "collection-list",
-                    component: `<cider-collection-list :data="collectionList.response" :type="collectionList.type" :title="collectionList.title"></cider-collection-list>`,
-                    condition: `page == 'collection-list'`
+                    component: `<cider-collection-list :data="$root.collectionList.response" :type="$root.collectionList.type" :title="$root.collectionList.title"></cider-collection-list>`,
+                    condition: `$root.page == 'collection-list'`
                 }, {
                     page: "home",
                     component: `<cider-home></cider-home>`,
-                    condition: `page == 'home'`
+                    condition: `$root.page == 'home'`
                 }, {
                     page: "artist-feed",
                     component: `<cider-artist-feed></cider-artist-feed>`,
-                    condition: `page == 'artist-feed'`
+                    condition: `$root.page == 'artist-feed'`
                 }, {
                     page: "playlist-inline",
-                    component: `<playlist-inline :data="showingPlaylist"></playlist-inline>`,
-                    condition: `modals.showPlaylist`
+                    component: `<playlist-inline :data="$root.showingPlaylist"></playlist-inline>`,
+                    condition: `$root.modals.showPlaylist`
                 }, {
                     page: "playlist_",
-                    component: `<cider-playlist :data="showingPlaylist"></cider-playlist>`,
-                    condition: `page.includes('playlist_')`
+                    component: `<cider-playlist :data="$root.showingPlaylist"></cider-playlist>`,
+                    condition: `$root.page.includes('playlist_')`
                 }, {
                     page: "album_",
-                    component: `<cider-playlist :data="showingPlaylist"></cider-playlist>`,
-                    condition: `page.includes('album_')`
+                    component: `<cider-playlist :data="$root.showingPlaylist"></cider-playlist>`,
+                    condition: `$root.page.includes('album_')`
                 }, {
                     page: "recordLabel_",
-                    component: `<cider-recordlabel :data="showingPlaylist"></cider-recordlabel>`,
-                    condition: `page.includes('recordLabel_')`
+                    component: `<cider-recordlabel :data="$root.showingPlaylist"></cider-recordlabel>`,
+                    condition: `$root.page.includes('recordLabel_')`
+                }, {
+                    page: "social-profiles_",
+                    component: `<cider-socialprofile :data="$root.showingPlaylist"></cider-socialprofile>`,
+                    condition: `$root.page.includes('social-profiles_')`
                 }, {
                     page: "multiroom",
-                    component: `<cider-multiroom :data="multiroom"></cider-multiroom>`,
-                    condition: `page.includes('multiroom')`
+                    component: `<cider-multiroom :data="$root.multiroom"></cider-multiroom>`,
+                    condition: `$root.page.includes('multiroom')`
                 }, {
                     page: "curator_",
-                    component: `<cider-recordlabel :data="showingPlaylist"></cider-recordlabel>`,
-                    condition: `page.includes('curator_')`
+                    component: `<cider-recordlabel :data="$root.showingPlaylist"></cider-recordlabel>`,
+                    condition: `$root.page.includes('curator_')`
                 }, {
                     page: "browsepage",
-                    component: `<cider-browse :data="browsepage"></cider-browse>`,
-                    condition: `page == 'browse'`,
+                    component: `<cider-browse :data="$root.browsepage"></cider-browse>`,
+                    condition: `$root.page == 'browse'`,
                     onEnter: ``
-                },{
+                }, {
                     page: "groupings",
-                    component: `<cider-groupings :data="browsepage"></cider-groupings>`,
-                    condition: `page == 'groupings'`,
+                    component: `<cider-groupings :data="$root.browsepage"></cider-groupings>`,
+                    condition: `$root.page == 'groupings'`,
                     onEnter: ``
-                },{
+                }, {
                     page: "charts",
-                    component: `<cider-charts :data="browsepage"></cider-charts>`,
-                    condition: `page == 'charts'`,
+                    component: `<cider-charts :data="$root.browsepage"></cider-charts>`,
+                    condition: `$root.page == 'charts'`,
                     onEnter: ``
                 }, {
                     page: "listen_now",
-                    component: `<cider-listen-now :data="listennow"></cider-listen-now>`,
-                    condition: `page == 'listen_now'`,
+                    component: `<cider-listen-now :data="$root.listennow"></cider-listen-now>`,
+                    condition: `$root.page == 'listen_now'`,
                     onEnter: ``
                 }, {
                     page: "radio",
-                    component: `<cider-radio :data="radio"></cider-radio>`,
-                    condition: `page == 'radio'`,
+                    component: `<cider-radio :data="$root.radio"></cider-radio>`,
+                    condition: `$root.page == 'radio'`,
                     onEnter: ``
                 }, {
                     page: "settings",
                     component: `<cider-settings></cider-settings>`,
-                    condition: `page == 'settings'`
+                    condition: `$root.page == 'settings'`
                 }, {
                     page: "installed-themes",
                     component: `<installed-themes></installed-themes>`,
-                    condition: `page == 'installed-themes'`
+                    condition: `$root.page == 'installed-themes'`
                 }, {
                     page: "search",
-                    component: `<cider-search :search="search"></cider-search>`,
-                    condition: `page == 'search'`
+                    component: `<cider-search :search="$root.search"></cider-search>`,
+                    condition: `$root.page == 'search'`
                 }, {
                     page: "library-songs",
-                    component: `<cider-library-songs :data="library.songs"></cider-library-songs>`,
-                    condition: `page == 'library-songs'`,
+                    component: `<cider-library-songs :data="$root.library.songs"></cider-library-songs>`,
+                    condition: `$root.page == 'library-songs'`,
                     onEnter: ``
                 }, {
                     page: "library-albums",
-                    component: `<cider-library-albums :data="library.songs"></cider-library-albums>`,
-                    condition: `page == 'library-albums'`,
+                    component: `<cider-library-albums :data="$root.library.songs"></cider-library-albums>`,
+                    condition: `$root.page == 'library-albums'`,
                     onEnter: ``
                 }, {
                     page: "library-artists",
                     component: `<cider-library-artists></cider-library-artists>`,
-                    condition: `page == 'library-artists'`,
+                    condition: `$root.page == 'library-artists'`,
                     onEnter: ``
                 }, {
                     page: "appleCurator",
-                    component: `<cider-applecurator :data="appleCurator"></cider-applecurator>`,
-                    condition: `page.includes('appleCurator')`
+                    component: `<cider-applecurator :data="$root.appleCurator"></cider-applecurator>`,
+                    condition: `$root.page.includes('appleCurator')`
                 }, {
                     page: "themes-github",
                     component: `<themes-github></themes-github>`,
-                    condition: `page == 'themes-github'`
+                    condition: `$root.page == 'themes-github'`
                 }, {
                     page: "plugins-github",
                     component: `<plugins-github></plugins-github>`,
-                    condition: `page == 'plugins-github'`
+                    condition: `$root.page == 'plugins-github'`
                 }, {
                     page: "remote-pair",
                     component: `<remote-pair></remote-pair>`,
-                    condition: `page == 'remote-pair'`
+                    condition: `$root.page == 'remote-pair'`
                 }, {
                     page: "audiolabs",
                     component: `<audiolabs-page></audiolabs-page>`,
-                    condition: `page == 'audiolabs'`
+                    condition: `$root.page == 'audiolabs'`
                 }, {
                     page: "replay",
                     component: `<replay-page></replay-page>`,
-                    condition: `page == 'replay'`
+                    condition: `$root.page == 'replay'`
+                }, {
+                    page: "keydinds",
+                    component: `<keybinds-settings></keybinds-settings>`,
+                    condition: `$root.page == 'keybinds-settings'`
                 }
             ]
         },
@@ -292,7 +306,7 @@ export class BrowserWindow {
         show: false,
         // backgroundColor: "#1E1E1E",
         titleBarStyle: 'hidden',
-        trafficLightPosition: {x: 15, y: 20},
+        trafficLightPosition: { x: 15, y: 20 },
         webPreferences: {
             experimentalFeatures: true,
             nodeIntegration: true,
@@ -358,7 +372,8 @@ export class BrowserWindow {
      * @yields {object} Electron browser window
      */
     async createWindow(): Promise<Electron.BrowserWindow> {
-        this.clientPort = await getPort({port: 9000});
+        const envPort = process.env?.CIDER_PORT || '9000'
+        this.clientPort = await getPort({ port: parseInt(envPort, 10) || 9000 });
         BrowserWindow.verifyFiles();
         this.StartWatcher(utils.getPath('themes'));
 
@@ -405,8 +420,9 @@ export class BrowserWindow {
         }
 
         // Start the webserver for the browser window to load
-
+        // LocalFiles.DB.init()
         this.startWebServer();
+
 
         BrowserWindow.win = new bw(this.options);
         // cant be built in CI 
@@ -463,7 +479,7 @@ export class BrowserWindow {
      */
     private startWebServer(): void {
         const app = express();
-
+        BrowserWindow.express = app;
         app.use(express.static(join(utils.getPath('srcPath'), "./renderer/")));
         app.set("views", join(utils.getPath('srcPath'), "./renderer/views"));
         app.set("view engine", "ejs");
@@ -495,9 +511,9 @@ export class BrowserWindow {
         app.get("/cideraudio/impulses/:file", (req, res) => {
             const impulseExternals = join(utils.getPath("externals"), "/impulses/")
             const impulseFile = join(impulseExternals, req.params.file)
-            if(existsSync(impulseFile)) {
+            if (existsSync(impulseFile)) {
                 res.sendFile(impulseFile)
-            }else{
+            } else {
                 res.sendFile(join(utils.getPath('srcPath'), "./renderer/audio/impulses/" + req.params.file))
             }
         })
@@ -547,14 +563,6 @@ export class BrowserWindow {
                 res.send(`// Theme not found - ${userThemePath}`);
             }
         });
-        app.get("/ciderlocal/:songs", (req, res) => {
-            const audio = atob(req.params.songs.replace(/_/g, '/').replace(/-/g, '+'));
-            console.log('auss', audio)
-            let data = {data: 
-             this.localSongs.filter((f: any) => audio.split(',').includes(f.id))};
-            res.send(data);
-        });
-        
 
         app.get("/themes/:theme/*", (req: { params: { theme: string, 0: string } }, res) => {
             const theme = req.params.theme;
@@ -615,10 +623,12 @@ export class BrowserWindow {
         //region Connect Integration
         app.get("/connect/set-cc-user/:data", (req, res) => {
             //utils.getStoreValue('connectUser', JSON.parse()) // [Connect] Save user in store
-            utils.setStoreValue('connectUser', JSON.parse(req.params.data))
-            utils.getWindow().reload()
+            utils.getWindow().webContents.send('setStoreValue', 'connectUser', JSON.parse(req.params.data))
             res.redirect(`https://connect.cidercollective.dev/linked.html`)
         });
+
+        LocalFiles.setupHandlers()
+
         // [Connect] Set auth URL in store for `shell.openExternal`
         utils.setStoreValue('cc_authURL', `https://connect.cidercollective.dev/callback/discord?app=cider&appPort=${this.clientPort}`)
         console.log(`[Connect] Auth URL: ${utils.getStoreValue('cc_authURL')}`)
@@ -638,7 +648,7 @@ export class BrowserWindow {
         remote.use(express.static(join(utils.getPath('srcPath'), "./web-remote/")))
         remote.set("views", join(utils.getPath('srcPath'), "./web-remote/views"));
         remote.set("view engine", "ejs");
-        getPort({port: 6942}).then((port: number) => {
+        getPort({ port: 6942 }).then((port: number) => {
             this.remotePort = port;
             // Start Remote Discovery
             this.broadcastRemote()
@@ -669,13 +679,13 @@ export class BrowserWindow {
                     callback({
                         redirectURL: `http://localhost:${this.clientPort}/apple-hls.js`,
                     });
-                } else if (details.url.includes("ciderlocal")) {
+                } else if (details.url.includes("ciderlocal") && !details.url.includes("https://apic-desktop.musixmatch.com") ) {
                     let text = details.url.toString().includes('ids=') ? decodeURIComponent(details.url.toString()).split("?ids=")[1] : decodeURIComponent(details.url.toString().substring(details.url.toString().lastIndexOf('/') + 1));
-                    console.log('localurl',text)
+                    //console.log('localurl',text)
                     callback({
                         redirectURL: `http://localhost:${this.clientPort}/ciderlocal/${Buffer.from(text).toString('base64url')}`,
                     });
-                }else {
+                } else {
                     callback({
                         cancel: false,
                     });
@@ -717,7 +727,7 @@ export class BrowserWindow {
                     'KHTML, like Gecko) Mobile/17D50 UCBrowser/12.8.2.1268 Mobile AliApp(TUnionSDK/0.1.20.3) '
                     details.requestHeaders['Referer'] = "https://y.qq.com/portal/player.html"
                 }
-                callback({requestHeaders: details.requestHeaders});
+                callback({ requestHeaders: details.requestHeaders });
             }
         );
 
@@ -774,7 +784,7 @@ export class BrowserWindow {
             const Jimp = require("jimp")
             const img = await Jimp.read(wpPath)
             const blurAmount = args.blurAmount ?? 256
-            if(blurAmount) {
+            if (blurAmount) {
                 img.blur(blurAmount)
             }
             const screens = await screen.getAllDisplays()
@@ -811,7 +821,7 @@ export class BrowserWindow {
                     }
                     // if path is directory, delete it
                     if (lstatSync(path).isDirectory()) {
-                        await rmdirSync(path, {recursive: true});
+                        await rmdirSync(path, { recursive: true });
                     } else {
                         // if path is file, delete it
                         await unlinkSync(path);
@@ -842,7 +852,7 @@ export class BrowserWindow {
             // remove WidevineCDM from appdata folder
             const widevineCdmPath = join(app.getPath("userData"), "./WidevineCdm");
             if (existsSync(widevineCdmPath)) {
-                rmSync(widevineCdmPath, {recursive: true, force: true})
+                rmSync(widevineCdmPath, { recursive: true, force: true })
             }
             // reinstall WidevineCDM
             app.relaunch()
@@ -1134,7 +1144,7 @@ export class BrowserWindow {
 
         // Move window
         ipcMain.on("windowmove", (_event, x, y) => {
-            BrowserWindow.win.setBounds({x, y});
+            BrowserWindow.win.setBounds({ x, y });
         });
 
         //Fullscreen
@@ -1149,7 +1159,7 @@ export class BrowserWindow {
 
         //Fullscreen
         ipcMain.on('detachDT', (_event, _) => {
-            BrowserWindow.win.webContents.openDevTools({mode: 'detach'});
+            BrowserWindow.win.webContents.openDevTools({ mode: 'detach' });
         })
 
         ipcMain.handle('relaunchApp', (_event, _) => {
@@ -1168,6 +1178,10 @@ export class BrowserWindow {
             app.quit();
         })
 
+        ipcMain.handle("quit-app", (_event, _) => {
+            app.quit();
+        })
+
         app.on('before-quit', () => {
 
         })
@@ -1182,102 +1196,17 @@ export class BrowserWindow {
         });
 
 
-        ipcMain.on("scanLibrary", async (event, folders) => {
-            async function getFiles(dir : any) {
-                const dirents = await readdir(dir, { withFileTypes: true });
-                const files = await Promise.all(dirents.map((dirent: any) => {
-                  const res = path.resolve(dir, dirent.name);
-                  return dirent.isDirectory() ? getFiles(res) : res;
-                }));
-                return Array.prototype.concat(...files);
-              }
-                if (folders == null || folders.length == null || folders.length == 0) folders = ["D:\\Music"]
-                console.log('folders', folders)
-                let files: any[] = []
-                for (var folder of folders){  
-                    // get files from the Music folder
-                    files = files.concat(await getFiles(folder))
-                }
-           
-                //console.log("cider.files", files2);
-                let supporttedformats = ["mp3", "aac", "webm", "flac", "m4a", "ogg", "wav", "opus"]
-                let audiofiles = files.filter(f => supporttedformats.includes(f.substring(f.lastIndexOf('.') + 1)));
-                // console.log("cider.files2", audiofiles, audiofiles.length);
-                let metadatalist = []
-                let numid = 0;
-                for (var audio of audiofiles) {
-                    try{
-                        const metadata = await mm.parseFile(audio);
-                        if (metadata != null){ 
-                            let form = {
-                                        "id": "ciderlocal" + numid,
-                                        "type": "podcast-episodes",
-                                        "href": audio,
-                                        "attributes": {
-                                            "artwork": {
-                                                "width": 3000,
-                                                "height": 3000,
-                                                "url": metadata.common.picture != undefined ? "data:image/png;base64,"+metadata.common.picture[0].data.toString('base64')+"" : "",
-                                            },
-                                            "topics": [],
-                                            "url": "",
-                                            "subscribable": true,
-                                            "mediaKind": "audio",
-                                            "genreNames": [
-                                                ""
-                                            ],
-                                            // "playParams": { 
-                                            //     "id": "ciderlocal" + numid, 
-                                            //     "kind": "podcast", 
-                                            //     "isLibrary": true, 
-                                            //     "reporting": false },
-                                            "trackNumber": metadata.common.track?.no ?? 0, 
-                                            "discNumber": metadata.common.disk?.no ?? 0, 
-                                            "name": metadata.common.title ?? audio.substring(audio.lastIndexOf('\\') + 1),
-                                            "albumName": metadata.common.album,
-                                            "artistName": metadata.common.artist,
-                                            "copyright": metadata.common.copyright ?? "",
-                                            "assetUrl":  "file:///" +audio,
-                                            "contentAdvisory": "",
-                                            "releaseDateTime": "2022-05-13T00:23:00Z",
-                                            "durationInMilliseconds": Math.floor((metadata.format.duration?? 0) * 1000),
-                                            
-                                            "offers": [
-                                                {
-                                                    "kind": "get",
-                                                    "type": "STDQ"
-                                                }
-                                            ],
-                                            "contentRating": "clean"
-                                        }
-                            };
-                            numid += 1;
-                            
-                        // let form = {"id": "/ciderlocal?" + audio, 
-                        // "type": "library-songs", 
-                        // "href": "/ciderlocal?" + audio, 
-                        // "artwork": {
-                        //     "url": metadata.common.picture != undefined ? "data:image/png;base64,"+metadata.common.picture[0].data.toString('base64')+"" : "", 
-                        // },
-                        // "attributes": 
-                        // { "durationInMillis": Math.floor((metadata.format.duration?? 0) * 1000), 
-                        // "hasLyrics": false, 
-                        // "playParams": { "id": "/ciderlocal?" + audio, "kind": "song", "isLibrary": true, "reporting": false }, 
-                        // "trackNumber": 0, 
-                        // "discNumber": 0, 
-                        // "genreNames": [""], 
-                        // "name": metadata.common.title,
-                        // "albumName": metadata.common.album,
-                        // "artistName": metadata.common.artist}}
-                        metadatalist.push(form)}
-                    } catch (e){}    
-                } 
-                // console.log('metadatalist', metadatalist);
-                this.localSongs = metadatalist;
-                BrowserWindow.win.webContents.send('getUpdatedLocalList', metadatalist);
-            }
+        ipcMain.handle("scanLibrary", async (event, folders) => {
+            const oldmetadatalist = await LocalFiles.sendOldLibrary()
+            BrowserWindow.win.webContents.send('getUpdatedLocalList', oldmetadatalist);
+            const metadatalist = await LocalFiles.scanLibrary()
+            BrowserWindow.win.webContents.send('getUpdatedLocalList', metadatalist);
+            LocalFiles.cleanUpDB()
+        })
 
-            )
+        LocalFiles.eventEmitter.on('newtracks', (data) => {
+            BrowserWindow.win.webContents.send('getUpdatedLocalList', data);
+        });
 
         ipcMain.on('writeWAV', (event, leftpcm, rightpcm, bufferlength) => {
 
@@ -1445,13 +1374,13 @@ export class BrowserWindow {
                     console.log('sc', SoundCheckTag)
                     BrowserWindow.win.webContents.send('SoundCheckTag', SoundCheckTag)
                 }).catch(err => {
-                console.log(err)
-            });
+                    console.log(err)
+                });
         });
 
 
         ipcMain.on('share-menu', async (_event, url) => {
-            if (process.platform != 'darwin') return;
+            if (process.platform !== 'darwin') return;
             //https://www.electronjs.org/docs/latest/api/share-menu
             console.log('[Share Sheet - App.ts]', url)
             const options = {
@@ -1470,10 +1399,17 @@ export class BrowserWindow {
             }
 
         });
+
         ipcMain.on('open-appdata', (_event) => {
             shell.openPath(app.getPath('userData'));
         });
 
+        ipcMain.handle('folderSelector', async (_event) => {
+            let u = await dialog.showOpenDialog({
+                properties: ['openDirectory', 'multiSelections']
+            });
+            return u.filePaths
+        });
 
         //#region Cider Connect
         ipcMain.on('cc-auth', (_event) => {
@@ -1498,35 +1434,38 @@ export class BrowserWindow {
         /* *********************************************************************************************
          * Window Events
          * **********************************************************************************************/
-        if (process.platform === "win32") {
-            let WND_STATE = {
-                MINIMIZED: 0,
-                NORMAL: 1,
-                MAXIMIZED: 2,
-                FULL_SCREEN: 3,
-            };
-            let wndState = WND_STATE.NORMAL;
+        let WND_STATE = {
+            MINIMIZED: 0,
+            NORMAL: 1,
+            MAXIMIZED: 2,
+            FULL_SCREEN: 3,
+        };
+        let wndState = WND_STATE.NORMAL;
 
-            BrowserWindow.win.on("resize", (_: any) => {
-                const isMaximized = BrowserWindow.win.isMaximized();
-                const isMinimized = BrowserWindow.win.isMinimized();
-                const isFullScreen = BrowserWindow.win.isFullScreen();
-                const state = wndState;
-                if (isMinimized && state !== WND_STATE.MINIMIZED) {
-                    wndState = WND_STATE.MINIMIZED;
-                } else if (isFullScreen && state !== WND_STATE.FULL_SCREEN) {
-                    wndState = WND_STATE.FULL_SCREEN;
-                } else if (isMaximized && state !== WND_STATE.MAXIMIZED) {
-                    wndState = WND_STATE.MAXIMIZED;
-                    BrowserWindow.win.webContents.executeJavaScript(`app.chrome.maximized = true`);
-                } else if (state !== WND_STATE.NORMAL) {
-                    wndState = WND_STATE.NORMAL;
-                    BrowserWindow.win.webContents.executeJavaScript(
-                        `app.chrome.maximized = false`
-                    );
-                }
-            });
-        }
+        BrowserWindow.win.on("resize", (_: any) => {
+            const isMaximized = BrowserWindow.win.isMaximized();
+            const isMinimized = BrowserWindow.win.isMinimized();
+            const isFullScreen = BrowserWindow.win.isFullScreen();
+            const state = wndState;
+            if (isMinimized && state !== WND_STATE.MINIMIZED) {
+                wndState = WND_STATE.MINIMIZED;
+                BrowserWindow.win.webContents.send('window-state-changed', 'minimized');
+            } else if (isFullScreen && state !== WND_STATE.FULL_SCREEN) {
+                wndState = WND_STATE.FULL_SCREEN;
+                BrowserWindow.win.webContents.send('window-state-changed', 'fullscreen')
+            } else if (isMaximized && state !== WND_STATE.MAXIMIZED) {
+                wndState = WND_STATE.MAXIMIZED;
+                BrowserWindow.win.webContents.send('window-state-changed', 'maximized')
+                BrowserWindow.win.webContents.executeJavaScript(`app.chrome.maximized = true`);
+            } else if (state !== WND_STATE.NORMAL) {
+                wndState = WND_STATE.NORMAL;
+                BrowserWindow.win.webContents.send('window-state-changed', 'normal')
+                BrowserWindow.win.webContents.executeJavaScript(
+                    `app.chrome.maximized = false`
+                );
+            }
+        });
+
 
         let isQuiting = false
 
@@ -1569,10 +1508,10 @@ export class BrowserWindow {
         // Set window Handler
         BrowserWindow.win.webContents.setWindowOpenHandler((x: any) => {
             if (x.url.includes("apple") || x.url.includes("localhost")) {
-                return {action: "allow"};
+                return { action: "allow" };
             }
             shell.openExternal(x.url).catch(console.error);
-            return {action: "deny"};
+            return { action: "deny" };
         });
     }
 
@@ -1628,7 +1567,7 @@ export class BrowserWindow {
             "CtlN": "Cider",
             "iV": "196623"
         };
-        let server2 = mdns.createAdvertisement(x, `${await getPort({port: 3839})}`, {
+        let server2 = mdns.createAdvertisement(x, `${await getPort({ port: 3839 })}`, {
             name: encoded,
             txt: txt_record
         });

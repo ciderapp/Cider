@@ -1,5 +1,3 @@
-
-
 <script type="text/x-template" id="cider-library-songs">
     <div class="content-inner library-page">
         <div class="library-header">
@@ -48,6 +46,14 @@
                                 </optgroup>
                             </select>
                         </div>
+                        <div class="col">
+                            <select class="md-select" v-model="prefs.scroll">
+                                <optgroup :label="app.getLz('term.scroll')">
+                                    <option value="infinite">{{app.getLz('term.scroll.infinite')}}</option>
+                                    <option value="paged">{{app.getLz('term.scroll.paged').replace("${songsPerPage}", pageSize)}}</option>
+                                </optgroup>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="col-auto flex-center">
@@ -58,14 +64,53 @@
                     </button>
                 </div>
             </div>
+            <div class="row" style="margin-bottom: 16px" v-if="!isInfinite">
+                <button
+                    class="col md-btn page-btn"
+                    :disabled="currentPage === 1"
+                    @click="goToPage(1)"
+                >
+                    <img class="md-ico-first"/>
+                </button>
+                <button
+                    class="col md-btn page-btn prev"
+                    :disabled="currentPage === 1"
+                    @click="goToPrevious()"
+                >
+                    <img class="md-ico-prev"/>
+                </button>
+                <button
+                    :class="`col md-btn page-btn${ isCurrentPage(page) ? ' md-btn-primary': ''}`"
+                    @click="goToPage(page)"
+                    v-for="page in pagesToShow"
+                >{{ page }}</button>
+                <button
+                    class="col md-btn page-btn next"
+                    :disabled="currentPage === numPages"
+                    @click="goToNext()"
+                >
+                    <img class="md-ico-next"/>
+                </button>
+                <button
+                    class="col md-btn page-btn last"
+                    :disabled="currentPage === numPages"
+                    @click="goToEnd()"
+                >
+                    <img class="md-ico-last"/>
+                </button>
+                <div class="col page-btn" style="min-width: 12em;">
+                    <input type="number" min="1" :max="numPages" :value="currentPage" @change="changePage" />
+                    <span>/ {{ numPages }}</span>
+                </div>
+            </div>
         </div>
 
         <div v-if="library.songs.downloadState == 3">Library contains no songs.</div>
         <div class="well" :key="1" v-if="prefs.size == 'compact'">
-            <mediaitem-list-item class-list="compact" :item="item" :parent="'librarysongs'" :index="index" :show-meta-data="true" :show-library-status="false" v-for="(item, index) in library.songs.displayListing"></mediaitem-list-item>
+            <mediaitem-list-item class-list="compact" :item="item" :parent="'librarysongs'" :index="index" :show-meta-data="true" :show-library-status="false" v-for="(item, index) in currentSlice"></mediaitem-list-item>
         </div>
         <div class="well" :key="2" v-else>
-            <mediaitem-list-item :item="item" :parent="'librarysongs'" :index="index" :show-meta-data="true" :show-library-status="false" v-for="(item, index) in library.songs.displayListing"></mediaitem-list-item>
+            <mediaitem-list-item :item="item" :parent="'librarysongs'" :index="index" :show-meta-data="true" :show-library-status="false" v-for="(item, index) in currentSlice"></mediaitem-list-item>
         </div>
     </div>
 </script>
@@ -75,21 +120,125 @@
         template: '#cider-library-songs',
         data: function () {
             return {
+                // currentPage is oneIndexed
+                currentPage: 1,
                 library: this.$root.library,
                 mediaItemSize: "compact",
+                pageSize: 250,
                 prefs: this.$root.cfg.libraryPrefs.songs,
-                app : this.$root
+                app: this.$root
             }
         },
         mounted() {
+            document.querySelector("#app-content")
+                .addEventListener("scroll", this.handleScroll)
             this.$root.getLibrarySongsFull()
         },
-        methods: {
-            sayHello: function () {
-                alert('Hello world!');
+        destroyed() {
+            document.querySelector("#app-content")
+                .removeEventListener("scroll", this.handleScroll)
+        },
+        watch: {
+            'library.songs.displayListing.length': function () {
+                if (this.isInfinite) {
+                    // If a search reduces the number of things to show, we want to limit
+                    // the number of songs shown as well. This is to prevent you scrolling
+                    // to load your entire library, searching for one song, and then having
+                    // th re-render the entire library
+                    if (this.currentPage > this.numPages) {
+                        this.currentPage = this.numPages;
+                    }
+                }
             },
-            play: function () {
+            'prefs.scroll': function () {
+                // When changing modes, set the page to 1. This is primarily to
+                // prevent going to a high page (e.g., 50) and then switching to infinite
+                // and showing 12.5k songs
+                this.currentPage = 1;
+            }
+        },
+        computed: {
+            isInfinite: function () {
+                return this.prefs.scroll === "infinite"
+            },
+            currentSlice: function () {
+                if (this.isInfinite) {
+                    return this.library.songs.displayListing.slice(
+                        0, this.currentPage * this.pageSize
+                    );
+                } else {
+                    const startingPage = Math.min(this.numPages, this.currentPage);
 
+                    return this.library.songs.displayListing.slice(
+                        (startingPage - 1) * this.pageSize,
+                        startingPage * this.pageSize
+                    );
+                }
+            },
+            numPages: function () {
+                return Math.ceil(this.library.songs.displayListing.length / this.pageSize) || 1;
+            },
+            pagesToShow: function () {
+                let start = this.currentPage - 2;
+                let end = this.currentPage + 2;
+
+                if (start < 1) {
+                    end += (1 - start);
+                    start = 1;
+                }
+
+                const endDifference = end - this.numPages;
+                if (endDifference > 0) {
+                    end = this.numPages;
+                    start = Math.max(1, start - endDifference);
+                }
+
+                const array = [];
+                for (let idx = start; idx <= end; idx++) {
+                    array.push(idx);
+                }
+                return array;
+            }
+        },
+        methods: {
+            // Infinite Scrolling
+            handleScroll: function (event) {
+                if (this.isInfinite &&
+                    this.currentPage < this.numPages &&
+                    event.target.scrollTop >= event.target.scrollHeight - event.target.clientHeight) {
+                    this.currentPage += 1;
+                }
+            },
+            // Pagination
+            isCurrentPage: function (idx) {
+                return idx === this.currentPage ||
+                    (idx === this.numPages && this.currentPage > this.numPages);
+            },
+            changePage: function (event) {
+                const value = event.target.valueAsNumber;
+
+                if (!isNaN(value) && value >= 1 && value <= this.numPages) {
+                    this.currentPage = value;
+                }
+            },
+            goToPage: function (page) {
+                this.currentPage = page;
+            },
+            goToPrevious: function () {
+                if (this.currentPage > 1) {
+                    this.currentPage -= 1;
+                }
+            },
+            goToNext: function () {
+                if (this.currentPage < this.numPages) {
+                    this.currentPage += 1;
+                }
+            },
+            goToEnd: function () {
+                this.currentPage = this.numPages;
+            },
+            // Miscellaneous
+            play: function () {
                 function shuffleArray(array) {
                     for (var i = array.length - 1; i > 0; i--) {
                         var j = Math.floor(Math.random() * (i + 1));
@@ -101,11 +250,11 @@
 
                 let query = this.app.library.songs.displayListing.map(item => new MusicKit.MediaItem(item));
                 if (!app.mk.queue.isEmpty)
-                app.mk.queue.splice(0, app.mk.queue._itemIDs.length);
+                    app.mk.queue.splice(0, app.mk.queue._itemIDs.length);
                 app.mk.stop().then(() => {
-                  if (app.mk.shuffleMode == 1) {
-                                shuffleArray(query)
-                            }
+                    if (app.mk.shuffleMode == 1) {
+                        shuffleArray(query)
+                    }
                     app.mk.queue.append(query)
                     app.mk.changeToMediaAtIndex(0)
                 });
