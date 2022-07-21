@@ -99,14 +99,14 @@
                           :class="$root.isDisabled() && 'disabled'" v-else-if="$root.mk.repeatMode == 2" :title="$root.getLz('term.disableRepeat')"
                           v-b-tooltip.hover></button>
                       </div>
-                    </div>     
-                </div>
-                <div class="app-chrome-item volume display--large">
-                    <div class="input-container">
-                    <button class="volume-button--small volume" @click="app.muteButtonPressed()" :class="{'active': app.cfg.audio.volume == 0}"></button>
-                    <input type="range" class="slider" @wheel="app.volumeWheel" :step="app.cfg.audio.volumeStep" min="0" :max="app.cfg.audio.maxVolume" v-model="app.mk.volume"
-                           v-if="typeof app.mk.volume != 'undefined'" @change="app.checkMuteChange()">
-                    </div>       
+                    </div>
+                    <div class="app-chrome-item volume display--large">
+                        <div class="input-container">
+                        <button class="volume-button--small volume" @click="app.muteButtonPressed()" :class="{'active': app.cfg.audio.volume == 0}"></button>
+                        <input type="range" class="slider" @wheel="app.volumeWheel" :step="app.cfg.audio.volumeStep" min="0" :max="app.cfg.audio.maxVolume" v-model="app.mk.volume"
+                               v-if="typeof app.mk.volume != 'undefined'" @change="app.checkMuteChange()">
+                        </div>     
+                </div>       
                 </div>
                 </div>
             </template>
