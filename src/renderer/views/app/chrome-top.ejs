@@ -16,19 +16,19 @@
     <template v-if="getThemeDirective('appNavigation') != 'seperate'">
       <div class="vdiv" v-if="getThemeDirective('windowLayout') == 'twopanel'"></div>
       <div class="app-chrome-item">
-        <button class="playback-button navigation" @click="navigateBack()" :title="$root.getLz('term.navigateBack')"
+        <button class="playback-button navigation" v-ripple @click="navigateBack()" :title="$root.getLz('term.navigateBack')"
           v-b-tooltip.hover>
           <svg-icon url="./views/svg/chevron-left.svg"></svg-icon>
         </button>
       </div>
       <div class="app-chrome-item">
-        <button class="playback-button navigation" @click="navigateForward()"
+        <button class="playback-button navigation" v-ripple @click="navigateForward()"
           :title="$root.getLz('term.navigateForward')" v-b-tooltip.hover>
           <svg-icon url="./views/svg/chevron-right.svg"></svg-icon>
         </button>
       </div>
       <div class="app-chrome-item" v-if="getThemeDirective('windowLayout') == 'twopanel'">
-        <button class="playback-button collapseLibrary" v-b-tooltip.hover
+        <button class="playback-button collapseLibrary" v-ripple v-b-tooltip.hover
           :title="chrome.sidebarCollapsed ? getLz('action.showLibrary') : getLz('action.hideLibrary')"
           @click="chrome.sidebarCollapsed = !chrome.sidebarCollapsed">
           <transition name="fade">
@@ -230,21 +230,21 @@
           :title="formatVolumeTooltip()" />
       </div>
       <div class="app-chrome-item generic">
-        <button class="playback-button--small cast" :title="$root.getLz('term.cast')"
+        <button class="playback-button--small cast" :title="$root.getLz('term.cast')" v-ripple
           @click="cfg.advanced.AudioContext ? modals.castMenu = true : (cfg.advanced.AudioContext = true, modals.castMenu = true)"
           v-b-tooltip.hover></button>
       </div>
       <div class="app-chrome-item generic">
-        <button class="playback-button--small queue" :title="$root.getLz('term.queue')" v-b-tooltip.hover
+        <button class="playback-button--small queue" :title="$root.getLz('term.queue')" v-b-tooltip.hover v-ripple
           :class="{'active': drawer.panel == 'queue'}" @click="invokeDrawer('queue')"></button>
       </div>
       <div class="app-chrome-item generic">
         <template v-if="lyrics && lyrics != [] && lyrics.length > 0">
-          <button class="playback-button--small lyrics" :title="$root.getLz('term.lyrics')" v-b-tooltip.hover
+          <button class="playback-button--small lyrics" :title="$root.getLz('term.lyrics')" v-b-tooltip.hover v-ripple
             :class="{'active': drawer.panel == 'lyrics'}" @click="invokeDrawer('lyrics')"></button>
         </template>
         <template v-else>
-          <button class="playback-button--small lyrics" :style="{'opacity': 0.3, 'pointer-events': 'none'}"></button>
+          <button class="playback-button--small lyrics" :style="{'opacity': 0.3, 'pointer-events': 'none'}" v-ripple></button>
         </template>
       </div>
     </template>
