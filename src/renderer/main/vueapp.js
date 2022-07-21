@@ -734,7 +734,7 @@ const app = new Vue({
             this.platform = this.cfg.main.PLATFORM
 
             this.mklang = await this.MKJSLang()
-
+            this.mk._playbackController._storekit.overrideRestrictEnabled(false)
             try {
                 // Set profile name
                 this.chrome.userinfo = (await app.mk.api.v3.music(`/v1/me/social-profile`)).data.data[0]
