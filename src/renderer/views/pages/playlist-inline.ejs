@@ -22,7 +22,7 @@
             }">
                     <div class="playlistInfo">
                         <div class="row">
-                            <div class="col-auto flex-center">
+                            <div class="col-auto cider-flex-center">
                                 <div style="width: 260px;height:260px;">
                                     <mediaitem-artwork
                                             shadow="large"
@@ -120,7 +120,7 @@
                             <h3>{{data.attributes ? (data.attributes.name ??
                                 (data.attributes.title ?? '') ?? '') : ''}}</h3>
                         </div>
-                        <div class="col-auto flex-center">
+                        <div class="col-auto cider-flex-center">
                             <div>
                                 <button class="md-btn md-btn-primary  md-btn-icon" style="min-width: 100px;"
                                         @click="app.mk.shuffleMode = 0; play()"><img class="md-ico-play">
@@ -144,7 +144,7 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="col-auto flex-center">
+                        <div class="col-auto cider-flex-center">
                             <button class="more-btn-round" style="float:right;" @click="menu" :aria-label="term.more">
                                 <div class="svg-icon"></div>
                             </button>

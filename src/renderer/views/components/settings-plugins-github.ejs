@@ -5,7 +5,7 @@
                 <div class="col nopadding">
                     <h1 class="header-text">{{$root.getLz('settings.header.visual.plugin.github.page')}}</h1>
                 </div>
-                <div class="col-auto nopadding flex-center">
+                <div class="col-auto nopadding cider-flex-center">
                     <button class="md-btn md-btn-small md-btn-block" @click="installThemeURL()">
                         {{$root.getLz('settings.option.visual.plugin.github.download')}}
                     </button>
@@ -19,7 +19,7 @@
                         :style="{'background': (repo.id == openRepo.id) ? 'var(--keyColor)' : '', 'border-radius': '5px'}"
                         v-for="repo in repos">
                         <div class="row">
-                            <div class="col flex-center">
+                            <div class="col cider-flex-center">
                                 <div>
                                     <h4 class="repo-name">{{ (repo.description != null) ? repo.description : repo.full_name }}</h4>
                                     <div>⭐ {{ repo.stargazers_count }}</div>
@@ -33,7 +33,7 @@
             <div class="github-preview" v-if="openRepo.full_name">
                 <div class="gh-preview-header">
                     <div class="row nopadding">
-                        <div class="col nopadding flex-center">
+                        <div class="col nopadding cider-flex-center">
                             <div>
                                 <h3 class="repo-preview-name">{{ openRepo.description }}</h3>
                                 <div>
@@ -43,7 +43,7 @@
                                 <div>⭐ {{ openRepo.stargazers_count }}</div>
                             </div>
                         </div>
-                        <div class="col-auto nopadding flex-center">
+                        <div class="col-auto nopadding cider-flex-center">
                             <button class="md-btn md-btn-primary" @click="installThemeRepo(openRepo)">
                                 <span v-if="!themesInstalled.includes(openRepo.full_name)">{{$root.getLz('action.install')}}</span>
                                 <span v-else>{{$root.getLz('action.update')}}</span>

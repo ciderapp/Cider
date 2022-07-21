@@ -10,7 +10,7 @@
                                 size="220" type="artists"></mediaitem-artwork>
                     </div>
                 </div>
-                <div class="col flex-center">
+                <div class="col cider-flex-center">
                     <h1>{{ data.attributes.name }}</h1>
                 </div>
             </div>
@@ -21,7 +21,7 @@
                 <div class="col">
                     <h3>{{ 'Shared Playlists' ?? ""}}</h3>
                 </div>
-                <div class="col-auto flex-center" v-if="data.relationships['shared-playlists'].data.length >= 10">
+                <div class="col-auto cider-flex-center" v-if="data.relationships['shared-playlists'].data.length >= 10">
                     <button class="cd-btn-seeall" @click="app.showCollection(data.relationships['shared-playlists'],'Shared Playlists' ?? '', 'default')">{{app.getLz('term.seeAll')}}</button>
                 </div>
             </div>

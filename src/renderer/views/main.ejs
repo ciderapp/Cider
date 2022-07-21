@@ -19,18 +19,12 @@
 <!--    <link rel="stylesheet/less" type="text/css" id="userTheme" href="themes/default.less"/>-->
     <script src="./lib/less.js"></script>
     <script src="<%- (env.dev ? " ./lib/vue.js" : "./lib/vue.dev.js") %>"></script>
-    <script src="./lib/vue-horizontal.js"></script>
     <script src="./lib/smoothscroll.js"></script>
-    <script src="./lib/vuex.min.js"></script>
-    <script src="./lib/sortable.min.js"></script>
-    <script src="./lib/vue-observe-visibility.min.js"></script>
-    <script src="./lib/vuedraggable.umd.min.js"></script>
     <link rel="manifest" href="./manifest.json?v=2">
     <script src="https://js-cdn.music.apple.com/hls.js/2.141.0/hls.js/hls.js"></script>
     <script src="hlscider.js"></script>
     <script src="./lib/jquery-3.2.1.slim.min.js"></script>
     <script src="./lib/popper.min.js"></script>
-    <script src="./lib/bootstrap-vue.min.js"></script>
     <script src="./lib/bootstrap.min.js"></script>
     <script src="./lib/bootbox.min.js"></script>
     <script src="./lib/notyf.min.js"></script>
@@ -39,7 +33,6 @@
     <script src="./lib/fast-plural-rules.js"></script>
     <script src="./lib/resonance-audio.min.js"></script>
     <script src="./lib/stackblur.min.js"></script>
-    <script type="module" src="./main/app.js"></script>
 
     <style>
         #LOADER {
@@ -69,6 +62,16 @@
 
 <body class="notransparency" oncontextmenu="return false;" loading="1" os-release="<%= parseInt(env.osRelease) %>"
       platform="<%= env.platform %>">
+      <script src="<%- (env.dev ? " ./lib/vue.js" : "./lib/vue.dev.js") %>"></script>
+      <script src="./lib/vue-horizontal.js"></script>
+      <script src="./lib/bootstrap-vue.min.js"></script>
+      <script src="./lib/vuex.min.js"></script>
+      <script src="./lib/sortable.min.js"></script>
+      <script src="./lib/vue-observe-visibility.min.js"></script>
+      <script src="./lib/vuedraggable.umd.min.js"></script>
+      <script src="./lib/quasar/quasar.umd.min.js"></script>
+      <script type="module" src="./main/app.js"></script>
+      
 <div id="LOADER">
     <%- include("../assets/cider-round.svg") %>
 </div>

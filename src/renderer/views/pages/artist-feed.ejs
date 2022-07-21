@@ -7,7 +7,7 @@
                         <div class="col nopadding">
                             <h3>{{app.getLz('home.followedArtists')}}</h3>
                         </div>
-                        <div class="col-auto nopadding flex-center">
+                        <div class="col-auto nopadding cider-flex-center">
                             <button class="cd-btn-seeall" @click="syncFavorites()" v-if="!syncingFavs">{{app.getLz('home.syncFavorites')}}</button>
                             <div class="spinner" style="height: 26px;" v-else></div>
                         </div>
