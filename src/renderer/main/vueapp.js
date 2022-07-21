@@ -3159,7 +3159,7 @@ const app = new Vue({
                                     }
                                 }
 
-                                if (lrcfile == "") {
+                                if (lrcfile === "") {
                                     app.loadQQLyrics();
                                     // app.loadAMLyrics()
                                 } else {
