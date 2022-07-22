@@ -43,7 +43,7 @@
                         this.hls.detachMedia();
                     } else {
 
-                        this.hls = new CiderHls(config);
+                        this.hls = new Hls(config);
                     }
                     // bind them together
                     if (this.$refs.video) {
@@ -59,7 +59,7 @@
                         }
                         
                         this.hls.attachMedia(this.$refs.video);
-                        this.hls.loadSource(this.video);
+                        this.hls.loadSource(this.video, p);
                         let u = this.hls;
                         var quality = app.cfg.visual.animated_artwork_qualityLevel;
                         setTimeout(() => {                       
