@@ -3125,10 +3125,6 @@ const app = new Vue({
             let lrcfile = "";
             let richsync = [];
             const lang = app.cfg.lyrics.mxm_language //  translation language
-            function revisedRandId() {
-                return Math.random().toString(36).replace(/[^a-z]+/g, '').slice(2, 10);
-            }
-
 
             function getMXMSubs(track, artist, lang, time, id) {
                 let richsyncQuery = app.cfg.lyrics.mxm_karaoke
