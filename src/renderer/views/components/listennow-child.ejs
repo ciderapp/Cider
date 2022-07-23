@@ -2,7 +2,14 @@
     <div v-observe-visibility="{callback: visibilityChanged}">
     <template v-if="isVisible && recom.attributes.display.kind != 'MusicSuperHeroShelf'">    
         <div class="row">
-            <div class="col">
+            <div class="col" v-if="recom?.relationships['primary-content']?.data?.length > 0" style="display: flex;">
+                <div @click="navigateContent(recom?.relationships['primary-content']?.data[0] ?? recom?.attributes?.title?.contentIds[0] ?? '')" class="listennow-chip" style="height: 40px;width: 40px;align-self: center;margin-right: 10px;" :class="{ 'circle': recom?.relationships['primary-content']?.data[0]?.type == 'artists'  }">
+                    <mediaitem-artwork v-if="recom?.relationships['primary-content']?.data[0]?.attributes?.artwork != null" :url="recom?.relationships['primary-content']?.data[0]?.attributes?.artwork?.url" :size="100"></mediaitem-artwork>
+                </div>
+                <h3 @click="navigateContent(recom?.relationships['primary-content']?.data[0] ?? recom?.attributes?.title?.contentIds[0] ?? '')" style="width: fit-content;" :class="{'item-navigate' : (recom?.attributes?.title?.contentIds?.length ?? 0) > 0 | recom?.relationships['primary-content']?.data?.length > 0}">
+                    {{ recom.attributes.title ? recom.attributes.title.stringForDisplay : "  "}}</h3>
+            </div>
+            <div class="col" v-else>
                 <h3 @click="navigateContent(recom?.relationships['primary-content']?.data[0] ?? recom?.attributes?.title?.contentIds[0] ?? '')" style="width: fit-content;" :class="{'item-navigate' : (recom?.attributes?.title?.contentIds?.length ?? 0) > 0 | recom?.relationships['primary-content']?.data?.length > 0}">
                     {{ recom.attributes.title ? recom.attributes.title.stringForDisplay : "  "}}</h3>
             </div>
