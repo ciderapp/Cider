@@ -24,7 +24,11 @@ var app = new Vue({
             lyricsScrollingBlocked: false,
             queue: {},
             lowerPanelState: "controls",
-            userInteraction: false
+            userInteraction: false,
+            status: {
+                inLibrary: false,
+                rating: 0
+            }
         },
         queue: {
             temp: []
@@ -246,6 +250,17 @@ var app = new Vue({
                 id: id
             }))
         },
+        getLibraryStatus(type, id) {
+            if (type !== undefined && id !== "no-id-found") {
+                socket.send(JSON.stringify({
+                    action: "library-status",
+                    type: type,
+                    id: id
+                }))
+            } else {
+                this.player.status = {};
+            }
+        },
         searchQuery() {
             if (this.search.query.length == 0) {
                 this.search.state = 0;
@@ -412,8 +427,8 @@ var app = new Vue({
             this.getQueue()
         },
         queueMove(evt) {
-            console.log(evt)
-            console.log(`new: ${evt.moved.newIndex} old: ${evt.moved.oldIndex}`)
+            // console.log(evt)
+            // console.log(`new: ${evt.moved.newIndex} old: ${evt.moved.oldIndex}`)
             this.queue.temp.splice(evt.moved.newIndex, 0, this.queue.temp.splice(evt.moved.oldIndex, 1)[0])
             socket.send(JSON.stringify({
                 action: "queue-move",
@@ -557,11 +572,9 @@ var app = new Vue({
             }
 
             socket.onmessage = (e) => {
-                console.log(e.data)
                 const response = JSON.parse(e.data);
                 switch (response.type) {
-                    default: console.log(response);
-                    break;
+                    default: break;
                     case "musickitapi.search":
                             self.showArtist(response.data["artists"][0]["id"]);
                         break;
@@ -577,7 +590,8 @@ var app = new Vue({
                             }
                         break;
                     case "queue":
-                            self.player.queue = response.data;
+                        // console.log(response.data);
+                        self.player.queue = response.data;
                         self.queue.temp = response.data["_queueItems"];
                         self.$forceUpdate()
                         break;
@@ -601,6 +615,27 @@ var app = new Vue({
                     case "maxVolume":
                         this.player.maxVolume = response.data;
                         break;
+                    case "libraryStatus":
+                        this.player.status = response.data;
+                        break;
+                    case "rate":
+                        var params = this.player.currentMediaItem.playParams;
+                        if (params && params.id === response.data.id && params.kind === response.data.kind) {
+                            this.player.status = {
+                                rating: response.data.rating,
+                                inLibrary: this.player.status.inLibrary
+                            }
+                        }
+                        break;
+                    case "change-library":
+                        var params = this.player.currentMediaItem.playParams;
+                        if (params && params.id === response.data.id && params.kind === response.data.kind) {
+                            this.player.status = {
+                                rating: this.player.status.rating,
+                                inLibrary: response.data.add
+                            }
+                        }
+                        break;
                 }
                 // console.log(e.data);
             }
@@ -608,6 +643,8 @@ var app = new Vue({
         updatePlaybackState(mediaitem) {
             var lyricsDisplayed = this.screen == "lyrics" || this.player.lowerPanelState == "lyrics"
             if (this.player.currentMediaItem["isrc"] != mediaitem["isrc"]) {
+                this.getLibraryStatus(mediaitem.playParams.kind, mediaitem.playParams.id)
+
                 if (lyricsDisplayed) {
                     this.getLyrics()
                 }
@@ -616,6 +653,39 @@ var app = new Vue({
                 }
             }
             this.player.currentMediaItem = mediaitem
+        },
+        openSongMenu() {
+            const params = this.player.currentMediaItem.playParams;
+
+            if (params) {
+                this.getLibraryStatus(params.kind, params.id);
+            }
+
+            this.player.songActions = true;
+        },
+        rate(rating) {
+            const params = this.player.currentMediaItem.playParams;
+
+            if (params && params.kind !== undefined && params.id !== "no-id-found") {
+                socket.send(JSON.stringify({
+                    action: "rating",
+                    type: params.kind,
+                    id: params.id,
+                    rating: rating
+                }))
+            }
+        },
+        toLibrary(shouldAdd) {
+            const params = this.player.currentMediaItem.playParams;
+
+            if (params && params.kind !== undefined && params.id !== "no-id-found") {
+                socket.send(JSON.stringify({
+                    action: "change-library",
+                    type: params.kind,
+                    id: params.id,
+                    add: shouldAdd
+                }))
+            }
         },
         quit() {
             socket.send(JSON.stringify({

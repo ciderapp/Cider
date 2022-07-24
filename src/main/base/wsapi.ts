@@ -64,6 +64,15 @@ export class wsapi {
         electron.ipcMain.on('wsapi-returnvolumeMax', (_event: any, arg: any) => {
             this.returnmaxVolume(JSON.parse(arg));
         });
+        electron.ipcMain.on('wsapi-libraryStatus', (_event: any, inLibrary: boolean, rating: number) => {
+            this.returnLibraryStatus(inLibrary, rating);
+        });
+        electron.ipcMain.on('wsapi-rate', (_event: any, kind: string, id: string, rating: number) => {
+            this.returnRatingStatus(kind, id, rating);
+        });
+        electron.ipcMain.on('wsapi-change-library', (_event: any, kind: string, id: string, shouldAdd: boolean) => {
+            this.returnLibraryChange(kind, id, shouldAdd);
+        });
         this.wss = new WebSocketServer({
             port: this.port,
             perMessageDeflate: {
@@ -242,6 +251,15 @@ export class wsapi {
                     case "get-currentmediaitem":
                         this._win.webContents.executeJavaScript(`wsapi.getPlaybackState()`);
                         break;
+                    case "library-status":
+                        this._win.webContents.executeJavaScript(`wsapi.getLibraryStatus("${data.type}", "${data.id}")`);
+                        break;
+                    case "rating":
+                        this._win.webContents.executeJavaScript(`wsapi.rate("${data.type}", "${data.id}", ${data.rating})`);
+                        break;
+                    case "change-library":
+                        this._win.webContents.executeJavaScript(`wsapi.changeLibrary("${data.type}", "${data.id}", ${data.add})`);
+                        break;
                     case "quit":
                         electron.app.quit();
                         break;
@@ -313,6 +331,37 @@ export class wsapi {
 
     returnmaxVolume(vol: any) {
         const response: standardResponse = {status: 0, data: vol, message: "OK", type: "maxVolume"};
+        this.clients.forEach(function each(client: any) {
+            client.send(JSON.stringify(response));
+        });
+    }
+
+    returnLibraryStatus(inLibrary: boolean, rating: number) {
+        const response: standardResponse = {
+            status: 0, data: {
+                inLibrary, rating
+            }, message: "OK", type: "libraryStatus"
+        }
+        this.clients.forEach(function each(client: any) {
+            client.send(JSON.stringify(response));
+        });
+    }
+
+    returnRatingStatus(kind: string, id: string, rating: number) {
+        const response: standardResponse = {
+            status: 0, data: { kind, id, rating },
+            message: "OK", type: "rate"
+        };
+        this.clients.forEach(function each(client: any) {
+            client.send(JSON.stringify(response));
+        });
+    }
+
+    returnLibraryChange(kind: string, id: string, shouldAdd: boolean) {
+        const response: standardResponse = {
+            status: 0, data: { kind, id, add: shouldAdd },
+            message: "OK", type: "change-library"
+        };
         this.clients.forEach(function each(client: any) {
             client.send(JSON.stringify(response));
         });
