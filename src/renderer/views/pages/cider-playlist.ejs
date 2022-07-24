@@ -107,6 +107,12 @@
                                     <img :class="(!inLibrary) ? 'md-ico-add' : 'md-ico-remove'">
                                     {{app.getLz('term.confirm')}}
                                 </button>
+                                <select v-if="shouldPaginate" class="md-select" v-model="prefs.scroll">
+                                    <optgroup :label="app.getLz('term.scroll')">
+                                        <option value="infinite">{{app.getLz('term.scroll.infinite')}}</option>
+                                        <option value="paged">{{app.getLz('term.scroll.paged').replace("${songsPerPage}", pageSize)}}</option>
+                                    </optgroup>
+                                </select>
                                 <div style="display: flex; float: right;">
                                     <button :style="{ 'background': '#' + hasHeroObject()?.textColor4 ?? '' }" :class="['search-btn', showSearch ? 'active' : '']" @click="toggleSearch()" :aria-label="showSearch ? app.getLz('term.hideSearch') : app.getLz('term.showSearch')">
                                         <svg-icon :style="{ 'width': '15px', 'background-color': '#' + hasHeroObject()?.bgColor ?? '' }" :url="showSearch ? './assets/search-alt.svg' : './assets/search.svg'">
@@ -161,6 +167,12 @@
                                 <img :class="(!inLibrary) ? 'md-ico-add' : 'md-ico-remove'">
                                 {{app.getLz('term.confirm')}}
                             </button>
+                            <select v-if="shouldPaginate" class="md-select" v-model="prefs.scroll">
+                                <optgroup :label="app.getLz('term.scroll')">
+                                    <option value="infinite">{{app.getLz('term.scroll.infinite')}}</option>
+                                    <option value="paged">{{app.getLz('term.scroll.paged').replace("${songsPerPage}", pageSize)}}</option>
+                                </optgroup>
+                            </select>
                         </div>
                     </div>
                     <div class="col-auto cider-flex-center">
@@ -172,7 +184,7 @@
             </div>
             <div class="playlist-body scrollbody">
                 <b-tabs pills class="track-pills pilldim fancy-pills" align="center" content-class="mt-3" :nav-wrapper-class="navClass(data)">
-                    <b-tab :title="$root.getLz('term.tracks')">
+                    <b-tab :title="$root.getLz('term.tracks')" id="songList">
                         <div @wheel="minClass(true)" @scroll="minClass(true)">
                         <div class="">
                             <div style="width:100%" @click="minClass(true)">
@@ -186,18 +198,27 @@
                                         class="search-input"
                                         ref="search-bar">
                                 </div>
+                                <pagination
+                                    v-if="shouldPaginate"
+                                    style="margin-top: 10px"
+                                    :length="hasNestedPlaylist ? nestedDisplayLength: displayListing.length"
+                                    :pageSize="pageSize"
+                                    :scroll="prefs.scroll"
+                                    scrollSelector="#songList"
+                                    @onRangeChange="onRangeChange"
+                                />
                                 <draggable :options="{disabled: !editing}"
                                            v-model="data.relationships.tracks.data" @start="drag=true"
                                            @end="drag=false;put()">
                                     <template v-if="!hasNestedPlaylist">
-                                        <mediaitem-list-item :item="item" :parent="getItemParent(data)" :index="index"
+                                        <mediaitem-list-item :item="item" :parent="getItemParent(data)" :index="index + start"
                                                              :showIndex="true"
                                                              :showIndexPlaylist="(data.attributes.playParams?.kind ?? data.type ?? '').includes('playlist')"
                                                              :context-ext="buildContextMenu()"
-                                                             v-for="(item,index) in displayListing"></mediaitem-list-item>
+                                                             v-for="(item,index) in currentSlice"></mediaitem-list-item>
                                     </template>
                                     <template v-else>
-                                        <div v-for="disc in nestedPlaylist">
+                                        <div v-for="disc in nestedSlices">
                                             <div class="playlist-time">{{($root.getLz("term.discNumber") ??
                                                 "").replace("${discNumber}",disc.disc)}}
                                             </div>
@@ -278,6 +299,7 @@
         props: ["data"],
 
         data: function () {
+            const pageSize = this.$root.cfg.libraryPrefs.pageSize;
             return {
                 editorialNotesExpanded: false,
                 drag: false,
@@ -291,6 +313,7 @@
                 headerVisible: true,
                 useArtistChip: false,
                 nestedPlaylist: [],
+                nestedDisplayLength: 0,
                 classes: [],
                 editing: false,
                 inPlaylist: false,
@@ -298,6 +321,10 @@
                 displayListing: [],
                 hasNestedPlaylist: false,
                 showSearch: false,
+                pageSize: pageSize,
+                start: 0,
+                end: pageSize,
+                prefs: this.$root.cfg.libraryPrefs.playlists
             }
         },
         mounted: function () {
@@ -346,7 +373,48 @@
                 deep: true
             }
         },
+        computed: {
+            currentSlice() {
+                return this.displayListing.slice(this.start, this.end);
+            },
+            nestedSlices() {
+                if (this.shouldPaginate) {
+                    let songsSeen = 0;
+                    const discs = [];
+
+                    for (const disc of this.nestedPlaylist) {
+                        songsSeen += disc.tracks.length;
+
+                        if (songsSeen >= this.end) {
+                            discs.push({
+                                disc: disc.disc,
+                                tracks: disc.tracks.slice(0, this.end + disc.tracks.length - songsSeen)
+                            })
+                            break;
+                        } else if (songsSeen > this.start) {
+                            discs.push({
+                                disc: disc.disc,
+                                tracks: disc.tracks.slice(this.start - songsSeen)
+                            })
+                        }
+                    }
+
+                    return discs;
+                } else {
+                    return this.nestedPlaylist
+                }
+            },
+            shouldPaginate() {
+                const result = this.data.relationships.tracks.data.length > this.pageSize
+                console.log(result)
+                return result
+            }
+        },
         methods: {
+            onRangeChange(newRange) {
+                this.start = newRange[0];
+                this.end = newRange[1];
+            },
             isAlbum() {
                 return (this.data.attributes?.playParams?.kind ?? this.data.type ?? '').includes('album')
             },
@@ -372,6 +440,8 @@
             },
             generateNestedPlaylist(songlists) {
                 this.nestedPlaylist = [];
+                this.nestedDisplayLength = songlists.length;
+
                 if (this.data?.type?.includes("album")) {
                     let discs = songlists.map(x => {
                         return x.attributes.discNumber

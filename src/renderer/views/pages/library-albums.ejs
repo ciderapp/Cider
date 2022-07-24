@@ -46,17 +46,33 @@
                             </optgroup>
                         </select>
                     </div>
+                    <div class="col">
+                        <select class="md-select" v-model="prefs.scroll">
+                            <optgroup :label="app.getLz('term.scroll')">
+                                <option value="infinite">{{app.getLz('term.scroll.infinite')}}</option>
+                                <option value="paged">{{app.getLz('term.scroll.paged').replace("${songsPerPage}", pageSize)}}</option>
+                            </optgroup>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
+        <pagination
+            :length="app.library.albums.displayListing.length
+            "
+            :pageSize="pageSize"
+            :scroll="prefs.scroll"
+            scrollSelector="#app-content"
+            @onRangeChange="onRangeChange"
+        />
         <div class="well">
             <div class="albums-square-container">
                 <div>
-                    <mediaitem-square v-if="prefs.viewAs == 'covers'" :size="'300'" :item="item" v-for="item in library.albums.displayListing">
+                    <mediaitem-square v-if="prefs.viewAs == 'covers'" :size="'300'" :item="item" v-for="item in currentSlice">
                     </mediaitem-square>
                 </div>
             </div>
-            <mediaitem-list-item v-if="prefs.viewAs == 'list'" :show-duration="false" :show-meta-data="true" :show-library-status="false" :item="item" v-for="item in library.albums.displayListing">
+            <mediaitem-list-item v-if="prefs.viewAs == 'list'" :show-duration="false" :show-meta-data="true" :show-library-status="false" :item="item" v-for="item in currentSlice">
             </mediaitem-list-item>
         </div>
     </div>
@@ -65,21 +81,34 @@
     Vue.component('cider-library-albums', {
         template: '#cider-library-albums',
         data: function () {
+            const pageSize = this.$root.cfg.libraryPrefs.pageSize;
             return {
                 library: this.$root.library,
                 mediaItemSize: "compact",
                 prefs: this.$root.cfg.libraryPrefs.albums,
-                app : this.$root
+                app: this.$root,
+                pageSize: pageSize,
+                start: 0,
+                end: pageSize
             }
         },
         mounted() {
             this.$root.getLibraryAlbumsFull(null, 1);
             this.$root.getAlbumSort();
             this.$root.searchLibraryAlbums(1);
-            this.$root.getLibrarySongsFull() ;
+            this.$root.getLibrarySongsFull();
             this.$root.searchLibraryAlbums(1);
         },
+        computed: {
+            currentSlice: function () {
+                return this.library.albums.displayListing.slice(this.start, this.end);
+            }
+        },
         methods: {
+            onRangeChange: function (newRange) {
+                this.start = newRange[0];
+                this.end = newRange[1];
+            }
         }
     });
 </script>

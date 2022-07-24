@@ -125,6 +125,7 @@ export class BrowserWindow {
                 "components/hello-world",
                 "components/inline-collection-list",
                 "components/settings-window",
+                "components/pagination",
                 "components/settings-keybinds",
                 "components/settings-themes",
                 "components/settings-themes-github",
