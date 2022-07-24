@@ -2919,6 +2919,7 @@ const app = new Vue({
                     "include[albums]": "artists",
                     "include[songs]": "artists",
                     "include[music-videos]": "artists",
+                    "include[personal-recommendation]": "primary-content",
                     "fields[albums]": ["artistName", "artistUrl", "artwork", "contentRating", "editorialArtwork", "editorialVideo", "name", "playParams", "releaseDate", "url"],
                     "fields[artists]": ["name", "url", "artwork"],
                     "extend[stations]": ["airDate", "supportsAirTimeUpdates"],
