@@ -10,6 +10,7 @@
   <a target="_blank" href="https://opencollective.com/ciderapp"><img src="https://img.shields.io/opencollective/all/ciderapp?color=%237FADF2&label=Backers%20and%20Sponsors&logo=opencollective" alt="Open Collective"/></a>
     <a target="_blank" href="https://github.com/sponsors/ciderapp"><img src="https://img.shields.io/github/sponsors/ciderapp?color=C96198&label=GitHub%20Sponsors&logo=GitHub" alt="GitHub Sponsor"/></a>
   <br>
+  <a target="_blank" href="https://jq.qq.com/?_wv=1027&k=2VP4cdyo"><img src="https://img.shields.io/badge/QQ-531185058-red" alt="QQ群"/></a>
   <a target="_blank" href="https://discord.gg/applemusic"><img src="https://img.shields.io/discord/843954443845238864?label=Discord&color=5865F2&logo=discord&logoColor=white&style=flat" alt="Discord"/></a>
   <a target="_blank" href="https://twitter.com/UseCider"><img src="https://img.shields.io/twitter/follow/UseCider?label=Twitter&color=%231DA1F2&logo=twitter&style=flat" alt="Twitter"/></a>
   <a target="_blank" href="https://reddit.com/r/applemusicelectron"><img src="https://custom-icon-badges.herokuapp.com/reddit/subreddit-subscribers/applemusicelectron?label=Reddit&color=FF5700&logo=redditnew" alt="Reddit"/></a>
@@ -18,6 +19,7 @@
 </p>
 
 #### Links
+
 * [Documentation](https://docs.cider.sh)
 * [Request Feature](https://github.com/ciderapp/Cider/discussions/new?category=feature-request)
 * [Report Bug](https://github.com/ciderapp/Cider/issues/new?assignees=&labels=bug&template=bug_report.md&title=%5BBUG%5D+)
