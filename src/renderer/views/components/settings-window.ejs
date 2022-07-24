@@ -11,7 +11,7 @@
                 <b-tab>
                     <template #title>
                         <div>
-                            <svg-icon url="./assets/settings.svg" classes="md" name="settings-general"/>
+                            <svg-icon url="./assets/settings.svg" classes="svg-md" name="settings-general"/>
                         </div>
                         <div>
                             {{ $root.getLz('settings.header.general') }}
@@ -279,7 +279,7 @@
                 <b-tab>
                     <template #title>
                         <div>
-                            <svg-icon url="./assets/feather/headphones.svg" classes="md" name="settings-audio"/>
+                            <svg-icon url="./assets/feather/headphones.svg" classes="svg-md" name="settings-audio"/>
                         </div>
                         <div>
                             {{ $root.getLz('settings.header.audio') }}
@@ -422,7 +422,7 @@
                 <b-tab v-if="app.cfg.advanced.AudioContext">
                     <template #title>
                         <div>
-                            <svg-icon url="./assets/feather/zap.svg" classes="md" name="settings-audiolabs"/>
+                            <svg-icon url="./assets/feather/zap.svg" classes="svg-md" name="settings-audiolabs"/>
                         </div>
                         <div>
                             {{ $root.getLz('settings.option.audio.audioLab') }}
@@ -435,7 +435,7 @@
                 <b-tab>
                     <template #title>
                         <div>
-                            <svg-icon url="./assets/feather/style.svg" classes="md" name="settings-styles"/>
+                            <svg-icon url="./assets/feather/style.svg" classes="svg-md" name="settings-styles"/>
                         </div>
                         <div>
                             {{ $root.getLz('settings.header.visual.styles') }}
@@ -448,7 +448,7 @@
                 <b-tab>
                     <template #title>
                         <div>
-                            <svg-icon url="./assets/feather/pen-tool.svg" classes="md" name="settings-visual"/>
+                            <svg-icon url="./assets/feather/pen-tool.svg" classes="svg-md" name="settings-visual"/>
                         </div>
                         <div>
                             {{ $root.getLz('settings.header.visual') }}
@@ -722,7 +722,7 @@
                 <b-tab>
                     <template #title>
                         <div>
-                            <svg-icon url="./assets/feather/plugins.svg" classes="md" name="settings-plugins"/>
+                            <svg-icon url="./assets/feather/plugins.svg" classes="svg-md" name="settings-plugins"/>
                         </div>
                         <div>
                             {{ $root.getLz('term.plugins') }}
@@ -735,7 +735,7 @@
                 <b-tab>
                     <template #title>
                         <div>
-                            <svg-icon url="./assets/feather/mic.svg" classes="md" name="settings-lyrics"/>
+                            <svg-icon url="./assets/feather/mic.svg" classes="svg-md" name="settings-lyrics"/>
                         </div>
                         <div>
                             {{ $root.getLz('settings.header.lyrics') }}
@@ -879,7 +879,7 @@
                 <b-tab>
                     <template #title>
                         <div>
-                            <svg-icon url="./assets/feather/radio.svg" classes="md" name="settings-connectivity"/>
+                            <svg-icon url="./assets/feather/radio.svg" classes="svg-md" name="settings-connectivity"/>
                         </div>
                         <div>
                             {{ $root.getLz('settings.header.connectivity') }}
@@ -1080,7 +1080,7 @@
                 <b-tab>
                     <template #title>
                         <div>
-                            <svg-icon url="./assets/feather/hard-drive.svg" classes="md" name="settings-advanced"/>
+                            <svg-icon url="./assets/feather/hard-drive.svg" classes="svg-md" name="settings-advanced"/>
                         </div>
                         <div>
                             {{$root.getLz('settings.header.advanced')}}
@@ -1187,7 +1187,7 @@
 
                                 <div class="md-option-line">
                                     <div class="md-option-segment">
-                                        Use MusicKit V3
+                                        Load MusicKit from Apple
                                         <small>Requires relaunch</small>
                                     </div>
                                     <div class="md-option-segment md-option-segment_auto">
@@ -1461,20 +1461,14 @@
                     if (navigator.hardwareConcurrency < 6) {
                         app.confirm(app.getLz("settings.warn.audio.enableAdvancedFunctionality.lowcores"), function (result) {
                             if (result) {
-                                CiderAudio.init();
-                                if (app.cfg.audio.normalization === true) {
-                                    CiderAudio.normalizerOn()
-                                }
+                                window.location.reload();
                             }
                         })
                     } else {
-                        CiderAudio.init();
-                        if (app.cfg.audio.normalization === true) {
-                            CiderAudio.normalizerOn()
-                        }
+                        window.location.reload()
                     }
                 } else {
-                    CiderAudio.off();
+                    window.location.reload()
                 }
             },
             toggleNormalization: function () {

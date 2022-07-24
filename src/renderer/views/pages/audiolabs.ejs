@@ -80,7 +80,7 @@
                         <select class="md-select" style="width:230px;"
                                 v-model="$root.cfg.audio.maikiwiAudio.atmosphereRealizer1_value"
                                 v-on:change="CiderAudio.hierarchical_loading();">
-                            <option v-for="profile in arprofiles" :value="profile.id">{{ getProfileLz("CAR", profile.id) }}</option>
+                            <option v-for="profile in arprofiles" :value="profile.id">{{ $root.getProfileLz("CAR", profile.id) }}</option>
                         </select>
                     </div>
                 </div>
@@ -105,7 +105,7 @@
                         <select class="md-select" style="width:230px;"
                                 v-model="$root.cfg.audio.maikiwiAudio.atmosphereRealizer2_value"
                                 v-on:change="CiderAudio.hierarchical_loading();">
-                            <option v-for="profile in arprofiles" :value="profile.id">{{ getProfileLz("CAR", profile.id) }}</option>
+                            <option v-for="profile in arprofiles" :value="profile.id">{{ $root.getProfileLz("CAR", profile.id) }}</option>
                         </select>
                     </div>
                 </div>
@@ -131,7 +131,7 @@
                         <select class="md-select" style="width:180px;"
                                 v-model="$root.cfg.audio.maikiwiAudio.spatialProfile"
                                 v-on:change="CiderAudio.hierarchical_loading();">
-                            <option v-for="profile in spprofiles" :value="profile.id">{{ getProfileLz("CTS", profile.name) }}</option>
+                            <option v-for="profile in spprofiles" :value="profile.id">{{ $root.getProfileLz("CTS", profile.name) }}</option>
                         </select>
                     </div>
                 </div>
@@ -186,46 +186,6 @@
 
         },
         methods: {
-            getProfileLz(type, name) {
-                let result = "";
-                
-                // Hard-coded shiz
-                switch (name) {
-                    case "Maikiwi":
-                        return "Maikiwi";
-                        break;
-
-                    case "Maikiwi+":
-                    return "Maikiwi+";
-                        break;
-
-                    case "Minimal+":
-                    return this.$root.getLz('settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.minimal') + "+";
-                        break;
-
-                    case "live":
-                    return "LIVE";
-                        break;
-                }          
-                switch (type) {
-                    case "CAR":
-                        result = this.$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode.' + name);
-                        if (result === "settings.option.audio.enableAdvancedFunctionality.atmosphereRealizerMode." + name) {
-                            return name;
-                        }
-                        else {return result;}
-                        break;
-                    case "CTS":
-                        result = this.$root.getLz('settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile.' + name.toLowerCase());
-                        if (result === "settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization.profile." + name.toLowerCase()) {
-                            return name;
-                        }
-                        else {return result;}
-                        break;
-                    default:
-                        return name;
-                }
-            }
         }
     })
 </script>

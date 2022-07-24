@@ -2,7 +2,7 @@ import {html} from "../html.js"
 
 export const sidebarLibraryItem = Vue.component("sidebar-library-item", {
     template: html`
-        <button class="app-sidebar-item"
+        <button class="app-sidebar-item"  v-ripple
                 :class="$root.getSidebarItemClass(page)" @click="$root.setWindowHash(page)">
             <svg-icon :url="svgIconData" :name="'sidebar-' + svgIconName" v-if="svgIconData != ''"/>
             <span class="sidebar-item-text">{{ name }}</span>

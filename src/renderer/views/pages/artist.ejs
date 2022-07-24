@@ -9,7 +9,7 @@
             </animatedartwork-view>
             <div class="header-content" style="pointer-events: all;">
                 <div class="row">
-                    <div class="col-sm" style="width: auto;">
+                    <div class="col-auto" style="width: auto;">
                         <div class="artist-image"
                              v-if="!(data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9))&& !hasHero()">
                             <mediaitem-artwork
@@ -23,7 +23,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="col flex-center artist-title"
+                    <div class="col cider-flex-center artist-title"
                          :class="{'artist-animation-on': (data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9)) || hasHero() }"
                          :style="{ 'color': '#' +hasHeroObject()?.textColor1 ?? ''}"
                          >
@@ -53,7 +53,7 @@
         <div class="floating-header"
              :style="{opacity: (headerVisible ? 0 : 1),'pointer-events': (headerVisible ? 'none' : '')}">
             <div class="row">
-                <div class="col-auto flex-center">
+                <div class="col-auto cider-flex-center">
                     <button class="artist-play" style="display:block;" @click="app.mk.setStationQueue({artist:'a-'+data.id}).then(()=>{
                         app.mk.play()
                     })" :aria-label="app.getLz('term.play')"><%- include("../svg/play.svg") %></button>
@@ -61,7 +61,7 @@
                 <div class="col">
                     <h3>{{ data.attributes.name }}</h3>
                 </div>
-                <div class="col-auto flex-center">
+                <div class="col-auto cider-flex-center">
                     <button class="more-btn-round menu" @click="artistMenu" :aria-label="app.getLz('term.more')">
                         <div class="svg-icon"></div>
                     </button>
@@ -83,7 +83,7 @@
                         <div class="col" style="padding:0;">
                             <h3>{{app.getLz('term.topSongs')}}</h3>
                         </div>
-                        <div class="col-auto flex-center" v-if="data.views['top-songs'].data.length >= 20"
+                        <div class="col-auto cider-flex-center" v-if="data.views['top-songs'].data.length >= 20"
                              style="padding:0;">
                             <button class="cd-btn-seeall"
                                     @click="app.showArtistView(data.id, data.attributes.name + ' - Top Songs', 'top-songs')">
@@ -92,7 +92,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col flex-center" style="padding:0;">
+                        <div class="col cider-flex-center" style="padding:0;">
                             <div class="mediaitem-list-item__grid">
                                 <listitem-horizontal :items="data.views['top-songs'].data.limit(20)">
                                 </listitem-horizontal>
@@ -112,7 +112,7 @@
                                     data.views[view].attributes.title : "???"}}
                                 </h3>
                             </div>
-                            <div class="col-auto flex-center" v-if="data.views[view].data.length >= 10">
+                            <div class="col-auto cider-flex-center" v-if="data.views[view].data.length >= 10">
                                 <button class="cd-btn-seeall"
                                         @click="app.showArtistView(data.id, data.attributes.name + ' - ' + data.views[view].attributes.title, view)">
                                     {{app.getLz('term.seeAll')}}

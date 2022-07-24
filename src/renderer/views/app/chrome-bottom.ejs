@@ -45,6 +45,9 @@
                         </div>
                         <div class="chrome-icon-container">
                             <div class="audio-type private-icon" v-if="cfg.general.privateEnabled === true"></div>
+                            <div class="audio-type spatial-icon" v-if="cfg.audio.maikiwiAudio.spatial === true" 
+                                :title="$root.getLz('settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization') + ' (' + getProfileLz('CTS', cfg.audio.maikiwiAudio.spatialProfile) + ')'" v-b-tooltip.hover
+                            ></div>
                             <div class="audio-type lossless-icon" v-if="(mk.nowPlayingItem?.localFilesMetadata?.lossless ?? false) === true" 
                                 :title="mk.nowPlayingItem?.localFilesMetadata?.bitDepth +'-bit / '+ mk.nowPlayingItem?.localFilesMetadata?.sampleRate/1000 + ' kHz ' + mk.nowPlayingItem.localFilesMetadata.container" v-b-tooltip.hover
                             ></div>          
@@ -146,27 +149,27 @@
                    v-b-tooltip.hover :title="formatVolumeTooltip()">
         </div>
         <div class="app-chrome-item generic">
-            <button class="playback-button--small cast"
+            <button class="playback-button--small cast" v-ripple
                     :title="$root.getLz('term.cast')"
                     v-b-tooltip.hover
                     @click="cfg.advanced.AudioContext ? modals.castMenu = true : (cfg.advanced.AudioContext = true, modals.castMenu = true)"></button>
         </div>
         <div class="app-chrome-item generic">
-            <button class="playback-button--small queue" :class="{'active': drawer.panel == 'queue'}"
+            <button class="playback-button--small queue" v-ripple :class="{'active': drawer.panel == 'queue'}"
                     :title="$root.getLz('term.queue')"
                     v-b-tooltip.hover
                     @click="invokeDrawer('queue')"></button>
         </div>
         <div class="app-chrome-item generic">
             <template v-if="lyrics && lyrics != [] && lyrics.length > 0">
-                <button class="playback-button--small lyrics"
+                <button class="playback-button--small lyrics" v-ripple
                         :title="$root.getLz('term.lyrics')"
                         v-b-tooltip.hover
                         :class="{'active': drawer.panel == 'lyrics'}"
                         @click="invokeDrawer('lyrics')"></button>
             </template>
             <template v-else>
-                <button class="playback-button--small lyrics"
+                <button class="playback-button--small lyrics" v-ripple
                         :style="{'opacity': 0.3, 'pointer-events': 'none'}"></button>
             </template>
 

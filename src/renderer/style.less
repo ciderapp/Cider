@@ -3,6 +3,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;300;400;500;700;900&display=swap");
+@import url("lib/quasar/quasar.min.css");
 @import url("less/appvars.less");
 @import url("less/bootstrap-vue.min.less");
 @import url("less/ameframework.less");
@@ -888,6 +889,7 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
   text-align   : left;
   align-items  : center;
   gap          : 12px;
+  position: relative;
 
   &.app-sidebar-item-playlist {
     -webkit-user-drag: element;
@@ -1318,10 +1320,17 @@ body[platform="darwin"] .app-chrome .app-chrome-item>.window-controls>div.close 
 
   .lossless-icon {
     background-image: url("./assets/lossless.svg") !important;
+    margin-left     : 0.5em !important;
+    flex            : 1;
   }
 
   .ppe-icon {
     background-image: url("./assets/ppe.svg") !important;
+    margin-left     : 0.5em !important;
+    flex            : 1;
+  }
+  .spatial-icon {
+    background-image: url("./assets/spatialization.svg") !important;
     margin-left     : 0.5em !important;
     flex            : 1;
   }
@@ -1671,7 +1680,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   }
 }
 
-.flex-center {
+.cider-flex-center {
   display    : flex;
   align-items: center;
   flex-wrap  : wrap;
@@ -1806,7 +1815,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   position       : absolute;
   z-index        : 1000;
   opacity        : 1;
-  background     : rgba(30, 30, 30, 0.8);
+  background-image: linear-gradient(180deg, transparent, rgba(30, 30, 30, 0.8));
   justify-content: center;
   align-items    : center;
   display        : none;
