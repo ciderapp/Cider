@@ -1,7 +1,7 @@
 <script type="text/x-template" id="cider-artist">
     <div class="content-inner artist-page"
          :class="[(data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9) || hasHero()) ? 'animated' : '']">
-        <div class="artist-header" :key="data.id" v-observe-visibility="{callback: isHeaderVisible}">
+        <div :class="['artist-header', { 'artist-header-compact': app.cfg.visual.compactArtistHeader }]" :key="data.id" v-observe-visibility="{callback: isHeaderVisible}">
             <animatedartwork-view
                     :priority="true"
                     v-if="hasAnimated()"
