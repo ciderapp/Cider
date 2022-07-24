@@ -1,13 +1,15 @@
 <script type="text/x-template" id="artist-chip">
     <div class="artist-chip" @click.self="route" tabindex="0">
-        <div class="artist-chip__image">
-            <mediaitem-artwork v-if="artist.id != null" :url="artist.attributes.artwork.url" :size="32"></mediaitem-artwork>
+        <div class="artist-chip__image" v-if="image" :style="{backgroundColor: '#' + (artist.attributes.artwork?.bgColor ?? '000')}">
+            <mediaitem-artwork v-if="artist.id != null" :url="artist.attributes.artwork.url" :size="80"></mediaitem-artwork>
+        </div>
+        <div class="artist-chip__image" v-else>
         </div>
         <div class="artist-chip__name">
             <span>{{ item.attributes.name }}</span>
         </div>
-        <button @click="$root.followArtistById(artist.id, true)" title="Follow" v-if="!$root.followingArtist(artist.id)" class="artist-chip__follow codicon codicon-add"></button>
-        <button @click="$root.followArtistById(artist.id, false)" title="Following" v-else class="artist-chip__follow codicon codicon-check"></button>
+        <button @click="$root.setArtistFavorite(artist.id, true)" title="Follow" v-if="!$root.followingArtist(artist.id)" class="artist-chip__follow codicon codicon-add"></button>
+        <button @click="$root.setArtistFavorite(artist.id, false)" title="Following" v-else class="artist-chip__follow codicon codicon-check"></button>
     </div>
 </script>
 
@@ -21,6 +23,7 @@
         },
         data: function() {
             return {
+                image: false,
                 artist: {
                     id: null
                 }
@@ -34,6 +37,7 @@
             }
             app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/artists/${artistId}`).then(response => {
                 this.artist = response.data.data[0];
+                this.image = true;
             });
         },
         methods: {

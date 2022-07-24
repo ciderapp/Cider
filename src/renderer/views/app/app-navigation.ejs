@@ -65,7 +65,7 @@
           </button>
           <button
             class="usermenu-item"
-            @click="cfg.advanced.AudioContext ? modals.castMenu = true : $root.notyf.error($root.getLz('settings.warn.enableAdvancedFunctionality'))"
+            @click="cfg.advanced.AudioContext ? modals.castMenu = true :(cfg.advanced.AudioContext = true, modals.castMenu = true)"
           >
             <span class="usermenu-item-icon">
               <%- include("../svg/cast.svg") %>
@@ -76,7 +76,7 @@
           </button>
           <button
             class="usermenu-item"
-            @click="cfg.advanced.AudioContext ? modals.audioSettings = true : $root.notyf.error($root.getLz('settings.warn.enableAdvancedFunctionality'))"
+            @click="cfg.advanced.AudioContext ? modals.audioSettings = true : (cfg.advanced.AudioContext = true, modals.audioSettings = true)"
           >
             <span class="usermenu-item-icon">
               <%- include("../svg/headphones.svg") %>
@@ -105,7 +105,7 @@
               $root.getLz("term.about")
             }}</span>
           </button>
-          <button class="usermenu-item" @click="appRoute('settings')">
+          <button class="usermenu-item" @click="modals.settings = true">
             <span class="usermenu-item-icon">
               <%- include("../svg/settings.svg") %>
             </span>
@@ -121,13 +121,21 @@
               $root.getLz("term.logout")
             }}</span>
           </button>
+          <button class="usermenu-item" @click="quit()">
+            <span class="usermenu-item-icon" style="right: 2.5px">
+              <%- include("../svg/x.svg") %>
+            </span>
+            <span class="usermenu-item-name">{{
+              $root.getLz("term.quit")
+            }}</span>
+          </button>
         </div>
       </div>
     </transition>
     <transition name="sidebartransition">
-        <%- include("sidebar") %>
+        <cider-app-sidebar v-if="!chrome.sidebarCollapsed"></cider-app-sidebar>
     </transition>
-    <%- include("app-content") %>
+    <app-content-area></app-content-area>
     <transition name="drawertransition">
         <div class="app-drawer"
              v-if="drawer.open && drawer.panel == 'lyrics' && lyrics && lyrics != [] && lyrics.length > 0">
@@ -138,7 +146,7 @@
                     <img v-if="!(cfg.visual.bg_artwork_rotation && animateBackground)" class="bg-artwork no-animation" :src="$store.state.artwork.playerLCD">
                 </div>
             </div>
-            <lyrics-view v-if="drawer.panel == 'lyrics'" :time="lyriccurrenttime" :lyrics="lyrics"
+            <lyrics-view v-if="drawer.panel == 'lyrics'" :time="mk.currentPlaybackTime - lyricOffset" :lyrics="lyrics"
                          :richlyrics="richlyrics"></lyrics-view>
             <div v-if="drawer.panel == 'lyrics'" class="lyric-footer">
                 <button class="md-btn" @click="modularUITest(!fullscreenLyrics)">{{fullscreenLyrics ?

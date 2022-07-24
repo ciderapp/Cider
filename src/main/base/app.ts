@@ -162,13 +162,10 @@ export class AppEvents {
 
         // LastFM Auth URL
         if (arg.includes('auth')) {
-            let authURI = arg.split('/auth/')[1]
+            const authURI = arg.split('/auth/')[1]
             if (authURI.startsWith('lastfm')) { // If we wanted more auth options
-                const authKey = authURI.split('lastfm?token=')[1];
-                utils.setStoreValue('lastfm.enabled', true);
-                utils.setStoreValue('lastfm.auth_token', authKey);
-                utils.getWindow().webContents.send('LastfmAuthenticated', authKey);
-                this.plugin.callPlugin('lastfm', 'authenticate', authKey);
+                console.log('token: ', authURI.split('lastfm?token=')[1])
+                utils.getWindow().webContents.executeJavaScript(`ipcRenderer.send('lastfm:auth', "${authURI.split('lastfm?token=')[1]}")`).catch(console.error)
             }
         }
         // Play
@@ -335,7 +332,7 @@ export class AppEvents {
            
             {
                 visible: !visible,
-                label: this.i18n['action.tray.playpause'],
+                label: this.i18n['term.playpause'],
                 click: () => {
                     utils.getWindow().webContents.executeJavaScript('MusicKitInterop.playPause()')
                 }   
@@ -343,7 +340,7 @@ export class AppEvents {
             
             {
                 visible: !visible,
-                label: this.i18n['action.tray.next'],
+                label: this.i18n['term.next'],
                 click: () => {
                     utils.getWindow().webContents.executeJavaScript(`MusicKitInterop.next()`)
                 }
@@ -351,7 +348,7 @@ export class AppEvents {
             
             {
                 visible: !visible,
-                label: this.i18n['action.tray.previous'],
+                label: this.i18n['term.previous'],
                 click: () => {
                     utils.getWindow().webContents.executeJavaScript(`MusicKitInterop.previous()`)
                 }
@@ -372,7 +369,7 @@ export class AppEvents {
                 }
             },
             {
-                label: this.i18n['action.tray.quit'],
+                label: this.i18n['term.quit'],
                 click: () => {
                     app.quit()
                 }

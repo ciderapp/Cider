@@ -1,5 +1,9 @@
 var notyf = new Notyf();
 
+function clamp(num, min, max) {
+  return Math.min(Math.max(num, min), max);
+}
+
 const MusicKitObjects = {
   LibraryPlaylist: function () {
     this.id = "";
@@ -52,75 +56,15 @@ Vue.component("animated-number", {
   },
 });
 
-Vue.component("sidebar-library-item", {
-  template: "#sidebar-library-item",
-  props: {
-    name: {
-      type: String,
-      required: true,
-    },
-    page: {
-      type: String,
-      required: true,
-    },
-    svgIcon: {
-      type: String,
-      required: false,
-      default: "",
-    },
-    cdClick: {
-      type: Function,
-      required: false,
-    },
-  },
-  data: function () {
-    return {
-      app: app,
-      svgIconData: "",
-    };
-  },
-  async mounted() {
-    if (this.svgIcon) {
-      this.svgIconData = await this.app.getSvgIcon(this.svgIcon);
-    }
-  },
-  methods: {},
-});
-
-function fallbackinitMusicKit() {
-  const request = new XMLHttpRequest();
-
-  function loadAlternateKey() {
-    let parsedJson = JSON.parse(this.responseText);
-    MusicKit.configure({
-      developerToken: parsedJson.developerToken,
-      app: {
-        name: "Apple Music",
-        build: "1978.4.1",
-        version: "1.0",
-      },
-      sourceType: 24,
-      suppressErrorDialog: true,
-    });
-    setTimeout(() => {
-      app.init();
-      if (app.cfg.visual.window_background_style == "mica" && !app.isDev) {
-        app.spawnMica();
-      }
-    }, 1000);
-  }
-
-  request.addEventListener("load", loadAlternateKey);
-  request.open(
-    "GET",
-    "https://raw.githubusercontent.com/lujjjh/LitoMusic/main/token.json"
-  );
-  request.send();
-}
-
 function initMusicKit() {
-
+  if(!this.responseText) {
+    console.log("Using stored token")
+    this.responseText = JSON.stringify({
+      token: localStorage.getItem("lastToken")
+    })
+  }
   let parsedJson = JSON.parse(this.responseText);
+  localStorage.setItem("lastToken", parsedJson.token);
   MusicKit.configure({
     developerToken: parsedJson.token,
     app: {
@@ -150,8 +94,12 @@ function capiInit() {
   request.timeout = 5000;
   request.addEventListener("load", initMusicKit);
   request.onreadystatechange = function (aEvt) {
-    if (request.readyState == 4) {
-      if (request.status != 200) fallbackinitMusicKit();
+    if (request.readyState == 4 && request.status != 200) {
+      if(localStorage.getItem("lastToken") != null) {
+        initMusicKit()
+      } else {
+        console.error(`Failed to load capi, cannot get token [${request.status}]`)
+      }
     }
   };
   request.open("GET", "https://api.cider.sh/v1/");

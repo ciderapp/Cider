@@ -4,8 +4,7 @@
          class="cd-mediaitem-list-item"
          :class="{'mediaitem-selected': app.select_hasMediaItem(guid)}"
          @contextmenu="contextMenu">
-        <template v-if="isVisible">
-            <div class="artwork" v-if="showArtwork == true">
+            <div class="artwork" v-show="isVisible" v-if="showArtwork == true">
                 <mediaitem-artwork
                         :url="getArtwork()"
                         size="50"
@@ -17,7 +16,6 @@
                     {{ item.attributes.name }}
                 </div>
             </div>
-        </template>
     </div>
 </script>
 

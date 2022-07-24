@@ -5,15 +5,15 @@
                 <div class="app-playback-controls" @mouseover="chrome.progresshover = true"
                      @mouseleave="chrome.progresshover = false" @contextmenu="nowPlayingContextMenu">
                     <div class="artwork" id="artworkLCD">
-                        <mediaitem-artwork :url="currentArtUrl"></mediaitem-artwork>
+                        <mediaitem-artwork :url="$root.currentArtUrl"></mediaitem-artwork>
                     </div>
                     <b-popover custom-class="mediainfo-popover" target="artworkLCD" triggers="hover" placement="right">
                         <div class="content">
                             <div class="shadow-artwork">
-                                <mediaitem-artwork :url="currentArtUrl" :url="currentArtUrlRaw"></mediaitem-artwork>
+                                <mediaitem-artwork :url="currentArtUrl"></mediaitem-artwork>
                             </div>
                             <div class="popover-artwork">
-                                <mediaitem-artwork :size="210" :url="currentArtUrlRaw"></mediaitem-artwork>
+                                <mediaitem-artwork :url="currentArtUrl"></mediaitem-artwork>
                             </div>
                             <div class="song-name">{{ mk.nowPlayingItem["attributes"]["name"] }}</div>
                             <div class="song-artist" @click="getNowPlayingItemDetailed(`artist`)">{{ mk.nowPlayingItem["attributes"]["artistName"] }}</div>
@@ -45,7 +45,15 @@
                         </div>
                         <div class="chrome-icon-container">
                             <div class="audio-type private-icon" v-if="cfg.general.privateEnabled === true"></div>
-                            <div class="audio-type ppe-icon" v-if="cfg.audio.maikiwiAudio.ciderPPE === true"></div>
+                            <div class="audio-type spatial-icon" v-if="cfg.audio.maikiwiAudio.spatial === true" 
+                                :title="$root.getLz('settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization') + ' (' + getProfileLz('CTS', cfg.audio.maikiwiAudio.spatialProfile) + ')'" v-b-tooltip.hover
+                            ></div>
+                            <div class="audio-type lossless-icon" v-if="(mk.nowPlayingItem?.localFilesMetadata?.lossless ?? false) === true" 
+                                :title="mk.nowPlayingItem?.localFilesMetadata?.bitDepth +'-bit / '+ mk.nowPlayingItem?.localFilesMetadata?.sampleRate/1000 + ' kHz ' + mk.nowPlayingItem.localFilesMetadata.container" v-b-tooltip.hover
+                            ></div>          
+                            <div class="audio-type ppe-icon" v-if="mk.nowPlayingItem.localFilesMetadata == null && cfg.audio.maikiwiAudio.ciderPPE === true"
+                                :title="$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPE')" v-b-tooltip.hover
+                            ></div>
                         </div>
                     </div>
                     <template v-if="mk.nowPlayingItem['attributes']['playParams']">
@@ -60,13 +68,27 @@
                 </div>
             </template>
 
+            <template v-else>
+                <div class="app-playback-controls">
+                    <div class="artwork" id="artworkLCD" style="pointer-events: none;">
+                        <mediaitem-artwork :url="currentArtUrl"></mediaitem-artwork>
+                    </div>
+                    <div class="playback-info">
+                        <div class="song-name">
+                            
+                        </div>
+                    </div>
+
+                </div>
+            </template>
         </div>
 
     </div>
     <div class="app-chrome--center">
         <div class="app-chrome-playback-duration-bottom">
-            <b-row>
-                <b-col sm="auto">{{ convertTime(getSongProgress()) }}</b-col>
+            <b-row  v-if="mkReady()">
+                <b-col sm="auto" v-if="!mk.nowPlayingItem?.isLiveRadioStation">{{ convertTime(getSongProgress()) }}</b-col>
+                <b-col sm="auto" v-else>--:--</b-col>
                 <b-col>
                     <input type="range" step="0.01" min="0" :style="progressBarStyle()"
                            @input="playerLCD.desiredDuration = $event.target.value;playerLCD.userInteraction = true"
@@ -74,7 +96,8 @@
                            @touchend="mk.seekToTime($event.target.value);setTimeout(()=>{playerLCD.desiredDuration = 0;playerLCD.userInteraction = false}, 1000);"
                            :max="mk.currentPlaybackDuration" :value="getSongProgress()">
                 </b-col>
-                <b-col sm="auto">{{ convertTime(mk.currentPlaybackDuration) }}</b-col>
+                <b-col sm="auto" v-if="!mk.nowPlayingItem?.isLiveRadioStation">{{ convertTime(mk.currentPlaybackDuration) }}</b-col>
+                <b-col sm="auto" v-else>{{ getLz("term.live") }}</b-col>
             </b-row>
         </div>
         <div class="app-chrome-playback-controls">
@@ -126,27 +149,27 @@
                    v-b-tooltip.hover :title="formatVolumeTooltip()">
         </div>
         <div class="app-chrome-item generic">
-            <button class="playback-button--small cast"
+            <button class="playback-button--small cast" v-ripple
                     :title="$root.getLz('term.cast')"
                     v-b-tooltip.hover
-                    @click="cfg.advanced.AudioContext ? modals.castMenu = true : $root.notyf.error($root.getLz('settings.warn.enableAdvancedFunctionality'))"></button>
+                    @click="cfg.advanced.AudioContext ? modals.castMenu = true : (cfg.advanced.AudioContext = true, modals.castMenu = true)"></button>
         </div>
         <div class="app-chrome-item generic">
-            <button class="playback-button--small queue" :class="{'active': drawer.panel == 'queue'}"
+            <button class="playback-button--small queue" v-ripple :class="{'active': drawer.panel == 'queue'}"
                     :title="$root.getLz('term.queue')"
                     v-b-tooltip.hover
                     @click="invokeDrawer('queue')"></button>
         </div>
         <div class="app-chrome-item generic">
             <template v-if="lyrics && lyrics != [] && lyrics.length > 0">
-                <button class="playback-button--small lyrics"
+                <button class="playback-button--small lyrics" v-ripple
                         :title="$root.getLz('term.lyrics')"
                         v-b-tooltip.hover
                         :class="{'active': drawer.panel == 'lyrics'}"
                         @click="invokeDrawer('lyrics')"></button>
             </template>
             <template v-else>
-                <button class="playback-button--small lyrics"
+                <button class="playback-button--small lyrics" v-ripple
                         :style="{'opacity': 0.3, 'pointer-events': 'none'}"></button>
             </template>
 

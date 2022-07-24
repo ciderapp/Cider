@@ -13,6 +13,7 @@
     "paths": {
       "*": ["node_modules/*"]
     },
+    "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "typeRoots": [
       "node_modules/musickit-typescript",

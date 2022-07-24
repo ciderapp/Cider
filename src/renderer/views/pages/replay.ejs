@@ -28,7 +28,7 @@
                     <h4>{{ loaded.attributes.uniqueSongCount }} {{$root.getLz('term.uniqueSongs')}}</h4>
                 </div>
                 <div class="col-auto replay-playlist-container">
-                    <mediaitem-square kind="card" :force-video="true" :item="loaded.playlist"></mediaitem-square>
+                    <mediaitem-square kind="card" :no-scale="true" :force-video="true" :item="loaded.playlist"></mediaitem-square>
                 </div>
             </div>
             <!--            Top Artists-->

@@ -1,13 +1,13 @@
 <script type="text/x-template" id="cider-recentlyadded">
     <div class="content-inner">
         <h1 class="header-text">{{$root.getLz('term.recentlyAdded')}}</h1>
-        <div class="well itemContainer" v-if="itemSize == 'normal'">
+        <div class="well itemContainer collection-list-square" v-if="itemSize == 'normal'">
             <mediaitem-square v-for="item in items" :item="item"></mediaitem-square>
         </div>
-        <div class="well itemContainer" v-else="itemSize == 'compact'">
+        <div class="well itemContainer collection-list-square" v-else="itemSize == 'compact'">
             <mediaitem-list-item :show-meta-data="true" :show-library-status="false" v-for="item in items" :item="item"></mediaitem-list-item>
         </div>
-        <div class="well itemContainer" v-show="loading">
+        <div class="well itemContainer collection-list-square" v-show="loading">
             <div class="spinner"></div>
         </div>
         <button v-if="nextUrl && !loading" style="opacity:0;height: 32px;" v-observe-visibility="{callback: visibilityChanged}">{{$root.getLz('term.showMore')}}

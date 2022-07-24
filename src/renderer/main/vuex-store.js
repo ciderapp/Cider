@@ -1,5 +1,6 @@
 const store = new Vuex.Store({
     state: {
+        windowRelativeScale: 1,
         library: {
             // songs: ipcRenderer.sendSync("get-library-songs"),
             // albums: ipcRenderer.sendSync("get-library-albums"),
@@ -12,6 +13,10 @@ const store = new Vuex.Store({
                 nextUrl: null,
                 items: [],
                 size: "normal"
+            },
+            settings: {
+                currentTabIndex: 0,
+                fullscreen: false
             }
         },
         artwork: {
@@ -19,6 +24,11 @@ const store = new Vuex.Store({
         }
     },
     mutations: {
+        resetRecentlyAdded(state) {
+            state.pageState.recentlyAdded.loaded = false;
+            state.pageState.recentlyAdded.nextUrl = null;
+            state.pageState.recentlyAdded.items = [];
+        },
         setLCDArtwork(state, artwork) {
             state.artwork.playerLCD = artwork
         }

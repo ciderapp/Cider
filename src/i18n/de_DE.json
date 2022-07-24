@@ -386,5 +386,18 @@
   "term.track": {
     "one": "Titel",
     "other": "Titel"
-  }
+  },
+  "settings.option.visual.customAccentColor": "Benutzerdefinierte Akzentfarbe",
+  "settings.option.visual.accentColor": "Akzentfarbe",
+  "settings.option.visual.purplePodcastPlaybackBar": "Lila Wiedergabeleiste für Podcasts",
+  "settings.option.visual.windowColor": "Fenstertönung Farbe",
+  "action.cut": "Ausschneiden",
+  "action.paste": "Einfügen",
+  "action.selectAll": "Alles auswählen",
+  "action.delete": "Löschen",
+  "home.syncFavorites": "Sync Favoriten",
+  "term.quit" : "Beenden",
+  "settings.option.connectivity.lastfmScrobble.filterLoop.description": "Verhindert, dass geloopte Titel gescrobbelt oder in der (Hört Gerade)-Liste auf Last.fm angezeigt werden",
+  "settings.option.connectivity.lastfmScrobble.filterTypes": "Medientypen filtern (Last.fm)",
+  "settings.option.connectivity.lastfmScrobble.manualToken": "Last.fm-Token manuell eingeben"
 }

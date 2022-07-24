@@ -1,10 +1,10 @@
 <script type="text/x-template" id="audio-settings">
     <template>
-        <div class="modal-fullscreen addtoplaylist-panel" @click.self="app.resetState()" @contextmenu.self="app.resetState()">
+        <div class="modal-fullscreen addtoplaylist-panel" @click.self="app.modals.audioSettings = false" @contextmenu.self="app.modals.audioSettings = false">
             <div class="modal-window">
                 <div class="modal-header">
                     <div class="modal-title">{{app.getLz('term.audioSettings')}}</div>
-                    <button class="close-btn" @click="app.resetState()" :aria-label="app.getLz('action.close')"></button>
+                    <button class="close-btn" @click="app.modals.audioSettings = false" :aria-label="app.getLz('action.close')"></button>
                 </div>
                 <div class="modal-content">
                     <button class="playlist-item"
@@ -23,7 +23,7 @@
                         <div class="name">{{app.getLz('settings.option.audio.changePlaybackRate')}}</div>
                     </button>
                     <button class="playlist-item"
-                            @click="$root.appRoute('audiolabs')" style="width:100%;">
+                            @click="$root.openSettingsPage('audiolabs')" style="width:100%;">
                         <div class="icon"><%- include("../svg/speaker.svg") %></div>
                         <div class="name">{{app.getLz('settings.option.audio.audioLab')}}</div>
                     </button>
