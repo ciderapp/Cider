@@ -1,5 +1,5 @@
 {
-    "electronVersion": "20.0.0-beta.11",
+    "electronVersion": "20.0.0",
     "electronDownload": {
         "version": "20.0.0-beta.11+wvcus",
         "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
