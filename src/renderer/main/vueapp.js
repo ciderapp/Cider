@@ -16,7 +16,6 @@ const app = new Vue({
         drawertest: false,
         platform: "",
         mk: {},
-        quickPlayQuery: "",
         pluginInstalled: false,
         pluginMenuEntries: [],
         lz: ipcRenderer.sendSync("get-i18n", "en_US"),
@@ -131,16 +130,13 @@ const app = new Vue({
         webremoteqr: "",
         mxmtoken: "",
         mkIsReady: false,
-        playerReady: false,
         animateBackground: false,
         currentArtUrl: '',
         currentArtUrlRaw: '',
         lyricon: false,
         currentTrackID: '',
-        currentTrackIDBG: '',
         lyrics: [],
         currentLyricsLine: 0,
-        lyriccurrenttime: 0,
         richlyrics: [],
         lyricsMediaItem: {},
         lyricsDebug: {
@@ -280,12 +276,6 @@ const app = new Vue({
         }, false)
     },
     methods: {
-        hotReload() {
-            this.appVisible = false
-            setTimeout(() => {
-                this.appVisible = true
-            }, 1000)
-        },
         setWindowHash(route = "") {
             window.location.hash = `#${route}`;
         },
