@@ -14,7 +14,7 @@ exports.default = function(context) {
     // console.log('Castlabs-evs update complete')
 
     // xcode 13 
-    if (fs.existsSync('dist/mac-universal--x64') && fs.existsSync('dist/mac-universal--arm64'))
+    if (fs.existsSync('dist/mac-universal--x64') && fs.existsSync('dist/mac-universal--arm64') && fs.existsSync('dist/mac-universal--x64/Cider.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/MainMenu.nib/keyedobjects-101300.nib'))
     execSync("cp 'dist/mac-universal--x64/Cider.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/MainMenu.nib/keyedobjects-101300.nib' 'dist/mac-universal--arm64/Cider.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/MainMenu.nib/keyedobjects-101300.nib'",{stdio: 'inherit'})
 
     // console.log('VMP signing start')

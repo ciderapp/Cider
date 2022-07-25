@@ -302,16 +302,23 @@
       min-width: 120px;
     }
   }
-
+  .categories{
+    display: grid;
+    grid-template-columns: repeat(3, minmax(200px, 1fr));
+    gap: 1rem;
+  }
   .cd-mediaitem-square.mediaitem-brick {
-    width: 530px !important;
-
+    width: 100% !important;
+    height: 168px;
+    padding-block: 0.5rem;
     .artwork-container .artwork {
       height: 168px !important;
-      width: 507px !important;
+      width: 100% !important;
       z-index: 1;
     }
-
+    .info-rect{
+      height: max-content;
+    }
     .title {
       font-weight: bold;
       justify-content: left;

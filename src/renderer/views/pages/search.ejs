@@ -119,7 +119,7 @@
                 </div>
             </template>
         </div>
-        <div v-else>
+        <div v-else >
            <div v-if="categoriesReady || getCategories()">
                 <div>
                     <div class="col" v-if="categoriesView != null && categoriesView != [] && categoriesView[0].attributes != null && categoriesView[0].attributes.title != null">
@@ -131,7 +131,9 @@
                     <!-- <mediaitem-square :kind="'385'" size="600" v-for="item in recentlyPlayed.limit(10)" :item="item" :imagesize="800"></mediaitem-square>-->
                         <h3>{{categoriesView[0].attributes.title.stringForDisplay ?? ""}}</h3>
                     </div>   
-                    <mediaitem-square :kind="'385'" size="600"
+                </div>
+                <div class="categories">
+                    <mediaitem-square :kind="'385'" :imageformat="'bb'" size="600"
                     :item="item ? (item.attributes.kind ? item : ((item.relationships && item.relationships.contents ) ? item.relationships.contents.data[0] : item)) : []"
                     :imagesize="800"
                     v-for="item of getFlattenedCategories()">
