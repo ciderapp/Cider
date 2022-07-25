@@ -3945,7 +3945,7 @@ const app = new Vue({
             if (width) {
                 width = parseInt(width * window.devicePixelRatio)
             }
-            let newurl = `${url.replace('{w}', width ?? height).replace('{h}', height).replace('{f}', "webp").replace('{c}', ((width === 900) ? "sr" : "cc"))}`;
+            let newurl = `${url.replace('{w}', width ?? height).replace('{h}', height).replace('{f}', "webp").replace('{c}', ((width === 900) ? "sr" : "bb"))}`;
 
             if (newurl.includes("900x516")) {
                 newurl = newurl.replace("900x516cc", "900x516sr").replace("900x516bb", "900x516sr");

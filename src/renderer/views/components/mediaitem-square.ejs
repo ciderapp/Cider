@@ -242,7 +242,7 @@
 			getArtworkUrl(size = -1, includeUrl = false) {
 				let artwork = this.item?.attributes?.artwork ? this.item?.attributes?.artwork?.url : (this.item?.attributes?.editorialArtwork?.subscriptionCover?.url ?? '')
 				if (size != -1) {
-					artwork = artwork.replace('{w}', size).replace('{h}', size).replace('{f}', "webp").replace('{c}', ((size === 900) ? "sr" : "cc"))
+					artwork = artwork.replace('{w}', size).replace('{h}', size).replace('{f}', "webp").replace('{c}', ((size === 900) ? "sr" : "bb"))
 				}
 				switch (this.kind) {
 					case "385":
