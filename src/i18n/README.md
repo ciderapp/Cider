@@ -521,3 +521,7 @@ Update 03/07/2022 20:00 UTC
 
 * `term.plugins`: Added to `en_US`
 * `settings.header.visual.styles`: Added to `en_US`
+
+Update 25/07/2022 00:22 UTC
+
+* `settings.option.visual.compactArtistHeader`: Added to `en_US`
