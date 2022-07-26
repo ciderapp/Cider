@@ -51,13 +51,15 @@
                                 <div
                                         style="display: inline-block; -webkit-box-orient: horizontal; white-space: nowrap; margin-top: 0.25vh; overflow: hidden;">
                                     <div class="item-navigate song-artist" style="display: inline-block;"
-                                         @click="app.getNowPlayingItemDetailed(`artist`)">
+                                         @click="app.getNowPlayingItemDetailed(`artist`) && app.fullscreen(false)">
                                         {{ app.mk.nowPlayingItem["attributes"]["artistName"] }}
                                     </div>
+                                    <div class="song-artist" style="display: inline-block;">
+                                        {{ (app.mk.nowPlayingItem["attributes"]["albumName"]) ? " — " : "" }}
+                                    </div>
                                     <div class="song-artist item-navigate" style="display: inline-block;"
-                                         @click="app.getNowPlayingItemDetailed('album')">
-                                        {{ (app.mk.nowPlayingItem["attributes"]["albumName"]) ? (" — " +
-                                        app.mk.nowPlayingItem["attributes"]["albumName"]) : "" }}
+                                         @click="app.getNowPlayingItemDetailed('album') && app.fullscreen(false)">
+                                        {{ (app.mk.nowPlayingItem["attributes"]["albumName"]) ? (app.mk.nowPlayingItem["attributes"]["albumName"]) : "" }}
                                     </div>
                                 </div>
 
