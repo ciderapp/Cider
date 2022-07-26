@@ -1,39 +1,39 @@
 <script type="text/x-template" id="pagination">
-    <div class="row" style="margin-bottom: 16px" v-if="!isInfinite">
+    <div class="pagination-container" v-if="!isInfinite">
         <button
-            class="col md-btn page-btn"
+            class="md-btn page-btn"
             :disabled="effectivePage === 1"
             @click="goToPage(1)"
         >
             <img class="md-ico-first"/>
         </button>
         <button
-            class="col md-btn page-btn prev"
+            class="md-btn page-btn prev"
             :disabled="effectivePage === 1"
             @click="goToPrevious()"
         >
             <img class="md-ico-prev"/>
         </button>
         <button
-            :class="`col md-btn page-btn${ isCurrentPage(page) ? ' md-btn-primary': ''}`"
+            :class="`md-btn page-btn${ isCurrentPage(page) ? ' md-btn-primary': ''}`"
             @click="goToPage(page)"
             v-for="page in pagesToShow"
         >{{ page }}</button>
         <button
-            class="col md-btn page-btn next"
+            class="md-btn page-btn next"
             :disabled="effectivePage === numPages"
             @click="goToNext()"
         >
             <img class="md-ico-next"/>
         </button>
         <button
-            class="col md-btn page-btn last"
+            class="md-btn page-btn last"
             :disabled="effectivePage === numPages"
             @click="goToEnd()"
         >
             <img class="md-ico-last"/>
         </button>
-        <div class="col page-btn" style="min-width: 12em;">
+        <div class="page-btn md-input-number">
             <input type="number" min="1" :max="numPages" :value="effectivePage" @change="changePage" />
             <span>/ {{ numPages }}</span>
         </div>
