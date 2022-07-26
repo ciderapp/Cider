@@ -130,8 +130,8 @@
                                         {{ player.currentMediaItem.artistName }}
                                     </div>
                                 </div>
-                                <div class="col-auto nopadding player-more-container" v-if="false" style="">
-                                    <button @click="player.songActions = true;" class="player-more-button">...</button>
+                                <div class="col-auto nopadding player-more-container" style="">
+                                    <button @click="openSongMenu()" class="player-more-button">...</button>
                                 </div>
                             </div>
                         </div>
@@ -525,7 +525,8 @@
 
                     </div>
                     <div class="md-body context-menu-body">
-                        <button class="context-menu-item context-menu-item--left" v-if="false">
+                        <button class="context-menu-item context-menu-item--left" v-if="!player.status.inLibrary"
+                            @click="toLibrary(true)">
                             <div class="row">
                                 <div class="col">
                                     Add To Library
@@ -535,7 +536,19 @@
                                 </div>
                             </div>
                         </button>
-                        <button class="context-menu-item context-menu-item--left" v-if="false">
+                        <button class="context-menu-item context-menu-item--left" v-if="player.status.inLibrary"
+                            @click="toLibrary(false)">
+                            <div class="row">
+                                <div class="col">
+                                    Remove From Library
+                                </div>
+                                <div class="col-auto">
+                                    ➖
+                                </div>
+                            </div>
+                        </button>
+                        <button class="context-menu-item context-menu-item--left" :disabled="player.status.rating === 1"
+                            @click="rate(1)">
                             <div class="row">
                                 <div class="col">
                                     Love
@@ -545,7 +558,29 @@
                                 </div>
                             </div>
                         </button>
-                        <button class="context-menu-item context-menu-item--left">
+                        <button class="context-menu-item context-menu-item--left" :disabled="player.status.rating === 0"
+                            @click="rate(0)">
+                            <div class="row">
+                                <div class="col">
+                                    Remove Rating
+                                </div>
+                                <div class="col-auto">
+                                    ❌
+                                </div>
+                            </div>
+                        </button>
+                        <button class="context-menu-item context-menu-item--left"
+                            :disabled="player.status.rating === -1" @click="rate(-1)">
+                            <div class="row">
+                                <div class="col">
+                                    Dislike
+                                </div>
+                                <div class="col-auto">
+                                    👎
+                                </div>
+                            </div>
+                        </button>
+                        <button class="context-menu-item context-menu-item--left" v-if="false">
                             <div class="row">
                                 <div class="col">
                                     Share
@@ -555,7 +590,7 @@
                                 </div>
                             </div>
                         </button>
-                        <button class="context-menu-item context-menu-item--left">
+                        <button class="context-menu-item context-menu-item--left" v-if="false">
                             <div class="row">
                                 <div class="col">
                                     Open in {{ musicAppVariant() }}
