@@ -8,7 +8,7 @@
                 </div>
                 <div @click="navigateContent(recom?.relationships['primary-content']?.data[0] ?? recom?.attributes?.title?.contentIds[0] ?? '')" style="width: fit-content;" :class="{'item-navigate' : (recom?.attributes?.title?.contentIds?.length ?? 0) > 0 | recom?.relationships['primary-content']?.data?.length > 0}">
                     <span style="opacity: 0.5; font-weight: bold;"> {{ recom.attributes.titleWithoutName.stringForDisplay }} </span>
-                    <h3 style="margin-block: 0"> {{ recom.attributes.title.stringForDisplay.replace(recom.attributes.titleWithoutName.stringForDisplay, '') }}</h3>
+                    <h3 style="margin-block: 0"> {{ recom?.relationships['primary-content']?.data[0].attributes?.name ?? recom.attributes.title.stringForDisplay.replace(recom.attributes.titleWithoutName.stringForDisplay, '') }}</h3>
 
                 </div>
             </div>
