@@ -147,13 +147,13 @@ export class Store {
         },
         "libraryPrefs": {
             "songs": {
-                "scroll": "infinite",
+                "scroll": "paged",
                 "sort": "name",
                 "sortOrder": "asc",
                 "size": "normal"
             },
             "albums": {
-                "scroll": "infinite",
+                "scroll": "paged",
                 "sort": "name",
                 "sortOrder": "asc",
                 "viewAs": "covers"
