@@ -563,6 +563,7 @@
   "settings.option.visual.customAccentColor": "Custom Accent Color",
   "settings.option.visual.accentColor": "Accent Color",
   "settings.option.visual.purplePodcastPlaybackBar": "Purple Playback Bar for Podcasts",
+  "settings.option.visual.compactArtistHeader": "Compact Artist Header",
   "settings.option.visual.windowColor": "Window Tint Color",
   "settings.header.visual.windowBackgroundStyle.color": "Color Tint",
   "settings.header.advanced": "Advanced",

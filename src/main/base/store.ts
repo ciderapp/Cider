@@ -147,17 +147,22 @@ export class Store {
         },
         "libraryPrefs": {
             "songs": {
-                "scroll": "infinite",
+                "scroll": "paged",
                 "sort": "name",
                 "sortOrder": "asc",
                 "size": "normal"
             },
             "albums": {
+                "scroll": "paged",
                 "sort": "name",
                 "sortOrder": "asc",
                 "viewAs": "covers"
             },
-            "localPaths": []
+            "playlists": {
+                "scroll": "infinite"
+            },
+            "localPaths": [],
+            "pageSize": 250
         },
         "audio": {
             "volume": 1,

@@ -549,6 +549,14 @@
                                 </div>
                                 <div class="md-option-line">
                                     <div class="md-option-segment">
+                                        {{$root.getLz('settings.option.visual.compactArtistHeader')}}
+                                    </div>
+                                    <div class="md-option-segment_auto">
+                                        <input type="checkbox" v-model="app.cfg.visual.compactArtistHeader" switch/>
+                                    </div>
+                                </div>
+                                <div class="md-option-line">
+                                    <div class="md-option-segment">
                                         {{$root.getLz('settings.option.visual.hardwareAcceleration')}}<br>
                                         <small>({{$root.getLz('settings.option.visual.hardwareAcceleration.description')}})</small>
                                     </div>
@@ -771,19 +779,19 @@
                                                 <option value='afrikaans'>Afrikaans</option>
                                                 <option value='albanian'>Albanian</option>
                                                 <option value='arab'>Arabic</option>
-                                                <option value='armenian'>Armenian</option>                                    
+                                                <option value='armenian'>Armenian</option>
                                                 <option value='azerbaijani'>Azerbaijani</option>
                                                 <option value='bengali'>Bengali</option>
                                                 <option value='bosnian'>Bosnian</option>
-                                                <option value='brazilian'>Brazilian</option>  
-                                                <option value='bulgarian'>Bulgarian</option>   
+                                                <option value='brazilian'>Brazilian</option>
+                                                <option value='bulgarian'>Bulgarian</option>
                                                 <option value='chinese'>Chinese (Simplified)</option>
-                                                <option value='chinese-trad'>Chinese (Traditional)</option>                      
+                                                <option value='chinese-trad'>Chinese (Traditional)</option>
                                                 <option value='chinese-romaji'>Romanized Chinese</option>
                                                 <option value='croatian'>Croatian</option>
                                                 <option value='czech'>Czech</option>
-                                                <option value='danish'>Danish</option> 
-                                                <option value='dutch'>Dutch</option>                       
+                                                <option value='danish'>Danish</option>
+                                                <option value='dutch'>Dutch</option>
                                                 <option value='estonian'>Estonian</option>
                                                 <option value='english'>English</option>
                                                 <option value='farsi'>Farsi</option>
@@ -1244,6 +1252,27 @@
                                         <label>
                                             <input type="checkbox" v-model="app.cfg.visual.transparent" switch
                                                    @change="promptForRelaunch()"/>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="md-option-line">
+                                    <div class="md-option-segment">
+                                        {{$root.getLz('settings.option.general.pagination')}}<br>
+                                        <small>
+                                            {{$root.getLz('settings.options.general.pagination.description')}}<br>
+                                        </small>
+                                    </div>
+                                    <div class="md-option-segment md-option-segment_auto">
+                                        <label>
+                                            <select class="md-select" style="width:180px;"
+                                                    v-model.number="$root.cfg.libraryPrefs.pageSize" type="number">
+                                                <option value="50">50</option>
+                                                <option value="100">100</option>
+                                                <option value="250">250</option>
+                                                <option value="500">500</option>
+                                                <option value="1000">1000</option>
+                                            </select>
                                         </label>
                                     </div>
                                 </div>

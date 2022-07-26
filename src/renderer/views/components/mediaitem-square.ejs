@@ -93,6 +93,11 @@
                 default: false,
                 required: false
             },
+			imageformat: {
+                type: String,
+                default: 'cc',
+                required: false
+            },
 			'contextExt': { type: Object, required: false },
 		},
 		data: function () {
@@ -242,11 +247,11 @@
 			getArtworkUrl(size = -1, includeUrl = false) {
 				let artwork = this.item?.attributes?.artwork ? this.item?.attributes?.artwork?.url : (this.item?.attributes?.editorialArtwork?.subscriptionCover?.url ?? '')
 				if (size != -1) {
-					artwork = artwork.replace('{w}', size).replace('{h}', size).replace('{f}', "webp").replace('{c}', ((size === 900) ? "sr" : "cc"))
+					artwork = artwork.replace('{w}', size).replace('{h}', size).replace('{f}', "webp").replace('{c}', (size === 900 || size === 380 || size === 600 ) ? "sr" : this.imageformat);
 				}
 				switch (this.kind) {
 					case "385":
-						artwork = this.item.attributes.editorialArtwork?.subscriptionHero?.url ?? (this.item.attributes.artwork?.url ?? (this.item.relationships?.contents?.data[0]?.attributes?.editorialArtwork?.subscriptionHero?.url ?? ''))
+						artwork = (this.item.attributes.editorialArtwork?.subscriptionHero?.url ?? (this.item.attributes.artwork?.url ?? (this.item.relationships?.contents?.data[0]?.attributes?.editorialArtwork?.subscriptionHero?.url ?? ''))).replace('{c}', (size === 900 || size === 380 || size === 600 ) ? "sr" : this.imageformat);
 						break;
 				}
 				if (!includeUrl) {

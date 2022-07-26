@@ -838,6 +838,15 @@ input[type=range].web-slider::-webkit-slider-runnable-track {
     cursor: pointer;
 }
 
+.context-menu .context-menu-item:disabled {
+    cursor: default;
+    filter: brightness(125%);
+}
+
+.context-menu .context-menu-item:active:disabled {
+    filter: brightness(125%);
+}
+
 .context-menu .context-menu-item:active {
     filter: brightness(75%);
 }
