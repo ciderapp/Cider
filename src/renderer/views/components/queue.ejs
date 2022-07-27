@@ -5,7 +5,7 @@
                 <h3 class="queue-header-text" v-if="page == 'queue'">{{app.getLz('term.queue')}}</h3>
                 <h3 class="queue-header-text" v-if="page == 'history'">{{app.getLz('term.history')}}</h3>
             </div>
-            <div class="col-auto flex-center">
+            <div class="col-auto cider-flex-center">
                 <button class="autoplay" :style="{'background': app.mk.autoplayEnabled ? 'var(--keyColor)' : ''}"
                         @click="app.mk.autoplayEnabled = !app.mk.autoplayEnabled"
                         :title="app.getLz('term.autoplay')" v-b-tooltip.hover>
@@ -25,7 +25,7 @@
                          @dblclick="playQueueItem(queueItem.item.id)" :key="position"
                          @contextmenu="selected = position;queueContext($event, queueItem.item, position)">
                         <div class="row">
-                            <div class="col-auto flex-center">
+                            <div class="col-auto cider-flex-center">
                                 <div class="artwork">
                                     <mediaitem-artwork :url="queueItem.item.attributes.artwork ? queueItem.item.attributes.artwork.url : ''" :size="32"></mediaitem-artwork>
                                 </div>
@@ -34,11 +34,11 @@
                                 <div class="queue-title text-overflow-elipsis">{{ queueItem.item.attributes.name }}</div>
                                 <div class="queue-subtitle text-overflow-elipsis">{{ queueItem.item.attributes.artistName }} — {{ queueItem.item.attributes.albumName }}</div>
                             </div>
-                            <div class="queue-explicit-icon flex-center" v-if="queueItem.item.attributes.contentRating == 'explicit'">
+                            <div class="queue-explicit-icon cider-flex-center" v-if="queueItem.item.attributes.contentRating == 'explicit'">
                                 <div class="explicit-icon"></div>
                             </div>
                             <div class="col queue-duration-info">
-                                <div class="queue-duration flex-center">{{convertTimeToString(queueItem.item.attributes.durationInMillis)}}</div>
+                                <div class="queue-duration cider-flex-center">{{convertTimeToString(queueItem.item.attributes.durationInMillis)}}</div>
                             </div>
                         </div>
                     </div>

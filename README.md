@@ -10,6 +10,7 @@
   <a target="_blank" href="https://opencollective.com/ciderapp"><img src="https://img.shields.io/opencollective/all/ciderapp?color=%237FADF2&label=Backers%20and%20Sponsors&logo=opencollective" alt="Open Collective"/></a>
     <a target="_blank" href="https://github.com/sponsors/ciderapp"><img src="https://img.shields.io/github/sponsors/ciderapp?color=C96198&label=GitHub%20Sponsors&logo=GitHub" alt="GitHub Sponsor"/></a>
   <br>
+  <a target="_blank" href="https://jq.qq.com/?_wv=1027&k=2VP4cdyo"><img src="https://img.shields.io/badge/QQ-531185058-red" alt="QQ群"/></a>
   <a target="_blank" href="https://discord.gg/applemusic"><img src="https://img.shields.io/discord/843954443845238864?label=Discord&color=5865F2&logo=discord&logoColor=white&style=flat" alt="Discord"/></a>
   <a target="_blank" href="https://twitter.com/UseCider"><img src="https://img.shields.io/twitter/follow/UseCider?label=Twitter&color=%231DA1F2&logo=twitter&style=flat" alt="Twitter"/></a>
   <a target="_blank" href="https://reddit.com/r/applemusicelectron"><img src="https://custom-icon-badges.herokuapp.com/reddit/subreddit-subscribers/applemusicelectron?label=Reddit&color=FF5700&logo=redditnew" alt="Reddit"/></a>
@@ -18,13 +19,14 @@
 </p>
 
 #### Links
-* [Wiki](https://docs.cider.sh)
+
+* [Documentation](https://docs.cider.sh)
 * [Request Feature](https://github.com/ciderapp/Cider/discussions/new?category=feature-request)
 * [Report Bug](https://github.com/ciderapp/Cider/issues/new?assignees=&labels=bug&template=bug_report.md&title=%5BBUG%5D+)
-* [**View The Releases**](https://github.com/ciderapp/Cider/releases/latest)
+* [**View The Releases**](https://github.com/ciderapp/cider-releases/releases/latest)
 
 ### Install Sources
-[![Get it from Github](https://img.shields.io/badge/Get_It_From_GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ciderapp/cider/releases/latest)
+[![Get it from Github](https://img.shields.io/badge/Get_It_From_GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ciderapp/cider-releases/releases/latest)
 
 [![Get it from the Microsoft Store](https://img.shields.io/badge/Get_It_From_The_Microsoft_Store-100000?style=for-the-badge&logo=microsoft)](https://www.microsoft.com/store/apps/9P21XJ9D9G66)
 
@@ -44,8 +46,8 @@
 -->
 [![Get it from the AUR](https://img.shields.io/badge/Get_It_From_The_AUR-100000?style=for-the-badge&logo=archlinux)](https://aur.archlinux.org/packages/cider)
 
-### Compiling and Configuration
-For more information surrounding configuration, compiling and other developer documentation, see the [compilation docs](https://cider.sh/compile.html).
+### Insights Snapshot
+[![CircleCI](https://dl.circleci.com/insights-snapshot/gh/ciderapp/Cider/main/build_and_release/badge.svg?window=30d)](https://app.circleci.com/insights/github/ciderapp/Cider/workflows/build_and_release/overview?branch=main&reporting-window=last-30-days&insights-snapshot=true)
 
 ### Credits
 ![Contributors](https://contrib.rocks/image?repo=ciderapp/Cider)

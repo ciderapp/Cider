@@ -57,10 +57,6 @@
 .cd-mediaitem-square:not(.mediaitem-card) {
     transition      : transform .2s var(--appleEase);
     transition-delay: .1s;
-    padding         : 12px;
-
-    // background-color: red;
-    height: 220px;
 
 
     .artwork-container {}
@@ -73,9 +69,16 @@
         transition-delay: .05s;
     }
 
+    .artwork-container {
+      transform       : scale(0.962) translateZ(0);
+      transition      : transform .1s var(--appleEase);
+      transition-delay: 0s;
+      transform-origin: center;
+    }
+
     &:hover {
         .artwork-container {
-            transform       : scale(1.1);
+            transform       : scale(1.0);
             transition      : transform .1s var(--appleEase);
             transition-delay: 0s;
             transform-origin: center;

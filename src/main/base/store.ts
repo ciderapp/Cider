@@ -2,6 +2,7 @@ import * as ElectronStore from 'electron-store';
 import * as electron from "electron";
 import {app} from "electron";
 import fetch from "electron-fetch";
+
 export class Store {
     static cfg: ElectronStore;
 
@@ -12,15 +13,6 @@ export class Store {
         },
         "general": {
             "close_button_hide": false,
-            "discordrpc": {
-                "enabled": true,
-                "client": "Cider",
-                "clear_on_pause": true,
-                "hide_buttons": false,
-                "hide_timestamp": false,
-                "state_format": "by {artist}",
-                "details_format": "{title}",
-            },
             "language": "en_US", // electron.app.getLocale().replace('-', '_') this can be used in future
             "playbackNotifications": true,
             "resumeOnStartupBehavior": "local",
@@ -39,7 +31,8 @@ export class Store {
                 "applemusic": false,
                 "library": false,
                 "amplaylists": false,
-                "playlists": false
+                "playlists": false,
+                "localLibrary": false
             },
             "onStartup": {
                 "enabled": false,
@@ -66,7 +59,7 @@ export class Store {
                     "CommandOrControl",
                     "G"
                 ],
-                "songs" : [
+                "songs": [
                     "CommandOrControl",
                     "J"
                 ],
@@ -89,22 +82,34 @@ export class Store {
                 ],
                 "audioSettings": [
                     "CommandOrControl",
-                    process.platform == "darwin" ? "Option" : (process.platform == "linux" ? "Shift": "Alt"),
+                    process.platform == "darwin" ? "Option" : (process.platform == "linux" ? "Shift" : "Alt"),
                     "A"
                 ],
                 "pluginMenu": [
                     "CommandOrControl",
-                    process.platform == "darwin" ? "Option" : (process.platform == "linux" ? "Shift": "Alt"),
+                    process.platform == "darwin" ? "Option" : (process.platform == "linux" ? "Shift" : "Alt"),
                     "P"
                 ],
                 "castToDevices": [
                     "CommandOrControl",
-                    process.platform == "darwin" ? "Option" : (process.platform == "linux" ? "Shift": "Alt"),
+                    process.platform == "darwin" ? "Option" : (process.platform == "linux" ? "Shift" : "Alt"),
                     "C"
                 ],
                 "settings": [
                     "CommandOrControl", // Who the hell uses a different key for this? Fucking Option?
                     ","
+                ],
+                "zoomn": [
+                    "Control",
+                    "numadd",
+                ],
+                "zoomt": [
+                    "Control",
+                    "numsub",
+                ],
+                "zoomrst": [
+                    "Control",
+                    "num0",
                 ],
                 "openDeveloperTools": [
                     "CommandOrControl",
@@ -114,21 +119,50 @@ export class Store {
             },
             "showLovedTracksInline": true
         },
+        "connectivity": {
+            "discord_rpc": {
+                "enabled": true,
+                "client": "Cider",
+                "clear_on_pause": true,
+                "hide_buttons": false,
+                "hide_timestamp": false,
+                "state_format": "by {artist}",
+                "details_format": "{title}",
+            },
+            "lastfm": {
+                "enabled": false,
+                "scrobble_after": 50,
+                "filter_loop": false,
+                "filter_types": {},
+                "secrets": {
+                    "username": "",
+                    "key": ""
+                }
+
+            },
+        },
         "home": {
             "followedArtists": [],
             "favoriteItems": []
         },
         "libraryPrefs": {
             "songs": {
+                "scroll": "paged",
                 "sort": "name",
                 "sortOrder": "asc",
                 "size": "normal"
             },
             "albums": {
+                "scroll": "paged",
                 "sort": "name",
                 "sortOrder": "asc",
                 "viewAs": "covers"
             },
+            "playlists": {
+                "scroll": "infinite"
+            },
+            "localPaths": [],
+            "pageSize": 250
         },
         "audio": {
             "volume": 1,
@@ -139,18 +173,19 @@ export class Store {
             "playbackRate": 1,
             "quality": "HIGH",
             "seamless_audio": true,
-            "normalization": false,
+            "normalization": true,
             "dBSPL": false,
             "dBSPLcalibration": 90,
             "maikiwiAudio": {
-                "ciderPPE": false,
+                "ciderPPE": true,
                 "ciderPPE_value": "MAIKIWI",
+                "opportunisticCorrection_state": "OFF",
                 "atmosphereRealizer1": false,
                 "atmosphereRealizer1_value": "NATURAL_STANDARD",
                 "atmosphereRealizer2": false,
                 "atmosphereRealizer2_value": "NATURAL_STANDARD",
                 "spatial": false,
-                "spatialProfile": "71_420maikiwi",
+                "spatialProfile": "BPLK",
                 "vibrantBass": { // Hard coded into the app. Don't include any of this config into exporting presets in store.ts
                     'frequencies': [17.182, 42.169, 53.763, 112.69, 119.65, 264.59, 336.57, 400.65, 505.48, 612.7, 838.7, 1155.3, 1175.6, 3406.8, 5158.6, 5968.1, 6999.9, 7468.6, 8862.9, 9666, 10109],
                     'Q': [2.5, 0.388, 5, 5, 2.5, 7.071, 14.14, 10, 7.071, 14.14, 8.409, 0.372, 7.071, 10, 16.82, 7.071, 28.28, 20, 8.409, 40, 40],
@@ -206,31 +241,25 @@ export class Store {
             },
             "windowControlPosition": 0, // 0 default right
             "nativeTitleBar": false,
-            "uiScale": 1.0,
             "windowColor": "#000000",
             "customAccentColor": false,
-            "accentColor": "#fc3c44"
+            "accentColor": "#fc3c44",
+            "purplePodcastPlaybackBar": false,
+            "maxElementScale": -1 // -1 default, anything else is a custom scale
         },
         "lyrics": {
-            "enable_mxm": false,
+            "enable_mxm": true,
             "mxm_karaoke": false,
-            "mxm_language": "en",
+            "mxm_language": "disabled",
             "enable_qq": false,
             "enable_yt": false,
         },
-        "lastfm": {
-            "enabled": false,
-            "scrobble_after": 30,
-            "auth_token": "",
-            "enabledRemoveFeaturingArtists": true,
-            "filterLoop": true,
-            "NowPlaying": "true"
-        },
         "advanced": {
-            "AudioContext": false,
+            "AudioContext": true,
             "experiments": [],
             "playlistTrackMapping": true,
-            "ffmpegLocation": ""
+            "ffmpegLocation": "",
+            "disableLogging": true
         },
         "connectUser": {
             "auth": null,
@@ -241,15 +270,9 @@ export class Store {
             }
         },
     }
-    private migrations: any = {
-        '>=1.4.3': (store: ElectronStore) => {
-            if (typeof store.get('general.discordrpc') == 'number' || typeof store.get('general.discordrpc') == 'string') {
-                store.delete('general.discordrpc');
-            }
-        },
-    }
+    private migrations: any = {}
     private schema: ElectronStore.Schema<any> = {
-        "general.discordrpc": {
+        "connectivity.discord_rpc": {
             type: 'object'
         },
     }
@@ -260,11 +283,49 @@ export class Store {
             defaults: this.defaults,
             schema: this.schema,
             migrations: this.migrations,
-            clearInvalidConfig: true
+            clearInvalidConfig: false //disabled for now
         });
 
         Store.cfg.set(this.mergeStore(this.defaults, Store.cfg.store))
         this.ipcHandler();
+    }
+
+    static pushToCloud(): void {
+        if (Store.cfg.get('connectUser.auth') === null) return;
+        var syncData = Object();
+        if (Store.cfg.get('connectUser.sync.themes')) {
+            syncData.push({
+                themes: Store.cfg.store.themes
+            })
+        }
+        if (Store.cfg.get('connectUser.sync.plugins')) {
+            syncData.push({
+                plugins: Store.cfg.store.plugins
+            })
+        }
+
+        if (Store.cfg.get('connectUser.sync.settings')) {
+            syncData.push({
+                general: Store.cfg.get('general'),
+                home: Store.cfg.get('home'),
+                libraryPrefs: Store.cfg.get('libraryPrefs'),
+                advanced: Store.cfg.get('advanced'),
+            })
+        }
+        let postBody = {
+            id: Store.cfg.get('connectUser.id'),
+            app: electron.app.getName(),
+            version: electron.app.isPackaged ? electron.app.getVersion() : 'dev',
+            syncData: syncData
+        }
+
+        fetch('https://connect.cidercollective.dev/api/v1/setttings/set', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(postBody)
+        })
     }
 
     /**
@@ -288,7 +349,6 @@ export class Store {
         return target
     }
 
-    
     /**
      * IPC Handler
      */
@@ -307,45 +367,6 @@ export class Store {
 
         electron.ipcMain.on('setStore', (_event, store) => {
             Store.cfg.store = store
-        })
-    }
-    
-    
-    static pushToCloud(): void {
-        if (Store.cfg.get('connectUser.auth') === null) return;
-        var syncData = Object();
-        if (Store.cfg.get('connectUser.sync.themes')) {
-            syncData.push({
-                themes: Store.cfg.store.themes
-            })
-        }
-        if (Store.cfg.get('connectUser.sync.plugins')) {
-            syncData.push({
-                plugins: Store.cfg.store.plugins
-            })
-        }
-    
-        if (Store.cfg.get('connectUser.sync.settings')) {
-            syncData.push({
-                general: Store.cfg.get('general'),
-                home: Store.cfg.get('home'),
-                libraryPrefs: Store.cfg.get('libraryPrefs'),
-                advanced: Store.cfg.get('advanced'),
-            })
-        }
-        let postBody = {
-            id: Store.cfg.get('connectUser.id'),
-            app: electron.app.getName(),
-            version: electron.app.isPackaged ? electron.app.getVersion() : 'dev',
-            syncData: syncData
-        }
-
-        fetch('https://connect.cidercollective.dev/api/v1/setttings/set', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(postBody)
         })
     }
 }

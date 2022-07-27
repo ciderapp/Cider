@@ -1,15 +1,17 @@
 body[platform="darwin"] {
     html {
-        background: transparent!important;
+        background: transparent !important;
     }
 
     &.notransparency::before {
         display: none;
     }
+
     #app {
         &.simplebg {
             background: transparent;
         }
+
         &::before {
             display: none;
         }
@@ -25,12 +27,28 @@ body[platform="darwin"] {
             .app-chrome .app-chrome-item.search {
                 margin-right: 12px;
             }
+
             .app-chrome .app-mainmenu {
                 width: 46px;
             }
 
             .app-chrome.chrome-bottom {
                 background-color: var(--macOSChromeColor);
+            }
+        }
+
+        &[window-state="normal"] {
+            &::after {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                box-shadow: inset 0px 0px .5px 1px rgb(200 200 200 / 40%);
+                border-radius: 10px;
+                content: " ";
+                z-index: 999999;
+                pointer-events: none;
             }
         }
     }
@@ -43,7 +61,19 @@ body[platform="darwin"] {
         }
 
         #app-content {
-            background-color: var(--baseColor);
+            background-color: #1e1e1e6b;
         }
+    }
+
+    .settings-window.maxed {
+        .tabs>.col-auto {
+            transition: padding-top .3s linear;
+            padding-top: var(--chromeHeight1);
+        }
+    }
+
+    #apple-music-video-player-controls #player-exit {
+        margin-top: 18px;
+        left: 70px;
     }
 }

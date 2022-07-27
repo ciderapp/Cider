@@ -1,17 +1,17 @@
 <script type="text/x-template" id="cider-artist">
     <div class="content-inner artist-page"
-         :class="[data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9) ? 'animated' : '']">
-        <div class="artist-header" :key="data.id" v-observe-visibility="{callback: isHeaderVisible}">
+         :class="[(data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9) || hasHero()) ? 'animated' : '']">
+        <div :class="['artist-header', { 'artist-header-compact': app.cfg.visual.compactArtistHeader }]" :key="data.id" v-observe-visibility="{callback: isHeaderVisible}">
             <animatedartwork-view
                     :priority="true"
-                    v-if="data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9)"
+                    v-if="hasAnimated()"
                     :video="data.attributes.editorialVideo.motionArtistWide16x9.video ?? (data.attributes.editorialVideo.motionArtistFullscreen16x9.video ?? '')">
             </animatedartwork-view>
             <div class="header-content" style="pointer-events: all;">
                 <div class="row">
-                    <div class="col-sm" style="width: auto;">
+                    <div class="col-auto" style="width: auto;">
                         <div class="artist-image"
-                             v-if="!(data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9))">
+                             v-if="!(data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9))&& !hasHero()">
                             <mediaitem-artwork
                                     shadow="large"
                                     :url="data.attributes.artwork ? data.attributes.artwork.url : ''"
@@ -23,9 +23,10 @@
                             </button>
                         </div>
                     </div>
-                    <div class="col flex-center artist-title"
-                         :class="{'artist-animation-on': (data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9)) }"
-                    >
+                    <div class="col cider-flex-center artist-title"
+                         :class="{'artist-animation-on': (data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9)) || hasHero() }"
+                         :style="{ 'color': '#' +hasHeroObject()?.textColor1 ?? ''}"
+                         >
                         <button class="artist-play" @click="app.mk.setStationQueue({artist:'a-'+data.id}).then(()=>{
                         app.mk.play()
                     })" :aria-label="app.getLz('term.play')"><%- include("../svg/play.svg") %></button>
@@ -41,15 +42,18 @@
                     <div class="svg-icon"></div>
                 </button>
             </div>
-            <div class="artworkContainer"
-                 v-if="!(data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9))">
-                <artwork-material :url="data.attributes.artwork.url" size="190" images="1"></artwork-material>
+                <div class="artworkContainer"
+                 v-if="!(data.attributes.editorialVideo && (data.attributes.editorialVideo.motionArtistWide16x9 || data.attributes.editorialVideo.motionArtistFullscreen16x9)) && !hasHero()">
+                    <artwork-material :url="data.attributes.artwork.url" size="190" images="1"></artwork-material>
+                </div>
+            <div class="artist-hero" v-if="hasHero() && !hasAnimated()">
+                <mediaitem-artwork shadow="none" :url="hasHero()" size="2048" />
             </div>
         </div>
         <div class="floating-header"
              :style="{opacity: (headerVisible ? 0 : 1),'pointer-events': (headerVisible ? 'none' : '')}">
             <div class="row">
-                <div class="col-auto flex-center">
+                <div class="col-auto cider-flex-center">
                     <button class="artist-play" style="display:block;" @click="app.mk.setStationQueue({artist:'a-'+data.id}).then(()=>{
                         app.mk.play()
                     })" :aria-label="app.getLz('term.play')"><%- include("../svg/play.svg") %></button>
@@ -57,7 +61,7 @@
                 <div class="col">
                     <h3>{{ data.attributes.name }}</h3>
                 </div>
-                <div class="col-auto flex-center">
+                <div class="col-auto cider-flex-center">
                     <button class="more-btn-round menu" @click="artistMenu" :aria-label="app.getLz('term.more')">
                         <div class="svg-icon"></div>
                     </button>
@@ -69,7 +73,7 @@
                 <div class="latestRelease" v-if="data.views['latest-release'].data.length != 0">
                     <h3>{{app.getLz('term.latestReleases')}}</h3>
                     <div style="width: auto;margin: 0 auto;">
-                        <mediaitem-square kind="card" v-for="song in data.views['latest-release'].data"
+                        <mediaitem-square kind="card" :no-scale="true" v-for="song in data.views['latest-release'].data"
                                           :item="song">
                         </mediaitem-square>
                     </div>
@@ -79,7 +83,7 @@
                         <div class="col" style="padding:0;">
                             <h3>{{app.getLz('term.topSongs')}}</h3>
                         </div>
-                        <div class="col-auto flex-center" v-if="data.views['top-songs'].data.length >= 20"
+                        <div class="col-auto cider-flex-center" v-if="data.views['top-songs'].data.length >= 20"
                              style="padding:0;">
                             <button class="cd-btn-seeall"
                                     @click="app.showArtistView(data.id, data.attributes.name + ' - Top Songs', 'top-songs')">
@@ -88,7 +92,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col flex-center" style="padding:0;">
+                        <div class="col cider-flex-center" style="padding:0;">
                             <div class="mediaitem-list-item__grid">
                                 <listitem-horizontal :items="data.views['top-songs'].data.limit(20)">
                                 </listitem-horizontal>
@@ -108,7 +112,7 @@
                                     data.views[view].attributes.title : "???"}}
                                 </h3>
                             </div>
-                            <div class="col-auto flex-center" v-if="data.views[view].data.length >= 10">
+                            <div class="col-auto cider-flex-center" v-if="data.views[view].data.length >= 10">
                                 <button class="cd-btn-seeall"
                                         @click="app.showArtistView(data.id, data.attributes.name + ' - ' + data.views[view].attributes.title, view)">
                                     {{app.getLz('term.seeAll')}}
@@ -164,6 +168,32 @@
             }
         },
         methods: {
+            hasAnimated() {
+                if(this.data.attributes?.editorialVideo && (this.data.attributes?.editorialVideo?.motionArtistWide16x9 || this.data.attributes?.editorialVideo?.motionArtistFullscreen16x9)) {
+                    return true;
+                }
+                return false;
+            },
+            hasHero() {
+                if(this.data.attributes?.editorialArtwork?.centeredFullscreenBackground){
+                    return this.data.attributes?.editorialArtwork?.centeredFullscreenBackground.url
+                } else if(this.data.attributes?.editorialArtwork?.bannerUber) {
+                    return this.data.attributes?.editorialArtwork?.bannerUber.url
+                } else if(this.data.attributes?.editorialArtwork?.subscriptionHero){
+                    return this.data.attributes?.editorialArtwork?.subscriptionHero.url
+                }
+                return false;
+            },
+            hasHeroObject() {
+                if(this.data.attributes?.editorialArtwork?.centeredFullscreenBackground){
+                    return this.data.attributes?.editorialArtwork?.centeredFullscreenBackground
+                } else if(this.data.attributes?.editorialArtwork?.bannerUber) {
+                    return this.data.attributes?.editorialArtwork?.bannerUber
+                } else if(this.data.attributes?.editorialArtwork?.subscriptionHero){
+                    return this.data.attributes?.editorialArtwork?.subscriptionHero
+                }
+                return [];
+            },
             isHeaderVisible(visible) {
                 this.headerVisible = visible
             },
@@ -194,32 +224,14 @@
                         icon: "./assets/star.svg",
                         name: app.getLz('action.favorite'),
                         action: () => {
-                            app.mk.api.v3.music(`/v1/me/favorites`, {
-                                "art[url]": "f",
-                                "ids[artists]": app.artistPage.data.id,
-                                "l": app.mklang,
-                                "platform": "web"
-                            }, {
-                                fetchOptions: {
-                                    method: "POST"
-                                }
-                            })
+                            app.setArtistFavorite(app.artistPage.data.id, true)
                         }
                     },
                     removeFavorite: {
                         icon: "./assets/star.svg",
                         name: app.getLz('action.removeFavorite'),
                         action: () => {
-                            app.mk.api.v3.music(`/v1/me/favorites`, {
-                                "art[url]": "f",
-                                "ids[artists]": app.artistPage.data.id,
-                                "l": app.mklang,
-                                "platform": "web"
-                            }, {
-                                fetchOptions: {
-                                    method: "DELETE"
-                                }
-                            })
+                            app.setArtistFavorite(app.artistPage.data.id, false)
                         }
                     }
                 }
@@ -241,7 +253,7 @@
                             }
                         },
                         favoriteActions[inFavorites ? "removeFavorite" : "favorite"],
-                        followActions[followAction],
+                        // followActions[followAction],
                         {
                             icon: "./assets/feather/share.svg",
                             name: app.getLz('term.share'),

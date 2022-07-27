@@ -1,5 +1,3 @@
-
-
 <script type="text/x-template" id="cider-library-songs">
     <div class="content-inner library-page">
         <div class="library-header">
@@ -15,7 +13,7 @@
                                v-model="library.songs.search" class="search-input">
                     </div>
                 </div>
-                <div class="col-auto flex-center">
+                <div class="col-auto cider-flex-center">
                     <div class="row">
                         <button class="col md-btn md-btn-primary  md-btn-icon" style="min-width: 100px;margin-right: 3px;"
                         @click="app.mk.shuffleMode = 0; play()"> <img class="md-ico-play">
@@ -48,9 +46,17 @@
                                 </optgroup>
                             </select>
                         </div>
+                        <div class="col">
+                            <select class="md-select" v-model="prefs.scroll">
+                                <optgroup :label="app.getLz('term.scroll')">
+                                    <option value="infinite">{{app.getLz('term.scroll.infinite')}}</option>
+                                    <option value="paged">{{app.getLz('term.scroll.paged').replace("${songsPerPage}", pageSize)}}</option>
+                                </optgroup>
+                            </select>
+                        </div>
                     </div>
                 </div>
-                <div class="col-auto flex-center">
+                <div class="col-auto cider-flex-center">
                     <button v-if="library.songs.downloadState == 2" @click="$root.getLibrarySongsFull(true)"
                             class="reload-btn" :aria-label="app.getLz('menubar.options.reload')"><%- include('../svg/redo.svg') %></button>
                     <button v-else class="reload-btn" style="opacity: 0.8;pointer-events: none" :aria-label="app.getLz('menubar.options.reload')">
@@ -58,14 +64,21 @@
                     </button>
                 </div>
             </div>
+            <pagination
+                :length="library.songs.displayListing.length"
+                :pageSize="pageSize"
+                :scroll="prefs.scroll"
+                scrollSelector="#app-content"
+                @onRangeChange="onRangeChange"
+            />
         </div>
 
         <div v-if="library.songs.downloadState == 3">Library contains no songs.</div>
         <div class="well" :key="1" v-if="prefs.size == 'compact'">
-            <mediaitem-list-item class-list="compact" :item="item" :parent="'librarysongs'" :index="index" :show-meta-data="true" :show-library-status="false" v-for="(item, index) in library.songs.displayListing"></mediaitem-list-item>
+            <mediaitem-list-item class-list="compact" :item="item" :parent="'librarysongs'" :index="index" :show-meta-data="true" :show-library-status="false" v-for="(item, index) in currentSlice"></mediaitem-list-item>
         </div>
         <div class="well" :key="2" v-else>
-            <mediaitem-list-item :item="item" :parent="'librarysongs'" :index="index" :show-meta-data="true" :show-library-status="false" v-for="(item, index) in library.songs.displayListing"></mediaitem-list-item>
+            <mediaitem-list-item :item="item" :parent="'librarysongs'" :index="index" :show-meta-data="true" :show-library-status="false" v-for="(item, index) in currentSlice"></mediaitem-list-item>
         </div>
     </div>
 </script>
@@ -74,22 +87,32 @@
     Vue.component('cider-library-songs', {
         template: '#cider-library-songs',
         data: function () {
+            const pageSize = this.$root.cfg.libraryPrefs.pageSize;
             return {
+                // currentPage is oneIndexed
                 library: this.$root.library,
                 mediaItemSize: "compact",
                 prefs: this.$root.cfg.libraryPrefs.songs,
-                app : this.$root
+                app: this.$root,
+                pageSize: pageSize,
+                start: 0,
+                end: pageSize
             }
         },
         mounted() {
             this.$root.getLibrarySongsFull()
         },
+        computed: {
+            currentSlice: function () {
+                return this.library.songs.displayListing.slice(this.start, this.end);
+            }
+        },
         methods: {
-            sayHello: function () {
-                alert('Hello world!');
+            onRangeChange: function (newRange) {
+                this.start = newRange[0];
+                this.end = newRange[1];
             },
             play: function () {
-
                 function shuffleArray(array) {
                     for (var i = array.length - 1; i > 0; i--) {
                         var j = Math.floor(Math.random() * (i + 1));
@@ -101,11 +124,11 @@
 
                 let query = this.app.library.songs.displayListing.map(item => new MusicKit.MediaItem(item));
                 if (!app.mk.queue.isEmpty)
-                app.mk.queue.splice(0, app.mk.queue._itemIDs.length);
+                    app.mk.queue.splice(0, app.mk.queue._itemIDs.length);
                 app.mk.stop().then(() => {
-                  if (app.mk.shuffleMode == 1) {
-                                shuffleArray(query)
-                            }
+                    if (app.mk.shuffleMode == 1) {
+                        shuffleArray(query)
+                    }
                     app.mk.queue.append(query)
                     app.mk.changeToMediaAtIndex(0)
                 });

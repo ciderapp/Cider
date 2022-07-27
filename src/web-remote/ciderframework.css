@@ -279,6 +279,14 @@ input[type=range].md-slider::-webkit-slider-runnable-track {
     width: auto;
 }
 
+@media only screen and (min-width: 1133px) and (max-width: 1233px) {
+    .about-page {
+        .row .col-auto {
+            display: none !important;
+        }
+    }
+}
+
 .col-1 {
     flex: 0 0 auto;
     width: 8.33333333%;

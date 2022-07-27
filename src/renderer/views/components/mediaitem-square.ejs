@@ -8,8 +8,7 @@
         <div v-if="reasonShown" class="reasonSP ">{{item?.meta?.reason?.stringForDisplay ?? ''}}</div>
         <div style="{'--spcolor': getBgColor()}"
              class="cd-mediaitem-square" :class="getClasses()" @contextmenu="getContextMenu">
-            <template v-show="isVisible">
-                <div class="artwork-container">
+                <div class="artwork-container" v-show="isVisible">
                     <div class="unavailable-overlay" v-if="unavailable">
                         <div class="codicon codicon-circle-slash"></div>
                     </div>
@@ -18,6 +17,7 @@
                                 :url="getArtworkUrl()"
                                 :video="(item.attributes != null && item.attributes.editorialVideo != null) ? (item.attributes.editorialVideo.motionDetailSquare ? item.attributes.editorialVideo.motionDetailSquare.video : (item.attributes.editorialVideo.motionSquareVideo1x1 ? item.attributes.editorialVideo.motionSquareVideo1x1.video : '')) : '' "
                                 :size="size"
+								:upscaling="true"
                                 shadow="subtle"
                                 :bgcolor="getBgColor()"
                                 :video-priority="forceVideo"
@@ -40,6 +40,7 @@
                     </div>
                 </div>
                 <div class="info-rect" :class="{'info-rect-card': kind == 'card'}"
+					v-show="isVisible"
                      :style="{'--bgartwork': getArtworkUrl(size, true)}">
                     <div class="title"
                          :title="item.attributes?.name ?? (item.relationships?.contents?.data[0]?.attributes?.name ?? (item.attributes?.editorialNotes?.name ?? ''))"
@@ -58,7 +59,6 @@
                     </div>
                     <div class="subtitle" v-if="getSubtitle() == '' && kind != 'card'">&nbsp;</div>
                 </div>
-            </template>
         </div>
     </div>
 </script>
@@ -88,6 +88,16 @@
 				default: false,
 				required: false
 			},
+            noScale: {
+                type: Boolean,
+                default: false,
+                required: false
+            },
+			imageformat: {
+                type: String,
+                default: 'cc',
+                required: false
+            },
 			'contextExt': { type: Object, required: false },
 		},
 		data: function () {
@@ -237,11 +247,11 @@
 			getArtworkUrl(size = -1, includeUrl = false) {
 				let artwork = this.item?.attributes?.artwork ? this.item?.attributes?.artwork?.url : (this.item?.attributes?.editorialArtwork?.subscriptionCover?.url ?? '')
 				if (size != -1) {
-					artwork = artwork.replace('{w}', size).replace('{h}', size).replace('{f}', "webp").replace('{c}', ((size === 900) ? "sr" : "cc"))
+					artwork = artwork.replace('{w}', size).replace('{h}', size).replace('{f}', "webp").replace('{c}', (size === 900 || size === 380 || size === 600 ) ? "sr" : this.imageformat);
 				}
 				switch (this.kind) {
 					case "385":
-						artwork = this.item.attributes.editorialArtwork?.subscriptionHero?.url ?? (this.item.attributes.artwork?.url ?? (this.item.relationships?.contents?.data[0]?.attributes?.editorialArtwork?.subscriptionHero?.url ?? ''))
+						artwork = (this.item.attributes.editorialArtwork?.subscriptionHero?.url ?? (this.item.attributes.artwork?.url ?? (this.item.relationships?.contents?.data[0]?.attributes?.editorialArtwork?.subscriptionHero?.url ?? ''))).replace('{c}', (size === 900 || size === 380 || size === 600 ) ? "sr" : this.imageformat);
 						break;
 				}
 				if (!includeUrl) {
@@ -252,6 +262,10 @@
 			},
 			getClasses() {
 				let type = []
+                let classes = []
+                if(this.noScale) {
+                    classes.push("noscale")
+                }
 				try {
 					type = this.item.type
 
@@ -264,25 +278,26 @@
 				}
 				switch (type) {
 					default:
-						return []
+
 						break;
 					case "editorial-elements":
 					case "card":
-						return ["mediaitem-card"]
+						classes.push("mediaitem-card")
 						break;
 					case "385": // editorial
-						return ["mediaitem-brick"]
+                        classes.push("mediaitem-brick")
 						break;
 					case "small":
-						return ["mediaitem-small"]
+						classes.push("mediaitem-small")
 						break;
 					case "music-videos":
 					case "uploadedVideo":
 					case "uploaded-videos":
 					case "library-music-videos":
-						return "mediaitem-video";
+						classes.push("mediaitem-video")
 						break;
 				}
+                return classes
 			},
 			visibilityChanged: function (isVisible, entry) {
 				this.isVisible = isVisible
@@ -533,20 +548,17 @@
 				let followAction = "follow"
 				let followActions = {
 					follow: {
-						icon: "./assets/feather/plus-circle.svg",
-						name: app.getLz('action.follow'),
+						icon: "./assets/star.svg",
+						name: app.getLz('action.favorite'),
 						action: () => {
-							self.app.cfg.home.followedArtists.push(this.item.id)
+							self.$root.setArtistFavorite(this.item.id, true)
 						}
 					},
 					unfollow: {
-						icon: "./assets/feather/x-circle.svg",
-						name: app.getLz('action.unfollow'),
+						icon: "./assets/star.svg",
+						name: app.getLz('action.removeFavorite'),
 						action: () => {
-							let index = self.app.cfg.home.followedArtists.indexOf(this.item.id)
-							if (index > -1) {
-								self.app.cfg.home.followedArtists.splice(index, 1)
-							}
+							self.$root.setArtistFavorite(this.item.id, false)
 						}
 					}
 				}

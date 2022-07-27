@@ -1,0 +1,175 @@
+<script type="text/x-template" id="pagination">
+    <div class="pagination-container" v-if="!isInfinite">
+        <button
+            class="md-btn page-btn"
+            :disabled="effectivePage === 1"
+            @click="goToPage(1)"
+        >
+            <img class="md-ico-first"/>
+        </button>
+        <button
+            class="md-btn page-btn prev"
+            :disabled="effectivePage === 1"
+            @click="goToPrevious()"
+        >
+            <img class="md-ico-prev"/>
+        </button>
+        <button
+            :class="`md-btn page-btn${ isCurrentPage(page) ? ' md-btn-primary': ''}`"
+            @click="goToPage(page)"
+            v-for="page in pagesToShow"
+        >{{ page }}</button>
+        <button
+            class="md-btn page-btn next"
+            :disabled="effectivePage === numPages"
+            @click="goToNext()"
+        >
+            <img class="md-ico-next"/>
+        </button>
+        <button
+            class="md-btn page-btn last"
+            :disabled="effectivePage === numPages"
+            @click="goToEnd()"
+        >
+            <img class="md-ico-last"/>
+        </button>
+        <div class="page-btn md-input-number">
+            <input type="number" min="1" :max="numPages" :value="effectivePage" @change="changePage" />
+            <span>/ {{ numPages }}</span>
+        </div>
+    </div>
+</script>
+
+<script>
+    Vue.component('pagination', {
+        template: "#pagination",
+        props: {
+            'length': { type: Number, required: true },
+            'pageSize': { type: Number, required: true },
+            'scroll': { type: String, required: true },
+            'scrollSelector': { type: String, required: true }
+        },
+        data: function () {
+            return { currentPage: 1 }
+        },
+        mounted() {
+            document.querySelector(this.scrollSelector)
+                .addEventListener("scroll", this.handleScroll)
+        },
+        destroyed() {
+            document.querySelector(this.scrollSelector)
+                .removeEventListener("scroll", this.handleScroll)
+        },
+        watch: {
+            'length': function () {
+                if (this.isInfinite) {
+                    // If a search reduces the number of things to show, we want to limit
+                    // the number of songs shown as well. This is to prevent you scrolling
+                    // to load your entire library, searching for one song, and then having
+                    // th re-render the entire library
+                    if (this.currentPage > this.numPages) {
+                        this.currentPage = this.numPages;
+                        this.$emit("onRangeChange", this.currentRange);
+                    }
+                } else {
+                    this.$emit("onRangeChange", this.currentRange);
+                }
+            },
+            'scroll': function () {
+                // When changing modes, set the page to 1. This is primarily to
+                // prevent going to a high page (e.g., 50) and then switching to infinite
+                // and showing 12.5k songs
+                this.currentPage = 1;
+                this.$emit("onRangeChange", this.currentRange);
+            }
+        },
+        computed: {
+            isInfinite: function () {
+                return this.scroll === "infinite"
+            },
+            currentRange: function () {
+                if (this.isInfinite) {
+                    return [0, this.currentPage * this.pageSize];
+                } else {
+                    const startingPage = Math.min(this.numPages, this.currentPage);
+
+                    return [
+                        (startingPage - 1) * this.pageSize,
+                        startingPage * this.pageSize
+                    ];
+                }
+            },
+            effectivePage: function () {
+                return Math.min(this.currentPage, this.numPages)
+            },
+            numPages: function () {
+                return Math.ceil(this.length / this.pageSize) || 1;
+            },
+            pagesToShow: function () {
+                let start = this.currentPage - 2;
+                let end = this.currentPage + 2;
+
+                if (start < 1) {
+                    end += (1 - start);
+                    start = 1;
+                }
+
+                const endDifference = end - this.numPages;
+                if (endDifference > 0) {
+                    end = this.numPages;
+                    start = Math.max(1, start - endDifference);
+                }
+
+                const array = [];
+                for (let idx = start; idx <= end; idx++) {
+                    array.push(idx);
+                }
+                return array;
+            }
+        },
+        methods: {
+            // Infinite Scrolling
+            handleScroll: function (event) {
+                if (this.isInfinite &&
+                    this.currentPage < this.numPages &&
+                    event.target.scrollTop >= event.target.scrollHeight - event.target.clientHeight) {
+                    this.currentPage += 1;
+                    this.$emit("onRangeChange", this.currentRange);
+                }
+            },
+            // Pagination
+            isCurrentPage: function (idx) {
+                return idx === this.currentPage ||
+                    (idx === this.numPages && this.currentPage > this.numPages);
+            },
+            changePage: function (event) {
+                const value = event.target.valueAsNumber;
+
+                if (!isNaN(value) && value >= 1 && value <= this.numPages) {
+                    this.currentPage = value;
+                    this.$emit("onRangeChange", this.currentRange);
+                }
+            },
+            goToPage: function (page) {
+                this.currentPage = page;
+                this.$emit("onRangeChange", this.currentRange);
+            },
+            goToPrevious: function () {
+                if (this.currentPage > 1) {
+                    this.currentPage -= 1;
+                    this.$emit("onRangeChange", this.currentRange);
+                }
+            },
+            goToNext: function () {
+                if (this.currentPage < this.numPages) {
+                    this.currentPage += 1;
+                    this.$emit("onRangeChange", this.currentRange);
+                }
+            },
+            goToEnd: function () {
+                this.currentPage = this.numPages;
+                this.$emit("onRangeChange", this.currentRange);
+            }
+        }
+    })
+</script>

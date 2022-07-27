@@ -1,5 +1,22 @@
 <script type="text/x-template" id="cider-search">
     <div class="content-inner search-page">
+        <div class="search-input-container fs-search" v-if="$root.appMode == 'fullscreen'" >
+            <div class="search-input--icon"></div>
+            <input type="search" spellcheck="false" @focus="$root.search.showHints = true"
+                   @blur="$root.setTimeout(()=>{$root.search.showHints = false}, 300)"
+                   v-on:keyup.enter="$root.searchQuery();$root.search.showHints = false" @input="$root.getSearchHints()"
+                   :placeholder="$root.getLz('term.search') + '...'" v-model="$root.search.term"
+                   class="search-input" />
+
+            <div class="search-hints-container" v-if="$root.search.showHints && $root.search.hints.length != 0">
+                <div class="search-hints">
+                    <button class="search-hint text-overflow-elipsis" v-for="hint in $root.search.hints"
+                            @click="$root.search.term = hint;$root.search.showHints = false;$root.searchQuery(hint)">
+                        {{ hint }}
+                    </button>
+                </div>
+            </div>
+        </div>
         <div class="btn-group searchToggle">
             <button
                     @click="searchType = 'catalog'"
@@ -23,7 +40,7 @@
                             <div class="col">
                                 <h3>{{app.getLz('term.songs')}}</h3>
                             </div>
-                            <div class="col-auto flex-center"
+                            <div class="col-auto cider-flex-center"
                                  @click="app.showSearchView(app.search.term, 'song', app.friendlyTypes('song'))"
                                  v-if="search.results.song.data.length >= 12">
                                 <button class="cd-btn-seeall">{{app.getLz('term.seeAll')}}</button>
@@ -43,7 +60,7 @@
                             <div class="col">
                                 <h3>{{ app.friendlyTypes(section) }}</h3>
                             </div>
-                            <div class="col-auto flex-center" v-if="search.results[section].data.length >= 10">
+                            <div class="col-auto cider-flex-center" v-if="search.results[section].data.length >= 10">
                                 <button class="cd-btn-seeall"
                                         @click="app.showSearchView(app.search.term, section, app.friendlyTypes(section))">{{app.getLz('term.seeAll')}}
                                 </button>
@@ -64,7 +81,7 @@
                         <div class="col">
                             <h3>{{app.getLz('term.sharedPlaylists')}}</h3>
                         </div>
-                        <div class="col-auto flex-center" v-if="search.resultsSocial.playlist.data.length >= 10">
+                        <div class="col-auto cider-flex-center" v-if="search.resultsSocial.playlist.data.length >= 10">
                             <button class="cd-btn-seeall"
                                     @click="app.showCollection(search.resultsSocial.playlist, 'Shared Playlists', 'default')">{{app.getLz('term.seeAll')}}
                             </button>
@@ -78,7 +95,7 @@
                         <div class="col">
                             <h3>{{app.getLz('term.people')}}</h3>
                         </div>
-                        <div class="col-auto flex-center" v-if="search.resultsSocial.profile.data.length >= 10">
+                        <div class="col-auto cider-flex-center" v-if="search.resultsSocial.profile.data.length >= 10">
                             <button class="cd-btn-seeall"
                                     @click="app.showCollection(search.resultsSocial.profile, 'People', 'default')">{{app.getLz('term.seeAll')}}
                             </button>
@@ -102,7 +119,7 @@
                 </div>
             </template>
         </div>
-        <div v-else>
+        <div v-else >
            <div v-if="categoriesReady || getCategories()">
                 <div>
                     <div class="col" v-if="categoriesView != null && categoriesView != [] && categoriesView[0].attributes != null && categoriesView[0].attributes.title != null">
@@ -114,7 +131,9 @@
                     <!-- <mediaitem-square :kind="'385'" size="600" v-for="item in recentlyPlayed.limit(10)" :item="item" :imagesize="800"></mediaitem-square>-->
                         <h3>{{categoriesView[0].attributes.title.stringForDisplay ?? ""}}</h3>
                     </div>   
-                    <mediaitem-square :kind="'385'" size="600"
+                </div>
+                <div class="categories">
+                    <mediaitem-square :kind="'385'" :imageformat="'bb'" size="600"
                     :item="item ? (item.attributes.kind ? item : ((item.relationships && item.relationships.contents ) ? item.relationships.contents.data[0] : item)) : []"
                     :imagesize="800"
                     v-for="item of getFlattenedCategories()">
