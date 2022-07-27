@@ -43,7 +43,7 @@
                         this.hls.detachMedia();
                     } else {
 
-                        this.hls = new Hls(config);
+                        this.hls = new CiderHls(config);
                     }
                     // bind them together
                     if (this.$refs.video) {
