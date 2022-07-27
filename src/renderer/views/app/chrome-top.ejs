@@ -252,9 +252,9 @@
       <div class="app-chrome-item search">
         <div class="search-input-container">
           <div class="search-input--icon"></div>
-          <input type="search" spellcheck="false" @click="showSearch()" @focus="search.showHints = true"
+          <input type="search" spellcheck="false" @click="$root.appRoute('search')" @focus="search.showHints = true"
             @blur="setTimeout(()=>{search.showHints = false}, 300)"
-            v-on:keyup.enter="searchQuery();search.showHints = false" @change="showSearch();" @input="getSearchHints()"
+            v-on:keyup.enter="searchQuery();search.showHints = false" @change="$root.showSearch();" @input="getSearchHints()"
             :placeholder="$root.getLz('term.search') + '...'" v-model="search.term" ref="searchInput"
             class="search-input" />
 
