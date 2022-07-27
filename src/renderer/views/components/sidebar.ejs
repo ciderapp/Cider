@@ -7,11 +7,11 @@
                     <input
                             type="search"
                             spellcheck="false"
-                            @click="app.appRoute('search');"
+                            @click="$root.appRoute('search');"
                             @focus="$root.search.showHints = true"
                             @blur="$root.setTimeout(()=>{$root.search.showHints = false}, 300)"
                             v-on:keyup.enter="$root.searchQuery();$root.search.showHints = false"
-                            @change="app.appRoute('search');"
+                            @change="$root.appRoute('search');"
                             @input="$root.getSearchHints()"
                             :placeholder="$root.getLz('term.search') + '...'"
                             v-model="$root.search.term"
