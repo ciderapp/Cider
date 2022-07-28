@@ -149,27 +149,27 @@
                    v-b-tooltip.hover :title="formatVolumeTooltip()">
         </div>
         <div class="app-chrome-item generic">
-            <button class="playback-button--small cast" v-ripple
+            <button class="playback-button--small cast" 
                     :title="$root.getLz('term.cast')"
                     v-b-tooltip.hover
                     @click="cfg.advanced.AudioContext ? modals.castMenu = true : (cfg.advanced.AudioContext = true, modals.castMenu = true)"></button>
         </div>
         <div class="app-chrome-item generic">
-            <button class="playback-button--small queue" v-ripple :class="{'active': drawer.panel == 'queue'}"
+            <button class="playback-button--small queue"  :class="{'active': drawer.panel == 'queue'}"
                     :title="$root.getLz('term.queue')"
                     v-b-tooltip.hover
                     @click="invokeDrawer('queue')"></button>
         </div>
         <div class="app-chrome-item generic">
             <template v-if="lyrics && lyrics != [] && lyrics.length > 0">
-                <button class="playback-button--small lyrics" v-ripple
+                <button class="playback-button--small lyrics" 
                         :title="$root.getLz('term.lyrics')"
                         v-b-tooltip.hover
                         :class="{'active': drawer.panel == 'lyrics'}"
                         @click="invokeDrawer('lyrics')"></button>
             </template>
             <template v-else>
-                <button class="playback-button--small lyrics" v-ripple
+                <button class="playback-button--small lyrics" 
                         :style="{'opacity': 0.3, 'pointer-events': 'none'}"></button>
             </template>
 

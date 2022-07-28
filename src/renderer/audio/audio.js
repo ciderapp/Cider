@@ -50,7 +50,7 @@ const CiderAudio = {
     connectContext: function (mediaElem) {
         if (!CiderAudio.context) {
             CiderAudio.context = new window.AudioContext({ sampleRate: 96000, latencyHint: "playback"}); // Don't ever remove the sample rate arg. Ask Maikiwi.
-            app.lyricOffset = CiderAudio.context.baseLatency + CiderAudio.context.outputLatency
+            app.lyricOffset = CiderAudio.context.baseLatency + (CiderAudio.context.outputLatency ? CiderAudio.context.outputLatency : 0)
         }
         if (!CiderAudio.source) {
             CiderAudio.source = CiderAudio.context.createMediaElementSource(mediaElem);
