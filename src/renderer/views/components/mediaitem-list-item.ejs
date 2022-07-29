@@ -143,7 +143,7 @@
                 return color
             },
             async checkLibrary() {
-                if ((this.item?.id ?? '').toString().startsWith('ciderlocal')){
+                if ((this.item?.id ?? '').toString().startsWith('ciderlocal')) {
                     return true
                 }
                 if (this.addedToLibrary) { return this.addedToLibrary }
@@ -408,7 +408,7 @@
                                 "icon": "./assets/arrow-bend-up.svg",
                                 "action": function () {
                                     let type = self.item.attributes.playParams?.kind ?? self.item.type
-                                    if (type == "podcast-episodes") {type = "episode"}
+                                    if (type == "podcast-episodes") { type = "episode" }
                                     app.mk.playNext({ [type]: self.item.attributes.playParams?.id ?? self.item.id })
                                     app.mk.queue._reindex()
                                     app.selectedMediaItems = []
@@ -419,7 +419,7 @@
                                 "icon": "./assets/arrow-bend-down.svg",
                                 "action": function () {
                                     let type = self.item.attributes.playParams?.kind ?? self.item.type
-                                    if (type == "podcast-episodes") {type = "episode"}
+                                    if (type == "podcast-episodes") { type = "episode" }
                                     app.mk.playLater({ [type]: self.item.attributes.playParams?.id ?? self.item.id })
                                     app.mk.queue._reindex()
                                     app.selectedMediaItems = []
@@ -452,10 +452,16 @@
                             {
                                 "icon": "./assets/feather/share.svg",
                                 "name": app.getLz('action.share'),
-                                "action": function () {
-                                    if (!self.item.attributes.url && self.item.relationships) {
-                                        if (self.item.relationships.catalog) {
-                                            app.mkapi(self.item.attributes.playParams?.kind, false, self.item.relationships.catalog.data[0].id).then(u => { self.app.copyToClipboard((u.data.data.length && u.data.data.length > 0) ? u.data.data[0].attributes.url : u.data.data.attributes.url) })
+                                "action": async function () {
+                                    let item = self.item
+                                    if (!item.attributes.url) {
+                                        if (item.type.includes("library")) {
+                                            let result = (await app.mk.api.v3.music(`/v1/me/library/${item.type.replace("library-", '')}/${item.id}/catalog`)).data.data[0]
+                                            if(result.attributes.url) {
+                                                self.app.copyToClipboard(result.attributes.url)
+                                            }else{
+                                                notyf.error("Failed to get share URL")
+                                            }
                                         }
                                     } else {
                                         self.app.copyToClipboard(self.item.attributes.url)
@@ -465,10 +471,16 @@
                             {
                                 "icon": "./assets/feather/share.svg",
                                 "name": `${app.getLz('action.share')} (song.link)`,
-                                "action": function () {
-                                    if (!self.item.attributes.url && self.item.relationships) {
-                                        if (self.item.relationships.catalog) {
-                                            app.mkapi(self.item.attributes.playParams?.kind, false, self.item.relationships.catalog.data[0].id).then(u => { self.app.songLinkShare((u.data.data.length && u.data.data.length > 0) ? u.data.data[0].attributes.url : u.data.data.attributes.url) })
+                                "action": async function () {
+                                    let item = self.item
+                                    if (!item.attributes.url) {
+                                        if (item.type.includes("library")) {
+                                            let result = (await app.mk.api.v3.music(`/v1/me/library/${item.type.replace("library-", '')}/${item.id}/catalog`)).data.data[0]
+                                            if(result.attributes.url) {
+                                                self.app.copyToClipboard(result.attributes.url)
+                                            }else{
+                                                notyf.error("Failed to get share URL")
+                                            }
                                         }
                                     } else {
                                         self.app.songLinkShare(self.item.attributes.url)
