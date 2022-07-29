@@ -168,6 +168,14 @@ export class AppEvents {
                 utils.getWindow().webContents.executeJavaScript(`ipcRenderer.send('lastfm:auth', "${authURI.split('lastfm?token=')[1]}")`).catch(console.error)
             }
         }
+        else if (arg.includes('playpause')) {
+            //language=JS
+            utils.getWindow().webContents.executeJavaScript('MusicKitInterop.playPause()')
+        }
+        else if (arg.includes('nextitem')) {
+            //language=JS
+            utils.getWindow().webContents.executeJavaScript('app.mk.skipToNextItem()')
+        }
         // Play
         else if (arg.includes('/play/')) { //Steer away from protocol:// specific conditionals
             const playParam = arg.split('/play/')[1]
