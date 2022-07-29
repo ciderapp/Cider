@@ -153,7 +153,7 @@ export class LocalFiles {
                             //     "reporting": false },
                             "trackNumber": metadata.track_number ?? 0,
                             "discNumber": metadata.disc_number ?? 0,
-                            "name": metadata.title ?? audio.substring(audio.lastIndexOf('\\') + 1),
+                            "name": metadata.title == 0 ? audio.substring(audio.lastIndexOf('\\') + 1) : metadata.title,
                             "albumName": metadata.album,
                             "artistName": metadata.artist,
                             "copyright": metadata.copyright ?? "",
