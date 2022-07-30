@@ -1469,8 +1469,6 @@ export class BrowserWindow {
             }
         });
 
-
-        // let isQuiting = false
         win.on("minimize", (e: any) => {
             console.log("[Window - App.ts]", "Minimized")
             if (process.platform !== "darwin" && utils.getStoreValue("general.close_button_hide")) {
@@ -1487,16 +1485,16 @@ export class BrowserWindow {
                 e.preventDefault()
                 win.hide()
             }
-            win.webContents.executeJavaScript(` 
-            window.localStorage.setItem("currentTrack", JSON.stringify(app.mk.nowPlayingItem));
-            window.localStorage.setItem("currentTime", JSON.stringify(app.mk.currentPlaybackTime));
-            window.localStorage.setItem("currentQueue", JSON.stringify(app.mk.queue._unplayedQueueItems));
-            ipcRenderer.send('stopGCast','');`)
         })
 
         app.on('before-quit', () => {
             console.log("[Window - App.ts] Before Quit")
-            isQuitting = true
+            isQuitting = true;
+            win.webContents.executeJavaScript(`
+            window.localStorage.setItem("currentTrack", JSON.stringify(app.mk.nowPlayingItem));
+            window.localStorage.setItem("currentTime", JSON.stringify(app.mk.currentPlaybackTime));
+            window.localStorage.setItem("currentQueue", JSON.stringify(app.mk.queue._unplayedQueueItems));
+            ipcRenderer.send('stopGCast','');`)
         });
 
         app.on('activate', function () {
@@ -1510,22 +1508,6 @@ export class BrowserWindow {
                 app.quit()
             }
         })
-
-        // BrowserWindow.win.on("close", (event: Event) => {
-        //     if ((utils.getStoreValue('general.close_button_hide') || process.platform === "darwin") && !isQuiting) {
-        //         event.preventDefault();
-        //         BrowserWindow.win.hide();
-        //     } else {
-                // BrowserWindow.win.webContents.executeJavaScript(` 
-                // window.localStorage.setItem("currentTrack", JSON.stringify(app.mk.nowPlayingItem));
-                // window.localStorage.setItem("currentTime", JSON.stringify(app.mk.currentPlaybackTime));
-                // window.localStorage.setItem("currentQueue", JSON.stringify(app.mk.queue._unplayedQueueItems));
-                // ipcRenderer.send('stopGCast','');`)
-                // BrowserWindow.win.destroy();
-        //     }
-        // })
-
-
 
         // Set window Handler
         BrowserWindow.win.webContents.setWindowOpenHandler((x: any) => {

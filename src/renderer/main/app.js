@@ -19,10 +19,6 @@ window.CiderCache = CiderCache
 window.CiderFrontAPI = CiderFrontAPI
 window.wsapi = wsapi
 
-window.onbeforeunload = () => {
-    console.log("[app] onbeforeunload")
-}
-
 if (app.cfg.advanced.disableLogging === true) {
     window.console = {
         log: function() {},
