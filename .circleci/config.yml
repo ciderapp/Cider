@@ -17,7 +17,7 @@ jobs:
       - checkout
       - run:
           name: Install buildtools
-          command: apt-get install autoconf automake g++ libtool || true
+          command: sudo apt-get install autoconf automake g++ libtool || true
       - run:
           name: Update Version Number of App
           command: sudo chmod +x resources/version.sh && ./resources/version.sh || true
