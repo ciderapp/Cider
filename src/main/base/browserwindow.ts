@@ -1469,36 +1469,26 @@ export class BrowserWindow {
             }
         });
 
-        win.on("minimize", (e: any) => {
-            console.log("[Window - App.ts]", "Minimized")
-            if (process.platform !== "darwin" && utils.getStoreValue("general.close_button_hide")) {
-                console.log("Minimizing")
-                e.preventDefault()
-                win.hide();
-            }
-        })
-
         win.on("close", (e: any) => {
-            console.log("[Window - App.ts] Closing")
-            if (process.platform === "darwin" && !isQuitting) {
-                console.log("[Window - App.ts]", "hide on close");
+            if ((process.platform === "darwin" || utils.getStoreValue("general.close_button_hide")) && !isQuitting) {
                 e.preventDefault()
                 win.hide()
             }
         })
 
-        app.on('before-quit', () => {
-            console.log("[Window - App.ts] Before Quit")
-            isQuitting = true;
+        win.on("closed", (_: any) => {
             win.webContents.executeJavaScript(`
             window.localStorage.setItem("currentTrack", JSON.stringify(app.mk.nowPlayingItem));
             window.localStorage.setItem("currentTime", JSON.stringify(app.mk.currentPlaybackTime));
             window.localStorage.setItem("currentQueue", JSON.stringify(app.mk.queue._unplayedQueueItems));
             ipcRenderer.send('stopGCast','');`)
+        })
+
+        app.on('before-quit', () => {
+            isQuitting = true;
         });
 
         app.on('activate', function () {
-            console.log("[Window - App.ts] Activate")
             win.show()
         });
 
