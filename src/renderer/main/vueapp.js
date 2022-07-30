@@ -949,12 +949,6 @@ const app = new Vue({
                 }
             });
 
-            this.mk.addEventListener(MusicKit.Events.playbackProgressDidChange, () => {
-                if (self.mk.currentPlaybackProgress === (app.cfg.connectivity.lastfm.scrobble_after / 100)) {
-                    ipcRenderer.send('lastfm:scrobbleTrack', MusicKitInterop.getAttributes());
-                }
-            })
-
             this.mk.addEventListener(MusicKit.Events.playbackStateDidChange, (event) => {
                 ipcRenderer.send('wsapi-updatePlaybackState', wsapi.getAttributes());
                 document.body.setAttribute("playback-state", event.state == 2 ? "playing" : "paused")
