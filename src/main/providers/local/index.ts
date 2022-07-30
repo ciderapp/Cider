@@ -48,7 +48,8 @@ export class LocalFiles {
         let metadatalist = []
         let metadatalistart = []
         let numid = 0;
-
+        mmQueue = mmQueue.concat(parseFileQueue)
+        parseFileQueue = []
         // Music Metadata fallback
         for (var audio of mmQueue) {
             try {

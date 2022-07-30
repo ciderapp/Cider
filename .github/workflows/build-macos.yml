@@ -91,6 +91,7 @@ jobs:
       run: |
         rm cider-yarn.lock || true
         xcodebuild -version
+        brew install autoconf automake libtool
         yarn install
         cp resources/verror-types node_modules/@types/verror/index.d.ts
         cp resources/macPackager.js node_modules/app-builder-lib/out/macPackager.js 
