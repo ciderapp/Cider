@@ -3,7 +3,7 @@
     <div class="modal-window airplay-modal">
         <div class="modal-header">
             <div class="modal-title">{{'Enter password'}}</div>
-            <button class="close-btn" @click="close()" :aria-label="app.getLz('action.close')"></button>
+            <button class="close-btn" @click="close()" :aria-label="this.$root.getLz('action.close')"></button>
         </div>
     <div class="modal-content" style="overflow-y: overlay; padding: 3%">
         <input type="text" v-model="passcode"/>
