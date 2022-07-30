@@ -1183,11 +1183,6 @@ export class BrowserWindow {
             app.quit();
         })
 
-        app.on('before-quit', () => {
-
-        })
-
-
         ipcMain.on('play', (_event, type, id) => {
             BrowserWindow.win.webContents.executeJavaScript(`
 			    MusicKit.getInstance().setQueue({ ${type}: '${id}', parameters : {l : app.mklang}}).then(function(queue) {

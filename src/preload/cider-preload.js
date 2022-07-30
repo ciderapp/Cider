@@ -22,7 +22,7 @@ const MusicKitInterop = {
 			ipcRenderer.send('wsapi-updatePlaybackState', attributes);
 			// lastfm call
 			if (app.mk.currentPlaybackProgress === (app.cfg.connectivity.lastfm.scrobble_after / 100)) {
-				attributes.primaryArtist = app.cfg.connectivity.lastfm.enabled ? await this.fetchPrimaryArtist(attributes.artistName) : attributes.artistName;
+				attributes.primaryArtist = (app.cfg.connectivity.lastfm.enabled && app.cfg.connectivity.lastfm.remove_featured) ? await this.fetchPrimaryArtist(attributes.artistName) : attributes.artistName;
 				ipcRenderer.send('lastfm:scrobbleTrack', attributes);
 			}
 		});
@@ -36,7 +36,7 @@ const MusicKitInterop = {
 		MusicKit.getInstance().addEventListener(MusicKit.Events.nowPlayingItemDidChange, async () => {
 			console.debug('[cider:preload] nowPlayingItemDidChange')
 			const attributes = MusicKitInterop.getAttributes()
-			attributes.primaryArtist = app.cfg.connectivity.lastfm.enabled ? await this.fetchPrimaryArtist(attributes.artistName) : attributes.artistName;
+			attributes.primaryArtist = (app.cfg.connectivity.lastfm.enabled && app.cfg.connectivity.lastfm.remove_featured) ? await this.fetchPrimaryArtist(attributes.artistName) : attributes.artistName;
 
 			if (MusicKitInterop.filterTrack(attributes, false, true)) {
 				global.ipcRenderer.send('nowPlayingItemDidChange', attributes);
