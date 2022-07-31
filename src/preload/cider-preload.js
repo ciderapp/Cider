@@ -44,6 +44,10 @@ const MusicKitInterop = {
 				global.ipcRenderer.send('lastfm:nowPlayingChange', attributes);
 			}
 
+			if (app.cfg.general.playbackNotifications && !document.hasFocus() && attributes.artistName && attributes.artwork && attributes.name) {
+				global.ipcRenderer.send('playbackNotifications:create', attributes);
+			}
+
 			if (MusicKit.getInstance().nowPlayingItem) {
 				await this.sleep(750);
 				MusicKit.getInstance().playbackRate = app.cfg.audio.playbackRate;
