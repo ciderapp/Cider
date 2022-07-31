@@ -36,6 +36,10 @@ export default class playbackNotifications {
                     {
                         'type': 'button',
                         'text': 'Play/Pause'
+                    },
+                    {
+                        'type': 'button',
+                        'text': 'Next'
                     }
                 ],
                 toastXml: `<toast>
