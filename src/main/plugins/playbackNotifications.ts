@@ -25,22 +25,6 @@ export default class playbackNotifications {
             this._notification.close();
         }
         const artworkUrl = a.artwork.url.replace('/{w}x{h}bb', '/512x512bb').replace('/2000x2000bb', '/35x35bb')
-        console.log(artworkUrl)
-        const toastXML = `
-        <toast>
-            <visual>
-                <binding template="ToastGeneric">
-                    <image placement="appLogoOverride" src="${artworkUrl}"/>
-                    <text id="1">${a?.name.replace(/&/g, '&amp;')}</text>
-                    <text id="2">${a?.artistName.replace(/&/g, '&amp;')} — ${a?.albumName.replace(/&/g, '&amp;')}</text>
-                </binding>
-            </visual>
-            <actions>
-                <action content="Play/Pause" activationType="protocol" arguments="cider://playpause/"/>
-                <action content="Next" activationType="protocol" arguments="cider://nextitem/"/>
-            </actions>
-        </toast>`
-        console.log(toastXML)
         fetch(artworkUrl).then(async blob => {
             const artworkImage = nativeImage.createFromBuffer(Buffer.from(await blob.arrayBuffer()));
             this._notification = new Notification({
@@ -59,7 +43,20 @@ export default class playbackNotifications {
                         'text': 'Next'
                     }
                 ],
-                toastXml: toastXML
+                toastXml: `
+                <toast>
+                    <visual>
+                        <binding template="ToastText02">
+                            <!-- <image id="1" src="${artworkUrl}" alt="img"/> -->
+                            <text id="1">${a?.name.replace(/&/g, '&amp;')}</text>
+                            <text id="2">${a?.artistName.replace(/&/g, '&amp;')} — ${a?.albumName.replace(/&/g, '&amp;')}</text>
+                        </binding>
+                    </visual>
+                    <actions>
+                        <action content="Play/Pause" activationType="protocol" arguments="cider://playpause/"/>
+                        <action content="Next" activationType="protocol" arguments="cider://nextitem/"/>
+                    </actions>
+                </toast>`
             });
             this._notification.on('click', (event: any) => {
                 this._utils.getWindow().show()
