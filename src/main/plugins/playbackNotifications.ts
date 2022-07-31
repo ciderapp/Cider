@@ -36,10 +36,6 @@ export default class playbackNotifications {
                     {
                         'type': 'button',
                         'text': 'Play/Pause'
-                    },
-                    {
-                        'type': 'button',
-                        'text': 'Next'
                     }
                 ],
                 toastXml: `<toast>
@@ -64,9 +60,9 @@ export default class playbackNotifications {
                 this._notification = undefined;
             })
             this._notification.on('action', (event: any, action: any) => {
-                if (action === 'Play/Pause') {
+                if (action === 0) {
                     this._utils.playback.playPause()
-                } else if (action === 'Next') {
+                } else if (action === 1) {
                     this._utils.playback.next()
                 }
             })
