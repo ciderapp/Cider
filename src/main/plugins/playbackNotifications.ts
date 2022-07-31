@@ -1,5 +1,6 @@
 import fetch from "electron-fetch";
 import {nativeImage, Notification} from "electron";
+import NativeImage = Electron.NativeImage;
 
 export default class playbackNotifications {
 
@@ -15,6 +16,8 @@ export default class playbackNotifications {
 
     private _utils: any;
     private _notification: Notification | undefined;
+    private _artworkImage: { [key: string]: NativeImage } = {};
+    private _artworkNums: Array<string> = [];
 
     /**
      * Creates playback notification
@@ -24,30 +27,28 @@ export default class playbackNotifications {
         if (this._notification) {
             this._notification.close();
         }
-        fetch(a.artwork.url.replace('/{w}x{h}bb', '/512x512bb').replace('/2000x2000bb', '/35x35bb')).then(async blob => {
-            const artworkImage = nativeImage.createFromBuffer(Buffer.from(await blob.arrayBuffer()));
-            this._notification = new Notification({
-                title: a.name,
-                body: `${a.artistName} — ${a.albumName}`,
-                silent: true,
-                icon: artworkImage,
-                urgency: 'low',
-                actions: [
-                    {
-                        'type': 'button',
-                        'text': 'Play/Pause'
-                    },
-                    {
-                        'type': 'button',
-                        'text': 'Next'
-                    }
-                ],
-                toastXml: `<toast>
+
+        this._notification = new Notification({
+            title: a.name,
+            body: `${a.artistName} — ${a.albumName}`,
+            silent: true,
+            icon: this._artworkImage[a.artwork.url],
+            urgency: 'low',
+            actions: [
+                {
+                    'type': 'button',
+                    'text': 'Play/Pause'
+                },
+                {
+                    'type': 'button',
+                    'text': 'Next'
+                }
+            ],
+            toastXml: `<toast>
                         <visual>
                             <binding template="ToastGeneric">
                                 <text id="1">${a.name ?? ''}</text>
-                                <text id="2">${a.artistName ?? ''} - ${a.albumName ?? ''
-                }</text>
+                                <text id="2">${a.artistName ?? ''} - ${a.albumName ?? ''}</text>
                             </binding>
                         </visual>
                         <actions>
@@ -55,26 +56,29 @@ export default class playbackNotifications {
                             <action content="Next" activationType="protocol" arguments="cider://nextitem/"/>
                         </actions>
                     </toast>`
-            });
-            this._notification.on('click', (event: any) => {
-                this._utils.getWindow().show()
-                this._utils.getWindow().focus()
-            })
-            this._notification.on('close', (event: any) => {
-                this._notification = undefined;
-            })
-            this._notification.on('action', (event: any, action: any) => {
-                if (action === 'Play/Pause') {
-                    this._utils.playback.playPause()
-                } else if (action === 'Next') {
-                    this._utils.playback.next()
-                }
-            })
+        });
 
-            this._notification.show();
-
+        this._notification.on('click', (event: any) => {
+            this._utils.getWindow().show()
+            this._utils.getWindow().focus()
         })
+
+        this._notification.on('close', (event: any) => {
+            this._notification = undefined;
+        })
+
+        this._notification.on('action', (event: any, action: any) => {
+            if (action === 'Play/Pause') {
+                this._utils.playback.playPause()
+            } else if (action === 'Next') {
+                this._utils.playback.next()
+            }
+        })
+
+        this._notification.show();
+
     }
+
 
     /*******************************************************************************************
      * Public Methods
@@ -88,7 +92,22 @@ export default class playbackNotifications {
         console.debug(`[Plugin][${this.name}] Loading Complete.`);
 
         utils.getIPCMain().on('playbackNotifications:create', (event: any, a: any) => {
-            this.createNotification(a);
+            a.artwork.url = a.artwork.url.replace('/{w}x{h}bb', '/512x512bb').replace('/2000x2000bb', '/35x35bb');
+
+            if (this._artworkNums.length > 20) {
+                delete this._artworkImage[this._artworkNums[0]];
+                this._artworkNums.shift();
+            }
+
+            if (this._artworkImage[a.artwork.url]) {
+                this.createNotification(a);
+            } else {
+                fetch(a.artwork.url).then(async blob => {
+                    this._artworkImage[a.artwork.url] = nativeImage.createFromBuffer(Buffer.from(await blob.arrayBuffer()));
+                    this._artworkNums[this._artworkNums.length] = a.artwork.url;
+                    this.createNotification(a);
+                });
+            }
         })
     }
 
