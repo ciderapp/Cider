@@ -1074,17 +1074,6 @@ const app = new Vue({
                 app.getNowPlayingArtworkBG(32);
                 app.loadLyrics();
 
-                // Playback Notifications
-                if (this.cfg.general.playbackNotifications && !document.hasFocus() && a.artistName && a.artwork && a.name) {
-                    if (this.notification) {
-                        this.notification.close()
-                    }
-                    this.notification = new Notification(a.name, {
-                        body: `${a.artistName} — ${a.albumName}`,
-                        icon: a.artwork.url.replace('/{w}x{h}bb', '/512x512bb').replace('/2000x2000bb', '/35x35bb'),
-                        silent: true,
-                    });
-                }
                 setTimeout(() => {
                     let i = (document.querySelector('#apple-music-player')?.src ?? "")
                     if (i.endsWith(".m3u8") || i.endsWith(".m3u")) {
