@@ -65,7 +65,7 @@
           </button>
           <button
             class="usermenu-item"
-            @click="cfg.advanced.AudioContext ? modals.castMenu = true :(cfg.advanced.AudioContext = true, modals.castMenu = true)"
+            @click="modals.castMenu = true"
           >
             <span class="usermenu-item-icon">
               <%- include("../svg/cast.svg") %>
@@ -76,7 +76,7 @@
           </button>
           <button
             class="usermenu-item"
-            @click="cfg.advanced.AudioContext ? modals.audioSettings = true : (cfg.advanced.AudioContext = true, modals.audioSettings = true)"
+            @click="modals.audioSettings = true"
           >
             <span class="usermenu-item-icon">
               <%- include("../svg/headphones.svg") %>

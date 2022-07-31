@@ -1007,8 +1007,8 @@ const app = new Vue({
                     try {localStorage.setItem("playingBitrate", app.mk.nowPlayingItem.flavor)}
                     catch(e) {}
                 }
-                if (!app.cfg.audio.normalization && app.cfg.advanced.AudioContext === false) { CiderAudio.hierarchical_loading(); }
-   
+
+                if (app.cfg.audio.normalization === false) { CiderAudio.hierarchical_loading(); } // Just Reload for Adaptive CAP if norm is off
                 else {
                     // get unencrypted audio previews to get SoundCheck's normalization tag
                     try {
@@ -4354,7 +4354,7 @@ const app = new Vue({
                             "id": "equalizer",
                             "icon": "../views/svg/speaker.svg",
                             "name": app.getLz('term.equalizer'),
-                            "hidden": true,
+                            "hidden": false,
                             "action": function () {
                                 app.modals.equalizer = true
                                 app.modals.audioSettings = false
@@ -4364,7 +4364,7 @@ const app = new Vue({
                             "id": "audioLab",
                             "icon": "../views/svg/speaker.svg",
                             "name": app.getLz('settings.option.audio.audioLab'),
-                            "hidden": true,
+                            "hidden": false,
                             "action": function () {
                                 app.openSettingsPage('audiolabs')
                             }
@@ -4372,10 +4372,12 @@ const app = new Vue({
                     ]
                 }
             }
+            /* 
             if (this.cfg.advanced.AudioContext) {
                 menus.normal.items.find(i => i.id === 'audioLab').hidden = false
                 menus.normal.items.find(i => i.id === 'equalizer').hidden = false
             }
+            */
             if (this.contextExt) {
                 if (this.contextExt.normal) {
                     menus.normal.items = menus.normal.items.concat(this.contextExt.normal)

@@ -6,15 +6,7 @@
                     <b-jumbotron :header="$root.getLz('settings.option.audio.audioLab')"
                                  lead="Designed by Cider Acoustic Technologies in California"></b-jumbotron>
                 </div>
-                <div class="md-option-line" v-show="app.cfg.advanced.AudioContext === false">
-                    <div class="md-option-segment">
-                        {{$root.getLz('settings.warn.audioLab.withoutAF')}}
-                    </div>
-                    <button class="md-btn" style="margin-top: 5px;" onclick="app.appRoute('settings')">
-                        {{$root.getLz('term.settings')}}
-                    </button>
-                </div>
-                <div class="md-option-line" v-show="app.cfg.advanced.AudioContext === true">
+                <div class="md-option-line">
                     <div class="md-option-segment">
                         {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPE')}}
                         <br>
@@ -44,7 +36,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="md-option-line" v-show="app.cfg.advanced.AudioContext === true">
+                <div class="md-option-line">
                     <div class="md-option-segment">
                         Cider Opportunistic Correction System
                         <br>
@@ -59,7 +51,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="md-option-line" v-show="app.cfg.advanced.AudioContext === true">
+                <div class="md-option-line">
                     <div class="md-option-segment">
                         {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizer')}} [1]
                         <br>
@@ -84,7 +76,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="md-option-line" v-show="app.cfg.advanced.AudioContext === true">
+                <div class="md-option-line">
                     <div class="md-option-segment">
                         {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.atmosphereRealizer')}} [2]
                         <br>
@@ -109,7 +101,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="md-option-line" v-show="app.cfg.advanced.AudioContext === true">
+                <div class="md-option-line">
                     <div class="md-option-segment">
                         {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization')}}
                         <br>
@@ -139,7 +131,7 @@
                     <div class="md-option-header">
                         <span>{{$root.getLz('settings.header.unfinished')}}</span>
                     </div>
-                    <div class="md-option-line" v-show="app.cfg.advanced.AudioContext === true">
+                    <div class="md-option-line">
                         <div class="md-option-segment">
                             Cider Origami™️ Vocal Enhancer/Remasterer
                             <br>

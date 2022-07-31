@@ -99,19 +99,6 @@
                         <div class="settings-option-body">
                             <div class="md-option-line">
                                 <div class="md-option-segment">
-                                    {{getLz('settings.option.audio.enableAdvancedFunctionality')}}
-                                    <br>
-                                    <small>{{getLz('settings.option.audio.enableAdvancedFunctionality.description')}}</small>
-                                </div>
-                                <div class="md-option-segment md-option-segment_auto">
-                                    <label>
-                                        <input type="checkbox" v-model="$root.cfg.advanced.AudioContext"
-                                               switch/>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="md-option-line" v-show="$root.cfg.advanced.AudioContext === true">
-                                <div class="md-option-segment">
                                     {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPE')}}
                                     <br>
                                     <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPE.description')}}</small>

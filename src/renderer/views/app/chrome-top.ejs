@@ -231,7 +231,7 @@
       </div>
       <div class="app-chrome-item generic">
         <button class="playback-button--small cast" :title="$root.getLz('term.cast')" 
-          @click="cfg.advanced.AudioContext ? modals.castMenu = true : (cfg.advanced.AudioContext = true, modals.castMenu = true)"
+          @click="modals.castMenu = true"
           v-b-tooltip.hover></button>
       </div>
       <div class="app-chrome-item generic">
