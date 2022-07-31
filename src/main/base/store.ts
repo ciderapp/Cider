@@ -65,6 +65,7 @@ export class Store {
                 ],
                 "albums": [
                     "CommandOrControl",
+                    process.platform == "darwin" ? "Option" : (process.platform == "linux" ? "Shift" : "Alt"),
                     "A"
                 ],
                 "artists": [
