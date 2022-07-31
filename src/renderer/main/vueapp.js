@@ -1881,27 +1881,7 @@ const app = new Vue({
 
                 return dDisplay + (dDisplay && hDisplay ? ", " : "") + hDisplay + (hDisplay && mDisplay ? ", " : "") + mDisplay;
             } else {
-                let returnTime = datetime.toISOString().substring(11, 19);
-
-                const timeGates = {
-                    600: 15, // 10 Minutes
-                    3600: 14, // Hour
-                    36000: 12, // 10 Hours
-                }
-
-                for (let key in timeGates) {
-                    if (seconds < key) {
-                        returnTime = datetime.toISOString().substring(timeGates[key], 19)
-                        break
-                    }
-                }
-
-                // Add the days on the front
-                if (seconds >= 86400) {
-                    returnTime = parseInt(datetime.toISOString().substring(8, 10)) - 1 + ":" + returnTime
-                }
-
-                return returnTime
+                return MusicKit.formatMediaTime(seconds);
             }
         },
         hashCode(str) {
