@@ -44,33 +44,37 @@ export default class playbackNotifications {
                     'text': 'Next'
                 }
             ],
-            toastXml: `<toast>
-                        <visual>
-                            <binding template="ToastGeneric">
-                                <text id="1">${a.name ?? ''}</text>
-                                <text id="2">${a.artistName ?? ''} - ${a.albumName ?? ''}</text>
-                            </binding>
-                        </visual>
-                        <actions>
-                            <action content="Play/Pause" activationType="protocol" arguments="cider://playpause/"/>
-                            <action content="Next" activationType="protocol" arguments="cider://nextitem/"/>
-                        </actions>
-                    </toast>`
+            toastXml: `
+                <toast>
+                    <visual>
+                        <binding template="ToastText02">
+                            <text id="1">${a?.name.replace(/&/g, '&amp;')}</text>
+                            <text id="2">${a?.artistName.replace(/&/g, '&amp;')} — ${a?.albumName.replace(/&/g, '&amp;')}</text>
+                        </binding>
+                    </visual>
+                    <actions>
+                        <action content="Play/Pause" activationType="protocol" arguments="cider://playpause/"/>
+                        <action content="Next" activationType="protocol" arguments="cider://nextitem/"/>
+                    </actions>
+                </toast>`
         });
 
-        this._notification.on('click', (event: any) => {
+        // image implementation in windows toasts
+        //<image id="1" src="path to image" alt="img"/>
+
+        this._notification.on('click', (_: any) => {
             this._utils.getWindow().show()
             this._utils.getWindow().focus()
         })
 
-        this._notification.on('close', (event: any) => {
+        this._notification.on('close', (_: any) => {
             this._notification = undefined;
         })
 
         this._notification.on('action', (event: any, action: any) => {
-            if (action === 'Play/Pause') {
+            if (action === 0) {
                 this._utils.playback.playPause()
-            } else if (action === 'Next') {
+            } else if (action === 1) {
                 this._utils.playback.next()
             }
         })
