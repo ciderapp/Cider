@@ -8,6 +8,8 @@ echo $COMMITSINCESTABLE
 CURRENT_VERSION=$(node -p -e "require('./package.json').version")
 echo $CURRENT_VERSION
 
+git log $LATEST_SHA
+
 #############################################################################################
 
 if [[ ($CIRCLE_BRANCH == "main" || $GITHUB_REF_NAME == "main") && $COMMITSINCESTABLE -gt 0 ]]; then
