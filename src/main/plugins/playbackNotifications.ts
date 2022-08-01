@@ -46,6 +46,7 @@ export default class playbackNotifications {
             ],
             toastXml: `
                 <toast>
+                    <audio silent="true" />
                     <visual>
                         <binding template="ToastText02">
                             <text id="1">${a?.name.replace(/&/g, '&amp;')}</text>
