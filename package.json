@@ -75,6 +75,7 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "run-script-os": "^1.1.6",
+    "request": "^2.88.2",
     "source-map-support": "^0.5.21",
     "ts-md5": "^1.2.11",
     "v8-compile-cache": "^2.3.0",
