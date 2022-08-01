@@ -48,6 +48,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
+          ref: ${{ github.sha }}
           submodules: true
 
       - name: Change Version
