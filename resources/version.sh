@@ -5,7 +5,7 @@ STABLE_SHA=$(curl -s https://api.github.com/repos/ciderapp/Cider/branches/stable
 COMMITSINCESTABLE=$(git rev-list $STABLE_SHA..$GITHUB_SHA --count)
 CURRENT_VERSION=$(node -p -e "require('./package.json').version")
 
-git rev-list --count
+git rev-list --all --count
 
 #############################################################################################
 
