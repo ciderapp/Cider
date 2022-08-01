@@ -50,6 +50,11 @@ jobs:
       with:
         submodules: true
 
+    - name: Change Version
+      run: |
+        sudo chmod +x resources/version.sh && ./resources/version.sh || true
+        git remote show origin
+
     # Initializes the CodeQL tools for scanning.
 #     - name: Initialize CodeQL
 #       uses: github/codeql-action/init@v1
@@ -77,9 +82,6 @@ jobs:
       run: |    
         python3 -m pip install --upgrade castlabs-evs
         python3 -m castlabs_evs.account refresh -A ${{ secrets.EVS_ACCOUNT_NAME }} -P ${{ secrets.EVS_PASSWD }} 
-
-    - name: Change Version
-      run: sudo chmod +x resources/version.sh && ./resources/version.sh || true
 
     - name : Build
       env:
