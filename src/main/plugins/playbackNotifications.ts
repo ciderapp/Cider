@@ -37,11 +37,7 @@ export default class playbackNotifications {
             actions: [
                 {
                     'type': 'button',
-                    'text': 'Play/Pause'
-                },
-                {
-                    'type': 'button',
-                    'text': 'Next'
+                    'text': `${this._utils.getLocale(this._utils.getStoreValue('general.language'), 'term.skip')}`
                 }
             ],
             toastXml: `
@@ -54,8 +50,8 @@ export default class playbackNotifications {
                         </binding>
                     </visual>
                     <actions>
-                        <action content="Play/Pause" activationType="protocol" arguments="cider://playpause/"/>
-                        <action content="Next" activationType="protocol" arguments="cider://nextitem/"/>
+                        <action content="${this._utils.getLocale(this._utils.getStoreValue('general.language'), 'term.playpause')}" activationType="protocol" arguments="cider://playpause/"/>
+                        <action content="${this._utils.getLocale(this._utils.getStoreValue('general.language'), 'term.next')}" activationType="protocol" arguments="cider://nextitem/"/>
                     </actions>
                 </toast>`
         });
@@ -73,11 +69,7 @@ export default class playbackNotifications {
         })
 
         this._notification.on('action', (event: any, action: any) => {
-            if (action === 0) {
-                this._utils.playback.playPause()
-            } else if (action === 1) {
-                this._utils.playback.next()
-            }
+            this._utils.playback.next()
         })
 
         this._notification.show();

@@ -525,3 +525,7 @@ Update 03/07/2022 20:00 UTC
 Update 25/07/2022 00:22 UTC
 
 * `settings.option.visual.compactArtistHeader`: Added to `en_US`
+
+Update 01/08/2022 13:00 UTC
+
+* `term.skip`: Added to `en_US`
