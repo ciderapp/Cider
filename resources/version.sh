@@ -1,16 +1,11 @@
 #!/bin/bash
 
-
-git rev-list origin..HEAD
-
 # DEBUGGING
 STABLE_SHA=$(curl -s https://api.github.com/repos/ciderapp/Cider/branches/stable | grep sha | cut -d '"' -f 4 | sed 's/v//' | xargs | cut -d' ' -f1 | head -n 1)
-echo $STABLE_SHA
 COMMITSINCESTABLE=$(git rev-list $STABLE_SHA..$GITHUB_SHA --count)
-echo $COMMITSINCESTABLE
 CURRENT_VERSION=$(node -p -e "require('./package.json').version")
-echo $CURRENT_VERSION
 
+git rev-list --count
 
 #############################################################################################
 
