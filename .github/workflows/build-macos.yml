@@ -13,7 +13,7 @@ name: "macOS build"
 
 on:
   push:
-    branches: [ enhancement/macosBuilds ]
+    branches: [ enhancement/ci ]
     paths-ignore:
     - 'README.md'
     - 'SECURITY.md'
