@@ -13,7 +13,7 @@ name: "macOS build"
 
 on:
   push:
-    branches: [ main ]
+    branches: [ enhancement/macosBuilds ]
     paths-ignore:
     - 'README.md'
     - 'SECURITY.md'
@@ -24,7 +24,7 @@ on:
     - cron: '44 20 * * 1'
 
 jobs:
-  analyze:
+  build-macos:
     name: macOS build
     runs-on: macos-11
     permissions:
@@ -43,11 +43,11 @@ jobs:
     steps:
     - uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: '12.4' 
-        
+        xcode-version: '12.4'
+
     - name: Checkout repository
       uses: actions/checkout@v2
-      with: 
+      with:
         submodules: true
 
     # Initializes the CodeQL tools for scanning.
@@ -66,22 +66,22 @@ jobs:
     # ✏️ If the Autobuild fails above, remove it and uncomment the following three lines
     #    and modify them (or add more) to build your code if your project
     #    uses a compiled language
-    
+
 #     - name : env
-#       run: | 
-#         export EVS_ACCOUNT_NAME=${{ secrets.EVS_ACCOUNT_NAME}} && export EVS_PASSWD=${{ secrets.EVS_PASSWD }} 
-#         export CSC_LINK=${{ secrets.CSC_LINK }} && export CSC_KEY_PASSWORD=${{ secrets.CSC_KEY_PASSWORD }}    
-#         export APPLEID=${{ secrets.APPLEID }}  && export APPLEIDPASS=${{ secrets.APPLEIDPASS }}   
-    
+#       run: |
+#         export EVS_ACCOUNT_NAME=${{ secrets.EVS_ACCOUNT_NAME}} && export EVS_PASSWD=${{ secrets.EVS_PASSWD }}
+#         export CSC_LINK=${{ secrets.CSC_LINK }} && export CSC_KEY_PASSWORD=${{ secrets.CSC_KEY_PASSWORD }}
+#         export APPLEID=${{ secrets.APPLEID }}  && export APPLEIDPASS=${{ secrets.APPLEIDPASS }}
+
     - name: Sign in to EVS
       run: |    
         python3 -m pip install --upgrade castlabs-evs
         python3 -m castlabs_evs.account refresh -A ${{ secrets.EVS_ACCOUNT_NAME }} -P ${{ secrets.EVS_PASSWD }} 
-        
-    - name : Build  
-      env: 
+
+    - name : Build
+      env:
         CSC_LINK: ${{ secrets.CSC_LINK }}
-        CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }} 
+        CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
         APPLEID: ${{ secrets.APPLEID }}
         APPLEIDPASS: ${{ secrets.APPLEIDPASS }}
         APPLE_ID: ${{ secrets.APPLEID }}
@@ -99,23 +99,25 @@ jobs:
         rm -r node_modules/pouchdb-adapter-leveldb/node_modules/leveldown
         rm -r /node_modules/leveldown/node_modules/node-gyp-build || true
         yarn dist:universalNotWorking -p never
+        ls
 #     - name: Perform CodeQL Analysis
 #       uses: github/codeql-action/analyze@v1
 
     - name: Add license to dmg
       run: |
         npx dmg-license resources/license.json dist/*.dmg
-    
-    - name: Import 
+
+    - name: Import
       uses: apple-actions/import-codesign-certs@v1
-      with: 
+      with:
         p12-file-base64: ${{ secrets.CSC_LINK }}
         p12-password: ${{ secrets.CSC_KEY_PASSWORD }}
 
-    - name: Create PKG manually  
-      env: 
+    # Makes the PKG
+    - name: Create PKG manually
+      env:
         CSC_LINK: ${{ secrets.CSC_LINK }}
-        CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }} 
+        CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
         APPLEID: ${{ secrets.APPLEID }}
         APPLEIDPASS: ${{ secrets.APPLEIDPASS }}
       run: |
@@ -142,7 +144,7 @@ jobs:
           dist/Cider.dmg
           dist/Cider.pkg
         body: signed Develop MacOS Builds
-        name: macOS builds  
+        name: macOS builds
         tag_name: macos-beta
         target_commitish: ${{ env.GITHUB_SHA }}
         prerelease: true
