@@ -6,7 +6,6 @@ import * as mm from 'music-metadata';
 import {Md5} from 'ts-md5/dist/md5';
 import e from "express";
 import { EventEmitter } from 'events';
-import { parseFile, recursiveFolderSearch } from 'cider_utils';
 
 export class LocalFiles {
     static localSongs: any = [];
@@ -36,22 +35,18 @@ export class LocalFiles {
         ProviderDB.init()
         let folders = utils.getStoreValue("libraryPrefs.localPaths")
         if (folders == null || folders.length == null || folders.length == 0) folders = []
-        console.log('folders', folders)
-        let parseFileQueue: any[] = []; let mmQueue: any[] = []
+        let files: any[] = []
         for (var folder of folders) {
-            // Recursively search and add 
-            let result = await recursiveFolderSearch(folder)
-            parseFileQueue = parseFileQueue.concat(result.parseFile)
-            mmQueue = mmQueue.concat(result.musicMetadata)
+            // get files from the Music folder
+            files = files.concat(await LocalFiles.getFiles(folder))
         }
-        if (parseFileQueue.length !== 0 || mmQueue.length !== 0) {console.log('Recursive Folder Search in Cider Utils worki')}
+
+        let supporttedformats = ["mp3", "aac", "webm", "flac", "m4a", "ogg", "wav", "opus"]
+        let audiofiles = files.filter(f => supporttedformats.includes(f.substring(f.lastIndexOf('.') + 1)));
         let metadatalist = []
         let metadatalistart = []
         let numid = 0;
-        mmQueue = mmQueue.concat(parseFileQueue)
-        parseFileQueue = []
-        // Music Metadata fallback
-        for (var audio of mmQueue) {
+        for (var audio of audiofiles) {
             try {
                 const metadata = await mm.parseFile(audio);
                 let lochash = Md5.hashStr(audio) ?? numid;
@@ -120,84 +115,20 @@ export class LocalFiles {
                     if (this.localSongs.length === 0 && numid  % 10 === 0) { // send updated chunks only if there is no previous database
                         this.eventEmitter.emit('newtracks', metadatalist)}
                     }
-            } catch (e) {console.error("error:", e)}
+            } catch (e) {console.error("localfiles error:", e)}
         }
-
-        // Cider-Utils supported formats.
-        for (var audio of parseFileQueue) {
-            try {
-                const metadata = await parseFile(audio);
-                let lochash = Md5.hashStr(audio) ?? numid;
-                if (metadata != null) {
-                    let form = {
-                        "id": "ciderlocal" + lochash,
-                        "_id": "ciderlocal" + lochash,
-                        "type": "podcast-episodes",
-                        "href": audio,
-                        "attributes": {
-                            "artwork": {
-                                "width": 3000,
-                                "height": 3000,
-                                "url": "/ciderlocalart/" + "ciderlocal" + lochash,
-                            },
-                            "topics": [],
-                            "url": "",
-                            "subscribable": true,
-                            "mediaKind": "audio",
-                            "genreNames": [
-                                ""
-                            ],
-                            // "playParams": { 
-                            //     "id": "ciderlocal" + numid, 
-                            //     "kind": "podcast", 
-                            //     "isLibrary": true, 
-                            //     "reporting": false },
-                            "trackNumber": metadata.track_number ?? 0,
-                            "discNumber": metadata.disc_number ?? 0,
-                            "name": metadata.title == 0 ? audio.substring(audio.lastIndexOf('\\') + 1) : metadata.title,
-                            "albumName": metadata.album,
-                            "artistName": metadata.artist,
-                            "copyright": metadata.copyright ?? "",
-                            "assetUrl": "file:///" + audio,
-                            "contentAdvisory": "",
-                            "releaseDateTime": `${metadata.year ?? '2022'}-05-13T00:23:00Z`,
-                            "durationInMillis": metadata.duration_in_ms ?? 0,       
-                            "bitrate": metadata.bitrate ?? 0,
-                            "offers": [
-                                {
-                                    "kind": "get",
-                                    "type": "STDQ"
-                                }
-                            ],
-                            "contentRating": "clean"
-                        },
-                        flavor: metadata.bitrate,
-                        localFilesMetadata: {
-                            lossless: metadata.lossless,
-                            container: metadata.container,
-                            bitDepth: metadata.bit_depth,
-                            sampleRate: metadata.sample_rate ?? 0,         
-                        },                    
-                    };
-                    let art = {
-                        id: "ciderlocal" + lochash,
-                        _id: "ciderlocalart" + lochash,
-                        url: metadata.artwork != undefined ? metadata.artwork : "",
-                    }
-                    metadatalistart.push(art)
-                    numid += 1;
-                    ProviderDB.db.putIfNotExists(form)
-                    ProviderDB.db.putIfNotExists(art)
-                    metadatalist.push(form)
-
-                    if (this.localSongs.length === 0 && numid  % 10 === 0) { // send updated chunks only if there is no previous database
-                        this.eventEmitter.emit('newtracks', metadatalist)}
-                    }
-            } catch (e) {console.error("error:", e)}
-        }
+        // console.log('metadatalist', metadatalist);
         this.localSongs = metadatalist;
         this.localSongsArts = metadatalistart;
         return metadatalist;
+    }
+    static async getFiles(dir: any) {
+        const dirents = await readdir(dir, { withFileTypes: true });
+        const files = await Promise.all(dirents.map((dirent: any) => {
+            const res = path.resolve(dir, dirent.name);
+            return dirent.isDirectory() ? this.getFiles(res) : res;
+        }));
+        return Array.prototype.concat(...files);
     }
 
     static async cleanUpDB(){
@@ -216,15 +147,6 @@ export class LocalFiles {
                 return ProviderDB.db.remove(doc);
             });} catch(e){}
         }
-    }
-
-    static async getFiles(dir: any) {
-        const dirents = await readdir(dir, { withFileTypes: true });
-        const files = await Promise.all(dirents.map((dirent: any) => {
-            const res = path.resolve(dir, dirent.name);
-            return dirent.isDirectory() ? this.getFiles(res) : res;
-        }));
-        return Array.prototype.concat(...files);
     }
 
     static setupHandlers () {
