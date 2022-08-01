@@ -89,10 +89,10 @@ export default class RAOP {
 `;
 
     private ondeviceup(name: any, host: any, port: any, addresses: any, text: any, airplay2: any = null) {
-        console.log(this.castDevices.findIndex((item: any) => {return (item.name == host.replace(".local","") && item.port == port )}))
+       // console.log(this.castDevices.findIndex((item: any) => {return (item.name == host.replace(".local","") && item.port == port )}))
         if (this.castDevices.findIndex((item: any) => {return (item.name == host.replace(".local","") && item.port == port )}) == -1) {
             this.castDevices.push({
-                name: host.replace(".local",""),
+                name: (host ?? "Unknown").replace(".local",""),
                 host: addresses ? addresses[0] : '',
                 port: port,
                 addresses: addresses,
