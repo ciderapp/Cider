@@ -6,6 +6,7 @@ let cache = {playParams: {id: 0}, status: null, remainingTime: 0},
 
 const MusicKitInterop = {
 	init: function () {
+		/* MusicKit.Events.playbackStateDidChange */
 		MusicKit.getInstance().addEventListener(MusicKit.Events.playbackStateDidChange, () => {
 			const attributes = MusicKitInterop.getAttributes()
 			if (MusicKitInterop.filterTrack(attributes, true, false)) {
@@ -14,24 +15,37 @@ const MusicKitInterop = {
 			}
 		});
 
-		/** wsapi */
-		MusicKit.getInstance().addEventListener(MusicKit.Events.playbackProgressDidChange, () => {
-			ipcRenderer.send('wsapi-updatePlaybackState', MusicKitInterop.getAttributes());
+		/* MusicKit.Events.playbackProgressDidChange */
+		MusicKit.getInstance().addEventListener(MusicKit.Events.playbackProgressDidChange, async () => {
+			const attributes = MusicKitInterop.getAttributes()
+			// wsapi call
+			ipcRenderer.send('wsapi-updatePlaybackState', attributes);
+			// lastfm call
+			if (app.mk.currentPlaybackProgress === (app.cfg.connectivity.lastfm.scrobble_after / 100)) {
+				attributes.primaryArtist = (app.cfg.connectivity.lastfm.enabled && app.cfg.connectivity.lastfm.remove_featured) ? await this.fetchPrimaryArtist(attributes.artistName) : attributes.artistName;
+				ipcRenderer.send('lastfm:scrobbleTrack', attributes);
+			}
 		});
-		/** wsapi */
 
+		/* MusicKit.Events.playbackTimeDidChange */
 		MusicKit.getInstance().addEventListener(MusicKit.Events.playbackTimeDidChange, () => {
-			ipcRenderer.send('mpris:playbackTimeDidChange', (MusicKit.getInstance()?.currentPlaybackTime * 1000 * 1000 ) ?? 0);
-		})
+			ipcRenderer.send('mpris:playbackTimeDidChange', (MusicKit.getInstance()?.currentPlaybackTime * 1000 * 1000) ?? 0);
+		});
 
+		/* MusicKit.Events.nowPlayingItemDidChange */
 		MusicKit.getInstance().addEventListener(MusicKit.Events.nowPlayingItemDidChange, async () => {
 			console.debug('[cider:preload] nowPlayingItemDidChange')
 			const attributes = MusicKitInterop.getAttributes()
+			attributes.primaryArtist = (app.cfg.connectivity.lastfm.enabled && app.cfg.connectivity.lastfm.remove_featured) ? await this.fetchPrimaryArtist(attributes.artistName) : attributes.artistName;
 
 			if (MusicKitInterop.filterTrack(attributes, false, true)) {
 				global.ipcRenderer.send('nowPlayingItemDidChange', attributes);
 			} else if (attributes.name !== 'no-title-found' && attributes.playParams.id !== "no-id-found") {
 				global.ipcRenderer.send('lastfm:nowPlayingChange', attributes);
+			}
+
+			if (app.cfg.general.playbackNotifications && !document.hasFocus() && attributes.artistName && attributes.artwork && attributes.name) {
+				global.ipcRenderer.send('playbackNotifications:create', attributes);
 			}
 
 			if (MusicKit.getInstance().nowPlayingItem) {
@@ -40,18 +54,22 @@ const MusicKitInterop = {
 			}
 		});
 
+		/* MusicKit.Events.authorizationStatusDidChange */
 		MusicKit.getInstance().addEventListener(MusicKit.Events.authorizationStatusDidChange, () => {
 			global.ipcRenderer.send('authorizationStatusDidChange', MusicKit.getInstance().authorizationStatus)
 		});
 
+		/* MusicKit.Events.mediaPlaybackError */
 		MusicKit.getInstance().addEventListener(MusicKit.Events.mediaPlaybackError, (e) => {
 			console.warn(`[cider:preload] mediaPlaybackError] ${e}`);
 		});
 
+		/* MusicKit.Events.shuffleModeDidChange */
 		MusicKit.getInstance().addEventListener(MusicKit.Events.shuffleModeDidChange, () => {
 			global.ipcRenderer.send('shuffleModeDidChange', MusicKit.getInstance().shuffleMode)
 		});
 
+		/* MusicKit.Events.repeatModeDidChange */
 		MusicKit.getInstance().addEventListener(MusicKit.Events.repeatModeDidChange, () => {
 			global.ipcRenderer.send('repeatModeDidChange', MusicKit.getInstance().repeatMode)
 		});
@@ -63,6 +81,15 @@ const MusicKitInterop = {
 		});
 	},
 
+	async fetchPrimaryArtist(artist) {
+		if (app.mk.nowPlayingItem?.relationships?.artists) {
+			const artist = await app.mk.api.artist(app.mk.nowPlayingItem.relationships.artists.data[0].id)
+			return artist.attributes.name
+		} else {
+			return artist
+		}
+	},
+
 	getAttributes: function () {
 		const mk = MusicKit.getInstance()
 		const nowPlayingItem = mk.nowPlayingItem;
@@ -71,6 +98,7 @@ const MusicKitInterop = {
 		const currentPlaybackProgress = mk.currentPlaybackProgress;
 		const attributes = (nowPlayingItem != null ? nowPlayingItem.attributes : {});
 
+		attributes.songId = attributes.songId ?? attributes.playParams?.catalogId ?? attributes.playParams?.id
 		attributes.status = isPlayingExport ?? null;
 		attributes.name = attributes?.name ?? 'no-title-found';
 		attributes.artwork = attributes?.artwork ?? {url: ''};

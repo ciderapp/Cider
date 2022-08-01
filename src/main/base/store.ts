@@ -65,6 +65,7 @@ export class Store {
                 ],
                 "albums": [
                     "CommandOrControl",
+                    process.platform == "darwin" ? "Option" : (process.platform == "linux" ? "Shift" : "Alt"),
                     "A"
                 ],
                 "artists": [
@@ -134,6 +135,7 @@ export class Store {
                 "scrobble_after": 50,
                 "filter_loop": false,
                 "filter_types": {},
+                "remove_featured": false,
                 "secrets": {
                     "username": "",
                     "key": ""

@@ -45,7 +45,7 @@
                     <div class="title"
                          :title="item.attributes?.name ?? (item.relationships?.contents?.data[0]?.attributes?.name ?? (item.attributes?.editorialNotes?.name ?? ''))"
                          v-if="item.attributes.artistNames == null || kind != 'card'" @click='app.routeView(item)'>
-                        <div class="item-navigate text-overflow-elipsis">{{ item.attributes?.name ??
+                        <div class="item-navigate text-overflow-elipsis">{{ item.attributes?.name.replace(/&nbsp;/g, ' ').replace(/Apple Music |^Apple |/g, '') ??
                             (item.relationships?.contents?.data[0]?.attributes?.name ??
                             (item.attributes?.editorialNotes?.name ?? '')) }}
                         </div>

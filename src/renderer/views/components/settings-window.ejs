@@ -349,20 +349,6 @@
                                 </div>
                                 <div class="md-option-line">
                                     <div class="md-option-segment">
-                                        {{$root.getLz('settings.option.audio.enableAdvancedFunctionality')}}
-                                        <br>
-                                        <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.description')}}</small>
-                                    </div>
-                                    <div class="md-option-segment md-option-segment_auto">
-                                        <label>
-                                            <input type="checkbox" v-model="app.cfg.advanced.AudioContext"
-                                                   v-on:change="toggleAudioContext"
-                                                   switch/>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="md-option-line" v-show="app.cfg.advanced.AudioContext">
-                                    <div class="md-option-segment">
                                         {{$root.getLz('term.equalizer')}}
                                     </div>
                                     <div class="md-option-segment md-option-segment_auto">
@@ -371,7 +357,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                <div class="md-option-line" v-show="app.cfg.advanced.AudioContext">
+                                <div class="md-option-line">
                                     <div class="md-option-segment" style="white-space: pre-line;">
                                         {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.audioNormalization')}}
                                         <small>{{app.cfg.audio.equalizer.vibrantBass != 0 ||
@@ -391,7 +377,7 @@
                                     </div>
                                 </div>
                                 <div class="md-option-line"
-                                     v-show="app.cfg.advanced.AudioContext && app.cfg.audio.normalization && app.cfg.audio.advanced">
+                                     v-show="app.cfg.audio.normalization && app.cfg.audio.advanced">
                                     <div class="md-option-segment">
                                         {{$root.getLz('settings.option.audio.dbspl.display')}}
                                         <br>
@@ -419,7 +405,7 @@
                         </div>
                     </div>
                 </b-tab>
-                <b-tab v-if="app.cfg.advanced.AudioContext">
+                <b-tab>
                     <template #title>
                         <div>
                             <svg-icon url="./assets/feather/zap.svg" classes="svg-md" name="settings-audiolabs"/>
@@ -1064,6 +1050,17 @@
                                 </div>
                                 <div class="md-option-line" v-show="app.cfg.connectivity.lastfm.enabled">
                                     <div class="md-option-segment">
+                                        {{$root.getLz('settings.option.connectivity.lastfmScrobble.removeFeatured')}}
+                                    </div>
+                                    <div class="md-option-segment md-option-segment_auto">
+                                        <label>
+                                            <input type="checkbox" v-model="app.cfg.connectivity.lastfm.remove_featured"
+                                                   switch/>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="md-option-line" v-show="app.cfg.connectivity.lastfm.enabled">
+                                    <div class="md-option-segment">
                                         {{$root.getLz('settings.option.connectivity.lastfmScrobble.filterTypes')}}
                                     </div>
                                     <div class="md-option-segment md-option-segment_auto">
@@ -1461,21 +1458,6 @@
             },
             removeExperiment(flag) {
                 app.cfg.advanced.experiments.splice(app.cfg.advanced.experiments.indexOf(flag), 1);
-            },
-            toggleAudioContext: function () {
-                if (app.cfg.advanced.AudioContext === true) {
-                    if (navigator.hardwareConcurrency < 6) {
-                        app.confirm(app.getLz("settings.warn.audio.enableAdvancedFunctionality.lowcores"), function (result) {
-                            if (result) {
-                                window.location.reload();
-                            }
-                        })
-                    } else {
-                        window.location.reload()
-                    }
-                } else {
-                    window.location.reload()
-                }
             },
             toggleNormalization: function () {
                 if (app.cfg.audio.normalization) {

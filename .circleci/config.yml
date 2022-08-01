@@ -16,6 +16,11 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install buildtools
+          command: | 
+                sudo apt-get update
+                sudo apt-get install -y autoconf automake g++ libtool || true
+      - run:
           name: Update Version Number of App
           command: sudo chmod +x resources/version.sh && ./resources/version.sh || true
       - restore_cache:

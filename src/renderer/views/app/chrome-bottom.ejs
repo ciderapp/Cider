@@ -152,7 +152,7 @@
             <button class="playback-button--small cast" 
                     :title="$root.getLz('term.cast')"
                     v-b-tooltip.hover
-                    @click="cfg.advanced.AudioContext ? modals.castMenu = true : (cfg.advanced.AudioContext = true, modals.castMenu = true)"></button>
+                    @click="modals.castMenu = true"></button>
         </div>
         <div class="app-chrome-item generic">
             <button class="playback-button--small queue"  :class="{'active': drawer.panel == 'queue'}"

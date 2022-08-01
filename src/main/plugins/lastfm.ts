@@ -131,7 +131,7 @@ export default class lastfm {
 
         if (!attributes.lfmAlbum) {
             this._lfm.album.getInfo({
-                "artist": attributes.artistName,
+                "artist": attributes.primaryArtist,
                 "album": attributes.albumName
             }, (err: any, data: any) => {
                 if (err) {
@@ -144,7 +144,7 @@ export default class lastfm {
                 }
             })
         } else {
-            this._lfm.track.getCorrection(attributes.artistName, attributes.name, (err: any, data: any) => {
+            this._lfm.track.getCorrection(attributes.primaryArtist, attributes.name, (err: any, data: any) => {
                 if (err) {
                     console.error(`[${lastfm.name}] [track.getCorrection] Error: ${typeof err === "string" ? err : err.message}`)
                     return {};

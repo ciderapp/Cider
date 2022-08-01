@@ -949,12 +949,6 @@ const app = new Vue({
                 }
             });
 
-            this.mk.addEventListener(MusicKit.Events.playbackProgressDidChange, () => {
-                if (self.mk.currentPlaybackProgress === (app.cfg.connectivity.lastfm.scrobble_after / 100)) {
-                    ipcRenderer.send('lastfm:scrobbleTrack', MusicKitInterop.getAttributes());
-                }
-            })
-
             this.mk.addEventListener(MusicKit.Events.playbackStateDidChange, (event) => {
                 ipcRenderer.send('wsapi-updatePlaybackState', wsapi.getAttributes());
                 document.body.setAttribute("playback-state", event.state == 2 ? "playing" : "paused")
@@ -1013,8 +1007,8 @@ const app = new Vue({
                     try {localStorage.setItem("playingBitrate", app.mk.nowPlayingItem.flavor)}
                     catch(e) {}
                 }
-                if (!app.cfg.audio.normalization && app.cfg.advanced.AudioContext === false) { CiderAudio.hierarchical_loading(); }
-   
+
+                if (app.cfg.audio.normalization === false) { CiderAudio.hierarchical_loading(); } // Just Reload for Adaptive CAP if norm is off
                 else {
                     // get unencrypted audio previews to get SoundCheck's normalization tag
                     try {
@@ -1080,17 +1074,6 @@ const app = new Vue({
                 app.getNowPlayingArtworkBG(32);
                 app.loadLyrics();
 
-                // Playback Notifications
-                if (this.cfg.general.playbackNotifications && !document.hasFocus() && a.artistName && a.artwork && a.name) {
-                    if (this.notification) {
-                        this.notification.close()
-                    }
-                    this.notification = new Notification(a.name, {
-                        body: `${a.artistName} — ${a.albumName}`,
-                        icon: a.artwork.url.replace('/{w}x{h}bb', '/512x512bb').replace('/2000x2000bb', '/35x35bb'),
-                        silent: true,
-                    });
-                }
                 setTimeout(() => {
                     let i = (document.querySelector('#apple-music-player')?.src ?? "")
                     if (i.endsWith(".m3u8") || i.endsWith(".m3u")) {
@@ -1887,27 +1870,7 @@ const app = new Vue({
 
                 return dDisplay + (dDisplay && hDisplay ? ", " : "") + hDisplay + (hDisplay && mDisplay ? ", " : "") + mDisplay;
             } else {
-                let returnTime = datetime.toISOString().substring(11, 19);
-
-                const timeGates = {
-                    600: 15, // 10 Minutes
-                    3600: 14, // Hour
-                    36000: 12, // 10 Hours
-                }
-
-                for (let key in timeGates) {
-                    if (seconds < key) {
-                        returnTime = datetime.toISOString().substring(timeGates[key], 19)
-                        break
-                    }
-                }
-
-                // Add the days on the front
-                if (seconds >= 86400) {
-                    returnTime = parseInt(datetime.toISOString().substring(8, 10)) - 1 + ":" + returnTime
-                }
-
-                return returnTime
+                return MusicKit.formatMediaTime(seconds);
             }
         },
         hashCode(str) {
@@ -4391,7 +4354,7 @@ const app = new Vue({
                             "id": "equalizer",
                             "icon": "../views/svg/speaker.svg",
                             "name": app.getLz('term.equalizer'),
-                            "hidden": true,
+                            "hidden": false,
                             "action": function () {
                                 app.modals.equalizer = true
                                 app.modals.audioSettings = false
@@ -4401,7 +4364,7 @@ const app = new Vue({
                             "id": "audioLab",
                             "icon": "../views/svg/speaker.svg",
                             "name": app.getLz('settings.option.audio.audioLab'),
-                            "hidden": true,
+                            "hidden": false,
                             "action": function () {
                                 app.openSettingsPage('audiolabs')
                             }
@@ -4409,10 +4372,12 @@ const app = new Vue({
                     ]
                 }
             }
+            /* 
             if (this.cfg.advanced.AudioContext) {
                 menus.normal.items.find(i => i.id === 'audioLab').hidden = false
                 menus.normal.items.find(i => i.id === 'equalizer').hidden = false
             }
+            */
             if (this.contextExt) {
                 if (this.contextExt.normal) {
                     menus.normal.items = menus.normal.items.concat(this.contextExt.normal)

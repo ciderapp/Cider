@@ -1,7 +1,8 @@
 #!/bin/bash
 
-LATEST_SHA=$(curl -s https://api.github.com/repos/ciderapp/Cider/branches/stable | grep sha | cut -d '"' -f 4 | sed 's/v//' | xargs)
-COMMITSINCESTABLE=$(git rev-list $LATEST_SHA..HEAD --count)
+LATEST_SHA=$(curl -s https://api.github.com/repos/ciderapp/Cider/branches/stable | grep '"sha"' | head -1 | cut -d '"' -f 4)
+SHA_DATE=$(git show -s --format=%ci $LATEST_SHA)
+COMMITSINCESTABLE=$(git rev-list $LATEST_SHA..HEAD --count --since="$SHA_DATE")
 CURRENT_VERSION=$(node -p -e "require('./package.json').version")
 if [[ $CIRCLE_BRANCH == "main" && $COMMITSINCESTABLE -gt 0 ]]; then
   NEW_VERSION="${CURRENT_VERSION}-beta.${COMMITSINCESTABLE}"

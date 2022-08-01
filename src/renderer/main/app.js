@@ -33,10 +33,13 @@ if (app.cfg.advanced.disableLogging === true) {
 // Mount Vue to #app
 app.$mount("#app")
 
-// Init CiderAudio
-if (app.cfg.advanced.AudioContext === true) {
-    CiderAudio.init()
+// Init CiderAudio and force audiocontext
+if (app.cfg.advanced.AudioContext != true) {
+    app.cfg.advanced.AudioContext = true;
+    window.location.reload();
 }
+
+CiderAudio.init()
 
 // Import gamepad support
 app.simulateGamepad = simulateGamepad

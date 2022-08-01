@@ -227,7 +227,10 @@
       "darkModeSupport": true,
       "target": [
         "dmg"
-      ]
+      ],
+      "extendInfo": {
+        "NSUserNotificationAlertStyle": "alert"
+      }
     }
   }
 }

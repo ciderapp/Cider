@@ -1183,11 +1183,6 @@ export class BrowserWindow {
             app.quit();
         })
 
-        app.on('before-quit', () => {
-
-        })
-
-
         ipcMain.on('play', (_event, type, id) => {
             BrowserWindow.win.webContents.executeJavaScript(`
 			    MusicKit.getInstance().setQueue({ ${type}: '${id}', parameters : {l : app.mklang}}).then(function(queue) {
@@ -1442,69 +1437,62 @@ export class BrowserWindow {
             FULL_SCREEN: 3,
         };
         let wndState = WND_STATE.NORMAL;
+        const win = BrowserWindow.win;
+        let isQuitting = false;
 
-        BrowserWindow.win.on("resize", (_: any) => {
-            const isMaximized = BrowserWindow.win.isMaximized();
-            const isMinimized = BrowserWindow.win.isMinimized();
-            const isFullScreen = BrowserWindow.win.isFullScreen();
+        win.on("resize", (_: any) => {
+            const isMaximized = win.isMaximized();
+            const isMinimized = win.isMinimized();
+            const isFullScreen = win.isFullScreen();
             const state = wndState;
             if (isMinimized && state !== WND_STATE.MINIMIZED) {
                 wndState = WND_STATE.MINIMIZED;
-                BrowserWindow.win.webContents.send('window-state-changed', 'minimized');
+                win.webContents.send('window-state-changed', 'minimized');
             } else if (isFullScreen && state !== WND_STATE.FULL_SCREEN) {
                 wndState = WND_STATE.FULL_SCREEN;
-                BrowserWindow.win.webContents.send('window-state-changed', 'fullscreen')
+                win.webContents.send('window-state-changed', 'fullscreen')
             } else if (isMaximized && state !== WND_STATE.MAXIMIZED) {
                 wndState = WND_STATE.MAXIMIZED;
-                BrowserWindow.win.webContents.send('window-state-changed', 'maximized')
-                BrowserWindow.win.webContents.executeJavaScript(`app.chrome.maximized = true`);
+                win.webContents.send('window-state-changed', 'maximized')
+                win.webContents.executeJavaScript(`app.chrome.maximized = true`);
             } else if (state !== WND_STATE.NORMAL) {
                 wndState = WND_STATE.NORMAL;
-                BrowserWindow.win.webContents.send('window-state-changed', 'normal')
-                BrowserWindow.win.webContents.executeJavaScript(
+                win.webContents.send('window-state-changed', 'normal')
+                win.webContents.executeJavaScript(
                     `app.chrome.maximized = false`
                 );
             }
         });
 
-
-        let isQuiting = false
-
-        BrowserWindow.win.on("close", (event: Event) => {
-            if ((utils.getStoreValue('general.close_button_hide') || process.platform === "darwin") && !isQuiting) {
-                event.preventDefault();
-                BrowserWindow.win.hide();
-            } else {
-                BrowserWindow.win.webContents.executeJavaScript(` 
-                window.localStorage.setItem("currentTrack", JSON.stringify(app.mk.nowPlayingItem));
-                window.localStorage.setItem("currentTime", JSON.stringify(app.mk.currentPlaybackTime));
-                window.localStorage.setItem("currentQueue", JSON.stringify(app.mk.queue._unplayedQueueItems));
-                ipcRenderer.send('stopGCast','');`)
-                BrowserWindow.win.destroy();
+        win.on("close", (e: any) => {
+            if ((process.platform === "darwin" || utils.getStoreValue("general.close_button_hide")) && !isQuitting) {
+                e.preventDefault()
+                win.hide()
             }
         })
 
+        win.on("closed", (_: any) => {
+            win.webContents.executeJavaScript(`
+            window.localStorage.setItem("currentTrack", JSON.stringify(app.mk.nowPlayingItem));
+            window.localStorage.setItem("currentTime", JSON.stringify(app.mk.currentPlaybackTime));
+            window.localStorage.setItem("currentQueue", JSON.stringify(app.mk.queue._unplayedQueueItems));
+            ipcRenderer.send('stopGCast','');`)
+        })
+
         app.on('before-quit', () => {
-            isQuiting = true
+            isQuitting = true;
         });
 
         app.on('activate', function () {
-            BrowserWindow.win.show()
-            BrowserWindow.win.focus()
+            win.show()
         });
 
         // Quit when all windows are closed.
         app.on('window-all-closed', () => {
-            // On macOS it is common for applications and their menu bar
-            // to stay active until the user quits explicitly with Cmd + Q
             if (process.platform !== 'darwin') {
                 app.quit()
             }
         })
-
-        BrowserWindow.win.on("closed", () => {
-            BrowserWindow.win = null;
-        });
 
         // Set window Handler
         BrowserWindow.win.webContents.setWindowOpenHandler((x: any) => {
