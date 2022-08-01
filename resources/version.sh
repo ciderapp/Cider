@@ -1,6 +1,10 @@
 #!/bin/bash
 
 # DEBUGGING
+curl -s https://api.github.com/repos/ciderapp/Cider/branches/stable
+
+# | grep sha | cut -d '"' -f 4 | sed 's/v//' | xargs | cut -d' ' -f1 | head -n 1
+
 LATEST_SHA=$(curl -s https://api.github.com/repos/ciderapp/Cider/branches/stable | grep sha | cut -d '"' -f 4 | sed 's/v//' | xargs | cut -d' ' -f1 | head -n 1)
 echo $LATEST_SHA
 COMMITSINCESTABLE=$(git rev-list $LATEST_SHA..HEAD --count)
@@ -8,7 +12,6 @@ echo $COMMITSINCESTABLE
 CURRENT_VERSION=$(node -p -e "require('./package.json').version")
 echo $CURRENT_VERSION
 
-git log $LATEST_SHA
 
 #############################################################################################
 
