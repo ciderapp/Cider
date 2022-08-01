@@ -54,5 +54,13 @@ body:
       label: Code of Conduct
       description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/ciderapp/Cider/blob/main/CODE_OF_CONDUCT.md)
       options:
-        - label: I agree to follow this project's Code of Conduct
+        - label: I agree to follow this Cider's [Code of Conduct](https://github.com/ciderapp/Cider/blob/main/CODE_OF_CONDUCT.md)
+          required: true
+  - type: checkboxes
+    id: disclaimer
+    attributes:
+      label: Disclaimer
+      description: By submitting this issue, you are aware of our [Support Disclaimer](https://docs.cider.sh/support/disclaimer) and acknowledge that your issue may be immidiately closed if it is invalid.
+      options:
+        - label: I acknowledge the [Support Disclaimer](https://docs.cider.sh/support/disclaimer)
           required: true
