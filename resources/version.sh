@@ -1,19 +1,16 @@
 #!/bin/bash
 
-printenv
 # DEBUGGING
-LATEST_SHA=$(curl -s https://api.github.com/repos/ciderapp/Cider/branches/stable | grep sha | cut -d '"' -f 4 | sed 's/v//' | xargs | cut -d' ' -f1)
+LATEST_SHA=$(curl -s https://api.github.com/repos/ciderapp/Cider/branches/stable | grep sha | cut -d '"' -f 4 | sed 's/v//' | xargs | cut -d' ' -f1 | head -n 1)
 echo $LATEST_SHA
 COMMITSINCESTABLE=$(git rev-list $LATEST_SHA..HEAD --count)
 echo $COMMITSINCESTABLE
 CURRENT_VERSION=$(node -p -e "require('./package.json').version")
 echo $CURRENT_VERSION
-GITHUB_BASE_REF="main"
-echo $GITHUB_BASE_REF
 
 #############################################################################################
 
-if [[ ($CIRCLE_BRANCH == "main" || $GITHUB_BASE_REF == "main") && $COMMITSINCESTABLE -gt 0 ]]; then
+if [[ ($CIRCLE_BRANCH == "main" || $GITHUB_REF_NAME == "main") && $COMMITSINCESTABLE -gt 0 ]]; then
   NEW_VERSION="${CURRENT_VERSION}-beta.${COMMITSINCESTABLE}"
 else
   NEW_VERSION=${CURRENT_VERSION/0/$COMMITSINCESTABLE}
