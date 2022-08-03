@@ -9,7 +9,7 @@ CURRENT_VERSION=$(node -p -e "require('./package.json').version")
 if [[ $CIRCLE_BRANCH == "stable" || $GITHUB_REF_NAME == "stable" ]]; then
   echo "This is a stable branch. Setting stable version."
   NEW_VERSION=${CURRENT_VERSION/0/$COMMITSINCESTABLE}
-else
+elif [[ $COMMITSINCESTABLE -gt 0 ]]; then
   echo "This is not a stable branch, but there are commits since the last stable release. Setting beta version."
   NEW_VERSION="${CURRENT_VERSION}-beta.${COMMITSINCESTABLE}"
 fi
