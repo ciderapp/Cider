@@ -9,6 +9,7 @@ on:
       - '.gitmodules'
       - '.gitignore'
       - 'LICENSE'
+      - 'cider.lock'
 
 permissions:
   contents: write
@@ -47,16 +48,8 @@ jobs:
       - name: Setup Environment
         run: brew install automake #libtool autoconf
 
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.cache/yarn
-          key: yarn-${{ hashFiles('cider.lock') }}
-          restore-keys: yarn-
-
       - name: Install and Configure Node Modules
         run: |
-          mv cider.lock yarn.lock
           yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
           cp resources/verror-types node_modules/@types/verror/index.d.ts
           cp resources/macPackager.js node_modules/app-builder-lib/out/macPackager.js
