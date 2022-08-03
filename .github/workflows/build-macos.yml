@@ -45,6 +45,10 @@ jobs:
         with:
           xcode-version: '12.4'
 
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
       - name: Change Version
         run: sudo chmod +x resources/version.sh && ./resources/version.sh || true
 
