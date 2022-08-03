@@ -17,7 +17,11 @@ fi
 echo "Version: $NEW_VERSION"
 echo "Current version: $CURRENT_VERSION"
 if [[ $COMMITSINCESTABLE -gt 0 ]]; then
-  sed -i "0,/$CURRENT_VERSION/s//$NEW_VERSION/" package.json
+  if [[ $RUNNER_OS == "macOS" ]]; then
+    sed -i "" -e "s/$CURRENT_VERSION/$NEW_VERSION/" package.json
+  else
+    sed -i "0,/$CURRENT_VERSION/s//$NEW_VERSION/" package.json
+  fi
 else
   echo "Version unchanged, commits since stable is ${COMMITSINCESTABLE}"
 fi
