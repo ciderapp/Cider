@@ -11,6 +11,9 @@ on:
       - 'LICENSE'
       - 'cider.lock'
 
+permissions:
+  contents: write
+
 jobs:
   build-macos:
     name: build-macos
