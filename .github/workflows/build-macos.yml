@@ -45,12 +45,6 @@ jobs:
         with:
           xcode-version: '12.4'
 
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        with:
-          ref: ${{ github.sha }}
-          submodules: true
-
       - name: Change Version
         run: sudo chmod +x resources/version.sh && ./resources/version.sh || true
 

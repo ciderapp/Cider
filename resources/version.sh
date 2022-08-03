@@ -1,14 +1,9 @@
 #!/bin/bash
 
-# DEBUGGING
-STABLE_SHA=$(curl -s https://api.github.com/repos/ciderapp/Cider/branches/stable | grep sha | cut -d '"' -f 4 | sed 's/v//' | xargs | cut -d' ' -f1 | head -n 1)
-COMMITSINCESTABLE=$(git rev-list $STABLE_SHA..$GITHUB_SHA --count)
+STABLE_SHA=$(curl -s https://api.github.com/repos/ciderapp/Cider/branches/stable | grep '"sha"' | head -1 | cut -d '"' -f 4)
+SHA_DATE=$(git show -s --format=%ci $STABLE_SHA)
+COMMITSINCESTABLE=$(git rev-list $STABLE_SHA..HEAD --count --since="$SHA_DATE")
 CURRENT_VERSION=$(node -p -e "require('./package.json').version")
-
-git rev-list --all
-
-#############################################################################################
-
 if [[ ($CIRCLE_BRANCH == "main" || $GITHUB_REF_NAME == "main") && $COMMITSINCESTABLE -gt 0 ]]; then
   NEW_VERSION="${CURRENT_VERSION}-beta.${COMMITSINCESTABLE}"
 else
