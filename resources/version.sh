@@ -34,3 +34,4 @@ elif [[ -z "${BASH_ENV}" ]]; then
 fi
 
 node -p -e "require('./package.json').version"
+printenv
