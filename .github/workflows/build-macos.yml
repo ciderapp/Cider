@@ -40,7 +40,9 @@ jobs:
       - name: Change Version
         run: sudo chmod +x resources/version.sh && ./resources/version.sh || true
 
-      - run: echo "test" > test.md
+      - run: |
+          echo "test" > test.md
+          echo "test2" > test2.md
 
 #      - name: Sign in to EVS
 #        run: |
@@ -109,7 +111,9 @@ jobs:
           # A personal access token for the GitHub repository in which the release will be created and edited.
           # It is recommended to create the access token with the following scopes: `repo, user, admin:repo_hook`.
           repo_token: ${{ secrets.RELEASE_TOKEN }}
-          file: test.md
+          file: |
+            test.md
+            test2.md
           tag: v${{ env.APP_VERSION }}
 
 #      - name: Upload Artifacts to Latest Release
