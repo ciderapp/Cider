@@ -52,7 +52,6 @@ jobs:
           cp resources/macPackager.js node_modules/app-builder-lib/out/macPackager.js 
           rm -r node_modules/pouchdb-node/node_modules/leveldown
           rm -r node_modules/pouchdb-adapter-leveldb/node_modules/leveldown
-          rm -r /node_modules/leveldown/node_modules/node-gyp-build || true
 
 
       # Build the DMG
@@ -94,15 +93,19 @@ jobs:
         uses: actions/upload-artifact@v2.2.3
         with:
           name: Cider-macOS-${{ env.APP_VERSION }}
-          path: dist/*
+          path: |
+            dist/*.dmg
+            dist/*.pkg
+            latest-mac.yml
 
-#      - name: Upload Artifacts to Latest Release
-#        uses: softprops/action-gh-release@v1
-#        with:
-#          token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
-#          files: |
-#            dist/*.dmg
-#            dist/*.pkg
-#          tag_name: $APP_VERSION
-#        env:
-#          GITHUB_REPOSITORY: ciderapp/cider-releases
+      - name: Upload Artifacts to Latest Release
+        uses: softprops/action-gh-release@v1
+        with:
+          token: ${{ secrets.RELEASE_TOKEN }}
+          files: |
+            dist/*.dmg
+            dist/*.pkg
+            latest-mac.yml
+          tag_name: ${{ env.APP_VERSION }}
+        env:
+          GITHUB_REPOSITORY: ciderapp/cider-releases
