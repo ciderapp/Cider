@@ -59,7 +59,7 @@ jobs:
 
 
       # Build the DMG
-      - name: Build
+      - name: Build the DMG
         env:
           CSC_LINK: ${{ secrets.CSC_LINK }}
           CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
@@ -82,7 +82,7 @@ jobs:
           p12-password: ${{ secrets.CSC_KEY_PASSWORD }}
 
       # Build to PKG
-      - name: Create PKG manually
+      - name: Build the PKG
         env:
           CSC_LINK: ${{ secrets.CSC_LINK }}
           CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
