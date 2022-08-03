@@ -102,7 +102,7 @@ function capiInit() {
       }
     }
   };
-  request.open("GET", "https://api.cider.sh/v1/");
+  request.open("GET", "https://api.cider.sh/v2/");
   request.send();
 }
 

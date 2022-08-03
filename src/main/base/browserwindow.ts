@@ -710,7 +710,7 @@ export class BrowserWindow {
                 }
                 if(details.url.includes("apple.com")) {
                     details.requestHeaders["DNT"] = "1";
-                    details.requestHeaders[":authority:"] = "amp-api.music.apple.com";
+                    details.requestHeaders["authority"] = "amp-api.music.apple.com";
                     details.requestHeaders["origin"] = "https://beta.music.apple.com";
                     details.requestHeaders["referer"] = "https://beta.music.apple.com";
                     details.requestHeaders["sec-fetch-dest"] = "empty";
