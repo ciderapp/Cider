@@ -9,12 +9,11 @@ on:
       - '.gitmodules'
       - '.gitignore'
       - 'LICENSE'
-  schedule:
-    - cron: '44 20 * * 1'
+      - 'cider.lock'
 
 jobs:
   build-macos:
-    name: macOS build
+    name: build-macos
     runs-on: macos-11
     permissions:
       actions: read
@@ -44,11 +43,9 @@ jobs:
           python3 -m castlabs_evs.account refresh -A ${{ secrets.EVS_ACCOUNT_NAME }} -P ${{ secrets.EVS_PASSWD }} 
 
       - name: Setup Environment
-        run: |
-          xcodebuild -version
-          brew install autoconf automake libtool
+        run: brew install autoconf automake libtool
 
-      - name: Install Node Modules
+      - name: Install and Configure Node Modules
         run: |
           yarn install
           cp resources/verror-types node_modules/@types/verror/index.d.ts
@@ -72,8 +69,7 @@ jobs:
         run: yarn dist:universalNotWorking -p never
 
       - name: Add license to DMG
-        run: |
-          npx dmg-license resources/license.json dist/*.dmg
+        run: npx dmg-license resources/license.json dist/*.dmg
 
       - name: Import
         uses: apple-actions/import-codesign-certs@v1
@@ -89,7 +85,7 @@ jobs:
           APPLEID: ${{ secrets.APPLEID }}
           APPLEIDPASS: ${{ secrets.APPLEIDPASS }}
         run: |
-          pkgbuild --component dist/mac-universal/Cider.app --install-location /Applications dist/Cider-$APP_VERSION-universal.pkg --sign ${{ secrets.PSC_NAME }} 
+          pkgbuild --component dist/mac-universal/Cider.app --install-location /Applications dist/Cider-${{ env.APP_VERSION }}-universal.pkg --sign ${{ secrets.PSC_NAME }} 
           xcrun altool --notarize-app --primary-bundle-id com.ciderapp.cider -f dist/Cider*.pkg  --username ${{ secrets.APPLEID }} --password ${{ secrets.APPLEIDPASS }}
           sleep 5m
           xcrun stapler staple dist/Cider*.pkg || true
@@ -97,7 +93,7 @@ jobs:
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.2.3
         with:
-          name: Cider-macOS-$APP_VERSION
+          name: Cider-macOS-${{ env.APP_VERSION }}
           path: dist/*
 
 #      - name: Upload Artifacts to Latest Release

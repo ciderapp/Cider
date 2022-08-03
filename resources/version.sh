@@ -5,6 +5,8 @@ SHA_DATE=$(git show -s --format=%ci $STABLE_SHA)
 COMMITSINCESTABLE=$(git rev-list $STABLE_SHA..HEAD --count --since="$SHA_DATE")
 CURRENT_VERSION=$(node -p -e "require('./package.json').version")
 
+echo "Commits since stable: $COMMITSINCESTABLE"
+
 # Make the version number
 if [[ $CIRCLE_BRANCH == "stable" || $GITHUB_REF_NAME == "stable" ]]; then
   echo "This is a stable branch. Setting stable version."
