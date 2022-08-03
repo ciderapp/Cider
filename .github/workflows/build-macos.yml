@@ -100,20 +100,33 @@ jobs:
             dist/*.dmg
             dist/latest-mac.yml
 
-      - name: Upload Artifacts to Latest Release
-        uses: softprops/action-gh-release@v1
+      - name: Upload files to release
+        uses: svenstaro/upload-release-action@v2
         with:
-          body: Full changelog available [here](https://github.com/ciderapp/Cider/compare/stable...main)
-          files: |
+          repo_name: ciderapp/cider-releases
+          # A personal access token for the GitHub repository in which the release will be created and edited.
+          # It is recommended to create the access token with the following scopes: `repo, user, admin:repo_hook`.
+          repo_token: ${{ secrets.RELEASE_TOKEN }}
+          file_glob: true
+          file: |
             dist/*.dmg
             dist/latest-mac.yml
-          name: Cider Version ${{ env.APP_VERSION }} (${{ env.GITHUB_REF_NAME }})
-          tag_name: v${{ env.APP_VERSION }}
-          repository: ciderapp/cider-releases
-          token: ${{ secrets.GITHUB_TOKEN }}
-        env:
-          GITHUB_REPOSITORY: ciderapp/cider-releases
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          tag: v${{ env.APP_VERSION }}
+
+#      - name: Upload Artifacts to Latest Release
+#        uses: softprops/action-gh-release@v1
+#        with:
+#          body: Full changelog available [here](https://github.com/ciderapp/Cider/compare/stable...main)
+#          files: |
+#            dist/*.dmg
+#            dist/latest-mac.yml
+#          name: Cider Version ${{ env.APP_VERSION }} (${{ env.GITHUB_REF_NAME }})
+#          tag_name: v${{ env.APP_VERSION }}
+#          repository: ciderapp/cider-releases
+#          token: ${{ secrets.RELEASE_TOKEN }}
+#        env:
+#          GITHUB_REPOSITORY: ciderapp/cider-releases
+#          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
 
 
 
