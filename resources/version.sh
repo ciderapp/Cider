@@ -6,12 +6,12 @@ COMMITSINCESTABLE=$(git rev-list $STABLE_SHA..HEAD --count --since="$SHA_DATE")
 CURRENT_VERSION=$(node -p -e "require('./package.json').version")
 
 # Make the version number
-if [[ ($CIRCLE_BRANCH != "stable" && $GITHUB_REF_NAME != "stable") && $COMMITSINCESTABLE -gt 0 ]]; then
-  echo "This is not a stable branch, but there are commits since the last stable release. Setting beta version."
-  NEW_VERSION="${CURRENT_VERSION}-beta.${COMMITSINCESTABLE}"
-else
+if [[ $CIRCLE_BRANCH == "stable" || $GITHUB_REF_NAME == "stable" ]]; then
   echo "This is a stable branch. Setting stable version."
   NEW_VERSION=${CURRENT_VERSION/0/$COMMITSINCESTABLE}
+else
+  echo "This is not a stable branch, but there are commits since the last stable release. Setting beta version."
+  NEW_VERSION="${CURRENT_VERSION}-beta.${COMMITSINCESTABLE}"
 fi
 
 echo "Version: $NEW_VERSION"
@@ -28,6 +28,5 @@ if [[ -z "${GITHUB_ENV}" ]]; then
 elif [[ -z "${BASH_ENV}" ]]; then
   echo "export APP_VERSION=$(node -p -e 'require("./package.json").version')" >>$BASH_ENV
 fi
-
 
 node -p -e "require('./package.json').version"
