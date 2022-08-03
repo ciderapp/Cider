@@ -713,6 +713,9 @@ export class BrowserWindow {
                     details.requestHeaders[":authority:"] = "amp-api.music.apple.com";
                     details.requestHeaders["origin"] = "https://beta.music.apple.com";
                     details.requestHeaders["referer"] = "https://beta.music.apple.com";
+                    details.requestHeaders["sec-fetch-dest"] = "empty";
+                    details.requestHeaders["sec-fetch-mode"] = "cors";
+                    details.requestHeaders["sec-fetch-site"] = "same-site";
                 }
                 if (details.url.startsWith("https://music.163.com")) {
                     details.requestHeaders["Referer"] = "https://music.163.com/";
