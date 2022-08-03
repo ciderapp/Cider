@@ -43,7 +43,7 @@ jobs:
           python3 -m castlabs_evs.account refresh -A ${{ secrets.EVS_ACCOUNT_NAME }} -P ${{ secrets.EVS_PASSWD }} 
 
       - name: Setup Environment
-        run: brew install autoconf automake libtool
+        run: brew install automake #libtool autoconf
 
       - name: Install and Configure Node Modules
         run: |
@@ -96,16 +96,21 @@ jobs:
           path: |
             dist/*.dmg
             dist/*.pkg
-            latest-mac.yml
+            dist/latest-mac.yml
 
       - name: Upload Artifacts to Latest Release
         uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_REPOSITORY: ciderapp/cider-releases
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          token: ${{ secrets.RELEASE_TOKEN }}
+          repository: ciderapp/cider-releases
+          token: ${{ secrets.GITHUB_TOKEN }}
+          append_body: false
           files: |
             dist/*.dmg
             dist/*.pkg
-            latest-mac.yml
+            dist/latest-mac.yml
           tag_name: v${{ env.APP_VERSION }}
-        env:
-          GITHUB_REPOSITORY: ciderapp/cider-releases
+          title: Cider Version ${{ env.APP_VERSION }} (${{ env.GITHUB_REF_NAME }})
+          body: Full changelog available [here](https://github.com/ciderapp/Cider/compare/stable...main)
