@@ -48,9 +48,17 @@ jobs:
       - name: Setup Environment
         run: brew install automake #libtool autoconf
 
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/yarn
+          key: yarn-${{ hashFiles('cider-yarn.lock') }}
+          restore-keys: yarn-
+
       - name: Install and Configure Node Modules
         run: |
-          yarn install
+          mv cider-yarn.lock yarn.lock
+          yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
           cp resources/verror-types node_modules/@types/verror/index.d.ts
           cp resources/macPackager.js node_modules/app-builder-lib/out/macPackager.js
           rm -r node_modules/pouchdb-node/node_modules/leveldown
@@ -76,7 +84,7 @@ jobs:
         with:
           repo_name: ciderapp/cider-releases
           repo_token: ${{ secrets.RELEASE_TOKEN }}
-          file: dist/*.dmg
+          file: dist/Cider-${{ env.APP_VERSION }}-universal.dmg
           tag: v${{ env.APP_VERSION }}
 
       - name: Upload macOS Latest
@@ -110,7 +118,7 @@ jobs:
         with:
           repo_name: ciderapp/cider-releases
           repo_token: ${{ secrets.RELEASE_TOKEN }}
-          file: dist/*.pkg
+          file: dist/Cider-${{ env.APP_VERSION }}-universal.pkg
           tag: v${{ env.APP_VERSION }}
 
       - name: Upload a Build Artifact
