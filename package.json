@@ -203,10 +203,7 @@
     "dmg": {
       "background": "./resources/bg.png",
       "icon": "resources/icons/icon.ico",
-      "window": {
-        "width": "1000",
-        "height": "600"
-      }
+      "backgroundColor": "#141414"
     },
     "mas": {
       "entitlements": "./resources/entitlements.mac.plist",
