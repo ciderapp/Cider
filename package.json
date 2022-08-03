@@ -181,7 +181,6 @@
       "background": {
         "file": "./resources/bg.png",
         "alignment": "bottomleft",
-        "scaling": "tofit"
       },
       "allowAnywhere": true,
       "allowCurrentUserHome": true,
