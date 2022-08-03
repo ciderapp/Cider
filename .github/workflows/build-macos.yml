@@ -40,44 +40,46 @@ jobs:
       - name: Change Version
         run: sudo chmod +x resources/version.sh && ./resources/version.sh || true
 
-      - name: Sign in to EVS
-        run: |
-          python3 -m pip install --upgrade castlabs-evs
-          python3 -m castlabs_evs.account refresh -A ${{ secrets.EVS_ACCOUNT_NAME }} -P ${{ secrets.EVS_PASSWD }} 
+      - run: echo "test" > test.md
 
-      - name: Setup Environment
-        run: brew install automake #libtool autoconf
-
-      - name: Install and Configure Node Modules
-        run: |
-          yarn install
-          cp resources/verror-types node_modules/@types/verror/index.d.ts
-          cp resources/macPackager.js node_modules/app-builder-lib/out/macPackager.js 
-          rm -r node_modules/pouchdb-node/node_modules/leveldown
-          rm -r node_modules/pouchdb-adapter-leveldb/node_modules/leveldown
-
-
-      # Build the DMG
-      - name: Build the DMG
-        env:
-          CSC_LINK: ${{ secrets.CSC_LINK }}
-          CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
-          APPLEID: ${{ secrets.APPLEID }}
-          APPLEIDPASS: ${{ secrets.APPLEIDPASS }}
-          APPLE_ID: ${{ secrets.APPLEID }}
-          APPLE_ID_PASSWORD: ${{ secrets.APPLEIDPASS }}
-          PSC_NAME: ${{ secrets.PSC_NAME }}
-          DEVELOPER_DIR: /Applications/Xcode_12.4.app/Contents/Developer
-        run: yarn dist:universalNotWorking -p never
-
-      - name: Add license to DMG
-        run: npx dmg-license resources/license.json dist/*.dmg
-
-      - name: Import
-        uses: apple-actions/import-codesign-certs@v1
-        with:
-          p12-file-base64: ${{ secrets.CSC_LINK }}
-          p12-password: ${{ secrets.CSC_KEY_PASSWORD }}
+#      - name: Sign in to EVS
+#        run: |
+#          python3 -m pip install --upgrade castlabs-evs
+#          python3 -m castlabs_evs.account refresh -A ${{ secrets.EVS_ACCOUNT_NAME }} -P ${{ secrets.EVS_PASSWD }}
+#
+#      - name: Setup Environment
+#        run: brew install automake #libtool autoconf
+#
+#      - name: Install and Configure Node Modules
+#        run: |
+#          yarn install
+#          cp resources/verror-types node_modules/@types/verror/index.d.ts
+#          cp resources/macPackager.js node_modules/app-builder-lib/out/macPackager.js
+#          rm -r node_modules/pouchdb-node/node_modules/leveldown
+#          rm -r node_modules/pouchdb-adapter-leveldb/node_modules/leveldown
+#
+#
+#      # Build the DMG
+#      - name: Build the DMG
+#        env:
+#          CSC_LINK: ${{ secrets.CSC_LINK }}
+#          CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+#          APPLEID: ${{ secrets.APPLEID }}
+#          APPLEIDPASS: ${{ secrets.APPLEIDPASS }}
+#          APPLE_ID: ${{ secrets.APPLEID }}
+#          APPLE_ID_PASSWORD: ${{ secrets.APPLEIDPASS }}
+#          PSC_NAME: ${{ secrets.PSC_NAME }}
+#          DEVELOPER_DIR: /Applications/Xcode_12.4.app/Contents/Developer
+#        run: yarn dist:universalNotWorking -p never
+#
+#      - name: Add license to DMG
+#        run: npx dmg-license resources/license.json dist/*.dmg
+#
+#      - name: Import
+#        uses: apple-actions/import-codesign-certs@v1
+#        with:
+#          p12-file-base64: ${{ secrets.CSC_LINK }}
+#          p12-password: ${{ secrets.CSC_KEY_PASSWORD }}
 
       # Build to PKG
 #      - name: Build the PKG
@@ -92,13 +94,13 @@ jobs:
 #          sleep 5m
 #          xcrun stapler staple dist/Cider*.pkg || true
 
-      - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v2.2.3
-        with:
-          name: Cider-macOS-${{ env.APP_VERSION }}
-          path: |
-            dist/*.dmg
-            dist/latest-mac.yml
+#      - name: Upload a Build Artifact
+#        uses: actions/upload-artifact@v2.2.3
+#        with:
+#          name: Cider-macOS-${{ env.APP_VERSION }}
+#          path: |
+#            dist/*.dmg
+#            dist/latest-mac.yml
 
       - name: Upload files to release
         uses: svenstaro/upload-release-action@v2
@@ -107,10 +109,7 @@ jobs:
           # A personal access token for the GitHub repository in which the release will be created and edited.
           # It is recommended to create the access token with the following scopes: `repo, user, admin:repo_hook`.
           repo_token: ${{ secrets.RELEASE_TOKEN }}
-          file_glob: true
-          file: |
-            dist/*.dmg
-            dist/latest-mac.yml
+          file: test.md
           tag: v${{ env.APP_VERSION }}
 
 #      - name: Upload Artifacts to Latest Release
