@@ -59,6 +59,8 @@ export default class playbackNotifications {
                 </toast>`
         });
 
+        console.log(this._notification.toastXml);
+
         this._notification.on('click', (_: any) => {
             this._utils.getWindow().show()
             this._utils.getWindow().focus()
@@ -102,9 +104,11 @@ export default class playbackNotifications {
                 if (process.platform === "win32") {
                     fetch(a.artwork.url)
                         .then(res => {
+                            console.log(join(app.getPath("temp"), `${a.songId}-${a.artwork.url.split('/').pop()}`));
                             const dest = createWriteStream(join(app.getPath("temp"), `${a.songId}-${a.artwork.url.split('/').pop()}`));
                             // @ts-ignore
                             res.body.pipe(dest)
+                            this.createNotification(a);
                         })
                 } else {
                     fetch(a.artwork.url).then(async blob => {
