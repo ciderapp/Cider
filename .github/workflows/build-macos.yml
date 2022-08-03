@@ -106,6 +106,6 @@ jobs:
             dist/*.dmg
             dist/*.pkg
             latest-mac.yml
-          tag_name: ${{ env.APP_VERSION }}
+          tag_name: v${{ env.APP_VERSION }}
         env:
           GITHUB_REPOSITORY: ciderapp/cider-releases
