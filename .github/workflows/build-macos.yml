@@ -43,6 +43,22 @@ jobs:
           python3 -m pip install --upgrade castlabs-evs
           python3 -m castlabs_evs.account refresh -A ${{ secrets.EVS_ACCOUNT_NAME }} -P ${{ secrets.EVS_PASSWD }} 
 
+      - name: Setup Environment
+        run: |
+          xcodebuild -version
+          brew install autoconf automake libtool
+
+      - name: Install Node Modules
+        run: |
+          yarn install
+          cp resources/verror-types node_modules/@types/verror/index.d.ts
+          cp resources/macPackager.js node_modules/app-builder-lib/out/macPackager.js 
+          rm -r node_modules/pouchdb-node/node_modules/leveldown
+          rm -r node_modules/pouchdb-adapter-leveldb/node_modules/leveldown
+          rm -r /node_modules/leveldown/node_modules/node-gyp-build || true
+
+
+      # Build the DMG
       - name: Build
         env:
           CSC_LINK: ${{ secrets.CSC_LINK }}
@@ -53,20 +69,9 @@ jobs:
           APPLE_ID_PASSWORD: ${{ secrets.APPLEIDPASS }}
           PSC_NAME: ${{ secrets.PSC_NAME }}
           DEVELOPER_DIR: /Applications/Xcode_12.4.app/Contents/Developer
-        run: |
-          rm cider-yarn.lock || true
-          xcodebuild -version 
-          brew install autoconf automake libtool
-          yarn install
-          cp resources/verror-types node_modules/@types/verror/index.d.ts
-          cp resources/macPackager.js node_modules/app-builder-lib/out/macPackager.js 
-          rm -r node_modules/pouchdb-node/node_modules/leveldown
-          rm -r node_modules/pouchdb-adapter-leveldb/node_modules/leveldown
-          rm -r /node_modules/leveldown/node_modules/node-gyp-build || true
-          yarn dist:universalNotWorking -p never
-          ls
+        run: yarn dist:universalNotWorking -p never
 
-      - name: Add license to dmg
+      - name: Add license to DMG
         run: |
           npx dmg-license resources/license.json dist/*.dmg
 
@@ -76,7 +81,7 @@ jobs:
           p12-file-base64: ${{ secrets.CSC_LINK }}
           p12-password: ${{ secrets.CSC_KEY_PASSWORD }}
 
-      # Makes the PKG
+      # Build to PKG
       - name: Create PKG manually
         env:
           CSC_LINK: ${{ secrets.CSC_LINK }}
@@ -84,22 +89,16 @@ jobs:
           APPLEID: ${{ secrets.APPLEID }}
           APPLEIDPASS: ${{ secrets.APPLEIDPASS }}
         run: |
-          pkgbuild --component dist/mac-universal/Cider.app --install-location /Applications dist/Cider.pkg --sign ${{ secrets.PSC_NAME }} 
-          xcrun altool --notarize-app --primary-bundle-id com.ciderapp.cider -f dist/Cider.pkg  --username ${{ secrets.APPLEID }} --password ${{ secrets.APPLEIDPASS }}
+          pkgbuild --component dist/mac-universal/Cider.app --install-location /Applications dist/Cider-$APP_VERSION-universal.pkg --sign ${{ secrets.PSC_NAME }} 
+          xcrun altool --notarize-app --primary-bundle-id com.ciderapp.cider -f dist/Cider*.pkg  --username ${{ secrets.APPLEID }} --password ${{ secrets.APPLEIDPASS }}
           sleep 5m
-          xcrun stapler staple dist/Cider.pkg || true
-          mv dist/*.dmg dist/Cider.dmg
+          xcrun stapler staple dist/Cider*.pkg || true
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.2.3
         with:
-          # Artifact name
-          name: macOS
-          # A file, directory or wildcard pattern that describes what to upload
-          path: |
-            dist/*.dmg
-            dist/*.pkg
-          # The desired behavior if no files are found using the provided path.
+          name: Cider-macOS-$APP_VERSION
+          path: dist/*
 
 #      - name: Upload Artifacts to Latest Release
 #        uses: softprops/action-gh-release@v1

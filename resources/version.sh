@@ -27,10 +27,10 @@ else
 fi
 
 # Make it a environment variable
-if [[ -z "${GITHUB_ENV}" ]]; then
-  echo "APP_VERSION=$(node -p -e 'require("./package.json").version')" >>$GITHUB_ENV
-elif [[ -z "${BASH_ENV}" ]]; then
-  echo "export APP_VERSION=$(node -p -e 'require("./package.json").version')" >>$BASH_ENV
+if [[ -z "${GITHUB_REF}" ]]; then
+  echo "APP_VERSION=$(node -p -e 'require("./package.json").version')" >> $GITHUB_ENV
+else
+  echo "export APP_VERSION=$(node -p -e 'require("./package.json").version')" >> $BASH_ENV
 fi
 
 node -p -e "require('./package.json').version"
