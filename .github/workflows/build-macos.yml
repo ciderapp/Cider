@@ -9,7 +9,6 @@ on:
       - '.gitmodules'
       - '.gitignore'
       - 'LICENSE'
-      - 'cider.lock'
 
 permissions:
   contents: write
@@ -52,12 +51,12 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.cache/yarn
-          key: yarn-${{ hashFiles('cider-yarn.lock') }}
+          key: yarn-${{ hashFiles('cider.lock') }}
           restore-keys: yarn-
 
       - name: Install and Configure Node Modules
         run: |
-          mv cider-yarn.lock yarn.lock
+          mv cider.lock yarn.lock
           yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
           cp resources/verror-types node_modules/@types/verror/index.d.ts
           cp resources/macPackager.js node_modules/app-builder-lib/out/macPackager.js
