@@ -6,7 +6,7 @@ COMMITSINCESTABLE=$(git rev-list $STABLE_SHA..HEAD --count --since="$SHA_DATE")
 CURRENT_VERSION=$(node -p -e "require('./package.json').version")
 
 # Set the version number for commits on main branch
-if [[ ($CIRCLE_BRANCH == "main" || $GITHUB_REF_NAME == "enhancement/ci") && $COMMITSINCESTABLE -gt 0 ]]; then
+if [[ ($CIRCLE_BRANCH == "main" || $GITHUB_REF_NAME == "main") && $COMMITSINCESTABLE -gt 0 ]]; then
   NEW_VERSION="${CURRENT_VERSION}-beta.${COMMITSINCESTABLE}"
 
   # Update the version in package.json
