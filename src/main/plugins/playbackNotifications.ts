@@ -1,6 +1,8 @@
 import fetch from "electron-fetch";
-import {nativeImage, Notification} from "electron";
+import {app, nativeImage, Notification} from "electron";
 import NativeImage = Electron.NativeImage;
+import {createWriteStream} from "fs";
+import {join} from "path";
 
 export default class playbackNotifications {
 
@@ -44,7 +46,8 @@ export default class playbackNotifications {
                 <toast>
                     <audio silent="true" />
                     <visual>
-                        <binding template="ToastText02">
+                        <binding template="ToastImageAndText02">
+                            <image id="1" src="${join(app.getPath("temp"), `${a.songId}-${a.artwork.url.split('/').pop()}`)}" name="Image" />
                             <text id="1">${a?.name.replace(/&/g, '&amp;')}</text>
                             <text id="2">${a?.artistName.replace(/&/g, '&amp;')} — ${a?.albumName.replace(/&/g, '&amp;')}</text>
                         </binding>
@@ -55,9 +58,6 @@ export default class playbackNotifications {
                     </actions>
                 </toast>`
         });
-
-        // image implementation in windows toasts
-        //<image id="1" src="path to image" alt="img"/>
 
         this._notification.on('click', (_: any) => {
             this._utils.getWindow().show()
@@ -99,11 +99,20 @@ export default class playbackNotifications {
             if (this._artworkImage[a.artwork.url]) {
                 this.createNotification(a);
             } else {
-                fetch(a.artwork.url).then(async blob => {
-                    this._artworkImage[a.artwork.url] = nativeImage.createFromBuffer(Buffer.from(await blob.arrayBuffer()));
-                    this._artworkNums[this._artworkNums.length] = a.artwork.url;
-                    this.createNotification(a);
-                });
+                if (process.platform === "win32") {
+                    fetch(a.artwork.url)
+                        .then(res => {
+                            const dest = createWriteStream(join(app.getPath("temp"), `${a.songId}-${a.artwork.url.split('/').pop()}`));
+                            // @ts-ignore
+                            res.body.pipe(dest)
+                        })
+                } else {
+                    fetch(a.artwork.url).then(async blob => {
+                        this._artworkImage[a.artwork.url] = nativeImage.createFromBuffer(Buffer.from(await blob.arrayBuffer()));
+                        this._artworkNums[this._artworkNums.length] = a.artwork.url;
+                        this.createNotification(a);
+                    });
+                }
             }
         })
     }
