@@ -180,7 +180,7 @@
       "installLocation": "/Applications",
       "background": {
         "file": "./resources/bg.png",
-        "alignment": "bottomleft",
+        "alignment": "bottomleft"
       },
       "allowAnywhere": true,
       "allowCurrentUserHome": true,
