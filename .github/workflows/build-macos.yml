@@ -80,17 +80,17 @@ jobs:
           p12-password: ${{ secrets.CSC_KEY_PASSWORD }}
 
       # Build to PKG
-      - name: Build the PKG
-        env:
-          CSC_LINK: ${{ secrets.CSC_LINK }}
-          CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
-          APPLEID: ${{ secrets.APPLEID }}
-          APPLEIDPASS: ${{ secrets.APPLEIDPASS }}
-        run: |
-          pkgbuild --component dist/mac-universal/Cider.app --install-location /Applications dist/Cider-${{ env.APP_VERSION }}-universal.pkg --sign ${{ secrets.PSC_NAME }} 
-          xcrun altool --notarize-app --primary-bundle-id com.ciderapp.cider -f dist/Cider*.pkg  --username ${{ secrets.APPLEID }} --password ${{ secrets.APPLEIDPASS }}
-          sleep 5m
-          xcrun stapler staple dist/Cider*.pkg || true
+#      - name: Build the PKG
+#        env:
+#          CSC_LINK: ${{ secrets.CSC_LINK }}
+#          CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+#          APPLEID: ${{ secrets.APPLEID }}
+#          APPLEIDPASS: ${{ secrets.APPLEIDPASS }}
+#        run: |
+#          pkgbuild --component dist/mac-universal/Cider.app --install-location /Applications dist/Cider-${{ env.APP_VERSION }}-universal.pkg --sign ${{ secrets.PSC_NAME }}
+#          xcrun altool --notarize-app --primary-bundle-id com.ciderapp.cider -f dist/Cider*.pkg  --username ${{ secrets.APPLEID }} --password ${{ secrets.APPLEIDPASS }}
+#          sleep 5m
+#          xcrun stapler staple dist/Cider*.pkg || true
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.2.3
@@ -98,7 +98,6 @@ jobs:
           name: Cider-macOS-${{ env.APP_VERSION }}
           path: |
             dist/*.dmg
-            dist/*.pkg
             dist/latest-mac.yml
 
       - name: Upload Artifacts to Latest Release
@@ -107,7 +106,6 @@ jobs:
           body: Full changelog available [here](https://github.com/ciderapp/Cider/compare/stable...main)
           files: |
             dist/*.dmg
-            dist/*.pkg
             dist/latest-mac.yml
           name: Cider Version ${{ env.APP_VERSION }} (${{ env.GITHUB_REF_NAME }})
           tag_name: v${{ env.APP_VERSION }}
