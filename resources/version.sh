@@ -17,6 +17,9 @@ fi
 echo "Version: $NEW_VERSION"
 echo "Current version: $CURRENT_VERSION"
 if [[ $COMMITSINCESTABLE -gt 0 ]]; then
+  ls
+  echo "THE COMMAND THAT IS RUNNING IS:"
+  echo "sed -i "0,/$CURRENT_VERSION/s//$NEW_VERSION/" package.json"
   sed -i "0,/$CURRENT_VERSION/s//$NEW_VERSION/" package.json
 else
   echo "Version unchanged, commits since stable is ${COMMITSINCESTABLE}"
