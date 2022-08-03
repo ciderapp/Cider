@@ -100,17 +100,19 @@ jobs:
 
       - name: Upload Artifacts to Latest Release
         uses: softprops/action-gh-release@v1
-        env:
-          GITHUB_REPOSITORY: ciderapp/cider-releases
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          repository: ciderapp/cider-releases
-          token: ${{ secrets.GITHUB_TOKEN }}
-          append_body: false
+          body: Full changelog available [here](https://github.com/ciderapp/Cider/compare/stable...main)
           files: |
             dist/*.dmg
             dist/*.pkg
             dist/latest-mac.yml
+          name: Cider Version ${{ env.APP_VERSION }} (${{ env.GITHUB_REF_NAME }})
           tag_name: v${{ env.APP_VERSION }}
-          title: Cider Version ${{ env.APP_VERSION }} (${{ env.GITHUB_REF_NAME }})
-          body: Full changelog available [here](https://github.com/ciderapp/Cider/compare/stable...main)
+          repository: ciderapp/cider-releases
+          token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_REPOSITORY: ciderapp/cider-releases
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+
