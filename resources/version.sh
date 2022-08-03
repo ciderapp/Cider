@@ -12,7 +12,7 @@ else
   NEW_VERSION=${CURRENT_VERSION/0/$COMMITSINCESTABLE}
 fi
 echo "Version: $NEW_VERSION"
-
+echo "Current version: $CURRENT_VERSION"
 if [[ $COMMITSINCESTABLE -gt 0 ]]; then
   sed -i "0,/$CURRENT_VERSION/s//$NEW_VERSION/" package.json
 else
