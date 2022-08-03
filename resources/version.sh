@@ -4,15 +4,11 @@ STABLE_SHA=$(curl -s https://api.github.com/repos/ciderapp/Cider/branches/stable
 COMMITSINCESTABLE=$(git rev-list $STABLE_SHA..HEAD --count)
 CURRENT_VERSION=$(node -p -e "require('./package.json').version")
 
-# Make the version number
-if [[ $CIRCLE_BRANCH == "stable" || $GITHUB_REF_NAME == "stable" ]]; then
-  NEW_VERSION=${CURRENT_VERSION/0/$COMMITSINCESTABLE}
-elif [[ ($CIRCLE_BRANCH == "main" || $GITHUB_REF_NAME == "main") && $COMMITSINCESTABLE -gt 0 ]]; then
-  echo "This is not a stable branch, but there are commits since the last stable release. Setting beta version."
+# Set the version number for commits on main branch
+if [[ ($CIRCLE_BRANCH == "main" || $GITHUB_REF_NAME == "enhancement/ci") && $COMMITSINCESTABLE -gt 0 ]]; then
   NEW_VERSION="${CURRENT_VERSION}-beta.${COMMITSINCESTABLE}"
-fi
 
-if [[ $COMMITSINCESTABLE -gt 0 ]]; then
+  # Update the version in package.json
   if [[ $RUNNER_OS == "macOS" ]]; then
     sed -i "" -e "s/$CURRENT_VERSION/$NEW_VERSION/" package.json
   else
@@ -20,9 +16,10 @@ if [[ $COMMITSINCESTABLE -gt 0 ]]; then
   fi
   echo "Version updated to v${NEW_VERSION}"
 else
-  echo "Version unchanged, commits since stable is v${COMMITSINCESTABLE}"
+  echo "Not on main branch or no commits since stable. Skipping version update."
 fi
 
+# Add the version to the environment for CI usage
 if [[ $GITHUB_REF_NAME != "" ]]; then
   echo "APP_VERSION=$(node -p -e 'require("./package.json").version')" >>$GITHUB_ENV
 else
