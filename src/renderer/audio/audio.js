@@ -392,7 +392,7 @@ const CiderAudio = {
                           }
                         ];
                         }
-                      
+
                         constructor() {
                           super();
                           this._bufferSize = 1024;
@@ -405,15 +405,15 @@ const CiderAudio = {
                             this._buffers.push(new Float32Array(this._bufferSize));
                           }
                         }
-                      
+
                         _initBuffer() {
                           this._bytesWritten = 0;
                         }
-                      
+
                         _isBufferEmpty() {
                           return this._bytesWritten === 0;
                         }
-                      
+
                         _isBufferFull() {
                           return this._bytesWritten === this._bufferSize;
                         }
@@ -430,7 +430,7 @@ const CiderAudio = {
                             this._bytesWritten += 1;
                           }
                         }
-                      
+
                         _flush() {
                           let buffers = [];
                           this._buffers.forEach((buffer, channel) => {
@@ -446,28 +446,28 @@ const CiderAudio = {
                           });
                           this._initBuffer();
                         }
-                      
+
                         _recordingStopped() {
                           this.port.postMessage({
                             eventType: 'stop'
                           });
                         }
-                      
+
                         process(inputs, outputs, parameters) {
                           const isRecordingValues = parameters.isRecording;
-                          const numberOfChannels = parameters.numberOfChannels[0];   
+                          const numberOfChannels = parameters.numberOfChannels[0];
                           if (this._buffers === null) {
                             this._initBuffers(numberOfChannels);
                           }
-                          
-                          for (let dataIndex = 0; dataIndex < isRecordingValues.length; dataIndex++) 
+
+                          for (let dataIndex = 0; dataIndex < isRecordingValues.length; dataIndex++)
                           {
                             const shouldRecord = isRecordingValues[dataIndex] === 1;
                             if (!shouldRecord && !this._isBufferEmpty()) {
                               this._flush();
                               this._recordingStopped();
                             }
-                      
+
                             if (shouldRecord) {
                               let audioRawData = inputs[0];
                               this._pushToBuffers(audioRawData, numberOfChannels);
@@ -475,9 +475,9 @@ const CiderAudio = {
                           }
                           return true;
                         }
-                      
+
                       }
-                      
+
                       registerProcessor('recorder-worklet', RecorderWorkletProcessor);`;
           let blob = new Blob([worklet], { type: "application/javascript" });
           await CiderAudio.context.audioWorklet.addModule(URL.createObjectURL(blob)).then(() => {
