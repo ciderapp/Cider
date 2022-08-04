@@ -26,7 +26,6 @@ jobs:
         language: [ 'javascript' ]
 
     steps:
-      - run: echo ${{ matrix.Plan }}
       - uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: '12.4'
