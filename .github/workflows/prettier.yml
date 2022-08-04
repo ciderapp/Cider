@@ -21,4 +21,6 @@ jobs:
       - name: Prettify code
         uses: creyD/prettier_action@v4.2
         with:
-          prettier_options: --write '**/*.{js,json,ts,css,less}'
+          # This part is also where you can pass other options, for example:
+          prettier_options: --write **/*.{js,json,ts,css,less}
+          github_token: ${{ secrets.RELEASE_TOKEN }}
