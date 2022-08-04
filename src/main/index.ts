@@ -27,7 +27,7 @@ Sentry({
 new Store();
 const Cider = new AppEvents();
 const CiderPlug = new Plugins();
-            console.log("hi")
+console.log("hi");
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * App Event Handlers
