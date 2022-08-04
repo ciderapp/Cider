@@ -15,6 +15,7 @@ import { sidebarLibraryItem } from "./components/sidebar-library-item.js";
 window.app = app;
 window.MusicKitTools = MusicKitTools;
 window.CiderAudio = CiderAudio;
+window.CiderAudioRenderer = CiderAudioRenderer;
 window.CiderCache = CiderCache;
 window.CiderFrontAPI = CiderFrontAPI;
 window.wsapi = wsapi;

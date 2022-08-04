@@ -174,8 +174,7 @@
         methods: {
             CiderOptimizer: function () {
                 if (app.cfg.audio.maikiwiAudio.staticOptimizer.state === true) {
-                    app.cfg.audio.maikiwiAudio.staticOptimizer.lock = false;
-                    CiderAudio.hierarchical_loading()
+                    CiderAudio.hierarchical_optimizer();
                 }
                 else {
                     app.cfg.audio.maikiwiAudio.staticOptimizer.lock = false;
