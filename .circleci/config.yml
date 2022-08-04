@@ -86,9 +86,10 @@ jobs:
       - run:
           name: Install Windows System Build Dependencies
           command: |
+            sudo apt-get update -y
             dpkg --add-architecture i386
             sudo apt-get update -y
-            sudo apt-get install -y fakeroot wine64 wine32
+            sudo apt-get install -y wine64 wine32
       - run:
           name: Generate Builds (Windows)
           command: yarn electron-builder -w --x64 -p never
@@ -109,9 +110,10 @@ jobs:
       - run:
           name: Install Windows System Build Dependencies
           command: |
+            sudo apt-get update -y
             dpkg --add-architecture i386
             sudo apt-get update -y
-            sudo apt-get install -y fakeroot wine64 wine32
+            sudo apt-get install -y wine64 wine32
       - run:
           name: Generate Builds (Winget)
           command: yarn electron-builder --win -c winget.json -p never
