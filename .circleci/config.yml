@@ -16,10 +16,12 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install buildtools
+          name: Install Build Dependencies
           command: |
-                sudo apt-get update
-                sudo apt-get install -y autoconf automake g++ libtool || true
+            sudo dpkg --add-architecture i386
+            sudo apt-get update -y
+            sudo apt-get install -y wine64 wine32
+            sudo apt-get install -y autoconf automake g++ libtool || true
       - run:
           name: Update Version Number of App
           command: sudo chmod +x resources/version.sh && ./resources/version.sh || true
@@ -84,12 +86,6 @@ jobs:
       - attach_workspace:
           at: ~/Cider
       - run:
-          name: Install Windows System Build Dependencies
-          command: |
-            sudo dpkg --add-architecture i386
-            sudo apt-get update -y
-            sudo apt-get install -y wine64 wine32
-      - run:
           name: Generate Builds (Windows)
           command: yarn electron-builder -w --x64 -p never
           post-steps:
@@ -106,12 +102,6 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/Cider
-      - run:
-          name: Install Windows System Build Dependencies
-          command: |
-            sudo dpkg --add-architecture i386
-            sudo apt-get update -y
-            sudo apt-get install -y wine64 wine32
       - run:
           name: Generate Builds (Winget)
           command: yarn electron-builder --win -c winget.json -p never
@@ -155,7 +145,7 @@ jobs:
           name: Publish Release
           command: |
             echo "Attempting to create release for Cider v${APP_VERSION} on the ${CIRCLE_BRANCH} branch."
-            gh release create "v${APP_VERSION}" --title "Cider Version ${APP_VERSION} (${CIRCLE_BRANCH})" --target "ciderapp/cider@${CIRCLE_SHA1}" --notes "**Beta Release**
+            gh release create "v${APP_VERSION}" --title "Cider Version ${APP_VERSION} (${CIRCLE_BRANCH})" --notes "**Beta Release**
             A full changelog is unavailable, but you can view the branch comparison [here](https://github.com/ciderapp/cider/compare/stable...main).
             These builds are considered bleeding edge, expect bugs and please do not use this as a representation of the full app.
             Our full support disclaimer can be found [here](https://docs.cider.sh/support/disclaimer#support-nightly-beta-releases)." -R ciderapp/cider-releases ~/Cider/dist/artifacts/*.deb ~/Cider/dist/artifacts/*.AppImage ~/Cider/dist/artifacts/*.snap ~/Cider/dist/artifacts/*.exe ~/Cider/dist/artifacts/*.yml ~/Cider/dist/artifacts/*.blockmap
@@ -168,32 +158,32 @@ workflows:
           filters:
             branches:
               only:
-              - main
-              - stable
+                - main
+                - stable
       - build-windows:
           requires:
             - prepare-build
           filters:
             branches:
               only:
-              - main
-              - stable
+                - main
+                - stable
       - build-linux:
           requires:
             - prepare-build
           filters:
             branches:
               only:
-              - main
-              - stable
+                - main
+                - stable
       - build-winget:
           requires:
             - prepare-build
           filters:
             branches:
               only:
-              - main
-              - stable
+                - main
+                - stable
       - release:
           requires:
             - build-windows
@@ -202,5 +192,5 @@ workflows:
           filters:
             branches:
               only:
-              - main
-              - stable
+                - main
+                - stable
