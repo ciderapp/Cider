@@ -7,6 +7,8 @@ COMMIT_SINCE_STABLE=$(git rev-list $STABLE_SHA..HEAD --count --since="$SHA_DATE"
 CURRENT_VERSION=$(node -p -e "require('./package.json').version")
 LATEST_VERSION=$(curl -s https://api.github.com/repos/ciderapp/cider-releases/releases/latest | grep tag_name | cut -d '"' -f 4 | sed 's/v//' | xargs)
 
+curl -s https://api.github.com/repos/ciderapp/Cider/branches/stable  2
+
 # Debugging
 echo "STABLE_SHA: $STABLE_SHA"
 echo "SHA_DATE: $SHA_DATE"
