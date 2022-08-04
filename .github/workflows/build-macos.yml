@@ -71,14 +71,6 @@ jobs:
       - name: Add license to DMG
         run: npx dmg-license resources/license.json dist/*.dmg
 
-      - name: Upload DMG
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_name: ciderapp/cider-releases
-          repo_token: ${{ secrets.RELEASE_TOKEN }}
-          file: dist/Cider-${{ env.APP_VERSION }}-universal.dmg
-          tag: v${{ env.APP_VERSION }}
-
       - name: Upload macOS Latest
         uses: svenstaro/upload-release-action@v2
         with:
@@ -105,14 +97,6 @@ jobs:
           sleep 5m
           xcrun stapler staple dist/Cider*.pkg || true
 
-      - name: Upload PKG
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_name: ciderapp/cider-releases
-          repo_token: ${{ secrets.RELEASE_TOKEN }}
-          file: dist/Cider-${{ env.APP_VERSION }}-universal.pkg
-          tag: v${{ env.APP_VERSION }}
-
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.2.3
         with:
@@ -122,7 +106,18 @@ jobs:
             dist/*.pkg
             dist/latest-mac.yml
 
+      - name: Upload Files (DMG)
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_name: ciderapp/cider-releases
+          repo_token: ${{ secrets.RELEASE_TOKEN }}
+          file: dist/Cider-${{ env.APP_VERSION }}-universal.dmg
+          tag: v${{ env.APP_VERSION }}
 
-
-
-
+      - name: Upload Files (PKG)
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_name: ciderapp/cider-releases
+          repo_token: ${{ secrets.RELEASE_TOKEN }}
+          file: dist/Cider-${{ env.APP_VERSION }}-universal.pkg
+          tag: v${{ env.APP_VERSION }}
