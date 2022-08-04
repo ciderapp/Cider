@@ -197,7 +197,7 @@
       ]
     },
     "dmg": {
-      "background": "./resources/bg.png",
+      "background": "./resources/bg.tiff",
       "icon": "resources/icons/icon.ico"
     },
     "mas": {
