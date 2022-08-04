@@ -27,6 +27,7 @@ jobs:
         Plan: [ pkg,dmg ]
 
     steps:
+      - run: echo ${{ matrix.Plan }}
       - uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: '12.4'
