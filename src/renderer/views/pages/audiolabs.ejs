@@ -14,7 +14,7 @@
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
                         <input type="checkbox" v-model="app.cfg.audio.maikiwiAudio.ciderPPE"
-                               v-on:change="CiderAudio.hierarchical_loading();" switch/>
+                               v-on:change="CiderAudio.hierarchical_loading();" switch />
                     </div>
                 </div>
                 <div class="md-option-line" v-show="app.cfg.audio.maikiwiAudio.ciderPPE === true">
@@ -27,12 +27,18 @@
                         <select class="md-select" style="width:180px;"
                                 v-model="app.cfg.audio.maikiwiAudio.ciderPPE_value"
                                 v-on:change="CiderAudio.hierarchical_loading()">
-                            <option value="MAIKIWI">Maikiwi ({{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.adaptive')}})</option>
-                            <option value="MAIKIWI_LEGACY">Maikiwi ({{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.legacy')}})</option>
+                            <option value="MAIKIWI">Maikiwi
+                                ({{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.adaptive')}})
+                            </option>
+                            <option value="MAIKIWI_LEGACY">Maikiwi
+                                ({{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.legacy')}})
+                            </option>
                             <option value="NATURAL">
                                 {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard')}}
                             </option>
-                            <option value="LEGACY">{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.legacy')}}</option>
+                            <option value="LEGACY">
+                                {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.legacy')}}
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -40,7 +46,8 @@
                     <div class="md-option-segment">
                         Cider Opportunistic Correction System
                         <br>
-                        <small>Takes advantage of the sonic characteristics of a specific equipment and adapts it to be more 'Cider' oriented.</small>
+                        <small>Takes advantage of the sonic characteristics of a specific equipment and adapts it to be
+                            more 'Cider' oriented.</small>
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
                         <select class="md-select" style="width:180px;"
@@ -59,7 +66,7 @@
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
                         <input type="checkbox" v-model="app.cfg.audio.maikiwiAudio.atmosphereRealizer1"
-                               v-on:change="CiderAudio.hierarchical_loading();" switch/>
+                               v-on:change="CiderAudio.hierarchical_loading();" switch />
                     </div>
                 </div>
                 <div class="md-option-line" v-show="app.cfg.audio.maikiwiAudio.atmosphereRealizer1 === true">
@@ -72,7 +79,9 @@
                         <select class="md-select" style="width:230px;"
                                 v-model="$root.cfg.audio.maikiwiAudio.atmosphereRealizer1_value"
                                 v-on:change="CiderAudio.hierarchical_loading();">
-                            <option v-for="profile in arprofiles" :value="profile.id">{{ $root.getProfileLz("CAR", profile.id) }}</option>
+                            <option v-for="profile in arprofiles" :value="profile.id">{{ $root.getProfileLz("CAR",
+                                profile.id) }}
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -84,7 +93,7 @@
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
                         <input type="checkbox" v-model="app.cfg.audio.maikiwiAudio.atmosphereRealizer2"
-                               v-on:change="CiderAudio.hierarchical_loading();" switch/>
+                               v-on:change="CiderAudio.hierarchical_loading();" switch />
                     </div>
                 </div>
                 <div class="md-option-line" v-show="app.cfg.audio.maikiwiAudio.atmosphereRealizer2 === true">
@@ -97,7 +106,9 @@
                         <select class="md-select" style="width:230px;"
                                 v-model="$root.cfg.audio.maikiwiAudio.atmosphereRealizer2_value"
                                 v-on:change="CiderAudio.hierarchical_loading();">
-                            <option v-for="profile in arprofiles" :value="profile.id">{{ $root.getProfileLz("CAR", profile.id) }}</option>
+                            <option v-for="profile in arprofiles" :value="profile.id">{{ $root.getProfileLz("CAR",
+                                profile.id) }}
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -109,7 +120,7 @@
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
                         <input type="checkbox" v-model="app.cfg.audio.maikiwiAudio.spatial"
-                               v-on:change="CiderAudio.hierarchical_loading();" switch/>
+                               v-on:change="CiderAudio.hierarchical_loading();" switch />
                     </div>
                 </div>
                 <div class="md-option-line"
@@ -123,7 +134,9 @@
                         <select class="md-select" style="width:180px;"
                                 v-model="$root.cfg.audio.maikiwiAudio.spatialProfile"
                                 v-on:change="CiderAudio.hierarchical_loading();">
-                            <option v-for="profile in spprofiles" :value="profile.id">{{ $root.getProfileLz("CTS", profile.name) }}</option>
+                            <option v-for="profile in spprofiles" :value="profile.id">{{ $root.getProfileLz("CTS",
+                                profile.name) }}
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -138,7 +151,8 @@
                             <small>Re-textures the vocals by carving out the frequencies and adjusts them to the
                                 selected profile.<br>
                                 <b>Modern:</b>
-                                Modernizes vocals that was recorded on old microphones while preserving the artist's individualistic style.<br>
+                                Modernizes vocals that was recorded on old microphones while preserving the artist's
+                                individualistic style.<br>
                                 <b>Articulate:</b>
                                 Wrapping every detail of the vocal to your ear, resulting in a more expressive voice.
                             </small>
@@ -164,20 +178,19 @@
 </script>
 
 <script>
-    Vue.component('audiolabs-page', {
-        template: "#audiolabs-page",
-        props: [],
-        data: function () {
-            return {
-                app: this.$root,
-                arprofiles: CiderAudio.atmosphereRealizerProfiles,
-                spprofiles: CiderAudio.spatialProfiles
-            }
-        },
-        mounted: function () {
+  Vue.component('audiolabs-page', {
+    template: "#audiolabs-page",
+    props: [],
+    data: function() {
+      return {
+        app: this.$root,
+        arprofiles: CiderAudio.atmosphereRealizerProfiles,
+        spprofiles: CiderAudio.spatialProfiles
+      }
+    },
+    mounted: function() {
 
-        },
-        methods: {
-        }
-    })
+    },
+    methods: {}
+  })
 </script>

@@ -1,49 +1,47 @@
 @panelColorsFallback: rgb(30 30 30);
-@panelColors        : rgb(30 30 30 / 45%);
+@panelColors: rgb(30 30 30 / 45%);
 
 .menu-panel {
-    .menu-panel-body {
-        background-color: @panelColors;
-        backdrop-filter : blur(32px) saturate(180%);
+  .menu-panel-body {
+    background-color: @panelColors;
+    backdrop-filter: blur(32px) saturate(180%);
 
-        &.menu-panel-body-down {
-            animation: menuInDown .10s var(--appleEase);
-        }
-
-        &.menu-panel-body-up {
-            animation: menuInUp .10s var(--appleEase);
-        }
-        
+    &.menu-panel-body-down {
+      animation: menuInDown 0.1s var(--appleEase);
     }
 
-    @keyframes menuInUp {
-        0% {
-            opacity   : 0;
-            transform : translateY(-10px) translate3d(0,0,0);
-            background: @panelColorsFallback;
-        }
+    &.menu-panel-body-up {
+      animation: menuInUp 0.1s var(--appleEase);
+    }
+  }
 
-        100% {
-            opacity   : 1;
-            transform : translateY(0);
-            background: @panelColors;
-        }
+  @keyframes menuInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(-10px) translate3d(0, 0, 0);
+      background: @panelColorsFallback;
     }
 
-    @keyframes menuInDown {
-        0% {
-            opacity   : 0;
-            transform : translateY(10px) translate3d(0,0,0);
-            background: @panelColorsFallback;
-        }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+      background: @panelColors;
+    }
+  }
 
-        100% {
-            opacity   : 1;
-            transform : translateY(0);
-            background: @panelColors;
-        }
+  @keyframes menuInDown {
+    0% {
+      opacity: 0;
+      transform: translateY(10px) translate3d(0, 0, 0);
+      background: @panelColorsFallback;
     }
 
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+      background: @panelColors;
+    }
+  }
 }
 
 .cd-mediaitem-square {
@@ -55,47 +53,46 @@
 }
 
 .cd-mediaitem-square:not(.mediaitem-card) {
-    transition      : transform .2s var(--appleEase);
-    transition-delay: .1s;
+  transition: transform 0.2s var(--appleEase);
+  transition-delay: 0.1s;
 
+  .artwork-container {
+  }
 
-    .artwork-container {}
+  .info-rect {
+  }
 
-    .info-rect {}
+  .artwork-container,
+  .info-rect {
+    transition: transform 0.22s var(--appleEase);
+    transition-delay: 0.05s;
+  }
 
-    .artwork-container,
-    .info-rect {
-        transition      : transform .22s var(--appleEase);
-        transition-delay: .05s;
-    }
+  .artwork-container {
+    transform: scale(0.962) translateZ(0);
+    transition: transform 0.1s var(--appleEase);
+    transition-delay: 0s;
+    transform-origin: center;
+  }
 
+  &:hover {
     .artwork-container {
-      transform       : scale(0.962) translateZ(0);
-      transition      : transform .1s var(--appleEase);
+      transform: scale(1);
+      transition: transform 0.1s var(--appleEase);
       transition-delay: 0s;
       transform-origin: center;
     }
 
-    &:hover {
-        .artwork-container {
-            transform       : scale(1.0);
-            transition      : transform .1s var(--appleEase);
-            transition-delay: 0s;
-            transform-origin: center;
-        }
-
-
-        .info-rect {
-            z-index         : 1;
-            transition      : transform .1s var(--appleEase);
-            transition-delay: 0s;
-            transform       : translateY(8px) translate3d(0,0,0);
-        }
+    .info-rect {
+      z-index: 1;
+      transition: transform 0.1s var(--appleEase);
+      transition-delay: 0s;
+      transform: translateY(8px) translate3d(0, 0, 0);
     }
+  }
 
-    &:active {
-
-    }
+  &:active {
+  }
 }
 
 .wpfade_transform-enter-active,
@@ -107,15 +104,14 @@
 
 .wpfade_transform-enter {
   opacity: 0;
-  transform: translateX(50%) translate3d(0,0,0);
+  transform: translateX(50%) translate3d(0, 0, 0);
   will-change: opacity, transform;
 }
 .wpfade_transform-leave-to {
   opacity: 0;
-  transform: translateX(-50%) translate3d(0,0,0);
+  transform: translateX(-50%) translate3d(0, 0, 0);
   will-change: opacity, transform;
 }
-
 
 .wpfade_transform_backwards-enter-active,
 .wpfade_transform_backwards-leave-active {
@@ -125,11 +121,11 @@
 
 .wpfade_transform_backwards-enter {
   opacity: 0;
-  transform: translateX(-50%) translate3d(0,0,0);
+  transform: translateX(-50%) translate3d(0, 0, 0);
   will-change: opacity, transform;
 }
 .wpfade_transform_backwards-leave-to {
   opacity: 0;
-  transform: translateX(50%) translate3d(0,0,0);
+  transform: translateX(50%) translate3d(0, 0, 0);
   will-change: opacity, transform;
 }

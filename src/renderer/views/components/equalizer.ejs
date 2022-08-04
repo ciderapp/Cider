@@ -1,13 +1,17 @@
 <script type="text/x-template" id="eq-view">
     <div class="modal-fullscreen equalizer-panel" @click.self="close()" @contextmenu.self="close()">
-        <div class="modal-window" >
+        <div class="modal-window">
             <div class="modal-header">
                 <div class="modal-title">{{$root.getLz('term.equalizer')}}</div>
                 <button class="close-btn" @click="close()" :aria-label="$root.getLz('action.close')"></button>
                 <div class="md-option-segment md-option-segment_auto">
-                    <select class="md-select" style="width:220px;text-align:center;margin-right:245px" v-model="$root.cfg.audio.equalizer.preset" v-on:change="changePreset($root.cfg.audio.equalizer.preset)">
+                    <select class="md-select" style="width:220px;text-align:center;margin-right:245px"
+                            v-model="$root.cfg.audio.equalizer.preset"
+                            v-on:change="changePreset($root.cfg.audio.equalizer.preset)">
                         <optgroup :label="$root.getLz('term.userPresets')">
-                            <option v-for="preset in $root.cfg.audio.equalizer.presets" :value="preset.preset">{{preset.name}}</option>
+                            <option v-for="preset in $root.cfg.audio.equalizer.presets" :value="preset.preset">
+                                {{preset.name}}
+                            </option>
                         </optgroup>
                         <optgroup :label="$root.getLz('term.defaultPresets')">
                             <option v-for="preset in defaultPresets" :value="preset.preset">{{preset.name}}</option>
@@ -20,79 +24,121 @@
                 <div class="inputs-container">
                     <div class="input-container mini">
                         {{$root.cfg.audio.equalizer.vibrantBass}}
-                        <input tabindex="0" type="range" class="eq-slider mini" orient="vertical" min="-15" max="15" step="1" v-model="$root.cfg.audio.equalizer.vibrantBass" @change="changeVibrantBass()">
+                        <input tabindex="0" type="range" class="eq-slider mini" orient="vertical" min="-15" max="15"
+                               step="1" v-model="$root.cfg.audio.equalizer.vibrantBass" @change="changeVibrantBass()">
                         Vibrant Bass
                     </div>
                     <div class="input-container mini">
                         {{$root.cfg.audio.equalizer.mix}}
-                        <input tabindex="0" type="range" class="eq-slider mini" orient="vertical" min="0" max="2" step="0.1" v-model="$root.cfg.audio.equalizer.mix" @change="changeMix()">
+                        <input tabindex="0" type="range" class="eq-slider mini" orient="vertical" min="0" max="2"
+                               step="0.1" v-model="$root.cfg.audio.equalizer.mix" @change="changeMix()">
                         Mix
                     </div>
                     <div class="input-container header mini">
                         Gain
-                        <input type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" >
+                        <input type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1">
                         <div class="freq-header">Freq</div>
                         <div>Q</div>
                     </div>
                     <div class="input-container">
-                        <input tabindex="0" type="number" class="eq-freq" orient="vertical" min="-12" max="12" step="0.1" v-model="$root.cfg.audio.equalizer.gain[0]" @change="changeGain(0)">
-                        <input tabindex="0" type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" v-model="$root.cfg.audio.equalizer.gain[0]" @change="changeGain(0)">
-                        <input type="number" class="eq-freq" orient="vertical" min="22" max="44" step="2" v-model="$root.cfg.audio.equalizer.frequencies[0]" @change="changeFreq(0)">
-                        <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1" v-model="$root.cfg.audio.equalizer.Q[0]" @change="changeQ(0)">
+                        <input tabindex="0" type="number" class="eq-freq" orient="vertical" min="-12" max="12"
+                               step="0.1" v-model="$root.cfg.audio.equalizer.gain[0]" @change="changeGain(0)">
+                        <input tabindex="0" type="range" class="eq-slider" orient="vertical" min="-12" max="12"
+                               step="0.1" v-model="$root.cfg.audio.equalizer.gain[0]" @change="changeGain(0)">
+                        <input type="number" class="eq-freq" orient="vertical" min="22" max="44" step="2"
+                               v-model="$root.cfg.audio.equalizer.frequencies[0]" @change="changeFreq(0)">
+                        <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1"
+                               v-model="$root.cfg.audio.equalizer.Q[0]" @change="changeQ(0)">
                     </div>
                     <div class="input-container">
-                        <input tabindex="0" type="number" class="eq-freq" orient="vertical" min="-12" max="12" step="0.1" v-model="$root.cfg.audio.equalizer.gain[1]" @change="changeGain(1)">
-                        <input tabindex="0" type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" v-model="$root.cfg.audio.equalizer.gain[1]" @change="changeGain(1)">
-                        <input type="number" class="eq-freq" orient="vertical" min="44" max="88" step="4" v-model="$root.cfg.audio.equalizer.frequencies[1]" @change="changeFreq(1)">
-                        <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1" v-model="$root.cfg.audio.equalizer.Q[1]" @change="changeQ(1)">
+                        <input tabindex="0" type="number" class="eq-freq" orient="vertical" min="-12" max="12"
+                               step="0.1" v-model="$root.cfg.audio.equalizer.gain[1]" @change="changeGain(1)">
+                        <input tabindex="0" type="range" class="eq-slider" orient="vertical" min="-12" max="12"
+                               step="0.1" v-model="$root.cfg.audio.equalizer.gain[1]" @change="changeGain(1)">
+                        <input type="number" class="eq-freq" orient="vertical" min="44" max="88" step="4"
+                               v-model="$root.cfg.audio.equalizer.frequencies[1]" @change="changeFreq(1)">
+                        <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1"
+                               v-model="$root.cfg.audio.equalizer.Q[1]" @change="changeQ(1)">
                     </div>
                     <div class="input-container">
-                        <input tabindex="0" type="number" class="eq-freq" orient="vertical" min="-12" max="12" step="0.1" v-model="$root.cfg.audio.equalizer.gain[2]" @change="changeGain(2)">
-                        <input tabindex="0" type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" v-model="$root.cfg.audio.equalizer.gain[2]" @change="changeGain(2)">
-                        <input type="number" class="eq-freq" orient="vertical" min="88" max="177" step="8" v-model="$root.cfg.audio.equalizer.frequencies[2]" @change="changeFreq(2)">
-                        <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1" v-model="$root.cfg.audio.equalizer.Q[2]" @change="changeQ(2)">
+                        <input tabindex="0" type="number" class="eq-freq" orient="vertical" min="-12" max="12"
+                               step="0.1" v-model="$root.cfg.audio.equalizer.gain[2]" @change="changeGain(2)">
+                        <input tabindex="0" type="range" class="eq-slider" orient="vertical" min="-12" max="12"
+                               step="0.1" v-model="$root.cfg.audio.equalizer.gain[2]" @change="changeGain(2)">
+                        <input type="number" class="eq-freq" orient="vertical" min="88" max="177" step="8"
+                               v-model="$root.cfg.audio.equalizer.frequencies[2]" @change="changeFreq(2)">
+                        <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1"
+                               v-model="$root.cfg.audio.equalizer.Q[2]" @change="changeQ(2)">
                     </div>
                     <div class="input-container">
-                        <input tabindex="0" type="number" class="eq-freq" orient="vertical" min="-12" max="12" step="0.1" v-model="$root.cfg.audio.equalizer.gain[3]" @change="changeGain(3)">
-                        <input tabindex="0" type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" v-model="$root.cfg.audio.equalizer.gain[3]" @change="changeGain(3)">
-                        <input type="number" class="eq-freq" orient="vertical" min="177" max="355" step="16" v-model="$root.cfg.audio.equalizer.frequencies[3]" @change="changeFreq(3)">
-                        <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1" v-model="$root.cfg.audio.equalizer.Q[3]" @change="changeQ(3)">
+                        <input tabindex="0" type="number" class="eq-freq" orient="vertical" min="-12" max="12"
+                               step="0.1" v-model="$root.cfg.audio.equalizer.gain[3]" @change="changeGain(3)">
+                        <input tabindex="0" type="range" class="eq-slider" orient="vertical" min="-12" max="12"
+                               step="0.1" v-model="$root.cfg.audio.equalizer.gain[3]" @change="changeGain(3)">
+                        <input type="number" class="eq-freq" orient="vertical" min="177" max="355" step="16"
+                               v-model="$root.cfg.audio.equalizer.frequencies[3]" @change="changeFreq(3)">
+                        <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1"
+                               v-model="$root.cfg.audio.equalizer.Q[3]" @change="changeQ(3)">
                     </div>
                     <div class="input-container">
-                        <input tabindex="0" type="number" class="eq-freq" orient="vertical" min="-12" max="12" step="0.1" v-model="$root.cfg.audio.equalizer.gain[4]" @change="changeGain(4)">
-                        <input tabindex="0" type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" v-model="$root.cfg.audio.equalizer.gain[4]" @change="changeGain(4)">
-                        <input type="number" class="eq-freq" orient="vertical" min="355" max="710" step="32" v-model="$root.cfg.audio.equalizer.frequencies[4]" @change="changeFreq(4)">
-                        <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1" v-model="$root.cfg.audio.equalizer.Q[4]" @change="changeQ(4)">
+                        <input tabindex="0" type="number" class="eq-freq" orient="vertical" min="-12" max="12"
+                               step="0.1" v-model="$root.cfg.audio.equalizer.gain[4]" @change="changeGain(4)">
+                        <input tabindex="0" type="range" class="eq-slider" orient="vertical" min="-12" max="12"
+                               step="0.1" v-model="$root.cfg.audio.equalizer.gain[4]" @change="changeGain(4)">
+                        <input type="number" class="eq-freq" orient="vertical" min="355" max="710" step="32"
+                               v-model="$root.cfg.audio.equalizer.frequencies[4]" @change="changeFreq(4)">
+                        <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1"
+                               v-model="$root.cfg.audio.equalizer.Q[4]" @change="changeQ(4)">
                     </div>
                     <div class="input-container">
-                        <input tabindex="0" type="number" class="eq-freq" orient="vertical" min="-12" max="12" step="0.1" v-model="$root.cfg.audio.equalizer.gain[5]" @change="changeGain(5)">
-                        <input tabindex="0" type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" v-model="$root.cfg.audio.equalizer.gain[5]" @change="changeGain(5)">
-                        <input type="number" class="eq-freq" orient="vertical" min="710" max="1420" step="64" v-model="$root.cfg.audio.equalizer.frequencies[5]" @change="changeFreq(5)">
-                        <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1" v-model="$root.cfg.audio.equalizer.Q[5]" @change="changeQ(5)">
+                        <input tabindex="0" type="number" class="eq-freq" orient="vertical" min="-12" max="12"
+                               step="0.1" v-model="$root.cfg.audio.equalizer.gain[5]" @change="changeGain(5)">
+                        <input tabindex="0" type="range" class="eq-slider" orient="vertical" min="-12" max="12"
+                               step="0.1" v-model="$root.cfg.audio.equalizer.gain[5]" @change="changeGain(5)">
+                        <input type="number" class="eq-freq" orient="vertical" min="710" max="1420" step="64"
+                               v-model="$root.cfg.audio.equalizer.frequencies[5]" @change="changeFreq(5)">
+                        <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1"
+                               v-model="$root.cfg.audio.equalizer.Q[5]" @change="changeQ(5)">
                     </div>
                     <div class="input-container">
-                        <input tabindex="0" type="number" class="eq-freq" orient="vertical" min="-12" max="12" step="0.1" v-model="$root.cfg.audio.equalizer.gain[6]" @change="changeGain(6)">
-                        <input tabindex="0" type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" v-model="$root.cfg.audio.equalizer.gain[6]" @change="changeGain(6)">
-                        <input type="number" class="eq-freq" orient="vertical" min="1420" max="2840" step="128" v-model="$root.cfg.audio.equalizer.frequencies[6]" @change="changeFreq(6)">
-                        <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1" v-model="$root.cfg.audio.equalizer.Q[6]" @change="changeQ(6)">
+                        <input tabindex="0" type="number" class="eq-freq" orient="vertical" min="-12" max="12"
+                               step="0.1" v-model="$root.cfg.audio.equalizer.gain[6]" @change="changeGain(6)">
+                        <input tabindex="0" type="range" class="eq-slider" orient="vertical" min="-12" max="12"
+                               step="0.1" v-model="$root.cfg.audio.equalizer.gain[6]" @change="changeGain(6)">
+                        <input type="number" class="eq-freq" orient="vertical" min="1420" max="2840" step="128"
+                               v-model="$root.cfg.audio.equalizer.frequencies[6]" @change="changeFreq(6)">
+                        <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1"
+                               v-model="$root.cfg.audio.equalizer.Q[6]" @change="changeQ(6)">
                     </div>
                     <div class="input-container">
-                        <input tabindex="0" type="number" class="eq-freq" orient="vertical" min="-12" max="12" step="0.1" v-model="$root.cfg.audio.equalizer.gain[7]" @change="changeGain(7)">
-                        <input tabindex="0" type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" v-model="$root.cfg.audio.equalizer.gain[7]" @change="changeGain(7)">
-                        <input type="number" class="eq-freq" orient="vertical" min="2840" max="5680" step="256" v-model="$root.cfg.audio.equalizer.frequencies[7]" @change="changeFreq(7)">
-                        <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1" v-model="$root.cfg.audio.equalizer.Q[7]" @change="changeQ(7)">
+                        <input tabindex="0" type="number" class="eq-freq" orient="vertical" min="-12" max="12"
+                               step="0.1" v-model="$root.cfg.audio.equalizer.gain[7]" @change="changeGain(7)">
+                        <input tabindex="0" type="range" class="eq-slider" orient="vertical" min="-12" max="12"
+                               step="0.1" v-model="$root.cfg.audio.equalizer.gain[7]" @change="changeGain(7)">
+                        <input type="number" class="eq-freq" orient="vertical" min="2840" max="5680" step="256"
+                               v-model="$root.cfg.audio.equalizer.frequencies[7]" @change="changeFreq(7)">
+                        <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1"
+                               v-model="$root.cfg.audio.equalizer.Q[7]" @change="changeQ(7)">
                     </div>
                     <div class="input-container">
-                        <input tabindex="0" type="number" class="eq-freq" orient="vertical" min="-12" max="12" step="0.1" v-model="$root.cfg.audio.equalizer.gain[8]" @change="changeGain(8)">
-                        <input tabindex="0" type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" v-model="$root.cfg.audio.equalizer.gain[8]" @change="changeGain(8)">
-                        <input type="number" class="eq-freq" orient="vertical" min="5680" max="11360" step="512" v-model="$root.cfg.audio.equalizer.frequencies[8]" @change="changeFreq(8)">
-                        <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1" v-model="$root.cfg.audio.equalizer.Q[8]" @change="changeQ(8)">
+                        <input tabindex="0" type="number" class="eq-freq" orient="vertical" min="-12" max="12"
+                               step="0.1" v-model="$root.cfg.audio.equalizer.gain[8]" @change="changeGain(8)">
+                        <input tabindex="0" type="range" class="eq-slider" orient="vertical" min="-12" max="12"
+                               step="0.1" v-model="$root.cfg.audio.equalizer.gain[8]" @change="changeGain(8)">
+                        <input type="number" class="eq-freq" orient="vertical" min="5680" max="11360" step="512"
+                               v-model="$root.cfg.audio.equalizer.frequencies[8]" @change="changeFreq(8)">
+                        <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1"
+                               v-model="$root.cfg.audio.equalizer.Q[8]" @change="changeQ(8)">
                     </div>
                     <div class="input-container">
-                        <input tabindex="0" type="number" class="eq-freq" orient="vertical" min="-12" max="12" step="0.1" v-model="$root.cfg.audio.equalizer.gain[9]" @change="changeGain(9)">
-                        <input tabindex="0" type="range" class="eq-slider" orient="vertical" min="-12" max="12" step="0.1" v-model="$root.cfg.audio.equalizer.gain[9]" @change="changeGain(9)">
-                        <input type="number" class="eq-freq" orient="vertical" min="11360" max="22720" step="1024" v-model="$root.cfg.audio.equalizer.frequencies[9]" @change="changeFreq(9)">
-                        <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1" v-model="$root.cfg.audio.equalizer.Q[9]" @change="changeQ(9)">
+                        <input tabindex="0" type="number" class="eq-freq" orient="vertical" min="-12" max="12"
+                               step="0.1" v-model="$root.cfg.audio.equalizer.gain[9]" @change="changeGain(9)">
+                        <input tabindex="0" type="range" class="eq-slider" orient="vertical" min="-12" max="12"
+                               step="0.1" v-model="$root.cfg.audio.equalizer.gain[9]" @change="changeGain(9)">
+                        <input type="number" class="eq-freq" orient="vertical" min="11360" max="22720" step="1024"
+                               v-model="$root.cfg.audio.equalizer.frequencies[9]" @change="changeFreq(9)">
+                        <input type="number" class="eq-q" orient="vertical" min="0" max="5" step="0.1"
+                               v-model="$root.cfg.audio.equalizer.Q[9]" @change="changeQ(9)">
                     </div>
                 </div>
 
@@ -100,10 +146,13 @@
             <div class="modal-lowercontent">
                 <div class="row">
                     <div class="col">
-                        <button class="md-btn" style="width:100%" @click="resetGain()">{{$root.getLz('term.reset')}}</button>
+                        <button class="md-btn" style="width:100%" @click="resetGain()">{{$root.getLz('term.reset')}}
+                        </button>
                     </div>
                     <div class="col">
-                        <button class="md-btn" style="width:100%" @click="presetOptions($event)">{{$root.getLz('term.menu')}}</button>
+                        <button class="md-btn" style="width:100%" @click="presetOptions($event)">
+                            {{$root.getLz('term.menu')}}
+                        </button>
                     </div>
                 </div>
             </div>
@@ -112,323 +161,323 @@
 </script>
 
 <script>
-    Vue.component('eq-view', {
-        template: '#eq-view',
-        data: function () {
-            return {
-                // app: this.$root,
-                eqPreset: function () {
-                    this.preset = uuidv4()
-                    this.name = ""
-                    this.frequencies = []
-                    this.gain = []
-                    this.Q = []
-                    this.mix = 1
-                    this.vibrantBass = 0
-                    this.userGenerated = true
-                },
-                defaultPresets: [
-                    {
-                        'preset': 'default',
-                        'name': 'Default',
-                        'frequencies': [32, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000],
-                        'gain': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                        'Q': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                        'mix': 1,
-                        'vibrantBass': 0,
-                        'userGenerated': false
-                    }, {
-                        'preset': 'boostAiriness',
-                        'name': 'Boost Airiness',
-                        'frequencies': [1169, 1733, 5962, 8688, 14125, 18628, 18628, 19000, 19500, 20000],
-                        'gain': [-1.41, 0.25, 3.33, 0.22, -0.53, 0.2, 3.64, 0, 0, 0],
-                        'Q': [0.405, 2.102, 0.025, 2.5, 7.071, 1.768, 1.146, 1, 1, 1],
-                        'mix': 1,
-                        'vibrantBass': 0,
-                        'userGenerated': false
-                    }, {
-                        'preset': 'acoustic',
-                        'name': 'Acoustic',
-                        'frequencies': [32, 75, 125, 220, 700, 1000, 2000, 4000, 10000, 16000],
-                        'gain': [0, -8, 0, -0.1, -3, 0, 0, 0, 4, 0],
-                        'Q': [1, 0.2, 1, 2.0, 1.4, 1, 1, 1, 0.1, 1],
-                        'mix': 1,
-                        'vibrantBass': 0,
-                        'userGenerated': false
-                    }, {
-                        'preset': 'clearVocal',
-                        'name': 'Clear Vocal',
-                        'frequencies': [20, 63, 125, 250, 400, 1000, 2000, 4000, 8000, 20000],
-                        'gain': [-22, 0, 0, 0, -3, 0, 1.8, 0, 0, 3.5],
-                        'Q': [0.3, 1, 1, 1, 2.0, 1, 0.7, 1, 1, 0.8],
-                        'mix': 1,
-                        'vibrantBass': 0,
-                        'userGenerated': false
-                    }, {
-                        'preset': 'instrumentClarity',
-                        'name': 'Instrument Clarity',
-                        'frequencies': [20, 63, 155, 250, 500, 1000, 2000, 5000, 11000, 16000],
-                        'gain': [-15, 0, -3, 0, 0, 0, 0, 3.1, 0, 0],
-                        'Q': [0.5, 1, 2, 1, 1, 1, 1, 1.5, 0.1, 1],
-                        'mix': 1,
-                        'vibrantBass': 0,
-                        'userGenerated': false
-                    }, {
-                        'preset': 'reduceHarshness',
-                        'name': 'Reduce Harshness',
-                        'frequencies': [32, 63, 125, 250, 500, 1128, 2000, 4057, 8000, 16000],
-                        'gain': [0, 0, 0, 0, 0, 2, 0, -6.4, 0, 0],
-                        'Q': [1, 1, 1, 1, 1, 2, 1, 1, 1, 1],
-                        'mix': 1,
-                        'vibrantBass': 0,
-                        'userGenerated': false
-                    }, {
-                        'preset': 'smileyFace',
-                        'name': 'Smiley Face',
-                        'frequencies': [35, 63, 125, 250, 500, 800, 2000, 4000, 8000, 20000],
-                        'gain': [5, 0, 0, 0, 0, -5, 0, 0, 0, 5],
-                        'Q': [0.1, 1, 1, 1, 1, 0.6, 1, 1, 1, 0.2],
-                        'mix': 1,
-                        'vibrantBass': 0,
-                        'userGenerated': false
-                    },
-                    {
-                        'preset': 'bassBoostSurgical',
-                        'name': 'Surgical Bass Boost',
-                        'frequencies': [32, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000],
-                        'gain': [2.7, 2.2, 1.6, 1.4, 0.6, 0, 0, 0, 0, 0],
-                        'Q': [1.4, 1.4, 1.4, 1.4, 1.4, 1, 1, 1, 1, 1],
-                        'mix': 1,
-                        'vibrantBass': 0,
-                        'userGenerated': false
-                    }, {
-                        'preset': 'bassBoostClassic',
-                        'name': 'Classic Bass Boost',
-                        'frequencies': [32, 63, 160, 250, 500, 1000, 2000, 3500, 8000, 20000],
-                        'gain': [2.7, 2.2, 1.6, 1.4, 0.6, 0, 0, 0, 0, 0],
-                        'Q': [0.7, 0.7, 0.7, 0.7, 0.7, 1, 1, 1, 1, 1],
-                        'mix': 1,
-                        'vibrantBass': 0,
-                        'userGenerated': false
-                    }]
-            }
+  Vue.component('eq-view', {
+    template: '#eq-view',
+    data: function() {
+      return {
+        // app: this.$root,
+        eqPreset: function() {
+          this.preset = uuidv4()
+          this.name = ""
+          this.frequencies = []
+          this.gain = []
+          this.Q = []
+          this.mix = 1
+          this.vibrantBass = 0
+          this.userGenerated = true
         },
-        props: ["src", "url"],
-        mounted() {
-        },
-        methods: {
-            presetOptions(event) {
-                let menu = {
-                    items: {
-                        "new": {
-                            "icon": "./assets/feather/plus.svg",
-                            "name": app.getLz('action.newpreset'),
-                            action: () => {
-                                this.addPreset()
-                            }
-                        },
-                        "delete": {
-                            "icon": "./assets/feather/x-circle.svg",
-                            "name": app.getLz('action.deletepreset'),
-                            action: () => {
-                                this.deletePreset()
-                            }
-                        },
-                        "import": {
-                            "icon": "./assets/feather/share.svg",
-                            "name": app.getLz('action.import'),
-                            action: () => {
-                                this.importPreset()
-                            }
-                        },
-                        "export": {
-                            "icon": "./assets/feather/share.svg",
-                            "name": app.getLz('action.export'),
-                            action: () => {
-                                this.exportPreset()
-                            }
-                        },
-                    }
-                }
-
-                if (!this.$root.cfg.audio.equalizer.userGenerated) {
-                    delete menu.items.delete
-                }
-
-                app.showMenuPanel(menu, event)
+        defaultPresets: [
+          {
+            'preset': 'default',
+            'name': 'Default',
+            'frequencies': [32, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000],
+            'gain': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            'Q': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            'mix': 1,
+            'vibrantBass': 0,
+            'userGenerated': false
+          }, {
+            'preset': 'boostAiriness',
+            'name': 'Boost Airiness',
+            'frequencies': [1169, 1733, 5962, 8688, 14125, 18628, 18628, 19000, 19500, 20000],
+            'gain': [-1.41, 0.25, 3.33, 0.22, -0.53, 0.2, 3.64, 0, 0, 0],
+            'Q': [0.405, 2.102, 0.025, 2.5, 7.071, 1.768, 1.146, 1, 1, 1],
+            'mix': 1,
+            'vibrantBass': 0,
+            'userGenerated': false
+          }, {
+            'preset': 'acoustic',
+            'name': 'Acoustic',
+            'frequencies': [32, 75, 125, 220, 700, 1000, 2000, 4000, 10000, 16000],
+            'gain': [0, -8, 0, -0.1, -3, 0, 0, 0, 4, 0],
+            'Q': [1, 0.2, 1, 2.0, 1.4, 1, 1, 1, 0.1, 1],
+            'mix': 1,
+            'vibrantBass': 0,
+            'userGenerated': false
+          }, {
+            'preset': 'clearVocal',
+            'name': 'Clear Vocal',
+            'frequencies': [20, 63, 125, 250, 400, 1000, 2000, 4000, 8000, 20000],
+            'gain': [-22, 0, 0, 0, -3, 0, 1.8, 0, 0, 3.5],
+            'Q': [0.3, 1, 1, 1, 2.0, 1, 0.7, 1, 1, 0.8],
+            'mix': 1,
+            'vibrantBass': 0,
+            'userGenerated': false
+          }, {
+            'preset': 'instrumentClarity',
+            'name': 'Instrument Clarity',
+            'frequencies': [20, 63, 155, 250, 500, 1000, 2000, 5000, 11000, 16000],
+            'gain': [-15, 0, -3, 0, 0, 0, 0, 3.1, 0, 0],
+            'Q': [0.5, 1, 2, 1, 1, 1, 1, 1.5, 0.1, 1],
+            'mix': 1,
+            'vibrantBass': 0,
+            'userGenerated': false
+          }, {
+            'preset': 'reduceHarshness',
+            'name': 'Reduce Harshness',
+            'frequencies': [32, 63, 125, 250, 500, 1128, 2000, 4057, 8000, 16000],
+            'gain': [0, 0, 0, 0, 0, 2, 0, -6.4, 0, 0],
+            'Q': [1, 1, 1, 1, 1, 2, 1, 1, 1, 1],
+            'mix': 1,
+            'vibrantBass': 0,
+            'userGenerated': false
+          }, {
+            'preset': 'smileyFace',
+            'name': 'Smiley Face',
+            'frequencies': [35, 63, 125, 250, 500, 800, 2000, 4000, 8000, 20000],
+            'gain': [5, 0, 0, 0, 0, -5, 0, 0, 0, 5],
+            'Q': [0.1, 1, 1, 1, 1, 0.6, 1, 1, 1, 0.2],
+            'mix': 1,
+            'vibrantBass': 0,
+            'userGenerated': false
+          },
+          {
+            'preset': 'bassBoostSurgical',
+            'name': 'Surgical Bass Boost',
+            'frequencies': [32, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000],
+            'gain': [2.7, 2.2, 1.6, 1.4, 0.6, 0, 0, 0, 0, 0],
+            'Q': [1.4, 1.4, 1.4, 1.4, 1.4, 1, 1, 1, 1, 1],
+            'mix': 1,
+            'vibrantBass': 0,
+            'userGenerated': false
+          }, {
+            'preset': 'bassBoostClassic',
+            'name': 'Classic Bass Boost',
+            'frequencies': [32, 63, 160, 250, 500, 1000, 2000, 3500, 8000, 20000],
+            'gain': [2.7, 2.2, 1.6, 1.4, 0.6, 0, 0, 0, 0, 0],
+            'Q': [0.7, 0.7, 0.7, 0.7, 0.7, 1, 1, 1, 1, 1],
+            'mix': 1,
+            'vibrantBass': 0,
+            'userGenerated': false
+          }]
+      }
+    },
+    props: ["src", "url"],
+    mounted() {
+    },
+    methods: {
+      presetOptions(event) {
+        let menu = {
+          items: {
+            "new": {
+              "icon": "./assets/feather/plus.svg",
+              "name": app.getLz('action.newpreset'),
+              action: () => {
+                this.addPreset()
+              }
             },
-            sharePreset(event) {
-                let menu = {
-                    items: [
-                        {
-                            "icon": "./assets/feather/share.svg",
-                            "name": app.getLz('action.import'),
-                            "action": function () {
-                                notyf.error("Not implemented yet")
-                            }
-                        },
-                        {
-                            "icon": "./assets/feather/share.svg",
-                            "name": app.getLz('action.export'),
-                            "action": function () {
-                                notyf.error("Not implemented yet")
-                            }
-                        },
-                    ]
-                }
-                app.showMenuPanel(menu, event)
+            "delete": {
+              "icon": "./assets/feather/x-circle.svg",
+              "name": app.getLz('action.deletepreset'),
+              action: () => {
+                this.deletePreset()
+              }
             },
-            deletePreset() {
-                let presets = this.$root.cfg.audio.equalizer.presets
-                app.confirm(app.getLz('term.deletepreset.warn'), (result) => {
-                    if (result) {
-                        this.changePreset("default")
-                        // find the preset by id (preset) and remove it
-                        let index = presets.findIndex(p => p.preset == this.preset)
-                        presets.splice(index, 1)
-                        notyf.success(app.getLz('term.deletedpreset'))
-                    }
-                })
+            "import": {
+              "icon": "./assets/feather/share.svg",
+              "name": app.getLz('action.import'),
+              action: () => {
+                this.importPreset()
+              }
             },
-            close() {
-                app.modals.equalizer = false
+            "export": {
+              "icon": "./assets/feather/share.svg",
+              "name": app.getLz('action.export'),
+              action: () => {
+                this.exportPreset()
+              }
             },
-            changeVibrantBass() {
-                if (app.cfg.audio.equalizer.vibrantBass !== '0') {
-                    try {
-                        for (var i = 0; i < 21; i++) {
-                            CiderAudio.audioNodes.vibrantbassNode[i].gain.value = app.cfg.audio.maikiwiAudio.vibrantBass.gain[i] * (app.cfg.audio.equalizer.vibrantBass / 10);
-                        } CiderAudio.intelliGainComp_n0_0();
-                    }
-                    catch (e) {
-                        CiderAudio.hierarchical_loading();
-                    }
-                }
-
-                else {
-                    CiderAudio.hierarchical_loading();
-                }
-            },
-            changeMix() {
-                if (Math.max(...app.cfg.audio.equalizer.gain) != 0) {
-                    try {
-                        for (var i = 0; i < 10; i++) {
-                            CiderAudio.audioNodes.audioBands[i].gain.value = app.cfg.audio.equalizer.gain[i] * app.cfg.audio.equalizer.mix
-                        }
-                        CiderAudio.intelliGainComp_n0_0();
-                    } catch (e) { CiderAudio.hierarchical_loading(); }
-                }
-            },
-            changeGain(i) {
-                if (Math.max(...app.cfg.audio.equalizer.gain) != 0) {
-                    try {
-                        CiderAudio.audioNodes.audioBands[i].gain.value = app.cfg.audio.equalizer.gain[i] * app.cfg.audio.equalizer.mix
-                        CiderAudio.intelliGainComp_n0_0();
-                    }
-                    catch (e) { CiderAudio.hierarchical_loading(); }
-                }
-                else {
-                    CiderAudio.hierarchical_loading();
-                }
-            },
-            changeFreq(i) {
-                CiderAudio.audioNodes.audioBands[i].frequency.value = app.cfg.audio.equalizer.frequencies[i]
-            },
-            changeQ(i) {
-                CiderAudio.audioNodes.audioBands[i].Q.value = app.cfg.audio.equalizer.Q[i]
-            },
-            resetGain() {
-                this.applyPreset({
-                    'frequencies': [32, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000],
-                    'gain': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    'Q': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                    'mix': 1,
-                    'vibrantBass': 0,
-                })
-                if (app.cfg.audio.equalizer.userGenerated) {
-                    this.saveSelectedPreset()
-                }
-            },
-            addPreset() {
-                let self = this
-                app.prompt(app.getLz('term.newpreset.name'), (res) => {
-                    if (res) {
-                        let eqSettings = Clone(app.cfg.audio.equalizer)
-                        let newPreset = new self.eqPreset()
-                        newPreset.name = res
-                        newPreset.frequencies = eqSettings.frequencies
-                        newPreset.gain = eqSettings.gain
-                        newPreset.Q = eqSettings.Q
-                        newPreset.mix = eqSettings.mix
-                        newPreset.vibrantBass = eqSettings.vibrantBass
-                        app.cfg.audio.equalizer.presets.push(newPreset)
-                        notyf.success(app.getLz('term.addedpreset'))
-                        self.changePreset(newPreset.preset)
-                    }
-                })
-            },
-            saveSelectedPreset() {
-                // Save the current settings to the selected preset
-                let self = this
-                //let preset = app.cfg.audio.equalizer.presets[app.cfg.audio.equalizer.preset]
-                // find the preset by its id (preset)
-                let preset = app.cfg.audio.equalizer.presets.find(p => p.preset == app.cfg.audio.equalizer.preset)
-                preset.frequencies = app.cfg.audio.equalizer.frequencies
-                preset.gain = app.cfg.audio.equalizer.gain
-                preset.Q = app.cfg.audio.equalizer.Q
-                preset.mix = app.cfg.audio.equalizer.mix
-                preset.vibrantBass = app.cfg.audio.equalizer.vibrantBass
-                notyf.success("Saved Preset")
-            },
-            exportPreset() {
-                let preset = app.cfg.audio.equalizer.presets.find(p => p.preset == app.cfg.audio.equalizer.preset)
-                this.$root.copyToClipboard(btoa(JSON.stringify(preset)))
-            },
-            importPreset() {
-                let self = this
-                app.prompt("Enter preset share code", (res) => {
-                    if (res) {
-                        let preset = JSON.parse(atob(res))
-                        if (preset.frequencies && preset.gain && preset.Q && preset.mix && preset.vibrantBass) {
-                            // self.applyPreset(preset)
-                            app.cfg.audio.equalizer.presets.push(preset)
-                            notyf.success(`${preset.name} has been imported.`)
-                        }
-                        else {
-                            notyf.error("Invalid Preset")
-                        }
-                    }
-                })
-            },
-            applyPreset(preset) {
-                Object.assign(this.$root.cfg.audio.equalizer, preset)
-                this.changeVibrantBass()
-                for (var i = 0; i < 10; i++) {
-                    try { CiderAudio.audioNodes.audioBands[i].gain.value = app.cfg.audio.equalizer.gain[i] * app.cfg.audio.equalizer.mix }
-                    catch (e) {
-                        CiderAudio.hierarchical_loading();
-                        CiderAudio.audioNodes.audioBands[i].gain.value = app.cfg.audio.equalizer.gain[i] * app.cfg.audio.equalizer.mix
-                    }
-
-                    CiderAudio.audioNodes.audioBands[i].frequency.value = app.cfg.audio.equalizer.frequencies[i]
-                    CiderAudio.audioNodes.audioBands[i].Q.value = app.cfg.audio.equalizer.Q[i]
-                }
-                CiderAudio.intelliGainComp_n0_0();
-            },
-            changePreset(id) {
-                let userPresets = app.cfg.audio.equalizer.presets
-                let defaultPresets = Clone(this.defaultPresets)
-
-                let presets = defaultPresets.concat(userPresets)
-                console.log(presets)
-                let preset = presets.find(p => p.preset == id)
-
-                console.log(preset)
-
-                if (preset) {
-                    this.applyPreset(preset)
-                }
-            }
+          }
         }
-    });
+
+        if (!this.$root.cfg.audio.equalizer.userGenerated) {
+          delete menu.items.delete
+        }
+
+        app.showMenuPanel(menu, event)
+      },
+      sharePreset(event) {
+        let menu = {
+          items: [
+            {
+              "icon": "./assets/feather/share.svg",
+              "name": app.getLz('action.import'),
+              "action": function() {
+                notyf.error("Not implemented yet")
+              }
+            },
+            {
+              "icon": "./assets/feather/share.svg",
+              "name": app.getLz('action.export'),
+              "action": function() {
+                notyf.error("Not implemented yet")
+              }
+            },
+          ]
+        }
+        app.showMenuPanel(menu, event)
+      },
+      deletePreset() {
+        let presets = this.$root.cfg.audio.equalizer.presets
+        app.confirm(app.getLz('term.deletepreset.warn'), (result) => {
+          if (result) {
+            this.changePreset("default")
+            // find the preset by id (preset) and remove it
+            let index = presets.findIndex(p => p.preset == this.preset)
+            presets.splice(index, 1)
+            notyf.success(app.getLz('term.deletedpreset'))
+          }
+        })
+      },
+      close() {
+        app.modals.equalizer = false
+      },
+      changeVibrantBass() {
+        if (app.cfg.audio.equalizer.vibrantBass !== '0') {
+          try {
+            for (var i = 0; i < 21; i++) {
+              CiderAudio.audioNodes.vibrantbassNode[i].gain.value = app.cfg.audio.maikiwiAudio.vibrantBass.gain[i] * (app.cfg.audio.equalizer.vibrantBass / 10);
+            }
+            CiderAudio.intelliGainComp_n0_0();
+          } catch (e) {
+            CiderAudio.hierarchical_loading();
+          }
+        } else {
+          CiderAudio.hierarchical_loading();
+        }
+      },
+      changeMix() {
+        if (Math.max(...app.cfg.audio.equalizer.gain) != 0) {
+          try {
+            for (var i = 0; i < 10; i++) {
+              CiderAudio.audioNodes.audioBands[i].gain.value = app.cfg.audio.equalizer.gain[i] * app.cfg.audio.equalizer.mix
+            }
+            CiderAudio.intelliGainComp_n0_0();
+          } catch (e) {
+            CiderAudio.hierarchical_loading();
+          }
+        }
+      },
+      changeGain(i) {
+        if (Math.max(...app.cfg.audio.equalizer.gain) != 0) {
+          try {
+            CiderAudio.audioNodes.audioBands[i].gain.value = app.cfg.audio.equalizer.gain[i] * app.cfg.audio.equalizer.mix
+            CiderAudio.intelliGainComp_n0_0();
+          } catch (e) {
+            CiderAudio.hierarchical_loading();
+          }
+        } else {
+          CiderAudio.hierarchical_loading();
+        }
+      },
+      changeFreq(i) {
+        CiderAudio.audioNodes.audioBands[i].frequency.value = app.cfg.audio.equalizer.frequencies[i]
+      },
+      changeQ(i) {
+        CiderAudio.audioNodes.audioBands[i].Q.value = app.cfg.audio.equalizer.Q[i]
+      },
+      resetGain() {
+        this.applyPreset({
+          'frequencies': [32, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000],
+          'gain': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          'Q': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+          'mix': 1,
+          'vibrantBass': 0,
+        })
+        if (app.cfg.audio.equalizer.userGenerated) {
+          this.saveSelectedPreset()
+        }
+      },
+      addPreset() {
+        let self = this
+        app.prompt(app.getLz('term.newpreset.name'), (res) => {
+          if (res) {
+            let eqSettings = Clone(app.cfg.audio.equalizer)
+            let newPreset = new self.eqPreset()
+            newPreset.name = res
+            newPreset.frequencies = eqSettings.frequencies
+            newPreset.gain = eqSettings.gain
+            newPreset.Q = eqSettings.Q
+            newPreset.mix = eqSettings.mix
+            newPreset.vibrantBass = eqSettings.vibrantBass
+            app.cfg.audio.equalizer.presets.push(newPreset)
+            notyf.success(app.getLz('term.addedpreset'))
+            self.changePreset(newPreset.preset)
+          }
+        })
+      },
+      saveSelectedPreset() {
+        // Save the current settings to the selected preset
+        let self = this
+        //let preset = app.cfg.audio.equalizer.presets[app.cfg.audio.equalizer.preset]
+        // find the preset by its id (preset)
+        let preset = app.cfg.audio.equalizer.presets.find(p => p.preset == app.cfg.audio.equalizer.preset)
+        preset.frequencies = app.cfg.audio.equalizer.frequencies
+        preset.gain = app.cfg.audio.equalizer.gain
+        preset.Q = app.cfg.audio.equalizer.Q
+        preset.mix = app.cfg.audio.equalizer.mix
+        preset.vibrantBass = app.cfg.audio.equalizer.vibrantBass
+        notyf.success("Saved Preset")
+      },
+      exportPreset() {
+        let preset = app.cfg.audio.equalizer.presets.find(p => p.preset == app.cfg.audio.equalizer.preset)
+        this.$root.copyToClipboard(btoa(JSON.stringify(preset)))
+      },
+      importPreset() {
+        let self = this
+        app.prompt("Enter preset share code", (res) => {
+          if (res) {
+            let preset = JSON.parse(atob(res))
+            if (preset.frequencies && preset.gain && preset.Q && preset.mix && preset.vibrantBass) {
+              // self.applyPreset(preset)
+              app.cfg.audio.equalizer.presets.push(preset)
+              notyf.success(`${preset.name} has been imported.`)
+            } else {
+              notyf.error("Invalid Preset")
+            }
+          }
+        })
+      },
+      applyPreset(preset) {
+        Object.assign(this.$root.cfg.audio.equalizer, preset)
+        this.changeVibrantBass()
+        for (var i = 0; i < 10; i++) {
+          try {
+            CiderAudio.audioNodes.audioBands[i].gain.value = app.cfg.audio.equalizer.gain[i] * app.cfg.audio.equalizer.mix
+          } catch (e) {
+            CiderAudio.hierarchical_loading();
+            CiderAudio.audioNodes.audioBands[i].gain.value = app.cfg.audio.equalizer.gain[i] * app.cfg.audio.equalizer.mix
+          }
+
+          CiderAudio.audioNodes.audioBands[i].frequency.value = app.cfg.audio.equalizer.frequencies[i]
+          CiderAudio.audioNodes.audioBands[i].Q.value = app.cfg.audio.equalizer.Q[i]
+        }
+        CiderAudio.intelliGainComp_n0_0();
+      },
+      changePreset(id) {
+        let userPresets = app.cfg.audio.equalizer.presets
+        let defaultPresets = Clone(this.defaultPresets)
+
+        let presets = defaultPresets.concat(userPresets)
+        console.log(presets)
+        let preset = presets.find(p => p.preset == id)
+
+        console.log(preset)
+
+        if (preset) {
+          this.applyPreset(preset)
+        }
+      }
+    }
+  });
 </script>

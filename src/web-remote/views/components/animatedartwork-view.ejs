@@ -5,70 +5,70 @@
 </script>
 
 <script>
-    Vue.component('animatedartwork-view', {
-        template: '#animatedartwork-view',
-        data: function () {
-            return {
-                app: this.$root,
-                hls: null,
-            }
-        },
-        props: {
-            video: {
-                type: String,
-                required: true
-            },
-            priority: {
-                type: Boolean,
-                default: false
-            }
-        },
-        async mounted() {
-            if (!this.priority && app.cfg.visual.animated_artwork == "limited") {
-                return
-            } else if (app.cfg.visual.animated_artwork == "disabled") {
-                return
-            }
-            if (this.video) {
-                this.$nextTick(function () {
-                    var config = {
-                        backBufferLength: 0,
-                        enableWebVTT: false,
-                        enableCEA708Captions: false,
-                        emeEnabled: false,
-                        abrEwmaDefaultEstimate: 10000,
-                        testBandwidth: false,
-                    };
-                    if (this.hls) {
-                        this.hls.detachMedia();
-                    } else {
+  Vue.component('animatedartwork-view', {
+    template: '#animatedartwork-view',
+    data: function() {
+      return {
+        app: this.$root,
+        hls: null,
+      }
+    },
+    props: {
+      video: {
+        type: String,
+        required: true
+      },
+      priority: {
+        type: Boolean,
+        default: false
+      }
+    },
+    async mounted() {
+      if (!this.priority && app.cfg.visual.animated_artwork == "limited") {
+        return
+      } else if (app.cfg.visual.animated_artwork == "disabled") {
+        return
+      }
+      if (this.video) {
+        this.$nextTick(function() {
+          var config = {
+            backBufferLength: 0,
+            enableWebVTT: false,
+            enableCEA708Captions: false,
+            emeEnabled: false,
+            abrEwmaDefaultEstimate: 10000,
+            testBandwidth: false,
+          };
+          if (this.hls) {
+            this.hls.detachMedia();
+          } else {
 
-                        this.hls = new CiderHls(config);
-                    }
-                    // bind them together
-                    if (this.$refs.video) {
-                        let d = "WIDEVINE_SOFTWARE"
-                        let h = {
-                            initDataTypes: ["cenc", "keyids"],
-                            distinctiveIdentifier: "optional",
-                            persistentState: "required"
-                        }
-                        let p = {
-                            platformInfo: {requiresCDMAttachOnStart: !0, maxSecurityLevel: d, keySystemConfig: h},
-                            appData: {serviceName: "Apple Music"}
-                        }
-                        this.hls.attachMedia(this.$refs.video);
-                        this.hls.loadSource(this.video);
-                        this.hls.loadLevel = parseInt(app.cfg.visual.animated_artwork_qualityLevel || 1);
-                    }
-                })
+            this.hls = new CiderHls(config);
+          }
+          // bind them together
+          if (this.$refs.video) {
+            let d = "WIDEVINE_SOFTWARE"
+            let h = {
+              initDataTypes: ["cenc", "keyids"],
+              distinctiveIdentifier: "optional",
+              persistentState: "required"
             }
-        },
-        async beforeDestroy() {
-            if (this.hls) {
-                await this.hls.destroy();
-                this.hls = null
+            let p = {
+              platformInfo: { requiresCDMAttachOnStart: !0, maxSecurityLevel: d, keySystemConfig: h },
+              appData: { serviceName: "Apple Music" }
             }
-        }
-    });
+            this.hls.attachMedia(this.$refs.video);
+            this.hls.loadSource(this.video);
+            this.hls.loadLevel = parseInt(app.cfg.visual.animated_artwork_qualityLevel || 1);
+          }
+        })
+      }
+    },
+    async beforeDestroy() {
+      if (this.hls) {
+        await this.hls.destroy();
+        this.hls = null
+      }
+    }
+  });
 </script>

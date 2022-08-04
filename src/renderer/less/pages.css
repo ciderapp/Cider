@@ -1277,7 +1277,7 @@
 }
 .audiolabs-page .spprofile-line .spprofile-viewport .spprev:before,
 .audiolabs-page .spprofile-line .spprofile-viewport .nextprev:before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -1309,7 +1309,7 @@
   background: black;
 }
 .audiolabs-page .spprofile-line .spprofile-viewport .spslide > img {
-  WIDTH: 100%;
+  width: 100%;
   height: 100%;
   object-fit: cover;
 }

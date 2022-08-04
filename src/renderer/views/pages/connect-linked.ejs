@@ -4,18 +4,16 @@
     </div>
 </script>
 <script>
-    Vue.component('connected', {
-        template: '#connected',
-        async mounted() {
-            ipcRenderer.send('get-connected-url')
-            ipcRenderer.on('send-connected-url', (event, url) => {
-                this.url = url
-                app.webview.src = url
-                document.getElementById('foo').src = url;
-            })
-        },
-        methods: {
-
-        }
-    });
+  Vue.component('connected', {
+    template: '#connected',
+    async mounted() {
+      ipcRenderer.send('get-connected-url')
+      ipcRenderer.on('send-connected-url', (event, url) => {
+        this.url = url
+        app.webview.src = url
+        document.getElementById('foo').src = url;
+      })
+    },
+    methods: {}
+  });
 </script>

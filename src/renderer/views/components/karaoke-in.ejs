@@ -4,7 +4,7 @@
             <template v-for="segment in lyrics" v-if="segmentInRange(segment.ts, segment.te, segment.x)">
                 <div class="verse-group active">
                     <template v-for="(verse, verseIndex) in segment.l"
-                        v-if="verseInRange(segment.ts, segment.te, verse.o)">
+                              v-if="verseInRange(segment.ts, segment.te, verse.o)">
                         <span class="verse verse-active">{{ verse.c }}</span>
                     </template>
                     <template v-else>

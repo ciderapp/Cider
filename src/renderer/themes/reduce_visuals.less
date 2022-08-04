@@ -1,141 +1,139 @@
 body {
-    --ciderShadow-Generic         : var(--mediaItemShadow);
-    --mediaItemShadow-Shadow      : var(--mediaItemShadow);
-    --mediaItemShadow-ShadowSubtle: var(--mediaItemShadow);
+  --ciderShadow-Generic: var(--mediaItemShadow);
+  --mediaItemShadow-Shadow: var(--mediaItemShadow);
+  --mediaItemShadow-ShadowSubtle: var(--mediaItemShadow);
 }
 
 .bg-artwork-container {
-    display  : none;
-    animation: none !important;
+  display: none;
+  animation: none !important;
 
-    .bg-artwork {
-        animation: none !important;
-    }
+  .bg-artwork {
+    animation: none !important;
+  }
 }
 
-
 .app-chrome:not(.chrome-bottom) {
-    backdrop-filter: unset;
-    background-color: var(--baseColor);
+  backdrop-filter: unset;
+  background-color: var(--baseColor);
 }
 
 .menu-panel .menu-panel-body {
-    background: rgb(30 30 30);
+  background: rgb(30 30 30);
 }
 .menu-panel .menu-panel-body .menu-option::before {
-    transition: unset!important;
+  transition: unset !important;
 }
 
 #app.twopanel .app-chrome:not(.chrome-bottom) .app-chrome--center .top-nav-group .app-sidebar-item:before {
-    transition: unset!important;
+  transition: unset !important;
 }
 
-.playback-button:before, .playback-button--small:before {
-    transition: unset!important;
+.playback-button:before,
+.playback-button--small:before {
+  transition: unset !important;
 }
 
 .floating-header {
-    backdrop-filter: unset!important;
-    background: rgb(0 0 0 / 80%)!important;
+  backdrop-filter: unset !important;
+  background: rgb(0 0 0 / 80%) !important;
 }
 
 .replaycard-enter-active,
 .replaycard-leave-active {
-    transition: unset;
+  transition: unset;
 }
 
 .replaycard-enter,
 .replaycard-leave-to {
-    opacity  : 0;
-    transform: translateY(20px);
+  opacity: 0;
+  transform: translateY(20px);
 }
 
 .modal-enter-active,
 .modal-leave-active {
-    transition: unset;
+  transition: unset;
 }
 
 .modal-enter,
 .modal-leave-to {
-    opacity  : 0;
-    transform: scale(1.10);
+  opacity: 0;
+  transform: scale(1.1);
 }
 
 .wpfade-enter-active,
 .wpfade-leave-active {
-    transition: opacity .1s var(--appleEase);
+  transition: opacity 0.1s var(--appleEase);
 }
 
 .wpfade-enter,
 .wpfade-leave-to {
-    opacity: 0;
+  opacity: 0;
 }
 
 .wpfade_transform-enter-active,
 .wpfade_transform-leave-active {
-    transition : unset;
-    will-change: unset;
+  transition: unset;
+  will-change: unset;
 }
 
 .wpfade_transform-enter {
-    opacity    : 0;
-    transform  : unset;
-    will-change: unset;
+  opacity: 0;
+  transform: unset;
+  will-change: unset;
 }
 
 .wpfade_transform-leave-to {
-    opacity    : 0;
-    transform  : unset;
-    will-change: unset;
+  opacity: 0;
+  transform: unset;
+  will-change: unset;
 }
-
 
 .wpfade_transform_backwards-enter-active,
 .wpfade_transform_backwards-leave-active {
-    transition: unset;
+  transition: unset;
 }
 
 .wpfade_transform_backwards-enter {
-    opacity    : 0;
-    transform  : unset;
-    will-change: unset;
+  opacity: 0;
+  transform: unset;
+  will-change: unset;
 }
 
 .wpfade_transform_backwards-leave-to {
-    opacity    : 0;
-    transform  : unset;
-    will-change: unset;
+  opacity: 0;
+  transform: unset;
+  will-change: unset;
 }
 
 .fabfade-enter-active,
 .fabfade-leave-active {
-    transition: unset;
+  transition: unset;
 }
 
 .fabfade-enter,
 .fabfade-leave-to {
-    opacity  : 0;
-    transform: scale(0.5);
+  opacity: 0;
+  transform: scale(0.5);
 }
 
 .fsModeSwitch-enter-active,
 .fsModeSwitch-leave-active {
-    transition: unset;
+  transition: unset;
 }
 
 .fsModeSwitch-enter,
 .fsModeSwitch-leave-to {
-    transform: scale(1.10);
-    opacity  : 0;
+  transform: scale(1.1);
+  opacity: 0;
 }
-
 
 .drawertransition-enter-active,
 .drawertransition-leave-active {
-    transition: unset;
+  transition: unset;
 }
 
 .drawertransition-enter,
 .drawertransition-leave-to {
-    right: -300px;
+  right: -300px;
 }

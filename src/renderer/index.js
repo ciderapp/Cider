@@ -57,11 +57,11 @@ Vue.component("animated-number", {
 });
 
 function initMusicKit() {
-  if(!this.responseText) {
-    console.log("Using stored token")
+  if (!this.responseText) {
+    console.log("Using stored token");
     this.responseText = JSON.stringify({
-      token: localStorage.getItem("lastToken")
-    })
+      token: localStorage.getItem("lastToken"),
+    });
   }
   let parsedJson = JSON.parse(this.responseText);
   localStorage.setItem("lastToken", parsedJson.token);
@@ -95,10 +95,10 @@ function capiInit() {
   request.addEventListener("load", initMusicKit);
   request.onreadystatechange = function (aEvt) {
     if (request.readyState == 4 && request.status != 200) {
-      if(localStorage.getItem("lastToken") != null) {
-        initMusicKit()
+      if (localStorage.getItem("lastToken") != null) {
+        initMusicKit();
       } else {
-        console.error(`Failed to load capi, cannot get token [${request.status}]`)
+        console.error(`Failed to load capi, cannot get token [${request.status}]`);
       }
     }
   };
@@ -110,7 +110,7 @@ document.addEventListener("musickitloaded", function () {
   if (showOobe()) return;
   console.log("MusicKit loaded");
   // MusicKit global is now defined
-  capiInit()
+  capiInit();
 });
 window.addEventListener("drmUnsupported", function () {
   initMusicKit();
@@ -140,12 +140,7 @@ function Clone(obj) {
 }
 
 function uuidv4() {
-  return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
-    (
-      c ^
-      (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
-    ).toString(16)
-  );
+  return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) => (c ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))).toString(16));
 }
 
 function xmlToJson(xml) {
@@ -196,26 +191,19 @@ async function asyncForEach(array, callback) {
 
 var checkIfScrollIsStatic = setInterval(() => {
   try {
-    if (
-      position === document.getElementsByClassName("lyric-body")[0].scrollTop
-    ) {
+    if (position === document.getElementsByClassName("lyric-body")[0].scrollTop) {
       clearInterval(checkIfScrollIsStatic);
       // do something
     }
     position = document.getElementsByClassName("lyric-body")[0].scrollTop;
-  } catch (e) { }
+  } catch (e) {}
 }, 50);
 
 // WebGPU Console Notification
 async function webGPU() {
   try {
     const currentGPU = await navigator.gpu.requestAdapter();
-    console.log(
-      "WebGPU enabled on",
-      currentGPU.name,
-      "with feature ID",
-      currentGPU.features.size
-    );
+    console.log("WebGPU enabled on", currentGPU.name, "with feature ID", currentGPU.features.size);
   } catch (e) {
     console.log("WebGPU disabled / WebGPU initialization failed");
   }
@@ -240,9 +228,9 @@ function isJson(item) {
 webGPU().then();
 
 function showOobe() {
-  return false
+  return false;
   if (localStorage.getItem("music.ampwebplay.media-user-token") && localStorage.getItem("seenOOBE")) {
-    return false
+    return false;
   } else {
     function waitForApp() {
       if (typeof app.init !== "undefined") {
@@ -252,7 +240,7 @@ function showOobe() {
       }
     }
     waitForApp();
-    return true
+    return true;
   }
 }
 
@@ -266,13 +254,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 document.addEventListener(
   "contextmenu",
   function (e) {
-    if (
-      e.target.tagName.toLowerCase() == "textarea" ||
-      (e.target.tagName.toLowerCase() == "input" &&
-        e.target.type != "checkbox" &&
-        e.target.type != "radio" &&
-        e.target.disabled == false)
-    ) {
+    if (e.target.tagName.toLowerCase() == "textarea" || (e.target.tagName.toLowerCase() == "input" && e.target.type != "checkbox" && e.target.type != "radio" && e.target.disabled == false)) {
       e.preventDefault();
       const menuPanel = {
         items: {

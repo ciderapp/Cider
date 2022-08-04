@@ -1,48 +1,46 @@
 <script type="text/x-template" id="cider-zoo">
     <div class="content-inner">
-        <svg-icon/>
+        <svg-icon />
         <h3>Welcome to element park. *BERR NERR NERR NERR NERRRRR BERR NER NER NER NERRR BERRR NR NR NRRRR*</h3>
         <button @click="app.playMediaItemById('1592151778', 'album')">Play Test Album</button>
         {{ $store.state.test }}
         <div class="spinner"></div>
         <button class="md-btn">Cider Button</button>
         <artist-chip
-        v-if="artistLoaded"
-        :item="artist"
+                v-if="artistLoaded"
+                :item="artist"
         ></artist-chip>
 
-        <amp-chrome-player/>
+        <amp-chrome-player />
         <!-- <amp-footer-player/> -->
         <hr>
-        <amp-lcd-progress/>
+        <amp-lcd-progress />
         <hr>
-        <amp-playback-controls-shuffle/>
+        <amp-playback-controls-shuffle />
         <apple-music-playback-controls theme="dark" />
         <apple-music-progress theme="dark"></apple-music-progress>
         <apple-music-volume theme="dark"></apple-music-volume>
-        <amp-user-menu/>
-        <amp-tv-overlay/>
-        <amp-podcast-playback-controls/>
-        <amp-lcd/>
+        <amp-user-menu />
+        <amp-tv-overlay />
+        <amp-podcast-playback-controls />
+        <amp-lcd />
     </div>
 </script>
 <script>
-    Vue.component('cider-zoo', {
-        template: '#cider-zoo',
-        data: function () {
-            return {
-                artistLoaded: false,
-                    artist: {}
-            }
-        },
-        async mounted() {
-            app.mk.api.v3.music("/v1/catalog/us/artists/669831761").then(response => {
-                this.artist = response.data.data[0];
-                this.artistLoaded = true;
-            });
-        },
-        methods: {
-
-        }
-    });
+  Vue.component('cider-zoo', {
+    template: '#cider-zoo',
+    data: function() {
+      return {
+        artistLoaded: false,
+        artist: {}
+      }
+    },
+    async mounted() {
+      app.mk.api.v3.music("/v1/catalog/us/artists/669831761").then(response => {
+        this.artist = response.data.data[0];
+        this.artistLoaded = true;
+      });
+    },
+    methods: {}
+  });
 </script>

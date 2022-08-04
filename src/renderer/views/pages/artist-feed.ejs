@@ -8,7 +8,9 @@
                             <h3>{{app.getLz('home.followedArtists')}}</h3>
                         </div>
                         <div class="col-auto nopadding cider-flex-center">
-                            <button class="cd-btn-seeall" @click="syncFavorites()" v-if="!syncingFavs">{{app.getLz('home.syncFavorites')}}</button>
+                            <button class="cd-btn-seeall" @click="syncFavorites()" v-if="!syncingFavs">
+                                {{app.getLz('home.syncFavorites')}}
+                            </button>
                             <div class="spinner" style="height: 26px;" v-else></div>
                         </div>
                     </div>
@@ -17,8 +19,10 @@
                             <mediaitem-square :item="artist" kind="small"></mediaitem-square>
                             <button @click="unfollow(artist.id)" class="md-btn md-btn-glyph" style="display:flex;">
                                 <div class="sidebar-icon">
-                                    <div class="svg-icon" :style="{'--url': 'url(./assets/feather/x-circle.svg)'}"></div>
-                                </div> {{app.getLz('action.removeFavorite')}}
+                                    <div class="svg-icon"
+                                         :style="{'--url': 'url(./assets/feather/x-circle.svg)'}"></div>
+                                </div>
+                                {{app.getLz('action.removeFavorite')}}
                             </button>
                         </div>
                     </vue-horizontal>
@@ -50,80 +54,81 @@
 </script>
 
 <script>
-    Vue.component('cider-artist-feed', {
-        template: '#cider-artist-feed',
-        data: function () {
-            return {
-                app: this.$root,
-                followedArtists: this.$root.cfg.home.followedArtists,
-                artistFeed: [],
-                artists: [],
-                syncingFavs: false
-            }
-        },
-        async mounted() {
-            let self = this
-            await this.getArtistFeed()
-        },
-        methods: {
-            async syncFavorites() {
-                this.syncingFavs = true
-                await app.syncFavorites()
-                await this.getArtistFeed()
-                this.syncingFavs = false
-            },
-            async unfollow(id) {
-                let index = this.followedArtists.indexOf(id)
-                if (index > -1) {
-                    this.followedArtists.splice(index, 1)
-                }
-                let artist = this.artists.find(a => a.id == id)
-                let index2 = this.artists.indexOf(artist)
-                if (index2 > -1) {
-                    this.artists.splice(index2, 1)
-                }
-                await app.mk.api.v3.music(`/v1/me/favorites`, {
-                    "art[url]": "f",
-                    "ids[artists]": id,
-                    "l": app.mklang,
-                    "platform": "web"
-                }, {
-                    fetchOptions: {
-                        method: "DELETE"
-                    }
-                })
-                this.getArtistFeed()
-            },
-            async getArtistFeed() {
-                let artists = this.followedArtists
-                let self = this
-                this.artists = []
-                this.artistFeed = []
-
-                // Apple limits the number of IDs we can provide in a single API call to 50.
-                // Divide it into groups of 50 and send parallel requests
-                let chunks = []
-                for (let artistIdx = 0; artistIdx < artists.length; artistIdx += 50) {
-                    chunks.push(artists.slice(artistIdx, artistIdx + 50))
-                }
-                try {
-                    const chunkArtistData = await Promise.all(chunks.map(chunk =>
-                        this.app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/artists?ids=${chunk.toString()}&views=latest-release&include[songs]=albums&fields[albums]=artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialVideo,name,playParams,releaseDate,url,trackCount&limit[artists:top-songs]=2&art[url]=f`)))
-                    chunkArtistData.forEach(chunkResult =>
-                        chunkResult.data.data.forEach(item => {
-                            self.artists.push(item)
-                            if (item.views["latest-release"].data.length != 0) {
-                                self.artistFeed.push(item.views["latest-release"].data[0])
-                            }
-                        }))
-                    // sort artistFeed by attributes.releaseDate descending, date is formatted as "YYYY-MM-DD"
-                    this.artistFeed.sort((a, b) => {
-                        let dateA = new Date(a.attributes.releaseDate)
-                        let dateB = new Date(b.attributes.releaseDate)
-                        return dateB - dateA
-                    })
-                } catch (err) { }
-            }
+  Vue.component('cider-artist-feed', {
+    template: '#cider-artist-feed',
+    data: function() {
+      return {
+        app: this.$root,
+        followedArtists: this.$root.cfg.home.followedArtists,
+        artistFeed: [],
+        artists: [],
+        syncingFavs: false
+      }
+    },
+    async mounted() {
+      let self = this
+      await this.getArtistFeed()
+    },
+    methods: {
+      async syncFavorites() {
+        this.syncingFavs = true
+        await app.syncFavorites()
+        await this.getArtistFeed()
+        this.syncingFavs = false
+      },
+      async unfollow(id) {
+        let index = this.followedArtists.indexOf(id)
+        if (index > -1) {
+          this.followedArtists.splice(index, 1)
         }
-    });
+        let artist = this.artists.find(a => a.id == id)
+        let index2 = this.artists.indexOf(artist)
+        if (index2 > -1) {
+          this.artists.splice(index2, 1)
+        }
+        await app.mk.api.v3.music(`/v1/me/favorites`, {
+          "art[url]": "f",
+          "ids[artists]": id,
+          "l": app.mklang,
+          "platform": "web"
+        }, {
+          fetchOptions: {
+            method: "DELETE"
+          }
+        })
+        this.getArtistFeed()
+      },
+      async getArtistFeed() {
+        let artists = this.followedArtists
+        let self = this
+        this.artists = []
+        this.artistFeed = []
+
+        // Apple limits the number of IDs we can provide in a single API call to 50.
+        // Divide it into groups of 50 and send parallel requests
+        let chunks = []
+        for (let artistIdx = 0; artistIdx < artists.length; artistIdx += 50) {
+          chunks.push(artists.slice(artistIdx, artistIdx + 50))
+        }
+        try {
+          const chunkArtistData = await Promise.all(chunks.map(chunk =>
+            this.app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/artists?ids=${chunk.toString()}&views=latest-release&include[songs]=albums&fields[albums]=artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialVideo,name,playParams,releaseDate,url,trackCount&limit[artists:top-songs]=2&art[url]=f`)))
+          chunkArtistData.forEach(chunkResult =>
+            chunkResult.data.data.forEach(item => {
+              self.artists.push(item)
+              if (item.views["latest-release"].data.length != 0) {
+                self.artistFeed.push(item.views["latest-release"].data[0])
+              }
+            }))
+          // sort artistFeed by attributes.releaseDate descending, date is formatted as "YYYY-MM-DD"
+          this.artistFeed.sort((a, b) => {
+            let dateA = new Date(a.attributes.releaseDate)
+            let dateB = new Date(b.attributes.releaseDate)
+            return dateB - dateA
+          })
+        } catch (err) {
+        }
+      }
+    }
+  });
 </script>

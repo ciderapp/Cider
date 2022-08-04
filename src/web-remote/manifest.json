@@ -1,42 +1,44 @@
 {
-    "theme_color": "#000000",
-    "background_color": "#000000",
-    "display": "standalone",
-    "scope": "/",
-    "start_url": "/",
-    "name": "Cider Remote",
-    "short_name": "Cider Remote",
-    "description": "Cider Remote",
-    "developer": {
-        "name": "Cider Collective",
-        "url": "https://cider.sh?utm-source=manifest"
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "name": "Cider Remote",
+  "short_name": "Cider Remote",
+  "description": "Cider Remote",
+  "developer": {
+    "name": "Cider Collective",
+    "url": "https://cider.sh?utm-source=manifest"
+  },
+  "homepage_url": "https://cider.sh?utm-source=manifest",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
     },
-    "homepage_url": "https://cider.sh?utm-source=manifest",
-    "icons": [{
-            "src": "/icon-192x192.png",
-            "sizes": "192x192",
-            "type": "image/png"
-        },
-        {
-            "src": "/icon-256x256.png",
-            "sizes": "256x256",
-            "type": "image/png"
-        },
-        {
-            "src": "/icon-384x384.png",
-            "sizes": "384x384",
-            "type": "image/png"
-        },
-        {
-            "src": "/icon-512x512.png",
-            "sizes": "512x512",
-            "type": "image/png"
-        }
-    ],
-    "protocol_handlers": [{
-        "protocol": "ext+cider",
-        "name": "Cider",
-        "uriTemplate": "/?url=%s"
-    }]
-
+    {
+      "src": "/icon-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "ext+cider",
+      "name": "Cider",
+      "uriTemplate": "/?url=%s"
+    }
+  ]
 }

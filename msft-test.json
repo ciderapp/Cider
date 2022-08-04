@@ -6,31 +6,15 @@
   },
   "appId": "cider",
   "protocols": [
-  {
-  "name": "Cider",
-  "schemes": [
-        "ame",
-        "cider",
-        "itms",
-        "itmss",
-        "musics",
-        "music"
-      ]
+    {
+      "name": "Cider",
+      "schemes": ["ame", "cider", "itms", "itmss", "musics", "music"]
     }
   ],
   "extends": null,
-  "files": [
-    "**/*",
-    "./src/**/*",
-    "./resources/icons/icon.*"
-  ],
+  "files": ["**/*", "./src/**/*", "./resources/icons/icon.*"],
   "linux": {
-    "target": [
-      "AppImage",
-      "deb",
-      "snap",
-      "rpm"
-    ],
+    "target": ["AppImage", "deb", "snap", "rpm"],
     "synopsis": "A new look into listening and enjoying music in style and performance. ",
     "category": "AudioVideo",
     "icon": "cider",
@@ -45,9 +29,7 @@
     "setBuildNumber": true
   },
   "win": {
-    "target": [
-      "appx"
-    ],
+    "target": ["appx"],
     "icon": "resources/icons/icon.ico"
   },
   "directories": {

@@ -1,5 +1,0 @@
-{
-    "js": {
-        "beautify.ignore": "src/renderer/index.js"
-    }
-}

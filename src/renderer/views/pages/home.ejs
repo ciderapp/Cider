@@ -8,8 +8,10 @@
                             <h3>{{app.getLz('home.recentlyPlayed')}}</h3>
                         </div>
                         <div class="col-auto nopadding cider-flex-center">
-                            <button class="cd-btn-seeall" @click="seeAllHistory()">{{app.getLz('term.history')}}</button>
-                            <button class="cd-btn-seeall" @click="seeAllRecentlyPlayed()">{{app.getLz('term.seeAll')}}</button>
+                            <button class="cd-btn-seeall" @click="seeAllHistory()">{{app.getLz('term.history')}}
+                            </button>
+                            <button class="cd-btn-seeall" @click="seeAllRecentlyPlayed()">{{app.getLz('term.seeAll')}}
+                            </button>
                         </div>
                     </div>
                     <div class="well artistfeed-well">
@@ -26,9 +28,13 @@
                             <h3>{{app.getLz('home.artistsFeed')}}</h3>
                         </div>
                         <div class="col-auto nopadding cider-flex-center">
-                            <button class="cd-btn-seeall" @click="syncFavorites()" v-if="!syncingFavs">{{app.getLz('home.syncFavorites')}}</button>
+                            <button class="cd-btn-seeall" @click="syncFavorites()" v-if="!syncingFavs">
+                                {{app.getLz('home.syncFavorites')}}
+                            </button>
                             <div class="spinner" style="height: 26px;" v-else></div>
-                            <button class="cd-btn-seeall" @click="app.appRoute('artist-feed')">{{app.getLz('term.seeAll')}}</button>
+                            <button class="cd-btn-seeall" @click="app.appRoute('artist-feed')">
+                                {{app.getLz('term.seeAll')}}
+                            </button>
                         </div>
                     </div>
                     <div class="well artistfeed-well" style="margin-top:0;">
@@ -54,7 +60,9 @@
             <!--            </div>-->
             <div class="row" v-if="!seenReplay">
                 <div class="col">
-                    <button class="md-btn md-btn-block md-btn-replay--hero" @click="$root.appRoute('replay')">{{$root.getLz('term.replay')}} {{ year }}</button>
+                    <button class="md-btn md-btn-block md-btn-replay--hero" @click="$root.appRoute('replay')">
+                        {{$root.getLz('term.replay')}} {{ year }}
+                    </button>
                 </div>
             </div>
             <div class="row">
@@ -64,7 +72,9 @@
                             <h3>{{app.getLz('home.madeForYou')}}</h3>
                         </div>
                         <div class="col-auto nopadding cider-flex-center">
-                            <button class="md-btn md-btn-replay" v-if="seenReplay" @click="$root.appRoute('replay')">{{$root.getLz('term.replay')}} {{ year }}</button>
+                            <button class="md-btn md-btn-replay" v-if="seenReplay" @click="$root.appRoute('replay')">
+                                {{$root.getLz('term.replay')}} {{ year }}
+                            </button>
                         </div>
                     </div>
                     <div class="well">
@@ -81,11 +91,14 @@
                             <h3>{{app.getLz('home.friendsListeningTo')}}</h3>
                         </div>
                         <div class="col-auto nopadding cider-flex-center">
-                            <button class="cd-btn-seeall" @click="app.showSocialListeningTo()">{{app.getLz('term.seeAll')}}</button>
+                            <button class="cd-btn-seeall" @click="app.showSocialListeningTo()">
+                                {{app.getLz('term.seeAll')}}
+                            </button>
                         </div>
                     </div>
                     <div class="well">
-                        <mediaitem-scroller-horizontal :items="friendsListeningTo" v-if="isSectionReady('friendsListeningTo')">
+                        <mediaitem-scroller-horizontal :items="friendsListeningTo"
+                                                       v-if="isSectionReady('friendsListeningTo')">
                         </mediaitem-scroller-horizontal>
                         <div class="spinner" v-else></div>
                     </div>
@@ -96,167 +109,172 @@
 </script>
 
 <script>
-    Vue.component('cider-home', {
-        template: '#cider-home',
-        data: function() {
-            return {
-                app: this.$root,
-                followedArtists: this.$root.cfg.home.followedArtists,
-                favoriteItems: this.$root.cfg.home.favoriteItems,
-                madeForYou: [],
-                recentlyPlayed: [],
-                friendsListeningTo: [],
-                replayPlaylists: [],
-                favorites: [],
-                profile: {},
-                modify: 0,
-                artistFeed: [],
-                showingArtistFeed: false,
-                page: "main",
-                sectionsReady: [],
-                year: new Date().getFullYear(),
-                seenReplay: localStorage.getItem('seenReplay'),
-                syncingFavs: false
+  Vue.component('cider-home', {
+    template: '#cider-home',
+    data: function() {
+      return {
+        app: this.$root,
+        followedArtists: this.$root.cfg.home.followedArtists,
+        favoriteItems: this.$root.cfg.home.favoriteItems,
+        madeForYou: [],
+        recentlyPlayed: [],
+        friendsListeningTo: [],
+        replayPlaylists: [],
+        favorites: [],
+        profile: {},
+        modify: 0,
+        artistFeed: [],
+        showingArtistFeed: false,
+        page: "main",
+        sectionsReady: [],
+        year: new Date().getFullYear(),
+        seenReplay: localStorage.getItem('seenReplay'),
+        syncingFavs: false
+      }
+    },
+    async mounted() {
+      let self = this
+      this.getListenNowData()
+      await this.getArtistFeed()
+      await this.getFavorites()
+      await this.getRecentlyPlayed()
+      if (new Date().getMonth() == 11) {
+        this.seenReplay = false
+        localStorage.setItem('seenReplay', false)
+      }
+    },
+    methods: {
+      async syncFavorites() {
+        this.syncingFavs = true
+        await app.syncFavorites()
+        await this.getArtistFeed()
+        this.syncingFavs = false
+      },
+      async seeAllRecentlyPlayed() {
+        let hist = await app.mk.api.v3.music(`/v1/me/recent/played`, {
+          l: this.$root.mklang,
+          include: 'tracks',
+          'include[albums]': 'catalog,tracks,artists',
+          'include[songs]': 'catalog,artists',
+        })
+        app.showCollection(hist.data, app.getLz('home.recentlyPlayed'))
+      },
+      async seeAllHistory() {
+        let hist = await app.mk.api.v3.music(`/v1/me/recent/played/tracks`, {
+          l: this.$root.mklang
+        })
+        app.showCollection(hist.data, app.getLz('term.history'))
+      },
+      isSectionReady(section) {
+        return this.sectionsReady.includes(section)
+      },
+      removeFavoriteContext() {
+        let self = this
+        return {
+          name: "Remove from Favorites",
+          action: function(item) {
+            let index = self.favoriteItems.findIndex(x => x.id == item.id)
+            if (index > -1) {
+              self.favoriteItems.splice(index, 1)
+              self.app.cfg.home.favoriteItems = self.favoriteItems
             }
-        },
-        async mounted() {
-            let self = this
-            this.getListenNowData()
-            await this.getArtistFeed()
-            await this.getFavorites()
-            await this.getRecentlyPlayed()
-            if (new Date().getMonth() == 11) {
-                this.seenReplay = false
-                localStorage.setItem('seenReplay', false)
-            }
-        },
-        methods: {
-            async syncFavorites() {
-                this.syncingFavs = true
-                await app.syncFavorites()
-                await this.getArtistFeed()
-                this.syncingFavs = false
-            },
-            async seeAllRecentlyPlayed() {
-                let hist = await app.mk.api.v3.music(`/v1/me/recent/played`, {
-                    l: this.$root.mklang,
-                    include: 'tracks',
-                    'include[albums]': 'catalog,tracks,artists',
-                    'include[songs]': 'catalog,artists',
-                })
-                app.showCollection(hist.data, app.getLz('home.recentlyPlayed'))
-            },
-            async seeAllHistory() {
-                let hist = await app.mk.api.v3.music(`/v1/me/recent/played/tracks`, {
-                    l: this.$root.mklang
-                })
-                app.showCollection(hist.data, app.getLz('term.history'))
-            },
-            isSectionReady(section) {
-                return this.sectionsReady.includes(section)
-            },
-            removeFavoriteContext() {
-                let self = this
-                return {
-                    name: "Remove from Favorites",
-                    action: function(item) {
-                        let index = self.favoriteItems.findIndex(x => x.id == item.id)
-                        if (index > -1) {
-                            self.favoriteItems.splice(index, 1)
-                            self.app.cfg.home.favoriteItems = self.favoriteItems
-                        }
-                    }
-                }
-            },
-            async getFavorites() {
-                let self = this
-                let libraryPlaylists = []
-                let playlists = []
-                for (let item of this.favoriteItems) {
-                    if (item.type == "library-playlists") {
-                        libraryPlaylists.push(item.id)
-                    } else if (item.type == "playlists") {
-                        playlists.push(item.id)
-                    }
-                }
-                if (playlists.length != 0) {
-                    this.app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/playlists/${playlists.toString()}`, {
-                        l: this.$root.mklang
-                    }).then(playlistsData => {
-                        self.favorites.push(...playlistsData.data)
-                    })
-                }
-                if (libraryPlaylists.length != 0) {
-                    this.app.mk.api.v3.music(`v1/me/library/playlists/${playlists.toString()}`, {
-                        l: this.$root.mklang
-                    }).then(playlistsData => {
-                        self.favorites.push(...playlistsData.data)
-                    })
-                }
-            },
-            async getArtistFeed() {
-                let artists = this.followedArtists
-                let self = this
-                this.artistFeed = []
-                let chunks = []
-                for (let artistIdx = 0; artistIdx < artists.length; artistIdx += 50) {
-                    chunks.push(artists.slice(artistIdx, artistIdx + 50));
-                }
-                try {
-                    const chunkArtistData = await Promise.all(chunks.map(chunk =>
-                        this.app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/artists?ids=${chunk.toString()}&views=latest-release&include[songs]=albums&fields[albums]=artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialVideo,name,playParams,releaseDate,url,trackCount&limit[artists:top-songs]=2&art[url]=f`)))
-                    chunkArtistData.forEach(chunkResult =>
-                        chunkResult.data.data.forEach(item => {
-                            if (item.views["latest-release"].data.length != 0) {
-                                self.artistFeed.push(item.views["latest-release"].data[0])
-                            }
-                        }))
-                    // sort artistFeed by attributes.releaseDate descending, date is formatted as "YYYY-MM-DD"
-                    this.artistFeed.sort((a, b) => {
-                        let dateA = new Date(a.attributes.releaseDate)
-                        let dateB = new Date(b.attributes.releaseDate)
-                        return dateB - dateA
-                    })
-                } catch (error) { }
-            },
-            async getRecentlyPlayed() {
-                let hist = await app.mk.api.v3.music(`/v1/me/recent/played`, {
-                    l: this.$root.mklang,
-                    include: 'tracks',
-                    'include[albums]': 'catalog,tracks,artists',
-                    'include[songs]': 'catalog,artists',
-                })
-                this.recentlyPlayed = hist.data.data
-            },
-            async getListenNowData() {
-                let self = this
-                this.app.mk.api.v3.music(`/v1/me/recommendations?timezone=${encodeURIComponent(app.formatTimezoneOffset())}&name=listen-now&with=friendsMix,library,social&art[social-profiles:url]=c&art[url]=c,f&omit[resource]=autos&relate[editorial-items]=contents&extend=editorialCard,editorialVideo&extend[albums]=artistUrl&extend[library-albums]=artistUrl,editorialVideo&extend[playlists]=artistNames,editorialArtwork,editorialVideo&extend[library-playlists]=artistNames,editorialArtwork,editorialVideo&extend[social-profiles]=topGenreNames&include[albums]=artists&include[songs]=artists&include[music-videos]=artists&fields[albums]=artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialVideo,name,playParams,releaseDate,url&fields[artists]=name,url&extend[stations]=airDate,supportsAirTimeUpdates&meta[stations]=inflectionPoints&types=artists,albums,editorial-items,library-albums,library-playlists,music-movies,music-videos,playlists,stations,uploaded-audios,uploaded-videos,activities,apple-curators,curators,tv-shows,social-upsells&platform=web&l=${this.$root.mklang}`).then((data) => {
-                    console.log(data.data.data[1])
-                    try {
-                        self.madeForYou = data.data.data.filter(section => {
-                            if (section.meta.metrics.moduleType == "6") {
-                                return section
-                            };
-                        })[0].relationships.contents.data
-                    } catch (err) {}
-                    self.sectionsReady.push("madeForYou")
-
-                    try {
-                        self.friendsListeningTo = data.data.data.filter(section => {
-                            if (section.meta.metrics.moduleType == "11") {
-                                return section
-                            };
-                        })[0].relationships.contents.data
-                    } catch (err) {}
-                    self.sectionsReady.push("recentlyPlayed")
-                    self.sectionsReady.push("friendsListeningTo")
-                });
-
-                app.mk.api.v3.music("/v1/me/social/profile/").then((response) => {
-                    self.profile = response.data.data[0]
-                })
-
-            }
+          }
         }
-    });
+      },
+      async getFavorites() {
+        let self = this
+        let libraryPlaylists = []
+        let playlists = []
+        for (let item of this.favoriteItems) {
+          if (item.type == "library-playlists") {
+            libraryPlaylists.push(item.id)
+          } else if (item.type == "playlists") {
+            playlists.push(item.id)
+          }
+        }
+        if (playlists.length != 0) {
+          this.app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/playlists/${playlists.toString()}`, {
+            l: this.$root.mklang
+          }).then(playlistsData => {
+            self.favorites.push(...playlistsData.data)
+          })
+        }
+        if (libraryPlaylists.length != 0) {
+          this.app.mk.api.v3.music(`v1/me/library/playlists/${playlists.toString()}`, {
+            l: this.$root.mklang
+          }).then(playlistsData => {
+            self.favorites.push(...playlistsData.data)
+          })
+        }
+      },
+      async getArtistFeed() {
+        let artists = this.followedArtists
+        let self = this
+        this.artistFeed = []
+        let chunks = []
+        for (let artistIdx = 0; artistIdx < artists.length; artistIdx += 50) {
+          chunks.push(artists.slice(artistIdx, artistIdx + 50));
+        }
+        try {
+          const chunkArtistData = await Promise.all(chunks.map(chunk =>
+            this.app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/artists?ids=${chunk.toString()}&views=latest-release&include[songs]=albums&fields[albums]=artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialVideo,name,playParams,releaseDate,url,trackCount&limit[artists:top-songs]=2&art[url]=f`)))
+          chunkArtistData.forEach(chunkResult =>
+            chunkResult.data.data.forEach(item => {
+              if (item.views["latest-release"].data.length != 0) {
+                self.artistFeed.push(item.views["latest-release"].data[0])
+              }
+            }))
+          // sort artistFeed by attributes.releaseDate descending, date is formatted as "YYYY-MM-DD"
+          this.artistFeed.sort((a, b) => {
+            let dateA = new Date(a.attributes.releaseDate)
+            let dateB = new Date(b.attributes.releaseDate)
+            return dateB - dateA
+          })
+        } catch (error) {
+        }
+      },
+      async getRecentlyPlayed() {
+        let hist = await app.mk.api.v3.music(`/v1/me/recent/played`, {
+          l: this.$root.mklang,
+          include: 'tracks',
+          'include[albums]': 'catalog,tracks,artists',
+          'include[songs]': 'catalog,artists',
+        })
+        this.recentlyPlayed = hist.data.data
+      },
+      async getListenNowData() {
+        let self = this
+        this.app.mk.api.v3.music(`/v1/me/recommendations?timezone=${encodeURIComponent(app.formatTimezoneOffset())}&name=listen-now&with=friendsMix,library,social&art[social-profiles:url]=c&art[url]=c,f&omit[resource]=autos&relate[editorial-items]=contents&extend=editorialCard,editorialVideo&extend[albums]=artistUrl&extend[library-albums]=artistUrl,editorialVideo&extend[playlists]=artistNames,editorialArtwork,editorialVideo&extend[library-playlists]=artistNames,editorialArtwork,editorialVideo&extend[social-profiles]=topGenreNames&include[albums]=artists&include[songs]=artists&include[music-videos]=artists&fields[albums]=artistName,artistUrl,artwork,contentRating,editorialArtwork,editorialVideo,name,playParams,releaseDate,url&fields[artists]=name,url&extend[stations]=airDate,supportsAirTimeUpdates&meta[stations]=inflectionPoints&types=artists,albums,editorial-items,library-albums,library-playlists,music-movies,music-videos,playlists,stations,uploaded-audios,uploaded-videos,activities,apple-curators,curators,tv-shows,social-upsells&platform=web&l=${this.$root.mklang}`).then((data) => {
+          console.log(data.data.data[1])
+          try {
+            self.madeForYou = data.data.data.filter(section => {
+              if (section.meta.metrics.moduleType == "6") {
+                return section
+              }
+              ;
+            })[0].relationships.contents.data
+          } catch (err) {
+          }
+          self.sectionsReady.push("madeForYou")
+
+          try {
+            self.friendsListeningTo = data.data.data.filter(section => {
+              if (section.meta.metrics.moduleType == "11") {
+                return section
+              }
+              ;
+            })[0].relationships.contents.data
+          } catch (err) {
+          }
+          self.sectionsReady.push("recentlyPlayed")
+          self.sectionsReady.push("friendsListeningTo")
+        });
+
+        app.mk.api.v3.music("/v1/me/social/profile/").then((response) => {
+          self.profile = response.data.data[0]
+        })
+
+      }
+    }
+  });
 </script>

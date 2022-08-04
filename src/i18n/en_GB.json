@@ -12,8 +12,8 @@
   "action.tray.minimize": "Minimise to Tray",
   "term.tracks": "songs",
   "term.track": {
-    "one" : "song",
-    "other" : "songs"
+    "one": "song",
+    "other": "songs"
   },
   "home.syncFavorites": "Sync Favourites",
   "home.syncFavorites.gettingArtists": "Getting Favourited Artists...",

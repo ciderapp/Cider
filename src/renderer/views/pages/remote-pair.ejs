@@ -4,18 +4,16 @@
     </div>
 </script>
 <script>
-    Vue.component('remote-pair', {
-        template: '#remote-pair',
-        async mounted() {
-            ipcRenderer.send('get-remote-pair-url')
-            ipcRenderer.on('send-remote-pair-url', (event, url) => {
-                this.url = url
-                app.webview.src = url
-                document.getElementById('foo').src = url;
-            })
-        },
-        methods: {
-
-        }
-    });
+  Vue.component('remote-pair', {
+    template: '#remote-pair',
+    async mounted() {
+      ipcRenderer.send('get-remote-pair-url')
+      ipcRenderer.on('send-remote-pair-url', (event, url) => {
+        this.url = url
+        app.webview.src = url
+        document.getElementById('foo').src = url;
+      })
+    },
+    methods: {}
+  });
 </script>

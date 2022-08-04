@@ -1,11 +1,11 @@
-    <div class="content-inner">
-        <div class="row">
-            <div class="col" style="padding:0">
-                <h1 class="header-text">{{$root.getLz('home.madeForYou')}}</h1>
-            </div>
-        </div> 
-        <div class="madeforyou-body">  
-            <mediaitem-square :item="item" v-for="item in madeforyou.data">
-            </mediaitem-square>  
-        </div>                   
+<div class="content-inner">
+    <div class="row">
+        <div class="col" style="padding:0">
+            <h1 class="header-text">{{$root.getLz('home.madeForYou')}}</h1>
+        </div>
     </div>
+    <div class="madeforyou-body">
+        <mediaitem-square :item="item" v-for="item in madeforyou.data">
+        </mediaitem-square>
+    </div>
+</div>

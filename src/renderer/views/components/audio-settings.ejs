@@ -1,10 +1,12 @@
 <script type="text/x-template" id="audio-settings">
     <template>
-        <div class="modal-fullscreen addtoplaylist-panel" @click.self="app.modals.audioSettings = false" @contextmenu.self="app.modals.audioSettings = false">
+        <div class="modal-fullscreen addtoplaylist-panel" @click.self="app.modals.audioSettings = false"
+             @contextmenu.self="app.modals.audioSettings = false">
             <div class="modal-window">
                 <div class="modal-header">
                     <div class="modal-title">{{app.getLz('term.audioSettings')}}</div>
-                    <button class="close-btn" @click="app.modals.audioSettings = false" :aria-label="app.getLz('action.close')"></button>
+                    <button class="close-btn" @click="app.modals.audioSettings = false"
+                            :aria-label="app.getLz('action.close')"></button>
                 </div>
                 <div class="modal-content">
                     <button class="playlist-item"
@@ -34,29 +36,30 @@
 </script>
 
 <script>
-    Vue.component('audio-settings', {
-        template: '#audio-settings',
-        data: function () {
-            return {
-                app: this.$root,
-            }
-        },
-        props: {},
-        mounted() {},
-        methods: {
-            openEqualizer() {
-                app.modals.equalizer = true
-                app.modals.audioSettings = false
-            },
-            openAudioControls() {
-	            app.modals.audioControls = true
-	            app.modals.audioSettings = false
-            },
-            openAudioPlaybackRate() {
-                app.modals.audioPlaybackRate = true
-                app.modals.audioSettings = false
-            },
-            },
+  Vue.component('audio-settings', {
+      template: '#audio-settings',
+      data: function() {
+        return {
+          app: this.$root,
         }
-    );
+      },
+      props: {},
+      mounted() {
+      },
+      methods: {
+        openEqualizer() {
+          app.modals.equalizer = true
+          app.modals.audioSettings = false
+        },
+        openAudioControls() {
+          app.modals.audioControls = true
+          app.modals.audioSettings = false
+        },
+        openAudioPlaybackRate() {
+          app.modals.audioPlaybackRate = true
+          app.modals.audioSettings = false
+        },
+      },
+    }
+  );
 </script>

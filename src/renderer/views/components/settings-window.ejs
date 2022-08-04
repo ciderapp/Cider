@@ -11,7 +11,7 @@
                 <b-tab>
                     <template #title>
                         <div>
-                            <svg-icon url="./assets/settings.svg" classes="svg-md" name="settings-general"/>
+                            <svg-icon url="./assets/settings.svg" classes="svg-md" name="settings-general" />
                         </div>
                         <div>
                             {{ $root.getLz('settings.header.general') }}
@@ -61,7 +61,7 @@
                                         <label>
                                             <input type="checkbox" v-model="$root.cfg.general.privateEnabled"
                                                    v-on:change="$root.mk.privateEnabled = $root.cfg.general.privateEnabled"
-                                                   switch/>
+                                                   switch />
                                         </label>
                                     </div>
                                 </div>
@@ -71,7 +71,7 @@
                                     </div>
                                     <div class="md-option-segment md-option-segment_auto">
                                         <label>
-                                            <input type="checkbox" v-model="app.cfg.general.onStartup.enabled" switch/>
+                                            <input type="checkbox" v-model="app.cfg.general.onStartup.enabled" switch />
                                         </label>
                                     </div>
                                 </div>
@@ -81,7 +81,7 @@
                                     </div>
                                     <div class="md-option-segment md-option-segment_auto">
                                         <label>
-                                            <input type="checkbox" v-model="app.cfg.general.onStartup.hidden" switch/>
+                                            <input type="checkbox" v-model="app.cfg.general.onStartup.hidden" switch />
                                         </label>
                                     </div>
                                 </div>
@@ -163,7 +163,7 @@
                                                     <label>
                                                         <input type="checkbox"
                                                                v-model="app.cfg.general.sidebarItems.recentlyAdded"
-                                                               switch/>
+                                                               switch />
                                                     </label>
                                                 </div>
                                             </div>
@@ -175,7 +175,7 @@
                                                     <label>
                                                         <input type="checkbox"
                                                                v-model="app.cfg.general.sidebarItems.songs"
-                                                               switch/>
+                                                               switch />
                                                     </label>
                                                 </div>
                                             </div>
@@ -187,7 +187,7 @@
                                                     <label>
                                                         <input type="checkbox"
                                                                v-model="app.cfg.general.sidebarItems.albums"
-                                                               switch/>
+                                                               switch />
                                                     </label>
                                                 </div>
                                             </div>
@@ -199,7 +199,7 @@
                                                     <label>
                                                         <input type="checkbox"
                                                                v-model="app.cfg.general.sidebarItems.artists"
-                                                               switch/>
+                                                               switch />
                                                     </label>
                                                 </div>
                                             </div>
@@ -211,7 +211,7 @@
                                                     <label>
                                                         <input type="checkbox"
                                                                v-model="app.cfg.general.sidebarItems.videos"
-                                                               switch/>
+                                                               switch />
                                                     </label>
                                                 </div>
                                             </div>
@@ -223,7 +223,7 @@
                                                     <label>
                                                         <input type="checkbox"
                                                                v-model="app.cfg.general.sidebarItems.podcasts"
-                                                               switch/>
+                                                               switch />
                                                     </label>
                                                 </div>
                                             </div>
@@ -247,7 +247,7 @@
                                     <div class="md-option-segment md-option-segment_auto">
                                         <label>
                                             <input type="checkbox" v-model="app.cfg.general.themeUpdateNotification"
-                                                   switch/>
+                                                   switch />
                                         </label>
                                     </div>
                                 </div>
@@ -258,7 +258,7 @@
                                     <div class="md-option-segment md-option-segment_auto">
                                         <label>
                                             <input type="checkbox" v-model="app.cfg.general.showLovedTracksInline"
-                                                   switch/>
+                                                   switch />
                                         </label>
                                     </div>
                                 </div>
@@ -279,7 +279,7 @@
                 <b-tab>
                     <template #title>
                         <div>
-                            <svg-icon url="./assets/feather/headphones.svg" classes="svg-md" name="settings-audio"/>
+                            <svg-icon url="./assets/feather/headphones.svg" classes="svg-md" name="settings-audio" />
                         </div>
                         <div>
                             {{ $root.getLz('settings.header.audio') }}
@@ -343,7 +343,7 @@
                                         <label>
                                             <input type="checkbox" v-model="app.cfg.audio.seamless_audio"
                                                    v-on:change="app.mk._bag.features['seamless-audio-transitions'] = app.cfg.audio.seamless_audio"
-                                                   switch/>
+                                                   switch />
                                         </label>
                                     </div>
                                 </div>
@@ -372,7 +372,7 @@
                                             <input type="checkbox" v-model="app.cfg.audio.normalization"
                                                    v-on:change="toggleNormalization"
                                                    :disabled="app.cfg.audio.maikiwiAudio.spatial === true || app.cfg.audio.maikiwiAudio.ciderPPE === true || app.cfg.audio.maikiwiAudio.atmosphereRealizer1 === true || app.cfg.audio.maikiwiAudio.atmosphereRealizer2 === true"
-                                                   switch/>
+                                                   switch />
                                         </label>
                                     </div>
                                 </div>
@@ -385,7 +385,7 @@
                                     </div>
                                     <div class="md-option-segment md-option-segment_auto">
                                         <label>
-                                            <input type="checkbox" v-model="app.cfg.audio.dBSPL" switch/>
+                                            <input type="checkbox" v-model="app.cfg.audio.dBSPL" switch />
                                         </label>
                                     </div>
                                 </div>
@@ -397,7 +397,7 @@
                                     </div>
                                     <div class="md-option-segment md-option-segment_auto">
                                         <label>
-                                            <input type="number" v-model="app.cfg.audio.dBSPLcalibration"/>
+                                            <input type="number" v-model="app.cfg.audio.dBSPLcalibration" />
                                         </label>
                                     </div>
                                 </div>
@@ -408,33 +408,33 @@
                 <b-tab>
                     <template #title>
                         <div>
-                            <svg-icon url="./assets/feather/zap.svg" classes="svg-md" name="settings-audiolabs"/>
+                            <svg-icon url="./assets/feather/zap.svg" classes="svg-md" name="settings-audiolabs" />
                         </div>
                         <div>
                             {{ $root.getLz('settings.option.audio.audioLab') }}
                         </div>
                     </template>
                     <div class="settings-tab-content">
-                        <audiolabs-page/>
+                        <audiolabs-page />
                     </div>
                 </b-tab>
                 <b-tab>
                     <template #title>
                         <div>
-                            <svg-icon url="./assets/feather/style.svg" classes="svg-md" name="settings-styles"/>
+                            <svg-icon url="./assets/feather/style.svg" classes="svg-md" name="settings-styles" />
                         </div>
                         <div>
                             {{ $root.getLz('settings.header.visual.styles') }}
                         </div>
                     </template>
                     <div class="settings-tab-content">
-                        <installed-themes/>
+                        <installed-themes />
                     </div>
                 </b-tab>
                 <b-tab>
                     <template #title>
                         <div>
-                            <svg-icon url="./assets/feather/pen-tool.svg" classes="svg-md" name="settings-visual"/>
+                            <svg-icon url="./assets/feather/pen-tool.svg" classes="svg-md" name="settings-visual" />
                         </div>
                         <div>
                             {{ $root.getLz('settings.header.visual') }}
@@ -504,7 +504,7 @@
                                         {{$root.getLz('settings.option.visual.windowColor')}}
                                     </div>
                                     <div class="md-option-segment_auto">
-                                        <input type="color" v-model="app.cfg.visual.windowColor"/>
+                                        <input type="color" v-model="app.cfg.visual.windowColor" />
                                     </div>
                                 </div>
                                 <div class="md-option-line">
@@ -513,7 +513,7 @@
                                     </div>
                                     <div class="md-option-segment_auto">
                                         <input type="checkbox" v-model="app.cfg.visual.customAccentColor"
-                                               :disabled="app.cfg.visual.purplePodcastPlaybackBar" switch/>
+                                               :disabled="app.cfg.visual.purplePodcastPlaybackBar" switch />
                                     </div>
                                 </div>
                                 <div class="md-option-line child" v-if="app.cfg.visual.customAccentColor">
@@ -521,7 +521,7 @@
                                         {{$root.getLz('settings.option.visual.accentColor')}}
                                     </div>
                                     <div class="md-option-segment_auto">
-                                        <input type="color" v-model="app.cfg.visual.accentColor"/>
+                                        <input type="color" v-model="app.cfg.visual.accentColor" />
                                     </div>
                                 </div>
                                 <div class="md-option-line">
@@ -530,7 +530,7 @@
                                     </div>
                                     <div class="md-option-segment_auto">
                                         <input type="checkbox" v-model="app.cfg.visual.purplePodcastPlaybackBar"
-                                               :disabled="app.cfg.visual.customAccentColor" switch/>
+                                               :disabled="app.cfg.visual.customAccentColor" switch />
                                     </div>
                                 </div>
                                 <div class="md-option-line">
@@ -538,7 +538,7 @@
                                         {{$root.getLz('settings.option.visual.compactArtistHeader')}}
                                     </div>
                                     <div class="md-option-segment_auto">
-                                        <input type="checkbox" v-model="app.cfg.visual.compactArtistHeader" switch/>
+                                        <input type="checkbox" v-model="app.cfg.visual.compactArtistHeader" switch />
                                     </div>
                                 </div>
                                 <div class="md-option-line">
@@ -569,7 +569,7 @@
                                     <div class="md-option-segment md-option-segment_auto">
                                         <label>
                                             <input type="checkbox" v-model="app.cfg.visual.showuserinfo"
-                                                   v-on:change="toggleUserInfo" switch/>
+                                                   v-on:change="toggleUserInfo" switch />
                                         </label>
                                     </div>
                                 </div>
@@ -604,7 +604,7 @@
                                     </div>
                                     <div class="md-option-segment md-option-segment_auto">
                                         <label>
-                                            <input type="checkbox" v-model="app.cfg.general.close_button_hide" switch/>
+                                            <input type="checkbox" v-model="app.cfg.general.close_button_hide" switch />
                                         </label>
                                     </div>
                                 </div>
@@ -616,7 +616,7 @@
                                     <div class="md-option-segment md-option-segment_auto">
                                         <label>
                                             <input type="checkbox" v-model="app.cfg.visual.nativeTitleBar" switch
-                                                   @change="promptForRelaunch()"/>
+                                                   @change="promptForRelaunch()" />
                                         </label>
                                     </div>
                                 </div>
@@ -697,7 +697,8 @@
                                     </div>
                                     <div class="md-option-segment md-option-segment_auto">
                                         <label>
-                                            <input type="checkbox" switch v-model="app.cfg.visual.bg_artwork_rotation"/>
+                                            <input type="checkbox" switch
+                                                   v-model="app.cfg.visual.bg_artwork_rotation" />
                                         </label>
                                     </div>
                                 </div>
@@ -708,20 +709,20 @@
                 <b-tab>
                     <template #title>
                         <div>
-                            <svg-icon url="./assets/feather/plugins.svg" classes="svg-md" name="settings-plugins"/>
+                            <svg-icon url="./assets/feather/plugins.svg" classes="svg-md" name="settings-plugins" />
                         </div>
                         <div>
                             {{ $root.getLz('term.plugins') }}
                         </div>
                     </template>
                     <div class="settings-tab-content">
-                        <plugins-github/>
+                        <plugins-github />
                     </div>
                 </b-tab>
                 <b-tab>
                     <template #title>
                         <div>
-                            <svg-icon url="./assets/feather/mic.svg" classes="svg-md" name="settings-lyrics"/>
+                            <svg-icon url="./assets/feather/mic.svg" classes="svg-md" name="settings-lyrics" />
                         </div>
                         <div>
                             {{ $root.getLz('settings.header.lyrics') }}
@@ -740,7 +741,7 @@
                                     </div>
                                     <div class="md-option-segment md-option-segment_auto">
                                         <label>
-                                            <input type="checkbox" v-model="app.cfg.lyrics.enable_mxm" switch/>
+                                            <input type="checkbox" v-model="app.cfg.lyrics.enable_mxm" switch />
                                         </label>
                                     </div>
                                 </div>
@@ -750,7 +751,7 @@
                                     </div>
                                     <div class="md-option-segment md-option-segment_auto">
                                         <label>
-                                            <input type="checkbox" v-model="app.cfg.lyrics.mxm_karaoke" switch/>
+                                            <input type="checkbox" v-model="app.cfg.lyrics.mxm_karaoke" switch />
                                         </label>
                                     </div>
                                 </div>
@@ -844,7 +845,7 @@
                                     </div>
                                     <div class="md-option-segment md-option-segment_auto">
                                         <label>
-                                            <input type="checkbox" v-model="app.cfg.lyrics.enable_yt" switch/>
+                                            <input type="checkbox" v-model="app.cfg.lyrics.enable_yt" switch />
                                         </label>
                                     </div>
                                 </div>
@@ -854,7 +855,7 @@
                                     </div>
                                     <div class="md-option-segment md-option-segment_auto">
                                         <label>
-                                            <input type="checkbox" v-model="app.cfg.lyrics.enable_qq" switch/>
+                                            <input type="checkbox" v-model="app.cfg.lyrics.enable_qq" switch />
                                         </label>
                                     </div>
                                 </div>
@@ -865,7 +866,7 @@
                 <b-tab>
                     <template #title>
                         <div>
-                            <svg-icon url="./assets/feather/radio.svg" classes="svg-md" name="settings-connectivity"/>
+                            <svg-icon url="./assets/feather/radio.svg" classes="svg-md" name="settings-connectivity" />
                         </div>
                         <div>
                             {{ $root.getLz('settings.header.connectivity') }}
@@ -886,7 +887,7 @@
                                     <div class="md-option-segment md-option-segment_auto">
                                         <label>
                                             <input type="checkbox" v-model="app.cfg.general.playbackNotifications"
-                                                   switch/>
+                                                   switch />
                                         </label>
                                     </div>
                                 </div>
@@ -899,7 +900,7 @@
                                     <div class="md-option-segment md-option-segment_auto">
                                         <label>
                                             <input type="checkbox" v-model="app.cfg.connectivity.discord_rpc.enabled"
-                                                   switch/>
+                                                   switch />
                                         </label>
                                     </div>
                                 </div>
@@ -926,7 +927,7 @@
                                     <div class="md-option-segment md-option-segment_auto">
                                         <label>
                                             <input type="checkbox"
-                                                   v-model="app.cfg.connectivity.discord_rpc.clear_on_pause" switch/>
+                                                   v-model="app.cfg.connectivity.discord_rpc.clear_on_pause" switch />
                                         </label>
                                     </div>
                                 </div>
@@ -938,7 +939,7 @@
                                     <div class="md-option-segment md-option-segment_auto">
                                         <label>
                                             <input type="checkbox"
-                                                   v-model="app.cfg.connectivity.discord_rpc.hide_buttons" switch/>
+                                                   v-model="app.cfg.connectivity.discord_rpc.hide_buttons" switch />
                                         </label>
                                     </div>
                                 </div>
@@ -950,14 +951,14 @@
                                     <div class="md-option-segment md-option-segment_auto">
                                         <label>
                                             <input type="checkbox"
-                                                   v-model="app.cfg.connectivity.discord_rpc.hide_timestamp" switch/>
+                                                   v-model="app.cfg.connectivity.discord_rpc.hide_timestamp" switch />
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="md-option-line" v-show="app.cfg.connectivity.discord_rpc.enabled != false">
                                     <div class="md-option-segment">
-                                        {{$root.getLz('settings.option.connectivity.discordRPC.detailsFormat')}}<br/>
+                                        {{$root.getLz('settings.option.connectivity.discordRPC.detailsFormat')}}<br />
                                         <small>{{$root.getLz('term.variables')}}: {artist}, {composer}, {title},
                                             {album},
                                             {trackNumber}</small>
@@ -965,7 +966,7 @@
                                     <div class="md-option-segment md-option-segment_auto">
                                         <label>
                                             <input type="text"
-                                                   v-model="app.cfg.connectivity.discord_rpc.details_format"/>
+                                                   v-model="app.cfg.connectivity.discord_rpc.details_format" />
                                         </label>
                                     </div>
                                 </div>
@@ -979,7 +980,8 @@
                                     </div>
                                     <div class="md-option-segment md-option-segment_auto">
                                         <label>
-                                            <input type="text" v-model="app.cfg.connectivity.discord_rpc.state_format"/>
+                                            <input type="text"
+                                                   v-model="app.cfg.connectivity.discord_rpc.state_format" />
                                         </label>
                                     </div>
                                 </div>
@@ -1018,9 +1020,9 @@
                                     <div class="md-option-segment md-option-segment_auto">
                                         <label>
                                             <form @submit.prevent="submitToken">
-                                                <input type="text" autofocus id="lfmToken"/>
+                                                <input type="text" autofocus id="lfmToken" />
                                                 <input type="submit" class="md-btn"
-                                                       @value="$root.getLz('action.submit')"/>
+                                                       @value="$root.getLz('action.submit')" />
                                             </form>
                                         </label>
                                     </div>
@@ -1032,7 +1034,7 @@
                                     <div class="md-option-segment md-option-segment_auto">
                                         <label>
                                             <input type="number" min="50" max="100"
-                                                   v-model="app.cfg.connectivity.lastfm.scrobble_after"/>
+                                                   v-model="app.cfg.connectivity.lastfm.scrobble_after" />
                                         </label>
                                     </div>
                                 </div>
@@ -1044,7 +1046,7 @@
                                     <div class="md-option-segment md-option-segment_auto">
                                         <label>
                                             <input type="checkbox" v-model="app.cfg.connectivity.lastfm.filter_loop"
-                                                   switch/>
+                                                   switch />
                                         </label>
                                     </div>
                                 </div>
@@ -1055,7 +1057,7 @@
                                     <div class="md-option-segment md-option-segment_auto">
                                         <label>
                                             <input type="checkbox" v-model="app.cfg.connectivity.lastfm.remove_featured"
-                                                   switch/>
+                                                   switch />
                                         </label>
                                     </div>
                                 </div>
@@ -1077,7 +1079,7 @@
                 <b-tab>
                     <template #title>
                         <div>
-                            <svg-icon url="./assets/feather/hard-drive.svg" classes="svg-md" name="settings-advanced"/>
+                            <svg-icon url="./assets/feather/hard-drive.svg" classes="svg-md" name="settings-advanced" />
                         </div>
                         <div>
                             {{$root.getLz('settings.header.advanced')}}
@@ -1118,7 +1120,7 @@
                                     </div>
                                     <div class="md-option-segment md-option-segment_auto">
                                         <label>
-                                            <input type="checkbox" v-model="app.cfg.advanced.disableLogging" switch/>
+                                            <input type="checkbox" v-model="app.cfg.advanced.disableLogging" switch />
                                         </label>
                                     </div>
                                 </div>
@@ -1161,7 +1163,7 @@
                                             <input type="checkbox"
                                                    v-model="app.cfg.advanced.experiments.includes('immersive-preview')"
                                                    @click="app.cfg.advanced.experiments.includes('immersive-preview') ? removeExperiment('immersive-preview') : addExperiment('immersive-preview')"
-                                                   switch/>
+                                                   switch />
                                         </label>
                                     </div>
                                 </div>
@@ -1177,7 +1179,7 @@
                                             <input type="checkbox"
                                                    v-model="app.cfg.advanced.experiments.includes('unknown-sources')"
                                                    @click="app.cfg.advanced.experiments.includes('unknown-sources') ? removeExperiment('unknown-sources') : addExperiment('unknown-sources')"
-                                                   switch/>
+                                                   switch />
                                         </label>
                                     </div>
                                 </div>
@@ -1192,7 +1194,7 @@
                                             <input type="checkbox"
                                                    v-model="app.cfg.advanced.experiments.includes('ampv3')"
                                                    @click="app.cfg.advanced.experiments.includes('ampv3') ? removeExperiment('ampv3') : addExperiment('ampv3')"
-                                                   switch/>
+                                                   switch />
                                         </label>
                                     </div>
                                 </div>
@@ -1206,7 +1208,7 @@
                                     <div class="md-option-segment md-option-segment_auto">
                                         <label>
                                             <input type="checkbox" v-model="app.cfg.advanced.playlistTrackMapping"
-                                                   switch/>
+                                                   switch />
                                         </label>
                                     </div>
                                 </div>
@@ -1221,7 +1223,7 @@
                                             <input type="checkbox"
                                                    v-model="app.cfg.advanced.experiments.includes('compactui')"
                                                    @click="app.cfg.advanced.experiments.includes('compactui') ? removeExperiment('compactui') : addExperiment('compactui')"
-                                                   switch :disabled="!!app.getThemeDirective('forceUI')"/>
+                                                   switch :disabled="!!app.getThemeDirective('forceUI')" />
                                         </label>
                                     </div>
                                 </div>
@@ -1235,7 +1237,7 @@
                                             <input type="checkbox" disabled
                                                    v-model="app.cfg.advanced.experiments.includes('inline-playlists')"
                                                    @click="app.cfg.advanced.experiments.includes('inline-playlists') ? removeExperiment('inline-playlists') : addExperiment('inline-playlists')"
-                                                   switch/>
+                                                   switch />
                                         </label>
                                     </div>
                                 </div>
@@ -1248,7 +1250,7 @@
                                     <div class="md-option-segment md-option-segment_auto">
                                         <label>
                                             <input type="checkbox" v-model="app.cfg.visual.transparent" switch
-                                                   @change="promptForRelaunch()"/>
+                                                   @change="promptForRelaunch()" />
                                         </label>
                                     </div>
                                 </div>
@@ -1280,14 +1282,14 @@
                 <!--keybinds Settings -->
                 <b-tab id="hid">
                     <template>
-                        <keybinds-settings/>
+                        <keybinds-settings />
                     </template>
                 </b-tab>
                 <!--keybinds-settings -->
                 <!--Github-theme-settings -->
                 <b-tab id="hid">
                     <template>
-                        <themes-github/>
+                        <themes-github />
                     </template>
                 </b-tab>
                 <!--Github-theme-settings -->
@@ -1383,164 +1385,164 @@
     </div>
 </script>
 <script>
-    Vue.component("settings-window", {
-        template: "#settings-window",
-        data: function () {
-            return {
-                app: this.$root,
-                themes: ipcRenderer.sendSync("get-themes"),
-                tabIndex: 0,
-                canChangeHash: false,
-                lastfmConnecting: false
-            }
-        },
-        watch: {
-            tabIndex: function (val) {
-                if (this.canChangeHash) {
-                    // window.location.hash = `#settings/${val}`
-                }
-            }
-        },
-        methods: {
-            sidebarVis() {
-                const tabIndex = app.$store.state.pageState['settings'].currentTabIndex
-                if (tabIndex == 3 || tabIndex == 5 || tabIndex == 10) {
-                    return true;
-                }
-                return false
-            },
-            close() {
-                this.$root.modals.settings = false
-            },
-            windowBgStyleChange() {
-                this.$root.getNowPlayingArtworkBG(undefined, true)
-                if (this.$root.cfg.visual.window_background_style === "mica") {
-                    this.$root.spawnMica()
-                }
-            },
-            reinstallWidevineCDM() {
-                app.confirm(app.getLz("settings.option.experimental.reinstallwidevine.confirm"), (ok) => {
-                    if (ok) {
-                        ipcRenderer.invoke("reinstall-widevine-cdm");
-                    }
-                })
-            },
-            gitHubExplore() {
-                app.openSettingsPage("github-themes")
-            },
-            copyLogs() {
-                ipcRenderer.send('fetch-log')
-                notyf.success(app.getLz('term.share.success'));
-            },
-            openAppData() {
-                ipcRenderer.send('open-appdata')
-            },
-            getLanguages: function () {
-                let langs = this.$root.lzListing
-                let categories = {
-                    "main": [],
-                    "fun": [],
-                    "unsorted": []
-                }
-                // sort by category if category is undefined or empty put it in "unsorted"
-                for (let i = 0; i < langs.length; i++) {
-                    if (langs[i].category === undefined || langs[i].category === "") {
-                        categories.unsorted.push(langs[i])
-                    } else {
-                        categories[langs[i].category].push(langs[i])
-                    }
-                }
-                // return
-                return categories
-            },
-            addExperiment(flag) {
-                app.cfg.advanced.experiments.push(flag);
-            },
-            removeExperiment(flag) {
-                app.cfg.advanced.experiments.splice(app.cfg.advanced.experiments.indexOf(flag), 1);
-            },
-            toggleNormalization: function () {
-                if (app.cfg.audio.normalization) {
-                    CiderAudio.normalizerOn()
-                } else {
-                    CiderAudio.normalizerOff()
-                }
-            },
-            changeAudioQuality: function () {
-                app.mk.bitrate = MusicKit.PlaybackBitrate[app.cfg.audio.quality];
-            },
-            toggleUserInfo: function () {
-                app.chrome.hideUserInfo = !app.cfg.visual.showuserinfo
-            },
-            sendDataToMTT: function () {
-                ipcRenderer.invoke('setStoreValue', 'general.close_behavior', app.cfg.general.close_behavior);
-                //  setStoreValue does not change plugin store values somehow
-                ipcRenderer.invoke('update-store-mtt', app.cfg.general.close_behavior);
-            },
-            checkIfUpdateDisabled() {
-                if (app.cfg.main.UPDATABLE) return;
-
-                let updateFields = document.getElementsByClassName('update-check');
-                for (let i = 0; i < updateFields.length; i++) {
-                    updateFields[i].style = "opacity: 0.5; pointer-events: none;";
-                    updateFields[i].title = "Not available on this type of build";
-                }
-
-            },
-            promptForRelaunch() {
-                app.confirm(app.getLz('action.relaunch.confirm'), function (result) {
-                    if (result) {
-                        ipcRenderer.send('relaunchApp', '');
-                    }
-                });
-            },
-            authCC() {
-                ipcRenderer.send('cc-auth')
-            },
-            logoutCC() {
-                ipcRenderer.send('cc-logout')
-            },
-            reloadDiscordRPC() {
-                ipcRenderer.send('reloadRPC')
-            },
-            lfmDisconnect() {
-                this.$root.cfg.connectivity.lastfm.enabled = false;
-                this.$root.cfg.connectivity.lastfm.secrets.username = "";
-                this.$root.cfg.connectivity.lastfm.secrets.key = "";
-                ipcRenderer.send('lastfm:disconnect');
-            },
-            async lfmAuthorize() {
-                this.lastfmConnecting = true;
-                window.open(await ipcRenderer.invoke('lastfm:url'));
-                app.notyf.success(app.getLz('settings.notyf.connectivity.lastfmScrobble.connecting'));
-
-                /* Just a timeout for the button */
-                setTimeout(() => {
-                    if (!this.$root.cfg.connectivity.lastfm.enabled) {
-                        app.notyf.error(app.getLz('settings.notyf.connectivity.lastfmScrobble.connectError'));
-                        console.warn('[lastfm:authorize] Last.fm authorization timed out.');
-                        this.lastfmConnecting = false;
-                    }
-                }, 20000);
-
-                ipcRenderer.once('lastfm:authenticated', (_e, session) => {
-                    this.$root.cfg.connectivity.lastfm.secrets.username = session.username
-                    this.$root.cfg.connectivity.lastfm.secrets.key = session.key
-                    this.$root.cfg.connectivity.lastfm.enabled = true
-                    this.lastfmConnecting = false;
-                    app.notyf.success(app.getLz('settings.notyf.connectivity.lastfmScrobble.connectSuccess'));
-                })
-            },
-            filterChange(e) {
-                this.$root.cfg.connectivity.lastfm.filter_types[e.target.value] = e.target.checked;
-            },
-            submitToken() {
-                const token = document.getElementById('lfmToken').value;
-                ipcRenderer.send('lastfm:auth', token);
-            },
-            openLocalSongsPathMenu() {
-                app.modals.pathMenu = true
-            }
+  Vue.component("settings-window", {
+    template: "#settings-window",
+    data: function() {
+      return {
+        app: this.$root,
+        themes: ipcRenderer.sendSync("get-themes"),
+        tabIndex: 0,
+        canChangeHash: false,
+        lastfmConnecting: false
+      }
+    },
+    watch: {
+      tabIndex: function(val) {
+        if (this.canChangeHash) {
+          // window.location.hash = `#settings/${val}`
         }
-    })
+      }
+    },
+    methods: {
+      sidebarVis() {
+        const tabIndex = app.$store.state.pageState['settings'].currentTabIndex
+        if (tabIndex == 3 || tabIndex == 5 || tabIndex == 10) {
+          return true;
+        }
+        return false
+      },
+      close() {
+        this.$root.modals.settings = false
+      },
+      windowBgStyleChange() {
+        this.$root.getNowPlayingArtworkBG(undefined, true)
+        if (this.$root.cfg.visual.window_background_style === "mica") {
+          this.$root.spawnMica()
+        }
+      },
+      reinstallWidevineCDM() {
+        app.confirm(app.getLz("settings.option.experimental.reinstallwidevine.confirm"), (ok) => {
+          if (ok) {
+            ipcRenderer.invoke("reinstall-widevine-cdm");
+          }
+        })
+      },
+      gitHubExplore() {
+        app.openSettingsPage("github-themes")
+      },
+      copyLogs() {
+        ipcRenderer.send('fetch-log')
+        notyf.success(app.getLz('term.share.success'));
+      },
+      openAppData() {
+        ipcRenderer.send('open-appdata')
+      },
+      getLanguages: function() {
+        let langs = this.$root.lzListing
+        let categories = {
+          "main": [],
+          "fun": [],
+          "unsorted": []
+        }
+        // sort by category if category is undefined or empty put it in "unsorted"
+        for (let i = 0; i < langs.length; i++) {
+          if (langs[i].category === undefined || langs[i].category === "") {
+            categories.unsorted.push(langs[i])
+          } else {
+            categories[langs[i].category].push(langs[i])
+          }
+        }
+        // return
+        return categories
+      },
+      addExperiment(flag) {
+        app.cfg.advanced.experiments.push(flag);
+      },
+      removeExperiment(flag) {
+        app.cfg.advanced.experiments.splice(app.cfg.advanced.experiments.indexOf(flag), 1);
+      },
+      toggleNormalization: function() {
+        if (app.cfg.audio.normalization) {
+          CiderAudio.normalizerOn()
+        } else {
+          CiderAudio.normalizerOff()
+        }
+      },
+      changeAudioQuality: function() {
+        app.mk.bitrate = MusicKit.PlaybackBitrate[app.cfg.audio.quality];
+      },
+      toggleUserInfo: function() {
+        app.chrome.hideUserInfo = !app.cfg.visual.showuserinfo
+      },
+      sendDataToMTT: function() {
+        ipcRenderer.invoke('setStoreValue', 'general.close_behavior', app.cfg.general.close_behavior);
+        //  setStoreValue does not change plugin store values somehow
+        ipcRenderer.invoke('update-store-mtt', app.cfg.general.close_behavior);
+      },
+      checkIfUpdateDisabled() {
+        if (app.cfg.main.UPDATABLE) return;
+
+        let updateFields = document.getElementsByClassName('update-check');
+        for (let i = 0; i < updateFields.length; i++) {
+          updateFields[i].style = "opacity: 0.5; pointer-events: none;";
+          updateFields[i].title = "Not available on this type of build";
+        }
+
+      },
+      promptForRelaunch() {
+        app.confirm(app.getLz('action.relaunch.confirm'), function(result) {
+          if (result) {
+            ipcRenderer.send('relaunchApp', '');
+          }
+        });
+      },
+      authCC() {
+        ipcRenderer.send('cc-auth')
+      },
+      logoutCC() {
+        ipcRenderer.send('cc-logout')
+      },
+      reloadDiscordRPC() {
+        ipcRenderer.send('reloadRPC')
+      },
+      lfmDisconnect() {
+        this.$root.cfg.connectivity.lastfm.enabled = false;
+        this.$root.cfg.connectivity.lastfm.secrets.username = "";
+        this.$root.cfg.connectivity.lastfm.secrets.key = "";
+        ipcRenderer.send('lastfm:disconnect');
+      },
+      async lfmAuthorize() {
+        this.lastfmConnecting = true;
+        window.open(await ipcRenderer.invoke('lastfm:url'));
+        app.notyf.success(app.getLz('settings.notyf.connectivity.lastfmScrobble.connecting'));
+
+        /* Just a timeout for the button */
+        setTimeout(() => {
+          if (!this.$root.cfg.connectivity.lastfm.enabled) {
+            app.notyf.error(app.getLz('settings.notyf.connectivity.lastfmScrobble.connectError'));
+            console.warn('[lastfm:authorize] Last.fm authorization timed out.');
+            this.lastfmConnecting = false;
+          }
+        }, 20000);
+
+        ipcRenderer.once('lastfm:authenticated', (_e, session) => {
+          this.$root.cfg.connectivity.lastfm.secrets.username = session.username
+          this.$root.cfg.connectivity.lastfm.secrets.key = session.key
+          this.$root.cfg.connectivity.lastfm.enabled = true
+          this.lastfmConnecting = false;
+          app.notyf.success(app.getLz('settings.notyf.connectivity.lastfmScrobble.connectSuccess'));
+        })
+      },
+      filterChange(e) {
+        this.$root.cfg.connectivity.lastfm.filter_types[e.target.value] = e.target.checked;
+      },
+      submitToken() {
+        const token = document.getElementById('lfmToken').value;
+        ipcRenderer.send('lastfm:auth', token);
+      },
+      openLocalSongsPathMenu() {
+        app.modals.pathMenu = true
+      }
+    }
+  })
 </script>
