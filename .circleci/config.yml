@@ -18,9 +18,7 @@ jobs:
       - run:
           name: Install Build Dependencies
           command: |
-            sudo dpkg --add-architecture i386
             sudo apt-get update -y
-            sudo apt-get install -y wine64 wine32
             sudo apt-get install -y autoconf automake g++ libtool || true
       - run:
           name: Update Version Number of App
@@ -81,7 +79,8 @@ jobs:
             - dist/latest-linux.yml
 
   build-windows:
-    executor: cider-ci
+    docker:
+      - image: electronuserland/builder:wine
     steps:
       - attach_workspace:
           at: ~/Cider
@@ -98,7 +97,8 @@ jobs:
             - dist/latest.yml
 
   build-winget:
-    executor: cider-ci
+    docker:
+      - image: electronuserland/builder:wine
     steps:
       - attach_workspace:
           at: ~/Cider
