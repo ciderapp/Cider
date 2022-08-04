@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Setup the variables needed
-STABLE_SHA=$(curl -H "Authorization: token ${RELEASE_TOKEN}" https://api.github.com/repos/ciderapp/Cider/branches/stable | grep '"sha"' | head -1 | cut -d '"' -f 4)
+STABLE_SHA=$(curl -H "Authorization: token ${REQUEST_TOKEN}" https://api.github.com/repos/ciderapp/Cider/branches/stable | grep '"sha"' | head -1 | cut -d '"' -f 4)
 SHA_DATE=$(git show -s --format=%ci $STABLE_SHA)
 COMMIT_SINCE_STABLE=$(git rev-list $STABLE_SHA..HEAD --count --since="$SHA_DATE")
 CURRENT_VERSION=$(node -p -e "require('./package.json').version")

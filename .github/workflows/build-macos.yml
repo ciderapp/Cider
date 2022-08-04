@@ -35,9 +35,9 @@ jobs:
           fetch-depth: 0
 
       - name: Change Version
-        run: sudo chmod +x resources/version.sh && ./resources/version.sh || true
         env:
-          RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          REQUEST_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        run: sudo chmod +x resources/version.sh && ./resources/version.sh || true
 
       - name: Sign in to EVS
         run: |
