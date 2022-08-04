@@ -126,6 +126,10 @@ export class Store {
       maikiwiAudio: {
         ciderPPE: true,
         ciderPPE_value: "MAIKIWI",
+        staticOptimizer: {
+          state: false,
+          lock: false,
+        },
         opportunisticCorrection_state: "OFF",
         atmosphereRealizer1: false,
         atmosphereRealizer1_value: "NATURAL_STANDARD",
