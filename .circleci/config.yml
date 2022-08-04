@@ -86,8 +86,7 @@ jobs:
       - run:
           name: Install Windows System Build Dependencies
           command: |
-            sudo apt-get update -y
-            dpkg --add-architecture i386
+            sudo dpkg --add-architecture i386
             sudo apt-get update -y
             sudo apt-get install -y wine64 wine32
       - run:
@@ -110,8 +109,7 @@ jobs:
       - run:
           name: Install Windows System Build Dependencies
           command: |
-            sudo apt-get update -y
-            dpkg --add-architecture i386
+            sudo dpkg --add-architecture i386
             sudo apt-get update -y
             sudo apt-get install -y wine64 wine32
       - run:
