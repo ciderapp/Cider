@@ -187,7 +187,7 @@
   "term.confirmLogout": "您确定要退出登录吗？",
   "term.creditDesignedBy": "由 ${authorUsername} 设计",
   "term.discNumber": "碟 ${discNumber}",
-  "term.reload": "重新载入 Cider ？",
+  "term.reload": "重新载入 Cider?",
   "term.toggleprivate": "切换隐身聆听",
   "term.webremote": "远程控制",
   "term.cast": "投射",
