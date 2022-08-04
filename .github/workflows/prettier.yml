@@ -10,6 +10,8 @@ on:
 jobs:
   prettier:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout
@@ -19,8 +21,12 @@ jobs:
           ref: ${{ github.head_ref }}
 
       - name: Prettify code
-        uses: creyD/prettier_action@v4.2
+        run: npm run prettier
+
+      - name: Commit Prettier Code
+        uses: stefanzweifel/git-auto-commit-action@v4.14.1
         with:
-          # This part is also where you can pass other options, for example:
-          prettier_options: --write **/*.{js,json,ts,css,less}
-          github_token: ${{ secrets.RELEASE_TOKEN }}
+
+          commit_message: "chore: Prettified Code\n ci skip"
+          commit_user_name: cider-chore[bot]
+
