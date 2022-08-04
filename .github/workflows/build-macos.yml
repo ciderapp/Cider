@@ -36,6 +36,8 @@ jobs:
 
       - name: Change Version
         run: sudo chmod +x resources/version.sh && ./resources/version.sh || true
+        env:
+          RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
 
       - name: Sign in to EVS
         run: |
